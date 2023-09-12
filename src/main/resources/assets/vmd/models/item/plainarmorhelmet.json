@@ -1,0 +1,7 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "vmd:item/plainmaterial_helmet",
+        "layer1": "vmd:item/plainmaterial_helmet_overlay"
+    }
+}

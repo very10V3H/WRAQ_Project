@@ -1,0 +1,52 @@
+package com.Very.very.Items.Forging;
+
+import com.Very.very.VMD;
+import com.Very.very.ValueAndTools.Utils.Utils;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
+import java.util.Random;
+
+public class randomsword extends SwordItem {
+    public randomsword(Tier tier, int num1, float num2){
+        super(tier,num1,num2,new Item.Properties());
+        Utils.MainHandTag.put(this,1f);
+        Utils.SwordTag.put(this,1.0F);
+    }
+
+    @Override
+    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand useHand) {
+        if(!level.isClientSide)
+        {
+            ItemStack itemStack  = player.getItemInHand(InteractionHand.MAIN_HAND);
+            if(!itemStack.getOrCreateTagElement(Utils.MOD_ID).contains("attackdamage"))
+            {
+                Random r = new Random();
+                itemStack.getOrCreateTagElement(Utils.MOD_ID).putFloat("attackdamage",r.nextFloat(100F));
+                itemStack.getOrCreateTagElement(Utils.MOD_ID).putFloat("breakdefence",r.nextFloat(0.5F));
+                itemStack.getOrCreateTagElement(Utils.MOD_ID).putFloat("criticalrate",r.nextFloat(0.5F));
+                itemStack.getOrCreateTagElement(Utils.MOD_ID).putFloat("criticaldamage",r.nextFloat(0.5F));
+                itemStack.getOrCreateTagElement(Utils.MOD_ID).putFloat("healsteal",r.nextFloat(0.2F));
+                itemStack.getOrCreateTagElement(Utils.MOD_ID).putFloat("speedup",r.nextFloat(0.5F));
+                itemStack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
+                itemStack.getOrCreateTagElement(Utils.MOD_ID).putBoolean("randomsword",true);
+            }
+        }
+        return super.use(level, player, useHand);
+    }
+
+    @Override
+    public void appendHoverText(ItemStack p_41421_, @Nullable Level p_41422_, List<Component> components, TooltipFlag p_41424_) {
+        components.add(Component.literal("主手                   ").withStyle(ChatFormatting.AQUA).append(Component.literal("长剑").withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.AQUA)));
+        components.add(Component.literal("··········································").withStyle(ChatFormatting.DARK_GRAY).withStyle(ChatFormatting.OBFUSCATED).withStyle(ChatFormatting.BOLD));
+        components.add(Component.literal("BASIC:").withStyle(ChatFormatting.WHITE).withStyle(ChatFormatting.ITALIC));
+        super.appendHoverText(p_41421_, p_41422_, components, p_41424_);
+    }
+}

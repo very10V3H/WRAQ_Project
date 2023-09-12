@@ -1,0 +1,20 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="GNU GPLv3"
+[[mods]]
+modId="vmd"
+version="${file.jarVersion}"
+displayName="VMD"
+authors="very_H"
+description='''
+The WRAQ 1.20.1 mod.
+By very_H.
+QQ:2016187250
+e-mail:2016187250@qq.com
+'''
+[[dependencies.vmd]]
+modId = "curios"
+mandatory = false
+versionRange = "[1.20.1-5.2.0,)"
+ordering= "NONE"
+side= "BOTH"

@@ -1,0 +1,42 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.unknown",
+				"texture_width": 32,
+				"texture_height": 32,
+				"visible_bounds_width": 2,
+				"visible_bounds_height": 2.5,
+				"visible_bounds_offset": [0, 0.75, 0]
+			},
+			"bones": [
+				{
+					"name": "Body",
+					"pivot": [0.5, 15.35, -0.5],
+					"cubes": [
+						{"origin": [-3, 7, -3], "size": [6, 6, 6], "pivot": [0, 0, 0], "rotation": [0, 180, 0], "uv": [0, 0]},
+						{"origin": [-2, 5, 0], "size": [1, 2, 1], "uv": [0, 3]},
+						{"origin": [1, 5, -1], "size": [1, 2, 1], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "Hat",
+					"pivot": [0.5, 13.35, 0],
+					"cubes": [
+						{"origin": [0, 13.06126, -0.46532], "size": [1, 2, 1], "uv": [0, 12]},
+						{"origin": [0, 15.06126, -0.46532], "size": [1, 1, 1], "uv": [14, 15]},
+						{"origin": [-1, 15.06126, 0.53468], "size": [1, 1, 1], "uv": [15, 13]},
+						{"origin": [-2, 15.06126, 1.53468], "size": [1, 1, 1], "uv": [0, 15]},
+						{"origin": [1, 15.06126, 0.53468], "size": [1, 1, 1], "uv": [11, 14]},
+						{"origin": [2, 15.06126, 1.53468], "size": [1, 1, 1], "uv": [7, 14]},
+						{"origin": [-1, 15.06126, -1.46532], "size": [1, 1, 1], "uv": [3, 14]},
+						{"origin": [-2, 15.06126, -2.46532], "size": [1, 1, 1], "uv": [12, 12]},
+						{"origin": [1, 15.06126, -1.46532], "size": [1, 1, 1], "uv": [8, 12]},
+						{"origin": [2, 15.06126, -2.46532], "size": [1, 1, 1], "uv": [4, 12]}
+					]
+				}
+			]
+		}
+	]
+}
