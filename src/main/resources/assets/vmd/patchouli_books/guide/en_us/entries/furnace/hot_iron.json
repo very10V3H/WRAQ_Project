@@ -1,0 +1,13 @@
+{
+  "name": "灼热铁锭",
+  "icon": "vmd:hot_iron",
+  "category": "vmd:furnace_category",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "vmd:hot_iron",
+      "title": "灼热铁锭",
+      "text": "  在维瑞阿契冶炼炉中，使用$(br) -灼热焦炭 * 1$(br) -粗制铁锭 * 4$(br) 冶炼而成"
+    }
+  ]
+}

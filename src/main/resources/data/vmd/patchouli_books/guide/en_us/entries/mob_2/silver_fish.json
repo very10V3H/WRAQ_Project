@@ -1,0 +1,19 @@
+{
+  "name": "终界银鱼",
+  "icon": "vmd:silverfishsoul",
+  "category": "vmd:mob_category",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "分布于风之谷深处"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": {
+        "item": "vmd:silverfishsoul"
+      },
+      "title": "主要掉落物",
+      "text": "用于前往终界（末地）-注：末地属近战专属系列，毕竟法师和弓箭手打不到小黑:("
+    }
+  ]
+}

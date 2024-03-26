@@ -1,0 +1,31 @@
+package com.Very.very.Hcommand;
+
+import com.Very.very.ValueAndTools.Compute;
+import com.mojang.brigadier.Command;
+import com.mojang.brigadier.context.CommandContext;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import net.minecraft.ChatFormatting;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+
+public class XpClearCommand implements Command<CommandSourceStack> {
+    public static XpClearCommand instance = new XpClearCommand();
+
+
+    @Override
+    public int run(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
+        Player player = context.getSource().getPlayer();
+        CompoundTag data = player.getPersistentData();
+        if (player.isCreative()) {
+            player.experienceLevel = 0;
+            data.putInt("Xp",0);
+        } else {
+            Compute.FormatMSGSend(player, Component.literal("维瑞阿契").withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.AQUA),
+                    Component.literal("此命令仅管理员可用。").withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.WHITE));
+        }
+        return 0;
+    }
+}

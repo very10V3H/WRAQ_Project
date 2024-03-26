@@ -1,0 +1,86 @@
+package com.Very.very.Series.OverWorldSeries.MainStory_II.ManaArmor.LifeMana;
+
+import com.Very.very.ValueAndTools.Compute;
+import com.Very.very.ValueAndTools.Utils.ClientUtils;
+import com.Very.very.ValueAndTools.Utils.StringUtils;
+import com.Very.very.ValueAndTools.Utils.Utils;
+import com.Very.very.ValueAndTools.registry.ModItems;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import org.checkerframework.checker.units.qual.C;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@OnlyIn(Dist.CLIENT)
+public class LifeManaSuitDescription {
+    public static void ArmorCommonDescription(List<Component> components) {
+        Compute.DescriptionOfAddtion(components);
+        SuitDescription(components);
+        Compute.DescriptionDash(components,ChatFormatting.WHITE,ChatFormatting.LIGHT_PURPLE,ChatFormatting.WHITE);
+        components.add(Component.literal("LifeMana-I").withStyle(Utils.styleOfMana).withStyle(ChatFormatting.ITALIC));
+        Compute.SuffixOfMainStoryII(components);
+
+    }
+    public static void SuitDescription(List<Component> components) {
+        Compute.SuitDescription(components);
+
+        int Count = 0;
+        Player player = Minecraft.getInstance().player;
+        Style MainStyle = Utils.styleOfMana;
+        Item[] items = {
+                ModItems.LifeManaArmorHelmet.get(),
+                ModItems.LifeManaArmorChest.get(),
+                ModItems.LifeManaArmorLeggings.get(),
+                ModItems.LifeManaArmorBoots.get(),
+        };
+        ArrayList<Item> OffHands = new ArrayList<>(){{
+            add(ModItems.EvokerBook0.get());
+            add(ModItems.EvokerBook1.get());
+            add(ModItems.EvokerBook2.get());
+            add(ModItems.EvokerBook3.get());
+        }};
+        EquipmentSlot[] equipmentSlot = {
+                EquipmentSlot.HEAD,
+                EquipmentSlot.CHEST,
+                EquipmentSlot.LEGS,
+                EquipmentSlot.FEET,
+                EquipmentSlot.OFFHAND
+        };
+        for (int i = 0; i < 4; i ++) {
+            Count += Compute.SuitItemVision(player,items[i],equipmentSlot[i],components,MainStyle);
+        }
+
+        Item OffHandItem = player.getItemInHand(InteractionHand.OFF_HAND).getItem();
+        if (OffHands.contains(OffHandItem)) {
+            components.add(Component.literal(OffHands.get(0).getDefaultInstance().getDisplayName().getString()).withStyle(ChatFormatting.RESET).withStyle(MainStyle));
+        }
+        else components.add(Component.literal(OffHands.get(0).getDefaultInstance().getDisplayName().getString()).withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.GRAY));
+
+        String CrestString = StringUtils.Crest.Mana.Crest;
+        String CrestName = "[唤魔纹章]";
+        if (ClientUtils.CrestMap.containsKey(CrestString) && ClientUtils.CrestMap.get(CrestString))  {
+            components.add(Component.literal(CrestName).withStyle(ChatFormatting.RESET).withStyle(MainStyle));
+            Count ++;
+        }
+        else components.add(Component.literal(CrestName).withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.GRAY));
+
+        Compute.SuitDoubleDesription(components,Count);
+        Compute.DescriptionPassive(components,Component.literal("魔力涌动").withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.LIGHT_PURPLE));
+        Compute.DescriptionNum(components,"获得",Compute.AttributeDescription.ManaRecover("5"),"");
+        Compute.SuitQuadraDesription(components,Count);
+        Compute.DescriptionPassive(components,Component.literal("生机涌动").withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.GREEN));
+        Compute.DescriptionNum(components,"每秒回复",Compute.AttributeDescription.Health("1+1%"),"");
+        Compute.DescriptionNum(components,"提升",Compute.AttributeDescription.Defence("25%"),"");
+        Compute.DescriptionNum(components,"获得",Compute.AttributeDescription.ManaHealSteal("5"),"");
+    }
+
+}

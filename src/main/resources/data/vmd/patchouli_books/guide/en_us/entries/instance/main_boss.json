@@ -1,0 +1,17 @@
+{
+  "name": "四元方块",
+  "icon": "vmd:main1crystal",
+  "category": "vmd:instance_category",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "  由玩家使用收集到的四元本源召唤。$(br) -普莱尼将会召唤多种攻击方式，请在战斗中根据实际情况调整战略。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "vmd:mainhand,vmd:mainbelt,vmd:mainnecklace,vmd:mainbracelet,vmd:main1crystal",
+      "title": "主要掉落物",
+      "text": "  四元方块将掉落四元饰品与四元石。$(br) -四元饰品将会根据所选取副本的难度提供随机属性。可以在维瑞阿契锻造台将饰品分解为碎片，于主城处兑换饰品袋。$(br) -四元石暂时用于升级物理属性副手。"
+    }
+  ]
+}

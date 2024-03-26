@@ -1,0 +1,19 @@
+{
+  "name": "稻草人",
+  "icon": "vmd:vmd_wheat",
+  "category": "vmd:mob_category",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "分布于绯樱岛南部农田"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": {
+        "item": "vmd:vmd_wheat"
+      },
+      "title": "主要掉落物",
+      "text": "用于制作稻草系列锻造装备-于绯樱岛中部广场兑换奖励包以获取锻造图 -注：稻草人系列装备暂时不推荐制作"
+    }
+  ]
+}

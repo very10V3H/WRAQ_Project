@@ -1,0 +1,7 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "vmd:item/lakematerial_boots",
+        "layer1": "vmd:item/lakematerial_boots_overlay"
+    }
+}

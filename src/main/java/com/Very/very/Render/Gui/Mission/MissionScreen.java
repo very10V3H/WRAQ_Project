@@ -1,0 +1,284 @@
+package com.Very.very.Render.Gui.Mission;
+
+import com.Very.very.NetWorking.DailyMission.DailyMissionFinishedRequestC2SPacket;
+import com.Very.very.NetWorking.DailyMission.DailyMissionRequestC2SPacket;
+import com.Very.very.NetWorking.ModNetworking;
+import com.Very.very.NetWorking.Packets.TeamPackets.InstanceChooseC2SPacket;
+import com.Very.very.NetWorking.Packets.TeamPackets.TeamInfoRequestC2SPacket;
+import com.Very.very.NetWorking.ReputationMission.ReputationMissionCancelRequestC2SPacket;
+import com.Very.very.NetWorking.ReputationMission.ReputationMissionFinishedRequestC2SPacket;
+import com.Very.very.NetWorking.ReputationMission.ReputationMissionRequestC2SPacket;
+import com.Very.very.Render.Gui.Team.TeamManageScreen;
+import com.Very.very.ValueAndTools.Compute;
+import com.Very.very.ValueAndTools.Utils.ClientUtils;
+import com.Very.very.ValueAndTools.Utils.Utils;
+import com.Very.very.ValueAndTools.registry.ModItems;
+import com.mojang.blaze3d.systems.RenderSystem;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.EditBox;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Items;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
+@OnlyIn(Dist.CLIENT)
+public class MissionScreen extends Screen {
+    ResourceLocation GUI_TEXTURE = new ResourceLocation(Utils.MOD_ID, "textures/gui/mission_screen.png");
+    private final boolean showPauseMenu;
+    public static final Minecraft mc = Minecraft.getInstance();
+    private static final Font fontRenderer = mc.font;
+    private int page = 0;
+
+    public MissionScreen(boolean p_96308_) {
+        super(p_96308_ ? Component.translatable("menu.mission_screen") : Component.translatable("menu.mission_screen0"));
+        this.showPauseMenu = p_96308_;
+    }
+
+    protected void init() {
+        if (this.showPauseMenu) {
+            this.createMenu();
+        }
+    }
+
+    private void createMenu() {
+
+        this.addRenderableWidget(Button.builder(Component.translatable("x"), (p_280814_) -> {
+            this.minecraft.setScreen((Screen) null);
+            this.minecraft.mouseHandler.grabMouse();
+        }).pos(this.width / 2 + 136, this.height / 2 - 98).size(12,12).build());
+
+        this.addRenderableWidget(Button.builder(Component.translatable("接取"), (p_280814_) -> {
+            ModNetworking.sendToServer(new DailyMissionRequestC2SPacket());
+        }).pos(this.width / 2 - 115, this.height / 2 + 40).size(32,16).build());
+
+        this.addRenderableWidget(Button.builder(Component.translatable("提交"), (p_280814_) -> {
+            ModNetworking.sendToServer(new DailyMissionFinishedRequestC2SPacket());
+        }).pos(this.width / 2 - 100, this.height / 2 + 64).size(32,16).build());
+
+        this.addRenderableWidget(Button.builder(Component.translatable("接取"), (p_280814_) -> {
+            ModNetworking.sendToServer(new ReputationMissionRequestC2SPacket());
+        }).pos(this.width / 2 - 115 + 98, this.height / 2 + 40).size(32,16).build());
+
+        this.addRenderableWidget(Button.builder(Component.translatable("提交"), (p_280814_) -> {
+            ModNetworking.sendToServer(new ReputationMissionFinishedRequestC2SPacket());
+        }).pos(this.width / 2 - 97 + 98, this.height / 2 + 64).size(32,16).build());
+
+        this.addRenderableWidget(Button.builder(Component.translatable("取消"), (p_280814_) -> {
+            ModNetworking.sendToServer(new ReputationMissionCancelRequestC2SPacket());
+        }).pos(this.width / 2 - 133 + 98, this.height / 2 + 64).size(32,16).build());
+
+        this.addRenderableWidget(Button.builder(Component.translatable("接取"), (p_280814_) -> {
+
+        }).pos(this.width / 2 - 115 + 98 * 2, this.height / 2 + 40).size(32,16).build());
+
+        this.addRenderableWidget(Button.builder(Component.translatable("提交"), (p_280814_) -> {
+
+        }).pos(this.width / 2 - 97 + 98 * 2, this.height / 2 + 64).size(32,16).build());
+    }
+    public void tick() {
+        super.tick();
+    }
+
+    public void render(GuiGraphics p_96310_, int x, int y, float v) {
+
+
+        GuiGraphics guiGraphics = new GuiGraphics(mc,mc.renderBuffers().bufferSource());
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShaderColor(1,1,1,1);
+        RenderSystem.setShaderTexture(0,GUI_TEXTURE);
+
+        guiGraphics.renderItem(ModItems.DailyMission.get().getDefaultInstance(),this.width / 2 - 110, this.height / 2 - 80);
+        guiGraphics.drawCenteredString(font,Component.literal("每日任务").withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.AQUA),this.width / 2 - 100, this.height / 2 - 60,0);
+        if (ClientUtils.DailyMissionItem == null || ClientUtils.DailyMissionItem.is(Items.AIR)) {
+            guiGraphics.drawCenteredString(font,Component.literal("完成物品收集任务").withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.WHITE),this.width / 2 - 100, this.height / 2 - 40,0);
+            guiGraphics.drawCenteredString(font,Component.literal("获得").withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.WHITE),this.width / 2 - 100, this.height / 2 - 24,0);
+            guiGraphics.drawCenteredString(font,Component.literal("经验|宝石碎片奖励").withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.WHITE),this.width / 2 - 100, this.height / 2 - 8,0);
+
+            Calendar calendar;
+            try {
+                calendar = Compute.StringToCalendar(ClientUtils.lastDailyMissionFinishedTime);
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+
+
+            calendar.add(Calendar.HOUR_OF_DAY,22);
+            try {
+                if (calendar.before(Compute.StringToCalendar(ClientUtils.serverTime))) {
+                    guiGraphics.drawCenteredString(font,Component.literal("可接取").withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.WHITE),this.width / 2 - 100, this.height / 2 + 8,0);
+                }
+                else {
+                    Calendar time = Compute.StringToCalendar(ClientUtils.serverTime);
+                    long delta = (calendar.getTimeInMillis() - time.getTimeInMillis());
+                    long seconds = delta / 1000 % 60;
+                    long hours = delta / (1000 * 3600);
+                    long minute = delta / (1000 * 60) % 60;
+                    SimpleDateFormat tmpDate = new SimpleDateFormat("HH:mm:ss");
+                    Calendar deltaTime = Calendar.getInstance();
+                    deltaTime.set(Calendar.HOUR_OF_DAY, (int) hours);
+                    deltaTime.set(Calendar.MINUTE, (int) minute);
+                    deltaTime.set(Calendar.SECOND, (int) seconds);
+
+                    guiGraphics.drawCenteredString(font,Component.literal("任务冷却：")
+                            .withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.AQUA),
+                            this.width / 2 - 100, this.height / 2 + 8,0);
+                    guiGraphics.drawCenteredString(font,Component.literal(tmpDate.format(deltaTime.getTime()))
+                            .withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.WHITE),
+                            this.width / 2 - 100, this.height / 2 + 24,0);
+                }
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+
+        }
+        else {
+            guiGraphics.drawCenteredString(font,Component.literal("进行中").withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.RED),this.width / 2 - 100, this.height / 2 - 40,0);
+            guiGraphics.renderItem(ClientUtils.DailyMissionItem,this.width / 2 - 110, this.height / 2 - 20);
+            guiGraphics.drawCenteredString(font,Component.literal("").append(ClientUtils.DailyMissionItem.getDisplayName()).
+                    append(Component.literal("x" + ClientUtils.DailyMissionItemCount).withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.WHITE)),this.width / 2 - 100, this.height / 2 + 8,0);
+        }
+
+
+        guiGraphics.renderItem(ModItems.Boss2Piece.get().getDefaultInstance(),this.width / 2 - 110 + 98, this.height / 2 - 80);
+        guiGraphics.drawCenteredString(font,Component.literal("悬赏任务").withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.GOLD),this.width / 2 - 100 + 98, this.height / 2 - 60,0);
+
+        if (ClientUtils.ReputationMissionItem == null || ClientUtils.ReputationMissionItem.is(Items.AIR)) {
+            guiGraphics.drawCenteredString(font,Component.literal("完成物品收集任务").withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.WHITE),this.width / 2 - 100 + 98, this.height / 2 - 40,0);
+            guiGraphics.drawCenteredString(font,Component.literal("获得").withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.WHITE),this.width / 2 - 100 + 98, this.height / 2 - 24,0);
+            guiGraphics.drawCenteredString(font,Component.literal("经验|声望奖励").withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.WHITE),this.width / 2 - 100 + 98, this.height / 2 - 8,0);
+
+            Calendar currentTime = null;
+            try {
+                currentTime = Compute.StringToCalendar(ClientUtils.serverTime);
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+
+            if (!ClientUtils.ReputationMissionAllowRequestTime.equals("")) {
+                Calendar allowTime = null;
+                try {
+                    allowTime = Compute.StringToCalendar(ClientUtils.ReputationMissionAllowRequestTime);
+                } catch (ParseException e) {
+                    throw new RuntimeException(e);
+                }
+                if (currentTime.before(allowTime)) {
+                    long delta = (allowTime.getTimeInMillis() - currentTime.getTimeInMillis());
+                    long seconds = delta / 1000 % 60;
+                    long hours = delta / (1000 * 3600);
+                    long minute = delta / (1000 * 60) % 60;
+                    SimpleDateFormat tmpDate = new SimpleDateFormat("HH:mm:ss");
+                    Calendar deltaTime = Calendar.getInstance();
+                    deltaTime.set(Calendar.HOUR_OF_DAY, (int) hours);
+                    deltaTime.set(Calendar.MINUTE, (int) minute);
+                    deltaTime.set(Calendar.SECOND, (int) seconds);
+
+                    guiGraphics.drawCenteredString(font,Component.literal("任务冷却：")
+                                    .withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.AQUA),
+                            this.width / 2 - 100 + 98, this.height / 2 + 8,0);
+                    guiGraphics.drawCenteredString(font,Component.literal(tmpDate.format(deltaTime.getTime()))
+                                    .withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.WHITE),
+                            this.width / 2 - 100 + 98, this.height / 2 + 24,0);
+                }
+                else {
+                    guiGraphics.drawCenteredString(font,Component.literal("可接取").withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.WHITE),this.width / 2 - 100 + 98, this.height / 2 + 8,0);
+                }
+            }
+            else {
+                guiGraphics.drawCenteredString(font,Component.literal("可接取").withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.WHITE),this.width / 2 - 100 + 98, this.height / 2 + 8,0);
+            }
+
+        }
+        else {
+            guiGraphics.drawCenteredString(font,Component.literal("进行中").withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.RED),this.width / 2 - 100 + 98, this.height / 2 - 48,0);
+            guiGraphics.renderItem(ClientUtils.ReputationMissionItem,this.width / 2 - 110 + 98, this.height / 2 - 36);
+            guiGraphics.drawCenteredString(font,Component.literal("").append(ClientUtils.ReputationMissionItem.getDisplayName()).
+                    append(Component.literal("x" + ClientUtils.ReputationMissionItemCount).withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.WHITE)),this.width / 2 - 100 + 98, this.height / 2 - 8,0);
+
+            Calendar currentTime = null;
+            try {
+                currentTime = Compute.StringToCalendar(ClientUtils.serverTime);
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+
+            Calendar startTime = null;
+            try {
+                startTime = Compute.StringToCalendar(ClientUtils.ReputationMissionStartTime);
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+            long delta = currentTime.getTimeInMillis() - startTime.getTimeInMillis();
+            long seconds = delta / 1000 % 60;
+            long hours = delta / (1000 * 3600);
+            long minute = delta / (1000 * 60) % 60;
+            SimpleDateFormat tmpDate = new SimpleDateFormat("HH:mm:ss");
+            Calendar deltaTime = Calendar.getInstance();
+            deltaTime.set(Calendar.HOUR_OF_DAY, (int) hours);
+            deltaTime.set(Calendar.MINUTE, (int) minute);
+            deltaTime.set(Calendar.SECOND, (int) seconds);
+            int tier = Math.max(0, 5 - (int) (delta / (1000 * 60) / 15));
+
+            String[] Level = {
+                    "普通","优秀","精良","史诗","传说","神话"
+            };
+
+            ChatFormatting[] chatFormattings = {
+                    ChatFormatting.GRAY,
+                    ChatFormatting.GREEN,
+                    ChatFormatting.AQUA,
+                    ChatFormatting.LIGHT_PURPLE,
+                    ChatFormatting.GOLD,
+                    ChatFormatting.RED,
+            };
+
+
+            guiGraphics.drawCenteredString(font,Component.literal("当前评级：")
+                            .withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.AQUA).
+                            append(Component.literal(Level[tier]).withStyle(ChatFormatting.RESET).withStyle(chatFormattings[tier])),
+                    this.width / 2 - 100 + 98, this.height / 2 + 8,0);
+            if (hours >= 24) {
+                guiGraphics.drawCenteredString(font,Component.literal("用时: --:--:--")
+                                .withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.WHITE),
+                        this.width / 2 - 100 + 98, this.height / 2 + 24,0);
+            }
+            else {
+                guiGraphics.drawCenteredString(font,Component.literal("用时:" + tmpDate.format(deltaTime.getTime()))
+                                .withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.WHITE),
+                        this.width / 2 - 100 + 98, this.height / 2 + 24,0);
+
+            }
+        }
+
+
+        guiGraphics.renderItem(ModItems.CompleteGem.get().getDefaultInstance(),this.width / 2 - 110 + 98 * 2, this.height / 2 - 80);
+        guiGraphics.drawCenteredString(font,Component.literal("月卡任务").withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.LIGHT_PURPLE),this.width / 2 - 100 + 98 * 2 - 1, this.height / 2 - 60,0);
+        guiGraphics.drawCenteredString(font,Component.literal("完成物品收集任务").withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.WHITE),this.width / 2 - 100 + 98 * 2 - 1, this.height / 2 - 40,0);
+        guiGraphics.drawCenteredString(font,Component.literal("获得").withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.WHITE),this.width / 2 - 100 + 98 * 2 - 1, this.height / 2 - 24,0);
+        guiGraphics.drawCenteredString(font,Component.literal("丰富奖励").withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.LIGHT_PURPLE),this.width / 2 - 100 + 98 * 2 - 1, this.height / 2 - 8,0);
+
+
+        int textureWidth = 300;
+        int textureHeight = 200;
+
+        guiGraphics.blit(GUI_TEXTURE, this.width / 2 - 150, this.height / 2 - 100, 0, 0, 300, 200, textureWidth, textureHeight);
+
+        super.render(p_96310_, x, y, v);
+    }
+
+    @Override
+    public boolean isPauseScreen() {
+        return false;
+    }
+}

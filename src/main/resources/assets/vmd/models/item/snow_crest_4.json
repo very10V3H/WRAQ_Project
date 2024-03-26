@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "vmd:item/top_rune",
+    "layer1": "vmd:item/snow_rune_layer"
+  }
+}

@@ -1,0 +1,7 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "vmd:item/obsimana_boots",
+        "layer1": "vmd:item/obsimana_boots_overlay"
+    }
+}

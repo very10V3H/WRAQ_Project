@@ -1,0 +1,17 @@
+{
+  "name": "武器强化概述",
+  "icon": "vmd:forgingstone2",
+  "category": "vmd:misc_category",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "  当你左键种植在耕地上的成熟作物时，你将会获得成熟作物与园艺经验与一般经验。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "vmd:forgingstone2,vmd:forgingstone1,vmd:forgingstone0",
+      "title": "获得数值提升",
+      "text": "  在维瑞阿契，大部分主手以及防具都可以强化。$(br)  强化将提升装备的基础数值。$(br) 1-10强化等级每级提升2+2%基础数值$(br) 11-20每级提升4+4% 21-24每级提升10+10%"
+    }
+  ]
+}

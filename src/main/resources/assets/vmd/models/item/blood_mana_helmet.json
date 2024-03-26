@@ -1,0 +1,7 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "vmd:item/blood_mana_helmet",
+        "layer1": "vmd:item/blood_mana_helmet_overlay"
+    }
+}

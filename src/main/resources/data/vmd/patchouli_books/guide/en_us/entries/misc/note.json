@@ -1,0 +1,17 @@
+{
+  "name": "地质学家笔记概述",
+  "icon": "minecraft:book",
+  "category": "vmd:misc_category",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "  当你使用地质学家的笔记在四元（平原、森林、湖泊、火山）符石祭坛处记录时，你将会获得笔记。笔记可以在天空城饰品商人处兑换基础饰品。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "vmd:plaingems,vmd:forestgems,vmd:lakegems,vmd:volcanogems",
+      "title": "四元系列戒指",
+      "text": "  当前，饰品商人出售的物品仅有四元戒指。$(br) -在前期十分推荐兑换平原戒指，可以极大地增加地图移动效率。"
+    }
+  ]
+}

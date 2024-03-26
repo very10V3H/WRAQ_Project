@@ -1,0 +1,68 @@
+package com.Very.very.Hcommand;
+
+import com.Very.very.ValueAndTools.Compute;
+import com.Very.very.ValueAndTools.Utils.Utils;
+import com.mojang.brigadier.Command;
+import com.mojang.brigadier.arguments.StringArgumentType;
+import com.mojang.brigadier.context.CommandContext;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import net.minecraft.ChatFormatting;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
+
+import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
+
+public class InfoInquireCommand implements Command<CommandSourceStack> {
+    public static InfoInquireCommand instance = new InfoInquireCommand();
+
+
+    @Override
+    public int run(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
+        Player player = context.getSource().getPlayer();
+        String name = StringArgumentType.getString(context, "name");
+        CompoundTag dataP = player.getPersistentData();
+        if (!player.isCreative()) {
+            Compute.FormatMSGSend(player, Component.literal("维瑞阿契").withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.AQUA),
+                    Component.literal("此命令仅管理员可用。").withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.WHITE));
+        } else {
+
+            List<ServerPlayer> playerList = player.getServer().getPlayerList().getPlayers();
+            AtomicBoolean flag = new AtomicBoolean(false);
+            playerList.forEach(serverPlayer -> {
+                if (serverPlayer.getName().getString().equals(name)) {
+                    CompoundTag data = serverPlayer.getPersistentData();
+                    player.sendSystemMessage(Component.literal("其当前基本属性如下:"));
+                    player.sendSystemMessage(Component.literal("·物理攻击:").withStyle(ChatFormatting.AQUA).withStyle(ChatFormatting.BOLD).append(Component.literal(String.format("%.2f", Compute.PlayerAttributes.PlayerAttackDamage(serverPlayer))).withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.WHITE)));
+                    player.sendSystemMessage(Component.literal("·攻击距离:").withStyle(Utils.styleOfSea).withStyle(ChatFormatting.BOLD).append(Component.literal(String.format("%.1f", Compute.PlayerAttributes.PlayerAttackRangeUp(serverPlayer) + 3)).withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.WHITE)));
+                    player.sendSystemMessage(Component.literal("·魔法攻击:").withStyle(ChatFormatting.LIGHT_PURPLE).withStyle(ChatFormatting.BOLD).append(Component.literal(String.format("%.2f", Compute.PlayerAttributes.PlayerManaDamage(serverPlayer))).withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.WHITE)));
+                    player.sendSystemMessage(Component.literal("·护甲穿透:").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.BOLD).append(Component.literal(String.format("%.2f", Compute.PlayerAttributes.PlayerDefencePenetration(serverPlayer) * 100)).withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.WHITE).append(Component.literal("%"))).append(Component.literal("+[" + String.format("%.2f", Compute.PlayerAttributes.PlayerDefencePenetration0(player)) + "]").withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.WHITE)));
+                    player.sendSystemMessage(Component.literal("·魔法穿透:").withStyle(ChatFormatting.BLUE).withStyle(ChatFormatting.BOLD).append(Component.literal(String.format("%.2f", Compute.PlayerAttributes.PlayerManaPenetration(serverPlayer) * 100)).withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.WHITE).append(Component.literal("%").withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.WHITE))));
+                    player.sendSystemMessage(Component.literal("·暴击几率:").withStyle(ChatFormatting.LIGHT_PURPLE).withStyle(ChatFormatting.BOLD).append(Component.literal(String.format("%.2f", Compute.PlayerAttributes.PlayerCritRate(serverPlayer) * 100)).withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.WHITE).append(Component.literal("%"))));
+                    player.sendSystemMessage(Component.literal("·暴击伤害:").withStyle(ChatFormatting.BLUE).withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.BOLD).append(Component.literal(String.format("%.2f", Compute.PlayerAttributes.PlayerCritDamage(serverPlayer) * 100)).withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.WHITE).append(Component.literal("%"))));
+                    player.sendSystemMessage(Component.literal("·生命偷取:").withStyle(ChatFormatting.RED).withStyle(ChatFormatting.UNDERLINE).withStyle(ChatFormatting.BOLD).append(Component.literal(String.format("%.2f", Compute.PlayerAttributes.PlayerHealthSteal(serverPlayer) * 100)).withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.WHITE).append(Component.literal("%"))));
+                    player.sendSystemMessage(Component.literal("·最大法力值:").withStyle(ChatFormatting.LIGHT_PURPLE).withStyle(ChatFormatting.BOLD).append(Component.literal(String.valueOf(data.getInt("MAXMANA"))).withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.WHITE)));
+                    player.sendSystemMessage(Component.literal("·法力回复:").withStyle(ChatFormatting.LIGHT_PURPLE).withStyle(ChatFormatting.BOLD).append(Component.literal(String.format("%.1f", 5 + Compute.PlayerAttributes.PlayerManaRecover(serverPlayer))).withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.WHITE)));
+                    player.sendSystemMessage(Component.literal("·移动速度:").withStyle(ChatFormatting.GREEN).withStyle(ChatFormatting.UNDERLINE).withStyle(ChatFormatting.BOLD).append(Component.literal(String.format("%.2f", Compute.PlayerAttributes.PlayerMovement(serverPlayer) * 100)).withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.WHITE).append(Component.literal("%"))));
+                    player.sendSystemMessage(Component.literal("·最大生命值:").withStyle(ChatFormatting.GREEN).withStyle(ChatFormatting.BOLD).append(Component.literal(String.format("%.1f", Compute.PlayerAttributes.PlayerMaxHealth(serverPlayer) + 200)).withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.WHITE)));
+                    player.sendSystemMessage(Component.literal("·生命回复:").withStyle(ChatFormatting.GREEN).withStyle(ChatFormatting.BOLD).append(Component.literal(String.format("%.1f", Compute.PlayerAttributes.PlayerHealthRecover(serverPlayer))).withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.WHITE)));
+                    player.sendSystemMessage(Component.literal("·治疗强度:").withStyle(Utils.styleOfHealth).withStyle(ChatFormatting.BOLD).append(Component.literal(String.format("%.0f", Compute.PlayerAttributes.PlayerHealEffectUp(serverPlayer) * 100)).withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.WHITE)).append(Component.literal("%").withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.WHITE)));
+                    player.sendSystemMessage(Component.literal("·基础护甲:").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.BOLD).append(Component.literal(String.format("%.1f", Compute.PlayerAttributes.PlayerDefence(serverPlayer))).withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.WHITE)));
+                    player.sendSystemMessage(Component.literal("·冷却缩减:").withStyle(ChatFormatting.BLUE).withStyle(ChatFormatting.BOLD).append(Component.literal(String.format("%.0f", Compute.PlayerAttributes.PlayerCoolDownDecrease(serverPlayer) * 100)).withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.WHITE)).append(Component.literal("%").withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.WHITE)));
+                    player.sendSystemMessage(Component.literal("·经验加成:").withStyle(ChatFormatting.LIGHT_PURPLE).withStyle(ChatFormatting.UNDERLINE).withStyle(ChatFormatting.BOLD).append(Component.literal(String.format("%.2f", Compute.PlayerExpUp(serverPlayer) * 100)).withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.WHITE).append(Component.literal("%"))));
+                    player.sendSystemMessage(Component.literal("·任务完成次数:").withStyle(ChatFormatting.GOLD).append(Component.literal(String.valueOf(data.getInt("QuestCounts"))).withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.WHITE)));
+                    player.sendSystemMessage(Component.literal("·VB余额:").withStyle(ChatFormatting.GOLD).append(Component.literal(String.format("%.2f", data.getDouble("VB"))).withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.WHITE)));
+                    flag.set(true);
+                }
+            });
+            if (!flag.get()) {
+                player.sendSystemMessage(Component.literal("该玩家未在线。"));
+            }
+
+        }
+        return 0;
+    }
+}

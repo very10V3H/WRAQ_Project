@@ -1,0 +1,7 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "vmd:item/lifemana_helmet",
+        "layer1": "vmd:item/lifemana_helmet_overlay"
+    }
+}

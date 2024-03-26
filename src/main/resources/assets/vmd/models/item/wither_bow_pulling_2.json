@@ -1,0 +1,6 @@
+{
+    "parent": "vmd:item/wither_bow_0",
+    "textures": {
+        "layer0": "vmd:item/wither_bow_pulling_2"
+    }
+}
