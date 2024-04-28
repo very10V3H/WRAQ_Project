@@ -1,0 +1,147 @@
+package com.very.wraq.process.element.equipAndCurios.fireElement;
+
+import com.very.wraq.coreAttackModule.MyArrow;
+import com.very.wraq.process.element.Element;
+import com.very.wraq.process.Particle.ParticleProvider;
+import com.very.wraq.render.Particles.ModParticles;
+import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.valueAndTools.BasicAttributeDescription;
+import com.very.wraq.valueAndTools.Compute;
+import com.very.wraq.valueAndTools.Utils.StringUtils;
+import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.registry.ModItems;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BowItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
+
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
+
+public class FireElementBow extends BowItem {
+    private final double BaseDamage = 600;
+    private final double DefencePenetration0 = 4000;
+    private final double CriticalHitRate = 0.25;
+    private final double CHitDamage = 1.45;
+    private final double SpeedUp = 0.6F;
+    public FireElementBow(Properties p_40524_) {
+        super(p_40524_);
+        Utils.AttackDamage.put(this,this.BaseDamage);
+        Utils.DefencePenetration0.put(this,this.DefencePenetration0);
+        Utils.CritRate.put(this,this.CriticalHitRate);
+        Utils.CritDamage.put(this,this.CHitDamage);
+        Utils.MovementSpeed.put(this,this.SpeedUp);
+        Element.FireElementValue.put(this, 2d);
+        Utils.MainHandTag.put(this,1d);
+        Utils.WeaponList.add(this);
+        Utils.BowTag.put(this,1.0d);
+    }
+    @Override
+    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag)
+    {
+        Style style = CustomStyle.styleOfFire;
+        Compute.ForgingHoverName(stack,Component.literal("<维瑞级>").withStyle(ChatFormatting.GOLD).append(Component.literal("破空之隼").withStyle(CustomStyle.styleOfSky).withStyle(ChatFormatting.BOLD)));
+        components.add(Component.literal("主手                   ").withStyle(ChatFormatting.AQUA).append(Component.literal("长弓").withStyle(ChatFormatting.WHITE)));
+        Compute.DescriptionDash(components,ChatFormatting.WHITE,style,ChatFormatting.WHITE);
+        Compute.DescriptionOfBasic(components);
+        BasicAttributeDescription.BasicAttributeCommonDescription(components,stack);
+        Compute.DescriptionDash(components,ChatFormatting.WHITE,style,ChatFormatting.WHITE);
+        Compute.DescriptionOfAddtion(components);
+        Compute.DescriptionActive(components, Component.literal("引燃").withStyle(style));
+        components.add(Component.literal(" 释放一道").withStyle(ChatFormatting.WHITE).
+                append(Component.literal("激光").withStyle(style)).
+                append(Component.literal("，对沿途的目标").withStyle(ChatFormatting.WHITE)).
+                append(Component.literal("造成").withStyle(ChatFormatting.WHITE)).
+                append(Component.literal("2倍").withStyle(CustomStyle.styleOfPower)).
+                append(Component.literal("等级强度").withStyle(ChatFormatting.LIGHT_PURPLE)).
+                append(Component.literal("物理伤害").withStyle(CustomStyle.styleOfPower)).
+                append(Component.literal("，并").withStyle(ChatFormatting.WHITE)).
+                append(Component.literal("点燃").withStyle(style)).
+                append(Component.literal("目标4s").withStyle(ChatFormatting.WHITE)));
+        Compute.CoolDownTimeDescription(components, 7);
+        Compute.DescriptionPassive(components, Component.literal("燃烬").withStyle(style));
+        components.add(Component.literal(" 对处于").withStyle(ChatFormatting.WHITE).
+                append(Component.literal("燃烧状态").withStyle(style)).
+                append(Component.literal("的目标造成伤害后，提升").withStyle(ChatFormatting.WHITE)).
+                append(Component.literal("100%归一化炽焰元素强度").withStyle(style)).
+                append(Component.literal("，持续2s").withStyle(ChatFormatting.WHITE)));
+        components.add(Component.literal(" 对未处于").withStyle(ChatFormatting.WHITE).
+                append(Component.literal("燃烧状态").withStyle(style)).
+                append(Component.literal("的目标造成").withStyle(ChatFormatting.WHITE)).
+                append(Component.literal("燃烧").withStyle(style)).
+                append(Component.literal("，会为你提供").withStyle(ChatFormatting.WHITE)).
+                append(Component.literal("20%伤害提升").withStyle(CustomStyle.styleOfPower)).
+                append(Component.literal("，至多叠加至").withStyle(ChatFormatting.WHITE)).
+                append(Component.literal("60%").withStyle(CustomStyle.styleOfPower)).
+                append(Component.literal("，每个目标持续3s").withStyle(ChatFormatting.WHITE)));
+        Compute.DescriptionDash(components,ChatFormatting.WHITE,style,ChatFormatting.WHITE);
+        Compute.SuffixOfElement(components);
+        super.appendHoverText(stack,level,components,flag);
+    }
+    @Override
+    public void releaseUsing(ItemStack p_40667_, Level p_40668_, LivingEntity p_40669_, int p_40670_) {
+
+    }
+
+    @Override
+    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
+        Compute.BowAttack(player,Utils.BowNumMap.get(StringUtils.BowNameString.FireElementBow));
+        return interactionHand.equals(InteractionHand.MAIN_HAND)
+                ? InteractionResultHolder.success(player.getMainHandItem()) : InteractionResultHolder.success(player.getOffhandItem());    }
+
+    public static void Active(Player player) {
+        if (Compute.PlayerUseWithHud(player, FireElementSword.playerActiveCoolDownMap,ModItems.FireElementBow.get(),0,7)) {
+            List<Mob> mobList = Compute.OneShotLaser(player, true, Compute.XpStrengthADDamage(player,2), ModParticles.LONG_RED_SPELL.get());
+            mobList.forEach(mob -> Compute.IgniteMob(player, mob, 80));
+        }
+    }
+
+    public static void IgniteEffect(Player player, Mob mob) {
+        if (mob.getRemainingFireTicks() > 0 && player.getMainHandItem().is(ModItems.FireElementBow.get())) {
+            FireElementSword.playerFireElementValueEnhanceTickMap.put(player, player.getServer().getTickCount() + 40);
+        }
+    }
+
+    public static void Tick(Player player) {
+        if (!player.getMainHandItem().is(ModItems.FireElementBow.get())) return;
+        if (!FireElementSword.playerIgniteMobMap.containsKey(player)) FireElementSword.playerIgniteMobMap.put(player, new ArrayList<>());
+        List<FireElementSword.IgniteMob> list = FireElementSword.playerIgniteMobMap.get(player);
+        list.removeIf(igniteMob -> igniteMob.tick() < player.getServer().getTickCount());
+        if (list.size() > 0) Compute.EffectLastTimeSend(player, ModItems.FireElementBow.get().getDefaultInstance(), 8888, Math.min(3,list.size()), true);
+        else Compute.EffectLastTimeSend(player, ModItems.FireElementBow.get().getDefaultInstance(), 0, Math.min(3,list.size()), true);
+    }
+
+    public static void PlayerIgniteMobEffect(Player player, Mob mob) {
+        if (!player.getMainHandItem().is(ModItems.FireElementBow.get())) return;
+        if (!FireElementSword.playerIgniteMobMap.containsKey(player)) FireElementSword.playerIgniteMobMap.put(player, new ArrayList<>());
+        List<FireElementSword.IgniteMob> list = FireElementSword.playerIgniteMobMap.get(player);
+        list.removeIf(igniteMob -> igniteMob.tick() < player.getServer().getTickCount());
+        if (mob.getRemainingFireTicks() == 0) {
+            list.add(new FireElementSword.IgniteMob(mob.getId(), player.getServer().getTickCount() + 60));
+        }
+    }
+
+    public static void Shoot(Player player) {
+        ServerPlayer serverPlayer = (ServerPlayer) player;
+        MyArrow arrow = new MyArrow(EntityType.ARROW, serverPlayer.level(), serverPlayer, true);
+        arrow.shootFromRotation(serverPlayer, serverPlayer.getXRot(), serverPlayer.getYRot(), 0.0f, 4.5f, 1.0f);
+        arrow.setCritArrow(true);
+        serverPlayer.level().addFreshEntity(arrow);
+        Compute.SoundToAll(serverPlayer, SoundEvents.ARROW_SHOOT);
+        ParticleProvider.FaceCircleCreate(serverPlayer, 1, 0.75, 20, ModParticles.FireElementParticle.get());
+        ParticleProvider.FaceCircleCreate(serverPlayer, 1.5, 0.5, 16, ModParticles.FireElementParticle.get());
+    }
+}
+

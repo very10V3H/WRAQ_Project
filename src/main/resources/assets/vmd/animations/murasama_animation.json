@@ -1,0 +1,19 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.murasama.hold": {
+			"loop": true,
+			"bones": {
+				"murasamaClone": {
+					"scale": 0
+				},
+				"murasamaClone2": {
+					"scale": 0
+				},
+				"gae_bolg_clone": {
+				    "scale": 0
+				}
+			}
+		}
+	}
+}

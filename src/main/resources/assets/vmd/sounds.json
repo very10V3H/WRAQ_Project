@@ -102,5 +102,29 @@
         "stream": true
       }
     ]
+  },
+  "break_dice": {
+    "sounds": [
+      {
+        "name": "vmd:break_dice",
+        "stream": true
+      }
+    ]
+  },
+  "dice": {
+    "sounds": [
+      {
+        "name": "vmd:dice",
+        "stream": true
+      }
+    ]
+  },
+  "heihuang_attack": {
+    "sounds": [
+      {
+        "name": "vmd:heihuang_attack",
+        "stream": true
+      }
+    ]
   }
 }

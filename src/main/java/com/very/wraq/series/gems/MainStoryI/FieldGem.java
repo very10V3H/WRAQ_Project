@@ -1,0 +1,46 @@
+package com.very.wraq.series.gems.MainStoryI;
+
+import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.valueAndTools.Compute;
+import com.very.wraq.valueAndTools.Utils.StringUtils;
+import com.very.wraq.valueAndTools.Utils.Utils;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
+
+import javax.annotation.Nullable;
+import java.util.List;
+
+public class FieldGem extends Item {
+    private final double HealStrength = 0.1;
+    private final double MaxHealth = 1000;
+
+    public FieldGem(Properties p_41383_) {
+        super(p_41383_);
+        Utils.GemsHealStrength.put(StringUtils.GemName.FieldGem,HealStrength);
+        Utils.GemsMaxHealth.put(StringUtils.GemName.FieldGem,MaxHealth);
+        Utils.HealEffectUp.put(this,HealStrength);
+        Utils.MaxHealth.put(this,MaxHealth);
+    }
+    @Override
+    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag)
+    {
+        stack.getOrCreateTagElement(Utils.MOD_ID);
+        Style style = CustomStyle.styleOfField;
+        components.add(Component.literal("原野意志的具象，凝聚成此石。").withStyle(style));
+        Compute.DescriptionDash(components,ChatFormatting.WHITE,style,ChatFormatting.WHITE);
+        Compute.DescriptionOfBasic(components);
+        Compute.DescriptionDash(components,ChatFormatting.WHITE,style,ChatFormatting.WHITE);
+        Compute.SuffixOfMainStoryI(components);
+        super.appendHoverText(stack,level,components,flag);
+    }
+
+    @Override
+    public boolean isFoil(ItemStack p_41453_) {
+        return true;
+    }
+}

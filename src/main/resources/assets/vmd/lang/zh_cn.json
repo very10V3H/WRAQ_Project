@@ -1185,13 +1185,201 @@
   "item.vmd.yxwg_curios2": "七宗罪",
   "item.vmd.yxwg_curios2_paper": "七宗罪获取券",
 
-  "item.vmd.wc_curios": "次元箭袋",
-  "item.vmd.wc_curios_paper": "次元箭袋获取券",
+  "item.vmd.wc_curios": "诅咒娃娃",
+  "item.vmd.wc_curios_paper": "诅咒娃娃获取券",
 
   "item.vmd.qifu_curios1": "低语",
   "item.vmd.qifu_curios1_paper": "低语获取券",
 
+  "item.vmd.shangmengli_curios3": "活化鞘翅",
+  "item.vmd.shangmengli_curios3_paper": "活化鞘翅获取券",
+
+  "item.vmd.black_feisa_curios4": "牢大",
+  "item.vmd.black_feisa_curios4_paper": "牢大获取券",
+
   "item.vmd.qing_tuan": "青团",
+
+  "item.vmd.eliaoi_curios2": "四幕之内的死亡",
+  "item.vmd.eliaoi_curios2_paper": "四幕之内的死亡获取券",
+
+  "item.vmd.zuosi_curios": "武器大师的转职证明",
+  "item.vmd.zuosi_curios_paper": "武器大师的转职证明获取券",
+
+  "item.vmd.liulixian_curios3": "『九宝琉璃塔』",
+  "item.vmd.liulixian_curios3_paper": "『九宝琉璃塔』获取券",
+
+  "item.vmd.star_bottle": "星星瓶",
+  "item.vmd.star_soul": "梦屑",
+  "item.vmd.star_rune": "梦之宝石",
+  "item.vmd.star_helmet": "梦月顶",
+  "item.vmd.star_leggings": "梦月膝",
+  "item.vmd.star_star": "远空之星",
+  "item.vmd.star_bottle_forge_draw": "星星瓶锻造图",
+
+  "item.vmd.qingming_prefix": "称号 - 雨纷纷",
+  "item.vmd.qingming_gem": "翠绿宝珠",
+  "item.vmd.qingming_forge_paper": "清符",
+  "item.vmd.qingming_attack_ring": "踏青戒",
+  "item.vmd.qingming_bow_ring": "行清戒",
+  "item.vmd.qingming_mana_ring": "三月戒",
+
+  "item.vmd.life_element_piece0": "微型生机元素碎片",
+  "item.vmd.life_element_piece1": "小型生机元素碎片",
+  "item.vmd.life_element_piece2": "中型生机元素碎片",
+  "item.vmd.life_crystal0": "生机元素水晶",
+  "item.vmd.life_crystal1": "生机元素水晶¹",
+  "item.vmd.life_crystal2": "生机元素水晶²",
+  "item.vmd.life_crystal3": "生机元素水晶³",
+
+  "item.vmd.water_element_piece0": "微型碧水元素碎片",
+  "item.vmd.water_element_piece1": "小型碧水元素碎片",
+  "item.vmd.water_element_piece2": "中型碧水元素碎片",
+  "item.vmd.water_crystal0": "碧水元素水晶",
+  "item.vmd.water_crystal1": "碧水元素水晶¹",
+  "item.vmd.water_crystal2": "碧水元素水晶²",
+  "item.vmd.water_crystal3": "碧水元素水晶³",
+
+  "item.vmd.fire_element_piece0": "微型炽焰元素碎片",
+  "item.vmd.fire_element_piece1": "小型炽焰元素碎片",
+  "item.vmd.fire_element_piece2": "中型炽焰元素碎片",
+  "item.vmd.fire_crystal0": "炽焰元素水晶",
+  "item.vmd.fire_crystal1": "炽焰元素水晶¹",
+  "item.vmd.fire_crystal2": "炽焰元素水晶²",
+  "item.vmd.fire_crystal3": "炽焰元素水晶³",
+
+  "item.vmd.stone_element_piece0": "微型层岩元素碎片",
+  "item.vmd.stone_element_piece1": "小型层岩元素碎片",
+  "item.vmd.stone_element_piece2": "中型层岩元素碎片",
+  "item.vmd.stone_crystal0": "层岩元素水晶",
+  "item.vmd.stone_crystal1": "层岩元素水晶¹",
+  "item.vmd.stone_crystal2": "层岩元素水晶²",
+  "item.vmd.stone_crystal3": "层岩元素水晶³",
+
+  "item.vmd.ice_element_piece0": "微型凛冰元素碎片",
+  "item.vmd.ice_element_piece1": "小型凛冰元素碎片",
+  "item.vmd.ice_element_piece2": "中型凛冰元素碎片",
+  "item.vmd.ice_crystal0": "凛冰元素水晶",
+  "item.vmd.ice_crystal1": "凛冰元素水晶¹",
+  "item.vmd.ice_crystal2": "凛冰元素水晶²",
+  "item.vmd.ice_crystal3": "凛冰元素水晶³",
+
+  "item.vmd.lightning_element_piece0": "微型怒雷元素碎片",
+  "item.vmd.lightning_element_piece1": "小型怒雷元素碎片",
+  "item.vmd.lightning_element_piece2": "中型怒雷元素碎片",
+  "item.vmd.lightning_crystal0": "怒雷元素水晶",
+  "item.vmd.lightning_crystal1": "怒雷元素水晶¹",
+  "item.vmd.lightning_crystal2": "怒雷元素水晶²",
+  "item.vmd.lightning_crystal3": "怒雷元素水晶³",
+
+  "item.vmd.wind_element_piece0": "微型澄风元素碎片",
+  "item.vmd.wind_element_piece1": "小型澄风元素碎片",
+  "item.vmd.wind_element_piece2": "中型澄风元素碎片",
+  "item.vmd.wind_crystal0": "澄风元素水晶",
+  "item.vmd.wind_crystal1": "澄风元素水晶¹",
+  "item.vmd.wind_crystal2": "澄风元素水晶²",
+  "item.vmd.wind_crystal3": "澄风元素水晶³",
+
+  "item.vmd.rainbow_powder": "七色棱镜碎末",
+  "item.vmd.rainbow_crystal": "七色棱镜",
+
+  "item.vmd.life_teleport_ticket": "生机岛传送符",
+  "item.vmd.wind_teleport_ticket": "镇风高厦传送符",
+  "item.vmd.stone_teleport_ticket": "层岩寨传送符",
+  "item.vmd.fire_teleport_ticket": "炽焰终焉之境传送符",
+  "item.vmd.water_teleport_ticket": "碧水宫传送符",
+  "item.vmd.lightning_teleport_ticket": "怒雷岛传送符",
+  "item.vmd.ice_teleport_ticket": "凛冰之境传送符",
+
+  "item.vmd.life_holy_stone_0": "生机圣痕 - 力量",
+  "item.vmd.life_holy_stone_1": "生机圣痕 - 敏捷",
+  "item.vmd.life_holy_stone_2": "生机圣痕 - 智慧",
+
+  "item.vmd.water_holy_stone_0": "碧水圣痕 - 力量",
+  "item.vmd.water_holy_stone_1": "碧水圣痕 - 敏捷",
+  "item.vmd.water_holy_stone_2": "碧水圣痕 - 智慧",
+
+  "item.vmd.fire_holy_stone_0": "炽焰圣痕 - 力量",
+  "item.vmd.fire_holy_stone_1": "炽焰圣痕 - 敏捷",
+  "item.vmd.fire_holy_stone_2": "炽焰圣痕 - 智慧",
+
+  "item.vmd.stone_holy_stone_0": "层岩圣痕 - 力量",
+  "item.vmd.stone_holy_stone_1": "层岩圣痕 - 敏捷",
+  "item.vmd.stone_holy_stone_2": "层岩圣痕 - 智慧",
+
+  "item.vmd.ice_holy_stone_0": "凛冰圣痕 - 力量",
+  "item.vmd.ice_holy_stone_1": "凛冰圣痕 - 敏捷",
+  "item.vmd.ice_holy_stone_2": "凛冰圣痕 - 智慧",
+
+  "item.vmd.lightning_holy_stone_0": "怒雷圣痕 - 力量",
+  "item.vmd.lightning_holy_stone_1": "怒雷圣痕 - 敏捷",
+  "item.vmd.lightning_holy_stone_2": "怒雷圣痕 - 智慧",
+
+  "item.vmd.wind_holy_stone_0": "澄风圣痕 - 力量",
+  "item.vmd.wind_holy_stone_1": "澄风圣痕 - 敏捷",
+  "item.vmd.wind_holy_stone_2": "澄风圣痕 - 智慧",
+
+  "item.vmd.sora_sword": "高频村雨-Jetstream Sam",
+  "item.vmd.sora_sword_paper": "高频村雨-Jetstream Sam获取券",
+
+  "item.vmd.black_feisa_curios5": "宇将军",
+  "item.vmd.black_feisa_curios5_paper": "宇将军获取券",
+
+  "item.vmd.life_element_sword": "盎然之剑",
+  "item.vmd.life_element_bow": "盎然长弓",
+  "item.vmd.life_element_sceptre": "盎然之杖",
+
+  "item.vmd.life_element_sword_forge_draw": "盎然之剑锻造图",
+  "item.vmd.life_element_bow_forge_draw": "盎然长弓锻造图",
+  "item.vmd.life_element_sceptre_forge_draw": "盎然之杖锻造图",
+
+  "item.vmd.water_element_sword": "若水之剑",
+  "item.vmd.water_element_bow": "若水长弓",
+  "item.vmd.water_element_sceptre": "若水之杖",
+
+  "item.vmd.water_element_sword_forge_draw": "若水之剑锻造图",
+  "item.vmd.water_element_bow_forge_draw": "若水长弓锻造图",
+  "item.vmd.water_element_sceptre_forge_draw": "若水之杖锻造图",
+
+  "item.vmd.beacon_killpaper": "烽火台哨卫征讨券",
+  "item.vmd.tree_killpaper": "古树魔能研究者征讨券",
+  "item.vmd.blaze_killpaper": "熔岩湖溢出物征讨券",
+  "item.vmd.star_killpaper": "梦灵征讨券",
+  "item.vmd.life_element_killpaper": "生机元素征讨券",
+  "item.vmd.water_element_killpaper": "碧水元素征讨券",
+  "item.vmd.fire_element_killpaper": "炽焰元素征讨券",
+  "item.vmd.stone_element_killpaper": "层岩元素征讨券",
+  "item.vmd.ice_element_killpaper": "凛冰元素征讨券",
+  "item.vmd.lightning_element_killpaper": "怒雷元素征讨券",
+  "item.vmd.wind_element_killpaper": "澄风元素征讨券",
+
+  "item.vmd.change_log": "打开聊天窗，将鼠标移动到此位置，查看详情",
+
+  "item.vmd.fire_element_sword": "焰烬之剑",
+  "item.vmd.fire_element_bow": "焰烬长弓",
+  "item.vmd.fire_element_sceptre": "焰烬之杖",
+
+  "item.vmd.fire_element_sword_forge_draw": "焰烬之剑锻造图",
+  "item.vmd.fire_element_bow_forge_draw": "焰烬长弓锻造图",
+  "item.vmd.fire_element_sceptre_forge_draw": "焰烬之杖锻造图",
+
+  "item.vmd.shulker_soul": "寂域灵壳",
+  "item.vmd.ender_mite_soul": "寂域灵砂",
+
+  "item.vmd.end_curios": "寂域折跃之戒",
+  "item.vmd.end_curios1": "寂域跃迁之戒",
+
+  "item.vmd.end_curios_forge_draw": "寂域折跃之戒锻造图",
+  "item.vmd.end_curios1_forge_draw": "寂域跃迁之戒锻造图",
+
+  "item.vmd.end_crystal": "终界水晶",
+
+  "item.vmd.heihuang_curios": "图书馆勋章",
+  "item.vmd.heihuang_curios_paper": "图书馆勋章获取券",
+
+  "item.vmd.hgj_curios": "烈弓之矢",
+  "item.vmd.hgj_curios_paper": "烈弓之矢获取券",
+
+  "item.vmd.rose_gold_coin": "紫金币",
 
   "key.category.vmd.vmd": "维瑞阿契键位",
   "key.vmd.ues_drugs": "使用回复物品",
@@ -1231,6 +1419,8 @@
   "effect.vmd.lightningarmor": "唤雷",
   "effect.vmd.seasword": "水葬",
   "effect.vmd.blackforestsword": "土葬",
+  "effect.vmd.warm": "温暖",
+
 
 
   "effect.vmd.attackup": "攻击提升",
