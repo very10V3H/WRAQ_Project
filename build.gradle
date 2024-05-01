@@ -5,8 +5,8 @@ plugins {
     id 'org.spongepowered.mixin' version '0.7.+'
 }
 
-version = '1.1'
-group = 'com.yourname.modid' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+version = '1.0.2'
+group = 'com.very.vmd' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'vmd'
 
 // Mojang ships Java 17 to end users in 1.18+, so your mod should target Java 17.
@@ -144,13 +144,22 @@ repositories {
         name "KosmX's maven"
         url 'https://maven.kosmx.dev/'
     }
+
+    maven { url 'https://maven.blamejared.com' }
+
+    maven {
+        url "https://cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
+    }
 }
 
 dependencies {
     // Specify the version of Minecraft to use. If this is any group other than 'net.minecraft', it is assumed
     // that the dep is a ForgeGradle 'patcher' dependency, and its patches will be applied.
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
-    minecraft 'net.minecraftforge:forge:1.20.1-47.1.0'
+    minecraft 'net.minecraftforge:forge:1.20.1-47.2.0'
 
     // Real mod deobf dependency examples - these get remapped to your current mappings
     // compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api") // Adds JEI API as a compile dependency
@@ -167,6 +176,12 @@ dependencies {
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:5.2.0-beta.3+1.20.1:api")
     implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.20.1:4.2.1')
     implementation fg.deobf("dev.kosmx.player-anim:player-animation-lib-forge:1.0.2-rc1+1.20")
+    compileOnly fg.deobf("vazkii.patchouli:Patchouli:[1.20.1-84-FORGE]:api")
+    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:[1.20.1-84-FORGE]")
+
+    implementation 'com.mysql:mysql-connector-j:8.3.0'
+    implementation fg.deobf("curse.maven:MySQL-561280:3685108")
+    implementation 'redis.clients:jedis:3.7.0'
 }
 
 // Example for how to get properties into the manifest for reading at runtime.
