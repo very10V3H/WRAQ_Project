@@ -3,6 +3,7 @@ package com.very.wraq.netWorking.misc.SmartPhonePackets;
 import com.very.wraq.files.MarketItemInfo;
 import com.very.wraq.netWorking.ModNetworking;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkEvent;

@@ -1,11 +1,12 @@
 package com.very.wraq.customized.players.sceptre.Black_Feisa_;
 
 import com.very.wraq.customized.players.sceptre.liulixian_.LiulixianCurios2;
-import com.very.wraq.netWorking.customized.PlayerFlyingSpeedSetS2CPacket;
 import com.very.wraq.netWorking.ModNetworking;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.netWorking.customized.PlayerFlyingSpeedSetS2CPacket;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -150,7 +151,7 @@ public class BlackFeisaCurios4 extends Item implements ICurioItem {
 
     public static double MovementSpeed(Player player) {
         if (!PlayerIsUnderProtect(player)) return 0;
-        return Compute.PlayerAttributes.PlayerManaRecover(player) * 0.25 / 100;
+        return PlayerAttributes.PlayerManaRecover(player) * 0.25 / 100;
     }
 
     public static void ClearEffect(Player player) {
@@ -177,7 +178,7 @@ public class BlackFeisaCurios4 extends Item implements ICurioItem {
         ClearEffect(player);
         if (player.tickCount % 50 == 0 && !player.isCreative()) {
             if (!PlayerIsUnderProtect(player) && !LiulixianCurios2.IsOn(player)) ModNetworking.sendToClient(new PlayerFlyingSpeedSetS2CPacket(0), (ServerPlayer) player);
-            else ModNetworking.sendToClient(new PlayerFlyingSpeedSetS2CPacket((Compute.PlayerAttributes.PlayerMovementSpeed(player) + 1) * 0.015), (ServerPlayer) player);
+            else ModNetworking.sendToClient(new PlayerFlyingSpeedSetS2CPacket((PlayerAttributes.PlayerMovementSpeed(player) + 1) * 0.015), (ServerPlayer) player);
         }
     }
 }

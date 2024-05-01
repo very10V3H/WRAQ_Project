@@ -5,6 +5,7 @@ import com.very.wraq.customized.players.sceptre.shangmengli.ShangMengLiSword;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.ModEntityType;
 import com.very.wraq.valueAndTools.Utils.StringUtils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
@@ -68,11 +69,11 @@ public class ShangMengLiSwordAir extends AbstractArrow implements GeoEntity {
                 int TickCount = player.getServer().getTickCount();
                 Entity entity = result.getEntity();
                 ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW.get(), player, player.level(),
-                        Compute.PlayerAttributes.PlayerManaDamage(player),
-                        Compute.PlayerAttributes.PlayerManaPenetration(player),
-                        Compute.PlayerAttributes.PlayerManaPenetration0(player), StringUtils.ParticleTypes.EndParticle);
-                ManaAttackModule.BasicAttack(player, entity, Compute.PlayerAttributes.PlayerManaDamage(player),
-                        Compute.PlayerAttributes.PlayerManaPenetration(player), Compute.PlayerAttributes.PlayerManaPenetration0(player),
+                        PlayerAttributes.PlayerManaDamage(player),
+                        PlayerAttributes.PlayerManaPenetration(player),
+                        PlayerAttributes.PlayerManaPenetration0(player), StringUtils.ParticleTypes.EndParticle);
+                ManaAttackModule.BasicAttack(player, entity, PlayerAttributes.PlayerManaDamage(player),
+                        PlayerAttributes.PlayerManaPenetration(player), PlayerAttributes.PlayerManaPenetration0(player),
                         player.level(), newArrow);
                 ShangMengLiSword.ShangMengLiSwordAirDamageUpTick = TickCount + 100;
                 Compute.PlayerManaAddOrCost(player, 20);
@@ -81,7 +82,7 @@ public class ShangMengLiSwordAir extends AbstractArrow implements GeoEntity {
             else {
                 Entity entity = result.getEntity();
                 if (!(entity instanceof Mob)) return;
-                Compute.Damage.ManaDamageToMonster_RateApDamage(player,(Mob) entity,1 + 3 * Compute.PlayerAttributes.PlayerCoolDownDecrease(player),isPower);
+                Compute.Damage.ManaDamageToMonster_RateApDamage(player,(Mob) entity,1 + 3 * PlayerAttributes.PlayerCoolDownDecrease(player),isPower);
                 Compute.PlayerManaAddOrCost(player, 20);
                 player.sendSystemMessage(Component.literal("true"));
             }

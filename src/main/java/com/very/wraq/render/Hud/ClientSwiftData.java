@@ -1,4 +1,4 @@
-package com.very.wraq.render.Hud;
+package com.very.wraq.render.hud;
 
 public class ClientSwiftData {
 

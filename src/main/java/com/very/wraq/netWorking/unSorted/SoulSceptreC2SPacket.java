@@ -4,6 +4,7 @@ import com.very.wraq.projectiles.mana.Meteorite;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.ModEntityType;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
@@ -44,9 +45,9 @@ public class SoulSceptreC2SPacket {
                 meteorite.moveTo(vec3.add(0,10,0));
                 serverPlayer.level().addFreshEntity(meteorite);
                 Utils.PlayerSoulSceptreCoolDown.put((Player) serverPlayer,
-                       TickCount + (int) (160 * (1 - Compute.PlayerAttributes.PlayerCoolDownDecrease(serverPlayer))));
+                       TickCount + (int) (160 * (1 - PlayerAttributes.PlayerCoolDownDecrease(serverPlayer))));
                 Compute.CoolDownTimeSend(serverPlayer,ModItems.SoulSceptre.get().getDefaultInstance(),
-                        (int) (160 * (1 - Compute.PlayerAttributes.PlayerCoolDownDecrease(serverPlayer))));
+                        (int) (160 * (1 - PlayerAttributes.PlayerCoolDownDecrease(serverPlayer))));
             }
         });
         return true;

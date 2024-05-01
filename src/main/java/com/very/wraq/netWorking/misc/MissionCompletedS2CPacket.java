@@ -26,7 +26,7 @@ public class MissionCompletedS2CPacket {
     {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork( ()->{
-            ClientUtils.MissionList.removeIf(mission -> {
+            ClientUtils.oldMissionList.removeIf(mission -> {
                 return mission.getTitle().equals(Title);
             });
             ClientUtils.MissionIndex = 0;

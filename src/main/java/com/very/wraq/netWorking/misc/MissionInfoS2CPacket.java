@@ -1,7 +1,7 @@
 package com.very.wraq.netWorking.misc;
 
 import com.very.wraq.valueAndTools.Utils.ClientUtils;
-import com.very.wraq.valueAndTools.Utils.Struct.Mission;
+import com.very.wraq.valueAndTools.Utils.Struct.OldMission;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkEvent;
@@ -44,8 +44,8 @@ public class MissionInfoS2CPacket {
     {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork( ()->{
-            Mission mission = new Mission(Title,Content,new Vec3(DesX,DesY,DesZ));
-            ClientUtils.MissionList.add(mission);
+            OldMission oldMission = new OldMission(Title,Content,new Vec3(DesX,DesY,DesZ));
+            ClientUtils.oldMissionList.add(oldMission);
             ClientUtils.Mission = true;
         });
         return true;

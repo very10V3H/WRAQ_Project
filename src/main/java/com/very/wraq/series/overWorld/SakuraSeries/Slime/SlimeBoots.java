@@ -2,7 +2,7 @@ package com.very.wraq.series.overWorld.SakuraSeries.Slime;
 
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.Utils;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.registry.ItemMaterial;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import net.minecraft.ChatFormatting;

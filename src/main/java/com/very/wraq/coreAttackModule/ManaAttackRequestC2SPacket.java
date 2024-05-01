@@ -8,12 +8,12 @@ import com.very.wraq.customized.players.sword.ZuoSI.ZuoSiCurios;
 import com.very.wraq.process.element.equipAndCurios.fireElement.FireElementSceptre;
 import com.very.wraq.process.element.equipAndCurios.lifeElement.LifeElementSceptre;
 import com.very.wraq.process.element.equipAndCurios.waterElement.WaterElementSceptre;
-import com.very.wraq.process.Particle.ParticleProvider;
-import com.very.wraq.process.Power.PowerLogic;
+import com.very.wraq.process.particle.ParticleProvider;
+import com.very.wraq.process.power.PowerLogic;
 import com.very.wraq.projectiles.mana.ManaArrow;
 import com.very.wraq.projectiles.mana.NewArrow;
 import com.very.wraq.projectiles.mana.NewArrowMagma;
-import com.very.wraq.render.Particles.ModParticles;
+import com.very.wraq.render.particles.ModParticles;
 import com.very.wraq.series.instance.Castle.CastleManaArmor;
 import com.very.wraq.series.nether.Equip.MagmaSceptre.MagmaSceptre;
 import com.very.wraq.series.nether.Equip.MagmaSceptre.MagmaSceptreAttributes;
@@ -25,6 +25,7 @@ import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.ModEntityType;
 import com.very.wraq.valueAndTools.Utils.StringUtils;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.very.wraq.valueAndTools.registry.ModSounds;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -74,8 +75,8 @@ public class ManaAttackRequestC2SPacket {
                 case 0 -> {
                     if (Compute.ManaSkillLevelGet(data,10) > 0 || Compute.PlayerManaCost(player,PlainSceptre0.ManaCost)) {
                         ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_PLAIN.get(), player,level,
-                                Compute.PlayerAttributes.PlayerManaDamage(player),Compute.PlayerAttributes.PlayerManaPenetration(player),
-                                Compute.PlayerAttributes.PlayerManaPenetration0(player), StringUtils.ParticleTypes.Plain);
+                                PlayerAttributes.PlayerManaDamage(player),PlayerAttributes.PlayerManaPenetration(player),
+                                PlayerAttributes.PlayerManaPenetration0(player), StringUtils.ParticleTypes.Plain);
                         newArrow.setSilent(true);
                         newArrow.setNoGravity(true);
                         newArrow.shootFromRotation(player,player.getXRot(),player.getYRot(),0,3,1);
@@ -89,9 +90,9 @@ public class ManaAttackRequestC2SPacket {
                     if (!level.isClientSide) {
                         if (Compute.ManaSkillLevelGet(data,10) > 0 || Compute.PlayerManaCost(player,PlainSceptre4.ManaCost)) {
                             ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_PLAIN.get(),
-                                    player, level, Compute.PlayerAttributes.PlayerManaDamage(player),
-                                    Compute.PlayerAttributes.PlayerManaPenetration(player),
-                                    Compute.PlayerAttributes.PlayerManaPenetration0(player),StringUtils.ParticleTypes.Plain);
+                                    player, level, PlayerAttributes.PlayerManaDamage(player),
+                                    PlayerAttributes.PlayerManaPenetration(player),
+                                    PlayerAttributes.PlayerManaPenetration0(player),StringUtils.ParticleTypes.Plain);
                             newArrow.setSilent(true);
                             newArrow.setNoGravity(true);
                             
@@ -108,7 +109,7 @@ public class ManaAttackRequestC2SPacket {
                 case 2 -> {
                     if (!level.isClientSide) {
                         if (Compute.ManaSkillLevelGet(data,10) > 0 || Compute.PlayerManaCost(player,EvokerSword.ManaCost)) {
-                            NewArrow newArrow = new NewArrow(player, level, Compute.PlayerAttributes.PlayerManaDamage(player), Compute.PlayerAttributes.PlayerManaPenetration(player), Compute.PlayerAttributes.PlayerExpUp(player), false, Compute.PlayerAttributes.PlayerManaPenetration0(player));
+                            NewArrow newArrow = new NewArrow(player, level, PlayerAttributes.PlayerManaDamage(player), PlayerAttributes.PlayerManaPenetration(player), PlayerAttributes.PlayerExpUp(player), false, PlayerAttributes.PlayerManaPenetration0(player));
                             newArrow.setSilent(true);
                             newArrow.setNoGravity(true);
                             
@@ -126,8 +127,8 @@ public class ManaAttackRequestC2SPacket {
                         MagmaSceptre magmaSceptre = (MagmaSceptre) player.getItemInHand(InteractionHand.MAIN_HAND).getItem();
                         int Num = magmaSceptre.getNum();
                         if (Compute.ManaSkillLevelGet(data,10) > 0 || Compute.PlayerManaCost(player, (int) MagmaSceptreAttributes.ManaCost[Num])) {
-                            NewArrowMagma newArrow = new NewArrowMagma(player, level, Compute.PlayerAttributes.PlayerManaDamage(player),
-                                    Compute.PlayerAttributes.PlayerManaPenetration(player), Compute.PlayerAttributes.PlayerExpUp(player), Compute.PlayerAttributes.PlayerManaPenetration0(player));
+                            NewArrowMagma newArrow = new NewArrowMagma(player, level, PlayerAttributes.PlayerManaDamage(player),
+                                    PlayerAttributes.PlayerManaPenetration(player), PlayerAttributes.PlayerExpUp(player), PlayerAttributes.PlayerManaPenetration0(player));
                             newArrow.setSilent(true);
                             newArrow.setNoGravity(true);
                             
@@ -145,8 +146,8 @@ public class ManaAttackRequestC2SPacket {
                         double ManaCost = SoulSceptre.getManaCost(player.getItemInHand(InteractionHand.MAIN_HAND).getOrCreateTagElement(Utils.MOD_ID));
                         if (Compute.ManaSkillLevelGet(data,10) > 0 || Compute.PlayerManaCost(player, (int) ManaCost)) {
                             ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_WORLD.get(), player, level,
-                                    Compute.PlayerAttributes.PlayerManaDamage(player), Compute.PlayerAttributes.PlayerManaPenetration(player),
-                                    Compute.PlayerAttributes.PlayerManaPenetration0(player),StringUtils.ParticleTypes.Sky);
+                                    PlayerAttributes.PlayerManaDamage(player), PlayerAttributes.PlayerManaPenetration(player),
+                                    PlayerAttributes.PlayerManaPenetration0(player),StringUtils.ParticleTypes.Sky);
                             newArrow.setSilent(true);
                             newArrow.setNoGravity(true);
                             
@@ -165,9 +166,9 @@ public class ManaAttackRequestC2SPacket {
                         double ManaCost = 15;
                         if (Compute.ManaSkillLevelGet(data,10) > 0 || Compute.PlayerManaCost(player, (int) ManaCost)) {
                             ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_WORLD.get(), player,
-                                    level, Compute.PlayerAttributes.PlayerManaDamage(player),
-                                    Compute.PlayerAttributes.PlayerManaPenetration(player),
-                                    Compute.PlayerAttributes.PlayerManaPenetration0(player),StringUtils.ParticleTypes.Sky);
+                                    level, PlayerAttributes.PlayerManaDamage(player),
+                                    PlayerAttributes.PlayerManaPenetration(player),
+                                    PlayerAttributes.PlayerManaPenetration0(player),StringUtils.ParticleTypes.Sky);
                             newArrow.setSilent(true);
                             newArrow.setNoGravity(true);
                             
@@ -185,9 +186,9 @@ public class ManaAttackRequestC2SPacket {
                         double ManaCost = 10;
                         if (Compute.ManaSkillLevelGet(data,10) > 0 || Compute.PlayerManaCost(player, (int) ManaCost)) {
                             ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_WORLD.get(), player,
-                                    level, Compute.PlayerAttributes.PlayerManaDamage(player),
-                                    Compute.PlayerAttributes.PlayerManaPenetration(player),
-                                    Compute.PlayerAttributes.PlayerManaPenetration0(player),StringUtils.ParticleTypes.Sky);
+                                    level, PlayerAttributes.PlayerManaDamage(player),
+                                    PlayerAttributes.PlayerManaPenetration(player),
+                                    PlayerAttributes.PlayerManaPenetration0(player),StringUtils.ParticleTypes.Sky);
                             newArrow.setSilent(true);
                             newArrow.setNoGravity(true);
                             
@@ -205,9 +206,9 @@ public class ManaAttackRequestC2SPacket {
                         double ManaCost = 15;
                         if (Compute.ManaSkillLevelGet(data,10) > 0 || Compute.PlayerManaCost(player, (int) ManaCost)) {
                             ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_NETHER.get(),
-                                    player, level, Compute.PlayerAttributes.PlayerManaDamage(player),
-                                    Compute.PlayerAttributes.PlayerManaPenetration(player),
-                                    Compute.PlayerAttributes.PlayerManaPenetration0(player),StringUtils.ParticleTypes.Entropy);
+                                    player, level, PlayerAttributes.PlayerManaDamage(player),
+                                    PlayerAttributes.PlayerManaPenetration(player),
+                                    PlayerAttributes.PlayerManaPenetration0(player),StringUtils.ParticleTypes.Entropy);
                             newArrow.setSilent(true);
                             newArrow.setNoGravity(true);
                             
@@ -228,9 +229,9 @@ public class ManaAttackRequestC2SPacket {
                             Utils.ShangMengLiManaCount = true;
                             Utils.ShangMengLiDoubleManaAttackDelay = 3;
                             ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_SEA.get(), player, level,
-                                    Compute.PlayerAttributes.PlayerManaDamage(player),
-                                    Compute.PlayerAttributes.PlayerManaPenetration(player),
-                                    Compute.PlayerAttributes.PlayerManaPenetration0(player),StringUtils.ParticleTypes.Sea);
+                                    PlayerAttributes.PlayerManaDamage(player),
+                                    PlayerAttributes.PlayerManaPenetration(player),
+                                    PlayerAttributes.PlayerManaPenetration0(player),StringUtils.ParticleTypes.Sea);
                             newArrow.setSilent(true);
                             newArrow.setNoGravity(true);
                             
@@ -248,9 +249,9 @@ public class ManaAttackRequestC2SPacket {
                         double ManaCost = 15;
                         if (Compute.ManaSkillLevelGet(data,10) > 0 || Compute.PlayerManaCost(player, (int) ManaCost)) {
                             ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_WORLD.get(),
-                                    player, level, Compute.PlayerAttributes.PlayerManaDamage(player),
-                                    Compute.PlayerAttributes.PlayerManaPenetration(player),
-                                    Compute.PlayerAttributes.PlayerManaPenetration0(player),StringUtils.ParticleTypes.World,true);
+                                    player, level, PlayerAttributes.PlayerManaDamage(player),
+                                    PlayerAttributes.PlayerManaPenetration(player),
+                                    PlayerAttributes.PlayerManaPenetration0(player),StringUtils.ParticleTypes.World,true);
                             newArrow.setSilent(true);
                             newArrow.setNoGravity(true);
                             
@@ -270,9 +271,9 @@ public class ManaAttackRequestC2SPacket {
                             BlackFeisa.BlackFeisaManaCount = true;
                             BlackFeisa.DoubleManaAttackDelay = 3;
                             ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW.get(), player, level,
-                                    Compute.PlayerAttributes.PlayerManaDamage(player),
-                                    Compute.PlayerAttributes.PlayerManaPenetration(player),
-                                    Compute.PlayerAttributes.PlayerManaPenetration0(player),StringUtils.ParticleTypes.EndParticle);
+                                    PlayerAttributes.PlayerManaDamage(player),
+                                    PlayerAttributes.PlayerManaPenetration(player),
+                                    PlayerAttributes.PlayerManaPenetration0(player),StringUtils.ParticleTypes.EndParticle);
                             newArrow.setSilent(true);
                             newArrow.setNoGravity(true);
                             
@@ -288,8 +289,8 @@ public class ManaAttackRequestC2SPacket {
                 case 11 -> {
                     if (Compute.ManaSkillLevelGet(data,10) > 0 || Compute.PlayerManaCost(player,15)) {
                         ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_SNOW.get(), player,level,
-                                Compute.PlayerAttributes.PlayerManaDamage(player),Compute.PlayerAttributes.PlayerManaPenetration(player),
-                                Compute.PlayerAttributes.PlayerManaPenetration0(player),StringUtils.ParticleTypes.Sea);
+                                PlayerAttributes.PlayerManaDamage(player),PlayerAttributes.PlayerManaPenetration(player),
+                                PlayerAttributes.PlayerManaPenetration0(player),StringUtils.ParticleTypes.Sea);
                         newArrow.setSilent(true);
                         newArrow.setNoGravity(true);
 

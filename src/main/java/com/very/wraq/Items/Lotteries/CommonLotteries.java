@@ -1,6 +1,6 @@
 package com.very.wraq.Items.Lotteries;
 
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.Struct.ItemAndWeight;
 import com.very.wraq.valueAndTools.registry.ModItems;

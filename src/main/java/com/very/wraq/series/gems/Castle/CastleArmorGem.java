@@ -1,6 +1,6 @@
 package com.very.wraq.series.gems.Castle;
 
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.StringUtils;
 import com.very.wraq.valueAndTools.Utils.Utils;
@@ -25,6 +25,7 @@ public class CastleArmorGem extends Item {
         Utils.GemsManaPenetration0.put(StringUtils.GemName.CastleArmorGem,ManaPenetration0);
         Utils.DefencePenetration0.put(this,DefencePenetration0);
         Utils.ManaPenetration0.put(this,ManaPenetration0);
+        Utils.GemsTag.put(this, 1);
     }
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag)

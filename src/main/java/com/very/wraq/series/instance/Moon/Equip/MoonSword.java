@@ -1,10 +1,11 @@
 package com.very.wraq.series.instance.Moon.Equip;
 
 import com.very.wraq.Items.MobItem.MobArmor;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.BasicAttributeDescription;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.Utils;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -126,7 +127,7 @@ public class MoonSword extends SwordItem{
     public static void MoonSwordActive(Player player, Mob mob) {
         if (playerFlagMap.containsKey(player) && playerFlagMap.get(player)) {
             playerFlagMap.put(player,false);
-            Compute.PlayerShieldProvider(player,400,Compute.PlayerAttributes.PlayerAttackDamage(player) * 4);
+            Compute.PlayerShieldProvider(player,400, PlayerAttributes.PlayerAttackDamage(player) * 4);
             Compute.EffectLastTimeSend(player,ModItems.MoonSword.get().getDefaultInstance(),200);
             List<Mob> mobList = mob.level().getEntitiesOfClass(Mob.class,AABB.ofSize(mob.position(),15,15,15));
             mobList.removeIf(mob1 -> mob1.distanceTo(mob) > 6);
@@ -140,7 +141,7 @@ public class MoonSword extends SwordItem{
             List<Player> playerList = mob.level().getEntitiesOfClass(Player.class,AABB.ofSize(mob.position(),15,15,15));
             playerList.removeIf(player1 -> player1.distanceTo(mob) > 6);
             for (Player player1 : playerList) {
-                attackDamage += Compute.PlayerAttributes.PlayerAttackDamage(player1);
+                attackDamage += PlayerAttributes.PlayerAttackDamage(player1);
             }
             attackDamageNumMap.put(player,attackDamage);
             attackDamageTickMap.put(player,player.getServer().getTickCount() + 200);

@@ -2,6 +2,7 @@ package com.very.wraq.series.overWorld.MainStory_I.WaterSystem.Runes;
 
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.StringUtils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -55,7 +56,7 @@ public class LakeRune1 extends Item{
     public static double ExCritDamage(Player player) {
         CompoundTag data = player.getPersistentData();
         if (data.contains(StringUtils.LakeRune) && data.getInt(StringUtils.LakeRune) == 1) {
-            return Compute.PlayerAttributes.PlayerPowerReleaseSpeed(player);
+            return PlayerAttributes.PlayerPowerReleaseSpeed(player);
         }
         return 0;
     }

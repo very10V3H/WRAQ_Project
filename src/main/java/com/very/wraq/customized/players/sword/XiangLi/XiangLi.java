@@ -2,6 +2,7 @@ package com.very.wraq.customized.players.sword.XiangLi;
 
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffectInstance;

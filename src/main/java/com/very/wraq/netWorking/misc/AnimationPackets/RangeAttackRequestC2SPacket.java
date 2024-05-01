@@ -52,12 +52,12 @@ public class RangeAttackRequestC2SPacket {
                     Mob monster = mob;
 /*                    double Defence = Compute.MonsterDefence(monster);
                     AttackEventModule.SnowRune2(data,monster,player,Defence);
-                    double BaseDamage = Compute.PlayerAttributes.PlayerAttackDamage(player);
-                    float BreakDefense = Compute.PlayerAttributes.PlayerBreakDefence(player);
-                    double CriticalHitRate = Compute.PlayerAttributes.PlayerCriticalHitRate(player);
-                    double CHitDamage = Compute.PlayerAttributes.PlayerCriticalHitDamage(player);
+                    double BaseDamage = PlayerAttributes.PlayerAttackDamage(player);
+                    float BreakDefense = PlayerAttributes.PlayerBreakDefence(player);
+                    double CriticalHitRate = PlayerAttributes.PlayerCriticalHitRate(player);
+                    double CHitDamage = PlayerAttributes.PlayerCriticalHitDamage(player);
                     if (Utils.SnowRune2MobController.contains(monster)) Defence *= 0.5f;
-                    double BreakDefence0 = Compute.PlayerAttributes.PlayerBreakDefence0(player);
+                    double BreakDefence0 = PlayerAttributes.PlayerBreakDefence0(player);
                     int LightningArmorCount = Compute.LightningArmorCount(player);
                     if (monster instanceof Evoker && player.getItemInHand(InteractionHand.MAIN_HAND).getItem() instanceof ManaSword)
                         BreakDefense = 1.0d;
@@ -116,12 +116,12 @@ public class RangeAttackRequestC2SPacket {
             List<Player> playerList = level.getEntitiesOfClass(Player.class, AABB.ofSize(playerPos,20,20,20));
             for (Player hurter : playerList) {
                 if (hurter.getEyePosition().distanceTo(playerPos) <= 4 && Compute.Vec3Angle(hitResult.getLocation().subtract(playerPos),hurter.getEyePosition().subtract(playerPos)) < Math.PI / 4.0) {
-/*                    double Defence = Compute.PlayerAttributes.PlayerDefence(hurter);
-                    double BaseDamage = Compute.PlayerAttributes.PlayerAttackDamage(player);
-                    float BreakDefense = Compute.PlayerAttributes.PlayerBreakDefence(player);
-                    double CriticalHitRate = Compute.PlayerAttributes.PlayerCriticalHitRate(player);
-                    double CHitDamage = Compute.PlayerAttributes.PlayerCriticalHitDamage(player);
-                    double BreakDefence0 = Compute.PlayerAttributes.PlayerBreakDefence0(player);
+/*                    double Defence = PlayerAttributes.PlayerDefence(hurter);
+                    double BaseDamage = PlayerAttributes.PlayerAttackDamage(player);
+                    float BreakDefense = PlayerAttributes.PlayerBreakDefence(player);
+                    double CriticalHitRate = PlayerAttributes.PlayerCriticalHitRate(player);
+                    double CHitDamage = PlayerAttributes.PlayerCriticalHitDamage(player);
+                    double BreakDefence0 = PlayerAttributes.PlayerBreakDefence0(player);
                     data.putBoolean("IsAttack",true);
                     int LightningArmorCount = Compute.LightningArmorCount(player);
                     Random r = new Random();

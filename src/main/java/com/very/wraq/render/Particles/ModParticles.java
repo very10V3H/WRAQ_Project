@@ -1,4 +1,4 @@
-package com.very.wraq.render.Particles;
+package com.very.wraq.render.particles;
 
 import com.very.wraq.valueAndTools.Utils.Utils;
 import net.minecraft.core.particles.ParticleType;

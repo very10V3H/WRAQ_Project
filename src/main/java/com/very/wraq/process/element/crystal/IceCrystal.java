@@ -3,10 +3,11 @@ package com.very.wraq.process.element.crystal;
 
 import com.very.wraq.process.element.Element;
 import com.very.wraq.process.element.ElementValue;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.BasicAttributeDescription;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.very.wraq.valueAndTools.registry.ItemTier;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import net.minecraft.ChatFormatting;
@@ -118,9 +119,9 @@ public class IceCrystal extends SwordItem{
                 add(ModItems.IceCrystal3.get());
             }};
             itemList.forEach(item1 -> player.getCooldowns().addCooldown(item1,coolDownTick));
-            boolean isAd = Compute.PlayerAttributes.PlayerAttackDamage(player) * 4 > Compute.PlayerAttributes.PlayerManaDamage(player);
+            boolean isAd = PlayerAttributes.PlayerAttackDamage(player) * 4 > PlayerAttributes.PlayerManaDamage(player);
             Element.RangeElementProvider(player,Element.Ice,ElementValue.PlayerIceElementValue(player),
-                    isAd, isAd ? Compute.PlayerAttributes.PlayerAttackDamage(player) * 4 : Compute.PlayerAttributes.PlayerManaDamage(player),6);
+                    isAd, isAd ? PlayerAttributes.PlayerAttackDamage(player) * 4 : PlayerAttributes.PlayerManaDamage(player),6);
         }
     }
 }

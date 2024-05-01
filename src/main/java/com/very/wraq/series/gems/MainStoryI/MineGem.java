@@ -1,6 +1,6 @@
 package com.very.wraq.series.gems.MainStoryI;
 
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.StringUtils;
 import com.very.wraq.valueAndTools.Utils.Utils;
@@ -25,6 +25,7 @@ public class MineGem extends Item {
         Utils.GemsSpeedUp.put(StringUtils.GemName.MineGem,MovementSpeed);
         Utils.Defence.put(this,Defence);
         Utils.MovementSpeed.put(this,MovementSpeed);
+        Utils.GemsTag.put(this, 1);
     }
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag)

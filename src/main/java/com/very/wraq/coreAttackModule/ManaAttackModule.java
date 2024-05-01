@@ -4,6 +4,7 @@ import com.very.wraq.customized.Customize;
 import com.very.wraq.customized.players.sceptre.cgswd.CgswdCurios;
 import com.very.wraq.customized.players.sceptre.liulixian_.LiuLiXianCurios1F;
 import com.very.wraq.customized.players.sceptre.shangmengli.ShangMengLiSword;
+import com.very.wraq.customized.uniform.mana.ManaCurios1;
 import com.very.wraq.events.instance.IceKnight;
 import com.very.wraq.events.modules.AttackEventModule;
 import com.very.wraq.netWorking.ModNetworking;
@@ -11,10 +12,10 @@ import com.very.wraq.netWorking.misc.ParticlePackets.EffectParticle.ManaDefenceP
 import com.very.wraq.netWorking.misc.SkillPackets.Charging.ChargedClearS2CPacket;
 import com.very.wraq.netWorking.misc.SkillPackets.SkillImageS2CPacket;
 import com.very.wraq.process.element.Element;
-import com.very.wraq.process.Particle.ParticleProvider;
+import com.very.wraq.process.particle.ParticleProvider;
 import com.very.wraq.projectiles.mana.ManaArrow;
 import com.very.wraq.projectiles.mana.NewArrowMagma;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.instance.Castle.CastleManaArmor;
 import com.very.wraq.series.instance.Castle.CastleSceptre;
 import com.very.wraq.series.instance.Ice.IceBook;
@@ -28,6 +29,8 @@ import com.very.wraq.valueAndTools.Utils.StringUtils;
 import com.very.wraq.valueAndTools.Utils.Struct.ManaSkillStruct.ManaSkill3;
 import com.very.wraq.valueAndTools.Utils.Struct.ManaSkillStruct.ManaSkill6;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.DamageEnhances;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import com.very.wraq.valueAndTools.registry.ModSounds;
 import net.minecraft.core.BlockPos;
@@ -56,9 +59,9 @@ import static java.lang.Math.log;
 public class ManaAttackModule {
     public static void BasicAttack(Player player, Entity entity, double rate) {
         ManaArrow manaArrow = new ManaArrow(ModEntityType.NEW_ARROW.get(), player, player.level());
-        BasicAttack(player,entity,Compute.PlayerAttributes.PlayerManaDamage(player) * rate,
-                Compute.PlayerAttributes.PlayerManaPenetration(player),
-                Compute.PlayerAttributes.PlayerManaPenetration0(player),player.level(),manaArrow);
+        BasicAttack(player,entity, PlayerAttributes.PlayerManaDamage(player) * rate,
+                PlayerAttributes.PlayerManaPenetration(player),
+                PlayerAttributes.PlayerManaPenetration0(player),player.level(),manaArrow);
     }
 
 
@@ -73,7 +76,7 @@ public class ManaAttackModule {
             double Defence = Compute.MonsterManaDefence(monster);
             double ExDamage = 0;
             double DamageIgnoreDefence = 0;
-            double HealthSteal = Compute.PlayerAttributes.PlayerManaHealthSteal(player);
+            double HealthSteal = PlayerAttributes.PlayerManaHealthSteal(player);
 
             Item mainhand = player.getItemInHand(InteractionHand.MAIN_HAND).getItem();
             if (Compute.ManaSkillLevelGet(data, 11) > 0 && Utils.SceptreTag.containsKey(mainhand)) Damage = 0; //术法全析
@@ -104,16 +107,16 @@ public class ManaAttackModule {
             double DamageEnhance = 0; // 乘区0
             DamageEnhance += ManaSkill3(data, player, monster); // 机体解构（对一名目标的持续法术攻击，可以使你对该目标的伤害至多提升至2%，在5次攻击后达到最大值）
             DamageEnhance += SakuraCoreDecreaseDamage(player); // 樱妖魔核
-            DamageEnhance += Compute.PlayerCommonDamageUpOrDown(player,monster);
+            DamageEnhance += DamageEnhances.PlayerCommonDamageUpOrDown(player,monster);
             DamageEnhance += IceKnight.IceKnightHealthManaDamageFix(monster); // 冰霜骑士伤害修正
             DamageEnhance += NetherManaArmor(player,monster); // 下界混沌套装
             DamageEnhance += Customize.ManaDamageEnhance(player,monster); // Customized
-            DamageEnhance += Compute.PlayerManaDamageEnhance(player); // 魔法伤害提升
+            DamageEnhance += DamageEnhances.PlayerManaDamageEnhance(player); // 魔法伤害提升
 
             double NormalAttackDamageEnhance = 0;
-            NormalAttackDamageEnhance += Compute.PlayerNormalManaAttackDamageEnhance(player); // 普通法球攻击伤害提升
+            NormalAttackDamageEnhance += DamageEnhances.PlayerNormalManaAttackDamageEnhance(player); // 普通法球攻击伤害提升
             Random random = new Random();
-            boolean IsCrit = random.nextDouble(1) < Compute.PlayerAttributes.PlayerCritRate(player);
+            boolean IsCrit = random.nextDouble(1) < PlayerAttributes.PlayerCritRate(player);
             if (IsCrit) NormalAttackDamageEnhance += ManaSkill10(player); // 力凝魔核
             data.putBoolean(StringUtils.DamageTypes.Crit, IsCrit);
 
@@ -131,13 +134,13 @@ public class ManaAttackModule {
             DamageIgnoreDefence *= (1 + DamageEnhance);
             Damage += ExDamage;
             // final damage enhance
-            Damage *= (1 + Compute.PlayerFinalDamageEnhance(player,monster));
-            DamageIgnoreDefence *= (1 + Compute.PlayerFinalDamageEnhance(player,monster));
+            Damage *= (1 + DamageEnhances.PlayerFinalDamageEnhance(player,monster));
+            DamageIgnoreDefence *= (1 + DamageEnhances.PlayerFinalDamageEnhance(player,monster));
             // defence compute
             Damage *= Compute.ManaDefenceDamageDecreaseRate(Defence,DefencePenetration,DefencePenetration0);
             // total damage
-            Damage *= Compute.PlayerTotalDamageRate(player);
-            DamageIgnoreDefence *= Compute.PlayerTotalDamageRate(player);
+            Damage *= DamageEnhances.PlayerTotalDamageRate(player);
+            DamageIgnoreDefence *= DamageEnhances.PlayerTotalDamageRate(player);
             // 元素
             double ElementDamageEnhance = 0;
             double ElementDamageEffect = 1;
@@ -184,6 +187,7 @@ public class ManaAttackModule {
             ManaAttackModule.IceSceptre(player,monster);
             IceBook.IceBookPassive(player,monster);
             CastleSceptre.ExDamage(player,monster,Damage);
+            ManaCurios1.ManaDamageExIgnoreDefenceDamage(player,monster,Damage);
             Customize.ManaNormalAttackEffect(player,monster); // Customized
             TreeBracelet.Passive(player,monster); // 古树手镯
             MoonSceptre.Passive(player,monster); //
@@ -193,7 +197,7 @@ public class ManaAttackModule {
             if (data.getBoolean(StringUtils.Debug)) {
                 player.sendSystemMessage(Component.literal("NormalAttackDamageEnhance : " + NormalAttackDamageEnhance));
                 player.sendSystemMessage(Component.literal("DamageEnhance : " + DamageEnhance));
-                player.sendSystemMessage(Component.literal("Compute.PlayerFinalDamageEnhance(player,monster) : " + Compute.PlayerFinalDamageEnhance(player,monster)));
+                player.sendSystemMessage(Component.literal("DamageEnhances.PlayerFinalDamageEnhance(player,monster) : " + DamageEnhances.PlayerFinalDamageEnhance(player,monster)));
                 player.sendSystemMessage(Component.literal("Compute.DefenceDamageDecreaseRate(Defence, DefencePenetration, DefencePenetration0) : " + Compute.DefenceDamageDecreaseRate(Defence, DefencePenetration, DefencePenetration0)));
                 player.sendSystemMessage(Component.literal("ElementDamageEffect : " + ElementDamageEffect));
                 player.sendSystemMessage(Component.literal("ElementDamageEnhance : " + ElementDamageEnhance));
@@ -204,11 +208,11 @@ public class ManaAttackModule {
         }
         if (entity instanceof Player hurter) {
             double damage;
-            double Defence = Compute.PlayerAttributes.PlayerManaDefence(hurter);
+            double Defence = PlayerAttributes.PlayerManaDefence(hurter);
             double ExDamage = 0;
             double DamageIgnoreDefence = 0;
             double DamageEnhance = 0;
-            double HealSteal = Compute.PlayerAttributes.PlayerManaHealthSteal(player);
+            double HealSteal = PlayerAttributes.PlayerManaHealthSteal(player);
 
             ExDamage += ManaSkill12(data, player, BaseDamage); // 盈能攻击（移动、攻击以及受到攻击将会获得充能，当充能满时，下一次攻击将造成额外200%伤害，并在以目标为中心的范围内造成100%伤害）
 
@@ -500,7 +504,7 @@ public class ManaAttackModule {
                 && data.getString(StringUtils.ManaCore.ManaCore).equals(StringUtils.ManaCore.SakuraCore)
                 && !Utils.playerSakuraCoreMap.getOrDefault(player, false)) {
 
-            return Compute.PlayerAttributes.PlayerManaDamage(player);
+            return PlayerAttributes.PlayerManaDamage(player);
         }
         return 0;
     }
@@ -510,7 +514,7 @@ public class ManaAttackModule {
         if (data.contains(StringUtils.ManaCore.ManaCore)
                 && data.getString(StringUtils.ManaCore.ManaCore).equals(StringUtils.ManaCore.SakuraCore)
                 && Utils.playerSakuraCoreMap.getOrDefault(player, false)) {
-            Compute.PlayerHeal(player, Compute.PlayerAttributes.PlayerManaDamage(player) * 0.0125);
+            Compute.PlayerHeal(player, PlayerAttributes.PlayerManaDamage(player) * 0.0125);
         }
         return 0;
     }
@@ -527,7 +531,7 @@ public class ManaAttackModule {
         CompoundTag data = player.getPersistentData();
         Item mainhand = player.getItemInHand(InteractionHand.MAIN_HAND).getItem();
         if (Compute.ManaSkillLevelGet(data, 10) > 0 && Utils.SceptreTag.containsKey(mainhand)) {
-            return Compute.PlayerAttributes.PlayerCritDamage(player)  * Compute.ManaSkillLevelGet(data, 10) * 0.3;
+            return PlayerAttributes.PlayerCritDamage(player)  * Compute.ManaSkillLevelGet(data, 10) * 0.3;
         } // 法术专精-力凝魔核
         return 0;
     }
@@ -535,7 +539,7 @@ public class ManaAttackModule {
     public static double ManaSkill10DamageEnhance(Player player) {
         CompoundTag data = player.getPersistentData();
         if (Compute.ManaSkillLevelGet(data,10) > 10 && Utils.SceptreTag.containsKey(player.getMainHandItem().getItem())) {
-            return Compute.PlayerAttributes.PlayerCoolDownDecrease(player) * 0.15;
+            return PlayerAttributes.PlayerCoolDownDecrease(player) * 0.15;
         }
         return 0;
     }

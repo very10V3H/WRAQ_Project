@@ -1,14 +1,14 @@
 package com.very.wraq.valueAndTools;
 
 import com.very.wraq.process.element.Element;
-import com.very.wraq.render.ToolTip.MyClientTooltip;
+import com.very.wraq.render.toolTip.MyClientTooltip;
 import com.very.wraq.series.instance.Castle.CastleCurios;
 import com.very.wraq.series.instance.Ice.IceArmor;
 import com.very.wraq.series.overWorld.SakuraSeries.MineWorker.PurpleArmor;
 import com.very.wraq.series.worldSoul.SoulEquipAttribute;
 import com.very.wraq.valueAndTools.Utils.StringUtils;
 import com.very.wraq.valueAndTools.Utils.Utils;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import com.mojang.datafixers.util.Either;
 import net.minecraft.ChatFormatting;

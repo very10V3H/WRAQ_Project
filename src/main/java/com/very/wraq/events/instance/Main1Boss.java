@@ -2,14 +2,15 @@ package com.very.wraq.events.instance;
 
 import com.very.wraq.entities.entities.MainBoss.MainBoss;
 import com.very.wraq.events.core.LoginInEvent;
-import com.very.wraq.process.Particle.ParticleProvider;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.process.particle.ParticleProvider;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.ModEntityType;
 import com.very.wraq.valueAndTools.Utils.StringUtils;
 import com.very.wraq.valueAndTools.Utils.Struct.Instance;
 import com.very.wraq.valueAndTools.Utils.Struct.PlayerTeam;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
@@ -241,7 +242,7 @@ public class Main1Boss {
 
         }
 
-        Compute.ExpPercentGetAndMSGSend(player,0.3 * difficultyEnhanceRate,Compute.PlayerAttributes.PlayerExpUp(player),40);
+        Compute.ExpPercentGetAndMSGSend(player,0.3 * difficultyEnhanceRate,PlayerAttributes.PlayerExpUp(player),40);
 
         ItemStack itemStack1 = Main1GemsGive(player,difficultyEnhanceRate);
 

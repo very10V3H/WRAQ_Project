@@ -2,6 +2,7 @@ package com.very.wraq.coreAttackModule;
 
 import com.very.wraq.customized.players.sword.Crush.Crush1;
 import com.very.wraq.customized.players.sword.Heihuang.HeihuangCurios;
+import com.very.wraq.customized.uniform.attack.AttackCurios1;
 import com.very.wraq.entities.entities.Boss2.Boss2;
 import com.very.wraq.entities.entities.Civil.Civil;
 import com.very.wraq.events.instance.CastleSecondFloor;
@@ -13,7 +14,7 @@ import com.very.wraq.netWorking.misc.ParticlePackets.EffectParticle.CritHitParti
 import com.very.wraq.netWorking.misc.SkillPackets.Charging.ChargedClearS2CPacket;
 import com.very.wraq.netWorking.misc.SoundsPackets.SoundsS2CPacket;
 import com.very.wraq.process.element.Element;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.instance.Castle.CastleAttackArmor;
 import com.very.wraq.series.instance.Castle.CastleSword;
 import com.very.wraq.series.instance.Moon.Equip.MoonShield;
@@ -25,6 +26,8 @@ import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.StringUtils;
 import com.very.wraq.valueAndTools.Utils.Struct.Boss2Damage;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.DamageEnhances;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -59,12 +62,12 @@ public class AttackEvent {
 
         boolean mainAttack = (Rate > 0.5);
         double Defence = Compute.MonsterDefence(monster);
-        double BaseDamage = Compute.PlayerAttributes.PlayerAttackDamage(player) * Rate;
-        double DefencePenetration = Compute.PlayerAttributes.PlayerDefencePenetration(player);
-        double CritRate = Compute.PlayerAttributes.PlayerCritRate(player);
-        double CritDamage = Compute.PlayerAttributes.PlayerCritDamage(player);
+        double BaseDamage = PlayerAttributes.PlayerAttackDamage(player) * Rate;
+        double DefencePenetration = PlayerAttributes.PlayerDefencePenetration(player);
+        double CritRate = PlayerAttributes.PlayerCritRate(player);
+        double CritDamage = PlayerAttributes.PlayerCritDamage(player);
         if (Utils.SnowRune2MobController.contains(monster)) Defence *= 0.5f;
-        double DefencePenetration0 = Compute.PlayerAttributes.PlayerDefencePenetration0(player);
+        double DefencePenetration0 = PlayerAttributes.PlayerDefencePenetration0(player);
         int LightningArmorCount = Compute.LightningArmorCount(player);
         if (monster instanceof Evoker && player.getItemInHand(InteractionHand.MAIN_HAND).getItem() instanceof ManaSword)
             DefencePenetration = 1.0d;
@@ -109,14 +112,14 @@ public class AttackEvent {
 
         DamageEnhance += AttackEventModule.SwordSkill3(data, player, monster); // 破绽观察（对一名目标的持续攻击，可以使你对该目标的伤害至多提升至2%，在10次攻击后达到最大值）
         DamageEnhance += AttackEventModule.NetherArmorEffect(player, monster); // 下界套装
-        DamageEnhance += Compute.PlayerCommonDamageUpOrDown(player,monster);
-        DamageEnhance += Compute.PlayerAttackDamageEnhance(player);
+        DamageEnhance += DamageEnhances.PlayerCommonDamageUpOrDown(player,monster);
+        DamageEnhance += DamageEnhances.PlayerAttackDamageEnhance(player);
         DamageEnhance += IceKnight.IceKnightHealthAttackDamageFix(monster); // 冰霜骑士伤害修正
         DamageEnhance += AttackEventModule.CrushSwordCritDamageEnhance(player,monster);
         DamageEnhance += AttackEventModule.LengXueSword(player,monster);
 
         double NormalAttackDamageEnhance = 0;
-        NormalAttackDamageEnhance += Compute.PlayerNormalSwordAttackDamageEnhance(player); // 普通近战攻击伤害加成
+        NormalAttackDamageEnhance += DamageEnhances.PlayerNormalSwordAttackDamageEnhance(player); // 普通近战攻击伤害加成
         NormalAttackDamageEnhance += AttackEventModule.NetherShieldEffect(player,monster); // 遗骸铸盾
         NormalAttackDamageEnhance += HeihuangCurios.Passive1DamageEnhance(player, monster);
         NormalAttackDamageEnhance += HeihuangCurios.Passive2AttackDamageEnhance(player,monster);
@@ -136,6 +139,7 @@ public class AttackEvent {
             HurtEventModule.SabreDamage(player, monster);
             AttackEventModule.CrushCuriosCountsAdd(player,true);
             AttackEventModule.SnowShieldEffect(player,monster);
+            AttackCurios1.playerCritEffect(player);
         } else {
             DamageBeforeDefence = BaseDamage;
             data.putBoolean(StringUtils.DamageTypes.Crit, false);
@@ -164,13 +168,13 @@ public class AttackEvent {
         DamageBeforeDefence -= Compute.SakuraDemonSword(player, DamageBeforeDefence);
         DamageIgnoreDefence += Compute.SakuraDemonSword(player, DamageBeforeDefence);
         // Final damage decrease
-        DamageBeforeDefence *= (1 + Compute.PlayerFinalDamageEnhance(player,monster));
-        DamageIgnoreDefence *= (1 + Compute.PlayerFinalDamageEnhance(player,monster));
+        DamageBeforeDefence *= (1 + DamageEnhances.PlayerFinalDamageEnhance(player,monster));
+        DamageIgnoreDefence *= (1 + DamageEnhances.PlayerFinalDamageEnhance(player,monster));
         // Defence compute
         Damage = DamageBeforeDefence * Compute.DefenceDamageDecreaseRate(Defence, DefencePenetration, DefencePenetration0);
         // total damage
-        Damage *= Compute.PlayerTotalDamageRate(player);
-        DamageIgnoreDefence *= Compute.PlayerTotalDamageRate(player);
+        Damage *= DamageEnhances.PlayerTotalDamageRate(player);
+        DamageIgnoreDefence *= DamageEnhances.PlayerTotalDamageRate(player);
         // 元素
         double ElementDamageEnhance = 0;
         double ElementDamageEffect = 1;
@@ -190,7 +194,7 @@ public class AttackEvent {
         // Final damage cause
         Compute.Damage.DirectDamageToMob(player, monster, Damage + DamageIgnoreDefence);
         // Health steal
-        Compute.PlayerHealSteal(player, Damage * Compute.PlayerAttributes.PlayerHealthSteal(player) * 0.5);
+        Compute.PlayerHealSteal(player, Damage * PlayerAttributes.PlayerHealthSteal(player) * 0.5);
         // Display
         if (CritFlag) Compute.SummonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", Damage + DamageIgnoreDefence)).withStyle(CustomStyle.styleOfPower));
         else Compute.SummonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", Damage + DamageIgnoreDefence)).withStyle(ChatFormatting.YELLOW));
@@ -212,7 +216,7 @@ public class AttackEvent {
         if (data.getBoolean(StringUtils.Debug)) {
             player.sendSystemMessage(Component.literal("NormalAttackDamageEnhance : " + NormalAttackDamageEnhance));
             player.sendSystemMessage(Component.literal("DamageEnhance : " + DamageEnhance));
-            player.sendSystemMessage(Component.literal("Compute.PlayerFinalDamageEnhance(player,monster) : " + Compute.PlayerFinalDamageEnhance(player,monster)));
+            player.sendSystemMessage(Component.literal("DamageEnhances.PlayerFinalDamageEnhance(player,monster) : " + DamageEnhances.PlayerFinalDamageEnhance(player,monster)));
             player.sendSystemMessage(Component.literal("Compute.DefenceDamageDecreaseRate(Defence, DefencePenetration, DefencePenetration0) : " + Compute.DefenceDamageDecreaseRate(Defence, DefencePenetration, DefencePenetration0)));
             player.sendSystemMessage(Component.literal("ElementDamageEffect : " + ElementDamageEffect));
             player.sendSystemMessage(Component.literal("ElementDamageEnhance : " + ElementDamageEnhance));
@@ -222,12 +226,12 @@ public class AttackEvent {
     }
 
     public static void AttackToPlayer(Player player, Player hurter, CompoundTag data, Item equip, double Rate) {
-        double Defence = Compute.PlayerAttributes.PlayerDefence(hurter);
-        double BaseDamage = Compute.PlayerAttributes.PlayerAttackDamage(player) * Rate;
-        double BreakDefence = Compute.PlayerAttributes.PlayerDefencePenetration(player);
-        double CriticalHitRate = Compute.PlayerAttributes.PlayerCritRate(player);
-        double CHitDamage = Compute.PlayerAttributes.PlayerCritDamage(player);
-        double BreakDefence0 = Compute.PlayerAttributes.PlayerDefencePenetration0(player);
+        double Defence = PlayerAttributes.PlayerDefence(hurter);
+        double BaseDamage = PlayerAttributes.PlayerAttackDamage(player) * Rate;
+        double BreakDefence = PlayerAttributes.PlayerDefencePenetration(player);
+        double CriticalHitRate = PlayerAttributes.PlayerCritRate(player);
+        double CHitDamage = PlayerAttributes.PlayerCritDamage(player);
+        double BreakDefence0 = PlayerAttributes.PlayerDefencePenetration0(player);
         int LightningArmorCount = Compute.LightningArmorCount(player);
         Random r = new Random();
         double RanNum = r.nextDouble(1.00d);
@@ -282,7 +286,7 @@ public class AttackEvent {
     }
 
     public static double AttackSpeedRate(Player player) {
-        double AttackSpeed = Compute.PlayerAttributes.PlayerAttackSpeedUp(player);
+        double AttackSpeed = PlayerAttributes.PlayerAttackSpeedUp(player);
         double AttackIntervalTime = 1 / (4 + AttackSpeed) * 20;
         double Rate = 0;
         int TickCount = player.getServer().getTickCount();
@@ -510,7 +514,7 @@ public class AttackEvent {
             });
             ModNetworking.sendToClient(new ChargedClearS2CPacket(5),(ServerPlayer) player);
             Utils.ZeusSword.put(player,false);
-            return Compute.PlayerAttributes.PlayerAttackDamage(player) * 4;
+            return PlayerAttributes.PlayerAttackDamage(player) * 4;
         }
         return 0;
     }

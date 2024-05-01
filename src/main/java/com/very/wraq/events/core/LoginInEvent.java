@@ -25,8 +25,9 @@ import com.very.wraq.netWorking.unSorted.PlayerCallBack;
 import com.very.wraq.netWorking.unSorted.SwiftSyncS2CPacket;
 import com.very.wraq.netWorking.VersionCheckS2CPacket;
 import com.very.wraq.process.element.Element;
-import com.very.wraq.process.Parkour.Parkour;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.process.missions.series.labourDay.LabourDayMission;
+import com.very.wraq.process.parkour.Parkour;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.StringUtils;
 import com.very.wraq.valueAndTools.Utils.Struct.PlayerTeam;
@@ -473,6 +474,7 @@ public class LoginInEvent {
         data.putInt(StringUtils.OriginElementGetTimes,0);
         Compute.FormatMSGSend(player,Component.literal("日常").withStyle(CustomStyle.styleOfHealth),
                 Component.literal(" 你的日常活动已被刷新！").withStyle(ChatFormatting.WHITE));
+        LabourDayMission.acceptStatusSet(player);
     }
 
     public static void WeeklyRefreshContent(Player player) {

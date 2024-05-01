@@ -37,7 +37,7 @@ public class ModCreativeModeTab {
     public static RegistryObject<CreativeModeTab> WORLD_SOUL = CREATIVE_MODE_TAB.register("world_soul",() ->
             CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.WorldSoul1.get())).title(Component.literal("世界本源")).build());
     public static RegistryObject<CreativeModeTab> KILL_PAPER = CREATIVE_MODE_TAB.register("kill_paper",() ->
-            CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.PlainZombieKillPaper.get())).title(Component.literal("征讨券")).build());
+            CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.PlainZombieKillPaper.get())).title(Component.literal("征讨券/扫荡券")).build());
     public static RegistryObject<CreativeModeTab> FURNACE = CREATIVE_MODE_TAB.register("furnace",() ->
             CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.CrudeCoal.get())).title(Component.literal("熔炼")).build());
     public static RegistryObject<CreativeModeTab> SPRING = CREATIVE_MODE_TAB.register("spring",() ->
@@ -48,6 +48,8 @@ public class ModCreativeModeTab {
             CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.QingTuan.get())).title(Component.literal("清明")).build());
     public static RegistryObject<CreativeModeTab> ELEMENT = CREATIVE_MODE_TAB.register("elememt",() ->
             CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.LifeElementPiece2.get())).title(Component.literal("元素")).build());
+    public static RegistryObject<CreativeModeTab> LABOUR_DAY = CREATIVE_MODE_TAB.register("labour_day",() ->
+            CreativeModeTab.builder().icon(() -> new ItemStack(Items.IRON_HOE)).title(Component.literal("劳动节")).build());
 
 
 

@@ -3,6 +3,7 @@ package com.very.wraq.blocks.entity;
 import com.very.wraq.blocks.blocks.FurnaceRecipe;
 import com.very.wraq.render.gui.blocks.FurnaceMenu;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;

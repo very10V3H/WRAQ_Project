@@ -1,10 +1,11 @@
 package com.very.wraq.customized.players.sceptre.liulixian_;
 
 import com.very.wraq.customized.uniform.Attributes;
-import com.very.wraq.render.Particles.ModParticles;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.particles.ModParticles;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -150,25 +151,25 @@ public class LiulixianCurios extends Item implements ICurioItem {
 
     public static double FirstAttack(Player player) {
         if (player.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.LiuLiXianSword.get())) {
-            return Compute.PlayerAttributes.PlayerManaDamage(player) * (1 + playerNum * 0.25) + Compute.XpStrengthAPDamage(player,0.25 + playerNum * 0.25);
+            return PlayerAttributes.PlayerManaDamage(player) * (1 + playerNum * 0.25) + Compute.XpStrengthAPDamage(player,0.25 + playerNum * 0.25);
         }
         else {
-            return Compute.PlayerAttributes.PlayerManaDamage(player) * (1 + playerNum * 0.25);
+            return PlayerAttributes.PlayerManaDamage(player) * (1 + playerNum * 0.25);
         }
     }
 
     public static double SecondAttack(Player player, Mob mob) {
         if (player.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.LiuLiXianSword.get())) {
             Compute.Damage.LastXpStrengthDamageToMob(player,mob,1,40,10,false);
-            return Compute.PlayerAttributes.PlayerManaDamage(player) * (1 + playerNum * 0.25);
+            return PlayerAttributes.PlayerManaDamage(player) * (1 + playerNum * 0.25);
         }
         else {
             List<Player> playerList = player.level().getEntitiesOfClass(Player.class, AABB.ofSize(player.position(),25,25,25));
             playerList.removeIf(player1 -> player1.distanceTo(player) > 9);
             playerList.forEach(player1 -> {
-                Compute.PlayerShieldProvider(player1,60,Compute.PlayerAttributes.PlayerManaDamage(player) * (0.05 + 0.05 * playerList.size()));
+                Compute.PlayerShieldProvider(player1,60,PlayerAttributes.PlayerManaDamage(player) * (0.05 + 0.05 * playerList.size()));
             });
-            return Compute.PlayerAttributes.PlayerManaDamage(player) * (1 + playerNum * 0.25);
+            return PlayerAttributes.PlayerManaDamage(player) * (1 + playerNum * 0.25);
         }
     }
 }

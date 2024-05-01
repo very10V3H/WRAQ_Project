@@ -1,8 +1,8 @@
 package com.very.wraq.customized.players.sceptre.very_new;
 
-import com.very.wraq.process.Particle.ParticleProvider;
+import com.very.wraq.process.particle.ParticleProvider;
 import com.very.wraq.projectiles.mana.Meteorite;
-import com.very.wraq.render.Particles.ModParticles;
+import com.very.wraq.render.particles.ModParticles;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.ModEntityType;
 import com.very.wraq.valueAndTools.Utils.Utils;

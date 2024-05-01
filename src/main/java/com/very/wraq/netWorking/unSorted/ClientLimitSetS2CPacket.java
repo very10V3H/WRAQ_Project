@@ -1,6 +1,6 @@
 package com.very.wraq.netWorking.unSorted;
 
-import com.very.wraq.process.Security.Security;
+import com.very.wraq.process.security.Security;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent;
 

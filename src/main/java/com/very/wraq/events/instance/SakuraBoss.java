@@ -2,7 +2,7 @@ package com.very.wraq.events.instance;
 
 import com.very.wraq.entities.entities.Boss2.Boss2;
 import com.very.wraq.events.core.LoginInEvent;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.ModEntityType;
 import com.very.wraq.valueAndTools.Utils.StringUtils;
@@ -124,43 +124,7 @@ public class SakuraBoss {
                 if (instanceTick >= 200 && instance.getMobList().get(0) != null && Utils.instanceKillCount[4] == 1) {
                     Utils.instanceKillCount[4] = 0;
                     playerListGetByName.forEach(player -> {
-                        try {
-                            Compute.ItemStackGive(player,new ItemStack(ModItems.Boss2Piece.get(),difficultyEnhanceRate));
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                        Random random = new Random();
-                        if (random.nextDouble() <= 0.025 * (playerNum - 1) * difficultyEnhanceRate) {
-                            Compute.FormatMSGSend(player,Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
-                                    Component.literal("你通过组队挑战副本，额外获得了:").withStyle(ChatFormatting.WHITE).
-                                            append(ModItems.Boss2Piece.get().getDefaultInstance().getDisplayName()));
-                            try {
-                                Compute.ItemStackGive(player, new ItemStack(ModItems.Boss2Piece.get(),1));
-                            } catch (IOException e) {
-                                throw new RuntimeException(e);
-                            }
-                        }
-
-                        if (LoginInEvent.playerDailyInstanceReward(player, 4)) {
-                            Compute.FormatMSGSend(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
-                                    Component.literal("每日首次通关副本，额外获得了:").withStyle(ChatFormatting.WHITE).
-                                            append(ModItems.Boss2Piece.get().getDefaultInstance().getDisplayName()));
-
-                            try {
-                                Compute.ItemStackGive(player, new ItemStack(ModItems.Boss2Piece.get(), 6));
-                            } catch (IOException e) {
-                                throw new RuntimeException(e);
-                            }
-
-                        }
-
-                        if (random.nextDouble() < 0.01 * (1 + Compute.PlayerLuckyUp(player))) {
-                            try {
-                                Compute.ItemStackGive(player,ModItems.GoldenShieldForgeDraw.get().getDefaultInstance());
-                            } catch (IOException e) {
-                                throw new RuntimeException(e);
-                            }
-                        }
+                        singleRewardToPlayer(player, difficultyEnhanceRate, playerNum, false);
                     });
                     playerListGetByName.forEach(player1 -> {
                         if (player1 != null) {
@@ -221,6 +185,48 @@ public class SakuraBoss {
 
                     Compute.EndTp(playerListGetByName,new Vec3(1923,169,1043));
                 }
+            }
+        }
+    }
+
+    public static void singleRewardToPlayer(Player player, int difficultyEnhanceRate, int playerNum, boolean isMopUp) {
+        try {
+            Compute.ItemStackGive(player,new ItemStack(ModItems.Boss2Piece.get(),difficultyEnhanceRate));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Random random = new Random();
+        if (!isMopUp) {
+            if (random.nextDouble() <= 0.025 * (playerNum - 1) * difficultyEnhanceRate) {
+                Compute.FormatMSGSend(player,Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
+                        Component.literal("你通过组队挑战副本，额外获得了:").withStyle(ChatFormatting.WHITE).
+                                append(ModItems.Boss2Piece.get().getDefaultInstance().getDisplayName()));
+                try {
+                    Compute.ItemStackGive(player, new ItemStack(ModItems.Boss2Piece.get(),1));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+
+        if (LoginInEvent.playerDailyInstanceReward(player, 4)) {
+            Compute.FormatMSGSend(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
+                    Component.literal("每日首次通关副本，额外获得了:").withStyle(ChatFormatting.WHITE).
+                            append(ModItems.Boss2Piece.get().getDefaultInstance().getDisplayName()));
+
+            try {
+                Compute.ItemStackGive(player, new ItemStack(ModItems.Boss2Piece.get(), 6));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+        }
+
+        if (random.nextDouble() < 0.01 * (1 + Compute.PlayerLuckyUp(player))) {
+            try {
+                Compute.ItemStackGive(player,ModItems.GoldenShieldForgeDraw.get().getDefaultInstance());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         }
     }

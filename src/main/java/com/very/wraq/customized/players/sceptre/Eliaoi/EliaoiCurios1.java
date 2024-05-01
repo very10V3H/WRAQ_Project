@@ -1,9 +1,10 @@
 package com.very.wraq.customized.players.sceptre.Eliaoi;
 
 import com.very.wraq.customized.uniform.Attributes;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -134,7 +135,7 @@ public class EliaoiCurios1 extends Item implements ICurioItem {
         double damageEnhance = 0;
         CompoundTag data = player.getPersistentData();
         if (Compute.ManaSkillLevelGet(data,11) == 10) {
-            damageEnhance += Compute.PlayerAttributes.PlayerManaDamage(player) / 40000;
+            damageEnhance += PlayerAttributes.PlayerManaDamage(player) / 40000;
         }
         if (PassiveLastTick > TickCount) damageEnhance += 1;
         return damageEnhance;
@@ -145,7 +146,7 @@ public class EliaoiCurios1 extends Item implements ICurioItem {
         double damageEnhance = 0;
         CompoundTag data = player.getPersistentData();
         if (Compute.ManaSkillLevelGet(data,10) == 10) {
-            damageEnhance += Compute.PlayerAttributes.PlayerManaDamage(player) / 40000;
+            damageEnhance += PlayerAttributes.PlayerManaDamage(player) / 40000;
         }
         return damageEnhance;
     }

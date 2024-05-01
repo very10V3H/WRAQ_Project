@@ -4,7 +4,8 @@ import com.very.wraq.process.element.Element;
 import com.very.wraq.valueAndTools.BasicAttributeDescription;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.Utils;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -50,7 +51,7 @@ public class ManaSword extends SwordItem {
         if(!level.isClientSide && useHand.equals(InteractionHand.MAIN_HAND))
         {
             CompoundTag data = player.getPersistentData();
-            player.getCooldowns().addCooldown(this,(int) (100-100*Compute.PlayerAttributes.PlayerCoolDownDecrease(player)));
+            player.getCooldowns().addCooldown(this,(int) (100-100*PlayerAttributes.PlayerCoolDownDecrease(player)));
             data.putInt("ManaSwordActive",data.getInt("MANA"));
             data.putInt("MANA",0);
             Compute.ManaStatusUpdate(player);

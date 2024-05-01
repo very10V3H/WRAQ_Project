@@ -23,12 +23,17 @@ import com.very.wraq.process.element.equipAndCurios.fireElement.FireEquip;
 import com.very.wraq.process.element.equipAndCurios.lifeElement.LifeElementBow;
 import com.very.wraq.process.element.equipAndCurios.lifeElement.LifeElementSceptre;
 import com.very.wraq.process.element.equipAndCurios.lifeElement.LifeElementSword;
-import com.very.wraq.process.Parkour.Parkour;
-import com.very.wraq.process.Particle.ParticleProvider;
+import com.very.wraq.process.labourDay.LabourDayIronHoe;
+import com.very.wraq.process.labourDay.LabourDayIronPickaxe;
+import com.very.wraq.process.labourDay.LabourDayMobSummon;
+import com.very.wraq.process.missions.series.labourDay.LabourDayMission;
+import com.very.wraq.process.parkour.Parkour;
+import com.very.wraq.process.particle.ParticleProvider;
+import com.very.wraq.process.missions.Mission;
 import com.very.wraq.projectiles.mana.BlazeSword;
 import com.very.wraq.projectiles.mana.SwordAir;
 import com.very.wraq.render.mobEffects.ModEffects;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.instance.Castle.CastleAttackArmor;
 import com.very.wraq.series.instance.Castle.CastleManaArmor;
 import com.very.wraq.series.instance.Castle.CastleSwiftArmor;
@@ -41,6 +46,7 @@ import com.very.wraq.valueAndTools.Utils.StringUtils;
 import com.very.wraq.valueAndTools.Utils.Struct.PosAndLastTime;
 import com.very.wraq.valueAndTools.Utils.Struct.Shield;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -119,6 +125,11 @@ public class ServerPlayerTickEvent {
             LifeElementBow.Tick(player);
             LifeElementSceptre.Tick(player);
             FireEquip.Tick(player);
+            LabourDayMobSummon.playerTick(event);
+            Mission.autoSubmit(player); // 自动检测任务是否完成
+            LabourDayIronHoe.tick(player);
+            LabourDayIronPickaxe.tick(player);
+            LabourDayMission.sendPacketsToPlayer(player);
 
             if (player.level().equals(player.getServer().getLevel(Level.END))) {
                 Vec3 vec3 = new Vec3(24.5, 88, -135.5);
@@ -140,6 +151,17 @@ public class ServerPlayerTickEvent {
                 player.sendSystemMessage(Component.literal(" 8.现在，玩家下次攻击的元素附着将会显示在十字准星左下方。").withStyle(ChatFormatting.WHITE));
                 player.sendSystemMessage(Component.literal(" 9.终末寂域新增返回终末之地。").withStyle(ChatFormatting.WHITE));
                 player.sendSystemMessage(Component.literal(" 推荐加入更新通知群：以获取更新信息:693292427").withStyle(ChatFormatting.WHITE));
+            }
+
+            if (player.tickCount % 250 == 0) Mission.autoAcceptMission(player);
+
+            if (player.tickCount == 300) {
+                if (Mission.inProgressMission(player) > 0) {
+                    Compute.FormatMSGSend(player, Component.literal("任务").withStyle(CustomStyle.styleOfFlexible),
+                            Component.literal("你有").withStyle(ChatFormatting.WHITE).
+                                    append(Component.literal("" + Mission.inProgressMission(player))).
+                                    append(Component.literal("尚未完成的任务").withStyle(ChatFormatting.WHITE)));
+                }
             }
 
             ModNetworking.sendToClient(new PacketLimitS2CPacket(150),serverPlayer);
@@ -541,8 +563,21 @@ public class ServerPlayerTickEvent {
                                         new ClientboundSetSubtitleTextPacket(Component.literal("前往" + name + "祭坛与之共鸣").withStyle(style));
                                 serverPlayer.connection.send(clientboundSetTitleTextPacket);
                                 serverPlayer.connection.send(clientboundSetSubtitleTextPacket);
-
                             }
+                            if (XpLevel == 10) Mission.acceptMission(player,
+                                    Mission.nameToSerailNumMap.get(Mission.MissionName.LifeElementAltar));
+                            if (XpLevel == 25) Mission.acceptMission(player,
+                                    Mission.nameToSerailNumMap.get(Mission.MissionName.WaterElementAltar));
+                            if (XpLevel == 32) Mission.acceptMission(player,
+                                    Mission.nameToSerailNumMap.get(Mission.MissionName.FireElementAltar));
+                            if (XpLevel == 40) Mission.acceptMission(player,
+                                    Mission.nameToSerailNumMap.get(Mission.MissionName.StoneElementAltar));
+                            if (XpLevel == 40) Mission.acceptMission(player,
+                                    Mission.nameToSerailNumMap.get(Mission.MissionName.IceElementAltar));
+                            if (XpLevel == 70) Mission.acceptMission(player,
+                                    Mission.nameToSerailNumMap.get(Mission.MissionName.WindElementAltar));
+                            if (XpLevel == 70) Mission.acceptMission(player,
+                                    Mission.nameToSerailNumMap.get(Mission.MissionName.LightningElementAltar));
                         });
 
                         if (XpLevel == 99) Compute.ItemStackGive(player,ModItems.SkillReset.get().getDefaultInstance());
@@ -571,146 +606,36 @@ public class ServerPlayerTickEvent {
                         data.putInt(StringUtils.ExpLevel,XpLevel + 1);
                         data.putDouble("Xp", Xp - needXpForLevelUp);
                         player.experienceProgress = (float) Rate;
-                        if (player.experienceLevel == 5 && !data.contains("5Level")) {
-                            ModNetworking.sendToClient(new SoundsS2CPacket(3), (ServerPlayer) player);
-                            data.putBoolean("5Level", true);
-                            ItemStack itemStack = ModItems.NewCurios.get().getDefaultInstance();
-                            ItemStack itemStack1 = ModItems.LevelReward5.get().getDefaultInstance();
-                            Compute.FormatMSGSend(player, Component.literal("经验").withStyle(ChatFormatting.LIGHT_PURPLE),
-                                    Component.literal("通过提升等级，你获得了").withStyle(ChatFormatting.WHITE).append(itemStack.getDisplayName()));
-                            Compute.FormatMSGSend(player, Component.literal("经验").withStyle(ChatFormatting.LIGHT_PURPLE),
-                                    Component.literal("通过提升等级，你获得了").withStyle(ChatFormatting.WHITE).append(itemStack1.getDisplayName()));
-                            Compute.ItemStackGive(player, itemStack);
-                            Compute.ItemStackGive(player, itemStack1);
-                            Compute.FormatMSGSend(player, Component.literal("经验").withStyle(ChatFormatting.LIGHT_PURPLE),
-                                    Component.literal(player.getName().getString() + "通过探索，达到了").withStyle(ChatFormatting.WHITE).
-                                            append(Component.literal("5").withStyle(ChatFormatting.LIGHT_PURPLE)).
-                                            append(Component.literal("级").withStyle(ChatFormatting.WHITE)));
+                        if (player.experienceLevel % 5 == 0 && player.experienceLevel <= 60) {
+                            int num = player.experienceLevel;
+                            List<ItemStack> itemStackList = new ArrayList<>(){{
+                                add(ModItems.LevelReward5.get().getDefaultInstance());
+                                add(ModItems.LevelReward10.get().getDefaultInstance());
+                                add(ModItems.LevelReward15.get().getDefaultInstance());
+                                add(ModItems.LevelReward20.get().getDefaultInstance());
+                                add(ModItems.LevelReward25.get().getDefaultInstance());
+                                add(ModItems.LevelReward30.get().getDefaultInstance());
+                                add(ModItems.LevelReward35.get().getDefaultInstance());
+                                add(ModItems.LevelReward40.get().getDefaultInstance());
+                                add(ModItems.LevelReward45.get().getDefaultInstance());
+                                add(ModItems.LevelReward50.get().getDefaultInstance());
+                                add(ModItems.LevelReward55.get().getDefaultInstance());
+                                add(ModItems.LevelReward60.get().getDefaultInstance());
+                            }};
 
-                        } else if (player.experienceLevel == 10 && !data.contains("10Level")) {
+                            ItemStack itemStack = itemStackList.get(num / 5 - 1);
+                            if (num == 5) Compute.ItemStackGive(player, ModItems.LevelReward5.get().getDefaultInstance());
                             ModNetworking.sendToClient(new SoundsS2CPacket(3), (ServerPlayer) player);
-                            data.putBoolean("10Level", true);
-                            ItemStack itemStack = ModItems.LevelReward10.get().getDefaultInstance();
+                            data.putBoolean(num + "Level", true);
                             Compute.FormatMSGSend(player, Component.literal("经验").withStyle(ChatFormatting.LIGHT_PURPLE),
                                     Component.literal("通过提升等级，你获得了").withStyle(ChatFormatting.WHITE).append(itemStack.getDisplayName()));
-                            Compute.ItemStackGive(player, itemStack);
                             Compute.FormatMSGSend(player, Component.literal("经验").withStyle(ChatFormatting.LIGHT_PURPLE),
                                     Component.literal(player.getName().getString() + "通过探索，达到了").withStyle(ChatFormatting.WHITE).
-                                            append(Component.literal("10").withStyle(ChatFormatting.LIGHT_PURPLE)).
+                                            append(Component.literal("" + num).withStyle(ChatFormatting.LIGHT_PURPLE)).
                                             append(Component.literal("级").withStyle(ChatFormatting.WHITE)));
-                        } else if (player.experienceLevel == 15 && !data.contains("15Level")) {
-                            ModNetworking.sendToClient(new SoundsS2CPacket(3), (ServerPlayer) player);
-                            data.putBoolean("15Level", true);
-                            ItemStack itemStack = ModItems.LevelReward15.get().getDefaultInstance();
-                            Compute.FormatMSGSend(player, Component.literal("经验").withStyle(ChatFormatting.LIGHT_PURPLE),
-                                    Component.literal("通过提升等级，你获得了").withStyle(ChatFormatting.WHITE).append(itemStack.getDisplayName()));
-                            Compute.ItemStackGive(player, itemStack);
-                            Compute.FormatMSGSend(player, Component.literal("经验").withStyle(ChatFormatting.LIGHT_PURPLE),
-                                    Component.literal(player.getName().getString() + "通过探索，达到了").withStyle(ChatFormatting.WHITE).
-                                            append(Component.literal("15").withStyle(ChatFormatting.LIGHT_PURPLE)).
-                                            append(Component.literal("级").withStyle(ChatFormatting.WHITE)));
-                        } else if (player.experienceLevel == 20 && !data.contains("20Level")) {
-                            ModNetworking.sendToClient(new SoundsS2CPacket(3), (ServerPlayer) player);
-                            data.putBoolean("20Level", true);
-                            ItemStack itemStack = ModItems.LevelReward20.get().getDefaultInstance();
-                            Compute.FormatMSGSend(player, Component.literal("经验").withStyle(ChatFormatting.LIGHT_PURPLE),
-                                    Component.literal("通过提升等级，你获得了").withStyle(ChatFormatting.WHITE).append(itemStack.getDisplayName()));
-                            Compute.ItemStackGive(player, itemStack);
-                            Compute.FormatMSGSend(player, Component.literal("经验").withStyle(ChatFormatting.LIGHT_PURPLE),
-                                    Component.literal(player.getName().getString() + "通过探索，达到了").withStyle(ChatFormatting.WHITE).
-                                            append(Component.literal("20").withStyle(ChatFormatting.LIGHT_PURPLE)).
-                                            append(Component.literal("级").withStyle(ChatFormatting.WHITE)));
-                        } else if (player.experienceLevel == 25 && !data.contains("25Level")) {
-                            ModNetworking.sendToClient(new SoundsS2CPacket(3), (ServerPlayer) player);
-                            data.putBoolean("25Level", true);
-                            ItemStack itemStack = ModItems.LevelReward25.get().getDefaultInstance();
-                            Compute.FormatMSGSend(player, Component.literal("经验").withStyle(ChatFormatting.LIGHT_PURPLE),
-                                    Component.literal("通过提升等级，你获得了").withStyle(ChatFormatting.WHITE).append(itemStack.getDisplayName()));
-                            Compute.ItemStackGive(player, itemStack);
-                            Compute.FormatMSGSend(player, Component.literal("经验").withStyle(ChatFormatting.LIGHT_PURPLE),
-                                    Component.literal(player.getName().getString() + "通过探索，达到了").withStyle(ChatFormatting.WHITE).
-                                            append(Component.literal("25").withStyle(ChatFormatting.LIGHT_PURPLE)).
-                                            append(Component.literal("级").withStyle(ChatFormatting.WHITE)));
-                        } else if (player.experienceLevel == 30 && !data.contains("30Level")) {
-                            ModNetworking.sendToClient(new SoundsS2CPacket(3), (ServerPlayer) player);
-                            data.putBoolean("30Level", true);
-                            ItemStack itemStack = ModItems.LevelReward30.get().getDefaultInstance();
-                            Compute.FormatMSGSend(player, Component.literal("经验").withStyle(ChatFormatting.LIGHT_PURPLE),
-                                    Component.literal("通过提升等级，你获得了").withStyle(ChatFormatting.WHITE).append(itemStack.getDisplayName()));
-                            player.addItem(itemStack);
-                            Compute.FormatMSGSend(player, Component.literal("经验").withStyle(ChatFormatting.LIGHT_PURPLE),
-                                    Component.literal(player.getName().getString() + "通过探索，达到了").withStyle(ChatFormatting.WHITE).
-                                            append(Component.literal("30").withStyle(ChatFormatting.LIGHT_PURPLE)).
-                                            append(Component.literal("级").withStyle(ChatFormatting.WHITE)));
-                        } else if (player.experienceLevel == 35 && !data.contains("35Level")) {
-                            ModNetworking.sendToClient(new SoundsS2CPacket(3), (ServerPlayer) player);
-                            data.putBoolean("35Level", true);
-                            ItemStack itemStack = ModItems.LevelReward35.get().getDefaultInstance();
-                            Compute.FormatMSGSend(player, Component.literal("经验").withStyle(ChatFormatting.LIGHT_PURPLE),
-                                    Component.literal("通过提升等级，你获得了").withStyle(ChatFormatting.WHITE).append(itemStack.getDisplayName()));
-                            Compute.ItemStackGive(player, itemStack);
-                            Compute.FormatMSGSend(player, Component.literal("经验").withStyle(ChatFormatting.LIGHT_PURPLE),
-                                    Component.literal(player.getName().getString() + "通过探索，达到了").withStyle(ChatFormatting.WHITE).
-                                            append(Component.literal("35").withStyle(ChatFormatting.LIGHT_PURPLE)).
-                                            append(Component.literal("级").withStyle(ChatFormatting.WHITE)));
-                        } else if (player.experienceLevel == 40 && !data.contains("40Level")) {
-                            ModNetworking.sendToClient(new SoundsS2CPacket(3), (ServerPlayer) player);
-                            data.putBoolean("40Level", true);
-                            ItemStack itemStack = ModItems.LevelReward40.get().getDefaultInstance();
-                            Compute.FormatMSGSend(player, Component.literal("经验").withStyle(ChatFormatting.LIGHT_PURPLE),
-                                    Component.literal("通过提升等级，你获得了").withStyle(ChatFormatting.WHITE).append(itemStack.getDisplayName()));
-                            Compute.ItemStackGive(player, itemStack);
-                            Compute.FormatMSGSend(player, Component.literal("经验").withStyle(ChatFormatting.LIGHT_PURPLE),
-                                    Component.literal(player.getName().getString() + "通过探索，达到了").withStyle(ChatFormatting.WHITE).
-                                            append(Component.literal("40").withStyle(ChatFormatting.LIGHT_PURPLE)).
-                                            append(Component.literal("级").withStyle(ChatFormatting.WHITE)));
-                        } else if (player.experienceLevel == 45 && !data.contains("45Level")) {
-                            ModNetworking.sendToClient(new SoundsS2CPacket(3), (ServerPlayer) player);
-                            data.putBoolean("45Level", true);
-                            ItemStack itemStack = ModItems.LevelReward45.get().getDefaultInstance();
-                            Compute.FormatMSGSend(player, Component.literal("经验").withStyle(ChatFormatting.LIGHT_PURPLE),
-                                    Component.literal("通过提升等级，你获得了").withStyle(ChatFormatting.WHITE).append(itemStack.getDisplayName()));
-                            Compute.ItemStackGive(player, itemStack);
-                            Compute.FormatMSGSend(player, Component.literal("经验").withStyle(ChatFormatting.LIGHT_PURPLE),
-                                    Component.literal(player.getName().getString() + "通过探索，达到了").withStyle(ChatFormatting.WHITE).
-                                            append(Component.literal("45").withStyle(ChatFormatting.LIGHT_PURPLE)).
-                                            append(Component.literal("级").withStyle(ChatFormatting.WHITE)));
-                        } else if (player.experienceLevel == 50 && !data.contains("50Level")) {
-                            ModNetworking.sendToClient(new SoundsS2CPacket(3), (ServerPlayer) player);
-                            data.putBoolean("50Level", true);
-                            ItemStack itemStack = ModItems.LevelReward50.get().getDefaultInstance();
-                            Compute.FormatMSGSend(player, Component.literal("经验").withStyle(ChatFormatting.LIGHT_PURPLE),
-                                    Component.literal("通过提升等级，你获得了").withStyle(ChatFormatting.WHITE).append(itemStack.getDisplayName()));
-                            Compute.ItemStackGive(player, itemStack);
-                            Compute.FormatMSGSend(player, Component.literal("经验").withStyle(ChatFormatting.LIGHT_PURPLE),
-                                    Component.literal(player.getName().getString() + "通过探索，达到了").withStyle(ChatFormatting.WHITE).
-                                            append(Component.literal("50").withStyle(ChatFormatting.LIGHT_PURPLE)).
-                                            append(Component.literal("级").withStyle(ChatFormatting.WHITE)));
-                        } else if (player.experienceLevel == 55 && !data.contains("55Level")) {
-                            ModNetworking.sendToClient(new SoundsS2CPacket(3), (ServerPlayer) player);
-                            data.putBoolean("55Level", true);
-                            ItemStack itemStack = ModItems.LevelReward55.get().getDefaultInstance();
-                            itemStack.getOrCreateTagElement(Utils.MOD_ID);
-                            Compute.FormatMSGSend(player, Component.literal("经验").withStyle(ChatFormatting.LIGHT_PURPLE),
-                                    Component.literal("通过提升等级，你获得了").withStyle(ChatFormatting.WHITE).append(itemStack.getDisplayName()));
-                            Compute.ItemStackGive(player, itemStack);
-                            Compute.FormatMSGSend(player, Component.literal("经验").withStyle(ChatFormatting.LIGHT_PURPLE),
-                                    Component.literal(player.getName().getString() + "通过探索，达到了").withStyle(ChatFormatting.WHITE).
-                                            append(Component.literal("55").withStyle(ChatFormatting.LIGHT_PURPLE)).
-                                            append(Component.literal("级").withStyle(ChatFormatting.WHITE)));
-                        } else if (player.experienceLevel == 60 && !data.contains("60Level")) {
-                            ModNetworking.sendToClient(new SoundsS2CPacket(3), (ServerPlayer) player);
-                            data.putBoolean("60Level", true);
-                            ItemStack itemStack = ModItems.LevelReward60.get().getDefaultInstance();
-                            itemStack.getOrCreateTagElement(Utils.MOD_ID);
-                            Compute.FormatMSGSend(player, Component.literal("经验").withStyle(ChatFormatting.LIGHT_PURPLE),
-                                    Component.literal("通过提升等级，你获得了").withStyle(ChatFormatting.WHITE).append(itemStack.getDisplayName()));
-                            Compute.ItemStackGive(player, itemStack);
-                            Compute.FormatMSGSend(player, Component.literal("经验").withStyle(ChatFormatting.LIGHT_PURPLE),
-                                    Component.literal(player.getName().getString() + "通过探索，达到了").withStyle(ChatFormatting.WHITE).
-                                            append(Component.literal("60").withStyle(ChatFormatting.LIGHT_PURPLE)).
-                                            append(Component.literal("级").withStyle(ChatFormatting.WHITE)));
-                        } else if (player.experienceLevel % 5 == 0 && !data.contains(player.experienceLevel + "Level")) {
+                        }
+                        if (player.experienceLevel % 5 == 0 && !data.contains(player.experienceLevel + "Level")) {
+
                             ModNetworking.sendToClient(new SoundsS2CPacket(3), (ServerPlayer) player);
                             data.putBoolean(player.experienceLevel + "Level", true);
                             ItemStack itemStack = ModItems.GemPiece.get().getDefaultInstance();
@@ -726,36 +651,36 @@ public class ServerPlayerTickEvent {
                     } else {
                         ((ServerPlayer) player).setExperiencePoints(0);
                         ((ServerPlayer) player).setExperienceLevels(XpLevel);
-                        /*player.giveExperiencePoints((int) (Rate*needXpForLevelUpOriginal));*/
                         player.experienceProgress = (float) Rate;
                     }
                 }
             }
-            if (TmpNum % 10 == 0) // 出生点保护
-            {
+
+            // 出生点保护
+            if (TmpNum % 10 == 0) {
                 if (player.getX() >= 330 && player.getX() <= 371 && player.getZ() >= 868 && player.getZ() <= 909) {
                     player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 100, 10));
                     player.addEffect(new MobEffectInstance(MobEffects.SATURATION, 100, 10));
                 }
             }
-            // 属性赋予
 
-            ModNetworking.sendToClient(new Attribute0S2CPacket(Compute.PlayerAttributes.PlayerAttackDamage(player),
-                    Compute.PlayerAttributes.PlayerDefencePenetration(player),
-                    Compute.PlayerAttributes.PlayerCritRate(player),
-                    Compute.PlayerAttributes.PlayerCritDamage(player)), (ServerPlayer) player);
-            ModNetworking.sendToClient(new Attribute1S2CPacket(Compute.PlayerAttributes.PlayerManaDamage(player),
-                    Compute.PlayerAttributes.PlayerManaPenetration(player),
-                    Compute.PlayerAttributes.PlayerManaRecover(player),
-                    Compute.PlayerAttributes.PlayerPowerReleaseSpeed(player)), (ServerPlayer) player);
-            ModNetworking.sendToClient(new Attribute2S2CPacket(Compute.PlayerAttributes.PlayerHealthSteal(player),
-                    Compute.PlayerAttributes.PlayerDefence(player),
-                    Compute.PlayerAttributes.PlayerManaDefence(player),
-                    Compute.PlayerAttributes.PlayerMovementSpeed(player)), (ServerPlayer) player);
-            ModNetworking.sendToClient(new Attribute3S2CPacket(Compute.PlayerAttributes.PlayerDefencePenetration0(player),
-                    Compute.PlayerAttributes.PlayerManaPenetration0(player),
-                    Compute.PlayerAttributes.PlayerAttackRangeUp(player),
-                    Compute.PlayerAttributes.PlayerExpUp(player)), (ServerPlayer) player);
+            // 属性赋予
+            ModNetworking.sendToClient(new Attribute0S2CPacket(PlayerAttributes.PlayerAttackDamage(player),
+                    PlayerAttributes.PlayerDefencePenetration(player),
+                    PlayerAttributes.PlayerCritRate(player),
+                    PlayerAttributes.PlayerCritDamage(player)), (ServerPlayer) player);
+            ModNetworking.sendToClient(new Attribute1S2CPacket(PlayerAttributes.PlayerManaDamage(player),
+                    PlayerAttributes.PlayerManaPenetration(player),
+                    PlayerAttributes.PlayerManaRecover(player),
+                    PlayerAttributes.PlayerPowerReleaseSpeed(player)), (ServerPlayer) player);
+            ModNetworking.sendToClient(new Attribute2S2CPacket(PlayerAttributes.PlayerHealthSteal(player),
+                    PlayerAttributes.PlayerDefence(player),
+                    PlayerAttributes.PlayerManaDefence(player),
+                    PlayerAttributes.PlayerMovementSpeed(player)), (ServerPlayer) player);
+            ModNetworking.sendToClient(new Attribute3S2CPacket(PlayerAttributes.PlayerDefencePenetration0(player),
+                    PlayerAttributes.PlayerManaPenetration0(player),
+                    PlayerAttributes.PlayerAttackRangeUp(player),
+                    PlayerAttributes.PlayerExpUp(player)), (ServerPlayer) player);
             int Plain = -1;
             int Forest = -1;
             int Volcano = -1;
@@ -795,7 +720,7 @@ public class ServerPlayerTickEvent {
             Compute.PlayerShieldCompute(player);
 
             if (Compute.ArmorCount.Sky(player) > 0 && TmpNum % 200 == 0 && player.getHealth() / player.getMaxHealth() <= 0.4) {
-                Compute.PlayerShieldProvider(player, 200, Compute.PlayerAttributes.PlayerAttackDamage(player) * 0.1 * Compute.SkySuitEffectRate(player));
+                Compute.PlayerShieldProvider(player, 200, PlayerAttributes.PlayerAttackDamage(player) * 0.1 * Compute.SkySuitEffectRate(player));
             }
 
             if (TmpNum % 20 == 0) {

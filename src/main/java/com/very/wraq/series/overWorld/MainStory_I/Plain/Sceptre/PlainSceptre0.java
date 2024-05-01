@@ -1,13 +1,14 @@
 package com.very.wraq.series.overWorld.MainStory_I.Plain.Sceptre;
 
 import com.very.wraq.process.element.Element;
-import com.very.wraq.process.Particle.ParticleProvider;
+import com.very.wraq.process.particle.ParticleProvider;
 import com.very.wraq.projectiles.mana.ManaArrow;
 import com.very.wraq.valueAndTools.BasicAttributeDescription;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.ModEntityType;
 import com.very.wraq.valueAndTools.Utils.StringUtils;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -107,9 +108,9 @@ public class PlainSceptre0 extends SwordItem {
             {
                 Compute.PlayerManaAddOrCost(player,-ManaCost);
                 ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_PLAIN.get(),
-                        player,level,Compute.PlayerAttributes.PlayerManaDamage(player),
-                        Compute.PlayerAttributes.PlayerManaPenetration(player),
-                        Compute.PlayerAttributes.PlayerManaPenetration0(player),StringUtils.ParticleTypes.Plain);
+                        player,level,PlayerAttributes.PlayerManaDamage(player),
+                        PlayerAttributes.PlayerManaPenetration(player),
+                        PlayerAttributes.PlayerManaPenetration0(player),StringUtils.ParticleTypes.Plain);
                 newArrow.setSilent(true);
                 newArrow.setNoGravity(true);
                 

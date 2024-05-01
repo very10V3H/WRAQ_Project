@@ -4,9 +4,10 @@ import com.very.wraq.coreAttackModule.AttackEvent;
 import com.very.wraq.coreAttackModule.ManaAttackModule;
 import com.very.wraq.coreAttackModule.MyArrow;
 import com.very.wraq.Items.MobItem.MobArmor;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -131,7 +132,7 @@ public class ZuoSiCurios extends Item implements ICurioItem {
         if (Utils.BowTag.containsKey(itemStack.getItem())) {
             mobList.forEach(mob -> {
                 MyArrow myArrow = new MyArrow(EntityType.ARROW,player.level(),player,true);
-                MyArrow.CauseDamage(myArrow,mob,Compute.PlayerAttributes.PlayerAttackDamage(player));
+                MyArrow.CauseDamage(myArrow,mob,PlayerAttributes.PlayerAttackDamage(player));
             });
         } // 弓
 
@@ -170,6 +171,6 @@ public class ZuoSiCurios extends Item implements ICurioItem {
     }
 
     public static double DamageEnhance(Player player) {
-        return (Compute.PlayerAttributes.PlayerDefencePenetration(player) + Compute.PlayerAttributes.PlayerManaPenetration(player)) * 0.5;
+        return (PlayerAttributes.PlayerDefencePenetration(player) + PlayerAttributes.PlayerManaPenetration(player)) * 0.5;
     }
 }

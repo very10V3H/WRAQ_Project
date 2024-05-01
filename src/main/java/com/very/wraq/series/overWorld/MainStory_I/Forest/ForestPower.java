@@ -1,7 +1,7 @@
 package com.very.wraq.series.overWorld.MainStory_I.Forest;
 
 import com.very.wraq.process.element.Element;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.Utils;
 import net.minecraft.ChatFormatting;

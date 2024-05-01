@@ -1,8 +1,9 @@
 package com.very.wraq.customized.players.sceptre.cgswd;
 
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -107,7 +108,7 @@ public class CgswdCurios extends Item implements ICurioItem {
     public static void StoreValueAdd(Player player, double value) {
         if (!IsPlayer(player)) return;
         int TickCount = player.getServer().getTickCount();
-        double maxMana = Compute.PlayerAttributes.PlayerMaxMana(player) + 100;
+        double maxMana = PlayerAttributes.PlayerMaxMana(player) + 100;
         storeManaValue = Math.min(maxMana * 4,storeManaValue + value);
         lastStoreTick = TickCount + 200;
         Compute.EffectLastTimeSend(player,ModItems.CgswdCurios.get().getDefaultInstance(),200, (int) (storeManaValue * 100 / (maxMana * 4)),true);
@@ -116,7 +117,7 @@ public class CgswdCurios extends Item implements ICurioItem {
     public static double ExManaDamageValue(Player player) {
         if (!IsPlayer(player)) return 1;
         int TickCount = player.getServer().getTickCount();
-        double maxMana = Compute.PlayerAttributes.PlayerMaxMana(player) + 100;
+        double maxMana = PlayerAttributes.PlayerMaxMana(player) + 100;
         if (lastStoreTick > TickCount) return 1 + storeManaValue * 0.25 / (maxMana * 4);
         return 1;
     }
@@ -124,7 +125,7 @@ public class CgswdCurios extends Item implements ICurioItem {
     public static double ExManaDamageEnhance(Player player) {
         if (!IsPlayer(player)) return 0;
         int TickCount = player.getServer().getTickCount();
-        double maxMana = Compute.PlayerAttributes.PlayerMaxMana(player) + 100;
+        double maxMana = PlayerAttributes.PlayerMaxMana(player) + 100;
         if (lastStoreTick > TickCount) return storeManaValue * 0.25 / (maxMana * 4);
         return 0;
     }

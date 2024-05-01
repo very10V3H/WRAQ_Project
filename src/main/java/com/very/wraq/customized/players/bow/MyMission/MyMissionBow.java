@@ -1,11 +1,12 @@
 package com.very.wraq.customized.players.bow.MyMission;
 
 import com.very.wraq.customized.Customize;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.BasicAttributeDescription;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.StringUtils;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -139,15 +140,15 @@ public class MyMissionBow extends BowItem {
 
     public static void ArrowDamage(Player player, Mob mob) {
         Compute.Damage.AttackDamageToMonster_AdDamage(player,mob,
-                Compute.PlayerAttributes.PlayerAttackDamage(player) *
-                        (1 + Compute.PlayerAttributes.PlayerCritDamage(player)) * (MyMissionCurios1.IsOn(player) ? 3000 : 1000));
+                PlayerAttributes.PlayerAttackDamage(player) *
+                        (1 + PlayerAttributes.PlayerCritDamage(player)) * (MyMissionCurios1.IsOn(player) ? 3000 : 1000));
     }
 
     public static void Active(Player player) {
         mobArrowCountMap.forEach((mob, integer) -> {
             Compute.Damage.AttackDamageToMonster_AdDamage(player,mob,
-                    Compute.PlayerAttributes.PlayerAttackDamage(player) *
-                            (1 + Compute.PlayerAttributes.PlayerCritDamage(player)) * integer * (MyMissionCurios1.IsOn(player) ? 30 : 10));
+                    PlayerAttributes.PlayerAttackDamage(player) *
+                            (1 + PlayerAttributes.PlayerCritDamage(player)) * integer * (MyMissionCurios1.IsOn(player) ? 30 : 10));
         });
         mobArrowCountMap.clear();
     }

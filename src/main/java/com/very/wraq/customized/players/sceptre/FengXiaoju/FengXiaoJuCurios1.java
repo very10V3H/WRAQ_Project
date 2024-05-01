@@ -1,11 +1,12 @@
 package com.very.wraq.customized.players.sceptre.FengXiaoju;
 
 import com.very.wraq.customized.uniform.Attributes;
-import com.very.wraq.process.Particle.ParticleProvider;
+import com.very.wraq.process.particle.ParticleProvider;
 import com.very.wraq.projectiles.mana.NewArrow;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import com.very.wraq.valueAndTools.registry.ModSounds;
 import net.minecraft.ChatFormatting;
@@ -146,7 +147,7 @@ public class FengXiaoJuCurios1 extends Item implements ICurioItem {
 
     public static void Shoot(Player player) {
         Level level = player.level();
-        NewArrow newArrow = new NewArrow(player, level, Compute.PlayerAttributes.PlayerManaDamage(player) * 2, Compute.PlayerAttributes.PlayerManaPenetration(player), Compute.PlayerAttributes.PlayerExpUp(player), false, Compute.PlayerAttributes.PlayerManaPenetration0(player));
+        NewArrow newArrow = new NewArrow(player, level, PlayerAttributes.PlayerManaDamage(player) * 2, PlayerAttributes.PlayerManaPenetration(player), PlayerAttributes.PlayerExpUp(player), false, PlayerAttributes.PlayerManaPenetration0(player));
         newArrow.setSilent(true);
         newArrow.setNoGravity(true);
 

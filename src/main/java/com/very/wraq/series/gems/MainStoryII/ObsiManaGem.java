@@ -1,6 +1,6 @@
 package com.very.wraq.series.gems.MainStoryII;
 
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.StringUtils;
 import com.very.wraq.valueAndTools.Utils.Utils;
@@ -25,6 +25,7 @@ public class ObsiManaGem extends Item {
         Utils.GemsCoolDown.put(StringUtils.GemName.ObsiManaGem,CoolDown);
         Utils.ManaDamage.put(this,ManaDamage);
         Utils.CoolDownDecrease.put(this,CoolDown);
+        Utils.GemsTag.put(this, 1);
     }
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag)

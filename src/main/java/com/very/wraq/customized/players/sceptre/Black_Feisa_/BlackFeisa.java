@@ -2,11 +2,12 @@ package com.very.wraq.customized.players.sceptre.Black_Feisa_;
 
 import com.very.wraq.netWorking.ModNetworking;
 import com.very.wraq.netWorking.misc.SoundsPackets.SoundsS2CPacket;
-import com.very.wraq.process.Particle.ParticleProvider;
+import com.very.wraq.process.particle.ParticleProvider;
 import com.very.wraq.projectiles.mana.ManaArrow;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.ModEntityType;
 import com.very.wraq.valueAndTools.Utils.StringUtils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import com.very.wraq.valueAndTools.registry.ModSounds;
 import net.minecraft.core.particles.ParticleTypes;
@@ -40,8 +41,8 @@ public class BlackFeisa {
     public static double BlackFeisaFirstManaAttack(Player player) {
         if (player.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.BlackFeisaSceptre.get())) {
             if (!BlackFeisaManaCount) {
-                Compute.PlayerManaAddOrCost(player, (int) ((100 + Compute.PlayerAttributes.PlayerMaxMana(player)) * 0.15));
-                return Compute.PlayerAttributes.PlayerManaDamage(player) * 2;
+                Compute.PlayerManaAddOrCost(player, (int) ((100 + PlayerAttributes.PlayerMaxMana(player)) * 0.15));
+                return PlayerAttributes.PlayerManaDamage(player) * 2;
             }
         }
         return 0;
@@ -55,7 +56,7 @@ public class BlackFeisa {
                 if (PassiveExManaDamageCount < 5) PassiveExManaDamageCount++;
                 Compute.EffectLastTimeSend(player,ModItems.BlackFeisaSceptre.get().getDefaultInstance(),
                         100, PassiveExManaDamageCount);
-                return Compute.PlayerAttributes.PlayerManaDamage(player) * 2;
+                return PlayerAttributes.PlayerManaDamage(player) * 2;
             }
         }
         return 0;
@@ -91,8 +92,8 @@ public class BlackFeisa {
     public static void Shoot(Player player) {
         Level level = player.level();
         ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW.get(), player, level,
-                Compute.PlayerAttributes.PlayerManaDamage(player),
-                Compute.PlayerAttributes.PlayerManaPenetration(player), Compute.PlayerAttributes.PlayerManaPenetration0(player), StringUtils.ParticleTypes.EndParticle);
+                PlayerAttributes.PlayerManaDamage(player),
+                PlayerAttributes.PlayerManaPenetration(player), PlayerAttributes.PlayerManaPenetration0(player), StringUtils.ParticleTypes.EndParticle);
         newArrow.setSilent(true);
         newArrow.setNoGravity(true);
         

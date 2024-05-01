@@ -4,13 +4,13 @@ import com.very.wraq.customized.Customize;
 import com.very.wraq.customized.players.bow.Lei_yan233.LeiyanBow;
 import com.very.wraq.customized.players.bow.Lei_yan233.LeiyanCurios;
 import com.very.wraq.customized.players.bow.Qi_Fu.QiFuCurios1;
-import com.very.wraq.customized.uniform.BowCurios0;
+import com.very.wraq.customized.uniform.bow.BowCurios0;
 import com.very.wraq.entities.entities.Civil.Civil;
 import com.very.wraq.events.instance.IceKnight;
 import com.very.wraq.events.modules.AttackEventModule;
 import com.very.wraq.process.element.Element;
-import com.very.wraq.process.Particle.ParticleProvider;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.process.particle.ParticleProvider;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.instance.Castle.CastleBow;
 import com.very.wraq.series.instance.Castle.CastleSwiftArmor;
 import com.very.wraq.series.instance.Devil.DevilSwiftArmor;
@@ -22,6 +22,8 @@ import com.very.wraq.series.overWorld.Castle.BeaconBracelet;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.StringUtils;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.DamageEnhances;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.nbt.CompoundTag;
@@ -75,14 +77,14 @@ public class MyArrow extends AbstractArrow {
     public MyArrow(EntityType<? extends AbstractArrow> p_36717_, Level level, Player player, boolean WhetherShootByPlayer) {
         super(p_36717_, player, level);
         this.player = player;
-        this.BaseDamage = Compute.PlayerAttributes.PlayerAttackDamage(player);
+        this.BaseDamage = PlayerAttributes.PlayerAttackDamage(player);
         this.WhetherShootByPlayer = WhetherShootByPlayer;
     }
 
     public MyArrow(EntityType<? extends AbstractArrow> p_36717_, Level level, Player player, boolean WhetherShootByPlayer, double rate) {
         super(p_36717_, player, level);
         this.player = player;
-        this.BaseDamage = Compute.PlayerAttributes.PlayerAttackDamage(player) * rate;
+        this.BaseDamage = PlayerAttributes.PlayerAttackDamage(player) * rate;
         this.WhetherShootByPlayer = WhetherShootByPlayer;
     }
 
@@ -90,7 +92,7 @@ public class MyArrow extends AbstractArrow {
                    Player player, boolean WhetherShootByPlayer, boolean isManaArrow, double rate) {
         super(p_36717_, p_36718_, level);
         this.player = player;
-        this.BaseDamage = Compute.PlayerAttributes.PlayerAttackDamage(player) * rate;
+        this.BaseDamage = PlayerAttributes.PlayerAttackDamage(player) * rate;
         this.WhetherShootByPlayer = WhetherShootByPlayer;
         this.IsManaArrow = isManaArrow;
         this.AdjustOneTime = isManaArrow;
@@ -202,10 +204,10 @@ public class MyArrow extends AbstractArrow {
         Random r = new Random();
         boolean shootByPlayer = myArrow.WhetherShootByPlayer;
         boolean IsManaArrow = myArrow.IsManaArrow;
-        double DefencePenetration = Compute.PlayerAttributes.PlayerDefencePenetration(player);
-        double DefencePenetration0 = Compute.PlayerAttributes.PlayerDefencePenetration0(player);
-        double CritRate = Compute.PlayerAttributes.PlayerCritRate(player);
-        double CritDamage = Compute.PlayerAttributes.PlayerCritDamage(player);
+        double DefencePenetration = PlayerAttributes.PlayerDefencePenetration(player);
+        double DefencePenetration0 = PlayerAttributes.PlayerDefencePenetration0(player);
+        double CritRate = PlayerAttributes.PlayerCritRate(player);
+        double CritDamage = PlayerAttributes.PlayerCritDamage(player);
         ItemStack mainHandItem = player.getItemInHand(InteractionHand.MAIN_HAND);
         if (entity instanceof Mob monster && !level.isClientSide && myArrow.IsManaArrow && LeiyanCurios.IsOn(player) && shootByPlayer) {
             LeiyanCurios.CountAdd(player);
@@ -248,13 +250,13 @@ public class MyArrow extends AbstractArrow {
             DamageEnhance += AttackEventModule.BowSkill3(data, player, monster); // 习惯获取（对一名目标的持续攻击，可以使你对该目标的伤害至多提升至2%，在3次攻击后达到最大值）
             DamageEnhance += AttackEventModule.NetherArmorEffect(player, monster); // 下界套装
             DamageEnhance += AttackEventModule.NetherBow(player, monster); // 夸塔兹长弓
-            DamageEnhance += Compute.PlayerCommonDamageUpOrDown(player,monster);
-            DamageEnhance += Compute.PlayerAttackDamageEnhance(player);
+            DamageEnhance += DamageEnhances.PlayerCommonDamageUpOrDown(player,monster);
+            DamageEnhance += DamageEnhances.PlayerAttackDamageEnhance(player);
             DamageEnhance += IceKnight.IceKnightHealthAttackDamageFix(monster); // 冰霜骑士伤害修正
             DamageEnhance += AttackEventModule.GuangYiArrowDistanceDamageEnhance(player,monster);
 
             double NormalAttackDamageEnhance = 0;
-            NormalAttackDamageEnhance += Compute.PlayerNormalBowAttackDamageEnhance(player);
+            NormalAttackDamageEnhance += DamageEnhances.PlayerNormalBowAttackDamageEnhance(player);
 
             boolean CritFlag = false;
             if (r.nextDouble(1) < CritRate) {
@@ -279,13 +281,13 @@ public class MyArrow extends AbstractArrow {
             Damage *= (1 + DamageEnhance) * (1 + NormalAttackDamageEnhance);
             Damage += ExDamage;
             //
-            Damage *= (1 + Compute.PlayerFinalDamageEnhance(player,monster));
-            DamageIgnoreDefence *= (1 + Compute.PlayerFinalDamageEnhance(player,monster));
+            Damage *= (1 + DamageEnhances.PlayerFinalDamageEnhance(player,monster));
+            DamageIgnoreDefence *= (1 + DamageEnhances.PlayerFinalDamageEnhance(player,monster));
             //
             Damage *= Compute.DefenceDamageDecreaseRate(Defence, DefencePenetration, DefencePenetration0);
             // total damage
-            Damage *= Compute.PlayerTotalDamageRate(player);
-            DamageIgnoreDefence *= Compute.PlayerTotalDamageRate(player);
+            Damage *= DamageEnhances.PlayerTotalDamageRate(player);
+            DamageIgnoreDefence *= DamageEnhances.PlayerTotalDamageRate(player);
             // 元素
             double ElementDamageEnhance = 0;
             double ElementDamageEffect = 1;
@@ -332,7 +334,7 @@ public class MyArrow extends AbstractArrow {
             if (data.getBoolean(StringUtils.Debug)) {
                 player.sendSystemMessage(Component.literal("NormalAttackDamageEnhance : " + NormalAttackDamageEnhance));
                 player.sendSystemMessage(Component.literal("DamageEnhance : " + DamageEnhance));
-                player.sendSystemMessage(Component.literal("Compute.PlayerFinalDamageEnhance(player,monster) : " + Compute.PlayerFinalDamageEnhance(player,monster)));
+                player.sendSystemMessage(Component.literal("DamageEnhances.PlayerFinalDamageEnhance(player,monster) : " + DamageEnhances.PlayerFinalDamageEnhance(player,monster)));
                 player.sendSystemMessage(Component.literal("Compute.DefenceDamageDecreaseRate(Defence, DefencePenetration, DefencePenetration0) : " + Compute.DefenceDamageDecreaseRate(Defence, DefencePenetration, DefencePenetration0)));
                 player.sendSystemMessage(Component.literal("ElementDamageEffect : " + ElementDamageEffect));
                 player.sendSystemMessage(Component.literal("ElementDamageEnhance : " + ElementDamageEnhance));
@@ -345,7 +347,7 @@ public class MyArrow extends AbstractArrow {
             AttackEventModule.BowSkill6Attack(data, player, true); // 连续命中目标的箭矢，将会提供至多30%攻击力加成
             int TickCount = Objects.requireNonNull(hurter.getServer()).getTickCount();
 
-            double Defence = Compute.PlayerAttributes.PlayerDefence(hurter);
+            double Defence = PlayerAttributes.PlayerDefence(hurter);
             double damage;
             double ExDamage = 0;
             double DamageIgnoreDefence = 0;

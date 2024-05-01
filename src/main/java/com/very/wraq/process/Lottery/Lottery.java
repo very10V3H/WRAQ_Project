@@ -1,4 +1,4 @@
-package com.very.wraq.process.Lottery;
+package com.very.wraq.process.lottery;
 
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;

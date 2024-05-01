@@ -1,6 +1,7 @@
 package com.very.wraq.valueAndTools.registry;
 
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraftforge.common.data.BlockTagsProvider;

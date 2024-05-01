@@ -1,4 +1,4 @@
-package com.very.wraq.render.Hud;
+package com.very.wraq.render.hud;
 
 import com.very.wraq.valueAndTools.Utils.Utils;
 import net.minecraft.resources.ResourceLocation;

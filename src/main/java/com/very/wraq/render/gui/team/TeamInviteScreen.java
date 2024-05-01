@@ -5,6 +5,7 @@ import com.very.wraq.netWorking.misc.TeamPackets.PlayerConfirmC2SPacket;
 import com.very.wraq.netWorking.misc.TeamPackets.TeamInfoRequestC2SPacket;
 import com.very.wraq.valueAndTools.Utils.ClientUtils;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;

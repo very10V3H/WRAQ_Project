@@ -1,8 +1,8 @@
 package com.very.wraq.series.end.eventController.VolcanoRecall;
 
-import com.very.wraq.process.Particle.ParticleProvider;
-import com.very.wraq.render.Particles.ModParticles;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.process.particle.ParticleProvider;
+import com.very.wraq.render.particles.ModParticles;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.StringUtils;
 import com.very.wraq.valueAndTools.Utils.Utils;

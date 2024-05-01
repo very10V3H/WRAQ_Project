@@ -47,6 +47,8 @@ import com.very.wraq.netWorking.reputation.ReputationBuyRequestC2SPacket;
 import com.very.wraq.netWorking.reputation.ReputationValueS2CPacket;
 import com.very.wraq.netWorking.reputationMission.*;
 import com.very.wraq.netWorking.unSorted.*;
+import com.very.wraq.process.missions.netWorking.*;
+import com.very.wraq.process.missions.series.labourDay.netWorking.LabourDayMissionStatusS2CPacket;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.ClientUtils;
 import com.very.wraq.valueAndTools.Utils.Utils;
@@ -1163,6 +1165,41 @@ public class ModNetworking {
                 .decoder(ElementEffectTimeS2CPacket::new)
                 .encoder(ElementEffectTimeS2CPacket::toBytes)
                 .consumerMainThread(ElementEffectTimeS2CPacket::handle)
+                .add();
+        net.messageBuilder(MissionStatusS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(MissionStatusS2CPacket::new)
+                .encoder(MissionStatusS2CPacket::toBytes)
+                .consumerMainThread(MissionStatusS2CPacket::handle)
+                .add();
+        net.messageBuilder(MissionAcceptC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(MissionAcceptC2SPacket::new)
+                .encoder(MissionAcceptC2SPacket::toBytes)
+                .consumerMainThread(MissionAcceptC2SPacket::handle)
+                .add();
+        net.messageBuilder(MissionCancelC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(MissionCancelC2SPacket::new)
+                .encoder(MissionCancelC2SPacket::toBytes)
+                .consumerMainThread(MissionCancelC2SPacket::handle)
+                .add();
+        net.messageBuilder(MissionSubmitC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(MissionSubmitC2SPacket::new)
+                .encoder(MissionSubmitC2SPacket::toBytes)
+                .consumerMainThread(MissionSubmitC2SPacket::handle)
+                .add();
+        net.messageBuilder(MissionScreenOpenS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(MissionScreenOpenS2CPacket::new)
+                .encoder(MissionScreenOpenS2CPacket::toBytes)
+                .consumerMainThread(MissionScreenOpenS2CPacket::handle)
+                .add();
+        net.messageBuilder(MissionScreenOpenC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(MissionScreenOpenC2SPacket::new)
+                .encoder(MissionScreenOpenC2SPacket::toBytes)
+                .consumerMainThread(MissionScreenOpenC2SPacket::handle)
+                .add();
+        net.messageBuilder(LabourDayMissionStatusS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(LabourDayMissionStatusS2CPacket::new)
+                .encoder(LabourDayMissionStatusS2CPacket::toBytes)
+                .consumerMainThread(LabourDayMissionStatusS2CPacket::handle)
                 .add();
     }
 

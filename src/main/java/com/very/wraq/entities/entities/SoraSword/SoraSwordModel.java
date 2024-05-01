@@ -2,6 +2,7 @@ package com.very.wraq.entities.entities.SoraSword;
 
 import com.very.wraq.customized.players.sceptre.Sora_vanilla.SoraVanillaSword;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.model.GeoModel;
 

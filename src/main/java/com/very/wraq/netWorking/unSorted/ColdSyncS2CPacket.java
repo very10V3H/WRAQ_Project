@@ -1,6 +1,6 @@
 package com.very.wraq.netWorking.unSorted;
 
-import com.very.wraq.render.Hud.ClientColdNum;
+import com.very.wraq.render.hud.ClientColdNum;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent;
 

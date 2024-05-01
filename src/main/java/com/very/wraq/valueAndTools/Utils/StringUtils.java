@@ -1,6 +1,6 @@
 package com.very.wraq.valueAndTools.Utils;
 
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -477,6 +477,9 @@ public class StringUtils {
         public static String Shulker = "Shulker";
         public static String EnderMite = "EnderMite";
         public static String EndStray = "EndStray";
+
+        public static String LabourDay1= "LabourDay1";
+        public static String LabourDay2 = "LabourDay2";
     }
     public static String BowAttackSlowDown = "BowAttackSlowDownCount";
 
@@ -549,6 +552,7 @@ public class StringUtils {
         public static String CastleWeaponGem = "CastleWeaponGem";
         public static String CastleArmorGem = "CastleArmorGem";
         public static String QingMingGem = "QingMingGem";
+        public static String LabourDayGem = "LabourDayGem";
     }
 
     public static class PotionTypes {
@@ -795,6 +799,7 @@ public class StringUtils {
         public static String Food = "咖啡店店员";
         public static String EndRecall = "终界技艺师";
         public static String RoseGoldStore = "名商";
+        public static String LabourDayStore = "劳动节活动兑换";
     }
 
     public static class NewVillagerName {
@@ -877,6 +882,7 @@ public class StringUtils {
         public static String Food = "Food";
         public static String EndRecall = "EndRecall";
         public static String RoseGoldStore = "RoseGoldStore";
+        public static String LabourDayStore = "LabourDayStore";
     }
 
     public static Map<String, MutableComponent> VillagerNameMap = new HashMap<>(){{
@@ -959,6 +965,7 @@ public class StringUtils {
         put(NewVillagerName.Food, Component.literal(VillagerName.Food).withStyle(CustomStyle.styleOfLife));
         put(NewVillagerName.EndRecall, Component.literal(VillagerName.EndRecall).withStyle(CustomStyle.styleOfEnd));
         put(NewVillagerName.RoseGoldStore, Component.literal(VillagerName.RoseGoldStore).withStyle(CustomStyle.styleOfPurpleIron));
+        put(NewVillagerName.LabourDayStore, Component.literal(VillagerName.LabourDayStore).withStyle(ChatFormatting.GOLD));
     }};
 
     public static class Gardening {
@@ -1102,6 +1109,7 @@ public class StringUtils {
 
     public static String LotteryPrefix = "LotteryPrefix";
     public static String QingMingPrefix = "QingMingPrefix";
+    public static String LabourDayPrefix = "LabourDayPrefix";
 
     public static String LakeRune = "LakeRune";
 
@@ -1110,6 +1118,7 @@ public class StringUtils {
     public static String ClientLimit = "WraqClientLimit";
 
     public static String QingMingForgePaper = "QingMingForgePaper";
+    public static String LabourDayForgePaper = "LabourDayForgePaper";
 
     public static String MovementSpeedRate = "MovementSpeedRate";
 
@@ -1118,4 +1127,6 @@ public class StringUtils {
     public static String Debug = "Debug";
 
     public static String ResonanceType = "ResonanceType";
+
+    public static String Exist = "Exist";
 }

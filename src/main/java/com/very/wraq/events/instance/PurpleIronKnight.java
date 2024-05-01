@@ -2,9 +2,9 @@ package com.very.wraq.events.instance;
 
 import com.very.wraq.events.core.LoginInEvent;
 import com.very.wraq.process.element.Element;
-import com.very.wraq.process.Instance.MobEffectAndDamageMethods;
-import com.very.wraq.render.Particles.ModParticles;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.process.instance.MobEffectAndDamageMethods;
+import com.very.wraq.render.particles.ModParticles;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.StringUtils;
 import com.very.wraq.valueAndTools.Utils.Struct.Boss2Damage;
@@ -173,75 +173,8 @@ public class PurpleIronKnight {
                 // 击杀奖励
                 if (instanceTick >= 200 && instance.getMobList().get(0) != null && Utils.instanceKillCount[InstanceIndex] == 1) {
                     Utils.instanceKillCount[InstanceIndex] = 0;
-                    Random random = new Random();
-
                     playerListGetByName.forEach(player -> {
-                        if (PlayerRewardGetJudge(player)) {
-                            try {
-                                Compute.ItemStackGive(player, new ItemStack(ModItems.PurpleIronBud1.get(),difficultyEnhanceRate * 2));
-                            } catch (IOException e) {
-                                throw new RuntimeException(e);
-                            }
-
-                            if (random.nextDouble() <= 0.01) {
-                                ItemStack itemStack = null;
-                                switch (random.nextInt(3)) {
-                                    case 0 -> itemStack = ModItems.PurpleIronSword.get().getDefaultInstance();
-                                    case 1 -> itemStack = ModItems.PurpleIronBow.get().getDefaultInstance();
-                                    case 2 -> itemStack = ModItems.PurpleIronSceptre.get().getDefaultInstance();
-                                }
-
-                                Compute.FormatBroad(level,Component.literal("紫晶骑士").withStyle(CustomStyle.styleOfPurpleIron),
-                                        Component.literal("").withStyle(ChatFormatting.WHITE).
-                                                append(player.getDisplayName()).
-                                                append(Component.literal(" 获得了 ").withStyle(ChatFormatting.WHITE)).
-                                                append(itemStack.getDisplayName()));
-                                try {
-                                    Compute.ItemStackGive(player, itemStack);
-                                } catch (IOException e) {
-                                    throw new RuntimeException(e);
-                                }
-                            }
-
-                            if (random.nextDouble() <= 0.1) {
-                                ItemStack itemStack = new ItemStack(ModItems.PurpleIronBud2.get(),1);
-                                Compute.FormatBroad(level,Component.literal("紫晶骑士").withStyle(CustomStyle.styleOfPurpleIron),
-                                        Component.literal("").withStyle(ChatFormatting.WHITE).
-                                                append(player.getDisplayName()).
-                                                append(Component.literal(" 获得了 ").withStyle(ChatFormatting.WHITE)).
-                                                append(itemStack.getDisplayName()));
-                                try {
-                                    Compute.ItemStackGive(player, itemStack);
-                                } catch (IOException e) {
-                                    throw new RuntimeException(e);
-                                }
-
-                            }
-
-                            if (random.nextDouble() <= 0.025 * (playerNum - 1) * difficultyEnhanceRate) {
-                                Compute.FormatMSGSend(player,Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
-                                        Component.literal("你通过组队挑战副本，额外获得了:").withStyle(ChatFormatting.WHITE).
-                                                append(ModItems.PurpleIronBud1.get().getDefaultInstance().getDisplayName()));
-                                try {
-                                    Compute.ItemStackGive(player, new ItemStack(ModItems.PurpleIronBud1.get(),4));
-                                } catch (IOException e) {
-                                    throw new RuntimeException(e);
-                                }
-                            }
-
-                            if (LoginInEvent.playerDailyInstanceReward(player, 11)) {
-                                Compute.FormatMSGSend(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
-                                        Component.literal("每日首次通关副本，额外获得了:").withStyle(ChatFormatting.WHITE).
-                                                append(ModItems.PurpleIronBud2.get().getDefaultInstance().getDisplayName()));
-
-                                try {
-                                    Compute.ItemStackGive(player, new ItemStack(ModItems.PurpleIronBud2.get(), 1));
-                                } catch (IOException e) {
-                                    throw new RuntimeException(e);
-                                }
-
-                            }
-                        }
+                        singleRewardToPlayer(player, difficultyEnhanceRate, playerNum, false);
                     });
 
                     Compute.FormatBroad(level, Component.literal("副本").withStyle(ChatFormatting.RED),
@@ -383,6 +316,79 @@ public class PurpleIronKnight {
 
     public static void RefreshRewardGetTimes(Player player) {
         player.getPersistentData().putInt(RewardGetLimit,0);
+    }
+
+    public static void singleRewardToPlayer(Player player, int difficultyEnhanceRate, int playerNum, boolean isMopUp) {
+        Level level = player.level();
+        Random random = new Random();
+        if (PlayerRewardGetJudge(player)) {
+            try {
+                Compute.ItemStackGive(player, new ItemStack(ModItems.PurpleIronBud1.get(),difficultyEnhanceRate * 2));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            if (random.nextDouble() <= 0.01) {
+                ItemStack itemStack = null;
+                switch (random.nextInt(3)) {
+                    case 0 -> itemStack = ModItems.PurpleIronSword.get().getDefaultInstance();
+                    case 1 -> itemStack = ModItems.PurpleIronBow.get().getDefaultInstance();
+                    case 2 -> itemStack = ModItems.PurpleIronSceptre.get().getDefaultInstance();
+                }
+
+                Compute.FormatBroad(level,Component.literal("紫晶骑士").withStyle(CustomStyle.styleOfPurpleIron),
+                        Component.literal("").withStyle(ChatFormatting.WHITE).
+                                append(player.getDisplayName()).
+                                append(Component.literal(" 获得了 ").withStyle(ChatFormatting.WHITE)).
+                                append(itemStack.getDisplayName()));
+                try {
+                    Compute.ItemStackGive(player, itemStack);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
+            if (random.nextDouble() <= 0.1) {
+                ItemStack itemStack = new ItemStack(ModItems.PurpleIronBud2.get(),1);
+                Compute.FormatBroad(level,Component.literal("紫晶骑士").withStyle(CustomStyle.styleOfPurpleIron),
+                        Component.literal("").withStyle(ChatFormatting.WHITE).
+                                append(player.getDisplayName()).
+                                append(Component.literal(" 获得了 ").withStyle(ChatFormatting.WHITE)).
+                                append(itemStack.getDisplayName()));
+                try {
+                    Compute.ItemStackGive(player, itemStack);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+            }
+
+            if (!isMopUp) {
+                if (random.nextDouble() <= 0.025 * (playerNum - 1) * difficultyEnhanceRate) {
+                    Compute.FormatMSGSend(player,Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
+                            Component.literal("你通过组队挑战副本，额外获得了:").withStyle(ChatFormatting.WHITE).
+                                    append(ModItems.PurpleIronBud1.get().getDefaultInstance().getDisplayName()));
+                    try {
+                        Compute.ItemStackGive(player, new ItemStack(ModItems.PurpleIronBud1.get(),4));
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+
+            if (LoginInEvent.playerDailyInstanceReward(player, 11)) {
+                Compute.FormatMSGSend(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
+                        Component.literal("每日首次通关副本，额外获得了:").withStyle(ChatFormatting.WHITE).
+                                append(ModItems.PurpleIronBud2.get().getDefaultInstance().getDisplayName()));
+
+                try {
+                    Compute.ItemStackGive(player, new ItemStack(ModItems.PurpleIronBud2.get(), 1));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+            }
+        }
     }
 }
 

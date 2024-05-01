@@ -6,9 +6,9 @@ import com.very.wraq.netWorking.misc.ParticlePackets.EffectParticle.DefencePenet
 import com.very.wraq.netWorking.misc.ParticlePackets.EffectParticle.ManaDefencePenetrationParticleS2CPacket;
 import com.very.wraq.netWorking.misc.ParticlePackets.ElementParticle.*;
 import com.very.wraq.process.element.equipAndCurios.waterElement.WaterElementSword;
-import com.very.wraq.process.Particle.ParticleProvider;
-import com.very.wraq.render.Particles.ModParticles;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.process.particle.ParticleProvider;
+import com.very.wraq.render.particles.ModParticles;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.StringUtils;
 import com.very.wraq.valueAndTools.Utils.Struct.ItemEntityAndResetTime;
@@ -1008,6 +1008,26 @@ public class Element {
         public static Component WindElement(String content) {
             return Component.literal("「" + content + "澄风元素" + "」").withStyle(CustomStyle.styleOfWind);
         }
-
+        public static Component LifeElementValue(String content) {
+            return Component.literal("「" + content + "归一化生机元素强度" + "」").withStyle(CustomStyle.styleOfLife);
+        }
+        public static Component WaterElementValue(String content) {
+            return Component.literal("「" + content + "归一化碧水元素强度" + "」").withStyle(CustomStyle.styleOfWater);
+        }
+        public static Component FireElementValue(String content) {
+            return Component.literal("「" + content + "归一化炽焰元素强度" + "」").withStyle(CustomStyle.styleOfFire);
+        }
+        public static Component StoneElementValue(String content) {
+            return Component.literal("「" + content + "归一化层岩元素强度" + "」").withStyle(CustomStyle.styleOfStone);
+        }
+        public static Component IceElementValue(String content) {
+            return Component.literal("「" + content + "归一化凛冰元素强度" + "」").withStyle(CustomStyle.styleOfIce);
+        }
+        public static Component LightningElementValue(String content) {
+            return Component.literal("「" + content + "归一化怒雷元素强度" + "」").withStyle(CustomStyle.styleOfLightning);
+        }
+        public static Component WindElementValue(String content) {
+            return Component.literal("「" + content + "归一化澄风元素强度" + "」").withStyle(CustomStyle.styleOfWind);
+        }
     }
 }

@@ -1,6 +1,6 @@
-package com.very.wraq.process.Parkour;
+package com.very.wraq.process.parkour;
 
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;

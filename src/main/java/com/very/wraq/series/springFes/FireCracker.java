@@ -5,7 +5,7 @@ import com.very.wraq.netWorking.misc.SoundsPackets.SoundsS2CPacket;
 import com.very.wraq.projectiles.firework.Firework;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.ModEntityType;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;

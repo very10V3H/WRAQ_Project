@@ -2,6 +2,7 @@ package com.very.wraq.valueAndTools.registry;
 
 import com.very.wraq.blocks.blocks.*;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;

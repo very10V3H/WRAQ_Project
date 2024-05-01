@@ -15,7 +15,7 @@ import com.very.wraq.netWorking.ModNetworking;
 import com.very.wraq.netWorking.misc.ParticlePackets.EffectParticle.DamageDecreaseParticleS2CPacket;
 import com.very.wraq.netWorking.misc.ParticlePackets.SlowDownParticleS2CPacket;
 import com.very.wraq.netWorking.misc.SoundsPackets.SoundsS2CPacket;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.end.eventController.LightningIslandRecall.iLightningArmorBoots;
 import com.very.wraq.series.end.eventController.LightningIslandRecall.iLightningArmorChest;
 import com.very.wraq.series.end.eventController.LightningIslandRecall.iLightningArmorHelmet;
@@ -35,6 +35,7 @@ import com.very.wraq.series.overWorld.SakuraSeries.Slime.SlimeBoots;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.StringUtils;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
@@ -81,7 +82,7 @@ public class MonsterAttackEvent {
                 double Defence = 0;
                 double DefencePenetration = Utils.DefencePenetration.getOrDefault(monster.getItemBySlot(EquipmentSlot.HEAD).getItem(),0d);
                 double DefencePenetration0 = Utils.DefencePenetration0.getOrDefault(monster.getItemBySlot(EquipmentSlot.HEAD).getItem(),0d);
-                if (civil.owner != null) Defence = Compute.PlayerAttributes.PlayerDefence(civil.owner);
+                if (civil.owner != null) Defence = PlayerAttributes.PlayerDefence(civil.owner);
                 Damage *= Compute.DefenceDamageDecreaseRate(Defence,DefencePenetration,DefencePenetration0);
 
                 civil.setLastHurtByMob(monster);
@@ -111,7 +112,7 @@ public class MonsterAttackEvent {
                 if (monster.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.DevilManaHelmet.get()))
                     BaseDamage += Devil.DevilAttackUp;
 
-                double Defence = Compute.PlayerAttributes.PlayerDefence(player);
+                double Defence = PlayerAttributes.PlayerDefence(player);
                 double CritDamageDecrease = Compute.PlayerCritDamageDecrease(player);
 
                 ExDamage += MonsterExDamage(monster,player); // 各种怪物伤害增益
@@ -167,7 +168,7 @@ public class MonsterAttackEvent {
                 lightningBolt.moveTo(monster.getPosition(1));
                 player.level().addFreshEntity(lightningBolt);
             }
-            monster.hurt(monster.damageSources().playerAttack(player),(float) (player.getMaxHealth()*0.1+Compute.PlayerAttributes.PlayerDefence(player) * 0.5 * LightningArmorCount * Compute.EndRune3Judge(player,0)));
+            monster.hurt(monster.damageSources().playerAttack(player),(float) (player.getMaxHealth()*0.1+PlayerAttributes.PlayerDefence(player) * 0.5 * LightningArmorCount * Compute.EndRune3Judge(player,0)));
             data.putInt(StringUtils.ForestRune.ForestRune1,player.getServer().getTickCount() + 20);
         }
         else
@@ -180,7 +181,7 @@ public class MonsterAttackEvent {
                 lightningBolt.setVisualOnly(true);
                 lightningBolt.moveTo(monster.getPosition(1));
                 player.level().addFreshEntity(lightningBolt);
-                monster.hurt(monster.damageSources().playerAttack(player),(float) (Compute.PlayerAttributes.PlayerDefence(player)*0.5*LightningArmorCount));
+                monster.hurt(monster.damageSources().playerAttack(player),(float) (PlayerAttributes.PlayerDefence(player)*0.5*LightningArmorCount));
             }
             if(data.getInt(StringUtils.ForestRune.ForestRune) == 2 && player.getHealth() < player.getMaxHealth()*0.2 && data.contains(StringUtils.ForestRune.ForestRune))
             {

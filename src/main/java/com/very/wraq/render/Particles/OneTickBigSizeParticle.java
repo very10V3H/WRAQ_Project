@@ -1,4 +1,4 @@
-package com.very.wraq.render.Particles;
+package com.very.wraq.render.particles;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
 import net.minecraft.core.particles.SimpleParticleType;

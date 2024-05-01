@@ -3,6 +3,7 @@ package com.very.wraq.render.gui.blocks;
 import com.very.wraq.netWorking.ModNetworking;
 import com.very.wraq.netWorking.misc.Limit.ScreenCloseC2SPacket;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;

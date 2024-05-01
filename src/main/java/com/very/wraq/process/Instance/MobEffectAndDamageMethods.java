@@ -1,7 +1,7 @@
-package com.very.wraq.process.Instance;
+package com.very.wraq.process.instance;
 
 import com.very.wraq.events.instance.PurpleIronKnight;
-import com.very.wraq.process.Particle.ParticleProvider;
+import com.very.wraq.process.particle.ParticleProvider;
 import com.very.wraq.valueAndTools.Compute;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.server.level.ServerLevel;

@@ -2,7 +2,7 @@ package com.very.wraq.netWorking.reputationMission;
 
 import com.very.wraq.netWorking.ModNetworking;
 import com.very.wraq.netWorking.misc.SoundsPackets.SoundsS2CPacket;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.Utils;
 import net.minecraft.ChatFormatting;

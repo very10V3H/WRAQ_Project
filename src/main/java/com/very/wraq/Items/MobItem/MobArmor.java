@@ -2,6 +2,7 @@ package com.very.wraq.Items.MobItem;
 
 import com.very.wraq.valueAndTools.Utils.Struct.MobArmorNum;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.very.wraq.valueAndTools.registry.ItemMaterial;
 import net.minecraft.world.item.ArmorItem;
 
@@ -39,7 +40,7 @@ public class MobArmor extends ArmorItem {
     }
 
     public MobArmor(double Defence, double ManaDefence, double MobLevel) {
-        super(ItemMaterial.MaterialForArmor2, Type.HELMET,new Properties());
+        super(ItemMaterial.BasicArmor2, Type.HELMET,new Properties());
         Utils.Defence.put(this,Defence);
         Utils.ManaDefence.put(this,ManaDefence);
         Utils.MobLevel.put(this,MobLevel);
@@ -101,7 +102,7 @@ public class MobArmor extends ArmorItem {
         this.HealthSteal = mobArmorNum.HealSteal;
     }
     public MobArmor(String MobName) {
-        super(ItemMaterial.MaterialForArmor2, Type.HELMET,new Properties());
+        super(ItemMaterial.BasicArmor2, Type.HELMET,new Properties());
         MobArmorNum mobArmorNum = MobArmorNum.mobArmorNumHashMap.get(MobName);
         Utils.Defence.put(this,mobArmorNum.Defence);
         Utils.ManaDefence.put(this,mobArmorNum.ManaDefence);

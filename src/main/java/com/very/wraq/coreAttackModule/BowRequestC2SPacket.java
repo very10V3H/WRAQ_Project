@@ -6,15 +6,17 @@ import com.very.wraq.customized.players.bow.Qi_Fu.QiFuCurios1;
 import com.very.wraq.customized.players.bow.Wcndymlgb.Wcndymlgb;
 import com.very.wraq.customized.players.bow.Yxwg.YxwgBow;
 import com.very.wraq.customized.players.sword.ZuoSI.ZuoSiCurios;
+import com.very.wraq.customized.uniform.bow.BowCurios1;
 import com.very.wraq.process.element.equipAndCurios.fireElement.FireElementBow;
 import com.very.wraq.process.element.equipAndCurios.lifeElement.LifeElementBow;
 import com.very.wraq.process.element.equipAndCurios.waterElement.WaterElementBow;
-import com.very.wraq.process.Particle.ParticleProvider;
-import com.very.wraq.render.Particles.ModParticles;
+import com.very.wraq.process.particle.ParticleProvider;
+import com.very.wraq.render.particles.ModParticles;
 import com.very.wraq.series.instance.Castle.CastleSwiftArmor;
 import com.very.wraq.series.instance.Moon.Equip.MoonBow;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
@@ -49,7 +51,8 @@ public class BowRequestC2SPacket {
             Utils.PlayerArrowAttackTime.put(serverPlayer,tick);
             if (ZuoSiCurios.IsPlayer(serverPlayer)) return;
             HgjCurios.PlayerArrowAttack(serverPlayer);
-            double damage = Compute.PlayerAttributes.PlayerAttackDamage(serverPlayer);
+            BowCurios1.playerShoot(serverPlayer);
+            double damage = PlayerAttributes.PlayerAttackDamage(serverPlayer);
             switch (count) {
                 default -> {
                     MyArrow arrow = new MyArrow(EntityType.ARROW, serverPlayer.level(), serverPlayer, damage, true);

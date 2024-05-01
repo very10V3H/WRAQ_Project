@@ -1,6 +1,6 @@
 package com.very.wraq.netWorking.unSorted;
 
-import com.very.wraq.render.Hud.ClientSwiftData;
+import com.very.wraq.render.hud.ClientSwiftData;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent;
 

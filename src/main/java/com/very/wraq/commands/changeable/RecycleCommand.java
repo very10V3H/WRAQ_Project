@@ -3,6 +3,7 @@ package com.very.wraq.commands.changeable;
 import com.very.wraq.blocks.blocks.ForgeRecipe;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;

@@ -1,7 +1,7 @@
 package com.very.wraq.customized.players.sceptre.shangmengli;
 
 import com.very.wraq.customized.Customize;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.instance.Ice.IceSceptreAttributes;
 import com.very.wraq.valueAndTools.BasicAttributeDescription;
 import com.very.wraq.valueAndTools.Compute;

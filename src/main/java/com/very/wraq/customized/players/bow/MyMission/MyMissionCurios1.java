@@ -1,7 +1,7 @@
 package com.very.wraq.customized.players.bow.MyMission;
 
 import com.very.wraq.customized.uniform.Attributes;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.Utils;
 import com.very.wraq.valueAndTools.registry.ModItems;

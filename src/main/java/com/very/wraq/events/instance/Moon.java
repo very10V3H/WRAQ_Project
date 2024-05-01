@@ -1,10 +1,10 @@
 package com.very.wraq.events.instance;
 
 import com.very.wraq.events.core.LoginInEvent;
-import com.very.wraq.process.Particle.ParticleProvider;
+import com.very.wraq.process.particle.ParticleProvider;
 import com.very.wraq.projectiles.mana.ManaArrow;
-import com.very.wraq.render.Particles.ModParticles;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.particles.ModParticles;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.ModEntityType;
 import com.very.wraq.valueAndTools.Utils.StringUtils;
@@ -433,15 +433,17 @@ public class Moon {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        Random random = new Random();
-        if (random.nextDouble() <= 0.025 * (playerNum - 1) * difficultyEnhanceRate) {
-            Compute.FormatMSGSend(player,Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
-                    Component.literal("你通过组队挑战副本，额外获得了:").withStyle(ChatFormatting.WHITE).
-                            append(ModItems.MoonLoot.get().getDefaultInstance().getDisplayName()));
-            try {
-                Compute.ItemStackGive(player, new ItemStack(ModItems.MoonLoot.get(),2));
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+        if (!isMopUp) {
+            Random random = new Random();
+            if (random.nextDouble() <= 0.025 * (playerNum - 1) * difficultyEnhanceRate) {
+                Compute.FormatMSGSend(player,Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
+                        Component.literal("你通过组队挑战副本，额外获得了:").withStyle(ChatFormatting.WHITE).
+                                append(ModItems.MoonLoot.get().getDefaultInstance().getDisplayName()));
+                try {
+                    Compute.ItemStackGive(player, new ItemStack(ModItems.MoonLoot.get(),2));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
 

@@ -1,12 +1,13 @@
 package com.very.wraq.customized.players.sceptre.cgswd;
 
 import com.very.wraq.customized.Customize;
-import com.very.wraq.render.Particles.ModParticles;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.particles.ModParticles;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.BasicAttributeDescription;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.StringUtils;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -162,8 +163,8 @@ public class CgswdSceptre extends SwordItem {
             mob = nearestMob;
         }
         if (mob == null) return;
-        if (mob.isBaby() || mob instanceof Vex) Compute.TargetLocationLaser(player,mob.position().add(0,0.5,0), ModParticles.YSR.get(), Compute.PlayerAttributes.PlayerManaDamage(player) * 1.5,10);
-        else Compute.TargetLocationLaser(player,mob.position().add(0,1.5,0), ModParticles.YSR.get(), Compute.PlayerAttributes.PlayerManaDamage(player) * 1.5,10);
+        if (mob.isBaby() || mob instanceof Vex) Compute.TargetLocationLaser(player,mob.position().add(0,0.5,0), ModParticles.YSR.get(), PlayerAttributes.PlayerManaDamage(player) * 1.5,10);
+        else Compute.TargetLocationLaser(player,mob.position().add(0,1.5,0), ModParticles.YSR.get(), PlayerAttributes.PlayerManaDamage(player) * 1.5,10);
     }
 
     public static void Gather(Player player) {

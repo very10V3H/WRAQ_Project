@@ -4,14 +4,15 @@ package com.very.wraq.customized.players.sceptre.Sora_vanilla;
 import com.very.wraq.customized.Customize;
 import com.very.wraq.entities.entities.SoraSword.SoraSwordAir;
 import com.very.wraq.entities.entities.SoraSword.SoraSwordRender;
-import com.very.wraq.process.Particle.ParticleProvider;
-import com.very.wraq.render.Particles.ModParticles;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.process.particle.ParticleProvider;
+import com.very.wraq.render.particles.ModParticles;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.BasicAttributeDescription;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.ModEntityType;
 import com.very.wraq.valueAndTools.Utils.StringUtils;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
@@ -249,7 +250,7 @@ public class SoraVanillaSword extends SwordItem implements GeoItem {
         if (!IsPlayer(player) || !HealthUnderThreshold(player)) return;
         if (player.getServer().getTickCount() > activeCoolDownTime) {
             activeTick = 40;
-            int coolDownTime = (int) (800 * (1 - Compute.PlayerAttributes.PlayerCoolDownDecrease(player)));
+            int coolDownTime = (int) (800 * (1 - PlayerAttributes.PlayerCoolDownDecrease(player)));
             activeCoolDownTime = player.getServer().getTickCount() + coolDownTime;
             Compute.CoolDownTimeSend(player,ModItems.SoraSwordItem.get().getDefaultInstance(),coolDownTime);
         }

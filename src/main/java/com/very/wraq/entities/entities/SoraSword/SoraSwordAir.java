@@ -1,6 +1,6 @@
 package com.very.wraq.entities.entities.SoraSword;
 
-import com.very.wraq.render.Particles.ModParticles;
+import com.very.wraq.render.particles.ModParticles;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;

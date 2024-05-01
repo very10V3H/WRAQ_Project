@@ -5,7 +5,8 @@ import com.very.wraq.valueAndTools.BasicAttributeDescription;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.StringUtils;
 import com.very.wraq.valueAndTools.Utils.Utils;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -120,9 +121,9 @@ public class MoonSceptre extends SwordItem {
         if (player.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.MoonSceptre.get())) {
             int TickCount = player.getServer().getTickCount();
             if (!coolDownMap.containsKey(player) || coolDownMap.get(player) < TickCount) {
-                coolDownMap.put(player, (int) (TickCount + 540 * (1 - Compute.PlayerAttributes.PlayerCoolDownDecrease(player))));
-                Compute.CoolDownTimeSend(player,ModItems.MoonSceptre.get().getDefaultInstance(), (int) (540 * (1 - Compute.PlayerAttributes.PlayerCoolDownDecrease(player))));
-                Compute.PlayerShieldProvider(player,400,Compute.PlayerAttributes.PlayerManaDamage(player));
+                coolDownMap.put(player, (int) (TickCount + 540 * (1 - PlayerAttributes.PlayerCoolDownDecrease(player))));
+                Compute.CoolDownTimeSend(player,ModItems.MoonSceptre.get().getDefaultInstance(), (int) (540 * (1 - PlayerAttributes.PlayerCoolDownDecrease(player))));
+                Compute.PlayerShieldProvider(player,400,PlayerAttributes.PlayerManaDamage(player));
                 Compute.EffectLastTimeSend(player,ModItems.MoonSceptre.get().getDefaultInstance(),200);
                 List<Mob> mobList = mob.level().getEntitiesOfClass(Mob.class,AABB.ofSize(mob.position(),15,15,15));
                 mobList.removeIf(mob1 -> mob1.distanceTo(mob) > 6);
@@ -136,7 +137,7 @@ public class MoonSceptre extends SwordItem {
                 List<Player> playerList = mob.level().getEntitiesOfClass(Player.class,AABB.ofSize(mob.position(),15,15,15));
                 playerList.removeIf(player1 -> player1.distanceTo(mob) > 6);
                 for (Player player1 : playerList) {
-                    attackDamage += Compute.PlayerAttributes.PlayerAttackDamage(player1);
+                    attackDamage += PlayerAttributes.PlayerAttackDamage(player1);
                 }
                 manaDamageNumMap.put(player,attackDamage);
                 manaDamageTickMap.put(player,player.getServer().getTickCount() + 200);

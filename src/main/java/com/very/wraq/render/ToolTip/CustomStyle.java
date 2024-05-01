@@ -1,4 +1,4 @@
-package com.very.wraq.render.ToolTip;
+package com.very.wraq.render.toolTip;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Style;

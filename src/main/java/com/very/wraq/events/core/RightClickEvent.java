@@ -36,14 +36,14 @@ public class RightClickEvent {
         if(Utils.MainHandTag.containsKey(item) || Utils.ArmorTag.containsKey(item)){
             ItemStack mainhand = player.getMainHandItem();
             CompoundTag data = mainhand.getOrCreateTagElement(Utils.MOD_ID);
-            if(!data.contains("Owner")) {
-                data.putString("Owner",player.getName().getString());
+            if(!data.contains(InventoryCheck.owner)) {
+                data.putString(InventoryCheck.owner,player.getName().getString());
             }
         }
         ItemStack itemStack = player.getItemInHand(InteractionHand.MAIN_HAND);
         if (itemStack.getTagElement(Utils.MOD_ID) != null) {
             CompoundTag data = itemStack.getOrCreateTagElement(Utils.MOD_ID);
-            if(data.contains("Owner") && !data.getString("Owner").equals(player.getName().getString())) event.setCanceled(true);
+            if(data.contains(InventoryCheck.owner) && !data.getString(InventoryCheck.owner).equals(player.getName().getString())) event.setCanceled(true);
         }
         if(Utils.ItemRightClickCheck.containsKey(event.getItemStack().getItem()) && !player.isCreative()) event.setCanceled(true);
     }

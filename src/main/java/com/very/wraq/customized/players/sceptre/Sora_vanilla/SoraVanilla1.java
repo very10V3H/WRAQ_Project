@@ -1,10 +1,11 @@
 package com.very.wraq.customized.players.sceptre.Sora_vanilla;
 
 import com.very.wraq.projectiles.mana.BlazeSword;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.ModEntityType;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -105,7 +106,7 @@ public class SoraVanilla1 extends Item implements ICurioItem {
 
     public static double ManaDamageUp(Player player) {
         if (!IsPlayer(player)) return 0;
-        return (Compute.PlayerAttributes.PlayerMaxMana(player) + 100) * 1500 / 100;
+        return (PlayerAttributes.PlayerMaxMana(player) + 100) * 1500 / 100;
     }
 
     public static void AddNewBlazeSword(Player player, int num) {

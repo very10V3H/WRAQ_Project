@@ -2,9 +2,9 @@ package com.very.wraq.events.instance;
 
 import com.very.wraq.events.core.LoginInEvent;
 import com.very.wraq.process.element.Element;
-import com.very.wraq.process.Particle.ParticleProvider;
-import com.very.wraq.render.Particles.ModParticles;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.process.particle.ParticleProvider;
+import com.very.wraq.render.particles.ModParticles;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.StringUtils;
 import com.very.wraq.valueAndTools.Utils.Struct.Instance;
@@ -153,7 +153,6 @@ public class Plain {
                             if (player.position().distanceTo(mob.position()) <= 6) {
                                 Compute.Damage.ManaDamageToPlayer(mob,player,200 * difficultyEnhanceRate);
                                 mob.heal(200 * difficultyEnhanceRate);
-
                             }
                             else {
                                 player.heal(100 * difficultyEnhanceRate);
@@ -176,10 +175,10 @@ public class Plain {
                 // 击杀奖励
                 if (instanceTick >= 200 && instance.getMobList().get(0) != null && Utils.instanceKillCount[0] == 1) {
                     Utils.instanceKillCount[0] = 0;
-                    Random random = new Random();
                     playerListGetByName.forEach(player -> {
-
+                        SingleRewardToPlayer(player, difficultyEnhanceRate, playerNum, false);
                     });
+
                     playerListGetByName.forEach(player1 -> {
                         CompoundTag data1 = player1.getPersistentData();
                         data1.putInt(StringUtils.InstanceTimes.Plain,data1.getInt(StringUtils.InstanceTimes.Plain) + 1);

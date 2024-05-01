@@ -3,7 +3,8 @@ package com.very.wraq.series.instance.PurpleIronKnight;
 import com.very.wraq.valueAndTools.BasicAttributeDescription;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.Utils;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.registry.ItemTier;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -108,7 +109,7 @@ public class PurpleIronSceptre extends PickaxeItem {
         if (!isOn) return 0;
         double ManaDefence = 0;
         ManaDefence = Compute.MonsterManaDefence(mob);
-        double value = Math.abs(Compute.PlayerAttributes.PlayerManaDefence(player) - ManaDefence);
+        double value = Math.abs(PlayerAttributes.PlayerManaDefence(player) - ManaDefence);
         return (0.5 - (250 / (500 + value)));
     }
 }

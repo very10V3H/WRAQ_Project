@@ -1,6 +1,6 @@
 package com.very.wraq.netWorking.misc;
 
-import com.very.wraq.render.Hud.ClientShieldData;
+import com.very.wraq.render.hud.ClientShieldData;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent;
 

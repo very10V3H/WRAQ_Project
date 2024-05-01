@@ -2,8 +2,8 @@ package com.very.wraq.series.end.curios;
 
 import com.very.wraq.netWorking.ModNetworking;
 import com.very.wraq.netWorking.misc.SoundsPackets.SoundsS2CPacket;
-import com.very.wraq.process.Particle.ParticleProvider;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.process.particle.ParticleProvider;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.StringUtils;
 import com.very.wraq.valueAndTools.Utils.Struct.Drops;

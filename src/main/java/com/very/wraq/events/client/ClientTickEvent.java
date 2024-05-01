@@ -17,20 +17,21 @@ import com.very.wraq.netWorking.unSorted.MineHatConfirmC2SPacket;
 import com.very.wraq.netWorking.unSorted.PlayerIsNearbyCampfireC2SPacket;
 import com.very.wraq.netWorking.unSorted.UdiskWorldSoulC2SPacket;
 import com.very.wraq.process.element.Element;
+import com.very.wraq.process.missions.MissionScreen;
 import com.very.wraq.render.gui.skills.SkillGui;
 import com.very.wraq.render.gui.team.PlayerRequestScreen;
 import com.very.wraq.render.gui.team.TeamInfoScreen;
 import com.very.wraq.render.gui.team.TeamManageScreen;
 import com.very.wraq.render.gui.team.TeamSearchScreen;
 import com.very.wraq.render.gui.villagerTrade.Trade;
-import com.very.wraq.render.Particles.ModParticles;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.particles.ModParticles;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.overWorld.SakuraSeries.EarthMana.EarthPower;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.ClientUtils;
 import com.very.wraq.valueAndTools.Utils.Struct.ClientPlayerTeam;
 import com.very.wraq.valueAndTools.Utils.Struct.ManaAttackParticle;
-import com.very.wraq.valueAndTools.Utils.Struct.Mission;
+import com.very.wraq.valueAndTools.Utils.Struct.OldMission;
 import com.very.wraq.valueAndTools.Utils.Utils;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import net.minecraft.client.Minecraft;
@@ -62,6 +63,11 @@ public class ClientTickEvent {
     @SubscribeEvent
     public static void ClientTick(TickEvent.PlayerTickEvent event) {
         if (event.side.isClient() && event.phase.equals(TickEvent.Phase.START) && event.player.equals(Minecraft.getInstance().player)) {
+
+            if (ClientUtils.missionScreenFlag != -1) {
+                Minecraft.getInstance().setScreen( new MissionScreen(ClientUtils.missionScreenFlag, 0));
+                ClientUtils.missionScreenFlag = -1;
+            }
 
             if (LiulixianCurios2.flySpeed == 0 && !event.player.isCreative()) {
                 event.player.getAbilities().flying = false;
@@ -227,9 +233,9 @@ public class ClientTickEvent {
                 playerList.forEach(Player::refreshDisplayName);
             }
 
-            if (ClientUtils.MissionList.size() > 0 && ClientUtils.NavigateIndex != -1) {
-                Mission mission = ClientUtils.MissionList.get(ClientUtils.ListIndex);
-                Vec3 Des = mission.getDes();
+            if (ClientUtils.oldMissionList.size() > 0 && ClientUtils.NavigateIndex != -1) {
+                OldMission oldMission = ClientUtils.oldMissionList.get(ClientUtils.ListIndex);
+                Vec3 Des = oldMission.getDes();
                 Player player = event.player;
                 Vec3 Pick = player.pick(0.5, 0, true).getLocation();
                 Vec3 Pos = Des.subtract(Pick).normalize();

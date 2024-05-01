@@ -1,11 +1,11 @@
 package com.very.wraq.commands.changeable;
 
-import com.very.wraq.render.ToolTip.CustomStyle;
-import com.very.wraq.valueAndTools.Compute;
-import com.very.wraq.valueAndTools.Utils.StringUtils;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import com.very.wraq.render.toolTip.CustomStyle;
+import com.very.wraq.valueAndTools.Utils.StringUtils;
+import com.very.wraq.valueAndTools.attributeValues.DamageEnhances;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.nbt.CompoundTag;
@@ -23,25 +23,25 @@ public class Info1Command implements Command<CommandSourceStack> {
         player.sendSystemMessage(Component.literal(" - 你的伤害提升属性如下:"));
 
         player.sendSystemMessage(Component.literal("·普通伤害提升: ").withStyle(CustomStyle.styleOfMoon).
-                append(Component.literal(String.format("%.2f%%",Compute.PlayerCommonDamageUpOrDown(player) * 100)).withStyle(ChatFormatting.WHITE)));
+                append(Component.literal(String.format("%.2f%%",DamageEnhances.PlayerCommonDamageUpOrDown(player) * 100)).withStyle(ChatFormatting.WHITE)));
 
         player.sendSystemMessage(Component.literal("·最终伤害提升: ").withStyle(ChatFormatting.RED).
-                append(Component.literal(String.format("%.2f%%",Compute.PlayerFinalDamageEnhance(player) * 100)).withStyle(ChatFormatting.WHITE)));
+                append(Component.literal(String.format("%.2f%%",DamageEnhances.PlayerFinalDamageEnhance(player) * 100)).withStyle(ChatFormatting.WHITE)));
 
         player.sendSystemMessage(Component.literal("·物理伤害提升: ").withStyle(CustomStyle.styleOfPower).
-                append(Component.literal(String.format("%.2f%%",Compute.PlayerAttackDamageEnhance(player) * 100)).withStyle(ChatFormatting.WHITE)));
+                append(Component.literal(String.format("%.2f%%",DamageEnhances.PlayerAttackDamageEnhance(player) * 100)).withStyle(ChatFormatting.WHITE)));
 
         player.sendSystemMessage(Component.literal("·魔法伤害提升: ").withStyle(CustomStyle.styleOfMana).
-                append(Component.literal(String.format("%.2f%%",Compute.PlayerManaDamageEnhance(player) * 100)).withStyle(ChatFormatting.WHITE)));
+                append(Component.literal(String.format("%.2f%%", DamageEnhances.PlayerManaDamageEnhance(player) * 100)).withStyle(ChatFormatting.WHITE)));
 
         player.sendSystemMessage(Component.literal("·近战攻击增幅: ").withStyle(CustomStyle.styleOfVolcano).
-                append(Component.literal(String.format("%.2f%%",Compute.PlayerNormalSwordAttackDamageEnhance(player) * 100)).withStyle(ChatFormatting.WHITE)));
+                append(Component.literal(String.format("%.2f%%",DamageEnhances.PlayerNormalSwordAttackDamageEnhance(player) * 100)).withStyle(ChatFormatting.WHITE)));
 
         player.sendSystemMessage(Component.literal("·箭矢攻击增幅: ").withStyle(CustomStyle.styleOfFlexible).
-                append(Component.literal(String.format("%.2f%%",Compute.PlayerNormalBowAttackDamageEnhance(player) * 100)).withStyle(ChatFormatting.WHITE)));
+                append(Component.literal(String.format("%.2f%%",DamageEnhances.PlayerNormalBowAttackDamageEnhance(player) * 100)).withStyle(ChatFormatting.WHITE)));
 
         player.sendSystemMessage(Component.literal("·法球攻击增幅: ").withStyle(CustomStyle.styleOfMana).
-                append(Component.literal(String.format("%.2f%%",Compute.PlayerNormalManaAttackDamageEnhance(player) * 100)).withStyle(ChatFormatting.WHITE)));
+                append(Component.literal(String.format("%.2f%%",DamageEnhances.PlayerNormalManaAttackDamageEnhance(player) * 100)).withStyle(ChatFormatting.WHITE)));
 
 
         player.sendSystemMessage(Component.literal(" - 你的副本挑战情况如下:"));

@@ -44,6 +44,19 @@
     "vmd:star_bottle",
     "vmd:black_feisa_curios5",
     "vmd:heihuang_curios",
-    "vmd:hgj_curios"
+    "vmd:hgj_curios",
+    "vmd:attack_curios_1",
+    "vmd:attack_curios_2",
+    "vmd:bow_curios_1",
+    "vmd:bow_curios_2",
+    "vmd:mana_curios_1",
+    "vmd:mana_curios_2",
+    "vmd:life_curios_0",
+    "vmd:water_curios_0",
+    "vmd:fire_curios_0",
+    "vmd:stone_curios_0",
+    "vmd:ice_curios_0",
+    "vmd:wind_curios_0",
+    "vmd:lightning_curios_0"
   ]
 }

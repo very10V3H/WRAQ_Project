@@ -1,9 +1,11 @@
 package com.very.wraq.customized.players.bow.Guang_Yi;
 
 import com.very.wraq.coreAttackModule.MyArrow;
-import com.very.wraq.process.Particle.ParticleProvider;
+import com.very.wraq.process.particle.ParticleProvider;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerPlayer;
@@ -34,7 +36,7 @@ public class GuangYi {
             if (Utils.GuangYiSecondArrowDelay == 0) {
                 ServerPlayer serverPlayer = (ServerPlayer) player;
                 MyArrow arrow = new MyArrow(EntityType.ARROW, serverPlayer.level(),
-                        serverPlayer, Compute.PlayerAttributes.PlayerAttackDamage(player), true);
+                        serverPlayer, PlayerAttributes.PlayerAttackDamage(player), true);
                 
                 arrow.shootFromRotation(serverPlayer, serverPlayer.getXRot(), serverPlayer.getYRot(), 0.0f, 4.5F, 1.0f);
                 arrow.setCritArrow(true);

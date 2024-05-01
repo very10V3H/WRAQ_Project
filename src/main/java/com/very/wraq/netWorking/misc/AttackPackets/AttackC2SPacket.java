@@ -13,6 +13,7 @@ import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.ModEntityType;
 import com.very.wraq.valueAndTools.Utils.StringUtils;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
@@ -89,11 +90,11 @@ public class AttackC2SPacket {
 
         if (NearestMob.get() != null && player.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.LiuLiXianSword.get())) {
             ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_SAKURA.get(), player, level,
-                    Compute.PlayerAttributes.PlayerManaDamage(player),
-                    Compute.PlayerAttributes.PlayerManaPenetration(player),
-                    Compute.PlayerAttributes.PlayerManaPenetration0(player), StringUtils.ParticleTypes.Sea);
-            ManaAttackModule.BasicAttack(player, NearestMob.get(), Compute.PlayerAttributes.PlayerManaDamage(player),
-                    Compute.PlayerAttributes.PlayerManaPenetration(player), Compute.PlayerAttributes.PlayerManaPenetration0(player),
+                    PlayerAttributes.PlayerManaDamage(player),
+                    PlayerAttributes.PlayerManaPenetration(player),
+                    PlayerAttributes.PlayerManaPenetration0(player), StringUtils.ParticleTypes.Sea);
+            ManaAttackModule.BasicAttack(player, NearestMob.get(), PlayerAttributes.PlayerManaDamage(player),
+                    PlayerAttributes.PlayerManaPenetration(player), PlayerAttributes.PlayerManaPenetration0(player),
                     player.level(), newArrow);
             if (Utils.LiuLiXian != null && Utils.LiuLiXian.equals(player) && Utils.LiuLiXianCore && Utils.LiuLiXianManaAttackDelay == -1) {
                 Utils.LiuLiXianManaAttackDelay = 3;
@@ -121,7 +122,7 @@ public class AttackC2SPacket {
         if (NearestMob.get() != null) {
             Item equip = player.getItemInHand(InteractionHand.MAIN_HAND).getItem();
             AttackEvent.AttackToMonster(NearestMob.get(), player, equip, player.getPersistentData(), Rate);
-            HurtEventModule.ForestRune3Judge(player, NearestMob.get(), Compute.PlayerAttributes.PlayerAttackDamage(player));
+            HurtEventModule.ForestRune3Judge(player, NearestMob.get(), PlayerAttributes.PlayerAttackDamage(player));
             HurtEvent.BlazeReflectDamage(NearestMob.get(), player);
             AttackEventModule.SwordSkill3Attack(player.getPersistentData(), player, NearestMob.get());// 破绽观察（对一名目标的持续攻击，可以使你对该目标的伤害至多提升至2%，在10次攻击后达到最大值）
             AttackEventModule.SwordSkill12Attack(player.getPersistentData(), player); // 刀光剑影（移动、攻击以及受到攻击将会获得充能，当充能满时，下一次攻击将造成额外200%伤害，并在以自身为中心范围内造成100%伤害）

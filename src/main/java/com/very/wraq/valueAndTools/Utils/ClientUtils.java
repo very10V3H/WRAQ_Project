@@ -3,7 +3,7 @@ package com.very.wraq.valueAndTools.Utils;
 import com.very.wraq.events.client.ClientAttackEvent;
 import com.very.wraq.files.MarketItemInfo;
 import com.very.wraq.Items.Prefix.PrefixInfo;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Utils.Struct.*;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import net.minecraft.ChatFormatting;
@@ -492,7 +492,7 @@ public class ClientUtils {
         RollingFlag = false;
         RollingRate = 0;
         MissionIndex = 0;
-        MissionList = new ArrayList<>();
+        oldMissionList = new ArrayList<>();
         MissionChange = false;
         ListIndex = 0;
         NavigateIndex = -1;
@@ -504,7 +504,7 @@ public class ClientUtils {
     public static boolean Mission = false;
     public static int MissionIndex = 0;
 
-    public static List<com.very.wraq.valueAndTools.Utils.Struct.Mission> MissionList = new ArrayList<>();
+    public static List<OldMission> oldMissionList = new ArrayList<>();
 
     public static boolean MissionChange = false;
     public static int ListIndex = 0;
@@ -809,4 +809,6 @@ public class ClientUtils {
     public static Player clientPlayer = null;
 
     public static EffectTimeLast elementEffects = null;
+
+    public static int missionScreenFlag = -1;
 }

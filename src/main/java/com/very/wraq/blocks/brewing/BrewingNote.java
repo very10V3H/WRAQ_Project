@@ -1,6 +1,6 @@
 package com.very.wraq.blocks.brewing;
 
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;

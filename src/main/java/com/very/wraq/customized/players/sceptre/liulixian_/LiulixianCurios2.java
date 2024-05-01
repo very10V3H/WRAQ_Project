@@ -1,9 +1,10 @@
 package com.very.wraq.customized.players.sceptre.liulixian_;
 
 import com.very.wraq.customized.uniform.Attributes;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -97,28 +98,28 @@ public class LiulixianCurios2 extends Item implements ICurioItem {
 
     public static double ExManaDamage(Player player) {
         if (!IsOn(player)) return 0;
-        return (Compute.PlayerAttributes.PlayerMaxMana(player) + 100) * 2500 / 100;
+        return (PlayerAttributes.PlayerMaxMana(player) + 100) * 2500 / 100;
     }
 
     public static double ExMovementSpeed(Player player) {
         if (!IsOn(player)) return 0;
-        return Compute.PlayerAttributes.PlayerExpUp(player);
+        return PlayerAttributes.PlayerExpUp(player);
     }
 
     public static double ExSwiftnessUp(Player player) {
         if (!IsOn(player)) return 0;
-        return Compute.PlayerAttributes.PlayerExpUp(player) * 2;
+        return PlayerAttributes.PlayerExpUp(player) * 2;
     }
 
     public static void Tick(Player player) {
 /*
         if (!IsOn(player)) ModNetworking.sendToClient(new PlayerFlyingSpeedSetS2CPacket(0),(ServerPlayer) player);
-        else ModNetworking.sendToClient(new PlayerFlyingSpeedSetS2CPacket((Compute.PlayerAttributes.PlayerMovementSpeed(player) + 1) * 0.015),(ServerPlayer) player);
+        else ModNetworking.sendToClient(new PlayerFlyingSpeedSetS2CPacket((PlayerAttributes.PlayerMovementSpeed(player) + 1) * 0.015),(ServerPlayer) player);
 */
     }
 
     public static double DamageEnhance(Player player) {
         if (!IsOn(player)) return 0;
-        return Compute.PlayerAttributes.PlayerManaDamage(player) * 0.25 / 10000;
+        return PlayerAttributes.PlayerManaDamage(player) * 0.25 / 10000;
     }
 }

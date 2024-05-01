@@ -6,6 +6,7 @@ import com.very.wraq.blocks.entity.HBrewingEntity;
 import com.very.wraq.blocks.entity.InjectBlockEntity;
 import com.very.wraq.netWorking.unSorted.PlayerCallBack;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.block.entity.BlockEntity;

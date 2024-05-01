@@ -2,15 +2,16 @@ package com.very.wraq.process.element.equipAndCurios.waterElement;
 
 import com.very.wraq.process.element.Element;
 import com.very.wraq.process.element.ElementValue;
-import com.very.wraq.process.Particle.ParticleProvider;
+import com.very.wraq.process.particle.ParticleProvider;
 import com.very.wraq.projectiles.mana.ManaArrow;
-import com.very.wraq.render.Particles.ModParticles;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.particles.ModParticles;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.BasicAttributeDescription;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.ModEntityType;
 import com.very.wraq.valueAndTools.Utils.StringUtils;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.very.wraq.valueAndTools.registry.ItemTier;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import net.minecraft.ChatFormatting;
@@ -133,7 +134,7 @@ public class WaterElementSceptre extends SwordItem {
             List<Mob> mobList = player.level().getEntitiesOfClass(Mob.class, AABB.ofSize(pos, 15, 15, 15));
             mobList.removeIf(mob -> mob.position().distanceTo(pos) > 6);
             mobList.forEach(mob -> {
-                Element.ElementEffectAddToEntity(player,mob,Element.Water, ElementValue.PlayerWaterElementValue(player), false, Compute.PlayerAttributes.PlayerManaDamage(player));
+                Element.ElementEffectAddToEntity(player,mob,Element.Water, ElementValue.PlayerWaterElementValue(player), false, PlayerAttributes.PlayerManaDamage(player));
                 WaterElementSword.mobDefenceDecreaseTickMap.put(mob.getId(), player.getServer().getTickCount() + 140);
             });
         }
@@ -151,9 +152,9 @@ public class WaterElementSceptre extends SwordItem {
         CompoundTag data = player.getPersistentData();
         if (Compute.ManaSkillLevelGet(data,10) > 0 || Compute.PlayerManaCost(player,15)) {
             ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_SEA.get(), player,level,
-                    Compute.PlayerAttributes.PlayerManaDamage(player),
-                    Compute.PlayerAttributes.PlayerManaPenetration(player),
-                    Compute.PlayerAttributes.PlayerManaPenetration0(player),StringUtils.ParticleTypes.WaterElement1TickParticle);
+                    PlayerAttributes.PlayerManaDamage(player),
+                    PlayerAttributes.PlayerManaPenetration(player),
+                    PlayerAttributes.PlayerManaPenetration0(player),StringUtils.ParticleTypes.WaterElement1TickParticle);
             newArrow.setSilent(true);
             newArrow.setNoGravity(true);
             newArrow.shootFromRotation(player,player.getXRot(),player.getYRot(),0,3,1);

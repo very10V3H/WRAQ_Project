@@ -3,7 +3,7 @@ package com.very.wraq.series.nether.Equip.Armor;
 import com.very.wraq.valueAndTools.BasicAttributeDescription;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.Utils;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.registry.ItemMaterial;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;

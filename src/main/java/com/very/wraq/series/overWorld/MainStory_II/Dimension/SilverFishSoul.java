@@ -1,6 +1,6 @@
 package com.very.wraq.series.overWorld.MainStory_II.Dimension;
 
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;

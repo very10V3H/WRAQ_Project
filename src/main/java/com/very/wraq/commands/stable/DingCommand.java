@@ -4,6 +4,7 @@ import com.very.wraq.netWorking.ModNetworking;
 import com.very.wraq.netWorking.misc.DingS2CPacket;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.mojang.authlib.GameProfile;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;

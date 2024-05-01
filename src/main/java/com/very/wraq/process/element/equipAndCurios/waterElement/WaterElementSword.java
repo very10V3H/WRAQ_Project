@@ -2,12 +2,13 @@ package com.very.wraq.process.element.equipAndCurios.waterElement;
 
 import com.very.wraq.process.element.Element;
 import com.very.wraq.process.element.ElementValue;
-import com.very.wraq.process.Particle.ParticleProvider;
-import com.very.wraq.render.Particles.ModParticles;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.process.particle.ParticleProvider;
+import com.very.wraq.render.particles.ModParticles;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.BasicAttributeDescription;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.very.wraq.valueAndTools.registry.ItemTier;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import net.minecraft.ChatFormatting;
@@ -130,7 +131,7 @@ public class WaterElementSword extends SwordItem{
             List<Mob> mobList = player.level().getEntitiesOfClass(Mob.class, AABB.ofSize(pos, 15, 15, 15));
             mobList.removeIf(mob -> mob.position().distanceTo(pos) > 6);
             mobList.forEach(mob -> {
-                Element.ElementEffectAddToEntity(player,mob,Element.Water, ElementValue.PlayerWaterElementValue(player), true, Compute.PlayerAttributes.PlayerAttackDamage(player) * 4);
+                Element.ElementEffectAddToEntity(player,mob,Element.Water, ElementValue.PlayerWaterElementValue(player), true, PlayerAttributes.PlayerAttackDamage(player) * 4);
                 mobDefenceDecreaseTickMap.put(mob.getId(), player.getServer().getTickCount() + 140);
             });
             ParticleProvider.DisperseParticle(pos, (ServerLevel) player.level(), 1, 1, 120, ModParticles.WaterElementParticle.get(), 1);

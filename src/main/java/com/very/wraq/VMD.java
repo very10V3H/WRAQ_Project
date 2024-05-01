@@ -1,28 +1,28 @@
 package com.very.wraq;
 
+import com.very.wraq.blocks.entity.ModBlockEntities;
 import com.very.wraq.entities.entities.Boss2.Boss2;
 import com.very.wraq.entities.entities.Civil.Civil;
+import com.very.wraq.entities.entities.MainBoss.MainBoss;
 import com.very.wraq.entities.entities.SakuraMob.SakuraMob;
 import com.very.wraq.entities.entities.Scarecrow.Scarecrow;
 import com.very.wraq.events.core.BlockEvent;
 import com.very.wraq.files.ConfigTest;
 import com.very.wraq.netWorking.ModNetworking;
-import com.very.wraq.process.Plan.PlanPlayer;
+import com.very.wraq.process.plan.PlanPlayer;
+import com.very.wraq.render.particles.ModParticles;
+import com.very.wraq.render.gui.blocks.BrewingScreen;
 import com.very.wraq.render.gui.blocks.ForgingBlockScreen;
 import com.very.wraq.render.gui.blocks.FurnaceScreen;
 import com.very.wraq.render.gui.blocks.InjectBlockScreen;
-import com.very.wraq.valueAndTools.*;
-import com.very.wraq.valueAndTools.Utils.Utils;
-import com.very.wraq.blocks.entity.ModBlockEntities;
+import com.very.wraq.render.gui.testAndHelper.ModMenuTypes;
 import com.very.wraq.render.mobEffects.ModEffects;
 import com.very.wraq.render.mobEffects.ModPotions;
-import com.very.wraq.entities.entities.MainBoss.MainBoss;
-import com.very.wraq.render.Particles.ModParticles;
+import com.very.wraq.valueAndTools.*;
+import com.very.wraq.valueAndTools.Utils.Utils;
 import com.very.wraq.valueAndTools.registry.ModBlocks;
 import com.very.wraq.valueAndTools.registry.ModCreativeModeTab;
 import com.very.wraq.valueAndTools.registry.ModItems;
-import com.very.wraq.render.gui.blocks.BrewingScreen;
-import com.very.wraq.render.gui.testAndHelper.ModMenuTypes;
 import com.very.wraq.valueAndTools.registry.ModSounds;
 import dev.kosmx.playerAnim.api.layered.IAnimation;
 import dev.kosmx.playerAnim.api.layered.ModifierLayer;
@@ -60,6 +60,7 @@ import java.sql.SQLException;
 @Mod(Utils.MOD_ID)
 @Mod.EventBusSubscriber
 public class VMD{
+
     public VMD() {
         IEventBus modEvenBus = FMLJavaModLoadingContext.get().getModEventBus();
         ModItems.ITEMS.register(modEvenBus);
@@ -185,6 +186,14 @@ public class VMD{
                     ModItems.QingTuan.get(), ModItems.QingMingPrefix.get(), ModItems.QingMingGem.get(),
                     ModItems.QingMingForgePaper.get(),
                     ModItems.QingMingAttackRing.get(), ModItems.QingMingBowRing.get(), ModItems.QingMingManaRing.get()
+            };
+            for (Item item : items) event.accept(item);
+        }
+        if (event.getTabKey().equals(ModCreativeModeTab.LABOUR_DAY.getKey())) {
+            Item[] items = {
+                    ModItems.OldSilverCoin.get(), ModItems.OldGoldCoin.get(),
+                    ModItems.LabourDayForgePaper.get(), ModItems.LabourDayIronPickaxe.get(), ModItems.LabourDayIronHoe.get(),
+                    ModItems.LabourDayLottery.get(), ModItems.LabourDayPrefix.get(), ModItems.LabourDayGem.get()
             };
             for (Item item : items) event.accept(item);
         }
@@ -1002,7 +1011,6 @@ public class VMD{
             event.accept(ModItems.BlockReset.get().getDefaultInstance());
             event.accept(ModItems.Shoot.get().getDefaultInstance());
             event.accept(ModItems.FeiLeiShen.get().getDefaultInstance());
-            event.accept(ModItems.IndexCheck.get().getDefaultInstance());
             event.accept(ModItems.quartzcheck.get().getDefaultInstance());
             event.accept(ModItems.GuiOpen.get().getDefaultInstance());
             event.accept(ModItems.BarrierSet.get().getDefaultInstance());
@@ -1044,7 +1052,14 @@ public class VMD{
                     ModItems.WaterElementKillPaper.get(), ModItems.FireElementKillPaper.get(),
                     ModItems.StoneElementKillPaper.get(), ModItems.IceElementKillPaper.get(),
                     ModItems.LightningElementKillPaper.get(), ModItems.WindElementKillPaper.get(),
-                    ModItems.ShulkerKillPaper.get(), ModItems.EnderMiteKillPaper.get()
+                    ModItems.ShulkerKillPaper.get(), ModItems.EnderMiteKillPaper.get(),
+
+                    ModItems.CastleMopUpPaper.get(), ModItems.CastleSecondFloorMopUpPaper.get(),
+                    ModItems.DevilMopUpPaper.get(), ModItems.IceKnightMopUpPaper.get(),
+                    ModItems.LightningMopUpPaper.get(), ModItems.Main1BossMopUpPaper.get(),
+                    ModItems.MoonMopUpPaper.get(), ModItems.NetherMopUpPaper.get(),
+                    ModItems.PlainMopUpPaper.get(), ModItems.PurpleIronKnightMopUpPaper.get(),
+                    ModItems.SakuraBossMopUpPaper.get(), ModItems.TabooDevilMopUpPaper.get(),
             };
             for (Item item : items) event.accept(item.getDefaultInstance());
         }
@@ -1164,7 +1179,13 @@ public class VMD{
                     ModItems.LiulixianCurios3.get(), ModItems.LiulixianCurios3Paper.get(),
                     ModItems.BlackFeisaCurios5.get(), ModItems.BlackFeisaCurios5Paper.get(),
                     ModItems.HeihuangCurios.get(), ModItems.HeihuangCuriosPaper.get(),
-                    ModItems.HgjCurios.get(), ModItems.HgjCuriosPaper.get()
+                    ModItems.HgjCurios.get(), ModItems.HgjCuriosPaper.get(),
+                    ModItems.AttackCurios1.get(), ModItems.AttackCurios2.get(),
+                    ModItems.BowCurios1.get(), ModItems.BowCurios2.get(),
+                    ModItems.ManaCurios1.get(), ModItems.ManaCurios2.get(),
+                    ModItems.LifeCurios0.get(), ModItems.WaterCurios0.get(), ModItems.FireCurios0.get(),
+                    ModItems.StoneCurios0.get(), ModItems.IceCurios0.get(), ModItems.WindCurios0.get(),
+                    ModItems.LightningCurios0.get()
             };
             for (Item item : items) event.accept(item.getDefaultInstance());
         }
@@ -1201,9 +1222,9 @@ public class VMD{
         if(Utils.MainHandTag.containsKey(item) || Utils.Defence.Contains(item)){
             ItemStack mainhand = player.getMainHandItem();
             CompoundTag data = mainhand.getOrCreateTagElement(Utils.MOD_ID);
-            if(!data.contains("Owner"))
+            if(!data.contains(InventoryCheck.owner))
             {
-                data.putString("Owner",player.getName().getString());
+                data.putString(InventoryCheck.owner,player.getName().getString());
                 player.getMainHandItem().hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
             }
         }
@@ -1264,9 +1285,9 @@ public class VMD{
                     event.getToolTip().add(Component.literal("·基础护甲 + ").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.BOLD).append(Component.literal(String.format("%.2f",DefenceUp)).withStyle(ChatFormatting.WHITE)));
                 }
             }
-            if(data.contains("Owner"))
+            if(data.contains(InventoryCheck.owner))
             {
-                event.getToolTip().add(Component.literal("Owner:"+data.getString("Owner")).withStyle(ChatFormatting.AQUA));
+                event.getToolTip().add(Component.literal("Owner:"+data.getString(InventoryCheck.owner)).withStyle(ChatFormatting.AQUA));
             }
             if(data.contains("Quest"))
             {
@@ -1627,7 +1648,7 @@ public class VMD{
             ItemStack item = event.getEntity().getItem();
             event.getPlayer().addItem(item);
         }
-        if(data.contains("Owner") && !data.getString("Owner").equals(player.getName().getString())) event.setCanceled(true);
+        if(data.contains(InventoryCheck.owner) && !data.getString(InventoryCheck.owner).equals(player.getName().getString())) event.setCanceled(true);
     }*/
 /*    @SubscribeEvent
     public static void LogOut(PlayerEvent.PlayerLoggedOutEvent event)
@@ -2419,12 +2440,12 @@ public class VMD{
         {
             int time = event.getCharge();
             if(time >= 15) time = 15;
-            float damage = Compute.PlayerAttributes.PlayerAttackDamage(player);
-            double CriticalHitRate = Compute.PlayerAttributes.PlayerCriticalHitRate(player);
-            double CHitDamage = Compute.PlayerAttributes.PlayerCriticalHitDamage(player);
-            double BreakDefence = Compute.PlayerAttributes.PlayerBreakDefence(player);
+            float damage = PlayerAttributes.PlayerAttackDamage(player);
+            double CriticalHitRate = PlayerAttributes.PlayerCriticalHitRate(player);
+            double CHitDamage = PlayerAttributes.PlayerCriticalHitDamage(player);
+            double BreakDefence = PlayerAttributes.PlayerBreakDefence(player);
             float ExpUp = Compute.ExpGetImprove(player);
-            double BreakDefence0 = Compute.PlayerAttributes.PlayerBreakDefence0(player);
+            double BreakDefence0 = PlayerAttributes.PlayerBreakDefence0(player);
             MyArrow arrow = new MyArrow(EntityType.ARROW,player,level,player,damage*((float) time /10),CriticalHitRate,CHitDamage,BreakDefence,ExpUp,BreakDefence0,player.getItemInHand(InteractionHand.MAIN_HAND));
             if(time == 15)
             {
@@ -2440,12 +2461,12 @@ public class VMD{
         {
             int time = event.getCharge();
             if(time >= 30) time = 30;
-            float damage = Compute.PlayerAttributes.PlayerAttackDamage(player);
-            double CriticalHitRate = Compute.PlayerAttributes.PlayerCriticalHitRate(player);
-            double CHitDamage = Compute.PlayerAttributes.PlayerCriticalHitDamage(player);
-            double BreakDefence = Compute.PlayerAttributes.PlayerBreakDefence(player);
+            float damage = PlayerAttributes.PlayerAttackDamage(player);
+            double CriticalHitRate = PlayerAttributes.PlayerCriticalHitRate(player);
+            double CHitDamage = PlayerAttributes.PlayerCriticalHitDamage(player);
+            double BreakDefence = PlayerAttributes.PlayerBreakDefence(player);
             float ExpUp = Compute.ExpGetImprove(player);
-            double BreakDefence0 = Compute.PlayerAttributes.PlayerBreakDefence0(player);
+            double BreakDefence0 = PlayerAttributes.PlayerBreakDefence0(player);
             MyArrow arrow = new MyArrow(EntityType.ARROW,player,level,player,damage*((float) time /20),CriticalHitRate,CHitDamage,BreakDefence,ExpUp,BreakDefence0,player.getItemInHand(InteractionHand.MAIN_HAND));
             if(time == 30) arrow.setCritArrow(true);
             arrow.shootFromRotation(player,player.getXRot(),player.getYRot(),0.0d,3.0d*((float) time /20),1.0d);
@@ -2645,9 +2666,9 @@ public class VMD{
             {
                 CompoundTag data = inventory.getItem(i).getOrCreateTagElement(Utils.MOD_ID);
                 ItemStack itemStack = inventory.getItem(i);
-                if(data.contains("Owner") && !data.getString("Owner").equals(player.getName().getString()))
+                if(data.contains(InventoryCheck.owner) && !data.getString(InventoryCheck.owner).equals(player.getName().getString()))
                 {
-                    Player ItemOwner = player.getServer().getPlayerList().getPlayerByName(data.getString("Owner"));
+                    Player ItemOwner = player.getServer().getPlayerList().getPlayerByName(data.getString(InventoryCheck.owner));
                     if(ItemOwner == null)
                     {
                         LogUtils.getLogger().info("ItemOwner is null!");

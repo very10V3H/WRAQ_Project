@@ -2,7 +2,7 @@
 package com.very.wraq.customized.players.sword.Crush;
 
 import com.very.wraq.customized.Customize;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.BasicAttributeDescription;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.Utils;

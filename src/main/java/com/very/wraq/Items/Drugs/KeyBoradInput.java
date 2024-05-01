@@ -37,7 +37,7 @@ public class KeyBoradInput {
             InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_Z, KEY_CATEGORY);
 
     public static final KeyMapping Mission = new KeyMapping("key.vmd.mission", KeyConflictContext.IN_GAME,
-            InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_CAPS_LOCK, KEY_CATEGORY);
+            InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_P, KEY_CATEGORY);
 
     public static final KeyMapping NavigateSet = new KeyMapping("key.vmd.navigate_set", KeyConflictContext.IN_GAME,
             InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_G, KEY_CATEGORY);

@@ -1,10 +1,11 @@
 package com.very.wraq.customized.players.sceptre.Black_Feisa_;
 
 import com.very.wraq.customized.uniform.Attributes;
-import com.very.wraq.render.Particles.ModParticles;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.particles.ModParticles;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -134,12 +135,12 @@ public class BlackFeisaCurios extends Item implements ICurioItem {
 
     public static double DamageEnhance(Player player) {
         if (!IsPlayer(player)) return 0;
-        return Compute.PlayerAttributes.PlayerManaRecover(player) / 500;
+        return PlayerAttributes.PlayerManaRecover(player) / 500;
     }
 
     public static double ExManaDamage(Player player) {
         if (!IsPlayer(player)) return 0;
-        return Compute.PlayerAttributes.PlayerExpUp(player) * 2000;
+        return PlayerAttributes.PlayerExpUp(player) * 2000;
     }
 
 }

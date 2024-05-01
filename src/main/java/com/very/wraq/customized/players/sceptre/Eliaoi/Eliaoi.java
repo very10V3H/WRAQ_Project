@@ -1,13 +1,14 @@
 package com.very.wraq.customized.players.sceptre.Eliaoi;
 
 import com.very.wraq.coreAttackModule.ManaAttackModule;
-import com.very.wraq.process.Particle.ParticleProvider;
+import com.very.wraq.process.particle.ParticleProvider;
 import com.very.wraq.projectiles.mana.ManaArrow;
 import com.very.wraq.projectiles.mana.NewArrowMagma;
-import com.very.wraq.render.Particles.ModParticles;
+import com.very.wraq.render.particles.ModParticles;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.ModEntityType;
 import com.very.wraq.valueAndTools.Utils.StringUtils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import com.very.wraq.valueAndTools.registry.ModSounds;
 import net.minecraft.server.level.ServerLevel;
@@ -51,7 +52,7 @@ public class Eliaoi {
                 playerList.removeIf(player1 -> player1.distanceTo(player) > 10);
                 playerList.forEach(player1 -> {
                     EliaoiPlayerTickMap.put(player1,TickCount + 100);
-                    Compute.PlayerShieldProvider(player1,40,Compute.PlayerAttributes.PlayerManaDamage(player) * 0.25);
+                    Compute.PlayerShieldProvider(player1,40,PlayerAttributes.PlayerManaDamage(player) * 0.25);
                     Compute.EffectLastTimeSend(player1,ModItems.EliaoiCurios.get().getDefaultInstance(),100);
                 });
                 ParticleProvider.DisperseParticle(mob.position(), (ServerLevel) player.level(), 1, 1, 120, ModParticles.LONG_RED_SPELL.get(), 2);
@@ -79,7 +80,7 @@ public class Eliaoi {
                 if (player.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.EliaoiBook.get())) {
                     if (EliaoiManaExpand < 20) EliaoiManaExpand ++;
                     ParticleCreate(player,EliaoiManaExpand);
-                    if (EliaoiManaExpand == 20) Compute.Laser(player,ModParticles.RED_SPELL.get(), Compute.PlayerAttributes.PlayerManaDamage(player), 5);
+                    if (EliaoiManaExpand == 20) Compute.Laser(player,ModParticles.RED_SPELL.get(), PlayerAttributes.PlayerManaDamage(player), 5);
                     if (EliaoiManaExpand == 20 && player.tickCount % 20 == 0) {
 
                     }
@@ -131,10 +132,10 @@ public class Eliaoi {
     public static void Shoot(Player player) {
         Level level = player.level();
         NewArrowMagma newArrow = new NewArrowMagma(player, level,
-                Compute.PlayerAttributes.PlayerManaDamage(player),
-                Compute.PlayerAttributes.PlayerManaPenetration(player),
-                Compute.PlayerAttributes.PlayerExpUp(player),
-                Compute.PlayerAttributes.PlayerManaPenetration0(player));
+                PlayerAttributes.PlayerManaDamage(player),
+                PlayerAttributes.PlayerManaPenetration(player),
+                PlayerAttributes.PlayerExpUp(player),
+                PlayerAttributes.PlayerManaPenetration0(player));
         newArrow.setSilent(true);
         newArrow.setNoGravity(true);
         
@@ -165,11 +166,11 @@ public class Eliaoi {
                 }
                 mobList.forEach(mob -> {
                     ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_MAGMA.get(), player, level,
-                            Compute.PlayerAttributes.PlayerManaDamage(player),
-                            Compute.PlayerAttributes.PlayerManaPenetration(player), Compute.PlayerAttributes.PlayerManaPenetration0(player), StringUtils.ParticleTypes.Lava);
-                    ManaAttackModule.BasicAttack(player,mob,Compute.PlayerAttributes.PlayerManaDamage(player) * 10,
-                            Compute.PlayerAttributes.PlayerManaPenetration(player),
-                            Compute.PlayerAttributes.PlayerManaPenetration0(player),
+                            PlayerAttributes.PlayerManaDamage(player),
+                            PlayerAttributes.PlayerManaPenetration(player), PlayerAttributes.PlayerManaPenetration0(player), StringUtils.ParticleTypes.Lava);
+                    ManaAttackModule.BasicAttack(player,mob,PlayerAttributes.PlayerManaDamage(player) * 10,
+                            PlayerAttributes.PlayerManaPenetration(player),
+                            PlayerAttributes.PlayerManaPenetration0(player),
                             level,newArrow);
                 });
                 Compute.CoolDownTimeSend(player,ModItems.EliaoiBook.get().getDefaultInstance(),20);

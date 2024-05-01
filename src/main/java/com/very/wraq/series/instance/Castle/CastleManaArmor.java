@@ -1,12 +1,13 @@
 package com.very.wraq.series.instance.Castle;
 
 
-import com.very.wraq.process.Particle.ParticleProvider;
+import com.very.wraq.process.particle.ParticleProvider;
 import com.very.wraq.projectiles.mana.NewArrow;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.BasicAttributeDescription;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.very.wraq.valueAndTools.registry.ItemMaterial;
 import com.very.wraq.valueAndTools.registry.ModSounds;
 import net.minecraft.ChatFormatting;
@@ -131,9 +132,9 @@ public class CastleManaArmor extends ArmorItem {
     }
 
     public static void ExAttack(Player player, double rate) {
-        NewArrow newArrow = new NewArrow(player, player.level(), Compute.PlayerAttributes.PlayerManaDamage(player) * rate,
-                Compute.PlayerAttributes.PlayerManaPenetration(player), Compute.PlayerAttributes.PlayerExpUp(player),
-                false, Compute.PlayerAttributes.PlayerManaPenetration0(player));
+        NewArrow newArrow = new NewArrow(player, player.level(), PlayerAttributes.PlayerManaDamage(player) * rate,
+                PlayerAttributes.PlayerManaPenetration(player), PlayerAttributes.PlayerExpUp(player),
+                false, PlayerAttributes.PlayerManaPenetration0(player));
         newArrow.setSilent(true);
         newArrow.setNoGravity(true);
 

@@ -2,6 +2,7 @@ package com.very.wraq.netWorking.customized;
 
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
@@ -35,7 +36,7 @@ public class ShangMengLiC2SPacket {
                 Compute.EffectLastTimeSend(serverPlayer,ModItems.ShangMengLi_Sceptre1.get().getDefaultInstance(),0,Utils.ShangMengLiActiveCounts);
             }
 /*            if (TickCount > Utils.ShangMengLiSkillCoolDown) {
-                int CoolDownSeconds = (int) (12 - (12 * Compute.PlayerAttributes.PlayerCoolDownDecrease(serverPlayer)));
+                int CoolDownSeconds = (int) (12 - (12 * PlayerAttributes.PlayerCoolDownDecrease(serverPlayer)));
                 Utils.ShangMengLiSkillCoolDown = TickCount + CoolDownSeconds * 20;
                 Compute.CoolDownTimeSend(serverPlayer,ModItems.ShangMengLi_Sceptre.get().getDefaultInstance(),CoolDownSeconds * 20);
                 Utils.ShangMengLi = serverPlayer;

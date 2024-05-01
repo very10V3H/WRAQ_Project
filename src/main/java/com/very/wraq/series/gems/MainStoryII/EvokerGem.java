@@ -1,6 +1,6 @@
 package com.very.wraq.series.gems.MainStoryII;
 
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.Utils;
 import net.minecraft.ChatFormatting;
@@ -23,6 +23,7 @@ public class EvokerGem extends Item {
         Utils.GemsManaRecover.put("EvokerGem",ManaRecover);
         Utils.ManaDamage.put(this,ManaDamage);
         Utils.ManaRecover.put(this,ManaRecover);
+        Utils.GemsTag.put(this, 1);
     }
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag)

@@ -15,7 +15,8 @@ import com.very.wraq.netWorking.ModNetworking;
 import com.very.wraq.netWorking.misc.SoundsPackets.SoundsS2CPacket;
 import com.very.wraq.netWorking.unSorted.PlayerCallBack;
 import com.very.wraq.process.element.Element;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.process.missions.series.labourDay.LabourDayMission;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.overWorld.SakuraSeries.MineWorker.PurplePickaxe;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.StringUtils;
@@ -611,6 +612,14 @@ public class BlockEvent {
                                 Compute.ItemStackGive(player,Utils.mineDropMap.get(blockState.getBlock()).getDefaultInstance());
                                 level.destroyBlock(blockPos,false);
                                 MineReward(player,blockState);
+
+                                Random random = new Random();
+                                if (random.nextDouble() < Compute.playerExHarvest(player)) {
+                                    Compute.FormatMSGSend(player, Component.literal("额外产出").withStyle(ChatFormatting.GOLD),
+                                            Component.literal("为你提供了额外产物！").withStyle(ChatFormatting.WHITE));
+                                    Compute.ItemStackGive(player,Utils.mineDropMap.get(blockState.getBlock()).getDefaultInstance());
+                                    MineReward(player,blockState);
+                                }
                             }
                             else {
                                 BlockAndResetTime blockAndResetTime = new BlockAndResetTime(blockState,blockPos,tickCount + 1200);
@@ -783,6 +792,7 @@ public class BlockEvent {
         ServerPlayer serverPlayer = (ServerPlayer) player;
         serverPlayer.connection.send(clientboundSoundPacket);
         Utils.dayMineCount.put(player.getName().getString(),Utils.dayMineCount.getOrDefault(player.getName().getString(),0) + 1);
+        LabourDayMission.count(player, LabourDayMission.mineCounts);
     }
 
     public static void CropsInteract(net.minecraftforge.event.level.BlockEvent.BreakEvent event) throws IOException {
@@ -804,6 +814,14 @@ public class BlockEvent {
                     if (cropsPickDrop.containsKey(blockState.getBlock())) {
                         Compute.ItemStackGive(player, cropsPickDrop.get(blockState.getBlock()).getDefaultInstance());
                         CropsReward(player,blockState);
+
+                        Random random = new Random();
+                        if (random.nextDouble() < Compute.playerExHarvest(player)) {
+                            Compute.FormatMSGSend(player, Component.literal("额外产出").withStyle(ChatFormatting.GOLD),
+                                    Component.literal("为你提供了额外产物！").withStyle(ChatFormatting.WHITE));
+                            Compute.ItemStackGive(player, cropsPickDrop.get(blockState.getBlock()).getDefaultInstance());
+                            CropsReward(player,blockState);
+                        }
                     }
                     BlockState blockState1 = cropBlock.getStateForAge(0);
                     overWorld.destroyBlock(blockPos,false);
@@ -816,6 +834,14 @@ public class BlockEvent {
                 overWorld.destroyBlock(blockPos,false);
                 overWorld.setBlockAndUpdate(blockPos,blockState1);
                 Compute.ItemStackGive(player,Items.TORCHFLOWER.getDefaultInstance());
+
+                Random random = new Random();
+                if (random.nextDouble() < Compute.playerExHarvest(player)) {
+                    Compute.FormatMSGSend(player, Component.literal("额外产出").withStyle(ChatFormatting.GOLD),
+                            Component.literal("为你提供了额外产物！").withStyle(ChatFormatting.WHITE));
+                    Compute.ItemStackGive(player,Items.TORCHFLOWER.getDefaultInstance());
+                    CropsReward(player,blockState);
+                }
             }
         }
     }
@@ -848,7 +874,7 @@ public class BlockEvent {
         Compute.playerGardeningExpAdd(player,2);
         Compute.ExpPercentGetAndMSGSend(player, 0.0025, 0, Math.min(player.experienceLevel, 50));
         Utils.dayCropCount.put(player.getName().getString(),Utils.dayCropCount.getOrDefault(player.getName().getString(),0) + 1);
-
+        LabourDayMission.count(player, LabourDayMission.cropCounts);
     }
 
     public static Map<Block,Item> cropsPickDrop = new HashMap<>(){{
@@ -886,6 +912,14 @@ public class BlockEvent {
                         Compute.ItemStackGive(player,new ItemStack(blockState.getBlock().asItem(),2));
                         Utils.worldWoodList.add(new BlockAndResetTime(blockState,blockPos1,level.getServer().getTickCount() + 36000));
                         level.setBlockAndUpdate(blockPos1,WoodMap.get(level.getBlockState(blockPos1).getBlock()).defaultBlockState());
+
+                        Random random = new Random();
+                        if (random.nextDouble() < Compute.playerExHarvest(player)) {
+                            Compute.FormatMSGSend(player, Component.literal("额外产出").withStyle(ChatFormatting.GOLD),
+                                    Component.literal("为你提供了额外产物！").withStyle(ChatFormatting.WHITE));
+                            WoodReward(player,blockState);
+                            Compute.ItemStackGive(player,new ItemStack(blockState.getBlock().asItem(),2));
+                        }
                     }
                 }
             }
@@ -930,7 +964,7 @@ public class BlockEvent {
         }
     }
 
-    public static void WoodReward(Player player, BlockState blockState) {
+    public static void  WoodReward(Player player, BlockState blockState) {
         CompoundTag data = player.getPersistentData();
         if (blockState.is(Blocks.OAK_LOG)) data.putInt(StringUtils.Lop.OAK,data.getInt(StringUtils.Lop.OAK) + 1);
         if (blockState.is(Blocks.SPRUCE_LOG)) data.putInt(StringUtils.Lop.SPRUCE,data.getInt(StringUtils.Lop.SPRUCE) + 1);
@@ -954,6 +988,8 @@ public class BlockEvent {
             }
             data.putBoolean(StringUtils.LogReward,true);
         }
+
+        LabourDayMission.count(player, LabourDayMission.lopCounts);
     }
 
     @SubscribeEvent

@@ -21,6 +21,7 @@ public class SnowGem extends Item {
         Utils.GemsCritDamage.put("snowGem",CritDamage);
         Utils.CritRate.put(this,CritRate);
         Utils.CritDamage.put(this,CritDamage);
+        Utils.GemsTag.put(this, 1);
     }
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag)

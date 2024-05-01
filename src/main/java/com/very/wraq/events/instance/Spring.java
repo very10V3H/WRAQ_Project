@@ -2,9 +2,9 @@ package com.very.wraq.events.instance;
 
 import com.very.wraq.netWorking.ModNetworking;
 import com.very.wraq.netWorking.unSorted.SpringInstanceS2CPacket;
-import com.very.wraq.process.Particle.ParticleProvider;
-import com.very.wraq.render.Particles.ModParticles;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.process.particle.ParticleProvider;
+import com.very.wraq.render.particles.ModParticles;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.springFes.FireWorkGun;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.StringUtils;

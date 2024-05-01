@@ -1,5 +1,6 @@
 package com.very.wraq.series.overWorld.MainStory_II.Evoker.Runes;
 
+import com.very.wraq.events.core.InventoryCheck;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.Utils;
 import net.minecraft.ChatFormatting;
@@ -47,7 +48,7 @@ public class ManaRune2 extends Item {
             player.getPersistentData().putInt("ManaRune2",200);
             ItemStack itemStack = player.getItemInHand(InteractionHand.MAIN_HAND);
             CompoundTag data = itemStack.getOrCreateTagElement(Utils.MOD_ID);
-            data.putString("Owner",player.getName().getString());
+            data.putString(InventoryCheck.owner,player.getName().getString());
         }
         return InteractionResultHolder.pass(player.getItemInHand(interactionHand));
     }

@@ -5,6 +5,7 @@ import com.very.wraq.render.gui.blocks.InjectBlockMenu;
 import com.very.wraq.series.instance.Castle.CastleCurios;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

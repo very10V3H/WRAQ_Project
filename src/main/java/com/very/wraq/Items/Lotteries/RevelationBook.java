@@ -1,6 +1,6 @@
 package com.very.wraq.Items.Lotteries;
 
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;

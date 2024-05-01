@@ -1,5 +1,7 @@
 package com.very.wraq.files.dataBases;
 
+import net.minecraft.world.entity.player.Player;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +72,38 @@ public class DataBase {
         }
     }
 
+    public static void put(Player player, String key, String value) throws SQLException {
+        String playerName = player.getName().getString();
+        Connection connection = getDatabaseConnection();
+        Statement statement = connection.createStatement();
+        if (!containsKey(key)) {
+            String sql0 = "alter table playerData add " + key + " VARCHAR(100)";
+            statement.executeUpdate(sql0);
+        }
+        if (containsPlayer(playerName)) {
+            String sql2 = "update playerData set " + key + " = '" + value + "' where name = '" + playerName + "';";
+            statement.executeUpdate(sql2);
+        }
+        else {
+            String sql1 = "INSERT into playerData (name," + key + ") values ('" + playerName + "', '" + value + "');";
+            statement.executeUpdate(sql1);
+        }
+    }
+
     public static String get(String playerName, String key) throws SQLException {
+        String result = null;
+        if (containsPlayer(playerName) && containsKey(key)) {
+            String sql = "select * from playerData where name = '" + playerName + "';";
+            ResultSet resultSet = getStatement().executeQuery(sql);
+            while (resultSet.next()) {
+                result = resultSet.getString(key);
+            }
+        }
+        return result;
+    }
+
+    public static String get(Player player, String key) throws SQLException {
+        String playerName = player.getName().getString();
         String result = "null";
         if (containsPlayer(playerName) && containsKey(key)) {
             String sql = "select * from playerData where name = '" + playerName + "';";

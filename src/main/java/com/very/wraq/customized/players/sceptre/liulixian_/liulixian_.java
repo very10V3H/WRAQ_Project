@@ -1,13 +1,15 @@
 package com.very.wraq.customized.players.sceptre.liulixian_;
 
 import com.very.wraq.coreAttackModule.ManaAttackModule;
-import com.very.wraq.process.Particle.ParticleProvider;
+import com.very.wraq.process.particle.ParticleProvider;
 import com.very.wraq.projectiles.mana.ManaArrow;
 import com.very.wraq.projectiles.mana.SwordAir;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.ModEntityType;
 import com.very.wraq.valueAndTools.Utils.StringUtils;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import com.very.wraq.valueAndTools.registry.ModSounds;
 import net.minecraft.core.particles.ParticleTypes;
@@ -33,9 +35,9 @@ public class liulixian_ {
                 Utils.LiuLiXianManaAttackDelay --;
                 Level level = player.level();
                 ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_SNOW.get(), player, level,
-                        Compute.PlayerAttributes.PlayerManaDamage(player),
-                        Compute.PlayerAttributes.PlayerManaPenetration(player),
-                        Compute.PlayerAttributes.PlayerManaPenetration0(player),StringUtils.ParticleTypes.Sea,true);
+                        PlayerAttributes.PlayerManaDamage(player),
+                        PlayerAttributes.PlayerManaPenetration(player),
+                        PlayerAttributes.PlayerManaPenetration0(player),StringUtils.ParticleTypes.Sea,true);
                 newArrow.setSilent(true);
                 newArrow.setNoGravity(true);
                 
@@ -63,11 +65,11 @@ public class liulixian_ {
                 if (NearestMob.get() != null && player.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.LiuLiXianSword.get())) {
                     CompoundTag data = player.getPersistentData();
                     ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_SAKURA.get(), player, level,
-                            Compute.PlayerAttributes.PlayerManaDamage(player),
-                            Compute.PlayerAttributes.PlayerManaPenetration(player),
-                            Compute.PlayerAttributes.PlayerManaPenetration0(player), StringUtils.ParticleTypes.Sea);
-                    ManaAttackModule.BasicAttack(player,NearestMob.get(),Compute.PlayerAttributes.PlayerManaDamage(player),
-                            Compute.PlayerAttributes.PlayerManaPenetration(player),Compute.PlayerAttributes.PlayerManaPenetration0(player),
+                            PlayerAttributes.PlayerManaDamage(player),
+                            PlayerAttributes.PlayerManaPenetration(player),
+                            PlayerAttributes.PlayerManaPenetration0(player), StringUtils.ParticleTypes.Sea);
+                    ManaAttackModule.BasicAttack(player,NearestMob.get(),PlayerAttributes.PlayerManaDamage(player),
+                            PlayerAttributes.PlayerManaPenetration(player),PlayerAttributes.PlayerManaPenetration0(player),
                             player.level(),newArrow);
                 }
             }

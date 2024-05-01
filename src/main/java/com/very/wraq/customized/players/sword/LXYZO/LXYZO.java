@@ -1,8 +1,9 @@
 package com.very.wraq.customized.players.sword.LXYZO;
 
-import com.very.wraq.render.Particles.ModParticles;
+import com.very.wraq.render.particles.ModParticles;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.game.ClientboundLevelParticlesPacket;
@@ -38,7 +39,7 @@ public class LXYZO {
                 mobList.forEach(mob -> {
                     if (mob.position().distanceTo(Utils.LengXueVec3) < 6) {
                         Compute.Damage.AttackDamageToMonster_AdDamage(player,mob,
-                                Compute.PlayerAttributes.PlayerDefence(player) * 2.24 * (1 + Compute.PlayerAttributes.PlayerCritDamage(player)));
+                                PlayerAttributes.PlayerDefence(player) * 2.24 * (1 + PlayerAttributes.PlayerCritDamage(player)));
                         LightningBolt lightningBolt = new LightningBolt(EntityType.LIGHTNING_BOLT,player.level());
                         lightningBolt.moveTo(mob.position());
                         lightningBolt.setDamage(0);
@@ -61,7 +62,7 @@ public class LXYZO {
                     mobList.forEach(mob -> {
                         if (mob.position().distanceTo(Utils.LengXueVec3) < 6) {
                             Compute.Damage.AttackDamageToMonster_AdDamage(player,mob,
-                                    Compute.PlayerAttributes.PlayerAttackDamage(player) * 2.24 * (1 + Compute.PlayerAttributes.PlayerCritDamage(player)));
+                                    PlayerAttributes.PlayerAttackDamage(player) * 2.24 * (1 + PlayerAttributes.PlayerCritDamage(player)));
                             ClientboundLevelParticlesPacket clientboundLevelParticlesPacket =
                                     new ClientboundLevelParticlesPacket(ParticleTypes.EXPLOSION_EMITTER, true,
                                             mob.getX(), mob.getY(), mob.getZ(),

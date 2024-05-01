@@ -1,13 +1,14 @@
 package com.very.wraq.customized.players.sceptre.Black_Feisa_;
 
 import com.very.wraq.customized.uniform.Attributes;
-import com.very.wraq.process.Particle.ParticleProvider;
+import com.very.wraq.process.particle.ParticleProvider;
 import com.very.wraq.projectiles.mana.ManaArrow;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.ModEntityType;
 import com.very.wraq.valueAndTools.Utils.StringUtils;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import com.very.wraq.valueAndTools.registry.ModSounds;
 import net.minecraft.ChatFormatting;
@@ -97,8 +98,8 @@ public class BlackFeisaCurios1 extends Item implements ICurioItem {
     public static void Shoot(Player player) {
         if (!IsOn(player)) return;
         Level level = player.level();
-        ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW.get(), player, level, Compute.PlayerAttributes.PlayerManaDamage(player),
-                Compute.PlayerAttributes.PlayerManaPenetration(player), Compute.PlayerAttributes.PlayerManaPenetration0(player), StringUtils.ParticleTypes.EndParticle);
+        ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW.get(), player, level, PlayerAttributes.PlayerManaDamage(player),
+                PlayerAttributes.PlayerManaPenetration(player), PlayerAttributes.PlayerManaPenetration0(player), StringUtils.ParticleTypes.EndParticle);
         newArrow.setSilent(true);
         newArrow.setNoGravity(true);
 
@@ -120,7 +121,7 @@ public class BlackFeisaCurios1 extends Item implements ICurioItem {
             if (TickCount > CoolDownTick) {
                 CoolDownTick = TickCount + 100;
                 ShieldEndTick = TickCount + 15;
-                Compute.PlayerShieldProvider(player,20,Compute.PlayerAttributes.PlayerManaDamage(player));
+                Compute.PlayerShieldProvider(player,20,PlayerAttributes.PlayerManaDamage(player));
                 Compute.EffectLastTimeSend(player,ModItems.BlackFeisaCurios21.get().getDefaultInstance(),15);
             }
         }

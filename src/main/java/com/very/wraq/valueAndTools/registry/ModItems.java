@@ -47,9 +47,16 @@ import com.very.wraq.customized.players.sword.XiangLi.XiangLiPickaxe;
 import com.very.wraq.customized.players.sword.XiangLi.XiangLiPrefix;
 import com.very.wraq.customized.players.sword.XiangLi.XiangliSmoke;
 import com.very.wraq.customized.players.sword.ZuoSI.ZuoSiCurios;
-import com.very.wraq.customized.uniform.AttackCurios0;
-import com.very.wraq.customized.uniform.BowCurios0;
-import com.very.wraq.customized.uniform.ManaCurios0;
+import com.very.wraq.customized.uniform.attack.AttackCurios0;
+import com.very.wraq.customized.uniform.attack.AttackCurios1;
+import com.very.wraq.customized.uniform.attack.AttackCurios2;
+import com.very.wraq.customized.uniform.bow.BowCurios0;
+import com.very.wraq.customized.uniform.bow.BowCurios1;
+import com.very.wraq.customized.uniform.bow.BowCurios2;
+import com.very.wraq.customized.uniform.element.*;
+import com.very.wraq.customized.uniform.mana.ManaCurios0;
+import com.very.wraq.customized.uniform.mana.ManaCurios1;
+import com.very.wraq.customized.uniform.mana.ManaCurios2;
 import com.very.wraq.entities.animatedItem.AnimatedItem;
 import com.very.wraq.events.sec.SoulBag;
 import com.very.wraq.Items.DevelopmentTools.*;
@@ -102,13 +109,17 @@ import com.very.wraq.process.element.holyStone.*;
 import com.very.wraq.process.element.RainbowCrystal;
 import com.very.wraq.process.element.RainbowPowder;
 import com.very.wraq.process.element.teleportTicket.*;
-import com.very.wraq.process.Lottery.LotteryPrefix;
-import com.very.wraq.process.Parkour.KillPaperLoot;
-import com.very.wraq.process.Parkour.ParkourGloves;
-import com.very.wraq.process.Parkour.ParkourTicket;
+import com.very.wraq.process.instance.MopUpPaper;
+import com.very.wraq.process.labourDay.*;
+import com.very.wraq.process.lottery.LotteryPrefix;
+import com.very.wraq.process.lottery.NewLotteries;
+import com.very.wraq.process.parkour.KillPaperLoot;
+import com.very.wraq.process.parkour.ParkourGloves;
+import com.very.wraq.process.parkour.ParkourTicket;
+import com.very.wraq.process.qingMing.*;
 import com.very.wraq.projectiles.mana.Shoot;
 import com.very.wraq.render.gui.testAndHelper.SmartPhoneOpen;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.end.curios.EndCrystal;
 import com.very.wraq.series.end.curios.EndCurios;
 import com.very.wraq.series.end.curios.EndCurios1;
@@ -372,7 +383,6 @@ import com.very.wraq.series.overWorld.SakuraSeries.Slime.SlimeBoots;
 import com.very.wraq.series.overWorld.VariousItem.FeiLeiShen;
 import com.very.wraq.series.overWorld.WorldBoss.CropPackets;
 import com.very.wraq.series.overWorld.WorldBoss.GiantTicket;
-import com.very.wraq.series.qingMing.*;
 import com.very.wraq.series.springFes.*;
 import com.very.wraq.series.worldSoul.*;
 import com.very.wraq.valueAndTools.ModEntityType;
@@ -384,6 +394,8 @@ import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+
+import java.util.ArrayList;
 
 public class ModItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Utils.MOD_ID);
@@ -783,8 +795,6 @@ public class ModItems {
             ()->new forgingstone2(new Item.Properties().rarity(Rarity.EPIC)));
     public static final RegistryObject<Item> FeiLeiShen = ITEMS.register("feileishen",
             ()->new FeiLeiShen(new Item.Properties().rarity(Rarity.EPIC)));
-    public static final RegistryObject<Item> IndexCheck = ITEMS.register("indexcheck",
-            ()->new InventoryCheck(new Item.Properties().rarity(Rarity.EPIC)));
     public static final RegistryObject<Item> Ruby = ITEMS.register("ruby",
             ()->new Ruby(new Item.Properties().rarity(CustomStyle.Nether)));
     public static final RegistryObject<Item> ArmorWitherSkeleton = ITEMS.register("armorwitherskeleton",
@@ -814,7 +824,7 @@ public class ModItems {
     public static final RegistryObject<Item> PigLinSoul = ITEMS.register("piglinsoul",
             ()->new PiglinSoul(new Item.Properties().rarity(CustomStyle.Magma)));
     public static final RegistryObject<Item> ArmorNetherSkeletonHelmet = ITEMS.register("armornetherskeletonhelmet",
-            ()->new MobArmor(ItemMaterial.MaterialForArmor2, ArmorItem.Type.HELMET, StringUtils.MobName.NetherSkeleton));
+            ()->new MobArmor(ItemMaterial.BasicArmor2, ArmorItem.Type.HELMET, StringUtils.MobName.NetherSkeleton));
     public static final RegistryObject<Item> ArmorNetherSkeletonChest = ITEMS.register("armornetherskeletonchest",
             ()->new MobArmor(ItemMaterial.NetherAll, ArmorItem.Type.CHESTPLATE,StringUtils.MobName.NetherSkeleton));
     public static final RegistryObject<Item> ArmorNetherSkeletonLeggings = ITEMS.register("armornetherskeletonleggings",
@@ -868,13 +878,13 @@ public class ModItems {
     public static final RegistryObject<Item> SeaRune = ITEMS.register("searune",
             ()->new SeaRune(new Item.Properties().rarity(CustomStyle.SeaBold)));
     public static final RegistryObject<Item> ArmorLZHelmet = ITEMS.register("armorlzhelmet",
-            ()->new MobArmor(ItemMaterial.MaterialForArmor2, ArmorItem.Type.HELMET,StringUtils.MobName.LightingZombie));
+            ()->new MobArmor(ItemMaterial.BasicArmor2, ArmorItem.Type.HELMET,StringUtils.MobName.LightingZombie));
     public static final RegistryObject<Item> ArmorLZChest = ITEMS.register("armorlzchest",
-            ()->new MobArmor(ItemMaterial.MaterialForArmor2, ArmorItem.Type.CHESTPLATE,StringUtils.MobName.LightingZombie));
+            ()->new MobArmor(ItemMaterial.BasicArmor2, ArmorItem.Type.CHESTPLATE,StringUtils.MobName.LightingZombie));
     public static final RegistryObject<Item> ArmorLZLeggings = ITEMS.register("armorlzleggings",
-            ()->new MobArmor(ItemMaterial.MaterialForArmor2, ArmorItem.Type.LEGGINGS,StringUtils.MobName.LightingZombie));
+            ()->new MobArmor(ItemMaterial.BasicArmor2, ArmorItem.Type.LEGGINGS,StringUtils.MobName.LightingZombie));
     public static final RegistryObject<Item> ArmorLZBoots = ITEMS.register("armorlzboots",
-            ()->new MobArmor(ItemMaterial.MaterialForArmor2, ArmorItem.Type.BOOTS,StringUtils.MobName.LightingZombie));
+            ()->new MobArmor(ItemMaterial.BasicArmor2, ArmorItem.Type.BOOTS,StringUtils.MobName.LightingZombie));
     public static final RegistryObject<Item> LightningSoul = ITEMS.register("lightningsoul",
             ()->new LightningSoul(new Item.Properties().rarity(CustomStyle.Lightning)));
     public static final RegistryObject<Item> LightningRune = ITEMS.register("lightningrune",
@@ -1457,7 +1467,7 @@ public class ModItems {
     public static final RegistryObject<Item> ArmorForestBoss = ITEMS.register("armor_forest_boss",
             ()->new MobArmor(ItemMaterial.MaterialForBoss, ArmorItem.Type.HELMET, StringUtils.MobName.ForestBoss));
     public static final RegistryObject<Item> ArmorVolcanoBoss = ITEMS.register("armor_volcano_boss",
-            ()->new MobArmor(ItemMaterial.MaterialForArmor2, ArmorItem.Type.HELMET, StringUtils.MobName.VolcanoBoss));
+            ()->new MobArmor(ItemMaterial.BasicArmor2, ArmorItem.Type.HELMET, StringUtils.MobName.VolcanoBoss));
     public static final RegistryObject<Item> SakuraChange = ITEMS.register("sakura_change",
             ()->new SakuraChange(new Item.Properties().rarity(Rarity.RARE)));
     public static final RegistryObject<Item> BlockFill = ITEMS.register("block_fill",
@@ -4396,5 +4406,117 @@ public class ModItems {
     public static final RegistryObject<Item> RoseGoldCoin = ITEMS.register("rose_gold_coin",
             ()->new Item(new Item.Properties().rarity(CustomStyle.PurpleIronBold)));
 
+    public static final RegistryObject<Item> MobArmorLabourDay1 = ITEMS.register("mob_armor_labour_day1",
+            ()->new MobArmor(ItemMaterial.BasicArmor1, ArmorItem.Type.HELMET,StringUtils.MobName.LabourDay1));
+
+    public static final RegistryObject<Item> MobArmorLabourDay2 = ITEMS.register("mob_armor_labour_day2",
+            ()->new MobArmor(ItemMaterial.BasicArmor2, ArmorItem.Type.HELMET,StringUtils.MobName.LabourDay2));
+
+    public static final RegistryObject<Item> OldSilverCoin = ITEMS.register("old_silver_coin",
+            ()->new OldCoin(new Item.Properties().rarity(CustomStyle.Mine)));
+
+    public static final RegistryObject<Item> OldGoldCoin = ITEMS.register("old_gold_coin",
+            ()->new OldCoin(new Item.Properties().rarity(CustomStyle.Gold)));
+
+    public static final RegistryObject<Item> LabourDayForgePaper = ITEMS.register("labour_day_forge_paper",
+            ()->new LabourDayForgePaper(new Item.Properties().rarity(CustomStyle.GoldBold)));
+
+    public static final RegistryObject<Item> LabourDayIronHoe = ITEMS.register("labour_day_iron_hoe",
+            ()->new LabourDayIronHoe(new Item.Properties().rarity(CustomStyle.GoldBold)));
+
+    public static final RegistryObject<Item> LabourDayIronPickaxe = ITEMS.register("labour_day_iron_pickaxe",
+            ()->new LabourDayIronPickaxe(new Item.Properties().rarity(CustomStyle.GoldBold)));
+
+    public static final RegistryObject<Item> LabourDayPrefix = ITEMS.register("labour_day_prefix",
+            ()->new LabourDayPrefix(new Item.Properties().rarity(CustomStyle.GoldBold)));
+
+    public static final RegistryObject<Item> LabourDayGem = ITEMS.register("labour_day_gem",
+            ()->new LabourDayGem(new Item.Properties().rarity(CustomStyle.GoldBold)));
+
+    public static final RegistryObject<Item> LabourDayLottery = ITEMS.register("labour_day_lottery",
+            ()->new NewLotteries(new Item.Properties().rarity(CustomStyle.GoldBold), new ArrayList<>(){{
+                add(new NewLotteries.Loot(new ItemStack(ModItems.LabourDayIronPickaxe.get()), 0.01));
+                add(new NewLotteries.Loot(new ItemStack(ModItems.LabourDayIronHoe.get()), 0.01));
+                add(new NewLotteries.Loot(new ItemStack(ModItems.LabourDayForgePaper.get()), 0.02));
+                add(new NewLotteries.Loot(new ItemStack(ModItems.LabourDayGem.get()), 0.02));
+                add(new NewLotteries.Loot(new ItemStack(ModItems.LabourDayPrefix.get()), 0.04));
+                add(new NewLotteries.Loot(new ItemStack(ModItems.OldGoldCoin.get()), 0.45));
+                add(new NewLotteries.Loot(new ItemStack(ModItems.OldSilverCoin.get()), 0.45));
+            }}));
+
+    public static final RegistryObject<Item> CastleMopUpPaper = ITEMS.register("castle_mop_up_paper",
+            ()->new MopUpPaper(new Item.Properties().rarity(CustomStyle.RedBold), MopUpPaper.InstanceName.Castle));
+
+    public static final RegistryObject<Item> CastleSecondFloorMopUpPaper = ITEMS.register("castle_second_floor_mop_up_paper",
+            ()->new MopUpPaper(new Item.Properties().rarity(CustomStyle.RedBold), MopUpPaper.InstanceName.CastleSecondFloor));
+
+    public static final RegistryObject<Item> DevilMopUpPaper = ITEMS.register("devil_mop_up_paper",
+            ()->new MopUpPaper(new Item.Properties().rarity(CustomStyle.RedBold), MopUpPaper.InstanceName.Devil));
+
+    public static final RegistryObject<Item> IceKnightMopUpPaper = ITEMS.register("ice_knight_mop_up_paper",
+            ()->new MopUpPaper(new Item.Properties().rarity(CustomStyle.RedBold), MopUpPaper.InstanceName.IceKnight));
+
+    public static final RegistryObject<Item> LightningMopUpPaper = ITEMS.register("lightning_mop_up_paper",
+            ()->new MopUpPaper(new Item.Properties().rarity(CustomStyle.RedBold), MopUpPaper.InstanceName.Lightning));
+
+    public static final RegistryObject<Item> Main1BossMopUpPaper = ITEMS.register("main1_boss_mop_up_paper",
+            ()->new MopUpPaper(new Item.Properties().rarity(CustomStyle.RedBold), MopUpPaper.InstanceName.Main1Boss));
+
+    public static final RegistryObject<Item> MoonMopUpPaper = ITEMS.register("moon_mop_up_paper",
+            ()->new MopUpPaper(new Item.Properties().rarity(CustomStyle.RedBold), MopUpPaper.InstanceName.Moon));
+
+    public static final RegistryObject<Item> NetherMopUpPaper = ITEMS.register("nether_mop_up_paper",
+            ()->new MopUpPaper(new Item.Properties().rarity(CustomStyle.RedBold), MopUpPaper.InstanceName.Nether));
+
+    public static final RegistryObject<Item> PlainMopUpPaper = ITEMS.register("plain_mop_up_paper",
+            ()->new MopUpPaper(new Item.Properties().rarity(CustomStyle.RedBold), MopUpPaper.InstanceName.Plain));
+
+    public static final RegistryObject<Item> PurpleIronKnightMopUpPaper = ITEMS.register("purple_iron_knight_mop_up_paper",
+            ()->new MopUpPaper(new Item.Properties().rarity(CustomStyle.RedBold), MopUpPaper.InstanceName.PurpleIronKnight));
+
+    public static final RegistryObject<Item> SakuraBossMopUpPaper = ITEMS.register("sakura_boss_mop_up_paper",
+            ()->new MopUpPaper(new Item.Properties().rarity(CustomStyle.RedBold), MopUpPaper.InstanceName.SakuraBoss));
+
+    public static final RegistryObject<Item> TabooDevilMopUpPaper = ITEMS.register("taboo_devil_mop_up_paper",
+            ()->new MopUpPaper(new Item.Properties().rarity(CustomStyle.RedBold), MopUpPaper.InstanceName.TabooDevil));
+
+    public static final RegistryObject<Item> AttackCurios1 = ITEMS.register("attack_curios_1",
+            ()->new AttackCurios1(new Item.Properties().rarity(CustomStyle.MagmaBold)));
+
+    public static final RegistryObject<Item> BowCurios1 = ITEMS.register("bow_curios_1",
+            ()->new BowCurios1(new Item.Properties().rarity(CustomStyle.LifeBold)));
+
+    public static final RegistryObject<Item> ManaCurios1 = ITEMS.register("mana_curios_1",
+            ()->new ManaCurios1(new Item.Properties().rarity(CustomStyle.EvokerBold)));
+
+    public static final RegistryObject<Item> AttackCurios2 = ITEMS.register("attack_curios_2",
+            ()->new AttackCurios2(new Item.Properties().rarity(CustomStyle.MagmaBold)));
+
+    public static final RegistryObject<Item> BowCurios2 = ITEMS.register("bow_curios_2",
+            ()->new BowCurios2(new Item.Properties().rarity(CustomStyle.LifeBold)));
+
+    public static final RegistryObject<Item> ManaCurios2 = ITEMS.register("mana_curios_2",
+            ()->new ManaCurios2(new Item.Properties().rarity(CustomStyle.EvokerBold)));
+
+    public static final RegistryObject<Item> LifeCurios0 = ITEMS.register("life_curios_0",
+            ()->new LifeCurios0(new Item.Properties().rarity(CustomStyle.LifeBold)));
+
+    public static final RegistryObject<Item> WaterCurios0 = ITEMS.register("water_curios_0",
+            ()->new WaterCurios0(new Item.Properties().rarity(CustomStyle.WaterBold)));
+
+    public static final RegistryObject<Item> FireCurios0 = ITEMS.register("fire_curios_0",
+            ()->new FireCurios0(new Item.Properties().rarity(CustomStyle.FireBold)));
+
+    public static final RegistryObject<Item> StoneCurios0 = ITEMS.register("stone_curios_0",
+            ()->new StoneCurios0(new Item.Properties().rarity(CustomStyle.StoneBold)));
+
+    public static final RegistryObject<Item> IceCurios0 = ITEMS.register("ice_curios_0",
+            ()->new IceCurios0(new Item.Properties().rarity(CustomStyle.IceBold)));
+
+    public static final RegistryObject<Item> WindCurios0 = ITEMS.register("wind_curios_0",
+            ()->new WindCurios0(new Item.Properties().rarity(CustomStyle.WindBold)));
+
+    public static final RegistryObject<Item> LightningCurios0 = ITEMS.register("lightning_curios_0",
+            ()->new LightningCurios0(new Item.Properties().rarity(CustomStyle.LightningBold)));
 }
 

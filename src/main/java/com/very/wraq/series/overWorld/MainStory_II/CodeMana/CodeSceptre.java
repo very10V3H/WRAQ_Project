@@ -1,13 +1,14 @@
 package com.very.wraq.series.overWorld.MainStory_II.CodeMana;
 
-import com.very.wraq.process.Particle.ParticleProvider;
+import com.very.wraq.process.particle.ParticleProvider;
 import com.very.wraq.projectiles.mana.NewArrow;
 import com.very.wraq.valueAndTools.BasicAttributeDescription;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.StringUtils;
 import com.very.wraq.valueAndTools.Utils.Struct.Power;
 import com.very.wraq.valueAndTools.Utils.Utils;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -112,7 +113,7 @@ public class CodeSceptre extends PickaxeItem{
             {
                 data.putInt("MANA",data.getInt("MANA") - ManaCost);
                 Compute.ManaStatusUpdate(player);
-                NewArrow newArrow = new NewArrow(player,level,Compute.PlayerAttributes.PlayerManaDamage(player),Compute.PlayerAttributes.PlayerManaPenetration(player),Compute.PlayerAttributes.PlayerExpUp(player),true,Compute.PlayerAttributes.PlayerManaPenetration0(player));
+                NewArrow newArrow = new NewArrow(player,level,PlayerAttributes.PlayerManaDamage(player),PlayerAttributes.PlayerManaPenetration(player),PlayerAttributes.PlayerExpUp(player),true,PlayerAttributes.PlayerManaPenetration0(player));
                 newArrow.setSilent(true);
                 newArrow.setNoGravity(true);
                 

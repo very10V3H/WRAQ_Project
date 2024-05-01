@@ -1,6 +1,6 @@
 package com.very.wraq.series.gems.MainStoryIII_D;
 
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.StringUtils;
 import com.very.wraq.valueAndTools.Utils.Utils;
@@ -25,6 +25,7 @@ public class PiglinGemD extends Item {
         Utils.GemsHealthRecover.put(StringUtils.GemName.PiglinGemD,HealthRecover);
         Utils.ExpUp.put(this,ExpUp);
         Utils.HealthRecover.put(this,HealthRecover);
+        Utils.GemsTag.put(this, 1);
     }
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag)

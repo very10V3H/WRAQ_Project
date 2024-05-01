@@ -12,6 +12,7 @@ import com.very.wraq.netWorking.misc.AttackPackets.AttackC2SPacket;
 import com.very.wraq.netWorking.unSorted.SoulSceptreC2SPacket;
 import com.very.wraq.valueAndTools.Utils.ClientUtils;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.InteractionHand;

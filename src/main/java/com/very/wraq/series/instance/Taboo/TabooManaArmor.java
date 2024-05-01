@@ -3,7 +3,8 @@ package com.very.wraq.series.instance.Taboo;
 import com.very.wraq.valueAndTools.BasicAttributeDescription;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.Utils;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.registry.ItemMaterial;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import net.minecraft.ChatFormatting;
@@ -107,7 +108,7 @@ public class TabooManaArmor extends ArmorItem {
     public static double PenetrationDirectEnhance(Player player) {
         if (!IsOn(player)) return 0;
         if (Compute.ManaSkillLevelGet(player.getPersistentData(),10) > 0)
-            return (Compute.PlayerAttributes.PlayerMaxMana(player) + 100) * Compute.ManaSkillLevelGet(player.getPersistentData(),10) * 0.1;
+            return (PlayerAttributes.PlayerMaxMana(player) + 100) * Compute.ManaSkillLevelGet(player.getPersistentData(),10) * 0.1;
 
         return 0;
     }

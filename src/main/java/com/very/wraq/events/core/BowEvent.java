@@ -257,12 +257,12 @@ public class BowEvent {
             {
                 int time = event.getCharge();
                 if(time >= 15) time = 15;
-                float damage = Compute.PlayerAttributes.PlayerAttackDamage(player);
-                double CriticalHitRate = Compute.PlayerAttributes.PlayerCriticalHitRate(player);
-                double CHitDamage = Compute.PlayerAttributes.PlayerCriticalHitDamage(player);
-                double BreakDefence = Compute.PlayerAttributes.PlayerBreakDefence(player);
+                float damage = PlayerAttributes.PlayerAttackDamage(player);
+                double CriticalHitRate = PlayerAttributes.PlayerCriticalHitRate(player);
+                double CHitDamage = PlayerAttributes.PlayerCriticalHitDamage(player);
+                double BreakDefence = PlayerAttributes.PlayerBreakDefence(player);
                 float ExpUp = Compute.ExpGetImprove(player);
-                double BreakDefence0 = Compute.PlayerAttributes.PlayerBreakDefence0(player);
+                double BreakDefence0 = PlayerAttributes.PlayerBreakDefence0(player);
                 MyArrow arrow = new MyArrow(EntityType.ARROW,player,level,player,damage*((float) time /10),CriticalHitRate,CHitDamage,BreakDefence,ExpUp,BreakDefence0,player.getItemInHand(InteractionHand.MAIN_HAND),true);
                 if(time == 15)
                 {
@@ -279,12 +279,12 @@ public class BowEvent {
                 {
                     int time = event.getCharge();
                     if(time >= 30) time = 30;
-                    float damage = Compute.PlayerAttributes.PlayerAttackDamage(player);
-                    double CriticalHitRate = Compute.PlayerAttributes.PlayerCriticalHitRate(player);
-                    double CHitDamage = Compute.PlayerAttributes.PlayerCriticalHitDamage(player);
-                    double BreakDefence = Compute.PlayerAttributes.PlayerBreakDefence(player);
+                    float damage = PlayerAttributes.PlayerAttackDamage(player);
+                    double CriticalHitRate = PlayerAttributes.PlayerCriticalHitRate(player);
+                    double CHitDamage = PlayerAttributes.PlayerCriticalHitDamage(player);
+                    double BreakDefence = PlayerAttributes.PlayerBreakDefence(player);
                     float ExpUp = Compute.ExpGetImprove(player);
-                    double BreakDefence0 = Compute.PlayerAttributes.PlayerBreakDefence0(player);
+                    double BreakDefence0 = PlayerAttributes.PlayerBreakDefence0(player);
                     CompoundTag data = player.getPersistentData();
                     MyArrow arrow = new MyArrow(EntityType.ARROW,player,level,player,damage*((float) time /20),CriticalHitRate,CHitDamage,BreakDefence,ExpUp,BreakDefence0,player.getItemInHand(InteractionHand.MAIN_HAND),true);
                     if(time == 30 && data.getInt("MANA") >= 40)
@@ -312,12 +312,12 @@ public class BowEvent {
                 {
                     int time = event.getCharge();
                     if(time >= 30) time = 30;
-                    float damage = Compute.PlayerAttributes.PlayerAttackDamage(player);
-                    double CriticalHitRate = Compute.PlayerAttributes.PlayerCriticalHitRate(player);
-                    double CHitDamage = Compute.PlayerAttributes.PlayerCriticalHitDamage(player);
-                    double BreakDefence = Compute.PlayerAttributes.PlayerBreakDefence(player);
+                    float damage = PlayerAttributes.PlayerAttackDamage(player);
+                    double CriticalHitRate = PlayerAttributes.PlayerCriticalHitRate(player);
+                    double CHitDamage = PlayerAttributes.PlayerCriticalHitDamage(player);
+                    double BreakDefence = PlayerAttributes.PlayerBreakDefence(player);
                     float ExpUp = Compute.ExpGetImprove(player);
-                    double BreakDefence0 = Compute.PlayerAttributes.PlayerBreakDefence0(player);
+                    double BreakDefence0 = PlayerAttributes.PlayerBreakDefence0(player);
                     MyArrow arrow = new MyArrow(EntityType.ARROW,player,level,player,damage*((float) time /20),CriticalHitRate,CHitDamage,BreakDefence,ExpUp,BreakDefence0,player.getItemInHand(InteractionHand.MAIN_HAND),true);
                     if(time == 30) arrow.setCritArrow(true);
                     

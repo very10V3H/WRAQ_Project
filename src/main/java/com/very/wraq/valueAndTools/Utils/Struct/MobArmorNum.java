@@ -206,5 +206,11 @@ public class MobArmorNum {
 
         put(StringUtils.MobName.OriginWindElement,new MobArmorNum(60000,19200,19200,214,
                 0.75f,4000,0.8f,1.5f,400.0f));
+
+        put(StringUtils.MobName.LabourDay1,new MobArmorNum(510,510,510,51,
+                0.75f,51,0.8f,1.5f,51));
+
+        put(StringUtils.MobName.LabourDay2,new MobArmorNum(5100,5100,5100,151,
+                0.75f,510,0.8f,1.5f,510));
     }};
 }

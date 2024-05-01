@@ -1,9 +1,10 @@
-package com.very.wraq.process.Particle;
+package com.very.wraq.process.particle;
 
 import com.very.wraq.netWorking.ModNetworking;
 import com.very.wraq.netWorking.misc.ParticlePackets.NewParticlePackets.*;
 import com.very.wraq.valueAndTools.Utils.StringUtils;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.game.ClientboundLevelParticlesPacket;

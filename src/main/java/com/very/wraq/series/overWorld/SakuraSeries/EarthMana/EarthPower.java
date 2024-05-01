@@ -1,9 +1,9 @@
 package com.very.wraq.series.overWorld.SakuraSeries.EarthMana;
 
 import com.very.wraq.events.core.BlockEvent;
-import com.very.wraq.process.Particle.ParticleProvider;
-import com.very.wraq.process.Power.PowerLogic;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.process.particle.ParticleProvider;
+import com.very.wraq.process.power.PowerLogic;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.ClientUtils;
 import com.very.wraq.valueAndTools.Utils.StringUtils;

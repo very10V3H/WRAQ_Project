@@ -1,4 +1,4 @@
-package com.very.wraq.render.Hud;
+package com.very.wraq.render.hud;
 
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.HitResult;

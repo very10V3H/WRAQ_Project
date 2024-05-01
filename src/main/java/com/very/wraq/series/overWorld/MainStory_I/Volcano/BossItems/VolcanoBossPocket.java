@@ -1,7 +1,7 @@
 package com.very.wraq.series.overWorld.MainStory_I.Volcano.BossItems;
 
 import com.very.wraq.valueAndTools.Compute;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;

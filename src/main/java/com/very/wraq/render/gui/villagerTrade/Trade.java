@@ -3,6 +3,7 @@ package com.very.wraq.render.gui.villagerTrade;
 import com.very.wraq.netWorking.ModNetworking;
 import com.very.wraq.netWorking.unSorted.TradeBuyRequestC2SPacket;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;

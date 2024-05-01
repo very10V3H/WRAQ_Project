@@ -1,13 +1,14 @@
 package com.very.wraq.customized.players.sceptre.shangmengli;
 
 import com.very.wraq.coreAttackModule.ManaAttackModule;
-import com.very.wraq.process.Particle.ParticleProvider;
+import com.very.wraq.process.particle.ParticleProvider;
 import com.very.wraq.projectiles.mana.ManaArrow;
-import com.very.wraq.render.Particles.ModParticles;
+import com.very.wraq.render.particles.ModParticles;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.ModEntityType;
 import com.very.wraq.valueAndTools.Utils.StringUtils;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import com.very.wraq.valueAndTools.registry.ModSounds;
 import net.minecraft.core.particles.ParticleTypes;
@@ -47,7 +48,7 @@ public class ShangMengLi {
                 mobList.forEach(mob -> {
                     if (mob.distanceTo(player) < 6) {
                         Compute.Damage.ManaDamageToMonster_RateApDamage(player,mob,4,false);
-                        Compute.PlayerManaAddOrCost(player, (int) (Compute.PlayerAttributes.PlayerMaxMana(player) * 0.5));ParticleProvider.EntityEffectVerticleCircleParticle(mob, 1, 0.4, 8, ParticleTypes.FALLING_WATER, 0);
+                        Compute.PlayerManaAddOrCost(player, (int) (PlayerAttributes.PlayerMaxMana(player) * 0.5));ParticleProvider.EntityEffectVerticleCircleParticle(mob, 1, 0.4, 8, ParticleTypes.FALLING_WATER, 0);
                         ParticleProvider.EntityEffectVerticleCircleParticle(mob, 2, 0.4, 8, ParticleTypes.FALLING_WATER, 0);
                         ParticleProvider.EntityEffectVerticleCircleParticle(mob, 1.75, 0.4, 8, ParticleTypes.FALLING_WATER, 0);
                         ParticleProvider.EntityEffectVerticleCircleParticle(mob, 1.5, 0.4, 8, ParticleTypes.FALLING_WATER, 0);
@@ -70,12 +71,12 @@ public class ShangMengLi {
                         }
                         else {
                             ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_SEA.get(), serverPlayer, serverPlayer.level(),
-                                    Compute.PlayerAttributes.PlayerManaDamage(serverPlayer),
-                                    Compute.PlayerAttributes.PlayerManaPenetration(serverPlayer),
-                                    Compute.PlayerAttributes.PlayerManaPenetration0(serverPlayer), StringUtils.ParticleTypes.Sea);
-                            ManaAttackModule.BasicAttack(serverPlayer,mob,Compute.PlayerAttributes.PlayerManaDamage(serverPlayer),
-                                    Compute.PlayerAttributes.PlayerManaPenetration(serverPlayer),
-                                    Compute.PlayerAttributes.PlayerManaPenetration0(serverPlayer),serverPlayer.level(),newArrow);
+                                    PlayerAttributes.PlayerManaDamage(serverPlayer),
+                                    PlayerAttributes.PlayerManaPenetration(serverPlayer),
+                                    PlayerAttributes.PlayerManaPenetration0(serverPlayer), StringUtils.ParticleTypes.Sea);
+                            ManaAttackModule.BasicAttack(serverPlayer,mob,PlayerAttributes.PlayerManaDamage(serverPlayer),
+                                    PlayerAttributes.PlayerManaPenetration(serverPlayer),
+                                    PlayerAttributes.PlayerManaPenetration0(serverPlayer),serverPlayer.level(),newArrow);
                         }
                         ParticleProvider.EntityEffectVerticleCircleParticle(mob, 2, 0.4, 8, ParticleTypes.FALLING_WATER, 0);
                         ParticleProvider.EntityEffectVerticleCircleParticle(mob, 1.75, 0.4, 8, ParticleTypes.FALLING_WATER, 0);
@@ -94,7 +95,7 @@ public class ShangMengLi {
     public static double FirstMana(Player player) {
         if (player.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.ShangMengLi_Sceptre.get())) {
             if (Utils.ShangMengLiManaCount) {
-                return Compute.PlayerAttributes.PlayerManaDamage(player) * 2;
+                return PlayerAttributes.PlayerManaDamage(player) * 2;
             }
         }
         return 0;
@@ -105,7 +106,7 @@ public class ShangMengLi {
                 if (Utils.ShangMengLiCounts < 5) Utils.ShangMengLiCounts ++;
                 Utils.ShangMengLiCountsLastTick = player.getServer().getTickCount() + 100;
                 Compute.EffectLastTimeSend(player,ModItems.ShangMengLi_Sceptre.get().getDefaultInstance(),100,Utils.ShangMengLiCounts);
-                return Compute.PlayerAttributes.PlayerManaDamage(player) * 2;
+                return PlayerAttributes.PlayerManaDamage(player) * 2;
             }
         }
         return 0;
@@ -148,7 +149,7 @@ public class ShangMengLi {
     public static void Shoot(Player player) {
         Level level = player.level();
         ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_SEA.get(), player, level,
-                Compute.PlayerAttributes.PlayerManaDamage(player), Compute.PlayerAttributes.PlayerManaPenetration(player), Compute.PlayerAttributes.PlayerManaPenetration0(player),StringUtils.ParticleTypes.Sea);
+                PlayerAttributes.PlayerManaDamage(player), PlayerAttributes.PlayerManaPenetration(player), PlayerAttributes.PlayerManaPenetration0(player),StringUtils.ParticleTypes.Sea);
         newArrow.setSilent(true);
         newArrow.setNoGravity(true);
         

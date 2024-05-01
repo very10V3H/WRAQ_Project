@@ -1,14 +1,15 @@
 package com.very.wraq.customized.players.bow.Qi_Fu;
 
 import com.very.wraq.customized.Customize;
-import com.very.wraq.process.Particle.ParticleProvider;
-import com.very.wraq.render.Particles.ModParticles;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.process.particle.ParticleProvider;
+import com.very.wraq.render.particles.ModParticles;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.instance.Ice.IceSceptreAttributes;
 import com.very.wraq.valueAndTools.BasicAttributeDescription;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.StringUtils;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -161,7 +162,7 @@ public class QiFuBow extends BowItem {
                 }
             });
             ParticleProvider.DisperseParticle(mob.position(), (ServerLevel) player.level(), 1, 1, 120, ParticleTypes.FIREWORK, 1);
-            Compute.PlayerShieldProvider(player,20,Compute.PlayerAttributes.PlayerAttackDamage(player) * 0.1);
+            Compute.PlayerShieldProvider(player,20, PlayerAttributes.PlayerAttackDamage(player) * 0.1);
         }
     }
 

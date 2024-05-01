@@ -1,8 +1,8 @@
-package com.very.wraq.process.Parkour;
+package com.very.wraq.process.parkour;
 
 import com.very.wraq.netWorking.ModNetworking;
 import com.very.wraq.netWorking.misc.SoundsPackets.SoundsS2CPacket;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.StringUtils;
 import com.very.wraq.valueAndTools.registry.ModItems;

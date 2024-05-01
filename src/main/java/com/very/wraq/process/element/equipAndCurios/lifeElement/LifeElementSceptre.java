@@ -1,15 +1,16 @@
 package com.very.wraq.process.element.equipAndCurios.lifeElement;
 
 import com.very.wraq.process.element.Element;
-import com.very.wraq.process.Particle.ParticleProvider;
+import com.very.wraq.process.particle.ParticleProvider;
 import com.very.wraq.projectiles.mana.ManaArrow;
-import com.very.wraq.render.Particles.ModParticles;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.particles.ModParticles;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.BasicAttributeDescription;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.ModEntityType;
 import com.very.wraq.valueAndTools.Utils.StringUtils;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -158,9 +159,9 @@ public class LifeElementSceptre extends SwordItem {
         CompoundTag data = player.getPersistentData();
         if (Compute.ManaSkillLevelGet(data,10) > 0 || Compute.PlayerManaCost(player,15)) {
             ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_PLAIN.get(), player,level,
-                    Compute.PlayerAttributes.PlayerManaDamage(player),
-                    Compute.PlayerAttributes.PlayerManaPenetration(player),
-                    Compute.PlayerAttributes.PlayerManaPenetration0(player),StringUtils.ParticleTypes.LifeElement1TickParticle);
+                    PlayerAttributes.PlayerManaDamage(player),
+                    PlayerAttributes.PlayerManaPenetration(player),
+                    PlayerAttributes.PlayerManaPenetration0(player),StringUtils.ParticleTypes.LifeElement1TickParticle);
             newArrow.setSilent(true);
             newArrow.setNoGravity(true);
             newArrow.shootFromRotation(player,player.getXRot(),player.getYRot(),0,3,1);

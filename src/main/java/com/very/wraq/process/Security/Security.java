@@ -1,4 +1,4 @@
-package com.very.wraq.process.Security;
+package com.very.wraq.process.security;
 
 import com.very.wraq.netWorking.unSorted.ClientLimitWrongC2SPacket;
 import com.very.wraq.netWorking.ModNetworking;

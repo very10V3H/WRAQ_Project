@@ -22,6 +22,7 @@ public class VolcanoGemD extends Item {
         Utils.GemsCritDamage.put(StringUtils.GemName.VolcanoGemD,CritDamage);
         Utils.AttackDamage.put(this,AttackDamage);
         Utils.CritDamage.put(this,CritDamage);
+        Utils.GemsTag.put(this, 1);
     }
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag)

@@ -6,8 +6,8 @@ import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.crafting.Ingredient;
 public enum ItemMaterial implements ArmorMaterial {
-    VMaterialForArmor("vmaterial",0,0,0,0.0f,0.0f, SoundEvents.ARMOR_EQUIP_IRON),
-    MaterialForArmor2("vmaterial",0,0,0,1.0f,1.0f,SoundEvents.ARMOR_EQUIP_IRON),
+    BasicArmor1("vmaterial",0,0,0,0.0f,0.0f, SoundEvents.ARMOR_EQUIP_IRON),
+    BasicArmor2("vmaterial",0,0,0,1.0f,1.0f,SoundEvents.ARMOR_EQUIP_IRON),
     MaterialForBoss("bossmaterial",0,0,0,1.0f,1.0f,SoundEvents.ARMOR_EQUIP_IRON),
     PlainMaterialBoots("plainmaterial",0,0,15,0.1F,0.0f,SoundEvents.ARMOR_EQUIP_LEATHER),
     PlainMaterialLeggings("plainmaterial",0,0,15,0.1F,0.0f,SoundEvents.ARMOR_EQUIP_LEATHER),

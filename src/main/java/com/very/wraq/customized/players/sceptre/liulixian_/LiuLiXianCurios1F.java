@@ -1,12 +1,13 @@
 package com.very.wraq.customized.players.sceptre.liulixian_;
 
-import com.very.wraq.process.Particle.ParticleProvider;
+import com.very.wraq.process.particle.ParticleProvider;
 import com.very.wraq.projectiles.mana.ManaArrow;
-import com.very.wraq.render.Particles.ModParticles;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.particles.ModParticles;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.ModEntityType;
 import com.very.wraq.valueAndTools.Utils.StringUtils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
@@ -140,9 +141,9 @@ public class LiuLiXianCurios1F {
     public static void Shoot(Player player) {
         Level level = player.level();
         ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_SNOW.get(), player, level,
-                Compute.PlayerAttributes.PlayerManaDamage(player),
-                Compute.PlayerAttributes.PlayerManaPenetration(player),
-                Compute.PlayerAttributes.PlayerManaPenetration0(player), StringUtils.ParticleTypes.Sea);
+                PlayerAttributes.PlayerManaDamage(player),
+                PlayerAttributes.PlayerManaPenetration(player),
+                PlayerAttributes.PlayerManaPenetration0(player), StringUtils.ParticleTypes.Sea);
         newArrow.setSilent(true);
         newArrow.setNoGravity(true);
         
@@ -209,7 +210,7 @@ public class LiuLiXianCurios1F {
         List<Mob> mobList = player.level().getEntitiesOfClass(Mob.class, AABB.ofSize(player.position(),25,25,25));
         mobList.forEach(mob -> {
             if (mob.distanceTo(player) < 10) {
-                if (Compute.PlayerAttributes.PlayerAttackDamage(player) * 4 > Compute.PlayerAttributes.PlayerManaDamage(player)) {
+                if (PlayerAttributes.PlayerAttackDamage(player) * 4 > PlayerAttributes.PlayerManaDamage(player)) {
                     Compute.Damage.AttackDamageToMonster_RateAdDamage(player,mob,10);
                 }
                 else Compute.Damage.ManaDamageToMonster_RateApDamage(player,mob,2.5,false);

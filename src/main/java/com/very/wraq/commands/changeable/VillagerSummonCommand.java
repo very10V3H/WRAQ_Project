@@ -71,6 +71,7 @@ public class VillagerSummonCommand implements Command<CommandSourceStack> {
                 put(StringUtils.NewVillagerName.IceElement,VillagerType.SNOW);
                 put(StringUtils.NewVillagerName.Food,VillagerType.PLAINS);
                 put(StringUtils.NewVillagerName.RoseGoldStore,VillagerType.PLAINS);
+
             }};
             Map<String,VillagerProfession> villagerProfessionMap = new HashMap<>(){{
                 put(StringUtils.NewVillagerName.Ice,VillagerProfession.LEATHERWORKER);
@@ -120,6 +121,7 @@ public class VillagerSummonCommand implements Command<CommandSourceStack> {
                 put(StringUtils.NewVillagerName.IceElement,VillagerProfession.LIBRARIAN);
                 put(StringUtils.NewVillagerName.Food,VillagerProfession.BUTCHER);
                 put(StringUtils.NewVillagerName.RoseGoldStore,VillagerProfession.CARTOGRAPHER);
+                put(StringUtils.NewVillagerName.LabourDayStore,VillagerProfession.FARMER);
             }};
 
             double[] VillagerPos = {0,0,0};

@@ -1,7 +1,7 @@
 package com.very.wraq.events.core;
 
 import com.very.wraq.blocks.blocks.InjectRecipe;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.instance.Castle.CastleCurios;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.ClientUtils;
@@ -588,8 +588,8 @@ public class ToolTipEvent {
                 }
             }*/
 
-/*            if (data.contains("Owner") && !Compute.IsSoulEquip(equip)) {
-                event.getToolTip().add(Component.literal("Owner:"+data.getString("Owner")).withStyle(ChatFormatting.AQUA));
+/*            if (data.contains(InventoryCheck.owner) && !Compute.IsSoulEquip(equip)) {
+                event.getToolTip().add(Component.literal("Owner:"+data.getString(InventoryCheck.owner)).withStyle(ChatFormatting.AQUA));
             }*/
 
 
@@ -598,6 +598,13 @@ public class ToolTipEvent {
                     List<Component> components = event.getToolTip();
                 }
             }*/
+
+            if (data.contains(InventoryCheck.owner)) {
+                event.getToolTip().add(Component.literal("「").withStyle(ChatFormatting.AQUA).
+                        append(Component.literal("绑定于 " + data.getString(InventoryCheck.owner)).withStyle(CustomStyle.styleOfMoon)).
+                        append(Component.literal("」").withStyle(ChatFormatting.AQUA)));
+            }
+
         }
     }
 }

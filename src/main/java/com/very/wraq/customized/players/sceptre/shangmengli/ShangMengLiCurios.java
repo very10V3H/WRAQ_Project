@@ -1,9 +1,10 @@
 package com.very.wraq.customized.players.sceptre.shangmengli;
 
 import com.very.wraq.customized.uniform.Attributes;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -100,21 +101,21 @@ public class ShangMengLiCurios extends Item implements ICurioItem {
 
     public static double MaxHealthEnhance(Player player) {
         if (!IsOn(player)) return 0;
-        if (Compute.PlayerAttributes.PlayerManaDamage(player) > 10000)
-            return (Compute.PlayerAttributes.PlayerManaDamage(player) - 10000) * 0.1 / 5000;
+        if (PlayerAttributes.PlayerManaDamage(player) > 10000)
+            return (PlayerAttributes.PlayerManaDamage(player) - 10000) * 0.1 / 5000;
         return 0;
     }
 
     public static double DefenceEnhance(Player player) {
         if (!IsOn(player)) return 0;
-        if (Compute.PlayerAttributes.PlayerManaDamage(player) > 10000)
-            return (Compute.PlayerAttributes.PlayerManaDamage(player) - 10000) * 0.1 / 5000;
+        if (PlayerAttributes.PlayerManaDamage(player) > 10000)
+            return (PlayerAttributes.PlayerManaDamage(player) - 10000) * 0.1 / 5000;
         return 0;
     }
 
     public static double ManaRecover(Player player) {
         if (!IsOn(player)) return 0;
-        if (Compute.PlayerAttributes.PlayerDefence(player) > 1000) return 25;
+        if (PlayerAttributes.PlayerDefence(player) > 1000) return 25;
         return 0;
     }
 }

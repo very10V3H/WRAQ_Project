@@ -2,10 +2,11 @@ package com.very.wraq.customized.players.bow.Qi_Fu;
 
 import com.very.wraq.coreAttackModule.MyArrow;
 import com.very.wraq.customized.uniform.Attributes;
-import com.very.wraq.process.Particle.ParticleProvider;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.process.particle.ParticleProvider;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
@@ -176,7 +177,7 @@ public class QiFuCurios extends Item implements ICurioItem {
     }
 
     public static void Shoot(Player player, boolean isPlayer, boolean isBuff3) {
-        double damage = Compute.PlayerAttributes.PlayerAttackDamage(player);
+        double damage = PlayerAttributes.PlayerAttackDamage(player);
         MyArrow arrow = new MyArrow(EntityType.ARROW, player, player.level(),
                 player, isBuff3 ? damage * 2 : damage, isPlayer,true,ParticleTypes.FIREWORK);
         arrow.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0f, 4.5F, 1.0f);

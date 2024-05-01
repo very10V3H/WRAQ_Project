@@ -1,9 +1,11 @@
 package com.very.wraq.customized.players.bow.Wcndymlgb;
 
 import com.very.wraq.coreAttackModule.MyArrow;
-import com.very.wraq.process.Particle.ParticleProvider;
+import com.very.wraq.process.particle.ParticleProvider;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerPlayer;
@@ -20,7 +22,7 @@ public class Wcndymlgb {
                 WcBowAttackTick --;
                 if (WcBowAttackTick % 2 == 0 && WcBowAttackTick != 0) {
                     ServerPlayer serverPlayer = (ServerPlayer) player;
-                    double damage = Compute.PlayerAttributes.PlayerAttackDamage(serverPlayer);
+                    double damage = PlayerAttributes.PlayerAttackDamage(serverPlayer);
                     MyArrow arrow = new MyArrow(EntityType.ARROW, serverPlayer, serverPlayer.level(),
                             serverPlayer, damage * 0.5, true,true,ParticleTypes.COMPOSTER);
                     

@@ -1,9 +1,9 @@
-package com.very.wraq.process.Plan;
+package com.very.wraq.process.plan;
 
+import com.mojang.logging.LogUtils;
 import com.very.wraq.files.dataBases.DataBase;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.registry.ModItems;
-import com.mojang.logging.LogUtils;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
@@ -12,7 +12,6 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Objects;
 
 public class PlanPlayer {
     public static List<PlanPlayer> list = new ArrayList<>();
@@ -82,8 +81,14 @@ public class PlanPlayer {
             public void run() {
                 nameList.forEach(name -> {
                     try {
-                        list.add(new PlanPlayer(name, Objects.equals(DataBase.get(name, "tier"), "null") ? 0 : Integer.parseInt(DataBase.get(name, "tier")),
-                                DataBase.get(name, overDateString), DataBase.get(name, lastRewardTimeString)));
+                        String calender = Compute.CalendarToString(Calendar.getInstance());
+                        String overDate = DataBase.get(name, overDateString);
+                        String lastRewardTime = DataBase.get(name, lastRewardTimeString);
+                        String tier = DataBase.get(name, "tier");
+
+                        list.add(new PlanPlayer(name, tier == null ? 0 : Integer.parseInt(tier),
+                                overDate == null ? calender : overDate,
+                                lastRewardTime == null ? calender : lastRewardTime));
                     } catch (SQLException e) {
                         throw new RuntimeException(e);
                     }
@@ -99,8 +104,14 @@ public class PlanPlayer {
         if (nameList == null) return;
         nameList.forEach(name -> {
             try {
-                list.add(new PlanPlayer(name, Objects.equals(DataBase.get(name, "tier"), "null") ? 0 : Integer.parseInt(DataBase.get(name, "tier")),
-                        DataBase.get(name, overDateString), DataBase.get(name, lastRewardTimeString)));
+                String calender = Compute.CalendarToString(Calendar.getInstance());
+                String overDate = DataBase.get(name, overDateString);
+                String lastRewardTime = DataBase.get(name, lastRewardTimeString);
+                String tier = DataBase.get(name, "tier");
+
+                list.add(new PlanPlayer(name, tier == null ? 0 : Integer.parseInt(tier),
+                        overDate == null ? calender : overDate,
+                        lastRewardTime == null ? calender : lastRewardTime));
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }

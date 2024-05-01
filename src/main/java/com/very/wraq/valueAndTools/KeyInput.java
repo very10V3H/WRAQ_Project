@@ -1,16 +1,17 @@
 package com.very.wraq.valueAndTools;
 
-import com.very.wraq.customized.players.sceptre.liulixian_.LiulixianCurios2;
 import com.very.wraq.Items.Drugs.KeyBoradInput;
+import com.very.wraq.customized.players.sceptre.liulixian_.LiulixianCurios2;
+import com.very.wraq.netWorking.ModNetworking;
 import com.very.wraq.netWorking.customized.LiuLiXianActiveC2SPacket;
 import com.very.wraq.netWorking.customized.LiuLiXianSceptreC2SPacket;
 import com.very.wraq.netWorking.customized.YuanShiRenC2SPacket;
-import com.very.wraq.netWorking.ModNetworking;
 import com.very.wraq.netWorking.misc.AnimationPackets.RollingAnimationRequestC2SPacket;
 import com.very.wraq.netWorking.misc.DrugsC2SPacket;
 import com.very.wraq.netWorking.misc.Limit.LimitC2SPacket;
 import com.very.wraq.netWorking.misc.TeamPackets.TeamScreenOpenRequestC2SPacket;
 import com.very.wraq.netWorking.misc.USE.*;
+import com.very.wraq.process.missions.netWorking.MissionScreenOpenC2SPacket;
 import com.very.wraq.valueAndTools.Utils.ClientUtils;
 import com.very.wraq.valueAndTools.Utils.Utils;
 import net.minecraft.ChatFormatting;
@@ -102,8 +103,12 @@ public class KeyInput {
                         ModNetworking.sendToServer(new RollingAnimationRequestC2SPacket(0));
                 }
 
-                if (KeyBoradInput.Mission.consumeClick()) {
+/*                if (KeyBoradInput.Mission.consumeClick()) {
                     ClientUtils.Mission = !ClientUtils.Mission;
+                }*/
+
+                if (KeyBoradInput.Mission.consumeClick()) {
+                    ModNetworking.sendToServer(new MissionScreenOpenC2SPacket(2));
                 }
 
                 if (KeyBoradInput.TeamGuiOpen.consumeClick()) {

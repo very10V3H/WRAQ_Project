@@ -2,7 +2,7 @@ package com.very.wraq.events.mob.MainStoryV;
 
 import com.very.wraq.entities.entities.SakuraMob.SakuraMob;
 import com.very.wraq.process.element.Element;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.ModEntityType;
 import com.very.wraq.valueAndTools.Utils.Utils;

@@ -1,9 +1,10 @@
 package com.very.wraq.customized.players.bow.Qi_Fu;
 
 import com.very.wraq.customized.uniform.Attributes;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -176,7 +177,7 @@ public class QiFuCurios1 extends Item implements ICurioItem {
 
     public static double ExAttackDamage(Player player) {
         if (!IsPlayer(player)) return 0;
-        return Compute.PlayerAttributes.PlayerMovementSpeed(player) * 400;
+        return PlayerAttributes.PlayerMovementSpeed(player) * 400;
     }
 
     public static double DamageEnhance(Player player, Mob mob) {

@@ -1,10 +1,11 @@
 package com.very.wraq.events.mob.MainStoryII;
 
 import com.very.wraq.process.element.Element;
-import com.very.wraq.process.Particle.ParticleProvider;
-import com.very.wraq.render.Particles.ModParticles;
+import com.very.wraq.process.particle.ParticleProvider;
+import com.very.wraq.render.particles.ModParticles;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -90,11 +91,11 @@ public class EvokerMaster {
                         ParticleProvider.DisperseParticle(evoker.position(),(ServerLevel) evoker.level(),1.5,1,120,ModParticles.LONG_ENTROPY.get(),1);
                         List<Player> playerList = level.getEntitiesOfClass(Player.class,AABB.ofSize(evoker.getPosition(1),16,16,16));
                         for (Player player : playerList) {
-                            Compute.PlayerManaAddOrCost(player, (int) ((100 + Compute.PlayerAttributes.PlayerMaxMana(player)) * -0.5));
+                            Compute.PlayerManaAddOrCost(player, (int) ((100 + PlayerAttributes.PlayerMaxMana(player)) * -0.5));
                             Compute.FormatMSGSend(player,Component.literal("唤魔大师").withStyle(ChatFormatting.LIGHT_PURPLE),
                                     Component.literal("唤魔大师偷取了你的").withStyle(ChatFormatting.WHITE).
                                             append(Compute.AttributeDescription.MaxMana("50%")));
-                            Compute.Damage.ManaDamageToPlayer(evoker,player,((100 + Compute.PlayerAttributes.PlayerMaxMana(player)) * 0.5));
+                            Compute.Damage.ManaDamageToPlayer(evoker,player,((100 + PlayerAttributes.PlayerMaxMana(player)) * 0.5));
 /*                            ClientboundSetEntityMotionPacket clientboundSetEntityMotionPacket =
                                     new ClientboundSetEntityMotionPacket(player.getId(),evoker.getPosition(1).subtract(player.position()).scale(0.2));
                             List<ServerPlayer> serverPlayerList = level.getServer().getPlayerList().getPlayers();

@@ -108,7 +108,7 @@ public class HurtEvent {
 
                                 if (damageAfterComputeShield > 0) {
                                     hurter.setHealth((float) (hurter.getHealth() - damageAfterComputeShield));
-                                    attacker.heal((float) (damageAfterComputeShield * Compute.PlayerAttributes.PlayerHealSteal(attacker) * (1 + Compute.PlayerAttributes.PlayerHealEffectUp(attacker))));
+                                    attacker.heal((float) (damageAfterComputeShield * PlayerAttributes.PlayerHealSteal(attacker) * (1 + PlayerAttributes.PlayerHealEffectUp(attacker))));
                                     if (damageAfterComputeShield >= hurter.getHealth()) {
                                         AttackEventModule.KillPositiveEffect(attacker);
                                         if (hurter.getHealth() < damageAfterComputeShield && hurter.isDeadOrDying()) {

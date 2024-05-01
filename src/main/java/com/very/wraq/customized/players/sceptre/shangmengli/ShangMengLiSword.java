@@ -6,15 +6,16 @@ import com.very.wraq.netWorking.customized.ShangMengLiSwordTickS2CPacket;
 import com.very.wraq.netWorking.ModNetworking;
 import com.very.wraq.netWorking.misc.AnimationPackets.ShangMengLiAttackAnimationS2CPacket;
 import com.very.wraq.netWorking.misc.USE.UtilsLakeSwordS2CPacket;
-import com.very.wraq.process.Particle.ParticleProvider;
+import com.very.wraq.process.particle.ParticleProvider;
 import com.very.wraq.projectiles.mana.ManaArrow;
 import com.very.wraq.projectiles.mana.ShangMengLiSwordAir;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.BasicAttributeDescription;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.ModEntityType;
 import com.very.wraq.valueAndTools.Utils.StringUtils;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -216,17 +217,17 @@ public class ShangMengLiSword extends SwordItem{
                     if (!isPower) {
                         int TickCount = player.getServer().getTickCount();
                         ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW.get(), player, player.level(),
-                                Compute.PlayerAttributes.PlayerManaDamage(player),
-                                Compute.PlayerAttributes.PlayerManaPenetration(player),
-                                Compute.PlayerAttributes.PlayerManaPenetration0(player), StringUtils.ParticleTypes.EndParticle);
-                        ManaAttackModule.BasicAttack(player, entity1, Compute.PlayerAttributes.PlayerManaDamage(player),
-                                Compute.PlayerAttributes.PlayerManaPenetration(player), Compute.PlayerAttributes.PlayerManaPenetration0(player),
+                                PlayerAttributes.PlayerManaDamage(player),
+                                PlayerAttributes.PlayerManaPenetration(player),
+                                PlayerAttributes.PlayerManaPenetration0(player), StringUtils.ParticleTypes.EndParticle);
+                        ManaAttackModule.BasicAttack(player, entity1, PlayerAttributes.PlayerManaDamage(player),
+                                PlayerAttributes.PlayerManaPenetration(player), PlayerAttributes.PlayerManaPenetration0(player),
                                 player.level(), newArrow);
                         ShangMengLiSword.ShangMengLiSwordAirDamageUpTick = TickCount + 100;
                         Compute.PlayerManaAddOrCost(player, 20);
                     }
                     else {
-                        Compute.Damage.ManaDamageToMonster_RateApDamage(player,(Mob) entity1,1 + 3 * Compute.PlayerAttributes.PlayerCoolDownDecrease(player),isPower);
+                        Compute.Damage.ManaDamageToMonster_RateApDamage(player,(Mob) entity1,1 + 3 * PlayerAttributes.PlayerCoolDownDecrease(player),isPower);
                         Compute.PlayerManaAddOrCost(player, 20);
                     }
                 }

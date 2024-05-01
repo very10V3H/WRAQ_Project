@@ -22,6 +22,7 @@ public class ForestGemD extends Item {
         Utils.GemsDefence.put(StringUtils.GemName.ForestGemD,Defence);
         Utils.MaxHealth.put(this,MaxHealth);
         Utils.Defence.put(this,Defence);
+        Utils.GemsTag.put(this, 1);
     }
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag)

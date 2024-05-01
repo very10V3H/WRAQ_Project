@@ -1,10 +1,10 @@
 package com.very.wraq.projectiles.mana;
 
 import com.very.wraq.coreAttackModule.ManaAttackModule;
-import com.very.wraq.process.Particle.ParticleProvider;
-import com.very.wraq.valueAndTools.Compute;
+import com.very.wraq.process.particle.ParticleProvider;
 import com.very.wraq.valueAndTools.ModEntityType;
 import com.very.wraq.valueAndTools.Utils.StringUtils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
@@ -91,19 +91,19 @@ public class SwordAir extends AbstractArrow implements GeoEntity {
                 if (mob.distanceTo(this) < 3) {
                     if (small) {
                         ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_SNOW.get(), player, player.level(),
-                                Compute.PlayerAttributes.PlayerManaDamage(player),
-                                Compute.PlayerAttributes.PlayerManaPenetration(player),
-                                Compute.PlayerAttributes.PlayerManaPenetration0(player), StringUtils.ParticleTypes.Sea);
-                        ManaAttackModule.BasicAttack(player, mob, Compute.PlayerAttributes.PlayerManaDamage(player) * 0.5,
-                                Compute.PlayerAttributes.PlayerManaPenetration(player), Compute.PlayerAttributes.PlayerManaPenetration0(player),
+                                PlayerAttributes.PlayerManaDamage(player),
+                                PlayerAttributes.PlayerManaPenetration(player),
+                                PlayerAttributes.PlayerManaPenetration0(player), StringUtils.ParticleTypes.Sea);
+                        ManaAttackModule.BasicAttack(player, mob, PlayerAttributes.PlayerManaDamage(player) * 0.5,
+                                PlayerAttributes.PlayerManaPenetration(player), PlayerAttributes.PlayerManaPenetration0(player),
                                 player.level(), newArrow);
                     } else {
                         ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_SNOW.get(), player, player.level(),
-                                Compute.PlayerAttributes.PlayerManaDamage(player),
-                                Compute.PlayerAttributes.PlayerManaPenetration(player),
-                                Compute.PlayerAttributes.PlayerManaPenetration0(player), StringUtils.ParticleTypes.Sea);
-                        ManaAttackModule.BasicAttack(player, mob, Compute.PlayerAttributes.PlayerManaDamage(player) * 2,
-                                Compute.PlayerAttributes.PlayerManaPenetration(player), Compute.PlayerAttributes.PlayerManaPenetration0(player),
+                                PlayerAttributes.PlayerManaDamage(player),
+                                PlayerAttributes.PlayerManaPenetration(player),
+                                PlayerAttributes.PlayerManaPenetration0(player), StringUtils.ParticleTypes.Sea);
+                        ManaAttackModule.BasicAttack(player, mob, PlayerAttributes.PlayerManaDamage(player) * 2,
+                                PlayerAttributes.PlayerManaPenetration(player), PlayerAttributes.PlayerManaPenetration0(player),
                                 player.level(), newArrow);
                     }
                 }
@@ -113,19 +113,19 @@ public class SwordAir extends AbstractArrow implements GeoEntity {
                     if (mob.distanceTo(this) < 3) {
                         if (small) {
                             ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_SNOW.get(), player, player.level(),
-                                    Compute.PlayerAttributes.PlayerManaDamage(player),
-                                    Compute.PlayerAttributes.PlayerManaPenetration(player),
-                                    Compute.PlayerAttributes.PlayerManaPenetration0(player), StringUtils.ParticleTypes.Sea);
-                            ManaAttackModule.BasicAttack(player, mob, Compute.PlayerAttributes.PlayerManaDamage(player) * 2,
-                                    Compute.PlayerAttributes.PlayerManaPenetration(player), Compute.PlayerAttributes.PlayerManaPenetration0(player),
+                                    PlayerAttributes.PlayerManaDamage(player),
+                                    PlayerAttributes.PlayerManaPenetration(player),
+                                    PlayerAttributes.PlayerManaPenetration0(player), StringUtils.ParticleTypes.Sea);
+                            ManaAttackModule.BasicAttack(player, mob, PlayerAttributes.PlayerManaDamage(player) * 2,
+                                    PlayerAttributes.PlayerManaPenetration(player), PlayerAttributes.PlayerManaPenetration0(player),
                                     player.level(), newArrow);
                         } else {
                             ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_SNOW.get(), player, player.level(),
-                                    Compute.PlayerAttributes.PlayerManaDamage(player),
-                                    Compute.PlayerAttributes.PlayerManaPenetration(player),
-                                    Compute.PlayerAttributes.PlayerManaPenetration0(player), StringUtils.ParticleTypes.Sea);
-                            ManaAttackModule.BasicAttack(player, mob, Compute.PlayerAttributes.PlayerManaDamage(player) * 8,
-                                    Compute.PlayerAttributes.PlayerManaPenetration(player), Compute.PlayerAttributes.PlayerManaPenetration0(player),
+                                    PlayerAttributes.PlayerManaDamage(player),
+                                    PlayerAttributes.PlayerManaPenetration(player),
+                                    PlayerAttributes.PlayerManaPenetration0(player), StringUtils.ParticleTypes.Sea);
+                            ManaAttackModule.BasicAttack(player, mob, PlayerAttributes.PlayerManaDamage(player) * 8,
+                                    PlayerAttributes.PlayerManaPenetration(player), PlayerAttributes.PlayerManaPenetration0(player),
                                     player.level(), newArrow);
                         }
                     }

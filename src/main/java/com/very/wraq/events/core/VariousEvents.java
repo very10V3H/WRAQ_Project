@@ -7,7 +7,7 @@ import com.very.wraq.files.FileHandler;
 import com.very.wraq.netWorking.ModNetworking;
 import com.very.wraq.netWorking.misc.AnimationPackets.AnimationTickResetS2CPacket;
 import com.very.wraq.netWorking.unSorted.ClientLevelS2CPacket;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.ClientUtils;
 import com.very.wraq.valueAndTools.Utils.StringUtils;
@@ -103,7 +103,7 @@ public class VariousEvents {
         CompoundTag data = itemStack.getTagElement(Utils.MOD_ID);
         boolean Dropped = true;
         if (!player.isCreative() && !event.getPlayer().level().isClientSide) {
-            if(data != null && data.contains("Owner") && !data.getString("Owner").equals(player.getName().getString())) {
+            if(data != null && data.contains(InventoryCheck.owner) && !data.getString(InventoryCheck.owner).equals(player.getName().getString())) {
                 ItemStack item = event.getEntity().getItem();
                 event.getPlayer().addItem(item);
                 event.setCanceled(true);

@@ -4,12 +4,13 @@ import com.very.wraq.coreAttackModule.MyArrow;
 import com.very.wraq.customized.Customize;
 import com.very.wraq.netWorking.ModNetworking;
 import com.very.wraq.netWorking.misc.SoundsPackets.SoundsS2CPacket;
-import com.very.wraq.process.Particle.ParticleProvider;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.process.particle.ParticleProvider;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.BasicAttributeDescription;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.StringUtils;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
@@ -178,7 +179,7 @@ public class LeiyanBow extends BowItem {
                 List<Mob> mobList = player.level().getEntitiesOfClass(Mob.class,AABB.ofSize(player.position(),20,20,20));
                 mobList.removeIf(mob -> mob.distanceTo(player) > 9);
                 mobList.forEach(mob -> {
-                    Compute.Damage.AttackDamageToMonster_AdDamage(player,mob, Compute.XpStrengthADDamage(player,2) * (1 + Compute.PlayerAttributes.PlayerCritDamage(player)));
+                    Compute.Damage.AttackDamageToMonster_AdDamage(player,mob, Compute.XpStrengthADDamage(player,2) * (1 + PlayerAttributes.PlayerCritDamage(player)));
                 });
                 ParticleProvider.EntityEffectVerticleCircleParticle(player, 1, 0.4, 8, ParticleTypes.COMPOSTER, 0);
                 ParticleProvider.EntityEffectVerticleCircleParticle(player, 0.75, 0.4, 8, ParticleTypes.COMPOSTER, 0);

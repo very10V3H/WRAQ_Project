@@ -12,8 +12,8 @@ import com.very.wraq.netWorking.misc.SkillPackets.Charging.ChargedClearS2CPacket
 import com.very.wraq.netWorking.misc.SkillPackets.Charging.ZuesSwordS2CPacket;
 import com.very.wraq.netWorking.misc.SkillPackets.SkillImageS2CPacket;
 import com.very.wraq.render.mobEffects.ModEffects;
-import com.very.wraq.render.Particles.ModParticles;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.particles.ModParticles;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.end.eventController.SnowRecall.SnowSword4;
 import com.very.wraq.series.nether.Equip.WitherBow.WitherBow;
 import com.very.wraq.series.overWorld.MainStory_I.Forest.Bow.ForestBow;
@@ -41,6 +41,7 @@ import com.very.wraq.valueAndTools.Utils.Struct.SwordSkillStruct.SwordSkill13;
 import com.very.wraq.valueAndTools.Utils.Struct.SwordSkillStruct.SwordSkill3;
 import com.very.wraq.valueAndTools.Utils.Struct.SwordSkillStruct.SwordSkill6;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -269,7 +270,7 @@ public class AttackEventModule {
     public static double LightningArmor(Player player, int LightningArmorCount, CompoundTag data) {
         if (LightningArmorCount > 0) {
             data.putBoolean("LightningArmor", true);
-            return Compute.PlayerAttributes.PlayerDefence(player) * 0.5f * LightningArmorCount;
+            return PlayerAttributes.PlayerDefence(player) * 0.5f * LightningArmorCount;
         } else data.putBoolean("LightningArmor", false);
         return 0;
     }
@@ -724,7 +725,7 @@ public class AttackEventModule {
         int TickCount = player.getServer().getTickCount();
         if (Compute.BowSkillLevelGet(data,13) > 0 && data.getInt(StringUtils.BowSkillNum.Skill13) < TickCount) {
             Level level = player.level();
-            double damage = Compute.PlayerAttributes.PlayerAttackDamage(player);
+            double damage = PlayerAttributes.PlayerAttackDamage(player);
             Random random = new Random();
             for (int i = 0; i < 20; i ++) {
                 MyArrow arrow = new MyArrow(EntityType.ARROW,level,player,damage,false);
@@ -768,7 +769,7 @@ public class AttackEventModule {
 
     public static double NetherArmorEffect (Player player, Player hurter) {
         if (Compute.ArmorCount.Nether(player) > 0) {
-            double Defence = Compute.PlayerAttributes.PlayerDefence(hurter);
+            double Defence = PlayerAttributes.PlayerDefence(hurter);
             return Math.min(0.5f,Defence * Compute.NetherSuitEffectRate(player) * 0.5f / 500.0d);
         }
         return 0;
@@ -795,7 +796,7 @@ public class AttackEventModule {
     public static void SakuraBowHealth(Player player) {
         if (player.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.SakuraBow.get())
                 && Utils.playerSakuraBowMap.getOrDefault(player,false)) {
-            Compute.PlayerHeal(player,Compute.PlayerAttributes.PlayerAttackDamage(player) * 0.05);
+            Compute.PlayerHeal(player,PlayerAttributes.PlayerAttackDamage(player) * 0.05);
         }
     }
     public static void SakuraBow(Player player) {
@@ -808,7 +809,7 @@ public class AttackEventModule {
         if (player.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.SeaBow.get())) {
             Level level = player.level();
             List<Mob> mobList = level.getEntitiesOfClass(Mob.class,AABB.ofSize(monster.position(),10,10,10));
-            double Damage = Compute.PlayerAttributes.PlayerAttackDamage(player) * 0.5;
+            double Damage = PlayerAttributes.PlayerAttackDamage(player) * 0.5;
             mobList.forEach(mob -> {
                 if (mob.distanceTo(monster) <= 3) {
                     if (mob.getHealth() < Damage) {
@@ -839,7 +840,7 @@ public class AttackEventModule {
     }
     public static double MineShield(Player player) {
         if (Utils.ShieldTag.containsKey(player.getItemInHand(InteractionHand.OFF_HAND).getItem()))
-            return 1 - (800 / (800 + Compute.PlayerAttributes.PlayerDefence(player)));
+            return 1 - (800 / (800 + PlayerAttributes.PlayerDefence(player)));
         else return 0;
     }
     public static void IceSword(Player player, Mob mob) {
@@ -1049,7 +1050,7 @@ public class AttackEventModule {
     public static void GuangYiArrowRain(Player player, Mob mob) {
         if (player.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.GuangYiBow.get()) && Utils.GuangYiArrowFlag) {
             Level level = player.level();
-            double damage = Compute.PlayerAttributes.PlayerAttackDamage(player);
+            double damage = PlayerAttributes.PlayerAttackDamage(player);
             Random random = new Random();
             for (int i = 0; i < 20; i ++) {
                 MyArrow arrow = new MyArrow(EntityType.ARROW,level,player,damage,false);
@@ -1116,13 +1117,13 @@ public class AttackEventModule {
             int TickCount = player.getServer().getTickCount();
             ItemStack itemStack = mob.getItemBySlot(EquipmentSlot.HEAD);
             if (itemStack.getItem() instanceof MobArmor mobArmor) {
-                if (Compute.PlayerAttributes.PlayerDefenceWithoutNetherShield(player) < mobArmor.Defence) {
-                    Utils.NetherShieldPlayerDefenceEnhanceMap.put(player,mobArmor.Defence - Compute.PlayerAttributes.PlayerDefenceWithoutNetherShield(player));
+                if (PlayerAttributes.PlayerDefenceWithoutNetherShield(player) < mobArmor.Defence) {
+                    Utils.NetherShieldPlayerDefenceEnhanceMap.put(player,mobArmor.Defence - PlayerAttributes.PlayerDefenceWithoutNetherShield(player));
                     Utils.NetherShieldPlayerDefenceEnhanceTickMap.put(player,TickCount + 100);
                     Compute.EffectLastTimeSend(player,ModItems.Ruby.get().getDefaultInstance(),100);
                 }
                 else {
-                    double defence = (Compute.PlayerAttributes.PlayerDefence(player) - Compute.PlayerAttributes.PlayerDefenceWithoutNetherShield(player));
+                    double defence = (PlayerAttributes.PlayerDefence(player) - PlayerAttributes.PlayerDefenceWithoutNetherShield(player));
                     return 0.5 - (200 / (400 + defence));
                 }
             }
@@ -1132,7 +1133,7 @@ public class AttackEventModule {
 
     public static void ManaKnifeHealthRecover(Player player) {
         if (player.getItemInHand(InteractionHand.OFF_HAND).is(ModItems.ManaKnife.get())) {
-            Compute.PlayerHeal(player,Compute.PlayerAttributes.PlayerAttackDamage(player) * 0.05);
+            Compute.PlayerHeal(player,PlayerAttributes.PlayerAttackDamage(player) * 0.05);
         }
     }
 

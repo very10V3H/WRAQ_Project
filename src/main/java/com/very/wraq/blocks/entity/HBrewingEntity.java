@@ -1,10 +1,11 @@
 package com.very.wraq.blocks.entity;
 
 
+import com.very.wraq.events.core.InventoryCheck;
+import com.very.wraq.render.gui.blocks.BrewingMenu;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.Utils;
 import com.very.wraq.valueAndTools.registry.ModItems;
-import com.very.wraq.render.gui.blocks.BrewingMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -320,8 +321,8 @@ public class HBrewingEntity extends BlockEntity implements MenuProvider {
             }
             int BrewingLevel = Compute.BrewingLevel(BrewingNote);
             boolean flag = false;
-            if (blockEntity.level.getServer().getPlayerList().getPlayerByName(data.getString("Owner")) != null) {
-                Player player = blockEntity.level.getServer().getPlayerList().getPlayerByName(data.getString("Owner"));
+            if (blockEntity.level.getServer().getPlayerList().getPlayerByName(data.getString(InventoryCheck.owner)) != null) {
+                Player player = blockEntity.level.getServer().getPlayerList().getPlayerByName(data.getString(InventoryCheck.owner));
                 flag = Compute.BrewingLevelReward(player,BrewingLevel,data);
             }
             if(!flag){

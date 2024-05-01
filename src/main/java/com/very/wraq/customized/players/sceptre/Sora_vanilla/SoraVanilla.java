@@ -1,10 +1,11 @@
 package com.very.wraq.customized.players.sceptre.Sora_vanilla;
 
-import com.very.wraq.process.Particle.ParticleProvider;
-import com.very.wraq.render.Particles.ModParticles;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.process.particle.ParticleProvider;
+import com.very.wraq.render.particles.ModParticles;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -99,7 +100,7 @@ public class SoraVanilla extends Item implements ICurioItem {
 
     public static double ManaDamageUp(Player player) {
         if (!IsPlayer(player)) return 0;
-        return (Compute.PlayerAttributes.PlayerMaxMana(player) + 100) * 2500 / 100;
+        return (PlayerAttributes.PlayerMaxMana(player) + 100) * 2500 / 100;
     }
 
     public static void Passive(Player player) {

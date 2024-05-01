@@ -1,11 +1,12 @@
 package com.very.wraq.netWorking.misc.AnimationPackets;
 
 import com.very.wraq.customized.players.bow.Qi_Fu.QiFuCurios1;
-import com.very.wraq.customized.uniform.BowCurios0;
+import com.very.wraq.customized.uniform.bow.BowCurios0;
 import com.very.wraq.netWorking.ModNetworking;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.StringUtils;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.very.wraq.valueAndTools.registry.ModSounds;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
@@ -42,7 +43,7 @@ public class RollingAnimationRequestC2SPacket {
                     ModNetworking.sendToClient(new RollingAnimationS2CPacket(serverPlayer.getId(),count),serverPlayer1);
                 });
 
-                ModNetworking.sendToClient(new RollingS2CPacket(Compute.PlayerAttributes.PlayerExtraSwiftness(serverPlayer) / 10.0),serverPlayer);
+                ModNetworking.sendToClient(new RollingS2CPacket(PlayerAttributes.PlayerExtraSwiftness(serverPlayer) / 10.0),serverPlayer);
                 Compute.PlayerSwiftChange(serverPlayer,-100.0/3);
                 Utils.RollingTickMap.put(serverPlayer,serverPlayer.getServer().getTickCount() + 10);
 

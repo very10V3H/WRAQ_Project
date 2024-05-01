@@ -1,5 +1,6 @@
 package com.very.wraq.Items.MainStory_1.Mission;
 
+import com.very.wraq.process.labourDay.LabourDayMobSummon;
 import com.very.wraq.valueAndTools.Compute;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -55,7 +56,7 @@ public class Main0 extends Item{
         }
 
         if (!level.isClientSide && !player.isShiftKeyDown()) {
-
+            LabourDayMobSummon.getSummonPos(level);
         }
 
         return InteractionResultHolder.pass(player.getItemInHand(interactionHand));

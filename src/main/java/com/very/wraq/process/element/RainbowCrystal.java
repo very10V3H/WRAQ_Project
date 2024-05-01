@@ -53,15 +53,19 @@ public class RainbowCrystal extends Item {
     }};
 
     public static Component RainBowName() {
+        return rainBowNameFourChar("七色棱镜");
+    }
+
+    public static Component rainBowNameFourChar(String s) {
         for (int i = 0 ; i < colorList.size(); i ++) {
             Color color = colorList.get(i);
             if (color.Add()) {
                 colorList.set(i, new Color(color.targetRGB, colorMap.get(color.targetRGB), 100));
             }
         }
-        return Component.literal("七").withStyle(Style.EMPTY.withColor(TextColor.parseColor(colorList.get(0).getRGB()))).withStyle(ChatFormatting.BOLD).
-                append(Component.literal("色").withStyle(Style.EMPTY.withColor(TextColor.parseColor(colorList.get(1).getRGB()))).withStyle(ChatFormatting.BOLD)).
-                append(Component.literal("棱").withStyle(Style.EMPTY.withColor(TextColor.parseColor(colorList.get(2).getRGB()))).withStyle(ChatFormatting.BOLD)).
-                append(Component.literal("镜").withStyle(Style.EMPTY.withColor(TextColor.parseColor(colorList.get(3).getRGB()))).withStyle(ChatFormatting.BOLD));
+        return Component.literal(s.substring(0,1)).withStyle(Style.EMPTY.withColor(TextColor.parseColor(colorList.get(0).getRGB()))).withStyle(ChatFormatting.BOLD).
+                append(Component.literal(s.substring(1,2)).withStyle(Style.EMPTY.withColor(TextColor.parseColor(colorList.get(1).getRGB()))).withStyle(ChatFormatting.BOLD)).
+                append(Component.literal(s.substring(2,3)).withStyle(Style.EMPTY.withColor(TextColor.parseColor(colorList.get(2).getRGB()))).withStyle(ChatFormatting.BOLD)).
+                append(Component.literal(s.substring(3,4)).withStyle(Style.EMPTY.withColor(TextColor.parseColor(colorList.get(3).getRGB()))).withStyle(ChatFormatting.BOLD));
     }
 }

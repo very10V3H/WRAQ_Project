@@ -1,8 +1,9 @@
 package com.very.wraq.series.overWorld.SakuraSeries.Boss2;
 
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -74,7 +75,7 @@ public class GoldenBook extends Item {
     public static double GoldenBookManaRecover1(Player player) {
         CompoundTag data = player.getPersistentData();
         if (Compute.ManaSkillLevelGet(data,10) == 10 && player.getItemInHand(InteractionHand.OFF_HAND).is(ModItems.GoldenBook.get())) {
-            return (Compute.PlayerAttributes.PlayerMaxMana(player) + 100) / 50;
+            return (PlayerAttributes.PlayerMaxMana(player) + 100) / 50;
         }
         return 0;
     }
@@ -83,8 +84,8 @@ public class GoldenBook extends Item {
         CompoundTag data = player.getPersistentData();
         if (Compute.ManaSkillLevelGet(data,10) == 10
                 && player.getItemInHand(InteractionHand.OFF_HAND).is(ModItems.GoldenBook.get())
-                && Compute.PlayerAttributes.PlayerCritRate(player) > 1) {
-            return (Compute.PlayerAttributes.PlayerCritRate(player) - 1) * 2;
+                && PlayerAttributes.PlayerCritRate(player) > 1) {
+            return (PlayerAttributes.PlayerCritRate(player) - 1) * 2;
         }
         return 0;
     }
@@ -93,7 +94,7 @@ public class GoldenBook extends Item {
         CompoundTag data = player.getPersistentData();
         if (Compute.ManaSkillLevelGet(data,11) == 10
                 && player.getItemInHand(InteractionHand.OFF_HAND).is(ModItems.GoldenBook.get())) {
-            return (Compute.PlayerAttributes.PlayerMaxMana(player) + 100) * 0.08 / 75;
+            return (PlayerAttributes.PlayerMaxMana(player) + 100) * 0.08 / 75;
         }
         return 0;
     }
@@ -102,8 +103,8 @@ public class GoldenBook extends Item {
         CompoundTag data = player.getPersistentData();
         if (Compute.ManaSkillLevelGet(data,11) == 10
                 && player.getItemInHand(InteractionHand.OFF_HAND).is(ModItems.GoldenBook.get())
-                && Compute.PlayerAttributes.PlayerPowerReleaseSpeed(player) > 2.4) {
-            return (Compute.PlayerAttributes.PlayerPowerReleaseSpeed(player) - 2.4) * 60;
+                && PlayerAttributes.PlayerPowerReleaseSpeed(player) > 2.4) {
+            return (PlayerAttributes.PlayerPowerReleaseSpeed(player) - 2.4) * 60;
         }
         return 0;
     }

@@ -1,4 +1,4 @@
-package com.very.wraq.process.Power;
+package com.very.wraq.process.power;
 
 import com.very.wraq.coreAttackModule.ManaAttackModule;
 import com.very.wraq.customized.players.sceptre.Black_Feisa_.BlackFeisaCurios1;
@@ -15,8 +15,8 @@ import com.very.wraq.netWorking.misc.ParticlePackets.EffectParticle.DamageDecrea
 import com.very.wraq.netWorking.misc.ParticlePackets.SlowDownParticleS2CPacket;
 import com.very.wraq.process.element.Element;
 import com.very.wraq.process.element.ElementValue;
-import com.very.wraq.process.Particle.ParticleProvider;
-import com.very.wraq.render.Particles.ModParticles;
+import com.very.wraq.process.particle.ParticleProvider;
+import com.very.wraq.render.particles.ModParticles;
 import com.very.wraq.series.instance.Castle.CastleManaArmor;
 import com.very.wraq.series.overWorld.MainStory_I.Forest.ForestPower;
 import com.very.wraq.series.overWorld.MainStory_I.Forest.ForestPowerEffectMob;

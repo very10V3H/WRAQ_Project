@@ -3,11 +3,12 @@ package com.very.wraq.events.modules;
 import com.very.wraq.netWorking.ModNetworking;
 import com.very.wraq.netWorking.misc.SkillPackets.SkillImageS2CPacket;
 import com.very.wraq.netWorking.misc.SoundsPackets.SoundsS2CPacket;
-import com.very.wraq.process.Particle.ParticleProvider;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.process.particle.ParticleProvider;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.nether.Equip.ManaSword;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.StringUtils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import com.very.wraq.valueAndTools.registry.ModSounds;
 import net.minecraft.ChatFormatting;
@@ -183,7 +184,7 @@ public class HurtEventModule {
             lightningBolt.setVisualOnly(true);
             lightningBolt.moveTo(attacker.position());
             player.level().addFreshEntity(lightningBolt);
-            attacker.setHealth((float)(attacker.getHealth() - Compute.PlayerAttributes.PlayerDefence(player) * 0.5f * LightningArmorCount));
+            attacker.setHealth((float)(attacker.getHealth() - PlayerAttributes.PlayerDefence(player) * 0.5f * LightningArmorCount));
         }
     }
     public static void ForestRune1And2Judge(Player attacker, Player player) {

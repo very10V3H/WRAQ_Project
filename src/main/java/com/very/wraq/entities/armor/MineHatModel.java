@@ -2,6 +2,7 @@ package com.very.wraq.entities.armor;
 
 import com.very.wraq.series.overWorld.MainStory_I.Mine.MineHat;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.model.GeoModel;
 

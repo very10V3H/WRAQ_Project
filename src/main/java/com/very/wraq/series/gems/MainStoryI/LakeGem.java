@@ -22,6 +22,7 @@ public class LakeGem extends Item {
         Utils.GemsSpeedUp.put("lakeGem",SpeedUp);
         Utils.CoolDownDecrease.put(this,CoolDown);
         Utils.MovementSpeed.put(this,SpeedUp);
+        Utils.GemsTag.put(this, 1);
     }
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag)

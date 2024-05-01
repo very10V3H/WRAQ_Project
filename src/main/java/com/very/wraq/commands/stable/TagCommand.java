@@ -1,6 +1,7 @@
 package com.very.wraq.commands.stable;
 
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
@@ -34,6 +35,9 @@ public class TagCommand implements Command<CommandSourceStack> {
             case "string" -> {
                 data.putString(key, valueString);
                 player.sendSystemMessage(Component.literal("已添加:(" + key + "," + valueString + ")"));
+            }
+            case "remove" -> {
+                data.remove(key);
             }
             default -> {
                 player.sendSystemMessage(Component.literal("检查类型拼写"));

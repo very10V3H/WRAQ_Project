@@ -23,6 +23,7 @@ public class PlainGemD extends Item {
         Utils.GemsHealthRecover.put(StringUtils.GemName.PlainGemD,HealthReply);
         Utils.MaxHealth.put(this,MaxHealth);
         Utils.HealthRecover.put(this,HealthReply);
+        Utils.GemsTag.put(this, 1);
     }
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag)

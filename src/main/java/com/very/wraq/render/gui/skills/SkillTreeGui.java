@@ -5,7 +5,7 @@ import com.very.wraq.netWorking.misc.SkillPackets.SkillDataC2SPacket;
 import com.very.wraq.netWorking.misc.SkillPackets.SkillRequestC2SPacket;
 import com.very.wraq.netWorking.misc.SkillPackets.SkillSaveC2SPacket;
 import com.very.wraq.render.gui.testAndHelper.OpenSkillGui;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.ClientUtils;
 import com.very.wraq.valueAndTools.Utils.Utils;

@@ -1,7 +1,7 @@
 package com.very.wraq.series.overWorld.WorldBoss;
 
 import com.very.wraq.valueAndTools.Compute;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;

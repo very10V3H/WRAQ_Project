@@ -3,11 +3,12 @@ package com.very.wraq.customized.players.bow.Wcndymlgb;
 import com.very.wraq.coreAttackModule.MyArrow;
 import com.very.wraq.customized.uniform.Attributes;
 import com.very.wraq.entities.entities.Civil.Civil;
-import com.very.wraq.process.Particle.ParticleProvider;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.process.particle.ParticleProvider;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.ModEntityType;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
@@ -165,7 +166,7 @@ public class WcndymlgbCurios extends Item implements ICurioItem {
 
     public static void NormalDamage(Player player, Mob mob) {
         MyArrow myArrow = new MyArrow(EntityType.ARROW, player.level(), player, false);
-        MyArrow.CauseDamage(myArrow, mob, Compute.PlayerAttributes.PlayerAttackDamage(player));
+        MyArrow.CauseDamage(myArrow, mob, PlayerAttributes.PlayerAttackDamage(player));
     }
     public static double ExCritDamage(Player player) {
         if (!IsPlayer(player)) return 0;

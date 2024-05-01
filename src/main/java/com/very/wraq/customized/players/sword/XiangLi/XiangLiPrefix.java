@@ -1,6 +1,6 @@
 package com.very.wraq.customized.players.sword.XiangLi;
 
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.StringUtils;
 import net.minecraft.ChatFormatting;

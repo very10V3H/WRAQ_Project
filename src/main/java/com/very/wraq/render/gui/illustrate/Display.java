@@ -3,6 +3,7 @@ package com.very.wraq.render.gui.illustrate;
 import com.very.wraq.blocks.blocks.ForgeRecipe;
 import com.very.wraq.blocks.blocks.InjectRecipe;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;

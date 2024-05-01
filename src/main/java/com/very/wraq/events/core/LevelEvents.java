@@ -4,6 +4,7 @@ import com.very.wraq.customized.players.bow.Lei_yan233.LeiyanBow;
 import com.very.wraq.customized.players.bow.MyMission.MyMissionBow;
 import com.very.wraq.customized.players.sceptre.Eliaoi.Eliaoi;
 import com.very.wraq.customized.players.sceptre.Eliaoi.EliaoiCurios2;
+import com.very.wraq.customized.uniform.bow.BowCurios1;
 import com.very.wraq.events.fight.MonsterAttackEvent;
 import com.very.wraq.files.FileHandler;
 import com.very.wraq.Items.Prefix.PrefixInfo;
@@ -12,8 +13,9 @@ import com.very.wraq.netWorking.misc.PrefixPackets.PrefixS2CPacket;
 import com.very.wraq.netWorking.misc.SoundsPackets.SoundsS2CPacket;
 import com.very.wraq.process.element.Element;
 import com.very.wraq.process.element.originSummon.OriginSummon;
-import com.very.wraq.process.Instance.MobEffectAndDamageMethods;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.process.instance.MobEffectAndDamageMethods;
+import com.very.wraq.process.labourDay.LabourDayMobSummon;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.overWorld.SakuraSeries.EarthMana.EarthPower;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.StringUtils;
@@ -61,6 +63,8 @@ public class LevelEvents {
         Broad(event);
         Stop(event);
         OriginSummon.DetectElementPiece(event);
+        LabourDayMobSummon.levelTick(event);
+        BowCurios1.tick(event);
 
         if (event.side.isServer() && event.phase.equals(TickEvent.Phase.START) && event.level.getServer().getTickCount() % 18000 == 0) {
             ServerLevel serverLevel = (ServerLevel) event.level;
@@ -714,7 +718,8 @@ public class LevelEvents {
                     "欢迎加入维瑞阿契群:184453807 维瑞阿契更新通知群:693292427",
                     "觉得移动速度过快？使用/vmd speed [效能]来手动调整你的移动速度加成效能吧！（手动调整仅会影响你的移动速度加成属性在玩家移速上的体现）",
                     "你知道吗？身份卡的图鉴可以查看装备的获取方式。",
-                    "你知道吗？如果没有归一化元素强度，元素共鸣提供的反应元素量将会忽略不计。"
+                    "你知道吗？如果没有归一化元素强度，元素共鸣提供的反应元素量将会忽略不计。",
+                    "默认P打开任务列表，查看进行中的任务，完成获得奖励吧！"
             };
             int TickCount = event.level.getServer().getTickCount();
 

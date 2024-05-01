@@ -1,9 +1,10 @@
 package com.very.wraq.projectiles.mana;
 
-import com.very.wraq.process.Particle.ParticleProvider;
+import com.very.wraq.process.particle.ParticleProvider;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.Struct.LastDamage;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
@@ -130,7 +131,7 @@ public class Meteorite extends AbstractArrow implements GeoEntity {
                     case 1 -> {
                         playerList.forEach(player1 -> {
                             if (player1.distanceTo(this) < 5) {
-                                Utils.MeteoriteDefenceMap.put(player1, (int) (Compute.PlayerAttributes.PlayerManaDamage(player) * 0.05));
+                                Utils.MeteoriteDefenceMap.put(player1, (int) (PlayerAttributes.PlayerManaDamage(player) * 0.05));
                                 Utils.MeteoriteDefenceTimeMap.put(player1, TickCount + 80);
                                 Compute.EffectLastTimeSend(player1, ModItems.SoulSceptre.get().getDefaultInstance(),80);
                             }
@@ -240,7 +241,7 @@ public class Meteorite extends AbstractArrow implements GeoEntity {
                     case 1 -> {
                         playerList.forEach(player1 -> {
                             if (player1.distanceTo(this) < 5) {
-                                Utils.MeteoriteDefenceMap.put(player1, (int) (Compute.PlayerAttributes.PlayerManaDamage(player) * 0.05));
+                                Utils.MeteoriteDefenceMap.put(player1, (int) (PlayerAttributes.PlayerManaDamage(player) * 0.05));
                                 Utils.MeteoriteDefenceTimeMap.put(player1, TickCount + 80);
                                 Compute.EffectLastTimeSend(player1, ModItems.SoulSceptre.get().getDefaultInstance(),80);
                             }

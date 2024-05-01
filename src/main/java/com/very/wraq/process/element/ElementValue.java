@@ -1,5 +1,6 @@
 package com.very.wraq.process.element;
 
+import com.very.wraq.customized.uniform.element.*;
 import com.very.wraq.process.element.equipAndCurios.fireElement.FireElementSword;
 import com.very.wraq.process.element.equipAndCurios.waterElement.WaterElementSword;
 import com.very.wraq.valueAndTools.Compute;
@@ -55,6 +56,9 @@ public class ElementValue {
             value += Element.LifeElementValue.get(itemStack.getItem());
         }
 
+        // 百分比分割线
+        value *= LifeCurios0.playerLifeElementValueEnhance(player);
+
         return value;
     }
 
@@ -69,8 +73,9 @@ public class ElementValue {
             value += Element.WaterElementValue.get(itemStack.getItem());
         }
 
-        // 请在上方添加
+        // 百分比分割线
         value *= WaterElementSword.PlayerWaterElementValueEnhance(player);
+        value *= WaterCurios0.playerWaterElementValueEnhance(player);
 
         return value;
     }
@@ -88,6 +93,9 @@ public class ElementValue {
 
         value += FireElementSword.FireElementValueEnhance(player);
 
+        // 百分比分割线
+        value *= FireCurios0.playerFireElementValueEnhance(player);
+
         return value;
     }
 
@@ -96,6 +104,9 @@ public class ElementValue {
 
         value += QiLingJudge(player,Element.StoneElementValue);
         value += Compute.CuriosAttribute.AttributeValue(player, Element.StoneElementValue, StoneElementValue);
+
+        // 百分比分割线
+        value *= StoneCurios0.playerStoneElementValueEnhance(player);
 
         return value;
     }
@@ -106,6 +117,9 @@ public class ElementValue {
         value += QiLingJudge(player,Element.IceElementValue);
         value += Compute.CuriosAttribute.AttributeValue(player, Element.IceElementValue, IceElementValue);
 
+        // 百分比分割线
+        value *= IceCurios0.playerIceElementValueEnhance(player);
+
         return value;
     }
 
@@ -115,6 +129,9 @@ public class ElementValue {
         value += QiLingJudge(player,Element.LightningElementValue);
         value += Compute.CuriosAttribute.AttributeValue(player, Element.LightningElementValue, LightningElementValue);
 
+        // 百分比分割线
+        value *= LightningCurios0.playerLightningElementValueEnhance(player);
+
         return value;
     }
 
@@ -123,6 +140,9 @@ public class ElementValue {
 
         value += QiLingJudge(player,Element.WindElementValue);
         value += Compute.CuriosAttribute.AttributeValue(player, Element.WindElementValue, WindElementValue);
+
+        // 百分比分割线
+        value *= WindCurios0.playerWindElementValueEnhance(player);
 
         return value;
     }

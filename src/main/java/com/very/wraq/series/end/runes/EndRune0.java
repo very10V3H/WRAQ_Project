@@ -1,6 +1,7 @@
 package com.very.wraq.series.end.runes;
 
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.events.core.InventoryCheck;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.StringUtils;
 import com.very.wraq.valueAndTools.Utils.Utils;
@@ -52,7 +53,7 @@ public class EndRune0 extends Item {
                     Component.literal("末地符石-终界跃迁").withStyle(CustomStyle.styleOfEnd).append(Component.literal("已激活").withStyle(ChatFormatting.WHITE)));
             ItemStack itemStack = player.getItemInHand(InteractionHand.MAIN_HAND);
             CompoundTag data = itemStack.getOrCreateTagElement(Utils.MOD_ID);
-            data.putString("Owner",player.getName().getString());
+            data.putString(InventoryCheck.owner,player.getName().getString());
         }
         return InteractionResultHolder.pass(player.getItemInHand(interactionHand));
     }

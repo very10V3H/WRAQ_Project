@@ -1,5 +1,6 @@
 package com.very.wraq.series.overWorld.MainStory_I.Snow.Runes;
 
+import com.very.wraq.events.core.InventoryCheck;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.Utils;
 import net.minecraft.ChatFormatting;
@@ -47,7 +48,7 @@ public class SnowRune1 extends Item {
                     Component.literal("冰川符石-轻化寒击").withStyle(ChatFormatting.AQUA).append(Component.literal("已激活").withStyle(ChatFormatting.WHITE)));
             ItemStack itemStack = player.getItemInHand(InteractionHand.MAIN_HAND);
             CompoundTag data = itemStack.getOrCreateTagElement(Utils.MOD_ID);
-            data.putString("Owner",player.getName().getString());
+            data.putString(InventoryCheck.owner,player.getName().getString());
         }
         return InteractionResultHolder.pass(player.getItemInHand(interactionHand));
     }

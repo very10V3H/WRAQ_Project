@@ -1,10 +1,10 @@
 package com.very.wraq.events.instance;
 
-import com.very.wraq.events.fight.MonsterAttackEvent;
 import com.very.wraq.events.core.LoginInEvent;
-import com.very.wraq.process.Particle.ParticleProvider;
-import com.very.wraq.render.Particles.ModParticles;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.events.fight.MonsterAttackEvent;
+import com.very.wraq.process.particle.ParticleProvider;
+import com.very.wraq.render.particles.ModParticles;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.StringUtils;
 import com.very.wraq.valueAndTools.Utils.Struct.Boss2Damage;
@@ -273,37 +273,7 @@ public class TabooDevil {
                     Random random = new Random();
                     if (IsTaboo) {
                         playerListGetByName.forEach(player -> {
-
-                            try {
-                                Compute.ItemStackGive(player, new ItemStack(ModItems.TabooPiece.get(),difficultyEnhanceRate));
-                            } catch (IOException e) {
-                                throw new RuntimeException(e);
-                            }
-
-                            if (random.nextDouble() <= 0.025 * (playerNum - 1) * difficultyEnhanceRate) {
-                                Compute.FormatMSGSend(player,Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
-                                        Component.literal("你通过组队挑战副本，额外获得了:").withStyle(ChatFormatting.WHITE).
-                                                append(ModItems.TabooPiece.get().getDefaultInstance().getDisplayName()));
-                                try {
-                                    Compute.ItemStackGive(player, new ItemStack(ModItems.TabooPiece.get(),2));
-                                } catch (IOException e) {
-                                    throw new RuntimeException(e);
-                                }
-                            }
-
-                            if (LoginInEvent.playerDailyInstanceReward(player, 8)) {
-                                Compute.FormatMSGSend(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
-                                        Component.literal("每日首次通关副本，额外获得了:").withStyle(ChatFormatting.WHITE).
-                                                append(ModItems.TabooPiece.get().getDefaultInstance().getDisplayName()));
-
-                                try {
-                                    Compute.ItemStackGive(player, new ItemStack(ModItems.TabooPiece.get(), 16));
-                                } catch (IOException e) {
-                                    throw new RuntimeException(e);
-                                }
-
-                            }
-
+                            singleRewardToPlayer(player, difficultyEnhanceRate, playerNum, false);
                         });
 
                         Compute.FormatBroad(level, Component.literal("副本").withStyle(ChatFormatting.RED),
@@ -566,6 +536,41 @@ public class TabooDevil {
         });
         ParticleProvider.DisperseParticle(mob.position(), (ServerLevel) mob.level(), 1, 1, 120, ModParticles.LONG_ENTROPY.get(), 1);
         ParticleProvider.DisperseParticle(mob.position(), (ServerLevel) mob.level(), 1.5, 1, 120, ModParticles.LONG_ENTROPY.get(), 1);
+    }
+
+    public static void singleRewardToPlayer(Player player, int difficultyEnhanceRate, int playerNum, boolean isMopUp) {
+        try {
+            Compute.ItemStackGive(player, new ItemStack(ModItems.TabooPiece.get(),difficultyEnhanceRate));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        Random random = new Random();
+        if (!isMopUp) {
+            if (random.nextDouble() <= 0.025 * (playerNum - 1) * difficultyEnhanceRate) {
+                Compute.FormatMSGSend(player,Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
+                        Component.literal("你通过组队挑战副本，额外获得了:").withStyle(ChatFormatting.WHITE).
+                                append(ModItems.TabooPiece.get().getDefaultInstance().getDisplayName()));
+                try {
+                    Compute.ItemStackGive(player, new ItemStack(ModItems.TabooPiece.get(),2));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+
+        if (LoginInEvent.playerDailyInstanceReward(player, 8)) {
+            Compute.FormatMSGSend(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
+                    Component.literal("每日首次通关副本，额外获得了:").withStyle(ChatFormatting.WHITE).
+                            append(ModItems.TabooPiece.get().getDefaultInstance().getDisplayName()));
+
+            try {
+                Compute.ItemStackGive(player, new ItemStack(ModItems.TabooPiece.get(), 16));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+        }
     }
 }
 

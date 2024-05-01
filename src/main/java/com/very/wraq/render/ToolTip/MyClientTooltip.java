@@ -1,4 +1,4 @@
-package com.very.wraq.render.ToolTip;
+package com.very.wraq.render.toolTip;
 
 import com.very.wraq.valueAndTools.Utils.Utils;
 import net.minecraft.client.gui.Font;

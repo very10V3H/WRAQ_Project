@@ -1,9 +1,10 @@
 package com.very.wraq.customized.players.bow.Yxwg;
 
 import com.very.wraq.customized.uniform.Attributes;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -111,7 +112,7 @@ public class YxwgCurios extends Item implements ICurioItem {
         mobList.forEach(mob1 -> {
             Compute.Damage.AttackDamageToMonster_AdDamage(player,mob1,Compute.XpStrengthADDamage(player,12));
         });
-        Compute.PlayerShieldProvider(player,40,mobList.size() * Compute.PlayerAttributes.PlayerAttackDamage(player));
+        Compute.PlayerShieldProvider(player,40,mobList.size() * PlayerAttributes.PlayerAttackDamage(player));
     }
 
     public static void Passive2(Player player, Mob mob) {

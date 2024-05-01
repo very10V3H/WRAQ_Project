@@ -3,6 +3,7 @@ package com.very.wraq.netWorking.misc.TeamPackets;
 import com.very.wraq.netWorking.ModNetworking;
 import com.very.wraq.valueAndTools.Utils.Struct.PlayerTeam;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;

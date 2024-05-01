@@ -6,10 +6,10 @@ import com.very.wraq.netWorking.misc.SkillPackets.SkillDataC2SPacket;
 import com.very.wraq.netWorking.misc.SkillPackets.SkillRequestC2SPacket;
 import com.very.wraq.netWorking.misc.TeamPackets.TeamScreenOpenRequestC2SPacket;
 import com.very.wraq.render.gui.illustrate.Illustrate;
-import com.very.wraq.render.gui.mission.MissionScreen;
+import com.very.wraq.render.gui.mission.OldMissionScreen;
 import com.very.wraq.render.gui.mission.ReputationStore;
 import com.very.wraq.render.gui.testAndHelper.OpenSkillTreeGui;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.ClientUtils;
 import com.very.wraq.valueAndTools.Utils.Utils;
@@ -178,7 +178,7 @@ public class SkillGui extends Screen {
         }).pos(this.width / 2 + 32, this.height / 2 + 113 - 40).size(48,16).build());
 
         this.addRenderableWidget(Button.builder(Component.literal("任务界面").withStyle(CustomStyle.styleOfKaze), (p_280814_) -> {
-            this.minecraft.setScreen(new MissionScreen(true));
+            this.minecraft.setScreen(new OldMissionScreen(true));
         }).pos(this.width / 2 + 90, this.height / 2 + 113 - 40).size(48,16).build());
 
         this.addRenderableWidget(Button.builder(Component.literal("声望商店").withStyle(ChatFormatting.YELLOW), (p_280814_) -> {

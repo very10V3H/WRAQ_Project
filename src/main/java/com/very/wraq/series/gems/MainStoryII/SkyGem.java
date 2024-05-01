@@ -1,6 +1,6 @@
 package com.very.wraq.series.gems.MainStoryII;
 
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.Utils;
 import net.minecraft.ChatFormatting;
@@ -22,6 +22,7 @@ public class SkyGem extends Item {
         Utils.GemsSpeedUp.put("skyGem",SpeedUp);
         Utils.AttackDamage.put(this,AttackDamage);
         Utils.MovementSpeed.put(this,SpeedUp);
+        Utils.GemsTag.put(this, 1);
     }
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag)

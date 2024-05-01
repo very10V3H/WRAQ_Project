@@ -1,9 +1,10 @@
 package com.very.wraq.customized.players.sceptre.Black_Feisa_;
 
-import com.very.wraq.process.Power.PowerLogic;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.process.power.PowerLogic;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -130,7 +131,7 @@ public class BlackFeisaCurios3 extends Item implements ICurioItem {
 
     public static double Passive1ManaDamageEnhance(Player player) {
         if (!IsPlayer(player)) return 0;
-        return Compute.ManaSkillLevelGet(player.getPersistentData(),11) == 10 ? Compute.PlayerAttributes.PlayerManaDamage(player) / 10000 * 0.25 : 0;
+        return Compute.ManaSkillLevelGet(player.getPersistentData(),11) == 10 ? PlayerAttributes.PlayerManaDamage(player) / 10000 * 0.25 : 0;
     }
 
     public record ReleaseTimeAndIndex(int tick, int index) {}

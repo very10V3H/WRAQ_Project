@@ -1,4 +1,4 @@
-package com.very.wraq.process.Lottery;
+package com.very.wraq.process.lottery;
 
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.StringUtils;

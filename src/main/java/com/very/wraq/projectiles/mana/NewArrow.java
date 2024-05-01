@@ -1,12 +1,13 @@
 package com.very.wraq.projectiles.mana;
 
 import com.very.wraq.coreAttackModule.ManaAttackModule;
-import com.very.wraq.process.Particle.ParticleProvider;
-import com.very.wraq.render.Particles.ModParticles;
+import com.very.wraq.process.particle.ParticleProvider;
+import com.very.wraq.render.particles.ModParticles;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.ModEntityType;
 import com.very.wraq.valueAndTools.Utils.Struct.Power;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.*;
@@ -165,7 +166,7 @@ public class NewArrow extends AbstractArrow {
             {
                 double damage;
                 Player hurter = (Player) entity;
-                double Defence = Compute.PlayerAttributes.PlayerManaDefence(hurter);
+                double Defence = PlayerAttributes.PlayerManaDefence(hurter);
                 if(Defence == 0)
                 {
                     damage = BaseDamage*(1.0d-(0.25F*log(((hurter.getAttribute(Attributes.ARMOR).getValue()*(1.0d-BreakDefence)*(E*E/100)+1)))));

@@ -2,11 +2,12 @@ package com.very.wraq.customized.players.sceptre.shangmengli;
 
 import com.very.wraq.coreAttackModule.ManaAttackModule;
 import com.very.wraq.customized.uniform.Attributes;
-import com.very.wraq.process.Particle.ParticleProvider;
-import com.very.wraq.render.Particles.ModParticles;
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.process.particle.ParticleProvider;
+import com.very.wraq.render.particles.ModParticles;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.network.chat.Component;
@@ -173,7 +174,7 @@ public class ShangMengLiCurios3 extends Item implements ICurioItem {
 
     public static double ManaDamageEnhance(Player player) {
         if (!IsOn(player)) return 0;
-        return (Compute.PlayerAttributes.PlayerMaxMana(player) + 100) / 100 * 0.25
-                + (Compute.PlayerAttributes.PlayerManaRecover(player) + 5) / 10 * 0.08;
+        return (PlayerAttributes.PlayerMaxMana(player) + 100) / 100 * 0.25
+                + (PlayerAttributes.PlayerManaRecover(player) + 5) / 10 * 0.08;
     }
 }

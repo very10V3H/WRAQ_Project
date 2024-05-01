@@ -1,6 +1,6 @@
 package com.very.wraq.series.gems.MainStoryII_D;
 
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.StringUtils;
 import com.very.wraq.valueAndTools.Utils.Utils;
@@ -23,6 +23,7 @@ public class SkyGemD extends Item {
         Utils.GemsSpeedUp.put(StringUtils.GemName.SkyGemD,SpeedUp);
         Utils.AttackDamage.put(this,AttackDamage);
         Utils.MovementSpeed.put(this,SpeedUp);
+        Utils.GemsTag.put(this, 1);
     }
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag)

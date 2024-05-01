@@ -65,6 +65,7 @@ public class TradeList {
         QingMing();
         Food();
         RoseGoldStore();
+        LabourDayStore();
     }
     public static void Plain() {
         ItemStack[] itemStacks = {
@@ -3290,6 +3291,46 @@ public class TradeList {
             switch (i) {
                 case 0 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.GoldCoin.get(), 64));
+                }});
+
+            }
+        }
+    }
+
+    public static void LabourDayStore() {
+        ItemStack[] itemStacks = {
+                new ItemStack(ModItems.LabourDayIronPickaxe.get(), 1),
+                new ItemStack(ModItems.LabourDayIronHoe.get(), 1),
+                new ItemStack(ModItems.LabourDayForgePaper.get(), 1),
+                new ItemStack(ModItems.LabourDayGem.get(), 1),
+                new ItemStack(ModItems.LabourDayLottery.get(), 1),
+                new ItemStack(ModItems.LabourDayPrefix.get(), 1),
+        };
+        List<ItemStack> contentList = new ArrayList<>();
+        Collections.addAll(contentList, itemStacks);
+        tradeContent.put(StringUtils.VillagerName.LabourDayStore,contentList);
+
+        for (int i = 0; i < itemStacks.length; i ++) {
+            switch (i) {
+                case 0,1 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
+                    add(new ItemStack(ModItems.OldGoldCoin.get(), 64));
+                }});
+
+                case 2 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
+                    add(new ItemStack(ModItems.OldSilverCoin.get(), 256));
+                }});
+
+                case 3 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
+                    add(new ItemStack(ModItems.OldSilverCoin.get(), 32));
+                    add(new ItemStack(ModItems.OldSilverCoin.get(), 64));
+                }});
+
+                case 4 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
+                    add(new ItemStack(ModItems.OldGoldCoin.get(), 1));
+                }});
+
+                case 5 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
+                    add(new ItemStack(ModItems.OldSilverCoin.get(), 32));
                 }});
 
             }

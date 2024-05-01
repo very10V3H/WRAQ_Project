@@ -1,5 +1,6 @@
 package com.very.wraq.Items.Mission;
 
+import com.very.wraq.events.core.InventoryCheck;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.Utils;
 import com.very.wraq.valueAndTools.registry.ModItems;
@@ -55,7 +56,7 @@ public class Daily extends Item {
             if(ItemData.contains("DailyMission15") && data.contains("DailyMission15") && data.getInt("DailyMission15") < ItemData.getInt("DailyMission15")) flag = false;
             if(ItemData.contains("DailyMission16") && data.contains("DailyMission16") && data.getInt("DailyMission16") < ItemData.getInt("DailyMission16")) flag = false;
 */
-            if(!ItemData.getString("Owner").equals(player.getName().getString())){
+            if(!ItemData.getString(InventoryCheck.owner).equals(player.getName().getString())){
                 Compute.FormatMSGSend(player,Component.literal("维瑞阿契").withStyle(ChatFormatting.AQUA),
                         Component.literal("这个任务似乎不是你的任务。"));
             }
@@ -89,7 +90,7 @@ public class Daily extends Item {
                     for(int i = 1; i <= 17; i++) data.putInt("DailyMission"+i,0);
                     if (player.experienceLevel >= 60) {
                         ItemStack ironlove = ModItems.IronLove.get().getDefaultInstance();
-                        ironlove.getOrCreateTagElement(Utils.MOD_ID).putString("Owner",player.getName().getString());
+                        ironlove.getOrCreateTagElement(Utils.MOD_ID).putString(InventoryCheck.owner,player.getName().getString());
                         try {
                             Compute.ItemStackGive(player,ironlove);
                         } catch (IOException e) {

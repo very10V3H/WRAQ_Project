@@ -5,8 +5,9 @@ import com.very.wraq.Items.Forging.ForgeImprove;
 import com.very.wraq.Items.Forging.ForgeProtect;
 import com.very.wraq.Items.Gems.Dismantle;
 import com.very.wraq.Items.Gems.SlotOpen;
+import com.very.wraq.events.core.InventoryCheck;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.render.gui.blocks.ForgingBlockMenu;
-import com.very.wraq.render.ToolTip.CustomStyle;
 import com.very.wraq.series.instance.Castle.CastleAttackArmor;
 import com.very.wraq.series.instance.Castle.CastleManaArmor;
 import com.very.wraq.series.instance.Castle.CastleSwiftArmor;
@@ -162,7 +163,7 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider{
         }
         if(hasRecipe(blockEntity) || hasRecipe1(blockEntity) || hasRecipe2(blockEntity) || hasRecipe6(blockEntity)
                 || hasRecipe8(blockEntity) || hasRecipeOfDismantle(blockEntity) || hasRecipeOfCastleArmor(blockEntity)
-                || hasRecipeOfQingMingForgePaper(blockEntity)) {
+                || hasRecipeOfForgePaper(blockEntity)) {
             blockEntity.progress++;
             setChanged(level,pos,blockState);
             if(blockEntity.progress >= blockEntity.maxProgress){
@@ -187,17 +188,21 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider{
         if (blockEntity.level.getServer().getPlayerList().getPlayerByName(PlayerName) != null)
             player = blockEntity.level.getServer().getPlayerList().getPlayerByName(PlayerName);
 
-        if (hasRecipeOfQingMingForgePaper(blockEntity)) {
+        if (hasRecipeOfForgePaper(blockEntity)) {
             ItemStack equip = blockEntity.itemStackHandler.getStackInSlot(4);
+            ItemStack forgePaper = blockEntity.itemStackHandler.getStackInSlot(3);
             CompoundTag data = equip.getTagElement(Utils.MOD_ID);
-            data.putBoolean(StringUtils.QingMingForgePaper,true);
+
+            if (forgePaper.is(ModItems.QingMingForgePaper.get())) data.putBoolean(StringUtils.QingMingForgePaper,true);
+            if (forgePaper.is(ModItems.LabourDayForgePaper.get())) data.putBoolean(StringUtils.LabourDayForgePaper,true);
+
             Compute.ForgingHoverName(equip,Component.literal(""));
             if (player != null) {
-                Compute.FormatBroad(player.level(),Component.literal("清符").withStyle(CustomStyle.styleOfForest),
+                Compute.FormatBroad(player.level(),Component.literal("突破").withStyle(CustomStyle.styleOfPower),
                         Component.literal("").withStyle(ChatFormatting.WHITE).
                                 append(player.getDisplayName()).
                                 append(Component.literal(" 使用 ").withStyle(ChatFormatting.WHITE)).
-                                append(ModItems.QingMingForgePaper.get().getDefaultInstance().getDisplayName()).
+                                append(forgePaper.getDisplayName()).
                                 append(Component.literal(" 增幅了 ").withStyle(CustomStyle.styleOfPower)).
                                 append(equip.getDisplayName()));
             }
@@ -283,6 +288,7 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider{
                 this.put(StringUtils.GemName.CastleWeaponGem,ModItems.CastleWeaponGem.get());
                 this.put(StringUtils.GemName.CastleArmorGem,ModItems.CastleArmorGem.get());
                 this.put(StringUtils.GemName.QingMingGem,ModItems.QingMingGem.get());
+                this.put(StringUtils.GemName.LabourDayGem,ModItems.LabourDayGem.get());
             }};
 
             String GemName = data.getString("Gems" + index);
@@ -343,7 +349,9 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider{
 
                 put(ModItems.CastleWeaponGem.get(),StringUtils.GemName.CastleWeaponGem);
                 put(ModItems.CastleArmorGem.get(),StringUtils.GemName.CastleArmorGem);
+
                 put(ModItems.QingMingGem.get(),StringUtils.GemName.QingMingGem);
+                put(ModItems.LabourDayGem.get(),StringUtils.GemName.LabourDayGem);
             }};
 
             if (itemStringMap.containsKey(gem.getItem())) {
@@ -394,7 +402,7 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider{
                 }
                 else
                 {
-                    if(data.contains("Owner"))
+                    if(data.contains(InventoryCheck.owner))
                     {
                         if (player != null) {
                             Compute.FormatMSGSend(player,Component.literal("开孔").withStyle(ChatFormatting.AQUA),
@@ -415,7 +423,7 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider{
                 }
                 else
                 {
-                    if(data.contains("Owner"))
+                    if(data.contains(InventoryCheck.owner))
                     {
                         if (player != null) {
                             Compute.FormatMSGSend(player,Component.literal("开孔").withStyle(ChatFormatting.AQUA),
@@ -587,8 +595,8 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider{
                 else if (Ointment.is(ModItems.SunOintment1.get())) {
                     double num = r.nextDouble(2.5d,10d);
                     data.putDouble(SlotPName,num);
-                    if(num >= 9 && data.contains("Owner")) Compute.FormatBroad(blockEntity.level, Component.literal("涂附").withStyle(CustomStyle.styleOfSpider),
-                            Component.literal(data.getString("Owner")+"使用").withStyle(ChatFormatting.WHITE).
+                    if(num >= 9 && data.contains(InventoryCheck.owner)) Compute.FormatBroad(blockEntity.level, Component.literal("涂附").withStyle(CustomStyle.styleOfSpider),
+                            Component.literal(data.getString(InventoryCheck.owner)+"使用").withStyle(ChatFormatting.WHITE).
                                     append(Ointment.getDisplayName()).
                                     append(Component.literal("在")).
                                     append(Equip.getDisplayName()).
@@ -597,8 +605,8 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider{
                 else if (Ointment.is(ModItems.SunOintment2.get())) {
                     double num = r.nextDouble(5d,10d);
                     data.putDouble(SlotPName,num);
-                    if(num >= 9 && data.contains("Owner")) Compute.FormatBroad(blockEntity.level, Component.literal("涂附").withStyle(CustomStyle.styleOfSpider),
-                            Component.literal(data.getString("Owner")+"使用").withStyle(ChatFormatting.WHITE).
+                    if(num >= 9 && data.contains(InventoryCheck.owner)) Compute.FormatBroad(blockEntity.level, Component.literal("涂附").withStyle(CustomStyle.styleOfSpider),
+                            Component.literal(data.getString(InventoryCheck.owner)+"使用").withStyle(ChatFormatting.WHITE).
                                     append(Ointment.getDisplayName()).
                                     append(Component.literal("在")).
                                     append(Equip.getDisplayName()).
@@ -613,8 +621,8 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider{
                 else if (Ointment.is(ModItems.LakeOintment1.get())) {
                     double num = r.nextDouble(2.5f,10d);
                     data.putDouble(SlotPName,num);
-                    if(num >= 9 && data.contains("Owner")) Compute.FormatBroad(blockEntity.level, Component.literal("涂附").withStyle(CustomStyle.styleOfSpider),
-                            Component.literal(data.getString("Owner")+"使用").withStyle(ChatFormatting.WHITE).
+                    if(num >= 9 && data.contains(InventoryCheck.owner)) Compute.FormatBroad(blockEntity.level, Component.literal("涂附").withStyle(CustomStyle.styleOfSpider),
+                            Component.literal(data.getString(InventoryCheck.owner)+"使用").withStyle(ChatFormatting.WHITE).
                                     append(Ointment.getDisplayName()).
                                     append(Component.literal("在")).
                                     append(Equip.getDisplayName()).
@@ -623,8 +631,8 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider{
                 else if (Ointment.is(ModItems.LakeOintment2.get())) {
                     double num = r.nextDouble(5f,10d);
                     data.putDouble(SlotPName,num);
-                    if(num >= 9 && data.contains("Owner")) Compute.FormatBroad(blockEntity.level, Component.literal("涂附").withStyle(CustomStyle.styleOfSpider),
-                            Component.literal(data.getString("Owner")+"使用").withStyle(ChatFormatting.WHITE).
+                    if(num >= 9 && data.contains(InventoryCheck.owner)) Compute.FormatBroad(blockEntity.level, Component.literal("涂附").withStyle(CustomStyle.styleOfSpider),
+                            Component.literal(data.getString(InventoryCheck.owner)+"使用").withStyle(ChatFormatting.WHITE).
                                     append(Ointment.getDisplayName()).
                                     append(Component.literal("在")).
                                     append(Equip.getDisplayName()).
@@ -639,8 +647,8 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider{
                 else if (Ointment.is(ModItems.VolcanoOintment1.get())) {
                     double num = r.nextDouble(2.5f,10d);
                     data.putDouble(SlotPName,num);
-                    if(num >= 9 && data.contains("Owner")) Compute.FormatBroad(blockEntity.level, Component.literal("涂附").withStyle(CustomStyle.styleOfSpider),
-                            Component.literal(data.getString("Owner")+"使用").withStyle(ChatFormatting.WHITE).
+                    if(num >= 9 && data.contains(InventoryCheck.owner)) Compute.FormatBroad(blockEntity.level, Component.literal("涂附").withStyle(CustomStyle.styleOfSpider),
+                            Component.literal(data.getString(InventoryCheck.owner)+"使用").withStyle(ChatFormatting.WHITE).
                                     append(Ointment.getDisplayName()).
                                     append(Component.literal("在")).
                                     append(Equip.getDisplayName()).
@@ -649,8 +657,8 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider{
                 else if (Ointment.is(ModItems.VolcanoOintment2.get())) {
                     double num = r.nextDouble(5f,10d);
                     data.putDouble(SlotPName,num);
-                    if(num >= 9 && data.contains("Owner")) Compute.FormatBroad(blockEntity.level, Component.literal("涂附").withStyle(CustomStyle.styleOfSpider),
-                            Component.literal(data.getString("Owner")+"使用").withStyle(ChatFormatting.WHITE).
+                    if(num >= 9 && data.contains(InventoryCheck.owner)) Compute.FormatBroad(blockEntity.level, Component.literal("涂附").withStyle(CustomStyle.styleOfSpider),
+                            Component.literal(data.getString(InventoryCheck.owner)+"使用").withStyle(ChatFormatting.WHITE).
                                     append(Ointment.getDisplayName()).
                                     append(Component.literal("在")).
                                     append(Equip.getDisplayName()).
@@ -665,8 +673,8 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider{
                 else if (Ointment.is(ModItems.SnowOintment1.get())) {
                     double num = r.nextDouble(2.5f,10d);
                     data.putDouble(SlotPName,num);
-                    if(num >= 9 && data.contains("Owner")) Compute.FormatBroad(blockEntity.level, Component.literal("涂附").withStyle(CustomStyle.styleOfSpider),
-                            Component.literal(data.getString("Owner")+"使用").withStyle(ChatFormatting.WHITE).
+                    if(num >= 9 && data.contains(InventoryCheck.owner)) Compute.FormatBroad(blockEntity.level, Component.literal("涂附").withStyle(CustomStyle.styleOfSpider),
+                            Component.literal(data.getString(InventoryCheck.owner)+"使用").withStyle(ChatFormatting.WHITE).
                                     append(Ointment.getDisplayName()).
                                     append(Component.literal("在")).
                                     append(Equip.getDisplayName()).
@@ -675,8 +683,8 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider{
                 else if (Ointment.is(ModItems.SnowOintment2.get())) {
                     double num = r.nextDouble(5f,10d);
                     data.putDouble(SlotPName,num);
-                    if(num >= 9 && data.contains("Owner")) Compute.FormatBroad(blockEntity.level, Component.literal("涂附").withStyle(CustomStyle.styleOfSpider),
-                            Component.literal(data.getString("Owner")+"使用").withStyle(ChatFormatting.WHITE).
+                    if(num >= 9 && data.contains(InventoryCheck.owner)) Compute.FormatBroad(blockEntity.level, Component.literal("涂附").withStyle(CustomStyle.styleOfSpider),
+                            Component.literal(data.getString(InventoryCheck.owner)+"使用").withStyle(ChatFormatting.WHITE).
                                     append(Ointment.getDisplayName()).
                                     append(Component.literal("在")).
                                     append(Equip.getDisplayName()).
@@ -691,8 +699,8 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider{
                 else if (Ointment.is(ModItems.SkyOintment1.get())) {
                     double num = r.nextDouble(2.5f,10d);
                     data.putDouble(SlotPName,num);
-                    if(num >= 9 && data.contains("Owner")) Compute.FormatBroad(blockEntity.level, Component.literal("涂附").withStyle(CustomStyle.styleOfSpider),
-                            Component.literal(data.getString("Owner")+"使用").withStyle(ChatFormatting.WHITE).
+                    if(num >= 9 && data.contains(InventoryCheck.owner)) Compute.FormatBroad(blockEntity.level, Component.literal("涂附").withStyle(CustomStyle.styleOfSpider),
+                            Component.literal(data.getString(InventoryCheck.owner)+"使用").withStyle(ChatFormatting.WHITE).
                                     append(Ointment.getDisplayName()).
                                     append(Component.literal("在")).
                                     append(Equip.getDisplayName()).
@@ -701,8 +709,8 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider{
                 else if (Ointment.is(ModItems.SkyOintment2.get())) {
                     double num = r.nextDouble(5f,10d);
                     data.putDouble(SlotPName,num);
-                    if(num >= 9 && data.contains("Owner")) Compute.FormatBroad(blockEntity.level, Component.literal("涂附").withStyle(CustomStyle.styleOfSpider),
-                            Component.literal(data.getString("Owner")+"使用").withStyle(ChatFormatting.WHITE).
+                    if(num >= 9 && data.contains(InventoryCheck.owner)) Compute.FormatBroad(blockEntity.level, Component.literal("涂附").withStyle(CustomStyle.styleOfSpider),
+                            Component.literal(data.getString(InventoryCheck.owner)+"使用").withStyle(ChatFormatting.WHITE).
                                     append(Ointment.getDisplayName()).
                                     append(Component.literal("在")).
                                     append(Equip.getDisplayName()).
@@ -717,8 +725,8 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider{
                 else if (Ointment.is(ModItems.ManaOintment1.get())) {
                     double num = r.nextDouble(2.5f,10d);
                     data.putDouble(SlotPName,num);
-                    if(num >= 9 && data.contains("Owner")) Compute.FormatBroad(blockEntity.level, Component.literal("涂附").withStyle(CustomStyle.styleOfSpider),
-                            Component.literal(data.getString("Owner")+"使用").withStyle(ChatFormatting.WHITE).
+                    if(num >= 9 && data.contains(InventoryCheck.owner)) Compute.FormatBroad(blockEntity.level, Component.literal("涂附").withStyle(CustomStyle.styleOfSpider),
+                            Component.literal(data.getString(InventoryCheck.owner)+"使用").withStyle(ChatFormatting.WHITE).
                                     append(Ointment.getDisplayName()).
                                     append(Component.literal("在")).
                                     append(Equip.getDisplayName()).
@@ -727,8 +735,8 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider{
                 else if (Ointment.is(ModItems.ManaOintment2.get())) {
                     double num = r.nextDouble(5f,10d);
                     data.putDouble(SlotPName,num);
-                    if(num >= 9 && data.contains("Owner")) Compute.FormatBroad(blockEntity.level, Component.literal("涂附").withStyle(CustomStyle.styleOfSpider),
-                            Component.literal(data.getString("Owner")+"使用").withStyle(ChatFormatting.WHITE).
+                    if(num >= 9 && data.contains(InventoryCheck.owner)) Compute.FormatBroad(blockEntity.level, Component.literal("涂附").withStyle(CustomStyle.styleOfSpider),
+                            Component.literal(data.getString(InventoryCheck.owner)+"使用").withStyle(ChatFormatting.WHITE).
                                     append(Ointment.getDisplayName()).
                                     append(Component.literal("在")).
                                     append(Equip.getDisplayName()).
@@ -743,8 +751,8 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider{
                 else if (Ointment.is(ModItems.NetherOintment1.get())) {
                     double num = r.nextDouble(2.5f,10d);
                     data.putDouble(SlotPName,num);
-                    if(num >= 9 && data.contains("Owner")) Compute.FormatBroad(blockEntity.level, Component.literal("涂附").withStyle(CustomStyle.styleOfSpider),
-                            Component.literal(data.getString("Owner")+"使用").withStyle(ChatFormatting.WHITE).
+                    if(num >= 9 && data.contains(InventoryCheck.owner)) Compute.FormatBroad(blockEntity.level, Component.literal("涂附").withStyle(CustomStyle.styleOfSpider),
+                            Component.literal(data.getString(InventoryCheck.owner)+"使用").withStyle(ChatFormatting.WHITE).
                                     append(Ointment.getDisplayName()).
                                     append(Component.literal("在")).
                                     append(Equip.getDisplayName()).
@@ -753,8 +761,8 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider{
                 else if (Ointment.is(ModItems.NetherOintment2.get())) {
                     double num = r.nextDouble(5f,10d);
                     data.putDouble(SlotPName,num);
-                    if(num >= 9 && data.contains("Owner")) Compute.FormatBroad(blockEntity.level, Component.literal("涂附").withStyle(CustomStyle.styleOfSpider),
-                            Component.literal(data.getString("Owner")+"使用").withStyle(ChatFormatting.WHITE).
+                    if(num >= 9 && data.contains(InventoryCheck.owner)) Compute.FormatBroad(blockEntity.level, Component.literal("涂附").withStyle(CustomStyle.styleOfSpider),
+                            Component.literal(data.getString(InventoryCheck.owner)+"使用").withStyle(ChatFormatting.WHITE).
                                     append(Ointment.getDisplayName()).
                                     append(Component.literal("在")).
                                     append(Equip.getDisplayName()).
@@ -791,50 +799,7 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider{
         }
         ItemStack gem = blockEntity.itemStackHandler.getStackInSlot(0);
         ItemStack sword = blockEntity.itemStackHandler.getStackInSlot(1);
-        List<Item> gemList = new ArrayList<>(){{
-            add(ModItems.SkyGem.get());
-            add(ModItems.EvokerGem.get());
-            add(ModItems.PlainGem.get());
-            add(ModItems.ForestGem.get());
-            add(ModItems.LakeGem.get());
-            add(ModItems.VolcanoGem.get());
-            add(ModItems.SnowGem.get());
-            add(ModItems.FieldGem.get());
-            add(ModItems.MineGem.get());
-            add(ModItems.LifeManaGem.get());
-            add(ModItems.ObsiManaGem.get());
-            add(ModItems.NetherSkeletonGem.get());
-            add(ModItems.MagmaGem.get());
-            add(ModItems.WitherGem.get());
-            add(ModItems.SakuraGem.get());
-            add(ModItems.ShipGem.get());
-            add(ModItems.PiglinGem.get());
-            add(ModItems.MoonAttackGem.get());
-            add(ModItems.MoonManaGem.get());
-            add(ModItems.SkyGemD.get());
-            add(ModItems.EvokerGemD.get());
-            add(ModItems.PlainGemD.get());
-            add(ModItems.ForestGemD.get());
-            add(ModItems.LakeGemD.get());
-            add(ModItems.VolcanoGemD.get());
-            add(ModItems.SnowGemD.get());
-            add(ModItems.FieldGemD.get());
-            add(ModItems.MineGemD.get());
-            add(ModItems.LifeManaGemD.get());
-            add(ModItems.ObsiManaGemD.get());
-            add(ModItems.NetherSkeletonGemD.get());
-            add(ModItems.MagmaGemD.get());
-            add(ModItems.WitherGemD.get());
-            add(ModItems.SakuraGemD.get());
-            add(ModItems.ShipGemD.get());
-            add(ModItems.PiglinGemD.get());
-            add(ModItems.MoonAttackGemD.get());
-            add(ModItems.MoonManaGemD.get());
-            add(ModItems.CastleWeaponGem.get());
-            add(ModItems.CastleArmorGem.get());
-            add(ModItems.QingMingGem.get());
-        }};
-        boolean hasGemInFirstSlot = gemList.contains(gem.getItem());
+        boolean hasGemInFirstSlot = Utils.GemsTag.containsKey(gem.getItem());
         boolean hasSwordBowSceptreInSecondSlot = (Utils.MainHandTag.containsKey(sword.getItem()) ||
                 Utils.ArmorTag.containsKey(sword.getItem()));
         CompoundTag data = sword.getOrCreateTagElement(Utils.MOD_ID);
@@ -926,7 +891,7 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider{
                 || blockEntity.itemStackHandler.getStackInSlot(1).getItem() instanceof CastleManaArmor);
     }
 
-    private static boolean hasRecipeOfQingMingForgePaper(ForgingBlockEntity blockEntity) {
+    private static boolean hasRecipeOfForgePaper(ForgingBlockEntity blockEntity) {
         SimpleContainer inventory = new SimpleContainer(blockEntity.itemStackHandler.getSlots());
         for (int i = 0; i < blockEntity.itemStackHandler.getSlots(); i++) {
             inventory.setItem(i, blockEntity.itemStackHandler.getStackInSlot(i));
@@ -936,12 +901,13 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider{
         if (equip.getTagElement(Utils.MOD_ID) != null) data = equip.getTagElement(Utils.MOD_ID);
         else return false;
 
-        if (data.contains(StringUtils.QingMingForgePaper)) return false;
+        boolean canUseQingMingForgePaper = !data.contains(StringUtils.QingMingForgePaper) && blockEntity.itemStackHandler.getStackInSlot(3).is(ModItems.QingMingForgePaper.get());
+        boolean canUseLabourDayForgePaper = !data.contains(StringUtils.LabourDayForgePaper) && blockEntity.itemStackHandler.getStackInSlot(3).is(ModItems.LabourDayForgePaper.get());
 
         boolean hasEquipCanBeForged = (Utils.MainHandTag.containsKey(equip.getItem()) ||
                 Utils.ArmorTag.containsKey(equip.getItem()));
 
-        return blockEntity.itemStackHandler.getStackInSlot(3).is(ModItems.QingMingForgePaper.get())
+        return (canUseQingMingForgePaper || canUseLabourDayForgePaper) && data.contains("Forging")
                 && canInsertItemIntoOutPutSlot(inventory) && hasEquipCanBeForged &&
                 inventory.getItem(2).isEmpty() && !Compute.IsSoulEquip(equip);
     }

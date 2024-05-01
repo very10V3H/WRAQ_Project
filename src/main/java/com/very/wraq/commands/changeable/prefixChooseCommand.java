@@ -1,6 +1,7 @@
 package com.very.wraq.commands.changeable;
 
-import com.very.wraq.render.ToolTip.CustomStyle;
+import com.very.wraq.files.dataBases.DataBase;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.StringUtils;
 import com.very.wraq.valueAndTools.Utils.Utils;
@@ -13,6 +14,8 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
+
+import java.sql.SQLException;
 
 public class prefixChooseCommand implements Command<CommandSourceStack> {
     public static prefixChooseCommand instance = new prefixChooseCommand();
@@ -524,6 +527,20 @@ public class prefixChooseCommand implements Command<CommandSourceStack> {
                                 append(Component.literal("雨纷纷").withStyle(CustomStyle.styleOfHealth)));
                 flag = false;
             }
+        }
+        try {
+            if (DataBase.get(player, StringUtils.LabourDayPrefix).equals(StringUtils.Exist)) {
+                Count ++;
+                if (ChooseCount == Count) {
+                    data.putString("Prefix", "无产阶级");
+                    Compute.FormatMSGSend(player, Component.literal("称号").withStyle(ChatFormatting.GOLD),
+                            Component.literal("已激活称号").withStyle(ChatFormatting.WHITE).
+                                    append(Component.literal("无产阶级").withStyle(ChatFormatting.GOLD)));
+                    flag = false;
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
         Count++;
         if (ChooseCount == Count) {
