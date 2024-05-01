@@ -1,0 +1,19 @@
+{
+  "name": "伐木概述",
+  "icon": "minecraft:diamond_axe",
+  "category": "vmd:misc_category",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "  当你挖掘维瑞阿契任何看上去像正常树的木头方块时，你会获得它的原木以及伐木经验以及一般经验。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": {
+        "tag": "minecraft:logs"
+      },
+      "title": "伐伐伐伐伐木！",
+      "text": "  在目前版本下，维瑞阿契的原木主要还是用于维瑞阿契熔炼炉对矿物的冶炼中，也就是用于武器与装备的制作。$(br) -你可以在出生点出门正前方购买斧子以用于伐木"
+    }
+  ]
+}

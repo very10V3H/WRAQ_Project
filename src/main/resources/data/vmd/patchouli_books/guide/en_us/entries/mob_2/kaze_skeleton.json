@@ -1,0 +1,19 @@
+{
+  "name": "狂风",
+  "icon": "vmd:kazesoul",
+  "category": "vmd:mob_category",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "分布在风之谷（玉山山脚东南侧）"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": {
+        "item": "vmd:kazesoul"
+      },
+      "title": "主要掉落物",
+      "text": "用于制作风之谷系列锻造装备（击杀怪物概率获得）"
+    }
+  ]
+}

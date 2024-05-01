@@ -1,0 +1,17 @@
+{
+  "name": "快捷施法与翻滚概述",
+  "icon": "vmd:plain_power",
+  "category": "vmd:misc_category",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "  对于多数带有主动技能的武器，当你将其放置在物品栏6789位置时，你可以通过按键绑定中绑定的按键，快捷使用主动技能。$(br)  你将可以向前翻滚，这将会使你向前位移一小段距离并且在翻滚的时间内免疫伤害。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "vmd:plain_power",
+      "title": "更流畅地施法",
+      "text": "  翻滚的默认按键为Z 快捷施法的默认按键为Q/C/V/H"
+    }
+  ]
+}

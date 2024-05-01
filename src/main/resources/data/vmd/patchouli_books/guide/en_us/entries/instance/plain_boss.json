@@ -1,0 +1,17 @@
+{
+  "name": "普莱尼",
+  "icon": "vmd:plain_boss_soul",
+  "category": "vmd:instance_category",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "  位于平原普莱尼岛，因世界本源的异常涌动，导致原本生活在岛上的居民获得了混乱的自然能量。$(br) -普莱尼每2.5s会进行一次能量释放。释放时将对圈内圈外造成治疗或伤害。因此你需要及时变更站位。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "vmd:plain_boss_soul,vmd:plain_attack_ring0,vmd:plain_manaattack_ring1,vmd:plain_health_ring0,vmd:plain_defence_ring0",
+      "title": "主要掉落物",
+      "text": "  普莱尼主要掉落普莱尼系列戒指，他们有着不错的基础属性。$(br) -但是注意，装备两枚或以上同样的戒指并不会继续叠加属性。$(br) -普莱尼之魂可以灌注成为普莱尼宝石，普莱尼宝石可以用于强化普莱尼戒指。"
+    }
+  ]
+}

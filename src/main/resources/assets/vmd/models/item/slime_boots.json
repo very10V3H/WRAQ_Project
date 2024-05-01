@@ -1,0 +1,7 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "vmd:item/kazematerial_boots",
+        "layer1": "vmd:item/kazematerial_boots_overlay"
+    }
+}

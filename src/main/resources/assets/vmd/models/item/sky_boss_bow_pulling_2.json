@@ -1,0 +1,6 @@
+{
+    "parent": "vmd:item/sky_boss_bow",
+    "textures": {
+        "layer0": "vmd:item/sky_boss_bow_pulling_2"
+    }
+}

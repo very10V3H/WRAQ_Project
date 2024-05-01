@@ -1,0 +1,17 @@
+{
+  "name": "符石概述",
+  "icon": "vmd:green_runes_0",
+  "category": "vmd:misc_category",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "  符石是维瑞阿契最为强大的物品之一。$(br) -散落在世界各地的符石祭坛，充满了被符石祭坛所封印的自然本源能量。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "vmd:green_runes_1,vmd:forestrune3,vmd:manarune2,vmd:volcanorune0,vmd:netherrune0,vmd:snowrune2",
+      "title": "推荐符石",
+      "text": "  以上展示的符石是当前版本下制作者推荐的符石，这些符石将会极高地提升游戏体验。"
+    }
+  ]
+}

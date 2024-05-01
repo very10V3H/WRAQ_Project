@@ -1,0 +1,130 @@
+{
+  "mana": {
+    "sounds": [
+      {
+        "name": "vmd:mana",
+        "stream": true
+      }
+    ]
+  },
+  "use": {
+    "sounds": [
+      {
+        "name": "vmd:use",
+        "stream": true
+      }
+    ]
+  },
+  "attack": {
+    "sounds": [
+      {
+        "name": "vmd:attack",
+        "stream": true
+      }
+    ]
+  },
+  "healing": {
+    "sounds": [
+      {
+        "name": "vmd:healing",
+        "stream": true
+      }
+    ]
+  },
+  "lava": {
+    "sounds": [
+      {
+        "name": "vmd:lava",
+        "stream": true
+      }
+    ]
+  },
+  "mana_sword": {
+    "sounds": [
+      {
+        "name": "vmd:mana_sword",
+        "stream": true
+      }
+    ]
+  },
+  "nether_power": {
+    "sounds": [
+      {
+        "name": "vmd:nether_power",
+        "stream": true
+      }
+    ]
+  },
+  "rolling": {
+    "sounds": [
+      {
+        "name": "vmd:rolling",
+        "stream": true
+      }
+    ]
+  },
+  "wind": {
+    "sounds": [
+      {
+        "name": "vmd:wind",
+        "stream": true
+      }
+    ]
+  },
+  "dingzhen": {
+    "sounds": [
+      {
+        "name": "vmd:dingzhen",
+        "stream": true
+      }
+    ]
+  },
+  "yuema": {
+    "sounds": [
+      {
+        "name": "vmd:yuema",
+        "stream": true
+      }
+    ]
+  },
+  "i_got_smoke": {
+    "sounds": [
+      {
+        "name": "vmd:i_got_smoke",
+        "stream": true
+      }
+    ]
+  },
+  "msg": {
+    "sounds": [
+      {
+        "name": "vmd:msg",
+        "stream": true
+      }
+    ]
+  },
+  "break_dice": {
+    "sounds": [
+      {
+        "name": "vmd:break_dice",
+        "stream": true
+      }
+    ]
+  },
+  "dice": {
+    "sounds": [
+      {
+        "name": "vmd:dice",
+        "stream": true
+      }
+    ]
+  },
+  "heihuang_attack": {
+    "sounds": [
+      {
+        "name": "vmd:heihuang_attack",
+        "stream": true
+      }
+    ]
+  }
+}

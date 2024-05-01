@@ -1,0 +1,117 @@
+package com.very.wraq.events.mob.Elements;
+
+
+import com.very.wraq.process.element.Element;
+import com.very.wraq.render.toolTip.CustomStyle;
+import com.very.wraq.valueAndTools.Compute;
+import com.very.wraq.valueAndTools.registry.ModItems;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+
+import java.util.List;
+import java.util.Random;
+
+@Mod.EventBusSubscriber
+public class WaterElementEvent {
+    public static Zombie[] zombies = new Zombie[20];
+    @SubscribeEvent
+    public static void WaterElement(TickEvent.LevelTickEvent event) {
+        if (event.side.isServer() && event.phase == TickEvent.Phase.START) {
+
+            Level level = event.level;
+            Level level1 = event.level.getServer().getLevel(Level.OVERWORLD);
+            if (level.equals(level1) && level.getServer().getTickCount() % 20 == 0) {
+                for (Zombie zombie : zombies) {
+                    if (zombie != null && zombie.isAlive()) Element.ElementEffectAddToEntity(zombie,zombie,Element.Water,1,false,0);
+                }
+            }
+
+            if (level.getServer().getTickCount() % 300 == 36 && level.equals(level1)) {
+                Vec3[] vec3s = {
+                        new Vec3(889,64,324),
+                        new Vec3(876,64,311),
+                        new Vec3(845,64,311),
+                        new Vec3(831,64,325),
+                        new Vec3(818,64,338),
+                        new Vec3(818,64,369),
+                        new Vec3(832,64,383),
+                        new Vec3(845,64,396),
+                        new Vec3(876,64,396),
+                        new Vec3(890,64,382),
+                        new Vec3(903,64,369),
+                        new Vec3(903,64,338),
+                };
+
+                int BoundaryX1 = 929;
+                int BoundaryX2 = 792;
+                int BoundaryY1 = 100;
+                int BoundaryY2 = 50;
+                int BoundaryZ1 = 425;
+                int BoundaryZ2 = 285;
+
+                List<Mob> mobs = level.getEntitiesOfClass(Mob.class, AABB.ofSize(new Vec3( (double) (BoundaryX1 + BoundaryX2) /2,
+                                (double) (BoundaryY1 + BoundaryY2) /2, (double) (BoundaryZ1 + BoundaryZ2) /2),
+                        Math.abs(BoundaryX1-BoundaryX2) + 100,Math.abs(BoundaryY1-BoundaryY2) + 100,Math.abs(BoundaryZ1-BoundaryZ2) + 100));
+                List<Player> players = level.getEntitiesOfClass(Player.class, AABB.ofSize(new Vec3( (double) (BoundaryX1 + BoundaryX2) /2,
+                                (double) (BoundaryY1 + BoundaryY2) /2, (double) (BoundaryZ1 + BoundaryZ2) /2),
+                        Math.abs(BoundaryX1-BoundaryX2) + 50,Math.abs(BoundaryY1-BoundaryY2) + 50,Math.abs(BoundaryZ1-BoundaryZ2) + 50));
+
+                if (mobs.size() > 40) {
+                    for (Mob monster : mobs) {
+                        monster.remove(Entity.RemovalReason.UNLOADED_TO_CHUNK);
+                    }
+                    Compute.FormatBroad(level,Component.literal("安全").withStyle(ChatFormatting.GREEN),
+                            Component.literal("清理了碧水元素"));
+                }
+
+                for (int i = 0; i < 15; i ++) {
+                    Random random = new Random();
+                    int index = random.nextInt(vec3s.length);
+
+                    if (players.size() != 0 && (zombies[i] == null || !zombies[i].isAlive())) {
+                        if(zombies[i] != null) zombies[i].remove(Entity.RemovalReason.KILLED);
+                        zombies[i] = new Zombie(EntityType.ZOMBIE, level);
+                        Compute.SetMobCustomName(zombies[i], ModItems.MobArmorWaterElementHelmet.get(),
+                                Component.literal("碧水元素").withStyle(CustomStyle.styleOfWater));
+                        zombies[i].setItemSlot(EquipmentSlot.HEAD , ModItems.MobArmorWaterElementHelmet.get().getDefaultInstance());
+                        zombies[i].setItemSlot(EquipmentSlot.CHEST , ModItems.MobArmorWaterElementChest.get().getDefaultInstance());
+                        zombies[i].setItemSlot(EquipmentSlot.LEGS , ModItems.MobArmorWaterElementLeggings.get().getDefaultInstance());
+                        zombies[i].setItemSlot(EquipmentSlot.FEET , ModItems.MobArmorWaterElementBoots.get().getDefaultInstance());
+                        zombies[i].getAttribute(Attributes.MAX_HEALTH).setBaseValue(10 * Math.pow(10,7));
+                        zombies[i].setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.DIAMOND_SWORD));
+                        zombies[i].setItemInHand(InteractionHand.OFF_HAND, new ItemStack(ModItems.SnowShield.get()));
+                        zombies[i].setHealth(zombies[i].getMaxHealth());
+                        zombies[i].getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.5);
+                        zombies[i].getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(60000);
+                        zombies[i].moveTo(vec3s[index].x, vec3s[index].y, vec3s[index].z);
+                        level.addFreshEntity(zombies[i]);
+                    }
+                    if (zombies[i] != null) {
+                        double x = zombies[i].getX();
+                        double y = zombies[i].getY();
+                        double z = zombies[i].getZ();
+                        if(x > BoundaryX1 || x < BoundaryX2 || y > BoundaryY1 || y < BoundaryY2 || z > BoundaryZ1 || z < BoundaryZ2) {
+                            zombies[i].moveTo(vec3s[index].x, vec3s[index].y, vec3s[index].z);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

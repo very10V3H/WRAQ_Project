@@ -1,5 +1,5 @@
 {
-    "parent": "vmd:item/mybow",
+    "parent": "vmd:item/skybow",
     "textures": {
         "layer0": "vmd:item/skybow_pulling_2"
     }

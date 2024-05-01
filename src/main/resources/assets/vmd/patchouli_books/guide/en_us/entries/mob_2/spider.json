@@ -1,0 +1,19 @@
+{
+  "name": "微光蜘蛛",
+  "icon": "vmd:spidersoul",
+  "category": "vmd:mob_category",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "分布于玉山山脚东北部"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": {
+        "item": "vmd:spidersoul"
+      },
+      "title": "主要掉落物",
+      "text": "用于制作微光系列装备-于天空城微光研究所 -注：微光系列装备仍处于测试阶段，不推荐使用"
+    }
+  ]
+}

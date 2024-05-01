@@ -1,0 +1,19 @@
+{
+  "name": "废旧船厂员工",
+  "icon": "vmd:ship_piece",
+  "category": "vmd:mob_category",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "  分布于绯樱岛废旧船厂"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": {
+        "item": "vmd:ship_piece"
+      },
+      "title": "主要掉落物",
+      "text": "  用于制作废旧船厂锻造装备$(br) -废旧船厂锻造图纸获取方式：在废旧船厂东侧临海区域钓鱼，有几率打捞到锻造图。"
+    }
+  ]
+}

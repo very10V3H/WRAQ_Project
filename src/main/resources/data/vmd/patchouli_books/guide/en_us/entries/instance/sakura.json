@@ -1,0 +1,17 @@
+{
+  "name": "突见忍",
+  "icon": "vmd:sakura_petala",
+  "category": "vmd:instance_category",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "  位于绯樱岛黄金屋。$(br) -注意，突见忍系列暂未完善，请谨慎挑战。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "vmd:boss_2_piece",
+      "title": "主要掉落物",
+      "text": "  暂无用途"
+    }
+  ]
+}

@@ -1,5 +1,9 @@
 {
   "values": [
-    "vmd:mainbracelet"
+    "vmd:mainbracelet",
+    "vmd:fantasy_bracelet",
+    "vmd:beacon_bracelet",
+    "vmd:blaze_bracelet",
+    "vmd:tree_bracelet"
   ]
 }

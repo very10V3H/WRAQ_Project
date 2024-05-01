@@ -1,0 +1,19 @@
+{
+  "name": "钓鱼概述",
+  "icon": "minecraft:fishing_rod",
+  "category": "vmd:misc_category",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "  在维瑞阿契出生点西侧码头，你可以找到渔夫换取钓竿用于钓鱼。$(br)  钓鱼将会获得钓鱼经验奖励与一般经验奖励和其他物品奖励。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": {
+        "tag": "minecraft:fishes"
+      },
+      "title": "钓钓钓钓钓鱼！",
+      "text": "  钓鱼是前期获取金币与升级的较快途径，通过钓鱼，你可以在前期为你累积一定的金币以更平滑地过渡装备。"
+    }
+  ]
+}

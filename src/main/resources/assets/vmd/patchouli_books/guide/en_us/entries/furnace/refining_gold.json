@@ -1,0 +1,13 @@
+{
+  "name": "精炼金锭",
+  "icon": "vmd:refining_gold",
+  "category": "vmd:furnace_category",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "vmd:refining_gold",
+      "title": "精炼金锭",
+      "text": "  在维瑞阿契冶炼炉中，使用$(br) -精炼焦炭 * 1$(br) -烈焰金锭 * 4$(br) 冶炼而成"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "森林骷髅",
+  "icon": "vmd:forestsoul",
+  "category": "vmd:mob_category",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "分布于森林下层东侧"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": {
+        "item": "vmd:forestsoul"
+      },
+      "title": "主要掉落物",
+      "text": "用于换取森林系列装备-于森林浅处-森林小屋"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "name": "酿造配方",
+  "icon": "vmd:potion",
+  "category": "vmd:brew_category",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "  在天空城酿造所中，你可以找到与酿造有关的各种机器与物品。$(br) -注意，酿造材料是有序的，同种材料不同顺序可能酿造出来的是不同的药水。$(br) -酿造必须在酿造笔记格中有酿造笔记。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "vmd:plain_solidified_soul,vmd:forest_solidified_soul,vmd:lake_solidified_soul,vmd:volcano_solidified_soul,vmd:snow_solidified_soul,vmd:sky_solidified_soul,vmd:evoker_solidified_soul,vmd:nether_solidified_soul",
+      "title": "酿酿酿酿酿造！",
+      "text": " - 火山 + 火山 = 攻击提升$(br) - 火山 + 森林 = 破甲提升$(br) - 火山 + 冰川 = 暴伤提升$(br) - 唤魔 + 火山 = 法强提升$(br) - 唤魔 + 森林 = 法穿提升$(br) - 唤魔 + 平原 = 法回提升$(br) - 湖泊 + 平原 = 冷却提升$(br)"
+    },
+    {
+      "type": "patchouli:text",
+      "text": " - 下界 + 火山 = 吸血提升$(br) - 森林 + 唤魔 = 魔抗提升$(br) - 森林 + 森林 = 护甲提升$(br) - 天空 + 平原 = 移速提升"
+    }
+  ]
+}

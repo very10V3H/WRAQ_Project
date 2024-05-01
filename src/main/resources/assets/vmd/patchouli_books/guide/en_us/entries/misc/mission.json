@@ -1,0 +1,17 @@
+{
+  "name": "任务概述",
+  "icon": "vmd:reputation_medal",
+  "category": "vmd:misc_category",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "  当你等级达到20级后，打开身份卡，点击”任务界面“按钮，接取每日任务与悬赏任务以获取丰富奖励。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "vmd:reputation_medal",
+      "title": "任任任任任务！",
+      "text": "  完成每日任务可以获得当前等级经验值一半的经验，并获得与等级挂钩的宝石碎片。$(br)  完成悬赏任务可以用声望值在声望商店兑换各种物品。"
+    }
+  ]
+}

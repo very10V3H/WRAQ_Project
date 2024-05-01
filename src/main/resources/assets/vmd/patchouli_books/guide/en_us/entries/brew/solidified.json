@@ -1,0 +1,17 @@
+{
+  "name": "固化根源",
+  "icon": "vmd:solidifier",
+  "category": "vmd:brew_category",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "  在使用根源前，我们需要将其能量稳定，防止酿造过程中意外的发生。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "vmd:plain_solidified_soul,vmd:forest_solidified_soul,vmd:lake_solidified_soul,vmd:volcano_solidified_soul,vmd:snow_solidified_soul,vmd:sky_solidified_soul,vmd:evoker_solidified_soul,vmd:nether_solidified_soul",
+      "title": "将能量固化",
+      "text": "  在酿造台药水槽位放入对应根源，在右侧材料槽中放入固化剂，即可得到相应的固化根源用于酿造。"
+    }
+  ]
+}

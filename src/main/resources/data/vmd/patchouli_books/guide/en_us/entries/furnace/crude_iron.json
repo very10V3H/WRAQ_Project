@@ -1,0 +1,13 @@
+{
+  "name": "粗制铁锭",
+  "icon": "vmd:crude_iron",
+  "category": "vmd:furnace_category",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "vmd:crude_iron",
+      "title": "粗制铁锭",
+      "text": "  在维瑞阿契冶炼炉中，使用$(br) -粗制焦炭 * 1$(br) -粗铁 * 4$(br) 冶炼而成"
+    }
+  ]
+}

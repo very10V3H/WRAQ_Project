@@ -1,0 +1,17 @@
+{
+  "name": "唤雷岛",
+  "icon": "vmd:lightningsoul",
+  "category": "vmd:instance_category",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "  位于唤雷岛唤雷塔内部。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "vmd:lightningsoul",
+      "title": "主要掉落物",
+      "text": "  主要用于唤雷系列锻造装备（暂时推荐近战使用）的锻造。"
+    }
+  ]
+}
