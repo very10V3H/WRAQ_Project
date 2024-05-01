@@ -5,7 +5,7 @@ plugins {
     id 'org.spongepowered.mixin' version '0.7.+'
 }
 
-version = '0.3.25'
+version = '1.0.2'
 group = 'com.very.vmd' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'vmd'
 
@@ -146,6 +146,13 @@ repositories {
     }
 
     maven { url 'https://maven.blamejared.com' }
+
+    maven {
+        url "https://cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
+    }
 }
 
 dependencies {
@@ -172,6 +179,9 @@ dependencies {
     compileOnly fg.deobf("vazkii.patchouli:Patchouli:[1.20.1-84-FORGE]:api")
     runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:[1.20.1-84-FORGE]")
 
+    implementation 'com.mysql:mysql-connector-j:8.3.0'
+    implementation fg.deobf("curse.maven:MySQL-561280:3685108")
+    implementation 'redis.clients:jedis:3.7.0'
 }
 
 // Example for how to get properties into the manifest for reading at runtime.
