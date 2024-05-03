@@ -39,7 +39,6 @@ public class MineCrest extends Item implements ICurioItem {
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag)
     {
         stack.getOrCreateTagElement(Utils.MOD_ID);
-        stack.getOrCreateTagElement(Utils.MOD_ID);
         Style MainStyle = CustomStyle.styleOfMine;
         stack.setHoverName(Component.literal("矿山纹章" + "(" + MineCrestAttributes.LevelName[Level] + ")").
                 withStyle(MineCrestAttributes.LevelColor[Level]).withStyle(ChatFormatting.BOLD));
@@ -59,7 +58,7 @@ public class MineCrest extends Item implements ICurioItem {
     public void onEquip(SlotContext slotContext, ItemStack prevStack, ItemStack stack) {
         Player player = (Player) slotContext.entity();
         CompoundTag data = player.getPersistentData();
-        data.putInt(CrestName + Level,data.getInt(CrestName + Level) + 1);
+        data.putInt(CrestName + Level, data.getInt(CrestName + Level) + 1);
         ModNetworking.sendToClient(new CrestStatusS2CPacket(5,true), (ServerPlayer) player);
         ICurioItem.super.onEquip(slotContext, prevStack, stack);
     }
@@ -68,7 +67,7 @@ public class MineCrest extends Item implements ICurioItem {
     public void onUnequip(SlotContext slotContext, ItemStack newStack, ItemStack stack) {
         Player player = (Player) slotContext.entity();
         CompoundTag data = player.getPersistentData();
-        data.putInt(CrestName + Level,data.getInt(CrestName + Level) - 1);
+        data.putInt(CrestName + Level, data.getInt(CrestName + Level) - 1);
         ModNetworking.sendToClient(new CrestStatusS2CPacket(5,false), (ServerPlayer) player);
         ICurioItem.super.onUnequip(slotContext, newStack, stack);
     }

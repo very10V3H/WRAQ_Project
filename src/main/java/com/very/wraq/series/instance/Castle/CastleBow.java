@@ -1,20 +1,17 @@
 package com.very.wraq.series.instance.Castle;
 
+import com.very.wraq.projectiles.WraqBow;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.BasicAttributeDescription;
 import com.very.wraq.valueAndTools.Compute;
-import com.very.wraq.valueAndTools.Utils.StringUtils;
 import com.very.wraq.valueAndTools.Utils.Utils;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.BowItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -22,7 +19,7 @@ import net.minecraft.world.level.Level;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class CastleBow extends BowItem {
+public class CastleBow extends WraqBow {
     private final double BaseDamage = 550;
     private final double DefencePenetration0 = 3600;
     private final double CriticalHitRate = 0.25;
@@ -39,6 +36,7 @@ public class CastleBow extends BowItem {
         Utils.WeaponList.add(this);
         Utils.BowTag.put(this,1.0d);
     }
+
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag)
     {
@@ -72,20 +70,10 @@ public class CastleBow extends BowItem {
         Compute.SuffixOfCastle(components);
         super.appendHoverText(stack,level,components,flag);
     }
-    @Override
-    public void releaseUsing(ItemStack p_40667_, Level p_40668_, LivingEntity p_40669_, int p_40670_) {
-
-    }
-
-    @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
-        Compute.BowAttack(player,Utils.BowNumMap.get(StringUtils.BowNameString.MoonBow));
-        return interactionHand.equals(InteractionHand.MAIN_HAND)
-                ? InteractionResultHolder.success(player.getMainHandItem()) : InteractionResultHolder.success(player.getOffhandItem());    }
 
     public static void NormalAttack(Player player, Mob mob, double damage) {
         if (player.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.CastleBow.get())) {
-            Compute.Damage.ManaDamageToMonster_ApDamage(player,mob,damage);
+            Compute.Damage.ManaDamageToMonster_ApDamage_Direct(player,mob,damage);
         }
     }
 

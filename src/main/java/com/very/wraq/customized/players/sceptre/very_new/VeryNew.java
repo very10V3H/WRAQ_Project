@@ -85,7 +85,7 @@ public class VeryNew {
                 /*Utils.VeryNewManaDalay = 20;*/
                 if (Utils.VeryNewManaCount == 5)
                     Utils.VeryNewManaPos = player.pick(15, 0, false).getLocation();
-                if (Compute.powerDetectPlayerPickMob(player) != null) Utils.VeryNewManaPos = Compute.powerDetectPlayerPickMob(player).position();
+                if (Compute.detectPlayerPickMob(player) != null) Utils.VeryNewManaPos = Compute.detectPlayerPickMob(player).position();
                 if (Utils.VeryNewManaCount == 3) Power1(player);
                 else Power2(player);
             }

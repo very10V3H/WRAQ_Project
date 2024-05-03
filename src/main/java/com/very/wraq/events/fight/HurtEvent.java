@@ -2,7 +2,9 @@ package com.very.wraq.events.fight;
 
 import com.very.wraq.customized.players.bow.MyMission.MyMissionBow;
 import com.very.wraq.customized.players.bow.Qi_Fu.QiFuCurios1;
+import com.very.wraq.customized.players.bow.Shao_Feng.ShaoFengCurios;
 import com.very.wraq.customized.players.bow.Yxwg.YxwgCurios2;
+import com.very.wraq.customized.players.sceptre.liulixian_.LiulixianCurios4;
 import com.very.wraq.customized.players.sword.ZuoSI.ZuoSiCurios;
 import com.very.wraq.entities.entities.Civil.Civil;
 import com.very.wraq.events.modules.HurtEventModule;
@@ -82,6 +84,8 @@ public class HurtEvent {
                             YxwgCurios2.Passive1(player);
                             QiFuCurios1.Passive2(player);
                             ZuoSiCurios.KillMob(player,monster);
+                            ShaoFengCurios.killMob(player);
+                            LiulixianCurios4.onKillMob(player,monster);
                         }
                     }
 

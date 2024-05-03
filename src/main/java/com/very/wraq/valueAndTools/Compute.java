@@ -8,6 +8,7 @@ import com.very.wraq.coreAttackModule.ManaAttackModule;
 import com.very.wraq.coreAttackModule.MyArrow;
 import com.very.wraq.customized.players.bow.Wcndymlgb.WcndymlgbCurios;
 import com.very.wraq.customized.players.bow.Yxwg.YxwgCurios2;
+import com.very.wraq.customized.players.bow.littleart.LittleartCurios;
 import com.very.wraq.customized.players.sceptre.Black_Feisa_.BlackFeisaCurios;
 import com.very.wraq.customized.players.sceptre.Black_Feisa_.BlackFeisaCurios2;
 import com.very.wraq.customized.players.sceptre.Black_Feisa_.BlackFeisaCurios3;
@@ -24,6 +25,7 @@ import com.very.wraq.customized.players.sceptre.YuanShiRen.YuanShiRenCurios;
 import com.very.wraq.customized.players.sceptre.cgswd.CgswdCurios;
 import com.very.wraq.customized.players.sceptre.liulixian_.LiuLiXianCurios1F;
 import com.very.wraq.customized.players.sceptre.liulixian_.LiulixianCurios3;
+import com.very.wraq.customized.players.sceptre.liulixian_.LiulixianCurios4;
 import com.very.wraq.customized.players.sceptre.shangmengli.ShangMengLi;
 import com.very.wraq.customized.players.sceptre.shangmengli.ShangMengLiCurios3;
 import com.very.wraq.customized.players.sword.Crush.CrushiSword;
@@ -87,6 +89,7 @@ import com.very.wraq.process.lottery.Lottery;
 import com.very.wraq.process.parkour.Parkour;
 import com.very.wraq.process.particle.ParticleProvider;
 import com.very.wraq.process.power.PowerLogic;
+import com.very.wraq.process.tower.Tower;
 import com.very.wraq.projectiles.mana.ManaArrow;
 import com.very.wraq.render.particles.ModParticles;
 import com.very.wraq.render.toolTip.CustomStyle;
@@ -273,6 +276,7 @@ public class Compute {
         double totalDefence = Defence + ExDefence;
         totalDefence *= Element.ElementDefenceDecrease(monster);
         totalDefence *= WaterElementSword.MobDefenceDecrease(monster);
+        totalDefence *= LiulixianCurios4.mobAttributeEnhance(monster);
 
         return totalDefence;
     }
@@ -345,6 +349,7 @@ public class Compute {
 
         Defence *= Element.ElementDefenceDecrease(monster); // 元素
         Defence *= WaterElementSword.MobDefenceDecrease(monster);
+        Defence *= LiulixianCurios4.mobAttributeEnhance(monster);
         return Defence;
     }
 
@@ -1572,25 +1577,23 @@ public class Compute {
         }
     }
 
-    public static void ManaAttack(Player player, int count) {
+    public static void ManaAttack(Player player) {
         if (player.level().isClientSide) {
             if (player.tickCount - 10 > ClientUtils.ManaAttackTick && !ClientUtils.PlayerIsUsing(player)
                     && !ClientUtils.PlayerIsAttacking(player) && !ClientUtils.PlayerIsBowAttacking(player)
                     && !ClientUtils.PlayerIsRolling(player)) {
                 ModNetworking.sendToServer(new ManaAttackAnimationRequestC2SPacket(0));
                 ClientUtils.ManaAttackTick = player.tickCount;
-                ClientUtils.ManaAttackCounts = count;
             }
         }
     }
 
-    public static void BowAttack(Player player, int count) {
+    public static void BowAttack(Player player) {
         if (player.level().isClientSide) {
             if (player.tickCount - 10 > ClientUtils.BowAttackTick && !ClientUtils.PlayerIsAttacking(player)
                     && !ClientUtils.PlayerIsManaAttacking(player) && !ClientUtils.PlayerIsUsing(player)
                     && !ClientUtils.PlayerIsRolling(player)) {
                 ClientUtils.BowAttackTick = player.tickCount;
-                ClientUtils.BowAttackCounts = count;
                 ModNetworking.sendToServer(new BowAnimationRequestC2SPacket(0));
             }
         }
@@ -4483,7 +4486,8 @@ public class Compute {
             if (player.getPersistentData().getInt(StringUtils.Crest.Plain.Crest0) > 0
                     || player.getPersistentData().getInt(StringUtils.Crest.Plain.Crest1) > 0
                     || player.getPersistentData().getInt(StringUtils.Crest.Plain.Crest2) > 0
-                    || player.getPersistentData().getInt(StringUtils.Crest.Plain.Crest3) > 0) Count++;
+                    || player.getPersistentData().getInt(StringUtils.Crest.Plain.Crest3) > 0
+                    || player.getPersistentData().getInt(StringUtils.Crest.Plain.Crest4) > 0) Count++;
             return Count;
         }
 
@@ -4497,7 +4501,8 @@ public class Compute {
             if (player.getPersistentData().getInt(StringUtils.Crest.Forest.Crest0) > 0
                     || player.getPersistentData().getInt(StringUtils.Crest.Forest.Crest1) > 0
                     || player.getPersistentData().getInt(StringUtils.Crest.Forest.Crest2) > 0
-                    || player.getPersistentData().getInt(StringUtils.Crest.Forest.Crest3) > 0) Count++;
+                    || player.getPersistentData().getInt(StringUtils.Crest.Forest.Crest3) > 0
+                    || player.getPersistentData().getInt(StringUtils.Crest.Forest.Crest4) > 0) Count++;
             return Count;
         }
 
@@ -4511,7 +4516,8 @@ public class Compute {
             if (player.getPersistentData().getInt(StringUtils.Crest.Lake.Crest0) > 0
                     || player.getPersistentData().getInt(StringUtils.Crest.Lake.Crest1) > 0
                     || player.getPersistentData().getInt(StringUtils.Crest.Lake.Crest2) > 0
-                    || player.getPersistentData().getInt(StringUtils.Crest.Lake.Crest3) > 0) Count++;
+                    || player.getPersistentData().getInt(StringUtils.Crest.Lake.Crest3) > 0
+                    || player.getPersistentData().getInt(StringUtils.Crest.Lake.Crest4) > 0) Count++;
             return Count;
         }
 
@@ -4525,7 +4531,8 @@ public class Compute {
             if (player.getPersistentData().getInt(StringUtils.Crest.Volcano.Crest0) > 0
                     || player.getPersistentData().getInt(StringUtils.Crest.Volcano.Crest1) > 0
                     || player.getPersistentData().getInt(StringUtils.Crest.Volcano.Crest2) > 0
-                    || player.getPersistentData().getInt(StringUtils.Crest.Volcano.Crest3) > 0) Count++;
+                    || player.getPersistentData().getInt(StringUtils.Crest.Volcano.Crest3) > 0
+                    || player.getPersistentData().getInt(StringUtils.Crest.Volcano.Crest4) > 0) Count++;
             return Count;
         }
 
@@ -4538,7 +4545,8 @@ public class Compute {
             if (player.getPersistentData().getInt(StringUtils.Crest.Mana.Crest0) > 0
                     || player.getPersistentData().getInt(StringUtils.Crest.Mana.Crest1) > 0
                     || player.getPersistentData().getInt(StringUtils.Crest.Mana.Crest2) > 0
-                    || player.getPersistentData().getInt(StringUtils.Crest.Mana.Crest3) > 0) Count++;
+                    || player.getPersistentData().getInt(StringUtils.Crest.Mana.Crest3) > 0
+                    || player.getPersistentData().getInt(StringUtils.Crest.Mana.Crest4) > 0) Count++;
             if (player.getItemInHand(InteractionHand.OFF_HAND).getItem() instanceof ManaNote) Count ++;
             return Count;
         }
@@ -4561,7 +4569,8 @@ public class Compute {
             if (player.getPersistentData().getInt(StringUtils.Crest.Mana.Crest0) > 0
                     || player.getPersistentData().getInt(StringUtils.Crest.Mana.Crest1) > 0
                     || player.getPersistentData().getInt(StringUtils.Crest.Mana.Crest2) > 0
-                    || player.getPersistentData().getInt(StringUtils.Crest.Mana.Crest3) > 0) Count++;
+                    || player.getPersistentData().getInt(StringUtils.Crest.Mana.Crest3) > 0
+                    || player.getPersistentData().getInt(StringUtils.Crest.Mana.Crest4) > 0) Count++;
             if (player.getItemInHand(InteractionHand.OFF_HAND).getItem() instanceof ManaNote) Count ++;
             return Count;
         }
@@ -4582,10 +4591,13 @@ public class Compute {
             if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.MineArmorLeggings.get())) Count++;
             if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.MineArmorBoots.get())) Count++;
             if (player.getItemBySlot(EquipmentSlot.OFFHAND).is(ModItems.MineBracelet.get())) Count++;
+
             if (player.getPersistentData().getInt(StringUtils.Crest.Mine.Crest0) > 0
                     || player.getPersistentData().getInt(StringUtils.Crest.Mine.Crest1) > 0
                     || player.getPersistentData().getInt(StringUtils.Crest.Mine.Crest2) > 0
-                    || player.getPersistentData().getInt(StringUtils.Crest.Mine.Crest3) > 0) Count++;
+                    || player.getPersistentData().getInt(StringUtils.Crest.Mine.Crest3) > 0
+                    || player.getPersistentData().getInt(StringUtils.Crest.Mine.Crest4) > 0) Count++;
+
             return Count;
         }
 
@@ -4599,7 +4611,8 @@ public class Compute {
             if (player.getPersistentData().getInt(StringUtils.Crest.Snow.Crest0) > 0
                     || player.getPersistentData().getInt(StringUtils.Crest.Snow.Crest1) > 0
                     || player.getPersistentData().getInt(StringUtils.Crest.Snow.Crest2) > 0
-                    || player.getPersistentData().getInt(StringUtils.Crest.Snow.Crest3) > 0) Count++;
+                    || player.getPersistentData().getInt(StringUtils.Crest.Snow.Crest3) > 0
+                    || player.getPersistentData().getInt(StringUtils.Crest.Snow.Crest4) > 0) Count++;
             return Count;
         }
 
@@ -4613,7 +4626,8 @@ public class Compute {
             if (player.getPersistentData().getInt(StringUtils.Crest.Sky.Crest0) > 0
                     || player.getPersistentData().getInt(StringUtils.Crest.Sky.Crest1) > 0
                     || player.getPersistentData().getInt(StringUtils.Crest.Sky.Crest2) > 0
-                    || player.getPersistentData().getInt(StringUtils.Crest.Sky.Crest3) > 0) Count++;
+                    || player.getPersistentData().getInt(StringUtils.Crest.Sky.Crest3) > 0
+                    || player.getPersistentData().getInt(StringUtils.Crest.Sky.Crest4) > 0) Count++;
             if (Count > 4) return 4;
             return Count;
         }
@@ -5022,13 +5036,19 @@ public class Compute {
             Damage *= (1 + DamageEnhance) * (1 + DamageEnhances.PlayerFinalDamageEnhance(player,monster));
 
             Compute.SummonValueItemEntity(monster.level(), player, monster,
-                    Component.literal(String.format("%.0f", Damage)).withStyle(CustomStyle.styleOfSea));
+                    Component.literal(String.format("%.0f", Damage)).withStyle(CustomStyle.styleOfSea),2);
             DirectDamageToMob(player, monster, Damage);
+            LiulixianCurios4.onMainAttackHit(player, monster, Damage, 2);
             return Damage;
         }
-        public static double AttackDamageToMonster_RateAdDamage(Player player, Mob monster, double num) {
-            CompoundTag data = player.getPersistentData();
 
+        public static double IgnoreDefenceDamageToMonster_Direct(Player player, Mob monster, double damage) {
+            Compute.SummonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", damage)).withStyle(CustomStyle.styleOfSea),2);
+            DirectDamageToMob(player, monster, damage);
+            return damage;
+        }
+
+        public static double AttackDamageToMonster_RateAdDamage(Player player, Mob monster, double num) {
             double Defence = Compute.MonsterDefence(monster);
             double BaseDamage = PlayerAttributes.PlayerAttackDamage(player);
             double BreakDefence = PlayerAttributes.PlayerDefencePenetration(player);
@@ -5041,19 +5061,17 @@ public class Compute {
 
             BaseDamage *= (1 + DamageEnhance) * (1 + DamageEnhances.PlayerFinalDamageEnhance(player,monster));
             BaseDamage *= DefenceDamageDecreaseRate(Defence, BreakDefence, BreakDefence0);
-            Compute.SummonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", BaseDamage * num)).withStyle(ChatFormatting.YELLOW));
+            Compute.SummonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", BaseDamage * num)).withStyle(ChatFormatting.YELLOW),0);
             DirectDamageToMob(player, monster, BaseDamage * num);
+            LiulixianCurios4.onMainAttackHit(player, monster, BaseDamage * num, 0);
             return BaseDamage * num;
         }
 
         public static double AttackDamageToMonster_AdDamage(Player player, Mob monster, double damage) {
-            CompoundTag data = player.getPersistentData();
-
             double Defence = Compute.MonsterDefence(monster);
             double BreakDefence = PlayerAttributes.PlayerDefencePenetration(player);
             double BreakDefence0 = PlayerAttributes.PlayerDefencePenetration0(player);
             double DamageEnhance = 0;
-            double Damage = damage;
 
             DamageEnhance += DamageEnhances.PlayerCommonDamageUpOrDown(player, monster);
             DamageEnhance += DamageEnhances.PlayerAttackDamageEnhance(player);
@@ -5061,7 +5079,20 @@ public class Compute {
 
             damage *= (1 + DamageEnhance) * (1 + DamageEnhances.PlayerFinalDamageEnhance(player,monster));
             damage *= DefenceDamageDecreaseRate(Defence, BreakDefence, BreakDefence0);
-            Compute.SummonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", damage)).withStyle(ChatFormatting.YELLOW));
+            Compute.SummonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", damage)).withStyle(ChatFormatting.YELLOW),0);
+            DirectDamageToMob(player, monster, damage);
+            LiulixianCurios4.onMainAttackHit(player, monster, damage, 0);
+            return damage;
+        }
+
+        public static double AttackDamageToMonster_AdDamage_Direct(Player player, Mob monster, double damage) {
+            Compute.SummonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", damage)).withStyle(ChatFormatting.YELLOW),0);
+            DirectDamageToMob(player, monster, damage);
+            return damage;
+        }
+
+        public static double ManaDamageToMonster_ApDamage_Direct(Player player, Mob monster, double damage) {
+            Compute.SummonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", damage)).withStyle(ChatFormatting.LIGHT_PURPLE),1);
             DirectDamageToMob(player, monster, damage);
             return damage;
         }
@@ -5119,16 +5150,18 @@ public class Compute {
                     ElementDamageEffect = Element.ElementEffectAddToEntity(player,monster,playerUnit.type(),playerUnit.value(),false,totalDamage);
                     Element.EntityElementUnit.put(player.getId(),new Element.Unit(Element.Life,0));
                 }
-                Compute.AddtionEffects(player,monster);
             }
 
             totalDamage *= (1 + ElementDamageEnhance) * ElementDamageEffect;
-            Compute.SummonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", totalDamage)).withStyle(ChatFormatting.LIGHT_PURPLE));
+            Compute.SummonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", totalDamage)).withStyle(ChatFormatting.LIGHT_PURPLE),1);
             DirectDamageToMob(player, monster, totalDamage);
             WitherBook.WitherBookEffect(player,monster);
             CastleSceptre.ExDamage(player,monster,totalDamage);
             ManaCurios1.ManaDamageExIgnoreDefenceDamage(player,monster,totalDamage);
             SoraVanillaSword.ExAttackDamage(player,monster,totalDamage);
+            if (isPower) {
+                Compute.AddtionEffects(player,monster, totalDamage, 1);
+            }
 
             if (data.getBoolean(StringUtils.Debug) && isPower) {
                 player.sendSystemMessage(Component.literal("DamageEnhance : " + DamageEnhance));
@@ -5176,16 +5209,18 @@ public class Compute {
             if (isPower) {
                 ElementDamageEffect = Element.ElementEffectAddToEntity(player, monster, elementType, elementValue, false, totalDamage);
                 Element.EntityElementUnit.put(player.getId(), new Element.Unit(Element.Life, 0));
-                Compute.AddtionEffects(player,monster);
             }
 
             totalDamage *= (1 + ElementDamageEnhance) * ElementDamageEffect;
-            Compute.SummonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", totalDamage)).withStyle(ChatFormatting.LIGHT_PURPLE));
+            Compute.SummonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", totalDamage)).withStyle(ChatFormatting.LIGHT_PURPLE),1);
             DirectDamageToMob(player, monster, totalDamage);
             WitherBook.WitherBookEffect(player,monster);
             CastleSceptre.ExDamage(player,monster,totalDamage);
             ManaCurios1.ManaDamageExIgnoreDefenceDamage(player,monster,totalDamage);
             SoraVanillaSword.ExAttackDamage(player,monster,totalDamage);
+            if (isPower) {
+                Compute.AddtionEffects(player,monster, totalDamage, 1);
+            }
 
             if (data.getBoolean(StringUtils.Debug) && isPower) {
                 player.sendSystemMessage(Component.literal("DamageEnhance : " + DamageEnhance));
@@ -5222,13 +5257,14 @@ public class Compute {
             damage *= Compute.ManaDefenceDamageDecreaseRate(Defence, BreakDefence, BreakDefence0);
 
             double totalDamage = damage * (1 + DamageEnhance) * (1 + DamageEnhances.PlayerFinalDamageEnhance(player,monster));
-            Compute.SummonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", totalDamage)).withStyle(ChatFormatting.LIGHT_PURPLE));
+            Compute.SummonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", totalDamage)).withStyle(ChatFormatting.LIGHT_PURPLE),1);
             DirectDamageToMob(player, monster, totalDamage);
             WitherBook.WitherBookEffect(player,monster);
             if (LiuLiXianCurios1F.IsLiuLiXian(player)) LiuLiXianCurios1F.LiuLiXianIgnoreDefenceDamage(player,monster,damage * (1 + DamageEnhance));
             CastleSceptre.ExDamage(player,monster,totalDamage);
             ManaCurios1.ManaDamageExIgnoreDefenceDamage(player,monster,totalDamage);
             SoraVanillaSword.ExAttackDamage(player,monster,totalDamage);
+            LiulixianCurios4.onMainAttackHit(player, monster, damage, 1);
         }
 
         public static void ManaDamageToMonster_ApDamage(Player player, Mob monster, double damage, boolean isPower) {
@@ -5268,18 +5304,20 @@ public class Compute {
                     ElementDamageEffect = Element.ElementEffectAddToEntity(player,monster,playerUnit.type(),playerUnit.value(),false,totalDamage);
                     Element.EntityElementUnit.put(player.getId(),new Element.Unit(Element.Life,0));
                 }
-                Compute.AddtionEffects(player,monster);
             }
 
             totalDamage *= (1 + ElementDamageEnhance) * ElementDamageEffect;
 
-            Compute.SummonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", totalDamage)).withStyle(ChatFormatting.LIGHT_PURPLE));
+            Compute.SummonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", totalDamage)).withStyle(ChatFormatting.LIGHT_PURPLE), 1);
             DirectDamageToMob(player, monster, totalDamage);
             WitherBook.WitherBookEffect(player,monster);
             if (LiuLiXianCurios1F.IsLiuLiXian(player)) LiuLiXianCurios1F.LiuLiXianIgnoreDefenceDamage(player,monster,damage * (1 + DamageEnhance));
             CastleSceptre.ExDamage(player,monster,totalDamage);
             ManaCurios1.ManaDamageExIgnoreDefenceDamage(player,monster,totalDamage);
             SoraVanillaSword.ExAttackDamage(player,monster,totalDamage);
+            if (isPower) {
+                Compute.AddtionEffects(player,monster, totalDamage, 1);
+            }
 
             if (data.getBoolean(StringUtils.Debug) && isPower) {
                 player.sendSystemMessage(Component.literal("DamageEnhance : " + DamageEnhance));
@@ -5293,7 +5331,6 @@ public class Compute {
         }
 
         public static void ManaDamageToPlayer(Player player, Player hurter, double num) {
-            double damage = 0;
 
             double BaseDamage = PlayerAttributes.PlayerManaDamage(player);
             double BreakDefence = PlayerAttributes.PlayerManaPenetration(player);
@@ -5307,7 +5344,6 @@ public class Compute {
         }
 
         public static void ManaDamageToPlayer(Mob monster, Player player, double Damage) {
-            CompoundTag data = player.getPersistentData();
             double ManaDefence = PlayerAttributes.PlayerManaDefence(player);
             Damage *= ManaDefenceDamageDecreaseRate(ManaDefence, 0, 0);
             if (player.isAlive()) MonsterAttackEvent.MonsterAttack(monster, player, Damage);
@@ -5365,6 +5401,7 @@ public class Compute {
                 entity.invulnerableTime = 0;
                 StarBottle.PlayerBattleTickMapRefresh(player);
                 Element.ElementParticleProvider(mob);
+                LittleartCurios.causeDamage(player);
             }
         }
 
@@ -5721,15 +5758,17 @@ public class Compute {
         serverPlayer.connection.send(clientboundSetActionBarTextPacket);
     }
 
-    public static void SummonValueItemEntity(Level level, Player player, Mob mob, Component component) {
+    public static void SummonValueItemEntity(Level level, Player player, Mob mob, Component component, int type) {
         Vec3 delta = player.position().subtract(mob.position());
         Vec3 delta0 = new Vec3(delta.x, 0, delta.z);
-        Random random = new Random();
         ItemEntity itemEntity = new ItemEntity(EntityType.ITEM, level);
         itemEntity.setItem(ModItems.Value.get().getDefaultInstance());
         itemEntity.setCustomName(component);
         itemEntity.setCustomNameVisible(true);
-        itemEntity.moveTo(mob.getEyePosition());
+        Vec3 pos = mob.getEyePosition();
+        if (type == 0) pos = pos.add(player.getHandHoldingItemAngle(ModItems.YuanShiRenSceptre.get()));
+        if (type == 1) pos = pos.add(player.getHandHoldingItemAngle(ModItems.YuanShiRenSceptre.get()).scale(-1));
+        itemEntity.moveTo(pos);
         itemEntity.setPickUpDelay(200);
         itemEntity.setDeltaMovement(new Vec3(delta0.normalize().scale(0.1).x, 0.1, delta0.normalize().scale(0.1).z));
         Utils.valueItemEntity.add(new ItemEntityAndResetTime(itemEntity, level.getServer().getTickCount() + 12));
@@ -5888,9 +5927,9 @@ public class Compute {
         level.addFreshEntity(armorStand);
     }
 
-    public static void AddtionEffects(Player player, Mob mob) {
+    public static void AddtionEffects(Player player, Mob mob, double damage, int type) {
         EliaoiCurios2.GroupBuff1Ignite(player,mob);
-
+        LiulixianCurios4.onMainAttackHit(player, mob, damage, type);
         if (!Element.ElementPieceOnWeapon(player)) Element.ResonanceEffectGive(player);
     }
 
@@ -6029,6 +6068,10 @@ public class Compute {
         ModNetworking.sendToClient(new EffectLastTimeS2CPacket(itemStack, tickCount), (ServerPlayer) player);
     }
 
+    public static void EffectLastTimeSend(Player player, Item item, int tickCount) {
+        ModNetworking.sendToClient(new EffectLastTimeS2CPacket(item.getDefaultInstance(), tickCount), (ServerPlayer) player);
+    }
+
     public static void EffectLastTimeSend(Player player, ItemStack itemStack, int tickCount, int level) {
         ModNetworking.sendToClient(new EffectLastTimeS2CPacket(itemStack, tickCount, level), (ServerPlayer) player);
     }
@@ -6039,6 +6082,10 @@ public class Compute {
 
     public static void EffectLastTimeSend(Player player, ItemStack itemStack, int tickCount, int level, boolean NoTime) {
         ModNetworking.sendToClient(new EffectLastTimeS2CPacket(itemStack, tickCount, level, NoTime), (ServerPlayer) player);
+    }
+
+    public static void EffectLastTimeSend(Player player, Item item, int tickCount, int level, boolean NoTime) {
+        ModNetworking.sendToClient(new EffectLastTimeS2CPacket(item.getDefaultInstance(), tickCount, level, NoTime), (ServerPlayer) player);
     }
 
     public static void CoolDownTimeSend(Player player, ItemStack itemStack, int tickCount) {
@@ -6243,7 +6290,7 @@ public class Compute {
         return false;
     }
 
-    public static Mob powerDetectPlayerPickMob(Player player) {
+    public static Mob detectPlayerPickMob(Player player) {
         Level level = player.level();
         Vec3 TargetPos = player.pick(15,0,false).getLocation();
         Vec3 StartPos = player.pick(0.5,0,false).getLocation();
@@ -6258,7 +6305,7 @@ public class Compute {
         return null;
     }
 
-    public static Mob powerDetectPlayerPickMob(Player player, double distance, double range) {
+    public static Mob detectPlayerPickMob(Player player, double distance, double range) {
         Level level = player.level();
         Vec3 TargetPos = player.pick(distance,0,false).getLocation();
         Vec3 StartPos = player.pick(0.5,0,false).getLocation();
@@ -6487,13 +6534,14 @@ public class Compute {
 
     public static Vec3 MyPlayerPickLocation(Player player, double distance) {
         Vec3 TargetPos = player.pick(distance, 0, false).getLocation();
-        if (powerDetectPlayerPickMob(player, distance, 0.5) != null) TargetPos = powerDetectPlayerPickMob(player, distance, 0.5).position();
+        if (detectPlayerPickMob(player, distance, 0.5) != null) TargetPos = detectPlayerPickMob(player, distance, 0.5).position();
         return TargetPos;
     }
 
     public static void TraceArrowShoot(Player player, ParticleOptions particleOptions) {
         List<Mob> mobList = player.level().getEntitiesOfClass(Mob.class,AABB.ofSize(player.position(),80,80,80));
         mobList.removeIf(mob -> mob.distanceTo(player) > 30 || mob instanceof Civil);
+
         Mob NearestMob = null;
         double Distance = 80;
         for (Mob mob : mobList) {
@@ -6549,5 +6597,10 @@ public class Compute {
         rate += LabourDayIronHoe.playerExHarvest(player);
         rate += LabourDayIronPickaxe.playerExHarvest(player);
         return rate;
+    }
+
+    public static void playerDeadModule(Player player) {
+        Tower.playerInChallengingDeadOrLogout(player);
+        Utils.PlayerDeadTimeMap.put(player.getName().getString(), player.getServer().getTickCount() + 6000);
     }
 }

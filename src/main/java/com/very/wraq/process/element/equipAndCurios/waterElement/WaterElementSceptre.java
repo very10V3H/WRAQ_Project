@@ -4,6 +4,7 @@ import com.very.wraq.process.element.Element;
 import com.very.wraq.process.element.ElementValue;
 import com.very.wraq.process.particle.ParticleProvider;
 import com.very.wraq.projectiles.mana.ManaArrow;
+import com.very.wraq.projectiles.WraqSceptre;
 import com.very.wraq.render.particles.ModParticles;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.BasicAttributeDescription;
@@ -12,40 +13,29 @@ import com.very.wraq.valueAndTools.ModEntityType;
 import com.very.wraq.valueAndTools.Utils.StringUtils;
 import com.very.wraq.valueAndTools.Utils.Utils;
 import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
-import com.very.wraq.valueAndTools.registry.ItemTier;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public class WaterElementSceptre extends SwordItem {
+public class WaterElementSceptre extends WraqSceptre {
 
-    public static Map<Player,Integer> coolDownMap = new HashMap<>();
     public WaterElementSceptre(Properties p_42964_) {
-        super(ItemTier.VMaterial,2,0, p_42964_);
+        super(p_42964_);
         Utils.ManaDamage.put(this, 3548d);
         Utils.ManaRecover.put(this, 30d);
         Utils.ManaPenetration0.put(this, 4000d);
@@ -94,39 +84,6 @@ public class WaterElementSceptre extends SwordItem {
         Compute.SuffixOfElement(components);
         super.appendHoverText(stack,level,components,flag);
     }
-    @Override
-    public boolean hurtEnemy(ItemStack p_40994_, LivingEntity p_40995_, LivingEntity p_40996_) {
-        p_40994_.hurtAndBreak(0, p_40996_, (p_41007_) -> {
-            p_41007_.broadcastBreakEvent(EquipmentSlot.MAINHAND);
-        });
-        return true;
-    }
-
-    @Override
-    public boolean mineBlock(ItemStack p_40998_, Level p_40999_, BlockState p_41000_, BlockPos p_41001_, LivingEntity p_41002_) {
-        if (!p_40999_.isClientSide && p_41000_.getDestroySpeed(p_40999_, p_41001_) != 0.0d) {
-            p_40998_.hurtAndBreak(0, p_41002_, (p_40992_) -> {
-                p_40992_.broadcastBreakEvent(EquipmentSlot.MAINHAND);
-            });
-        }
-
-        return true;
-    }
-
-    @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
-        Compute.ManaAttack(player,14);
-        if (player.getItemInHand(InteractionHand.OFF_HAND).is(Items.AIR)
-                && interactionHand.equals(InteractionHand.MAIN_HAND)) {
-            CompoundTag data = player.getItemInHand(InteractionHand.MAIN_HAND).getOrCreateTagElement(Utils.MOD_ID);
-            if (data.contains(StringUtils.ManaCore.ManaCore)) {
-                if (Utils.ManaCoreMap.isEmpty()) Utils.setManaCoreMap();
-                player.setItemInHand(InteractionHand.OFF_HAND,new ItemStack(Utils.ManaCoreMap.get(data.getString(StringUtils.ManaCore.ManaCore))));
-                data.remove(StringUtils.ManaCore.ManaCore);
-            }
-        }
-        return super.use(level, player, interactionHand);
-    }
 
     public static void Active(Player player) {
         if (Compute.PlayerUseWithHud(player, WaterElementSword.playerActiveCoolDownMap, ModItems.WaterElementSceptre.get(),0,25)) {
@@ -147,7 +104,8 @@ public class WaterElementSceptre extends SwordItem {
         }
     }
 
-    public static void Shoot(Player player) {
+    @Override
+    public void shoot(Player player) {
         Level level = player.level();
         CompoundTag data = player.getPersistentData();
         if (Compute.ManaSkillLevelGet(data,10) > 0 || Compute.PlayerManaCost(player,15)) {
@@ -159,6 +117,7 @@ public class WaterElementSceptre extends SwordItem {
             newArrow.setNoGravity(true);
             newArrow.shootFromRotation(player,player.getXRot(),player.getYRot(),0,3,1);
             ProjectileUtil.rotateTowardsMovement(newArrow,0);
+            WraqSceptre.adjustOrb(newArrow, player);
             level.addFreshEntity(newArrow);
             ParticleProvider.FaceCircleCreate((ServerPlayer) player,1,0.75,20, ModParticles.WaterElementParticle.get());
             ParticleProvider.FaceCircleCreate((ServerPlayer) player,1.5,0.5,16, ModParticles.WaterElementParticle.get());

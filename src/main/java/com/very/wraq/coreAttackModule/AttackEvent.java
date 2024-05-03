@@ -196,8 +196,8 @@ public class AttackEvent {
         // Health steal
         Compute.PlayerHealSteal(player, Damage * PlayerAttributes.PlayerHealthSteal(player) * 0.5);
         // Display
-        if (CritFlag) Compute.SummonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", Damage + DamageIgnoreDefence)).withStyle(CustomStyle.styleOfPower));
-        else Compute.SummonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", Damage + DamageIgnoreDefence)).withStyle(ChatFormatting.YELLOW));
+        if (CritFlag) Compute.SummonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", Damage + DamageIgnoreDefence)).withStyle(CustomStyle.styleOfPower),0);
+        else Compute.SummonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", Damage + DamageIgnoreDefence)).withStyle(ChatFormatting.YELLOW),0);
         Compute.DamageActionBarPacketSend(player,Damage,DamageIgnoreDefence,false,CritFlag);
         // effect
         if (mainAttack) {
@@ -211,7 +211,7 @@ public class AttackEvent {
         AttackEventModule.EndRune0Judge(player,monster);
         MoonSword.Passive(player,monster); //
         MoonSword.MoonSwordActive(player,monster); // 星蚀
-        Compute.AddtionEffects(player,monster);
+        Compute.AddtionEffects(player,monster,Damage + DamageIgnoreDefence, 0);
 
         if (data.getBoolean(StringUtils.Debug)) {
             player.sendSystemMessage(Component.literal("NormalAttackDamageEnhance : " + NormalAttackDamageEnhance));

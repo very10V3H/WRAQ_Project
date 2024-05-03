@@ -11,6 +11,7 @@ import com.very.wraq.customized.players.bow.MyMission.MyMissionCurios1;
 import com.very.wraq.customized.players.bow.Qi_Fu.QiFuBow;
 import com.very.wraq.customized.players.bow.Qi_Fu.QiFuCurios;
 import com.very.wraq.customized.players.bow.Qi_Fu.QiFuCurios1;
+import com.very.wraq.customized.players.bow.Shao_Feng.ShaoFengCurios;
 import com.very.wraq.customized.players.bow.ShowDicker.showdicker;
 import com.very.wraq.customized.players.bow.Wcndymlgb.Wcndymlgb;
 import com.very.wraq.customized.players.bow.Wcndymlgb.WcndymlgbCurios;
@@ -18,6 +19,7 @@ import com.very.wraq.customized.players.bow.Yxwg.YxwgBow;
 import com.very.wraq.customized.players.bow.Yxwg.YxwgCurios;
 import com.very.wraq.customized.players.bow.Yxwg.YxwgCurios1;
 import com.very.wraq.customized.players.bow.Yxwg.YxwgCurios2;
+import com.very.wraq.customized.players.bow.littleart.LittleartCurios;
 import com.very.wraq.customized.players.sceptre.Black_Feisa_.*;
 import com.very.wraq.customized.players.sceptre.Eliaoi.Eliaoi;
 import com.very.wraq.customized.players.sceptre.Eliaoi.EliaoiCurios2;
@@ -39,9 +41,11 @@ import com.very.wraq.customized.players.sceptre.very_new.VeryNewCurios;
 import com.very.wraq.customized.players.sword.LXYZO.LXYZO;
 import com.very.wraq.customized.players.sword.XiangLi.XiangLi;
 import com.very.wraq.customized.players.sword.ZuoSI.ZuoSiCurios;
+import com.very.wraq.customized.uniform.attack.AttackCurios2;
+import com.very.wraq.customized.uniform.bow.BowCurios2;
+import com.very.wraq.customized.uniform.mana.ManaCurios2;
 import com.very.wraq.events.modules.AttackEventModule;
 import com.very.wraq.valueAndTools.Utils.Utils;
-import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 
@@ -97,6 +101,12 @@ public class Customize {
         BlackFeisaCurios4.Tick(player);
         BlackFeisaCurios4.FlyingAndClearTick(player);
         HgjCurios.Tick(player);
+        LittleartCurios.tick(player);
+        ShaoFengCurios.tick(player);
+        AttackCurios2.tick(player);
+        BowCurios2.tick(player);
+        ManaCurios2.tick(player);
+        LiulixianCurios4.tick(player);
     }
 
     public static double ManaExDamage(Player player, Mob monster, double BaseDamage) {
@@ -139,6 +149,7 @@ public class Customize {
         CgswdSceptre.Lightning(player,monster);
         CgswdSceptre.SlowDown(player,monster);
         VeryNewCurios.ExManaEffect(player,monster);
+        LiulixianCurios4.onProjectileHitEntity(player);
     }
 
     public static void ArrowNormalAttackEffect(Player player, Mob monster, double Damage, boolean WhetherShootByPlayer, boolean IsManaArrow) {
@@ -162,6 +173,7 @@ public class Customize {
             if (LiuLiXianCurios1F.IsLiuLiXian(player)) LiuLiXianCurios1F.CountAdd(player,monster);
             HgjCurios.GatherMob(player,monster);
             HgjCurios.ArrowHitMob(player);
+            LiulixianCurios4.onProjectileHitEntity(player);
         }
 
         if (IsManaArrow) {

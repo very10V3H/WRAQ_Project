@@ -49,6 +49,8 @@ import com.very.wraq.netWorking.reputationMission.*;
 import com.very.wraq.netWorking.unSorted.*;
 import com.very.wraq.process.missions.netWorking.*;
 import com.very.wraq.process.missions.series.labourDay.netWorking.LabourDayMissionStatusS2CPacket;
+import com.very.wraq.process.tower.TowerChallengeC2SPacket;
+import com.very.wraq.process.tower.TowerStatusS2CPacket;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.ClientUtils;
 import com.very.wraq.valueAndTools.Utils.Utils;
@@ -1200,6 +1202,16 @@ public class ModNetworking {
                 .decoder(LabourDayMissionStatusS2CPacket::new)
                 .encoder(LabourDayMissionStatusS2CPacket::toBytes)
                 .consumerMainThread(LabourDayMissionStatusS2CPacket::handle)
+                .add();
+        net.messageBuilder(TowerStatusS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(TowerStatusS2CPacket::new)
+                .encoder(TowerStatusS2CPacket::toBytes)
+                .consumerMainThread(TowerStatusS2CPacket::handle)
+                .add();
+        net.messageBuilder(TowerChallengeC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(TowerChallengeC2SPacket::new)
+                .encoder(TowerChallengeC2SPacket::toBytes)
+                .consumerMainThread(TowerChallengeC2SPacket::handle)
                 .add();
     }
 

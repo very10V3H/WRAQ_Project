@@ -1,33 +1,35 @@
 package com.very.wraq.customized.players.bow.Wcndymlgb;
 
+import com.very.wraq.coreAttackModule.MyArrow;
 import com.very.wraq.customized.Customize;
+import com.very.wraq.process.particle.ParticleProvider;
+import com.very.wraq.projectiles.WraqBow;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.BasicAttributeDescription;
 import com.very.wraq.valueAndTools.Compute;
-import com.very.wraq.valueAndTools.Utils.StringUtils;
 import com.very.wraq.valueAndTools.Utils.Utils;
-import com.very.wraq.valueAndTools.registry.ItemTier;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class WcndymlgbBow extends SwordItem {
+public class WcndymlgbBow extends WraqBow {
     private final double BaseDamage = Customize.AttackDamage;
     private final double DefencePenetration0 = Customize.DefencePenetration0;
     private final double CriticalHitRate = 0.25;
     private final double SpeedUp = 0.6F;
     public WcndymlgbBow(Properties p_40524_) {
-        super(ItemTier.VMaterial,2,0,p_40524_);
+        super(p_40524_);
         Utils.AttackDamage.put(this,this.BaseDamage);
         Utils.DefencePenetration0.put(this,this.DefencePenetration0);
         Utils.CritRate.put(this,this.CriticalHitRate);
@@ -79,8 +81,22 @@ public class WcndymlgbBow extends SwordItem {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
-        Compute.BowAttack(player,Utils.BowNumMap.get(StringUtils.BowNameString.WcndymlgbBow));
-        return super.use(level, player, interactionHand);
+    public void shoot(ServerPlayer serverPlayer) {
+        if (Utils.WcBowStatus) {
+            MyArrow arrow = new MyArrow(EntityType.ARROW, serverPlayer, serverPlayer.level(),
+                    serverPlayer, PlayerAttributes.PlayerAttackDamage(serverPlayer), true,true, ParticleTypes.COMPOSTER);
+            arrow.shootFromRotation(serverPlayer, serverPlayer.getXRot(), serverPlayer.getYRot(), 0.0f, 1.5f, 1.0f);
+            arrow.setCritArrow(true);
+            arrow.setNoGravity(true);
+            WraqBow.adjustArrow(arrow, serverPlayer);
+            serverPlayer.level().addFreshEntity(arrow);
+            Compute.SoundToAll(serverPlayer, SoundEvents.ARROW_SHOOT);
+            ParticleProvider.FaceCircleCreate(serverPlayer, 1, 0.75, 20, ParticleTypes.COMPOSTER);
+            ParticleProvider.FaceCircleCreate(serverPlayer, 1.5, 0.5, 16, ParticleTypes.COMPOSTER);
+            Wcndymlgb.WcBowAttackTick = 6;
+        }
+        else {
+            Compute.TraceArrowShoot(serverPlayer,ParticleTypes.COMPOSTER);
+        }
     }
 }

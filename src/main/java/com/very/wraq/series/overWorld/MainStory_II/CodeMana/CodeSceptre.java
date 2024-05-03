@@ -2,6 +2,7 @@ package com.very.wraq.series.overWorld.MainStory_II.CodeMana;
 
 import com.very.wraq.process.particle.ParticleProvider;
 import com.very.wraq.projectiles.mana.NewArrow;
+import com.very.wraq.projectiles.WraqSceptre;
 import com.very.wraq.valueAndTools.BasicAttributeDescription;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.StringUtils;
@@ -118,6 +119,7 @@ public class CodeSceptre extends PickaxeItem{
                 newArrow.setNoGravity(true);
                 
                 newArrow.shootFromRotation(player,player.getXRot(),player.getYRot(),0.0f,1.5F,1.0f);
+                WraqSceptre.adjustOrb(newArrow, player);
                 level.addFreshEntity(newArrow);
                 ParticleProvider.FaceCircleCreate((ServerPlayer) player,1,0.75,20, ParticleTypes.WITCH);
                 ParticleProvider.FaceCircleCreate((ServerPlayer) player,1.5,0.5,16, ParticleTypes.WITCH);

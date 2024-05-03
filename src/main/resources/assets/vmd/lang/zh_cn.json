@@ -1418,6 +1418,19 @@
   "item.vmd.lightning_curios_0": "因子 - 元素 - 怒雷",
   "item.vmd.wind_curios_0": "因子 - 元素 - 澄风",
 
+  "item.vmd.shaofeng_curios": "外挂U盘",
+  "item.vmd.shaofeng_curios_paper": "外挂U盘获取券",
+
+  "item.vmd.littleart_curios": "堕落幽魂",
+  "item.vmd.littleart_curios_paper": "堕落幽魂获取券",
+
+  "item.vmd.liulixian_curios4": "『极道』",
+  "item.vmd.liulixian_curios4_paper": "『极道』获取券",
+
+  "item.vmd.sword_lottery": "『剑术』补给包",
+  "item.vmd.bow_lottery": "『弓术』补给包",
+  "item.vmd.sceptre_lottery": "『法术』补给包",
+
   "key.category.vmd.vmd": "维瑞阿契键位",
   "key.vmd.ues_drugs": "使用回复物品",
   "key.vmd.ues_1": "快捷使用物品栏4物品",

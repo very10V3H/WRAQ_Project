@@ -110,7 +110,7 @@ public class CastleSword extends SwordItem{
 
     public static void NormalAttack(Player player, Mob mob, double damage) {
         if (player.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.CastleSword.get())) {
-            Compute.Damage.ManaDamageToMonster_ApDamage(player,mob,damage);
+            Compute.Damage.ManaDamageToMonster_ApDamage_Direct(player,mob,damage);
         }
     }
 

@@ -3,6 +3,7 @@ package com.very.wraq.customized.players.sceptre.Black_Feisa_;
 import com.very.wraq.customized.uniform.Attributes;
 import com.very.wraq.process.particle.ParticleProvider;
 import com.very.wraq.projectiles.mana.ManaArrow;
+import com.very.wraq.projectiles.WraqSceptre;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.ModEntityType;
@@ -105,6 +106,7 @@ public class BlackFeisaCurios1 extends Item implements ICurioItem {
 
         newArrow.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0f, 3, 1.0f);
         ProjectileUtil.rotateTowardsMovement(newArrow, 0);
+        WraqSceptre.adjustOrb(newArrow, player);
         level.addFreshEntity(newArrow);
         ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1, 0.75, 20, ParticleTypes.WITCH);
         ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1.5, 0.5, 16, ParticleTypes.WITCH);

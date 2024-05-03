@@ -142,7 +142,7 @@ public class YuanShiRen extends SwordItem {
     public static void FindMob(Player player) {
         Level level = player.level();
         Vec3 TargetPos = player.pick(60,0,false).getLocation();
-        if (Compute.powerDetectPlayerPickMob(player,60,12) != null) TargetPos = Compute.powerDetectPlayerPickMob(player,60,12).position();
+        if (Compute.detectPlayerPickMob(player,60,12) != null) TargetPos = Compute.detectPlayerPickMob(player,60,12).position();
 
         Vec3 finalTargetPos = TargetPos;
         mobList.removeIf(mob -> mob.position().distanceTo(finalTargetPos) > 6 || mob.isDeadOrDying() || !(mob instanceof Monster));

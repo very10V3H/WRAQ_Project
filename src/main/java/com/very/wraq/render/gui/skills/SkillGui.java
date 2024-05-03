@@ -5,6 +5,8 @@ import com.very.wraq.netWorking.misc.SkillPackets.AbilityDataC2SPacket;
 import com.very.wraq.netWorking.misc.SkillPackets.SkillDataC2SPacket;
 import com.very.wraq.netWorking.misc.SkillPackets.SkillRequestC2SPacket;
 import com.very.wraq.netWorking.misc.TeamPackets.TeamScreenOpenRequestC2SPacket;
+import com.very.wraq.process.missions.MissionScreen;
+import com.very.wraq.process.tower.TowerScreen;
 import com.very.wraq.render.gui.illustrate.Illustrate;
 import com.very.wraq.render.gui.mission.OldMissionScreen;
 import com.very.wraq.render.gui.mission.ReputationStore;
@@ -175,19 +177,27 @@ public class SkillGui extends Screen {
 
         this.addRenderableWidget(Button.builder(Component.literal("组队/副本").withStyle(ChatFormatting.AQUA), (p_280814_) -> {
             ModNetworking.sendToServer(new TeamScreenOpenRequestC2SPacket());
-        }).pos(this.width / 2 + 32, this.height / 2 + 113 - 40).size(48,16).build());
+        }).pos(this.width / 2 + 36, this.height / 2 + 113 - 40).size(48,16).build());
 
-        this.addRenderableWidget(Button.builder(Component.literal("任务界面").withStyle(CustomStyle.styleOfKaze), (p_280814_) -> {
+        this.addRenderableWidget(Button.builder(Component.literal("每日/悬赏").withStyle(CustomStyle.styleOfKaze), (p_280814_) -> {
             this.minecraft.setScreen(new OldMissionScreen(true));
         }).pos(this.width / 2 + 90, this.height / 2 + 113 - 40).size(48,16).build());
 
+        this.addRenderableWidget(Button.builder(Component.literal("任务列表").withStyle(CustomStyle.styleOfKaze), (p_280814_) -> {
+            this.minecraft.setScreen(new MissionScreen(2,0));
+        }).pos(this.width / 2 + 90, this.height / 2 + 113 - 62).size(48,16).build());
+
         this.addRenderableWidget(Button.builder(Component.literal("声望商店").withStyle(ChatFormatting.YELLOW), (p_280814_) -> {
             this.minecraft.setScreen(new ReputationStore(true));
-        }).pos(this.width / 2 + 32 - 58, this.height / 2 + 113 - 40).size(48,16).build());
+        }).pos(this.width / 2 - 18, this.height / 2 + 113 - 40).size(48,16).build());
 
         this.addRenderableWidget(Button.builder(Component.literal("物品图鉴").withStyle(ChatFormatting.LIGHT_PURPLE), (p_280814_) -> {
             this.minecraft.setScreen(new Illustrate(true,0));
-        }).pos(this.width / 2 + 32 - 116, this.height / 2 + 113 - 40).size(48,16).build());
+        }).pos(this.width / 2 - 72, this.height / 2 + 113 - 40).size(48,16).build());
+
+        this.addRenderableWidget(Button.builder(Component.literal("本源回廊").withStyle(CustomStyle.styleOfWorld), (p_280814_) -> {
+            this.minecraft.setScreen(new TowerScreen(0));
+        }).pos(this.width / 2 - 126, this.height / 2 + 113 - 40).size(48,16).build());
     }
     public void tick() {
         super.tick();

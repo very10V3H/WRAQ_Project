@@ -668,7 +668,7 @@ public class AttackEventModule {
                     player.getServer().getPlayerList().getPlayers().forEach(serverPlayer -> serverPlayer.connection.send(clientboundLevelParticlesPacket));
                 }
             }
-            List<Player> playerList = level.getEntitiesOfClass(Player.class,AABB.ofSize(player.position(),10,10,10));
+/*            List<Player> playerList = level.getEntitiesOfClass(Player.class,AABB.ofSize(player.position(),10,10,10));
             for (Player player1 : playerList) {
                 if (player1 != player) AttackEvent.AttackToPlayer(player,player1,data,player.getItemInHand(InteractionHand.MAIN_HAND).getItem(),0.2f * Compute.SwordSkillLevelGet(data,12));
                 if (random.nextInt(0,1) == 0) {
@@ -681,7 +681,7 @@ public class AttackEventModule {
                             player1.getX(),player1.getY() + 1,player1.getZ(),0,0,0,0,0);
                     player.getServer().getPlayerList().getPlayers().forEach(serverPlayer -> serverPlayer.connection.send(clientboundLevelParticlesPacket));
                 }
-            }
+            }*/
             Utils.SwordSkill12.put(player,false);
             ModNetworking.sendToClient(new ChargedClearS2CPacket(0),(ServerPlayer) player);
             ClientboundSoundPacket clientboundSoundPacket = new ClientboundSoundPacket(Holder.direct(SoundEvents.PLAYER_ATTACK_SWEEP), SoundSource.PLAYERS,player.getX(),player.getY() + 1,player.getZ(),1,1,0);
@@ -703,10 +703,10 @@ public class AttackEventModule {
             for (Mob mob : mobList) {
                 Compute.Damage.AttackDamageToMonster_RateAdDamage(player,mob,6 * Compute.BowSkillLevelGet(data,12));
             }
-            List<Player> playerList = level.getEntitiesOfClass(Player.class,AABB.ofSize(player.position(),10,10,10));
+/*            List<Player> playerList = level.getEntitiesOfClass(Player.class,AABB.ofSize(player.position(),10,10,10));
             for (Player player1 : playerList) {
                 Compute.Damage.AttackDamageToPlayer_RateAdDamage(player,player1,0.2f * Compute.BowSkillLevelGet(data,12));
-            }
+            }*/
             Utils.BowSkill12.put(player,false);
             ModNetworking.sendToClient(new ChargedClearS2CPacket(1),(ServerPlayer) player);
         }

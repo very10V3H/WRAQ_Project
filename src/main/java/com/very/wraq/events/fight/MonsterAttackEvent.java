@@ -1,6 +1,7 @@
 package com.very.wraq.events.fight;
 
 import com.very.wraq.customized.players.bow.Yxwg.YxwgCurios2;
+import com.very.wraq.customized.players.bow.littleart.LittleartCurios;
 import com.very.wraq.customized.players.sceptre.Black_Feisa_.BlackFeisaCurios1;
 import com.very.wraq.customized.players.sceptre.Black_Feisa_.BlackFeisaCurios4;
 import com.very.wraq.customized.players.sceptre.Eliaoi.EliaoiCurios1;
@@ -8,6 +9,7 @@ import com.very.wraq.customized.players.sceptre.FengXiaoju.FengXiaoJuCurios1;
 import com.very.wraq.customized.players.sceptre.liulixian_.LiuLiXianCurios1F;
 import com.very.wraq.customized.players.sceptre.liulixian_.LiulixianCurios;
 import com.very.wraq.customized.players.sceptre.liulixian_.LiulixianCurios3;
+import com.very.wraq.customized.players.sceptre.liulixian_.LiulixianCurios4;
 import com.very.wraq.entities.entities.Civil.Civil;
 import com.very.wraq.events.instance.Devil;
 import com.very.wraq.events.modules.HurtEventModule;
@@ -69,6 +71,118 @@ import java.util.Random;
 
 @Mod.EventBusSubscriber
 public class MonsterAttackEvent {
+
+    public static void MonsterAttack (Mob monster, Player player, double Damage) {
+        CompoundTag data = player.getPersistentData();
+
+        double DamageDecrease = Compute.SwordSkill1And4(data,player);
+
+        DamageDecrease += Compute.SwordSkill14(data,player,monster);
+        DamageDecrease += Compute.BowSkill4(data,player);
+        DamageDecrease += Compute.ManaSkill4(data,player);
+        DamageDecrease += Compute.LevelSuppress(player,monster); // 等级压制
+        DamageDecrease += ScarecrowChestPlate(player); // 稻草甲
+        DamageDecrease += SnowArmorEffectDamageDecrease(monster); // 冰川盔甲
+        DamageDecrease += EarthPower.MobDamageDecrease(monster); // 地蕴法术
+        DamageDecrease += CastleCurios.DamageDecrease(player);
+        DamageDecrease += LakePower.PlayerDefend(player); // 湖泊法术
+        DamageDecrease += YxwgCurios2.Passive5DamageDecrease(player);
+        DamageDecrease += LiulixianCurios3.DamageDecrease(player);
+
+        Damage *= (1 - DamageDecrease);
+        Damage *= TabooAttackArmor.Passive(player);
+        Damage *= EliaoiCurios1.MonsterAttackDamageEnhance(player);
+        Damage *= BlackFeisaCurios4.IsPlayer(player) ? 2 : 1;
+        Damage *= LittleartCurios.isOn(player) ? 2 : 1;
+        Damage *= LiulixianCurios4.mobAttributeEnhance(monster);
+
+        if (Utils.witherBonePowerCCMonster.contains(monster)) Damage *= 0.8;
+        if (data.contains(StringUtils.SakuraDemonSword)
+                && data.getInt(StringUtils.SakuraDemonSword) > player.getServer().getTickCount()) Damage = 0;
+
+        if (SlimeBoots.IsOn(player)) {
+            Damage -= player.getMaxHealth() * 0.1;
+            ClientboundSoundPacket clientboundSoundPacket =
+                    new ClientboundSoundPacket(Holder.direct(SoundEvents.SLIME_HURT), SoundSource.PLAYERS,player.getX(),player.getY(),player.getZ(),0.4f,0.4f,0);
+            ((ServerPlayer) player).connection.send(clientboundSoundPacket);
+        } // 史莱姆鞋子 伤害削减
+
+        Item monsterHelmet = monster.getItemBySlot(EquipmentSlot.HEAD).getItem();
+        double HealSteal = Utils.HealthSteal.getOrDefault(monsterHelmet,0d);
+
+        Random random = new Random();
+        if (random.nextDouble() < Compute.PlayerDodgeRate(player)) {
+            Damage = 0;
+            ClientboundSoundPacket clientboundSoundPacket = new ClientboundSoundPacket(Holder.direct(SoundEvents.SLIME_JUMP_SMALL),SoundSource.PLAYERS,player.getX(),player.getY(),player.getZ(),0.4f,0.4f,0);
+            ((ServerPlayer) player).connection.send(clientboundSoundPacket);
+            ClientboundSetActionBarTextPacket clientboundSetActionBarTextPacket =
+                    new ClientboundSetActionBarTextPacket(Component.literal("闪避！").withStyle(CustomStyle.styleOfFlexible));
+            ((ServerPlayer) player).connection.send(clientboundSetActionBarTextPacket);
+            LiulixianCurios4.dodge(player);
+        } // 闪避几率
+
+        if (Utils.RollingTickMap.containsKey(player) && player.getServer().getTickCount() < Utils.RollingTickMap.get(player)) Damage = 0;
+        if (mobIsInLimit(monster)) Damage = 0;
+        if (playerIsProtectingByPlainRune3(player)) Damage = 0;
+
+        Damage *= 0.5; // 怪物伤害降低
+
+        if (Damage > 0) {
+            double DamageAfterShieldDecrease = Compute.PlayerShieldDecrease(player, Damage);
+            DamageAfterShieldDecrease *= LiulixianCurios.protectPlayer(player, Damage);
+
+            if (LiuLiXianCurios1F.IsLiuLiXian(player))
+                DamageAfterShieldDecrease = LiuLiXianCurios1F.LiuLiXianDamageCompute(player, DamageAfterShieldDecrease);
+            if (player.isCreative()) {
+                player.sendSystemMessage(Component.literal("" + DamageAfterShieldDecrease));
+            } else {
+                if (DamageAfterShieldDecrease > 0 && player.isAlive()) {
+                    if (player.getHealth() / player.getMaxHealth() < 0.5) HurtEventModule.ManaSkill14(data, player);
+                    if (player.getHealth() < DamageAfterShieldDecrease) {
+                        if (LiulixianCurios3.Rescue(player)) {
+                            DamageAfterShieldDecrease = 0;
+                            Compute.FormatBroad(player.level(), Component.literal("维瑞阿契").withStyle(ChatFormatting.AQUA),
+                                    Component.literal("").
+                                            append(player.getDisplayName()).
+                                            append(Compute.DescriptionWhiteColor("在与")).
+                                            append(monster.getDisplayName()).
+                                            append(Component.literal("的战斗中不幸重伤，但被").withStyle(ChatFormatting.WHITE)).
+                                            append(Component.literal("琉璃仙法").withStyle(CustomStyle.styleOfSakura)).
+                                            append(Component.literal("救赎。").withStyle(ChatFormatting.WHITE)));
+
+                        }
+                        else {
+                            Compute.playerDeadModule(player);
+                            Compute.FormatBroad(player.level(), Component.literal("维瑞阿契").withStyle(ChatFormatting.AQUA),
+                                    Component.literal("").
+                                            append(player.getDisplayName()).
+                                            append(Compute.DescriptionWhiteColor("在与")).
+                                            append(monster.getDisplayName()).
+                                            append(Component.literal("的战斗中不幸重伤。").withStyle(ChatFormatting.WHITE)));
+                        }
+                    }
+                    player.setHealth((float) (player.getHealth() - DamageAfterShieldDecrease));
+                    FengXiaoJuCurios1.Store(player,DamageAfterShieldDecrease);
+                    player.hurtTime = 10;
+                    monster.heal((float) (DamageAfterShieldDecrease * HealSteal));
+                    MoonBelt.PassiveGetDamage(player, DamageAfterShieldDecrease); // 尘月玉缠
+                }
+
+                ModNetworking.sendToClient(new SoundsS2CPacket(2), (ServerPlayer) player);
+            }
+
+            ForestRuneAndLightningArmor(player, monster);
+            SnowArmorEffect(player, monster);
+            SnowStrayAttackEffect(player, monster);
+            ForestZombieHealEffect(monster);
+            MineMonsterAttack(monster, player);
+            MineShield(player);
+            DevilAttackArmor.DevilAttackArmorPassive(player, monster); // 封魔者圣铠
+            BlackFeisaCurios1.Passive2(player);
+            YxwgCurios2.Passive2(player);
+            StarBottle.PlayerBattleTickMapRefresh(player);
+        }
+    }
 
     @SubscribeEvent
     public static void monsterAttackEvent(LivingAttackEvent event)
@@ -244,114 +358,6 @@ public class MonsterAttackEvent {
         if (player.getItemInHand(InteractionHand.OFF_HAND).is(ModItems.MineShield.get())) {
             Utils.MineShieldEffect.put(player,player.getServer().getTickCount() + 100);
             Compute.EffectLastTimeSend(player,ModItems.MineSoul.get().getDefaultInstance(),100);
-        }
-    }
-    public static void MonsterAttack (Mob monster, Player player, double Damage) {
-        CompoundTag data = player.getPersistentData();
-
-        double DamageDecrease = Compute.SwordSkill1And4(data,player);
-
-        DamageDecrease += Compute.SwordSkill14(data,player,monster);
-        DamageDecrease += Compute.BowSkill4(data,player);
-        DamageDecrease += Compute.ManaSkill4(data,player);
-        DamageDecrease += Compute.LevelSuppress(player,monster); // 等级压制
-        DamageDecrease += ScarecrowChestPlate(player); // 稻草甲
-        DamageDecrease += SnowArmorEffectDamageDecrease(monster); // 冰川盔甲
-        DamageDecrease += EarthPower.MobDamageDecrease(monster); // 地蕴法术
-        DamageDecrease += CastleCurios.DamageDecrease(player);
-        DamageDecrease += LakePower.PlayerDefend(player); // 湖泊法术
-        DamageDecrease += YxwgCurios2.Passive5DamageDecrease(player);
-        DamageDecrease += LiulixianCurios3.DamageDecrease(player);
-
-        Damage *= (1 - DamageDecrease);
-        Damage *= TabooAttackArmor.Passive(player);
-        Damage *= EliaoiCurios1.MonsterAttackDamageEnhance(player);
-        Damage *= BlackFeisaCurios4.IsPlayer(player) ? 2 : 1;
-
-        if (Utils.witherBonePowerCCMonster.contains(monster)) Damage *= 0.8;
-        if (data.contains(StringUtils.SakuraDemonSword)
-                && data.getInt(StringUtils.SakuraDemonSword) > player.getServer().getTickCount()) Damage = 0;
-
-        if (SlimeBoots.IsOn(player)) {
-            Damage -= player.getMaxHealth() * 0.1;
-            ClientboundSoundPacket clientboundSoundPacket =
-                    new ClientboundSoundPacket(Holder.direct(SoundEvents.SLIME_HURT), SoundSource.PLAYERS,player.getX(),player.getY(),player.getZ(),0.4f,0.4f,0);
-            ((ServerPlayer) player).connection.send(clientboundSoundPacket);
-        } // 史莱姆鞋子 伤害削减
-
-        Item monsterHelmet = monster.getItemBySlot(EquipmentSlot.HEAD).getItem();
-        double HealSteal = Utils.HealthSteal.getOrDefault(monsterHelmet,0d);
-
-        Random random = new Random();
-        if (random.nextDouble() < Compute.PlayerDodgeRate(player)) {
-            Damage = 0;
-            ClientboundSoundPacket clientboundSoundPacket = new ClientboundSoundPacket(Holder.direct(SoundEvents.SLIME_JUMP_SMALL),SoundSource.PLAYERS,player.getX(),player.getY(),player.getZ(),0.4f,0.4f,0);
-            ((ServerPlayer) player).connection.send(clientboundSoundPacket);
-            ClientboundSetActionBarTextPacket clientboundSetActionBarTextPacket =
-                    new ClientboundSetActionBarTextPacket(Component.literal("闪避！").withStyle(CustomStyle.styleOfFlexible));
-            ((ServerPlayer) player).connection.send(clientboundSetActionBarTextPacket);
-        } // 闪避几率
-
-        if (Utils.RollingTickMap.containsKey(player) && player.getServer().getTickCount() < Utils.RollingTickMap.get(player)) Damage = 0;
-        if (mobIsInLimit(monster)) Damage = 0;
-        if (playerIsProtectingByPlainRune3(player)) Damage = 0;
-
-        Damage *= 0.5; // 怪物伤害降低
-
-        if (Damage > 0) {
-            double DamageAfterShieldDecrease = Compute.PlayerShieldDecrease(player, Damage);
-            DamageAfterShieldDecrease *= LiulixianCurios.protectPlayer(player, Damage);
-
-            if (LiuLiXianCurios1F.IsLiuLiXian(player))
-                DamageAfterShieldDecrease = LiuLiXianCurios1F.LiuLiXianDamageCompute(player, DamageAfterShieldDecrease);
-            if (player.isCreative()) {
-                player.sendSystemMessage(Component.literal("" + DamageAfterShieldDecrease));
-            } else {
-                if (DamageAfterShieldDecrease > 0 && player.isAlive()) {
-                    if (player.getHealth() / player.getMaxHealth() < 0.5) HurtEventModule.ManaSkill14(data, player);
-                    if (player.getHealth() < DamageAfterShieldDecrease) {
-                        if (LiulixianCurios3.Rescue(player)) {
-                            DamageAfterShieldDecrease = 0;
-                            Compute.FormatBroad(player.level(), Component.literal("维瑞阿契").withStyle(ChatFormatting.AQUA),
-                                    Component.literal("").
-                                            append(player.getDisplayName()).
-                                            append(Compute.DescriptionWhiteColor("在与")).
-                                            append(monster.getDisplayName()).
-                                            append(Component.literal("的战斗中不幸重伤，但被").withStyle(ChatFormatting.WHITE)).
-                                            append(Component.literal("琉璃仙法").withStyle(CustomStyle.styleOfSakura)).
-                                            append(Component.literal("救赎。").withStyle(ChatFormatting.WHITE)));
-
-                        }
-                        else {
-                            Compute.FormatBroad(player.level(), Component.literal("维瑞阿契").withStyle(ChatFormatting.AQUA),
-                                    Component.literal("").
-                                            append(player.getDisplayName()).
-                                            append(Compute.DescriptionWhiteColor("在与")).
-                                            append(monster.getDisplayName()).
-                                            append(Component.literal("的战斗中不幸重伤。").withStyle(ChatFormatting.WHITE)));
-                            Utils.PlayerDeadTimeMap.put(player.getName().getString(), player.getServer().getTickCount() + 6000);
-                        }
-                    }
-                    player.setHealth((float) (player.getHealth() - DamageAfterShieldDecrease));
-                    FengXiaoJuCurios1.Store(player,DamageAfterShieldDecrease);
-                    player.hurtTime = 10;
-                    monster.heal((float) (DamageAfterShieldDecrease * HealSteal));
-                    MoonBelt.PassiveGetDamage(player, DamageAfterShieldDecrease); // 尘月玉缠
-                }
-
-                ModNetworking.sendToClient(new SoundsS2CPacket(2), (ServerPlayer) player);
-            }
-
-            ForestRuneAndLightningArmor(player, monster);
-            SnowArmorEffect(player, monster);
-            SnowStrayAttackEffect(player, monster);
-            ForestZombieHealEffect(monster);
-            MineMonsterAttack(monster, player);
-            MineShield(player);
-            DevilAttackArmor.DevilAttackArmorPassive(player, monster); // 封魔者圣铠
-            BlackFeisaCurios1.Passive2(player);
-            YxwgCurios2.Passive2(player);
-            StarBottle.PlayerBattleTickMapRefresh(player);
         }
     }
 

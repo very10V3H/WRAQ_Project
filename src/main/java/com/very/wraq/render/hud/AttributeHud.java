@@ -171,7 +171,8 @@ public class AttributeHud {
             if (mobArmor != null) {
                 guiGraphics.drawString(fontRenderer,ClientUtils.mobAttribute.getDisplayName(),standardX,standardY - 8,0);
 
-                boolean isMob = ClientUtils.mobAttribute.getId() == ClientUtils.mobId;
+                boolean isMob = (ClientUtils.mobAttribute.getId() == ClientUtils.mobId);
+
                 RenderSystem.setShaderTexture(0, ATTACK);
                 guiGraphics.blit(ATTACK,standardX,standardY,0,0,12,12,12,12);
                 guiGraphics.drawCenteredString(fontRenderer,Component.literal(String.format("%.0f",mobArmor.AttackDamage)).withStyle(CustomStyle.styleOfAttack),standardX + 20,standardY + 3,0);
@@ -223,9 +224,8 @@ public class AttributeHud {
                         put(Element.Lightning, CustomStyle.styleOfLightning);
                         put(Element.Wind, CustomStyle.styleOfWind);
                     }};
-                    guiGraphics.blit(new ResourceLocation(Utils.MOD_ID,"textures/hud/" + typeLocationMap.get(ClientUtils.mobElementType) + ".png"),standardX,standardY + 40,0,0,12,12,12,12);
-                    guiGraphics.drawCenteredString(fontRenderer,Component.literal(String.format("%.0f%%",ClientUtils.mobElementValue * 100)).withStyle(typeStyleMap.get(ClientUtils.mobElementType)),standardX + 20,standardY + 43,0);
-
+                    if (typeLocationMap.containsKey(ClientUtils.mobElementType)) guiGraphics.blit(new ResourceLocation(Utils.MOD_ID,"textures/hud/" + typeLocationMap.get(ClientUtils.mobElementType) + ".png"),standardX,standardY + 40,0,0,12,12,12,12);
+                    if (ClientUtils.mobElementValue > 0) guiGraphics.drawCenteredString(fontRenderer,Component.literal(String.format("%.0f%%",ClientUtils.mobElementValue * 100)).withStyle(typeStyleMap.get(ClientUtils.mobElementType)),standardX + 20,standardY + 43,0);
                 }
             }
         }

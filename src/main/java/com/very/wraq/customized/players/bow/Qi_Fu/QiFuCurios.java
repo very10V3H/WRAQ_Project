@@ -3,6 +3,7 @@ package com.very.wraq.customized.players.bow.Qi_Fu;
 import com.very.wraq.coreAttackModule.MyArrow;
 import com.very.wraq.customized.uniform.Attributes;
 import com.very.wraq.process.particle.ParticleProvider;
+import com.very.wraq.projectiles.WraqBow;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.Utils;
@@ -182,6 +183,7 @@ public class QiFuCurios extends Item implements ICurioItem {
                 player, isBuff3 ? damage * 2 : damage, isPlayer,true,ParticleTypes.FIREWORK);
         arrow.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0f, 4.5F, 1.0f);
         arrow.setCritArrow(true);
+        WraqBow.adjustArrow(arrow, player);
         player.level().addFreshEntity(arrow);
         Compute.SoundToAll(player, SoundEvents.ARROW_SHOOT);
         ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1, 0.75, 20, ParticleTypes.FIREWORK);

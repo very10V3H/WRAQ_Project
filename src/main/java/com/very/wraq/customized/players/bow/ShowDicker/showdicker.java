@@ -2,9 +2,9 @@ package com.very.wraq.customized.players.bow.ShowDicker;
 
 import com.very.wraq.coreAttackModule.MyArrow;
 import com.very.wraq.process.particle.ParticleProvider;
+import com.very.wraq.projectiles.WraqBow;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.Utils;
-import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerPlayer;
@@ -22,6 +22,7 @@ public class showdicker {
             
             arrow.shootFromRotation(serverPlayer, serverPlayer.getXRot(), serverPlayer.getYRot(), 0.0f, 3F, 1.0f);
             arrow.setCritArrow(true);
+            WraqBow.adjustArrow(arrow, serverPlayer);
             serverPlayer.level().addFreshEntity(arrow);
             Compute.SoundToAll(serverPlayer, SoundEvents.ARROW_SHOOT);
             ParticleProvider.FaceCircleCreate(serverPlayer, 1, 0.75, 20, ParticleTypes.SNOWFLAKE);

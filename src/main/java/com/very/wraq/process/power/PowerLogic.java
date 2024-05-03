@@ -95,7 +95,7 @@ public class PowerLogic {
         if (Tool != null) PlayerItemCoolDown(player,Tool,10);
         Level level = player.level();
         Vec3 TargetPos = player.pick(15,0,false).getLocation();
-        if (powerDetectPlayerPickMob(player) != null) TargetPos = powerDetectPlayerPickMob(player).position();
+        if (detectPlayerPickMob(player) != null) TargetPos = detectPlayerPickMob(player).position();
         List<Mob> monsterList = level.getEntitiesOfClass(Mob.class, AABB.ofSize(TargetPos, 20, 20, 20));
         for (Mob mob : monsterList) {
             if (mob.getPosition(0).distanceTo(TargetPos) < 6) {
@@ -135,7 +135,7 @@ public class PowerLogic {
             data.putInt(StringUtils.NetherRune.NetherRune2, TickCount + 100);
         Level level = player.level();
         Vec3 TargetPos = player.pick(15,0,false).getLocation();
-        if (powerDetectPlayerPickMob(player) != null) TargetPos = powerDetectPlayerPickMob(player).position();
+        if (detectPlayerPickMob(player) != null) TargetPos = detectPlayerPickMob(player).position();
         List<Mob> monsterList = level.getEntitiesOfClass(Mob.class,AABB.ofSize(TargetPos, 20, 20, 20));
         for (Mob mob : monsterList) {
             if (mob.getPosition(0).distanceTo(TargetPos) < 6) {
@@ -182,7 +182,7 @@ public class PowerLogic {
             data.putInt(StringUtils.NetherRune.NetherRune2, TickCount + 100);
         Level level = player.level();
         Vec3 TargetPos = player.pick(15,0,false).getLocation();
-        if (powerDetectPlayerPickMob(player) != null) TargetPos = powerDetectPlayerPickMob(player).position();
+        if (detectPlayerPickMob(player) != null) TargetPos = detectPlayerPickMob(player).position();
         List<Mob> monsterList = level.getEntitiesOfClass(Mob.class, AABB.ofSize(TargetPos, 20, 20, 20));
         for (Mob mob : monsterList) {
             if (mob.getPosition(0).distanceTo(TargetPos) < 6) {
@@ -237,7 +237,7 @@ public class PowerLogic {
         Level Dimension = player.level();
         int Effect = PlainPower.Effect[level];
         Vec3 TargetPos = player.pick(15,0,false).getLocation();
-        if (powerDetectPlayerPickMob(player) != null) TargetPos = powerDetectPlayerPickMob(player).position();
+        if (detectPlayerPickMob(player) != null) TargetPos = detectPlayerPickMob(player).position();
         List<Mob> mobList = Dimension.getEntitiesOfClass(Mob.class,
                 AABB.ofSize(TargetPos, 20, 20, 20));
         Vec3 finalTargetPos = TargetPos;
@@ -276,7 +276,7 @@ public class PowerLogic {
         Level Dimension = player.level();
         int Effect = ForestPower.Effect[level];
         Vec3 DesPos = player.pick(15, 0, true).getLocation();
-        if (powerDetectPlayerPickMob(player) != null) DesPos = powerDetectPlayerPickMob(player).position();
+        if (detectPlayerPickMob(player) != null) DesPos = detectPlayerPickMob(player).position();
 
         List<Mob> mobList = Dimension.getEntitiesOfClass(Mob.class,
                 AABB.ofSize(DesPos, 20, 20, 20));
@@ -305,7 +305,7 @@ public class PowerLogic {
         Level Dimension = player.level();
         int Effect = LakePower.Effect[level];
         Vec3 TargetPos = player.pick(15,0,false).getLocation();
-        if (powerDetectPlayerPickMob(player) != null) TargetPos = powerDetectPlayerPickMob(player).position();
+        if (detectPlayerPickMob(player) != null) TargetPos = detectPlayerPickMob(player).position();
         List<Mob> mobList = Dimension.getEntitiesOfClass(Mob.class,
                 AABB.ofSize(TargetPos, 20, 20, 20));
         List<Player> playerList = Dimension.getEntitiesOfClass(Player.class, AABB.ofSize(TargetPos,20,20,20));
@@ -347,7 +347,7 @@ public class PowerLogic {
         ServerLevel serverLevel = (ServerLevel) Dimension;
         int Effect = VolcanoPower.Effect[level];
         Vec3 TargetPos = player.pick(15,0,false).getLocation();
-        if (powerDetectPlayerPickMob(player) != null) TargetPos = powerDetectPlayerPickMob(player).position();
+        if (detectPlayerPickMob(player) != null) TargetPos = detectPlayerPickMob(player).position();
         List<Mob> mobList = Dimension.getEntitiesOfClass(Mob.class,
                 AABB.ofSize(TargetPos, 20, 20, 20));
         List<ServerPlayer> playerList = Dimension.getServer().getPlayerList().getPlayers();
@@ -390,7 +390,7 @@ public class PowerLogic {
         int Effect = SnowPower.Effect[level];
         Vec3 TargetPos = player.pick(15,0,false).getLocation();
         CompoundTag data = player.getPersistentData();
-        if (powerDetectPlayerPickMob(player) != null) TargetPos = powerDetectPlayerPickMob(player).position();
+        if (detectPlayerPickMob(player) != null) TargetPos = detectPlayerPickMob(player).position();
         List<Mob> mobList = Dimension.getEntitiesOfClass(Mob.class,
                 AABB.ofSize(TargetPos, 20, 20, 20));
         List<Player> players = Dimension.getEntitiesOfClass(Player.class,

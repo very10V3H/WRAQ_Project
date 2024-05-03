@@ -3,11 +3,11 @@ package com.very.wraq.process.element.equipAndCurios.lifeElement;
 import com.very.wraq.coreAttackModule.MyArrow;
 import com.very.wraq.process.element.Element;
 import com.very.wraq.process.particle.ParticleProvider;
+import com.very.wraq.projectiles.WraqBow;
 import com.very.wraq.render.particles.ModParticles;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.BasicAttributeDescription;
 import com.very.wraq.valueAndTools.Compute;
-import com.very.wraq.valueAndTools.Utils.StringUtils;
 import com.very.wraq.valueAndTools.Utils.Utils;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import net.minecraft.ChatFormatting;
@@ -15,12 +15,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.BowItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -31,7 +27,7 @@ import java.util.List;
 
 import static com.very.wraq.process.element.equipAndCurios.lifeElement.LifeElementSword.*;
 
-public class LifeElementBow extends BowItem {
+public class LifeElementBow extends WraqBow {
     private final double BaseDamage = 600;
     private final double DefencePenetration0 = 4000;
     private final double CriticalHitRate = 0.25;
@@ -50,6 +46,18 @@ public class LifeElementBow extends BowItem {
         Utils.WeaponList.add(this);
         Utils.BowTag.put(this,1.0d);
     }
+
+    @Override
+    public void shoot(ServerPlayer serverPlayer) {
+        MyArrow arrow = new MyArrow(EntityType.ARROW, serverPlayer.level(), serverPlayer, true);        arrow.shootFromRotation(serverPlayer, serverPlayer.getXRot(), serverPlayer.getYRot(), 0.0f, 4.5f, 1.0f);
+        arrow.setCritArrow(true);
+        WraqBow.adjustArrow(arrow, serverPlayer);
+        serverPlayer.level().addFreshEntity(arrow);
+        Compute.SoundToAll(serverPlayer, SoundEvents.ARROW_SHOOT);
+        ParticleProvider.FaceCircleCreate(serverPlayer, 1, 0.75, 20, ModParticles.LifeElementParticle.get());
+        ParticleProvider.FaceCircleCreate(serverPlayer, 1.5, 0.5, 16, ModParticles.LifeElementParticle.get());
+    }
+
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag)
     {
@@ -79,16 +87,6 @@ public class LifeElementBow extends BowItem {
         Compute.SuffixOfElement(components);
         super.appendHoverText(stack,level,components,flag);
     }
-    @Override
-    public void releaseUsing(ItemStack p_40667_, Level p_40668_, LivingEntity p_40669_, int p_40670_) {
-
-    }
-
-    @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
-        Compute.BowAttack(player,Utils.BowNumMap.get(StringUtils.BowNameString.LifeElementBow));
-        return interactionHand.equals(InteractionHand.MAIN_HAND)
-                ? InteractionResultHolder.success(player.getMainHandItem()) : InteractionResultHolder.success(player.getOffhandItem());    }
 
     public static void Active(Player player) {
         if (Compute.PlayerUseWithHud(player, lifeElementActiveCoolDown,ModItems.LifeElementBow.get(), lifeElementActiveLastTick,100,0,25)) {
@@ -126,15 +124,5 @@ public class LifeElementBow extends BowItem {
     public static double ExAttackDamage(Player player) {
         if (Utils.BowTag.containsKey(player.getMainHandItem().getItem())) return ComputeStoreNum(player) * 0.125;
         return 0;
-    }
-
-    public static void Shoot(Player player) {
-        ServerPlayer serverPlayer = (ServerPlayer) player;
-        MyArrow arrow = new MyArrow(EntityType.ARROW, serverPlayer.level(), serverPlayer, true);        arrow.shootFromRotation(serverPlayer, serverPlayer.getXRot(), serverPlayer.getYRot(), 0.0f, 4.5f, 1.0f);
-        arrow.setCritArrow(true);
-        serverPlayer.level().addFreshEntity(arrow);
-        Compute.SoundToAll(serverPlayer, SoundEvents.ARROW_SHOOT);
-        ParticleProvider.FaceCircleCreate(serverPlayer, 1, 0.75, 20, ModParticles.LifeElementParticle.get());
-        ParticleProvider.FaceCircleCreate(serverPlayer, 1.5, 0.5, 16, ModParticles.LifeElementParticle.get());
     }
 }

@@ -4,6 +4,7 @@ import com.very.wraq.customized.uniform.Attributes;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -105,5 +106,11 @@ public class AttackCurios2 extends Item implements ICurioItem {
     public static double playerCritDamageEnhance(Player player) {
         if (!isOn(player) || !playerNearbyHasNoOthers(player)) return 1;
         return 1.2;
+    }
+
+    public static void tick(Player player) {
+        if (!isOn(player)) return;
+        if (playerNearbyHasNoOthers(player)) Compute.EffectLastTimeSend(player, ModItems.AttackCurios2.get(), 8888, 0, true);
+        else Compute.EffectLastTimeSend(player, ModItems.AttackCurios2.get(), 0, 0, true);
     }
 }

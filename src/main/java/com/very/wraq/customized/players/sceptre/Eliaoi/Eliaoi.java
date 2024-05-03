@@ -4,6 +4,7 @@ import com.very.wraq.coreAttackModule.ManaAttackModule;
 import com.very.wraq.process.particle.ParticleProvider;
 import com.very.wraq.projectiles.mana.ManaArrow;
 import com.very.wraq.projectiles.mana.NewArrowMagma;
+import com.very.wraq.projectiles.WraqSceptre;
 import com.very.wraq.render.particles.ModParticles;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.ModEntityType;
@@ -141,6 +142,7 @@ public class Eliaoi {
         
         newArrow.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0f, 3, 1.0f);
         ProjectileUtil.rotateTowardsMovement(newArrow, 0);
+        WraqSceptre.adjustOrb(newArrow, player);
         level.addFreshEntity(newArrow);
         ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1, 0.75, 20, ModParticles.LONG_RED_SPELL.get());
 

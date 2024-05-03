@@ -8,10 +8,12 @@ import com.very.wraq.customized.players.bow.MyMission.MyMissionCurios;
 import com.very.wraq.customized.players.bow.MyMission.MyMissionCurios1;
 import com.very.wraq.customized.players.bow.Qi_Fu.QiFuCurios;
 import com.very.wraq.customized.players.bow.Qi_Fu.QiFuCurios1;
+import com.very.wraq.customized.players.bow.Shao_Feng.ShaoFengCurios;
 import com.very.wraq.customized.players.bow.Wcndymlgb.WcndymlgbCurios;
 import com.very.wraq.customized.players.bow.Yxwg.YxwgBow;
 import com.very.wraq.customized.players.bow.Yxwg.YxwgCurios1;
 import com.very.wraq.customized.players.bow.Yxwg.YxwgCurios2;
+import com.very.wraq.customized.players.bow.littleart.LittleartCurios;
 import com.very.wraq.customized.players.sceptre.Black_Feisa_.*;
 import com.very.wraq.customized.players.sceptre.Eliaoi.Eliaoi;
 import com.very.wraq.customized.players.sceptre.Eliaoi.EliaoiCurios1;
@@ -24,10 +26,7 @@ import com.very.wraq.customized.players.sceptre.Sora_vanilla.SoraVanilla2;
 import com.very.wraq.customized.players.sceptre.Sora_vanilla.SoraVanillaSword;
 import com.very.wraq.customized.players.sceptre.cgswd.CgswdCurios;
 import com.very.wraq.customized.players.sceptre.cgswd.CgswdSceptre;
-import com.very.wraq.customized.players.sceptre.liulixian_.LiuLiXianCurios1F;
-import com.very.wraq.customized.players.sceptre.liulixian_.LiulixianCurios;
-import com.very.wraq.customized.players.sceptre.liulixian_.LiulixianCurios2;
-import com.very.wraq.customized.players.sceptre.liulixian_.LiulixianCurios3;
+import com.very.wraq.customized.players.sceptre.liulixian_.*;
 import com.very.wraq.customized.players.sceptre.shangmengli.ShangMengLiCurios;
 import com.very.wraq.customized.players.sceptre.shangmengli.ShangMengLiSword;
 import com.very.wraq.customized.players.sword.Crush.CrushiSword;
@@ -371,6 +370,7 @@ public class PlayerAttributes {
         ExDamage += ZuoSiCurios.ExAttackOrManaDamage(player, true);
         ExDamage += LifeElementSword.ExAttackDamage(player);
         ExDamage += LifeElementBow.ExAttackDamage(player);
+        ExDamage += LiulixianCurios4.attackDamageUp(player);
         // 请在上方添加
 
         double TotalAttackDamage = BaseAttackDamage + ExDamage;
@@ -387,6 +387,8 @@ public class PlayerAttributes {
         TotalAttackDamage *= BlackFeisaCurios4.AttackDamageUp(player);
         TotalAttackDamage *= HgjCurios.AttackDamageEnhance(player);
         TotalAttackDamage *= AttackCurios1.playerAttackDamageEnhance(player);
+        TotalAttackDamage *= LittleartCurios.attackDamageEnhance(player);
+        TotalAttackDamage *= ShaoFengCurios.attackDamageEnhance(player);
 
         data.putDouble("NetherRuneDamageCompute", TotalAttackDamage * 0.6f * Compute.EndRune3Judge(player, 2));
 
@@ -477,6 +479,7 @@ public class PlayerAttributes {
         CriticalHitRate += BowCurios2.playerCritRateUp(player);
         // 请在上方添加
         CriticalHitRate *= Compute.playerFantasyAttributeEnhance(player);
+        CriticalHitRate *= LiulixianCurios4.playerAttributeDown(player);
 
         if (data.contains("snowRune") && data.getInt("snowRune") == 1) {
             data.putDouble("snowRune1Rate", CriticalHitRate);
@@ -636,6 +639,8 @@ public class PlayerAttributes {
         CritDamage += QiFuCurios.Buff2ExCritDamage(player);
         CritDamage += WcndymlgbCurios.ExCritDamage(player);
         CritDamage += AttackCurios1.playerCritDamageUp(player);
+        CritDamage += LittleartCurios.critDamageUp(player);
+        CritDamage += ShaoFengCurios.critDamageUp(player);
         // 请在上方添加
 
         CritDamage *= Compute.playerFantasyAttributeEnhance(player);
@@ -775,6 +780,7 @@ public class PlayerAttributes {
         SpeedUp += QiFuCurios1.Passive2ExMovementSpeed(player);
         SpeedUp += QiFuCurios1.Passive3ExMovementSpeed(player);
         SpeedUp += Compute.PassiveEquip.AttributeGet(player, Utils.MovementSpeed); // 器灵属性加成
+        SpeedUp += LittleartCurios.movementSpeedUp(player);
         // 请在上方添加
 
         SpeedUp *= LiulixianCurios3.MovementEnhance(player);
@@ -995,6 +1001,7 @@ public class PlayerAttributes {
         ExDefence += CastleAttackArmor.ExAttributeValue(player, CastleAttackArmor.ExDefence);
         ExDefence += CastleManaArmor.ExAttributeValue(player, CastleManaArmor.ExDefence);
         ExDefence += CastleSwiftArmor.ExAttributeValue(player, CastleSwiftArmor.ExDefence);
+        ExDefence += LiulixianCurios4.defenceUp(player);
         // 请在上方添加
         double totalDefence = 0;
         totalDefence = Defence + ExDefence;
@@ -1005,6 +1012,7 @@ public class PlayerAttributes {
         totalDefence *= (1 + EarthPower.PlayerDefenceEnhance(player));
         totalDefence *= Compute.playerFantasyAttributeEnhance(player);
         totalDefence *= HeihuangCurios.Passive2DefenceEnhance(player);
+        totalDefence *= LiulixianCurios4.playerAttributeDown(player);
         if (data.contains("ManaRune") && data.getInt("ManaRune") == 3) return (Defence + ExDefence) * 0.5f;
 /*            if (data.contains(StringUtils.ForestBossSwordActive.Pare) && data.getInt(StringUtils.ForestBossSwordActive.PareTime) > TickCount) {
                 ExDefence -= data.getInt(StringUtils.ForestBossSwordActive.Pare) * 20;
@@ -1701,6 +1709,8 @@ public class PlayerAttributes {
         else if (data.getInt(StringUtils.WitherSword.Effect0) > TickCount) DefencePenetration0 += 600;
 
         DefencePenetration0 += QiFuCurios.Buff2DefencePenetration0(player);
+        DefencePenetration0 += LittleartCurios.defencePenetration0Up(player);
+        DefencePenetration0 += ShaoFengCurios.defencePenetration0Up(player);
         // 请在上方添加
         DefencePenetration0 *= Compute.playerFantasyAttributeEnhance(player);
         DefencePenetration0 *= LiuLiXianCurios1F.PenetrationUp(player);
@@ -2104,6 +2114,7 @@ public class PlayerAttributes {
         ExDamage += BlackFeisaCurios.ExManaDamage(player);
         ExDamage += ZuoSiCurios.ExAttackOrManaDamage(player, false);
         ExDamage += LifeElementSceptre.ExManaDamage(player);
+        ExDamage += LiulixianCurios4.manaDamageUp(player);
         /*ExDamage += ShangMengLiCurios3.ExManaDamage(player);*/
         // 请在上方添加
         double TotalDamage = BaseDamage + ExDamage;
@@ -2342,16 +2353,16 @@ public class PlayerAttributes {
         ExDefence += CastleAttackArmor.ExAttributeValue(player, CastleAttackArmor.ExManaDefence);
         ExDefence += CastleManaArmor.ExAttributeValue(player, CastleManaArmor.ExManaDefence);
         ExDefence += CastleSwiftArmor.ExAttributeValue(player, CastleSwiftArmor.ExManaDefence);
+        ExDefence += LiulixianCurios4.manaDefenceUp(player);
         // 请在上方添加
 
-        ExDefence *= (1 + EarthPower.PlayerDefenceEnhance(player));
-        Defence *= (1 + EarthPower.PlayerDefenceEnhance(player));
+        double totalDefence = Defence + ExDefence;
+        totalDefence *= (1 + EarthPower.PlayerDefenceEnhance(player));
+        totalDefence *= Compute.playerFantasyAttributeEnhance(player);
+        totalDefence *= LiulixianCurios4.playerAttributeDown(player);
 
-        Defence *= Compute.playerFantasyAttributeEnhance(player);
-        ExDefence *= Compute.playerFantasyAttributeEnhance(player);
-
-        if (Defence + ExDefence < 0) return 0;
-        return Defence + ExDefence;
+        if (totalDefence < 0) return 0;
+        return totalDefence;
     }
 
     public static double PlayerHealthSteal(Player player) {

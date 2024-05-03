@@ -4,6 +4,8 @@ import com.very.wraq.coreAttackModule.ManaAttackModule;
 import com.very.wraq.customized.players.bow.Hgj.HgjCurios;
 import com.very.wraq.customized.players.bow.Lei_yan233.LeiyanBow;
 import com.very.wraq.customized.players.bow.Qi_Fu.QiFuCurios1;
+import com.very.wraq.customized.players.bow.Shao_Feng.ShaoFengCurios;
+import com.very.wraq.customized.players.bow.littleart.LittleartCurios;
 import com.very.wraq.customized.players.sceptre.Black_Feisa_.BlackFeisaCurios;
 import com.very.wraq.customized.players.sceptre.Black_Feisa_.BlackFeisaCurios3;
 import com.very.wraq.customized.players.sceptre.Black_Feisa_.BlackFeisaCurios4;
@@ -16,6 +18,7 @@ import com.very.wraq.customized.players.sceptre.YuanShiRen.YuanShiRenCurios;
 import com.very.wraq.customized.players.sceptre.cgswd.CgswdCurios;
 import com.very.wraq.customized.players.sceptre.liulixian_.LiulixianCurios2;
 import com.very.wraq.customized.players.sceptre.liulixian_.LiulixianCurios3;
+import com.very.wraq.customized.players.sceptre.liulixian_.LiulixianCurios4;
 import com.very.wraq.customized.players.sceptre.shangmengli.ShangMengLi;
 import com.very.wraq.customized.players.sceptre.shangmengli.ShangMengLiCurios3;
 import com.very.wraq.customized.players.sword.Heihuang.HeihuangCurios;
@@ -62,6 +65,7 @@ public class DamageEnhances {
         rate += StarArmor.DamageEnhance(player,monster); // 梦月
         rate += HeihuangCurios.MobWithstandDamageEnhance(monster);
         rate += PlayerCommonDamageUpOrDown(player);
+        rate += LiulixianCurios4.xpMinusDamageEnhance(player,monster);
         return rate;
     }
 
@@ -79,6 +83,8 @@ public class DamageEnhances {
         rate += LiulixianCurios3.DamageEnhance(player);
         rate += FireEquip.DamageEnhance(player); // 炽焰元素武器
         rate += HgjCurios.DamageEnhance(player);
+        rate += ShaoFengCurios.damageEnhance(player);
+        rate += LittleartCurios.damageEnhance(player);
         return rate;
     }
 

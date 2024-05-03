@@ -1,5 +1,6 @@
 package com.very.wraq.events.core;
 
+import com.very.wraq.Items.Prefix.PrefixInfo;
 import com.very.wraq.blocks.entity.ForgingBlockEntity;
 import com.very.wraq.blocks.entity.FurnaceEntity;
 import com.very.wraq.blocks.entity.HBrewingEntity;
@@ -7,10 +8,10 @@ import com.very.wraq.blocks.entity.InjectBlockEntity;
 import com.very.wraq.customized.players.bow.Wcndymlgb.WcndymlgbCurios;
 import com.very.wraq.customized.players.sceptre.Black_Feisa_.BlackFeisaCurios3;
 import com.very.wraq.events.instance.PurpleIronKnight;
-import com.very.wraq.Items.Prefix.PrefixInfo;
+import com.very.wraq.netWorking.ModNetworking;
+import com.very.wraq.netWorking.VersionCheckS2CPacket;
 import com.very.wraq.netWorking.dailyMission.DailyMissionContentS2CPacket;
 import com.very.wraq.netWorking.dailyMission.DailyMissionFinishedTimeS2CPacket;
-import com.very.wraq.netWorking.ModNetworking;
 import com.very.wraq.netWorking.misc.AnimationPackets.AnimationTickResetS2CPacket;
 import com.very.wraq.netWorking.misc.ManaSyncS2CPacket;
 import com.very.wraq.netWorking.misc.PrefixPackets.PrefixS2CPacket;
@@ -23,10 +24,11 @@ import com.very.wraq.netWorking.reputationMission.ReputationMissionStartTimeS2CP
 import com.very.wraq.netWorking.unSorted.ClientLimitSetS2CPacket;
 import com.very.wraq.netWorking.unSorted.PlayerCallBack;
 import com.very.wraq.netWorking.unSorted.SwiftSyncS2CPacket;
-import com.very.wraq.netWorking.VersionCheckS2CPacket;
 import com.very.wraq.process.element.Element;
 import com.very.wraq.process.missions.series.labourDay.LabourDayMission;
 import com.very.wraq.process.parkour.Parkour;
+import com.very.wraq.process.tower.Tower;
+import com.very.wraq.process.tower.TowerStatusS2CPacket;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.StringUtils;
@@ -49,6 +51,7 @@ import net.minecraftforge.fml.common.Mod;
 import vazkii.patchouli.api.PatchouliAPI;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.List;
@@ -56,13 +59,13 @@ import java.util.List;
 @Mod.EventBusSubscriber
 public class LoginInEvent {
     @SubscribeEvent
-    public static void Login0(PlayerEvent.PlayerLoggedInEvent event) throws ParseException, IOException {
+    public static void Login0(PlayerEvent.PlayerLoggedInEvent event) throws ParseException, IOException, SQLException {
         Player player = event.getEntity();
         if (!player.level().isClientSide) {
-            ServerPlayer serverPlayer1 = (ServerPlayer) player;
-            ModNetworking.sendToClient(new TeamInfoResetS2CPacket(),serverPlayer1);
+            ServerPlayer serverPlayer = (ServerPlayer) player;
+            ModNetworking.sendToClient(new TeamInfoResetS2CPacket(),serverPlayer);
 
-            ModNetworking.sendToClient(new ClientLimitSetS2CPacket(serverPlayer1.getName().getString()),serverPlayer1);
+            ModNetworking.sendToClient(new ClientLimitSetS2CPacket(serverPlayer.getName().getString()),serverPlayer);
             player.sendSystemMessage(Component.literal("[").withStyle(ChatFormatting.GRAY).append(Component.literal("维瑞阿契").withStyle(ChatFormatting.AQUA)).append("]").withStyle(ChatFormatting.GRAY).append(Component.literal("欢迎来到 ").withStyle(ChatFormatting.WHITE).append(Component.literal("维瑞阿契").withStyle(ChatFormatting.AQUA))));
             CompoundTag data = player.getPersistentData();
 
@@ -83,20 +86,32 @@ public class LoginInEvent {
                 data.putBoolean("RefreshPs",true);
             }
 
-            if (!data.contains("version:1.0.0") && player.experienceLevel >= 200) {
+            if (!data.contains("version:1.0.3") && player.experienceLevel >= 200) {
                 Compute.FormatMSGSend(player,Component.literal("补偿").withStyle(CustomStyle.styleOfSakura),
                         Component.literal("你有待领取的补偿，输入/vmd compensate [life/water/fire/stone/iceElement/lightning/wind/ice/devil/taboo/moon/castle/purple]领取补偿！").withStyle(ChatFormatting.AQUA));
             }
 
-            if (!data.contains("version:1.0.0") && player.experienceLevel >= 160) {
+            if (!data.contains("version:1.0.3") && player.experienceLevel >= 160) {
                 Compute.FormatMSGSend(player,Component.literal("补偿").withStyle(CustomStyle.styleOfSakura),
                         Component.literal("你有待领取的补偿，输入/vmd compensate [ice/devil/taboo/moon/castle/purple]领取补偿！").withStyle(ChatFormatting.AQUA));
             }
 
+            if (!data.contains("version:1.0.5") && player.experienceLevel > 80) {
+                Compute.ItemStackGive(player, new ItemStack(ModItems.IceKnightMopUpPaper.get(), 12));
+                Compute.ItemStackGive(player, new ItemStack(ModItems.SakuraBossMopUpPaper.get(), 12));
+                Compute.ItemStackGive(player, new ItemStack(ModItems.MoonMopUpPaper.get(), 12));
+                Compute.ItemStackGive(player, new ItemStack(ModItems.DevilMopUpPaper.get(), 12));
+                Compute.FormatMSGSend(player,Component.literal("补偿").withStyle(CustomStyle.styleOfSakura),
+                        Component.literal("你收到了来自铁头的更新补偿！").withStyle(ChatFormatting.AQUA));
+                data.putBoolean("version:1.0.5",true);
+            }
+
+            if (data.contains("version:1.0.0")) data.remove("version:1.0.0");
             if (data.contains("version:4.10.0")) data.remove("version:4.10.0");
             if (data.contains("version:4.12.0")) data.remove("version:4.12.0");
             if (data.contains("version:4.13.0")) data.remove("version:4.13.0");
             if (data.contains("version:4.15.0")) data.remove("version:4.15.0");
+            if (data.contains("version:1.0.4")) data.remove("version:1.0.4");
 
             for(int i = 0; i < Utils.AttributeName.length; i++){
                 if(data.contains(Utils.AttributeName[i])){
@@ -108,25 +123,21 @@ public class LoginInEvent {
                 if (data.contains(string)) data.putInt(string,0);
             }
 
-
-
             List<ServerPlayer> list = event.getEntity().getServer().getPlayerList().getPlayers();
-            for (ServerPlayer serverPlayer : list) {
-                CompoundTag TmpData = serverPlayer.getPersistentData();
+            for (ServerPlayer serverPlayer1 : list) {
+                CompoundTag TmpData = serverPlayer1.getPersistentData();
                 String Prefix = "初来乍到";
                 if (TmpData.contains("Prefix")) Prefix = TmpData.getString("Prefix");
-                PrefixInfo prefixInfo = new PrefixInfo(Prefix, serverPlayer.experienceLevel);
-                Utils.prefixInfoMap.put(serverPlayer.getName().getString(), prefixInfo);
+                PrefixInfo prefixInfo = new PrefixInfo(Prefix, serverPlayer1.experienceLevel);
+                Utils.prefixInfoMap.put(serverPlayer1.getName().getString(), prefixInfo);
             }
 
-            for (ServerPlayer serverPlayer : list) {
+            for (ServerPlayer serverPlayer1 : list) {
                 for (String playerName : Utils.prefixInfoMap.keySet()) {
-                    ModNetworking.sendToClient(new PrefixS2CPacket(playerName, Utils.prefixInfoMap.get(playerName).getPrefix(), Utils.prefixInfoMap.get(playerName).getLevel()), serverPlayer);
+                    ModNetworking.sendToClient(new PrefixS2CPacket(playerName, Utils.prefixInfoMap.get(playerName).getPrefix(), Utils.prefixInfoMap.get(playerName).getLevel()), serverPlayer1);
                 }
             }
 
-
-            ServerPlayer serverPlayer = (ServerPlayer) player;
 /*            if (Utils.IpArrayList.contains(serverPlayer.getIpAddress())) {
                 serverPlayer.connection.disconnect(Component.literal("同一个IP已经有账户在线了。").withStyle(ChatFormatting.RED));
             }
@@ -300,6 +311,8 @@ public class LoginInEvent {
                         Component.literal("欢迎新人！新手教程请查看群文件内玩家编写的教程或查阅游戏内的帕秋莉手册(维瑞阿契wiki),游玩过程有任何建议或问题欢迎在群里@群主或管理员！").withStyle(ChatFormatting.WHITE));
                 Compute.FormatMSGSend(player,Component.literal("欢迎").withStyle(ChatFormatting.AQUA),
                         Component.literal("您可以先打开身份卡，点击物品图鉴，浏览由制作者编写的各种装备，找到心仪的装备制作吧！").withStyle(ChatFormatting.GOLD));
+                Compute.FormatMSGSend(player,Component.literal("欢迎").withStyle(ChatFormatting.AQUA),
+                        Component.literal("推荐您打开任务界面，完成游览地图任务，默认按P键，若按键冲突，请前往按键绑定，找到维瑞阿契按键修改。").withStyle(ChatFormatting.GOLD));
             }
             data.putBoolean("FirstReward",true);
 
@@ -335,7 +348,7 @@ public class LoginInEvent {
                         Utils.MissionMap.get(MissionNum).getDes().z),serverPlayer);
             }*/
             ModNetworking.sendToClient(new AnimationTickResetS2CPacket(),serverPlayer);
-            ModNetworking.sendToClient(new VersionCheckS2CPacket(),serverPlayer1);
+            ModNetworking.sendToClient(new VersionCheckS2CPacket(),serverPlayer);
 
             if (Utils.playerReputationMissionContent.containsKey(player.getName().getString())
                     && Utils.playerReputationMissionContentNum.get(player.getName().getString()) != 0)
@@ -350,6 +363,11 @@ public class LoginInEvent {
                         Utils.playerDailyMissionContentNum.get(player.getName().getString())),serverPlayer);
 
             if (data.contains(StringUtils.ResonanceType)) Element.PlayerResonanceType.put(player,data.getString(StringUtils.ResonanceType));
+
+            String towerStatus = Tower.getPlayerStatus(player);
+            if (towerStatus != null)
+                ModNetworking.sendToClient(new TowerStatusS2CPacket(towerStatus), serverPlayer);
+            else Tower.putPlayerStatus(player, towerStatus);
         }
     }
     @SubscribeEvent
@@ -457,6 +475,7 @@ public class LoginInEvent {
 
             if (WcndymlgbCurios.IsPlayer(player)) WcndymlgbCurios.Remove();
             BlackFeisaCurios3.RemoveAllay(player);
+            Tower.playerInChallengingDeadOrLogout(player);
         }
     }
     public static void DailyRefreshContent(Player player) {
@@ -475,6 +494,7 @@ public class LoginInEvent {
         Compute.FormatMSGSend(player,Component.literal("日常").withStyle(CustomStyle.styleOfHealth),
                 Component.literal(" 你的日常活动已被刷新！").withStyle(ChatFormatting.WHITE));
         LabourDayMission.acceptStatusSet(player);
+        Tower.resetPlayerData(player);
     }
 
     public static void WeeklyRefreshContent(Player player) {

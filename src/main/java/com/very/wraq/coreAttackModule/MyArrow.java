@@ -4,6 +4,8 @@ import com.very.wraq.customized.Customize;
 import com.very.wraq.customized.players.bow.Lei_yan233.LeiyanBow;
 import com.very.wraq.customized.players.bow.Lei_yan233.LeiyanCurios;
 import com.very.wraq.customized.players.bow.Qi_Fu.QiFuCurios1;
+import com.very.wraq.customized.players.bow.Shao_Feng.ShaoFengCurios;
+import com.very.wraq.customized.players.bow.littleart.LittleartCurios;
 import com.very.wraq.customized.uniform.bow.BowCurios0;
 import com.very.wraq.entities.entities.Civil.Civil;
 import com.very.wraq.events.instance.IceKnight;
@@ -304,8 +306,8 @@ public class MyArrow extends AbstractArrow {
             //
             Compute.Damage.DirectDamageToMob(player, entity, Damage + DamageIgnoreDefence);
             //
-            if (CritFlag) Compute.SummonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", Damage + DamageIgnoreDefence)).withStyle(CustomStyle.styleOfPower));
-            else Compute.SummonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", Damage + DamageIgnoreDefence)).withStyle(ChatFormatting.YELLOW));
+            if (CritFlag) Compute.SummonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", Damage + DamageIgnoreDefence)).withStyle(CustomStyle.styleOfPower),0);
+            else Compute.SummonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", Damage + DamageIgnoreDefence)).withStyle(ChatFormatting.YELLOW),0);
             Compute.DamageActionBarPacketSend(player,Damage,DamageIgnoreDefence,false,CritFlag);
             //
             AttackEventModule.BowPositiveEffect(mainHandItem, player, data, TickCount);
@@ -329,8 +331,10 @@ public class MyArrow extends AbstractArrow {
                 MoonBow.Passive(player,monster);
                 MoonKnife.MoonKnife(player,monster);
                 CastleBow.NormalAttack(player,monster,Damage);
-                Compute.AddtionEffects(player,monster);
+                Compute.AddtionEffects(player,monster, Damage + DamageIgnoreDefence, 0);
             }
+            ShaoFengCurios.onHitMob(player);
+            LittleartCurios.onHitMob(player, Damage + DamageIgnoreDefence);
             if (data.getBoolean(StringUtils.Debug)) {
                 player.sendSystemMessage(Component.literal("NormalAttackDamageEnhance : " + NormalAttackDamageEnhance));
                 player.sendSystemMessage(Component.literal("DamageEnhance : " + DamageEnhance));

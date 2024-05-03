@@ -118,10 +118,11 @@ public class LabourDayMobSummon {
                                 append(Component.literal("工贼").withStyle(ChatFormatting.GRAY)).
                                 append(Component.literal("没有被消灭，分别是:").withStyle(ChatFormatting.WHITE)));
 
+                int index = 1;
                 for (int i = 0 ; i < 5 ; i ++) {
                     if (!summonFlag[i]) {
                         Compute.FormatBroad(level, Component.literal("五一活动").withStyle(ChatFormatting.RED),
-                                Component.literal(". ").withStyle(ChatFormatting.WHITE).
+                                Component.literal(index ++ + ". ").withStyle(ChatFormatting.WHITE).
                                         append(components[serialNum[i]]).
                                         append(Component.literal("位置: ").withStyle(ChatFormatting.WHITE)).
                                         append(Component.literal("「" + pos[serialNum[i]] + "」").withStyle(ChatFormatting.AQUA)));

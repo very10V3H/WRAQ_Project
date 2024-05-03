@@ -1,5 +1,6 @@
 package com.very.wraq.events.core;
 
+import com.very.wraq.Items.Prefix.PrefixInfo;
 import com.very.wraq.customized.players.bow.Lei_yan233.LeiyanBow;
 import com.very.wraq.customized.players.bow.MyMission.MyMissionBow;
 import com.very.wraq.customized.players.sceptre.Eliaoi.Eliaoi;
@@ -7,7 +8,6 @@ import com.very.wraq.customized.players.sceptre.Eliaoi.EliaoiCurios2;
 import com.very.wraq.customized.uniform.bow.BowCurios1;
 import com.very.wraq.events.fight.MonsterAttackEvent;
 import com.very.wraq.files.FileHandler;
-import com.very.wraq.Items.Prefix.PrefixInfo;
 import com.very.wraq.netWorking.ModNetworking;
 import com.very.wraq.netWorking.misc.PrefixPackets.PrefixS2CPacket;
 import com.very.wraq.netWorking.misc.SoundsPackets.SoundsS2CPacket;
@@ -15,6 +15,7 @@ import com.very.wraq.process.element.Element;
 import com.very.wraq.process.element.originSummon.OriginSummon;
 import com.very.wraq.process.instance.MobEffectAndDamageMethods;
 import com.very.wraq.process.labourDay.LabourDayMobSummon;
+import com.very.wraq.process.tower.Tower;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.overWorld.SakuraSeries.EarthMana.EarthPower;
 import com.very.wraq.valueAndTools.Compute;
@@ -51,13 +52,14 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Mod.EventBusSubscriber
 public class LevelEvents {
     @SubscribeEvent
-    public static void BroadAndSecurity(TickEvent.LevelTickEvent event) throws IOException {
+    public static void BroadAndSecurity(TickEvent.LevelTickEvent event) throws IOException, SQLException {
         timeEvent(event);
         WorldBossEvent(event);
         Broad(event);
@@ -65,6 +67,8 @@ public class LevelEvents {
         OriginSummon.DetectElementPiece(event);
         LabourDayMobSummon.levelTick(event);
         BowCurios1.tick(event);
+        Tower.tick(event);
+
 
         if (event.side.isServer() && event.phase.equals(TickEvent.Phase.START) && event.level.getServer().getTickCount() % 18000 == 0) {
             ServerLevel serverLevel = (ServerLevel) event.level;
@@ -73,13 +77,29 @@ public class LevelEvents {
                 if (entity instanceof Projectile) projectileList.add(entity);
             });
             if (projectileList.size() > 1000) projectileList.forEach(entity -> entity.remove(Entity.RemovalReason.KILLED));
-        } // 尝试清理
+        }// 尝试清理
 
         if (event.side.isServer() && event.phase.equals(TickEvent.Phase.START)
                 && event.level.equals(event.level.getServer().getLevel(Level.NETHER))) {
             BlockPos blockPos1 = new BlockPos(225,200,622);
             BlockPos blockPos2 = new BlockPos(-80,90,419);
             int TickCount = event.level.getServer().getTickCount();
+
+/*            if (TickCount % 6000 == 256) new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    for (int h = 90 ; h < 201 ; h ++) {
+                        for (int i = blockPos2.getX(); i < blockPos1.getX(); i ++) {
+                            for (int j = blockPos2.getZ(); j < blockPos1.getZ(); j ++) {
+                                BlockPos blockPos = new BlockPos(i,h,j);
+                                if (event.level.getBlockState(blockPos).is(Blocks.FIRE))
+                                    event.level.destroyBlock(blockPos,false);
+                            }
+                        }
+                    }
+                }
+            }).start();*/
+
 
             if (TickCount % 36000 < 18200 && TickCount % 36000 > 18090) {
                 int index = TickCount % 36000;
@@ -102,6 +122,21 @@ public class LevelEvents {
 
             BlockPos blockPos1 = new BlockPos(1020,128,1089);
             BlockPos blockPos2 = new BlockPos(702,59,808);
+
+/*            if (TickCount % 6000 == 128) new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    for (int h = 59 ; h < 129 ; h ++) {
+                        for (int i = blockPos2.getX(); i < blockPos1.getX(); i ++) {
+                            for (int j = blockPos2.getZ(); j < blockPos1.getZ(); j ++) {
+                                BlockPos blockPos = new BlockPos(i,h,j);
+                                if (event.level.getBlockState(blockPos).is(Blocks.FIRE))
+                                    event.level.destroyBlock(blockPos,false);
+                            }
+                        }
+                    }
+                }
+            }).start();*/
 
             if (TickCount % 36000 < 128 && TickCount % 36000 > 59) {
                 int index = TickCount % 36000;

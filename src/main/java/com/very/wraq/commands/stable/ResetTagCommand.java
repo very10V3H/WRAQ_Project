@@ -1,13 +1,15 @@
 package com.very.wraq.commands.stable;
 
-import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.valueAndTools.Compute;
-import com.very.wraq.valueAndTools.Utils.Utils;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import com.very.wraq.events.core.InventoryCheck;
+import com.very.wraq.render.toolTip.CustomStyle;
+import com.very.wraq.valueAndTools.Compute;
+import com.very.wraq.valueAndTools.Utils.Utils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
@@ -23,6 +25,13 @@ public class ResetTagCommand implements Command<CommandSourceStack> {
         Player player = context.getSource().getPlayer();
         ItemStack itemStack = player.getMainHandItem();
         Item item = itemStack.getItem();
+        CompoundTag tag = itemStack.getOrCreateTagElement(Utils.MOD_ID);
+        if (tag.contains(InventoryCheck.owner)) {
+            Compute.FormatMSGSend(player, Component.literal("重置").withStyle(CustomStyle.styleOfFlexible),
+                    Component.literal("绑定物品不能被重置标签").withStyle(ChatFormatting.WHITE));
+            return 0;
+        }
+
         if (!(Utils.MainHandTag.containsKey(item) || Utils.ArmorTag.containsKey(item)
                 || Utils.CuriosList.contains(item) || Utils.PassiveEquipTag.containsKey(item))) {
             ItemStack newItemStack = new ItemStack(itemStack.getItem(), itemStack.getCount());

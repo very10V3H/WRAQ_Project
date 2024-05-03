@@ -230,7 +230,7 @@ public class FishEvent {
         }
         Compute.FormatMSGSend(player,Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
                 Component.literal("当前钓鱼熟练度为: "+RodLevel));
-        if(RodLevel > 1000){
+        if(RodLevel > 1000 && RodLevel < 2000){
             Compute.FormatMSGSend(player,Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
                     Component.literal("距离下一个钓鱼等阶，还需:").
                             append(Component.literal(" "+(2000-RodLevel)).withStyle(CustomStyle.styleOfSea)).

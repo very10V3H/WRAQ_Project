@@ -163,7 +163,7 @@ public class EarthPower extends Item {
     public static void Active(Player player, int type) {
         int TickCount = player.getServer().getTickCount();
         Vec3 TargetPos = player.pick(15,0,false).getLocation();
-        if (Compute.powerDetectPlayerPickMob(player) != null) TargetPos = Compute.powerDetectPlayerPickMob(player).position();
+        if (Compute.detectPlayerPickMob(player) != null) TargetPos = Compute.detectPlayerPickMob(player).position();
         List<Mob> mobList = player.level().getEntitiesOfClass(Mob.class,
                 AABB.ofSize(TargetPos, 20, 20, 20));
         mobList.removeIf(mob1 -> mob1.distanceTo(player) > 6);

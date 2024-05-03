@@ -9,8 +9,9 @@ import com.very.wraq.entities.entities.Scarecrow.Scarecrow;
 import com.very.wraq.events.core.BlockEvent;
 import com.very.wraq.files.ConfigTest;
 import com.very.wraq.netWorking.ModNetworking;
+import com.very.wraq.process.lottery.NewLotteries;
 import com.very.wraq.process.plan.PlanPlayer;
-import com.very.wraq.render.particles.ModParticles;
+import com.very.wraq.process.tower.Tower;
 import com.very.wraq.render.gui.blocks.BrewingScreen;
 import com.very.wraq.render.gui.blocks.ForgingBlockScreen;
 import com.very.wraq.render.gui.blocks.FurnaceScreen;
@@ -18,6 +19,7 @@ import com.very.wraq.render.gui.blocks.InjectBlockScreen;
 import com.very.wraq.render.gui.testAndHelper.ModMenuTypes;
 import com.very.wraq.render.mobEffects.ModEffects;
 import com.very.wraq.render.mobEffects.ModPotions;
+import com.very.wraq.render.particles.ModParticles;
 import com.very.wraq.valueAndTools.*;
 import com.very.wraq.valueAndTools.Utils.Utils;
 import com.very.wraq.valueAndTools.registry.ModBlocks;
@@ -139,11 +141,13 @@ public class VMD{
     }
 
     @SubscribeEvent
-    public static void serverStopEvent(ServerStoppingEvent event) {
+    public static void serverStopEvent(ServerStoppingEvent event) throws SQLException {
         BlockEvent.MineAndWoodReset(event.getServer().getLevel(Level.OVERWORLD));
         Compute.RemoveAllArmorStandForDisplay();
         Compute.ClearWoodenStake();
         PlanPlayer.writeToSqlOnStopping();
+        Tower.writeToDataBase();
+        NewLotteries.writeToDataBase();
     }
     @SubscribeEvent
     public static void comps(RenderTooltipEvent.GatherComponents event) {
@@ -719,6 +723,10 @@ public class VMD{
             event.accept(ModItems.CastleLoot.get().getDefaultInstance());
             event.accept(ModItems.LotteryStar.get().getDefaultInstance());
             event.accept(ModItems.LotteryPrefix.get().getDefaultInstance());
+
+            event.accept(ModItems.SwordLottery.get().getDefaultInstance());
+            event.accept(ModItems.BowLottery.get().getDefaultInstance());
+            event.accept(ModItems.SceptreLottery.get().getDefaultInstance());
         }
         if (event.getTabKey().equals(ModCreativeModeTab.RUNESANDCURIOS_TAB.getKey())) {
             event.accept(ModItems.PlainRune0.get().getDefaultInstance());
@@ -1185,7 +1193,10 @@ public class VMD{
                     ModItems.ManaCurios1.get(), ModItems.ManaCurios2.get(),
                     ModItems.LifeCurios0.get(), ModItems.WaterCurios0.get(), ModItems.FireCurios0.get(),
                     ModItems.StoneCurios0.get(), ModItems.IceCurios0.get(), ModItems.WindCurios0.get(),
-                    ModItems.LightningCurios0.get()
+                    ModItems.LightningCurios0.get(),
+                    ModItems.ShaoFengCurios.get(), ModItems.ShaoFengCuriosPaper.get(),
+                    ModItems.LittleartCurios.get(), ModItems.LittleartCuriosPaper.get(),
+                    ModItems.LiulixianCurios4.get(), ModItems.LiulixianCurios4Paper.get(),
             };
             for (Item item : items) event.accept(item.getDefaultInstance());
         }

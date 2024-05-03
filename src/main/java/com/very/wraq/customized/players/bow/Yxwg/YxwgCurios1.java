@@ -3,6 +3,7 @@ package com.very.wraq.customized.players.bow.Yxwg;
 import com.very.wraq.coreAttackModule.MyArrow;
 import com.very.wraq.customized.uniform.Attributes;
 import com.very.wraq.process.particle.ParticleProvider;
+import com.very.wraq.projectiles.WraqBow;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.Utils;
@@ -125,6 +126,7 @@ public class YxwgCurios1 extends Item implements ICurioItem {
         YxwgBow.BattleTick(serverPlayer);
         arrow.shootFromRotation(serverPlayer, serverPlayer.getXRot(), serverPlayer.getYRot(), 0.0f, YxwgBow.IsManaArrow(serverPlayer) ? 1.5f : 4.5f, 1.0f);
         arrow.setCritArrow(true);
+        WraqBow.adjustArrow(arrow, serverPlayer);
         serverPlayer.level().addFreshEntity(arrow);
         Compute.SoundToAll(serverPlayer, SoundEvents.ARROW_SHOOT);
         ParticleProvider.FaceCircleCreate(serverPlayer, 1, 0.75, 20, ParticleTypes.COMPOSTER);

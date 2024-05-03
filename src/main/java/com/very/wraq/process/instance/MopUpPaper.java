@@ -2,6 +2,7 @@ package com.very.wraq.process.instance;
 
 import com.very.wraq.events.instance.*;
 import com.very.wraq.render.toolTip.CustomStyle;
+import com.very.wraq.valueAndTools.Compute;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -13,6 +14,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -85,6 +87,11 @@ public class MopUpPaper extends Item {
                 case 9 -> PurpleIronKnight.singleRewardToPlayer(player, 4, 4, true);
                 case 10 -> SakuraBoss.singleRewardToPlayer(player, 4, 4, true);
                 case 11 -> TabooDevil.singleRewardToPlayer(player, 4, 4, true);
+            }
+            try {
+                Compute.PlayerItemUseWithRecord(player);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         }
         return InteractionResultHolder.pass(player.getItemInHand(interactionHand));

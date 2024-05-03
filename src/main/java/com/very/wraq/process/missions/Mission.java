@@ -359,6 +359,7 @@ public class Mission {
         }});
         rewardContent.put(nameToSerailNumMap.get(MissionName.ExploreMap7), new ArrayList<>(){{
             add(new ItemStack(ModItems.SnowRune.get(), 16));
+            add(new ItemStack(ModItems.TpToSakura.get(), 16));
         }});
         rewardContent.put(nameToSerailNumMap.get(MissionName.ExploreMap8), new ArrayList<>(){{
             add(new ItemStack(ModItems.UnCommonLotteries.get(), 1));

@@ -2,6 +2,7 @@ package com.very.wraq.customized.players.sceptre.liulixian_;
 
 import com.very.wraq.process.particle.ParticleProvider;
 import com.very.wraq.projectiles.mana.ManaArrow;
+import com.very.wraq.projectiles.WraqSceptre;
 import com.very.wraq.render.particles.ModParticles;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
@@ -149,6 +150,7 @@ public class LiuLiXianCurios1F {
         
         newArrow.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0f, 3, 1.0f);
         ProjectileUtil.rotateTowardsMovement(newArrow, 0);
+        WraqSceptre.adjustOrb(newArrow, player);
         level.addFreshEntity(newArrow);
     }
 
@@ -213,7 +215,7 @@ public class LiuLiXianCurios1F {
                 if (PlayerAttributes.PlayerAttackDamage(player) * 4 > PlayerAttributes.PlayerManaDamage(player)) {
                     Compute.Damage.AttackDamageToMonster_RateAdDamage(player,mob,10);
                 }
-                else Compute.Damage.ManaDamageToMonster_RateApDamage(player,mob,2.5,false);
+                else Compute.Damage.ManaDamageToMonster_RateApDamage(player,mob,2.5,true);
                 ParticleProvider.LineParticle(player.level(),20,player.position(),mob.position(), ModParticles.LONG_ENTROPY.get());
             }
         });

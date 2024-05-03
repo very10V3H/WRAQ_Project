@@ -148,7 +148,7 @@ public class CgswdSceptre extends SwordItem {
 
     public static void Laser(Player player) {
         Mob mob = null;
-        if (Compute.powerDetectPlayerPickMob(player,30,6) != null) mob = Compute.powerDetectPlayerPickMob(player,30,6);
+        if (Compute.detectPlayerPickMob(player,30,6) != null) mob = Compute.detectPlayerPickMob(player,30,6);
         if (mob == null) {
             List<Mob> mobList = player.level().getEntitiesOfClass(Mob.class, AABB.ofSize(player.position(),60,60,60));
             mobList.removeIf(mob1 -> mob1.distanceTo(player) > 30);

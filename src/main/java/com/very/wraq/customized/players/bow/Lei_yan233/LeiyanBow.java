@@ -5,10 +5,10 @@ import com.very.wraq.customized.Customize;
 import com.very.wraq.netWorking.ModNetworking;
 import com.very.wraq.netWorking.misc.SoundsPackets.SoundsS2CPacket;
 import com.very.wraq.process.particle.ParticleProvider;
+import com.very.wraq.projectiles.WraqBow;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.BasicAttributeDescription;
 import com.very.wraq.valueAndTools.Compute;
-import com.very.wraq.valueAndTools.Utils.StringUtils;
 import com.very.wraq.valueAndTools.Utils.Utils;
 import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.very.wraq.valueAndTools.registry.ModItems;
@@ -19,13 +19,11 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.BowItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -36,7 +34,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class LeiyanBow extends BowItem {
+public class LeiyanBow extends WraqBow {
 
     private final double BaseDamage = Customize.AttackDamage;
     private final double DefencePenetration0 = Customize.DefencePenetration0;
@@ -106,10 +104,17 @@ public class LeiyanBow extends BowItem {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
-        Compute.BowAttack(player,Utils.BowNumMap.get(StringUtils.BowNameString.LeiyanBow));
-        return interactionHand.equals(InteractionHand.MAIN_HAND)
-                ? InteractionResultHolder.success(player.getMainHandItem()) : InteractionResultHolder.success(player.getOffhandItem());    }
+    public void shoot(ServerPlayer serverPlayer) {
+        MyArrow arrow = new MyArrow(EntityType.ARROW, serverPlayer, serverPlayer.level(),
+                serverPlayer, PlayerAttributes.PlayerAttackDamage(serverPlayer), true, false,ParticleTypes.COMPOSTER);
+        arrow.shootFromRotation(serverPlayer, serverPlayer.getXRot(), serverPlayer.getYRot(), 0.0f, 4.5f, 1.0f);
+        arrow.setCritArrow(true);
+        WraqBow.adjustArrow(arrow, serverPlayer);
+        serverPlayer.level().addFreshEntity(arrow);
+        Compute.SoundToAll(serverPlayer, SoundEvents.ARROW_SHOOT);
+        ParticleProvider.FaceCircleCreate(serverPlayer, 1, 0.75, 20, ParticleTypes.COMPOSTER);
+        ParticleProvider.FaceCircleCreate(serverPlayer, 1.5, 0.5, 16, ParticleTypes.COMPOSTER);
+    }
 
     public static boolean IsPlayer(Player player) {
         return player.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.LeiyanBow.get());
@@ -207,6 +212,7 @@ public class LeiyanBow extends BowItem {
         arrow.shootFromRotation(serverPlayer, serverPlayer.getXRot(), serverPlayer.getYRot(), 0.0f, 1.5f, 1.0f);
         arrow.setCritArrow(true);
         arrow.setNoGravity(true);
+        WraqBow.adjustArrow(arrow, serverPlayer);
         serverPlayer.level().addFreshEntity(arrow);
         Compute.SoundToAll(serverPlayer, SoundEvents.ARROW_SHOOT);
         ParticleProvider.EntityEffectVerticleCircleParticle(player, 1.25, 0.4, 8, ParticleTypes.COMPOSTER, 0);

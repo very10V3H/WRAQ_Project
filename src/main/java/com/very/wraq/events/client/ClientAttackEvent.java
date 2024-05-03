@@ -1,18 +1,17 @@
 package com.very.wraq.events.client;
 
-import com.very.wraq.customized.players.sceptre.shangmengli.ShangMengLiSword;
-import com.very.wraq.netWorking.bowAndSceptreActive.*;
-import com.very.wraq.netWorking.customized.*;
-import com.very.wraq.netWorking.ModNetworking;
-import com.very.wraq.netWorking.misc.AnimationPackets.AttackAnimationRequestC2SPacket;
 import com.very.wraq.coreAttackModule.BowRequestC2SPacket;
 import com.very.wraq.coreAttackModule.ManaAttackRequestC2SPacket;
+import com.very.wraq.customized.players.sceptre.shangmengli.ShangMengLiSword;
+import com.very.wraq.netWorking.ModNetworking;
+import com.very.wraq.netWorking.bowAndSceptreActive.*;
+import com.very.wraq.netWorking.customized.*;
+import com.very.wraq.netWorking.misc.AnimationPackets.AttackAnimationRequestC2SPacket;
 import com.very.wraq.netWorking.misc.AnimationPackets.UseRequestC2SPacket;
 import com.very.wraq.netWorking.misc.AttackPackets.AttackC2SPacket;
 import com.very.wraq.netWorking.unSorted.SoulSceptreC2SPacket;
 import com.very.wraq.valueAndTools.Utils.ClientUtils;
 import com.very.wraq.valueAndTools.Utils.Utils;
-import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.InteractionHand;
@@ -127,14 +126,14 @@ public class ClientAttackEvent {
             }
             if (player.tickCount - ClientUtils.ManaAttackTick == 5 && ClientUtils.ManaAttackTick != 0
                     && Utils.SceptreTag.containsKey(MainHandItem)) {
-                ModNetworking.sendToServer(new ManaAttackRequestC2SPacket(ClientUtils.ManaAttackCounts));
+                ModNetworking.sendToServer(new ManaAttackRequestC2SPacket());
             }
             if (player.tickCount - ClientUtils.UseTick == 8 && ClientUtils.UseTick != 0) {
                 ModNetworking.sendToServer(new UseRequestC2SPacket(0));
             }
             if (player.tickCount - ClientUtils.BowAttackTick == 5 && ClientUtils.BowAttackTick != 0
                     && Utils.BowTag.containsKey(MainHandItem)) {
-                ModNetworking.sendToServer(new BowRequestC2SPacket(ClientUtils.BowAttackCounts));
+                ModNetworking.sendToServer(new BowRequestC2SPacket());
             }
         }
     }

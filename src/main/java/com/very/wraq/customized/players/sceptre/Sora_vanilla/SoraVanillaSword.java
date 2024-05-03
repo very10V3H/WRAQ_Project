@@ -5,12 +5,13 @@ import com.very.wraq.customized.Customize;
 import com.very.wraq.entities.entities.SoraSword.SoraSwordAir;
 import com.very.wraq.entities.entities.SoraSword.SoraSwordRender;
 import com.very.wraq.process.particle.ParticleProvider;
+import com.very.wraq.process.power.PowerLogic;
+import com.very.wraq.projectiles.WraqSceptre;
 import com.very.wraq.render.particles.ModParticles;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.BasicAttributeDescription;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.ModEntityType;
-import com.very.wraq.valueAndTools.Utils.StringUtils;
 import com.very.wraq.valueAndTools.Utils.Utils;
 import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.very.wraq.valueAndTools.registry.ModItems;
@@ -22,13 +23,14 @@ import net.minecraft.network.protocol.game.ClientboundSetEntityMotionPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -47,12 +49,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
-public class SoraVanillaSword extends SwordItem implements GeoItem {
+public class SoraVanillaSword extends WraqSceptre implements GeoItem {
 
     private final AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
 
     public SoraVanillaSword(Tier tier, Properties properties) {
-        super(tier,2,0,properties);
+        super(properties);
         Utils.ManaDamage.put(this, Customize.ManaDamage);
         Utils.ManaCost.put(this, 15d);
         Utils.ManaPenetration0.put(this, Customize.ManaPenetration0);
@@ -131,24 +133,20 @@ public class SoraVanillaSword extends SwordItem implements GeoItem {
     }
 
     @Override
+    public void shoot(Player player) {
+        CompoundTag data = player.getPersistentData();
+        if (Compute.ManaSkillLevelGet(data,10) > 0 || Compute.PlayerManaCost(player,15)) {
+            PowerLogic.PlayerReleasePowerType(player,10);
+            PowerLogic.PlayerPowerRelease(player);
+            SoraVanillaSword.SwordAirShoot(player);
+        }
+    }
+
+    @Override
     public boolean isFoil(ItemStack p_41453_) {
         return true;
     }
 
-    @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
-        Compute.ManaAttack(player,12);
-        if (player.getItemInHand(InteractionHand.OFF_HAND).is(Items.AIR)
-                && interactionHand.equals(InteractionHand.MAIN_HAND)) {
-            CompoundTag data = player.getItemInHand(InteractionHand.MAIN_HAND).getOrCreateTagElement(Utils.MOD_ID);
-            if (data.contains(StringUtils.ManaCore.ManaCore)) {
-                if (Utils.ManaCoreMap.isEmpty()) Utils.setManaCoreMap();
-                player.setItemInHand(InteractionHand.OFF_HAND,new ItemStack(Utils.ManaCoreMap.get(data.getString(StringUtils.ManaCore.ManaCore))));
-                data.remove(StringUtils.ManaCore.ManaCore);
-            }
-        }
-        return super.use(level, player, interactionHand);
-    }
 
     private PlayState predicate(AnimationState animationState) {
         animationState.getController().setAnimation(RawAnimation.begin().then("animation.model.idle", Animation.LoopType.LOOP));

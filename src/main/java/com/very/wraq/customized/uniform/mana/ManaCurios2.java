@@ -4,6 +4,7 @@ import com.very.wraq.customized.uniform.Attributes;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -79,12 +80,12 @@ public class ManaCurios2 extends Item implements ICurioItem {
 
     public static Map<Player,Boolean> onPlayerMap = new HashMap<>();
 
-    public static boolean IsOn(Player player) {
+    public static boolean isOn(Player player) {
         return onPlayerMap.containsKey(player) && onPlayerMap.get(player);
     }
 
     public static double playerFinalDamageEnhance(Player player) {
-        if (!IsOn(player)) return 0;
+        if (!isOn(player)) return 0;
         return 0.5;
     }
 
@@ -95,7 +96,13 @@ public class ManaCurios2 extends Item implements ICurioItem {
     }
 
     public static double playerFinalManaDamageEnhance(Player player) {
-        if (!IsOn(player) || !playerNearbyHasNoOthers(player)) return 1;
+        if (!isOn(player) || !playerNearbyHasNoOthers(player)) return 1;
         return 1.5;
+    }
+
+    public static void tick(Player player) {
+        if (!isOn(player)) return;
+        if (playerNearbyHasNoOthers(player)) Compute.EffectLastTimeSend(player, ModItems.ManaCurios2.get(), 8888, 0, true);
+        else Compute.EffectLastTimeSend(player, ModItems.ManaCurios2.get(), 0, 0, true);
     }
 }

@@ -89,6 +89,7 @@ public class ManaCurios1 extends Item implements ICurioItem {
     }
 
     public static void ManaDamageExIgnoreDefenceDamage(Player player, Mob mob, double damage) {
+        if (!IsOn(player)) return;
         Compute.Damage.DamageIgNoreDefenceToMonster(player, mob, damage * 0.35);
     }
 }

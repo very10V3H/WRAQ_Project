@@ -7,14 +7,16 @@ import com.very.wraq.valueAndTools.registry.ModItems;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
+import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 public class PlanPlayer {
-    public static List<PlanPlayer> list = new ArrayList<>();
+    public final static List<PlanPlayer> list = new ArrayList<>();
 
     public String name;
     public int tier;
@@ -59,16 +61,20 @@ public class PlanPlayer {
         })).start();
     }
 
-    public static void writeToSqlOnStopping() {
-        LogUtils.getLogger().info("writing data to MySQL...");
+    public static void writeToSqlOnStopping() throws SQLException {
+        LogUtils.getLogger().info("writing plan data to MySQL...");
+        Connection connection = DataBase.getDatabaseConnection();
+        Statement statement = connection.createStatement();
         PlanPlayer.list.forEach(planPlayer -> {
             try {
-                DataBase.put(planPlayer.name, PlanPlayer.lastRewardTimeString, Compute.CalendarToString(Calendar.getInstance()));
+                DataBase.put(statement, planPlayer.name, PlanPlayer.lastRewardTimeString, Compute.CalendarToString(Calendar.getInstance()));
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
         });
-        LogUtils.getLogger().info("written data to MySQL successfully");
+        statement.close();
+        connection.close();
+        LogUtils.getLogger().info("written plan data to MySQL successfully");
     }
 
     public static void readFromSql() throws SQLException {

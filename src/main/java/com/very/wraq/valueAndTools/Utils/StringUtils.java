@@ -480,35 +480,10 @@ public class StringUtils {
 
         public static String LabourDay1= "LabourDay1";
         public static String LabourDay2 = "LabourDay2";
+
+        public static String Tower1Floor = "Tower1Floor";
     }
     public static String BowAttackSlowDown = "BowAttackSlowDownCount";
-
-    public static class BowNameString {
-        public static String PlainBow = "PlainBow";
-        public static String ForestBow = "ForestBow";
-        public static String VolcanoBow = "VolcanoBow";
-        public static String SkyBow = "SkyBow";
-        public static String NetherBow = "NetherBow";
-        public static String SkyBossBow = "SkyBossBow";
-        public static String WitherBow = "WitherBow";
-        public static String WorldBow = "WorldBow";
-        public static String SakuraBow = "SakuraBow";
-        public static String SeaBow = "SeaBow";
-        public static String MineBow = "MineBow";
-        public static String IceBow = "IceBow";
-        public static String ShipBow = "ShipBow";
-        public static String ShowdickerBow = "ShowdickerBow";
-        public static String GuangYiBow = "GuangYiBow";
-        public static String WcndymlgbBow = "WcndymlgbBow";
-        public static String MoonBow = "MoonBow";
-        public static String YxwgBow = "YxwgBow";
-        public static String MyMissionBow = "MyMissionBow";
-        public static String LeiyanBow = "LeiyanBow";
-        public static String QiFuBow = "QiFuBow";
-        public static String LifeElementBow = "LifeElementBow";
-        public static String WaterElementBow = "WaterElementBow";
-        public static String FireElementBow = "FireElementBow";
-    }
 
     public static class GemName {
         public static String SkyGem = "skyGem";

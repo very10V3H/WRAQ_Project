@@ -14,8 +14,7 @@ import java.util.function.Supplier;
 
 public class MobAttributeC2SPacket {
     private final int id;
-    public MobAttributeC2SPacket(int id)
-    {
+    public MobAttributeC2SPacket(int id) {
         this.id = id;
     }
     public MobAttributeC2SPacket(FriendlyByteBuf buf)
@@ -37,7 +36,9 @@ public class MobAttributeC2SPacket {
             if (entity instanceof Mob mob) {
                 ModNetworking.sendToClient(new MobAttributeS2CPacket(id, mob.getAttribute(Attributes.ATTACK_DAMAGE).getValue(),
                         Compute.MonsterDefence(mob), Compute.MonsterManaDefence(mob),
-                        0,0,0,0,0, Element.EntityElementUnit.get(id).type(), Element.EntityElementUnit.get(id).value()), serverPlayer);
+                        0,0,0,0,0,Element.EntityElementUnit.containsKey(id) ? Element.EntityElementUnit.get(id).type() : "empty",
+                        Element.EntityElementUnit.containsKey(id) ? Element.EntityElementUnit.get(id).value() : 0), serverPlayer);
+
             }
         });
         return true;

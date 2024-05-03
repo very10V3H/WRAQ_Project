@@ -24,7 +24,7 @@ public class CompensateCommand implements Command<CommandSourceStack> {
         Player player = context.getSource().getPlayer();
         String type = StringArgumentType.getString(context, "type");
         CompoundTag data = player.getPersistentData();
-        String version = "version:1.0.0";
+        String version = "version:1.0.3";
         if (!data.contains(version) && player.experienceLevel >= 200) {
             switch (type) {
                 case "ice" -> {

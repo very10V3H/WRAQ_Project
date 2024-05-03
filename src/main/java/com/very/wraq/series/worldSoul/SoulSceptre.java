@@ -1,31 +1,36 @@
 package com.very.wraq.series.worldSoul;
 
+import com.very.wraq.process.particle.ParticleProvider;
+import com.very.wraq.projectiles.mana.ManaArrow;
+import com.very.wraq.projectiles.WraqSceptre;
+import com.very.wraq.render.particles.ModParticles;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
+import com.very.wraq.valueAndTools.ModEntityType;
 import com.very.wraq.valueAndTools.Utils.StringUtils;
 import com.very.wraq.valueAndTools.Utils.Utils;
-import com.very.wraq.render.toolTip.CustomStyle;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
+import com.very.wraq.valueAndTools.registry.ModSounds;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nullable;
 import java.io.IOException;
 import java.util.List;
 
-public class SoulSceptre extends SwordItem {
+public class SoulSceptre extends WraqSceptre {
 
-    public SoulSceptre(Tier p_42961_, int p_42962_, float p_42963_, Properties p_42964_) {
-        super(p_42961_, p_42962_, p_42963_, p_42964_);
+    public SoulSceptre(Properties p_42964_) {
+        super(p_42964_);
         Utils.ManaDamage.put(this,SoulEquipAttribute.BaseAttribute.SoulSceptre.ManaAttackDamage);
         Utils.ManaRecover.put(this,SoulEquipAttribute.BaseAttribute.SoulSceptre.ManaRecover);
 
@@ -82,23 +87,28 @@ public class SoulSceptre extends SwordItem {
         Compute.SuffixOfWorldSoul(components);
         super.appendHoverText(stack,level,components,flag);
     }
-    @Override
-    public boolean hurtEnemy(ItemStack p_40994_, LivingEntity p_40995_, LivingEntity p_40996_) {
-        p_40994_.hurtAndBreak(0, p_40996_, (p_41007_) -> {
-            p_41007_.broadcastBreakEvent(EquipmentSlot.MAINHAND);
-        });
-        return true;
-    }
 
     @Override
-    public boolean mineBlock(ItemStack p_40998_, Level p_40999_, BlockState p_41000_, BlockPos p_41001_, LivingEntity p_41002_) {
-        if (!p_40999_.isClientSide && p_41000_.getDestroySpeed(p_40999_, p_41001_) != 0.0d) {
-            p_40998_.hurtAndBreak(0, p_41002_, (p_40992_) -> {
-                p_40992_.broadcastBreakEvent(EquipmentSlot.MAINHAND);
-            });
+    public void shoot(Player player) {
+        CompoundTag data = player.getPersistentData();
+        Level level = player.level();
+        double ManaCost = SoulSceptre.getManaCost(player.getItemInHand(InteractionHand.MAIN_HAND).getOrCreateTagElement(Utils.MOD_ID));
+        if (Compute.ManaSkillLevelGet(data,10) > 0 || Compute.PlayerManaCost(player, (int) ManaCost)) {
+            ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_WORLD.get(), player, level,
+                    PlayerAttributes.PlayerManaDamage(player), PlayerAttributes.PlayerManaPenetration(player),
+                    PlayerAttributes.PlayerManaPenetration0(player),StringUtils.ParticleTypes.Sky);
+            newArrow.setSilent(true);
+            newArrow.setNoGravity(true);
+
+            newArrow.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0f, 3, 1.0f);
+            ProjectileUtil.rotateTowardsMovement(newArrow, 0);
+            WraqSceptre.adjustOrb(newArrow, player);
+            level.addFreshEntity(newArrow);
+            ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1, 0.75, 20, ModParticles.WORLD.get());
+            ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1.5, 0.5, 16, ModParticles.WORLD.get());
+            ParticleProvider.FaceCircleCreate((ServerPlayer) player, 2, 0.25, 12, ModParticles.WORLD.get());
+            Compute.SoundToAll(player, ModSounds.Mana.get());
         }
-
-        return true;
     }
 
     @Override
@@ -110,7 +120,7 @@ public class SoulSceptre extends SwordItem {
                 throw new RuntimeException(e);
             }
         }
-        Compute.ManaAttack(player,4);
+        Compute.ManaAttack(player);
         if (player.getItemInHand(InteractionHand.OFF_HAND).is(Items.AIR)
                 && interactionHand.equals(InteractionHand.MAIN_HAND)) {
             CompoundTag data = player.getItemInHand(InteractionHand.MAIN_HAND).getOrCreateTagElement(Utils.MOD_ID);

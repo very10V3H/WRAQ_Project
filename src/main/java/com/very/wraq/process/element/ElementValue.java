@@ -45,16 +45,18 @@ public class ElementValue {
         return value;
     }
 
+    public static double mainHandEquipValue(Item item, Map<Item, Double> map) {
+        if (Utils.MainHandTag.containsKey(item) && map.containsKey(item)) return map.get(item);
+        return 0;
+    }
+
     public static double PlayerLifeElementValue(Player player) {
         double value = 0;
 
         value += QiLingJudge(player,Element.LifeElementValue);
         value += Compute.CuriosAttribute.AttributeValue(player, Element.LifeElementValue, LifeElementValue);
 
-        ItemStack itemStack = player.getMainHandItem();
-        if (Utils.MainHandTag.containsKey(itemStack.getItem()) && Element.LifeElementValue.containsKey(itemStack.getItem())) {
-            value += Element.LifeElementValue.get(itemStack.getItem());
-        }
+        value += mainHandEquipValue(player.getMainHandItem().getItem(), Element.LifeElementValue);
 
         // 百分比分割线
         value *= LifeCurios0.playerLifeElementValueEnhance(player);
@@ -68,10 +70,7 @@ public class ElementValue {
         value += QiLingJudge(player,Element.WaterElementValue);
         value += Compute.CuriosAttribute.AttributeValue(player, Element.WaterElementValue, WaterElementValue);
 
-        ItemStack itemStack = player.getMainHandItem();
-        if (Utils.MainHandTag.containsKey(itemStack.getItem()) && Element.WaterElementValue.containsKey(itemStack.getItem())) {
-            value += Element.WaterElementValue.get(itemStack.getItem());
-        }
+        value += mainHandEquipValue(player.getMainHandItem().getItem(), Element.WaterElementValue);
 
         // 百分比分割线
         value *= WaterElementSword.PlayerWaterElementValueEnhance(player);
@@ -86,10 +85,7 @@ public class ElementValue {
         value += QiLingJudge(player,Element.FireElementValue);
         value += Compute.CuriosAttribute.AttributeValue(player, Element.FireElementValue, FireElementValue);
 
-        ItemStack itemStack = player.getMainHandItem();
-        if (Utils.MainHandTag.containsKey(itemStack.getItem()) && Element.FireElementValue.containsKey(itemStack.getItem())) {
-            value += Element.FireElementValue.get(itemStack.getItem());
-        }
+        value += mainHandEquipValue(player.getMainHandItem().getItem(), Element.FireElementValue);
 
         value += FireElementSword.FireElementValueEnhance(player);
 
@@ -105,6 +101,8 @@ public class ElementValue {
         value += QiLingJudge(player,Element.StoneElementValue);
         value += Compute.CuriosAttribute.AttributeValue(player, Element.StoneElementValue, StoneElementValue);
 
+        value += mainHandEquipValue(player.getMainHandItem().getItem(), Element.StoneElementValue);
+
         // 百分比分割线
         value *= StoneCurios0.playerStoneElementValueEnhance(player);
 
@@ -116,6 +114,8 @@ public class ElementValue {
 
         value += QiLingJudge(player,Element.IceElementValue);
         value += Compute.CuriosAttribute.AttributeValue(player, Element.IceElementValue, IceElementValue);
+
+        value += mainHandEquipValue(player.getMainHandItem().getItem(), Element.IceElementValue);
 
         // 百分比分割线
         value *= IceCurios0.playerIceElementValueEnhance(player);
@@ -129,6 +129,8 @@ public class ElementValue {
         value += QiLingJudge(player,Element.LightningElementValue);
         value += Compute.CuriosAttribute.AttributeValue(player, Element.LightningElementValue, LightningElementValue);
 
+        value += mainHandEquipValue(player.getMainHandItem().getItem(), Element.LightningElementValue);
+
         // 百分比分割线
         value *= LightningCurios0.playerLightningElementValueEnhance(player);
 
@@ -140,6 +142,8 @@ public class ElementValue {
 
         value += QiLingJudge(player,Element.WindElementValue);
         value += Compute.CuriosAttribute.AttributeValue(player, Element.WindElementValue, WindElementValue);
+
+        value += mainHandEquipValue(player.getMainHandItem().getItem(), Element.WindElementValue);
 
         // 百分比分割线
         value *= WindCurios0.playerWindElementValueEnhance(player);

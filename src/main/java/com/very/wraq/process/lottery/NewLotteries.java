@@ -1,8 +1,8 @@
 package com.very.wraq.process.lottery;
 
 import com.very.wraq.events.core.InventoryCheck;
+import com.very.wraq.files.dataBases.DataBase;
 import com.very.wraq.valueAndTools.Compute;
-import com.very.wraq.valueAndTools.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -15,7 +15,12 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 public class NewLotteries extends Item {
@@ -60,6 +65,17 @@ public class NewLotteries extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
         if (!level.isClientSide && interactionHand == InteractionHand.MAIN_HAND) {
+            ItemStack mainHandStack = player.getItemInHand(interactionHand);
+            int times = 0;
+            try {
+                times = addPlayerRewardTimes(player, mainHandStack.getItem());
+                Compute.FormatMSGSend(player, Component.literal("礼盒").withStyle(ChatFormatting.LIGHT_PURPLE),
+                        Component.literal("这是第").withStyle(ChatFormatting.WHITE).
+                                append(Component.literal("" + times).withStyle(ChatFormatting.LIGHT_PURPLE)).
+                                append(Component.literal("次抽取该礼盒").withStyle(ChatFormatting.WHITE)));
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
             try {
                 Compute.PlayerItemUseWithRecord(player);
             } catch (IOException e) {
@@ -70,7 +86,7 @@ public class NewLotteries extends Item {
             Loot loot = loots.get(serialNum);
             ItemStack itemStack = loot.itemStack;
             if (loot.rate <= 0.05) {
-                Compute.FormatBroad(level, Component.literal(""),
+                Compute.FormatBroad(level, Component.literal("礼盒").withStyle(ChatFormatting.LIGHT_PURPLE),
                         Component.literal("").withStyle(ChatFormatting.WHITE).
                                 append(player.getDisplayName()).
                                 append(Component.literal(" 通过 ").withStyle(ChatFormatting.WHITE)).
@@ -80,16 +96,61 @@ public class NewLotteries extends Item {
                                 append(Component.literal(" *" + itemStack.getCount()).withStyle(ChatFormatting.AQUA)));
             }
 
-            if (itemStack.is(ModItems.OldSilverCoin.get()) || itemStack.is(ModItems.OldGoldCoin.get()))
-                InventoryCheck.addOwnerTagToItemStack(player, itemStack); // 为部分物品添加绑定tag
+            ItemStack reward = new ItemStack(itemStack.getItem(), itemStack.getCount());
+            InventoryCheck.addOwnerTagToItemStack(player, reward); // 为部分物品添加绑定tag
 
             try {
-                Compute.ItemStackGive(player, new ItemStack(itemStack.getItem(), itemStack.getCount()));
+                Compute.ItemStackGive(player, reward);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-
         }
         return super.use(level, player, interactionHand);
+    }
+
+    public static Map<Player, Map<String, Integer>> playerLotteryData = new HashMap<>();
+
+    public static int addPlayerRewardTimes(Player player, Item item) throws SQLException {
+        if (!playerLotteryData.containsKey(player)) playerLotteryData.put(player, new HashMap<>());
+        Map<String, Integer> rewards = playerLotteryData.get(player);
+        int times = getPlayerRewardTimes(player, item);
+        rewards.put(item.toString(), times + 1);
+        return times + 1;
+    }
+
+    public static int getPlayerRewardTimes(Player player, Item item) throws SQLException {
+        if (playerLotteryData.containsKey(player)) {
+            Map<String, Integer> map = playerLotteryData.get(player);
+            if (map.containsKey(item.toString())) return map.get(item.toString());
+        }
+        Connection connection = DataBase.getDatabaseConnection();
+        Statement statement = connection.createStatement();
+        String times = DataBase.get(statement, player, item.toString());
+        int result = 0;
+        if (times != null) {
+            if (!playerLotteryData.containsKey(player)) playerLotteryData.put(player, new HashMap<>());
+            Map<String, Integer> map = playerLotteryData.get(player);
+            map.put(item.toString(), Integer.valueOf(times));
+            result = Integer.parseInt(times);
+        }
+        statement.close();
+        connection.close();
+        return result;
+    }
+
+    public static void writeToDataBase() throws SQLException {
+        Connection connection = DataBase.getDatabaseConnection();
+        Statement statement = connection.createStatement();
+        playerLotteryData.forEach((player, map) -> {
+            map.forEach((s, integer) -> {
+                try {
+                    DataBase.put(statement, player.getName().getString(), s, String.valueOf(integer));
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+        });
+        statement.close();
+        connection.close();
     }
 }

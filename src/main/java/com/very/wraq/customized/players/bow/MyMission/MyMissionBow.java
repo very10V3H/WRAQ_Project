@@ -1,21 +1,25 @@
 package com.very.wraq.customized.players.bow.MyMission;
 
+import com.very.wraq.coreAttackModule.MyArrow;
 import com.very.wraq.customized.Customize;
+import com.very.wraq.process.particle.ParticleProvider;
+import com.very.wraq.projectiles.WraqBow;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.BasicAttributeDescription;
 import com.very.wraq.valueAndTools.Compute;
-import com.very.wraq.valueAndTools.Utils.StringUtils;
 import com.very.wraq.valueAndTools.Utils.Utils;
 import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.BowItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -26,7 +30,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MyMissionBow extends BowItem {
+public class MyMissionBow extends WraqBow {
 
     private final double BaseDamage = Customize.AttackDamage;
     private final double DefencePenetration0 = Customize.DefencePenetration0;
@@ -86,12 +90,6 @@ public class MyMissionBow extends BowItem {
         components.add(Component.literal(" 崇高的敬意化作滑板鞋的矛，授予对维瑞阿契做出了杰出贡献的 - My_mission").withStyle(ChatFormatting.AQUA));
         super.appendHoverText(stack,level,components,flag);
     }
-
-    @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
-        Compute.BowAttack(player,Utils.BowNumMap.get(StringUtils.BowNameString.MyMissionBow));
-        return interactionHand.equals(InteractionHand.MAIN_HAND)
-                ? InteractionResultHolder.success(player.getMainHandItem()) : InteractionResultHolder.success(player.getOffhandItem());    }
 
     public static Map<Mob,Integer> mobArrowCountMap = new HashMap<>();
     public static int Count = 0;
@@ -162,20 +160,17 @@ public class MyMissionBow extends BowItem {
         });
     }
 
+    @Override
+    public void shoot(ServerPlayer serverPlayer) {
+        MyArrow arrow = new MyArrow(EntityType.ARROW, serverPlayer, serverPlayer.level(),
+                serverPlayer, PlayerAttributes.PlayerAttackDamage(serverPlayer), true, true,ParticleTypes.COMPOSTER);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        arrow.shootFromRotation(serverPlayer, serverPlayer.getXRot(), serverPlayer.getYRot(), 0.0f, 1.5f, 1.0f);
+        arrow.setCritArrow(true);
+        WraqBow.adjustArrow(arrow, serverPlayer);
+        serverPlayer.level().addFreshEntity(arrow);
+        Compute.SoundToAll(serverPlayer, SoundEvents.ARROW_SHOOT);
+        ParticleProvider.FaceCircleCreate(serverPlayer, 1, 0.75, 20, ParticleTypes.COMPOSTER);
+        ParticleProvider.FaceCircleCreate(serverPlayer, 1.5, 0.5, 16, ParticleTypes.COMPOSTER);
+    }
 }

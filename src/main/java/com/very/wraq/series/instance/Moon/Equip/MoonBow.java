@@ -3,24 +3,23 @@ package com.very.wraq.series.instance.Moon.Equip;
 import com.very.wraq.coreAttackModule.MyArrow;
 import com.very.wraq.entities.entities.Civil.Civil;
 import com.very.wraq.process.particle.ParticleProvider;
+import com.very.wraq.projectiles.WraqBow;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.BasicAttributeDescription;
 import com.very.wraq.valueAndTools.Compute;
-import com.very.wraq.valueAndTools.Utils.StringUtils;
 import com.very.wraq.valueAndTools.Utils.Utils;
-import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
-import net.minecraft.world.item.BowItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -29,7 +28,7 @@ import net.minecraft.world.phys.AABB;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class MoonBow extends BowItem {
+public class MoonBow extends WraqBow {
     private final double BaseDamage = 480;
     private final double DefencePenetration0 = 3200;
     private final double CriticalHitRate = 0.25;
@@ -74,16 +73,6 @@ public class MoonBow extends BowItem {
         Compute.SuffixOfMoon(components);
         super.appendHoverText(stack,level,components,flag);
     }
-    @Override
-    public void releaseUsing(ItemStack p_40667_, Level p_40668_, LivingEntity p_40669_, int p_40670_) {
-
-    }
-
-    @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
-        Compute.BowAttack(player,Utils.BowNumMap.get(StringUtils.BowNameString.MoonBow));
-        return interactionHand.equals(InteractionHand.MAIN_HAND)
-                ? InteractionResultHolder.success(player.getMainHandItem()) : InteractionResultHolder.success(player.getOffhandItem());    }
 
     public static void MoonBowExShoot(Player player) {
         if (player.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.MoonBow.get())) {
@@ -138,4 +127,18 @@ public class MoonBow extends BowItem {
             Compute.MonsterGatherProvider(mob1,2,mob.position());
         });
     }
+
+    @Override
+    public void shoot(ServerPlayer serverPlayer) {
+        MyArrow arrow = new MyArrow(EntityType.ARROW, serverPlayer.level(), serverPlayer, true);
+        arrow.shootFromRotation(serverPlayer, serverPlayer.getXRot(), serverPlayer.getYRot(), 0.0f, 4.5F, 1.0f);
+        MoonBow.MoonBowExShoot(serverPlayer);
+        arrow.setCritArrow(true);
+        WraqBow.adjustArrow(arrow, serverPlayer);
+        serverPlayer.level().addFreshEntity(arrow);
+        Compute.SoundToAll(serverPlayer, SoundEvents.ARROW_SHOOT);
+        ParticleProvider.FaceCircleCreate(serverPlayer, 1, 0.75, 20, ParticleTypes.FIREWORK);
+        ParticleProvider.FaceCircleCreate(serverPlayer, 1.5, 0.5, 16, ParticleTypes.FIREWORK);
+    }
+
 }

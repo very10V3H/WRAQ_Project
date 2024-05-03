@@ -112,10 +112,7 @@ public class LiulixianCurios2 extends Item implements ICurioItem {
     }
 
     public static void Tick(Player player) {
-/*
-        if (!IsOn(player)) ModNetworking.sendToClient(new PlayerFlyingSpeedSetS2CPacket(0),(ServerPlayer) player);
-        else ModNetworking.sendToClient(new PlayerFlyingSpeedSetS2CPacket((PlayerAttributes.PlayerMovementSpeed(player) + 1) * 0.015),(ServerPlayer) player);
-*/
+
     }
 
     public static double DamageEnhance(Player player) {

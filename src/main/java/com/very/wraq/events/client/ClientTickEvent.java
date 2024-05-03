@@ -171,7 +171,7 @@ public class ClientTickEvent {
                 }
             }
 
-            ClientUtils.mobAttribute = Compute.powerDetectPlayerPickMob(event.player,8,0.5);
+            ClientUtils.mobAttribute = Compute.detectPlayerPickMob(event.player,8,0.5);
             if (ClientUtils.mobAttribute != null) {
                 ModNetworking.sendToServer(new MobAttributeC2SPacket(ClientUtils.mobAttribute.getId()));
             }

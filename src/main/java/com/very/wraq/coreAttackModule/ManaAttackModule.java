@@ -157,8 +157,8 @@ public class ManaAttackModule {
             // health steal
             Compute.PlayerHealSteal(player, (Damage) * HealthSteal * 0.5);
             // display
-            if (IsCrit) Compute.SummonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", Damage + DamageIgnoreDefence)).withStyle(CustomStyle.styleOfEntropy));
-            else Compute.SummonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", Damage + DamageIgnoreDefence)).withStyle(CustomStyle.styleOfMana));
+            if (IsCrit) Compute.SummonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", Damage + DamageIgnoreDefence)).withStyle(CustomStyle.styleOfEntropy), 1);
+            else Compute.SummonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", Damage + DamageIgnoreDefence)).withStyle(CustomStyle.styleOfMana), 1);
             Compute.DamageActionBarPacketSend(player,Damage,DamageIgnoreDefence,true,IsCrit);
             // effect
             PlainSceptrePassive(player);
@@ -192,7 +192,7 @@ public class ManaAttackModule {
             TreeBracelet.Passive(player,monster); // 古树手镯
             MoonSceptre.Passive(player,monster); //
             MoonSceptre.MoonSceptreActive(player,monster); // 星穹玉杖
-            Compute.AddtionEffects(player,monster);
+            Compute.AddtionEffects(player,monster, Damage + DamageIgnoreDefence, 1);
 
             if (data.getBoolean(StringUtils.Debug)) {
                 player.sendSystemMessage(Component.literal("NormalAttackDamageEnhance : " + NormalAttackDamageEnhance));
@@ -398,12 +398,12 @@ public class ManaAttackModule {
                     Compute.Damage.ManaDamageToMonster_RateApDamage(player, mob, 2 * Compute.ManaSkillLevelGet(data, 12),false);
                 }
             }
-            List<Player> playerList = level.getEntitiesOfClass(Player.class, AABB.ofSize(player.position(), 20, 20, 20));
+/*            List<Player> playerList = level.getEntitiesOfClass(Player.class, AABB.ofSize(player.position(), 20, 20, 20));
             for (Player player1 : playerList) {
                 if (player1 != player && player1.position().distanceTo(player.position()) < 6) {
                     Compute.Damage.AttackDamageToPlayer_RateAdDamage(player, player1, 2 * Compute.ManaSkillLevelGet(data, 12));
                 }
-            }
+            }*/
 
             Utils.ManaSkill12.put(player, false);
             ModNetworking.sendToClient(new ChargedClearS2CPacket(2), (ServerPlayer) player);
@@ -428,9 +428,9 @@ public class ManaAttackModule {
             mobList.forEach(mob -> {
                 if (mob.position().distanceTo(player.position()) < 6) Count.getAndIncrement();
             });
-            playerList.forEach(player1 -> {
+/*            playerList.forEach(player1 -> {
                 if (player1 != player && player1.position().distanceTo(player.position()) < 6) Count.getAndIncrement();
-            });
+            });*/
 
             if (Count.get() > 10) Count.set(10);
             for (Mob mob : mobList) {

@@ -1,5 +1,7 @@
 package com.very.wraq.customized.players.sceptre.Black_Feisa_;
 
+import com.very.wraq.customized.players.bow.Shao_Feng.ShaoFengCurios;
+import com.very.wraq.customized.players.bow.littleart.LittleartCurios;
 import com.very.wraq.customized.players.sceptre.liulixian_.LiulixianCurios2;
 import com.very.wraq.netWorking.ModNetworking;
 import com.very.wraq.netWorking.customized.PlayerFlyingSpeedSetS2CPacket;
@@ -177,7 +179,8 @@ public class BlackFeisaCurios4 extends Item implements ICurioItem {
     public static void FlyingAndClearTick(Player player) {
         ClearEffect(player);
         if (player.tickCount % 50 == 0 && !player.isCreative()) {
-            if (!PlayerIsUnderProtect(player) && !LiulixianCurios2.IsOn(player)) ModNetworking.sendToClient(new PlayerFlyingSpeedSetS2CPacket(0), (ServerPlayer) player);
+            if (!PlayerIsUnderProtect(player) && !LiulixianCurios2.IsOn(player) && !ShaoFengCurios.isOn(player) && !LittleartCurios.isOn(player))
+                ModNetworking.sendToClient(new PlayerFlyingSpeedSetS2CPacket(0), (ServerPlayer) player);
             else ModNetworking.sendToClient(new PlayerFlyingSpeedSetS2CPacket((PlayerAttributes.PlayerMovementSpeed(player) + 1) * 0.015), (ServerPlayer) player);
         }
     }

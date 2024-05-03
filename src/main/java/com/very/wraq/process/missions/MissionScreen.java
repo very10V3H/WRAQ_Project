@@ -2,7 +2,6 @@ package com.very.wraq.process.missions;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.very.wraq.netWorking.ModNetworking;
-import com.very.wraq.netWorking.misc.TeamPackets.TeamInfoRequestC2SPacket;
 import com.very.wraq.process.missions.netWorking.MissionAcceptC2SPacket;
 import com.very.wraq.process.missions.netWorking.MissionCancelC2SPacket;
 import com.very.wraq.process.missions.netWorking.MissionSubmitC2SPacket;
@@ -109,7 +108,6 @@ public class MissionScreen extends Screen {
     }
     public void tick() {
         super.tick();
-        ModNetworking.sendToServer(new TeamInfoRequestC2SPacket());
     }
 
     public void render(@NotNull GuiGraphics graphics, int x, int y, float v) {

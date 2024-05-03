@@ -14,6 +14,7 @@ import com.very.wraq.customized.players.bow.MyMission.MyMissionCurios1;
 import com.very.wraq.customized.players.bow.Qi_Fu.QiFuBow;
 import com.very.wraq.customized.players.bow.Qi_Fu.QiFuCurios;
 import com.very.wraq.customized.players.bow.Qi_Fu.QiFuCurios1;
+import com.very.wraq.customized.players.bow.Shao_Feng.ShaoFengCurios;
 import com.very.wraq.customized.players.bow.ShowDicker.ShowdickerBow;
 import com.very.wraq.customized.players.bow.Wcndymlgb.WcndymlgbBow;
 import com.very.wraq.customized.players.bow.Wcndymlgb.WcndymlgbCurios;
@@ -21,6 +22,7 @@ import com.very.wraq.customized.players.bow.Yxwg.YxwgBow;
 import com.very.wraq.customized.players.bow.Yxwg.YxwgCurios;
 import com.very.wraq.customized.players.bow.Yxwg.YxwgCurios1;
 import com.very.wraq.customized.players.bow.Yxwg.YxwgCurios2;
+import com.very.wraq.customized.players.bow.littleart.LittleartCurios;
 import com.very.wraq.customized.players.sceptre.Black_Feisa_.*;
 import com.very.wraq.customized.players.sceptre.Eliaoi.EliaoiCurios;
 import com.very.wraq.customized.players.sceptre.Eliaoi.EliaoiCurios1;
@@ -752,17 +754,17 @@ public class ModItems {
     public static final RegistryObject<Item> ManaBalance_filled = ITEMS.register("manabalance_filled",
             ()->new ManaBalance_Filled(new Item.Properties().rarity(CustomStyle.EvokerBold)));
     public static final RegistryObject<Item> EvokerSword = ITEMS.register("evokersword",
-            ()->new EvokerSword(ItemTier.VMaterial,2,0,new Item.Properties().rarity(CustomStyle.EvokerItalic)));
+            ()->new EvokerSword(new Item.Properties().rarity(CustomStyle.EvokerItalic)));
     public static final RegistryObject<Item> PlainSceptre0 = ITEMS.register("plainsceptre0",
-            ()->new PlainSceptre0(ItemTier.VMaterial,2,0,new Item.Properties().rarity(CustomStyle.PlainItalic)));
+            ()->new PlainSceptre0(new Item.Properties().rarity(CustomStyle.PlainItalic)));
     public static final RegistryObject<Item> PlainSceptre1 = ITEMS.register("plainsceptre1",
-            ()->new PlainSceptre1(ItemTier.VMaterial,2,0,new Item.Properties().rarity(CustomStyle.PlainItalic)));
+            ()->new PlainSceptre1(new Item.Properties().rarity(CustomStyle.PlainItalic)));
     public static final RegistryObject<Item> PlainSceptre2 = ITEMS.register("plainsceptre2",
-            ()->new PlainSceptre2(ItemTier.VMaterial,2,0,new Item.Properties().rarity(CustomStyle.PlainItalic)));
+            ()->new PlainSceptre2(new Item.Properties().rarity(CustomStyle.PlainItalic)));
     public static final RegistryObject<Item> PlainSceptre3 = ITEMS.register("plainsceptre3",
-            ()->new PlainSceptre3(ItemTier.VMaterial,2,0,new Item.Properties().rarity(CustomStyle.PlainItalic)));
+            ()->new PlainSceptre3(new Item.Properties().rarity(CustomStyle.PlainItalic)));
     public static final RegistryObject<Item> PlainSceptre4 = ITEMS.register("plainsceptre4",
-            ()->new PlainSceptre4(ItemTier.VMaterial,2,0,new Item.Properties().rarity(CustomStyle.LifeItalic)));
+            ()->new PlainSceptre4(new Item.Properties().rarity(CustomStyle.LifeItalic)));
     public static final RegistryObject<Item> LifeManaArmorBoots = ITEMS.register("lifemanaarmorboots",
             ()->new LifeManaArmorBoots(ItemMaterial.LifeManaBoots, ArmorItem.Type.BOOTS));
     public static final RegistryObject<Item> LifeManaArmorLeggings = ITEMS.register("lifemanaarmorleggings",
@@ -1605,13 +1607,13 @@ public class ModItems {
             ()->new WitherBow(new Item.Properties().rarity(CustomStyle.WitherItalic).stacksTo(1),3));
 
     public static final RegistryObject<Item> MagmaSceptre0 = ITEMS.register("magma_sceptre_0",
-            ()->new MagmaSceptre(ItemTier.VMaterial,2,0, new Item.Properties().rarity(Rarity.EPIC),0));
+            ()->new MagmaSceptre(new Item.Properties().rarity(Rarity.EPIC),0));
     public static final RegistryObject<Item> MagmaSceptre1 = ITEMS.register("magma_sceptre_1",
-            ()->new MagmaSceptre(ItemTier.VMaterial,2,0, new Item.Properties().rarity(Rarity.EPIC),1));
+            ()->new MagmaSceptre(new Item.Properties().rarity(Rarity.EPIC),1));
     public static final RegistryObject<Item> MagmaSceptre2 = ITEMS.register("magma_sceptre_2",
-            ()->new MagmaSceptre(ItemTier.VMaterial,2,0, new Item.Properties().rarity(Rarity.EPIC),2));
+            ()->new MagmaSceptre(new Item.Properties().rarity(Rarity.EPIC),2));
     public static final RegistryObject<Item> MagmaSceptre3 = ITEMS.register("magma_sceptre_3",
-            ()->new MagmaSceptre(ItemTier.VMaterial,2,0, new Item.Properties().rarity(Rarity.EPIC),3));
+            ()->new MagmaSceptre(new Item.Properties().rarity(Rarity.EPIC),3));
 
     public static final RegistryObject<Item> WitherRune = ITEMS.register("wither_rune",
             ()->new WitherBoneRune(new Item.Properties().rarity(CustomStyle.WitherBold)));
@@ -1801,7 +1803,7 @@ public class ModItems {
             ()->new SoulSword(ItemTier.VMaterial,2,0,new Item.Properties().rarity(CustomStyle.WorldBold)));
 
     public static final RegistryObject<Item> SoulSceptre = ITEMS.register("soulsceptre",
-            ()->new SoulSceptre(ItemTier.VMaterial,2,0,new Item.Properties().rarity(CustomStyle.WorldBold)));
+            ()->new SoulSceptre(new Item.Properties().rarity(CustomStyle.WorldBold)));
 
     public static final RegistryObject<Item> WorldSoulNote = ITEMS.register("world_soul_note",
             ()->new WorldSoulNote(new Item.Properties().rarity(CustomStyle.WorldItalic)));
@@ -2283,7 +2285,7 @@ public class ModItems {
             ()->new IceBow(new Item.Properties().stacksTo(1).rarity(CustomStyle.IceItalic)));
 
     public static final RegistryObject<Item> IceSceptre = ITEMS.register("ice_sceptre",
-            ()->new IceSceptre(ItemTier.VMaterial,2,0, new Item.Properties().rarity(CustomStyle.IceItalic),0));
+            ()->new IceSceptre(new Item.Properties().rarity(CustomStyle.IceItalic),0));
 
     public static final RegistryObject<Item> IceSwordForgeDraw = ITEMS.register("ice_sword_forge_draw",
             ()->new ForgeDraw(new Item.Properties().rarity(CustomStyle.IceBold),ModItems.IceSword.get()));
@@ -2331,7 +2333,7 @@ public class ModItems {
             ()->new ShipBow(new Item.Properties().stacksTo(1).rarity(CustomStyle.ShipItalic)));
 
     public static final RegistryObject<Item> ShipSceptre = ITEMS.register("ship_sceptre",
-            ()->new ShipSceptre(ItemTier.VMaterial,2,0, new Item.Properties().rarity(CustomStyle.ShipItalic),0));
+            ()->new ShipSceptre(new Item.Properties().rarity(CustomStyle.ShipItalic),0));
 
     public static final RegistryObject<Item> ShipPiece = ITEMS.register("ship_piece",
             ()->new Item(new Item.Properties().rarity(CustomStyle.ShipBold)));
@@ -2385,7 +2387,7 @@ public class ModItems {
             ()->new ForgeProtect(new Item.Properties().rarity(CustomStyle.End)));
 
     public static final RegistryObject<Item> NetherSceptre = ITEMS.register("nether_sceptre",
-            ()->new NetherSceptre(ItemTier.VMaterial,2,0, new Item.Properties().rarity(CustomStyle.ShipItalic),0));
+            ()->new NetherSceptre(new Item.Properties().rarity(CustomStyle.ShipItalic),0));
 
     public static final RegistryObject<Item> NetherManaArmorHelmet = ITEMS.register("nether_mana_helmet",
             ()->new NetherManaArmor(ItemMaterial.NetherMana, ArmorItem.Type.HELMET,new Item.Properties().rarity(CustomStyle.NetherItalic),0));
@@ -2634,10 +2636,10 @@ public class ModItems {
             ()->new KillPaper(new Item.Properties().rarity(Rarity.EPIC),StringUtils.MobName.IceHunter));
 
     public static final RegistryObject<Item> ShangMengLi_Sceptre = ITEMS.register("shangmengli_sceptre",
-            ()->new ShangMengLiSceptre(ItemTier.VMaterial,2,0, new Item.Properties().rarity(CustomStyle.SeaItalic),0));
+            ()->new ShangMengLiSceptre(new Item.Properties().rarity(CustomStyle.SeaItalic),0));
 
     public static final RegistryObject<Item> ShangMengLi_Sceptre1 = ITEMS.register("shangmengli_sceptre1",
-            ()->new ShangMengLiSceptre(ItemTier.VMaterial,2,0, new Item.Properties().rarity(CustomStyle.SeaItalic),0));
+            ()->new ShangMengLiSceptre(new Item.Properties().rarity(CustomStyle.SeaItalic),0));
 
     public static final RegistryObject<Item> XiangLiPickaxe = ITEMS.register("xiangli_pickaxe",
             ()->new XiangLiPickaxe(ItemTier.XiangLiPickaxe,new Item.Properties().rarity(CustomStyle.NetherItalic),0));
@@ -2814,7 +2816,7 @@ public class ModItems {
             ()->new CustomizePaper(new Item.Properties().rarity(CustomStyle.SakuraBold),LiuLiXianSword.get()));
 
     public static final RegistryObject<Item> LiuLiXianSceptre = ITEMS.register("liulixian_sceptre",
-            ()->new LiulixianSceptre(ItemTier.VMaterial,2,0));
+            ()->new LiulixianSceptre());
 
     public static final RegistryObject<Item> ShangMengLiCurios1 = ITEMS.register("shangmengli_curios1",
             ()->new ShangMengLiCurios1(new Item.Properties().rarity(CustomStyle.RedBold).stacksTo(1)));
@@ -2997,7 +2999,7 @@ public class ModItems {
             ()->new XiangLiPrefix(new Item.Properties().rarity(CustomStyle.FieldBold)));
 
     public static final RegistryObject<Item> BlackFeisaSceptre = ITEMS.register("black_feisa_sceptre",
-            ()->new BlackFeisaSceptre(ItemTier.VMaterial,2,0, new Item.Properties().rarity(CustomStyle.End),0));
+            ()->new BlackFeisaSceptre(new Item.Properties().rarity(CustomStyle.End),0));
 
     public static final RegistryObject<Item> BlackFeisaSceptrePaper = ITEMS.register("black_feisa_sceptre_paper",
             ()->new CustomizePaper(new Item.Properties().rarity(CustomStyle.End),BlackFeisaSceptre.get()));
@@ -3126,7 +3128,7 @@ public class ModItems {
             ()->new DevilBow(new Item.Properties().stacksTo(1).rarity(CustomStyle.BloodManaItalic)));
 
     public static final RegistryObject<Item> DevilSceptre = ITEMS.register("devil_sceptre",
-            ()->new DevilSceptre(ItemTier.VMaterial,2,0, new Item.Properties().rarity(CustomStyle.BloodManaItalic)));
+            ()->new DevilSceptre(new Item.Properties().rarity(CustomStyle.BloodManaItalic)));
 
     public static final RegistryObject<Item> MobArmorSlime = ITEMS.register("mob_armor_slime",
             ()->new MobArmor(ItemMaterial.ArmorIce, ArmorItem.Type.HELMET, StringUtils.MobName.Slime));
@@ -3159,7 +3161,7 @@ public class ModItems {
             ()->new MoonBow(new Item.Properties().stacksTo(1).rarity(CustomStyle.Moon1Italic)));
 
     public static final RegistryObject<Item> MoonSceptre = ITEMS.register("moon_sceptre",
-            ()->new MoonSceptre(ItemTier.VMaterial,2,0, new Item.Properties().rarity(CustomStyle.Moon1Italic)));
+            ()->new MoonSceptre(new Item.Properties().rarity(CustomStyle.Moon1Italic)));
 
     public static final RegistryObject<Item> MoonSwordForgeDraw = ITEMS.register("moon_sword_forge_draw",
             ()->new ForgeDraw(new Item.Properties().rarity(CustomStyle.MoonBold),ModItems.MoonSword.get()));
@@ -3320,7 +3322,7 @@ public class ModItems {
             ()->new CastleBow(new Item.Properties().stacksTo(1).rarity(CustomStyle.CastleItalic)));
 
     public static final RegistryObject<Item> CastleSceptre = ITEMS.register("castle_sceptre",
-            ()->new CastleSceptre(ItemTier.VMaterial,2,0, new Item.Properties().rarity(CustomStyle.CastleItalic)));
+            ()->new CastleSceptre(new Item.Properties().rarity(CustomStyle.CastleItalic)));
 
     public static final RegistryObject<Item> CastleSwordForgeDraw = ITEMS.register("castle_sword_forge_draw",
             ()->new ForgeDraw(new Item.Properties().rarity(CustomStyle.CastleBold),ModItems.CastleSword.get()));
@@ -4272,7 +4274,7 @@ public class ModItems {
             ()->new LifeElementBow(new Item.Properties().stacksTo(1).rarity(CustomStyle.LifeItalic)));
 
     public static final RegistryObject<Item> LifeElementSceptre = ITEMS.register("life_element_sceptre",
-            ()->new LifeElementSceptre(ItemTier.VMaterial,2,0, new Item.Properties().rarity(CustomStyle.LifeItalic)));
+            ()->new LifeElementSceptre(new Item.Properties().rarity(CustomStyle.LifeItalic)));
 
     public static final RegistryObject<Item> LifeElementSwordForgeDraw = ITEMS.register("life_element_sword_forge_draw",
             ()->new ForgeDraw(new Item.Properties().rarity(CustomStyle.LifeBold),ModItems.LifeElementSword.get()));
@@ -4518,5 +4520,44 @@ public class ModItems {
 
     public static final RegistryObject<Item> LightningCurios0 = ITEMS.register("lightning_curios_0",
             ()->new LightningCurios0(new Item.Properties().rarity(CustomStyle.LightningBold)));
+
+    public static final RegistryObject<Item> ShaoFengCurios = ITEMS.register("shaofeng_curios",
+            ()->new ShaoFengCurios(new Item.Properties().rarity(CustomStyle.MagmaBold)));
+
+    public static final RegistryObject<Item> ShaoFengCuriosPaper = ITEMS.register("shaofeng_curios_paper",
+            ()->new CustomizePaper(new Item.Properties().rarity(CustomStyle.MagmaBold),ShaoFengCurios.get()));
+
+    public static final RegistryObject<Item> LittleartCurios = ITEMS.register("littleart_curios",
+            ()->new LittleartCurios(new Item.Properties().rarity(CustomStyle.SkyBold)));
+
+    public static final RegistryObject<Item> LittleartCuriosPaper = ITEMS.register("littleart_curios_paper",
+            ()->new CustomizePaper(new Item.Properties().rarity(CustomStyle.SkyBold),LittleartCurios.get()));
+
+    public static final RegistryObject<Item> WorldSoulHollow = ITEMS.register("worldsoul_hollow",
+            ()->new Item(new Item.Properties().rarity(CustomStyle.WorldBold)));
+
+    public static final RegistryObject<Item> MobArmorTower1FloorHelmet = ITEMS.register("mob_armor_tower_1floor_helmet",
+            ()->new MobArmor(ItemMaterial.BasicArmor1, ArmorItem.Type.HELMET, StringUtils.MobName.Tower1Floor));
+
+    public static final RegistryObject<Item> LiulixianCurios4 = ITEMS.register("liulixian_curios4",
+            ()->new LiulixianCurios4(new Item.Properties().rarity(CustomStyle.SakuraBold)));
+
+    public static final RegistryObject<Item> LiulixianCurios4Paper = ITEMS.register("liulixian_curios4_paper",
+            ()->new CustomizePaper(new Item.Properties().rarity(CustomStyle.SakuraBold),LiulixianCurios4.get()));
+
+    public static final RegistryObject<Item> SwordLottery = ITEMS.register("sword_lottery",
+            ()->new NewLotteries(new Item.Properties().rarity(CustomStyle.MagmaBold), new ArrayList<>(){{
+                add(new NewLotteries.Loot(new ItemStack(ModItems.GoldCoin.get()), 1));
+            }}));
+
+    public static final RegistryObject<Item> BowLottery = ITEMS.register("bow_lottery",
+            ()->new NewLotteries(new Item.Properties().rarity(CustomStyle.KazeBold), new ArrayList<>(){{
+                add(new NewLotteries.Loot(new ItemStack(ModItems.GoldCoin.get()), 1));
+            }}));
+
+    public static final RegistryObject<Item> SceptreLottery = ITEMS.register("sceptre_lottery",
+            ()->new NewLotteries(new Item.Properties().rarity(CustomStyle.EvokerBold), new ArrayList<>(){{
+                add(new NewLotteries.Loot(new ItemStack(ModItems.GoldCoin.get()), 1));
+            }}));
 }
 

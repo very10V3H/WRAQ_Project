@@ -212,5 +212,8 @@ public class MobArmorNum {
 
         put(StringUtils.MobName.LabourDay2,new MobArmorNum(5100,5100,5100,151,
                 0.75f,510,0.8f,1.5f,510));
+
+        put(StringUtils.MobName.Tower1Floor,new MobArmorNum(1000,1400,1400,100,
+                0.5f,100,0.5f,0.75f,0.0f));
     }};
 }

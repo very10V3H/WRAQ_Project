@@ -25,7 +25,7 @@ public class VersionCheckS2CPacket {
     {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork( ()-> {
-            ModNetworking.sendToServer(new VersionC2SPacket("1.0.2b"));
+            ModNetworking.sendToServer(new VersionC2SPacket("1.0.5"));
         });
         return true;
     }

@@ -1,29 +1,30 @@
 package com.very.wraq.customized.players.sceptre.liulixian_;
 
 import com.very.wraq.customized.Customize;
+import com.very.wraq.projectiles.mana.ManaArrow;
+import com.very.wraq.projectiles.WraqSceptre;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.BasicAttributeDescription;
 import com.very.wraq.valueAndTools.Compute;
+import com.very.wraq.valueAndTools.ModEntityType;
 import com.very.wraq.valueAndTools.Utils.StringUtils;
 import com.very.wraq.valueAndTools.Utils.Utils;
+import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
+import com.very.wraq.valueAndTools.registry.ModSounds;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
+import net.minecraft.world.entity.projectile.ProjectileUtil;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class LiulixianSceptre extends SwordItem{
+public class LiulixianSceptre extends WraqSceptre {
     private final double BaseDamage = Customize.ManaDamage;
     private final double ManaCost = 15;
     private final double BreakDefence = 0.50d;
@@ -31,8 +32,8 @@ public class LiulixianSceptre extends SwordItem{
     private final double ManaRecover = 30;
     private final double SpeedUp = 0.5F;
     private final double AttackSpeedUp = -2f;
-    public LiulixianSceptre(Tier tier, int num1, float num2){
-        super(tier,num1,num2,new Properties().rarity(Utils.SakuraItalic));
+    public LiulixianSceptre(){
+        super(new Properties().rarity(Utils.SakuraItalic));
         Utils.ManaDamage.put(this,this.BaseDamage);
         Utils.ManaCost.put(this,this.ManaCost);
         Utils.ManaPenetration0.put(this,this.DefencePenetration0);
@@ -43,22 +44,7 @@ public class LiulixianSceptre extends SwordItem{
         Utils.CustomizedList.add(this);
         Utils.SceptreTag.put(this,1d);
     }
-    @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
-        Compute.ManaAttack(player,9);
-        if (!level.isClientSide) {
-            if (player.getItemInHand(InteractionHand.OFF_HAND).is(Items.AIR)
-                    && interactionHand.equals(InteractionHand.MAIN_HAND)) {
-                CompoundTag data = player.getItemInHand(InteractionHand.MAIN_HAND).getOrCreateTagElement(Utils.MOD_ID);
-                if (data.contains(StringUtils.ManaCore.ManaCore)) {
-                    if (Utils.ManaCoreMap.isEmpty()) Utils.setManaCoreMap();
-                    player.setItemInHand(InteractionHand.OFF_HAND,new ItemStack(Utils.ManaCoreMap.get(data.getString(StringUtils.ManaCore.ManaCore))));
-                    data.remove(StringUtils.ManaCore.ManaCore);
-                }
-            }
-        }
-        return super.use(level, player, interactionHand);
-    }
+
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag)
     {
@@ -103,22 +89,27 @@ public class LiulixianSceptre extends SwordItem{
         components.add(Component.literal(" 崇高的敬意化作一把『雾切丶琉』，授予对维瑞阿契做出了杰出贡献的 - liulixian_").withStyle(ChatFormatting.AQUA));
         super.appendHoverText(stack,level,components,flag);
     }
-    @Override
-    public boolean hurtEnemy(ItemStack p_43278_, LivingEntity p_43279_, LivingEntity p_43280_) {
-        p_43278_.hurtAndBreak(0, p_43280_, (p_43296_) -> {
-            p_43296_.broadcastBreakEvent(EquipmentSlot.MAINHAND);
-        });
-        return true;
-    }
-    @Override
-    public boolean mineBlock(ItemStack p_40998_, Level p_40999_, BlockState p_41000_, BlockPos p_41001_, LivingEntity p_41002_) {
-        if (!p_40999_.isClientSide && p_41000_.getDestroySpeed(p_40999_, p_41001_) != 0.0d) {
-            p_40998_.hurtAndBreak(0, p_41002_, (p_40992_) -> {
-                p_40992_.broadcastBreakEvent(EquipmentSlot.MAINHAND);
-            });
-        }
 
-        return true;
+    @Override
+    public void shoot(Player player) {
+        double ManaCost = 15;
+        CompoundTag data = player.getPersistentData();
+        Level level = player.level();
+        if (Compute.ManaSkillLevelGet(data,10) > 0 || Compute.PlayerManaCost(player, (int) ManaCost)) {
+            ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_WORLD.get(),
+                    player, level, PlayerAttributes.PlayerManaDamage(player),
+                    PlayerAttributes.PlayerManaPenetration(player),
+                    PlayerAttributes.PlayerManaPenetration0(player), StringUtils.ParticleTypes.World,true);
+            newArrow.setSilent(true);
+            newArrow.setNoGravity(true);
+
+            newArrow.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0f, 2.5f, 1.0f);
+            ProjectileUtil.rotateTowardsMovement(newArrow, 0);
+            WraqSceptre.adjustOrb(newArrow, player);
+            level.addFreshEntity(newArrow);
+            Compute.FaceIceParticleCreate(player,player.level());
+            Compute.SoundToAll(player, ModSounds.Mana.get());
+        }
     }
 
     @Override

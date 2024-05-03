@@ -457,9 +457,7 @@ public class ClientUtils {
     public static HashMap<String, Boolean> CrestMap = new HashMap<>();
 
     public static int ManaAttackTick = 0;
-    public static int ManaAttackCounts = 0;
     public static int BowAttackTick = 0;
-    public static int BowAttackCounts = 0;
     public static int UseTick = 0;
     public static int RollingTick = 0;
 

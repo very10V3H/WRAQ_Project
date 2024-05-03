@@ -150,7 +150,7 @@ public class CastleManaArmor extends ArmorItem {
     public static void ExPower(Player player, double rate) {
         Level level = player.level();
         Vec3 TargetPos = player.pick(15,0,false).getLocation();
-        if (Compute.powerDetectPlayerPickMob(player) != null) TargetPos = Compute.powerDetectPlayerPickMob(player).position();
+        if (Compute.detectPlayerPickMob(player) != null) TargetPos = Compute.detectPlayerPickMob(player).position();
         List<Mob> monsterList = level.getEntitiesOfClass(Mob.class, AABB.ofSize(TargetPos, 20, 20, 20));
         for (Mob mob : monsterList) {
             if (mob.getPosition(0).distanceTo(TargetPos) < 6) {

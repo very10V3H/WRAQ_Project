@@ -52,8 +52,8 @@ public class MineSuitDescription {
             Count += Compute.SuitItemVision(player,items[i],equipmentSlot[i],components,MainStyle);
         }
 
-        String CrestString = StringUtils.Crest.Plain.Crest;
-        String CrestName = "[矿洞纹章]";
+        String CrestString = StringUtils.Crest.Mine.Crest;
+        String CrestName = "[矿山纹章]";
         if (ClientUtils.CrestMap.containsKey(CrestString) && ClientUtils.CrestMap.get(CrestString))  {
             components.add(Component.literal(CrestName).withStyle(MainStyle));
             Count ++;

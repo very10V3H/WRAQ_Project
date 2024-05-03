@@ -16,13 +16,10 @@ public class DataBase {
         }
     }
 
+
     public static Connection getDatabaseConnection() throws SQLException {
         return DriverManager.getConnection("jdbc:mysql://localhost:3306/wraq",
                 "root", "123456");
-    }
-
-    public static Statement getStatement() throws SQLException {
-        return getDatabaseConnection().createStatement();
     }
 
     public static void CreatePlayerDataTable(Connection connection) throws SQLException {
@@ -31,6 +28,7 @@ public class DataBase {
                     "PRIMARY KEY(name))ENGINE=InnoDB DEFAULT CHARSET=utf8;";
             Statement statement = connection.createStatement();
             statement.executeUpdate(sql);
+            statement.close();
         }
     }
 
@@ -40,11 +38,13 @@ public class DataBase {
                     "PRIMARY KEY(world_key))ENGINE=InnoDB DEFAULT CHARSET=utf8;";
             Statement statement = connection.createStatement();
             statement.executeUpdate(sql);
+            statement.close();
         }
     }
 
     public static void put(String worldKey, String worldValue) throws SQLException {
-        Statement statement = getStatement();
+        Connection connection = getDatabaseConnection();
+        Statement statement = connection.createStatement();
         if (containsWorldKey(worldKey)) {
             String sql2 = "update world set " + "world_value" + " = '" + worldValue + "' where world_key = '" + worldKey + "';";
             statement.executeUpdate(sql2);
@@ -53,11 +53,30 @@ public class DataBase {
             String sql1 = "INSERT into world (world_key,world_value) values ('" + worldKey + "', '" + worldValue + "');";
             statement.executeUpdate(sql1);
         }
+        statement.close();
+        connection.close();
     }
 
     public static void put(String playerName, String key, String value) throws SQLException {
         Connection connection = getDatabaseConnection();
         Statement statement = connection.createStatement();
+        if (!containsKey(key)) {
+            String sql0 = "alter table playerData add " + key + " VARCHAR(100)";
+            statement.executeUpdate(sql0);
+        }
+        if (containsPlayer(playerName)) {
+            String sql2 = "update playerData set " + key + " = '" + value + "' where name = '" + playerName + "';";
+            statement.executeUpdate(sql2);
+        }
+        else {
+            String sql1 = "INSERT into playerData (name," + key + ") values ('" + playerName + "', '" + value + "');";
+            statement.executeUpdate(sql1);
+        }
+        statement.close();
+        connection.close();
+    }
+
+    public static void put(Statement statement, String playerName, String key, String value) throws SQLException {
         if (!containsKey(key)) {
             String sql0 = "alter table playerData add " + key + " VARCHAR(100)";
             statement.executeUpdate(sql0);
@@ -88,26 +107,51 @@ public class DataBase {
             String sql1 = "INSERT into playerData (name," + key + ") values ('" + playerName + "', '" + value + "');";
             statement.executeUpdate(sql1);
         }
+        statement.close();
+        connection.close();
     }
 
     public static String get(String playerName, String key) throws SQLException {
         String result = null;
+        Connection connection = getDatabaseConnection();
+        Statement statement = connection.createStatement();
         if (containsPlayer(playerName) && containsKey(key)) {
             String sql = "select * from playerData where name = '" + playerName + "';";
-            ResultSet resultSet = getStatement().executeQuery(sql);
+            ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
                 result = resultSet.getString(key);
             }
         }
-        return result;
+        String resultString = result;
+        statement.close();
+        connection.close();
+        return resultString;
     }
 
     public static String get(Player player, String key) throws SQLException {
         String playerName = player.getName().getString();
-        String result = "null";
+        String result = null;
+        Connection connection = getDatabaseConnection();
+        Statement statement = connection.createStatement();
         if (containsPlayer(playerName) && containsKey(key)) {
             String sql = "select * from playerData where name = '" + playerName + "';";
-            ResultSet resultSet = getStatement().executeQuery(sql);
+            ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                result = resultSet.getString(key);
+            }
+        }
+        String resultString = result;
+        statement.close();
+        connection.close();
+        return resultString;
+    }
+
+    public static String get(Statement statement, Player player, String key) throws SQLException {
+        String playerName = player.getName().getString();
+        String result = null;
+        if (containsPlayer(playerName) && containsKey(key)) {
+            String sql = "select * from playerData where name = '" + playerName + "';";
+            ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
                 result = resultSet.getString(key);
             }
@@ -117,25 +161,34 @@ public class DataBase {
 
     public static String get(String worldKey) throws SQLException {
         String result = "null";
+        Connection connection = getDatabaseConnection();
+        Statement statement = connection.createStatement();
         if (containsWorldKey(worldKey)) {
             String sql = "select * from world where world_key = '" + worldKey + "';";
-            ResultSet resultSet = getStatement().executeQuery(sql);
+            ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
                 result = resultSet.getString("world_value");
             }
         }
-        return result;
+        String resultString = result;
+        statement.close();
+        connection.close();
+        return resultString;
     }
 
     public static List<String> getKeyList(String keyName) throws SQLException {
         if (containsKey(keyName)) {
+            Connection connection = getDatabaseConnection();
+            Statement statement = connection.createStatement();
             List<String> list = new ArrayList<>();
             String sql = "select * from playerData;";
-            ResultSet resultSet = getStatement().executeQuery(sql);
+            ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
                 String s = resultSet.getString(keyName);
                 if (!list.contains(s)) list.add(resultSet.getString(keyName));
             }
+            statement.close();
+            connection.close();
             return list;
         }
         return null;
@@ -148,7 +201,10 @@ public class DataBase {
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         ResultSet resultSet = preparedStatement.executeQuery();
         resultSet.next();
-        return resultSet.getInt(1) > 0;
+        boolean result = resultSet.getInt(1) > 0;
+        preparedStatement.close();
+        connection.close();
+        return result;
     }
 
     public static boolean containsKey(String key) throws SQLException {
@@ -157,7 +213,10 @@ public class DataBase {
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         ResultSet resultSet = preparedStatement.executeQuery();
         resultSet.next();
-        return resultSet.getInt(1) > 0;
+        boolean result = resultSet.getInt(1) > 0;
+        preparedStatement.close();
+        connection.close();
+        return result;
     }
 
     public static boolean containsPlayer(String playerName) throws SQLException {
@@ -166,7 +225,10 @@ public class DataBase {
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         ResultSet resultSet = preparedStatement.executeQuery();
         resultSet.next();
-        return resultSet.getInt(1) > 0;
+        boolean result = resultSet.getInt(1) > 0;
+        preparedStatement.close();
+        connection.close();
+        return result;
     }
 
     public static boolean containsWorldKey(String worldKey) throws SQLException {
@@ -175,8 +237,9 @@ public class DataBase {
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         ResultSet resultSet = preparedStatement.executeQuery();
         resultSet.next();
-        return resultSet.getInt(1) > 0;
+        boolean result = resultSet.getInt(1) > 0;
+        preparedStatement.close();
+        connection.close();
+        return result;
     }
-
-
 }

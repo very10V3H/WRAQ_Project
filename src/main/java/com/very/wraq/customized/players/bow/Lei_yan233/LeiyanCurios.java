@@ -3,6 +3,7 @@ package com.very.wraq.customized.players.bow.Lei_yan233;
 import com.very.wraq.coreAttackModule.MyArrow;
 import com.very.wraq.customized.uniform.Attributes;
 import com.very.wraq.process.particle.ParticleProvider;
+import com.very.wraq.projectiles.WraqBow;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.valueAndTools.Compute;
 import com.very.wraq.valueAndTools.Utils.Utils;
@@ -165,6 +166,7 @@ public class LeiyanCurios extends Item implements ICurioItem {
         arrow.shootFromRotation(serverPlayer, serverPlayer.getXRot(), serverPlayer.getYRot(), 0.0f, 1.5f, 1.0f);
         arrow.setCritArrow(true);
         arrow.setNoGravity(true);
+        WraqBow.adjustArrow(arrow, serverPlayer);
         serverPlayer.level().addFreshEntity(arrow);
         Compute.SoundToAll(serverPlayer, SoundEvents.ARROW_SHOOT);
         ParticleProvider.EntityEffectVerticleCircleParticle(player, 1.25, 0.4, 8, ParticleTypes.COMPOSTER, 0);

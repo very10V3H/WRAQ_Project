@@ -1,13 +1,14 @@
 package com.very.wraq.events.core;
 
+import com.very.wraq.commands.stable.DpsCommand;
 import com.very.wraq.coreAttackModule.MyArrow;
 import com.very.wraq.customized.Customize;
 import com.very.wraq.customized.players.bow.Wcndymlgb.WcndymlgbCurios;
 import com.very.wraq.customized.players.sceptre.Sora_vanilla.SoraVanilla1;
 import com.very.wraq.customized.players.sceptre.liulixian_.LiuLiXianCurios1F;
 import com.very.wraq.entities.entities.Civil.Civil;
-import com.very.wraq.commands.stable.DpsCommand;
 import com.very.wraq.netWorking.ModNetworking;
+import com.very.wraq.netWorking.VersionCheckS2CPacket;
 import com.very.wraq.netWorking.misc.AttributePackets.*;
 import com.very.wraq.netWorking.misc.EndRune3TypeS2CPacket;
 import com.very.wraq.netWorking.misc.ParticlePackets.EffectParticle.DefencePenetrationParticleS2CPacket;
@@ -17,7 +18,6 @@ import com.very.wraq.netWorking.misc.SoundsPackets.SoundsS2CPacket;
 import com.very.wraq.netWorking.unSorted.ClientLimitCheckS2CPacket;
 import com.very.wraq.netWorking.unSorted.PacketLimitS2CPacket;
 import com.very.wraq.netWorking.unSorted.TimeS2CPacket;
-import com.very.wraq.netWorking.VersionCheckS2CPacket;
 import com.very.wraq.process.element.Element;
 import com.very.wraq.process.element.equipAndCurios.fireElement.FireEquip;
 import com.very.wraq.process.element.equipAndCurios.lifeElement.LifeElementBow;
@@ -26,10 +26,10 @@ import com.very.wraq.process.element.equipAndCurios.lifeElement.LifeElementSword
 import com.very.wraq.process.labourDay.LabourDayIronHoe;
 import com.very.wraq.process.labourDay.LabourDayIronPickaxe;
 import com.very.wraq.process.labourDay.LabourDayMobSummon;
+import com.very.wraq.process.missions.Mission;
 import com.very.wraq.process.missions.series.labourDay.LabourDayMission;
 import com.very.wraq.process.parkour.Parkour;
 import com.very.wraq.process.particle.ParticleProvider;
-import com.very.wraq.process.missions.Mission;
 import com.very.wraq.projectiles.mana.BlazeSword;
 import com.very.wraq.projectiles.mana.SwordAir;
 import com.very.wraq.render.mobEffects.ModEffects;
@@ -83,7 +83,9 @@ import net.minecraftforge.fml.common.Mod;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 @Mod.EventBusSubscriber
 public class ServerPlayerTickEvent {
@@ -139,17 +141,12 @@ public class ServerPlayerTickEvent {
             }
 
             if (player.tickCount == 200) {
-                player.sendSystemMessage(Component.literal("1.0.1版本更新内容：").withStyle(ChatFormatting.AQUA));
-                player.sendSystemMessage(Component.literal(" 元素大幅改动").withStyle(ChatFormatting.AQUA));
-                player.sendSystemMessage(Component.literal(" 1.新增元素祭坛，玩家达到祭坛需求的等级后，右键祭坛指定方块，可将元素共鸣切换至祭坛对应元素。右击与当前共鸣元素相同的元素将会使当前的共鸣元素变为无。").withStyle(ChatFormatting.WHITE));
-                player.sendSystemMessage(Component.literal(" 2.元素共鸣：为你的主要攻击（近战/箭矢/法球/法术）附带基于归一化元素强度的元素，参与元素反应。").withStyle(ChatFormatting.WHITE));
-                player.sendSystemMessage(Component.literal(" 3.对绝大多数的主手武器添加了对应的归一化元素强度。").withStyle(ChatFormatting.WHITE));
-                player.sendSystemMessage(Component.literal(" 4.为绝大多数区域的怪物添加了对应的元素附着。").withStyle(ChatFormatting.WHITE));
-                player.sendSystemMessage(Component.literal(" 5.为绝大多数法术添加的对应的元素附着。").withStyle(ChatFormatting.WHITE));
-                player.sendSystemMessage(Component.literal(" 6.绝大多数区域的怪物都将会掉落对应元素的微型元素碎片。").withStyle(ChatFormatting.WHITE));
-                player.sendSystemMessage(Component.literal(" 7.小型元素碎片的兑换宝石更改为群屑。").withStyle(ChatFormatting.WHITE));
-                player.sendSystemMessage(Component.literal(" 8.现在，玩家下次攻击的元素附着将会显示在十字准星左下方。").withStyle(ChatFormatting.WHITE));
-                player.sendSystemMessage(Component.literal(" 9.终末寂域新增返回终末之地。").withStyle(ChatFormatting.WHITE));
+                player.sendSystemMessage(Component.literal("1.0.5版本更新内容：").withStyle(ChatFormatting.AQUA));
+                player.sendSystemMessage(Component.literal(" 1.修复层岩、凛冰、澄风、怒雷元素武器不提供归一化元素强度的bug"));
+                player.sendSystemMessage(Component.literal(" 2.修复了hud怪物攻击力 / 护甲 / 魔抗未正常随当前值变化的bug"));
+                player.sendSystemMessage(Component.literal(" 3.修复了代码逻辑错误导致的法术错误真实伤害"));
+                player.sendSystemMessage(Component.literal(" 4.将不同类型的伤害跳字的位置分开"));
+                player.sendSystemMessage(Component.literal(" 5.修复了城堡武器额外伤害的异常伤害提升 并调整法杖数值 65% -> 100%"));
                 player.sendSystemMessage(Component.literal(" 推荐加入更新通知群：以获取更新信息:693292427").withStyle(ChatFormatting.WHITE));
             }
 
@@ -633,6 +630,7 @@ public class ServerPlayerTickEvent {
                                     Component.literal(player.getName().getString() + "通过探索，达到了").withStyle(ChatFormatting.WHITE).
                                             append(Component.literal("" + num).withStyle(ChatFormatting.LIGHT_PURPLE)).
                                             append(Component.literal("级").withStyle(ChatFormatting.WHITE)));
+                            Compute.ItemStackGive(player, itemStack);
                         }
                         if (player.experienceLevel % 5 == 0 && !data.contains(player.experienceLevel + "Level")) {
 

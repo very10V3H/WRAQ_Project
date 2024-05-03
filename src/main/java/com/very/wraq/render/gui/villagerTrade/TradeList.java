@@ -3305,6 +3305,8 @@ public class TradeList {
                 new ItemStack(ModItems.LabourDayGem.get(), 1),
                 new ItemStack(ModItems.LabourDayLottery.get(), 1),
                 new ItemStack(ModItems.LabourDayPrefix.get(), 1),
+                new ItemStack(ModItems.OldGoldCoin.get(), 3),
+                new ItemStack(ModItems.OldGoldCoin.get(), 6)
         };
         List<ItemStack> contentList = new ArrayList<>();
         Collections.addAll(contentList, itemStacks);
@@ -3333,6 +3335,13 @@ public class TradeList {
                     add(new ItemStack(ModItems.OldSilverCoin.get(), 32));
                 }});
 
+                case 6 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
+                    add(new ItemStack(ModItems.LabourDayPrefix.get(), 1));
+                }});
+
+                case 7 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
+                    add(new ItemStack(ModItems.LabourDayGem.get(), 1));
+                }});
             }
         }
     }

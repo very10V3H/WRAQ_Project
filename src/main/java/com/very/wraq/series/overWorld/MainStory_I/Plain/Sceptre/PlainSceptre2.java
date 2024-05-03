@@ -1,30 +1,32 @@
 package com.very.wraq.series.overWorld.MainStory_I.Plain.Sceptre;
 
 import com.very.wraq.process.element.Element;
+import com.very.wraq.process.particle.ParticleProvider;
+import com.very.wraq.projectiles.mana.ManaArrow;
+import com.very.wraq.projectiles.WraqSceptre;
 import com.very.wraq.valueAndTools.BasicAttributeDescription;
 import com.very.wraq.valueAndTools.Compute;
+import com.very.wraq.valueAndTools.ModEntityType;
 import com.very.wraq.valueAndTools.Utils.StringUtils;
 import com.very.wraq.valueAndTools.Utils.Utils;
 import com.very.wraq.valueAndTools.attributeValues.PlayerAttributes;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
+import net.minecraft.world.entity.projectile.ProjectileUtil;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class PlainSceptre2 extends SwordItem {
-    public PlainSceptre2(Tier p_42961_, int p_42962_, float p_42963_, Properties p_42964_) {
-        super(p_42961_, p_42962_, p_42963_, p_42964_);
+public class PlainSceptre2 extends WraqSceptre {
+    public PlainSceptre2(Properties p_42964_) {
+        super(p_42964_);
         Utils.ManaDamage.put(this,this.ManaDamage);
         Utils.ManaRecover.put(this,this.ManaReply);
         Utils.ManaPenetration0.put(this,this.ManaPenetration0);
@@ -56,37 +58,23 @@ public class PlainSceptre2 extends SwordItem {
         Compute.SuffixOfMainStoryI(components);
         super.appendHoverText(stack,level,components,flag);
     }
-    @Override
-    public boolean hurtEnemy(ItemStack p_40994_, LivingEntity p_40995_, LivingEntity p_40996_) {
-        p_40994_.hurtAndBreak(0, p_40996_, (p_41007_) -> {
-            p_41007_.broadcastBreakEvent(EquipmentSlot.MAINHAND);
-        });
-        return true;
-    }
 
     @Override
-    public boolean mineBlock(ItemStack p_40998_, Level p_40999_, BlockState p_41000_, BlockPos p_41001_, LivingEntity p_41002_) {
-        if (!p_40999_.isClientSide && p_41000_.getDestroySpeed(p_40999_, p_41001_) != 0.0d) {
-            p_40998_.hurtAndBreak(0, p_41002_, (p_40992_) -> {
-                p_40992_.broadcastBreakEvent(EquipmentSlot.MAINHAND);
-            });
+    public void shoot(Player player) {
+        CompoundTag data = player.getPersistentData();
+        Level level = player.level();
+        if (Compute.ManaSkillLevelGet(data,10) > 0 || Compute.PlayerManaCost(player,PlainSceptre0.ManaCost)) {
+            ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_PLAIN.get(), player,level,
+                    PlayerAttributes.PlayerManaDamage(player),PlayerAttributes.PlayerManaPenetration(player),
+                    PlayerAttributes.PlayerManaPenetration0(player), StringUtils.ParticleTypes.Plain);
+            newArrow.setSilent(true);
+            newArrow.setNoGravity(true);
+            newArrow.shootFromRotation(player,player.getXRot(),player.getYRot(),0,3,1);
+            ProjectileUtil.rotateTowardsMovement(newArrow,0);
+            WraqSceptre.adjustOrb(newArrow, player);
+            level.addFreshEntity(newArrow);
+            ParticleProvider.FaceCircleCreate((ServerPlayer) player,1,0.75,20, ParticleTypes.SCRAPE);
+            ParticleProvider.FaceCircleCreate((ServerPlayer) player,1.5,0.5,16, ParticleTypes.SCRAPE);
         }
-
-        return true;
-    }
-
-    @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
-        Compute.ManaAttack(player,0);
-        if (player.getItemInHand(InteractionHand.OFF_HAND).is(Items.AIR)
-                && interactionHand.equals(InteractionHand.MAIN_HAND)) {
-            CompoundTag data = player.getItemInHand(InteractionHand.MAIN_HAND).getOrCreateTagElement(Utils.MOD_ID);
-            if (data.contains(StringUtils.ManaCore.ManaCore)) {
-                if (Utils.ManaCoreMap.isEmpty()) Utils.setManaCoreMap();
-                player.setItemInHand(InteractionHand.OFF_HAND,new ItemStack(Utils.ManaCoreMap.get(data.getString(StringUtils.ManaCore.ManaCore))));
-                data.remove(StringUtils.ManaCore.ManaCore);
-            }
-        }
-        return super.use(level, player, interactionHand);
     }
 }
