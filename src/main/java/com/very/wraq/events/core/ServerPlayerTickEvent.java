@@ -161,6 +161,10 @@ public class ServerPlayerTickEvent {
             SkyNewRune.tick(player);
             MoonNewRune.tick(player);
 
+            if (player.isSwimming()) {
+
+            }
+
             if (player.getMainHandItem().getItem() instanceof MainHandTickItem mainHandTickItem) mainHandTickItem.tick(player);
 
             if (player.tickCount % 20 == 4) {
