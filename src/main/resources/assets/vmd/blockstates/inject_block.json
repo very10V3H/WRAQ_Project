@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "vmd:block/inject_block"
+    },
+    "facing=south": {
+      "model": "vmd:block/inject_block",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "vmd:block/inject_block",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "vmd:block/inject_block",
+      "y": 90
+    }
+  }
+}

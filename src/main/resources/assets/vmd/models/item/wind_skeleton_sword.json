@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "vmd:item/wind_skeleton_sword"
+  }
+}

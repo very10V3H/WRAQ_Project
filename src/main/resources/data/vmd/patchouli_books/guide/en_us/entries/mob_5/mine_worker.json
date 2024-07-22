@@ -1,0 +1,19 @@
+{
+  "name": "紫晶矿工",
+  "icon": "vmd:purpleiron_piece",
+  "category": "vmd:mob_category",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "分布于绯樱岛东部矿山-紫晶矿洞"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": {
+        "item": "vmd:purpleiron_piece"
+      },
+      "title": "主要掉落物",
+      "text": "用于制作紫晶铁系列装备与紫晶铁镐-于绯樱岛中心广场北部-紫晶锻造所"
+    }
+  ]
+}

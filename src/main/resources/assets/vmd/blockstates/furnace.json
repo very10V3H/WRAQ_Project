@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "vmd:block/furnace"
+    },
+    "facing=south": {
+      "model": "vmd:block/furnace",
+      "y": 90
+    },
+    "facing=west": {
+      "model": "vmd:block/furnace",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "vmd:block/furnace",
+      "y": 180
+    }
+  }
+}

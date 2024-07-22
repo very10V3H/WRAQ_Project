@@ -1,0 +1,19 @@
+{
+  "name": "下界骷髅",
+  "icon": "vmd:netherbonemeal",
+  "category": "vmd:mob_category",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "分布于下界通路右侧最深部"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": {
+        "item": "vmd:netherbonemeal"
+      },
+      "title": "主要掉落物",
+      "text": "用于制作下界系列装备与锻造装备-于天空城下界征讨协会兑换"
+    }
+  ]
+}

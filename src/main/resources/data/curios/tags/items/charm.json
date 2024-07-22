@@ -1,0 +1,32 @@
+{
+  "values": [
+    "vmd:mine_charm0",
+    "vmd:mine_charm1",
+    "vmd:mine_charm2",
+    "vmd:mine_charm3",
+    "vmd:mine_charm4",
+    "vmd:mine_charm5",
+    "vmd:mine_charm6",
+    "vmd:sea_charm0",
+    "vmd:sea_charm1",
+    "vmd:sea_charm2",
+    "vmd:sea_charm3",
+    "vmd:sea_charm4",
+    "vmd:sea_charm5",
+    "vmd:sea_charm6",
+    "vmd:crop_charm0",
+    "vmd:crop_charm1",
+    "vmd:crop_charm2",
+    "vmd:crop_charm3",
+    "vmd:crop_charm4",
+    "vmd:crop_charm5",
+    "vmd:crop_charm6",
+    "vmd:log_charm0",
+    "vmd:log_charm1",
+    "vmd:log_charm2",
+    "vmd:log_charm3",
+    "vmd:log_charm4",
+    "vmd:log_charm5",
+    "vmd:log_charm6"
+  ]
+}

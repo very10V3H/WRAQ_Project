@@ -1,0 +1,13 @@
+{
+  "name": "粗制焦炭",
+  "icon": "vmd:crude_coal",
+  "category": "vmd:furnace_category",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "vmd:crude_coal",
+      "title": "粗制焦炭",
+      "text": "  在维瑞阿契冶炼炉中，使用$(br) -煤炭 * 1 + (森林/平原根源) * 1$(br) -木炭 * 4$(br) 冶炼而成"
+    }
+  ]
+}

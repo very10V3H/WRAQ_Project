@@ -1,0 +1,19 @@
+{
+  "name": "冰原猎手",
+  "icon": "vmd:leather_soul",
+  "category": "vmd:mob_category",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "分布于雪原村南部冰川上"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": {
+        "item": "vmd:leather_soul"
+      },
+      "title": "主要掉落物",
+      "text": "用于制作冰原猎手系列装备以抵抗寒冷带来的体温降低，于雪原村南部裁缝处兑换。"
+    }
+  ]
+}

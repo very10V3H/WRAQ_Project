@@ -1,0 +1,19 @@
+{
+  "name": "森林唤魔者",
+  "icon": "vmd:evokersoul",
+  "category": "vmd:mob_category",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "分布于森林最上层东侧"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": {
+        "item": "vmd:evokersoul"
+      },
+      "title": "主要掉落物",
+      "text": "用于换取魔源系列物品/装备-于天空城炼金术士工坊"
+    }
+  ]
+}

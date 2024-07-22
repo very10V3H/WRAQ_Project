@@ -1,0 +1,19 @@
+{
+  "name": "矿洞僵尸",
+  "icon": "vmd:minesoul",
+  "category": "vmd:mob_category",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "分布于矿洞"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": {
+        "item": "vmd:minesoul"
+      },
+      "title": "主要掉落物",
+      "text": "用于换取矿洞系列装备-于天空城高塔底部"
+    }
+  ]
+}

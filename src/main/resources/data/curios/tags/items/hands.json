@@ -1,0 +1,38 @@
+{
+  "values": [
+    "vmd:spring_hand0",
+    "vmd:spring_hand1",
+    "vmd:spring_hand2",
+    "vmd:spring_hand3",
+    "vmd:parkour_gloves",
+    "vmd:life_holy_stone_0",
+    "vmd:life_holy_stone_1",
+    "vmd:life_holy_stone_2",
+
+    "vmd:water_holy_stone_0",
+    "vmd:water_holy_stone_1",
+    "vmd:water_holy_stone_2",
+
+    "vmd:fire_holy_stone_0",
+    "vmd:fire_holy_stone_1",
+    "vmd:fire_holy_stone_2",
+
+    "vmd:stone_holy_stone_0",
+    "vmd:stone_holy_stone_1",
+    "vmd:stone_holy_stone_2",
+
+    "vmd:ice_holy_stone_0",
+    "vmd:ice_holy_stone_1",
+    "vmd:ice_holy_stone_2",
+
+    "vmd:lightning_holy_stone_0",
+    "vmd:lightning_holy_stone_1",
+    "vmd:lightning_holy_stone_2",
+
+    "vmd:wind_holy_stone_0",
+    "vmd:wind_holy_stone_1",
+    "vmd:wind_holy_stone_2",
+
+    "vmd:nether_hand"
+  ]
+}

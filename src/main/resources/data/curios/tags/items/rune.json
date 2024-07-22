@@ -1,0 +1,18 @@
+{
+  "values": [
+    "vmd:plain_curios",
+    "vmd:forest_curios",
+    "vmd:lake_curios",
+    "vmd:volcano_curios",
+    "vmd:end_rune",
+    "vmd:evoker_new_rune",
+    "vmd:mine_new_rune",
+    "vmd:husk_new_rune",
+    "vmd:lightning_new_rune",
+    "vmd:nether_new_rune",
+    "vmd:castle_new_rune",
+    "vmd:sky_new_rune",
+    "vmd:kaze_new_rune",
+    "vmd:moon_new_rune"
+  ]
+}

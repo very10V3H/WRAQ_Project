@@ -1,0 +1,6 @@
+{
+    "parent": "vmd:item/mybow",
+    "textures": {
+        "layer0": "vmd:item/plainbow_pulling_0"
+    }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "灌注/增幅概述",
+  "icon": "vmd:plain_boss_soul",
+  "category": "vmd:misc_category",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "  对于任意描述底部带有[可灌注/增幅]字样的武器、装备或法术以及材料，你可以将它放置在维瑞阿契灌注器中下部格子以查看灌注所需材料与所得武器、装备或法术以及材料。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "vmd:seasword0,vmd:seasword1,vmd:seasword2,vmd:seasword3,vmd:blackforestsword0,vmd:blackforestsword1,vmd:blackforestsword2,vmd:blackforestsword3,vmd:plain_power,vmd:forest_power,vmd:lake_power,vmd:volcano_power",
+      "title": "灌灌灌灌灌注！",
+      "text": "  -设计之初是为了在升级武器的同时保留武器的强化、宝石以及熟练度等属性。"
+    }
+  ]
+}

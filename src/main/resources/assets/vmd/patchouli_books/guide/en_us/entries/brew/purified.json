@@ -1,0 +1,17 @@
+{
+  "name": "净化",
+  "icon": "vmd:purified_water",
+  "category": "vmd:brew_category",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "  在酿造任意药水前，我们需要对从天然水源获取的水进行净化，防止意外的发生。$(br) -（防止把整个维瑞阿契变成天空城）"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "vmd:purified_water",
+      "title": "杜绝杂质！",
+      "text": "  在酿造台药水槽位放入原版水瓶（数量任意，最大四个），在右侧材料槽中放入净化剂，即可得到纯化水。"
+    }
+  ]
+}

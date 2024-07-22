@@ -1,0 +1,19 @@
+{
+  "name": "樱灵",
+  "icon": "vmd:sakura_petal",
+  "category": "vmd:mob_category",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "分布于绯樱岛中南部樱树下"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": {
+        "item": "vmd:sakura_petal"
+      },
+      "title": "主要掉落物",
+      "text": "用于制作樱灵系列锻造装备-于绯樱岛中部广场兑换奖励包以获取锻造图"
+    }
+  ]
+}

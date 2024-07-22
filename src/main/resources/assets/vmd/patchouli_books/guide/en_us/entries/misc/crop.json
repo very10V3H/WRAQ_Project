@@ -1,0 +1,17 @@
+{
+  "name": "采集作物概述",
+  "icon": "minecraft:carrot",
+  "category": "vmd:misc_category",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "  当你左键种植在耕地上的成熟作物时，你将会获得成熟作物与园艺经验与一般经验。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:carrot,minecraft:potato,minecraft:beetroot,minecraft:sweet_berries,minecraft:wheat,minecraft:torchflower",
+      "title": "种种种种种菜！",
+      "text": "  在目前版本下，获取的作物仅用于兑换自然精华，自然精华是法师锻造武器的必要材料。$(br) -你可以在玉山农庄处采集大量作物和兑换自然精华。"
+    }
+  ]
+}

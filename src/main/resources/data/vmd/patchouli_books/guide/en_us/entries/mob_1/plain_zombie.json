@@ -1,0 +1,19 @@
+{
+  "name": "平原僵尸",
+  "icon": "vmd:plain_souls",
+  "category": "vmd:mob_category",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "分布于平原"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": {
+        "item": "vmd:plain_souls"
+      },
+      "title": "主要掉落物",
+      "text": "用于换取平原系列装备-于平原铁匠铺"
+    }
+  ]
+}

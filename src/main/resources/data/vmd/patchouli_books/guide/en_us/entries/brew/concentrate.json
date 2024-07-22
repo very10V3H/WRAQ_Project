@@ -1,0 +1,17 @@
+{
+  "name": "浓缩与稳定",
+  "icon": "vmd:concentrater",
+  "category": "vmd:brew_category",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "  使用浓缩剂与稳定剂可以给已经酿造好的药水进行效果增强/或延时。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "vmd:stabilizer,vmd:concentrater",
+      "title": "增强药水！",
+      "text": " -对于已经经过浓缩或稳定得到药水，将不能再进行浓缩或稳定。"
+    }
+  ]
+}

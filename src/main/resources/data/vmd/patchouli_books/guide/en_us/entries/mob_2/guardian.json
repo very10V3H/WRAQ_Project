@@ -1,0 +1,19 @@
+{
+  "name": "神殿守卫者",
+  "icon": "vmd:seasoul",
+  "category": "vmd:mob_category",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "分布于唤雷岛西北侧海底神殿"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": {
+        "item": "vmd:seasoul"
+      },
+      "title": "主要掉落物",
+      "text": "用于兑换海洋意志，以制作海洋系列锻造装备。（锻造图由击杀怪物随机掉落）"
+    }
+  ]
+}

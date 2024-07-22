@@ -1,0 +1,13 @@
+{
+  "name": "烈焰金锭",
+  "icon": "vmd:blaze_gold",
+  "category": "vmd:furnace_category",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "vmd:blaze_gold",
+      "title": "烈焰金锭",
+      "text": "  在维瑞阿契冶炼炉中，使用$(br) -烈焰焦炭 * 1$(br) -粗制金锭 * 4$(br) 冶炼而成"
+    }
+  ]
+}

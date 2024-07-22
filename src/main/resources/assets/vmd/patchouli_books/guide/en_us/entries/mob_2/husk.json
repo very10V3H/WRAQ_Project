@@ -1,0 +1,19 @@
+{
+  "name": "脆弱的灵魂",
+  "icon": "vmd:blackforestsoul",
+  "category": "vmd:mob_category",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "分布于唤雷岛西南侧沙滩"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": {
+        "item": "vmd:blackforestsoul"
+      },
+      "title": "主要掉落物",
+      "text": "用于制作灵魂收割系列锻造装备（击杀怪物概率掉落锻造图）"
+    }
+  ]
+}

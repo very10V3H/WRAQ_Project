@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "vmd:item/potion",
+    "layer1": "vmd:item/mana_damage_enhance_overlay"
+  }
+}

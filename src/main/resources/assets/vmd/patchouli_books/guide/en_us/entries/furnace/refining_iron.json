@@ -1,0 +1,13 @@
+{
+  "name": "精炼铁锭",
+  "icon": "vmd:refining_iron",
+  "category": "vmd:furnace_category",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "vmd:refining_iron",
+      "title": "精炼铁锭",
+      "text": "  在维瑞阿契冶炼炉中，使用$(br) -精炼焦炭 * 1$(br) -灼热铁锭 * 4$(br) 冶炼而成"
+    }
+  ]
+}

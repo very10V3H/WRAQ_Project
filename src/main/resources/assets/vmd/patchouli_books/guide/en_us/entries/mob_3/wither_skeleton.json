@@ -1,0 +1,19 @@
+{
+  "name": "下界凋零骷髅",
+  "icon": "vmd:witherbone",
+  "category": "vmd:mob_category",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "分布于下界通路尽头左侧下界要塞"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": {
+        "item": "vmd:witherbone"
+      },
+      "title": "主要掉落物",
+      "text": "用于制作下界系列装备与锻造装备-于天空城下界征讨协会兑换"
+    }
+  ]
+}

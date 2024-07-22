@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "vmd:item/splash_potion",
+    "layer1": "vmd:item/attackup_overlay"
+  }
+}

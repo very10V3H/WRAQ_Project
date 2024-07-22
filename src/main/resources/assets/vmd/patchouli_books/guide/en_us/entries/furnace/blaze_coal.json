@@ -1,0 +1,13 @@
+{
+  "name": "烈焰焦炭",
+  "icon": "vmd:blaze_coal",
+  "category": "vmd:furnace_category",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "vmd:blaze_coal",
+      "title": "烈焰焦炭",
+      "text": "  在维瑞阿契冶炼炉中，使用$(br) -煤炭 * 1 + 下界熔岩能量 * 1$(br) -灼热焦炭 * 4$(br) 冶炼而成"
+    }
+  ]
+}

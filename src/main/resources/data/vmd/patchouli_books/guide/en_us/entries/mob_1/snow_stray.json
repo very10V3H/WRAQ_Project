@@ -1,0 +1,19 @@
+{
+  "name": "冰川流浪者",
+  "icon": "vmd:snowsoul",
+  "category": "vmd:mob_category",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "分布于玉山山顶东北侧"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": {
+        "item": "vmd:snowsoul"
+      },
+      "title": "主要掉落物",
+      "text": "用于换取玉山系列装备-于天空城高塔底部"
+    }
+  ]
+}

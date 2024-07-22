@@ -1,0 +1,17 @@
+{
+  "name": "宝石镶嵌概述",
+  "icon": "vmd:dismantle",
+  "category": "vmd:misc_category",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "  对于主手武器以及防具，你可以在维瑞阿契锻造台上对其进行强化与镶嵌宝石。$(br) 宝石在各系列兑换中获取，开孔符与宝石拆卸刀在铁匠铺锻造大师处换取。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "vmd:evoker_gem,vmd:plain_gem,vmd:forest_gem,vmd:lake_gem,vmd:volcano_gem,vmd:snow_gem",
+      "title": "kiang kiang kiang!",
+      "text": "  合理配置宝石槽位，可以给你带来极大的性能提升。"
+    }
+  ]
+}

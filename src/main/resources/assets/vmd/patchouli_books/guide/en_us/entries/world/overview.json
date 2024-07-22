@@ -1,0 +1,17 @@
+{
+  "name": "世界本源概述",
+  "icon": "vmd:worldsoul2",
+  "category": "vmd:worldsoul_category",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "  世界本源分崩离析，化为根源散落彼方。$(br)  通过收集散落在世界的各种根源（如平原根源、森林根源等），将其放置于世界本源解析装置中，你将会获得世界本源。$(br)  将收集得到的世界本源交于本源学者，你可以获得本源学者的一些研究成果。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "vmd:worldsoul1,vmd:worldsoul2,vmd:worldsoul3,vmd:worldsoul4,vmd:worldsoul5",
+      "title": "世界本源具象物",
+      "text": "  世界本源的具象共有5种形态，他们分别是:$(br) -熵尘$(br) -群屑$(br) -隙石$(br) -玉泽$(br) -聚星$(br) -手持64个一种形态的本源右击本源收集器，你可以获得下一形态的本源。"
+    }
+  ]
+}
