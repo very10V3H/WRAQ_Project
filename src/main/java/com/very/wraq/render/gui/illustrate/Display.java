@@ -144,8 +144,7 @@ public class Display {
                 ModItems.StoneElementPiece0.get(), ModItems.StoneElementPiece1.get(), ModItems.StoneElementPiece2.get(),
                 ModItems.IceElementPiece0.get(), ModItems.IceElementPiece1.get(), ModItems.IceElementPiece2.get(),
                 ModItems.LightningElementPiece0.get(), ModItems.LightningElementPiece1.get(), ModItems.LightningElementPiece2.get(),
-                ModItems.WindElementPiece0.get(), ModItems.WindElementPiece1.get(), ModItems.WindElementPiece2.get(),
-                C7Items.boneImpSoul.get(), C7Items.vdSoul.get()
+                ModItems.WindElementPiece0.get(), ModItems.WindElementPiece1.get(), ModItems.WindElementPiece2.get()
         };
         materialList.addAll(Arrays.asList(items));
     }

@@ -1,4 +1,4 @@
-package com.very.wraq.series.worldSoul;
+package com.very.wraq.series.worldsoul;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;

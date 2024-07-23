@@ -51,7 +51,6 @@ import com.very.wraq.series.newrunes.chapter2.HuskNewRune;
 import com.very.wraq.series.newrunes.chapter2.LightningNewRune;
 import com.very.wraq.series.newrunes.chapter2.SkyNewRune;
 import com.very.wraq.series.newrunes.chapter6.MoonNewRune;
-import com.very.wraq.series.overworld.chapter7.vd.VdWeaponCommon;
 import com.very.wraq.series.overworld.sakuraSeries.Boss2.GoldenAttackOffhand;
 import com.very.wraq.series.overworld.sakuraSeries.Boss2.GoldenBook;
 import com.very.wraq.series.overworld.chapter2.lavender.LavenderBracelet;
@@ -65,6 +64,7 @@ import com.very.wraq.common.Utils.Struct.Shield;
 import com.very.wraq.common.Utils.Utils;
 import com.very.wraq.common.attributeValues.PlayerAttributes;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.series.specialevents.summer.SummerEvent;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -93,6 +93,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -121,7 +122,7 @@ public class ServerPlayerTickEvent {
         add(Component.literal(" 力凝魔核：每100技能急速 提供50%伤害提升 -> 15%伤害提升"));
     }};
     @SubscribeEvent
-    public static void ServerPlayerTick(TickEvent.PlayerTickEvent event) throws IOException, ParseException {
+    public static void ServerPlayerTick(TickEvent.PlayerTickEvent event) throws IOException, ParseException, SQLException {
         if (event.side.isServer() && event.phase == TickEvent.Phase.START) {
             Player player = event.player;
             ServerPlayer serverPlayer = (ServerPlayer) player;
@@ -160,10 +161,7 @@ public class ServerPlayerTickEvent {
             WorldBorder.playerTick(event);
             SkyNewRune.tick(player);
             MoonNewRune.tick(player);
-
-            if (player.isSwimming() && player.getDeltaMovement().length() > 0.02) {
-                player.sendSystemMessage(Component.literal("1"));
-            }
+            SummerEvent.tick(player);
 
             if (player.getMainHandItem().getItem() instanceof MainHandTickItem mainHandTickItem) mainHandTickItem.tick(player);
 

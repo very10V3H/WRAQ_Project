@@ -1,4 +1,4 @@
-package com.very.wraq.series.springFes;
+package com.very.wraq.series.specialevents.springFes;
 
 import com.very.wraq.common.BasicAttributeDescription;
 import com.very.wraq.common.Compute;
@@ -16,16 +16,17 @@ import net.minecraft.world.level.Level;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class SpringSwiftArmor extends ArmorItem {
+public class SpringManaArmor extends ArmorItem {
     private static final Style style = CustomStyle.styleOfSpring;
     private String type = "";
 
-    public SpringSwiftArmor(ItemMaterial Material, Type Slots, Properties itemProperties, int type) {
+    public SpringManaArmor(ItemMaterial Material, Type Slots, Properties itemProperties, int type) {
         super(Material, Slots, itemProperties);
         Utils.maxHealth.put(this, 1024d);
-        Utils.attackDamage.put(this, 224d);
+        Utils.manaDamage.put(this, 512d);
         Utils.defence.put(this, 124d);
-        Utils.swiftnessUp.put(this, 2.4);
+        Utils.manaPenetration0.put(this, 224d);
+        Utils.maxMana.put(this, 24d);
         Utils.armorTag.put(this, 1d);
         Utils.armorList.add(this);
         switch (type) {
@@ -46,10 +47,10 @@ public class SpringSwiftArmor extends ArmorItem {
         Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         Compute.DescriptionOfAddition(components);
         Compute.DescriptionPassive(components, Component.literal("金龙怒吼").withStyle(style));
-        components.add(Component.literal("每过5s,你命中目标的箭矢会释放一个").withStyle(ChatFormatting.WHITE).
+        components.add(Component.literal("每过5s,你的法球会释放一个").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("烟花").withStyle(style)).
                 append(Component.literal("使得一定范围内的怪物禁锢并降低").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.Defence("20%~40%")).
+                append(Compute.AttributeDescription.ManaDefence("20%~40%")).
                 append(Component.literal("持续3s").withStyle(ChatFormatting.WHITE)));
         Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         components.add(Component.literal("SpringFestival~2024").withStyle(ChatFormatting.ITALIC).withStyle(CustomStyle.styleOfSpring));

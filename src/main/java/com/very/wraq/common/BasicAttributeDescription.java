@@ -7,7 +7,7 @@ import com.very.wraq.projectiles.WraqCurios;
 import com.very.wraq.projectiles.WraqUniformCurios;
 import com.very.wraq.render.toolTip.MyClientTooltip;
 import com.very.wraq.series.instance.Castle.CastleCurios;
-import com.very.wraq.series.worldSoul.SoulEquipAttribute;
+import com.very.wraq.series.worldsoul.SoulEquipAttribute;
 import com.very.wraq.common.Utils.StringUtils;
 import com.very.wraq.common.Utils.Utils;
 import com.very.wraq.render.toolTip.CustomStyle;

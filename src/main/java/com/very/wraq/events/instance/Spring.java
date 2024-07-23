@@ -5,7 +5,7 @@ import com.very.wraq.networking.unSorted.SpringInstanceS2CPacket;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.render.particles.ModParticles;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.series.springFes.FireWorkGun;
+import com.very.wraq.series.specialevents.springFes.FireWorkGun;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.Utils.StringUtils;
 import com.very.wraq.common.Utils.Struct.Boss2Damage;

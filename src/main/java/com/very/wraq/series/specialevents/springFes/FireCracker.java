@@ -1,4 +1,4 @@
-package com.very.wraq.series.springFes;
+package com.very.wraq.series.specialevents.springFes;
 
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.misc.SoundsPackets.SoundsS2CPacket;

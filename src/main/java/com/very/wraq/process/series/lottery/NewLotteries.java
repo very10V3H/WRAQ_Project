@@ -15,6 +15,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
+import java.security.SecureRandom;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -70,7 +71,7 @@ public class NewLotteries extends Item {
     }
 
     private int lootSerialNum(double range) {
-        Random rand = new Random();
+        SecureRandom rand = new SecureRandom();
         double fullRate = rand.nextDouble(range);
         for (int i = 0; i < loots.size(); i++) {
             Loot loot = loots.get(i);

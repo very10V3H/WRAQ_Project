@@ -2,6 +2,7 @@ package com.very.wraq.Items.MainStory_1.Mission;
 
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.Compute;
+import com.very.wraq.series.specialevents.summer.SummerEvent;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.network.chat.Component;
@@ -15,6 +16,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class Main0 extends Item {
@@ -72,9 +74,13 @@ public class Main0 extends Item {
         }
 
         if (!level.isClientSide && !player.isShiftKeyDown()) {
-            LightningBolt lightningBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, level);
-            lightningBolt.moveTo(player.position());
-            level.addFreshEntity(lightningBolt);
+            for (int i = 0 ; i < 100 ; i ++) {
+                try {
+                    SummerEvent.reward(player);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
 
 /*            ServerLevel serverLevel = (ServerLevel) level;
             for (Entity entity : serverLevel.getAllEntities()) {

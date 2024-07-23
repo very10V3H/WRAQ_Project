@@ -1,4 +1,4 @@
-package com.very.wraq.series.worldSoul;
+package com.very.wraq.series.worldsoul;
 
 import com.very.wraq.core.MyArrow;
 import com.very.wraq.process.func.particle.ParticleProvider;

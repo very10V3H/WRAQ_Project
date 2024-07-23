@@ -1,4 +1,4 @@
-package com.very.wraq.series.springFes;
+package com.very.wraq.series.specialevents.springFes;
 
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.Utils.Struct.ItemAndWeight;
@@ -20,22 +20,21 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class SpringLoot extends Item {
+public class RedEnvelope extends Item {
 
-    public SpringLoot(Properties p_41383_) {
+    public RedEnvelope(Properties p_41383_) {
         super(p_41383_);
     }
 
     private List<ItemAndWeight> itemAndWeightList = new ArrayList<>();
 
     private void setItemAndWeightList() {
-        itemAndWeightList.add(new ItemAndWeight(ModItems.SpringHeart.get(), 1));
+        itemAndWeightList.add(new ItemAndWeight(ModItems.SpringRing0.get(), 1));
         itemAndWeightList.add(new ItemAndWeight(ModItems.RevelationBook.get(), 30));
+        itemAndWeightList.add(new ItemAndWeight(ModItems.Ps_Bottle0.get(), 30));
         itemAndWeightList.add(new ItemAndWeight(ModItems.goldCoin.get(), 30));
         itemAndWeightList.add(new ItemAndWeight(ModItems.WorldSoul2.get(), 30));
-        itemAndWeightList.add(new ItemAndWeight(ModItems.Ps_Bottle0.get(), 60));
-        itemAndWeightList.add(new ItemAndWeight(ModItems.RedEnvelope.get(), 300));
-        itemAndWeightList.add(new ItemAndWeight(ModItems.SpringSoul.get(), 300));
+        itemAndWeightList.add(new ItemAndWeight(ModItems.SpringMoney.get(), 300));
     }
 
     private int TotalWeight() {
