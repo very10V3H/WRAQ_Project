@@ -439,4 +439,8 @@ public class ComponentUtils {
                 append(ComponentUtils.AttributeDescription.CritDamage("")).
                 append(Component.literal("影响").withStyle(ChatFormatting.WHITE));
     }
+
+    public static Component getSuffixOfSummerEvent() {
+        return Component.literal(" 2024暑期活动").withStyle(ChatFormatting.BOLD).withStyle(CustomStyle.styleOfPower);
+    }
 }
