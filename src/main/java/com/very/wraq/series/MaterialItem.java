@@ -7,6 +7,7 @@ public class MaterialItem extends Item {
 
     public MaterialItem(Properties p_41383_) {
         super(p_41383_);
+        if (Display.materialList.isEmpty()) Display.setMaterialList();
         Display.materialList.add(this);
     }
 }

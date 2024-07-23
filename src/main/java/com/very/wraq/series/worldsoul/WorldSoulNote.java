@@ -1,4 +1,4 @@
-package com.very.wraq.series.worldSoul;
+package com.very.wraq.series.worldsoul;
 
 import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;

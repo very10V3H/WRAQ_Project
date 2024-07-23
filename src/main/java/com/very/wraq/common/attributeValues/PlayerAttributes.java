@@ -51,7 +51,7 @@ import com.very.wraq.series.overworld.chapter2.sky.BossItems.SkyBoss;
 import com.very.wraq.series.overworld.chapter2.sky.Crest.SkyCrestAttributes;
 import com.very.wraq.series.overworld.chapter2.sky.SkyBow;
 import com.very.wraq.series.overworld.sakuraSeries.EarthMana.EarthPower;
-import com.very.wraq.series.worldSoul.SoulEquipAttribute;
+import com.very.wraq.series.worldsoul.SoulEquipAttribute;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.Utils.StringUtils;
 import com.very.wraq.common.Utils.Utils;

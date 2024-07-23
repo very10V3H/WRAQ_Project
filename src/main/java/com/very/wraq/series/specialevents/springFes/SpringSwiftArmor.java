@@ -1,4 +1,4 @@
-package com.very.wraq.series.springFes;
+package com.very.wraq.series.specialevents.springFes;
 
 import com.very.wraq.common.BasicAttributeDescription;
 import com.very.wraq.common.Compute;
@@ -16,16 +16,16 @@ import net.minecraft.world.level.Level;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class SpringAttackArmor extends ArmorItem {
+public class SpringSwiftArmor extends ArmorItem {
     private static final Style style = CustomStyle.styleOfSpring;
     private String type = "";
 
-    public SpringAttackArmor(ItemMaterial Material, Type Slots, Properties itemProperties, int type) {
+    public SpringSwiftArmor(ItemMaterial Material, Type Slots, Properties itemProperties, int type) {
         super(Material, Slots, itemProperties);
-        Utils.maxHealth.put(this, 2024d);
+        Utils.maxHealth.put(this, 1024d);
         Utils.attackDamage.put(this, 224d);
-        Utils.defence.put(this, 224d);
-        Utils.critDamage.put(this, 0.35);
+        Utils.defence.put(this, 124d);
+        Utils.swiftnessUp.put(this, 2.4);
         Utils.armorTag.put(this, 1d);
         Utils.armorList.add(this);
         switch (type) {
@@ -46,7 +46,7 @@ public class SpringAttackArmor extends ArmorItem {
         Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         Compute.DescriptionOfAddition(components);
         Compute.DescriptionPassive(components, Component.literal("金龙怒吼").withStyle(style));
-        components.add(Component.literal("每过5s,你的攻击会释放一个").withStyle(ChatFormatting.WHITE).
+        components.add(Component.literal("每过5s,你命中目标的箭矢会释放一个").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("烟花").withStyle(style)).
                 append(Component.literal("使得一定范围内的怪物禁锢并降低").withStyle(ChatFormatting.WHITE)).
                 append(Compute.AttributeDescription.Defence("20%~40%")).

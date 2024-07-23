@@ -1,4 +1,4 @@
-package com.very.wraq.series.springFes;
+package com.very.wraq.series.specialevents.springFes;
 
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.Utils.Utils;

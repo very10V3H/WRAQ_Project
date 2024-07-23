@@ -68,7 +68,7 @@ import com.very.wraq.series.overworld.chapter1.forest.bossItems.ForestBossSword;
 import com.very.wraq.series.overworld.chapter1.ManaBook.ManaNote;
 import com.very.wraq.series.overworld.chapter1.volcano.bossItems.VolcanoBossSword;
 import com.very.wraq.series.overworld.chapter1.waterSystem.bossItems.LakeBoss;
-import com.very.wraq.series.worldSoul.SoulEquipAttribute;
+import com.very.wraq.series.worldsoul.SoulEquipAttribute;
 import com.very.wraq.common.Utils.ClientUtils;
 import com.very.wraq.common.Utils.StringUtils;
 import com.very.wraq.common.Utils.Struct.*;
@@ -5130,5 +5130,11 @@ public class Compute {
         CompoundTag compoundTag;
         compoundTag = TagParser.parseTag(string);
         return ItemStack.of(compoundTag);
+    }
+
+    public static void sendActionBarMSG(Player player, Component component) {
+        ClientboundSetActionBarTextPacket clientboundSetActionBarTextPacket =
+                new ClientboundSetActionBarTextPacket(component);
+        ((ServerPlayer) player).connection.send(clientboundSetActionBarTextPacket);
     }
 }
