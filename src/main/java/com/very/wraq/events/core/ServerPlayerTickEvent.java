@@ -162,7 +162,7 @@ public class ServerPlayerTickEvent {
             MoonNewRune.tick(player);
 
             if (player.isSwimming() && player.getDeltaMovement().length() > 0.02) {
-
+                player.sendSystemMessage(Component.literal("1"));
             }
 
             if (player.getMainHandItem().getItem() instanceof MainHandTickItem mainHandTickItem) mainHandTickItem.tick(player);
