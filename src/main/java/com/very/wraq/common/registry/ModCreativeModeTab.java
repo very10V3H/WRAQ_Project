@@ -30,8 +30,8 @@ public class ModCreativeModeTab {
             CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.goldCoin.get())).title(Component.literal("金钱/任务")).build());
     public static RegistryObject<CreativeModeTab> DROPSANDMATERIAL_TAB = CREATIVE_MODE_TAB.register("dropsandmaterial", () ->
             CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.gemPiece.get())).title(Component.literal("掉落物与材料")).build());
-    public static RegistryObject<CreativeModeTab> RUNESANDCURIOS_TAB = CREATIVE_MODE_TAB.register("runesandcuiros", () ->
-            CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.EndCurios.get())).title(Component.literal("符石/饰品")).build());
+    public static RegistryObject<CreativeModeTab> CURIOS_AND_GEMS = CREATIVE_MODE_TAB.register("runesandcuiros", () ->
+            CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.EndCurios.get())).title(Component.literal("饰品/宝石")).build());
     public static RegistryObject<CreativeModeTab> MISC_TAB = CREATIVE_MODE_TAB.register("hmisc", () ->
             CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.ID_Card.get())).title(Component.literal("杂项")).build());
     public static RegistryObject<CreativeModeTab> DEVELOPMENT_TAB = CREATIVE_MODE_TAB.register("development", () ->
