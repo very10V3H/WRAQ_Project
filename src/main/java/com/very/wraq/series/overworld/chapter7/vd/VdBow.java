@@ -26,7 +26,7 @@ import net.minecraft.world.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VdBow extends WraqBow implements ForgeItem, ActiveItem, MainHandTickItem {
+public class VdBow extends WraqBow implements ForgeItem, ActiveItem, MainHandTickItem, VdWeaponCommon {
 
     public VdBow(Properties properties) {
         super(properties);
