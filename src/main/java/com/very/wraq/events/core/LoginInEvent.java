@@ -36,6 +36,7 @@ import com.very.wraq.common.Utils.StringUtils;
 import com.very.wraq.common.Utils.Struct.PlayerTeam;
 import com.very.wraq.common.Utils.Utils;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.series.specialevents.summer.SummerEvent;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -459,6 +460,8 @@ public class LoginInEvent {
         sunPowerGetCount.put(player.getName().getString(), 0);
         lakeCoreGetCount.put(player.getName().getString(), 0);
         volcanoCoreGetCount.put(player.getName().getString(), 0);
+
+        SummerEvent.resetDailyData(player);
     }
 
 
