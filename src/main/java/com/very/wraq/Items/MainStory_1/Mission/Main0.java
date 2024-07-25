@@ -2,6 +2,7 @@ package com.very.wraq.Items.MainStory_1.Mission;
 
 import com.very.wraq.common.Utils.ClientUtils;
 import com.very.wraq.common.Compute;
+import com.very.wraq.projectiles.OnCuriosSlotTickEffect;
 import com.very.wraq.series.specialevents.summer.SummerEvent;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -11,6 +12,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
+import top.theillusivec4.curios.api.CuriosApi;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -71,15 +73,11 @@ public class Main0 extends Item {
         }
 
         if (!level.isClientSide && !player.isShiftKeyDown()) {
-
-            for (int i = 0 ; i < 100 ; i ++) {
-                try {
-                    SummerEvent.reward(player);
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
+            CuriosApi.getCuriosInventory(player).ifPresent(inv -> {
+                for (int i = 0; i < inv.getEquippedCurios().getSlots(); i++) {
+                    player.sendSystemMessage(Component.literal("" + inv.getEquippedCurios().getStackInSlot(i).getItem().getClass()));
                 }
-            }
-
+            });
 /*            ServerLevel serverLevel = (ServerLevel) level;
             for (Entity entity : serverLevel.getAllEntities()) {
                 if (entity instanceof ItemEntity) {
