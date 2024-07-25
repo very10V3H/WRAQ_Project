@@ -45,6 +45,7 @@ import com.very.wraq.common.registry.ModBlocks;
 import com.very.wraq.common.registry.ModCreativeModeTab;
 import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.registry.ModSounds;
+import com.very.wraq.series.specialevents.SpecialEventItems;
 import dev.kosmx.playerAnim.api.layered.IAnimation;
 import dev.kosmx.playerAnim.api.layered.ModifierLayer;
 import dev.kosmx.playerAnim.minecraftApi.PlayerAnimationFactory;
@@ -95,6 +96,7 @@ public class VMD {
         ElementItems.ITEMS.register(modEvenBus);
         NewRuneItems.ITEMS.register(modEvenBus);
         GemItems.ITEMS.register(modEvenBus);
+        SpecialEventItems.ITEMS.register(modEvenBus);
 
         ModBlocks.BLOCKS.register(modEvenBus);
         ModEntityType.ENTITY_TYPES.register(modEvenBus);
@@ -626,175 +628,14 @@ public class VMD {
             };
             for (Item item : items) event.accept(item.getDefaultInstance());
         }
-        if (event.getTabKey().equals(ModCreativeModeTab.RUNESANDCURIOS_TAB.getKey())) {
+        if (event.getTabKey().equals(ModCreativeModeTab.CURIOS_AND_GEMS.getKey())) {
 
-            for (Object o : NewRuneItems.ITEMS.getEntries().toArray()) {
-                RegistryObject<Item> item = (RegistryObject<Item>) o;
-                event.accept(item.get().getDefaultInstance());
-            }
+            for (Item item : Utils.curiosList) event.accept(item.getDefaultInstance());
 
             for (Object o : GemItems.ITEMS.getEntries().toArray()) {
                 RegistryObject<Item> item = (RegistryObject<Item>) o;
                 event.accept(item.get().getDefaultInstance());
             }
-
-            Item[] items = {
-                    ModItems.lavenderBracelet.get(), ModItems.windBottle.get(),
-                    ModItems.plainNecklace.get(), ModItems.netherHand.get(),
-                    ModItems.iceBelt.get()
-            };
-            for (Item item : items) event.accept(item.getDefaultInstance());
-
-            event.accept(ModItems.PlainRing.get().getDefaultInstance());
-            event.accept(ModItems.ForestRing.get().getDefaultInstance());
-            event.accept(ModItems.LakeRing.get().getDefaultInstance());
-            event.accept(ModItems.VolcanoRing.get().getDefaultInstance());
-            event.accept(ModItems.PlainCord.get().getDefaultInstance());
-            event.accept(ModItems.ForestCord.get().getDefaultInstance());
-            event.accept(ModItems.LakeCord.get().getDefaultInstance());
-            event.accept(ModItems.VolcanoCord.get().getDefaultInstance());
-            event.accept(ModItems.PlainForestCord.get().getDefaultInstance());
-            event.accept(ModItems.LakeVolcanoCord.get().getDefaultInstance());
-            event.accept(ModItems.FinalCord.get().getDefaultInstance());
-            event.accept(ModItems.NewCurios.get().getDefaultInstance());
-            event.accept(ModItems.NetherGem.get().getDefaultInstance());
-            event.accept(ModItems.NetherGemPiece.get().getDefaultInstance());
-            event.accept(ModItems.NetherGemPieceBag1.get().getDefaultInstance());
-            event.accept(ModItems.NetherGemPieceBag2.get().getDefaultInstance());
-            event.accept(ModItems.NetherGemPieceBag3.get().getDefaultInstance());
-            event.accept(ModItems.NetherGemPieceBag4.get().getDefaultInstance());
-            event.accept(ModItems.ForestBossGem.get().getDefaultInstance());
-            event.accept(ModItems.VolcanoBossGem.get().getDefaultInstance());
-            event.accept(ModItems.LakeBossGem.get().getDefaultInstance());
-            event.accept(ModItems.SkyBossGem.get().getDefaultInstance());
-            event.accept(ModItems.PlainBracelet.get().getDefaultInstance());
-            event.accept(ModItems.ForestBracelet.get().getDefaultInstance());
-            event.accept(ModItems.LakeBracelet.get().getDefaultInstance());
-            event.accept(ModItems.VolcanoBracelet.get().getDefaultInstance());
-            event.accept(ModItems.MineBracelet.get().getDefaultInstance());
-            event.accept(ModItems.SnowBracelet.get().getDefaultInstance());
-            event.accept(ModItems.SkyBracelet.get().getDefaultInstance());
-            event.accept(ModItems.PlainCrest0.get().getDefaultInstance());
-            event.accept(ModItems.PlainCrest1.get().getDefaultInstance());
-            event.accept(ModItems.PlainCrest2.get().getDefaultInstance());
-            event.accept(ModItems.PlainCrest3.get().getDefaultInstance());
-            event.accept(ModItems.PlainCrest4.get().getDefaultInstance());
-            event.accept(ModItems.ForestCrest0.get().getDefaultInstance());
-            event.accept(ModItems.ForestCrest1.get().getDefaultInstance());
-            event.accept(ModItems.ForestCrest2.get().getDefaultInstance());
-            event.accept(ModItems.ForestCrest3.get().getDefaultInstance());
-            event.accept(ModItems.ForestCrest4.get().getDefaultInstance());
-            event.accept(ModItems.LakeCrest0.get().getDefaultInstance());
-            event.accept(ModItems.LakeCrest1.get().getDefaultInstance());
-            event.accept(ModItems.LakeCrest2.get().getDefaultInstance());
-            event.accept(ModItems.LakeCrest3.get().getDefaultInstance());
-            event.accept(ModItems.LakeCrest4.get().getDefaultInstance());
-            event.accept(ModItems.VolcanoCrest0.get().getDefaultInstance());
-            event.accept(ModItems.VolcanoCrest1.get().getDefaultInstance());
-            event.accept(ModItems.VolcanoCrest2.get().getDefaultInstance());
-            event.accept(ModItems.VolcanoCrest3.get().getDefaultInstance());
-            event.accept(ModItems.VolcanoCrest4.get().getDefaultInstance());
-            event.accept(ModItems.MineCrest0.get().getDefaultInstance());
-            event.accept(ModItems.MineCrest1.get().getDefaultInstance());
-            event.accept(ModItems.MineCrest2.get().getDefaultInstance());
-            event.accept(ModItems.MineCrest3.get().getDefaultInstance());
-            event.accept(ModItems.MineCrest4.get().getDefaultInstance());
-            event.accept(ModItems.SnowCrest0.get().getDefaultInstance());
-            event.accept(ModItems.SnowCrest1.get().getDefaultInstance());
-            event.accept(ModItems.SnowCrest2.get().getDefaultInstance());
-            event.accept(ModItems.SnowCrest3.get().getDefaultInstance());
-            event.accept(ModItems.SnowCrest4.get().getDefaultInstance());
-            event.accept(ModItems.SkyCrest0.get().getDefaultInstance());
-            event.accept(ModItems.SkyCrest1.get().getDefaultInstance());
-            event.accept(ModItems.SkyCrest2.get().getDefaultInstance());
-            event.accept(ModItems.SkyCrest3.get().getDefaultInstance());
-            event.accept(ModItems.SkyCrest4.get().getDefaultInstance());
-            event.accept(ModItems.ManaCrest0.get().getDefaultInstance());
-            event.accept(ModItems.ManaCrest1.get().getDefaultInstance());
-            event.accept(ModItems.ManaCrest2.get().getDefaultInstance());
-            event.accept(ModItems.ManaCrest3.get().getDefaultInstance());
-            event.accept(ModItems.ManaCrest4.get().getDefaultInstance());
-            event.accept(ModItems.PlainAttackRing0.get().getDefaultInstance());
-            event.accept(ModItems.PlainAttackRing1.get().getDefaultInstance());
-            event.accept(ModItems.PlainAttackRing2.get().getDefaultInstance());
-            event.accept(ModItems.PlainAttackRing3.get().getDefaultInstance());
-            event.accept(ModItems.PlainManaAttackRing0.get().getDefaultInstance());
-            event.accept(ModItems.PlainManaAttackRing1.get().getDefaultInstance());
-            event.accept(ModItems.PlainManaAttackRing2.get().getDefaultInstance());
-            event.accept(ModItems.PlainManaAttackRing3.get().getDefaultInstance());
-            event.accept(ModItems.PlainHealthRing0.get().getDefaultInstance());
-            event.accept(ModItems.PlainHealthRing1.get().getDefaultInstance());
-            event.accept(ModItems.PlainHealthRing2.get().getDefaultInstance());
-            event.accept(ModItems.PlainHealthRing3.get().getDefaultInstance());
-            event.accept(ModItems.PlainDefenceRing0.get().getDefaultInstance());
-            event.accept(ModItems.PlainDefenceRing1.get().getDefaultInstance());
-            event.accept(ModItems.PlainDefenceRing2.get().getDefaultInstance());
-            event.accept(ModItems.PlainDefenceRing3.get().getDefaultInstance());
-            event.accept(ModItems.FantasyMedal.get().getDefaultInstance());
-            event.accept(ModItems.FantasyBracelet.get().getDefaultInstance());
-            event.accept(ModItems.SpringRing0.get().getDefaultInstance());
-            event.accept(ModItems.SpringRing1.get().getDefaultInstance());
-            event.accept(ModItems.SpringRing2.get().getDefaultInstance());
-            event.accept(ModItems.SpringRing3.get().getDefaultInstance());
-            event.accept(ModItems.SpringHand0.get().getDefaultInstance());
-            event.accept(ModItems.SpringHand1.get().getDefaultInstance());
-            event.accept(ModItems.SpringHand2.get().getDefaultInstance());
-            event.accept(ModItems.SpringHand3.get().getDefaultInstance());
-            event.accept(ModItems.SpringNecklace0.get().getDefaultInstance());
-            event.accept(ModItems.SpringNecklace1.get().getDefaultInstance());
-            event.accept(ModItems.SpringNecklace2.get().getDefaultInstance());
-            event.accept(ModItems.SpringNecklace3.get().getDefaultInstance());
-            event.accept(ModItems.SpringBelt0.get().getDefaultInstance());
-            event.accept(ModItems.SpringBelt1.get().getDefaultInstance());
-            event.accept(ModItems.SpringBelt2.get().getDefaultInstance());
-            event.accept(ModItems.SpringBelt3.get().getDefaultInstance());
-            event.accept(ModItems.SpringLoot.get().getDefaultInstance());
-            event.accept(ModItems.Boss2AttackRing0.get().getDefaultInstance());
-            event.accept(ModItems.Boss2AttackRing1.get().getDefaultInstance());
-            event.accept(ModItems.Boss2AttackRing2.get().getDefaultInstance());
-            event.accept(ModItems.Boss2AttackRing3.get().getDefaultInstance());
-            event.accept(ModItems.Boss2ManaAttackRing0.get().getDefaultInstance());
-            event.accept(ModItems.Boss2ManaAttackRing1.get().getDefaultInstance());
-            event.accept(ModItems.Boss2ManaAttackRing2.get().getDefaultInstance());
-            event.accept(ModItems.Boss2ManaAttackRing3.get().getDefaultInstance());
-            event.accept(ModItems.Boss2HealthRing0.get().getDefaultInstance());
-            event.accept(ModItems.Boss2HealthRing1.get().getDefaultInstance());
-            event.accept(ModItems.Boss2HealthRing2.get().getDefaultInstance());
-            event.accept(ModItems.Boss2HealthRing3.get().getDefaultInstance());
-            event.accept(ModItems.Boss2DefenceRing0.get().getDefaultInstance());
-            event.accept(ModItems.Boss2DefenceRing1.get().getDefaultInstance());
-            event.accept(ModItems.Boss2DefenceRing2.get().getDefaultInstance());
-            event.accept(ModItems.Boss2DefenceRing3.get().getDefaultInstance());
-            event.accept(ModItems.EarthManaCurios.get().getDefaultInstance());
-            event.accept(ModItems.BloodManaCurios.get().getDefaultInstance());
-
-            event.accept(ModItems.DevilBloodManaCurios.get().getDefaultInstance());
-            event.accept(ModItems.DevilEarthManaCurios.get().getDefaultInstance());
-            event.accept(ModItems.MoonCurios.get().getDefaultInstance());
-            event.accept(ModItems.MoonBelt.get().getDefaultInstance());
-
-            event.accept(ModItems.ParkourGloves.get().getDefaultInstance());
-            event.accept(ModItems.BeaconBracelet.get().getDefaultInstance());
-            event.accept(ModItems.BlazeBracelet.get().getDefaultInstance());
-            event.accept(ModItems.TreeBracelet.get().getDefaultInstance());
-            event.accept(ModItems.CastleNecklace.get().getDefaultInstance());
-            event.accept(ModItems.CastleBrooch.get().getDefaultInstance());
-            event.accept(ModItems.RubyNecklace.get().getDefaultInstance());
-            event.accept(ModItems.RubyNecklace1.get().getDefaultInstance());
-            event.accept(ModItems.RubyNecklace2.get().getDefaultInstance());
-            event.accept(ModItems.RubyNecklace3.get().getDefaultInstance());
-            event.accept(ModItems.SapphireNecklace.get().getDefaultInstance());
-            event.accept(ModItems.SapphireNecklace1.get().getDefaultInstance());
-            event.accept(ModItems.SapphireNecklace2.get().getDefaultInstance());
-            event.accept(ModItems.SapphireNecklace3.get().getDefaultInstance());
-            event.accept(ModItems.FancySapphireNecklace.get().getDefaultInstance());
-            event.accept(ModItems.FancySapphireNecklace1.get().getDefaultInstance());
-            event.accept(ModItems.FancySapphireNecklace2.get().getDefaultInstance());
-            event.accept(ModItems.FancySapphireNecklace3.get().getDefaultInstance());
-            event.accept(ModItems.CastleCuriosPowder.get().getDefaultInstance());
-            event.accept(ModItems.StarBottle.get().getDefaultInstance());
-            event.accept(ModItems.EndCurios.get().getDefaultInstance());
-            event.accept(ModItems.EndCurios1.get().getDefaultInstance());
         }
 
         if (event.getTabKey().equals(ModCreativeModeTab.MISC_TAB.getKey())) {
