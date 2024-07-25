@@ -88,6 +88,7 @@ public class SummerCurios2024 extends WraqCurios implements OnCuriosSlotAttribut
 
     @Override
     public double attributes(Player player, String attributesType) {
+        if (player.experienceLevel < levelRequirement()) return 0;
         double rate = 1;
         if (player.isInWater()
                 || (player.level().dimension().equals(Level.OVERWORLD)
@@ -104,7 +105,8 @@ public class SummerCurios2024 extends WraqCurios implements OnCuriosSlotAttribut
     public void tick(Player player) {
         if (!player.level().isClientSide) {
             if (player.tickCount % 300 == 0 && player.level().dimension().equals(Level.OVERWORLD)
-                    && MySeason.currentSeason.contains(MySeason.summer) && player.isInWater()) {
+                    && MySeason.currentSeason.contains(MySeason.summer) && player.isInWater()
+                    && player.level().isDay()) {
                 Compute.itemStackGive(player, new ItemStack(Items.TROPICAL_FISH));
                 Compute.formatMSGSend(player, Component.literal("摸鱼!").withStyle(CustomStyle.styleOfWater),
                         Component.literal("你摸到了一条鱼！").withStyle(ChatFormatting.GOLD));
