@@ -18,12 +18,12 @@ public interface OnCuriosSlotAttributesModify {
         if (!Utils.playerCuriosListMap.containsKey(player)) return 0;
         List<ItemStack> curiosList = Utils.playerCuriosListMap.get(player);
         double value = 0;
-        Set<Item> set = new HashSet<>();
+        Set<Class<? extends Item>> set = new HashSet<>();
         for (ItemStack stack : curiosList) {
             Item item = stack.getItem();
-            if (!set.contains(item) && item instanceof OnCuriosSlotAttributesModify curios) {
+            if (!set.contains(item.getClass()) && item instanceof OnCuriosSlotAttributesModify curios) {
                 value += curios.attributes(player, attributeType);
-                set.add(item);
+                set.add(item.getClass());
             }
         }
         return value;
