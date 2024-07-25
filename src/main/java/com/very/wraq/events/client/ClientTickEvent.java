@@ -58,6 +58,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -66,11 +67,12 @@ import java.util.Iterator;
 import java.util.List;
 
 @Mod.EventBusSubscriber(Dist.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class ClientTickEvent {
     @SubscribeEvent
     public static void ClientTick(TickEvent.PlayerTickEvent event) {
         MyWayPoint.clientTick(event);
-        OnCuriosSlotTickEffect.tickEvent(event.player);
+        if (event.side.isClient() && event.phase.equals(TickEvent.Phase.START)) OnCuriosSlotTickEffect.tickEvent(event.player);
         if (event.side.isClient() && event.phase == TickEvent.Phase.END && event.player.equals(Minecraft.getInstance().player)) {
             Minecraft mc = Minecraft.getInstance();
 
