@@ -3,26 +3,26 @@ package com.very.wraq.common.Utils.Struct;
 import net.minecraft.world.item.ItemStack;
 
 public class EffectTimeLast {
-    public int TickCount;
-    public int MaxCount;
+    public int lastTick;
+    public int maxTick;
     public ItemStack itemStack;
     public int level;
-    public boolean NoTime;
+    public boolean forever;
 
-    public EffectTimeLast(ItemStack itemStack, int tickCount, int maxCount, int level) {
+    public EffectTimeLast(ItemStack itemStack, int lastTick, int maxTick, int level) {
         this.itemStack = itemStack;
-        this.TickCount = tickCount;
-        this.MaxCount = maxCount;
+        this.lastTick = lastTick;
+        this.maxTick = maxTick;
         this.level = level;
-        this.NoTime = false;
+        this.forever = false;
     }
 
-    public EffectTimeLast(ItemStack itemStack, int tickCount, int maxCount, int level, boolean noTime) {
+    public EffectTimeLast(ItemStack itemStack, int lastTick, int maxTick, int level, boolean forever) {
         this.itemStack = itemStack;
-        this.TickCount = tickCount;
-        this.MaxCount = maxCount;
+        this.lastTick = lastTick;
+        this.maxTick = maxTick;
         this.level = level;
-        this.NoTime = noTime;
+        this.forever = forever;
     }
 
 }
