@@ -15,6 +15,7 @@ import com.very.wraq.process.system.element.equipAndCurios.lifeElement.LifeEleme
 import com.very.wraq.process.system.forge.ForgeEquipUtils;
 import com.very.wraq.process.series.potion.NewPotionEffects;
 import com.very.wraq.process.system.tower.TowerMob;
+import com.very.wraq.projectiles.OnCuriosSlotAttributesModify;
 import com.very.wraq.projectiles.WraqCurios;
 import com.very.wraq.render.mobEffects.ModEffects;
 import com.very.wraq.series.instance.Castle.CastleAttackArmor;
@@ -286,6 +287,7 @@ public class PlayerAttributes {
         exDamage += VolcanoArmorHelmet.exAttackDamage(player);
         exDamage += CastleNewRune.attackDamage(player);
         exDamage += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerAttackDamageModifier);
+        exDamage += OnCuriosSlotAttributesModify.getAttributes(player, OnCuriosSlotAttributesModify.exAttackDamage);
         // 请在上方添加
 
         double TotalAttackDamage = baseAttackDamage + exDamage;
@@ -1085,6 +1087,7 @@ public class PlayerAttributes {
         }
 
         releaseSpeed += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerCooldownModifier);
+        releaseSpeed += OnCuriosSlotAttributesModify.getAttributes(player, OnCuriosSlotAttributesModify.exReleaseSpeed);
         // 请在上方添加
         releaseSpeed *= Compute.playerFantasyAttributeEnhance(player);
         return releaseSpeed;
@@ -1582,7 +1585,7 @@ public class PlayerAttributes {
         exDamage += LifeElementSceptre.ExManaDamage(player);
         exDamage += VolcanoArmorHelmet.exManaDamage(player);
         exDamage += CastleNewRune.manaDamage(player);
-
+        exDamage += OnCuriosSlotAttributesModify.getAttributes(player, OnCuriosSlotAttributesModify.exManaDamage);
 
         // 请在上方添加
         double totalDamage = baseDamage + exDamage;
