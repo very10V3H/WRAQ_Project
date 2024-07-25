@@ -503,26 +503,25 @@ public class AttributeHud {
 
         for (EffectTimeLast effectTimeLast : ClientUtils.effectTimeLasts) {
             guiGraphics.blit(new ResourceLocation(Utils.MOD_ID, "textures/item/" + effectTimeLast.itemStack.getItem().toString() + ".png"), x + XXOffset + Count * 15, y - 60, 0, 0, 16, 16, 16, 16);
-            int Time = (int) (effectTimeLast.TickCount * 12.0f / effectTimeLast.MaxCount);
-            if (effectTimeLast.NoTime) Time = 12;
+            int Time = (int) Math.ceil(effectTimeLast.lastTick * 12.0f / effectTimeLast.maxTick);
+            if (effectTimeLast.forever) Time = 12;
             guiGraphics.blit(ClientUtils.CdResourceLocation[Time], x + XXOffset + Count * 15, y - 60, 0, 0, 16, 16, 16, 16);
             if (effectTimeLast.level > 0)
                 guiGraphics.drawCenteredString(fontRenderer, Component.literal("" + effectTimeLast.level).withStyle(ChatFormatting.WHITE), x + XXOffset + Count * 15 + 11, y - 52, 10);
-            if (effectTimeLast.TickCount > 0 && effectTimeLast.level == 0 && !effectTimeLast.NoTime)
+            if (effectTimeLast.lastTick > 0 && effectTimeLast.level == 0 && !effectTimeLast.forever)
                 guiGraphics.drawCenteredString(fontRenderer,
-                        Component.literal(effectTimeLast.TickCount >= 20 ? String.format("%.0f", effectTimeLast.TickCount / 20d) : String.format("%.1f", effectTimeLast.TickCount / 20d)).withStyle(ChatFormatting.WHITE), x + XXOffset + Count * 15 + 11, y - 52, 10);
+                        Component.literal(effectTimeLast.lastTick >= 20 ? String.format("%.0f", effectTimeLast.lastTick / 20d) : String.format("%.1f", effectTimeLast.lastTick / 20d)).withStyle(ChatFormatting.WHITE), x + XXOffset + Count * 15 + 11, y - 52, 10);
             Count++;
-
         }
 
         Count++;
 
         for (EffectTimeLast effectTimeLast : ClientUtils.coolDownTimes) {
             guiGraphics.blit(new ResourceLocation(Utils.MOD_ID, "textures/item/" + effectTimeLast.itemStack.getItem().toString() + ".png"), x + XXOffset + Count * 15, y - 60, 0, 0, 16, 16, 16, 16);
-            int Time = (int) (12 - effectTimeLast.TickCount * 12.0f / effectTimeLast.MaxCount);
+            int Time = (int) (12 - effectTimeLast.lastTick * 12.0f / effectTimeLast.maxTick);
             guiGraphics.blit(ClientUtils.CdResourceLocation[Time], x + XXOffset + Count * 15, y - 60, 0, 0, 16, 16, 16, 16);
-            if (effectTimeLast.TickCount > 0) guiGraphics.drawCenteredString(fontRenderer,
-                    Component.literal(effectTimeLast.TickCount >= 20 ? String.format("%.0f", effectTimeLast.TickCount / 20d) : String.format("%.1f", effectTimeLast.TickCount / 20d)).withStyle(ChatFormatting.WHITE), x + XXOffset + Count * 15 + 11, y - 52, 10);
+            if (effectTimeLast.lastTick > 0) guiGraphics.drawCenteredString(fontRenderer,
+                    Component.literal(effectTimeLast.lastTick >= 20 ? String.format("%.0f", effectTimeLast.lastTick / 20d) : String.format("%.1f", effectTimeLast.lastTick / 20d)).withStyle(ChatFormatting.WHITE), x + XXOffset + Count * 15 + 11, y - 52, 10);
             Count++;
         }
 
