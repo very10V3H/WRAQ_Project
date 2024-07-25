@@ -1,19 +1,15 @@
 package com.very.wraq.Items.MainStory_1.Mission;
 
-import com.very.wraq.render.toolTip.CustomStyle;
+import com.very.wraq.common.Utils.ClientUtils;
 import com.very.wraq.common.Compute;
 import com.very.wraq.series.specialevents.summer.SummerEvent;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 import java.sql.SQLException;
@@ -48,8 +44,9 @@ public class Main0 extends Item {
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
 
         if (level.isClientSide && !player.isShiftKeyDown()) {
-            DustParticleOptions options = new DustParticleOptions(Vec3.fromRGB24(CustomStyle.styleOfWorld.getColor().getValue()).toVector3f(), 1f);
-            level.addParticle(options, player.getX(), player.getY(), player.getZ(), 0, 0, 0);
+            ClientUtils.effectTimeLasts.forEach(effectTimeLast -> {
+                player.sendSystemMessage(Component.literal(effectTimeLast.itemStack + " " + effectTimeLast.lastTick));
+            });
 /*            XaeroMinimapSession minimapSession = XaeroMinimapSession.getCurrentSession();
             WaypointsManager waypointsManager = minimapSession.getWaypointsManager();
             List<Waypoint> list = waypointsManager.getCurrentWorld().getCurrentSet().getList();
@@ -74,6 +71,7 @@ public class Main0 extends Item {
         }
 
         if (!level.isClientSide && !player.isShiftKeyDown()) {
+
             for (int i = 0 ; i < 100 ; i ++) {
                 try {
                     SummerEvent.reward(player);
