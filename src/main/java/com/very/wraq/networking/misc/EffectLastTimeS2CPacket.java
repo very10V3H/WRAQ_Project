@@ -10,44 +10,44 @@ import net.minecraftforge.network.NetworkEvent;
 import java.util.function.Supplier;
 
 public class EffectLastTimeS2CPacket {
-    private final int LastTime;
+    private final int lastTime;
     private final ItemStack itemStack;
-    private final int Level;
-    private final boolean NoTime;
+    private final int level;
+    private final boolean forever;
 
     public EffectLastTimeS2CPacket(ItemStack itemStack, int counts) {
         this.itemStack = itemStack;
-        this.LastTime = counts;
-        this.Level = 0;
-        this.NoTime = false;
+        this.lastTime = counts;
+        this.level = 0;
+        this.forever = false;
     }
 
     public EffectLastTimeS2CPacket(ItemStack itemStack, int counts, int level) {
         this.itemStack = itemStack;
-        this.LastTime = counts;
-        this.Level = level;
-        this.NoTime = false;
+        this.lastTime = counts;
+        this.level = level;
+        this.forever = false;
     }
 
-    public EffectLastTimeS2CPacket(ItemStack itemStack, int counts, int level, boolean noTime) {
+    public EffectLastTimeS2CPacket(ItemStack itemStack, int counts, int level, boolean forever) {
         this.itemStack = itemStack;
-        this.LastTime = counts;
-        this.Level = level;
-        this.NoTime = noTime;
+        this.lastTime = counts;
+        this.level = level;
+        this.forever = forever;
     }
 
     public EffectLastTimeS2CPacket(FriendlyByteBuf buf) {
         this.itemStack = buf.readItem();
-        this.LastTime = buf.readInt();
-        this.Level = buf.readInt();
-        this.NoTime = buf.readBoolean();
+        this.lastTime = buf.readInt();
+        this.level = buf.readInt();
+        this.forever = buf.readBoolean();
     }
 
     public void toBytes(FriendlyByteBuf buf) {
         buf.writeItem(this.itemStack);
-        buf.writeInt(this.LastTime);
-        buf.writeInt(this.Level);
-        buf.writeBoolean(this.NoTime);
+        buf.writeInt(this.lastTime);
+        buf.writeInt(this.level);
+        buf.writeBoolean(this.forever);
     }
 
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
@@ -58,9 +58,9 @@ public class EffectLastTimeS2CPacket {
                 ClientUtils.effectTimeLasts.removeIf(effectTimeLast -> Element.elementList.contains(effectTimeLast.itemStack.getItem()));
             }
             ClientUtils.effectTimeLasts.removeIf(effectTimeLast -> effectTimeLast.itemStack.is(this.itemStack.getItem()));
-            if (this.NoTime)
-                ClientUtils.effectTimeLasts.add(new EffectTimeLast(itemStack, LastTime, LastTime, Level, true));
-            else ClientUtils.effectTimeLasts.add(new EffectTimeLast(itemStack, LastTime, LastTime, Level));
+
+            if (this.forever) ClientUtils.effectTimeLasts.add(new EffectTimeLast(itemStack, lastTime, lastTime, level, true));
+            else ClientUtils.effectTimeLasts.add(new EffectTimeLast(itemStack, lastTime, lastTime, level));
         });
         return true;
     }
