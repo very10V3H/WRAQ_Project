@@ -17,6 +17,7 @@ import com.very.wraq.process.system.forge.ForgeScreen;
 import com.very.wraq.process.system.missions.MissionScreen;
 import com.very.wraq.process.system.respawn.MyRespawnRule;
 import com.very.wraq.process.system.wayPoints.MyWayPoint;
+import com.very.wraq.projectiles.OnCuriosSlotTickEffect;
 import com.very.wraq.render.gui.market.MarketScreen;
 import com.very.wraq.render.gui.skills.IdCardGui;
 import com.very.wraq.render.gui.team.PlayerRequestScreen;
@@ -69,6 +70,7 @@ public class ClientTickEvent {
     @SubscribeEvent
     public static void ClientTick(TickEvent.PlayerTickEvent event) {
         MyWayPoint.clientTick(event);
+        OnCuriosSlotTickEffect.tickEvent(event.player);
         if (event.side.isClient() && event.phase == TickEvent.Phase.END && event.player.equals(Minecraft.getInstance().player)) {
             Minecraft mc = Minecraft.getInstance();
 
@@ -153,25 +155,25 @@ public class ClientTickEvent {
             } // 地蕴法术
 
             ClientUtils.effectTimeLasts.forEach(effectTimeLast -> {
-                if (!effectTimeLast.NoTime) effectTimeLast.TickCount--;
+                if (!effectTimeLast.forever) effectTimeLast.lastTick--;
             });
 
-            ClientUtils.effectTimeLasts.removeIf(effectTimeLast -> effectTimeLast.TickCount < 0);
+            ClientUtils.effectTimeLasts.removeIf(effectTimeLast -> effectTimeLast.lastTick < 0);
 
             if (ClientUtils.elementEffects != null) {
-                if (!ClientUtils.elementEffects.NoTime) ClientUtils.elementEffects.TickCount--;
-                if (ClientUtils.elementEffects.TickCount < 0) ClientUtils.elementEffects = null;
+                if (!ClientUtils.elementEffects.forever) ClientUtils.elementEffects.lastTick--;
+                if (ClientUtils.elementEffects.lastTick < 0) ClientUtils.elementEffects = null;
             }
 
             ClientUtils.coolDownTimes.forEach(effectTimeLast -> {
-                effectTimeLast.TickCount--;
+                effectTimeLast.lastTick--;
             });
-            ClientUtils.coolDownTimes.removeIf(effectTimeLast -> effectTimeLast.TickCount < 0);
+            ClientUtils.coolDownTimes.removeIf(effectTimeLast -> effectTimeLast.lastTick < 0);
 
             ClientUtils.debuffTimes.forEach(effectTimeLast -> {
-                effectTimeLast.TickCount--;
+                effectTimeLast.lastTick--;
             });
-            ClientUtils.debuffTimes.removeIf(effectTimeLast -> effectTimeLast.TickCount < 0);
+            ClientUtils.debuffTimes.removeIf(effectTimeLast -> effectTimeLast.lastTick < 0);
 
 
             if (event.player.tickCount % 20 == 0 && event.player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.MineHat.get())) {
