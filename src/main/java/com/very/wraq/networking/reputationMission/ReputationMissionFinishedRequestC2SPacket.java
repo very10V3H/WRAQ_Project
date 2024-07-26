@@ -36,7 +36,7 @@ public class ReputationMissionFinishedRequestC2SPacket {
         context.enqueueWork(() -> {
             ServerPlayer serverPlayer = context.getSender();
             if (!Utils.playerReputationMissionContent.containsKey(serverPlayer.getName().getString())) {
-                Compute.formatMSGSend(serverPlayer, Component.literal("任务").withStyle(ChatFormatting.GREEN),
+                Compute.sendFormatMSG(serverPlayer, Component.literal("任务").withStyle(ChatFormatting.GREEN),
                         Component.literal("当前没有任务可以提交。").withStyle(ChatFormatting.WHITE));
                 return;
             }
@@ -46,7 +46,7 @@ public class ReputationMissionFinishedRequestC2SPacket {
             Inventory inventory = serverPlayer.getInventory();
             if (Compute.ItemStackCheck(inventory, itemStack.getItem(), Count)) {
                 Compute.itemStackRemove(inventory, itemStack.getItem(), Count);
-                Compute.formatMSGSend(serverPlayer, Component.literal("任务").withStyle(CustomStyle.styleOfKaze),
+                Compute.sendFormatMSG(serverPlayer, Component.literal("任务").withStyle(CustomStyle.styleOfKaze),
                         Component.literal("你完成了悬赏任务！").withStyle(ChatFormatting.WHITE));
                 Calendar currentTime = Calendar.getInstance();
                 Calendar missionStartTime;
@@ -96,7 +96,7 @@ public class ReputationMissionFinishedRequestC2SPacket {
 
                 Compute.SoundToAll(serverPlayer, SoundEvents.PLAYER_LEVELUP);
             } else {
-                Compute.formatMSGSend(serverPlayer, Component.literal("任务").withStyle(CustomStyle.styleOfKaze),
+                Compute.sendFormatMSG(serverPlayer, Component.literal("任务").withStyle(CustomStyle.styleOfKaze),
                         Component.literal("暂未达成任务要求。").withStyle(ChatFormatting.WHITE));
             }
         });

@@ -62,7 +62,7 @@ public class ToEnd extends Item {
                     serverPlayer.teleportTo(end, 24.5, 88, -140.5, 180, 0);
                 }
             } else {
-                Compute.formatMSGSend(player, Component.literal("终界").withStyle(CustomStyle.styleOfEnd),
+                Compute.sendFormatMSG(player, Component.literal("终界").withStyle(CustomStyle.styleOfEnd),
                         Component.literal("需要达到75级才能前往").withStyle(ChatFormatting.WHITE));
             }
         }

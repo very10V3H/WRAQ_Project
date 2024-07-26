@@ -75,7 +75,7 @@ public class Guide {
     public static void trig(Player player, int stage) {
         if (getPlayerCurrentStage(player) == stage) {
             // reward
-            Compute.formatMSGSend(player, Component.literal("引导").withStyle(ChatFormatting.AQUA),
+            Compute.sendFormatMSG(player, Component.literal("引导").withStyle(ChatFormatting.AQUA),
                     Component.literal("你完成了引导任务，获得了奖励！").withStyle(ChatFormatting.WHITE));
             Compute.expGive(player, (stage + 1) * 10);
             Compute.soundToPlayer(player, SoundEvents.PLAYER_LEVELUP);
@@ -88,7 +88,7 @@ public class Guide {
             if (stage == 4) MyWayPoint.sendRemovePacketToClient(player, "锻造台");
             if (stage == 5) MyWayPoint.sendRemovePacketToClient(player, "灌注台");
             if (stage >= descriptionMap.size()) {
-                Compute.formatMSGSend(player, Component.literal("引导").withStyle(ChatFormatting.AQUA),
+                Compute.sendFormatMSG(player, Component.literal("引导").withStyle(ChatFormatting.AQUA),
                         Component.literal("你完成了所有基础引导任务，继续探索维瑞阿契世界吧！").withStyle(ChatFormatting.WHITE));
                 player.addItem(new ItemStack(ModItems.PlainRing.get()));
             }

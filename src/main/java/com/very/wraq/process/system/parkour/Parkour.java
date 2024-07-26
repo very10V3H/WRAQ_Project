@@ -133,7 +133,7 @@ public class Parkour {
             int lastRewardPoint = GetPlayerLastRewardNum(player);
             if (point == currentPoint + 1) {
                 SetParkourPointNum(player, point);
-                Compute.formatMSGSend(player, Component.literal("跑酷").withStyle(CustomStyle.styleOfFlexible),
+                Compute.sendFormatMSG(player, Component.literal("跑酷").withStyle(CustomStyle.styleOfFlexible),
                         Component.literal("已经保存记录点！(" + point + ")").withStyle(ChatFormatting.WHITE));
                 ModNetworking.sendToClient(new SoundsS2CPacket(6), (ServerPlayer) player);
 
@@ -158,7 +158,7 @@ public class Parkour {
         Vec3 pos = FindParkourPoint(player);
         serverPlayer.teleportTo(serverPlayer.getServer().getLevel(Level.OVERWORLD),
                 pos.x, pos.y + 1, pos.z, 180, 0);
-        Compute.formatMSGSend(player, Component.literal("跑酷").withStyle(CustomStyle.styleOfFlexible),
+        Compute.sendFormatMSG(player, Component.literal("跑酷").withStyle(CustomStyle.styleOfFlexible),
                 Component.literal("你已回到跑酷记录点/起点，继续你的跑酷吧！").withStyle(ChatFormatting.WHITE));
         serverPlayer.removeAllEffects();
     }

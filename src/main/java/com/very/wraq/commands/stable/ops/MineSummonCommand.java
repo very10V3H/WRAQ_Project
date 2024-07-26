@@ -20,7 +20,7 @@ public class MineSummonCommand implements Command<CommandSourceStack> {
         Level overWorld = player.getServer().getLevel(Level.OVERWORLD);
         if (player.isCreative()) Compute.purpleMineBlockPosInit(overWorld, true);
         if (!player.isCreative())
-            Compute.formatMSGSend(player, Component.literal("维瑞阿契").withStyle(ChatFormatting.AQUA),
+            Compute.sendFormatMSG(player, Component.literal("维瑞阿契").withStyle(ChatFormatting.AQUA),
                     Component.literal("仅管理员可用。").withStyle(ChatFormatting.WHITE));
 
         return 0;

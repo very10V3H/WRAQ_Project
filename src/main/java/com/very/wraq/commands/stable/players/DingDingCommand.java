@@ -26,12 +26,12 @@ public class DingDingCommand implements Command<CommandSourceStack> {
         for (GameProfile profile : gameProfile) {
             ServerPlayer target = player.getServer().getPlayerList().getPlayer(profile.getId());
             if (target == null) {
-                Compute.formatMSGSend(player, Component.literal("VB").withStyle(ChatFormatting.GOLD),
+                Compute.sendFormatMSG(player, Component.literal("VB").withStyle(ChatFormatting.GOLD),
                         Component.literal("玩家似乎不在线。。。").withStyle(ChatFormatting.WHITE));
                 return 0;
             }
             if (Utils.DingDingCoolDown.containsKey(player) && Utils.DingDingCoolDown.get(player) > player.getServer().getTickCount()) {
-                Compute.formatMSGSend(player, Component.literal("增强叮!").withStyle(ChatFormatting.AQUA),
+                Compute.sendFormatMSG(player, Component.literal("增强叮!").withStyle(ChatFormatting.AQUA),
                         Component.literal("一分钟内只能发送一次增强叮叮叮喔！").withStyle(ChatFormatting.WHITE));
             } else {
                 CompoundTag data = target.getPersistentData();
@@ -39,7 +39,7 @@ public class DingDingCommand implements Command<CommandSourceStack> {
                 data.putDouble("XRot", player.getXRot());
                 data.putDouble("YRot", player.getYRot());
                 if (!player.isCreative()) Utils.DingDingCoolDown.put(player, player.getServer().getTickCount() + 1200);
-                Compute.formatMSGSend(player, Component.literal("增强叮!").withStyle(ChatFormatting.AQUA),
+                Compute.sendFormatMSG(player, Component.literal("增强叮!").withStyle(ChatFormatting.AQUA),
                         Component.literal("你向 ").withStyle(ChatFormatting.WHITE).
                                 append(target.getDisplayName()).
                                 append(Component.literal(" 发送了一个增强叮!").withStyle(ChatFormatting.WHITE)));

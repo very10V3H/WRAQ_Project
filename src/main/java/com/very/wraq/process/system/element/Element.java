@@ -937,14 +937,14 @@ public class Element {
 
     public static void resonance(Player player, String type) {
         if (Compute.playerIsInBattle(player)) {
-            Compute.formatMSGSend(player, Component.literal("元素").withStyle(ChatFormatting.LIGHT_PURPLE),
+            Compute.sendFormatMSG(player, Component.literal("元素").withStyle(ChatFormatting.LIGHT_PURPLE),
                     Component.literal("请脱离战斗状态后重试").withStyle(ChatFormatting.WHITE));
             return;
         }
 
         if (PlayerResonanceType.containsKey(player) && PlayerResonanceType.get(player).equals(type)) {
             PlayerResonanceType.remove(player);
-            Compute.formatMSGSend(player, Component.literal("元素").withStyle(ChatFormatting.LIGHT_PURPLE),
+            Compute.sendFormatMSG(player, Component.literal("元素").withStyle(ChatFormatting.LIGHT_PURPLE),
                     Component.literal("共鸣").withStyle(CustomStyle.styleOfMoon).
                             append(Component.literal("类型已变更为 ").withStyle(ChatFormatting.WHITE)).
                             append(Component.literal("无")).withStyle(ChatFormatting.WHITE));
@@ -963,7 +963,7 @@ public class Element {
             put(wind, "「澄风轻拂，云卷云舒」");
         }};
         if (!nameMap.containsKey(type)) return;
-        Compute.formatMSGSend(player, Component.literal("元素").withStyle(ChatFormatting.LIGHT_PURPLE),
+        Compute.sendFormatMSG(player, Component.literal("元素").withStyle(ChatFormatting.LIGHT_PURPLE),
                 Component.literal("共鸣").withStyle(CustomStyle.styleOfMoon).
                         append(Component.literal("类型已变更为 ").withStyle(ChatFormatting.WHITE)).
                         append(Component.literal(nameMap.get(type))).withStyle(styleMap.get(type)));

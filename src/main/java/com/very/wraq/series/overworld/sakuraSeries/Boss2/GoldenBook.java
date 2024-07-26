@@ -108,7 +108,7 @@ public class GoldenBook extends WraqOffHandItem implements OnKillEffectOffHandIt
             boolean isSlime = MobSpawn.getMobOriginName(mob).equals(SlimeSpawnController.mobName) || MobSpawn.getMobOriginName(mob).equals(MagmaSpawnController.mobName);
             if (random.nextDouble() < (isSlime ? 0.015 : 0.045)) {
                 ItemStack goldCoin = ModItems.goldCoin.get().getDefaultInstance();
-                Compute.formatMSGSend(player, Component.literal("华贵金属").withStyle(style),
+                Compute.sendFormatMSG(player, Component.literal("华贵金属").withStyle(style),
                         Component.literal("额外获得了1枚").withStyle(ChatFormatting.AQUA).
                                 append(goldCoin.getDisplayName()));
                 Compute.itemStackGive(player, goldCoin);

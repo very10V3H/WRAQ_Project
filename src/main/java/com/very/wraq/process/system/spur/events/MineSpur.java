@@ -53,7 +53,7 @@ public class MineSpur {
 
                             Random random = new Random();
                             if (random.nextDouble() < Compute.playerExHarvest(player)) {
-                                Compute.formatMSGSend(player, Component.literal("额外产出").withStyle(ChatFormatting.GOLD),
+                                Compute.sendFormatMSG(player, Component.literal("额外产出").withStyle(ChatFormatting.GOLD),
                                         Component.literal("为你提供了额外产物！").withStyle(ChatFormatting.WHITE));
                                 Compute.itemStackGive(player, Utils.mineDropMap.get(blockState.getBlock()).getDefaultInstance());
                                 mineReward(player, blockState);

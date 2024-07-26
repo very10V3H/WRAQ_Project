@@ -39,7 +39,7 @@ public class VolcanoBossCore extends Item {
             if (data.contains(StringUtils.Entropy.Volcano))
                 data.putInt(StringUtils.Entropy.Volcano, data.getInt(StringUtils.Entropy.Volcano) + 1);
             else data.putInt(StringUtils.Entropy.Volcano, 1);
-            Compute.formatMSGSend(player, Component.literal("次元能量").withStyle(CustomStyle.styleOfEntropy),
+            Compute.sendFormatMSG(player, Component.literal("次元能量").withStyle(CustomStyle.styleOfEntropy),
                     Component.literal("你的").withStyle(ChatFormatting.WHITE).
                             append(Component.literal("熔岩次元能量").withStyle(CustomStyle.styleOfVolcano)).
                             append(Component.literal("得到了提升。").withStyle(ChatFormatting.WHITE)).

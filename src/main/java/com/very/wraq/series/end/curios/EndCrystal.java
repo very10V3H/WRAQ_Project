@@ -116,7 +116,7 @@ public class EndCrystal extends Item {
         }
 
         playerList.forEach(player1 -> {
-            Compute.formatMSGSend(player1, Component.literal("终界").withStyle(CustomStyle.styleOfEnd),
+            Compute.sendFormatMSG(player1, Component.literal("终界").withStyle(CustomStyle.styleOfEnd),
                     Component.literal("").withStyle(ChatFormatting.WHITE).
                             append(player.getDisplayName()).
                             append(Component.literal(" 击杀了 ").withStyle(ChatFormatting.WHITE)).

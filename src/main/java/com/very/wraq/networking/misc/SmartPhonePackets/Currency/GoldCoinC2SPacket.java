@@ -44,7 +44,7 @@ public class GoldCoinC2SPacket {
                         Compute.itemStackRemoveIgnoreVB(inventory, ModItems.goldCoin.get(), GoldCoinNum);
                         Compute.VBIncomeAndMSGSend(player, GoldCoinNum * 144);
                     } else {
-                        Compute.formatMSGSend(player, Component.literal("VB").withStyle(ChatFormatting.GOLD),
+                        Compute.sendFormatMSG(player, Component.literal("VB").withStyle(ChatFormatting.GOLD),
                                 Component.literal("背包内似乎没有金币用于兑换。").withStyle(ChatFormatting.WHITE));
                     }
                 }
@@ -59,7 +59,7 @@ public class GoldCoinC2SPacket {
                         itemStack.setCount(count);
                         Compute.itemStackGive(player, itemStack);
                     } else {
-                        Compute.formatMSGSend(player, Component.literal("VB").withStyle(ChatFormatting.GOLD),
+                        Compute.sendFormatMSG(player, Component.literal("VB").withStyle(ChatFormatting.GOLD),
                                 Component.literal("VB不足。").withStyle(ChatFormatting.WHITE));
                     }
                 }
@@ -74,7 +74,7 @@ public class GoldCoinC2SPacket {
                         itemStack.setCount(count);
                         Compute.itemStackGive(player, itemStack);
                     } else {
-                        Compute.formatMSGSend(player, Component.literal("VB").withStyle(ChatFormatting.GOLD),
+                        Compute.sendFormatMSG(player, Component.literal("VB").withStyle(ChatFormatting.GOLD),
                                 Component.literal("VB不足。").withStyle(ChatFormatting.WHITE));
                     }
                 }

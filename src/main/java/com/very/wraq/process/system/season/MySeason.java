@@ -237,10 +237,10 @@ public class MySeason {
     public static void sendElementEffectInfoToPlayer(Player player) {
         List<Component> components = MySeason.getElementEffectContent(currentSeason);
         if (components != null) {
-            Compute.formatMSGSend(player, Component.literal("季节").withStyle(CustomStyle.styleOfLife), Component.literal("现在是 ").withStyle(ChatFormatting.WHITE).
+            Compute.sendFormatMSG(player, Component.literal("季节").withStyle(CustomStyle.styleOfLife), Component.literal("现在是 ").withStyle(ChatFormatting.WHITE).
                     append(MySeason.seasonComponentMap.get(MySeason.currentSeason)).
                     append(Component.literal(" 时节").withStyle(ChatFormatting.WHITE)));
-            Compute.formatMSGSend(player, Component.literal("季节").withStyle(CustomStyle.styleOfLife), Component.literal("").withStyle(ChatFormatting.WHITE).
+            Compute.sendFormatMSG(player, Component.literal("季节").withStyle(CustomStyle.styleOfLife), Component.literal("").withStyle(ChatFormatting.WHITE).
                     append(MySeason.seasonComponentMap.get(MySeason.currentSeason)).
                     append(Component.literal(" 时分对元素的影响如下:").withStyle(ChatFormatting.WHITE)));
             components.forEach(component -> {
@@ -252,11 +252,11 @@ public class MySeason {
     }
 
     public static void sendExElementEffectInfoToPlayer(Player player) {
-        Compute.formatMSGSend(player, Component.literal("季节").withStyle(CustomStyle.styleOfLife), Component.literal("自然元素强度将会影响:").withStyle(ChatFormatting.WHITE));
+        Compute.sendFormatMSG(player, Component.literal("季节").withStyle(CustomStyle.styleOfLife), Component.literal("自然元素强度将会影响:").withStyle(ChatFormatting.WHITE));
         Compute.msgSendToPlayer(player, Component.literal("1.受到该元素影响的怪物受到的伤害（正的自然元素将减少怪物受到的伤害）").withStyle(ChatFormatting.WHITE), 2);
         Compute.msgSendToPlayer(player, Component.literal("2.玩家归一化元素强度的改变（将直接百分比改变玩家归一化元素强度）").withStyle(ChatFormatting.WHITE), 2);
         Compute.msgSendToPlayer(player, Component.literal("3.共鸣元素将会提供伤害影响").withStyle(ChatFormatting.WHITE), 2);
-        Compute.formatMSGSend(player, Component.literal("季节").withStyle(CustomStyle.styleOfLife), Component.literal("在").withStyle(ChatFormatting.WHITE).
+        Compute.sendFormatMSG(player, Component.literal("季节").withStyle(CustomStyle.styleOfLife), Component.literal("在").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("春").withStyle(CustomStyle.styleOfLife)).
                 append(Component.literal("/").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("秋").withStyle(CustomStyle.styleOfGold)).

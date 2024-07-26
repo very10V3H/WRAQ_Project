@@ -91,7 +91,7 @@ public class SakuraSword extends WraqSword implements ActiveItem {
                 data.putInt(StringUtils.SakuraDemonSword, tickCount + 100);
                 player.getCooldowns().addCooldown(ModItems.SakuraDemonSword.get(), (int) (300 - 300 * PlayerAttributes.coolDownDecrease(player)));
             } else {
-                Compute.formatMSGSend(player, Component.literal("妖刀").withStyle(CustomStyle.styleOfDemon),
+                Compute.sendFormatMSG(player, Component.literal("妖刀").withStyle(CustomStyle.styleOfDemon),
                         Component.literal("妖刀能量尚未充盈完毕。").withStyle(ChatFormatting.WHITE));
             }
         }

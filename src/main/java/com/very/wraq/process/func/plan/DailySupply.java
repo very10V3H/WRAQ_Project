@@ -45,7 +45,7 @@ public class DailySupply {
         int tick = player.getServer().getTickCount();
         if (tryCooldown.containsKey(name)) {
             if (tryCooldown.get(name) > tick) {
-                Compute.formatMSGSend(player, Component.literal("每日补给").withStyle(ChatFormatting.AQUA),
+                Compute.sendFormatMSG(player, Component.literal("每日补给").withStyle(ChatFormatting.AQUA),
                         Component.literal("不要点太快喔").withStyle(ChatFormatting.WHITE));
                 return;
             }
@@ -56,14 +56,14 @@ public class DailySupply {
             planPlayer.getDailyRewardTimes++;
             planPlayer.lastRewardTime = Compute.CalendarToString(Calendar.getInstance());
             Int2ObjectMap<ItemStack> map = getRewardItemMap();
-            Compute.formatMSGSend(player, Component.literal("每日补给").withStyle(ChatFormatting.AQUA),
+            Compute.sendFormatMSG(player, Component.literal("每日补给").withStyle(ChatFormatting.AQUA),
                     Component.literal("成功领取了每日补给").withStyle(ChatFormatting.WHITE));
             ItemStack mapItemStack = map.getOrDefault(PlanPlayer.getPlayerTier(player), new ItemStack(Items.AIR));
             ItemStack giveItemStack = new ItemStack(mapItemStack.getItem(), mapItemStack.getCount());
             Compute.itemStackGive(player, giveItemStack);
             sendStatusToClient(player);
         } else {
-            Compute.formatMSGSend(player, Component.literal("每日补给").withStyle(ChatFormatting.AQUA),
+            Compute.sendFormatMSG(player, Component.literal("每日补给").withStyle(ChatFormatting.AQUA),
                     Component.literal("似乎已经领取过今天的补给了呢").withStyle(ChatFormatting.WHITE));
         }
     }

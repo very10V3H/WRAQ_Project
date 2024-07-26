@@ -108,7 +108,7 @@ public class SummerCurios2024 extends WraqCurios implements OnCuriosSlotAttribut
                     && MySeason.currentSeason.contains(MySeason.summer) && player.isInWater()
                     && player.level().isDay()) {
                 Compute.itemStackGive(player, new ItemStack(Items.TROPICAL_FISH));
-                Compute.formatMSGSend(player, Component.literal("摸鱼!").withStyle(CustomStyle.styleOfWater),
+                Compute.sendFormatMSG(player, Component.literal("摸鱼!").withStyle(CustomStyle.styleOfWater),
                         Component.literal("你摸到了一条鱼！").withStyle(ChatFormatting.GOLD));
             }
         } else {

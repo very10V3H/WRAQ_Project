@@ -108,7 +108,7 @@ public abstract class NoTeamInstance {
                 Mob mob = this.mobList.get(0);
                 int needLevel = (int) (MobSpawn.MobBaseAttributes.xpLevel.get(MobSpawn.getMobOriginName(mob)) * 0.8);
                 if (player.experienceLevel < needLevel) {
-                    Compute.formatMSGSend(player, Component.literal("副本").withStyle(ChatFormatting.RED),
+                    Compute.sendFormatMSG(player, Component.literal("副本").withStyle(ChatFormatting.RED),
                             Component.literal("你没有达到获取奖励所需的等级: ").withStyle(ChatFormatting.WHITE).
                                     append(Component.literal("Lv." + needLevel).withStyle(Utils.levelStyleList.get(needLevel / 25))).
                                     append(Component.literal(" 因此你无法获得奖励").withStyle(ChatFormatting.WHITE)));
@@ -117,7 +117,7 @@ public abstract class NoTeamInstance {
                         rewardModule(player);
                         Compute.itemStackRemove(player.getInventory(), ModItems.notePaper.get(), 1);
                     } else {
-                        Compute.formatMSGSend(player, Component.literal("副本").withStyle(ChatFormatting.RED),
+                        Compute.sendFormatMSG(player, Component.literal("副本").withStyle(ChatFormatting.RED),
                                 Component.literal("你的背包中没有 ").withStyle(ChatFormatting.WHITE).
                                         append(ModItems.notePaper.get().getDefaultInstance().getDisplayName()).
                                         append(Component.literal(" 因此你无法获得奖励").withStyle(ChatFormatting.WHITE)));

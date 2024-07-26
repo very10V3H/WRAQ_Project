@@ -113,7 +113,13 @@ public class SummerEvent {
                     append(Component.literal(String.valueOf(20)).withStyle(CustomStyle.styleOfWater)));
 
             player.sendSystemMessage(Component.literal(" <<<——摸摸摸鱼——>>>").withStyle(CustomStyle.styleOfWater));
-
+        }
+        if (player.tickCount % 20 == 0) {
+            if (playerExHarvestEndTick.getOrDefault(name, 0) > tick) {
+                Compute.effectLastTimeSend(player, ModItems.GOLDEN_APPLE.get(), 0, true);
+            } else {
+                Compute.removeEffectLastTime(player, ModItems.GOLDEN_APPLE.get());
+            }
         }
     }
 
@@ -215,7 +221,7 @@ public class SummerEvent {
     }
 
     public static void sendFormatMSG(Player player, Component component) {
-        Compute.formatMSGSend(player, Component.literal("暑期活动").withStyle(CustomStyle.styleOfPower), component);
+        Compute.sendFormatMSG(player, Component.literal("暑期活动").withStyle(CustomStyle.styleOfPower), component);
     }
 
     public static int getIntData(Player player, String key) {

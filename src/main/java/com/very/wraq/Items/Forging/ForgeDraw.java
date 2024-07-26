@@ -50,7 +50,7 @@ public class ForgeDraw extends Item {
     public static void tryToForge(Player player, Item forgedItem) throws IOException {
         ItemStack forgeHammer = player.getMainHandItem();
         if (!(forgeHammer.getItem() instanceof ForgeHammer)) {
-            Compute.formatMSGSend(player, Component.literal("锻造").withStyle(ChatFormatting.GRAY),
+            Compute.sendFormatMSG(player, Component.literal("锻造").withStyle(ChatFormatting.GRAY),
                     Component.literal("请手持 ").withStyle(ChatFormatting.WHITE).
                             append(Component.literal("锻造锤").withStyle(ChatFormatting.GOLD)).
                             append(Component.literal(" 进行锻造").withStyle(ChatFormatting.WHITE)));
@@ -79,7 +79,7 @@ public class ForgeDraw extends Item {
                 Compute.itemStackRemove(inventory, stack.getItem(), stack.getCount());
             }
 
-            Compute.formatMSGSend(player, Component.literal("锻造").withStyle(ChatFormatting.GRAY),
+            Compute.sendFormatMSG(player, Component.literal("锻造").withStyle(ChatFormatting.GRAY),
                     Component.literal("锻造成功！").withStyle(ChatFormatting.GOLD));
             Compute.soundToPlayer(player, SoundEvents.ANVIL_USE);
 
@@ -125,13 +125,13 @@ public class ForgeDraw extends Item {
                 playerMSGSendDelayMap.put(player.getName().getString(), player.getServer().getTickCount() + 100);
             }
         } else {
-            Compute.formatMSGSend(player, Component.literal("锻造").withStyle(ChatFormatting.GRAY), Component.literal("背包里似乎没有足够的物品用于锻造。"));
+            Compute.sendFormatMSG(player, Component.literal("锻造").withStyle(ChatFormatting.GRAY), Component.literal("背包里似乎没有足够的物品用于锻造。"));
             for (ItemStack itemStack : MaterialList) {
                 if (Compute.itemStackCount(inventory, itemStack.getItem()) < itemStack.getCount()) {
-                    Compute.formatMSGSend(player, Component.literal("锻造").withStyle(ChatFormatting.GRAY), Component.literal("缺少:").withStyle(ChatFormatting.WHITE).append(itemStack.getItem().getDefaultInstance().getDisplayName()).append(Component.literal("*" + (itemStack.getCount() - Compute.itemStackCount(inventory, itemStack.getItem())))));
+                    Compute.sendFormatMSG(player, Component.literal("锻造").withStyle(ChatFormatting.GRAY), Component.literal("缺少:").withStyle(ChatFormatting.WHITE).append(itemStack.getItem().getDefaultInstance().getDisplayName()).append(Component.literal("*" + (itemStack.getCount() - Compute.itemStackCount(inventory, itemStack.getItem())))));
                 }
             }
-            Compute.formatMSGSend(player, Component.literal("锻造预览").withStyle(ChatFormatting.GRAY), Component.literal("锻造预览：").withStyle(ChatFormatting.WHITE).append(forgedItem.getDefaultInstance().getDisplayName()));
+            Compute.sendFormatMSG(player, Component.literal("锻造预览").withStyle(ChatFormatting.GRAY), Component.literal("锻造预览：").withStyle(ChatFormatting.WHITE).append(forgedItem.getDefaultInstance().getDisplayName()));
         }
     }
 
@@ -142,7 +142,7 @@ public class ForgeDraw extends Item {
         if (playerMSGSendDelayMap.containsKey(name)) {
             if (playerMSGSendDelayMap.get(name) < tick) {
                 playerMSGSendDelayMap.remove(name);
-                Compute.formatMSGSend(serverPlayer, Component.literal("引导-灌注").withStyle(ChatFormatting.AQUA), Component.literal("恭喜你完成了第一次打造！可能你已经注意到了，在一些武器的描述下方有").withStyle(ChatFormatting.WHITE).append(Component.literal("[可灌注/增幅]").withStyle(CustomStyle.styleOfPurpleIron)).append(Component.literal("的字样。").withStyle(ChatFormatting.WHITE)));
+                Compute.sendFormatMSG(serverPlayer, Component.literal("引导-灌注").withStyle(ChatFormatting.AQUA), Component.literal("恭喜你完成了第一次打造！可能你已经注意到了，在一些武器的描述下方有").withStyle(ChatFormatting.WHITE).append(Component.literal("[可灌注/增幅]").withStyle(CustomStyle.styleOfPurpleIron)).append(Component.literal("的字样。").withStyle(ChatFormatting.WHITE)));
                 playerMSGSendDelayMap1.put(name, tick + 40);
                 Compute.soundToPlayer(serverPlayer, SoundEvents.EXPERIENCE_ORB_PICKUP);
             }
@@ -152,7 +152,7 @@ public class ForgeDraw extends Item {
             if (playerMSGSendDelayMap1.get(name) < tick) {
                 playerMSGSendDelayMap1.remove(name);
                 ItemStack itemStack = new ItemStack(ModItems.PlainRune.get(), 2);
-                Compute.formatMSGSend(serverPlayer, Component.literal("引导-灌注").withStyle(ChatFormatting.AQUA), Component.literal("现在，拿着给予你的").withStyle(ChatFormatting.WHITE).append(itemStack.getDisplayName()).append(Component.literal("找到灌注台(在村庄锻造区域均有分布)，尝试给平原系列武器进行灌注升级吧！").withStyle(ChatFormatting.WHITE)));
+                Compute.sendFormatMSG(serverPlayer, Component.literal("引导-灌注").withStyle(ChatFormatting.AQUA), Component.literal("现在，拿着给予你的").withStyle(ChatFormatting.WHITE).append(itemStack.getDisplayName()).append(Component.literal("找到灌注台(在村庄锻造区域均有分布)，尝试给平原系列武器进行灌注升级吧！").withStyle(ChatFormatting.WHITE)));
                 Compute.itemStackGive(serverPlayer, itemStack);
                 playerMSGSendDelayMap2.put(name, tick + 40);
                 Compute.soundToPlayer(serverPlayer, SoundEvents.EXPERIENCE_ORB_PICKUP);
@@ -162,8 +162,8 @@ public class ForgeDraw extends Item {
         if (playerMSGSendDelayMap2.containsKey(name)) {
             if (playerMSGSendDelayMap2.get(name) < tick) {
                 playerMSGSendDelayMap2.remove(name);
-                Compute.formatMSGSend(serverPlayer, Component.literal("引导-快捷使用").withStyle(ChatFormatting.AQUA), Component.literal("你知道吗，在按键绑定中可以绑定快捷使用按键。").withStyle(ChatFormatting.WHITE));
-                Compute.formatMSGSend(serverPlayer, Component.literal("引导-快捷使用").withStyle(ChatFormatting.AQUA), Component.literal("使用快捷使用可以使你无前摇地施放主动，对于法师而言，").withStyle(ChatFormatting.WHITE).append(Component.literal("必须").withStyle(ChatFormatting.RED)).append(Component.literal("使用快捷使用来释放法术以获得主手武器提供的法术伤害加成").withStyle(ChatFormatting.WHITE)));
+                Compute.sendFormatMSG(serverPlayer, Component.literal("引导-快捷使用").withStyle(ChatFormatting.AQUA), Component.literal("你知道吗，在按键绑定中可以绑定快捷使用按键。").withStyle(ChatFormatting.WHITE));
+                Compute.sendFormatMSG(serverPlayer, Component.literal("引导-快捷使用").withStyle(ChatFormatting.AQUA), Component.literal("使用快捷使用可以使你无前摇地施放主动，对于法师而言，").withStyle(ChatFormatting.WHITE).append(Component.literal("必须").withStyle(ChatFormatting.RED)).append(Component.literal("使用快捷使用来释放法术以获得主手武器提供的法术伤害加成").withStyle(ChatFormatting.WHITE)));
                 Compute.soundToPlayer(serverPlayer, SoundEvents.EXPERIENCE_ORB_PICKUP);
             }
         }

@@ -106,7 +106,7 @@ public class TradeBuyRequestC2SPacket {
                 if (requireVBCount > 0 && needToTransform) {
                     int income = removeAllCurrencyInInventoryAndGiveVB(serverPlayer);
                     if (income > 0)
-                        Compute.formatMSGSend(serverPlayer, Component.literal("交易").withStyle(ChatFormatting.GREEN),
+                        Compute.sendFormatMSG(serverPlayer, Component.literal("交易").withStyle(ChatFormatting.GREEN),
                                 Component.literal("本次交易将背包中的所有货币转化为了").withStyle(ChatFormatting.WHITE).
                                         append(Component.literal(income + "vb").withStyle(ChatFormatting.GOLD)).
                                         append(Component.literal("，再从vb账户中支出了").withStyle(ChatFormatting.WHITE)).
@@ -128,7 +128,7 @@ public class TradeBuyRequestC2SPacket {
                 Compute.itemStackGive(serverPlayer, giveItemStack);
                 Compute.soundToPlayer(serverPlayer, SoundEvents.ARROW_HIT_PLAYER);
             } else {
-                Compute.formatMSGSend(serverPlayer, Component.literal("交易").withStyle(ChatFormatting.GREEN),
+                Compute.sendFormatMSG(serverPlayer, Component.literal("交易").withStyle(ChatFormatting.GREEN),
                         Component.literal("似乎没有足够的物品用于购买。").withStyle(ChatFormatting.WHITE));
             }
         });

@@ -4,6 +4,7 @@ import com.very.wraq.blocks.entity.ForgingBlockEntity;
 import com.very.wraq.blocks.entity.FurnaceEntity;
 import com.very.wraq.blocks.entity.HBrewingEntity;
 import com.very.wraq.blocks.entity.InjectBlockEntity;
+import com.very.wraq.commands.changeable.CompensateCommand;
 import com.very.wraq.commands.changeable.PrefixCommand;
 import com.very.wraq.events.instance.PurpleIronKnight;
 import com.very.wraq.networking.ModNetworking;
@@ -30,7 +31,6 @@ import com.very.wraq.process.system.tower.Tower;
 import com.very.wraq.process.system.tower.TowerStatusS2CPacket;
 import com.very.wraq.process.system.vp.VpDataHandler;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.series.newrunes.NewRuneItems;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.Utils.StringUtils;
 import com.very.wraq.common.Utils.Struct.PlayerTeam;
@@ -44,7 +44,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.scores.Scoreboard;
@@ -82,19 +81,10 @@ public class LoginInEvent {
                 if (data.contains(singleReward)) data.remove(singleReward);
             }
 
-            String singleReward = "singleReward11";
+            String singleReward = CompensateCommand.singleReward;
             if (!data.contains(singleReward)) {
-                data.putBoolean(singleReward, true);
-                if (serverPlayer.experienceLevel >= 40) {
-                    Tower.givePlayerStar(player, 160, "更新补偿");
-                    List<Item> items = List.of();
-                    for (Item item : items) {
-                        Compute.itemStackGive(player, new ItemStack(item));
-                    }
-
-                    Compute.formatMSGSend(player, Component.literal("更新补偿").withStyle(ChatFormatting.LIGHT_PURPLE),
-                            Component.literal("你收到了来自铁头的更新补偿!").withStyle(ChatFormatting.WHITE));
-                }
+                Compute.sendFormatMSG(player,Component.literal("补偿").withStyle(CustomStyle.styleOfSakura),
+                        Component.literal("你有待领取的补偿，输入/vmd compensate领取补偿！").withStyle(ChatFormatting.AQUA));
             }
 
             if (!data.contains(StringUtils.PatchouliBook)) {
@@ -300,7 +290,7 @@ public class LoginInEvent {
             int tick = event.getServer().getTickCount();
             newPlayerMSGDelay1.forEach(((player, integer) -> {
                 if (integer < tick) {
-                    Compute.formatMSGSend(player, Component.literal("欢迎").withStyle(ChatFormatting.AQUA),
+                    Compute.sendFormatMSG(player, Component.literal("欢迎").withStyle(ChatFormatting.AQUA),
                             Component.literal("欢迎新人！新手教程请查看群文件内玩家编写的教程或查阅游戏内的帕秋莉手册(维瑞阿契wiki),游玩过程有任何建议或问题欢迎在群里@群主或管理员！").withStyle(ChatFormatting.WHITE));
                     Compute.soundToPlayer(player, SoundEvents.EXPERIENCE_ORB_PICKUP);
                     newPlayerMSGDelay2.put(player, tick + 100);
@@ -310,7 +300,7 @@ public class LoginInEvent {
 
             newPlayerMSGDelay2.forEach(((player, integer) -> {
                 if (integer < tick) {
-                    Compute.formatMSGSend(player, Component.literal("欢迎").withStyle(ChatFormatting.AQUA),
+                    Compute.sendFormatMSG(player, Component.literal("欢迎").withStyle(ChatFormatting.AQUA),
                             Component.literal("您可以先打开身份卡，点击物品图鉴，浏览由制作者编写的各种装备，找到心仪的装备制作吧！").withStyle(ChatFormatting.GOLD));
                     Compute.soundToPlayer(player, SoundEvents.EXPERIENCE_ORB_PICKUP);
                     newPlayerMSGDelay3.put(player, tick + 100);
@@ -320,7 +310,7 @@ public class LoginInEvent {
 
             newPlayerMSGDelay3.forEach(((player, integer) -> {
                 if (integer < tick) {
-                    Compute.formatMSGSend(player, Component.literal("欢迎").withStyle(ChatFormatting.AQUA),
+                    Compute.sendFormatMSG(player, Component.literal("欢迎").withStyle(ChatFormatting.AQUA),
                             Component.literal("推荐您打开任务界面，完成游览地图任务，默认按P键，若按键冲突，请前往按键绑定，找到维瑞阿契按键修改。").withStyle(ChatFormatting.GOLD));
                     Compute.soundToPlayer(player, SoundEvents.EXPERIENCE_ORB_PICKUP);
                 }
@@ -452,7 +442,7 @@ public class LoginInEvent {
         data.putString(StringUtils.DailyInstanceCode, StringUtils.DailyInstanceCode0);
         PurpleIronKnight.RefreshRewardGetTimes(player); //
         data.putInt(StringUtils.OriginElementGetTimes, 0);
-        Compute.formatMSGSend(player, Component.literal("日常").withStyle(CustomStyle.styleOfHealth),
+        Compute.sendFormatMSG(player, Component.literal("日常").withStyle(CustomStyle.styleOfHealth),
                 Component.literal(" 你的日常活动已被刷新！").withStyle(ChatFormatting.WHITE));
         Tower.resetData(player);
         DailyMission.resetData(player);

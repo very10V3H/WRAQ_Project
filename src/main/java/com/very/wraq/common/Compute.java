@@ -531,7 +531,7 @@ public class Compute {
         if (data.contains("Xp")) data.putDouble("Xp", data.getDouble("Xp") + Xp);
         else data.putDouble("Xp", Xp);
         if (!data.contains("IgnoreExp") || (!data.getBoolean("IgnoreExp")))
-            Compute.formatMSGSend(player, Component.literal("经验").withStyle(ChatFormatting.LIGHT_PURPLE),
+            Compute.sendFormatMSG(player, Component.literal("经验").withStyle(ChatFormatting.LIGHT_PURPLE),
                     Component.literal("经验值").withStyle(ChatFormatting.LIGHT_PURPLE).
                             append(Component.literal(" + ").withStyle(ChatFormatting.DARK_PURPLE)).
                             append(Component.literal(String.format("%.1f", XpBeforeUp)).withStyle(ChatFormatting.LIGHT_PURPLE)).
@@ -547,7 +547,7 @@ public class Compute {
         if (data.contains("Xp")) data.putDouble("Xp", data.getDouble("Xp") + num);
         else data.putDouble("Xp", num);
         if (!data.contains("IgnoreExp") || (!data.getBoolean("IgnoreExp")))
-            Compute.formatMSGSend(player, Component.literal("经验").withStyle(ChatFormatting.LIGHT_PURPLE),
+            Compute.sendFormatMSG(player, Component.literal("经验").withStyle(ChatFormatting.LIGHT_PURPLE),
                     Component.literal("经验值").withStyle(ChatFormatting.LIGHT_PURPLE).
                             append(Component.literal(" + ").withStyle(ChatFormatting.DARK_PURPLE)).
                             append(Component.literal(String.format("%.1f", num)).withStyle(ChatFormatting.LIGHT_PURPLE)).
@@ -568,7 +568,7 @@ public class Compute {
         if (data.contains("Xp")) data.putDouble("Xp", data.getDouble("Xp") + Xp);
         else data.putDouble("Xp", Xp);
         if (!data.contains("IgnoreExp") || (!data.getBoolean("IgnoreExp")))
-            Compute.formatMSGSend(player, Component.literal("经验").withStyle(ChatFormatting.LIGHT_PURPLE),
+            Compute.sendFormatMSG(player, Component.literal("经验").withStyle(ChatFormatting.LIGHT_PURPLE),
                     Component.literal("经验值").withStyle(ChatFormatting.LIGHT_PURPLE).
                             append(Component.literal(" + ").withStyle(ChatFormatting.DARK_PURPLE)).
                             append(Component.literal(String.format("%.1f", XpBeforeUp)).withStyle(ChatFormatting.LIGHT_PURPLE)).
@@ -632,7 +632,7 @@ public class Compute {
                 ParticleProvider.VerticleCircleParticle((ServerPlayer) player, 1.5, 6, 100, ModParticles.LONG_ENTROPY.get());
                 Compute.SoundToAll(player, ModSounds.Nether_Power.get());
             } else {
-                Compute.formatMSGSend(player, Component.literal("次元能量").withStyle(CustomStyle.styleOfHealth),
+                Compute.sendFormatMSG(player, Component.literal("次元能量").withStyle(CustomStyle.styleOfHealth),
                         Component.literal("你的次元能量不足以召唤这个次元。").withStyle(ChatFormatting.WHITE));
             }
         } else if (tool instanceof VolcanoBossSword && playerManaCost(player, 180)) {
@@ -661,7 +661,7 @@ public class Compute {
 
                 Compute.SoundToAll(player, ModSounds.Lava.get());
             } else {
-                Compute.formatMSGSend(player, Component.literal("次元能量").withStyle(CustomStyle.styleOfPower),
+                Compute.sendFormatMSG(player, Component.literal("次元能量").withStyle(CustomStyle.styleOfPower),
                         Component.literal("你的次元能量不足以召唤这个次元。").withStyle(ChatFormatting.WHITE));
             }
         } else if (tool instanceof LakeBoss.LakeBossSword && playerManaCost(player, 180)) {
@@ -770,7 +770,7 @@ public class Compute {
         }
     }
 
-    public static void formatMSGSend(Player player, Component type, Component content) {
+    public static void sendFormatMSG(Player player, Component type, Component content) {
         if (player != null)
             player.sendSystemMessage(Component.literal("[").withStyle(ChatFormatting.GRAY).append(type).append("] ").withStyle(ChatFormatting.GRAY).
                     append(content));
@@ -1031,7 +1031,7 @@ public class Compute {
         double ExpUp = PlayerAttributes.expUp(player);
         if (random.nextDouble() < LevelRate[Level]) {
             if (data.contains(InventoryCheck.owner)) {
-                Compute.formatMSGSend(player, Component.literal("酿造").withStyle(CustomStyle.styleOfBrew), Component.literal("你的酿造经验为你节省了这次酿造的材料消耗并为你提供了经验值。"));
+                Compute.sendFormatMSG(player, Component.literal("酿造").withStyle(CustomStyle.styleOfBrew), Component.literal("你的酿造经验为你节省了这次酿造的材料消耗并为你提供了经验值。"));
                 Compute.formatBroad(player.level(), Component.literal("酿造").withStyle(CustomStyle.styleOfBrew),
                         Component.literal("").withStyle(ChatFormatting.WHITE).
                                 append(player.getDisplayName()).
@@ -1079,12 +1079,12 @@ public class Compute {
                 InventoryCheck.addOwnerTagToItemStack(player, itemStack);
             if (!PlayerIgnore.IgnoreItemGet(player)) {
                 if (itemStack.getCount() > 1) {
-                    formatMSGSend(player, Component.literal("物品").withStyle(ChatFormatting.GREEN),
+                    sendFormatMSG(player, Component.literal("物品").withStyle(ChatFormatting.GREEN),
                             Component.literal("你获得了：").withStyle(ChatFormatting.WHITE).
                                     append(itemStack.getDisplayName()).
                                     append(Component.literal("*" + itemStack.getCount()).withStyle(ChatFormatting.AQUA)));
                 } else {
-                    formatMSGSend(player, Component.literal("物品").withStyle(ChatFormatting.GREEN),
+                    sendFormatMSG(player, Component.literal("物品").withStyle(ChatFormatting.GREEN),
                             Component.literal("你获得了：").withStyle(ChatFormatting.WHITE).
                                     append(itemStack.getDisplayName()));
                 }
@@ -1097,7 +1097,7 @@ public class Compute {
                 itemEntity.setItem(itemStack);
                 itemEntity.moveTo(player.position());
                 player.level().addFreshEntity(itemEntity);
-                formatMSGSend(player, Component.literal("物品").withStyle(ChatFormatting.GREEN),
+                sendFormatMSG(player, Component.literal("物品").withStyle(ChatFormatting.GREEN),
                         Component.literal("背包已无空位，请注意。"));
             }
         }
@@ -1149,7 +1149,7 @@ public class Compute {
         if (!data.contains("VB")) data.putDouble("VB", num);
         else data.putDouble("VB", data.getDouble("VB") + num);
         if (!data.getBoolean(StringUtils.IgnoreType.VB)) {
-            formatMSGSend(player, Component.literal("VB").withStyle(ChatFormatting.GOLD),
+            sendFormatMSG(player, Component.literal("VB").withStyle(ChatFormatting.GOLD),
                     Component.literal("你的账户收入:").withStyle(ChatFormatting.WHITE).
                             append(Component.literal(String.format("%.1f", num)).withStyle(ChatFormatting.RED)).
                             append(Component.literal("VB,").withStyle(ChatFormatting.GOLD)).
@@ -1163,7 +1163,7 @@ public class Compute {
         CompoundTag data = player.getPersistentData();
         data.putDouble("VB", data.getDouble("VB") - num);
         if (!data.getBoolean(StringUtils.IgnoreType.VB)) {
-            formatMSGSend(player, Component.literal("VB").withStyle(ChatFormatting.GOLD),
+            sendFormatMSG(player, Component.literal("VB").withStyle(ChatFormatting.GOLD),
                     Component.literal("你的账户支出:").withStyle(ChatFormatting.WHITE).
                             append(Component.literal(String.format("%.1f", num)).withStyle(ChatFormatting.GREEN)).
                             append(Component.literal("VB,").withStyle(ChatFormatting.GOLD)).
@@ -3828,7 +3828,7 @@ public class Compute {
         for (int i = 0; i < 3; i++) {
             data.remove(StringUtils.SkillArray[i]);
         }
-        Compute.formatMSGSend(player, Component.literal("世界本源").withStyle(CustomStyle.styleOfWorld),
+        Compute.sendFormatMSG(player, Component.literal("世界本源").withStyle(CustomStyle.styleOfWorld),
                 Component.literal("你的大脑对于技艺的理解回归了数个时段。。。").withStyle(ChatFormatting.WHITE));
     }
 
@@ -4024,7 +4024,7 @@ public class Compute {
         ChatFormatting chatFormatting = ChatFormatting.GREEN;
         if (Num < 0) {
             if (playerReputation(player) + Num < 0) {
-                Compute.formatMSGSend(player, Component.literal("声望").withStyle(ChatFormatting.YELLOW),
+                Compute.sendFormatMSG(player, Component.literal("声望").withStyle(ChatFormatting.YELLOW),
                         Component.literal("当前声望不足。").withStyle(ChatFormatting.WHITE));
                 return false;
             }
@@ -4032,7 +4032,7 @@ public class Compute {
         }
         data.putInt(StringUtils.Reputation, data.getInt(StringUtils.Reputation) + Num);
         data.putInt(StringUtils.ReputationCalculate, data.getInt(StringUtils.ReputationCalculate) + Num);
-        Compute.formatMSGSend(player, Component.literal("声望").withStyle(ChatFormatting.YELLOW),
+        Compute.sendFormatMSG(player, Component.literal("声望").withStyle(ChatFormatting.YELLOW),
                 Component.literal("你的声望值:").withStyle(ChatFormatting.WHITE).
                         append(Component.literal("" + playerReputation(player)).withStyle(ChatFormatting.YELLOW)).
                         append(Component.literal(" (" + Num + ")").withStyle(chatFormatting)));
@@ -5055,7 +5055,7 @@ public class Compute {
     public static boolean exHarvestItemGive(Player player, ItemStack itemStack, double baseRate) {
         Random random = new Random();
         if (random.nextDouble() < baseRate * Compute.playerExHarvest(player)) {
-            Compute.formatMSGSend(player, Component.literal("额外产出").withStyle(ChatFormatting.GOLD),
+            Compute.sendFormatMSG(player, Component.literal("额外产出").withStyle(ChatFormatting.GOLD),
                     Component.literal("为你提供了额外产物！").withStyle(ChatFormatting.WHITE));
             Compute.itemStackGive(player, itemStack);
             return true;
@@ -5110,7 +5110,7 @@ public class Compute {
             Compute.itemStackRemoveIgnoreVB(player.getInventory(), needItem.getItem(), needItem.getCount());
             Compute.itemStackGive(player, new ItemStack(targetItem.getItem(), targetItem.getCount()));
         } else {
-            Compute.formatMSGSend(player, Component.literal("交易").withStyle(ChatFormatting.GOLD),
+            Compute.sendFormatMSG(player, Component.literal("交易").withStyle(ChatFormatting.GOLD),
                     Component.literal("背包中似乎没有足够数量的 ").withStyle(ChatFormatting.WHITE).
                             append(needItem.getDisplayName()));
         }

@@ -283,7 +283,7 @@ public class TabooDevil {
                                         append(difficulty));
 
                         playerListGetByName.forEach(player -> {
-                            Compute.formatMSGSend(player, Component.literal("副本").withStyle(ChatFormatting.RED),
+                            Compute.sendFormatMSG(player, Component.literal("副本").withStyle(ChatFormatting.RED),
                                     Component.literal("  征讨伤害排名如下：").withStyle(ChatFormatting.WHITE));
 
                             Utils.TabooDevilDamageList.sort(Comparator.comparing(Boss2Damage::getDamage).reversed());
@@ -308,7 +308,7 @@ public class TabooDevil {
                                             }
                                         }
                                     }
-                                    Compute.formatMSGSend(player, Component.literal(index + ".").withStyle(ChatFormatting.RED),
+                                    Compute.sendFormatMSG(player, Component.literal(index + ".").withStyle(ChatFormatting.RED),
                                             Component.literal(" ").withStyle(ChatFormatting.WHITE).
                                                     append(player1.getDisplayName()).
                                                     append(Component.literal("  DMG:" + damage + "[" + String.format("%.2f", damage * 100 / (MaxHealth * difficultyEnhanceRate * (1 + (playerNum - 1) * 0.75))) + "%]").withStyle(ChatFormatting.WHITE)));
@@ -331,7 +331,7 @@ public class TabooDevil {
                                 Compute.itemStackGive(player, new ItemStack(ModItems.DevilLoot.get(), 1));
                             }
                             if (random.nextDouble() <= 0.025 * (playerNum - 1) * difficultyEnhanceRate) {
-                                Compute.formatMSGSend(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
+                                Compute.sendFormatMSG(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
                                         Component.literal("你通过组队挑战副本，额外获得了:").withStyle(ChatFormatting.WHITE).
                                                 append(ModItems.DevilLoot.get().getDefaultInstance().getDisplayName()));
                                 Compute.itemStackGive(player, new ItemStack(ModItems.DevilLoot.get(), 1));
@@ -530,7 +530,7 @@ public class TabooDevil {
         Random random = new Random();
         if (!isMopUp) {
             if (random.nextDouble() <= 0.025 * (playerNum - 1) * difficultyEnhanceRate) {
-                Compute.formatMSGSend(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
+                Compute.sendFormatMSG(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
                         Component.literal("你通过组队挑战副本，额外获得了:").withStyle(ChatFormatting.WHITE).
                                 append(ModItems.TabooPiece.get().getDefaultInstance().getDisplayName()));
                 Compute.itemStackGive(player, new ItemStack(ModItems.TabooPiece.get(), 2));
@@ -538,7 +538,7 @@ public class TabooDevil {
         }
 
         if (LoginInEvent.playerDailyInstanceReward(player, 8)) {
-            Compute.formatMSGSend(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
+            Compute.sendFormatMSG(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
                     Component.literal("每日首次通关副本，额外获得了:").withStyle(ChatFormatting.WHITE).
                             append(ModItems.TabooPiece.get().getDefaultInstance().getDisplayName()));
 

@@ -669,7 +669,7 @@ public class Drops {
         if (!data.contains(StringUtils.KillCount.MineWorker)) data.putInt(StringUtils.KillCount.MineWorker, 1);
         else data.putInt(StringUtils.KillCount.MineWorker, data.getInt(StringUtils.KillCount.MineWorker) + 1);
 
-        Compute.formatMSGSend(player, Component.literal("紫晶铁矿").withStyle(CustomStyle.styleOfPurpleIron),
+        Compute.sendFormatMSG(player, Component.literal("紫晶铁矿").withStyle(CustomStyle.styleOfPurpleIron),
                 Component.literal("你从紫晶铁矿工习得的技艺愈发成熟").withStyle(ChatFormatting.WHITE).
                         append(Component.literal("(" + data.getInt(StringUtils.KillCount.MineWorker) + ")").withStyle(CustomStyle.styleOfPurpleIron)));
 

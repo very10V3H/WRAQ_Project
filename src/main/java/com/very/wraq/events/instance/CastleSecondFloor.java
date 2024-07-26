@@ -87,7 +87,7 @@ public class CastleSecondFloor {
             if (shieldCount > 0) shieldCount--;
             ModNetworking.sendToClient(new SoundsS2CPacket(11), (ServerPlayer) player);
             Compute.effectLastTimeSend(player, ModItems.CastleTabooPiece.get().getDefaultInstance(), 0);
-            Compute.formatMSGSend(player, Component.literal("暗黑城堡").withStyle(CustomStyle.styleOfCastle),
+            Compute.sendFormatMSG(player, Component.literal("暗黑城堡").withStyle(CustomStyle.styleOfCastle),
                     Component.literal("暗黑骑士还有" + shieldCount + "层顽盾!").withStyle(ChatFormatting.WHITE));
             ClientboundSoundPacket clientboundSoundPacket =
                     new ClientboundSoundPacket(Holder.direct(SoundEvents.ANVIL_DESTROY), SoundSource.PLAYERS, player.getX(), player.getY(), player.getZ(), 1, 1, 0);
@@ -99,7 +99,7 @@ public class CastleSecondFloor {
         if (!mob.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.MobArmorCastleKnightHelmet.get()) || mob instanceof Civil)
             return 1;
         if (shieldCount > 0) {
-            Compute.formatMSGSend(player, Component.literal("暗黑城堡").withStyle(CustomStyle.styleOfCastle),
+            Compute.sendFormatMSG(player, Component.literal("暗黑城堡").withStyle(CustomStyle.styleOfCastle),
                     Component.literal("暗黑骑士还有" + shieldCount + "层顽盾!").withStyle(ChatFormatting.WHITE));
 
             return 0;
@@ -452,7 +452,7 @@ public class CastleSecondFloor {
         Random random = new Random();
 
         if (!isMopUp) {
-            Compute.formatMSGSend(player, Component.literal("副本").withStyle(ChatFormatting.RED),
+            Compute.sendFormatMSG(player, Component.literal("副本").withStyle(ChatFormatting.RED),
                     Component.literal("  征讨伤害排名如下：").withStyle(ChatFormatting.WHITE));
 
             List<Boss2Damage> list = new ArrayList<>();
@@ -466,7 +466,7 @@ public class CastleSecondFloor {
                 if (boss2Damage.getPlayer() != null) {
                     Player player1 = boss2Damage.getPlayer();
                     double damage = boss2Damage.getDamage();
-                    Compute.formatMSGSend(player, Component.literal(index + ".").withStyle(ChatFormatting.RED),
+                    Compute.sendFormatMSG(player, Component.literal(index + ".").withStyle(ChatFormatting.RED),
                             Component.literal(" ").withStyle(ChatFormatting.WHITE).
                                     append(player1.getDisplayName()).
                                     append(Component.literal("  DMG:" + damage + "[" + String.format("%.2f", damage * 100 / (MaxHealth * 2)) + "%]").withStyle(ChatFormatting.WHITE)));
@@ -492,7 +492,7 @@ public class CastleSecondFloor {
 
             if (!isMopUp) {
                 if (random.nextDouble() <= 0.025 * (playerNum - 1) * difficultyEnhanceRate) {
-                    Compute.formatMSGSend(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
+                    Compute.sendFormatMSG(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
                             Component.literal("你通过组队挑战副本，额外获得了:").withStyle(ChatFormatting.WHITE).
                                     append(ModItems.CastleKnightStone.get().getDefaultInstance().getDisplayName()));
                     Compute.itemStackGive(player, new ItemStack(ModItems.CastleKnightStone.get(), 2));
@@ -501,7 +501,7 @@ public class CastleSecondFloor {
         }
 
         if (LoginInEvent.playerDailyInstanceReward(player, 10)) {
-            Compute.formatMSGSend(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
+            Compute.sendFormatMSG(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
                     Component.literal("每日首次通关副本，额外获得了:").withStyle(ChatFormatting.WHITE).
                             append(ModItems.CastleKnightStone.get().getDefaultInstance().getDisplayName()));
             Compute.itemStackGive(player, new ItemStack(ModItems.CastleKnightStone.get(), 16));

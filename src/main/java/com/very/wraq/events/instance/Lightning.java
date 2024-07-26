@@ -115,7 +115,7 @@ public class Lightning {
                 if (instanceTick > 200) {
                     if (instanceTick % 200 == 0) {
                         playerListGetByName.forEach(player -> {
-                            Compute.formatMSGSend(player, Component.literal("唤雷").withStyle(CustomStyle.styleOfLightingIsland),
+                            Compute.sendFormatMSG(player, Component.literal("唤雷").withStyle(CustomStyle.styleOfLightingIsland),
                                     Component.literal("距离挑战结束，还有").withStyle(ChatFormatting.WHITE).
                                             append(Component.literal("" + (1400 - instanceTick) / 20 + "秒").withStyle(ChatFormatting.WHITE)));
                         });
@@ -212,7 +212,7 @@ public class Lightning {
         Random random = new Random();
         if (!isMopUp) {
             if (random.nextDouble() <= 0.025 * (playerNum - 1) * difficultyEnhanceRate) {
-                Compute.formatMSGSend(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
+                Compute.sendFormatMSG(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
                         Component.literal("你通过组队挑战副本，额外获得了:").withStyle(ChatFormatting.WHITE).
                                 append(ModItems.LightningSoul.get().getDefaultInstance().getDisplayName()));
                 Compute.itemStackGive(player, new ItemStack(ModItems.LightningSoul.get(), Utils.instanceKillCount[1] * difficultyEnhanceRate));
@@ -223,7 +223,7 @@ public class Lightning {
         Compute.itemStackGive(player, new ItemStack(ModItems.LightningSoul.get(), isMopUp ? 96 : Utils.instanceKillCount[1] * difficultyEnhanceRate));
 
         if (LoginInEvent.playerDailyInstanceReward(player, 1)) {
-            Compute.formatMSGSend(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
+            Compute.sendFormatMSG(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
                     Component.literal("每日首次通关副本，额外获得了:").withStyle(ChatFormatting.WHITE).
                             append(ModItems.LightningSoul.get().getDefaultInstance().getDisplayName()));
             Compute.itemStackGive(player, new ItemStack(ModItems.LightningSoul.get(), 192));

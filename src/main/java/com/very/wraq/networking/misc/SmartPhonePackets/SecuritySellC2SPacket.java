@@ -44,7 +44,7 @@ public class SecuritySellC2SPacket {
                                         append(Component.literal("Ta当前的股票收益为:").withStyle(ChatFormatting.WHITE)).
                                         append(Component.literal(String.format("%.2f", data.getDouble("securityGet"))).withStyle(ChatFormatting.AQUA)));
                     } else {
-                        Compute.formatMSGSend(player, Component.literal("股票").withStyle(ChatFormatting.GOLD),
+                        Compute.sendFormatMSG(player, Component.literal("股票").withStyle(ChatFormatting.GOLD),
                                 Component.literal("股票不足。").withStyle(ChatFormatting.WHITE));
                     }
                 }
@@ -60,7 +60,7 @@ public class SecuritySellC2SPacket {
                                         append(Component.literal("Ta当前的股票收益为:").withStyle(ChatFormatting.WHITE)).
                                         append(Component.literal(String.format("%.2f", data.getDouble("securityGet"))).withStyle(ChatFormatting.AQUA)));
                     } else {
-                        Compute.formatMSGSend(player, Component.literal("股票").withStyle(ChatFormatting.GOLD),
+                        Compute.sendFormatMSG(player, Component.literal("股票").withStyle(ChatFormatting.GOLD),
                                 Component.literal("股票不足。").withStyle(ChatFormatting.WHITE));
                     }
                 }
@@ -76,7 +76,7 @@ public class SecuritySellC2SPacket {
                                         append(Component.literal("Ta当前的股票收益为:").withStyle(ChatFormatting.WHITE)).
                                         append(Component.literal(String.format("%.2f", data.getDouble("securityGet"))).withStyle(ChatFormatting.AQUA)));
                     } else {
-                        Compute.formatMSGSend(player, Component.literal("股票").withStyle(ChatFormatting.GOLD),
+                        Compute.sendFormatMSG(player, Component.literal("股票").withStyle(ChatFormatting.GOLD),
                                 Component.literal("股票不足。").withStyle(ChatFormatting.WHITE));
                     }
                 }
@@ -92,7 +92,7 @@ public class SecuritySellC2SPacket {
                                         append(Component.literal("Ta当前的股票收益为:").withStyle(ChatFormatting.WHITE)).
                                         append(Component.literal(String.format("%.2f", data.getDouble("securityGet"))).withStyle(ChatFormatting.AQUA)));
                     } else {
-                        Compute.formatMSGSend(player, Component.literal("股票").withStyle(ChatFormatting.GOLD),
+                        Compute.sendFormatMSG(player, Component.literal("股票").withStyle(ChatFormatting.GOLD),
                                 Component.literal("股票不足。").withStyle(ChatFormatting.WHITE));
                     }
                 }

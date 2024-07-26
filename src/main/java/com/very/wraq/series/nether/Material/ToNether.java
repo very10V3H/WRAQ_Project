@@ -40,7 +40,7 @@ public class ToNether extends Item {
                 ServerPlayer serverPlayer = (ServerPlayer) player;
                 serverPlayer.teleportTo(nether, 591, 78, -619, 90, 0);
             } else {
-                Compute.formatMSGSend(player, Component.literal("下界").withStyle(ChatFormatting.RED),
+                Compute.sendFormatMSG(player, Component.literal("下界").withStyle(ChatFormatting.RED),
                         Component.literal("需要达到75级才能前往").withStyle(ChatFormatting.WHITE));
             }
         }

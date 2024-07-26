@@ -53,7 +53,7 @@ public class FishEvent {
         if (RodLevel > 2000) {
             double rate = 0.07 * (1 + rateEnhance);
             if (r.nextDouble() < rate) {
-                Compute.formatMSGSend(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
+                Compute.sendFormatMSG(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
                         Component.literal("你通过钓鱼额外获得了:").append(GoldCoin.getDisplayName()).append(Component.literal("*1")));
                 Compute.itemStackGive(player, GoldCoin);
             }
@@ -67,12 +67,12 @@ public class FishEvent {
         } else if (RodLevel > 1000) {
             double rate = 0.06 * (1 + rateEnhance);
             if (r.nextDouble() < rate) {
-                Compute.formatMSGSend(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
+                Compute.sendFormatMSG(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
                         Component.literal("你通过钓鱼额外获得了:").append(GoldCoin.getDisplayName()).append(Component.literal("*1")));
                 Compute.itemStackGive(player, GoldCoin);
             }
             if (r.nextDouble() < rate * 2) {
-                Compute.formatMSGSend(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
+                Compute.sendFormatMSG(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
                         Component.literal("你通过钓鱼额外获得了:").append(SilverCoin.getDisplayName()).append(Component.literal("*1")));
                 Compute.itemStackGive(player, SilverCoin);
             }
@@ -83,12 +83,12 @@ public class FishEvent {
         } else if (RodLevel > 500) {
             double rate = 0.05 * (1 + rateEnhance);
             if (r.nextDouble() < rate) {
-                Compute.formatMSGSend(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
+                Compute.sendFormatMSG(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
                         Component.literal("你通过钓鱼额外获得了:").append(GoldCoin.getDisplayName()).append(Component.literal("*1")));
                 Compute.itemStackGive(player, GoldCoin);
             }
             if (r.nextDouble() < rate * 2) {
-                Compute.formatMSGSend(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
+                Compute.sendFormatMSG(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
                         Component.literal("你通过钓鱼额外获得了:").append(SilverCoin.getDisplayName()).append(Component.literal("*1")));
                 Compute.itemStackGive(player, SilverCoin);
             }
@@ -99,12 +99,12 @@ public class FishEvent {
         } else if (RodLevel > 200) {
             double rate = 0.04 * (1 + rateEnhance);
             if (r.nextDouble() < rate) {
-                Compute.formatMSGSend(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
+                Compute.sendFormatMSG(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
                         Component.literal("你通过钓鱼额外获得了:").append(GoldCoin.getDisplayName()).append(Component.literal("*1")));
                 Compute.itemStackGive(player, GoldCoin);
             }
             if (r.nextDouble() < rate * 2) {
-                Compute.formatMSGSend(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
+                Compute.sendFormatMSG(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
                         Component.literal("你通过钓鱼额外获得了:").append(SilverCoin.getDisplayName()).append(Component.literal("*1")));
                 Compute.itemStackGive(player, SilverCoin);
             }
@@ -115,12 +115,12 @@ public class FishEvent {
         } else if (RodLevel > 100) {
             double rate = 0.03 * (1 + rateEnhance);
             if (r.nextDouble() < rate) {
-                Compute.formatMSGSend(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
+                Compute.sendFormatMSG(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
                         Component.literal("你通过钓鱼额外获得了:").append(GoldCoin.getDisplayName()).append(Component.literal("*1")));
                 Compute.itemStackGive(player, GoldCoin);
             }
             if (r.nextDouble() < rate * 2) {
-                Compute.formatMSGSend(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
+                Compute.sendFormatMSG(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
                         Component.literal("你通过钓鱼额外获得了:").append(SilverCoin.getDisplayName()).append(Component.literal("*1")));
                 Compute.itemStackGive(player, SilverCoin);
             }
@@ -131,12 +131,12 @@ public class FishEvent {
         } else if (RodLevel > 50) {
             double rate = 0.02 * (1 + rateEnhance);
             if (r.nextDouble() < rate) {
-                Compute.formatMSGSend(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
+                Compute.sendFormatMSG(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
                         Component.literal("你通过钓鱼额外获得了:").append(GoldCoin.getDisplayName()).append(Component.literal("*1")));
                 Compute.itemStackGive(player, GoldCoin);
             }
             if (r.nextDouble() < rate * 2) {
-                Compute.formatMSGSend(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
+                Compute.sendFormatMSG(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
                         Component.literal("你通过钓鱼额外获得了:").append(SilverCoin.getDisplayName()).append(Component.literal("*1")));
                 Compute.itemStackGive(player, SilverCoin);
             }
@@ -147,12 +147,12 @@ public class FishEvent {
         } else if (RodLevel > 20) {
             double rate = 0.01 * (1 + rateEnhance);
             if (r.nextDouble() < rate) {
-                Compute.formatMSGSend(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
+                Compute.sendFormatMSG(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
                         Component.literal("你通过钓鱼额外获得了:").append(GoldCoin.getDisplayName()).append(Component.literal("*1")));
                 Compute.itemStackGive(player, GoldCoin);
             }
             if (r.nextDouble() < rate * 2) {
-                Compute.formatMSGSend(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
+                Compute.sendFormatMSG(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
                         Component.literal("你通过钓鱼额外获得了:").append(SilverCoin.getDisplayName()).append(Component.literal("*1")));
                 Compute.itemStackGive(player, SilverCoin);
             }
@@ -163,45 +163,45 @@ public class FishEvent {
         } else {
             Compute.ExpPercentGetAndMSGSend(player, 0.05, 0, 3);
             if (r.nextDouble() < 0.01) {
-                Compute.formatMSGSend(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
+                Compute.sendFormatMSG(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
                         Component.literal("你通过钓鱼额外获得了:").append(SilverCoin.getDisplayName()).append(Component.literal("*1")));
                 Compute.itemStackGive(player, SilverCoin);
             }
         }
-        Compute.formatMSGSend(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
+        Compute.sendFormatMSG(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
                 Component.literal("当前钓鱼熟练度为: " + RodLevel));
         if (RodLevel > 1000 && RodLevel < 2000) {
-            Compute.formatMSGSend(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
+            Compute.sendFormatMSG(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
                     Component.literal("距离下一个钓鱼等阶，还需:").
                             append(Component.literal(" " + (2000 - RodLevel)).withStyle(CustomStyle.styleOfSea)).
                             append(Component.literal("熟练度。")));
         } else if (RodLevel > 500) {
-            Compute.formatMSGSend(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
+            Compute.sendFormatMSG(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
                     Component.literal("距离下一个钓鱼等阶，还需:").
                             append(Component.literal(" " + (1000 - RodLevel)).withStyle(CustomStyle.styleOfSea)).
                             append(Component.literal("熟练度。")));
         } else if (RodLevel > 200) {
-            Compute.formatMSGSend(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
+            Compute.sendFormatMSG(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
                     Component.literal("距离下一个钓鱼等阶，还需:").
                             append(Component.literal(" " + (500 - RodLevel)).withStyle(CustomStyle.styleOfSea)).
                             append(Component.literal("熟练度。")));
         } else if (RodLevel > 100) {
-            Compute.formatMSGSend(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
+            Compute.sendFormatMSG(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
                     Component.literal("距离下一个钓鱼等阶，还需:").
                             append(Component.literal(" " + (200 - RodLevel)).withStyle(CustomStyle.styleOfSea)).
                             append(Component.literal("熟练度。")));
         } else if (RodLevel > 50) {
-            Compute.formatMSGSend(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
+            Compute.sendFormatMSG(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
                     Component.literal("距离下一个钓鱼等阶，还需:").
                             append(Component.literal(" " + (100 - RodLevel)).withStyle(CustomStyle.styleOfSea)).
                             append(Component.literal("熟练度。")));
         } else if (RodLevel > 20) {
-            Compute.formatMSGSend(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
+            Compute.sendFormatMSG(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
                     Component.literal("距离下一个钓鱼等阶，还需:").
                             append(Component.literal(" " + (50 - RodLevel)).withStyle(CustomStyle.styleOfSea)).
                             append(Component.literal("熟练度。")));
         } else {
-            Compute.formatMSGSend(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
+            Compute.sendFormatMSG(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
                     Component.literal("距离下一个钓鱼等阶，还需:").
                             append(Component.literal(" " + (20 - RodLevel)).withStyle(CustomStyle.styleOfSea)).
                             append(Component.literal("熟练度。")));
@@ -225,7 +225,7 @@ public class FishEvent {
                 if (data.contains(StringUtils.ShipFishTimes)) data.putInt(StringUtils.ShipFishTimes, 1);
             } else {
                 data.putInt(StringUtils.ShipFishTimes, data.getInt(StringUtils.ShipFishTimes) + 1);
-                Compute.formatMSGSend(player, Component.literal("打捞").withStyle(CustomStyle.styleOfShip),
+                Compute.sendFormatMSG(player, Component.literal("打捞").withStyle(CustomStyle.styleOfShip),
                         Component.literal("你已经打捞了").withStyle(ChatFormatting.WHITE).
                                 append(Component.literal("" + data.getInt(StringUtils.ShipFishTimes)).withStyle(CustomStyle.styleOfShip)).
                                 append(Component.literal("次都没有发现废弃船厂遗物了。").withStyle(ChatFormatting.WHITE)));

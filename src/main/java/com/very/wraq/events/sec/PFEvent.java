@@ -47,9 +47,9 @@ public class PFEvent {
                             cal0.add(Calendar.HOUR_OF_DAY, 6);
                             if (cal0.after(cal)) // 晚于系统时间 意即还未冷却完毕
                             {
-                                Compute.formatMSGSend(player, Component.literal("隐藏副本").
+                                Compute.sendFormatMSG(player, Component.literal("隐藏副本").
                                         withStyle(CustomStyle.styleOfHealth), Component.literal("副本暂未冷却完毕。"));
-                                Compute.formatMSGSend(player, Component.literal("隐藏副本").
+                                Compute.sendFormatMSG(player, Component.literal("隐藏副本").
                                         withStyle(CustomStyle.styleOfHealth), Component.literal("将在" + cal0.get(Calendar.YEAR) + "年" + (cal0.get(Calendar.MONTH) + 1) +
                                         "月" + cal0.get(Calendar.DAY_OF_MONTH) + "日" + cal0.get(Calendar.HOUR_OF_DAY) + "时" + cal0.get(Calendar.MINUTE) + "分" + cal0.get(Calendar.SECOND) + "可用。"));
                             } else {
@@ -59,14 +59,14 @@ public class PFEvent {
                                     String DateString = tmpDate.format(date);
                                     data.putString("PFDATE", DateString);
                                     data.putInt("PFTIME", 120);
-                                    Compute.formatMSGSend(player, Component.literal("隐藏副本").
+                                    Compute.sendFormatMSG(player, Component.literal("隐藏副本").
                                             withStyle(CustomStyle.styleOfHealth), Component.literal("已激活！现在你有两分钟的时间可以击杀副本怪物！"));
                                     Compute.formatBroad(player.level(), Component.literal("隐藏副本").
                                             withStyle(CustomStyle.styleOfHealth), Component.literal(player.getName().getString() + "已激活平原/森林隐藏副本！").withStyle(ChatFormatting.WHITE));
                                     Utils.PFController = 120;
                                     player.teleportTo(214.5, 81.5, 1080.5);
                                 } else {
-                                    Compute.formatMSGSend(player, Component.literal("隐藏副本").
+                                    Compute.sendFormatMSG(player, Component.literal("隐藏副本").
                                             withStyle(CustomStyle.styleOfHealth), Component.literal("副本已被激活，请等待其他玩家激活时间结束。"));
                                 }
                             }
@@ -77,22 +77,22 @@ public class PFEvent {
                                 String DateString = tmpDate.format(date);
                                 data.putString("PFDATE", DateString);
                                 data.putInt("PFTIME", 120);
-                                Compute.formatMSGSend(player, Component.literal("隐藏副本").
+                                Compute.sendFormatMSG(player, Component.literal("隐藏副本").
                                         withStyle(CustomStyle.styleOfHealth), Component.literal("已激活！现在你有两分钟的时间可以击杀副本怪物！"));
                                 Compute.formatBroad(player.level(), Component.literal("隐藏副本").
                                         withStyle(CustomStyle.styleOfHealth), Component.literal(player.getName().getString() + "已激活平原/森林隐藏副本！").withStyle(ChatFormatting.WHITE));
                                 Utils.PFController = 120;
                                 player.teleportTo(214.5, 81.5, 1080.5);
                             } else {
-                                Compute.formatMSGSend(player, Component.literal("隐藏副本").
+                                Compute.sendFormatMSG(player, Component.literal("隐藏副本").
                                         withStyle(CustomStyle.styleOfHealth), Component.literal("副本已被激活，请等待其他玩家激活时间结束。"));
                             }
                         }
                     } else {
-                        Compute.formatMSGSend(player, Component.literal("隐藏副本").
+                        Compute.sendFormatMSG(player, Component.literal("隐藏副本").
                                 withStyle(CustomStyle.styleOfHealth), Component.literal("暂未达到副本激活需求。"));
                         if (data.contains("KillCountOfPlainZombie") && data.getInt("KillCountOfPlainZombie") < 500) {
-                            Compute.formatMSGSend(player, Component.literal("隐藏副本").
+                            Compute.sendFormatMSG(player, Component.literal("隐藏副本").
                                     withStyle(CustomStyle.styleOfHealth), Component.literal("平原僵尸").withStyle(ChatFormatting.GREEN).
                                     append(Component.literal("击杀数: ").withStyle(ChatFormatting.WHITE).
                                             append(Component.literal("(" + data.getInt("KillCountOfPlainZombie") + "/" + 500 + ")"))));
@@ -100,7 +100,7 @@ public class PFEvent {
                         if ((data.contains("KillCountOfForestSkeleton") && data.contains("KillCountOfForestZombie")
                                 && data.getInt("KillCountOfForestZombie") + data.getInt("KillCountOfForestSkeleton") < 500)
                                 || !data.contains("KillCountOfForestSkeleton") || !data.contains("KillCountOfForestZombie")) {
-                            Compute.formatMSGSend(player, Component.literal("隐藏副本").
+                            Compute.sendFormatMSG(player, Component.literal("隐藏副本").
                                     withStyle(CustomStyle.styleOfHealth), Component.literal("森林骷髅/僵尸").withStyle(ChatFormatting.DARK_GREEN).
                                     append(Component.literal("击杀数: ").withStyle(ChatFormatting.WHITE).
                                             append(Component.literal("(" + (data.getInt("KillCountOfForestZombie") + data.getInt("KillCountOfForestSkeleton")) + "/" + 500 + ")"))));
@@ -109,15 +109,15 @@ public class PFEvent {
                 }
                 if (data.contains("PFTIME")) {
                     if (data.getInt("PFTIME") > 0) data.putInt("PFTIME", data.getInt("PFTIME") - 1);
-                    if (data.getInt("PFTIME") == 100) Compute.formatMSGSend(player, Component.literal("隐藏副本").
+                    if (data.getInt("PFTIME") == 100) Compute.sendFormatMSG(player, Component.literal("隐藏副本").
                             withStyle(CustomStyle.styleOfHealth), Component.literal("还剩下100s！"));
-                    if (data.getInt("PFTIME") == 80) Compute.formatMSGSend(player, Component.literal("隐藏副本").
+                    if (data.getInt("PFTIME") == 80) Compute.sendFormatMSG(player, Component.literal("隐藏副本").
                             withStyle(CustomStyle.styleOfHealth), Component.literal("还剩下80s！"));
-                    if (data.getInt("PFTIME") == 60) Compute.formatMSGSend(player, Component.literal("隐藏副本").
+                    if (data.getInt("PFTIME") == 60) Compute.sendFormatMSG(player, Component.literal("隐藏副本").
                             withStyle(CustomStyle.styleOfHealth), Component.literal("还剩下60s！"));
-                    if (data.getInt("PFTIME") == 40) Compute.formatMSGSend(player, Component.literal("隐藏副本").
+                    if (data.getInt("PFTIME") == 40) Compute.sendFormatMSG(player, Component.literal("隐藏副本").
                             withStyle(CustomStyle.styleOfHealth), Component.literal("还剩下40s！"));
-                    if (data.getInt("PFTIME") == 20) Compute.formatMSGSend(player, Component.literal("隐藏副本").
+                    if (data.getInt("PFTIME") == 20) Compute.sendFormatMSG(player, Component.literal("隐藏副本").
                             withStyle(CustomStyle.styleOfHealth), Component.literal("还剩下20s！"));
                     if (data.getInt("PFTIME") == 0) {
                         player.teleportTo(214, 102, 1074);

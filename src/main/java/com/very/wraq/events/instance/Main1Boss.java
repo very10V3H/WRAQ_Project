@@ -189,7 +189,7 @@ public class Main1Boss {
         if (!isMopUp) {
             if (r.nextDouble() <= 0.025 * (playerNum - 1) * difficultyEnhanceRate) {
                 ItemStack itemStack1 = Main1GemsGive(player, difficultyEnhanceRate);
-                Compute.formatMSGSend(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
+                Compute.sendFormatMSG(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
                         Component.literal("你通过组队挑战副本，额外获得了:").withStyle(ChatFormatting.WHITE).
                                 append(itemStack1.getDisplayName()));
                 Compute.itemStackGive(player, itemStack1);
@@ -198,7 +198,7 @@ public class Main1Boss {
 
         if (LoginInEvent.playerDailyInstanceReward(player, 2)) {
             ItemStack itemStack1 = Main1GemsGive(player, 6);
-            Compute.formatMSGSend(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
+            Compute.sendFormatMSG(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
                     Component.literal("每日首次通关副本，额外获得了:").withStyle(ChatFormatting.WHITE).
                             append(itemStack1.getDisplayName()));
 

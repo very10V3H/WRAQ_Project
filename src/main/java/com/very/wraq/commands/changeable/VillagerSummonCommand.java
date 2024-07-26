@@ -144,7 +144,7 @@ public class VillagerSummonCommand implements Command<CommandSourceStack> {
                 mutableComponent = MyVillagerData.villagerNameMap.get(type);
             } else {
                 if (!StringUtils.VillagerNameMap.containsKey(type)) {
-                    Compute.formatMSGSend(player, Component.literal("生成").withStyle(ChatFormatting.LIGHT_PURPLE),
+                    Compute.sendFormatMSG(player, Component.literal("生成").withStyle(ChatFormatting.LIGHT_PURPLE),
                             Component.literal("请检查拼写是否正确。").withStyle(ChatFormatting.WHITE));
                     return 0;
                 }
@@ -161,7 +161,7 @@ public class VillagerSummonCommand implements Command<CommandSourceStack> {
             player.sendSystemMessage(Component.literal("已生成 ").withStyle(ChatFormatting.WHITE).
                     append(mutableComponent));
         } else {
-            Compute.formatMSGSend(player, Component.literal("维瑞阿契").withStyle(ChatFormatting.AQUA),
+            Compute.sendFormatMSG(player, Component.literal("维瑞阿契").withStyle(ChatFormatting.AQUA),
                     Component.literal("此命令仅管理员可用。").withStyle(ChatFormatting.WHITE));
         }
 /*            if (type.equals(StringUtils.VillagerType.MainMission.Trade1)) {

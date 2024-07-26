@@ -46,9 +46,9 @@ public class SVEvent {
                             cal0.add(Calendar.HOUR_OF_DAY, 6);
                             if (cal0.after(cal)) // 晚于系统时间 意即还未冷却完毕
                             {
-                                Compute.formatMSGSend(player, Component.literal("隐藏副本").
+                                Compute.sendFormatMSG(player, Component.literal("隐藏副本").
                                         withStyle(ChatFormatting.YELLOW), Component.literal("副本暂未冷却完毕。"));
-                                Compute.formatMSGSend(player, Component.literal("隐藏副本").
+                                Compute.sendFormatMSG(player, Component.literal("隐藏副本").
                                         withStyle(ChatFormatting.YELLOW), Component.literal("将在" + cal0.get(Calendar.YEAR) + "年" + (cal0.get(Calendar.MONTH) + 1) +
                                         "月" + cal0.get(Calendar.DAY_OF_MONTH) + "日" + cal0.get(Calendar.HOUR_OF_DAY) + "时" + cal0.get(Calendar.MINUTE) + "分" + cal0.get(Calendar.SECOND) + "可用。"));
                             } else {
@@ -58,14 +58,14 @@ public class SVEvent {
                                     String DateString = tmpDate.format(date);
                                     data.putString("SVDATE", DateString);
                                     data.putInt("SVTIME", 120);
-                                    Compute.formatMSGSend(player, Component.literal("隐藏副本").
+                                    Compute.sendFormatMSG(player, Component.literal("隐藏副本").
                                             withStyle(ChatFormatting.YELLOW), Component.literal("已激活！现在你有两分钟的时间可以击杀副本怪物！"));
                                     Compute.formatBroad(player.level(), Component.literal("隐藏副本").
                                             withStyle(ChatFormatting.YELLOW), Component.literal(player.getName().getString() + "已激活火山隐藏副本！").withStyle(ChatFormatting.WHITE));
                                     Utils.SVController = 30;
                                     player.moveTo(-18, -43, 889);
                                 } else {
-                                    Compute.formatMSGSend(player, Component.literal("隐藏副本").
+                                    Compute.sendFormatMSG(player, Component.literal("隐藏副本").
                                             withStyle(ChatFormatting.YELLOW), Component.literal("副本已被激活，请等待其他玩家激活时间结束。"));
                                 }
                             }
@@ -76,22 +76,22 @@ public class SVEvent {
                                 String DateString = tmpDate.format(date);
                                 data.putString("SVDATE", DateString);
                                 data.putInt("SVTIME", 120);
-                                Compute.formatMSGSend(player, Component.literal("隐藏副本").
+                                Compute.sendFormatMSG(player, Component.literal("隐藏副本").
                                         withStyle(ChatFormatting.YELLOW), Component.literal("已激活！现在你有两分钟的时间可以击杀副本怪物！"));
                                 Compute.formatBroad(player.level(), Component.literal("隐藏副本").
                                         withStyle(ChatFormatting.YELLOW), Component.literal(player.getName().getString() + "已激活火山隐藏副本！").withStyle(ChatFormatting.WHITE));
                                 Utils.SVController = 30;
                                 player.moveTo(-18, -43, 889);
                             } else {
-                                Compute.formatMSGSend(player, Component.literal("隐藏副本").
+                                Compute.sendFormatMSG(player, Component.literal("隐藏副本").
                                         withStyle(ChatFormatting.YELLOW), Component.literal("副本已被激活，请等待其他玩家激活时间结束。"));
                             }
                         }
                     } else {
-                        Compute.formatMSGSend(player, Component.literal("隐藏副本").
+                        Compute.sendFormatMSG(player, Component.literal("隐藏副本").
                                 withStyle(ChatFormatting.YELLOW), Component.literal("暂未达到副本激活需求。"));
                         if (data.contains("KillCountOfVolcanoBlazw") && data.getInt("KillCountOfVolcanoBlazw") < 500) {
-                            Compute.formatMSGSend(player, Component.literal("隐藏副本").
+                            Compute.sendFormatMSG(player, Component.literal("隐藏副本").
                                     withStyle(ChatFormatting.YELLOW), Component.literal("火山烈焰").withStyle(ChatFormatting.YELLOW).
                                     append(Component.literal("击杀数: ").withStyle(ChatFormatting.WHITE).
                                             append(Component.literal("(" + data.getInt("KillCountOfVolcanoBlazw") + "/" + 500 + ")"))));
@@ -100,15 +100,15 @@ public class SVEvent {
                 }
                 if (data.contains("SVTIME")) {
                     if (data.getInt("SVTIME") > 0) data.putInt("SVTIME", data.getInt("SVTIME") - 1);
-                    if (data.getInt("SVTIME") == 100) Compute.formatMSGSend(player, Component.literal("隐藏副本").
+                    if (data.getInt("SVTIME") == 100) Compute.sendFormatMSG(player, Component.literal("隐藏副本").
                             withStyle(ChatFormatting.YELLOW), Component.literal("还剩下100s！"));
-                    if (data.getInt("SVTIME") == 80) Compute.formatMSGSend(player, Component.literal("隐藏副本").
+                    if (data.getInt("SVTIME") == 80) Compute.sendFormatMSG(player, Component.literal("隐藏副本").
                             withStyle(ChatFormatting.YELLOW), Component.literal("还剩下80s！"));
-                    if (data.getInt("SVTIME") == 60) Compute.formatMSGSend(player, Component.literal("隐藏副本").
+                    if (data.getInt("SVTIME") == 60) Compute.sendFormatMSG(player, Component.literal("隐藏副本").
                             withStyle(ChatFormatting.YELLOW), Component.literal("还剩下60s！"));
-                    if (data.getInt("SVTIME") == 40) Compute.formatMSGSend(player, Component.literal("隐藏副本").
+                    if (data.getInt("SVTIME") == 40) Compute.sendFormatMSG(player, Component.literal("隐藏副本").
                             withStyle(ChatFormatting.YELLOW), Component.literal("还剩下40s！"));
-                    if (data.getInt("SVTIME") == 20) Compute.formatMSGSend(player, Component.literal("隐藏副本").
+                    if (data.getInt("SVTIME") == 20) Compute.sendFormatMSG(player, Component.literal("隐藏副本").
                             withStyle(ChatFormatting.YELLOW), Component.literal("还剩下20s！"));
                     if (data.getInt("SVTIME") == 0) {
                         player.teleportTo(5, -54, 990);

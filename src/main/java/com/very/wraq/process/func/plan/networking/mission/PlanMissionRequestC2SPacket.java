@@ -47,7 +47,7 @@ public class PlanMissionRequestC2SPacket {
                     throw new RuntimeException(e);
                 }
                 if (!allowToRequest) {
-                    Compute.formatMSGSend(serverPlayer, Component.literal("月卡任务").withStyle(ChatFormatting.LIGHT_PURPLE),
+                    Compute.sendFormatMSG(serverPlayer, Component.literal("月卡任务").withStyle(ChatFormatting.LIGHT_PURPLE),
                             Component.literal("当前没有接取月卡任务的权限。").withStyle(ChatFormatting.WHITE));
                     return;
                 }
@@ -85,19 +85,19 @@ public class PlanMissionRequestC2SPacket {
                                 PlanMission.planMissionAllowRequestTimeMap.getOrDefault(name, "")), serverPlayer);
 
                         ModNetworking.sendToClient(new SoundsS2CPacket(6), serverPlayer);
-                        Compute.formatMSGSend(serverPlayer, Component.literal("月卡任务").withStyle(ChatFormatting.LIGHT_PURPLE),
+                        Compute.sendFormatMSG(serverPlayer, Component.literal("月卡任务").withStyle(ChatFormatting.LIGHT_PURPLE),
                                 Component.literal("你成功接取了").withStyle(ChatFormatting.WHITE).
                                         append(Component.literal(" 月卡任务 !").withStyle(ChatFormatting.LIGHT_PURPLE)));
                     } else {
-                        Compute.formatMSGSend(serverPlayer, Component.literal("月卡任务").withStyle(ChatFormatting.LIGHT_PURPLE),
+                        Compute.sendFormatMSG(serverPlayer, Component.literal("月卡任务").withStyle(ChatFormatting.LIGHT_PURPLE),
                                 Component.literal("悬赏任务需要达到20级才能开始接取。").withStyle(ChatFormatting.WHITE));
                     }
                 } else {
-                    Compute.formatMSGSend(serverPlayer, Component.literal("月卡任务").withStyle(ChatFormatting.LIGHT_PURPLE),
+                    Compute.sendFormatMSG(serverPlayer, Component.literal("月卡任务").withStyle(ChatFormatting.LIGHT_PURPLE),
                             Component.literal("悬赏任务惩罚尚未结束。").withStyle(ChatFormatting.WHITE));
                 }
             } else {
-                Compute.formatMSGSend(serverPlayer, Component.literal("月卡任务").withStyle(ChatFormatting.LIGHT_PURPLE),
+                Compute.sendFormatMSG(serverPlayer, Component.literal("月卡任务").withStyle(ChatFormatting.LIGHT_PURPLE),
                         Component.literal("你已经接取悬赏任务了！").withStyle(ChatFormatting.WHITE));
             }
         });

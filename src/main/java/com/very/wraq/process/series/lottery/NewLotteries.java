@@ -22,7 +22,6 @@ import java.sql.Statement;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 public class NewLotteries extends Item {
 
@@ -129,7 +128,7 @@ public class NewLotteries extends Item {
             try {
                 if (recordFlag) {
                     times = addPlayerRewardTimes(player, mainHandStack.getItem());
-                    Compute.formatMSGSend(player, Component.literal("礼盒").withStyle(ChatFormatting.LIGHT_PURPLE),
+                    Compute.sendFormatMSG(player, Component.literal("礼盒").withStyle(ChatFormatting.LIGHT_PURPLE),
                             Component.literal("这是第").withStyle(ChatFormatting.WHITE).
                                     append(Component.literal("" + times).withStyle(ChatFormatting.LIGHT_PURPLE)).
                                     append(Component.literal("次抽取该礼盒").withStyle(ChatFormatting.WHITE)));

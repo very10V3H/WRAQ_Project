@@ -231,7 +231,7 @@ public class Spring {
                                     append(difficulty));
 
                     playerListGetByName.forEach(player -> {
-                        Compute.formatMSGSend(player, Component.literal("副本").withStyle(ChatFormatting.RED),
+                        Compute.sendFormatMSG(player, Component.literal("副本").withStyle(ChatFormatting.RED),
                                 Component.literal("  征讨伤害排名如下：").withStyle(ChatFormatting.WHITE));
 
                         Utils.SpringDamageList.sort(Comparator.comparing(Boss2Damage::getDamage).reversed());
@@ -241,7 +241,7 @@ public class Spring {
                             if (boss2Damage.getPlayer() != null) {
                                 Player player1 = boss2Damage.getPlayer();
                                 double damage = boss2Damage.getDamage();
-                                Compute.formatMSGSend(player, Component.literal(index + ".").withStyle(ChatFormatting.RED),
+                                Compute.sendFormatMSG(player, Component.literal(index + ".").withStyle(ChatFormatting.RED),
                                         Component.literal(" ").withStyle(ChatFormatting.WHITE).
                                                 append(player1.getDisplayName()).
                                                 append(Component.literal("  DMG:" + damage + "[" + String.format("%.2f", damage * 100 / (25000000 * difficultyEnhanceRate * (1 + (playerNum - 1) * 0.75))) + "%]").withStyle(ChatFormatting.WHITE)));

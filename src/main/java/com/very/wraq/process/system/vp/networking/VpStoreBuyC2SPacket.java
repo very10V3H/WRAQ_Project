@@ -64,7 +64,7 @@ public class VpStoreBuyC2SPacket {
                     int tier = simpleTierPaper.getTier();
                     try {
                         if (PlanPlayer.getPlayerTier(serverPlayer) >= tier) {
-                            Compute.formatMSGSend(serverPlayer, Component.literal("vp").withStyle(ChatFormatting.AQUA),
+                            Compute.sendFormatMSG(serverPlayer, Component.literal("vp").withStyle(ChatFormatting.AQUA),
                                     Component.literal("无法购买阶位不高于当前阶位的计划.").withStyle(ChatFormatting.WHITE));
                             return;
                         } else {
@@ -113,11 +113,11 @@ public class VpStoreBuyC2SPacket {
                             append(Component.literal(" 账户剩余 ").withStyle(ChatFormatting.WHITE)).
                             append(Component.literal(VpDataHandler.getPlayerVp(name) + "vp").withStyle(ChatFormatting.AQUA));
                 }
-                Compute.formatMSGSend(serverPlayer, Component.literal("vp").withStyle(ChatFormatting.AQUA),
+                Compute.sendFormatMSG(serverPlayer, Component.literal("vp").withStyle(ChatFormatting.AQUA),
                         Component.literal("购买成功！").withStyle(ChatFormatting.WHITE).
                                 append(component));
             } else {
-                Compute.formatMSGSend(serverPlayer, Component.literal("vp").withStyle(ChatFormatting.AQUA),
+                Compute.sendFormatMSG(serverPlayer, Component.literal("vp").withStyle(ChatFormatting.AQUA),
                         Component.literal("所需资源不足").withStyle(ChatFormatting.WHITE));
 
             }

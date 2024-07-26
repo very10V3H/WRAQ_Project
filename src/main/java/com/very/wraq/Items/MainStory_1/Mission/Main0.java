@@ -1,12 +1,16 @@
 package com.very.wraq.Items.MainStory_1.Mission;
 
+import com.very.wraq.commands.changeable.CompensateCommand;
 import com.very.wraq.common.Utils.ClientUtils;
 import com.very.wraq.common.Compute;
 import com.very.wraq.events.core.InventoryCheck;
 import com.very.wraq.projectiles.OnCuriosSlotTickEffect;
+import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.specialevents.summer.SummerEvent;
 import net.minecraft.ChatFormatting;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
@@ -70,17 +74,24 @@ public class Main0 extends Item {
         }
 
         if (!level.isClientSide && player.isShiftKeyDown()) {
-            SummerEvent.resetDailyData(player);
+
         }
 
         if (!level.isClientSide && !player.isShiftKeyDown()) {
-            for (int i = 0 ; i < 100 ; i ++) {
-                try {
-                    SummerEvent.reward(player);
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
+            String name = player.getName().getString();
+            int tick = player.getServer().getTickCount();
+            CompoundTag data = player.getPersistentData();
+            data.remove(CompensateCommand.singleReward);
+
+/*            SummerEvent.playerExHarvestEndTick.put(name, tick + (15 * 60 * 20));
+            SummerEvent.sendFormatMSG(player, Component.literal("因为").withStyle(ChatFormatting.WHITE).
+                    append(Component.literal("摸鱼").withStyle(CustomStyle.styleOfWater)).
+                    append(Component.literal("你获得了持续").withStyle(ChatFormatting.WHITE)).
+                    append(Component.literal("1hours").withStyle(ChatFormatting.GOLD)).
+                    append(Component.literal("的").withStyle(ChatFormatting.WHITE)).
+                    append(Component.literal("15%额外产出").withStyle(ChatFormatting.GOLD)));
+            player.sendSystemMessage(Component.literal(" - Golden Hours!").withStyle(ChatFormatting.GOLD));
+            Compute.soundToPlayer(player, SoundEvents.PLAYER_LEVELUP);*/
 /*            ServerLevel serverLevel = (ServerLevel) level;
             for (Entity entity : serverLevel.getAllEntities()) {
                 if (entity instanceof ItemEntity) {

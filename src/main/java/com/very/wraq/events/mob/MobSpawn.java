@@ -400,7 +400,7 @@ public class MobSpawn {
     public static void killCountAdd(Recall recall, Player player, Mob mob) {
         if (recall.recallPlayer != null && recall.recallPlayer.equals(player) && recall.killCount != -1) {
             recall.killCount--;
-            Compute.formatMSGSend(player, Component.literal("回忆").withStyle(CustomStyle.styleOfEnd),
+            Compute.sendFormatMSG(player, Component.literal("回忆").withStyle(CustomStyle.styleOfEnd),
                     Component.literal(getMobOriginName(mob) + "击杀数:" + (20 - recall.killCount) + "/"
                             + "20").withStyle(CustomStyle.styleOfEnd));
         }

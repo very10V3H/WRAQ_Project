@@ -99,7 +99,7 @@ public class VpDataHandler {
             reviseDataList.forEach(reviseData -> {
                 Player player = playerList.getPlayerByName(reviseData.name);
                 if (player != null) {
-                    Compute.formatMSGSend(player, Component.literal("vp").withStyle(ChatFormatting.AQUA),
+                    Compute.sendFormatMSG(player, Component.literal("vp").withStyle(ChatFormatting.AQUA),
                             Component.literal("你收到了 ").withStyle(ChatFormatting.WHITE).
                                     append(Component.literal(String.format("%.2f", reviseData.value) + "vp").withStyle(ChatFormatting.AQUA)));
                     sendPlayerVpValue(player);

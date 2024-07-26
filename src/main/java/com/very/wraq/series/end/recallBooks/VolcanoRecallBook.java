@@ -41,7 +41,7 @@ public class VolcanoRecallBook extends Item {
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
         if (!level.isClientSide && interactionHand.equals(InteractionHand.MAIN_HAND)) {
             if (Compute.RecallPlayerCheck((ServerPlayer) player)) {
-                Compute.formatMSGSend(player, Component.literal("回忆").withStyle(CustomStyle.styleOfEnd),
+                Compute.sendFormatMSG(player, Component.literal("回忆").withStyle(CustomStyle.styleOfEnd),
                         Component.literal("先专心回忆这段经历吧！").withStyle(ChatFormatting.WHITE));
             } else {
                 if (Utils.volcanoRecall.recallPlayer == null && Utils.volcanoRecall.recallCount == -1 && level.equals(level.getServer().getLevel(Level.END))) {
@@ -54,11 +54,11 @@ public class VolcanoRecallBook extends Item {
                     Utils.volcanoRecall.zoneName = "火山";
                 } else {
                     if (!level.equals(level.getServer().getLevel(Level.END))) {
-                        Compute.formatMSGSend(player, Component.literal("回忆").withStyle(CustomStyle.styleOfEnd),
+                        Compute.sendFormatMSG(player, Component.literal("回忆").withStyle(CustomStyle.styleOfEnd),
                                 Component.literal("在这个维度，似乎不需要回忆什么。").withStyle(ChatFormatting.WHITE));
 
                     } else {
-                        Compute.formatMSGSend(player, Component.literal("回忆").withStyle(CustomStyle.styleOfEnd),
+                        Compute.sendFormatMSG(player, Component.literal("回忆").withStyle(CustomStyle.styleOfEnd),
                                 Component.literal("有玩家正在进行这项回忆，请等一下。").withStyle(ChatFormatting.WHITE));
                     }
                 }

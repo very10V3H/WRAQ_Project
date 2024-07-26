@@ -34,7 +34,7 @@ public class RecycleCommand implements Command<CommandSourceStack> {
             if (!Utils.playerRecycleMap.containsKey(player)
                     || !Utils.playerRecycleMap.get(player)) {
                 Utils.playerRecycleMap.put(player, true);
-                Compute.formatMSGSend(player, Component.literal("回收").withStyle(ChatFormatting.GOLD),
+                Compute.sendFormatMSG(player, Component.literal("回收").withStyle(ChatFormatting.GOLD),
                         Component.literal(" 再次输入指令确定回收！").withStyle(ChatFormatting.WHITE));
             } else {
                 List<ItemStack> itemStackList = ForgeRecipe.forgeDrawRecipe.get(item);
@@ -57,7 +57,7 @@ public class RecycleCommand implements Command<CommandSourceStack> {
             if (!Utils.playerRecycleMap.containsKey(player)
                     || !Utils.playerRecycleMap.get(player)) {
                 Utils.playerRecycleMap.put(player, true);
-                Compute.formatMSGSend(player, Component.literal("回收").withStyle(ChatFormatting.GOLD),
+                Compute.sendFormatMSG(player, Component.literal("回收").withStyle(ChatFormatting.GOLD),
                         Component.literal(" 再次输入指令确定回收！").withStyle(ChatFormatting.WHITE));
             } else {
                 Compute.itemStackGive(player, new ItemStack(ModItems.PurpleIronBud2.get(), 1));

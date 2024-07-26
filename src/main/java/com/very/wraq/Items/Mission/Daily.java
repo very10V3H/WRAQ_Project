@@ -56,7 +56,7 @@ public class Daily extends Item {
             if(ItemData.contains("DailyMission16") && data.contains("DailyMission16") && data.getInt("DailyMission16") < ItemData.getInt("DailyMission16")) flag = false;
 */
             if (!ItemData.getString(InventoryCheck.owner).equals(player.getName().getString())) {
-                Compute.formatMSGSend(player, Component.literal("维瑞阿契").withStyle(ChatFormatting.AQUA),
+                Compute.sendFormatMSG(player, Component.literal("维瑞阿契").withStyle(ChatFormatting.AQUA),
                         Component.literal("这个任务似乎不是你的任务。"));
             } else {
                 for (int i = 1; i <= 17; i++) {
@@ -65,7 +65,7 @@ public class Daily extends Item {
                     if (!flag) break;
                 }
                 if (!flag) {
-                    Compute.formatMSGSend(player, Component.literal("维瑞阿契").withStyle(ChatFormatting.AQUA),
+                    Compute.sendFormatMSG(player, Component.literal("维瑞阿契").withStyle(ChatFormatting.AQUA),
                             Component.literal("任务还未完成。"));
                 } else {
                     ItemStack GemPiece = ModItems.gemPiece.get().getDefaultInstance();

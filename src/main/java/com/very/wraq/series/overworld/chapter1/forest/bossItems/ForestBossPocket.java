@@ -70,7 +70,7 @@ public class ForestBossPocket extends Item {
             };
             for (int i = 0; i < 8; i++) {
                 if (random.nextDouble(1) < RewardsRate[i]) {
-                    Compute.formatMSGSend(player, Component.literal("次元能量").withStyle(CustomStyle.styleOfEntropy),
+                    Compute.sendFormatMSG(player, Component.literal("次元能量").withStyle(CustomStyle.styleOfEntropy),
                             Component.literal("你通过次元口袋获得了").withStyle(ChatFormatting.WHITE).
                                     append(Rewards[i].getDefaultInstance().getDisplayName()));
                     Compute.itemStackGive(player, Rewards[i].getDefaultInstance());

@@ -21,7 +21,7 @@ public class ClearSkillCommand implements Command<CommandSourceStack> {
             Compute.ResetSkillAndAbility(player);
         } else {
             if (!player.isCreative()) {
-                Compute.formatMSGSend(player, Component.literal("维瑞阿契").withStyle(ChatFormatting.AQUA),
+                Compute.sendFormatMSG(player, Component.literal("维瑞阿契").withStyle(ChatFormatting.AQUA),
                         Component.literal("此命令仅管理员可用。").withStyle(ChatFormatting.WHITE));
             }
         }

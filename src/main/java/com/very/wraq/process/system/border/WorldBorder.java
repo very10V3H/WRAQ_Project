@@ -45,7 +45,7 @@ public class WorldBorder {
                 && serverPlayer.position().z > borderDown.y && serverPlayer.position().z < borderUp.y) {
             map.put(name, serverPlayer.position());
         } else {
-            Compute.formatMSGSend(serverPlayer, Component.literal("边界").withStyle(ChatFormatting.RED),
+            Compute.sendFormatMSG(serverPlayer, Component.literal("边界").withStyle(ChatFormatting.RED),
                     Component.literal("前面的区域，以后再来探索吧！").withStyle(ChatFormatting.WHITE));
             if (map.containsKey(name)) {
                 Vec3 pos = map.get(name);

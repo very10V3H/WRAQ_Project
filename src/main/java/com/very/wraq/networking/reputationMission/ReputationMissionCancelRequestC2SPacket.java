@@ -40,10 +40,10 @@ public class ReputationMissionCancelRequestC2SPacket {
                     Utils.playerReputationMissionPunishLevel.put(serverPlayer.getName().getString(), 1);
                 } else Utils.playerReputationMissionPunishLevel.put(serverPlayer.getName().getString(),
                         Math.min(9, Utils.playerReputationMissionPunishLevel.get(serverPlayer.getName().getString()) + 1));
-                Compute.formatMSGSend(serverPlayer, Component.literal("任务").withStyle(CustomStyle.styleOfKaze),
+                Compute.sendFormatMSG(serverPlayer, Component.literal("任务").withStyle(CustomStyle.styleOfKaze),
                         Component.literal("你取消了悬赏任务。").withStyle(ChatFormatting.WHITE));
                 int punishMinutes = Utils.playerReputationMissionPunishTime[Utils.playerReputationMissionPunishLevel.get(serverPlayer.getName().getString())];
-                Compute.formatMSGSend(serverPlayer, Component.literal("任务").withStyle(CustomStyle.styleOfKaze),
+                Compute.sendFormatMSG(serverPlayer, Component.literal("任务").withStyle(CustomStyle.styleOfKaze),
                         Component.literal("作为取消任务的惩罚，你将在 ").withStyle(ChatFormatting.WHITE).
                                 append(Component.literal(punishMinutes + "min ").withStyle(ChatFormatting.RED)).
                                 append(Component.literal("后方可接取下一个悬赏任务。").withStyle(ChatFormatting.WHITE)));
@@ -55,7 +55,7 @@ public class ReputationMissionCancelRequestC2SPacket {
                 ModNetworking.sendToClient(new ReputationMissionContentS2CPacket(Items.AIR.getDefaultInstance(), 0), serverPlayer);
 
             } else {
-                Compute.formatMSGSend(serverPlayer, Component.literal("任务").withStyle(CustomStyle.styleOfKaze),
+                Compute.sendFormatMSG(serverPlayer, Component.literal("任务").withStyle(CustomStyle.styleOfKaze),
                         Component.literal("当前没有悬赏任务可以取消。").withStyle(ChatFormatting.WHITE));
 
             }

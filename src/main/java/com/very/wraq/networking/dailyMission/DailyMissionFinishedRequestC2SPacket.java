@@ -39,7 +39,7 @@ public class DailyMissionFinishedRequestC2SPacket {
             ServerPlayer serverPlayer = context.getSender();
             CompoundTag data = serverPlayer.getPersistentData();
             if (!Utils.playerDailyMissionContent.containsKey(serverPlayer.getName().getString())) {
-                Compute.formatMSGSend(serverPlayer, Component.literal("任务").withStyle(ChatFormatting.GREEN),
+                Compute.sendFormatMSG(serverPlayer, Component.literal("任务").withStyle(ChatFormatting.GREEN),
                         Component.literal("当前没有任务可以提交。").withStyle(ChatFormatting.WHITE));
                 return;
             }
@@ -49,7 +49,7 @@ public class DailyMissionFinishedRequestC2SPacket {
             if (Compute.ItemStackCheck(inventory, itemStack.getItem(), Count)) {
                 Compute.itemStackRemove(inventory, itemStack.getItem(), Count);
                 data.putString(StringUtils.LastDailyMissionFinishedTime, Compute.CalendarToString(Calendar.getInstance()));
-                Compute.formatMSGSend(serverPlayer, Component.literal("任务").withStyle(CustomStyle.styleOfKaze),
+                Compute.sendFormatMSG(serverPlayer, Component.literal("任务").withStyle(CustomStyle.styleOfKaze),
                         Component.literal("你完成了每日任务！").withStyle(ChatFormatting.WHITE));
                 Compute.ExpPercentGetAndMSGSend(serverPlayer, 0.5, 0, serverPlayer.experienceLevel);
                 ItemStack gemPiece = ModItems.gemPiece.get().getDefaultInstance();
@@ -61,7 +61,7 @@ public class DailyMissionFinishedRequestC2SPacket {
                 ModNetworking.sendToClient(new DailyMissionContentS2CPacket(Items.AIR.getDefaultInstance(), 0), serverPlayer);
                 ModNetworking.sendToClient(new SoundsS2CPacket(3), serverPlayer);
             } else {
-                Compute.formatMSGSend(serverPlayer, Component.literal("任务").withStyle(CustomStyle.styleOfKaze),
+                Compute.sendFormatMSG(serverPlayer, Component.literal("任务").withStyle(CustomStyle.styleOfKaze),
                         Component.literal("暂未达成任务要求。").withStyle(ChatFormatting.WHITE));
             }
         });

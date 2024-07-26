@@ -22,7 +22,7 @@ public class killCommand implements Command<CommandSourceStack> {
         String playerName = player.getName().getString();
         if (MobSpawn.totalKillCount.containsKey(playerName)) {
             AtomicInteger total = new AtomicInteger();
-            Compute.formatMSGSend(player, Component.literal("击杀数").withStyle(ChatFormatting.RED),
+            Compute.sendFormatMSG(player, Component.literal("击杀数").withStyle(ChatFormatting.RED),
                     Component.literal("击杀数详情如下所示").withStyle(ChatFormatting.WHITE));
             Map<String, Integer> killCount = MobSpawn.totalKillCount.get(playerName);
             killCount.forEach((k, v) -> {
@@ -33,7 +33,7 @@ public class killCommand implements Command<CommandSourceStack> {
             player.sendSystemMessage(Component.literal(" " + "总击杀数" + " : ").withStyle(ChatFormatting.WHITE).
                     append(Component.literal("" + total).withStyle(ChatFormatting.AQUA)));
         } else {
-            Compute.formatMSGSend(player, Component.literal("击杀数").withStyle(ChatFormatting.RED),
+            Compute.sendFormatMSG(player, Component.literal("击杀数").withStyle(ChatFormatting.RED),
                     Component.literal("没有查询到相关信息，或许可以等一会再试试").withStyle(ChatFormatting.WHITE));
         }
         return 0;

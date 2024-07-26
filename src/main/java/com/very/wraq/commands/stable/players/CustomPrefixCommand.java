@@ -38,20 +38,20 @@ public class CustomPrefixCommand implements Command<CommandSourceStack> {
             throw new RuntimeException(e);
         }
         if (tier == 0) {
-            Compute.formatMSGSend(serverPlayer, Component.literal("自定义称号").withStyle(ChatFormatting.GRAY),
+            Compute.sendFormatMSG(serverPlayer, Component.literal("自定义称号").withStyle(ChatFormatting.GRAY),
                     Component.literal("当前无法使用自定义称号").withStyle(ChatFormatting.WHITE));
             return 0;
         } else if (tier != 3) {
             int times = data.getInt(customPrefixTimes);
             if (times <= 0) {
-                Compute.formatMSGSend(serverPlayer, Component.literal("自定义称号").withStyle(ChatFormatting.GRAY),
+                Compute.sendFormatMSG(serverPlayer, Component.literal("自定义称号").withStyle(ChatFormatting.GRAY),
                         Component.literal("自定义称号的次数已经使用完了").withStyle(ChatFormatting.WHITE));
                 return 0;
             }
         }
 
         if (prefixString.length() > 8) {
-            Compute.formatMSGSend(serverPlayer, Component.literal("自定义称号").withStyle(ChatFormatting.GRAY),
+            Compute.sendFormatMSG(serverPlayer, Component.literal("自定义称号").withStyle(ChatFormatting.GRAY),
                     Component.literal("称号名称的最大长度为8").withStyle(ChatFormatting.WHITE));
             return 0;
         }
@@ -65,7 +65,7 @@ public class CustomPrefixCommand implements Command<CommandSourceStack> {
             }};
             if (colorStringMap.containsKey(colorString)) colorString = colorStringMap.get(colorString);
             else {
-                Compute.formatMSGSend(serverPlayer, Component.literal("自定义称号").withStyle(ChatFormatting.GRAY),
+                Compute.sendFormatMSG(serverPlayer, Component.literal("自定义称号").withStyle(ChatFormatting.GRAY),
                         Component.literal("以下是一些可用的预置颜色").withStyle(ChatFormatting.WHITE));
                 for (ChatFormatting value : ChatFormatting.values()) {
                     serverPlayer.sendSystemMessage(Component.literal(value.getName().toLowerCase()).withStyle(value));
@@ -74,7 +74,7 @@ public class CustomPrefixCommand implements Command<CommandSourceStack> {
             }
         } else {
             if (TextColor.parseColor(colorString) == null) {
-                Compute.formatMSGSend(serverPlayer, Component.literal("自定义称号").withStyle(ChatFormatting.GRAY),
+                Compute.sendFormatMSG(serverPlayer, Component.literal("自定义称号").withStyle(ChatFormatting.GRAY),
                         Component.literal("需要自定义称号颜色，请使用形如 #92ecfa 的RGB十六进制编码").withStyle(ChatFormatting.WHITE));
                 return 0;
             }
@@ -82,12 +82,12 @@ public class CustomPrefixCommand implements Command<CommandSourceStack> {
 
         data.putString(PrefixCommand.prefix, prefixString);
         data.putString(PrefixCommand.prefixColor, colorString);
-        Compute.formatMSGSend(serverPlayer, Component.literal("自定义称号").withStyle(ChatFormatting.GRAY),
+        Compute.sendFormatMSG(serverPlayer, Component.literal("自定义称号").withStyle(ChatFormatting.GRAY),
                 Component.literal(prefixString).withStyle(Style.EMPTY.withColor(TextColor.parseColor(colorString))).
                         append(Component.literal(" 已成功激活！").withStyle(ChatFormatting.WHITE)));
         if (tier != 3) {
             data.putInt(customPrefixTimes, data.getInt(customPrefixTimes) - 1);
-            Compute.formatMSGSend(serverPlayer, Component.literal("自定义称号").withStyle(ChatFormatting.GRAY),
+            Compute.sendFormatMSG(serverPlayer, Component.literal("自定义称号").withStyle(ChatFormatting.GRAY),
                     Component.literal("剩余自定义称号可用次数：").withStyle(ChatFormatting.WHITE).
                             append(Component.literal(String.valueOf(data.getInt(customPrefixTimes))).withStyle(ChatFormatting.AQUA)));
         }

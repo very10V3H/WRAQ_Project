@@ -26,7 +26,7 @@ public class LogCommand implements Command<CommandSourceStack> {
             Compute.itemStackGive(player, new ItemStack(ModItems.LogBag.get(), data.getInt(StringUtils.Lop.Xp) / 256));
             data.putBoolean(StringUtils.LogReward, true);
         } else {
-            Compute.formatMSGSend(player, Component.literal("补偿").withStyle(CustomStyle.styleOfField),
+            Compute.sendFormatMSG(player, Component.literal("补偿").withStyle(CustomStyle.styleOfField),
                     Component.literal(" 似乎已经领取过补偿了呢。").withStyle(ChatFormatting.WHITE));
         }
         return 0;

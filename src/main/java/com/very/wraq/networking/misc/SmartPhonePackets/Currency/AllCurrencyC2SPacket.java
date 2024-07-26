@@ -38,7 +38,7 @@ public class AllCurrencyC2SPacket {
             int gold = collect(player, ModItems.goldCoin.get(), 144);
 
             if (sendMSG) {
-                Compute.formatMSGSend(player, Component.literal("货币").withStyle(ChatFormatting.GOLD),
+                Compute.sendFormatMSG(player, Component.literal("货币").withStyle(ChatFormatting.GOLD),
                         Component.literal("本次存入了").withStyle(ChatFormatting.WHITE));
                 player.sendSystemMessage(Component.literal(" ").withStyle(ChatFormatting.WHITE).
                         append(ModItems.copperCoin.get().getDefaultInstance().getDisplayName()).

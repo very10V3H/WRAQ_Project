@@ -45,7 +45,7 @@ public class DpsCommand implements Command<CommandSourceStack> {
 
             double damageCount = playerDamageCount.get(player);
 
-            Compute.formatMSGSend(player, Component.literal("Dps").withStyle(ChatFormatting.RED),
+            Compute.sendFormatMSG(player, Component.literal("Dps").withStyle(ChatFormatting.RED),
                     Component.literal("在" + playerDpsSecondMap.get(player) + "s内的Dps值如下:").withStyle(ChatFormatting.WHITE));
             player.sendSystemMessage(Component.literal("  1.在持续时间内的总伤害: ").withStyle(ChatFormatting.WHITE).
                     append(Component.literal(FormatDamageCount(damageCount))));

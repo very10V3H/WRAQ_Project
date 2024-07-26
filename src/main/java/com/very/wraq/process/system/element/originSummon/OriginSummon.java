@@ -417,12 +417,12 @@ public class OriginSummon {
 
                 Compute.itemStackGive(player1, new ItemStack(item, 4));
 
-                Compute.formatMSGSend(player1, Component.literal("元素").withStyle(ChatFormatting.LIGHT_PURPLE),
+                Compute.sendFormatMSG(player1, Component.literal("元素").withStyle(ChatFormatting.LIGHT_PURPLE),
                         Component.literal("").
                                 append(player.getDisplayName()).
                                 append(Component.literal(" 击杀了 ").withStyle(ChatFormatting.WHITE)).
                                 append(monster.getDisplayName()));
-                Compute.formatMSGSend(player1, Component.literal("元素").withStyle(ChatFormatting.LIGHT_PURPLE),
+                Compute.sendFormatMSG(player1, Component.literal("元素").withStyle(ChatFormatting.LIGHT_PURPLE),
                         Component.literal("当日可用奖励获取次数: ").withStyle(ChatFormatting.WHITE).
                                 append(Component.literal(data1.getInt(StringUtils.OriginElementGetTimes) + "/" + 32).withStyle(ChatFormatting.LIGHT_PURPLE)));
                 Random random = new Random();
@@ -446,7 +446,7 @@ public class OriginSummon {
                     Compute.itemStackGive(player1, itemStack);
                 }
             } else {
-                Compute.formatMSGSend(player1, Component.literal("元素").withStyle(ChatFormatting.LIGHT_PURPLE),
+                Compute.sendFormatMSG(player1, Component.literal("元素").withStyle(ChatFormatting.LIGHT_PURPLE),
                         Component.literal("当日可用奖励获取次数已耗尽。").withStyle(ChatFormatting.WHITE));
 
             }

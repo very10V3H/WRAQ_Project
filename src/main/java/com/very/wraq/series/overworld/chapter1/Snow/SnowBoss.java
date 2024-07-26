@@ -82,7 +82,7 @@ public class SnowBoss {
                 String Entropy = StringUtils.Entropy.Snow;
                 if (data.contains(Entropy)) data.putInt(Entropy, data.getInt(Entropy) + 1);
                 else data.putInt(Entropy, 1);
-                Compute.formatMSGSend(player, Component.literal("次元能量").withStyle(CustomStyle.styleOfEntropy),
+                Compute.sendFormatMSG(player, Component.literal("次元能量").withStyle(CustomStyle.styleOfEntropy),
                         Component.literal("你的").withStyle(ChatFormatting.WHITE).
                                 append(Component.literal(Name + "次元能量").withStyle(chatFormatting)).
                                 append(Component.literal("得到了提升。").withStyle(ChatFormatting.WHITE)).
@@ -146,7 +146,7 @@ public class SnowBoss {
                 Random random = new Random();
                 for (int i = 0; i < 8; i++) {
                     if (random.nextDouble(1) < RewardsRate[i]) {
-                        Compute.formatMSGSend(player, Component.literal("次元能量").withStyle(CustomStyle.styleOfEntropy),
+                        Compute.sendFormatMSG(player, Component.literal("次元能量").withStyle(CustomStyle.styleOfEntropy),
                                 Component.literal("你通过次元口袋获得了").withStyle(ChatFormatting.WHITE).
                                         append(Rewards[i].getDefaultInstance().getDisplayName()));
                         Compute.itemStackGive(player, Rewards[i].getDefaultInstance());

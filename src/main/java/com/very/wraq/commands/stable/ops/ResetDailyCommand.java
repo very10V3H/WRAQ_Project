@@ -29,7 +29,7 @@ public class ResetDailyCommand implements Command<CommandSourceStack> {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            Compute.formatMSGSend(serverPlayer, Component.literal("日常").withStyle(CustomStyle.styleOfHealth),
+            Compute.sendFormatMSG(serverPlayer, Component.literal("日常").withStyle(CustomStyle.styleOfHealth),
                     Component.literal(" 你的日常活动已被刷新！").withStyle(ChatFormatting.WHITE));
         });
         return 0;

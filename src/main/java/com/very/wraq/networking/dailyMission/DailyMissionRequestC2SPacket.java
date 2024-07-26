@@ -63,19 +63,19 @@ public class DailyMissionRequestC2SPacket {
                                 Utils.playerDailyMissionContent.get(serverPlayer.getName().getString()),
                                 Utils.playerDailyMissionContentNum.get(serverPlayer.getName().getString())), serverPlayer);
                         ModNetworking.sendToClient(new SoundsS2CPacket(6), serverPlayer);
-                        Compute.formatMSGSend(serverPlayer, Component.literal("任务").withStyle(CustomStyle.styleOfKaze),
+                        Compute.sendFormatMSG(serverPlayer, Component.literal("任务").withStyle(CustomStyle.styleOfKaze),
                                 Component.literal("你成功接取了").withStyle(ChatFormatting.WHITE).
                                         append(Component.literal(" 每日任务 !").withStyle(CustomStyle.styleOfKaze)));
                     } else {
-                        Compute.formatMSGSend(serverPlayer, Component.literal("任务").withStyle(CustomStyle.styleOfKaze),
+                        Compute.sendFormatMSG(serverPlayer, Component.literal("任务").withStyle(CustomStyle.styleOfKaze),
                                 Component.literal("还未到达可以接取每日任务的时间。").withStyle(ChatFormatting.WHITE));
                     }
                 } else {
-                    Compute.formatMSGSend(serverPlayer, Component.literal("任务").withStyle(CustomStyle.styleOfKaze),
+                    Compute.sendFormatMSG(serverPlayer, Component.literal("任务").withStyle(CustomStyle.styleOfKaze),
                             Component.literal("每日任务需要达到20级才能开始接取。").withStyle(ChatFormatting.WHITE));
                 }
             } else {
-                Compute.formatMSGSend(serverPlayer, Component.literal("任务").withStyle(CustomStyle.styleOfKaze),
+                Compute.sendFormatMSG(serverPlayer, Component.literal("任务").withStyle(CustomStyle.styleOfKaze),
                         Component.literal("你已经接取每日任务了！").withStyle(ChatFormatting.WHITE));
 
             }

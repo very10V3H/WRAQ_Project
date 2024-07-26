@@ -36,11 +36,11 @@ public class MissionCancelC2SPacket {
             if (player == null) return;
             if (Objects.equals(Mission.getPlayerMissionStatus(player, serialNum), Mission.Status.InProgress)) {
                 Mission.setPlayerMissionStatus(player, serialNum, Mission.Status.AbleToAccepted);
-                Compute.formatMSGSend(player, Component.literal("任务").withStyle(CustomStyle.styleOfFlexible),
+                Compute.sendFormatMSG(player, Component.literal("任务").withStyle(CustomStyle.styleOfFlexible),
                         Component.literal("成功放弃: ").withStyle(ChatFormatting.RED).
                                 append(Mission.missionsMap.get(serialNum).title));
             } else {
-                Compute.formatMSGSend(player, Component.literal("任务").withStyle(CustomStyle.styleOfFlexible),
+                Compute.sendFormatMSG(player, Component.literal("任务").withStyle(CustomStyle.styleOfFlexible),
                         Component.literal("似乎还不能放弃这个任务").withStyle(ChatFormatting.WHITE));
             }
 

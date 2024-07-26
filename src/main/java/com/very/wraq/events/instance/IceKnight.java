@@ -209,7 +209,7 @@ public class IceKnight {
                                     append(difficulty));
 
                     playerListGetByName.forEach(player -> {
-                        Compute.formatMSGSend(player, Component.literal("副本").withStyle(ChatFormatting.RED),
+                        Compute.sendFormatMSG(player, Component.literal("副本").withStyle(ChatFormatting.RED),
                                 Component.literal("  征讨伤害排名如下：").withStyle(ChatFormatting.WHITE));
 
                         Utils.IceKnightDamageList.sort(Comparator.comparing(Boss2Damage::getDamage).reversed());
@@ -234,7 +234,7 @@ public class IceKnight {
                                         }
                                     }
                                 }
-                                Compute.formatMSGSend(player, Component.literal(index + ".").withStyle(ChatFormatting.RED),
+                                Compute.sendFormatMSG(player, Component.literal(index + ".").withStyle(ChatFormatting.RED),
                                         Component.literal(" ").withStyle(ChatFormatting.WHITE).
                                                 append(player1.getDisplayName()).
                                                 append(Component.literal("  DMG:" + damage + "[" + String.format("%.2f", damage * 100 / (MaxHealth * difficultyEnhanceRate * (1 + (playerNum - 1) * 0.75))) + "%]").withStyle(ChatFormatting.WHITE)));
@@ -453,7 +453,7 @@ public class IceKnight {
 
         if (!isMopUp) {
             if (random.nextDouble() <= 0.025 * (playerNum - 1) * difficultyEnhanceRate) {
-                Compute.formatMSGSend(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
+                Compute.sendFormatMSG(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
                         Component.literal("你通过组队挑战副本，额外获得了:").withStyle(ChatFormatting.WHITE).
                                 append(ModItems.IceLoot.get().getDefaultInstance().getDisplayName()));
                 Compute.itemStackGive(player, new ItemStack(ModItems.IceLoot.get(), 2));
@@ -461,7 +461,7 @@ public class IceKnight {
         }
 
         if (LoginInEvent.playerDailyInstanceReward(player, 5)) {
-            Compute.formatMSGSend(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
+            Compute.sendFormatMSG(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
                     Component.literal("每日首次通关副本，额外获得了:").withStyle(ChatFormatting.WHITE).
                             append(ModItems.IceLoot.get().getDefaultInstance().getDisplayName()));
                 Compute.itemStackGive(player, new ItemStack(ModItems.IceLoot.get(), 24));

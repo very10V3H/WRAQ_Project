@@ -35,11 +35,11 @@ public class PlanMissionCancelRequestC2SPacket {
                 PlanMission.planMissionContentMap.remove(name);
                 PlanMission.planMissionStartTimeMap.remove(name);
 
-                Compute.formatMSGSend(serverPlayer, Component.literal("月卡任务").withStyle(ChatFormatting.LIGHT_PURPLE),
+                Compute.sendFormatMSG(serverPlayer, Component.literal("月卡任务").withStyle(ChatFormatting.LIGHT_PURPLE),
                         Component.literal("你取消了月卡任务。").withStyle(ChatFormatting.WHITE));
 
                 int punishMinutes = 5;
-                Compute.formatMSGSend(serverPlayer, Component.literal("月卡任务").withStyle(ChatFormatting.LIGHT_PURPLE),
+                Compute.sendFormatMSG(serverPlayer, Component.literal("月卡任务").withStyle(ChatFormatting.LIGHT_PURPLE),
                         Component.literal("作为取消月卡任务的惩罚，你将在 ").withStyle(ChatFormatting.WHITE).
                                 append(Component.literal(punishMinutes + "min ").withStyle(ChatFormatting.RED)).
                                 append(Component.literal("后方可接取下一个悬赏任务。").withStyle(ChatFormatting.WHITE)));
@@ -50,7 +50,7 @@ public class PlanMissionCancelRequestC2SPacket {
                 ModNetworking.sendToClient(new PlanMissionInfoS2CPacket(Items.AIR.getDefaultInstance(), 0, "", PlanMission.planMissionAllowRequestTimeMap.get(name)), serverPlayer);
 
             } else {
-                Compute.formatMSGSend(serverPlayer, Component.literal("月卡任务").withStyle(ChatFormatting.LIGHT_PURPLE),
+                Compute.sendFormatMSG(serverPlayer, Component.literal("月卡任务").withStyle(ChatFormatting.LIGHT_PURPLE),
                         Component.literal("当前没有月卡任务可以取消。").withStyle(ChatFormatting.WHITE));
 
             }

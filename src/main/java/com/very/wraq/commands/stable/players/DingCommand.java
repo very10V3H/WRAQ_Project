@@ -28,20 +28,20 @@ public class DingCommand implements Command<CommandSourceStack> {
         for (GameProfile profile : gameProfile) {
             ServerPlayer target = player.getServer().getPlayerList().getPlayer(profile.getId());
             if (target == null) {
-                Compute.formatMSGSend(player, Component.literal("VB").withStyle(ChatFormatting.GOLD),
+                Compute.sendFormatMSG(player, Component.literal("VB").withStyle(ChatFormatting.GOLD),
                         Component.literal("玩家似乎不在线。。。").withStyle(ChatFormatting.WHITE));
                 return 0;
             }
             if (Utils.DingCoolDown.containsKey(player) && Utils.DingCoolDown.get(player) > player.getServer().getTickCount()) {
-                Compute.formatMSGSend(player, Component.literal("叮!").withStyle(ChatFormatting.AQUA),
+                Compute.sendFormatMSG(player, Component.literal("叮!").withStyle(ChatFormatting.AQUA),
                         Component.literal("一分钟内只能发送一次叮叮叮喔！").withStyle(ChatFormatting.WHITE));
             } else {
                 ModNetworking.sendToClient(new DingS2CPacket(5), target);
-                Compute.formatMSGSend(player, Component.literal("叮!").withStyle(ChatFormatting.AQUA),
+                Compute.sendFormatMSG(player, Component.literal("叮!").withStyle(ChatFormatting.AQUA),
                         Component.literal("你向").withStyle(ChatFormatting.WHITE).
                                 append(target.getDisplayName()).
                                 append(Component.literal("发送了一个叮叮叮！").withStyle(ChatFormatting.WHITE)));
-                Compute.formatMSGSend(target, Component.literal("叮!").withStyle(ChatFormatting.AQUA),
+                Compute.sendFormatMSG(target, Component.literal("叮!").withStyle(ChatFormatting.AQUA),
                         Component.literal("你受到了来自").withStyle(ChatFormatting.WHITE).
                                 append(player.getDisplayName()).
                                 append(Component.literal("发送的叮叮叮！").withStyle(ChatFormatting.WHITE)));

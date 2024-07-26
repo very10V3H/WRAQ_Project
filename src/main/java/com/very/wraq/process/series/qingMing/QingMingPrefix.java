@@ -35,7 +35,7 @@ public class QingMingPrefix extends Item {
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
         if (!level.isClientSide) {
             Compute.playerItemUseWithRecord(player);
-            Compute.formatMSGSend(player, Component.literal("称号").withStyle(ChatFormatting.LIGHT_PURPLE),
+            Compute.sendFormatMSG(player, Component.literal("称号").withStyle(ChatFormatting.LIGHT_PURPLE),
                     Component.literal("使用/vmd prefix来使用新称号吧！").withStyle(ChatFormatting.WHITE));
             player.getPersistentData().putBoolean(StringUtils.QingMingPrefix, true);
         }

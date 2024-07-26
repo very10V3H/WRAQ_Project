@@ -36,11 +36,11 @@ public class MissionAcceptC2SPacket {
             if (player == null) return;
             if (Objects.equals(Mission.getPlayerMissionStatus(player, serialNum), Mission.Status.AbleToAccepted)) {
                 Mission.setPlayerMissionStatus(player, serialNum, Mission.Status.InProgress);
-                Compute.formatMSGSend(player, Component.literal("任务").withStyle(CustomStyle.styleOfFlexible),
+                Compute.sendFormatMSG(player, Component.literal("任务").withStyle(CustomStyle.styleOfFlexible),
                         Component.literal("成功接取: ").withStyle(ChatFormatting.GREEN).
                                 append(Mission.missionsMap.get(serialNum).title));
             } else {
-                Compute.formatMSGSend(player, Component.literal("任务").withStyle(CustomStyle.styleOfFlexible),
+                Compute.sendFormatMSG(player, Component.literal("任务").withStyle(CustomStyle.styleOfFlexible),
                         Component.literal("似乎还不能接取这个任务").withStyle(ChatFormatting.WHITE));
             }
 

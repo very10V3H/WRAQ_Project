@@ -221,7 +221,7 @@ public class Tower {
         if (minus > 0) {
             givePlayerStar(this.currentPlayer, minus * (PlanPlayer.getPlayerTier(this.currentPlayer) > 0 ? 2 : 1), "本源塔挑战");
             if (PlanPlayer.getPlayerTier(this.currentPlayer) > 0) {
-                Compute.formatMSGSend(this.currentPlayer, Component.literal("本源").withStyle(CustomStyle.styleOfWorld),
+                Compute.sendFormatMSG(this.currentPlayer, Component.literal("本源").withStyle(CustomStyle.styleOfWorld),
                         Component.literal("计划为你额外提供了 ").withStyle(ChatFormatting.WHITE).
                                 append(Component.literal(minus + "*").withStyle(CustomStyle.styleOfWorld)).
                                 append(ModItems.worldSoul5.get().getDefaultInstance().getDisplayName()));
@@ -324,7 +324,7 @@ public class Tower {
     }
 
     public static void towerTypeFormatMSG(Player player, Component component) {
-        Compute.formatMSGSend(player, Component.literal("本源回廊").withStyle(CustomStyle.styleOfWorld), component);
+        Compute.sendFormatMSG(player, Component.literal("本源回廊").withStyle(CustomStyle.styleOfWorld), component);
     }
 
     public static void towerTypeFormatBroad(Level level, Component component) {
