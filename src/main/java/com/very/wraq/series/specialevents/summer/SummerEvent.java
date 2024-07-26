@@ -29,6 +29,10 @@ public class SummerEvent {
             incrementIntData(player, dailySwimmingSecondsKey);
             incrementIntData(player, totalSwimmingSecondsKey);
             int dailySwimmingSeconds = getIntData(player, dailySwimmingSecondsKey);
+            if (dailySwimmingSeconds % 300 == 1) sendFormatMSG(player, Component.literal("炎热的天气，在水中").withStyle(ChatFormatting.WHITE).
+                    append(Component.literal("享受清凉").withStyle(CustomStyle.styleOfWater)).
+                    append(Component.literal("吧！").withStyle(ChatFormatting.WHITE)).
+                    append(Component.literal("(游泳速度已+200%)").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC)));
             if (dailySwimmingSeconds % 15 >= 3) {
                 if (dailySwimmingSeconds % 3 == 0) Compute.soundToPlayer(player, SoundEvents.FISH_SWIM);
                 Compute.sendActionBarMSG(player, Component.literal("正在摸鱼" + ".".repeat((dailySwimmingSeconds % 15) / 3)).withStyle(CustomStyle.styleOfWater));
@@ -67,7 +71,7 @@ public class SummerEvent {
                     incrementIntData(player, dailySummerVoucherGetTimesKey);
                     Compute.itemStackGive(player, new ItemStack(SpecialEventItems.SUMMER_VOUCHER.get()));
                     sendFormatMSG(player, Component.literal("今日还能获得").withStyle(ChatFormatting.WHITE).
-                            append(Component.literal(String.valueOf(8 - summerVoucherGetTimesKey) + "次").withStyle(CustomStyle.styleOfWater)).
+                            append(Component.literal(String.valueOf(8 - (summerVoucherGetTimesKey + 1)) + "次").withStyle(CustomStyle.styleOfWater)).
                             append(SpecialEventItems.SUMMER_VOUCHER.get().getDefaultInstance().getDisplayName()));
                 } else index += 0.01;
             }
@@ -79,7 +83,7 @@ public class SummerEvent {
                     incrementIntData(player, dailyWorldSoul5GetTimesKey);
                     Tower.givePlayerStar(player, 5, "summer event");
                     sendFormatMSG(player, Component.literal("今日还能获得").withStyle(ChatFormatting.WHITE).
-                            append(Component.literal(String.valueOf(8 - dailyWorldSoul5GetTimes) + "次").withStyle(CustomStyle.styleOfWater)).
+                            append(Component.literal(String.valueOf(8 - dailyWorldSoul5GetTimes + 1) + "次").withStyle(CustomStyle.styleOfWater)).
                             append(ModItems.worldSoul5.get().getDefaultInstance().getDisplayName()));
                 } else index += 0.01;
             }
@@ -91,7 +95,7 @@ public class SummerEvent {
                     incrementIntData(player, dailyExpGetTimesKey);
                     Compute.ExpPercentGetIgnoreLimitAndMSGSend(player, 0.05, 0, player.experienceLevel);
                     sendFormatMSG(player, Component.literal("今日还能获得").withStyle(ChatFormatting.WHITE).
-                            append(Component.literal(String.valueOf(20 - dailyExpGetTimes) + "次").withStyle(CustomStyle.styleOfWater)).
+                            append(Component.literal(String.valueOf(20 - (dailyExpGetTimes + 1)) + "次").withStyle(CustomStyle.styleOfWater)).
                             append(Component.literal("经验").withStyle(ChatFormatting.LIGHT_PURPLE)));
                 }
             }
