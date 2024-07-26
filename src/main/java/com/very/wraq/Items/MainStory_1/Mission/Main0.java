@@ -73,11 +73,7 @@ public class Main0 extends Item {
         }
 
         if (!level.isClientSide && !player.isShiftKeyDown()) {
-            CuriosApi.getCuriosInventory(player).ifPresent(inv -> {
-                for (int i = 0; i < inv.getEquippedCurios().getSlots(); i++) {
-                    player.sendSystemMessage(Component.literal("" + inv.getEquippedCurios().getStackInSlot(i).getItem().getClass()));
-                }
-            });
+            SummerEvent.sendDailyTimeRank(player.level());
 /*            ServerLevel serverLevel = (ServerLevel) level;
             for (Entity entity : serverLevel.getAllEntities()) {
                 if (entity instanceof ItemEntity) {

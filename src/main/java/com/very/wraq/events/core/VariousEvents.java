@@ -94,7 +94,7 @@ public class VariousEvents {
                     if (data.contains(string)) data.putInt(string, 0);
                 }
                 Compute.CuriosAttribute.resetCuriosList(player);
-                Compute.Broad(event.getEntity().level(), Component.literal("[").withStyle(ChatFormatting.GRAY).append(Component.literal("维瑞阿契").withStyle(ChatFormatting.AQUA)).append("]").withStyle(ChatFormatting.GRAY).append(Component.literal(event.getEntity().getName().getString() + "在探索过程中身负重伤，经过救治恢复了活力。").withStyle(ChatFormatting.WHITE)));
+                Compute.broad(event.getEntity().level(), Component.literal("[").withStyle(ChatFormatting.GRAY).append(Component.literal("维瑞阿契").withStyle(ChatFormatting.AQUA)).append("]").withStyle(ChatFormatting.GRAY).append(Component.literal(event.getEntity().getName().getString() + "在探索过程中身负重伤，经过救治恢复了活力。").withStyle(ChatFormatting.WHITE)));
                 event.getEntity().getPersistentData().merge(event.getOriginal().getPersistentData());
                 serverPlayer.teleportTo(serverPlayer.getServer().getLevel(Level.OVERWORLD), 437.5, 69, 916.6, 0, 0);
                 ModNetworking.sendToClient(new AnimationTickResetS2CPacket(), (ServerPlayer) event.getEntity());

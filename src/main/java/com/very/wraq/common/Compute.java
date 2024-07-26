@@ -68,6 +68,7 @@ import com.very.wraq.series.overworld.chapter1.forest.bossItems.ForestBossSword;
 import com.very.wraq.series.overworld.chapter1.ManaBook.ManaNote;
 import com.very.wraq.series.overworld.chapter1.volcano.bossItems.VolcanoBossSword;
 import com.very.wraq.series.overworld.chapter1.waterSystem.bossItems.LakeBoss;
+import com.very.wraq.series.specialevents.summer.SummerEvent;
 import com.very.wraq.series.worldsoul.SoulEquipAttribute;
 import com.very.wraq.common.Utils.ClientUtils;
 import com.very.wraq.common.Utils.StringUtils;
@@ -884,7 +885,7 @@ public class Compute {
         return -1;
     }
 
-    public static void Broad(Level level, Component component) {
+    public static void broad(Level level, Component component) {
         PlayerList list = level.getServer().getPlayerList();
         List<ServerPlayer> list1 = list.getPlayers();
         for (Player player : list1) {
@@ -892,7 +893,7 @@ public class Compute {
         }
     }
 
-    public static void Broad(Level level, Component component, int blank) {
+    public static void broad(Level level, Component component, int blank) {
         PlayerList list = level.getServer().getPlayerList();
         List<ServerPlayer> list1 = list.getPlayers();
         String blankString = " ".repeat(blank);
@@ -5047,6 +5048,7 @@ public class Compute {
             throw new RuntimeException(e);
         }
         rate += new double[]{0, 0.15, 0.3, 0.5}[tier];
+        rate += SummerEvent.exHarvest(player);
         return rate;
     }
 

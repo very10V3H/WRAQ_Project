@@ -8,15 +8,14 @@ import com.very.wraq.series.specialevents.SpecialEventItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 public class SummerEvent {
 
@@ -27,6 +26,14 @@ public class SummerEvent {
     public static String totalSwimmingSecondsKey = "totalSwimmingSeconds";
 
     public static Map<String, Integer> playerLastTimeInWaterTick = new HashMap<>();
+    public static Map<String, Integer> playerExHarvestEndTick = new HashMap<>();
+
+    public static double exHarvest(Player player) {
+        String name = player.getName().getString();
+        int tick = player.getServer().getTickCount();
+        if (playerExHarvestEndTick.getOrDefault(name, 0) > tick) return 0.15;
+        return 0;
+    }
 
     public static void tick(Player player) throws SQLException {
         String name = player.getName().getString();
@@ -45,8 +52,19 @@ public class SummerEvent {
                 Compute.sendActionBarMSG(player, Component.literal("正在摸鱼" + ".".repeat((dailySwimmingSeconds % 15) / 3)).withStyle(CustomStyle.styleOfWater));
             }
             reward(player);
+            if (dailySwimmingSeconds % (15 * 60) == 0) {
+                playerExHarvestEndTick.put(name, tick + (15 * 60 * 20));
+                sendFormatMSG(player, Component.literal("因为").withStyle(ChatFormatting.WHITE).
+                        append(Component.literal("摸鱼").withStyle(CustomStyle.styleOfWater)).
+                        append(Component.literal("你获得了持续").withStyle(ChatFormatting.WHITE)).
+                        append(Component.literal("1hours").withStyle(ChatFormatting.GOLD)).
+                        append(Component.literal("的").withStyle(ChatFormatting.WHITE)).
+                        append(Component.literal("15%额外产出").withStyle(ChatFormatting.GOLD)));
+                player.sendSystemMessage(Component.literal(" - Golden Hours!").withStyle(ChatFormatting.GOLD));
+                Compute.soundToPlayer(player, SoundEvents.PLAYER_LEVELUP);
+            }
         }
-        if (!player.isSwimming() && playerLastTimeInWaterTick.containsKey(name) && tick - playerLastTimeInWaterTick.get(name) > 100) {
+        if (!player.isSwimming() && playerLastTimeInWaterTick.containsKey(name) && tick - playerLastTimeInWaterTick.get(name) > 40) {
             playerLastTimeInWaterTick.remove(name);
             Compute.soundToPlayer(player, SoundEvents.DOLPHIN_JUMP);
 
@@ -57,37 +75,37 @@ public class SummerEvent {
             int totalSwimmingSeconds = getIntData(player, totalSwimmingSecondsKey);
 
             player.sendSystemMessage(Component.literal(" <<<——暑期活动——>>>").withStyle(CustomStyle.styleOfWater));
-            player.sendSystemMessage(Component.literal(" |^^").withStyle(ChatFormatting.AQUA).
+            player.sendSystemMessage(Component.literal(" |~~").withStyle(ChatFormatting.AQUA).
                     append(Component.literal("今日摸鱼").withStyle(CustomStyle.styleOfWater)).
-                    append(Component.literal("^^").withStyle(ChatFormatting.AQUA)).
+                    append(Component.literal("~~").withStyle(ChatFormatting.AQUA)).
                     append(Component.literal(" == ").withStyle(ChatFormatting.GOLD)).
                     append(getTimeFormat(dailySwimmingSeconds)));
 
-            player.sendSystemMessage(Component.literal(" |^^").withStyle(ChatFormatting.AQUA).
+            player.sendSystemMessage(Component.literal(" |~~").withStyle(ChatFormatting.AQUA).
                     append(Component.literal("总摸鱼时").withStyle(CustomStyle.styleOfWater)).
-                    append(Component.literal("^^").withStyle(ChatFormatting.AQUA)).
+                    append(Component.literal("~~").withStyle(ChatFormatting.AQUA)).
                     append(Component.literal(" == ").withStyle(ChatFormatting.GOLD)).
                     append(getTimeFormat(totalSwimmingSeconds)));
 
-            player.sendSystemMessage(Component.literal(" |^^").withStyle(ChatFormatting.AQUA).
+            player.sendSystemMessage(Component.literal(" |~~").withStyle(ChatFormatting.AQUA).
                     append(Component.literal("凭证获取").withStyle(CustomStyle.styleOfWater)).
-                    append(Component.literal("^^").withStyle(ChatFormatting.AQUA)).
+                    append(Component.literal("~~").withStyle(ChatFormatting.AQUA)).
                     append(Component.literal(" == ").withStyle(ChatFormatting.GOLD)).
                     append(Component.literal(String.valueOf(dailySummerVoucherGetTimes)).withStyle(ChatFormatting.AQUA)).
                     append(Component.literal("/").withStyle(CustomStyle.styleOfMoon)).
                     append(Component.literal(String.valueOf(8)).withStyle(CustomStyle.styleOfWater)));
 
-            player.sendSystemMessage(Component.literal(" |^^").withStyle(ChatFormatting.AQUA).
+            player.sendSystemMessage(Component.literal(" |~~").withStyle(ChatFormatting.AQUA).
                     append(Component.literal("聚星获取TMS").withStyle(CustomStyle.styleOfWorld)).
-                    append(Component.literal("^^").withStyle(ChatFormatting.AQUA)).
+                    append(Component.literal("~~").withStyle(ChatFormatting.AQUA)).
                     append(Component.literal(" == ").withStyle(ChatFormatting.GOLD)).
                     append(Component.literal(String.valueOf(dailyWorldSoul5GetTimes)).withStyle(ChatFormatting.AQUA)).
                     append(Component.literal("/").withStyle(CustomStyle.styleOfMoon)).
                     append(Component.literal(String.valueOf(8)).withStyle(CustomStyle.styleOfWater)));
 
-            player.sendSystemMessage(Component.literal(" |^^").withStyle(ChatFormatting.AQUA).
+            player.sendSystemMessage(Component.literal(" |~~").withStyle(ChatFormatting.AQUA).
                     append(Component.literal("经验获取TMS").withStyle(ChatFormatting.LIGHT_PURPLE)).
-                    append(Component.literal("^^").withStyle(ChatFormatting.AQUA)).
+                    append(Component.literal("~~").withStyle(ChatFormatting.AQUA)).
                     append(Component.literal(" == ").withStyle(ChatFormatting.GOLD)).
                     append(Component.literal(String.valueOf(dailyExpGetTimes)).withStyle(ChatFormatting.AQUA)).
                     append(Component.literal("/").withStyle(CustomStyle.styleOfMoon)).
@@ -160,6 +178,28 @@ public class SummerEvent {
             if (!quitJudge) {
                 Compute.itemStackGive(player, new ItemStack(ModItems.SeaSoul.get(), 3));
             }
+        }
+    }
+
+    public static void sendDailyTimeRank(Level level) {
+        Compute.formatBroad(level, Component.literal("暑期活动"), Component.literal("当前在线玩家的").withStyle(ChatFormatting.WHITE).
+                append(Component.literal("摸鱼时长排名 >>").withStyle(CustomStyle.styleOfWater)));
+        record PlayerTime(Player player, int seconds){}
+        List<PlayerTime> playerDailyTimeList = new ArrayList<>();
+        level.getServer().getPlayerList().getPlayers().forEach(serverPlayer -> {
+            playerDailyTimeList.add(new PlayerTime(serverPlayer, getIntData(serverPlayer, dailySwimmingSecondsKey)));
+        });
+        playerDailyTimeList.sort(Comparator.comparingInt(a -> a.seconds));
+        Collections.reverse(playerDailyTimeList);
+        for (int i = 0; i < playerDailyTimeList.size(); i++) {
+            PlayerTime playerTime = playerDailyTimeList.get(i);
+            Style style;
+            Style[] styles = new Style[]{CustomStyle.styleOfPower, CustomStyle.styleOfGold, CustomStyle.styleOfWater};
+            style = styles[Math.min(2, i)];
+            Compute.broad(level, Component.literal(" " + (i + 1) + ".").withStyle(style).
+                    append(playerTime.player.getDisplayName()).
+                    append(Component.literal(" >> ").withStyle(CustomStyle.styleOfWorld)).
+                    append(getTimeFormat(playerTime.seconds)));
         }
     }
 

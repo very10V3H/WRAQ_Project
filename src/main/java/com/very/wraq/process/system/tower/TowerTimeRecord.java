@@ -48,7 +48,7 @@ public record TowerTimeRecord(int floor, String name, int tick) {
                     append(Component.literal(" 的挑战排行榜如下:").withStyle(ChatFormatting.WHITE)));
             for (int i = 0; i < list.size(); i++) {
                 TowerTimeRecord towerTimeRecord = list.get(i);
-                Compute.Broad(player.level(), Component.literal(" ".repeat(16) + "#" + (i + 1)).withStyle(CustomStyle.styleOfWorld).
+                Compute.broad(player.level(), Component.literal(" ".repeat(16) + "#" + (i + 1)).withStyle(CustomStyle.styleOfWorld).
                         append(Component.literal(" " + towerTimeRecord.name).withStyle(CustomStyle.styleOfWorld)).
                         append(Component.literal(" " + String.format("%.2f", towerTimeRecord.tick * 0.05) + "s")));
             }

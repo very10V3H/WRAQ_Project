@@ -27,8 +27,8 @@ public class TestC2SPacket {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
             ServerPlayer player = context.getSender();
-            if (num == 1) Compute.Broad(player.getServer().overworld(), Component.literal("test!"));
-            if (num == 2) Compute.Broad(player.getServer().overworld(), Component.literal("close？"));
+            if (num == 1) Compute.broad(player.getServer().overworld(), Component.literal("test!"));
+            if (num == 2) Compute.broad(player.getServer().overworld(), Component.literal("close？"));
         });
         return true;
     }

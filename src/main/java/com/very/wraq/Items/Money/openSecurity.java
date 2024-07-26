@@ -29,13 +29,13 @@ public class openSecurity extends Item {
                 Utils.security2 = player.getPersistentData().getDouble("PersistentSecurity2");
             if (player.getPersistentData().contains("PersistentSecurity3"))
                 Utils.security3 = player.getPersistentData().getDouble("PersistentSecurity3");
-            Compute.Broad(level, Component.literal("[公告]").withStyle(ChatFormatting.AQUA).withStyle(ChatFormatting.BOLD).append(Component.literal("股市已开盘！").withStyle(ChatFormatting.WHITE)));
-            Compute.Broad(level, Component.literal("当前股市行情:").withStyle(ChatFormatting.GOLD));
-            Compute.Broad(level, Component.literal("——————————").withStyle(ChatFormatting.AQUA));
-            Compute.Broad(level, Component.literal("维瑞库尤酒店：").append(String.valueOf(Utils.security0)));
-            Compute.Broad(level, Component.literal("维瑞库尤矿业：").append(String.valueOf(Utils.security1)));
-            Compute.Broad(level, Component.literal("维瑞库尤渔业：").append(String.valueOf(Utils.security2)));
-            Compute.Broad(level, Component.literal("维瑞库尤建设：").append(String.valueOf(Utils.security3)));
+            Compute.broad(level, Component.literal("[公告]").withStyle(ChatFormatting.AQUA).withStyle(ChatFormatting.BOLD).append(Component.literal("股市已开盘！").withStyle(ChatFormatting.WHITE)));
+            Compute.broad(level, Component.literal("当前股市行情:").withStyle(ChatFormatting.GOLD));
+            Compute.broad(level, Component.literal("——————————").withStyle(ChatFormatting.AQUA));
+            Compute.broad(level, Component.literal("维瑞库尤酒店：").append(String.valueOf(Utils.security0)));
+            Compute.broad(level, Component.literal("维瑞库尤矿业：").append(String.valueOf(Utils.security1)));
+            Compute.broad(level, Component.literal("维瑞库尤渔业：").append(String.valueOf(Utils.security2)));
+            Compute.broad(level, Component.literal("维瑞库尤建设：").append(String.valueOf(Utils.security3)));
         }
         return super.use(level, player, interactionHand);
     }
