@@ -4,6 +4,7 @@ import com.very.wraq.common.Compute;
 import com.very.wraq.common.Utils.Utils;
 import com.mojang.logging.LogUtils;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.process.system.element.ElementItems;
 import com.very.wraq.series.specialevents.SpecialEventItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -16,6 +17,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -99,9 +101,8 @@ public class InventoryCheck {
                 ModItems.uniformPiece.get()
         ));
         for (Object o : SpecialEventItems.ITEMS.getEntries().toArray()) {
-            if (o instanceof Item item) {
-                boundingList.add(item);
-            }
+            RegistryObject<Item> item = (RegistryObject<Item>) o;
+            boundingList.add(item.get());
         }
     }
 

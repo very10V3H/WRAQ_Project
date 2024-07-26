@@ -2,6 +2,7 @@ package com.very.wraq.Items.MainStory_1.Mission;
 
 import com.very.wraq.common.Utils.ClientUtils;
 import com.very.wraq.common.Compute;
+import com.very.wraq.events.core.InventoryCheck;
 import com.very.wraq.projectiles.OnCuriosSlotTickEffect;
 import com.very.wraq.series.specialevents.summer.SummerEvent;
 import net.minecraft.ChatFormatting;
@@ -69,11 +70,17 @@ public class Main0 extends Item {
         }
 
         if (!level.isClientSide && player.isShiftKeyDown()) {
-
+            SummerEvent.resetDailyData(player);
         }
 
         if (!level.isClientSide && !player.isShiftKeyDown()) {
-            SummerEvent.sendDailyTimeRank(player.level());
+            for (int i = 0 ; i < 100 ; i ++) {
+                try {
+                    SummerEvent.reward(player);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
 /*            ServerLevel serverLevel = (ServerLevel) level;
             for (Entity entity : serverLevel.getAllEntities()) {
                 if (entity instanceof ItemEntity) {
