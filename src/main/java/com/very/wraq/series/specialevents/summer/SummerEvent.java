@@ -13,7 +13,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 public class SummerEvent {
@@ -24,8 +26,13 @@ public class SummerEvent {
     public static String dailySwimmingSecondsKey = "dailySwimmingSeconds";
     public static String totalSwimmingSecondsKey = "totalSwimmingSeconds";
 
+    public static Map<String, Integer> playerLastTimeInWaterTick = new HashMap<>();
+
     public static void tick(Player player) throws SQLException {
+        String name = player.getName().getString();
+        int tick = player.getServer().getTickCount();
         if (player.isSwimming() && player.tickCount % 20 == 17) {
+            playerLastTimeInWaterTick.put(name, tick);
             incrementIntData(player, dailySwimmingSecondsKey);
             incrementIntData(player, totalSwimmingSecondsKey);
             int dailySwimmingSeconds = getIntData(player, dailySwimmingSecondsKey);
@@ -38,6 +45,52 @@ public class SummerEvent {
                 Compute.sendActionBarMSG(player, Component.literal("正在摸鱼" + ".".repeat((dailySwimmingSeconds % 15) / 3)).withStyle(CustomStyle.styleOfWater));
             }
             reward(player);
+        }
+        if (!player.isSwimming() && playerLastTimeInWaterTick.containsKey(name)) {
+            playerLastTimeInWaterTick.remove(name);
+
+            int dailySwimmingSeconds = getIntData(player, dailySwimmingSecondsKey);
+            int dailySummerVoucherGetTimes = getIntData(player, dailySummerVoucherGetTimesKey);
+            int dailyWorldSoul5GetTimes = getIntData(player, dailyWorldSoul5GetTimesKey);
+            int dailyExpGetTimes = getIntData(player, dailyExpGetTimesKey);
+            int totalSwimmingSeconds = getIntData(player, totalSwimmingSecondsKey);
+
+            player.sendSystemMessage(Component.literal(" <<<——暑期活动——>>>").withStyle(CustomStyle.styleOfWater));
+            player.sendSystemMessage(Component.literal(" ^^").withStyle(ChatFormatting.AQUA).
+                    append(Component.literal("今日摸鱼").withStyle(CustomStyle.styleOfWater)).
+                    append(Component.literal("^^").withStyle(ChatFormatting.AQUA)).
+                    append(Component.literal(" == ").withStyle(ChatFormatting.GOLD)).
+                    append(getTimeFormat(dailySwimmingSeconds)));
+
+            player.sendSystemMessage(Component.literal(" ^^").withStyle(ChatFormatting.AQUA).
+                    append(Component.literal("总摸鱼时").withStyle(CustomStyle.styleOfWater)).
+                    append(Component.literal("^^").withStyle(ChatFormatting.AQUA)).
+                    append(Component.literal(" == ").withStyle(ChatFormatting.GOLD)).
+                    append(getTimeFormat(totalSwimmingSeconds)));
+
+            player.sendSystemMessage(Component.literal(" ^^").withStyle(ChatFormatting.AQUA).
+                    append(Component.literal("凭证获取").withStyle(CustomStyle.styleOfWater)).
+                    append(Component.literal("^^").withStyle(ChatFormatting.AQUA)).
+                    append(Component.literal(" == ").withStyle(ChatFormatting.GOLD)).
+                    append(Component.literal(String.valueOf(dailySummerVoucherGetTimes)).withStyle(ChatFormatting.AQUA)).
+                    append(Component.literal("/").withStyle(CustomStyle.styleOfMoon)).
+                    append(Component.literal(String.valueOf(8)).withStyle(CustomStyle.styleOfWater)));
+
+            player.sendSystemMessage(Component.literal(" ^^").withStyle(ChatFormatting.AQUA).
+                    append(Component.literal("聚星获取TMS").withStyle(CustomStyle.styleOfWorld)).
+                    append(Component.literal("^^").withStyle(ChatFormatting.AQUA)).
+                    append(Component.literal(" == ").withStyle(ChatFormatting.GOLD)).
+                    append(Component.literal(String.valueOf(dailyWorldSoul5GetTimes)).withStyle(ChatFormatting.AQUA)).
+                    append(Component.literal("/").withStyle(CustomStyle.styleOfMoon)).
+                    append(Component.literal(String.valueOf(8)).withStyle(CustomStyle.styleOfWater)));
+
+            player.sendSystemMessage(Component.literal(" ^^").withStyle(ChatFormatting.AQUA).
+                    append(Component.literal("经验获取TMS").withStyle(ChatFormatting.LIGHT_PURPLE)).
+                    append(Component.literal("^^").withStyle(ChatFormatting.AQUA)).
+                    append(Component.literal(" == ").withStyle(ChatFormatting.GOLD)).
+                    append(Component.literal(String.valueOf(dailyExpGetTimes)).withStyle(ChatFormatting.AQUA)).
+                    append(Component.literal("/").withStyle(CustomStyle.styleOfMoon)).
+                    append(Component.literal(String.valueOf(20)).withStyle(CustomStyle.styleOfWater)));
         }
     }
 
@@ -104,6 +157,16 @@ public class SummerEvent {
                 Compute.itemStackGive(player, new ItemStack(ModItems.SeaSoul.get(), 3));
             }
         }
+    }
+
+    public static Component getTimeFormat(int dailySwimmingSeconds) {
+        Component timeFormat;
+        if (dailySwimmingSeconds >= 600) {
+            timeFormat = Component.literal(String.format("%.2f", dailySwimmingSeconds / 60.0) + "min").withStyle(CustomStyle.styleOfWater);
+        } else {
+            timeFormat = Component.literal(dailySwimmingSeconds + "s").withStyle(CustomStyle.styleOfWater);
+        }
+        return timeFormat;
     }
 
     public static void sendFormatMSG(Player player, Component component) {
