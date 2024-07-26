@@ -77,14 +77,14 @@ public class LoginInEvent {
 
             data.putString(StringUtils.Login.Status, StringUtils.Login.Offline);
 
-            for (int i = 0 ; i < 10 ; i ++) {
+            for (int i = 0 ; i < 11 ; i ++) {
                 String singleReward = "singleReward" + i;
                 if (data.contains(singleReward)) data.remove(singleReward);
             }
 
-            String singleReward10 = "singleReward10";
-            if (!data.contains(singleReward10)) {
-                data.putBoolean(singleReward10, true);
+            String singleReward = "singleReward11";
+            if (!data.contains(singleReward)) {
+                data.putBoolean(singleReward, true);
                 if (serverPlayer.experienceLevel >= 40) {
                     Tower.givePlayerStar(player, 160, "更新补偿");
                     List<Item> items = List.of();
