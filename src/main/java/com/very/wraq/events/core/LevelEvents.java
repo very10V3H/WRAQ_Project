@@ -18,6 +18,7 @@ import com.very.wraq.common.Utils.Struct.LastDamage;
 import com.very.wraq.common.Utils.Utils;
 import com.very.wraq.common.attributeValues.EffectOnMob;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.series.specialevents.summer.SummerEvent;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -644,7 +645,8 @@ public class LevelEvents {
     }
 
     public static void Broad(TickEvent.LevelTickEvent event) {
-        if (event.level.getServer() != null && event.phase.equals(TickEvent.Phase.START) && event.level.equals(event.level.getServer().getLevel(Level.OVERWORLD))) {
+        Level level = event.level;
+        if (level.getServer() != null && event.phase.equals(TickEvent.Phase.START) && level.equals(level.getServer().getLevel(Level.OVERWORLD))) {
             String[] BroadCastContent = {
                     "对于物品描述下方有[可灌注/增幅]标签的物品，可以将其放置在能量灌注器灌注位查看灌注配方。",
                     "你知道吗，每日任务的冷却时间是22小时。",
@@ -672,12 +674,16 @@ public class LevelEvents {
                     "如果你不知道一个材料怎么获取，打开身份卡，点击物品图鉴，选择'材料'，试着推断或找到获取方式吧",
                     "等级带来的增益非常之高，努力提升等级吧"
             };
-            int TickCount = event.level.getServer().getTickCount();
+            int tick = level.getServer().getTickCount();
 
-            if (TickCount % 6000 == 0) {
+            if (tick % 6000 == 0) {
                 Random random = new Random();
-                Compute.formatBroad(event.level, Component.literal("提示").withStyle(ChatFormatting.AQUA),
+                Compute.formatBroad(level, Component.literal("提示").withStyle(ChatFormatting.AQUA),
                         Component.literal(BroadCastContent[random.nextInt(BroadCastContent.length)]).withStyle(ChatFormatting.WHITE));
+            }
+
+            if (tick % 6000 == 726) {
+                SummerEvent.sendDailyTimeRank(level);
             }
         }
     }

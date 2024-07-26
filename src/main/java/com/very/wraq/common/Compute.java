@@ -68,6 +68,7 @@ import com.very.wraq.series.overworld.chapter1.forest.bossItems.ForestBossSword;
 import com.very.wraq.series.overworld.chapter1.ManaBook.ManaNote;
 import com.very.wraq.series.overworld.chapter1.volcano.bossItems.VolcanoBossSword;
 import com.very.wraq.series.overworld.chapter1.waterSystem.bossItems.LakeBoss;
+import com.very.wraq.series.specialevents.summer.SummerEvent;
 import com.very.wraq.series.worldsoul.SoulEquipAttribute;
 import com.very.wraq.common.Utils.ClientUtils;
 import com.very.wraq.common.Utils.StringUtils;
@@ -884,7 +885,7 @@ public class Compute {
         return -1;
     }
 
-    public static void Broad(Level level, Component component) {
+    public static void broad(Level level, Component component) {
         PlayerList list = level.getServer().getPlayerList();
         List<ServerPlayer> list1 = list.getPlayers();
         for (Player player : list1) {
@@ -892,7 +893,7 @@ public class Compute {
         }
     }
 
-    public static void Broad(Level level, Component component, int blank) {
+    public static void broad(Level level, Component component, int blank) {
         PlayerList list = level.getServer().getPlayerList();
         List<ServerPlayer> list1 = list.getPlayers();
         String blankString = " ".repeat(blank);
@@ -1072,6 +1073,7 @@ public class Compute {
     }
 
     public static void itemStackGive(Player player, ItemStack itemStack) {
+        itemStack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
         if (itemStack.getCount() > 0) {
             if (InventoryCheck.getBoundingList().contains(itemStack.getItem()))
                 InventoryCheck.addOwnerTagToItemStack(player, itemStack);
@@ -4436,28 +4438,39 @@ public class Compute {
         ModNetworking.sendToClient(new EffectLastTimeS2CPacket(itemStack, tickCount), (ServerPlayer) player);
     }
 
+    public static void sendEffectLastTimeToClientPlayer(Item item, int level, int tick, boolean noTime) {
+        if (Element.elementList.isEmpty()) Element.setElementList();
+        if (Element.elementList.contains(item)) {
+            ClientUtils.effectTimeLasts.removeIf(effectTimeLast -> Element.elementList.contains(effectTimeLast.itemStack.getItem()));
+        }
+        ClientUtils.effectTimeLasts.removeIf(effectTimeLast -> effectTimeLast.itemStack.is(item));
+        if (noTime)
+            ClientUtils.effectTimeLasts.add(new EffectTimeLast(item.getDefaultInstance(), tick, tick, level, true));
+        else ClientUtils.effectTimeLasts.add(new EffectTimeLast(item.getDefaultInstance(), tick, tick, level));
+    }
+
     public static void effectLastTimeSend(Player player, Item item, int tickCount) {
-        ModNetworking.sendToClient(new EffectLastTimeS2CPacket(item.getDefaultInstance(), tickCount), (ServerPlayer) player);
+        effectLastTimeSend(player, item, tickCount, 0, false);
     }
 
     public static void effectLastTimeSend(Player player, ItemStack itemStack, int tickCount, int level) {
-        ModNetworking.sendToClient(new EffectLastTimeS2CPacket(itemStack, tickCount, level), (ServerPlayer) player);
+        effectLastTimeSend(player, itemStack.getItem(), tickCount, level, false);
     }
 
     public static void effectLastTimeSend(Player player, Item item, int tickCount, int level) {
-        ModNetworking.sendToClient(new EffectLastTimeS2CPacket(item.getDefaultInstance(), tickCount, level), (ServerPlayer) player);
+        effectLastTimeSend(player, item, tickCount, level, false);
     }
 
-    public static void effectLastTimeSend(Player player, ItemStack itemStack, int tickCount, int level, boolean NoTime) {
-        ModNetworking.sendToClient(new EffectLastTimeS2CPacket(itemStack, tickCount, level, NoTime), (ServerPlayer) player);
+    public static void effectLastTimeSend(Player player, ItemStack itemStack, int tickCount, int level, boolean forever) {
+        effectLastTimeSend(player, itemStack.getItem(), tickCount, level, forever);
     }
 
-    public static void effectLastTimeSend(Player player, Item item, int tickCount, int level, boolean NoTime) {
-        ModNetworking.sendToClient(new EffectLastTimeS2CPacket(item.getDefaultInstance(), tickCount, level, NoTime), (ServerPlayer) player);
+    public static void effectLastTimeSend(Player player, Item item, int level, boolean forever) {
+        effectLastTimeSend(player, item, 25565, level, forever);
     }
 
-    public static void effectLastTimeSend(Player player, Item item, int level, boolean NoTime) {
-        ModNetworking.sendToClient(new EffectLastTimeS2CPacket(item.getDefaultInstance(), 8888, level, NoTime), (ServerPlayer) player);
+    public static void effectLastTimeSend(Player player, Item item, int tickCount, int level, boolean forever) {
+        ModNetworking.sendToClient(new EffectLastTimeS2CPacket(item.getDefaultInstance(), tickCount, level, forever), (ServerPlayer) player);
     }
 
     public static void coolDownTimeSend(Player player, Item item, int tickCount) {
@@ -5035,6 +5048,7 @@ public class Compute {
             throw new RuntimeException(e);
         }
         rate += new double[]{0, 0.15, 0.3, 0.5}[tier];
+        rate += SummerEvent.exHarvest(player);
         return rate;
     }
 

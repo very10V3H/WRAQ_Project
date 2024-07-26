@@ -36,6 +36,7 @@ import com.very.wraq.common.Utils.StringUtils;
 import com.very.wraq.common.Utils.Struct.PlayerTeam;
 import com.very.wraq.common.Utils.Utils;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.series.specialevents.summer.SummerEvent;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -76,14 +77,14 @@ public class LoginInEvent {
 
             data.putString(StringUtils.Login.Status, StringUtils.Login.Offline);
 
-            for (int i = 0 ; i < 10 ; i ++) {
+            for (int i = 0 ; i < 11 ; i ++) {
                 String singleReward = "singleReward" + i;
                 if (data.contains(singleReward)) data.remove(singleReward);
             }
 
-            String singleReward10 = "singleReward10";
-            if (!data.contains(singleReward10)) {
-                data.putBoolean(singleReward10, true);
+            String singleReward = "singleReward11";
+            if (!data.contains(singleReward)) {
+                data.putBoolean(singleReward, true);
                 if (serverPlayer.experienceLevel >= 40) {
                     Tower.givePlayerStar(player, 160, "更新补偿");
                     List<Item> items = List.of();
@@ -459,6 +460,8 @@ public class LoginInEvent {
         sunPowerGetCount.put(player.getName().getString(), 0);
         lakeCoreGetCount.put(player.getName().getString(), 0);
         volcanoCoreGetCount.put(player.getName().getString(), 0);
+
+        SummerEvent.resetDailyData(player);
     }
 
 

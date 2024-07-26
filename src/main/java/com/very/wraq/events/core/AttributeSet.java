@@ -41,6 +41,7 @@ public class AttributeSet {
             double exSwimSpeed = 0;
             if (Breath.onPlayerMap.containsKey(player) && Breath.onPlayerMap.get(player)) exSwimSpeed += 1;
             exSwimSpeed += LakeNewRune.exSwimSpeed(player);
+            exSwimSpeed += 2;
             player.getAttribute(ForgeMod.SWIM_SPEED.get()).setBaseValue(1 + exSwimSpeed);
 
             // 生命回复与魔力回复

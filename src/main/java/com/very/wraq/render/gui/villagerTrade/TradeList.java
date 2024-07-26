@@ -9,6 +9,7 @@ import com.very.wraq.series.newrunes.NewRuneItems;
 import com.very.wraq.common.Utils.StringUtils;
 import com.very.wraq.common.Utils.Utils;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.series.specialevents.SpecialEventItems;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.VillagerType;
@@ -46,6 +47,8 @@ public class TradeList {
 
         elementMaster();
         runeMaster();
+
+        summerEvent();
 
         /* 1.0 */
         LifeElement();
@@ -4026,6 +4029,49 @@ public class TradeList {
             tradeRecipeMap.put(itemStacks[i], List.of(new ItemStack(NewRuneItems.emptyRune.get(), 2),
                     materials[i]));
         }
+    }
 
+    public static void summerEvent() {
+        ItemStack goldenCoin = new ItemStack(ModItems.goldCoin.get());
+        ItemStack goldenCoin_4 = new ItemStack(ModItems.goldCoin.get(), 4);
+        ItemStack summerCurios0 = new ItemStack(SpecialEventItems.SUMMER_CURIOS0.get());
+        ItemStack summerCurios1 = new ItemStack(SpecialEventItems.SUMMER_CURIOS1.get());
+        ItemStack summerCurios2 = new ItemStack(SpecialEventItems.SUMMER_CURIOS2.get());
+        ItemStack summerCurios3 = new ItemStack(SpecialEventItems.SUMMER_CURIOS3.get());
+        ItemStack summerCurios4 = new ItemStack(SpecialEventItems.SUMMER_CURIOS4.get());
+        ItemStack summerCurios5 = new ItemStack(SpecialEventItems.SUMMER_CURIOS5.get());
+        ItemStack[] itemStacks = {
+                goldenCoin, goldenCoin_4,
+                summerCurios0, summerCurios1, summerCurios2,
+                summerCurios3, summerCurios4, summerCurios5
+        };
+        List<ItemStack> contentList = new ArrayList<>();
+        Collections.addAll(contentList, itemStacks);
+        MyVillagerData.setMyVillagerData("暑期摸鱼大师", "summerEvent", CustomStyle.styleOfWater, VillagerType.SWAMP,
+                VillagerProfession.FISHERMAN, contentList);
+
+        tradeRecipeMap.put(goldenCoin, List.of(new ItemStack(Items.TROPICAL_FISH, 8)));
+
+        tradeRecipeMap.put(goldenCoin_4, List.of(new ItemStack(SpecialEventItems.SUMMER_VOUCHER.get(), 1)));
+
+        tradeRecipeMap.put(summerCurios0, List.of(new ItemStack(SpecialEventItems.SUMMER_VOUCHER.get(), 24)));
+
+        tradeRecipeMap.put(summerCurios1, List.of(new ItemStack(SpecialEventItems.SUMMER_CURIOS0.get()),
+                new ItemStack(SpecialEventItems.SUMMER_VOUCHER.get(), 40)));
+
+        tradeRecipeMap.put(summerCurios2, List.of(new ItemStack(SpecialEventItems.SUMMER_CURIOS1.get()),
+                new ItemStack(SpecialEventItems.SUMMER_VOUCHER.get(), 56)));
+
+        tradeRecipeMap.put(summerCurios3, List.of(new ItemStack(SpecialEventItems.SUMMER_CURIOS2.get()),
+                new ItemStack(SpecialEventItems.SUMMER_VOUCHER.get(), 8),
+                new ItemStack(SpecialEventItems.SUMMER_VOUCHER.get(), 64)));
+
+        tradeRecipeMap.put(summerCurios4, List.of(new ItemStack(SpecialEventItems.SUMMER_CURIOS3.get()),
+                new ItemStack(SpecialEventItems.SUMMER_VOUCHER.get(), 24),
+                new ItemStack(SpecialEventItems.SUMMER_VOUCHER.get(), 64)));
+
+        tradeRecipeMap.put(summerCurios5, List.of(new ItemStack(SpecialEventItems.SUMMER_CURIOS4.get()),
+                new ItemStack(SpecialEventItems.SUMMER_VOUCHER.get(), 40),
+                new ItemStack(SpecialEventItems.SUMMER_VOUCHER.get(), 64)));
     }
 }

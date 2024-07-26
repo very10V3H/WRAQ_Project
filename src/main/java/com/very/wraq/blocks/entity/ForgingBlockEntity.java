@@ -480,7 +480,7 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider {
 
                 } else {
                     if (forgelevel >= 17)
-                        Compute.Broad(blockEntity.level, (Component.literal("[").withStyle(ChatFormatting.GRAY).
+                        Compute.broad(blockEntity.level, (Component.literal("[").withStyle(ChatFormatting.GRAY).
                                 append(Component.literal("强化").withStyle(ChatFormatting.AQUA)).
                                 append(Component.literal("]").withStyle(ChatFormatting.GRAY)).
                                 append(player.getDisplayName()).

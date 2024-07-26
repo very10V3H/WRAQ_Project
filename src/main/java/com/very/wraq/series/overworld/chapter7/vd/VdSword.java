@@ -19,7 +19,7 @@ import net.minecraft.world.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VdSword extends WraqSword implements ForgeItem, ActiveItem, MainHandTickItem {
+public class VdSword extends WraqSword implements ForgeItem, ActiveItem, MainHandTickItem, VdWeaponCommon {
 
     public VdSword(Properties properties) {
         super(properties);

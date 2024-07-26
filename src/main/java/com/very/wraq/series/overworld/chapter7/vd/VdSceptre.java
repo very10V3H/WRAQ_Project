@@ -30,7 +30,7 @@ import net.minecraft.world.level.Level;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VdSceptre extends WraqSceptre implements ForgeItem, ActiveItem, MainHandTickItem {
+public class VdSceptre extends WraqSceptre implements ForgeItem, ActiveItem, MainHandTickItem, VdWeaponCommon {
     public VdSceptre(Properties properties) {
         super(properties);
         Utils.manaDamage.put(this, 3600d);

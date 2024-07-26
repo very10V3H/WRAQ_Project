@@ -74,6 +74,7 @@ public interface VdWeaponCommon {
     Map<String, List<CountOnMob>> countMap = new HashMap<>();
 
     static void countAdd(Player player) {
+        if (!(player.getMainHandItem().getItem() instanceof VdWeaponCommon)) return;
         String name = player.getName().getString();
         int tick = player.getServer().getTickCount();
         if (!countMap.containsKey(name)) countMap.put(name, new ArrayList<>());
@@ -115,8 +116,10 @@ public interface VdWeaponCommon {
     Map<String, Boolean> intensifiedAttackMap = new HashMap<>();
 
     static void onReleaseActive(Player player, Item item) {
-        intensifiedAttackMap.put(player.getName().getString(), true);
-        Compute.effectLastTimeSend(player, item, 0, true);
+        if (item instanceof VdWeaponCommon) {
+            intensifiedAttackMap.put(player.getName().getString(), true);
+            Compute.effectLastTimeSend(player, item, 0, true);
+        }
     }
 
     static double normalAttackRateEnhance(Player player) {

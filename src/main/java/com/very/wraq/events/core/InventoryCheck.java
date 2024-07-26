@@ -4,6 +4,7 @@ import com.very.wraq.common.Compute;
 import com.very.wraq.common.Utils.Utils;
 import com.mojang.logging.LogUtils;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.series.specialevents.SpecialEventItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -37,7 +38,7 @@ public class InventoryCheck {
                             LogUtils.getLogger().info("ItemOwner is null!");
                             inventory.removeItem(itemStack);
                         } else {
-                            Compute.Broad(player.level(), Component.literal("[公告]").withStyle(ChatFormatting.AQUA).withStyle(ChatFormatting.BOLD).append(Component.literal("已将玩家" + player.getName().getString() + "背包中不属于他的").withStyle(ChatFormatting.WHITE).append(itemStack.getDisplayName()).append(Component.literal("转移到" + ItemOwner.getName().getString() + "的背包中。"))));
+                            Compute.broad(player.level(), Component.literal("[公告]").withStyle(ChatFormatting.AQUA).withStyle(ChatFormatting.BOLD).append(Component.literal("已将玩家" + player.getName().getString() + "背包中不属于他的").withStyle(ChatFormatting.WHITE).append(itemStack.getDisplayName()).append(Component.literal("转移到" + ItemOwner.getName().getString() + "的背包中。"))));
                             ItemOwner.addItem(itemStack);
                             inventory.removeItem(itemStack);
                         }
@@ -97,6 +98,11 @@ public class InventoryCheck {
                 ModItems.SceptreLottery.get(),
                 ModItems.uniformPiece.get()
         ));
+        for (Object o : SpecialEventItems.ITEMS.getEntries().toArray()) {
+            if (o instanceof Item item) {
+                boundingList.add(item);
+            }
+        }
     }
 
     public static List<Item> getBoundingList() {

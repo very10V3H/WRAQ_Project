@@ -14,10 +14,10 @@ import java.util.Map;
 public class MyVillagerData {
     public static void setMyVillagerData(String displayName, String codeName, Style style,
                                          VillagerType villagerType, VillagerProfession profession, List<ItemStack> itemStackList) {
-        villagerNameMap.put(codeName, Component.literal(displayName).withStyle(style));
+        villagerNameMap.put(codeName.toLowerCase(), Component.literal(displayName).withStyle(style));
         TradeList.tradeContent.put(displayName, itemStackList);
-        villagerTypeMap.put(codeName, villagerType);
-        villagerProfessionMap.put(codeName, profession);
+        villagerTypeMap.put(codeName.toLowerCase(), villagerType);
+        villagerProfessionMap.put(codeName.toLowerCase(), profession);
     }
 
     public static Map<String, MutableComponent> villagerNameMap = new HashMap<>();

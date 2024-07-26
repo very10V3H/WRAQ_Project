@@ -37,6 +37,7 @@ import com.very.wraq.process.system.respawn.MyRespawnRule;
 import com.very.wraq.process.system.season.MySeason;
 import com.very.wraq.process.system.tower.TowerMob;
 import com.very.wraq.projectiles.MainHandTickItem;
+import com.very.wraq.projectiles.OnCuriosSlotTickEffect;
 import com.very.wraq.projectiles.mana.BlazeSword;
 import com.very.wraq.projectiles.mana.SwordAir;
 import com.very.wraq.render.mobEffects.ModEffects;
@@ -162,6 +163,7 @@ public class ServerPlayerTickEvent {
             SkyNewRune.tick(player);
             MoonNewRune.tick(player);
             SummerEvent.tick(player);
+            OnCuriosSlotTickEffect.tickEvent(player);
 
             if (player.getMainHandItem().getItem() instanceof MainHandTickItem mainHandTickItem) mainHandTickItem.tick(player);
 
