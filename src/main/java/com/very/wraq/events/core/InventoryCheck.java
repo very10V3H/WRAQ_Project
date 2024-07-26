@@ -4,6 +4,7 @@ import com.very.wraq.common.Compute;
 import com.very.wraq.common.Utils.Utils;
 import com.mojang.logging.LogUtils;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.series.specialevents.SpecialEventItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -97,6 +98,11 @@ public class InventoryCheck {
                 ModItems.SceptreLottery.get(),
                 ModItems.uniformPiece.get()
         ));
+        for (Object o : SpecialEventItems.ITEMS.getEntries().toArray()) {
+            if (o instanceof Item item) {
+                boundingList.add(item);
+            }
+        }
     }
 
     public static List<Item> getBoundingList() {
