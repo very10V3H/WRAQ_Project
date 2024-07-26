@@ -70,7 +70,7 @@ public class BuyCheckC2SPacket {
                     ItemStack itemStack = marketItemInfo.getItemStack();
                     if (serverPlayer.getServer().getPlayerList().getPlayerByName(marketItemInfo.getPlayer()) != null) {
                         ServerPlayer seller = serverPlayer.getServer().getPlayerList().getPlayerByName(marketItemInfo.getPlayer());
-                        Compute.formatMSGSend(seller, Component.literal("市场").withStyle(ChatFormatting.GOLD),
+                        Compute.sendFormatMSG(seller, Component.literal("市场").withStyle(ChatFormatting.GOLD),
                                 Component.literal("").withStyle(ChatFormatting.WHITE).
                                         append(serverPlayer.getDisplayName()).
                                         append(Component.literal("购买了你上架的 ").withStyle(ChatFormatting.WHITE)).
@@ -83,14 +83,14 @@ public class BuyCheckC2SPacket {
                 }
 
                 Utils.marketItemInfos.remove(RemoveInfo);
-                Compute.formatMSGSend(serverPlayer, Component.literal("市场").withStyle(ChatFormatting.GOLD),
+                Compute.sendFormatMSG(serverPlayer, Component.literal("市场").withStyle(ChatFormatting.GOLD),
                         Component.literal("购买成功！").withStyle(ChatFormatting.WHITE));
             } else {
                 if (MoneyFlag) {
-                    Compute.formatMSGSend(serverPlayer, Component.literal("市场").withStyle(ChatFormatting.GOLD),
+                    Compute.sendFormatMSG(serverPlayer, Component.literal("市场").withStyle(ChatFormatting.GOLD),
                             Component.literal("余额不足").withStyle(ChatFormatting.WHITE));
                 } else {
-                    Compute.formatMSGSend(serverPlayer, Component.literal("市场").withStyle(ChatFormatting.GOLD),
+                    Compute.sendFormatMSG(serverPlayer, Component.literal("市场").withStyle(ChatFormatting.GOLD),
                             Component.literal("购买失败！商品可能已经被购买。").withStyle(ChatFormatting.WHITE));
                 }
             }

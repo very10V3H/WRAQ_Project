@@ -22,10 +22,10 @@ public class DebugCommand implements Command<CommandSourceStack> {
         String name = player.getName().getString();
         playerFlagMap.put(name, !playerFlagMap.getOrDefault(name, false));
         if (!playerFlagMap.get(name)) {
-            Compute.formatMSGSend(player, Component.literal("调试").withStyle(CustomStyle.styleOfEnd),
+            Compute.sendFormatMSG(player, Component.literal("调试").withStyle(CustomStyle.styleOfEnd),
                     Component.literal("你已关闭伤害构成显示。").withStyle(ChatFormatting.WHITE));
         } else {
-            Compute.formatMSGSend(player, Component.literal("调试").withStyle(CustomStyle.styleOfEnd),
+            Compute.sendFormatMSG(player, Component.literal("调试").withStyle(CustomStyle.styleOfEnd),
                     Component.literal("你已启用伤害构成显示。").withStyle(ChatFormatting.WHITE));
         }
         return 0;

@@ -31,7 +31,7 @@ public class SellCommand implements Command<CommandSourceStack> {
         ServerPlayer player = context.getSource().getPlayer();
         String string = StringArgumentType.getString(context, "price");
         if (string.length() > 10) {
-            Compute.formatMSGSend(player, Component.literal("市场").withStyle(ChatFormatting.GOLD),
+            Compute.sendFormatMSG(player, Component.literal("市场").withStyle(ChatFormatting.GOLD),
                     Component.literal("需要一个合理的价格喔").withStyle(ChatFormatting.WHITE));
             return 0;
         }
@@ -39,12 +39,12 @@ public class SellCommand implements Command<CommandSourceStack> {
         double price = Double.parseDouble(string);
         List<Villager> villagerList = player.level().getEntitiesOfClass(Villager.class, AABB.ofSize(player.position(), 10, 10, 10));
         if (villagerList.isEmpty()) {
-            Compute.formatMSGSend(player, Component.literal("市场").withStyle(ChatFormatting.GOLD),
+            Compute.sendFormatMSG(player, Component.literal("市场").withStyle(ChatFormatting.GOLD),
                     Component.literal("附近需要有村民才能出售物品").withStyle(ChatFormatting.WHITE));
             return 0;
         }
         if (price <= 0 || price > 10000000) {
-            Compute.formatMSGSend(player, Component.literal("市场").withStyle(ChatFormatting.GOLD),
+            Compute.sendFormatMSG(player, Component.literal("市场").withStyle(ChatFormatting.GOLD),
                     Component.literal("需要一个合理的价格喔").withStyle(ChatFormatting.WHITE));
             return 0;
         }
@@ -55,7 +55,7 @@ public class SellCommand implements Command<CommandSourceStack> {
             if (marketItemInfo.getPlayer().equals(player.getName().getString())) Count++;
         }
         if (Count >= 15) {
-            Compute.formatMSGSend(player, Component.literal("市场").withStyle(ChatFormatting.GOLD),
+            Compute.sendFormatMSG(player, Component.literal("市场").withStyle(ChatFormatting.GOLD),
                     Component.literal("超出了限制的出售数量(15)。"));
         } else {
             boolean flag = false;
@@ -67,7 +67,7 @@ public class SellCommand implements Command<CommandSourceStack> {
                 flag = true;
                 Utils.marketItemInfos.add(marketItemInfo);
                 player.setItemInHand(InteractionHand.MAIN_HAND, Items.AIR.getDefaultInstance());
-                Compute.formatMSGSend(player, Component.literal("市场").withStyle(ChatFormatting.GOLD),
+                Compute.sendFormatMSG(player, Component.literal("市场").withStyle(ChatFormatting.GOLD),
                         Component.literal("上架成功。").withStyle(ChatFormatting.WHITE));
                 Compute.formatBroad(player.level(), Component.literal("市场").withStyle(ChatFormatting.GOLD),
                         Component.literal("").withStyle(ChatFormatting.WHITE).
@@ -80,7 +80,7 @@ public class SellCommand implements Command<CommandSourceStack> {
             }
 
             if (!flag) {
-                Compute.formatMSGSend(player, Component.literal("市场").withStyle(ChatFormatting.GOLD),
+                Compute.sendFormatMSG(player, Component.literal("市场").withStyle(ChatFormatting.GOLD),
                         Component.literal("这件物品似乎不可以出售。"));
             }
         }

@@ -18,14 +18,14 @@ public class Devil {
         }
         if (!isMopUp) {
             if (random.nextDouble() <= 0.025 * (playerNum - 1) * difficultyEnhanceRate) {
-                Compute.formatMSGSend(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
+                Compute.sendFormatMSG(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
                         Component.literal("你通过组队挑战副本，额外获得了:").withStyle(ChatFormatting.WHITE).
                                 append(ModItems.DevilLoot.get().getDefaultInstance().getDisplayName()));
                 Compute.itemStackGive(player, new ItemStack(ModItems.DevilLoot.get(), 1));
             }
         }
         if (LoginInEvent.playerDailyInstanceReward(player, 6)) {
-            Compute.formatMSGSend(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
+            Compute.sendFormatMSG(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
                     Component.literal("每日首次通关副本，额外获得了:").withStyle(ChatFormatting.WHITE).
                             append(ModItems.DevilLoot.get().getDefaultInstance().getDisplayName()));
             Compute.itemStackGive(player, new ItemStack(ModItems.DevilLoot.get(), 6));

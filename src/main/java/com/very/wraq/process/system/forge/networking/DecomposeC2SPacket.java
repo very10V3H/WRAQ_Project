@@ -56,7 +56,7 @@ public class DecomposeC2SPacket {
                         if (forgingBlockEntity.decompose(forgingBlockEntity)) {
                             doubleClickTick.remove(name);
                             Compute.soundToPlayer(serverPlayer, SoundEvents.ANVIL_BREAK);
-                            Compute.formatMSGSend(serverPlayer, Component.literal("分解").withStyle(ChatFormatting.RED),
+                            Compute.sendFormatMSG(serverPlayer, Component.literal("分解").withStyle(ChatFormatting.RED),
                                     Component.literal("分解成功!").withStyle(ChatFormatting.WHITE));
                         } else {
                             ModNetworking.sendToClient(new DecomposeRecipeLossS2CPacket(), serverPlayer);

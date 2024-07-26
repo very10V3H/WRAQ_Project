@@ -32,7 +32,7 @@ public class DeleteCommand implements Command<CommandSourceStack> {
 
         } else {
             Utils.deleteCommandSecurity.put(name, TickCount + 60);
-            Compute.formatMSGSend(player, Component.literal("销毁").withStyle(ChatFormatting.RED),
+            Compute.sendFormatMSG(player, Component.literal("销毁").withStyle(ChatFormatting.RED),
                     Component.literal("请在3s内再次输入指令以进行销毁。").withStyle(ChatFormatting.WHITE));
         }
 

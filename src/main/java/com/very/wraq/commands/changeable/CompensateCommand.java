@@ -1,8 +1,8 @@
 package com.very.wraq.commands.changeable;
 
+import com.very.wraq.process.system.tower.Tower;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.registry.ModItems;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
@@ -12,17 +12,44 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+
+import java.sql.SQLException;
+import java.util.List;
 
 public class CompensateCommand implements Command<CommandSourceStack> {
     public static CompensateCommand instance = new CompensateCommand();
 
+    public static String singleReward = "singleReward11";
+
     @Override
     public int run(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         Player player = context.getSource().getPlayer();
-        String type = StringArgumentType.getString(context, "type");
         CompoundTag data = player.getPersistentData();
-        String version = "version:1.0.3";
+
+        if (!data.contains(singleReward)) {
+            data.putBoolean(singleReward, true);
+            if (player.experienceLevel >= 40) {
+                try {
+                    Tower.givePlayerStar(player, 160, "更新补偿");
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+                List<Item> items = List.of();
+                for (Item item : items) {
+                    Compute.itemStackGive(player, new ItemStack(item));
+                }
+
+                Compute.sendFormatMSG(player, Component.literal("更新补偿").withStyle(ChatFormatting.LIGHT_PURPLE),
+                        Component.literal("你收到了来自铁头的更新补偿!").withStyle(ChatFormatting.WHITE));
+            }
+            return 0;
+        }
+        Compute.sendFormatMSG(player, Component.literal("补偿").withStyle(CustomStyle.styleOfSakura),
+                Component.literal("似乎已经领取过/没有资格领取补偿呢").withStyle(ChatFormatting.AQUA));
+
+/*        String version = "version:1.0.3";
         if (true) {
             Compute.formatMSGSend(player, Component.literal("补偿").withStyle(CustomStyle.styleOfSakura),
                     Component.literal("似乎已经领取过/没有资格领取补偿呢").withStyle(ChatFormatting.AQUA));
@@ -115,11 +142,7 @@ public class CompensateCommand implements Command<CommandSourceStack> {
             data.putBoolean(version, true);
             return 0;
         }
-
-        Compute.formatMSGSend(player, Component.literal("补偿").withStyle(CustomStyle.styleOfSakura),
-                Component.literal("似乎已经领取过/没有资格领取补偿呢").withStyle(ChatFormatting.AQUA));
-
-
+        */
         return 0;
     }
 }

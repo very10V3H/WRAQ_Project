@@ -44,7 +44,7 @@ public class CopperCoinC2SPacket {
                         Compute.itemStackRemoveIgnoreVB(inventory, ModItems.copperCoin.get(), SilverCoinNum);
                         Compute.VBIncomeAndMSGSend(player, SilverCoinNum);
                     } else {
-                        Compute.formatMSGSend(player, Component.literal("VB").withStyle(ChatFormatting.GOLD),
+                        Compute.sendFormatMSG(player, Component.literal("VB").withStyle(ChatFormatting.GOLD),
                                 Component.literal("背包内似乎没有铜币用于兑换。").withStyle(ChatFormatting.WHITE));
                     }
                 }
@@ -59,7 +59,7 @@ public class CopperCoinC2SPacket {
                         itemStack.setCount(count);
                         Compute.itemStackGive(player, itemStack);
                     } else {
-                        Compute.formatMSGSend(player, Component.literal("VB").withStyle(ChatFormatting.GOLD),
+                        Compute.sendFormatMSG(player, Component.literal("VB").withStyle(ChatFormatting.GOLD),
                                 Component.literal("VB不足。").withStyle(ChatFormatting.WHITE));
                     }
                 }
@@ -74,7 +74,7 @@ public class CopperCoinC2SPacket {
                         itemStack.setCount(count);
                         Compute.itemStackGive(player, itemStack);
                     } else {
-                        Compute.formatMSGSend(player, Component.literal("VB").withStyle(ChatFormatting.GOLD),
+                        Compute.sendFormatMSG(player, Component.literal("VB").withStyle(ChatFormatting.GOLD),
                                 Component.literal("VB不足。").withStyle(ChatFormatting.WHITE));
                     }
                 }

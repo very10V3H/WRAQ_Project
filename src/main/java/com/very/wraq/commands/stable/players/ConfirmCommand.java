@@ -25,7 +25,7 @@ public class ConfirmCommand implements Command<CommandSourceStack> {
         if (data.getString(StringUtils.Login.Status).equals(StringUtils.Login.Online)) {
             if (data.contains("NSConfirm") && data.getBoolean("NSConfirm")) {
                 data.putBoolean("NSConfirm", false);
-                Compute.formatMSGSend(player, Component.literal("隐藏副本").withStyle(CustomStyle.styleOfNether),
+                Compute.sendFormatMSG(player, Component.literal("隐藏副本").withStyle(CustomStyle.styleOfNether),
                         Component.literal("已取消确认！").withStyle(ChatFormatting.WHITE));
                 Utils.NSPlayerController.remove(player);
             } else {
@@ -40,7 +40,7 @@ public class ConfirmCommand implements Command<CommandSourceStack> {
                             if (!TmpData.getBoolean("NSConfirm")) flag = false;
                         }
                         if (!flag) {
-                            Compute.formatMSGSend(player, Component.literal("隐藏副本").withStyle(CustomStyle.styleOfNether),
+                            Compute.sendFormatMSG(player, Component.literal("隐藏副本").withStyle(CustomStyle.styleOfNether),
                                     Component.literal("已确认激活副本，请等待其他玩家确认！").withStyle(ChatFormatting.WHITE));
                         }
                     }

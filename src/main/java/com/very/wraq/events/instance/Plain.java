@@ -28,7 +28,7 @@ public class Plain {
 
         if (!isMopUp) {
             if (random.nextDouble() <= 0.025 * (playerNum - 1) * difficultyEnhanceRate) {
-                Compute.formatMSGSend(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
+                Compute.sendFormatMSG(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
                         Component.literal("你通过组队挑战副本，额外获得了:").withStyle(ChatFormatting.WHITE).
                                 append(ModItems.PlainBossSoul.get().getDefaultInstance().getDisplayName()));
                 Compute.itemStackGive(player, new ItemStack(ModItems.PlainBossSoul.get(), 1));
@@ -36,7 +36,7 @@ public class Plain {
         }
 
         if (LoginInEvent.playerDailyInstanceReward(player, 0)) {
-            Compute.formatMSGSend(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
+            Compute.sendFormatMSG(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
                     Component.literal("每日首次通关副本，额外获得了:").withStyle(ChatFormatting.WHITE).
                             append(ModItems.PlainBossSoul.get().getDefaultInstance().getDisplayName()));
 

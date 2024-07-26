@@ -23,10 +23,10 @@ public class BowCommand implements Command<CommandSourceStack> {
             data.putBoolean(StringUtils.BowSlowDown, !data.getBoolean(StringUtils.BowSlowDown));
         else data.putBoolean(StringUtils.BowSlowDown, false);
         if (data.getBoolean(StringUtils.BowSlowDown)) {
-            Compute.formatMSGSend(player, Component.literal("弓").withStyle(ChatFormatting.GREEN),
+            Compute.sendFormatMSG(player, Component.literal("弓").withStyle(ChatFormatting.GREEN),
                     Component.literal("你已打开弓箭的视角拉伸。").withStyle(ChatFormatting.WHITE));
         } else {
-            Compute.formatMSGSend(player, Component.literal("弓").withStyle(ChatFormatting.GREEN),
+            Compute.sendFormatMSG(player, Component.literal("弓").withStyle(ChatFormatting.GREEN),
                     Component.literal("你已关闭弓箭的视角拉伸。").withStyle(ChatFormatting.WHITE));
 
         }

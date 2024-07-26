@@ -42,7 +42,7 @@ public class OffShellC2SPacket {
         context.enqueueWork(() -> {
             ServerPlayer serverPlayer = context.getSender();
             if (!playerName.equals(serverPlayer.getName().getString()) && !serverPlayer.isCreative()) {
-                Compute.formatMSGSend(serverPlayer, Component.literal("市场").withStyle(ChatFormatting.GOLD),
+                Compute.sendFormatMSG(serverPlayer, Component.literal("市场").withStyle(ChatFormatting.GOLD),
                         Component.literal("你不能下架不属于你的物品").withStyle(ChatFormatting.WHITE));
             }
             MarketItemInfo marketItemInfo = new MarketItemInfo(playerName, itemStack, price);
@@ -53,10 +53,10 @@ public class OffShellC2SPacket {
             if (removeItemInfo != null) {
                 serverPlayer.addItem(removeItemInfo.getItemStack());
                 Utils.marketItemInfos.remove(removeItemInfo);
-                Compute.formatMSGSend(serverPlayer, Component.literal("市场").withStyle(ChatFormatting.GOLD),
+                Compute.sendFormatMSG(serverPlayer, Component.literal("市场").withStyle(ChatFormatting.GOLD),
                         Component.literal("你成功下架了一件物品").withStyle(ChatFormatting.WHITE));
             } else {
-                Compute.formatMSGSend(serverPlayer, Component.literal("市场").withStyle(ChatFormatting.GOLD),
+                Compute.sendFormatMSG(serverPlayer, Component.literal("市场").withStyle(ChatFormatting.GOLD),
                         Component.literal("物品可能已被购买").withStyle(ChatFormatting.WHITE));
             }
             ModNetworking.sendToClient(new MarketDataS2CPacket(Utils.marketItemInfos), serverPlayer);

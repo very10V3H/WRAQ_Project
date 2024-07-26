@@ -46,9 +46,9 @@ public class SLEvent {
                             cal0.add(Calendar.HOUR_OF_DAY, 6);
                             if (cal0.after(cal)) // 晚于系统时间 意即还未冷却完毕
                             {
-                                Compute.formatMSGSend(player, Component.literal("隐藏副本").
+                                Compute.sendFormatMSG(player, Component.literal("隐藏副本").
                                         withStyle(ChatFormatting.BLUE), Component.literal("副本暂未冷却完毕。"));
-                                Compute.formatMSGSend(player, Component.literal("隐藏副本").
+                                Compute.sendFormatMSG(player, Component.literal("隐藏副本").
                                         withStyle(ChatFormatting.BLUE), Component.literal("将在" + cal0.get(Calendar.YEAR) + "年" + (cal0.get(Calendar.MONTH) + 1) +
                                         "月" + cal0.get(Calendar.DAY_OF_MONTH) + "日" + cal0.get(Calendar.HOUR_OF_DAY) + "时" + cal0.get(Calendar.MINUTE) + "分" + cal0.get(Calendar.SECOND) + "可用。"));
                             } else {
@@ -58,14 +58,14 @@ public class SLEvent {
                                     String DateString = tmpDate.format(date);
                                     data.putString("SLDATE", DateString);
                                     data.putInt("SLTIME", 120);
-                                    Compute.formatMSGSend(player, Component.literal("隐藏副本").
+                                    Compute.sendFormatMSG(player, Component.literal("隐藏副本").
                                             withStyle(ChatFormatting.BLUE), Component.literal("已激活！现在你有两分钟的时间可以击杀副本怪物！"));
                                     Compute.formatBroad(player.level(), Component.literal("隐藏副本").
                                             withStyle(ChatFormatting.BLUE), Component.literal(player.getName().getString() + "已激活湖泊隐藏副本！").withStyle(ChatFormatting.WHITE));
                                     Utils.SLController = 40;
                                     player.moveTo(54, -51, 1000);
                                 } else {
-                                    Compute.formatMSGSend(player, Component.literal("隐藏副本").
+                                    Compute.sendFormatMSG(player, Component.literal("隐藏副本").
                                             withStyle(ChatFormatting.BLUE), Component.literal("副本已被激活，请等待其他玩家激活时间结束。"));
                                 }
                             }
@@ -76,22 +76,22 @@ public class SLEvent {
                                 String DateString = tmpDate.format(date);
                                 data.putString("SLDATE", DateString);
                                 data.putInt("SLTIME", 120);
-                                Compute.formatMSGSend(player, Component.literal("隐藏副本").
+                                Compute.sendFormatMSG(player, Component.literal("隐藏副本").
                                         withStyle(ChatFormatting.BLUE), Component.literal("已激活！现在你有两分钟的时间可以击杀副本怪物！"));
                                 Compute.formatBroad(player.level(), Component.literal("隐藏副本").
                                         withStyle(ChatFormatting.BLUE), Component.literal(player.getName().getString() + "已激活湖泊隐藏副本！").withStyle(ChatFormatting.WHITE));
                                 Utils.SLController = 40;
                                 player.moveTo(54, -51, 1000);
                             } else {
-                                Compute.formatMSGSend(player, Component.literal("隐藏副本").
+                                Compute.sendFormatMSG(player, Component.literal("隐藏副本").
                                         withStyle(ChatFormatting.BLUE), Component.literal("副本已被激活，请等待其他玩家激活时间结束。"));
                             }
                         }
                     } else {
-                        Compute.formatMSGSend(player, Component.literal("隐藏副本").
+                        Compute.sendFormatMSG(player, Component.literal("隐藏副本").
                                 withStyle(ChatFormatting.BLUE), Component.literal("暂未达到副本激活需求。"));
                         if (data.contains("KillCountOfLakeDrowned") && data.getInt("KillCountOfLakeDrowned") < 500) {
-                            Compute.formatMSGSend(player, Component.literal("隐藏副本").
+                            Compute.sendFormatMSG(player, Component.literal("隐藏副本").
                                     withStyle(ChatFormatting.BLUE), Component.literal("湖泊守卫者").withStyle(ChatFormatting.BLUE).
                                     append(Component.literal("击杀数: ").withStyle(ChatFormatting.WHITE).
                                             append(Component.literal("(" + data.getInt("KillCountOfLakeDrowned") + "/" + 500 + ")"))));
@@ -100,15 +100,15 @@ public class SLEvent {
                 }
                 if (data.contains("SLTIME")) {
                     if (data.getInt("SLTIME") > 0) data.putInt("SLTIME", data.getInt("SLTIME") - 1);
-                    if (data.getInt("SLTIME") == 100) Compute.formatMSGSend(player, Component.literal("隐藏副本").
+                    if (data.getInt("SLTIME") == 100) Compute.sendFormatMSG(player, Component.literal("隐藏副本").
                             withStyle(ChatFormatting.BLUE), Component.literal("还剩下100s！"));
-                    if (data.getInt("SLTIME") == 80) Compute.formatMSGSend(player, Component.literal("隐藏副本").
+                    if (data.getInt("SLTIME") == 80) Compute.sendFormatMSG(player, Component.literal("隐藏副本").
                             withStyle(ChatFormatting.BLUE), Component.literal("还剩下80s！"));
-                    if (data.getInt("SLTIME") == 60) Compute.formatMSGSend(player, Component.literal("隐藏副本").
+                    if (data.getInt("SLTIME") == 60) Compute.sendFormatMSG(player, Component.literal("隐藏副本").
                             withStyle(ChatFormatting.BLUE), Component.literal("还剩下60s！"));
-                    if (data.getInt("SLTIME") == 40) Compute.formatMSGSend(player, Component.literal("隐藏副本").
+                    if (data.getInt("SLTIME") == 40) Compute.sendFormatMSG(player, Component.literal("隐藏副本").
                             withStyle(ChatFormatting.BLUE), Component.literal("还剩下40s！"));
-                    if (data.getInt("SLTIME") == 20) Compute.formatMSGSend(player, Component.literal("隐藏副本").
+                    if (data.getInt("SLTIME") == 20) Compute.sendFormatMSG(player, Component.literal("隐藏副本").
                             withStyle(ChatFormatting.BLUE), Component.literal("还剩下20s！"));
                     if (data.getInt("SLTIME") == 0) {
                         player.teleportTo(66, -24, 982);

@@ -36,7 +36,7 @@ public class PlanMissionFinishedRequestC2SPacket {
             ServerPlayer serverPlayer = context.getSender();
 
             if (!PlanMission.planMissionContentMap.containsKey(serverPlayer.getName().getString())) {
-                Compute.formatMSGSend(serverPlayer, Component.literal("月卡任务").withStyle(ChatFormatting.LIGHT_PURPLE),
+                Compute.sendFormatMSG(serverPlayer, Component.literal("月卡任务").withStyle(ChatFormatting.LIGHT_PURPLE),
                         Component.literal("当前没有月卡任务可以提交。").withStyle(ChatFormatting.WHITE));
                 return;
             }
@@ -47,7 +47,7 @@ public class PlanMissionFinishedRequestC2SPacket {
             Inventory inventory = serverPlayer.getInventory();
             if (Compute.ItemStackCheck(inventory, itemStack.getItem(), count)) {
                 Compute.itemStackRemove(inventory, itemStack.getItem(), count);
-                Compute.formatMSGSend(serverPlayer, Component.literal("月卡任务").withStyle(ChatFormatting.LIGHT_PURPLE),
+                Compute.sendFormatMSG(serverPlayer, Component.literal("月卡任务").withStyle(ChatFormatting.LIGHT_PURPLE),
                         Component.literal("你完成了月卡任务！").withStyle(ChatFormatting.WHITE));
 
                 Calendar currentTime = Calendar.getInstance();
@@ -98,7 +98,7 @@ public class PlanMissionFinishedRequestC2SPacket {
 
                 Compute.SoundToAll(serverPlayer, SoundEvents.PLAYER_LEVELUP);
             } else {
-                Compute.formatMSGSend(serverPlayer, Component.literal("月卡任务").withStyle(ChatFormatting.LIGHT_PURPLE),
+                Compute.sendFormatMSG(serverPlayer, Component.literal("月卡任务").withStyle(ChatFormatting.LIGHT_PURPLE),
                         Component.literal("暂未达成任务要求。").withStyle(ChatFormatting.WHITE));
             }
         });

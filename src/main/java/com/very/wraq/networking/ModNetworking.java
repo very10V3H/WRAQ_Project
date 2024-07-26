@@ -1293,7 +1293,7 @@ public class ModNetworking {
         if (ClientUtils.clientPacketLimit > 0) INSTANCE.sendToServer(message);
         else {
             if (ClientUtils.clientPlayer != null) {
-                Compute.formatMSGSend(ClientUtils.clientPlayer, Component.literal("安全").withStyle(ChatFormatting.GREEN),
+                Compute.sendFormatMSG(ClientUtils.clientPlayer, Component.literal("安全").withStyle(ChatFormatting.GREEN),
                         Component.literal("请减少操作频率或降低连点器/脚本每秒操作频率！当前频率已超过150/s，当你看到此信息时，请联系管理员。").withStyle(ChatFormatting.RED));
             }
         }

@@ -196,7 +196,7 @@ public class ServerPlayerTickEvent {
 
             if (player.tickCount == 300) {
                 if (Mission.inProgressMission(player) > 0) {
-                    Compute.formatMSGSend(player, Component.literal("任务").withStyle(CustomStyle.styleOfFlexible),
+                    Compute.sendFormatMSG(player, Component.literal("任务").withStyle(CustomStyle.styleOfFlexible),
                             Component.literal("你有").withStyle(ChatFormatting.WHITE).
                                     append(Component.literal("" + Mission.inProgressMission(player))).
                                     append(Component.literal("尚未完成的任务，使用身份卡或快捷按键打开任务列表").withStyle(ChatFormatting.WHITE)));
@@ -355,7 +355,7 @@ public class ServerPlayerTickEvent {
 
             if (player.tickCount % 200 == 0 && !player.isCreative()) {
                 if (Compute.PlayerCurrentColdNum(player) >= Compute.PlayerMaxColdNum(player)) {
-                    Compute.formatMSGSend(player, Component.literal("寒冷").withStyle(CustomStyle.styleOfIce),
+                    Compute.sendFormatMSG(player, Component.literal("寒冷").withStyle(CustomStyle.styleOfIce),
                             Component.literal("你的体温正在急剧下降！").withStyle(ChatFormatting.WHITE));
                     player.setHealth(player.getHealth() - player.getMaxHealth() * 0.1f);
                 }
@@ -547,7 +547,7 @@ public class ServerPlayerTickEvent {
                         } else {
                             data.putInt(StringUtils.AbilityPoint_Total, data.getInt(StringUtils.AbilityPoint_Total) + 1);
                         }
-                        Compute.formatMSGSend(player, Component.literal("维瑞阿契").withStyle(ChatFormatting.AQUA),
+                        Compute.sendFormatMSG(player, Component.literal("维瑞阿契").withStyle(ChatFormatting.AQUA),
                                 Component.literal("你获得了一点能力点，当前剩余的能力点为: " +
                                         (data.getInt(StringUtils.AbilityPoint_Total) - data.getInt(StringUtils.AbilityPoint_Used))).withStyle(ChatFormatting.WHITE));
 
@@ -556,7 +556,7 @@ public class ServerPlayerTickEvent {
                         } else {
                             data.putInt(StringUtils.SkillPoint_Total, data.getInt(StringUtils.SkillPoint_Total) + 1);
                         }
-                        Compute.formatMSGSend(player, Component.literal("维瑞阿契").withStyle(ChatFormatting.AQUA),
+                        Compute.sendFormatMSG(player, Component.literal("维瑞阿契").withStyle(ChatFormatting.AQUA),
                                 Component.literal("你获得了一点专精点，当前剩余的专精点为: " +
                                         (data.getInt(StringUtils.SkillPoint_Total) - data.getInt(StringUtils.SkillPoint_Used))).withStyle(ChatFormatting.WHITE));
 
@@ -570,7 +570,7 @@ public class ServerPlayerTickEvent {
                             int num = player.experienceLevel;
 
                             ModNetworking.sendToClient(new SoundsS2CPacket(3), (ServerPlayer) player);
-                            Compute.formatMSGSend(player, Component.literal("经验").withStyle(ChatFormatting.LIGHT_PURPLE),
+                            Compute.sendFormatMSG(player, Component.literal("经验").withStyle(ChatFormatting.LIGHT_PURPLE),
                                     Component.literal(player.getName().getString() + "通过探索，达到了").withStyle(ChatFormatting.WHITE).
                                             append(Component.literal("" + num).withStyle(ChatFormatting.LIGHT_PURPLE)).
                                             append(Component.literal("级").withStyle(ChatFormatting.WHITE)));
@@ -579,10 +579,10 @@ public class ServerPlayerTickEvent {
                             ModNetworking.sendToClient(new SoundsS2CPacket(3), (ServerPlayer) player);
                             ItemStack itemStack = ModItems.gemPiece.get().getDefaultInstance();
                             itemStack.setCount(player.experienceLevel);
-                            Compute.formatMSGSend(player, Component.literal("经验").withStyle(ChatFormatting.LIGHT_PURPLE),
+                            Compute.sendFormatMSG(player, Component.literal("经验").withStyle(ChatFormatting.LIGHT_PURPLE),
                                     Component.literal("通过提升等级，你获得了").withStyle(ChatFormatting.WHITE).append(itemStack.getDisplayName()));
                             Compute.itemStackGive(player, itemStack);
-                            Compute.formatMSGSend(player, Component.literal("经验").withStyle(ChatFormatting.LIGHT_PURPLE),
+                            Compute.sendFormatMSG(player, Component.literal("经验").withStyle(ChatFormatting.LIGHT_PURPLE),
                                     Component.literal(player.getName().getString() + "通过探索，达到了").withStyle(ChatFormatting.WHITE).
                                             append(Component.literal(String.valueOf(player.experienceLevel)).withStyle(ChatFormatting.LIGHT_PURPLE)).
                                             append(Component.literal("级").withStyle(ChatFormatting.WHITE)));

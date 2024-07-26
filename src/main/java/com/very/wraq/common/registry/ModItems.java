@@ -4132,6 +4132,9 @@ public class ModItems {
                 add(new NewLotteries.Loot(ModItems.commonLotteries.get().getDefaultInstance(), 0.1));
                 add(new NewLotteries.Loot(ModItems.goldCoin.get().getDefaultInstance(), 0.1));
             }}));
+
+    public static final RegistryObject<Item> GOLDEN_APPLE = ITEMS.register("golden_apple",
+            () -> new SimpleFoiledItem(new Item.Properties().rarity(Rarity.UNCOMMON)));
 }
 
 

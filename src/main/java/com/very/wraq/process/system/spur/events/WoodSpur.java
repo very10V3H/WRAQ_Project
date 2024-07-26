@@ -67,7 +67,7 @@ public class WoodSpur {
 
                         Random random = new Random();
                         if (random.nextDouble() < Compute.playerExHarvest(player)) {
-                            Compute.formatMSGSend(player, Component.literal("额外产出").withStyle(ChatFormatting.GOLD),
+                            Compute.sendFormatMSG(player, Component.literal("额外产出").withStyle(ChatFormatting.GOLD),
                                     Component.literal("为你提供了额外产物！").withStyle(ChatFormatting.WHITE));
                             logReward(player);
                             Compute.itemStackGive(player, new ItemStack(blockState.getBlock().asItem(), 2));

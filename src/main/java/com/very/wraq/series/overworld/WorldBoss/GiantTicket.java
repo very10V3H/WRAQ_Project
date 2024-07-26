@@ -35,17 +35,17 @@ public class GiantTicket extends Item {
             if (Utils.giant == null || !Utils.giant.isAlive()) {
                 if (!Utils.GiantPlayerList.contains(player.getName().getString())) {
                     Utils.GiantPlayerList.add(player.getName().getString());
-                    Compute.formatMSGSend(player, Component.literal("世界Boss").withStyle(ChatFormatting.LIGHT_PURPLE),
+                    Compute.sendFormatMSG(player, Component.literal("世界Boss").withStyle(ChatFormatting.LIGHT_PURPLE),
                             Component.literal(" 您已成功预约下一次世界Boss挑战！").withStyle(ChatFormatting.WHITE));
                     Compute.playerItemUseWithRecord(player);
 
                 } else {
-                    Compute.formatMSGSend(player, Component.literal("世界Boss").withStyle(ChatFormatting.LIGHT_PURPLE),
+                    Compute.sendFormatMSG(player, Component.literal("世界Boss").withStyle(ChatFormatting.LIGHT_PURPLE),
                             Component.literal(" 你已经预约下次世界Boss挑战了！").withStyle(ChatFormatting.WHITE));
 
                 }
             } else {
-                Compute.formatMSGSend(player, Component.literal("世界Boss").withStyle(ChatFormatting.LIGHT_PURPLE),
+                Compute.sendFormatMSG(player, Component.literal("世界Boss").withStyle(ChatFormatting.LIGHT_PURPLE),
                         Component.literal(" 世界Boss正在被挑战，请等待世界Boss死亡。").withStyle(ChatFormatting.WHITE));
             }
         }

@@ -41,7 +41,7 @@ public class RequestGetC2SPacket {
                 Compute.VBIncomeAndMSGSend(player, num);
                 Utils.marketPlayerInfos.put(player.getName().getString(), 0d);
             } else {
-                Compute.formatMSGSend(player, Component.literal("市场").withStyle(ChatFormatting.GOLD),
+                Compute.sendFormatMSG(player, Component.literal("市场").withStyle(ChatFormatting.GOLD),
                         Component.literal("似乎没有VB可以收取。"));
             }
         });

@@ -262,10 +262,9 @@ public class CommandHandler {
         CommandDispatcher<CommandSourceStack> dispatcher28 = event.getDispatcher();
         LiteralCommandNode<CommandSourceStack> cmd28 = dispatcher28.register(
                 Commands.literal(Utils.MOD_ID).then(
-                        Commands.literal("compensate").then(
-                                Commands.argument("type", StringArgumentType.string())
-                                        .executes(CompensateCommand.instance)
-                        ).requires(commandSourceStack -> commandSourceStack.hasPermission(0))
+                        Commands.literal("compensate")
+                                .executes(CompensateCommand.instance)
+                                .requires(commandSourceStack -> commandSourceStack.hasPermission(0))
                 )
         );
         CommandDispatcher<CommandSourceStack> dispatcher29 = event.getDispatcher();

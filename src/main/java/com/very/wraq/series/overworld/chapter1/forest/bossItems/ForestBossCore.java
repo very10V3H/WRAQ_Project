@@ -39,7 +39,7 @@ public class ForestBossCore extends Item {
             if (data.contains(StringUtils.Entropy.Forest))
                 data.putInt(StringUtils.Entropy.Forest, data.getInt(StringUtils.Entropy.Forest) + 1);
             else data.putInt(StringUtils.Entropy.Forest, 1);
-            Compute.formatMSGSend(player, Component.literal("次元能量").withStyle(CustomStyle.styleOfEntropy),
+            Compute.sendFormatMSG(player, Component.literal("次元能量").withStyle(CustomStyle.styleOfEntropy),
                     Component.literal("你的").withStyle(ChatFormatting.WHITE).
                             append(Component.literal("森林次元能量").withStyle(CustomStyle.styleOfHealth)).
                             append(Component.literal("得到了提升。").withStyle(ChatFormatting.WHITE)).

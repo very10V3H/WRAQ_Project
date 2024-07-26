@@ -26,7 +26,7 @@ public class PrefixChooseCommand implements Command<CommandSourceStack> {
         count++;
         if (chooseCount == count) {
             data.putString("Prefix", "初来乍到");
-            Compute.formatMSGSend(player, Component.literal("称号").withStyle(ChatFormatting.GOLD),
+            Compute.sendFormatMSG(player, Component.literal("称号").withStyle(ChatFormatting.GOLD),
                     Component.literal("已激活称号").withStyle(ChatFormatting.WHITE).
                             append(Component.literal("初来乍到").withStyle(ChatFormatting.GRAY)));
             flag = false;
@@ -38,7 +38,7 @@ public class PrefixChooseCommand implements Command<CommandSourceStack> {
                 if (chooseCount == count) {
                     data.putString(PrefixCommand.prefix, prefixCondition.getPrefixDescription());
                     data.putString(PrefixCommand.prefixColor, String.valueOf(prefixCondition.getStyle().getColor()));
-                    Compute.formatMSGSend(player, Component.literal("称号").withStyle(ChatFormatting.GOLD),
+                    Compute.sendFormatMSG(player, Component.literal("称号").withStyle(ChatFormatting.GOLD),
                             Component.literal("已激活称号").withStyle(ChatFormatting.WHITE).
                                     append(Component.literal(prefixCondition.getPrefixDescription()).withStyle(prefixCondition.getStyle())));
                     flag = false;
@@ -87,10 +87,10 @@ public class PrefixChooseCommand implements Command<CommandSourceStack> {
             }
         }*/
         if (flag) {
-            Compute.formatMSGSend(player, Component.literal("称号").withStyle(ChatFormatting.GOLD),
+            Compute.sendFormatMSG(player, Component.literal("称号").withStyle(ChatFormatting.GOLD),
                     Component.literal("似乎还没有达到解锁此称号的条件。").withStyle(ChatFormatting.WHITE));
         } else {
-            Compute.formatMSGSend(player, Component.literal("称号").withStyle(ChatFormatting.GOLD),
+            Compute.sendFormatMSG(player, Component.literal("称号").withStyle(ChatFormatting.GOLD),
                     Component.literal("称号需等待5s左右方可生效。").withStyle(ChatFormatting.WHITE));
         }
         return 0;

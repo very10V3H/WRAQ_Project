@@ -27,7 +27,7 @@ public class ResetTagCommand implements Command<CommandSourceStack> {
         Item item = itemStack.getItem();
         CompoundTag tag = itemStack.getOrCreateTagElement(Utils.MOD_ID);
         if (tag.contains(InventoryCheck.owner)) {
-            Compute.formatMSGSend(player, Component.literal("重置").withStyle(CustomStyle.styleOfFlexible),
+            Compute.sendFormatMSG(player, Component.literal("重置").withStyle(CustomStyle.styleOfFlexible),
                     Component.literal("绑定物品不能被重置标签").withStyle(ChatFormatting.WHITE));
             return 0;
         }
@@ -36,13 +36,13 @@ public class ResetTagCommand implements Command<CommandSourceStack> {
                 || Utils.customizedList.contains(item) || Utils.passiveEquipTag.containsKey(item))
                 || !InventoryCheck.getBoundingList().contains(item)) {
             ItemStack newItemStack = new ItemStack(itemStack.getItem(), itemStack.getCount());
-            Compute.formatMSGSend(player, Component.literal("重置").withStyle(CustomStyle.styleOfFlexible),
+            Compute.sendFormatMSG(player, Component.literal("重置").withStyle(CustomStyle.styleOfFlexible),
                     Component.literal("已为 ").withStyle(ChatFormatting.WHITE).
                             append(newItemStack.getDisplayName()).
                             append(Component.literal(" 重置nbt标签").withStyle(ChatFormatting.WHITE)));
             player.setItemInHand(InteractionHand.MAIN_HAND, newItemStack);
         } else {
-            Compute.formatMSGSend(player, Component.literal("重置").withStyle(CustomStyle.styleOfFlexible),
+            Compute.sendFormatMSG(player, Component.literal("重置").withStyle(CustomStyle.styleOfFlexible),
                     Component.literal("这件物品不能被重置标签").withStyle(ChatFormatting.WHITE));
         }
         return 0;

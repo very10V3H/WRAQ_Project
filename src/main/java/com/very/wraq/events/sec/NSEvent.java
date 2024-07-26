@@ -46,9 +46,9 @@ public class NSEvent {
                             cal0.add(Calendar.HOUR_OF_DAY, 12);
                             if (cal0.after(cal)) // 晚于系统时间 意即还未冷却完毕
                             {
-                                Compute.formatMSGSend(player, Component.literal("隐藏副本").
+                                Compute.sendFormatMSG(player, Component.literal("隐藏副本").
                                         withStyle(CustomStyle.styleOfNether), Component.literal("副本暂未冷却完毕。"));
-                                Compute.formatMSGSend(player, Component.literal("隐藏副本").
+                                Compute.sendFormatMSG(player, Component.literal("隐藏副本").
                                         withStyle(CustomStyle.styleOfNether), Component.literal("将在" + cal0.get(Calendar.YEAR) + "年" + (cal0.get(Calendar.MONTH) + 1) +
                                         "月" + cal0.get(Calendar.DAY_OF_MONTH) + "日" + cal0.get(Calendar.HOUR_OF_DAY) + "时" + cal0.get(Calendar.MINUTE) + "分" + cal0.get(Calendar.SECOND) + "可用。"));
                             } else {
@@ -56,16 +56,16 @@ public class NSEvent {
                                     if (!Utils.NSPlayerController.contains(player))
                                         Utils.NSPlayerController.add(player);
                                     if (data.contains("NSConfirm") && !data.getBoolean("NSConfirm")) {
-                                        Compute.formatMSGSend(player, Component.literal("隐藏副本").withStyle(CustomStyle.styleOfNether),
+                                        Compute.sendFormatMSG(player, Component.literal("隐藏副本").withStyle(CustomStyle.styleOfNether),
                                                 Component.literal("有" + Utils.NSPlayerController.size() + "名玩家正在准备激活该副本:").withStyle(ChatFormatting.WHITE));
                                         String PlayerList = "";
                                         for (Player player1 : Utils.NSPlayerController) {
                                             PlayerList += player1.getName().getString() + ",";
                                         }
                                         PlayerList = PlayerList.substring(0, PlayerList.length() - 1);
-                                        Compute.formatMSGSend(player, Component.literal("隐藏副本").withStyle(CustomStyle.styleOfNether),
+                                        Compute.sendFormatMSG(player, Component.literal("隐藏副本").withStyle(CustomStyle.styleOfNether),
                                                 Component.literal("Ta们是:" + PlayerList).withStyle(ChatFormatting.WHITE));
-                                        Compute.formatMSGSend(player, Component.literal("隐藏副本").withStyle(CustomStyle.styleOfNether),
+                                        Compute.sendFormatMSG(player, Component.literal("隐藏副本").withStyle(CustomStyle.styleOfNether),
                                                 Component.literal("输入/vmd confirm确认激活副本").withStyle(ChatFormatting.WHITE));
 
                                     }
@@ -81,7 +81,7 @@ public class NSEvent {
                                     Utils.NSController = 120;
                                     player.moveTo(-18,-43,889);*/
                                 } else {
-                                    Compute.formatMSGSend(player, Component.literal("隐藏副本").
+                                    Compute.sendFormatMSG(player, Component.literal("隐藏副本").
                                             withStyle(CustomStyle.styleOfNether), Component.literal("副本已被激活，请等待其他玩家激活时间结束。").withStyle(ChatFormatting.WHITE));
                                 }
                             }
@@ -89,7 +89,7 @@ public class NSEvent {
                             if (Utils.NSController == -1) {
                                 if (!Utils.NSPlayerController.contains(player)) Utils.NSPlayerController.add(player);
                                 if (data.contains("NSConfirm") && !data.getBoolean("NSConfirm")) {
-                                    Compute.formatMSGSend(player, Component.literal("隐藏副本").withStyle(CustomStyle.styleOfNether),
+                                    Compute.sendFormatMSG(player, Component.literal("隐藏副本").withStyle(CustomStyle.styleOfNether),
                                             Component.literal("有" + Utils.NSPlayerController.size() + "名玩家正在准备激活该副本:").withStyle(ChatFormatting.WHITE));
                                     String PlayerList = "";
                                     for (Player player1 : Utils.NSPlayerController) {
@@ -98,9 +98,9 @@ public class NSEvent {
                                     if (PlayerList.length() != 0) {
                                         PlayerList = PlayerList.substring(0, PlayerList.length() - 1);
                                     }
-                                    Compute.formatMSGSend(player, Component.literal("隐藏副本").withStyle(CustomStyle.styleOfNether),
+                                    Compute.sendFormatMSG(player, Component.literal("隐藏副本").withStyle(CustomStyle.styleOfNether),
                                             Component.literal("Ta们是:" + PlayerList).withStyle(ChatFormatting.WHITE));
-                                    Compute.formatMSGSend(player, Component.literal("隐藏副本").withStyle(CustomStyle.styleOfNether),
+                                    Compute.sendFormatMSG(player, Component.literal("隐藏副本").withStyle(CustomStyle.styleOfNether),
                                             Component.literal("输入/vmd confirm确认激活副本").withStyle(ChatFormatting.WHITE));
 
                                 }/*                                Date date = cal.getTime();
@@ -115,33 +115,33 @@ public class NSEvent {
                                 Utils.NSController = 120;
                                 player.moveTo(-18,-43,889);*/
                             } else {
-                                Compute.formatMSGSend(player, Component.literal("隐藏副本").
+                                Compute.sendFormatMSG(player, Component.literal("隐藏副本").
                                         withStyle(CustomStyle.styleOfNether), Component.literal("副本已被激活，请等待其他玩家激活时间结束。").withStyle(ChatFormatting.WHITE));
                             }
                         }
                     } else {
-                        Compute.formatMSGSend(player, Component.literal("隐藏副本").
+                        Compute.sendFormatMSG(player, Component.literal("隐藏副本").
                                 withStyle(CustomStyle.styleOfNether), Component.literal("暂未达到副本激活需求。"));
                         if (data.contains("KillCountOfWitherSkeleton") && data.getInt("KillCountOfWitherSkeleton") < 333) {
-                            Compute.formatMSGSend(player, Component.literal("隐藏副本").
+                            Compute.sendFormatMSG(player, Component.literal("隐藏副本").
                                     withStyle(CustomStyle.styleOfNether), Component.literal("下界凋零骷髅").withStyle(CustomStyle.styleOfNether).
                                     append(Component.literal("击杀数: ").withStyle(ChatFormatting.WHITE).
                                             append(Component.literal("(" + data.getInt("KillCountOfWitherSkeleton") + "/" + 333 + ")"))));
                         }
                         if (data.contains("KillCountOfZombiePigLin") && data.getInt("KillCountOfZombiePigLin") < 333) {
-                            Compute.formatMSGSend(player, Component.literal("隐藏副本").
+                            Compute.sendFormatMSG(player, Component.literal("隐藏副本").
                                     withStyle(CustomStyle.styleOfNether), Component.literal("下界猪灵").withStyle(CustomStyle.styleOfNether).
                                     append(Component.literal("击杀数: ").withStyle(ChatFormatting.WHITE).
                                             append(Component.literal("(" + data.getInt("KillCountOfZombiePigLin") + "/" + 333 + ")"))));
                         }
                         if (data.contains("KillCountOfNetherSkeleton") && data.getInt("KillCountOfNetherSkeleton") < 333) {
-                            Compute.formatMSGSend(player, Component.literal("隐藏副本").
+                            Compute.sendFormatMSG(player, Component.literal("隐藏副本").
                                     withStyle(CustomStyle.styleOfNether), Component.literal("下界遗骸").withStyle(CustomStyle.styleOfNether).
                                     append(Component.literal("击杀数: ").withStyle(ChatFormatting.WHITE).
                                             append(Component.literal("(" + data.getInt("KillCountOfNetherSkeleton") + "/" + 333 + ")"))));
                         }
                         if (data.contains("KillCountOfNetherMagma") && data.getInt("KillCountOfNetherMagma") < 333) {
-                            Compute.formatMSGSend(player, Component.literal("隐藏副本").
+                            Compute.sendFormatMSG(player, Component.literal("隐藏副本").
                                     withStyle(CustomStyle.styleOfNether), Component.literal("下界熔岩能量聚合体").withStyle(CustomStyle.styleOfNether).
                                     append(Component.literal("击杀数: ").withStyle(ChatFormatting.WHITE).
                                             append(Component.literal("(" + data.getInt("KillCountOfNetherMagma") + "/" + 333 + ")"))));

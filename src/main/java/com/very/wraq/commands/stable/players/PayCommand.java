@@ -25,26 +25,26 @@ public class PayCommand implements Command<CommandSourceStack> {
         String s = StringArgumentType.getString(context, "num");
         double num = Double.parseDouble(s);
         if (num < 0) {
-            Compute.formatMSGSend(player, Component.literal("VB").withStyle(ChatFormatting.GOLD),
+            Compute.sendFormatMSG(player, Component.literal("VB").withStyle(ChatFormatting.GOLD),
                     Component.literal("需要一个正确的数值！").withStyle(ChatFormatting.WHITE));
             return 0;
         }
         for (GameProfile profile : gameProfile) {
             ServerPlayer target = player.getServer().getPlayerList().getPlayer(profile.getId());
             if (target == null) {
-                Compute.formatMSGSend(player, Component.literal("VB").withStyle(ChatFormatting.GOLD),
+                Compute.sendFormatMSG(player, Component.literal("VB").withStyle(ChatFormatting.GOLD),
                         Component.literal("玩家似乎不在线。。。").withStyle(ChatFormatting.WHITE));
                 return 0;
             }
             if (Compute.CurrentVB(player) >= num) {
 
-                Compute.formatMSGSend(target, Component.literal("VB").withStyle(ChatFormatting.GOLD),
+                Compute.sendFormatMSG(target, Component.literal("VB").withStyle(ChatFormatting.GOLD),
                         Component.literal("你收到一笔来自 ").withStyle(ChatFormatting.WHITE).
                                 append(player.getDisplayName()).
                                 append(Component.literal(" 的转账!").withStyle(ChatFormatting.WHITE)).
                                 append(Component.literal(" 金额: " + num).withStyle(ChatFormatting.GOLD)));
 
-                Compute.formatMSGSend(player, Component.literal("VB").withStyle(ChatFormatting.GOLD),
+                Compute.sendFormatMSG(player, Component.literal("VB").withStyle(ChatFormatting.GOLD),
                         Component.literal("成功向 ").withStyle(ChatFormatting.WHITE).
                                 append(target.getDisplayName()).
                                 append(Component.literal(" 转账!").withStyle(ChatFormatting.WHITE)).
@@ -54,7 +54,7 @@ public class PayCommand implements Command<CommandSourceStack> {
                 Compute.VBIncomeAndMSGSend(target, num);
 
             } else {
-                Compute.formatMSGSend(player, Component.literal("VB").withStyle(ChatFormatting.GOLD),
+                Compute.sendFormatMSG(player, Component.literal("VB").withStyle(ChatFormatting.GOLD),
                         Component.literal("VB不足！").withStyle(ChatFormatting.WHITE));
             }
         }

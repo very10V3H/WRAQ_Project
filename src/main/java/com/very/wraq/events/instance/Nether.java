@@ -123,7 +123,7 @@ public class Nether {
                         && Utils.NetherInstanceFlag) {
 
                     playerList.forEach(player -> {
-                        Compute.formatMSGSend(player, Component.literal("隐藏副本").withStyle(CustomStyle.styleOfNether),
+                        Compute.sendFormatMSG(player, Component.literal("隐藏副本").withStyle(CustomStyle.styleOfNether),
                                 Component.literal("第二层怪物已刷新！").withStyle(ChatFormatting.WHITE));
                     });
 
@@ -235,14 +235,14 @@ public class Nether {
         itemStack1.setCount(30 + (int) (rank) * difficultyEnhanceRate);
         Random random = new Random();
         if (random.nextDouble() <= 0.025 * (playerNum - 1) * difficultyEnhanceRate) {
-            Compute.formatMSGSend(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
+            Compute.sendFormatMSG(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
                     Component.literal("你通过组队挑战副本，额外获得了:").withStyle(ChatFormatting.WHITE).
                             append(ModItems.NetherQuartz.get().getDefaultInstance().getDisplayName()));
             Compute.itemStackGive(player, new ItemStack(ModItems.NetherQuartz.get(), 30 + (int) (rank) * difficultyEnhanceRate));
         }
 
         if (LoginInEvent.playerDailyInstanceReward(player, 3)) {
-            Compute.formatMSGSend(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
+            Compute.sendFormatMSG(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
                     Component.literal("每日首次通关副本，额外获得了:").withStyle(ChatFormatting.WHITE).
                             append(ModItems.NetherQuartz.get().getDefaultInstance().getDisplayName()).
                             append(ModItems.Ruby.get().getDefaultInstance().getDisplayName()));

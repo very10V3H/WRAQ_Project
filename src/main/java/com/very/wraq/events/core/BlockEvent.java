@@ -104,7 +104,7 @@ public class BlockEvent {
                         if (random.nextDouble(1) < (Utils.WorldEntropyIncreaseSpeed + mediumNum.get()))
                             TransformSuccessNum++;
                     }
-                    Compute.formatMSGSend(player, Component.literal("世界本源").withStyle(CustomStyle.styleOfWorld),
+                    Compute.sendFormatMSG(player, Component.literal("世界本源").withStyle(CustomStyle.styleOfWorld),
                             Component.literal("你在解析成功概率为").withStyle(ChatFormatting.WHITE).
                                     append(Component.literal(String.format("%.2f%%", (Utils.WorldEntropyIncreaseSpeed + mediumNum.get()) * 100)).withStyle(CustomStyle.styleOfWorld))
                                     .append(Component.literal("的介质中,用" + OriginalItemNum + "个").withStyle(ChatFormatting.WHITE))
@@ -121,7 +121,7 @@ public class BlockEvent {
                     if (Utils.WorldSoulMap.isEmpty()) Utils.WorldSoulMapInit();
                     if (itemStack.getCount() == 64 && Utils.WorldSoulMap.containsKey(itemStack.getItem())) {
                         Item NextTireSoul = Utils.WorldSoulMap.get(itemStack.getItem());
-                        Compute.formatMSGSend(player, Component.literal("世界本源").withStyle(CustomStyle.styleOfWorld),
+                        Compute.sendFormatMSG(player, Component.literal("世界本源").withStyle(CustomStyle.styleOfWorld),
                                 Component.literal("你将").withStyle(ChatFormatting.WHITE).
                                         append(itemStack.getDisplayName()).
                                         append(Component.literal("转换成为").withStyle(ChatFormatting.WHITE)).
@@ -141,7 +141,7 @@ public class BlockEvent {
             BlockPos blockPos = event.getHitVec().getBlockPos();
             BlockState blockState = player.level().getBlockState(blockPos);
             if (Compute.BlockLimitContainBlockPos(blockPos) && !player.isCreative()) {
-                Compute.formatMSGSend(player, Component.literal("方块").withStyle(ChatFormatting.GREEN),
+                Compute.sendFormatMSG(player, Component.literal("方块").withStyle(ChatFormatting.GREEN),
                         Component.literal("这个方块正在被使用。"));
                 event.setCanceled(true);
             } else {
@@ -224,7 +224,7 @@ public class BlockEvent {
             if (result.equals(Items.CHEST) && event.getSide().isServer() && Utils.rewardChestPos.contains(blockPos)) {
                 if (player.getItemInHand(InteractionHand.MAIN_HAND).is(Items.AIR)) {
                     if (Utils.playerIsUsingBlockBlockPosMap.containsValue(blockPos)) {
-                        Compute.formatMSGSend(player, Component.literal("奖励箱").withStyle(ChatFormatting.LIGHT_PURPLE),
+                        Compute.sendFormatMSG(player, Component.literal("奖励箱").withStyle(ChatFormatting.LIGHT_PURPLE),
                                 Component.literal("有其他玩家正在获取这个奖励箱的内容，请稍等片刻。").withStyle(ChatFormatting.WHITE));
                         event.setCanceled(true);
                     } else {
@@ -255,18 +255,18 @@ public class BlockEvent {
                             }
                             CompoundTag data = player.getPersistentData();
                             data.putInt(StringUtils.RewardChestCount, data.getInt(StringUtils.RewardChestCount) + 1);
-                            Compute.formatMSGSend(player, Component.literal("奖励箱").withStyle(ChatFormatting.LIGHT_PURPLE),
+                            Compute.sendFormatMSG(player, Component.literal("奖励箱").withStyle(ChatFormatting.LIGHT_PURPLE),
                                     Component.literal("你找到了一个奖励箱!").withStyle(ChatFormatting.WHITE));
                             Utils.playerIsUsingBlockBlockPosMap.put(player.getName().getString(), blockPos);
                         } else {
                             event.setCanceled(true);
-                            Compute.formatMSGSend(player, Component.literal("奖励箱").withStyle(ChatFormatting.LIGHT_PURPLE),
+                            Compute.sendFormatMSG(player, Component.literal("奖励箱").withStyle(ChatFormatting.LIGHT_PURPLE),
                                     Component.literal("你最近已经打开过这个奖励箱了。").withStyle(ChatFormatting.WHITE));
                         }
                     }
                 } else {
                     event.setCanceled(true);
-                    Compute.formatMSGSend(player, Component.literal("奖励箱").withStyle(ChatFormatting.LIGHT_PURPLE),
+                    Compute.sendFormatMSG(player, Component.literal("奖励箱").withStyle(ChatFormatting.LIGHT_PURPLE),
                             Component.literal("为确保物品能够正确被拾取，请空手右击箱子打开。").withStyle(ChatFormatting.WHITE));
                 }
             }

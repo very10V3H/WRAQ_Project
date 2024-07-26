@@ -112,7 +112,7 @@ public class NewCastleInstance extends NewTeamInstance {
         int tickCount = level.getServer().getTickCount();
         if (tickCount % 200 == 8) {
             players.forEach(player -> {
-                Compute.formatMSGSend(player, Component.literal("团队副本").withStyle(ChatFormatting.RED),
+                Compute.sendFormatMSG(player, Component.literal("团队副本").withStyle(ChatFormatting.RED),
                         Component.literal("还剩").withStyle(ChatFormatting.WHITE).
                                 append(Component.literal(String.valueOf(mobList.size() - hasKilledMobs.size())).withStyle(ChatFormatting.RED)).
                                 append(Component.literal("只怪物未清理。").withStyle(ChatFormatting.WHITE)));
@@ -187,7 +187,7 @@ public class NewCastleInstance extends NewTeamInstance {
         }
         if (mobList.size() - hasKilledMobs.size() == 0 && !allMobIsClear()) {
             players.forEach(player -> {
-                Compute.formatMSGSend(player, Component.literal("团队副本").withStyle(ChatFormatting.RED),
+                Compute.sendFormatMSG(player, Component.literal("团队副本").withStyle(ChatFormatting.RED),
                         Component.literal("挑战异常，已终止").withStyle(ChatFormatting.WHITE));
             });
             clear();
@@ -208,7 +208,7 @@ public class NewCastleInstance extends NewTeamInstance {
                     }
                 });
             } else {
-                Compute.formatMSGSend(player, Component.literal("副本").withStyle(ChatFormatting.RED),
+                Compute.sendFormatMSG(player, Component.literal("副本").withStyle(ChatFormatting.RED),
                         Component.literal("你的背包中没有 ").withStyle(ChatFormatting.WHITE).
                                 append(ModItems.notePaper.get().getDefaultInstance().getDisplayName()).
                                 append(Component.literal(" 因此你无法获得奖励").withStyle(ChatFormatting.WHITE)));

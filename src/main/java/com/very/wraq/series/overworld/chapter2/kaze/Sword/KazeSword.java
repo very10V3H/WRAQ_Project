@@ -151,7 +151,7 @@ public class KazeSword extends WraqSword implements ActiveItem {
 
                 if (MobDamageCount > 0) {
                     if (!data.contains("IgnoreFight") || (!data.getBoolean("IgnoreFight")))
-                        Compute.formatMSGSend(player, Component.literal("战斗").withStyle(ChatFormatting.RED),
+                        Compute.sendFormatMSG(player, Component.literal("战斗").withStyle(ChatFormatting.RED),
                                 Component.literal("狂风绝息").withStyle(CustomStyle.styleOfKaze).
                                         append(Component.literal("对怪物造成了").withStyle(ChatFormatting.WHITE)).
                                         append(Component.literal(String.format("%.2f", MobDamageCount)).withStyle(CustomStyle.styleOfKaze)).
@@ -159,7 +159,7 @@ public class KazeSword extends WraqSword implements ActiveItem {
                 }
                 if (PlayerDamageCount > 0) {
                     if (!data.contains("IgnoreFight") || (!data.getBoolean("IgnoreFight")))
-                        Compute.formatMSGSend(player, Component.literal("战斗").withStyle(ChatFormatting.RED),
+                        Compute.sendFormatMSG(player, Component.literal("战斗").withStyle(ChatFormatting.RED),
                                 Component.literal("狂风绝息").withStyle(CustomStyle.styleOfKaze).
                                         append(Component.literal("对玩家造成了").withStyle(ChatFormatting.WHITE)).
                                         append(Component.literal(String.format("%.2f", PlayerDamageCount)).withStyle(CustomStyle.styleOfKaze)).

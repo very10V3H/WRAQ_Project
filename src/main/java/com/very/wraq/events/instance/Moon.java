@@ -204,7 +204,7 @@ public class Moon {
                                     append(difficulty));
 
                     playerListGetByName.forEach(player -> {
-                        Compute.formatMSGSend(player, Component.literal("副本").withStyle(ChatFormatting.RED),
+                        Compute.sendFormatMSG(player, Component.literal("副本").withStyle(ChatFormatting.RED),
                                 Component.literal("  征讨伤害排名如下：").withStyle(ChatFormatting.WHITE));
 
                         Utils.MoonDamageList.sort(Comparator.comparing(Boss2Damage::getDamage).reversed());
@@ -229,7 +229,7 @@ public class Moon {
                                         }
                                     }
                                 }
-                                Compute.formatMSGSend(player, Component.literal(index + ".").withStyle(ChatFormatting.RED),
+                                Compute.sendFormatMSG(player, Component.literal(index + ".").withStyle(ChatFormatting.RED),
                                         Component.literal(" ").withStyle(ChatFormatting.WHITE).
                                                 append(player1.getDisplayName()).
                                                 append(Component.literal("  DMG:" + damage + "[" + String.format("%.2f", damage * 100 / (MaxHealth * 2)) + "%]").withStyle(ChatFormatting.WHITE)));
@@ -405,7 +405,7 @@ public class Moon {
         if (player.isCreative()) return false;
         if (mob.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.MobArmorMoonAttack.get())) {
             if (player.distanceTo(mob) > 6) {
-                Compute.formatMSGSend(player, Component.literal("尘月宫").withStyle(CustomStyle.styleOfMoon),
+                Compute.sendFormatMSG(player, Component.literal("尘月宫").withStyle(CustomStyle.styleOfMoon),
                         Component.literal("似乎这个距离对阿尔忒弥斯的伤害将会减半。").withStyle(CustomStyle.styleOfMoon1));
                 return true;
             }
@@ -417,7 +417,7 @@ public class Moon {
         if (player.isCreative()) return false;
         if (mob.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.MobArmorMoonMana.get())) {
             if (player.distanceTo(mob) < 6) {
-                Compute.formatMSGSend(player, Component.literal("尘月宫").withStyle(CustomStyle.styleOfMoon),
+                Compute.sendFormatMSG(player, Component.literal("尘月宫").withStyle(CustomStyle.styleOfMoon),
                         Component.literal("似乎这个距离对阿尔忒弥斯的伤害将会减半。").withStyle(CustomStyle.styleOfMoon1));
 
                 return true;
@@ -431,7 +431,7 @@ public class Moon {
         if (!isMopUp) {
             Random random = new Random();
             if (random.nextDouble() <= 0.025 * (playerNum - 1) * difficultyEnhanceRate) {
-                Compute.formatMSGSend(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
+                Compute.sendFormatMSG(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
                         Component.literal("你通过组队挑战副本，额外获得了:").withStyle(ChatFormatting.WHITE).
                                 append(ModItems.MoonLoot.get().getDefaultInstance().getDisplayName()));
                 Compute.itemStackGive(player, new ItemStack(ModItems.MoonLoot.get(), 2));
@@ -439,7 +439,7 @@ public class Moon {
         }
 
         if (LoginInEvent.playerDailyInstanceReward(player, 7)) {
-            Compute.formatMSGSend(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
+            Compute.sendFormatMSG(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
                     Component.literal("每日首次通关副本，额外获得了:").withStyle(ChatFormatting.WHITE).
                             append(ModItems.MoonLoot.get().getDefaultInstance().getDisplayName()));
             Compute.itemStackGive(player, new ItemStack(ModItems.MoonLoot.get(), 24));

@@ -99,7 +99,7 @@ public class Castle {
         if (!ZoneMobFlag.get(index) && DetectZoneMobClear(index) && !ZoneClearFlag.get(index)) {
             ZoneClearFlag.put(index, true);
             playerList.forEach(player -> {
-                Compute.formatMSGSend(player, Component.literal("暗黑城堡").withStyle(CustomStyle.styleOfCastle),
+                Compute.sendFormatMSG(player, Component.literal("暗黑城堡").withStyle(CustomStyle.styleOfCastle),
                         Component.literal("第" + (index + 1) + "间怪物已清除！").withStyle(ChatFormatting.WHITE).
                                 append(Component.literal("(" + ClearZoneNum() + "/" + "8)").withStyle(ChatFormatting.AQUA)));
                 ModNetworking.sendToClient(new SoundsS2CPacket(6), (ServerPlayer) player);
@@ -437,7 +437,7 @@ public class Castle {
 
             if (!isMopUp) {
                 if (random.nextDouble() <= 0.025 * (playerNum - 1) * difficultyEnhanceRate) {
-                    Compute.formatMSGSend(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
+                    Compute.sendFormatMSG(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
                             Component.literal("你通过组队挑战副本，额外获得了:").withStyle(ChatFormatting.WHITE).
                                     append(ModItems.CastleLoot.get().getDefaultInstance().getDisplayName()));
                     Compute.itemStackGive(player, new ItemStack(ModItems.CastleLoot.get(), 2));
@@ -446,7 +446,7 @@ public class Castle {
         }
 
         if (LoginInEvent.playerDailyInstanceReward(player, 9)) {
-            Compute.formatMSGSend(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
+            Compute.sendFormatMSG(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
                     Component.literal("每日首次通关副本，额外获得了:").withStyle(ChatFormatting.WHITE).
                             append(ModItems.CastleLoot.get().getDefaultInstance().getDisplayName()));
             Compute.itemStackGive(player, new ItemStack(ModItems.CastleLoot.get(), 24));

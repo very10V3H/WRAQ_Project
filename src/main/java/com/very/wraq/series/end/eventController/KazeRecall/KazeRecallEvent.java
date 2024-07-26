@@ -138,7 +138,7 @@ public class KazeRecallEvent {
                                                 append(Component.literal("回想起在").withStyle(ChatFormatting.WHITE)).
                                                 append(Component.literal(ZoneName).withStyle(style)).
                                                 append(Component.literal("的记忆。").withStyle(ChatFormatting.WHITE)));
-                                Compute.formatMSGSend(Utils.kazeRecall.recallPlayer, Component.literal("回忆").withStyle(CustomStyle.styleOfEnd),
+                                Compute.sendFormatMSG(Utils.kazeRecall.recallPlayer, Component.literal("回忆").withStyle(CustomStyle.styleOfEnd),
                                         Component.literal("这是你第").withStyle(ChatFormatting.WHITE).
                                                 append(Component.literal("" + data.getInt(RecallSuccessTimes)).withStyle(CustomStyle.styleOfEnd)).
                                                 append(Component.literal("回想起在").withStyle(ChatFormatting.WHITE)).
@@ -154,7 +154,7 @@ public class KazeRecallEvent {
                                         Component.literal(Utils.kazeRecall.recallPlayer.getName().getString() + "尝试回想在").withStyle(ChatFormatting.WHITE).
                                                 append(Component.literal(ZoneName).withStyle(style)).
                                                 append(Component.literal("的记忆。似乎就快想起来了。").withStyle(ChatFormatting.WHITE)));
-                                Compute.formatMSGSend(Utils.kazeRecall.recallPlayer, Component.literal("回忆").withStyle(CustomStyle.styleOfEnd),
+                                Compute.sendFormatMSG(Utils.kazeRecall.recallPlayer, Component.literal("回忆").withStyle(CustomStyle.styleOfEnd),
                                         Component.literal("这是你第").withStyle(ChatFormatting.WHITE).
                                                 append(Component.literal("" + data.getInt(RecallTimes)).withStyle(CustomStyle.styleOfEnd)).
                                                 append(Component.literal("尝试回想起在").withStyle(ChatFormatting.WHITE)).

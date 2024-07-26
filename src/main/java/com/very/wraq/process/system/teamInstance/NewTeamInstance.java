@@ -67,7 +67,7 @@ public abstract class NewTeamInstance {
             if (tickCount % 100 == 0) {
                 playerList.forEach(player -> {
                     if (player.experienceLevel < levelRequire) {
-                        Compute.formatMSGSend(player, Component.literal("组队副本").withStyle(ChatFormatting.RED),
+                        Compute.sendFormatMSG(player, Component.literal("组队副本").withStyle(ChatFormatting.RED),
                                 Component.literal("你似乎没有达到进入副本的等级需求: ").withStyle(ChatFormatting.WHITE).
                                         append(Component.literal("Lv." + levelRequire).withStyle(Utils.levelStyleList.get(levelRequire / 25))));
                     }
@@ -134,10 +134,10 @@ public abstract class NewTeamInstance {
                             // 向玩家们发送计时
                             playerList.forEach(player -> {
                                 if (players.isEmpty() && !(preparedPlayers.size() >= minPlayerNum && preparedPlayers.size() <= maxPlayerNum)) {
-                                    Compute.formatMSGSend(player, Component.literal("组队副本").withStyle(ChatFormatting.RED),
+                                    Compute.sendFormatMSG(player, Component.literal("组队副本").withStyle(ChatFormatting.RED),
                                             Component.literal("当前玩家人数不符合副本的人数要求").withStyle(ChatFormatting.WHITE));
                                 } else {
-                                    Compute.formatMSGSend(player, Component.literal("组队副本").withStyle(ChatFormatting.RED),
+                                    Compute.sendFormatMSG(player, Component.literal("组队副本").withStyle(ChatFormatting.RED),
                                             Component.literal("所有玩家已做好准备，副本将在").withStyle(ChatFormatting.WHITE).
                                                     append(Component.literal((10 - startCount) + "s").withStyle(ChatFormatting.AQUA)).
                                                     append(Component.literal("后开始").withStyle(ChatFormatting.WHITE)));
@@ -188,7 +188,7 @@ public abstract class NewTeamInstance {
             lastTick++;
             if (lastTick / 20 > maxChallengeTime) {
                 players.forEach(player -> {
-                    Compute.formatMSGSend(player, Component.literal("团队副本").withStyle(ChatFormatting.RED),
+                    Compute.sendFormatMSG(player, Component.literal("团队副本").withStyle(ChatFormatting.RED),
                             Component.literal("超出挑战时间限制，挑战失败。").withStyle(ChatFormatting.RED));
                 });
                 clear();

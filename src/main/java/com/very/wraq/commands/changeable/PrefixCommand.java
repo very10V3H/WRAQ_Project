@@ -215,7 +215,7 @@ public class PrefixCommand implements Command<CommandSourceStack> {
     public int run(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         Player player = context.getSource().getPlayer();
         int count = 0;
-        Compute.formatMSGSend(player, Component.literal("称号").withStyle(ChatFormatting.GOLD),
+        Compute.sendFormatMSG(player, Component.literal("称号").withStyle(ChatFormatting.GOLD),
                 Component.literal("可用称号如下:").withStyle(ChatFormatting.WHITE));
 
         count++;
@@ -250,7 +250,7 @@ public class PrefixCommand implements Command<CommandSourceStack> {
             player.sendSystemMessage(Component.literal(count + ".").withStyle(ChatFormatting.WHITE).
                     append(Component.literal("雨纷纷").withStyle(CustomStyle.styleOfHealth)));
         }*/
-        Compute.formatMSGSend(player, Component.literal("称号").withStyle(ChatFormatting.GOLD),
+        Compute.sendFormatMSG(player, Component.literal("称号").withStyle(ChatFormatting.GOLD),
                 Component.literal("使用/vmd prefix [编号]来激活称号").withStyle(ChatFormatting.WHITE));
         return 0;
     }

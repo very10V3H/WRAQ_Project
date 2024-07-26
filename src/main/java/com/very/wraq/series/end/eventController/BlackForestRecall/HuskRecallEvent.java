@@ -135,7 +135,7 @@ public class HuskRecallEvent {
                                                 append(Component.literal("次回想起在").withStyle(ChatFormatting.WHITE)).
                                                 append(Component.literal(ZoneName).withStyle(style)).
                                                 append(Component.literal("的记忆。").withStyle(ChatFormatting.WHITE)));
-                                Compute.formatMSGSend(Utils.huskRecall.recallPlayer, Component.literal("回忆").withStyle(CustomStyle.styleOfEnd),
+                                Compute.sendFormatMSG(Utils.huskRecall.recallPlayer, Component.literal("回忆").withStyle(CustomStyle.styleOfEnd),
                                         Component.literal("这是你第").withStyle(ChatFormatting.WHITE).
                                                 append(Component.literal("" + data.getInt(RecallSuccessTimes)).withStyle(CustomStyle.styleOfEnd)).
                                                 append(Component.literal("次回想起在").withStyle(ChatFormatting.WHITE)).
@@ -151,7 +151,7 @@ public class HuskRecallEvent {
                                         Component.literal(Utils.huskRecall.recallPlayer.getName().getString() + "尝试回想在").withStyle(ChatFormatting.WHITE).
                                                 append(Component.literal(ZoneName).withStyle(style)).
                                                 append(Component.literal("的记忆。似乎就快想起来了。").withStyle(ChatFormatting.WHITE)));
-                                Compute.formatMSGSend(Utils.huskRecall.recallPlayer, Component.literal("回忆").withStyle(CustomStyle.styleOfEnd),
+                                Compute.sendFormatMSG(Utils.huskRecall.recallPlayer, Component.literal("回忆").withStyle(CustomStyle.styleOfEnd),
                                         Component.literal("这是你第").withStyle(ChatFormatting.WHITE).
                                                 append(Component.literal("" + data.getInt(RecallTimes)).withStyle(CustomStyle.styleOfEnd)).
                                                 append(Component.literal("尝试回想起在").withStyle(ChatFormatting.WHITE)).

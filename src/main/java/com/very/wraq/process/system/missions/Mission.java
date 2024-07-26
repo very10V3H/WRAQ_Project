@@ -569,7 +569,7 @@ public class Mission {
                 try {
                     Tower.givePlayerStar(player, itemStack.getCount() * (PlanPlayer.getPlayerTier(player) > 0 ? 2 : 1), "每日任务");
                     if (PlanPlayer.getPlayerTier(player) > 0) {
-                        Compute.formatMSGSend(player, Component.literal("本源").withStyle(CustomStyle.styleOfWorld),
+                        Compute.sendFormatMSG(player, Component.literal("本源").withStyle(CustomStyle.styleOfWorld),
                                 Component.literal("计划为你额外提供了 ").withStyle(ChatFormatting.WHITE).
                                         append(Component.literal(itemStack.getCount() + "*").withStyle(CustomStyle.styleOfWorld)).
                                         append(ModItems.worldSoul5.get().getDefaultInstance().getDisplayName()));
@@ -600,7 +600,7 @@ public class Mission {
         if (Objects.equals(getPlayerMissionStatus(player, serialNum), Status.Done) ||
                 Objects.equals(getPlayerMissionStatus(player, serialNum), Status.InProgress)) return;
         setPlayerMissionStatus(player, serialNum, Status.InProgress);
-        Compute.formatMSGSend(player, Component.literal("任务").withStyle(CustomStyle.styleOfFlexible),
+        Compute.sendFormatMSG(player, Component.literal("任务").withStyle(CustomStyle.styleOfFlexible),
                 Component.literal("成功接取: ").withStyle(ChatFormatting.GREEN).
                         append(Mission.missionsMap.get(serialNum).title));
 
@@ -661,11 +661,11 @@ public class Mission {
                 }
                 submitModule(player, serialNum);
             } else {
-                Compute.formatMSGSend(player, Component.literal("任务").withStyle(CustomStyle.styleOfFlexible),
+                Compute.sendFormatMSG(player, Component.literal("任务").withStyle(CustomStyle.styleOfFlexible),
                         Component.literal("似乎还没有达成任务目标").withStyle(ChatFormatting.WHITE));
             }
         } else {
-            Compute.formatMSGSend(player, Component.literal("任务").withStyle(CustomStyle.styleOfFlexible),
+            Compute.sendFormatMSG(player, Component.literal("任务").withStyle(CustomStyle.styleOfFlexible),
                     Component.literal("似乎还不能提交这个任务").withStyle(ChatFormatting.WHITE));
         }
     }
@@ -687,7 +687,7 @@ public class Mission {
 
     public static void submitModule(Player player, int serialNum) {
         Mission.setPlayerMissionStatus(player, serialNum, Status.Done);
-        Compute.formatMSGSend(player, Component.literal("任务").withStyle(CustomStyle.styleOfFlexible),
+        Compute.sendFormatMSG(player, Component.literal("任务").withStyle(CustomStyle.styleOfFlexible),
                 Component.literal("你已完成: ").withStyle(ChatFormatting.GREEN).
                         append(Mission.missionsMap.get(serialNum).title));
         ModNetworking.sendToClient(new MissionStatusS2CPacket(getPlayerMissionStatusString(player)), (ServerPlayer) player);

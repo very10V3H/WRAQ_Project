@@ -55,7 +55,7 @@ public class HurtEventModule {
             monster.getPersistentData().putInt("QuartzSabrePos", -1);
             Compute.playerHeal(player, QuartzSabreDamage);
             if (!data.contains("IgnoreFight") || (!data.getBoolean("IgnoreFight")))
-                Compute.formatMSGSend(player, Component.literal("战斗").withStyle(ChatFormatting.DARK_RED),
+                Compute.sendFormatMSG(player, Component.literal("战斗").withStyle(ChatFormatting.DARK_RED),
                         Component.literal("华尔兹提供了额外伤害").append(Component.literal(String.format("%.2f", QuartzSabreDamage)).withStyle(ChatFormatting.GOLD)));
             data.putInt("QuartzSabreSpeedUp", 40);
         }
@@ -112,7 +112,7 @@ public class HurtEventModule {
         CompoundTag dataA = attacker.getPersistentData();
         if (dataA.contains(StringUtils.ForestRune.ForestRune) && dataA.getInt(StringUtils.ForestRune.ForestRune) == 3 && dataA.getInt("DGreen3") == 0) {
             if (!dataA.contains("IgnoreRune") || (!dataA.getBoolean("IgnoreRune")))
-                Compute.formatMSGSend(attacker, Component.literal("符石").withStyle(Style.EMPTY.withColor(TextColor.parseColor("#bfbcbc"))),
+                Compute.sendFormatMSG(attacker, Component.literal("符石").withStyle(Style.EMPTY.withColor(TextColor.parseColor("#bfbcbc"))),
                         Component.literal("森林符石-生长汲取").withStyle(ChatFormatting.DARK_GREEN).append(Component.literal("在本次攻击中提供了 ").withStyle(ChatFormatting.WHITE).append(Component.literal(String.format("%.2f", player.getMaxHealth() * 0.1f)).withStyle(ChatFormatting.DARK_GREEN)).append(Component.literal(" 额外伤害并恢复了 ").withStyle(ChatFormatting.WHITE)).append(Component.literal(String.format("%.2f", player.getMaxHealth() * 0.01F)).withStyle(ChatFormatting.DARK_GREEN)).append(Component.literal(" 生命值")).withStyle(ChatFormatting.WHITE)));
             Compute.playerHeal(attacker, player.getMaxHealth() * 0.01F);
             dataA.putInt("DGreen3", 200);
@@ -162,10 +162,10 @@ public class HurtEventModule {
         if (attacker.getPersistentData().contains("Crit") && attacker.getPersistentData().getBoolean("Crit")) {
             attacker.getPersistentData().putBoolean("Crit", false);
             if (!dataH.contains("IgnoreFight") || (!dataH.getBoolean("IgnoreFight")))
-                Compute.formatMSGSend(player, Component.literal("战斗").withStyle(ChatFormatting.DARK_RED),
+                Compute.sendFormatMSG(player, Component.literal("战斗").withStyle(ChatFormatting.DARK_RED),
                         Component.literal("对方造成了暴击！").append(Component.literal(String.format("%.2f", attacker.getPersistentData().getDouble("ToPlayerDamage"))).withStyle(ChatFormatting.GOLD)));
             if (!dataA.contains("IgnoreFight") || (!dataA.getBoolean("IgnoreFight")))
-                Compute.formatMSGSend(attacker, Component.literal("战斗").withStyle(ChatFormatting.DARK_RED),
+                Compute.sendFormatMSG(attacker, Component.literal("战斗").withStyle(ChatFormatting.DARK_RED),
                         Component.literal("造成了暴击！").append(Component.literal(String.format("%.2f", attacker.getPersistentData().getDouble("ToPlayerDamage"))).withStyle(ChatFormatting.GOLD)));
             ModNetworking.sendToClient(new SoundsS2CPacket(0), (ServerPlayer) attacker);
             ModNetworking.sendToClient(new SoundsS2CPacket(0), (ServerPlayer) player);

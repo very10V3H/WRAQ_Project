@@ -100,10 +100,10 @@ public class SakuraBoss {
 
                     playerListGetByName.forEach(player -> {
                         if (player != null) {
-                            Compute.formatMSGSend(player, Component.literal("黄金屋").withStyle(ChatFormatting.GOLD),
+                            Compute.sendFormatMSG(player, Component.literal("黄金屋").withStyle(ChatFormatting.GOLD),
                                     Component.literal("突见忍出现在了黄金屋！").withStyle(ChatFormatting.WHITE));
                             if (Utils.Boss2DeadTimes > 0)
-                                Compute.formatMSGSend(player, Component.literal("黄金屋").withStyle(ChatFormatting.GOLD),
+                                Compute.sendFormatMSG(player, Component.literal("黄金屋").withStyle(ChatFormatting.GOLD),
                                         Component.literal("突见忍的实力提升了").withStyle(ChatFormatting.WHITE).
                                                 append(Component.literal((Utils.Boss2DeadTimes) + "倍").withStyle(ChatFormatting.RED)));
                         }
@@ -132,9 +132,9 @@ public class SakuraBoss {
                         }
                     });
                     playerListGetByName.forEach(player -> {
-                        Compute.formatMSGSend(player, Component.literal("黄金屋").withStyle(ChatFormatting.GOLD),
+                        Compute.sendFormatMSG(player, Component.literal("黄金屋").withStyle(ChatFormatting.GOLD),
                                 Component.literal("突见忍被击败了！").withStyle(ChatFormatting.WHITE));
-                        Compute.formatMSGSend(player, Component.literal("黄金屋").withStyle(ChatFormatting.GOLD),
+                        Compute.sendFormatMSG(player, Component.literal("黄金屋").withStyle(ChatFormatting.GOLD),
                                 Component.literal("  征讨伤害排名如下：").withStyle(ChatFormatting.WHITE));
 
                         Utils.boss2DamageList.sort(Comparator.comparing(Boss2Damage::getDamage).reversed());
@@ -142,7 +142,7 @@ public class SakuraBoss {
                         Utils.boss2DamageList.forEach(boss2Damage -> {
                             Player player1 = boss2Damage.getPlayer();
                             double damage = boss2Damage.getDamage();
-                            Compute.formatMSGSend(player, Component.literal(index + ".").withStyle(ChatFormatting.RED),
+                            Compute.sendFormatMSG(player, Component.literal(index + ".").withStyle(ChatFormatting.RED),
                                     Component.literal(" ").withStyle(ChatFormatting.WHITE).
                                             append(player1.getDisplayName()).
                                             append(Component.literal("  DMG:" + damage + "[" + String.format("%.2f",
@@ -193,7 +193,7 @@ public class SakuraBoss {
         Random random = new Random();
         if (!isMopUp) {
             if (random.nextDouble() <= 0.025 * (playerNum - 1) * difficultyEnhanceRate) {
-                Compute.formatMSGSend(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
+                Compute.sendFormatMSG(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
                         Component.literal("你通过组队挑战副本，额外获得了:").withStyle(ChatFormatting.WHITE).
                                 append(ModItems.Boss2Piece.get().getDefaultInstance().getDisplayName()));
                 Compute.itemStackGive(player, new ItemStack(ModItems.Boss2Piece.get(), 1));
@@ -201,7 +201,7 @@ public class SakuraBoss {
         }
 
         if (LoginInEvent.playerDailyInstanceReward(player, 4)) {
-            Compute.formatMSGSend(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
+            Compute.sendFormatMSG(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
                     Component.literal("每日首次通关副本，额外获得了:").withStyle(ChatFormatting.WHITE).
                             append(ModItems.Boss2Piece.get().getDefaultInstance().getDisplayName()));
 

@@ -61,7 +61,7 @@ public interface RandomLootEquip extends RandomEquip {
             }
         }
 
-        Compute.formatMSGSend(player, Component.literal("快捷分解").withStyle(ChatFormatting.RED),
+        Compute.sendFormatMSG(player, Component.literal("快捷分解").withStyle(ChatFormatting.RED),
                 Component.literal("分解了 " + count + " 件简易装备").withStyle(ChatFormatting.WHITE));
     }
 

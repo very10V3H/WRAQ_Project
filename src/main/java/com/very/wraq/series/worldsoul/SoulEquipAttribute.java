@@ -94,7 +94,7 @@ public class SoulEquipAttribute {
                                     append(Component.literal("" + (CurrentLevel + 1)).withStyle(CustomStyle.styleOfWorld)).
                                     append(Component.literal("!").withStyle(ChatFormatting.WHITE)));
                 } else {
-                    Compute.formatMSGSend(player, Component.literal("世界本源").withStyle(CustomStyle.styleOfWorld),
+                    Compute.sendFormatMSG(player, Component.literal("世界本源").withStyle(CustomStyle.styleOfWorld),
                             Component.literal("强化所需材料不足。").withStyle(ChatFormatting.WHITE).
                                     append(Component.literal("需要2个").withStyle(ChatFormatting.WHITE)).
                                     append(item.getDefaultInstance().getDisplayName()));
@@ -115,7 +115,7 @@ public class SoulEquipAttribute {
                                     append(Component.literal("!").withStyle(ChatFormatting.WHITE)));
 
                 } else {
-                    Compute.formatMSGSend(player, Component.literal("世界本源").withStyle(CustomStyle.styleOfWorld),
+                    Compute.sendFormatMSG(player, Component.literal("世界本源").withStyle(CustomStyle.styleOfWorld),
                             Component.literal("强化所需材料不足。").withStyle(ChatFormatting.WHITE).
                                     append(Component.literal("需要4个").withStyle(ChatFormatting.WHITE)).
                                     append(item.getDefaultInstance().getDisplayName()));
@@ -136,7 +136,7 @@ public class SoulEquipAttribute {
                                     append(Component.literal("!").withStyle(ChatFormatting.WHITE)));
 
                 } else {
-                    Compute.formatMSGSend(player, Component.literal("世界本源").withStyle(CustomStyle.styleOfWorld),
+                    Compute.sendFormatMSG(player, Component.literal("世界本源").withStyle(CustomStyle.styleOfWorld),
                             Component.literal("强化所需材料不足。").withStyle(ChatFormatting.WHITE).
                                     append(Component.literal("需要8个").withStyle(ChatFormatting.WHITE)).
                                     append(item.getDefaultInstance().getDisplayName()));
@@ -157,13 +157,13 @@ public class SoulEquipAttribute {
                                     append(Component.literal("!").withStyle(ChatFormatting.WHITE)));
 
                 } else {
-                    Compute.formatMSGSend(player, Component.literal("世界本源").withStyle(CustomStyle.styleOfWorld),
+                    Compute.sendFormatMSG(player, Component.literal("世界本源").withStyle(CustomStyle.styleOfWorld),
                             Component.literal("强化所需材料不足。").withStyle(ChatFormatting.WHITE).
                                     append(Component.literal("需要16个").withStyle(ChatFormatting.WHITE)).
                                     append(item.getDefaultInstance().getDisplayName()));
                 }
             } else {
-                Compute.formatMSGSend(player, Component.literal("世界本源").withStyle(CustomStyle.styleOfWorld),
+                Compute.sendFormatMSG(player, Component.literal("世界本源").withStyle(CustomStyle.styleOfWorld),
                         Component.literal("已经无法再将物品嵌入了。").withStyle(ChatFormatting.WHITE));
             }
         }

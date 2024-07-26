@@ -68,19 +68,19 @@ public class ReputationMissionRequestC2SPacket {
                                 Utils.playerReputationMissionContent.get(serverPlayer.getName().getString()),
                                 Utils.playerReputationMissionContentNum.get(serverPlayer.getName().getString())), serverPlayer);
                         ModNetworking.sendToClient(new SoundsS2CPacket(6), serverPlayer);
-                        Compute.formatMSGSend(serverPlayer, Component.literal("任务").withStyle(CustomStyle.styleOfKaze),
+                        Compute.sendFormatMSG(serverPlayer, Component.literal("任务").withStyle(CustomStyle.styleOfKaze),
                                 Component.literal("你成功接取了").withStyle(ChatFormatting.WHITE).
                                         append(Component.literal(" 悬赏任务 !").withStyle(ChatFormatting.GOLD)));
                     } else {
-                        Compute.formatMSGSend(serverPlayer, Component.literal("任务").withStyle(CustomStyle.styleOfKaze),
+                        Compute.sendFormatMSG(serverPlayer, Component.literal("任务").withStyle(CustomStyle.styleOfKaze),
                                 Component.literal("悬赏任务需要达到20级才能开始接取。").withStyle(ChatFormatting.WHITE));
                     }
                 } else {
-                    Compute.formatMSGSend(serverPlayer, Component.literal("任务").withStyle(CustomStyle.styleOfKaze),
+                    Compute.sendFormatMSG(serverPlayer, Component.literal("任务").withStyle(CustomStyle.styleOfKaze),
                             Component.literal("悬赏任务惩罚尚未结束。").withStyle(ChatFormatting.WHITE));
                 }
             } else {
-                Compute.formatMSGSend(serverPlayer, Component.literal("任务").withStyle(CustomStyle.styleOfKaze),
+                Compute.sendFormatMSG(serverPlayer, Component.literal("任务").withStyle(CustomStyle.styleOfKaze),
                         Component.literal("你已经接取悬赏任务了！").withStyle(ChatFormatting.WHITE));
             }
         });

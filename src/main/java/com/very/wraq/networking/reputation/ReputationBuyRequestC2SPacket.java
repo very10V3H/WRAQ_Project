@@ -37,7 +37,7 @@ public class ReputationBuyRequestC2SPacket {
             if (Utils.ReputationStoreItemList.isEmpty()) Utils.setReputationStoreItemList();
             if (Utils.ReputationStorePrice.isEmpty()) Utils.setReputationStorePrice();
             if (index >= Utils.ReputationStoreItemList.size()) {
-                Compute.formatMSGSend(serverPlayer, Component.literal("声望商店").withStyle(ChatFormatting.YELLOW),
+                Compute.sendFormatMSG(serverPlayer, Component.literal("声望商店").withStyle(ChatFormatting.YELLOW),
                         Component.literal("暂无商品。").withStyle(ChatFormatting.WHITE));
                 return;
             }

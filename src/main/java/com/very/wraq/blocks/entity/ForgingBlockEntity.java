@@ -304,12 +304,12 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider {
                     data.putInt("newSlot", 1);
                     data.putInt("newMaxSlot", 1);
                     if (player != null) {
-                        Compute.formatMSGSend(player, Component.literal("开孔").withStyle(ChatFormatting.AQUA),
+                        Compute.sendFormatMSG(player, Component.literal("开孔").withStyle(ChatFormatting.AQUA),
                                 Component.literal("开孔成功。").withStyle(ChatFormatting.WHITE));
                     }
                 } else {
                     if (player != null) {
-                        Compute.formatMSGSend(player, Component.literal("开孔").withStyle(ChatFormatting.AQUA),
+                        Compute.sendFormatMSG(player, Component.literal("开孔").withStyle(ChatFormatting.AQUA),
                                 Component.literal("开孔失败。").withStyle(ChatFormatting.WHITE));
                     }
                 }
@@ -318,12 +318,12 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider {
                     data.putInt("newSlot", data.getInt("newSlot") + 1);
                     data.putInt("newMaxSlot", 2);
                     if (player != null) {
-                        Compute.formatMSGSend(player, Component.literal("开孔").withStyle(ChatFormatting.AQUA),
+                        Compute.sendFormatMSG(player, Component.literal("开孔").withStyle(ChatFormatting.AQUA),
                                 Component.literal("开孔成功。").withStyle(ChatFormatting.WHITE));
                     }
                 } else {
                     if (player != null) {
-                        Compute.formatMSGSend(player, Component.literal("开孔").withStyle(ChatFormatting.AQUA),
+                        Compute.sendFormatMSG(player, Component.literal("开孔").withStyle(ChatFormatting.AQUA),
                                 Component.literal("开孔失败。").withStyle(ChatFormatting.WHITE));
                     }
                 }
@@ -332,12 +332,12 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider {
                     data.putInt("newSlot", data.getInt("newSlot") + 1);
                     data.putInt("newMaxSlot", 3);
                     if (player != null) {
-                        Compute.formatMSGSend(player, Component.literal("开孔").withStyle(ChatFormatting.AQUA),
+                        Compute.sendFormatMSG(player, Component.literal("开孔").withStyle(ChatFormatting.AQUA),
                                 Component.literal("开孔成功。").withStyle(ChatFormatting.WHITE));
                     }
                 } else {
                     if (player != null) {
-                        Compute.formatMSGSend(player, Component.literal("开孔").withStyle(ChatFormatting.AQUA),
+                        Compute.sendFormatMSG(player, Component.literal("开孔").withStyle(ChatFormatting.AQUA),
                                 Component.literal("开孔失败。").withStyle(ChatFormatting.WHITE));
                     }
                 }
@@ -465,7 +465,7 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider {
 
                     if (forgelevel >= 17 && Protect.is(ModItems.ForgeProtect.get())) {
                         useProtect = true;
-                        Compute.formatMSGSend(player, Component.literal("强化").withStyle(ChatFormatting.AQUA),
+                        Compute.sendFormatMSG(player, Component.literal("强化").withStyle(ChatFormatting.AQUA),
                                 Component.literal("使用了强化保护符，防止了强化等级掉落。").withStyle(ChatFormatting.WHITE));
                         Compute.formatBroad(player.level(), Component.literal("强化").withStyle(ChatFormatting.AQUA),
                                 Component.literal("").withStyle(ChatFormatting.WHITE).
@@ -475,7 +475,7 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider {
                                         append(Component.literal("时失败，好在使用了强化保护符。").withStyle(ChatFormatting.WHITE)));
                     }
 
-                    Compute.formatMSGSend(player, Component.literal("强化").withStyle(ChatFormatting.AQUA),
+                    Compute.sendFormatMSG(player, Component.literal("强化").withStyle(ChatFormatting.AQUA),
                             Component.literal("强化失败。").withStyle(ChatFormatting.GRAY));
 
                 } else {
@@ -487,7 +487,7 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider {
                                 append(" 成功将 ").withStyle(ChatFormatting.WHITE)).
                                 append(equip.getDisplayName()).
                                 append(Component.literal(" 强化至" + "+" + data.getInt("Forging")).withStyle(ChatFormatting.WHITE)));
-                    Compute.formatMSGSend(player, Component.literal("强化").withStyle(ChatFormatting.AQUA),
+                    Compute.sendFormatMSG(player, Component.literal("强化").withStyle(ChatFormatting.AQUA),
                             Component.literal("强化成功!").withStyle(ChatFormatting.AQUA));
                 }
             }
@@ -734,7 +734,7 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider {
             ForgeEquipUtils.setForgeQualityOnEquip(equip, equipTier + 1);
 
             if (player != null) {
-                Compute.formatMSGSend(player, Component.literal("锻造").withStyle(ChatFormatting.AQUA),
+                Compute.sendFormatMSG(player, Component.literal("锻造").withStyle(ChatFormatting.AQUA),
                         Component.literal("").withStyle(ChatFormatting.WHITE).
                                 append(player.getDisplayName()).
                                 append(Component.literal(" 将").withStyle(ChatFormatting.WHITE)).
