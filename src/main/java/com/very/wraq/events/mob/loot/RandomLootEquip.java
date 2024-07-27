@@ -28,6 +28,7 @@ public interface RandomLootEquip extends RandomEquip {
         Random random = new Random();
         if (itemAndRate.getItemStack().getItem() instanceof RandomLootEquip randomLootEquip) {
             ItemStack itemStack = new ItemStack(itemAndRate.getItemStack().getItem());
+            itemStack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
             CompoundTag data = itemStack.getOrCreateTagElement(Utils.MOD_ID);
             List<RandomAttributeValue> randomAttributeValues = randomLootEquip.getRandomAttributeValues();
             for (RandomAttributeValue randomAttributeValue : randomAttributeValues) {

@@ -75,7 +75,7 @@ public class ItemAndRate {
         if (itemStack.getItem() instanceof RandomCurios || itemStack.getItem() instanceof RandomLootEquip)
             dropItemStack = itemStack;
         else dropItemStack = new ItemStack(itemStack.getItem());
-
+        dropItemStack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
         Random rand = new Random();
         double finalRate = rate * num;
         if (finalRate < 1 && rand.nextDouble() >= finalRate) return;
@@ -129,7 +129,7 @@ public class ItemAndRate {
         if (itemStack.getItem() instanceof RandomCurios
                 || itemStack.getItem() instanceof RandomLootEquip) dropItemStack = itemStack;
         else dropItemStack = new ItemStack(itemStack.getItem(), itemStack.getCount());
-
+        dropItemStack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
         Random rand = new Random();
         double finalRate = rate * num;
         if (finalRate < 1 && rand.nextDouble() >= finalRate) return;
