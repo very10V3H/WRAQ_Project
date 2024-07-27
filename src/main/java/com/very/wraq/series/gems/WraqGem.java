@@ -23,6 +23,7 @@ public class WraqGem extends Item {
     private final Style hoverStyle;
     private final Component oneLineDescription;
     private final Component suffix;
+    private final List<AttributeMapValue> attributeMapValues;
 
     public record AttributeMapValue(Map<Item, Double> attributeMap, double value) {}
 
@@ -30,13 +31,14 @@ public class WraqGem extends Item {
                    Style hoverStyle, Component oneLineDescription, Component suffix) {
         super(properties);
         Utils.gemsTag.put(this, 1);
-        attributeMapValues.forEach((attributeMapValue) -> {
+        for (AttributeMapValue attributeMapValue : attributeMapValues) {
             attributeMapValue.attributeMap.put(this, attributeMapValue.value);
-        });
+        }
         Display.gemList.add(this);
         this.hoverStyle = hoverStyle;
         this.oneLineDescription = oneLineDescription;
         this.suffix = suffix;
+        this.attributeMapValues = attributeMapValues;
     }
 
     @Override
@@ -60,13 +62,18 @@ public class WraqGem extends Item {
         return hoverStyle;
     }
 
-    public static List<Item> getEquipContainGemList(ItemStack equip) throws CommandSyntaxException {
-        List<Item> gemList = new ArrayList<>();
+    public List<AttributeMapValue> getAttributeMapValues() {
+        return attributeMapValues;
+    }
+
+    public static List<WraqGem> getEquipContainGemList(ItemStack equip) throws CommandSyntaxException {
+        List<WraqGem> gemList = new ArrayList<>();
         if (equip.getTagElement(Utils.MOD_ID) != null) {
             CompoundTag data = equip.getOrCreateTagElement(Utils.MOD_ID);
             for (int i = 1 ; i <= 3 ; i ++) {
                 if (data.contains("newGems" + i)) {
-                    gemList.add(Compute.getItemFromString(data.getString("newGems" + i)).getItem());
+                    Item gemItem = Compute.getItemFromString(data.getString("newGems" + i)).getItem();
+                    if (gemItem instanceof WraqGem wraqGem) gemList.add(wraqGem);
                 }
             }
         }

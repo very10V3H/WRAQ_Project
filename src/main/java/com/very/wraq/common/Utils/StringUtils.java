@@ -1142,6 +1142,12 @@ public class StringUtils {
         public static String ManaDefence = "CuriosManaDefence";
 
         public static String commonMovementSpeed = "commonMovementSpeed";
+
+        public static String percentAttackDamage = "percentAttackDamage";
+        public static String percentDefenceEnhance = "percentDefenceEnhance";
+        public static String percentMaxHealthEnhance = "percentMaxHealthEnhance";
+        public static String percentManaDamageEnhance = "percentManaDamageEnhance";
+        public static String percentManaDefenceEnhance = "percentManaDefenceEnhance";
     }
 
     public static String PlayerInstanceProgress = "PlayerInstanceProgress";

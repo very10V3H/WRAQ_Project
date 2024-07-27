@@ -214,7 +214,7 @@ public class VMD {
     }
 
     @SubscribeEvent
-    public static void comps(RenderTooltipEvent.GatherComponents event) {
+    public static void comps(RenderTooltipEvent.GatherComponents event) throws CommandSyntaxException {
         BasicAttributeDescription.NewAttributeDescription(event);
     }
 

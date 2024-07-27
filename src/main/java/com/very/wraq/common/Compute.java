@@ -313,105 +313,6 @@ public class Compute {
         return shieldValue;
     }
 
-    public static double getGemsAttributeModifier(CompoundTag data, Map<Item, Double> map) {
-        double value = 0;
-        for (int i = 1; i <= 3; i++) {
-            if (data.contains("newGems" + i)) {
-                String gemName = data.getString("newGems" + i);
-                ItemStack gem = null;
-
-                try {
-                    gem = Compute.getItemFromString(gemName);
-                } catch (CommandSyntaxException e) {
-                    throw new RuntimeException(e);
-                }
-
-                value += map.getOrDefault(gem.getItem(), 0d);
-            }
-        }
-        return value;
-    }
-
-    public static double gemsAttackDamage(CompoundTag data) {
-        return getGemsAttributeModifier(data, Utils.attackDamage);
-    }
-
-    public static double gemsMovementSpeedUp(CompoundTag data) {
-        return getGemsAttributeModifier(data, Utils.movementSpeedWithoutBattle);
-    }
-
-    public static double gemsManaDamage(CompoundTag data) {
-        return getGemsAttributeModifier(data, Utils.manaDamage);
-    }
-
-    public static double gemsManaRecover(CompoundTag data) {
-        return getGemsAttributeModifier(data, Utils.manaRecover);
-    }
-
-    public static double gemsHealRecover(CompoundTag data) {
-        return getGemsAttributeModifier(data, Utils.healthRecover);
-    }
-
-    public static double gemsMaxHealth(CompoundTag data) {
-        return getGemsAttributeModifier(data, Utils.maxHealth);
-    }
-
-    public static double gemsDefence(CompoundTag data) {
-        return getGemsAttributeModifier(data, Utils.defence);
-    }
-
-    public static double gemsCoolDown(CompoundTag data) {
-        return getGemsAttributeModifier(data, Utils.coolDownDecrease);
-    }
-
-    public static double gemsCritDamage(CompoundTag data) {
-        return getGemsAttributeModifier(data, Utils.critDamage);
-    }
-
-    public static double gemsCritRate(CompoundTag data) {
-        return getGemsAttributeModifier(data, Utils.critRate);
-    }
-
-    public static double gemsHealEffectUp(CompoundTag data) {
-        return getGemsAttributeModifier(data, Utils.healEffectUp);
-    }
-
-    public static double gemsManaHealthSteal(CompoundTag data) {
-        return getGemsAttributeModifier(data, Utils.manaHealthSteal);
-    }
-
-    public static double gemsDefencePenetration0(CompoundTag data) {
-        return getGemsAttributeModifier(data, Utils.defencePenetration0);
-    }
-
-    public static double gemsManaPenetration0(CompoundTag data) {
-        return getGemsAttributeModifier(data, Utils.manaPenetration0);
-    }
-
-    public static double gemsExpUp(CompoundTag data) {
-        return getGemsAttributeModifier(data, Utils.expUp);
-    }
-
-    public static double gemsLuckyUp(CompoundTag data) {
-        return getGemsAttributeModifier(data, Utils.luckyUp);
-    }
-
-    public static double gemsDefencePenetration(CompoundTag data) {
-        return getGemsAttributeModifier(data, Utils.defencePenetration);
-    }
-
-    public static double gemsManaPenetration(CompoundTag data) {
-        return getGemsAttributeModifier(data, Utils.manaPenetration);
-    }
-
-    public static double gemsHealthSteal(CompoundTag data) {
-        return getGemsAttributeModifier(data, Utils.healthSteal);
-    }
-
-    public static double gemsManaDefence(CompoundTag data) {
-        return getGemsAttributeModifier(data, Utils.manaDefence);
-    }
-
     public static void forgingHoverName(ItemStack stack) {
         CompoundTag data = stack.getOrCreateTagElement(Utils.MOD_ID);
 
@@ -2383,7 +2284,7 @@ public class Compute {
     public static void DescriptionModuleSword(ItemStack itemStack, List<Component> components, double BaseDamage) {
         CompoundTag data = itemStack.getOrCreateTagElement(Utils.MOD_ID);
         double ExDamageForging = 0;
-        if (data.contains("Forging")) ExDamageForging = ForgingValue(data, BaseDamage);
+        if (data.contains("Forging")) ExDamageForging = forgingValue(data, BaseDamage);
         double ExDamageProficiency = 0;
         if (data.contains("KillCount")) ExDamageProficiency = BaseDamage * 0.5 * (data.getInt("KillCount") / 100000.0);
         ChatFormatting[] chatFormattings = {
@@ -2411,7 +2312,7 @@ public class Compute {
     public static void DescriptionModuleSceptre(ItemStack itemStack, List<Component> components, double BaseDamage) {
         CompoundTag data = itemStack.getOrCreateTagElement(Utils.MOD_ID);
         double ExDamageForging = 0;
-        if (data.contains("Forging")) ExDamageForging = ForgingValue(data, BaseDamage);
+        if (data.contains("Forging")) ExDamageForging = forgingValue(data, BaseDamage);
         double ExDamageProficiency = 0;
         if (data.contains("KillCount")) ExDamageProficiency = BaseDamage * 0.5 * (data.getInt("KillCount") / 100000.0);
         ChatFormatting[] chatFormattings = {
@@ -2744,7 +2645,7 @@ public class Compute {
                 append(name));
     }
 
-    public static double ForgingValue(CompoundTag data, double BaseValue) {
+    public static double forgingValue(CompoundTag data, double BaseValue) {
         int forgingLevel = data.getInt("Forging");
         if (data.contains(StringUtils.QingMingForgePaper)) ++forgingLevel;
         if (data.contains(StringUtils.LabourDayForgePaper)) ++forgingLevel;

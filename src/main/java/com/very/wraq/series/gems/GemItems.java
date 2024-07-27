@@ -34,15 +34,15 @@ public class GemItems {
 
     public static final RegistryObject<Item> forestGem = ITEMS.register("forest_gem",
             () -> new WraqGem(new Item.Properties().rarity(CustomStyle.ForestBold), new ArrayList<>() {{
-                add(new WraqGem.AttributeMapValue(Utils.maxHealth, 150));
-                add(new WraqGem.AttributeMapValue(Utils.defence, 25));
+                add(new WraqGem.AttributeMapValue(Utils.percentDefenceEnhance, 0.03));
+                add(new WraqGem.AttributeMapValue(Utils.percentMaxHealthEnhance, 0.03));
             }}, CustomStyle.styleOfForest, Component.literal("森林意志的具象，凝聚于此石。").withStyle(CustomStyle.styleOfForest),
                     ComponentUtils.getSuffixOfChapterI()));
 
     public static final RegistryObject<Item> forestGemD = ITEMS.register("forest_gem_d",
             () -> new WraqGem(new Item.Properties().rarity(CustomStyle.ForestBold), new ArrayList<>() {{
-                add(new WraqGem.AttributeMapValue(Utils.maxHealth, 300));
-                add(new WraqGem.AttributeMapValue(Utils.defence, 50));
+                add(new WraqGem.AttributeMapValue(Utils.percentDefenceEnhance, 0.06));
+                add(new WraqGem.AttributeMapValue(Utils.percentMaxHealthEnhance, 0.06));
             }}, CustomStyle.styleOfForest, Component.literal("森林意志的具象，凝聚于此石。").withStyle(CustomStyle.styleOfForest),
                     ComponentUtils.getSuffixOfChapterI()));
 

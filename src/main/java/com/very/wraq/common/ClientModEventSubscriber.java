@@ -10,7 +10,8 @@ import com.very.wraq.process.system.teamInstance.NewTeamInstanceHud;
 import com.very.wraq.render.hud.AttributeHud;
 import com.very.wraq.render.hud.ShieldHud;
 import com.very.wraq.render.particles.*;
-import com.very.wraq.render.toolTip.MyClientTooltip;
+import com.very.wraq.render.toolTip.NewTooltip;
+import com.very.wraq.render.toolTip.TraditionalTooltip;
 import com.very.wraq.common.Utils.ClientUtils;
 import com.very.wraq.common.Utils.Struct.SkillImage;
 import com.very.wraq.common.Utils.Utils;
@@ -64,17 +65,8 @@ public class ClientModEventSubscriber {
         event.registerEntityRenderer(ModEntityType.HETITY.get(), MainBossRender::new);
         event.registerEntityRenderer(ModEntityType.Boss2.get(), Boss2Render::new);
     }
-
-    /*    @SubscribeEvent
-        public static void registerParticleFactories(final RegisterParticleProvidersEvent event) {
-            Minecraft.getInstance().particleEngine.register(ModParticles.FIRST_PARTICLE.get(),
-                    FirstParticle.Provider::new);
-        }*/
     @SubscribeEvent
     public static void registerParticleFactories(final RegisterParticleProvidersEvent event) {
-/*        Minecraft.getInstance().particleEngine.register(ModParticles.FIRST_PARTICLE.get(),
-                FirstParticle.Provider::new);*/
-
         event.registerSpriteSet(ModParticles.FIRST_PARTICLE.get(), FirstParticle.Provider::new);
         event.registerSpriteSet(ModParticles.BREAKDefence_MANA.get(), FirstParticle.Provider::new);
         event.registerSpriteSet(ModParticles.DAMAGE_MANA.get(), FirstParticle.Provider::new);
@@ -186,7 +178,7 @@ public class ClientModEventSubscriber {
 
     @SubscribeEvent
     public static void tooltipComps(RegisterClientTooltipComponentFactoriesEvent e) {
-        e.register(MyClientTooltip.MyTooltip.class, MyClientTooltip::new);
+        e.register(TraditionalTooltip.MyTooltip.class, TraditionalTooltip::new);
+        e.register(NewTooltip.MyNewTooltip.class, NewTooltip::new);
     }
-
 }
