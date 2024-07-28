@@ -1,10 +1,9 @@
 package com.very.wraq.events.core;
 
+import com.mojang.logging.LogUtils;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.Utils.Utils;
-import com.mojang.logging.LogUtils;
 import com.very.wraq.common.registry.ModItems;
-import com.very.wraq.process.system.element.ElementItems;
 import com.very.wraq.series.specialevents.SpecialEventItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -70,12 +69,22 @@ public class InventoryCheck {
         }
     }
 
+    public static void removeOwnerTagDirect(ItemStack itemStack) {
+        if (itemStack.getTagElement(Utils.MOD_ID) != null) {
+            itemStack.getOrCreateTagElement(Utils.MOD_ID).remove(owner);
+        }
+    }
+
     public static void addOwnerTagToItemStack(Player player, ItemStack itemStack) {
         itemStack.getOrCreateTagElement(Utils.MOD_ID).putString(InventoryCheck.owner, player.getName().getString());
     }
 
     public static String getOwnerTag(ItemStack itemStack) {
         return itemStack.getOrCreateTagElement(Utils.MOD_ID).getString(InventoryCheck.owner);
+    }
+
+    public static boolean containOwnerTag(ItemStack itemStack) {
+        return itemStack.getTagElement(Utils.MOD_ID) != null && itemStack.getTagElement(Utils.MOD_ID).contains(InventoryCheck.owner);
     }
 
     public static boolean itemOwnerCorrect(Player player, ItemStack itemStack) {

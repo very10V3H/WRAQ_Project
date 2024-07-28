@@ -262,7 +262,7 @@ public class OldMissionScreen extends Screen {
         xOffsetRate = 2;
 
         // 以下为月卡/计划
-        guiGraphics.renderItem(ModItems.CompleteGem.get().getDefaultInstance(), this.width / 2 - 110 + 98 * xOffsetRate, this.height / 2 - 80);
+        guiGraphics.renderItem(ModItems.completeGem.get().getDefaultInstance(), this.width / 2 - 110 + 98 * xOffsetRate, this.height / 2 - 80);
         guiGraphics.drawCenteredString(font, Component.literal("月卡任务").withStyle(ChatFormatting.LIGHT_PURPLE), this.width / 2 - 100 + 98 * xOffsetRate - 1, this.height / 2 - 60, 0);
 
         if (planMissionItem == null || planMissionItem.is(Items.AIR)) {

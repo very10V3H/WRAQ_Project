@@ -198,7 +198,7 @@ public class SummerEvent {
         });
         playerDailyTimeList.sort(Comparator.comparingInt(a -> a.seconds));
         Collections.reverse(playerDailyTimeList);
-        for (int i = 0; i < playerDailyTimeList.size(); i++) {
+        for (int i = 0; i < Math.min(5, playerDailyTimeList.size()); i++) {
             PlayerTime playerTime = playerDailyTimeList.get(i);
             Style style;
             Style[] styles = new Style[]{CustomStyle.styleOfPower, CustomStyle.styleOfGold, CustomStyle.styleOfWater};

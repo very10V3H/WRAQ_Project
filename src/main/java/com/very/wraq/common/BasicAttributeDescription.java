@@ -1,35 +1,43 @@
 package com.very.wraq.common;
 
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import com.mojang.datafixers.util.Either;
+import com.very.wraq.common.Utils.StringUtils;
+import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.process.system.forge.ForgeEquipUtils;
 import com.very.wraq.projectiles.RandomCurios;
 import com.very.wraq.projectiles.WraqCurios;
 import com.very.wraq.projectiles.WraqUniformCurios;
-import com.very.wraq.render.toolTip.MyClientTooltip;
+import com.very.wraq.render.toolTip.CustomStyle;
+import com.very.wraq.render.toolTip.NewTooltip;
+import com.very.wraq.render.toolTip.TraditionalTooltip;
+import com.very.wraq.series.gems.GemAttributes;
+import com.very.wraq.series.gems.WraqGem;
 import com.very.wraq.series.instance.Castle.CastleCurios;
 import com.very.wraq.series.worldsoul.SoulEquipAttribute;
-import com.very.wraq.common.Utils.StringUtils;
-import com.very.wraq.common.Utils.Utils;
-import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.registry.ModItems;
-import com.mojang.datafixers.util.Either;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.FormattedText;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.Style;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.event.RenderTooltipEvent;
 
+import java.util.HashMap;
 import java.util.List;
-
-import static com.very.wraq.common.Compute.*;
+import java.util.Map;
 
 public class BasicAttributeDescription {
 
-    public static void NewAttributeDescription(RenderTooltipEvent.GatherComponents event) {
+    public static void NewAttributeDescription(RenderTooltipEvent.GatherComponents event) throws CommandSyntaxException {
         int index = 4;
-        int type = 0;
         ItemStack itemStack = event.getItemStack();
         if (itemStack.getItem() instanceof WraqCurios) index = 5;
         if (!(itemStack.getItem() instanceof WraqCurios || itemStack.getItem() instanceof WraqUniformCurios)
@@ -39,19 +47,21 @@ public class BasicAttributeDescription {
         Item item = itemStack.getItem();
         if (itemStack.is(ModItems.ManageSword.get())) return;
 
-/*        if (itemStack.getItem() instanceof PurpleArmor && !data0.contains(StringUtils.RandomAttribute.AttackDamage)) {
-            event.getTooltipElements().add(5, Either.right(new MyClientTooltip.MyTooltip(Component.literal(" " + "50 - 100" + "攻击力").withStyle(ChatFormatting.YELLOW),0)));
-            event.getTooltipElements().add(6,Either.right(new MyClientTooltip.MyTooltip(Component.literal(" " + "300 - 400" + "魔法攻击").withStyle(ChatFormatting.LIGHT_PURPLE),1)));
-            event.getTooltipElements().add(7,Either.right(new MyClientTooltip.MyTooltip(Component.literal(" " + "50 - 100" + "护甲").withStyle(ChatFormatting.GRAY),2)));
-            event.getTooltipElements().add(8,Either.right(new MyClientTooltip.MyTooltip(Component.literal(" " + "400 - 800" + "最大生命值").withStyle(ChatFormatting.GREEN),3)));
-        }
+        if (data.contains("Forging")) {
+            int forgeLevel = data.getInt("Forging");
 
-        if (itemStack.getItem() instanceof IceArmor && !data0.contains(StringUtils.RandomAttribute.AttackDamage)) {
-            event.getTooltipElements().add(5, Either.right(new MyClientTooltip.MyTooltip(Component.literal(" " + "100 - 140" + "攻击力").withStyle(ChatFormatting.YELLOW),0)));
-            event.getTooltipElements().add(6,Either.right(new MyClientTooltip.MyTooltip(Component.literal(" " + "600 - 800" + "魔法攻击").withStyle(ChatFormatting.LIGHT_PURPLE),1)));
-            event.getTooltipElements().add(7,Either.right(new MyClientTooltip.MyTooltip(Component.literal(" " + "100 - 200" + "护甲").withStyle(ChatFormatting.GRAY),2)));
-            event.getTooltipElements().add(8,Either.right(new MyClientTooltip.MyTooltip(Component.literal(" " + "800 - 1600" + "最大生命值").withStyle(ChatFormatting.GREEN),3)));
-        }*/
+            if (data.contains(StringUtils.QingMingForgePaper)) ++forgeLevel;
+            if (data.contains(StringUtils.LabourDayForgePaper)) ++forgeLevel;
+
+            Style[] styles = {CustomStyle.styleOfMine, CustomStyle.styleOfGold,
+                    Style.EMPTY.applyFormat(ChatFormatting.LIGHT_PURPLE), CustomStyle.styleOfWorld};
+
+            Style style = styles[Math.min(3, Math.max(0, (forgeLevel - 1) / 8))];
+
+            index++;
+            event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(Component.literal(" 强化等级 ").withStyle(CustomStyle.styleOfPower).
+                    append(Component.literal("" + forgeLevel).withStyle(style)), TraditionalTooltip.forge)));
+        }
 
         if (Utils.attackDamage.containsKey(item) || data.contains(StringUtils.RandomAttribute.attackDamage)
                 || data.contains(StringUtils.CuriosAttribute.AttackDamage)) {
@@ -65,7 +75,7 @@ public class BasicAttributeDescription {
                             append(Component.literal("+ " + String.format("%.0f", SoulEquipAttribute.ForgingAddition.AttackDamage)).withStyle(CustomStyle.styleOfWorld)).
                             append(Component.literal(" x [" + ForgeTime + "]").withStyle(CustomStyle.styleOfWorld)));
                     index++;
-                    event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
+                    event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.attackDamage)));
                 }
                 if (itemStack.is(ModItems.SoulBow.get())) {
                     int ForgeTime = data.getInt(StringUtils.SoulEquipForge);
@@ -76,7 +86,7 @@ public class BasicAttributeDescription {
                             append(Component.literal("+ " + String.format("%.0f", SoulEquipAttribute.ForgingAddition.AttackDamage)).withStyle(CustomStyle.styleOfWorld)).
                             append(Component.literal(" x [" + ForgeTime + "]").withStyle(CustomStyle.styleOfWorld)));
                     index++;
-                    event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
+                    event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.attackDamage)));
                 }
             } else {
                 double BaseDamage;
@@ -95,7 +105,7 @@ public class BasicAttributeDescription {
 
 
                 double ExDamageForging = 0;
-                if (data.contains("Forging")) ExDamageForging = ForgingValue(data, BaseDamage);
+                if (data.contains("Forging")) ExDamageForging = Compute.forgingValue(data, BaseDamage);
                 double ExDamageProficiency = 0;
                 if (data.contains("KillCount"))
                     ExDamageProficiency = BaseDamage * 0.5 * Math.min(1, (data.getInt("KillCount") / 100000.0));
@@ -107,22 +117,20 @@ public class BasicAttributeDescription {
                         ChatFormatting.RED
                 };
 
-                double GemsValue = gemsAttackDamage(data);
-
                 if (ExDamageProficiency != 0) {
                     mutableComponent.append(Component.literal(" + " + String.format("%.0f", ExDamageProficiency)).
                             withStyle(ChatFormatting.RESET).withStyle(chatFormattings[Math.min(data.getInt("KillCount") / 20000, 4)]));
                 }
 
-                if ((ExDamageForging + GemsValue) != 0) {
-                    mutableComponent.append(Component.literal(" + " + String.format("%.0f", ExDamageForging + GemsValue)).
-                            withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.YELLOW));
+                if (ExDamageForging != 0) {
+                    mutableComponent.append(Component.literal(" + " + String.format("%.0f", ExDamageForging)).withStyle(ChatFormatting.YELLOW)).
+                            append(Component.literal("⮅").withStyle(CustomStyle.styleOfPower));
                 }
 
                 index++;
-                event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
+                event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.attackDamage)));
             }
-        } else type++;
+        }
 
         if (Utils.manaDamage.containsKey(item) || data.contains(StringUtils.RandomAttribute.manaDamage)
                 || data.contains(StringUtils.CuriosAttribute.ManaDamage)) {
@@ -135,7 +143,7 @@ public class BasicAttributeDescription {
                         append(Component.literal("+ " + String.format("%.0f", SoulEquipAttribute.ForgingAddition.ManaAttackDamage)).withStyle(CustomStyle.styleOfWorld)).
                         append(Component.literal(" x [" + ForgeTimes + "]").withStyle(CustomStyle.styleOfWorld)));
                 index++;
-                event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
+                event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.manaDamage)));
             } else {
                 double BaseDamage;
                 if (Utils.manaDamage.containsKey(item) || data.contains(StringUtils.CuriosAttribute.ManaDamage)) {
@@ -153,7 +161,7 @@ public class BasicAttributeDescription {
 
 
                 double ExDamageForging = 0;
-                if (data.contains("Forging")) ExDamageForging = ForgingValue(data, BaseDamage);
+                if (data.contains("Forging")) ExDamageForging = Compute.forgingValue(data, BaseDamage);
                 double ExDamageProficiency = 0;
                 if (data.contains("KillCount"))
                     ExDamageProficiency = BaseDamage * 0.5 * Math.min(1, (data.getInt("KillCount") / 100000.0));
@@ -165,22 +173,20 @@ public class BasicAttributeDescription {
                         ChatFormatting.RED
                 };
 
-                double GemsValue = gemsManaDamage(data);
-
                 if (ExDamageProficiency != 0) {
                     mutableComponent.append(Component.literal(" + " + String.format("%.0f", ExDamageProficiency)).
                             withStyle(ChatFormatting.RESET).withStyle(chatFormattings[Math.min(data.getInt("KillCount") / 20000, 4)]));
                 }
 
-                if ((ExDamageForging + GemsValue) != 0) {
-                    mutableComponent.append(Component.literal(" + " + String.format("%.0f", ExDamageForging + GemsValue)).
-                            withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.LIGHT_PURPLE));
+                if (ExDamageForging != 0) {
+                    mutableComponent.append(Component.literal(" + " + String.format("%.0f", ExDamageForging)).withStyle(ChatFormatting.LIGHT_PURPLE).
+                            append(Component.literal("⮅").withStyle(CustomStyle.styleOfPower)));
                 }
 
                 index++;
-                event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
+                event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.manaDamage)));
             }
-        } else type++;
+        }
 
         if (Utils.defence.containsKey(item) || data.contains(StringUtils.RandomAttribute.defence)
                 || data.contains(StringUtils.CuriosAttribute.Defence)) {
@@ -199,18 +205,16 @@ public class BasicAttributeDescription {
 
 
             double ExDamageForging = 0;
-            if (data.contains("Forging")) ExDamageForging = ForgingValue(data, Defence);
+            if (data.contains("Forging")) ExDamageForging = Compute.forgingValue(data, Defence);
 
-            double GemsValue = gemsDefence(data);
-
-            if ((ExDamageForging + GemsValue) != 0) {
-                mutableComponent.append(Component.literal(" + " + String.format("%.0f", ExDamageForging + GemsValue)).
-                        withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.GRAY));
+            if (ExDamageForging != 0) {
+                mutableComponent.append(Component.literal(" + " + String.format("%.0f", ExDamageForging)).withStyle(ChatFormatting.GRAY).
+                        append(Component.literal("⮅").withStyle(CustomStyle.styleOfPower)));
             }
 
             index++;
-            event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
-        } else type++;
+            event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.defence)));
+        }
 
         if (Utils.manaDefence.containsKey(item) || data.contains(StringUtils.CuriosAttribute.ManaDefence)) {
             double ManaDefence = 0;
@@ -225,18 +229,16 @@ public class BasicAttributeDescription {
 
 
             double ExDamageForging = 0;
-            if (data.contains("Forging")) ExDamageForging = ForgingValue(data, ManaDefence);
+            if (data.contains("Forging")) ExDamageForging = Compute.forgingValue(data, ManaDefence);
 
-            double GemsValue = gemsManaDefence(data);
-
-            if ((ExDamageForging + GemsValue) != 0) {
-                mutableComponent.append(Component.literal(" + " + String.format("%.0f", ExDamageForging + GemsValue)).
-                        withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.DARK_BLUE));
+            if (ExDamageForging != 0) {
+                mutableComponent.append(Component.literal(" + " + String.format("%.0f", ExDamageForging)).withStyle(ChatFormatting.DARK_BLUE).
+                        append(Component.literal("⮅").withStyle(CustomStyle.styleOfPower)));
             }
 
             index++;
-            event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
-        } else type++;
+            event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.manaDefence)));
+        }
 
         if (Utils.maxHealth.containsKey(item) || data.contains(StringUtils.RandomAttribute.maxHealth)
                 || data.contains(StringUtils.CuriosAttribute.MaxHealth)) {
@@ -262,23 +264,20 @@ public class BasicAttributeDescription {
 
             }
 
-
             double ExHealth = 0;
-            if (data.contains("Forging")) ExHealth = ForgingValue(data, maxHealth);
+            if (data.contains("Forging")) ExHealth = Compute.forgingValue(data, maxHealth);
 
-            double GemsValue = gemsMaxHealth(data);
-
-            if ((ExHealth + GemsValue) > 0) {
-                mutableComponent.append(Component.literal(" + " + String.format("%.0f", ExHealth + GemsValue)).
-                        withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.GREEN));
+            if (ExHealth > 0) {
+                mutableComponent.append(Component.literal(" + " + String.format("%.0f", ExHealth)).withStyle(ChatFormatting.GREEN).
+                        append(Component.literal("⮅").withStyle(CustomStyle.styleOfPower)));
             }
-            if ((ExHealth + GemsValue) < 0) {
-                mutableComponent.append(Component.literal(" - " + String.format("%.0f", -(ExHealth + GemsValue))).
+            if (ExHealth < 0) {
+                mutableComponent.append(Component.literal(" - " + String.format("%.0f", -(ExHealth))).
                         withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.RED));
             }
             index++;
-            event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
-        } else type++;
+            event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.maxHealth)));
+        }
 
         if (Utils.healthRecover.containsKey(item) || data.contains(StringUtils.CuriosAttribute.HealthRecover)
                 || data.contains(StringUtils.RandomAttribute.healthRecover)) {
@@ -299,66 +298,26 @@ public class BasicAttributeDescription {
                         append(Component.literal("-" + String.format("%.1f", -healthRecover)).withStyle(ChatFormatting.RED)));
             }
 
-
-            double GemsValue = gemsHealRecover(data);
-
-            if ((GemsValue) > 0) {
-                mutableComponent.append(Component.literal(" + " + String.format("%.1f", GemsValue)).
-                        withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.GREEN));
-            }
-            if (GemsValue < 0) {
-                mutableComponent.append(Component.literal(" - " + String.format("%.1f", -GemsValue)).
-                        withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.RED));
-            }
             index++;
-            event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
-        } else type++;
+            event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.healthRecover)));
+        }
 
         if (Utils.defencePenetration.containsKey(item) || data.contains(StringUtils.CuriosAttribute.DefencePenetration)) {
-            if (itemStack.is(ModItems.SoulSword.get()) || itemStack.is(ModItems.SoulBow.get())) {
-/*                if (itemStack.is(ModItems.SoulSword.get())) {
-                    int ForgeTimes = data0.getInt(StringUtils.SoulEquipForge);
-                    MutableComponent mutableComponent = Component.literal("");
-                    mutableComponent.append(Component.literal(" 护甲穿透").withStyle(ChatFormatting.GRAY).
-                            append(Component.literal("+"+String.format("%.0f%%",SoulEquipAttribute.BaseAttribute.SoulSword.DefencePenetration*100)).withStyle(ChatFormatting.WHITE)).
-                            append(Component.literal("  ")).
-                            append(Component.literal("+ " + String.format("%.0f%%", SoulEquipAttribute.ForgingAddition.DefencePenetration * 100)).withStyle(CustomStyle.styleOfWorld)).
-                            append(Component.literal(" x [" + ForgeTimes + "]").withStyle(CustomStyle.styleOfWorld)));
-                    index ++;
-                    event.getTooltipElements().add(index,Either.right(new MyClientTooltip.MyTooltip(mutableComponent,type ++)));
-                }
-                if (itemStack.is(ModItems.SoulBow.get())) {
-                    int ForgeTimes = data0.getInt(StringUtils.SoulEquipForge);
-                    MutableComponent mutableComponent = Component.literal("");
-                    mutableComponent.append(Component.literal(" 护甲穿透").withStyle(ChatFormatting.GRAY).
-                            append(Component.literal("+"+String.format("%.0f%%",SoulEquipAttribute.BaseAttribute.SoulBow.DefencePenetration*100)).withStyle(ChatFormatting.WHITE)).
-                            append(Component.literal("  ")).
-                            append(Component.literal("+ " + String.format("%.0f%%", SoulEquipAttribute.ForgingAddition.DefencePenetration * 100)).withStyle(CustomStyle.styleOfWorld)).
-                            append(Component.literal(" x [" + ForgeTimes + "]").withStyle(CustomStyle.styleOfWorld)));
-                    index ++;
-                    event.getTooltipElements().add(index,Either.right(new MyClientTooltip.MyTooltip(mutableComponent,type ++)));
-                }*/
-            } else {
-                double DefencePenetration;
-                if (Utils.defencePenetration.containsKey(item)) DefencePenetration = Utils.defencePenetration.get(item);
-                else if (item instanceof RandomCurios)
-                    DefencePenetration = data.getDouble(StringUtils.CuriosAttribute.DefencePenetration) * CastleCurios.AttributeValueMap.get(StringUtils.CuriosAttribute.DefencePenetration);
-                else DefencePenetration = data.getInt(StringUtils.CuriosAttribute.DefencePenetration);
 
-                MutableComponent mutableComponent = Component.literal("");
-                mutableComponent.append(Component.literal(" 护甲穿透").withStyle(ChatFormatting.GRAY).
-                        append(Component.literal("+" + String.format("%.0f%%", DefencePenetration * 100)).withStyle(ChatFormatting.WHITE)));
+            double DefencePenetration;
+            if (Utils.defencePenetration.containsKey(item)) DefencePenetration = Utils.defencePenetration.get(item);
+            else if (item instanceof RandomCurios)
+                DefencePenetration = data.getDouble(StringUtils.CuriosAttribute.DefencePenetration) * CastleCurios.AttributeValueMap.get(StringUtils.CuriosAttribute.DefencePenetration);
+            else DefencePenetration = data.getInt(StringUtils.CuriosAttribute.DefencePenetration);
 
-                double GemsValue = gemsDefencePenetration(data);
+            MutableComponent mutableComponent = Component.literal("");
+            mutableComponent.append(Component.literal(" 护甲穿透").withStyle(ChatFormatting.GRAY).
+                    append(Component.literal("+" + String.format("%.0f%%", DefencePenetration * 100)).withStyle(ChatFormatting.WHITE)));
 
-                if (GemsValue != 0) {
-                    mutableComponent.append(Component.literal(" + " + String.format("%.0f%%", GemsValue * 100)).
-                            withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.WHITE));
-                }
-                index++;
-                event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
-            }
-        } else type++;
+            index++;
+            event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.defencePenetration)));
+
+        }
 
         if (Utils.defencePenetration0.containsKey(item) || data.contains(StringUtils.CuriosAttribute.DefencePenetration0)
                 || data.contains(StringUtils.RandomAttribute.defencePenetration0)) {
@@ -372,7 +331,7 @@ public class BasicAttributeDescription {
                             append(Component.literal("+ " + String.format("%.0f", SoulEquipAttribute.ForgingAddition.DefencePenetration0)).withStyle(CustomStyle.styleOfWorld)).
                             append(Component.literal(" x [" + ForgeTimes + "]").withStyle(CustomStyle.styleOfWorld)));
                     index++;
-                    event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
+                    event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.defencePenetration0)));
                 }
                 if (itemStack.is(ModItems.SoulBow.get())) {
                     int ForgeTimes = data.getInt(StringUtils.SoulEquipForge);
@@ -383,7 +342,7 @@ public class BasicAttributeDescription {
                             append(Component.literal("+ " + String.format("%.0f", SoulEquipAttribute.ForgingAddition.DefencePenetration0)).withStyle(CustomStyle.styleOfWorld)).
                             append(Component.literal(" x [" + ForgeTimes + "]").withStyle(CustomStyle.styleOfWorld)));
                     index++;
-                    event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
+                    event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.defencePenetration0)));
                 }
             } else {
                 double defencePenetration0;
@@ -398,17 +357,10 @@ public class BasicAttributeDescription {
                 MutableComponent mutableComponent = Component.literal("");
                 mutableComponent.append(Component.literal(" 护甲穿透").withStyle(ChatFormatting.GRAY).
                         append(Component.literal("+" + String.format("%.0f", defencePenetration0)).withStyle(ChatFormatting.WHITE)));
-
-                double GemsValue = gemsDefencePenetration0(data);
-
-                if (GemsValue != 0) {
-                    mutableComponent.append(Component.literal(" + " + String.format("%.0f", GemsValue)).
-                            withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.WHITE));
-                }
                 index++;
-                event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
+                event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.defencePenetration0)));
             }
-        } else type++;
+        }
 
         if (Utils.critRate.containsKey(item) || data.contains(StringUtils.CuriosAttribute.CritRate)
                 || data.contains(StringUtils.RandomAttribute.critRate)) {
@@ -422,7 +374,7 @@ public class BasicAttributeDescription {
                             append(Component.literal("+ " + String.format("%.1f%%", SoulEquipAttribute.ForgingAddition.CritRate * 100)).withStyle(CustomStyle.styleOfWorld)).
                             append(Component.literal(" x [" + ForgeTimes + "]").withStyle(CustomStyle.styleOfWorld)));
                     index++;
-                    event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
+                    event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.critRate)));
                 }
                 if (itemStack.is(ModItems.SoulBow.get())) {
                     int ForgeTimes = data.getInt(StringUtils.SoulEquipForge);
@@ -433,7 +385,7 @@ public class BasicAttributeDescription {
                             append(Component.literal("+ " + String.format("%.1f%%", SoulEquipAttribute.ForgingAddition.CritRate * 100)).withStyle(CustomStyle.styleOfWorld)).
                             append(Component.literal(" x [" + ForgeTimes + "]").withStyle(CustomStyle.styleOfWorld)));
                     index++;
-                    event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
+                    event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.critRate)));
                 }
             } else {
                 double critRate;
@@ -446,18 +398,10 @@ public class BasicAttributeDescription {
                 MutableComponent mutableComponent = Component.literal("");
                 mutableComponent.append(Component.literal(" 暴击几率").withStyle(ChatFormatting.LIGHT_PURPLE).
                         append(Component.literal("+" + String.format("%.1f%%", critRate * 100)).withStyle(ChatFormatting.WHITE)));
-
-                double GemsValue = gemsCritRate(data);
-
-                if ((GemsValue) != 0) {
-                    mutableComponent.append(Component.literal(" + " + String.format("%.1f%%", GemsValue * 100)).
-                            withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.LIGHT_PURPLE));
-                }
-
                 index++;
-                event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
+                event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.critRate)));
             }
-        } else type++;
+        }
 
         if (Utils.critDamage.containsKey(item) || data.contains(StringUtils.CuriosAttribute.CritDamage)
                 || data.contains(StringUtils.RandomAttribute.critDamage)) {
@@ -471,7 +415,7 @@ public class BasicAttributeDescription {
                             append(Component.literal("+ " + String.format("%.0f%%", SoulEquipAttribute.ForgingAddition.CritDamage * 100)).withStyle(CustomStyle.styleOfWorld)).
                             append(Component.literal(" x [" + ForgeTimes + "]").withStyle(CustomStyle.styleOfWorld)));
                     index++;
-                    event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
+                    event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.critDamage)));
                 }
                 if (itemStack.is(ModItems.SoulBow.get())) {
                     int ForgeTimes = data.getInt(StringUtils.SoulEquipForge);
@@ -482,7 +426,7 @@ public class BasicAttributeDescription {
                             append(Component.literal("+ " + String.format("%.0f%%", SoulEquipAttribute.ForgingAddition.CritDamage * 100)).withStyle(CustomStyle.styleOfWorld)).
                             append(Component.literal(" x [" + ForgeTimes + "]").withStyle(CustomStyle.styleOfWorld)));
                     index++;
-                    event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
+                    event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.critDamage)));
                 }
             } else {
                 double critDamage;
@@ -492,22 +436,13 @@ public class BasicAttributeDescription {
                 else critDamage = data.getInt(StringUtils.CuriosAttribute.CritDamage);
                 if (data.contains(StringUtils.RandomAttribute.critDamage))
                     critDamage += data.getDouble(StringUtils.RandomAttribute.critDamage);
-
                 MutableComponent mutableComponent = Component.literal("");
                 mutableComponent.append(Component.literal(" 暴击伤害").withStyle(ChatFormatting.BLUE).
                         append(Component.literal("+" + String.format("%.0f%%", critDamage * 100)).withStyle(ChatFormatting.WHITE)));
-
-
-                double GemsValue = gemsCritDamage(data);
-                if ((GemsValue) != 0) {
-                    mutableComponent.append(Component.literal(" + " + String.format("%.0f%%", GemsValue * 100)).
-                            withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.BLUE));
-                }
-
                 index++;
-                event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
+                event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.critDamage)));
             }
-        } else type++;
+        }
 
         if (Utils.healthSteal.containsKey(item) || data.contains(StringUtils.CuriosAttribute.HealthSteal)
                 || data.contains(StringUtils.RandomAttribute.healthSteal)) {
@@ -521,7 +456,7 @@ public class BasicAttributeDescription {
                             append(Component.literal("+ " + String.format("%.0f‱", SoulEquipAttribute.ForgingAddition.HealthSteal * 100)).withStyle(CustomStyle.styleOfWorld)).
                             append(Component.literal(" x [" + ForgeTimes + "]").withStyle(CustomStyle.styleOfWorld)));
                     index++;
-                    event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
+                    event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.healthSteal)));
                 }
             } else {
 
@@ -532,25 +467,14 @@ public class BasicAttributeDescription {
                 else healSteal = data.getInt(StringUtils.CuriosAttribute.HealthSteal);
                 if (data.contains(StringUtils.RandomAttribute.healthSteal))
                     healSteal += ForgeEquipUtils.getRandomEquipBaseValue(itemStack, StringUtils.RandomAttribute.healthSteal);
-
                 MutableComponent mutableComponent = Component.literal("");
                 mutableComponent.append(Component.literal(" 生命偷取").withStyle(ChatFormatting.RED).
                         append(Component.literal("+" + String.format("%.0f‱", healSteal * 100)).withStyle(ChatFormatting.WHITE)));
-
-
-                double GemsValue = gemsMaxHealth(data);
-
-                if (GemsValue != 0) {
-                    mutableComponent.append(Component.literal(" + " + String.format("%.0f‱", GemsValue)).
-                            withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.RED));
-                }
-
-
                 index++;
-                event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
+                event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.healthSteal)));
 
             }
-        } else type++;
+        }
 
         if (Utils.manaCost.containsKey(item)) {
             if (itemStack.is(ModItems.SoulSceptre.get())) {
@@ -562,16 +486,16 @@ public class BasicAttributeDescription {
                         append(Component.literal("- " + String.format("%.0f", SoulEquipAttribute.ForgingAddition.ManaCost)).withStyle(CustomStyle.styleOfWorld)).
                         append(Component.literal(" x [" + ForgeTimes + "]").withStyle(CustomStyle.styleOfWorld)));
                 index++;
-                event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
+                event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.manaCost)));
             } else {
                 double ManaCost = Utils.manaCost.get(item);
                 MutableComponent mutableComponent = Component.literal("");
                 mutableComponent.append(Component.literal(" 法力消耗").withStyle(ChatFormatting.DARK_PURPLE).
                         append(Component.literal(" " + String.format("%.0f", ManaCost)).withStyle(ChatFormatting.WHITE)));
                 index++;
-                event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
+                event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.manaCost)));
             }
-        } else type++;
+        }
 
         if (Utils.maxMana.containsKey(item) || data.contains(StringUtils.CuriosAttribute.MaxMana)
                 || data.contains(StringUtils.CuriosAttribute.MaxMana)) {
@@ -583,7 +507,7 @@ public class BasicAttributeDescription {
                         append(Component.literal("  ")).
                         append(Component.literal("+ 16 x [" + ForgeTimes + "]").withStyle(CustomStyle.styleOfWorld)));
                 index++;
-                event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
+                event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.maxMana)));
             } else {
                 double maxMana = 0;
                 if (Utils.maxMana.containsKey(item)) maxMana = Utils.maxMana.get(item);
@@ -596,47 +520,26 @@ public class BasicAttributeDescription {
                 mutableComponent.append(Component.literal(" 最大法力值").withStyle(ChatFormatting.LIGHT_PURPLE).
                         append(Component.literal("+" + String.format("%.0f", maxMana)).withStyle(ChatFormatting.WHITE)));
                 index++;
-                event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
+                event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.maxMana)));
 
             }
-        } else type++;
+        }
 
         if (Utils.manaPenetration.containsKey(item) || data.contains(StringUtils.CuriosAttribute.ManaPenetration)) {
-            if (itemStack.is(ModItems.SoulSceptre.get())) {
-/*
-                int ForgeTimes = data0.getInt(StringUtils.SoulEquipForge);
-                MutableComponent mutableComponent = Component.literal("");
-                mutableComponent.append(Component.literal(" 魔法穿透").withStyle(ChatFormatting.BLUE).
-                        append(Component.literal("+"+String.format("%.0f%%",SoulEquipAttribute.BaseAttribute.SoulSceptre.ManaPenetration * 100)).withStyle(ChatFormatting.WHITE)).
-                        append(Component.literal("  ")).
-                        append(Component.literal("+ " + String.format("%.0f%%", SoulEquipAttribute.ForgingAddition.ManaPenetration * 100)).withStyle(CustomStyle.styleOfWorld)).
-                        append(Component.literal(" x [" + ForgeTimes + "]").withStyle(CustomStyle.styleOfWorld)));
-                index ++;
-                event.getTooltipElements().add(index,Either.right(new MyClientTooltip.MyTooltip(mutableComponent,type ++)));
-*/
-            } else {
-                double ManaPenetration;
-                if (Utils.manaPenetration.containsKey(item)) ManaPenetration = Utils.manaPenetration.get(item);
-                else if (item instanceof RandomCurios)
-                    ManaPenetration = data.getDouble(StringUtils.CuriosAttribute.ManaPenetration) * CastleCurios.AttributeValueMap.get(StringUtils.CuriosAttribute.ManaPenetration);
-                else ManaPenetration = data.getInt(StringUtils.CuriosAttribute.ManaPenetration);
+            double ManaPenetration;
+            if (Utils.manaPenetration.containsKey(item)) ManaPenetration = Utils.manaPenetration.get(item);
+            else if (item instanceof RandomCurios)
+                ManaPenetration = data.getDouble(StringUtils.CuriosAttribute.ManaPenetration) * CastleCurios.AttributeValueMap.get(StringUtils.CuriosAttribute.ManaPenetration);
+            else ManaPenetration = data.getInt(StringUtils.CuriosAttribute.ManaPenetration);
 
-                MutableComponent mutableComponent = Component.literal("");
-                mutableComponent.append(Component.literal(" 魔法穿透").withStyle(ChatFormatting.BLUE).
-                        append(Component.literal("+" + String.format("%.0f%%", ManaPenetration * 100)).withStyle(ChatFormatting.WHITE)));
+            MutableComponent mutableComponent = Component.literal("");
+            mutableComponent.append(Component.literal(" 魔法穿透").withStyle(ChatFormatting.BLUE).
+                    append(Component.literal("+" + String.format("%.0f%%", ManaPenetration * 100)).withStyle(ChatFormatting.WHITE)));
 
+            index++;
+            event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.manaPenetration)));
 
-                double GemsValue = gemsManaPenetration(data);
-
-                if (GemsValue != 0) {
-                    mutableComponent.append(Component.literal(" + " + String.format("%.0f%%", GemsValue * 100)).
-                            withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.AQUA));
-                }
-
-                index++;
-                event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
-            }
-        } else type++;
+        }
 
         if (Utils.manaPenetration0.containsKey(item) || data.contains(StringUtils.CuriosAttribute.ManaPenetration0)
                 || data.contains(StringUtils.RandomAttribute.manaPenetration0)) {
@@ -649,7 +552,7 @@ public class BasicAttributeDescription {
                         append(Component.literal("+ " + String.format("%.0f", SoulEquipAttribute.ForgingAddition.ManaPenetration0)).withStyle(CustomStyle.styleOfWorld)).
                         append(Component.literal(" x [" + ForgeTimes + "]").withStyle(CustomStyle.styleOfWorld)));
                 index++;
-                event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
+                event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.manaPenetration0)));
             } else {
                 double manaPenetration0;
                 if (Utils.manaPenetration0.containsKey(item)) manaPenetration0 = Utils.manaPenetration0.get(item);
@@ -658,22 +561,13 @@ public class BasicAttributeDescription {
                 else manaPenetration0 = data.getInt(StringUtils.CuriosAttribute.ManaPenetration0);
                 if (data.contains(StringUtils.RandomAttribute.manaPenetration0))
                     manaPenetration0 += ForgeEquipUtils.getRandomEquipBaseValue(itemStack, StringUtils.RandomAttribute.manaPenetration0);
-
                 MutableComponent mutableComponent = Component.literal("");
                 mutableComponent.append(Component.literal(" 魔法穿透").withStyle(ChatFormatting.BLUE).
                         append(Component.literal("+" + String.format("%.0f", manaPenetration0)).withStyle(ChatFormatting.WHITE)));
-
-                double GemsValue = gemsManaPenetration0(data);
-
-                if (GemsValue != 0) {
-                    mutableComponent.append(Component.literal(" + " + String.format("%.0f", GemsValue)).
-                            withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.AQUA));
-                }
-
                 index++;
-                event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
+                event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.manaPenetration0)));
             }
-        } else type++;
+        }
 
         if (Utils.manaRecover.containsKey(item) || data.contains(StringUtils.CuriosAttribute.ManaRecover)
                 || data.contains(StringUtils.RandomAttribute.manaRecover)) {
@@ -686,7 +580,7 @@ public class BasicAttributeDescription {
                         append(Component.literal("+ " + String.format("%.0f", SoulEquipAttribute.ForgingAddition.ManaRecover)).withStyle(CustomStyle.styleOfWorld)).
                         append(Component.literal(" x [" + ForgeTimes + "]").withStyle(CustomStyle.styleOfWorld)));
                 index++;
-                event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
+                event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.manaRecover)));
             } else {
                 double manaRecover;
                 if (Utils.manaRecover.containsKey(item)) manaRecover = Utils.manaRecover.get(item);
@@ -699,19 +593,10 @@ public class BasicAttributeDescription {
                 MutableComponent mutableComponent = Component.literal("");
                 mutableComponent.append(Component.literal(" 法力回复").withStyle(ChatFormatting.LIGHT_PURPLE).
                         append(Component.literal("+" + String.format("%.0f", manaRecover)).withStyle(ChatFormatting.WHITE)));
-
-
-                double GemsValue = gemsManaRecover(data);
-
-                if ((GemsValue) != 0) {
-                    mutableComponent.append(Component.literal(" + " + String.format("%.0f", GemsValue)).
-                            withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.LIGHT_PURPLE));
-                }
-
                 index++;
-                event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
+                event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.manaRecover)));
             }
-        } else type++;
+        }
 
         if (Utils.coolDownDecrease.containsKey(item) || data.contains(StringUtils.CuriosAttribute.CoolDown)
                 || data.contains(StringUtils.RandomAttribute.coolDown)) {
@@ -726,25 +611,16 @@ public class BasicAttributeDescription {
             MutableComponent mutableComponent = Component.literal("");
             mutableComponent.append(Component.literal(" 技能急速").withStyle(ChatFormatting.AQUA).
                     append(Component.literal(" " + String.format("%.0f", coolDown * 100)).withStyle(ChatFormatting.WHITE)));
-
-
-            double GemsValue = gemsCoolDown(data);
-
-            if ((GemsValue) != 0) {
-                mutableComponent.append(Component.literal(" + " + String.format("%.0f", GemsValue * 100)).
-                        withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.AQUA));
-            }
-
             index++;
-            event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
-        } else type++;
+            event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.releaseSpeed)));
+        }
         if (Utils.movementSpeedCommon.containsKey(item)) {
             MutableComponent mutableComponent = Component.literal("");
             mutableComponent.append(Component.literal(" 移动速度").withStyle(CustomStyle.styleOfFlexible).
                     append(Component.literal(" " + String.format("%.0f%%", Utils.movementSpeedCommon.get(item) * 100)).withStyle(ChatFormatting.WHITE)));
             index++;
-            event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
-        } else type++;
+            event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.movementSpeed)));
+        }
         if (Utils.movementSpeedWithoutBattle.containsKey(item) || data.contains(StringUtils.CuriosAttribute.MovementSpeed)
                 || data.contains(StringUtils.RandomAttribute.movementSpeed)) {
             if (itemStack.is(ModItems.SoulSword.get()) || itemStack.is(ModItems.SoulBow.get())
@@ -758,7 +634,7 @@ public class BasicAttributeDescription {
                             append(Component.literal("+ " + String.format("%.0f%%", SoulEquipAttribute.ForgingAddition.MovementSpeed * 100)).withStyle(CustomStyle.styleOfWorld)).
                             append(Component.literal(" x [" + ForgeTimes + "]").withStyle(CustomStyle.styleOfWorld)));
                     index++;
-                    event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
+                    event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.movementSpeed)));
                 }
                 if (itemStack.is(ModItems.SoulBow.get())) {
                     int ForgeTimes = data.getInt(StringUtils.SoulEquipForge);
@@ -769,7 +645,7 @@ public class BasicAttributeDescription {
                             append(Component.literal("+ " + String.format("%.0f%%", SoulEquipAttribute.ForgingAddition.MovementSpeed * 100)).withStyle(CustomStyle.styleOfWorld)).
                             append(Component.literal(" x [" + ForgeTimes + "]").withStyle(CustomStyle.styleOfWorld)));
                     index++;
-                    event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
+                    event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.movementSpeed)));
                 }
                 if (itemStack.is(ModItems.SoulSceptre.get())) {
                     int ForgeTimes = data.getInt(StringUtils.SoulEquipForge);
@@ -780,11 +656,12 @@ public class BasicAttributeDescription {
                             append(Component.literal("+ " + String.format("%.0f%%", SoulEquipAttribute.ForgingAddition.MovementSpeed * 100)).withStyle(CustomStyle.styleOfWorld)).
                             append(Component.literal(" x [" + ForgeTimes + "]").withStyle(CustomStyle.styleOfWorld)));
                     index++;
-                    event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
+                    event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.movementSpeed)));
                 }
             } else {
                 double MovementSpeed;
-                if (Utils.movementSpeedWithoutBattle.containsKey(item)) MovementSpeed = Utils.movementSpeedWithoutBattle.get(item);
+                if (Utils.movementSpeedWithoutBattle.containsKey(item))
+                    MovementSpeed = Utils.movementSpeedWithoutBattle.get(item);
                 else if (item instanceof RandomCurios)
                     MovementSpeed = data.getDouble(StringUtils.CuriosAttribute.MovementSpeed) * CastleCurios.AttributeValueMap.get(StringUtils.CuriosAttribute.MovementSpeed);
                 else MovementSpeed = data.getInt(StringUtils.CuriosAttribute.MovementSpeed);
@@ -804,107 +681,10 @@ public class BasicAttributeDescription {
 
                 }
 
-
-                double GemsValue = gemsMovementSpeedUp(data);
-
-                if ((GemsValue) != 0) {
-                    mutableComponent.append(Component.literal(" + " + String.format("%.0f%%", GemsValue * 100)).
-                            withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.GREEN));
-                }
-
                 index++;
-                event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
+                event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.movementSpeed)));
             }
-        } else type++;
-        if (!Utils.attackDamage.containsKey(item) && gemsAttackDamage(data) > 0) {
-            MutableComponent mutableComponent = Component.literal("");
-            mutableComponent.append(Component.literal(" 物理攻击").withStyle(ChatFormatting.AQUA).
-                    append(Component.literal(" " + String.format("%.0f", gemsAttackDamage(data))).withStyle(ChatFormatting.WHITE)));
-            index++;
-            event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
-        } else type++;
-
-        if (!Utils.critRate.containsKey(item) && gemsCritRate(data) > 0) {
-            MutableComponent mutableComponent = Component.literal("");
-            mutableComponent.append(Component.literal(" 暴击几率").withStyle(ChatFormatting.LIGHT_PURPLE).
-                    append(Component.literal("+" + String.format("%.1f%%", gemsCritRate(data) * 100)).withStyle(ChatFormatting.WHITE)));
-            index++;
-            event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
-        } else type++;
-        if (!Utils.critDamage.containsKey(item) && gemsCritDamage(data) > 0) {
-            MutableComponent mutableComponent = Component.literal("");
-            mutableComponent.append(Component.literal(" 暴击伤害").withStyle(ChatFormatting.BLUE).
-                    append(Component.literal("+" + String.format("%.0f%%", gemsCritDamage(data) * 100)).withStyle(ChatFormatting.WHITE)));
-            index++;
-            event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
-        } else type++;
-        if (!Utils.manaDamage.containsKey(item) && gemsManaDamage(data) > 0) {
-            MutableComponent mutableComponent = Component.literal("");
-            mutableComponent.append(Component.literal(" 魔法攻击").withStyle(ChatFormatting.LIGHT_PURPLE).
-                    append(Component.literal(" " + String.format("%.0f", gemsManaDamage(data))).withStyle(ChatFormatting.WHITE)));
-            index++;
-            event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
-        } else type++;
-        if (!Utils.manaRecover.containsKey(item) && gemsManaRecover(data) > 0) {
-            MutableComponent mutableComponent = Component.literal("");
-            mutableComponent.append(Component.literal(" 法力回复").withStyle(ChatFormatting.LIGHT_PURPLE).
-                    append(Component.literal("+" + String.format("%.1f", gemsManaRecover(data))).withStyle(ChatFormatting.WHITE)));
-            index++;
-            event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
-        } else type++;
-        if (!Utils.defence.containsKey(item) && gemsDefence(data) > 0) {
-            MutableComponent mutableComponent = Component.literal("");
-            mutableComponent.append(Component.literal(" 基础护甲").withStyle(ChatFormatting.GRAY).
-                    append(Component.literal("+" + String.format("%.0f", gemsDefence(data))).withStyle(ChatFormatting.WHITE)));
-            index++;
-            event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
-        } else type++;
-        if (!Utils.maxHealth.containsKey(item) && gemsMaxHealth(data) != 0) {
-            MutableComponent mutableComponent = Component.literal("");
-            if (gemsMaxHealth(data) > 0) {
-                mutableComponent.append(Component.literal(" 最大生命值").withStyle(ChatFormatting.GREEN).
-                        append(Component.literal("+" + String.format("%.0f", gemsMaxHealth(data))).withStyle(ChatFormatting.WHITE)));
-            } else {
-                mutableComponent.append(Component.literal(" 最大生命值").withStyle(ChatFormatting.GREEN).
-                        append(Component.literal("-" + String.format("%.0f", -gemsMaxHealth(data))).withStyle(ChatFormatting.RED)));
-
-            }
-            index++;
-            event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
-        } else type++;
-        if (!Utils.healthRecover.containsKey(item) && gemsHealRecover(data) != 0) {
-            MutableComponent mutableComponent = Component.literal("");
-            if (gemsHealRecover(data) > 0) {
-                mutableComponent.append(Component.literal(" 生命回复").withStyle(ChatFormatting.GREEN).
-                        append(Component.literal("+" + String.format("%.1f", gemsHealRecover(data))).withStyle(ChatFormatting.WHITE)));
-            } else {
-                mutableComponent.append(Component.literal(" 生命回复").withStyle(ChatFormatting.GREEN).
-                        append(Component.literal("-" + String.format("%.1f", -gemsHealRecover(data))).withStyle(ChatFormatting.RED)));
-
-            }
-            index++;
-            event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
-        } else type++;
-        if (!Utils.coolDownDecrease.containsKey(item) && gemsCoolDown(data) > 0) {
-            MutableComponent mutableComponent = Component.literal("");
-            mutableComponent.append(Component.literal(" 技能急速").withStyle(ChatFormatting.AQUA).
-                    append(Component.literal(" " + String.format("%.0f", gemsCoolDown(data) * 100)).withStyle(ChatFormatting.WHITE)));
-            index++;
-            event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
-        } else type++;
-        if (!Utils.movementSpeedWithoutBattle.containsKey(item) && gemsMovementSpeedUp(data) != 0) {
-            MutableComponent mutableComponent = Component.literal("");
-            if (gemsMovementSpeedUp(data) > 0) {
-                mutableComponent.append(Component.literal(" 移动速度").withStyle(ChatFormatting.GREEN).
-                        append(Component.literal("+" + String.format("%.0f%%", gemsMovementSpeedUp(data) * 100)).withStyle(ChatFormatting.WHITE)));
-            } else {
-                mutableComponent.append(Component.literal(" 移动速度").withStyle(ChatFormatting.GREEN).
-                        append(Component.literal("-" + String.format("%.0f%%", -gemsMovementSpeedUp(data) * 100)).withStyle(ChatFormatting.RED)));
-
-            }
-            index++;
-            event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
-        } else type++;
+        }
         if (Utils.expUp.containsKey(item) || data.contains(StringUtils.CuriosAttribute.ExpUp)) {
             double ExpUp;
             if (item instanceof RandomCurios)
@@ -914,8 +694,8 @@ public class BasicAttributeDescription {
             mutableComponent.append(Component.literal(" 经验加成").withStyle(ChatFormatting.LIGHT_PURPLE).
                     append(Component.literal("+" + String.format("%.0f%%", ExpUp * 100)).withStyle(ChatFormatting.WHITE)));
             index++;
-            event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
-        } else type++;
+            event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.expUp)));
+        }
         if (Utils.swiftnessUp.containsKey(item) || data.contains(StringUtils.CuriosAttribute.SwiftnessUp)) {
             double SwiftnessUp;
             if (item instanceof RandomCurios)
@@ -925,8 +705,8 @@ public class BasicAttributeDescription {
             mutableComponent.append(Component.literal(" 迅捷加成").withStyle(CustomStyle.styleOfFlexible).
                     append(Component.literal("+" + String.format("%.1f", SwiftnessUp)).withStyle(ChatFormatting.WHITE)));
             index++;
-            event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
-        } else type++;
+            event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.swiftnessUp)));
+        }
         if (Utils.manaHealthSteal.containsKey(item) || data.contains(StringUtils.CuriosAttribute.ManaHealthSteal)) {
             double ManaHealSteal;
             if (Utils.manaHealthSteal.containsKey(item)) ManaHealSteal = Utils.manaHealthSteal.get(item);
@@ -938,17 +718,9 @@ public class BasicAttributeDescription {
             mutableComponent.append(Component.literal(" 法术吸血").withStyle(CustomStyle.styleOfBloodMana).
                     append(Component.literal("+" + String.format("%.0f‱", ManaHealSteal * 100)).withStyle(ChatFormatting.WHITE)));
             index++;
-            event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
-        } else type++;
-        if (!Utils.manaHealthSteal.containsKey(item) && gemsManaHealthSteal(data) > 0) {
-            MutableComponent mutableComponent = Component.literal("");
-            mutableComponent.append(Component.literal(" 法术吸血").withStyle(CustomStyle.styleOfBloodMana).
-                    append(Component.literal("+" + String.format("%.0f‱", gemsManaHealthSteal(data) * 100)).withStyle(ChatFormatting.WHITE)));
-            index++;
-            event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
-        } else type++;
+            event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.manaHealthSteal)));
+        }
         if (Utils.healEffectUp.containsKey(item) || data.contains(StringUtils.CuriosAttribute.HealEffectUp)) {
-
             double HealEffectUp;
             if (Utils.healEffectUp.containsKey(item)) HealEffectUp = Utils.healEffectUp.get(item);
             else if (item instanceof RandomCurios)
@@ -958,46 +730,9 @@ public class BasicAttributeDescription {
             MutableComponent mutableComponent = Component.literal("");
             mutableComponent.append(Component.literal(" 治疗强度").withStyle(CustomStyle.styleOfHealth).
                     append(Component.literal("+" + String.format("%.0f%%", HealEffectUp * 100)).withStyle(ChatFormatting.WHITE)));
-
-            double GemsValue = gemsHealEffectUp(data);
-
-            if ((GemsValue) != 0) {
-                mutableComponent.append(Component.literal(" + " + String.format("%.0f%%", GemsValue * 100)).
-                        withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.GREEN));
-            }
-
             index++;
-            event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
-        } else type++;
-        if (!Utils.healEffectUp.containsKey(item) && gemsHealEffectUp(data) > 0) {
-            MutableComponent mutableComponent = Component.literal("");
-            mutableComponent.append(Component.literal(" 治疗强度").withStyle(ChatFormatting.GREEN).
-                    append(Component.literal("+" + String.format("%.0f%%", gemsHealEffectUp(data) * 100)).withStyle(ChatFormatting.WHITE)));
-            index++;
-            event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
-        } else type++;
-        if (!Utils.defencePenetration0.containsKey(item) && gemsDefencePenetration0(data) > 0) {
-            MutableComponent mutableComponent = Component.literal("");
-            mutableComponent.append(Component.literal(" 护甲穿透").withStyle(ChatFormatting.GRAY).
-                    append(Component.literal("+" + String.format("%.0f", gemsDefencePenetration0(data))).withStyle(ChatFormatting.WHITE)));
-            index++;
-            event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
-        } else type++;
-        if (!Utils.manaPenetration0.containsKey(item) && gemsManaPenetration0(data) > 0) {
-            MutableComponent mutableComponent = Component.literal("");
-            mutableComponent.append(Component.literal(" 法术穿透").withStyle(ChatFormatting.BLUE).
-                    append(Component.literal("+" + String.format("%.0f", gemsManaPenetration0(data))).withStyle(ChatFormatting.WHITE)));
-            index++;
-            event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
-        } else type++;
-        if (!Utils.expUp.containsKey(item) && gemsExpUp(data) > 0) {
-            MutableComponent mutableComponent = Component.literal("");
-            mutableComponent.append(Component.literal(" 经验加成").withStyle(ChatFormatting.LIGHT_PURPLE).
-                    append(Component.literal("+" + String.format("%.0f%%", gemsExpUp(data) * 100)).withStyle(ChatFormatting.WHITE)));
-            index++;
-            event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
-        } else type++;
-
+            event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.healthStrength)));
+        }
         if (Utils.luckyUp.containsKey(item) || data.contains(StringUtils.CuriosAttribute.LuckyUp)) {
             double LuckyUp;
             if (Utils.luckyUp.containsKey(item)) LuckyUp = Utils.luckyUp.get(item);
@@ -1006,55 +741,9 @@ public class BasicAttributeDescription {
             MutableComponent mutableComponent = Component.literal("");
             mutableComponent.append(Component.literal(" 幸运加成").withStyle(ChatFormatting.LIGHT_PURPLE).
                     append(Component.literal(" " + String.format("%.0f%%", LuckyUp * 100)).withStyle(ChatFormatting.WHITE)));
-
-            double GemsValue = gemsLuckyUp(data);
-
-            if ((GemsValue) != 0) {
-                mutableComponent.append(Component.literal(" + " + String.format("%.0f%%", GemsValue * 100)).
-                        withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.LIGHT_PURPLE));
-            }
-
             index++;
-            event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
-        } else type++;
-
-        if (!Utils.luckyUp.containsKey(item) && gemsLuckyUp(data) > 0) {
-            MutableComponent mutableComponent = Component.literal("");
-            mutableComponent.append(Component.literal(" 幸运加成").withStyle(ChatFormatting.LIGHT_PURPLE).
-                    append(Component.literal("+" + String.format("%.0f%%", gemsLuckyUp(data) * 100)).withStyle(ChatFormatting.WHITE)));
-            index++;
-            event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
-        } else type++;
-
-        if (!Utils.defencePenetration.containsKey(item) && gemsDefencePenetration(data) > 0) {
-            MutableComponent mutableComponent = Component.literal("");
-            mutableComponent.append(Component.literal(" 护甲穿透").withStyle(ChatFormatting.GRAY).
-                    append(Component.literal("+" + String.format("%.0f%%", gemsDefencePenetration(data) * 100)).withStyle(ChatFormatting.WHITE)));
-            index++;
-            event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
-        } else type++;
-        if (!Utils.manaPenetration.containsKey(item) && gemsManaPenetration(data) > 0) {
-            MutableComponent mutableComponent = Component.literal("");
-            mutableComponent.append(Component.literal(" 魔法穿透").withStyle(ChatFormatting.BLUE).
-                    append(Component.literal("+" + String.format("%.0f%%", gemsManaPenetration(data) * 100)).withStyle(ChatFormatting.WHITE)));
-            index++;
-            event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
-        } else type++;
-        if (!Utils.healthSteal.containsKey(item) && gemsHealthSteal(data) > 0) {
-            MutableComponent mutableComponent = Component.literal("");
-            mutableComponent.append(Component.literal(" 生命偷取").withStyle(ChatFormatting.RED).
-                    append(Component.literal("+" + String.format("%.0f‱", gemsHealthSteal(data) * 100)).withStyle(ChatFormatting.WHITE)));
-            index++;
-            event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
-        } else type++;
-
-        if (!Utils.manaDefence.containsKey(item) && gemsManaDefence(data) > 0) {
-            MutableComponent mutableComponent = Component.literal("");
-            mutableComponent.append(Component.literal(" 魔法抗性").withStyle(ChatFormatting.BLUE).
-                    append(Component.literal("+" + String.format("%.0f", gemsManaDefence(data))).withStyle(ChatFormatting.WHITE)));
-            index++;
-            event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
-        } else type++;
+            event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.luckyUp)));
+        }
 
         if (Element.LifeElementValue.containsKey(item)) {
             double value = Element.LifeElementValue.get(item);
@@ -1062,8 +751,8 @@ public class BasicAttributeDescription {
             mutableComponent.append(Component.literal(" 归一化生机元素强度").withStyle(CustomStyle.styleOfLife).
                     append(Component.literal("+" + String.format("%.0f%%", value * 100)).withStyle(ChatFormatting.WHITE)));
             index++;
-            event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
-        } else type++;
+            event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.lifeElement)));
+        }
 
         if (Element.WaterElementValue.containsKey(item)) {
             double value = Element.WaterElementValue.get(item);
@@ -1071,8 +760,8 @@ public class BasicAttributeDescription {
             mutableComponent.append(Component.literal(" 归一化碧水元素强度").withStyle(CustomStyle.styleOfWater).
                     append(Component.literal("+" + String.format("%.0f%%", value * 100)).withStyle(ChatFormatting.WHITE)));
             index++;
-            event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
-        } else type++;
+            event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.waterElement)));
+        }
 
         if (Element.FireElementValue.containsKey(item)) {
             double value = Element.FireElementValue.get(item);
@@ -1080,8 +769,8 @@ public class BasicAttributeDescription {
             mutableComponent.append(Component.literal(" 归一化炽焰元素强度").withStyle(CustomStyle.styleOfFire).
                     append(Component.literal("+" + String.format("%.0f%%", value * 100)).withStyle(ChatFormatting.WHITE)));
             index++;
-            event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
-        } else type++;
+            event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.fireElement)));
+        }
 
         if (Element.StoneElementValue.containsKey(item)) {
             double value = Element.StoneElementValue.get(item);
@@ -1089,8 +778,8 @@ public class BasicAttributeDescription {
             mutableComponent.append(Component.literal(" 归一化层岩元素强度").withStyle(CustomStyle.styleOfStone).
                     append(Component.literal("+" + String.format("%.0f%%", value * 100)).withStyle(ChatFormatting.WHITE)));
             index++;
-            event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
-        } else type++;
+            event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.stoneElement)));
+        }
 
         if (Element.IceElementValue.containsKey(item)) {
             double value = Element.IceElementValue.get(item);
@@ -1098,8 +787,8 @@ public class BasicAttributeDescription {
             mutableComponent.append(Component.literal(" 归一化凛冰元素强度").withStyle(CustomStyle.styleOfIce).
                     append(Component.literal("+" + String.format("%.0f%%", value * 100)).withStyle(ChatFormatting.WHITE)));
             index++;
-            event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
-        } else type++;
+            event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.iceElement)));
+        }
 
         if (Element.LightningElementValue.containsKey(item)) {
             double value = Element.LightningElementValue.get(item);
@@ -1107,8 +796,8 @@ public class BasicAttributeDescription {
             mutableComponent.append(Component.literal(" 归一化怒雷元素强度").withStyle(CustomStyle.styleOfLightning).
                     append(Component.literal("+" + String.format("%.0f%%", value * 100)).withStyle(ChatFormatting.WHITE)));
             index++;
-            event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
-        } else type++;
+            event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.lightningElement)));
+        }
 
         if (Element.WindElementValue.containsKey(item)) {
             double value = Element.WindElementValue.get(item);
@@ -1116,8 +805,156 @@ public class BasicAttributeDescription {
             mutableComponent.append(Component.literal(" 归一化澄风元素强度").withStyle(CustomStyle.styleOfWind).
                     append(Component.literal("+" + String.format("%.0f%%", value * 100)).withStyle(ChatFormatting.WHITE)));
             index++;
-            event.getTooltipElements().add(index, Either.right(new MyClientTooltip.MyTooltip(mutableComponent, type++)));
-        } else type++;
+            event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.windElement)));
+        }
+
+        index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.attackDamage, Utils.percentAttackDamageEnhance, StringUtils.CuriosAttribute.percentAttackDamage, "物理攻击",
+                Style.EMPTY.applyFormat(ChatFormatting.AQUA), "%.0f%%", true, itemStack, event.getTooltipElements());
+
+        index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.defence, Utils.percentDefenceEnhance, StringUtils.CuriosAttribute.percentDefenceEnhance, "基础护甲",
+                Style.EMPTY.applyFormat(ChatFormatting.GRAY), "%.0f%%", true, itemStack, event.getTooltipElements());
+
+        index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.maxHealth, Utils.percentMaxHealthEnhance, StringUtils.CuriosAttribute.percentMaxHealthEnhance, "最大生命值",
+                Style.EMPTY.applyFormat(ChatFormatting.GREEN), "%.0f%%", true, itemStack, event.getTooltipElements());
+
+        index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.manaDamage, Utils.percentManaDamageEnhance, StringUtils.CuriosAttribute.percentManaDamageEnhance, "魔法攻击",
+                CustomStyle.styleOfMana, "%.0f%%", true, itemStack, event.getTooltipElements());
+
+        index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.manaDefence, Utils.percentManaDefenceEnhance, StringUtils.CuriosAttribute.percentManaDefenceEnhance, "魔法抗性",
+                Style.EMPTY.applyFormat(ChatFormatting.BLUE), "%.0f%%", true, itemStack, event.getTooltipElements());
+
+        // 以下为新版宝石内容提示
+        List<WraqGem> gemList = WraqGem.getEquipContainGemList(itemStack);
+        if (!gemList.isEmpty() || data.getInt("newSlot") > 0) {
+            index ++;
+            if (Screen.hasAltDown()) {
+                event.getTooltipElements().add(index++, Either.right(new TraditionalTooltip.MyTooltip(Component.literal("─").withStyle(ChatFormatting.WHITE).
+                        append(Component.literal("───────────────────").withStyle(ChatFormatting.LIGHT_PURPLE).
+                                append(Component.literal("─").withStyle(ChatFormatting.WHITE))), -1)));
+                event.getTooltipElements().add(index++, Either.right(new TraditionalTooltip.MyTooltip(Component.literal("γ-宝石属性:").withStyle(ChatFormatting.LIGHT_PURPLE), -1)));
+                for (WraqGem wraqGem : gemList) {
+                    event.getTooltipElements().add(index++, Either.right(new TraditionalTooltip.MyTooltip(Component.literal("「").withStyle(ChatFormatting.AQUA).
+                            append(Component.literal("◈").withStyle(wraqGem.getHoverStyle())).
+                            append(Component.literal("」").withStyle(ChatFormatting.AQUA)).
+                            append(wraqGem.getDefaultInstance().getDisplayName()), -1)));
+                    List<WraqGem.AttributeMapValue> list = wraqGem.getAttributeMapValues();
+                    for (WraqGem.AttributeMapValue attributeMapValue : list) {
+                        ToolTipParameter toolTipParameter = toolTipParameterMap.get(System.identityHashCode(attributeMapValue.attributeMap()));
+                        Component component = Component.literal(" " + toolTipParameter.attributeName).withStyle(toolTipParameter.style).
+                                append(Component.literal((attributeMapValue.value() > 0 ? "+" : "") + String.format(toolTipParameter.valueFormat,
+                                        attributeMapValue.value() * (toolTipParameter.isPercent ? 100 : 1))).
+                                        withStyle(attributeMapValue.value() > 0 ? ChatFormatting.WHITE : ChatFormatting.RED));
+                        event.getTooltipElements().add(index++, Either.right(new NewTooltip.MyNewTooltip(component, toolTipParameter.resourceLocation)));
+                    }
+                }
+                for (int i = 0 ; i < data.getInt("newSlot") ; i ++) {
+                    event.getTooltipElements().add(index++, Either.right(new TraditionalTooltip.MyTooltip(Component.literal("「").withStyle(ChatFormatting.AQUA).
+                            append(Component.literal(" ")).
+                            append(Component.literal("」").withStyle(ChatFormatting.AQUA)).
+                            append(Component.literal(" 待镶嵌").withStyle(CustomStyle.styleOfMine)), -1)));
+                }
+            } else {
+                MutableComponent component = Component.literal(" ");
+                for (WraqGem wraqGem : gemList) {
+                    component.append(Component.literal("「").withStyle(ChatFormatting.AQUA).
+                            append(Component.literal("◈").withStyle(wraqGem.getHoverStyle())).
+                            append(Component.literal("」").withStyle(ChatFormatting.AQUA)));
+                }
+                event.getTooltipElements().add(index++, Either.right(new TraditionalTooltip.MyTooltip(component, -1)));
+                event.getTooltipElements().add(index++, Either.right(new TraditionalTooltip.MyTooltip(Component.literal(" [按住ALT查看宝石属性]").withStyle(ChatFormatting.LIGHT_PURPLE), -1)));
+            }
+        }
+    }
+
+    public record ToolTipParameter(String attributeName, Style style, String valueFormat,
+                            boolean isPercent, ResourceLocation resourceLocation) {}
+
+    public static Map<Integer, ToolTipParameter> toolTipParameterMap = new HashMap<>() {{
+        put(System.identityHashCode(Utils.percentAttackDamageEnhance), new ToolTipParameter("物理攻击",
+                Style.EMPTY.applyFormat(ChatFormatting.AQUA), "%.0f%%", true, TraditionalTooltip.attackDamage));
+        put(System.identityHashCode(Utils.percentDefenceEnhance), new ToolTipParameter("基础护甲",
+                Style.EMPTY.applyFormat(ChatFormatting.GRAY), "%.0f%%", true, TraditionalTooltip.defence));
+        put(System.identityHashCode(Utils.percentManaDamageEnhance), new ToolTipParameter("魔法攻击",
+                CustomStyle.styleOfMana, "%.0f%%", true, TraditionalTooltip.manaDamage));
+        put(System.identityHashCode(Utils.percentMaxHealthEnhance), new ToolTipParameter("最大生命值",
+                Style.EMPTY.applyFormat(ChatFormatting.GREEN), "%.0f%%", true, TraditionalTooltip.maxHealth));
+        put(System.identityHashCode(Utils.percentManaDefenceEnhance), new ToolTipParameter("魔法抗性",
+                Style.EMPTY.applyFormat(ChatFormatting.BLUE), "%.0f%%", true, TraditionalTooltip.manaDefence));
+        put(System.identityHashCode(Utils.attackDamage), new ToolTipParameter("物理攻击",
+                Style.EMPTY.applyFormat(ChatFormatting.AQUA), "%.0f", false, TraditionalTooltip.attackDamage));
+        put(System.identityHashCode(Utils.movementSpeedWithoutBattle), new ToolTipParameter("脱战移动速度",
+                CustomStyle.styleOfFlexible, "%.0f%%", true, TraditionalTooltip.movementSpeed));
+        put(System.identityHashCode(Utils.movementSpeedCommon), new ToolTipParameter("移动速度",
+                CustomStyle.styleOfFlexible, "%.0f%%", true, TraditionalTooltip.movementSpeed));
+        put(System.identityHashCode(Utils.manaDamage), new ToolTipParameter("魔法攻击",
+                CustomStyle.styleOfMana, "%.0f", false, TraditionalTooltip.manaDamage));
+        put(System.identityHashCode(Utils.manaRecover), new ToolTipParameter("法力回复",
+                CustomStyle.styleOfMana, "%.0f", false, TraditionalTooltip.manaRecover));
+        put(System.identityHashCode(Utils.healthRecover), new ToolTipParameter("生命回复",
+                CustomStyle.styleOfLife, "%.0f", false, TraditionalTooltip.healthRecover));
+        put(System.identityHashCode(Utils.maxHealth), new ToolTipParameter("最大生命值",
+                Style.EMPTY.applyFormat(ChatFormatting.GREEN), "%.0f", false, TraditionalTooltip.maxHealth));
+        put(System.identityHashCode(Utils.defence), new ToolTipParameter("基础护甲",
+                Style.EMPTY.applyFormat(ChatFormatting.GRAY), "%.0f", false, TraditionalTooltip.defence));
+        put(System.identityHashCode(Utils.coolDownDecrease), new ToolTipParameter("技能急速",
+                Style.EMPTY.applyFormat(ChatFormatting.AQUA), "%.0f", true, TraditionalTooltip.releaseSpeed));
+        put(System.identityHashCode(Utils.critDamage), new ToolTipParameter("暴击伤害",
+                Style.EMPTY.applyFormat(ChatFormatting.BLUE), "%.0f%%", true, TraditionalTooltip.critDamage));
+        put(System.identityHashCode(Utils.critRate), new ToolTipParameter("暴击几率",
+                Style.EMPTY.applyFormat(ChatFormatting.LIGHT_PURPLE), "%.0f%%", true, TraditionalTooltip.critRate));
+        put(System.identityHashCode(Utils.healEffectUp), new ToolTipParameter("治疗强度",
+                CustomStyle.styleOfLife, "%.0f%%", true, TraditionalTooltip.healthStrength));
+        put(System.identityHashCode(Utils.manaHealthSteal), new ToolTipParameter("法术吸血",
+                CustomStyle.styleOfBloodMana, "%.0f%%", true, TraditionalTooltip.manaHealthSteal));
+        put(System.identityHashCode(Utils.defencePenetration0), new ToolTipParameter("护甲穿透",
+                Style.EMPTY.applyFormat(ChatFormatting.GRAY), "%.0f", false, TraditionalTooltip.defencePenetration0));
+        put(System.identityHashCode(Utils.manaPenetration0), new ToolTipParameter("法术穿透",
+                Style.EMPTY.applyFormat(ChatFormatting.BLUE), "%.0f", false, TraditionalTooltip.manaPenetration0));
+        put(System.identityHashCode(Utils.expUp), new ToolTipParameter("经验加成",
+                Style.EMPTY.applyFormat(ChatFormatting.LIGHT_PURPLE), "%.0f%%", true, TraditionalTooltip.expUp));
+        put(System.identityHashCode(Utils.defencePenetration), new ToolTipParameter("护甲穿透",
+                Style.EMPTY.applyFormat(ChatFormatting.GRAY), "%.0f%%", true, TraditionalTooltip.defencePenetration));
+        put(System.identityHashCode(Utils.manaPenetration), new ToolTipParameter("魔法穿透",
+                Style.EMPTY.applyFormat(ChatFormatting.BLUE), "%.0f%%", true, TraditionalTooltip.manaPenetration));
+        put(System.identityHashCode(Utils.healthSteal), new ToolTipParameter("生命偷取",
+                Style.EMPTY.applyFormat(ChatFormatting.RED), "%.0f%%", true, TraditionalTooltip.healthSteal));
+        put(System.identityHashCode(Utils.manaDefence), new ToolTipParameter("魔法抗性",
+                Style.EMPTY.applyFormat(ChatFormatting.BLUE), "%.0f", false, TraditionalTooltip.manaDefence));
+    }};
+
+    // 新的属性描述模板，仅需按照参数进行配置即可，但是需要注意的是，仅接受不能被强化增幅的属性。
+    public static int newAttributeCommonDescriptionTemplate(int index, ResourceLocation resourceLocation, Map<Item, Double> map,
+                                                            String curiosAttributeTag, String attributeName,
+                                                            Style style, String valueFormat, boolean isPercent,
+                                                            ItemStack itemStack,
+                                                            List<Either<FormattedText, TooltipComponent>> components) {
+        Item item = itemStack.getItem();
+        CompoundTag data = itemStack.getOrCreateTagElement(Utils.MOD_ID);
+        if (map.containsKey(item) || data.contains(curiosAttributeTag)) {
+            double value;
+
+            if (map.containsKey(item))
+                value = ForgeEquipUtils.getTraditionalEquipBaseValue(itemStack, map);
+            else if (item instanceof RandomCurios)
+                value = data.getDouble(curiosAttributeTag) * CastleCurios.AttributeValueMap.get(curiosAttributeTag);
+            else value = data.getInt(curiosAttributeTag);
+
+            MutableComponent mutableComponent = Component.literal("");
+            mutableComponent.append(Component.literal(" " + attributeName).withStyle(style).
+                    append(Component.literal((value > 0 ? "+" : "") + String.format(valueFormat, value * (isPercent ? 100 : 1)))
+                            .withStyle(value > 0 ? ChatFormatting.WHITE : ChatFormatting.RED)));
+
+            double gemsValue = GemAttributes.getGemsAttributeModifier(data, map);
+
+            if (gemsValue != 0) {
+                mutableComponent.append(Component.literal(" + " + String.format(valueFormat, gemsValue * (isPercent ? 100 : 1))).withStyle(style));
+            }
+
+            index++;
+            components.add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, resourceLocation)));
+        }
+
+        return index;
     }
 
     public static void BasicAttributeCommonDescription(List<Component> components, ItemStack itemStack) {
@@ -1127,307 +964,5 @@ public class BasicAttributeDescription {
                     append(Component.literal("θ-锻造品质: ").withStyle(CustomStyle.styleOfGold)).
                     append(ForgeEquipUtils.description.get(forgeQuality)));
         }
-/*        CompoundTag data0 = itemStack.getOrCreateTagElement(Utils.MOD_ID);
-        Item item = itemStack.getItem();
-        if (itemStack.getItem() instanceof PurpleArmor && !data0.contains(StringUtils.RandomAttribute.AttackDamage)) {
-            components.add(Compute.AttributeDescription.AttackDamage("50 - 70"));
-            components.add(Compute.AttributeDescription.ManaDamage("75 - 95"));
-            components.add(Compute.AttributeDescription.Defence("50 - 100"));
-            components.add(Compute.AttributeDescription.MaxHealth("400 - 800"));
-        }
-        if (itemStack.getItem() instanceof IceArmor && !data0.contains(StringUtils.RandomAttribute.AttackDamage)) {
-            components.add(Compute.AttributeDescription.AttackDamage("100 - 140"));
-            components.add(Compute.AttributeDescription.ManaDamage("150 - 190"));
-            components.add(Compute.AttributeDescription.Defence("100 - 200"));
-            components.add(Compute.AttributeDescription.MaxHealth("800 - 1600"));
-        }
-
-        if (Utils.BaseDamage.containsKey(item) || data0.contains(StringUtils.RandomAttribute.AttackDamage)) {
-            double BaseDamage;
-            if (Utils.BaseDamage.containsKey(item)) BaseDamage = Utils.BaseDamage.get(item);
-            else BaseDamage = data0.getInt(StringUtils.RandomAttribute.AttackDamage);
-
-            MutableComponent mutableComponent = Component.literal("");
-            mutableComponent.append(Component.literal(Utils.Emoji.Sword + " 基础攻击").withStyle(ChatFormatting.AQUA).
-                    append(Component.literal(" "+String.format("%.0f",BaseDamage)).withStyle(ChatFormatting.WHITE)));
-
-
-            double ExDamageForging = 0;
-            if (data.contains("Forging")) ExDamageForging = ForgingValue(data.getInt("Forging"),BaseDamage);
-            double ExDamageProficiency = 0;
-            if (data.contains("KillCount")) ExDamageProficiency = BaseDamage * 0.5 * Math.min(1,(data.getInt("KillCount") / 100000.0));
-            ChatFormatting[] chatFormattings = {
-                    ChatFormatting.GREEN,
-                    ChatFormatting.AQUA,
-                    ChatFormatting.YELLOW,
-                    ChatFormatting.LIGHT_PURPLE,
-                    ChatFormatting.RED
-            };
-
-            double GemsValue = ItemBaseDamageGems(data);
-
-            if (ExDamageProficiency != 0) {
-                mutableComponent.append(Component.literal(" + " + String.format("%.0f", ExDamageProficiency)).
-                        withStyle(ChatFormatting.RESET).withStyle(chatFormattings[Math.min(data.getInt("KillCount") / 20000,4)]));
-            }
-
-            if ((ExDamageForging + GemsValue) != 0) {
-                mutableComponent.append(Component.literal(" + " + String.format("%.0f", ExDamageForging + GemsValue)).
-                        withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.YELLOW));
-            }
-
-            components.add(mutableComponent);
-        }
-
-        if (Utils.ManaDamage.containsKey(item) || data0.contains(StringUtils.RandomAttribute.ManaDamage)) {
-            double BaseDamage;
-            if (Utils.ManaDamage.containsKey(item)) BaseDamage = Utils.ManaDamage.get(item);
-            else BaseDamage = data0.getInt(StringUtils.RandomAttribute.ManaDamage);
-
-            MutableComponent mutableComponent = Component.literal("");
-            mutableComponent.append(Component.literal(Utils.Emoji.Mana + " 法术攻击").withStyle(ChatFormatting.LIGHT_PURPLE).
-                    append(Component.literal(" "+String.format("%.0f",BaseDamage)).withStyle(ChatFormatting.WHITE)));
-
-
-            double ExDamageForging = 0;
-            if (data.contains("Forging")) ExDamageForging = ForgingValue(data.getInt("Forging"),BaseDamage);
-            double ExDamageProficiency = 0;
-            if (data.contains("KillCount")) ExDamageProficiency = BaseDamage * 0.5 * Math.min(1,(data.getInt("KillCount") / 100000.0));
-            ChatFormatting[] chatFormattings = {
-                    ChatFormatting.GREEN,
-                    ChatFormatting.AQUA,
-                    ChatFormatting.YELLOW,
-                    ChatFormatting.LIGHT_PURPLE,
-                    ChatFormatting.RED
-            };
-
-            double GemsValue = ItemManaDamageGems(data);
-
-            if (ExDamageProficiency != 0) {
-                mutableComponent.append(Component.literal(" + " + String.format("%.0f", ExDamageProficiency)).
-                        withStyle(ChatFormatting.RESET).withStyle(chatFormattings[Math.min(data.getInt("KillCount") / 20000,4)]));
-            }
-
-            if ((ExDamageForging + GemsValue) != 0) {
-                mutableComponent.append(Component.literal(" + " + String.format("%.0f", ExDamageForging + GemsValue)).
-                        withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.LIGHT_PURPLE));
-            }
-
-            components.add(mutableComponent);
-        }
-
-        if (Utils.Defence.containsKey(item) || data0.contains(StringUtils.RandomAttribute.Defence)) {
-            double Defence;
-            if (Utils.Defence.containsKey(item)) Defence = Utils.Defence.get(item);
-            else Defence = data0.getInt(StringUtils.RandomAttribute.Defence);
-
-            MutableComponent mutableComponent = Component.literal("");
-            mutableComponent.append(Component.literal(Utils.Emoji.Defence + " 基础护甲").withStyle(ChatFormatting.GRAY).
-                    append(Component.literal("+"+String.format("%.0f",Defence)).withStyle(ChatFormatting.WHITE)));
-
-
-            double ExDamageForging = 0;
-            if (data.contains("Forging")) ExDamageForging = ForgingValue(data.getInt("Forging"),Defence);
-
-            double GemsValue = ItemDefenceGems(data);
-
-            if ((ExDamageForging + GemsValue) != 0) {
-                mutableComponent.append(Component.literal(" + " + String.format("%.0f", ExDamageForging + GemsValue)).
-                        withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.GRAY));
-            }
-
-            components.add(mutableComponent);
-        }
-
-        if (Utils.MaxHealth.containsKey(item) || data0.contains(StringUtils.RandomAttribute.MaxHealth)) {
-            double MaxHealth;
-            if (Utils.MaxHealth.containsKey(item)) MaxHealth = Utils.MaxHealth.get(item);
-            else MaxHealth = data0.getInt(StringUtils.RandomAttribute.MaxHealth);
-
-            MutableComponent mutableComponent = Component.literal("");
-            mutableComponent.append(Component.literal(Utils.Emoji.Health + " 最大生命值").withStyle(ChatFormatting.GREEN).
-                    append(Component.literal("+"+String.format("%.0f",MaxHealth)).withStyle(ChatFormatting.WHITE)));
-
-
-
-            double ExHealth = 0;
-            if (data.contains("Forging")) ExHealth = ForgingValue(data.getInt("Forging"),MaxHealth);
-
-            double GemsValue = ItemMaxHealthGems(data);
-
-            if ((ExHealth + GemsValue) != 0) {
-                mutableComponent.append(Component.literal(" + " + String.format("%.0f", ExHealth + GemsValue)).
-                        withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.GREEN));
-            }
-            components.add(mutableComponent);
-        }
-
-        if (Utils.HealthRecover.containsKey(item)) {
-            double HealthReplay = Utils.HealthRecover.get(item);
-            MutableComponent mutableComponent = Component.literal("");
-            mutableComponent.append(Component.literal(Utils.Emoji.HealthRecover + " 生命回复").withStyle(ChatFormatting.GREEN).
-                    append(Component.literal("+"+String.format("%.1f",HealthReplay)).withStyle(ChatFormatting.WHITE)));
-
-
-
-            double GemsValue = ItemHealReplyGems(data);
-
-            if ((GemsValue) != 0) {
-                mutableComponent.append(Component.literal(" + " + String.format("%.1f", GemsValue)).
-                        withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.GREEN));
-            }
-            components.add(mutableComponent);
-        }
-
-        if (Utils.DefencePenetration.containsKey(item)) {
-            EmojiDescriptionDefencePenetration(components,Utils.DefencePenetration.get(item));
-        }
-
-        if (Utils.DefencePenetration0.containsKey(item)) {
-            EmojiDescriptionDefencePenetration0(components,Utils.DefencePenetration0.get(item));
-        }
-
-        if (Utils.CriticalHitRate.containsKey(item)) {
-            double CriticalHitRate = Utils.CriticalHitRate.get(item);
-            MutableComponent mutableComponent = Component.literal("");
-            mutableComponent.append(Component.literal(Utils.Emoji.CritRate + " 暴击几率").withStyle(ChatFormatting.LIGHT_PURPLE).
-                    append(Component.literal("+"+String.format("%.1f%%",CriticalHitRate * 100)).withStyle(ChatFormatting.WHITE)));
-
-
-
-            double GemsValue = ItemCritRateGems(data);
-
-            if ((GemsValue) != 0) {
-                mutableComponent.append(Component.literal(" + " + String.format("%.1f%%", GemsValue * 100)).
-                        withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.LIGHT_PURPLE));
-            }
-
-            components.add(mutableComponent);
-        }
-
-        if (Utils.CritDamage.containsKey(item)) {
-            double CritDamage = Utils.CritDamage.get(item);
-            MutableComponent mutableComponent = Component.literal("");
-            mutableComponent.append(Component.literal(Utils.Emoji.CritDamage + " 暴击伤害").withStyle(ChatFormatting.BLUE).
-                    append(Component.literal("+"+String.format("%.0f%%",CritDamage * 100)).withStyle(ChatFormatting.WHITE)));
-
-
-
-            double GemsValue = ItemCritDamageGems(data);
-            if ((GemsValue) != 0) {
-                mutableComponent.append(Component.literal(" + " + String.format("%.0f%%", GemsValue * 100)).
-                        withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.BLUE));
-            }
-
-            components.add(mutableComponent);
-        }
-
-        if (Utils.HealSteal.containsKey(item)) {
-            EmojiDescriptionHealSteal(components,Utils.HealSteal.get(item));
-        }
-
-        if (Utils.ManaCost.containsKey(item)) {
-            ManaCostDescription(components,Utils.ManaCost.get(item));
-        }
-
-        if (Utils.MaxMana.containsKey(item)) {
-            EmojiDescriptionMaxMana(components,Utils.MaxMana.get(item));
-        }
-
-        if (Utils.ManaDefencePenetration.containsKey(item)) {
-            EmojiDescriptionManaPenetration(components,Utils.ManaDefencePenetration.get(item));
-        }
-
-        if (Utils.ManaDefencePenetration0.containsKey(item)) {
-            EmojiDescriptionManaPenetration0(components,Utils.ManaDefencePenetration0.get(item));
-        }
-
-        if (Utils.ManaRecover.containsKey(item)) {
-            double ManaRecover = Utils.ManaRecover.get(item);
-            MutableComponent mutableComponent = Component.literal("");
-            mutableComponent.append(Component.literal(Utils.Emoji.ManaRecover + " 法力回复").withStyle(ChatFormatting.LIGHT_PURPLE).
-                    append(Component.literal("+"+String.format("%.0f",ManaRecover)).withStyle(ChatFormatting.WHITE)));
-
-
-
-            double GemsValue = ItemManaRecoverGems(data);
-
-            if ((GemsValue) != 0) {
-                mutableComponent.append(Component.literal(" + " + String.format("%.0f", GemsValue)).
-                        withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.LIGHT_PURPLE));
-            }
-
-            components.add(mutableComponent);
-        }
-
-        if (Utils.CoolDownDecrease.containsKey(item)) {
-            double CoolDown = Utils.CoolDownDecrease.get(item);
-            MutableComponent mutableComponent = Component.literal("");
-            mutableComponent.append(Component.literal(Utils.Emoji.Sword + " 冷却缩减").withStyle(ChatFormatting.AQUA).
-                    append(Component.literal(" "+String.format("%.1f%%",CoolDown * 100)).withStyle(ChatFormatting.WHITE)));
-
-
-
-            double GemsValue = ItemCoolDownGems(data);
-
-            if ((GemsValue) != 0) {
-                mutableComponent.append(Component.literal(" + " + String.format("%.1f%%", GemsValue * 100)).
-                        withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.AQUA));
-            }
-
-            components.add(mutableComponent);
-        }
-
-        if (Utils.MovementSpeed.containsKey(item)) {
-            double MovementSpeed = Utils.MovementSpeed.get(item);
-            MutableComponent mutableComponent = Component.literal("");
-            mutableComponent.append(Component.literal(Utils.Emoji.Speed + " 移动速度").withStyle(ChatFormatting.GREEN).
-                    append(Component.literal("+"+String.format("%.0f%%",MovementSpeed * 100)).withStyle(ChatFormatting.WHITE)));
-
-
-
-            double GemsValue = ItemMovementSpeedUpGems(data);
-
-            if ((GemsValue) != 0) {
-                mutableComponent.append(Component.literal(" + " + String.format("%.0f%%", GemsValue * 100)).
-                        withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.GREEN));
-            }
-
-            components.add(mutableComponent);
-        }
-
-
-        if (!Utils.BaseDamage.containsKey(item) && ItemBaseDamageGems(data) > 0) {
-            EmojiDescriptionBaseAttackDamage(components,ItemBaseDamageGems(data));
-        }
-        if (!Utils.CriticalHitRate.containsKey(item) && ItemCritRateGems(data) > 0) {
-            EmojiDescriptionCritRate(components,ItemCritRateGems(data));
-        }
-        if (!Utils.CritDamage.containsKey(item) && ItemCritDamageGems(data) > 0) {
-            EmojiDescriptionCritDamage(components,ItemCritDamageGems(data));
-        }
-        if (!Utils.ManaDamage.containsKey(item) && ItemManaDamageGems(data) > 0) {
-            EmojiDescriptionManaAttackDamage(components,ItemManaDamageGems(data));
-        }
-        if (!Utils.ManaRecover.containsKey(item) && ItemManaRecoverGems(data) > 0) {
-            EmojiDescriptionManaRecover(components,ItemManaRecoverGems(data));
-        }
-        if (!Utils.Defence.containsKey(item) && ItemDefenceGems(data) > 0) {
-            EmojiDescriptionDefence(components,ItemDefenceGems(data));
-        }
-        if (!Utils.MaxHealth.containsKey(item) && ItemMaxHealthGems(data) > 0) {
-            EmojiDescriptionMaxHealth(components,ItemMaxHealthGems(data));
-        }
-        if (!Utils.HealthRecover.containsKey(item) && ItemHealReplyGems(data) > 0) {
-            EmojiDescriptionHealthRecover(components,ItemHealReplyGems(data));
-        }
-        if (!Utils.CoolDownDecrease.containsKey(item) && ItemCoolDownGems(data) > 0) {
-            EmojiDescriptionCoolDown(components,ItemCoolDownGems(data));
-        }
-        if (!Utils.MovementSpeed.containsKey(item) && ItemMovementSpeedUpGems(data) > 0) {
-            EmojiDescriptionMovementSpeed(components,ItemMovementSpeedUpGems(data));
-        }*/
-
     }
-
 }

@@ -18,6 +18,7 @@ import com.very.wraq.process.system.tower.TowerMob;
 import com.very.wraq.projectiles.OnCuriosSlotAttributesModify;
 import com.very.wraq.projectiles.WraqCurios;
 import com.very.wraq.render.mobEffects.ModEffects;
+import com.very.wraq.series.gems.GemAttributes;
 import com.very.wraq.series.instance.Castle.CastleAttackArmor;
 import com.very.wraq.series.instance.Castle.CastleManaArmor;
 import com.very.wraq.series.instance.Castle.CastleSwiftArmor;
@@ -117,17 +118,17 @@ public class PlayerAttributes {
         if (Utils.offHandTag.containsKey(offhand) && Utils.attackDamage.containsKey(offhand))
             baseAttackDamage += ForgeEquipUtils.getTraditionalEquipBaseValue(player.getOffhandItem(), Utils.attackDamage);
         if (Utils.mainHandTag.containsKey(mainhand) && Utils.attackDamage.containsKey(mainhand) && mainHandItemTag.contains("Forging"))
-            baseAttackDamage += Compute.ForgingValue(mainHandItemTag, ForgeEquipUtils.getTraditionalEquipBaseValue(player.getMainHandItem(), Utils.attackDamage));
+            baseAttackDamage += Compute.forgingValue(mainHandItemTag, ForgeEquipUtils.getTraditionalEquipBaseValue(player.getMainHandItem(), Utils.attackDamage));
 
         // Fixed:防具攻击强化失效
         if (Utils.armorTag.containsKey(helmet) && Utils.attackDamage.containsKey(helmet) && helmetTag.contains("Forging"))
-            baseAttackDamage += Compute.ForgingValue(helmetTag, ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.HEAD), Utils.attackDamage));
+            baseAttackDamage += Compute.forgingValue(helmetTag, ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.HEAD), Utils.attackDamage));
         if (Utils.armorTag.containsKey(chest) && Utils.attackDamage.containsKey(chest) && chestTag.contains("Forging"))
-            baseAttackDamage += Compute.ForgingValue(chestTag, ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.CHEST), Utils.attackDamage));
+            baseAttackDamage += Compute.forgingValue(chestTag, ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.CHEST), Utils.attackDamage));
         if (Utils.armorTag.containsKey(leggings) && Utils.attackDamage.containsKey(leggings) && leggingsTag.contains("Forging"))
-            baseAttackDamage += Compute.ForgingValue(leggingsTag, ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.LEGS), Utils.attackDamage));
+            baseAttackDamage += Compute.forgingValue(leggingsTag, ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.LEGS), Utils.attackDamage));
         if (Utils.armorTag.containsKey(boots) && Utils.attackDamage.containsKey(boots) && bootsTag.contains("Forging"))
-            baseAttackDamage += Compute.ForgingValue(bootsTag, ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.FEET), Utils.attackDamage));
+            baseAttackDamage += Compute.forgingValue(bootsTag, ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.FEET), Utils.attackDamage));
 
         if (Utils.mainHandTag.containsKey(mainhand) && (Utils.attackDamage.containsKey(mainhand) || mainHandItemTag.contains(StringUtils.RandomAttribute.attackDamage)) && mainHandItemTag.contains(StringUtils.KillCount.KillCount)) {
             int killCount = mainHandItemTag.getInt(StringUtils.KillCount.KillCount);
@@ -135,11 +136,11 @@ public class PlayerAttributes {
             baseAttackDamage += ForgeEquipUtils.getTraditionalEquipBaseValue(player.getMainHandItem(), Utils.attackDamage) * 0.5 * (killCount / 100000.0);
             baseAttackDamage += ForgeEquipUtils.getRandomEquipBaseValue(player.getMainHandItem(), StringUtils.RandomAttribute.attackDamage) * 0.5 * (killCount / 100000.0);
         }
-        if (helmetTag.contains("newGems1")) exDamage += Compute.gemsAttackDamage(helmetTag);
-        if (chestTag.contains("newGems1")) exDamage += Compute.gemsAttackDamage(chestTag);
-        if (leggingsTag.contains("newGems1")) exDamage += Compute.gemsAttackDamage(leggingsTag);
-        if (bootsTag.contains("newGems1")) exDamage += Compute.gemsAttackDamage(bootsTag);
-        if (stackmainhandtag.contains("newGems1") && Utils.mainHandTag.containsKey(mainhand)) exDamage += Compute.gemsAttackDamage(stackmainhandtag);
+        if (helmetTag.contains("newGems1")) exDamage += GemAttributes.gemsAttackDamage(helmetTag);
+        if (chestTag.contains("newGems1")) exDamage += GemAttributes.gemsAttackDamage(chestTag);
+        if (leggingsTag.contains("newGems1")) exDamage += GemAttributes.gemsAttackDamage(leggingsTag);
+        if (bootsTag.contains("newGems1")) exDamage += GemAttributes.gemsAttackDamage(bootsTag);
+        if (stackmainhandtag.contains("newGems1") && Utils.mainHandTag.containsKey(mainhand)) exDamage += GemAttributes.gemsAttackDamage(stackmainhandtag);
         if (Compute.ArmorCount.Volcano(player) >= 2) exDamage += baseAttackDamage * 0.15F;
         if (Compute.ArmorCount.ObsiMana(player) >= 4) exDamage += baseAttackDamage * 0.15F;
         if (data.contains("Sword")) exDamage += baseAttackDamage * (data.getInt("Sword") / 1000000.0d);
@@ -290,15 +291,16 @@ public class PlayerAttributes {
         exDamage += OnCuriosSlotAttributesModify.getAttributes(player, OnCuriosSlotAttributesModify.exAttackDamage);
         // 请在上方添加
 
-        double TotalAttackDamage = baseAttackDamage + exDamage;
+        double totalAttackDamage = baseAttackDamage + exDamage;
 
-        TotalAttackDamage *= (1 + MoonShield.damageEnhance(player));
-        TotalAttackDamage *= (1 + MoonKnife.damageEnhance(player));
-        TotalAttackDamage *= Compute.playerFantasyAttributeEnhance(player);
-        TotalAttackDamage *= AttackCurios1.playerAttackDamageEnhance(player);
+        totalAttackDamage *= (1 + MoonShield.damageEnhance(player));
+        totalAttackDamage *= (1 + MoonKnife.damageEnhance(player));
+        totalAttackDamage *= Compute.playerFantasyAttributeEnhance(player);
+        totalAttackDamage *= AttackCurios1.playerAttackDamageEnhance(player);
+        totalAttackDamage *= (1 + GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.percentAttackDamageEnhance));
         if (data.contains("NetherRecallBuff") && data.getInt("NetherRecallBuff") > 0)
-            return TotalAttackDamage * 0.5f;
-        return TotalAttackDamage;
+            return totalAttackDamage * 0.5f;
+        return totalAttackDamage;
     }
 
     public static double critRate(Player player) {
@@ -327,12 +329,12 @@ public class PlayerAttributes {
 
         critRate += handleAllEquipRandomAttribute(player, StringUtils.RandomAttribute.critRate);
 
-        if (helmetTag.contains("newGems1")) critRate += Compute.gemsCritRate(helmetTag);
-        if (chestTag.contains("newGems1")) critRate += Compute.gemsCritRate(chestTag);
-        if (leggingsTag.contains("newGems1")) critRate += Compute.gemsCritRate(leggingsTag);
-        if (bootsTag.contains("newGems1")) critRate += Compute.gemsCritRate(bootsTag);
+        if (helmetTag.contains("newGems1")) critRate += GemAttributes.gemsCritRate(helmetTag);
+        if (chestTag.contains("newGems1")) critRate += GemAttributes.gemsCritRate(chestTag);
+        if (leggingsTag.contains("newGems1")) critRate += GemAttributes.gemsCritRate(leggingsTag);
+        if (bootsTag.contains("newGems1")) critRate += GemAttributes.gemsCritRate(bootsTag);
         if (stackmainhandtag.contains("newGems1") && Utils.mainHandTag.containsKey(mainhand))
-            critRate += Compute.gemsCritRate(stackmainhandtag);
+            critRate += GemAttributes.gemsCritRate(stackmainhandtag);
         if (Utils.mainHandTag.containsKey(mainhand) && stackmainhandtag.contains("criticalrate"))
             critRate += stackmainhandtag.getDouble("criticalrate");
 
@@ -402,12 +404,12 @@ public class PlayerAttributes {
 
         critDamage += handleAllEquipRandomAttribute(player, StringUtils.RandomAttribute.critDamage);
 
-        if (helmetTag.contains("newGems1")) critDamage += Compute.gemsCritDamage(helmetTag);
-        if (chestTag.contains("newGems1")) critDamage += Compute.gemsCritDamage(chestTag);
-        if (leggingsTag.contains("newGems1")) critDamage += Compute.gemsCritDamage(leggingsTag);
-        if (bootsTag.contains("newGems1")) critDamage += Compute.gemsCritDamage(bootsTag);
+        if (helmetTag.contains("newGems1")) critDamage += GemAttributes.gemsCritDamage(helmetTag);
+        if (chestTag.contains("newGems1")) critDamage += GemAttributes.gemsCritDamage(chestTag);
+        if (leggingsTag.contains("newGems1")) critDamage += GemAttributes.gemsCritDamage(leggingsTag);
+        if (bootsTag.contains("newGems1")) critDamage += GemAttributes.gemsCritDamage(bootsTag);
         if (stackmainhandtag.contains("newGems1") && Utils.mainHandTag.containsKey(mainhand))
-            critDamage += Compute.gemsCritDamage(stackmainhandtag);
+            critDamage += GemAttributes.gemsCritDamage(stackmainhandtag);
         if (Utils.mainHandTag.containsKey(mainhand) && stackmainhandtag.contains("criticaldamage"))
             critDamage += stackmainhandtag.getDouble("criticaldamage");
         if (Utils.critDamage.containsKey(boots)) critDamage += Utils.critDamage.get(boots);
@@ -540,7 +542,6 @@ public class PlayerAttributes {
         if (Compute.ArmorCount.Lake(player) >= 4) movementSpeedUp += 0.35;
         if (Compute.ArmorCount.Mine(player) >= 4) movementSpeedUp -= 0.5;
 
-
         if (player.getEffect(ModEffects.SPEEDUP.get()) != null && player.getEffect(ModEffects.SPEEDUP.get()).getAmplifier() == 0)
             movementSpeedUp += 0.3;
         if (player.getEffect(ModEffects.SPEEDUP.get()) != null && player.getEffect(ModEffects.SPEEDUP.get()).getAmplifier() == 1)
@@ -581,6 +582,8 @@ public class PlayerAttributes {
 
         movementSpeedUp += Compute.CuriosAttribute.attributeValue(player, Utils.movementSpeedCommon,
                 StringUtils.CuriosAttribute.commonMovementSpeed); // 新版饰品属性加成
+
+        movementSpeedUp += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.movementSpeedCommon);
 
         // 上方添加
 
@@ -632,12 +635,12 @@ public class PlayerAttributes {
 
         speedUp += handleAllEquipRandomAttribute(player, StringUtils.RandomAttribute.movementSpeed);
 
-        if (helmetTag.contains("newGems1")) speedUp += Compute.gemsMovementSpeedUp(helmetTag);
-        if (chestTag.contains("newGems1")) speedUp += Compute.gemsMovementSpeedUp(chestTag);
-        if (leggingsTag.contains("newGems1")) speedUp += Compute.gemsMovementSpeedUp(leggingsTag);
-        if (bootsTag.contains("newGems1")) speedUp += Compute.gemsMovementSpeedUp(bootsTag);
+        if (helmetTag.contains("newGems1")) speedUp += GemAttributes.gemsMovementSpeedUp(helmetTag);
+        if (chestTag.contains("newGems1")) speedUp += GemAttributes.gemsMovementSpeedUp(chestTag);
+        if (leggingsTag.contains("newGems1")) speedUp += GemAttributes.gemsMovementSpeedUp(leggingsTag);
+        if (bootsTag.contains("newGems1")) speedUp += GemAttributes.gemsMovementSpeedUp(bootsTag);
         if (stackmainhandtag.contains("newGems1") && Utils.mainHandTag.containsKey(mainhand))
-            speedUp += Compute.gemsMovementSpeedUp(stackmainhandtag);
+            speedUp += GemAttributes.gemsMovementSpeedUp(stackmainhandtag);
 
         if (data.contains("GemSSpeed")) speedUp += data.getDouble("GemSSpeed");
         if (mainhand.equals(ModItems.GoldSword0.get())) speedUp += data.getDouble("VB") / 1000000.0;
@@ -717,12 +720,12 @@ public class PlayerAttributes {
         CompoundTag chestTag = player.getItemBySlot(EquipmentSlot.CHEST).getOrCreateTagElement(Utils.MOD_ID);
         CompoundTag leggingsTag = player.getItemBySlot(EquipmentSlot.LEGS).getOrCreateTagElement(Utils.MOD_ID);
         CompoundTag bootsTag = player.getItemBySlot(EquipmentSlot.FEET).getOrCreateTagElement(Utils.MOD_ID);
-        if (helmetTag.contains("newGems1")) expUp += Compute.gemsExpUp(helmetTag);
-        if (chestTag.contains("newGems1")) expUp += Compute.gemsExpUp(chestTag);
-        if (leggingsTag.contains("newGems1")) expUp += Compute.gemsExpUp(leggingsTag);
-        if (bootsTag.contains("newGems1")) expUp += Compute.gemsExpUp(bootsTag);
+        if (helmetTag.contains("newGems1")) expUp += GemAttributes.gemsExpUp(helmetTag);
+        if (chestTag.contains("newGems1")) expUp += GemAttributes.gemsExpUp(chestTag);
+        if (leggingsTag.contains("newGems1")) expUp += GemAttributes.gemsExpUp(leggingsTag);
+        if (bootsTag.contains("newGems1")) expUp += GemAttributes.gemsExpUp(bootsTag);
         if (stackmainhandtag.contains("newGems1") && Utils.mainHandTag.containsKey(mainhand))
-            expUp += Compute.gemsExpUp(stackmainhandtag);
+            expUp += GemAttributes.gemsExpUp(stackmainhandtag);
 
         expUp += Compute.CuriosAttribute.attributeValue(player, Utils.expUp, StringUtils.CuriosAttribute.ExpUp); // 新版饰品属性加成
 
@@ -772,23 +775,23 @@ public class PlayerAttributes {
 
         baseDefence += handleAllEquipRandomAttribute(player, StringUtils.RandomAttribute.defence);
 
-        if (helmetTag.contains("newGems1")) exDefence += Compute.gemsDefence(helmetTag);
-        if (chestTag.contains("newGems1")) exDefence += Compute.gemsDefence(chestTag);
-        if (leggingsTag.contains("newGems1")) exDefence += Compute.gemsDefence(leggingsTag);
-        if (bootsTag.contains("newGems1")) exDefence += Compute.gemsDefence(bootsTag);
-        if (stackmainhandtag.contains("newGems1")) exDefence += Compute.gemsDefence(stackmainhandtag);
+        if (helmetTag.contains("newGems1")) exDefence += GemAttributes.gemsDefence(helmetTag);
+        if (chestTag.contains("newGems1")) exDefence += GemAttributes.gemsDefence(chestTag);
+        if (leggingsTag.contains("newGems1")) exDefence += GemAttributes.gemsDefence(leggingsTag);
+        if (bootsTag.contains("newGems1")) exDefence += GemAttributes.gemsDefence(bootsTag);
+        if (stackmainhandtag.contains("newGems1")) exDefence += GemAttributes.gemsDefence(stackmainhandtag);
         if (Utils.mainHandTag.containsKey(mainhand) && Utils.defence.containsKey(mainhand))
             exDefence += Utils.defence.get(mainhand);
         if (Utils.offHandTag.containsKey(offhand) && Utils.defence.containsKey(offhand))
             baseDefence += Utils.defence.get(offhand);
         if (Utils.defence.containsKey(helmet) && helmetTag.contains("Forging"))
-            baseDefence += Compute.ForgingValue(helmetTag, ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.HEAD), Utils.defence));
+            baseDefence += Compute.forgingValue(helmetTag, ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.HEAD), Utils.defence));
         if (Utils.defence.containsKey(chest) && chestTag.contains("Forging"))
-            baseDefence += Compute.ForgingValue(chestTag, ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.CHEST), Utils.defence));
+            baseDefence += Compute.forgingValue(chestTag, ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.CHEST), Utils.defence));
         if (Utils.defence.containsKey(leggings) && leggingsTag.contains("Forging"))
-            baseDefence += Compute.ForgingValue(leggingsTag, ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.LEGS), Utils.defence));
+            baseDefence += Compute.forgingValue(leggingsTag, ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.LEGS), Utils.defence));
         if (Utils.defence.containsKey(boots) && bootsTag.contains("Forging"))
-            baseDefence += Compute.ForgingValue(bootsTag, ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.FEET), Utils.defence));
+            baseDefence += Compute.forgingValue(bootsTag, ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.FEET), Utils.defence));
 
         if (Compute.ArmorCount.Forest(player) >= 2) exDefence += baseDefence * 0.25;
         if (Compute.ArmorCount.LifeMana(player) >= 4) exDefence += baseDefence * 0.25;
@@ -867,7 +870,7 @@ public class PlayerAttributes {
         totalDefence *= (1 + EarthPower.PlayerDefenceEnhance(player));
         totalDefence *= Compute.playerFantasyAttributeEnhance(player);
         totalDefence *= MineShield.defenceEnhance(player);
-
+        totalDefence *= (1 + GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.percentDefenceEnhance));
         if (data.contains("ManaRune") && data.getInt("ManaRune") == 3) return (baseDefence + exDefence) * 0.5f;
 
         if (totalDefence < 0) return 0;
@@ -910,12 +913,12 @@ public class PlayerAttributes {
         }
         if (data.getInt(StringUtils.MineMonsterEffect) >= TickCount) HealEffectUp -= 0.8;
 
-        if (helmetTag.contains("newGems1")) HealEffectUp += Compute.gemsHealEffectUp(helmetTag);
-        if (chestTag.contains("newGems1")) HealEffectUp += Compute.gemsHealEffectUp(chestTag);
-        if (leggingsTag.contains("newGems1")) HealEffectUp += Compute.gemsHealEffectUp(leggingsTag);
-        if (bootsTag.contains("newGems1")) HealEffectUp += Compute.gemsHealEffectUp(bootsTag);
+        if (helmetTag.contains("newGems1")) HealEffectUp += GemAttributes.gemsHealEffectUp(helmetTag);
+        if (chestTag.contains("newGems1")) HealEffectUp += GemAttributes.gemsHealEffectUp(chestTag);
+        if (leggingsTag.contains("newGems1")) HealEffectUp += GemAttributes.gemsHealEffectUp(leggingsTag);
+        if (bootsTag.contains("newGems1")) HealEffectUp += GemAttributes.gemsHealEffectUp(bootsTag);
         if (stackmainhandtag.contains("newGems1") && Utils.mainHandTag.containsKey(mainhand))
-            HealEffectUp += Compute.gemsHealEffectUp(stackmainhandtag);
+            HealEffectUp += GemAttributes.gemsHealEffectUp(stackmainhandtag);
 
         HealEffectUp += Compute.CuriosAttribute.attributeValue(player, Utils.healEffectUp, StringUtils.CuriosAttribute.HealEffectUp); // 新版饰品属性加成
         return HealEffectUp;
@@ -1025,12 +1028,12 @@ public class PlayerAttributes {
         if (player.getItemInHand(InteractionHand.MAIN_HAND).getTagElement(Utils.MOD_ID) != null) {
             stackmainhandtag = player.getItemInHand(InteractionHand.MAIN_HAND).getOrCreateTagElement(Utils.MOD_ID);
         }
-        if (helmetTag.contains("newGems1")) releaseSpeed += Compute.gemsCoolDown(helmetTag);
-        if (chestTag.contains("newGems1")) releaseSpeed += Compute.gemsCoolDown(chestTag);
-        if (leggingsTag.contains("newGems1")) releaseSpeed += Compute.gemsCoolDown(leggingsTag);
-        if (bootsTag.contains("newGems1")) releaseSpeed += Compute.gemsCoolDown(bootsTag);
+        if (helmetTag.contains("newGems1")) releaseSpeed += GemAttributes.gemsCoolDown(helmetTag);
+        if (chestTag.contains("newGems1")) releaseSpeed += GemAttributes.gemsCoolDown(chestTag);
+        if (leggingsTag.contains("newGems1")) releaseSpeed += GemAttributes.gemsCoolDown(leggingsTag);
+        if (bootsTag.contains("newGems1")) releaseSpeed += GemAttributes.gemsCoolDown(bootsTag);
         if (stackmainhandtag.contains("newGems1") && Utils.mainHandTag.containsKey(mainhand))
-            releaseSpeed += Compute.gemsCoolDown(stackmainhandtag);
+            releaseSpeed += GemAttributes.gemsCoolDown(stackmainhandtag);
         if (Utils.coolDownDecrease.containsKey(boots)) releaseSpeed += Utils.coolDownDecrease.get(boots);
         if (Utils.coolDownDecrease.containsKey(leggings))
             releaseSpeed += Utils.coolDownDecrease.get(leggings);
@@ -1150,12 +1153,12 @@ public class PlayerAttributes {
         DefenceRate *= (1 - StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerDefencePenetrationModifier));
 
         double decreaseRate = 0;
-        if (helmetTag.contains("newGems1")) decreaseRate += Compute.gemsDefencePenetration(helmetTag);
-        if (chestTag.contains("newGems1")) decreaseRate += Compute.gemsDefencePenetration(chestTag);
-        if (leggingsTag.contains("newGems1")) decreaseRate += Compute.gemsDefencePenetration(leggingsTag);
-        if (bootsTag.contains("newGems1")) decreaseRate += Compute.gemsDefencePenetration(bootsTag);
+        if (helmetTag.contains("newGems1")) decreaseRate += GemAttributes.gemsDefencePenetration(helmetTag);
+        if (chestTag.contains("newGems1")) decreaseRate += GemAttributes.gemsDefencePenetration(chestTag);
+        if (leggingsTag.contains("newGems1")) decreaseRate += GemAttributes.gemsDefencePenetration(leggingsTag);
+        if (bootsTag.contains("newGems1")) decreaseRate += GemAttributes.gemsDefencePenetration(bootsTag);
         if (stackmainhandtag.contains("newGems1") && Utils.mainHandTag.containsKey(mainhand))
-            decreaseRate += Compute.gemsDefencePenetration(stackmainhandtag);
+            decreaseRate += GemAttributes.gemsDefencePenetration(stackmainhandtag);
 
         if (decreaseRate > 0) DefenceRate *= (1 - decreaseRate);
         DefenceRate *= (1 - Compute.CuriosAttribute.attributeValue(player, Utils.defencePenetration, StringUtils.CuriosAttribute.DefencePenetration)); // 新版饰品属性加成
@@ -1259,12 +1262,12 @@ public class PlayerAttributes {
         CompoundTag chestTag = player.getItemBySlot(EquipmentSlot.CHEST).getOrCreateTagElement(Utils.MOD_ID);
         CompoundTag leggingsTag = player.getItemBySlot(EquipmentSlot.LEGS).getOrCreateTagElement(Utils.MOD_ID);
         CompoundTag bootsTag = player.getItemBySlot(EquipmentSlot.FEET).getOrCreateTagElement(Utils.MOD_ID);
-        if (helmetTag.contains("newGems1")) defencePenetration0 += Compute.gemsDefencePenetration0(helmetTag);
-        if (chestTag.contains("newGems1")) defencePenetration0 += Compute.gemsDefencePenetration0(chestTag);
-        if (leggingsTag.contains("newGems1")) defencePenetration0 += Compute.gemsDefencePenetration0(leggingsTag);
-        if (bootsTag.contains("newGems1")) defencePenetration0 += Compute.gemsDefencePenetration0(bootsTag);
+        if (helmetTag.contains("newGems1")) defencePenetration0 += GemAttributes.gemsDefencePenetration0(helmetTag);
+        if (chestTag.contains("newGems1")) defencePenetration0 += GemAttributes.gemsDefencePenetration0(chestTag);
+        if (leggingsTag.contains("newGems1")) defencePenetration0 += GemAttributes.gemsDefencePenetration0(leggingsTag);
+        if (bootsTag.contains("newGems1")) defencePenetration0 += GemAttributes.gemsDefencePenetration0(bootsTag);
         if (stackmainhandtag.contains("newGems1") && Utils.mainHandTag.containsKey(mainhand))
-            defencePenetration0 += Compute.gemsDefencePenetration0(stackmainhandtag);
+            defencePenetration0 += GemAttributes.gemsDefencePenetration0(stackmainhandtag);
 
         defencePenetration0 += Compute.CuriosAttribute.attributeValue(player, Utils.defencePenetration0, StringUtils.CuriosAttribute.DefencePenetration0); // 新版饰品属性加成
 
@@ -1296,12 +1299,12 @@ public class PlayerAttributes {
 
         healthRecover += handleAllEquipRandomAttribute(player, StringUtils.RandomAttribute.healthRecover);
 
-        if (helmetTag.contains("newGems1")) healthRecover += Compute.gemsHealRecover(helmetTag);
-        if (chestTag.contains("newGems1")) healthRecover += Compute.gemsHealRecover(chestTag);
-        if (leggingsTag.contains("newGems1")) healthRecover += Compute.gemsHealRecover(leggingsTag);
-        if (bootsTag.contains("newGems1")) healthRecover += Compute.gemsHealRecover(bootsTag);
+        if (helmetTag.contains("newGems1")) healthRecover += GemAttributes.gemsHealRecover(helmetTag);
+        if (chestTag.contains("newGems1")) healthRecover += GemAttributes.gemsHealRecover(chestTag);
+        if (leggingsTag.contains("newGems1")) healthRecover += GemAttributes.gemsHealRecover(leggingsTag);
+        if (bootsTag.contains("newGems1")) healthRecover += GemAttributes.gemsHealRecover(bootsTag);
         if (stackmainhandtag.contains("newGems1") && Utils.mainHandTag.containsKey(mainhand))
-            healthRecover += Compute.gemsHealRecover(stackmainhandtag);
+            healthRecover += GemAttributes.gemsHealRecover(stackmainhandtag);
         if (Utils.healthRecover.containsKey(boots)) healthRecover += Utils.healthRecover.get(boots);
         if (Utils.healthRecover.containsKey(leggings)) healthRecover += Utils.healthRecover.get(leggings);
         if (Utils.healthRecover.containsKey(chest)) healthRecover += Utils.healthRecover.get(chest);
@@ -1363,12 +1366,12 @@ public class PlayerAttributes {
         if (player.getItemInHand(InteractionHand.MAIN_HAND).getTagElement(Utils.MOD_ID) != null) {
             stackmainhandtag = player.getItemInHand(InteractionHand.MAIN_HAND).getOrCreateTagElement(Utils.MOD_ID);
         }
-        if (helmetTag.contains("newGems1")) maxHealth += Compute.gemsMaxHealth(helmetTag);
-        if (chestTag.contains("newGems1")) maxHealth += Compute.gemsMaxHealth(chestTag);
-        if (leggingsTag.contains("newGems1")) maxHealth += Compute.gemsMaxHealth(leggingsTag);
-        if (bootsTag.contains("newGems1")) maxHealth += Compute.gemsMaxHealth(bootsTag);
+        if (helmetTag.contains("newGems1")) maxHealth += GemAttributes.gemsMaxHealth(helmetTag);
+        if (chestTag.contains("newGems1")) maxHealth += GemAttributes.gemsMaxHealth(chestTag);
+        if (leggingsTag.contains("newGems1")) maxHealth += GemAttributes.gemsMaxHealth(leggingsTag);
+        if (bootsTag.contains("newGems1")) maxHealth += GemAttributes.gemsMaxHealth(bootsTag);
         if (stackmainhandtag.contains("newGems1") && Utils.mainHandTag.containsKey(mainhand))
-            maxHealth += Compute.gemsMaxHealth(stackmainhandtag);
+            maxHealth += GemAttributes.gemsMaxHealth(stackmainhandtag);
 
         if (Utils.maxHealth.containsKey(boots))
             maxHealth += ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.FEET), Utils.maxHealth);
@@ -1382,13 +1385,13 @@ public class PlayerAttributes {
         maxHealth += handleAllEquipRandomAttribute(player, StringUtils.RandomAttribute.maxHealth);
 
         if (Utils.maxHealth.containsKey(helmet) && helmetTag.contains("Forging"))
-            maxHealth += Compute.ForgingValue(helmetTag, ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.HEAD), Utils.maxHealth));
+            maxHealth += Compute.forgingValue(helmetTag, ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.HEAD), Utils.maxHealth));
         if (Utils.maxHealth.containsKey(chest) && chestTag.contains("Forging"))
-            maxHealth += Compute.ForgingValue(chestTag, ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.CHEST), Utils.maxHealth));
+            maxHealth += Compute.forgingValue(chestTag, ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.CHEST), Utils.maxHealth));
         if (Utils.maxHealth.containsKey(leggings) && leggingsTag.contains("Forging"))
-            maxHealth += Compute.ForgingValue(leggingsTag, ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.LEGS), Utils.maxHealth));
+            maxHealth += Compute.forgingValue(leggingsTag, ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.LEGS), Utils.maxHealth));
         if (Utils.maxHealth.containsKey(boots) && bootsTag.contains("Forging"))
-            maxHealth += Compute.ForgingValue(bootsTag, ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.FEET), Utils.maxHealth));
+            maxHealth += Compute.forgingValue(bootsTag, ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.FEET), Utils.maxHealth));
 
         if (Utils.mainHandTag.containsKey(mainhand) && Utils.maxHealth.containsKey(mainhand))
             maxHealth += Utils.maxHealth.get(mainhand);
@@ -1435,6 +1438,7 @@ public class PlayerAttributes {
         // 请在上方添加
         maxHealth *= Compute.playerFantasyAttributeEnhance(player);
         maxHealth *= (1 + NewPotionEffects.maxHealthEnhance(player));
+        maxHealth *= (1 + GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.percentMaxHealthEnhance));
         return maxHealth;
     }
 
@@ -1463,24 +1467,24 @@ public class PlayerAttributes {
 
         // Fixed:防具攻击强化失效
         if (Utils.armorTag.containsKey(helmet) && Utils.manaDamage.containsKey(helmet) && helmetTag.contains("Forging"))
-            baseDamage += Compute.ForgingValue(helmetTag, ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.HEAD), Utils.manaDamage));
+            baseDamage += Compute.forgingValue(helmetTag, ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.HEAD), Utils.manaDamage));
         if (Utils.armorTag.containsKey(chest) && Utils.manaDamage.containsKey(chest) && chestTag.contains("Forging"))
-            baseDamage += Compute.ForgingValue(chestTag, ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.CHEST), Utils.manaDamage));
+            baseDamage += Compute.forgingValue(chestTag, ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.CHEST), Utils.manaDamage));
         if (Utils.armorTag.containsKey(leggings) && Utils.manaDamage.containsKey(leggings) && leggingsTag.contains("Forging"))
-            baseDamage += Compute.ForgingValue(leggingsTag, ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.LEGS), Utils.manaDamage));
+            baseDamage += Compute.forgingValue(leggingsTag, ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.LEGS), Utils.manaDamage));
         if (Utils.armorTag.containsKey(boots) && Utils.manaDamage.containsKey(boots) && bootsTag.contains("Forging"))
-            baseDamage += Compute.ForgingValue(bootsTag, ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.FEET), Utils.manaDamage));
+            baseDamage += Compute.forgingValue(bootsTag, ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.FEET), Utils.manaDamage));
 
         baseDamage += handleAllEquipRandomAttribute(player, StringUtils.RandomAttribute.manaDamage);
 
-        if (helmetTag.contains("newGems1")) exDamage += Compute.gemsManaDamage(helmetTag);
-        if (chestTag.contains("newGems1")) exDamage += Compute.gemsManaDamage(chestTag);
-        if (leggingsTag.contains("newGems1")) exDamage += Compute.gemsManaDamage(leggingsTag);
-        if (bootsTag.contains("newGems1")) exDamage += Compute.gemsManaDamage(bootsTag);
+        if (helmetTag.contains("newGems1")) exDamage += GemAttributes.gemsManaDamage(helmetTag);
+        if (chestTag.contains("newGems1")) exDamage += GemAttributes.gemsManaDamage(chestTag);
+        if (leggingsTag.contains("newGems1")) exDamage += GemAttributes.gemsManaDamage(leggingsTag);
+        if (bootsTag.contains("newGems1")) exDamage += GemAttributes.gemsManaDamage(bootsTag);
         if (Utils.mainHandTag.containsKey(mainhand) && mainHandItemTag.contains("manadamage"))
             baseDamage += mainHandItemTag.getDouble("manadamage");
         if (Utils.mainHandTag.containsKey(mainhand) && Utils.manaDamage.containsKey(mainhand) && mainHandItemTag.contains("Forging"))
-            baseDamage += Compute.ForgingValue(mainHandItemTag, ForgeEquipUtils.getTraditionalEquipBaseValue(player.getMainHandItem(), Utils.manaDamage));
+            baseDamage += Compute.forgingValue(mainHandItemTag, ForgeEquipUtils.getTraditionalEquipBaseValue(player.getMainHandItem(), Utils.manaDamage));
         if (Utils.manaDamage.containsKey(boots))
             baseDamage += ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.FEET), Utils.manaDamage);
         if (Utils.manaDamage.containsKey(leggings))
@@ -1499,7 +1503,7 @@ public class PlayerAttributes {
             baseDamage += ForgeEquipUtils.getRandomEquipBaseValue(player.getMainHandItem(), StringUtils.RandomAttribute.manaDamage) * 0.5 * (killCount / 100000.0);
         }
 
-        if (mainHandItemTag.contains("newGems1")) exDamage += Compute.gemsManaDamage(mainHandItemTag);
+        if (mainHandItemTag.contains("newGems1")) exDamage += GemAttributes.gemsManaDamage(mainHandItemTag);
 
         if (player.getEffect(ModEffects.MANADAMAGEUP.get()) != null && player.getEffect(ModEffects.MANADAMAGEUP.get()).getAmplifier() == 0)
             exDamage += baseDamage * 0.25 + 25;
@@ -1593,6 +1597,7 @@ public class PlayerAttributes {
         totalDamage *= Compute.playerFantasyAttributeEnhance(player);
         totalDamage *= ManaCurios0.PlayerFinalManaDamageEnhance(player);
         totalDamage *= ManaCurios2.playerFinalManaDamageEnhance(player);
+        totalDamage *= (1 + GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.percentManaDamageEnhance));
 
         Utils.playerManaDamageBeforeTransform.put(player, totalDamage);
 
@@ -1632,12 +1637,12 @@ public class PlayerAttributes {
         CompoundTag chestTag = player.getItemBySlot(EquipmentSlot.CHEST).getOrCreateTagElement(Utils.MOD_ID);
         CompoundTag leggingsTag = player.getItemBySlot(EquipmentSlot.LEGS).getOrCreateTagElement(Utils.MOD_ID);
         CompoundTag bootsTag = player.getItemBySlot(EquipmentSlot.FEET).getOrCreateTagElement(Utils.MOD_ID);
-        if (helmetTag.contains("newGems1")) ManaHealSteal += Compute.gemsManaHealthSteal(helmetTag);
-        if (chestTag.contains("newGems1")) ManaHealSteal += Compute.gemsManaHealthSteal(chestTag);
-        if (leggingsTag.contains("newGems1")) ManaHealSteal += Compute.gemsManaHealthSteal(leggingsTag);
-        if (bootsTag.contains("newGems1")) ManaHealSteal += Compute.gemsManaHealthSteal(bootsTag);
+        if (helmetTag.contains("newGems1")) ManaHealSteal += GemAttributes.gemsManaHealthSteal(helmetTag);
+        if (chestTag.contains("newGems1")) ManaHealSteal += GemAttributes.gemsManaHealthSteal(chestTag);
+        if (leggingsTag.contains("newGems1")) ManaHealSteal += GemAttributes.gemsManaHealthSteal(leggingsTag);
+        if (bootsTag.contains("newGems1")) ManaHealSteal += GemAttributes.gemsManaHealthSteal(bootsTag);
         if (stackmainhandtag.contains("newGems1") && Utils.mainHandTag.containsKey(mainhand))
-            ManaHealSteal += Compute.gemsManaHealthSteal(stackmainhandtag);
+            ManaHealSteal += GemAttributes.gemsManaHealthSteal(stackmainhandtag);
 
         if (Utils.DevilEarthManaCurios.containsKey(player) && Utils.DevilEarthManaCurios.get(player))
             ManaHealSteal += 0.05;
@@ -1670,10 +1675,10 @@ public class PlayerAttributes {
         CompoundTag chestTag = player.getItemBySlot(EquipmentSlot.CHEST).getOrCreateTagElement(Utils.MOD_ID);
         CompoundTag leggingsTag = player.getItemBySlot(EquipmentSlot.LEGS).getOrCreateTagElement(Utils.MOD_ID);
         CompoundTag bootsTag = player.getItemBySlot(EquipmentSlot.FEET).getOrCreateTagElement(Utils.MOD_ID);
-        if (helmetTag.contains("newGems1")) manaRecover += Compute.gemsManaRecover(helmetTag);
-        if (chestTag.contains("newGems1")) manaRecover += Compute.gemsManaRecover(chestTag);
-        if (leggingsTag.contains("newGems1")) manaRecover += Compute.gemsManaRecover(leggingsTag);
-        if (bootsTag.contains("newGems1")) manaRecover += Compute.gemsManaRecover(bootsTag);
+        if (helmetTag.contains("newGems1")) manaRecover += GemAttributes.gemsManaRecover(helmetTag);
+        if (chestTag.contains("newGems1")) manaRecover += GemAttributes.gemsManaRecover(chestTag);
+        if (leggingsTag.contains("newGems1")) manaRecover += GemAttributes.gemsManaRecover(leggingsTag);
+        if (bootsTag.contains("newGems1")) manaRecover += GemAttributes.gemsManaRecover(bootsTag);
         if (Utils.mainHandTag.containsKey(mainhand) && stackmainhandtag.contains("manareply"))
             manaRecover += stackmainhandtag.getDouble("manareply");
         if (Utils.manaRecover.containsKey(boots)) manaRecover += Utils.manaRecover.get(boots);
@@ -1686,7 +1691,7 @@ public class PlayerAttributes {
             manaRecover += Utils.manaRecover.get(offhand);
         if (Compute.ArmorCount.LifeMana(player) >= 2) manaRecover += 5;
         if (Compute.ArmorCount.ObsiMana(player) >= 2) manaRecover += 5;
-        if (stackmainhandtag.contains("newGems1")) manaRecover += Compute.gemsManaRecover(stackmainhandtag);
+        if (stackmainhandtag.contains("newGems1")) manaRecover += GemAttributes.gemsManaRecover(stackmainhandtag);
 
         if (player.getEffect(ModEffects.MANAREPLYUP.get()) != null && player.getEffect(ModEffects.MANAREPLYUP.get()).getAmplifier() == 0)
             manaRecover += 20;
@@ -1756,13 +1761,13 @@ public class PlayerAttributes {
         if (Utils.offHandTag.containsKey(offhand) && Utils.manaDefence.containsKey(offhand))
             manaDefence += Utils.manaDefence.get(offhand);
         if (Utils.manaDefence.containsKey(helmet) && helmetTag.contains("Forging"))
-            manaDefence += Compute.ForgingValue(helmetTag, ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.HEAD), Utils.manaDefence));
+            manaDefence += Compute.forgingValue(helmetTag, ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.HEAD), Utils.manaDefence));
         if (Utils.manaDefence.containsKey(chest) && chestTag.contains("Forging"))
-            manaDefence += Compute.ForgingValue(chestTag, ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.CHEST), Utils.manaDefence));
+            manaDefence += Compute.forgingValue(chestTag, ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.CHEST), Utils.manaDefence));
         if (Utils.manaDefence.containsKey(leggings) && leggingsTag.contains("Forging"))
-            manaDefence += Compute.ForgingValue(leggingsTag, ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.LEGS), Utils.manaDefence));
+            manaDefence += Compute.forgingValue(leggingsTag, ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.LEGS), Utils.manaDefence));
         if (Utils.manaDefence.containsKey(boots) && bootsTag.contains("Forging"))
-            manaDefence += Compute.ForgingValue(bootsTag, ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.FEET), Utils.manaDefence));
+            manaDefence += Compute.forgingValue(bootsTag, ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.FEET), Utils.manaDefence));
 
         if (boots instanceof ForestArmorBoots && leggings instanceof ForestArmorLeggings
                 && chest instanceof ForestArmorChest && helmet instanceof ForestArmorHelmet)
@@ -1782,12 +1787,12 @@ public class PlayerAttributes {
             ExDefence += 100;
         } // 妖弓-樱
 
-        if (helmetTag.contains("newGems1")) ExDefence += Compute.gemsManaDefence(helmetTag);
-        if (chestTag.contains("newGems1")) ExDefence += Compute.gemsManaDefence(chestTag);
-        if (leggingsTag.contains("newGems1")) ExDefence += Compute.gemsManaDefence(leggingsTag);
-        if (bootsTag.contains("newGems1")) ExDefence += Compute.gemsManaDefence(bootsTag);
+        if (helmetTag.contains("newGems1")) ExDefence += GemAttributes.gemsManaDefence(helmetTag);
+        if (chestTag.contains("newGems1")) ExDefence += GemAttributes.gemsManaDefence(chestTag);
+        if (leggingsTag.contains("newGems1")) ExDefence += GemAttributes.gemsManaDefence(leggingsTag);
+        if (bootsTag.contains("newGems1")) ExDefence += GemAttributes.gemsManaDefence(bootsTag);
         if (stackmainhandtag.contains("newGems1") && Utils.mainHandTag.containsKey(mainhand))
-            ExDefence += Compute.gemsManaDefence(stackmainhandtag);
+            ExDefence += GemAttributes.gemsManaDefence(stackmainhandtag);
 
         if (Utils.EarthManaCurios.containsKey(player) && Utils.EarthManaCurios.get(player)) ExDefence += 200;
         if (Utils.BloodManaCurios.containsKey(player) && Utils.BloodManaCurios.get(player)) ExDefence += 200;
@@ -1804,7 +1809,7 @@ public class PlayerAttributes {
         totalDefence *= (1 + EarthPower.PlayerDefenceEnhance(player));
         totalDefence *= Compute.playerFantasyAttributeEnhance(player);
         totalDefence *= MineShield.defenceEnhance(player);
-
+        totalDefence *= (1 + GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.percentManaDefenceEnhance));
         if (totalDefence < 0) return 0;
         return totalDefence;
     }
@@ -1859,12 +1864,12 @@ public class PlayerAttributes {
             }
         } // 封魔者法盾
 
-        if (helmetTag.contains("newGems1")) healSteal += Compute.gemsHealthSteal(helmetTag);
-        if (chestTag.contains("newGems1")) healSteal += Compute.gemsHealthSteal(chestTag);
-        if (leggingsTag.contains("newGems1")) healSteal += Compute.gemsHealthSteal(leggingsTag);
-        if (bootsTag.contains("newGems1")) healSteal += Compute.gemsHealthSteal(bootsTag);
+        if (helmetTag.contains("newGems1")) healSteal += GemAttributes.gemsHealthSteal(helmetTag);
+        if (chestTag.contains("newGems1")) healSteal += GemAttributes.gemsHealthSteal(chestTag);
+        if (leggingsTag.contains("newGems1")) healSteal += GemAttributes.gemsHealthSteal(leggingsTag);
+        if (bootsTag.contains("newGems1")) healSteal += GemAttributes.gemsHealthSteal(bootsTag);
         if (stackmainhandtag.contains("newGems1") && Utils.mainHandTag.containsKey(mainhand))
-            healSteal += Compute.gemsHealthSteal(stackmainhandtag);
+            healSteal += GemAttributes.gemsHealthSteal(stackmainhandtag);
 
         if (Utils.DevilBloodManaCurios.containsKey(player) && Utils.DevilBloodManaCurios.get(player)) healSteal += 0.05;
 
@@ -1943,12 +1948,12 @@ public class PlayerAttributes {
         CompoundTag bootsTag = player.getItemBySlot(EquipmentSlot.FEET).getOrCreateTagElement(Utils.MOD_ID);
 
         double DecreaseRate = 0;
-        if (helmetTag.contains("newGems1")) DecreaseRate += Compute.gemsManaPenetration(helmetTag);
-        if (chestTag.contains("newGems1")) DecreaseRate += Compute.gemsManaPenetration(chestTag);
-        if (leggingsTag.contains("newGems1")) DecreaseRate += Compute.gemsManaPenetration(leggingsTag);
-        if (bootsTag.contains("newGems1")) DecreaseRate += Compute.gemsManaPenetration(bootsTag);
+        if (helmetTag.contains("newGems1")) DecreaseRate += GemAttributes.gemsManaPenetration(helmetTag);
+        if (chestTag.contains("newGems1")) DecreaseRate += GemAttributes.gemsManaPenetration(chestTag);
+        if (leggingsTag.contains("newGems1")) DecreaseRate += GemAttributes.gemsManaPenetration(leggingsTag);
+        if (bootsTag.contains("newGems1")) DecreaseRate += GemAttributes.gemsManaPenetration(bootsTag);
         if (stackmainhandtag.contains("newGems1") && Utils.mainHandTag.containsKey(mainhand))
-            DecreaseRate += Compute.gemsManaPenetration(stackmainhandtag);
+            DecreaseRate += GemAttributes.gemsManaPenetration(stackmainhandtag);
 
         if (DecreaseRate > 0) DefenceRate *= (1 - DecreaseRate);
 
@@ -2046,12 +2051,12 @@ public class PlayerAttributes {
         CompoundTag chestTag = player.getItemBySlot(EquipmentSlot.CHEST).getOrCreateTagElement(Utils.MOD_ID);
         CompoundTag leggingsTag = player.getItemBySlot(EquipmentSlot.LEGS).getOrCreateTagElement(Utils.MOD_ID);
         CompoundTag bootsTag = player.getItemBySlot(EquipmentSlot.FEET).getOrCreateTagElement(Utils.MOD_ID);
-        if (helmetTag.contains("newGems1")) manaPenetration0 += Compute.gemsManaPenetration0(helmetTag);
-        if (chestTag.contains("newGems1")) manaPenetration0 += Compute.gemsManaPenetration0(chestTag);
-        if (leggingsTag.contains("newGems1")) manaPenetration0 += Compute.gemsManaPenetration0(leggingsTag);
-        if (bootsTag.contains("newGems1")) manaPenetration0 += Compute.gemsManaPenetration0(bootsTag);
+        if (helmetTag.contains("newGems1")) manaPenetration0 += GemAttributes.gemsManaPenetration0(helmetTag);
+        if (chestTag.contains("newGems1")) manaPenetration0 += GemAttributes.gemsManaPenetration0(chestTag);
+        if (leggingsTag.contains("newGems1")) manaPenetration0 += GemAttributes.gemsManaPenetration0(leggingsTag);
+        if (bootsTag.contains("newGems1")) manaPenetration0 += GemAttributes.gemsManaPenetration0(bootsTag);
         if (stackmainhandtag.contains("newGems1") && Utils.mainHandTag.containsKey(mainhand))
-            manaPenetration0 += Compute.gemsManaPenetration0(stackmainhandtag);
+            manaPenetration0 += GemAttributes.gemsManaPenetration0(stackmainhandtag);
 
         manaPenetration0 += Compute.CuriosAttribute.attributeValue(player, Utils.manaPenetration0, StringUtils.CuriosAttribute.ManaPenetration0); // 新版饰品属性加成
 
@@ -2133,26 +2138,26 @@ public class PlayerAttributes {
             double baseValue = ForgeEquipUtils.getRandomEquipBaseValue(player, helmet, attributeType);
             value += baseValue;
             if (helmetTag.contains("Forging"))
-                value += Compute.ForgingValue(helmetTag, baseValue);
+                value += Compute.forgingValue(helmetTag, baseValue);
 
         }
         if (chestTag.contains(attributeType)) {
             double baseValue = ForgeEquipUtils.getRandomEquipBaseValue(player, chest, attributeType);
             value += baseValue;
             if (chestTag.contains("Forging"))
-                value += Compute.ForgingValue(chestTag, baseValue);
+                value += Compute.forgingValue(chestTag, baseValue);
         }
         if (leggingsTag.contains(attributeType)) {
             double baseValue = ForgeEquipUtils.getRandomEquipBaseValue(player, leggings, attributeType);
             value += baseValue;
             if (leggingsTag.contains("Forging"))
-                value += Compute.ForgingValue(leggingsTag, baseValue);
+                value += Compute.forgingValue(leggingsTag, baseValue);
         }
         if (bootsTag.contains(attributeType)) {
             double baseValue = ForgeEquipUtils.getRandomEquipBaseValue(player, boots, attributeType);
             value += baseValue;
             if (bootsTag.contains("Forging"))
-                value += Compute.ForgingValue(bootsTag, baseValue);
+                value += Compute.forgingValue(bootsTag, baseValue);
         }
         return value;
     }
@@ -2166,7 +2171,7 @@ public class PlayerAttributes {
                 double baseValue = ForgeEquipUtils.getRandomEquipBaseValue(player, mainHand, attributeType);
                 value += baseValue;
                 if (tag.contains("Forging"))
-                    value += Compute.ForgingValue(tag, baseValue);
+                    value += Compute.forgingValue(tag, baseValue);
             }
         }
         return value;

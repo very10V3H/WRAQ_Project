@@ -214,7 +214,7 @@ public class VMD {
     }
 
     @SubscribeEvent
-    public static void comps(RenderTooltipEvent.GatherComponents event) {
+    public static void comps(RenderTooltipEvent.GatherComponents event) throws CommandSyntaxException {
         BasicAttributeDescription.NewAttributeDescription(event);
     }
 
@@ -597,7 +597,7 @@ public class VMD {
             event.accept(ModItems.BackPackTickets.get().getDefaultInstance());
             event.accept(ModItems.SakuraPocket.get().getDefaultInstance());
             event.accept(ModItems.WheatPocket.get().getDefaultInstance());
-            event.accept(ModItems.CompleteGem.get().getDefaultInstance());
+            event.accept(ModItems.completeGem.get().getDefaultInstance());
             event.accept(ModItems.ReputationMedal.get().getDefaultInstance());
             event.accept(ModItems.commonLotteries.get().getDefaultInstance());
             event.accept(ModItems.UnCommonLotteries.get().getDefaultInstance());

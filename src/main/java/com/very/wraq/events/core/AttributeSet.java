@@ -55,7 +55,7 @@ public class AttributeSet {
 
             //最大生命值、魔力、攻击距离修改。
             double MaxHealth = PlayerAttributes.maxHealth(player);
-            player.getAttribute(Attributes.MAX_HEALTH).setBaseValue(MaxHealth);
+            player.getAttribute(Attributes.MAX_HEALTH).setBaseValue(Math.max(1, MaxHealth));
 
             if (player.getHealth() > player.getMaxHealth()) player.setHealth(player.getMaxHealth());
 

@@ -49,11 +49,12 @@ import java.util.*;
 
 public class Utils {
     public static final String MOD_ID = "vmd";
-    public static Map<Item, Double> healthSteal = new HashMap<>();
     public static Map<Item, Double> attackDamage = new HashMap<>();
+    public static Map<Item, Double> percentAttackDamageEnhance = new HashMap<>();
     public static Map<Item, Double> critRate = new HashMap<>();
     public static Map<Item, Double> critDamage = new HashMap<>();
     public static Map<Item, Double> defence = new HashMap<>();
+    public static Map<Item, Double> percentDefenceEnhance = new HashMap<>();
     public static Map<Item, Double> defencePenetration = new HashMap<>();
     public static Map<Item, Double> defencePenetration0 = new HashMap<>();
     public static Map<Item, Double> attackRangeUp = new HashMap<>();
@@ -61,13 +62,17 @@ public class Utils {
     public static Map<Item, Double> attackSpeedUp = new HashMap<>();
     public static Map<Item, Double> movementSpeedWithoutBattle = new HashMap<>();
     public static Map<Item, Double> movementSpeedCommon = new HashMap<>();
+    public static Map<Item, Double> healthSteal = new HashMap<>();
     public static Map<Item, Double> expUp = new HashMap<>();
     public static Map<Item, Double> maxHealth = new HashMap<>();
+    public static Map<Item, Double> percentMaxHealthEnhance = new HashMap<>();
     public static Map<Item, Double> healthRecover = new HashMap<>();
     public static Map<Item, Double> healEffectUp = new HashMap<>();
     public static Map<Item, Double> coolDownDecrease = new HashMap<>();
     public static Map<Item, Double> manaDamage = new HashMap<>();
+    public static Map<Item, Double> percentManaDamageEnhance = new HashMap<>();
     public static Map<Item, Double> manaDefence = new HashMap<>();
+    public static Map<Item, Double> percentManaDefenceEnhance = new HashMap<>();
     public static Map<Item, Double> manaPenetration = new HashMap<>();
     public static Map<Item, Double> manaPenetration0 = new HashMap<>();
     public static Map<Item, Double> manaCost = new HashMap<>();

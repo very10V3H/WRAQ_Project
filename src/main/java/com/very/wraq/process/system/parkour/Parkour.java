@@ -118,7 +118,7 @@ public class Parkour {
 
     public static Item[] rewardItems = {
             ModItems.Ps_Bottle1.get(),
-            ModItems.CompleteGem.get(),
+            ModItems.completeGem.get(),
             ModItems.ReputationMedal.get(),
             ModItems.ParkourMedal.get(),
             ModItems.ParkourMedal.get(),

@@ -66,8 +66,8 @@ public class SlimeBoots extends WraqArmor implements ForgeItem {
         return new ArrayList<>() {{
             add(new ItemStack(ModItems.SlimeBall.get(), 384));
             add(new ItemStack(ModItems.goldCoin.get(), 128));
-            add(new ItemStack(ModItems.CompleteGem.get(), 6));
-            add(new ItemStack(ModItems.ReputationMedal.get(), 6));
+            add(new ItemStack(ModItems.completeGem.get(), 3));
+            add(new ItemStack(ModItems.ReputationMedal.get(), 12));
             add(new ItemStack(ModItems.RefiningIron.get(), 1));
             add(new ItemStack(ModItems.RefiningCopper.get(), 1));
             add(new ItemStack(ModItems.WorldSoul3.get(), 1));

@@ -59,7 +59,7 @@ public class ReputationMissionFinishedRequestC2SPacket {
                 long minuteDelta = timeDelta / (1000 * 60);
                 if (minuteDelta >= 75) minuteDelta = 75;
                 int tier = 5 - (int) (minuteDelta / 15);
-                Compute.ExpPercentGetIgnoreLimitAndMSGSend(serverPlayer, 0.04 * tier, 0, serverPlayer.experienceLevel);
+                Compute.ExpPercentGetIgnoreLimitAndMSGSend(serverPlayer, 0.02 * tier, 0, serverPlayer.experienceLevel);
                 Compute.playerReputationAddOrCost(serverPlayer, tier * (serverPlayer.experienceLevel / 20));
                 if (serverPlayer.experienceLevel == Compute.levelUpperLimit) Compute.playerReputationAddOrCost(serverPlayer, tier);
 

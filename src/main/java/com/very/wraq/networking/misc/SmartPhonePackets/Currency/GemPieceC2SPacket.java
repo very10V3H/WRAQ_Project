@@ -30,7 +30,7 @@ public class GemPieceC2SPacket {
             ServerPlayer player = context.getSender();
 
             try {
-                Compute.itemTrade(player, new ItemStack(ModItems.gemPiece.get(), 64), new ItemStack(ModItems.CompleteGem.get()));
+                Compute.itemTrade(player, new ItemStack(ModItems.gemPiece.get(), 64), new ItemStack(ModItems.completeGem.get()));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
