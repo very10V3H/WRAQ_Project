@@ -47,6 +47,22 @@ public class BasicAttributeDescription {
         Item item = itemStack.getItem();
         if (itemStack.is(ModItems.ManageSword.get())) return;
 
+        if (data.contains("Forging")) {
+            int forgeLevel = data.getInt("Forging");
+
+            if (data.contains(StringUtils.QingMingForgePaper)) ++forgeLevel;
+            if (data.contains(StringUtils.LabourDayForgePaper)) ++forgeLevel;
+
+            Style[] styles = {CustomStyle.styleOfMine, CustomStyle.styleOfGold,
+                    Style.EMPTY.applyFormat(ChatFormatting.LIGHT_PURPLE), CustomStyle.styleOfWorld};
+
+            Style style = styles[Math.min(3, Math.max(0, (forgeLevel - 1) / 8))];
+
+            index++;
+            event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(Component.literal(" 强化等级 ").withStyle(CustomStyle.styleOfPower).
+                    append(Component.literal("" + forgeLevel).withStyle(style)), TraditionalTooltip.forge)));
+        }
+
         if (Utils.attackDamage.containsKey(item) || data.contains(StringUtils.RandomAttribute.attackDamage)
                 || data.contains(StringUtils.CuriosAttribute.AttackDamage)) {
             if (itemStack.is(ModItems.SoulSword.get()) || itemStack.is(ModItems.SoulBow.get())) {
@@ -107,8 +123,8 @@ public class BasicAttributeDescription {
                 }
 
                 if (ExDamageForging != 0) {
-                    mutableComponent.append(Component.literal(" + " + String.format("%.0f", ExDamageForging)).
-                            withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.YELLOW));
+                    mutableComponent.append(Component.literal(" + " + String.format("%.0f", ExDamageForging)).withStyle(ChatFormatting.YELLOW)).
+                            append(Component.literal("⮅").withStyle(CustomStyle.styleOfPower));
                 }
 
                 index++;
@@ -163,8 +179,8 @@ public class BasicAttributeDescription {
                 }
 
                 if (ExDamageForging != 0) {
-                    mutableComponent.append(Component.literal(" + " + String.format("%.0f", ExDamageForging)).
-                            withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.LIGHT_PURPLE));
+                    mutableComponent.append(Component.literal(" + " + String.format("%.0f", ExDamageForging)).withStyle(ChatFormatting.LIGHT_PURPLE).
+                            append(Component.literal("⮅").withStyle(CustomStyle.styleOfPower)));
                 }
 
                 index++;
@@ -192,8 +208,8 @@ public class BasicAttributeDescription {
             if (data.contains("Forging")) ExDamageForging = Compute.forgingValue(data, Defence);
 
             if (ExDamageForging != 0) {
-                mutableComponent.append(Component.literal(" + " + String.format("%.0f", ExDamageForging)).
-                        withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.GRAY));
+                mutableComponent.append(Component.literal(" + " + String.format("%.0f", ExDamageForging)).withStyle(ChatFormatting.GRAY).
+                        append(Component.literal("⮅").withStyle(CustomStyle.styleOfPower)));
             }
 
             index++;
@@ -216,8 +232,8 @@ public class BasicAttributeDescription {
             if (data.contains("Forging")) ExDamageForging = Compute.forgingValue(data, ManaDefence);
 
             if (ExDamageForging != 0) {
-                mutableComponent.append(Component.literal(" + " + String.format("%.0f", ExDamageForging)).
-                        withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.DARK_BLUE));
+                mutableComponent.append(Component.literal(" + " + String.format("%.0f", ExDamageForging)).withStyle(ChatFormatting.DARK_BLUE).
+                        append(Component.literal("⮅").withStyle(CustomStyle.styleOfPower)));
             }
 
             index++;
@@ -252,8 +268,8 @@ public class BasicAttributeDescription {
             if (data.contains("Forging")) ExHealth = Compute.forgingValue(data, maxHealth);
 
             if (ExHealth > 0) {
-                mutableComponent.append(Component.literal(" + " + String.format("%.0f", ExHealth)).
-                        withStyle(ChatFormatting.RESET).withStyle(ChatFormatting.GREEN));
+                mutableComponent.append(Component.literal(" + " + String.format("%.0f", ExHealth)).withStyle(ChatFormatting.GREEN).
+                        append(Component.literal("⮅").withStyle(CustomStyle.styleOfPower)));
             }
             if (ExHealth < 0) {
                 mutableComponent.append(Component.literal(" - " + String.format("%.0f", -(ExHealth))).
@@ -809,22 +825,35 @@ public class BasicAttributeDescription {
 
         // 以下为新版宝石内容提示
         List<WraqGem> gemList = WraqGem.getEquipContainGemList(itemStack);
-        if (!gemList.isEmpty()) {
+        if (!gemList.isEmpty() || data.getInt("newSlot") > 0) {
             index ++;
             if (Screen.hasAltDown()) {
+                event.getTooltipElements().add(index++, Either.right(new TraditionalTooltip.MyTooltip(Component.literal("─").withStyle(ChatFormatting.WHITE).
+                        append(Component.literal("───────────────────").withStyle(ChatFormatting.LIGHT_PURPLE).
+                                append(Component.literal("─").withStyle(ChatFormatting.WHITE))), -1)));
+                event.getTooltipElements().add(index++, Either.right(new TraditionalTooltip.MyTooltip(Component.literal("γ-宝石属性:").withStyle(ChatFormatting.LIGHT_PURPLE), -1)));
                 for (WraqGem wraqGem : gemList) {
-                    event.getTooltipElements().add(index++, Either.right(new TraditionalTooltip.MyTooltip(wraqGem.getDefaultInstance().getDisplayName(), -1)));
+                    event.getTooltipElements().add(index++, Either.right(new TraditionalTooltip.MyTooltip(Component.literal("「").withStyle(ChatFormatting.AQUA).
+                            append(Component.literal("◈").withStyle(wraqGem.getHoverStyle())).
+                            append(Component.literal("」").withStyle(ChatFormatting.AQUA)).
+                            append(wraqGem.getDefaultInstance().getDisplayName()), -1)));
                     List<WraqGem.AttributeMapValue> list = wraqGem.getAttributeMapValues();
                     for (WraqGem.AttributeMapValue attributeMapValue : list) {
                         ToolTipParameter toolTipParameter = toolTipParameterMap.get(System.identityHashCode(attributeMapValue.attributeMap()));
                         Component component = Component.literal(" " + toolTipParameter.attributeName).withStyle(toolTipParameter.style).
                                 append(Component.literal("+" + String.format(toolTipParameter.valueFormat,
-                                        attributeMapValue.value() * (toolTipParameter.isPercent ? 100 : 1))).withStyle(toolTipParameter.style));
+                                        attributeMapValue.value() * (toolTipParameter.isPercent ? 100 : 1))).withStyle(ChatFormatting.WHITE));
                         event.getTooltipElements().add(index++, Either.right(new NewTooltip.MyNewTooltip(component, toolTipParameter.resourceLocation)));
                     }
                 }
+                for (int i = 0 ; i < data.getInt("newSlot") ; i ++) {
+                    event.getTooltipElements().add(index++, Either.right(new TraditionalTooltip.MyTooltip(Component.literal("「").withStyle(ChatFormatting.AQUA).
+                            append(Component.literal(" ")).
+                            append(Component.literal("」").withStyle(ChatFormatting.AQUA)).
+                            append(Component.literal(" 待镶嵌").withStyle(CustomStyle.styleOfMine)), -1)));
+                }
             } else {
-                event.getTooltipElements().add(index++, Either.right(new TraditionalTooltip.MyTooltip(Component.literal("[按住ALT查看宝石属性]").withStyle(ChatFormatting.LIGHT_PURPLE), -1)));
+                event.getTooltipElements().add(index++, Either.right(new TraditionalTooltip.MyTooltip(Component.literal(" [按住ALT查看宝石属性]").withStyle(ChatFormatting.LIGHT_PURPLE), -1)));
             }
         }
     }

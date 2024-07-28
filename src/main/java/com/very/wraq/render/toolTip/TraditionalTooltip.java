@@ -31,7 +31,7 @@ public class TraditionalTooltip implements ClientTooltipComponent {
 
     @Override
     public void renderImage(Font font, int x, int y, GuiGraphics guiGraphics) {
-        guiGraphics.drawString(font, myTooltip.component, x + 12, y, 0);
+        guiGraphics.drawString(font, myTooltip.component, x, y, 0);
     }
 
     public record MyTooltip(Component component, int type) implements TooltipComponent {
@@ -67,5 +67,6 @@ public class TraditionalTooltip implements ClientTooltipComponent {
     public static ResourceLocation iceElement = new ResourceLocation(Utils.MOD_ID, "textures/hud/ice_element.png");
     public static ResourceLocation lightningElement = new ResourceLocation(Utils.MOD_ID, "textures/hud/lightning_element.png");
     public static ResourceLocation windElement = new ResourceLocation(Utils.MOD_ID, "textures/hud/wind_element.png");
+    public static ResourceLocation forge = new ResourceLocation(Utils.MOD_ID, "textures/hud/forge.png");
 
 }

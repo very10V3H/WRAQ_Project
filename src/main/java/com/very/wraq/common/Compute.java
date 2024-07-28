@@ -4,6 +4,16 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.logging.LogUtils;
 import com.very.wraq.commands.stable.players.DebugCommand;
 import com.very.wraq.commands.stable.players.DpsCommand;
+import com.very.wraq.common.Utils.ClientUtils;
+import com.very.wraq.common.Utils.StringUtils;
+import com.very.wraq.common.Utils.Struct.*;
+import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.attributeValues.DamageInfluence;
+import com.very.wraq.common.attributeValues.MobAttributes;
+import com.very.wraq.common.attributeValues.PlayerAttributes;
+import com.very.wraq.common.attributeValues.SpecialEffectOnPlayer;
+import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.registry.ModSounds;
 import com.very.wraq.core.ManaAttackModule;
 import com.very.wraq.core.MyArrow;
 import com.very.wraq.customized.uniform.mana.ManaCurios1;
@@ -17,32 +27,35 @@ import com.very.wraq.events.mob.MobDeadModule;
 import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.events.modules.HurtEventModule;
 import com.very.wraq.networking.ModNetworking;
-import com.very.wraq.networking.misc.*;
 import com.very.wraq.networking.misc.AnimationPackets.*;
+import com.very.wraq.networking.misc.*;
 import com.very.wraq.networking.misc.EntropyPackets.EntropyS2CPacket;
 import com.very.wraq.networking.misc.Limit.CheckBlockLimitS2CPacket;
 import com.very.wraq.networking.misc.ParticlePackets.EffectParticle.DamageDecreaseParticleS2CPacket;
 import com.very.wraq.networking.misc.ParticlePackets.EffectParticle.DefencePenetrationParticleS2CPacket;
 import com.very.wraq.networking.misc.ParticlePackets.EffectParticle.ManaDefencePenetrationParticleS2CPacket;
 import com.very.wraq.networking.misc.ParticlePackets.SlowDownParticleS2CPacket;
-import com.very.wraq.networking.misc.SkillPackets.Charging.*;
+import com.very.wraq.networking.misc.SkillPackets.Charging.BowSkill12S2CPacket;
+import com.very.wraq.networking.misc.SkillPackets.Charging.ManaSkill12S2CPacket;
+import com.very.wraq.networking.misc.SkillPackets.Charging.ManaSkill13S2CPacket;
+import com.very.wraq.networking.misc.SkillPackets.Charging.SwordSkill12S2CPacket;
 import com.very.wraq.networking.misc.ToolTipPackets.CoolDownTimeS2CPacket;
 import com.very.wraq.networking.reputation.ReputationValueS2CPacket;
 import com.very.wraq.networking.unSorted.ColdSyncS2CPacket;
 import com.very.wraq.networking.unSorted.DebuffTimeS2CPacket;
 import com.very.wraq.networking.unSorted.PlayerCallBack;
 import com.very.wraq.networking.unSorted.SwiftSyncS2CPacket;
+import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.process.func.plan.PlanPlayer;
+import com.very.wraq.process.func.power.PowerLogic;
+import com.very.wraq.process.series.labourDay.LabourDayIronHoe;
+import com.very.wraq.process.series.labourDay.LabourDayIronPickaxe;
+import com.very.wraq.process.series.potion.NewPotionEffects;
 import com.very.wraq.process.system.element.Color;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.process.system.element.ElementValue;
 import com.very.wraq.process.system.element.equipAndCurios.fireElement.FireEquip;
 import com.very.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSword;
-import com.very.wraq.process.series.labourDay.LabourDayIronHoe;
-import com.very.wraq.process.series.labourDay.LabourDayIronPickaxe;
-import com.very.wraq.process.func.particle.ParticleProvider;
-import com.very.wraq.process.series.potion.NewPotionEffects;
-import com.very.wraq.process.func.power.PowerLogic;
 import com.very.wraq.process.system.teamInstance.NewTeamInstanceEvent;
 import com.very.wraq.process.system.tower.Tower;
 import com.very.wraq.projectiles.ActiveItem;
@@ -51,8 +64,7 @@ import com.very.wraq.projectiles.RandomCurios;
 import com.very.wraq.projectiles.mana.ManaArrow;
 import com.very.wraq.render.particles.ModParticles;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.series.end.eventController.LightningIslandRecall.*;
-import com.very.wraq.series.gems.WraqGem;
+import com.very.wraq.series.end.eventController.LightningIslandRecall.IntensifiedLightningArmor;
 import com.very.wraq.series.instance.Castle.CastleCurios;
 import com.very.wraq.series.instance.Castle.CastleSceptre;
 import com.very.wraq.series.instance.Moon.Equip.MoonBelt;
@@ -60,26 +72,16 @@ import com.very.wraq.series.instance.Taboo.TabooManaArmor;
 import com.very.wraq.series.nether.Equip.WitherBook;
 import com.very.wraq.series.newrunes.chapter2.HuskNewRune;
 import com.very.wraq.series.newrunes.chapter3.NetherNewRune;
-import com.very.wraq.series.overworld.chapter2.lightningIsland.Armor.*;
-import com.very.wraq.series.overworld.chapter7.vd.VdWeaponCommon;
-import com.very.wraq.series.overworld.sakuraSeries.BloodMana.BloodManaCurios;
-import com.very.wraq.series.overworld.chapter7.star.StarBottle;
-import com.very.wraq.series.overworld.chapter1.forest.bossItems.ForestBossSword;
 import com.very.wraq.series.overworld.chapter1.ManaBook.ManaNote;
+import com.very.wraq.series.overworld.chapter1.forest.bossItems.ForestBossSword;
 import com.very.wraq.series.overworld.chapter1.volcano.bossItems.VolcanoBossSword;
 import com.very.wraq.series.overworld.chapter1.waterSystem.bossItems.LakeBoss;
+import com.very.wraq.series.overworld.chapter2.lightningIsland.Armor.LightningArmor;
+import com.very.wraq.series.overworld.chapter7.star.StarBottle;
+import com.very.wraq.series.overworld.chapter7.vd.VdWeaponCommon;
+import com.very.wraq.series.overworld.sakuraSeries.BloodMana.BloodManaCurios;
 import com.very.wraq.series.specialevents.summer.SummerEvent;
 import com.very.wraq.series.worldsoul.SoulEquipAttribute;
-import com.very.wraq.common.Utils.ClientUtils;
-import com.very.wraq.common.Utils.StringUtils;
-import com.very.wraq.common.Utils.Struct.*;
-import com.very.wraq.common.Utils.Utils;
-import com.very.wraq.common.attributeValues.DamageInfluence;
-import com.very.wraq.common.attributeValues.MobAttributes;
-import com.very.wraq.common.attributeValues.PlayerAttributes;
-import com.very.wraq.common.attributeValues.SpecialEffectOnPlayer;
-import com.very.wraq.common.registry.ModItems;
-import com.very.wraq.common.registry.ModSounds;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -316,104 +318,37 @@ public class Compute {
     public static void forgingHoverName(ItemStack stack) {
         CompoundTag data = stack.getOrCreateTagElement(Utils.MOD_ID);
 
-        MutableComponent GemComponent = Component.literal("");
-        MutableComponent Suffix = Component.literal("");
-        MutableComponent Prefix = Component.literal("");
-
-        if (data.contains(StringUtils.ForgeNum)) {
-            Prefix.append(Component.literal("[").withStyle(ChatFormatting.AQUA).
-                    append(Component.literal("#").withStyle(CustomStyle.styleOfSky)).
-                    append(Component.literal("" + data.getInt(StringUtils.ForgeNum)).withStyle(CustomStyle.styleOfDemon)).
-                    append(Component.literal("]").withStyle(ChatFormatting.AQUA)));
-        }
+        MutableComponent suffix = Component.literal("");
+        MutableComponent prefix = Component.literal("");
 
         if (Utils.sceptreTag.containsKey(stack.getItem())) {
             if (data.contains(StringUtils.ManaCore.ManaCore)) {
                 String ManaCore = data.getString(StringUtils.ManaCore.ManaCore);
                 if (ManaCore.equals(StringUtils.ManaCore.SeaCore))
-                    Suffix = Component.literal(" <").withStyle(ChatFormatting.GRAY).
+                    suffix = Component.literal(" <").withStyle(ChatFormatting.GRAY).
                             append(Component.literal("●").withStyle(CustomStyle.styleOfSea)).
                             append(Component.literal(">").withStyle(ChatFormatting.GRAY));
                 if (ManaCore.equals(StringUtils.ManaCore.BlackForestCore))
-                    Suffix = Component.literal(" <").withStyle(ChatFormatting.GRAY).
+                    suffix = Component.literal(" <").withStyle(ChatFormatting.GRAY).
                             append(Component.literal("●").withStyle(CustomStyle.styleOfHusk)).
                             append(Component.literal(">").withStyle(ChatFormatting.GRAY));
                 if (ManaCore.equals(StringUtils.ManaCore.KazeCore))
-                    Suffix = Component.literal(" <").withStyle(ChatFormatting.GRAY).
+                    suffix = Component.literal(" <").withStyle(ChatFormatting.GRAY).
                             append(Component.literal("●").withStyle(CustomStyle.styleOfKaze)).
                             append(Component.literal(">").withStyle(ChatFormatting.GRAY));
                 if (ManaCore.equals(StringUtils.ManaCore.SakuraCore))
-                    Suffix = Component.literal(" <").withStyle(ChatFormatting.GRAY).
+                    suffix = Component.literal(" <").withStyle(ChatFormatting.GRAY).
                             append(Component.literal("●").withStyle(CustomStyle.styleOfDemon)).
                             append(Component.literal(">").withStyle(ChatFormatting.GRAY));
             }
         }
 
-        for (int i = 1; i <= 3; i++) {
-            String Gems = null;
-            if (data.contains("newGems" + i)) Gems = data.getString("newGems" + i);
-            if (Gems != null) {
-                ItemStack gem;
-                try {
-                    gem = Compute.getItemFromString(Gems);
-                } catch (CommandSyntaxException e) {
-                    throw new RuntimeException(e);
-                }
+        Component defaultName = stack.getItem().getDefaultInstance().getHoverName();
 
-                if (gem.getItem() instanceof WraqGem wraqGem) {
-                    GemComponent.append(Component.literal("[").withStyle(CustomStyle.styleOfPower).
-                            append(Component.literal("◈").withStyle(wraqGem.getHoverStyle())).
-                            append(Component.literal("]").withStyle(CustomStyle.styleOfPower)));
-                }
-            }
-        }
-
-        if (data.contains("newMaxSlot") && data.contains("newSlot")) {
-            for (int i = 0; i < data.getInt("newSlot"); i++) {
-                GemComponent.append(Component.literal("[ ]").withStyle(CustomStyle.styleOfPower));
-            }
-        }
-
-        GemComponent.withStyle(ChatFormatting.BOLD);
-        if (data.contains("Forging")) {
-            int forgeLevel = data.getInt("Forging");
-
-            if (data.contains(StringUtils.QingMingForgePaper)) ++forgeLevel;
-            if (data.contains(StringUtils.LabourDayForgePaper)) ++forgeLevel;
-
-            if (forgeLevel <= 8) stack.setHoverName(Component.literal("")
-                    .append(Prefix)
-                    .append(stack.getItem().getDefaultInstance().getHoverName())
-                    .append(Component.literal("[").withStyle(ChatFormatting.AQUA))
-                    .append(Component.literal("+" + String.valueOf(forgeLevel)).withStyle(ChatFormatting.GRAY))
-                    .append(Component.literal("]").withStyle(ChatFormatting.AQUA)).append(GemComponent).append(Suffix));
-            else if (forgeLevel <= 16) stack.setHoverName(Component.literal("")
-                    .append(Prefix)
-                    .append(stack.getItem().getDefaultInstance().getHoverName())
-                    .append(Component.literal("[").withStyle(ChatFormatting.AQUA))
-                    .append(Component.literal("+" + String.valueOf(forgeLevel)).withStyle(ChatFormatting.GOLD))
-                    .append(Component.literal("]").withStyle(ChatFormatting.AQUA)).append(GemComponent).append(Suffix));
-            else if (forgeLevel <= 24) stack.setHoverName(Component.literal("")
-                    .append(Prefix)
-                    .append(stack.getItem().getDefaultInstance().getHoverName())
-                    .append(Component.literal("[").withStyle(ChatFormatting.AQUA))
-                    .append(Component.literal("+" + String.valueOf(forgeLevel)).withStyle(ChatFormatting.LIGHT_PURPLE))
-                    .append(Component.literal("]").withStyle(ChatFormatting.AQUA)).append(GemComponent).append(Suffix));
-            else if (forgeLevel <= 34) stack.setHoverName(Component.literal("")
-                    .append(Prefix)
-                    .append(stack.getItem().getDefaultInstance().getHoverName())
-                    .append(Component.literal("[").withStyle(ChatFormatting.AQUA))
-                    .append(Component.literal("+" + String.valueOf(forgeLevel)).withStyle(CustomStyle.styleOfWorld))
-                    .append(Component.literal("]").withStyle(ChatFormatting.AQUA)).append(GemComponent).append(Suffix));
-
-        } else {
-            stack.setHoverName(Component.literal("")
-                    .append(Prefix)
-                    .append(stack.getItem().getDefaultInstance().getHoverName())
-                    .append(GemComponent)
-                    .append(Suffix));
-        }
-        /*        else stack.setHoverName(Component.literal("").append(component));*/
+        stack.setHoverName(Component.literal("")
+                .append(prefix)
+                .append(suffix)
+                .append(defaultName));
     }
 
     public static int levelUpperLimit = 225;

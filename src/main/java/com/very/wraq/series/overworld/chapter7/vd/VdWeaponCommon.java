@@ -1,10 +1,9 @@
 package com.very.wraq.series.overworld.chapter7.vd;
 
+import com.mojang.logging.LogUtils;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.Utils.ComponentUtils;
-import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.process.func.particle.ParticleProvider;
-import com.very.wraq.projectiles.MainHandTickItem;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.overworld.chapter7.C7Items;
 import net.minecraft.ChatFormatting;
@@ -79,6 +78,10 @@ public interface VdWeaponCommon {
         int tick = player.getServer().getTickCount();
         if (!countMap.containsKey(name)) countMap.put(name, new ArrayList<>());
         List<CountOnMob> list = countMap.get(name);
+        if (list.size() > 100) {
+            list.clear();
+            LogUtils.getLogger().error("VdWeapon passive list size bigger than 100");
+        }
         getNearMobs(player).forEach(mob -> {
             CountOnMob countOnMob = null;
             List<CountOnMob> removeList = new ArrayList<>();
