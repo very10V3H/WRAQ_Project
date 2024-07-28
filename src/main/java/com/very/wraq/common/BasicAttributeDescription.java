@@ -841,8 +841,9 @@ public class BasicAttributeDescription {
                     for (WraqGem.AttributeMapValue attributeMapValue : list) {
                         ToolTipParameter toolTipParameter = toolTipParameterMap.get(System.identityHashCode(attributeMapValue.attributeMap()));
                         Component component = Component.literal(" " + toolTipParameter.attributeName).withStyle(toolTipParameter.style).
-                                append(Component.literal("+" + String.format(toolTipParameter.valueFormat,
-                                        attributeMapValue.value() * (toolTipParameter.isPercent ? 100 : 1))).withStyle(ChatFormatting.WHITE));
+                                append(Component.literal((attributeMapValue.value() > 0 ? "+" : "") + String.format(toolTipParameter.valueFormat,
+                                        attributeMapValue.value() * (toolTipParameter.isPercent ? 100 : 1))).
+                                        withStyle(attributeMapValue.value() > 0 ? ChatFormatting.WHITE : ChatFormatting.RED));
                         event.getTooltipElements().add(index++, Either.right(new NewTooltip.MyNewTooltip(component, toolTipParameter.resourceLocation)));
                     }
                 }
@@ -853,6 +854,13 @@ public class BasicAttributeDescription {
                             append(Component.literal(" 待镶嵌").withStyle(CustomStyle.styleOfMine)), -1)));
                 }
             } else {
+                MutableComponent component = Component.literal(" ");
+                for (WraqGem wraqGem : gemList) {
+                    component.append(Component.literal("「").withStyle(ChatFormatting.AQUA).
+                            append(Component.literal("◈").withStyle(wraqGem.getHoverStyle())).
+                            append(Component.literal("」").withStyle(ChatFormatting.AQUA)));
+                }
+                event.getTooltipElements().add(index++, Either.right(new TraditionalTooltip.MyTooltip(component, -1)));
                 event.getTooltipElements().add(index++, Either.right(new TraditionalTooltip.MyTooltip(Component.literal(" [按住ALT查看宝石属性]").withStyle(ChatFormatting.LIGHT_PURPLE), -1)));
             }
         }
@@ -875,6 +883,8 @@ public class BasicAttributeDescription {
         put(System.identityHashCode(Utils.attackDamage), new ToolTipParameter("物理攻击",
                 Style.EMPTY.applyFormat(ChatFormatting.AQUA), "%.0f", false, TraditionalTooltip.attackDamage));
         put(System.identityHashCode(Utils.movementSpeedWithoutBattle), new ToolTipParameter("脱战移动速度",
+                CustomStyle.styleOfFlexible, "%.0f%%", true, TraditionalTooltip.movementSpeed));
+        put(System.identityHashCode(Utils.movementSpeedCommon), new ToolTipParameter("移动速度",
                 CustomStyle.styleOfFlexible, "%.0f%%", true, TraditionalTooltip.movementSpeed));
         put(System.identityHashCode(Utils.manaDamage), new ToolTipParameter("魔法攻击",
                 CustomStyle.styleOfMana, "%.0f", false, TraditionalTooltip.manaDamage));
@@ -921,17 +931,18 @@ public class BasicAttributeDescription {
         Item item = itemStack.getItem();
         CompoundTag data = itemStack.getOrCreateTagElement(Utils.MOD_ID);
         if (map.containsKey(item) || data.contains(curiosAttributeTag)) {
-            double percentAttackDamageEnhance;
+            double value;
 
             if (map.containsKey(item))
-                percentAttackDamageEnhance = ForgeEquipUtils.getTraditionalEquipBaseValue(itemStack, map);
+                value = ForgeEquipUtils.getTraditionalEquipBaseValue(itemStack, map);
             else if (item instanceof RandomCurios)
-                percentAttackDamageEnhance = data.getDouble(curiosAttributeTag) * CastleCurios.AttributeValueMap.get(curiosAttributeTag);
-            else percentAttackDamageEnhance = data.getInt(curiosAttributeTag);
+                value = data.getDouble(curiosAttributeTag) * CastleCurios.AttributeValueMap.get(curiosAttributeTag);
+            else value = data.getInt(curiosAttributeTag);
 
             MutableComponent mutableComponent = Component.literal("");
             mutableComponent.append(Component.literal(" " + attributeName).withStyle(style).
-                    append(Component.literal("+" + String.format(valueFormat, percentAttackDamageEnhance * (isPercent ? 100 : 1))).withStyle(ChatFormatting.WHITE)));
+                    append(Component.literal((value > 0 ? "+" : "") + String.format(valueFormat, value * (isPercent ? 100 : 1)))
+                            .withStyle(value > 0 ? ChatFormatting.WHITE : ChatFormatting.RED)));
 
             double gemsValue = GemAttributes.getGemsAttributeModifier(data, map);
 

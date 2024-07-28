@@ -542,7 +542,6 @@ public class PlayerAttributes {
         if (Compute.ArmorCount.Lake(player) >= 4) movementSpeedUp += 0.35;
         if (Compute.ArmorCount.Mine(player) >= 4) movementSpeedUp -= 0.5;
 
-
         if (player.getEffect(ModEffects.SPEEDUP.get()) != null && player.getEffect(ModEffects.SPEEDUP.get()).getAmplifier() == 0)
             movementSpeedUp += 0.3;
         if (player.getEffect(ModEffects.SPEEDUP.get()) != null && player.getEffect(ModEffects.SPEEDUP.get()).getAmplifier() == 1)
@@ -583,6 +582,8 @@ public class PlayerAttributes {
 
         movementSpeedUp += Compute.CuriosAttribute.attributeValue(player, Utils.movementSpeedCommon,
                 StringUtils.CuriosAttribute.commonMovementSpeed); // 新版饰品属性加成
+
+        movementSpeedUp += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.movementSpeedCommon);
 
         // 上方添加
 
