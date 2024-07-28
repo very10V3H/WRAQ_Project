@@ -5,6 +5,10 @@ import com.very.wraq.Items.Forging.ForgeEnhance;
 import com.very.wraq.Items.Forging.ForgeProtect;
 import com.very.wraq.Items.Gems.Dismantle;
 import com.very.wraq.Items.Gems.SlotOpen;
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.Utils.StringUtils;
+import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.events.core.InventoryCheck;
 import com.very.wraq.events.mob.loot.RandomLootEquip;
 import com.very.wraq.process.system.forge.ForgeEquipUtils;
@@ -21,10 +25,6 @@ import com.very.wraq.series.newrunes.RuneItem;
 import com.very.wraq.series.overworld.forging.forgingstone0;
 import com.very.wraq.series.overworld.forging.forgingstone1;
 import com.very.wraq.series.overworld.forging.forgingstone2;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.Utils.StringUtils;
-import com.very.wraq.common.Utils.Utils;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -291,6 +291,7 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider {
             blockEntity.itemStackHandler.setStackInSlot(2, sword);
             blockEntity.itemStackHandler.extractItem(0, 1, false);
             blockEntity.itemStackHandler.extractItem(1, 1, false);
+            if (player != null) Compute.soundToPlayer(player, SoundEvents.ANVIL_USE, blockEntity.getBlockPos().getCenter());
         }
 
         // 开孔
@@ -306,11 +307,13 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider {
                     if (player != null) {
                         Compute.sendFormatMSG(player, Component.literal("开孔").withStyle(ChatFormatting.AQUA),
                                 Component.literal("开孔成功。").withStyle(ChatFormatting.WHITE));
+                        Compute.soundToPlayer(player, SoundEvents.ANVIL_USE, blockEntity.getBlockPos().getCenter());
                     }
                 } else {
                     if (player != null) {
                         Compute.sendFormatMSG(player, Component.literal("开孔").withStyle(ChatFormatting.AQUA),
                                 Component.literal("开孔失败。").withStyle(ChatFormatting.WHITE));
+                        Compute.soundToPlayer(player, SoundEvents.ANVIL_DESTROY, blockEntity.getBlockPos().getCenter());
                     }
                 }
             } else if (data.getInt("newMaxSlot") == 1) {
@@ -320,11 +323,13 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider {
                     if (player != null) {
                         Compute.sendFormatMSG(player, Component.literal("开孔").withStyle(ChatFormatting.AQUA),
                                 Component.literal("开孔成功。").withStyle(ChatFormatting.WHITE));
+                        Compute.soundToPlayer(player, SoundEvents.ANVIL_USE, blockEntity.getBlockPos().getCenter());
                     }
                 } else {
                     if (player != null) {
                         Compute.sendFormatMSG(player, Component.literal("开孔").withStyle(ChatFormatting.AQUA),
                                 Component.literal("开孔失败。").withStyle(ChatFormatting.WHITE));
+                        Compute.soundToPlayer(player, SoundEvents.ANVIL_DESTROY, blockEntity.getBlockPos().getCenter());
                     }
                 }
             } else if (data.getInt("newMaxSlot") == 2) {
@@ -334,11 +339,13 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider {
                     if (player != null) {
                         Compute.sendFormatMSG(player, Component.literal("开孔").withStyle(ChatFormatting.AQUA),
                                 Component.literal("开孔成功。").withStyle(ChatFormatting.WHITE));
+                        Compute.soundToPlayer(player, SoundEvents.ANVIL_USE, blockEntity.getBlockPos().getCenter());
                     }
                 } else {
                     if (player != null) {
                         Compute.sendFormatMSG(player, Component.literal("开孔").withStyle(ChatFormatting.AQUA),
                                 Component.literal("开孔失败。").withStyle(ChatFormatting.WHITE));
+                        Compute.soundToPlayer(player, SoundEvents.ANVIL_DESTROY, blockEntity.getBlockPos().getCenter());
                     }
                 }
             }
@@ -477,6 +484,7 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider {
 
                     Compute.sendFormatMSG(player, Component.literal("强化").withStyle(ChatFormatting.AQUA),
                             Component.literal("强化失败。").withStyle(ChatFormatting.GRAY));
+                    Compute.soundToPlayer(player, SoundEvents.ANVIL_DESTROY, blockEntity.getBlockPos().getCenter());
 
                 } else {
                     if (forgelevel >= 17)
@@ -489,6 +497,7 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider {
                                 append(Component.literal(" 强化至" + "+" + data.getInt("Forging")).withStyle(ChatFormatting.WHITE)));
                     Compute.sendFormatMSG(player, Component.literal("强化").withStyle(ChatFormatting.AQUA),
                             Component.literal("强化成功!").withStyle(ChatFormatting.AQUA));
+                    Compute.soundToPlayer(player, SoundEvents.ANVIL_USE, blockEntity.getBlockPos().getCenter());
                 }
             }
 
@@ -726,6 +735,7 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider {
 
             blockEntity.itemStackHandler.setStackInSlot(2, productSlotStack);
             blockEntity.itemStackHandler.extractItem(0, 4, false);
+            if (player != null) Compute.soundToPlayer(player, SoundEvents.ANVIL_USE, blockEntity.getBlockPos().getCenter());
         }
 
         if (hasRecipeOfEquipPieceForge(blockEntity)) {
@@ -746,7 +756,7 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider {
             blockEntity.itemStackHandler.setStackInSlot(2, equip);
             blockEntity.itemStackHandler.extractItem(0, 4, false);
             blockEntity.itemStackHandler.extractItem(1, 1, false);
-
+            if (player != null) Compute.soundToPlayer(player, SoundEvents.ANVIL_USE, blockEntity.getBlockPos().getCenter());
         }
     }
 
