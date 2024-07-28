@@ -60,8 +60,8 @@ public class PurpleIronArmor extends WraqArmor implements ForgeItem {
         return new ArrayList<>() {{
             add(new ItemStack(ModItems.PurpleIron.get(), 16));
             add(new ItemStack(ModItems.goldCoin.get(), 128));
-            add(new ItemStack(ModItems.CompleteGem.get(), 8));
-            add(new ItemStack(ModItems.ReputationMedal.get(), 8));
+            add(new ItemStack(ModItems.completeGem.get(), 4));
+            add(new ItemStack(ModItems.ReputationMedal.get(), 16));
             add(new ItemStack(ModItems.RefiningIron.get(), 1));
             add(new ItemStack(ModItems.RefiningCopper.get(), 1));
             add(new ItemStack(ModItems.WorldSoul3.get(), 1));

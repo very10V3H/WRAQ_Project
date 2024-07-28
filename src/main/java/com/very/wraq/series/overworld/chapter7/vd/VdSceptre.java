@@ -71,8 +71,8 @@ public class VdSceptre extends WraqSceptre implements ForgeItem, ActiveItem, Mai
         return new ArrayList<>() {{
             add(new ItemStack(ModItems.DevilSceptre.get(), 1));
             add(new ItemStack(C7Items.vdSoul.get(), 256));
-            add(new ItemStack(ModItems.CompleteGem.get(), 64));
-            add(new ItemStack(ModItems.ReputationMedal.get(), 64));
+            add(new ItemStack(ModItems.completeGem.get(), 32));
+            add(new ItemStack(ModItems.ReputationMedal.get(), 128));
             add(new ItemStack(ModItems.RefiningGold.get(), 8));
             add(new ItemStack(ModItems.WorldSoul3.get(), 8));
         }};

@@ -31,7 +31,6 @@ public class GemItems {
             }}, CustomStyle.styleOfField, Component.literal("原野意志的具象，凝聚成此石。").withStyle(CustomStyle.styleOfField),
                     ComponentUtils.getSuffixOfChapterI()));
 
-
     public static final RegistryObject<Item> forestGem = ITEMS.register("forest_gem",
             () -> new WraqGem(new Item.Properties().rarity(CustomStyle.ForestBold), new ArrayList<>() {{
                 add(new WraqGem.AttributeMapValue(Utils.percentDefenceEnhance, 0.03));

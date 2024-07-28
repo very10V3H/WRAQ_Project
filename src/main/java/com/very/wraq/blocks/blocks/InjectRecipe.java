@@ -12,6 +12,8 @@ public class InjectRecipe {
 
     public static Map<Item, InjectingRecipe> injectingRecipeMap = new HashMap<>();
 
+    public static Map<Item, Item> injectedGetItemSourceItemMap = new HashMap<>();
+
     public static boolean containItem(Item item) {
         for (InjectingRecipe injectingRecipe : injectingRecipeMap.values().stream().toList()) {
             if (injectingRecipe.getForgingGetItem().equals(item)) return true;
@@ -442,11 +444,11 @@ public class InjectRecipe {
                         ModItems.PlainDefenceRing3.get()));
 
         injectingRecipeMap.put(ModItems.PlainBossSoul.get(),
-                new InjectingRecipe(16, ModItems.CompleteGem.get(), 1,
+                new InjectingRecipe(16, ModItems.completeGem.get(), 1,
                         ModItems.PlainCompleteGem.get()));
 
         injectingRecipeMap.put(ModItems.IceSoul.get(),
-                new InjectingRecipe(16, ModItems.CompleteGem.get(), 2,
+                new InjectingRecipe(16, ModItems.completeGem.get(), 1,
                         ModItems.IceCompleteGem.get()));
 
         injectingRecipeMap.put(ModItems.VolcanoBow3.get(),
@@ -556,7 +558,7 @@ public class InjectRecipe {
                         ModItems.DevilEarthManaCurios.get()));
 
         injectingRecipeMap.put(ModItems.MoonSoul.get(),
-                new InjectingRecipe(16, ModItems.CompleteGem.get(), 4,
+                new InjectingRecipe(16, ModItems.completeGem.get(), 2,
                         ModItems.MoonCompleteGem.get()));
 
         injectingRecipeMap.put(ModItems.IceSword.get(),
@@ -728,15 +730,15 @@ public class InjectRecipe {
                         ModItems.SapphireNecklace3.get()));
 
         injectingRecipeMap.put(ModItems.FancySapphireNecklace.get(),
-                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 3,
+                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 1,
                         ModItems.FancySapphireNecklace1.get()));
 
         injectingRecipeMap.put(ModItems.FancySapphireNecklace1.get(),
-                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 6,
+                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 2,
                         ModItems.FancySapphireNecklace2.get()));
 
         injectingRecipeMap.put(ModItems.FancySapphireNecklace2.get(),
-                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 9,
+                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 3,
                         ModItems.FancySapphireNecklace3.get()));
 
         injectingRecipeMap.put(ModItems.PurpleIronBud1.get(),
@@ -890,5 +892,9 @@ public class InjectRecipe {
         injectingRecipeMap.put(ModItems.EvokerSword2.get(),
                 new InjectingRecipe(ModItems.EvokerRune.get(), 8,
                         ModItems.EvokerSword3.get()));
+
+        for (Map.Entry<Item, InjectingRecipe> itemInjectingRecipeEntry : injectingRecipeMap.entrySet()) {
+            injectedGetItemSourceItemMap.put(itemInjectingRecipeEntry.getValue().getForgingGetItem(), itemInjectingRecipeEntry.getKey());
+        }
     }
 }

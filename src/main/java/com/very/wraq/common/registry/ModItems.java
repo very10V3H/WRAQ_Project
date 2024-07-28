@@ -409,7 +409,7 @@ public class ModItems {
             () -> new ForestArmorHelmet(ItemMaterial.Forest, ArmorItem.Type.HELMET));
     public static final RegistryObject<Item> gemPiece = ITEMS.register("gemspiece",
             () -> new gemspiece(new Item.Properties().rarity(Rarity.RARE)));
-    public static final RegistryObject<Item> CompleteGem = ITEMS.register("complete_gem",
+    public static final RegistryObject<Item> completeGem = ITEMS.register("complete_gem",
             () -> new Item(new Item.Properties().rarity(Rarity.EPIC)));
     public static final RegistryObject<Item> ReputationMedal = ITEMS.register("reputation_medal",
             () -> new Item(new Item.Properties().rarity(Rarity.UNCOMMON)));
@@ -3387,7 +3387,7 @@ public class ModItems {
                         new NewLotteries.Loot(new ItemStack(ModItems.WindCurios0.get()), 0.005),*/
                         new NewLotteries.Loot(new ItemStack(ModItems.KillPaperLoot.get(), 4), 0.2),
                         new NewLotteries.Loot(new ItemStack(ModItems.MopUpPaperLoot.get(), 4), 0.2),
-                        new NewLotteries.Loot(new ItemStack(ModItems.CompleteGem.get()), 0.1),
+                        new NewLotteries.Loot(new ItemStack(ModItems.completeGem.get()), 0.1),
                         new NewLotteries.Loot(new ItemStack(ModItems.ReputationMedal.get()), 0.1),
                         new NewLotteries.Loot(new ItemStack(ModItems.goldCoin.get(), 4), 0.1)
                 );
@@ -3411,7 +3411,7 @@ public class ModItems {
                         new NewLotteries.Loot(new ItemStack(ModItems.WindCurios0.get()), 0.005),*/
                         new NewLotteries.Loot(new ItemStack(ModItems.KillPaperLoot.get(), 4), 0.2),
                         new NewLotteries.Loot(new ItemStack(ModItems.MopUpPaperLoot.get(), 4), 0.2),
-                        new NewLotteries.Loot(new ItemStack(ModItems.CompleteGem.get()), 0.1),
+                        new NewLotteries.Loot(new ItemStack(ModItems.completeGem.get()), 0.1),
                         new NewLotteries.Loot(new ItemStack(ModItems.ReputationMedal.get()), 0.1),
                         new NewLotteries.Loot(new ItemStack(ModItems.goldCoin.get(), 4), 0.1)
                 );
@@ -3435,7 +3435,7 @@ public class ModItems {
                         new NewLotteries.Loot(new ItemStack(ModItems.WindCurios0.get()), 0.005),*/
                         new NewLotteries.Loot(new ItemStack(ModItems.KillPaperLoot.get(), 4), 0.2),
                         new NewLotteries.Loot(new ItemStack(ModItems.MopUpPaperLoot.get(), 4), 0.2),
-                        new NewLotteries.Loot(new ItemStack(ModItems.CompleteGem.get()), 0.1),
+                        new NewLotteries.Loot(new ItemStack(ModItems.completeGem.get()), 0.1),
                         new NewLotteries.Loot(new ItemStack(ModItems.ReputationMedal.get()), 0.1),
                         new NewLotteries.Loot(new ItemStack(ModItems.goldCoin.get(), 4), 0.1)
                 );

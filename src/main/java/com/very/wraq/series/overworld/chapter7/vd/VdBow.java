@@ -6,7 +6,6 @@ import com.very.wraq.common.Utils.Utils;
 import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.core.MyArrow;
 import com.very.wraq.process.func.particle.ParticleProvider;
-import com.very.wraq.process.system.element.Element;
 import com.very.wraq.projectiles.ActiveItem;
 import com.very.wraq.projectiles.ForgeItem;
 import com.very.wraq.projectiles.MainHandTickItem;
@@ -67,8 +66,8 @@ public class VdBow extends WraqBow implements ForgeItem, ActiveItem, MainHandTic
         return new ArrayList<>() {{
             add(new ItemStack(ModItems.DevilBow.get(), 1));
             add(new ItemStack(C7Items.vdSoul.get(), 256));
-            add(new ItemStack(ModItems.CompleteGem.get(), 64));
-            add(new ItemStack(ModItems.ReputationMedal.get(), 64));
+            add(new ItemStack(ModItems.completeGem.get(), 32));
+            add(new ItemStack(ModItems.ReputationMedal.get(), 128));
             add(new ItemStack(ModItems.RefiningGold.get(), 8));
             add(new ItemStack(ModItems.WorldSoul3.get(), 8));
         }};

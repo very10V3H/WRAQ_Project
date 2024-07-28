@@ -153,8 +153,8 @@ public class GoldenAttackOffhand extends WraqOffHandItem implements OnKillEffect
         return new ArrayList<>() {{
             add(new ItemStack(ModItems.Boss2Piece.get(), 256));
             add(new ItemStack(ModItems.goldCoin.get(), 128));
-            add(new ItemStack(ModItems.CompleteGem.get(), 8));
-            add(new ItemStack(ModItems.ReputationMedal.get(), 8));
+            add(new ItemStack(ModItems.completeGem.get(), 4));
+            add(new ItemStack(ModItems.ReputationMedal.get(), 16));
             add(new ItemStack(ModItems.RefiningGold.get(), 1));
             add(new ItemStack(ModItems.WorldSoul3.get(), 1));
         }};
