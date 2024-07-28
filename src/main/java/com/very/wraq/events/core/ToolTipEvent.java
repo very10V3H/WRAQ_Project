@@ -3,17 +3,17 @@ package com.very.wraq.events.core;
 import com.very.wraq.blocks.blocks.ForgeRecipe;
 import com.very.wraq.blocks.blocks.InjectRecipe;
 import com.very.wraq.blocks.brewing.BrewingNote;
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.Utils.ClientUtils;
+import com.very.wraq.common.Utils.Struct.InjectingRecipe;
+import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.process.func.plan.SimpleTierPaper;
 import com.very.wraq.process.system.forge.ForgeHammer;
 import com.very.wraq.projectiles.RandomCurios;
 import com.very.wraq.projectiles.UsageOrGetWayDescriptionItem;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.instance.Castle.CastleCurios;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.Utils.ClientUtils;
-import com.very.wraq.common.Utils.Struct.InjectingRecipe;
-import com.very.wraq.common.Utils.Utils;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.nbt.CompoundTag;
@@ -68,16 +68,25 @@ public class ToolTipEvent {
                             withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
         }
         if (InjectRecipe.injectingRecipeMap.isEmpty()) InjectRecipe.setInjectingRecipeMap();
-        if (InjectRecipe.injectingRecipeMap.containsKey(event.getItemStack().getItem()) && !(event.getItemStack().getItem() instanceof CastleCurios)) {
+        if ((InjectRecipe.injectingRecipeMap.containsKey(event.getItemStack().getItem())
+                || InjectRecipe.injectedGetItemSourceItemMap.containsKey(event.getItemStack().getItem()))
+                && !(event.getItemStack().getItem() instanceof CastleCurios)) {
             if (!Screen.hasShiftDown())
-                event.getToolTip().add(Component.literal("[可灌注/增幅，shift查看配方]").withStyle(ChatFormatting.BOLD).withStyle(CustomStyle.styleOfInject));
+                event.getToolTip().add(Component.literal("[在灌注配方中，shift查看配方]").withStyle(ChatFormatting.BOLD).withStyle(CustomStyle.styleOfInject));
             else {
-                InjectingRecipe injectingRecipe = InjectRecipe.injectingRecipeMap.get(event.getItemStack().getItem());
+                InjectingRecipe injectingRecipe;
+                Item sourceItem = event.getItemStack().getItem();
+                if (InjectRecipe.injectingRecipeMap.containsKey(event.getItemStack().getItem())) {
+                    injectingRecipe = InjectRecipe.injectingRecipeMap.get(event.getItemStack().getItem());
+                } else {
+                    sourceItem = InjectRecipe.injectedGetItemSourceItemMap.get(event.getItemStack().getItem());
+                    injectingRecipe = InjectRecipe.injectingRecipeMap.get(sourceItem);
+                }
                 event.getToolTip().add(Component.literal("使用 ").withStyle(ChatFormatting.GREEN).
                         append(injectingRecipe.getForgingNeededMaterial().getDefaultInstance().getDisplayName()).
                         append(Component.literal(" * " + injectingRecipe.getMaterialCount()).withStyle(ChatFormatting.WHITE)));
                 event.getToolTip().add(Component.literal("灌注 ").withStyle(CustomStyle.styleOfInject).
-                        append(event.getItemStack().getDisplayName()).
+                        append(sourceItem.getDefaultInstance().getDisplayName()).
                         append(Component.literal(" * " + injectingRecipe.getOriginalMaterialNeedCount()).withStyle(ChatFormatting.WHITE)));
                 event.getToolTip().add(Component.literal("得到 ").withStyle(ChatFormatting.AQUA).
                         append(injectingRecipe.getForgingGetItem().getDefaultInstance().getDisplayName()));
