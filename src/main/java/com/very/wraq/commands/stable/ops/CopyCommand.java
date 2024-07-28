@@ -5,6 +5,7 @@ import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.very.wraq.common.Compute;
+import com.very.wraq.events.core.InventoryCheck;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.arguments.GameProfileArgument;
@@ -12,6 +13,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import top.theillusivec4.curios.api.CuriosApi;
 
 import java.util.Collection;
@@ -37,7 +39,9 @@ public class CopyCommand implements Command<CommandSourceStack> {
             Inventory myInventory = player.getInventory();
             Inventory playerInventory = target.getInventory();
             for (int i = 0 ; i < myInventory.getContainerSize() ; i ++) {
-                myInventory.setItem(i, playerInventory.getItem(i).copy());
+                ItemStack itemStack = playerInventory.getItem(i).copy();
+                if (InventoryCheck.containOwnerTag(itemStack)) InventoryCheck.removeOwnerTagDirect(itemStack);
+                myInventory.setItem(i, itemStack);
             }
 
             // 2.复制persistentData
@@ -47,7 +51,9 @@ public class CopyCommand implements Command<CommandSourceStack> {
             CuriosApi.getCuriosInventory(target).ifPresent(inv -> {
                 CuriosApi.getCuriosInventory(player).ifPresent(inv1 -> {
                     for (int i = 0 ; i < inv.getEquippedCurios().getSlots() ; i ++) {
-                        inv1.getEquippedCurios().setStackInSlot(i, inv.getEquippedCurios().getStackInSlot(i));
+                        ItemStack itemStack = inv.getEquippedCurios().getStackInSlot(i).copy();
+                        if (InventoryCheck.containOwnerTag(itemStack)) InventoryCheck.removeOwnerTagDirect(itemStack);
+                        inv1.getEquippedCurios().setStackInSlot(i, itemStack);
                     }
                 });
             });
