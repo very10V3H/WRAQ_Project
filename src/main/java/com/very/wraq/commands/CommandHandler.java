@@ -443,7 +443,15 @@ public class CommandHandler {
                                 .executes(QuickDecomposeCommand.instance)
                 )
         );
-
+        CommandDispatcher<CommandSourceStack> dispatcher47 = event.getDispatcher();
+        LiteralCommandNode<CommandSourceStack> cmd47 = dispatcher47.register(
+                Commands.literal(Utils.MOD_ID).then(
+                        Commands.literal("copy").then(
+                                Commands.argument("name", GameProfileArgument.gameProfile())
+                                        .executes(CopyCommand.instance)
+                        ).requires(commandSourceStack -> commandSourceStack.hasPermission(2))
+                )
+        );
 
     }
 }
