@@ -841,7 +841,7 @@ public class TradeList {
                     add(new ItemStack(ModItems.WorldSoul3.get(), 4));
                 }});
                 case 5, 6, 7 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.WorldSoul2.get(), 16));
+                    add(new ItemStack(ModItems.WorldSoul2.get(), 8));
                 }});
                 case 11, 12, 13 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.worldSoul5.get(), 40));
