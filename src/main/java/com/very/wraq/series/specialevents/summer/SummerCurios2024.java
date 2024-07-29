@@ -115,7 +115,7 @@ public class SummerCurios2024 extends WraqCurios implements OnCuriosSlotAttribut
             int rate = 1;
             if (player.isInWater()
                     || (player.level().dimension().equals(Level.OVERWORLD)
-                    && MySeason.currentSeason.contains(MySeason.summer))) rate = 2;
+                    && MySeason.clientSeason.contains(MySeason.summer))) rate = 2;
             Compute.sendEffectLastTimeToClientPlayer(this, rate, 20, false);
         }
     }
