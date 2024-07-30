@@ -62,6 +62,9 @@ public class MoonBow extends WraqBow {
                 append(Component.literal("箭矢攻击").withStyle(CustomStyle.styleOfFlexible)).
                 append(Component.literal("将额外释放").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("两支箭矢").withStyle(CustomStyle.styleOfFlexible)));
+        components.add(Component.literal(" 额外箭矢").withStyle(CustomStyle.styleOfFlexible).
+                append(Component.literal("造成").withStyle(ChatFormatting.WHITE)).
+                append(Component.literal("25%伤害").withStyle(CustomStyle.styleOfMoon)));
         components.add(Component.literal(" 两支额外箭矢").withStyle(CustomStyle.styleOfFlexible).
                 append(Component.literal("会自动锁定自身半径30格内的目标").withStyle(ChatFormatting.WHITE)));
         return components;
@@ -96,7 +99,7 @@ public class MoonBow extends WraqBow {
                     }
                 }
                 if (NearerMob == null) NearerMob = NearestMob;
-                MyArrow myArrow = new MyArrow(EntityType.ARROW, player.level(), player, true);
+                MyArrow myArrow = new MyArrow(EntityType.ARROW, player.level(), player, true, 0.25);
                 myArrow.setDeltaMovement(NearestMob.position().add(0, 1, 0).subtract(player.position().add(0, 1.5, 0)).normalize().scale(4.5));
                 myArrow.moveTo(player.pick(0.5, 0, false).getLocation());
                 myArrow.setCritArrow(true);
@@ -105,7 +108,7 @@ public class MoonBow extends WraqBow {
                 player.level().addFreshEntity(myArrow);
                 ParticleProvider.LineParticle(player.level(), (int) NearestMob.distanceTo(player), player.pick(0.5, 0, false).getLocation(), NearestMob.position().add(0, 1, 0), ParticleTypes.FIREWORK);
 
-                MyArrow myArrow1 = new MyArrow(EntityType.ARROW, player.level(), player, true);
+                MyArrow myArrow1 = new MyArrow(EntityType.ARROW, player.level(), player, true, 0.25);
                 myArrow1.setDeltaMovement(NearerMob.position().add(0, 1, 0).subtract(player.position().add(0, 1.5, 0)).normalize().scale(4.5));
                 myArrow.moveTo(player.pick(0.5, 0, false).getLocation());
                 myArrow.setCritArrow(true);
