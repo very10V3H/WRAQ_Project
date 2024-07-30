@@ -14,6 +14,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.p3pp3rf1y.sophisticatedbackpacks.backpack.BackpackItem;
 import top.theillusivec4.curios.api.CuriosApi;
 
 import java.util.Collection;
@@ -40,6 +41,10 @@ public class CopyCommand implements Command<CommandSourceStack> {
             Inventory playerInventory = target.getInventory();
             for (int i = 0 ; i < myInventory.getContainerSize() ; i ++) {
                 ItemStack itemStack = playerInventory.getItem(i).copy();
+                if (itemStack.getItem() instanceof BackpackItem) {
+                    player.sendSystemMessage(Component.literal("跳过了一个背包物品"));
+                    continue;
+                }
                 if (InventoryCheck.containOwnerTag(itemStack)) InventoryCheck.removeOwnerTagDirect(itemStack);
                 myInventory.setItem(i, itemStack);
             }
