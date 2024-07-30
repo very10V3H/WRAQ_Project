@@ -3879,8 +3879,8 @@ public class Compute {
     public static double playerFantasyAttributeEnhance(Player player) {
         double enhance = 1;
         CompoundTag data = player.getPersistentData();
-        if (data.getBoolean(StringUtils.FantasyMedal)) enhance += 0.1;
-        if (data.getBoolean(StringUtils.FantasyBracelet)) enhance += 0.1;
+        if (data.getBoolean(StringUtils.FantasyMedal)) enhance += 0.03;
+        if (data.getBoolean(StringUtils.FantasyBracelet)) enhance += 0.03;
         return enhance;
     }
 
