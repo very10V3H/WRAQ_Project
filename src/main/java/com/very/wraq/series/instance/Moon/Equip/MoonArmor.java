@@ -27,8 +27,8 @@ public class MoonArmor extends WraqArmor {
         Utils.maxHealth.put(this, 4096d);
         Utils.attackDamage.put(this, 700d);
         Utils.manaDamage.put(this, 1400d);
-        Utils.defence.put(this, 800d);
-        Utils.manaDefence.put(this, 600d);
+        Utils.defence.put(this, 400d);
+        Utils.manaDefence.put(this, 300d);
         Utils.critDamage.put(this, 0.35);
         Utils.coolDownDecrease.put(this, 0.15);
         Utils.swiftnessUp.put(this, 1.5d);

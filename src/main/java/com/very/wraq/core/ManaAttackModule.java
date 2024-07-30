@@ -525,7 +525,7 @@ public class ManaAttackModule {
         CompoundTag data = player.getPersistentData();
         Item mainhand = player.getItemInHand(InteractionHand.MAIN_HAND).getItem();
         if (Compute.ManaSkillLevelGet(data, 10) > 0 && Utils.sceptreTag.containsKey(mainhand)) {
-            return PlayerAttributes.critDamage(player) * Compute.ManaSkillLevelGet(data, 10) * 0.15;
+            return PlayerAttributes.critDamage(player) * Compute.ManaSkillLevelGet(data, 10) * 0.125;
         } // 法术专精-力凝魔核
         return 0;
     }

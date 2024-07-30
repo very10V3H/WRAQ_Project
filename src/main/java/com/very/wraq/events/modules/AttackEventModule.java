@@ -625,7 +625,7 @@ public class AttackEventModule {
 
     public static double MineShield(Player player) {
         if (Utils.shieldTag.containsKey(player.getItemInHand(InteractionHand.OFF_HAND).getItem()))
-            return 1 - (1600 / (1600 + PlayerAttributes.defence(player)));
+            return 0.75 * (1 - (1600 / (1600 + PlayerAttributes.defence(player))));
         else return 0;
     }
 

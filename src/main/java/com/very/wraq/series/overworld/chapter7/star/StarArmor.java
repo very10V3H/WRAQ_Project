@@ -27,8 +27,8 @@ public class StarArmor extends WraqArmor {
         Utils.maxHealth.put(this, 8192d);
         Utils.attackDamage.put(this, 1050d);
         Utils.manaDamage.put(this, 2100d);
-        Utils.defence.put(this, 1200d);
-        Utils.manaDefence.put(this, 800d);
+        Utils.defence.put(this, 600d);
+        Utils.manaDefence.put(this, 400d);
         Utils.critDamage.put(this, 0.7);
         Utils.coolDownDecrease.put(this, 0.3);
         Utils.swiftnessUp.put(this, 3d);
