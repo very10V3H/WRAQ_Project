@@ -21,6 +21,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -500,6 +501,17 @@ public class AttributeHud {
                 }
             }
         }
+
+        ClientUtils.effectTimeLasts.sort(new Comparator<EffectTimeLast>() {
+            @Override
+            public int compare(EffectTimeLast o1, EffectTimeLast o2) {
+                if (o1.lastTick != o2.lastTick) {
+                    return o1.lastTick - o2.lastTick;
+                } else {
+                    return o1.itemStack.getItem().toString().compareTo(o2.itemStack.getItem().toString());
+                }
+            }
+        });
 
         for (EffectTimeLast effectTimeLast : ClientUtils.effectTimeLasts) {
             guiGraphics.blit(new ResourceLocation(Utils.MOD_ID, "textures/item/" + effectTimeLast.itemStack.getItem().toString() + ".png"), x + XXOffset + Count * 15, y - 60, 0, 0, 16, 16, 16, 16);
