@@ -83,7 +83,7 @@ public class WoodSpur {
     public static void logReward(Player player) throws IOException {
         CompoundTag data = player.getPersistentData();
         Compute.playerLopExpAdd(player, 2);
-        Compute.ExpPercentGetAndMSGSend(player, 0.005, 0, Math.min(player.experienceLevel, 50));
+        Compute.givePercentExpToPlayer(player, 0.005, 0, Math.min(player.experienceLevel, 50));
 
         Utils.dayLopCount.put(player.getName().getString(), Utils.dayLopCount.getOrDefault(player.getName().getString(), 0) + 1);
 

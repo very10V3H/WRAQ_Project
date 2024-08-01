@@ -1,5 +1,6 @@
 package com.very.wraq.events.mob.instance.instances;
 
+import com.very.wraq.common.attributeValues.PlayerAttributes;
 import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.events.mob.instance.NoTeamInstance;
 import com.very.wraq.process.system.element.Element;
@@ -127,6 +128,8 @@ public class PlainInstance extends NoTeamInstance {
         if (!MobSpawn.tempKillCount.containsKey(name)) MobSpawn.tempKillCount.put(name, new HashMap<>());
         Map<String, Integer> map = MobSpawn.tempKillCount.get(name);
         map.put(mobName, map.getOrDefault(mobName, 0) + 1);
+
+        Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player), 50);
     }
 
     public static List<ItemAndRate> getRewardList() {

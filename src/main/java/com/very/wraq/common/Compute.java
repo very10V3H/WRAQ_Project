@@ -357,11 +357,12 @@ public class Compute {
                 .append(defaultName));
     }
 
-    public static int levelUpperLimit = 225;
+    public static int levelUpperLimit = 250;
+    public static int expGetUpperLimit = 180;
 
-    public static void ExpPercentGetAndMSGSend(Player player, double num, double ExpUp, int ExpLevel) {
+    public static void givePercentExpToPlayer(Player player, double num, double ExpUp, int ExpLevel) {
         if (player.experienceLevel >= levelUpperLimit) return;
-        if (ExpLevel >= 120) ExpLevel = 120;
+        if (ExpLevel >= expGetUpperLimit) ExpLevel = expGetUpperLimit;
         if (ExpLevel - player.experienceLevel > 8) ExpLevel = player.experienceLevel;
 
         CompoundTag data = player.getPersistentData();
@@ -381,7 +382,7 @@ public class Compute {
                             append(Component.literal(String.format(" (%.1f/%.1f)", data.getDouble("Xp"), LevelUpNeedXp)).withStyle(ChatFormatting.GRAY)));
     }
 
-    public static void expGive(Player player, double num) {
+    public static void giveExpToPlayer(Player player, double num) {
         if (player.experienceLevel >= levelUpperLimit) return;
         CompoundTag data = player.getPersistentData();
         double LevelUpNeedXp = Math.pow(Math.E, 3 + (player.experienceLevel / 100d) * 7);
@@ -397,8 +398,9 @@ public class Compute {
                             append(Component.literal(String.format(" (%.1f/%.1f)", data.getDouble("Xp"), LevelUpNeedXp)).withStyle(ChatFormatting.GRAY)));
     }
 
-    public static void ExpPercentGetIgnoreLimitAndMSGSend(Player player, double num, double ExpUp, int ExpLevel) {
+    public static void givePercentExpToPlayerWithoutLimit(Player player, double num, double ExpUp, int ExpLevel) {
         if (player.experienceLevel >= levelUpperLimit) return;
+        if (ExpLevel >= expGetUpperLimit) ExpLevel = expGetUpperLimit;
         if (ExpLevel - player.experienceLevel > 8) ExpLevel = player.experienceLevel;
 
         CompoundTag data = player.getPersistentData();
@@ -418,12 +420,6 @@ public class Compute {
                             append(Component.literal(String.format(" (%.1f/%.1f)", data.getDouble("Xp"), LevelUpNeedXp)).withStyle(ChatFormatting.GRAY)));
     }
 
-    /*    public static void USE(Player player) {
-        List<ServerPlayer> serverPlayerList = player.getServer().getPlayerList().getPlayers();
-        serverPlayerList.forEach(serverPlayer -> {
-            ModNetworking.sendToClient(new UseAnimationS2CPacket(player.getId(),0),serverPlayer);
-        });
-    }*/
     public static void use(Player player) {
         if (player.level().isClientSide) {
             if (player.tickCount - 10 > ClientUtils.UseTick && !ClientUtils.PlayerIsAttacking(player)
@@ -879,7 +875,7 @@ public class Compute {
                                 append(player.getDisplayName()).
                                 append(Component.literal(" 完成了一次 ").withStyle(ChatFormatting.WHITE)).
                                 append(Component.literal("完美酿造").withStyle(CustomStyle.styleOfBrew)));
-                Compute.ExpPercentGetAndMSGSend(player, 0.02, ExpUp, player.experienceLevel);
+                Compute.givePercentExpToPlayer(player, 0.02, ExpUp, player.experienceLevel);
             }
             return true;
         }

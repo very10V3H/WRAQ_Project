@@ -42,7 +42,7 @@ public class Drops {
                 throw new RuntimeException(e);
             }
         });
-        Compute.ExpPercentGetAndMSGSend(player, 0.02 * num, PlayerAttributes.expUp(player),
+        Compute.givePercentExpToPlayer(player, 0.02 * num, PlayerAttributes.expUp(player),
                 (int) MobArmorNum.mobArmorNumHashMap.get(StringUtils.MobName.PlainZombie).MobLevel);
         KillCount(data, "KillCountOfPlainZombie");
         DailyMission.addCount(player, DailyMission.plainZombieKillCountMap);
@@ -68,7 +68,7 @@ public class Drops {
                 throw new RuntimeException(e);
             }
         });
-        Compute.ExpPercentGetAndMSGSend(player, 0.02, PlayerAttributes.expUp(player),
+        Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player),
                 (int) MobArmorNum.mobArmorNumHashMap.get(StringUtils.MobName.ForestSkeleton).MobLevel);
         KillCount(data, "KillCountOfForestSkeleton");
     }
@@ -93,7 +93,7 @@ public class Drops {
                 throw new RuntimeException(e);
             }
         });
-        Compute.ExpPercentGetAndMSGSend(player, 0.02, PlayerAttributes.expUp(player),
+        Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player),
                 (int) MobArmorNum.mobArmorNumHashMap.get(StringUtils.MobName.ForestZombie).MobLevel);
         KillCount(data, "KillCountOfForestZombie");
     }
@@ -118,7 +118,7 @@ public class Drops {
                 throw new RuntimeException(e);
             }
         });
-        Compute.ExpPercentGetAndMSGSend(player, 0.02, PlayerAttributes.expUp(player),
+        Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player),
                 (int) MobArmorNum.mobArmorNumHashMap.get(StringUtils.MobName.LakeDrowned).MobLevel);
         KillCount(data, "KillCountOfLakeDrowned");
     }
@@ -143,7 +143,7 @@ public class Drops {
                 throw new RuntimeException(e);
             }
         });
-        Compute.ExpPercentGetAndMSGSend(player, 0.02, PlayerAttributes.expUp(player),
+        Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player),
                 (int) MobArmorNum.mobArmorNumHashMap.get(StringUtils.MobName.VolcanoBlaze).MobLevel);
         KillCount(data, "KillCountOfVolcanoBlazw");
     }
@@ -169,7 +169,7 @@ public class Drops {
                 throw new RuntimeException(e);
             }
         });
-        Compute.ExpPercentGetAndMSGSend(player, 0.02, PlayerAttributes.expUp(player),
+        Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player),
                 (int) MobArmorNum.mobArmorNumHashMap.get(StringUtils.MobName.MineZombie).MobLevel);
         if (!data.contains(StringUtils.KillCount.Total)) data.putInt(StringUtils.KillCount.Total, (int) num);
         else data.putInt(StringUtils.KillCount.Total, data.getInt(StringUtils.KillCount.Total) + (int) num);
@@ -202,7 +202,7 @@ public class Drops {
                 throw new RuntimeException(e);
             }
         });
-        Compute.ExpPercentGetAndMSGSend(player, 0.02, PlayerAttributes.expUp(player),
+        Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player),
                 (int) MobArmorNum.mobArmorNumHashMap.get(StringUtils.MobName.FieldZombie).MobLevel);
         KillCount(data, "KillCountOfFeildZombie");
     }
@@ -227,7 +227,7 @@ public class Drops {
                 throw new RuntimeException(e);
             }
         });
-        Compute.ExpPercentGetAndMSGSend(player, 0.02, PlayerAttributes.expUp(player),
+        Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player),
                 (int) MobArmorNum.mobArmorNumHashMap.get(StringUtils.MobName.SnowStray).MobLevel);
         KillCount(data, "KillCountOfSnowStray");
         DailyMission.addCount(player, DailyMission.dreadHoundKillCountMap);
@@ -258,7 +258,7 @@ public class Drops {
                 throw new RuntimeException(e);
             }
         });
-        Compute.ExpPercentGetAndMSGSend(player, 0.02, PlayerAttributes.expUp(player),
+        Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player),
                 (int) MobArmorNum.mobArmorNumHashMap.get(StringUtils.MobName.SkyVex).MobLevel);
         KillCount(data, "KillCountOfVex");
     }
@@ -283,7 +283,7 @@ public class Drops {
                 throw new RuntimeException(e);
             }
         });
-        Compute.ExpPercentGetAndMSGSend(player, 0.02, PlayerAttributes.expUp(player),
+        Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player),
                 (int) MobArmorNum.mobArmorNumHashMap.get(StringUtils.MobName.Evoker).MobLevel);
         KillCount(data, "KillCountOfEvoker");
     }
@@ -308,7 +308,7 @@ public class Drops {
                 throw new RuntimeException(e);
             }
         });
-        Compute.ExpPercentGetAndMSGSend(player, 0.02, PlayerAttributes.expUp(player),
+        Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player),
                 (int) MobArmorNum.mobArmorNumHashMap.get(StringUtils.MobName.EvokerMaster).MobLevel);
         KillCount(data, "KillCountOfEvokerMaster");
     }
@@ -332,7 +332,7 @@ public class Drops {
                 throw new RuntimeException(e);
             }
         });
-        Compute.ExpPercentGetAndMSGSend(player, 0.02, PlayerAttributes.expUp(player),
+        Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player),
                 (int) MobArmorNum.mobArmorNumHashMap.get(StringUtils.MobName.SeaGuardian).MobLevel);
         KillCount(data, "KillCountOfGuardian");
     }
@@ -358,7 +358,7 @@ public class Drops {
                 throw new RuntimeException(e);
             }
         });
-        Compute.ExpPercentGetAndMSGSend(player, 0.02, PlayerAttributes.expUp(player),
+        Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player),
                 (int) MobArmorNum.mobArmorNumHashMap.get(StringUtils.MobName.LightingZombie).MobLevel);
         KillCount(data, "KillCountOfLZ");
     }
@@ -382,7 +382,7 @@ public class Drops {
                 throw new RuntimeException(e);
             }
         });
-        Compute.ExpPercentGetAndMSGSend(player, 0.02, PlayerAttributes.expUp(player),
+        Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player),
                 (int) MobArmorNum.mobArmorNumHashMap.get(StringUtils.MobName.Husk).MobLevel);
         KillCount(data, "KillCountOfBFHusk");
     }
@@ -406,7 +406,7 @@ public class Drops {
                 throw new RuntimeException(e);
             }
         });
-        Compute.ExpPercentGetAndMSGSend(player, 0.02, PlayerAttributes.expUp(player),
+        Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player),
                 (int) MobArmorNum.mobArmorNumHashMap.get(StringUtils.MobName.KazeZombie).MobLevel);
         KillCount(data, "KillCountOfKaze");
     }
@@ -427,7 +427,7 @@ public class Drops {
                 throw new RuntimeException(e);
             }
         });
-        Compute.ExpPercentGetAndMSGSend(player, 0.02, PlayerAttributes.expUp(player),
+        Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player),
                 (int) MobArmorNum.mobArmorNumHashMap.get(StringUtils.MobName.Spider).MobLevel);
         KillCount(data, "KillCountOfSpider");
     }
@@ -448,7 +448,7 @@ public class Drops {
                 throw new RuntimeException(e);
             }
         });
-        Compute.ExpPercentGetAndMSGSend(player, 0.02, PlayerAttributes.expUp(player),
+        Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player),
                 (int) MobArmorNum.mobArmorNumHashMap.get(StringUtils.MobName.SilverFish).MobLevel);
         KillCount(data, "KillCountOfSilverfish");
     }
@@ -474,7 +474,7 @@ public class Drops {
                 throw new RuntimeException(e);
             }
         });
-        Compute.ExpPercentGetAndMSGSend(player, 0.02, PlayerAttributes.expUp(player),
+        Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player),
                 (int) MobArmorNum.mobArmorNumHashMap.get(StringUtils.MobName.WitherSkeleton).MobLevel);
         KillCount(data, "KillCountOfWitherSkeleton");
 
@@ -505,7 +505,7 @@ public class Drops {
                 throw new RuntimeException(e);
             }
         });
-        Compute.ExpPercentGetAndMSGSend(player, 0.02, PlayerAttributes.expUp(player),
+        Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player),
                 (int) MobArmorNum.mobArmorNumHashMap.get(StringUtils.MobName.Piglin).MobLevel);
         KillCount(data, "KillCountOfZombiePigLin");
 
@@ -536,7 +536,7 @@ public class Drops {
                 throw new RuntimeException(e);
             }
         });
-        Compute.ExpPercentGetAndMSGSend(player, 0.02, PlayerAttributes.expUp(player),
+        Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player),
                 (int) MobArmorNum.mobArmorNumHashMap.get(StringUtils.MobName.NetherSkeleton).MobLevel);
         KillCount(data, "KillCountOfNetherSkeleton");
 
@@ -566,7 +566,7 @@ public class Drops {
                 throw new RuntimeException(e);
             }
         });
-        Compute.ExpPercentGetAndMSGSend(player, 0.02, PlayerAttributes.expUp(player),
+        Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player),
                 (int) MobArmorNum.mobArmorNumHashMap.get(StringUtils.MobName.NetherMagma).MobLevel);
         KillCount(data, "KillCountOfNetherMagma");
 
@@ -591,7 +591,7 @@ public class Drops {
                 throw new RuntimeException(e);
             }
         });
-        Compute.ExpPercentGetAndMSGSend(player, 0.02, PlayerAttributes.expUp(player),
+        Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player),
                 (int) MobArmorNum.mobArmorNumHashMap.get(StringUtils.MobName.EnderMan).MobLevel);
         KillCount(data, "KillCountOfEnderMan");
     }
@@ -611,7 +611,7 @@ public class Drops {
                 throw new RuntimeException(e);
             }
         });
-        Compute.ExpPercentGetAndMSGSend(player, 0.02, PlayerAttributes.expUp(player),
+        Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player),
                 (int) MobArmorNum.mobArmorNumHashMap.get(StringUtils.MobName.SakuraMob).MobLevel);
 
         if (!data.contains(StringUtils.KillCount.Total)) data.putInt(StringUtils.KillCount.Total, 1);
@@ -637,7 +637,7 @@ public class Drops {
                 throw new RuntimeException(e);
             }
         });
-        Compute.ExpPercentGetAndMSGSend(player, 0.02, PlayerAttributes.expUp(player),
+        Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player),
                 (int) MobArmorNum.mobArmorNumHashMap.get(StringUtils.MobName.Scarecrow).MobLevel);
 
         if (!data.contains(StringUtils.KillCount.Total)) data.putInt(StringUtils.KillCount.Total, 1);
@@ -661,7 +661,7 @@ public class Drops {
                 throw new RuntimeException(e);
             }
         });
-        Compute.ExpPercentGetAndMSGSend(player, 0.02, PlayerAttributes.expUp(player),
+        Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player),
                 (int) MobArmorNum.mobArmorNumHashMap.get(StringUtils.MobName.MineWorker).MobLevel);
 
         if (!data.contains(StringUtils.KillCount.Total)) data.putInt(StringUtils.KillCount.Total, 1);
@@ -692,7 +692,7 @@ public class Drops {
                 throw new RuntimeException(e);
             }
         });
-        Compute.ExpPercentGetAndMSGSend(player, 0.02, PlayerAttributes.expUp(player),
+        Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player),
                 (int) MobArmorNum.mobArmorNumHashMap.get(StringUtils.MobName.IceHunter).MobLevel);
 
         if (!data.contains(StringUtils.KillCount.Total)) data.putInt(StringUtils.KillCount.Total, 1);
@@ -716,7 +716,7 @@ public class Drops {
                 throw new RuntimeException(e);
             }
         });
-        Compute.ExpPercentGetAndMSGSend(player, 0.02, PlayerAttributes.expUp(player),
+        Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player),
                 (int) MobArmorNum.mobArmorNumHashMap.get(StringUtils.MobName.ShipWorker).MobLevel);
 
         if (!data.contains(StringUtils.KillCount.Total)) data.putInt(StringUtils.KillCount.Total, 1);
@@ -740,7 +740,7 @@ public class Drops {
                 throw new RuntimeException(e);
             }
         });
-        Compute.ExpPercentGetAndMSGSend(player, 0.02, PlayerAttributes.expUp(player),
+        Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player),
                 (int) MobArmorNum.mobArmorNumHashMap.get(StringUtils.MobName.EarthMana).MobLevel);
 
         if (!data.contains(StringUtils.KillCount.Total)) data.putInt(StringUtils.KillCount.Total, 1);
@@ -776,7 +776,7 @@ public class Drops {
                 throw new RuntimeException(e);
             }
         });
-        Compute.ExpPercentGetAndMSGSend(player, 0.02, PlayerAttributes.expUp(player),
+        Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player),
                 (int) MobArmorNum.mobArmorNumHashMap.get(StringUtils.MobName.BloodMana).MobLevel);
 
         if (!data.contains(StringUtils.KillCount.Total)) data.putInt(StringUtils.KillCount.Total, 1);
@@ -814,7 +814,7 @@ public class Drops {
                 throw new RuntimeException(e);
             }
         });
-        Compute.ExpPercentGetAndMSGSend(player, 0.02, PlayerAttributes.expUp(player),
+        Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player),
                 (int) MobArmorNum.mobArmorNumHashMap.get(StringUtils.MobName.Beacon).MobLevel);
 
         if (!data.contains(StringUtils.KillCount.Total)) data.putInt(StringUtils.KillCount.Total, 1);
@@ -849,7 +849,7 @@ public class Drops {
                 throw new RuntimeException(e);
             }
         });
-        Compute.ExpPercentGetAndMSGSend(player, 0.02, PlayerAttributes.expUp(player),
+        Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player),
                 (int) MobArmorNum.mobArmorNumHashMap.get(StringUtils.MobName.Blaze).MobLevel);
 
         if (!data.contains(StringUtils.KillCount.Total)) data.putInt(StringUtils.KillCount.Total, 1);
@@ -885,7 +885,7 @@ public class Drops {
                 throw new RuntimeException(e);
             }
         });
-        Compute.ExpPercentGetAndMSGSend(player, 0.02, PlayerAttributes.expUp(player),
+        Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player),
                 (int) MobArmorNum.mobArmorNumHashMap.get(StringUtils.MobName.Tree).MobLevel);
 
         if (!data.contains(StringUtils.KillCount.Total)) data.putInt(StringUtils.KillCount.Total, 1);
@@ -921,7 +921,7 @@ public class Drops {
                 throw new RuntimeException(e);
             }
         });
-        Compute.ExpPercentGetAndMSGSend(player, 0.02, PlayerAttributes.expUp(player),
+        Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player),
                 (int) MobArmorNum.mobArmorNumHashMap.get(StringUtils.MobName.Slime).MobLevel);
 
         if (!data.contains(StringUtils.KillCount.Total)) data.putInt(StringUtils.KillCount.Total, 1);
@@ -944,7 +944,7 @@ public class Drops {
                 throw new RuntimeException(e);
             }
         });
-        Compute.ExpPercentGetAndMSGSend(player, 0.02, PlayerAttributes.expUp(player),
+        Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player),
                 (int) MobArmorNum.mobArmorNumHashMap.get(StringUtils.MobName.Star).MobLevel);
 
         if (!data.contains(StringUtils.KillCount.Total)) data.putInt(StringUtils.KillCount.Total, 1);
@@ -969,7 +969,7 @@ public class Drops {
             }
         });
 
-        Compute.ExpPercentGetAndMSGSend(player, 0.02, PlayerAttributes.expUp(player),
+        Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player),
                 (int) MobArmorNum.mobArmorNumHashMap.get(StringUtils.MobName.Star1).MobLevel);
         KillCount(data, StringUtils.MobName.Star1);
     }
@@ -990,7 +990,7 @@ public class Drops {
             }
         });
 
-        Compute.ExpPercentGetAndMSGSend(player, 0.02, PlayerAttributes.expUp(player),
+        Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player),
                 (int) MobArmorNum.mobArmorNumHashMap.get(StringUtils.MobName.LifeElement).MobLevel);
         KillCount(data, StringUtils.MobName.LifeElement);
     }
@@ -1011,7 +1011,7 @@ public class Drops {
             }
         });
 
-        Compute.ExpPercentGetAndMSGSend(player, 0.02, PlayerAttributes.expUp(player),
+        Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player),
                 (int) MobArmorNum.mobArmorNumHashMap.get(StringUtils.MobName.WindElement).MobLevel);
         KillCount(data, StringUtils.MobName.WindElement);
     }
@@ -1032,7 +1032,7 @@ public class Drops {
             }
         });
 
-        Compute.ExpPercentGetAndMSGSend(player, 0.02, PlayerAttributes.expUp(player),
+        Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player),
                 (int) MobArmorNum.mobArmorNumHashMap.get(StringUtils.MobName.StoneElement).MobLevel);
         KillCount(data, StringUtils.MobName.StoneElement);
     }
@@ -1053,7 +1053,7 @@ public class Drops {
             }
         });
 
-        Compute.ExpPercentGetAndMSGSend(player, 0.02, PlayerAttributes.expUp(player),
+        Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player),
                 (int) MobArmorNum.mobArmorNumHashMap.get(StringUtils.MobName.WaterElement).MobLevel);
         KillCount(data, StringUtils.MobName.WaterElement);
     }
@@ -1074,7 +1074,7 @@ public class Drops {
             }
         });
 
-        Compute.ExpPercentGetAndMSGSend(player, 0.02, PlayerAttributes.expUp(player),
+        Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player),
                 (int) MobArmorNum.mobArmorNumHashMap.get(StringUtils.MobName.LightningElement).MobLevel);
         KillCount(data, StringUtils.MobName.LightningElement);
     }
@@ -1095,7 +1095,7 @@ public class Drops {
             }
         });
 
-        Compute.ExpPercentGetAndMSGSend(player, 0.02, PlayerAttributes.expUp(player),
+        Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player),
                 (int) MobArmorNum.mobArmorNumHashMap.get(StringUtils.MobName.FireElement).MobLevel);
         KillCount(data, StringUtils.MobName.FireElement);
     }
@@ -1116,7 +1116,7 @@ public class Drops {
             }
         });
 
-        Compute.ExpPercentGetAndMSGSend(player, 0.02, PlayerAttributes.expUp(player),
+        Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player),
                 (int) MobArmorNum.mobArmorNumHashMap.get(StringUtils.MobName.IceElement).MobLevel);
         KillCount(data, StringUtils.MobName.IceElement);
     }
@@ -1135,7 +1135,7 @@ public class Drops {
                 throw new RuntimeException(e);
             }
         });
-        Compute.ExpPercentGetAndMSGSend(player, 0.02, PlayerAttributes.expUp(player),
+        Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player),
                 (int) MobArmorNum.mobArmorNumHashMap.get(StringUtils.MobName.Shulker).MobLevel);
 
         KillCount(data, StringUtils.MobName.Shulker);
@@ -1158,7 +1158,7 @@ public class Drops {
             }
         });
 
-        Compute.ExpPercentGetAndMSGSend(player, 0.02, PlayerAttributes.expUp(player),
+        Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player),
                 (int) MobArmorNum.mobArmorNumHashMap.get(StringUtils.MobName.EnderMite).MobLevel);
 
         KillCount(data, StringUtils.MobName.EnderMite);

@@ -51,7 +51,7 @@ public class DailyMissionFinishedRequestC2SPacket {
                 data.putString(StringUtils.LastDailyMissionFinishedTime, Compute.CalendarToString(Calendar.getInstance()));
                 Compute.sendFormatMSG(serverPlayer, Component.literal("任务").withStyle(CustomStyle.styleOfKaze),
                         Component.literal("你完成了每日任务！").withStyle(ChatFormatting.WHITE));
-                Compute.ExpPercentGetAndMSGSend(serverPlayer, 0.5, 0, serverPlayer.experienceLevel);
+                Compute.givePercentExpToPlayer(serverPlayer, 0.5, 0, serverPlayer.experienceLevel);
                 ItemStack gemPiece = ModItems.gemPiece.get().getDefaultInstance();
                 gemPiece.setCount(serverPlayer.experienceLevel);
                 Compute.itemStackGive(serverPlayer, gemPiece);

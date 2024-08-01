@@ -44,7 +44,7 @@ public class Plain {
 
         }
 
-        Compute.ExpPercentGetAndMSGSend(player, 0.3 * difficultyEnhanceRate, 0, 20);
+        Compute.givePercentExpToPlayer(player, 0.3 * difficultyEnhanceRate, 0, 20);
         if (!itemStack.is(Items.AIR)) {
             Compute.formatBroad(level, Component.literal("副本").withStyle(ChatFormatting.RED),
                     Component.literal("").

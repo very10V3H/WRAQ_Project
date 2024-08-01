@@ -87,6 +87,19 @@ public class LoginInEvent {
                         Component.literal("你有待领取的补偿，输入/vmd compensate领取补偿！").withStyle(ChatFormatting.AQUA));
             }
 
+            String expAdjust = "24.8.1-expAdjust";
+            if (!data.contains(expAdjust) && player.experienceLevel > 180) {
+                double levelUpNeedXp = Math.pow(Math.E, 3 + (player.experienceLevel / 100d) * 7);
+                double currentXpRate = data.getDouble("Xp") / levelUpNeedXp;
+                int newXpLevel = (int) (180 + (player.experienceLevel - 180) * 0.5);
+                data.putInt(StringUtils.ExpLevel, newXpLevel);
+                ((ServerPlayer) player).setExperienceLevels(newXpLevel);
+                data.putDouble("Xp", Math.pow(Math.E, 3 + (player.experienceLevel / 100d) * 7) * currentXpRate);
+                data.putBoolean(expAdjust, true);
+                Compute.sendFormatMSG(player, Component.literal("经验改动").withStyle(ChatFormatting.LIGHT_PURPLE),
+                        Component.literal("你的经验已经被改动，原因可查看群公告更新通知").withStyle(ChatFormatting.LIGHT_PURPLE));
+            }
+
             if (!data.contains(StringUtils.PatchouliBook)) {
                 ItemStack PatchouliBook = PatchouliAPI.get().getBookStack(new ResourceLocation(Utils.MOD_ID, "guide"));
                 Compute.itemStackGive(player, PatchouliBook);
