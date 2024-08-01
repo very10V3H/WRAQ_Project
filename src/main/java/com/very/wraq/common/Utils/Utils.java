@@ -1024,6 +1024,7 @@ public class Utils {
         add(CustomStyle.styleOfPurpleIron);
         add(CustomStyle.styleOfMoon);
         add(CustomStyle.styleOfLife);
+        add(CustomStyle.styleOfLightning);
     }};
 
     public static boolean NetherInstanceFlag = false;
