@@ -1,13 +1,14 @@
 package com.very.wraq.render.hud;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.very.wraq.process.system.element.Element;
-import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.Utils.ClientUtils;
 import com.very.wraq.common.Utils.Struct.EffectTimeLast;
 import com.very.wraq.common.Utils.Struct.SkillImage;
 import com.very.wraq.common.Utils.Utils;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.process.system.element.Element;
+import com.very.wraq.process.system.endlessinstance.DailyEndlessInstance;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -21,10 +22,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 public class AttributeHud {
     private static final ResourceLocation ATTACK = new ResourceLocation(Utils.MOD_ID,
@@ -539,5 +537,13 @@ public class AttributeHud {
 
         Count++;
 
+        if (DailyEndlessInstance.clientKillCount > 0 && DailyEndlessInstance.clientLastTick > 0) {
+            List<Style> styleList = List.of(CustomStyle.styleOfPlain, CustomStyle.styleOfForest,
+                    CustomStyle.styleOfLake, CustomStyle.styleOfVolcano, CustomStyle.styleOfPower);
+            guiGraphics.drawCenteredString(fontRenderer, Component.literal(DailyEndlessInstance.clientKillCount
+                                    + "!".repeat(DailyEndlessInstance.clientKillCount % 10))
+                            .withStyle(styleList.get(Math.min(4, DailyEndlessInstance.clientKillCount / 50))),
+                    width / 2 + 16, height / 2 - 16, 0);
+        }
     });
 }

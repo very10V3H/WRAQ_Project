@@ -121,8 +121,8 @@ public class ServerTick {
         DataBase.putAllMarketPlayerInfo(statement);
         MobSpawn.writeToSQL(statement);
         PlanPlayer.write();
-        /*PlanPlayer.readTier();*/
         VpDataHandler.normalRead();
+        DataBase.writeWorldInfo(statement);
 
         statement.close();
         connection.close();

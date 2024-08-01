@@ -57,6 +57,7 @@ import com.very.wraq.process.series.lottery.networking.LotteryRewardS2CPacket;
 import com.very.wraq.process.system.element.networking.CurrentSeasonC2SPacket;
 import com.very.wraq.process.system.element.networking.CurrentSeasonAndResonanceTypeS2CPacket;
 import com.very.wraq.process.system.element.networking.ResonanceC2SPacket;
+import com.very.wraq.process.system.endlessinstance.network.EndlessInstanceKillCountS2CPacket;
 import com.very.wraq.process.system.missions.netWorking.*;
 import com.very.wraq.process.system.missions.series.dailyMission.netWorking.DailyMissionStatusS2CPacket;
 import com.very.wraq.process.system.missions.series.labourDay.netWorking.LabourDayMissionStatusS2CPacket;
@@ -1285,6 +1286,11 @@ public class ModNetworking {
                 .decoder(DustParticleS2CPacket::new)
                 .encoder(DustParticleS2CPacket::toBytes)
                 .consumerMainThread(DustParticleS2CPacket::handle)
+                .add();
+        net.messageBuilder(EndlessInstanceKillCountS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(EndlessInstanceKillCountS2CPacket::new)
+                .encoder(EndlessInstanceKillCountS2CPacket::toBytes)
+                .consumerMainThread(EndlessInstanceKillCountS2CPacket::handle)
                 .add();
     }
 

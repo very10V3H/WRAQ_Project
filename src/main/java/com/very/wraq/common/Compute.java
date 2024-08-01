@@ -56,6 +56,7 @@ import com.very.wraq.process.system.element.Element;
 import com.very.wraq.process.system.element.ElementValue;
 import com.very.wraq.process.system.element.equipAndCurios.fireElement.FireEquip;
 import com.very.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSword;
+import com.very.wraq.process.system.endlessinstance.DailyEndlessInstance;
 import com.very.wraq.process.system.teamInstance.NewTeamInstanceEvent;
 import com.very.wraq.process.system.tower.Tower;
 import com.very.wraq.projectiles.ActiveItem;
@@ -131,7 +132,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -146,6 +150,8 @@ import static java.lang.Math.*;
 
 
 public class Compute {
+    private static final Logger log = LoggerFactory.getLogger(Compute.class);
+
     public static void ManaStatusUpdate(Player player) {
         CompoundTag data = player.getPersistentData();
         double MaxMana = data.getDouble("MAXMANA");
@@ -3563,6 +3569,7 @@ public class Compute {
             if (entity instanceof Mob mob && !(entity instanceof Allay) && !(entity instanceof Animal)) {
                 if (entity instanceof Villager) return;
                 if (mob.isDeadOrDying()) return;
+                if (!DailyEndlessInstance.canPlayerCauseDamage(player, mob)) return;
                 /*Castle.CauseDamageRecord(player, mob); */
                 if (Moon.IsMoonAttackImmune(player, (Mob) entity)) damage *= 0.5;
                 if (Moon.IsMoonManaImmune(player, (Mob) entity)) damage *= 0.5;
@@ -3594,6 +3601,7 @@ public class Compute {
                     if (offhandItem instanceof OnKillEffectOffHandItem item) item.onKill(player, mob);
                     NetherNewRune.onKill(player, mob);
                     HuskNewRune.onKill(player, mob);
+                    DailyEndlessInstance.onKillMob(player, mob);
                 } else mob.setHealth((float) (mob.getHealth() - finalDamage));
 
                 // ---- //
@@ -4986,5 +4994,10 @@ public class Compute {
         ClientboundSetActionBarTextPacket clientboundSetActionBarTextPacket =
                 new ClientboundSetActionBarTextPacket(component);
         ((ServerPlayer) player).connection.send(clientboundSetActionBarTextPacket);
+    }
+
+    @Nullable
+    public static ServerPlayer getPlayerByName(Level level, String name) {
+        return level.getServer().getPlayerList().getPlayerByName(name);
     }
 }
