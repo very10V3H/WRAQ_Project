@@ -3,8 +3,15 @@ package com.very.wraq.events.core;
 import com.github.alexthe666.alexsmobs.entity.EntityLeafcutterAnt;
 import com.very.wraq.Items.Forging.ForgeDraw;
 import com.very.wraq.Items.MainStory_1.BackSpawn;
-import com.very.wraq.commands.stable.players.DpsCommand;
 import com.very.wraq.commands.stable.ops.RoadCommand;
+import com.very.wraq.commands.stable.players.DpsCommand;
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.Utils.StringUtils;
+import com.very.wraq.common.Utils.Struct.PosAndLastTime;
+import com.very.wraq.common.Utils.Struct.Shield;
+import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.attributeValues.PlayerAttributes;
+import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.core.MyArrow;
 import com.very.wraq.customized.Customize;
 import com.very.wraq.entities.entities.Civil.Civil;
@@ -20,19 +27,19 @@ import com.very.wraq.networking.unSorted.ClientLimitCheckS2CPacket;
 import com.very.wraq.networking.unSorted.PacketLimitS2CPacket;
 import com.very.wraq.networking.unSorted.TimeS2CPacket;
 import com.very.wraq.process.func.guide.Guide;
+import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.process.func.plan.PlanPlayer;
+import com.very.wraq.process.series.labourDay.LabourDayIronHoe;
+import com.very.wraq.process.series.labourDay.LabourDayIronPickaxe;
 import com.very.wraq.process.system.border.WorldBorder;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.process.system.element.equipAndCurios.fireElement.FireEquip;
 import com.very.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementBow;
 import com.very.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSceptre;
 import com.very.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSword;
-import com.very.wraq.process.series.labourDay.LabourDayIronHoe;
-import com.very.wraq.process.series.labourDay.LabourDayIronPickaxe;
 import com.very.wraq.process.system.element.networking.CurrentSeasonAndResonanceTypeS2CPacket;
 import com.very.wraq.process.system.missions.Mission;
 import com.very.wraq.process.system.missions.series.dailyMission.DailyMission;
-import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.process.system.respawn.MyRespawnRule;
 import com.very.wraq.process.system.season.MySeason;
 import com.very.wraq.process.system.tower.TowerMob;
@@ -52,19 +59,12 @@ import com.very.wraq.series.newrunes.chapter2.HuskNewRune;
 import com.very.wraq.series.newrunes.chapter2.LightningNewRune;
 import com.very.wraq.series.newrunes.chapter2.SkyNewRune;
 import com.very.wraq.series.newrunes.chapter6.MoonNewRune;
-import com.very.wraq.series.overworld.sakuraSeries.Boss2.GoldenAttackOffhand;
-import com.very.wraq.series.overworld.sakuraSeries.Boss2.GoldenBook;
 import com.very.wraq.series.overworld.chapter2.lavender.LavenderBracelet;
 import com.very.wraq.series.overworld.chapter7.star.StarBottle;
+import com.very.wraq.series.overworld.sakuraSeries.Boss2.GoldenAttackOffhand;
+import com.very.wraq.series.overworld.sakuraSeries.Boss2.GoldenBook;
 import com.very.wraq.series.overworld.sakuraSeries.EarthMana.EarthBook;
 import com.very.wraq.series.overworld.sakuraSeries.Slime.SlimeBoots;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.Utils.StringUtils;
-import com.very.wraq.common.Utils.Struct.PosAndLastTime;
-import com.very.wraq.common.Utils.Struct.Shield;
-import com.very.wraq.common.Utils.Utils;
-import com.very.wraq.common.attributeValues.PlayerAttributes;
-import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.series.specialevents.summer.SummerEvent;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -102,7 +102,6 @@ import java.util.List;
 
 @Mod.EventBusSubscriber
 public class ServerPlayerTickEvent {
-
     public static List<Component> changeLog = new ArrayList<>() {{
         add(Component.literal(" 盾击 ： 每100护甲 提供10%近战攻击增幅 -> 根据护甲值，至多为你提供100%近战攻击增幅。 公式为 = 1 - (800 / (800 + Defence))"));
         add(Component.literal(" 敏捷 ： 每1敏捷 提供50%箭矢攻击增幅 -> 根据敏捷值，至多为你提供150%箭矢攻击增幅。 公式为 = 1.5 - (12 / (8 + Swiftness))"));
@@ -127,6 +126,7 @@ public class ServerPlayerTickEvent {
         if (event.side.isServer() && event.phase == TickEvent.Phase.START) {
             Player player = event.player;
             ServerPlayer serverPlayer = (ServerPlayer) player;
+            serverPlayer.setPortalCooldown(100);
             int TickCount = player.getServer().getTickCount();
             Customize.CustomizeTickEvent(player);
             /*Parkour.Tick(player);*/ // 跑酷

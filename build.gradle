@@ -5,7 +5,7 @@ plugins {
     id 'net.minecraftforge.gradle' version '[6.0,6.2)'
 }
 
-version = '2.0.35'
+version = '2.0.36'
 group = 'com.very.vmd' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'vmd'
 
@@ -172,6 +172,7 @@ dependencies {
     // For more info...
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
+
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:5.9.0+1.20.1")
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:5.9.0+1.20.1:api")
     implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.20.1:4.4.4')

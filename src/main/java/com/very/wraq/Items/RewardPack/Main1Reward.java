@@ -33,7 +33,7 @@ public class Main1Reward extends Item {
             player.setItemInHand(InteractionHand.MAIN_HAND, RewardPack0);
             player.addItem(ModItems.BackSpawn.get().getDefaultInstance());
             player.addItem(ModItems.Main1_5.get().getDefaultInstance());
-            Compute.ExpPercentGetAndMSGSend(player, 1, 0, 5);
+            Compute.givePercentExpToPlayer(player, 1, 0, 5);
             ItemStack itemStack = Items.ELYTRA.getDefaultInstance();
             itemStack.getOrCreateTag().putBoolean("Unbreakable", true);
             Map<Enchantment, Integer> map = EnchantmentHelper.getEnchantments(itemStack);

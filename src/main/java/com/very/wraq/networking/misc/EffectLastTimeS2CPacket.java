@@ -57,7 +57,12 @@ public class EffectLastTimeS2CPacket {
             if (Element.elementList.contains(itemStack.getItem())) {
                 ClientUtils.effectTimeLasts.removeIf(effectTimeLast -> Element.elementList.contains(effectTimeLast.itemStack.getItem()));
             }
-            ClientUtils.effectTimeLasts.removeIf(effectTimeLast -> effectTimeLast.itemStack.is(this.itemStack.getItem()));
+
+            boolean contains = ClientUtils.effectTimeLasts.stream().anyMatch(effectTimeLast -> effectTimeLast.itemStack.is(this.itemStack.getItem()));
+            if (contains) {
+                if (this.forever) return;
+                else ClientUtils.effectTimeLasts.removeIf(effectTimeLast -> effectTimeLast.itemStack.is(this.itemStack.getItem()));
+            }
 
             if (this.forever) ClientUtils.effectTimeLasts.add(new EffectTimeLast(itemStack, lastTime, lastTime, level, true));
             else ClientUtils.effectTimeLasts.add(new EffectTimeLast(itemStack, lastTime, lastTime, level));

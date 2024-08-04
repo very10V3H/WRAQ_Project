@@ -1,13 +1,14 @@
 package com.very.wraq.render.hud;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.very.wraq.process.system.element.Element;
-import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.Utils.ClientUtils;
 import com.very.wraq.common.Utils.Struct.EffectTimeLast;
 import com.very.wraq.common.Utils.Struct.SkillImage;
 import com.very.wraq.common.Utils.Utils;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.process.system.element.Element;
+import com.very.wraq.process.system.endlessinstance.DailyEndlessInstance;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -21,9 +22,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 public class AttributeHud {
     private static final ResourceLocation ATTACK = new ResourceLocation(Utils.MOD_ID,
@@ -501,6 +500,17 @@ public class AttributeHud {
             }
         }
 
+        ClientUtils.effectTimeLasts.sort(new Comparator<EffectTimeLast>() {
+            @Override
+            public int compare(EffectTimeLast o1, EffectTimeLast o2) {
+                if (o1.lastTick != o2.lastTick) {
+                    return o1.lastTick - o2.lastTick;
+                } else {
+                    return o1.itemStack.getItem().toString().compareTo(o2.itemStack.getItem().toString());
+                }
+            }
+        });
+
         for (EffectTimeLast effectTimeLast : ClientUtils.effectTimeLasts) {
             guiGraphics.blit(new ResourceLocation(Utils.MOD_ID, "textures/item/" + effectTimeLast.itemStack.getItem().toString() + ".png"), x + XXOffset + Count * 15, y - 60, 0, 0, 16, 16, 16, 16);
             int Time = (int) Math.ceil(effectTimeLast.lastTick * 12.0f / effectTimeLast.maxTick);
@@ -527,5 +537,13 @@ public class AttributeHud {
 
         Count++;
 
+        if (DailyEndlessInstance.clientKillCount > 0 && DailyEndlessInstance.clientLastTick > 0) {
+            List<Style> styleList = List.of(CustomStyle.styleOfPlain, CustomStyle.styleOfForest,
+                    CustomStyle.styleOfLake, CustomStyle.styleOfVolcano, CustomStyle.styleOfPower);
+            guiGraphics.drawCenteredString(fontRenderer, Component.literal(DailyEndlessInstance.clientKillCount
+                                    + "!".repeat(DailyEndlessInstance.clientKillCount % 10))
+                            .withStyle(styleList.get(Math.min(4, DailyEndlessInstance.clientKillCount / 50))),
+                    width / 2 + 16, height / 2 - 16, 0);
+        }
     });
 }

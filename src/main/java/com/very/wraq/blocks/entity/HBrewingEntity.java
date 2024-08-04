@@ -147,9 +147,11 @@ public class HBrewingEntity extends BlockEntity implements MenuProvider {
     }
 
     public static void tick(Level level, BlockPos pos, BlockState blockState, HBrewingEntity blockEntity) {
-/*
-        level.addParticle(ParticleTypes.ELECTRIC_SPARK,pos.getX()+0.5,pos.getY()+1,pos.getZ()+0.5,0,0.1,0);
-*/
+        if (!level.isClientSide) {
+            for (int i = 0 ; i < blockEntity.itemStackHandler.getSlots() ; i ++) {
+                blockEntity.itemStackHandler.getStackInSlot(i).hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
+            }
+        }
         if (level.isClientSide()) {
             if (blockEntity.progress >= blockEntity.maxProgress) {
                 Player player = level.getNearestPlayer(TargetingConditions.DEFAULT, pos.getX(), pos.getY(), pos.getZ());

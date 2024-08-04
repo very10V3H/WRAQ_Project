@@ -63,7 +63,7 @@ public class FishEvent {
             if (r.nextDouble() < rate) {
                 Compute.itemStackGive(player, SeaSoul);
             }
-            Compute.ExpPercentGetAndMSGSend(player, 0.05, 0, 50);
+            Compute.givePercentExpToPlayer(player, 0.05, 0, 50);
         } else if (RodLevel > 1000) {
             double rate = 0.06 * (1 + rateEnhance);
             if (r.nextDouble() < rate) {
@@ -79,7 +79,7 @@ public class FishEvent {
             if (r.nextDouble() < rate) {
                 Compute.itemStackGive(player, SeaSoul);
             }
-            Compute.ExpPercentGetAndMSGSend(player, 0.05, 0, 40);
+            Compute.givePercentExpToPlayer(player, 0.05, 0, 40);
         } else if (RodLevel > 500) {
             double rate = 0.05 * (1 + rateEnhance);
             if (r.nextDouble() < rate) {
@@ -95,7 +95,7 @@ public class FishEvent {
             if (r.nextDouble() < rate) {
                 Compute.itemStackGive(player, SeaSoul);
             }
-            Compute.ExpPercentGetAndMSGSend(player, 0.05, 0, 30);
+            Compute.givePercentExpToPlayer(player, 0.05, 0, 30);
         } else if (RodLevel > 200) {
             double rate = 0.04 * (1 + rateEnhance);
             if (r.nextDouble() < rate) {
@@ -111,7 +111,7 @@ public class FishEvent {
             if (r.nextDouble() < rate) {
                 Compute.itemStackGive(player, SeaSoul);
             }
-            Compute.ExpPercentGetAndMSGSend(player, 0.05, 0, 20);
+            Compute.givePercentExpToPlayer(player, 0.05, 0, 20);
         } else if (RodLevel > 100) {
             double rate = 0.03 * (1 + rateEnhance);
             if (r.nextDouble() < rate) {
@@ -127,7 +127,7 @@ public class FishEvent {
             if (r.nextDouble() < rate) {
                 Compute.itemStackGive(player, SeaSoul);
             }
-            Compute.ExpPercentGetAndMSGSend(player, 0.05, 0, 15);
+            Compute.givePercentExpToPlayer(player, 0.05, 0, 15);
         } else if (RodLevel > 50) {
             double rate = 0.02 * (1 + rateEnhance);
             if (r.nextDouble() < rate) {
@@ -143,7 +143,7 @@ public class FishEvent {
             if (r.nextDouble() < rate) {
                 Compute.itemStackGive(player, SeaSoul);
             }
-            Compute.ExpPercentGetAndMSGSend(player, 0.05, 0, 10);
+            Compute.givePercentExpToPlayer(player, 0.05, 0, 10);
         } else if (RodLevel > 20) {
             double rate = 0.01 * (1 + rateEnhance);
             if (r.nextDouble() < rate) {
@@ -159,9 +159,9 @@ public class FishEvent {
             if (r.nextDouble() < rate) {
                 Compute.itemStackGive(player, SeaSoul);
             }
-            Compute.ExpPercentGetAndMSGSend(player, 0.05, 0, 5);
+            Compute.givePercentExpToPlayer(player, 0.05, 0, 5);
         } else {
-            Compute.ExpPercentGetAndMSGSend(player, 0.05, 0, 3);
+            Compute.givePercentExpToPlayer(player, 0.05, 0, 3);
             if (r.nextDouble() < 0.01) {
                 Compute.sendFormatMSG(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
                         Component.literal("你通过钓鱼额外获得了:").append(SilverCoin.getDisplayName()).append(Component.literal("*1")));

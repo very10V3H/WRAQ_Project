@@ -64,7 +64,7 @@ public class MineShield extends Item {
         components.add(Component.literal(" 基于").withStyle(ChatFormatting.WHITE).
                 append(Compute.AttributeDescription.Defence("")).
                 append(Component.literal("为你至多提供").withStyle(ChatFormatting.WHITE)).
-                append(Component.literal("100%近战攻击增幅").withStyle(CustomStyle.styleOfPower)));
+                append(Component.literal("75%近战攻击增幅").withStyle(CustomStyle.styleOfPower)));
     }
 
     public static double defenceEnhance(Player player) {

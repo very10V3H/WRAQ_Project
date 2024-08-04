@@ -1,25 +1,20 @@
 package com.very.wraq.Items.MainStory_1.Mission;
 
-import com.very.wraq.commands.changeable.CompensateCommand;
-import com.very.wraq.common.Utils.ClientUtils;
 import com.very.wraq.common.Compute;
-import com.very.wraq.events.core.InventoryCheck;
-import com.very.wraq.projectiles.OnCuriosSlotTickEffect;
-import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.series.specialevents.summer.SummerEvent;
+import com.very.wraq.common.Utils.ClientUtils;
+import com.very.wraq.process.system.endlessinstance.DailyEndlessInstanceEvent;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
-import top.theillusivec4.curios.api.CuriosApi;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class Main0 extends Item {
@@ -81,7 +76,10 @@ public class Main0 extends Item {
             String name = player.getName().getString();
             int tick = player.getServer().getTickCount();
             CompoundTag data = player.getPersistentData();
-            data.remove(CompensateCommand.singleReward);
+
+            DailyEndlessInstanceEvent.getEndlessInstanceList().forEach(instance -> {
+                instance.active(player);
+            });
 
 /*            SummerEvent.playerExHarvestEndTick.put(name, tick + (15 * 60 * 20));
             SummerEvent.sendFormatMSG(player, Component.literal("因为").withStyle(ChatFormatting.WHITE).

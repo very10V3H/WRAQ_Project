@@ -100,7 +100,7 @@ public class CropSpur {
             data.putInt(StringUtils.Gardening.SweetBerries, data.getInt(StringUtils.Gardening.SweetBerries) + 1);
 
         Compute.playerGardeningExpAdd(player, 2);
-        Compute.ExpPercentGetAndMSGSend(player, 0.0025, 0, Math.min(player.experienceLevel, 50));
+        Compute.givePercentExpToPlayer(player, 0.0025, 0, Math.min(player.experienceLevel, 50));
         Utils.dayCropCount.put(player.getName().getString(), Utils.dayCropCount.getOrDefault(player.getName().getString(), 0) + 1);
         LabourDayMission.count(player, LabourDayMission.cropCounts);
 

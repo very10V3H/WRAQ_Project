@@ -28,7 +28,7 @@ public class RevelationBook extends Item {
     public void appendHoverText(ItemStack itemStack, @Nullable Level p_41422_, List<Component> components, TooltipFlag flag) {
         if (!isNew)
             components.add(Component.literal(" 使用以获得当前等级下的5% - 10%经验值（受等级上限影响）").withStyle(CustomStyle.styleOfFantasy));
-        else components.add(Component.literal(" 使用以获得当前等级下的5%经验值").withStyle(CustomStyle.styleOfFantasy));
+        else components.add(Component.literal(" 使用以获得当前等级下的5%经验值（达200级后可能与实际值有差异）").withStyle(CustomStyle.styleOfFantasy));
         super.appendHoverText(itemStack, p_41422_, components, flag);
     }
 
@@ -39,10 +39,10 @@ public class RevelationBook extends Item {
             Compute.playerItemUseWithRecord(player);
 
             if (isNew) {
-                Compute.ExpPercentGetIgnoreLimitAndMSGSend(player, 0.05, 0, player.experienceLevel);
+                Compute.givePercentExpToPlayer(player, 0.05, 0, player.experienceLevel);
             } else {
                 Random random = new Random();
-                Compute.ExpPercentGetAndMSGSend(player, random.nextDouble(0.05, 0.1), 0, player.experienceLevel);
+                Compute.givePercentExpToPlayer(player, random.nextDouble(0.05, 0.1), 0, player.experienceLevel);
             }
 
         }

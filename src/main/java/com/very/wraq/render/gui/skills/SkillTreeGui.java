@@ -1230,7 +1230,7 @@ public class SkillTreeGui extends Screen {
                     append(Compute.AttributeDescription.CritRate("")).
                     append(Component.literal("与").withStyle(ChatFormatting.WHITE)).
                     append(Compute.AttributeDescription.CritDamage("")).
-                    append(Component.literal(ClientUtils.ManaSkillPoint.PointCache[index] * 15 + "%").withStyle(ChatFormatting.LIGHT_PURPLE)).
+                    append(Component.literal(String.format("%.0f%%", ClientUtils.ManaSkillPoint.PointCache[index] * 12.5)).withStyle(ChatFormatting.LIGHT_PURPLE)).
                     append(Component.literal("提供的法球攻击增幅。").withStyle(ChatFormatting.WHITE)));
             components.add(Component.literal(" ·你的普通法球攻击将不会消耗").withStyle(ChatFormatting.WHITE).
                     append(Compute.AttributeDescription.MaxMana("")));

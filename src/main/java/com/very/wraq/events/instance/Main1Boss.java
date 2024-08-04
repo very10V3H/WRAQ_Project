@@ -207,7 +207,7 @@ public class Main1Boss {
 
         }
 
-        Compute.ExpPercentGetAndMSGSend(player, 0.3 * difficultyEnhanceRate, PlayerAttributes.expUp(player), 40);
+        Compute.givePercentExpToPlayer(player, 0.3 * difficultyEnhanceRate, PlayerAttributes.expUp(player), 40);
 
         ItemStack itemStack1 = Main1GemsGive(player, difficultyEnhanceRate);
 

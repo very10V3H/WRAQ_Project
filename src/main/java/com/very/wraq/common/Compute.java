@@ -56,6 +56,7 @@ import com.very.wraq.process.system.element.Element;
 import com.very.wraq.process.system.element.ElementValue;
 import com.very.wraq.process.system.element.equipAndCurios.fireElement.FireEquip;
 import com.very.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSword;
+import com.very.wraq.process.system.endlessinstance.DailyEndlessInstance;
 import com.very.wraq.process.system.teamInstance.NewTeamInstanceEvent;
 import com.very.wraq.process.system.tower.Tower;
 import com.very.wraq.projectiles.ActiveItem;
@@ -94,10 +95,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
-import net.minecraft.network.protocol.game.ClientboundLevelParticlesPacket;
-import net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket;
-import net.minecraft.network.protocol.game.ClientboundSetEntityMotionPacket;
-import net.minecraft.network.protocol.game.ClientboundSoundPacket;
+import net.minecraft.network.protocol.game.*;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.players.PlayerList;
@@ -131,7 +129,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -146,6 +147,8 @@ import static java.lang.Math.*;
 
 
 public class Compute {
+    private static final Logger log = LoggerFactory.getLogger(Compute.class);
+
     public static void ManaStatusUpdate(Player player) {
         CompoundTag data = player.getPersistentData();
         double MaxMana = data.getDouble("MAXMANA");
@@ -351,11 +354,12 @@ public class Compute {
                 .append(defaultName));
     }
 
-    public static int levelUpperLimit = 225;
+    public static int levelUpperLimit = 250;
+    public static int expGetUpperLimit = 180;
 
-    public static void ExpPercentGetAndMSGSend(Player player, double num, double ExpUp, int ExpLevel) {
+    public static void givePercentExpToPlayer(Player player, double num, double ExpUp, int ExpLevel) {
         if (player.experienceLevel >= levelUpperLimit) return;
-        if (ExpLevel >= 120) ExpLevel = 120;
+        if (ExpLevel >= expGetUpperLimit) ExpLevel = expGetUpperLimit;
         if (ExpLevel - player.experienceLevel > 8) ExpLevel = player.experienceLevel;
 
         CompoundTag data = player.getPersistentData();
@@ -375,7 +379,7 @@ public class Compute {
                             append(Component.literal(String.format(" (%.1f/%.1f)", data.getDouble("Xp"), LevelUpNeedXp)).withStyle(ChatFormatting.GRAY)));
     }
 
-    public static void expGive(Player player, double num) {
+    public static void giveExpToPlayer(Player player, double num) {
         if (player.experienceLevel >= levelUpperLimit) return;
         CompoundTag data = player.getPersistentData();
         double LevelUpNeedXp = Math.pow(Math.E, 3 + (player.experienceLevel / 100d) * 7);
@@ -391,33 +395,6 @@ public class Compute {
                             append(Component.literal(String.format(" (%.1f/%.1f)", data.getDouble("Xp"), LevelUpNeedXp)).withStyle(ChatFormatting.GRAY)));
     }
 
-    public static void ExpPercentGetIgnoreLimitAndMSGSend(Player player, double num, double ExpUp, int ExpLevel) {
-        if (player.experienceLevel >= levelUpperLimit) return;
-        if (ExpLevel - player.experienceLevel > 8) ExpLevel = player.experienceLevel;
-
-        CompoundTag data = player.getPersistentData();
-        double LevelUpNeedXp = Math.pow(Math.E, 3 + (player.experienceLevel / 100d) * 7);
-        double ExpLevelXp = Math.pow(Math.E, 3 + (ExpLevel / 100d) * 7);
-        double XpBeforeUp = (ExpLevelXp * num);
-        double XpUp = (ExpLevelXp * num) * ExpUp;
-        double Xp = XpBeforeUp + XpUp;
-        if (data.contains("Xp")) data.putDouble("Xp", data.getDouble("Xp") + Xp);
-        else data.putDouble("Xp", Xp);
-        if (!data.contains("IgnoreExp") || (!data.getBoolean("IgnoreExp")))
-            Compute.sendFormatMSG(player, Component.literal("经验").withStyle(ChatFormatting.LIGHT_PURPLE),
-                    Component.literal("经验值").withStyle(ChatFormatting.LIGHT_PURPLE).
-                            append(Component.literal(" + ").withStyle(ChatFormatting.DARK_PURPLE)).
-                            append(Component.literal(String.format("%.1f", XpBeforeUp)).withStyle(ChatFormatting.LIGHT_PURPLE)).
-                            append(Component.literal(" + " + String.format("%.1f", XpUp)).withStyle(CustomStyle.styleOfLucky)).
-                            append(Component.literal(String.format(" (%.1f/%.1f)", data.getDouble("Xp"), LevelUpNeedXp)).withStyle(ChatFormatting.GRAY)));
-    }
-
-    /*    public static void USE(Player player) {
-        List<ServerPlayer> serverPlayerList = player.getServer().getPlayerList().getPlayers();
-        serverPlayerList.forEach(serverPlayer -> {
-            ModNetworking.sendToClient(new UseAnimationS2CPacket(player.getId(),0),serverPlayer);
-        });
-    }*/
     public static void use(Player player) {
         if (player.level().isClientSide) {
             if (player.tickCount - 10 > ClientUtils.UseTick && !ClientUtils.PlayerIsAttacking(player)
@@ -873,7 +850,7 @@ public class Compute {
                                 append(player.getDisplayName()).
                                 append(Component.literal(" 完成了一次 ").withStyle(ChatFormatting.WHITE)).
                                 append(Component.literal("完美酿造").withStyle(CustomStyle.styleOfBrew)));
-                Compute.ExpPercentGetAndMSGSend(player, 0.02, ExpUp, player.experienceLevel);
+                Compute.givePercentExpToPlayer(player, 0.02, ExpUp, player.experienceLevel);
             }
             return true;
         }
@@ -3563,6 +3540,7 @@ public class Compute {
             if (entity instanceof Mob mob && !(entity instanceof Allay) && !(entity instanceof Animal)) {
                 if (entity instanceof Villager) return;
                 if (mob.isDeadOrDying()) return;
+                if (DailyEndlessInstance.prohibitPlayerCauseDamage(player, mob)) return;
                 /*Castle.CauseDamageRecord(player, mob); */
                 if (Moon.IsMoonAttackImmune(player, (Mob) entity)) damage *= 0.5;
                 if (Moon.IsMoonManaImmune(player, (Mob) entity)) damage *= 0.5;
@@ -3594,6 +3572,7 @@ public class Compute {
                     if (offhandItem instanceof OnKillEffectOffHandItem item) item.onKill(player, mob);
                     NetherNewRune.onKill(player, mob);
                     HuskNewRune.onKill(player, mob);
+                    DailyEndlessInstance.onKillMob(player, mob);
                 } else mob.setHealth((float) (mob.getHealth() - finalDamage));
 
                 // ---- //
@@ -3879,8 +3858,8 @@ public class Compute {
     public static double playerFantasyAttributeEnhance(Player player) {
         double enhance = 1;
         CompoundTag data = player.getPersistentData();
-        if (data.getBoolean(StringUtils.FantasyMedal)) enhance += 0.1;
-        if (data.getBoolean(StringUtils.FantasyBracelet)) enhance += 0.1;
+        if (data.getBoolean(StringUtils.FantasyMedal)) enhance += 0.03;
+        if (data.getBoolean(StringUtils.FantasyBracelet)) enhance += 0.03;
         return enhance;
     }
 
@@ -4986,5 +4965,21 @@ public class Compute {
         ClientboundSetActionBarTextPacket clientboundSetActionBarTextPacket =
                 new ClientboundSetActionBarTextPacket(component);
         ((ServerPlayer) player).connection.send(clientboundSetActionBarTextPacket);
+    }
+
+    @Nullable
+    public static ServerPlayer getPlayerByName(Level level, String name) {
+        return level.getServer().getPlayerList().getPlayerByName(name);
+    }
+
+    public static void setPlayerTitleAndSubTitle(ServerPlayer serverPlayer, Component title, Component subTitle,
+                                                 int fadeIn, int stay, int fadeOut) {
+        serverPlayer.connection.send(new ClientboundSetTitleTextPacket(title));
+        serverPlayer.connection.send(new ClientboundSetSubtitleTextPacket(subTitle));
+        serverPlayer.connection.send(new ClientboundSetTitlesAnimationPacket(fadeIn, stay, fadeOut));
+    }
+
+    public static void setPlayerTitleAndSubTitle(ServerPlayer serverPlayer, Component title, Component subTitle) {
+        setPlayerTitleAndSubTitle(serverPlayer, title, subTitle, 20, 60, 20);
     }
 }

@@ -1,5 +1,6 @@
 package com.very.wraq.events.mob.instance.instances;
 
+import com.very.wraq.common.attributeValues.PlayerAttributes;
 import com.very.wraq.events.fight.MonsterAttackEvent;
 import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.events.mob.instance.NoTeamInstance;
@@ -112,6 +113,8 @@ public class DevilInstance extends NoTeamInstance {
         if (!MobSpawn.tempKillCount.containsKey(name)) MobSpawn.tempKillCount.put(name, new HashMap<>());
         Map<String, Integer> map = MobSpawn.tempKillCount.get(name);
         map.put(mobName, map.getOrDefault(mobName, 0) + 1);
+
+        Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player), 150);
     }
 
     public static List<ItemAndRate> getRewardList() {

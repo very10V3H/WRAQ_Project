@@ -57,6 +57,8 @@ import com.very.wraq.process.series.lottery.networking.LotteryRewardS2CPacket;
 import com.very.wraq.process.system.element.networking.CurrentSeasonC2SPacket;
 import com.very.wraq.process.system.element.networking.CurrentSeasonAndResonanceTypeS2CPacket;
 import com.very.wraq.process.system.element.networking.ResonanceC2SPacket;
+import com.very.wraq.process.system.endlessinstance.network.EndlessInstanceKillCountS2CPacket;
+import com.very.wraq.process.system.forge.networking.*;
 import com.very.wraq.process.system.missions.netWorking.*;
 import com.very.wraq.process.system.missions.series.dailyMission.netWorking.DailyMissionStatusS2CPacket;
 import com.very.wraq.process.system.missions.series.labourDay.netWorking.LabourDayMissionStatusS2CPacket;
@@ -64,10 +66,6 @@ import com.very.wraq.process.func.plan.networking.DailySupplyC2SPacket;
 import com.very.wraq.process.func.plan.networking.DailySupplyS2CPacket;
 import com.very.wraq.process.system.randomStore.networking.TradeListClearS2CPacket;
 import com.very.wraq.process.system.randomStore.networking.TradeListS2CPacket;
-import com.very.wraq.process.system.forge.networking.DecomposeC2SPacket;
-import com.very.wraq.process.system.forge.networking.DecomposeDoubleClickTickS2CPacket;
-import com.very.wraq.process.system.forge.networking.DecomposeRecipeLossS2CPacket;
-import com.very.wraq.process.system.forge.networking.ForgeC2SPacket;
 import com.very.wraq.process.system.teamInstance.networking.NewTeamInstanceClearS2CPacket;
 import com.very.wraq.process.system.teamInstance.networking.NewTeamInstanceJoinedPlayerInfoS2CPacket;
 import com.very.wraq.process.system.teamInstance.networking.NewTeamInstancePrepareInfoS2CPacket;
@@ -1285,6 +1283,16 @@ public class ModNetworking {
                 .decoder(DustParticleS2CPacket::new)
                 .encoder(DustParticleS2CPacket::toBytes)
                 .consumerMainThread(DustParticleS2CPacket::handle)
+                .add();
+        net.messageBuilder(EndlessInstanceKillCountS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(EndlessInstanceKillCountS2CPacket::new)
+                .encoder(EndlessInstanceKillCountS2CPacket::toBytes)
+                .consumerMainThread(EndlessInstanceKillCountS2CPacket::handle)
+                .add();
+        net.messageBuilder(CraftC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(CraftC2SPacket::new)
+                .encoder(CraftC2SPacket::toBytes)
+                .consumerMainThread(CraftC2SPacket::handle)
                 .add();
     }
 

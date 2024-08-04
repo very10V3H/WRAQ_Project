@@ -239,7 +239,7 @@ public class Tower {
                         append(Component.literal(" 的 ").withStyle(ChatFormatting.WHITE)).
                         append(Component.literal(stage + "★").withStyle(CustomStyle.styleOfWorld)).
                         append(Component.literal("挑战").withStyle(ChatFormatting.RED)));
-        TowerTimeRecord.playerFinished(instanceList.indexOf(this) + 1, this.currentPlayer, this.currentPlayer.getServer().getTickCount() - this.startTime);
+        TowerTimeRecord.refreshRecord(instanceList.indexOf(this) + 1, this.currentPlayer, this.currentPlayer.getServer().getTickCount() - this.startTime);
     }
 
     public static void playerTryToChallenging(ServerPlayer serverPlayer, int index) throws SQLException {

@@ -1,5 +1,6 @@
 package com.very.wraq.process.system.teamInstance.instances.blackCastle;
 
+import com.very.wraq.common.attributeValues.PlayerAttributes;
 import com.very.wraq.events.instance.Castle;
 import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.events.mob.instance.NoTeamInstance;
@@ -207,6 +208,8 @@ public class NewCastleInstance extends NewTeamInstance {
                         throw new RuntimeException(e);
                     }
                 });
+                Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player), 180);
+
             } else {
                 Compute.sendFormatMSG(player, Component.literal("副本").withStyle(ChatFormatting.RED),
                         Component.literal("你的背包中没有 ").withStyle(ChatFormatting.WHITE).

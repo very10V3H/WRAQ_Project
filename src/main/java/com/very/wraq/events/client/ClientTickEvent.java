@@ -13,6 +13,7 @@ import com.very.wraq.networking.unSorted.MineHatConfirmC2SPacket;
 import com.very.wraq.networking.unSorted.PlayerIsNearbyCampfireC2SPacket;
 import com.very.wraq.networking.unSorted.UdiskWorldSoulC2SPacket;
 import com.very.wraq.process.system.element.Element;
+import com.very.wraq.process.system.endlessinstance.DailyEndlessInstance;
 import com.very.wraq.process.system.forge.ForgeScreen;
 import com.very.wraq.process.system.missions.MissionScreen;
 import com.very.wraq.process.system.respawn.MyRespawnRule;
@@ -71,10 +72,13 @@ import java.util.List;
 public class ClientTickEvent {
     @SubscribeEvent
     public static void ClientTick(TickEvent.PlayerTickEvent event) {
+        if (!event.player.equals(Minecraft.getInstance().player)) return;
         MyWayPoint.clientTick(event);
         if (event.side.isClient() && event.phase.equals(TickEvent.Phase.START)) OnCuriosSlotTickEffect.tickEvent(event.player);
-        if (event.side.isClient() && event.phase == TickEvent.Phase.END && event.player.equals(Minecraft.getInstance().player)) {
+        if (event.side.isClient() && event.phase == TickEvent.Phase.END) {
             Minecraft mc = Minecraft.getInstance();
+
+            if (DailyEndlessInstance.clientLastTick > 0) DailyEndlessInstance.clientLastTick --;
 
             if (ClientUtils.receiveMarketInfo) {
                 ClientUtils.receiveMarketInfo = false;

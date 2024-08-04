@@ -240,7 +240,7 @@ public class MobSpawn {
         // 直接送至背包或掉落
         if (dropsDirectToInventory.containsKey(MobSpawn.getMobOriginName(mob))
                 || WraqCurios.isOn(EndRune.class, player)) {
-            Compute.ExpPercentGetAndMSGSend(player, 0.02, PlayerAttributes.expUp(player), xpLevel);
+            Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player), xpLevel);
 
             list.forEach(itemAndRate -> {
                 RandomLootEquip.handleItemAndRate(itemAndRate);

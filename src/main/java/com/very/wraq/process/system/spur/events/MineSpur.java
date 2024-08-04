@@ -94,7 +94,7 @@ public class MineSpur {
         double baseExpRate = Utils.mineExpMap.get(blockState.getBlock());
         Compute.playerMineExpAdd(player, (int) (baseExpRate * 100));
         baseExpRate *= (1 + Compute.playerMineLevel(player)) * 0.25;
-        Compute.ExpPercentGetAndMSGSend(player, baseExpRate, 0, Math.min(player.experienceLevel, 50));
+        Compute.givePercentExpToPlayer(player, baseExpRate, 0, Math.min(player.experienceLevel, 50));
         ClientboundSoundPacket clientboundSoundPacket = new ClientboundSoundPacket(Holder.direct(SoundEvents.EXPERIENCE_ORB_PICKUP), SoundSource.PLAYERS, player.getX(), player.getY(), player.getZ(), 0.5f, 1, 1);
         ServerPlayer serverPlayer = (ServerPlayer) player;
         serverPlayer.connection.send(clientboundSoundPacket);

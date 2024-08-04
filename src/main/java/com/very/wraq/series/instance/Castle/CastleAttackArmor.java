@@ -24,10 +24,10 @@ public class CastleAttackArmor extends WraqArmor implements ForgeItem {
 
     public static Map<Integer, Double> attributeIndexValueMap = new HashMap<>() {{
         put(0, 6144d);
-        put(1, 450d);
+        put(1, 750d);
         put(2, 800d);
-        put(3, 600d);
-        put(4, 1.75);
+        put(3, 800d);
+        put(4, 0.55);
     }};
 
     public CastleAttackArmor(ItemMaterial Material, Type Slots, Properties itemProperties) {
@@ -35,7 +35,7 @@ public class CastleAttackArmor extends WraqArmor implements ForgeItem {
         Utils.maxHealth.put(this, 6144d);
         Utils.attackDamage.put(this, 750d);
         Utils.defence.put(this, 800d);
-        Utils.manaDefence.put(this, 600d);
+        Utils.manaDefence.put(this, 800d);
         Utils.critDamage.put(this, 0.55);
         if (type.equals(Type.BOOTS)) {
             Utils.movementSpeedCommon.put(this, 0.45);

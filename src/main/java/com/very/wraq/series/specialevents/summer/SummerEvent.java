@@ -174,7 +174,7 @@ public class SummerEvent {
             if (dailyExpGetTimes < 20) {
                 quitJudge = true;
                 incrementIntData(player, dailyExpGetTimesKey);
-                Compute.ExpPercentGetIgnoreLimitAndMSGSend(player, 0.05, 0, player.experienceLevel);
+                Compute.givePercentExpToPlayer(player, 0.05, 0, player.experienceLevel);
                 sendFormatMSG(player, Component.literal("今日还能获得").withStyle(ChatFormatting.WHITE).
                         append(Component.literal(String.valueOf(20 - (dailyExpGetTimes + 1)) + "次").withStyle(CustomStyle.styleOfWater)).
                         append(Component.literal("经验").withStyle(ChatFormatting.LIGHT_PURPLE)));
@@ -188,7 +188,8 @@ public class SummerEvent {
     }
 
     public static void sendDailyTimeRank(Level level) {
-        Compute.formatBroad(level, Component.literal("暑期活动"), Component.literal("当前在线玩家的").withStyle(ChatFormatting.WHITE).
+        Compute.formatBroad(level, Component.literal("暑期活动").withStyle(CustomStyle.styleOfPower),
+                Component.literal("当前在线玩家的").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("摸鱼时长排名 >>").withStyle(CustomStyle.styleOfWater)));
         record PlayerTime(Player player, int seconds) {
         }

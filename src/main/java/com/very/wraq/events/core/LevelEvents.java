@@ -459,7 +459,7 @@ public class LevelEvents {
                             Component.literal("早上好！新的一天有新的开始！").withStyle(ChatFormatting.WHITE));
                     Utils.TimeEventFlag = 9;
                     playerList.forEach(serverPlayer -> {
-                        Compute.ExpPercentGetAndMSGSend(serverPlayer, 0.2, 0, serverPlayer.experienceLevel);
+                        Compute.givePercentExpToPlayer(serverPlayer, 0.2, 0, serverPlayer.experienceLevel);
                     });
                 }
                 if (calendar.get(Calendar.HOUR_OF_DAY) == 12 && Utils.TimeEventFlag != 12) {
@@ -475,7 +475,7 @@ public class LevelEvents {
                             Component.literal("三点几嘞！饮茶先咯！").withStyle(ChatFormatting.WHITE));
                     Utils.TimeEventFlag = 15;
                     playerList.forEach(serverPlayer -> {
-                        Compute.ExpPercentGetAndMSGSend(serverPlayer, 0.2, 0, serverPlayer.experienceLevel);
+                        Compute.givePercentExpToPlayer(serverPlayer, 0.2, 0, serverPlayer.experienceLevel);
                     });
                 }
                 if (calendar.get(Calendar.HOUR_OF_DAY) == 18 && Utils.TimeEventFlag != 18) {
@@ -491,7 +491,7 @@ public class LevelEvents {
                             Component.literal("夜生活才刚刚开始！").withStyle(ChatFormatting.WHITE));
                     Utils.TimeEventFlag = 21;
                     playerList.forEach(serverPlayer -> {
-                        Compute.ExpPercentGetAndMSGSend(serverPlayer, 0.2, 0, serverPlayer.experienceLevel);
+                        Compute.givePercentExpToPlayer(serverPlayer, 0.2, 0, serverPlayer.experienceLevel);
                     });
                 }
                 if (calendar.get(Calendar.HOUR_OF_DAY) == 0 && Utils.TimeEventFlag != 0) {
@@ -683,7 +683,7 @@ public class LevelEvents {
                         Component.literal(BroadCastContent[random.nextInt(BroadCastContent.length)]).withStyle(ChatFormatting.WHITE));
             }
 
-            if (tick % 6000 == 726) {
+            if (tick % 12000 == 726) {
                 SummerEvent.sendDailyTimeRank(level);
             }
         }

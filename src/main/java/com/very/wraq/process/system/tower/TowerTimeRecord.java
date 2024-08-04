@@ -11,7 +11,8 @@ import java.util.*;
 
 public record TowerTimeRecord(int floor, String name, int tick) {
 
-    public static void playerFinished(int floor, Player player, int tick) {
+
+    public static void refreshRecord(int floor, Player player, int tick) {
         List<TowerTimeRecord> list = eachFloorRecord.get(floor);
         TowerTimeRecord record = new TowerTimeRecord(floor, player.getName().getString(), tick);
         boolean refreshRecord = false;

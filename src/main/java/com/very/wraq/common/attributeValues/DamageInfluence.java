@@ -103,7 +103,7 @@ public class DamageInfluence {
 
     public static double PlayerNormalBowAttackDamageEnhance(Player player) {
         double rate = 0;
-        rate += 3 * (1 - (16 / (16 + PlayerAttributes.extraSwiftness(player)))); // 迅捷加成
+        rate += 2.25 * (1 - (16 / (16 + PlayerAttributes.extraSwiftness(player)))); // 迅捷加成
         return rate;
     }
 

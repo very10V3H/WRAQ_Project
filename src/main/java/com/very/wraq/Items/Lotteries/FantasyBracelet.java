@@ -26,7 +26,7 @@ public class FantasyBracelet extends Item implements ICurioItem {
 
     @Override
     public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
-        components.add(Component.literal(" 使所有基础属性的最终值提升10%").withStyle(CustomStyle.styleOfFantasy));
+        components.add(Component.literal(" 使所有基础属性的最终值提升3%").withStyle(CustomStyle.styleOfFantasy));
         super.appendHoverText(itemStack, level, components, flag);
     }
 

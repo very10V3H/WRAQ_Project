@@ -1,16 +1,16 @@
 package com.very.wraq.commands.changeable;
 
-import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.Utils.StringUtils;
-import com.very.wraq.common.Utils.Utils;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.Utils.StringUtils;
+import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.decoration.ArmorStand;
@@ -19,7 +19,9 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class TextCommand implements Command<CommandSourceStack> {
     public static TextCommand instance = new TextCommand();
@@ -29,12 +31,59 @@ public class TextCommand implements Command<CommandSourceStack> {
     public int run(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         Player player = context.getSource().getPlayer();
         String name = StringArgumentType.getString(context, "name");
-        CompoundTag dataP = player.getPersistentData();
         if (!player.isCreative()) {
             Compute.sendFormatMSG(player, Component.literal("维瑞阿契").withStyle(ChatFormatting.AQUA),
                     Component.literal("此命令仅管理员可用。").withStyle(ChatFormatting.WHITE));
         } else {
             List<Component> components = new ArrayList<>();
+            Map<String, List<Component>> nameToTextMap = new HashMap<>() {{
+                put("toSkyCityTpCenter", List.of(
+                        Component.literal("前往:").withStyle(CustomStyle.styleOfEnd),
+                        Component.literal("天空城位移中枢").withStyle(CustomStyle.styleOfEnd)
+                ));
+                put("toIceKnight", List.of(
+                        Component.literal("前往:").withStyle(CustomStyle.styleOfEnd),
+                        Component.literal("冰霜骑士驻地").withStyle(CustomStyle.styleOfIce),
+                        Component.literal("消耗 ").withStyle(ChatFormatting.RED).
+                                append(ModItems.WorldSoul2.get().getDefaultInstance().getDisplayName()).
+                                append(Component.literal(" * 1").withStyle(ChatFormatting.AQUA))
+                ));
+                put("toStarDream", List.of(
+                        Component.literal("前往:").withStyle(CustomStyle.styleOfEnd),
+                        Component.literal("尘月之梦").withStyle(CustomStyle.styleOfMoon),
+                        Component.literal("消耗 ").withStyle(ChatFormatting.RED).
+                                append(ModItems.WorldSoul2.get().getDefaultInstance().getDisplayName()).
+                                append(Component.literal(" * 1").withStyle(ChatFormatting.AQUA))
+                ));
+                put("toLightningIsland", List.of(
+                        Component.literal("前往:").withStyle(CustomStyle.styleOfEnd),
+                        Component.literal("雷光灯塔").withStyle(CustomStyle.styleOfLightning),
+                        Component.literal("消耗 ").withStyle(ChatFormatting.RED).
+                                append(ModItems.WorldSoul2.get().getDefaultInstance().getDisplayName()).
+                                append(Component.literal(" * 1").withStyle(ChatFormatting.AQUA))
+                ));
+                put("toEasternTower", List.of(
+                        Component.literal("前往:").withStyle(CustomStyle.styleOfEnd),
+                        Component.literal("东洋塔").withStyle(CustomStyle.styleOfHusk),
+                        Component.literal("消耗 ").withStyle(ChatFormatting.RED).
+                                append(ModItems.WorldSoul2.get().getDefaultInstance().getDisplayName()).
+                                append(Component.literal(" * 1").withStyle(ChatFormatting.AQUA))
+                ));
+                put("toOriginalForest", List.of(
+                        Component.literal("前往:").withStyle(CustomStyle.styleOfEnd),
+                        Component.literal("原始森林").withStyle(CustomStyle.styleOfForest),
+                        Component.literal("消耗 ").withStyle(ChatFormatting.RED).
+                                append(ModItems.WorldSoul2.get().getDefaultInstance().getDisplayName()).
+                                append(Component.literal(" * 1").withStyle(ChatFormatting.AQUA))
+                ));
+                put("toSkyCitySpawnPoint", List.of(
+                        Component.literal("在此区域跳跃").withStyle(CustomStyle.styleOfMoon),
+                        Component.literal("可以回到天空城").withStyle(CustomStyle.styleOfMoon)
+                ));
+            }};
+            if (nameToTextMap.containsKey(name)) {
+                components = nameToTextMap.get(name);
+            }
             if (name.equals(StringUtils.TextType.GoldCoinStore)) {
                 components.add(Component.literal("樱岛黄金商店").withStyle(ChatFormatting.YELLOW));
             }
@@ -317,28 +366,33 @@ public class TextCommand implements Command<CommandSourceStack> {
                         append(Component.literal("Lv." + levelRequire).withStyle(Utils.levelStyleList.get(levelRequire / 25))));
             }
 
-
             if (name.equals(StringUtils.TextType.BackEnd)) {
                 components.add(Component.literal("返回终末之地").withStyle(CustomStyle.styleOfEnd));
             }
-            ArmorStandSummon(components, player);
 
+            ArmorStandSummon(components, player);
         }
         return 0;
     }
 
     public static void ArmorStandSummon(List<Component> components, Player player) {
-        for (int i = 0; i < components.size(); i++) {
-            ArmorStand armorStand = new ArmorStand(EntityType.ARMOR_STAND, player.level());
-            armorStand.setNoGravity(true);
-            armorStand.setCustomNameVisible(true);
-            armorStand.setCustomName(components.get(i));
-            armorStand.setInvulnerable(true);
-            armorStand.setInvisible(true);
-            armorStand.noPhysics = true;
-            armorStand.setBoundingBox(AABB.ofSize(new Vec3(0, 0, 0), 0.1, 0.1, 0.1));
-            armorStand.moveTo(player.pick(3, 0, false).getLocation().add(0, -0.25 * i, 0));
-            player.level().addFreshEntity(armorStand);
+        if (components.isEmpty()) {
+            player.sendSystemMessage(Component.literal("检查参数"));
+        } else {
+            for (int i = 0; i < components.size(); i++) {
+                ArmorStand armorStand = new ArmorStand(EntityType.ARMOR_STAND, player.level());
+                armorStand.setNoGravity(true);
+                armorStand.setCustomNameVisible(true);
+                armorStand.setCustomName(components.get(i));
+                armorStand.setInvulnerable(true);
+                armorStand.setInvisible(true);
+                armorStand.noPhysics = true;
+                armorStand.setBoundingBox(AABB.ofSize(new Vec3(0, 0, 0), 0.1, 0.1, 0.1));
+                armorStand.moveTo(player.pick(3, 0, false).getLocation().add(0, -0.25 * i, 0));
+                player.level().addFreshEntity(armorStand);
+                player.sendSystemMessage(Component.literal("已生成").withStyle(ChatFormatting.WHITE).
+                        append(components.get(i)));
+            }
         }
     }
 }

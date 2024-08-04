@@ -6,6 +6,11 @@ import com.very.wraq.blocks.entity.HBrewingEntity;
 import com.very.wraq.blocks.entity.InjectBlockEntity;
 import com.very.wraq.commands.changeable.CompensateCommand;
 import com.very.wraq.commands.changeable.PrefixCommand;
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.Utils.StringUtils;
+import com.very.wraq.common.Utils.Struct.PlayerTeam;
+import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.events.instance.PurpleIronKnight;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.VersionCheckS2CPacket;
@@ -22,20 +27,16 @@ import com.very.wraq.networking.reputationMission.ReputationMissionStartTimeS2CP
 import com.very.wraq.networking.unSorted.ClientLimitSetS2CPacket;
 import com.very.wraq.networking.unSorted.PlayerCallBack;
 import com.very.wraq.networking.unSorted.SwiftSyncS2CPacket;
+import com.very.wraq.process.func.plan.DailySupply;
 import com.very.wraq.process.system.element.Element;
+import com.very.wraq.process.system.endlessinstance.EndlessInstanceItems;
 import com.very.wraq.process.system.missions.series.dailyMission.DailyMission;
 import com.very.wraq.process.system.parkour.Parkour;
-import com.very.wraq.process.func.plan.DailySupply;
 import com.very.wraq.process.system.teamInstance.NewTeamInstanceEvent;
 import com.very.wraq.process.system.tower.Tower;
 import com.very.wraq.process.system.tower.TowerStatusS2CPacket;
 import com.very.wraq.process.system.vp.VpDataHandler;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.Utils.StringUtils;
-import com.very.wraq.common.Utils.Struct.PlayerTeam;
-import com.very.wraq.common.Utils.Utils;
-import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.series.specialevents.summer.SummerEvent;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -56,7 +57,10 @@ import vazkii.patchouli.api.PatchouliAPI;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.util.*;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Mod.EventBusSubscriber
 public class LoginInEvent {
@@ -76,7 +80,7 @@ public class LoginInEvent {
 
             data.putString(StringUtils.Login.Status, StringUtils.Login.Offline);
 
-            for (int i = 0 ; i < 11 ; i ++) {
+            for (int i = 0 ; i < 12 ; i ++) {
                 String singleReward = "singleReward" + i;
                 if (data.contains(singleReward)) data.remove(singleReward);
             }
@@ -85,6 +89,19 @@ public class LoginInEvent {
             if (!data.contains(singleReward)) {
                 Compute.sendFormatMSG(player,Component.literal("补偿").withStyle(CustomStyle.styleOfSakura),
                         Component.literal("你有待领取的补偿，输入/vmd compensate领取补偿！").withStyle(ChatFormatting.AQUA));
+            }
+
+            String expAdjust = "24.8.1-expAdjust";
+            if (!data.contains(expAdjust) && player.experienceLevel > 180) {
+                double levelUpNeedXp = Math.pow(Math.E, 3 + (player.experienceLevel / 100d) * 7);
+                double currentXpRate = data.getDouble("Xp") / levelUpNeedXp;
+                int newXpLevel = (int) (180 + (player.experienceLevel - 180) * 0.5);
+                data.putInt(StringUtils.ExpLevel, newXpLevel);
+                ((ServerPlayer) player).setExperienceLevels(newXpLevel);
+                data.putDouble("Xp", Math.pow(Math.E, 3 + (player.experienceLevel / 100d) * 7) * currentXpRate);
+                data.putBoolean(expAdjust, true);
+                Compute.sendFormatMSG(player, Component.literal("经验改动").withStyle(ChatFormatting.LIGHT_PURPLE),
+                        Component.literal("你的经验已经被改动，原因可查看群公告更新通知").withStyle(ChatFormatting.LIGHT_PURPLE));
             }
 
             if (!data.contains(StringUtils.PatchouliBook)) {
@@ -450,10 +467,9 @@ public class LoginInEvent {
         sunPowerGetCount.put(player.getName().getString(), 0);
         lakeCoreGetCount.put(player.getName().getString(), 0);
         volcanoCoreGetCount.put(player.getName().getString(), 0);
-
         SummerEvent.resetDailyData(player);
+        Compute.itemStackGive(player, new ItemStack(EndlessInstanceItems.EASTERN_TOWER_PAPER.get(), 3));
     }
-
 
     public static void WeeklyRefreshContent(Player player) {
 

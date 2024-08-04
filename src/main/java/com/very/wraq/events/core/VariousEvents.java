@@ -249,8 +249,8 @@ public class VariousEvents {
         ExperienceOrb orb = event.getOrb();
         if (orb.getPersistentData().contains(MobSpawn.fromMobSpawnTag)) {
             if (orb.getPersistentData().contains(MobSpawn.fromSlime)) {
-                Compute.ExpPercentGetAndMSGSend(player, 0.003, PlayerAttributes.expUp(player), orb.value);
-            } else Compute.ExpPercentGetAndMSGSend(player, 0.01, PlayerAttributes.expUp(player), orb.value);
+                Compute.givePercentExpToPlayer(player, 0.003, PlayerAttributes.expUp(player), orb.value);
+            } else Compute.givePercentExpToPlayer(player, 0.01, PlayerAttributes.expUp(player), orb.value);
         }
     }
 
@@ -265,7 +265,7 @@ public class VariousEvents {
         if (event.getSide().isServer() && itemStack.getOrCreateTag().contains("StoredEnchantments") && event.getHand().equals(InteractionHand.MAIN_HAND)) {
             Player player = event.getEntity();
             player.setItemInHand(InteractionHand.MAIN_HAND, Items.AIR.getDefaultInstance());
-            Compute.ExpPercentGetAndMSGSend(player, 0.1, 0, player.experienceLevel);
+            Compute.givePercentExpToPlayer(player, 0.1, 0, player.experienceLevel);
         }
     }
 
