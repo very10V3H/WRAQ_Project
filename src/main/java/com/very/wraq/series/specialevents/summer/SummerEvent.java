@@ -188,7 +188,8 @@ public class SummerEvent {
     }
 
     public static void sendDailyTimeRank(Level level) {
-        Compute.formatBroad(level, Component.literal("暑期活动"), Component.literal("当前在线玩家的").withStyle(ChatFormatting.WHITE).
+        Compute.formatBroad(level, Component.literal("暑期活动").withStyle(CustomStyle.styleOfPower),
+                Component.literal("当前在线玩家的").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("摸鱼时长排名 >>").withStyle(CustomStyle.styleOfWater)));
         record PlayerTime(Player player, int seconds) {
         }
