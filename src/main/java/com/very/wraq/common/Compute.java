@@ -3540,7 +3540,7 @@ public class Compute {
             if (entity instanceof Mob mob && !(entity instanceof Allay) && !(entity instanceof Animal)) {
                 if (entity instanceof Villager) return;
                 if (mob.isDeadOrDying()) return;
-                if (!DailyEndlessInstance.canPlayerCauseDamage(player, mob)) return;
+                if (DailyEndlessInstance.prohibitPlayerCauseDamage(player, mob)) return;
                 /*Castle.CauseDamageRecord(player, mob); */
                 if (Moon.IsMoonAttackImmune(player, (Mob) entity)) damage *= 0.5;
                 if (Moon.IsMoonManaImmune(player, (Mob) entity)) damage *= 0.5;
