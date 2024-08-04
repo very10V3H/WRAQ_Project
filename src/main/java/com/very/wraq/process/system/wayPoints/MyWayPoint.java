@@ -75,7 +75,7 @@ public class MyWayPoint {
         add(new MyWayPoint(new Vec3(2573, 120, -492), "火山村", colorMap.get(yellow), 0));
         add(new MyWayPoint(new Vec3(1157, 76, -1077), "薰楠村", colorMap.get(purple), 0));
         add(new MyWayPoint(new Vec3(1036, 76, -1288), "薰曦村", colorMap.get(purple), 0));
-        add(new MyWayPoint(new Vec3(1329, 71, -1612), "北洋村", colorMap.get(aqua), 0));
+        add(new MyWayPoint(new Vec3(1329, 71, -1612), "北冰村", colorMap.get(aqua), 0));
         add(new MyWayPoint(new Vec3(1911, 86, 1688), "沙岸村", colorMap.get(yellow), 0));
         add(new MyWayPoint(new Vec3(2381, 182, 1752), "绯樱村", colorMap.get(purple), 0));
         add(new MyWayPoint(new Vec3(2381, 182, 1752), "绯樱村", colorMap.get(purple), 0));
