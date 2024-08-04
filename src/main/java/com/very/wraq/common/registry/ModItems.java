@@ -149,9 +149,9 @@ import com.very.wraq.series.overworld.chapter1.waterSystem.equip.sword.*;
 import com.very.wraq.series.overworld.chapter2.lightningIsland.Armor.*;
 import com.very.wraq.series.overworld.chapter2.manaArmor.LifeMana.*;
 import com.very.wraq.series.overworld.chapter2.manaArmor.ObsiMana.*;
-import com.very.wraq.series.overworld.forging.forgingstone0;
-import com.very.wraq.series.overworld.forging.forgingstone1;
-import com.very.wraq.series.overworld.forging.forgingstone2;
+import com.very.wraq.series.overworld.forging.ForgingStone0;
+import com.very.wraq.series.overworld.forging.ForgingStone1;
+import com.very.wraq.series.overworld.forging.ForgingStone2;
 import com.very.wraq.series.overworld.IceSeries.LeatherArmor;
 import com.very.wraq.series.overworld.chapter1.waterSystem.equip.LakeBow;
 import com.very.wraq.series.overworld.chapter1.waterSystem.equip.LakeSceptre;
@@ -738,11 +738,11 @@ public class ModItems {
     public static final RegistryObject<Item> volcanomana = ITEMS.register("volcanomana",
             () -> new VolcanoMana(new Item.Properties().rarity(Rarity.EPIC)));
     public static final RegistryObject<Item> ForgingStone0 = ITEMS.register("forgingstone0",
-            () -> new forgingstone0(new Item.Properties().rarity(Rarity.UNCOMMON)));
+            () -> new ForgingStone0(new Item.Properties().rarity(Rarity.UNCOMMON)));
     public static final RegistryObject<Item> ForgingStone1 = ITEMS.register("forgingstone1",
-            () -> new forgingstone1(new Item.Properties().rarity(Rarity.RARE)));
+            () -> new ForgingStone1(new Item.Properties().rarity(Rarity.RARE)));
     public static final RegistryObject<Item> ForgingStone2 = ITEMS.register("forgingstone2",
-            () -> new forgingstone2(new Item.Properties().rarity(Rarity.EPIC)));
+            () -> new ForgingStone2(new Item.Properties().rarity(Rarity.EPIC)));
     public static final RegistryObject<Item> Ruby = ITEMS.register("ruby",
             () -> new Ruby(new Item.Properties().rarity(CustomStyle.Nether)));
     public static final RegistryObject<Item> ManaSword = ITEMS.register("manasword",
