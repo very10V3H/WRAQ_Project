@@ -395,28 +395,6 @@ public class Compute {
                             append(Component.literal(String.format(" (%.1f/%.1f)", data.getDouble("Xp"), LevelUpNeedXp)).withStyle(ChatFormatting.GRAY)));
     }
 
-    public static void givePercentExpToPlayerWithoutLimit(Player player, double num, double ExpUp, int ExpLevel) {
-        if (player.experienceLevel >= levelUpperLimit) return;
-        if (ExpLevel >= expGetUpperLimit) ExpLevel = expGetUpperLimit;
-        if (ExpLevel - player.experienceLevel > 8) ExpLevel = player.experienceLevel;
-
-        CompoundTag data = player.getPersistentData();
-        double LevelUpNeedXp = Math.pow(Math.E, 3 + (player.experienceLevel / 100d) * 7);
-        double ExpLevelXp = Math.pow(Math.E, 3 + (ExpLevel / 100d) * 7);
-        double XpBeforeUp = (ExpLevelXp * num);
-        double XpUp = (ExpLevelXp * num) * ExpUp;
-        double Xp = XpBeforeUp + XpUp;
-        if (data.contains("Xp")) data.putDouble("Xp", data.getDouble("Xp") + Xp);
-        else data.putDouble("Xp", Xp);
-        if (!data.contains("IgnoreExp") || (!data.getBoolean("IgnoreExp")))
-            Compute.sendFormatMSG(player, Component.literal("经验").withStyle(ChatFormatting.LIGHT_PURPLE),
-                    Component.literal("经验值").withStyle(ChatFormatting.LIGHT_PURPLE).
-                            append(Component.literal(" + ").withStyle(ChatFormatting.DARK_PURPLE)).
-                            append(Component.literal(String.format("%.1f", XpBeforeUp)).withStyle(ChatFormatting.LIGHT_PURPLE)).
-                            append(Component.literal(" + " + String.format("%.1f", XpUp)).withStyle(CustomStyle.styleOfLucky)).
-                            append(Component.literal(String.format(" (%.1f/%.1f)", data.getDouble("Xp"), LevelUpNeedXp)).withStyle(ChatFormatting.GRAY)));
-    }
-
     public static void use(Player player) {
         if (player.level().isClientSide) {
             if (player.tickCount - 10 > ClientUtils.UseTick && !ClientUtils.PlayerIsAttacking(player)
@@ -4994,8 +4972,14 @@ public class Compute {
         return level.getServer().getPlayerList().getPlayerByName(name);
     }
 
-    public static void setPlayerTitleAndSubTitle(ServerPlayer serverPlayer, Component title, Component subTitle) {
+    public static void setPlayerTitleAndSubTitle(ServerPlayer serverPlayer, Component title, Component subTitle,
+                                                 int fadeIn, int stay, int fadeOut) {
         serverPlayer.connection.send(new ClientboundSetTitleTextPacket(title));
         serverPlayer.connection.send(new ClientboundSetSubtitleTextPacket(subTitle));
+        serverPlayer.connection.send(new ClientboundSetTitlesAnimationPacket(fadeIn, stay, fadeOut));
+    }
+
+    public static void setPlayerTitleAndSubTitle(ServerPlayer serverPlayer, Component title, Component subTitle) {
+        setPlayerTitleAndSubTitle(serverPlayer, title, subTitle, 20, 60, 20);
     }
 }
