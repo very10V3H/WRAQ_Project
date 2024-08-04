@@ -1,7 +1,6 @@
 package com.very.wraq.process.system.wayPoints;
 
 import com.very.wraq.networking.ModNetworking;
-import com.very.wraq.process.system.wayPoints.networking.ClientWayPointS2CPacket;
 import com.very.wraq.process.system.wayPoints.networking.SpecificWayPointAddS2CPacket;
 import com.very.wraq.process.system.wayPoints.networking.SpecificWayPointRemoveS2CPacket;
 import net.minecraft.client.Minecraft;
@@ -121,6 +120,8 @@ public class MyWayPoint {
         add(new MyWayPoint(new Vec3(1171.5, -35.5, -171.5), "紫晶巨蟹挑战点", colorMap.get(purple), 0));
         add(new MyWayPoint(new Vec3(2257, 140, 1694), "突见忍挑战点", colorMap.get(gold), 0));
         add(new MyWayPoint(new Vec3(2417, 152, -1372), "暗黑城堡团队副本挑战点", colorMap.get(black), 0));
+
+        add(new MyWayPoint(new Vec3(2335, 148, 17), "东洋塔", colorMap.get(red), 0));
     }};
 
     public static List<MyWayPoint> netherPointList = new ArrayList<>() {{
