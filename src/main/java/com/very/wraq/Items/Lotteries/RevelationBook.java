@@ -39,7 +39,7 @@ public class RevelationBook extends Item {
             Compute.playerItemUseWithRecord(player);
 
             if (isNew) {
-                Compute.givePercentExpToPlayerWithoutLimit(player, 0.05, 0, player.experienceLevel);
+                Compute.givePercentExpToPlayer(player, 0.05, 0, player.experienceLevel);
             } else {
                 Random random = new Random();
                 Compute.givePercentExpToPlayer(player, random.nextDouble(0.05, 0.1), 0, player.experienceLevel);
