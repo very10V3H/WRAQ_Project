@@ -10,8 +10,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class forgingstone2 extends Item {
-    public forgingstone2(Properties p_41383_) {
+public class ForgingStone2 extends Item implements ForgingMaterial {
+    public ForgingStone2(Properties p_41383_) {
         super(p_41383_);
     }
 

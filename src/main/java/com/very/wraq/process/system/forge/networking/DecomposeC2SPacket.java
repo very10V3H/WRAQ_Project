@@ -53,7 +53,7 @@ public class DecomposeC2SPacket {
                 if (level.getBlockState(blockPos).getBlock().equals(ModBlocks.FORGING_BLOCK.get())) {
                     BlockEntity blockEntity = level.getBlockEntity(blockPos);
                     if (blockEntity instanceof ForgingBlockEntity forgingBlockEntity) {
-                        if (forgingBlockEntity.decompose(forgingBlockEntity)) {
+                        if (forgingBlockEntity.decompose()) {
                             doubleClickTick.remove(name);
                             Compute.soundToPlayer(serverPlayer, SoundEvents.ANVIL_BREAK);
                             Compute.sendFormatMSG(serverPlayer, Component.literal("分解").withStyle(ChatFormatting.RED),

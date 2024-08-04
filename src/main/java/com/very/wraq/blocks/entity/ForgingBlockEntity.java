@@ -22,9 +22,9 @@ import com.very.wraq.series.instance.Castle.CastleManaArmor;
 import com.very.wraq.series.instance.Castle.CastleSwiftArmor;
 import com.very.wraq.series.newrunes.NewRuneItems;
 import com.very.wraq.series.newrunes.RuneItem;
-import com.very.wraq.series.overworld.forging.forgingstone0;
-import com.very.wraq.series.overworld.forging.forgingstone1;
-import com.very.wraq.series.overworld.forging.forgingstone2;
+import com.very.wraq.series.overworld.forging.ForgingStone0;
+import com.very.wraq.series.overworld.forging.ForgingStone1;
+import com.very.wraq.series.overworld.forging.ForgingStone2;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -177,7 +177,7 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider {
         if (hasRecipe(blockEntity) || hasRecipe1(blockEntity) || hasRecipe2(blockEntity)
                 || hasRecipe8(blockEntity) || hasRecipeOfDismantle(blockEntity) || hasRecipeOfCastleArmor(blockEntity)
                 || hasRecipeOfForgePaper(blockEntity) || hasRecipeOfEquipPiece(blockEntity) || hasRecipeOfEquipPieceForge(blockEntity)) {
-            blockEntity.progress++;
+            /*blockEntity.progress++;*/
             setChanged(level, pos, blockState);
             if (blockEntity.progress >= blockEntity.maxProgress) {
 
@@ -365,16 +365,16 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider {
             ItemStack stone = blockEntity.itemStackHandler.getStackInSlot(0);
             ItemStack equip = blockEntity.itemStackHandler.getStackInSlot(1);
 
-            ItemStack EnhanceOrImprove = blockEntity.itemStackHandler.getStackInSlot(3);
-            ItemStack Protect = blockEntity.itemStackHandler.getStackInSlot(4);
+            ItemStack enhancePaper = blockEntity.itemStackHandler.getStackInSlot(3);
+            ItemStack protect = blockEntity.itemStackHandler.getStackInSlot(4);
 
             ItemStack slot3Item = blockEntity.itemStackHandler.getStackInSlot(3);
             ItemStack slot4Item = blockEntity.itemStackHandler.getStackInSlot(4);
-            if (slot3Item.is(ModItems.ForgeProtect.get())) Protect = slot3Item;
-            if (slot4Item.is(ModItems.ForgeProtect.get())) Protect = slot4Item;
+            if (slot3Item.is(ModItems.ForgeProtect.get())) protect = slot3Item;
+            if (slot4Item.is(ModItems.ForgeProtect.get())) protect = slot4Item;
             List<Item> items = List.of(ModItems.ForgeEnhance0.get(), ModItems.ForgeEnhance1.get(), ModItems.ForgeEnhance2.get());
-            if (items.contains(slot3Item.getItem())) EnhanceOrImprove = slot3Item;
-            if (items.contains(slot4Item.getItem())) EnhanceOrImprove = slot4Item;
+            if (items.contains(slot3Item.getItem())) enhancePaper = slot3Item;
+            if (items.contains(slot4Item.getItem())) enhancePaper = slot4Item;
 
             CompoundTag data = equip.getOrCreateTagElement(Utils.MOD_ID);
             Compute.forgingHoverName(equip);
@@ -382,34 +382,34 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider {
             Random r = new Random();
             if (data.contains("Forging")) forgelevel = data.getInt("Forging");
             boolean flag = true;
-            if (stone.getItem() instanceof forgingstone0) {
-                double SuccessRate = (double) (10 - forgelevel) / 10;
-                if (EnhanceOrImprove.is(ModItems.ForgeEnhance0.get())) SuccessRate *= (1.25);
-                if (EnhanceOrImprove.is(ModItems.ForgeEnhance1.get())) SuccessRate *= (1.5);
-                if (EnhanceOrImprove.is(ModItems.ForgeEnhance2.get())) SuccessRate *= (2);
-                if (r.nextDouble(1) < SuccessRate) {
+            if (stone.getItem() instanceof ForgingStone0) {
+                double successRate = (double) (10 - forgelevel) / 10;
+                if (enhancePaper.is(ModItems.ForgeEnhance0.get())) successRate *= (1.25);
+                if (enhancePaper.is(ModItems.ForgeEnhance1.get())) successRate *= (1.5);
+                if (enhancePaper.is(ModItems.ForgeEnhance2.get())) successRate *= (2);
+                if (r.nextDouble(1) < successRate) {
                     data.putInt("Forging", forgelevel + 1);
                     flag = false;
                 }
             }
 
-            if (stone.getItem() instanceof forgingstone1) {
-                double SuccessRate = (double) (20 - forgelevel) / 20;
-                if (EnhanceOrImprove.is(ModItems.ForgeEnhance0.get())) SuccessRate *= (1.25);
-                if (EnhanceOrImprove.is(ModItems.ForgeEnhance1.get())) SuccessRate *= (1.5);
-                if (EnhanceOrImprove.is(ModItems.ForgeEnhance2.get())) SuccessRate *= (2);
-                if (r.nextDouble(1) < SuccessRate) {
+            if (stone.getItem() instanceof ForgingStone1) {
+                double successRate = (double) (20 - forgelevel) / 20;
+                if (enhancePaper.is(ModItems.ForgeEnhance0.get())) successRate *= (1.25);
+                if (enhancePaper.is(ModItems.ForgeEnhance1.get())) successRate *= (1.5);
+                if (enhancePaper.is(ModItems.ForgeEnhance2.get())) successRate *= (2);
+                if (r.nextDouble(1) < successRate) {
                     data.putInt("Forging", forgelevel + 1);
                     flag = false;
                 }
             }
 
-            if (stone.getItem() instanceof forgingstone2) {
-                double SuccessRate = (double) (24 - forgelevel) / 24;
-                if (EnhanceOrImprove.is(ModItems.ForgeEnhance0.get())) SuccessRate *= (1.25);
-                if (EnhanceOrImprove.is(ModItems.ForgeEnhance1.get())) SuccessRate *= (1.5);
-                if (EnhanceOrImprove.is(ModItems.ForgeEnhance2.get())) SuccessRate *= (2);
-                if (r.nextDouble(1) < SuccessRate) {
+            if (stone.getItem() instanceof ForgingStone2) {
+                double successRate = (double) (24 - forgelevel) / 24;
+                if (enhancePaper.is(ModItems.ForgeEnhance0.get())) successRate *= (1.25);
+                if (enhancePaper.is(ModItems.ForgeEnhance1.get())) successRate *= (1.5);
+                if (enhancePaper.is(ModItems.ForgeEnhance2.get())) successRate *= (2);
+                if (r.nextDouble(1) < successRate) {
                     data.putInt("Forging", forgelevel + 1);
                     flag = false;
                 }
@@ -422,9 +422,9 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider {
                 } else {
                     int minus = 32 - forgelevel;
                     double rate = 0.01 + minus * 0.005;
-                    if (EnhanceOrImprove.is(ModItems.ForgeEnhance0.get())) rate *= (1.25);
-                    if (EnhanceOrImprove.is(ModItems.ForgeEnhance1.get())) rate *= (1.5);
-                    if (EnhanceOrImprove.is(ModItems.ForgeEnhance2.get())) rate *= (2);
+                    if (enhancePaper.is(ModItems.ForgeEnhance0.get())) rate *= (1.25);
+                    if (enhancePaper.is(ModItems.ForgeEnhance1.get())) rate *= (1.5);
+                    if (enhancePaper.is(ModItems.ForgeEnhance2.get())) rate *= (2);
                     if (r.nextDouble() < rate) {
                         data.putInt("Forging", forgelevel + 1);
                         flag = false;
@@ -435,7 +435,7 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider {
             boolean useProtect = false;
             if (player != null) {
                 if (flag) {
-                    if (forgelevel >= 24 && !Protect.is(ModItems.ForgeProtect.get())) {
+                    if (forgelevel >= 24 && !protect.is(ModItems.ForgeProtect.get())) {
                         int level = Math.max(forgelevel - 2, 23);
                         data.putInt("Forging", level);
                         Compute.formatBroad(player.level(), Component.literal("强化").withStyle(ChatFormatting.AQUA),
@@ -447,7 +447,7 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider {
                                         append(Component.literal("+" + level).withStyle(CustomStyle.styleOfWorld)));
                     }
 
-                    if (forgelevel >= 17 && forgelevel < 19 && !Protect.is(ModItems.ForgeProtect.get())) {
+                    if (forgelevel >= 17 && forgelevel < 19 && !protect.is(ModItems.ForgeProtect.get())) {
                         Compute.formatBroad(player.level(), Component.literal("强化").withStyle(ChatFormatting.AQUA),
                                 Component.literal("").withStyle(ChatFormatting.WHITE).
                                         append(player.getDisplayName()).
@@ -456,7 +456,7 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider {
                                         append(Component.literal("时失败，装备等级掉至 16").withStyle(ChatFormatting.WHITE)));
                         data.putInt("Forging", 16);
                     }
-                    if (forgelevel >= 20 && forgelevel < 22 && !Protect.is(ModItems.ForgeProtect.get())) {
+                    if (forgelevel >= 20 && forgelevel < 22 && !protect.is(ModItems.ForgeProtect.get())) {
                         Compute.formatBroad(player.level(), Component.literal("强化").withStyle(ChatFormatting.AQUA),
                                 Component.literal("").withStyle(ChatFormatting.WHITE).
                                         append(player.getDisplayName()).
@@ -465,7 +465,7 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider {
                                         append(Component.literal("时失败，装备等级掉至 19").withStyle(ChatFormatting.WHITE)));
                         data.putInt("Forging", 19);
                     }
-                    if (forgelevel == 23 && !Protect.is(ModItems.ForgeProtect.get())) {
+                    if (forgelevel == 23 && !protect.is(ModItems.ForgeProtect.get())) {
                         Compute.formatBroad(player.level(), Component.literal("强化").withStyle(ChatFormatting.AQUA),
                                 Component.literal("").withStyle(ChatFormatting.WHITE).
                                         append(player.getDisplayName()).
@@ -475,7 +475,7 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider {
                         data.putInt("Forging", 22);
                     }
 
-                    if (forgelevel >= 17 && Protect.is(ModItems.ForgeProtect.get())) {
+                    if (forgelevel >= 17 && protect.is(ModItems.ForgeProtect.get())) {
                         useProtect = true;
                         Compute.sendFormatMSG(player, Component.literal("强化").withStyle(ChatFormatting.AQUA),
                                 Component.literal("使用了强化保护符，防止了强化等级掉落。").withStyle(ChatFormatting.WHITE));
@@ -510,11 +510,11 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider {
             blockEntity.itemStackHandler.setStackInSlot(2, equip);
             blockEntity.itemStackHandler.extractItem(0, 1, false);
             blockEntity.itemStackHandler.extractItem(1, 1, false);
-            if (EnhanceOrImprove.getItem() instanceof ForgeEnhance) {
+            if (enhancePaper.getItem() instanceof ForgeEnhance) {
                 if (items.contains(slot3Item.getItem())) blockEntity.itemStackHandler.extractItem(3, 1, false);
                 else if (items.contains(slot4Item.getItem())) blockEntity.itemStackHandler.extractItem(4, 1, false);
             }
-            if (useProtect && Protect.getItem() instanceof ForgeProtect) {
+            if (useProtect && protect.getItem() instanceof ForgeProtect) {
                 if (slot3Item.is(ModItems.ForgeProtect.get())) blockEntity.itemStackHandler.extractItem(3, 1, false);
                 else if (slot4Item.is(ModItems.ForgeProtect.get()))
                     blockEntity.itemStackHandler.extractItem(4, 1, false);
@@ -949,45 +949,52 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider {
         return inventory.getItem(2).isEmpty();
     }
 
-    public boolean decompose(ForgingBlockEntity blockEntity) {
-        ItemStack equip = blockEntity.itemStackHandler.getStackInSlot(2);
+    public void craft() throws CommandSyntaxException {
+        craftItem(this);
+    }
+
+    public boolean decompose() {
+        ItemStack equip = this.itemStackHandler.getStackInSlot(2);
 
         if (ForgeEquipUtils.itemContainForgeQuality(equip) && equip.getItem() instanceof RandomLootEquip) {
             int tier = ForgeEquipUtils.getForgeQualityOnEquip(equip);
             ItemStack piece = ForgeEquipUtils.getEquipPiece(tier).getDefaultInstance();
-            blockEntity.itemStackHandler.setStackInSlot(2, piece);
+            this.itemStackHandler.setStackInSlot(2, piece);
             return true;
         }
 
         if (equip.is(ModItems.plainNecklace.get())) {
-            blockEntity.itemStackHandler.setStackInSlot(2, new ItemStack(ModItems.PlainBossSoul.get()));
+            this.itemStackHandler.setStackInSlot(2, new ItemStack(ModItems.PlainBossSoul.get()));
             return true;
         }
         if (equip.is(ModItems.lavenderBracelet.get())) {
-            blockEntity.itemStackHandler.setStackInSlot(2, new ItemStack(ModItems.PurpleIronPiece.get(), 8));
+            this.itemStackHandler.setStackInSlot(2, new ItemStack(ModItems.PurpleIronPiece.get(), 8));
             return true;
         }
         if (equip.is(ModItems.netherHand.get())) {
-            blockEntity.itemStackHandler.setStackInSlot(2, new ItemStack(ModItems.NetherQuartz.get(), 8));
+            this.itemStackHandler.setStackInSlot(2, new ItemStack(ModItems.NetherQuartz.get(), 8));
             return true;
         }
         if (equip.is(ModItems.iceBelt.get())) {
-            blockEntity.itemStackHandler.setStackInSlot(2, new ItemStack(ModItems.IceSoul.get()));
+            this.itemStackHandler.setStackInSlot(2, new ItemStack(ModItems.IceSoul.get()));
             return true;
         }
         if (equip.is(ModItems.CastleNecklace.get())) {
-            blockEntity.itemStackHandler.setStackInSlot(2, new ItemStack(ModItems.CastlePiece.get()));
+            this.itemStackHandler.setStackInSlot(2, new ItemStack(ModItems.CastlePiece.get()));
             return true;
         }
         if (equip.getItem() instanceof WraqUniformCurios) {
-            blockEntity.itemStackHandler.setStackInSlot(2, new ItemStack(ModItems.uniformPiece.get()));
+            this.itemStackHandler.setStackInSlot(2, new ItemStack(ModItems.uniformPiece.get()));
             return true;
         }
         if (equip.getItem() instanceof RuneItem) {
-            blockEntity.itemStackHandler.setStackInSlot(2, new ItemStack(NewRuneItems.emptyRune.get()));
+            this.itemStackHandler.setStackInSlot(2, new ItemStack(NewRuneItems.emptyRune.get()));
             return true;
         }
         return false;
     }
 
+    public ItemStackHandler getItemStackHandler() {
+        return this.itemStackHandler;
+    }
 }

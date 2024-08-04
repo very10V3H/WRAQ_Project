@@ -1,11 +1,16 @@
 package com.very.wraq.render.gui.blocks;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.very.wraq.networking.ModNetworking;
-import com.very.wraq.networking.misc.Limit.ScreenCloseC2SPacket;
-import com.very.wraq.process.system.forge.networking.DecomposeC2SPacket;
 import com.very.wraq.common.Utils.Utils;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.networking.ModNetworking;
+import com.very.wraq.networking.misc.Limit.ScreenCloseC2SPacket;
+import com.very.wraq.process.system.forge.networking.CraftC2SPacket;
+import com.very.wraq.process.system.forge.networking.DecomposeC2SPacket;
+import com.very.wraq.series.overworld.forging.ForgingMaterial;
+import com.very.wraq.series.overworld.forging.ForgingStone0;
+import com.very.wraq.series.overworld.forging.ForgingStone1;
+import com.very.wraq.series.overworld.forging.ForgingStone2;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -13,9 +18,11 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +45,10 @@ public class ForgingBlockScreen extends AbstractContainerScreen<ForgingBlockMenu
         this.addRenderableWidget(Button.builder(Component.translatable("分解"), (p_280814_) -> {
             ModNetworking.sendToServer(new DecomposeC2SPacket(menu.blockEntity.getBlockPos()));
         }).pos(this.width / 2 - 13, this.height / 2 - 16).size(32, 16).build());
+
+        this.addRenderableWidget(Button.builder(Component.translatable("锻造"), (p_280814_) -> {
+            ModNetworking.sendToServer(new CraftC2SPacket(menu.blockEntity.getBlockPos()));
+        }).pos(this.width / 2 - 13, this.height / 2 - 64).size(32, 16).build());
     }
 
     @Override
@@ -148,6 +159,57 @@ public class ForgingBlockScreen extends AbstractContainerScreen<ForgingBlockMenu
                 if (mouseX > X + offsetX && mouseX < X + 56 && mouseY > Y + offsetY - 6 && mouseY < Y + offsetY + 12) {
                     guiGraphics.renderComponentTooltip(fontRenderer, components, mouseX, mouseY);
                 }
+            }
+        }
+
+        ItemStack stone = this.getMenu().blockEntity.getItemStackHandler().getStackInSlot(0);
+        ItemStack equip = this.getMenu().blockEntity.getItemStackHandler().getStackInSlot(1);
+        ItemStack enhancePaper = this.getMenu().blockEntity.getItemStackHandler().getStackInSlot(3);
+
+        if ((stone.getItem() instanceof ForgingMaterial || stone.is(ModItems.worldForgeStone.get()))
+                && Utils.mainHandTag.containsKey(equip.getItem())) {
+            CompoundTag data = equip.getTagElement(Utils.MOD_ID);
+            if (data != null) {
+                int forgelevel = 0;
+                double successRate = 0;
+                if (data.contains("Forging")) forgelevel = data.getInt("Forging");
+                if (stone.getItem() instanceof ForgingStone0) {
+                    successRate = (double) (10 - forgelevel) / 10;
+                    if (enhancePaper.is(ModItems.ForgeEnhance0.get())) successRate *= (1.25);
+                    if (enhancePaper.is(ModItems.ForgeEnhance1.get())) successRate *= (1.5);
+                    if (enhancePaper.is(ModItems.ForgeEnhance2.get())) successRate *= (2);
+                }
+
+                if (stone.getItem() instanceof ForgingStone1) {
+                    successRate = (double) (20 - forgelevel) / 20;
+                    if (enhancePaper.is(ModItems.ForgeEnhance0.get())) successRate *= (1.25);
+                    if (enhancePaper.is(ModItems.ForgeEnhance1.get())) successRate *= (1.5);
+                    if (enhancePaper.is(ModItems.ForgeEnhance2.get())) successRate *= (2);
+                }
+
+                if (stone.getItem() instanceof ForgingStone2) {
+                    successRate = (double) (24 - forgelevel) / 24;
+                    if (enhancePaper.is(ModItems.ForgeEnhance0.get())) successRate *= (1.25);
+                    if (enhancePaper.is(ModItems.ForgeEnhance1.get())) successRate *= (1.5);
+                    if (enhancePaper.is(ModItems.ForgeEnhance2.get())) successRate *= (2);
+                }
+
+                if (stone.getItem().equals(ModItems.worldForgeStone.get())) {
+                    if (forgelevel < 24) {
+                        successRate = 1;
+                    } else {
+                        int minus = 32 - forgelevel;
+                        successRate = 0.01 + minus * 0.005;
+                        if (enhancePaper.is(ModItems.ForgeEnhance0.get())) successRate *= (1.25);
+                        if (enhancePaper.is(ModItems.ForgeEnhance1.get())) successRate *= (1.5);
+                        if (enhancePaper.is(ModItems.ForgeEnhance2.get())) successRate *= (2);
+                    }
+                }
+
+                if (successRate < 0) successRate = 0;
+                guiGraphics.drawString(fontRenderer, Component.literal("成功率:").withStyle(ChatFormatting.WHITE).
+                                append(Component.literal(String.format("%.2f%%", successRate * 100)).withStyle(ChatFormatting.AQUA))
+                        , X + offsetX + 135, Y + offsetY, 0);
             }
         }
     }
