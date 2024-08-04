@@ -80,7 +80,7 @@ public class LoginInEvent {
 
             data.putString(StringUtils.Login.Status, StringUtils.Login.Offline);
 
-            for (int i = 0 ; i < 11 ; i ++) {
+            for (int i = 0 ; i < 12 ; i ++) {
                 String singleReward = "singleReward" + i;
                 if (data.contains(singleReward)) data.remove(singleReward);
             }
