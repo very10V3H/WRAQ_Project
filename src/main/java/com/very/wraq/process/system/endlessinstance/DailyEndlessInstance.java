@@ -24,6 +24,7 @@ public abstract class DailyEndlessInstance {
 
     private final Vec3 pos;
     private final int lastTick;
+    private final Component name;
     private String challengingPlayerName;
     private int playerLevel;
     private int leftTick;
@@ -31,7 +32,8 @@ public abstract class DailyEndlessInstance {
     private int maxMobNum;
     private List<Mob> mobList;
 
-    public DailyEndlessInstance(final Vec3 pos, final int lastTick, int leftTick, int killCount, int maxMobNum) {
+    public DailyEndlessInstance(final Component name, final Vec3 pos, final int lastTick, int leftTick, int killCount, int maxMobNum) {
+        this.name = name;
         this.pos = pos;
         this.lastTick = lastTick;
         this.leftTick = leftTick;
@@ -49,7 +51,8 @@ public abstract class DailyEndlessInstance {
                 sendFormatBroad(level, Component.literal("").withStyle(ChatFormatting.WHITE).
                         append(serverPlayer.getDisplayName()).
                         append(Component.literal("完成了").withStyle(ChatFormatting.WHITE)).
-                        append(Component.literal("无尽熵增").withStyle(CustomStyle.styleOfWorld)).
+                        append(Component.literal("无尽熵增 - ").withStyle(CustomStyle.styleOfWorld)).
+                        append(name).
                         append(Component.literal("共击杀了").withStyle(ChatFormatting.WHITE)).
                         append(Component.literal(String.valueOf(killCount)).withStyle(ChatFormatting.RED)).
                         append(Component.literal("只怪物").withStyle(ChatFormatting.WHITE)));
@@ -57,7 +60,8 @@ public abstract class DailyEndlessInstance {
                 sendFormatBroad(level, Component.literal("").withStyle(ChatFormatting.WHITE).
                         append(Component.literal(challengingPlayerName).withStyle(ChatFormatting.WHITE)).
                         append(Component.literal("完成了").withStyle(ChatFormatting.WHITE)).
-                        append(Component.literal("无尽熵增").withStyle(CustomStyle.styleOfWorld)).
+                        append(Component.literal("无尽熵增 - ").withStyle(CustomStyle.styleOfWorld)).
+                        append(name).
                         append(Component.literal("共击杀了").withStyle(ChatFormatting.WHITE)).
                         append(Component.literal(String.valueOf(killCount)).withStyle(ChatFormatting.RED)).
                         append(Component.literal("只怪物").withStyle(ChatFormatting.WHITE)));
@@ -103,19 +107,21 @@ public abstract class DailyEndlessInstance {
             sendFormatMSG(player, Component.literal("有玩家正在进行这项挑战。").withStyle(ChatFormatting.WHITE));
             return false;
         }
+        sendFormatBroad(player.level(), Component.literal("").withStyle(ChatFormatting.WHITE).
+                append(player.getDisplayName()).
+                append(Component.literal("正在挑战: ").withStyle(ChatFormatting.WHITE)).
+                append(Component.literal("无尽熵增 - ").withStyle(CustomStyle.styleOfWorld)).
+                append(name));
         sendFormatMSG(player, Component.literal("尽可能多低清理怪物！").withStyle(ChatFormatting.WHITE));
         start(player);
         return true;
     }
 
-    public boolean canCauseDamage(Player player, Mob mob) {
-        return !mobList.contains(mob) || (player.getName().getString().equals(challengingPlayerName));
-    }
-
-    public static boolean canPlayerCauseDamage(Player player, Mob mob) {
+    public static boolean prohibitPlayerCauseDamage(Player player, Mob mob) {
         for (DailyEndlessInstance instance : DailyEndlessInstanceEvent.getEndlessInstanceList()) {
-            if (instance.getChallengingPlayerName().equals(player.getName().getString())
-                    && instance.mobList.contains(mob)) return true;
+            if (instance.mobList.contains(mob) && !instance.getChallengingPlayerName().equals(player.getName().getString())) {
+                return true;
+            }
         }
         return false;
     }

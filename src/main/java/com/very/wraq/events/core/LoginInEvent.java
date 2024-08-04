@@ -29,6 +29,7 @@ import com.very.wraq.networking.unSorted.PlayerCallBack;
 import com.very.wraq.networking.unSorted.SwiftSyncS2CPacket;
 import com.very.wraq.process.func.plan.DailySupply;
 import com.very.wraq.process.system.element.Element;
+import com.very.wraq.process.system.endlessinstance.EndlessInstanceItems;
 import com.very.wraq.process.system.missions.series.dailyMission.DailyMission;
 import com.very.wraq.process.system.parkour.Parkour;
 import com.very.wraq.process.system.teamInstance.NewTeamInstanceEvent;
@@ -466,10 +467,9 @@ public class LoginInEvent {
         sunPowerGetCount.put(player.getName().getString(), 0);
         lakeCoreGetCount.put(player.getName().getString(), 0);
         volcanoCoreGetCount.put(player.getName().getString(), 0);
-
         SummerEvent.resetDailyData(player);
+        Compute.itemStackGive(player, new ItemStack(EndlessInstanceItems.EASTERN_TOWER_PAPER.get(), 3));
     }
-
 
     public static void WeeklyRefreshContent(Player player) {
 

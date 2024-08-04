@@ -16,6 +16,7 @@ import com.very.wraq.files.dataBases.DataBase;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.process.system.WorldRecordInfo;
 import com.very.wraq.process.system.element.ElementItems;
+import com.very.wraq.process.system.endlessinstance.EndlessInstanceItems;
 import com.very.wraq.process.system.forge.ForgeEquipUtils;
 import com.very.wraq.process.series.lottery.NewLotteries;
 import com.very.wraq.process.system.market.MarketInfo;
@@ -97,6 +98,7 @@ public class VMD {
         NewRuneItems.ITEMS.register(modEvenBus);
         GemItems.ITEMS.register(modEvenBus);
         SpecialEventItems.ITEMS.register(modEvenBus);
+        EndlessInstanceItems.ITEMS.register(modEvenBus);
 
         ModBlocks.BLOCKS.register(modEvenBus);
         ModEntityType.ENTITY_TYPES.register(modEvenBus);

@@ -21,8 +21,9 @@ public class EasternTower extends DailyEndlessInstance {
         return instance;
     }
 
+    public static Component name = Component.literal("东洋塔").withStyle(CustomStyle.styleOfHusk);
     private EasternTower(Vec3 pos, int lastTick, int leftTick, int killCount, int maxMobNum) {
-        super(pos, lastTick, leftTick, killCount, maxMobNum);
+        super(name, pos, lastTick, leftTick, killCount, maxMobNum);
     }
 
     public static String mobName = "无尽熵增怪物";
@@ -41,7 +42,7 @@ public class EasternTower extends DailyEndlessInstance {
 
     @Override
     protected void reward(Player player) {
-        player.sendSystemMessage(Component.literal("reward!"));
+        sendFormatMSG(player, Component.literal("测试阶段，暂无奖励"));
     }
 
     private double getMobMaxHealth() {
