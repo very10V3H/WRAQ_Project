@@ -147,7 +147,8 @@ public abstract class DailyEndlessInstance {
     public static void onKillMob(Player player, Mob mob) {
         String name = player.getName().getString();
         for (DailyEndlessInstance instance : DailyEndlessInstanceEvent.getEndlessInstanceList()) {
-            if (instance.getChallengingPlayerName().equals(name) && instance.mobList.contains(mob)) {
+            if (instance.getChallengingPlayerName() != null
+                    && instance.getChallengingPlayerName().equals(name) && instance.mobList.contains(mob)) {
                 instance.incrementKillCount();
                 ModNetworking.sendToClient(new EndlessInstanceKillCountS2CPacket(instance.getKillCount()),
                         (ServerPlayer) player);
