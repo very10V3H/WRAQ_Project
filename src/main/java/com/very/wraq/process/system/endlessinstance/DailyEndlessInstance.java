@@ -119,7 +119,8 @@ public abstract class DailyEndlessInstance {
 
     public static boolean prohibitPlayerCauseDamage(Player player, Mob mob) {
         for (DailyEndlessInstance instance : DailyEndlessInstanceEvent.getEndlessInstanceList()) {
-            if (instance.mobList.contains(mob) && !instance.getChallengingPlayerName().equals(player.getName().getString())) {
+            if (instance.isChallenging() && instance.mobList.contains(mob)
+                    && !instance.getChallengingPlayerName().equals(player.getName().getString())) {
                 return true;
             }
         }
