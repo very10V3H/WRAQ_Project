@@ -95,10 +95,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
-import net.minecraft.network.protocol.game.ClientboundLevelParticlesPacket;
-import net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket;
-import net.minecraft.network.protocol.game.ClientboundSetEntityMotionPacket;
-import net.minecraft.network.protocol.game.ClientboundSoundPacket;
+import net.minecraft.network.protocol.game.*;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.players.PlayerList;
@@ -4995,5 +4992,10 @@ public class Compute {
     @Nullable
     public static ServerPlayer getPlayerByName(Level level, String name) {
         return level.getServer().getPlayerList().getPlayerByName(name);
+    }
+
+    public static void setPlayerTitleAndSubTitle(ServerPlayer serverPlayer, Component title, Component subTitle) {
+        serverPlayer.connection.send(new ClientboundSetTitleTextPacket(title));
+        serverPlayer.connection.send(new ClientboundSetSubtitleTextPacket(subTitle));
     }
 }
