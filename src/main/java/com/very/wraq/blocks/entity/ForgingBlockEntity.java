@@ -162,6 +162,11 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider {
     }
 
     public static void tick(Level level, BlockPos pos, BlockState blockState, ForgingBlockEntity blockEntity) {
+        if (!level.isClientSide) {
+            for (int i = 0 ; i < blockEntity.itemStackHandler.getSlots() ; i ++) {
+                blockEntity.itemStackHandler.getStackInSlot(i).hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
+            }
+        }
         if (level.isClientSide()) {
             if (blockEntity.progress >= blockEntity.maxProgress) {
                 Player player = level.getNearestPlayer(TargetingConditions.DEFAULT, pos.getX(), pos.getY(), pos.getZ());
