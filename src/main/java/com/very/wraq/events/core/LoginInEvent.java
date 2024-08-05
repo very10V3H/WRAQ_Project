@@ -102,6 +102,15 @@ public class LoginInEvent {
                 data.putBoolean(expAdjust, true);
                 Compute.sendFormatMSG(player, Component.literal("经验改动").withStyle(ChatFormatting.LIGHT_PURPLE),
                         Component.literal("你的经验已经被改动，原因可查看群公告更新通知").withStyle(ChatFormatting.LIGHT_PURPLE));
+                Compute.resetSkillAndAbility(player);
+            }
+
+            String skillPointReset = "skillPointReset";
+            if (!data.contains(skillPointReset)) {
+                data.putBoolean(skillPointReset, true);
+                Compute.resetSkillAndAbility(player);
+                Compute.sendFormatMSG(player, Component.literal("经验改动").withStyle(ChatFormatting.LIGHT_PURPLE),
+                        Component.literal("因经验改动你的能力与专精点数已被重置").withStyle(ChatFormatting.WHITE));
             }
 
             if (!data.contains(StringUtils.PatchouliBook)) {

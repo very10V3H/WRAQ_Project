@@ -30,7 +30,7 @@ public class SkillReset extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
         if (!level.isClientSide && interactionHand.equals(InteractionHand.MAIN_HAND)) {
-            Compute.ResetSkillAndAbility(player);
+            Compute.resetSkillAndAbility(player);
             Compute.playerItemUseWithRecord(player);
         }
         return super.use(level, player, interactionHand);

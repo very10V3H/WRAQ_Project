@@ -18,7 +18,7 @@ public class ClearSkillCommand implements Command<CommandSourceStack> {
     public int run(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         Player player = context.getSource().getPlayer();
         if (player.isCreative()) {
-            Compute.ResetSkillAndAbility(player);
+            Compute.resetSkillAndAbility(player);
         } else {
             if (!player.isCreative()) {
                 Compute.sendFormatMSG(player, Component.literal("维瑞阿契").withStyle(ChatFormatting.AQUA),

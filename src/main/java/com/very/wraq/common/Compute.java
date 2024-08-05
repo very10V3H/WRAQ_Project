@@ -3625,7 +3625,7 @@ public class Compute {
                 || itemStack.is(ModItems.SoulSceptre.get());
     }
 
-    public static void ResetSkillAndAbility(Player player) {
+    public static void resetSkillAndAbility(Player player) {
         CompoundTag data = player.getPersistentData();
         data.remove(StringUtils.SkillPoint_Total);
         data.remove(StringUtils.SkillPoint_Used);
