@@ -3,6 +3,12 @@ package com.very.wraq;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.very.wraq.blocks.blocks.ForgeRecipe;
 import com.very.wraq.blocks.entity.ModBlockEntities;
+import com.very.wraq.common.*;
+import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.registry.ModBlocks;
+import com.very.wraq.common.registry.ModCreativeModeTab;
+import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.registry.ModSounds;
 import com.very.wraq.entities.entities.Boss2.Boss2;
 import com.very.wraq.entities.entities.Civil.Civil;
 import com.very.wraq.entities.entities.MainBoss.MainBoss;
@@ -10,17 +16,16 @@ import com.very.wraq.entities.entities.SakuraMob.SakuraMob;
 import com.very.wraq.entities.entities.Scarecrow.Scarecrow;
 import com.very.wraq.events.core.BlockEvent;
 import com.very.wraq.events.mob.MobSpawn;
-import com.very.wraq.events.mob.loot.*;
 import com.very.wraq.events.mob.instance.NoTimeInstanceModule;
+import com.very.wraq.events.mob.loot.*;
 import com.very.wraq.files.dataBases.DataBase;
 import com.very.wraq.networking.ModNetworking;
+import com.very.wraq.process.func.plan.PlanPlayer;
+import com.very.wraq.process.series.lottery.NewLotteries;
 import com.very.wraq.process.system.WorldRecordInfo;
 import com.very.wraq.process.system.element.ElementItems;
 import com.very.wraq.process.system.endlessinstance.EndlessInstanceItems;
 import com.very.wraq.process.system.forge.ForgeEquipUtils;
-import com.very.wraq.process.series.lottery.NewLotteries;
-import com.very.wraq.process.system.market.MarketInfo;
-import com.very.wraq.process.func.plan.PlanPlayer;
 import com.very.wraq.process.system.spur.Items.SpurItems;
 import com.very.wraq.process.system.teamInstance.NewTeamInstance;
 import com.very.wraq.process.system.teamInstance.NewTeamInstanceEvent;
@@ -40,12 +45,6 @@ import com.very.wraq.render.particles.ModParticles;
 import com.very.wraq.series.gems.GemItems;
 import com.very.wraq.series.newrunes.NewRuneItems;
 import com.very.wraq.series.overworld.chapter7.C7Items;
-import com.very.wraq.common.*;
-import com.very.wraq.common.Utils.Utils;
-import com.very.wraq.common.registry.ModBlocks;
-import com.very.wraq.common.registry.ModCreativeModeTab;
-import com.very.wraq.common.registry.ModItems;
-import com.very.wraq.common.registry.ModSounds;
 import com.very.wraq.series.specialevents.SpecialEventItems;
 import dev.kosmx.playerAnim.api.layered.IAnimation;
 import dev.kosmx.playerAnim.api.layered.ModifierLayer;
@@ -180,8 +179,8 @@ public class VMD {
     @SubscribeEvent
     public static void serverStartEvent(ServerStartingEvent event) throws SQLException, CommandSyntaxException, ParseException {
         PlanPlayer.read();
-        MarketInfo.marketInfoRead();
-        MarketInfo.marketPlayerInfoRead();
+/*        MarketInfo.marketInfoRead();
+        MarketInfo.marketPlayerInfoRead();*/
         MobSpawn.readKillCount();
         VpDataHandler.firstRead();
         WorldRecordInfo.recordInfoMap = DataBase.readWorldInfo();
@@ -202,8 +201,8 @@ public class VMD {
         Tower.writeStarCountToDataBase(statement);
         NewLotteries.writeToDataBase(statement);
         MobSpawn.writeToSQL(statement);
-        DataBase.putAllMarketItemInfo(statement);
-        DataBase.putAllMarketPlayerInfo(statement);
+/*        DataBase.putAllMarketItemInfo(statement);
+        DataBase.putAllMarketPlayerInfo(statement);*/
 
         TowerTimeRecord.writeToWorldRecordInfo();
         DataBase.writeWorldInfo(statement);

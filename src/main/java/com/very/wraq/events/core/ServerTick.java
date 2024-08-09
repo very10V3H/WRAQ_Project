@@ -117,8 +117,8 @@ public class ServerTick {
         Tower.writeToDataBase(statement);
         Tower.writeStarCountToDataBase(statement);
         NewLotteries.writeToDataBase(statement);
-        DataBase.putAllMarketItemInfo(statement);
-        DataBase.putAllMarketPlayerInfo(statement);
+/*        DataBase.putAllMarketItemInfo(statement);
+        DataBase.putAllMarketPlayerInfo(statement);*/
         MobSpawn.writeToSQL(statement);
         PlanPlayer.write();
         VpDataHandler.normalRead();

@@ -76,7 +76,7 @@ public class MarketInfo {
     public static void itemInfoWrite() throws SQLException {
         Connection connection = DataBase.getDatabaseConnection();
         Statement statement = connection.createStatement();
-        DataBase.putAllMarketItemInfo(statement);
+        /*DataBase.putAllMarketItemInfo(statement);*/
         statement.close();
         connection.close();
     }
