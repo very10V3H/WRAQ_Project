@@ -7,6 +7,7 @@ import com.very.wraq.process.system.element.Element;
 import com.very.wraq.process.system.element.equipAndCurios.waterElement.WaterElementSword;
 import com.very.wraq.process.series.lottery.NewLotteries;
 import com.very.wraq.process.func.plan.PlanPlayer;
+import com.very.wraq.process.system.market.MarketInfo;
 import com.very.wraq.process.system.tower.Tower;
 import com.very.wraq.process.system.vp.VpDataHandler;
 import net.minecraft.world.level.Level;
@@ -84,12 +85,13 @@ public class ServerTick {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
+                        MarketInfo.marketItemInfoWrite(event.getServer().overworld());
+                        MarketInfo.marketProfitInfoWrite(event.getServer().overworld());
                         try {
                             dataIO();
                         } catch (SQLException e) {
                             throw new RuntimeException(e);
                         }
-
                     }
                 }).start();
             }
@@ -117,8 +119,6 @@ public class ServerTick {
         Tower.writeToDataBase(statement);
         Tower.writeStarCountToDataBase(statement);
         NewLotteries.writeToDataBase(statement);
-/*        DataBase.putAllMarketItemInfo(statement);
-        DataBase.putAllMarketPlayerInfo(statement);*/
         MobSpawn.writeToSQL(statement);
         PlanPlayer.write();
         VpDataHandler.normalRead();
