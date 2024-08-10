@@ -4939,7 +4939,7 @@ public class Compute {
         return StarBottle.playerLastBattleTick.containsKey(player) && StarBottle.playerLastBattleTick.get(player) + tick > player.getServer().getTickCount();
     }
 
-    public static String getItemStackString(ItemStack itemStack) {
+/*    public static String getItemStackString(ItemStack itemStack) {
         String string = itemStack.serializeNBT().getAsString();
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < string.length(); i++) {
@@ -4949,9 +4949,9 @@ public class Compute {
             } else stringBuilder.append(ch);
         }
         return stringBuilder.toString();
-    }
+    }*/
 
-    public static String getItemStackStringWithoutSlash(ItemStack itemStack) {
+    public static String getItemStackString(ItemStack itemStack) {
         return itemStack.serializeNBT().getAsString();
     }
 

@@ -1,24 +1,24 @@
 package com.very.wraq.process.system.market;
 
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import com.very.wraq.files.MarketItemInfo;
-import com.very.wraq.files.MarketPlayerInfo;
-import com.very.wraq.files.dataBases.DataBase;
+import com.mojang.logging.LogUtils;
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.Utils.MarketItemData;
+import com.very.wraq.common.Utils.MarketProfitData;
 import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.files.MarketItemInfo;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 
 public class MarketInfo {
-    public static void marketInfoRead() throws SQLException, CommandSyntaxException {
-        Connection connection = DataBase.getDatabaseConnection();
-        Statement statement = connection.createStatement();
-        List<String> marketItemList = DataBase.getAllMarketItemInfo(statement);
+    public static void marketItemInfoRead(ServerLevel overworld) throws CommandSyntaxException {
+        long startTime = Calendar.getInstance().getTimeInMillis();
+        List<String> marketItemList = MarketItemData.getInstance(overworld).getMarketInfoStringList();
         Utils.marketItemInfos.clear();
         for (String string : marketItemList) {
             String playerName = "";
@@ -50,35 +50,36 @@ public class MarketInfo {
                 }
             }
         }
-        statement.close();
-        connection.close();
+        LogUtils.getLogger().info("Market item info read completed in {}ms", System.currentTimeMillis() - startTime);
     }
 
-    public static void marketPlayerInfoRead() throws SQLException {
-        Connection connection = DataBase.getDatabaseConnection();
-        Statement statement = connection.createStatement();
-        List<MarketPlayerInfo> marketPlayerInfos = DataBase.getAllMarketPlayerInfo(statement);
-        for (MarketPlayerInfo marketPlayerInfo : marketPlayerInfos) {
-            Utils.marketPlayerInfos.put(marketPlayerInfo.getPlayer(), marketPlayerInfo.getProfit());
-        }
-        statement.close();
-        connection.close();
+    public static void marketItemInfoWrite(ServerLevel overworld) {
+        long startTime = Calendar.getInstance().getTimeInMillis();
+        MarketItemData marketItemData = MarketItemData.getInstance(overworld);
+        List<String> marketItemList = marketItemData.getMarketInfoStringList();
+        marketItemList.clear();
+        Utils.marketItemInfos.forEach(marketItemInfo -> {
+            marketItemList.add(marketItemInfo.getPlayer() + "#" + Compute.getItemStackString(marketItemInfo.getItemStack()) + "*" + marketItemInfo.getPrice());
+        });
+        marketItemData.setDirty();
+        LogUtils.getLogger().info("Market item info write completed in {}ms", System.currentTimeMillis() - startTime);
     }
 
-    public static void playerInfoWrite() throws SQLException {
-        Connection connection = DataBase.getDatabaseConnection();
-        Statement statement = connection.createStatement();
-        DataBase.putAllMarketPlayerInfo(statement);
-        statement.close();
-        connection.close();
+    public static void marketProfitInfoRead(ServerLevel overworld) {
+        long startTime = Calendar.getInstance().getTimeInMillis();
+        MarketProfitData marketProfitData = MarketProfitData.getInstance(overworld);
+        Map<String, Double> marketProfitInfos = marketProfitData.getMarketProfitInfo();
+        Utils.marketPlayerInfos.putAll(marketProfitInfos);
+        LogUtils.getLogger().info("Market profit info read completed in {}ms", System.currentTimeMillis() - startTime);
     }
 
-    public static void itemInfoWrite() throws SQLException {
-        Connection connection = DataBase.getDatabaseConnection();
-        Statement statement = connection.createStatement();
-        /*DataBase.putAllMarketItemInfo(statement);*/
-        statement.close();
-        connection.close();
+    public static void marketProfitInfoWrite(ServerLevel overworld) {
+        long startTime = Calendar.getInstance().getTimeInMillis();
+        MarketProfitData marketProfitData = MarketProfitData.getInstance(overworld);
+        Map<String, Double> marketProfitInfos = marketProfitData.getMarketProfitInfo();
+        marketProfitInfos.clear();
+        marketProfitInfos.putAll(Utils.marketPlayerInfos);
+        marketProfitData.setDirty();
+        LogUtils.getLogger().info("Market profit info write completed in {}ms", System.currentTimeMillis() - startTime);
     }
-
 }

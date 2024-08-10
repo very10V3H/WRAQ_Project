@@ -287,7 +287,7 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider {
             if (gem.getItem() instanceof WraqGem) {
                 for (int i = 1; i <= 3; i++) {
                     if (!data.contains("newGems" + i)) {
-                        data.putString("newGems" + i, Compute.getItemStackStringWithoutSlash(gem.getItem().getDefaultInstance()));
+                        data.putString("newGems" + i, Compute.getItemStackString(gem.getItem().getDefaultInstance()));
                         break;
                     }
                 }

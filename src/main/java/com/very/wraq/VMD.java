@@ -26,6 +26,7 @@ import com.very.wraq.process.system.WorldRecordInfo;
 import com.very.wraq.process.system.element.ElementItems;
 import com.very.wraq.process.system.endlessinstance.EndlessInstanceItems;
 import com.very.wraq.process.system.forge.ForgeEquipUtils;
+import com.very.wraq.process.system.market.MarketInfo;
 import com.very.wraq.process.system.spur.Items.SpurItems;
 import com.very.wraq.process.system.teamInstance.NewTeamInstance;
 import com.very.wraq.process.system.teamInstance.NewTeamInstanceEvent;
@@ -179,8 +180,10 @@ public class VMD {
     @SubscribeEvent
     public static void serverStartEvent(ServerStartingEvent event) throws SQLException, CommandSyntaxException, ParseException {
         PlanPlayer.read();
-/*        MarketInfo.marketInfoRead();
-        MarketInfo.marketPlayerInfoRead();*/
+
+        MarketInfo.marketItemInfoRead(event.getServer().overworld());
+        MarketInfo.marketProfitInfoRead(event.getServer().overworld());
+
         MobSpawn.readKillCount();
         VpDataHandler.firstRead();
         WorldRecordInfo.recordInfoMap = DataBase.readWorldInfo();
@@ -193,6 +196,9 @@ public class VMD {
         Compute.RemoveAllArmorStandForDisplay();
         MobSpawn.removeAllMob();
 
+        MarketInfo.marketItemInfoWrite(event.getServer().overworld());
+        MarketInfo.marketProfitInfoWrite(event.getServer().overworld());
+
         PlanPlayer.write();
 
         Connection connection = DataBase.getDatabaseConnection();
@@ -201,9 +207,6 @@ public class VMD {
         Tower.writeStarCountToDataBase(statement);
         NewLotteries.writeToDataBase(statement);
         MobSpawn.writeToSQL(statement);
-/*        DataBase.putAllMarketItemInfo(statement);
-        DataBase.putAllMarketPlayerInfo(statement);*/
-
         TowerTimeRecord.writeToWorldRecordInfo();
         DataBase.writeWorldInfo(statement);
         statement.close();
