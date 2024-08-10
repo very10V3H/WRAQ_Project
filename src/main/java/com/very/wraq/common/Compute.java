@@ -2,6 +2,7 @@ package com.very.wraq.common;
 
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.logging.LogUtils;
+import com.very.wraq.commands.changeable.CompensateCommand;
 import com.very.wraq.commands.stable.players.DebugCommand;
 import com.very.wraq.commands.stable.players.DpsCommand;
 import com.very.wraq.common.Utils.ClientUtils;
@@ -4864,6 +4865,7 @@ public class Compute {
         }
         rate += new double[]{0, 0.15, 0.3, 0.5}[tier];
         rate += SummerEvent.exHarvest(player);
+        if (CompensateCommand.singleReward.equals("singleReward13")) rate += 0.5;
         return rate;
     }
 

@@ -80,15 +80,21 @@ public class LoginInEvent {
 
             data.putString(StringUtils.Login.Status, StringUtils.Login.Offline);
 
-            for (int i = 0 ; i < 12 ; i ++) {
+            for (int i = 0 ; i < 13 ; i ++) {
                 String singleReward = "singleReward" + i;
                 if (data.contains(singleReward)) data.remove(singleReward);
             }
 
             String singleReward = CompensateCommand.singleReward;
             if (!data.contains(singleReward)) {
-                Compute.sendFormatMSG(player,Component.literal("补偿").withStyle(CustomStyle.styleOfSakura),
+                Compute.sendFormatMSG(player, Component.literal("补偿").withStyle(CustomStyle.styleOfSakura),
                         Component.literal("你有待领取的补偿，输入/vmd compensate领取补偿！").withStyle(ChatFormatting.AQUA));
+            }
+
+            if (CompensateCommand.singleReward.equals("singleReward13")) {
+                Compute.sendFormatMSG(player, Component.literal("补偿").withStyle(CustomStyle.styleOfSakura),
+                        Component.literal("中断服务补偿，已提供").withStyle(ChatFormatting.WHITE).
+                                append(Component.literal("50%额外产出").withStyle(ChatFormatting.GOLD)));
             }
 
             String expAdjust = "24.8.1-expAdjust";

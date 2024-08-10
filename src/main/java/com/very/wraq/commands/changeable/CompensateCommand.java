@@ -6,12 +6,12 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.very.wraq.common.Compute;
 import com.very.wraq.process.system.tower.Tower;
 import com.very.wraq.render.toolTip.CustomStyle;
+import com.very.wraq.series.specialevents.SpecialEventItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import java.sql.SQLException;
@@ -20,7 +20,7 @@ import java.util.List;
 public class CompensateCommand implements Command<CommandSourceStack> {
     public static CompensateCommand instance = new CompensateCommand();
 
-    public static String singleReward = "singleReward12";
+    public static String singleReward = "singleReward13";
 
     @Override
     public int run(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
@@ -29,19 +29,19 @@ public class CompensateCommand implements Command<CommandSourceStack> {
 
         if (!data.contains(singleReward)) {
             data.putBoolean(singleReward, true);
-            if (player.experienceLevel >= 40) {
+            if (player.experienceLevel >= 60) {
                 try {
-                    Tower.givePlayerStar(player, 160, "更新补偿");
+                    Tower.givePlayerStar(player, 400, "服务提供中断补偿");
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
-                List<Item> items = List.of();
-                for (Item item : items) {
-                    Compute.itemStackGive(player, new ItemStack(item));
+                List<ItemStack> itemStackList = List.of(new ItemStack(SpecialEventItems.SUMMER_VOUCHER.get(), 20));
+                for (ItemStack itemStack : itemStackList) {
+                    Compute.itemStackGive(player, itemStack);
                 }
 
                 Compute.sendFormatMSG(player, Component.literal("更新补偿").withStyle(ChatFormatting.LIGHT_PURPLE),
-                        Component.literal("你收到了来自铁头的更新补偿!").withStyle(ChatFormatting.WHITE));
+                        Component.literal("你收到了来自铁头的补偿!").withStyle(ChatFormatting.WHITE));
             }
             return 0;
         }
