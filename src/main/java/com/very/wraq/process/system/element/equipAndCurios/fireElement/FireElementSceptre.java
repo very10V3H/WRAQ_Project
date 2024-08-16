@@ -53,9 +53,9 @@ public class FireElementSceptre extends WraqSceptre implements ActiveItem {
         List<FireElementSword.IgniteMob> list = FireElementSword.playerIgniteMobMap.get(player);
         list.removeIf(igniteMob -> igniteMob.tick() < player.getServer().getTickCount());
         if (list.size() > 0)
-            Compute.effectLastTimeSend(player, ModItems.FireElementSceptre.get().getDefaultInstance(), 8888, Math.min(3, list.size()), true);
+            Compute.sendEffectLastTime(player, ModItems.FireElementSceptre.get().getDefaultInstance(), 8888, Math.min(3, list.size()), true);
         else
-            Compute.effectLastTimeSend(player, ModItems.FireElementSceptre.get().getDefaultInstance(), 0, Math.min(3, list.size()), true);
+            Compute.sendEffectLastTime(player, ModItems.FireElementSceptre.get().getDefaultInstance(), 0, Math.min(3, list.size()), true);
     }
 
     public static void PlayerIgniteMobEffect(Player player, Mob mob) {

@@ -80,7 +80,7 @@ public class VolcanoNewRune extends WraqCurios implements RuneItem, UsageOrGetWa
         int counts = (playerAttackCounts.getOrDefault(name, 0) + 1);
         if (counts == 3) rate += 1;
         playerAttackCounts.put(name, counts % 3);
-        Compute.effectLastTimeSend(player, NewRuneItems.volcanoNewRune.get(), 8888, counts % 3, true);
+        Compute.sendEffectLastTime(player, NewRuneItems.volcanoNewRune.get(), 8888, counts % 3, true);
         return rate;
     }
 

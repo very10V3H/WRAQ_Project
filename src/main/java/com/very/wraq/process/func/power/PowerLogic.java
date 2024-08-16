@@ -150,7 +150,7 @@ public class PowerLogic {
         for (Player player1 : playerList) {
             if (player1.distanceTo(player) < 6) {
 
-                Compute.effectLastTimeSend(player1, ModItems.PigLinPower.get(), 100);
+                Compute.sendEffectLastTime(player1, ModItems.PigLinPower.get(), 100);
 
                 StableAttributesModifier.addAttributeModifier(player1, StableAttributesModifier.playerMovementSpeedModifier,
                         new StableAttributesModifier("piglinPowerMovementSpeedUp", 0.1 * playerList.size(), player.getServer().getTickCount() + 100));
@@ -264,7 +264,7 @@ public class PowerLogic {
 
                 StableAttributesModifier.addAttributeModifier(player1, StableAttributesModifier.playerMovementSpeedModifier,
                         new StableAttributesModifier("plainPowerMovementSpeed", 0.5, player.getServer().getTickCount() + 100));
-                Compute.effectLastTimeSend(player1, ModItems.PlainPower.get(), 100);
+                Compute.sendEffectLastTime(player1, ModItems.PlainPower.get(), 100);
 
                 ParticleProvider.EntityEffectVerticleCircleParticle(player1, 1.25, 0.4, 8, ParticleTypes.COMPOSTER, 0);
                 ParticleProvider.EntityEffectVerticleCircleParticle(player1, 1, 0.4, 8, ParticleTypes.COMPOSTER, 0);
@@ -344,7 +344,7 @@ public class PowerLogic {
         playerList.forEach(player1 -> {
             LakePower.playerDefendRateMap.put(player1, tier + 1);
             LakePower.playerDefendTickMap.put(player1, TickCount + 80);
-            Compute.effectLastTimeSend(player, ModItems.LakePower.get().getDefaultInstance(), 80);
+            Compute.sendEffectLastTime(player, ModItems.LakePower.get().getDefaultInstance(), 80);
         });
         ParticleProvider.dustParticle(player, player.getEyePosition(), 6, 36, CustomStyle.styleOfLake.getColor().getValue());
 
@@ -449,7 +449,7 @@ public class PowerLogic {
             if (player1.distanceTo(player) < 6) {
                 playerShieldProvider(player1, 50, data.getInt(StringUtils.Ability.Intelligent) * 20);
                 Compute.iceParticleCreate(player1, Dimension);
-                effectLastTimeSend(player, ModItems.SnowPower.get().getDefaultInstance(), 50);
+                sendEffectLastTime(player, ModItems.SnowPower.get().getDefaultInstance(), 50);
             }
         });
         ParticleProvider.SpaceRangeParticle((ServerLevel) player.level(), player.getEyePosition(), 6, 36, ParticleTypes.SNOWFLAKE);

@@ -73,7 +73,7 @@ public class ForestSword extends WraqSword implements ActiveItem {
             ParticleProvider.VerticleCircleParticle(serverPlayer, 0.5 * 2, 1.25, 28, ParticleTypes.COMPOSTER);
             ParticleProvider.VerticleCircleParticle(serverPlayer, 0.25 * 2, 1.5, 32, ParticleTypes.COMPOSTER);
             ParticleProvider.VerticleCircleParticle(serverPlayer, 0.0 * 2, 1.75, 36, ParticleTypes.COMPOSTER);
-            Compute.effectLastTimeSend(player, this, (int) ForestSwordAttributes.EffectNum[tier] * 20);
+            Compute.sendEffectLastTime(player, this, (int) ForestSwordAttributes.EffectNum[tier] * 20);
             data.putInt(StringUtils.ForestSwordSkill0, tickCount + (int) ForestSwordAttributes.EffectNum[tier] * 20);
             player.getCooldowns().addCooldown(ModItems.ForestSword0.get(), (int) (600 - 600.0 * PlayerAttributes.coolDownDecrease(player)));
             player.getCooldowns().addCooldown(ModItems.ForestSword1.get(), (int) (600 - 600.0 * PlayerAttributes.coolDownDecrease(player)));

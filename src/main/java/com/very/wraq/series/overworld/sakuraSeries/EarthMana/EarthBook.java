@@ -69,7 +69,7 @@ public class EarthBook extends WraqOffHandItem {
                     if (player.getHealth() / player.getMaxHealth() > 0.75) {
                         Utils.EarthBookPlayerEffectMap.put(player, TickCount + 400);
                         player.setHealth(player.getHealth() - player.getMaxHealth() * 0.5f);
-                        Compute.effectLastTimeSend(player, ModItems.EarthBook.get().getDefaultInstance(), 400);
+                        Compute.sendEffectLastTime(player, ModItems.EarthBook.get().getDefaultInstance(), 400);
                     }
                 }
                 vec3s.poll();

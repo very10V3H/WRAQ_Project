@@ -66,7 +66,7 @@ public class VolcanoSword4 extends WraqSword implements ActiveItem {
             ParticleProvider.VerticleCircleParticle((ServerPlayer) player, 0.25, 1, 16, ParticleTypes.ANGRY_VILLAGER);
             ParticleProvider.RandomMoveParticle((ServerPlayer) player, 0, 0.25, 32, ParticleTypes.ASH);
             data.putInt(StringUtils.VolcanoSwordSkill.Skill4, tickCount + 100);
-            Compute.effectLastTimeSend(player, ModItems.VolcanoSword3.get().getDefaultInstance(), 100);
+            Compute.sendEffectLastTime(player, ModItems.VolcanoSword3.get().getDefaultInstance(), 100);
             player.getCooldowns().addCooldown(ModItems.VolcanoSword0.get(), (int) (200 - 200.0 * PlayerAttributes.coolDownDecrease(player)));
             player.getCooldowns().addCooldown(ModItems.VolcanoSword1.get(), (int) (200 - 200.0 * PlayerAttributes.coolDownDecrease(player)));
             player.getCooldowns().addCooldown(ModItems.VolcanoSword2.get(), (int) (200 - 200.0 * PlayerAttributes.coolDownDecrease(player)));

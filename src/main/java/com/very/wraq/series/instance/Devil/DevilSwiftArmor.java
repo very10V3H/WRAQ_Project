@@ -69,7 +69,7 @@ public class DevilSwiftArmor extends WraqArmor {
             int TickCount = player.getServer().getTickCount();
             DevilSwiftArmorPassiveNumMap.put(player, MobSpawn.MobBaseAttributes.getMobBaseAttribute(mob, MobSpawn.MobBaseAttributes.defence) * 0.5);
             DevilSwiftArmorPassiveTickMap.put(player, TickCount + 40);
-            Compute.effectLastTimeSend(player, ModItems.DevilBlood.get().getDefaultInstance(), 40);
+            Compute.sendEffectLastTime(player, ModItems.DevilBlood.get().getDefaultInstance(), 40);
         }
     }
 

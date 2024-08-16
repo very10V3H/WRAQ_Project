@@ -89,10 +89,10 @@ public class MoonBook extends Item {
                 Count = 0;
                 PlayerMoonBookCountMap.put(player, Count);
                 playerDamageEnhanceTickMap.put(player, TickCount + 60);
-                Compute.effectLastTimeSend(player, ModItems.MoonBook.get().getDefaultInstance(), 8888, Count, true);
+                Compute.sendEffectLastTime(player, ModItems.MoonBook.get().getDefaultInstance(), 8888, Count, true);
                 return Compute.XpStrengthAPDamage(player, 14);
             }
-            Compute.effectLastTimeSend(player, ModItems.MoonBook.get().getDefaultInstance(), 8888, Count, true);
+            Compute.sendEffectLastTime(player, ModItems.MoonBook.get().getDefaultInstance(), 8888, Count, true);
         }
         return 0;
     }

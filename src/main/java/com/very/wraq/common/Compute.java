@@ -3127,7 +3127,7 @@ public class Compute {
 
     public static class Damage {
 
-        public static void autoAdaptionRateDamage(Player player, Mob mob, double rate) {
+        public static void causeAutoAdaptionRateDamageToMob(Player player, Mob mob, double rate) {
             ItemStack itemStack = player.getMainHandItem();
             Item item = itemStack.getItem();
             if (Utils.swordTag.containsKey(item) || Utils.bowTag.containsKey(item))
@@ -4250,7 +4250,7 @@ public class Compute {
         ModNetworking.sendToClient(new RemoveEffectLastTimeS2CPacket(item.getDefaultInstance()), (ServerPlayer) player);
     }
 
-    public static void effectLastTimeSend(Player player, ItemStack itemStack, int tickCount) {
+    public static void sendEffectLastTime(Player player, ItemStack itemStack, int tickCount) {
         ModNetworking.sendToClient(new EffectLastTimeS2CPacket(itemStack, tickCount), (ServerPlayer) player);
     }
 
@@ -4265,27 +4265,27 @@ public class Compute {
         else ClientUtils.effectTimeLasts.add(new EffectTimeLast(item.getDefaultInstance(), tick, tick, level));
     }
 
-    public static void effectLastTimeSend(Player player, Item item, int tickCount) {
-        effectLastTimeSend(player, item, tickCount, 0, false);
+    public static void sendEffectLastTime(Player player, Item item, int tickCount) {
+        sendEffectLastTime(player, item, tickCount, 0, false);
     }
 
-    public static void effectLastTimeSend(Player player, ItemStack itemStack, int tickCount, int level) {
-        effectLastTimeSend(player, itemStack.getItem(), tickCount, level, false);
+    public static void sendEffectLastTime(Player player, ItemStack itemStack, int tickCount, int level) {
+        sendEffectLastTime(player, itemStack.getItem(), tickCount, level, false);
     }
 
-    public static void effectLastTimeSend(Player player, Item item, int tickCount, int level) {
-        effectLastTimeSend(player, item, tickCount, level, false);
+    public static void sendEffectLastTime(Player player, Item item, int tickCount, int level) {
+        sendEffectLastTime(player, item, tickCount, level, false);
     }
 
-    public static void effectLastTimeSend(Player player, ItemStack itemStack, int tickCount, int level, boolean forever) {
-        effectLastTimeSend(player, itemStack.getItem(), tickCount, level, forever);
+    public static void sendEffectLastTime(Player player, ItemStack itemStack, int tickCount, int level, boolean forever) {
+        sendEffectLastTime(player, itemStack.getItem(), tickCount, level, forever);
     }
 
-    public static void effectLastTimeSend(Player player, Item item, int level, boolean forever) {
-        effectLastTimeSend(player, item, 25565, level, forever);
+    public static void sendEffectLastTime(Player player, Item item, int level, boolean forever) {
+        sendEffectLastTime(player, item, 25565, level, forever);
     }
 
-    public static void effectLastTimeSend(Player player, Item item, int tickCount, int level, boolean forever) {
+    public static void sendEffectLastTime(Player player, Item item, int tickCount, int level, boolean forever) {
         ModNetworking.sendToClient(new EffectLastTimeS2CPacket(item.getDefaultInstance(), tickCount, level, forever), (ServerPlayer) player);
     }
 
@@ -4759,7 +4759,7 @@ public class Compute {
             coolDownMap.put(player, tickCount + (int) (coolDownSeconds * 15 * (1 - PlayerAttributes.coolDownDecrease(player))));
             Compute.coolDownTimeSend(player, item.getDefaultInstance(), (int) (coolDownSeconds * 15 * (1 - PlayerAttributes.coolDownDecrease(player))));
             lastTickMap.put(player, tickCount + lastTick);
-            Compute.effectLastTimeSend(player, item.getDefaultInstance(), lastTick);
+            Compute.sendEffectLastTime(player, item.getDefaultInstance(), lastTick);
             return true;
         }
         return false;
@@ -4983,5 +4983,10 @@ public class Compute {
 
     public static void setPlayerTitleAndSubTitle(ServerPlayer serverPlayer, Component title, Component subTitle) {
         setPlayerTitleAndSubTitle(serverPlayer, title, subTitle, 20, 60, 20);
+    }
+
+    public static List<? extends Entity> getNearEntity(Entity center, Class<? extends Entity> type, double distance) {
+        List<? extends Entity> list = center.level().getEntitiesOfClass(type, AABB.ofSize(center.position(), distance * 2, distance * 2, distance * 2));
+        return list.stream().filter(e -> e.distanceTo(center) <= distance).toList();
     }
 }

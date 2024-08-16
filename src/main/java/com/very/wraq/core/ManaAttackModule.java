@@ -556,7 +556,7 @@ public class ManaAttackModule {
                 || player.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.DevilSceptre.get())) {
             Utils.IceSceptreEffectMap.put(player, player.getServer().getTickCount() + 40);
             Utils.IceSceptreEffectNumMap.put(player, Math.min(3000, MobAttributes.manaDefence(mob)));
-            Compute.effectLastTimeSend(player, ModItems.IceSceptre.get().getDefaultInstance(), 40);
+            Compute.sendEffectLastTime(player, ModItems.IceSceptre.get().getDefaultInstance(), 40);
             Level level = player.level();
             if (level.getBlockState(new BlockPos(mob.getBlockX(), mob.getBlockY() + 1, mob.getBlockZ())).is(Blocks.AIR)) {
                 level.setBlockAndUpdate(new BlockPos(mob.getBlockX(), mob.getBlockY() + 1, mob.getBlockZ()), Blocks.ICE.defaultBlockState());

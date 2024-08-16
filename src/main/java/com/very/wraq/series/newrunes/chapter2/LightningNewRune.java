@@ -95,7 +95,7 @@ public class LightningNewRune extends WraqCurios implements RuneItem, UsageOrGet
         String name = player.getName().getString();
         if (!cooldownMap.containsKey(name) || cooldownMap.get(name) == tick) {
             cooldownMap.put(name, tick);
-            Compute.effectLastTimeSend(player, NewRuneItems.lightningNewRune.get(), 0, true);
+            Compute.sendEffectLastTime(player, NewRuneItems.lightningNewRune.get(), 0, true);
         }
     }
 
@@ -123,7 +123,7 @@ public class LightningNewRune extends WraqCurios implements RuneItem, UsageOrGet
 
                 double finalRate = rate;
                 nearMobList.forEach(target -> {
-                    Compute.Damage.autoAdaptionRateDamage(player, target, finalRate);
+                    Compute.Damage.causeAutoAdaptionRateDamageToMob(player, target, finalRate);
                 });
 
             });

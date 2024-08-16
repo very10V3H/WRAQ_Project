@@ -61,7 +61,7 @@ public class SpringScale extends Item implements ActiveItem {
         int tickCount = player.getServer().getTickCount();
         Utils.SpringScaleTime.put(player, tickCount + 1200);
         Utils.SpringScaleEffect.put(player, tier);
-        Compute.effectLastTimeSend(player, ModItems.SpringScale0.get().getDefaultInstance(), 1200);
+        Compute.sendEffectLastTime(player, ModItems.SpringScale0.get().getDefaultInstance(), 1200);
         Compute.playerItemCoolDown(player, ModItems.SpringScale0.get(), 60);
         Compute.playerItemCoolDown(player, ModItems.SpringScale1.get(), 60);
         Compute.playerItemCoolDown(player, ModItems.SpringScale2.get(), 60);

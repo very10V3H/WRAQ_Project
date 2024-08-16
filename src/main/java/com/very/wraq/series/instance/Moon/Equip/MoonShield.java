@@ -5,7 +5,6 @@ import com.very.wraq.common.Utils.Utils;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.series.overworld.chapter1.Mine.MineShield;
-import com.very.wraq.series.overworld.chapter1.Mine.Sword.MineSword;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -94,11 +93,11 @@ public class MoonShield extends Item {
             if (Count == 7) {
                 Count = 0;
                 PlayerMoonShieldCountMap.put(player, 0);
-                Compute.effectLastTimeSend(player, ModItems.MoonSoul.get().getDefaultInstance(), 8888, Count, true);
+                Compute.sendEffectLastTime(player, ModItems.MoonSoul.get().getDefaultInstance(), 8888, Count, true);
                 playerDamageEnhanceTickMap.put(player, TickCount + 60);
                 return Compute.XpStrengthADDamage(player, 14);
             }
-            Compute.effectLastTimeSend(player, ModItems.MoonSoul.get().getDefaultInstance(), 8888, Count, true);
+            Compute.sendEffectLastTime(player, ModItems.MoonSoul.get().getDefaultInstance(), 8888, Count, true);
         }
         return 0;
     }

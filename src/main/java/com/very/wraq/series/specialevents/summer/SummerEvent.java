@@ -116,7 +116,7 @@ public class SummerEvent {
         }
         if (player.tickCount % 20 == 0) {
             if (playerExHarvestEndTick.getOrDefault(name, 0) > tick) {
-                Compute.effectLastTimeSend(player, ModItems.GOLDEN_APPLE.get(), 0, true);
+                Compute.sendEffectLastTime(player, ModItems.GOLDEN_APPLE.get(), 0, true);
             } else {
                 Compute.removeEffectLastTime(player, ModItems.GOLDEN_APPLE.get());
             }

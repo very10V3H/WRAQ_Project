@@ -75,7 +75,7 @@ public class CastleBow extends WraqBow implements ForgeItem, ActiveItem {
     @Override
     public void active(Player player) {
         Compute.playerItemCoolDown(player, this, 20);
-        Compute.effectLastTimeSend(player, this, 120);
+        Compute.sendEffectLastTime(player, this, 120);
         CastleSword.CastleWeaponActiveLastTick.put(player, player.getServer().getTickCount() + 120);
         Compute.PlayerHealthDecrease(player, player.getHealth() * 0.15, Component.literal(" 被暗黑魔能吞噬了。").withStyle(CustomStyle.styleOfCastle));
     }

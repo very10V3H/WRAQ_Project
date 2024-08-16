@@ -87,7 +87,7 @@ public class FireWorkGun extends Item implements ActiveItem {
     @Override
     public void active(Player player) {
         Utils.PlayerFireWorkGunEffect.put(player, player.getServer().getTickCount() + 200);
-        Compute.effectLastTimeSend(player, ModItems.FireWorkGun.get().getDefaultInstance(), 200);
+        Compute.sendEffectLastTime(player, ModItems.FireWorkGun.get().getDefaultInstance(), 200);
         for (int i = 0; i < 2; i++) {
             CompoundTag compoundTag = new CompoundTag();
             byte a = 1;

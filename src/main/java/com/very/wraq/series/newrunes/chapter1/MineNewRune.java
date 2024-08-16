@@ -72,7 +72,7 @@ public class MineNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDe
     public static void tick(Player player) {
         if (player.tickCount % 20 == 8)
             if (passiveTrig(player)) {
-                Compute.effectLastTimeSend(player, NewRuneItems.mineNewRune.get(), 0, true);
+                Compute.sendEffectLastTime(player, NewRuneItems.mineNewRune.get(), 0, true);
             } else {
                 Compute.removeEffectLastTime(player, NewRuneItems.mineNewRune.get());
             }

@@ -92,7 +92,7 @@ public class HuskNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDe
             return;
         }
         int size = handleQueue(player).size();
-        Compute.effectLastTimeSend(player, NewRuneItems.huskNewRune.get(), size, true);
+        Compute.sendEffectLastTime(player, NewRuneItems.huskNewRune.get(), size, true);
     }
 
     public static double damageEnhance(Player player) {

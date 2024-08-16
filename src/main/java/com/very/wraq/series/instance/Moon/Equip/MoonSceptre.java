@@ -112,7 +112,7 @@ public class MoonSceptre extends WraqSceptre {
                 coolDownMap.put(player, (int) (TickCount + 540 * (1 - PlayerAttributes.coolDownDecrease(player))));
                 Compute.coolDownTimeSend(player, ModItems.MoonSceptre.get().getDefaultInstance(), (int) (540 * (1 - PlayerAttributes.coolDownDecrease(player))));
                 Compute.playerShieldProvider(player, 400, PlayerAttributes.manaDamage(player));
-                Compute.effectLastTimeSend(player, ModItems.MoonSceptre.get().getDefaultInstance(), 200);
+                Compute.sendEffectLastTime(player, ModItems.MoonSceptre.get().getDefaultInstance(), 200);
                 List<Mob> mobList = mob.level().getEntitiesOfClass(Mob.class, AABB.ofSize(mob.position(), 15, 15, 15));
                 mobList.removeIf(mob1 -> mob1.distanceTo(mob) > 6);
                 double attackDamage = 0;

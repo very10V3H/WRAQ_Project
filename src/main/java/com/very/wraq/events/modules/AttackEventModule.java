@@ -130,7 +130,7 @@ public class AttackEventModule {
         if (Utils.BlackForestSwordActiveMap.containsKey(player)) {
             double ExRate = monster.getHealth() * Utils.BlackForestSwordActiveMap.get(player) / monster.getMaxHealth();
             Utils.BlackForestSwordActiveMap.remove(player);
-            Compute.effectLastTimeSend(player, ModItems.huskSword0.get().getDefaultInstance(), 0);
+            Compute.sendEffectLastTime(player, ModItems.huskSword0.get().getDefaultInstance(), 0);
             return Compute.XpStrengthADDamage(player, 1 + ExRate);
         }
         return 0;
@@ -148,7 +148,7 @@ public class AttackEventModule {
         if (Utils.SeaSwordActiveMap.containsKey(player)) {
             double ExRate = (1 - (monster.getHealth() / monster.getMaxHealth())) * Utils.SeaSwordActiveMap.get(player);
             Utils.SeaSwordActiveMap.remove(player);
-            Compute.effectLastTimeSend(player, ModItems.SeaSword0.get().getDefaultInstance(), 0);
+            Compute.sendEffectLastTime(player, ModItems.SeaSword0.get().getDefaultInstance(), 0);
             return Compute.XpStrengthADDamage(player, 1 + ExRate);
         }
         return 0;
@@ -597,7 +597,7 @@ public class AttackEventModule {
         if (player.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.SakuraBow.get())
                 && !Utils.playerSakuraBowMap.getOrDefault(name, false)) {
             Utils.SakuraBowEffectMap.put(player, player.getServer().getTickCount() + 20);
-            Compute.effectLastTimeSend(player, ModItems.SakuraBow.get().getDefaultInstance(), 20);
+            Compute.sendEffectLastTime(player, ModItems.SakuraBow.get().getDefaultInstance(), 20);
         }
     }
 
@@ -634,7 +634,7 @@ public class AttackEventModule {
                 || player.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.DevilSword.get())) {
             Utils.IceSwordEffectMap.put(player, player.getServer().getTickCount() + 40);
             Utils.IceSwordEffectNumMap.put(player, Math.min(3000, MobAttributes.defence(mob)));
-            Compute.effectLastTimeSend(player, ModItems.IceSword.get().getDefaultInstance(), 40);
+            Compute.sendEffectLastTime(player, ModItems.IceSword.get().getDefaultInstance(), 40);
             Level level = player.level();
             if (level.getBlockState(new BlockPos(mob.getBlockX(), mob.getBlockY() + 1, mob.getBlockZ())).is(Blocks.AIR)) {
                 level.setBlockAndUpdate(new BlockPos(mob.getBlockX(), mob.getBlockY() + 1, mob.getBlockZ()), Blocks.ICE.defaultBlockState());
@@ -648,7 +648,7 @@ public class AttackEventModule {
                 || player.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.DevilBow.get())) {
             Utils.IceBowEffectMap.put(player, player.getServer().getTickCount() + 40);
             Utils.IceBowEffectNumMap.put(player, MobAttributes.defence(mob));
-            Compute.effectLastTimeSend(player, ModItems.IceBow.get().getDefaultInstance(), 40);
+            Compute.sendEffectLastTime(player, ModItems.IceBow.get().getDefaultInstance(), 40);
             Level level = player.level();
             if (level.getBlockState(new BlockPos(mob.getBlockX(), mob.getBlockY() + 1, mob.getBlockZ())).is(Blocks.AIR)) {
                 level.setBlockAndUpdate(new BlockPos(mob.getBlockX(), mob.getBlockY() + 1, mob.getBlockZ()), Blocks.ICE.defaultBlockState());
@@ -667,7 +667,7 @@ public class AttackEventModule {
     public static double SoulSwordActive(Player player) {
         if (Utils.SoulSwordMap.containsKey(player) && Utils.SoulSwordMap.get(player)) {
             Utils.SoulSwordMap.put(player, false);
-            Compute.effectLastTimeSend(player, ModItems.SoulSword.get().getDefaultInstance(), 0);
+            Compute.sendEffectLastTime(player, ModItems.SoulSword.get().getDefaultInstance(), 0);
             return 0.5;
         }
         return 0;
@@ -680,7 +680,7 @@ public class AttackEventModule {
             Utils.SnowShieldPlayerEffectMap.put(player, (MobSpawn.MobBaseAttributes.getMobBaseAttribute(mob, MobSpawn.MobBaseAttributes.defence) / 4));
             Utils.SnowShieldMobEffectMap.put(mob, TickCount + 40);
             Compute.AddDefenceDescreaseEffectParticle(mob, 40);
-            Compute.effectLastTimeSend(player, ModItems.SnowSoul.get().getDefaultInstance(), 40);
+            Compute.sendEffectLastTime(player, ModItems.SnowSoul.get().getDefaultInstance(), 40);
         }
     }
 

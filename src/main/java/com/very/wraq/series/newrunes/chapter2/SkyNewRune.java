@@ -72,7 +72,7 @@ public class SkyNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDes
 
     public static void tick(Player player) {
         if (WraqCurios.isOn(SkyNewRune.class, player)) {
-            Compute.effectLastTimeSend(player, NewRuneItems.skyNewRune.get(), 0, true);
+            Compute.sendEffectLastTime(player, NewRuneItems.skyNewRune.get(), 0, true);
         } else Compute.removeEffectLastTime(player, NewRuneItems.skyNewRune.get());
     }
 

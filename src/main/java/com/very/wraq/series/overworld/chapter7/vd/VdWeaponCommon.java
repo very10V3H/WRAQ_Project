@@ -121,7 +121,7 @@ public interface VdWeaponCommon {
     static void onReleaseActive(Player player, Item item) {
         if (item instanceof VdWeaponCommon) {
             intensifiedAttackMap.put(player.getName().getString(), true);
-            Compute.effectLastTimeSend(player, item, 0, true);
+            Compute.sendEffectLastTime(player, item, 0, true);
         }
     }
 

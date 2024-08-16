@@ -84,14 +84,14 @@ public class MoonSword extends WraqSword implements ActiveItem {
 
     public static void Active(Player player) {
         playerFlagMap.put(player, true);
-        Compute.effectLastTimeSend(player, ModItems.MoonSword.get().getDefaultInstance(), 8888, 0, true);
+        Compute.sendEffectLastTime(player, ModItems.MoonSword.get().getDefaultInstance(), 8888, 0, true);
     }
 
     public static void MoonSwordActive(Player player, Mob mob) {
         if (playerFlagMap.containsKey(player) && playerFlagMap.get(player)) {
             playerFlagMap.put(player, false);
             Compute.playerShieldProvider(player, 400, PlayerAttributes.attackDamage(player) * 4);
-            Compute.effectLastTimeSend(player, ModItems.MoonSword.get().getDefaultInstance(), 200);
+            Compute.sendEffectLastTime(player, ModItems.MoonSword.get().getDefaultInstance(), 200);
             List<Mob> mobList = mob.level().getEntitiesOfClass(Mob.class, AABB.ofSize(mob.position(), 15, 15, 15));
             mobList.removeIf(mob1 -> mob1.distanceTo(mob) > 6);
             double attackDamage = 0;

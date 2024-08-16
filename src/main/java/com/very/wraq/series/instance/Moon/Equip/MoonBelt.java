@@ -99,7 +99,7 @@ public class MoonBelt extends Item implements ICurioItem {
                         statusType.put(player, 1);
                         storedDamage.put(player, num * 0.1);
                         damageTick.put(player, TickCount + 200);
-                        Compute.effectLastTimeSend(player, ModItems.MoonBelt.get().getDefaultInstance(), 200);
+                        Compute.sendEffectLastTime(player, ModItems.MoonBelt.get().getDefaultInstance(), 200);
                     }
                     case 1 -> {
                         storedDamage.put(player, storedDamage.get(player) + num * 0.1);
@@ -119,7 +119,7 @@ public class MoonBelt extends Item implements ICurioItem {
                         statusType.put(player, 1);
                         storedDamage.put(player, num * 10);
                         damageTick.put(player, TickCount + 200);
-                        Compute.effectLastTimeSend(player, ModItems.MoonBelt.get().getDefaultInstance(), 200);
+                        Compute.sendEffectLastTime(player, ModItems.MoonBelt.get().getDefaultInstance(), 200);
                     }
                     case 1 -> {
                         storedDamage.put(player, storedDamage.get(player) + num * 10);

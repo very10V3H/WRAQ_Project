@@ -127,7 +127,7 @@ public class StarBottle extends Item implements ICurioItem {
         if (!IsOn(player)) return;
         if (PlayerIsInCollectMode(player) && playerLastBattleTick.containsKey(player) && playerLastBattleTick.get(player) + 100 > player.getServer().getTickCount()) {
             playerCountsMap.put(player, Math.min(70, playerCountsMap.getOrDefault(player, 0) + 1));
-            Compute.effectLastTimeSend(player, ModItems.StarBottle.get().getDefaultInstance(), 8888, playerCountsMap.get(player), true);
+            Compute.sendEffectLastTime(player, ModItems.StarBottle.get().getDefaultInstance(), 8888, playerCountsMap.get(player), true);
         }
     }
 
@@ -141,7 +141,7 @@ public class StarBottle extends Item implements ICurioItem {
                 ParticleProvider.LineParticle(player.level(), (int) mob.distanceTo(player) * 2, player.position(), mob.position(), ParticleTypes.FIREWORK);
             }
         });
-        Compute.effectLastTimeSend(player, ModItems.StarBottle.get().getDefaultInstance(), 8888, playerCountsMap.get(player), true);
+        Compute.sendEffectLastTime(player, ModItems.StarBottle.get().getDefaultInstance(), 8888, playerCountsMap.get(player), true);
     }
 
     public static double DamageEnhance(Player player) {
