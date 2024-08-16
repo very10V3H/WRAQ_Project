@@ -83,7 +83,7 @@ public class MoonNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDe
     public static void tick(Player player) {
         int count = getPassiveCount(player);
         if (count > 0) {
-            Compute.effectLastTimeSend(player, NewRuneItems.moonNewRune.get(), count, true);
+            Compute.sendEffectLastTime(player, NewRuneItems.moonNewRune.get(), count, true);
         } else Compute.removeEffectLastTime(player, NewRuneItems.moonNewRune.get());
     }
 

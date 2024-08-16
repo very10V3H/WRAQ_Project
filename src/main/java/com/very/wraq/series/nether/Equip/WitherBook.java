@@ -78,7 +78,7 @@ public class WitherBook extends Item {
                 }
             } else Utils.WitherBookPlayerEffectNum.put(player, manaDefence * 0.25);
             Utils.WitherBookPlayerEffectTick.put(player, tickCount + 40);
-            Compute.effectLastTimeSend(player, ModItems.WitherBook.get().getDefaultInstance(), 40);
+            Compute.sendEffectLastTime(player, ModItems.WitherBook.get().getDefaultInstance(), 40);
 
         }
     }

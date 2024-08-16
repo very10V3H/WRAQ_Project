@@ -335,7 +335,7 @@ public class ServerPlayerTickEvent {
             if (player.tickCount % 200 == 0 && Compute.ArmorCount.PurpleIron(player) > 0) {
                 int Rate = Compute.ArmorCount.PurpleIron(player);
                 Compute.playerShieldProvider(player, 100, player.getMaxHealth() * 0.1 * Rate);
-                Compute.effectLastTimeSend(player, ModItems.PurpleIron.get().getDefaultInstance(), 100);
+                Compute.sendEffectLastTime(player, ModItems.PurpleIron.get().getDefaultInstance(), 100);
             }
 
             if (player.tickCount % 10 == 0) Compute.PlayerColdNumStatusUpdate(player);

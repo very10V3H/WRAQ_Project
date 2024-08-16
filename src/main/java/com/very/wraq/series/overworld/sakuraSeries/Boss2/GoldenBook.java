@@ -92,7 +92,7 @@ public class GoldenBook extends WraqOffHandItem implements OnKillEffectOffHandIt
                         new StableAttributesModifier(cooldownTag, 1.5, tick + 6000));
                 StableAttributesModifier.addAttributeModifier(player, StableAttributesModifier.playerManaRecoverModifier,
                         new StableAttributesModifier(manaRecoverTag, 30, tick + 6000));
-                Compute.effectLastTimeSend(player, ModItems.goldCoin.get(), 6000);
+                Compute.sendEffectLastTime(player, ModItems.goldCoin.get(), 6000);
             }
         }
         return super.use(level, player, interactionHand);

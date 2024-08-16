@@ -98,6 +98,6 @@ public class LakeSceptre extends WraqSceptre implements OnHitEffectMainHandWeapo
                 new StableAttributesModifier("lakeSceptrePassiveCooldown", (this.num + 1) * 0.1, player.getServer().getTickCount() + 40));
         StableAttributesModifier.addAttributeModifier(player, StableAttributesModifier.playerMovementSpeedModifier,
                 new StableAttributesModifier("lakeSceptrePassiveMovementSpeed", (this.num + 1) * 0.1, player.getServer().getTickCount() + 40));
-        Compute.effectLastTimeSend(player, ModItems.lakeSceptre0.get(), 40);
+        Compute.sendEffectLastTime(player, ModItems.lakeSceptre0.get(), 40);
     }
 }

@@ -81,7 +81,7 @@ public class HuskSword extends WraqSword implements ActiveItem {
             if (tier == 4) Utils.BlackForestSwordActiveMap.put(player, 3);
             else if (tier == 3) Utils.BlackForestSwordActiveMap.put(player, 2);
             else Utils.BlackForestSwordActiveMap.put(player, 1);
-            Compute.effectLastTimeSend(player, ModItems.huskSword0.get().getDefaultInstance(), 8888, 0, true);
+            Compute.sendEffectLastTime(player, ModItems.huskSword0.get().getDefaultInstance(), 8888, 0, true);
             Compute.SoundToAll(player, ModSounds.Attack.get());
         }
     }

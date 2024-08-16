@@ -71,7 +71,7 @@ public class WitherSword extends WraqSword implements ActiveItem, ForgeItem {
             player.getCooldowns().addCooldown(ModItems.WitherSword1.get(), (int) (240 - 240 * PlayerAttributes.coolDownDecrease(player)));
             player.getCooldowns().addCooldown(ModItems.WitherSword2.get(), (int) (240 - 240 * PlayerAttributes.coolDownDecrease(player)));
             player.getCooldowns().addCooldown(ModItems.WitherSword3.get(), (int) (240 - 240 * PlayerAttributes.coolDownDecrease(player)));
-            Compute.effectLastTimeSend(player, ModItems.WitherSword0.get().getDefaultInstance(), 240);
+            Compute.sendEffectLastTime(player, ModItems.WitherSword0.get().getDefaultInstance(), 240);
             if (player.getHealth() <= player.getMaxHealth() * 0.3f) {
                 player.kill();
                 Compute.formatBroad(player.level(), Component.literal("死亡").withStyle(ChatFormatting.RED),

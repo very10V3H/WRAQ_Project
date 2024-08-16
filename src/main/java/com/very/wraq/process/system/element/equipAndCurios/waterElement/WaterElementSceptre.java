@@ -48,7 +48,7 @@ public class WaterElementSceptre extends WraqSceptre implements ActiveItem {
     public static void Passive(LivingEntity livingEntity) {
         if (livingEntity instanceof Player player && player.getMainHandItem().is(ModItems.WaterElementSceptre.get())) {
             WaterElementSword.playerElementEnhanceTickMap.put(player, player.getServer().getTickCount() + 140);
-            Compute.effectLastTimeSend(player, ModItems.WaterElementSceptre.get().getDefaultInstance(), 140);
+            Compute.sendEffectLastTime(player, ModItems.WaterElementSceptre.get().getDefaultInstance(), 140);
         }
     }
 

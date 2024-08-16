@@ -72,7 +72,7 @@ public class CastleSecondFloor {
             for (int i = 0; i < inventory.getMaxStackSize(); i++) {
                 if (inventory.getItem(i).is(ModItems.CastleTabooPiece.get())) inventory.getItem(i).setCount(0);
             }
-            Compute.effectLastTimeSend(player, ModItems.CastleTabooPiece.get().getDefaultInstance(), 8888, 0, true);
+            Compute.sendEffectLastTime(player, ModItems.CastleTabooPiece.get().getDefaultInstance(), 8888, 0, true);
             ClientboundSoundPacket clientboundSoundPacket =
                     new ClientboundSoundPacket(Holder.direct(SoundEvents.ANVIL_PLACE), SoundSource.PLAYERS, player.getX(), player.getY(), player.getZ(), 1, 1, 0);
             ((ServerPlayer) player).connection.send(clientboundSoundPacket);
@@ -86,7 +86,7 @@ public class CastleSecondFloor {
             playerPickedItemMap.put(player, false);
             if (shieldCount > 0) shieldCount--;
             ModNetworking.sendToClient(new SoundsS2CPacket(11), (ServerPlayer) player);
-            Compute.effectLastTimeSend(player, ModItems.CastleTabooPiece.get().getDefaultInstance(), 0);
+            Compute.sendEffectLastTime(player, ModItems.CastleTabooPiece.get().getDefaultInstance(), 0);
             Compute.sendFormatMSG(player, Component.literal("暗黑城堡").withStyle(CustomStyle.styleOfCastle),
                     Component.literal("暗黑骑士还有" + shieldCount + "层顽盾!").withStyle(ChatFormatting.WHITE));
             ClientboundSoundPacket clientboundSoundPacket =

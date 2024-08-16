@@ -111,7 +111,7 @@ public class GoldenAttackOffhand extends WraqOffHandItem implements OnKillEffect
                         new StableAttributesModifier(critDamageTag, 1, tick + 6000));
                 StableAttributesModifier.addAttributeModifier(player, StableAttributesModifier.playerDefencePenetrationModifier,
                         new StableAttributesModifier(defencePenetrationTag, 0.3, tick + 6000));
-                Compute.effectLastTimeSend(player, ModItems.goldCoin.get(), 6000);
+                Compute.sendEffectLastTime(player, ModItems.goldCoin.get(), 6000);
             }
         }
         return super.use(level, player, interactionHand);

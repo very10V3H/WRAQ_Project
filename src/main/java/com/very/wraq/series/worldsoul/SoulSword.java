@@ -85,7 +85,7 @@ public class SoulSword extends WraqSword implements ActiveItem {
     @Override
     public void active(Player player) {
         if (Compute.playerManaCost(player, 60)) {
-            Compute.effectLastTimeSend(player, ModItems.SoulSword.get().getDefaultInstance(), 8888, 0, true);
+            Compute.sendEffectLastTime(player, ModItems.SoulSword.get().getDefaultInstance(), 8888, 0, true);
             Utils.SoulSwordMap.put(player, true);
         }
     }

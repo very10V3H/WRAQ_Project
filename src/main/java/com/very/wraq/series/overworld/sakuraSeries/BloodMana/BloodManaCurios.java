@@ -71,8 +71,8 @@ public class BloodManaCurios extends WraqCurios {
             StableAttributesModifier.addAttributeModifier(player, StableAttributesModifier.playerHealthRecoverModifier,
                     new StableAttributesModifier("manaCuriosPassiveHealthRecover", player.getMaxHealth() * 0.08, player.getServer().getTickCount() + 60));
             if (WraqCurios.isOn(BloodManaCurios.class, player))
-                Compute.effectLastTimeSend(player, ModItems.BloodManaCurios.get(), 60);
-            else Compute.effectLastTimeSend(player, ModItems.EarthManaCurios.get(), 60);
+                Compute.sendEffectLastTime(player, ModItems.BloodManaCurios.get(), 60);
+            else Compute.sendEffectLastTime(player, ModItems.EarthManaCurios.get(), 60);
         }
     }
 }

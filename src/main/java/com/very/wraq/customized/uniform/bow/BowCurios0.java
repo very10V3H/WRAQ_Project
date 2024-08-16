@@ -76,7 +76,7 @@ public class BowCurios0 extends WraqUniformCurios {
     public static void Active(Player player) {
         if (!IsOn(player)) return;
         activeLastTick += player.getServer().getTickCount() + 60;
-        Compute.effectLastTimeSend(player, ModItems.BowCurios0.get().getDefaultInstance(), 60);
+        Compute.sendEffectLastTime(player, ModItems.BowCurios0.get().getDefaultInstance(), 60);
     }
 
     public static double BaseDamageEnhance(Player player) {

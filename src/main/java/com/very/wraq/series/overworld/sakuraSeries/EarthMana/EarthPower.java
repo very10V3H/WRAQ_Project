@@ -195,7 +195,7 @@ public class EarthPower extends Item implements ActiveItem {
             }
             case 1 -> {
                 playerList.forEach(player1 -> {
-                    Compute.effectLastTimeSend(player1, ModItems.EarthPower.get().getDefaultInstance(), 60);
+                    Compute.sendEffectLastTime(player1, ModItems.EarthPower.get().getDefaultInstance(), 60);
                     Forest_PlayerDefenceEnhance.put(player1, TickCount + 60);
                     ParticleProvider.EntityEffectVerticleCircleParticle(player1, 1.25, 0.4, 8, ParticleTypes.COMPOSTER, 0);
                     ParticleProvider.EntityEffectVerticleCircleParticle(player1, 1, 0.4, 8, ParticleTypes.COMPOSTER, 0);
@@ -210,7 +210,7 @@ public class EarthPower extends Item implements ActiveItem {
                     Compute.AddManaDefenceDescreaseEffectParticle(mob1, 60);
                 });
                 playerList.forEach(player1 -> {
-                    Compute.effectLastTimeSend(player1, ModItems.EarthPower.get().getDefaultInstance(), 60);
+                    Compute.sendEffectLastTime(player1, ModItems.EarthPower.get().getDefaultInstance(), 60);
                     Lake_PlayerCoolDownEnhance.put(player1, TickCount + 60);
                     ParticleProvider.EntityEffectVerticleCircleParticle(player1, 1.25, 0.4, 8, ParticleTypes.DRIPPING_WATER, 0);
                     ParticleProvider.EntityEffectVerticleCircleParticle(player1, 1, 0.4, 8, ParticleTypes.DRIPPING_WATER, 0);
@@ -221,7 +221,7 @@ public class EarthPower extends Item implements ActiveItem {
             }
             case 3 -> {
                 playerList.forEach(player1 -> {
-                    Compute.effectLastTimeSend(player1, ModItems.EarthPower.get().getDefaultInstance(), 60);
+                    Compute.sendEffectLastTime(player1, ModItems.EarthPower.get().getDefaultInstance(), 60);
                     Volcano_PlayerDamageEnhance.put(player1, TickCount + 60);
                 });
                 mobList.forEach(mob1 -> {

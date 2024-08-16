@@ -88,7 +88,7 @@ public class AttackCurios2 extends WraqUniformCurios {
             return;
         }
         if (playerNearbyHasNoOthers(player))
-            Compute.effectLastTimeSend(player, ModItems.AttackCurios2.get(), 8888, 0, true);
-        else Compute.effectLastTimeSend(player, ModItems.AttackCurios2.get(), 0, 0, true);
+            Compute.sendEffectLastTime(player, ModItems.AttackCurios2.get(), 8888, 0, true);
+        else Compute.sendEffectLastTime(player, ModItems.AttackCurios2.get(), 0, 0, true);
     }
 }

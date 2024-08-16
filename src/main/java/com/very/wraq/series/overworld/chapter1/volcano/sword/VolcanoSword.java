@@ -73,7 +73,7 @@ public class VolcanoSword extends WraqSword implements ActiveItem {
                     StringUtils.VolcanoSwordSkill.Skill2,
                     StringUtils.VolcanoSwordSkill.Skill3
             };
-            Compute.effectLastTimeSend(player, ModItems.VolcanoSword3.get().getDefaultInstance(), 100);
+            Compute.sendEffectLastTime(player, ModItems.VolcanoSword3.get().getDefaultInstance(), 100);
             data.putInt(EffectString[tier], tickCount + 100);
             player.getCooldowns().addCooldown(ModItems.VolcanoSword0.get(), (int) (200 - 200.0 * PlayerAttributes.coolDownDecrease(player)));
             player.getCooldowns().addCooldown(ModItems.VolcanoSword1.get(), (int) (200 - 200.0 * PlayerAttributes.coolDownDecrease(player)));

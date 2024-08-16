@@ -94,7 +94,7 @@ public class MoonKnife extends Item {
                 });
                 playerDamageEnhanceTickMap.put(player, TickCount + 60);
             }
-            Compute.effectLastTimeSend(player, ModItems.MoonKnife.get().getDefaultInstance(), 8888, Count, true);
+            Compute.sendEffectLastTime(player, ModItems.MoonKnife.get().getDefaultInstance(), 8888, Count, true);
 
         }
     }

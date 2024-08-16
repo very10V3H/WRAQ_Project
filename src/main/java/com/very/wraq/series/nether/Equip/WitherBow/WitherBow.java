@@ -78,6 +78,6 @@ public class WitherBow extends WraqBow implements OnHitEffectMainHandWeapon {
                 new StableAttributesModifier("witherBowActiveDefencePenetration0",
                         WitherBowAttributes.Effect[tier], player.getServer().getTickCount() + 100));
 
-        Compute.effectLastTimeSend(player, ModItems.WitherBow0.get().getDefaultInstance(), 100);
+        Compute.sendEffectLastTime(player, ModItems.WitherBow0.get().getDefaultInstance(), 100);
     }
 }

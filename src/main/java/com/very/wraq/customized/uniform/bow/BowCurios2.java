@@ -92,7 +92,7 @@ public class BowCurios2 extends WraqUniformCurios {
             return;
         }
         if (playerNearbyHasNoOthers(player))
-            Compute.effectLastTimeSend(player, ModItems.BowCurios2.get(), 8888, 0, true);
-        else Compute.effectLastTimeSend(player, ModItems.BowCurios2.get(), 0, 0, true);
+            Compute.sendEffectLastTime(player, ModItems.BowCurios2.get(), 8888, 0, true);
+        else Compute.sendEffectLastTime(player, ModItems.BowCurios2.get(), 0, 0, true);
     }
 }

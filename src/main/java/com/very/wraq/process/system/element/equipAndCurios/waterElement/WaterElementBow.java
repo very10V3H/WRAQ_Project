@@ -95,7 +95,7 @@ public class WaterElementBow extends WraqBow implements ActiveItem {
     public static void Passive(LivingEntity livingEntity) {
         if (livingEntity instanceof Player player && player.getMainHandItem().is(ModItems.WaterElementSword.get())) {
             WaterElementSword.playerElementEnhanceTickMap.put(player, player.getServer().getTickCount() + 140);
-            Compute.effectLastTimeSend(player, ModItems.WaterElementSword.get().getDefaultInstance(), 140);
+            Compute.sendEffectLastTime(player, ModItems.WaterElementSword.get().getDefaultInstance(), 140);
         }
     }
 
