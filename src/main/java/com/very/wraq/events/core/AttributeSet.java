@@ -1,17 +1,20 @@
 package com.very.wraq.events.core;
 
-import com.very.wraq.series.newrunes.chapter1.LakeNewRune;
-import com.very.wraq.series.overworld.chapter2.sea.Breath;
+import com.mojang.datafixers.util.Pair;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.Utils.StringUtils;
 import com.very.wraq.common.Utils.Utils;
 import com.very.wraq.common.attributeValues.PlayerAttributes;
 import com.very.wraq.common.attributeValues.SpecialEffectOnPlayer;
+import com.very.wraq.series.newrunes.chapter1.LakeNewRune;
+import com.very.wraq.series.overworld.chapter2.sea.Breath;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -22,19 +25,28 @@ public class AttributeSet {
     @SubscribeEvent
     public static void SpeedSet(TickEvent.PlayerTickEvent event) {
         if (event.side.isServer() && event.phase.equals(TickEvent.Phase.START)) {
+            ServerPlayer serverPlayer = (ServerPlayer) event.player;
             Player player = event.player;
+            String name = player.getName().getString();
             CompoundTag data = player.getPersistentData();
-            double speedUp = PlayerAttributes.movementSpeedCurrent(player);
 
-            // 移速手动调整
+            // 移动速度
+            double speedUp = PlayerAttributes.movementSpeedCurrent(player);
+            // 手动调整
             if (data.contains(StringUtils.MovementSpeedRate)) {
                 speedUp *= data.getInt(StringUtils.MovementSpeedRate) * 0.01;
             }
-
             double finalMovementSpeed = (0.1 + 0.1 * (float) speedUp) * SpecialEffectOnPlayer.slowdownEffectValue(player);
-            if (SpecialEffectOnPlayer.inImprison(player)) finalMovementSpeed = 0;
-
-            // 移动速度
+            if (SpecialEffectOnPlayer.inImprison(player)) {
+                finalMovementSpeed = 0;
+                Vec3 pos = SpecialEffectOnPlayer.imprisonPosMap.get(name);
+                if (SpecialEffectOnPlayer.inVertigo(player)) {
+                    Pair<Float, Float> rot = SpecialEffectOnPlayer.imprisonRotMap.get(name);
+                    serverPlayer.teleportTo(serverPlayer.serverLevel(), pos.x, pos.y, pos.z, rot.getSecond(), rot.getFirst());
+                } else {
+                    serverPlayer.teleportTo(pos.x, pos.y, pos.z);
+                }
+            }
             player.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(finalMovementSpeed);
 
             // 游泳速度
@@ -53,7 +65,7 @@ public class AttributeSet {
                 data.putDouble("MAXMANA", 1000 + player.experienceLevel + ManaUp);
             }
 
-            //最大生命值、魔力、攻击距离修改。
+            // 最大生命值、魔力、攻击距离修改。
             double MaxHealth = PlayerAttributes.maxHealth(player);
             player.getAttribute(Attributes.MAX_HEALTH).setBaseValue(Math.max(1, MaxHealth));
 

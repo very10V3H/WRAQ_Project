@@ -1,8 +1,10 @@
 package com.very.wraq.common.attributeValues;
 
+import com.mojang.datafixers.util.Pair;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.registry.ModItems;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -36,8 +38,11 @@ public class SpecialEffectOnPlayer {
     public static Map<String, Integer> vertigoTickMap = new HashMap<>();
 
     public static void addVertigoEffect(Player player, int tick) {
-        vertigoTickMap.put(player.getName().getString(), player.getServer().getTickCount() + tick);
+        String name = player.getName().getString();
+        vertigoTickMap.put(name, player.getServer().getTickCount() + tick);
         Compute.debuffTimeSend(player, ModItems.MineSoul.get(), tick, 0);
+        imprisonPosMap.put(name, player.position());
+        imprisonRotMap.put(name, Pair.of(player.getXRot(), player.getYRot()));
     }
 
     public static boolean inVertigo(Player player) {
@@ -47,10 +52,15 @@ public class SpecialEffectOnPlayer {
     }
 
     public static Map<String, Integer> imprisonTickMap = new HashMap<>();
+    public static Map<String, Vec3> imprisonPosMap = new HashMap<>();
+    public static Map<String, Pair<Float, Float>> imprisonRotMap = new HashMap<>();
 
     public static void addImprisonEffect(Player player, int tick) {
-        imprisonTickMap.put(player.getName().getString(), player.getServer().getTickCount() + tick);
+        String name = player.getName().getString();
+        imprisonTickMap.put(name, player.getServer().getTickCount() + tick);
         Compute.debuffTimeSend(player, ModItems.MineSoul.get(), tick, 0);
+        imprisonPosMap.put(name, player.position());
+        imprisonRotMap.put(name, Pair.of(player.getXRot(), player.getYRot()));
     }
 
     public static boolean inImprison(Player player) {
