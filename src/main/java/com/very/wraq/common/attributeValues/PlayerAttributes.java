@@ -71,6 +71,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -2234,9 +2235,12 @@ public class PlayerAttributes {
     }
 
     private static List<ItemStack> getAllEquipSlotItems(Player player) {
-        return List.of(player.getMainHandItem(), player.getOffhandItem(), player.getItemBySlot(EquipmentSlot.HEAD),
+        List<ItemStack> list = new ArrayList<>(List.of(player.getItemBySlot(EquipmentSlot.HEAD),
                 player.getItemBySlot(EquipmentSlot.CHEST), player.getItemBySlot(EquipmentSlot.LEGS),
-                player.getItemBySlot(EquipmentSlot.FEET));
+                player.getItemBySlot(EquipmentSlot.FEET)));
+        if (Utils.mainHandTag.containsKey(player.getMainHandItem().getItem())) list.add(player.getMainHandItem());
+        if (Utils.offHandTag.containsKey(player.getOffhandItem().getItem())) list.add(player.getOffhandItem());
+        return list;
     }
 
     private static double computeAllEquipSlotXpLevelAttributeValue(Player player, Map<Item, Double> attributeMap,
@@ -2252,7 +2256,7 @@ public class PlayerAttributes {
                     value += Compute.forgingValue(equip, baseValue);
                     value += Compute.proficiencyValue(equip, baseValue);
                 }
-                totalValue += value;
+                totalValue += baseValue + value;
             }
         }
         return totalValue;
