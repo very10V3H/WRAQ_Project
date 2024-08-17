@@ -1148,6 +1148,12 @@ public class StringUtils {
         public static String percentMaxHealthEnhance = "percentMaxHealthEnhance";
         public static String percentManaDamageEnhance = "percentManaDamageEnhance";
         public static String percentManaDefenceEnhance = "percentManaDefenceEnhance";
+
+        public static String xpLevelAttackDamage = "xpLevelAttackDamage";
+        public static String xpLevelCritDamage = "xpLevelCritDamage";
+        public static String xpLevelDefencePenetration0 = "xpLevelDefencePenetration0";
+        public static String xpLevelManaDamage = "xpLevelManaDamage";
+        public static String xpLevelManaPenetration0 = "xpLevelManaPenetration0";
     }
 
     public static String PlayerInstanceProgress = "PlayerInstanceProgress";
