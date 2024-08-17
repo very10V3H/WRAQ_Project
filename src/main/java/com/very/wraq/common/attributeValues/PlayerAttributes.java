@@ -72,6 +72,7 @@ import net.minecraft.world.phys.AABB;
 
 import java.text.ParseException;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class PlayerAttributes {
@@ -100,6 +101,7 @@ public class PlayerAttributes {
             stackmainhandtag = player.getItemInHand(InteractionHand.MAIN_HAND).getOrCreateTagElement(Utils.MOD_ID);
         }
 
+        // 基础数值
         if (Utils.mainHandTag.containsKey(mainhand) && stackmainhandtag.contains("attackdamage"))
             baseAttackDamage += stackmainhandtag.getDouble("attackdamage");
         if (Utils.attackDamage.containsKey(boots))
@@ -130,12 +132,19 @@ public class PlayerAttributes {
         if (Utils.armorTag.containsKey(boots) && Utils.attackDamage.containsKey(boots) && bootsTag.contains("Forging"))
             baseAttackDamage += Compute.forgingValue(bootsTag, ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.FEET), Utils.attackDamage));
 
-        if (Utils.mainHandTag.containsKey(mainhand) && (Utils.attackDamage.containsKey(mainhand) || mainHandItemTag.contains(StringUtils.RandomAttribute.attackDamage)) && mainHandItemTag.contains(StringUtils.KillCount.KillCount)) {
+        // 计算熟练度数值
+        if (Utils.mainHandTag.containsKey(mainhand) && (Utils.attackDamage.containsKey(mainhand)
+                || mainHandItemTag.contains(StringUtils.RandomAttribute.attackDamage)) && mainHandItemTag.contains(StringUtils.KillCount.KillCount)) {
             int killCount = mainHandItemTag.getInt(StringUtils.KillCount.KillCount);
             if (killCount >= 100000) killCount = 100000;
             baseAttackDamage += ForgeEquipUtils.getTraditionalEquipBaseValue(player.getMainHandItem(), Utils.attackDamage) * 0.5 * (killCount / 100000.0);
             baseAttackDamage += ForgeEquipUtils.getRandomEquipBaseValue(player.getMainHandItem(), StringUtils.RandomAttribute.attackDamage) * 0.5 * (killCount / 100000.0);
         }
+
+        // 计算线性等级强度属性数值
+        baseAttackDamage += computeAllEquipSlotXpLevelAttributeValue(player, Utils.xpLevelAttackDamage, true);
+
+        // 额外数值
         if (helmetTag.contains("newGems1")) exDamage += GemAttributes.gemsAttackDamage(helmetTag);
         if (chestTag.contains("newGems1")) exDamage += GemAttributes.gemsAttackDamage(chestTag);
         if (leggingsTag.contains("newGems1")) exDamage += GemAttributes.gemsAttackDamage(leggingsTag);
@@ -276,7 +285,11 @@ public class PlayerAttributes {
 
         exDamage += baseAttackDamage * EarthPower.PlayerDamageEnhance(player);
 
-        exDamage += Compute.CuriosAttribute.attributeValue(player, Utils.attackDamage, StringUtils.CuriosAttribute.AttackDamage); // 新版饰品属性加成
+        // 新版饰品属性加成
+        exDamage += Compute.CuriosAttribute.attributeValue(player, Utils.attackDamage, StringUtils.CuriosAttribute.AttackDamage);
+
+        exDamage += Compute.CuriosAttribute.attributeValue(player, Utils.xpLevelAttackDamage,
+                StringUtils.CuriosAttribute.xpLevelAttackDamage) * player.experienceLevel;
 
         exDamage += Compute.PassiveEquip.AttributeGet(player, Utils.attackDamage); // 器灵属性加成
         exDamage += CastleAttackArmor.ExAttributeValue(player, CastleAttackArmor.ExAttackDamage);
@@ -402,7 +415,14 @@ public class PlayerAttributes {
             stackmainhandtag = player.getItemInHand(InteractionHand.MAIN_HAND).getOrCreateTagElement(Utils.MOD_ID);
         }
 
+        // 计算随机属性装备数值
         critDamage += handleAllEquipRandomAttribute(player, StringUtils.RandomAttribute.critDamage);
+
+        // 计算线性等级强度装备数值
+        critDamage += computeAllEquipSlotXpLevelAttributeValue(player, Utils.xpLevelCritDamage, false);
+
+        critDamage += Compute.CuriosAttribute.attributeValue(player, Utils.xpLevelCritDamage,
+                StringUtils.CuriosAttribute.xpLevelCritDamage) * player.experienceLevel;
 
         if (helmetTag.contains("newGems1")) critDamage += GemAttributes.gemsCritDamage(helmetTag);
         if (chestTag.contains("newGems1")) critDamage += GemAttributes.gemsCritDamage(chestTag);
@@ -1186,6 +1206,10 @@ public class PlayerAttributes {
 
         defencePenetration0 += handleAllEquipRandomAttribute(player, StringUtils.RandomAttribute.defencePenetration0);
 
+        defencePenetration0 += computeAllEquipSlotXpLevelAttributeValue(player, Utils.xpLevelDefencePenetration0, false);
+        defencePenetration0 += Compute.CuriosAttribute.attributeValue(player, Utils.xpLevelDefencePenetration0,
+                StringUtils.CuriosAttribute.xpLevelDefencePenetration0) * player.experienceLevel;
+
         if (Utils.mainHandTag.containsKey(mainhand) && stackmainhandtag.contains("BreakDefence0"))
             defencePenetration0 += stackmainhandtag.getDouble("BreakDefence0");
         if (Utils.defencePenetration0.containsKey(boots)) defencePenetration0 += Utils.defencePenetration0.get(boots);
@@ -1477,10 +1501,6 @@ public class PlayerAttributes {
 
         baseDamage += handleAllEquipRandomAttribute(player, StringUtils.RandomAttribute.manaDamage);
 
-        if (helmetTag.contains("newGems1")) exDamage += GemAttributes.gemsManaDamage(helmetTag);
-        if (chestTag.contains("newGems1")) exDamage += GemAttributes.gemsManaDamage(chestTag);
-        if (leggingsTag.contains("newGems1")) exDamage += GemAttributes.gemsManaDamage(leggingsTag);
-        if (bootsTag.contains("newGems1")) exDamage += GemAttributes.gemsManaDamage(bootsTag);
         if (Utils.mainHandTag.containsKey(mainhand) && mainHandItemTag.contains("manadamage"))
             baseDamage += mainHandItemTag.getDouble("manadamage");
         if (Utils.mainHandTag.containsKey(mainhand) && Utils.manaDamage.containsKey(mainhand) && mainHandItemTag.contains("Forging"))
@@ -1502,6 +1522,15 @@ public class PlayerAttributes {
             baseDamage += ForgeEquipUtils.getTraditionalEquipBaseValue(player.getMainHandItem(), Utils.manaDamage) * 0.5 * (killCount / 100000.0);
             baseDamage += ForgeEquipUtils.getRandomEquipBaseValue(player.getMainHandItem(), StringUtils.RandomAttribute.manaDamage) * 0.5 * (killCount / 100000.0);
         }
+
+        baseDamage += computeAllEquipSlotXpLevelAttributeValue(player, Utils.xpLevelManaDamage, true);
+        exDamage += Compute.CuriosAttribute.attributeValue(player, Utils.xpLevelManaDamage,
+                StringUtils.CuriosAttribute.xpLevelManaDamage) * player.experienceLevel;
+
+        if (helmetTag.contains("newGems1")) exDamage += GemAttributes.gemsManaDamage(helmetTag);
+        if (chestTag.contains("newGems1")) exDamage += GemAttributes.gemsManaDamage(chestTag);
+        if (leggingsTag.contains("newGems1")) exDamage += GemAttributes.gemsManaDamage(leggingsTag);
+        if (bootsTag.contains("newGems1")) exDamage += GemAttributes.gemsManaDamage(bootsTag);
 
         if (mainHandItemTag.contains("newGems1")) exDamage += GemAttributes.gemsManaDamage(mainHandItemTag);
 
@@ -1981,6 +2010,10 @@ public class PlayerAttributes {
 
         manaPenetration0 += handleAllEquipRandomAttribute(player, StringUtils.RandomAttribute.manaPenetration0);
 
+        manaPenetration0 += computeAllEquipSlotXpLevelAttributeValue(player, Utils.manaPenetration0, false);
+        manaPenetration0 += Compute.CuriosAttribute.attributeValue(player, Utils.xpLevelManaPenetration0,
+                StringUtils.CuriosAttribute.xpLevelManaPenetration0) * player.experienceLevel;
+
         if (Utils.mainHandTag.containsKey(mainhand) && stackmainhandtag.contains("ManaBreakDefence0"))
             manaPenetration0 += stackmainhandtag.getDouble("ManaBreakDefence0");
         if (Utils.manaPenetration0.containsKey(boots))
@@ -2198,5 +2231,30 @@ public class PlayerAttributes {
         else if (swift <= 30) rate = 0.35 + (swift - 20) * 0.01;
         else rate = 0.45 + (swift - 30) * 0.005;
         return rate;
+    }
+
+    private static List<ItemStack> getAllEquipSlotItems(Player player) {
+        return List.of(player.getMainHandItem(), player.getOffhandItem(), player.getItemBySlot(EquipmentSlot.HEAD),
+                player.getItemBySlot(EquipmentSlot.CHEST), player.getItemBySlot(EquipmentSlot.LEGS),
+                player.getItemBySlot(EquipmentSlot.FEET));
+    }
+
+    private static double computeAllEquipSlotXpLevelAttributeValue(Player player, Map<Item, Double> attributeMap,
+                                                                   boolean computeForgeAndProficiency) {
+        int xpLevel = player.experienceLevel;
+        double totalValue = 0;
+        for (ItemStack equip : getAllEquipSlotItems(player)) {
+            Item item = equip.getItem();
+            if (attributeMap.containsKey(item)) {
+                double value = 0;
+                double baseValue = xpLevel * attributeMap.get(item);
+                if (computeForgeAndProficiency && equip.getTagElement(Utils.MOD_ID) != null) {
+                    value += Compute.forgingValue(equip, baseValue);
+                    value += Compute.proficiencyValue(equip, baseValue);
+                }
+                totalValue += value;
+            }
+        }
+        return totalValue;
     }
 }

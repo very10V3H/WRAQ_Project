@@ -1009,14 +1009,19 @@ public class BasicAttributeDescription {
             }
 
             MutableComponent mutableComponent = Component.literal("");
-            mutableComponent.append(Component.literal(" " + attributeName).withStyle(style).
-                    append(Component.literal((value > 0 ? "+" : "")
-                                    + String.format(valueFormat, value * (isPercent ? 100 : 1)))
-                            .withStyle(value > 0 ? ChatFormatting.WHITE : ChatFormatting.RED)).
-                    append(Component.literal(" x ").withStyle(ChatFormatting.DARK_PURPLE)).
-                    append(Component.literal(xpLevel + "").withStyle(ChatFormatting.LIGHT_PURPLE)));
-
             double totalValue = value * xpLevel;
+            if (localPlayer.tickCount % 60 < 30) {
+                mutableComponent.append(Component.literal(" " + attributeName).withStyle(style).
+                        append(Component.literal((value > 0 ? "+" : "")
+                                        + String.format(valueFormat, value * (isPercent ? 100 : 1)))
+                                .withStyle(value > 0 ? ChatFormatting.WHITE : ChatFormatting.RED)).
+                        append(Component.literal(" x ").withStyle(ChatFormatting.DARK_PURPLE)).
+                        append(Component.literal(xpLevel + "").withStyle(ChatFormatting.LIGHT_PURPLE)));
+            } else {
+                mutableComponent.append(Component.literal(" " + attributeName).withStyle(style).
+                        append(Component.literal((totalValue > 0 ? "+" : "") + String.format(valueFormat, totalValue * (isPercent ? 100 : 1)))
+                                .withStyle(totalValue > 0 ? ChatFormatting.LIGHT_PURPLE : ChatFormatting.RED)));
+            }
             if (acceptForgeAndProficiency) {
                 double exForgingValue = 0;
                 if (data.contains(StringUtils.ForgeLevel)) {

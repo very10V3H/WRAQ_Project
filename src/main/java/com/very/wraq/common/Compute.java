@@ -2558,6 +2558,11 @@ public class Compute {
                 append(name));
     }
 
+    public static double forgingValue(ItemStack itemStack, double baseValue) {
+        if (itemStack.getTagElement(Utils.MOD_ID) == null) return 0;
+        return forgingValue(itemStack.getOrCreateTagElement(Utils.MOD_ID), baseValue);
+    }
+
     public static double forgingValue(CompoundTag data, double BaseValue) {
         int forgingLevel = data.getInt("Forging");
         if (data.contains(StringUtils.QingMingForgePaper)) ++forgingLevel;
@@ -2572,6 +2577,16 @@ public class Compute {
         } else {
             return 60 + BaseValue * (1.4 + (forgingLevel - 24) * 0.4);
         }
+    }
+
+    public static double proficiencyValue(ItemStack itemStack, double baseValue) {
+        if (itemStack.getTagElement(Utils.MOD_ID) == null) return 0;
+        CompoundTag data = itemStack.getOrCreateTagElement(Utils.MOD_ID);
+        if (data.contains(StringUtils.KillCount.KillCount)) {
+            return baseValue * 0.5 *
+                    Math.min(1, (data.getInt(StringUtils.KillCount.KillCount) / 100000.0));
+        }
+        return 0;
     }
 
     public static double SakuraDemonSword(Player player, double DamageBeforeDefence) {
@@ -4488,7 +4503,8 @@ public class Compute {
                 List<Item> itemList = new ArrayList<>();
                 list.forEach(itemStack -> {
                     if (!itemList.contains(itemStack.getItem())
-                            && (!Utils.levelRequire.containsKey(itemStack.getItem()) || player.experienceLevel >= Utils.levelRequire.get(itemStack.getItem()))) {
+                            && (!Utils.levelRequire.containsKey(itemStack.getItem())
+                            || player.experienceLevel >= Utils.levelRequire.get(itemStack.getItem()))) {
                         if (attributeMap.containsKey(itemStack.getItem()))
                             value.set(value.get() + attributeMap.get(itemStack.getItem()));
                         CompoundTag data = itemStack.getOrCreateTagElement(Utils.MOD_ID);
