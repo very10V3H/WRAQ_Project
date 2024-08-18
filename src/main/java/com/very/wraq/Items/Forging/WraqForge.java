@@ -1,16 +1,17 @@
 package com.very.wraq.Items.Forging;
 
 import com.very.wraq.blocks.blocks.ForgeRecipe;
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.Utils.StringUtils;
+import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.events.mob.instance.NoTeamInstanceModule;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.misc.TeamPackets.ScreenSetS2CPacket;
 import com.very.wraq.process.func.guide.Guide;
 import com.very.wraq.process.system.forge.ForgeEquipUtils;
 import com.very.wraq.process.system.forge.ForgeHammer;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.Utils.StringUtils;
-import com.very.wraq.common.Utils.Utils;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -34,7 +35,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ForgeDraw extends Item {
+public class WraqForge extends Item {
 
     public static String firstTimeForge = "firstTimeForge";
     public static Map<String, Integer> playerMSGSendDelayMap = new HashMap<>();
@@ -42,7 +43,7 @@ public class ForgeDraw extends Item {
     public static Map<String, Integer> playerMSGSendDelayMap2 = new HashMap<>();
     private final Item forgedItem;
 
-    public ForgeDraw(Properties p_41383_, Item item) {
+    public WraqForge(Properties p_41383_, Item item) {
         super(p_41383_);
         this.forgedItem = item;
     }
@@ -83,7 +84,7 @@ public class ForgeDraw extends Item {
                     Component.literal("锻造成功！").withStyle(ChatFormatting.GOLD));
             Compute.soundToPlayer(player, SoundEvents.ANVIL_USE);
 
-            ItemStack itemStack = forgedItem.getDefaultInstance();
+            ItemStack productItemStack = forgedItem.getDefaultInstance();
 
             // 锻造品质
             if (Utils.mainHandTag.containsKey(forgedItem) || Utils.armorTag.containsKey(forgedItem)) {
@@ -92,33 +93,48 @@ public class ForgeDraw extends Item {
                     tier = ForgeEquipUtils.getOneTimeForgeTier(forgeHammer1.getTier());
                     Compute.playerItemUseWithRecord(player);
                 }
-                ForgeEquipUtils.setForgeQualityOnEquip(itemStack, tier);
+                ForgeEquipUtils.setForgeQualityOnEquip(productItemStack, tier);
 
                 Compute.formatBroad(player.level(), Component.literal("锻造").withStyle(ChatFormatting.GRAY),
                         Component.literal("").withStyle(ChatFormatting.WHITE).append(player.getDisplayName()).
                                 append(Component.literal(" 成功锻造了 ").withStyle(ChatFormatting.WHITE)).
                                 append(ForgeEquipUtils.description.get(tier)).append(Component.literal(" 的 ").withStyle(ChatFormatting.WHITE)).
-                                append(itemStack.getDisplayName()));
+                                append(productItemStack.getDisplayName()));
             } else {
                 Compute.formatBroad(player.level(), Component.literal("锻造").withStyle(ChatFormatting.GRAY),
                         Component.literal("").withStyle(ChatFormatting.WHITE).append(player.getDisplayName()).
                                 append(Component.literal(" 成功锻造了 ").withStyle(ChatFormatting.WHITE)).
-                                append(itemStack.getDisplayName()));
+                                append(productItemStack.getDisplayName()));
             }
 
-            if (data != null) itemStack.getOrCreateTagElement(Utils.MOD_ID).merge(data);
-            Compute.forgingHoverName(itemStack);
+            if (data != null) productItemStack.getOrCreateTagElement(Utils.MOD_ID).merge(data);
+            Compute.forgingHoverName(productItemStack);
 
+            // 提示信息与音效
             ModNetworking.sendToClient(new ScreenSetS2CPacket(0), (ServerPlayer) player);
             List<ServerPlayer> playerList = player.getServer().getPlayerList().getPlayers();
-            ClientboundSetTitleTextPacket clientboundSetTitleTextPacket = new ClientboundSetTitleTextPacket(itemStack.getDisplayName());
+            ClientboundSetTitleTextPacket clientboundSetTitleTextPacket = new ClientboundSetTitleTextPacket(productItemStack.getDisplayName());
             ClientboundSetSubtitleTextPacket clientboundSetSubtitleTextPacket = new ClientboundSetSubtitleTextPacket(Component.literal("已被" + player.getName().getString() + "成功锻造！").withStyle(ChatFormatting.AQUA));
-
             playerList.forEach(serverPlayer -> {
                 serverPlayer.connection.send(clientboundSetTitleTextPacket);
                 serverPlayer.connection.send(clientboundSetSubtitleTextPacket);
             });
-            Compute.itemStackGive(player, itemStack);
+
+            // 前置条件判定
+            List<Item> iceKnightEquips = List.of(ModItems.IceSword.get(), ModItems.IceBow.get(), ModItems.IceSceptre.get(),
+                    ModItems.IceArmorHelmet.get(), ModItems.IceArmorChest.get(), ModItems.IceArmorLeggings.get(), ModItems.IceArmorBoots.get());
+            List<Item> moonEquips = List.of(ModItems.MoonSword.get(), ModItems.MoonBow.get(), ModItems.MoonSceptre.get(),
+                    ModItems.MoonHelmet.get(), ModItems.MoonLeggings.get());
+            if (iceKnightEquips.contains(productItemStack.getItem())) {
+                NoTeamInstanceModule.putPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.sakuraBoss, true);
+                NoTeamInstanceModule.putPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.devil, true);
+            }
+            if (moonEquips.contains(productItemStack.getItem())) {
+                NoTeamInstanceModule.putPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.blackCastle, true);
+            }
+
+
+            Compute.itemStackGive(player, productItemStack);
             Guide.trig(player, 4);
             if (!StringUtils.FlagInTag.getPlayerFlag(player, firstTimeForge)) {
                 StringUtils.FlagInTag.setPlayerString(player, firstTimeForge, true);

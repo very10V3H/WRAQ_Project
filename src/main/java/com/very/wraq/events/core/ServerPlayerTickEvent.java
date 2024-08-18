@@ -1,7 +1,7 @@
 package com.very.wraq.events.core;
 
 import com.github.alexthe666.alexsmobs.entity.EntityLeafcutterAnt;
-import com.very.wraq.Items.Forging.ForgeDraw;
+import com.very.wraq.Items.Forging.WraqForge;
 import com.very.wraq.Items.MainStory_1.BackSpawn;
 import com.very.wraq.commands.stable.ops.RoadCommand;
 import com.very.wraq.commands.stable.players.DpsCommand;
@@ -150,7 +150,7 @@ public class ServerPlayerTickEvent {
             RoadCommand.tick(player);
             BackSpawn.tick(player);
             MyRespawnRule.setPlayerSpawnPoint(player);
-            ForgeDraw.tick(event);
+            WraqForge.tick(event);
             LavenderBracelet.tick(player);
             PlanPlayer.setFoodData(serverPlayer);
             GoldenBook.tick(player);

@@ -107,6 +107,11 @@ public abstract class NoTeamInstance {
             if (!this.mobList.isEmpty() && this.mobList.get(0) != null) {
                 Mob mob = this.mobList.get(0);
                 int needLevel = (int) (MobSpawn.MobBaseAttributes.xpLevel.get(MobSpawn.getMobOriginName(mob)) * 0.8);
+                if (!allowReward(player) && allowRewardCondition() != null) {
+                    Compute.sendFormatMSG(player, Component.literal("副本").withStyle(ChatFormatting.RED),
+                            allowRewardCondition());
+                    return;
+                }
                 if (player.experienceLevel < needLevel) {
                     Compute.sendFormatMSG(player, Component.literal("副本").withStyle(ChatFormatting.RED),
                             Component.literal("你没有达到获取奖励所需的等级: ").withStyle(ChatFormatting.WHITE).
@@ -201,4 +206,8 @@ public abstract class NoTeamInstance {
             }
         }
     }
+
+    public abstract boolean allowReward(Player player);
+
+    public abstract Component allowRewardCondition();
 }

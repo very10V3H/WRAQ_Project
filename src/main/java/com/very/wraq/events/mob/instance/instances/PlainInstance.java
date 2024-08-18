@@ -132,6 +132,16 @@ public class PlainInstance extends NoTeamInstance {
         Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player), 50);
     }
 
+    @Override
+    public boolean allowReward(Player player) {
+        return true;
+    }
+
+    @Override
+    public Component allowRewardCondition() {
+        return null;
+    }
+
     public static List<ItemAndRate> getRewardList() {
         return List.of(new ItemAndRate(ModItems.PlainBossSoul.get(), 1),
                 new ItemAndRate(ModItems.PlainAttackRing0.get(), 0.0125),

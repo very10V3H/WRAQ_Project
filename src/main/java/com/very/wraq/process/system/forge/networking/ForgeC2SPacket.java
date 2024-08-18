@@ -1,10 +1,8 @@
 package com.very.wraq.process.system.forge.networking;
 
-import com.very.wraq.Items.Forging.ForgeDraw;
+import com.very.wraq.Items.Forging.WraqForge;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.network.NetworkEvent;
 
@@ -32,7 +30,7 @@ public class ForgeC2SPacket {
         context.enqueueWork(() -> {
             ServerPlayer serverPlayer = context.getSender();
             try {
-                ForgeDraw.tryToForge(serverPlayer, itemStack.getItem());
+                WraqForge.tryToForge(serverPlayer, itemStack.getItem());
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

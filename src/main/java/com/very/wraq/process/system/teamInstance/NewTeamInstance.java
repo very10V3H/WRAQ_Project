@@ -201,8 +201,12 @@ public abstract class NewTeamInstance {
                                 append(Component.literal(String.format("%.2f", lastTick * 0.05) + "s").withStyle(ChatFormatting.AQUA)).
                                 append(Component.literal(" 通关了").withStyle(ChatFormatting.WHITE)).
                                 append(description));
-                reward();
                 players.forEach(player -> {
+                    if (!allowReward(player)) {
+
+                        return;
+                    }
+                    reward(player);
                     if (!MobSpawn.tempKillCount.containsKey(player.getName().getString()))
                         MobSpawn.tempKillCount.put(player.getName().getString(), new HashMap<>());
                     Map<String, Integer> map = MobSpawn.tempKillCount.get(player.getName().getString());
@@ -218,7 +222,11 @@ public abstract class NewTeamInstance {
 
     public abstract void handleTick(Level level);
 
-    public abstract void reward();
+    public abstract void reward(Player player);
+
+    public abstract boolean allowReward(Player player);
+
+    public abstract Component allowRewardCondition();
 
     public boolean allMobIsClear() {
         for (ConditionSummonMob conditionSummonMob : mobList) {

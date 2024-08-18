@@ -3,7 +3,7 @@ package com.very.wraq.events.core;
 import com.very.wraq.commands.changeable.PrefixCommand;
 import com.very.wraq.customized.uniform.bow.BowCurios1;
 import com.very.wraq.events.mob.MobSpawn;
-import com.very.wraq.events.mob.instance.NoTimeInstanceModule;
+import com.very.wraq.events.mob.instance.NoTeamInstanceModule;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.process.system.element.originSummon.OriginSummon;
 import com.very.wraq.process.system.instance.MobEffectAndDamageMethods;
@@ -87,7 +87,7 @@ public class LevelEvents {
         MySeason.tick(event);
 
         MobSpawn.tick(event); // 新怪物生成控制
-        NoTimeInstanceModule.tick(event); // 新副本
+        NoTeamInstanceModule.tick(event); // 新副本
 
         EffectOnMob.levelTick(event);
 

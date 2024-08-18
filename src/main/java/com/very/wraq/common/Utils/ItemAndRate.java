@@ -98,7 +98,7 @@ public class ItemAndRate {
         level.addFreshEntity(itemEntity);
     }
 
-    public void dropWithBounding(Mob mob, double num, Player player) {
+    public boolean dropWithBounding(Mob mob, double num, Player player) {
         ItemStack dropItemStack;
         if (itemStack.getItem() instanceof RandomCurios randomCurios) {
             randomCurios.setAttribute(itemStack);
@@ -110,7 +110,7 @@ public class ItemAndRate {
         dropItemStack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
         Random rand = new Random();
         double finalRate = rate * num;
-        if (finalRate < 1 && rand.nextDouble() >= finalRate) return;
+        if (finalRate < 1 && rand.nextDouble() >= finalRate) return false;
         if (finalRate > 1) {
             dropItemStack.setCount((int) finalRate);
             if (rand.nextDouble() < finalRate % 1) {
@@ -119,6 +119,7 @@ public class ItemAndRate {
         }
         InventoryCheck.addOwnerTagToItemStack(player, dropItemStack);
         summonBoundingItemEntity(mob, dropItemStack, player);
+        return true;
     }
 
     public void dropWithoutBounding(Mob mob, double num, Player player) {

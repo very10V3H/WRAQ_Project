@@ -4,6 +4,7 @@ import com.very.wraq.common.attributeValues.PlayerAttributes;
 import com.very.wraq.events.fight.MonsterAttackEvent;
 import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.events.mob.instance.NoTeamInstance;
+import com.very.wraq.events.mob.instance.NoTeamInstanceModule;
 import com.very.wraq.process.system.missions.series.dailyMission.DailyMission;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.render.particles.ModParticles;
@@ -115,6 +116,21 @@ public class DevilInstance extends NoTeamInstance {
         map.put(mobName, map.getOrDefault(mobName, 0) + 1);
 
         Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player), 150);
+    }
+
+    @Override
+    public boolean allowReward(Player player) {
+        return NoTeamInstanceModule.getPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.devil);
+    }
+
+    @Override
+    public Component allowRewardCondition() {
+        return Component.literal("需要至少").withStyle(ChatFormatting.WHITE).
+                append(Component.literal("锻造").withStyle(ChatFormatting.GRAY)).
+                append(Component.literal("过").withStyle(ChatFormatting.WHITE)).
+                append(Component.literal("1件").withStyle(ChatFormatting.AQUA)).
+                append(Component.literal("冰霜骑士装备").withStyle(CustomStyle.styleOfIce)).
+                append(Component.literal("，方能获取奖励。").withStyle(ChatFormatting.WHITE));
     }
 
     public static List<ItemAndRate> getRewardList() {

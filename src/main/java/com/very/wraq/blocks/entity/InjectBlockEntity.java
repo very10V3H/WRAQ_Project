@@ -1,11 +1,13 @@
 package com.very.wraq.blocks.entity;
 
 import com.very.wraq.blocks.blocks.InjectRecipe;
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.events.mob.instance.NoTeamInstanceModule;
 import com.very.wraq.process.func.guide.Guide;
 import com.very.wraq.render.gui.blocks.InjectBlockMenu;
 import com.very.wraq.series.instance.Castle.CastleCurios;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.Utils.Utils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -20,6 +22,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -32,6 +35,8 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 
 public class InjectBlockEntity extends BlockEntity implements MenuProvider {
@@ -182,29 +187,39 @@ public class InjectBlockEntity extends BlockEntity implements MenuProvider {
 
         if (hasInjectRecipe(blockEntity)) {
 
-            ItemStack InjectedItem = blockEntity.itemStackHandler.getStackInSlot(1);
-            ItemStack Slot2Item = blockEntity.itemStackHandler.getStackInSlot(2);
+            ItemStack injectedItem = blockEntity.itemStackHandler.getStackInSlot(1);
+            ItemStack slot2Item = blockEntity.itemStackHandler.getStackInSlot(2);
 
-            ItemStack GetItem = InjectRecipe.injectingRecipeMap.get(InjectedItem.getItem()).getForgingGetItem().getDefaultInstance();
-            if (InjectedItem.getTagElement(Utils.MOD_ID) != null)
-                GetItem.getOrCreateTagElement(Utils.MOD_ID).merge(InjectedItem.getOrCreateTagElement(Utils.MOD_ID));
-            if (GetItem.getItem() instanceof CastleCurios) {
-                GetItem.removeTagKey(Utils.MOD_ID);
-                CastleCurios.randomAttributeProvide(GetItem, 6, 1);
-                CastleCurios.RandomPassiveProvide(GetItem);
+            ItemStack productItemStack = InjectRecipe.injectingRecipeMap.get(injectedItem.getItem()).getForgingGetItem().getDefaultInstance();
+            if (injectedItem.getTagElement(Utils.MOD_ID) != null)
+                productItemStack.getOrCreateTagElement(Utils.MOD_ID).merge(injectedItem.getOrCreateTagElement(Utils.MOD_ID));
+            if (productItemStack.getItem() instanceof CastleCurios) {
+                productItemStack.removeTagKey(Utils.MOD_ID);
+                CastleCurios.randomAttributeProvide(productItemStack, 6, 1);
+                CastleCurios.RandomPassiveProvide(productItemStack);
             }
             if (player != null) {
                 Compute.formatBroad(blockEntity.level, Component.literal("打造").withStyle(ChatFormatting.GRAY),
                         Component.literal("").withStyle(ChatFormatting.WHITE).
                                 append(player.getDisplayName()).
                                 append(" 成功打造了 ").withStyle(ChatFormatting.WHITE).
-                                append(GetItem.getDisplayName()));
+                                append(productItemStack.getDisplayName()));
             }
 
-            GetItem.setCount(Slot2Item.getCount() + 1);
-            blockEntity.itemStackHandler.extractItem(0, InjectRecipe.injectingRecipeMap.get(InjectedItem.getItem()).getMaterialCount(), false);
-            blockEntity.itemStackHandler.extractItem(1, InjectRecipe.injectingRecipeMap.get(InjectedItem.getItem()).getOriginalMaterialNeedCount(), false);
-            blockEntity.itemStackHandler.setStackInSlot(2, GetItem);
+            List<Item> plainBossTier3Rings = List.of(ModItems.PlainAttackRing3.get(), ModItems.PlainManaAttackRing3.get(),
+                    ModItems.PlainHealthRing3.get(), ModItems.PlainDefenceRing3.get());
+            if (plainBossTier3Rings.contains(productItemStack.getItem())) NoTeamInstanceModule
+                    .putPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.nether, true);
+
+            List<Item> devilWeapons = List.of(ModItems.DevilSword.get(), ModItems.DevilBow.get(), ModItems.DevilSceptre.get());
+            if (devilWeapons.contains(productItemStack.getItem())) {
+                NoTeamInstanceModule.putPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.moon, true);
+            }
+
+            productItemStack.setCount(slot2Item.getCount() + 1);
+            blockEntity.itemStackHandler.extractItem(0, InjectRecipe.injectingRecipeMap.get(injectedItem.getItem()).getMaterialCount(), false);
+            blockEntity.itemStackHandler.extractItem(1, InjectRecipe.injectingRecipeMap.get(injectedItem.getItem()).getOriginalMaterialNeedCount(), false);
+            blockEntity.itemStackHandler.setStackInSlot(2, productItemStack);
         }
     }
 

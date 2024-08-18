@@ -16,7 +16,7 @@ import com.very.wraq.entities.entities.SakuraMob.SakuraMob;
 import com.very.wraq.entities.entities.Scarecrow.Scarecrow;
 import com.very.wraq.events.core.BlockEvent;
 import com.very.wraq.events.mob.MobSpawn;
-import com.very.wraq.events.mob.instance.NoTimeInstanceModule;
+import com.very.wraq.events.mob.instance.NoTeamInstanceModule;
 import com.very.wraq.events.mob.loot.*;
 import com.very.wraq.files.dataBases.DataBase;
 import com.very.wraq.networking.ModNetworking;
@@ -212,7 +212,7 @@ public class VMD {
         statement.close();
         connection.close();
 
-        NoTimeInstanceModule.clearMob();
+        NoTeamInstanceModule.clearMob();
         NewTeamInstanceEvent.getOverworldInstances().forEach(NewTeamInstance::clear);
         VpDataHandler.write();
     }

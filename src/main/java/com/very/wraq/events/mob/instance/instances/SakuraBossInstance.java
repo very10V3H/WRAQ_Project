@@ -4,11 +4,13 @@ import com.very.wraq.common.attributeValues.PlayerAttributes;
 import com.very.wraq.entities.entities.Boss2.Boss2;
 import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.events.mob.instance.NoTeamInstance;
+import com.very.wraq.events.mob.instance.NoTeamInstanceModule;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.ModEntityType;
 import com.very.wraq.common.Utils.ItemAndRate;
 import com.very.wraq.common.registry.ModItems;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerBossEvent;
@@ -78,6 +80,21 @@ public class SakuraBossInstance extends NoTeamInstance {
         Map<String, Integer> map = MobSpawn.tempKillCount.get(name);
         map.put(mobName, map.getOrDefault(mobName, 0) + 1);
         Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player), 150);
+    }
+
+    @Override
+    public boolean allowReward(Player player) {
+        return NoTeamInstanceModule.getPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.sakuraBoss);
+    }
+
+    @Override
+    public Component allowRewardCondition() {
+        return Component.literal("需要至少").withStyle(ChatFormatting.WHITE).
+                append(Component.literal("锻造").withStyle(ChatFormatting.GRAY)).
+                append(Component.literal("过").withStyle(ChatFormatting.WHITE)).
+                append(Component.literal("1件").withStyle(ChatFormatting.AQUA)).
+                append(Component.literal("冰霜骑士装备").withStyle(CustomStyle.styleOfIce)).
+                append(Component.literal("，方能获取奖励。").withStyle(ChatFormatting.WHITE));
     }
 
     public static List<ItemAndRate> getRewardList() {

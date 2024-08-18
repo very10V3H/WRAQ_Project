@@ -4,6 +4,7 @@ import com.very.wraq.common.attributeValues.PlayerAttributes;
 import com.very.wraq.events.instance.Castle;
 import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.events.mob.instance.NoTeamInstance;
+import com.very.wraq.events.mob.instance.NoTeamInstanceModule;
 import com.very.wraq.process.system.teamInstance.NewTeamInstance;
 import com.very.wraq.projectiles.mana.ManaArrow;
 import com.very.wraq.render.toolTip.CustomStyle;
@@ -196,27 +197,40 @@ public class NewCastleInstance extends NewTeamInstance {
     }
 
     @Override
-    public void reward() {
-        players.forEach(player -> {
-            if (NoTeamInstance.playerHasItem(player)) {
-                Compute.itemStackRemove(player.getInventory(), ModItems.notePaper.get(), 1);
+    public void reward(Player player) {
+        if (NoTeamInstance.playerHasItem(player)) {
+            Compute.itemStackRemove(player.getInventory(), ModItems.notePaper.get(), 1);
 
-                getRewardList().forEach(itemAndRate -> {
-                    try {
-                        itemAndRate.send(player, (1 + Compute.playerExHarvest(player)));
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                });
-                Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player), 180);
+            getRewardList().forEach(itemAndRate -> {
+                try {
+                    itemAndRate.send(player, (1 + Compute.playerExHarvest(player)));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+            Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player), 180);
 
-            } else {
-                Compute.sendFormatMSG(player, Component.literal("副本").withStyle(ChatFormatting.RED),
-                        Component.literal("你的背包中没有 ").withStyle(ChatFormatting.WHITE).
-                                append(ModItems.notePaper.get().getDefaultInstance().getDisplayName()).
-                                append(Component.literal(" 因此你无法获得奖励").withStyle(ChatFormatting.WHITE)));
-            }
-        });
+        } else {
+            Compute.sendFormatMSG(player, Component.literal("副本").withStyle(ChatFormatting.RED),
+                    Component.literal("你的背包中没有 ").withStyle(ChatFormatting.WHITE).
+                            append(ModItems.notePaper.get().getDefaultInstance().getDisplayName()).
+                            append(Component.literal(" 因此你无法获得奖励").withStyle(ChatFormatting.WHITE)));
+        }
+    }
+
+    @Override
+    public boolean allowReward(Player player) {
+        return NoTeamInstanceModule.getPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.blackCastle);
+    }
+
+    @Override
+    public Component allowRewardCondition() {
+        return Component.literal("需要至少").withStyle(ChatFormatting.WHITE).
+                append(Component.literal("锻造").withStyle(ChatFormatting.GRAY)).
+                append(Component.literal("过").withStyle(ChatFormatting.WHITE)).
+                append(Component.literal("1件").withStyle(ChatFormatting.AQUA)).
+                append(Component.literal("尘月宫装备").withStyle(CustomStyle.styleOfMoon)).
+                append(Component.literal("，方能获取奖励。").withStyle(ChatFormatting.WHITE));
     }
 
     public static List<ItemAndRate> getRewardList() {

@@ -1,17 +1,44 @@
 package com.very.wraq.events.mob.instance;
 
 import com.very.wraq.events.mob.instance.instances.*;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.TickEvent;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class NoTimeInstanceModule {
+public class NoTeamInstanceModule {
+
+    public static class AllowRewardKey {
+        public static String allowRewardInstance = "allowRewardInstance";
+        public static String nether = "allowRewardNether";
+        public static String purpleIron = "allowRewardPurpleIron";
+        public static String iceKnight = "allowRewardIceKnight";
+        public static String sakuraBoss = "allowRewardSakuraBoss";
+        public static String devil = "allowRewardDevil";
+        public static String moon = "allowRewardMoon";
+        public static String blackCastle = "allowRewardBlackCastle";
+    }
+
+    public static boolean getPlayerAllowReward(Player player, String tag) {
+        return getPlayerAllowRewardTag(player).getBoolean(tag);
+    }
+
+    public static void putPlayerAllowReward(Player player, String tag, boolean value) {
+        getPlayerAllowRewardTag(player).putBoolean(tag, value);
+    }
+
+    public static CompoundTag getPlayerAllowRewardTag(Player player) {
+        CompoundTag compoundTag = player.getPersistentData();
+        if (!compoundTag.contains(AllowRewardKey.allowRewardInstance)) compoundTag.put(AllowRewardKey.allowRewardInstance, new CompoundTag());
+        return compoundTag.getCompound(AllowRewardKey.allowRewardInstance);
+    }
 
     public static List<NoTeamInstance> noTeamInstancesOverworld = new ArrayList<>() {{
         add(PlainInstance.getInstance());

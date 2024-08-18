@@ -5,12 +5,14 @@ import com.github.L_Ender.cataclysm.init.ModEntities;
 import com.very.wraq.common.attributeValues.PlayerAttributes;
 import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.events.mob.instance.NoTeamInstance;
+import com.very.wraq.events.mob.instance.NoTeamInstanceModule;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.process.system.missions.series.dailyMission.DailyMission;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.Utils.ItemAndRate;
 import com.very.wraq.common.registry.ModItems;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerBossEvent;
@@ -18,6 +20,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -77,7 +80,15 @@ public class PurpleIronInstance extends NoTeamInstance {
     @Override
     public void rewardModule(Player player) {
         List<ItemAndRate> rewardList = getRewardList();
-        rewardList.forEach(itemAndRate -> itemAndRate.dropWithBounding(lastMob, 1, player));
+        List<Item> purpleIronQUWeapons = List.of(ModItems.PurpleIronSword.get(),
+                ModItems.PurpleIronBow.get(), ModItems.PurpleIronSceptre.get());
+        rewardList.forEach(itemAndRate -> {
+            if (itemAndRate.dropWithBounding(lastMob, 1, player)) {
+                if (purpleIronQUWeapons.contains(itemAndRate.getItemStack().getItem())) {
+                    NoTeamInstanceModule.putPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.iceKnight, true);
+                }
+            }
+        });
         DailyMission.addCount(player, DailyMission.purpleIronInstanceCountMap);
 
         String name = player.getName().getString();
@@ -85,7 +96,23 @@ public class PurpleIronInstance extends NoTeamInstance {
         Map<String, Integer> map = MobSpawn.tempKillCount.get(name);
         map.put(mobName, map.getOrDefault(mobName, 0) + 1);
         Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player), 120);
+    }
 
+    @Override
+    public boolean allowReward(Player player) {
+        if (MobSpawn.totalKillCount.getOrDefault(player.getName().getString(), new HashMap<>())
+                .getOrDefault(NetherInstance.mobName, 0) >= 50) {
+            NoTeamInstanceModule.putPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.nether, true);
+        }
+        return NoTeamInstanceModule.getPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.purpleIron);
+    }
+
+    @Override
+    public Component allowRewardCondition() {
+        return Component.literal("需要击杀").withStyle(ChatFormatting.WHITE).
+                append(Component.literal("50次").withStyle(ChatFormatting.AQUA)).
+                append(Component.literal("燃魂").withStyle(CustomStyle.styleOfPower)).
+                append(Component.literal("，方能获取奖励").withStyle(ChatFormatting.WHITE));
     }
 
     public static List<ItemAndRate> getRewardList() {

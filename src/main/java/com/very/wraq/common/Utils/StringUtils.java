@@ -1,6 +1,6 @@
 package com.very.wraq.common.Utils;
 
-import com.very.wraq.Items.Forging.ForgeDraw;
+import com.very.wraq.Items.Forging.WraqForge;
 import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -1200,7 +1200,7 @@ public class StringUtils {
         public static String originString = "0".repeat(64);
 
         public static Map<String, Integer> indexMap = new HashMap<>() {{
-            put(ForgeDraw.firstTimeForge, 0);
+            put(WraqForge.firstTimeForge, 0);
         }};
 
         public static String getPlayerString(Player player) {

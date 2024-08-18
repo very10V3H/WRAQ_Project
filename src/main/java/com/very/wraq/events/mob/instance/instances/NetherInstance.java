@@ -4,11 +4,13 @@ import com.github.L_Ender.cataclysm.entity.AnimationMonster.BossMonsters.Ignited
 import com.github.L_Ender.cataclysm.init.ModEntities;
 import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.events.mob.instance.NoTeamInstance;
+import com.very.wraq.events.mob.instance.NoTeamInstanceModule;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.instance.Castle.CastleCurios;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.Utils.ItemAndRate;
 import com.very.wraq.common.registry.ModItems;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerBossEvent;
@@ -80,6 +82,20 @@ public class NetherInstance extends NoTeamInstance {
         if (!MobSpawn.tempKillCount.containsKey(name)) MobSpawn.tempKillCount.put(name, new HashMap<>());
         Map<String, Integer> map = MobSpawn.tempKillCount.get(name);
         map.put(mobName, map.getOrDefault(mobName, 0) + 1);
+    }
+
+    @Override
+    public boolean allowReward(Player player) {
+        return NoTeamInstanceModule.getPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.nether);
+    }
+
+    @Override
+    public Component allowRewardCondition() {
+        return Component.literal("需要将任意").withStyle(ChatFormatting.WHITE).
+                append(Component.literal("普莱尼戒指").withStyle(CustomStyle.styleOfPlain)).
+                append(Component.literal("提升至").withStyle(ChatFormatting.WHITE)).
+                append(Component.literal("3阶").withStyle(ChatFormatting.AQUA)).
+                append(Component.literal("，方能获取奖励").withStyle(ChatFormatting.WHITE));
     }
 
     public static List<ItemAndRate> getRewardList() {

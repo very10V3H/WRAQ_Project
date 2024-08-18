@@ -2,12 +2,14 @@ package com.very.wraq.Items.MainStory_1.Mission;
 
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.Utils.ClientUtils;
-import com.very.wraq.process.system.endlessinstance.DailyEndlessInstanceEvent;
+import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -77,9 +79,17 @@ public class Main0 extends Item {
             int tick = player.getServer().getTickCount();
             CompoundTag data = player.getPersistentData();
 
-            DailyEndlessInstanceEvent.getEndlessInstanceList().forEach(instance -> {
-                instance.active(player);
+            List<? extends Entity> mobList = Compute.getNearEntity(player, Mob.class, 6);
+            mobList.stream().filter(e -> e instanceof Mob).forEach(e -> {
+                Mob mob = (Mob) e;
+                Compute.sendMobEffectHudToNearPlayer(mob, ModItems.goldCoin.get(), "test-g", 200, 1, false);
+                Compute.sendMobEffectHudToNearPlayer(mob, ModItems.silverCoin.get(), "test-s", 100, 2, true);
+                player.sendSystemMessage(Component.literal("1"));
             });
+
+/*            DailyEndlessInstanceEvent.getEndlessInstanceList().forEach(instance -> {
+                instance.active(player);
+            });*/
 
 /*            SummerEvent.playerExHarvestEndTick.put(name, tick + (15 * 60 * 20));
             SummerEvent.sendFormatMSG(player, Component.literal("因为").withStyle(ChatFormatting.WHITE).

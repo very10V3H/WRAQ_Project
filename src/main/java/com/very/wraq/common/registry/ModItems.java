@@ -821,19 +821,19 @@ public class ModItems {
     public static final RegistryObject<Item> lightningArmorHelmet = ITEMS.register("islandarmorhelmet",
             () -> new LightningArmor(ItemMaterial.IslandMaterial, ArmorItem.Type.HELMET, new Item.Properties().rarity(CustomStyle.LightningItalic), 600, 240));
     public static final RegistryObject<Item> IslandHelmetForgeDraw = ITEMS.register("island_helmet_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.LightningBold), ModItems.lightningArmorHelmet.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.LightningBold), ModItems.lightningArmorHelmet.get()));
     public static final RegistryObject<Item> lightningArmorChest = ITEMS.register("islandarmorchest",
             () -> new LightningArmor(ItemMaterial.IslandMaterial, ArmorItem.Type.CHESTPLATE, new Item.Properties().rarity(CustomStyle.LightningItalic), 1000, 330));
     public static final RegistryObject<Item> IslandChestForgeDraw = ITEMS.register("island_chest_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.LightningBold), ModItems.lightningArmorChest.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.LightningBold), ModItems.lightningArmorChest.get()));
     public static final RegistryObject<Item> lightningArmorLeggings = ITEMS.register("islandarmorleggings",
             () -> new LightningArmor(ItemMaterial.IslandMaterial, ArmorItem.Type.LEGGINGS, new Item.Properties().rarity(CustomStyle.LightningItalic), 800, 300));
     public static final RegistryObject<Item> IslandLeggingsForgeDraw = ITEMS.register("island_leggings_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.LightningBold), ModItems.lightningArmorLeggings.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.LightningBold), ModItems.lightningArmorLeggings.get()));
     public static final RegistryObject<Item> lightningArmorBoots = ITEMS.register("islandarmorboots",
             () -> new LightningArmor(ItemMaterial.IslandMaterial, ArmorItem.Type.BOOTS, new Item.Properties().rarity(CustomStyle.LightningItalic), 300, 210));
     public static final RegistryObject<Item> IslandBootsForgeDraw = ITEMS.register("island_boots_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.LightningBold), ModItems.lightningArmorBoots.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.LightningBold), ModItems.lightningArmorBoots.get()));
 
     public static final RegistryObject<Item> SeaSword0 = ITEMS.register("seasword0",
             () -> new SeaSword(new Item.Properties().rarity(CustomStyle.SeaItalic), 0));
@@ -845,7 +845,7 @@ public class ModItems {
             () -> new SeaSword(new Item.Properties().rarity(CustomStyle.SeaItalic), 3));
 
     public static final RegistryObject<Item> SeaSwordForgeDraw = ITEMS.register("sea_sword_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.SeaBold), ModItems.SeaSword0.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.SeaBold), ModItems.SeaSword0.get()));
     public static final RegistryObject<Item> huskSword0 = ITEMS.register("blackforestsword0",
             () -> new HuskSword(new Item.Properties().rarity(CustomStyle.HuskItalic), 0));
     public static final RegistryObject<Item> huskSword1 = ITEMS.register("blackforestsword1",
@@ -856,7 +856,7 @@ public class ModItems {
             () -> new HuskSword(new Item.Properties().rarity(CustomStyle.HuskItalic), 3));
 
     public static final RegistryObject<Item> BlackForestSwordForgeDraw = ITEMS.register("blackforest_sword_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.HuskBold), ModItems.huskSword0.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.HuskBold), ModItems.huskSword0.get()));
     public static final RegistryObject<Item> volcanoRune0 = ITEMS.register("volcanorune0",
             () -> new VolcanoRune0(new Item.Properties().rarity(CustomStyle.Volcano)));
     public static final RegistryObject<Item> volcanoRune1 = ITEMS.register("volcanorune1",
@@ -870,36 +870,36 @@ public class ModItems {
     public static final RegistryObject<Item> SkyArmorHelmet = ITEMS.register("skyarmorhelmet",
             () -> new SkyArmorHelmet(ItemMaterial.SkyMaterial, ArmorItem.Type.HELMET));
     public static final RegistryObject<Item> SkyHelmetForgeDraw = ITEMS.register("sky_helmet_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.SkyBold), ModItems.SkyArmorHelmet.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.SkyBold), ModItems.SkyArmorHelmet.get()));
     public static final RegistryObject<Item> SkyArmorChest = ITEMS.register("skyarmorchest",
             () -> new SkyArmorChest(ItemMaterial.SkyMaterial, ArmorItem.Type.CHESTPLATE));
     public static final RegistryObject<Item> SkyChestForgeDraw = ITEMS.register("sky_chest_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.SkyBold), ModItems.SkyArmorChest.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.SkyBold), ModItems.SkyArmorChest.get()));
     public static final RegistryObject<Item> SkyArmorLeggings = ITEMS.register("skyarmorleggings",
             () -> new SkyArmorLeggings(ItemMaterial.SkyMaterial, ArmorItem.Type.LEGGINGS));
     public static final RegistryObject<Item> SkyLeggingsForgeDraw = ITEMS.register("sky_leggings_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.SkyBold), ModItems.SkyArmorLeggings.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.SkyBold), ModItems.SkyArmorLeggings.get()));
     public static final RegistryObject<Item> SkyArmorBoots = ITEMS.register("skyarmorboots",
             () -> new SkyArmorBoots(ItemMaterial.SkyMaterial, ArmorItem.Type.BOOTS));
     public static final RegistryObject<Item> SkyBootsForgeDraw = ITEMS.register("sky_boots_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.SkyBold), ModItems.SkyArmorBoots.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.SkyBold), ModItems.SkyArmorBoots.get()));
 
     public static final RegistryObject<Item> NetherArmorHelmet = ITEMS.register("netherarmorhelmet",
             () -> new NetherArmor(ItemMaterial.NetherAll, ArmorItem.Type.HELMET, new Item.Properties().rarity(CustomStyle.NetherItalic)));
     public static final RegistryObject<Item> NetherHelmetForgeDraw = ITEMS.register("nether_helmet_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.NetherBold), ModItems.NetherArmorHelmet.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.NetherBold), ModItems.NetherArmorHelmet.get()));
     public static final RegistryObject<Item> NetherArmorChest = ITEMS.register("netherarmorchest",
             () -> new NetherArmor(ItemMaterial.NetherAll, ArmorItem.Type.CHESTPLATE, new Item.Properties().rarity(CustomStyle.NetherItalic)));
     public static final RegistryObject<Item> NetherChestForgeDraw = ITEMS.register("nether_chest_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.NetherBold), ModItems.NetherArmorChest.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.NetherBold), ModItems.NetherArmorChest.get()));
     public static final RegistryObject<Item> NetherArmorLeggings = ITEMS.register("netherarmorleggings",
             () -> new NetherArmor(ItemMaterial.NetherAll, ArmorItem.Type.LEGGINGS, new Item.Properties().rarity(CustomStyle.NetherItalic)));
     public static final RegistryObject<Item> NetherLeggingsForgeDraw = ITEMS.register("nether_leggings_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.NetherBold), ModItems.NetherArmorLeggings.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.NetherBold), ModItems.NetherArmorLeggings.get()));
     public static final RegistryObject<Item> NetherArmorBoots = ITEMS.register("netherarmorboots",
             () -> new NetherArmor(ItemMaterial.NetherAll, ArmorItem.Type.BOOTS, new Item.Properties().rarity(CustomStyle.NetherItalic)));
     public static final RegistryObject<Item> NetherBootsForgeDraw = ITEMS.register("nether_boots_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.NetherBold), ModItems.NetherArmorBoots.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.NetherBold), ModItems.NetherArmorBoots.get()));
 
     public static final RegistryObject<Item> GoldCoinBag = ITEMS.register("goldcoinbag",
             () -> new GoldCoinBag(new Item.Properties().rarity(Rarity.UNCOMMON)));
@@ -976,7 +976,7 @@ public class ModItems {
             () -> new KazeSword(new Item.Properties().rarity(CustomStyle.KazeItalic), 3));
 
     public static final RegistryObject<Item> KazeSwordForgeDraw = ITEMS.register("kaze_sword_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.KazeBold), ModItems.KazeSword0.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.KazeBold), ModItems.KazeSword0.get()));
     public static final RegistryObject<Item> ArmorKazeChest = ITEMS.register("armorkazechest",
             () -> new MobArmor(ItemMaterial.ArmorKaze, ArmorItem.Type.CHESTPLATE, 100, 50, 70));
     public static final RegistryObject<Item> ArmorKazeLeggings = ITEMS.register("armorkazeleggings",
@@ -994,7 +994,7 @@ public class ModItems {
     public static final RegistryObject<Item> KazeBoots = ITEMS.register("kazeboots",
             () -> new KazeArmorBoots(ItemMaterial.ArmorKaze, ArmorItem.Type.BOOTS));
     public static final RegistryObject<Item> KazeBootsForgeDraw = ITEMS.register("kaze_boots_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.KazeBold), ModItems.KazeBoots.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.KazeBold), ModItems.KazeBoots.get()));
     public static final RegistryObject<Item> NetherGem = ITEMS.register("nethergem",
             () -> new RandomGemNether(new Item.Properties().rarity(CustomStyle.NetherItalic)));
     public static final RegistryObject<Item> SpiderSoul = ITEMS.register("spidersoul",
@@ -1230,7 +1230,7 @@ public class ModItems {
     public static final RegistryObject<Item> ForestBossSword = ITEMS.register("forest_boss_sword",
             () -> new ForestBossSword(ItemTier.VMaterial, 2, 0));
     public static final RegistryObject<Item> ForestBossSwordForgeDraw = ITEMS.register("forest_sword4_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.ForestBold), ModItems.ForestBossSword.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.ForestBold), ModItems.ForestBossSword.get()));
 
     public static final RegistryObject<Item> VolcanoBossPocket = ITEMS.register("volcano_boss_pocket",
             () -> new VolcanoBossPocket(new Item.Properties().rarity(CustomStyle.VolcanoBold)));
@@ -1243,7 +1243,7 @@ public class ModItems {
     public static final RegistryObject<Item> VolcanoBossSword = ITEMS.register("volcano_boss_sword",
             () -> new VolcanoBossSword(ItemTier.VMaterial, 2, 0));
     public static final RegistryObject<Item> VolcanoBossSwordForgeDraw = ITEMS.register("volcano_sword4_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.VolcanoBold), ModItems.VolcanoBossSword.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.VolcanoBold), ModItems.VolcanoBossSword.get()));
 
     public static final RegistryObject<Item> ArmorForestBoss = ITEMS.register("armor_forest_boss",
             () -> new MobArmor(ItemMaterial.MaterialForBoss, ArmorItem.Type.HELMET, StringUtils.MobName.ForestBoss));
@@ -1266,7 +1266,7 @@ public class ModItems {
             () -> new SakuraSword(new Item.Properties().rarity(CustomStyle.SakuraItalic)));
 
     public static final RegistryObject<Item> SakuraSwordForgeDraw = ITEMS.register("sakura_sword_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.SakuraBold), ModItems.SakuraDemonSword.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.SakuraBold), ModItems.SakuraDemonSword.get()));
 
     public static final RegistryObject<Item> SakuraArmorHelmet = ITEMS.register("sakura_armor_helmet",
             () -> new SakuraArmorHelmet(ItemMaterial.Lake, ArmorItem.Type.HELMET));
@@ -1286,7 +1286,7 @@ public class ModItems {
             () -> new MinePants(ItemMaterial.LakeMaterialChest, ArmorItem.Type.LEGGINGS));
 
     public static final RegistryObject<Item> MinePantsForgingDraw = ITEMS.register("mine_leggings_fd",
-            () -> new ForgeDraw(new Item.Properties().rarity(Rarity.EPIC), ModItems.MinePants.get()));
+            () -> new WraqForge(new Item.Properties().rarity(Rarity.EPIC), ModItems.MinePants.get()));
 
     public static final RegistryObject<Item> PlainBracelet = ITEMS.register("plainbracelet",
             () -> new PlainBracelet());
@@ -1324,7 +1324,7 @@ public class ModItems {
     public static final RegistryObject<Item> LakeBossSword = ITEMS.register("lake_boss_sword",
             () -> new LakeBoss.LakeBossSword(ItemTier.VMaterial, 2, 0));
     public static final RegistryObject<Item> LakeBossSwordForgeDraw = ITEMS.register("lake_sword4_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.LakeBold), ModItems.LakeBossSword.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.LakeBold), ModItems.LakeBossSword.get()));
 
     public static final RegistryObject<Item> LakeBossCore = ITEMS.register("lake_boss_core",
             () -> new LakeBoss.LakeBossCore(new Item.Properties().rarity(CustomStyle.LakeBold)));
@@ -1340,7 +1340,7 @@ public class ModItems {
     public static final RegistryObject<Item> SkyBossBow = ITEMS.register("sky_boss_bow",
             () -> new SkyBoss.SkyBossBow(new Item.Properties().rarity(CustomStyle.EntropyItalic).stacksTo(1)));
     public static final RegistryObject<Item> SkyBossBowForgeDraw = ITEMS.register("sky_boss_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.SkyBold), ModItems.SkyBossBow.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.SkyBold), ModItems.SkyBossBow.get()));
     public static final RegistryObject<Item> SkyBossCore = ITEMS.register("sky_boss_core",
             () -> new SkyBoss.SkyBossCore(new Item.Properties().rarity(CustomStyle.SkyBold)));
     public static final RegistryObject<Item> SkyBossGem = ITEMS.register("sky_boss_gem",
@@ -1625,7 +1625,7 @@ public class ModItems {
             () -> new SnowPower(new Item.Properties().rarity(CustomStyle.SnowItalic), 3));
 
     public static final RegistryObject<Item> SnowBossChestForgeDraw = ITEMS.register("snow_boss_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.SnowBold), ModItems.SnowBossArmorChest.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.SnowBold), ModItems.SnowBossArmorChest.get()));
 
 
     public static final RegistryObject<Item> PlainSoulBag = ITEMS.register("plain_soul_bag",
@@ -1725,13 +1725,13 @@ public class ModItems {
             () -> new KazeCore(new Item.Properties().rarity(CustomStyle.KazeBold)));
 
     public static final RegistryObject<Item> SeaManaCoreForgeDraw = ITEMS.register("sea_mana_core_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.SeaBold), ModItems.SeaManaCore.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.SeaBold), ModItems.SeaManaCore.get()));
 
     public static final RegistryObject<Item> BlackForestManaCoreForgeDraw = ITEMS.register("blackforest_mana_core_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.HuskBold), ModItems.BlackForestManaCore.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.HuskBold), ModItems.BlackForestManaCore.get()));
 
     public static final RegistryObject<Item> KazeManaCoreForgeDraw = ITEMS.register("kaze_mana_core_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.KazeBold), ModItems.KazeManaCore.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.KazeBold), ModItems.KazeManaCore.get()));
 
     public static final RegistryObject<Item> QuiverBag = ITEMS.register("quiver_bag",
             () -> new Item(new Item.Properties().rarity(Rarity.EPIC)));
@@ -1743,10 +1743,10 @@ public class ModItems {
             () -> new SakuraCore(new Item.Properties().rarity(CustomStyle.SakuraBold)));
 
     public static final RegistryObject<Item> SakuraBowForgingDraw = ITEMS.register("sakura_bow_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.SakuraBold), ModItems.SakuraBow.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.SakuraBold), ModItems.SakuraBow.get()));
 
     public static final RegistryObject<Item> SakuraCoreForgingDraw = ITEMS.register("sakura_mana_core_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.SakuraBold), ModItems.SakuraCore.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.SakuraBold), ModItems.SakuraCore.get()));
 
     public static final RegistryObject<Item> PurpleIron = ITEMS.register("purpleiron",
             () -> new Item(new Item.Properties().rarity(CustomStyle.PurpleIron)));
@@ -1821,16 +1821,16 @@ public class ModItems {
             () -> new Item(new Item.Properties().rarity(CustomStyle.IceBold)));
 
     public static final RegistryObject<Item> IceHelmetForgeDraw = ITEMS.register("ice_helmet_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.IceBold), ModItems.IceArmorHelmet.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.IceBold), ModItems.IceArmorHelmet.get()));
 
     public static final RegistryObject<Item> IceChestForgeDraw = ITEMS.register("ice_chest_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.IceBold), ModItems.IceArmorChest.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.IceBold), ModItems.IceArmorChest.get()));
 
     public static final RegistryObject<Item> IceLeggingsForgeDraw = ITEMS.register("ice_leggings_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.IceBold), ModItems.IceArmorLeggings.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.IceBold), ModItems.IceArmorLeggings.get()));
 
     public static final RegistryObject<Item> IceBootsForgeDraw = ITEMS.register("ice_boots_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.IceBold), ModItems.IceArmorBoots.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.IceBold), ModItems.IceArmorBoots.get()));
 
     public static final RegistryObject<Item> FantasyMedal = ITEMS.register("fantasy_medal",
             () -> new FantasyMedal(new Item.Properties().rarity(CustomStyle.FantasyBold)));
@@ -1893,7 +1893,7 @@ public class ModItems {
             () -> new SeaBow(new Item.Properties().rarity(CustomStyle.SeaBold)));
 
     public static final RegistryObject<Item> SeaBowForgeDraw = ITEMS.register("sea_bow_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.SeaBold), ModItems.SeaBow.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.SeaBold), ModItems.SeaBow.get()));
 
     public static final RegistryObject<Item> MineBow0 = ITEMS.register("minebow0",
             () -> new MineBow(new Item.Properties().stacksTo(1).rarity(CustomStyle.MineItalic), 0));
@@ -1914,13 +1914,13 @@ public class ModItems {
             () -> new IceSceptre(new Item.Properties().rarity(CustomStyle.IceItalic), 0));
 
     public static final RegistryObject<Item> IceSwordForgeDraw = ITEMS.register("ice_sword_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.IceBold), ModItems.IceSword.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.IceBold), ModItems.IceSword.get()));
 
     public static final RegistryObject<Item> IceBowForgeDraw = ITEMS.register("ice_bow_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.IceBold), ModItems.IceBow.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.IceBold), ModItems.IceBow.get()));
 
     public static final RegistryObject<Item> IceSceptreForgeDraw = ITEMS.register("ice_sceptre_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.IceBold), ModItems.IceSceptre.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.IceBold), ModItems.IceSceptre.get()));
 
     public static final RegistryObject<Item> LifeManaArmorHelmetE = ITEMS.register("life_armor_helmet_e",
             () -> new LifeMana1(ItemMaterial.ArmorLifeE, ArmorItem.Type.HELMET, new Item.Properties().rarity(CustomStyle.LifeItalic)));
@@ -1965,13 +1965,13 @@ public class ModItems {
             () -> new Item(new Item.Properties().rarity(CustomStyle.ShipBold)));
 
     public static final RegistryObject<Item> ShipSwordForgeDraw = ITEMS.register("ship_sword_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.ShipBold), ModItems.ShipSword.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.ShipBold), ModItems.ShipSword.get()));
 
     public static final RegistryObject<Item> ShipBowForgeDraw = ITEMS.register("ship_bow_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.ShipBold), ModItems.ShipBow.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.ShipBold), ModItems.ShipBow.get()));
 
     public static final RegistryObject<Item> ShipSceptreForgeDraw = ITEMS.register("ship_sceptre_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.ShipBold), ModItems.ShipSceptre.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.ShipBold), ModItems.ShipSceptre.get()));
 
     public static final RegistryObject<Item> IceLoot = ITEMS.register("ice_loot",
             () -> new IceLoot(new Item.Properties().rarity(CustomStyle.Ice)));
@@ -2007,19 +2007,19 @@ public class ModItems {
             () -> new NetherManaArmor(ItemMaterial.NetherMana, ArmorItem.Type.BOOTS, new Item.Properties().rarity(CustomStyle.NetherItalic)));
 
     public static final RegistryObject<Item> NetherSceptreForgeDraw = ITEMS.register("nether_sceptre_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.NetherBold), ModItems.NetherSceptre.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.NetherBold), ModItems.NetherSceptre.get()));
 
     public static final RegistryObject<Item> NetherManaHelmetForgeDraw = ITEMS.register("nether_mana_helmet_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.NetherBold), ModItems.NetherManaArmorHelmet.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.NetherBold), ModItems.NetherManaArmorHelmet.get()));
 
     public static final RegistryObject<Item> NetherManaChestForgeDraw = ITEMS.register("nether_mana_chest_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.NetherBold), ModItems.NetherManaArmorChest.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.NetherBold), ModItems.NetherManaArmorChest.get()));
 
     public static final RegistryObject<Item> NetherManaLeggingsForgeDraw = ITEMS.register("nether_mana_leggings_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.NetherBold), ModItems.NetherManaArmorLeggings.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.NetherBold), ModItems.NetherManaArmorLeggings.get()));
 
     public static final RegistryObject<Item> NetherManaBootsForgeDraw = ITEMS.register("nether_mana_boots_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.NetherBold), ModItems.NetherManaArmorBoots.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.NetherBold), ModItems.NetherManaArmorBoots.get()));
 
     public static final RegistryObject<Item> FireWorkGun = ITEMS.register("fire_work_gun",
             () -> new FireWorkGun(new Item.Properties().rarity(Rarity.EPIC)));
@@ -2151,40 +2151,40 @@ public class ModItems {
             () -> new SpringManaArmor(ItemMaterial.Spring, ArmorItem.Type.BOOTS, new Item.Properties().rarity(CustomStyle.SpringItalic), 3));
 
     public static final RegistryObject<Item> SpringAttackHelmetForgeDraw = ITEMS.register("spring_attack_helmet_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.SpringBold), ModItems.SpringAttackArmorHelmet.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.SpringBold), ModItems.SpringAttackArmorHelmet.get()));
 
     public static final RegistryObject<Item> SpringAttackChestForgeDraw = ITEMS.register("spring_attack_chest_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.SpringBold), ModItems.SpringAttackArmorChest.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.SpringBold), ModItems.SpringAttackArmorChest.get()));
 
     public static final RegistryObject<Item> SpringAttackLeggingsForgeDraw = ITEMS.register("spring_attack_leggings_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.SpringBold), ModItems.SpringAttackArmorLeggings.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.SpringBold), ModItems.SpringAttackArmorLeggings.get()));
 
     public static final RegistryObject<Item> SpringAttackBootsForgeDraw = ITEMS.register("spring_attack_boots_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.SpringBold), ModItems.SpringAttackArmorBoots.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.SpringBold), ModItems.SpringAttackArmorBoots.get()));
 
     public static final RegistryObject<Item> SpringSwiftHelmetForgeDraw = ITEMS.register("spring_swift_helmet_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.SpringBold), ModItems.SpringSwiftArmorHelmet.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.SpringBold), ModItems.SpringSwiftArmorHelmet.get()));
 
     public static final RegistryObject<Item> SpringSwiftChestForgeDraw = ITEMS.register("spring_swift_chest_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.SpringBold), ModItems.SpringSwiftArmorChest.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.SpringBold), ModItems.SpringSwiftArmorChest.get()));
 
     public static final RegistryObject<Item> SpringSwiftLeggingsForgeDraw = ITEMS.register("spring_swift_leggings_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.SpringBold), ModItems.SpringSwiftArmorLeggings.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.SpringBold), ModItems.SpringSwiftArmorLeggings.get()));
 
     public static final RegistryObject<Item> SpringSwiftBootsForgeDraw = ITEMS.register("spring_swift_boots_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.SpringBold), ModItems.SpringSwiftArmorBoots.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.SpringBold), ModItems.SpringSwiftArmorBoots.get()));
 
     public static final RegistryObject<Item> SpringManaHelmetForgeDraw = ITEMS.register("spring_mana_helmet_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.SpringBold), ModItems.SpringManaArmorHelmet.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.SpringBold), ModItems.SpringManaArmorHelmet.get()));
 
     public static final RegistryObject<Item> SpringManaChestForgeDraw = ITEMS.register("spring_mana_chest_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.SpringBold), ModItems.SpringManaArmorChest.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.SpringBold), ModItems.SpringManaArmorChest.get()));
 
     public static final RegistryObject<Item> SpringManaLeggingsForgeDraw = ITEMS.register("spring_mana_leggings_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.SpringBold), ModItems.SpringManaArmorLeggings.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.SpringBold), ModItems.SpringManaArmorLeggings.get()));
 
     public static final RegistryObject<Item> SpringManaBootsForgeDraw = ITEMS.register("spring_mana_boots_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.SpringBold), ModItems.SpringManaArmorBoots.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.SpringBold), ModItems.SpringManaArmorBoots.get()));
 
     public static final RegistryObject<Item> SpringHeart = ITEMS.register("spring_heart",
             () -> new Item(new Item.Properties().rarity(CustomStyle.SpringBold)));
@@ -2351,7 +2351,7 @@ public class ModItems {
                     Component.literal("匕首").withStyle(ChatFormatting.AQUA), 1));
 
     public static final RegistryObject<Item> GoldenShieldForgeDraw = ITEMS.register("golden_shield_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.GoldItalic), ModItems.goldenShield.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.GoldItalic), ModItems.goldenShield.get()));
 
     public static final RegistryObject<Item> ManaShield = ITEMS.register("mana_shield",
             () -> new ManaShield(new Item.Properties().rarity(CustomStyle.BloodManaItalic).stacksTo(1)));
@@ -2393,13 +2393,13 @@ public class ModItems {
             () -> new DevilManaArmor(ItemMaterial.Devil, ArmorItem.Type.HELMET, new Item.Properties().rarity(CustomStyle.BloodManaItalic)));
 
     public static final RegistryObject<Item> DevilAttackChestForgeDraw = ITEMS.register("devil_attack_chest_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.BloodManaBold), ModItems.DevilAttackChest.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.BloodManaBold), ModItems.DevilAttackChest.get()));
 
     public static final RegistryObject<Item> DevilSwiftBootsForgeDraw = ITEMS.register("devil_swift_boots_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.BloodManaBold), ModItems.DevilSwiftBoots.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.BloodManaBold), ModItems.DevilSwiftBoots.get()));
 
     public static final RegistryObject<Item> DevilManaHelmetForgeDraw = ITEMS.register("devil_mana_helmet_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.BloodManaBold), ModItems.DevilManaHelmet.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.BloodManaBold), ModItems.DevilManaHelmet.get()));
 
     public static final RegistryObject<Item> DevilBloodManaCurios = ITEMS.register("devil_blood_mana_curios",
             () -> new BloodManaCurios(new Item.Properties().rarity(CustomStyle.BloodManaBold), 1));
@@ -2447,13 +2447,13 @@ public class ModItems {
             () -> new MoonBook());
 
     public static final RegistryObject<Item> MoonShieldForgeDraw = ITEMS.register("moon_shield_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.MoonBold), ModItems.MoonShield.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.MoonBold), ModItems.MoonShield.get()));
 
     public static final RegistryObject<Item> MoonKnifeForgeDraw = ITEMS.register("moon_knife_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.MoonBold), ModItems.MoonKnife.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.MoonBold), ModItems.MoonKnife.get()));
 
     public static final RegistryObject<Item> MoonBookForgeDraw = ITEMS.register("moon_book_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.MoonBold), ModItems.MoonBook.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.MoonBold), ModItems.MoonBook.get()));
 
     public static final RegistryObject<Item> MoonLoot = ITEMS.register("moon_loot",
             () -> new MoonLoot(new Item.Properties().rarity(CustomStyle.Moon)));
@@ -2483,10 +2483,10 @@ public class ModItems {
             () -> new MoonArmor(ItemMaterial.Moon, ArmorItem.Type.HELMET, new Item.Properties().rarity(CustomStyle.Moon1Italic)));
 
     public static final RegistryObject<Item> MoonLeggingsForgeDraw = ITEMS.register("moon_leggings_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.Moon1Bold), ModItems.MoonLeggings.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.Moon1Bold), ModItems.MoonLeggings.get()));
 
     public static final RegistryObject<Item> MoonHelmetForgeDraw = ITEMS.register("moon_helmet_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.Moon1Bold), ModItems.MoonHelmet.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.Moon1Bold), ModItems.MoonHelmet.get()));
 
     public static final RegistryObject<Item> MoonSword = ITEMS.register("moon_sword",
             () -> new MoonSword(new Item.Properties().rarity(CustomStyle.Moon1Italic)));
@@ -2498,13 +2498,13 @@ public class ModItems {
             () -> new MoonSceptre(new Item.Properties().rarity(CustomStyle.Moon1Italic)));
 
     public static final RegistryObject<Item> MoonSwordForgeDraw = ITEMS.register("moon_sword_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.MoonBold), ModItems.MoonSword.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.MoonBold), ModItems.MoonSword.get()));
 
     public static final RegistryObject<Item> MoonBowForgeDraw = ITEMS.register("moon_bow_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.MoonBold), ModItems.MoonBow.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.MoonBold), ModItems.MoonBow.get()));
 
     public static final RegistryObject<Item> MoonSceptreForgeDraw = ITEMS.register("moon_sceptre_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.MoonBold), ModItems.MoonSceptre.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.MoonBold), ModItems.MoonSceptre.get()));
 
     public static final RegistryObject<Item> ParkourMedal = ITEMS.register("parkour_medal",
             () -> new Item(new Item.Properties().rarity(CustomStyle.LifeBold)));
@@ -2519,7 +2519,7 @@ public class ModItems {
             () -> new MoonBelt(new Item.Properties().rarity(CustomStyle.Moon1Bold)));
 
     public static final RegistryObject<Item> MoonBeltForgeDraw = ITEMS.register("moon_belt_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.Moon1Bold), ModItems.MoonBelt.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.Moon1Bold), ModItems.MoonBelt.get()));
 
     public static final RegistryObject<Item> IntensifiedDevilBlood = ITEMS.register("intensified_devil_blood",
             () -> new Item(new Item.Properties().rarity(CustomStyle.BloodManaBold)));
@@ -2546,13 +2546,13 @@ public class ModItems {
             () -> new TabooManaArmor(ItemMaterial.BloodMana, ArmorItem.Type.BOOTS, new Item.Properties().rarity(CustomStyle.BloodManaItalic)));
 
     public static final RegistryObject<Item> TabooAttackLeggingsForgeDraw = ITEMS.register("taboo_attack_leggings_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.BloodManaBold), ModItems.TabooAttackLeggings.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.BloodManaBold), ModItems.TabooAttackLeggings.get()));
 
     public static final RegistryObject<Item> TabooSwiftHelmetForgeDraw = ITEMS.register("taboo_swift_helmet_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.BloodManaBold), ModItems.TabooSwiftHelmet.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.BloodManaBold), ModItems.TabooSwiftHelmet.get()));
 
     public static final RegistryObject<Item> TabooManaBootsForgeDraw = ITEMS.register("taboo_mana_boots_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.BloodManaBold), ModItems.TabooManaBoots.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.BloodManaBold), ModItems.TabooManaBoots.get()));
 
     public static final RegistryObject<Item> KillPaperLoot = ITEMS.register("kill_paper_loot",
             () -> new KillPaperLoot(new Item.Properties().rarity(CustomStyle.LifeBold)));
@@ -2762,7 +2762,7 @@ public class ModItems {
             () -> new StarArmor(ItemMaterial.Moon, ArmorItem.Type.HELMET, new Item.Properties().rarity(CustomStyle.Moon1Italic)));
 
     public static final RegistryObject<Item> StarBottleForgeDraw = ITEMS.register("star_bottle_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.Moon1Bold), ModItems.StarBottle.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.Moon1Bold), ModItems.StarBottle.get()));
 
     public static final RegistryObject<Item> LifeFruit = ITEMS.register("life_fruit",
             () -> new SimpleFoiledItem(new Item.Properties().rarity(CustomStyle.Life)));
@@ -3159,13 +3159,13 @@ public class ModItems {
             () -> new LifeElementSceptre(new Item.Properties().rarity(CustomStyle.LifeItalic)));
 
     public static final RegistryObject<Item> LifeElementSwordForgeDraw = ITEMS.register("life_element_sword_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.LifeBold), ModItems.LifeElementSword.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.LifeBold), ModItems.LifeElementSword.get()));
 
     public static final RegistryObject<Item> LifeElementBowForgeDraw = ITEMS.register("life_element_bow_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.LifeBold), ModItems.LifeElementBow.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.LifeBold), ModItems.LifeElementBow.get()));
 
     public static final RegistryObject<Item> LifeElementSceptreForgeDraw = ITEMS.register("life_element_sceptre_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.LifeBold), ModItems.LifeElementSceptre.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.LifeBold), ModItems.LifeElementSceptre.get()));
 
     public static final RegistryObject<Item> WaterElementSword = ITEMS.register("water_element_sword",
             () -> new WaterElementSword(new Item.Properties().stacksTo(1).rarity(CustomStyle.WaterItalic)));
@@ -3177,13 +3177,13 @@ public class ModItems {
             () -> new WaterElementSceptre(new Item.Properties().rarity(CustomStyle.WaterItalic)));
 
     public static final RegistryObject<Item> WaterElementSwordForgeDraw = ITEMS.register("water_element_sword_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.WaterBold), ModItems.WaterElementSword.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.WaterBold), ModItems.WaterElementSword.get()));
 
     public static final RegistryObject<Item> WaterElementBowForgeDraw = ITEMS.register("water_element_bow_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.WaterBold), ModItems.WaterElementBow.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.WaterBold), ModItems.WaterElementBow.get()));
 
     public static final RegistryObject<Item> WaterElementSceptreForgeDraw = ITEMS.register("water_element_sceptre_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.WaterBold), ModItems.WaterElementSceptre.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.WaterBold), ModItems.WaterElementSceptre.get()));
 
     public static final RegistryObject<Item> ChangeLog = ITEMS.register("change_log",
             () -> new Item(new Item.Properties().rarity(Rarity.UNCOMMON)));
@@ -3198,13 +3198,13 @@ public class ModItems {
             () -> new FireElementSceptre(new Item.Properties().rarity(CustomStyle.FireItalic)));
 
     public static final RegistryObject<Item> FireElementSwordForgeDraw = ITEMS.register("fire_element_sword_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.FireBold), ModItems.FireElementSword.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.FireBold), ModItems.FireElementSword.get()));
 
     public static final RegistryObject<Item> FireElementBowForgeDraw = ITEMS.register("fire_element_bow_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.FireBold), ModItems.FireElementBow.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.FireBold), ModItems.FireElementBow.get()));
 
     public static final RegistryObject<Item> FireElementSceptreForgeDraw = ITEMS.register("fire_element_sceptre_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.FireBold), ModItems.FireElementSceptre.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.FireBold), ModItems.FireElementSceptre.get()));
 
     public static final RegistryObject<Item> ShulkerSoul = ITEMS.register("shulker_soul",
             () -> new SimpleFoiledItem(new Item.Properties().rarity(CustomStyle.EndBold)));
@@ -3219,10 +3219,10 @@ public class ModItems {
             () -> new EndCurios1(new Item.Properties().rarity(CustomStyle.EndBold)));
 
     public static final RegistryObject<Item> EndCuriosForgeDraw = ITEMS.register("end_curios_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.EndBold), ModItems.EndCurios.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.EndBold), ModItems.EndCurios.get()));
 
     public static final RegistryObject<Item> EndCurios1ForgeDraw = ITEMS.register("end_curios1_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.EndBold), ModItems.EndCurios1.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.EndBold), ModItems.EndCurios1.get()));
 
     public static final RegistryObject<Item> EndCrystal = ITEMS.register("end_crystal",
             () -> new EndCrystal(new Item.Properties().rarity(CustomStyle.EndBold)));
@@ -4029,13 +4029,13 @@ public class ModItems {
             () -> new CastleSceptre(new Item.Properties().rarity(CustomStyle.CastleItalic)));
 
     public static final RegistryObject<Item> CastleSwordForgeDraw = ITEMS.register("castle_sword_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.CastleBold), ModItems.CastleSword.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.CastleBold), ModItems.CastleSword.get()));
 
     public static final RegistryObject<Item> CastleBowForgeDraw = ITEMS.register("castle_bow_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.CastleBold), ModItems.CastleBow.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.CastleBold), ModItems.CastleBow.get()));
 
     public static final RegistryObject<Item> CastleSceptreForgeDraw = ITEMS.register("castle_sceptre_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.CastleBold), ModItems.CastleSceptre.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.CastleBold), ModItems.CastleSceptre.get()));
 
     public static final RegistryObject<Item> CastleAttackHelmet = ITEMS.register("castle_attack_helmet",
             () -> new CastleAttackArmor(ItemMaterial.Castle, ArmorItem.Type.HELMET, new Item.Properties().rarity(CustomStyle.CastleItalic)));
@@ -4050,16 +4050,16 @@ public class ModItems {
             () -> new CastleAttackArmor(ItemMaterial.Castle, ArmorItem.Type.BOOTS, new Item.Properties().rarity(CustomStyle.CastleItalic)));
 
     public static final RegistryObject<Item> CastleAttackHelmetForgeDraw = ITEMS.register("castle_attack_helmet_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.CastleBold), ModItems.CastleAttackHelmet.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.CastleBold), ModItems.CastleAttackHelmet.get()));
 
     public static final RegistryObject<Item> CastleAttackChestForgeDraw = ITEMS.register("castle_attack_chest_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.CastleBold), ModItems.CastleAttackChest.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.CastleBold), ModItems.CastleAttackChest.get()));
 
     public static final RegistryObject<Item> CastleAttackLeggingsForgeDraw = ITEMS.register("castle_attack_leggings_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.CastleBold), ModItems.CastleAttackLeggings.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.CastleBold), ModItems.CastleAttackLeggings.get()));
 
     public static final RegistryObject<Item> CastleAttackBootsForgeDraw = ITEMS.register("castle_attack_boots_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.CastleBold), ModItems.CastleAttackBoots.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.CastleBold), ModItems.CastleAttackBoots.get()));
 
     public static final RegistryObject<Item> CastleSwiftHelmet = ITEMS.register("castle_swift_helmet",
             () -> new CastleSwiftArmor(ItemMaterial.Castle, ArmorItem.Type.HELMET, new Item.Properties().rarity(CustomStyle.CastleItalic)));
@@ -4074,16 +4074,16 @@ public class ModItems {
             () -> new CastleSwiftArmor(ItemMaterial.Castle, ArmorItem.Type.BOOTS, new Item.Properties().rarity(CustomStyle.CastleItalic)));
 
     public static final RegistryObject<Item> CastleSwiftHelmetForgeDraw = ITEMS.register("castle_swift_helmet_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.CastleBold), ModItems.CastleSwiftHelmet.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.CastleBold), ModItems.CastleSwiftHelmet.get()));
 
     public static final RegistryObject<Item> CastleSwiftChestForgeDraw = ITEMS.register("castle_swift_chest_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.CastleBold), ModItems.CastleSwiftChest.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.CastleBold), ModItems.CastleSwiftChest.get()));
 
     public static final RegistryObject<Item> CastleSwiftLeggingsForgeDraw = ITEMS.register("castle_swift_leggings_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.CastleBold), ModItems.CastleSwiftLeggings.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.CastleBold), ModItems.CastleSwiftLeggings.get()));
 
     public static final RegistryObject<Item> CastleSwiftBootsForgeDraw = ITEMS.register("castle_swift_boots_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.CastleBold), ModItems.CastleSwiftBoots.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.CastleBold), ModItems.CastleSwiftBoots.get()));
 
     public static final RegistryObject<Item> CastleManaHelmet = ITEMS.register("castle_mana_helmet",
             () -> new CastleManaArmor(ItemMaterial.Castle, ArmorItem.Type.HELMET, new Item.Properties().rarity(CustomStyle.CastleItalic)));
@@ -4098,16 +4098,16 @@ public class ModItems {
             () -> new CastleManaArmor(ItemMaterial.Castle, ArmorItem.Type.BOOTS, new Item.Properties().rarity(CustomStyle.CastleItalic)));
 
     public static final RegistryObject<Item> CastleManaHelmetForgeDraw = ITEMS.register("castle_mana_helmet_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.CastleBold), ModItems.CastleManaHelmet.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.CastleBold), ModItems.CastleManaHelmet.get()));
 
     public static final RegistryObject<Item> CastleManaChestForgeDraw = ITEMS.register("castle_mana_chest_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.CastleBold), ModItems.CastleManaChest.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.CastleBold), ModItems.CastleManaChest.get()));
 
     public static final RegistryObject<Item> CastleManaLeggingsForgeDraw = ITEMS.register("castle_mana_leggings_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.CastleBold), ModItems.CastleManaLeggings.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.CastleBold), ModItems.CastleManaLeggings.get()));
 
     public static final RegistryObject<Item> CastleManaBootsForgeDraw = ITEMS.register("castle_mana_boots_forge_draw",
-            () -> new ForgeDraw(new Item.Properties().rarity(CustomStyle.CastleBold), ModItems.CastleManaBoots.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.CastleBold), ModItems.CastleManaBoots.get()));
 
     public static final RegistryObject<Item> uniformPiece = ITEMS.register("uniform_piece",
             () -> new SimpleFoiledItem(new Item.Properties().rarity(CustomStyle.WorldBold)));
