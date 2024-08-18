@@ -358,14 +358,18 @@ public class Compute {
     public static int levelUpperLimit = 250;
     public static int expGetUpperLimit = 180;
 
+    public static double getCurrentXpLevelUpNeedXpPoint(int xpLevel) {
+        return Math.pow(Math.E, 3 + (xpLevel / 100d) * 7);
+    }
+
     public static void givePercentExpToPlayer(Player player, double num, double ExpUp, int ExpLevel) {
         if (player.experienceLevel >= levelUpperLimit) return;
         if (ExpLevel >= expGetUpperLimit) ExpLevel = expGetUpperLimit;
         if (ExpLevel - player.experienceLevel > 8) ExpLevel = player.experienceLevel;
 
         CompoundTag data = player.getPersistentData();
-        double LevelUpNeedXp = Math.pow(Math.E, 3 + (player.experienceLevel / 100d) * 7);
-        double ExpLevelXp = Math.pow(Math.E, 3 + (ExpLevel / 100d) * 7);
+        double LevelUpNeedXp = getCurrentXpLevelUpNeedXpPoint(player.experienceLevel);
+        double ExpLevelXp = getCurrentXpLevelUpNeedXpPoint(ExpLevel);
         double XpBeforeUp = (ExpLevelXp * num);
         double XpUp = (ExpLevelXp * num) * ExpUp;
         double Xp = XpBeforeUp + XpUp;
@@ -383,7 +387,7 @@ public class Compute {
     public static void giveExpToPlayer(Player player, double num) {
         if (player.experienceLevel >= levelUpperLimit) return;
         CompoundTag data = player.getPersistentData();
-        double LevelUpNeedXp = Math.pow(Math.E, 3 + (player.experienceLevel / 100d) * 7);
+        double LevelUpNeedXp = getCurrentXpLevelUpNeedXpPoint(player.experienceLevel);
         double XpUp = 0;
         if (data.contains("Xp")) data.putDouble("Xp", data.getDouble("Xp") + num);
         else data.putDouble("Xp", num);
