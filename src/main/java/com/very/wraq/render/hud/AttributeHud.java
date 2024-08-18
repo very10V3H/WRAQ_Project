@@ -192,7 +192,7 @@ public class AttributeHud {
 
         boolean mob = false;
 
-        // mob attribute down
+        // mob attribute
         if (ClientUtils.mobAttribute != null) {
             mob = true;
             if (ClientUtils.elementEffects != null) {
@@ -200,6 +200,35 @@ public class AttributeHud {
                     guiGraphics.blit(new ResourceLocation(Utils.MOD_ID, "textures/item/" + ClientUtils.elementEffects.itemStack.getItem().toString() + ".png"), x - 22, height / 2 + 8, 0, 0, 16, 16, 16, 16);
                     guiGraphics.drawCenteredString(fontRenderer, Component.literal("" + ClientUtils.elementEffects.level).withStyle(ChatFormatting.WHITE), x + 11 - 22, height / 2 + 16, 10);
                 }
+            }
+
+            int count = 0;
+            int offsetX = 0;
+            int offsetY = 2;
+            if (ClientUtils.clientMobEffectMap.containsKey(ClientUtils.mobAttribute)) {
+                List<ClientUtils.Effect> effectList = ClientUtils.clientMobEffectMap.get(ClientUtils.mobAttribute);
+                for (ClientUtils.Effect effect : effectList) {
+                    int time = (int) (12 * (1 - (double) (ClientUtils.clientPlayerTick - effect.startTick()) / effect.lastTick()));
+                    if (time < 0 && !effect.forever()) continue;
+                    guiGraphics.blit(new ResourceLocation(Utils.MOD_ID, "textures/item/" + effect.itemStack().getItem().toString() + ".png"),
+                            count * 15 + offsetX, 60 + offsetY, 0, 0, 16, 16, 16, 16);
+                    if (effect.forever()) time = 12;
+                    guiGraphics.blit(ClientUtils.CdResourceLocation[time], count * 15 + offsetX, 60 + offsetY, 0, 0, 16, 16, 16, 16);
+                    if (effect.level() > 0) {
+                        guiGraphics.drawCenteredString(fontRenderer, Component.literal("" + effect.level())
+                                .withStyle(ChatFormatting.WHITE), count * 15 + 11 + offsetX, 68 + offsetY, 10);
+                    }
+
+                    int leftTick = effect.lastTick() - (ClientUtils.clientPlayerTick - effect.startTick());
+                    if (leftTick > 0 && effect.level() == 0 && !effect.forever()) {
+                        guiGraphics.drawCenteredString(fontRenderer,
+                                Component.literal(leftTick >= 20 ?
+                                        String.format("%.0f", leftTick / 20d) : String.format("%.1f", leftTick / 20d))
+                                        .withStyle(ChatFormatting.WHITE), count * 15 + 11 + offsetX, 68 + offsetY, 10);
+                    }
+                    count++;
+                }
+                effectList.removeIf(e -> !e.forever() && ClientUtils.clientPlayerTick > e.startTick() + e.lastTick());
             }
 
             int standardX = 0;

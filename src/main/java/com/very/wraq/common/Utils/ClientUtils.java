@@ -587,6 +587,12 @@ public class ClientUtils {
     public static List<EffectTimeLast> coolDownTimes = new ArrayList<>();
     public static List<EffectTimeLast> debuffTimes = new ArrayList<>();
 
+    public record Effect(ItemStack itemStack, String tag, int startTick, int lastTick, int level, boolean forever) {}
+
+    public static int clientPlayerTick = 0;
+
+    public static Map<Mob, List<Effect>> clientMobEffectMap = new HashMap<>();
+
     public static List<PosAndLastTime> EndRune2Pos = new ArrayList<>();
 
     public static int EndRune3Type = -1;

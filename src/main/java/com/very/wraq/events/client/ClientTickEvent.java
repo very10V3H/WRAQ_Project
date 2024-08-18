@@ -78,6 +78,15 @@ public class ClientTickEvent {
         if (event.side.isClient() && event.phase == TickEvent.Phase.END) {
             Minecraft mc = Minecraft.getInstance();
 
+            ClientUtils.clientMobEffectMap.entrySet().removeIf(e -> {
+                return !e.getKey().isAlive();
+            });
+            // tick重置后需要对一些使用到的数据结构进行清理
+            if (mc.player.tickCount < ClientUtils.clientPlayerTick) {
+                ClientUtils.clientMobEffectMap.clear();
+            }
+            ClientUtils.clientPlayerTick = mc.player.tickCount;
+
             if (DailyEndlessInstance.clientLastTick > 0) DailyEndlessInstance.clientLastTick --;
 
             if (ClientUtils.receiveMarketInfo) {

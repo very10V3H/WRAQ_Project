@@ -41,6 +41,7 @@ import com.very.wraq.networking.misc.SkillPackets.Charging.ManaSkill12S2CPacket;
 import com.very.wraq.networking.misc.SkillPackets.Charging.ManaSkill13S2CPacket;
 import com.very.wraq.networking.misc.SkillPackets.Charging.SwordSkill12S2CPacket;
 import com.very.wraq.networking.misc.ToolTipPackets.CoolDownTimeS2CPacket;
+import com.very.wraq.networking.misc.USE.MobEffectHudS2CPacket;
 import com.very.wraq.networking.reputation.ReputationValueS2CPacket;
 import com.very.wraq.networking.unSorted.ColdSyncS2CPacket;
 import com.very.wraq.networking.unSorted.DebuffTimeS2CPacket;
@@ -5008,5 +5009,13 @@ public class Compute {
     public static List<? extends Entity> getNearEntity(Entity center, Class<? extends Entity> type, double distance) {
         List<? extends Entity> list = center.level().getEntitiesOfClass(type, AABB.ofSize(center.position(), distance * 2, distance * 2, distance * 2));
         return list.stream().filter(e -> e.distanceTo(center) <= distance).toList();
+    }
+
+    public static void sendMobEffectHudToNearPlayer(Mob mob, Item icon, String tag, int lastTick, int level, boolean forever) {
+        List<? extends Entity> list = getNearEntity(mob, Player.class, 16);
+        list.stream().filter(e -> e instanceof Player).forEach(p -> {
+            ServerPlayer serverPlayer = (ServerPlayer) p;
+            ModNetworking.sendToClient(new MobEffectHudS2CPacket(mob.getId(), icon.getDefaultInstance(), tag, lastTick, level, forever), serverPlayer);
+        });
     }
 }

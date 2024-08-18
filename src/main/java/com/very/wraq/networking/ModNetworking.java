@@ -1294,6 +1294,11 @@ public class ModNetworking {
                 .encoder(CraftC2SPacket::toBytes)
                 .consumerMainThread(CraftC2SPacket::handle)
                 .add();
+        net.messageBuilder(MobEffectHudS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(MobEffectHudS2CPacket::new)
+                .encoder(MobEffectHudS2CPacket::toBytes)
+                .consumerMainThread(MobEffectHudS2CPacket::handle)
+                .add();
     }
 
     public static <MSG> void sendToServer(MSG message) {
