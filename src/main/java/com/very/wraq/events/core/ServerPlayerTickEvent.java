@@ -512,7 +512,7 @@ public class ServerPlayerTickEvent {
                 if (data.contains("Xp")) {
                     double Xp = data.getDouble("Xp");
                     int XpLevel = player.experienceLevel;
-                    double needXpForLevelUp = Math.pow(Math.E, 3 + (XpLevel / 100d) * 7);
+                    double needXpForLevelUp = Compute.getCurrentXpLevelUpNeedXpPoint(player.experienceLevel);
                     double Rate = Xp / needXpForLevelUp;
                     if (Rate >= 1) {
 /*                        Element.ResonanceLevelRequireMap.forEach((s, integer) -> {
