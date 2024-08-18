@@ -357,7 +357,7 @@ public class Compute {
     }
 
     public static int levelUpperLimit = 250;
-    public static int expGetUpperLimit = 180;
+    public static int expGetUpperLimit = 125;
 
     public static double getCurrentXpLevelUpNeedXpPoint(int xpLevel) {
         return Math.pow(Math.E, 3 + (xpLevel / 100d) * 7);
