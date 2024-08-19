@@ -1,5 +1,8 @@
 package com.very.wraq.process.system.endlessinstance.item;
 
+import com.very.wraq.common.Compute;
+import com.very.wraq.process.system.endlessinstance.DailyEndlessInstance;
+import com.very.wraq.process.system.endlessinstance.DailyEndlessInstanceEvent;
 import com.very.wraq.process.system.endlessinstance.instance.EasternTower;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.MaterialItem;
@@ -37,12 +40,11 @@ public class EasternTowerPaper extends MaterialItem {
     @Override
     public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand interactionHand) {
         if (!level.isClientSide && interactionHand.equals(InteractionHand.MAIN_HAND)) {
-            player.sendSystemMessage(Component.literal("此物品bug临时禁用"));
-/*            for (DailyEndlessInstance instance : DailyEndlessInstanceEvent.getEndlessInstanceList()) {
+            for (DailyEndlessInstance instance : DailyEndlessInstanceEvent.getEndlessInstanceList()) {
                 if (instance.active(player)) {
                     Compute.playerItemUseWithRecord(player);
                 }
-            }*/
+            }
         }
         return super.use(level, player, interactionHand);
     }
