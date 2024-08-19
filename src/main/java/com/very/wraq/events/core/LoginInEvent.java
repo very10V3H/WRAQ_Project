@@ -12,6 +12,7 @@ import com.very.wraq.common.Utils.Struct.PlayerTeam;
 import com.very.wraq.common.Utils.Utils;
 import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.events.instance.PurpleIronKnight;
+import com.very.wraq.events.mob.instance.NoTeamInstanceModule;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.VersionCheckS2CPacket;
 import com.very.wraq.networking.dailyMission.DailyMissionContentS2CPacket;
@@ -83,6 +84,22 @@ public class LoginInEvent {
             for (int i = 0 ; i < 13 ; i ++) {
                 String singleReward = "singleReward" + i;
                 if (data.contains(singleReward)) data.remove(singleReward);
+            }
+
+            String frontConditionForOldPlayer = "frontConditionForOldPlayer";
+            if (!data.contains(frontConditionForOldPlayer)) {
+                data.putBoolean(frontConditionForOldPlayer, true);
+                if (player.experienceLevel > 0) {
+                    List<String> tags = List.of(NoTeamInstanceModule.AllowRewardKey.blackCastle, NoTeamInstanceModule.AllowRewardKey.nether,
+                            NoTeamInstanceModule.AllowRewardKey.iceKnight, NoTeamInstanceModule.AllowRewardKey.purpleIron,
+                            NoTeamInstanceModule.AllowRewardKey.devil, NoTeamInstanceModule.AllowRewardKey.moon,
+                            NoTeamInstanceModule.AllowRewardKey.sakuraBoss);
+                    tags.forEach(s -> {
+                        NoTeamInstanceModule.putPlayerAllowReward(player, s, true);
+                    });
+                    Compute.sendFormatMSG(player, Component.literal("副本").withStyle(ChatFormatting.RED),
+                            Component.literal("所有副本的前置条件已解锁").withStyle(ChatFormatting.WHITE));
+                }
             }
 
             String singleReward = CompensateCommand.singleReward;
