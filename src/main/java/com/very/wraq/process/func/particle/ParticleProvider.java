@@ -1,5 +1,6 @@
 package com.very.wraq.process.func.particle;
 
+import com.very.wraq.common.Compute;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.misc.ParticlePackets.NewParticlePackets.*;
 import com.very.wraq.common.Utils.StringUtils;
@@ -61,40 +62,6 @@ public class ParticleProvider {
                 }
             }
         });
-
-/*        Vec3 nVec = PickVec.subtract(FaceVec);
-        Vec3 iVec = new Vec3(1,0,0);
-        Vec3 jVec = new Vec3(0,1,0);
-        Vec3 kVec = new Vec3(0,0,1);
-        Vec3 aVec;
-        if (nVec.cross(iVec).length() == 0) {
-            aVec = nVec.cross(jVec);
-        }
-        else aVec = nVec.cross(iVec);
-        aVec = aVec.normalize();
-        Vec3 bVec = nVec.cross(aVec).normalize();
-        for (int i = 0; i < num; i++) {
-            double angle = (2*Math.PI/num)*(i);
-            Vec3 Point = new Vec3(FaceVec.x+r*Math.cos(angle)*aVec.x+r*Math.sin(angle)*bVec.x,
-                    FaceVec.y+r*Math.cos(angle)*aVec.y+r*Math.sin(angle)*bVec.y,
-                    FaceVec.z+r*Math.cos(angle)*aVec.z+r*Math.sin(angle)*bVec.z);
-            ClientboundLevelParticlesPacket particlesPacket = new ClientboundLevelParticlesPacket(
-                    particleOptions,
-                    true,
-                    Point.x,
-                    Point.y,
-                    Point.z,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0
-            );
-            List<ServerPlayer> list = serverPlayer.getServer().getPlayerList().getPlayers();
-            for (ServerPlayer serverPlayer1 : list) {
-                serverPlayer1.connection.send(particlesPacket);
-            }
-        }*/
     }
 
     public static void EntityFaceCircleCreate(Entity entity, Vec3 Position, Vec3 Location, double pickDistance, double r, int num, ParticleOptions particleOptions, boolean flag) {
@@ -146,39 +113,6 @@ public class ParticleProvider {
                 }
             }
         });
-
-/*        Vec3 nVec = Position;
-        Vec3 iVec = new Vec3(1,0,0);
-        Vec3 jVec = new Vec3(0,1,0);
-        Vec3 kVec = new Vec3(0,0,1);
-        Vec3 aVec;
-        if (nVec.cross(iVec).length() == 0) {
-            aVec = nVec.cross(jVec);
-        }
-        else aVec = nVec.cross(iVec);
-        aVec = aVec.normalize();
-        Vec3 bVec = nVec.cross(aVec).normalize();
-        for (int i = 0; i < num; i++) {
-            double angle = (2*Math.PI/num)*(i) + Start * (PI);
-            Vec3 Point = new Vec3(Location.x+r*Math.cos(angle)*aVec.x+r*Math.sin(angle)*bVec.x,
-                    Location.y+r*Math.cos(angle)*aVec.y+r*Math.sin(angle)*bVec.y,
-                    Location.z+r*Math.cos(angle)*aVec.z+r*Math.sin(angle)*bVec.z);
-            double rate = i * 1.0 / num * 1.0;
-            entity.level().addParticle(particleOptions,Point.x + DX * rate,Point.y + DY * rate,Point.z + DZ * rate,0,0,0);
-            List<ServerPlayer> list = entity.level().getServer().getPlayerList().getPlayers();
-            for (ServerPlayer serverPlayer : list) {
-                ClientboundLevelParticlesPacket clientboundLevelParticlesPacket = new ClientboundLevelParticlesPacket(
-                        particleOptions,
-                        true,
-                        Point.x + DX * rate,
-                        Point.y + DY * rate,
-                        Point.z + DZ * rate,
-                        0,0,0,0,0
-                );
-                serverPlayer.connection.send(clientboundLevelParticlesPacket);
-            }
-        }*/
-
     }
 
     public static void VerticleCircleParticle(Vec3 bottomPos, ServerLevel serverLevel, double pickDistance, double r, int num, ParticleOptions particleOptions) {
@@ -270,27 +204,6 @@ public class ParticleProvider {
                 }
             }
         });
-
-/*        for (int i = 0; i < num; i++) {
-            double angle = (2*Math.PI/num)*(i);
-            Vec3 Point = new Vec3(bottomPos.x+r*cos(angle),bottomPos.y+pickDistance,bottomPos.z+r*sin(angle));
-            ClientboundLevelParticlesPacket particlesPacket = new ClientboundLevelParticlesPacket(
-                    particleOptions,
-                    true,
-                    Point.x,
-                    Point.y,
-                    Point.z,
-                    1,
-                    1,
-                    1,
-                    1,
-                    1
-            );
-            List<ServerPlayer> list = entity.getServer().getPlayerList().getPlayers();
-            for (ServerPlayer serverPlayer1 : list) {
-                serverPlayer1.connection.send(particlesPacket);
-            }
-        }*/
     }
 
     public static void EntityEffectVerticleCircleParticle(Entity entity, double pickDistance, double r, int num, ParticleOptions particleOptions, int tick) {
@@ -307,28 +220,6 @@ public class ParticleProvider {
                 }
             }
         });
-
-
-/*        for (int i = 0; i < num; i++) {
-            double angle = (2*Math.PI/num)*(i);
-            Vec3 Point = new Vec3(bottomPos.x+r*cos(angle),bottomPos.y+pickDistance,bottomPos.z+r*sin(angle));
-            ClientboundLevelParticlesPacket particlesPacket = new ClientboundLevelParticlesPacket(
-                    particleOptions,
-                    true,
-                    Point.x,
-                    Point.y,
-                    Point.z,
-                    0,
-                    0,
-                    0,
-                    0,
-                    tick
-            );
-            List<ServerPlayer> list = entity.getServer().getPlayerList().getPlayers();
-            for (ServerPlayer serverPlayer1 : list) {
-                serverPlayer1.connection.send(particlesPacket);
-            }
-        }*/
     }
 
     public static void EntityEffectVerticleCircleParticle(Entity entity, double pickDistance, double r, int num, ParticleOptions particleOptions, int tick, boolean flag) {
@@ -403,23 +294,6 @@ public class ParticleProvider {
                 }
             }
         });
-
-/*        for (int i = 0; i < num; i++) {
-            Vec3 pointVec = new Vec3(startVec.x + vec.x * (i*1.0/num*1.0), startVec.y + vec.y * (i*1.0/num*1.0), startVec.z + vec.z * (i*1.0/num*1.0));
-            ClientboundLevelParticlesPacket clientboundLevelParticlesPacket = new ClientboundLevelParticlesPacket(particleOptions,true,
-                    pointVec.x,
-                    pointVec.y,
-                    pointVec.z,
-                    0d,
-                    0d,
-                    0d,
-                    1,
-                    0);
-            List<ServerPlayer> list = level.getServer().getPlayerList().getPlayers();
-            for (ServerPlayer serverPlayer1 : list) {
-                serverPlayer1.connection.send(clientboundLevelParticlesPacket);
-            }
-        }*/
     }
 
     public static void ParticleWITCH(double X, double Y, double Z, Level level, double r, ParticleOptions particleOptions) {
@@ -508,5 +382,14 @@ public class ParticleProvider {
         level.addParticle(ParticleTypes.LAVA, X - r / Math.sqrt(2), Y + r / Math.sqrt(2), Z - r / Math.sqrt(2), 0, 0, 0);
         level.addParticle(ParticleTypes.LAVA, X - r / Math.sqrt(2), Y - r / Math.sqrt(2), Z + r / Math.sqrt(2), 0, 0, 0);
         level.addParticle(ParticleTypes.LAVA, X - r / Math.sqrt(2), Y - r / Math.sqrt(2), Z - r / Math.sqrt(2), 0, 0, 0);
+    }
+
+    public static void createSingleParticle(Entity entity, double range, ParticleOptions particle, Vec3 pos) {
+        Compute.getNearEntity(entity, Player.class, range).stream().filter(e -> e instanceof ServerPlayer)
+                .map(player -> (ServerPlayer) player).forEach(serverPlayer -> {
+                    ClientboundLevelParticlesPacket clientboundLevelParticlesPacket =
+                            new ClientboundLevelParticlesPacket(particle, true, pos.x, pos.y, pos.z, 0, 0, 0, 0, 1);
+                    serverPlayer.connection.send(clientboundLevelParticlesPacket);
+        });
     }
 }
