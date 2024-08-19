@@ -210,10 +210,9 @@ public class PlayerAttributes {
             exDamage += baseAttackDamage * Compute.BowSkillLevelGet(data, 8) * 0.02;
         } // 锻弦-力量（手持弓时，获得2%攻击力）
 
-        int PowerAbilityPoint = data.getInt(StringUtils.Ability.Power);
+        int powerAbilityPoint = data.getInt(StringUtils.Ability.Power);
         if (data.contains(StringUtils.Ability.Power) && data.getInt(StringUtils.Ability.Power) > 0) {
-            int Point = PowerAbilityPoint + (PowerAbilityPoint / 10) * 5;
-            exDamage += Point;
+            exDamage += powerAbilityPoint;
         } // 能力
 
         if (leggings.equals(ModItems.MinePants.get()) && (Utils.OverWorldLevelIsNight || player.getY() < 63))
@@ -371,10 +370,9 @@ public class PlayerAttributes {
             critRate += Compute.BowSkillLevelGet(data, 11) * 0.02;
         } // 锻弦-平衡（手持弓时，获得额外2%暴击几率）
 
-        int LuckyAbilityPoint = data.getInt(StringUtils.Ability.Lucky);
+        int luckyAbilityPoint = data.getInt(StringUtils.Ability.Lucky);
         if (data.contains(StringUtils.Ability.Lucky) && data.getInt(StringUtils.Ability.Lucky) > 0) {
-            int Point = LuckyAbilityPoint + (LuckyAbilityPoint / 10) * 5;
-            critRate += Point * 0.001;
+            critRate += luckyAbilityPoint * 0.001;
         }
 
         if (stackmainhandtag.contains(StringUtils.SoulEquipForge) && (Utils.swordTag.containsKey(mainhand) || Utils.bowTag.containsKey(mainhand)))
@@ -470,8 +468,7 @@ public class PlayerAttributes {
 
         int PowerAbilityPoint = data.getInt(StringUtils.Ability.Power);
         if (data.contains(StringUtils.Ability.Power) && data.getInt(StringUtils.Ability.Power) > 0) {
-            int Point = PowerAbilityPoint + (PowerAbilityPoint / 10) * 5;
-            critDamage += Point * 0.01;
+            critDamage += PowerAbilityPoint * 0.01;
         } // 能力
 
         if (Compute.ArmorCount.Volcano(player) >= 4) critDamage += 0.35;
@@ -573,8 +570,7 @@ public class PlayerAttributes {
 
         int flexibilityAbilityPoint = data.getInt(StringUtils.Ability.Flexibility);
         if (data.contains(StringUtils.Ability.Flexibility) && data.getInt(StringUtils.Ability.Flexibility) > 0) {
-            int Point = flexibilityAbilityPoint + (flexibilityAbilityPoint / 10) * 5;
-            movementSpeedUp += Point * 0.003;
+            movementSpeedUp += flexibilityAbilityPoint * 0.003;
         } // 能力
 
         if (Compute.SwordSkillLevelGet(data, 9) > 0 && Utils.swordTag.containsKey(mainHandItem)) {
@@ -715,10 +711,9 @@ public class PlayerAttributes {
         if (data.contains("volcanogems") && data.getBoolean("volcanogems")) expUp += 0.1;
 
         if (data.contains("GemSExpImprove")) expUp += data.getDouble("GemSExpImprove");
-        int LuckyAbilityPoint = data.getInt(StringUtils.Ability.Lucky);
+        int luckyAbilityPoint = data.getInt(StringUtils.Ability.Lucky);
         if (data.contains(StringUtils.Ability.Lucky) && data.getInt(StringUtils.Ability.Lucky) > 0) {
-            int Point = LuckyAbilityPoint + (LuckyAbilityPoint / 10) * 5;
-            expUp += Point * 0.01;
+            expUp += luckyAbilityPoint * 0.01;
         }
 
         if (Utils.PlayerSpringRingExpUpAttribute.containsKey(player) && Utils.PlayerSpringRingLevelRequire.get(player) <= player.experienceLevel) {
@@ -849,8 +844,7 @@ public class PlayerAttributes {
         if (data.getInt(StringUtils.PlainSwordActive.PlainSceptre) > TickCount) exDefence += 40;
 
         if (data.contains(StringUtils.Ability.Power) && data.getInt(StringUtils.Ability.Power) > 0) {
-            int Point = data.getInt(StringUtils.Ability.Power) + (data.getInt(StringUtils.Ability.Power) / 10) * 5;
-            exDefence += Point * 6;
+            exDefence += data.getInt(StringUtils.Ability.Power) * 6;
         } // 能力
 
         String name = player.getName().getString();
@@ -927,10 +921,9 @@ public class PlayerAttributes {
         if (Utils.offHandTag.containsKey(offhand) && Utils.healEffectUp.containsKey(offhand))
             HealEffectUp += Utils.healEffectUp.get(offhand);
         if (Compute.ArmorCount.Forest(player) >= 4) HealEffectUp += 0.5f;
-        int VitalityAbilityPoint = data.getInt(StringUtils.Ability.Vitality);
+        int vitalityAbilityPoint = data.getInt(StringUtils.Ability.Vitality);
         if (data.contains(StringUtils.Ability.Vitality) && data.getInt(StringUtils.Ability.Vitality) > 0) {
-            int Point = VitalityAbilityPoint + (VitalityAbilityPoint / 10) * 5;
-            HealEffectUp += Point * 0.01;
+            HealEffectUp += vitalityAbilityPoint * 0.01;
         }
         if (data.getInt(StringUtils.MineMonsterEffect) >= TickCount) HealEffectUp -= 0.8;
 
@@ -970,10 +963,9 @@ public class PlayerAttributes {
         if (Utils.offHandTag.containsKey(offhand) && Utils.swiftnessUp.containsKey(offhand))
             SwiftnessUp += Utils.swiftnessUp.get(offhand);
 
-        int FlexibilityAbilityPoint = data.getInt(StringUtils.Ability.Flexibility);
+        int flexibilityAbilityPoint = data.getInt(StringUtils.Ability.Flexibility);
         if (data.contains(StringUtils.Ability.Flexibility) && data.getInt(StringUtils.Ability.Flexibility) > 0) {
-            int Point = FlexibilityAbilityPoint + (FlexibilityAbilityPoint / 10) * 5;
-            SwiftnessUp += Point * 0.1;
+            SwiftnessUp += flexibilityAbilityPoint * 0.1;
         } // 能力
 
         if (Utils.PlayerSpringBeltSwiftAttribute.containsKey(player) && Utils.PlayerSpringBeltLevelRequire.get(player) <= player.experienceLevel) {
@@ -1104,10 +1096,9 @@ public class PlayerAttributes {
         releaseSpeed += CastleManaArmor.ExAttributeValue(player, CastleManaArmor.ExCoolDownDecrease);
         releaseSpeed += LakeArmorHelmet.exCooldown(player);
 
-        int LuckyAbilityPoint = data.getInt(StringUtils.Ability.Lucky);
+        int luckyAbilityPoint = data.getInt(StringUtils.Ability.Lucky);
         if (data.contains(StringUtils.Ability.Lucky) && data.getInt(StringUtils.Ability.Lucky) > 0) {
-            int Point = LuckyAbilityPoint + (LuckyAbilityPoint / 10) * 5;
-            releaseSpeed += Point * 0.01;
+            releaseSpeed += luckyAbilityPoint * 0.01;
         }
 
         releaseSpeed += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerCooldownModifier);
@@ -1232,10 +1223,9 @@ public class PlayerAttributes {
             defencePenetration0 += Compute.BowSkillLevelGet(data, 10) * player.experienceLevel * 0.5;
         if (data.contains("GemSDefencePenetration0")) defencePenetration0 += data.getDouble("GemSDefencePenetration0");
 
-        int FlexibilityAbilityPoint = data.getInt(StringUtils.Ability.Flexibility);
+        int flexibilityAbilityPoint = data.getInt(StringUtils.Ability.Flexibility);
         if (data.contains(StringUtils.Ability.Flexibility) && data.getInt(StringUtils.Ability.Flexibility) > 0) {
-            int Point = FlexibilityAbilityPoint + (FlexibilityAbilityPoint / 10) * 5;
-            defencePenetration0 += Point;
+            defencePenetration0 += flexibilityAbilityPoint;
         } // 能力
 
         if (data.getInt(StringUtils.WitherBow.Effect3) > TickCount) defencePenetration0 += 400;
@@ -1347,10 +1337,9 @@ public class PlayerAttributes {
         if (player.getEffect(ModEffects.HEALTHRECOVER.get()) != null && player.getEffect(ModEffects.HEALTHRECOVER.get()).getAmplifier() == 1)
             healthRecover += player.getMaxHealth() * 0.05;
 
-        int VitalityAbilityPoint = data.getInt(StringUtils.Ability.Vitality);
+        int vitalityAbilityPoint = data.getInt(StringUtils.Ability.Vitality);
         if (data.contains(StringUtils.Ability.Vitality) && data.getInt(StringUtils.Ability.Vitality) > 0) {
-            int Point = VitalityAbilityPoint + (VitalityAbilityPoint / 10) * 5;
-            healthRecover += Point;
+            healthRecover += vitalityAbilityPoint;
         }
         if (data.getInt(StringUtils.Crest.Plain.Crest0) > 0)
             healthRecover += PlainCrestAttributes.HealthRecover[0] * data.getInt(StringUtils.Crest.Plain.Crest0);
@@ -1428,10 +1417,9 @@ public class PlayerAttributes {
         if (data.contains("GemSMaxHeal")) maxHealth += data.getDouble("GemSMaxHeal");
         maxHealth += Compute.SArmorMaxHealth(player);
 
-        int VitalityAbilityPoint = data.getInt(StringUtils.Ability.Vitality);
+        int vitalityAbilityPoint = data.getInt(StringUtils.Ability.Vitality);
         if (data.contains(StringUtils.Ability.Vitality) && data.getInt(StringUtils.Ability.Vitality) > 0) {
-            int Point = VitalityAbilityPoint + (VitalityAbilityPoint / 10) * 5;
-            maxHealth += Point * 10;
+            maxHealth += vitalityAbilityPoint * 10;
         }
 
         if (data.getInt(StringUtils.Crest.Forest.Crest0) > 0)
@@ -1544,10 +1532,9 @@ public class PlayerAttributes {
         if (data.contains("GemSManaDamage")) exDamage += data.getDouble("GemSManaDamage");
         exDamage += Compute.SArmorManaDamage(player);
 
-        int IntelligentAbilityPoint = data.getInt(StringUtils.Ability.Intelligent);
+        int intelligentAbilityPoint = data.getInt(StringUtils.Ability.Intelligent);
         if (data.contains(StringUtils.Ability.Intelligent) && data.getInt(StringUtils.Ability.Intelligent) > 0) {
-            int Point = IntelligentAbilityPoint + (IntelligentAbilityPoint / 10) * 5;
-            exDamage += Point * 2;
+            exDamage += intelligentAbilityPoint * 2;
         } // 能力
 
         if (Compute.ManaSkillLevelGet(data, 2) > 0 && data.contains(StringUtils.ManaSkillNum.Skill2) && data.getInt(StringUtils.ManaSkillNum.Skill2) > tickCount) {
@@ -1741,10 +1728,9 @@ public class PlayerAttributes {
             manaRecover +=
                     stackmainhandtag.getInt(StringUtils.SoulEquipForge) * SoulEquipAttribute.ForgingAddition.ManaRecover;
 
-        int IntelligentAbilityPoint = data.getInt(StringUtils.Ability.Intelligent);
+        int intelligentAbilityPoint = data.getInt(StringUtils.Ability.Intelligent);
         if (data.contains(StringUtils.Ability.Intelligent) && data.getInt(StringUtils.Ability.Intelligent) > 0) {
-            double Point = IntelligentAbilityPoint + (IntelligentAbilityPoint / 10) * 5;
-            manaRecover += Point * 0.1;
+            manaRecover += intelligentAbilityPoint * 0.1;
         } // 能力
 
         if (Utils.PlayerSpringBraceletManaRecoverAttribute.containsKey(player) && Utils.PlayerSpringBraceletLevelRequire.get(player) <= player.experienceLevel) {
@@ -2128,10 +2114,9 @@ public class PlayerAttributes {
             maxMana += Utils.maxMana.get(offhand);
         if (data.contains("GemSMaxMana")) maxMana += data.getDouble("GemSMaxMana");
 
-        int IntelligentAbilityPoint = data.getInt(StringUtils.Ability.Intelligent);
+        int intelligentAbilityPoint = data.getInt(StringUtils.Ability.Intelligent);
         if (data.contains(StringUtils.Ability.Intelligent) && data.getInt(StringUtils.Ability.Intelligent) > 0) {
-            int Point = IntelligentAbilityPoint + (IntelligentAbilityPoint / 10) * 5;
-            maxMana += Point;
+            maxMana += intelligentAbilityPoint;
         } // 能力
 
         if (stackmainhandtag.contains(StringUtils.SoulEquipForge) && Utils.sceptreTag.containsKey(mainhand))
