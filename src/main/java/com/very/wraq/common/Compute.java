@@ -1862,12 +1862,13 @@ public class Compute {
                 Style.EMPTY.applyFormat(ChatFormatting.BLUE), // 25 - 50
                 Style.EMPTY.applyFormat(ChatFormatting.RED), // 50 - 75
                 Style.EMPTY.applyFormat(ChatFormatting.LIGHT_PURPLE), // 75 - 100
-                CustomStyle.styleOfEntropy,
-                CustomStyle.styleOfEntropy,
-                CustomStyle.styleOfCastle,
-                CustomStyle.styleOfPurpleIron,
-                CustomStyle.styleOfMoon1,
-                CustomStyle.styleOfWorld
+                CustomStyle.styleOfEntropy, // 125
+                CustomStyle.styleOfEntropy, // 150
+                CustomStyle.styleOfCastle, // 175
+                CustomStyle.styleOfPurpleIron, // 200
+                CustomStyle.styleOfMoon1, // 225
+                CustomStyle.styleOfWorld, // 250
+                CustomStyle.styleOfSakura // 275
         };
         mob.setCustomName(Component.literal("Lv." + level + " ").withStyle(styles[level / 25])
                 .append(component));
