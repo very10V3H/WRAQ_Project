@@ -102,7 +102,7 @@ public class PurpleIronInstance extends NoTeamInstance {
     public boolean allowReward(Player player) {
         if (MobSpawn.totalKillCount.getOrDefault(player.getName().getString(), new HashMap<>())
                 .getOrDefault(NetherInstance.mobName, 0) >= 50) {
-            NoTeamInstanceModule.putPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.nether, true);
+            NoTeamInstanceModule.putPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.purpleIron, true);
         }
         return NoTeamInstanceModule.getPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.purpleIron);
     }

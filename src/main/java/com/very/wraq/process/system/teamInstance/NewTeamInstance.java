@@ -203,7 +203,8 @@ public abstract class NewTeamInstance {
                                 append(description));
                 players.forEach(player -> {
                     if (!allowReward(player)) {
-
+                        Compute.sendFormatMSG(player, Component.literal("团队副本").withStyle(ChatFormatting.RED),
+                                allowRewardCondition());
                         return;
                     }
                     reward(player);

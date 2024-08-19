@@ -354,9 +354,9 @@ public class IdCardGui extends Screen {
             components.add(Component.literal("当前").withStyle(ChatFormatting.WHITE).
                     append(Component.literal(Ability).withStyle(style)).
                     append(Component.literal("能力点数属性加成:").withStyle(ChatFormatting.WHITE)));
-            double ExAttack = ClientUtils.AbilityChangeCache.Power + Math.floor((ClientUtils.AbilityChangeCache.Power) / 10.0) * 5;
-            double ExDefence = ClientUtils.AbilityChangeCache.Power + Math.floor((ClientUtils.AbilityChangeCache.Power) / 10.0) * 5;
-            double ExCritDamage = (ClientUtils.AbilityChangeCache.Power + Math.floor((ClientUtils.AbilityChangeCache.Power) / 10.0) * 5);
+            double ExAttack = ClientUtils.AbilityChangeCache.Power;
+            double ExDefence = ClientUtils.AbilityChangeCache.Power;
+            double ExCritDamage = ClientUtils.AbilityChangeCache.Power;
             Compute.EmojiDescriptionExAttackDamage(components, ExAttack);
             Compute.EmojiDescriptionDefence(components, ExDefence * 6);
             Compute.EmojiDescriptionCritDamage(components, ExCritDamage * 0.01);
@@ -382,9 +382,9 @@ public class IdCardGui extends Screen {
             components.add(Component.literal("当前").withStyle(ChatFormatting.WHITE).
                     append(Component.literal(Ability).withStyle(style)).
                     append(Component.literal("能力点数属性加成:").withStyle(ChatFormatting.WHITE)));
-            double ExManaDamage = ClientUtils.AbilityChangeCache.Intelligent + Math.floor((ClientUtils.AbilityChangeCache.Intelligent) / 10.0) * 5;
-            double ExManaRecover = ClientUtils.AbilityChangeCache.Intelligent + Math.floor((ClientUtils.AbilityChangeCache.Intelligent) / 10.0) * 5;
-            double ExMaxMana = (ClientUtils.AbilityChangeCache.Intelligent + Math.floor((ClientUtils.AbilityChangeCache.Intelligent) / 10.0) * 5);
+            double ExManaDamage = ClientUtils.AbilityChangeCache.Intelligent;
+            double ExManaRecover = ClientUtils.AbilityChangeCache.Intelligent;
+            double ExMaxMana = ClientUtils.AbilityChangeCache.Intelligent;
             Compute.EmojiDescriptionManaAttackDamage(components, ExManaDamage * 2);
             Compute.EmojiDescriptionManaRecover(components, ExManaRecover * 0.3);
             Compute.EmojiDescriptionMaxMana(components, ExMaxMana);
@@ -411,9 +411,9 @@ public class IdCardGui extends Screen {
                     append(Component.literal(Ability).withStyle(style)).
                     append(Component.literal("能力点数属性加成:").withStyle(ChatFormatting.WHITE)));
 
-            double ExSwiftness = ClientUtils.AbilityChangeCache.Flexibility + Math.floor((ClientUtils.AbilityChangeCache.Flexibility) / 10.0) * 5;
-            double ExMoveSpeed = ClientUtils.AbilityChangeCache.Flexibility + Math.floor((ClientUtils.AbilityChangeCache.Flexibility) / 10.0) * 5;
-            double ExDefencePenetration = (ClientUtils.AbilityChangeCache.Flexibility + Math.floor((ClientUtils.AbilityChangeCache.Flexibility) / 10.0) * 5);
+            double ExSwiftness = ClientUtils.AbilityChangeCache.Flexibility;
+            double ExMoveSpeed = ClientUtils.AbilityChangeCache.Flexibility;
+            double ExDefencePenetration = ClientUtils.AbilityChangeCache.Flexibility;
 
             Compute.EmojiDescriptionSwiftness(components, ExSwiftness * 0.1);
             Compute.EmojiDescriptionCommonMovementSpeed(components, ExMoveSpeed * 0.003);
@@ -446,9 +446,9 @@ public class IdCardGui extends Screen {
             components.add(Component.literal("当前").withStyle(ChatFormatting.WHITE).
                     append(Component.literal(Ability).withStyle(style)).
                     append(Component.literal("能力点数属性加成:").withStyle(ChatFormatting.WHITE)));
-            double ExCritRate = ClientUtils.AbilityChangeCache.Lucky + Math.floor((ClientUtils.AbilityChangeCache.Lucky) / 10.0) * 5;
-            double ExExpUp = ClientUtils.AbilityChangeCache.Lucky + Math.floor((ClientUtils.AbilityChangeCache.Lucky) / 10.0) * 5;
-            double exCooldown = (ClientUtils.AbilityChangeCache.Lucky + Math.floor((ClientUtils.AbilityChangeCache.Lucky) / 10.0) * 5);
+            double ExCritRate = ClientUtils.AbilityChangeCache.Lucky;
+            double ExExpUp = ClientUtils.AbilityChangeCache.Lucky;
+            double exCooldown = ClientUtils.AbilityChangeCache.Lucky;
 
             Compute.EmojiDescriptionCritRate(components, ExCritRate * 0.001);
             Compute.EmojiDescriptionExpUp(components, ExExpUp * 0.01);
@@ -478,9 +478,9 @@ public class IdCardGui extends Screen {
             components.add(Component.literal("当前").withStyle(ChatFormatting.WHITE).
                     append(Component.literal(Ability).withStyle(style)).
                     append(Component.literal("能力点数属性加成:").withStyle(ChatFormatting.WHITE)));
-            double ExHealReply = ClientUtils.AbilityChangeCache.Vitality + Math.floor((ClientUtils.AbilityChangeCache.Vitality) / 10.0) * 5;
-            double ExMaxHeal = ClientUtils.AbilityChangeCache.Vitality + Math.floor((ClientUtils.AbilityChangeCache.Vitality) / 10.0) * 5;
-            double ExHealAmplitude = (ClientUtils.AbilityChangeCache.Vitality + Math.floor((ClientUtils.AbilityChangeCache.Vitality) / 10.0) * 5);
+            double ExHealReply = ClientUtils.AbilityChangeCache.Vitality;
+            double ExMaxHeal = ClientUtils.AbilityChangeCache.Vitality;
+            double ExHealAmplitude = ClientUtils.AbilityChangeCache.Vitality;
 
             Compute.EmojiDescriptionHealthRecover(components, ExHealReply);
             Compute.EmojiDescriptionMaxHealth(components, ExMaxHeal * 10);
