@@ -1,14 +1,18 @@
 package com.very.wraq.common.attributeValues;
 
+import com.very.wraq.common.Utils.StringUtils;
+import com.very.wraq.common.Utils.Utils;
 import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.process.system.element.equipAndCurios.waterElement.WaterElementSword;
 import com.very.wraq.process.system.tower.TowerMob;
 import com.very.wraq.series.overworld.sakuraSeries.EarthMana.EarthPower;
-import com.very.wraq.common.Utils.StringUtils;
-import com.very.wraq.common.Utils.Utils;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Mob;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class MobAttributes {
     public static double defence(Mob monster) {
@@ -107,6 +111,34 @@ public class MobAttributes {
         double baseValue = MobSpawn.MobBaseAttributes.critDamage.getOrDefault(MobSpawn.getMobOriginName(mob), 0d);
         double exValue = 0;
         return baseValue + exValue;
+    }
+
+    public static Map<String, Map<String, Double>> readAttributes(List<String> content) {
+        Map<String, Map<String, Double>> attributesMap = new HashMap<>();
+        String[] header = null;
+        for (int i = 0 ; i < content.size() ; i++) {
+            String s = content.get(i);
+            if (s.startsWith(",")) continue;
+            if (i == 0) header = s.split(",");
+            else {
+                String[] attributes = s.split(",");
+                for (int i1 = 0; i1 < attributes.length; i1++) {
+                    attributes[i1] = attributes[i1].replaceAll("\\[", "");
+                    attributes[i1] = attributes[i1].replaceAll("]", "");
+                    attributes[i1] = attributes[i1].trim();
+                }
+                attributesMap.put(attributes[0], new HashMap<>());
+                Map<String, Double> eachAttributes = attributesMap.get(attributes[0]);
+                for (int i1 = 1; i1 < attributes.length; i1++) {
+                    if (org.apache.commons.lang3.StringUtils.isNumeric(attributes[i1])) {
+                        eachAttributes.put(header[i1].trim(), Double.parseDouble(attributes[i1]));
+                    } else {
+                        eachAttributes.put(header[i1].trim(), 0.0);
+                    }
+                }
+            }
+        }
+        return attributesMap;
     }
 
 }

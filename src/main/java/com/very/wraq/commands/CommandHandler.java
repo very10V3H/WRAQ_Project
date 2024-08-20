@@ -461,5 +461,13 @@ public class CommandHandler {
                         ).requires(commandSourceStack -> commandSourceStack.hasPermission(0))
                 )
         );
+        CommandDispatcher<CommandSourceStack> dispatcher49 = event.getDispatcher();
+        LiteralCommandNode<CommandSourceStack> cmd49 = dispatcher49.register(
+                Commands.literal(Utils.MOD_ID).then(
+                        Commands.literal("readMobAttributesFromCSVFile")
+                                .requires(commandSourceStack -> commandSourceStack.hasPermission(2))
+                                .executes(ReadMobAttributeFromCSVFileCommand.instance)
+                )
+        );
     }
 }

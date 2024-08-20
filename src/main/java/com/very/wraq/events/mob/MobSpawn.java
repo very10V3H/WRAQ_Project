@@ -1,12 +1,16 @@
 package com.very.wraq.events.mob;
 
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.Utils.ItemAndRate;
+import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.attributeValues.PlayerAttributes;
+import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.events.core.LoginInEvent;
-import com.very.wraq.events.mob.chapter6_castle.BeaconSpawnController;
-import com.very.wraq.events.mob.chapter6_castle.BlazeSpawnController;
-import com.very.wraq.events.mob.chapter6_castle.TreeSpawnController;
-import com.very.wraq.events.mob.chapter1.*;
+import com.very.wraq.events.mob.chapter1.ForestZombieSpawnController;
+import com.very.wraq.events.mob.chapter1.LakeDrownSpawnController;
+import com.very.wraq.events.mob.chapter1.MineSkeletonSpawnController;
+import com.very.wraq.events.mob.chapter1.PlainZombieSpawnController;
 import com.very.wraq.events.mob.chapter2.*;
-import com.very.wraq.events.mob.chapter5.*;
 import com.very.wraq.events.mob.chapter3_nether.MagmaSpawnController;
 import com.very.wraq.events.mob.chapter3_nether.NetherSkeletonSpawnController;
 import com.very.wraq.events.mob.chapter3_nether.PiglinSpawnController;
@@ -14,6 +18,10 @@ import com.very.wraq.events.mob.chapter3_nether.WitherSkeletonSpawnController;
 import com.very.wraq.events.mob.chapter4_end.EnderManSpawnController;
 import com.very.wraq.events.mob.chapter4_end.EndermiteSpawnController;
 import com.very.wraq.events.mob.chapter4_end.ShulkerSpawnController;
+import com.very.wraq.events.mob.chapter5.*;
+import com.very.wraq.events.mob.chapter6_castle.BeaconSpawnController;
+import com.very.wraq.events.mob.chapter6_castle.BlazeSpawnController;
+import com.very.wraq.events.mob.chapter6_castle.TreeSpawnController;
 import com.very.wraq.events.mob.chapter7.BoneImpSpawnController;
 import com.very.wraq.events.mob.chapter7.StarSpawnController;
 import com.very.wraq.events.mob.chapter7.TorturedSoulSpawnController;
@@ -26,11 +34,6 @@ import com.very.wraq.projectiles.WraqCurios;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.end.Recall;
 import com.very.wraq.series.end.runes.EndRune;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.Utils.ItemAndRate;
-import com.very.wraq.common.Utils.Utils;
-import com.very.wraq.common.attributeValues.PlayerAttributes;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -173,6 +176,8 @@ public class MobSpawn {
         public static Map<String, Double> healthSteal = new HashMap<>();
         public static Map<String, Double> movementSpeed = new HashMap<>();
 
+        public static Map<String, Map<String, Double>> fromCSVAttributes = new HashMap<>();
+
         public static double getMobBaseAttribute(Mob mob, Map<String, Double> map) {
             return map.getOrDefault(getMobOriginName(mob), 0d);
         }
@@ -194,19 +199,39 @@ public class MobSpawn {
                                                 double critRate, double critDamage, double defencePenetration,
                                                 double defencePenetration0, double healthSteal, double maxHealth, double movementSpeed) {
             String mobOriginName = getMobOriginName(mob);
-            MobBaseAttributes.attackDamage.put(mobOriginName, attackDamage);
-            MobBaseAttributes.defence.put(mobOriginName, defence);
-            MobBaseAttributes.manaDefence.put(mobOriginName, manaDefence);
-            MobBaseAttributes.critRate.put(mobOriginName, critRate);
-            MobBaseAttributes.critDamage.put(mobOriginName, critDamage);
-            MobBaseAttributes.defencePenetration.put(mobOriginName, defencePenetration);
-            MobBaseAttributes.defencePenetration0.put(mobOriginName, defencePenetration0);
-            MobBaseAttributes.healthSteal.put(mobOriginName, healthSteal);
-            mob.getAttribute(Attributes.MAX_HEALTH).setBaseValue(maxHealth);
-            mob.setHealth(mob.getMaxHealth());
-            MobBaseAttributes.movementSpeed.put(mobOriginName, movementSpeed);
-            mob.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(movementSpeed);
-            mob.getAttribute(Attributes.KNOCKBACK_RESISTANCE).setBaseValue(1);
+
+            if (fromCSVAttributes.isEmpty()) {
+                MobBaseAttributes.attackDamage.put(mobOriginName, attackDamage);
+                MobBaseAttributes.defence.put(mobOriginName, defence);
+                MobBaseAttributes.manaDefence.put(mobOriginName, manaDefence);
+                MobBaseAttributes.critRate.put(mobOriginName, critRate);
+                MobBaseAttributes.critDamage.put(mobOriginName, critDamage);
+                MobBaseAttributes.defencePenetration.put(mobOriginName, defencePenetration);
+                MobBaseAttributes.defencePenetration0.put(mobOriginName, defencePenetration0);
+                MobBaseAttributes.healthSteal.put(mobOriginName, healthSteal);
+                mob.getAttribute(Attributes.MAX_HEALTH).setBaseValue(maxHealth);
+                mob.setHealth(mob.getMaxHealth());
+                MobBaseAttributes.movementSpeed.put(mobOriginName, movementSpeed);
+                mob.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(movementSpeed);
+                mob.getAttribute(Attributes.KNOCKBACK_RESISTANCE).setBaseValue(1);
+            } else {
+                if (fromCSVAttributes.containsKey(mobOriginName)) {
+                    Map<String, Double> attributeMap = fromCSVAttributes.get(mobOriginName);
+                    MobBaseAttributes.attackDamage.put(mobOriginName, attributeMap.get("attack"));
+                    MobBaseAttributes.defence.put(mobOriginName, attributeMap.get("defence"));
+                    MobBaseAttributes.manaDefence.put(mobOriginName, attributeMap.get("manaDefence"));
+                    MobBaseAttributes.critRate.put(mobOriginName, attributeMap.get("critRate"));
+                    MobBaseAttributes.critDamage.put(mobOriginName, attributeMap.get("critDamage"));
+                    MobBaseAttributes.defencePenetration.put(mobOriginName, attributeMap.get("defencePenetration"));
+                    MobBaseAttributes.defencePenetration0.put(mobOriginName, attributeMap.get("defencePenetration0"));
+                    MobBaseAttributes.healthSteal.put(mobOriginName, attributeMap.get("healthSteal"));
+                    mob.getAttribute(Attributes.MAX_HEALTH).setBaseValue(attributeMap.get("health"));
+                    mob.setHealth(mob.getMaxHealth());
+                    MobBaseAttributes.movementSpeed.put(mobOriginName, attributeMap.get("movementSpeed"));
+                    mob.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(attributeMap.get("movementSpeed"));
+                    mob.getAttribute(Attributes.KNOCKBACK_RESISTANCE).setBaseValue(1);
+                }
+            }
         }
     }
 
