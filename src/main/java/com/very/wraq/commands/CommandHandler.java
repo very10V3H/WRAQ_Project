@@ -452,6 +452,14 @@ public class CommandHandler {
                         ).requires(commandSourceStack -> commandSourceStack.hasPermission(2))
                 )
         );
-
+        CommandDispatcher<CommandSourceStack> dispatcher48 = event.getDispatcher();
+        LiteralCommandNode<CommandSourceStack> cmd48 = dispatcher48.register(
+                Commands.literal(Utils.MOD_ID).then(
+                        Commands.literal("qs").then(
+                                Commands.argument("type", StringArgumentType.string())
+                                        .executes(QSCommand.instance)
+                        ).requires(commandSourceStack -> commandSourceStack.hasPermission(0))
+                )
+        );
     }
 }
