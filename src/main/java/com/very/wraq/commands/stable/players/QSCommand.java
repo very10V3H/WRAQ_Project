@@ -61,7 +61,7 @@ public class QSCommand implements Command<CommandSourceStack> {
                                 append(Component.literal(" 常用专精与能力配置").withStyle(ChatFormatting.WHITE)));
             }
             if (profession.equals(mana)) {
-                data.putInt(StringUtils.Skill.BowBase, xpLevel);
+                data.putInt(StringUtils.Skill.ManaBase, xpLevel);
                 data.putInt(StringUtils.SkillPoint_Used, xpLevel);
                 data.putInt(StringUtils.Ability.Intelligent, xpLevel);
                 data.putInt(StringUtils.AbilityPoint_Used, xpLevel);
