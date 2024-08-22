@@ -119,7 +119,7 @@ public class IceInstance extends NoTeamInstance {
         Compute.SetMobCustomName(stray, Component.literal(mobName).withStyle(CustomStyle.styleOfIce), 135);
 
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(stray), 100);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(stray, 1250, 1600, 1600, 0.35, 3, 0.2, 600, 20, 3000000, 0.35);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(stray, 1250, 1600, 1600, 0.35, 3, 0.2, 600, 20, 2000000, 0.35);
 
         stray.setHealth(stray.getMaxHealth());
         stray.setItemSlot(EquipmentSlot.HEAD, ModItems.MobArmorIceHelmet.get().getDefaultInstance());
@@ -274,8 +274,8 @@ public class IceInstance extends NoTeamInstance {
                             Utils.IceHunterForIceKnight[i].setItemSlot(EquipmentSlot.LEGS, ModItems.MobArmorIceHunterLeggings.get().getDefaultInstance());
                             Utils.IceHunterForIceKnight[i].setItemSlot(EquipmentSlot.FEET, ModItems.MobArmorIceHunterBoots.get().getDefaultInstance());
                             Utils.IceHunterForIceKnight[i].setItemSlot(EquipmentSlot.MAINHAND, Items.BOW.getDefaultInstance());
-                            Utils.IceHunterForIceKnight[i].getAttribute(Attributes.MAX_HEALTH).setBaseValue(1500000 * (1 + (playerList.size() - 1) * 0.75));
-                            Utils.IceHunterForIceKnight[i].setHealth((float) (1500000 * (1 + (playerList.size() - 1) * 0.75)));
+                            Utils.IceHunterForIceKnight[i].getAttribute(Attributes.MAX_HEALTH).setBaseValue(150000 * (1 + (playerList.size() - 1) * 0.75));
+                            Utils.IceHunterForIceKnight[i].setHealth((float) (150000 * (1 + (playerList.size() - 1) * 0.75)));
                             Utils.IceHunterForIceKnight[i].setHealth(Utils.IceHunterForIceKnight[i].getMaxHealth());
                             Utils.IceHunterForIceKnight[i].getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.3D);
                             Utils.IceHunterForIceKnight[i].getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(1000);
