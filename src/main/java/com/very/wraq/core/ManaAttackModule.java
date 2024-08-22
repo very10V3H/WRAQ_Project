@@ -157,7 +157,7 @@ public class ManaAttackModule {
             // final damage
             Compute.Damage.DirectDamageToMob(player, monster, damage + damageIgnoreDefence);
             // health steal
-            Compute.PlayerHealSteal(player, (damage) * healthSteal * 0.5);
+            Compute.healByHealthSteal(player, damage * healthSteal);
 
             // display
             if (isCrit)
