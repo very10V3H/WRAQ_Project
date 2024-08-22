@@ -64,6 +64,8 @@ public class NoTeamInstanceModule {
                         noTeamInstance.detectAndSummon(level);
                         noTeamInstance.tickModule();
                         if (tick % 20 == 0) noTeamInstance.summonLeftSecondsArmorStand(level);
+                    } else {
+                        noTeamInstance.reset(tick);
                     }
                     noTeamInstance.bossInfoSet(level);
                 }
@@ -93,7 +95,8 @@ public class NoTeamInstanceModule {
         List<ServerPlayer> playerList = serverLevel.getServer().getPlayerList().getPlayers();
         boolean hasPlayerNearby = false;
         for (ServerPlayer serverPlayer : playerList) {
-            if (serverPlayer.position().distanceTo(noTeamInstance.pos) < noTeamInstance.range) hasPlayerNearby = true;
+            if (serverPlayer.isAlive()
+                    && serverPlayer.position().distanceTo(noTeamInstance.pos) < noTeamInstance.range) hasPlayerNearby = true;
         }
         return hasPlayerNearby;
     }

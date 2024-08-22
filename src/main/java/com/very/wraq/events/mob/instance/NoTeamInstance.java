@@ -12,6 +12,7 @@ import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.player.Inventory;
@@ -70,7 +71,9 @@ public abstract class NoTeamInstance {
             summonModule(level);
             inChallenge = true;
         }
-        if (playerList.isEmpty()) inChallenge = false;
+        if (playerList.isEmpty() || playerList.stream().allMatch(LivingEntity::isDeadOrDying)) {
+            reset(tick);
+        }
         if (inChallenge && !allMobIsNull) {
             boolean allMobIsDead = true;
             for (Mob mob : mobList) {
@@ -82,11 +85,7 @@ public abstract class NoTeamInstance {
             if (allMobIsDead) rewardNearPlayer(level);
 
             if (allMobIsNotAlive) {
-                summonTick = tick + delayTick;
-                inChallenge = false;
-                bossInfoList.forEach(ServerBossEvent::removeAllPlayers);
-                bossInfoList.clear();
-                mobList.clear();
+                reset(tick);
             } else {
                 if (playerList.size() >= 4) summonTick -= (playerList.size() / 4 - 1);
                 tickModule();
@@ -210,4 +209,13 @@ public abstract class NoTeamInstance {
     public abstract boolean allowReward(Player player);
 
     public abstract Component allowRewardCondition();
+
+    public void reset(int tick) {
+        summonTick = tick + delayTick;
+        inChallenge = false;
+        bossInfoList.forEach(ServerBossEvent::removeAllPlayers);
+        bossInfoList.clear();
+        mobList.forEach(mob -> mob.remove(Entity.RemovalReason.KILLED));
+        mobList.clear();
+    }
 }
