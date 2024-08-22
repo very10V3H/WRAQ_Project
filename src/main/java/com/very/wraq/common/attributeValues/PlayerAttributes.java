@@ -1997,7 +1997,7 @@ public class PlayerAttributes {
 
         manaPenetration0 += handleAllEquipRandomAttribute(player, StringUtils.RandomAttribute.manaPenetration0);
 
-        manaPenetration0 += computeAllEquipSlotXpLevelAttributeValue(player, Utils.manaPenetration0, false);
+        manaPenetration0 += computeAllEquipSlotXpLevelAttributeValue(player, Utils.xpLevelManaPenetration0, false);
         manaPenetration0 += Compute.CuriosAttribute.attributeValue(player, Utils.xpLevelManaPenetration0,
                 StringUtils.CuriosAttribute.xpLevelManaPenetration0) * player.experienceLevel;
 
