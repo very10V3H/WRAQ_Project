@@ -3054,21 +3054,9 @@ public class Compute {
         player.heal((float) healNum);
     }
 
-    public static void PlayerHealSteal(Player player, double Num) {
+    public static void healByHealthSteal(Player player, double num) {
         double rate = 1;
-        double overflowHealth = Num * rate * 0.5 * (1 + PlayerAttributes.healEffectUp(player)) + player.getHealth() - player.getMaxHealth();
-        if (overflowHealth > 0 && ArmorCount.BloodMana(player) > 0) {
-            List<Mob> mobList = player.level().getEntitiesOfClass(Mob.class, AABB.ofSize(player.position(), 15, 15, 15));
-            mobList.forEach(mob -> {
-                Vec3 PosVec = mob.position().subtract(player.position());
-                if (PosVec.length() <= 6) {
-                    Damage.DamageIgNoreDefenceToMonster(player, mob, overflowHealth * ArmorCount.BloodMana(player));
-                }
-            });
-            ParticleProvider.DisperseParticle(player.position(), (ServerLevel) player.level(), 1, 1, 120, ModParticles.LONG_ENTROPY.get(), 1);
-            ParticleProvider.DisperseParticle(player.position(), (ServerLevel) player.level(), 1.5, 1, 120, ModParticles.LONG_ENTROPY.get(), 1);
-        }
-        playerHeal(player, Num * rate * 0.5 * 0.01);
+        playerHeal(player, num * rate * 0.1);
     }
 
     public static void Proficiency(ItemStack equip, Item monsterhelmet) {

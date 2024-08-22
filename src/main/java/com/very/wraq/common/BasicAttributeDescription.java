@@ -471,9 +471,9 @@ public class BasicAttributeDescription {
                     int ForgeTimes = data.getInt(StringUtils.SoulEquipForge);
                     MutableComponent mutableComponent = Component.literal("");
                     mutableComponent.append(Component.literal(" 生命偷取").withStyle(ChatFormatting.RED).
-                            append(Component.literal("+" + String.format("%.0f‱", SoulEquipAttribute.BaseAttribute.SoulSword.HealthSteal * 100)).withStyle(ChatFormatting.WHITE)).
+                            append(Component.literal("+" + String.format("%.0f‰", SoulEquipAttribute.BaseAttribute.SoulSword.HealthSteal * 100)).withStyle(ChatFormatting.WHITE)).
                             append(Component.literal("  ")).
-                            append(Component.literal("+ " + String.format("%.0f‱", SoulEquipAttribute.ForgingAddition.HealthSteal * 100)).withStyle(CustomStyle.styleOfWorld)).
+                            append(Component.literal("+ " + String.format("%.0f‰", SoulEquipAttribute.ForgingAddition.HealthSteal * 100)).withStyle(CustomStyle.styleOfWorld)).
                             append(Component.literal(" x [" + ForgeTimes + "]").withStyle(CustomStyle.styleOfWorld)));
                     index++;
                     event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.healthSteal)));
@@ -489,7 +489,7 @@ public class BasicAttributeDescription {
                     healSteal += ForgeEquipUtils.getRandomEquipBaseValue(itemStack, StringUtils.RandomAttribute.healthSteal);
                 MutableComponent mutableComponent = Component.literal("");
                 mutableComponent.append(Component.literal(" 生命偷取").withStyle(ChatFormatting.RED).
-                        append(Component.literal("+" + String.format("%.0f‱", healSteal * 100)).withStyle(ChatFormatting.WHITE)));
+                        append(Component.literal("+" + String.format("%.0f‰", healSteal * 100)).withStyle(ChatFormatting.WHITE)));
                 index++;
                 event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.healthSteal)));
 
@@ -740,7 +740,7 @@ public class BasicAttributeDescription {
 
             MutableComponent mutableComponent = Component.literal("");
             mutableComponent.append(Component.literal(" 法术吸血").withStyle(CustomStyle.styleOfBloodMana).
-                    append(Component.literal("+" + String.format("%.0f‱", ManaHealSteal * 100)).withStyle(ChatFormatting.WHITE)));
+                    append(Component.literal("+" + String.format("%.0f‰", ManaHealSteal * 100)).withStyle(ChatFormatting.WHITE)));
             index++;
             event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.manaHealthSteal)));
         }

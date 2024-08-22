@@ -187,7 +187,7 @@ public class AttackEvent {
         // Final damage cause
         Compute.Damage.DirectDamageToMob(player, monster, damage + damageIgnoreDefence);
         // Health steal
-        Compute.PlayerHealSteal(player, damage * PlayerAttributes.healthSteal(player) * 0.5);
+        Compute.healByHealthSteal(player, damage * PlayerAttributes.healthSteal(player));
         // Display
         if (critFlag)
             Compute.SummonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", damage + damageIgnoreDefence)).withStyle(CustomStyle.styleOfPower), 0);

@@ -171,11 +171,11 @@ public class AttributeHud {
         } else if (Utils.sceptreTag.containsKey(mainHandItem)) {
             RenderSystem.setShaderTexture(0, MANA_HEALTH_STEAL);
             guiGraphics.blit(MANA_HEALTH_STEAL, x - 160 + xOffset, y - 41, 0, 0, 12, 12, 12, 12);
-            guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%.0f%%", ClientUtils.clientManaHealthSteal * 100)).withStyle(CustomStyle.styleOfMana), x - 135 + xOffset, y - 38, 0);
+            guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%.0f‰", ClientUtils.clientManaHealthSteal * 100)).withStyle(CustomStyle.styleOfMana), x - 135 + xOffset, y - 38, 0);
         } else {
             RenderSystem.setShaderTexture(0, HEALTH_STEAL);
             guiGraphics.blit(HEALTH_STEAL, x - 160 + xOffset, y - 41, 0, 0, 12, 12, 12, 12);
-            guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%.0f%%", ClientUtils.HealStealC * 100)), x - 135 + xOffset, y - 38, 16733525);
+            guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%.0f‰", ClientUtils.HealStealC * 100)), x - 135 + xOffset, y - 38, 16733525);
         }
 
         RenderSystem.setShaderTexture(0, DEFENCE);
