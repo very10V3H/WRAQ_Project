@@ -448,7 +448,7 @@ public class PowerLogic {
         players.forEach(player1 -> {
             if (player1.distanceTo(player) < 6) {
                 playerShieldProvider(player1, 50, data.getInt(StringUtils.Ability.Intelligent) * 20);
-                Compute.iceParticleCreate(player1, Dimension);
+                Compute.iceParticleCreate(player1);
                 sendEffectLastTime(player, ModItems.SnowPower.get().getDefaultInstance(), 50);
             }
         });

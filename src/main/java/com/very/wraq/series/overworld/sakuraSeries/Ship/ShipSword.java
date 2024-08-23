@@ -82,7 +82,7 @@ public class ShipSword extends WraqSword implements ActiveItem {
             mobList.removeIf(mob -> mob.position().distanceTo(desPos) > 6);
             mobList.forEach(mob -> {
                 Utils.ForestPowerEffectMobList.add(new ForestPowerEffectMob(desPos, 20, mob));
-                Compute.AddSlowDownEffect(mob, 40, 2);
+                Compute.addSlowDownEffect(mob, 40, 2);
                 Compute.AddDefenceDescreaseEffectParticle(mob, 100);
                 Utils.shipSwordTime.put(mob, tickCount + 100);
                 Utils.shipSwordEffect.put(mob, Math.min(mobList.size(), 4));

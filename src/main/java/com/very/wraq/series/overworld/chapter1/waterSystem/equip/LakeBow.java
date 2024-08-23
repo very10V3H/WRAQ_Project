@@ -50,7 +50,7 @@ public class LakeBow extends WraqBow implements OnHitEffectMainHandWeapon {
                 Compute.Damage.AttackDamageToMonster_RateAdDamage(player, mob1, 0.25 * (1 + tier) * (1 + PlayerAttributes.critDamage(player)));
             } else Compute.Damage.AttackDamageToMonster_RateAdDamage(player, mob1, 0.25 * (1 + tier));
 
-            Compute.AddSlowDownEffect(mob1, 40, 2);
+            Compute.addSlowDownEffect(mob1, 40, 2);
         });
     }
 

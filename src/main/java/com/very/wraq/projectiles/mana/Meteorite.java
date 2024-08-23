@@ -94,7 +94,7 @@ public class Meteorite extends AbstractArrow implements GeoEntity {
                     case 1 -> {
                         mobList.forEach(mob -> {
                             if (mob.distanceTo(this) < 5) {
-                                Compute.AddSlowDownEffect(mob, 80, 2);
+                                Compute.addSlowDownEffect(mob, 80, 2);
                             }
                         });
                     }
@@ -110,7 +110,7 @@ public class Meteorite extends AbstractArrow implements GeoEntity {
                     case 3 -> {
                         mobList.forEach(mob -> {
                             if (mob.distanceTo(this) < 5) {
-                                Compute.AddSlowDownEffect(mob, 80, 4);
+                                Compute.addSlowDownEffect(mob, 80, 4);
                             }
                         });
                     }
@@ -203,7 +203,7 @@ public class Meteorite extends AbstractArrow implements GeoEntity {
                     case 1 -> {
                         mobList.forEach(mob -> {
                             if (mob.distanceTo(this) < 5) {
-                                Compute.AddSlowDownEffect(mob, 80, 2);
+                                Compute.addSlowDownEffect(mob, 80, 2);
                             }
                         });
                     }
@@ -219,7 +219,7 @@ public class Meteorite extends AbstractArrow implements GeoEntity {
                     case 3 -> {
                         mobList.forEach(mob -> {
                             if (mob.distanceTo(this) < 5) {
-                                Compute.AddSlowDownEffect(mob, 80, 4);
+                                Compute.addSlowDownEffect(mob, 80, 4);
                             }
                         });
                     }

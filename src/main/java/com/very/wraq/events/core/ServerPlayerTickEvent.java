@@ -278,7 +278,7 @@ public class ServerPlayerTickEvent {
                         }
                         Compute.Damage.AttackDamageToMonster_RateAdDamage(player, mob, Compute.ArmorCount.Ice(player) * 0.5);
                         Compute.Damage.ManaDamageToMonster_RateApDamage(player, mob, Compute.ArmorCount.Ice(player) * 0.15, false);
-                        Compute.AddSlowDownEffect(mob, 40, 2);
+                        Compute.addSlowDownEffect(mob, 40, 2);
                     }
                 });
                 ParticleProvider.VerticleCircleParticle(serverPlayer, 1, 6, 80, ParticleTypes.SNOWFLAKE);

@@ -512,7 +512,7 @@ public class Compute {
         });
     }
 
-    public static void AddSlowDownEffect(Mob mob, int Tick, int Tier) {
+    public static void addSlowDownEffect(Mob mob, int Tick, int Tier) {
         mob.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, Tick, Tier, false, false, false));
         List<ServerPlayer> playerList = mob.level().getServer().getPlayerList().getPlayers();
         playerList.forEach(serverPlayer -> {
@@ -4324,11 +4324,11 @@ public class Compute {
         return 2;
     }
 
-    public static void iceParticleCreate(Entity entity, Level level) {
+    public static void iceParticleCreate(Entity entity) {
         BlockPos blockPos = entity.blockPosition().above();
-        if (level.getBlockState(blockPos).is(Blocks.AIR)) {
-            level.setBlockAndUpdate(blockPos, Blocks.ICE.defaultBlockState());
-            level.destroyBlock(blockPos, false);
+        if (entity.level().getBlockState(blockPos).is(Blocks.AIR)) {
+            entity.level().setBlockAndUpdate(blockPos, Blocks.ICE.defaultBlockState());
+            entity.level().destroyBlock(blockPos, false);
         }
     }
 
