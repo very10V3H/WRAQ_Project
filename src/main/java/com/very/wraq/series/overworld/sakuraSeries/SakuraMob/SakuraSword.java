@@ -54,7 +54,7 @@ public class SakuraSword extends WraqSword implements ActiveItem {
                 append(Component.literal("樱灵之息").withStyle(style)).
                 append(Component.literal("的积攒").withStyle(ChatFormatting.WHITE)));
         Compute.DescriptionActive(components, Component.literal("妖化樱灵").withStyle(CustomStyle.styleOfSakura));
-        components.add(Component.literal(" 当层数满时，右键获得持续5s的").withStyle(ChatFormatting.WHITE).
+        components.add(Component.literal(" 当层数满时，右键获得持续10s的").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("妖化英灵之力").withStyle(CustomStyle.styleOfSakura)));
         Compute.DescriptionPassive(components, Component.literal("妖化樱灵之力").withStyle(CustomStyle.styleOfSakura));
         components.add(Component.literal(" 1.").withStyle(CustomStyle.styleOfDemon).
@@ -86,9 +86,9 @@ public class SakuraSword extends WraqSword implements ActiveItem {
             String name = player.getName().getString();
             if (Utils.SakuraDemonSword.containsKey(name) && Utils.SakuraDemonSword.get(name)) {
                 ModNetworking.sendToClient(new ChargedClearS2CPacket(4), (ServerPlayer) player);
-                ModNetworking.sendToClient(new SkillImageS2CPacket(1, 5, 5, 0, 3), (ServerPlayer) player);
+                ModNetworking.sendToClient(new SkillImageS2CPacket(1, 10, 10, 0, 3), (ServerPlayer) player);
                 Utils.SakuraDemonSword.put(name, false);
-                data.putInt(StringUtils.SakuraDemonSword, tickCount + 100);
+                data.putInt(StringUtils.SakuraDemonSword, tickCount + 200);
                 player.getCooldowns().addCooldown(ModItems.SakuraDemonSword.get(), (int) (300 - 300 * PlayerAttributes.coolDownDecrease(player)));
             } else {
                 Compute.sendFormatMSG(player, Component.literal("妖刀").withStyle(CustomStyle.styleOfDemon),
