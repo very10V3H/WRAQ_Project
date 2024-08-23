@@ -31,7 +31,13 @@ public class QSCommand implements Command<CommandSourceStack> {
         int xpLevel = player.experienceLevel;
         if (List.of(sword, bow, mana).contains(profession)) {
             if (!player.isCreative()) {
-                if (!Compute.itemStackRemove(player.getInventory(), ModItems.SkillReset.get(), 1)) return 0;
+                if (!Compute.itemStackRemove(player.getInventory(), ModItems.SkillReset.get(), 1)) {
+                    Compute.sendFormatMSG(player, Component.literal("快捷配置").withStyle(CustomStyle.styleOfFlexible),
+                            Component.literal("需要消耗 ").withStyle(ChatFormatting.WHITE).
+                                    append(ModItems.notePaper.get().getDefaultInstance().getDisplayName()).
+                                    append(Component.literal(" 方能进行快捷配置").withStyle(ChatFormatting.WHITE)));
+                    return 0;
+                }
             }
             Compute.resetSkillAndAbility(player);
             if (profession.equals(sword)) {
