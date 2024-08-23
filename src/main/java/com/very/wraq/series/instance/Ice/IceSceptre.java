@@ -2,6 +2,7 @@ package com.very.wraq.series.instance.Ice;
 
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.process.func.particle.ParticleProvider;
+import com.very.wraq.projectiles.OnHitEffectMainHandWeapon;
 import com.very.wraq.projectiles.mana.ManaArrow;
 import com.very.wraq.projectiles.WraqSceptre;
 import com.very.wraq.render.toolTip.CustomStyle;
@@ -18,6 +19,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.ItemStack;
@@ -26,7 +28,7 @@ import net.minecraft.world.level.Level;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IceSceptre extends WraqSceptre {
+public class IceSceptre extends WraqSceptre implements OnHitEffectMainHandWeapon {
     private final int num;
 
     public IceSceptre(Properties p_42964_, int num) {
@@ -73,6 +75,10 @@ public class IceSceptre extends WraqSceptre {
     public List<Component> getAdditionalComponents(ItemStack stack) {
         List<Component> components = new ArrayList<>();
         Style style = CustomStyle.styleOfIce;
+        ComponentUtils.descriptionPassive(components, Component.literal("迸晶裂玉").withStyle(style));
+        components.add(Component.literal(" 攻击").withStyle(CustomStyle.styleOfPower).
+                append(Component.literal("将对目标造成持续1s的").withStyle(ChatFormatting.WHITE)).
+                append(Component.literal("减速").withStyle(CustomStyle.styleOfIce)));
         Compute.DescriptionPassive(components, Component.literal("凝结爆裂").withStyle(style));
         components.add(Component.literal(" 你的普通法球攻击命中目标后，为你提供基于攻击目标").withStyle(ChatFormatting.WHITE).
                 append(Compute.AttributeDescription.ManaDefence("")).
@@ -87,5 +93,11 @@ public class IceSceptre extends WraqSceptre {
     @Override
     public Component getSuffix() {
         return ComponentUtils.getSuffixOfIce();
+    }
+
+    @Override
+    public void onHit(Player player, Mob mob) {
+        Compute.addSlowDownEffect(mob, 20, 1);
+        Compute.iceParticleCreate(mob);
     }
 }

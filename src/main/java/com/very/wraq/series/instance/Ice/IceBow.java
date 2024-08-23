@@ -3,6 +3,7 @@ package com.very.wraq.series.instance.Ice;
 import com.very.wraq.core.MyArrow;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.process.func.particle.ParticleProvider;
+import com.very.wraq.projectiles.OnHitEffectMainHandWeapon;
 import com.very.wraq.projectiles.WraqBow;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.Compute;
@@ -15,12 +16,14 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class IceBow extends WraqBow {
+public class IceBow extends WraqBow implements OnHitEffectMainHandWeapon {
     private final double BaseDamage = 700;
     private final double DefencePenetration0 = 2400;
     private final double CriticalHitRate = 0.25;
@@ -46,13 +49,17 @@ public class IceBow extends WraqBow {
     public List<Component> getAdditionalComponents(ItemStack stack) {
         List<Component> components = new ArrayList<>();
         Style style = getMainStyle();
+        ComponentUtils.descriptionPassive(components, Component.literal("迸晶裂玉").withStyle(style));
+        components.add(Component.literal(" 攻击").withStyle(CustomStyle.styleOfPower).
+                append(Component.literal("将对目标造成持续1s的").withStyle(ChatFormatting.WHITE)).
+                append(Component.literal("减速").withStyle(CustomStyle.styleOfIce)));
         Compute.DescriptionPassive(components, Component.literal("凝结爆裂").withStyle(style));
         components.add(Component.literal(" 造成暴击后，为你提供基于攻击目标").withStyle(ChatFormatting.WHITE).
                 append(Compute.AttributeDescription.Defence("")).
                 append(Component.literal("的额外").withStyle(ChatFormatting.WHITE)).
                 append(Compute.AttributeDescription.DefencePenetration("")).
                 append(Component.literal("持续2s").withStyle(ChatFormatting.WHITE)));
-        components.add(Component.literal(" 每8点护甲值提供1护甲穿透").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
+        components.add(Component.literal(" 每2点护甲值提供1护甲穿透").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
         return components;
     }
 
@@ -72,5 +79,11 @@ public class IceBow extends WraqBow {
         Compute.SoundToAll(serverPlayer, SoundEvents.ARROW_SHOOT);
         ParticleProvider.FaceCircleCreate(serverPlayer, 1, 0.75, 20, ParticleTypes.SNOWFLAKE);
         ParticleProvider.FaceCircleCreate(serverPlayer, 1.5, 0.5, 16, ParticleTypes.SNOWFLAKE);
+    }
+
+    @Override
+    public void onHit(Player player, Mob mob) {
+        Compute.addSlowDownEffect(mob, 20, 1);
+        Compute.iceParticleCreate(mob);
     }
 }

@@ -66,8 +66,8 @@ public class IceBook extends Item {
                 Utils.IceBookMobEffectTickMap.put(mob, TickCount + 60);
                 Utils.IceBookCoolDownMap.put(player, TickCount + 100);
                 Compute.coolDownTimeSend(player, ModItems.IceBook.get().getDefaultInstance(), 100);
-                Compute.AddSlowDownEffect(mob, 60, 3);
-                Compute.iceParticleCreate(mob, player.level());
+                Compute.addSlowDownEffect(mob, 60, 3);
+                Compute.iceParticleCreate(mob);
             }
         }
     }
