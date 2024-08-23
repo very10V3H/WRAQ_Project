@@ -12,6 +12,7 @@ import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.misc.ParticlePackets.EffectParticle.CritHitParticleS2CPacket;
 import com.very.wraq.networking.misc.SoundsPackets.SoundsS2CPacket;
 import com.very.wraq.process.system.element.Element;
+import com.very.wraq.projectiles.OnHitEffectMainHandWeapon;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.instance.Castle.CastleAttackArmor;
 import com.very.wraq.series.instance.Castle.CastleSword;
@@ -199,6 +200,9 @@ public class AttackEvent {
                 Compute.damageActionBarPacketSend(player, damage, damageIgnoreDefence, false, critFlag, elementType, elementDamage);
             else Compute.damageActionBarPacketSend(player, damage, damageIgnoreDefence, false, critFlag);
             SameTypeModule.onNormalAttackHitMob(player, monster, 0, damage + damageIgnoreDefence);
+            if (equip instanceof OnHitEffectMainHandWeapon onHitEffectMainHandWeapon) {
+                onHitEffectMainHandWeapon.onHit(player, monster);
+            }
         }
         // effect
 
@@ -443,7 +447,7 @@ public class AttackEvent {
                 Compute.coolDownTimeSend(player, ModItems.FireCracker.get().getDefaultInstance(), 100);
                 Utils.MobSpringAttackTick.put(monster, monster.getServer().getTickCount() + 60);
                 Utils.MobSpringAttackEffect.put(monster, Compute.ArmorCount.SpringAttack(player));
-                Compute.AddSlowDownEffect(monster, 60, 99);
+                Compute.addSlowDownEffect(monster, 60, 99);
                 Utils.PlayerSpringAttackCoolDown.put(player, player.getServer().getTickCount() + 60);
             }
         }
@@ -458,7 +462,7 @@ public class AttackEvent {
                 Compute.coolDownTimeSend(player, ModItems.FireCracker.get().getDefaultInstance(), 100);
                 Utils.MobSpringSwiftTick.put(monster, monster.getServer().getTickCount() + 60);
                 Utils.MobSpringSwiftEffect.put(monster, Compute.ArmorCount.SpringSwift(player));
-                Compute.AddSlowDownEffect(monster, 60, 99);
+                Compute.addSlowDownEffect(monster, 60, 99);
                 Utils.PlayerSpringSwiftCoolDown.put(player, player.getServer().getTickCount() + 60);
 
             }
@@ -474,7 +478,7 @@ public class AttackEvent {
                 Compute.coolDownTimeSend(player, ModItems.FireCracker.get().getDefaultInstance(), 100);
                 Utils.MobSpringManaTick.put(monster, monster.getServer().getTickCount() + 60);
                 Utils.MobSpringManaEffect.put(monster, Compute.ArmorCount.SpringMana(player));
-                Compute.AddSlowDownEffect(monster, 60, 99);
+                Compute.addSlowDownEffect(monster, 60, 99);
                 Utils.PlayerSpringManaCoolDown.put(player, player.getServer().getTickCount() + 60);
             }
         }
