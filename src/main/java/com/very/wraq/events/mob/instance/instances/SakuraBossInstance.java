@@ -55,7 +55,7 @@ public class SakuraBossInstance extends NoTeamInstance {
         Compute.SetMobCustomName(sakuraBoss, Component.literal("突见忍").withStyle(CustomStyle.styleOfSakura), 150);
 
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(sakuraBoss), 150);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(sakuraBoss, 1500, 2000, 2000, 0.4, 4, 0.25, 800, 20, 800 * Math.pow(10, 4), 0.35);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(sakuraBoss, 1500, 2000, 2000, 0.4, 4, 0.25, 800, 20, 500 * Math.pow(10, 4), 0.35);
 
         sakuraBoss.setHealth(sakuraBoss.getMaxHealth());
 
