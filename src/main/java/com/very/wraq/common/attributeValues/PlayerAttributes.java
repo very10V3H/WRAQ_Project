@@ -856,7 +856,7 @@ public class PlayerAttributes {
         }
 
         if (Utils.SakuraBowEffectMap.containsKey(player) && Utils.SakuraBowEffectMap.get(player) > TickCount) {
-            exDefence += 100;
+            exDefence += 400;
         } // 妖弓-樱
 
         if (Utils.PlayerSpringHandDefenceAttribute.containsKey(player) && Utils.PlayerSpringHandLevelRequire.get(player) <= player.experienceLevel) {
@@ -1262,7 +1262,7 @@ public class PlayerAttributes {
         }
 
         if (Utils.IceBowEffectMap.containsKey(player) && Utils.IceBowEffectMap.get(player) > TickCount) {
-            defencePenetration0 += Utils.IceBowEffectNumMap.get(player) / 8;
+            defencePenetration0 += Utils.IceBowEffectNumMap.get(player) / 2;
         } //冰霜弓
 
         if (Utils.PlayerSpringRingDefencePenetration0Attribute.containsKey(player) && Utils.PlayerSpringRingLevelRequire.get(player) <= player.experienceLevel) {
@@ -1800,7 +1800,7 @@ public class PlayerAttributes {
         if (data.getInt(StringUtils.PlainSwordActive.PlainSceptre) > TickCount) ExDefence += 40;
 
         if (Utils.SakuraBowEffectMap.containsKey(player) && Utils.SakuraBowEffectMap.get(player) > TickCount) {
-            ExDefence += 100;
+            ExDefence += 400;
         } // 妖弓-樱
 
         if (helmetTag.contains("newGems1")) ExDefence += GemAttributes.gemsManaDefence(helmetTag);

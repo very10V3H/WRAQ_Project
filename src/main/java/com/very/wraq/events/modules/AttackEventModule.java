@@ -605,7 +605,7 @@ public class AttackEventModule {
         String name = player.getName().getString();
         if (player.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.SakuraBow.get())
                 && Utils.playerSakuraBowMap.getOrDefault(name, false)) {
-            Compute.playerHeal(player, PlayerAttributes.attackDamage(player) * 0.05);
+            Compute.playerHeal(player, player.getMaxHealth() * 0.05);
         }
     }
 
