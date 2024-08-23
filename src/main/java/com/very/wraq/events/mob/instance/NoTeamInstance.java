@@ -72,7 +72,7 @@ public abstract class NoTeamInstance {
             inChallenge = true;
         }
         if (playerList.isEmpty() || playerList.stream().allMatch(LivingEntity::isDeadOrDying)) {
-            reset(tick);
+            reset(tick, true);
         }
         if (inChallenge && !allMobIsNull) {
             boolean allMobIsDead = true;
@@ -85,7 +85,7 @@ public abstract class NoTeamInstance {
             if (allMobIsDead) rewardNearPlayer(level);
 
             if (allMobIsNotAlive) {
-                reset(tick);
+                reset(tick, false);
             } else {
                 if (playerList.size() >= 4) summonTick -= (playerList.size() / 4 - 1);
                 tickModule();
@@ -210,7 +210,7 @@ public abstract class NoTeamInstance {
 
     public abstract Component allowRewardCondition();
 
-    public void reset(int tick) {
+    public void reset(int tick, boolean removeMob) {
         summonTick = tick + delayTick;
         inChallenge = false;
         bossInfoList.forEach(ServerBossEvent::removeAllPlayers);

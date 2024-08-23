@@ -52,7 +52,7 @@ public class IceInstance extends NoTeamInstance {
 
     public static IceInstance getInstance() {
         if (instance == null) {
-            instance = new IceInstance(new Vec3(1565, 63, -2924), 30, 200, new Vec3(1565, 63, -2924),
+            instance = new IceInstance(new Vec3(1565, 63, -2924), 50, 200, new Vec3(1565, 63, -2924),
                     Component.literal(mobName).withStyle(CustomStyle.styleOfIce));
         }
         return instance;
@@ -211,7 +211,7 @@ public class IceInstance extends NoTeamInstance {
                         if (player.distanceTo(mob) < 50) {
                             Vec3 vec3 = player.position().subtract(mob.position());
                             ClientboundSetEntityMotionPacket clientboundSetEntityMotionPacket =
-                                    new ClientboundSetEntityMotionPacket(player.getId(), vec3.normalize().scale(6));
+                                    new ClientboundSetEntityMotionPacket(player.getId(), vec3.normalize().scale(3));
                             ServerPlayer serverPlayer = (ServerPlayer) player;
                             serverPlayer.connection.send(clientboundSetEntityMotionPacket);
                             ClientboundSetTitleTextPacket clientboundSetTitleTextPacket =
