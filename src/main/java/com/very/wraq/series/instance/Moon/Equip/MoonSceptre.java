@@ -40,7 +40,7 @@ public class MoonSceptre extends WraqSceptre {
         Utils.manaDamage.put(this, 2400d);
         Utils.manaRecover.put(this, 30d);
         Utils.coolDownDecrease.put(this, 0.5);
-        Utils.manaPenetration0.put(this, 3200d);
+        Utils.manaPenetration0.put(this, 2900d);
         Utils.movementSpeedWithoutBattle.put(this, 0.4);
         Utils.manaCost.put(this, 45d);
     }

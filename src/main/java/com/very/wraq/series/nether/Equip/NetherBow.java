@@ -21,19 +21,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NetherBow extends WraqBow {
-    private final double BaseDamage = 140.0d;
-    private final double DefencePenetration0 = 1200;
-    private final double CriticalHitRate = 0.25;
-    private final double CHitDamage = 0.6;
-    private final double SpeedUp = 0.3F;
 
     public NetherBow(Properties p_40524_) {
         super(p_40524_);
-        Utils.attackDamage.put(this, this.BaseDamage);
-        Utils.defencePenetration0.put(this, this.DefencePenetration0);
-        Utils.critRate.put(this, this.CriticalHitRate);
-        Utils.critDamage.put(this, this.CHitDamage);
-        Utils.movementSpeedWithoutBattle.put(this, this.SpeedUp);
+        Utils.attackDamage.put(this, 140d);
+        Utils.defencePenetration0.put(this, 900d);
+        Utils.critRate.put(this, 0.25);
+        Utils.critDamage.put(this, 0.6);
+        Utils.movementSpeedWithoutBattle.put(this, 0.3);
         Element.FireElementValue.put(this, 1d);
     }
 

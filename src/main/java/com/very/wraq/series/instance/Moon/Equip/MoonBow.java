@@ -27,19 +27,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MoonBow extends WraqBow {
-    private final double BaseDamage = 1200;
-    private final double DefencePenetration0 = 3200;
-    private final double CriticalHitRate = 0.25;
-    private final double CHitDamage = 1.35;
-    private final double SpeedUp = 0.6F;
 
     public MoonBow(Properties p_40524_) {
         super(p_40524_);
-        Utils.attackDamage.put(this, this.BaseDamage);
-        Utils.defencePenetration0.put(this, this.DefencePenetration0);
-        Utils.critRate.put(this, this.CriticalHitRate);
-        Utils.critDamage.put(this, this.CHitDamage);
-        Utils.movementSpeedWithoutBattle.put(this, this.SpeedUp);
+        Utils.attackDamage.put(this, 1200d);
+        Utils.defencePenetration0.put(this, 2900d);
+        Utils.critRate.put(this, 0.25);
+        Utils.critDamage.put(this, 1.35);
+        Utils.movementSpeedWithoutBattle.put(this, 0.6);
     }
 
     @Override

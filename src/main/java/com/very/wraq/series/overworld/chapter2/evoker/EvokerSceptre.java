@@ -27,7 +27,7 @@ public class EvokerSceptre extends WraqSceptre {
         super(p_42964_);
         Utils.manaDamage.put(this, new double[]{200, 300, 400, 600}[tier]);
         Utils.manaRecover.put(this, new double[]{20, 25, 30, 40}[tier]);
-        Utils.manaPenetration0.put(this, new double[]{600, 700, 800, 900}[tier]);
+        Utils.manaPenetration0.put(this, new double[]{400, 500, 600, 700}[tier]);
         Utils.movementSpeedWithoutBattle.put(this, new double[]{0.3, 0.4, 0.5, 0.6}[tier]);
         Utils.manaCost.put(this, 60d);
         Utils.coolDownDecrease.put(this, new double[]{0.1, 0.2, 0.3, 0.4}[tier]);

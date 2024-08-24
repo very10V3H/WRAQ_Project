@@ -30,7 +30,7 @@ public class MoonSword extends WraqSword implements ActiveItem {
     public MoonSword(Properties properties) {
         super(properties);
         Utils.attackDamage.put(this, 1200d);
-        Utils.defencePenetration0.put(this, 3200d);
+        Utils.defencePenetration0.put(this, 2900d);
         Utils.healthSteal.put(this, 0.3);
         Utils.critRate.put(this, 0.3);
         Utils.critDamage.put(this, 0.8);

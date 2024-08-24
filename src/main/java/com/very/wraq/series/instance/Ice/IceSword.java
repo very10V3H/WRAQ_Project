@@ -21,7 +21,7 @@ public class IceSword extends WraqSword implements OnHitEffectMainHandWeapon {
     public IceSword(Properties properties) {
         super(properties);
         Utils.attackDamage.put(this, 700d);
-        Utils.defencePenetration0.put(this, 2400d);
+        Utils.defencePenetration0.put(this, 2100d);
         Utils.healthSteal.put(this, 0.3);
         Utils.critRate.put(this, 0.3);
         Utils.critDamage.put(this, 0.8);

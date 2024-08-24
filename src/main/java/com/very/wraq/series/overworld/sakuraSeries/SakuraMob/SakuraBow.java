@@ -25,7 +25,7 @@ public class SakuraBow extends WraqBow {
     public SakuraBow(Properties p_40524_) {
         super(p_40524_);
         Utils.attackDamage.put(this, 400d);
-        Utils.defencePenetration0.put(this, 2000d);
+        Utils.defencePenetration0.put(this, 1800d);
         Utils.critRate.put(this, 0.25);
         Utils.critDamage.put(this, 0.95);
         Utils.movementSpeedWithoutBattle.put(this, 0.6);

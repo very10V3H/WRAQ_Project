@@ -28,7 +28,7 @@ public class HuskSword extends WraqSword implements ActiveItem {
         super(properties);
         this.tier = tier;
         Utils.attackDamage.put(this, new double[]{80, 85, 90, 100, 200}[tier]);
-        Utils.defencePenetration0.put(this, new double[]{1200, 1300, 1400, 1500, 1800}[tier]);
+        Utils.defencePenetration0.put(this, new double[]{900, 1000, 1100, 1200, 1500}[tier]);
         Utils.healthSteal.put(this, 0.05);
         Utils.critRate.put(this, 0.3);
         Utils.critDamage.put(this, new double[]{0.4, 0.45, 0.55, 0.65, 0.75}[tier]);
