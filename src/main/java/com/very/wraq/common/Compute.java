@@ -3537,8 +3537,8 @@ public class Compute {
                 if (mob.isDeadOrDying()) return;
                 if (DailyEndlessInstance.prohibitPlayerCauseDamage(player, mob)) return;
                 /*Castle.CauseDamageRecord(player, mob); */
-                if (Moon.IsMoonAttackImmune(player, (Mob) entity)) damage *= 0.5;
-                if (Moon.IsMoonManaImmune(player, (Mob) entity)) damage *= 0.5;
+                if (Moon.isMoonAttackImmune(player, (Mob) entity)) damage *= 0.5;
+                if (Moon.isMoonManaImmune(player, (Mob) entity)) damage *= 0.5;
                 CastleSecondFloor.PlayerPickItemExDamage(player, mob);
                 damage *= CastleSecondFloor.MobDamageImmune(player, mob);
                 /*AttackEvent.DamageCount(player, (Mob) entity, 0, damage);*/
