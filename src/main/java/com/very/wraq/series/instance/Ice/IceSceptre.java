@@ -29,17 +29,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class IceSceptre extends WraqSceptre implements OnHitEffectMainHandWeapon {
-    private final int num;
 
-    public IceSceptre(Properties p_42964_, int num) {
+    public IceSceptre(Properties p_42964_) {
         super(p_42964_.rarity(CustomStyle.IceItalic));
-        this.num = num;
         Utils.manaDamage.put(this, 1400d);
-        Utils.manaRecover.put(this, IceSceptreAttributes.ManaRecover[num]);
+        Utils.manaRecover.put(this, 30d);
         Utils.coolDownDecrease.put(this, 0.45);
         Utils.manaPenetration0.put(this, 2100d);
-        Utils.movementSpeedWithoutBattle.put(this, IceSceptreAttributes.MovementSpeed[num]);
-        Utils.manaCost.put(this, IceSceptreAttributes.ManaCost[num]);
+        Utils.movementSpeedWithoutBattle.put(this, 0.4);
+        Utils.manaCost.put(this, 45d);
         Element.IceElementValue.put(this, 1.25);
     }
 

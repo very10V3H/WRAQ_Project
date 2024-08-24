@@ -1911,7 +1911,7 @@ public class ModItems {
             () -> new IceBow(new Item.Properties().stacksTo(1).rarity(CustomStyle.IceItalic)));
 
     public static final RegistryObject<Item> IceSceptre = ITEMS.register("ice_sceptre",
-            () -> new IceSceptre(new Item.Properties().rarity(CustomStyle.IceItalic), 0));
+            () -> new IceSceptre(new Item.Properties().rarity(CustomStyle.IceItalic)));
 
     public static final RegistryObject<Item> IceSwordForgeDraw = ITEMS.register("ice_sword_forge_draw",
             () -> new WraqForge(new Item.Properties().rarity(CustomStyle.IceBold), ModItems.IceSword.get()));
