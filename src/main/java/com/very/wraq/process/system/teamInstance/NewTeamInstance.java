@@ -1,5 +1,6 @@
 package com.very.wraq.process.system.teamInstance;
 
+import com.very.wraq.common.MySound;
 import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.process.system.teamInstance.networking.NewTeamInstanceClearS2CPacket;
@@ -141,7 +142,7 @@ public abstract class NewTeamInstance {
                                             Component.literal("所有玩家已做好准备，副本将在").withStyle(ChatFormatting.WHITE).
                                                     append(Component.literal((10 - startCount) + "s").withStyle(ChatFormatting.AQUA)).
                                                     append(Component.literal("后开始").withStyle(ChatFormatting.WHITE)));
-                                    Compute.soundToPlayer(player, SoundEvents.ARROW_HIT_PLAYER);
+                                    MySound.soundToPlayer(player, SoundEvents.ARROW_HIT_PLAYER);
                                 }
                             });
 

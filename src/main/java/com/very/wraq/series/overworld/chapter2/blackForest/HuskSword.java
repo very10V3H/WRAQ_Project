@@ -1,5 +1,6 @@
 package com.very.wraq.series.overworld.chapter2.blackForest;
 
+import com.very.wraq.common.MySound;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.projectiles.ActiveItem;
 import com.very.wraq.projectiles.WraqSword;
@@ -82,7 +83,7 @@ public class HuskSword extends WraqSword implements ActiveItem {
             else if (tier == 3) Utils.BlackForestSwordActiveMap.put(player, 2);
             else Utils.BlackForestSwordActiveMap.put(player, 1);
             Compute.sendEffectLastTime(player, ModItems.huskSword0.get().getDefaultInstance(), 8888, 0, true);
-            Compute.SoundToAll(player, ModSounds.Attack.get());
+            MySound.SoundToAll(player, ModSounds.Attack.get());
         }
     }
 }

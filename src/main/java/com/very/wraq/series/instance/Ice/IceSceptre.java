@@ -1,5 +1,6 @@
 package com.very.wraq.series.instance.Ice;
 
+import com.very.wraq.common.MySound;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.projectiles.OnHitEffectMainHandWeapon;
@@ -60,7 +61,7 @@ public class IceSceptre extends WraqSceptre implements OnHitEffectMainHandWeapon
             level.addFreshEntity(newArrow);
             ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1, 0.75, 20, ParticleTypes.SNOWFLAKE);
             ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1.5, 0.5, 16, ParticleTypes.SNOWFLAKE);
-            Compute.SoundToAll(player, ModSounds.Mana.get());
+            MySound.SoundToAll(player, ModSounds.Mana.get());
         }
     }
 

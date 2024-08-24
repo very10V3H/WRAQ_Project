@@ -1,5 +1,6 @@
 package com.very.wraq.process.func.plan.networking.mission;
 
+import com.very.wraq.common.MySound;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.reputationMission.PlanMissionInfoS2CPacket;
 import com.very.wraq.common.Compute;
@@ -96,7 +97,7 @@ public class PlanMissionFinishedRequestC2SPacket {
 
                 PlanMission.planMissionAllowRequestTimeMap.remove(serverPlayer.getName().getString());
 
-                Compute.SoundToAll(serverPlayer, SoundEvents.PLAYER_LEVELUP);
+                MySound.SoundToAll(serverPlayer, SoundEvents.PLAYER_LEVELUP);
             } else {
                 Compute.sendFormatMSG(serverPlayer, Component.literal("月卡任务").withStyle(ChatFormatting.LIGHT_PURPLE),
                         Component.literal("暂未达成任务要求。").withStyle(ChatFormatting.WHITE));

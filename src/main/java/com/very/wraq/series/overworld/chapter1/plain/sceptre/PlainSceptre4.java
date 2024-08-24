@@ -1,5 +1,6 @@
 package com.very.wraq.series.overworld.chapter1.plain.sceptre;
 
+import com.very.wraq.common.MySound;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.projectiles.mana.ManaArrow;
@@ -63,7 +64,7 @@ public class PlainSceptre4 extends WraqSceptre {
             ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1, 0.75, 20, ParticleTypes.COMPOSTER);
             ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1.5, 0.5, 16, ParticleTypes.COMPOSTER);
             ParticleProvider.FaceCircleCreate((ServerPlayer) player, 2, 0.25, 12, ParticleTypes.COMPOSTER);
-            Compute.SoundToAll(player, ModSounds.Mana.get());
+            MySound.SoundToAll(player, ModSounds.Mana.get());
         }
     }
 

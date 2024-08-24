@@ -1,6 +1,7 @@
 package com.very.wraq.process.system.endlessinstance;
 
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.MySound;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.process.system.endlessinstance.network.EndlessInstanceKillCountS2CPacket;
 import com.very.wraq.render.toolTip.CustomStyle;
@@ -152,7 +153,7 @@ public abstract class DailyEndlessInstance {
                 instance.incrementKillCount();
                 ModNetworking.sendToClient(new EndlessInstanceKillCountS2CPacket(instance.getKillCount()),
                         (ServerPlayer) player);
-                Compute.soundToPlayer(player, SoundEvents.PLAYER_ATTACK_KNOCKBACK, mob.position());
+                MySound.soundToPlayer(player, SoundEvents.PLAYER_ATTACK_KNOCKBACK, mob.position());
             }
         }
     }

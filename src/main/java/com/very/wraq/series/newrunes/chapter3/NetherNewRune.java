@@ -1,5 +1,6 @@
 package com.very.wraq.series.newrunes.chapter3;
 
+import com.very.wraq.common.MySound;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.projectiles.UsageOrGetWayDescriptionItem;
 import com.very.wraq.projectiles.WraqCurios;
@@ -81,7 +82,7 @@ public class NetherNewRune extends WraqCurios implements RuneItem, UsageOrGetWay
         ParticleProvider.SpaceRangeParticle((ServerLevel) player.level(), mob.position(), 3, 10, ParticleTypes.FLAME);
 
         players.forEach(player1 -> {
-            Compute.soundToPlayer(player1, SoundEvents.BLAZE_SHOOT, mob.getEyePosition());
+            MySound.soundToPlayer(player1, SoundEvents.BLAZE_SHOOT, mob.getEyePosition());
         });
 
         mobList.removeIf(mob1 -> mob1.distanceTo(mob) > 3 || !mob1.isAlive());

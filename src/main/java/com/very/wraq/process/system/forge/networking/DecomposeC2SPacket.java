@@ -1,6 +1,7 @@
 package com.very.wraq.process.system.forge.networking;
 
 import com.very.wraq.blocks.entity.ForgingBlockEntity;
+import com.very.wraq.common.MySound;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.registry.ModBlocks;
@@ -55,7 +56,7 @@ public class DecomposeC2SPacket {
                     if (blockEntity instanceof ForgingBlockEntity forgingBlockEntity) {
                         if (forgingBlockEntity.decompose()) {
                             doubleClickTick.remove(name);
-                            Compute.soundToPlayer(serverPlayer, SoundEvents.ANVIL_BREAK);
+                            MySound.soundToPlayer(serverPlayer, SoundEvents.ANVIL_BREAK);
                             Compute.sendFormatMSG(serverPlayer, Component.literal("分解").withStyle(ChatFormatting.RED),
                                     Component.literal("分解成功!").withStyle(ChatFormatting.WHITE));
                         } else {

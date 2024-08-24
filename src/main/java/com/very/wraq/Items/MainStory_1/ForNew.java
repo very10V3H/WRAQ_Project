@@ -1,5 +1,6 @@
 package com.very.wraq.Items.MainStory_1;
 
+import com.very.wraq.common.MySound;
 import com.very.wraq.process.system.forge.ForgeEquipUtils;
 import com.very.wraq.series.newrunes.NewRuneItems;
 import com.very.wraq.common.Compute;
@@ -54,7 +55,7 @@ public class ForNew extends Item {
             Compute.sendFormatMSG(player, Component.literal("引导-锻造").withStyle(ChatFormatting.AQUA), Component.literal("前往").withStyle(ChatFormatting.WHITE).append(Component.literal("平原村").withStyle(ChatFormatting.GREEN)).append(Component.literal("收集素材，前往平原村找到铁匠铺，锻造第一件装备吧！").withStyle(ChatFormatting.WHITE)));
 
             Compute.sendFormatMSG(player, Component.literal("引导-信息").withStyle(ChatFormatting.AQUA), Component.literal("在背包中查看物品的描述，若物品下方有").withStyle(ChatFormatting.WHITE).append(Component.literal("[按住shift以...]").withStyle(ChatFormatting.GRAY)).append(Component.literal("，你可以查看其用途或获取方式").withStyle(ChatFormatting.WHITE)));
-            Compute.soundToPlayer(player, SoundEvents.EXPERIENCE_ORB_PICKUP);
+            MySound.soundToPlayer(player, SoundEvents.EXPERIENCE_ORB_PICKUP);
         }
         return InteractionResultHolder.pass(player.getItemInHand(interactionHand));
     }

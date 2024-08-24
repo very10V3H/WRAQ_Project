@@ -1,6 +1,7 @@
 package com.very.wraq.core;
 
 import com.very.wraq.commands.stable.players.DebugCommand;
+import com.very.wraq.common.MySound;
 import com.very.wraq.customized.Customize;
 import com.very.wraq.customized.uniform.mana.ManaCurios1;
 import com.very.wraq.events.instance.IceKnight;
@@ -406,7 +407,7 @@ public class ManaAttackModule {
             ParticleProvider.VerticleCircleParticle(serverPlayer, 1, 6, 100, ParticleTypes.WITCH);
             ParticleProvider.VerticleCircleParticle(serverPlayer, 1.5, 6, 100, ParticleTypes.WITCH);
 
-            Compute.SoundToAll(player, ModSounds.Nether_Power.get());
+            MySound.SoundToAll(player, ModSounds.Nether_Power.get());
 
         }
     }
@@ -438,7 +439,7 @@ public class ManaAttackModule {
             ParticleProvider.VerticleCircleParticle(serverPlayer, 1, 6, 100, ParticleTypes.WITCH);
             ParticleProvider.VerticleCircleParticle(serverPlayer, 1.5, 6, 100, ParticleTypes.WITCH);
 
-            Compute.SoundToAll(player, ModSounds.Nether_Power.get());
+            MySound.SoundToAll(player, ModSounds.Nether_Power.get());
         }
     }
 

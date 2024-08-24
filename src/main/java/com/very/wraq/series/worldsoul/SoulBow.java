@@ -1,5 +1,6 @@
 package com.very.wraq.series.worldsoul;
 
+import com.very.wraq.common.MySound;
 import com.very.wraq.core.MyArrow;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.projectiles.WraqBow;
@@ -77,7 +78,7 @@ public class SoulBow extends WraqBow {
         arrow.setCritArrow(true);
         WraqBow.adjustArrow(arrow, serverPlayer);
         serverPlayer.level().addFreshEntity(arrow);
-        Compute.SoundToAll(serverPlayer, SoundEvents.ARROW_SHOOT);
+        MySound.SoundToAll(serverPlayer, SoundEvents.ARROW_SHOOT);
         ParticleProvider.FaceCircleCreate(serverPlayer, 1, 0.75, 20, ModParticles.WORLD.get());
         ParticleProvider.FaceCircleCreate(serverPlayer, 1.5, 0.5, 16, ModParticles.WORLD.get());
         ParticleProvider.FaceCircleCreate(serverPlayer, 2, 0.25, 12, ModParticles.WORLD.get());

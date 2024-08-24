@@ -1,5 +1,6 @@
 package com.very.wraq.events.modules;
 
+import com.very.wraq.common.MySound;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.misc.SkillPackets.SkillImageS2CPacket;
 import com.very.wraq.networking.misc.SoundsPackets.SoundsS2CPacket;
@@ -244,7 +245,7 @@ public class HurtEventModule {
             ParticleProvider.VerticleCircleParticle(serverPlayer, 1, 6, 100, ParticleTypes.WITCH);
             ParticleProvider.VerticleCircleParticle(serverPlayer, 1.5, 6, 100, ParticleTypes.WITCH);
 
-            Compute.SoundToAll(player, ModSounds.Nether_Power.get());
+            MySound.SoundToAll(player, ModSounds.Nether_Power.get());
             ModNetworking.sendToClient(new SkillImageS2CPacket(15, 10, 10, 0, 2), (ServerPlayer) player);
         }
     }

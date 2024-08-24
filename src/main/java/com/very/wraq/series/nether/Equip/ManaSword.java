@@ -1,5 +1,6 @@
 package com.very.wraq.series.nether.Equip;
 
+import com.very.wraq.common.MySound;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.projectiles.ActiveItem;
 import com.very.wraq.projectiles.WraqSword;
@@ -69,6 +70,6 @@ public class ManaSword extends WraqSword implements ActiveItem {
         data.putInt("ManaSwordActive", data.getInt("MANA"));
         data.putInt("MANA", 0);
         Compute.ManaStatusUpdate(player);
-        Compute.SoundToAll(player, ModSounds.Mana_Sword.get());
+        MySound.SoundToAll(player, ModSounds.Mana_Sword.get());
     }
 }

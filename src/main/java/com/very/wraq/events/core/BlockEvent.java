@@ -6,6 +6,7 @@ import com.very.wraq.blocks.entity.ForgingBlockEntity;
 import com.very.wraq.blocks.entity.FurnaceEntity;
 import com.very.wraq.blocks.entity.HBrewingEntity;
 import com.very.wraq.blocks.entity.InjectBlockEntity;
+import com.very.wraq.common.MySound;
 import com.very.wraq.events.instance.CastleSecondFloor;
 import com.very.wraq.events.instance.TabooDevil;
 import com.very.wraq.networking.ModNetworking;
@@ -149,7 +150,7 @@ public class BlockEvent {
                 if (blockState.getBlock().equals(ModBlocks.FORGING_BLOCK.get())) {
                     if (player.getMainHandItem().getItem() instanceof ForgeHammer) {
                         ModNetworking.sendToClient(new ScreenSetS2CPacket(4), (ServerPlayer) player);
-                        Compute.soundToPlayer(player, SoundEvents.ANVIL_LAND);
+                        MySound.soundToPlayer(player, SoundEvents.ANVIL_LAND);
                         event.setCanceled(true);
                     } else {
                         ForgingBlockEntity forgingBlockEntity = (ForgingBlockEntity) player.level().getBlockEntity(blockPos);

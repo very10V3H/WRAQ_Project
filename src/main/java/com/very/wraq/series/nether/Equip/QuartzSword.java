@@ -1,5 +1,6 @@
 package com.very.wraq.series.nether.Equip;
 
+import com.very.wraq.common.MySound;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.projectiles.ActiveItem;
 import com.very.wraq.projectiles.WraqSword;
@@ -96,7 +97,7 @@ public class QuartzSword extends WraqSword implements ActiveItem {
                 lightningBolt.moveTo(monster.position());
                 level.addFreshEntity(lightningBolt);
             }
-            Compute.SoundToAll(player, ModSounds.Nether_Power.get());
+            MySound.SoundToAll(player, ModSounds.Nether_Power.get());
         }
     }
 }

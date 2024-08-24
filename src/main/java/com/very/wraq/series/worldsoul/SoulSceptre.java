@@ -1,5 +1,6 @@
 package com.very.wraq.series.worldsoul;
 
+import com.very.wraq.common.MySound;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.projectiles.mana.ManaArrow;
 import com.very.wraq.projectiles.WraqSceptre;
@@ -63,7 +64,7 @@ public class SoulSceptre extends WraqSceptre {
             ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1, 0.75, 20, ModParticles.WORLD.get());
             ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1.5, 0.5, 16, ModParticles.WORLD.get());
             ParticleProvider.FaceCircleCreate((ServerPlayer) player, 2, 0.25, 12, ModParticles.WORLD.get());
-            Compute.SoundToAll(player, ModSounds.Mana.get());
+            MySound.SoundToAll(player, ModSounds.Mana.get());
         }
     }
 

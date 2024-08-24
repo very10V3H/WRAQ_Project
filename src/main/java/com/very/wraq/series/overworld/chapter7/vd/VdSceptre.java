@@ -2,6 +2,7 @@ package com.very.wraq.series.overworld.chapter7.vd;
 
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.ModEntityType;
+import com.very.wraq.common.MySound;
 import com.very.wraq.common.Utils.ComponentUtils;
 import com.very.wraq.common.Utils.StringUtils;
 import com.very.wraq.common.Utils.Utils;
@@ -96,7 +97,7 @@ public class VdSceptre extends WraqSceptre implements ForgeItem, ActiveItem, Mai
             ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1, 0.75, 20, ModParticles.WORLD.get());
             ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1.5, 0.5, 16, ModParticles.WORLD.get());
             ParticleProvider.FaceCircleCreate((ServerPlayer) player, 2, 0.25, 12, ModParticles.WORLD.get());
-            Compute.SoundToAll(player, ModSounds.Mana.get());
+            MySound.SoundToAll(player, ModSounds.Mana.get());
         }
     }
 

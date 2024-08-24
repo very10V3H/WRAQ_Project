@@ -1,5 +1,6 @@
 package com.very.wraq.networking.reputationMission;
 
+import com.very.wraq.common.MySound;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.Compute;
@@ -94,7 +95,7 @@ public class ReputationMissionFinishedRequestC2SPacket {
                     Utils.playerReputationMissionPunishLevel.put(serverPlayer.getName().getString(), Utils.playerReputationMissionPunishLevel.get(serverPlayer.getName().getString()) - 1);
                 }
 
-                Compute.SoundToAll(serverPlayer, SoundEvents.PLAYER_LEVELUP);
+                MySound.SoundToAll(serverPlayer, SoundEvents.PLAYER_LEVELUP);
             } else {
                 Compute.sendFormatMSG(serverPlayer, Component.literal("任务").withStyle(CustomStyle.styleOfKaze),
                         Component.literal("暂未达成任务要求。").withStyle(ChatFormatting.WHITE));

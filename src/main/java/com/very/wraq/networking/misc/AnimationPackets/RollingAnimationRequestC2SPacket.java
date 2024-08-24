@@ -1,5 +1,6 @@
 package com.very.wraq.networking.misc.AnimationPackets;
 
+import com.very.wraq.common.MySound;
 import com.very.wraq.customized.uniform.bow.BowCurios0;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.process.func.guide.Guide;
@@ -52,7 +53,7 @@ public class RollingAnimationRequestC2SPacket {
                     if (!serverPlayer.isCreative()) Compute.PlayerSwiftChange(serverPlayer, -100.0 / 3);
                     Utils.rollingTickMap.put(serverPlayer.getName().getString(), serverPlayer.getServer().getTickCount() + 10);
 
-                    Compute.SoundToAll(serverPlayer, ModSounds.Rolling.get());
+                    MySound.SoundToAll(serverPlayer, ModSounds.Rolling.get());
 
                     BowCurios0.Active(serverPlayer);
                     Guide.trig(serverPlayer, 1);

@@ -101,7 +101,6 @@ import net.minecraft.network.protocol.game.*;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.players.PlayerList;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -449,7 +448,7 @@ public class Compute {
                 player.getCooldowns().addCooldown(ModItems.ForestBossSword.get(), (int) (200 - 200 * PlayerAttributes.coolDownDecrease(player)));
                 ParticleProvider.VerticleCircleParticle((ServerPlayer) player, 1, 6, 100, ModParticles.LONG_ENTROPY.get());
                 ParticleProvider.VerticleCircleParticle((ServerPlayer) player, 1.5, 6, 100, ModParticles.LONG_ENTROPY.get());
-                Compute.SoundToAll(player, ModSounds.Nether_Power.get());
+                MySound.SoundToAll(player, ModSounds.Nether_Power.get());
             } else {
                 Compute.sendFormatMSG(player, Component.literal("次元能量").withStyle(CustomStyle.styleOfHealth),
                         Component.literal("你的次元能量不足以召唤这个次元。").withStyle(ChatFormatting.WHITE));
@@ -478,7 +477,7 @@ public class Compute {
                 ParticleProvider.VerticleCircleParticle((ServerPlayer) player, 1, 6, 100, ModParticles.LONG_ENTROPY.get());
                 ParticleProvider.VerticleCircleParticle((ServerPlayer) player, 1.5, 6, 100, ModParticles.LONG_ENTROPY.get());
 
-                Compute.SoundToAll(player, ModSounds.Lava.get());
+                MySound.SoundToAll(player, ModSounds.Lava.get());
             } else {
                 Compute.sendFormatMSG(player, Component.literal("次元能量").withStyle(CustomStyle.styleOfPower),
                         Component.literal("你的次元能量不足以召唤这个次元。").withStyle(ChatFormatting.WHITE));
@@ -3099,20 +3098,6 @@ public class Compute {
         return 0;
     }
 
-    public static void SoundToAll(Player player, SoundEvent soundEvent) {
-        if (soundEvent.equals(ModSounds.Mana.get()) || soundEvent.equals(ModSounds.Use.get()) || soundEvent.equals(ModSounds.Wind.get())
-                || soundEvent.equals(ModSounds.Lava.get()) || soundEvent.equals(ModSounds.Nether_Power.get()) || soundEvent.equals(ModSounds.Mana_Sword.get()))
-            return;
-        Level level = player.level();
-        level.getServer().getPlayerList().getPlayers().forEach(serverPlayer -> {
-            if (serverPlayer.distanceTo(player) <= 16) {
-                ClientboundSoundPacket clientboundSoundPacket = new ClientboundSoundPacket(Holder.direct(soundEvent),
-                        SoundSource.PLAYERS, player.getX(), player.getY(), player.getZ(), 1f, 1, 0);
-                serverPlayer.connection.send(clientboundSoundPacket);
-            }
-        });
-    }
-
     public static void playerItemUseWithRecord(Player player) {
         ItemStack itemStack = player.getItemInHand(InteractionHand.MAIN_HAND);
         LogUtils.getLogger().info("{} {} {}", player.getName().getString(), Utils.LogTypes.itemUsed, itemStack);
@@ -3561,7 +3546,7 @@ public class Compute {
                     player.sendSystemMessage(Component.literal("" + mob.getHealth() / mob.getMaxHealth()));
                 // ---- // 测试新模式
                 entity.hurt(entity.damageSources().playerAttack(player), 0);
-                Compute.soundOnMob(mob, SoundEvents.PLAYER_HURT);
+                MySound.soundOnMob(mob, SoundEvents.PLAYER_HURT);
                 double finalDamage = mob.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.WoodenStake5.get()) ? 0 : (float) damage;
                 if (mob.getHealth() <= finalDamage && mob.isAlive()) {
                     // 怪物死亡技艺
@@ -4897,38 +4882,6 @@ public class Compute {
 
     public static void manaDamageExEffect(Player player, Mob mob, double damage) {
         CastleSceptre.ExDamage(player, mob, damage);
-    }
-
-    public static void soundToAllPlayer(Level level, SoundEvent soundEvent) {
-        List<ServerPlayer> playerList = level.getServer().getPlayerList().getPlayers();
-        playerList.forEach(serverPlayer -> {
-            ClientboundSoundPacket clientboundSoundPacket =
-                    new ClientboundSoundPacket(Holder.direct(soundEvent), SoundSource.PLAYERS, serverPlayer.getX(), serverPlayer.getY(), serverPlayer.getZ(), 1, 1, 0);
-            serverPlayer.connection.send(clientboundSoundPacket);
-        });
-    }
-
-    public static void soundToPlayer(Player player, SoundEvent soundEvent) {
-        ServerPlayer serverPlayer = (ServerPlayer) player;
-        ClientboundSoundPacket clientboundSoundPacket =
-                new ClientboundSoundPacket(Holder.direct(soundEvent), SoundSource.PLAYERS, serverPlayer.getX(), serverPlayer.getY(), serverPlayer.getZ(), 1, 1, 0);
-        serverPlayer.connection.send(clientboundSoundPacket);
-    }
-
-    public static void soundToPlayer(Player player, SoundEvent soundEvent, Vec3 pos) {
-        ServerPlayer serverPlayer = (ServerPlayer) player;
-        ClientboundSoundPacket clientboundSoundPacket =
-                new ClientboundSoundPacket(Holder.direct(soundEvent), SoundSource.PLAYERS, pos.x, pos.y, pos.z, 1, 1, 0);
-        serverPlayer.connection.send(clientboundSoundPacket);
-    }
-
-    public static void soundOnMob(Mob mob, SoundEvent soundEvent) {
-        List<ServerPlayer> playerList = mob.level().getServer().getPlayerList().getPlayers();
-        ClientboundSoundPacket clientboundSoundPacket =
-                new ClientboundSoundPacket(Holder.direct(soundEvent), SoundSource.PLAYERS, mob.getX(), mob.getY(), mob.getZ(), 1, 1, 0);
-        playerList.forEach(serverPlayer -> {
-            serverPlayer.connection.send(clientboundSoundPacket);
-        });
     }
 
     public static void itemTrade(Player player, ItemStack needItem, ItemStack targetItem) throws IOException {

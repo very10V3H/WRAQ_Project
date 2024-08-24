@@ -1,6 +1,7 @@
 package com.very.wraq.series.overworld.chapter7.vd;
 
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.MySound;
 import com.very.wraq.common.Utils.ComponentUtils;
 import com.very.wraq.common.Utils.Utils;
 import com.very.wraq.common.registry.ModItems;
@@ -80,7 +81,7 @@ public class VdBow extends WraqBow implements ForgeItem, ActiveItem, MainHandTic
         arrow.setCritArrow(true);
         WraqBow.adjustArrow(arrow, serverPlayer);
         serverPlayer.level().addFreshEntity(arrow);
-        Compute.SoundToAll(serverPlayer, SoundEvents.ARROW_SHOOT);
+        MySound.SoundToAll(serverPlayer, SoundEvents.ARROW_SHOOT);
         ParticleProvider.FaceCircleCreate(serverPlayer, 1, 0.75, 20, ModParticles.WORLD.get());
         ParticleProvider.FaceCircleCreate(serverPlayer, 1.5, 0.5, 16, ModParticles.WORLD.get());
         ParticleProvider.FaceCircleCreate(serverPlayer, 2, 0.25, 12, ModParticles.WORLD.get());

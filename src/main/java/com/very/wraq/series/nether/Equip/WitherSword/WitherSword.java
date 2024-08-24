@@ -1,5 +1,6 @@
 package com.very.wraq.series.nether.Equip.WitherSword;
 
+import com.very.wraq.common.MySound;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.projectiles.ActiveItem;
 import com.very.wraq.projectiles.ForgeItem;
@@ -80,7 +81,7 @@ public class WitherSword extends WraqSword implements ActiveItem, ForgeItem {
             player.setHealth(player.getHealth() - player.getMaxHealth() * 0.3f);
             StableAttributesModifier.addAttributeModifier(player, StableAttributesModifier.playerDefencePenetration0Modifier,
                     new StableAttributesModifier("witherSwordActiveDefencePenetration0", WitherSwordAttributes.ActiveEffect[tier], tickCount + 240));
-            Compute.SoundToAll(player, ModSounds.Nether_Power.get());
+            MySound.SoundToAll(player, ModSounds.Nether_Power.get());
         }
     }
 

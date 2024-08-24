@@ -1,5 +1,6 @@
 package com.very.wraq.events.instance;
 
+import com.very.wraq.common.MySound;
 import com.very.wraq.entities.entities.Civil.Civil;
 import com.very.wraq.events.core.LoginInEvent;
 import com.very.wraq.networking.ModNetworking;
@@ -121,7 +122,7 @@ public class CastleSecondFloor {
                                 player.getX(), player.getY(), player.getZ(),
                                 0, 0, 0, 0, 0);
                 playerList.forEach(player1 -> ((ServerPlayer) player1).connection.send(clientboundLevelParticlesPacket));
-                Compute.SoundToAll(player, SoundEvents.DRAGON_FIREBALL_EXPLODE);
+                MySound.SoundToAll(player, SoundEvents.DRAGON_FIREBALL_EXPLODE);
 
             }
         });

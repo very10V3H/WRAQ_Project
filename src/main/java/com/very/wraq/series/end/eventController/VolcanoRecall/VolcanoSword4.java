@@ -1,5 +1,6 @@
 package com.very.wraq.series.end.eventController.VolcanoRecall;
 
+import com.very.wraq.common.MySound;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.projectiles.ActiveItem;
@@ -72,7 +73,7 @@ public class VolcanoSword4 extends WraqSword implements ActiveItem {
             player.getCooldowns().addCooldown(ModItems.VolcanoSword2.get(), (int) (200 - 200.0 * PlayerAttributes.coolDownDecrease(player)));
             player.getCooldowns().addCooldown(ModItems.VolcanoSword3.get(), (int) (200 - 200.0 * PlayerAttributes.coolDownDecrease(player)));
             player.getCooldowns().addCooldown(ModItems.VolcanoSword4.get(), (int) (200 - 200.0 * PlayerAttributes.coolDownDecrease(player)));
-            Compute.SoundToAll(player, ModSounds.Lava.get());
+            MySound.SoundToAll(player, ModSounds.Lava.get());
         }
     }
 }

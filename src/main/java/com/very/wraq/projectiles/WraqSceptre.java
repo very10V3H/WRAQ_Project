@@ -1,6 +1,7 @@
 package com.very.wraq.projectiles;
 
 import com.very.wraq.blocks.blocks.ForgeRecipe;
+import com.very.wraq.common.MySound;
 import com.very.wraq.entities.entities.Civil.Civil;
 import com.very.wraq.events.mob.loot.RandomLootEquip;
 import com.very.wraq.process.func.particle.ParticleProvider;
@@ -105,7 +106,7 @@ public abstract class WraqSceptre extends SwordItem {
             level.addFreshEntity(newArrow);
             ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1, 0.75, 20, ParticleTypes.WITCH);
             ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1.5, 0.5, 16, ParticleTypes.WITCH);
-            Compute.SoundToAll(player, ModSounds.Mana.get());
+            MySound.SoundToAll(player, ModSounds.Mana.get());
         }
     }
 

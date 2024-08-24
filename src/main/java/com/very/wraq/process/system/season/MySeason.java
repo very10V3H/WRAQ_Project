@@ -1,5 +1,6 @@
 package com.very.wraq.process.system.season;
 
+import com.very.wraq.common.MySound;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.Compute;
@@ -247,7 +248,7 @@ public class MySeason {
                 Compute.msgSendToPlayer(player, component, 2);
             });
             playerInfoSendDelay.put(player, player.getServer().getTickCount() + 200);
-            Compute.soundToPlayer(player, SoundEvents.EXPERIENCE_ORB_PICKUP);
+            MySound.soundToPlayer(player, SoundEvents.EXPERIENCE_ORB_PICKUP);
         }
     }
 
@@ -268,6 +269,6 @@ public class MySeason {
                 append(Component.literal("冬").withStyle(CustomStyle.styleOfSnow)).
                 append(Component.literal("两个较为不舒适的季节，玩家造成的伤害将会").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("降低25%").withStyle(ChatFormatting.GREEN)));
-        Compute.soundToPlayer(player, SoundEvents.EXPERIENCE_ORB_PICKUP);
+        MySound.soundToPlayer(player, SoundEvents.EXPERIENCE_ORB_PICKUP);
     }
 }

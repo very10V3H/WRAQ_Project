@@ -1,5 +1,6 @@
 package com.very.wraq.series.overworld.chapter1.forest.sword;
 
+import com.very.wraq.common.MySound;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.projectiles.ActiveItem;
@@ -80,7 +81,7 @@ public class ForestSword extends WraqSword implements ActiveItem {
             player.getCooldowns().addCooldown(ModItems.ForestSword2.get(), (int) (600 - 600.0 * PlayerAttributes.coolDownDecrease(player)));
             player.getCooldowns().addCooldown(ModItems.ForestSword3.get(), (int) (600 - 600.0 * PlayerAttributes.coolDownDecrease(player)));
             player.getCooldowns().addCooldown(ModItems.ForestSword4.get(), (int) (600 - 600.0 * PlayerAttributes.coolDownDecrease(player)));
-            Compute.SoundToAll(player, ModSounds.Attack.get());
+            MySound.SoundToAll(player, ModSounds.Attack.get());
         }
     }
 }

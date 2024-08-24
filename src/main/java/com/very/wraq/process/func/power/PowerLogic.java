@@ -1,5 +1,6 @@
 package com.very.wraq.process.func.power;
 
+import com.very.wraq.common.MySound;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.misc.EarthPower.EarthPowerS2CPacket;
 import com.very.wraq.networking.misc.ParticlePackets.EffectParticle.DamageDecreaseParticleS2CPacket;
@@ -111,7 +112,7 @@ public class PowerLogic {
         }
         ParticleProvider.VerticleCircleParticle(TargetPos, (ServerLevel) level, 1, 6, 100, ParticleTypes.WITCH);
         ParticleProvider.VerticleCircleParticle(TargetPos, (ServerLevel) level, 1.5, 6, 100, ParticleTypes.WITCH);
-        Compute.SoundToAll(player, ModSounds.Nether_Power.get());
+        MySound.SoundToAll(player, ModSounds.Nether_Power.get());
     }
 
     public static void PiglinPower(Player player, Item Tool) {
@@ -174,7 +175,7 @@ public class PowerLogic {
         ParticleProvider.VerticleCircleParticle(TargetPos, (ServerLevel) level, 1, 6, 100, ParticleTypes.WITCH);
         ParticleProvider.VerticleCircleParticle(TargetPos, (ServerLevel) level, 1.5, 6, 100, ParticleTypes.WITCH);
 
-        Compute.SoundToAll(player, ModSounds.Nether_Power.get());
+        MySound.SoundToAll(player, ModSounds.Nether_Power.get());
     }
 
     public static void WitherBoneMealPower(Player player, Item Tool) {
@@ -222,7 +223,7 @@ public class PowerLogic {
         ParticleProvider.VerticleCircleParticle(TargetPos, (ServerLevel) level, 1, 6, 100, ParticleTypes.WITCH);
         ParticleProvider.VerticleCircleParticle(TargetPos, (ServerLevel) level, 1.5, 6, 100, ParticleTypes.WITCH);
 
-        Compute.SoundToAll(player, ModSounds.Nether_Power.get());
+        MySound.SoundToAll(player, ModSounds.Nether_Power.get());
     }
 
     public static void MagmaPower(Player player, Item Tool) {
@@ -230,7 +231,7 @@ public class PowerLogic {
         CompoundTag data = player.getPersistentData();
         if (Tool != null) playerItemCoolDown(player, Tool, 3);
         data.putBoolean("MagmaPower", true);
-        Compute.SoundToAll(player, ModSounds.Nether_Power.get());
+        MySound.SoundToAll(player, ModSounds.Nether_Power.get());
     }
 
     public static void PlainPower(Player player, Item Tool, int level) {
@@ -281,7 +282,7 @@ public class PowerLogic {
         ParticleProvider.DisperseParticle(TargetPos, (ServerLevel) player.level(), 1, 1, 120, ModParticles.LONG_PLAIN.get(), 1);
         ParticleProvider.DisperseParticle(TargetPos, (ServerLevel) player.level(), 1.5, 1, 120, ModParticles.LONG_PLAIN.get(), 1);
 
-        Compute.SoundToAll(player, ModSounds.Wind.get());
+        MySound.SoundToAll(player, ModSounds.Wind.get());
     }
 
     public static void ForestPower(Player player, Item Tool, int level) {
@@ -368,7 +369,7 @@ public class PowerLogic {
 
         ParticleProvider.DisperseParticle(TargetPos, (ServerLevel) player.level(), 1, 1, 120, ModParticles.LONG_LAKE.get(), 1);
         ParticleProvider.DisperseParticle(TargetPos, (ServerLevel) player.level(), 1.5, 1, 120, ModParticles.LONG_LAKE.get(), 1);
-        Compute.SoundToAll(player, SoundEvents.WATER_AMBIENT);
+        MySound.SoundToAll(player, SoundEvents.WATER_AMBIENT);
     }
 
     public static void VolcanoPower(Player player, Item Tool, int level) {
@@ -412,7 +413,7 @@ public class PowerLogic {
         ParticleProvider.DisperseParticle(TargetPos, (ServerLevel) player.level(), 1, 1, 120, ModParticles.LONG_VOLCANO.get(), 1);
         ParticleProvider.DisperseParticle(TargetPos, (ServerLevel) player.level(), 1.5, 1, 120, ModParticles.LONG_VOLCANO.get(), 1);
 
-        Compute.SoundToAll(player, SoundEvents.DRAGON_FIREBALL_EXPLODE);
+        MySound.SoundToAll(player, SoundEvents.DRAGON_FIREBALL_EXPLODE);
     }
 
     public static void SnowPower(Player player, Item Tool, int level) {
@@ -458,7 +459,7 @@ public class PowerLogic {
 
         ParticleProvider.DisperseParticle(TargetPos, (ServerLevel) player.level(), 1, 1, 120, ModParticles.LONG_SNOW.get(), 1);
         ParticleProvider.DisperseParticle(TargetPos, (ServerLevel) player.level(), 1.5, 1, 120, ModParticles.LONG_SNOW.get(), 1);
-        Compute.SoundToAll(player, ModSounds.Mana.get());
+        MySound.SoundToAll(player, ModSounds.Mana.get());
     }
 
 

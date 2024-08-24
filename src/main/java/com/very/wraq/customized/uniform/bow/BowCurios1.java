@@ -1,5 +1,6 @@
 package com.very.wraq.customized.uniform.bow;
 
+import com.very.wraq.common.MySound;
 import com.very.wraq.core.MyArrow;
 import com.very.wraq.customized.uniform.Attributes;
 import com.very.wraq.process.func.particle.ParticleProvider;
@@ -99,7 +100,7 @@ public class BowCurios1 extends WraqUniformCurios {
         arrow.setCritArrow(true);
         WraqBow.adjustArrow(arrow, serverPlayer);
         serverPlayer.level().addFreshEntity(arrow);
-        Compute.SoundToAll(serverPlayer, SoundEvents.ARROW_SHOOT);
+        MySound.SoundToAll(serverPlayer, SoundEvents.ARROW_SHOOT);
         ParticleProvider.FaceCircleCreate(serverPlayer, 1, 0.75, 20, ParticleTypes.COMPOSTER);
         ParticleProvider.FaceCircleCreate(serverPlayer, 1.5, 0.5, 16, ParticleTypes.COMPOSTER);
     }

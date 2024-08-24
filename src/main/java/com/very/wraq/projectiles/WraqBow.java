@@ -1,6 +1,7 @@
 package com.very.wraq.projectiles;
 
 import com.very.wraq.blocks.blocks.ForgeRecipe;
+import com.very.wraq.common.MySound;
 import com.very.wraq.core.MyArrow;
 import com.very.wraq.entities.entities.Civil.Civil;
 import com.very.wraq.events.mob.loot.RandomLootEquip;
@@ -104,7 +105,7 @@ public abstract class WraqBow extends SwordItem {
         arrow.shootFromRotation(serverPlayer, serverPlayer.getXRot(), serverPlayer.getYRot(), 0.0f, 3F, 1.0f);
         arrow.setCritArrow(true);
         serverPlayer.level().addFreshEntity(arrow);
-        Compute.SoundToAll(serverPlayer, SoundEvents.ARROW_SHOOT);
+        MySound.SoundToAll(serverPlayer, SoundEvents.ARROW_SHOOT);
         ParticleProvider.FaceCircleCreate(serverPlayer, 1, 0.75, 20, ParticleTypes.WAX_OFF);
     }
 

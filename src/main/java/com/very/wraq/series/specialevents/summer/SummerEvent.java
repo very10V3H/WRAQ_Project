@@ -1,6 +1,7 @@
 package com.very.wraq.series.specialevents.summer;
 
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.MySound;
 import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.process.system.tower.Tower;
 import com.very.wraq.render.toolTip.CustomStyle;
@@ -49,7 +50,7 @@ public class SummerEvent {
                         append(Component.literal("吧！").withStyle(ChatFormatting.WHITE)).
                         append(Component.literal("(游泳速度已+200%)").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC)));
             if (dailySwimmingSeconds % 15 >= 3) {
-                if (dailySwimmingSeconds % 3 == 0) Compute.soundToPlayer(player, SoundEvents.FISH_SWIM);
+                if (dailySwimmingSeconds % 3 == 0) MySound.soundToPlayer(player, SoundEvents.FISH_SWIM);
                 Compute.sendActionBarMSG(player, Component.literal("正在摸鱼" + ".".repeat((dailySwimmingSeconds % 15) / 3)).withStyle(CustomStyle.styleOfWater));
             }
             if (dailySwimmingSeconds % 15 == 0) reward(player);
@@ -62,12 +63,12 @@ public class SummerEvent {
                         append(Component.literal("的").withStyle(ChatFormatting.WHITE)).
                         append(Component.literal("15%额外产出").withStyle(ChatFormatting.GOLD)));
                 player.sendSystemMessage(Component.literal(" - Golden Hours!").withStyle(ChatFormatting.GOLD));
-                Compute.soundToPlayer(player, SoundEvents.PLAYER_LEVELUP);
+                MySound.soundToPlayer(player, SoundEvents.PLAYER_LEVELUP);
             }
         }
         if (!player.isSwimming() && playerLastTimeInWaterTick.containsKey(name) && tick - playerLastTimeInWaterTick.get(name) > 40) {
             playerLastTimeInWaterTick.remove(name);
-            Compute.soundToPlayer(player, SoundEvents.DOLPHIN_JUMP);
+            MySound.soundToPlayer(player, SoundEvents.DOLPHIN_JUMP);
 
             int dailySwimmingSeconds = getIntData(player, dailySwimmingSecondsKey);
             int dailySummerVoucherGetTimes = getIntData(player, dailySummerVoucherGetTimesKey);
@@ -125,7 +126,7 @@ public class SummerEvent {
 
     public static void reward(Player player) throws SQLException {
         int dailySwimmingSeconds = getIntData(player, dailySwimmingSecondsKey);
-        Compute.soundToPlayer(player, SoundEvents.EXPERIENCE_ORB_PICKUP);
+        MySound.soundToPlayer(player, SoundEvents.EXPERIENCE_ORB_PICKUP);
         Component timeFormat;
         if (dailySwimmingSeconds >= 600) {
             timeFormat = Component.literal(String.format("%.2f", dailySwimmingSeconds / 60.0) + "min").withStyle(CustomStyle.styleOfWater);

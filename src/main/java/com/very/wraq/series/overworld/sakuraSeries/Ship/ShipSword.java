@@ -1,5 +1,6 @@
 package com.very.wraq.series.overworld.sakuraSeries.Ship;
 
+import com.very.wraq.common.MySound;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.projectiles.ActiveItem;
@@ -87,7 +88,7 @@ public class ShipSword extends WraqSword implements ActiveItem {
                 Utils.shipSwordTime.put(mob, tickCount + 100);
                 Utils.shipSwordEffect.put(mob, Math.min(mobList.size(), 4));
             });
-            Compute.SoundToAll(player, SoundEvents.ANVIL_LAND);
+            MySound.SoundToAll(player, SoundEvents.ANVIL_LAND);
 
             ParticleProvider.GatherParticle(desPos, (ServerLevel) player.level(), 1, 6, 120, ModParticles.LONG_LAKE.get(), 0.25);
             ParticleProvider.GatherParticle(desPos, (ServerLevel) player.level(), 1.5, 6, 120, ModParticles.LONG_LAKE.get(), 0.25);

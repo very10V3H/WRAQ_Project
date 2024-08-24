@@ -1,5 +1,6 @@
 package com.very.wraq.process.system.element.equipAndCurios.lifeElement;
 
+import com.very.wraq.common.MySound;
 import com.very.wraq.core.MyArrow;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.process.func.particle.ParticleProvider;
@@ -42,7 +43,7 @@ public class LifeElementBow extends WraqBow implements ActiveItem {
         arrow.setCritArrow(true);
         WraqBow.adjustArrow(arrow, serverPlayer);
         serverPlayer.level().addFreshEntity(arrow);
-        Compute.SoundToAll(serverPlayer, SoundEvents.ARROW_SHOOT);
+        MySound.SoundToAll(serverPlayer, SoundEvents.ARROW_SHOOT);
         ParticleProvider.FaceCircleCreate(serverPlayer, 1, 0.75, 20, ModParticles.LifeElementParticle.get());
         ParticleProvider.FaceCircleCreate(serverPlayer, 1.5, 0.5, 16, ModParticles.LifeElementParticle.get());
     }

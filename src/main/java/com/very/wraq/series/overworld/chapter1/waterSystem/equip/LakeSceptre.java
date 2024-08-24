@@ -1,5 +1,6 @@
 package com.very.wraq.series.overworld.chapter1.waterSystem.equip;
 
+import com.very.wraq.common.MySound;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.projectiles.OnHitEffectMainHandWeapon;
@@ -64,7 +65,7 @@ public class LakeSceptre extends WraqSceptre implements OnHitEffectMainHandWeapo
             level.addFreshEntity(newArrow);
             ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1, 0.75, 20, ParticleTypes.DRIPPING_WATER);
             ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1.5, 0.5, 16, ParticleTypes.DRIPPING_WATER);
-            Compute.SoundToAll(player, ModSounds.Mana.get());
+            MySound.SoundToAll(player, ModSounds.Mana.get());
         }
     }
 

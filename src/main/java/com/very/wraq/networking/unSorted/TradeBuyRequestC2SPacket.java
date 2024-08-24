@@ -1,5 +1,6 @@
 package com.very.wraq.networking.unSorted;
 
+import com.very.wraq.common.MySound;
 import com.very.wraq.events.core.InventoryCheck;
 import com.very.wraq.process.func.guide.Guide;
 import com.very.wraq.process.series.lottery.NewLotteries;
@@ -126,7 +127,7 @@ public class TradeBuyRequestC2SPacket {
                     InventoryCheck.addOwnerTagToItemStack(serverPlayer, giveItemStack);
                 if (giveItemStack.is(TradeList.netheriteBackPack)) Guide.trig(serverPlayer, 0);
                 Compute.itemStackGive(serverPlayer, giveItemStack);
-                Compute.soundToPlayer(serverPlayer, SoundEvents.ARROW_HIT_PLAYER);
+                MySound.soundToPlayer(serverPlayer, SoundEvents.ARROW_HIT_PLAYER);
             } else {
                 Compute.sendFormatMSG(serverPlayer, Component.literal("交易").withStyle(ChatFormatting.GREEN),
                         Component.literal("似乎没有足够的物品用于购买。").withStyle(ChatFormatting.WHITE));

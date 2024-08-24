@@ -1,5 +1,6 @@
 package com.very.wraq.networking.misc.AttackPackets;
 
+import com.very.wraq.common.MySound;
 import com.very.wraq.core.AttackEvent;
 import com.very.wraq.events.fight.HurtEvent;
 import com.very.wraq.events.modules.AttackEventModule;
@@ -86,7 +87,7 @@ public class AttackC2SPacket {
             });
         }
 
-        Compute.SoundToAll(player, SoundEvents.PLAYER_ATTACK_SWEEP);
+        MySound.SoundToAll(player, SoundEvents.PLAYER_ATTACK_SWEEP);
 
     }
 }

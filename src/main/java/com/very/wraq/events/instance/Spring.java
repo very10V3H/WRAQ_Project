@@ -1,5 +1,6 @@
 package com.very.wraq.events.instance;
 
+import com.very.wraq.common.MySound;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.unSorted.SpringInstanceS2CPacket;
 import com.very.wraq.process.func.particle.ParticleProvider;
@@ -161,7 +162,7 @@ public class Spring {
                                             0, 0, 0, 0, 0);
                             serverPlayer.connection.send(clientboundLevelParticlesPacket);
                         }
-                        Compute.SoundToAll(player, SoundEvents.DRAGON_FIREBALL_EXPLODE);
+                        MySound.SoundToAll(player, SoundEvents.DRAGON_FIREBALL_EXPLODE);
                     });
                     playerAndDistances.sort(Comparator.comparing(PlayerAndDistance::distance));
                     int Count = 0;

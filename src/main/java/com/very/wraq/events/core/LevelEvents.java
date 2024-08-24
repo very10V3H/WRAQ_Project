@@ -1,6 +1,7 @@
 package com.very.wraq.events.core;
 
 import com.very.wraq.commands.changeable.PrefixCommand;
+import com.very.wraq.common.MySound;
 import com.very.wraq.customized.uniform.bow.BowCurios1;
 import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.events.mob.instance.NoTeamInstanceModule;
@@ -69,7 +70,7 @@ public class LevelEvents {
                     append(MySeason.seasonComponentMap.get(time.getSubSeason().name())).
                     append(Component.literal(" 时分已经到来").withStyle(ChatFormatting.WHITE)));
             MySeason.currentSeason = time.getSubSeason().name();
-            Compute.soundToAllPlayer(event.getLevel(), SoundEvents.EXPERIENCE_ORB_PICKUP);
+            MySound.soundToAllPlayer(event.getLevel(), SoundEvents.EXPERIENCE_ORB_PICKUP);
         }
     }
 
@@ -707,7 +708,7 @@ public class LevelEvents {
                                 new ClientboundSetSubtitleTextPacket(Component.literal("请尽快退出，防止数据丢失.."/* + Utils.ServerStopTick / 20 + "s"*/).withStyle(ChatFormatting.AQUA));
                         serverPlayer.connection.send(clientboundSetSubtitleTextPacket);
                         serverPlayer.connection.send(clientboundSetTitleTextPacket);
-                        Compute.soundToPlayer(serverPlayer, SoundEvents.ARROW_HIT_PLAYER);
+                        MySound.soundToPlayer(serverPlayer, SoundEvents.ARROW_HIT_PLAYER);
                     });
                 }
             }

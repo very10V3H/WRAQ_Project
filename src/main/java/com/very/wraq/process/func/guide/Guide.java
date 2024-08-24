@@ -1,5 +1,6 @@
 package com.very.wraq.process.func.guide;
 
+import com.very.wraq.common.MySound;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.process.func.guide.networking.GuideStageS2CPacket;
 import com.very.wraq.process.system.wayPoints.MyWayPoint;
@@ -78,7 +79,7 @@ public class Guide {
             Compute.sendFormatMSG(player, Component.literal("引导").withStyle(ChatFormatting.AQUA),
                     Component.literal("你完成了引导任务，获得了奖励！").withStyle(ChatFormatting.WHITE));
             Compute.giveExpToPlayer(player, (stage + 1) * 10);
-            Compute.soundToPlayer(player, SoundEvents.PLAYER_LEVELUP);
+            MySound.soundToPlayer(player, SoundEvents.PLAYER_LEVELUP);
             //
             int nextStage = stage + 1;
             setPlayerCurrentStage(player, nextStage);

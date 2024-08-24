@@ -1,5 +1,6 @@
 package com.very.wraq.series.overworld.sakuraSeries.Boss2;
 
+import com.very.wraq.common.MySound;
 import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.events.mob.chapter2.SlimeSpawnController;
 import com.very.wraq.events.mob.chapter3_nether.MagmaSpawnController;
@@ -112,7 +113,7 @@ public class GoldenBook extends WraqOffHandItem implements OnKillEffectOffHandIt
                         Component.literal("额外获得了1枚").withStyle(ChatFormatting.AQUA).
                                 append(goldCoin.getDisplayName()));
                 Compute.itemStackGive(player, goldCoin);
-                Compute.soundToPlayer(player, SoundEvents.ARMOR_EQUIP_GOLD);
+                MySound.soundToPlayer(player, SoundEvents.ARMOR_EQUIP_GOLD);
             }
         }
     }

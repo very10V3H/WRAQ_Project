@@ -2,6 +2,7 @@ package com.very.wraq.Items.Forging;
 
 import com.very.wraq.blocks.blocks.ForgeRecipe;
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.MySound;
 import com.very.wraq.common.Utils.StringUtils;
 import com.very.wraq.common.Utils.Utils;
 import com.very.wraq.common.registry.ModItems;
@@ -82,7 +83,7 @@ public class WraqForge extends Item {
 
             Compute.sendFormatMSG(player, Component.literal("锻造").withStyle(ChatFormatting.GRAY),
                     Component.literal("锻造成功！").withStyle(ChatFormatting.GOLD));
-            Compute.soundToPlayer(player, SoundEvents.ANVIL_USE);
+            MySound.soundToPlayer(player, SoundEvents.ANVIL_USE);
 
             ItemStack productItemStack = forgedItem.getDefaultInstance();
 
@@ -160,7 +161,7 @@ public class WraqForge extends Item {
                 playerMSGSendDelayMap.remove(name);
                 Compute.sendFormatMSG(serverPlayer, Component.literal("引导-灌注").withStyle(ChatFormatting.AQUA), Component.literal("恭喜你完成了第一次打造！可能你已经注意到了，在一些武器的描述下方有").withStyle(ChatFormatting.WHITE).append(Component.literal("[可灌注/增幅]").withStyle(CustomStyle.styleOfPurpleIron)).append(Component.literal("的字样。").withStyle(ChatFormatting.WHITE)));
                 playerMSGSendDelayMap1.put(name, tick + 40);
-                Compute.soundToPlayer(serverPlayer, SoundEvents.EXPERIENCE_ORB_PICKUP);
+                MySound.soundToPlayer(serverPlayer, SoundEvents.EXPERIENCE_ORB_PICKUP);
             }
         }
 
@@ -171,7 +172,7 @@ public class WraqForge extends Item {
                 Compute.sendFormatMSG(serverPlayer, Component.literal("引导-灌注").withStyle(ChatFormatting.AQUA), Component.literal("现在，拿着给予你的").withStyle(ChatFormatting.WHITE).append(itemStack.getDisplayName()).append(Component.literal("找到灌注台(在村庄锻造区域均有分布)，尝试给平原系列武器进行灌注升级吧！").withStyle(ChatFormatting.WHITE)));
                 Compute.itemStackGive(serverPlayer, itemStack);
                 playerMSGSendDelayMap2.put(name, tick + 40);
-                Compute.soundToPlayer(serverPlayer, SoundEvents.EXPERIENCE_ORB_PICKUP);
+                MySound.soundToPlayer(serverPlayer, SoundEvents.EXPERIENCE_ORB_PICKUP);
             }
         }
 
@@ -180,7 +181,7 @@ public class WraqForge extends Item {
                 playerMSGSendDelayMap2.remove(name);
                 Compute.sendFormatMSG(serverPlayer, Component.literal("引导-快捷使用").withStyle(ChatFormatting.AQUA), Component.literal("你知道吗，在按键绑定中可以绑定快捷使用按键。").withStyle(ChatFormatting.WHITE));
                 Compute.sendFormatMSG(serverPlayer, Component.literal("引导-快捷使用").withStyle(ChatFormatting.AQUA), Component.literal("使用快捷使用可以使你无前摇地施放主动，对于法师而言，").withStyle(ChatFormatting.WHITE).append(Component.literal("必须").withStyle(ChatFormatting.RED)).append(Component.literal("使用快捷使用来释放法术以获得主手武器提供的法术伤害加成").withStyle(ChatFormatting.WHITE)));
-                Compute.soundToPlayer(serverPlayer, SoundEvents.EXPERIENCE_ORB_PICKUP);
+                MySound.soundToPlayer(serverPlayer, SoundEvents.EXPERIENCE_ORB_PICKUP);
             }
         }
     }
