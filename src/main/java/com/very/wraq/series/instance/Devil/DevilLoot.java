@@ -29,7 +29,10 @@ public class DevilLoot extends Item {
     private List<ItemAndWeight> itemAndWeightList = new ArrayList<>();
 
     private void setItemAndWeightList() {
-        itemAndWeightList.add(new ItemAndWeight(ModItems.DevilBlood.get(), 2));
+        itemAndWeightList.add(new ItemAndWeight(ModItems.DevilBlood.get(), 4));
+        itemAndWeightList.add(new ItemAndWeight(ModItems.KillPaperLoot.get(), 7));
+        itemAndWeightList.add(new ItemAndWeight(ModItems.MopUpPaperLoot.get(), 15));
+        itemAndWeightList.add(new ItemAndWeight(ModItems.UnCommonLotteries.get(), 25));
         itemAndWeightList.add(new ItemAndWeight(ModItems.DevilAttackSoul.get(), 25));
         itemAndWeightList.add(new ItemAndWeight(ModItems.DevilSwiftSoul.get(), 25));
         itemAndWeightList.add(new ItemAndWeight(ModItems.DevilManaSoul.get(), 25));
