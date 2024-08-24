@@ -1250,7 +1250,7 @@ public class PlayerAttributes {
                     stackmainhandtag.getInt(StringUtils.SoulEquipForge) * SoulEquipAttribute.ForgingAddition.DefencePenetration0;
 
         if (mainhand instanceof SkyBow || mainhand instanceof SkyBoss.SkyBossBow)
-            defencePenetration0 += movementSpeedWithoutBattle(player) * 100;
+            defencePenetration0 += movementSpeedCommon(player) * 500;
 
         if (mainhand.equals(ModItems.ShipBow.get())) {
             List<Player> serverPlayerList = player.level().getEntitiesOfClass(Player.class, AABB.ofSize(player.position(), 20, 20, 20));
