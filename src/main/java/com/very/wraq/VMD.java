@@ -179,6 +179,7 @@ public class VMD {
 
     @SubscribeEvent
     public static void serverStartEvent(ServerStartingEvent event) throws SQLException, CommandSyntaxException, ParseException {
+        Tick.server = event.getServer();
         PlanPlayer.read();
 
         MarketInfo.marketItemInfoRead(event.getServer().overworld());
