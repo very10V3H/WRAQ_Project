@@ -291,7 +291,7 @@ public class PlayerAttributes {
         exDamage += Compute.CuriosAttribute.attributeValue(player, Utils.xpLevelAttackDamage,
                 StringUtils.CuriosAttribute.xpLevelAttackDamage) * player.experienceLevel;
 
-        exDamage += Compute.PassiveEquip.AttributeGet(player, Utils.attackDamage); // 器灵属性加成
+        exDamage += Compute.PassiveEquip.getAttribute(player, Utils.attackDamage); // 器灵属性加成
         exDamage += CastleAttackArmor.ExAttributeValue(player, CastleAttackArmor.ExAttackDamage);
         exDamage += CastleSwiftArmor.ExAttributeValue(player, CastleSwiftArmor.ExAttackDamage);
         exDamage += MoonSword.ExAttackDamage(player);
@@ -508,7 +508,7 @@ public class PlayerAttributes {
 
         critDamage += Compute.CuriosAttribute.attributeValue(player, Utils.critDamage, StringUtils.CuriosAttribute.CritDamage); // 新版饰品属性加成
 
-        critDamage += Compute.PassiveEquip.AttributeGet(player, Utils.critDamage); // 器灵属性加成
+        critDamage += Compute.PassiveEquip.getAttribute(player, Utils.critDamage); // 器灵属性加成
         critDamage += CastleAttackArmor.ExAttributeValue(player, CastleAttackArmor.ExCritDamage);
         critDamage += AttackCurios1.playerCritDamageUp(player);
         critDamage += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerCritDamageModifier);
@@ -675,7 +675,7 @@ public class PlayerAttributes {
 
         speedUp += Compute.CuriosAttribute.attributeValue(player, Utils.movementSpeedWithoutBattle,
                 StringUtils.CuriosAttribute.MovementSpeed); // 新版饰品属性加成
-        speedUp += Compute.PassiveEquip.AttributeGet(player, Utils.movementSpeedWithoutBattle); // 器灵属性加成
+        speedUp += Compute.PassiveEquip.getAttribute(player, Utils.movementSpeedWithoutBattle); // 器灵属性加成
 
         // 请在上方添加
         speedUp *= Compute.playerFantasyAttributeEnhance(player);
@@ -745,7 +745,7 @@ public class PlayerAttributes {
 
         expUp += Compute.CuriosAttribute.attributeValue(player, Utils.expUp, StringUtils.CuriosAttribute.ExpUp); // 新版饰品属性加成
 
-        expUp += Compute.PassiveEquip.AttributeGet(player, Utils.expUp); // 器灵属性加成
+        expUp += Compute.PassiveEquip.getAttribute(player, Utils.expUp); // 器灵属性加成
 
         int tier = 0;
         try {
@@ -873,7 +873,7 @@ public class PlayerAttributes {
 
         exDefence += Compute.CuriosAttribute.attributeValue(player, Utils.defence, StringUtils.CuriosAttribute.Defence); // 新版饰品属性加成
 
-        exDefence += Compute.PassiveEquip.AttributeGet(player, Utils.defence); // 器灵属性加成
+        exDefence += Compute.PassiveEquip.getAttribute(player, Utils.defence); // 器灵属性加成
 
         exDefence += CastleAttackArmor.ExAttributeValue(player, CastleAttackArmor.ExDefence);
         exDefence += CastleManaArmor.ExAttributeValue(player, CastleManaArmor.ExDefence);
@@ -981,7 +981,7 @@ public class PlayerAttributes {
 
         SwiftnessUp += Compute.CuriosAttribute.attributeValue(player, Utils.swiftnessUp, StringUtils.CuriosAttribute.SwiftnessUp); // 新版饰品属性加成
 
-        SwiftnessUp += Compute.PassiveEquip.AttributeGet(player, Utils.swiftnessUp); // 器灵属性加成
+        SwiftnessUp += Compute.PassiveEquip.getAttribute(player, Utils.swiftnessUp); // 器灵属性加成
         SwiftnessUp += CastleSwiftArmor.ExAttributeValue(player, CastleSwiftArmor.ExSwiftnessUp);
         // 请在上方添加
         SwiftnessUp *= Compute.playerFantasyAttributeEnhance(player);
@@ -1443,7 +1443,7 @@ public class PlayerAttributes {
 
         maxHealth += Compute.CuriosAttribute.attributeValue(player, Utils.maxHealth, StringUtils.CuriosAttribute.MaxHealth); // 新版饰品属性加成
 
-        maxHealth += Compute.PassiveEquip.AttributeGet(player, Utils.maxHealth); // 器灵属性加成
+        maxHealth += Compute.PassiveEquip.getAttribute(player, Utils.maxHealth); // 器灵属性加成
         maxHealth += CastleAttackArmor.ExAttributeValue(player, CastleAttackArmor.ExMaxHealth);
         maxHealth += CastleManaArmor.ExAttributeValue(player, CastleManaArmor.ExMaxHealth);
         maxHealth += CastleSwiftArmor.ExAttributeValue(player, CastleSwiftArmor.ExMaxHealth);
@@ -1601,7 +1601,7 @@ public class PlayerAttributes {
         exDamage += baseDamage * EarthPower.PlayerDamageEnhance(player);
         exDamage += Compute.CuriosAttribute.attributeValue(player, Utils.manaDamage, StringUtils.CuriosAttribute.ManaDamage); // 新版饰品属性加成
 
-        exDamage += Compute.PassiveEquip.AttributeGet(player, Utils.manaDamage); // 器灵属性加成
+        exDamage += Compute.PassiveEquip.getAttribute(player, Utils.manaDamage); // 器灵属性加成
         exDamage += CastleManaArmor.ExAttributeValue(player, CastleManaArmor.ExManaDamage);
         exDamage += LifeElementSceptre.ExManaDamage(player);
         exDamage += VolcanoArmorHelmet.exManaDamage(player);
@@ -2083,7 +2083,7 @@ public class PlayerAttributes {
         manaPenetration0 += TabooManaArmor.storeCostValue(player);
         manaPenetration0 += TabooManaArmor.PenetrationDirectEnhance(player);
 
-        manaPenetration0 += Compute.PassiveEquip.AttributeGet(player, Utils.manaPenetration0); // 器灵属性加成
+        manaPenetration0 += Compute.PassiveEquip.getAttribute(player, Utils.manaPenetration0); // 器灵属性加成
         manaPenetration0 += CastleSword.ExPenetration0(player); // 暗黑武器主动
         // 请在上方添加
         manaPenetration0 *= Compute.playerFantasyAttributeEnhance(player);
@@ -2133,7 +2133,7 @@ public class PlayerAttributes {
 
         maxMana += Compute.CuriosAttribute.attributeValue(player, Utils.maxMana, StringUtils.CuriosAttribute.MaxMana); // 新版饰品属性加成
 
-        maxMana += Compute.PassiveEquip.AttributeGet(player, Utils.maxMana); // 器灵属性加成
+        maxMana += Compute.PassiveEquip.getAttribute(player, Utils.maxMana); // 器灵属性加成
 
         maxMana += handleAllEquipRandomAttribute(player, StringUtils.RandomAttribute.maxMana);
         // 请在上方添加

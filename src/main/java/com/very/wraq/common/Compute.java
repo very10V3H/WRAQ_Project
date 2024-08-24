@@ -4700,23 +4700,17 @@ public class Compute {
     }
 
     public static class PassiveEquip {
-        public static boolean IsSameClass(Item item, List<Item> itemList) {
-            for (Item item1 : itemList) {
-                if (item1.getClass().equals(item.getClass())) return true;
-            }
-            return false;
-        }
 
-        public static double AttributeGet(Player player, Map<Item, Double> map) {
-            List<Item> itemList = new ArrayList<>();
+        public static double getAttribute(Player player, Map<Item, Double> map) {
+            HashSet<Class<? extends Item>> set = new HashSet<>();
             double total = 0;
             for (int i = 3; i < 9; i++) {
                 Item item = player.getInventory().getItem(i).getItem();
-                if (!IsSameClass(item, itemList) && Utils.passiveEquipTag.containsKey(item)
+                if (!set.contains(item.getClass()) && Utils.passiveEquipTag.containsKey(item)
                         && map.containsKey(item)
                         && (!Utils.levelRequire.containsKey(item) || Utils.levelRequire.get(item) <= player.experienceLevel)) {
                     total += map.get(item);
-                    itemList.add(item);
+                    set.add(item.getClass());
                 }
             }
             return total;

@@ -224,6 +224,10 @@ public class ComponentUtils {
         return Component.literal("BlackCastle").withStyle(CustomStyle.styleOfCastle).withStyle(ChatFormatting.ITALIC);
     }
 
+    public static Component getSuffixOfPurpleIron() {
+        return Component.literal("PurpleIronKnight").withStyle(CustomStyle.styleOfPurpleIron).withStyle(ChatFormatting.ITALIC);
+    }
+
     public static void SuffixOfPurpleIronKnight(List<Component> components) {
         components.add(Component.literal("PurpleIronKnight").withStyle(CustomStyle.styleOfPurpleIron).withStyle(ChatFormatting.ITALIC));
     }
