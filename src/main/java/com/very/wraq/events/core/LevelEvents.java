@@ -1,7 +1,13 @@
 package com.very.wraq.events.core;
 
 import com.very.wraq.commands.changeable.PrefixCommand;
+import com.very.wraq.common.Compute;
 import com.very.wraq.common.MySound;
+import com.very.wraq.common.Utils.Struct.Boss2Damage;
+import com.very.wraq.common.Utils.Struct.Gather;
+import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.attributeValues.EffectOnMob;
+import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.customized.uniform.bow.BowCurios1;
 import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.events.mob.instance.NoTeamInstanceModule;
@@ -12,13 +18,6 @@ import com.very.wraq.process.system.season.MySeason;
 import com.very.wraq.process.system.tower.Tower;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.overworld.sakuraSeries.EarthMana.EarthPower;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.Utils.Struct.Boss2Damage;
-import com.very.wraq.common.Utils.Struct.Gather;
-import com.very.wraq.common.Utils.Struct.LastDamage;
-import com.very.wraq.common.Utils.Utils;
-import com.very.wraq.common.attributeValues.EffectOnMob;
-import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.series.specialevents.summer.SummerEvent;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -154,38 +153,6 @@ public class LevelEvents {
             }*/
 
             Compute.Gather(TickCount); // 聚集
-
-            List<LastDamage> removeList = new ArrayList<>();
-            for (LastDamage lastDamage : Utils.PlayerLastDamageToMonster) {
-                if (lastDamage != null) {
-                    if (TickCount % lastDamage.PerTick == 0) {
-                        lastDamage.Tick -= lastDamage.PerTick;
-                        if (lastDamage.IsAd) {
-                            Compute.Damage.AttackDamageToMonster_RateAdDamage(lastDamage.player, lastDamage.mob, lastDamage.Rate);
-                        } else {
-                            Compute.Damage.ManaDamageToMonster_RateApDamage(lastDamage.player, lastDamage.mob, lastDamage.Rate, false);
-                        }
-                    }
-                    if (lastDamage.Tick <= 0) removeList.add(lastDamage);
-                }
-            }
-            Utils.PlayerLastDamageToMonster.removeAll(removeList);
-
-            List<LastDamage> removeList1 = new ArrayList<>();
-            for (LastDamage lastDamage : Utils.PlayerLastXpStrengthDamageToMonster) {
-                if (lastDamage != null) {
-                    if (TickCount % lastDamage.PerTick == 0) {
-                        lastDamage.Tick -= lastDamage.PerTick;
-                        if (lastDamage.IsAd) {
-                            Compute.Damage.AttackDamageToMonster_AdDamage(lastDamage.player, lastDamage.mob, Compute.XpStrengthADDamage(lastDamage.player, lastDamage.Rate));
-                        } else {
-                            Compute.Damage.ManaDamageToMonster_ApDamage(lastDamage.player, lastDamage.mob, Compute.XpStrengthAPDamage(lastDamage.player, lastDamage.Rate));
-                        }
-                    }
-                    if (lastDamage.Tick <= 0) removeList1.add(lastDamage);
-                }
-            }
-            Utils.PlayerLastXpStrengthDamageToMonster.removeAll(removeList1);
         }
 
         if (event.side.isServer() && event.phase.equals(TickEvent.Phase.START)) {

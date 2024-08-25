@@ -3130,16 +3130,6 @@ public class Compute {
                 ManaDamageToMonster_RateApDamage(player, mob, rate, false);
         }
 
-        public static void LastDamageToMob(Player player, Mob mob, double rate, int tick, int pertick, boolean IsAd) {
-            LastDamage lastDamage = new LastDamage(player, mob, IsAd, tick, pertick, rate);
-            Utils.PlayerLastDamageToMonster.add(lastDamage);
-        }
-
-        public static void LastXpStrengthDamageToMob(Player player, Mob mob, double rate, int tick, int pertick, boolean IsAd) {
-            LastDamage lastDamage = new LastDamage(player, mob, IsAd, tick, pertick, rate);
-            Utils.PlayerLastXpStrengthDamageToMonster.add(lastDamage);
-        }
-
         public static double DamageIgNoreDefenceToMonster(Player player, Mob monster, double Damage) {
             CompoundTag data = player.getPersistentData();
 

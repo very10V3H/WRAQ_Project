@@ -69,7 +69,7 @@ public class BlazeBracelet extends Item implements ICurioItem {
 
     public static void Passive(Player player, Mob mob) {
         if (Compute.PlayerHasCurios(player, ModItems.BlazeBracelet.get())) {
-            Compute.Damage.LastXpStrengthDamageToMob(player, mob, 1, 40, 10, true);
+            /*Compute.Damage.LastXpStrengthDamageToMob(player, mob, 1, 40, 10, true);*/
             Compute.IgniteMob(player, mob, 40);
         }
     }

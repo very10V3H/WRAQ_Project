@@ -675,4 +675,16 @@ public class CustomStyle {
     public static Rarity CastleCrystalItalic = Rarity.create("castle_crystal_italic", style -> {
         return style.applyTo(CustomStyle.styleOfCastleCrystal).withBold(true).withItalic(true);
     });
+
+    public static final Rarity demon = Rarity.create("demon", style -> {
+        return style.applyTo(CustomStyle.styleOfDemon);
+    });
+
+    public static final Rarity demonBold = Rarity.create("demon_bold", style -> {
+        return style.applyTo(CustomStyle.styleOfDemon).withBold(true);
+    });
+
+    public static final Rarity demonItalic = Rarity.create("demon_italic", style -> {
+        return style.applyTo(CustomStyle.styleOfDemon).withBold(true).withItalic(true);
+    });
 }

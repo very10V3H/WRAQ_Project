@@ -69,7 +69,7 @@ public class TreeBracelet extends Item implements ICurioItem {
 
     public static void Passive(Player player, Mob mob) {
         if (Compute.PlayerHasCurios(player, ModItems.TreeBracelet.get())) {
-            Compute.Damage.LastXpStrengthDamageToMob(player, mob, 0.25, 40, 10, false);
+            /*Compute.Damage.LastXpStrengthDamageToMob(player, mob, 0.25, 40, 10, false);*/
         }
     }
 }

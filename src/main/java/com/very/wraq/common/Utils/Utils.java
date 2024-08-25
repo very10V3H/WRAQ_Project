@@ -1450,9 +1450,6 @@ public class Utils {
 
     public static Map<String, Integer> PlayerDeadTimeMap = new HashMap<>();
 
-    public static List<LastDamage> PlayerLastDamageToMonster = new ArrayList<>();
-    public static List<LastDamage> PlayerLastXpStrengthDamageToMonster = new ArrayList<>();
-
     public static Map<Player, Integer> MeteoriteDefenceMap = new HashMap<>();
     public static Map<Player, Integer> MeteoriteDefenceTimeMap = new HashMap<>();
 

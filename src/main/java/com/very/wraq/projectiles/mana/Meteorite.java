@@ -1,11 +1,10 @@
 package com.very.wraq.projectiles.mana;
 
-import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.Utils.Struct.LastDamage;
 import com.very.wraq.common.Utils.Utils;
 import com.very.wraq.common.attributeValues.PlayerAttributes;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.process.func.particle.ParticleProvider;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.game.ClientboundLevelParticlesPacket;
@@ -86,8 +85,8 @@ public class Meteorite extends AbstractArrow implements GeoEntity {
                     case 0 -> {
                         mobList.forEach(mob -> {
                             if (mob.distanceTo(this) < 5) {
-                                LastDamage lastDamage = new LastDamage(player, mob, false, 80, 20, 0.3);
-                                Utils.PlayerLastDamageToMonster.add(lastDamage);
+/*                                LastDamage lastDamage = new LastDamage(player, mob, false, 80, 20, 0.3);
+                                Utils.PlayerLastDamageToMonster.add(lastDamage);*/
                             }
                         });
                     }
@@ -101,8 +100,8 @@ public class Meteorite extends AbstractArrow implements GeoEntity {
                     case 2 -> {
                         mobList.forEach(mob -> {
                             if (mob.distanceTo(this) < 5) {
-                                LastDamage lastDamage = new LastDamage(player, mob, false, 80, 20, 0.35);
-                                Utils.PlayerLastDamageToMonster.add(lastDamage);
+/*                                LastDamage lastDamage = new LastDamage(player, mob, false, 80, 20, 0.35);
+                                Utils.PlayerLastDamageToMonster.add(lastDamage);*/
                                 mob.setSecondsOnFire(4);
                             }
                         });
@@ -195,8 +194,8 @@ public class Meteorite extends AbstractArrow implements GeoEntity {
                     case 0 -> {
                         mobList.forEach(mob -> {
                             if (mob.distanceTo(this) < 5) {
-                                LastDamage lastDamage = new LastDamage(player, mob, false, 80, 20, 0.3);
-                                Utils.PlayerLastDamageToMonster.add(lastDamage);
+/*                                LastDamage lastDamage = new LastDamage(player, mob, false, 80, 20, 0.3);
+                                Utils.PlayerLastDamageToMonster.add(lastDamage);*/
                             }
                         });
                     }
@@ -210,8 +209,8 @@ public class Meteorite extends AbstractArrow implements GeoEntity {
                     case 2 -> {
                         mobList.forEach(mob -> {
                             if (mob.distanceTo(this) < 5) {
-                                LastDamage lastDamage = new LastDamage(player, mob, false, 80, 20, 0.35);
-                                Utils.PlayerLastDamageToMonster.add(lastDamage);
+/*                                LastDamage lastDamage = new LastDamage(player, mob, false, 80, 20, 0.35);
+                                Utils.PlayerLastDamageToMonster.add(lastDamage);*/
                                 mob.setSecondsOnFire(4);
                             }
                         });
