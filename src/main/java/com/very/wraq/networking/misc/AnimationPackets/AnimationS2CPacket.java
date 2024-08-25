@@ -1,5 +1,6 @@
 package com.very.wraq.networking.misc.AnimationPackets;
 
+import com.very.wraq.common.DelayOperationWithAnimation;
 import com.very.wraq.common.Utils.Utils;
 import dev.kosmx.playerAnim.api.layered.IAnimation;
 import dev.kosmx.playerAnim.api.layered.KeyframeAnimationPlayer;
@@ -19,20 +20,24 @@ import java.util.function.Supplier;
 public class AnimationS2CPacket {
     private final int playerId;
     private final String animationId;
+    private final int lastTick;
 
-    public AnimationS2CPacket(int playerID, String animationId) {
+    public AnimationS2CPacket(int playerID, String animationId, int lastTick) {
         this.playerId = playerID;
         this.animationId = animationId;
+        this.lastTick = lastTick;
     }
 
     public AnimationS2CPacket(FriendlyByteBuf buf) {
         this.playerId = buf.readInt();
         this.animationId = buf.readUtf();
+        this.lastTick = buf.readInt();
     }
 
     public void toBytes(FriendlyByteBuf buf) {
         buf.writeInt(this.playerId);
         buf.writeUtf(this.animationId);
+        buf.writeInt(this.lastTick);
     }
 
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
@@ -44,6 +49,9 @@ public class AnimationS2CPacket {
                 if (animation != null) {
                     animation.setAnimation(new KeyframeAnimationPlayer(PlayerAnimationRegistry.getAnimation(new ResourceLocation(Utils.MOD_ID, animationId))));
                 }
+            }
+            if (Minecraft.getInstance().player.equals(entity)) {
+                DelayOperationWithAnimation.clientPlayerAnimationPlayingLeftTick = lastTick;
             }
         });
         return true;

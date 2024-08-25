@@ -93,12 +93,6 @@ public class LakeSword3 extends SwordItem implements ActiveItem, OnHitEffectMain
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
-        Compute.use(player);
-        return super.use(level, player, interactionHand);
-    }
-
-    @Override
     public void active(Player player) {
         if (Compute.playerManaCost(player, 60)) {
             ModNetworking.sendToClient(new UtilsLakeSwordS2CPacket(true), (ServerPlayer) player);

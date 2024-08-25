@@ -57,12 +57,6 @@ public class FireCrystal extends SwordItem implements ActiveItem {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand useHand) {
-        Compute.use(player);
-        return super.use(level, player, useHand);
-    }
-
-    @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
         stack.getOrCreateTagElement(Utils.MOD_ID);
         Style style = CustomStyle.styleOfFire;

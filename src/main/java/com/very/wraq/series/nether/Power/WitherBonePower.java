@@ -49,12 +49,6 @@ public class WitherBonePower extends Item implements ActiveItem {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
-        Compute.use(player);
-        return super.use(level, player, interactionHand);
-    }
-
-    @Override
     public boolean isFoil(ItemStack p_41453_) {
         return true;
     }

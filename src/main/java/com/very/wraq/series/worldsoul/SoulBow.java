@@ -1,14 +1,13 @@
 package com.very.wraq.series.worldsoul;
 
 import com.very.wraq.common.MySound;
+import com.very.wraq.common.Utils.ComponentUtils;
+import com.very.wraq.common.Utils.Utils;
 import com.very.wraq.core.MyArrow;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.projectiles.WraqBow;
 import com.very.wraq.render.particles.ModParticles;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.Utils.ComponentUtils;
-import com.very.wraq.common.Utils.Utils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.server.level.ServerPlayer;
@@ -54,7 +53,6 @@ public class SoulBow extends WraqBow {
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
-        Compute.bowAttack(player);
         if (!level.isClientSide && interactionHand.equals(InteractionHand.MAIN_HAND) && player.isShiftKeyDown()) {
             try {
                 SoulEquipAttribute.Forging(player.getItemInHand(InteractionHand.MAIN_HAND), player);

@@ -73,7 +73,6 @@ public class SoulSword extends WraqSword implements ActiveItem {
                 throw new RuntimeException(e);
             }
         }
-        Compute.use(player);
         return super.use(level, player, interactionHand);
     }
 

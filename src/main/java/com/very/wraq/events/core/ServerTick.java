@@ -31,7 +31,7 @@ public class ServerTick {
         LoginInEvent.newMSGSend(event);
         Dot.tick(event);
         if (event.side.isServer() && event.phase == TickEvent.Phase.START) {
-            DelayOperationWithAnimation.tick(event);
+            DelayOperationWithAnimation.serverTick(event);
             WraqQuiver.tick();
             int tickCount = event.getServer().getTickCount();
             if (tickCount % 20 == 0) {

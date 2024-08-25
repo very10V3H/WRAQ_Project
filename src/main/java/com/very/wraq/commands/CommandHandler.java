@@ -1,6 +1,7 @@
 package com.very.wraq.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.arguments.DoubleArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import com.very.wraq.commands.changeable.*;
@@ -467,6 +468,19 @@ public class CommandHandler {
                         Commands.literal("readMobAttributesFromCSVFile")
                                 .requires(commandSourceStack -> commandSourceStack.hasPermission(2))
                                 .executes(ReadMobAttributeFromCSVFileCommand.instance)
+                )
+        );
+        CommandDispatcher<CommandSourceStack> dispatcher50 = event.getDispatcher();
+        LiteralCommandNode<CommandSourceStack> cmd50 = dispatcher50.register(
+                Commands.literal(Utils.MOD_ID).then(
+                        Commands.literal("equipAttribute").then(
+                                Commands.argument("equip", StringArgumentType.string()).then(
+                                        Commands.argument("attribute", StringArgumentType.string()).then(
+                                                Commands.argument("value", DoubleArgumentType.doubleArg())
+                                        )
+                                )
+                        ).requires(commandSourceStack -> commandSourceStack.hasPermission(2))
+                                .executes(EquipAttributeCommand.instance)
                 )
         );
     }

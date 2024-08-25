@@ -447,7 +447,7 @@ public class ClientUtils {
     public static int RollingTick = 0;
 
     public static boolean PlayerIsAttacking(Player player) {
-        return (player.tickCount - ClientAttackEvent.ClientAttackTickCounts <= 10);
+        return (player.tickCount - ClientAttackEvent.clientAttackTickCounts <= 10);
     }
 
     public static boolean PlayerIsUsing(Player player) {
@@ -470,8 +470,8 @@ public class ClientUtils {
         ClientUtils.UseTick = 0;
         ClientUtils.ManaAttackTick = 0;
         ClientUtils.BowAttackTick = 0;
-        ClientAttackEvent.ClientAttackTickCounts = 0;
-        ClientAttackEvent.ClientAttackCounts = 0;
+        ClientAttackEvent.clientAttackTickCounts = 0;
+        ClientAttackEvent.clientAttackCounts = 0;
         ClientUtils.RollingTick = 0;
     }
 

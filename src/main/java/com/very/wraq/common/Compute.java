@@ -400,39 +400,6 @@ public class Compute {
                             append(Component.literal(String.format(" (%.1f/%.1f)", data.getDouble("Xp"), LevelUpNeedXp)).withStyle(ChatFormatting.GRAY)));
     }
 
-    public static void use(Player player) {
-        if (player.level().isClientSide) {
-            if (player.tickCount - 10 > ClientUtils.UseTick && !ClientUtils.PlayerIsAttacking(player)
-                    && !ClientUtils.PlayerIsManaAttacking(player) && !ClientUtils.PlayerIsBowAttacking(player)
-                    && !ClientUtils.PlayerIsRolling(player)) {
-                ClientUtils.UseTick = player.tickCount;
-                ModNetworking.sendToServer(new UseAnimationRequestC2SPacket(0));
-            }
-        }
-    }
-
-    public static void manaAttack(Player player) {
-        if (player.level().isClientSide) {
-            if (player.tickCount - 10 > ClientUtils.ManaAttackTick && !ClientUtils.PlayerIsUsing(player)
-                    && !ClientUtils.PlayerIsAttacking(player) && !ClientUtils.PlayerIsBowAttacking(player)
-                    && !ClientUtils.PlayerIsRolling(player)) {
-                ModNetworking.sendToServer(new ManaAttackAnimationRequestC2SPacket(0));
-                ClientUtils.ManaAttackTick = player.tickCount;
-            }
-        }
-    }
-
-    public static void bowAttack(Player player) {
-        if (player.level().isClientSide) {
-            if (player.tickCount - 10 > ClientUtils.BowAttackTick && !ClientUtils.PlayerIsAttacking(player)
-                    && !ClientUtils.PlayerIsManaAttacking(player) && !ClientUtils.PlayerIsUsing(player)
-                    && !ClientUtils.PlayerIsRolling(player)) {
-                ClientUtils.BowAttackTick = player.tickCount;
-                ModNetworking.sendToServer(new BowAnimationRequestC2SPacket(0));
-            }
-        }
-    }
-
     public static void use(Player player, Item tool) {
         if (SpecialEffectOnPlayer.inVertigo(player)) return;
 

@@ -14,7 +14,7 @@ import java.util.Queue;
 public abstract class DelayOperationWithAnimation {
 
     public static class Animation {
-        public static String attack = "attack";
+        public static String samurai = "samurai";
     }
 
     private final String animationId;
@@ -27,7 +27,6 @@ public abstract class DelayOperationWithAnimation {
     }
 
     public abstract void trig();
-    public abstract String getAnimationId();
 
     public int getTrigTick() {
         return trigTick;
@@ -41,7 +40,9 @@ public abstract class DelayOperationWithAnimation {
         server.getPlayerList().getPlayers().stream()
                 .filter(p -> p.level().equals(trigPlayer.level()) && p.distanceTo(trigPlayer) <= 48)
                 .forEach(serverPlayer -> {
-                    ModNetworking.sendToClient(new AnimationS2CPacket(trigPlayer.getId(), animationId), serverPlayer);
+                    ModNetworking.sendToClient(
+                            new AnimationS2CPacket(trigPlayer.getId(), animationId, trigTick - Tick.get())
+                            , serverPlayer);
         });
     }
 
@@ -53,7 +54,7 @@ public abstract class DelayOperationWithAnimation {
 
     public static List<DelayOperationWithAnimation> animationList = new ArrayList<>();
 
-    public static void tick(TickEvent.ServerTickEvent event) {
+    public static void serverTick(TickEvent.ServerTickEvent event) {
         MinecraftServer server = event.getServer();
         // 发送动画
         animationList.forEach(animation -> animation.sendAnimation(server));
@@ -66,5 +67,15 @@ public abstract class DelayOperationWithAnimation {
                 delayOperationWithAnimation.trig();
             }
         }
+    }
+
+    public static int clientPlayerAnimationPlayingLeftTick = 0;
+
+    public static boolean clientPlayerIsPlayingAnimation() {
+        return clientPlayerAnimationPlayingLeftTick > 0;
+    }
+
+    public static void clientTick(TickEvent.ClientTickEvent event) {
+        clientPlayerAnimationPlayingLeftTick = Math.max(0, clientPlayerAnimationPlayingLeftTick - 1);
     }
 }

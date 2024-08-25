@@ -1,14 +1,13 @@
 package com.very.wraq.Items.MainStory_1.Mission;
 
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.Utils.ClientUtils;
-import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.DelayOperationWithAnimation;
+import com.very.wraq.common.Tick;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -18,6 +17,7 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.WeakHashMap;
 
 public class Main0 extends Item {
 
@@ -44,111 +44,38 @@ public class Main0 extends Item {
         super.appendHoverText(stack, p_41422_, components, flag);
     }
 
+    public static WeakHashMap<Mob, Integer> testMap = new WeakHashMap<>();
+
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
 
-        if (level.isClientSide && !player.isShiftKeyDown()) {
-            ClientUtils.effectTimeLasts.forEach(effectTimeLast -> {
-                player.sendSystemMessage(Component.literal(effectTimeLast.itemStack + " " + effectTimeLast.lastTick));
+        if (!level.isClientSide && !player.isShiftKeyDown()) {
+            String name = player.getName().getString();
+            CompoundTag data = player.getPersistentData();
+
+            DelayOperationWithAnimation.addToQueue(
+                    new DelayOperationWithAnimation(DelayOperationWithAnimation.Animation.samurai,
+                            Tick.get() + 10, player) {
+                @Override
+                public void trig() {
+                    player.sendSystemMessage(Component.literal("trig!"));
+                }
             });
-/*            XaeroMinimapSession minimapSession = XaeroMinimapSession.getCurrentSession();
-            WaypointsManager waypointsManager = minimapSession.getWaypointsManager();
-            List<Waypoint> list = waypointsManager.getCurrentWorld().getCurrentSet().getList();
-            Waypoint waypoint = new Waypoint(370, 72, 978, "本源塔子子", "本源塔子子", CustomStyle.styleOfSakura.getColor().getValue(), 0, false);
-            waypoint.setVisibilityType(1);
-            waypoint.setType(0);
-            waypoint.setTemporary(false);
-            if (!list.contains(waypoint)) list.add(waypoint);
-            try {
-                minimapSession.getModMain().getSettings().saveWaypoints(waypointsManager.getCurrentWorld());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }*/
+        }
+
+        if (!level.isClientSide && player.isShiftKeyDown()) {
+            player.sendSystemMessage(Component.literal("" + testMap));
+        }
+
+        if (level.isClientSide && !player.isShiftKeyDown()) {
+
         }
 
         if (level.isClientSide && player.isShiftKeyDown()) {
 
         }
 
-        if (!level.isClientSide && player.isShiftKeyDown()) {
 
-        }
-
-        if (!level.isClientSide && !player.isShiftKeyDown()) {
-            String name = player.getName().getString();
-            int tick = player.getServer().getTickCount();
-            CompoundTag data = player.getPersistentData();
-
-            List<? extends Entity> mobList = Compute.getNearEntity(player, Mob.class, 6);
-            mobList.stream().filter(e -> e instanceof Mob).forEach(e -> {
-                Mob mob = (Mob) e;
-                Compute.sendMobEffectHudToNearPlayer(mob, ModItems.goldCoin.get(), "test-g", 200, 1, false);
-                Compute.sendMobEffectHudToNearPlayer(mob, ModItems.silverCoin.get(), "test-s", 100, 2, true);
-                player.sendSystemMessage(Component.literal("1"));
-            });
-
-/*            DailyEndlessInstanceEvent.getEndlessInstanceList().forEach(instance -> {
-                instance.active(player);
-            });*/
-
-/*            SummerEvent.playerExHarvestEndTick.put(name, tick + (15 * 60 * 20));
-            SummerEvent.sendFormatMSG(player, Component.literal("因为").withStyle(ChatFormatting.WHITE).
-                    append(Component.literal("摸鱼").withStyle(CustomStyle.styleOfWater)).
-                    append(Component.literal("你获得了持续").withStyle(ChatFormatting.WHITE)).
-                    append(Component.literal("1hours").withStyle(ChatFormatting.GOLD)).
-                    append(Component.literal("的").withStyle(ChatFormatting.WHITE)).
-                    append(Component.literal("15%额外产出").withStyle(ChatFormatting.GOLD)));
-            player.sendSystemMessage(Component.literal(" - Golden Hours!").withStyle(ChatFormatting.GOLD));
-            Compute.soundToPlayer(player, SoundEvents.PLAYER_LEVELUP);*/
-/*            ServerLevel serverLevel = (ServerLevel) level;
-            for (Entity entity : serverLevel.getAllEntities()) {
-                if (entity instanceof ItemEntity) {
-                    ItemEntity itemEntity = (ItemEntity) entity;
-                    player.sendSystemMessage(Component.literal(itemEntity.getItem() + " " + itemEntity.tickCount));
-                }
-            }*/
-
-
-            // 通过tag获取物品
-/*            ItemStack itemStack = new ItemStack(ModItems.GoldCoin.get());
-            CompoundTag compoundTag = null;
-            try {
-                player.sendSystemMessage(Component.literal(itemStack.serializeNBT().getAsString()));
-                compoundTag = TagParser.parseTag(itemStack.serializeNBT().getAsString());
-            } catch (CommandSyntaxException e) {
-                throw new RuntimeException(e);
-            }
-
-            ItemStack newItem = ItemStack.of(compoundTag);
-            player.addItem(newItem);*/
-
-/*            Entity entity = ForgeRegistries.ENTITY_TYPES.getValue(new ResourceLocation( "cataclysm", "ignis")).
-                    spawn((ServerLevel) level, new BlockPos(player.getBlockX(), player.getBlockY(), player.getBlockZ()), MobSpawnType.MOB_SUMMONED);
-
-            // 饰品栏遍历
- */
-            /*CuriosApi.getCuriosHelper().getEquippedCurios(player).resolve().get()*/
-/*            CuriosApi.getCuriosInventory(player).ifPresent(inventory -> {
-
-            });*/
-
-            // 精妙背包遍历
-            /*            if (player.tickCount % 20 == 0) {
-                BackpackWrapper backpackWrapper = new BackpackWrapper(player.getMainHandItem());
-                InventoryHandler inventoryHandler = backpackWrapper.getInventoryHandler();
-                for (int i = 0; i < inventoryHandler.getSlots(); i++) {
-                    player.sendSystemMessage(Component.literal("" + inventoryHandler.getSlotStack(i)));
-                }
-            }*/
-
-            // 获取玩家统计信息
-/*            ServerPlayer serverPlayer = (ServerPlayer) player;
-            Stats.CUSTOM.forEach(c -> {
-                if (c.getValue().equals(Stats.WALK_ONE_CM)) {
-                    player.sendSystemMessage(Component.literal(c.getName() + " " + serverPlayer.getStats().getValue(c)));
-                }
-            });*/
-        }
         return InteractionResultHolder.pass(player.getItemInHand(interactionHand));
     }
 

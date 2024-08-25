@@ -124,7 +124,6 @@ public class SoulSceptre extends WraqSceptre {
                 throw new RuntimeException(e);
             }
         }
-        Compute.manaAttack(player);
         if (player.getItemInHand(InteractionHand.OFF_HAND).is(Items.AIR)
                 && interactionHand.equals(InteractionHand.MAIN_HAND)) {
             CompoundTag data = player.getItemInHand(InteractionHand.MAIN_HAND).getOrCreateTagElement(Utils.MOD_ID);

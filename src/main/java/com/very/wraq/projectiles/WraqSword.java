@@ -1,21 +1,18 @@
 package com.very.wraq.projectiles;
 
 import com.very.wraq.blocks.blocks.ForgeRecipe;
-import com.very.wraq.events.mob.loot.RandomLootEquip;
-import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.BasicAttributeDescription;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.Utils.Utils;
 import com.very.wraq.common.registry.ItemTier;
+import com.very.wraq.events.mob.loot.RandomLootEquip;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.TooltipFlag;
@@ -75,12 +72,6 @@ public abstract class WraqSword extends SwordItem {
         }
         components.add(getSuffix());
         super.appendHoverText(stack, level, components, flag);
-    }
-
-    @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand useHand) {
-        Compute.use(player);
-        return super.use(level, player, useHand);
     }
 
     @Override
