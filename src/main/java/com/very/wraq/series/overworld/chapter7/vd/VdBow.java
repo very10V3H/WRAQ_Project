@@ -1,6 +1,5 @@
 package com.very.wraq.series.overworld.chapter7.vd;
 
-import com.very.wraq.common.Compute;
 import com.very.wraq.common.MySound;
 import com.very.wraq.common.Utils.ComponentUtils;
 import com.very.wraq.common.Utils.Utils;
@@ -75,8 +74,8 @@ public class VdBow extends WraqBow implements ForgeItem, ActiveItem, MainHandTic
     }
 
     @Override
-    public void shoot(ServerPlayer serverPlayer) {
-        MyArrow arrow = new MyArrow(EntityType.ARROW, serverPlayer.level(), serverPlayer, true);
+    public void shoot(ServerPlayer serverPlayer, double rate) {
+        MyArrow arrow = new MyArrow(EntityType.ARROW, serverPlayer.level(), serverPlayer, true, rate);
         arrow.shootFromRotation(serverPlayer, serverPlayer.getXRot(), serverPlayer.getYRot(), 0.0f, 4F, 1.0f);
         arrow.setCritArrow(true);
         WraqBow.adjustArrow(arrow, serverPlayer);

@@ -1,0 +1,70 @@
+package com.very.wraq.common;
+
+import com.very.wraq.networking.ModNetworking;
+import com.very.wraq.networking.misc.AnimationPackets.AnimationS2CPacket;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.event.TickEvent;
+
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Queue;
+
+public abstract class DelayOperationWithAnimation {
+
+    public static class Animation {
+        public static String attack = "attack";
+    }
+
+    private final String animationId;
+    private final int trigTick;
+    private final Player trigPlayer;
+    public DelayOperationWithAnimation(String animationId, int trigTick, Player trigPlayer) {
+        this.animationId = animationId;
+        this.trigTick = trigTick;
+        this.trigPlayer = trigPlayer;
+    }
+
+    public abstract void trig();
+    public abstract String getAnimationId();
+
+    public int getTrigTick() {
+        return trigTick;
+    }
+
+    public Player getTrigPlayer() {
+        return trigPlayer;
+    }
+
+    public void sendAnimation(MinecraftServer server) {
+        server.getPlayerList().getPlayers().stream()
+                .filter(p -> p.level().equals(trigPlayer.level()) && p.distanceTo(trigPlayer) <= 48)
+                .forEach(serverPlayer -> {
+                    ModNetworking.sendToClient(new AnimationS2CPacket(trigPlayer.getId(), animationId), serverPlayer);
+        });
+    }
+
+    public static Queue<DelayOperationWithAnimation> queue = new ArrayDeque<>();
+    public static void addToQueue(DelayOperationWithAnimation delayOperationWithAnimation) {
+        queue.add(delayOperationWithAnimation);
+        animationList.add(delayOperationWithAnimation);
+    }
+
+    public static List<DelayOperationWithAnimation> animationList = new ArrayList<>();
+
+    public static void tick(TickEvent.ServerTickEvent event) {
+        MinecraftServer server = event.getServer();
+        // 发送动画
+        animationList.forEach(animation -> animation.sendAnimation(server));
+        animationList.clear();
+
+        // 触发效果
+        if (queue.peek() != null && queue.peek().trigTick <= Tick.get()) {
+            while (!queue.isEmpty() && queue.peek().trigTick <= Tick.get()) {
+                DelayOperationWithAnimation delayOperationWithAnimation = queue.remove();
+                delayOperationWithAnimation.trig();
+            }
+        }
+    }
+}

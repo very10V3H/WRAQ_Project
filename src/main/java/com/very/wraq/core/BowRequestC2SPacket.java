@@ -2,7 +2,7 @@ package com.very.wraq.core;
 
 import com.very.wraq.customized.uniform.bow.BowCurios1;
 import com.very.wraq.projectiles.WraqBow;
-import com.very.wraq.series.instance.Castle.CastleSwiftArmor;
+import com.very.wraq.series.instance.castle.CastleSwiftArmor;
 import com.very.wraq.common.Utils.Utils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;

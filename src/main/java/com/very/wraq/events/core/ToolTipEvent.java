@@ -13,7 +13,7 @@ import com.very.wraq.process.system.forge.ForgeHammer;
 import com.very.wraq.projectiles.RandomCurios;
 import com.very.wraq.projectiles.UsageOrGetWayDescriptionItem;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.series.instance.Castle.CastleCurios;
+import com.very.wraq.series.instance.castle.CastleCurios;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.nbt.CompoundTag;

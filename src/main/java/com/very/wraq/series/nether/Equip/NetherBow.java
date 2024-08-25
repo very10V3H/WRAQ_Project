@@ -61,10 +61,10 @@ public class NetherBow extends WraqBow {
     }
 
     @Override
-    public void shoot(ServerPlayer serverPlayer) {
+    public void shoot(ServerPlayer serverPlayer, double rate) {
         if (Compute.PlayerCurrentManaNum(serverPlayer) > 40) {
             Compute.playerManaAddOrCost(serverPlayer, -40);
-            MyArrow arrow = new MyArrow(EntityType.ARROW, serverPlayer.level(), serverPlayer, true);
+            MyArrow arrow = new MyArrow(EntityType.ARROW, serverPlayer.level(), serverPlayer, true, rate);
             arrow.shootFromRotation(serverPlayer, serverPlayer.getXRot(), serverPlayer.getYRot(), 0.0f, 4.5F, 1.0f);
             arrow.setCritArrow(true);
             arrow.setNoGravity(true);

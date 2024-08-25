@@ -5,7 +5,7 @@ import com.very.wraq.core.AttackEvent;
 import com.very.wraq.events.fight.HurtEvent;
 import com.very.wraq.events.modules.AttackEventModule;
 import com.very.wraq.events.modules.HurtEventModule;
-import com.very.wraq.series.instance.Castle.CastleAttackArmor;
+import com.very.wraq.series.instance.castle.CastleAttackArmor;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.Utils.Utils;
 import com.very.wraq.common.attributeValues.PlayerAttributes;

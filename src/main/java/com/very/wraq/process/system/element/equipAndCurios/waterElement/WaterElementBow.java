@@ -43,8 +43,8 @@ public class WaterElementBow extends WraqBow implements ActiveItem {
     }
 
     @Override
-    public void shoot(ServerPlayer serverPlayer) {
-        MyArrow arrow = new MyArrow(EntityType.ARROW, serverPlayer.level(), serverPlayer, true);
+    public void shoot(ServerPlayer serverPlayer, double rate) {
+        MyArrow arrow = new MyArrow(EntityType.ARROW, serverPlayer.level(), serverPlayer, true, rate);
         arrow.shootFromRotation(serverPlayer, serverPlayer.getXRot(), serverPlayer.getYRot(), 0.0f, 4.5f, 1.0f);
         arrow.setCritArrow(true);
         WraqBow.adjustArrow(arrow, serverPlayer);

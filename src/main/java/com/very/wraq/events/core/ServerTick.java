@@ -1,5 +1,6 @@
 package com.very.wraq.events.core;
 
+import com.very.wraq.common.DelayOperationWithAnimation;
 import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.files.dataBases.DataBase;
 import com.very.wraq.process.func.damage.Dot;
@@ -28,6 +29,7 @@ public class ServerTick {
     public static void ServerTickEvent(TickEvent.ServerTickEvent event) throws SQLException {
         LoginInEvent.newMSGSend(event);
         Dot.tick(event);
+        DelayOperationWithAnimation.tick(event);
         if (event.side.isServer() && event.phase == TickEvent.Phase.START) {
             int tickCount = event.getServer().getTickCount();
             if (tickCount % 20 == 0) {

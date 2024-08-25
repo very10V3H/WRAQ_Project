@@ -100,8 +100,8 @@ public abstract class WraqBow extends SwordItem {
                 ? InteractionResultHolder.success(player.getMainHandItem()) : InteractionResultHolder.success(player.getOffhandItem());
     }
 
-    public void shoot(ServerPlayer serverPlayer) {
-        MyArrow arrow = new MyArrow(EntityType.ARROW, serverPlayer.level(), serverPlayer, true);
+    public void shoot(ServerPlayer serverPlayer, double rate) {
+        MyArrow arrow = new MyArrow(EntityType.ARROW, serverPlayer.level(), serverPlayer, true, rate);
         arrow.shootFromRotation(serverPlayer, serverPlayer.getXRot(), serverPlayer.getYRot(), 0.0f, 3F, 1.0f);
         arrow.setCritArrow(true);
         serverPlayer.level().addFreshEntity(arrow);

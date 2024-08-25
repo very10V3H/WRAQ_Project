@@ -39,8 +39,7 @@ public class AttackAnimationS2CPacket {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
             Entity entity = Minecraft.getInstance().player.level().getEntity(playerId);
-            if (entity instanceof Player) {
-                Player player1 = (Player) entity;
+            if (entity instanceof Player player1) {
                 var animation = (ModifierLayer<IAnimation>) PlayerAnimationAccess.getPlayerAssociatedData((AbstractClientPlayer) player1).get(new ResourceLocation(Utils.MOD_ID, "animation"));
                 if (animation != null) {
                     switch (count) {
