@@ -6,10 +6,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.TickEvent;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 public abstract class DelayOperationWithAnimation {
 
@@ -47,9 +44,13 @@ public abstract class DelayOperationWithAnimation {
     }
 
     public static Queue<DelayOperationWithAnimation> queue = new ArrayDeque<>();
-    public static void addToQueue(DelayOperationWithAnimation delayOperationWithAnimation) {
+    public static HashSet<Player> isPlayerAnimationPlayerSet = new HashSet<>();
+    public static boolean addToQueue(DelayOperationWithAnimation delayOperationWithAnimation) {
+        if (isPlayerAnimationPlayerSet.contains(delayOperationWithAnimation.trigPlayer)) return false;
         queue.add(delayOperationWithAnimation);
         animationList.add(delayOperationWithAnimation);
+        isPlayerAnimationPlayerSet.add(delayOperationWithAnimation.trigPlayer);
+        return true;
     }
 
     public static List<DelayOperationWithAnimation> animationList = new ArrayList<>();
@@ -64,6 +65,7 @@ public abstract class DelayOperationWithAnimation {
         if (queue.peek() != null && queue.peek().trigTick <= Tick.get()) {
             while (!queue.isEmpty() && queue.peek().trigTick <= Tick.get()) {
                 DelayOperationWithAnimation delayOperationWithAnimation = queue.remove();
+                isPlayerAnimationPlayerSet.remove(delayOperationWithAnimation.trigPlayer);
                 delayOperationWithAnimation.trig();
             }
         }

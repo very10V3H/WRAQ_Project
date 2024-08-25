@@ -7,7 +7,7 @@ import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.misc.SoundsPackets.SoundsS2CPacket;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.series.instance.castle.CastleCurios;
+import com.very.wraq.series.instance.series.castle.CastleCurios;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.Utils.StringUtils;
 import com.very.wraq.common.Utils.Struct.Boss2Damage;

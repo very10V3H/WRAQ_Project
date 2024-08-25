@@ -479,7 +479,7 @@ public class AttackEventModule {
             Random random = new Random();
             List<Mob> mobList = level.getEntitiesOfClass(Mob.class, AABB.ofSize(player.position(), 10, 10, 10));
             for (Mob mob : mobList) {
-                AttackEvent.AttackToMonster(mob, player, player.getItemInHand(InteractionHand.MAIN_HAND).getItem(), data, 0.2f * Compute.SwordSkillLevelGet(data, 12));
+                AttackEvent.attackToMonster(mob, player, 0.2f * Compute.SwordSkillLevelGet(data, 12), false);
                 if (random.nextInt(0, 1) == 0) {
                     ClientboundLevelParticlesPacket clientboundLevelParticlesPacket = new ClientboundLevelParticlesPacket(ModParticles.BLADE0.get(), true,
                             mob.getX(), mob.getY() + 1, mob.getZ(), 0, 0, 0, 0, 0);

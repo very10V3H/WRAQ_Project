@@ -1,9 +1,20 @@
 package com.very.wraq.core;
 
 import com.very.wraq.commands.stable.players.DebugCommand;
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.MySound;
+import com.very.wraq.common.Utils.StringUtils;
+import com.very.wraq.common.Utils.Struct.Boss2Damage;
+import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.attributeValues.DamageInfluence;
+import com.very.wraq.common.attributeValues.MobAttributes;
+import com.very.wraq.common.attributeValues.PlayerAttributes;
+import com.very.wraq.common.attributeValues.SameTypeModule;
+import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.customized.uniform.attack.AttackCurios1;
 import com.very.wraq.entities.entities.Boss2.Boss2;
 import com.very.wraq.entities.entities.Civil.Civil;
+import com.very.wraq.events.fight.HurtEvent;
 import com.very.wraq.events.instance.CastleSecondFloor;
 import com.very.wraq.events.instance.IceKnight;
 import com.very.wraq.events.modules.AttackEventModule;
@@ -14,30 +25,24 @@ import com.very.wraq.networking.misc.SoundsPackets.SoundsS2CPacket;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.projectiles.OnHitEffectMainHandWeapon;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.series.instance.castle.CastleAttackArmor;
-import com.very.wraq.series.instance.castle.CastleSword;
-import com.very.wraq.series.instance.moon.Equip.MoonShield;
-import com.very.wraq.series.instance.moon.Equip.MoonSword;
-import com.very.wraq.series.instance.moon.MoonCurios;
+import com.very.wraq.series.instance.series.castle.CastleAttackArmor;
+import com.very.wraq.series.instance.series.castle.CastleSword;
+import com.very.wraq.series.instance.series.moon.Equip.MoonShield;
+import com.very.wraq.series.instance.series.moon.Equip.MoonSword;
+import com.very.wraq.series.instance.series.moon.MoonCurios;
 import com.very.wraq.series.nether.Equip.ManaSword;
-import com.very.wraq.series.overworld.castle.BlazeBracelet;
 import com.very.wraq.series.newrunes.chapter1.VolcanoNewRune;
+import com.very.wraq.series.overworld.castle.BlazeBracelet;
 import com.very.wraq.series.overworld.chapter7.BoneImpKnife;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.Utils.StringUtils;
-import com.very.wraq.common.Utils.Struct.Boss2Damage;
-import com.very.wraq.common.Utils.Utils;
-import com.very.wraq.common.attributeValues.DamageInfluence;
-import com.very.wraq.common.attributeValues.MobAttributes;
-import com.very.wraq.common.attributeValues.PlayerAttributes;
-import com.very.wraq.common.attributeValues.SameTypeModule;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.monster.Evoker;
@@ -51,13 +56,65 @@ import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Mod.EventBusSubscriber
 public class AttackEvent {
+    @SubscribeEvent
+    public static void Attack(AttackEntityEvent event) {
+        if (!event.getEntity().level().isClientSide) {
+            event.setCanceled(true);
+            Player player = event.getEntity();
+            Entity entity = event.getTarget();
+            if (entity.getClass() == Villager.class ||
+                    entity.getClass() == WanderingTrader.class ||
+                    entity instanceof Animal
+            ) event.setCanceled(true);                    //保护动物人人有责。
+            CompoundTag data = player.getPersistentData();
+            data.putBoolean("ARROW", false);
+            if (player.getName().getString().equals("very_H") && player.getItemInHand(InteractionHand.MAIN_HAND).getItem().equals(MinecartItem.byId(765))
+                    || player.getName().getString().equals("Dev") && player.getItemInHand(InteractionHand.MAIN_HAND).getItem().equals(MinecartItem.byId(765))
+                    || player.isCreative() && player.getItemInHand(InteractionHand.MAIN_HAND).is(Items.STICK))
+                entity.remove(Entity.RemovalReason.KILLED);
+        }
+    }
 
-    public static void AttackToMonster(Mob monster, Player player, Item equip, CompoundTag data, double rate) {
+    public static List<Mob> getPlayerNormalAttackRangeMobList(Player player) {
+        return Compute.getPlayerRayMobList(player, 0.25, 1.25, 4 + PlayerAttributes.attackRangeUp(player));
+    }
+
+    public static void module(Player player, double rate) {
+        List<Mob> mobList = getPlayerNormalAttackRangeMobList(player);
+
+        AtomicReference<Mob> NearestMob = new AtomicReference<>();
+        AtomicReference<Double> Distance = new AtomicReference<>((double) 20);
+        mobList.forEach(mob -> {
+            if (mob.distanceTo(player) < Distance.get()) {
+                NearestMob.set(mob);
+                Distance.set((double) mob.distanceTo(player));
+            }
+        });
+
+        if (NearestMob.get() != null) {
+            AttackEvent.attackToMonster(NearestMob.get(), player, rate, false);
+            HurtEventModule.ForestRune3Judge(player, NearestMob.get(), PlayerAttributes.attackDamage(player));
+            HurtEvent.BlazeReflectDamage(NearestMob.get(), player);
+            AttackEventModule.SwordSkill3Attack(player.getPersistentData(), player, NearestMob.get());// 破绽观察（对一名目标的持续攻击，可以使你对该目标的伤害至多提升至2%，在10次攻击后达到最大值）
+            AttackEventModule.SwordSkill12Attack(player.getPersistentData(), player); // 刀光剑影（移动、攻击以及受到攻击将会获得充能，当充能满时，下一次攻击将造成额外200%伤害，并在以自身为中心范围内造成100%伤害）
+            mobList.forEach(mob -> {
+                if (mob != NearestMob.get()) AttackEvent.attackToMonster(mob, player, 0.5, false);
+            });
+        }
+
+        MySound.SoundToAll(player, SoundEvents.PLAYER_ATTACK_SWEEP);
+    }
+
+    public static void attackToMonster(Mob monster, Player player, double rate, boolean critSurely) {
+        Item equip = player.getMainHandItem().getItem();
+        CompoundTag data = player.getPersistentData();
         Utils.PlayerFireWorkFightCoolDown.put(player, player.getServer().getTickCount() + 200);
 
         boolean mainAttack = (rate > 0.5);
@@ -71,6 +128,7 @@ public class AttackEvent {
         double defencePenetration0 = PlayerAttributes.defencePenetration0(player);
 
         double critRate = PlayerAttributes.critRate(player);
+        if (critSurely) critRate = 1;
         double critDamage = PlayerAttributes.critDamage(player);
 
         if (Utils.SnowRune2MobController.contains(monster)) defence *= 0.5f;
@@ -494,24 +552,5 @@ public class AttackEvent {
         TabooDevilDamageCount(player, monster, ExDamageIgnoreDefence, Damage);
         CastleKnightDamageCount(player, monster, ExDamageIgnoreDefence, Damage);
         PurpleIronKnightDamageCount(player, monster, ExDamageIgnoreDefence, Damage);
-    }
-
-    @SubscribeEvent
-    public static void Attack(AttackEntityEvent event) {
-        if (!event.getEntity().level().isClientSide) {
-            event.setCanceled(true);
-            Player player = event.getEntity();
-            Entity entity = event.getTarget();
-            if (entity.getClass() == Villager.class ||
-                    entity.getClass() == WanderingTrader.class ||
-                    entity instanceof Animal
-            ) event.setCanceled(true);                    //保护动物人人有责。
-            CompoundTag data = player.getPersistentData();
-            data.putBoolean("ARROW", false);
-            if (player.getName().getString().equals("very_H") && player.getItemInHand(InteractionHand.MAIN_HAND).getItem().equals(MinecartItem.byId(765))
-                    || player.getName().getString().equals("Dev") && player.getItemInHand(InteractionHand.MAIN_HAND).getItem().equals(MinecartItem.byId(765))
-                    || player.isCreative() && player.getItemInHand(InteractionHand.MAIN_HAND).is(Items.STICK))
-                entity.remove(Entity.RemovalReason.KILLED);
-        }
     }
 }

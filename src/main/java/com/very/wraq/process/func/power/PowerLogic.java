@@ -11,7 +11,7 @@ import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.projectiles.WraqCurios;
 import com.very.wraq.render.particles.ModParticles;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.series.instance.castle.CastleManaArmor;
+import com.very.wraq.series.instance.series.castle.CastleManaArmor;
 import com.very.wraq.series.newrunes.chapter6.CastleNewRune;
 import com.very.wraq.series.overworld.chapter1.forest.ForestPower;
 import com.very.wraq.series.overworld.chapter1.forest.ForestPowerEffectMob;

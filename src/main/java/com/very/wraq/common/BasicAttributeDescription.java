@@ -15,7 +15,7 @@ import com.very.wraq.render.toolTip.NewTooltip;
 import com.very.wraq.render.toolTip.TraditionalTooltip;
 import com.very.wraq.series.gems.GemAttributes;
 import com.very.wraq.series.gems.WraqGem;
-import com.very.wraq.series.instance.castle.CastleCurios;
+import com.very.wraq.series.instance.series.castle.CastleCurios;
 import com.very.wraq.series.worldsoul.SoulEquipAttribute;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;

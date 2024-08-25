@@ -7,7 +7,7 @@ import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.events.mob.instance.NoTeamInstanceModule;
 import com.very.wraq.process.func.guide.Guide;
 import com.very.wraq.render.gui.blocks.InjectBlockMenu;
-import com.very.wraq.series.instance.castle.CastleCurios;
+import com.very.wraq.series.instance.series.castle.CastleCurios;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

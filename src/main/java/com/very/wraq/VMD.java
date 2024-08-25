@@ -44,6 +44,7 @@ import com.very.wraq.render.mobEffects.ModEffects;
 import com.very.wraq.render.mobEffects.ModPotions;
 import com.very.wraq.render.particles.ModParticles;
 import com.very.wraq.series.gems.GemItems;
+import com.very.wraq.series.instance.blade.BladeItems;
 import com.very.wraq.series.instance.quiver.QuiverItems;
 import com.very.wraq.series.newrunes.NewRuneItems;
 import com.very.wraq.series.overworld.chapter7.C7Items;
@@ -101,6 +102,7 @@ public class VMD {
         SpecialEventItems.ITEMS.register(modEvenBus);
         EndlessInstanceItems.ITEMS.register(modEvenBus);
         QuiverItems.ITEMS.register(modEvenBus);
+        BladeItems.ITEMS.register(modEvenBus);
 
         ModBlocks.BLOCKS.register(modEvenBus);
         ModEntityType.ENTITY_TYPES.register(modEvenBus);
