@@ -14,7 +14,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class ModCreativeModeTab {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TAB = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Utils.MOD_ID);
-    public static RegistryObject<CreativeModeTab> SWORD_TAB = CREATIVE_MODE_TAB.register("sword", () ->
+    public static RegistryObject<CreativeModeTab> WEAPON_TAB = CREATIVE_MODE_TAB.register("weapon", () ->
             CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.KazeSword3.get())).title(Component.literal("武器")).build());
     public static RegistryObject<CreativeModeTab> ARMOR_TAB = CREATIVE_MODE_TAB.register("armor", () ->
             CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.NetherArmorHelmet.get())).title(Component.literal("护甲")).build());

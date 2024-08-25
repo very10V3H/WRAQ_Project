@@ -44,6 +44,7 @@ import com.very.wraq.render.mobEffects.ModEffects;
 import com.very.wraq.render.mobEffects.ModPotions;
 import com.very.wraq.render.particles.ModParticles;
 import com.very.wraq.series.gems.GemItems;
+import com.very.wraq.series.instance.quiver.QuiverItems;
 import com.very.wraq.series.newrunes.NewRuneItems;
 import com.very.wraq.series.overworld.chapter7.C7Items;
 import com.very.wraq.series.specialevents.SpecialEventItems;
@@ -99,6 +100,7 @@ public class VMD {
         GemItems.ITEMS.register(modEvenBus);
         SpecialEventItems.ITEMS.register(modEvenBus);
         EndlessInstanceItems.ITEMS.register(modEvenBus);
+        QuiverItems.ITEMS.register(modEvenBus);
 
         ModBlocks.BLOCKS.register(modEvenBus);
         ModEntityType.ENTITY_TYPES.register(modEvenBus);
@@ -276,7 +278,7 @@ public class VMD {
             };
             for (Item item : items) event.accept(item);
         }
-        if (event.getTabKey().equals(ModCreativeModeTab.SWORD_TAB.getKey())) {
+        if (event.getTabKey().equals(ModCreativeModeTab.WEAPON_TAB.getKey())) {
             for (Item item : Utils.weaponList) event.accept(item.getDefaultInstance());
         }
 
@@ -427,10 +429,7 @@ public class VMD {
             }
         }
         if (event.getTabKey().equals(ModCreativeModeTab.SPUR_ITEMS.getKey())) {
-            for (Object o : SpurItems.ITEMS.getEntries().toArray()) {
-                RegistryObject<Item> item = (RegistryObject<Item>) o;
-                event.accept(item.get().getDefaultInstance());
-            }
+            SpurItems.ITEMS.getEntries().stream().map(RegistryObject::get).forEach(item -> event.accept(item.getDefaultInstance()));
         }
         if (event.getTabKey().equals(ModCreativeModeTab.FORGING_TAB.getKey())) {
             Item[] items = {

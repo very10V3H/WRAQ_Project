@@ -4,13 +4,14 @@ import com.very.wraq.common.DelayOperationWithAnimation;
 import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.files.dataBases.DataBase;
 import com.very.wraq.process.func.damage.Dot;
+import com.very.wraq.process.func.plan.PlanPlayer;
+import com.very.wraq.process.series.lottery.NewLotteries;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.process.system.element.equipAndCurios.waterElement.WaterElementSword;
-import com.very.wraq.process.series.lottery.NewLotteries;
-import com.very.wraq.process.func.plan.PlanPlayer;
 import com.very.wraq.process.system.market.MarketInfo;
 import com.very.wraq.process.system.tower.Tower;
 import com.very.wraq.process.system.vp.VpDataHandler;
+import com.very.wraq.series.instance.quiver.WraqQuiver;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -29,8 +30,9 @@ public class ServerTick {
     public static void ServerTickEvent(TickEvent.ServerTickEvent event) throws SQLException {
         LoginInEvent.newMSGSend(event);
         Dot.tick(event);
-        DelayOperationWithAnimation.tick(event);
         if (event.side.isServer() && event.phase == TickEvent.Phase.START) {
+            DelayOperationWithAnimation.tick(event);
+            WraqQuiver.tick();
             int tickCount = event.getServer().getTickCount();
             if (tickCount % 20 == 0) {
                 Level overworld = event.getServer().getLevel(Level.OVERWORLD);

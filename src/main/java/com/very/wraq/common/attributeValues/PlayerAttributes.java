@@ -282,16 +282,17 @@ public class PlayerAttributes {
 
         exDamage += DevilAttackArmor.DevilAttackArmorPassiveExDamage(player);
         exDamage += DevilSwiftArmor.DevilSwiftArmorPassiveExDamage(player);
-
         exDamage += baseAttackDamage * EarthPower.PlayerDamageEnhance(player);
 
         // 新版饰品属性加成
         exDamage += Compute.CuriosAttribute.attributeValue(player, Utils.attackDamage, StringUtils.CuriosAttribute.AttackDamage);
-
         exDamage += Compute.CuriosAttribute.attributeValue(player, Utils.xpLevelAttackDamage,
                 StringUtils.CuriosAttribute.xpLevelAttackDamage) * player.experienceLevel;
 
-        exDamage += Compute.PassiveEquip.getAttribute(player, Utils.attackDamage); // 器灵属性加成
+        // 器灵属性加成
+        exDamage += Compute.PassiveEquip.getAttribute(player, Utils.attackDamage);
+        exDamage += Compute.PassiveEquip.getAttribute(player, Utils.xpLevelAttackDamage) * player.experienceLevel;
+
         exDamage += CastleAttackArmor.ExAttributeValue(player, CastleAttackArmor.ExAttackDamage);
         exDamage += CastleSwiftArmor.ExAttributeValue(player, CastleSwiftArmor.ExAttackDamage);
         exDamage += MoonSword.ExAttackDamage(player);

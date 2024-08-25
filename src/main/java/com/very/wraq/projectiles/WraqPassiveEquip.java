@@ -48,7 +48,7 @@ public abstract class WraqPassiveEquip extends PickaxeItem {
             Compute.DescriptionOfAddition(components);
             components.addAll(getAdditionDescriptions());
         }
-        if (Utils.levelRequire.containsKey(this)) {
+        if (Utils.levelRequire.containsKey(this) && Utils.levelRequire.get(this) > 0) {
             Compute.LevelRequire(components, Utils.levelRequire.get(this));
         }
         Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
