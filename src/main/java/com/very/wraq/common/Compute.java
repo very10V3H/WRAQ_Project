@@ -487,15 +487,15 @@ public class Compute {
     }
 
     public static void playerItemCoolDown(Player player, Item item, double Seconds) {
-        double CoolDownDecrease = PlayerAttributes.coolDownDecrease(player);
-        player.getCooldowns().addCooldown(item, (int) (Seconds * 20 * (1 - CoolDownDecrease)));
+        double coolDownDecrease = PlayerAttributes.coolDownDecrease(player);
+        player.getCooldowns().addCooldown(item, (int) (Seconds * 20 * (1 - coolDownDecrease)));
         if (Utils.powerTag.containsKey(item)) {
             if (!PowerLogic.playerPowerCoolDownRecord.containsKey(player))
                 PowerLogic.playerPowerCoolDownRecord.put(player, new HashMap<>());
             Map<Item, Integer> map = PowerLogic.playerPowerCoolDownRecord.get(player);
-            map.put(item, (int) (Seconds * 20 * (1 - CoolDownDecrease)));
+            map.put(item, (int) (Seconds * 20 * (1 - coolDownDecrease)));
 
-            PowerLogic.playerLastTimeReleasePowerCoolDownTime.put(player, (int) (Seconds * 20 * (1 - CoolDownDecrease)));
+            PowerLogic.playerLastTimeReleasePowerCoolDownTime.put(player, (int) (Seconds * 20 * (1 - coolDownDecrease)));
         }
     }
 

@@ -6,6 +6,7 @@ import com.very.wraq.entities.entities.Civil.Civil;
 import com.very.wraq.events.mob.loot.RandomLootEquip;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.projectiles.mana.NewArrow;
+import com.very.wraq.series.instance.mixture.WraqMixture;
 import com.very.wraq.series.overworld.chapter2.evoker.EvokerSceptre;
 import com.very.wraq.common.BasicAttributeDescription;
 import com.very.wraq.common.Compute;
@@ -93,11 +94,22 @@ public abstract class WraqSceptre extends SwordItem {
         super.appendHoverText(stack, level, components, tooltipFlag);
     }
 
-    public void shoot(Player player) {
+    public void shootManaArrow(Player player, double rate) {
+        if (Compute.ManaSkillLevelGet(player.getPersistentData(), 10) > 0
+                || Compute.playerManaCost(player,
+                Utils.manaCost.getOrDefault(player.getMainHandItem().getItem(), 15d))) {
+            summonManaArrow(player, rate);
+            if (Math.abs(rate - 1) < 0.0001) WraqMixture.onShoot(player);
+        }
+    }
+
+    public void summonManaArrow(Player player, double rate) {
         Level level = player.level();
         CompoundTag data = player.getPersistentData();
         if (Compute.ManaSkillLevelGet(data, 10) > 0 || Compute.playerManaCost(player, EvokerSceptre.ManaCost)) {
-            NewArrow newArrow = new NewArrow(player, level, PlayerAttributes.manaDamage(player), PlayerAttributes.manaPenetration(player), PlayerAttributes.expUp(player), false, PlayerAttributes.manaPenetration0(player));
+            NewArrow newArrow = new NewArrow(player, level, PlayerAttributes.manaDamage(player) * rate,
+                    PlayerAttributes.manaPenetration(player), PlayerAttributes.expUp(player),
+                    false, PlayerAttributes.manaPenetration0(player));
             newArrow.setSilent(true);
             newArrow.setNoGravity(true);
             newArrow.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0f, 3, 1.0f);

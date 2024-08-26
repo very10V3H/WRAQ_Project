@@ -1,20 +1,19 @@
 package com.very.wraq.process.system.element.equipAndCurios.fireElement;
 
-import com.very.wraq.process.system.element.Element;
-import com.very.wraq.process.func.particle.ParticleProvider;
-import com.very.wraq.projectiles.ActiveItem;
-import com.very.wraq.projectiles.mana.ManaArrow;
-import com.very.wraq.projectiles.WraqSceptre;
-import com.very.wraq.render.particles.ModParticles;
-import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.ModEntityType;
 import com.very.wraq.common.Utils.StringUtils;
 import com.very.wraq.common.Utils.Utils;
 import com.very.wraq.common.attributeValues.PlayerAttributes;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.process.func.particle.ParticleProvider;
+import com.very.wraq.process.system.element.Element;
+import com.very.wraq.projectiles.ActiveItem;
+import com.very.wraq.projectiles.WraqSceptre;
+import com.very.wraq.projectiles.mana.ManaArrow;
+import com.very.wraq.render.particles.ModParticles;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.server.level.ServerPlayer;
@@ -70,23 +69,21 @@ public class FireElementSceptre extends WraqSceptre implements ActiveItem {
     }
 
     @Override
-    public void shoot(Player player) {
+    public void summonManaArrow(Player player, double rate) {
         Level level = player.level();
-        CompoundTag data = player.getPersistentData();
-        if (Compute.ManaSkillLevelGet(data, 10) > 0 || Compute.playerManaCost(player, 45)) {
-            ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_MAGMA.get(), player, level,
-                    PlayerAttributes.manaDamage(player),
-                    PlayerAttributes.manaPenetration(player),
-                    PlayerAttributes.manaPenetration0(player), StringUtils.ParticleTypes.FireElement1TickParticle);
-            newArrow.setSilent(true);
-            newArrow.setNoGravity(true);
-            newArrow.shootFromRotation(player, player.getXRot(), player.getYRot(), 0, 3, 1);
-            ProjectileUtil.rotateTowardsMovement(newArrow, 0);
-            WraqSceptre.adjustOrb(newArrow, player);
-            level.addFreshEntity(newArrow);
-            ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1, 0.75, 20, ModParticles.FireElementParticle.get());
-            ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1.5, 0.5, 16, ModParticles.FireElementParticle.get());
-        }
+        ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_MAGMA.get(), player, level,
+                PlayerAttributes.manaDamage(player),
+                PlayerAttributes.manaPenetration(player),
+                PlayerAttributes.manaPenetration0(player), StringUtils.ParticleTypes.FireElement1TickParticle);
+        newArrow.setSilent(true);
+        newArrow.setNoGravity(true);
+        newArrow.shootFromRotation(player, player.getXRot(), player.getYRot(), 0, 3, 1);
+        ProjectileUtil.rotateTowardsMovement(newArrow, 0);
+        WraqSceptre.adjustOrb(newArrow, player);
+        level.addFreshEntity(newArrow);
+        ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1, 0.75, 20, ModParticles.FireElementParticle.get());
+        ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1.5, 0.5, 16, ModParticles.FireElementParticle.get());
+
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.very.wraq.series.overworld.chapter7.vd;
 
-import com.very.wraq.common.Compute;
 import com.very.wraq.common.ModEntityType;
 import com.very.wraq.common.MySound;
 import com.very.wraq.common.Utils.ComponentUtils;
@@ -19,7 +18,6 @@ import com.very.wraq.render.particles.ModParticles;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.overworld.chapter7.C7Items;
 import net.minecraft.ChatFormatting;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.server.level.ServerPlayer;
@@ -80,25 +78,21 @@ public class VdSceptre extends WraqSceptre implements ForgeItem, ActiveItem, Mai
     }
 
     @Override
-    public void shoot(Player player) {
-        CompoundTag data = player.getPersistentData();
+    public void summonManaArrow(Player player, double rate) {
         Level level = player.level();
-        double ManaCost = 45;
-        if (Compute.ManaSkillLevelGet(data, 10) > 0 || Compute.playerManaCost(player, (int) ManaCost)) {
-            ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_WORLD.get(), player, level,
-                    PlayerAttributes.manaDamage(player), PlayerAttributes.manaPenetration(player),
-                    PlayerAttributes.manaPenetration0(player), StringUtils.ParticleTypes.Sky);
-            newArrow.setSilent(true);
-            newArrow.setNoGravity(true);
-            newArrow.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0f, 3, 1.0f);
-            ProjectileUtil.rotateTowardsMovement(newArrow, 0);
-            WraqSceptre.adjustOrb(newArrow, player);
-            level.addFreshEntity(newArrow);
-            ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1, 0.75, 20, ModParticles.WORLD.get());
-            ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1.5, 0.5, 16, ModParticles.WORLD.get());
-            ParticleProvider.FaceCircleCreate((ServerPlayer) player, 2, 0.25, 12, ModParticles.WORLD.get());
-            MySound.SoundToAll(player, ModSounds.Mana.get());
-        }
+        ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_WORLD.get(), player, level,
+                PlayerAttributes.manaDamage(player), PlayerAttributes.manaPenetration(player),
+                PlayerAttributes.manaPenetration0(player), StringUtils.ParticleTypes.Sky);
+        newArrow.setSilent(true);
+        newArrow.setNoGravity(true);
+        newArrow.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0f, 3, 1.0f);
+        ProjectileUtil.rotateTowardsMovement(newArrow, 0);
+        WraqSceptre.adjustOrb(newArrow, player);
+        level.addFreshEntity(newArrow);
+        ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1, 0.75, 20, ModParticles.WORLD.get());
+        ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1.5, 0.5, 16, ModParticles.WORLD.get());
+        ParticleProvider.FaceCircleCreate((ServerPlayer) player, 2, 0.25, 12, ModParticles.WORLD.get());
+        MySound.SoundToAll(player, ModSounds.Mana.get());
     }
 
     @Override

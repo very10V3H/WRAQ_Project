@@ -1,21 +1,20 @@
 package com.very.wraq.series.overworld.sakuraSeries.Ship;
 
-import com.very.wraq.common.MySound;
-import com.very.wraq.process.system.element.Element;
-import com.very.wraq.process.func.particle.ParticleProvider;
-import com.very.wraq.projectiles.mana.ManaArrow;
-import com.very.wraq.projectiles.WraqSceptre;
-import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.ModEntityType;
+import com.very.wraq.common.MySound;
 import com.very.wraq.common.Utils.ComponentUtils;
 import com.very.wraq.common.Utils.StringUtils;
 import com.very.wraq.common.Utils.Utils;
 import com.very.wraq.common.attributeValues.PlayerAttributes;
 import com.very.wraq.common.registry.ModSounds;
+import com.very.wraq.process.func.particle.ParticleProvider;
+import com.very.wraq.process.system.element.Element;
+import com.very.wraq.projectiles.WraqSceptre;
+import com.very.wraq.projectiles.mana.ManaArrow;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.server.level.ServerPlayer;
@@ -43,26 +42,21 @@ public class ShipSceptre extends WraqSceptre {
     }
 
     @Override
-    public void shoot(Player player) {
-        double ManaCost = 30;
-        CompoundTag data = player.getPersistentData();
+    public void summonManaArrow(Player player, double rate) {
         Level level = player.level();
-        if (Compute.ManaSkillLevelGet(data, 10) > 0 || Compute.playerManaCost(player, (int) ManaCost)) {
-            ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_WORLD.get(), player,
-                    level, PlayerAttributes.manaDamage(player),
-                    PlayerAttributes.manaPenetration(player),
-                    PlayerAttributes.manaPenetration0(player), StringUtils.ParticleTypes.Sky);
-            newArrow.setSilent(true);
-            newArrow.setNoGravity(true);
-
-            newArrow.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0f, 3, 1.0f);
-            ProjectileUtil.rotateTowardsMovement(newArrow, 0);
-            WraqSceptre.adjustOrb(newArrow, player);
-            level.addFreshEntity(newArrow);
-            ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1, 0.75, 20, ParticleTypes.DRIPPING_WATER);
-            ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1.5, 0.5, 16, ParticleTypes.DRIPPING_WATER);
-            MySound.SoundToAll(player, ModSounds.Mana.get());
-        }
+        ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_WORLD.get(), player,
+                level, PlayerAttributes.manaDamage(player),
+                PlayerAttributes.manaPenetration(player),
+                PlayerAttributes.manaPenetration0(player), StringUtils.ParticleTypes.Sky);
+        newArrow.setSilent(true);
+        newArrow.setNoGravity(true);
+        newArrow.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0f, 3, 1.0f);
+        ProjectileUtil.rotateTowardsMovement(newArrow, 0);
+        WraqSceptre.adjustOrb(newArrow, player);
+        level.addFreshEntity(newArrow);
+        ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1, 0.75, 20, ParticleTypes.DRIPPING_WATER);
+        ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1.5, 0.5, 16, ParticleTypes.DRIPPING_WATER);
+        MySound.SoundToAll(player, ModSounds.Mana.get());
     }
 
     @Override

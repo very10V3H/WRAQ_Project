@@ -49,6 +49,7 @@ import com.very.wraq.projectiles.mana.BlazeSword;
 import com.very.wraq.projectiles.mana.SwordAir;
 import com.very.wraq.render.mobEffects.ModEffects;
 import com.very.wraq.render.toolTip.CustomStyle;
+import com.very.wraq.series.instance.mixture.WraqMixture;
 import com.very.wraq.series.instance.series.castle.CastleAttackArmor;
 import com.very.wraq.series.instance.series.castle.CastleManaArmor;
 import com.very.wraq.series.instance.series.castle.CastleSwiftArmor;
@@ -164,6 +165,7 @@ public class ServerPlayerTickEvent {
             MoonNewRune.tick(player);
             SummerEvent.tick(player);
             OnCuriosSlotTickEffect.tickEvent(player);
+            WraqMixture.tick(player);
 
             if (player.getMainHandItem().getItem() instanceof MainHandTickItem mainHandTickItem) mainHandTickItem.tick(player);
 

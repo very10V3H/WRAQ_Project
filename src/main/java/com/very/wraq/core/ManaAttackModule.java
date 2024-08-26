@@ -15,6 +15,7 @@ import com.very.wraq.projectiles.OnHitEffectMainHandWeapon;
 import com.very.wraq.projectiles.mana.ManaArrow;
 import com.very.wraq.projectiles.mana.NewArrowMagma;
 import com.very.wraq.render.toolTip.CustomStyle;
+import com.very.wraq.series.instance.mixture.WraqMixture;
 import com.very.wraq.series.instance.series.castle.CastleManaArmor;
 import com.very.wraq.series.instance.series.ice.IceBook;
 import com.very.wraq.series.instance.series.moon.Equip.MoonBook;
@@ -196,6 +197,7 @@ public class ManaAttackModule {
             IceBook.IceBookPassive(player, monster);
             Compute.manaDamageExEffect(player, monster, damage);
             SameTypeModule.onNormalAttackHitMob(player, monster, 1, damage + damageIgnoreDefence);
+            WraqMixture.onLastTimeManaArrowHit(player);
 
             ManaCurios1.ManaDamageExIgnoreDefenceDamage(player, monster, damage);
             Customize.ManaNormalAttackEffect(player, monster); // Customized

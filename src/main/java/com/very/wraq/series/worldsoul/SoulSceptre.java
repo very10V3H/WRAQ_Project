@@ -46,7 +46,7 @@ public class SoulSceptre extends WraqSceptre {
     public static final int ManaCost = 20;
 
     @Override
-    public void shoot(Player player) {
+    public void summonManaArrow(Player player, double rate) {
         CompoundTag data = player.getPersistentData();
         Level level = player.level();
         double ManaCost = SoulSceptre.getManaCost(player.getItemInHand(InteractionHand.MAIN_HAND).getOrCreateTagElement(Utils.MOD_ID));

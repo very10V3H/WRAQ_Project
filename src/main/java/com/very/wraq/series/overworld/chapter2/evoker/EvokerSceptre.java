@@ -1,18 +1,16 @@
 package com.very.wraq.series.overworld.chapter2.evoker;
 
 import com.very.wraq.common.MySound;
-import com.very.wraq.process.system.element.Element;
-import com.very.wraq.process.func.particle.ParticleProvider;
-import com.very.wraq.projectiles.mana.NewArrow;
-import com.very.wraq.projectiles.WraqSceptre;
-import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.Compute;
 import com.very.wraq.common.Utils.ComponentUtils;
 import com.very.wraq.common.Utils.Utils;
 import com.very.wraq.common.attributeValues.PlayerAttributes;
 import com.very.wraq.common.registry.ModSounds;
+import com.very.wraq.process.func.particle.ParticleProvider;
+import com.very.wraq.process.system.element.Element;
+import com.very.wraq.projectiles.WraqSceptre;
+import com.very.wraq.projectiles.mana.NewArrow;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.server.level.ServerPlayer;
@@ -38,22 +36,18 @@ public class EvokerSceptre extends WraqSceptre {
     public static final int ManaCost = 60;
 
     @Override
-    public void shoot(Player player) {
-        CompoundTag data = player.getPersistentData();
+    public void summonManaArrow(Player player, double rate) {
         Level level = player.level();
-        if (Compute.ManaSkillLevelGet(data, 10) > 0 || Compute.playerManaCost(player, EvokerSceptre.ManaCost)) {
-            NewArrow newArrow = new NewArrow(player, level, PlayerAttributes.manaDamage(player), PlayerAttributes.manaPenetration(player), PlayerAttributes.expUp(player), false, PlayerAttributes.manaPenetration0(player));
-            newArrow.setSilent(true);
-            newArrow.setNoGravity(true);
-
-            newArrow.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0f, 3, 1.0f);
-            ProjectileUtil.rotateTowardsMovement(newArrow, 0);
-            WraqSceptre.adjustOrb(newArrow, player);
-            level.addFreshEntity(newArrow);
-            ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1, 0.75, 20, ParticleTypes.WITCH);
-            ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1.5, 0.5, 16, ParticleTypes.WITCH);
-            MySound.SoundToAll(player, ModSounds.Mana.get());
-        }
+        NewArrow newArrow = new NewArrow(player, level, PlayerAttributes.manaDamage(player), PlayerAttributes.manaPenetration(player), PlayerAttributes.expUp(player), false, PlayerAttributes.manaPenetration0(player));
+        newArrow.setSilent(true);
+        newArrow.setNoGravity(true);
+        newArrow.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0f, 3, 1.0f);
+        ProjectileUtil.rotateTowardsMovement(newArrow, 0);
+        WraqSceptre.adjustOrb(newArrow, player);
+        level.addFreshEntity(newArrow);
+        ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1, 0.75, 20, ParticleTypes.WITCH);
+        ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1.5, 0.5, 16, ParticleTypes.WITCH);
+        MySound.SoundToAll(player, ModSounds.Mana.get());
     }
 
     @Override
