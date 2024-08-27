@@ -87,6 +87,7 @@ public class WraqMixture extends WraqPassiveEquip implements ActiveItem {
 
     @Override
     public void active(Player player) {
+        if (player.experienceLevel < Utils.levelRequire.get(this)) return;
         effectLastTickMap.put(player, (int) (Tick.get() + lastSecond * 20));
         activeItem.put(player, this);
         Compute.sendEffectLastTime(player, this, (int) (lastSecond * 20));

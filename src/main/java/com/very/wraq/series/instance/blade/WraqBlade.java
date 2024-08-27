@@ -65,6 +65,7 @@ public class WraqBlade extends WraqPassiveEquip implements ActiveItem {
 
     @Override
     public void active(Player player) {
+        if (player.experienceLevel < Utils.levelRequire.get(this)) return;
         boolean success = DelayOperationWithAnimation.addToQueue(new DelayOperationWithAnimation(
                 DelayOperationWithAnimation.Animation.samurai, Tick.get() + 10, player) {
             @Override
