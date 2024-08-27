@@ -114,28 +114,10 @@ public class ModNetworking {
                 .consumerMainThread(DrugsC2SPacket::handle)
                 .add();
 
-        net.messageBuilder(Use1C2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
-                .decoder(Use1C2SPacket::new)
-                .encoder(Use1C2SPacket::toBytes)
-                .consumerMainThread(Use1C2SPacket::handle)
-                .add();
-
-        net.messageBuilder(Use2C2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
-                .decoder(Use2C2SPacket::new)
-                .encoder(Use2C2SPacket::toBytes)
-                .consumerMainThread(Use2C2SPacket::handle)
-                .add();
-
-        net.messageBuilder(Use3C2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
-                .decoder(Use3C2SPacket::new)
-                .encoder(Use3C2SPacket::toBytes)
-                .consumerMainThread(Use3C2SPacket::handle)
-                .add();
-
-        net.messageBuilder(Use4C2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
-                .decoder(Use4C2SPacket::new)
-                .encoder(Use4C2SPacket::toBytes)
-                .consumerMainThread(Use4C2SPacket::handle)
+        net.messageBuilder(UseC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(UseC2SPacket::new)
+                .encoder(UseC2SPacket::toBytes)
+                .consumerMainThread(UseC2SPacket::handle)
                 .add();
 
         net.messageBuilder(ResetC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
@@ -903,16 +885,6 @@ public class ModNetworking {
                 .decoder(SoulSceptreC2SPacket::new)
                 .encoder(SoulSceptreC2SPacket::toBytes)
                 .consumerMainThread(SoulSceptreC2SPacket::handle)
-                .add();
-        net.messageBuilder(Use5C2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
-                .decoder(Use5C2SPacket::new)
-                .encoder(Use5C2SPacket::toBytes)
-                .consumerMainThread(Use5C2SPacket::handle)
-                .add();
-        net.messageBuilder(Use6C2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
-                .decoder(Use6C2SPacket::new)
-                .encoder(Use6C2SPacket::toBytes)
-                .consumerMainThread(Use6C2SPacket::handle)
                 .add();
         net.messageBuilder(EarthPowerC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
                 .decoder(EarthPowerC2SPacket::new)

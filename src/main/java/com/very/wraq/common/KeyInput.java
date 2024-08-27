@@ -61,7 +61,7 @@ public class KeyInput {
                             ClientUtils.PowerQueue.add(1);
                         } else ClientUtils.PowerQueue.add(1);
                     } else {
-                        ModNetworking.sendToServer(new Use1C2SPacket());
+                        ModNetworking.sendToServer(new UseC2SPacket(3));
                     }
                 }
                 if (KeyBoradInput.USE2.consumeClick()) {
@@ -71,7 +71,7 @@ public class KeyInput {
                             ClientUtils.PowerQueue.add(2);
                         } else ClientUtils.PowerQueue.add(2);
                     } else {
-                        ModNetworking.sendToServer(new Use2C2SPacket());
+                        ModNetworking.sendToServer(new UseC2SPacket(4));
                     }
                 }
                 if (KeyBoradInput.USE3.consumeClick()) {
@@ -81,7 +81,7 @@ public class KeyInput {
                             ClientUtils.PowerQueue.add(3);
                         } else ClientUtils.PowerQueue.add(3);
                     } else {
-                        ModNetworking.sendToServer(new Use3C2SPacket());
+                        ModNetworking.sendToServer(new UseC2SPacket(5));
                     }
                 }
                 if (KeyBoradInput.USE4.consumeClick()) {
@@ -91,14 +91,14 @@ public class KeyInput {
                             ClientUtils.PowerQueue.add(4);
                         } else ClientUtils.PowerQueue.add(4);
                     } else {
-                        ModNetworking.sendToServer(new Use4C2SPacket());
+                        ModNetworking.sendToServer(new UseC2SPacket(6));
                     }
                 }
                 if (KeyBoradInput.USE5.consumeClick()) {
-                    ModNetworking.sendToServer(new Use5C2SPacket());
+                    ModNetworking.sendToServer(new UseC2SPacket(7));
                 }
                 if (KeyBoradInput.USE6.consumeClick()) {
-                    ModNetworking.sendToServer(new Use6C2SPacket());
+                    ModNetworking.sendToServer(new UseC2SPacket(8));
                 }
                 if (KeyBoradInput.Rolling.consumeClick()) {
                     Player player = Minecraft.getInstance().player;
