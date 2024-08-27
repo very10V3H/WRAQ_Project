@@ -20,6 +20,9 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Mod.EventBusSubscriber
 public class AttributeSet {
     @SubscribeEvent
@@ -91,6 +94,20 @@ public class AttributeSet {
             //
             if (data.contains(StringUtils.Swift) && data.contains(StringUtils.MaxSwift)) {
                 Compute.PlayerSwiftChange(player, (5 + Math.min(5, PlayerAttributes.extraSwiftness(player))) / 20);
+            }
+
+            // 重力调整 - 用于近战击杀恼鬼场景
+            List<Pair<Vec3, Vec3>> lowGravityZone = new ArrayList<>() {{
+                add(new Pair<>(new Vec3(876, 180,491), new Vec3(1242, 280, 724)));
+            }};
+
+            if (lowGravityZone.stream().anyMatch(pair -> {
+                return player.getX() > pair.getFirst().x && player.getY() > pair.getFirst().y && player.getZ() > pair.getFirst().z
+                        && player.getX() < pair.getSecond().x && player.getY() < pair.getSecond().y && player.getZ() < pair.getSecond().z;
+            })) {
+                player.getAttribute(ForgeMod.ENTITY_GRAVITY.get()).setBaseValue(0.01);
+            } else {
+                player.getAttribute(ForgeMod.ENTITY_REACH.get()).setBaseValue(0.08);
             }
         }
     }
