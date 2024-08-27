@@ -8,6 +8,7 @@ import com.very.wraq.common.Utils.Utils;
 import com.very.wraq.core.AttackEvent;
 import com.very.wraq.projectiles.ActiveItem;
 import com.very.wraq.projectiles.WraqPassiveEquip;
+import com.very.wraq.projectiles.WraqSword;
 import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -65,14 +66,16 @@ public class WraqBlade extends WraqPassiveEquip implements ActiveItem {
 
     @Override
     public void active(Player player) {
-        if (player.experienceLevel < Utils.levelRequire.get(this)) return;
+        if (player.experienceLevel < Utils.levelRequire.get(this) || !(player.getMainHandItem().getItem() instanceof WraqSword)) return;
         boolean success = DelayOperationWithAnimation.addToQueue(new DelayOperationWithAnimation(
                 DelayOperationWithAnimation.Animation.samurai, Tick.get() + 10, player) {
             @Override
             public void trig() {
-                AttackEvent.getPlayerNormalAttackRangeMobList(player).forEach(mob -> {
-                    AttackEvent.attackToMonster(mob, player, rate, true);
-                });
+                if (player.getMainHandItem().getItem() instanceof WraqSword) {
+                    AttackEvent.getPlayerNormalAttackRangeMobList(player).forEach(mob -> {
+                        AttackEvent.attackToMonster(mob, player, rate, true);
+                    });
+                }
             }
         });
         if (success) {
