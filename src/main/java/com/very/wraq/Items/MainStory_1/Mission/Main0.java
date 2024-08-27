@@ -1,14 +1,13 @@
 package com.very.wraq.Items.MainStory_1.Mission;
 
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.DelayOperationWithAnimation;
-import com.very.wraq.common.Tick;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -16,8 +15,8 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.WeakHashMap;
 
 public class Main0 extends Item {
 
@@ -44,7 +43,8 @@ public class Main0 extends Item {
         super.appendHoverText(stack, p_41422_, components, flag);
     }
 
-    public static WeakHashMap<Mob, Integer> testMap = new WeakHashMap<>();
+    public static int index = 0;
+    public static List<SoundEvent> soundEventList = new ArrayList<>();
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
@@ -53,22 +53,19 @@ public class Main0 extends Item {
             String name = player.getName().getString();
             CompoundTag data = player.getPersistentData();
 
-            DelayOperationWithAnimation.addToQueue(
-                    new DelayOperationWithAnimation(DelayOperationWithAnimation.Animation.samurai,
-                            Tick.get() + 10, player) {
-                @Override
-                public void trig() {
-                    player.sendSystemMessage(Component.literal("trig!"));
-                }
-            });
         }
 
         if (!level.isClientSide && player.isShiftKeyDown()) {
-            player.sendSystemMessage(Component.literal("" + testMap));
+
         }
 
         if (level.isClientSide && !player.isShiftKeyDown()) {
-
+            soundEventList = List.of(SoundEvents.EVOKER_CELEBRATE, SoundEvents.EVOKER_AMBIENT,
+                    SoundEvents.EVOKER_DEATH, SoundEvents.EVOKER_HURT,
+                    SoundEvents.EVOKER_CAST_SPELL, SoundEvents.EVOKER_FANGS_ATTACK,
+                    SoundEvents.EVOKER_PREPARE_ATTACK, SoundEvents.EVOKER_PREPARE_SUMMON,
+                    SoundEvents.EVOKER_PREPARE_WOLOLO);
+            index = 0;
         }
 
         if (level.isClientSide && player.isShiftKeyDown()) {
@@ -79,5 +76,11 @@ public class Main0 extends Item {
         return InteractionResultHolder.pass(player.getItemInHand(interactionHand));
     }
 
-
+    public static void clientTick(Player player) {
+        if (player.tickCount % 30 == 0 && index < soundEventList.size()) {
+            player.playSound(soundEventList.get(index));
+            player.sendSystemMessage(Component.literal("" + soundEventList.get(index).getLocation()));
+            index ++;
+        }
+    }
 }

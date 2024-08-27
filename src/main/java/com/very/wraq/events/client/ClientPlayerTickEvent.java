@@ -1,6 +1,7 @@
 package com.very.wraq.events.client;
 
 import com.very.wraq.Items.MainStory_1.BackSpawn;
+import com.very.wraq.Items.MainStory_1.Mission.Main0;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.Utils.ClientUtils;
 import com.very.wraq.common.Utils.Struct.ClientPlayerTeam;
@@ -76,6 +77,7 @@ public class ClientPlayerTickEvent {
         MyWayPoint.clientTick(event);
         if (event.side.isClient() && event.phase.equals(TickEvent.Phase.START)) {
             OnCuriosSlotTickEffect.tickEvent(event.player);
+            Main0.clientTick(event.player);
         }
         if (event.side.isClient() && event.phase == TickEvent.Phase.END) {
             Minecraft mc = Minecraft.getInstance();
