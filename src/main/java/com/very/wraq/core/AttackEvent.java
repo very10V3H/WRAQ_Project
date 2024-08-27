@@ -2,7 +2,6 @@ package com.very.wraq.core;
 
 import com.very.wraq.commands.stable.players.DebugCommand;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.MySound;
 import com.very.wraq.common.Utils.StringUtils;
 import com.very.wraq.common.Utils.Struct.Boss2Damage;
 import com.very.wraq.common.Utils.Utils;
@@ -38,7 +37,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -108,8 +106,6 @@ public class AttackEvent {
                 if (mob != NearestMob.get()) AttackEvent.attackToMonster(mob, player, 0.5, false);
             });
         }
-
-        MySound.SoundToAll(player, SoundEvents.PLAYER_ATTACK_SWEEP);
     }
 
     public static void attackToMonster(Mob monster, Player player, double rate, boolean critSurely) {

@@ -1,10 +1,12 @@
 package com.very.wraq.networking.misc.AttackPackets;
 
+import com.very.wraq.common.MySound;
 import com.very.wraq.common.Utils.Utils;
 import com.very.wraq.core.AttackEvent;
 import com.very.wraq.series.instance.series.castle.CastleAttackArmor;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
@@ -37,12 +39,15 @@ public class AttackC2SPacket {
             switch (count) {
                 case 0 -> {
                     AttackEvent.module(player, 0.8);
+                    MySound.SoundToAll(player, SoundEvents.PLAYER_ATTACK_WEAK);
                 }
                 case 1 -> {
                     AttackEvent.module(player, 1.2);
+                    MySound.SoundToAll(player, SoundEvents.PLAYER_ATTACK_STRONG);
                 }
                 case 2 -> {
                     AttackEvent.module(player, 1.5);
+                    MySound.SoundToAll(player, SoundEvents.PLAYER_ATTACK_SWEEP);
                 }
             }
         });
