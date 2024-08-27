@@ -116,29 +116,37 @@ public abstract class MobSpawnController {
 
         AtomicBoolean thisZoneHasPlayer = new AtomicBoolean(false);
         canSpawnPos.forEach(pos -> {
-            List<Player> playerList = level.getEntitiesOfClass(Player.class, AABB.ofSize(pos, detectionRange, detectionRange, detectionRange));
+            List<Player> playerList = level.getEntitiesOfClass(Player.class, AABB.ofSize(pos,
+                    detectionRange, detectionRange, detectionRange));
             for (Player player : playerList) {
                 if (player.position().distanceTo(pos) < 4) {
                     thisZoneHasPlayer.set(true);
                     return;
                 }
             }
-            List<Mob> mobList = level.getEntitiesOfClass(Mob.class, AABB.ofSize(pos, detectionRange, detectionRange, detectionRange));
+            List<Mob> mobList = level.getEntitiesOfClass(Mob.class, AABB.ofSize(pos,
+                    detectionRange, detectionRange, detectionRange));
             mobList.removeIf(mob -> !this.mobList.contains(mob));
             if (!playerList.isEmpty()) thisZoneHasPlayer.set(true);
             else return;
             // 若区域内怪物与玩家比较小且怪物数量不超过上限 则生成
             if (mobList.size() * 1.0 / playerList.size() < mobPlayerRate && this.mobList.size() < oneZoneMaxMobNum) {
-                Mob mob = this.mobItemAndAttributeSet();
-                Random r = new Random();
-                Vec3 offset = Vec3.ZERO;
-                if (summonOffset > 0) {
-                    offset = new Vec3(r.nextDouble(summonOffset) - summonOffset / 2,
-                            r.nextDouble(summonOffset) - summonOffset / 2, r.nextDouble(summonOffset) - summonOffset / 2);
+                int summonTimes = 1;
+                if (canSpawnPos.size() == 1) {
+                    summonTimes = 2 + playerList.size();
                 }
-                mob.moveTo(pos.add(0.5, 0.5, 0.5).add(offset));
-                this.mobList.add(mob);
-                this.level.addFreshEntity(mob);
+                for (int i = 0 ; i < summonTimes ; i ++) {
+                    Mob mob = this.mobItemAndAttributeSet();
+                    Random r = new Random();
+                    Vec3 offset = Vec3.ZERO;
+                    if (summonOffset > 0) {
+                        offset = new Vec3(r.nextDouble(summonOffset) - summonOffset / 2,
+                                r.nextDouble(summonOffset) - summonOffset / 2, r.nextDouble(summonOffset) - summonOffset / 2);
+                    }
+                    mob.moveTo(pos.add(0.5, 0.5, 0.5).add(offset));
+                    this.mobList.add(mob);
+                    this.level.addFreshEntity(mob);
+                }
             }
         });
 
