@@ -1,20 +1,20 @@
 package com.very.wraq.projectiles;
 
 import com.very.wraq.blocks.blocks.ForgeRecipe;
+import com.very.wraq.common.BasicAttributeDescription;
+import com.very.wraq.common.Compute;
 import com.very.wraq.common.MySound;
+import com.very.wraq.common.Utils.StringUtils;
+import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.attributeValues.PlayerAttributes;
+import com.very.wraq.common.registry.ItemTier;
+import com.very.wraq.common.registry.ModSounds;
 import com.very.wraq.entities.entities.Civil.Civil;
 import com.very.wraq.events.mob.loot.RandomLootEquip;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.projectiles.mana.NewArrow;
 import com.very.wraq.series.instance.mixture.WraqMixture;
 import com.very.wraq.series.overworld.chapter2.evoker.EvokerSceptre;
-import com.very.wraq.common.BasicAttributeDescription;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.Utils.StringUtils;
-import com.very.wraq.common.Utils.Utils;
-import com.very.wraq.common.attributeValues.PlayerAttributes;
-import com.very.wraq.common.registry.ItemTier;
-import com.very.wraq.common.registry.ModSounds;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -22,6 +22,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -99,7 +100,10 @@ public abstract class WraqSceptre extends SwordItem {
                 || Compute.playerManaCost(player,
                 Utils.manaCost.getOrDefault(player.getMainHandItem().getItem(), 15d))) {
             summonManaArrow(player, rate);
-            if (Math.abs(rate - 1) < 0.0001) WraqMixture.onShoot(player);
+            if (Math.abs(rate - 1) < 0.0001) {
+                WraqMixture.onShoot(player);
+            }
+            MySound.SoundToAll(player, SoundEvents.EVOKER_CAST_SPELL);
         }
     }
 
