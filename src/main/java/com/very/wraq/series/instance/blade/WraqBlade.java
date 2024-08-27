@@ -2,6 +2,7 @@ package com.very.wraq.series.instance.blade;
 
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.DelayOperationWithAnimation;
+import com.very.wraq.common.MySound;
 import com.very.wraq.common.Tick;
 import com.very.wraq.common.Utils.ComponentUtils;
 import com.very.wraq.common.Utils.Utils;
@@ -13,6 +14,7 @@ import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.registries.RegistryObject;
 
@@ -72,6 +74,7 @@ public class WraqBlade extends WraqPassiveEquip implements ActiveItem {
             @Override
             public void trig() {
                 if (player.getMainHandItem().getItem() instanceof WraqSword) {
+                    MySound.SoundToAll(player, SoundEvents.PLAYER_ATTACK_KNOCKBACK);
                     AttackEvent.getPlayerNormalAttackRangeMobList(player).forEach(mob -> {
                         AttackEvent.attackToMonster(mob, player, rate, true);
                     });
