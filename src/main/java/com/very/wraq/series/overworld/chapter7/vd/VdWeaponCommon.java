@@ -110,7 +110,6 @@ public interface VdWeaponCommon {
         if (countMap.containsKey(player.getName().getString())) {
             List<CountOnMob> list = countMap.get(player.getName().getString());
             CountOnMob countOnMob = list.stream().filter(countOnMob1 -> countOnMob1.mob == mob).findAny().orElse(null);
-            if (countOnMob != null) player.sendSystemMessage(Component.literal("" + countOnMob.count));
             return countOnMob != null ? countOnMob.count * 0.08 : 0;
         }
         return 0;
