@@ -54,7 +54,7 @@ public class SellCommand implements Command<CommandSourceStack> {
             MarketItemInfo marketItemInfo = iterator1.next();
             if (marketItemInfo.getPlayer().equals(player.getName().getString())) Count++;
         }
-        if (Count >= 15) {
+        if (Count >= 15 && !player.isCreative()) {
             Compute.sendFormatMSG(player, Component.literal("市场").withStyle(ChatFormatting.GOLD),
                     Component.literal("超出了限制的出售数量(15)。"));
         } else {
