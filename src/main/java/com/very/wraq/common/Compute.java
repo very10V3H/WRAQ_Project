@@ -4911,4 +4911,14 @@ public class Compute {
             ModNetworking.sendToClient(new MobEffectHudS2CPacket(mob.getId(), icon.getDefaultInstance(), tag, lastTick, level, forever), serverPlayer);
         });
     }
+
+    public static void decreaseCoolDownLeftTick(Player player, Map<Item, Integer> playerEachItemCoolDownMap, int decreaseTick) {
+        playerEachItemCoolDownMap.forEach((power, coolDownTick) -> {
+            double percent = player.getCooldowns().getCooldownPercent(power, 0);
+            int leftTick = (int) (percent * coolDownTick);
+            leftTick = Math.max(0, leftTick - decreaseTick);
+            player.getCooldowns().addCooldown(power, leftTick);
+            playerEachItemCoolDownMap.put(power, leftTick);
+        });
+    }
 }

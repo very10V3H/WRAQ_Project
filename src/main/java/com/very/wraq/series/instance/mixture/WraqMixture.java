@@ -100,14 +100,7 @@ public class WraqMixture extends WraqPassiveEquip implements ActiveItem {
         if (effectLastTickMap.getOrDefault(player, 0) < Tick.get()) return;
         Map<Item, Integer> powerCoolDownTick = PowerLogic.playerPowerCoolDownRecord.getOrDefault(player, new HashMap<>());
         WraqMixture mixture = activeItem.get(player);
-        powerCoolDownTick.forEach((power, coolDownTick) -> {
-            double percent = player.getCooldowns().getCooldownPercent(power, 0);
-            int leftTick = (int) (percent * coolDownTick);
-            player.sendSystemMessage(Component.literal("leftTick = " + leftTick));
-            leftTick = Math.max(0, leftTick - mixture.eachArrowDecreaseCoolDownTick);
-            player.getCooldowns().addCooldown(power, leftTick);
-            powerCoolDownTick.put(power, leftTick);
-        });
+        Compute.decreaseCoolDownLeftTick(player, powerCoolDownTick, mixture.eachArrowDecreaseCoolDownTick);
     }
 
     public static WeakHashMap<Player, Integer> exShootTickMap = new WeakHashMap<>();
