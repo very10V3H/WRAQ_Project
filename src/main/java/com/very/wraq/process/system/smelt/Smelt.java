@@ -12,6 +12,8 @@ import java.util.Objects;
 
 public class Smelt {
 
+    public static CompoundTag clientData = new CompoundTag();
+
     private static final String smeltTagKey = "smeltTagKey";
     private static CompoundTag getPlayerSmeltTag(Player player) {
         CompoundTag data = player.getPersistentData();
@@ -29,6 +31,12 @@ public class Smelt {
         int maxSlot = getMaxSmeltSlot(player);
         if (slotIndex > maxSlot) return null;
         else return getPlayerSmeltTag(player).getString(smeltTagKey + slotIndex);
+    }
+
+    private static String getSmeltSlotInfoForClientSide(int slotIndex) {
+        int maxSlot = clientData.getInt(maxSmeltSlotKey);
+        if (slotIndex > maxSlot) return null;
+        else return clientData.getString(smeltTagKey + slotIndex);
     }
 
     private static final String smeltSlotEmpty = "smeltSlotEmpty";
@@ -65,6 +73,15 @@ public class Smelt {
         return getSmeltItem(info);
     }
 
+    public static ItemStack getSmeltItemForClientSide(int slotIndex) throws CommandSyntaxException {
+        if (slotIndex > clientData.getInt(maxSmeltSlotKey)) {
+            return ItemStack.EMPTY;
+        }
+        String info = getSmeltSlotInfoForClientSide(slotIndex);
+        if (info == null) return ItemStack.EMPTY;
+        return getSmeltItem(info);
+    }
+
     private static Calendar getSmeltFinishTime(String smeltSlotInfo) throws ParseException {
         if (!smeltSlotInfo.contains("$")) {
             return null;
@@ -78,6 +95,15 @@ public class Smelt {
             return null;
         }
         String info = getSmeltSlotInfo(player, slotIndex);
+        if (info == null) return null;
+        return getSmeltFinishTime(info);
+    }
+
+    public static Calendar getSmeltFinishTimeForClientSide(int slotIndex) throws ParseException {
+        if (slotIndex > clientData.getInt(maxSmeltSlotKey)) {
+            return null;
+        }
+        String info = getSmeltSlotInfoForClientSide(slotIndex);
         if (info == null) return null;
         return getSmeltFinishTime(info);
     }

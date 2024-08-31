@@ -66,6 +66,7 @@ import com.very.wraq.process.func.plan.networking.DailySupplyC2SPacket;
 import com.very.wraq.process.func.plan.networking.DailySupplyS2CPacket;
 import com.very.wraq.process.system.randomStore.networking.TradeListClearS2CPacket;
 import com.very.wraq.process.system.randomStore.networking.TradeListS2CPacket;
+import com.very.wraq.process.system.smelt.SmeltDataS2CPacket;
 import com.very.wraq.process.system.teamInstance.networking.NewTeamInstanceClearS2CPacket;
 import com.very.wraq.process.system.teamInstance.networking.NewTeamInstanceJoinedPlayerInfoS2CPacket;
 import com.very.wraq.process.system.teamInstance.networking.NewTeamInstancePrepareInfoS2CPacket;
@@ -1275,6 +1276,11 @@ public class ModNetworking {
                 .decoder(AnimationS2CPacket::new)
                 .encoder(AnimationS2CPacket::toBytes)
                 .consumerMainThread(AnimationS2CPacket::handle)
+                .add();
+        net.messageBuilder(SmeltDataS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(SmeltDataS2CPacket::new)
+                .encoder(SmeltDataS2CPacket::toBytes)
+                .consumerMainThread(SmeltDataS2CPacket::handle)
                 .add();
     }
 
