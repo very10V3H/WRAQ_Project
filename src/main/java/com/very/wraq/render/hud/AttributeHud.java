@@ -197,8 +197,8 @@ public class AttributeHud {
             mob = true;
             if (ClientUtils.elementEffects != null) {
                 if (ClientUtils.elementEffects.level != 0) {
-                    guiGraphics.blit(new ResourceLocation(Utils.MOD_ID, "textures/item/" + ClientUtils.elementEffects.itemStack.getItem().toString() + ".png"), x - 22, height / 2 + 8, 0, 0, 16, 16, 16, 16);
-                    guiGraphics.drawCenteredString(fontRenderer, Component.literal("" + ClientUtils.elementEffects.level).withStyle(ChatFormatting.WHITE), x + 11 - 22, height / 2 + 16, 10);
+                    guiGraphics.blit(new ResourceLocation(Utils.MOD_ID, "textures/item/" + ClientUtils.elementEffects.itemStack.getItem().toString() + ".png"), x + 79, height - 60, 0, 0, 16, 16, 16, 16);
+                    guiGraphics.drawCenteredString(fontRenderer, Component.literal("" + ClientUtils.elementEffects.level).withStyle(ChatFormatting.WHITE), x + 11 + 79, height - 52, 10);
                 }
             }
 
