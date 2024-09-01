@@ -9,7 +9,7 @@ public abstract class WraqBowUniformCurios extends WraqUniformCurios {
         super(properties);
         Utils.xpLevelAttackDamage.put(this, 2d);
         Utils.xpLevelDefencePenetration0.put(this, 2d);
-        Utils.xpLevelCritDamage.put(this, 0.8);
+        Utils.critDamage.put(this, 0.8);
     }
 
 }

@@ -103,21 +103,36 @@ public class WraqMixture extends WraqPassiveEquip implements ActiveItem {
         Compute.decreaseCoolDownLeftTick(player, powerCoolDownTick, mixture.eachArrowDecreaseCoolDownTick);
     }
 
-    public static WeakHashMap<Player, Integer> exShootTickMap = new WeakHashMap<>();
-
     public static void onShoot(Player player) {
         if (effectLastTickMap.getOrDefault(player, 0) < Tick.get()) return;
-        exShootTickMap.put(player, activeItem.get(player).exManaArrowCount * 2);
+        batchAddExShoot(player, activeItem.get(player).rate, activeItem.get(player).exManaArrowCount);
     }
 
-    public static void tick(Player player) {
-        if (exShootTickMap.getOrDefault(player, -1) >= 0) {
-            exShootTickMap.put(player, exShootTickMap.get(player) - 1);
-            int exShootTick = exShootTickMap.get(player);
-            if (exShootTick % 2 == 0 && player.getMainHandItem().getItem() instanceof WraqSceptre wraqSceptre) {
-                wraqSceptre.shootManaArrow(player, activeItem.get(player).rate);
-            }
+    public static WeakHashMap<Player, Queue<Double>> exShootRateQueueMap = new WeakHashMap<>();
+
+    public static void addExShoot(Player player, double rate) {
+        if (!exShootRateQueueMap.containsKey(player)) exShootRateQueueMap.put(player, new ArrayDeque<>());
+        Queue<Double> queue = exShootRateQueueMap.get(player);
+        queue.add(rate);
+    }
+
+    public static void batchAddExShoot(Player player, double rate, int count) {
+        for (int i = 0; i < count; i++) {
+            addExShoot(player, rate);
         }
+    }
+
+    public static void tick() {
+        exShootRateQueueMap.forEach(((player, queue) -> {
+            if (!queue.isEmpty()) {
+                if (Tick.get() % 2 == 0) {
+                    double rate = queue.remove();
+                    if (player.getMainHandItem().getItem() instanceof WraqSceptre wraqSceptre) {
+                        wraqSceptre.shootManaArrow(player, rate);
+                    }
+                }
+            }
+        }));
     }
 }
 

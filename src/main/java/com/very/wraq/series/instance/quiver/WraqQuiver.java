@@ -1,6 +1,7 @@
 package com.very.wraq.series.instance.quiver;
 
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.Tick;
 import com.very.wraq.common.Utils.ComponentUtils;
 import com.very.wraq.common.Utils.Utils;
 import com.very.wraq.projectiles.ActiveItem;
@@ -15,9 +16,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.RegistryObject;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.WeakHashMap;
+import java.util.*;
 
 public class WraqQuiver extends WraqPassiveEquip implements ActiveItem {
 
@@ -68,14 +67,10 @@ public class WraqQuiver extends WraqPassiveEquip implements ActiveItem {
         return Component.literal("箭袋").withStyle(CustomStyle.styleOfFlexible);
     }
 
-    public static WeakHashMap<Player, Integer> exShootTimesMap = new WeakHashMap<>();
-    public static WeakHashMap<Player, Double> exShootRateMap = new WeakHashMap<>();
-
     @Override
     public void active(Player player) {
         if (player.experienceLevel < Utils.levelRequire.getOrDefault(this, 0)) return;
-        exShootTimesMap.put(player, shootTimes * 2);
-        exShootRateMap.put(player, rate);
+        batchAddExShoot(player, rate, shootTimes);
         getAllQuiver().forEach(item -> {
             Compute.playerItemCoolDown(player, item, 9);
         });
@@ -85,14 +80,30 @@ public class WraqQuiver extends WraqPassiveEquip implements ActiveItem {
         return QuiverItems.ITEMS.getEntries().stream().map(RegistryObject::get).toList();
     }
 
+    public static WeakHashMap<Player, Queue<Double>> exShootRateQueueMap = new WeakHashMap<>();
+
+    public static void addExShoot(Player player, double rate) {
+        if (!exShootRateQueueMap.containsKey(player)) exShootRateQueueMap.put(player, new ArrayDeque<>());
+        Queue<Double> queue = exShootRateQueueMap.get(player);
+        queue.add(rate);
+    }
+
+    public static void batchAddExShoot(Player player, double rate, int count) {
+        for (int i = 0; i < count; i++) {
+            addExShoot(player, rate);
+        }
+    }
+
     public static void tick() {
-        exShootTimesMap.forEach((player, tick) -> {
-            if (exShootTimesMap.get(player) >= 0) exShootTimesMap.put(player, tick - 1);
-            if (exShootTimesMap.get(player) % 2 == 0) {
-                if (player.getMainHandItem().getItem() instanceof WraqBow wraqBow) {
-                    wraqBow.shoot((ServerPlayer) player, exShootRateMap.get(player));
+        exShootRateQueueMap.forEach(((player, queue) -> {
+            if (!queue.isEmpty()) {
+                if (Tick.get() % 2 == 0) {
+                    double rate = queue.remove();
+                    if (player.getMainHandItem().getItem() instanceof WraqBow wraqBow) {
+                        wraqBow.shoot((ServerPlayer) player, rate);
+                    }
                 }
             }
-        });
+        }));
     }
 }

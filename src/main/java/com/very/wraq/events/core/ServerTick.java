@@ -11,6 +11,7 @@ import com.very.wraq.process.system.element.equipAndCurios.waterElement.WaterEle
 import com.very.wraq.process.system.market.MarketInfo;
 import com.very.wraq.process.system.tower.Tower;
 import com.very.wraq.process.system.vp.VpDataHandler;
+import com.very.wraq.series.instance.mixture.WraqMixture;
 import com.very.wraq.series.instance.quiver.WraqQuiver;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.TickEvent;
@@ -33,6 +34,7 @@ public class ServerTick {
         if (event.side.isServer() && event.phase == TickEvent.Phase.START) {
             DelayOperationWithAnimation.serverTick(event);
             WraqQuiver.tick();
+            WraqMixture.tick();
             int tickCount = event.getServer().getTickCount();
             if (tickCount % 20 == 0) {
                 Level overworld = event.getServer().getLevel(Level.OVERWORLD);

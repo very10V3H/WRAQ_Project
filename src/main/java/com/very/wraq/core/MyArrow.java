@@ -139,7 +139,7 @@ public class MyArrow extends AbstractArrow {
             if (AdjustOneTime && this.tickCount > 4) {
                 List<Mob> mobList = this.level().getEntitiesOfClass(Mob.class, AABB.ofSize(this.getPosition(1), 20, 20, 20));
                 mobList.removeIf(mob -> mob instanceof Civil);
-                if (mobList.size() > 0) {
+                if (!mobList.isEmpty()) {
                     Mob mob = null;
                     double length = 50;
                     for (Mob mob1 : mobList) {
@@ -160,26 +160,6 @@ public class MyArrow extends AbstractArrow {
                     }
                 }
             }
-/*            List<Entity> list = this.level().getEntitiesOfClass(Entity.class,this.getBoundingBox().expandTowards(this.getDeltaMovement()).inflate(1.0D));
-            if (list.size() > 0 && list.get(0) instanceof Monster) {
-                Vec3 vec = this.getDeltaMovement().normalize();
-                double distance = 100;
-                Mob nearestMob = null;
-                for (int i = 0 ; i < 20 ; i ++) {
-                    Vec3 pos = this.position().add(vec.scale(0.25 * i));
-                    List<Mob> mobList = this.level().getEntitiesOfClass(Mob.class, AABB.ofSize(pos,1.5,1.5,1.5));
-                    for (Mob mob : mobList) {
-                        if (mob.getEyePosition().distanceTo(pos) < distance) {
-                            distance = mob.getEyePosition().distanceTo(pos);
-                            nearestMob = mob;
-                        }
-                    }
-                }
-                if (nearestMob != null) {
-                    CauseDamage(this,nearestMob,BaseDamage);
-                    this.remove(RemovalReason.KILLED);
-                }
-            }*/
         }
         if (this.tickCount >= 100 || this.getDeltaMovement().length() <= 0.05) {
             this.remove(RemovalReason.KILLED);

@@ -165,7 +165,6 @@ public class ServerPlayerTickEvent {
             MoonNewRune.tick(player);
             SummerEvent.tick(player);
             OnCuriosSlotTickEffect.tickEvent(player);
-            WraqMixture.tick(player);
 
             if (player.getMainHandItem().getItem() instanceof MainHandTickItem mainHandTickItem) mainHandTickItem.tick(player);
 
