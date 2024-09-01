@@ -12,6 +12,7 @@ import com.very.wraq.process.system.instance.MobEffectAndDamageMethods;
 import com.very.wraq.process.system.season.MySeason;
 import com.very.wraq.process.system.tower.Tower;
 import com.very.wraq.process.system.tower.TowerMob;
+import com.very.wraq.projectiles.OnCuriosSlotHitDamageInfluence;
 import com.very.wraq.projectiles.WraqUniformCurios;
 import com.very.wraq.series.instance.series.castle.CastleCurios;
 import com.very.wraq.series.instance.series.castle.CastleSword;
@@ -41,6 +42,7 @@ public class DamageInfluence {
         rate += StarArmor.DamageEnhance(player, monster); // 梦月
         rate += getPlayerCommonDamageUpOrDown(player);
         rate += VdWeaponCommon.damageEnhance(player, monster); // vd weapon
+        rate += OnCuriosSlotHitDamageInfluence.damageInfluence(player, monster);
         return rate;
     }
 

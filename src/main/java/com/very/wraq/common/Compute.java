@@ -62,6 +62,7 @@ import com.very.wraq.process.system.endlessinstance.DailyEndlessInstance;
 import com.very.wraq.process.system.teamInstance.NewTeamInstanceEvent;
 import com.very.wraq.process.system.tower.Tower;
 import com.very.wraq.projectiles.ActiveItem;
+import com.very.wraq.projectiles.OnKillEffectCurios;
 import com.very.wraq.projectiles.OnKillEffectOffHandItem;
 import com.very.wraq.projectiles.RandomCurios;
 import com.very.wraq.projectiles.mana.ManaArrow;
@@ -3522,9 +3523,12 @@ public class Compute {
                     // 副手击杀效果
                     Item offhandItem = player.getOffhandItem().getItem();
                     if (offhandItem instanceof OnKillEffectOffHandItem item) item.onKill(player, mob);
+
                     NetherNewRune.onKill(player, mob);
                     HuskNewRune.onKill(player, mob);
                     DailyEndlessInstance.onKillMob(player, mob);
+
+                    OnKillEffectCurios.kill(player, mob);
                 } else mob.setHealth((float) (mob.getHealth() - finalDamage));
 
                 // ---- //
