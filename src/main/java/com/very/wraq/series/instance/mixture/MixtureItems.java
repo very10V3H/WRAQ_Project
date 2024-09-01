@@ -57,6 +57,6 @@ public class MixtureItems {
     public static final RegistryObject<Item> MIXTURE_MOON = ITEMS.register("mixture_moon",
             () -> new WraqMixture(new Item.Properties().stacksTo(1).rarity(CustomStyle.MoonItalic)
                     , CustomStyle.styleOfMoon
-                    , ComponentUtils.getSuffixOfDemon(), 2, 0.65,
+                    , ComponentUtils.getSuffixOfMoon(), 2, 0.65,
                     6, 13, 4.5, 160));
 }

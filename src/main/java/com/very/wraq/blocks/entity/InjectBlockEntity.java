@@ -2,6 +2,7 @@ package com.very.wraq.blocks.entity;
 
 import com.very.wraq.blocks.blocks.InjectRecipe;
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.MySound;
 import com.very.wraq.common.Utils.Utils;
 import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.events.mob.instance.NoTeamInstanceModule;
@@ -157,7 +158,7 @@ public class InjectBlockEntity extends BlockEntity implements MenuProvider {
             return;
         }
         if (hasInjectRecipe(blockEntity)) {
-            blockEntity.progress++;
+            /*blockEntity.progress++;*/
             setChanged(level, pos, blockState);
             if (blockEntity.progress >= blockEntity.maxProgress) {
                 craftItem(blockEntity);
@@ -176,6 +177,10 @@ public class InjectBlockEntity extends BlockEntity implements MenuProvider {
 
     private void resetProgress() {
         this.progress = 0;
+    }
+
+    public void craft() {
+        craftItem(this);
     }
 
     protected static void craftItem(InjectBlockEntity blockEntity) {
@@ -220,6 +225,8 @@ public class InjectBlockEntity extends BlockEntity implements MenuProvider {
             blockEntity.itemStackHandler.extractItem(0, InjectRecipe.injectingRecipeMap.get(injectedItem.getItem()).getMaterialCount(), false);
             blockEntity.itemStackHandler.extractItem(1, InjectRecipe.injectingRecipeMap.get(injectedItem.getItem()).getOriginalMaterialNeedCount(), false);
             blockEntity.itemStackHandler.setStackInSlot(2, productItemStack);
+
+            MySound.SoundToAll(player, SoundEvents.BREWING_STAND_BREW);
         }
     }
 

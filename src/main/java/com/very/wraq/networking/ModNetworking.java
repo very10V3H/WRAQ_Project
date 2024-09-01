@@ -1,5 +1,6 @@
 package com.very.wraq.networking;
 
+import com.very.wraq.blocks.blocks.InjectC2SPacket;
 import com.very.wraq.core.BowRequestC2SPacket;
 import com.very.wraq.core.ManaAttackRequestC2SPacket;
 import com.very.wraq.networking.bowAndSceptreActive.*;
@@ -1281,6 +1282,11 @@ public class ModNetworking {
                 .decoder(SmeltDataS2CPacket::new)
                 .encoder(SmeltDataS2CPacket::toBytes)
                 .consumerMainThread(SmeltDataS2CPacket::handle)
+                .add();
+        net.messageBuilder(InjectC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(InjectC2SPacket::new)
+                .encoder(InjectC2SPacket::toBytes)
+                .consumerMainThread(InjectC2SPacket::handle)
                 .add();
     }
 

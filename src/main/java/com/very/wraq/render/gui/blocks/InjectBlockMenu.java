@@ -34,7 +34,7 @@ public class InjectBlockMenu extends AbstractContainerMenu {
         this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
             this.addSlot(new SlotItemHandler(handler, 0, 62, 25));
             this.addSlot(new SlotItemHandler(handler, 1, 62, 53));
-            this.addSlot(new SlotItemHandler(handler, 2, 83, 53));
+            this.addSlot(new SlotItemHandler(handler, 2, 90, 53));
         });
 
         addDataSlots(data);
