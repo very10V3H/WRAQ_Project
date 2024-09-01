@@ -82,5 +82,6 @@ public class NetherShield extends WraqOffHandItem implements ForgeItem, OnHitEff
         double rate = 2 - Compute.defenceDamageDecreaseRate(defenceValue, 0, 0);
         int tick = player.getServer().getTickCount();
         Dot.addDotOnMob(mob, new Dot(1, PlayerAttributes.attackDamage(player) * 0.2 * rate, 3, tick + 20, player.getName().getString(), true));
+        Compute.sendMobEffectHudToNearPlayer(mob, ModItems.NetherShield.get(), "NetherShieldDot", 20, 0, false);
     }
 }

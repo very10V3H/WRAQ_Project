@@ -207,6 +207,7 @@ public class AttributeHud {
             int offsetY = 2;
             if (ClientUtils.clientMobEffectMap.containsKey(ClientUtils.mobAttribute)) {
                 List<ClientUtils.Effect> effectList = ClientUtils.clientMobEffectMap.get(ClientUtils.mobAttribute);
+                effectList.sort((Comparator.comparingInt(ClientUtils.Effect::startTick)));
                 for (ClientUtils.Effect effect : effectList) {
                     int time = (int) (12 * (1 - (double) (ClientUtils.clientPlayerTick - effect.startTick()) / effect.lastTick()));
                     if (time < 0 && !effect.forever()) continue;

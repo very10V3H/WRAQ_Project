@@ -681,6 +681,7 @@ public class AttackEventModule {
             Utils.SnowShieldMobEffectMap.put(mob, TickCount + 40);
             Compute.AddDefenceDescreaseEffectParticle(mob, 40);
             Compute.sendEffectLastTime(player, ModItems.SnowSoul.get().getDefaultInstance(), 40);
+             Compute.sendMobEffectHudToNearPlayer(mob, ModItems.SnowShield.get(), "SnowShieldDefenceDecrease", 40, 0, false);
         }
     }
 

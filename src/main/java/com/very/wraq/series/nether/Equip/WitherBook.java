@@ -66,6 +66,7 @@ public class WitherBook extends Item {
             int tickCount = player.getServer().getTickCount();
             Utils.WitherBookMobEffectTick.put(mob, tickCount + 40);
             Compute.AddManaDefenceDescreaseEffectParticle(mob, 40);
+            Compute.sendMobEffectHudToNearPlayer(mob, ModItems.WitherBook.get(), "WitherBookManaDefenceDecrease", 40, 0, false);
             if (Utils.WitherBookPlayerEffectNum.containsKey(player)) {
                 if (Utils.WitherBookPlayerEffectTick.containsKey(player)) {
                     if (Utils.WitherBookPlayerEffectTick.get(player) < tickCount) {
@@ -79,7 +80,6 @@ public class WitherBook extends Item {
             } else Utils.WitherBookPlayerEffectNum.put(player, manaDefence * 0.25);
             Utils.WitherBookPlayerEffectTick.put(player, tickCount + 40);
             Compute.sendEffectLastTime(player, ModItems.WitherBook.get().getDefaultInstance(), 40);
-
         }
     }
 }

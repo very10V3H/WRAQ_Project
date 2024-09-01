@@ -1,6 +1,7 @@
 package com.very.wraq.series.overworld.sakuraSeries.Ship;
 
 import com.very.wraq.common.MySound;
+import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.projectiles.ActiveItem;
@@ -87,6 +88,7 @@ public class ShipSword extends WraqSword implements ActiveItem {
                 Compute.AddDefenceDescreaseEffectParticle(mob, 100);
                 Utils.shipSwordTime.put(mob, tickCount + 100);
                 Utils.shipSwordEffect.put(mob, Math.min(mobList.size(), 4));
+                Compute.sendMobEffectHudToNearPlayer(mob, ModItems.ShipSword.get(), "ShipSwordDefenceDecrease", 100, 0, false);
             });
             MySound.SoundToAll(player, SoundEvents.ANVIL_LAND);
 

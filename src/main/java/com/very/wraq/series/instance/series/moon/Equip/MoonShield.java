@@ -82,22 +82,24 @@ public class MoonShield extends Item {
         if (player.getItemBySlot(EquipmentSlot.OFFHAND).is(ModItems.MoonShield.get())) {
             int TickCount = player.getServer().getTickCount();
             if (PlayerMoonShieldMap.containsKey(player) && !PlayerMoonShieldMap.get(player).equals(mob)) {
-                Mob OldMob = PlayerMoonShieldMap.get(player);
-                OldMob.removeEffect(MobEffects.GLOWING);
+                Mob oldMob = PlayerMoonShieldMap.get(player);
+                oldMob.removeEffect(MobEffects.GLOWING);
+                Compute.removeMobEffectHudToNearPlayer(oldMob, ModItems.MoonSoul.get(), "MoonShieldCount");
                 PlayerMoonShieldCountMap.put(player, 0);
             }
             mob.addEffect(new MobEffectInstance(MobEffects.GLOWING, 88888, 1, false, false));
             PlayerMoonShieldMap.put(player, mob);
-            int Count = PlayerMoonShieldCountMap.getOrDefault(player, 0);
-            PlayerMoonShieldCountMap.put(player, ++Count);
-            if (Count == 7) {
-                Count = 0;
+            int count = PlayerMoonShieldCountMap.getOrDefault(player, 0);
+            PlayerMoonShieldCountMap.put(player, ++count);
+            if (count == 7) {
                 PlayerMoonShieldCountMap.put(player, 0);
-                Compute.sendEffectLastTime(player, ModItems.MoonSoul.get().getDefaultInstance(), 8888, Count, true);
                 playerDamageEnhanceTickMap.put(player, TickCount + 60);
+                Compute.sendEffectLastTime(player, ModItems.MoonSoul.get(), 60);
+                Compute.removeMobEffectHudToNearPlayer(mob, ModItems.MoonSoul.get(), "MoonShieldCount");
                 return Compute.XpStrengthADDamage(player, 14);
+            } else {
+                Compute.sendMobEffectHudToNearPlayer(mob, ModItems.MoonSoul.get(), "MoonShieldCount", 8888, count, true);
             }
-            Compute.sendEffectLastTime(player, ModItems.MoonSoul.get().getDefaultInstance(), 8888, Count, true);
         }
         return 0;
     }

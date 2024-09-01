@@ -1266,7 +1266,7 @@ public class PlayerAttributes {
             serverPlayerList.forEach(player1 -> {
                 if (player1.distanceTo(player) <= 6) Count.getAndIncrement();
             });
-            defencePenetration0 += 50 * Math.min(Count.get(), 4);
+            defencePenetration0 += 250 * Math.min(Count.get(), 4);
         }
 
         if (Utils.IceBowEffectMap.containsKey(player) && Utils.IceBowEffectMap.get(player) > TickCount) {

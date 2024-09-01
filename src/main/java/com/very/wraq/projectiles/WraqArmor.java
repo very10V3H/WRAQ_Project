@@ -47,8 +47,14 @@ public abstract class WraqArmor extends ArmorItem {
             put(Type.LEGGINGS, "护腿");
             put(Type.BOOTS, "靴子");
         }};
+        Map<Type, Style> styleMap = new HashMap<>() {{
+            put(Type.HELMET, CustomStyle.styleOfMoon);
+            put(Type.CHESTPLATE, Style.EMPTY.applyFormat(ChatFormatting.RED));
+            put(Type.LEGGINGS, CustomStyle.styleOfWorld);
+            put(Type.BOOTS, CustomStyle.styleOfFlexible);
+        }};
         components.add(Component.literal("防具                   ").withStyle(ChatFormatting.GRAY).
-                append(Component.literal(typeMap.get(this.type)).withStyle(CustomStyle.styleOfLife)));
+                append(Component.literal(typeMap.get(this.type)).withStyle(styleMap.get(this.type))));
         Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         Compute.DescriptionOfBasic(components);
         BasicAttributeDescription.BasicAttributeCommonDescription(components, stack);

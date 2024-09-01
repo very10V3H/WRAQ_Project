@@ -75,16 +75,16 @@ public class MoonKnife extends Item {
         if (player.getItemBySlot(EquipmentSlot.OFFHAND).is(ModItems.MoonKnife.get())) {
             int TickCount = player.getServer().getTickCount();
             if (PlayerMoonKnifeMap.containsKey(player) && !PlayerMoonKnifeMap.get(player).equals(mob)) {
-                Mob OldMob = PlayerMoonKnifeMap.get(player);
-                OldMob.removeEffect(MobEffects.GLOWING);
+                Mob oldMob = PlayerMoonKnifeMap.get(player);
+                oldMob.removeEffect(MobEffects.GLOWING);
                 PlayerMoonKnifeCountMap.put(player, 0);
+                Compute.removeMobEffectHudToNearPlayer(oldMob, ModItems.MoonSoul.get(), "MoonKnifeCount");
             }
             mob.addEffect(new MobEffectInstance(MobEffects.GLOWING, 88888, 1, false, false));
             PlayerMoonKnifeMap.put(player, mob);
-            int Count = PlayerMoonKnifeCountMap.getOrDefault(player, 0);
-            PlayerMoonKnifeCountMap.put(player, ++Count);
-            if (Count == 7) {
-                Count = 0;
+            int count = PlayerMoonKnifeCountMap.getOrDefault(player, 0);
+            PlayerMoonKnifeCountMap.put(player, ++count);
+            if (count == 7) {
                 PlayerMoonKnifeCountMap.put(player, 0);
                 List<Mob> mobList = mob.level().getEntitiesOfClass(Mob.class, AABB.ofSize(mob.position(), 15, 15, 15));
                 mobList.forEach(mob1 -> {
@@ -93,9 +93,11 @@ public class MoonKnife extends Item {
                     }
                 });
                 playerDamageEnhanceTickMap.put(player, TickCount + 60);
+                Compute.sendEffectLastTime(player, ModItems.MoonSoul.get(), 60);
+                Compute.removeMobEffectHudToNearPlayer(mob, ModItems.MoonSoul.get(), "MoonKnifeCount");
+            } else {
+                Compute.sendMobEffectHudToNearPlayer(mob, ModItems.MoonSoul.get(), "MoonKnifeCount", 8888, count, true);
             }
-            Compute.sendEffectLastTime(player, ModItems.MoonKnife.get().getDefaultInstance(), 8888, Count, true);
-
         }
     }
 

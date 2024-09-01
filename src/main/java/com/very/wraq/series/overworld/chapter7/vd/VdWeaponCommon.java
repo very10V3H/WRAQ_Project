@@ -101,6 +101,8 @@ public interface VdWeaponCommon {
                     ParticleProvider.dustParticle(player, mob.getEyePosition(), 0.5 + (countOnMob.count * 0.05), countOnMob.count * 3, CustomStyle.styleOfRed.getColor().getValue());
                 }
                 removeList.add(countOnMob);
+                Compute.sendMobEffectHudToNearPlayer(countOnMob.mob
+                        , C7Items.vdSword.get(), "vdCount", 8888, countOnMob.count, true);
             }
             list.removeAll(removeList);
         });
@@ -150,6 +152,7 @@ public interface VdWeaponCommon {
                     removeSet.add(mob);
                     if (mob.isAlive()) {
                         Compute.Damage.IgnoreDefenceDamageToMonster_Direct(player, mob, mob.getMaxHealth() * 0.04 * countMap.get(mob));
+                        Compute.removeMobEffectHudToNearPlayer(mob, C7Items.vdSword.get(), "vdCount");
                         if (mob.getHealth() < mob.getMaxHealth() * 0.04 * countMap.get(mob)) {
                             player.getCooldowns().removeCooldown(item);
                             Compute.playerManaAddOrCost(player, 100);

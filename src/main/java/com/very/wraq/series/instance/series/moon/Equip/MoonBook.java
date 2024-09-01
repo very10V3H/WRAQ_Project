@@ -77,22 +77,25 @@ public class MoonBook extends Item {
         if (player.getItemBySlot(EquipmentSlot.OFFHAND).is(ModItems.MoonBook.get())) {
             int TickCount = player.getServer().getTickCount();
             if (PlayerMoonBookMap.containsKey(player) && !PlayerMoonBookMap.get(player).equals(mob)) {
-                Mob OldMob = PlayerMoonBookMap.get(player);
-                OldMob.removeEffect(MobEffects.GLOWING);
+                Mob oldMob = PlayerMoonBookMap.get(player);
+                oldMob.removeEffect(MobEffects.GLOWING);
                 PlayerMoonBookCountMap.put(player, 0);
+                Compute.removeMobEffectHudToNearPlayer(oldMob, ModItems.MoonSoul.get(), "MoonBookCount");
             }
             mob.addEffect(new MobEffectInstance(MobEffects.GLOWING, 88888, 1, false, false));
             PlayerMoonBookMap.put(player, mob);
-            int Count = PlayerMoonBookCountMap.getOrDefault(player, 0);
-            PlayerMoonBookCountMap.put(player, ++Count);
-            if (Count == 7) {
-                Count = 0;
-                PlayerMoonBookCountMap.put(player, Count);
+            int count = PlayerMoonBookCountMap.getOrDefault(player, 0);
+            PlayerMoonBookCountMap.put(player, ++count);
+            if (count == 7) {
+                count = 0;
+                PlayerMoonBookCountMap.put(player, count);
                 playerDamageEnhanceTickMap.put(player, TickCount + 60);
-                Compute.sendEffectLastTime(player, ModItems.MoonBook.get().getDefaultInstance(), 8888, Count, true);
+                Compute.sendEffectLastTime(player, ModItems.MoonSoul.get().getDefaultInstance(), 60);
+                Compute.removeMobEffectHudToNearPlayer(mob, ModItems.MoonSoul.get(), "MoonBookCount");
                 return Compute.XpStrengthAPDamage(player, 14);
+            } else {
+                Compute.sendMobEffectHudToNearPlayer(mob, ModItems.MoonSoul.get(), "MoonBookCount", 8888, count, true);
             }
-            Compute.sendEffectLastTime(player, ModItems.MoonBook.get().getDefaultInstance(), 8888, Count, true);
         }
         return 0;
     }

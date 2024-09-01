@@ -360,6 +360,7 @@ public class PowerLogic {
                 PlayerPowerEffectToMob(player, mob);
                 Damage.ManaDamageToMonster_RateApDamage_ElementAddition(player, mob, effect, true,
                         Element.water, ElementValue.ElementValueJudgeByType(player, Element.water) + 1);
+                Compute.sendMobEffectHudToNearPlayer(mob, ModItems.LakePower.get(), "lakePowerManaDefenceDecrease", 40, 0, false);
             }
         });
 
@@ -441,6 +442,7 @@ public class PowerLogic {
                 Damage.ManaDamageToMonster_RateApDamage_ElementAddition(player, mob, effect, true,
                         Element.ice, ElementValue.ElementValueJudgeByType(player, Element.ice) + 1);
                 PlayerPowerEffectToMob(player, mob);
+                Compute.sendMobEffectHudToNearPlayer(mob, ModItems.SnowPower.get(), "SnowPowerImprison", 20, 0, false);
             }
         });
 
