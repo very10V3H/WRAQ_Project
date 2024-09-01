@@ -10,6 +10,7 @@ import com.very.wraq.common.MySound;
 import com.very.wraq.common.Utils.StringUtils;
 import com.very.wraq.common.Utils.Utils;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.customized.UniformItems;
 import com.very.wraq.events.core.InventoryCheck;
 import com.very.wraq.events.mob.loot.RandomLootEquip;
 import com.very.wraq.process.system.forge.ForgeEquipUtils;
@@ -985,7 +986,7 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider {
             return true;
         }
         if (equip.getItem() instanceof WraqUniformCurios) {
-            this.itemStackHandler.setStackInSlot(2, new ItemStack(ModItems.uniformPiece.get()));
+            this.itemStackHandler.setStackInSlot(2, new ItemStack(UniformItems.uniformPiece.get()));
             return true;
         }
         if (equip.getItem() instanceof RuneItem) {

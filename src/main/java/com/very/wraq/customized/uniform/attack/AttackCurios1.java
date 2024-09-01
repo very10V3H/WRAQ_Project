@@ -1,7 +1,7 @@
 package com.very.wraq.customized.uniform.attack;
 
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.customized.UniformItems;
 import com.very.wraq.projectiles.WraqUniformCurios;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -59,7 +59,7 @@ public class AttackCurios1 extends WraqAttackUniformCurios {
         playerLastTickMap.put(player, player.getServer().getTickCount() + 100);
         int counts = Math.min(5, playerCountsMap.getOrDefault(player, 0) + 1);
         playerCountsMap.put(player, counts);
-        Compute.sendEffectLastTime(player, ModItems.AttackCurios1.get(), 100, counts);
+        Compute.sendEffectLastTime(player, UniformItems.AttackCurios1.get(), 100, counts);
     }
 
     public static double playerCritDamageUp(Player player) {

@@ -1,7 +1,7 @@
 package com.very.wraq.customized.uniform.attack;
 
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.customized.UniformItems;
 import com.very.wraq.projectiles.WraqUniformCurios;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -60,11 +60,11 @@ public class AttackCurios2 extends WraqAttackUniformCurios {
 
     public static void tick(Player player) {
         if (!isOn(player)) {
-            Compute.removeEffectLastTime(player, ModItems.AttackCurios2.get());
+            Compute.removeEffectLastTime(player, UniformItems.AttackCurios2.get());
             return;
         }
         if (playerNearbyHasNoOthers(player))
-            Compute.sendEffectLastTime(player, ModItems.AttackCurios2.get(), 8888, 0, true);
-        else Compute.sendEffectLastTime(player, ModItems.AttackCurios2.get(), 0, 0, true);
+            Compute.sendEffectLastTime(player, UniformItems.AttackCurios2.get(), 8888, 0, true);
+        else Compute.sendEffectLastTime(player, UniformItems.AttackCurios2.get(), 0, 0, true);
     }
 }

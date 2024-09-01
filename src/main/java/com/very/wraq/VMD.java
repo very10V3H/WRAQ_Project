@@ -9,6 +9,7 @@ import com.very.wraq.common.registry.ModBlocks;
 import com.very.wraq.common.registry.ModCreativeModeTab;
 import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.registry.ModSounds;
+import com.very.wraq.customized.UniformItems;
 import com.very.wraq.entities.entities.Boss2.Boss2;
 import com.very.wraq.entities.entities.Civil.Civil;
 import com.very.wraq.entities.entities.MainBoss.MainBoss;
@@ -775,17 +776,9 @@ public class VMD {
             event.accept(ModItems.SpringScale3.get().getDefaultInstance());
         }
         if (event.getTabKey().equals(ModCreativeModeTab.CUSTOMIZED.getKey())) {
-            Item[] items = {
-                    ModItems.DING_ZHEN_MUSIC_DISC.get(),
-                    ModItems.AttackCurios0.get(), ModItems.BowCurios0.get(), ModItems.ManaCurios0.get(),
-                    ModItems.AttackCurios1.get(), ModItems.AttackCurios2.get(),
-                    ModItems.BowCurios1.get(), ModItems.BowCurios2.get(),
-                    ModItems.ManaCurios1.get(), ModItems.ManaCurios2.get(),
-                    ModItems.LifeCurios0.get(), ModItems.WaterCurios0.get(), ModItems.FireCurios0.get(),
-                    ModItems.StoneCurios0.get(), ModItems.IceCurios0.get(), ModItems.WindCurios0.get(),
-                    ModItems.LightningCurios0.get(), ModItems.uniformPiece.get()
-            };
-            for (Item item : items) event.accept(item.getDefaultInstance());
+            UniformItems.ITEMS.getEntries()
+                    .stream().map(RegistryObject::get)
+                    .forEach(event::accept);
         }
     }
 

@@ -1,5 +1,6 @@
 package com.very.wraq.common.attributeValues;
 
+import com.very.wraq.projectiles.OnHitEffectCurios;
 import com.very.wraq.projectiles.OnHitEffectOffHandWeapon;
 import com.very.wraq.series.newrunes.chapter2.KazeNewRune;
 import com.very.wraq.series.newrunes.chapter2.LightningNewRune;
@@ -15,5 +16,6 @@ public class SameTypeModule {
             onHitEffectOffHandWeapon.onHit(player, mob);
         if (type == 0) BloodManaArmor.onAttackOrArrowHit(player, mob);
         KazeNewRune.onHit(player);
+        OnHitEffectCurios.hit(player, mob);
     }
 }

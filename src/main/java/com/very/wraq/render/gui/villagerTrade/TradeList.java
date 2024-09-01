@@ -1,5 +1,6 @@
 package com.very.wraq.render.gui.villagerTrade;
 
+import com.very.wraq.customized.UniformItems;
 import com.very.wraq.process.system.element.ElementItems;
 import com.very.wraq.process.system.enhanceForge.ForgeMaterials;
 import com.very.wraq.process.system.spur.Items.SpurItems;
@@ -849,7 +850,7 @@ public class TradeList {
             }
         }
         for (ItemStack itemStack : uniformList)
-            tradeRecipeMap.put(itemStack, List.of(new ItemStack(ModItems.uniformPiece.get(), 2)));
+            tradeRecipeMap.put(itemStack, List.of(new ItemStack(UniformItems.uniformPiece.get(), 2)));
     }
 
     public static void PurpleIron() {

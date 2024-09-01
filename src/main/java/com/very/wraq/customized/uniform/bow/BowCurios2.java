@@ -1,7 +1,7 @@
 package com.very.wraq.customized.uniform.bow;
 
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.customized.UniformItems;
 import com.very.wraq.projectiles.WraqUniformCurios;
 import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -65,11 +65,11 @@ public class BowCurios2 extends WraqBowUniformCurios {
 
     public static void tick(Player player) {
         if (!isOn(player)) {
-            Compute.removeEffectLastTime(player, ModItems.BowCurios2.get());
+            Compute.removeEffectLastTime(player, UniformItems.BowCurios2.get());
             return;
         }
         if (playerNearbyHasNoOthers(player))
-            Compute.sendEffectLastTime(player, ModItems.BowCurios2.get(), 8888, 0, true);
-        else Compute.sendEffectLastTime(player, ModItems.BowCurios2.get(), 0, 0, true);
+            Compute.sendEffectLastTime(player, UniformItems.BowCurios2.get(), 8888, 0, true);
+        else Compute.sendEffectLastTime(player, UniformItems.BowCurios2.get(), 0, 0, true);
     }
 }

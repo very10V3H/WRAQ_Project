@@ -33,6 +33,7 @@ import com.very.wraq.Items.SkillItems.ID_Card;
 import com.very.wraq.Items.SkyCity.TicketToSkyCity;
 import com.very.wraq.blocks.brewing.*;
 import com.very.wraq.blocks.brewing.solidifiedSouls.*;
+import com.very.wraq.customized.UniformItems;
 import com.very.wraq.customized.uniform.attack.AttackCurios0;
 import com.very.wraq.customized.uniform.attack.AttackCurios1;
 import com.very.wraq.customized.uniform.attack.AttackCurios2;
@@ -2715,15 +2716,6 @@ public class ModItems {
     public static final RegistryObject<Item> LakeRune3 = ITEMS.register("lake_rune3",
             () -> new LakeRune3(new Item.Properties().rarity(CustomStyle.LakeBold)));
 
-    public static final RegistryObject<Item> AttackCurios0 = ITEMS.register("attack_curios_0",
-            () -> new AttackCurios0(new Item.Properties().rarity(CustomStyle.MagmaBold)));
-
-    public static final RegistryObject<Item> BowCurios0 = ITEMS.register("bow_curios_0",
-            () -> new BowCurios0(new Item.Properties().rarity(CustomStyle.LifeBold)));
-
-    public static final RegistryObject<Item> ManaCurios0 = ITEMS.register("mana_curios_0",
-            () -> new ManaCurios0(new Item.Properties().rarity(CustomStyle.EvokerBold)));
-
     public static final RegistryObject<Item> AttackSword0 = ITEMS.register("attack_sword_0",
             () -> new Item(new Item.Properties().rarity(Rarity.EPIC)));
 
@@ -3312,45 +3304,6 @@ public class ModItems {
     public static final RegistryObject<Item> TabooDevilMopUpPaper = ITEMS.register("taboo_devil_mop_up_paper",
             () -> new MopUpPaper(new Item.Properties().rarity(CustomStyle.RedBold), MopUpPaper.InstanceName.TabooDevil));
 
-    public static final RegistryObject<Item> AttackCurios1 = ITEMS.register("attack_curios_1",
-            () -> new AttackCurios1(new Item.Properties().rarity(CustomStyle.MagmaBold)));
-
-    public static final RegistryObject<Item> BowCurios1 = ITEMS.register("bow_curios_1",
-            () -> new BowCurios1(new Item.Properties().rarity(CustomStyle.LifeBold)));
-
-    public static final RegistryObject<Item> ManaCurios1 = ITEMS.register("mana_curios_1",
-            () -> new ManaCurios1(new Item.Properties().rarity(CustomStyle.EvokerBold)));
-
-    public static final RegistryObject<Item> AttackCurios2 = ITEMS.register("attack_curios_2",
-            () -> new AttackCurios2(new Item.Properties().rarity(CustomStyle.MagmaBold)));
-
-    public static final RegistryObject<Item> BowCurios2 = ITEMS.register("bow_curios_2",
-            () -> new BowCurios2(new Item.Properties().rarity(CustomStyle.LifeBold)));
-
-    public static final RegistryObject<Item> ManaCurios2 = ITEMS.register("mana_curios_2",
-            () -> new ManaCurios2(new Item.Properties().rarity(CustomStyle.EvokerBold)));
-
-    public static final RegistryObject<Item> LifeCurios0 = ITEMS.register("life_curios_0",
-            () -> new LifeCurios0(new Item.Properties().rarity(CustomStyle.LifeBold)));
-
-    public static final RegistryObject<Item> WaterCurios0 = ITEMS.register("water_curios_0",
-            () -> new WaterCurios0(new Item.Properties().rarity(CustomStyle.WaterBold)));
-
-    public static final RegistryObject<Item> FireCurios0 = ITEMS.register("fire_curios_0",
-            () -> new FireCurios0(new Item.Properties().rarity(CustomStyle.FireBold)));
-
-    public static final RegistryObject<Item> StoneCurios0 = ITEMS.register("stone_curios_0",
-            () -> new StoneCurios0(new Item.Properties().rarity(CustomStyle.StoneBold)));
-
-    public static final RegistryObject<Item> IceCurios0 = ITEMS.register("ice_curios_0",
-            () -> new IceCurios0(new Item.Properties().rarity(CustomStyle.IceBold)));
-
-    public static final RegistryObject<Item> WindCurios0 = ITEMS.register("wind_curios_0",
-            () -> new WindCurios0(new Item.Properties().rarity(CustomStyle.WindBold)));
-
-    public static final RegistryObject<Item> LightningCurios0 = ITEMS.register("lightning_curios_0",
-            () -> new LightningCurios0(new Item.Properties().rarity(CustomStyle.LightningBold)));
-
     public static final RegistryObject<Item> WorldSoulHollow = ITEMS.register("worldsoul_hollow",
             () -> new Item(new Item.Properties().rarity(CustomStyle.WorldBold)));
 
@@ -3381,8 +3334,8 @@ public class ModItems {
 /*                        new NewLotteries.Loot(new ItemStack(ModItems.AttackCurios0.get()), 0.005),
                         new NewLotteries.Loot(new ItemStack(ModItems.AttackCurios1.get()), 0.005),*/
                         /*new NewLotteries.Loot(new ItemStack(ModItems.AttackCurios0.get()), 0.005),*/
-                        new NewLotteries.Loot(new ItemStack(ModItems.AttackCurios2.get()), 0.005),
-                        new NewLotteries.Loot(new ItemStack(ModItems.FireCurios0.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(UniformItems.AttackCurios2.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(UniformItems.FireCurios0.get()), 0.005),
                         /*new NewLotteries.Loot(new ItemStack(ModItems.LifeCrystal0.get()), 0.005),*/
 /*                        new NewLotteries.Loot(new ItemStack(ModItems.WaterCurios0.get()), 0.005),
                         new NewLotteries.Loot(new ItemStack(ModItems.FireCurios0.get()), 0.005),
@@ -3405,8 +3358,8 @@ public class ModItems {
 /*                        new NewLotteries.Loot(new ItemStack(ModItems.BowCurios0.get()), 0.005),
                         new NewLotteries.Loot(new ItemStack(ModItems.BowCurios1.get()), 0.005),*/
                         /*new NewLotteries.Loot(new ItemStack(ModItems.BowCurios0.get()), 0.005),*/
-                        new NewLotteries.Loot(new ItemStack(ModItems.BowCurios2.get()), 0.005),
-                        new NewLotteries.Loot(new ItemStack(ModItems.FireCurios0.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(UniformItems.BowCurios2.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(UniformItems.FireCurios0.get()), 0.005),
                         /*new NewLotteries.Loot(new ItemStack(ModItems.LifeCrystal0.get()), 0.005),*/
 /*                        new NewLotteries.Loot(new ItemStack(ModItems.WaterCurios0.get()), 0.005),
                         new NewLotteries.Loot(new ItemStack(ModItems.FireCurios0.get()), 0.005),
@@ -3429,8 +3382,8 @@ public class ModItems {
 /*                        new NewLotteries.Loot(new ItemStack(ModItems.ManaCurios0.get()), 0.005),
                         new NewLotteries.Loot(new ItemStack(ModItems.ManaCurios1.get()), 0.005),*/
                         /*new NewLotteries.Loot(new ItemStack(ModItems.ManaCurios0.get()), 0.005),*/
-                        new NewLotteries.Loot(new ItemStack(ModItems.ManaCurios2.get()), 0.005),
-                        new NewLotteries.Loot(new ItemStack(ModItems.FireCurios0.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(UniformItems.ManaCurios2.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(UniformItems.FireCurios0.get()), 0.005),
                         /*new NewLotteries.Loot(new ItemStack(ModItems.LifeCrystal0.get()), 0.005),*/
 /*                        new NewLotteries.Loot(new ItemStack(ModItems.WaterCurios0.get()), 0.005),
                         new NewLotteries.Loot(new ItemStack(ModItems.FireCurios0.get()), 0.005),
@@ -4113,9 +4066,6 @@ public class ModItems {
 
     public static final RegistryObject<Item> CastleManaBootsForgeDraw = ITEMS.register("castle_mana_boots_forge_draw",
             () -> new WraqForge(new Item.Properties().rarity(CustomStyle.CastleBold), ModItems.CastleManaBoots.get()));
-
-    public static final RegistryObject<Item> uniformPiece = ITEMS.register("uniform_piece",
-            () -> new SimpleFoiledItem(new Item.Properties().rarity(CustomStyle.WorldBold)));
 
     public static final RegistryObject<Item> skinTemplatePaper = ITEMS.register("skin_template_paper",
             () -> new SimpleFoiledItem(new Item.Properties().rarity(Rarity.UNCOMMON)));

@@ -4,6 +4,7 @@ import com.mojang.logging.LogUtils;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.Utils.Utils;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.customized.UniformItems;
 import com.very.wraq.series.specialevents.SpecialEventItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -107,7 +108,7 @@ public class InventoryCheck {
                 ModItems.SwordLottery.get(),
                 ModItems.BowLottery.get(),
                 ModItems.SceptreLottery.get(),
-                ModItems.uniformPiece.get()
+                UniformItems.uniformPiece.get()
         ));
         for (Object o : SpecialEventItems.ITEMS.getEntries().toArray()) {
             RegistryObject<Item> item = (RegistryObject<Item>) o;

@@ -1,5 +1,6 @@
 package com.very.wraq.common.registry;
 
+import com.very.wraq.customized.UniformItems;
 import com.very.wraq.events.mob.loot.C1LootItems;
 import com.very.wraq.process.system.spur.Items.SpurItems;
 import com.very.wraq.common.Utils.Utils;
@@ -45,7 +46,7 @@ public class ModCreativeModeTab {
     public static RegistryObject<CreativeModeTab> SPRING = CREATIVE_MODE_TAB.register("spring", () ->
             CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.RedEnvelope.get())).title(Component.literal("春节活动")).build());
     public static RegistryObject<CreativeModeTab> CUSTOMIZED = CREATIVE_MODE_TAB.register("customized", () ->
-            CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.AttackCurios0.get())).title(Component.literal("制式")).build());
+            CreativeModeTab.builder().icon(() -> new ItemStack(UniformItems.AttackCurios0.get())).title(Component.literal("制式")).build());
     public static RegistryObject<CreativeModeTab> QINGMING = CREATIVE_MODE_TAB.register("qingming", () ->
             CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.QingTuan.get())).title(Component.literal("清明")).build());
     public static RegistryObject<CreativeModeTab> ELEMENT = CREATIVE_MODE_TAB.register("elememt", () ->
