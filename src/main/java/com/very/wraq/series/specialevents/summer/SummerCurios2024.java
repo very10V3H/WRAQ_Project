@@ -82,10 +82,6 @@ public class SummerCurios2024 extends WraqCurios implements OnCuriosSlotAttribut
         return false;
     }
 
-    public static boolean isOn(Player player) {
-        return WraqCurios.isOn(SummerCurios2024.class, player);
-    }
-
     @Override
     public double attributes(Player player, String attributesType) {
         if (player.experienceLevel < levelRequirement()) return 0;

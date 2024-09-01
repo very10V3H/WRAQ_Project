@@ -1,30 +1,9 @@
 package com.very.wraq.core;
 
 import com.very.wraq.commands.stable.players.DebugCommand;
-import com.very.wraq.common.MySound;
-import com.very.wraq.customized.Customize;
-import com.very.wraq.customized.uniform.mana.ManaCurios1;
-import com.very.wraq.events.instance.IceKnight;
-import com.very.wraq.networking.ModNetworking;
-import com.very.wraq.networking.misc.ParticlePackets.EffectParticle.ManaDefencePenetrationParticleS2CPacket;
-import com.very.wraq.networking.misc.SkillPackets.Charging.ChargedClearS2CPacket;
-import com.very.wraq.networking.misc.SkillPackets.SkillImageS2CPacket;
-import com.very.wraq.process.system.element.Element;
-import com.very.wraq.process.func.particle.ParticleProvider;
-import com.very.wraq.projectiles.OnHitEffectMainHandWeapon;
-import com.very.wraq.projectiles.mana.ManaArrow;
-import com.very.wraq.projectiles.mana.NewArrowMagma;
-import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.series.instance.mixture.WraqMixture;
-import com.very.wraq.series.instance.series.castle.CastleManaArmor;
-import com.very.wraq.series.instance.series.ice.IceBook;
-import com.very.wraq.series.instance.series.moon.Equip.MoonBook;
-import com.very.wraq.series.instance.series.moon.Equip.MoonSceptre;
-import com.very.wraq.series.instance.series.moon.MoonCurios;
-import com.very.wraq.series.overworld.castle.TreeBracelet;
-import com.very.wraq.series.newrunes.chapter1.VolcanoNewRune;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.ModEntityType;
+import com.very.wraq.common.MySound;
 import com.very.wraq.common.Utils.StringUtils;
 import com.very.wraq.common.Utils.Struct.ManaSkillStruct.ManaSkill3;
 import com.very.wraq.common.Utils.Struct.ManaSkillStruct.ManaSkill6;
@@ -35,6 +14,26 @@ import com.very.wraq.common.attributeValues.PlayerAttributes;
 import com.very.wraq.common.attributeValues.SameTypeModule;
 import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.registry.ModSounds;
+import com.very.wraq.customized.uniform.mana.ManaCurios1;
+import com.very.wraq.events.instance.IceKnight;
+import com.very.wraq.networking.ModNetworking;
+import com.very.wraq.networking.misc.ParticlePackets.EffectParticle.ManaDefencePenetrationParticleS2CPacket;
+import com.very.wraq.networking.misc.SkillPackets.Charging.ChargedClearS2CPacket;
+import com.very.wraq.networking.misc.SkillPackets.SkillImageS2CPacket;
+import com.very.wraq.process.func.particle.ParticleProvider;
+import com.very.wraq.process.system.element.Element;
+import com.very.wraq.projectiles.OnHitEffectMainHandWeapon;
+import com.very.wraq.projectiles.mana.ManaArrow;
+import com.very.wraq.projectiles.mana.NewArrowMagma;
+import com.very.wraq.render.toolTip.CustomStyle;
+import com.very.wraq.series.instance.mixture.WraqMixture;
+import com.very.wraq.series.instance.series.castle.CastleManaArmor;
+import com.very.wraq.series.instance.series.ice.IceBook;
+import com.very.wraq.series.instance.series.moon.Equip.MoonBook;
+import com.very.wraq.series.instance.series.moon.Equip.MoonSceptre;
+import com.very.wraq.series.instance.series.moon.MoonCurios;
+import com.very.wraq.series.newrunes.chapter1.VolcanoNewRune;
+import com.very.wraq.series.overworld.castle.TreeBracelet;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -87,7 +86,6 @@ public class ManaAttackModule {
             exDamage += ManaSkill12(data, player, baseDamage); // 盈能攻击（移动、攻击以及受到攻击将会获得充能，当充能满时，下一次攻击将造成额外200%伤害，并在以目标为中心的范围内造成100%伤害）
             exDamage += BlackForestCore(player, monster); // 收割魔核
             exDamage += EarthManaArmor(player, monster); // 地蕴魔法被动
-            exDamage += Customize.ManaExDamage(player, monster, baseDamage); // Customized
 
             damageIgnoreDefence += Compute.ManaSkillLevelGet(data, 0) * baseDamage * 0.01; // 法术热诚（你的法术攻击额外造成法术攻击1%的真实伤害）
             damageIgnoreDefence += ManaSKill6(data, player, baseDamage); // 完美（持续命中目标，将至多造成50%额外真实伤害）
@@ -95,7 +93,6 @@ public class ManaAttackModule {
             damageIgnoreDefence += SakuraCoreExIgnoreDefenceDamage(player); // 樱妖魔核
             damageIgnoreDefence += MoonCurios.Passive(player, monster); // 朔望馈赠
             damageIgnoreDefence += MoonBook.MoonBook(player, monster); // 尘月副手
-            damageIgnoreDefence += Customize.DamageIgnoreDefence(player); // Customized
             damageIgnoreDefence += CastleManaArmor.ExIgnoreDefenceDamage(player);
 
             if (Compute.ManaSkillLevelGet(data, 5) > 0 && player.getHealth() / player.getMaxHealth() < 0.8) {
@@ -108,7 +105,6 @@ public class ManaAttackModule {
             DamageEnhance += DamageInfluence.getPlayerCommonDamageUpOrDown(player, monster);
             DamageEnhance += IceKnight.IceKnightHealthManaDamageFix(monster); // 冰霜骑士伤害修正
             DamageEnhance += NetherManaArmor(player, monster); // 下界混沌套装
-            DamageEnhance += Customize.ManaDamageEnhance(player, monster); // Customized
             DamageEnhance += DamageInfluence.getPlayerManaDamageEnhance(player); // 魔法伤害提升
 
             double NormalAttackDamageEnhance = 0;
@@ -200,7 +196,6 @@ public class ManaAttackModule {
             WraqMixture.onLastTimeManaArrowHit(player);
 
             ManaCurios1.ManaDamageExIgnoreDefenceDamage(player, monster, damage);
-            Customize.ManaNormalAttackEffect(player, monster); // Customized
             TreeBracelet.Passive(player, monster); // 古树手镯
             MoonSceptre.Passive(player, monster); //
             MoonSceptre.MoonSceptreActive(player, monster); // 星穹玉杖

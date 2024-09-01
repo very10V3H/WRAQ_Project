@@ -1,13 +1,19 @@
 package com.very.wraq.core;
 
 import com.very.wraq.commands.stable.players.DebugCommand;
-import com.very.wraq.customized.Customize;
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.Utils.StringUtils;
+import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.attributeValues.DamageInfluence;
+import com.very.wraq.common.attributeValues.MobAttributes;
+import com.very.wraq.common.attributeValues.PlayerAttributes;
+import com.very.wraq.common.attributeValues.SameTypeModule;
 import com.very.wraq.customized.uniform.bow.BowCurios0;
 import com.very.wraq.entities.entities.Civil.Civil;
 import com.very.wraq.events.instance.IceKnight;
 import com.very.wraq.events.modules.AttackEventModule;
-import com.very.wraq.process.system.element.Element;
 import com.very.wraq.process.func.particle.ParticleProvider;
+import com.very.wraq.process.system.element.Element;
 import com.very.wraq.projectiles.OnHitEffectMainHandWeapon;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.instance.series.castle.CastleBow;
@@ -17,16 +23,9 @@ import com.very.wraq.series.instance.series.moon.Equip.MoonBow;
 import com.very.wraq.series.instance.series.moon.Equip.MoonKnife;
 import com.very.wraq.series.instance.series.moon.MoonCurios;
 import com.very.wraq.series.instance.series.taboo.TabooSwiftArmor;
-import com.very.wraq.series.overworld.castle.BeaconBracelet;
 import com.very.wraq.series.newrunes.chapter1.VolcanoNewRune;
+import com.very.wraq.series.overworld.castle.BeaconBracelet;
 import com.very.wraq.series.overworld.chapter7.BoneImpKnife;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.Utils.StringUtils;
-import com.very.wraq.common.Utils.Utils;
-import com.very.wraq.common.attributeValues.DamageInfluence;
-import com.very.wraq.common.attributeValues.MobAttributes;
-import com.very.wraq.common.attributeValues.PlayerAttributes;
-import com.very.wraq.common.attributeValues.SameTypeModule;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.nbt.CompoundTag;
@@ -309,7 +308,6 @@ public class MyArrow extends AbstractArrow {
             AttackEvent.SpringSwiftArmor(player, monster);
             Compute.ChargingModule(data, player);
             BeaconBracelet.Passive(player, monster); // 烽火手镯
-            Customize.ArrowNormalAttackEffect(player, monster, damage, shootByPlayer, IsManaArrow);
             DevilSwiftArmor.DevilSwiftArmorPassive(player, monster); // 猎魔者足具
             if (shootByPlayer) {
                 MoonBow.Passive(player, monster);
