@@ -1,7 +1,11 @@
 package com.very.wraq.customized.uniform.mana;
 
+import com.very.wraq.common.Utils.ComponentUtils;
 import com.very.wraq.common.Utils.Utils;
 import com.very.wraq.projectiles.WraqUniformCurios;
+import com.very.wraq.render.toolTip.CustomStyle;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
 
 public abstract class WraqManaUniformCurios extends WraqUniformCurios {
 
@@ -14,4 +18,13 @@ public abstract class WraqManaUniformCurios extends WraqUniformCurios {
         Utils.coolDownDecrease.put(this, 0.3);
     }
 
+    @Override
+    public Style hoverMainStyle() {
+        return CustomStyle.styleOfMana;
+    }
+
+    @Override
+    public Component suffix() {
+        return ComponentUtils.getUniformSuffix();
+    }
 }

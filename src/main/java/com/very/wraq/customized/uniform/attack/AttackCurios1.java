@@ -1,10 +1,8 @@
 package com.very.wraq.customized.uniform.attack;
 
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.Utils.ComponentUtils;
 import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.projectiles.WraqUniformCurios;
-import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -44,16 +42,6 @@ public class AttackCurios1 extends WraqAttackUniformCurios {
         components.add(Component.literal(" 只有近战攻击的暴击能够触发横行").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
         components.add(Component.literal(" 残暴的君主，终将被民众推翻。").withStyle(style));
         return components;
-    }
-
-    @Override
-    public Style hoverMainStyle() {
-        return CustomStyle.styleOfPower;
-    }
-
-    @Override
-    public Component suffix() {
-        return ComponentUtils.getUniformSuffix();
     }
 
     public static Map<Player, Integer> playerCountsMap = new HashMap<>();

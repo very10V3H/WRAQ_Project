@@ -1,7 +1,6 @@
 package com.very.wraq.customized.uniform.attack;
 
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.Utils.ComponentUtils;
 import com.very.wraq.projectiles.WraqUniformCurios;
 import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -31,16 +30,6 @@ public class AttackCurios0 extends WraqAttackUniformCurios {
                 append(Compute.AttributeDescription.CritDamage("15%总")));
         components.add(Component.literal(" 残暴的君主，终将被民众推翻。").withStyle(style));
         return components;
-    }
-
-    @Override
-    public Style hoverMainStyle() {
-        return CustomStyle.styleOfPower;
-    }
-
-    @Override
-    public Component suffix() {
-        return ComponentUtils.getUniformSuffix();
     }
 
     public static double playerFinalDamageEnhance(Player player) {

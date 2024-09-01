@@ -1,10 +1,8 @@
 package com.very.wraq.customized.uniform.mana;
 
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.Utils.ComponentUtils;
 import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.projectiles.WraqUniformCurios;
-import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -37,16 +35,6 @@ public class ManaCurios2 extends WraqManaUniformCurios {
                 append(Compute.AttributeDescription.ManaDamage("50%总")));
         components.add(Component.literal(" 法术的研究者，也是亚瑟王的挚友和导师——梅林，给予新生法师的礼物。").withStyle(style));
         return components;
-    }
-
-    @Override
-    public Style hoverMainStyle() {
-        return CustomStyle.styleOfMana;
-    }
-
-    @Override
-    public Component suffix() {
-        return ComponentUtils.getUniformSuffix();
     }
 
     public static Map<Player, Boolean> onPlayerMap = new HashMap<>();

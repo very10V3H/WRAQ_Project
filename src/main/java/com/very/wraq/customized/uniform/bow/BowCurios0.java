@@ -43,16 +43,6 @@ public class BowCurios0 extends WraqBowUniformCurios {
         return components;
     }
 
-    @Override
-    public Style hoverMainStyle() {
-        return CustomStyle.styleOfFlexible;
-    }
-
-    @Override
-    public Component suffix() {
-        return ComponentUtils.getUniformSuffix();
-    }
-
     public static Map<Player, Boolean> onPlayerMap = new HashMap<>();
 
     public static boolean IsOn(Player player) {

@@ -2,7 +2,6 @@ package com.very.wraq.customized.uniform.bow;
 
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.MySound;
-import com.very.wraq.common.Utils.ComponentUtils;
 import com.very.wraq.core.MyArrow;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.projectiles.WraqBow;
@@ -46,16 +45,6 @@ public class BowCurios1 extends WraqBowUniformCurios {
                 append(Component.literal("箭矢").withStyle(style)));
         components.add(Component.literal(" 不仅是敏捷，力量、智慧对在恶劣环境中的猎手同样重要。").withStyle(style));
         return components;
-    }
-
-    @Override
-    public Style hoverMainStyle() {
-        return CustomStyle.styleOfFlexible;
-    }
-
-    @Override
-    public Component suffix() {
-        return ComponentUtils.getUniformSuffix();
     }
 
     public static Map<Player, Boolean> onPlayerMap = new HashMap<>();
