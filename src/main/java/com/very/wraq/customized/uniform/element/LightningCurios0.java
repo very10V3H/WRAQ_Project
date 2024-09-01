@@ -53,11 +53,6 @@ public class LightningCurios0 extends WraqElementUniformCurios {
         return WraqUniformCurios.isOn(LightningCurios0.class, player);
     }
 
-    public static double playerFinalDamageEnhance(Player player) {
-        if (!isOn(player)) return 0;
-        return 0.5;
-    }
-
     public static double playerLightningElementValueEnhance(Player player) {
         if (!isOn(player)) return 1;
         return 2;

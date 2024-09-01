@@ -1,7 +1,6 @@
 package com.very.wraq.customized.uniform.bow;
 
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.Utils.ComponentUtils;
 import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.projectiles.WraqUniformCurios;
 import com.very.wraq.render.toolTip.CustomStyle;
@@ -47,11 +46,6 @@ public class BowCurios0 extends WraqBowUniformCurios {
 
     public static boolean IsOn(Player player) {
         return WraqUniformCurios.isOn(BowCurios0.class, player);
-    }
-
-    public static double playerFinalDamageEnhance(Player player) {
-        if (!IsOn(player)) return 0;
-        return 0.5;
     }
 
     public static int activeLastTick = 0;

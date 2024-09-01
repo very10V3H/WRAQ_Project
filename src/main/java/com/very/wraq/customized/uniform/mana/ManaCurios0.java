@@ -39,11 +39,6 @@ public class ManaCurios0 extends WraqManaUniformCurios {
         return WraqUniformCurios.isOn(ManaCurios0.class, player);
     }
 
-    public static double playerFinalDamageEnhance(Player player) {
-        if (!IsOn(player)) return 0;
-        return 0.5;
-    }
-
     public static double PlayerFinalManaDamageEnhance(Player player) {
         if (!IsOn(player)) return 1;
         return 1.35;

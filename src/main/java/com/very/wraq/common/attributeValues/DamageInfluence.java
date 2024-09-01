@@ -1,26 +1,18 @@
 package com.very.wraq.common.attributeValues;
 
+import com.very.wraq.common.Compute;
 import com.very.wraq.core.ManaAttackModule;
-import com.very.wraq.customized.uniform.attack.AttackCurios0;
-import com.very.wraq.customized.uniform.attack.AttackCurios1;
-import com.very.wraq.customized.uniform.attack.AttackCurios2;
-import com.very.wraq.customized.uniform.bow.BowCurios0;
-import com.very.wraq.customized.uniform.bow.BowCurios1;
-import com.very.wraq.customized.uniform.bow.BowCurios2;
-import com.very.wraq.customized.uniform.element.*;
-import com.very.wraq.customized.uniform.mana.ManaCurios0;
-import com.very.wraq.customized.uniform.mana.ManaCurios1;
-import com.very.wraq.customized.uniform.mana.ManaCurios2;
 import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.events.modules.AttackEventModule;
-import com.very.wraq.process.system.element.equipAndCurios.fireElement.FireEquip;
-import com.very.wraq.process.system.instance.MobEffectAndDamageMethods;
 import com.very.wraq.process.series.labourDay.LabourDayIronHoe;
 import com.very.wraq.process.series.labourDay.LabourDayIronPickaxe;
 import com.very.wraq.process.series.potion.NewPotionEffects;
+import com.very.wraq.process.system.element.equipAndCurios.fireElement.FireEquip;
+import com.very.wraq.process.system.instance.MobEffectAndDamageMethods;
 import com.very.wraq.process.system.season.MySeason;
 import com.very.wraq.process.system.tower.Tower;
 import com.very.wraq.process.system.tower.TowerMob;
+import com.very.wraq.projectiles.WraqUniformCurios;
 import com.very.wraq.series.instance.series.castle.CastleCurios;
 import com.very.wraq.series.instance.series.castle.CastleSword;
 import com.very.wraq.series.instance.series.ice.IceBook;
@@ -31,7 +23,6 @@ import com.very.wraq.series.newrunes.chapter2.HuskNewRune;
 import com.very.wraq.series.newrunes.chapter6.MoonNewRune;
 import com.very.wraq.series.overworld.chapter7.star.StarArmor;
 import com.very.wraq.series.overworld.chapter7.star.StarBottle;
-import com.very.wraq.common.Compute;
 import com.very.wraq.series.overworld.chapter7.vd.VdWeaponCommon;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
@@ -39,7 +30,7 @@ import net.minecraft.world.entity.player.Player;
 import static com.very.wraq.core.ManaAttackModule.ManaSkill11;
 
 public class DamageInfluence {
-    public static double PlayerCommonDamageUpOrDown(Player player, Mob monster) {
+    public static double getPlayerCommonDamageUpOrDown(Player player, Mob monster) {
         double rate = 0;
         rate += Compute.LevelSuppress(player, monster); // 等级压制
         rate += AttackEventModule.IceArmorDamageEnhance(player, monster); // 雪上覆霜
@@ -48,12 +39,12 @@ public class DamageInfluence {
         rate += CastleCurios.DamageEnhance(player, monster); // 随机饰品被动
         rate += PurpleIronSword.damageEnhance(player, monster);
         rate += StarArmor.DamageEnhance(player, monster); // 梦月
-        rate += PlayerCommonDamageUpOrDown(player);
+        rate += getPlayerCommonDamageUpOrDown(player);
         rate += VdWeaponCommon.damageEnhance(player, monster); // vd weapon
         return rate;
     }
 
-    public static double PlayerCommonDamageUpOrDown(Player player) {
+    public static double getPlayerCommonDamageUpOrDown(Player player) {
         double rate = 0;
         rate += AttackEventModule.SwordSkill5DamageEnhance(player); // 双刃剑
         rate += AttackEventModule.ManaSkill5DamageEnhance(player); // 法术专注
@@ -69,14 +60,14 @@ public class DamageInfluence {
         return rate;
     }
 
-    public static double PlayerFinalDamageEnhance(Player player, Mob mob) {
+    public static double getPlayerFinalDamageEnhance(Player player, Mob mob) {
         double rate = 0;
         rate -= MobEffectAndDamageMethods.PlayerDamageDecreaseRate(player, mob);
-        rate += PlayerFinalDamageEnhance(player);
+        rate += getPlayerFinalDamageEnhance(player);
         return rate;
     }
 
-    public static double PlayerAttackDamageEnhance(Player player) {
+    public static double getPlayerAttackDamageEnhance(Player player) {
         double rate = 0;
         rate += AttackEventModule.SwordSKillEnhance(player); // 多余技能点
         rate += AttackEventModule.BowSKillEnhance(player); // 多余技能点
@@ -85,7 +76,7 @@ public class DamageInfluence {
         return rate;
     }
 
-    public static double PlayerManaDamageEnhance(Player player) {
+    public static double getPlayerManaDamageEnhance(Player player) {
         double rate = 0;
         rate += ManaAttackModule.ManaSkill10DamageEnhance(player);
         rate += ManaSkill11(player);
@@ -95,56 +86,40 @@ public class DamageInfluence {
         return rate;
     }
 
-    public static double PlayerNormalSwordAttackDamageEnhance(Player player) {
+    public static double getPlayerNormalSwordAttackDamageEnhance(Player player) {
         double rate = 0;
         rate += AttackEventModule.MineShield(player); // 盾击
         return rate;
     }
 
-    public static double PlayerNormalBowAttackDamageEnhance(Player player) {
+    public static double getPlayerNormalBowAttackDamageEnhance(Player player) {
         double rate = 0;
         rate += 2.25 * (1 - (16 / (16 + PlayerAttributes.extraSwiftness(player)))); // 迅捷加成
         return rate;
     }
 
-    public static double PlayerNormalManaAttackDamageEnhance(Player player) {
+    public static double getPlayerNormalManaAttackDamageEnhance(Player player) {
         double rate = 0;
 
         return rate;
     }
 
-    public static double PlayerFinalDamageEnhance(Player player) {
+    public static double getPlayerFinalDamageEnhance(Player player) {
         double rate = 0;
 
-        rate += AttackCurios0.playerFinalDamageEnhance(player);
-        rate += BowCurios0.playerFinalDamageEnhance(player);
-        rate += ManaCurios0.playerFinalDamageEnhance(player);
-
-        rate += AttackCurios1.playerFinalDamageEnhance(player);
-        rate += BowCurios1.playerFinalDamageEnhance(player);
-        rate += ManaCurios1.playerFinalDamageEnhance(player);
-
-        rate += AttackCurios2.playerFinalDamageEnhance(player);
-        rate += BowCurios2.playerFinalDamageEnhance(player);
-        rate += ManaCurios2.playerFinalDamageEnhance(player);
-
-        rate += LifeCurios0.playerFinalDamageEnhance(player);
-        rate += WaterCurios0.playerFinalDamageEnhance(player);
-        rate += FireCurios0.playerFinalDamageEnhance(player);
-        rate += StoneCurios0.playerFinalDamageEnhance(player);
-        rate += IceCurios0.playerFinalDamageEnhance(player);
-        rate += WindCurios0.playerFinalDamageEnhance(player);
-        rate += LightningCurios0.playerFinalDamageEnhance(player);
+        rate += 0.5 * Compute.CuriosAttribute.getCuriosList(player)
+                .stream().filter(curios -> curios.getItem() instanceof WraqUniformCurios)
+                .count();
         return rate;
     }
 
-    public static double PlayerTotalDamageRate(Player player) {
+    public static double getPlayerTotalDamageRate(Player player) {
         double rate = 1;
         rate += MySeason.playerTotalDamageRate();
         return rate;
     }
 
-    public static double MonsterControlDamageEffect(Player player, Mob mob) {
+    public static double getMonsterControlDamageEffect(Player player, Mob mob) {
         double rate = 1;
         rate += TowerMob.playerIsChallenging3FloorAndInFire(player) ? -0.5 : 0;
         rate -= TowerMob.playerIsChallenging5FloorDamageDecrease(player);
@@ -155,13 +130,13 @@ public class DamageInfluence {
         return rate;
     }
 
-    public static double playerWithstandDamageInfluence(Player player, Mob mob) {
+    public static double getPlayerWithstandDamageInfluence(Player player, Mob mob) {
         double rate = 1;
         rate += MineNewRune.withstandDamageInfluence(player);
         return rate;
     }
 
-    public static double playerNormalAttackBaseRate(Player player) {
+    public static double getPlayerNormalAttackBaseRate(Player player) {
         double rate = 1;
         rate += VdWeaponCommon.normalAttackRateEnhance(player);
         return rate;

@@ -43,11 +43,6 @@ public class ManaCurios1 extends WraqManaUniformCurios {
         return WraqUniformCurios.isOn(ManaCurios1.class, player);
     }
 
-    public static double playerFinalDamageEnhance(Player player) {
-        if (!IsOn(player)) return 0;
-        return 0.5;
-    }
-
     public static void ManaDamageExIgnoreDefenceDamage(Player player, Mob mob, double damage) {
         if (!IsOn(player)) return;
         Compute.Damage.DamageIgNoreDefenceToMonster(player, mob, damage * 0.35);

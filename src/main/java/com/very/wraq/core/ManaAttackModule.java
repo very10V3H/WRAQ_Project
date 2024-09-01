@@ -74,7 +74,7 @@ public class ManaAttackModule {
         if (entity instanceof Mob monster && !(entity instanceof Villager)) {
 
             Utils.PlayerFireWorkFightCoolDown.put(player, player.getServer().getTickCount() + 200);
-            double damage = baseDamage * DamageInfluence.playerNormalAttackBaseRate(player);
+            double damage = baseDamage * DamageInfluence.getPlayerNormalAttackBaseRate(player);
             damage *= VolcanoNewRune.attackEnhance(player);
             double defence = MobAttributes.manaDefence(monster);
             double exDamage = 0;
@@ -105,14 +105,14 @@ public class ManaAttackModule {
             double DamageEnhance = 0; // 乘区0
             DamageEnhance += ManaSkill3(data, player, monster); // 机体解构（对一名目标的持续法术攻击，可以使你对该目标的伤害至多提升至2%，在5次攻击后达到最大值）
             DamageEnhance += SakuraCoreDecreaseDamage(player); // 樱妖魔核
-            DamageEnhance += DamageInfluence.PlayerCommonDamageUpOrDown(player, monster);
+            DamageEnhance += DamageInfluence.getPlayerCommonDamageUpOrDown(player, monster);
             DamageEnhance += IceKnight.IceKnightHealthManaDamageFix(monster); // 冰霜骑士伤害修正
             DamageEnhance += NetherManaArmor(player, monster); // 下界混沌套装
             DamageEnhance += Customize.ManaDamageEnhance(player, monster); // Customized
-            DamageEnhance += DamageInfluence.PlayerManaDamageEnhance(player); // 魔法伤害提升
+            DamageEnhance += DamageInfluence.getPlayerManaDamageEnhance(player); // 魔法伤害提升
 
             double NormalAttackDamageEnhance = 0;
-            NormalAttackDamageEnhance += DamageInfluence.PlayerNormalManaAttackDamageEnhance(player); // 普通法球攻击伤害提升
+            NormalAttackDamageEnhance += DamageInfluence.getPlayerNormalManaAttackDamageEnhance(player); // 普通法球攻击伤害提升
             Random random = new Random();
             boolean isCrit = random.nextDouble(1) < PlayerAttributes.critRate(player);
             if (isCrit) NormalAttackDamageEnhance += ManaSkill10(player); // 力凝魔核
@@ -130,16 +130,16 @@ public class ManaAttackModule {
             damageIgnoreDefence *= (1 + DamageEnhance);
             damage += exDamage;
             // final damage enhance
-            damage *= (1 + DamageInfluence.PlayerFinalDamageEnhance(player, monster));
-            damageIgnoreDefence *= (1 + DamageInfluence.PlayerFinalDamageEnhance(player, monster));
+            damage *= (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, monster));
+            damageIgnoreDefence *= (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, monster));
             // defence compute
             damage *= Compute.manaDefenceDamageDecreaseRate(defence, DefencePenetration, DefencePenetration0);
             // total damage
-            damage *= DamageInfluence.PlayerTotalDamageRate(player);
-            damageIgnoreDefence *= DamageInfluence.PlayerTotalDamageRate(player);
+            damage *= DamageInfluence.getPlayerTotalDamageRate(player);
+            damageIgnoreDefence *= DamageInfluence.getPlayerTotalDamageRate(player);
             // mob control
-            damage *= DamageInfluence.MonsterControlDamageEffect(player, monster);
-            damageIgnoreDefence *= DamageInfluence.MonsterControlDamageEffect(player, monster);
+            damage *= DamageInfluence.getMonsterControlDamageEffect(player, monster);
+            damageIgnoreDefence *= DamageInfluence.getMonsterControlDamageEffect(player, monster);
             // 元素
             double ElementDamageEnhance = 0;
             double ElementDamageEffect = 1;
@@ -212,7 +212,7 @@ public class ManaAttackModule {
             if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false)) {
                 player.sendSystemMessage(Component.literal("NormalAttackDamageEnhance : " + NormalAttackDamageEnhance));
                 player.sendSystemMessage(Component.literal("DamageEnhance : " + DamageEnhance));
-                player.sendSystemMessage(Component.literal("DamageEnhances.PlayerFinalDamageEnhance(player,monster) : " + DamageInfluence.PlayerFinalDamageEnhance(player, monster)));
+                player.sendSystemMessage(Component.literal("DamageEnhances.PlayerFinalDamageEnhance(player,monster) : " + DamageInfluence.getPlayerFinalDamageEnhance(player, monster)));
                 player.sendSystemMessage(Component.literal("Compute.DefenceDamageDecreaseRate(Defence, DefencePenetration, DefencePenetration0) : " + Compute.defenceDamageDecreaseRate(defence, DefencePenetration, DefencePenetration0)));
                 player.sendSystemMessage(Component.literal("ElementDamageEffect : " + ElementDamageEffect));
                 player.sendSystemMessage(Component.literal("ElementDamageEnhance : " + ElementDamageEnhance));

@@ -75,7 +75,7 @@ public class MonsterAttackEvent {
         damage *= TabooAttackArmor.Passive(player);
         damage *= (1 - NewPotionEffects.resistanceEnhance(player));
 
-        damage *= DamageInfluence.playerWithstandDamageInfluence(player, monster);
+        damage *= DamageInfluence.getPlayerWithstandDamageInfluence(player, monster);
 
         if (Utils.witherBonePowerCCMonster.contains(monster)) damage *= 0.8;
         if (data.contains(StringUtils.SakuraDemonSword)

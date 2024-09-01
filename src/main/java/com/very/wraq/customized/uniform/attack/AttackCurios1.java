@@ -51,11 +51,6 @@ public class AttackCurios1 extends WraqAttackUniformCurios {
         return WraqUniformCurios.isOn(AttackCurios1.class, player);
     }
 
-    public static double playerFinalDamageEnhance(Player player) {
-        if (!isOn(player)) return 0;
-        return 0.5;
-    }
-
     public static void playerCritEffect(Player player) {
         if (!isOn(player)) return;
         if (!playerLastTickMap.containsKey(player) || playerLastTickMap.get(player) < player.getServer().getTickCount()) {

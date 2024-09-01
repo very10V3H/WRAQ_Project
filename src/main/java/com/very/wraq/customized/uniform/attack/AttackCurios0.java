@@ -32,11 +32,6 @@ public class AttackCurios0 extends WraqAttackUniformCurios {
         return components;
     }
 
-    public static double playerFinalDamageEnhance(Player player) {
-        if (!WraqUniformCurios.isOn(AttackCurios0.class, player)) return 0;
-        return 0.5;
-    }
-
     public static double PlayerFinalCritDamageEnhance(Player player) {
         if (!WraqUniformCurios.isOn(AttackCurios0.class, player)) return 1;
         return 1.15;

@@ -198,7 +198,7 @@ public class MyArrow extends AbstractArrow {
             int tickCount = Objects.requireNonNull(player.getServer()).getTickCount();
             double defence = MobAttributes.defence(monster);
 
-            baseDamage *= DamageInfluence.playerNormalAttackBaseRate(player);
+            baseDamage *= DamageInfluence.getPlayerNormalAttackBaseRate(player);
             baseDamage *= BowCurios0.BaseDamageEnhance(player);
             if (shootByPlayer) baseDamage *= VolcanoNewRune.attackEnhance(player);
 
@@ -223,12 +223,12 @@ public class MyArrow extends AbstractArrow {
             damageEnhance += AttackEventModule.BowSkill3(data, player, monster); // 习惯获取（对一名目标的持续攻击，可以使你对该目标的伤害至多提升至2%，在3次攻击后达到最大值）
             damageEnhance += AttackEventModule.NetherArmorEffect(player, monster); // 下界套装
             damageEnhance += AttackEventModule.NetherBow(player, monster); // 夸塔兹长弓
-            damageEnhance += DamageInfluence.PlayerCommonDamageUpOrDown(player, monster);
-            damageEnhance += DamageInfluence.PlayerAttackDamageEnhance(player);
+            damageEnhance += DamageInfluence.getPlayerCommonDamageUpOrDown(player, monster);
+            damageEnhance += DamageInfluence.getPlayerAttackDamageEnhance(player);
             damageEnhance += IceKnight.IceKnightHealthAttackDamageFix(monster); // 冰霜骑士伤害修正
 
             double NormalAttackDamageEnhance = 0;
-            NormalAttackDamageEnhance += DamageInfluence.PlayerNormalBowAttackDamageEnhance(player);
+            NormalAttackDamageEnhance += DamageInfluence.getPlayerNormalBowAttackDamageEnhance(player);
 
             boolean critFlag = false;
             if (BoneImpKnife.passive(player, monster)) critRate = 1;
@@ -253,16 +253,16 @@ public class MyArrow extends AbstractArrow {
             damage *= (1 + damageEnhance) * (1 + NormalAttackDamageEnhance);
             damage += exDamage;
             //
-            damage *= (1 + DamageInfluence.PlayerFinalDamageEnhance(player, monster));
-            damageIgnoreDefence *= (1 + DamageInfluence.PlayerFinalDamageEnhance(player, monster));
+            damage *= (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, monster));
+            damageIgnoreDefence *= (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, monster));
             //
             damage *= Compute.defenceDamageDecreaseRate(defence, defencePenetration, defencePenetration0);
             // total damage
-            damage *= DamageInfluence.PlayerTotalDamageRate(player);
-            damageIgnoreDefence *= DamageInfluence.PlayerTotalDamageRate(player);
+            damage *= DamageInfluence.getPlayerTotalDamageRate(player);
+            damageIgnoreDefence *= DamageInfluence.getPlayerTotalDamageRate(player);
             // mob control
-            damage *= DamageInfluence.MonsterControlDamageEffect(player, monster);
-            damageIgnoreDefence *= DamageInfluence.MonsterControlDamageEffect(player, monster);
+            damage *= DamageInfluence.getMonsterControlDamageEffect(player, monster);
+            damageIgnoreDefence *= DamageInfluence.getMonsterControlDamageEffect(player, monster);
             // 至此 关于基本的计算已结束 下方是最终乘区的计算
             damageIgnoreDefence += BoneImpKnife.exDamageIgnoreDefence(player, monster) * damage;
 
@@ -323,7 +323,7 @@ public class MyArrow extends AbstractArrow {
             if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false)) {
                 player.sendSystemMessage(Component.literal("NormalAttackDamageEnhance : " + NormalAttackDamageEnhance));
                 player.sendSystemMessage(Component.literal("DamageEnhance : " + damageEnhance));
-                player.sendSystemMessage(Component.literal("DamageEnhances.PlayerFinalDamageEnhance(player,monster) : " + DamageInfluence.PlayerFinalDamageEnhance(player, monster)));
+                player.sendSystemMessage(Component.literal("DamageEnhances.PlayerFinalDamageEnhance(player,monster) : " + DamageInfluence.getPlayerFinalDamageEnhance(player, monster)));
                 player.sendSystemMessage(Component.literal("Compute.DefenceDamageDecreaseRate(Defence, DefencePenetration, DefencePenetration0) : " + Compute.defenceDamageDecreaseRate(defence, defencePenetration, defencePenetration0)));
                 player.sendSystemMessage(Component.literal("ElementDamageEffect : " + ElementDamageEffect));
                 player.sendSystemMessage(Component.literal("ElementDamageEnhance : " + ElementDamageEnhance));

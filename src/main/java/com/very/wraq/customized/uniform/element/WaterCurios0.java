@@ -53,11 +53,6 @@ public class WaterCurios0 extends WraqElementUniformCurios {
         return WraqUniformCurios.isOn(WaterCurios0.class, player);
     }
 
-    public static double playerFinalDamageEnhance(Player player) {
-        if (!isOn(player)) return 0;
-        return 0.5;
-    }
-
     public static double playerWaterElementValueEnhance(Player player) {
         if (!isOn(player)) return 1;
         return 2;

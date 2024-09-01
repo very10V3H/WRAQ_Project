@@ -53,11 +53,6 @@ public class BowCurios1 extends WraqBowUniformCurios {
         return WraqUniformCurios.isOn(BowCurios1.class, player);
     }
 
-    public static double playerFinalDamageEnhance(Player player) {
-        if (!isOn(player)) return 0;
-        return 0.5;
-    }
-
     public static Map<Player, Integer> playerShootTick = new HashMap<>();
 
     public static void playerShoot(Player player) {

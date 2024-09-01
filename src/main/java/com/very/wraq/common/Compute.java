@@ -3101,11 +3101,11 @@ public class Compute {
             CompoundTag data = player.getPersistentData();
 
             double DamageEnhance = 0;
-            DamageEnhance += DamageInfluence.PlayerCommonDamageUpOrDown(player, monster);
+            DamageEnhance += DamageInfluence.getPlayerCommonDamageUpOrDown(player, monster);
             DamageEnhance += ManaSkill3(data, player, monster); // 机体解构（对一名目标的持续法术攻击，可以使你对该目标的伤害至多提升至2%，在5次攻击后达到最大值）
             DamageEnhance += NetherManaArmor(player, monster); // 下界混沌套装
 
-            Damage *= (1 + DamageEnhance) * (1 + DamageInfluence.PlayerFinalDamageEnhance(player, monster));
+            Damage *= (1 + DamageEnhance) * (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, monster));
 
             Compute.SummonValueItemEntity(monster.level(), player, monster,
                     Component.literal(String.format("%.0f", Damage)).withStyle(CustomStyle.styleOfSea), 2);
@@ -3126,11 +3126,11 @@ public class Compute {
             double BreakDefence0 = PlayerAttributes.defencePenetration0(player);
             double DamageEnhance = 0;
 
-            DamageEnhance += DamageInfluence.PlayerCommonDamageUpOrDown(player, monster);
-            DamageEnhance += DamageInfluence.PlayerAttackDamageEnhance(player);
+            DamageEnhance += DamageInfluence.getPlayerCommonDamageUpOrDown(player, monster);
+            DamageEnhance += DamageInfluence.getPlayerAttackDamageEnhance(player);
             DamageEnhance += IceKnight.IceKnightHealthAttackDamageFix(monster); // 冰霜骑士伤害修正
 
-            BaseDamage *= (1 + DamageEnhance) * (1 + DamageInfluence.PlayerFinalDamageEnhance(player, monster));
+            BaseDamage *= (1 + DamageEnhance) * (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, monster));
             BaseDamage *= defenceDamageDecreaseRate(Defence, BreakDefence, BreakDefence0);
             Compute.SummonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", BaseDamage * num)).withStyle(ChatFormatting.YELLOW), 0);
             DirectDamageToMob(player, monster, BaseDamage * num);
@@ -3143,13 +3143,13 @@ public class Compute {
             double defencePenetration0 = PlayerAttributes.defencePenetration0(player);
             double damageEnhance = 0;
 
-            damageEnhance += DamageInfluence.PlayerCommonDamageUpOrDown(player, monster);
-            damageEnhance += DamageInfluence.PlayerAttackDamageEnhance(player);
+            damageEnhance += DamageInfluence.getPlayerCommonDamageUpOrDown(player, monster);
+            damageEnhance += DamageInfluence.getPlayerAttackDamageEnhance(player);
             damageEnhance += IceKnight.IceKnightHealthAttackDamageFix(monster); // 冰霜骑士伤害修正
 
-            damage *= DamageInfluence.MonsterControlDamageEffect(player, monster);
+            damage *= DamageInfluence.getMonsterControlDamageEffect(player, monster);
 
-            damage *= (1 + damageEnhance) * (1 + DamageInfluence.PlayerFinalDamageEnhance(player, monster));
+            damage *= (1 + damageEnhance) * (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, monster));
             damage *= defenceDamageDecreaseRate(defence, defencePenetration, defencePenetration0);
             Compute.SummonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", damage)).withStyle(ChatFormatting.YELLOW), 0);
             DirectDamageToMob(player, monster, damage);
@@ -3159,7 +3159,7 @@ public class Compute {
         public static double AttackDamageToMonster_AdDamage_Direct(Player player, Mob monster, double damage, boolean computeDefenceOrEnhance) {
             if (computeDefenceOrEnhance) {
                 damage *= defenceDamageDecreaseRate(MobAttributes.defence(monster), PlayerAttributes.defencePenetration(player), PlayerAttributes.defencePenetration0(player));
-                damage *= (1 + DamageInfluence.PlayerAttackDamageEnhance(player));
+                damage *= (1 + DamageInfluence.getPlayerAttackDamageEnhance(player));
             }
             Compute.SummonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", damage)).withStyle(ChatFormatting.YELLOW), 0);
             DirectDamageToMob(player, monster, damage);
@@ -3176,7 +3176,7 @@ public class Compute {
         public static double ManaDamageToMonster_ApDamage_Direct(Player player, Mob monster, double damage, boolean computeDefenceOrEnhance) {
             if (computeDefenceOrEnhance) {
                 damage *= defenceDamageDecreaseRate(MobAttributes.manaDefence(monster), PlayerAttributes.manaPenetration(player), PlayerAttributes.manaPenetration0(player));
-                damage *= (1 + DamageInfluence.PlayerManaDamageEnhance(player));
+                damage *= (1 + DamageInfluence.getPlayerManaDamageEnhance(player));
             }
             Compute.SummonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", damage)).withStyle(ChatFormatting.LIGHT_PURPLE), 1);
             DirectDamageToMob(player, monster, damage);
@@ -3210,10 +3210,10 @@ public class Compute {
             double ExDamage = 0;
 
             DamageEnhance += ManaSkill3(data, player, monster); // 机体解构（对一名目标的持续法术攻击，可以使你对该目标的伤害至多提升至2%，在5次攻击后达到最大值）
-            DamageEnhance += DamageInfluence.PlayerCommonDamageUpOrDown(player, monster);
+            DamageEnhance += DamageInfluence.getPlayerCommonDamageUpOrDown(player, monster);
             DamageEnhance += IceKnight.IceKnightHealthManaDamageFix(monster); // 冰霜骑士伤害修正
             DamageEnhance += NetherManaArmor(player, monster); // 下界混沌套装
-            DamageEnhance += DamageInfluence.PlayerManaDamageEnhance(player); // 魔法伤害提升
+            DamageEnhance += DamageInfluence.getPlayerManaDamageEnhance(player); // 魔法伤害提升
             if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false) && isPower) {
                 player.sendSystemMessage(Component.literal("---ManaPower---"));
                 player.sendSystemMessage(Component.literal("BaseDamage : " + BaseDamage));
@@ -3221,7 +3221,7 @@ public class Compute {
             }
             BaseDamage *= Compute.manaDefenceDamageDecreaseRate(Defence, BreakDefence, BreakDefence0);
             ExDamage *= Compute.manaDefenceDamageDecreaseRate(Defence, BreakDefence, BreakDefence0);
-            double totalDamage = (BaseDamage + ExDamage) * (1 + DamageEnhance) * (1 + DamageInfluence.PlayerFinalDamageEnhance(player, monster));
+            double totalDamage = (BaseDamage + ExDamage) * (1 + DamageEnhance) * (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, monster));
 
             // 元素
             double ElementDamageEnhance = 0;
@@ -3235,7 +3235,7 @@ public class Compute {
                 }
             }
 
-            totalDamage *= DamageInfluence.MonsterControlDamageEffect(player, monster);
+            totalDamage *= DamageInfluence.getMonsterControlDamageEffect(player, monster);
             totalDamage *= (1 + ElementDamageEnhance) * ElementDamageEffect;
             Compute.SummonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", totalDamage)).withStyle(ChatFormatting.LIGHT_PURPLE), 1);
             Compute.damageActionBarPacketSend(player, totalDamage, 0, true, false);
@@ -3250,7 +3250,7 @@ public class Compute {
 
             if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false) && isPower) {
                 player.sendSystemMessage(Component.literal("DamageEnhance : " + DamageEnhance));
-                player.sendSystemMessage(Component.literal("DamageEnhances.PlayerFinalDamageEnhance(player,monster) : " + DamageInfluence.PlayerFinalDamageEnhance(player, monster)));
+                player.sendSystemMessage(Component.literal("DamageEnhances.PlayerFinalDamageEnhance(player,monster) : " + DamageInfluence.getPlayerFinalDamageEnhance(player, monster)));
                 player.sendSystemMessage(Component.literal("Compute.DefenceDamageDecreaseRate(Defence, BreakDefence, BreakDefence0) : " + Compute.defenceDamageDecreaseRate(Defence, BreakDefence, BreakDefence0)));
                 player.sendSystemMessage(Component.literal("ElementDamageEffect : " + ElementDamageEffect));
                 player.sendSystemMessage(Component.literal("ElementDamageEnhance : " + ElementDamageEnhance));
@@ -3271,10 +3271,10 @@ public class Compute {
             double ExDamage = 0;
 
             DamageEnhance += ManaSkill3(data, player, monster); // 机体解构（对一名目标的持续法术攻击，可以使你对该目标的伤害至多提升至2%，在5次攻击后达到最大值）
-            DamageEnhance += DamageInfluence.PlayerCommonDamageUpOrDown(player, monster);
+            DamageEnhance += DamageInfluence.getPlayerCommonDamageUpOrDown(player, monster);
             DamageEnhance += IceKnight.IceKnightHealthManaDamageFix(monster); // 冰霜骑士伤害修正
             DamageEnhance += NetherManaArmor(player, monster); // 下界混沌套装
-            DamageEnhance += DamageInfluence.PlayerManaDamageEnhance(player); // 魔法伤害提升
+            DamageEnhance += DamageInfluence.getPlayerManaDamageEnhance(player); // 魔法伤害提升
             if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false) && isPower) {
                 player.sendSystemMessage(Component.literal("---ManaPower---"));
                 player.sendSystemMessage(Component.literal("BaseDamage : " + baseDamage));
@@ -3282,7 +3282,7 @@ public class Compute {
             }
             baseDamage *= Compute.manaDefenceDamageDecreaseRate(defence, defencePenetration, defencePenetration0);
             ExDamage *= Compute.manaDefenceDamageDecreaseRate(defence, defencePenetration, defencePenetration0);
-            double totalDamage = (baseDamage + ExDamage) * (1 + DamageEnhance) * (1 + DamageInfluence.PlayerFinalDamageEnhance(player, monster));
+            double totalDamage = (baseDamage + ExDamage) * (1 + DamageEnhance) * (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, monster));
 
             // 元素
             double ElementDamageEnhance = 0;
@@ -3295,7 +3295,7 @@ public class Compute {
 
             double elementDamage = totalDamage * ((1 + ElementDamageEnhance) * ElementDamageEffect - 1);
 
-            totalDamage *= DamageInfluence.MonsterControlDamageEffect(player, monster);
+            totalDamage *= DamageInfluence.getMonsterControlDamageEffect(player, monster);
             totalDamage *= (1 + ElementDamageEnhance) * ElementDamageEffect;
 
             Compute.SummonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", totalDamage)).withStyle(ChatFormatting.LIGHT_PURPLE), 1);
@@ -3315,7 +3315,7 @@ public class Compute {
 
             if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false) && isPower) {
                 player.sendSystemMessage(Component.literal("DamageEnhance : " + DamageEnhance));
-                player.sendSystemMessage(Component.literal("DamageEnhances.PlayerFinalDamageEnhance(player,monster) : " + DamageInfluence.PlayerFinalDamageEnhance(player, monster)));
+                player.sendSystemMessage(Component.literal("DamageEnhances.PlayerFinalDamageEnhance(player,monster) : " + DamageInfluence.getPlayerFinalDamageEnhance(player, monster)));
                 player.sendSystemMessage(Component.literal("Compute.DefenceDamageDecreaseRate(Defence, BreakDefence, BreakDefence0) : " + Compute.defenceDamageDecreaseRate(defence, defencePenetration, defencePenetration0)));
                 player.sendSystemMessage(Component.literal("ElementDamageEffect : " + ElementDamageEffect));
                 player.sendSystemMessage(Component.literal("ElementDamageEnhance : " + ElementDamageEnhance));
@@ -3335,17 +3335,17 @@ public class Compute {
             double ExDamage = 0;
 
             DamageEnhance += ManaSkill3(data, player, monster); // 机体解构（对一名目标的持续法术攻击，可以使你对该目标的伤害至多提升至2%，在5次攻击后达到最大值）
-            DamageEnhance += DamageInfluence.PlayerCommonDamageUpOrDown(player, monster);
+            DamageEnhance += DamageInfluence.getPlayerCommonDamageUpOrDown(player, monster);
             DamageEnhance += IceKnight.IceKnightHealthManaDamageFix(monster); // 冰霜骑士伤害修正
             DamageEnhance += NetherManaArmor(player, monster); // 下界混沌套装
-            DamageEnhance += DamageInfluence.PlayerManaDamageEnhance(player); // 魔法伤害提升
+            DamageEnhance += DamageInfluence.getPlayerManaDamageEnhance(player); // 魔法伤害提升
 
             damage += ExDamage;
 
             damage *= Compute.manaDefenceDamageDecreaseRate(Defence, BreakDefence, BreakDefence0);
 
-            double totalDamage = damage * (1 + DamageEnhance) * (1 + DamageInfluence.PlayerFinalDamageEnhance(player, monster));
-            totalDamage *= DamageInfluence.MonsterControlDamageEffect(player, monster);
+            double totalDamage = damage * (1 + DamageEnhance) * (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, monster));
+            totalDamage *= DamageInfluence.getMonsterControlDamageEffect(player, monster);
             Compute.SummonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", totalDamage)).withStyle(ChatFormatting.LIGHT_PURPLE), 1);
             DirectDamageToMob(player, monster, totalDamage);
             Compute.manaDamageExEffect(player, monster, totalDamage);
@@ -3362,10 +3362,10 @@ public class Compute {
             double ExDamage = 0;
 
             DamageEnhance += ManaSkill3(data, player, monster); // 机体解构（对一名目标的持续法术攻击，可以使你对该目标的伤害至多提升至2%，在5次攻击后达到最大值）
-            DamageEnhance += DamageInfluence.PlayerCommonDamageUpOrDown(player, monster);
+            DamageEnhance += DamageInfluence.getPlayerCommonDamageUpOrDown(player, monster);
             DamageEnhance += IceKnight.IceKnightHealthManaDamageFix(monster); // 冰霜骑士伤害修正
             DamageEnhance += NetherManaArmor(player, monster); // 下界混沌套装
-            DamageEnhance += DamageInfluence.PlayerManaDamageEnhance(player); // 魔法伤害提升
+            DamageEnhance += DamageInfluence.getPlayerManaDamageEnhance(player); // 魔法伤害提升
 
             if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false) && isPower) {
                 player.sendSystemMessage(Component.literal("---ManaPower---"));
@@ -3376,7 +3376,7 @@ public class Compute {
             damage += ExDamage;
             damage *= Compute.manaDefenceDamageDecreaseRate(Defence, BreakDefence, BreakDefence0);
 
-            double totalDamage = damage * (1 + DamageEnhance) * (1 + DamageInfluence.PlayerFinalDamageEnhance(player, monster));
+            double totalDamage = damage * (1 + DamageEnhance) * (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, monster));
             // 元素
             double ElementDamageEnhance = 0;
             double ElementDamageEffect = 1;
@@ -3389,7 +3389,7 @@ public class Compute {
                 }
             }
 
-            totalDamage *= DamageInfluence.MonsterControlDamageEffect(player, monster);
+            totalDamage *= DamageInfluence.getMonsterControlDamageEffect(player, monster);
             totalDamage *= (1 + ElementDamageEnhance) * ElementDamageEffect;
             Compute.SummonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", totalDamage)).withStyle(ChatFormatting.LIGHT_PURPLE), 1);
             DirectDamageToMob(player, monster, totalDamage);
@@ -3402,7 +3402,7 @@ public class Compute {
 
             if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false) && isPower) {
                 player.sendSystemMessage(Component.literal("DamageEnhance : " + DamageEnhance));
-                player.sendSystemMessage(Component.literal("DamageEnhances.PlayerFinalDamageEnhance(player,monster) : " + DamageInfluence.PlayerFinalDamageEnhance(player, monster)));
+                player.sendSystemMessage(Component.literal("DamageEnhances.PlayerFinalDamageEnhance(player,monster) : " + DamageInfluence.getPlayerFinalDamageEnhance(player, monster)));
                 player.sendSystemMessage(Component.literal("Compute.DefenceDamageDecreaseRate(Defence, BreakDefence, BreakDefence0) : " + Compute.defenceDamageDecreaseRate(Defence, BreakDefence, BreakDefence0)));
                 player.sendSystemMessage(Component.literal("ElementDamageEffect : " + ElementDamageEffect));
                 player.sendSystemMessage(Component.literal("ElementDamageEnhance : " + ElementDamageEnhance));
@@ -4430,6 +4430,23 @@ public class Compute {
             if (Utils.playerCuriosListMap.containsKey(player)) {
                 Utils.playerCuriosListMap.get(player).clear();
             }
+        }
+
+        /**
+         * 获取玩家去重饰品列表
+         */
+        public static List<ItemStack> getCuriosList(Player player) {
+            if (Utils.playerCuriosListMap.containsKey(player)) return List.of();
+            List<ItemStack> originCuriosList = Utils.playerCuriosListMap.get(player);
+            Set<Item> curiosItemSet = new HashSet<>();
+            List<ItemStack> curiosList = new ArrayList<>();
+            originCuriosList.forEach(stack -> {
+                if (!curiosItemSet.contains(stack.getItem())) {
+                    curiosItemSet.add(stack.getItem());
+                    curiosList.add(stack);
+                }
+            });
+            return curiosList;
         }
 
         public static double attributeValue(Player player, Map<Item, Double> attributeMap, String attributeName) {

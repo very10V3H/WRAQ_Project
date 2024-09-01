@@ -47,11 +47,6 @@ public class BowCurios2 extends WraqBowUniformCurios {
         return WraqUniformCurios.isOn(BowCurios2.class, player);
     }
 
-    public static double playerFinalDamageEnhance(Player player) {
-        if (!isOn(player)) return 0;
-        return 0.5;
-    }
-
     public static boolean playerNearbyHasNoOthers(Player player) {
         List<Player> players = player.level().getEntitiesOfClass(Player.class, AABB.ofSize(player.position(), 30, 30, 30));
         players.removeIf(player1 -> player1.equals(player) || player1.distanceTo(player) < 12);

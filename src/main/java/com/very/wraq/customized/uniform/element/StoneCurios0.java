@@ -53,11 +53,6 @@ public class StoneCurios0 extends WraqElementUniformCurios {
         return WraqUniformCurios.isOn(StoneCurios0.class, player);
     }
 
-    public static double playerFinalDamageEnhance(Player player) {
-        if (!isOn(player)) return 0;
-        return 0.5;
-    }
-
     public static double playerStoneElementValueEnhance(Player player) {
         if (!isOn(player)) return 1;
         return 2;
