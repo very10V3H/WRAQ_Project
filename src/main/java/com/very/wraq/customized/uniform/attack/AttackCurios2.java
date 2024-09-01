@@ -1,12 +1,10 @@
 package com.very.wraq.customized.uniform.attack;
 
-import com.very.wraq.customized.uniform.Attributes;
-import com.very.wraq.projectiles.WraqUniformCurios;
-import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.Utils.ComponentUtils;
-import com.very.wraq.common.Utils.Utils;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.projectiles.WraqUniformCurios;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -17,15 +15,10 @@ import net.minecraft.world.phys.AABB;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AttackCurios2 extends WraqUniformCurios {
+public class AttackCurios2 extends WraqAttackUniformCurios {
 
     public AttackCurios2(Properties p_41383_) {
         super(p_41383_);
-        Utils.attackDamage.put(this, Attributes.AttackDamage);
-        Utils.defencePenetration0.put(this, Attributes.DefencePenetration0);
-        Utils.critDamage.put(this, Attributes.CritDamage);
-        Utils.defence.put(this, Attributes.Defence);
-        Utils.critRate.put(this, Attributes.CritRate);
     }
 
     @Override

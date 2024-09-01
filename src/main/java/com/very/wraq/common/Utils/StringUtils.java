@@ -1154,6 +1154,8 @@ public class StringUtils {
         public static String xpLevelDefencePenetration0 = "xpLevelDefencePenetration0";
         public static String xpLevelManaDamage = "xpLevelManaDamage";
         public static String xpLevelManaPenetration0 = "xpLevelManaPenetration0";
+        public static String xpLevelDefence = "xpLevelDefence";
+        public static String xpLevelManaDefence = "xpLevelManaDefence";
     }
 
     public static String PlayerInstanceProgress = "PlayerInstanceProgress";

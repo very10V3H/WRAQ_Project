@@ -1,15 +1,13 @@
 package com.very.wraq.customized.uniform.bow;
 
+import com.very.wraq.common.Compute;
 import com.very.wraq.common.MySound;
+import com.very.wraq.common.Utils.ComponentUtils;
 import com.very.wraq.core.MyArrow;
-import com.very.wraq.customized.uniform.Attributes;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.projectiles.WraqBow;
 import com.very.wraq.projectiles.WraqUniformCurios;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.Utils.ComponentUtils;
-import com.very.wraq.common.Utils.Utils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
@@ -27,15 +25,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class BowCurios1 extends WraqUniformCurios {
+public class BowCurios1 extends WraqBowUniformCurios {
 
     public BowCurios1(Properties p_41383_) {
         super(p_41383_);
-        Utils.attackDamage.put(this, Attributes.AttackDamage);
-        Utils.defencePenetration0.put(this, Attributes.DefencePenetration0);
-        Utils.critDamage.put(this, Attributes.CritDamage);
-        Utils.defence.put(this, Attributes.Defence);
-        Utils.critRate.put(this, Attributes.CritRate);
     }
 
     @Override

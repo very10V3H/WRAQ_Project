@@ -1,11 +1,9 @@
 package com.very.wraq.customized.uniform.mana;
 
-import com.very.wraq.customized.uniform.Attributes;
-import com.very.wraq.projectiles.WraqUniformCurios;
-import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.Utils.ComponentUtils;
-import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.projectiles.WraqUniformCurios;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -18,16 +16,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ManaCurios1 extends WraqUniformCurios {
+public class ManaCurios1 extends WraqManaUniformCurios {
 
     public ManaCurios1(Properties p_41383_) {
         super(p_41383_);
-        Utils.manaDamage.put(this, Attributes.ManaDamage);
-        Utils.defence.put(this, Attributes.Defence);
-        Utils.manaPenetration0.put(this, Attributes.ManaPenetration0);
-        Utils.manaRecover.put(this, Attributes.ManaRecover);
-        Utils.maxMana.put(this, Attributes.MaxMana);
-        Utils.coolDownDecrease.put(this, Attributes.CoolDown);
     }
 
     @Override

@@ -1,12 +1,11 @@
 package com.very.wraq.customized.uniform.element;
 
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.Utils.ComponentUtils;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.process.system.element.RainbowCrystal;
 import com.very.wraq.projectiles.WraqUniformCurios;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.Utils.ComponentUtils;
-import com.very.wraq.common.Utils.Utils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -18,18 +17,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class IceCurios0 extends WraqUniformCurios {
+public class IceCurios0 extends WraqElementUniformCurios {
 
     public IceCurios0(Properties p_41383_) {
         super(p_41383_);
-        Utils.defence.put(this, 500d);
-        Utils.manaDefence.put(this, 500d);
-        Utils.defencePenetration.put(this, 0.2);
-        Utils.manaPenetration.put(this, 0.2);
-        Utils.coolDownDecrease.put(this, 0.25);
         Element.IceElementValue.put(this, 1d);
-        Utils.customizedList.add(this);
-        Utils.uniformList.add(this);
     }
 
     @Override

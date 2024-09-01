@@ -56,6 +56,7 @@ public class Utils {
     public static Map<Item, Double> critDamage = new HashMap<>();
     public static Map<Item, Double> xpLevelCritDamage = new HashMap<>();
     public static Map<Item, Double> defence = new HashMap<>();
+    public static Map<Item, Double> xpLevelDefence = new HashMap<>();
     public static Map<Item, Double> percentDefenceEnhance = new HashMap<>();
     public static Map<Item, Double> defencePenetration = new HashMap<>();
     public static Map<Item, Double> defencePenetration0 = new HashMap<>();
@@ -76,6 +77,7 @@ public class Utils {
     public static Map<Item, Double> xpLevelManaDamage = new HashMap<>();
     public static Map<Item, Double> percentManaDamageEnhance = new HashMap<>();
     public static Map<Item, Double> manaDefence = new HashMap<>();
+    public static Map<Item, Double> xpLevelManaDefence = new HashMap<>();
     public static Map<Item, Double> percentManaDefenceEnhance = new HashMap<>();
     public static Map<Item, Double> manaPenetration = new HashMap<>();
     public static Map<Item, Double> manaPenetration0 = new HashMap<>();

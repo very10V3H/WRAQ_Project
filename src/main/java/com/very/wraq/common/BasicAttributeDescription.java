@@ -200,6 +200,10 @@ public class BasicAttributeDescription {
             }
         }
 
+        index = descriptionXpLevelAttributeTemplate(index, TraditionalTooltip.defence, Utils.xpLevelDefence,
+                StringUtils.CuriosAttribute.xpLevelDefence, "基础护甲", Style.EMPTY.applyFormat(ChatFormatting.GRAY),
+                "%.0f", false, itemStack, event.getTooltipElements(), localPlayer, false, Style.EMPTY);
+
         if (Utils.defence.containsKey(item) || data.contains(StringUtils.RandomAttribute.defence)
                 || data.contains(StringUtils.CuriosAttribute.Defence)) {
             double Defence;
@@ -227,6 +231,10 @@ public class BasicAttributeDescription {
             index++;
             event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.defence)));
         }
+
+        index = descriptionXpLevelAttributeTemplate(index, TraditionalTooltip.manaDefence, Utils.xpLevelManaDefence,
+                StringUtils.CuriosAttribute.xpLevelManaDefence, "魔法抗性", Style.EMPTY.applyFormat(ChatFormatting.BLUE),
+                "%.0f", false, itemStack, event.getTooltipElements(), localPlayer, false, Style.EMPTY);
 
         if (Utils.manaDefence.containsKey(item) || data.contains(StringUtils.CuriosAttribute.ManaDefence)) {
             double ManaDefence = 0;

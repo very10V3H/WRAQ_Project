@@ -810,6 +810,13 @@ public class PlayerAttributes {
         if (Utils.defence.containsKey(boots) && bootsTag.contains("Forging"))
             baseDefence += Compute.forgingValue(bootsTag, ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.FEET), Utils.defence));
 
+        // 计算线性等级强度装备数值
+        baseDefence += computeAllEquipSlotXpLevelAttributeValue(player, Utils.xpLevelDefence, false);
+
+        baseDefence += Compute.CuriosAttribute.attributeValue(player, Utils.xpLevelDefence,
+                StringUtils.CuriosAttribute.xpLevelDefence) * player.experienceLevel;
+
+        // 以下为额外护甲
         if (Compute.ArmorCount.Forest(player) >= 2) exDefence += baseDefence * 0.25;
         if (Compute.ArmorCount.LifeMana(player) >= 4) exDefence += baseDefence * 0.25;
         if (data.contains("forestgems") && data.getBoolean("forestgems")) exDefence += baseDefence * 0.1;
@@ -1747,9 +1754,10 @@ public class PlayerAttributes {
     }
 
     public static double manaDefence(Player player) {
-        int TickCount = player.getServer().getTickCount();
+        int tickCount = player.getServer().getTickCount();
         CompoundTag data = player.getPersistentData();
-        double manaDefence = player.experienceLevel;
+        double basicDefence = player.experienceLevel;
+        double exDefence = 0.0d;
         Item boots = player.getItemBySlot(EquipmentSlot.FEET).getItem();
         Item leggings = player.getItemBySlot(EquipmentSlot.LEGS).getItem();
         Item chest = player.getItemBySlot(EquipmentSlot.CHEST).getItem();
@@ -1765,64 +1773,71 @@ public class PlayerAttributes {
             stackmainhandtag = player.getItemInHand(InteractionHand.MAIN_HAND).getTagElement(Utils.MOD_ID);
         }
         if (Utils.manaDefence.containsKey(boots))
-            manaDefence += ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.FEET), Utils.manaDefence);
+            basicDefence += ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.FEET), Utils.manaDefence);
         if (Utils.manaDefence.containsKey(leggings))
-            manaDefence += ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.LEGS), Utils.manaDefence);
+            basicDefence += ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.LEGS), Utils.manaDefence);
         if (Utils.manaDefence.containsKey(chest))
-            manaDefence += ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.CHEST), Utils.manaDefence);
+            basicDefence += ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.CHEST), Utils.manaDefence);
         if (Utils.manaDefence.containsKey(helmet))
-            manaDefence += ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.HEAD), Utils.manaDefence);
-        double ExDefence = 0.0d;
-        if (Utils.mainHandTag.containsKey(mainhand) && Utils.manaDefence.containsKey(mainhand))
-            ExDefence += Utils.manaDefence.get(mainhand);
-        if (Utils.offHandTag.containsKey(offhand) && Utils.manaDefence.containsKey(offhand))
-            manaDefence += Utils.manaDefence.get(offhand);
-        if (Utils.manaDefence.containsKey(helmet) && helmetTag.contains("Forging"))
-            manaDefence += Compute.forgingValue(helmetTag, ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.HEAD), Utils.manaDefence));
-        if (Utils.manaDefence.containsKey(chest) && chestTag.contains("Forging"))
-            manaDefence += Compute.forgingValue(chestTag, ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.CHEST), Utils.manaDefence));
-        if (Utils.manaDefence.containsKey(leggings) && leggingsTag.contains("Forging"))
-            manaDefence += Compute.forgingValue(leggingsTag, ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.LEGS), Utils.manaDefence));
-        if (Utils.manaDefence.containsKey(boots) && bootsTag.contains("Forging"))
-            manaDefence += Compute.forgingValue(bootsTag, ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.FEET), Utils.manaDefence));
+            basicDefence += ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.HEAD), Utils.manaDefence);
 
+        if (Utils.offHandTag.containsKey(offhand) && Utils.manaDefence.containsKey(offhand))
+            basicDefence += Utils.manaDefence.get(offhand);
+        if (Utils.manaDefence.containsKey(helmet) && helmetTag.contains("Forging"))
+            basicDefence += Compute.forgingValue(helmetTag, ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.HEAD), Utils.manaDefence));
+        if (Utils.manaDefence.containsKey(chest) && chestTag.contains("Forging"))
+            basicDefence += Compute.forgingValue(chestTag, ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.CHEST), Utils.manaDefence));
+        if (Utils.manaDefence.containsKey(leggings) && leggingsTag.contains("Forging"))
+            basicDefence += Compute.forgingValue(leggingsTag, ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.LEGS), Utils.manaDefence));
+        if (Utils.manaDefence.containsKey(boots) && bootsTag.contains("Forging"))
+            basicDefence += Compute.forgingValue(bootsTag, ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.FEET), Utils.manaDefence));
+
+        // 计算线性等级强度装备数值
+        basicDefence += computeAllEquipSlotXpLevelAttributeValue(player, Utils.xpLevelManaDefence, false);
+
+        basicDefence += Compute.CuriosAttribute.attributeValue(player, Utils.xpLevelManaDefence,
+                StringUtils.CuriosAttribute.xpLevelManaDefence) * player.experienceLevel;
+
+        // 以下为额外魔法抗性
+        if (Utils.mainHandTag.containsKey(mainhand) && Utils.manaDefence.containsKey(mainhand))
+            exDefence += Utils.manaDefence.get(mainhand);
         if (boots instanceof ForestArmorBoots && leggings instanceof ForestArmorLeggings
                 && chest instanceof ForestArmorChest && helmet instanceof ForestArmorHelmet)
-            ExDefence += manaDefence * 0.25;
-        if (LifeManaArmor.getPlayerLifeManaArmorCount(player) == 4) ExDefence += manaDefence * 0.25;
+            exDefence += basicDefence * 0.25;
+        if (LifeManaArmor.getPlayerLifeManaArmorCount(player) == 4) exDefence += basicDefence * 0.25;
         if (player.getEffect(ModEffects.MANADefenceUP.get()) != null && player.getEffect(ModEffects.MANADefenceUP.get()).getAmplifier() == 0)
-            ExDefence += manaDefence * 0.25 + 75;
+            exDefence += basicDefence * 0.25 + 75;
         if (player.getEffect(ModEffects.MANADefenceUP.get()) != null && player.getEffect(ModEffects.MANADefenceUP.get()).getAmplifier() == 1)
-            ExDefence += manaDefence * 0.4 + 125;
-        if (data.contains("GemSManaDefence")) ExDefence += data.getDouble("GemSManaDefence");
+            exDefence += basicDefence * 0.4 + 125;
+        if (data.contains("GemSManaDefence")) exDefence += data.getDouble("GemSManaDefence");
 /*            if (data.contains(StringUtils.ForestBossSwordActive.Pare) && data.getInt(StringUtils.ForestBossSwordActive.PareTime) > TickCount) {
                 ExDefence -= data.getInt(StringUtils.ForestBossSwordActive.Pare) * 10;
             }*/
-        if (data.getInt(StringUtils.PlainSwordActive.PlainSceptre) > TickCount) ExDefence += 40;
+        if (data.getInt(StringUtils.PlainSwordActive.PlainSceptre) > tickCount) exDefence += 40;
 
-        if (Utils.SakuraBowEffectMap.containsKey(player) && Utils.SakuraBowEffectMap.get(player) > TickCount) {
-            ExDefence += 400;
+        if (Utils.SakuraBowEffectMap.containsKey(player) && Utils.SakuraBowEffectMap.get(player) > tickCount) {
+            exDefence += 400;
         } // 妖弓-樱
 
-        if (helmetTag.contains("newGems1")) ExDefence += GemAttributes.gemsManaDefence(helmetTag);
-        if (chestTag.contains("newGems1")) ExDefence += GemAttributes.gemsManaDefence(chestTag);
-        if (leggingsTag.contains("newGems1")) ExDefence += GemAttributes.gemsManaDefence(leggingsTag);
-        if (bootsTag.contains("newGems1")) ExDefence += GemAttributes.gemsManaDefence(bootsTag);
+        if (helmetTag.contains("newGems1")) exDefence += GemAttributes.gemsManaDefence(helmetTag);
+        if (chestTag.contains("newGems1")) exDefence += GemAttributes.gemsManaDefence(chestTag);
+        if (leggingsTag.contains("newGems1")) exDefence += GemAttributes.gemsManaDefence(leggingsTag);
+        if (bootsTag.contains("newGems1")) exDefence += GemAttributes.gemsManaDefence(bootsTag);
         if (stackmainhandtag.contains("newGems1") && Utils.mainHandTag.containsKey(mainhand))
-            ExDefence += GemAttributes.gemsManaDefence(stackmainhandtag);
+            exDefence += GemAttributes.gemsManaDefence(stackmainhandtag);
 
-        if (Utils.EarthManaCurios.containsKey(player) && Utils.EarthManaCurios.get(player)) ExDefence += 200;
-        if (Utils.BloodManaCurios.containsKey(player) && Utils.BloodManaCurios.get(player)) ExDefence += 200;
-        if (Utils.DevilEarthManaCurios.containsKey(player) && Utils.DevilEarthManaCurios.get(player)) ExDefence += 400;
-        if (Utils.DevilBloodManaCurios.containsKey(player) && Utils.DevilBloodManaCurios.get(player)) ExDefence += 400;
+        if (Utils.EarthManaCurios.containsKey(player) && Utils.EarthManaCurios.get(player)) exDefence += 200;
+        if (Utils.BloodManaCurios.containsKey(player) && Utils.BloodManaCurios.get(player)) exDefence += 200;
+        if (Utils.DevilEarthManaCurios.containsKey(player) && Utils.DevilEarthManaCurios.get(player)) exDefence += 400;
+        if (Utils.DevilBloodManaCurios.containsKey(player) && Utils.DevilBloodManaCurios.get(player)) exDefence += 400;
 
-        ExDefence += Compute.CuriosAttribute.attributeValue(player, Utils.manaDefence, StringUtils.CuriosAttribute.ManaDefence); // 新版饰品属性加成
-        ExDefence += CastleAttackArmor.ExAttributeValue(player, CastleAttackArmor.ExManaDefence);
-        ExDefence += CastleManaArmor.ExAttributeValue(player, CastleManaArmor.ExManaDefence);
-        ExDefence += CastleSwiftArmor.ExAttributeValue(player, CastleSwiftArmor.ExManaDefence);
+        exDefence += Compute.CuriosAttribute.attributeValue(player, Utils.manaDefence, StringUtils.CuriosAttribute.ManaDefence); // 新版饰品属性加成
+        exDefence += CastleAttackArmor.ExAttributeValue(player, CastleAttackArmor.ExManaDefence);
+        exDefence += CastleManaArmor.ExAttributeValue(player, CastleManaArmor.ExManaDefence);
+        exDefence += CastleSwiftArmor.ExAttributeValue(player, CastleSwiftArmor.ExManaDefence);
         // 请在上方添加
 
-        double totalDefence = manaDefence + ExDefence;
+        double totalDefence = basicDefence + exDefence;
         totalDefence *= (1 + EarthPower.PlayerDefenceEnhance(player));
         totalDefence *= Compute.playerFantasyAttributeEnhance(player);
         totalDefence *= MineShield.defenceEnhance(player);
