@@ -1,8 +1,10 @@
-package com.very.wraq.projectiles;
+package com.very.wraq.customized;
 
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.Te;
 import com.very.wraq.common.Utils.ComponentUtils;
 import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -39,7 +41,15 @@ public abstract class WraqUniformCurios extends Item implements ICurioItem {
             components.addAll(additionHoverText(stack));
         }
         Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        components.add(suffix());
+        if (getName() != null) {
+            components.add(Te.m("来自", CustomStyle.styleOfWorld).
+                    append(Te.m("开拓者", CustomStyle.styleOfWorld)).
+                    append(Te.m("「", CustomStyle.styleOfWorld)).
+                    append(Te.m(getName(), ChatFormatting.AQUA)).
+                    append(Te.m("」", CustomStyle.styleOfWorld)));
+        } else {
+            components.add(suffix());
+        }
         super.appendHoverText(stack, level, components, flag);
     }
 
@@ -47,7 +57,13 @@ public abstract class WraqUniformCurios extends Item implements ICurioItem {
 
     public abstract Style hoverMainStyle();
 
-    public abstract Component suffix();
+    public Component suffix() {
+        return ComponentUtils.getUniformSuffix();
+    }
+
+    public String getName() {
+        return null;
+    }
 
     public abstract Component getFirstPassiveName();
 

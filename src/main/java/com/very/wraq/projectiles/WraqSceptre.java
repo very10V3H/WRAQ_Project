@@ -12,8 +12,8 @@ import com.very.wraq.common.registry.ModSounds;
 import com.very.wraq.entities.entities.Civil.Civil;
 import com.very.wraq.events.mob.loot.RandomLootEquip;
 import com.very.wraq.process.func.particle.ParticleProvider;
+import com.very.wraq.projectiles.mana.ManaArrow;
 import com.very.wraq.projectiles.mana.NewArrow;
-import com.very.wraq.series.instance.mixture.WraqMixture;
 import com.very.wraq.series.overworld.chapter2.evoker.EvokerSceptre;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -95,19 +95,25 @@ public abstract class WraqSceptre extends SwordItem {
         super.appendHoverText(stack, level, components, tooltipFlag);
     }
 
-    public void shootManaArrow(Player player, double rate) {
+    public void shootManaArrow(Player player, double rate, boolean mainShoot) {
         if (Compute.ManaSkillLevelGet(player.getPersistentData(), 10) > 0
                 || Compute.playerManaCost(player,
                 Utils.manaCost.getOrDefault(player.getMainHandItem().getItem(), 15d))) {
-            summonManaArrow(player, rate);
-            if (Math.abs(rate - 1) < 0.0001) {
-                WraqMixture.onShoot(player);
+            AbstractArrow arrow = summonManaArrow(player, rate);
+            if (arrow instanceof NewArrow newArrow) {
+                newArrow.mainShoot = mainShoot;
+            }
+            if (arrow instanceof ManaArrow manaArrow) {
+                manaArrow.mainShoot = mainShoot;
+            }
+            if (mainShoot) {
+                OnShootManaArrowCurios.shoot(player);
             }
             MySound.SoundToAll(player, SoundEvents.EVOKER_CAST_SPELL);
         }
     }
 
-    public void summonManaArrow(Player player, double rate) {
+    protected AbstractArrow summonManaArrow(Player player, double rate) {
         Level level = player.level();
         CompoundTag data = player.getPersistentData();
         if (Compute.ManaSkillLevelGet(data, 10) > 0 || Compute.playerManaCost(player, EvokerSceptre.ManaCost)) {
@@ -123,7 +129,9 @@ public abstract class WraqSceptre extends SwordItem {
             ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1, 0.75, 20, ParticleTypes.WITCH);
             ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1.5, 0.5, 16, ParticleTypes.WITCH);
             MySound.SoundToAll(player, ModSounds.Mana.get());
+            return newArrow;
         }
+        return null;
     }
 
     public static void adjustOrb(AbstractArrow arrow, Player player) {

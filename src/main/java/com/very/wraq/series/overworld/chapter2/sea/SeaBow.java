@@ -65,7 +65,7 @@ public class SeaBow extends WraqBow implements OnHitEffectMainHandWeapon {
     }
 
     @Override
-    public void shoot(ServerPlayer serverPlayer, double rate) {
+    protected MyArrow summonArrow(ServerPlayer serverPlayer, double rate) {
         MyArrow arrow = new MyArrow(EntityType.ARROW, serverPlayer.level(), serverPlayer, true, rate);
         arrow.shootFromRotation(serverPlayer, serverPlayer.getXRot(), serverPlayer.getYRot(), 0.0f, 4F, 1.0f);
         arrow.setCritArrow(true);
@@ -74,6 +74,7 @@ public class SeaBow extends WraqBow implements OnHitEffectMainHandWeapon {
         MySound.SoundToAll(serverPlayer, SoundEvents.ARROW_SHOOT);
         ParticleProvider.FaceCircleCreate(serverPlayer, 1, 0.75, 20, ModParticles.BLACKFOREST_RECALL.get());
         ParticleProvider.FaceCircleCreate(serverPlayer, 1.5, 0.5, 16, ModParticles.LONG_SEA.get());
+        return arrow;
     }
 
     @Override

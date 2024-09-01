@@ -4378,7 +4378,7 @@ public class Compute {
                     ManaAttackModule.BasicAttack(player, mob, BaseDamage,
                             PlayerAttributes.manaPenetration(player),
                             PlayerAttributes.manaPenetration0(player),
-                            level, newArrow);
+                            level, newArrow, true);
                 }
             }
         });
@@ -4413,7 +4413,7 @@ public class Compute {
                 ManaAttackModule.BasicAttack(player, mob, BaseDamage,
                         PlayerAttributes.manaPenetration(player),
                         PlayerAttributes.manaPenetration0(player),
-                        level, newArrow);
+                        level, newArrow, true);
             }
         });
     }

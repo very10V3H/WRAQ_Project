@@ -38,7 +38,7 @@ public class ManaAttackRequestC2SPacket {
             Item sceptre = player.getMainHandItem().getItem();
             if (!Utils.sceptreTag.containsKey(sceptre)) return;
             if (sceptre instanceof WraqSceptre wraqSceptre) {
-                wraqSceptre.shootManaArrow(player, 1);
+                wraqSceptre.shootManaArrow(player, 1, true);
             }
         });
         return true;

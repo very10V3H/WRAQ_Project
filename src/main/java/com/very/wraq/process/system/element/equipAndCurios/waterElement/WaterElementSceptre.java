@@ -22,6 +22,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -52,10 +53,10 @@ public class WaterElementSceptre extends WraqSceptre implements ActiveItem {
     }
 
     @Override
-    public void summonManaArrow(Player player, double rate) {
+    public AbstractArrow summonManaArrow(Player player, double rate) {
         Level level = player.level();
         ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_SEA.get(), player, level,
-                PlayerAttributes.manaDamage(player),
+                PlayerAttributes.manaDamage(player) * rate,
                 PlayerAttributes.manaPenetration(player),
                 PlayerAttributes.manaPenetration0(player), StringUtils.ParticleTypes.WaterElement1TickParticle);
         newArrow.setSilent(true);
@@ -66,6 +67,7 @@ public class WaterElementSceptre extends WraqSceptre implements ActiveItem {
         level.addFreshEntity(newArrow);
         ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1, 0.75, 20, ModParticles.WaterElementParticle.get());
         ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1.5, 0.5, 16, ModParticles.WaterElementParticle.get());
+        return newArrow;
     }
 
     @Override

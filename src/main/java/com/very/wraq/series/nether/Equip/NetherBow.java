@@ -61,7 +61,7 @@ public class NetherBow extends WraqBow {
     }
 
     @Override
-    public void shoot(ServerPlayer serverPlayer, double rate) {
+    protected MyArrow summonArrow(ServerPlayer serverPlayer, double rate) {
         if (Compute.PlayerCurrentManaNum(serverPlayer) > 40) {
             Compute.playerManaAddOrCost(serverPlayer, -40);
             MyArrow arrow = new MyArrow(EntityType.ARROW, serverPlayer.level(), serverPlayer, true, rate);
@@ -72,6 +72,7 @@ public class NetherBow extends WraqBow {
             serverPlayer.level().addFreshEntity(arrow);
             MySound.SoundToAll(serverPlayer, SoundEvents.ARROW_SHOOT);
             ParticleProvider.FaceCircleCreate(serverPlayer, 1, 0.75, 20, ParticleTypes.WITCH);
+            return arrow;
         } else {
             MyArrow arrow = new MyArrow(EntityType.ARROW, serverPlayer.level(), serverPlayer, true);
             arrow.shootFromRotation(serverPlayer, serverPlayer.getXRot(), serverPlayer.getYRot(), 0.0f, 3F, 1.0f);
@@ -80,6 +81,7 @@ public class NetherBow extends WraqBow {
             serverPlayer.level().addFreshEntity(arrow);
             MySound.SoundToAll(serverPlayer, SoundEvents.ARROW_SHOOT);
             ParticleProvider.FaceCircleCreate(serverPlayer, 1, 0.75, 20, ParticleTypes.WAX_OFF);
+            return arrow;
         }
     }
 }

@@ -88,6 +88,7 @@ import java.text.ParseException;
 public class VMD {
     public VMD() {
         IEventBus modEvenBus = FMLJavaModLoadingContext.get().getModEventBus();
+        UniformItems.ITEMS.register(modEvenBus);
         ModItems.ITEMS.register(modEvenBus);
         C1LootItems.ITEMS.register(modEvenBus);
         C2LootItems.ITEMS.register(modEvenBus);

@@ -14,6 +14,7 @@ import com.very.wraq.events.instance.IceKnight;
 import com.very.wraq.events.modules.AttackEventModule;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.process.system.element.Element;
+import com.very.wraq.projectiles.OnHitEffectCurios;
 import com.very.wraq.projectiles.OnHitEffectMainHandWeapon;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.instance.series.castle.CastleBow;
@@ -60,6 +61,7 @@ public class MyArrow extends AbstractArrow {
     private boolean IsManaArrow;
     private boolean AdjustOneTime = false;
     private ParticleOptions particleOptions;
+    public boolean mainShoot = true;
 
     protected MyArrow(EntityType<? extends AbstractArrow> p_36721_, Level p_36722_) {
         super(p_36721_, p_36722_);
@@ -88,6 +90,15 @@ public class MyArrow extends AbstractArrow {
         this.player = player;
         this.BaseDamage = PlayerAttributes.attackDamage(player) * rate;
         this.WhetherShootByPlayer = WhetherShootByPlayer;
+    }
+
+    public MyArrow(EntityType<? extends AbstractArrow> p_36717_, Level level, Player player,
+                   boolean WhetherShootByPlayer, double rate, boolean mainShoot) {
+        super(p_36717_, player, level);
+        this.player = player;
+        this.BaseDamage = PlayerAttributes.attackDamage(player) * rate;
+        this.WhetherShootByPlayer = WhetherShootByPlayer;
+        this.mainShoot = mainShoot;
     }
 
     public MyArrow(EntityType<? extends AbstractArrow> p_36717_, LivingEntity p_36718_, Level level,
@@ -186,7 +197,6 @@ public class MyArrow extends AbstractArrow {
         Level level = player.level();
         Random r = new Random();
         boolean shootByPlayer = myArrow.WhetherShootByPlayer;
-        boolean IsManaArrow = myArrow.IsManaArrow;
         double defencePenetration = PlayerAttributes.defencePenetration(player);
         double defencePenetration0 = PlayerAttributes.defencePenetration0(player);
         double critRate = PlayerAttributes.critRate(player);
@@ -317,6 +327,9 @@ public class MyArrow extends AbstractArrow {
                 if (mainHandItem.getItem() instanceof OnHitEffectMainHandWeapon onHitEffectMainHandWeapon)
                     onHitEffectMainHandWeapon.onHit(player, monster);
                 SameTypeModule.onNormalAttackHitMob(player, monster, 0, damage + damageIgnoreDefence);
+            }
+            if (myArrow.mainShoot) {
+                OnHitEffectCurios.hit(player, monster);
             }
             if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false)) {
                 player.sendSystemMessage(Component.literal("NormalAttackDamageEnhance : " + NormalAttackDamageEnhance));

@@ -143,7 +143,7 @@ public class BowEvent {
                             List<Integer> causedList = causeDamageList.get(manaArrow.getId());
                             if (!causedList.contains(mob.getId())) {
                                 ManaAttackModule.BasicAttack(manaArrow.player, mob, manaArrow.BaseDamage * (1 + causedList.size() * 0.33),
-                                        manaArrow.BreakDefence, manaArrow.BreakDefence0, manaArrow.level(), manaArrow);
+                                        manaArrow.BreakDefence, manaArrow.BreakDefence0, manaArrow.level(), manaArrow, manaArrow.mainShoot);
                                 causedList.add(mob.getId());
                             }
                             event.setImpactResult(ProjectileImpactEvent.ImpactResult.SKIP_ENTITY);
@@ -163,7 +163,8 @@ public class BowEvent {
                             }
                         }
                         if (nearestMob != null && manaArrow.player != null) {
-                            ManaAttackModule.BasicAttack(manaArrow.player, nearestMob, manaArrow.BaseDamage, manaArrow.BreakDefence, manaArrow.BreakDefence0, manaArrow.level(), manaArrow);
+                            ManaAttackModule.BasicAttack(manaArrow.player, nearestMob, manaArrow.BaseDamage,
+                                    manaArrow.BreakDefence, manaArrow.BreakDefence0, manaArrow.level(), manaArrow, manaArrow.mainShoot);
                             ModNetworking.sendToClient(new ManaAttackParticleS2CPacket(nearestMob.getX(), nearestMob.getY(), nearestMob.getZ(), manaArrow.type), (ServerPlayer) manaArrow.player);
                             manaArrow.remove(Entity.RemovalReason.KILLED);
                         } else {
@@ -195,7 +196,7 @@ public class BowEvent {
                             List<Integer> causedList = causeDamageList.get(newArrow.getId());
                             if (!causedList.contains(mob.getId())) {
                                 ManaAttackModule.BasicAttack(newArrow.player, mob, newArrow.BaseDamage * (1 + causedList.size() * 0.33),
-                                        newArrow.BreakDefence, newArrow.BreakDefence0, newArrow.level(), newArrow);
+                                        newArrow.BreakDefence, newArrow.BreakDefence0, newArrow.level(), newArrow, newArrow.mainShoot);
                                 causedList.add(mob.getId());
                             }
                             event.setImpactResult(ProjectileImpactEvent.ImpactResult.SKIP_ENTITY);
@@ -216,7 +217,8 @@ public class BowEvent {
                             }
                         }
                         if (nearestMob != null && newArrow.player != null) {
-                            ManaAttackModule.BasicAttack(newArrow.player, nearestMob, newArrow.BaseDamage, newArrow.BreakDefence, newArrow.BreakDefence0, newArrow.level(), newArrow);
+                            ManaAttackModule.BasicAttack(newArrow.player, nearestMob, newArrow.BaseDamage,
+                                    newArrow.BreakDefence, newArrow.BreakDefence0, newArrow.level(), newArrow, newArrow.mainShoot);
                             newArrow.remove(Entity.RemovalReason.KILLED);
                         } else {
                             event.setImpactResult(ProjectileImpactEvent.ImpactResult.SKIP_ENTITY);

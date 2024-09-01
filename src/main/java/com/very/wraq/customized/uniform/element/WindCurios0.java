@@ -1,9 +1,8 @@
 package com.very.wraq.customized.uniform.element;
 
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.Utils.ComponentUtils;
+import com.very.wraq.customized.WraqUniformCurios;
 import com.very.wraq.process.system.element.Element;
-import com.very.wraq.projectiles.WraqUniformCurios;
 import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -36,11 +35,6 @@ public class WindCurios0 extends WraqElementUniformCurios {
     @Override
     public Style hoverMainStyle() {
         return CustomStyle.styleOfWind;
-    }
-
-    @Override
-    public Component suffix() {
-        return ComponentUtils.getUniformSuffix();
     }
 
     public static Map<Player, Boolean> onPlayerMap = new HashMap<>();

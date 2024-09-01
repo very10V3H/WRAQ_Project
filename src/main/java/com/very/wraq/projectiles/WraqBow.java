@@ -95,18 +95,26 @@ public abstract class WraqBow extends SwordItem {
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
-        /*Compute.BowAttack(player);*/
         return interactionHand.equals(InteractionHand.MAIN_HAND)
                 ? InteractionResultHolder.success(player.getMainHandItem()) : InteractionResultHolder.success(player.getOffhandItem());
     }
 
-    public void shoot(ServerPlayer serverPlayer, double rate) {
+    public void shoot(ServerPlayer serverPlayer, double rate, boolean mainShoot) {
+        MyArrow myArrow = summonArrow(serverPlayer, rate);
+        myArrow.mainShoot = mainShoot;
+        if (mainShoot) {
+            OnShootArrowCurios.shoot(serverPlayer);
+        }
+    }
+
+    protected MyArrow summonArrow(ServerPlayer serverPlayer, double rate) {
         MyArrow arrow = new MyArrow(EntityType.ARROW, serverPlayer.level(), serverPlayer, true, rate);
         arrow.shootFromRotation(serverPlayer, serverPlayer.getXRot(), serverPlayer.getYRot(), 0.0f, 3F, 1.0f);
         arrow.setCritArrow(true);
         serverPlayer.level().addFreshEntity(arrow);
         MySound.SoundToAll(serverPlayer, SoundEvents.ARROW_SHOOT);
         ParticleProvider.FaceCircleCreate(serverPlayer, 1, 0.75, 20, ParticleTypes.WAX_OFF);
+        return arrow;
     }
 
     @Override

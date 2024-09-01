@@ -8,10 +8,12 @@ import com.very.wraq.customized.uniform.attack.AttackCuriosYxwg;
 import com.very.wraq.customized.uniform.bow.BowCurios0;
 import com.very.wraq.customized.uniform.bow.BowCurios1;
 import com.very.wraq.customized.uniform.bow.BowCurios2;
+import com.very.wraq.customized.uniform.bow.BowCuriosYxwg;
 import com.very.wraq.customized.uniform.element.*;
 import com.very.wraq.customized.uniform.mana.ManaCurios0;
 import com.very.wraq.customized.uniform.mana.ManaCurios1;
 import com.very.wraq.customized.uniform.mana.ManaCurios2;
+import com.very.wraq.customized.uniform.mana.ManaCuriosYxwg;
 import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SimpleFoiledItem;
@@ -74,6 +76,12 @@ public class UniformItems {
 
     public static final RegistryObject<Item> ATTACK_CURIOS_YXWG = ITEMS.register("attack_curios_yxwg",
             () -> new AttackCuriosYxwg(new Item.Properties().stacksTo(1).rarity(CustomStyle.MagmaBold)));
+
+    public static final RegistryObject<Item> BOW_CURIOS_YXWG = ITEMS.register("bow_curios_yxwg",
+            () -> new BowCuriosYxwg(new Item.Properties().stacksTo(1).rarity(CustomStyle.LifeBold)));
+
+    public static final RegistryObject<Item> MANA_CURIOS_YXWG = ITEMS.register("mana_curios_yxwg",
+            () -> new ManaCuriosYxwg(new Item.Properties().stacksTo(1).rarity(CustomStyle.EvokerBold)));
 
     public static final RegistryObject<Item> uniformPiece = ITEMS.register("uniform_piece",
             () -> new SimpleFoiledItem(new Item.Properties().rarity(CustomStyle.WorldBold)));

@@ -38,6 +38,7 @@ public class ManaArrow extends AbstractArrow implements GeoEntity {
     public String type;
     private Mob mob;
     private double rate = 1;
+    public boolean mainShoot = true;
 
     public ManaArrow(EntityType<? extends AbstractArrow> entityType, Level level) {
         super(entityType, level);
@@ -57,14 +58,15 @@ public class ManaArrow extends AbstractArrow implements GeoEntity {
         this.type = type;
     }
 
-    public ManaArrow(EntityType<? extends AbstractArrow> entityType, LivingEntity shooter, Level level, double BaseDamage, double BreakDefence, double BreakDefence0, String type, boolean adjustOneTimes) {
+    public ManaArrow(EntityType<? extends AbstractArrow> entityType, LivingEntity shooter, Level level,
+                     double BaseDamage, double BreakDefence, double BreakDefence0, String type, boolean mainShoot) {
         super(entityType, shooter, level);
         this.player = (Player) shooter;
         this.BaseDamage = BaseDamage;
         this.BreakDefence = BreakDefence;
         this.BreakDefence0 = BreakDefence0;
         this.type = type;
-        this.AdjustOneTimes = adjustOneTimes;
+        this.mainShoot = mainShoot;
     }
 
     public ManaArrow(EntityType<? extends AbstractArrow> entityType, LivingEntity mob, Level level) {

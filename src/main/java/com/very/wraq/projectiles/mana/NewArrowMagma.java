@@ -1,7 +1,7 @@
 package com.very.wraq.projectiles.mana;
 
-import com.very.wraq.core.ManaAttackModule;
 import com.very.wraq.common.ModEntityType;
+import com.very.wraq.core.ManaAttackModule;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -14,8 +14,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
-
-import static java.lang.Math.abs;
 
 public class NewArrowMagma extends AbstractArrow {
     private double BaseDamage;
@@ -67,10 +65,7 @@ public class NewArrowMagma extends AbstractArrow {
         super.onHitEntity(result);
         if (this.player != null && !level().isClientSide) {
             Entity entity = result.getEntity();
-            ManaAttackModule.BasicAttack(player, entity, BaseDamage, BreakDefence, BreakDefence0, level(), this);
-/*
-            ModNetworking.sendToClient(new ManaAttackParticleS2CPacket(entity.getX(),entity.getY(),entity.getZ(),2),(ServerPlayer) player);
-*/
+            ManaAttackModule.BasicAttack(player, entity, BaseDamage, BreakDefence, BreakDefence0, level(), this, true);
         }
     }
 

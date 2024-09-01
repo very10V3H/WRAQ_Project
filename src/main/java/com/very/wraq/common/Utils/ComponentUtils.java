@@ -463,4 +463,8 @@ public class ComponentUtils {
     public static Component getSuffixOfSummerEvent() {
         return Component.literal(" 2024暑期活动").withStyle(ChatFormatting.BOLD).withStyle(CustomStyle.styleOfPower);
     }
+
+    public static Component getCommonDamageEnhance(String value) {
+        return Component.literal(value + "普通伤害提升").withStyle(CustomStyle.styleOfMoon);
+    }
 }

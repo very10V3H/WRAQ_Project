@@ -126,7 +126,7 @@ public class MoonBow extends WraqBow {
     }
 
     @Override
-    public void shoot(ServerPlayer serverPlayer, double rate) {
+    protected MyArrow summonArrow(ServerPlayer serverPlayer, double rate) {
         MyArrow arrow = new MyArrow(EntityType.ARROW, serverPlayer.level(), serverPlayer, true, rate);
         arrow.shootFromRotation(serverPlayer, serverPlayer.getXRot(), serverPlayer.getYRot(), 0.0f, 4.5F, 1.0f);
         MoonBow.MoonBowExShoot(serverPlayer);
@@ -136,6 +136,7 @@ public class MoonBow extends WraqBow {
         MySound.SoundToAll(serverPlayer, SoundEvents.ARROW_SHOOT);
         ParticleProvider.FaceCircleCreate(serverPlayer, 1, 0.75, 20, ParticleTypes.FIREWORK);
         ParticleProvider.FaceCircleCreate(serverPlayer, 1.5, 0.5, 16, ParticleTypes.FIREWORK);
+        return arrow;
     }
 
 }

@@ -21,6 +21,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
@@ -46,13 +47,13 @@ public class SoulSceptre extends WraqSceptre {
     public static final int ManaCost = 20;
 
     @Override
-    public void summonManaArrow(Player player, double rate) {
+    protected AbstractArrow summonManaArrow(Player player, double rate) {
         CompoundTag data = player.getPersistentData();
         Level level = player.level();
         double ManaCost = SoulSceptre.getManaCost(player.getItemInHand(InteractionHand.MAIN_HAND).getOrCreateTagElement(Utils.MOD_ID));
         if (Compute.ManaSkillLevelGet(data, 10) > 0 || Compute.playerManaCost(player, (int) ManaCost)) {
             ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_WORLD.get(), player, level,
-                    PlayerAttributes.manaDamage(player), PlayerAttributes.manaPenetration(player),
+                    PlayerAttributes.manaDamage(player) * rate, PlayerAttributes.manaPenetration(player),
                     PlayerAttributes.manaPenetration0(player), StringUtils.ParticleTypes.Sky);
             newArrow.setSilent(true);
             newArrow.setNoGravity(true);
@@ -65,7 +66,9 @@ public class SoulSceptre extends WraqSceptre {
             ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1.5, 0.5, 16, ModParticles.WORLD.get());
             ParticleProvider.FaceCircleCreate((ServerPlayer) player, 2, 0.25, 12, ModParticles.WORLD.get());
             MySound.SoundToAll(player, ModSounds.Mana.get());
+            return newArrow;
         }
+        return null;
     }
 
     @Override

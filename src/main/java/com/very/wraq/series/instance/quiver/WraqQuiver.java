@@ -100,7 +100,7 @@ public class WraqQuiver extends WraqPassiveEquip implements ActiveItem {
                 if (Tick.get() % 2 == 0) {
                     double rate = queue.remove();
                     if (player.getMainHandItem().getItem() instanceof WraqBow wraqBow) {
-                        wraqBow.shoot((ServerPlayer) player, rate);
+                        wraqBow.shoot((ServerPlayer) player, rate, false);
                     }
                 }
             }

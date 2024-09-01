@@ -37,6 +37,7 @@ public class NewArrow extends AbstractArrow {
     public boolean flag;
     public boolean AdjustOneTimes = true;
     public Vec3 InWaterVec3;
+    public boolean mainShoot = true;
 
     public NewArrow(EntityType<? extends AbstractArrow> p_36721_, Level p_36722_) {
         super(p_36721_, p_36722_);
@@ -46,7 +47,8 @@ public class NewArrow extends AbstractArrow {
         super(ModEntityType.NEW_ARROW.get(), shooter, level);
     }
 
-    public NewArrow(LivingEntity shooter, Level level, double BaseDamage, double BreakDefence, double ExpUp, boolean flag, double BreakDefence0) {
+    public NewArrow(LivingEntity shooter, Level level, double BaseDamage, double BreakDefence, double ExpUp,
+                    boolean flag, double BreakDefence0) {
         super(ModEntityType.NEW_ARROW.get(), shooter, level);
         this.player = (Player) shooter;
         this.BaseDamage = BaseDamage;
@@ -54,6 +56,18 @@ public class NewArrow extends AbstractArrow {
         this.ExpUp = ExpUp;
         this.flag = flag;
         this.BreakDefence0 = BreakDefence0;
+    }
+
+    public NewArrow(LivingEntity shooter, Level level, double BaseDamage, double BreakDefence, double ExpUp,
+                    boolean flag, double BreakDefence0, boolean mainShoot) {
+        super(ModEntityType.NEW_ARROW.get(), shooter, level);
+        this.player = (Player) shooter;
+        this.BaseDamage = BaseDamage;
+        this.BreakDefence = BreakDefence;
+        this.ExpUp = ExpUp;
+        this.flag = flag;
+        this.BreakDefence0 = BreakDefence0;
+        this.mainShoot = mainShoot;
     }
 
     @Override

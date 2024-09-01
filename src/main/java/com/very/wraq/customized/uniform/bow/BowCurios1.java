@@ -5,7 +5,7 @@ import com.very.wraq.common.MySound;
 import com.very.wraq.core.MyArrow;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.projectiles.WraqBow;
-import com.very.wraq.projectiles.WraqUniformCurios;
+import com.very.wraq.customized.WraqUniformCurios;
 import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;

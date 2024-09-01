@@ -2,7 +2,6 @@ package com.very.wraq.core;
 
 import com.very.wraq.commands.stable.players.DebugCommand;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.ModEntityType;
 import com.very.wraq.common.MySound;
 import com.very.wraq.common.Utils.StringUtils;
 import com.very.wraq.common.Utils.Struct.ManaSkillStruct.ManaSkill3;
@@ -22,11 +21,10 @@ import com.very.wraq.networking.misc.SkillPackets.Charging.ChargedClearS2CPacket
 import com.very.wraq.networking.misc.SkillPackets.SkillImageS2CPacket;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.process.system.element.Element;
+import com.very.wraq.projectiles.OnHitEffectCurios;
 import com.very.wraq.projectiles.OnHitEffectMainHandWeapon;
-import com.very.wraq.projectiles.mana.ManaArrow;
 import com.very.wraq.projectiles.mana.NewArrowMagma;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.series.instance.mixture.WraqMixture;
 import com.very.wraq.series.instance.series.castle.CastleManaArmor;
 import com.very.wraq.series.instance.series.ice.IceBook;
 import com.very.wraq.series.instance.series.moon.Equip.MoonBook;
@@ -58,15 +56,9 @@ import static java.lang.Math.E;
 import static java.lang.Math.log;
 
 public class ManaAttackModule {
-    public static void BasicAttack(Player player, Entity entity, double rate) {
-        ManaArrow manaArrow = new ManaArrow(ModEntityType.NEW_ARROW.get(), player, player.level());
-        BasicAttack(player, entity, PlayerAttributes.manaDamage(player) * rate,
-                PlayerAttributes.manaPenetration(player),
-                PlayerAttributes.manaPenetration0(player), player.level(), manaArrow);
-    }
 
-
-    public static void BasicAttack(Player player, Entity entity, double baseDamage, double DefencePenetration, double DefencePenetration0, Level level, Entity Arrow) {
+    public static void BasicAttack(Player player, Entity entity, double baseDamage, double DefencePenetration,
+                                   double DefencePenetration0, Level level, Entity Arrow, boolean mainShoot) {
         if (player == null) return;
         CompoundTag data = player.getPersistentData();
 
@@ -193,7 +185,6 @@ public class ManaAttackModule {
             IceBook.IceBookPassive(player, monster);
             Compute.manaDamageExEffect(player, monster, damage);
             SameTypeModule.onNormalAttackHitMob(player, monster, 1, damage + damageIgnoreDefence);
-            WraqMixture.onLastTimeManaArrowHit(player);
 
             ManaCurios1.ManaDamageExIgnoreDefenceDamage(player, monster, damage);
             TreeBracelet.Passive(player, monster); // 古树手镯
@@ -202,6 +193,9 @@ public class ManaAttackModule {
             Compute.AdditionEffects(player, monster, damage + damageIgnoreDefence, 1);
             if (mainhand instanceof OnHitEffectMainHandWeapon onHitEffectMainHandWeapon) {
                 onHitEffectMainHandWeapon.onHit(player, monster);
+            }
+            if (mainShoot) {
+                OnHitEffectCurios.hit(player, monster);
             }
 
             if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false)) {

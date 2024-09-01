@@ -2,7 +2,7 @@ package com.very.wraq.customized.uniform.bow;
 
 import com.very.wraq.common.Compute;
 import com.very.wraq.customized.UniformItems;
-import com.very.wraq.projectiles.WraqUniformCurios;
+import com.very.wraq.customized.WraqUniformCurios;
 import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;

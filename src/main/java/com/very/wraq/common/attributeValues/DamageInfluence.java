@@ -13,7 +13,7 @@ import com.very.wraq.process.system.season.MySeason;
 import com.very.wraq.process.system.tower.Tower;
 import com.very.wraq.process.system.tower.TowerMob;
 import com.very.wraq.projectiles.OnCuriosSlotHitDamageInfluence;
-import com.very.wraq.projectiles.WraqUniformCurios;
+import com.very.wraq.customized.WraqUniformCurios;
 import com.very.wraq.series.instance.series.castle.CastleCurios;
 import com.very.wraq.series.instance.series.castle.CastleSword;
 import com.very.wraq.series.instance.series.ice.IceBook;

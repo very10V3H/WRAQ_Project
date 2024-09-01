@@ -35,7 +35,7 @@ public class BowRequestC2SPacket {
 
             Item bow = serverPlayer.getMainHandItem().getItem();
             if (!Utils.bowTag.containsKey(bow)) return;
-            if (bow instanceof WraqBow wraqBow) wraqBow.shoot(serverPlayer, 1);
+            if (bow instanceof WraqBow wraqBow) wraqBow.shoot(serverPlayer, 1, true);
         });
         return true;
     }

@@ -1,7 +1,7 @@
 package com.very.wraq.customized.uniform.mana;
 
 import com.very.wraq.common.Compute;
-import com.very.wraq.projectiles.WraqUniformCurios;
+import com.very.wraq.customized.WraqUniformCurios;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;

@@ -9,7 +9,7 @@ import com.very.wraq.process.system.element.Element;
 import com.very.wraq.process.system.forge.ForgeEquipUtils;
 import com.very.wraq.projectiles.RandomCurios;
 import com.very.wraq.projectiles.WraqCurios;
-import com.very.wraq.projectiles.WraqUniformCurios;
+import com.very.wraq.customized.WraqUniformCurios;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.render.toolTip.NewTooltip;
 import com.very.wraq.render.toolTip.TraditionalTooltip;

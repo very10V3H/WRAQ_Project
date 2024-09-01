@@ -5,19 +5,18 @@ import com.very.wraq.common.Tick;
 import com.very.wraq.common.Utils.ComponentUtils;
 import com.very.wraq.common.Utils.Utils;
 import com.very.wraq.process.func.power.PowerLogic;
-import com.very.wraq.projectiles.ActiveItem;
-import com.very.wraq.projectiles.WraqPassiveEquip;
-import com.very.wraq.projectiles.WraqSceptre;
+import com.very.wraq.projectiles.*;
 import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 
 import java.util.*;
 
-public class WraqMixture extends WraqPassiveEquip implements ActiveItem {
+public class WraqMixture extends WraqPassiveEquip implements ActiveItem, OnShootManaArrowCurios, OnHitEffectCurios {
 
     private final Component suffix;
     private final Style style;
@@ -96,16 +95,18 @@ public class WraqMixture extends WraqPassiveEquip implements ActiveItem {
         });
     }
 
-    public static void onLastTimeManaArrowHit(Player player) {
+    @Override
+    public void onShoot(Player player) {
+        if (effectLastTickMap.getOrDefault(player, 0) < Tick.get()) return;
+        batchAddExShoot(player, activeItem.get(player).rate, activeItem.get(player).exManaArrowCount);
+    }
+
+    @Override
+    public void onHit(Player player, Mob mob) {
         if (effectLastTickMap.getOrDefault(player, 0) < Tick.get()) return;
         Map<Item, Integer> powerCoolDownTick = PowerLogic.playerPowerCoolDownRecord.getOrDefault(player, new HashMap<>());
         WraqMixture mixture = activeItem.get(player);
         Compute.decreaseCoolDownLeftTick(player, powerCoolDownTick, mixture.eachArrowDecreaseCoolDownTick);
-    }
-
-    public static void onShoot(Player player) {
-        if (effectLastTickMap.getOrDefault(player, 0) < Tick.get()) return;
-        batchAddExShoot(player, activeItem.get(player).rate, activeItem.get(player).exManaArrowCount);
     }
 
     public static WeakHashMap<Player, Queue<Double>> exShootRateQueueMap = new WeakHashMap<>();
@@ -128,7 +129,7 @@ public class WraqMixture extends WraqPassiveEquip implements ActiveItem {
                 if (Tick.get() % 2 == 0) {
                     double rate = queue.remove();
                     if (player.getMainHandItem().getItem() instanceof WraqSceptre wraqSceptre) {
-                        wraqSceptre.shootManaArrow(player, rate);
+                        wraqSceptre.shootManaArrow(player, rate, false);
                     }
                 }
             }

@@ -72,7 +72,7 @@ public class ShangMengLiSwordAir extends AbstractArrow implements GeoEntity {
                         PlayerAttributes.manaPenetration0(player), StringUtils.ParticleTypes.EndParticle);
                 ManaAttackModule.BasicAttack(player, entity, PlayerAttributes.manaDamage(player),
                         PlayerAttributes.manaPenetration(player), PlayerAttributes.manaPenetration0(player),
-                        player.level(), newArrow);
+                        player.level(), newArrow, true);
                 Compute.playerManaAddOrCost(player, 20);
                 player.sendSystemMessage(Component.literal("false"));
             } else {

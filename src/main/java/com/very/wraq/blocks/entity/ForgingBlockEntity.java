@@ -14,7 +14,7 @@ import com.very.wraq.customized.UniformItems;
 import com.very.wraq.events.core.InventoryCheck;
 import com.very.wraq.events.mob.loot.RandomLootEquip;
 import com.very.wraq.process.system.forge.ForgeEquipUtils;
-import com.very.wraq.projectiles.WraqUniformCurios;
+import com.very.wraq.customized.WraqUniformCurios;
 import com.very.wraq.render.gui.blocks.ForgingBlockMenu;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.gems.GemItems;

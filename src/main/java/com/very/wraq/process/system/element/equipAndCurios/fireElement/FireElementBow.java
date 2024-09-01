@@ -67,7 +67,7 @@ public class FireElementBow extends WraqBow implements ActiveItem {
     }
 
     @Override
-    public void shoot(ServerPlayer serverPlayer, double rate) {
+    protected MyArrow summonArrow(ServerPlayer serverPlayer, double rate) {
         MyArrow arrow = new MyArrow(EntityType.ARROW, serverPlayer.level(), serverPlayer, true, rate);
         arrow.shootFromRotation(serverPlayer, serverPlayer.getXRot(), serverPlayer.getYRot(), 0.0f, 4.5f, 1.0f);
         arrow.setCritArrow(true);
@@ -76,6 +76,7 @@ public class FireElementBow extends WraqBow implements ActiveItem {
         MySound.SoundToAll(serverPlayer, SoundEvents.ARROW_SHOOT);
         ParticleProvider.FaceCircleCreate(serverPlayer, 1, 0.75, 20, ModParticles.FireElementParticle.get());
         ParticleProvider.FaceCircleCreate(serverPlayer, 1.5, 0.5, 16, ModParticles.FireElementParticle.get());
+        return arrow;
     }
 
     @Override

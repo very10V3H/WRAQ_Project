@@ -17,6 +17,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -52,10 +53,10 @@ public class PlainSceptre0 extends WraqSceptre {
     }
 
     @Override
-    public void summonManaArrow(Player player, double rate) {
+    protected AbstractArrow summonManaArrow(Player player, double rate) {
         Level level = player.level();
         ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_PLAIN.get(), player, level,
-                PlayerAttributes.manaDamage(player), PlayerAttributes.manaPenetration(player),
+                PlayerAttributes.manaDamage(player) * rate, PlayerAttributes.manaPenetration(player),
                 PlayerAttributes.manaPenetration0(player), StringUtils.ParticleTypes.Plain);
         newArrow.setSilent(true);
         newArrow.setNoGravity(true);
@@ -65,6 +66,7 @@ public class PlainSceptre0 extends WraqSceptre {
         level.addFreshEntity(newArrow);
         ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1, 0.75, 20, ParticleTypes.SCRAPE);
         ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1.5, 0.5, 16, ParticleTypes.SCRAPE);
+        return newArrow;
     }
 
     @Override
