@@ -24,9 +24,6 @@ public class AttackCurios1 extends WraqAttackUniformCurios {
     public List<Component> additionHoverText(ItemStack stack) {
         List<Component> components = new ArrayList<>();
         Style style = hoverMainStyle();
-        Compute.DescriptionPassive(components, Component.literal("独夫之心").withStyle(style));
-        components.add(Component.literal(" 获得").withStyle(ChatFormatting.WHITE).
-                append(Component.literal("50%最终伤害提升").withStyle(ChatFormatting.RED)));
         Compute.DescriptionPassive(components, Component.literal("横行").withStyle(style));
         components.add(Component.literal(" 暴击").withStyle(style).
                 append(Component.literal("将会获得一层").withStyle(ChatFormatting.WHITE)).
@@ -42,6 +39,11 @@ public class AttackCurios1 extends WraqAttackUniformCurios {
         components.add(Component.literal(" 只有近战攻击的暴击能够触发横行").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
         components.add(Component.literal(" 残暴的君主，终将被民众推翻。").withStyle(style));
         return components;
+    }
+
+    @Override
+    public Component getFirstPassiveName() {
+        return Component.literal("独夫之心").withStyle(hoverMainStyle());
     }
 
     public static Map<Player, Integer> playerCountsMap = new HashMap<>();

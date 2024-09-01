@@ -3,7 +3,6 @@ package com.very.wraq.customized.uniform.element;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.Utils.ComponentUtils;
 import com.very.wraq.process.system.element.Element;
-import com.very.wraq.process.system.element.RainbowCrystal;
 import com.very.wraq.projectiles.WraqUniformCurios;
 import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -28,9 +27,6 @@ public class FireCurios0 extends WraqElementUniformCurios {
     public List<Component> additionHoverText(ItemStack stack) {
         List<Component> components = new ArrayList<>();
         Style style = hoverMainStyle();
-        Compute.DescriptionPassive(components, RainbowCrystal.rainBowNameFourChar("世界根基"));
-        components.add(Component.literal(" 获得").withStyle(ChatFormatting.WHITE).
-                append(Component.literal("50%最终伤害加成").withStyle(ChatFormatting.RED)));
         Compute.DescriptionPassive(components, Component.literal("炽焰蕴能").withStyle(style));
         components.add(Component.literal(" 提升").withStyle(ChatFormatting.WHITE).
                 append(Element.Description.FireElementValue("100%")));

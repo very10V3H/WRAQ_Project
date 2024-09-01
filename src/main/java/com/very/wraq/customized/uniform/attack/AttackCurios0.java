@@ -22,14 +22,16 @@ public class AttackCurios0 extends WraqAttackUniformCurios {
     public List<Component> additionHoverText(ItemStack stack) {
         List<Component> components = new ArrayList<>();
         Style style = CustomStyle.styleOfPower;
-        Compute.DescriptionPassive(components, Component.literal("君临天下").withStyle(style));
-        components.add(Component.literal(" 获得").withStyle(ChatFormatting.WHITE).
-                append(Component.literal("50%最终伤害提升").withStyle(ChatFormatting.RED)));
         Compute.DescriptionPassive(components, Component.literal("暴政").withStyle(style));
         components.add(Component.literal(" 获得").withStyle(ChatFormatting.WHITE).
                 append(Compute.AttributeDescription.CritDamage("15%总")));
         components.add(Component.literal(" 残暴的君主，终将被民众推翻。").withStyle(style));
         return components;
+    }
+
+    @Override
+    public Component getFirstPassiveName() {
+        return Component.literal("君临天下").withStyle(hoverMainStyle());
     }
 
     public static double PlayerFinalCritDamageEnhance(Player player) {

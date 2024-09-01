@@ -15,6 +15,11 @@ import java.util.Map;
 
 public class ManaCurios0 extends WraqManaUniformCurios {
 
+    @Override
+    public Component getFirstPassiveName() {
+        return Component.literal("法术扩频").withStyle(hoverMainStyle());
+    }
+
     public ManaCurios0(Properties p_41383_) {
         super(p_41383_);
     }
@@ -23,9 +28,6 @@ public class ManaCurios0 extends WraqManaUniformCurios {
     public List<Component> additionHoverText(ItemStack stack) {
         List<Component> components = new ArrayList<>();
         Style style = hoverMainStyle();
-        Compute.DescriptionPassive(components, Component.literal("法术扩频").withStyle(style));
-        components.add(Component.literal(" 获得").withStyle(ChatFormatting.WHITE).
-                append(Component.literal("50%最终伤害提升").withStyle(ChatFormatting.RED)));
         Compute.DescriptionPassive(components, Component.literal("法术调幅").withStyle(style));
         components.add(Component.literal(" 获得").withStyle(ChatFormatting.WHITE).
                 append(Compute.AttributeDescription.ManaDamage("35%总")));

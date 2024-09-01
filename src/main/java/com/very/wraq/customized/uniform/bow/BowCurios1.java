@@ -34,9 +34,6 @@ public class BowCurios1 extends WraqBowUniformCurios {
     public List<Component> additionHoverText(ItemStack stack) {
         List<Component> components = new ArrayList<>();
         Style style = hoverMainStyle();
-        Compute.DescriptionPassive(components, Component.literal("优胜劣汰").withStyle(style));
-        components.add(Component.literal(" 获得").withStyle(ChatFormatting.WHITE).
-                append(Component.literal("50%最终伤害提升").withStyle(ChatFormatting.RED)));
         Compute.DescriptionPassive(components, Component.literal("精湛弓术").withStyle(style));
         components.add(Component.literal(" 普通箭矢攻击").withStyle(style).
                 append(Component.literal("将额外释放一枚具有").withStyle(ChatFormatting.WHITE)).
@@ -45,6 +42,11 @@ public class BowCurios1 extends WraqBowUniformCurios {
                 append(Component.literal("箭矢").withStyle(style)));
         components.add(Component.literal(" 不仅是敏捷，力量、智慧对在恶劣环境中的猎手同样重要。").withStyle(style));
         return components;
+    }
+
+    @Override
+    public Component getFirstPassiveName() {
+        return Component.literal("优胜劣汰").withStyle(hoverMainStyle());
     }
 
     public static Map<Player, Boolean> onPlayerMap = new HashMap<>();

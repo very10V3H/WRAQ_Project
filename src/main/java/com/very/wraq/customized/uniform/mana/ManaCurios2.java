@@ -25,9 +25,6 @@ public class ManaCurios2 extends WraqManaUniformCurios {
     public List<Component> additionHoverText(ItemStack stack) {
         List<Component> components = new ArrayList<>();
         Style style = hoverMainStyle();
-        Compute.DescriptionPassive(components, Component.literal("先天之能").withStyle(style));
-        components.add(Component.literal(" 获得").withStyle(ChatFormatting.WHITE).
-                append(Component.literal("50%最终伤害提升").withStyle(ChatFormatting.RED)));
         Compute.DescriptionPassive(components, Component.literal("巫术研究").withStyle(style));
         components.add(Component.literal(" 周围").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("没有其他玩家").withStyle(style)).
@@ -35,6 +32,11 @@ public class ManaCurios2 extends WraqManaUniformCurios {
                 append(Compute.AttributeDescription.ManaDamage("50%总")));
         components.add(Component.literal(" 法术的研究者，也是亚瑟王的挚友和导师——梅林，给予新生法师的礼物。").withStyle(style));
         return components;
+    }
+
+    @Override
+    public Component getFirstPassiveName() {
+        return Component.literal("先天之能").withStyle(hoverMainStyle());
     }
 
     public static Map<Player, Boolean> onPlayerMap = new HashMap<>();

@@ -1,6 +1,7 @@
 package com.very.wraq.projectiles;
 
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.Utils.ComponentUtils;
 import com.very.wraq.common.Utils.Utils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -32,6 +33,9 @@ public abstract class WraqUniformCurios extends Item implements ICurioItem {
         Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         if (!additionHoverText(stack).isEmpty()) {
             Compute.DescriptionOfAddition(components);
+            ComponentUtils.descriptionPassive(components, getFirstPassiveName());
+            components.add(Component.literal(" 获得").withStyle(ChatFormatting.WHITE).
+                    append(Component.literal("50%最终伤害提升").withStyle(ChatFormatting.RED)));
             components.addAll(additionHoverText(stack));
         }
         Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
@@ -44,6 +48,8 @@ public abstract class WraqUniformCurios extends Item implements ICurioItem {
     public abstract Style hoverMainStyle();
 
     public abstract Component suffix();
+
+    public abstract Component getFirstPassiveName();
 
     @Override
     public void onEquip(SlotContext slotContext, ItemStack prevStack, ItemStack stack) {
