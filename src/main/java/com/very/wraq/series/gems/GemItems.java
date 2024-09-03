@@ -25,11 +25,7 @@ public class GemItems {
                     ComponentUtils.getSuffixOfChapterI()));
 
     public static final RegistryObject<Item> fieldGemD = ITEMS.register("field_gem_d",
-            () -> new WraqGem(new Item.Properties().rarity(CustomStyle.FieldBold), new ArrayList<>() {{
-                add(new WraqGem.AttributeMapValue(Utils.healEffectUp, 0.2));
-                add(new WraqGem.AttributeMapValue(Utils.percentMaxHealthEnhance, 0.1));
-            }}, CustomStyle.styleOfField, Component.literal("原野意志的具象，凝聚成此石。").withStyle(CustomStyle.styleOfField),
-                    ComponentUtils.getSuffixOfChapterI()));
+            () -> new WraqGem.WraqGemD((WraqGem) fieldGem.get()));
 
     public static final RegistryObject<Item> forestGem = ITEMS.register("forest_gem",
             () -> new WraqGem(new Item.Properties().rarity(CustomStyle.ForestBold), new ArrayList<>() {{

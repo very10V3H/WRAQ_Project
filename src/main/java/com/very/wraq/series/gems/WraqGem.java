@@ -1,9 +1,9 @@
 package com.very.wraq.series.gems;
 
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import com.very.wraq.render.gui.illustrate.Display;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.util.Utils;
+import com.very.wraq.render.gui.illustrate.Display;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -15,6 +15,7 @@ import net.minecraft.world.level.Level;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,12 +25,14 @@ public class WraqGem extends Item {
     private final Component oneLineDescription;
     private final Component suffix;
     private final List<AttributeMapValue> attributeMapValues;
+    private final Properties properties;
 
     public record AttributeMapValue(Map<Item, Double> attributeMap, double value) {}
 
     public WraqGem(Properties properties, List<AttributeMapValue> attributeMapValues,
                    Style hoverStyle, Component oneLineDescription, Component suffix) {
         super(properties);
+        this.properties = properties;
         Utils.gemsTag.put(this, 1);
         for (AttributeMapValue attributeMapValue : attributeMapValues) {
             attributeMapValue.attributeMap.put(this, attributeMapValue.value);
@@ -39,6 +42,35 @@ public class WraqGem extends Item {
         this.oneLineDescription = oneLineDescription;
         this.suffix = suffix;
         this.attributeMapValues = attributeMapValues;
+    }
+
+    // 困缚禁法
+    public static class WraqGemD extends WraqGem {
+        public WraqGemD(WraqGem wraqGem) {
+            super(wraqGem.getProperties(), wraqGem.getAttributeMapValues(), wraqGem.getHoverStyle(), wraqGem.getOneLineDescription(), wraqGem.getSuffix());
+            for (AttributeMapValue attributeMapValue : wraqGem.getAttributeMapValues()) {
+                attributeMapValue.attributeMap().put(this, attributeMapValue.value() * 2);
+            }
+        }
+    }
+
+    // 矿石
+    public static class WraqGemO1 extends WraqGem {
+        public WraqGemO1(WraqGem wraqGem) {
+            super(wraqGem.getProperties(), wraqGem.getAttributeMapValues(), wraqGem.getHoverStyle(), wraqGem.getOneLineDescription(), wraqGem.getSuffix());
+
+            Map<Map<Item, Double>, Double> map = new HashMap<>() {{
+                wraqGem.getAttributeMapValues().forEach(attributeMapValue -> {
+                    put(attributeMapValue.attributeMap(), attributeMapValue.value());
+                });
+            }};
+
+            List.of(new AttributeMapValue(Utils.percentMaxHealthEnhance, 0.1),
+                    new AttributeMapValue(Utils.healthRecover, 20))
+                    .forEach(attributeMapValue -> {
+                attributeMapValue.attributeMap.put(this, attributeMapValue.value + map.getOrDefault(attributeMapValue.attributeMap, 0d));
+            });
+        }
     }
 
     @Override
@@ -64,6 +96,18 @@ public class WraqGem extends Item {
 
     public List<AttributeMapValue> getAttributeMapValues() {
         return attributeMapValues;
+    }
+
+    public Component getOneLineDescription() {
+        return oneLineDescription;
+    }
+
+    public Component getSuffix() {
+        return suffix;
+    }
+
+    public Properties getProperties() {
+        return properties;
     }
 
     public static List<WraqGem> getEquipContainGemList(ItemStack equip) throws CommandSyntaxException {
