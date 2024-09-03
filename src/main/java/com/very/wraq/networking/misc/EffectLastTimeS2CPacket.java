@@ -1,8 +1,8 @@
 package com.very.wraq.networking.misc;
 
 import com.very.wraq.process.system.element.Element;
-import com.very.wraq.common.Utils.ClientUtils;
-import com.very.wraq.common.Utils.Struct.EffectTimeLast;
+import com.very.wraq.common.util.ClientUtils;
+import com.very.wraq.common.util.struct.EffectTimeLast;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.network.NetworkEvent;
@@ -58,11 +58,7 @@ public class EffectLastTimeS2CPacket {
                 ClientUtils.effectTimeLasts.removeIf(effectTimeLast -> Element.elementList.contains(effectTimeLast.itemStack.getItem()));
             }
 
-            boolean contains = ClientUtils.effectTimeLasts.stream().anyMatch(effectTimeLast -> effectTimeLast.itemStack.is(this.itemStack.getItem()));
-            if (contains) {
-                if (this.forever) return;
-                else ClientUtils.effectTimeLasts.removeIf(effectTimeLast -> effectTimeLast.itemStack.is(this.itemStack.getItem()));
-            }
+            ClientUtils.effectTimeLasts.removeIf(effectTimeLast -> effectTimeLast.itemStack.is(this.itemStack.getItem()));
 
             if (this.forever) ClientUtils.effectTimeLasts.add(new EffectTimeLast(itemStack, lastTime, lastTime, level, true));
             else ClientUtils.effectTimeLasts.add(new EffectTimeLast(itemStack, lastTime, lastTime, level));
