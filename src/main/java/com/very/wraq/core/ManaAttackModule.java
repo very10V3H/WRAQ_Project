@@ -92,11 +92,9 @@ public class ManaAttackModule {
             } // 危机意识（当生命值低于50%时，造成额外20%真实伤害）
 
             double DamageEnhance = 0; // 乘区0
-            DamageEnhance += ManaSkill3(data, player, monster); // 机体解构（对一名目标的持续法术攻击，可以使你对该目标的伤害至多提升至2%，在5次攻击后达到最大值）
             DamageEnhance += SakuraCoreDecreaseDamage(player); // 樱妖魔核
             DamageEnhance += DamageInfluence.getPlayerCommonDamageUpOrDown(player, monster);
             DamageEnhance += IceKnight.IceKnightHealthManaDamageFix(monster); // 冰霜骑士伤害修正
-            DamageEnhance += NetherManaArmor(player, monster); // 下界混沌套装
             DamageEnhance += DamageInfluence.getPlayerManaDamageEnhance(player); // 魔法伤害提升
 
             double NormalAttackDamageEnhance = 0;
@@ -173,7 +171,7 @@ public class ManaAttackModule {
                 for (Mob mob : mobList) {
                     if (mob != monster) {
                         if (mob.getPosition(1).add(0, 1, 0).distanceTo(monster.getPosition(1).add(0, 1, 0)) <= 2) {
-                            Compute.Damage.ManaDamageToMonster_RateApDamage(player, mob, 0.5f, true);
+                            Compute.Damage.causeManaDamageToMonster_RateApDamage(player, mob, 0.5f, true);
                         }
                     }
                 }
@@ -225,7 +223,6 @@ public class ManaAttackModule {
             } // 危机意识（当生命值低于50%时，造成额外20%真实伤害）
             DamageIgnoreDefence += ManaSKill6(data, player, baseDamage); // 完美（持续命中目标，将至多造成50%额外真实伤害）
 
-            DamageEnhance += ManaSkill3(data, player, hurter); // 机体解构（对一名目标的持续法术攻击，可以使你对该目标的伤害至多提升至2%，在5次攻击后达到最大值）
             DamageEnhance += Compute.ManaSkillLevelGet(data, 4) * 0.03; // 法术专注（额外造成3%的伤害，额外受到1.5%的伤害）
 
             if (Defence < DefencePenetration0) Defence = 0;
@@ -320,8 +317,9 @@ public class ManaAttackModule {
         }
     }
 
-    public static double ManaSkill3(CompoundTag data, Player player, LivingEntity monster) {
+    public static double getManaSkill3DamageEnhance(Player player, LivingEntity monster) {
         double DamageEnhance = 0;
+        CompoundTag data = player.getPersistentData();
         int TickCount = Objects.requireNonNull(player.getServer()).getTickCount();
         String name = player.getName().getString();
         if (Compute.ManaSkillLevelGet(data, 3) > 0 && Utils.ManaSkill3Map.containsKey(name)) {
@@ -387,8 +385,8 @@ public class ManaAttackModule {
             for (Mob mob : mobList) {
                 if (mob.position().distanceTo(player.position()) < 6) {
                     if (random.nextDouble() < PlayerAttributes.critRate(player)) {
-                        Compute.Damage.ManaDamageToMonster_RateApDamage(player, mob, Compute.ManaSkillLevelGet(data, 12) * PlayerAttributes.critDamage(player), false);
-                    } else Compute.Damage.ManaDamageToMonster_RateApDamage(player, mob, Compute.ManaSkillLevelGet(data, 12), false);
+                        Compute.Damage.causeManaDamageToMonster_RateApDamage(player, mob, Compute.ManaSkillLevelGet(data, 12) * PlayerAttributes.critDamage(player), false);
+                    } else Compute.Damage.causeManaDamageToMonster_RateApDamage(player, mob, Compute.ManaSkillLevelGet(data, 12), false);
                 }
             }
             Utils.ManaSkill12.put(name, false);
@@ -418,7 +416,7 @@ public class ManaAttackModule {
 
             if (Count.get() > 10) Count.set(10);
             for (Mob mob : mobList) {
-                Compute.Damage.ManaDamageToMonster_RateApDamage(player, mob, 0.2 * Compute.ManaSkillLevelGet(data, 13) * Count.get(), false);
+                Compute.Damage.causeManaDamageToMonster_RateApDamage(player, mob, 0.2 * Compute.ManaSkillLevelGet(data, 13) * Count.get(), false);
             }
 
             double recoverManaValue = (Compute.PlayerMaxManaNum(player) - Compute.PlayerCurrentManaNum(player)) * 0.05 * Compute.ManaSkillLevelGet(data, 13);

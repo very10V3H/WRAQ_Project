@@ -63,7 +63,7 @@ public class BowEvent {
                     }
                 }
                 if (nearestMob != null) {
-                    Compute.Damage.ManaDamageToMonster_ApDamage(blazeSword.player, nearestMob, Compute.XpStrengthAPDamage(blazeSword.player, 0.5));
+                    Compute.Damage.causeManaDamageToMonster_ApDamage(blazeSword.player, nearestMob, Compute.XpStrengthAPDamage(blazeSword.player, 0.5));
                     blazeSword.remove(Entity.RemovalReason.KILLED);
                 } else {
                     event.setImpactResult(ProjectileImpactEvent.ImpactResult.SKIP_ENTITY);

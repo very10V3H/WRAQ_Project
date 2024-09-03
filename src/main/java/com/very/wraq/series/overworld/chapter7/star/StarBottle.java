@@ -137,7 +137,7 @@ public class StarBottle extends Item implements ICurioItem {
         mobList.forEach(mob -> {
             if (playerCountsMap.get(player) > 0) {
                 playerCountsMap.put(player, playerCountsMap.get(player) - 1);
-                Compute.Damage.DamageIgNoreDefenceToMonster(player, mob, Compute.XpStrengthDamage(player, (double) playerCountsMap.get(player) / 10));
+                Compute.Damage.causeIgNoreDefenceDamageToMonster(player, mob, Compute.XpStrengthDamage(player, (double) playerCountsMap.get(player) / 10));
                 ParticleProvider.LineParticle(player.level(), (int) mob.distanceTo(player) * 2, player.position(), mob.position(), ParticleTypes.FIREWORK);
             }
         });

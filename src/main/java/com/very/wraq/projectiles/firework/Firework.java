@@ -97,7 +97,7 @@ public class Firework extends AbstractArrow implements GeoEntity {
             if (entity instanceof LivingEntity livingEntity) {
                 if (livingEntity instanceof Mob mob
                         && livingEntity.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.MobArmorSpringHelmet.get())) {
-                    Compute.Damage.ManaDamageToMonster_ApDamage(player, mob, 2024000);
+                    Compute.Damage.causeManaDamageToMonster_ApDamage(player, mob, 2024000);
                     Compute.addSlowDownEffect(mob, 100, 100);
                 }
                 CompoundTag compoundTag = new CompoundTag();

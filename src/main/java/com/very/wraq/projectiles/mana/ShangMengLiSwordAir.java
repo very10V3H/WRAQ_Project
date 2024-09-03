@@ -78,7 +78,7 @@ public class ShangMengLiSwordAir extends AbstractArrow implements GeoEntity {
             } else {
                 Entity entity = result.getEntity();
                 if (!(entity instanceof Mob)) return;
-                Compute.Damage.ManaDamageToMonster_RateApDamage(player, (Mob) entity, 1 + 3 * PlayerAttributes.coolDownDecrease(player), isPower);
+                Compute.Damage.causeManaDamageToMonster_RateApDamage(player, (Mob) entity, 1 + 3 * PlayerAttributes.coolDownDecrease(player), isPower);
                 Compute.playerManaAddOrCost(player, 20);
                 player.sendSystemMessage(Component.literal("true"));
             }

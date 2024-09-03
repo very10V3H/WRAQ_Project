@@ -88,7 +88,7 @@ public class QuartzSword extends WraqSword implements ActiveItem {
             Iterator<Mob> iterator1 = monsterList.iterator();
             while (iterator1.hasNext()) {
                 Mob monster = iterator1.next();
-                Compute.Damage.ManaDamageToMonster_RateApDamage(player, monster, 2.5f, true);
+                Compute.Damage.causeManaDamageToMonster_RateApDamage(player, monster, 2.5f, true);
                 LightningBolt lightningBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, level);
                 lightningBolt.setCause((ServerPlayer) player);
                 lightningBolt.setSilent(true);

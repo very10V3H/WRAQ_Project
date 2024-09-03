@@ -167,7 +167,7 @@ public class EarthPower extends Item implements ActiveItem {
                 AABB.ofSize(TargetPos, 20, 20, 20));
         playerList.removeIf(player1 -> player1.distanceTo(player1) > 6);
         mobList.forEach(mob -> {
-            Compute.Damage.ManaDamageToMonster_RateApDamage(player, mob, 3, true);
+            Compute.Damage.causeManaDamageToMonster_RateApDamage(player, mob, 3, true);
             PowerLogic.PlayerPowerEffectToMob(player, mob);
         });
         switch (type) {
@@ -217,7 +217,7 @@ public class EarthPower extends Item implements ActiveItem {
                     Volcano_PlayerDamageEnhance.put(player1, TickCount + 60);
                 });
                 mobList.forEach(mob1 -> {
-                    Compute.Damage.ManaDamageToMonster_RateApDamage(player, mob1, 3, true);
+                    Compute.Damage.causeManaDamageToMonster_RateApDamage(player, mob1, 3, true);
                 });
             }
         }

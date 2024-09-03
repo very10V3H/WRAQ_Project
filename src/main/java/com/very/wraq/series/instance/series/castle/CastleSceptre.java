@@ -95,7 +95,7 @@ public class CastleSceptre extends WraqSceptre implements ForgeItem, ActiveItem 
 
     public static void ExDamage(Player player, Mob mob, double damage) {
         if (player.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.CastleSceptre.get())) {
-            Compute.Damage.AttackDamageToMonster_AdDamage_Direct(player, mob, damage, true);
+            Compute.Damage.causeAttackDamageToMonster_AdDamage_Direct(player, mob, damage, true);
         }
     }
 

@@ -36,21 +36,21 @@ public record Dot(int type, double value, int frequency, int stopTick, String na
 
                 if (tick % (20 / dot.frequency) == 0) {
                     switch (dot.type) {
-                        case 0 -> Compute.Damage.DamageIgNoreDefenceToMonster(serverPlayer, mob, dot.value);
+                        case 0 -> Compute.Damage.causeIgNoreDefenceDamageToMonster(serverPlayer, mob, dot.value);
                         case 1 -> {
                             if (dot.computeCrit) {
                                 if (random.nextDouble() < PlayerAttributes.critRate(serverPlayer)) {
-                                    Compute.Damage.AttackDamageToMonster_AdDamage(serverPlayer, mob,
+                                    Compute.Damage.causeAttackDamageToMonster_AdDamage(serverPlayer, mob,
                                             dot.value * (1 + PlayerAttributes.critDamage(serverPlayer)));
-                                } else Compute.Damage.AttackDamageToMonster_AdDamage(serverPlayer, mob, dot.value);
+                                } else Compute.Damage.causeAttackDamageToMonster_AdDamage(serverPlayer, mob, dot.value);
                             }
                         }
                         case 2 -> {
                             if (dot.computeCrit) {
                                 if (random.nextDouble() < PlayerAttributes.critRate(serverPlayer)) {
-                                    Compute.Damage.ManaDamageToMonster_ApDamage(serverPlayer, mob,
+                                    Compute.Damage.causeManaDamageToMonster_ApDamage(serverPlayer, mob,
                                             dot.value * (1 + PlayerAttributes.critDamage(serverPlayer)));
-                                } else Compute.Damage.ManaDamageToMonster_ApDamage(serverPlayer, mob, dot.value);
+                                } else Compute.Damage.causeManaDamageToMonster_ApDamage(serverPlayer, mob, dot.value);
                             }
                         }
                     }

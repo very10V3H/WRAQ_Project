@@ -556,9 +556,9 @@ public class Element {
             list.forEach(livingEntity -> {
                 if (livingEntity instanceof Mob mob) {
                     if (isAd) {
-                        Compute.Damage.AttackDamageToMonster_AdDamage(player, mob, damage * reactionElementValue);
+                        Compute.Damage.causeAttackDamageToMonster_AdDamage(player, mob, damage * reactionElementValue);
                     } else {
-                        Compute.Damage.ManaDamageToMonster_ApDamage(player, mob, damage * reactionElementValue);
+                        Compute.Damage.causeManaDamageToMonster_ApDamage(player, mob, damage * reactionElementValue);
                     }
                 }
             });
@@ -696,9 +696,9 @@ public class Element {
             list.forEach(livingEntity -> {
                 if (livingEntity instanceof Mob mob) {
                     if (isAd) {
-                        Compute.Damage.AttackDamageToMonster_AdDamage(player, mob, damage * reactionElementValue);
+                        Compute.Damage.causeAttackDamageToMonster_AdDamage(player, mob, damage * reactionElementValue);
                     } else {
-                        Compute.Damage.ManaDamageToMonster_ApDamage(player, mob, damage * reactionElementValue);
+                        Compute.Damage.causeManaDamageToMonster_ApDamage(player, mob, damage * reactionElementValue);
                     }
                 }
             });

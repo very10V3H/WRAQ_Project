@@ -87,8 +87,8 @@ public class NetherNewRune extends WraqCurios implements RuneItem, UsageOrGetWay
 
         mobList.removeIf(mob1 -> mob1.distanceTo(mob) > 3 || !mob1.isAlive());
         mobList.forEach(mob1 -> {
-            Compute.Damage.attackDamageToMonsterOnlyComputeDefence(player, mob1, mob.getMaxHealth() * 0.08);
-            Compute.Damage.DamageIgNoreDefenceToMonster(player, mob1, PlayerAttributes.attackDamage(player));
+            Compute.Damage.causeAttackDamageToMonsterOnlyComputeDefence(player, mob1, mob.getMaxHealth() * 0.08);
+            Compute.Damage.causeIgNoreDefenceDamageToMonster(player, mob1, PlayerAttributes.attackDamage(player));
         });
     }
 

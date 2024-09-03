@@ -234,7 +234,7 @@ public class HurtEventModule {
             if (Count.get() > 5) Count.set(5);
             for (Mob mob : mobList) {
                 if (mob.position().distanceTo(player.position()) < 6) {
-                    Compute.Damage.ManaDamageToMonster_RateApDamage(player, mob, Compute.ManaSkillLevelGet(data, 14) * Count.get() * 2, false);
+                    Compute.Damage.causeManaDamageToMonster_RateApDamage(player, mob, Compute.ManaSkillLevelGet(data, 14) * Count.get() * 2, false);
                 }
             }
             for (Player player1 : playerList)

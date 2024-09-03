@@ -144,7 +144,7 @@ public class CastleManaArmor extends WraqArmor implements ForgeItem {
         List<Mob> monsterList = level.getEntitiesOfClass(Mob.class, AABB.ofSize(TargetPos, 20, 20, 20));
         for (Mob mob : monsterList) {
             if (mob.getPosition(0).distanceTo(TargetPos) < 6) {
-                Compute.Damage.ManaDamageToMonster_RateApDamage(player, mob, rate, true);
+                Compute.Damage.causeManaDamageToMonster_RateApDamage(player, mob, rate, true);
 
                 ParticleProvider.EntityEffectVerticleCircleParticle(mob, 1, 0.4, 8, ParticleTypes.WITCH, 0);
                 ParticleProvider.EntityEffectVerticleCircleParticle(mob, 0.75, 0.4, 8, ParticleTypes.WITCH, 0);

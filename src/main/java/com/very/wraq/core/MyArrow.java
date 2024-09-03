@@ -2,15 +2,14 @@ package com.very.wraq.core;
 
 import com.very.wraq.commands.stable.players.DebugCommand;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.StringUtils;
-import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.attribute.DamageInfluence;
 import com.very.wraq.common.attribute.MobAttributes;
 import com.very.wraq.common.attribute.PlayerAttributes;
 import com.very.wraq.common.attribute.SameTypeModule;
+import com.very.wraq.common.util.StringUtils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.customized.uniform.bow.BowCurios0;
 import com.very.wraq.entities.entities.Civil.Civil;
-import com.very.wraq.events.instance.IceKnight;
 import com.very.wraq.events.modules.AttackEventModule;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.process.system.element.Element;
@@ -233,8 +232,7 @@ public class MyArrow extends AbstractArrow {
             damageEnhance += AttackEventModule.NetherArmorEffect(player, monster); // 下界套装
             damageEnhance += AttackEventModule.NetherBow(player, monster); // 夸塔兹长弓
             damageEnhance += DamageInfluence.getPlayerCommonDamageUpOrDown(player, monster);
-            damageEnhance += DamageInfluence.getPlayerAttackDamageEnhance(player);
-            damageEnhance += IceKnight.IceKnightHealthAttackDamageFix(monster); // 冰霜骑士伤害修正
+            damageEnhance += DamageInfluence.getPlayerAttackDamageEnhance(player, monster);
 
             double NormalAttackDamageEnhance = 0;
             NormalAttackDamageEnhance += DamageInfluence.getPlayerNormalBowAttackDamageEnhance(player);

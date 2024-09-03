@@ -48,8 +48,8 @@ public class LakeBow extends WraqBow implements OnHitEffectMainHandWeapon {
         Random random = new Random();
         mobList.forEach(mob1 -> {
             if (random.nextDouble() < PlayerAttributes.critRate(player)) {
-                Compute.Damage.AttackDamageToMonster_RateAdDamage(player, mob1, 0.25 * (1 + tier) * (1 + PlayerAttributes.critDamage(player)));
-            } else Compute.Damage.AttackDamageToMonster_RateAdDamage(player, mob1, 0.25 * (1 + tier));
+                Compute.Damage.causeAttackDamageToMonster_RateAdDamage(player, mob1, 0.25 * (1 + tier) * (1 + PlayerAttributes.critDamage(player)));
+            } else Compute.Damage.causeAttackDamageToMonster_RateAdDamage(player, mob1, 0.25 * (1 + tier));
 
             Compute.addSlowDownEffect(mob1, 40, 2);
         });

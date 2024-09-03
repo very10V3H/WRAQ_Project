@@ -2,6 +2,7 @@ package com.very.wraq.common.attribute;
 
 import com.very.wraq.common.Compute;
 import com.very.wraq.core.ManaAttackModule;
+import com.very.wraq.events.instance.IceKnight;
 import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.events.modules.AttackEventModule;
 import com.very.wraq.series.specialevents.labourDay.LabourDayIronHoe;
@@ -28,7 +29,7 @@ import com.very.wraq.series.overworld.chapter7.vd.VdWeaponCommon;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 
-import static com.very.wraq.core.ManaAttackModule.ManaSkill11;
+import static com.very.wraq.core.ManaAttackModule.NetherManaArmor;
 
 public class DamageInfluence {
     public static double getPlayerCommonDamageUpOrDown(Player player, Mob monster) {
@@ -40,9 +41,12 @@ public class DamageInfluence {
         rate += CastleCurios.DamageEnhance(player, monster); // 随机饰品被动
         rate += PurpleIronSword.damageEnhance(player, monster);
         rate += StarArmor.DamageEnhance(player, monster); // 梦月
-        rate += getPlayerCommonDamageUpOrDown(player);
         rate += VdWeaponCommon.damageEnhance(player, monster); // vd weapon
         rate += OnCuriosSlotHitDamageInfluence.damageInfluence(player, monster);
+        rate += ManaAttackModule.getManaSkill3DamageEnhance(player, monster); // 机体解构（对一名目标的持续法术攻击，可以使你对该目标的伤害至多提升至2%，在5次攻击后达到最大值）
+        rate += NetherManaArmor(player, monster); // 下界混沌套装
+
+        rate += getPlayerCommonDamageUpOrDown(player);
         return rate;
     }
 
@@ -78,10 +82,17 @@ public class DamageInfluence {
         return rate;
     }
 
+    public static double getPlayerAttackDamageEnhance(Player player, Mob mob) {
+        double rate = 0;
+        rate += IceKnight.IceKnightHealthAttackDamageFix(mob);
+        rate += getPlayerAttackDamageEnhance(player);
+        return rate;
+    }
+
     public static double getPlayerManaDamageEnhance(Player player) {
         double rate = 0;
         rate += ManaAttackModule.ManaSkill10DamageEnhance(player);
-        rate += ManaSkill11(player);
+        rate += ManaAttackModule.ManaSkill11(player);
         rate += AttackEventModule.ManaSKillEnhance(player);
         rate += LabourDayIronHoe.playerManaDamageEnhance(player);
         rate += NewPotionEffects.manaDamageEnhance(player);

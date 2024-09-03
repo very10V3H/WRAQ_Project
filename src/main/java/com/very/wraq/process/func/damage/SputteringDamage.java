@@ -38,11 +38,11 @@ public class SputteringDamage {
                     nextCauseMob.forEach(mob -> {
                         if (!causedDamageMob.contains(mob) && !mob.equals(this.originMob)) {
                             if (this.damageType == 0)
-                                Compute.Damage.AttackDamageToMonster_AdDamage_Direct(originPlayer, mob, this.originDamage / (2 * (this.generation + 1)), false);
+                                Compute.Damage.causeAttackDamageToMonster_AdDamage_Direct(originPlayer, mob, this.originDamage / (2 * (this.generation + 1)), false);
                             if (this.damageType == 1)
-                                Compute.Damage.ManaDamageToMonster_ApDamage_Direct(originPlayer, mob, this.originDamage / (2 * (this.generation + 1)), false);
+                                Compute.Damage.causeManaDamageToMonster_ApDamage_Direct(originPlayer, mob, this.originDamage / (2 * (this.generation + 1)), false);
                             if (this.damageType == 2)
-                                Compute.Damage.IgnoreDefenceDamageToMonster_Direct(originPlayer, mob, this.originDamage / (2 * (this.generation + 1)));
+                                Compute.Damage.causeIgnoreDefenceDamageToMonster_Direct(originPlayer, mob, this.originDamage / (2 * (this.generation + 1)));
                         }
                         causedDamageMob.add(mob);
                     });
@@ -60,11 +60,11 @@ public class SputteringDamage {
                         addMobs.addAll(mobList);
                         if (this.generation > 0 && !mob.equals(this.originMob)) {
                             if (this.damageType == 0)
-                                Compute.Damage.AttackDamageToMonster_AdDamage_Direct(originPlayer, mob, this.originDamage / (2 * (this.generation + 1)), false);
+                                Compute.Damage.causeAttackDamageToMonster_AdDamage_Direct(originPlayer, mob, this.originDamage / (2 * (this.generation + 1)), false);
                             if (this.damageType == 1)
-                                Compute.Damage.ManaDamageToMonster_ApDamage_Direct(originPlayer, mob, this.originDamage / (2 * (this.generation + 1)), false);
+                                Compute.Damage.causeManaDamageToMonster_ApDamage_Direct(originPlayer, mob, this.originDamage / (2 * (this.generation + 1)), false);
                             if (this.damageType == 2)
-                                Compute.Damage.IgnoreDefenceDamageToMonster_Direct(originPlayer, mob, this.originDamage / (2 * (this.generation + 1)));
+                                Compute.Damage.causeIgnoreDefenceDamageToMonster_Direct(originPlayer, mob, this.originDamage / (2 * (this.generation + 1)));
                         }
                         causedDamageMob.add(mob);
                     });

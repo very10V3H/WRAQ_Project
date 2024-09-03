@@ -141,7 +141,7 @@ public class MoonBelt extends Item implements ICurioItem {
             List<Mob> mobList = player.level().getEntitiesOfClass(Mob.class, AABB.ofSize(player.position(), 15, 15, 15));
             mobList.forEach(mob -> {
                 if (mob.distanceTo(player) < 6) {
-                    Compute.Damage.DamageIgNoreDefenceToMonster(player, mob, storedDamage.get(player));
+                    Compute.Damage.causeIgNoreDefenceDamageToMonster(player, mob, storedDamage.get(player));
                 }
             });
             Compute.playerShieldProvider(player, 200, Math.min(player.getMaxHealth() * 2, storedDamage.get(player) * 0.01));

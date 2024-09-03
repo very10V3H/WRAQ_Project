@@ -124,7 +124,7 @@ public class KazeSword extends WraqSword implements ActiveItem {
                             ParticleProvider.EntityEffectVerticleCircleParticle(mob, 1, 1, 16, ParticleTypes.ENCHANTED_HIT, 0);
                             ParticleProvider.EntityEffectVerticleCircleParticle(mob, 0.5, 0.75, 16, ParticleTypes.ENCHANTED_HIT, 0);
                             ParticleProvider.EntityEffectVerticleCircleParticle(mob, 0, 0.75, 16, ParticleTypes.ENCHANTED_HIT, 0);
-                            MobDamageCount += Compute.Damage.AttackDamageToMonster_RateAdDamage(player, mob, rate);
+                            MobDamageCount += Compute.Damage.causeAttackDamageToMonster_RateAdDamage(player, mob, rate);
                         }
                     }
                 }
@@ -139,7 +139,7 @@ public class KazeSword extends WraqSword implements ActiveItem {
                             ParticleProvider.EntityEffectVerticleCircleParticle(player1, 1, 1, 16, ParticleTypes.ENCHANTED_HIT, 0);
                             ParticleProvider.EntityEffectVerticleCircleParticle(player1, 0.5, 0.75, 16, ParticleTypes.ENCHANTED_HIT, 0);
                             ParticleProvider.EntityEffectVerticleCircleParticle(player1, 0, 0.75, 16, ParticleTypes.ENCHANTED_HIT, 0);
-                            PlayerDamageCount += Compute.Damage.AttackDamageToPlayer_RateAdDamage(player, player1, rate);
+                            PlayerDamageCount += Compute.Damage.causeAttackDamageToPlayer_RateAdDamage(player, player1, rate);
                         }
                     }
                 }

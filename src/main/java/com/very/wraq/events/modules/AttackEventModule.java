@@ -516,8 +516,8 @@ public class AttackEventModule {
             Random random = new Random();
             for (Mob mob : mobList) {
                 if (random.nextDouble() < PlayerAttributes.critRate(player)) {
-                    Compute.Damage.AttackDamageToMonster_RateAdDamage(player, mob, 0.8 * Compute.BowSkillLevelGet(data, 12) * (1 + PlayerAttributes.critDamage(player)));
-                } else Compute.Damage.AttackDamageToMonster_RateAdDamage(player, mob, 0.8 * Compute.BowSkillLevelGet(data, 12));
+                    Compute.Damage.causeAttackDamageToMonster_RateAdDamage(player, mob, 0.8 * Compute.BowSkillLevelGet(data, 12) * (1 + PlayerAttributes.critDamage(player)));
+                } else Compute.Damage.causeAttackDamageToMonster_RateAdDamage(player, mob, 0.8 * Compute.BowSkillLevelGet(data, 12));
             }
             Utils.BowSkill12.put(name, false);
             ModNetworking.sendToClient(new ChargedClearS2CPacket(1), (ServerPlayer) player);

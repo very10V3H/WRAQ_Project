@@ -92,7 +92,7 @@ public class PowerLogic {
         List<Mob> monsterList = level.getEntitiesOfClass(Mob.class, AABB.ofSize(TargetPos, 20, 20, 20));
         for (Mob mob : monsterList) {
             if (mob.getPosition(0).distanceTo(TargetPos) < 6) {
-                Damage.ManaDamageToMonster_RateApDamage_ElementAddition(player, mob, 3, true,
+                Damage.causeManaDamageToMonster_RateApDamage_ElementAddition(player, mob, 3, true,
                         Element.fire, ElementValue.ElementValueJudgeByType(player, Element.fire) + 1);
                 PlayerPowerEffectToMob(player, mob);
                 mob.getPersistentData().putInt("witherBonePower", 100);
@@ -127,7 +127,7 @@ public class PowerLogic {
 
         for (Mob mob : monsterList) {
             if (mob.getPosition(0).distanceTo(TargetPos) < 6) {
-                Damage.ManaDamageToMonster_RateApDamage_ElementAddition(player, mob, monsterList.size() * 2, true,
+                Damage.causeManaDamageToMonster_RateApDamage_ElementAddition(player, mob, monsterList.size() * 2, true,
                         Element.fire, ElementValue.ElementValueJudgeByType(player, Element.fire) + 1);
                 PlayerPowerEffectToMob(player, mob);
                 ParticleProvider.EntityEffectVerticleCircleParticle(mob, 1, 0.4, 8, ParticleTypes.WITCH, 0);
@@ -192,7 +192,7 @@ public class PowerLogic {
         List<Mob> monsterList = level.getEntitiesOfClass(Mob.class, AABB.ofSize(TargetPos, 20, 20, 20));
         for (Mob mob : monsterList) {
             if (mob.getPosition(0).distanceTo(TargetPos) < 6) {
-                Damage.ManaDamageToMonster_RateApDamage_ElementAddition(player, mob, 8, true,
+                Damage.causeManaDamageToMonster_RateApDamage_ElementAddition(player, mob, 8, true,
                         Element.fire, ElementValue.ElementValueJudgeByType(player, Element.fire) + 1);
                 PlayerPowerEffectToMob(player, mob);
                 ParticleProvider.EntityEffectVerticleCircleParticle(mob, 1, 0.4, 8, ParticleTypes.WITCH, 0);
@@ -250,7 +250,7 @@ public class PowerLogic {
             if (PosVec.length() <= 6) {
                 if (!MonsterCantBeMove(mob))
                     mob.setDeltaMovement(PosVec.normalize().scale(Math.min(2, 6 / PosVec.length())));
-                Damage.ManaDamageToMonster_RateApDamage_ElementAddition(player, mob, effect, true,
+                Damage.causeManaDamageToMonster_RateApDamage_ElementAddition(player, mob, effect, true,
                         Element.life, ElementValue.ElementValueJudgeByType(player, Element.life) + 1);
                 PlayerPowerEffectToMob(player, mob);
             }
@@ -300,7 +300,7 @@ public class PowerLogic {
             if (mob.position().subtract(finalDesPos).length() <= 8) {
                 if (!MonsterCantBeMove(mob))
                     Utils.ForestPowerEffectMobList.add(new ForestPowerEffectMob(finalDesPos, 10, mob));
-                Damage.ManaDamageToMonster_RateApDamage_ElementAddition(player, mob, effect, true,
+                Damage.causeManaDamageToMonster_RateApDamage_ElementAddition(player, mob, effect, true,
                         Element.life, ElementValue.ElementValueJudgeByType(player, Element.life) + 1);
                 PlayerPowerEffectToMob(player, mob);
                 Compute.leafParticleCreate(mob, mob.level());
@@ -358,7 +358,7 @@ public class PowerLogic {
                 AddManaDefenceDescreaseEffectParticle(mob, 40);
                 Utils.LakePowerEffectMobMap.put(mob, new LakePowerEffect(TickCount + 40, (tier + 1)));
                 PlayerPowerEffectToMob(player, mob);
-                Damage.ManaDamageToMonster_RateApDamage_ElementAddition(player, mob, effect, true,
+                Damage.causeManaDamageToMonster_RateApDamage_ElementAddition(player, mob, effect, true,
                         Element.water, ElementValue.ElementValueJudgeByType(player, Element.water) + 1);
                 Compute.sendMobEffectHudToNearPlayer(mob, ModItems.LakePower.get(), "lakePowerManaDefenceDecrease", 40, 0, false);
             }
@@ -395,7 +395,7 @@ public class PowerLogic {
                         AABB.ofSize(mob.position(), 10, 10, 10));
                 mobList1.forEach(mob1 -> {
                     if (mob1.position().subtract(mob.position()).length() <= 2) {
-                        Damage.ManaDamageToMonster_RateApDamage_ElementAddition(player, mob1, effect, true,
+                        Damage.causeManaDamageToMonster_RateApDamage_ElementAddition(player, mob1, effect, true,
                                 Element.fire, ElementValue.ElementValueJudgeByType(player, Element.fire) + 1);
                         PlayerPowerEffectToMob(player, mob);
                         ClientboundLevelParticlesPacket clientboundLevelParticlesPacket =
@@ -439,7 +439,7 @@ public class PowerLogic {
                     Dimension.destroyBlock(blockPos, false);
                 }
                 mob.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 20, 100, false, false, false));
-                Damage.ManaDamageToMonster_RateApDamage_ElementAddition(player, mob, effect, true,
+                Damage.causeManaDamageToMonster_RateApDamage_ElementAddition(player, mob, effect, true,
                         Element.ice, ElementValue.ElementValueJudgeByType(player, Element.ice) + 1);
                 PlayerPowerEffectToMob(player, mob);
                 Compute.sendMobEffectHudToNearPlayer(mob, ModItems.SnowPower.get(), "SnowPowerImprison", 20, 0, false);

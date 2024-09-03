@@ -248,8 +248,8 @@ public class ServerPlayerTickEvent {
                         AABB.ofSize(posAndLastTime.vec3, 15, 15, 15));
                 mobList.forEach(mob -> {
                     if (mob.position().distanceTo(posAndLastTime.vec3) <= 5) {
-                        Compute.Damage.ManaDamageToMonster_RateApDamage(player, mob, 0.5, false);
-                        Compute.Damage.AttackDamageToMonster_RateAdDamage(player, mob, 1);
+                        Compute.Damage.causeManaDamageToMonster_RateApDamage(player, mob, 0.5, false);
+                        Compute.Damage.causeAttackDamageToMonster_RateAdDamage(player, mob, 1);
                     }
                 });
                 posAndLastTime.TickCount -= 10;
@@ -276,8 +276,8 @@ public class ServerPlayerTickEvent {
                             level.setBlockAndUpdate(new BlockPos(mob.getBlockX(), mob.getBlockY() + 1, mob.getBlockZ()), Blocks.ICE.defaultBlockState());
                             level.destroyBlock(new BlockPos(mob.getBlockX(), mob.getBlockY() + 1, mob.getBlockZ()), false);
                         }
-                        Compute.Damage.AttackDamageToMonster_RateAdDamage(player, mob, Compute.ArmorCount.Ice(player) * 0.5);
-                        Compute.Damage.ManaDamageToMonster_RateApDamage(player, mob, Compute.ArmorCount.Ice(player) * 0.15, false);
+                        Compute.Damage.causeAttackDamageToMonster_RateAdDamage(player, mob, Compute.ArmorCount.Ice(player) * 0.5);
+                        Compute.Damage.causeManaDamageToMonster_RateApDamage(player, mob, Compute.ArmorCount.Ice(player) * 0.15, false);
                         Compute.addSlowDownEffect(mob, 40, 2);
                     }
                 });

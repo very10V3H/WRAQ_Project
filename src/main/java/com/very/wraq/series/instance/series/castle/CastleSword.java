@@ -74,7 +74,7 @@ public class CastleSword extends WraqSword implements ForgeItem, ActiveItem {
 
     public static void NormalAttack(Player player, Mob mob, double damage) {
         if (player.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.CastleSword.get())) {
-            Compute.Damage.ManaDamageToMonster_ApDamage_Direct(player, mob, damage, true);
+            Compute.Damage.causeManaDamageToMonster_ApDamage_Direct(player, mob, damage, true);
         }
     }
 

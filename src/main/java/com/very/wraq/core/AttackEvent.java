@@ -2,20 +2,19 @@ package com.very.wraq.core;
 
 import com.very.wraq.commands.stable.players.DebugCommand;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.StringUtils;
-import com.very.wraq.common.util.struct.Boss2Damage;
-import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.attribute.DamageInfluence;
 import com.very.wraq.common.attribute.MobAttributes;
 import com.very.wraq.common.attribute.PlayerAttributes;
 import com.very.wraq.common.attribute.SameTypeModule;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.StringUtils;
+import com.very.wraq.common.util.Utils;
+import com.very.wraq.common.util.struct.Boss2Damage;
 import com.very.wraq.customized.uniform.attack.AttackCurios1;
 import com.very.wraq.entities.entities.Boss2.Boss2;
 import com.very.wraq.entities.entities.Civil.Civil;
 import com.very.wraq.events.fight.HurtEvent;
 import com.very.wraq.events.instance.CastleSecondFloor;
-import com.very.wraq.events.instance.IceKnight;
 import com.very.wraq.events.modules.AttackEventModule;
 import com.very.wraq.events.modules.HurtEventModule;
 import com.very.wraq.networking.ModNetworking;
@@ -162,8 +161,7 @@ public class AttackEvent {
         damageEnhance += AttackEventModule.SwordSkill3(data, player, monster); // 破绽观察（对一名目标的持续攻击，可以使你对该目标的伤害至多提升至2%，在10次攻击后达到最大值）
         damageEnhance += AttackEventModule.NetherArmorEffect(player, monster); // 下界套装
         damageEnhance += DamageInfluence.getPlayerCommonDamageUpOrDown(player, monster);
-        damageEnhance += DamageInfluence.getPlayerAttackDamageEnhance(player);
-        damageEnhance += IceKnight.IceKnightHealthAttackDamageFix(monster); // 冰霜骑士伤害修正
+        damageEnhance += DamageInfluence.getPlayerAttackDamageEnhance(player, monster);
 
         double NormalAttackDamageEnhance = 0;
         NormalAttackDamageEnhance += DamageInfluence.getPlayerNormalSwordAttackDamageEnhance(player); // 普通近战攻击伤害加成

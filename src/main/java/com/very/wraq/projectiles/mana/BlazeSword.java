@@ -57,7 +57,7 @@ public class BlazeSword extends AbstractArrow implements GeoEntity {
         if (!this.level().isClientSide && this.player != null) {
             Entity entity = result.getEntity();
             if (entity instanceof Mob mob) {
-                Compute.Damage.ManaDamageToMonster_ApDamage(player, mob, Compute.XpStrengthAPDamage(player, 0.5));
+                Compute.Damage.causeManaDamageToMonster_ApDamage(player, mob, Compute.XpStrengthAPDamage(player, 0.5));
             }
         }
         this.remove(RemovalReason.KILLED);

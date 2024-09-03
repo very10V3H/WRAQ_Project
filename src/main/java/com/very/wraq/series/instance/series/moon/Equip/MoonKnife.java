@@ -89,7 +89,7 @@ public class MoonKnife extends Item {
                 List<Mob> mobList = mob.level().getEntitiesOfClass(Mob.class, AABB.ofSize(mob.position(), 15, 15, 15));
                 mobList.forEach(mob1 -> {
                     if (mob1.distanceTo(mob) < 6) {
-                        Compute.Damage.DamageIgNoreDefenceToMonster(player, mob1, Compute.XpStrengthADDamage(player, 14));
+                        Compute.Damage.causeIgNoreDefenceDamageToMonster(player, mob1, Compute.XpStrengthADDamage(player, 14));
                     }
                 });
                 playerDamageEnhanceTickMap.put(player, TickCount + 60);
