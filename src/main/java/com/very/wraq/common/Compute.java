@@ -3866,17 +3866,19 @@ public class Compute {
     }
 
     public static double XpStrengthADDamage(Player player, double rate) {
-        return PlayerAttributes.attackDamage(player) * (1 + player.experienceLevel * 5d / 100) * rate;
+        return PlayerAttributes.attackDamage(player) * (1 + (double) player.experienceLevel / 100) * rate;
         // rate 为倍率
     }
 
     public static double XpStrengthAPDamage(Player player, double rate) {
-        return PlayerAttributes.manaDamage(player) * (1 + player.experienceLevel * 5d / 100) * rate;
+        return PlayerAttributes.manaDamage(player) * (1 + (double) player.experienceLevel / 100) * rate;
         // rate 为倍率
     }
 
     public static double XpStrengthDamage(Player player, double rate) {
-        double attackDamage = PlayerAttributes.attackDamage(player), manaDamage = PlayerAttributes.manaDamage(player), base = (1 + (double) (player.experienceLevel * 5) / 100);
+        double attackDamage = PlayerAttributes.attackDamage(player),
+                manaDamage = PlayerAttributes.manaDamage(player),
+                base = (1 + (double) player.experienceLevel / 100);
         return attackDamage * 2 > manaDamage ? attackDamage * 2 * base * rate : manaDamage * base * rate;
     }
 
