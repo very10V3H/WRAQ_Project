@@ -3893,8 +3893,8 @@ public class Compute {
     }
 
     public static double XpStrengthDamage(Player player, double rate) {
-        double attackDamage = PlayerAttributes.attackDamage(player), manaDamage = PlayerAttributes.manaDamage(player), base = (1 + player.experienceLevel * 5 / 100);
-        return attackDamage * 4 > manaDamage ? attackDamage * 4 * base * rate : manaDamage * base * rate;
+        double attackDamage = PlayerAttributes.attackDamage(player), manaDamage = PlayerAttributes.manaDamage(player), base = (1 + (double) (player.experienceLevel * 5) / 100);
+        return attackDamage * 2 > manaDamage ? attackDamage * 2 * base * rate : manaDamage * base * rate;
     }
 
     public static void TransformMapToSortedList() {
