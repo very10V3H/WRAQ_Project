@@ -1,6 +1,6 @@
 package com.very.wraq.customized.uniform.attack;
 
-import com.very.wraq.common.Utils.ComponentUtils;
+import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.process.system.element.RainbowCrystal;
 import com.very.wraq.projectiles.OnCuriosSlotHitDamageInfluence;
 import com.very.wraq.render.toolTip.CustomStyle;

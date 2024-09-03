@@ -1,6 +1,6 @@
 package com.very.wraq.render.mobEffects;
 
-import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.util.Utils;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraftforge.eventbus.api.IEventBus;

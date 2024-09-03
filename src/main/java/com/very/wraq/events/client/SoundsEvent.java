@@ -1,6 +1,6 @@
 package com.very.wraq.events.client;
 
-import com.very.wraq.common.Utils.ClientUtils;
+import com.very.wraq.common.util.ClientUtils;
 import com.very.wraq.common.registry.ModSounds;
 import net.minecraft.client.Minecraft;
 import net.minecraft.sounds.SoundEvents;

@@ -3,7 +3,7 @@ package com.very.wraq.events.core;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.misc.ParticlePackets.SnowSwordParticleC2SPacket;
 import com.very.wraq.networking.misc.USE.MoveToC2SPacket;
-import com.very.wraq.common.Utils.ClientUtils;
+import com.very.wraq.common.util.ClientUtils;
 import com.very.wraq.common.registry.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.particles.ParticleTypes;

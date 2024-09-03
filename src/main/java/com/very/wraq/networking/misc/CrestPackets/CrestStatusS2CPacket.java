@@ -1,7 +1,7 @@
 package com.very.wraq.networking.misc.CrestPackets;
 
-import com.very.wraq.common.Utils.ClientUtils;
-import com.very.wraq.common.Utils.StringUtils;
+import com.very.wraq.common.util.ClientUtils;
+import com.very.wraq.common.util.StringUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent;
 

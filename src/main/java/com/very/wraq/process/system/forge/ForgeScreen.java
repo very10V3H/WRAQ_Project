@@ -1,12 +1,12 @@
 package com.very.wraq.process.system.forge;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.very.wraq.blocks.blocks.ForgeRecipe;
+import com.very.wraq.blocks.blocks.forge.ForgeRecipe;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.process.system.forge.networking.ForgeC2SPacket;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.util.Utils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;

@@ -1,8 +1,8 @@
 package com.very.wraq.blocks.entity;
 
-import com.very.wraq.blocks.blocks.FurnaceRecipe;
+import com.very.wraq.blocks.blocks.furnace.FurnaceRecipe;
 import com.very.wraq.render.gui.blocks.FurnaceMenu;
-import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.util.Utils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;

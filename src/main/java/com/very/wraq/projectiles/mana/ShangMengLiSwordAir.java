@@ -2,9 +2,9 @@ package com.very.wraq.projectiles.mana;
 
 import com.very.wraq.core.ManaAttackModule;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.ModEntityType;
-import com.very.wraq.common.Utils.StringUtils;
-import com.very.wraq.common.attributeValues.PlayerAttributes;
+import com.very.wraq.common.registry.ModEntityType;
+import com.very.wraq.common.util.StringUtils;
+import com.very.wraq.common.attribute.PlayerAttributes;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;

@@ -1,6 +1,6 @@
 package com.very.wraq.entities.entities.SoraSword;
 
-import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.util.Utils;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;

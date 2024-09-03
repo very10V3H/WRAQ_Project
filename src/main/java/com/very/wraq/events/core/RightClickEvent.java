@@ -1,8 +1,8 @@
 package com.very.wraq.events.core;
 
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.Utils.StringUtils;
-import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.util.StringUtils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.unSorted.VillagerTradeScreenS2CPacket;
 import com.very.wraq.projectiles.ActiveItem;

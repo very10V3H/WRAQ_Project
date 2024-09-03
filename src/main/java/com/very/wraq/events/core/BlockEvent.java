@@ -6,7 +6,7 @@ import com.very.wraq.blocks.entity.ForgingBlockEntity;
 import com.very.wraq.blocks.entity.FurnaceEntity;
 import com.very.wraq.blocks.entity.HBrewingEntity;
 import com.very.wraq.blocks.entity.InjectBlockEntity;
-import com.very.wraq.common.MySound;
+import com.very.wraq.common.registry.MySound;
 import com.very.wraq.events.instance.CastleSecondFloor;
 import com.very.wraq.events.instance.TabooDevil;
 import com.very.wraq.networking.ModNetworking;
@@ -18,9 +18,9 @@ import com.very.wraq.process.system.spur.events.MineSpur;
 import com.very.wraq.process.system.spur.events.WoodSpur;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.Utils.StringUtils;
-import com.very.wraq.common.Utils.Struct.BlockAndResetTime;
-import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.util.StringUtils;
+import com.very.wraq.common.util.struct.BlockAndResetTime;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.registry.ModBlocks;
 import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
@@ -163,7 +163,7 @@ public class BlockEvent {
                     hBrewingEntity.clear();
                     flag = true;
                 }
-                if (blockState.getBlock().equals(ModBlocks.Inject_Block.get())) {
+                if (blockState.getBlock().equals(ModBlocks.INJECT_BLOCK.get())) {
                     InjectBlockEntity injectBlockEntity = (InjectBlockEntity) player.level().getBlockEntity(blockPos);
                     injectBlockEntity.clear();
                     flag = true;

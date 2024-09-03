@@ -1,6 +1,6 @@
 package com.very.wraq.networking;
 
-import com.very.wraq.blocks.blocks.InjectC2SPacket;
+import com.very.wraq.blocks.blocks.inject.InjectC2SPacket;
 import com.very.wraq.core.BowRequestC2SPacket;
 import com.very.wraq.core.ManaAttackRequestC2SPacket;
 import com.very.wraq.networking.bowAndSceptreActive.*;
@@ -54,7 +54,7 @@ import com.very.wraq.process.func.plan.networking.PlanDateAndTierS2CPacket;
 import com.very.wraq.process.func.plan.networking.mission.PlanMissionCancelRequestC2SPacket;
 import com.very.wraq.process.func.plan.networking.mission.PlanMissionFinishedRequestC2SPacket;
 import com.very.wraq.process.func.plan.networking.mission.PlanMissionRequestC2SPacket;
-import com.very.wraq.process.series.lottery.networking.LotteryRewardS2CPacket;
+import com.very.wraq.process.system.lottery.networking.LotteryRewardS2CPacket;
 import com.very.wraq.process.system.element.networking.CurrentSeasonC2SPacket;
 import com.very.wraq.process.system.element.networking.CurrentSeasonAndResonanceTypeS2CPacket;
 import com.very.wraq.process.system.element.networking.ResonanceC2SPacket;
@@ -81,8 +81,8 @@ import com.very.wraq.process.system.wayPoints.networking.SpecificWayPointRemoveS
 import com.very.wraq.render.hud.networking.AttributeDataC2SPacket;
 import com.very.wraq.render.hud.networking.AttributeDataS2CPacket;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.Utils.ClientUtils;
-import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.util.ClientUtils;
+import com.very.wraq.common.util.Utils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -109,12 +109,6 @@ public class ModNetworking {
                 .simpleChannel();
 
         INSTANCE = net;
-
-        net.messageBuilder(DrugsC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
-                .decoder(DrugsC2SPacket::new)
-                .encoder(DrugsC2SPacket::toBytes)
-                .consumerMainThread(DrugsC2SPacket::handle)
-                .add();
 
         net.messageBuilder(UseC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
                 .decoder(UseC2SPacket::new)

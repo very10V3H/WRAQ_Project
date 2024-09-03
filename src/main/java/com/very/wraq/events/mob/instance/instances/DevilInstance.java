@@ -1,6 +1,6 @@
 package com.very.wraq.events.mob.instance.instances;
 
-import com.very.wraq.common.attributeValues.PlayerAttributes;
+import com.very.wraq.common.attribute.PlayerAttributes;
 import com.very.wraq.events.fight.MonsterAttackEvent;
 import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.events.mob.instance.NoTeamInstance;
@@ -10,7 +10,7 @@ import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.render.particles.ModParticles;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.Utils.ItemAndRate;
+import com.very.wraq.common.util.ItemAndRate;
 import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;

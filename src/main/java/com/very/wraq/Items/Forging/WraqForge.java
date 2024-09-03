@@ -1,10 +1,10 @@
 package com.very.wraq.Items.Forging;
 
-import com.very.wraq.blocks.blocks.ForgeRecipe;
+import com.very.wraq.blocks.blocks.forge.ForgeRecipe;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.MySound;
-import com.very.wraq.common.Utils.StringUtils;
-import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.registry.MySound;
+import com.very.wraq.common.util.StringUtils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.events.mob.instance.NoTeamInstanceModule;
 import com.very.wraq.networking.ModNetworking;

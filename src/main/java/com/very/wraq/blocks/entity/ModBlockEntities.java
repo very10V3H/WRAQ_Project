@@ -1,6 +1,6 @@
 package com.very.wraq.blocks.entity;
 
-import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.registry.ModBlocks;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -25,7 +25,7 @@ public class ModBlockEntities {
     public static final RegistryObject<BlockEntityType<InjectBlockEntity>> Inject_Block_Entity =
             BLOCK_ENTITIES.register("inject_block", () ->
                     BlockEntityType.Builder.of(InjectBlockEntity::new,
-                            ModBlocks.Inject_Block.get()).build(null));
+                            ModBlocks.INJECT_BLOCK.get()).build(null));
 
     public static final RegistryObject<BlockEntityType<FurnaceEntity>> Furnace =
             BLOCK_ENTITIES.register("furnace", () ->

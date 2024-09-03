@@ -1,7 +1,7 @@
 package com.very.wraq.networking.misc.ToolTipPackets;
 
-import com.very.wraq.common.Utils.ClientUtils;
-import com.very.wraq.common.Utils.Struct.EffectTimeLast;
+import com.very.wraq.common.util.ClientUtils;
+import com.very.wraq.common.util.struct.EffectTimeLast;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.network.NetworkEvent;

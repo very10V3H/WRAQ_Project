@@ -2,7 +2,7 @@ package com.very.wraq.series.overworld.chapter2.sky;
 
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.Utils.ComponentUtils;
+import com.very.wraq.common.util.ComponentUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundSetEntityMotionPacket;
 import net.minecraft.server.level.ServerPlayer;

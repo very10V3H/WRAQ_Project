@@ -1,12 +1,12 @@
 package com.very.wraq.projectiles;
 
-import com.very.wraq.blocks.blocks.ForgeRecipe;
-import com.very.wraq.common.BasicAttributeDescription;
+import com.very.wraq.blocks.blocks.forge.ForgeRecipe;
+import com.very.wraq.common.attribute.BasicAttributeDescription;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.MySound;
-import com.very.wraq.common.Utils.StringUtils;
-import com.very.wraq.common.Utils.Utils;
-import com.very.wraq.common.attributeValues.PlayerAttributes;
+import com.very.wraq.common.registry.MySound;
+import com.very.wraq.common.util.StringUtils;
+import com.very.wraq.common.util.Utils;
+import com.very.wraq.common.attribute.PlayerAttributes;
 import com.very.wraq.common.registry.ItemTier;
 import com.very.wraq.common.registry.ModSounds;
 import com.very.wraq.entities.entities.Civil.Civil;

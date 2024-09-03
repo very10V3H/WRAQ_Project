@@ -4,7 +4,7 @@ import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.attributeValues.DamageInfluence;
+import com.very.wraq.common.attribute.DamageInfluence;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.nbt.CompoundTag;

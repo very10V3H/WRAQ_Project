@@ -4,7 +4,7 @@ import com.very.wraq.render.gui.blocks.BrewingMenu;
 import com.very.wraq.render.gui.blocks.ForgingBlockMenu;
 import com.very.wraq.render.gui.blocks.FurnaceMenu;
 import com.very.wraq.render.gui.blocks.InjectBlockMenu;
-import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.util.Utils;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraftforge.common.extensions.IForgeMenuType;

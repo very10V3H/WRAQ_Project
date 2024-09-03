@@ -1,6 +1,6 @@
 package com.very.wraq.series.overworld.chapter2.sea;
 
-import com.very.wraq.common.MySound;
+import com.very.wraq.common.registry.MySound;
 import com.very.wraq.core.MyArrow;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.process.func.particle.ParticleProvider;
@@ -9,9 +9,9 @@ import com.very.wraq.projectiles.WraqBow;
 import com.very.wraq.render.particles.ModParticles;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.Utils.ComponentUtils;
-import com.very.wraq.common.Utils.Utils;
-import com.very.wraq.common.attributeValues.PlayerAttributes;
+import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.Utils;
+import com.very.wraq.common.attribute.PlayerAttributes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;

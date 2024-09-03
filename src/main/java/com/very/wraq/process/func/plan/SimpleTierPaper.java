@@ -1,7 +1,7 @@
 package com.very.wraq.process.func.plan;
 
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.Utils.ComponentUtils;
+import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;

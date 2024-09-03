@@ -1,11 +1,11 @@
 package com.very.wraq.render.gui.blocks;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.very.wraq.blocks.blocks.BrewingRecipe;
+import com.very.wraq.blocks.blocks.brew.BrewingRecipe;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.misc.Limit.ScreenCloseC2SPacket;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;

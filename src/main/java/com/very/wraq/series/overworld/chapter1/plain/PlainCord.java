@@ -1,7 +1,7 @@
 package com.very.wraq.series.overworld.chapter1.plain;
 
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.util.Utils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;

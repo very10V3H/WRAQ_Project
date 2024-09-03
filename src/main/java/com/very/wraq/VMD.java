@@ -1,14 +1,13 @@
 package com.very.wraq;
 
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import com.very.wraq.blocks.blocks.ForgeRecipe;
+import com.very.wraq.blocks.blocks.forge.ForgeRecipe;
 import com.very.wraq.blocks.entity.ModBlockEntities;
 import com.very.wraq.common.*;
-import com.very.wraq.common.Utils.Utils;
-import com.very.wraq.common.registry.ModBlocks;
-import com.very.wraq.common.registry.ModCreativeModeTab;
-import com.very.wraq.common.registry.ModItems;
-import com.very.wraq.common.registry.ModSounds;
+import com.very.wraq.common.attribute.BasicAttributeDescription;
+import com.very.wraq.common.fast.Tick;
+import com.very.wraq.common.registry.*;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.customized.UniformItems;
 import com.very.wraq.entities.entities.Boss2.Boss2;
 import com.very.wraq.entities.entities.Civil.Civil;
@@ -22,7 +21,7 @@ import com.very.wraq.events.mob.loot.*;
 import com.very.wraq.files.dataBases.DataBase;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.process.func.plan.PlanPlayer;
-import com.very.wraq.process.series.lottery.NewLotteries;
+import com.very.wraq.process.system.lottery.NewLotteries;
 import com.very.wraq.process.system.WorldRecordInfo;
 import com.very.wraq.process.system.element.ElementItems;
 import com.very.wraq.process.system.endlessinstance.EndlessInstanceItems;
@@ -674,7 +673,6 @@ public class VMD {
             event.accept(ModItems.Note_1.get().getDefaultInstance());
             event.accept(ModItems.Note_2.get().getDefaultInstance());
             event.accept(ModItems.Note_3.get().getDefaultInstance());
-            event.accept(ModItems.drug0.get().getDefaultInstance());
             event.accept(ModItems.LightningChange.get().getDefaultInstance());
             event.accept(ModItems.ID_Card.get().getDefaultInstance());
             event.accept(ModItems.Ps_Bottle0.get().getDefaultInstance());

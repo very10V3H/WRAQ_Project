@@ -1,7 +1,6 @@
 package com.very.wraq.common.registry;
 
 import com.very.wraq.Items.DevelopmentTools.*;
-import com.very.wraq.Items.Drugs.drug0;
 import com.very.wraq.Items.Explore.*;
 import com.very.wraq.Items.Forging.*;
 import com.very.wraq.Items.Gems.Dismantle;
@@ -31,19 +30,9 @@ import com.very.wraq.Items.RewardPack.Main1Reward;
 import com.very.wraq.Items.RewardPack.SignInReward;
 import com.very.wraq.Items.SkillItems.ID_Card;
 import com.very.wraq.Items.SkyCity.TicketToSkyCity;
-import com.very.wraq.blocks.brewing.*;
-import com.very.wraq.blocks.brewing.solidifiedSouls.*;
+import com.very.wraq.blocks.blocks.brew.*;
+import com.very.wraq.blocks.blocks.brew.solidifiedSouls.*;
 import com.very.wraq.customized.UniformItems;
-import com.very.wraq.customized.uniform.attack.AttackCurios0;
-import com.very.wraq.customized.uniform.attack.AttackCurios1;
-import com.very.wraq.customized.uniform.attack.AttackCurios2;
-import com.very.wraq.customized.uniform.bow.BowCurios0;
-import com.very.wraq.customized.uniform.bow.BowCurios1;
-import com.very.wraq.customized.uniform.bow.BowCurios2;
-import com.very.wraq.customized.uniform.element.*;
-import com.very.wraq.customized.uniform.mana.ManaCurios0;
-import com.very.wraq.customized.uniform.mana.ManaCurios1;
-import com.very.wraq.customized.uniform.mana.ManaCurios2;
 import com.very.wraq.entities.animatedItem.AnimatedItem;
 import com.very.wraq.events.mob.instance.item.NetherHand;
 import com.very.wraq.events.mob.instance.item.PlainNecklace;
@@ -65,15 +54,13 @@ import com.very.wraq.process.system.enhanceForge.Pearl;
 import com.very.wraq.process.system.forge.ForgeHammer;
 import com.very.wraq.process.system.instance.MopUpPaper;
 import com.very.wraq.process.system.instance.MopUpPaperLoot;
-import com.very.wraq.process.series.lottery.items.LotteryPrefix;
-import com.very.wraq.process.series.lottery.NewLotteries;
+import com.very.wraq.process.system.lottery.items.LotteryPrefix;
+import com.very.wraq.process.system.lottery.NewLotteries;
 import com.very.wraq.process.system.parkour.KillPaperLoot;
 import com.very.wraq.process.system.parkour.ParkourGloves;
 import com.very.wraq.process.func.plan.SupplyBox;
-import com.very.wraq.process.series.potion.NewPotion;
-import com.very.wraq.process.series.potion.NewThrowablePotion;
-import com.very.wraq.process.series.labourDay.*;
-import com.very.wraq.process.series.qingMing.*;
+import com.very.wraq.process.system.potion.NewPotion;
+import com.very.wraq.process.system.potion.NewThrowablePotion;
 import com.very.wraq.process.system.element.holyStone.*;
 import com.very.wraq.process.system.element.teleportTicket.*;
 import com.very.wraq.process.system.teamInstance.instances.blackCastle.CastleNecklace;
@@ -292,10 +279,12 @@ import com.very.wraq.series.overworld.sakuraSeries.Ship.ShipSword;
 import com.very.wraq.series.overworld.sakuraSeries.Slime.SlimeBoots;
 import com.very.wraq.series.overworld.WorldBoss.CropPackets;
 import com.very.wraq.series.overworld.WorldBoss.GiantTicket;
+import com.very.wraq.series.specialevents.labourDay.*;
+import com.very.wraq.series.specialevents.qingMing.*;
 import com.very.wraq.series.specialevents.springFes.*;
 import com.very.wraq.series.worldsoul.*;
-import com.very.wraq.common.Utils.StringUtils;
-import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.util.StringUtils;
+import com.very.wraq.common.util.Utils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.*;
@@ -663,8 +652,6 @@ public class ModItems {
             () -> new LakeCord(new Item.Properties().rarity(CustomStyle.WaterItalic)));
     public static final RegistryObject<Item> VolcanoCord = ITEMS.register("volcano_cord",
             () -> new VolcanoCord(new Item.Properties().rarity(CustomStyle.VolcanoItalic)));
-    public static final RegistryObject<Item> drug0 = ITEMS.register("drug0",
-            () -> new drug0(new Item.Properties()));
     public static final RegistryObject<Item> PlainForestCord = ITEMS.register("plainforest_cord",
             () -> new PFCord(new Item.Properties().rarity(CustomStyle.LifeItalic)));
     public static final RegistryObject<Item> LakeVolcanoCord = ITEMS.register("lakevolcano_cord",

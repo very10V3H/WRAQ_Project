@@ -3,7 +3,7 @@ package com.very.wraq.Items.RandomGems;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.misc.CrestPackets.CrestStatusS2CPacket;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.Utils.StringUtils;
+import com.very.wraq.common.util.StringUtils;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;

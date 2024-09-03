@@ -7,7 +7,7 @@ import com.very.wraq.process.system.element.Element;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.newrunes.NewRuneItems;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.Utils.ItemAndRate;
+import com.very.wraq.common.util.ItemAndRate;
 import com.very.wraq.common.registry.ModItems;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;

@@ -1,6 +1,6 @@
 package com.very.wraq.events.client;
 
-import com.very.wraq.common.DelayOperationWithAnimation;
+import com.very.wraq.process.func.DelayOperationWithAnimation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.TickEvent;

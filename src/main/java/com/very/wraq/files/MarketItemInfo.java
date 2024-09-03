@@ -2,7 +2,7 @@ package com.very.wraq.files;
 
 import com.very.wraq.events.core.InventoryCheck;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.util.Utils;
 import net.minecraft.world.item.ItemStack;
 
 public class MarketItemInfo {

@@ -1,9 +1,9 @@
 package com.very.wraq.series.overworld.sakuraSeries.MineWorker;
 
 import com.very.wraq.process.system.element.Element;
-import com.very.wraq.common.BasicAttributeDescription;
+import com.very.wraq.common.attribute.BasicAttributeDescription;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;

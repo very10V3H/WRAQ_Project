@@ -1,7 +1,11 @@
 package com.very.wraq.common.registry;
 
 import com.very.wraq.blocks.blocks.*;
-import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.blocks.blocks.brew.HBrewing;
+import com.very.wraq.blocks.blocks.forge.ForgingBlock;
+import com.very.wraq.blocks.blocks.furnace.Furnace;
+import com.very.wraq.blocks.blocks.inject.InjectBlock;
+import com.very.wraq.common.util.Utils;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -27,11 +31,11 @@ public class ModBlocks {
             () -> new HBrewing(BlockBehaviour.Properties.copy(Blocks.STONE)
                     .strength(6f).requiresCorrectToolForDrops().noOcclusion()), CreativeModeTabs.getDefaultTab());
 
-    public static final RegistryObject<Block> WorldSoul_Block = registerBlock("worldsoul_block",
+    public static final RegistryObject<Block> WORLDSOUL_BLOCK = registerBlock("worldsoul_block",
             () -> new WorldSoulBlock(BlockBehaviour.Properties.copy(Blocks.STONE)
                     .strength(6f).requiresCorrectToolForDrops().noOcclusion()), CreativeModeTabs.getDefaultTab());
 
-    public static final RegistryObject<Block> Inject_Block = registerBlock("inject_block",
+    public static final RegistryObject<Block> INJECT_BLOCK = registerBlock("inject_block",
             () -> new InjectBlock(BlockBehaviour.Properties.copy(Blocks.STONE)
                     .strength(6f).requiresCorrectToolForDrops().noOcclusion()), CreativeModeTabs.getDefaultTab());
 

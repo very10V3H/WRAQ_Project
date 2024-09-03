@@ -1,10 +1,10 @@
 package com.very.wraq.render.hud;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.very.wraq.common.Utils.ClientUtils;
-import com.very.wraq.common.Utils.Struct.EffectTimeLast;
-import com.very.wraq.common.Utils.Struct.SkillImage;
-import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.util.ClientUtils;
+import com.very.wraq.common.util.struct.EffectTimeLast;
+import com.very.wraq.common.util.struct.SkillImage;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.process.system.endlessinstance.DailyEndlessInstance;

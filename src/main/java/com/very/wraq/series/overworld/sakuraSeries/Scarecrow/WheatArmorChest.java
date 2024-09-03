@@ -2,9 +2,9 @@ package com.very.wraq.series.overworld.sakuraSeries.Scarecrow;
 
 import com.very.wraq.entities.armor.WheatArmorRenderer;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.BasicAttributeDescription;
+import com.very.wraq.common.attribute.BasicAttributeDescription;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.registry.ItemMaterial;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.model.HumanoidModel;

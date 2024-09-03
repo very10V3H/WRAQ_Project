@@ -1,4 +1,4 @@
-import com.very.wraq.common.attributeValues.MobAttributes;
+import com.very.wraq.common.attribute.MobAttributes;
 import com.very.wraq.files.CSVReader;
 
 import java.io.IOException;

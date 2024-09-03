@@ -1,14 +1,14 @@
 package com.very.wraq.networking.misc.AnimationPackets;
 
-import com.very.wraq.common.MySound;
+import com.very.wraq.common.registry.MySound;
 import com.very.wraq.customized.uniform.bow.BowCurios0;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.process.func.guide.Guide;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.Utils.StringUtils;
-import com.very.wraq.common.Utils.Utils;
-import com.very.wraq.common.attributeValues.PlayerAttributes;
-import com.very.wraq.common.attributeValues.SpecialEffectOnPlayer;
+import com.very.wraq.common.util.StringUtils;
+import com.very.wraq.common.util.Utils;
+import com.very.wraq.common.attribute.PlayerAttributes;
+import com.very.wraq.process.func.SpecialEffectOnPlayer;
 import com.very.wraq.common.registry.ModSounds;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;

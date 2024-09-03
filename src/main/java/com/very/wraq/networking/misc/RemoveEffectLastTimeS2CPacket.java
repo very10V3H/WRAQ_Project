@@ -1,6 +1,6 @@
 package com.very.wraq.networking.misc;
 
-import com.very.wraq.common.Utils.ClientUtils;
+import com.very.wraq.common.util.ClientUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.network.NetworkEvent;

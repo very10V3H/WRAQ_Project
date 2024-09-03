@@ -2,7 +2,7 @@ package com.very.wraq.series.end.eventController.SpiderRecall;
 
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.registry.ItemMaterial;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ArmorItem;

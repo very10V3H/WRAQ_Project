@@ -1,7 +1,7 @@
 package com.very.wraq.render.hud;
 
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.util.Utils;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;

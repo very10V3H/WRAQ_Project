@@ -1,12 +1,12 @@
 package com.very.wraq.events.core;
 
-import com.very.wraq.blocks.blocks.ForgeRecipe;
-import com.very.wraq.blocks.blocks.InjectRecipe;
-import com.very.wraq.blocks.brewing.BrewingNote;
+import com.very.wraq.blocks.blocks.forge.ForgeRecipe;
+import com.very.wraq.blocks.blocks.inject.InjectRecipe;
+import com.very.wraq.blocks.blocks.brew.BrewingNote;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.Utils.ClientUtils;
-import com.very.wraq.common.Utils.Struct.InjectingRecipe;
-import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.util.ClientUtils;
+import com.very.wraq.common.util.struct.InjectingRecipe;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.process.func.plan.SimpleTierPaper;
 import com.very.wraq.process.system.forge.ForgeHammer;

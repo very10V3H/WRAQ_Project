@@ -1,7 +1,7 @@
 package com.very.wraq.networking.misc.AttackPackets;
 
-import com.very.wraq.common.MySound;
-import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.registry.MySound;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.core.AttackEvent;
 import com.very.wraq.series.instance.series.castle.CastleAttackArmor;
 import net.minecraft.network.FriendlyByteBuf;

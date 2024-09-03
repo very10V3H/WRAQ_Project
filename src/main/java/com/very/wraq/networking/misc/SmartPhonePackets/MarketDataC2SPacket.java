@@ -1,7 +1,7 @@
 package com.very.wraq.networking.misc.SmartPhonePackets;
 
 import com.very.wraq.networking.ModNetworking;
-import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.util.Utils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent;
 

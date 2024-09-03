@@ -1,9 +1,9 @@
 package com.very.wraq.blocks.entity;
 
-import com.very.wraq.blocks.blocks.InjectRecipe;
+import com.very.wraq.blocks.blocks.inject.InjectRecipe;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.MySound;
-import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.registry.MySound;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.events.mob.instance.NoTeamInstanceModule;
 import com.very.wraq.process.func.guide.Guide;

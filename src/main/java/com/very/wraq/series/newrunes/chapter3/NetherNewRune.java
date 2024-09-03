@@ -1,15 +1,15 @@
 package com.very.wraq.series.newrunes.chapter3;
 
-import com.very.wraq.common.MySound;
+import com.very.wraq.common.registry.MySound;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.projectiles.UsageOrGetWayDescriptionItem;
 import com.very.wraq.projectiles.WraqCurios;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.newrunes.RuneItem;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.Utils.ComponentUtils;
-import com.very.wraq.common.Utils.Utils;
-import com.very.wraq.common.attributeValues.PlayerAttributes;
+import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.Utils;
+import com.very.wraq.common.attribute.PlayerAttributes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;

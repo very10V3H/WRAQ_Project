@@ -3,7 +3,7 @@ package com.very.wraq.process.system.tower;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;

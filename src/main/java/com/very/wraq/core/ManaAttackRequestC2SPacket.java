@@ -3,7 +3,7 @@ package com.very.wraq.core;
 import com.very.wraq.projectiles.WraqSceptre;
 import com.very.wraq.series.instance.series.castle.CastleManaArmor;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.util.Utils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;

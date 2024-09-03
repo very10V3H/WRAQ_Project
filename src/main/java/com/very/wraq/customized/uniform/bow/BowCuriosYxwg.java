@@ -1,6 +1,6 @@
 package com.very.wraq.customized.uniform.bow;
 
-import com.very.wraq.common.Utils.ComponentUtils;
+import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.process.system.element.RainbowCrystal;
 import com.very.wraq.projectiles.OnShootArrowCurios;
 import com.very.wraq.render.toolTip.CustomStyle;

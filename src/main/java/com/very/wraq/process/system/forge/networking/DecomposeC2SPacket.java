@@ -1,7 +1,7 @@
 package com.very.wraq.process.system.forge.networking;
 
 import com.very.wraq.blocks.entity.ForgingBlockEntity;
-import com.very.wraq.common.MySound;
+import com.very.wraq.common.registry.MySound;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.registry.ModBlocks;

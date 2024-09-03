@@ -1,12 +1,12 @@
 package com.very.wraq.series.overworld.chapter1.plain.sceptre;
 
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.ModEntityType;
-import com.very.wraq.common.MySound;
-import com.very.wraq.common.Utils.ComponentUtils;
-import com.very.wraq.common.Utils.StringUtils;
-import com.very.wraq.common.Utils.Utils;
-import com.very.wraq.common.attributeValues.PlayerAttributes;
+import com.very.wraq.common.registry.ModEntityType;
+import com.very.wraq.common.registry.MySound;
+import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.StringUtils;
+import com.very.wraq.common.util.Utils;
+import com.very.wraq.common.attribute.PlayerAttributes;
 import com.very.wraq.common.registry.ModSounds;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.process.system.element.Element;

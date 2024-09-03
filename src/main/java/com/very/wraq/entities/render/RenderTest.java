@@ -1,7 +1,7 @@
 package com.very.wraq.entities.render;
 
 import com.very.wraq.entities.entities.MainBoss.MainBoss;
-import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.entities.model.TestModel;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;

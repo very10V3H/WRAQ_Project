@@ -1,7 +1,7 @@
 package com.very.wraq.process.system.endlessinstance;
 
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.MySound;
+import com.very.wraq.common.registry.MySound;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.process.system.endlessinstance.network.EndlessInstanceKillCountS2CPacket;
 import com.very.wraq.render.toolTip.CustomStyle;

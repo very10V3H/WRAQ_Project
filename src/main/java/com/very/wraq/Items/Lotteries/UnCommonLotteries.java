@@ -2,7 +2,7 @@ package com.very.wraq.Items.Lotteries;
 
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.Utils.Struct.ItemAndWeight;
+import com.very.wraq.common.util.struct.ItemAndWeight;
 import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;

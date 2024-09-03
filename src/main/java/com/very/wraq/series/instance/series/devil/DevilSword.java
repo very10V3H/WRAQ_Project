@@ -1,6 +1,6 @@
 package com.very.wraq.series.instance.series.devil;
 
-import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.series.instance.series.ice.IceSword;
 
 public class DevilSword extends IceSword {

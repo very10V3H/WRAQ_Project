@@ -1,7 +1,7 @@
 package com.very.wraq.process.system.element;
 
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.util.Utils;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SimpleFoiledItem;
 import net.minecraftforge.registries.DeferredRegister;

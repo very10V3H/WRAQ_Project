@@ -1,6 +1,6 @@
 package com.very.wraq.process.system.endlessinstance;
 
-import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.process.system.endlessinstance.item.EasternTowerPaper;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;

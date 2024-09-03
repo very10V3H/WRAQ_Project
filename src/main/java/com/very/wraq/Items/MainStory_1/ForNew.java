@@ -1,6 +1,6 @@
 package com.very.wraq.Items.MainStory_1;
 
-import com.very.wraq.common.MySound;
+import com.very.wraq.common.registry.MySound;
 import com.very.wraq.process.system.forge.ForgeEquipUtils;
 import com.very.wraq.series.newrunes.NewRuneItems;
 import com.very.wraq.common.Compute;

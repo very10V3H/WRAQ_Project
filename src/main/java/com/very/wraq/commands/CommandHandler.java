@@ -7,7 +7,7 @@ import com.mojang.brigadier.tree.LiteralCommandNode;
 import com.very.wraq.commands.changeable.*;
 import com.very.wraq.commands.stable.ops.*;
 import com.very.wraq.commands.stable.players.*;
-import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.util.Utils;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.GameProfileArgument;
@@ -145,14 +145,6 @@ public class CommandHandler {
                                         .executes(TextCommand.instance)
                         ).requires(commandSourceStack -> commandSourceStack.hasPermission(2))
 
-                )
-        );
-        CommandDispatcher<CommandSourceStack> dispatcher15 = event.getDispatcher();
-        LiteralCommandNode<CommandSourceStack> cmd15 = dispatcher15.register(
-                Commands.literal(Utils.MOD_ID).then(
-                        Commands.literal("mine")
-                                .requires(commandSourceStack -> commandSourceStack.hasPermission(2))
-                                .executes(MineSummonCommand.instance)
                 )
         );
         CommandDispatcher<CommandSourceStack> dispatcher16 = event.getDispatcher();

@@ -1,7 +1,7 @@
 package com.very.wraq.customized.uniform.bow;
 
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.MySound;
+import com.very.wraq.common.registry.MySound;
 import com.very.wraq.core.MyArrow;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.projectiles.WraqBow;

@@ -2,7 +2,7 @@ package com.very.wraq.series.overworld.chapter7.vd;
 
 import com.mojang.logging.LogUtils;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.Utils.ComponentUtils;
+import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.overworld.chapter7.C7Items;

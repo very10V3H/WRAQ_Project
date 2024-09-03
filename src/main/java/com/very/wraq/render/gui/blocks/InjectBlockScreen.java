@@ -1,12 +1,12 @@
 package com.very.wraq.render.gui.blocks;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.very.wraq.blocks.blocks.InjectC2SPacket;
-import com.very.wraq.blocks.blocks.InjectRecipe;
+import com.very.wraq.blocks.blocks.inject.InjectC2SPacket;
+import com.very.wraq.blocks.blocks.inject.InjectRecipe;
 import com.very.wraq.blocks.entity.InjectBlockEntity;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.Utils.Struct.InjectingRecipe;
-import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.util.struct.InjectingRecipe;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.misc.Limit.ScreenCloseC2SPacket;
 import com.very.wraq.render.toolTip.CustomStyle;

@@ -1,7 +1,7 @@
 package com.very.wraq.series.instance.series.ice;
 
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;

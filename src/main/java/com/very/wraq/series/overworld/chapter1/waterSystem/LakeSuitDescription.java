@@ -2,9 +2,9 @@ package com.very.wraq.series.overworld.chapter1.waterSystem;
 
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.Utils.ClientUtils;
-import com.very.wraq.common.Utils.ComponentUtils;
-import com.very.wraq.common.Utils.StringUtils;
+import com.very.wraq.common.util.ClientUtils;
+import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;

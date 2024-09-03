@@ -1,7 +1,7 @@
 package com.very.wraq.networking.misc.AnimationPackets;
 
 import com.very.wraq.networking.ModNetworking;
-import com.very.wraq.common.attributeValues.SpecialEffectOnPlayer;
+import com.very.wraq.process.func.SpecialEffectOnPlayer;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkEvent;

@@ -1,6 +1,6 @@
 package com.very.wraq.events.instance;
 
-import com.very.wraq.common.MySound;
+import com.very.wraq.common.registry.MySound;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.unSorted.SpringInstanceS2CPacket;
 import com.very.wraq.process.func.particle.ParticleProvider;
@@ -8,12 +8,12 @@ import com.very.wraq.render.particles.ModParticles;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.specialevents.springFes.FireWorkGun;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.Utils.StringUtils;
-import com.very.wraq.common.Utils.Struct.Boss2Damage;
-import com.very.wraq.common.Utils.Struct.Instance;
-import com.very.wraq.common.Utils.Struct.PlayerAndDistance;
-import com.very.wraq.common.Utils.Struct.PlayerTeam;
-import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.util.StringUtils;
+import com.very.wraq.common.util.struct.Boss2Damage;
+import com.very.wraq.common.util.struct.Instance;
+import com.very.wraq.common.util.struct.PlayerAndDistance;
+import com.very.wraq.common.util.struct.PlayerTeam;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;

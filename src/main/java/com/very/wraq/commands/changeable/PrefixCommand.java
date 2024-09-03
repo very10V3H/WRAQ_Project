@@ -1,7 +1,7 @@
 package com.very.wraq.commands.changeable;
 
 import com.very.wraq.Items.Prefix.PrefixInfo;
-import com.very.wraq.blocks.brewing.BrewingNote;
+import com.very.wraq.blocks.blocks.brew.BrewingNote;
 import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.events.mob.chapter6_castle.BeaconSpawnController;
 import com.very.wraq.events.mob.chapter6_castle.BlazeSpawnController;
@@ -27,7 +27,7 @@ import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.misc.PrefixPackets.PrefixS2CPacket;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.Utils.StringUtils;
+import com.very.wraq.common.util.StringUtils;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;

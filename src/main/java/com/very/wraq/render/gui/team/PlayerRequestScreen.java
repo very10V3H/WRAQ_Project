@@ -2,8 +2,8 @@ package com.very.wraq.render.gui.team;
 
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.misc.TeamPackets.TeamConfirmC2SPacket;
-import com.very.wraq.common.Utils.ClientUtils;
-import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.util.ClientUtils;
+import com.very.wraq.common.util.Utils;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;

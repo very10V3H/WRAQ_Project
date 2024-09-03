@@ -1,7 +1,7 @@
 package com.very.wraq.render.gui.illustrate;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.util.Utils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;

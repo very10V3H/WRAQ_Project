@@ -1,6 +1,6 @@
 package com.very.wraq.process.func.guide;
 
-import com.very.wraq.common.MySound;
+import com.very.wraq.common.registry.MySound;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.process.func.guide.networking.GuideStageS2CPacket;
 import com.very.wraq.process.system.wayPoints.MyWayPoint;

@@ -2,7 +2,7 @@ package com.very.wraq.entities.render;
 
 import com.very.wraq.entities.entities.MainBoss.MainBoss;
 import com.very.wraq.entities.model.MainBossModel;
-import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.util.Utils;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;

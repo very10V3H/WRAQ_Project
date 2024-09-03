@@ -1,7 +1,7 @@
 package com.very.wraq.networking.misc.SkillPackets;
 
-import com.very.wraq.common.Utils.ClientUtils;
-import com.very.wraq.common.Utils.Struct.SkillImage;
+import com.very.wraq.common.util.ClientUtils;
+import com.very.wraq.common.util.struct.SkillImage;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent;
 

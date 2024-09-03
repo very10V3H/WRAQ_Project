@@ -1,7 +1,7 @@
 package com.very.wraq.process.func.plan;
 
 import com.very.wraq.files.dataBases.DataBase;
-import com.very.wraq.process.series.lottery.NewLotteries;
+import com.very.wraq.process.system.lottery.NewLotteries;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.registry.ModItems;
 import net.minecraft.network.chat.Component;

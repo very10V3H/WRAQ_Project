@@ -1,6 +1,6 @@
 package com.very.wraq.customized;
 
-import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.customized.uniform.attack.AttackCurios0;
 import com.very.wraq.customized.uniform.attack.AttackCurios1;
 import com.very.wraq.customized.uniform.attack.AttackCurios2;

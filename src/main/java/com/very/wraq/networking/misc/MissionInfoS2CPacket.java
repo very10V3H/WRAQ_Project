@@ -1,7 +1,7 @@
 package com.very.wraq.networking.misc;
 
-import com.very.wraq.common.Utils.ClientUtils;
-import com.very.wraq.common.Utils.Struct.OldMission;
+import com.very.wraq.common.util.ClientUtils;
+import com.very.wraq.common.util.struct.OldMission;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkEvent;

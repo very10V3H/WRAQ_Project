@@ -1,15 +1,13 @@
 package com.very.wraq.series.overworld.chapter7;
 
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.series.MaterialItem;
 import com.very.wraq.series.overworld.chapter7.vd.VdBow;
 import com.very.wraq.series.overworld.chapter7.vd.VdSceptre;
 import com.very.wraq.series.overworld.chapter7.vd.VdSword;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.SimpleFoiledItem;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;

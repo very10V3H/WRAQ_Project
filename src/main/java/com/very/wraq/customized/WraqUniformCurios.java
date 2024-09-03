@@ -1,9 +1,9 @@
 package com.very.wraq.customized;
 
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.Te;
-import com.very.wraq.common.Utils.ComponentUtils;
-import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.fast.Te;
+import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;

@@ -2,18 +2,18 @@ package com.very.wraq.events.core;
 
 import com.very.wraq.commands.changeable.PrefixCommand;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.MySound;
-import com.very.wraq.common.Utils.Struct.Boss2Damage;
-import com.very.wraq.common.Utils.Struct.Gather;
-import com.very.wraq.common.Utils.Utils;
-import com.very.wraq.common.attributeValues.EffectOnMob;
+import com.very.wraq.common.registry.MySound;
+import com.very.wraq.common.util.struct.Boss2Damage;
+import com.very.wraq.common.util.struct.Gather;
+import com.very.wraq.common.util.Utils;
+import com.very.wraq.process.func.EffectOnMob;
 import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.customized.uniform.bow.BowCurios1;
 import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.events.mob.instance.NoTeamInstanceModule;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.process.system.element.originSummon.OriginSummon;
-import com.very.wraq.process.system.instance.MobEffectAndDamageMethods;
+import com.very.wraq.process.func.MobEffectAndDamageMethods;
 import com.very.wraq.process.system.season.MySeason;
 import com.very.wraq.process.system.tower.Tower;
 import com.very.wraq.render.toolTip.CustomStyle;
@@ -407,12 +407,6 @@ public class LevelEvents {
                     FileHandler.EntropyInfoWrite();
                 }
             }*/
-            if (event.level.equals(event.level.getServer().getLevel(Level.OVERWORLD))) {
-                int TickCount = event.level.getServer().getTickCount();
-                if (TickCount % 36000 == 18000) {
-                    Compute.purpleMineBlockPosInit(event.level, false);
-                }
-            }
         }
     }
 

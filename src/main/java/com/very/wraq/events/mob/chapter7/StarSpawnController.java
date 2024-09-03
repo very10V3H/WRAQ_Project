@@ -5,7 +5,7 @@ import com.very.wraq.events.mob.MobSpawnController;
 import com.very.wraq.events.mob.loot.C7LootItems;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.Utils.ItemAndRate;
+import com.very.wraq.common.util.ItemAndRate;
 import com.very.wraq.common.registry.ModItems;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;

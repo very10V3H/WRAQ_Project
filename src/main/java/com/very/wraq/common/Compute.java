@@ -5,14 +5,15 @@ import com.mojang.logging.LogUtils;
 import com.very.wraq.commands.changeable.CompensateCommand;
 import com.very.wraq.commands.stable.players.DebugCommand;
 import com.very.wraq.commands.stable.players.DpsCommand;
-import com.very.wraq.common.Utils.ClientUtils;
-import com.very.wraq.common.Utils.StringUtils;
-import com.very.wraq.common.Utils.Struct.*;
-import com.very.wraq.common.Utils.Utils;
-import com.very.wraq.common.attributeValues.DamageInfluence;
-import com.very.wraq.common.attributeValues.MobAttributes;
-import com.very.wraq.common.attributeValues.PlayerAttributes;
-import com.very.wraq.common.attributeValues.SpecialEffectOnPlayer;
+import com.very.wraq.common.registry.ModEntityType;
+import com.very.wraq.common.registry.MySound;
+import com.very.wraq.common.util.ClientUtils;
+import com.very.wraq.common.util.StringUtils;
+import com.very.wraq.common.util.struct.*;
+import com.very.wraq.common.util.Utils;
+import com.very.wraq.common.attribute.DamageInfluence;
+import com.very.wraq.common.attribute.MobAttributes;
+import com.very.wraq.common.attribute.PlayerAttributes;
 import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.registry.ModSounds;
 import com.very.wraq.core.ManaAttackModule;
@@ -47,12 +48,13 @@ import com.very.wraq.networking.unSorted.ColdSyncS2CPacket;
 import com.very.wraq.networking.unSorted.DebuffTimeS2CPacket;
 import com.very.wraq.networking.unSorted.PlayerCallBack;
 import com.very.wraq.networking.unSorted.SwiftSyncS2CPacket;
+import com.very.wraq.process.func.SpecialEffectOnPlayer;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.process.func.plan.PlanPlayer;
 import com.very.wraq.process.func.power.PowerLogic;
-import com.very.wraq.process.series.labourDay.LabourDayIronHoe;
-import com.very.wraq.process.series.labourDay.LabourDayIronPickaxe;
-import com.very.wraq.process.series.potion.NewPotionEffects;
+import com.very.wraq.series.specialevents.labourDay.LabourDayIronHoe;
+import com.very.wraq.series.specialevents.labourDay.LabourDayIronPickaxe;
+import com.very.wraq.process.system.potion.NewPotionEffects;
 import com.very.wraq.process.system.element.Color;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.process.system.element.ElementValue;
@@ -1522,7 +1524,7 @@ public class Compute {
                 level.addFreshEntity(lightningBolt1);
             }
             if (Gather > 0) {
-                com.very.wraq.common.Utils.Struct.Gather gather = new Gather(20 * Effect, monster.position());
+                com.very.wraq.common.util.struct.Gather gather = new Gather(20 * Effect, monster.position());
                 if (Utils.GatherMobMap.containsKey(gather)) {
                     Queue<Mob> mobQueue = Utils.GatherMobMap.get(gather);
                     mobQueue.add(mob);
@@ -3689,48 +3691,6 @@ public class Compute {
         data.putInt(StringUtils.RandomAttribute.maxHealth, random.nextInt(800, 1600));
     }
 
-
-    public static void purpleMineBlockPosInit(Level level, boolean byCommand) {
-        if (Utils.playerDigCount > 200 || byCommand) {
-            Compute.formatBroad(level, Component.literal("紫晶矿").withStyle(CustomStyle.styleOfPurpleIron),
-                    Component.literal("樱岛紫晶矿已刷新！").withStyle(ChatFormatting.WHITE));
-            if (!Utils.playerDigPos.isEmpty()) {
-                Utils.playerDigPos.forEach(blockSP -> {
-                    if (blockSP.getBlockState().is(Blocks.AMETHYST_BLOCK))
-                        level.setBlockAndUpdate(blockSP.getBlockPos(), Blocks.STONE.defaultBlockState());
-                    else
-                        level.setBlockAndUpdate(blockSP.getBlockPos(), blockSP.getBlockState());
-                });
-            }
-            Random random = new Random();
-            BlockPos blockPos1 = new BlockPos(2025, 45, 1280);
-            BlockPos blockPos2 = new BlockPos(1982, 24, 1243);
-            BlockPos blockPos3 = new BlockPos(1955, 45, 1231);
-            BlockPos blockPos4 = new BlockPos(1901, 24, 1194);
-            for (int i = 0; i < 16000; i++) {
-                BlockPos blockPos = new BlockPos(random.nextInt(blockPos2.getX(), blockPos1.getX()),
-                        random.nextInt(blockPos2.getY(), blockPos1.getY()),
-                        random.nextInt(blockPos2.getZ(), blockPos1.getZ()));
-                BlockState blockState = level.getBlockState(blockPos);
-                if (blockState.is(Blocks.STONE)) {
-                    level.setBlockAndUpdate(blockPos, Blocks.AMETHYST_BLOCK.defaultBlockState());
-                }
-
-                blockPos = new BlockPos(random.nextInt(blockPos4.getX(), blockPos3.getX()),
-                        random.nextInt(blockPos4.getY(), blockPos3.getY()),
-                        random.nextInt(blockPos4.getZ(), blockPos3.getZ()));
-                blockState = level.getBlockState(blockPos);
-                if (blockState.is(Blocks.STONE)) {
-                    level.setBlockAndUpdate(blockPos, Blocks.AMETHYST_BLOCK.defaultBlockState());
-                }
-            }
-        }
-    }
-
-    /*    public static boolean PlayerIsOnline(Player player) {
-        CompoundTag data = player.getPersistentData();
-        return (data.getString(StringUtils.Login.Status).equals(StringUtils.Login.Online));
-    }*/
     public static void PlayerColdNumAddOrCost(Player player, double Num) {
         CompoundTag data = player.getPersistentData();
         if (!data.contains(StringUtils.MaxCold) || !data.contains(StringUtils.CurrentCold)) {

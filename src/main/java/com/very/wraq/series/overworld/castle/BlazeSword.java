@@ -1,8 +1,8 @@
 
 package com.very.wraq.series.overworld.castle;
 
-import com.very.wraq.common.Utils.ComponentUtils;
-import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.projectiles.WraqPassiveEquip;
 import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.network.chat.Component;

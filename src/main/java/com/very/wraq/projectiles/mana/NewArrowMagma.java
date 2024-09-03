@@ -1,6 +1,6 @@
 package com.very.wraq.projectiles.mana;
 
-import com.very.wraq.common.ModEntityType;
+import com.very.wraq.common.registry.ModEntityType;
 import com.very.wraq.core.ManaAttackModule;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Entity;

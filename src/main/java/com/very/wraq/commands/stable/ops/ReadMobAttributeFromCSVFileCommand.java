@@ -3,7 +3,7 @@ package com.very.wraq.commands.stable.ops;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import com.very.wraq.common.attributeValues.MobAttributes;
+import com.very.wraq.common.attribute.MobAttributes;
 import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.files.CSVReader;
 import net.minecraft.commands.CommandSourceStack;

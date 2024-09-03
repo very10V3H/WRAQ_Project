@@ -1,6 +1,6 @@
 package com.very.wraq.process.func.power;
 
-import com.very.wraq.common.MySound;
+import com.very.wraq.common.registry.MySound;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.misc.EarthPower.EarthPowerS2CPacket;
 import com.very.wraq.networking.misc.ParticlePackets.EffectParticle.DamageDecreaseParticleS2CPacket;
@@ -21,11 +21,11 @@ import com.very.wraq.series.overworld.chapter1.volcano.VolcanoPower;
 import com.very.wraq.series.overworld.chapter1.waterSystem.LakePower;
 import com.very.wraq.series.overworld.chapter1.waterSystem.LakePowerEffect;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.Utils.StringUtils;
-import com.very.wraq.common.Utils.Utils;
-import com.very.wraq.common.attributeValues.StableAttributesModifier;
-import com.very.wraq.common.attributeValues.EffectOnMob;
-import com.very.wraq.common.attributeValues.PlayerAttributes;
+import com.very.wraq.common.util.StringUtils;
+import com.very.wraq.common.util.Utils;
+import com.very.wraq.process.func.StableAttributesModifier;
+import com.very.wraq.process.func.EffectOnMob;
+import com.very.wraq.common.attribute.PlayerAttributes;
 import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.registry.ModSounds;
 import net.minecraft.core.BlockPos;

@@ -1,15 +1,15 @@
 package com.very.wraq.projectiles;
 
-import com.very.wraq.blocks.blocks.ForgeRecipe;
-import com.very.wraq.common.MySound;
+import com.very.wraq.blocks.blocks.forge.ForgeRecipe;
+import com.very.wraq.common.registry.MySound;
 import com.very.wraq.core.MyArrow;
 import com.very.wraq.entities.entities.Civil.Civil;
 import com.very.wraq.events.mob.loot.RandomLootEquip;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.BasicAttributeDescription;
+import com.very.wraq.common.attribute.BasicAttributeDescription;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.registry.ItemTier;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;

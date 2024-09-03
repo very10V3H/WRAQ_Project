@@ -1,7 +1,7 @@
 package com.very.wraq.entities.armor;
 
 import com.very.wraq.series.overworld.sakuraSeries.Scarecrow.WheatArmorChest;
-import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.util.Utils;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.model.GeoModel;
 

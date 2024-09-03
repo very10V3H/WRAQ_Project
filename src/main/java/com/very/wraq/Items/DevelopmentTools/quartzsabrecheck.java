@@ -1,6 +1,6 @@
 package com.very.wraq.Items.DevelopmentTools;
 
-import com.very.wraq.common.Utils.ClientUtils;
+import com.very.wraq.common.util.ClientUtils;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;

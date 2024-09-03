@@ -1,6 +1,6 @@
 package com.very.wraq.process.func.plan;
 
-import com.very.wraq.process.series.lottery.NewLotteries;
+import com.very.wraq.process.system.lottery.NewLotteries;
 import com.very.wraq.process.system.tower.Tower;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.registry.ModItems;

@@ -6,7 +6,7 @@ import com.very.wraq.events.mob.loot.C2LootItems;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.Utils.ItemAndRate;
+import com.very.wraq.common.util.ItemAndRate;
 import com.very.wraq.common.registry.ModItems;
 import net.mcreator.borninchaosv.entity.ZombieLumberjackEntity;
 import net.mcreator.borninchaosv.init.BornInChaosV1ModEntities;

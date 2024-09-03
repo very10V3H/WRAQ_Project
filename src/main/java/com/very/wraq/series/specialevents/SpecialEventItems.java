@@ -1,6 +1,6 @@
 package com.very.wraq.series.specialevents;
 
-import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.MaterialItem;
 import com.very.wraq.series.specialevents.summer.SummerCurios2024;

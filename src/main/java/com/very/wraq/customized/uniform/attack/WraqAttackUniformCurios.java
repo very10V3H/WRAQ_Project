@@ -1,6 +1,6 @@
 package com.very.wraq.customized.uniform.attack;
 
-import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.customized.WraqUniformCurios;
 import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.network.chat.Style;

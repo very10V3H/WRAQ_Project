@@ -2,10 +2,10 @@ package com.very.wraq.events.core;
 
 import com.mojang.datafixers.util.Pair;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.Utils.StringUtils;
-import com.very.wraq.common.Utils.Utils;
-import com.very.wraq.common.attributeValues.PlayerAttributes;
-import com.very.wraq.common.attributeValues.SpecialEffectOnPlayer;
+import com.very.wraq.common.util.StringUtils;
+import com.very.wraq.common.util.Utils;
+import com.very.wraq.common.attribute.PlayerAttributes;
+import com.very.wraq.process.func.SpecialEffectOnPlayer;
 import com.very.wraq.series.newrunes.chapter1.LakeNewRune;
 import com.very.wraq.series.overworld.chapter2.sea.Breath;
 import net.minecraft.nbt.CompoundTag;

@@ -1,11 +1,11 @@
 package com.very.wraq.series.instance.series.moon.Equip;
 
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.ModEntityType;
-import com.very.wraq.common.Utils.ComponentUtils;
-import com.very.wraq.common.Utils.StringUtils;
-import com.very.wraq.common.Utils.Utils;
-import com.very.wraq.common.attributeValues.PlayerAttributes;
+import com.very.wraq.common.registry.ModEntityType;
+import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.StringUtils;
+import com.very.wraq.common.util.Utils;
+import com.very.wraq.common.attribute.PlayerAttributes;
 import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.process.func.particle.ParticleProvider;

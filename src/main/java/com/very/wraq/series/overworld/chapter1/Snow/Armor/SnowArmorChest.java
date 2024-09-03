@@ -1,9 +1,9 @@
 package com.very.wraq.series.overworld.chapter1.Snow.Armor;
 
 import com.very.wraq.series.overworld.chapter1.Snow.SnowSuitDescription;
-import com.very.wraq.common.BasicAttributeDescription;
+import com.very.wraq.common.attribute.BasicAttributeDescription;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.registry.ItemMaterial;
 import net.minecraft.ChatFormatting;

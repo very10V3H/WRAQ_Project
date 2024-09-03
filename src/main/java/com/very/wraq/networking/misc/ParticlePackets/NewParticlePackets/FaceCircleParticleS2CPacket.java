@@ -1,6 +1,6 @@
 package com.very.wraq.networking.misc.ParticlePackets.NewParticlePackets;
 
-import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.util.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;

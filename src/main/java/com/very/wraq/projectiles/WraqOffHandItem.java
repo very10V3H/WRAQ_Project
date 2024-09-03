@@ -1,10 +1,10 @@
 package com.very.wraq.projectiles;
 
-import com.very.wraq.blocks.blocks.ForgeRecipe;
+import com.very.wraq.blocks.blocks.forge.ForgeRecipe;
 import com.very.wraq.events.mob.loot.RandomLootEquip;
-import com.very.wraq.common.BasicAttributeDescription;
+import com.very.wraq.common.attribute.BasicAttributeDescription;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.util.Utils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;

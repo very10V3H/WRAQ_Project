@@ -7,7 +7,7 @@ import com.very.wraq.series.newrunes.chapter2.*;
 import com.very.wraq.series.newrunes.chapter3.NetherNewRune;
 import com.very.wraq.series.newrunes.chapter6.CastleNewRune;
 import com.very.wraq.series.newrunes.chapter6.MoonNewRune;
-import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.util.Utils;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SimpleFoiledItem;
 import net.minecraftforge.registries.DeferredRegister;

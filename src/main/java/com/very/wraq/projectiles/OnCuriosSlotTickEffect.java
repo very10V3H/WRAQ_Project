@@ -1,16 +1,10 @@
 package com.very.wraq.projectiles;
 
-import com.very.wraq.common.Utils.Utils;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import org.stringtemplate.v4.ST;
 import top.theillusivec4.curios.api.CuriosApi;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public interface OnCuriosSlotTickEffect {

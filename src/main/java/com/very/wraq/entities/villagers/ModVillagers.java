@@ -1,6 +1,6 @@
 package com.very.wraq.entities.villagers;
 
-import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.registry.ModBlocks;
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.sounds.SoundEvents;

@@ -1,7 +1,7 @@
 package com.very.wraq.Items.MobItem;
 
-import com.very.wraq.common.Utils.Struct.MobArmorNum;
-import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.util.struct.MobArmorNum;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.registry.ItemMaterial;
 import net.minecraft.world.item.ArmorItem;
 

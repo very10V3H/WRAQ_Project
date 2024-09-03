@@ -1,6 +1,6 @@
 package com.very.wraq.networking.misc.AnimationPackets;
 
-import com.very.wraq.common.Utils.ClientUtils;
+import com.very.wraq.common.util.ClientUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent;
 

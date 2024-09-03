@@ -2,9 +2,9 @@ package com.very.wraq.networking.unSorted;
 
 import com.very.wraq.projectiles.mana.Meteorite;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.ModEntityType;
-import com.very.wraq.common.Utils.Utils;
-import com.very.wraq.common.attributeValues.PlayerAttributes;
+import com.very.wraq.common.registry.ModEntityType;
+import com.very.wraq.common.util.Utils;
+import com.very.wraq.common.attribute.PlayerAttributes;
 import com.very.wraq.common.registry.ModItems;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;

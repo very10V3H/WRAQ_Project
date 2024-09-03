@@ -1,6 +1,6 @@
 package com.very.wraq.process.func.plan.networking.mission;
 
-import com.very.wraq.common.MySound;
+import com.very.wraq.common.registry.MySound;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.reputationMission.PlanMissionInfoS2CPacket;
 import com.very.wraq.common.Compute;

@@ -1,8 +1,7 @@
 package com.very.wraq.render.gui.illustrate;
 
-import com.very.wraq.process.series.potion.NewPotion;
-import com.very.wraq.process.series.potion.NewThrowablePotion;
-import com.very.wraq.series.overworld.chapter7.C7Items;
+import com.very.wraq.process.system.potion.NewPotion;
+import com.very.wraq.process.system.potion.NewThrowablePotion;
 import com.very.wraq.common.registry.ModItems;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.api.distmarker.Dist;

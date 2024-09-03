@@ -1,11 +1,11 @@
 package com.very.wraq.events.core;
 
-import com.very.wraq.common.DelayOperationWithAnimation;
+import com.very.wraq.process.func.DelayOperationWithAnimation;
 import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.files.dataBases.DataBase;
 import com.very.wraq.process.func.damage.Dot;
 import com.very.wraq.process.func.plan.PlanPlayer;
-import com.very.wraq.process.series.lottery.NewLotteries;
+import com.very.wraq.process.system.lottery.NewLotteries;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.process.system.element.equipAndCurios.waterElement.WaterElementSword;
 import com.very.wraq.process.system.market.MarketInfo;

@@ -1,9 +1,9 @@
 package com.very.wraq.events.mob;
 
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.Utils.ItemAndRate;
-import com.very.wraq.common.Utils.Utils;
-import com.very.wraq.common.attributeValues.PlayerAttributes;
+import com.very.wraq.common.util.ItemAndRate;
+import com.very.wraq.common.util.Utils;
+import com.very.wraq.common.attribute.PlayerAttributes;
 import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.events.core.LoginInEvent;
 import com.very.wraq.events.mob.chapter1.ForestZombieSpawnController;

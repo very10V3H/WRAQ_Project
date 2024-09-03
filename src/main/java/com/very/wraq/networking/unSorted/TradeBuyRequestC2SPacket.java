@@ -1,12 +1,12 @@
 package com.very.wraq.networking.unSorted;
 
-import com.very.wraq.common.MySound;
+import com.very.wraq.common.registry.MySound;
 import com.very.wraq.events.core.InventoryCheck;
 import com.very.wraq.process.func.guide.Guide;
-import com.very.wraq.process.series.lottery.NewLotteries;
+import com.very.wraq.process.system.lottery.NewLotteries;
 import com.very.wraq.render.gui.villagerTrade.TradeList;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.FriendlyByteBuf;

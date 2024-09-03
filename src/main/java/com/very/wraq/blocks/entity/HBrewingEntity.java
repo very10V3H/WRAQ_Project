@@ -1,13 +1,13 @@
 package com.very.wraq.blocks.entity;
 
 
-import com.very.wraq.blocks.blocks.BrewingRecipe;
-import com.very.wraq.blocks.brewing.BrewingNote;
+import com.very.wraq.blocks.blocks.brew.BrewingRecipe;
+import com.very.wraq.blocks.blocks.brew.BrewingNote;
 import com.very.wraq.events.core.InventoryCheck;
-import com.very.wraq.process.series.potion.NewThrowablePotion;
+import com.very.wraq.process.system.potion.NewThrowablePotion;
 import com.very.wraq.render.gui.blocks.BrewingMenu;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.Utils.Utils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.registry.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
