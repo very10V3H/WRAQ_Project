@@ -46,8 +46,8 @@ public class PlainSceptre0 extends WraqSceptre {
     public static void PlainSceptreDescription(List<Component> components) {
         Compute.DescriptionPassive(components, Component.literal("平原的加护").withStyle(ChatFormatting.GREEN));
         components.add(Component.literal("当法球命中单位时，获得:"));
-        Compute.EmojiDescriptionDefence(components, 40);
-        Compute.EmojiDescriptionManaDefence(components, 40);
+        ComponentUtils.emojiDescriptionDefence(components, 40);
+        ComponentUtils.emojiDescriptionManaDefence(components, 40);
         components.add(Component.literal("并回复").withStyle(ChatFormatting.WHITE).
                 append(Compute.AttributeDescription.MaxHealth("1%")));
     }

@@ -1,5 +1,6 @@
 package com.very.wraq.render.gui.skills;
 
+import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.misc.SkillPackets.AbilityDataC2SPacket;
 import com.very.wraq.networking.misc.SkillPackets.SkillDataC2SPacket;
@@ -357,16 +358,16 @@ public class IdCardGui extends Screen {
             double ExAttack = ClientUtils.AbilityChangeCache.Power;
             double ExDefence = ClientUtils.AbilityChangeCache.Power;
             double ExCritDamage = ClientUtils.AbilityChangeCache.Power;
-            Compute.EmojiDescriptionExAttackDamage(components, ExAttack);
-            Compute.EmojiDescriptionDefence(components, ExDefence * 6);
-            Compute.EmojiDescriptionCritDamage(components, ExCritDamage * 0.01);
+            ComponentUtils.emojiDescriptionExAttackDamage(components, ExAttack);
+            ComponentUtils.emojiDescriptionDefence(components, ExDefence * 6);
+            ComponentUtils.emojiDescriptionCritDamage(components, ExCritDamage * 0.01);
             Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
             components.add(Component.literal(Ability).withStyle(style).
                     append(Component.literal("能力与属性点数关系:").withStyle(ChatFormatting.WHITE)));
             components.add(Component.literal("每一点能力获得:"));
-            Compute.EmojiDescriptionExAttackDamage(components, 1);
-            Compute.EmojiDescriptionDefence(components, 6);
-            Compute.EmojiDescriptionCritDamage(components, 0.01);
+            ComponentUtils.emojiDescriptionExAttackDamage(components, 1);
+            ComponentUtils.emojiDescriptionDefence(components, 6);
+            ComponentUtils.emojiDescriptionCritDamage(components, 0.01);
             Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
             guiGraphics.renderComponentTooltip(fontRenderer, components, x, y);
         }
@@ -385,16 +386,16 @@ public class IdCardGui extends Screen {
             double ExManaDamage = ClientUtils.AbilityChangeCache.Intelligent;
             double ExManaRecover = ClientUtils.AbilityChangeCache.Intelligent;
             double ExMaxMana = ClientUtils.AbilityChangeCache.Intelligent;
-            Compute.EmojiDescriptionManaAttackDamage(components, ExManaDamage * 2);
-            Compute.EmojiDescriptionManaRecover(components, ExManaRecover * 0.3);
-            Compute.EmojiDescriptionMaxMana(components, ExMaxMana);
+            ComponentUtils.emojiDescriptionManaAttackDamage(components, ExManaDamage * 2);
+            ComponentUtils.emojiDescriptionManaRecover(components, ExManaRecover * 0.3);
+            ComponentUtils.emojiDescriptionMaxMana(components, ExMaxMana);
             Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
             components.add(Component.literal(Ability).withStyle(style).
                     append(Component.literal("能力与属性点数关系:").withStyle(ChatFormatting.WHITE)));
             components.add(Component.literal("每一点能力获得:"));
-            Compute.EmojiDescriptionManaAttackDamage(components, 2);
-            Compute.EmojiDescriptionManaRecover(components, 0.3);
-            Compute.EmojiDescriptionMaxMana(components, 1);
+            ComponentUtils.emojiDescriptionManaAttackDamage(components, 2);
+            ComponentUtils.emojiDescriptionManaRecover(components, 0.3);
+            ComponentUtils.emojiDescriptionMaxMana(components, 1);
             Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
             guiGraphics.renderComponentTooltip(fontRenderer, components, x, y);
         }
@@ -415,18 +416,18 @@ public class IdCardGui extends Screen {
             double ExMoveSpeed = ClientUtils.AbilityChangeCache.Flexibility;
             double ExDefencePenetration = ClientUtils.AbilityChangeCache.Flexibility;
 
-            Compute.EmojiDescriptionSwiftness(components, ExSwiftness * 0.1);
-            Compute.EmojiDescriptionCommonMovementSpeed(components, ExMoveSpeed * 0.003);
-            Compute.EmojiDescriptionDefencePenetration0(components, ExDefencePenetration);
+            ComponentUtils.emojiDescriptionSwiftness(components, ExSwiftness * 0.1);
+            ComponentUtils.emojiDescriptionCommonMovementSpeed(components, ExMoveSpeed * 0.003);
+            ComponentUtils.emojiDescriptionDefencePenetration0(components, ExDefencePenetration);
 
             Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
             components.add(Component.literal(Ability).withStyle(style).
                     append(Component.literal("能力与属性点数关系:").withStyle(ChatFormatting.WHITE)));
             components.add(Component.literal("每一点能力获得:"));
 
-            Compute.EmojiDescriptionSwiftness(components, 0.1);
-            Compute.EmojiDescriptionCommonMovementSpeed(components, 0.003);
-            Compute.EmojiDescriptionDefencePenetration0(components, 1);
+            ComponentUtils.emojiDescriptionSwiftness(components, 0.1);
+            ComponentUtils.emojiDescriptionCommonMovementSpeed(components, 0.003);
+            ComponentUtils.emojiDescriptionDefencePenetration0(components, 1);
 
             Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
             components.add(Component.literal("").append(Compute.AttributeDescription.Swiftness("")).
@@ -450,18 +451,18 @@ public class IdCardGui extends Screen {
             double ExExpUp = ClientUtils.AbilityChangeCache.Lucky;
             double exCooldown = ClientUtils.AbilityChangeCache.Lucky;
 
-            Compute.EmojiDescriptionCritRate(components, ExCritRate * 0.001);
-            Compute.EmojiDescriptionExpUp(components, ExExpUp * 0.01);
-            Compute.EmojiDescriptionCoolDown(components, exCooldown * 0.01);
+            ComponentUtils.emojiDescriptionCritRate(components, ExCritRate * 0.001);
+            ComponentUtils.emojiDescriptionExpUp(components, ExExpUp * 0.01);
+            ComponentUtils.emojiDescriptionCoolDown(components, exCooldown * 0.01);
 
             Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
             components.add(Component.literal(Ability).withStyle(style).
                     append(Component.literal("能力与属性点数关系:").withStyle(ChatFormatting.WHITE)));
             components.add(Component.literal("每一点能力获得:"));
 
-            Compute.EmojiDescriptionCritRate(components, 0.001);
-            Compute.EmojiDescriptionExpUp(components, 0.01);
-            Compute.EmojiDescriptionCoolDown(components, 0.01);
+            ComponentUtils.emojiDescriptionCritRate(components, 0.001);
+            ComponentUtils.emojiDescriptionExpUp(components, 0.01);
+            ComponentUtils.emojiDescriptionCoolDown(components, 0.01);
 
             Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
             guiGraphics.renderComponentTooltip(fontRenderer, components, x, y);
@@ -482,18 +483,18 @@ public class IdCardGui extends Screen {
             double ExMaxHeal = ClientUtils.AbilityChangeCache.Vitality;
             double ExHealAmplitude = ClientUtils.AbilityChangeCache.Vitality;
 
-            Compute.EmojiDescriptionHealthRecover(components, ExHealReply);
-            Compute.EmojiDescriptionMaxHealth(components, ExMaxHeal * 10);
-            Compute.EmojiDescriptionHealAmplification(components, ExHealAmplitude * 0.01);
+            ComponentUtils.emojiDescriptionHealthRecover(components, ExHealReply);
+            ComponentUtils.emojiDescriptionMaxHealth(components, ExMaxHeal * 10);
+            ComponentUtils.emojiDescriptionHealAmplification(components, ExHealAmplitude * 0.01);
 
             Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
             components.add(Component.literal(Ability).withStyle(style).
                     append(Component.literal("能力与属性点数关系:").withStyle(ChatFormatting.WHITE)));
             components.add(Component.literal("每一点能力获得:"));
 
-            Compute.EmojiDescriptionHealthRecover(components, 1);
-            Compute.EmojiDescriptionMaxHealth(components, 10);
-            Compute.EmojiDescriptionHealAmplification(components, 0.01);
+            ComponentUtils.emojiDescriptionHealthRecover(components, 1);
+            ComponentUtils.emojiDescriptionMaxHealth(components, 10);
+            ComponentUtils.emojiDescriptionHealAmplification(components, 0.01);
 
             Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
             guiGraphics.renderComponentTooltip(fontRenderer, components, x, y);
