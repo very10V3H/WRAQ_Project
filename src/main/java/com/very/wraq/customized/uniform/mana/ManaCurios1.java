@@ -11,9 +11,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.WeakHashMap;
 
 public class ManaCurios1 extends WraqManaUniformCurios {
 
@@ -39,7 +38,7 @@ public class ManaCurios1 extends WraqManaUniformCurios {
         return Component.literal("凌于自然").withStyle(hoverMainStyle());
     }
 
-    public static Map<Player, Boolean> onPlayerMap = new HashMap<>();
+    public static WeakHashMap<Player, Boolean> onPlayerMap = new WeakHashMap<>();
 
     public static boolean IsOn(Player player) {
         return WraqUniformCurios.isOn(ManaCurios1.class, player);

@@ -1,9 +1,9 @@
 package com.very.wraq.series.instance.series.moon.Equip;
 
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.util.Utils;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -19,14 +19,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 
 import javax.annotation.Nullable;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.WeakHashMap;
 
 public class MoonKnife extends Item {
 
-    public static Map<Player, Mob> PlayerMoonKnifeMap = new HashMap<>();
-    public static Map<Player, Integer> PlayerMoonKnifeCountMap = new HashMap<>();
+    public static WeakHashMap<Player, Mob> PlayerMoonKnifeMap = new WeakHashMap<>();
+    public static WeakHashMap<Player, Integer> PlayerMoonKnifeCountMap = new WeakHashMap<>();
 
     public MoonKnife() {
         super(new Properties().rarity(CustomStyle.MoonItalic).stacksTo(1));
@@ -69,7 +68,7 @@ public class MoonKnife extends Item {
         return true;
     }
 
-    public static Map<Player, Integer> playerDamageEnhanceTickMap = new HashMap<>();
+    public static WeakHashMap<Player, Integer> playerDamageEnhanceTickMap = new WeakHashMap<>();
 
     public static void MoonKnife(Player player, Mob mob) {
         if (player.getItemBySlot(EquipmentSlot.OFFHAND).is(ModItems.MoonKnife.get())) {

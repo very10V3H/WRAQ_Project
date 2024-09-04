@@ -1,10 +1,10 @@
 package com.very.wraq.series.overworld.chapter7.star;
 
-import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.Utils;
+import com.very.wraq.process.func.particle.ParticleProvider;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
@@ -20,9 +20,8 @@ import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
 import javax.annotation.Nullable;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.WeakHashMap;
 
 public class StarBottle extends Item implements ICurioItem {
 
@@ -88,9 +87,9 @@ public class StarBottle extends Item implements ICurioItem {
         return true;
     }
 
-    public static Map<Player, Boolean> playerStatusMap = new HashMap<>(); // false - 收集状态 true 掷出状态
-    public static Map<Player, Integer> playerCountsMap = new HashMap<>();
-    public static Map<Player, Integer> playerLastBattleTick = new HashMap<>();
+    public static WeakHashMap<Player, Boolean> playerStatusMap = new WeakHashMap<>(); // false - 收集状态 true 掷出状态
+    public static WeakHashMap<Player, Integer> playerCountsMap = new WeakHashMap<>();
+    public static WeakHashMap<Player, Integer> playerLastBattleTick = new WeakHashMap<>();
 
     public static boolean IsOn(Player player) {
         if (!Utils.playerCuriosListMap.containsKey(player)) return false;

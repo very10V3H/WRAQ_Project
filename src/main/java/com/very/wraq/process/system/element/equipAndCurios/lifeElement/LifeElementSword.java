@@ -1,13 +1,13 @@
 package com.very.wraq.process.system.element.equipAndCurios.lifeElement;
 
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.projectiles.ActiveItem;
 import com.very.wraq.projectiles.WraqSword;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.ComponentUtils;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -15,9 +15,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.WeakHashMap;
 
 public class LifeElementSword extends WraqSword implements ActiveItem {
 
@@ -70,10 +69,10 @@ public class LifeElementSword extends WraqSword implements ActiveItem {
         return true;
     }
 
-    public static Map<Player, Integer> lifeElementActiveLastTick = new HashMap<>();
-    public static Map<Player, Double> lifeElementActiveHealth = new HashMap<>();
-    public static Map<Player, Integer> lifeElementActiveCoolDown = new HashMap<>();
-    public static Map<Player, List<ShortTimeStoreHealth>> playerShortTimeStoreHealthMap = new HashMap<>();
+    public static WeakHashMap<Player, Integer> lifeElementActiveLastTick = new WeakHashMap<>();
+    public static WeakHashMap<Player, Double> lifeElementActiveHealth = new WeakHashMap<>();
+    public static WeakHashMap<Player, Integer> lifeElementActiveCoolDown = new WeakHashMap<>();
+    public static WeakHashMap<Player, List<ShortTimeStoreHealth>> playerShortTimeStoreHealthMap = new WeakHashMap<>();
 
     @Override
     public void active(Player player) {

@@ -1,15 +1,15 @@
 package com.very.wraq.series.overworld.sakuraSeries.EarthMana;
 
-import com.very.wraq.process.func.particle.ParticleProvider;
-import com.very.wraq.process.func.power.PowerLogic;
-import com.very.wraq.projectiles.ActiveItem;
-import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.util.ClientUtils;
 import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.process.func.particle.ParticleProvider;
+import com.very.wraq.process.func.power.PowerLogic;
+import com.very.wraq.projectiles.ActiveItem;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -27,10 +27,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class EarthPower extends Item implements ActiveItem {
 
@@ -110,11 +107,11 @@ public class EarthPower extends Item implements ActiveItem {
         return true;
     }
 
-    public static Map<Mob, Integer> Plain_MobDamageDecrease = new HashMap<>();
-    public static Map<Player, Integer> Forest_PlayerDefenceEnhance = new HashMap<>();
-    public static Map<Mob, Integer> Lake_MobManaDefenceDecrease = new HashMap<>();
-    public static Map<Player, Integer> Lake_PlayerCoolDownEnhance = new HashMap<>();
-    public static Map<Player, Integer> Volcano_PlayerDamageEnhance = new HashMap<>();
+    public static WeakHashMap<Mob, Integer> Plain_MobDamageDecrease = new WeakHashMap<>();
+    public static WeakHashMap<Player, Integer> Forest_PlayerDefenceEnhance = new WeakHashMap<>();
+    public static WeakHashMap<Mob, Integer> Lake_MobManaDefenceDecrease = new WeakHashMap<>();
+    public static WeakHashMap<Player, Integer> Lake_PlayerCoolDownEnhance = new WeakHashMap<>();
+    public static WeakHashMap<Player, Integer> Volcano_PlayerDamageEnhance = new WeakHashMap<>();
 
     public static double MobDamageDecrease(Mob mob) {
         int TickCount = mob.getServer().getTickCount();

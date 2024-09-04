@@ -3,9 +3,9 @@ package com.very.wraq.customized.uniform.bow;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.registry.MySound;
 import com.very.wraq.core.MyArrow;
+import com.very.wraq.customized.WraqUniformCurios;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.projectiles.WraqBow;
-import com.very.wraq.customized.WraqUniformCurios;
 import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
@@ -20,9 +20,8 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.event.TickEvent;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.WeakHashMap;
 
 public class BowCurios1 extends WraqBowUniformCurios {
 
@@ -49,13 +48,13 @@ public class BowCurios1 extends WraqBowUniformCurios {
         return Component.literal("优胜劣汰").withStyle(hoverMainStyle());
     }
 
-    public static Map<Player, Boolean> onPlayerMap = new HashMap<>();
+    public static WeakHashMap<Player, Boolean> onPlayerMap = new WeakHashMap<>();
 
     public static boolean isOn(Player player) {
         return WraqUniformCurios.isOn(BowCurios1.class, player);
     }
 
-    public static Map<Player, Integer> playerShootTick = new HashMap<>();
+    public static WeakHashMap<Player, Integer> playerShootTick = new WeakHashMap<>();
 
     public static void playerShoot(Player player) {
         if (!isOn(player)) return;

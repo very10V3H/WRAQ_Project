@@ -1,13 +1,13 @@
 package com.very.wraq.series.instance.series.taboo;
 
-import com.very.wraq.projectiles.WraqArmor;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.ComponentUtils;
-import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.attribute.PlayerAttributes;
-import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.registry.ItemMaterial;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.Utils;
+import com.very.wraq.projectiles.WraqArmor;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -16,9 +16,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.WeakHashMap;
 
 public class TabooManaArmor extends WraqArmor {
 
@@ -69,7 +68,7 @@ public class TabooManaArmor extends WraqArmor {
     public record NearCostMana(int tick, double value) {
     }
 
-    public static Map<Player, List<NearCostMana>> nearCostListMap = new HashMap<>();
+    public static WeakHashMap<Player, List<NearCostMana>> nearCostListMap = new WeakHashMap<>();
 
     public static boolean IsOn(Player player) {
         return player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.TabooManaBoots.get());

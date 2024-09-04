@@ -55,9 +55,17 @@ public class WraqGem extends Item {
     }
 
     // 矿石
-    public static class WraqGemO1 extends WraqGem {
-        public WraqGemO1(WraqGem wraqGem) {
+    public static class WraqGemO extends WraqGem {
+        public WraqGemO(WraqGem wraqGem, int type) {
             super(wraqGem.getProperties(), wraqGem.getAttributeMapValues(), wraqGem.getHoverStyle(), wraqGem.getOneLineDescription(), wraqGem.getSuffix());
+
+            Map<Integer, List<AttributeMapValue>> attributeMapValues = new HashMap<>() {{
+                put(1, List.of(new AttributeMapValue(Utils.percentMaxHealthEnhance, 0.1),
+                        new AttributeMapValue(Utils.healthRecover, 20)));
+                put(2, List.of());
+                put(3, List.of());
+                put(4, List.of());
+            }};
 
             Map<Map<Item, Double>, Double> map = new HashMap<>() {{
                 wraqGem.getAttributeMapValues().forEach(attributeMapValue -> {
@@ -65,8 +73,7 @@ public class WraqGem extends Item {
                 });
             }};
 
-            List.of(new AttributeMapValue(Utils.percentMaxHealthEnhance, 0.1),
-                    new AttributeMapValue(Utils.healthRecover, 20))
+            attributeMapValues.get(type)
                     .forEach(attributeMapValue -> {
                 attributeMapValue.attributeMap.put(this, attributeMapValue.value + map.getOrDefault(attributeMapValue.attributeMap, 0d));
             });

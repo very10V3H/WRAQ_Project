@@ -56,11 +56,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Mod.EventBusSubscriber
 public class CastleSecondFloor {
 
-    public static Map<Player, Boolean> playerPickedItemMap = new HashMap<>();
+    public static WeakHashMap<Player, Boolean> playerPickedItemMap = new WeakHashMap<>();
     public static boolean passiveFlag = false;
     public static int shieldCount = 0;
     public static int shieldLastTick = 0;
-    public static Map<Player, Double> playerDamageCount = new HashMap<>();
+    public static WeakHashMap<Player, Double> playerDamageCount = new WeakHashMap<>();
     public static double MaxHealth = 2 * Math.pow(10, 8);
     public static double AttackDamage = 10000;
     public static ServerBossEvent BossInfo1;

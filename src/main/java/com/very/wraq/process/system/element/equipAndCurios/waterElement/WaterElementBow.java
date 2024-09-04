@@ -110,7 +110,7 @@ public class WaterElementBow extends WraqBow implements ActiveItem {
             mobList.removeIf(mob -> mob.position().distanceTo(pos) > 6);
             mobList.forEach(mob -> {
                 Element.ElementEffectAddToEntity(player, mob, Element.water, ElementValue.PlayerWaterElementValue(player), true, PlayerAttributes.attackDamage(player) * 4);
-                WaterElementSword.mobDefenceDecreaseTickMap.put(mob.getId(), player.getServer().getTickCount() + 140);
+                WaterElementSword.mobDefenceDecreaseTickMap.put(mob, player.getServer().getTickCount() + 140);
             });
         }
     }

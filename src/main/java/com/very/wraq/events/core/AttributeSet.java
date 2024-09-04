@@ -2,12 +2,11 @@ package com.very.wraq.events.core;
 
 import com.mojang.datafixers.util.Pair;
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.attribute.PlayerAttributes;
 import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.attribute.PlayerAttributes;
 import com.very.wraq.process.func.SpecialEffectOnPlayer;
 import com.very.wraq.series.newrunes.chapter1.LakeNewRune;
-import com.very.wraq.series.overworld.chapter2.sea.Breath;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -54,7 +53,6 @@ public class AttributeSet {
 
             // 游泳速度
             double exSwimSpeed = 0;
-            if (Breath.onPlayerMap.containsKey(player) && Breath.onPlayerMap.get(player)) exSwimSpeed += 1;
             exSwimSpeed += LakeNewRune.exSwimSpeed(player);
             exSwimSpeed += 2;
             player.getAttribute(ForgeMod.SWIM_SPEED.get()).setBaseValue(1 + exSwimSpeed);

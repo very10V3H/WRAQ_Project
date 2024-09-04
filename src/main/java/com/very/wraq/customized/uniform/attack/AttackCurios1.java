@@ -10,9 +10,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.WeakHashMap;
 
 public class AttackCurios1 extends WraqAttackUniformCurios {
 
@@ -46,8 +45,8 @@ public class AttackCurios1 extends WraqAttackUniformCurios {
         return Component.literal("独夫之心").withStyle(hoverMainStyle());
     }
 
-    public static Map<Player, Integer> playerCountsMap = new HashMap<>();
-    public static Map<Player, Integer> playerLastTickMap = new HashMap<>();
+    public static WeakHashMap<Player, Integer> playerCountsMap = new WeakHashMap<>();
+    public static WeakHashMap<Player, Integer> playerLastTickMap = new WeakHashMap<>();
 
     public static boolean isOn(Player player) {
         return WraqUniformCurios.isOn(AttackCurios1.class, player);

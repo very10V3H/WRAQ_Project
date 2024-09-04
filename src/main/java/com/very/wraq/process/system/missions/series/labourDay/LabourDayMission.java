@@ -9,14 +9,13 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.WeakHashMap;
 
 public class LabourDayMission {
-    public static Map<Player, Integer> mineCounts = new HashMap<Player, Integer>();
-    public static Map<Player, Integer> lopCounts = new HashMap<Player, Integer>();
-    public static Map<Player, Integer> cropCounts = new HashMap<Player, Integer>();
-    public static Map<Player, Integer> fishCounts = new HashMap<Player, Integer>();
+    public static WeakHashMap<Player, Integer> mineCounts = new WeakHashMap<>();
+    public static WeakHashMap<Player, Integer> lopCounts = new WeakHashMap<>();
+    public static WeakHashMap<Player, Integer> cropCounts = new WeakHashMap<>();
+    public static WeakHashMap<Player, Integer> fishCounts = new WeakHashMap<>();
 
     public static boolean serialNumJudge(Player player, int serialNum) {
         switch (serialNum) {
@@ -38,11 +37,11 @@ public class LabourDayMission {
         }
     }
 
-    public static boolean countsEnough(Player player, Map<Player, Integer> map) {
+    public static boolean countsEnough(Player player, WeakHashMap<Player, Integer> map) {
         return map.containsKey(player) && map.get(player) != -1 && map.get(player) > 200;
     }
 
-    public static void count(Player player, Map<Player, Integer> map) {
+    public static void count(Player player, WeakHashMap<Player, Integer> map) {
         /*map.put(player, map.getOrDefault(player, 0) + 1);*/
     }
 

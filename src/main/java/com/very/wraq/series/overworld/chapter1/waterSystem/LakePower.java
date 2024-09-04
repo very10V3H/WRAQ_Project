@@ -1,11 +1,11 @@
 package com.very.wraq.series.overworld.chapter1.waterSystem;
 
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.process.func.power.PowerLogic;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.projectiles.ActiveItem;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.Utils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
@@ -15,16 +15,15 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.WeakHashMap;
 
 public class LakePower extends Item implements ActiveItem {
 
     private final int tier;
 
-    public static Map<Player, Integer> playerDefendTickMap = new HashMap<>();
-    public static Map<Player, Integer> playerDefendRateMap = new HashMap<>();
+    public static WeakHashMap<Player, Integer> playerDefendTickMap = new WeakHashMap<>();
+    public static WeakHashMap<Player, Integer> playerDefendRateMap = new WeakHashMap<>();
 
     public LakePower(Properties p_41383_, int tier) {
         super(p_41383_);

@@ -11,9 +11,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.WeakHashMap;
 
 public class IceCurios0 extends WraqElementUniformCurios {
 
@@ -37,7 +36,7 @@ public class IceCurios0 extends WraqElementUniformCurios {
         return CustomStyle.styleOfIce;
     }
 
-    public static Map<Player, Boolean> onPlayerMap = new HashMap<>();
+    public static WeakHashMap<Player, Boolean> onPlayerMap = new WeakHashMap<>();
 
     public static boolean isOn(Player player) {
         return WraqUniformCurios.isOn(IceCurios0.class, player);

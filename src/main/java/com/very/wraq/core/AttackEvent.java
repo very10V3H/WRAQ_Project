@@ -226,11 +226,11 @@ public class AttackEvent {
         String elementType = "";
 
         ElementDamageEnhance += Element.ElementWithstandDamageEnhance(monster);
-        Element.Unit playerUnit = Element.entityElementUnit.getOrDefault(player.getId(), new Element.Unit(Element.life, 0));
+        Element.Unit playerUnit = Element.entityElementUnit.getOrDefault(player, new Element.Unit(Element.life, 0));
         elementType = playerUnit.type();
         if (playerUnit.value() > 0) {
             ElementDamageEffect = Element.ElementEffectAddToEntity(player, monster, playerUnit.type(), playerUnit.value(), true, damage + damageIgnoreDefence);
-            Element.entityElementUnit.put(player.getId(), new Element.Unit(Element.life, 0));
+            Element.entityElementUnit.put(player, new Element.Unit(Element.life, 0));
         }
 
         double elementDamage = (damage + damageIgnoreDefence) * ((1 + ElementDamageEnhance) * ElementDamageEffect - 1);

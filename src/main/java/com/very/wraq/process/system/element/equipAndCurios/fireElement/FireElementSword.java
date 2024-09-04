@@ -1,14 +1,14 @@
 package com.very.wraq.process.system.element.equipAndCurios.fireElement;
 
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.projectiles.ActiveItem;
 import com.very.wraq.projectiles.WraqSword;
 import com.very.wraq.render.particles.ModParticles;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.ComponentUtils;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -17,9 +17,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.WeakHashMap;
 
 public class FireElementSword extends WraqSword implements ActiveItem {
 
@@ -83,9 +82,9 @@ public class FireElementSword extends WraqSword implements ActiveItem {
         return true;
     }
 
-    public static Map<Player, Integer> playerActiveCoolDownMap = new HashMap<>();
+    public static WeakHashMap<Player, Integer> playerActiveCoolDownMap = new WeakHashMap<>();
 
-    public static Map<Player, Integer> playerFireElementValueEnhanceTickMap = new HashMap<>();
+    public static WeakHashMap<Player, Integer> playerFireElementValueEnhanceTickMap = new WeakHashMap<>();
 
     public static void IgniteEffect(Player player, Mob mob) {
         if (mob.getRemainingFireTicks() > 0 && player.getMainHandItem().is(ModItems.FireElementSword.get())) {
@@ -111,7 +110,7 @@ public class FireElementSword extends WraqSword implements ActiveItem {
     public record IgniteMob(Integer id, Integer tick) {
     }
 
-    public static Map<Player, List<IgniteMob>> playerIgniteMobMap = new HashMap<>();
+    public static WeakHashMap<Player, List<IgniteMob>> playerIgniteMobMap = new WeakHashMap<>();
 
     public static void Tick(Player player) {
         if (!player.getMainHandItem().is(ModItems.FireElementSword.get())) return;

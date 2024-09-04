@@ -1,10 +1,10 @@
 package com.very.wraq.series.instance.series.moon.Equip;
 
-import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.Utils;
+import com.very.wraq.process.func.particle.ParticleProvider;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
@@ -21,9 +21,8 @@ import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
 import javax.annotation.Nullable;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.WeakHashMap;
 
 public class MoonBelt extends Item implements ICurioItem {
 
@@ -84,10 +83,10 @@ public class MoonBelt extends Item implements ICurioItem {
         return true;
     }
 
-    public static Map<Player, Integer> coolDown = new HashMap<>();
-    public static Map<Player, Integer> damageTick = new HashMap<>();
-    public static Map<Player, Double> storedDamage = new HashMap<>();
-    public static Map<Player, Integer> statusType = new HashMap<>(); // 0 - 等待状态 1 - 蓄能状态
+    public static WeakHashMap<Player, Integer> coolDown = new WeakHashMap<>();
+    public static WeakHashMap<Player, Integer> damageTick = new WeakHashMap<>();
+    public static WeakHashMap<Player, Double> storedDamage = new WeakHashMap<>();
+    public static WeakHashMap<Player, Integer> statusType = new WeakHashMap<>(); // 0 - 等待状态 1 - 蓄能状态
 
     public static void PassiveCauseDamage(Player player, double num) {
         if (Compute.isOnCurios(player, ModItems.MoonBelt.get())) {

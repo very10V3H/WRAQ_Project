@@ -1,33 +1,33 @@
 package com.very.wraq.process.func.power;
 
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.attribute.PlayerAttributes;
+import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.registry.ModSounds;
 import com.very.wraq.common.registry.MySound;
+import com.very.wraq.common.util.StringUtils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.misc.EarthPower.EarthPowerS2CPacket;
 import com.very.wraq.networking.misc.ParticlePackets.EffectParticle.DamageDecreaseParticleS2CPacket;
 import com.very.wraq.networking.misc.ParticlePackets.SlowDownParticleS2CPacket;
+import com.very.wraq.process.func.EffectOnMob;
+import com.very.wraq.process.func.StableAttributesModifier;
+import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.process.system.element.ElementValue;
-import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.projectiles.WraqCurios;
 import com.very.wraq.render.particles.ModParticles;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.instance.series.castle.CastleManaArmor;
 import com.very.wraq.series.newrunes.chapter6.CastleNewRune;
+import com.very.wraq.series.overworld.chapter1.Snow.SnowPower;
 import com.very.wraq.series.overworld.chapter1.forest.ForestPower;
 import com.very.wraq.series.overworld.chapter1.forest.ForestPowerEffectMob;
 import com.very.wraq.series.overworld.chapter1.plain.PlainPower;
-import com.very.wraq.series.overworld.chapter1.Snow.SnowPower;
 import com.very.wraq.series.overworld.chapter1.volcano.VolcanoPower;
 import com.very.wraq.series.overworld.chapter1.waterSystem.LakePower;
 import com.very.wraq.series.overworld.chapter1.waterSystem.LakePowerEffect;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.StringUtils;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.process.func.StableAttributesModifier;
-import com.very.wraq.process.func.EffectOnMob;
-import com.very.wraq.common.attribute.PlayerAttributes;
-import com.very.wraq.common.registry.ModItems;
-import com.very.wraq.common.registry.ModSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -48,18 +48,19 @@ import net.minecraft.world.phys.Vec3;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.WeakHashMap;
 
+import static com.very.wraq.common.Compute.*;
 import static com.very.wraq.core.ManaAttackModule.ManaSkill12Attack;
 import static com.very.wraq.core.ManaAttackModule.ManaSkill13Attack;
-import static com.very.wraq.common.Compute.*;
 
 public class PowerLogic {
 
-    public static Map<Player, Integer> playerLastTimeReleasePower = new HashMap<>();
+    public static WeakHashMap<Player, Integer> playerLastTimeReleasePower = new WeakHashMap<>();
 
-    public static Map<Player, Map<Item, Integer>> playerPowerCoolDownRecord = new HashMap<>();
-    public static Map<Player, Integer> playerLastTimeReleasePowerCoolDownTime = new HashMap<>();
-    public static Map<Player, Double> playerLastTimeReleasePowerManaCost = new HashMap<>();
+    public static WeakHashMap<Player, Map<Item, Integer>> playerPowerCoolDownRecord = new WeakHashMap<>();
+    public static WeakHashMap<Player, Integer> playerLastTimeReleasePowerCoolDownTime = new WeakHashMap<>();
+    public static WeakHashMap<Player, Double> playerLastTimeReleasePowerManaCost = new WeakHashMap<>();
 
     public static void ReleaseLastTime(Player player) {
         int type = playerLastTimeReleasePower.getOrDefault(player, 0);

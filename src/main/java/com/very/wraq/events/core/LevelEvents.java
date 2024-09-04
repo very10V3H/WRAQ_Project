@@ -2,22 +2,21 @@ package com.very.wraq.events.core;
 
 import com.very.wraq.commands.changeable.PrefixCommand;
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.registry.MySound;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.util.struct.Boss2Damage;
 import com.very.wraq.common.util.struct.Gather;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.process.func.EffectOnMob;
-import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.customized.uniform.bow.BowCurios1;
 import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.events.mob.instance.NoTeamInstanceModule;
+import com.very.wraq.process.func.EffectOnMob;
+import com.very.wraq.process.func.MobEffectAndDamageMethods;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.process.system.element.originSummon.OriginSummon;
-import com.very.wraq.process.func.MobEffectAndDamageMethods;
 import com.very.wraq.process.system.season.MySeason;
 import com.very.wraq.process.system.tower.Tower;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.series.overworld.sakuraSeries.EarthMana.EarthPower;
 import com.very.wraq.series.specialevents.summer.SummerEvent;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -581,29 +580,11 @@ public class LevelEvents {
     }
 
     public static void TryToRemoveMobInMap() {
-        Utils.SlimeRewardPlayer.entrySet().removeIf(e -> e.getKey().isDeadOrDying());
-        Utils.LakePowerEffectMobMap.entrySet().removeIf(e -> e.getKey().isDeadOrDying());
-        Utils.MobSpringAttackTick.entrySet().removeIf(e -> e.getKey().isDeadOrDying());
-        Utils.MobSpringAttackEffect.entrySet().removeIf(e -> e.getKey().isDeadOrDying());
-        Utils.MobSpringSwiftTick.entrySet().removeIf(e -> e.getKey().isDeadOrDying());
-        Utils.MobSpringSwiftEffect.entrySet().removeIf(e -> e.getKey().isDeadOrDying());
-        Utils.MobSpringManaTick.entrySet().removeIf(e -> e.getKey().isDeadOrDying());
-        Utils.MobSpringManaEffect.entrySet().removeIf(e -> e.getKey().isDeadOrDying());
-        Utils.NetherBoneMealPowerEffectMap.entrySet().removeIf(e -> e.getKey().isDeadOrDying());
-        Utils.SnowShieldMobEffectMap.entrySet().removeIf(e -> e.getKey().isDeadOrDying());
-        Utils.WitherBookMobEffectTick.entrySet().removeIf(e -> e.getKey().isDeadOrDying());
-        Utils.IceBookMobEffectTickMap.entrySet().removeIf(e -> e.getKey().isDeadOrDying());
-        Utils.IceBookMobEffectPlayerMap.entrySet().removeIf(e -> e.getKey().isDeadOrDying());
         Utils.playerLaserCoolDown.forEach((player, mobIntegerMap) -> {
             if (mobIntegerMap != null) {
                 mobIntegerMap.entrySet().removeIf(mobIntegerEntry -> mobIntegerEntry.getKey().isDeadOrDying());
             }
         });
-
-        EarthPower.Plain_MobDamageDecrease.entrySet().removeIf(e -> e.getKey().isDeadOrDying());
-        EarthPower.Lake_MobManaDefenceDecrease.entrySet().removeIf(e -> e.getKey().isDeadOrDying());
-        Utils.shipSwordTime.entrySet().removeIf(e -> e.getKey().isDeadOrDying());
-        Utils.shipSwordEffect.entrySet().removeIf(e -> e.getKey().isDeadOrDying());
     }
 
     public static void Broad(TickEvent.LevelTickEvent event) {

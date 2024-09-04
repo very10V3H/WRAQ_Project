@@ -21,28 +21,16 @@ import net.minecraftforge.event.entity.player.ArrowLooseEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Mod.EventBusSubscriber
 public class BowEvent {
 
-    public static Map<Integer, List<Integer>> causeDamageList = new HashMap<>();
+    public static WeakHashMap<Entity, List<Integer>> causeDamageList = new WeakHashMap<>();
 
     @SubscribeEvent
     public static void Projectile(ProjectileImpactEvent event) {
-
         Entity entity = event.getProjectile();
-
-/*        if (entity instanceof Fireball) {
-            if (event.getRayTraceResult().getType().equals(HitResult.Type.BLOCK)) {
-                event.setImpactResult(ProjectileImpactEvent.ImpactResult.STOP_AT_CURRENT);
-                entity.remove(Entity.RemovalReason.KILLED);
-            }
-        }*/
-
         Level level = event.getEntity().level();
         List<Entity> list = level.getEntitiesOfClass(Entity.class, entity.getBoundingBox().expandTowards(entity.getDeltaMovement()).inflate(1.0D));
 
@@ -88,9 +76,9 @@ public class BowEvent {
                             });
                         }
                         mobList.forEach(mob -> {
-                            if (!causeDamageList.containsKey(myArrow.getId()))
-                                causeDamageList.put(myArrow.getId(), new ArrayList<>());
-                            List<Integer> causedList = causeDamageList.get(myArrow.getId());
+                            if (!causeDamageList.containsKey(myArrow))
+                                causeDamageList.put(myArrow, new ArrayList<>());
+                            List<Integer> causedList = causeDamageList.get(myArrow);
                             if (!causedList.contains(mob.getId())) {
                                 MyArrow.CauseDamage(myArrow, mob, myArrow.BaseDamage * (1 + causedList.size() * 0.33));
                                 causedList.add(mob.getId());
@@ -138,9 +126,9 @@ public class BowEvent {
                             });
                         }
                         mobList.forEach(mob -> {
-                            if (!causeDamageList.containsKey(manaArrow.getId()))
-                                causeDamageList.put(manaArrow.getId(), new ArrayList<>());
-                            List<Integer> causedList = causeDamageList.get(manaArrow.getId());
+                            if (!causeDamageList.containsKey(manaArrow))
+                                causeDamageList.put(manaArrow, new ArrayList<>());
+                            List<Integer> causedList = causeDamageList.get(manaArrow);
                             if (!causedList.contains(mob.getId())) {
                                 ManaAttackModule.BasicAttack(manaArrow.player, mob, manaArrow.BaseDamage * (1 + causedList.size() * 0.33),
                                         manaArrow.BreakDefence, manaArrow.BreakDefence0, manaArrow.level(), manaArrow, manaArrow.mainShoot);
@@ -191,9 +179,9 @@ public class BowEvent {
                             });
                         }
                         mobList.forEach(mob -> {
-                            if (!causeDamageList.containsKey(newArrow.getId()))
-                                causeDamageList.put(newArrow.getId(), new ArrayList<>());
-                            List<Integer> causedList = causeDamageList.get(newArrow.getId());
+                            if (!causeDamageList.containsKey(newArrow))
+                                causeDamageList.put(newArrow, new ArrayList<>());
+                            List<Integer> causedList = causeDamageList.get(newArrow);
                             if (!causedList.contains(mob.getId())) {
                                 ManaAttackModule.BasicAttack(newArrow.player, mob, newArrow.BaseDamage * (1 + causedList.size() * 0.33),
                                         newArrow.BreakDefence, newArrow.BreakDefence0, newArrow.level(), newArrow, newArrow.mainShoot);

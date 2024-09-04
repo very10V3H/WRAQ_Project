@@ -1,12 +1,12 @@
 package com.very.wraq.series.instance.series.moon.Equip;
 
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.attribute.PlayerAttributes;
 import com.very.wraq.common.registry.ModEntityType;
+import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.attribute.PlayerAttributes;
-import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.projectiles.WraqSceptre;
@@ -27,13 +27,12 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.WeakHashMap;
 
 public class MoonSceptre extends WraqSceptre {
 
-    public static Map<Player, Integer> coolDownMap = new HashMap<>();
+    public static WeakHashMap<Player, Integer> coolDownMap = new WeakHashMap<>();
 
     public MoonSceptre(Properties p_42964_) {
         super(p_42964_);
@@ -99,8 +98,8 @@ public class MoonSceptre extends WraqSceptre {
         return ComponentUtils.getSuffixOfMoon();
     }
 
-    public static Map<Player, Double> manaDamageNumMap = new HashMap<>();
-    public static Map<Player, Integer> manaDamageTickMap = new HashMap<>();
+    public static WeakHashMap<Player, Double> manaDamageNumMap = new WeakHashMap<>();
+    public static WeakHashMap<Player, Integer> manaDamageTickMap = new WeakHashMap<>();
 
     public static void MoonSceptreActive(Player player, Mob mob) {
         if (player.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.MoonSceptre.get())) {

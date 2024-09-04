@@ -1,9 +1,9 @@
 package com.very.wraq.series.instance.series.moon.Equip;
 
-import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.Utils;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -18,9 +18,8 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 
 import javax.annotation.Nullable;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.WeakHashMap;
 
 public class MoonBook extends Item {
     private final double ManaDamage = 577;
@@ -30,8 +29,8 @@ public class MoonBook extends Item {
     private final double CoolDown = 0.27;
     private final double ExpUp = 1.57;
 
-    public static Map<Player, Mob> PlayerMoonBookMap = new HashMap<>();
-    public static Map<Player, Integer> PlayerMoonBookCountMap = new HashMap<>();
+    public static WeakHashMap<Player, Mob> PlayerMoonBookMap = new WeakHashMap<>();
+    public static WeakHashMap<Player, Integer> PlayerMoonBookCountMap = new WeakHashMap<>();
 
     public MoonBook() {
         super(new Properties().rarity(CustomStyle.MoonItalic).stacksTo(1));
@@ -71,7 +70,7 @@ public class MoonBook extends Item {
         super.appendHoverText(stack, level, components, flag);
     }
 
-    public static Map<Player, Integer> playerDamageEnhanceTickMap = new HashMap<>();
+    public static WeakHashMap<Player, Integer> playerDamageEnhanceTickMap = new WeakHashMap<>();
 
     public static double MoonBook(Player player, Mob mob) {
         if (player.getItemBySlot(EquipmentSlot.OFFHAND).is(ModItems.MoonBook.get())) {

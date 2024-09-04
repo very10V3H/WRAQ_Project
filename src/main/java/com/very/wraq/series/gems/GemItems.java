@@ -27,6 +27,9 @@ public class GemItems {
     public static final RegistryObject<Item> fieldGemD = ITEMS.register("field_gem_d",
             () -> new WraqGem.WraqGemD((WraqGem) fieldGem.get()));
 
+    public static final RegistryObject<Item> fieldGemO = ITEMS.register("field_gem_o",
+            () -> new WraqGem.WraqGemO((WraqGem) fieldGem.get(), 1));
+
     public static final RegistryObject<Item> forestGem = ITEMS.register("forest_gem",
             () -> new WraqGem(new Item.Properties().rarity(CustomStyle.ForestBold), new ArrayList<>() {{
                 add(new WraqGem.AttributeMapValue(Utils.percentDefenceEnhance, 0.03));
@@ -35,11 +38,10 @@ public class GemItems {
                     ComponentUtils.getSuffixOfChapterI()));
 
     public static final RegistryObject<Item> forestGemD = ITEMS.register("forest_gem_d",
-            () -> new WraqGem(new Item.Properties().rarity(CustomStyle.ForestBold), new ArrayList<>() {{
-                add(new WraqGem.AttributeMapValue(Utils.percentDefenceEnhance, 0.06));
-                add(new WraqGem.AttributeMapValue(Utils.percentMaxHealthEnhance, 0.06));
-            }}, CustomStyle.styleOfForest, Component.literal("森林意志的具象，凝聚于此石。").withStyle(CustomStyle.styleOfForest),
-                    ComponentUtils.getSuffixOfChapterI()));
+            () -> new WraqGem.WraqGemD((WraqGem) forestGem.get()));
+
+    public static final RegistryObject<Item> forestGemO = ITEMS.register("forest_gem_o",
+            () -> new WraqGem.WraqGemO((WraqGem) forestGem.get(), 1));
 
     public static final RegistryObject<Item> lakeGem = ITEMS.register("lake_gem",
             () -> new WraqGem(new Item.Properties().rarity(CustomStyle.LakeBold), new ArrayList<>() {{
@@ -48,10 +50,10 @@ public class GemItems {
                     ComponentUtils.getSuffixOfChapterI()));
 
     public static final RegistryObject<Item> lakeGemD = ITEMS.register("lake_gem_d",
-            () -> new WraqGem(new Item.Properties().rarity(CustomStyle.LakeBold), new ArrayList<>() {{
-                add(new WraqGem.AttributeMapValue(Utils.coolDownDecrease, 0.4));
-            }}, CustomStyle.styleOfLake, Component.literal("湖泊意志的具象，凝聚于此石。").withStyle(CustomStyle.styleOfLake),
-                    ComponentUtils.getSuffixOfChapterI()));
+            () -> new WraqGem.WraqGemD((WraqGem) lakeGem.get()));
+
+    public static final RegistryObject<Item> lakeGemO = ITEMS.register("lake_gem_o",
+            () -> new WraqGem.WraqGemO((WraqGem) lakeGem.get(), 1));
 
     public static final RegistryObject<Item> mineGem = ITEMS.register("mine_gem",
             () -> new WraqGem(new Item.Properties().rarity(CustomStyle.MineBold), new ArrayList<>() {{
@@ -60,10 +62,10 @@ public class GemItems {
                     ComponentUtils.getSuffixOfChapterI()));
 
     public static final RegistryObject<Item> mineGemD = ITEMS.register("mine_gem_d",
-            () -> new WraqGem(new Item.Properties().rarity(CustomStyle.MineBold), new ArrayList<>() {{
-                add(new WraqGem.AttributeMapValue(Utils.percentDefenceEnhance, 0.1));
-            }}, CustomStyle.styleOfMine, Component.literal("劳动意志的精华，凝聚成此石。").withStyle(CustomStyle.styleOfMine),
-                    ComponentUtils.getSuffixOfChapterI()));
+            () -> new WraqGem.WraqGemD((WraqGem) mineGem.get()));
+
+    public static final RegistryObject<Item> mineGemO = ITEMS.register("mine_gem_o",
+            () -> new WraqGem.WraqGemO((WraqGem) mineGem.get(), 1));
 
     public static final RegistryObject<Item> plainGem = ITEMS.register("plain_gem",
             () -> new WraqGem(new Item.Properties().rarity(CustomStyle.PlainBold), new ArrayList<>() {{
@@ -73,11 +75,10 @@ public class GemItems {
                     ComponentUtils.getSuffixOfChapterI()));
 
     public static final RegistryObject<Item> plainGemD = ITEMS.register("plain_gem_d",
-            () -> new WraqGem(new Item.Properties().rarity(CustomStyle.PlainBold), new ArrayList<>() {{
-                add(new WraqGem.AttributeMapValue(Utils.movementSpeedCommon, 0.08));
-                add(new WraqGem.AttributeMapValue(Utils.healthRecover, 10));
-            }}, CustomStyle.styleOfPlain, Component.literal("平原意志的具象，凝聚于此石。").withStyle(CustomStyle.styleOfPlain),
-                    ComponentUtils.getSuffixOfChapterI()));
+            () -> new WraqGem.WraqGemD((WraqGem) plainGem.get()));
+
+    public static final RegistryObject<Item> plainGemO = ITEMS.register("plain_gem_o",
+            () -> new WraqGem.WraqGemO((WraqGem) plainGem.get(), 1));
 
     public static final RegistryObject<Item> snowGem = ITEMS.register("snow_gem",
             () -> new WraqGem(new Item.Properties().rarity(CustomStyle.SnowBold), new ArrayList<>() {{
@@ -87,11 +88,10 @@ public class GemItems {
                     ComponentUtils.getSuffixOfChapterI()));
 
     public static final RegistryObject<Item> snowGemD = ITEMS.register("snow_gem_d",
-            () -> new WraqGem(new Item.Properties().rarity(CustomStyle.SnowBold), new ArrayList<>() {{
-                add(new WraqGem.AttributeMapValue(Utils.critRate, 0.1));
-                add(new WraqGem.AttributeMapValue(Utils.critDamage, 0.2));
-            }}, CustomStyle.styleOfSnow, Component.literal("冰川意志的具象，凝聚于此石。").withStyle(CustomStyle.styleOfSnow),
-                    ComponentUtils.getSuffixOfChapterI()));
+            () -> new WraqGem.WraqGemD((WraqGem) snowGem.get()));
+
+    public static final RegistryObject<Item> snowGemO = ITEMS.register("snow_gem_o",
+            () -> new WraqGem.WraqGemO((WraqGem) snowGem.get(), 1));
 
     public static final RegistryObject<Item> volcanoGem = ITEMS.register("volcano_gem",
             () -> new WraqGem(new Item.Properties().rarity(CustomStyle.VolcanoBold), new ArrayList<>() {{
@@ -100,10 +100,10 @@ public class GemItems {
                     ComponentUtils.getSuffixOfChapterI()));
 
     public static final RegistryObject<Item> volcanoGemD = ITEMS.register("volcano_gem_d",
-            () -> new WraqGem(new Item.Properties().rarity(CustomStyle.VolcanoBold), new ArrayList<>() {{
-                add(new WraqGem.AttributeMapValue(Utils.percentAttackDamageEnhance, 0.06));
-            }}, CustomStyle.styleOfVolcano, Component.literal("火山意志的具象，凝聚于此石。").withStyle(CustomStyle.styleOfVolcano),
-                    ComponentUtils.getSuffixOfChapterI()));
+            () -> new WraqGem.WraqGemD((WraqGem) volcanoGem.get()));
+
+    public static final RegistryObject<Item> volcanoGemO = ITEMS.register("volcano_gem_o",
+            () -> new WraqGem.WraqGemO((WraqGem) volcanoGem.get(), 1));
 
     //* 2 *//
 
@@ -114,10 +114,10 @@ public class GemItems {
                     ComponentUtils.getSuffixChapterII()));
 
     public static final RegistryObject<Item> evokerGemD = ITEMS.register("evoker_gem_d",
-            () -> new WraqGem(new Item.Properties().rarity(CustomStyle.ManaBold), new ArrayList<>() {{
-                add(new WraqGem.AttributeMapValue(Utils.percentManaDamageEnhance, 0.06));
-            }}, CustomStyle.styleOfMana, Component.literal("蕴含唤魔力量的宝石。").withStyle(CustomStyle.styleOfMana),
-                    ComponentUtils.getSuffixChapterII()));
+            () -> new WraqGem.WraqGemD((WraqGem) evokerGem.get()));
+
+    public static final RegistryObject<Item> evokerGemO = ITEMS.register("evoker_gem_o",
+            () -> new WraqGem.WraqGemO((WraqGem) evokerGem.get(), 1));
 
     public static final RegistryObject<Item> lifeManaGem = ITEMS.register("life_mana_gem",
             () -> new WraqGem(new Item.Properties().rarity(CustomStyle.LifeBold), new ArrayList<>() {{
@@ -128,12 +128,10 @@ public class GemItems {
                     ComponentUtils.getSuffixChapterII()));
 
     public static final RegistryObject<Item> lifeManaGemD = ITEMS.register("life_mana_gem_d",
-            () -> new WraqGem(new Item.Properties().rarity(CustomStyle.LifeBold), new ArrayList<>() {{
-                add(new WraqGem.AttributeMapValue(Utils.manaRecover, 10));
-                add(new WraqGem.AttributeMapValue(Utils.percentMaxHealthEnhance, 0.04));
-                add(new WraqGem.AttributeMapValue(Utils.percentDefenceEnhance, 0.04));
-            }}, CustomStyle.styleOfLife, Component.literal("平原和森林的意志具象，凝聚成此石。").withStyle(CustomStyle.styleOfLife),
-                    ComponentUtils.getSuffixChapterII()));
+            () -> new WraqGem.WraqGemD((WraqGem) lifeManaGem.get()));
+
+    public static final RegistryObject<Item> lifeManaGemO = ITEMS.register("life_mana_gem_o",
+            () -> new WraqGem.WraqGemO((WraqGem) lifeManaGem.get(), 1));
 
     public static final RegistryObject<Item> obsiManaGem = ITEMS.register("obsi_mana_gem",
             () -> new WraqGem(new Item.Properties().rarity(CustomStyle.ManaBold), new ArrayList<>() {{
@@ -143,11 +141,10 @@ public class GemItems {
                     ComponentUtils.getSuffixChapterII()));
 
     public static final RegistryObject<Item> obsiManaGemD = ITEMS.register("obsi_mana_gem_d",
-            () -> new WraqGem(new Item.Properties().rarity(CustomStyle.ManaBold), new ArrayList<>() {{
-                add(new WraqGem.AttributeMapValue(Utils.manaRecover, 10));
-                add(new WraqGem.AttributeMapValue(Utils.coolDownDecrease, 0.2));
-            }}, CustomStyle.styleOfMana, Component.literal("湖泊与火山的意志具象，凝聚成此石。").withStyle(CustomStyle.styleOfMana),
-                    ComponentUtils.getSuffixChapterII()));
+            () -> new WraqGem.WraqGemD((WraqGem) obsiManaGem.get()));
+
+    public static final RegistryObject<Item> obsiManaGemO = ITEMS.register("obsi_mana_gem_o",
+            () -> new WraqGem.WraqGemO((WraqGem) obsiManaGem.get(), 1));
 
     public static final RegistryObject<Item> skyGem = ITEMS.register("sky_gem",
             () -> new WraqGem(new Item.Properties().rarity(CustomStyle.SkyBold), new ArrayList<>() {{
@@ -157,11 +154,10 @@ public class GemItems {
                     ComponentUtils.getSuffixChapterII()));
 
     public static final RegistryObject<Item> skyGemD = ITEMS.register("sky_gem_d",
-            () -> new WraqGem(new Item.Properties().rarity(CustomStyle.SkyBold), new ArrayList<>() {{
-                add(new WraqGem.AttributeMapValue(Utils.percentAttackDamageEnhance, 0.02));
-                add(new WraqGem.AttributeMapValue(Utils.movementSpeedCommon, 0.3));
-            }}, CustomStyle.styleOfSky, Component.literal("天空意志的具象，凝聚于此石。").withStyle(CustomStyle.styleOfSky),
-                    ComponentUtils.getSuffixChapterII()));
+            () -> new WraqGem.WraqGemD((WraqGem) skyGem.get()));
+
+    public static final RegistryObject<Item> skyGemO = ITEMS.register("sky_gem_o",
+            () -> new WraqGem.WraqGemO((WraqGem) skyGem.get(), 1));
 
     //* 3 *//
 
@@ -174,12 +170,10 @@ public class GemItems {
                     ComponentUtils.getSuffixChapterIII()));
 
     public static final RegistryObject<Item> magmaGemD = ITEMS.register("magma_gem_d",
-            () -> new WraqGem(new Item.Properties().rarity(CustomStyle.MagmaBold), new ArrayList<>() {{
-                add(new WraqGem.AttributeMapValue(Utils.manaPenetration, 0.12));
-                add(new WraqGem.AttributeMapValue(Utils.manaPenetration0, 600));
-                add(new WraqGem.AttributeMapValue(Utils.percentMaxHealthEnhance, -0.1));
-            }}, CustomStyle.styleOfMagma, Component.literal("用封装下界熔岩能量所打造而成。").withStyle(CustomStyle.styleOfMagma),
-                    ComponentUtils.getSuffixChapterIII()));
+            () -> new WraqGem.WraqGemD((WraqGem) magmaGem.get()));
+
+    public static final RegistryObject<Item> magmaGemO = ITEMS.register("magma_gem_o",
+            () -> new WraqGem.WraqGemO((WraqGem) magmaGem.get(), 1));
 
     public static final RegistryObject<Item> netherSkeletonGem = ITEMS.register("nether_skeleton_gem",
             () -> new WraqGem(new Item.Properties().rarity(CustomStyle.WitherBold), new ArrayList<>() {{
@@ -190,12 +184,10 @@ public class GemItems {
                     ComponentUtils.getSuffixChapterIII()));
 
     public static final RegistryObject<Item> netherSkeletonGemD = ITEMS.register("nether_skeleton_gem_d",
-            () -> new WraqGem(new Item.Properties().rarity(CustomStyle.WitherBold), new ArrayList<>() {{
-                add(new WraqGem.AttributeMapValue(Utils.defencePenetration, 0.12));
-                add(new WraqGem.AttributeMapValue(Utils.defencePenetration0, 600));
-                add(new WraqGem.AttributeMapValue(Utils.percentMaxHealthEnhance, -0.1));
-            }}, CustomStyle.styleOfWither, Component.literal("用精细下界骷髅粉末打造而成。").withStyle(CustomStyle.styleOfWither),
-                    ComponentUtils.getSuffixChapterIII()));
+            () -> new WraqGem.WraqGemD((WraqGem) netherSkeletonGem.get()));
+
+    public static final RegistryObject<Item> netherSkeletonGemO = ITEMS.register("nether_skeleton_gem_o",
+            () -> new WraqGem.WraqGemO((WraqGem) netherSkeletonGem.get(), 1));
 
     public static final RegistryObject<Item> piglinGem = ITEMS.register("piglin_gem",
             () -> new WraqGem(new Item.Properties().rarity(CustomStyle.PiglinBold), new ArrayList<>() {{
@@ -205,11 +197,10 @@ public class GemItems {
                     ComponentUtils.getSuffixChapterIII()));
 
     public static final RegistryObject<Item> piglinGemD = ITEMS.register("piglin_gem_d",
-            () -> new WraqGem(new Item.Properties().rarity(CustomStyle.PiglinBold), new ArrayList<>() {{
-                add(new WraqGem.AttributeMapValue(Utils.expUp, 0.8));
-                add(new WraqGem.AttributeMapValue(Utils.healthRecover, -10));
-            }}, CustomStyle.styleOfPiglin, Component.literal("用猪灵之好所打造而成。").withStyle(CustomStyle.styleOfPiglin),
-                    ComponentUtils.getSuffixChapterIII()));
+            () -> new WraqGem.WraqGemD((WraqGem) piglinGem.get()));
+
+    public static final RegistryObject<Item> piglinGemO = ITEMS.register("piglin_gem_o",
+            () -> new WraqGem.WraqGemO((WraqGem) piglinGem.get(), 1));
 
     public static final RegistryObject<Item> witherGem = ITEMS.register("wither_gem",
             () -> new WraqGem(new Item.Properties().rarity(CustomStyle.WitherBold), new ArrayList<>() {{
@@ -219,11 +210,10 @@ public class GemItems {
                     ComponentUtils.getSuffixChapterIII()));
 
     public static final RegistryObject<Item> witherGemD = ITEMS.register("wither_gem_d",
-            () -> new WraqGem(new Item.Properties().rarity(CustomStyle.WitherBold), new ArrayList<>() {{
-                add(new WraqGem.AttributeMapValue(Utils.critDamage, 0.6));
-                add(new WraqGem.AttributeMapValue(Utils.percentMaxHealthEnhance, -0.1));
-            }}, CustomStyle.styleOfWither, Component.literal("用能量灌注凋零残骨所打造而成。").withStyle(CustomStyle.styleOfWither),
-                    ComponentUtils.getSuffixChapterIII()));
+            () -> new WraqGem.WraqGemD((WraqGem) witherGem.get()));
+
+    public static final RegistryObject<Item> witherGemO = ITEMS.register("wither_gem_o",
+            () -> new WraqGem.WraqGemO((WraqGem) witherGem.get(), 1));
 
     //* 5 *//
 
@@ -238,14 +228,10 @@ public class GemItems {
                     ComponentUtils.getSuffixOfChapterV()));
 
     public static final RegistryObject<Item> sakuraGemD = ITEMS.register("sakura_gem_d",
-            () -> new WraqGem(new Item.Properties().rarity(CustomStyle.SakuraBold), new ArrayList<>() {{
-                add(new WraqGem.AttributeMapValue(Utils.percentAttackDamageEnhance, 0.02));
-                add(new WraqGem.AttributeMapValue(Utils.percentManaDamageEnhance, 0.02));
-                add(new WraqGem.AttributeMapValue(Utils.percentDefenceEnhance, 0.02));
-                add(new WraqGem.AttributeMapValue(Utils.percentManaDefenceEnhance, 0.02));
-                add(new WraqGem.AttributeMapValue(Utils.percentMaxHealthEnhance, 0.02));
-            }}, CustomStyle.styleOfSakura, Component.literal("樱花所凝聚而成。").withStyle(CustomStyle.styleOfSakura),
-                    ComponentUtils.getSuffixOfChapterV()));
+            () -> new WraqGem.WraqGemD((WraqGem) sakuraGem.get()));
+
+    public static final RegistryObject<Item> sakuraGemO = ITEMS.register("sakura_gem_o",
+            () -> new WraqGem.WraqGemO((WraqGem) sakuraGem.get(), 1));
 
     public static final RegistryObject<Item> shipGem = ITEMS.register("ship_gem",
             () -> new WraqGem(new Item.Properties().rarity(CustomStyle.ShipBold), new ArrayList<>() {{
@@ -255,11 +241,10 @@ public class GemItems {
                     ComponentUtils.getSuffixOfChapterV()));
 
     public static final RegistryObject<Item> shipGemD = ITEMS.register("ship_gem_d",
-            () -> new WraqGem(new Item.Properties().rarity(CustomStyle.ShipBold), new ArrayList<>() {{
-                add(new WraqGem.AttributeMapValue(Utils.defencePenetration, 0.08));
-                add(new WraqGem.AttributeMapValue(Utils.manaPenetration, 0.08));
-            }}, CustomStyle.styleOfShip, Component.literal("用破损船锚碎片所打造而成。").withStyle(CustomStyle.styleOfShip),
-                    ComponentUtils.getSuffixOfChapterV()));
+            () -> new WraqGem.WraqGemD((WraqGem) shipGem.get()));
+
+    public static final RegistryObject<Item> shipGemO = ITEMS.register("ship_gem_o",
+            () -> new WraqGem.WraqGemO((WraqGem) shipGem.get(), 1));
 
     //* instance *//
 
@@ -298,10 +283,10 @@ public class GemItems {
                     ComponentUtils.getSuffixOfMoon()));
 
     public static final RegistryObject<Item> moonAttackGemD = ITEMS.register("moon_attack_gem_d",
-            () -> new WraqGem(new Item.Properties().rarity(CustomStyle.MoonBold), new ArrayList<>() {{
-                add(new WraqGem.AttributeMapValue(Utils.percentManaDefenceEnhance, 0.16));
-            }}, CustomStyle.styleOfMoon, Component.literal("尘月宫明镜之心").withStyle(CustomStyle.styleOfMoon),
-                    ComponentUtils.getSuffixOfMoon()));
+            () -> new WraqGem.WraqGemD((WraqGem) moonAttackGem.get()));
+
+    public static final RegistryObject<Item> moonAttackGemO = ITEMS.register("moon_attack_gem_o",
+            () -> new WraqGem.WraqGemO((WraqGem) moonAttackGem.get(), 1));
 
     public static final RegistryObject<Item> moonManaGem = ITEMS.register("moon_mana_gem",
             () -> new WraqGem(new Item.Properties().rarity(CustomStyle.Moon1Bold), new ArrayList<>() {{
@@ -311,9 +296,8 @@ public class GemItems {
                     ComponentUtils.getSuffixOfMoon()));
 
     public static final RegistryObject<Item> moonManaGemD = ITEMS.register("moon_mana_gem_d",
-            () -> new WraqGem(new Item.Properties().rarity(CustomStyle.Moon1Bold), new ArrayList<>() {{
-                add(new WraqGem.AttributeMapValue(Utils.defence, 800));
-                add(new WraqGem.AttributeMapValue(Utils.manaDamage, 240));
-            }}, CustomStyle.styleOfMoon1, Component.literal("尘月宫明镜之心").withStyle(CustomStyle.styleOfMoon1),
-                    ComponentUtils.getSuffixOfMoon()));
+            () -> new WraqGem.WraqGemD((WraqGem) moonManaGem.get()));
+
+    public static final RegistryObject<Item> moonManaGemO = ITEMS.register("moon_mana_gem_o",
+            () -> new WraqGem.WraqGemO((WraqGem) moonManaGem.get(), 1));
 }

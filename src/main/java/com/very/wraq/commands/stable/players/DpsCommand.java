@@ -1,12 +1,12 @@
 package com.very.wraq.commands.stable.players;
 
-import com.very.wraq.networking.ModNetworking;
-import com.very.wraq.networking.misc.SoundsPackets.SoundsS2CPacket;
-import com.very.wraq.common.Compute;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import com.very.wraq.common.Compute;
+import com.very.wraq.networking.ModNetworking;
+import com.very.wraq.networking.misc.SoundsPackets.SoundsS2CPacket;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.Component;
@@ -14,16 +14,15 @@ import net.minecraft.network.protocol.game.ClientboundSetTitleTextPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.WeakHashMap;
 
 public class DpsCommand implements Command<CommandSourceStack> {
     public static DpsCommand instance = new DpsCommand();
 
-    public static Map<Player, Integer> playerDpsStartTickMap = new HashMap<>();
-    public static Map<Player, Integer> playerDpsTickMap = new HashMap<>();
-    public static Map<Player, Integer> playerDpsSecondMap = new HashMap<>();
-    public static Map<Player, Double> playerDamageCount = new HashMap<>();
+    public static WeakHashMap<Player, Integer> playerDpsStartTickMap = new WeakHashMap<>();
+    public static WeakHashMap<Player, Integer> playerDpsTickMap = new WeakHashMap<>();
+    public static WeakHashMap<Player, Integer> playerDpsSecondMap = new WeakHashMap<>();
+    public static WeakHashMap<Player, Double> playerDamageCount = new WeakHashMap<>();
 
     public static void Tick(Player player) {
         int TickCount = player.getServer().getTickCount();

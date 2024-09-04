@@ -13,9 +13,8 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.WeakHashMap;
 
 public class MobEffectAndDamageMethods {
 
@@ -108,7 +107,7 @@ public class MobEffectAndDamageMethods {
     public record PlayerDamageDecrease(Mob mob, double rate, int lastTick) {
     }
 
-    public static Map<Player, List<PlayerDamageDecrease>> playerDamageDecreaseMap = new HashMap<>();
+    public static WeakHashMap<Player, List<PlayerDamageDecrease>> playerDamageDecreaseMap = new WeakHashMap<>();
 
     public static void PlayerDamageDecreaseProvide(Mob mob, Player player, double rate, int lastTick, ItemStack displayItem) {
         if (!playerDamageDecreaseMap.containsKey(player)) playerDamageDecreaseMap.put(player, new ArrayList<>());

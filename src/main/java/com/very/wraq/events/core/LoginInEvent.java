@@ -7,11 +7,11 @@ import com.very.wraq.blocks.entity.InjectBlockEntity;
 import com.very.wraq.commands.changeable.CompensateCommand;
 import com.very.wraq.commands.changeable.PrefixCommand;
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.registry.MySound;
 import com.very.wraq.common.util.StringUtils;
-import com.very.wraq.common.util.struct.PlayerTeam;
 import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.struct.PlayerTeam;
 import com.very.wraq.events.instance.PurpleIronKnight;
 import com.very.wraq.events.mob.instance.NoTeamInstanceModule;
 import com.very.wraq.networking.ModNetworking;
@@ -59,10 +59,7 @@ import vazkii.patchouli.api.PatchouliAPI;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Mod.EventBusSubscriber
 public class LoginInEvent {
@@ -331,9 +328,9 @@ public class LoginInEvent {
         }
     }
 
-    public static Map<Player, Integer> newPlayerMSGDelay1 = new HashMap<>();
-    public static Map<Player, Integer> newPlayerMSGDelay2 = new HashMap<>();
-    public static Map<Player, Integer> newPlayerMSGDelay3 = new HashMap<>();
+    public static WeakHashMap<Player, Integer> newPlayerMSGDelay1 = new WeakHashMap<>();
+    public static WeakHashMap<Player, Integer> newPlayerMSGDelay2 = new WeakHashMap<>();
+    public static WeakHashMap<Player, Integer> newPlayerMSGDelay3 = new WeakHashMap<>();
 
     public static void newMSGSend(TickEvent.ServerTickEvent event) {
         if (event.phase == TickEvent.Phase.START && event.side.isServer()) {

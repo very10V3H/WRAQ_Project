@@ -20,7 +20,7 @@ import java.util.*;
 public class RoadCommand implements Command<CommandSourceStack> {
     public static RoadCommand instance = new RoadCommand();
 
-    public static Map<Player, Integer> map = new HashMap<>();
+    public static WeakHashMap<Player, Integer> map = new WeakHashMap<>();
 
     @Override
     public int run(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {

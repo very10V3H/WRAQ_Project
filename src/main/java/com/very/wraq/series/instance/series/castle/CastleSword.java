@@ -1,13 +1,13 @@
 package com.very.wraq.series.instance.series.castle;
 
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.projectiles.ActiveItem;
 import com.very.wraq.projectiles.ForgeItem;
 import com.very.wraq.projectiles.WraqSword;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.ComponentUtils;
-import com.very.wraq.common.util.Utils;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -17,9 +17,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.WeakHashMap;
 
 public class CastleSword extends WraqSword implements ForgeItem, ActiveItem {
 
@@ -78,8 +77,8 @@ public class CastleSword extends WraqSword implements ForgeItem, ActiveItem {
         }
     }
 
-    public static Map<Player, Integer> CastleWeaponActiveLastTick = new HashMap<>();
-    public static Map<Player, Integer> CastleWeaponActiveCoolDown = new HashMap<>();
+    public static WeakHashMap<Player, Integer> CastleWeaponActiveLastTick = new WeakHashMap<>();
+    public static WeakHashMap<Player, Integer> CastleWeaponActiveCoolDown = new WeakHashMap<>();
 
     public static double DamageEnhance(Player player) {
         if (CastleWeaponActiveLastTick.containsKey(player) && CastleWeaponActiveLastTick.get(player) > player.getServer().getTickCount())

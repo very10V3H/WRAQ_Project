@@ -190,7 +190,7 @@ public class MySeason {
     }
 
     public static double mobHurtDamageEffect(Mob mob) {
-        Element.Unit unit = Element.entityElementUnit.getOrDefault(mob.getId(), new Element.Unit(Element.life, 0d));
+        Element.Unit unit = Element.entityElementUnit.getOrDefault(mob, new Element.Unit(Element.life, 0d));
         if (unit.value() == 0) return 0;
         return getCurrentSeasonElementEffect(unit.type());
     }
@@ -233,7 +233,7 @@ public class MySeason {
         }
     }
 
-    public static Map<Player, Integer> playerInfoSendDelay = new HashMap<>();
+    public static WeakHashMap<Player, Integer> playerInfoSendDelay = new WeakHashMap<>();
 
     public static void sendElementEffectInfoToPlayer(Player player) {
         List<Component> components = MySeason.getElementEffectContent(currentSeason);

@@ -36,8 +36,8 @@ public class MobAttributeC2SPacket {
                         MobAttributes.defence(mob), MobAttributes.manaDefence(mob),
                         MobAttributes.critRate(mob), MobAttributes.defencePenetration(mob), MobAttributes.defencePenetration0(mob),
                         MobAttributes.healthSteal(mob), MobAttributes.critDamage(mob),
-                        Element.entityElementUnit.containsKey(id) ? Element.entityElementUnit.get(id).type() : "empty",
-                        Element.entityElementUnit.containsKey(id) ? Element.entityElementUnit.get(id).value() : 0), serverPlayer);
+                        Element.entityElementUnit.containsKey(entity) ? Element.entityElementUnit.get(entity).type() : "empty",
+                        Element.entityElementUnit.containsKey(entity) ? Element.entityElementUnit.get(entity).value() : 0), serverPlayer);
             }
         });
         return true;

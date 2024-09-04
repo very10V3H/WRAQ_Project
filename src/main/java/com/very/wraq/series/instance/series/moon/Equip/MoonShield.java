@@ -1,9 +1,9 @@
 package com.very.wraq.series.instance.series.moon.Equip;
 
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.util.Utils;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.series.overworld.chapter1.Mine.MineShield;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -19,9 +19,8 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 
 import javax.annotation.Nullable;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.WeakHashMap;
 
 public class MoonShield extends Item {
     private final double Defence = 777;
@@ -30,8 +29,8 @@ public class MoonShield extends Item {
     private final double CritDamage = 0.27;
     private final double ExpUp = 1.57;
 
-    public static Map<Player, Mob> PlayerMoonShieldMap = new HashMap<>();
-    public static Map<Player, Integer> PlayerMoonShieldCountMap = new HashMap<>();
+    public static WeakHashMap<Player, Mob> PlayerMoonShieldMap = new WeakHashMap<>();
+    public static WeakHashMap<Player, Integer> PlayerMoonShieldCountMap = new WeakHashMap<>();
 
     public MoonShield() {
         super(new Properties().rarity(CustomStyle.MoonItalic).stacksTo(1));
@@ -76,7 +75,7 @@ public class MoonShield extends Item {
         return true;
     }
 
-    public static Map<Player, Integer> playerDamageEnhanceTickMap = new HashMap<>();
+    public static WeakHashMap<Player, Integer> playerDamageEnhanceTickMap = new WeakHashMap<>();
 
     public static double MoonShield(Player player, Mob mob) {
         if (player.getItemBySlot(EquipmentSlot.OFFHAND).is(ModItems.MoonShield.get())) {

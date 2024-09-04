@@ -1,35 +1,40 @@
 package com.very.wraq.networking.misc.ParticlePackets.ElementParticle;
 
 import com.very.wraq.process.system.element.Element;
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.entity.Entity;
 import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
 public class FireElementParticleS2CPacket {
-    private final int Id;
-    private final int Time;
+    private final int id;
+    private final int time;
 
     public FireElementParticleS2CPacket(int Id, int Time) {
-        this.Id = Id;
-        this.Time = Time;
+        this.id = Id;
+        this.time = Time;
     }
 
     public FireElementParticleS2CPacket(FriendlyByteBuf buf) {
-        this.Id = buf.readInt();
-        this.Time = buf.readInt();
+        this.id = buf.readInt();
+        this.time = buf.readInt();
     }
 
     public void toBytes(FriendlyByteBuf buf) {
-        buf.writeInt(this.Id);
-        buf.writeInt(this.Time);
+        buf.writeInt(this.id);
+        buf.writeInt(this.time);
     }
 
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
-            Element.ClientRemoveEntityParticle(Id);
-            Element.fireElementParticle.put(Id, Time);
+            Entity entity = Minecraft.getInstance().level.getEntity(id);
+            if (entity != null) {
+                Element.ClientRemoveEntityParticle(entity);
+                Element.fireElementParticle.put(entity, time);
+            }
         });
         return true;
     }

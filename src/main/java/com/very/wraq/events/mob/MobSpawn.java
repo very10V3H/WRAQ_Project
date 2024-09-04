@@ -438,7 +438,7 @@ public class MobSpawn {
     }
 
     public static void oldVersionMaterial(Mob mob, Player player) {
-        Element.Unit unit = Element.entityElementUnit.getOrDefault(mob.getId(), new Element.Unit(Element.life, 0));
+        Element.Unit unit = Element.entityElementUnit.getOrDefault(mob, new Element.Unit(Element.life, 0));
         if (unit.value() > 0) {
             String[] elementType = {Element.life, Element.water, Element.fire};
             Item[] items = {ModItems.SunPower.get(), ModItems.LakeCore.get(), ModItems.VolcanoCore.get()};

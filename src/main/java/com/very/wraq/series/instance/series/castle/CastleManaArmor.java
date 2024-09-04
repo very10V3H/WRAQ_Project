@@ -98,7 +98,7 @@ public class CastleManaArmor extends WraqArmor implements ForgeItem {
         return ComponentUtils.getSuffixOfCastle();
     }
 
-    public static Map<Player, Integer> playerDoubleAttackTick = new HashMap<>();
+    public static WeakHashMap<Player, Integer> playerDoubleAttackTick = new WeakHashMap<>();
 
     public static void Tick(Player player) {
         int ArmorCount = Compute.ArmorCount.CastleMana(player);

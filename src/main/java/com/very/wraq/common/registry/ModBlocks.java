@@ -1,6 +1,6 @@
 package com.very.wraq.common.registry;
 
-import com.very.wraq.blocks.blocks.*;
+import com.very.wraq.blocks.blocks.WorldSoulBlock;
 import com.very.wraq.blocks.blocks.brew.HBrewing;
 import com.very.wraq.blocks.blocks.forge.ForgingBlock;
 import com.very.wraq.blocks.blocks.furnace.Furnace;
@@ -12,6 +12,7 @@ import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -43,6 +44,17 @@ public class ModBlocks {
             () -> new Furnace(BlockBehaviour.Properties.copy(Blocks.STONE)
                     .strength(6f).requiresCorrectToolForDrops().noOcclusion()), CreativeModeTabs.getDefaultTab());
 
+    public static final RegistryObject<Block> WRAQ_ORE_1 = registerBlock("wraq_ore_1",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_ORE).destroyTime(1).sound(SoundType.STONE)), CreativeModeTabs.getDefaultTab());
+
+    public static final RegistryObject<Block> WRAQ_ORE_2 = registerBlock("wraq_ore_2",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.GOLD_ORE)), CreativeModeTabs.getDefaultTab());
+
+    public static final RegistryObject<Block> WRAQ_ORE_3 = registerBlock("wraq_ore_3",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.DIAMOND_ORE)), CreativeModeTabs.getDefaultTab());
+
+    public static final RegistryObject<Block> WRAQ_ORE_4 = registerBlock("wraq_ore_4",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.OBSIDIAN)), CreativeModeTabs.getDefaultTab());
 
     public static void register(IEventBus eventBus) {
         BLOCKS.register(eventBus);

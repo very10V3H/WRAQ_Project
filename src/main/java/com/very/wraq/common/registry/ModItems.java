@@ -616,8 +616,6 @@ public class ModItems {
             () -> new Note_2(new Item.Properties().rarity(Rarity.UNCOMMON)));
     public static final RegistryObject<Item> Note_3 = ITEMS.register("note_3",
             () -> new Note_3(new Item.Properties().rarity(Rarity.UNCOMMON)));
-    public static final RegistryObject<Item> Breathe = ITEMS.register("breathe",
-            () -> new Breath(new Item.Properties().rarity(CustomStyle.Sea)));
     public static final RegistryObject<Item> Extraction = ITEMS.register("extraction",
             () -> new Extraction(ItemTier.Extraction, 2, 0));
     public static final RegistryObject<Item> SmartPhone = ITEMS.register("smartphone",

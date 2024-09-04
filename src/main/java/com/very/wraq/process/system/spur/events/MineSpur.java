@@ -41,13 +41,13 @@ public class MineSpur {
                 int tickCount = level.getServer().getTickCount();
                 if (blockPos.getY() <= 11) {
                     if (Utils.canBeDigBlockList.contains(blockState.getBlock())) {
-                        if (Utils.mineExpMap.containsKey(blockState.getBlock())) {
+                        if (Utils.mineRewardMap.containsKey(blockState.getBlock())) {
                             BlockAndResetTime blockAndResetTime = new BlockAndResetTime(blockState, blockPos, tickCount + 36000);
                             if (!Utils.posEvenBeenDigOrPlace.contains(blockPos)) {
                                 Utils.worldMineList.add(blockAndResetTime);
                                 Utils.posEvenBeenDigOrPlace.add(blockPos);
                             }
-                            Compute.itemStackGive(player, Utils.mineDropMap.get(blockState.getBlock()).getDefaultInstance());
+                            Compute.itemStackGive(player, Utils.mineRewardMap.get(blockState.getBlock()).item().getDefaultInstance());
                             level.destroyBlock(blockPos, false);
                             mineReward(player, blockState);
 
@@ -55,7 +55,7 @@ public class MineSpur {
                             if (random.nextDouble() < Compute.playerExHarvest(player)) {
                                 Compute.sendFormatMSG(player, Component.literal("额外产出").withStyle(ChatFormatting.GOLD),
                                         Component.literal("为你提供了额外产物！").withStyle(ChatFormatting.WHITE));
-                                Compute.itemStackGive(player, Utils.mineDropMap.get(blockState.getBlock()).getDefaultInstance());
+                                Compute.itemStackGive(player, Utils.mineRewardMap.get(blockState.getBlock()).item().getDefaultInstance());
                                 mineReward(player, blockState);
                             }
                         } else {
@@ -91,7 +91,7 @@ public class MineSpur {
     public static String minePieceGetTimes = "minePieceGetTimes";
 
     public static void mineReward(Player player, BlockState blockState) throws IOException {
-        double baseExpRate = Utils.mineExpMap.get(blockState.getBlock());
+        double baseExpRate = Utils.mineRewardMap.get(blockState.getBlock()).exp();
         Compute.playerMineExpAdd(player, (int) (baseExpRate * 100));
         baseExpRate *= (1 + Compute.playerMineLevel(player)) * 0.25;
         Compute.givePercentExpToPlayer(player, baseExpRate, 0, Math.min(player.experienceLevel, 50));

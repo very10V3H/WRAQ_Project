@@ -1,14 +1,14 @@
 package com.very.wraq.series.instance.series.moon.Equip;
 
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.attribute.PlayerAttributes;
+import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.projectiles.ActiveItem;
 import com.very.wraq.projectiles.WraqSword;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.ComponentUtils;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.attribute.PlayerAttributes;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -19,13 +19,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.WeakHashMap;
 
 public class MoonSword extends WraqSword implements ActiveItem {
 
-    public static Map<Player, Boolean> playerFlagMap = new HashMap<>();
+    public static WeakHashMap<Player, Boolean> playerFlagMap = new WeakHashMap<>();
 
     public MoonSword(Properties properties) {
         super(properties);
@@ -79,8 +78,8 @@ public class MoonSword extends WraqSword implements ActiveItem {
         return true;
     }
 
-    public static Map<Player, Double> attackDamageNumMap = new HashMap<>();
-    public static Map<Player, Integer> attackDamageTickMap = new HashMap<>();
+    public static WeakHashMap<Player, Double> attackDamageNumMap = new WeakHashMap<>();
+    public static WeakHashMap<Player, Integer> attackDamageTickMap = new WeakHashMap<>();
 
     public static void Active(Player player) {
         playerFlagMap.put(player, true);

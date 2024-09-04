@@ -595,8 +595,6 @@ public class Utils {
 
     public static HashMap<String, Double> PlayerAttackSpeedHashMap = new HashMap<>();
 
-    public static HashMap<Slime, Player> SlimeRewardPlayer = new HashMap<>();
-
     public static void Init() {
         BrewSoulMap.put(ModItems.PlainSoul.get(), ModItems.PlainSolidifiedSoul.get());
         BrewSoulMap.put(ModItems.ForestSoul.get(), ModItems.ForestSolidifiedSoul.get());
@@ -934,7 +932,7 @@ public class Utils {
 
     public static List<ForestPowerEffectMob> ForestPowerEffectMobList = new ArrayList<>();
 
-    public static Map<Mob, LakePowerEffect> LakePowerEffectMobMap = new HashMap<>();
+    public static WeakHashMap<Mob, LakePowerEffect> LakePowerEffectMobMap = new WeakHashMap<>();
 
     public static int PFSecKillCount = 0;
     public static int LakeSecKillCount = 0;
@@ -949,11 +947,11 @@ public class Utils {
         SoulBagsMap.put(ModItems.VolcanoSoul.get(), StringUtils.VolcanoSoulCount);
     }
 
-    public static Map<Player, PlayerTeam> playerTeamMap = new HashMap<>();
+    public static WeakHashMap<Player, PlayerTeam> playerTeamMap = new WeakHashMap<>();
 
-    public static Map<Player, List<PlayerTeam>> TeamInvitePlayerMap = new HashMap<>();
+    public static WeakHashMap<Player, List<PlayerTeam>> TeamInvitePlayerMap = new WeakHashMap<>();
 
-    public static Map<Player, List<PlayerTeam>> PlayerRequestTeamMap = new HashMap<>();
+    public static WeakHashMap<Player, List<PlayerTeam>> PlayerRequestTeamMap = new WeakHashMap<>();
 
     public static int[] ps = {1, 1, 1};
 
@@ -1126,7 +1124,31 @@ public class Utils {
 
     public static Map<BlockPos, String> whoIsUsingBlock = new HashMap<>();
 
-    public static List<Block> canBeDigBlockList = new ArrayList<>() {{
+    public record DropAndExp(Item item, double exp) {}
+    
+    public static Map<Block, DropAndExp> mineRewardMap = new HashMap<>() {{
+        put(Blocks.COAL_ORE, new DropAndExp(Items.COAL, 0.01));
+        put(Blocks.DEEPSLATE_COAL_ORE, new DropAndExp(Items.COAL, 0.01));
+        put(Blocks.COPPER_ORE, new DropAndExp(Items.RAW_COPPER, 0.02));
+        put(Blocks.DEEPSLATE_COPPER_ORE, new DropAndExp(Items.RAW_COPPER, 0.02));
+        put(Blocks.RAW_COPPER_BLOCK, new DropAndExp(Items.RAW_COPPER, 0.02));
+        put(Blocks.IRON_ORE, new DropAndExp(Items.RAW_IRON, 0.03));
+        put(Blocks.DEEPSLATE_IRON_ORE, new DropAndExp(Items.RAW_IRON, 0.03));
+        put(Blocks.RAW_IRON_BLOCK, new DropAndExp(Items.RAW_IRON, 0.03));
+        put(Blocks.LAPIS_ORE, new DropAndExp(Items.LAPIS_LAZULI, 0.03));
+        put(Blocks.DEEPSLATE_LAPIS_ORE, new DropAndExp(Items.LAPIS_LAZULI, 0.03));
+        put(Blocks.REDSTONE_ORE, new DropAndExp(Items.REDSTONE, 0.03));
+        put(Blocks.DEEPSLATE_REDSTONE_ORE, new DropAndExp(Items.REDSTONE, 0.03));
+        put(Blocks.GOLD_ORE, new DropAndExp(Items.RAW_GOLD, 0.04));
+        put(Blocks.DEEPSLATE_GOLD_ORE, new DropAndExp(Items.RAW_GOLD, 0.04));
+        put(Blocks.RAW_GOLD_BLOCK, new DropAndExp(Items.RAW_GOLD, 0.04));
+        put(Blocks.DIAMOND_ORE, new DropAndExp(Items.DIAMOND, 0.05));
+        put(Blocks.DEEPSLATE_DIAMOND_ORE, new DropAndExp(Items.DIAMOND, 0.05));
+        put(Blocks.EMERALD_ORE, new DropAndExp(Items.EMERALD, 0.05));
+        put(Blocks.DEEPSLATE_EMERALD_ORE, new DropAndExp(Items.EMERALD, 0.05));
+    }};
+
+    public static Set<Block> canBeDigBlockList = new HashSet<>() {{
         Block[] blocks = {
                 Blocks.DIRT,
                 Blocks.COBBLESTONE,
@@ -1162,51 +1184,7 @@ public class Utils {
                 Blocks.POINTED_DRIPSTONE
         };
         this.addAll(Arrays.asList(blocks));
-    }};
-
-    public static Map<Block, Double> mineExpMap = new HashMap<>() {{
-        put(Blocks.COAL_ORE, 0.01);
-        put(Blocks.DEEPSLATE_COAL_ORE, 0.01);
-        put(Blocks.COPPER_ORE, 0.02);
-        put(Blocks.DEEPSLATE_COPPER_ORE, 0.02);
-        put(Blocks.RAW_COPPER_BLOCK, 0.02);
-        put(Blocks.IRON_ORE, 0.03);
-        put(Blocks.DEEPSLATE_IRON_ORE, 0.03);
-        put(Blocks.RAW_IRON_BLOCK, 0.03);
-        put(Blocks.LAPIS_ORE, 0.03);
-        put(Blocks.DEEPSLATE_LAPIS_ORE, 0.03);
-        put(Blocks.REDSTONE_ORE, 0.03);
-        put(Blocks.DEEPSLATE_REDSTONE_ORE, 0.03);
-        put(Blocks.GOLD_ORE, 0.04);
-        put(Blocks.DEEPSLATE_GOLD_ORE, 0.04);
-        put(Blocks.RAW_GOLD_BLOCK, 0.04);
-        put(Blocks.DIAMOND_ORE, 0.05);
-        put(Blocks.DEEPSLATE_DIAMOND_ORE, 0.05);
-        put(Blocks.EMERALD_ORE, 0.05);
-        put(Blocks.DEEPSLATE_EMERALD_ORE, 0.05);
-        put(Blocks.AMETHYST_BLOCK, 0.01);
-    }};
-
-    public static Map<Block, Item> mineDropMap = new HashMap<>() {{
-        put(Blocks.COAL_ORE, Items.COAL);
-        put(Blocks.DEEPSLATE_COAL_ORE, Items.COAL);
-        put(Blocks.COPPER_ORE, Items.RAW_COPPER);
-        put(Blocks.DEEPSLATE_COPPER_ORE, Items.RAW_COPPER);
-        put(Blocks.RAW_COPPER_BLOCK, Items.RAW_COPPER);
-        put(Blocks.IRON_ORE, Items.RAW_IRON);
-        put(Blocks.DEEPSLATE_IRON_ORE, Items.RAW_IRON);
-        put(Blocks.RAW_IRON_BLOCK, Items.RAW_IRON);
-        put(Blocks.LAPIS_ORE, Items.LAPIS_LAZULI);
-        put(Blocks.DEEPSLATE_LAPIS_ORE, Items.LAPIS_LAZULI);
-        put(Blocks.REDSTONE_ORE, Items.REDSTONE);
-        put(Blocks.DEEPSLATE_REDSTONE_ORE, Items.REDSTONE);
-        put(Blocks.GOLD_ORE, Items.RAW_GOLD);
-        put(Blocks.DEEPSLATE_GOLD_ORE, Items.RAW_GOLD);
-        put(Blocks.RAW_GOLD_BLOCK, Items.RAW_GOLD);
-        put(Blocks.DIAMOND_ORE, Items.DIAMOND);
-        put(Blocks.DEEPSLATE_DIAMOND_ORE, Items.DIAMOND);
-        put(Blocks.EMERALD_ORE, Items.EMERALD);
-        put(Blocks.DEEPSLATE_EMERALD_ORE, Items.EMERALD);
+        this.addAll(mineRewardMap.keySet());
     }};
 
     public static Map<String, Queue<BlockAndResetTime>> noMineDigMap = new HashMap<>();
@@ -1253,7 +1231,7 @@ public class Utils {
     public static ArmorStand recordTimeArmorStand = null;
     public static ArmorStand recordTimeArmorStand1 = null;
 
-    public static List<BlockPos> rewardChestPos = new ArrayList<>() {{
+    public static Set<BlockPos> rewardChestPos = new HashSet<>() {{
         add(new BlockPos(393, 62, 949));
         add(new BlockPos(386, 63, 924));
         add(new BlockPos(356, 72, 870));
@@ -1338,90 +1316,90 @@ public class Utils {
         add(volcanoRecall);
     }};
 
-    public static Map<Player, Integer> MineShieldEffect = new HashMap<>();
+    public static WeakHashMap<Player, Integer> MineShieldEffect = new WeakHashMap<>();
 
-    public static Map<Mob, Integer> shipSwordTime = new HashMap<>();
-    public static Map<Mob, Integer> shipSwordEffect = new HashMap<>();
+    public static WeakHashMap<Mob, Integer> shipSwordTime = new WeakHashMap<>();
+    public static WeakHashMap<Mob, Integer> shipSwordEffect = new WeakHashMap<>();
 
-    public static Map<Player, Integer> ShipSceptreWaterBlockNum = new HashMap<>();
+    public static WeakHashMap<Player, Integer> ShipSceptreWaterBlockNum = new WeakHashMap<>();
 
-    public static Map<Player, Integer> SakuraBowEffectMap = new HashMap<>();
+    public static WeakHashMap<Player, Integer> SakuraBowEffectMap = new WeakHashMap<>();
 
-    public static Map<Player, Integer> IceSwordEffectMap = new HashMap<>();
-    public static Map<Player, Double> IceSwordEffectNumMap = new HashMap<>();
-    public static Map<Player, Integer> IceBowEffectMap = new HashMap<>();
-    public static Map<Player, Double> IceBowEffectNumMap = new HashMap<>();
-    public static Map<Player, Integer> IceSceptreEffectMap = new HashMap<>();
-    public static Map<Player, Double> IceSceptreEffectNumMap = new HashMap<>();
+    public static WeakHashMap<Player, Integer> IceSwordEffectMap = new WeakHashMap<>();
+    public static WeakHashMap<Player, Double> IceSwordEffectNumMap = new WeakHashMap<>();
+    public static WeakHashMap<Player, Integer> IceBowEffectMap = new WeakHashMap<>();
+    public static WeakHashMap<Player, Double> IceBowEffectNumMap = new WeakHashMap<>();
+    public static WeakHashMap<Player, Integer> IceSceptreEffectMap = new WeakHashMap<>();
+    public static WeakHashMap<Player, Double> IceSceptreEffectNumMap = new WeakHashMap<>();
 
-    public static Map<Player, Integer> DingCoolDown = new HashMap<>();
-    public static Map<Player, Integer> DingDingCoolDown = new HashMap<>();
+    public static WeakHashMap<Player, Integer> DingCoolDown = new WeakHashMap<>();
+    public static WeakHashMap<Player, Integer> DingDingCoolDown = new WeakHashMap<>();
 
-    public static Map<Player, Double> PlayerSpringRingAttackAttribute = new HashMap<>();
-    public static Map<Player, Double> PlayerSpringRingManaAttackAttribute = new HashMap<>();
-    public static Map<Player, Double> PlayerSpringRingDefencePenetration0Attribute = new HashMap<>();
-    public static Map<Player, Double> PlayerSpringRingManaPenetration0Attribute = new HashMap<>();
-    public static Map<Player, Double> PlayerSpringRingExpUpAttribute = new HashMap<>();
-    public static Map<Player, Integer> PlayerSpringRingLevelRequire = new HashMap<>();
+    public static WeakHashMap<Player, Double> PlayerSpringRingAttackAttribute = new WeakHashMap<>();
+    public static WeakHashMap<Player, Double> PlayerSpringRingManaAttackAttribute = new WeakHashMap<>();
+    public static WeakHashMap<Player, Double> PlayerSpringRingDefencePenetration0Attribute = new WeakHashMap<>();
+    public static WeakHashMap<Player, Double> PlayerSpringRingManaPenetration0Attribute = new WeakHashMap<>();
+    public static WeakHashMap<Player, Double> PlayerSpringRingExpUpAttribute = new WeakHashMap<>();
+    public static WeakHashMap<Player, Integer> PlayerSpringRingLevelRequire = new WeakHashMap<>();
 
-    public static Map<Player, Double> PlayerSpringHandAttackAttribute = new HashMap<>();
-    public static Map<Player, Double> PlayerSpringHandDefenceAttribute = new HashMap<>();
-    public static Map<Player, Double> PlayerSpringHandMaxHealthAttribute = new HashMap<>();
-    public static Map<Player, Double> PlayerSpringHandDefencePenetraionAttribute = new HashMap<>();
-    public static Map<Player, Double> PlayerSpringHandExpUpAttribute = new HashMap<>();
-    public static Map<Player, Integer> PlayerSpringHandLevelRequire = new HashMap<>();
+    public static WeakHashMap<Player, Double> PlayerSpringHandAttackAttribute = new WeakHashMap<>();
+    public static WeakHashMap<Player, Double> PlayerSpringHandDefenceAttribute = new WeakHashMap<>();
+    public static WeakHashMap<Player, Double> PlayerSpringHandMaxHealthAttribute = new WeakHashMap<>();
+    public static WeakHashMap<Player, Double> PlayerSpringHandDefencePenetraionAttribute = new WeakHashMap<>();
+    public static WeakHashMap<Player, Double> PlayerSpringHandExpUpAttribute = new WeakHashMap<>();
+    public static WeakHashMap<Player, Integer> PlayerSpringHandLevelRequire = new WeakHashMap<>();
 
-    public static Map<Player, Double> PlayerSpringBeltAttackAttribute = new HashMap<>();
-    public static Map<Player, Double> PlayerSpringBeltDefencePenetration0Attribute = new HashMap<>();
-    public static Map<Player, Double> PlayerSpringBeltSwiftAttribute = new HashMap<>();
-    public static Map<Player, Double> PlayerSpringBeltMovementAttribute = new HashMap<>();
-    public static Map<Player, Double> PlayerSpringBeltExpUpAttribute = new HashMap<>();
-    public static Map<Player, Integer> PlayerSpringBeltLevelRequire = new HashMap<>();
+    public static WeakHashMap<Player, Double> PlayerSpringBeltAttackAttribute = new WeakHashMap<>();
+    public static WeakHashMap<Player, Double> PlayerSpringBeltDefencePenetration0Attribute = new WeakHashMap<>();
+    public static WeakHashMap<Player, Double> PlayerSpringBeltSwiftAttribute = new WeakHashMap<>();
+    public static WeakHashMap<Player, Double> PlayerSpringBeltMovementAttribute = new WeakHashMap<>();
+    public static WeakHashMap<Player, Double> PlayerSpringBeltExpUpAttribute = new WeakHashMap<>();
+    public static WeakHashMap<Player, Integer> PlayerSpringBeltLevelRequire = new WeakHashMap<>();
 
-    public static Map<Player, Double> PlayerSpringBraceletAttackAttribute = new HashMap<>();
-    public static Map<Player, Double> PlayerSpringBraceletManaPenetration0Attribute = new HashMap<>();
-    public static Map<Player, Double> PlayerSpringBraceletManaRecoverAttribute = new HashMap<>();
-    public static Map<Player, Double> PlayerSpringBraceletMaxManaAttribute = new HashMap<>();
-    public static Map<Player, Double> PlayerSpringBraceletExpUpAttribute = new HashMap<>();
-    public static Map<Player, Integer> PlayerSpringBraceletLevelRequire = new HashMap<>();
+    public static WeakHashMap<Player, Double> PlayerSpringBraceletAttackAttribute = new WeakHashMap<>();
+    public static WeakHashMap<Player, Double> PlayerSpringBraceletManaPenetration0Attribute = new WeakHashMap<>();
+    public static WeakHashMap<Player, Double> PlayerSpringBraceletManaRecoverAttribute = new WeakHashMap<>();
+    public static WeakHashMap<Player, Double> PlayerSpringBraceletMaxManaAttribute = new WeakHashMap<>();
+    public static WeakHashMap<Player, Double> PlayerSpringBraceletExpUpAttribute = new WeakHashMap<>();
+    public static WeakHashMap<Player, Integer> PlayerSpringBraceletLevelRequire = new WeakHashMap<>();
 
-    public static Map<Player, Integer> PlayerAttackTime = new HashMap<>();
-    public static Map<Player, Integer> PlayerArrowAttackTime = new HashMap<>();
-    public static Map<Player, Integer> PlayerManaAttackTime = new HashMap<>();
+    public static WeakHashMap<Player, Integer> PlayerAttackTime = new WeakHashMap<>();
+    public static WeakHashMap<Player, Integer> PlayerArrowAttackTime = new WeakHashMap<>();
+    public static WeakHashMap<Player, Integer> PlayerManaAttackTime = new WeakHashMap<>();
 
-    public static Map<Player, Integer> PlayerFireWorkGunEffect = new HashMap<>();
+    public static WeakHashMap<Player, Integer> PlayerFireWorkGunEffect = new WeakHashMap<>();
 
     public static List<PlayerTeam> ChallengingPlayerTeam = new ArrayList<>();
 
-    public static Map<Player, Boolean> PlayerAFKMap = new HashMap<>();
-    public static Map<Player, Integer> PlayerAFKSecondsMap = new HashMap<>();
+    public static WeakHashMap<Player, Boolean> PlayerAFKMap = new WeakHashMap<>();
+    public static WeakHashMap<Player, Integer> PlayerAFKSecondsMap = new WeakHashMap<>();
 
-    public static Map<Player, Integer> PlayerFireWorkFightCoolDown = new HashMap<>();
+    public static WeakHashMap<Player, Integer> PlayerFireWorkFightCoolDown = new WeakHashMap<>();
 
-    public static Map<Player, Integer> PlayerSpringAttackCoolDown = new HashMap<>();
-    public static Map<Mob, Integer> MobSpringAttackTick = new HashMap<>();
-    public static Map<Mob, Integer> MobSpringAttackEffect = new HashMap<>();
-    public static Map<Player, Integer> PlayerSpringSwiftCoolDown = new HashMap<>();
-    public static Map<Mob, Integer> MobSpringSwiftTick = new HashMap<>();
-    public static Map<Mob, Integer> MobSpringSwiftEffect = new HashMap<>();
-    public static Map<Player, Integer> PlayerSpringManaCoolDown = new HashMap<>();
-    public static Map<Mob, Integer> MobSpringManaTick = new HashMap<>();
-    public static Map<Mob, Integer> MobSpringManaEffect = new HashMap<>();
+    public static WeakHashMap<Player, Integer> PlayerSpringAttackCoolDown = new WeakHashMap<>();
+    public static WeakHashMap<Mob, Integer> MobSpringAttackTick = new WeakHashMap<>();
+    public static WeakHashMap<Mob, Integer> MobSpringAttackEffect = new WeakHashMap<>();
+    public static WeakHashMap<Player, Integer> PlayerSpringSwiftCoolDown = new WeakHashMap<>();
+    public static WeakHashMap<Mob, Integer> MobSpringSwiftTick = new WeakHashMap<>();
+    public static WeakHashMap<Mob, Integer> MobSpringSwiftEffect = new WeakHashMap<>();
+    public static WeakHashMap<Player, Integer> PlayerSpringManaCoolDown = new WeakHashMap<>();
+    public static WeakHashMap<Mob, Integer> MobSpringManaTick = new WeakHashMap<>();
+    public static WeakHashMap<Mob, Integer> MobSpringManaEffect = new WeakHashMap<>();
 
     public static double[] SpringEffect = {
             0.2, 0.25, 0.3, 0.4
     };
 
-    public static Map<Player, Integer> SpringScaleTime = new HashMap<>();
-    public static Map<Player, Integer> SpringScaleEffect = new HashMap<>();
+    public static WeakHashMap<Player, Integer> SpringScaleTime = new WeakHashMap<>();
+    public static WeakHashMap<Player, Integer> SpringScaleEffect = new WeakHashMap<>();
 
-    public static Map<Player, PosAndLastTime> EndRune2Pos = new HashMap<>();
+    public static WeakHashMap<Player, PosAndLastTime> EndRune2Pos = new WeakHashMap<>();
 
-    public static Map<Mob, Integer> NetherBoneMealPowerEffectMap = new HashMap<>();
+    public static WeakHashMap<Mob, Integer> NetherBoneMealPowerEffectMap = new WeakHashMap<>();
 
-    public static Map<Player, Double> PiglinPowerAp = new HashMap<>();
+    public static WeakHashMap<Player, Double> PiglinPowerAp = new WeakHashMap<>();
 
-    public static Map<Player, Boolean> playerRecycleMap = new HashMap<>();
+    public static WeakHashMap<Player, Boolean> playerRecycleMap = new WeakHashMap<>();
 
     public static List<String> GiantPlayerList = new ArrayList<>();
     public static int GiantHour = -1;
@@ -1438,39 +1416,39 @@ public class Utils {
         GiantCommonReward.add(new ItemStack(ModItems.CropBag.get(), 2));
     }
 
-    public static Map<Player, Boolean> SoulSwordMap = new HashMap<>();
+    public static WeakHashMap<Player, Boolean> SoulSwordMap = new WeakHashMap<>();
 
-    public static Map<Player, Boolean> BloodManaCurios = new HashMap<>();
-    public static Map<Player, Boolean> EarthManaCurios = new HashMap<>();
+    public static WeakHashMap<Player, Boolean> BloodManaCurios = new WeakHashMap<>();
+    public static WeakHashMap<Player, Boolean> EarthManaCurios = new WeakHashMap<>();
 
-    public static Map<Player, Boolean> DevilBloodManaCurios = new HashMap<>();
-    public static Map<Player, Boolean> DevilEarthManaCurios = new HashMap<>();
+    public static WeakHashMap<Player, Boolean> DevilBloodManaCurios = new WeakHashMap<>();
+    public static WeakHashMap<Player, Boolean> DevilEarthManaCurios = new WeakHashMap<>();
 
     public static Map<String, Integer> PlayerDeadTimeMap = new HashMap<>();
 
-    public static Map<Player, Integer> MeteoriteDefenceMap = new HashMap<>();
-    public static Map<Player, Integer> MeteoriteDefenceTimeMap = new HashMap<>();
+    public static WeakHashMap<Player, Integer> MeteoriteDefenceMap = new WeakHashMap<>();
+    public static WeakHashMap<Player, Integer> MeteoriteDefenceTimeMap = new WeakHashMap<>();
 
-    public static Map<Player, Integer> MeteoriteAttackTimeMap = new HashMap<>();
+    public static WeakHashMap<Player, Integer> MeteoriteAttackTimeMap = new WeakHashMap<>();
 
-    public static Map<Player, Integer> MeteoritePenetrationTimeMap = new HashMap<>();
+    public static WeakHashMap<Player, Integer> MeteoritePenetrationTimeMap = new WeakHashMap<>();
 
-    public static Map<Player, Integer> PlayerSoulSceptreCoolDown = new HashMap<>();
+    public static WeakHashMap<Player, Integer> PlayerSoulSceptreCoolDown = new WeakHashMap<>();
 
-    public static Map<Mob, Integer> SnowShieldMobEffectMap = new HashMap<>();
-    public static Map<Player, Double> SnowShieldPlayerEffectMap = new HashMap<>();
-    public static Map<Player, Integer> SnowShieldPlayerEffectTickMap = new HashMap<>();
+    public static WeakHashMap<Mob, Integer> SnowShieldMobEffectMap = new WeakHashMap<>();
+    public static WeakHashMap<Player, Double> SnowShieldPlayerEffectMap = new WeakHashMap<>();
+    public static WeakHashMap<Player, Integer> SnowShieldPlayerEffectTickMap = new WeakHashMap<>();
 
-    public static Map<Mob, Integer> WitherBookMobEffectTick = new HashMap<>();
-    public static Map<Player, Integer> WitherBookPlayerEffectTick = new HashMap<>();
-    public static Map<Player, Double> WitherBookPlayerEffectNum = new HashMap<>();
+    public static WeakHashMap<Mob, Integer> WitherBookMobEffectTick = new WeakHashMap<>();
+    public static WeakHashMap<Player, Integer> WitherBookPlayerEffectTick = new WeakHashMap<>();
+    public static WeakHashMap<Player, Double> WitherBookPlayerEffectNum = new WeakHashMap<>();
 
-    public static Map<Player, Queue<Vec3>> EarthBookPlayerPosMap = new HashMap<>();
-    public static Map<Player, Integer> EarthBookPlayerEffectMap = new HashMap<>();
+    public static WeakHashMap<Player, Queue<Vec3>> EarthBookPlayerPosMap = new WeakHashMap<>();
+    public static WeakHashMap<Player, Integer> EarthBookPlayerEffectMap = new WeakHashMap<>();
 
-    public static Map<Player, Integer> IceBookCoolDownMap = new HashMap<>();
-    public static Map<Mob, Integer> IceBookMobEffectTickMap = new HashMap<>();
-    public static Map<Mob, Player> IceBookMobEffectPlayerMap = new HashMap<>();
+    public static WeakHashMap<Player, Integer> IceBookCoolDownMap = new WeakHashMap<>();
+    public static WeakHashMap<Mob, Integer> IceBookMobEffectTickMap = new WeakHashMap<>();
+    public static WeakHashMap<Mob, Player> IceBookMobEffectPlayerMap = new WeakHashMap<>();
 
     public static List<Item> weaponList = new ArrayList<>();
     public static List<Item> armorList = new ArrayList<>();
@@ -1478,19 +1456,19 @@ public class Utils {
     public static List<Item> customizedList = new ArrayList<>();
     public static List<Item> uniformList = new ArrayList<>();
 
-    public static Map<Player, List<ItemStack>> playerCuriosListMap = new HashMap<>();
+    public static WeakHashMap<Player, List<ItemStack>> playerCuriosListMap = new WeakHashMap<>();
 
-    public static Map<Player, Integer> BlackForestSwordActiveMap = new HashMap<>();
-    public static Map<Player, Integer> SeaSwordActiveMap = new HashMap<>();
+    public static WeakHashMap<Player, Integer> BlackForestSwordActiveMap = new WeakHashMap<>();
+    public static WeakHashMap<Player, Integer> SeaSwordActiveMap = new WeakHashMap<>();
 
-    public static Map<Player, Map<Mob, Integer>> playerLaserCoolDown = new HashMap<>();
+    public static WeakHashMap<Player, Map<Mob, Integer>> playerLaserCoolDown = new WeakHashMap<>();
 
     public static ServerBossEvent GiantBossInfo = null;
 
-    public static Map<Player, Integer> LastTimeInstance = new HashMap<>();
-    public static Map<Player, Integer> LastTimeDifficulty = new HashMap<>();
+    public static WeakHashMap<Player, Integer> LastTimeInstance = new WeakHashMap<>();
+    public static WeakHashMap<Player, Integer> LastTimeDifficulty = new WeakHashMap<>();
 
-    public static Map<Player, Double> playerManaDamageBeforeTransform = new HashMap<>();
+    public static WeakHashMap<Player, Double> playerManaDamageBeforeTransform = new WeakHashMap<>();
 
     public static int ServerStopTick = -1;
 

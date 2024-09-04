@@ -1,13 +1,13 @@
 package com.very.wraq.series.instance.series.devil;
 
-import com.very.wraq.events.mob.MobSpawn;
-import com.very.wraq.projectiles.WraqArmor;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.ComponentUtils;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.registry.ItemMaterial;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.Utils;
+import com.very.wraq.events.mob.MobSpawn;
+import com.very.wraq.projectiles.WraqArmor;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -17,9 +17,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.WeakHashMap;
 
 public class DevilSwiftArmor extends WraqArmor {
 
@@ -61,8 +60,8 @@ public class DevilSwiftArmor extends WraqArmor {
         return true;
     }
 
-    public static Map<Player, Double> DevilSwiftArmorPassiveNumMap = new HashMap<>();
-    public static Map<Player, Integer> DevilSwiftArmorPassiveTickMap = new HashMap<>();
+    public static WeakHashMap<Player, Double> DevilSwiftArmorPassiveNumMap = new WeakHashMap<>();
+    public static WeakHashMap<Player, Integer> DevilSwiftArmorPassiveTickMap = new WeakHashMap<>();
 
     public static void DevilSwiftArmorPassive(Player player, Mob mob) {
         if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.DevilSwiftBoots.get())) {

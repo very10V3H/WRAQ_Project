@@ -118,7 +118,7 @@ public class WaterElementSceptre extends WraqSceptre implements ActiveItem {
             mobList.removeIf(mob -> mob.position().distanceTo(pos) > 6);
             mobList.forEach(mob -> {
                 Element.ElementEffectAddToEntity(player, mob, Element.water, ElementValue.PlayerWaterElementValue(player), false, PlayerAttributes.manaDamage(player));
-                WaterElementSword.mobDefenceDecreaseTickMap.put(mob.getId(), player.getServer().getTickCount() + 140);
+                WaterElementSword.mobDefenceDecreaseTickMap.put(mob, player.getServer().getTickCount() + 140);
             });
         }
     }

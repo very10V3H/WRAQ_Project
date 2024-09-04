@@ -2960,10 +2960,10 @@ public class Compute {
             double ElementDamageEffect = 1;
             ElementDamageEnhance += Element.ElementWithstandDamageEnhance(monster);
             if (isPower) {
-                Element.Unit playerUnit = Element.entityElementUnit.getOrDefault(player.getId(), new Element.Unit(Element.life, 0));
+                Element.Unit playerUnit = Element.entityElementUnit.getOrDefault(player, new Element.Unit(Element.life, 0));
                 if (playerUnit.value() > 0) {
                     ElementDamageEffect = Element.ElementEffectAddToEntity(player, monster, playerUnit.type(), playerUnit.value(), false, totalDamage);
-                    Element.entityElementUnit.put(player.getId(), new Element.Unit(Element.life, 0));
+                    Element.entityElementUnit.put(player, new Element.Unit(Element.life, 0));
                 }
             }
 
@@ -3019,7 +3019,7 @@ public class Compute {
             ElementDamageEnhance += Element.ElementWithstandDamageEnhance(monster);
             if (isPower) {
                 ElementDamageEffect = Element.ElementEffectAddToEntity(player, monster, elementType, elementValue, false, totalDamage);
-                Element.entityElementUnit.put(player.getId(), new Element.Unit(Element.life, 0));
+                Element.entityElementUnit.put(player, new Element.Unit(Element.life, 0));
             }
 
             double elementDamage = totalDamage * ((1 + ElementDamageEnhance) * ElementDamageEffect - 1);
@@ -3103,10 +3103,10 @@ public class Compute {
             double ElementDamageEffect = 1;
             ElementDamageEnhance += Element.ElementWithstandDamageEnhance(monster);
             if (isPower) {
-                Element.Unit playerUnit = Element.entityElementUnit.getOrDefault(player.getId(), new Element.Unit(Element.life, 0));
+                Element.Unit playerUnit = Element.entityElementUnit.getOrDefault(player, new Element.Unit(Element.life, 0));
                 if (playerUnit.value() > 0) {
                     ElementDamageEffect = Element.ElementEffectAddToEntity(player, monster, playerUnit.type(), playerUnit.value(), false, totalDamage);
-                    Element.entityElementUnit.put(player.getId(), new Element.Unit(Element.life, 0));
+                    Element.entityElementUnit.put(player, new Element.Unit(Element.life, 0));
                 }
             }
 
@@ -4399,7 +4399,7 @@ public class Compute {
         } else player.setHealth((float) (player.getHealth() - value));
     }
 
-    public static boolean PlayerUseWithHud(Player player, Map<Player, Integer> coolDownMap, Item item, Map<Player, Integer> lastTickMap, int lastTick, int manaCost, int coolDownSeconds) {
+    public static boolean PlayerUseWithHud(Player player, WeakHashMap<Player, Integer> coolDownMap, Item item, WeakHashMap<Player, Integer> lastTickMap, int lastTick, int manaCost, int coolDownSeconds) {
         int tickCount = player.getServer().getTickCount();
         if (!coolDownMap.containsKey(player) || coolDownMap.get(player) < tickCount) {
             Compute.playerManaCost(player, manaCost);
@@ -4412,7 +4412,7 @@ public class Compute {
         return false;
     }
 
-    public static boolean PlayerUseWithHud(Player player, Map<Player, Integer> coolDownMap, Item item, int manaCost, int coolDownSeconds) {
+    public static boolean PlayerUseWithHud(Player player, WeakHashMap<Player, Integer> coolDownMap, Item item, int manaCost, int coolDownSeconds) {
         int tickCount = player.getServer().getTickCount();
         if (!coolDownMap.containsKey(player) || coolDownMap.get(player) < tickCount) {
             Compute.playerManaCost(player, manaCost);

@@ -1,8 +1,8 @@
 package com.very.wraq.series.specialevents.labourDay;
 
-import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.Utils;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
@@ -13,9 +13,8 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.WeakHashMap;
 
 public class LabourDayIronHoe extends Item {
 
@@ -38,7 +37,7 @@ public class LabourDayIronHoe extends Item {
     }
 
 
-    public static Map<Player, Boolean> playerIsIn = new HashMap<>();
+    public static WeakHashMap<Player, Boolean> playerIsIn = new WeakHashMap<>();
 
     public static void tick(Player player) {
         if (player.tickCount % 20 != 0) return;

@@ -1,13 +1,11 @@
 package com.very.wraq.events.core;
 
-import com.very.wraq.process.func.DelayOperationWithAnimation;
 import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.files.dataBases.DataBase;
+import com.very.wraq.process.func.DelayOperationWithAnimation;
 import com.very.wraq.process.func.damage.Dot;
 import com.very.wraq.process.func.plan.PlanPlayer;
 import com.very.wraq.process.system.lottery.NewLotteries;
-import com.very.wraq.process.system.element.Element;
-import com.very.wraq.process.system.element.equipAndCurios.waterElement.WaterElementSword;
 import com.very.wraq.process.system.market.MarketInfo;
 import com.very.wraq.process.system.tower.Tower;
 import com.very.wraq.process.system.vp.VpDataHandler;
@@ -36,57 +34,6 @@ public class ServerTick {
             WraqQuiver.tick();
             WraqMixture.tick();
             int tickCount = event.getServer().getTickCount();
-            if (tickCount % 20 == 0) {
-                Level overworld = event.getServer().getLevel(Level.OVERWORLD);
-                Level nether = event.getServer().getLevel(Level.NETHER);
-                Level end = event.getServer().getLevel(Level.END);
-                List<Map<Integer, Integer>> mapList = new ArrayList<>() {{
-                    add(Element.lifeElementParticle);
-                    add(Element.waterElementParticle);
-                    add(Element.fireElementParticle);
-                    add(Element.stoneElementParticle);
-                    add(Element.windElementParticle);
-                    add(Element.iceElementParticle);
-                    add(Element.lightningElementParticle);
-
-                    add(Element.lifeAndIceTickMap);
-                    add(Element.lifeAndLightningTimesMap);
-                    add(Element.lifeAndWindTimesMap);
-                    add(Element.waterAndStoneTimesMap);
-                    add(Element.waterAndIceTimesMap);
-                    add(Element.waterAndLightningTimesMap);
-                    add(Element.fireAndWindTimesMap);
-                    add(Element.stoneAndIceTimesMap);
-                    add(Element.stoneAndLightningTimesMap);
-                    add(Element.stoneAndWindTimesMap);
-                    add(Element.iceAndLightningTimesMap);
-                    add(Element.iceAndWindTimesMap);
-                    add(WaterElementSword.mobDefenceDecreaseTickMap);
-                }};
-                List<Map<Integer, Double>> mapList1 = new ArrayList<>() {{
-                    add(Element.lifeAndIceEffectMap);
-                    add(Element.lifeAndLightningEffectMap);
-                    add(Element.lifeAndWindEffectMap);
-                    add(Element.waterAndStoneEffectMap);
-                    add(Element.waterAndIceEffectMap);
-                    add(Element.waterAndLightningEffectMap);
-                    add(Element.fireAndWindEffectMap);
-                    add(Element.stoneAndIceEffectMap);
-                    add(Element.stoneAndLightningEffectMap);
-                    add(Element.stoneAndWindEffectMap);
-                    add(Element.iceAndLightningEffectMap);
-                    add(Element.iceAndWindEffectMap);
-                }};
-                mapList.forEach(map -> {
-                    clearMap(map, overworld, nether, end);
-                });
-                mapList1.forEach(map -> {
-                    clearMap(map, overworld, nether, end);
-                });
-                clearMap(Element.entityElementUnit, overworld, nether, end);
-                clearMap(BowEvent.causeDamageList, overworld, nether, end);
-
-            }
             if (tickCount % 6000 == 3288) {
                 new Thread(new Runnable() {
                     @Override

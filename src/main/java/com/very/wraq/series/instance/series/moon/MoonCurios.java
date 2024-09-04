@@ -70,7 +70,7 @@ public class MoonCurios extends Item implements ICurioItem {
         return true;
     }
 
-    public static Map<Player, Integer> passiveCoolDownMap = new HashMap<>();
+    public static WeakHashMap<Player, Integer> passiveCoolDownMap = new WeakHashMap<>();
 
     public static double Passive(Player player, Mob mob) {
         if (Utils.playerCuriosListMap.containsKey(player)) {

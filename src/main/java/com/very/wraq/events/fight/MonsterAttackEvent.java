@@ -284,7 +284,7 @@ public class MonsterAttackEvent {
         }
     }
 
-/*    public static Map<Player,Integer> playerPlainRune3CoolDownMap = new HashMap<>();
+/*    public static WeakHashMap<Player,Integer> playerPlainRune3CoolDownMap = new HashMap<>();
 
     public static boolean playerIsProtectingByPlainRune3(Player player) {
         CompoundTag data = player.getPersistentData();
