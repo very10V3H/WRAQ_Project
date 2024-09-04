@@ -266,7 +266,6 @@ public class MobSpawn {
         if (dropsDirectToInventory.containsKey(MobSpawn.getMobOriginName(mob))
                 || WraqCurios.isOn(EndRune.class, player)) {
             Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player), xpLevel);
-
             list.forEach(itemAndRate -> {
                 RandomLootEquip.handleItemAndRate(itemAndRate);
                 try {
@@ -275,23 +274,10 @@ public class MobSpawn {
                     throw new RuntimeException(e);
                 }
             });
-
         } else {
-            Random rand = new Random();
-            int orbNum = rand.nextInt(5);
-            for (int i = 0; i < orbNum; i++) {
-                ExperienceOrb orb = new ExperienceOrb(EntityType.EXPERIENCE_ORB, mob.level());
-                orb.getPersistentData().putBoolean(fromMobSpawnTag, true);
-                if (MobSpawn.getMobOriginName(mob).equals(MagmaSpawnController.mobName) || MobSpawn.getMobOriginName(mob).equals(SlimeSpawnController.mobName)) {
-                    orb.getPersistentData().putBoolean(fromSlime, true);
-                }
-                orb.value = xpLevel;
-                orb.setPos(mob.position().add(0, 0.5, 0).add(rand.nextDouble(0.5) - 0.25, 0, rand.nextDouble(0.5) - 0.25));
-                orb.setDeltaMovement((rand.nextDouble() * 0.20000000298023224 - 0.10000000149011612) * 2.0,
-                        rand.nextDouble() * 0.2 * 2.0, (rand.nextDouble() * 0.20000000298023224 - 0.10000000149011612) * 2.0);
-                mob.level().addFreshEntity(orb);
-            }
-
+            double rate = MobSpawn.getMobOriginName(mob).equals(MagmaSpawnController.mobName)
+                    || MobSpawn.getMobOriginName(mob).equals(SlimeSpawnController.mobName) ? 0.003 : 0.01;
+            ItemAndRate.dropOrbs(xpLevel, rate, mob.level(), mob.position(), fromMobSpawnTag);
             list.forEach(itemAndRate -> {
                 RandomLootEquip.handleItemAndRate(itemAndRate);
                 itemAndRate.dropWithoutBounding(mob, num, player);

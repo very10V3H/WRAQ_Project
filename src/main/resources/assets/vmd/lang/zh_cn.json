@@ -1648,6 +1648,10 @@
   "item.vmd.bow_curios_yxwg": "因子 - 英雄挽歌 - 侠猎",
   "item.vmd.mana_curios_yxwg": "因子 - 英雄挽歌 - 法神",
 
+  "item.vmd.wraq_ore_1_item": "德朗斯蒂克玛瑙",
+  "item.vmd.wraq_ore_2_item": "北境晶钻",
+  "item.vmd.wraq_ore_3_item": "粉钻",
+  "item.vmd.wraq_ore_4_item": "炽焰石",
 
 
 
@@ -2169,6 +2173,17 @@
 
   "block.vmd.forging_block": "维瑞阿契锻造台",
   "block.vmd.h_brewing_block": "维瑞阿契酿造台",
+
+  "block.vmd.wraq_ore_1": "德朗斯蒂克玛瑙矿石",
+  "block.vmd.wraq_ore_2": "北境晶钻矿石",
+  "block.vmd.wraq_ore_3": "粉钻矿石",
+  "block.vmd.wraq_ore_4": "炽焰石矿石",
+
+  "item.vmd.wraq_ore_1_block": "德朗斯蒂克玛瑙矿石",
+  "item.vmd.wraq_ore_2_block": "北境晶钻矿石",
+  "item.vmd.wraq_ore_3_block": "粉钻矿石",
+  "item.vmd.wraq_ore_4_block": "炽焰石矿石",
+
   "itemGroup.vmd": "维瑞阿契物品栏",
 
   "entity.vmd.hboss": "铁头的方块哥",

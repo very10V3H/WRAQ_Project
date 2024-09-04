@@ -6,6 +6,7 @@ import com.very.wraq.blocks.blocks.forge.ForgingBlock;
 import com.very.wraq.blocks.blocks.furnace.Furnace;
 import com.very.wraq.blocks.blocks.inject.InjectBlock;
 import com.very.wraq.common.util.Utils;
+import com.very.wraq.process.system.ore.OreItems;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -66,9 +67,9 @@ public class ModBlocks {
         return toReturn;
     }
 
-    private static <T extends Block> RegistryObject<Item> registerBlockItem(String name, RegistryObject<T> block,
-                                                                            CreativeModeTab tab) {
-        return ModItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
+    private static <T extends Block> void registerBlockItem(String name, RegistryObject<T> block,
+                                                            CreativeModeTab tab) {
+        OreItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
     }
 
 }

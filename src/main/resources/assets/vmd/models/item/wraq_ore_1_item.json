@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "vmd:item/wraq_ore_item_1"
+  }
+}

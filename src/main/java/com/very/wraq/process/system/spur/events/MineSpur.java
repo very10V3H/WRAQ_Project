@@ -1,10 +1,11 @@
 package com.very.wraq.process.system.spur.events;
 
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.util.ItemAndRate;
+import com.very.wraq.common.util.Utils;
+import com.very.wraq.common.util.struct.BlockAndResetTime;
 import com.very.wraq.process.system.missions.series.labourDay.LabourDayMission;
 import com.very.wraq.process.system.spur.Items.SpurItems;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.struct.BlockAndResetTime;
-import com.very.wraq.common.util.Utils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -18,6 +19,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -39,24 +41,28 @@ public class MineSpur {
         if (!player.isCreative()) {
             if (!level.isClientSide && level.equals(OverWorld)) {
                 int tickCount = level.getServer().getTickCount();
-                if (blockPos.getY() <= 11) {
-                    if (Utils.canBeDigBlockList.contains(blockState.getBlock())) {
-                        if (Utils.mineRewardMap.containsKey(blockState.getBlock())) {
+                Block block = blockState.getBlock();
+                if (blockPos.getY() <= 11 || Utils.mineRewardMap.containsKey(block)) {
+                    if (Utils.canBeDigBlockList.contains(block)) {
+                        if (Utils.mineRewardMap.containsKey(block)) {
                             BlockAndResetTime blockAndResetTime = new BlockAndResetTime(blockState, blockPos, tickCount + 36000);
                             if (!Utils.posEvenBeenDigOrPlace.contains(blockPos)) {
                                 Utils.worldMineList.add(blockAndResetTime);
                                 Utils.posEvenBeenDigOrPlace.add(blockPos);
                             }
-                            Compute.itemStackGive(player, Utils.mineRewardMap.get(blockState.getBlock()).item().getDefaultInstance());
+                            ItemAndRate.summonItemEntity(Utils.mineRewardMap.get(block).item().getDefaultInstance(),
+                                    blockPos.getCenter(), level);
+
                             level.destroyBlock(blockPos, false);
-                            mineReward(player, blockState);
+                            mineReward(player, blockState, blockPos);
 
                             Random random = new Random();
                             if (random.nextDouble() < Compute.playerExHarvest(player)) {
                                 Compute.sendFormatMSG(player, Component.literal("额外产出").withStyle(ChatFormatting.GOLD),
                                         Component.literal("为你提供了额外产物！").withStyle(ChatFormatting.WHITE));
-                                Compute.itemStackGive(player, Utils.mineRewardMap.get(blockState.getBlock()).item().getDefaultInstance());
-                                mineReward(player, blockState);
+                                ItemAndRate.summonItemEntity(Utils.mineRewardMap.get(block).item().getDefaultInstance(),
+                                        blockPos.getCenter(), level);
+                                mineReward(player, blockState, blockPos);
                             }
                         } else {
                             BlockAndResetTime blockAndResetTime = new BlockAndResetTime(blockState, blockPos, tickCount + 1200);
@@ -90,11 +96,14 @@ public class MineSpur {
 
     public static String minePieceGetTimes = "minePieceGetTimes";
 
-    public static void mineReward(Player player, BlockState blockState) throws IOException {
-        double baseExpRate = Utils.mineRewardMap.get(blockState.getBlock()).exp();
-        Compute.playerMineExpAdd(player, (int) (baseExpRate * 100));
-        baseExpRate *= (1 + Compute.playerMineLevel(player)) * 0.25;
-        Compute.givePercentExpToPlayer(player, baseExpRate, 0, Math.min(player.experienceLevel, 50));
+    public static String fromMineReward = "fromMineReward";
+
+    public static void mineReward(Player player, BlockState blockState, BlockPos blockPos) {
+        double rate = Utils.mineRewardMap.get(blockState.getBlock()).exp();
+        Compute.playerMineExpAdd(player, (int) (rate * 100));
+        rate *= (1 + Compute.playerMineLevel(player)) * 0.25;
+        ItemAndRate.dropOrbs(Math.min(player.experienceLevel, 50), rate, player.level(), blockPos.getCenter(), fromMineReward);
+
         ClientboundSoundPacket clientboundSoundPacket = new ClientboundSoundPacket(Holder.direct(SoundEvents.EXPERIENCE_ORB_PICKUP), SoundSource.PLAYERS, player.getX(), player.getY(), player.getZ(), 0.5f, 1, 1);
         ServerPlayer serverPlayer = (ServerPlayer) player;
         serverPlayer.connection.send(clientboundSoundPacket);

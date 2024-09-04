@@ -3,17 +3,19 @@ package com.very.wraq.events.core;
 import com.mojang.logging.LogUtils;
 import com.very.wraq.Items.Prefix.PrefixInfo;
 import com.very.wraq.commands.changeable.PrefixCommand;
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.attribute.PlayerAttributes;
+import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.ClientUtils;
+import com.very.wraq.common.util.ItemAndRate;
+import com.very.wraq.common.util.StringUtils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.events.instance.CastleSecondFloor;
 import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.misc.AnimationPackets.AnimationTickResetS2CPacket;
+import com.very.wraq.process.system.spur.events.MineSpur;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.ClientUtils;
-import com.very.wraq.common.util.StringUtils;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.attribute.PlayerAttributes;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -34,7 +36,10 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.event.entity.living.LivingConversionEvent;
-import net.minecraftforge.event.entity.player.*;
+import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.entity.player.PlayerXpEvent;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -247,10 +252,13 @@ public class VariousEvents {
     public static void pickUpXp(PlayerXpEvent.PickupXp event) {
         Player player = event.getEntity();
         ExperienceOrb orb = event.getOrb();
-        if (orb.getPersistentData().contains(MobSpawn.fromMobSpawnTag)) {
-            if (orb.getPersistentData().contains(MobSpawn.fromSlime)) {
-                Compute.givePercentExpToPlayer(player, 0.003, PlayerAttributes.expUp(player), orb.value);
-            } else Compute.givePercentExpToPlayer(player, 0.01, PlayerAttributes.expUp(player), orb.value);
+        CompoundTag data = orb.getPersistentData();
+        if (data.contains(MobSpawn.fromMobSpawnTag)) {
+            Compute.givePercentExpToPlayer(player,
+                    data.getDouble(ItemAndRate.expRate), PlayerAttributes.expUp(player), orb.value);
+        }
+        if (data.contains(MineSpur.fromMineReward)) {
+            Compute.givePercentExpToPlayer(player, data.getDouble(ItemAndRate.expRate), 0, orb.value);
         }
     }
 

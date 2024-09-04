@@ -1,12 +1,14 @@
 package com.very.wraq.common.util;
 
+import com.very.wraq.common.Compute;
 import com.very.wraq.events.core.InventoryCheck;
 import com.very.wraq.events.mob.loot.RandomLootEquip;
 import com.very.wraq.projectiles.RandomCurios;
-import com.very.wraq.common.Compute;
 import net.minecraft.ChatFormatting;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -166,4 +168,23 @@ public class ItemAndRate {
     public void setItemStack(ItemStack itemStack) {
         this.itemStack = itemStack;
     }
+
+    public static String expRate = "expRate";
+
+    public static void dropOrbs(int xpLevel, double rate, Level level, Vec3 pos, String tag) {
+        Random rand = new Random();
+        int orbNum = rand.nextInt(5);
+        for (int i = 0; i < orbNum; i++) {
+            ExperienceOrb orb = new ExperienceOrb(EntityType.EXPERIENCE_ORB, level);
+            CompoundTag data = orb.getPersistentData();
+            data.putBoolean(tag, true);
+            data.putDouble(expRate, rate);
+            orb.value = xpLevel;
+            orb.setPos(pos.add(0, 0.5, 0).add(rand.nextDouble(0.5) - 0.25, 0, rand.nextDouble(0.5) - 0.25));
+            orb.setDeltaMovement((rand.nextDouble() * 0.20000000298023224 - 0.10000000149011612) * 2.0,
+                    rand.nextDouble() * 0.2 * 2.0, (rand.nextDouble() * 0.20000000298023224 - 0.10000000149011612) * 2.0);
+            level.addFreshEntity(orb);
+        }
+    }
+
 }

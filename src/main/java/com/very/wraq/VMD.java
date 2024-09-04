@@ -27,6 +27,7 @@ import com.very.wraq.process.system.element.ElementItems;
 import com.very.wraq.process.system.endlessinstance.EndlessInstanceItems;
 import com.very.wraq.process.system.forge.ForgeEquipUtils;
 import com.very.wraq.process.system.market.MarketInfo;
+import com.very.wraq.process.system.ore.OreItems;
 import com.very.wraq.process.system.spur.Items.SpurItems;
 import com.very.wraq.process.system.teamInstance.NewTeamInstance;
 import com.very.wraq.process.system.teamInstance.NewTeamInstanceEvent;
@@ -106,6 +107,7 @@ public class VMD {
         QuiverItems.ITEMS.register(modEvenBus);
         BladeItems.ITEMS.register(modEvenBus);
         MixtureItems.ITEMS.register(modEvenBus);
+        OreItems.ITEMS.register(modEvenBus);
 
         ModBlocks.BLOCKS.register(modEvenBus);
         ModEntityType.ENTITY_TYPES.register(modEvenBus);
@@ -467,115 +469,7 @@ public class VMD {
             event.accept(ModItems.ForgeEnhance2.get().getDefaultInstance());
             event.accept(ModItems.ForgeProtect.get().getDefaultInstance());
 
-            event.accept(ModItems.IslandHelmetForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.IslandChestForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.IslandLeggingsForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.IslandBootsForgeDraw.get().getDefaultInstance());
-
-            event.accept(ModItems.SkyHelmetForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.SkyChestForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.SkyLeggingsForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.SkyBootsForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.SeaSwordForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.BlackForestSwordForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.NetherHelmetForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.NetherChestForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.NetherLeggingsForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.NetherBootsForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.KazeSwordForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.KazeBootsForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.SakuraSwordForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.SakuraReForge.get().getDefaultInstance());
-            event.accept(ModItems.MinePantsForgingDraw.get().getDefaultInstance());
-            event.accept(ModItems.WheatReForge.get().getDefaultInstance());
-            event.accept(ModItems.ForestBossSwordForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.VolcanoBossSwordForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.LakeBossSwordForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.SkyBossBowForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.SnowBossChestForgeDraw.get().getDefaultInstance());
             event.accept(ModItems.Dismantle.get().getDefaultInstance());
-            event.accept(ModItems.SeaManaCoreForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.BlackForestManaCoreForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.KazeManaCoreForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.SakuraBowForgingDraw.get().getDefaultInstance());
-            event.accept(ModItems.SakuraCoreForgingDraw.get().getDefaultInstance());
-            event.accept(ModItems.MinePantsForgingDraw.get().getDefaultInstance());
-            event.accept(ModItems.IceHelmetForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.IceChestForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.IceLeggingsForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.IceBootsForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.SeaBowForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.IceSwordForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.IceBowForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.IceSceptreForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.ShipSwordForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.ShipBowForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.ShipSceptreForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.NetherManaHelmetForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.NetherManaChestForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.NetherManaLeggingsForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.NetherManaBootsForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.NetherSceptreForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.SpringAttackHelmetForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.SpringAttackChestForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.SpringAttackLeggingsForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.SpringAttackBootsForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.SpringSwiftHelmetForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.SpringSwiftChestForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.SpringSwiftLeggingsForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.SpringSwiftBootsForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.SpringManaHelmetForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.SpringManaChestForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.SpringManaLeggingsForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.SpringManaBootsForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.GoldenShieldForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.DevilAttackChestForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.DevilSwiftBootsForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.DevilManaHelmetForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.MoonShieldForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.MoonKnifeForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.MoonBookForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.MoonLeggingsForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.MoonSwordForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.MoonBowForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.MoonSceptreForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.MoonBeltForgeDraw.get().getDefaultInstance());
-
-            event.accept(ModItems.TabooAttackLeggingsForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.TabooSwiftHelmetForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.TabooManaBootsForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.MoonHelmetForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.CastleAttackHelmetForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.CastleAttackChestForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.CastleAttackLeggingsForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.CastleAttackBootsForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.CastleSwiftHelmetForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.CastleSwiftChestForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.CastleSwiftLeggingsForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.CastleSwiftBootsForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.CastleManaHelmetForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.CastleManaChestForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.CastleManaLeggingsForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.CastleManaBootsForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.CastleSwordForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.CastleBowForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.CastleSceptreForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.StarBottleForgeDraw.get().getDefaultInstance());
-
-            event.accept(ModItems.LifeElementSwordForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.LifeElementBowForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.LifeElementSceptreForgeDraw.get().getDefaultInstance());
-
-            event.accept(ModItems.WaterElementSwordForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.WaterElementBowForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.WaterElementSceptreForgeDraw.get().getDefaultInstance());
-
-            event.accept(ModItems.FireElementSwordForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.FireElementBowForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.FireElementSceptreForgeDraw.get().getDefaultInstance());
-
-            event.accept(ModItems.EndCuriosForgeDraw.get().getDefaultInstance());
-            event.accept(ModItems.EndCurios1ForgeDraw.get().getDefaultInstance());
         }
         if (event.getTabKey().equals(ModCreativeModeTab.MONEYANDMISSION_TAB.getKey())) {
             event.accept(ModItems.pickUpgradePaper.get().getDefaultInstance());
@@ -718,6 +612,12 @@ public class VMD {
             for (Item item : items) event.accept(item.getDefaultInstance());
         }
         if (event.getTabKey().equals(ModCreativeModeTab.FURNACE.getKey())) {
+
+
+            OreItems.ITEMS.getEntries()
+                    .stream().map(RegistryObject::get)
+                    .forEach(item -> event.accept(item.getDefaultInstance()));
+
             event.accept(ModItems.CrudeCoal.get().getDefaultInstance());
             event.accept(ModItems.HotCoal.get().getDefaultInstance());
             event.accept(ModItems.RefiningCoal.get().getDefaultInstance());
