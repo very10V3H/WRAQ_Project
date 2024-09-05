@@ -61,10 +61,6 @@ public class BloodManaCurios extends WraqCurios {
         return 0;
     }
 
-    @Override
-    public boolean isArbitrarily() {
-        return false;
-    }
 
     public static void passive(Player player) {
         if (WraqCurios.isOn(BloodManaCurios.class, player) || WraqCurios.isOn(EarthManaCurios.class, player)) {

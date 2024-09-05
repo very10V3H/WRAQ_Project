@@ -53,10 +53,6 @@ public class PlainNewRune extends WraqCurios implements RuneItem, UsageOrGetWayD
         return 0;
     }
 
-    @Override
-    public boolean isArbitrarily() {
-        return false;
-    }
 
     public static boolean isOn(Player player) {
         return WraqCurios.isOn(PlainNewRune.class, player);

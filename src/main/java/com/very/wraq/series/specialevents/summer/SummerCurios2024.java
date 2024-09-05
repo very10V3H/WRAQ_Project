@@ -77,10 +77,6 @@ public class SummerCurios2024 extends WraqCurios implements OnCuriosSlotAttribut
         return new int[]{60, 90, 120, 150, 180, 210}[tier];
     }
 
-    @Override
-    public boolean isArbitrarily() {
-        return false;
-    }
 
     @Override
     public double attributes(Player player, String attributesType) {

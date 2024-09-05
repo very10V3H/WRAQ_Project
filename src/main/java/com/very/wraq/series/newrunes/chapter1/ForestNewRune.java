@@ -61,10 +61,6 @@ public class ForestNewRune extends WraqCurios implements RuneItem, UsageOrGetWay
         return 0;
     }
 
-    @Override
-    public boolean isArbitrarily() {
-        return false;
-    }
 
     public static boolean isOn(Player player) {
         return WraqCurios.isOn(ForestNewRune.class, player);

@@ -5,6 +5,7 @@ import com.very.wraq.core.ManaAttackModule;
 import com.very.wraq.events.instance.IceKnight;
 import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.events.modules.AttackEventModule;
+import com.very.wraq.process.func.StableAttributesModifier;
 import com.very.wraq.series.specialevents.labourDay.LabourDayIronHoe;
 import com.very.wraq.series.specialevents.labourDay.LabourDayIronPickaxe;
 import com.very.wraq.process.system.potion.NewPotionEffects;
@@ -63,6 +64,7 @@ public class DamageInfluence {
         rate += MineNewRune.damageEnhance(player);
         rate += HuskNewRune.damageEnhance(player);
         rate += MoonNewRune.damageEnhance(player);
+        rate += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerCommonDamageEnhance);
         return rate;
     }
 

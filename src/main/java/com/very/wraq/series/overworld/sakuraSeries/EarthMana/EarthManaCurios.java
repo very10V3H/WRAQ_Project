@@ -56,8 +56,4 @@ public class EarthManaCurios extends WraqCurios {
         return 0;
     }
 
-    @Override
-    public boolean isArbitrarily() {
-        return false;
-    }
 }

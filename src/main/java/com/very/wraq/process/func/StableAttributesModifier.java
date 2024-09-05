@@ -20,6 +20,7 @@ public record StableAttributesModifier(String tag, double value, int stopTick) {
     public static Map<String, List<StableAttributesModifier>> playerDefencePenetration0Modifier = new HashMap<>();
     public static Map<String, List<StableAttributesModifier>> playerManaDamageModifier = new HashMap<>();
     public static Map<String, List<StableAttributesModifier>> playerAttackDamageModifier = new HashMap<>();
+    public static Map<String, List<StableAttributesModifier>> playerCommonDamageEnhance = new HashMap<>();
 
     public static List<StableAttributesModifier> getAttributeModifierList(Player player, Map<String, List<StableAttributesModifier>> modifierMap) {
         String name = player.getName().getString();

@@ -4,6 +4,7 @@ import com.very.wraq.common.util.Utils;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.FoiledMaterialItem;
 import com.very.wraq.series.MaterialItem;
+import com.very.wraq.series.specialevents.midautumn.MoonFeather;
 import com.very.wraq.series.specialevents.summer.SummerCurios2024;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.DeferredRegister;
@@ -36,4 +37,16 @@ public class SpecialEventItems {
 
     public static final RegistryObject<Item> MID_AUTUMN_SOUL = ITEMS.register("mid_autumn_soul", () ->
             new FoiledMaterialItem(new Item.Properties().rarity(CustomStyle.MoonBold)));
+
+    public static final RegistryObject<Item> MOON_FEATHER_0 = ITEMS.register("moon_feather_0", () ->
+            new MoonFeather(new Item.Properties().rarity(CustomStyle.MoonBold), 0));
+
+    public static final RegistryObject<Item> MOON_FEATHER_1 = ITEMS.register("moon_feather_1", () ->
+            new MoonFeather(new Item.Properties().rarity(CustomStyle.MoonBold), 1));
+
+    public static final RegistryObject<Item> MOON_FEATHER_2 = ITEMS.register("moon_feather_2", () ->
+            new MoonFeather(new Item.Properties().rarity(CustomStyle.MoonBold), 2));
+
+    public static final RegistryObject<Item> MOON_FEATHER_3 = ITEMS.register("moon_feather_3", () ->
+            new MoonFeather(new Item.Properties().rarity(CustomStyle.MoonBold), 3));
 }

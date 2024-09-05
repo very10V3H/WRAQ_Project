@@ -14,6 +14,8 @@ import java.util.List;
 public class ComponentUtils {
     public static class AttributeDescription {
 
+
+
         public static Component ExpUp(String content) {
             return Component.literal(Utils.Emoji.ExpUp + " " + content + "经验加成").withStyle(ChatFormatting.LIGHT_PURPLE);
         }

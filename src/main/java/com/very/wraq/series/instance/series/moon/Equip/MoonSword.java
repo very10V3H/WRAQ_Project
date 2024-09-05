@@ -7,6 +7,7 @@ import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.Utils;
 import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.projectiles.ActiveItem;
+import com.very.wraq.projectiles.OnHitEffectMainHandWeapon;
 import com.very.wraq.projectiles.WraqSword;
 import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -22,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.WeakHashMap;
 
-public class MoonSword extends WraqSword implements ActiveItem {
+public class MoonSword extends WraqSword implements ActiveItem, OnHitEffectMainHandWeapon {
 
     public static WeakHashMap<Player, Boolean> playerFlagMap = new WeakHashMap<>();
 
@@ -81,11 +82,6 @@ public class MoonSword extends WraqSword implements ActiveItem {
     public static WeakHashMap<Player, Double> attackDamageNumMap = new WeakHashMap<>();
     public static WeakHashMap<Player, Integer> attackDamageTickMap = new WeakHashMap<>();
 
-    public static void Active(Player player) {
-        playerFlagMap.put(player, true);
-        Compute.sendEffectLastTime(player, ModItems.MoonSword.get().getDefaultInstance(), 8888, 0, true);
-    }
-
     public static void MoonSwordActive(Player player, Mob mob) {
         if (playerFlagMap.containsKey(player) && playerFlagMap.get(player)) {
             playerFlagMap.put(player, false);
@@ -106,15 +102,6 @@ public class MoonSword extends WraqSword implements ActiveItem {
         }
     }
 
-    public static void Passive(Player player, Mob mob) {
-        if (!player.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.MoonSword.get())) return;
-        List<Mob> mobList = mob.level().getEntitiesOfClass(Mob.class, AABB.ofSize(mob.position(), 15, 15, 15));
-        mobList.removeIf(mob1 -> mob1.distanceTo(mob) > 6 || mob1.equals(mob));
-        mobList.forEach(mob1 -> {
-            Compute.MonsterGatherProvider(mob1, 2, mob.position());
-        });
-    }
-
     public static double ExAttackDamage(Player player) {
         int tickCount = player.getServer().getTickCount();
         if (attackDamageTickMap.containsKey(player) && attackDamageTickMap.get(player) > tickCount) {
@@ -127,7 +114,18 @@ public class MoonSword extends WraqSword implements ActiveItem {
     public void active(Player player) {
         if (Compute.playerManaCost(player, 60)) {
             Compute.playerItemCoolDown(player, ModItems.MoonSword.get(), 27);
-            MoonSword.Active(player);
+            playerFlagMap.put(player, true);
+            Compute.sendEffectLastTime(player, ModItems.MoonSword.get().getDefaultInstance(), 8888, 0, true);
         }
+    }
+
+    @Override
+    public void onHit(Player player, Mob mob) {
+        if (!player.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.MoonSword.get())) return;
+        List<Mob> mobList = mob.level().getEntitiesOfClass(Mob.class, AABB.ofSize(mob.position(), 15, 15, 15));
+        mobList.removeIf(mob1 -> mob1.distanceTo(mob) > 6 || mob1.equals(mob));
+        mobList.forEach(mob1 -> {
+            Compute.MonsterGatherProvider(mob1, 2, mob.position());
+        });
     }
 }

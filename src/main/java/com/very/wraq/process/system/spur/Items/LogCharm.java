@@ -49,8 +49,4 @@ public class LogCharm extends WraqCurios {
         return levelRequire;
     }
 
-    @Override
-    public boolean isArbitrarily() {
-        return false;
-    }
 }

@@ -1,11 +1,9 @@
 package com.very.wraq.series.nether.Equip.Armor;
 
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.ClientUtils;
-import com.very.wraq.common.util.ComponentUtils;
-import com.very.wraq.common.util.StringUtils;
-import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
@@ -56,13 +54,6 @@ public class NetherSuitDescription {
         for (int i = 0; i < items.length; i++) {
             Count += Compute.SuitItemVision(player, items[i], equipmentSlot[i], components, MainStyle);
         }
-
-        String CrestString = StringUtils.Crest.Nether;
-        String CrestName = "[下界征服者徽记]";
-        if (ClientUtils.CrestMap.containsKey(CrestString) && ClientUtils.CrestMap.get(CrestString)) {
-            components.add(Component.literal(CrestName).withStyle(MainStyle));
-            Count++;
-        } else components.add(Component.literal(CrestName).withStyle(ChatFormatting.GRAY));
 
         Compute.DescriptionPassive(components, Component.literal("迸骸成末").withStyle(CustomStyle.styleOfNether));
         components.add(Component.literal("近战攻击与箭矢时基于目标的").withStyle(ChatFormatting.WHITE).

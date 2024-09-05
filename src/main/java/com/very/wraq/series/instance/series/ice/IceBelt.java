@@ -61,10 +61,6 @@ public class IceBelt extends WraqCurios implements RandomCurios, UsageOrGetWayDe
         return 135;
     }
 
-    @Override
-    public boolean isArbitrarily() {
-        return false;
-    }
 
     @Override
     public void setAttribute(ItemStack stack) {

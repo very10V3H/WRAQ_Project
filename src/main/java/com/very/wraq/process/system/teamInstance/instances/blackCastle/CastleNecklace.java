@@ -48,10 +48,6 @@ public class CastleNecklace extends WraqCurios implements RandomCurios, UsageOrG
         return 180;
     }
 
-    @Override
-    public boolean isArbitrarily() {
-        return false;
-    }
 
     @Override
     public void setAttribute(ItemStack stack) {

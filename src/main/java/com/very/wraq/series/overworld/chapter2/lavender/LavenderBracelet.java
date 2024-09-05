@@ -71,10 +71,6 @@ public class LavenderBracelet extends WraqCurios implements RandomCurios, UsageO
         return 80;
     }
 
-    @Override
-    public boolean isArbitrarily() {
-        return false;
-    }
 
     @Override
     public List<Component> getWayDescription() {

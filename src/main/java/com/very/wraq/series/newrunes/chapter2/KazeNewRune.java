@@ -72,10 +72,6 @@ public class KazeNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDe
         return 0;
     }
 
-    @Override
-    public boolean isArbitrarily() {
-        return false;
-    }
 
     public static void onHit(Player player) {
         if (WraqCurios.isOn(KazeNewRune.class, player)) {

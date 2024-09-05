@@ -70,10 +70,6 @@ public class NetherNewRune extends WraqCurios implements RuneItem, UsageOrGetWay
         return 0;
     }
 
-    @Override
-    public boolean isArbitrarily() {
-        return false;
-    }
 
     public static void onKill(Player player, Mob mob) {
         if (!WraqCurios.isOn(NetherNewRune.class, player)) return;

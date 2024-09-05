@@ -62,10 +62,6 @@ public class VolcanoNewRune extends WraqCurios implements RuneItem, UsageOrGetWa
         return 0;
     }
 
-    @Override
-    public boolean isArbitrarily() {
-        return false;
-    }
 
     public static boolean isOn(Player player) {
         return WraqCurios.isOn(VolcanoNewRune.class, player);

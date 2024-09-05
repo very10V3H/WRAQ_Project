@@ -61,8 +61,4 @@ public class EndRune extends WraqCurios implements UsageOrGetWayDescriptionItem 
         return 0;
     }
 
-    @Override
-    public boolean isArbitrarily() {
-        return false;
-    }
 }

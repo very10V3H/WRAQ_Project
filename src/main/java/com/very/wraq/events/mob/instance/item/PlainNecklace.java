@@ -59,10 +59,6 @@ public class PlainNecklace extends WraqCurios implements RandomCurios, UsageOrGe
         return components;
     }
 
-    @Override
-    public boolean isArbitrarily() {
-        return false;
-    }
 
     @Override
     public void setAttribute(ItemStack stack) {

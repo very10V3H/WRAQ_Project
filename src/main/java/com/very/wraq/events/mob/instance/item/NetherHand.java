@@ -59,10 +59,6 @@ public class NetherHand extends WraqCurios implements RandomCurios, UsageOrGetWa
         return 90;
     }
 
-    @Override
-    public boolean isArbitrarily() {
-        return false;
-    }
 
     @Override
     public void setAttribute(ItemStack stack) {

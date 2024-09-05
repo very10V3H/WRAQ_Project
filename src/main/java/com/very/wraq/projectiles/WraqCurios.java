@@ -60,8 +60,6 @@ public abstract class WraqCurios extends Item implements ICurioItem {
 
     public abstract int levelRequirement();
 
-    public abstract boolean isArbitrarily();
-
     @Override
     public void onEquip(SlotContext slotContext, ItemStack prevStack, ItemStack stack) {
         Compute.AddCuriosToList((Player) slotContext.entity(), stack);

@@ -65,10 +65,6 @@ public class SkyNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDes
         return 0;
     }
 
-    @Override
-    public boolean isArbitrarily() {
-        return false;
-    }
 
     public static void tick(Player player) {
         if (WraqCurios.isOn(SkyNewRune.class, player)) {

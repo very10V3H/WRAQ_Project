@@ -60,10 +60,6 @@ public class HuskNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDe
         return 0;
     }
 
-    @Override
-    public boolean isArbitrarily() {
-        return false;
-    }
 
     @Override
     public List<Component> getWayDescription() {

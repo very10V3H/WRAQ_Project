@@ -21,6 +21,7 @@ import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.misc.ParticlePackets.EffectParticle.CritHitParticleS2CPacket;
 import com.very.wraq.networking.misc.SoundsPackets.SoundsS2CPacket;
 import com.very.wraq.process.system.element.Element;
+import com.very.wraq.projectiles.OnHitEffectCurios;
 import com.very.wraq.projectiles.OnHitEffectMainHandWeapon;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.instance.series.castle.CastleAttackArmor;
@@ -255,6 +256,7 @@ public class AttackEvent {
             if (equip instanceof OnHitEffectMainHandWeapon onHitEffectMainHandWeapon) {
                 onHitEffectMainHandWeapon.onHit(player, monster);
             }
+            OnHitEffectCurios.hit(player, monster);
         }
         // effect
 
@@ -262,7 +264,6 @@ public class AttackEvent {
         Compute.ChargingModule(data, player);
         CastleSword.NormalAttack(player, monster, damage); //
         BlazeBracelet.Passive(player, monster); // 熔岩手镯
-        MoonSword.Passive(player, monster); //
         MoonSword.MoonSwordActive(player, monster); // 星蚀
         Compute.AdditionEffects(player, monster, damage + damageIgnoreDefence, 0);
 

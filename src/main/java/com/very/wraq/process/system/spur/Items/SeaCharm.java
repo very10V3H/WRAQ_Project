@@ -53,9 +53,5 @@ public class SeaCharm extends WraqCurios {
         return levelRequire;
     }
 
-    @Override
-    public boolean isArbitrarily() {
-        return false;
-    }
 
 }

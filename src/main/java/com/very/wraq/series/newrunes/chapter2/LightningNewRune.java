@@ -66,10 +66,6 @@ public class LightningNewRune extends WraqCurios implements RuneItem, UsageOrGet
         return 0;
     }
 
-    @Override
-    public boolean isArbitrarily() {
-        return false;
-    }
 
     @Override
     public List<Component> getWayDescription() {
