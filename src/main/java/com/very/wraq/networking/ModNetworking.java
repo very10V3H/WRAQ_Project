@@ -68,6 +68,8 @@ import com.very.wraq.process.func.plan.networking.DailySupplyS2CPacket;
 import com.very.wraq.process.system.randomStore.networking.TradeListClearS2CPacket;
 import com.very.wraq.process.system.randomStore.networking.TradeListS2CPacket;
 import com.very.wraq.process.system.smelt.SmeltDataS2CPacket;
+import com.very.wraq.process.system.smelt.SmeltHarvestC2SPacket;
+import com.very.wraq.process.system.smelt.SmeltRequestC2SPacket;
 import com.very.wraq.process.system.teamInstance.networking.NewTeamInstanceClearS2CPacket;
 import com.very.wraq.process.system.teamInstance.networking.NewTeamInstanceJoinedPlayerInfoS2CPacket;
 import com.very.wraq.process.system.teamInstance.networking.NewTeamInstancePrepareInfoS2CPacket;
@@ -1281,6 +1283,16 @@ public class ModNetworking {
                 .decoder(InjectC2SPacket::new)
                 .encoder(InjectC2SPacket::toBytes)
                 .consumerMainThread(InjectC2SPacket::handle)
+                .add();
+        net.messageBuilder(SmeltRequestC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(SmeltRequestC2SPacket::new)
+                .encoder(SmeltRequestC2SPacket::toBytes)
+                .consumerMainThread(SmeltRequestC2SPacket::handle)
+                .add();
+        net.messageBuilder(SmeltHarvestC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(SmeltHarvestC2SPacket::new)
+                .encoder(SmeltHarvestC2SPacket::toBytes)
+                .consumerMainThread(SmeltHarvestC2SPacket::handle)
                 .add();
     }
 

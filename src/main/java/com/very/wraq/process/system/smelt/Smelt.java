@@ -8,6 +8,7 @@ import net.minecraft.world.item.ItemStack;
 
 import java.text.ParseException;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Objects;
 
 public class Smelt {
@@ -30,20 +31,43 @@ public class Smelt {
     private static String getSmeltSlotInfo(Player player, int slotIndex) {
         int maxSlot = getMaxSmeltSlot(player);
         if (slotIndex > maxSlot) return null;
-        else return getPlayerSmeltTag(player).getString(smeltTagKey + slotIndex);
+        else {
+            CompoundTag data = getPlayerSmeltTag(player);
+            if (!data.contains(smeltTagKey + slotIndex)) {
+                return smeltSlotEmpty;
+            }
+            else {
+                return getPlayerSmeltTag(player).getString(smeltTagKey + slotIndex);
+            }
+        }
+    }
+
+    private static void setSmeltSlotInfo(Player player, int slotIndex, String info) {
+        int maxSlot = getMaxSmeltSlot(player);
+        if (slotIndex <= maxSlot) {
+            getPlayerSmeltTag(player).putString(smeltTagKey + slotIndex, info);
+        }
     }
 
     private static String getSmeltSlotInfoForClientSide(int slotIndex) {
         int maxSlot = clientData.getInt(maxSmeltSlotKey);
         if (slotIndex > maxSlot) return null;
-        else return clientData.getString(smeltTagKey + slotIndex);
+        else {
+            if (!clientData.contains(smeltTagKey + slotIndex)) {
+                return smeltSlotEmpty;
+            }
+            else {
+                return clientData.getString(smeltTagKey + slotIndex);
+            }
+        }
     }
 
+    // smeltSlotInfo 形如: 1$calendar 包含了配方下标与完成时间
     private static final String smeltSlotEmpty = "smeltSlotEmpty";
     private static boolean putSmeltSlotInfoToEmptySlot(Player player, String smeltSlotInfo) {
         int maxSlot = getMaxSmeltSlot(player);
         for (int i = 1 ; i <= maxSlot ; i ++) {
-            if (Objects.equals(getSmeltSlotInfo(player, i), smeltSlotInfo)) {
+            if (Objects.equals(getSmeltSlotInfo(player, i), smeltSlotEmpty)) {
                 getPlayerSmeltTag(player).putString(smeltSlotKeyPrefix + i, smeltSlotInfo);
                 return true;
             }
@@ -51,35 +75,38 @@ public class Smelt {
         return false;
     }
 
-    public static boolean putSmeltSlotInfoToEmptySlot(Player player, ItemStack itemStack, Calendar finishTime) {
-        return putSmeltSlotInfoToEmptySlot(player, Compute.getItemStackString(itemStack) + Compute.CalendarToString(finishTime));
+    public static boolean putSmeltSlotInfoToEmptySlot(Player player, int recipeIndex, Calendar finishTime) {
+        return putSmeltSlotInfoToEmptySlot(player, recipeIndex + "$" + Compute.CalendarToString(finishTime));
     }
 
-    // smeltSlotInfo 形如: itemStack$calendar 包含了产物与完成时间
-    private static ItemStack getSmeltItem(String smeltSlotInfo) throws CommandSyntaxException {
+    private static List<ItemStack> getProductList(String smeltSlotInfo) throws CommandSyntaxException {
         if (!smeltSlotInfo.contains("$")) {
-            return ItemStack.EMPTY;
+            return List.of();
         }
-        String itemStackString = smeltSlotInfo.split("\\$")[0];
-        return Compute.getItemFromString(itemStackString);
+        String[] s = smeltSlotInfo.split("\\$");
+        return SmeltRecipe.getRecipeByIndex(Integer.parseInt(s[0])).productList;
     }
 
-    public static ItemStack getSmeltItem(Player player, int slotIndex) throws CommandSyntaxException {
+    public static List<ItemStack> getProductList(Player player, int slotIndex) throws CommandSyntaxException {
         if (slotIndex > getMaxSmeltSlot(player)) {
-            return ItemStack.EMPTY;
+            return List.of();
         }
         String info = getSmeltSlotInfo(player, slotIndex);
-        if (info == null) return ItemStack.EMPTY;
-        return getSmeltItem(info);
+        if (Objects.equals(info, smeltSlotEmpty) || info == null) {
+            return List.of();
+        }
+        return getProductList(info);
     }
 
-    public static ItemStack getSmeltItemForClientSide(int slotIndex) throws CommandSyntaxException {
+    public static List<ItemStack> getSmeltItemForClientSide(int slotIndex) throws CommandSyntaxException {
         if (slotIndex > clientData.getInt(maxSmeltSlotKey)) {
-            return ItemStack.EMPTY;
+            return List.of();
         }
         String info = getSmeltSlotInfoForClientSide(slotIndex);
-        if (info == null) return ItemStack.EMPTY;
-        return getSmeltItem(info);
+        if (info == null || info.equals(smeltSlotEmpty)) {
+            return List.of();
+        }
+        return getProductList(info);
     }
 
     private static Calendar getSmeltFinishTime(String smeltSlotInfo) throws ParseException {
@@ -95,7 +122,7 @@ public class Smelt {
             return null;
         }
         String info = getSmeltSlotInfo(player, slotIndex);
-        if (info == null) return null;
+        if (info == null || info.equals(smeltSlotEmpty)) return null;
         return getSmeltFinishTime(info);
     }
 
@@ -104,7 +131,7 @@ public class Smelt {
             return null;
         }
         String info = getSmeltSlotInfoForClientSide(slotIndex);
-        if (info == null) return null;
+        if (info == null || info.equals(smeltSlotEmpty)) return null;
         return getSmeltFinishTime(info);
     }
 
@@ -113,7 +140,10 @@ public class Smelt {
         Calendar finishTime = getSmeltFinishTime(player, slotIndex);
         Calendar current = Calendar.getInstance();
         if (current.after(finishTime)) {
-            Compute.itemStackGive(player, getSmeltItem(player, slotIndex));
+            getProductList(player, slotIndex).forEach(stack -> {
+                Compute.itemStackGive(player, stack);
+            });
+            setSmeltSlotInfo(player, slotIndex, smeltSlotEmpty);
         }
     }
 
