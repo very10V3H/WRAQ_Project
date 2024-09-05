@@ -1,11 +1,11 @@
 package com.very.wraq.commands.changeable;
 
+import com.mojang.brigadier.Command;
+import com.mojang.brigadier.context.CommandContext;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.very.wraq.Items.Prefix.PrefixInfo;
 import com.very.wraq.blocks.blocks.brew.BrewingNote;
 import com.very.wraq.events.mob.MobSpawn;
-import com.very.wraq.events.mob.chapter6_castle.BeaconSpawnController;
-import com.very.wraq.events.mob.chapter6_castle.BlazeSpawnController;
-import com.very.wraq.events.mob.chapter6_castle.TreeSpawnController;
 import com.very.wraq.events.mob.chapter1.*;
 import com.very.wraq.events.mob.chapter2.*;
 import com.very.wraq.events.mob.chapter3_nether.MagmaSpawnController;
@@ -19,6 +19,9 @@ import com.very.wraq.events.mob.chapter5.BloodManaSpawnController;
 import com.very.wraq.events.mob.chapter5.EarthManaSpawnController;
 import com.very.wraq.events.mob.chapter5.PillagerSpawnController;
 import com.very.wraq.events.mob.chapter5.SakuraMobSpawnController;
+import com.very.wraq.events.mob.chapter6_castle.BeaconSpawnController;
+import com.very.wraq.events.mob.chapter6_castle.BlazeSpawnController;
+import com.very.wraq.events.mob.chapter6_castle.TreeSpawnController;
 import com.very.wraq.events.mob.chapter7.BoneImpSpawnController;
 import com.very.wraq.events.mob.chapter7.StarSpawnController;
 import com.very.wraq.events.mob.chapter7.TorturedSoulSpawnController;
@@ -40,7 +43,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 
 import java.util.*;
-import java.util.List;
 
 public class PrefixCommand implements Command<CommandSourceStack> {
     public static PrefixCommand instance = new PrefixCommand();
@@ -122,6 +124,35 @@ public class PrefixCommand implements Command<CommandSourceStack> {
         public Style getStyle() {
             return style;
         }
+    }
+
+    public static String simpleFlagPrefixDataKey = "simpleFlagPrefixDataKey";
+    public record SimpleFlagPrefixType(String tag, String prefix, Style style) implements PrefixCondition {
+
+        @Override
+        public int matchCondition(Player player) {
+            CompoundTag data = player.getPersistentData();
+            CompoundTag prefixData = data.getCompound(simpleFlagPrefixDataKey);
+            return prefixData.contains(tag) ? 1 : 0;
+        }
+
+        @Override
+        public String getPrefixDescription() {
+            return prefix;
+        }
+
+        @Override
+        public Style getStyle() {
+            return style;
+        }
+    }
+
+    public static boolean activePrefix(Player player, String tag) {
+        CompoundTag data = player.getPersistentData();
+        CompoundTag prefixData = data.getCompound(simpleFlagPrefixDataKey);
+        if (prefixData.contains(tag)) return false;
+        prefixData.putBoolean(tag, true);
+        return true;
     }
 
     public static List<PrefixCondition> simplePrefixTypeList = new ArrayList<>() {{
@@ -277,4 +308,24 @@ public class PrefixCommand implements Command<CommandSourceStack> {
             ModNetworking.sendToClient(new PrefixS2CPacket(prefixInfoToClient), serverPlayer);
         }
     }
+
+    public static void sendFormatMSG(Player player, Component component) {
+        Compute.sendFormatMSG(player, Component.literal("称号").withStyle(ChatFormatting.GOLD), component);
+    }
+
+    public static void sendFormatGetMSG(Player player, Component component) {
+        Compute.sendFormatMSG(player, Component.literal("称号").withStyle(ChatFormatting.GOLD),
+                Component.literal("已获得 ").withStyle(ChatFormatting.GREEN).
+                        append(Component.literal("称号 - ").withStyle(CustomStyle.styleOfWorld)).
+                        append(component));
+    }
+
+    public static void sendFormatActiveMSG(Player player, Component component) {
+        Compute.sendFormatMSG(player, Component.literal("称号").withStyle(ChatFormatting.GOLD),
+                Component.literal("已激活 ").withStyle(ChatFormatting.AQUA).
+                        append(Component.literal("称号 - ").withStyle(CustomStyle.styleOfWorld)).
+                        append(component));
+    }
+
+
 }
