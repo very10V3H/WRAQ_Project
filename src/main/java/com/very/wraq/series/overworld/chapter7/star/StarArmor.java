@@ -68,9 +68,9 @@ public class StarArmor extends WraqArmor {
                 || player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.StarHelmet.get())) {
             Item weapon = player.getItemInHand(InteractionHand.MAIN_HAND).getItem();
             if (Utils.swordTag.containsKey(weapon) && mob.distanceTo(player) <= 5)
-                return Compute.ArmorCount.Moon(player) * 0.25;
+                return Compute.SuitCount.getStarSuitCount(player) * 0.25;
             if ((Utils.bowTag.containsKey(weapon) || Utils.sceptreTag.containsKey(weapon)) && mob.distanceTo(player) >= 5)
-                return Compute.ArmorCount.Moon(player) * 0.25;
+                return Compute.SuitCount.getStarSuitCount(player) * 0.25;
         }
         return 0;
     }

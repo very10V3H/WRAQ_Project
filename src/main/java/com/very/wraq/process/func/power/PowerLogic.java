@@ -45,7 +45,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
@@ -278,7 +277,7 @@ public class PowerLogic {
         ParticleProvider.dustParticle(player, player.getEyePosition(), 6, 36, CustomStyle.styleOfPlain.getColor().getValue());
 
         if (Tool != null)
-            playerItemCoolDown(player, Tool, PlainPower.CoolDownTime[level] - ArmorCount.LifeManaE(player));
+            playerItemCoolDown(player, Tool, PlainPower.CoolDownTime[level] - SuitCount.getLifeManaESuitCount(player));
 
         ParticleProvider.DisperseParticle(TargetPos, (ServerLevel) player.level(), 1, 1, 120, ModParticles.LONG_PLAIN.get(), 1);
         ParticleProvider.DisperseParticle(TargetPos, (ServerLevel) player.level(), 1.5, 1, 120, ModParticles.LONG_PLAIN.get(), 1);
@@ -324,7 +323,7 @@ public class PowerLogic {
         ParticleProvider.dustParticle(player, player.getEyePosition(), 6, 36, CustomStyle.styleOfForest.getColor().getValue());
 
         if (Tool != null)
-            playerItemCoolDown(player, Tool, ForestPower.CoolDownTime[level] - ArmorCount.LifeManaE(player));
+            playerItemCoolDown(player, Tool, ForestPower.CoolDownTime[level] - SuitCount.getLifeManaESuitCount(player));
 
         ParticleProvider.GatherParticle(DesPos, (ServerLevel) player.level(), 1, 6, 120, ModParticles.LONG_FOREST.get(), 0.25);
         ParticleProvider.GatherParticle(DesPos, (ServerLevel) player.level(), 1.5, 6, 120, ModParticles.LONG_FOREST.get(), 0.25);
@@ -367,7 +366,7 @@ public class PowerLogic {
 
 
         if (Tool != null)
-            playerItemCoolDown(player, Tool, LakePower.CoolDownTime[tier] - ArmorCount.ObsiManaE(player) * 0.75);
+            playerItemCoolDown(player, Tool, LakePower.CoolDownTime[tier] - SuitCount.getObsiManaESuitCount(player) * 0.75);
 
         ParticleProvider.DisperseParticle(TargetPos, (ServerLevel) player.level(), 1, 1, 120, ModParticles.LONG_LAKE.get(), 1);
         ParticleProvider.DisperseParticle(TargetPos, (ServerLevel) player.level(), 1.5, 1, 120, ModParticles.LONG_LAKE.get(), 1);
@@ -410,7 +409,7 @@ public class PowerLogic {
         });
 
         if (Tool != null)
-            playerItemCoolDown(player, Tool, VolcanoPower.CoolDownTime[level] - ArmorCount.ObsiManaE(player) * 0.75);
+            playerItemCoolDown(player, Tool, VolcanoPower.CoolDownTime[level] - SuitCount.getObsiManaESuitCount(player) * 0.75);
 
         ParticleProvider.DisperseParticle(TargetPos, (ServerLevel) player.level(), 1, 1, 120, ModParticles.LONG_VOLCANO.get(), 1);
         ParticleProvider.DisperseParticle(TargetPos, (ServerLevel) player.level(), 1.5, 1, 120, ModParticles.LONG_VOLCANO.get(), 1);

@@ -554,7 +554,7 @@ public class AttackEventModule {
     } // 箭雨
 
     public static void SnowArmorEffect(Player player, Mob monster) {
-        if (Compute.ArmorCount.Snow(player) >= 4) {
+        if (Compute.SuitCount.getSnowSuitCount(player) >= 4) {
             monster.setDeltaMovement(0, 0, 0);
             monster.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 5, 100, false, false));
             player.getServer().getPlayerList().getPlayers().forEach(serverPlayer ->
@@ -563,7 +563,7 @@ public class AttackEventModule {
     }
 
     public static double NetherArmorEffect(Player player, Mob mob) {
-        if (Compute.ArmorCount.Nether(player) > 0) {
+        if (Compute.SuitCount.getNetherSuitCount(player) > 0) {
             double Defence = MobAttributes.defence(mob);
             return Math.min(0.5f, Defence * Compute.NetherSuitEffectRate(player) * 0.5f / 500.0d);
         }
@@ -571,7 +571,7 @@ public class AttackEventModule {
     }
 
     public static double NetherArmorEffect(Player player, Player hurter) {
-        if (Compute.ArmorCount.Nether(player) > 0) {
+        if (Compute.SuitCount.getNetherSuitCount(player) > 0) {
             double Defence = PlayerAttributes.defence(hurter);
             return Math.min(0.5f, Defence * Compute.NetherSuitEffectRate(player) * 0.5f / 500.0d);
         }
@@ -658,8 +658,8 @@ public class AttackEventModule {
     }
 
     public static double IceArmorDamageEnhance(Player player, Mob mob) {
-        if (Compute.ArmorCount.Ice(player) > 0 && mob.hasEffect(MobEffects.MOVEMENT_SLOWDOWN)) {
-            return Compute.ArmorCount.Ice(player) * 0.15;
+        if (Compute.SuitCount.getIceSuitCount(player) > 0 && mob.hasEffect(MobEffects.MOVEMENT_SLOWDOWN)) {
+            return Compute.SuitCount.getIceSuitCount(player) * 0.15;
         }
         return 0;
     }

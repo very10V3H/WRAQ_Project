@@ -263,7 +263,7 @@ public class ServerPlayerTickEvent {
                 FireWorkGun.RandomSummonFireworkRocket(player.level(),player);
             }*/
 
-            if (TickCount % 60 == 5 && Compute.ArmorCount.Ice(player) > 0 && player.isAlive()) {
+            if (TickCount % 60 == 5 && Compute.SuitCount.getIceSuitCount(player) > 0 && player.isAlive()) {
                 Level level = player.level();
                 List<Mob> mobList = level.getEntitiesOfClass(Mob.class, AABB.ofSize(player.position(), 15, 15, 15));
                 mobList.forEach(mob -> {
@@ -276,8 +276,8 @@ public class ServerPlayerTickEvent {
                             level.setBlockAndUpdate(new BlockPos(mob.getBlockX(), mob.getBlockY() + 1, mob.getBlockZ()), Blocks.ICE.defaultBlockState());
                             level.destroyBlock(new BlockPos(mob.getBlockX(), mob.getBlockY() + 1, mob.getBlockZ()), false);
                         }
-                        Compute.Damage.causeAttackDamageToMonster_RateAdDamage(player, mob, Compute.ArmorCount.Ice(player) * 0.5);
-                        Compute.Damage.causeManaDamageToMonster_RateApDamage(player, mob, Compute.ArmorCount.Ice(player) * 0.15, false);
+                        Compute.Damage.causeAttackDamageToMonster_RateAdDamage(player, mob, Compute.SuitCount.getIceSuitCount(player) * 0.5);
+                        Compute.Damage.causeManaDamageToMonster_RateApDamage(player, mob, Compute.SuitCount.getIceSuitCount(player) * 0.15, false);
                         Compute.addSlowDownEffect(mob, 40, 2);
                     }
                 });
@@ -332,8 +332,8 @@ public class ServerPlayerTickEvent {
                 Utils.dayOnlineCount.put(player.getName().getString(), Utils.dayOnlineCount.getOrDefault(player.getName().getString(), 0) + 1);
             }
 
-            if (player.tickCount % 200 == 0 && Compute.ArmorCount.PurpleIron(player) > 0) {
-                int Rate = Compute.ArmorCount.PurpleIron(player);
+            if (player.tickCount % 200 == 0 && Compute.SuitCount.getPurpleIronSuitCount(player) > 0) {
+                int Rate = Compute.SuitCount.getPurpleIronSuitCount(player);
                 Compute.playerShieldProvider(player, 100, player.getMaxHealth() * 0.1 * Rate);
                 Compute.sendEffectLastTime(player, ModItems.PurpleIron.get().getDefaultInstance(), 100);
             }
@@ -345,7 +345,7 @@ public class ServerPlayerTickEvent {
                         || player.isUnderWater()) && player.getEffect(ModEffects.WARM.get()) == null) {
                     if (player.isUnderWater()) Compute.PlayerColdNumAddOrCost(player, 0.1);
                     else {
-                        if (Compute.ArmorCount.Leather(player) > 0) Compute.PlayerColdNumAddOrCost(player, 0.1);
+                        if (Compute.SuitCount.getLeatherSuitCount(player) > 0) Compute.PlayerColdNumAddOrCost(player, 0.1);
                         else Compute.PlayerColdNumAddOrCost(player, 1);
                     }
                 } else Compute.PlayerColdNumAddOrCost(player, -1);
@@ -640,7 +640,7 @@ public class ServerPlayerTickEvent {
 
             Compute.PlayerShieldCompute(player);
 
-            if (Compute.ArmorCount.Sky(player) > 0 && TmpNum % 200 == 0 && player.getHealth() / player.getMaxHealth() <= 0.4) {
+            if (Compute.SuitCount.getSkySuitCount(player) > 0 && TmpNum % 200 == 0 && player.getHealth() / player.getMaxHealth() <= 0.4) {
                 Compute.playerShieldProvider(player, 200, PlayerAttributes.attackDamage(player) * 0.1 * Compute.SkySuitEffectRate(player));
             }
 

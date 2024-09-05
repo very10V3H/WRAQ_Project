@@ -38,10 +38,10 @@ public class VolcanoArmorHelmet extends ArmorItem {
     }
 
     public static double exAttackDamage(Player player) {
-        return Compute.ArmorCount.volcanoCountWithoutCrest(player) > 0 ? Math.min(100, player.experienceLevel) : 0;
+        return Compute.SuitCount.getVolcanoCountWithoutCrest(player) > 0 ? Math.min(100, player.experienceLevel) : 0;
     }
 
     public static double exManaDamage(Player player) {
-        return Compute.ArmorCount.volcanoCountWithoutCrest(player) > 0 ? Math.min(100, player.experienceLevel) * 2 : 0;
+        return Compute.SuitCount.getVolcanoCountWithoutCrest(player) > 0 ? Math.min(100, player.experienceLevel) * 2 : 0;
     }
 }

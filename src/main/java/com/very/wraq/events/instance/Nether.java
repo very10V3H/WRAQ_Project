@@ -256,7 +256,7 @@ public class Nether {
         Compute.itemStackGive(player, itemStack1);
 
         if (difficultyEnhanceRate == 4) {
-            ItemStack NetherGem = ModItems.NetherGem.get().getDefaultInstance();
+/*            ItemStack NetherGem = ModItems.NetherGem.get().getDefaultInstance();
             NetherGem.getOrCreateTagElement(Utils.MOD_ID);
 
             for (int i = 0; i < 6; i++) {
@@ -267,7 +267,7 @@ public class Nether {
                     Component.literal("").withStyle(ChatFormatting.WHITE).
                             append(Component.literal(player.getName().getString() + "获得了").withStyle(ChatFormatting.WHITE)).
                             append(NetherGem.getDisplayName()));
-            Compute.itemStackGive(player, NetherGem);
+            Compute.itemStackGive(player, NetherGem);*/
         }
     }
 }

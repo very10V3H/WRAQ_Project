@@ -1,15 +1,15 @@
 package com.very.wraq.series.overworld.chapter2.sky.Crest;
 
-import com.very.wraq.networking.ModNetworking;
-import com.very.wraq.networking.misc.CrestPackets.CrestStatusS2CPacket;
-import com.very.wraq.series.overworld.chapter2.sky.SkySuitDescription;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.common.util.Utils;
+import com.very.wraq.networking.ModNetworking;
+import com.very.wraq.networking.misc.CrestPackets.CrestStatusS2CPacket;
+import com.very.wraq.projectiles.CrestItem;
 import com.very.wraq.render.toolTip.CustomStyle;
+import com.very.wraq.series.overworld.chapter2.sky.SkySuitDescription;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.server.level.ServerPlayer;
@@ -24,7 +24,7 @@ import top.theillusivec4.curios.api.type.capability.ICurioItem;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class SkyCrest extends Item implements ICurioItem {
+public class SkyCrest extends Item implements ICurioItem, CrestItem {
 
     private final int Level;
     private final String CrestName = StringUtils.Crest.Sky.Crest;
@@ -63,8 +63,6 @@ public class SkyCrest extends Item implements ICurioItem {
     @Override
     public void onEquip(SlotContext slotContext, ItemStack prevStack, ItemStack stack) {
         Player player = (Player) slotContext.entity();
-        CompoundTag data = player.getPersistentData();
-        data.putInt(CrestName + Level, data.getInt(CrestName + Level) + 1);
         ModNetworking.sendToClient(new CrestStatusS2CPacket(7, true), (ServerPlayer) player);
         ICurioItem.super.onEquip(slotContext, prevStack, stack);
     }
@@ -72,8 +70,6 @@ public class SkyCrest extends Item implements ICurioItem {
     @Override
     public void onUnequip(SlotContext slotContext, ItemStack newStack, ItemStack stack) {
         Player player = (Player) slotContext.entity();
-        CompoundTag data = player.getPersistentData();
-        data.putInt(CrestName + Level, data.getInt(CrestName + Level) - 1);
         ModNetworking.sendToClient(new CrestStatusS2CPacket(7, false), (ServerPlayer) player);
         ICurioItem.super.onUnequip(slotContext, newStack, stack);
     }

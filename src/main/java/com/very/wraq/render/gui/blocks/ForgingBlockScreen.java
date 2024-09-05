@@ -104,13 +104,13 @@ public class ForgingBlockScreen extends AbstractContainerScreen<ForgingBlockMenu
         add(Component.literal(" 将要强化的").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("装备").withStyle(ChatFormatting.AQUA)).
                 append(Component.literal("放置于右下").withStyle(ChatFormatting.WHITE)));
-        add(Component.literal("5.重铸饰品").withStyle(ChatFormatting.AQUA));
+/*        add(Component.literal("5.重铸饰品").withStyle(ChatFormatting.AQUA));
         add(Component.literal("").withStyle(ChatFormatting.AQUA).
                 append(Component.literal(" 将").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("四元饰品").withStyle(ChatFormatting.LIGHT_PURPLE)).
                 append(Component.literal("或").withStyle(ChatFormatting.WHITE)).
                 append(ModItems.NetherGem.get().getDefaultInstance().getDisplayName()).
-                append(Component.literal("放置于左上").withStyle(ChatFormatting.WHITE)));
+                append(Component.literal("放置于左上").withStyle(ChatFormatting.WHITE)));*/
         add(Component.literal("6.分解锻造简易装备/随机饰品").withStyle(ChatFormatting.AQUA));
         add(Component.literal("").withStyle(ChatFormatting.AQUA).
                 append(Component.literal(" 将").withStyle(ChatFormatting.WHITE)).

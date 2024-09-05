@@ -84,6 +84,15 @@ public class LoginInEvent {
                 if (data.contains(singleReward)) data.remove(singleReward);
             }
 
+            for (int i = 1 ; i <= 12 ; i ++) {
+                String dataKey = "LevelReward" + i * 5;
+                data.remove(dataKey);
+            }
+
+            for (String string : StringUtils.Crest.CrestList) {
+                data.remove(string);
+            }
+
             String frontConditionForOldPlayer = "frontConditionForOldPlayer";
             if (!data.contains(frontConditionForOldPlayer)) {
                 data.putBoolean(frontConditionForOldPlayer, true);
@@ -149,16 +158,6 @@ public class LoginInEvent {
                 Compute.FormatMSGSend(player,Component.literal("补偿").withStyle(CustomStyle.styleOfSakura),
                         Component.literal("你有待领取的补偿，输入/vmd compensate [ice/devil/taboo/moon/castle/purple]领取补偿！").withStyle(ChatFormatting.AQUA));
             }*/
-
-            for (int i = 0; i < Utils.AttributeName.length; i++) {
-                if (data.contains(Utils.AttributeName[i])) {
-                    data.putDouble(Utils.AttributeName[i], 0);
-                }
-            }
-
-            for (String string : StringUtils.Crest.CrestList) {
-                if (data.contains(string)) data.putInt(string, 0);
-            }
 
             List<ServerPlayer> list = event.getEntity().getServer().getPlayerList().getPlayers();
             PrefixCommand.handlePrefix(list);
@@ -402,9 +401,6 @@ public class LoginInEvent {
             ModNetworking.sendToClient(new TeamInfoResetS2CPacket(), serverPlayer);
             CompoundTag data = serverPlayer.getPersistentData();
             data.putString(StringUtils.Login.Status, StringUtils.Login.Offline);
-            data.putInt("SLTIME", -1);
-            data.putInt("PFTIME", -1);
-            data.putInt("SVTIME", -1);
             Utils.IpArrayList.remove(serverPlayer.getIpAddress());
             for (String TickString : StringUtils.TickStringArray) {
                 if (data.contains(TickString)) data.putInt(TickString, 0);

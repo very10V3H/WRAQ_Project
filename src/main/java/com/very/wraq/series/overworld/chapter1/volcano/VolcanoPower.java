@@ -70,7 +70,7 @@ public class VolcanoPower extends Item implements ActiveItem {
 
     @Override
     public void active(Player player) {
-        if (Compute.playerManaCost(player, VolcanoPower.ManaCost[tier] - 10 * Compute.ArmorCount.ObsiManaE(player), true)) {
+        if (Compute.playerManaCost(player, VolcanoPower.ManaCost[tier] - 10 * Compute.SuitCount.getObsiManaESuitCount(player), true)) {
             PowerLogic.VolcanoPower(player, this, tier);
             PowerLogic.PlayerReleasePowerType(player, 7);
         }

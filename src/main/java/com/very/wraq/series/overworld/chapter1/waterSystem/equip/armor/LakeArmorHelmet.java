@@ -38,6 +38,6 @@ public class LakeArmorHelmet extends ArmorItem {
     }
 
     public static double exCooldown(Player player) {
-        return Compute.ArmorCount.lakeCountWithoutCrest(player) > 0 ? Math.min(100, player.experienceLevel) * 0.0025 : 0;
+        return Compute.SuitCount.getLakeSuitCountWithoutCrest(player) > 0 ? Math.min(100, player.experienceLevel) * 0.0025 : 0;
     }
 }

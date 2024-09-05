@@ -986,8 +986,6 @@ public class ModItems {
             () -> new KazeArmorBoots(ItemMaterial.ArmorKaze, ArmorItem.Type.BOOTS));
     public static final RegistryObject<Item> KazeBootsForgeDraw = ITEMS.register("kaze_boots_forge_draw",
             () -> new WraqForge(new Item.Properties().rarity(CustomStyle.KazeBold), ModItems.KazeBoots.get()));
-    public static final RegistryObject<Item> NetherGem = ITEMS.register("nethergem",
-            () -> new RandomGemNether(new Item.Properties().rarity(CustomStyle.NetherItalic)));
     public static final RegistryObject<Item> SpiderSoul = ITEMS.register("spidersoul",
             () -> new SpiderSoul(new Item.Properties().rarity(CustomStyle.SpiderRarity)));
     public static final RegistryObject<Item> SpiderRune = ITEMS.register("spiderrune",
@@ -1165,16 +1163,6 @@ public class ModItems {
             () -> new IntensifiedLightningSoul(new Item.Properties().rarity(CustomStyle.LightningBold)));
     public static final RegistryObject<Item> ArmorLightningRecall = ITEMS.register("armorlightningrecall",
             () -> new MobArmor(ItemMaterial.IslandMaterial, ArmorItem.Type.HELMET, 500, 50, 90));
-    public static final RegistryObject<Item> NetherGemPiece = ITEMS.register("nethergempiece",
-            () -> new NetherGemPiece(new Item.Properties().rarity(Rarity.EPIC)));
-    public static final RegistryObject<Item> NetherGemPieceBag1 = ITEMS.register("nethergempiecebag1",
-            () -> new NetherGemPieceBag1(new Item.Properties().rarity(Rarity.EPIC)));
-    public static final RegistryObject<Item> NetherGemPieceBag2 = ITEMS.register("nethergempiecebag2",
-            () -> new NetherGemPieceBag2(new Item.Properties().rarity(Rarity.EPIC)));
-    public static final RegistryObject<Item> NetherGemPieceBag3 = ITEMS.register("nethergempiecebag3",
-            () -> new NetherGemPieceBag3(new Item.Properties().rarity(Rarity.EPIC)));
-    public static final RegistryObject<Item> NetherGemPieceBag4 = ITEMS.register("nethergempiecebag4",
-            () -> new NetherGemPieceBag4(new Item.Properties().rarity(Rarity.EPIC)));
     public static final RegistryObject<Item> NetherRecallSoul = ITEMS.register("netherrecallsoul",
             () -> new RecallRuby(new Item.Properties().rarity(CustomStyle.Nether)));
     public static final RegistryObject<Item> IntensifiedNetherSoul = ITEMS.register("intensifiednetherrecallsoul",

@@ -97,7 +97,6 @@ public class TradeList {
 
         NetherPower();
         NetherArmor();
-        NetherGem();
         NetherBow();
         NetherSwordModel();
         NetherWeapon();
@@ -1405,36 +1404,6 @@ public class TradeList {
                     add(new ItemStack(ModItems.NetherArmorLeggings.get(), 2));
                     add(new ItemStack(ModItems.NetherArmorChest.get(), 2));
                     add(new ItemStack(ModItems.NetherArmorHelmet.get(), 2));
-                }});
-            }
-        }
-    }
-
-    public static void NetherGem() {
-        ItemStack[] itemStacks = {
-                ModItems.NetherGemPieceBag1.get().getDefaultInstance(),
-                ModItems.NetherGemPieceBag2.get().getDefaultInstance(),
-                ModItems.NetherGemPieceBag3.get().getDefaultInstance(),
-                ModItems.NetherGemPieceBag4.get().getDefaultInstance(),
-        };
-        List<ItemStack> contentList = new ArrayList<>();
-        Collections.addAll(contentList, itemStacks);
-        tradeContent.put(StringUtils.VillagerName.NetherGem, contentList);
-
-        for (int i = 0; i < itemStacks.length; i++) {
-            switch (i) {
-                case 0 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.NetherGemPiece.get(), 3));
-                }});
-                case 1 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.NetherGemPiece.get(), 9));
-                }});
-                case 2 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.NetherGemPiece.get(), 27));
-                }});
-                case 3 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.NetherGemPiece.get(), 64));
-                    add(new ItemStack(ModItems.NetherGemPiece.get(), 64));
                 }});
             }
         }

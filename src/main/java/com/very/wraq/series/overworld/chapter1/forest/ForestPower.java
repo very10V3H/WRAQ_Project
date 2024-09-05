@@ -76,7 +76,7 @@ public class ForestPower extends Item implements ActiveItem {
 
     @Override
     public void active(Player player) {
-        if (Compute.playerManaCost(player, ForestPower.ManaCost[tier] - 10 * Compute.ArmorCount.LifeManaE(player), true)) {
+        if (Compute.playerManaCost(player, ForestPower.ManaCost[tier] - 10 * Compute.SuitCount.getLifeManaESuitCount(player), true)) {
             PowerLogic.ForestPower(player, this, tier);
             PowerLogic.PlayerReleasePowerType(player, 5);
         }

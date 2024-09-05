@@ -78,7 +78,7 @@ public class CastleAttackArmor extends WraqArmor implements ForgeItem {
     public static WeakHashMap<Player, Integer> playerDoubleAttackTick = new WeakHashMap<>();
 
     public static void Tick(Player player) {
-        int ArmorCount = Compute.ArmorCount.CastleAttack(player);
+        int ArmorCount = Compute.SuitCount.getCastleAttackSuitCount(player);
         if (ArmorCount == 0) return;
         int TickCount = player.getServer().getTickCount();
         if (playerDoubleAttackTick.containsKey(player) && playerDoubleAttackTick.get(player) == TickCount) {
@@ -87,7 +87,7 @@ public class CastleAttackArmor extends WraqArmor implements ForgeItem {
     }
 
     public static void NormalAttack(Player player) {
-        int ArmorCount = Compute.ArmorCount.CastleAttack(player);
+        int ArmorCount = Compute.SuitCount.getCastleAttackSuitCount(player);
         if (ArmorCount == 0) return;
         int TickCount = player.getServer().getTickCount();
         playerDoubleAttackTick.put(player, TickCount + 4);
@@ -98,7 +98,7 @@ public class CastleAttackArmor extends WraqArmor implements ForgeItem {
     }
 
     public static double ExIgnoreDefenceDamage(Player player) {
-        int ArmorCount = Compute.ArmorCount.CastleAttack(player);
+        int ArmorCount = Compute.SuitCount.getCastleAttackSuitCount(player);
         if (ArmorCount == 0) return 0;
         return Compute.XpStrengthADDamage(player, 2) * ArmorCount;
     }

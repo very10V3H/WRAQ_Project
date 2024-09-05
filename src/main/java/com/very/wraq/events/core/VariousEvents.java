@@ -8,7 +8,6 @@ import com.very.wraq.common.attribute.PlayerAttributes;
 import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.util.ClientUtils;
 import com.very.wraq.common.util.ItemAndRate;
-import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.common.util.Utils;
 import com.very.wraq.events.instance.CastleSecondFloor;
 import com.very.wraq.events.mob.MobSpawn;
@@ -89,15 +88,6 @@ public class VariousEvents {
             if (event.isWasDeath()) {
                 Player player = event.getOriginal();
                 ServerPlayer serverPlayer = (ServerPlayer) player;
-                CompoundTag data = player.getPersistentData();
-                for (int i = 0; i < Utils.AttributeName.length; i++) {
-                    if (data.contains(Utils.AttributeName[i])) {
-                        data.putDouble(Utils.AttributeName[i], 0);
-                    }
-                }
-                for (String string : StringUtils.Crest.CrestList) {
-                    if (data.contains(string)) data.putInt(string, 0);
-                }
                 Compute.CuriosAttribute.resetCuriosList(player);
                 Compute.broad(event.getEntity().level(), Component.literal("[").withStyle(ChatFormatting.GRAY).append(Component.literal("维瑞阿契").withStyle(ChatFormatting.AQUA)).append("]").withStyle(ChatFormatting.GRAY).append(Component.literal(event.getEntity().getName().getString() + "在探索过程中身负重伤，经过救治恢复了活力。").withStyle(ChatFormatting.WHITE)));
                 event.getEntity().getPersistentData().merge(event.getOriginal().getPersistentData());
@@ -111,15 +101,6 @@ public class VariousEvents {
                 Utils.PlayerDeadTimeMap.put(player.getName().getString(), player.getServer().getTickCount() + 6000);
             } else {
                 Player player = event.getOriginal();
-                CompoundTag data = player.getPersistentData();
-                for (int i = 0; i < Utils.AttributeName.length; i++) {
-                    if (data.contains(Utils.AttributeName[i])) {
-                        data.putDouble(Utils.AttributeName[i], 0);
-                    }
-                }
-                for (String string : StringUtils.Crest.CrestList) {
-                    if (data.contains(string)) data.putInt(string, 0);
-                }
                 Compute.CuriosAttribute.resetCuriosList(player);
                 event.getEntity().getPersistentData().merge(event.getOriginal().getPersistentData());
                 ModNetworking.sendToClient(new AnimationTickResetS2CPacket(), (ServerPlayer) event.getEntity());

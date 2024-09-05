@@ -92,7 +92,7 @@ public class LakePower extends Item implements ActiveItem {
 
     @Override
     public void active(Player player) {
-        if (Compute.playerManaCost(player, LakePower.ManaCost[tier] - 10 * Compute.ArmorCount.ObsiManaE(player), true)) {
+        if (Compute.playerManaCost(player, LakePower.ManaCost[tier] - 10 * Compute.SuitCount.getObsiManaESuitCount(player), true)) {
             PowerLogic.LakePower(player, this, tier);
             PowerLogic.PlayerReleasePowerType(player, 6);
         }

@@ -493,12 +493,12 @@ public class AttackEvent {
     public static void SpringAttackArmor(Player player, Mob monster) {
         if (!Utils.PlayerSpringAttackCoolDown.containsKey(player)
                 || Utils.PlayerSpringAttackCoolDown.get(player) < player.getServer().getTickCount()) {
-            if (Compute.ArmorCount.SpringAttack(player) > 0) {
+            if (Compute.SuitCount.getSpringAttackSuitCount(player) > 0) {
                 Compute.FireWorkSummon(player, monster);
                 Compute.AddDefenceDescreaseEffectParticle(monster, 60);
                 Compute.coolDownTimeSend(player, ModItems.FireCracker.get().getDefaultInstance(), 100);
                 Utils.MobSpringAttackTick.put(monster, monster.getServer().getTickCount() + 60);
-                Utils.MobSpringAttackEffect.put(monster, Compute.ArmorCount.SpringAttack(player));
+                Utils.MobSpringAttackEffect.put(monster, Compute.SuitCount.getSpringAttackSuitCount(player));
                 Compute.addSlowDownEffect(monster, 60, 99);
                 Utils.PlayerSpringAttackCoolDown.put(player, player.getServer().getTickCount() + 60);
             }
@@ -508,12 +508,12 @@ public class AttackEvent {
     public static void SpringSwiftArmor(Player player, Mob monster) {
         if (!Utils.PlayerSpringSwiftCoolDown.containsKey(player)
                 || Utils.PlayerSpringSwiftCoolDown.get(player) < player.getServer().getTickCount()) {
-            if (Compute.ArmorCount.SpringSwift(player) > 0) {
+            if (Compute.SuitCount.getSpringSwiftSuitCount(player) > 0) {
                 Compute.FireWorkSummon(player, monster);
                 Compute.AddDefenceDescreaseEffectParticle(monster, 60);
                 Compute.coolDownTimeSend(player, ModItems.FireCracker.get().getDefaultInstance(), 100);
                 Utils.MobSpringSwiftTick.put(monster, monster.getServer().getTickCount() + 60);
-                Utils.MobSpringSwiftEffect.put(monster, Compute.ArmorCount.SpringSwift(player));
+                Utils.MobSpringSwiftEffect.put(monster, Compute.SuitCount.getSpringSwiftSuitCount(player));
                 Compute.addSlowDownEffect(monster, 60, 99);
                 Utils.PlayerSpringSwiftCoolDown.put(player, player.getServer().getTickCount() + 60);
 
@@ -524,12 +524,12 @@ public class AttackEvent {
     public static void SpringManaArmor(Player player, Mob monster) {
         if (!Utils.PlayerSpringManaCoolDown.containsKey(player)
                 || Utils.PlayerSpringManaCoolDown.get(player) < player.getServer().getTickCount()) {
-            if (Compute.ArmorCount.SpringMana(player) > 0) {
+            if (Compute.SuitCount.getSpringManaSuitCount(player) > 0) {
                 Compute.FireWorkSummon(player, monster);
                 Compute.AddManaDefenceDescreaseEffectParticle(monster, 60);
                 Compute.coolDownTimeSend(player, ModItems.FireCracker.get().getDefaultInstance(), 100);
                 Utils.MobSpringManaTick.put(monster, monster.getServer().getTickCount() + 60);
-                Utils.MobSpringManaEffect.put(monster, Compute.ArmorCount.SpringMana(player));
+                Utils.MobSpringManaEffect.put(monster, Compute.SuitCount.getSpringManaSuitCount(player));
                 Compute.addSlowDownEffect(monster, 60, 99);
                 Utils.PlayerSpringManaCoolDown.put(player, player.getServer().getTickCount() + 60);
             }

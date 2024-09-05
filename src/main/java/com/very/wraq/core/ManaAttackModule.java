@@ -538,7 +538,7 @@ public class ManaAttackModule {
     }
 
     public static double NetherManaArmor(Player player, Mob mob) {
-        return Compute.ArmorCount.NetherMana(player) * 0.12 * Math.min(1, MobAttributes.manaDefence(mob) / 500.0);
+        return Compute.SuitCount.getNetherManaSuitCount(player) * 0.12 * Math.min(1, MobAttributes.manaDefence(mob) / 500.0);
     }
 
     public static void IceSceptre(Player player, Mob mob) {
@@ -556,8 +556,8 @@ public class ManaAttackModule {
     }
 
     public static double EarthManaArmor(Player player, Mob mob) {
-        if (Compute.ArmorCount.EarthMana(player) > 0) {
-            return Compute.XpStrengthAPDamage(player, mob.getHealth() * 0.25 * Compute.ArmorCount.EarthMana(player) / mob.getMaxHealth());
+        if (Compute.SuitCount.getEarthManaSuitCount(player) > 0) {
+            return Compute.XpStrengthAPDamage(player, mob.getHealth() * 0.25 * Compute.SuitCount.getEarthManaSuitCount(player) / mob.getMaxHealth());
         }
         return 0;
     }

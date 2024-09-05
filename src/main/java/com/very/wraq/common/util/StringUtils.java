@@ -359,7 +359,6 @@ public class StringUtils {
             public static String Crest4 = "ManaCrest4";
         }
 
-        public static String Nether = "NetherCrest";
         public static String[] CrestList = {
                 Plain.Crest0, Plain.Crest1, Plain.Crest2, Plain.Crest3,
                 Forest.Crest0, Forest.Crest1, Forest.Crest2, Forest.Crest3,
@@ -369,7 +368,7 @@ public class StringUtils {
                 Snow.Crest0, Snow.Crest1, Snow.Crest2, Snow.Crest3,
                 Sky.Crest0, Sky.Crest1, Sky.Crest2, Sky.Crest3,
                 Mana.Crest0, Mana.Crest1, Mana.Crest2, Mana.Crest3,
-                Nether, Plain.Crest4, Forest.Crest4, Lake.Crest4, Volcano.Crest4,
+                Plain.Crest4, Forest.Crest4, Lake.Crest4, Volcano.Crest4,
                 Mine.Crest4, Snow.Crest4, Sky.Crest4, Mana.Crest4
         };
     }

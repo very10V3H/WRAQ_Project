@@ -38,7 +38,6 @@ public class CrestStatusS2CPacket {
                 case 6 -> ClientUtils.CrestMap.put(StringUtils.Crest.Snow.Crest, flag);
                 case 7 -> ClientUtils.CrestMap.put(StringUtils.Crest.Sky.Crest, flag);
                 case 8 -> ClientUtils.CrestMap.put(StringUtils.Crest.Mana.Crest, flag);
-                case 9 -> ClientUtils.CrestMap.put(StringUtils.Crest.Nether, flag);
             }
         });
         return true;

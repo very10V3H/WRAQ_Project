@@ -153,15 +153,15 @@ public class PlayerAttributes {
         if (leggingsTag.contains("newGems1")) exDamage += GemAttributes.gemsAttackDamage(leggingsTag);
         if (bootsTag.contains("newGems1")) exDamage += GemAttributes.gemsAttackDamage(bootsTag);
         if (stackmainhandtag.contains("newGems1") && Utils.mainHandTag.containsKey(mainhand)) exDamage += GemAttributes.gemsAttackDamage(stackmainhandtag);
-        if (Compute.ArmorCount.Volcano(player) >= 2) exDamage += baseAttackDamage * 0.15F;
-        if (Compute.ArmorCount.ObsiMana(player) >= 4) exDamage += baseAttackDamage * 0.15F;
+        if (Compute.SuitCount.getVolcanoSuitCount(player) >= 2) exDamage += baseAttackDamage * 0.15F;
+        if (Compute.SuitCount.getObsiManaSuitCount(player) >= 4) exDamage += baseAttackDamage * 0.15F;
         if (data.contains("Sword")) exDamage += baseAttackDamage * (data.getInt("Sword") / 1000000.0d);
         if (data.contains("Barker")) exDamage += baseAttackDamage * ((data.getInt("Barker") / 100000.0d) * 0.05);
         if (data.contains("volcanogems") && data.getBoolean("volcanogems")) exDamage += baseAttackDamage * 0.1;
         if (data.contains("ManaSwordActive") && data.getInt("ManaSwordActive") > 0)
             exDamage += data.getInt("ManaSwordActive");
 
-        if (Compute.ArmorCount.Sky(player) > 0) {
+        if (Compute.SuitCount.getSkySuitCount(player) > 0) {
             if (player.getHealth() / player.getMaxHealth() > 0.8)
                 exDamage += baseAttackDamage * 1 * Compute.SkySuitEffectRate(player);
             else if (player.getHealth() / player.getMaxHealth() > 0.4)
@@ -221,7 +221,7 @@ public class PlayerAttributes {
             exDamage += 50;
         // 矿工裤被动
 
-        if (Compute.ArmorCount.Mine(player) >= 4) exDamage += baseAttackDamage * 0.3;
+        if (Compute.SuitCount.getMineSuitCount(player) >= 4) exDamage += baseAttackDamage * 0.3;
 
         if (data.getInt(StringUtils.Crest.Volcano.Crest0) > 0)
             exDamage += VolcanoCrestAttributes.ExAttackDamage[0] * data.getInt(StringUtils.Crest.Volcano.Crest0);
@@ -474,7 +474,7 @@ public class PlayerAttributes {
             critDamage += PowerAbilityPoint * 0.01;
         } // 能力
 
-        if (Compute.ArmorCount.Volcano(player) >= 4) critDamage += 0.35;
+        if (Compute.SuitCount.getVolcanoSuitCount(player) >= 4) critDamage += 0.35;
 
         if (data.getInt(StringUtils.Crest.Sky.Crest0) > 0)
             critDamage += SkyCrestAttributes.CritDamage[0] * data.getInt(StringUtils.Crest.Sky.Crest0);
@@ -560,15 +560,15 @@ public class PlayerAttributes {
             movementSpeedUp += 0.6;
         // 妖刀-樱
 
-        if (Compute.ArmorCount.Lake(player) >= 4) movementSpeedUp += 0.35;
-        if (Compute.ArmorCount.Mine(player) >= 4) movementSpeedUp -= 0.5;
+        if (Compute.SuitCount.getLakeSuitCount(player) >= 4) movementSpeedUp += 0.35;
+        if (Compute.SuitCount.getMineSuitCount(player) >= 4) movementSpeedUp -= 0.5;
 
         if (player.getEffect(ModEffects.SPEEDUP.get()) != null && player.getEffect(ModEffects.SPEEDUP.get()).getAmplifier() == 0)
             movementSpeedUp += 0.3;
         if (player.getEffect(ModEffects.SPEEDUP.get()) != null && player.getEffect(ModEffects.SPEEDUP.get()).getAmplifier() == 1)
             movementSpeedUp += 0.6;
 
-        if (Compute.ArmorCount.Sky(player) > 0 && player.getHealth() / player.getMaxHealth() > 0.8)
+        if (Compute.SuitCount.getSkySuitCount(player) > 0 && player.getHealth() / player.getMaxHealth() > 0.8)
             movementSpeedUp += 0.4 * Compute.SkySuitEffectRate(player);
 
         int flexibilityAbilityPoint = data.getInt(StringUtils.Ability.Flexibility);
@@ -819,8 +819,8 @@ public class PlayerAttributes {
                 StringUtils.CuriosAttribute.xpLevelDefence) * player.experienceLevel;
 
         // 以下为额外护甲
-        if (Compute.ArmorCount.Forest(player) >= 2) exDefence += baseDefence * 0.25;
-        if (Compute.ArmorCount.LifeMana(player) >= 4) exDefence += baseDefence * 0.25;
+        if (Compute.SuitCount.getForestSuitCount(player) >= 2) exDefence += baseDefence * 0.25;
+        if (Compute.SuitCount.getLifeManaSuitCount(player) >= 4) exDefence += baseDefence * 0.25;
         if (data.contains("forestgems") && data.getBoolean("forestgems")) exDefence += baseDefence * 0.1;
         if (player.getEffect(ModEffects.DefenceUP.get()) != null && player.getEffect(ModEffects.DefenceUP.get()).getAmplifier() == 0)
             exDefence += baseDefence * 0.25 + 80;
@@ -830,7 +830,7 @@ public class PlayerAttributes {
         if (leggings.equals(ModItems.MinePants.get()) && (Utils.OverWorldLevelIsNight || player.getY() < 63))
             exDefence += 100;
         // 矿工裤被动
-        if (Compute.ArmorCount.Mine(player) >= 4) exDefence += 250;
+        if (Compute.SuitCount.getMineSuitCount(player) >= 4) exDefence += 250;
 
         if (helmet instanceof PiglinHelmet) {
             PiglinHelmet piglinHelmet = (PiglinHelmet) helmet;
@@ -930,7 +930,7 @@ public class PlayerAttributes {
             HealEffectUp += Utils.healEffectUp.get(mainhand);
         if (Utils.offHandTag.containsKey(offhand) && Utils.healEffectUp.containsKey(offhand))
             HealEffectUp += Utils.healEffectUp.get(offhand);
-        if (Compute.ArmorCount.Forest(player) >= 4) HealEffectUp += 0.5f;
+        if (Compute.SuitCount.getForestSuitCount(player) >= 4) HealEffectUp += 0.5f;
         int vitalityAbilityPoint = data.getInt(StringUtils.Ability.Vitality);
         if (data.contains(StringUtils.Ability.Vitality) && data.getInt(StringUtils.Ability.Vitality) > 0) {
             HealEffectUp += vitalityAbilityPoint * 0.01;
@@ -1066,8 +1066,8 @@ public class PlayerAttributes {
             releaseSpeed += Utils.coolDownDecrease.get(mainhand);
         if (Utils.offHandTag.containsKey(offhand) && Utils.coolDownDecrease.containsKey(offhand))
             releaseSpeed += Utils.coolDownDecrease.get(offhand);
-        if (Compute.ArmorCount.Lake(player) >= 2) releaseSpeed += 0.2;
-        if (Compute.ArmorCount.ObsiMana(player) >= 4) releaseSpeed += 0.2;
+        if (Compute.SuitCount.getLakeSuitCount(player) >= 2) releaseSpeed += 0.2;
+        if (Compute.SuitCount.getObsiManaSuitCount(player) >= 4) releaseSpeed += 0.2;
         if (player.getPersistentData().contains("Blue") && player.getPersistentData().getInt("Blue") == 0)
             releaseSpeed += player.getAttribute(Attributes.MOVEMENT_SPEED).getValue() - 0.1F;
         if (data.contains("lakegems") && data.getBoolean("lakegems")) releaseSpeed += 0.1;
@@ -1338,9 +1338,9 @@ public class PlayerAttributes {
             healthRecover += Utils.healthRecover.get(mainhand);
         if (Utils.offHandTag.containsKey(offhand) && Utils.healthRecover.containsKey(offhand))
             healthRecover += Utils.healthRecover.get(offhand);
-        if (Compute.ArmorCount.Plain(player) >= 2) healthRecover += 0.5 + player.getMaxHealth() * 0.01F;
-        if (Compute.ArmorCount.LifeMana(player) >= 4) healthRecover += 1 + player.getMaxHealth() * 0.01F;
-        if (!Utils.OverWorldLevelIsNight && Compute.ArmorCount.Forest(player) >= 4) healthRecover += 5;
+        if (Compute.SuitCount.getPlainSuitCount(player) >= 2) healthRecover += 0.5 + player.getMaxHealth() * 0.01F;
+        if (Compute.SuitCount.getLifeManaSuitCount(player) >= 4) healthRecover += 1 + player.getMaxHealth() * 0.01F;
+        if (!Utils.OverWorldLevelIsNight && Compute.SuitCount.getForestSuitCount(player) >= 4) healthRecover += 5;
 
         if (player.getEffect(ModEffects.HEALTHRECOVER.get()) != null && player.getEffect(ModEffects.HEALTHRECOVER.get()).getAmplifier() == 0)
             healthRecover += player.getMaxHealth() * 0.025;
@@ -1421,7 +1421,7 @@ public class PlayerAttributes {
             maxHealth += Utils.maxHealth.get(mainhand);
         if (Utils.offHandTag.containsKey(offhand) && Utils.maxHealth.containsKey(offhand))
             maxHealth += Utils.maxHealth.get(offhand);
-        if (Compute.ArmorCount.Plain(player) >= 4) maxHealth += 200;
+        if (Compute.SuitCount.getPlainSuitCount(player) >= 4) maxHealth += 200;
         if (data.contains("Barker")) maxHealth *= 1.0d + (data.getInt("Barker") / 100000.0d) * 0.05F;
 
         if (data.contains("GemSMaxHeal")) maxHealth += data.getDouble("GemSMaxHeal");
@@ -1566,8 +1566,8 @@ public class PlayerAttributes {
         if (data.getInt(StringUtils.Crest.Mana.Crest4) > 0)
             exDamage += ManaCrestAttributes.ExManaDamage[4] * data.getInt(StringUtils.Crest.Mana.Crest4);
 
-        if (Compute.ArmorCount.Volcano(player) >= 2) exDamage += baseDamage * 0.25F;
-        if (Compute.ArmorCount.ObsiMana(player) >= 4) exDamage += baseDamage * 0.25F;
+        if (Compute.SuitCount.getVolcanoSuitCount(player) >= 2) exDamage += baseDamage * 0.25F;
+        if (Compute.SuitCount.getObsiManaSuitCount(player) >= 4) exDamage += baseDamage * 0.25F;
 
         if (mainHandItemTag.contains(StringUtils.SoulEquipForge) && Utils.sceptreTag.containsKey(mainhand))
             exDamage +=
@@ -1655,7 +1655,7 @@ public class PlayerAttributes {
             ManaHealSteal += Utils.manaHealthSteal.get(mainhand);
         if (Utils.offHandTag.containsKey(offhand) && Utils.manaHealthSteal.containsKey(offhand))
             ManaHealSteal += Utils.manaHealthSteal.get(offhand);
-        if (Compute.ArmorCount.LifeMana(player) >= 4) ManaHealSteal += 0.05;
+        if (Compute.SuitCount.getLifeManaSuitCount(player) >= 4) ManaHealSteal += 0.05;
         if (Compute.ManaSkillLevelGet(data, 11) > 0 && Utils.sceptreTag.containsKey(mainhand))
             ManaHealSteal += Compute.ManaSkillLevelGet(data, 11) * 0.01;
         if (Utils.EarthManaCurios.containsKey(player) && Utils.EarthManaCurios.get(player)) ManaHealSteal += 0.05;
@@ -1716,8 +1716,8 @@ public class PlayerAttributes {
             manaRecover += Utils.manaRecover.get(mainhand);
         if (Utils.offHandTag.containsKey(offhand) && Utils.manaRecover.containsKey(offhand))
             manaRecover += Utils.manaRecover.get(offhand);
-        if (Compute.ArmorCount.LifeMana(player) >= 2) manaRecover += 5;
-        if (Compute.ArmorCount.ObsiMana(player) >= 2) manaRecover += 5;
+        if (Compute.SuitCount.getLifeManaSuitCount(player) >= 2) manaRecover += 5;
+        if (Compute.SuitCount.getObsiManaSuitCount(player) >= 2) manaRecover += 5;
         if (stackmainhandtag.contains("newGems1")) manaRecover += GemAttributes.gemsManaRecover(stackmainhandtag);
 
         if (player.getEffect(ModEffects.MANAREPLYUP.get()) != null && player.getEffect(ModEffects.MANAREPLYUP.get()).getAmplifier() == 0)
@@ -1912,7 +1912,7 @@ public class PlayerAttributes {
         // 请在上方添加
 
         healSteal *= Compute.playerFantasyAttributeEnhance(player);
-        healSteal *= (1 + Compute.ArmorCount.BloodMana(player) * 0.08);
+        healSteal *= (1 + Compute.SuitCount.getBloodManaSuitCount(player) * 0.08);
 
         if (player.getItemInHand(InteractionHand.OFF_HAND).is(ModItems.manaKnife.get())) {
             data.putDouble("HealthStealAfterCompute", healSteal);
@@ -2062,7 +2062,7 @@ public class PlayerAttributes {
         if (data.contains("lakegems") && data.getBoolean("lakegems")) manaPenetration0 += 10;
         if (data.contains("forestgems") && data.getBoolean("forestgems")) manaPenetration0 += 10;
 
-        if (Compute.ArmorCount.Volcano(player) >= 4) manaPenetration0 += 35;
+        if (Compute.SuitCount.getVolcanoSuitCount(player) >= 4) manaPenetration0 += 35;
 
         if (mainhand.equals(ModItems.ShipSceptre.get())) {
             if (Utils.ShipSceptreWaterBlockNum.containsKey(player)) {

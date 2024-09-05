@@ -76,7 +76,7 @@ public class PlainPower extends Item implements ActiveItem {
 
     @Override
     public void active(Player player) {
-        if (Compute.playerManaCost(player, PlainPower.manaCost[tier] - 10 * Compute.ArmorCount.LifeManaE(player), true)) {
+        if (Compute.playerManaCost(player, PlainPower.manaCost[tier] - 10 * Compute.SuitCount.getLifeManaESuitCount(player), true)) {
             PowerLogic.PlainPower(player, this, tier);
             PowerLogic.PlayerReleasePowerType(player, 4);
         }

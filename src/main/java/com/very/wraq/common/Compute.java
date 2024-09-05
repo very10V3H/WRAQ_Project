@@ -63,10 +63,7 @@ import com.very.wraq.process.system.endlessinstance.DailyEndlessInstance;
 import com.very.wraq.process.system.potion.NewPotionEffects;
 import com.very.wraq.process.system.teamInstance.NewTeamInstanceEvent;
 import com.very.wraq.process.system.tower.Tower;
-import com.very.wraq.projectiles.ActiveItem;
-import com.very.wraq.projectiles.OnKillEffectCurios;
-import com.very.wraq.projectiles.OnKillEffectOffHandItem;
-import com.very.wraq.projectiles.RandomCurios;
+import com.very.wraq.projectiles.*;
 import com.very.wraq.projectiles.mana.ManaArrow;
 import com.very.wraq.render.particles.ModParticles;
 import com.very.wraq.render.toolTip.CustomStyle;
@@ -79,10 +76,18 @@ import com.very.wraq.series.nether.Equip.WitherBook;
 import com.very.wraq.series.newrunes.chapter2.HuskNewRune;
 import com.very.wraq.series.newrunes.chapter3.NetherNewRune;
 import com.very.wraq.series.overworld.chapter1.ManaBook.ManaNote;
+import com.very.wraq.series.overworld.chapter1.Mine.Crest.MineCrest;
+import com.very.wraq.series.overworld.chapter1.Snow.Crest.SnowCrest;
 import com.very.wraq.series.overworld.chapter1.forest.bossItems.ForestBossSword;
+import com.very.wraq.series.overworld.chapter1.forest.crest.ForestCrest;
+import com.very.wraq.series.overworld.chapter1.plain.crest.PlainCrest;
 import com.very.wraq.series.overworld.chapter1.volcano.bossItems.VolcanoBossSword;
+import com.very.wraq.series.overworld.chapter1.volcano.crest.VolcanoCrest;
 import com.very.wraq.series.overworld.chapter1.waterSystem.bossItems.LakeBoss;
+import com.very.wraq.series.overworld.chapter1.waterSystem.crest.LakeCrest;
+import com.very.wraq.series.overworld.chapter2.evoker.Crest.ManaCrest;
 import com.very.wraq.series.overworld.chapter2.lightningIsland.Armor.LightningArmor;
+import com.very.wraq.series.overworld.chapter2.sky.Crest.SkyCrest;
 import com.very.wraq.series.overworld.chapter7.star.StarBottle;
 import com.very.wraq.series.overworld.chapter7.vd.VdWeaponCommon;
 import com.very.wraq.series.overworld.sakuraSeries.BloodMana.BloodManaCurios;
@@ -201,7 +206,7 @@ public class Compute {
             CritDamageDecrease += Utils.critDamageDecrease.get(mainhand);
         if (Utils.offHandTag.containsKey(offhand) && Utils.critDamageDecrease.containsKey(offhand))
             CritDamageDecrease += Utils.critDamageDecrease.get(offhand);
-        if (ArmorCount.Mine(player) >= 2) CritDamageDecrease += 0.5;
+        if (SuitCount.getMineSuitCount(player) >= 2) CritDamageDecrease += 0.5;
         return CritDamageDecrease;
     }
 
@@ -511,8 +516,8 @@ public class Compute {
             }
             return false;
         } else {
-            if (ArmorCount.EarthMana(player) > 0) {
-                playerHeal(player, manaCost * ArmorCount.EarthMana(player));
+            if (SuitCount.getEarthManaSuitCount(player) > 0) {
+                playerHeal(player, manaCost * SuitCount.getEarthManaSuitCount(player));
             }
             TabooManaArmor.storeCostToList(player, manaCost); //
             playerManaAddOrCost(player, -manaCost);
@@ -531,8 +536,8 @@ public class Compute {
             return false;
         } else {
             PowerLogic.playerLastTimeReleasePowerManaCost.put(player, manaCost);
-            if (ArmorCount.EarthMana(player) > 0) {
-                playerHeal(player, manaCost * ArmorCount.EarthMana(player));
+            if (SuitCount.getEarthManaSuitCount(player) > 0) {
+                playerHeal(player, manaCost * SuitCount.getEarthManaSuitCount(player));
             }
             TabooManaArmor.storeCostToList(player, manaCost); //
             playerManaAddOrCost(player, -manaCost);
@@ -645,23 +650,6 @@ public class Compute {
             }
         }
         return false;
-    }
-
-    public static void ComponentAddLevelReward(List<Component> components, int rate) {
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.GOLD, ChatFormatting.WHITE);
-        Compute.DescriptionOfBasic(components);
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.GOLD, ChatFormatting.WHITE);
-        Compute.DescriptionOfAddition(components);
-        if (rate != 12) {
-            components.add(Component.literal(" 当你获得下一等阶附身符时").
-                    append(Component.literal("(" + (rate + 1) * 5 + ")").withStyle(ChatFormatting.LIGHT_PURPLE)));
-            components.add(Component.literal("右键可以将附身符化为一些补给物资。"));
-        } else {
-            components.add(Component.literal("你在维瑞阿契已经有些时日了，感谢你的陪伴！").withStyle(ChatFormatting.WHITE));
-        }
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.GOLD, ChatFormatting.WHITE);
-        components.add(Component.literal("不断地探索，使你的阅历逐渐提高。").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
-        components.add(Component.literal("LevelReward").withStyle(ChatFormatting.LIGHT_PURPLE).withStyle(ChatFormatting.BOLD));
     }
 
     public static int ItemCheck(Player player, ItemStack itemStack) {
@@ -894,40 +882,6 @@ public class Compute {
         public static boolean IgnoreItemGet(Player player) {
             return player.getPersistentData().contains(StringUtils.IgnoreType.ItemGet)
                     && player.getPersistentData().getBoolean(StringUtils.IgnoreType.ItemGet);
-        }
-    }
-
-    public static void AttributeProvider(Player player, ItemStack stack) {
-        CompoundTag data = player.getPersistentData();
-        CompoundTag dataI = stack.getOrCreateTagElement(Utils.MOD_ID);
-        for (int i = 0; i < Utils.AttributeName.length; i++) {
-            if (dataI.contains(Utils.AttributeName[i])) {
-                if (data.contains(Utils.AttributeName[i])) {
-                    data.putDouble(Utils.AttributeName[i], data.getDouble(Utils.AttributeName[i]) + dataI.getDouble(Utils.AttributeName[i]));
-                } else data.putDouble(Utils.AttributeName[i], dataI.getDouble(Utils.AttributeName[i]));
-            }
-        }
-    }
-
-    public static void AttributeDecrease(Player player, ItemStack stack) {
-        CompoundTag data = player.getPersistentData();
-        CompoundTag dataI = stack.getOrCreateTagElement(Utils.MOD_ID);
-        for (int i = 0; i < Utils.AttributeName.length; i++) {
-            if (dataI.contains(Utils.AttributeName[i])) {
-                if (data.contains(Utils.AttributeName[i])) {
-                    data.putDouble(Utils.AttributeName[i], data.getDouble(Utils.AttributeName[i]) - dataI.getDouble(Utils.AttributeName[i]));
-                }
-            }
-        }
-    }
-
-    public static void RandomAttributeProvider(ItemStack stack, int num, double level, Player player) {
-        CompoundTag data = stack.getOrCreateTagElement(Utils.MOD_ID);
-        Random r = new Random();
-        for (int i = 0; i < num; i++) {
-            String Attribute = Utils.AttributeName[r.nextInt(Utils.AttributeName.length)];
-            double BaseValue = Utils.AttributeMap.get(Attribute);
-            data.putDouble(Attribute, data.getDouble(Attribute) + BaseValue * r.nextDouble(0.1, level));
         }
     }
 
@@ -2308,41 +2262,36 @@ public class Compute {
         return DamageInfluence;
     }
 
-    public static class ArmorCount {
-        public static int Star(Player player) {
-            int Count = 0;
-            if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.StarHelmet.get())) Count++;
-
-            if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.StarLeggings.get())) Count++;
-
-            return Count;
+    public static class SuitCount {
+        public static int getStarSuitCount(Player player) {
+            int count = 0;
+            if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.StarHelmet.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.StarLeggings.get())) count++;
+            return count;
         }
 
-        public static int Moon(Player player) {
-            int Count = 0;
-            if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.MoonHelmet.get())) Count++;
-
-            if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.MoonLeggings.get())) Count++;
-
-            return Count;
+        public static int getMoonSuitCount(Player player) {
+            int count = 0;
+            if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.MoonHelmet.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.MoonLeggings.get())) count++;
+            return count;
         }
 
-        public static int Plain(Player player) {
-            int Count = 0;
-            if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.PlainArmorHelmet.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.PlainArmorChest.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.PlainArmorLeggings.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.PlainArmorBoots.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.OFFHAND).is(ModItems.PlainBracelet.get())) Count++;
-            if (player.getPersistentData().getInt(StringUtils.Crest.Plain.Crest0) > 0
-                    || player.getPersistentData().getInt(StringUtils.Crest.Plain.Crest1) > 0
-                    || player.getPersistentData().getInt(StringUtils.Crest.Plain.Crest2) > 0
-                    || player.getPersistentData().getInt(StringUtils.Crest.Plain.Crest3) > 0
-                    || player.getPersistentData().getInt(StringUtils.Crest.Plain.Crest4) > 0) Count++;
-            return Count;
+        public static int getPlainSuitCount(Player player) {
+            int count = 0;
+            if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.PlainArmorHelmet.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.PlainArmorChest.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.PlainArmorLeggings.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.PlainArmorBoots.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.OFFHAND).is(ModItems.PlainBracelet.get())) count++;
+            count += (int) Utils.playerCuriosListMap.getOrDefault(player, new ArrayList<>())
+                    .stream().map(ItemStack::getItem)
+                    .filter(item -> item instanceof PlainCrest)
+                    .count();
+            return count;
         }
 
-        public static int plainCountWithoutCrest(Player player) {
+        public static int getPlainSuitCountWithoutCrest(Player player) {
             int count = 0;
             if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.PlainArmorHelmet.get())) count++;
             if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.PlainArmorChest.get())) count++;
@@ -2351,22 +2300,21 @@ public class Compute {
             return count;
         }
 
-        public static int Forest(Player player) {
-            int Count = 0;
-            if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.ForestArmorHelmet.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.ForestArmorChest.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.ForestArmorLeggings.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.ForestArmorBoots.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.OFFHAND).is(ModItems.ForestBracelet.get())) Count++;
-            if (player.getPersistentData().getInt(StringUtils.Crest.Forest.Crest0) > 0
-                    || player.getPersistentData().getInt(StringUtils.Crest.Forest.Crest1) > 0
-                    || player.getPersistentData().getInt(StringUtils.Crest.Forest.Crest2) > 0
-                    || player.getPersistentData().getInt(StringUtils.Crest.Forest.Crest3) > 0
-                    || player.getPersistentData().getInt(StringUtils.Crest.Forest.Crest4) > 0) Count++;
-            return Count;
+        public static int getForestSuitCount(Player player) {
+            int count = 0;
+            if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.ForestArmorHelmet.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.ForestArmorChest.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.ForestArmorLeggings.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.ForestArmorBoots.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.OFFHAND).is(ModItems.ForestBracelet.get())) count++;
+            count += (int) Utils.playerCuriosListMap.getOrDefault(player, new ArrayList<>())
+                    .stream().map(ItemStack::getItem)
+                    .filter(item -> item instanceof ForestCrest)
+                    .count();
+            return count;
         }
 
-        public static int forestCountWithoutCrest(Player player) {
+        public static int getForestSuitCountWithoutCrest(Player player) {
             int count = 0;
             if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.ForestArmorHelmet.get())) count++;
             if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.ForestArmorChest.get())) count++;
@@ -2375,22 +2323,21 @@ public class Compute {
             return count;
         }
 
-        public static int Lake(Player player) {
-            int Count = 0;
-            if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.LakeArmorHelmet.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.LakeArmorChest.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.LakeArmorLeggings.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.LakeArmorBoots.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.OFFHAND).is(ModItems.LakeBracelet.get())) Count++;
-            if (player.getPersistentData().getInt(StringUtils.Crest.Lake.Crest0) > 0
-                    || player.getPersistentData().getInt(StringUtils.Crest.Lake.Crest1) > 0
-                    || player.getPersistentData().getInt(StringUtils.Crest.Lake.Crest2) > 0
-                    || player.getPersistentData().getInt(StringUtils.Crest.Lake.Crest3) > 0
-                    || player.getPersistentData().getInt(StringUtils.Crest.Lake.Crest4) > 0) Count++;
-            return Count;
+        public static int getLakeSuitCount(Player player) {
+            int count = 0;
+            if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.LakeArmorHelmet.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.LakeArmorChest.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.LakeArmorLeggings.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.LakeArmorBoots.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.OFFHAND).is(ModItems.LakeBracelet.get())) count++;
+            count += (int) Utils.playerCuriosListMap.getOrDefault(player, new ArrayList<>())
+                    .stream().map(ItemStack::getItem)
+                    .filter(item -> item instanceof LakeCrest)
+                    .count();
+            return count;
         }
 
-        public static int lakeCountWithoutCrest(Player player) {
+        public static int getLakeSuitCountWithoutCrest(Player player) {
             int count = 0;
             if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.LakeArmorHelmet.get())) count++;
             if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.LakeArmorChest.get())) count++;
@@ -2399,22 +2346,21 @@ public class Compute {
             return count;
         }
 
-        public static int Volcano(Player player) {
-            int Count = 0;
-            if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.VolcanoArmorHelmet.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.VolcanoArmorChest.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.VolcanoArmorLeggings.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.VolcanoArmorBoots.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.OFFHAND).is(ModItems.VolcanoBracelet.get())) Count++;
-            if (player.getPersistentData().getInt(StringUtils.Crest.Volcano.Crest0) > 0
-                    || player.getPersistentData().getInt(StringUtils.Crest.Volcano.Crest1) > 0
-                    || player.getPersistentData().getInt(StringUtils.Crest.Volcano.Crest2) > 0
-                    || player.getPersistentData().getInt(StringUtils.Crest.Volcano.Crest3) > 0
-                    || player.getPersistentData().getInt(StringUtils.Crest.Volcano.Crest4) > 0) Count++;
-            return Count;
+        public static int getVolcanoSuitCount(Player player) {
+            int count = 0;
+            if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.VolcanoArmorHelmet.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.VolcanoArmorChest.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.VolcanoArmorLeggings.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.VolcanoArmorBoots.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.OFFHAND).is(ModItems.VolcanoBracelet.get())) count++;
+            count += (int) Utils.playerCuriosListMap.getOrDefault(player, new ArrayList<>())
+                    .stream().map(ItemStack::getItem)
+                    .filter(item -> item instanceof VolcanoCrest)
+                    .count();
+            return count;
         }
 
-        public static int volcanoCountWithoutCrest(Player player) {
+        public static int getVolcanoCountWithoutCrest(Player player) {
             int count = 0;
             if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.VolcanoArmorHelmet.get())) count++;
             if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.VolcanoArmorChest.get())) count++;
@@ -2423,238 +2369,217 @@ public class Compute {
             return count;
         }
 
-        public static int LifeMana(Player player) {
-            int Count = 0;
-            if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.LifeManaArmorHelmet.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.LifeManaArmorChest.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.LifeManaArmorLeggings.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.LifeManaArmorBoots.get())) Count++;
-            if (player.getPersistentData().getInt(StringUtils.Crest.Mana.Crest0) > 0
-                    || player.getPersistentData().getInt(StringUtils.Crest.Mana.Crest1) > 0
-                    || player.getPersistentData().getInt(StringUtils.Crest.Mana.Crest2) > 0
-                    || player.getPersistentData().getInt(StringUtils.Crest.Mana.Crest3) > 0
-                    || player.getPersistentData().getInt(StringUtils.Crest.Mana.Crest4) > 0) Count++;
-            if (player.getItemInHand(InteractionHand.OFF_HAND).getItem() instanceof ManaNote) Count++;
-            return Count;
+        public static int getLifeManaSuitCount(Player player) {
+            int count = 0;
+            if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.LifeManaArmorHelmet.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.LifeManaArmorChest.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.LifeManaArmorLeggings.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.LifeManaArmorBoots.get())) count++;
+            count += (int) Utils.playerCuriosListMap.getOrDefault(player, new ArrayList<>())
+                    .stream().map(ItemStack::getItem)
+                    .filter(item -> item instanceof ManaCrest)
+                    .count();
+            if (player.getItemInHand(InteractionHand.OFF_HAND).getItem() instanceof ManaNote) count++;
+            return count;
         }
 
-        public static int LifeManaE(Player player) {
-            int Count = 0;
-            if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.LifeManaArmorHelmetE.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.LifeManaArmorChestE.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.LifeManaArmorLeggingsE.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.LifeManaArmorBootsE.get())) Count++;
-            return Count;
+        public static int getLifeManaESuitCount(Player player) {
+            int count = 0;
+            if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.LifeManaArmorHelmetE.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.LifeManaArmorChestE.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.LifeManaArmorLeggingsE.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.LifeManaArmorBootsE.get())) count++;
+            return count;
         }
 
-        public static int ObsiMana(Player player) {
-            int Count = 0;
-            if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.ObsiManaArmorHelmet.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.ObsiManaArmorChest.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.ObsiManaArmorLeggings.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.ObsiManaArmorBoots.get())) Count++;
-            if (player.getPersistentData().getInt(StringUtils.Crest.Mana.Crest0) > 0
-                    || player.getPersistentData().getInt(StringUtils.Crest.Mana.Crest1) > 0
-                    || player.getPersistentData().getInt(StringUtils.Crest.Mana.Crest2) > 0
-                    || player.getPersistentData().getInt(StringUtils.Crest.Mana.Crest3) > 0
-                    || player.getPersistentData().getInt(StringUtils.Crest.Mana.Crest4) > 0) Count++;
-            if (player.getItemInHand(InteractionHand.OFF_HAND).getItem() instanceof ManaNote) Count++;
-            return Count;
+        public static int getObsiManaSuitCount(Player player) {
+            int count = 0;
+            if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.ObsiManaArmorHelmet.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.ObsiManaArmorChest.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.ObsiManaArmorLeggings.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.ObsiManaArmorBoots.get())) count++;
+            count += (int) Utils.playerCuriosListMap.getOrDefault(player, new ArrayList<>())
+                    .stream().map(ItemStack::getItem)
+                    .filter(item -> item instanceof ManaCrest)
+                    .count();
+            if (player.getItemInHand(InteractionHand.OFF_HAND).getItem() instanceof ManaNote) count++;
+            return count;
         }
 
-        public static int ObsiManaE(Player player) {
-            int Count = 0;
-            if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.ObsiManaArmorHelmetE.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.ObsiManaArmorChestE.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.ObsiManaArmorLeggingsE.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.ObsiManaArmorBootsE.get())) Count++;
-            return Count;
+        public static int getObsiManaESuitCount(Player player) {
+            int count = 0;
+            if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.ObsiManaArmorHelmetE.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.ObsiManaArmorChestE.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.ObsiManaArmorLeggingsE.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.ObsiManaArmorBootsE.get())) count++;
+            return count;
         }
 
-        public static int Mine(Player player) {
-            int Count = 0;
-            if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.MineArmorHelmet.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.MineArmorChest.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.MineArmorLeggings.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.MineArmorBoots.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.OFFHAND).is(ModItems.MineBracelet.get())) Count++;
+        public static int getMineSuitCount(Player player) {
+            int count = 0;
+            if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.MineArmorHelmet.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.MineArmorChest.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.MineArmorLeggings.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.MineArmorBoots.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.OFFHAND).is(ModItems.MineBracelet.get())) count++;
+            count += (int) Utils.playerCuriosListMap.getOrDefault(player, new ArrayList<>())
+                    .stream().map(ItemStack::getItem)
+                    .filter(item -> item instanceof MineCrest)
+                    .count();
 
-            if (player.getPersistentData().getInt(StringUtils.Crest.Mine.Crest0) > 0
-                    || player.getPersistentData().getInt(StringUtils.Crest.Mine.Crest1) > 0
-                    || player.getPersistentData().getInt(StringUtils.Crest.Mine.Crest2) > 0
-                    || player.getPersistentData().getInt(StringUtils.Crest.Mine.Crest3) > 0
-                    || player.getPersistentData().getInt(StringUtils.Crest.Mine.Crest4) > 0) Count++;
-
-            return Count;
+            return count;
         }
 
-        public static int Snow(Player player) {
-            int Count = 0;
-            if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.SnowArmorHelmet.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.SnowArmorChest.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.SnowArmorLeggings.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.SnowArmorBoots.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.OFFHAND).is(ModItems.SnowBracelet.get())) Count++;
-            if (player.getPersistentData().getInt(StringUtils.Crest.Snow.Crest0) > 0
-                    || player.getPersistentData().getInt(StringUtils.Crest.Snow.Crest1) > 0
-                    || player.getPersistentData().getInt(StringUtils.Crest.Snow.Crest2) > 0
-                    || player.getPersistentData().getInt(StringUtils.Crest.Snow.Crest3) > 0
-                    || player.getPersistentData().getInt(StringUtils.Crest.Snow.Crest4) > 0) Count++;
-            return Count;
+        public static int getSnowSuitCount(Player player) {
+            int count = 0;
+            if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.SnowArmorHelmet.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.SnowArmorChest.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.SnowArmorLeggings.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.SnowArmorBoots.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.OFFHAND).is(ModItems.SnowBracelet.get())) count++;
+            count += (int) Utils.playerCuriosListMap.getOrDefault(player, new ArrayList<>())
+                    .stream().map(ItemStack::getItem)
+                    .filter(item -> item instanceof SnowCrest)
+                    .count();
+            return count;
         }
 
-        public static int Sky(Player player) {
-            int Count = 0;
-            if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.SkyArmorHelmet.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.SkyArmorChest.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.SkyArmorLeggings.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.SkyArmorBoots.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.OFFHAND).is(ModItems.SkyBracelet.get())) Count++;
-            if (player.getPersistentData().getInt(StringUtils.Crest.Sky.Crest0) > 0
-                    || player.getPersistentData().getInt(StringUtils.Crest.Sky.Crest1) > 0
-                    || player.getPersistentData().getInt(StringUtils.Crest.Sky.Crest2) > 0
-                    || player.getPersistentData().getInt(StringUtils.Crest.Sky.Crest3) > 0
-                    || player.getPersistentData().getInt(StringUtils.Crest.Sky.Crest4) > 0) Count++;
-            if (Count > 4) return 4;
-            return Count;
+        public static int getSkySuitCount(Player player) {
+            int count = 0;
+            if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.SkyArmorHelmet.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.SkyArmorChest.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.SkyArmorLeggings.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.SkyArmorBoots.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.OFFHAND).is(ModItems.SkyBracelet.get())) count++;
+            count += (int) Utils.playerCuriosListMap.getOrDefault(player, new ArrayList<>())
+                    .stream().map(ItemStack::getItem)
+                    .filter(item -> item instanceof SkyCrest)
+                    .count();
+            return Math.min(count, 4);
         }
 
-        public static int Nether(Player player) {
-            int Count = 0;
-            if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.NetherArmorHelmet.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.NetherArmorChest.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.NetherArmorLeggings.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.NetherArmorBoots.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.OFFHAND).is(ModItems.NetherPower.get())) Count++;
-            if (player.getPersistentData().getInt(StringUtils.Crest.Nether) > 0) Count++;
-            if (Count > 4) return 4;
-            return Count;
+        public static int getNetherSuitCount(Player player) {
+            int count = 0;
+            if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.NetherArmorHelmet.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.NetherArmorChest.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.NetherArmorLeggings.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.NetherArmorBoots.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.OFFHAND).is(ModItems.NetherPower.get())) count++;
+            return Math.min(count, 4);
         }
 
-        public static int Leather(Player player) {
-            int Count = 0;
-            if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.LeatherArmorHelmet.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.LeatherArmorChest.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.LeatherArmorLeggings.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.LeatherArmorBoots.get())) Count++;
-            if (Count > 4) return 4;
-            return Count;
+        public static int getLeatherSuitCount(Player player) {
+            int count = 0;
+            if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.LeatherArmorHelmet.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.LeatherArmorChest.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.LeatherArmorLeggings.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.LeatherArmorBoots.get())) count++;
+            return count;
         }
 
-        public static int PurpleIron(Player player) {
-            int Count = 0;
-            if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.PurpleIronArmorHelmet.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.PurpleIronArmorChest.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.PurpleIronArmorLeggings.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.PurpleIronArmorBoots.get())) Count++;
-            if (Count > 4) return 4;
-            return Count;
+        public static int getPurpleIronSuitCount(Player player) {
+            int count = 0;
+            if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.PurpleIronArmorHelmet.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.PurpleIronArmorChest.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.PurpleIronArmorLeggings.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.PurpleIronArmorBoots.get())) count++;
+            return count;
         }
 
-        public static int Ice(Player player) {
-            int Count = 0;
-            if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.IceArmorHelmet.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.IceArmorChest.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.IceArmorLeggings.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.IceArmorBoots.get())) Count++;
-            if (Count > 4) return 4;
-            return Count;
+        public static int getIceSuitCount(Player player) {
+            int count = 0;
+            if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.IceArmorHelmet.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.IceArmorChest.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.IceArmorLeggings.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.IceArmorBoots.get())) count++;
+            return count;
         }
 
-        public static int NetherMana(Player player) {
-            int Count = 0;
-            if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.NetherManaArmorHelmet.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.NetherManaArmorChest.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.NetherManaArmorLeggings.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.NetherManaArmorBoots.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.MAINHAND).is(ModItems.NetherSceptre.get())) Count += 2;
-            if (Count > 6) return 6;
-            return Count;
+        public static int getNetherManaSuitCount(Player player) {
+            int count = 0;
+            if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.NetherManaArmorHelmet.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.NetherManaArmorChest.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.NetherManaArmorLeggings.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.NetherManaArmorBoots.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.MAINHAND).is(ModItems.NetherSceptre.get())) count += 2;
+            return count;
         }
 
-        public static int SpringAttack(Player player) {
-            int Count = 0;
-            if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.SpringAttackArmorHelmet.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.SpringAttackArmorChest.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.SpringAttackArmorLeggings.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.SpringAttackArmorBoots.get())) Count++;
-            if (Count > 4) return 4;
-            return Count;
+        public static int getSpringAttackSuitCount(Player player) {
+            int count = 0;
+            if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.SpringAttackArmorHelmet.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.SpringAttackArmorChest.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.SpringAttackArmorLeggings.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.SpringAttackArmorBoots.get())) count++;
+            return count;
         }
 
-        public static int SpringSwift(Player player) {
-            int Count = 0;
-            if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.SpringSwiftArmorHelmet.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.SpringSwiftArmorChest.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.SpringSwiftArmorLeggings.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.SpringSwiftArmorBoots.get())) Count++;
-            if (Count > 4) return 4;
-            return Count;
+        public static int getSpringSwiftSuitCount(Player player) {
+            int count = 0;
+            if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.SpringSwiftArmorHelmet.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.SpringSwiftArmorChest.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.SpringSwiftArmorLeggings.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.SpringSwiftArmorBoots.get())) count++;
+            return count;
         }
 
-        public static int SpringMana(Player player) {
-            int Count = 0;
-            if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.SpringManaArmorHelmet.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.SpringManaArmorChest.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.SpringManaArmorLeggings.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.SpringManaArmorBoots.get())) Count++;
-            if (Count > 4) return 4;
-            return Count;
+        public static int getSpringManaSuitCount(Player player) {
+            int count = 0;
+            if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.SpringManaArmorHelmet.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.SpringManaArmorChest.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.SpringManaArmorLeggings.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.SpringManaArmorBoots.get())) count++;
+            return count;
         }
 
-        public static int EarthMana(Player player) {
-            int Count = 0;
-            if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.EarthManaArmorHelmet.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.EarthManaArmorChest.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.EarthManaArmorLeggings.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.EarthManaArmorBoots.get())) Count++;
-            if (Count > 4) return 4;
-            return Count;
+        public static int getEarthManaSuitCount(Player player) {
+            int count = 0;
+            if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.EarthManaArmorHelmet.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.EarthManaArmorChest.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.EarthManaArmorLeggings.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.EarthManaArmorBoots.get())) count++;
+            return count;
         }
 
-        public static int BloodMana(Player player) {
-            int Count = 0;
-            if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.BloodManaArmorHelmet.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.BloodManaArmorChest.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.BloodManaArmorLeggings.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.BloodManaArmorBoots.get())) Count++;
-            if (Count > 4) return 4;
-            return Count;
+        public static int getBloodManaSuitCount(Player player) {
+            int count = 0;
+            if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.BloodManaArmorHelmet.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.BloodManaArmorChest.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.BloodManaArmorLeggings.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.BloodManaArmorBoots.get())) count++;
+            return count;
         }
 
-        public static int CastleAttack(Player player) {
-            int Count = 0;
-            if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.CastleAttackHelmet.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.CastleAttackChest.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.CastleAttackLeggings.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.CastleAttackBoots.get())) Count++;
-            if (Count > 4) return 4;
-            return Count;
+        public static int getCastleAttackSuitCount(Player player) {
+            int count = 0;
+            if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.CastleAttackHelmet.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.CastleAttackChest.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.CastleAttackLeggings.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.CastleAttackBoots.get())) count++;
+            return count;
         }
 
-        public static int CastleSwift(Player player) {
-            int Count = 0;
-            if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.CastleSwiftHelmet.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.CastleSwiftChest.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.CastleSwiftLeggings.get())) Count++;
-            if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.CastleSwiftBoots.get())) Count++;
-            if (Count > 4) return 4;
-            return Count;
+        public static int getCastleSwiftSuitCount(Player player) {
+            int count = 0;
+            if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.CastleSwiftHelmet.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.CastleSwiftChest.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.CastleSwiftLeggings.get())) count++;
+            if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.CastleSwiftBoots.get())) count++;
+            return count;
         }
 
-        public static int CastleMana(Player player) {
+        public static int getCastleManaSuitCount(Player player) {
             int Count = 0;
             if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.CastleManaHelmet.get())) Count++;
             if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.CastleManaChest.get())) Count++;
             if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.CastleManaLeggings.get())) Count++;
             if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.CastleManaBoots.get())) Count++;
-            if (Count > 4) return 4;
             return Count;
         }
     }
 
     public static double SkySuitEffectRate(Player player) {
-        int Count = ArmorCount.Sky(player);
+        int Count = SuitCount.getSkySuitCount(player);
         switch (Count) {
             case 1 -> {
                 return 0.2f;
@@ -2674,7 +2599,7 @@ public class Compute {
     }
 
     public static double NetherSuitEffectRate(Player player) {
-        int Count = ArmorCount.Nether(player);
+        int Count = SuitCount.getNetherSuitCount(player);
         switch (Count) {
             case 1 -> {
                 return 0.2f;
@@ -4136,22 +4061,29 @@ public class Compute {
         public static double attributeValue(Player player, Map<Item, Double> attributeMap, String attributeName) {
             if (Utils.playerCuriosListMap.containsKey(player)) {
                 AtomicReference<Double> value = new AtomicReference<>((double) 0);
-                List<ItemStack> list = Utils.playerCuriosListMap.get(player);
-                List<Item> itemList = new ArrayList<>();
-                list.forEach(itemStack -> {
-                    if (!itemList.contains(itemStack.getItem())
-                            && (!Utils.levelRequire.containsKey(itemStack.getItem())
-                            || player.experienceLevel >= Utils.levelRequire.get(itemStack.getItem()))) {
-                        if (attributeMap.containsKey(itemStack.getItem()))
-                            value.set(value.get() + attributeMap.get(itemStack.getItem()));
-                        CompoundTag data = itemStack.getOrCreateTagElement(Utils.MOD_ID);
+                List<ItemStack> curiosList = Utils.playerCuriosListMap.get(player);
+                Set<Item> itemSet = new HashSet<>();
+                curiosList.forEach(curiosStack -> {
+                    Item curiosItem = curiosStack.getItem();
+                    if (!itemSet.contains(curiosItem)
+                            && (!Utils.levelRequire.containsKey(curiosItem)
+                            || player.experienceLevel >= Utils.levelRequire.get(curiosItem))) {
+                        if (attributeMap.containsKey(curiosItem)) {
+                            value.set(value.get() + attributeMap.get(curiosItem));
+                        }
+                        CompoundTag data = curiosStack.getOrCreateTagElement(Utils.MOD_ID);
                         if (data.contains(attributeName)) {
-                            if (itemStack.getItem() instanceof RandomCurios)
+                            if (curiosItem instanceof RandomCurios) {
                                 value.set(value.get() + data.getDouble(attributeName)
                                         * CastleCurios.AttributeValueMap.get(attributeName));
-                            else value.set(value.get() + data.getInt(attributeName));
+                            }
+                            else {
+                                value.set(value.get() + data.getInt(attributeName));
+                            }
                         }
-                        itemList.add(itemStack.getItem());
+                        if (!(curiosItem instanceof CrestItem)) {
+                            itemSet.add(curiosStack.getItem());
+                        }
                     }
                 });
                 return value.get();

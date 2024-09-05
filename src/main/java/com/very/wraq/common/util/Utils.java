@@ -385,125 +385,10 @@ public class Utils {
     public static int SLController = 0;
     public static int NSController = -1;
     public static List<Player> NSPlayerController = new ArrayList<>();
-    public static List<Player> NSPlayerInController = new ArrayList<>();
-    public static boolean NSClear = false;
-    public static boolean NSS1 = false;
-    public static boolean NSS2 = false;
-    public static WitherSkeleton NSWitherSkeleton1;
-    public static WitherSkeleton NSWitherSkeleton2;
-    public static ZombifiedPiglin NSZombifiedPiglin1;
-    public static ZombifiedPiglin NSZombifiedPiglin2;
-    public static ZombifiedPiglin NSZombifiedPiglin3;
-    public static String[] AttributeName = {
-            "GemSAttack", // 20
-            "GemSBreakDefence", // 5%
-            "GemSCritRate", // 5%
-            "GemSCritDamage", // 20%
-            "GemSManaDamage", // 100
-            "GemSManaBreakDefence", // 5%
-            "GemSManaReply", // 1.5
-            "GemSCoolDown", // 5%
-            "GemSHealSteal", // 5%
-            "GemSDefence", // 40
-            "GemSManaDefence", // 40
-            "GemSSpeed", // 20%
-            "GemSMaxMana", // 10
-            "GemSMaxHeal", // 100
-            "GemSExpImprove", // 20%
-            "GemSDefencePenetration0", // 20
-            "GemSManaDefencePenetration0" // 20
-    };
-    public static Map<String, Double> AttributeMap = new HashMap<>() {{
-        put(AttributeName[0], 20d);
-        put(AttributeName[1], 0.05d);
-        put(AttributeName[2], 0.03d);
-        put(AttributeName[3], 0.2d);
-        put(AttributeName[4], 100d);
-        put(AttributeName[5], 0.05d);
-        put(AttributeName[6], 1.5d);
-        put(AttributeName[7], 0.03d);
-        put(AttributeName[8], 0.05d);
-        put(AttributeName[9], 40d);
-        put(AttributeName[10], 40d);
-        put(AttributeName[11], 0.2d);
-        put(AttributeName[12], 10d);
-        put(AttributeName[13], 100d);
-        put(AttributeName[14], 0.2d);
-        put(AttributeName[15], 20d);
-        put(AttributeName[16], 20d);
-    }};
-    public static boolean FileFlag = true;
-    public static boolean LogFlag = true;
 
-    public static boolean SecurityInitFlag = true;
     public static List<MarketItemInfo> marketItemInfos = new ArrayList<>();
     public static Map<String, Double> marketPlayerInfos = new HashMap<>();
-    public static ChatFormatting style = ChatFormatting.AQUA;
-    public static Map<String, ChatFormatting> prefixColorMap = new HashMap<>() {
-        {
-            put("初来乍到", ChatFormatting.GRAY);
-            put("平原统治者", ChatFormatting.GREEN);
-            put("森林统治者", ChatFormatting.DARK_GREEN);
-            put("湖泊统治者", ChatFormatting.BLUE);
-            put("火山统治者", ChatFormatting.YELLOW);
-            put("冰川统治者", ChatFormatting.AQUA);
-            put("天空统治者", ChatFormatting.AQUA);
-            put("唤魔森林统治者", ChatFormatting.LIGHT_PURPLE);
-            put("酿造初识", ChatFormatting.GRAY);
-            put("酿造入门", ChatFormatting.GREEN);
-            put("酿造初级", ChatFormatting.BLUE);
-            put("酿造中级", ChatFormatting.YELLOW);
-            put("酿造高级", ChatFormatting.AQUA);
-            put("酿造学士", ChatFormatting.GOLD);
-            put("酿造大师", ChatFormatting.LIGHT_PURPLE);
-            put("股市巴菲特", ChatFormatting.GOLD);
-            put("见习渔夫", ChatFormatting.DARK_GRAY);
-            put("入门渔夫", ChatFormatting.GRAY);
-            put("中阶渔夫", ChatFormatting.YELLOW);
-            put("高阶渔夫", ChatFormatting.BLUE);
-            put("经常空军的钓鱼佬", ChatFormatting.GOLD);
-            put("偶尔空军的钓鱼佬", ChatFormatting.RED);
-            put("永不空军的钓鱼佬", ChatFormatting.LIGHT_PURPLE);
-            put("见习矿工", ChatFormatting.DARK_GRAY);
-            put("入门矿工", ChatFormatting.GRAY);
-            put("职业矿工", ChatFormatting.GOLD);
-            put("悲催苦力矿工", ChatFormatting.GREEN);
-            put("一只挖矿的帕鲁", ChatFormatting.AQUA);
-            put("见习伐木工", ChatFormatting.DARK_GRAY);
-            put("入门伐木工", ChatFormatting.GRAY);
-            put("职业伐木工", ChatFormatting.GOLD);
-            put("光头强", ChatFormatting.GREEN);
-            put("一只砍树的帕鲁", ChatFormatting.AQUA);
-            put("见习农夫", ChatFormatting.DARK_GRAY);
-            put("入门农夫", ChatFormatting.GRAY);
-            put("职业农夫", ChatFormatting.GOLD);
-            put("农耕大师", ChatFormatting.GREEN);
-            put("一只种田的帕鲁", ChatFormatting.AQUA);
-            put("赌神", ChatFormatting.GOLD);
-            put("无产阶级", ChatFormatting.GOLD);
-        }
-    };
-    public static Map<String, Style> prefixStyleMap = new HashMap<>() {
-        {
-            put("神殿统治者", CustomStyle.styleOfSea);
-            put("唤雷岛统治者", CustomStyle.styleOfLightingIsland);
-            put("黑色森林统治者", CustomStyle.styleOfHusk);
-            put("风之谷统治者", CustomStyle.styleOfKaze);
-            put("微光森林统治者", CustomStyle.styleOfSpider);
-            put("终界统治者", CustomStyle.styleOfEnd);
-            put("绯樱树林统治者", CustomStyle.styleOfSakura);
-            put("樱岛稻田统治者", CustomStyle.styleOfWheat);
-            put("紫晶矿洞统治者", CustomStyle.styleOfPurpleIron);
-            put("冰原统治者", CustomStyle.styleOfIce);
-            put("废旧船厂统治者", CustomStyle.styleOfShip);
-            put("龙行龘龘", CustomStyle.styleOfSpring);
-            put("理塘王", CustomStyle.styleOfField);
-            put("旧世地蕴封印者", CustomStyle.styleOfMana);
-            put("旧世腥月封印者", CustomStyle.styleOfBloodMana);
-            put("史莱姆的好伙伴(?)", CustomStyle.styleOfHealth);
-            put("雨纷纷", CustomStyle.styleOfHealth);
-        }
-    };
+
     public static Component[] BrewingLevelName = {
             Component.literal("酿造初识").withStyle(ChatFormatting.GRAY),
             Component.literal("酿造入门").withStyle(ChatFormatting.GREEN),
@@ -592,8 +477,6 @@ public class Utils {
     public static Map<String, String> IpLoginMap = new HashMap<>();
 
     public static ArrayList<Item> CoolDownItem = new ArrayList<>();
-
-    public static HashMap<String, Double> PlayerAttackSpeedHashMap = new HashMap<>();
 
     public static void Init() {
         BrewSoulMap.put(ModItems.PlainSoul.get(), ModItems.PlainSolidifiedSoul.get());

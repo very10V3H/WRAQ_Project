@@ -1,14 +1,13 @@
 package com.very.wraq.series.overworld.chapter1.plain.crest;
 
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.misc.CrestPackets.CrestStatusS2CPacket;
+import com.very.wraq.projectiles.CrestItem;
 import com.very.wraq.series.overworld.chapter1.plain.PlainSuitDescription;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.StringUtils;
-import com.very.wraq.common.util.Utils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
@@ -22,7 +21,7 @@ import top.theillusivec4.curios.api.type.capability.ICurioItem;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class PlainCrest extends Item implements ICurioItem {
+public class PlainCrest extends Item implements ICurioItem, CrestItem {
 
     private final int Level;
 
@@ -58,8 +57,6 @@ public class PlainCrest extends Item implements ICurioItem {
     @Override
     public void onEquip(SlotContext slotContext, ItemStack prevStack, ItemStack stack) {
         Player player = (Player) slotContext.entity();
-        CompoundTag data = player.getPersistentData();
-        data.putInt(StringUtils.Crest.Plain.Crest + Level, data.getInt(StringUtils.Crest.Plain.Crest + Level) + 1);
         ModNetworking.sendToClient(new CrestStatusS2CPacket(1, true), (ServerPlayer) player);
         ICurioItem.super.onEquip(slotContext, prevStack, stack);
     }
@@ -67,8 +64,6 @@ public class PlainCrest extends Item implements ICurioItem {
     @Override
     public void onUnequip(SlotContext slotContext, ItemStack newStack, ItemStack stack) {
         Player player = (Player) slotContext.entity();
-        CompoundTag data = player.getPersistentData();
-        data.putInt(StringUtils.Crest.Plain.Crest + Level, data.getInt(StringUtils.Crest.Plain.Crest + Level) - 1);
         ModNetworking.sendToClient(new CrestStatusS2CPacket(1, false), (ServerPlayer) player);
         ICurioItem.super.onUnequip(slotContext, newStack, stack);
     }

@@ -37,7 +37,7 @@ public class PlainArmorHelmet extends ArmorItem {
     }
 
     public static double exMaxHealth(Player player) {
-        return Compute.ArmorCount.plainCountWithoutCrest(player) > 0 ? Math.min(100, player.experienceLevel) * 10 : 0;
+        return Compute.SuitCount.getPlainSuitCountWithoutCrest(player) > 0 ? Math.min(100, player.experienceLevel) * 10 : 0;
     }
 }
 

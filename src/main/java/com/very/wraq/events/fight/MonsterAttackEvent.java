@@ -234,7 +234,7 @@ public class MonsterAttackEvent {
     }
 
     public static void SnowArmorEffect(Player player, Mob monster) {
-        if (Compute.ArmorCount.Snow(player) >= 4) {
+        if (Compute.SuitCount.getSnowSuitCount(player) >= 4) {
             int TickCount = player.getServer().getTickCount();
             monster.setDeltaMovement(0, 0, 0);
             monster.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 5, 100, false, false));
