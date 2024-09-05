@@ -5,6 +5,7 @@ import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.MaterialItem;
 import com.very.wraq.series.specialevents.summer.SummerCurios2024;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.SimpleFoiledItem;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -32,4 +33,7 @@ public class SpecialEventItems {
 
     public static final RegistryObject<Item> SUMMER_CURIOS5 = ITEMS.register("summer24_curios5", () ->
             new SummerCurios2024(new Item.Properties().rarity(CustomStyle.WaterBold), 5));
+
+    public static final RegistryObject<Item> MID_AUTUMN_SOUL = ITEMS.register("mid_autumn_soul", () ->
+            new SimpleFoiledItem(new Item.Properties().rarity(CustomStyle.MoonBold)));
 }
