@@ -287,7 +287,7 @@ public class PlayerAttributes {
         exDamage += baseAttackDamage * EarthPower.PlayerDamageEnhance(player);
 
         // 新版饰品属性加成
-        exDamage += Compute.CuriosAttribute.attributeValue(player, Utils.attackDamage, StringUtils.CuriosAttribute.AttackDamage);
+        exDamage += Compute.CuriosAttribute.attributeValue(player, Utils.attackDamage, StringUtils.CuriosAttribute.attackDamage);
         exDamage += Compute.CuriosAttribute.attributeValue(player, Utils.xpLevelAttackDamage,
                 StringUtils.CuriosAttribute.xpLevelAttackDamage) * player.experienceLevel;
 
@@ -386,7 +386,7 @@ public class PlayerAttributes {
             critRate += 1 - (1 / (1 + manaRecoverValue));
         } // 法术专精-力凝魔核
 
-        critRate += Compute.CuriosAttribute.attributeValue(player, Utils.critRate, StringUtils.CuriosAttribute.CritRate); // 新版饰品属性加成
+        critRate += Compute.CuriosAttribute.attributeValue(player, Utils.critRate, StringUtils.CuriosAttribute.critRate); // 新版饰品属性加成
 
         critRate += AttackCurios2.playerCritRateUp(player);
         critRate += BowCurios2.playerCritRateUp(player);
@@ -508,7 +508,7 @@ public class PlayerAttributes {
             critDamage += data.getDouble("HealthStealAfterCompute") * 3;
         } // 猎魔者小刀
 
-        critDamage += Compute.CuriosAttribute.attributeValue(player, Utils.critDamage, StringUtils.CuriosAttribute.CritDamage); // 新版饰品属性加成
+        critDamage += Compute.CuriosAttribute.attributeValue(player, Utils.critDamage, StringUtils.CuriosAttribute.critDamage); // 新版饰品属性加成
 
         critDamage += Compute.PassiveEquip.getAttribute(player, Utils.critDamage); // 器灵属性加成
         critDamage += CastleAttackArmor.ExAttributeValue(player, CastleAttackArmor.ExCritDamage);
@@ -676,7 +676,7 @@ public class PlayerAttributes {
         }
 
         speedUp += Compute.CuriosAttribute.attributeValue(player, Utils.movementSpeedWithoutBattle,
-                StringUtils.CuriosAttribute.MovementSpeed); // 新版饰品属性加成
+                StringUtils.CuriosAttribute.movementSpeed); // 新版饰品属性加成
         speedUp += Compute.PassiveEquip.getAttribute(player, Utils.movementSpeedWithoutBattle); // 器灵属性加成
 
         // 请在上方添加
@@ -745,7 +745,7 @@ public class PlayerAttributes {
         if (stackmainhandtag.contains("newGems1") && Utils.mainHandTag.containsKey(mainhand))
             expUp += GemAttributes.gemsExpUp(stackmainhandtag);
 
-        expUp += Compute.CuriosAttribute.attributeValue(player, Utils.expUp, StringUtils.CuriosAttribute.ExpUp); // 新版饰品属性加成
+        expUp += Compute.CuriosAttribute.attributeValue(player, Utils.expUp, StringUtils.CuriosAttribute.expUp); // 新版饰品属性加成
 
         expUp += Compute.PassiveEquip.getAttribute(player, Utils.expUp); // 器灵属性加成
 
@@ -880,7 +880,7 @@ public class PlayerAttributes {
             exDefence += Utils.SnowShieldPlayerEffectMap.get(player);
         } // 玉山圆盾
 
-        exDefence += Compute.CuriosAttribute.attributeValue(player, Utils.defence, StringUtils.CuriosAttribute.Defence); // 新版饰品属性加成
+        exDefence += Compute.CuriosAttribute.attributeValue(player, Utils.defence, StringUtils.CuriosAttribute.defence); // 新版饰品属性加成
 
         exDefence += Compute.PassiveEquip.getAttribute(player, Utils.defence); // 器灵属性加成
 
@@ -943,7 +943,7 @@ public class PlayerAttributes {
         if (stackmainhandtag.contains("newGems1") && Utils.mainHandTag.containsKey(mainhand))
             HealEffectUp += GemAttributes.gemsHealEffectUp(stackmainhandtag);
 
-        HealEffectUp += Compute.CuriosAttribute.attributeValue(player, Utils.healEffectUp, StringUtils.CuriosAttribute.HealEffectUp); // 新版饰品属性加成
+        HealEffectUp += Compute.CuriosAttribute.attributeValue(player, Utils.healEffectUp, StringUtils.CuriosAttribute.healEffectUp); // 新版饰品属性加成
         return HealEffectUp;
     }
 
@@ -988,7 +988,7 @@ public class PlayerAttributes {
             if (BowSkill > Math.max(SwordSkill, ManaSkill)) SwiftnessUp += Utils.SpringScaleEffect.get(player) + 1;
         } //年兽鳞片
 
-        SwiftnessUp += Compute.CuriosAttribute.attributeValue(player, Utils.swiftnessUp, StringUtils.CuriosAttribute.SwiftnessUp); // 新版饰品属性加成
+        SwiftnessUp += Compute.CuriosAttribute.attributeValue(player, Utils.swiftnessUp, StringUtils.CuriosAttribute.swiftnessUp); // 新版饰品属性加成
 
         SwiftnessUp += Compute.PassiveEquip.getAttribute(player, Utils.swiftnessUp); // 器灵属性加成
         SwiftnessUp += CastleSwiftArmor.ExAttributeValue(player, CastleSwiftArmor.ExSwiftnessUp);
@@ -1101,7 +1101,7 @@ public class PlayerAttributes {
 
         releaseSpeed += EarthPower.PlayerCoolDownEnhance(player); // 地蕴法术
 
-        releaseSpeed += Compute.CuriosAttribute.attributeValue(player, Utils.coolDownDecrease, StringUtils.CuriosAttribute.CoolDown); // 新版饰品属性加成
+        releaseSpeed += Compute.CuriosAttribute.attributeValue(player, Utils.coolDownDecrease, StringUtils.CuriosAttribute.coolDown); // 新版饰品属性加成
         releaseSpeed += CastleManaArmor.ExAttributeValue(player, CastleManaArmor.ExCoolDownDecrease);
         releaseSpeed += LakeArmorHelmet.exCooldown(player);
 
@@ -1182,7 +1182,7 @@ public class PlayerAttributes {
             decreaseRate += GemAttributes.gemsDefencePenetration(stackmainhandtag);
 
         if (decreaseRate > 0) DefenceRate *= (1 - decreaseRate);
-        DefenceRate *= (1 - Compute.CuriosAttribute.attributeValue(player, Utils.defencePenetration, StringUtils.CuriosAttribute.DefencePenetration)); // 新版饰品属性加成
+        DefenceRate *= (1 - Compute.CuriosAttribute.attributeValue(player, Utils.defencePenetration, StringUtils.CuriosAttribute.defencePenetration)); // 新版饰品属性加成
 
         // 请在上方添加
         DefenceRate *= (2 - Compute.playerFantasyAttributeEnhance(player));
@@ -1293,7 +1293,7 @@ public class PlayerAttributes {
         if (stackmainhandtag.contains("newGems1") && Utils.mainHandTag.containsKey(mainhand))
             defencePenetration0 += GemAttributes.gemsDefencePenetration0(stackmainhandtag);
 
-        defencePenetration0 += Compute.CuriosAttribute.attributeValue(player, Utils.defencePenetration0, StringUtils.CuriosAttribute.DefencePenetration0); // 新版饰品属性加成
+        defencePenetration0 += Compute.CuriosAttribute.attributeValue(player, Utils.defencePenetration0, StringUtils.CuriosAttribute.defencePenetration0); // 新版饰品属性加成
 
         defencePenetration0 += CastleSword.ExPenetration0(player); // 暗黑武器主动
         defencePenetration0 += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerDefencePenetration0Modifier);
@@ -1361,7 +1361,7 @@ public class PlayerAttributes {
         if (data.getInt(StringUtils.Crest.Plain.Crest4) > 0)
             healthRecover += PlainCrestAttributes.HealthRecover[4] * data.getInt(StringUtils.Crest.Plain.Crest4);
 
-        healthRecover += Compute.CuriosAttribute.attributeValue(player, Utils.healthRecover, StringUtils.CuriosAttribute.HealthRecover); // 新版饰品属性加成
+        healthRecover += Compute.CuriosAttribute.attributeValue(player, Utils.healthRecover, StringUtils.CuriosAttribute.healthRecover); // 新版饰品属性加成
         healthRecover += PlainNewRune.playerHealthRecover(player);
         healthRecover += ForestNewRune.playerHealthRecoverUp(player);
 
@@ -1450,7 +1450,7 @@ public class PlayerAttributes {
             maxHealth += Utils.PlayerSpringHandMaxHealthAttribute.get(player);
         }
 
-        maxHealth += Compute.CuriosAttribute.attributeValue(player, Utils.maxHealth, StringUtils.CuriosAttribute.MaxHealth); // 新版饰品属性加成
+        maxHealth += Compute.CuriosAttribute.attributeValue(player, Utils.maxHealth, StringUtils.CuriosAttribute.maxHealth); // 新版饰品属性加成
 
         maxHealth += Compute.PassiveEquip.getAttribute(player, Utils.maxHealth); // 器灵属性加成
         maxHealth += CastleAttackArmor.ExAttributeValue(player, CastleAttackArmor.ExMaxHealth);
@@ -1608,7 +1608,7 @@ public class PlayerAttributes {
         if (Utils.DevilEarthManaCurios.containsKey(player) && Utils.DevilEarthManaCurios.get(player)) exDamage += 1600;
 
         exDamage += baseDamage * EarthPower.PlayerDamageEnhance(player);
-        exDamage += Compute.CuriosAttribute.attributeValue(player, Utils.manaDamage, StringUtils.CuriosAttribute.ManaDamage); // 新版饰品属性加成
+        exDamage += Compute.CuriosAttribute.attributeValue(player, Utils.manaDamage, StringUtils.CuriosAttribute.manaDamage); // 新版饰品属性加成
 
         exDamage += Compute.PassiveEquip.getAttribute(player, Utils.manaDamage); // 器灵属性加成
         exDamage += CastleManaArmor.ExAttributeValue(player, CastleManaArmor.ExManaDamage);
@@ -1674,7 +1674,7 @@ public class PlayerAttributes {
         if (Utils.DevilEarthManaCurios.containsKey(player) && Utils.DevilEarthManaCurios.get(player))
             ManaHealSteal += 0.05;
 
-        ManaHealSteal += Compute.CuriosAttribute.attributeValue(player, Utils.manaHealthSteal, StringUtils.CuriosAttribute.ManaHealthSteal); // 新版饰品属性加成
+        ManaHealSteal += Compute.CuriosAttribute.attributeValue(player, Utils.manaHealthSteal, StringUtils.CuriosAttribute.manaHealthSteal); // 新版饰品属性加成
         //请在上方添加
         ManaHealSteal *= Compute.playerFantasyAttributeEnhance(player);
 
@@ -1747,7 +1747,7 @@ public class PlayerAttributes {
             manaRecover += Utils.PlayerSpringBraceletManaRecoverAttribute.get(player);
         }
 
-        manaRecover += Compute.CuriosAttribute.attributeValue(player, Utils.manaRecover, StringUtils.CuriosAttribute.ManaRecover); // 新版饰品属性加成
+        manaRecover += Compute.CuriosAttribute.attributeValue(player, Utils.manaRecover, StringUtils.CuriosAttribute.manaRecover); // 新版饰品属性加成
         manaRecover += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerManaRecoverModifier);
         // 请在上方添加
         manaRecover *= Compute.playerFantasyAttributeEnhance(player);
@@ -1833,7 +1833,7 @@ public class PlayerAttributes {
         if (Utils.DevilEarthManaCurios.containsKey(player) && Utils.DevilEarthManaCurios.get(player)) exDefence += 400;
         if (Utils.DevilBloodManaCurios.containsKey(player) && Utils.DevilBloodManaCurios.get(player)) exDefence += 400;
 
-        exDefence += Compute.CuriosAttribute.attributeValue(player, Utils.manaDefence, StringUtils.CuriosAttribute.ManaDefence); // 新版饰品属性加成
+        exDefence += Compute.CuriosAttribute.attributeValue(player, Utils.manaDefence, StringUtils.CuriosAttribute.manaDefence); // 新版饰品属性加成
         exDefence += CastleAttackArmor.ExAttributeValue(player, CastleAttackArmor.ExManaDefence);
         exDefence += CastleManaArmor.ExAttributeValue(player, CastleManaArmor.ExManaDefence);
         exDefence += CastleSwiftArmor.ExAttributeValue(player, CastleSwiftArmor.ExManaDefence);
@@ -1907,7 +1907,7 @@ public class PlayerAttributes {
 
         if (Utils.DevilBloodManaCurios.containsKey(player) && Utils.DevilBloodManaCurios.get(player)) healSteal += 0.05;
 
-        healSteal += Compute.CuriosAttribute.attributeValue(player, Utils.healthSteal, StringUtils.CuriosAttribute.HealthSteal); // 新版饰品属性加成
+        healSteal += Compute.CuriosAttribute.attributeValue(player, Utils.healthSteal, StringUtils.CuriosAttribute.healthSteal); // 新版饰品属性加成
 
         // 请在上方添加
 
@@ -1991,7 +1991,7 @@ public class PlayerAttributes {
 
         if (DecreaseRate > 0) DefenceRate *= (1 - DecreaseRate);
 
-        DefenceRate *= (1 - Compute.CuriosAttribute.attributeValue(player, Utils.manaPenetration, StringUtils.CuriosAttribute.ManaPenetration)); // 新版饰品属性加成
+        DefenceRate *= (1 - Compute.CuriosAttribute.attributeValue(player, Utils.manaPenetration, StringUtils.CuriosAttribute.manaPenetration)); // 新版饰品属性加成
         // 请在上方添加
         DefenceRate *= (2 - Compute.playerFantasyAttributeEnhance(player));
 
@@ -2096,7 +2096,7 @@ public class PlayerAttributes {
         if (stackmainhandtag.contains("newGems1") && Utils.mainHandTag.containsKey(mainhand))
             manaPenetration0 += GemAttributes.gemsManaPenetration0(stackmainhandtag);
 
-        manaPenetration0 += Compute.CuriosAttribute.attributeValue(player, Utils.manaPenetration0, StringUtils.CuriosAttribute.ManaPenetration0); // 新版饰品属性加成
+        manaPenetration0 += Compute.CuriosAttribute.attributeValue(player, Utils.manaPenetration0, StringUtils.CuriosAttribute.manaPenetration0); // 新版饰品属性加成
 
         manaPenetration0 += TabooManaArmor.storeCostValue(player);
         manaPenetration0 += TabooManaArmor.PenetrationDirectEnhance(player);
@@ -2149,7 +2149,7 @@ public class PlayerAttributes {
             maxMana += player.getMaxHealth() * 0.075;
         } // 地蕴传世秘典
 
-        maxMana += Compute.CuriosAttribute.attributeValue(player, Utils.maxMana, StringUtils.CuriosAttribute.MaxMana); // 新版饰品属性加成
+        maxMana += Compute.CuriosAttribute.attributeValue(player, Utils.maxMana, StringUtils.CuriosAttribute.maxMana); // 新版饰品属性加成
 
         maxMana += Compute.PassiveEquip.getAttribute(player, Utils.maxMana); // 器灵属性加成
 

@@ -12,6 +12,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.item.ItemStack;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +39,7 @@ public class IceBelt extends WraqCurios implements RandomCurios, UsageOrGetWayDe
     public Component getTypeDescription() {
         return Component.literal("").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.getComprehensiveTypeDescriptionOfCurios()).
-                append(Component.literal(" v = 6 * 0.7").withStyle(CustomStyle.styleOfIce));
+                append(Component.literal(" v = 6 * " + BigDecimal.valueOf(rate()).stripTrailingZeros()).withStyle(CustomStyle.styleOfIce));
     }
 
     @Override
@@ -64,8 +65,13 @@ public class IceBelt extends WraqCurios implements RandomCurios, UsageOrGetWayDe
 
     @Override
     public void setAttribute(ItemStack stack) {
-        CastleCurios.randomAttackAttributeProvide(stack, 2, 0.7);
-        CastleCurios.randomDefenceAttributeProvide(stack, 2, 0.7);
-        CastleCurios.randomFunctionAttributeProvide(stack, 2, 0.7);
+        CastleCurios.randomAttackAttributeProvide(stack, 2, rate());
+        CastleCurios.randomDefenceAttributeProvide(stack, 2, rate());
+        CastleCurios.randomFunctionAttributeProvide(stack, 2, rate());
+    }
+
+    @Override
+    public double rate() {
+        return 0.7;
     }
 }

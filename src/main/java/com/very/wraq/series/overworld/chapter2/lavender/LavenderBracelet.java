@@ -18,6 +18,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class LavenderBracelet extends WraqCurios implements RandomCurios, UsageO
     public Component getTypeDescription() {
         return Component.literal("").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.getFuncTypeDescriptionOfCurios()).
-                append(Component.literal(" v = 3 * 0.5").withStyle(CustomStyle.styleOfPlain));
+                append(Component.literal(" v = 3 * " + BigDecimal.valueOf(rate())).withStyle(CustomStyle.styleOfPlain));
     }
 
     @Override
@@ -90,6 +91,11 @@ public class LavenderBracelet extends WraqCurios implements RandomCurios, UsageO
 
     @Override
     public void setAttribute(ItemStack stack) {
-        CastleCurios.randomDefenceAttributeProvide(stack, 3, 0.5);
+        CastleCurios.randomDefenceAttributeProvide(stack, 3, rate());
+    }
+
+    @Override
+    public double rate() {
+        return 0.5;
     }
 }

@@ -1116,29 +1116,29 @@ public class StringUtils {
     public static String MoonCuriosPlayerName = "MoonCuriosPlayerName";
 
     public static class CuriosAttribute {
-        public static String AttackDamage = "CuriosAttackDamage";
-        public static String ManaDamage = "CuriosManaDamage";
-        public static String MaxHealth = "MaxHealth";
-        public static String Defence = "Defence";
-        public static String DefencePenetration0 = "CuriosDefencePenetration0";
-        public static String ManaPenetration0 = "CuriosManaPenetration0";
-        public static String CoolDown = "CuriosCoolDown";
-        public static String ManaRecover = "CuriosManaRecover";
-        public static String MaxMana = "CuriosMaxMana";
-        public static String SwiftnessUp = "CuriosSwiftnessUp";
-        public static String CritDamage = "CuriosCritDamage";
-        public static String ExpUp = "CuriosExpUp";
-        public static String CritRate = "CuriosCritRate";
+        public static String attackDamage = "CuriosAttackDamage";
+        public static String manaDamage = "CuriosManaDamage";
+        public static String maxHealth = "MaxHealth";
+        public static String defence = "Defence";
+        public static String defencePenetration0 = "CuriosDefencePenetration0";
+        public static String manaPenetration0 = "CuriosManaPenetration0";
+        public static String coolDown = "CuriosCoolDown";
+        public static String manaRecover = "CuriosManaRecover";
+        public static String maxMana = "CuriosMaxMana";
+        public static String swiftnessUp = "CuriosSwiftnessUp";
+        public static String critDamage = "CuriosCritDamage";
+        public static String expUp = "CuriosExpUp";
+        public static String critRate = "CuriosCritRate";
 
-        public static String HealthSteal = "CuriosHealthSteal";
-        public static String DefencePenetration = "CuriosDefencePenetration";
-        public static String MovementSpeed = "CuriosMovementSpeed";
-        public static String HealthRecover = "CuriosHealthRecover";
-        public static String HealEffectUp = "CuriosHealEffectUp";
-        public static String ManaPenetration = "CuriosManaPenetration";
-        public static String ManaHealthSteal = "CuriosManaHealthSteal";
+        public static String healthSteal = "CuriosHealthSteal";
+        public static String defencePenetration = "CuriosDefencePenetration";
+        public static String movementSpeed = "CuriosMovementSpeed";
+        public static String healthRecover = "CuriosHealthRecover";
+        public static String healEffectUp = "CuriosHealEffectUp";
+        public static String manaPenetration = "CuriosManaPenetration";
+        public static String manaHealthSteal = "CuriosManaHealthSteal";
         public static String LuckyUp = "CuriosLuckyUp";
-        public static String ManaDefence = "CuriosManaDefence";
+        public static String manaDefence = "CuriosManaDefence";
 
         public static String commonMovementSpeed = "commonMovementSpeed";
 

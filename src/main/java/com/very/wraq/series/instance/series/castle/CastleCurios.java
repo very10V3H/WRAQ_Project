@@ -66,33 +66,33 @@ public class CastleCurios extends Item implements ICurioItem, RandomCurios {
         return true;
     }
 
-    public static Map<String, Double> AttributeValueMap = new HashMap<>() {{
-        put(StringUtils.CuriosAttribute.AttackDamage, 200d);
-        put(StringUtils.CuriosAttribute.ManaDamage, 400d);
-        put(StringUtils.CuriosAttribute.MaxHealth, 800d);
-        put(StringUtils.CuriosAttribute.Defence, 600d);
-        put(StringUtils.CuriosAttribute.ManaDefence, 500d);
-        put(StringUtils.CuriosAttribute.DefencePenetration0, 300d);
-        put(StringUtils.CuriosAttribute.ManaPenetration0, 300d);
-        put(StringUtils.CuriosAttribute.CoolDown, 0.3);
-        put(StringUtils.CuriosAttribute.ManaRecover, 30d);
-        put(StringUtils.CuriosAttribute.MaxMana, 50d);
-        put(StringUtils.CuriosAttribute.SwiftnessUp, 1.5);
-        put(StringUtils.CuriosAttribute.CritDamage, 0.4);
-        put(StringUtils.CuriosAttribute.ExpUp, 0.5);
-        put(StringUtils.CuriosAttribute.CritRate, 0.1);
-        put(StringUtils.CuriosAttribute.HealthSteal, 0.1);
-        put(StringUtils.CuriosAttribute.DefencePenetration, 0.15);
-        put(StringUtils.CuriosAttribute.MovementSpeed, 0.5);
-        put(StringUtils.CuriosAttribute.HealthRecover, 50d);
-        put(StringUtils.CuriosAttribute.HealEffectUp, 0.5);
-        put(StringUtils.CuriosAttribute.ManaPenetration, 0.15);
-        put(StringUtils.CuriosAttribute.ManaHealthSteal, 0.1);
+    public static Map<String, Double> attributeValueMap = new HashMap<>() {{
+        put(StringUtils.CuriosAttribute.attackDamage, 200d);
+        put(StringUtils.CuriosAttribute.manaDamage, 400d);
+        put(StringUtils.CuriosAttribute.maxHealth, 800d);
+        put(StringUtils.CuriosAttribute.defence, 600d);
+        put(StringUtils.CuriosAttribute.manaDefence, 500d);
+        put(StringUtils.CuriosAttribute.defencePenetration0, 300d);
+        put(StringUtils.CuriosAttribute.manaPenetration0, 300d);
+        put(StringUtils.CuriosAttribute.coolDown, 0.3);
+        put(StringUtils.CuriosAttribute.manaRecover, 30d);
+        put(StringUtils.CuriosAttribute.maxMana, 50d);
+        put(StringUtils.CuriosAttribute.swiftnessUp, 1.5);
+        put(StringUtils.CuriosAttribute.critDamage, 0.4);
+        put(StringUtils.CuriosAttribute.expUp, 0.5);
+        put(StringUtils.CuriosAttribute.critRate, 0.1);
+        put(StringUtils.CuriosAttribute.healthSteal, 0.1);
+        put(StringUtils.CuriosAttribute.defencePenetration, 0.15);
+        put(StringUtils.CuriosAttribute.movementSpeed, 0.5);
+        put(StringUtils.CuriosAttribute.healthRecover, 50d);
+        put(StringUtils.CuriosAttribute.healEffectUp, 0.5);
+        put(StringUtils.CuriosAttribute.manaPenetration, 0.15);
+        put(StringUtils.CuriosAttribute.manaHealthSteal, 0.1);
     }};
 
     public static void randomAttributeProvide(ItemStack itemStack, int attributeNum, double rate) {
         CompoundTag data = itemStack.getOrCreateTagElement(Utils.MOD_ID);
-        List<String> attributeList = new ArrayList<>(AttributeValueMap.keySet());
+        List<String> attributeList = new ArrayList<>(attributeValueMap.keySet());
         Random random = new Random();
         for (int i = 0; i < attributeNum; i++) {
             String Attribute = attributeList.get(random.nextInt(attributeList.size()));
@@ -104,16 +104,16 @@ public class CastleCurios extends Item implements ICurioItem, RandomCurios {
         CompoundTag data = itemStack.getOrCreateTagElement(Utils.MOD_ID);
         List<String> attributeList = new ArrayList<>() {{
             String[] strings = {
-                    StringUtils.CuriosAttribute.AttackDamage,
-                    StringUtils.CuriosAttribute.ManaDamage,
-                    StringUtils.CuriosAttribute.DefencePenetration0,
-                    StringUtils.CuriosAttribute.ManaPenetration0,
-                    StringUtils.CuriosAttribute.CritRate,
-                    StringUtils.CuriosAttribute.CritDamage,
-                    StringUtils.CuriosAttribute.HealthSteal,
-                    StringUtils.CuriosAttribute.ManaHealthSteal,
-                    StringUtils.CuriosAttribute.DefencePenetration,
-                    StringUtils.CuriosAttribute.ManaPenetration,
+                    StringUtils.CuriosAttribute.attackDamage,
+                    StringUtils.CuriosAttribute.manaDamage,
+                    StringUtils.CuriosAttribute.defencePenetration0,
+                    StringUtils.CuriosAttribute.manaPenetration0,
+                    StringUtils.CuriosAttribute.critRate,
+                    StringUtils.CuriosAttribute.critDamage,
+                    StringUtils.CuriosAttribute.healthSteal,
+                    StringUtils.CuriosAttribute.manaHealthSteal,
+                    StringUtils.CuriosAttribute.defencePenetration,
+                    StringUtils.CuriosAttribute.manaPenetration,
             };
             addAll(List.of(strings));
         }};
@@ -128,11 +128,11 @@ public class CastleCurios extends Item implements ICurioItem, RandomCurios {
         CompoundTag data = itemStack.getOrCreateTagElement(Utils.MOD_ID);
         List<String> attributeList = new ArrayList<>() {{
             String[] strings = {
-                    StringUtils.CuriosAttribute.MaxHealth,
-                    StringUtils.CuriosAttribute.Defence,
-                    StringUtils.CuriosAttribute.ManaDefence,
-                    StringUtils.CuriosAttribute.HealthRecover,
-                    StringUtils.CuriosAttribute.HealEffectUp
+                    StringUtils.CuriosAttribute.maxHealth,
+                    StringUtils.CuriosAttribute.defence,
+                    StringUtils.CuriosAttribute.manaDefence,
+                    StringUtils.CuriosAttribute.healthRecover,
+                    StringUtils.CuriosAttribute.healEffectUp
             };
             addAll(List.of(strings));
         }};
@@ -147,12 +147,12 @@ public class CastleCurios extends Item implements ICurioItem, RandomCurios {
         CompoundTag data = itemStack.getOrCreateTagElement(Utils.MOD_ID);
         List<String> attributeList = new ArrayList<>() {{
             String[] strings = {
-                    StringUtils.CuriosAttribute.CoolDown,
-                    StringUtils.CuriosAttribute.ManaRecover,
-                    StringUtils.CuriosAttribute.MaxMana,
-                    StringUtils.CuriosAttribute.SwiftnessUp,
-                    StringUtils.CuriosAttribute.ExpUp,
-                    StringUtils.CuriosAttribute.MovementSpeed
+                    StringUtils.CuriosAttribute.coolDown,
+                    StringUtils.CuriosAttribute.manaRecover,
+                    StringUtils.CuriosAttribute.maxMana,
+                    StringUtils.CuriosAttribute.swiftnessUp,
+                    StringUtils.CuriosAttribute.expUp,
+                    StringUtils.CuriosAttribute.movementSpeed
             };
             addAll(List.of(strings));
         }};
@@ -165,7 +165,12 @@ public class CastleCurios extends Item implements ICurioItem, RandomCurios {
 
     @Override
     public void setAttribute(ItemStack stack) {
-        CastleCurios.randomAttributeProvide(stack, 6, 1);
+        CastleCurios.randomAttributeProvide(stack, 6, rate());
+    }
+
+    @Override
+    public double rate() {
+        return 1;
     }
 
     public static class RandomPassiveName {

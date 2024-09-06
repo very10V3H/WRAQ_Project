@@ -7,7 +7,7 @@ import net.minecraft.network.chat.Style;
 
 public class Te {
     public static MutableComponent m(String v) {
-        return Component.literal(v);
+        return Component.literal(v).withStyle(ChatFormatting.WHITE);
     }
 
     public static MutableComponent m(String v, Style style) {

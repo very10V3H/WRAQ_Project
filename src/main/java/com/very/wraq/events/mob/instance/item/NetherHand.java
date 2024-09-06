@@ -11,6 +11,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.item.ItemStack;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +37,7 @@ public class NetherHand extends WraqCurios implements RandomCurios, UsageOrGetWa
     public Component getTypeDescription() {
         return Component.literal("").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.getAttackTypeDescriptionOfCurios()).
-                append(Component.literal(" v = 3 * 0.6").withStyle(CustomStyle.styleOfPower));
+                append(Component.literal(" v = 3 * " + BigDecimal.valueOf(rate()).stripTrailingZeros()).withStyle(CustomStyle.styleOfPower));
     }
 
     @Override
@@ -62,6 +63,11 @@ public class NetherHand extends WraqCurios implements RandomCurios, UsageOrGetWa
 
     @Override
     public void setAttribute(ItemStack stack) {
-        CastleCurios.randomAttackAttributeProvide(stack, 3, 0.6);
+        CastleCurios.randomAttackAttributeProvide(stack, 3, rate());
+    }
+
+    @Override
+    public double rate() {
+        return 0.6;
     }
 }

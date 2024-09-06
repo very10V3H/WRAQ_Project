@@ -11,6 +11,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.item.ItemStack;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class CastleNecklace extends WraqCurios implements RandomCurios, UsageOrG
     public Component getTypeDescription() {
         return Component.literal("").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.getAllTypeDescriptionOfCurios()).
-                append(Component.literal(" v = 6 * 1").withStyle(CustomStyle.styleOfCastleCrystal));
+                append(Component.literal(" v = 6 * " + BigDecimal.valueOf(rate()).stripTrailingZeros()).withStyle(CustomStyle.styleOfCastleCrystal));
     }
 
     @Override
@@ -52,6 +53,11 @@ public class CastleNecklace extends WraqCurios implements RandomCurios, UsageOrG
     @Override
     public void setAttribute(ItemStack stack) {
         CastleCurios.randomAttributeProvide(stack, 6, 1);
+    }
+
+    @Override
+    public double rate() {
+        return 1;
     }
 
     @Override
