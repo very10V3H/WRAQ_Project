@@ -28,8 +28,8 @@ public class UdiskWorldSoulC2SPacket {
         context.enqueueWork(() -> {
             ServerPlayer serverPlayer = context.getSender();
             Inventory inventory = serverPlayer.getInventory();
-            while (Compute.ItemStackCheck(inventory, ModItems.WorldSoul1.get(), 64)) {
-                Compute.itemStackRemove(inventory, ModItems.WorldSoul1.get(), 64);
+            while (Compute.checkPlayerHasItem(inventory, ModItems.WorldSoul1.get(), 64)) {
+                Compute.removeItem(inventory, ModItems.WorldSoul1.get(), 64);
                 Compute.itemStackGive(serverPlayer, new ItemStack(ModItems.WorldSoul2.get(), 1));
             }
         });

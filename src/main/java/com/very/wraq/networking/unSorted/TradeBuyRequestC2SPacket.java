@@ -76,7 +76,7 @@ public class TradeBuyRequestC2SPacket {
 
             if (!playerHasEnoughMoney) for (ItemStack itemStack : itemList) {
                 if (itemStackIsCurrency(itemStack)) {
-                    if (Compute.ItemStackCheck(serverPlayer.getInventory(), itemStack.getItem(), itemStack.getCount())) {
+                    if (Compute.checkPlayerHasItem(serverPlayer.getInventory(), itemStack.getItem(), itemStack.getCount())) {
                         playerHasEnoughMoney = true;
                     }
                 }
@@ -96,12 +96,12 @@ public class TradeBuyRequestC2SPacket {
 
             itemList.forEach(itemStack -> {
                 if (playerHasItem.get())
-                    playerHasItem.set(Compute.ItemStackCheck(serverPlayer.getInventory(), itemStack.getItem(), itemStack.getCount()));
+                    playerHasItem.set(Compute.checkPlayerHasItem(serverPlayer.getInventory(), itemStack.getItem(), itemStack.getCount()));
             });
 
             if (playerHasEnoughMoney && playerHasItem.get()) {
                 itemList.forEach(itemStack -> {
-                    Compute.itemStackRemove(serverPlayer.getInventory(), itemStack.getItem(), itemStack.getCount());
+                    Compute.removeItem(serverPlayer.getInventory(), itemStack.getItem(), itemStack.getCount());
                 });
 
                 if (requireVBCount > 0 && needToTransform) {

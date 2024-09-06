@@ -199,7 +199,7 @@ public class NewCastleInstance extends NewTeamInstance {
     @Override
     public void reward(Player player) {
         if (NoTeamInstance.playerHasItem(player)) {
-            Compute.itemStackRemove(player.getInventory(), ModItems.notePaper.get(), 1);
+            Compute.removeItem(player.getInventory(), ModItems.notePaper.get(), 1);
 
             getRewardList().forEach(itemAndRate -> {
                 try {

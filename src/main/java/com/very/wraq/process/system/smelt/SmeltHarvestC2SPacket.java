@@ -27,10 +27,11 @@ public class SmeltHarvestC2SPacket {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
             try {
-                Smelt.checkFinishAndGiveItem(context.getSender(), index);
+                Smelt.checkFinishAndGiveItem(context.getSender(), index + 1);
             } catch (ParseException | CommandSyntaxException e) {
                 throw new RuntimeException(e);
             }
+            Smelt.sendDataToClient(context.getSender());
         });
         return true;
     }

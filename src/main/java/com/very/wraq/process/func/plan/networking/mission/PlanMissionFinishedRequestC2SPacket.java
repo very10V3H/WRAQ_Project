@@ -46,8 +46,8 @@ public class PlanMissionFinishedRequestC2SPacket {
             int count = PlanMission.planMissionContentCountMap.get(serverPlayer.getName().getString());
 
             Inventory inventory = serverPlayer.getInventory();
-            if (Compute.ItemStackCheck(inventory, itemStack.getItem(), count)) {
-                Compute.itemStackRemove(inventory, itemStack.getItem(), count);
+            if (Compute.checkPlayerHasItem(inventory, itemStack.getItem(), count)) {
+                Compute.removeItem(inventory, itemStack.getItem(), count);
                 Compute.sendFormatMSG(serverPlayer, Component.literal("月卡任务").withStyle(ChatFormatting.LIGHT_PURPLE),
                         Component.literal("你完成了月卡任务！").withStyle(ChatFormatting.WHITE));
 

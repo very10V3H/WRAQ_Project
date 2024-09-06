@@ -133,7 +133,7 @@ public class GateWay {
                             playerTPDelayCount.put(name, -1);
                             if (destination.pos.distanceTo(skyTpCenterPos) < 30) playerTPCooldownMap.put(name, tick + 2);
                             else playerTPCooldownMap.put(name, tick + 60);
-                            Compute.itemStackRemove(player.getInventory(), ModItems.WorldSoul2.get(), 1);
+                            Compute.removeItem(player.getInventory(), ModItems.WorldSoul2.get(), 1);
                         }
                     }
                 } else {

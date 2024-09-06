@@ -81,8 +81,8 @@ public class SoulEquipAttribute {
                 CurrentLevel = data.getInt(StringUtils.SoulEquipForge);
             }
             if (CurrentLevel < 5) {
-                if (Compute.ItemStackCheck(inventory, item, 2)) {
-                    Compute.itemStackRemove(inventory, item, 2);
+                if (Compute.checkPlayerHasItem(inventory, item, 2)) {
+                    Compute.removeItem(inventory, item, 2);
                     data.putInt(StringUtils.SoulEquipForge, CurrentLevel + 1);
                     Compute.formatBroad(player.level(), Component.literal("世界本源").withStyle(CustomStyle.styleOfWorld),
                             Component.literal("").withStyle(ChatFormatting.WHITE).
@@ -100,8 +100,8 @@ public class SoulEquipAttribute {
                                     append(item.getDefaultInstance().getDisplayName()));
                 }
             } else if (CurrentLevel < 9) {
-                if (Compute.ItemStackCheck(inventory, item, 4)) {
-                    Compute.itemStackRemove(inventory, item, 4);
+                if (Compute.checkPlayerHasItem(inventory, item, 4)) {
+                    Compute.removeItem(inventory, item, 4);
                     data.putInt(StringUtils.SoulEquipForge, CurrentLevel + 1);
                     data.putInt(StringUtils.SoulEquipForge, CurrentLevel + 1);
                     Compute.formatBroad(player.level(), Component.literal("世界本源").withStyle(CustomStyle.styleOfWorld),
@@ -121,8 +121,8 @@ public class SoulEquipAttribute {
                                     append(item.getDefaultInstance().getDisplayName()));
                 }
             } else if (CurrentLevel < 13) {
-                if (Compute.ItemStackCheck(inventory, item, 8)) {
-                    Compute.itemStackRemove(inventory, item, 8);
+                if (Compute.checkPlayerHasItem(inventory, item, 8)) {
+                    Compute.removeItem(inventory, item, 8);
                     data.putInt(StringUtils.SoulEquipForge, CurrentLevel + 1);
                     data.putInt(StringUtils.SoulEquipForge, CurrentLevel + 1);
                     Compute.formatBroad(player.level(), Component.literal("世界本源").withStyle(CustomStyle.styleOfWorld),
@@ -142,8 +142,8 @@ public class SoulEquipAttribute {
                                     append(item.getDefaultInstance().getDisplayName()));
                 }
             } else if (CurrentLevel < 16) {
-                if (Compute.ItemStackCheck(inventory, item, 16)) {
-                    Compute.itemStackRemove(inventory, item, 16);
+                if (Compute.checkPlayerHasItem(inventory, item, 16)) {
+                    Compute.removeItem(inventory, item, 16);
                     data.putInt(StringUtils.SoulEquipForge, CurrentLevel + 1);
                     data.putInt(StringUtils.SoulEquipForge, CurrentLevel + 1);
                     Compute.formatBroad(player.level(), Component.literal("世界本源").withStyle(CustomStyle.styleOfWorld),

@@ -46,8 +46,8 @@ public class DailyMissionFinishedRequestC2SPacket {
             ItemStack itemStack = Utils.playerDailyMissionContent.get(serverPlayer.getName().getString());
             int Count = Utils.playerDailyMissionContentNum.get(serverPlayer.getName().getString());
             Inventory inventory = serverPlayer.getInventory();
-            if (Compute.ItemStackCheck(inventory, itemStack.getItem(), Count)) {
-                Compute.itemStackRemove(inventory, itemStack.getItem(), Count);
+            if (Compute.checkPlayerHasItem(inventory, itemStack.getItem(), Count)) {
+                Compute.removeItem(inventory, itemStack.getItem(), Count);
                 data.putString(StringUtils.LastDailyMissionFinishedTime, Compute.CalendarToString(Calendar.getInstance()));
                 Compute.sendFormatMSG(serverPlayer, Component.literal("任务").withStyle(CustomStyle.styleOfKaze),
                         Component.literal("你完成了每日任务！").withStyle(ChatFormatting.WHITE));

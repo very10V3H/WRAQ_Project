@@ -25,6 +25,7 @@ public class SmeltRequestC2SPacket {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
             SmeltRecipe.createSmeltProcess(context.getSender(), index);
+            Smelt.sendDataToClient(context.getSender());
         });
         return true;
     }

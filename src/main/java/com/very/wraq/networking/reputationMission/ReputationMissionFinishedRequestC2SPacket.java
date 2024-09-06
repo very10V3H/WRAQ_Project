@@ -45,8 +45,8 @@ public class ReputationMissionFinishedRequestC2SPacket {
             ItemStack itemStack = Utils.playerReputationMissionContent.get(serverPlayer.getName().getString());
             int Count = Utils.playerReputationMissionContentNum.get(serverPlayer.getName().getString());
             Inventory inventory = serverPlayer.getInventory();
-            if (Compute.ItemStackCheck(inventory, itemStack.getItem(), Count)) {
-                Compute.itemStackRemove(inventory, itemStack.getItem(), Count);
+            if (Compute.checkPlayerHasItem(inventory, itemStack.getItem(), Count)) {
+                Compute.removeItem(inventory, itemStack.getItem(), Count);
                 Compute.sendFormatMSG(serverPlayer, Component.literal("任务").withStyle(CustomStyle.styleOfKaze),
                         Component.literal("你完成了悬赏任务！").withStyle(ChatFormatting.WHITE));
                 Calendar currentTime = Calendar.getInstance();

@@ -2,11 +2,16 @@ package com.very.wraq.process.system.smelt;
 
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.fast.Te;
+import com.very.wraq.networking.ModNetworking;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
@@ -16,9 +21,12 @@ public class Smelt {
     public static CompoundTag clientData = new CompoundTag();
 
     private static final String smeltTagKey = "smeltTagKey";
-    private static CompoundTag getPlayerSmeltTag(Player player) {
+    public static CompoundTag getPlayerSmeltTag(Player player) {
         CompoundTag data = player.getPersistentData();
-        if (!data.contains(smeltTagKey)) data.put(smeltTagKey, new CompoundTag());
+        if (!data.contains(smeltTagKey)) {
+            data.put(smeltTagKey, new CompoundTag());
+            data.getCompound(smeltTagKey).putInt(maxSmeltSlotKey, 5);
+        }
         return data.getCompound(smeltTagKey);
     }
 
@@ -27,17 +35,21 @@ public class Smelt {
         return getPlayerSmeltTag(player).getInt(maxSmeltSlotKey);
     }
 
+    public static void setMaxSmeltSlot(Player player, int slot) {
+        getPlayerSmeltTag(player).putInt(maxSmeltSlotKey, slot);
+    }
+
     private static final String smeltSlotKeyPrefix = "smeltSlotKey_";
     private static String getSmeltSlotInfo(Player player, int slotIndex) {
         int maxSlot = getMaxSmeltSlot(player);
         if (slotIndex > maxSlot) return null;
         else {
             CompoundTag data = getPlayerSmeltTag(player);
-            if (!data.contains(smeltTagKey + slotIndex)) {
+            if (!data.contains(smeltSlotKeyPrefix + slotIndex)) {
                 return smeltSlotEmpty;
             }
             else {
-                return getPlayerSmeltTag(player).getString(smeltTagKey + slotIndex);
+                return getPlayerSmeltTag(player).getString(smeltSlotKeyPrefix + slotIndex);
             }
         }
     }
@@ -45,7 +57,7 @@ public class Smelt {
     private static void setSmeltSlotInfo(Player player, int slotIndex, String info) {
         int maxSlot = getMaxSmeltSlot(player);
         if (slotIndex <= maxSlot) {
-            getPlayerSmeltTag(player).putString(smeltTagKey + slotIndex, info);
+            getPlayerSmeltTag(player).putString(smeltSlotKeyPrefix + slotIndex, info);
         }
     }
 
@@ -53,11 +65,11 @@ public class Smelt {
         int maxSlot = clientData.getInt(maxSmeltSlotKey);
         if (slotIndex > maxSlot) return null;
         else {
-            if (!clientData.contains(smeltTagKey + slotIndex)) {
+            if (!clientData.contains(smeltSlotKeyPrefix + slotIndex)) {
                 return smeltSlotEmpty;
             }
             else {
-                return clientData.getString(smeltTagKey + slotIndex);
+                return clientData.getString(smeltSlotKeyPrefix + slotIndex);
             }
         }
     }
@@ -77,6 +89,13 @@ public class Smelt {
 
     public static boolean putSmeltSlotInfoToEmptySlot(Player player, int recipeIndex, Calendar finishTime) {
         return putSmeltSlotInfoToEmptySlot(player, recipeIndex + "$" + Compute.CalendarToString(finishTime));
+    }
+
+    private static SmeltRecipe getSmeltRecipe(String smeltSlotInfo) {
+        if (!smeltSlotInfo.contains("$")) {
+            return null;
+        }
+        return SmeltRecipe.getRecipeByIndex(Integer.parseInt(smeltSlotInfo.split("\\$")[0]));
     }
 
     private static List<ItemStack> getProductList(String smeltSlotInfo) throws CommandSyntaxException {
@@ -139,11 +158,16 @@ public class Smelt {
         if (slotIndex > getMaxSmeltSlot(player)) return;
         Calendar finishTime = getSmeltFinishTime(player, slotIndex);
         Calendar current = Calendar.getInstance();
+        player.sendSystemMessage(Component.literal("slotIndex: " + slotIndex));
+        player.sendSystemMessage(Component.literal("finishTime: " + finishTime));
+        player.sendSystemMessage(Component.literal("current: " + current));
         if (current.after(finishTime)) {
             getProductList(player, slotIndex).forEach(stack -> {
-                Compute.itemStackGive(player, stack);
+                Compute.itemStackGive(player, new ItemStack(stack.getItem(), stack.getCount()));
             });
             setSmeltSlotInfo(player, slotIndex, smeltSlotEmpty);
+        } else {
+            player.sendSystemMessage(Te.m("haven't reach harvest time"));
         }
     }
 
@@ -151,5 +175,35 @@ public class Smelt {
         for (int i = 1 ; i <= getMaxSmeltSlot(player) ; i ++) {
             checkFinishAndGiveItem(player, i);
         }
+    }
+
+    public static List<SmeltRecipe> getSmeltRecipeByTag(CompoundTag data) {
+        List<SmeltRecipe> recipes = new ArrayList<>();
+        int maxSlot = data.getInt(maxSmeltSlotKey);
+        for (int i = 1 ; i <= maxSlot ; i ++) {
+            if (getSmeltRecipe(data.getString(smeltSlotKeyPrefix + i)) != null) {
+                recipes.add(SmeltRecipe.getRecipeByIndex(Integer.parseInt(data.getString(smeltSlotKeyPrefix + i).split("\\$")[0])));
+            } else {
+                recipes.add(null);
+            }
+        }
+        return recipes;
+    }
+
+    public static List<Calendar> getSmeltFinishTimeByTag(CompoundTag data) throws ParseException {
+        List<Calendar> times = new ArrayList<>();
+        int maxSlot = data.getInt(maxSmeltSlotKey);
+        for (int i = 1 ; i <= maxSlot ; i ++) {
+            if (getSmeltFinishTime(data.getString(smeltSlotKeyPrefix + i)) != null) {
+                times.add(getSmeltFinishTime(data.getString(smeltSlotKeyPrefix + i)));
+            } else {
+                times.add(null);
+            }
+        }
+        return times;
+    }
+
+    public static void sendDataToClient(ServerPlayer serverPlayer) {
+        ModNetworking.sendToClient(new SmeltDataS2CPacket(getPlayerSmeltTag(serverPlayer)), serverPlayer);
     }
 }

@@ -602,13 +602,29 @@ public class Compute {
         return ExistNum;
     }
 
-    public static boolean ItemStackCheck(Inventory inventory, Item item, int RequirementNum) {
+    public static boolean checkPlayerHasItem(Inventory inventory, Item item, int RequirementNum) {
         return itemStackCount(inventory, item) >= RequirementNum;
+    }
+
+    public static boolean checkPlayerHasItem(Player player, List<ItemStack> list) {
+        for (ItemStack itemStack : list) {
+            if (!checkPlayerHasItem(player.getInventory(), itemStack.getItem(), itemStack.getCount())) return false;
+        }
+        return true;
+    }
+
+    public static boolean checkItemRemoveIfHas(Player player, List<ItemStack> list) {
+        if (checkPlayerHasItem(player, list)) {
+            list.forEach(stack -> {
+                removeItem(player.getInventory(), stack.getItem(), stack.getCount());
+            });
+        }
+        return false;
     }
 
     public static boolean itemStackRemoveIgnoreVB(Inventory inventory, Item item, int removeNum) {
         int num = removeNum;
-        if (!ItemStackCheck(inventory, item, removeNum)) return false;
+        if (!checkPlayerHasItem(inventory, item, removeNum)) return false;
         else {
             LogUtils.getLogger().info("{} {} {} {}", inventory.player.getName().getString(), Utils.LogTypes.cost, item.toString(), removeNum);
             for (int i = 0; i < inventory.getContainerSize(); i++) {
@@ -629,9 +645,15 @@ public class Compute {
         return false;
     }
 
-    public static boolean itemStackRemove(Inventory inventory, Item item, int removeNum) {
+    public static void removeItemWithoutCheck(Player player, List<ItemStack> list) {
+        list.forEach(stack -> {
+            removeItem(player.getInventory(), stack.getItem(), stack.getCount());
+        });
+    }
+
+    public static boolean removeItem(Inventory inventory, Item item, int removeNum) {
         int num = removeNum;
-        if (!ItemStackCheck(inventory, item, removeNum)) return false;
+        if (!checkPlayerHasItem(inventory, item, removeNum)) return false;
         else {
             LogUtils.getLogger().info("{} {} {} {}", inventory.player.getName().getString(), Utils.LogTypes.cost, item.toString(), removeNum);
             for (int i = 0; i < inventory.getContainerSize(); i++) {
@@ -3391,6 +3413,24 @@ public class Compute {
 
     public static long calenderDateDifference(Calendar cal1, Calendar cal2) {
         return ((cal1.getTimeInMillis() - cal2.getTimeInMillis()) / (24 * 60 * 60 * 1000));
+    }
+
+    public static long calenderMinuteDifference(Calendar cal1, Calendar cal2) {
+        return ((cal1.getTimeInMillis() - cal2.getTimeInMillis()) / (60 * 60 * 1000));
+    }
+
+    public static String getDifferenceFormatText(Calendar cal1, Calendar cal2) {
+        long delta = (cal1.getTimeInMillis() - cal2.getTimeInMillis());
+        if (delta <= 0) return "00:00:00";
+        long seconds = delta / 1000 % 60;
+        long hours = delta / (1000 * 3600);
+        long minute = delta / (1000 * 60) % 60;
+        SimpleDateFormat tmpDate = new SimpleDateFormat("HH:mm:ss");
+        Calendar deltaTime = Calendar.getInstance();
+        deltaTime.set(Calendar.HOUR_OF_DAY, (int) hours);
+        deltaTime.set(Calendar.MINUTE, (int) minute);
+        deltaTime.set(Calendar.SECOND, (int) seconds);
+        return tmpDate.format(deltaTime.getTime());
     }
 
     public static boolean playerReputationAddOrCost(Player player, int Num) {

@@ -63,7 +63,7 @@ public class WraqForge extends Item {
         Inventory inventory = player.getInventory();
         boolean ContainMaterial = true;
         for (int i = 0; i < MaterialList.size(); i++) {
-            if (!Compute.ItemStackCheck(inventory, MaterialList.get(i).getItem(), MaterialList.get(i).getCount()))
+            if (!Compute.checkPlayerHasItem(inventory, MaterialList.get(i).getItem(), MaterialList.get(i).getCount()))
                 ContainMaterial = false;
         }
 
@@ -78,7 +78,7 @@ public class WraqForge extends Item {
                         }
                     }
                 }
-                Compute.itemStackRemove(inventory, stack.getItem(), stack.getCount());
+                Compute.removeItem(inventory, stack.getItem(), stack.getCount());
             }
 
             Compute.sendFormatMSG(player, Component.literal("锻造").withStyle(ChatFormatting.GRAY),

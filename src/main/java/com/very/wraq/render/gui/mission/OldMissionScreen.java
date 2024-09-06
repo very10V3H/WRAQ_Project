@@ -116,27 +116,16 @@ public class OldMissionScreen extends Screen {
                 throw new RuntimeException(e);
             }
 
-
             calendar.add(Calendar.HOUR_OF_DAY, 22);
             try {
                 if (calendar.before(Compute.StringToCalendar(ClientUtils.serverTime))) {
                     guiGraphics.drawCenteredString(font, Component.literal("可接取").withStyle(ChatFormatting.WHITE), this.width / 2 - 100, this.height / 2 + 8, 0);
                 } else {
                     Calendar time = Compute.StringToCalendar(ClientUtils.serverTime);
-                    long delta = (calendar.getTimeInMillis() - time.getTimeInMillis());
-                    long seconds = delta / 1000 % 60;
-                    long hours = delta / (1000 * 3600);
-                    long minute = delta / (1000 * 60) % 60;
-                    SimpleDateFormat tmpDate = new SimpleDateFormat("HH:mm:ss");
-                    Calendar deltaTime = Calendar.getInstance();
-                    deltaTime.set(Calendar.HOUR_OF_DAY, (int) hours);
-                    deltaTime.set(Calendar.MINUTE, (int) minute);
-                    deltaTime.set(Calendar.SECOND, (int) seconds);
-
                     guiGraphics.drawCenteredString(font, Component.literal("任务冷却：")
                                     .withStyle(ChatFormatting.AQUA),
                             this.width / 2 - 100, this.height / 2 + 8, 0);
-                    guiGraphics.drawCenteredString(font, Component.literal(tmpDate.format(deltaTime.getTime()))
+                    guiGraphics.drawCenteredString(font, Component.literal(Compute.getDifferenceFormatText(calendar, time))
                                     .withStyle(ChatFormatting.WHITE),
                             this.width / 2 - 100, this.height / 2 + 24, 0);
                 }
@@ -177,20 +166,10 @@ public class OldMissionScreen extends Screen {
                     throw new RuntimeException(e);
                 }
                 if (currentTime.before(allowTime)) {
-                    long delta = (allowTime.getTimeInMillis() - currentTime.getTimeInMillis());
-                    long seconds = delta / 1000 % 60;
-                    long hours = delta / (1000 * 3600);
-                    long minute = delta / (1000 * 60) % 60;
-                    SimpleDateFormat tmpDate = new SimpleDateFormat("HH:mm:ss");
-                    Calendar deltaTime = Calendar.getInstance();
-                    deltaTime.set(Calendar.HOUR_OF_DAY, (int) hours);
-                    deltaTime.set(Calendar.MINUTE, (int) minute);
-                    deltaTime.set(Calendar.SECOND, (int) seconds);
-
                     guiGraphics.drawCenteredString(font, Component.literal("任务冷却：")
                                     .withStyle(ChatFormatting.AQUA),
                             this.width / 2 - 100 + 98 * xOffsetRate, this.height / 2 + 8, 0);
-                    guiGraphics.drawCenteredString(font, Component.literal(tmpDate.format(deltaTime.getTime()))
+                    guiGraphics.drawCenteredString(font, Component.literal(Compute.getDifferenceFormatText(allowTime, currentTime))
                                     .withStyle(ChatFormatting.WHITE),
                             this.width / 2 - 100 + 98 * xOffsetRate, this.height / 2 + 24, 0);
                 } else {

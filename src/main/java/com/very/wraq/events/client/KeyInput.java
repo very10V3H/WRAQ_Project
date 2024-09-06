@@ -12,6 +12,8 @@ import com.very.wraq.process.system.element.networking.CurrentSeasonC2SPacket;
 import com.very.wraq.process.system.forge.ForgeScreen;
 import com.very.wraq.process.system.missions.MissionScreen;
 import com.very.wraq.process.system.missions.netWorking.MissionScreenOpenC2SPacket;
+import com.very.wraq.process.system.smelt.SmeltProgressScreen;
+import com.very.wraq.process.system.smelt.SmeltRecipeScreen;
 import com.very.wraq.process.system.tower.TowerScreen;
 import com.very.wraq.process.system.vp.VpStoreScreen;
 import com.very.wraq.render.gui.illustrate.Illustrate;
@@ -145,7 +147,8 @@ public class KeyInput {
                 || screen instanceof TeamManageScreen || screen instanceof TeamSearchScreen
                 || screen instanceof TradeScreen || screen instanceof MissionScreen
                 || screen instanceof ForgeScreen || screen instanceof TowerScreen
-                || screen instanceof ElementRoulette || screen instanceof VpStoreScreen;
+                || screen instanceof ElementRoulette || screen instanceof VpStoreScreen
+                || screen instanceof SmeltRecipeScreen || screen instanceof SmeltProgressScreen;
     }
 
     @Mod.EventBusSubscriber(modid = Utils.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)

@@ -119,7 +119,7 @@ public abstract class NoTeamInstance {
                 } else {
                     if (playerHasItem(player)) {
                         rewardModule(player);
-                        Compute.itemStackRemove(player.getInventory(), ModItems.notePaper.get(), 1);
+                        Compute.removeItem(player.getInventory(), ModItems.notePaper.get(), 1);
                     } else {
                         Compute.sendFormatMSG(player, Component.literal("副本").withStyle(ChatFormatting.RED),
                                 Component.literal("你的背包中没有 ").withStyle(ChatFormatting.WHITE).

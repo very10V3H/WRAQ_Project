@@ -1,13 +1,14 @@
 package com.very.wraq.Items.MainStory_1.Mission;
 
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.registry.ModItems;
-import com.very.wraq.projectiles.RandomCurios;
+import com.very.wraq.process.system.smelt.Smelt;
+import com.very.wraq.process.system.smelt.SmeltRecipeScreen;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
@@ -54,36 +55,22 @@ public class Main0 extends Item {
         if (!level.isClientSide && !player.isShiftKeyDown()) {
             String name = player.getName().getString();
             CompoundTag data = player.getPersistentData();
-            List<Item> list = List.of(ModItems.plainNecklace.get(), ModItems.netherHand.get(), ModItems.lavenderBracelet.get(),
-                    ModItems.iceBelt.get(), ModItems.CastleNecklace.get());
-            list.forEach(item -> {
-                for (int i = 0 ; i < 4 ; i ++) {
-                    ItemStack stack = new ItemStack(item);
-                    if (item instanceof RandomCurios randomCurios) {
-                        randomCurios.setAttribute(stack);
-                    }
-                    Compute.itemStackGive(player, stack);
-                }
-            });
+            ServerPlayer serverPlayer = (ServerPlayer) player;
+            Smelt.sendDataToClient(serverPlayer);
         }
 
         if (!level.isClientSide && player.isShiftKeyDown()) {
-
+            Smelt.setMaxSmeltSlot(player, 11);
+            player.sendSystemMessage(Component.literal("" + Smelt.getPlayerSmeltTag(player)));
         }
 
         if (level.isClientSide && !player.isShiftKeyDown()) {
-            soundEventList = List.of(SoundEvents.EVOKER_CELEBRATE, SoundEvents.EVOKER_AMBIENT,
-                    SoundEvents.EVOKER_DEATH, SoundEvents.EVOKER_HURT,
-                    SoundEvents.EVOKER_CAST_SPELL, SoundEvents.EVOKER_FANGS_ATTACK,
-                    SoundEvents.EVOKER_PREPARE_ATTACK, SoundEvents.EVOKER_PREPARE_SUMMON,
-                    SoundEvents.EVOKER_PREPARE_WOLOLO);
-            index = 0;
+            Minecraft.getInstance().setScreen(new SmeltRecipeScreen());
         }
 
         if (level.isClientSide && player.isShiftKeyDown()) {
 
         }
-
 
         return InteractionResultHolder.pass(player.getItemInHand(interactionHand));
     }

@@ -223,13 +223,13 @@ public class ClientPlayerTickEvent {
 
             if (event.player.tickCount % 20 == 0) {
                 Inventory inventory = event.player.getInventory();
-                if (!(Minecraft.getInstance().screen instanceof TradeScreen) && Compute.ItemStackCheck(inventory, ModItems.U_Disk.get(), 1)) {
-                    if (Compute.ItemStackCheck(inventory, ModItems.copperCoin.get(), 1)
-                            || Compute.ItemStackCheck(inventory, ModItems.goldCoin.get(), 1)
-                            || Compute.ItemStackCheck(inventory, ModItems.silverCoin.get(), 1)) {
+                if (!(Minecraft.getInstance().screen instanceof TradeScreen) && Compute.checkPlayerHasItem(inventory, ModItems.U_Disk.get(), 1)) {
+                    if (Compute.checkPlayerHasItem(inventory, ModItems.copperCoin.get(), 1)
+                            || Compute.checkPlayerHasItem(inventory, ModItems.goldCoin.get(), 1)
+                            || Compute.checkPlayerHasItem(inventory, ModItems.silverCoin.get(), 1)) {
                         ModNetworking.sendToServer(new AllCurrencyC2SPacket(false));
                     }
-                    if (Compute.ItemStackCheck(inventory, ModItems.WorldSoul1.get(), 64))
+                    if (Compute.checkPlayerHasItem(inventory, ModItems.WorldSoul1.get(), 64))
                         ModNetworking.sendToServer(new UdiskWorldSoulC2SPacket());
                 }
             }

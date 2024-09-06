@@ -395,7 +395,7 @@ public class Mission {
             if (needItemContent.isEmpty()) setNeedItemContent();
             if (needItemContent.containsKey(serialNum)) {
                 for (ItemStack itemStack : needItemContent.get(serialNum)) {
-                    if (!Compute.ItemStackCheck(player.getInventory(), itemStack.getItem(), itemStack.getCount()))
+                    if (!Compute.checkPlayerHasItem(player.getInventory(), itemStack.getItem(), itemStack.getCount()))
                         return false;
                 }
             }
@@ -656,7 +656,7 @@ public class Mission {
                 if (needItemContent.containsKey(serialNum)) {
                     List<ItemStack> itemStackList = needItemContent.get(serialNum);
                     for (ItemStack itemStack : itemStackList) {
-                        Compute.itemStackRemove(player.getInventory(), itemStack.getItem(), itemStack.getCount());
+                        Compute.removeItem(player.getInventory(), itemStack.getItem(), itemStack.getCount());
                     }
                 }
                 submitModule(player, serialNum);
@@ -677,7 +677,7 @@ public class Mission {
                 if (needItemContent.containsKey(serialNum)) {
                     List<ItemStack> itemStackList = needItemContent.get(serialNum);
                     for (ItemStack itemStack : itemStackList) {
-                        Compute.itemStackRemove(player.getInventory(), itemStack.getItem(), itemStack.getCount());
+                        Compute.removeItem(player.getInventory(), itemStack.getItem(), itemStack.getCount());
                     }
                 }
                 submitModule(player, serialNum);

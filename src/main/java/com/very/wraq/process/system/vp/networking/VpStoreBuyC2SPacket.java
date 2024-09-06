@@ -49,8 +49,8 @@ public class VpStoreBuyC2SPacket {
             if (VpStore.getWorldSoul5Price().containsKey(goods.getItem())) {
                 int needCount = VpStore.getWorldSoul5Price().get(goods.getItem());
                 Inventory inventory = serverPlayer.getInventory();
-                if (Compute.ItemStackCheck(inventory, ModItems.worldSoul5.get(), needCount)) {
-                    Compute.itemStackRemove(inventory, ModItems.worldSoul5.get(), needCount);
+                if (Compute.checkPlayerHasItem(inventory, ModItems.worldSoul5.get(), needCount)) {
+                    Compute.removeItem(inventory, ModItems.worldSoul5.get(), needCount);
                     ItemStack itemStack = new ItemStack(goods.getItem(), count);
                     Compute.itemStackGive(serverPlayer, itemStack);
                     LogUtils.getLogger().info(serverPlayer.getName().getString() + " worldSoul5 buy " + goods);

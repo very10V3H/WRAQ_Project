@@ -142,7 +142,7 @@ public class VariousEvents {
     @SubscribeEvent
     public static void PickUpItem(PlayerEvent.ItemPickupEvent event) throws IOException {
         if (!event.getEntity().level().isClientSide && event.getStack().is(ModItems.Value.get())) {
-            Compute.itemStackRemove(event.getEntity().getInventory(), ModItems.Value.get(),
+            Compute.removeItem(event.getEntity().getInventory(), ModItems.Value.get(),
                     Compute.itemStackCount(event.getEntity().getInventory(), ModItems.Value.get()));
         }
         CastleSecondFloor.PlayerPickItem(event.getEntity(), event.getStack());
