@@ -11,6 +11,7 @@ import com.very.wraq.common.util.Utils;
 import com.very.wraq.customized.uniform.bow.BowCurios0;
 import com.very.wraq.entities.entities.Civil.Civil;
 import com.very.wraq.events.modules.AttackEventModule;
+import com.very.wraq.process.func.EnhanceNormalAttackModifier;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.projectiles.OnHitEffectCurios;
@@ -19,11 +20,9 @@ import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.instance.series.castle.CastleBow;
 import com.very.wraq.series.instance.series.castle.CastleSwiftArmor;
 import com.very.wraq.series.instance.series.devil.DevilSwiftArmor;
-import com.very.wraq.series.instance.series.moon.Equip.MoonBow;
 import com.very.wraq.series.instance.series.moon.Equip.MoonKnife;
 import com.very.wraq.series.instance.series.moon.MoonCurios;
 import com.very.wraq.series.instance.series.taboo.TabooSwiftArmor;
-import com.very.wraq.series.newrunes.chapter1.VolcanoNewRune;
 import com.very.wraq.series.overworld.castle.BeaconBracelet;
 import com.very.wraq.series.overworld.chapter7.BoneImpKnife;
 import net.minecraft.ChatFormatting;
@@ -206,9 +205,10 @@ public class MyArrow extends AbstractArrow {
             int tickCount = Objects.requireNonNull(player.getServer()).getTickCount();
             double defence = MobAttributes.defence(monster);
 
-            baseDamage *= DamageInfluence.getPlayerNormalAttackBaseRate(player);
-            baseDamage *= BowCurios0.BaseDamageEnhance(player);
-            if (shootByPlayer) baseDamage *= VolcanoNewRune.attackEnhance(player);
+            if (shootByPlayer) {
+                baseDamage *= DamageInfluence.getPlayerNormalAttackBaseRate(player, 1);
+                baseDamage *= BowCurios0.BaseDamageEnhance(player);
+            }
 
             double damage;
             double exDamage = 0;
@@ -285,6 +285,7 @@ public class MyArrow extends AbstractArrow {
                     ElementDamageEffect = Element.ElementEffectAddToEntity(player, monster, playerUnit.type(), playerUnit.value(), false, damage + damageIgnoreDefence);
                     Element.entityElementUnit.put(player, new Element.Unit(Element.life, 0));
                 }
+                EnhanceNormalAttackModifier.onHitEffect(player, monster, 1);
             }
 
             double elementDamage = (damage + damageIgnoreDefence) * ((1 + ElementDamageEnhance) * ElementDamageEffect - 1);
@@ -318,7 +319,6 @@ public class MyArrow extends AbstractArrow {
             BeaconBracelet.Passive(player, monster); // 烽火手镯
             DevilSwiftArmor.DevilSwiftArmorPassive(player, monster); // 猎魔者足具
             if (shootByPlayer) {
-                MoonBow.Passive(player, monster);
                 MoonKnife.MoonKnife(player, monster);
                 CastleBow.NormalAttack(player, monster, damage);
                 Compute.AdditionEffects(player, monster, damage + damageIgnoreDefence, 0);

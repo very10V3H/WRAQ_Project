@@ -4075,7 +4075,7 @@ public class Compute {
                         if (data.contains(attributeName)) {
                             if (curiosItem instanceof RandomCurios) {
                                 value.set(value.get() + data.getDouble(attributeName)
-                                        * CastleCurios.AttributeValueMap.get(attributeName));
+                                        * CastleCurios.attributeValueMap.get(attributeName));
                             }
                             else {
                                 value.set(value.get() + data.getInt(attributeName));

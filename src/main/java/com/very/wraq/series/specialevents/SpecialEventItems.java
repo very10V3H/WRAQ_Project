@@ -4,6 +4,9 @@ import com.very.wraq.common.util.Utils;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.FoiledMaterialItem;
 import com.very.wraq.series.MaterialItem;
+import com.very.wraq.series.specialevents.midautumn.MidAutumnBow;
+import com.very.wraq.series.specialevents.midautumn.MidAutumnSceptre;
+import com.very.wraq.series.specialevents.midautumn.MidAutumnSword;
 import com.very.wraq.series.specialevents.midautumn.MoonFeather;
 import com.very.wraq.series.specialevents.summer.SummerCurios2024;
 import net.minecraft.world.item.Item;
@@ -49,4 +52,13 @@ public class SpecialEventItems {
 
     public static final RegistryObject<Item> MOON_FEATHER_3 = ITEMS.register("moon_feather_3", () ->
             new MoonFeather(new Item.Properties().rarity(CustomStyle.MoonBold), 3));
+
+    public static final RegistryObject<Item> MID_AUTUMN_SWORD = ITEMS.register("mid_autumn_sword", () ->
+            new MidAutumnSword(new Item.Properties().rarity(CustomStyle.MoonBold), 0.6));
+
+    public static final RegistryObject<Item> MID_AUTUMN_BOW = ITEMS.register("mid_autumn_bow", () ->
+            new MidAutumnBow(new Item.Properties().rarity(CustomStyle.MoonBold), 3));
+
+    public static final RegistryObject<Item> MID_AUTUMN_SCEPTRE = ITEMS.register("mid_autumn_sceptre", () ->
+            new MidAutumnSceptre(new Item.Properties().rarity(CustomStyle.MoonBold), 1.2));
 }

@@ -2,23 +2,24 @@ package com.very.wraq.core;
 
 import com.very.wraq.commands.stable.players.DebugCommand;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.registry.MySound;
-import com.very.wraq.common.util.StringUtils;
-import com.very.wraq.common.util.struct.ManaSkillStruct.ManaSkill3;
-import com.very.wraq.common.util.struct.ManaSkillStruct.ManaSkill6;
-import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.attribute.DamageInfluence;
 import com.very.wraq.common.attribute.MobAttributes;
 import com.very.wraq.common.attribute.PlayerAttributes;
 import com.very.wraq.common.attribute.SameTypeModule;
 import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.registry.ModSounds;
+import com.very.wraq.common.registry.MySound;
+import com.very.wraq.common.util.StringUtils;
+import com.very.wraq.common.util.Utils;
+import com.very.wraq.common.util.struct.ManaSkillStruct.ManaSkill3;
+import com.very.wraq.common.util.struct.ManaSkillStruct.ManaSkill6;
 import com.very.wraq.customized.uniform.mana.ManaCurios1;
 import com.very.wraq.events.instance.IceKnight;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.misc.ParticlePackets.EffectParticle.ManaDefencePenetrationParticleS2CPacket;
 import com.very.wraq.networking.misc.SkillPackets.Charging.ChargedClearS2CPacket;
 import com.very.wraq.networking.misc.SkillPackets.SkillImageS2CPacket;
+import com.very.wraq.process.func.EnhanceNormalAttackModifier;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.projectiles.OnHitEffectCurios;
@@ -28,9 +29,7 @@ import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.instance.series.castle.CastleManaArmor;
 import com.very.wraq.series.instance.series.ice.IceBook;
 import com.very.wraq.series.instance.series.moon.Equip.MoonBook;
-import com.very.wraq.series.instance.series.moon.Equip.MoonSceptre;
 import com.very.wraq.series.instance.series.moon.MoonCurios;
-import com.very.wraq.series.newrunes.chapter1.VolcanoNewRune;
 import com.very.wraq.series.overworld.castle.TreeBracelet;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -65,8 +64,8 @@ public class ManaAttackModule {
         if (entity instanceof Mob monster && !(entity instanceof Villager)) {
 
             Utils.PlayerFireWorkFightCoolDown.put(player, player.getServer().getTickCount() + 200);
-            double damage = baseDamage * DamageInfluence.getPlayerNormalAttackBaseRate(player);
-            damage *= VolcanoNewRune.attackEnhance(player);
+            double damage = baseDamage * DamageInfluence.getPlayerNormalAttackBaseRate(player, 2);
+
             double defence = MobAttributes.manaDefence(monster);
             double exDamage = 0;
             double damageIgnoreDefence = 0;
@@ -186,14 +185,13 @@ public class ManaAttackModule {
 
             ManaCurios1.ManaDamageExIgnoreDefenceDamage(player, monster, damage);
             TreeBracelet.Passive(player, monster); // 古树手镯
-            MoonSceptre.Passive(player, monster); //
-            MoonSceptre.MoonSceptreActive(player, monster); // 星穹玉杖
             Compute.AdditionEffects(player, monster, damage + damageIgnoreDefence, 1);
             if (mainhand instanceof OnHitEffectMainHandWeapon onHitEffectMainHandWeapon) {
                 onHitEffectMainHandWeapon.onHit(player, monster);
             }
             if (mainShoot) {
                 OnHitEffectCurios.hit(player, monster);
+                EnhanceNormalAttackModifier.onHitEffect(player, monster, 2);
             }
 
             if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false)) {

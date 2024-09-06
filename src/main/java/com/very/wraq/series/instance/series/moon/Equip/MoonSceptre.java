@@ -8,7 +8,12 @@ import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.common.util.Utils;
 import com.very.wraq.events.mob.MobSpawn;
+import com.very.wraq.process.func.ChangedAttributesModifier;
+import com.very.wraq.process.func.EnhanceNormalAttack;
+import com.very.wraq.process.func.EnhanceNormalAttackModifier;
 import com.very.wraq.process.func.particle.ParticleProvider;
+import com.very.wraq.projectiles.ActiveItem;
+import com.very.wraq.projectiles.OnHitEffectMainHandWeapon;
 import com.very.wraq.projectiles.WraqSceptre;
 import com.very.wraq.projectiles.mana.ManaArrow;
 import com.very.wraq.render.toolTip.CustomStyle;
@@ -17,7 +22,6 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
@@ -28,20 +32,19 @@ import net.minecraft.world.phys.AABB;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.WeakHashMap;
 
-public class MoonSceptre extends WraqSceptre {
+public class MoonSceptre extends WraqSceptre implements ActiveItem, OnHitEffectMainHandWeapon {
 
-    public static WeakHashMap<Player, Integer> coolDownMap = new WeakHashMap<>();
-
-    public MoonSceptre(Properties p_42964_) {
-        super(p_42964_);
+    private final double activeRate;
+    public MoonSceptre(Properties properties, double activeRate) {
+        super(properties);
         Utils.manaDamage.put(this, 2400d);
         Utils.manaRecover.put(this, 30d);
         Utils.coolDownDecrease.put(this, 0.5);
         Utils.manaPenetration0.put(this, 2900d);
         Utils.movementSpeedWithoutBattle.put(this, 0.4);
         Utils.manaCost.put(this, 45d);
+        this.activeRate = activeRate;
     }
 
     @Override
@@ -86,7 +89,7 @@ public class MoonSceptre extends WraqSceptre {
                 append(Component.literal("，提供在10s内持续衰减的").withStyle(ChatFormatting.WHITE)).
                 append(Compute.AttributeDescription.ExManaDamage("")));
         components.add(Component.literal(" 并为你提供持续20s的").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.ManaDamage("100%")).
+                append(Compute.AttributeDescription.ManaDamage(String.format("%.0f%%", activeRate))).
                 append(Component.literal("的").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("护盾").withStyle(ChatFormatting.GRAY)));
         Compute.CoolDownTimeDescription(components, 27);
@@ -98,48 +101,31 @@ public class MoonSceptre extends WraqSceptre {
         return ComponentUtils.getSuffixOfMoon();
     }
 
-    public static WeakHashMap<Player, Double> manaDamageNumMap = new WeakHashMap<>();
-    public static WeakHashMap<Player, Integer> manaDamageTickMap = new WeakHashMap<>();
-
-    public static void MoonSceptreActive(Player player, Mob mob) {
-        if (player.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.MoonSceptre.get())) {
-            int TickCount = player.getServer().getTickCount();
-            if (!coolDownMap.containsKey(player) || coolDownMap.get(player) < TickCount) {
-                coolDownMap.put(player, (int) (TickCount + 540 * (1 - PlayerAttributes.coolDownDecrease(player))));
-                Compute.coolDownTimeSend(player, ModItems.MoonSceptre.get().getDefaultInstance(), (int) (540 * (1 - PlayerAttributes.coolDownDecrease(player))));
+    @Override
+    public void active(Player player) {
+        Compute.playerItemCoolDown(player, ModItems.MoonSceptre.get(), 27);
+        EnhanceNormalAttackModifier.addModifier(player, new EnhanceNormalAttackModifier("moonSceptreActive", 2, new EnhanceNormalAttack() {
+            @Override
+            public void hit(Player player, Mob mob) {
                 Compute.playerShieldProvider(player, 400, PlayerAttributes.manaDamage(player));
                 Compute.sendEffectLastTime(player, ModItems.MoonSceptre.get().getDefaultInstance(), 200);
                 List<Mob> mobList = mob.level().getEntitiesOfClass(Mob.class, AABB.ofSize(mob.position(), 15, 15, 15));
                 mobList.removeIf(mob1 -> mob1.distanceTo(mob) > 6);
                 double attackDamage = 0;
-                for (Mob mob1 : mobList)
+                for (Mob mob1 : mobList) {
                     attackDamage += MobSpawn.MobBaseAttributes.getMobBaseAttribute(mob1, MobSpawn.MobBaseAttributes.attackDamage);
-                List<Player> playerList = mob.level().getEntitiesOfClass(Player.class, AABB.ofSize(mob.position(), 15, 15, 15));
-                playerList.removeIf(player1 -> player1.distanceTo(mob) > 6);
-                for (Player player1 : playerList) {
-                    attackDamage += PlayerAttributes.attackDamage(player1);
                 }
-                manaDamageNumMap.put(player, attackDamage);
-                manaDamageTickMap.put(player, player.getServer().getTickCount() + 200);
-
+                ChangedAttributesModifier.addAttributeModifier(player, ChangedAttributesModifier.exAttackDamage,
+                        "moonSceptreActive", attackDamage * activeRate, 200, true);
             }
-        }
+        }));
+        Compute.sendEffectLastTime(player, ModItems.MoonSword.get().getDefaultInstance(), 8888, 0, true);
     }
 
-    public static void Passive(Player player, Mob mob) {
-        if (!player.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.MoonSceptre.get())) return;
-        List<Mob> mobList = mob.level().getEntitiesOfClass(Mob.class, AABB.ofSize(mob.position(), 15, 15, 15));
-        mobList.removeIf(mob1 -> mob1.distanceTo(mob) > 6 || mob1.equals(mob));
-        mobList.forEach(mob1 -> {
-            Compute.MonsterGatherProvider(mob1, 2, mob.position());
-        });
-    }
-
-    public static double ExManaDamage(Player player) {
-        int tickCount = player.getServer().getTickCount();
-        if (manaDamageTickMap.containsKey(player) && manaDamageTickMap.get(player) > tickCount) {
-            return manaDamageNumMap.get(player) * (manaDamageTickMap.get(player) - tickCount) / 200;
-        }
-        return 0;
+    @Override
+    public void onHit(Player player, Mob mob) {
+        mob.level().getEntitiesOfClass(Mob.class, AABB.ofSize(mob.position(), 15, 15, 15))
+                .stream().filter(mob1 -> mob1.distanceTo(mob) <= 6 && !mob1.equals(mob))
+                .forEach(mob1 -> Compute.MonsterGatherProvider(mob1, 2, mob.position()));
     }
 }

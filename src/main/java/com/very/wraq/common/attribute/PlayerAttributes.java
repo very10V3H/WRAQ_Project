@@ -297,13 +297,12 @@ public class PlayerAttributes {
 
         exDamage += CastleAttackArmor.ExAttributeValue(player, CastleAttackArmor.ExAttackDamage);
         exDamage += CastleSwiftArmor.ExAttributeValue(player, CastleSwiftArmor.ExAttackDamage);
-        exDamage += MoonSword.ExAttackDamage(player);
-        exDamage += MoonSceptre.ExManaDamage(player);
         exDamage += LifeElementSword.ExAttackDamage(player);
         exDamage += LifeElementBow.ExAttackDamage(player);
         exDamage += VolcanoArmorHelmet.exAttackDamage(player);
         exDamage += CastleNewRune.attackDamage(player);
         exDamage += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerAttackDamageModifier);
+        exDamage += ChangedAttributesModifier.getModifierValue(player, ChangedAttributesModifier.exAttackDamage);
         exDamage += OnCuriosSlotAttributesModify.getAttributes(player, OnCuriosSlotAttributesModify.exAttackDamage);
         // 请在上方添加
 
@@ -1617,6 +1616,7 @@ public class PlayerAttributes {
         exDamage += VolcanoArmorHelmet.exManaDamage(player);
         exDamage += CastleNewRune.manaDamage(player);
         exDamage += OnCuriosSlotAttributesModify.getAttributes(player, OnCuriosSlotAttributesModify.exManaDamage);
+        exDamage += ChangedAttributesModifier.getModifierValue(player, ChangedAttributesModifier.exManaDamage);
 
         // 请在上方添加
         double totalDamage = baseDamage + exDamage;

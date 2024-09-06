@@ -5,7 +5,9 @@ import com.very.wraq.core.ManaAttackModule;
 import com.very.wraq.events.instance.IceKnight;
 import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.events.modules.AttackEventModule;
+import com.very.wraq.process.func.EnhanceNormalAttackModifier;
 import com.very.wraq.process.func.StableAttributesModifier;
+import com.very.wraq.series.newrunes.chapter1.VolcanoNewRune;
 import com.very.wraq.series.specialevents.labourDay.LabourDayIronHoe;
 import com.very.wraq.series.specialevents.labourDay.LabourDayIronPickaxe;
 import com.very.wraq.process.system.potion.NewPotionEffects;
@@ -151,9 +153,11 @@ public class DamageInfluence {
         return rate;
     }
 
-    public static double getPlayerNormalAttackBaseRate(Player player) {
+    public static double getPlayerNormalAttackBaseRate(Player player, int type) {
         double rate = 1;
         rate += VdWeaponCommon.normalAttackRateEnhance(player);
+        rate += VolcanoNewRune.attackEnhance(player);
+        rate += EnhanceNormalAttackModifier.onHitDamageEnhance(player, type);
         return rate;
     }
 }

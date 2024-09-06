@@ -2467,13 +2467,13 @@ public class ModItems {
             () -> new WraqForge(new Item.Properties().rarity(CustomStyle.Moon1Bold), ModItems.MoonHelmet.get()));
 
     public static final RegistryObject<Item> MoonSword = ITEMS.register("moon_sword",
-            () -> new MoonSword(new Item.Properties().rarity(CustomStyle.Moon1Italic)));
+            () -> new MoonSword(new Item.Properties().rarity(CustomStyle.Moon1Italic), 0.4));
 
     public static final RegistryObject<Item> MoonBow = ITEMS.register("moon_bow",
-            () -> new MoonBow(new Item.Properties().stacksTo(1).rarity(CustomStyle.Moon1Italic)));
+            () -> new MoonBow(new Item.Properties().stacksTo(1).rarity(CustomStyle.Moon1Italic), 2));
 
     public static final RegistryObject<Item> MoonSceptre = ITEMS.register("moon_sceptre",
-            () -> new MoonSceptre(new Item.Properties().rarity(CustomStyle.Moon1Italic)));
+            () -> new MoonSceptre(new Item.Properties().rarity(CustomStyle.Moon1Italic), 0.8));
 
     public static final RegistryObject<Item> MoonSwordForgeDraw = ITEMS.register("moon_sword_forge_draw",
             () -> new WraqForge(new Item.Properties().rarity(CustomStyle.MoonBold), ModItems.MoonSword.get()));

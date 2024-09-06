@@ -20,6 +20,7 @@ import com.very.wraq.events.modules.HurtEventModule;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.misc.ParticlePackets.EffectParticle.CritHitParticleS2CPacket;
 import com.very.wraq.networking.misc.SoundsPackets.SoundsS2CPacket;
+import com.very.wraq.process.func.EnhanceNormalAttackModifier;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.projectiles.OnHitEffectCurios;
 import com.very.wraq.projectiles.OnHitEffectMainHandWeapon;
@@ -27,10 +28,8 @@ import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.instance.series.castle.CastleAttackArmor;
 import com.very.wraq.series.instance.series.castle.CastleSword;
 import com.very.wraq.series.instance.series.moon.Equip.MoonShield;
-import com.very.wraq.series.instance.series.moon.Equip.MoonSword;
 import com.very.wraq.series.instance.series.moon.MoonCurios;
 import com.very.wraq.series.nether.Equip.ManaSword;
-import com.very.wraq.series.newrunes.chapter1.VolcanoNewRune;
 import com.very.wraq.series.overworld.castle.BlazeBracelet;
 import com.very.wraq.series.overworld.chapter7.BoneImpKnife;
 import net.minecraft.ChatFormatting;
@@ -117,8 +116,10 @@ public class AttackEvent {
 
         double defence = MobAttributes.defence(monster);
 
-        double baseDamage = PlayerAttributes.attackDamage(player) * rate * (DamageInfluence.getPlayerNormalAttackBaseRate(player));
-        if (mainAttack) baseDamage *= VolcanoNewRune.attackEnhance(player);
+        double baseDamage = PlayerAttributes.attackDamage(player) * rate;
+        if (mainAttack) {
+            baseDamage *= DamageInfluence.getPlayerNormalAttackBaseRate(player, 0);
+        }
 
         double defencePenetration = PlayerAttributes.defencePenetration(player);
         double defencePenetration0 = PlayerAttributes.defencePenetration0(player);
@@ -257,14 +258,14 @@ public class AttackEvent {
                 onHitEffectMainHandWeapon.onHit(player, monster);
             }
             OnHitEffectCurios.hit(player, monster);
+            EnhanceNormalAttackModifier.onHitEffect(player, monster, 0);
         }
-        // effect
 
+        // effect
         SpringAttackArmor(player, monster);
         Compute.ChargingModule(data, player);
-        CastleSword.NormalAttack(player, monster, damage); //
+        CastleSword.NormalAttack(player, monster, damage);
         BlazeBracelet.Passive(player, monster); // 熔岩手镯
-        MoonSword.MoonSwordActive(player, monster); // 星蚀
         Compute.AdditionEffects(player, monster, damage + damageIgnoreDefence, 0);
 
         if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false)) {

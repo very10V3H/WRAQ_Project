@@ -11,6 +11,8 @@ import java.util.concurrent.atomic.AtomicReference;
 public record ChangedAttributesModifier(String tag, double value, int startTick, int stopTick, boolean attenuation) {
 
     public static Map<String, List<ChangedAttributesModifier>> movementSpeedUp = new HashMap<>();
+    public static Map<String, List<ChangedAttributesModifier>> exAttackDamage = new HashMap<>();
+    public static Map<String, List<ChangedAttributesModifier>> exManaDamage = new HashMap<>();
 
     public static List<ChangedAttributesModifier> getAttributeModifierList(Player player, Map<String, List<ChangedAttributesModifier>> modifierMap) {
         String name = player.getName().getString();
