@@ -28,7 +28,6 @@ public class PrefixPaperItem extends Item {
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
         if (!level.isClientSide() && interactionHand.equals(InteractionHand.MAIN_HAND)) {
             if (!PrefixCommand.activePrefix(player, tag)) {
-                // 已拥有称号，给予失败
                 PrefixCommand.sendFormatMSG(player, Component.literal("已经拥有该称号了").withStyle(ChatFormatting.WHITE));
             } else {
                 Compute.playerItemUseWithRecord(player);

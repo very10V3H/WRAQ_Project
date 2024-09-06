@@ -269,21 +269,59 @@ public class VMD {
                 event.accept(item.get().getDefaultInstance());
             }
         }
-        if (event.getTabKey().equals(ModCreativeModeTab.QINGMING.getKey())) {
+        if (event.getTabKey().equals(ModCreativeModeTab.SPECIAL_FESTIVAL.getKey())) {
+            SpecialEventItems.ITEMS.getEntries().stream().map(RegistryObject::get).forEach(event::accept);
+
             Item[] items = {
                     ModItems.QingTuan.get(), ModItems.QingMingPrefix.get(), ModItems.QingMingGem.get(),
                     ModItems.QingMingForgePaper.get(),
-                    ModItems.QingMingAttackRing.get(), ModItems.QingMingBowRing.get(), ModItems.QingMingManaRing.get()
-            };
-            for (Item item : items) event.accept(item);
-        }
-        if (event.getTabKey().equals(ModCreativeModeTab.LABOUR_DAY.getKey())) {
-            Item[] items = {
+                    ModItems.QingMingAttackRing.get(), ModItems.QingMingBowRing.get(), ModItems.QingMingManaRing.get(),
                     ModItems.OldSilverCoin.get(), ModItems.OldGoldCoin.get(),
                     ModItems.LabourDayForgePaper.get(), ModItems.LabourDayIronPickaxe.get(), ModItems.LabourDayIronHoe.get(),
                     ModItems.LabourDayLottery.get(), ModItems.LabourDayPrefix.get(), ModItems.LabourDayGem.get()
             };
             for (Item item : items) event.accept(item);
+
+            event.accept(ModItems.FireWorkGun.get().getDefaultInstance());
+            event.accept(ModItems.SpringMoney.get().getDefaultInstance());
+            event.accept(ModItems.SpringGoldCoin.get().getDefaultInstance());
+            event.accept(ModItems.SpringHeart.get().getDefaultInstance());
+            event.accept(ModItems.SpringSoul.get().getDefaultInstance());
+            event.accept(ModItems.SpringLoot.get().getDefaultInstance());
+            event.accept(ModItems.FireCracker.get().getDefaultInstance());
+            event.accept(ModItems.SpringAttackArmorHelmet.get().getDefaultInstance());
+            event.accept(ModItems.SpringAttackArmorChest.get().getDefaultInstance());
+            event.accept(ModItems.SpringAttackArmorLeggings.get().getDefaultInstance());
+            event.accept(ModItems.SpringAttackArmorBoots.get().getDefaultInstance());
+            event.accept(ModItems.SpringSwiftArmorHelmet.get().getDefaultInstance());
+            event.accept(ModItems.SpringSwiftArmorChest.get().getDefaultInstance());
+            event.accept(ModItems.SpringSwiftArmorLeggings.get().getDefaultInstance());
+            event.accept(ModItems.SpringSwiftArmorBoots.get().getDefaultInstance());
+            event.accept(ModItems.SpringManaArmorHelmet.get().getDefaultInstance());
+            event.accept(ModItems.SpringManaArmorChest.get().getDefaultInstance());
+            event.accept(ModItems.SpringManaArmorLeggings.get().getDefaultInstance());
+            event.accept(ModItems.SpringManaArmorBoots.get().getDefaultInstance());
+            event.accept(ModItems.SpringRing0.get().getDefaultInstance());
+            event.accept(ModItems.SpringRing1.get().getDefaultInstance());
+            event.accept(ModItems.SpringRing2.get().getDefaultInstance());
+            event.accept(ModItems.SpringRing3.get().getDefaultInstance());
+            event.accept(ModItems.SpringHand0.get().getDefaultInstance());
+            event.accept(ModItems.SpringHand1.get().getDefaultInstance());
+            event.accept(ModItems.SpringHand2.get().getDefaultInstance());
+            event.accept(ModItems.SpringHand3.get().getDefaultInstance());
+            event.accept(ModItems.SpringBelt0.get().getDefaultInstance());
+            event.accept(ModItems.SpringBelt1.get().getDefaultInstance());
+            event.accept(ModItems.SpringBelt2.get().getDefaultInstance());
+            event.accept(ModItems.SpringBelt3.get().getDefaultInstance());
+            event.accept(ModItems.SpringNecklace0.get().getDefaultInstance());
+            event.accept(ModItems.SpringNecklace1.get().getDefaultInstance());
+            event.accept(ModItems.SpringNecklace2.get().getDefaultInstance());
+            event.accept(ModItems.SpringNecklace3.get().getDefaultInstance());
+            event.accept(ModItems.SpringPiece.get().getDefaultInstance());
+            event.accept(ModItems.SpringScale0.get().getDefaultInstance());
+            event.accept(ModItems.SpringScale1.get().getDefaultInstance());
+            event.accept(ModItems.SpringScale2.get().getDefaultInstance());
+            event.accept(ModItems.SpringScale3.get().getDefaultInstance());
         }
         if (event.getTabKey().equals(ModCreativeModeTab.WEAPON_TAB.getKey())) {
             for (Item item : Utils.weaponList) event.accept(item.getDefaultInstance());
@@ -406,37 +444,16 @@ public class VMD {
             for (Item item : Display.materialList) event.accept(item.getDefaultInstance());
         }
         if (event.getTabKey().equals(ModCreativeModeTab.LOOT_EQUIP.getKey())) {
-            for (Object o : C1LootItems.ITEMS.getEntries().toArray()) {
-                RegistryObject<Item> item = (RegistryObject<Item>) o;
-                event.accept(item.get().getDefaultInstance());
-            }
-            for (Object o : C2LootItems.ITEMS.getEntries().toArray()) {
-                RegistryObject<Item> item = (RegistryObject<Item>) o;
-                event.accept(item.get().getDefaultInstance());
-            }
-            for (Object o : C3LootItems.ITEMS.getEntries().toArray()) {
-                RegistryObject<Item> item = (RegistryObject<Item>) o;
-                event.accept(item.get().getDefaultInstance());
-            }
-            for (Object o : C4LootItems.ITEMS.getEntries().toArray()) {
-                RegistryObject<Item> item = (RegistryObject<Item>) o;
-                event.accept(item.get().getDefaultInstance());
-            }
-            for (Object o : C5LootItems.ITEMS.getEntries().toArray()) {
-                RegistryObject<Item> item = (RegistryObject<Item>) o;
-                event.accept(item.get().getDefaultInstance());
-            }
-            for (Object o : C6LootItems.ITEMS.getEntries().toArray()) {
-                RegistryObject<Item> item = (RegistryObject<Item>) o;
-                event.accept(item.get().getDefaultInstance());
-            }
-            for (Object o : C7LootItems.ITEMS.getEntries().toArray()) {
-                RegistryObject<Item> item = (RegistryObject<Item>) o;
-                event.accept(item.get().getDefaultInstance());
-            }
+            C1LootItems.ITEMS.getEntries().stream().map(RegistryObject::get).forEach(event::accept);
+            C2LootItems.ITEMS.getEntries().stream().map(RegistryObject::get).forEach(event::accept);
+            C3LootItems.ITEMS.getEntries().stream().map(RegistryObject::get).forEach(event::accept);
+            C4LootItems.ITEMS.getEntries().stream().map(RegistryObject::get).forEach(event::accept);
+            C5LootItems.ITEMS.getEntries().stream().map(RegistryObject::get).forEach(event::accept);
+            C6LootItems.ITEMS.getEntries().stream().map(RegistryObject::get).forEach(event::accept);
+            C7LootItems.ITEMS.getEntries().stream().map(RegistryObject::get).forEach(event::accept);
         }
         if (event.getTabKey().equals(ModCreativeModeTab.SPUR_ITEMS.getKey())) {
-            SpurItems.ITEMS.getEntries().stream().map(RegistryObject::get).forEach(item -> event.accept(item.getDefaultInstance()));
+            SpurItems.ITEMS.getEntries().stream().map(RegistryObject::get).forEach(event::accept);
         }
         if (event.getTabKey().equals(ModCreativeModeTab.FORGING_TAB.getKey())) {
             Item[] items = {
@@ -631,48 +648,6 @@ public class VMD {
             event.accept(ModItems.CrudeGold.get().getDefaultInstance());
             event.accept(ModItems.BlazeGold.get().getDefaultInstance());
             event.accept(ModItems.RefiningGold.get().getDefaultInstance());
-        }
-        if (event.getTabKey().equals(ModCreativeModeTab.SPRING.getKey())) {
-            event.accept(ModItems.FireWorkGun.get().getDefaultInstance());
-            event.accept(ModItems.SpringMoney.get().getDefaultInstance());
-            event.accept(ModItems.SpringGoldCoin.get().getDefaultInstance());
-            event.accept(ModItems.SpringHeart.get().getDefaultInstance());
-            event.accept(ModItems.SpringSoul.get().getDefaultInstance());
-            event.accept(ModItems.SpringLoot.get().getDefaultInstance());
-            event.accept(ModItems.FireCracker.get().getDefaultInstance());
-            event.accept(ModItems.SpringAttackArmorHelmet.get().getDefaultInstance());
-            event.accept(ModItems.SpringAttackArmorChest.get().getDefaultInstance());
-            event.accept(ModItems.SpringAttackArmorLeggings.get().getDefaultInstance());
-            event.accept(ModItems.SpringAttackArmorBoots.get().getDefaultInstance());
-            event.accept(ModItems.SpringSwiftArmorHelmet.get().getDefaultInstance());
-            event.accept(ModItems.SpringSwiftArmorChest.get().getDefaultInstance());
-            event.accept(ModItems.SpringSwiftArmorLeggings.get().getDefaultInstance());
-            event.accept(ModItems.SpringSwiftArmorBoots.get().getDefaultInstance());
-            event.accept(ModItems.SpringManaArmorHelmet.get().getDefaultInstance());
-            event.accept(ModItems.SpringManaArmorChest.get().getDefaultInstance());
-            event.accept(ModItems.SpringManaArmorLeggings.get().getDefaultInstance());
-            event.accept(ModItems.SpringManaArmorBoots.get().getDefaultInstance());
-            event.accept(ModItems.SpringRing0.get().getDefaultInstance());
-            event.accept(ModItems.SpringRing1.get().getDefaultInstance());
-            event.accept(ModItems.SpringRing2.get().getDefaultInstance());
-            event.accept(ModItems.SpringRing3.get().getDefaultInstance());
-            event.accept(ModItems.SpringHand0.get().getDefaultInstance());
-            event.accept(ModItems.SpringHand1.get().getDefaultInstance());
-            event.accept(ModItems.SpringHand2.get().getDefaultInstance());
-            event.accept(ModItems.SpringHand3.get().getDefaultInstance());
-            event.accept(ModItems.SpringBelt0.get().getDefaultInstance());
-            event.accept(ModItems.SpringBelt1.get().getDefaultInstance());
-            event.accept(ModItems.SpringBelt2.get().getDefaultInstance());
-            event.accept(ModItems.SpringBelt3.get().getDefaultInstance());
-            event.accept(ModItems.SpringNecklace0.get().getDefaultInstance());
-            event.accept(ModItems.SpringNecklace1.get().getDefaultInstance());
-            event.accept(ModItems.SpringNecklace2.get().getDefaultInstance());
-            event.accept(ModItems.SpringNecklace3.get().getDefaultInstance());
-            event.accept(ModItems.SpringPiece.get().getDefaultInstance());
-            event.accept(ModItems.SpringScale0.get().getDefaultInstance());
-            event.accept(ModItems.SpringScale1.get().getDefaultInstance());
-            event.accept(ModItems.SpringScale2.get().getDefaultInstance());
-            event.accept(ModItems.SpringScale3.get().getDefaultInstance());
         }
         if (event.getTabKey().equals(ModCreativeModeTab.CUSTOMIZED.getKey())) {
             UniformItems.ITEMS.getEntries()

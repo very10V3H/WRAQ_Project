@@ -1,6 +1,8 @@
 package com.very.wraq.Items.MainStory_1.Mission;
 
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.projectiles.RandomCurios;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -52,7 +54,17 @@ public class Main0 extends Item {
         if (!level.isClientSide && !player.isShiftKeyDown()) {
             String name = player.getName().getString();
             CompoundTag data = player.getPersistentData();
-
+            List<Item> list = List.of(ModItems.plainNecklace.get(), ModItems.netherHand.get(), ModItems.lavenderBracelet.get(),
+                    ModItems.iceBelt.get(), ModItems.CastleNecklace.get());
+            list.forEach(item -> {
+                for (int i = 0 ; i < 4 ; i ++) {
+                    ItemStack stack = new ItemStack(item);
+                    if (item instanceof RandomCurios randomCurios) {
+                        randomCurios.setAttribute(stack);
+                    }
+                    Compute.itemStackGive(player, stack);
+                }
+            });
         }
 
         if (!level.isClientSide && player.isShiftKeyDown()) {

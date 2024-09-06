@@ -11,7 +11,7 @@ public class MidAutumnSceptre extends MoonSceptre {
         super(properties, activeRate);
         Utils.manaDamage.put(this, 0d);
         Utils.xpLevelManaDamage.put(this, 16d);
-        Utils.defencePenetration0.put(this, 0d);
+        Utils.manaPenetration0.put(this, 0d);
         Utils.xpLevelManaPenetration0.put(this, 16d);
     }
 

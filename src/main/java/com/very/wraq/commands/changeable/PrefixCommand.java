@@ -5,6 +5,8 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.very.wraq.Items.Prefix.PrefixInfo;
 import com.very.wraq.blocks.blocks.brew.BrewingNote;
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.events.mob.chapter1.*;
 import com.very.wraq.events.mob.chapter2.*;
@@ -29,11 +31,6 @@ import com.very.wraq.events.mob.instance.instances.*;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.misc.PrefixPackets.PrefixS2CPacket;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.StringUtils;
-import com.mojang.brigadier.Command;
-import com.mojang.brigadier.context.CommandContext;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.nbt.CompoundTag;
@@ -149,6 +146,7 @@ public class PrefixCommand implements Command<CommandSourceStack> {
 
     public static boolean activePrefix(Player player, String tag) {
         CompoundTag data = player.getPersistentData();
+        if (!data.contains(simpleFlagPrefixDataKey)) data.put(simpleFlagPrefixDataKey, new CompoundTag());
         CompoundTag prefixData = data.getCompound(simpleFlagPrefixDataKey);
         if (prefixData.contains(tag)) return false;
         prefixData.putBoolean(tag, true);

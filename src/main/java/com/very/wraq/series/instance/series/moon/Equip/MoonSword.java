@@ -59,11 +59,11 @@ public class MoonSword extends WraqSword implements ActiveItem, OnHitEffectMainH
                 append(Component.literal("将").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("吸收").withStyle(style)).
                 append(Component.literal("目标周围半径6内所有敌方单位的").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.AttackDamage("")).
-                append(Component.literal("，提供在10s内持续衰减的等额").withStyle(ChatFormatting.WHITE)).
+                append(Compute.AttributeDescription.AttackDamage("")));
+        components.add(Component.literal("，提供在10s内持续衰减的等额").withStyle(ChatFormatting.WHITE).
                 append(Compute.AttributeDescription.ExAttackDamage(String.format("%.0f%%", activeRate * 100))));
         components.add(Component.literal(" 并为你提供持续20s的").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.AttackDamage("400%")).
+                append(Compute.AttributeDescription.AttackDamage("200%")).
                 append(Component.literal("的").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("护盾").withStyle(ChatFormatting.GRAY)));
         Compute.CoolDownTimeDescription(components, 27);
@@ -87,7 +87,7 @@ public class MoonSword extends WraqSword implements ActiveItem, OnHitEffectMainH
             EnhanceNormalAttackModifier.addModifier(player, new EnhanceNormalAttackModifier("moonSwordActive", 0, new EnhanceNormalAttack() {
                 @Override
                 public void hit(Player player, Mob mob) {
-                    Compute.playerShieldProvider(player, 400, PlayerAttributes.attackDamage(player) * 4);
+                    Compute.playerShieldProvider(player, 400, PlayerAttributes.attackDamage(player) * 2);
                     Compute.sendEffectLastTime(player, ModItems.MoonSword.get().getDefaultInstance(), 200);
                     List<Mob> mobList = mob.level().getEntitiesOfClass(Mob.class, AABB.ofSize(mob.position(), 15, 15, 15));
                     mobList.removeIf(mob1 -> mob1.distanceTo(mob) > 6);

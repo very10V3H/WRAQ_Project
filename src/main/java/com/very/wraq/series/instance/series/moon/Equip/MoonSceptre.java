@@ -79,17 +79,17 @@ public class MoonSceptre extends WraqSceptre implements ActiveItem, OnHitEffectM
                 append(Component.literal("会将目标周围半径6内的其他敌人").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("小幅牵引").withStyle(style)).
                 append(Component.literal("至目标位置").withStyle(ChatFormatting.WHITE)));
-        Compute.DescriptionPassive(components, Component.literal("噬星之月 ").withStyle(style));
+        Compute.DescriptionActive(components, Component.literal("噬星之月 ").withStyle(style));
         components.add(Component.literal(" 你的下一次").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("普通法球攻击").withStyle(CustomStyle.styleOfMana)).
                 append(Component.literal("将").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("吸收").withStyle(style)).
                 append(Component.literal("目标周围半径6内所有单位的").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.AttackDamage("")).
-                append(Component.literal("，提供在10s内持续衰减的").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.ExManaDamage("")));
+                append(Compute.AttributeDescription.AttackDamage("")));
+        components.add(Component.literal("，提供在10s内持续衰减的").withStyle(ChatFormatting.WHITE).
+                append(Compute.AttributeDescription.ExManaDamage(String.format("%.0f%%", activeRate * 100))));
         components.add(Component.literal(" 并为你提供持续20s的").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.ManaDamage(String.format("%.0f%%", activeRate))).
+                append(Compute.AttributeDescription.ManaDamage("100%")).
                 append(Component.literal("的").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("护盾").withStyle(ChatFormatting.GRAY)));
         Compute.CoolDownTimeDescription(components, 27);
@@ -115,11 +115,11 @@ public class MoonSceptre extends WraqSceptre implements ActiveItem, OnHitEffectM
                 for (Mob mob1 : mobList) {
                     attackDamage += MobSpawn.MobBaseAttributes.getMobBaseAttribute(mob1, MobSpawn.MobBaseAttributes.attackDamage);
                 }
-                ChangedAttributesModifier.addAttributeModifier(player, ChangedAttributesModifier.exAttackDamage,
+                ChangedAttributesModifier.addAttributeModifier(player, ChangedAttributesModifier.exManaDamage,
                         "moonSceptreActive", attackDamage * activeRate, 200, true);
             }
         }));
-        Compute.sendEffectLastTime(player, ModItems.MoonSword.get().getDefaultInstance(), 8888, 0, true);
+        Compute.sendEffectLastTime(player, ModItems.MoonSceptre.get().getDefaultInstance(), 8888, 0, true);
     }
 
     @Override

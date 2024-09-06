@@ -99,26 +99,28 @@ public class BasicAttributeDescription {
                     event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.attackDamage)));
                 }
             } else {
-                double BaseDamage;
+                double baseDamage;
                 if (Utils.attackDamage.containsKey(item) || data.contains(StringUtils.CuriosAttribute.attackDamage)) {
                     if (Utils.attackDamage.containsKey(item))
-                        BaseDamage = ForgeEquipUtils.getTraditionalEquipBaseValue(itemStack, Utils.attackDamage);
+                        baseDamage = ForgeEquipUtils.getTraditionalEquipBaseValue(itemStack, Utils.attackDamage);
                     else if (item instanceof RandomCurios)
-                        BaseDamage = data.getDouble(StringUtils.CuriosAttribute.attackDamage) * CastleCurios.attributeValueMap.get(StringUtils.CuriosAttribute.attackDamage);
-                    else BaseDamage = data.getInt(StringUtils.CuriosAttribute.attackDamage);
+                        baseDamage = data.getDouble(StringUtils.CuriosAttribute.attackDamage) * CastleCurios.attributeValueMap.get(StringUtils.CuriosAttribute.attackDamage);
+                    else baseDamage = data.getInt(StringUtils.CuriosAttribute.attackDamage);
                 } else
-                    BaseDamage = ForgeEquipUtils.getRandomEquipBaseValue(itemStack, StringUtils.RandomAttribute.attackDamage);
+                    baseDamage = ForgeEquipUtils.getRandomEquipBaseValue(itemStack, StringUtils.RandomAttribute.attackDamage);
 
-                MutableComponent mutableComponent = Component.literal("");
-                mutableComponent.append(Component.literal(" 物理攻击").withStyle(ChatFormatting.AQUA).
-                        append(Component.literal(" " + String.format("%.0f", BaseDamage)).withStyle(ChatFormatting.WHITE)));
+                if (baseDamage != 0) {
+                    MutableComponent mutableComponent = Component.literal("");
+                    mutableComponent.append(Component.literal(" 物理攻击").withStyle(ChatFormatting.AQUA).
+                            append(Component.literal(" " + String.format("%.0f", baseDamage)).withStyle(ChatFormatting.WHITE)));
 
-                handleProficiency(data, BaseDamage, mutableComponent);
-                handleForge(data, BaseDamage, mutableComponent);
-                handleRandomAttributeRate(itemStack, StringUtils.CuriosAttribute.attackDamage, mutableComponent);
+                    handleProficiency(data, baseDamage, mutableComponent);
+                    handleForge(data, baseDamage, mutableComponent);
+                    handleRandomAttributeRate(itemStack, StringUtils.CuriosAttribute.attackDamage, mutableComponent);
 
-                index++;
-                event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.attackDamage)));
+                    index++;
+                    event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.attackDamage)));
+                }
             }
         }
 
@@ -139,26 +141,28 @@ public class BasicAttributeDescription {
                 index++;
                 event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.manaDamage)));
             } else {
-                double BaseDamage;
+                double baseDamage;
                 if (Utils.manaDamage.containsKey(item) || data.contains(StringUtils.CuriosAttribute.manaDamage)) {
                     if (Utils.manaDamage.containsKey(item))
-                        BaseDamage = ForgeEquipUtils.getTraditionalEquipBaseValue(itemStack, Utils.manaDamage);
+                        baseDamage = ForgeEquipUtils.getTraditionalEquipBaseValue(itemStack, Utils.manaDamage);
                     else if (item instanceof RandomCurios)
-                        BaseDamage = data.getDouble(StringUtils.CuriosAttribute.manaDamage) * CastleCurios.attributeValueMap.get(StringUtils.CuriosAttribute.manaDamage);
-                    else BaseDamage = data.getInt(StringUtils.CuriosAttribute.manaDamage);
+                        baseDamage = data.getDouble(StringUtils.CuriosAttribute.manaDamage) * CastleCurios.attributeValueMap.get(StringUtils.CuriosAttribute.manaDamage);
+                    else baseDamage = data.getInt(StringUtils.CuriosAttribute.manaDamage);
                 } else
-                    BaseDamage = ForgeEquipUtils.getRandomEquipBaseValue(itemStack, StringUtils.RandomAttribute.manaDamage);
+                    baseDamage = ForgeEquipUtils.getRandomEquipBaseValue(itemStack, StringUtils.RandomAttribute.manaDamage);
 
-                MutableComponent mutableComponent = Component.literal("");
-                mutableComponent.append(Component.literal(" 法术攻击").withStyle(ChatFormatting.LIGHT_PURPLE).
-                        append(Component.literal(" " + String.format("%.0f", BaseDamage)).withStyle(ChatFormatting.WHITE)));
+                if (baseDamage != 0) {
+                    MutableComponent mutableComponent = Component.literal("");
+                    mutableComponent.append(Component.literal(" 法术攻击").withStyle(ChatFormatting.LIGHT_PURPLE).
+                            append(Component.literal(" " + String.format("%.0f", baseDamage)).withStyle(ChatFormatting.WHITE)));
 
-                handleProficiency(data, BaseDamage, mutableComponent);
-                handleForge(data, BaseDamage, mutableComponent);
-                handleRandomAttributeRate(itemStack, StringUtils.CuriosAttribute.manaDamage, mutableComponent);
+                    handleProficiency(data, baseDamage, mutableComponent);
+                    handleForge(data, baseDamage, mutableComponent);
+                    handleRandomAttributeRate(itemStack, StringUtils.CuriosAttribute.manaDamage, mutableComponent);
 
-                index++;
-                event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.manaDamage)));
+                    index++;
+                    event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.manaDamage)));
+                }
             }
         }
 
@@ -335,14 +339,16 @@ public class BasicAttributeDescription {
                 if (data.contains(StringUtils.RandomAttribute.defencePenetration0))
                     defencePenetration0 += data.getDouble(StringUtils.RandomAttribute.defencePenetration0);
 
-                MutableComponent mutableComponent = Component.literal("");
-                mutableComponent.append(Component.literal(" 护甲穿透").withStyle(ChatFormatting.GRAY).
-                        append(Component.literal("+" + String.format("%.0f", defencePenetration0)).withStyle(ChatFormatting.WHITE)));
+                if (defencePenetration0 != 0) {
+                    MutableComponent mutableComponent = Component.literal("");
+                    mutableComponent.append(Component.literal(" 护甲穿透").withStyle(ChatFormatting.GRAY).
+                            append(Component.literal("+" + String.format("%.0f", defencePenetration0)).withStyle(ChatFormatting.WHITE)));
 
-                handleRandomAttributeRate(itemStack, StringUtils.CuriosAttribute.defencePenetration0, mutableComponent);
+                    handleRandomAttributeRate(itemStack, StringUtils.CuriosAttribute.defencePenetration0, mutableComponent);
 
-                index++;
-                event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.defencePenetration0)));
+                    index++;
+                    event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.defencePenetration0)));
+                }
             }
         }
 
@@ -564,14 +570,17 @@ public class BasicAttributeDescription {
                 else manaPenetration0 = data.getInt(StringUtils.CuriosAttribute.manaPenetration0);
                 if (data.contains(StringUtils.RandomAttribute.manaPenetration0))
                     manaPenetration0 += ForgeEquipUtils.getRandomEquipBaseValue(itemStack, StringUtils.RandomAttribute.manaPenetration0);
-                MutableComponent mutableComponent = Component.literal("");
-                mutableComponent.append(Component.literal(" 魔法穿透").withStyle(ChatFormatting.BLUE).
-                        append(Component.literal("+" + String.format("%.0f", manaPenetration0)).withStyle(ChatFormatting.WHITE)));
 
-                handleRandomAttributeRate(itemStack, StringUtils.CuriosAttribute.manaPenetration0, mutableComponent);
+                if (manaPenetration0 != 0) {
+                    MutableComponent mutableComponent = Component.literal("");
+                    mutableComponent.append(Component.literal(" 魔法穿透").withStyle(ChatFormatting.BLUE).
+                            append(Component.literal("+" + String.format("%.0f", manaPenetration0)).withStyle(ChatFormatting.WHITE)));
 
-                index++;
-                event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.manaPenetration0)));
+                    handleRandomAttributeRate(itemStack, StringUtils.CuriosAttribute.manaPenetration0, mutableComponent);
+
+                    index++;
+                    event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.manaPenetration0)));
+                }
             }
         }
 

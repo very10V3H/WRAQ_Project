@@ -1,5 +1,6 @@
 package com.very.wraq.series.specialevents;
 
+import com.very.wraq.commands.changeable.PrefixPaperItem;
 import com.very.wraq.common.util.Utils;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.FoiledMaterialItem;
@@ -61,4 +62,8 @@ public class SpecialEventItems {
 
     public static final RegistryObject<Item> MID_AUTUMN_SCEPTRE = ITEMS.register("mid_autumn_sceptre", () ->
             new MidAutumnSceptre(new Item.Properties().rarity(CustomStyle.MoonBold), 1.2));
+
+    public static final RegistryObject<Item> MID_AUTUMN_PREFIX = ITEMS.register("mid_autumn_prefix", () ->
+            new PrefixPaperItem(new Item.Properties().rarity(CustomStyle.MoonBold),
+                    "midAutumnPrefix", "月荧风清", CustomStyle.styleOfMoon));
 }
