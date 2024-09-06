@@ -192,37 +192,43 @@ public class BlockEvent {
         Player player = event.getEntity();
         BlockPos blockPos = event.getHitVec().getBlockPos();
         BlockState blockState = player.level().getBlockState(blockPos);
-        Item result = blockState.getBlock().asItem();
+        Block block = blockState.getBlock();
         if (!player.isCreative()) {
             if (event.getItemStack().getItem() instanceof BoatItem) event.setCanceled(true);
-            if (blockState.is(Blocks.ACACIA_TRAPDOOR)
-                    || blockState.is(Blocks.BIRCH_TRAPDOOR)
-                    || blockState.is(Blocks.IRON_TRAPDOOR)
-                    || blockState.is(Blocks.OAK_TRAPDOOR)
-                    || blockState.is(Blocks.CRIMSON_TRAPDOOR)
-                    || blockState.is(Blocks.DARK_OAK_TRAPDOOR)
-                    || blockState.is(Blocks.JUNGLE_TRAPDOOR)
-                    || blockState.is(Blocks.MANGROVE_TRAPDOOR)
-                    || blockState.is(Blocks.SPRUCE_TRAPDOOR)
-                    || blockState.is(Blocks.WARPED_TRAPDOOR)
-                    || blockState.is(Blocks.CRAFTING_TABLE)
-                    || blockState.is(Blocks.FURNACE)
-                    || blockState.is(Blocks.BLAST_FURNACE)
-                    || blockState.is(Blocks.HOPPER)
-                    || blockState.is(Blocks.SMOKER)
-                    || blockState.is(Blocks.ANVIL)
-                    || blockState.is(Blocks.ENCHANTING_TABLE)
-                    || blockState.is(Blocks.DISPENSER)
-                    || blockState.is(Blocks.DROPPER)
-                    || blockState.is(Blocks.BARREL)
-                    || blockState.getBlock() instanceof ShulkerBoxBlock
-            ) event.setCanceled(true);
+            Set<Block> set = new HashSet<>() {{
+                add(Blocks.ACACIA_TRAPDOOR);
+                add(Blocks.BIRCH_TRAPDOOR);
+                add(Blocks.IRON_TRAPDOOR);
+                add(Blocks.OAK_TRAPDOOR);
+                add(Blocks.CRIMSON_TRAPDOOR);
+                add(Blocks.DARK_OAK_TRAPDOOR);
+                add(Blocks.JUNGLE_TRAPDOOR);
+                add(Blocks.MANGROVE_TRAPDOOR);
+                add(Blocks.SPRUCE_TRAPDOOR);
+                add(Blocks.WARPED_TRAPDOOR);
+                add(Blocks.CRAFTING_TABLE);
+                add(Blocks.FURNACE);
+                add(Blocks.BLAST_FURNACE);
+                add(Blocks.HOPPER);
+                add(Blocks.SMOKER);
+                add(Blocks.ENCHANTING_TABLE);
+                add(Blocks.DISPENSER);
+                add(Blocks.DROPPER);
+                add(Blocks.BARREL);
+            }};
+            if (set.contains(block) || block instanceof ShulkerBoxBlock
+                    || block instanceof AnvilBlock){
+                event.setCanceled(true);
+            }
             if (blockState.getBlock().toString().length() > 12
                     && blockState.getBlock().toString().startsWith("create", 6)
-                    && !blockState.getBlock().toString().contains("seat")) event.setCanceled(true);
-            if (result.equals(Items.CHEST) && event.getSide().isServer() && !Utils.rewardChestPos.contains(blockPos))
+                    && !blockState.getBlock().toString().contains("seat")) {
                 event.setCanceled(true);
-            if (result.equals(Items.CHEST) && event.getSide().isServer() && Utils.rewardChestPos.contains(blockPos)) {
+            }
+            if (block instanceof ChestBlock && event.getSide().isServer() && !Utils.rewardChestPos.contains(blockPos)) {
+                event.setCanceled(true);
+            }
+            if (block instanceof ChestBlock && event.getSide().isServer() && Utils.rewardChestPos.contains(blockPos)) {
                 if (player.getItemInHand(InteractionHand.MAIN_HAND).is(Items.AIR)) {
                     if (Utils.playerIsUsingBlockBlockPosMap.containsValue(blockPos)) {
                         Compute.sendFormatMSG(player, Component.literal("奖励箱").withStyle(ChatFormatting.LIGHT_PURPLE),
