@@ -6,26 +6,25 @@ import com.very.wraq.blocks.entity.ForgingBlockEntity;
 import com.very.wraq.blocks.entity.FurnaceEntity;
 import com.very.wraq.blocks.entity.HBrewingEntity;
 import com.very.wraq.blocks.entity.InjectBlockEntity;
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ModBlocks;
+import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.registry.MySound;
+import com.very.wraq.common.util.Utils;
+import com.very.wraq.common.util.struct.BlockAndResetTime;
 import com.very.wraq.events.instance.CastleSecondFloor;
 import com.very.wraq.events.instance.TabooDevil;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.misc.TeamPackets.ScreenSetS2CPacket;
 import com.very.wraq.networking.unSorted.PlayerCallBack;
+import com.very.wraq.process.system.bonuschest.BonusChestPlayerData;
 import com.very.wraq.process.system.forge.ForgeHammer;
 import com.very.wraq.process.system.spur.events.CropSpur;
 import com.very.wraq.process.system.spur.events.MineSpur;
 import com.very.wraq.process.system.spur.events.WoodSpur;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.StringUtils;
-import com.very.wraq.common.util.struct.BlockAndResetTime;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.registry.ModBlocks;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -37,7 +36,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.Vec3;
@@ -188,7 +186,7 @@ public class BlockEvent {
     }
 
     @SubscribeEvent
-    public static void PreventRightClick(PlayerInteractEvent.RightClickBlock event) throws IOException {
+    public static void PreventRightClick(PlayerInteractEvent.RightClickBlock event) {
         Player player = event.getEntity();
         BlockPos blockPos = event.getHitVec().getBlockPos();
         BlockState blockState = player.level().getBlockState(blockPos);
@@ -235,41 +233,7 @@ public class BlockEvent {
                                 Component.literal("有其他玩家正在获取这个奖励箱的内容，请稍等片刻。").withStyle(ChatFormatting.WHITE));
                         event.setCanceled(true);
                     } else {
-                        boolean IsCoolingDown = false;
-                        if (Utils.playerRewardChestCoolDown.containsKey(player.getName().getString())) {
-                            Map<BlockPos, Calendar> map = Utils.playerRewardChestCoolDown.get(player.getName().getString());
-                            if (map.containsKey(blockPos)) {
-                                Calendar lastTime = map.get(blockPos);
-                                Calendar currentTime = Calendar.getInstance();
-                                if ((currentTime.getTimeInMillis() - lastTime.getTimeInMillis()) / (1000 * 60 * 60) < 24) {
-                                    IsCoolingDown = true;
-                                }
-                            }
-                        }
-                        if (!IsCoolingDown) {
-                            ChestBlockEntity chestBlockEntity = (ChestBlockEntity) player.level().getBlockEntity(blockPos);
-                            Random random = new Random();
-                            if (Utils.rewardItemList.isEmpty()) Utils.setRewardItemList();
-                            ItemStack itemStack = Utils.rewardItemList.get(random.nextInt(Utils.rewardItemList.size()));
-                            ItemStack reward = new ItemStack(itemStack.getItem(), itemStack.getCount());
-                            for (int i = 0; i < 27; i++) chestBlockEntity.setItem(i, Items.AIR.getDefaultInstance());
-                            chestBlockEntity.setItem(random.nextInt(27), reward);
-                            if (!Utils.playerRewardChestCoolDown.containsKey(player.getName().getString())) {
-                                Utils.playerRewardChestCoolDown.put(player.getName().getString(), new HashMap<>());
-                                Utils.playerRewardChestCoolDown.get(player.getName().getString()).put(blockPos, Calendar.getInstance());
-                            } else {
-                                Utils.playerRewardChestCoolDown.get(player.getName().getString()).put(blockPos, Calendar.getInstance());
-                            }
-                            CompoundTag data = player.getPersistentData();
-                            data.putInt(StringUtils.RewardChestCount, data.getInt(StringUtils.RewardChestCount) + 1);
-                            Compute.sendFormatMSG(player, Component.literal("奖励箱").withStyle(ChatFormatting.LIGHT_PURPLE),
-                                    Component.literal("你找到了一个奖励箱!").withStyle(ChatFormatting.WHITE));
-                            Utils.playerIsUsingBlockBlockPosMap.put(player.getName().getString(), blockPos);
-                        } else {
-                            event.setCanceled(true);
-                            Compute.sendFormatMSG(player, Component.literal("奖励箱").withStyle(ChatFormatting.LIGHT_PURPLE),
-                                    Component.literal("你最近已经打开过这个奖励箱了。").withStyle(ChatFormatting.WHITE));
-                        }
+                        BonusChestPlayerData.onPlayerSuccessOpenBonusChest(player, blockPos, event);
                     }
                 } else {
                     event.setCanceled(true);

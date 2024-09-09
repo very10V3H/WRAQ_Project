@@ -1170,20 +1170,7 @@ public class Utils {
         // 以上为天空城地区奖励箱
     }};
 
-    public static Map<String, Map<BlockPos, Calendar>> playerRewardChestCoolDown = new HashMap<>();
-
     public static Map<String, BlockPos> playerIsUsingBlockBlockPosMap = new HashMap<>();
-
-    public static List<ItemStack> rewardItemList = new ArrayList<>();
-
-    public static void setRewardItemList() {
-        rewardItemList.add(new ItemStack(ModItems.Ps_Bottle0.get(), 1));
-        rewardItemList.add(new ItemStack(ModItems.CrudeCoal.get(), 16));
-        rewardItemList.add(new ItemStack(ModItems.ForgingStone1.get(), 1));
-        rewardItemList.add(new ItemStack(ModItems.RevelationBook.get(), 1));
-        rewardItemList.add(new ItemStack(ModItems.silverCoin.get(), 32));
-        rewardItemList.add(new ItemStack(ModItems.WorldSoul2.get(), 1));
-    }
 
     public static int TimeEventFlag = -1;
 

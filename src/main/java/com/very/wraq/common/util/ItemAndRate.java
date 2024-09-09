@@ -18,6 +18,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class ItemAndRate {
@@ -185,6 +187,17 @@ public class ItemAndRate {
                     rand.nextDouble() * 0.2 * 2.0, (rand.nextDouble() * 0.20000000298023224 - 0.10000000149011612) * 2.0);
             level.addFreshEntity(orb);
         }
+    }
+
+    public static List<ItemStack> getOneTimeLoot(List<ItemAndRate> list) {
+        List<ItemStack> result = new ArrayList<>();
+        Random random = new Random();
+        list.forEach(itemAndRate -> {
+            if (random.nextDouble() < itemAndRate.rate) {
+                result.add(itemAndRate.itemStack);
+            }
+        });
+        return result;
     }
 
 }
