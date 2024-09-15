@@ -190,17 +190,18 @@ public class AttributeHud {
         guiGraphics.blit(SPEED, x - 160 + xOffset, y - 11, 0, 0, 12, 12, 12, 12);
         guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%.0f%%", ClientUtils.SpeedC * 100)), x - 135 + xOffset, y - 8, 5635925);
 
+        if (ClientUtils.elementEffects != null) {
+            if (ClientUtils.elementEffects.level != 0) {
+                guiGraphics.blit(new ResourceLocation(Utils.MOD_ID, "textures/item/" + ClientUtils.elementEffects.itemStack.getItem().toString() + ".png"), x + 79, height - 60, 0, 0, 16, 16, 16, 16);
+                guiGraphics.drawCenteredString(fontRenderer, Component.literal("" + ClientUtils.elementEffects.level).withStyle(ChatFormatting.WHITE), x + 11 + 79, height - 52, 10);
+            }
+        }
+
         boolean mob = false;
 
         // mob attribute
         if (ClientUtils.mobAttribute != null) {
             mob = true;
-            if (ClientUtils.elementEffects != null) {
-                if (ClientUtils.elementEffects.level != 0) {
-                    guiGraphics.blit(new ResourceLocation(Utils.MOD_ID, "textures/item/" + ClientUtils.elementEffects.itemStack.getItem().toString() + ".png"), x + 79, height - 60, 0, 0, 16, 16, 16, 16);
-                    guiGraphics.drawCenteredString(fontRenderer, Component.literal("" + ClientUtils.elementEffects.level).withStyle(ChatFormatting.WHITE), x + 11 + 79, height - 52, 10);
-                }
-            }
 
             int count = 0;
             int offsetX = 0;
