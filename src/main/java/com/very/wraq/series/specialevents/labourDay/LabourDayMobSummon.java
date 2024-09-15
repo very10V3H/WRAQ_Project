@@ -2,6 +2,7 @@ package com.very.wraq.series.specialevents.labourDay;
 
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.process.func.item.InventoryOperation;
 import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -144,7 +145,7 @@ public class LabourDayMobSummon {
 
         ItemStack weapon = isWeek ? Items.IRON_HOE.getDefaultInstance() : Items.IRON_PICKAXE.getDefaultInstance();
 
-        Compute.setMobCustomName(mob, armor.getItem(), Component.literal("工贼").withStyle(ChatFormatting.GRAY));
+        MobSpawn.setMobCustomName(mob, armor.getItem(), Component.literal("工贼").withStyle(ChatFormatting.GRAY));
         mob.setItemSlot(EquipmentSlot.HEAD, armor);
         mob.setItemInHand(InteractionHand.MAIN_HAND, weapon);
         mob.getAttribute(Attributes.MAX_HEALTH).setBaseValue(isWeek ? 5.1 * Math.pow(10, 4) : 5.1 * Math.pow(10, 7));

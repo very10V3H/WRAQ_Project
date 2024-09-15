@@ -1,11 +1,11 @@
 package com.very.wraq.commands.changeable;
 
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.StringUtils;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.util.StringUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.nbt.CompoundTag;

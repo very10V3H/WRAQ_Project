@@ -1,13 +1,12 @@
 package com.very.wraq.series.overworld.sakuraSeries.EarthMana;
 
-import com.very.wraq.projectiles.ForgeItem;
-import com.very.wraq.projectiles.WraqArmor;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.ComponentUtils;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.registry.ItemMaterial;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.Utils;
+import com.very.wraq.projectiles.ForgeItem;
+import com.very.wraq.projectiles.WraqArmor;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -40,12 +39,12 @@ public class EarthManaArmor extends WraqArmor implements ForgeItem {
     @Override
     public List<Component> getAdditionalComponents() {
         List<Component> components = new ArrayList<>();
-        Compute.DescriptionPassive(components, Component.literal("旧世斩魔遗怒").withStyle(style));
+        ComponentUtils.descriptionPassive(components, Component.literal("旧世斩魔遗怒").withStyle(style));
         components.add(Component.literal(" 将你消耗的").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.MaxMana("100%")).
+                append(ComponentUtils.AttributeDescription.MaxMana("100%")).
                 append(Component.literal("转化为").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.healValue("")));
-        Compute.DescriptionPassive(components, Component.literal("新世唤魔复生").withStyle(style));
+                append(ComponentUtils.AttributeDescription.healValue("")));
+        ComponentUtils.descriptionPassive(components, Component.literal("新世唤魔复生").withStyle(style));
         components.add(Component.literal(" 你的").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("普通法球攻击").withStyle(CustomStyle.styleOfMana)).
                 append(Component.literal("将根据目标的当前生命值附带至多").withStyle(ChatFormatting.WHITE)).

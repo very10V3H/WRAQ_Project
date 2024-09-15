@@ -112,7 +112,7 @@ public class CastleSwiftArmor extends WraqArmor implements ForgeItem {
     public static double ExIgnoreDefenceDamage(Player player) {
         int ArmorCount = SuitCount.getCastleSwiftSuitCount(player);
         if (ArmorCount == 0) return 0;
-        return Compute.XpStrengthADDamage(player, 2) * ArmorCount;
+        return Compute.getXpStrengthADDamage(player, 2) * ArmorCount;
     }
 
     public static String attributeType = "attributeType"; // 锁定类型

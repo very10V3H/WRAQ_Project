@@ -4,6 +4,7 @@ import com.very.wraq.common.Compute;
 import com.very.wraq.common.attribute.BasicAttributeDescription;
 import com.very.wraq.common.registry.ItemMaterial;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.common.util.Utils;
 import com.very.wraq.process.func.item.InventoryOperation;
@@ -189,10 +190,10 @@ public class SnowBoss {
         public void appendHoverText(ItemStack stack, @javax.annotation.Nullable Level level, List<Component> components, TooltipFlag flag) {
             Compute.forgingHoverName(stack);
             components.add(Component.literal("防具                   ").withStyle(ChatFormatting.GRAY).append(Component.literal("胸甲").withStyle(style)));
-            Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-            Compute.DescriptionOfBasic(components);
+            ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+            ComponentUtils.DescriptionOfBasic(components);
             BasicAttributeDescription.BasicAttributeCommonDescription(components, stack);
-            Compute.DescriptionOfAddition(components);
+            ComponentUtils.DescriptionOfAddition(components);
             Compute.DescriptionPassive(components, Component.literal("寒玉皑皑").withStyle(style));
             components.add(Component.literal("每过3s，削减周围所有单位至多").withStyle(ChatFormatting.WHITE).
                     append(Compute.AttributeDescription.Defence("50%")).
@@ -201,9 +202,9 @@ public class SnowBoss {
                     append(Component.literal("效果。").withStyle(ChatFormatting.WHITE)));
             components.add(Component.literal("护甲削减与缓速效果持续2s,并且效果不可叠加。").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
             SnowSuitDescription.SuitDescription(components);
-            Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+            ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
             components.add(Component.literal("Dimension-Snow").withStyle(style).withStyle(ChatFormatting.ITALIC));
-            Compute.SuffixOfMainStoryI(components);
+            ComponentUtils.suffixOfChapterI(components);
             super.appendHoverText(stack, level, components, flag);
         }
     }

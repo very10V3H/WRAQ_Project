@@ -10,6 +10,7 @@ import com.very.wraq.common.util.struct.Instance;
 import com.very.wraq.common.util.struct.PlayerTeam;
 import com.very.wraq.entities.entities.Boss2.Boss2;
 import com.very.wraq.events.core.LoginInEvent;
+import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.process.func.item.InventoryOperation;
 import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -91,7 +92,7 @@ public class SakuraBoss {
                         add(new Boss2(ModEntityType.Boss2.get(), level));
                     }});
                     Mob entity = instance.getMobList().get(0);
-                    Compute.setMobCustomName(entity, ModItems.ArmorBoss2.get(),
+                    MobSpawn.setMobCustomName(entity, ModItems.ArmorBoss2.get(),
                             Component.literal("突见忍").withStyle(CustomStyle.styleOfSakura));
                     entity.getAttribute(Attributes.MAX_HEALTH).setBaseValue(Boss2.MaxHealth * (1 + Utils.Boss2DeadTimes) * difficultyEnhanceRate * (1 + (playerNum - 1) * 0.75));
                     entity.setHealth(entity.getMaxHealth());

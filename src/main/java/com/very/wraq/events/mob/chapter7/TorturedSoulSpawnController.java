@@ -2,9 +2,8 @@ package com.very.wraq.events.mob.chapter7;
 
 import com.obscuria.aquamirae.common.entities.TorturedSoul;
 import com.obscuria.aquamirae.registry.AquamiraeEntities;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.ItemAndRate;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.ItemAndRate;
 import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.events.mob.MobSpawnController;
 import com.very.wraq.render.toolTip.CustomStyle;
@@ -60,7 +59,7 @@ public class TorturedSoulSpawnController extends MobSpawnController {
 
         // 设置颜色与名称
         Style style = CustomStyle.styleOfWorld;
-        Compute.setMobCustomName(boneImp, Component.literal(mobName).withStyle(style), xpLevel);
+        MobSpawn.setMobCustomName(boneImp, Component.literal(mobName).withStyle(style), xpLevel);
 
         // 需要验证
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(boneImp), xpLevel);

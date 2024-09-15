@@ -1,11 +1,12 @@
 package com.very.wraq.series.overworld.sakuraSeries.SakuraMob;
 
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.attribute.BasicAttributeDescription;
+import com.very.wraq.common.registry.ItemMaterial;
+import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.entities.armor.SakuraArmorRenderer;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.attribute.BasicAttributeDescription;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.registry.ItemMaterial;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.network.chat.Component;
@@ -47,11 +48,11 @@ public class SakuraArmorHelmet extends ArmorItem implements GeoItem {
         Style style = CustomStyle.styleOfSakura;
         Compute.forgingHoverName(stack);
         components.add(Component.literal("防具                   ").withStyle(ChatFormatting.GRAY).append(Component.literal("帽子").withStyle(style)));
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        Compute.DescriptionOfBasic(components);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionOfBasic(components);
         BasicAttributeDescription.BasicAttributeCommonDescription(components, stack);
         /*       Compute.EmojiDescriptionLuckyUp(components,LuckyUp);*/
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         components.add(Component.literal(" "));
         components.add(Component.literal("Sakura-Helmet").withStyle(style).withStyle(ChatFormatting.ITALIC));
         Compute.SuffixOfMainStoryV(components);

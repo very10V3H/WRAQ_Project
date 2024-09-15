@@ -1,10 +1,11 @@
 package com.very.wraq.series.overworld.IceSeries;
 
-import com.very.wraq.common.attribute.BasicAttributeDescription;
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.attribute.BasicAttributeDescription;
+import com.very.wraq.common.registry.ItemMaterial;
+import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.Utils;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.registry.ItemMaterial;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -41,19 +42,19 @@ public class LeatherArmor extends ArmorItem {
         Compute.forgingHoverName(stack);
         components.add(Component.literal("防具                   ").withStyle(ChatFormatting.GRAY).
                 append(Component.literal(Type[Num]).withStyle(ChatFormatting.BLUE)));
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        Compute.DescriptionOfBasic(components);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionOfBasic(components);
         BasicAttributeDescription.BasicAttributeCommonDescription(components, stack);
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        Compute.DescriptionOfAddition(components);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionOfAddition(components);
         Compute.DescriptionPassive(components, Component.literal("厚实皮囊").withStyle(style));
         components.add(Component.literal(" 你在冰雪中的").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("寒冷值").withStyle(style)).
                 append(Component.literal("提升速度").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("降低90%").withStyle(ChatFormatting.GREEN)));
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         components.add(Component.literal("LeatherArmor").withStyle(CustomStyle.styleOfSnow).withStyle(ChatFormatting.ITALIC));
-        Compute.SuffixOfIce(components);
+        ComponentUtils.SuffixOfIce(components);
         super.appendHoverText(stack, level, components, flag);
     }
 

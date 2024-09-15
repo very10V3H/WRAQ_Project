@@ -1,6 +1,7 @@
 package com.very.wraq.series.overworld.chapter1.Snow;
 
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.Utils;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.overworld.chapter1.Mine.MineShield;
@@ -39,10 +40,10 @@ public class SnowShield extends Item {
         Style MainStyle = CustomStyle.styleOfSnow;
         stack.setHoverName(Component.literal("玉山圆盾").withStyle(MainStyle).withStyle(ChatFormatting.BOLD));
         components.add(Component.literal("副手                   ").withStyle(ChatFormatting.GOLD).append(Component.literal("手盾").withStyle(ChatFormatting.GRAY)));
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
-        Compute.DescriptionOfBasic(components);
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
-        Compute.DescriptionOfAddition(components);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionOfBasic(components);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionOfAddition(components);
         MineShield.shieldAdditionDescription(components);
         Compute.DescriptionPassive(components, Component.literal("破碎冰玉").withStyle(MainStyle));
         components.add(Component.literal(" 造成暴击后，击碎目标").withStyle(ChatFormatting.WHITE).
@@ -50,9 +51,9 @@ public class SnowShield extends Item {
                 append(Component.literal("并提升自身等额").withStyle(ChatFormatting.WHITE)).
                 append(Compute.AttributeDescription.Defence("")).
                 append(Component.literal(" 持续2s").withStyle(ChatFormatting.WHITE)));
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
         components.add(Component.literal("SnowShield").withStyle(MainStyle).withStyle(ChatFormatting.ITALIC));
-        Compute.SuffixOfMainStoryI(components);
+        ComponentUtils.suffixOfChapterI(components);
         super.appendHoverText(stack, level, components, flag);
     }
 

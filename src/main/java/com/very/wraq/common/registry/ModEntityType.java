@@ -1,5 +1,6 @@
 package com.very.wraq.common.registry;
 
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.entities.entities.Boss2.Boss2;
 import com.very.wraq.entities.entities.Civil.Civil;
 import com.very.wraq.entities.entities.MainBoss.MainBoss;
@@ -8,7 +9,6 @@ import com.very.wraq.entities.entities.Scarecrow.Scarecrow;
 import com.very.wraq.entities.entities.SoraSword.SoraSwordAir;
 import com.very.wraq.projectiles.firework.Firework;
 import com.very.wraq.projectiles.mana.*;
-import com.very.wraq.common.util.Utils;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;

@@ -121,7 +121,7 @@ public class ManaAttackModule {
             damage *= (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, monster));
             damageIgnoreDefence *= (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, monster));
             // defence compute
-            damage *= Compute.manaDefenceDamageDecreaseRate(defence, DefencePenetration, DefencePenetration0);
+            damage *= Damage.manaDefenceDamageDecreaseRate(defence, DefencePenetration, DefencePenetration0);
             // total damage
             damage *= DamageInfluence.getPlayerTotalDamageRate(player);
             damageIgnoreDefence *= DamageInfluence.getPlayerTotalDamageRate(player);
@@ -151,9 +151,9 @@ public class ManaAttackModule {
 
             // display
             if (isCrit)
-                Compute.SummonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", damage + damageIgnoreDefence)).withStyle(CustomStyle.styleOfEntropy), 1);
+                Compute.summonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", damage + damageIgnoreDefence)).withStyle(CustomStyle.styleOfEntropy), 1);
             else
-                Compute.SummonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", damage + damageIgnoreDefence)).withStyle(CustomStyle.styleOfMana), 1);
+                Compute.summonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", damage + damageIgnoreDefence)).withStyle(CustomStyle.styleOfMana), 1);
 
             if (elementDamage != 0 && !elementType.isEmpty())
                 Compute.damageActionBarPacketSend(player, damage, damageIgnoreDefence, true, isCrit, elementType, elementDamage);
@@ -201,7 +201,7 @@ public class ManaAttackModule {
                 player.sendSystemMessage(Component.literal("NormalAttackDamageEnhance : " + NormalAttackDamageEnhance));
                 player.sendSystemMessage(Component.literal("DamageEnhance : " + DamageEnhance));
                 player.sendSystemMessage(Component.literal("DamageEnhances.PlayerFinalDamageEnhance(player,monster) : " + DamageInfluence.getPlayerFinalDamageEnhance(player, monster)));
-                player.sendSystemMessage(Component.literal("Compute.DefenceDamageDecreaseRate(Defence, DefencePenetration, DefencePenetration0) : " + Compute.defenceDamageDecreaseRate(defence, DefencePenetration, DefencePenetration0)));
+                player.sendSystemMessage(Component.literal("Damage.defenceDamageDecreaseRate(Defence, DefencePenetration, DefencePenetration0) : " + Damage.defenceDamageDecreaseRate(defence, DefencePenetration, DefencePenetration0)));
                 player.sendSystemMessage(Component.literal("ElementDamageEffect : " + ElementDamageEffect));
                 player.sendSystemMessage(Component.literal("ElementDamageEnhance : " + ElementDamageEnhance));
                 player.sendSystemMessage(Component.literal("Damage + DamageIgnoreDefence : " + (damage + damageIgnoreDefence)));
@@ -465,7 +465,7 @@ public class ManaAttackModule {
         if (data.contains(StringUtils.ManaCore.ManaCore)
                 && data.getString(StringUtils.ManaCore.ManaCore).equals(StringUtils.ManaCore.SeaCore)) {
             double Rate = (1 - monster.getHealth() / monster.getMaxHealth());
-            return Compute.XpStrengthAPDamage(player, Rate) * 0.5;
+            return Compute.getXpStrengthAPDamage(player, Rate) * 0.5;
         }
         return 0;
     }
@@ -475,7 +475,7 @@ public class ManaAttackModule {
         if (data.contains(StringUtils.ManaCore.ManaCore)
                 && data.getString(StringUtils.ManaCore.ManaCore).equals(StringUtils.ManaCore.BlackForestCore)) {
             double Rate = monster.getHealth() / monster.getMaxHealth();
-            return Compute.XpStrengthAPDamage(player, Rate) * 0.5;
+            return Compute.getXpStrengthAPDamage(player, Rate) * 0.5;
         }
         return 0;
     }
@@ -558,7 +558,7 @@ public class ManaAttackModule {
 
     public static double EarthManaArmor(Player player, Mob mob) {
         if (SuitCount.getEarthManaSuitCount(player) > 0) {
-            return Compute.XpStrengthAPDamage(player, mob.getHealth() * 0.25 * SuitCount.getEarthManaSuitCount(player) / mob.getMaxHealth());
+            return Compute.getXpStrengthAPDamage(player, mob.getHealth() * 0.25 * SuitCount.getEarthManaSuitCount(player) / mob.getMaxHealth());
         }
         return 0;
     }

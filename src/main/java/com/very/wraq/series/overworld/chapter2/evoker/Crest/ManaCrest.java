@@ -1,6 +1,7 @@
 package com.very.wraq.series.overworld.chapter2.evoker.Crest;
 
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.common.util.Utils;
 import com.very.wraq.networking.ModNetworking;
@@ -41,17 +42,17 @@ public class ManaCrest extends Item implements ICurioItem {
         Style MainStyle = CustomStyle.styleOfMana;
         stack.setHoverName(Component.literal("唤魔纹章" + "(" + ManaCrestAttributes.LevelName[Level] + ")").
                 withStyle(ManaCrestAttributes.LevelColor[Level]).withStyle(ChatFormatting.BOLD));
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
-        Compute.DescriptionOfBasic(components);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionOfBasic(components);
 
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
-        Compute.DescriptionOfAddition(components);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionOfAddition(components);
         if (Screen.hasShiftDown()) SuitDescription.CrestSuitDescription(components);
         else {
             Compute.SuitDescription(components);
             components.add(Component.literal("[按住shift展开套装效果]").withStyle(ChatFormatting.GRAY));
         }
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
         components.add(Component.literal(CrestName + "-I").withStyle(MainStyle).withStyle(ChatFormatting.ITALIC));
         components.add(Component.literal("MainStoryII").withStyle(ChatFormatting.AQUA).withStyle(ChatFormatting.ITALIC));
         super.appendHoverText(stack, level, components, flag);

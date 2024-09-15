@@ -1,8 +1,8 @@
 package com.very.wraq.render.gui.blocks;
 
 import com.very.wraq.blocks.entity.ForgingBlockEntity;
-import com.very.wraq.render.gui.testAndHelper.ModMenuTypes;
 import com.very.wraq.common.registry.ModBlocks;
+import com.very.wraq.render.gui.testAndHelper.ModMenuTypes;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;

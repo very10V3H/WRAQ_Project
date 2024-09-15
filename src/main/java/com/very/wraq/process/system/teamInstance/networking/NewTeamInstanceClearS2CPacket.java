@@ -2,10 +2,8 @@ package com.very.wraq.process.system.teamInstance.networking;
 
 import com.very.wraq.process.system.teamInstance.NewTeamInstanceHud;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.chat.Component;
 import net.minecraftforge.network.NetworkEvent;
 
-import java.util.List;
 import java.util.function.Supplier;
 
 public class NewTeamInstanceClearS2CPacket {

@@ -19,8 +19,8 @@ import java.util.List;
 public class VolcanoSuitDescription {
     public static void VolcanoArmorCommonDescription(List<Component> components) {
         Style style = Style.EMPTY.applyFormat(ChatFormatting.YELLOW);
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.YELLOW, ChatFormatting.WHITE);
-        Compute.DescriptionOfAddition(components);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.YELLOW, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionOfAddition(components);
         Compute.solePassiveDescription(components, Component.literal("").withStyle(style));
         int level = Math.min(100, Minecraft.getInstance().player.experienceLevel);
         components.add(Component.literal(" 获得").withStyle(ChatFormatting.WHITE).
@@ -35,9 +35,9 @@ public class VolcanoSuitDescription {
             Compute.SuitDescription(components);
             components.add(Component.literal("[按住shift展开套装效果]").withStyle(ChatFormatting.GRAY));
         }
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.YELLOW, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.YELLOW, ChatFormatting.WHITE);
         components.add(Component.literal("VolcanoArmor-I").withStyle(ChatFormatting.YELLOW).withStyle(ChatFormatting.ITALIC));
-        Compute.SuffixOfMainStoryI(components);
+        ComponentUtils.suffixOfChapterI(components);
     }
 
     public static void VolcanoSuitDescription(List<Component> components) {

@@ -7,6 +7,7 @@ import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.util.struct.Instance;
 import com.very.wraq.common.util.struct.PlayerTeam;
 import com.very.wraq.events.core.LoginInEvent;
+import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.process.func.item.InventoryOperation;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.render.toolTip.CustomStyle;
@@ -165,7 +166,7 @@ public class Lightning {
     }
 
     public static void MobAttributeSet(Mob mob, int difficultyRate, int playerNum) {
-        Compute.setMobCustomName(mob, ModItems.ArmorLZHelmet.get(),
+        MobSpawn.setMobCustomName(mob, ModItems.ArmorLZHelmet.get(),
                 Component.literal("唤雷守卫").withStyle(CustomStyle.styleOfLightingIsland));
 
         mob.setItemSlot(EquipmentSlot.HEAD, Compute.foilAddItemStack(ModItems.ArmorLZHelmet.get().getDefaultInstance()));

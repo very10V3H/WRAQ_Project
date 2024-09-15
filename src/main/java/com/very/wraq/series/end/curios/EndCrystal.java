@@ -2,8 +2,10 @@ package com.very.wraq.series.end.curios;
 
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.common.util.struct.Drops;
+import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.process.func.item.InventoryOperation;
 import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -40,7 +42,7 @@ public class EndCrystal extends Item {
         components.add(Component.literal(" 凝聚终界能量的水晶，具有扭曲时间与空间的强大能量").withStyle(CustomStyle.styleOfEnd));
 /*        components.add(Component.literal(" - 于终界寂域中心使用，召唤").withStyle(ChatFormatting.WHITE).
                 append(Component.literal(" 终界征讨者遗骸").withStyle(CustomStyle.styleOfEnd)));*/
-        Compute.SuffixOfMainStoryIV(components);
+        ComponentUtils.suffixOfChapterIV(components);
         super.appendHoverText(stack, level, components, flag);
     }
 
@@ -78,7 +80,7 @@ public class EndCrystal extends Item {
     public static void Summon(Level level, Vec3 pos) {
         stray = new Stray(EntityType.STRAY, level);
 
-        Compute.setMobCustomName(stray, ModItems.MobArmorEndStrayHelmet.get(),
+        MobSpawn.setMobCustomName(stray, ModItems.MobArmorEndStrayHelmet.get(),
                 Component.literal("终界征讨者遗骸").withStyle(CustomStyle.styleOfEnd));
 
         stray.setItemInHand(InteractionHand.MAIN_HAND, ModItems.PurpleIronSceptre.get().getDefaultInstance());

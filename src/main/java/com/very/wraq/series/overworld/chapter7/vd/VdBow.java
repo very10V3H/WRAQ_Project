@@ -1,9 +1,9 @@
 package com.very.wraq.series.overworld.chapter7.vd;
 
+import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.registry.MySound;
 import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.core.MyArrow;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.projectiles.ActiveItem;

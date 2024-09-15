@@ -102,7 +102,7 @@ public class FireElementSword extends WraqSword implements ActiveItem {
     public void active(Player player) {
         if (Compute.PlayerUseWithHud(player, FireElementSword.playerActiveCoolDownMap, ModItems.FireElementSword.get(), 0, 7)) {
             Compute.playerItemCoolDown(player, this, 7);
-            List<Mob> mobList = Compute.OneShotLaser(player, true, Compute.XpStrengthADDamage(player, 2), ModParticles.LONG_RED_SPELL.get());
+            List<Mob> mobList = Compute.OneShotLaser(player, true, Compute.getXpStrengthADDamage(player, 2), ModParticles.LONG_RED_SPELL.get());
             mobList.forEach(mob -> Compute.IgniteMob(player, mob, 80));
         }
     }

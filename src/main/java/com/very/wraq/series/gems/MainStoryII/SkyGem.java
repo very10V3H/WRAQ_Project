@@ -1,8 +1,8 @@
 package com.very.wraq.series.gems.MainStoryII;
 
-import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.Compute;
+import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.Utils;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
@@ -30,11 +30,11 @@ public class SkyGem extends Item {
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
         stack.getOrCreateTagElement(Utils.MOD_ID);
         components.add(Component.literal("天空意志的具象，凝聚于此石。").withStyle(CustomStyle.styleOfSky));
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfSky, ChatFormatting.WHITE);
-        Compute.DescriptionOfBasic(components);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfSky, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionOfBasic(components);
 /*        Compute.EmojiDescriptionBaseAttackDamage(components,AttackDamage);
         Compute.EmojiDescriptionMovementSpeed(components,SpeedUp);*/
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfSky, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfSky, ChatFormatting.WHITE);
         components.add(Component.literal("MainStoryII").withStyle(ChatFormatting.AQUA).withStyle(ChatFormatting.ITALIC));
         super.appendHoverText(stack, level, components, flag);
     }

@@ -1,12 +1,12 @@
 package com.very.wraq.process.func.guide;
 
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.registry.MySound;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.process.func.guide.networking.GuideStageS2CPacket;
 import com.very.wraq.process.system.wayPoints.MyWayPoint;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.registry.ModItems;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.ChatFormatting;

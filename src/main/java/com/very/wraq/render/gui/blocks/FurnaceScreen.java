@@ -1,9 +1,9 @@
 package com.very.wraq.render.gui.blocks;
 
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.misc.Limit.ScreenCloseC2SPacket;
-import com.very.wraq.common.util.Utils;
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;

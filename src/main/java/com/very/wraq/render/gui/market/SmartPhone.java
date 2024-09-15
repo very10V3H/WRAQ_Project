@@ -1,16 +1,16 @@
 package com.very.wraq.render.gui.market;
 
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.very.wraq.common.util.ClientUtils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.misc.SmartPhonePackets.Currency.GoldCoinC2SPacket;
 import com.very.wraq.networking.misc.SmartPhonePackets.Currency.SilverCoinC2SPacket;
-import com.very.wraq.common.util.ClientUtils;
-import com.very.wraq.common.util.Utils;
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.screens.*;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;

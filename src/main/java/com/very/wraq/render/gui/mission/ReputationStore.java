@@ -1,10 +1,10 @@
 package com.very.wraq.render.gui.mission;
 
-import com.very.wraq.networking.ModNetworking;
-import com.very.wraq.networking.reputation.ReputationBuyRequestC2SPacket;
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.very.wraq.common.util.ClientUtils;
 import com.very.wraq.common.util.Utils;
-import com.mojang.blaze3d.systems.RenderSystem;
+import com.very.wraq.networking.ModNetworking;
+import com.very.wraq.networking.reputation.ReputationBuyRequestC2SPacket;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;

@@ -1,9 +1,9 @@
 package com.very.wraq.series.gems.MainStoryII;
 
-import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.Compute;
+import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.common.util.Utils;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -33,12 +33,12 @@ public class LifeManaGem extends Item {
         stack.getOrCreateTagElement(Utils.MOD_ID);
         Style style = CustomStyle.styleOfHealth;
         components.add(Component.literal("平原和森林的意志具象，凝聚成此石。").withStyle(style));
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        Compute.DescriptionOfBasic(components);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionOfBasic(components);
 /*        Compute.EmojiDescriptionManaRecover(components,ManaRecover);
         Compute.EmojiDescriptionManaHealSteal(components,ManaHealSteal);*/
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        Compute.SuffixOfMainStoryII(components);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.suffixOfChapterII(components);
         super.appendHoverText(stack, level, components, flag);
     }
 

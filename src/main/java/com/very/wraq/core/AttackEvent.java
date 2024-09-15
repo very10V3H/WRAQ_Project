@@ -215,7 +215,7 @@ public class AttackEvent {
         damageBeforeDefence *= (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, monster));
         damageIgnoreDefence *= (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, monster));
         // Defence compute
-        damage = damageBeforeDefence * Compute.defenceDamageDecreaseRate(defence, defencePenetration, defencePenetration0);
+        damage = damageBeforeDefence * Damage.defenceDamageDecreaseRate(defence, defencePenetration, defencePenetration0);
         // total damage
         damage *= DamageInfluence.getPlayerTotalDamageRate(player);
         damageIgnoreDefence *= DamageInfluence.getPlayerTotalDamageRate(player);
@@ -248,9 +248,9 @@ public class AttackEvent {
         Compute.healByHealthSteal(player, damage * PlayerAttributes.healthSteal(player));
         // Display
         if (critFlag)
-            Compute.SummonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", damage + damageIgnoreDefence)).withStyle(CustomStyle.styleOfPower), 0);
+            Compute.summonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", damage + damageIgnoreDefence)).withStyle(CustomStyle.styleOfPower), 0);
         else
-            Compute.SummonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", damage + damageIgnoreDefence)).withStyle(ChatFormatting.YELLOW), 0);
+            Compute.summonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", damage + damageIgnoreDefence)).withStyle(ChatFormatting.YELLOW), 0);
 
         if (mainAttack) {
             if (elementDamage != 0 && !elementType.isEmpty())
@@ -275,7 +275,7 @@ public class AttackEvent {
             player.sendSystemMessage(Component.literal("NormalAttackDamageEnhance : " + NormalAttackDamageEnhance));
             player.sendSystemMessage(Component.literal("DamageEnhance : " + damageEnhance));
             player.sendSystemMessage(Component.literal("DamageEnhances.PlayerFinalDamageEnhance(player,monster) : " + DamageInfluence.getPlayerFinalDamageEnhance(player, monster)));
-            player.sendSystemMessage(Component.literal("Compute.DefenceDamageDecreaseRate(Defence, DefencePenetration, DefencePenetration0) : " + Compute.defenceDamageDecreaseRate(defence, defencePenetration, defencePenetration0)));
+            player.sendSystemMessage(Component.literal("Damage.defenceDamageDecreaseRate(Defence, DefencePenetration, DefencePenetration0) : " + Damage.defenceDamageDecreaseRate(defence, defencePenetration, defencePenetration0)));
             player.sendSystemMessage(Component.literal("ElementDamageEffect : " + ElementDamageEffect));
             player.sendSystemMessage(Component.literal("ElementDamageEnhance : " + ElementDamageEnhance));
             player.sendSystemMessage(Component.literal("MonsterControl : " + DamageInfluence.getMonsterControlDamageEffect(player, monster)));
@@ -337,7 +337,7 @@ public class AttackEvent {
         ExDamageIgnoreDefence += SakuraSword.SakuraDemonSword(player, DamageBeforeDefence);
         // 妖刀伤害影响
 
-        damage = DamageBeforeDefence * Compute.defenceDamageDecreaseRate(Defence, BreakDefence, BreakDefence0);
+        damage = DamageBeforeDefence * Damage.defenceDamageDecreaseRate(Defence, BreakDefence, BreakDefence0);
         data.putDouble(StringUtils.DamageTypes.ToPlayerDamage, (damage + ExDamageIgnoreDefence) * 0.1f);
         Damage.DirectDamageToPlayer(player, hurter, (damage + ExDamageIgnoreDefence) * 0.1f);
     }
@@ -499,8 +499,8 @@ public class AttackEvent {
         if (!Utils.PlayerSpringAttackCoolDown.containsKey(player)
                 || Utils.PlayerSpringAttackCoolDown.get(player) < player.getServer().getTickCount()) {
             if (SuitCount.getSpringAttackSuitCount(player) > 0) {
-                Compute.FireWorkSummon(player, monster);
-                Compute.AddDefenceDescreaseEffectParticle(monster, 60);
+                Compute.summonFireWork(player, monster);
+                Compute.addDefenceDecreaseEffectParticle(monster, 60);
                 Compute.coolDownTimeSend(player, ModItems.FireCracker.get().getDefaultInstance(), 100);
                 Utils.MobSpringAttackTick.put(monster, monster.getServer().getTickCount() + 60);
                 Utils.MobSpringAttackEffect.put(monster, SuitCount.getSpringAttackSuitCount(player));
@@ -514,8 +514,8 @@ public class AttackEvent {
         if (!Utils.PlayerSpringSwiftCoolDown.containsKey(player)
                 || Utils.PlayerSpringSwiftCoolDown.get(player) < player.getServer().getTickCount()) {
             if (SuitCount.getSpringSwiftSuitCount(player) > 0) {
-                Compute.FireWorkSummon(player, monster);
-                Compute.AddDefenceDescreaseEffectParticle(monster, 60);
+                Compute.summonFireWork(player, monster);
+                Compute.addDefenceDecreaseEffectParticle(monster, 60);
                 Compute.coolDownTimeSend(player, ModItems.FireCracker.get().getDefaultInstance(), 100);
                 Utils.MobSpringSwiftTick.put(monster, monster.getServer().getTickCount() + 60);
                 Utils.MobSpringSwiftEffect.put(monster, SuitCount.getSpringSwiftSuitCount(player));
@@ -530,8 +530,8 @@ public class AttackEvent {
         if (!Utils.PlayerSpringManaCoolDown.containsKey(player)
                 || Utils.PlayerSpringManaCoolDown.get(player) < player.getServer().getTickCount()) {
             if (SuitCount.getSpringManaSuitCount(player) > 0) {
-                Compute.FireWorkSummon(player, monster);
-                Compute.AddManaDefenceDescreaseEffectParticle(monster, 60);
+                Compute.summonFireWork(player, monster);
+                Compute.addManaDefenceDecreaseEffectParticle(monster, 60);
                 Compute.coolDownTimeSend(player, ModItems.FireCracker.get().getDefaultInstance(), 100);
                 Utils.MobSpringManaTick.put(monster, monster.getServer().getTickCount() + 60);
                 Utils.MobSpringManaEffect.put(monster, SuitCount.getSpringManaSuitCount(player));

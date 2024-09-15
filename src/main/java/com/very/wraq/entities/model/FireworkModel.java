@@ -1,7 +1,7 @@
 package com.very.wraq.entities.model;
 
-import com.very.wraq.projectiles.firework.Firework;
 import com.very.wraq.common.util.Utils;
+import com.very.wraq.projectiles.firework.Firework;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import software.bernie.geckolib.constant.DataTickets;

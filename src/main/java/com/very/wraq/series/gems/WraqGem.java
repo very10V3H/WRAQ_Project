@@ -2,6 +2,7 @@ package com.very.wraq.series.gems;
 
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.Utils;
 import com.very.wraq.render.gui.illustrate.Display;
 import net.minecraft.ChatFormatting;
@@ -85,9 +86,9 @@ public class WraqGem extends Item {
         stack.getOrCreateTagElement(Utils.MOD_ID);
         Style style = hoverStyle;
         components.add(oneLineDescription);
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        Compute.DescriptionOfBasic(components);
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionOfBasic(components);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         components.add(suffix);
         super.appendHoverText(stack, level, components, flag);
     }

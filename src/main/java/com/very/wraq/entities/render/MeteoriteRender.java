@@ -1,9 +1,9 @@
 package com.very.wraq.entities.render;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.entities.model.MeteoriteModel;
 import com.very.wraq.projectiles.mana.Meteorite;
-import com.very.wraq.common.util.Utils;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;

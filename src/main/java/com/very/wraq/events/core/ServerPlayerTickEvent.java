@@ -48,6 +48,7 @@ import com.very.wraq.projectiles.MainHandTickItem;
 import com.very.wraq.projectiles.OnCuriosSlotTickEffect;
 import com.very.wraq.projectiles.mana.BlazeSword;
 import com.very.wraq.projectiles.mana.SwordAir;
+import com.very.wraq.render.hud.ColdData;
 import com.very.wraq.render.mobEffects.ModEffects;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.instance.series.castle.CastleAttackArmor;
@@ -341,23 +342,23 @@ public class ServerPlayerTickEvent {
                 Compute.sendEffectLastTime(player, ModItems.PurpleIron.get().getDefaultInstance(), 100);
             }
 
-            if (player.tickCount % 10 == 0) Compute.PlayerColdNumStatusUpdate(player);
+            if (player.tickCount % 10 == 0) ColdData.PlayerColdNumStatusUpdate(player);
 
             if (player.tickCount % 20 == 0) {
                 if ((player.level().getBiome(player.getOnPos()).get().coldEnoughToSnow(player.getOnPos())
                         || player.isUnderWater()) && player.getEffect(ModEffects.WARM.get()) == null) {
-                    if (player.isUnderWater()) Compute.PlayerColdNumAddOrCost(player, 0.1);
+                    if (player.isUnderWater()) ColdData.PlayerColdNumAddOrCost(player, 0.1);
                     else {
-                        if (SuitCount.getLeatherSuitCount(player) > 0) Compute.PlayerColdNumAddOrCost(player, 0.1);
-                        else Compute.PlayerColdNumAddOrCost(player, 1);
+                        if (SuitCount.getLeatherSuitCount(player) > 0) ColdData.PlayerColdNumAddOrCost(player, 0.1);
+                        else ColdData.PlayerColdNumAddOrCost(player, 1);
                     }
-                } else Compute.PlayerColdNumAddOrCost(player, -1);
+                } else ColdData.PlayerColdNumAddOrCost(player, -1);
 
                 ModNetworking.sendToClient(new TimeS2CPacket(Compute.CalendarToString(Calendar.getInstance())), serverPlayer);
             }
 
             if (player.tickCount % 200 == 0 && !player.isCreative()) {
-                if (Compute.PlayerCurrentColdNum(player) >= Compute.PlayerMaxColdNum(player)) {
+                if (ColdData.PlayerCurrentColdNum(player) >= ColdData.PlayerMaxColdNum(player)) {
                     Compute.sendFormatMSG(player, Component.literal("寒冷").withStyle(CustomStyle.styleOfIce),
                             Component.literal("你的体温正在急剧下降！").withStyle(ChatFormatting.WHITE));
                     player.setHealth(player.getHealth() - player.getMaxHealth() * 0.1f);

@@ -1,7 +1,6 @@
 package com.very.wraq.process.func.guide.networking;
 
 import com.very.wraq.process.func.guide.Guide;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkEvent;

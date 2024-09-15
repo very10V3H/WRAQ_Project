@@ -7,6 +7,7 @@ import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.util.struct.Instance;
 import com.very.wraq.common.util.struct.PlayerTeam;
 import com.very.wraq.events.core.LoginInEvent;
+import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.misc.SoundsPackets.SoundsS2CPacket;
 import com.very.wraq.process.func.item.InventoryOperation;
@@ -121,7 +122,7 @@ public class Castle {
         Random random = new Random();
         for (int i = 0; i < 4; i++) mobList.add(new WitherSkeleton(EntityType.WITHER_SKELETON, level));
         mobList.forEach(mob -> {
-            Compute.setMobCustomName(mob, ModItems.MobArmorBlackCastleOneFloorManaHelmet.get(),
+            MobSpawn.setMobCustomName(mob, ModItems.MobArmorBlackCastleOneFloorManaHelmet.get(),
                     Component.literal("暗黑城堡遗魂 - 术士").withStyle(CustomStyle.styleOfCastle));
 
             mob.setItemSlot(EquipmentSlot.HEAD, ModItems.MobArmorBlackCastleOneFloorManaHelmet.get().getDefaultInstance());
@@ -144,7 +145,7 @@ public class Castle {
         Random random = new Random();
         for (int i = 0; i < 1; i++) mobList.add(new WitherSkeleton(EntityType.WITHER_SKELETON, level));
         mobList.forEach(mob -> {
-            Compute.setMobCustomName(mob, ModItems.MobArmorBlackCastleOneFloorAttackHelmet.get(), Component.literal("暗黑城堡遗魂 - 骑士").withStyle(CustomStyle.styleOfCastle));
+            MobSpawn.setMobCustomName(mob, ModItems.MobArmorBlackCastleOneFloorAttackHelmet.get(), Component.literal("暗黑城堡遗魂 - 骑士").withStyle(CustomStyle.styleOfCastle));
 
             mob.setItemSlot(EquipmentSlot.HEAD, ModItems.MobArmorBlackCastleOneFloorAttackHelmet.get().getDefaultInstance());
             mob.setItemSlot(EquipmentSlot.CHEST, ModItems.MobArmorBlackCastleOneFloorChest.get().getDefaultInstance());
@@ -224,7 +225,7 @@ public class Castle {
         for (int i = 0; i < 4; i++) {
             Mob mob = BossList.get(i);
             lightningSummon(mob);
-            Compute.setMobCustomName(mob, ModItems.MobArmorBlackCastleOneFloorManaHelmet.get(), Component.literal("暗黑城堡禁军 - 护卫").withStyle(CustomStyle.styleOfCastle));
+            MobSpawn.setMobCustomName(mob, ModItems.MobArmorBlackCastleOneFloorManaHelmet.get(), Component.literal("暗黑城堡禁军 - 护卫").withStyle(CustomStyle.styleOfCastle));
 
             mob.setBaby(true);
             mob.setItemSlot(EquipmentSlot.HEAD, ModItems.MobArmorBlackCastleOneFloorManaHelmet.get().getDefaultInstance());
@@ -245,7 +246,7 @@ public class Castle {
         for (int i = 4; i < 6; i++) {
             Mob mob = BossList.get(i);
             lightningSummon(mob);
-            Compute.setMobCustomName(mob, ModItems.MobArmorBlackCastleOneFloorAttackHelmet.get(), Component.literal("暗黑城堡禁军 - 统领").withStyle(CustomStyle.styleOfCastle));
+            MobSpawn.setMobCustomName(mob, ModItems.MobArmorBlackCastleOneFloorAttackHelmet.get(), Component.literal("暗黑城堡禁军 - 统领").withStyle(CustomStyle.styleOfCastle));
             mob.setItemSlot(EquipmentSlot.HEAD, ModItems.MobArmorBlackCastleOneFloorAttackHelmet.get().getDefaultInstance());
             mob.setItemSlot(EquipmentSlot.CHEST, ModItems.MobArmorBlackCastleOneFloorChest.get().getDefaultInstance());
             mob.setItemSlot(EquipmentSlot.LEGS, ModItems.MobArmorBlackCastleOneFloorLeggings.get().getDefaultInstance());

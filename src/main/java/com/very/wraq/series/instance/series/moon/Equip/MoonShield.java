@@ -2,6 +2,7 @@ package com.very.wraq.series.instance.series.moon.Equip;
 
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.Utils;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.overworld.chapter1.Mine.MineShield;
@@ -49,10 +50,10 @@ public class MoonShield extends Item {
         Style style = CustomStyle.styleOfMoon;
         stack.setHoverName(Component.literal("玉轮明盾").withStyle(style).withStyle(ChatFormatting.BOLD));
         components.add(Component.literal("副手                   ").withStyle(ChatFormatting.GOLD).append(Component.literal("手盾").withStyle(ChatFormatting.GRAY)));
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        Compute.DescriptionOfBasic(components);
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        Compute.DescriptionOfAddition(components);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionOfBasic(components);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionOfAddition(components);
         MineShield.shieldAdditionDescription(components);
         Compute.DescriptionPassive(components, Component.literal("月闪").withStyle(style));
         components.add(Component.literal("近战攻击").withStyle(CustomStyle.styleOfPower).
@@ -65,7 +66,7 @@ public class MoonShield extends Item {
                 append(Component.literal("真实伤害").withStyle(CustomStyle.styleOfSea)));
         components.add(Component.literal(" - 引爆标记后，你将获得持续3s的").withStyle(ChatFormatting.WHITE).
                 append(Compute.AttributeDescription.AttackDamage("12%总")));
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         Compute.SuffixOfMoon(components);
         super.appendHoverText(stack, level, components, flag);
     }
@@ -95,7 +96,7 @@ public class MoonShield extends Item {
                 playerDamageEnhanceTickMap.put(player, TickCount + 60);
                 Compute.sendEffectLastTime(player, ModItems.MoonSoul.get(), 60);
                 Compute.removeMobEffectHudToNearPlayer(mob, ModItems.MoonSoul.get(), "MoonShieldCount");
-                return Compute.XpStrengthADDamage(player, 14);
+                return Compute.getXpStrengthADDamage(player, 14);
             } else {
                 Compute.sendMobEffectHudToNearPlayer(mob, ModItems.MoonSoul.get(), "MoonShieldCount", 8888, count, true);
             }

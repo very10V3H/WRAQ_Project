@@ -1,11 +1,12 @@
 package com.very.wraq.events.mob.MainStoryVI;
 
 
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.Utils;
+import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
@@ -63,7 +64,7 @@ public class IceHunterEvent {
                     if (list0.size() != 0 && (Utils.IceHunter[i] == null || !Utils.IceHunter[i].isAlive())) {
                         if (Utils.IceHunter[i] != null) Utils.IceHunter[i].remove(Entity.RemovalReason.KILLED);
                         Utils.IceHunter[i] = new Stray(EntityType.STRAY, level);
-                        Compute.setMobCustomName(Utils.IceHunter[i], ModItems.MobArmorIceHunterHelmet.get(),
+                        MobSpawn.setMobCustomName(Utils.IceHunter[i], ModItems.MobArmorIceHunterHelmet.get(),
                                 Component.literal("冰原猎手").withStyle(CustomStyle.styleOfIce));
                         Utils.IceHunter[i].setItemSlot(EquipmentSlot.HEAD, ModItems.MobArmorIceHunterHelmet.get().getDefaultInstance());
                         Utils.IceHunter[i].setItemSlot(EquipmentSlot.CHEST, ModItems.MobArmorIceHunterChest.get().getDefaultInstance());

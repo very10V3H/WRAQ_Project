@@ -1,17 +1,17 @@
 package com.very.wraq.series.overworld.sakuraSeries.Ship;
 
-import com.very.wraq.common.registry.MySound;
+import com.very.wraq.common.Compute;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.registry.MySound;
+import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.projectiles.ActiveItem;
 import com.very.wraq.projectiles.WraqSword;
 import com.very.wraq.render.particles.ModParticles;
-import com.very.wraq.series.overworld.chapter1.forest.ForestPowerEffectMob;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.ComponentUtils;
-import com.very.wraq.common.util.Utils;
 import com.very.wraq.render.toolTip.CustomStyle;
+import com.very.wraq.series.overworld.chapter1.forest.ForestPowerEffectMob;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -85,7 +85,7 @@ public class ShipSword extends WraqSword implements ActiveItem {
             mobList.forEach(mob -> {
                 Utils.ForestPowerEffectMobList.add(new ForestPowerEffectMob(desPos, 20, mob));
                 Compute.addSlowDownEffect(mob, 40, 2);
-                Compute.AddDefenceDescreaseEffectParticle(mob, 100);
+                Compute.addDefenceDecreaseEffectParticle(mob, 100);
                 Utils.shipSwordTime.put(mob, tickCount + 100);
                 Utils.shipSwordEffect.put(mob, Math.min(mobList.size(), 4));
                 Compute.sendMobEffectHudToNearPlayer(mob, ModItems.ShipSword.get(), "ShipSwordDefenceDecrease", 100, 0, false);

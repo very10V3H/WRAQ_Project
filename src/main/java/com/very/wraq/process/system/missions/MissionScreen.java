@@ -1,12 +1,12 @@
 package com.very.wraq.process.system.missions;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.process.system.missions.netWorking.MissionAcceptC2SPacket;
 import com.very.wraq.process.system.missions.netWorking.MissionCancelC2SPacket;
 import com.very.wraq.process.system.missions.netWorking.MissionSubmitC2SPacket;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.util.Utils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;

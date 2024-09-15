@@ -22,7 +22,7 @@ public class ManaRune2 extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level p_41422_, List<Component> components, TooltipFlag p_41424_) {
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.LIGHT_PURPLE, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.LIGHT_PURPLE, ChatFormatting.WHITE);
         components.add(Component.literal("符石属性:"));
         components.add(Component.literal("每过10s,你的下一个命中目标的法术攻击将会降下一道落雷。"));
         components.add(Component.literal("落雷将造成").withStyle(ChatFormatting.WHITE).
@@ -31,7 +31,7 @@ public class ManaRune2 extends Item {
         components.add(Component.literal("并击碎目标").withStyle(ChatFormatting.WHITE).
                 append(Compute.AttributeDescription.ManaDefence("100%")).
                 append(Component.literal("，持续3s").withStyle(ChatFormatting.WHITE)));
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.LIGHT_PURPLE, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.LIGHT_PURPLE, ChatFormatting.WHITE);
         components.add(Component.literal("Runes-Mana").withStyle(ChatFormatting.LIGHT_PURPLE).withStyle(ChatFormatting.ITALIC));
         super.appendHoverText(stack, p_41422_, components, p_41424_);
     }

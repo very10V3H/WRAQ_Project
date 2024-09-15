@@ -1,8 +1,8 @@
 package com.very.wraq.render.gui.illustrate;
 
+import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.process.system.potion.NewPotion;
 import com.very.wraq.process.system.potion.NewThrowablePotion;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.common.Mod;

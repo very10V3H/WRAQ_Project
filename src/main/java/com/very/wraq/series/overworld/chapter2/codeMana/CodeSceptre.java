@@ -3,6 +3,7 @@ package com.very.wraq.series.overworld.chapter2.codeMana;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.attribute.BasicAttributeDescription;
 import com.very.wraq.common.attribute.PlayerAttributes;
+import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.util.struct.Gather;
@@ -61,18 +62,18 @@ public class CodeSceptre extends PickaxeItem {
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
         Compute.forgingHoverName(stack);
         components.add(Component.literal("主手                   ").withStyle(ChatFormatting.AQUA).append(Component.literal("法杖").withStyle(ChatFormatting.LIGHT_PURPLE)));
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.LIGHT_PURPLE, ChatFormatting.WHITE);
-        Compute.DescriptionOfBasic(components);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.LIGHT_PURPLE, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionOfBasic(components);
         BasicAttributeDescription.BasicAttributeCommonDescription(components, stack);
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.LIGHT_PURPLE, ChatFormatting.WHITE);
-        Compute.DescriptionOfAddition(components);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.LIGHT_PURPLE, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionOfAddition(components);
         components.add(Component.literal("能量激化:").withStyle(ChatFormatting.BOLD).withStyle(CustomStyle.styleOfVolcano));
         components.add(Component.literal("能使用").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("魔符").withStyle(ChatFormatting.LIGHT_PURPLE)).
                 append(Component.literal("来强化下一次").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("魔法攻击").withStyle(ChatFormatting.LIGHT_PURPLE)));
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.LIGHT_PURPLE, ChatFormatting.WHITE);
-        Compute.ManaCoreAddition(stack, components);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.LIGHT_PURPLE, ChatFormatting.WHITE);
+        WraqSceptre.getManaCoreAddition(stack, components);
         components.add(Component.literal("Evoker-Sceptre-X").withStyle(ChatFormatting.LIGHT_PURPLE).withStyle(ChatFormatting.ITALIC));
         components.add(Component.literal("MainStoryII-I.").withStyle(ChatFormatting.AQUA).withStyle(ChatFormatting.ITALIC));
         super.appendHoverText(stack, level, components, flag);

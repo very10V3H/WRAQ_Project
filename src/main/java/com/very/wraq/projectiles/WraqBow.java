@@ -1,16 +1,17 @@
 package com.very.wraq.projectiles;
 
 import com.very.wraq.blocks.blocks.forge.ForgeRecipe;
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.attribute.BasicAttributeDescription;
+import com.very.wraq.common.registry.ItemTier;
 import com.very.wraq.common.registry.MySound;
+import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.core.MyArrow;
 import com.very.wraq.entities.entities.Civil.Civil;
 import com.very.wraq.events.mob.loot.RandomLootEquip;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.attribute.BasicAttributeDescription;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.registry.ItemTier;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -63,8 +64,8 @@ public abstract class WraqBow extends SwordItem {
         Style style = getMainStyle();
         Compute.forgingHoverName(itemStack);
         components.add(Component.literal("主手                   ").withStyle(ChatFormatting.AQUA).append(Component.literal("长弓").withStyle(CustomStyle.styleOfFlexible)));
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        Compute.DescriptionOfBasic(components);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionOfBasic(components);
         BasicAttributeDescription.BasicAttributeCommonDescription(components, itemStack);
         if (this instanceof RandomLootEquip randomLootEquip) {
             if (randomLootEquip.levelRequire() != 0) {
@@ -75,11 +76,11 @@ public abstract class WraqBow extends SwordItem {
                 }
             }
         }
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         if (!getAdditionalComponents(itemStack).isEmpty()) {
-            Compute.DescriptionOfAddition(components);
+            ComponentUtils.DescriptionOfAddition(components);
             components.addAll(getAdditionalComponents(itemStack));
-            Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+            ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         }
         if (oneLineDescription() != null) {
             components.add(oneLineDescription());

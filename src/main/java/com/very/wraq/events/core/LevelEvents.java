@@ -546,11 +546,11 @@ public class LevelEvents {
 
     public static void SummonGiant(Level level) {
 
-        if (Utils.GiantPlayerList.size() != 0) {
+        if (!Utils.GiantPlayerList.isEmpty()) {
             if (Utils.giant != null) Utils.giant.remove(Entity.RemovalReason.KILLED);
             Utils.giant = new Giant(EntityType.GIANT, level);
 
-            Compute.setMobCustomName(Utils.giant, ModItems.MobArmorGiant.get(), Component.literal("悲催的巨人").withStyle(ChatFormatting.GREEN));
+            MobSpawn.setMobCustomName(Utils.giant, ModItems.MobArmorGiant.get(), Component.literal("悲催的巨人").withStyle(ChatFormatting.GREEN));
             Utils.giant.setItemSlot(EquipmentSlot.HEAD, ModItems.MobArmorGiant.get().getDefaultInstance());
             Random r = new Random();
             Utils.giant.getAttribute(Attributes.MAX_HEALTH).setBaseValue(r.nextInt(100, 200) * Math.pow(10, 8));

@@ -1,11 +1,11 @@
 package com.very.wraq.series.overworld.chapter1.waterSystem;
 
-import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.util.ClientUtils;
 import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.StringUtils;
-import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
@@ -31,9 +31,9 @@ public class LakeSuitDescription {
             Compute.SuitDescription(components);
             components.add(Component.literal("[按住shift展开套装效果]").withStyle(ChatFormatting.GRAY));
         }
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         components.add(Component.literal("LakeArmor-I").withStyle(style).withStyle(ChatFormatting.ITALIC));
-        Compute.SuffixOfMainStoryI(components);
+        ComponentUtils.suffixOfChapterI(components);
     }
 
     public static void LakeSuitDescription(List<Component> components) {

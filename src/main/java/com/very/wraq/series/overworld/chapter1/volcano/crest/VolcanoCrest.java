@@ -1,6 +1,7 @@
 package com.very.wraq.series.overworld.chapter1.volcano.crest;
 
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.Utils;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.misc.CrestPackets.CrestStatusS2CPacket;
@@ -40,17 +41,17 @@ public class VolcanoCrest extends Item implements ICurioItem, CrestItem {
         ChatFormatting MainStyle = ChatFormatting.YELLOW;
         stack.setHoverName(Component.literal("火山纹章" + "(" + VolcanoCrestAttributes.LevelName[Level] + ")").
                 withStyle(VolcanoCrestAttributes.LevelColor[Level]).withStyle(ChatFormatting.BOLD));
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
-        Compute.DescriptionOfBasic(components);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionOfBasic(components);
 
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
-        Compute.DescriptionOfAddition(components);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionOfAddition(components);
         if (Screen.hasShiftDown()) VolcanoSuitDescription.VolcanoSuitDescription(components);
         else {
             Compute.SuitDescription(components);
             components.add(Component.literal("[按住shift展开套装效果]").withStyle(ChatFormatting.GRAY));
         }
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
         components.add(Component.literal(CrestName + "-I").withStyle(MainStyle).withStyle(ChatFormatting.ITALIC));
         components.add(Component.literal("MainStoryI").withStyle(ChatFormatting.AQUA).withStyle(ChatFormatting.ITALIC));
         super.appendHoverText(stack, level, components, flag);

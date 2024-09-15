@@ -1,7 +1,7 @@
 package com.very.wraq.networking.misc.CodeSceptrePackets;
 
-import com.very.wraq.common.util.struct.Power;
 import com.very.wraq.common.util.Utils;
+import com.very.wraq.common.util.struct.Power;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkEvent;

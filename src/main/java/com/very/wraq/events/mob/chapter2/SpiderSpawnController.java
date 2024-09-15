@@ -1,13 +1,12 @@
 package com.very.wraq.events.mob.chapter2;
 
+import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.ItemAndRate;
 import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.events.mob.MobSpawnController;
 import com.very.wraq.events.mob.loot.C1LootItems;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.ItemAndRate;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -68,7 +67,7 @@ public class SpiderSpawnController extends MobSpawnController {
 
         // 设置颜色与名称
         Style style = CustomStyle.styleOfSpider;
-        Compute.setMobCustomName(spider, Component.literal(mobName).withStyle(style), xpLevel);
+        MobSpawn.setMobCustomName(spider, Component.literal(mobName).withStyle(style), xpLevel);
 
         // 需要验证
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(spider), xpLevel);

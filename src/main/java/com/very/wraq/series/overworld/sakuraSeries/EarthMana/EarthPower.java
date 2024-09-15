@@ -54,7 +54,7 @@ public class EarthPower extends Item implements ActiveItem {
     @Override
     public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
         components.add(Component.literal("·法术").withStyle(CustomStyle.styleOfMana));
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
         Compute.DescriptionActive(components, Component.literal("汲蕴").withStyle(CustomStyle.styleOfBloodMana));
         components.add(Component.literal(" 依据").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("周边环境的物质").withStyle(CustomStyle.styleOfMoon)).
@@ -99,7 +99,7 @@ public class EarthPower extends Item implements ActiveItem {
         }
 
         components.add(Component.literal(" - IDEA FROM : AzusaLin").withStyle(ChatFormatting.LIGHT_PURPLE));
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
         Compute.SuffixOfMainStoryV(components);
         components.add(ComponentUtils.getDemonAndElementStorySuffix1Sakura());
         super.appendHoverText(itemStack, level, components, flag);
@@ -174,7 +174,7 @@ public class EarthPower extends Item implements ActiveItem {
             case 0 -> {
                 mobList.forEach(mob1 -> {
                     Plain_MobDamageDecrease.put(mob1, TickCount + 80);
-                    Compute.AddDamageDescreaseEffectParticle(mob1, 80);
+                    Compute.addDamageDecreaseEffectParticle(mob1, 80);
                 });
                 playerList.forEach(player1 -> {
                     Compute.playerHeal(player1, player.getPersistentData().getInt(StringUtils.Ability.Intelligent) * 30);
@@ -199,7 +199,7 @@ public class EarthPower extends Item implements ActiveItem {
             case 2 -> {
                 mobList.forEach(mob1 -> {
                     Lake_MobManaDefenceDecrease.put(mob1, TickCount + 60);
-                    Compute.AddManaDefenceDescreaseEffectParticle(mob1, 60);
+                    Compute.addManaDefenceDecreaseEffectParticle(mob1, 60);
                 });
                 playerList.forEach(player1 -> {
                     Compute.sendEffectLastTime(player1, ModItems.EarthPower.get().getDefaultInstance(), 60);

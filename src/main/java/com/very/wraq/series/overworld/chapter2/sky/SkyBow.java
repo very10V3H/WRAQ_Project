@@ -1,11 +1,11 @@
 package com.very.wraq.series.overworld.chapter2.sky;
 
-import com.very.wraq.process.system.element.Element;
-import com.very.wraq.projectiles.WraqBow;
-import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.Utils;
+import com.very.wraq.process.system.element.Element;
+import com.very.wraq.projectiles.WraqBow;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;

@@ -3,6 +3,7 @@ package com.very.wraq.series.end.eventController.SeaRecall;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.util.Utils;
+import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.events.mob.chapter2.GuardianSpawnController;
 import com.very.wraq.process.func.item.InventoryOperation;
 import com.very.wraq.render.toolTip.CustomStyle;
@@ -93,7 +94,7 @@ public class SeaRecallEvent {
                             if (Utils.SeaRecallElderGuardian != null)
                                 Utils.SeaRecallElderGuardian.remove(Entity.RemovalReason.KILLED);
                             Utils.SeaRecallElderGuardian = new ElderGuardian(EntityType.ELDER_GUARDIAN, level1);
-                            Compute.setMobCustomName(Utils.SeaRecallElderGuardian, ModItems.ArmorSeaRecall.get(), Component.literal("模糊记忆中的神殿守卫").withStyle(style));
+                            MobSpawn.setMobCustomName(Utils.SeaRecallElderGuardian, ModItems.ArmorSeaRecall.get(), Component.literal("模糊记忆中的神殿守卫").withStyle(style));
                             Utils.SeaRecallElderGuardian.setItemSlot(EquipmentSlot.HEAD, ModItems.ArmorSeaRecall.get().getDefaultInstance());
                             Utils.SeaRecallElderGuardian.setItemSlot(EquipmentSlot.MAINHAND, Items.IRON_SWORD.getDefaultInstance());
                             Utils.SeaRecallElderGuardian.getAttribute(Attributes.MAX_HEALTH).setBaseValue(115200.0D);

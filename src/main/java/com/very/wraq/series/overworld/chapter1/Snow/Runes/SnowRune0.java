@@ -1,6 +1,5 @@
 package com.very.wraq.series.overworld.chapter1.Snow.Runes;
 
-import com.very.wraq.common.Compute;
 import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -23,7 +22,7 @@ public class SnowRune0 extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level p_41422_, List<Component> components, TooltipFlag p_41424_) {
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.AQUA, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.AQUA, ChatFormatting.WHITE);
         components.add(Component.literal("符石属性:"));
         components.add(Component.literal("使用").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("魔法攻击").withStyle(CustomStyle.styleOfMana)).
@@ -36,7 +35,7 @@ public class SnowRune0 extends Item {
                 append(Component.literal("5层").withStyle(ChatFormatting.AQUA)).
                 append(Component.literal("，当未命中时，").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("清空层数").withStyle(ChatFormatting.AQUA)));
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.AQUA, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.AQUA, ChatFormatting.WHITE);
         components.add(Component.literal("Runes-Snow").withStyle(ChatFormatting.AQUA).withStyle(ChatFormatting.ITALIC));
         super.appendHoverText(stack, p_41422_, components, p_41424_);
     }

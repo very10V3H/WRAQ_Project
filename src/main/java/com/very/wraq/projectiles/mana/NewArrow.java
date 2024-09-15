@@ -1,14 +1,14 @@
 package com.very.wraq.projectiles.mana;
 
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.attribute.MobAttributes;
+import com.very.wraq.common.attribute.PlayerAttributes;
+import com.very.wraq.common.registry.ModEntityType;
+import com.very.wraq.common.util.Utils;
+import com.very.wraq.common.util.struct.Power;
 import com.very.wraq.core.ManaAttackModule;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.render.particles.ModParticles;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.registry.ModEntityType;
-import com.very.wraq.common.util.struct.Power;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.attribute.MobAttributes;
-import com.very.wraq.common.attribute.PlayerAttributes;
 import com.very.wraq.series.overworld.chapter2.codeMana.CodeSceptre;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;

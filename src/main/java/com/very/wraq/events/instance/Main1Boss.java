@@ -10,6 +10,7 @@ import com.very.wraq.common.util.struct.Instance;
 import com.very.wraq.common.util.struct.PlayerTeam;
 import com.very.wraq.entities.entities.MainBoss.MainBoss;
 import com.very.wraq.events.core.LoginInEvent;
+import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.process.func.item.InventoryOperation;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.render.toolTip.CustomStyle;
@@ -121,7 +122,7 @@ public class Main1Boss {
                     }});
                     Mob entity = instance.getMobList().get(0);
 
-                    Compute.setMobCustomName(entity, ModItems.ArmorMain1Boss.get(),
+                    MobSpawn.setMobCustomName(entity, ModItems.ArmorMain1Boss.get(),
                             Component.literal("四元方块").withStyle(CustomStyle.styleOfSnow));
                     entity.setHealth(entity.getMaxHealth());
                     entity.setItemSlot(EquipmentSlot.HEAD, ModItems.ArmorMain1Boss.get().getDefaultInstance());

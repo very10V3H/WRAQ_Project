@@ -2,7 +2,10 @@ package com.very.wraq.process.func;
 
 import net.minecraft.world.entity.player.Player;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.WeakHashMap;
 import java.util.concurrent.atomic.AtomicReference;
 
 public record StableAttributesModifier(String tag, double value, int stopTick) {

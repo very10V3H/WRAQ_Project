@@ -1,5 +1,6 @@
 package com.very.wraq.series.newrunes;
 
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.end.runes.EndRune;
 import com.very.wraq.series.newrunes.chapter1.*;
@@ -7,7 +8,6 @@ import com.very.wraq.series.newrunes.chapter2.*;
 import com.very.wraq.series.newrunes.chapter3.NetherNewRune;
 import com.very.wraq.series.newrunes.chapter6.CastleNewRune;
 import com.very.wraq.series.newrunes.chapter6.MoonNewRune;
-import com.very.wraq.common.util.Utils;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SimpleFoiledItem;
 import net.minecraftforge.registries.DeferredRegister;

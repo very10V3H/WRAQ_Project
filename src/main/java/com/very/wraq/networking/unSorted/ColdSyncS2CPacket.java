@@ -1,6 +1,6 @@
 package com.very.wraq.networking.unSorted;
 
-import com.very.wraq.render.hud.ClientColdNum;
+import com.very.wraq.render.hud.ColdData;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent;
 
@@ -28,8 +28,8 @@ public class ColdSyncS2CPacket {
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
-            ClientColdNum.setMaxCold(MaxSwift);
-            ClientColdNum.setCurrentCold(CurrentSwift);
+            ColdData.setMaxCold(MaxSwift);
+            ColdData.setCurrentCold(CurrentSwift);
         });
         return true;
     }

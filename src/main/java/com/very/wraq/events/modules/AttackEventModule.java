@@ -136,7 +136,7 @@ public class AttackEventModule {
             double ExRate = monster.getHealth() * Utils.BlackForestSwordActiveMap.get(player) / monster.getMaxHealth();
             Utils.BlackForestSwordActiveMap.remove(player);
             Compute.sendEffectLastTime(player, ModItems.huskSword0.get().getDefaultInstance(), 0);
-            return Compute.XpStrengthADDamage(player, 1 + ExRate);
+            return Compute.getXpStrengthADDamage(player, 1 + ExRate);
         }
         return 0;
     }
@@ -154,7 +154,7 @@ public class AttackEventModule {
             double ExRate = (1 - (monster.getHealth() / monster.getMaxHealth())) * Utils.SeaSwordActiveMap.get(player);
             Utils.SeaSwordActiveMap.remove(player);
             Compute.sendEffectLastTime(player, ModItems.SeaSword0.get().getDefaultInstance(), 0);
-            return Compute.XpStrengthADDamage(player, 1 + ExRate);
+            return Compute.getXpStrengthADDamage(player, 1 + ExRate);
         }
         return 0;
     }
@@ -684,7 +684,7 @@ public class AttackEventModule {
             Utils.SnowShieldPlayerEffectTickMap.put(player, TickCount + 40);
             Utils.SnowShieldPlayerEffectMap.put(player, (MobSpawn.MobBaseAttributes.getMobBaseAttribute(mob, MobSpawn.MobBaseAttributes.defence) / 4));
             Utils.SnowShieldMobEffectMap.put(mob, TickCount + 40);
-            Compute.AddDefenceDescreaseEffectParticle(mob, 40);
+            Compute.addDefenceDecreaseEffectParticle(mob, 40);
             Compute.sendEffectLastTime(player, ModItems.SnowSoul.get().getDefaultInstance(), 40);
              Compute.sendMobEffectHudToNearPlayer(mob, ModItems.SnowShield.get(), "SnowShieldDefenceDecrease", 40, 0, false);
         }

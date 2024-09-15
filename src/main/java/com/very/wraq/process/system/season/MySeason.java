@@ -1,9 +1,9 @@
 package com.very.wraq.process.system.season;
 
+import com.very.wraq.common.Compute;
 import com.very.wraq.common.registry.MySound;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.Compute;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;

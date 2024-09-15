@@ -1,6 +1,7 @@
 package com.very.wraq.series.overworld.chapter1.forest.rune;
 
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.util.ComponentUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -21,7 +22,7 @@ public class ForestRune3 extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level p_41422_, List<Component> components, TooltipFlag p_41424_) {
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.DARK_GREEN, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.DARK_GREEN, ChatFormatting.WHITE);
         Compute.RuneAttributeDescription(components);
         components.add(Component.literal("每过10s，你的近战攻击造成").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("2倍").withStyle(ChatFormatting.YELLOW)).
@@ -29,7 +30,7 @@ public class ForestRune3 extends Item {
                 append(Component.literal("额外物理伤害").withStyle(ChatFormatting.YELLOW)));
         components.add(Component.literal("并恢复").withStyle(ChatFormatting.WHITE).
                 append(Compute.AttributeDescription.Health("100 + 10%攻击力")));
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.DARK_GREEN, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.DARK_GREEN, ChatFormatting.WHITE);
         components.add(Component.literal("Runes-II").withStyle(ChatFormatting.DARK_GREEN).withStyle(ChatFormatting.ITALIC));
         super.appendHoverText(stack, p_41422_, components, p_41424_);
     }

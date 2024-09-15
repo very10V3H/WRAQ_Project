@@ -2,6 +2,7 @@ package com.very.wraq.projectiles;
 
 import com.very.wraq.blocks.blocks.forge.ForgeRecipe;
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.Utils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -33,18 +34,18 @@ public abstract class WraqCurios extends Item implements ICurioItem {
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
         Style style = hoverMainStyle();
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        Compute.DescriptionOfBasic(components);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionOfBasic(components);
         if (getTypeDescription() != null) components.add(getTypeDescription());
         if (levelRequirement() != 0) {
             components.add(Component.literal(" 等级需求: ").withStyle(ChatFormatting.AQUA).
                     append(Component.literal("Lv." + levelRequirement()).withStyle(Utils.levelStyleList.get(levelRequirement() / 25))));
         }
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         if (!additionHoverText(stack).isEmpty()) {
-            Compute.DescriptionOfAddition(components);
+            ComponentUtils.DescriptionOfAddition(components);
             components.addAll(additionHoverText(stack));
-            Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+            ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         }
         components.add(suffix());
         super.appendHoverText(stack, level, components, flag);

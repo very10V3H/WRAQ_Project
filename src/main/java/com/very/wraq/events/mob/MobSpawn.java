@@ -4,7 +4,9 @@ import com.very.wraq.common.Compute;
 import com.very.wraq.common.attribute.PlayerAttributes;
 import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.util.ItemAndRate;
+import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.common.util.Utils;
+import com.very.wraq.events.core.InventoryCheck;
 import com.very.wraq.events.core.LoginInEvent;
 import com.very.wraq.events.mob.chapter1.ForestZombieSpawnController;
 import com.very.wraq.events.mob.chapter1.LakeDrownSpawnController;
@@ -35,7 +37,10 @@ import com.very.wraq.projectiles.WraqCurios;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.end.Recall;
 import com.very.wraq.series.end.runes.EndRune;
+import net.minecraft.ChatFormatting;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.Mob;
@@ -287,7 +292,7 @@ public class MobSpawn {
             });
         }
 
-        Compute.Proficiency(player, xpLevel);
+        provideProficiency(player, xpLevel);
 
         if (!tempKillCount.containsKey(player.getName().getString()))
             tempKillCount.put(player.getName().getString(), new HashMap<>());
@@ -478,5 +483,70 @@ public class MobSpawn {
         }
         statement.close();
         connection.close();
+    }
+
+    public static void provideProficiency(Player player, int xpLevel) {
+        ItemStack equip = player.getMainHandItem();
+        if (Utils.mainHandTag.containsKey(equip.getItem()) && !Compute.IsSoulEquip(equip)) {
+            CompoundTag dataI = equip.getOrCreateTagElement(Utils.MOD_ID);
+            InventoryCheck.addOwnerTagToItemStack(player, equip);
+            if (!dataI.contains(StringUtils.KillCount.KillCount))
+                dataI.putInt(StringUtils.KillCount.KillCount, xpLevel * 5);
+            else
+                dataI.putInt(StringUtils.KillCount.KillCount, Math.min(Integer.MAX_VALUE, dataI.getInt(StringUtils.KillCount.KillCount) + xpLevel * 5));
+        }
+    }
+
+    public static void setMobCustomName(Mob mob, Item ArmorItem, Component component) {
+        int Level = Utils.mobLevel.get(ArmorItem).intValue();
+        if (Level < 25) {
+            mob.setCustomName(Component.literal("Lv." + Level + " ").withStyle(ChatFormatting.GREEN)
+                    .append(component));
+        } else if (Level < 50) {
+            mob.setCustomName(Component.literal("Lv." + Level + " ").withStyle(ChatFormatting.BLUE)
+                    .append(component));
+        } else if (Level < 75) {
+            mob.setCustomName(Component.literal("Lv." + Level + " ").withStyle(ChatFormatting.RED)
+                    .append(component));
+        } else if (Level < 100) {
+            mob.setCustomName(Component.literal("Lv." + Level + " ").withStyle(ChatFormatting.LIGHT_PURPLE)
+                    .append(component));
+        } else if (Level < 125) {
+            mob.setCustomName(Component.literal("Lv." + Level + " ").withStyle(CustomStyle.styleOfEntropy)
+                    .append(component));
+        } else if (Level < 175) {
+            mob.setCustomName(Component.literal("Lv." + Level + " ").withStyle(CustomStyle.styleOfCastle)
+                    .append(component));
+        } else if (Level < 200) {
+            mob.setCustomName(Component.literal("Lv." + Level + " ").withStyle(CustomStyle.styleOfPurpleIron)
+                    .append(component));
+        } else if (Level < 225) {
+            mob.setCustomName(Component.literal("Lv." + Level + " ").withStyle(CustomStyle.styleOfMoon1)
+                    .append(component));
+        }
+        mob.setCustomNameVisible(true);
+        mob.getAttribute(Attributes.ARMOR_TOUGHNESS).setBaseValue(0);
+        mob.getAttribute(Attributes.ARMOR).setBaseValue(0);
+    }
+
+    public static void setMobCustomName(Mob mob, Component component, int level) {
+        Style[] styles = {
+                Style.EMPTY.applyFormat(ChatFormatting.GREEN),
+                Style.EMPTY.applyFormat(ChatFormatting.BLUE), // 25 - 50
+                Style.EMPTY.applyFormat(ChatFormatting.RED), // 50 - 75
+                Style.EMPTY.applyFormat(ChatFormatting.LIGHT_PURPLE), // 75 - 100
+                CustomStyle.styleOfEntropy, // 125
+                CustomStyle.styleOfEntropy, // 150
+                CustomStyle.styleOfCastle, // 175
+                CustomStyle.styleOfPurpleIron, // 200
+                CustomStyle.styleOfMoon1, // 225
+                CustomStyle.styleOfWorld, // 250
+                CustomStyle.styleOfSakura // 275
+        };
+        mob.setCustomName(Component.literal("Lv." + level + " ").withStyle(styles[level / 25])
+                .append(component));
+        mob.setCustomNameVisible(true);
+        mob.getAttribute(Attributes.ARMOR_TOUGHNESS).setBaseValue(0);
+        mob.getAttribute(Attributes.ARMOR).setBaseValue(0);
     }
 }

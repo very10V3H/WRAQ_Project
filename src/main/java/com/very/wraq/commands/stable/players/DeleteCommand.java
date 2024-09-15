@@ -1,10 +1,10 @@
 package com.very.wraq.commands.stable.players;
 
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.Utils;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.util.Utils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.Component;

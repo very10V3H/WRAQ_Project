@@ -1,8 +1,8 @@
 package com.very.wraq.common.util;
 
+import com.very.wraq.common.Compute;
 import com.very.wraq.process.system.element.Color;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.Compute;
 import com.very.wraq.series.worldsoul.SoulEquipAttribute;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -14,14 +14,16 @@ import java.util.List;
 public class ComponentUtils {
     public static class AttributeDescription {
 
-
-
         public static Component ExpUp(String content) {
             return Component.literal(Utils.Emoji.ExpUp + " " + content + "经验加成").withStyle(ChatFormatting.LIGHT_PURPLE);
         }
 
         public static Component MaxHealth(String content) {
             return Component.literal(Utils.Emoji.Health + " " + content + "最大生命值").withStyle(ChatFormatting.GREEN);
+        }
+
+        public static Component healValue(String content) {
+            return Component.literal(Utils.Emoji.Health + " " + content + "治疗量").withStyle(ChatFormatting.GREEN);
         }
 
         public static Component LossHealth(String content) {
@@ -734,5 +736,35 @@ public class ComponentUtils {
     public static void emojiDescriptionSwiftness(List<Component> components, double swiftness) {
         components.add(Component.literal(Utils.Emoji.Swiftness + " 迅捷").withStyle(ChatFormatting.GREEN).
                 append(Component.literal("+" + String.format(swiftness == 0 ? "%.0f" : "%.2f", swiftness)).withStyle(ChatFormatting.WHITE)));
+    }
+
+    public static void DescriptionDash(List<Component> components, ChatFormatting chatFormatting0, ChatFormatting chatFormatting1, ChatFormatting chatFormatting2) {
+        components.add(Component.literal("─").withStyle(chatFormatting0).
+                append(Component.literal("───────────────────").withStyle(chatFormatting1).
+                        append(Component.literal("─").withStyle(chatFormatting2))));
+    }
+
+    public static void DescriptionDash(List<Component> components, ChatFormatting chatFormatting0, Style chatFormatting1, ChatFormatting chatFormatting2) {
+        components.add(Component.literal("─").withStyle(chatFormatting0).
+                append(Component.literal("───────────────────").withStyle(chatFormatting1).
+                        append(Component.literal("─").withStyle(chatFormatting2))));
+    }
+
+    public static void DescriptionOfBasic(List<Component> components) {
+        components.add(Component.literal("β-基础属性:").withStyle(CustomStyle.styleOfPlain));
+    }
+
+
+    public static void DescriptionOfOnly(List<Component> components) {
+        components.add(Component.literal("-唯一:").withStyle(ChatFormatting.WHITE).withStyle(ChatFormatting.GREEN));
+    }
+
+    public static void DescriptionOfAddition(List<Component> components) {
+        components.add(Component.literal("α-额外属性:").withStyle(CustomStyle.styleOfPower));
+    }
+
+    public static void DescriptionNum(List<Component> components, String string, Component component, String string1) {
+        components.add(Component.literal(string).withStyle(ChatFormatting.WHITE).
+                append(component).append(string1).withStyle(ChatFormatting.WHITE));
     }
 }

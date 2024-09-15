@@ -1,11 +1,11 @@
 package com.very.wraq.series.overworld.chapter2.manaArmor.ObsiMana;
 
-import com.very.wraq.projectiles.WraqArmor;
-import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ItemMaterial;
 import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.registry.ItemMaterial;
+import com.very.wraq.projectiles.WraqArmor;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;

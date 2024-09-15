@@ -1,8 +1,8 @@
 package com.very.wraq.series.overworld.sakuraSeries.EarthMana;
 
-import com.very.wraq.projectiles.WraqCurios;
 import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.Utils;
+import com.very.wraq.projectiles.WraqCurios;
 import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;

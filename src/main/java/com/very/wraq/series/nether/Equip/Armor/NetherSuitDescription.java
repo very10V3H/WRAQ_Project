@@ -20,15 +20,15 @@ import java.util.List;
 @OnlyIn(Dist.CLIENT)
 public class NetherSuitDescription {
     public static void ArmorCommonDescription(List<Component> components) {
-        Compute.DescriptionOfAddition(components);
+        ComponentUtils.DescriptionOfAddition(components);
         if (Screen.hasShiftDown()) SuitDescription(components);
         else {
             Compute.SuitDescription(components);
             components.add(Component.literal("[按住shift展开套装效果]").withStyle(ChatFormatting.GRAY));
         }
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfNether, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfNether, ChatFormatting.WHITE);
         components.add(Component.literal("NetherArmor").withStyle(CustomStyle.styleOfNether).withStyle(ChatFormatting.ITALIC));
-        Compute.SuffixOfMainStoryII(components);
+        ComponentUtils.suffixOfChapterII(components);
     }
 
     public static void SuitDescription(List<Component> components) {

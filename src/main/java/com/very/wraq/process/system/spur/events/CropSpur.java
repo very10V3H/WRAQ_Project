@@ -6,8 +6,12 @@ import com.very.wraq.common.util.Utils;
 import com.very.wraq.process.func.item.InventoryOperation;
 import com.very.wraq.process.system.missions.series.labourDay.LabourDayMission;
 import com.very.wraq.process.system.spur.Items.SpurItems;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -100,7 +104,7 @@ public class CropSpur {
         if (blockState.is(Blocks.SWEET_BERRY_BUSH))
             data.putInt(StringUtils.Gardening.SweetBerries, data.getInt(StringUtils.Gardening.SweetBerries) + 1);
 
-        Compute.playerGardeningExpAdd(player, 2);
+        addPlayerGardeningExp(player, 2);
         Compute.givePercentExpToPlayer(player, 0.0025, 0, Math.min(player.experienceLevel, 50));
         Utils.dayCropCount.put(player.getName().getString(), Utils.dayCropCount.getOrDefault(player.getName().getString(), 0) + 1);
         LabourDayMission.count(player, LabourDayMission.cropCounts);
@@ -122,5 +126,27 @@ public class CropSpur {
         put(Blocks.BEETROOTS, Items.BEETROOT);
         put(Blocks.TORCHFLOWER, Items.TORCHFLOWER);
     }};
+
+    public static int getPlayerGardeningLevel(Player player) {
+        CompoundTag data = player.getPersistentData();
+        int MineXp = data.getInt(StringUtils.Gardening.Xp);
+        if (MineXp <= 100) return 1;
+        else if (MineXp <= 1000) return 2;
+        else if (MineXp <= 5000) return 3;
+        else if (MineXp <= 20000) return 4;
+        else if (MineXp <= 100000) return 5;
+        return 0;
+    }
+
+    public static void addPlayerGardeningExp(Player player, int Num) {
+        CompoundTag data = player.getPersistentData();
+        data.putInt(StringUtils.Gardening.Xp, data.getInt(StringUtils.Gardening.Xp) + Num);
+        ClientboundSetActionBarTextPacket clientboundSetActionBarTextPacket = new ClientboundSetActionBarTextPacket(Component.literal("园艺经验").withStyle(ChatFormatting.LIGHT_PURPLE).
+                append(Component.literal(" + ").withStyle(ChatFormatting.DARK_GREEN)).
+                append(Component.literal("" + Num).withStyle(ChatFormatting.GREEN)).
+                append(Component.literal(" (" + data.getInt(StringUtils.Gardening.Xp) + ")").withStyle(ChatFormatting.GRAY)));
+        ServerPlayer serverPlayer = (ServerPlayer) player;
+        serverPlayer.connection.send(clientboundSetActionBarTextPacket);
+    }
 
 }

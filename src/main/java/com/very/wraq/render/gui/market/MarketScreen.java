@@ -1,14 +1,14 @@
 package com.very.wraq.render.gui.market;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.very.wraq.common.util.ClientUtils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.files.MarketItemInfo;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.misc.SmartPhonePackets.BuyCheckC2SPacket;
 import com.very.wraq.networking.misc.SmartPhonePackets.MarketDataC2SPacket;
 import com.very.wraq.networking.misc.SmartPhonePackets.OffShellC2SPacket;
 import com.very.wraq.networking.misc.SmartPhonePackets.RequestGetC2SPacket;
-import com.very.wraq.common.util.ClientUtils;
-import com.very.wraq.common.util.Utils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;

@@ -9,6 +9,7 @@ import com.very.wraq.common.util.struct.Instance;
 import com.very.wraq.common.util.struct.PlayerTeam;
 import com.very.wraq.events.core.LoginInEvent;
 import com.very.wraq.events.fight.MonsterAttackEvent;
+import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.process.func.damage.Damage;
 import com.very.wraq.process.func.item.InventoryOperation;
 import com.very.wraq.process.func.particle.ParticleProvider;
@@ -127,7 +128,7 @@ public class TabooDevil {
                     }});
                     Mob entity = instance.getMobList().get(0);
                     entity.setBaby(true);
-                    Compute.setMobCustomName(entity, ModItems.MobArmorDevilHelmet.get(),
+                    MobSpawn.setMobCustomName(entity, ModItems.MobArmorDevilHelmet.get(),
                             Component.literal("旧世复生魔王").withStyle(CustomStyle.styleOfBloodMana));
 
                     entity.getAttribute(Attributes.MAX_HEALTH).setBaseValue(MaxHealth * difficultyEnhanceRate * (1 + (playerNum - 1) * 0.75));
@@ -179,7 +180,7 @@ public class TabooDevil {
 
                         if (mob.getHealth() / mob.getMaxHealth() < 0.1 && MobNearbyHasTabooPiece(mob)) {
                             Mob entity = new Zombie(EntityType.HUSK, level);
-                            Compute.setMobCustomName(entity, ModItems.MobArmorTabooDevil.get(),
+                            MobSpawn.setMobCustomName(entity, ModItems.MobArmorTabooDevil.get(),
                                     Component.literal("新世禁法魔物").withStyle(CustomStyle.styleOfBloodMana));
 
                             entity.getAttribute(Attributes.MAX_HEALTH).setBaseValue(MaxHealth * difficultyEnhanceRate * (1 + (playerNum - 1) * 0.75 * 2));

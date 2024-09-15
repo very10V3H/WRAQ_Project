@@ -1,8 +1,8 @@
 package com.very.wraq.series.overworld.chapter7.vd;
 
+import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.projectiles.ActiveItem;
 import com.very.wraq.projectiles.ForgeItem;
 import com.very.wraq.projectiles.MainHandTickItem;

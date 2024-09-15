@@ -1,14 +1,13 @@
 package com.very.wraq.events.mob.chapter7;
 
+import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.ItemAndRate;
 import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.events.mob.MobSpawnController;
 import com.very.wraq.events.mob.loot.C7LootItems;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.overworld.chapter7.C7Items;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.ItemAndRate;
-import com.very.wraq.common.registry.ModItems;
 import net.mcreator.borninchaosv.entity.BoneImpEntity;
 import net.mcreator.borninchaosv.init.BornInChaosV1ModEntities;
 import net.minecraft.nbt.CompoundTag;
@@ -63,7 +62,7 @@ public class BoneImpSpawnController extends MobSpawnController {
 
         // 设置颜色与名称
         Style style = CustomStyle.styleOfVolcano;
-        Compute.setMobCustomName(boneImp, Component.literal(mobName).withStyle(style), xpLevel);
+        MobSpawn.setMobCustomName(boneImp, Component.literal(mobName).withStyle(style), xpLevel);
 
         // 需要验证
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(boneImp), xpLevel);

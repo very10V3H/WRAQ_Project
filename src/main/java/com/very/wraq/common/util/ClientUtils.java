@@ -1,9 +1,9 @@
 package com.very.wraq.common.util;
 
+import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.struct.*;
 import com.very.wraq.events.client.ClientAttackEvent;
 import com.very.wraq.files.MarketItemInfo;
-import com.very.wraq.common.util.struct.*;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Mob;

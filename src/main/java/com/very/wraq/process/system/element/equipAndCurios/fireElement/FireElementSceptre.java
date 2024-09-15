@@ -1,12 +1,12 @@
 package com.very.wraq.process.system.element.equipAndCurios.fireElement;
 
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.attribute.PlayerAttributes;
 import com.very.wraq.common.registry.ModEntityType;
+import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.attribute.PlayerAttributes;
-import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.projectiles.ActiveItem;
@@ -136,7 +136,7 @@ public class FireElementSceptre extends WraqSceptre implements ActiveItem {
     public void active(Player player) {
         if (Compute.PlayerUseWithHud(player, FireElementSword.playerActiveCoolDownMap, ModItems.FireElementSceptre.get(), 0, 7)) {
             Compute.playerItemCoolDown(player, this, 7);
-            List<Mob> mobList = Compute.OneShotLaser(player, true, Compute.XpStrengthAPDamage(player, 0.5), ModParticles.LONG_RED_SPELL.get());
+            List<Mob> mobList = Compute.OneShotLaser(player, true, Compute.getXpStrengthAPDamage(player, 0.5), ModParticles.LONG_RED_SPELL.get());
             mobList.forEach(mob -> Compute.IgniteMob(player, mob, 80));
         }
     }

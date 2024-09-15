@@ -4,6 +4,7 @@ import com.very.wraq.common.Compute;
 import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.common.util.Utils;
+import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.process.func.item.InventoryOperation;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.overworld.chapter2.dimension.ToEnd;
@@ -96,7 +97,7 @@ public class SnowRecallEvent {
                             if (Utils.SnowRecallStray != null)
                                 Utils.SnowRecallStray.remove(Entity.RemovalReason.KILLED);
                             Utils.SnowRecallStray = new Stray(EntityType.STRAY, level1);
-                            Compute.setMobCustomName(Utils.SnowRecallStray, ModItems.ArmorSnowRecall.get(), Component.literal("模糊记忆中的冰川流浪者").withStyle(style));
+                            MobSpawn.setMobCustomName(Utils.SnowRecallStray, ModItems.ArmorSnowRecall.get(), Component.literal("模糊记忆中的冰川流浪者").withStyle(style));
                             Utils.SnowRecallStray.setItemSlot(EquipmentSlot.HEAD, ModItems.ArmorSnowRecall.get().getDefaultInstance());
                             Utils.SnowRecallStray.setItemSlot(EquipmentSlot.CHEST, ModItems.ArmorLZChest.get().getDefaultInstance());
                             Utils.SnowRecallStray.setItemSlot(EquipmentSlot.LEGS, ModItems.ArmorLZLeggings.get().getDefaultInstance());

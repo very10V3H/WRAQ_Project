@@ -1,6 +1,7 @@
 package com.very.wraq.series.specialevents;
 
 import com.very.wraq.commands.changeable.PrefixPaperItem;
+import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.Utils;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.FoiledMaterialItem;

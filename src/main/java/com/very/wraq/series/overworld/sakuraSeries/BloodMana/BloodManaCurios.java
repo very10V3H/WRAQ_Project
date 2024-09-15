@@ -1,13 +1,13 @@
 package com.very.wraq.series.overworld.sakuraSeries.BloodMana;
 
-import com.very.wraq.projectiles.WraqCurios;
-import com.very.wraq.series.overworld.sakuraSeries.EarthMana.EarthManaCurios;
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.Utils;
-import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.process.func.StableAttributesModifier;
-import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.projectiles.WraqCurios;
+import com.very.wraq.render.toolTip.CustomStyle;
+import com.very.wraq.series.overworld.sakuraSeries.EarthMana.EarthManaCurios;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;

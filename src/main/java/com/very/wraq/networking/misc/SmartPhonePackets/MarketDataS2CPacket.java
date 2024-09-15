@@ -1,7 +1,7 @@
 package com.very.wraq.networking.misc.SmartPhonePackets;
 
-import com.very.wraq.files.MarketItemInfo;
 import com.very.wraq.common.util.ClientUtils;
+import com.very.wraq.files.MarketItemInfo;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.network.NetworkEvent;

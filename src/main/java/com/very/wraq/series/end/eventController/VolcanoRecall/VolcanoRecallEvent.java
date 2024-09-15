@@ -4,6 +4,7 @@ import com.very.wraq.common.Compute;
 import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.common.util.Utils;
+import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.events.mob.chapter2.SearedSpiritSpawnController;
 import com.very.wraq.process.func.item.InventoryOperation;
 import com.very.wraq.process.func.particle.ParticleProvider;
@@ -98,7 +99,7 @@ public class VolcanoRecallEvent {
                             if (Utils.VolcanoRecallBlaze != null)
                                 Utils.VolcanoRecallBlaze.remove(Entity.RemovalReason.KILLED);
                             Utils.VolcanoRecallBlaze = new Blaze(EntityType.BLAZE, level1);
-                            Compute.setMobCustomName(Utils.VolcanoRecallBlaze, ModItems.ArmorVolcanoRecall.get(), Component.literal("模糊记忆中的火山熔岩").withStyle(style));
+                            MobSpawn.setMobCustomName(Utils.VolcanoRecallBlaze, ModItems.ArmorVolcanoRecall.get(), Component.literal("模糊记忆中的火山熔岩").withStyle(style));
                             Utils.VolcanoRecallBlaze.setItemSlot(EquipmentSlot.HEAD, ModItems.ArmorVolcanoRecall.get().getDefaultInstance());
                             Utils.VolcanoRecallBlaze.setItemSlot(EquipmentSlot.MAINHAND, ModItems.ForestSword3.get().getDefaultInstance());
                             Utils.VolcanoRecallBlaze.getAttribute(Attributes.MAX_HEALTH).setBaseValue(115200.0D);

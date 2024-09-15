@@ -1,8 +1,8 @@
 package com.very.wraq.process.system.tower;
 
+import com.very.wraq.common.Compute;
 import com.very.wraq.process.system.WorldRecordInfo;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.Compute;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;

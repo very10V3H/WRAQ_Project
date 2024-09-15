@@ -3,6 +3,7 @@ package com.very.wraq.series.end.eventController.KazeRecall;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.util.Utils;
+import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.events.mob.chapter2.WindSkeletonSpawnController;
 import com.very.wraq.process.func.item.InventoryOperation;
 import com.very.wraq.render.toolTip.CustomStyle;
@@ -94,7 +95,7 @@ public class KazeRecallEvent {
                             if (Utils.KazeRecallSkeleton != null)
                                 Utils.KazeRecallSkeleton.remove(Entity.RemovalReason.KILLED);
                             Utils.KazeRecallSkeleton = new Skeleton(EntityType.SKELETON, level1);
-                            Compute.setMobCustomName(Utils.KazeRecallSkeleton, ModItems.ArmorKazeRecall.get(), Component.literal("模糊记忆中的狂风").withStyle(style));
+                            MobSpawn.setMobCustomName(Utils.KazeRecallSkeleton, ModItems.ArmorKazeRecall.get(), Component.literal("模糊记忆中的狂风").withStyle(style));
                             Utils.KazeRecallSkeleton.setItemSlot(EquipmentSlot.HEAD, ModItems.ArmorKazeRecall.get().getDefaultInstance());
                             Utils.KazeRecallSkeleton.setItemSlot(EquipmentSlot.CHEST, ModItems.ArmorKazeChest.get().getDefaultInstance());
                             Utils.KazeRecallSkeleton.setItemSlot(EquipmentSlot.LEGS, ModItems.ArmorKazeLeggings.get().getDefaultInstance());

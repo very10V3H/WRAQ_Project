@@ -1,7 +1,7 @@
 package com.very.wraq.entities.entities.Civil;
 
-import com.very.wraq.common.util.Utils;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.very.wraq.common.util.Utils;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;

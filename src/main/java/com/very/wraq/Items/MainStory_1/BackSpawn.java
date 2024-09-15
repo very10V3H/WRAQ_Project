@@ -1,8 +1,8 @@
 package com.very.wraq.Items.MainStory_1;
 
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.process.system.respawn.MyRespawnRule;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.util.Utils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.nbt.CompoundTag;

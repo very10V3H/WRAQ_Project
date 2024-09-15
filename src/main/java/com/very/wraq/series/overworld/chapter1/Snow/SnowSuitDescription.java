@@ -1,10 +1,11 @@
 package com.very.wraq.series.overworld.chapter1.Snow;
 
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.util.ClientUtils;
+import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
@@ -21,16 +22,16 @@ import java.util.List;
 @OnlyIn(Dist.CLIENT)
 public class SnowSuitDescription {
     public static void ArmorCommonDescription(List<Component> components) {
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfSnow, ChatFormatting.WHITE);
-        Compute.DescriptionOfAddition(components);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfSnow, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionOfAddition(components);
         if (Screen.hasShiftDown()) SuitDescription(components);
         else {
             Compute.SuitDescription(components);
             components.add(Component.literal("[按住shift展开套装效果]").withStyle(ChatFormatting.GRAY));
         }
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfSnow, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfSnow, ChatFormatting.WHITE);
         components.add(Component.literal("SnowArmor-I").withStyle(CustomStyle.styleOfSnow).withStyle(ChatFormatting.ITALIC));
-        Compute.SuffixOfMainStoryI(components);
+        ComponentUtils.suffixOfChapterI(components);
     }
 
     public static void SuitDescription(List<Component> components) {

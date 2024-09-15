@@ -1,6 +1,6 @@
 package com.very.wraq.series.overworld.chapter1.ManaBook;
 
-import com.very.wraq.common.Compute;
+import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.Utils;
 import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -64,15 +64,15 @@ public class ManaNote extends Item {
         } else
             stack.setHoverName(Component.literal("见习魔法师的笔记" + Name[num]).withStyle(styles[num]).withStyle(ChatFormatting.BOLD));
         components.add(Component.literal("副手                   ").withStyle(ChatFormatting.GOLD).append(Component.literal("魔导书").withStyle(CustomStyle.styleOfMana)));
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
-        Compute.DescriptionOfBasic(components);
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionOfBasic(components);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
         if (num > 4) {
             components.add(Component.literal("Evoker-Book" + Name[num - 5]).withStyle(ChatFormatting.LIGHT_PURPLE).withStyle(ChatFormatting.ITALIC));
-            Compute.SuffixOfMainStoryII(components);
+            ComponentUtils.suffixOfChapterII(components);
         } else {
             components.add(Component.literal("ManaNote" + Name[num]).withStyle(styles[num]).withStyle(ChatFormatting.ITALIC));
-            Compute.SuffixOfMainStoryI(components);
+            ComponentUtils.suffixOfChapterI(components);
         }
         super.appendHoverText(stack, level, components, flag);
     }

@@ -92,7 +92,7 @@ public class PlainInstance extends NoTeamInstance {
     @Override
     public void summonModule(Level level) {
         Stray stray = new Stray(EntityType.STRAY, level);
-        Compute.setMobCustomName(stray, Component.literal("普莱尼").withStyle(CustomStyle.styleOfPlain), 50);
+        MobSpawn.setMobCustomName(stray, Component.literal("普莱尼").withStyle(CustomStyle.styleOfPlain), 50);
 
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(stray), 50);
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(stray, 400, 200, 200, 0.2, 1, 0, 0, 0, 40000, 0.2);

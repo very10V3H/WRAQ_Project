@@ -1,10 +1,11 @@
 package com.very.wraq.series.overworld.chapter2.manaArmor.LifeMana;
 
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.util.ClientUtils;
+import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
@@ -23,15 +24,15 @@ import java.util.List;
 @OnlyIn(Dist.CLIENT)
 public class LifeManaSuitDescription {
     public static void ArmorCommonDescription(List<Component> components) {
-        Compute.DescriptionOfAddition(components);
+        ComponentUtils.DescriptionOfAddition(components);
         if (Screen.hasShiftDown()) SuitDescription(components);
         else {
             Compute.SuitDescription(components);
             components.add(Component.literal("[按住shift展开套装效果]").withStyle(ChatFormatting.GRAY));
         }
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.LIGHT_PURPLE, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.LIGHT_PURPLE, ChatFormatting.WHITE);
         components.add(Component.literal("LifeMana-I").withStyle(CustomStyle.styleOfMana).withStyle(ChatFormatting.ITALIC));
-        Compute.SuffixOfMainStoryII(components);
+        ComponentUtils.suffixOfChapterII(components);
 
     }
 
@@ -79,12 +80,12 @@ public class LifeManaSuitDescription {
 
         Compute.SuitDoubleDescription(components, Count);
         Compute.DescriptionPassive(components, Component.literal("魔力涌动").withStyle(ChatFormatting.LIGHT_PURPLE));
-        Compute.DescriptionNum(components, "获得", Compute.AttributeDescription.ManaRecover("5"), "");
+        ComponentUtils.DescriptionNum(components, "获得", Compute.AttributeDescription.ManaRecover("5"), "");
         Compute.SuitQuadraDescription(components, Count);
         Compute.DescriptionPassive(components, Component.literal("生机涌动").withStyle(ChatFormatting.GREEN));
-        Compute.DescriptionNum(components, "每秒回复", Compute.AttributeDescription.Health("1+1%"), "");
-        Compute.DescriptionNum(components, "提升", Compute.AttributeDescription.Defence("25%"), "");
-        Compute.DescriptionNum(components, "获得", Compute.AttributeDescription.ManaHealSteal("5"), "");
+        ComponentUtils.DescriptionNum(components, "每秒回复", Compute.AttributeDescription.Health("1+1%"), "");
+        ComponentUtils.DescriptionNum(components, "提升", Compute.AttributeDescription.Defence("25%"), "");
+        ComponentUtils.DescriptionNum(components, "获得", Compute.AttributeDescription.ManaHealSteal("5"), "");
     }
 
 }

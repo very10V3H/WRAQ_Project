@@ -1,16 +1,16 @@
 package com.very.wraq.series.end.eventController.SnowRecall;
 
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.attribute.PlayerAttributes;
+import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.misc.USE.UtilsSnowSwordS2CPacket;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.projectiles.ActiveItem;
 import com.very.wraq.projectiles.WraqSword;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.ComponentUtils;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.attribute.PlayerAttributes;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -44,7 +44,7 @@ public class SnowSword4 extends WraqSword implements ActiveItem {
         List<Component> components = new ArrayList<>();
         components.add(Component.literal("被动:").withStyle(ChatFormatting.GREEN).
                 append(Component.literal("凿击-Ex").withStyle(ChatFormatting.AQUA)));
-        Compute.DescriptionNum(components, "攻击将会大幅降低目标生物的移动速度", Component.literal("2s").withStyle(ChatFormatting.AQUA), "");
+        ComponentUtils.DescriptionNum(components, "攻击将会大幅降低目标生物的移动速度", Component.literal("2s").withStyle(ChatFormatting.AQUA), "");
         components.add(Component.literal("主动:").withStyle(ChatFormatting.AQUA).
                 append(Component.literal("冰川攀登！").withStyle(ChatFormatting.AQUA)));
         components.add(Component.literal("向前闪现一小段距离"));

@@ -1,8 +1,8 @@
 package com.very.wraq.events.client;
 
+import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.util.ClientUtils;
 import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.core.BowRequestC2SPacket;
 import com.very.wraq.core.ManaAttackRequestC2SPacket;
 import com.very.wraq.networking.ModNetworking;

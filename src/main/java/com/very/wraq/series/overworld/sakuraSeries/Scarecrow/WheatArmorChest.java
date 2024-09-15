@@ -46,16 +46,16 @@ public class WheatArmorChest extends ArmorItem implements GeoItem {
         Style style = CustomStyle.styleOfWheat;
         Compute.forgingHoverName(stack);
         components.add(Component.literal("防具                   ").withStyle(ChatFormatting.GRAY).append(Component.literal("胸甲").withStyle(style)));
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        Compute.DescriptionOfBasic(components);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionOfBasic(components);
         BasicAttributeDescription.BasicAttributeCommonDescription(components, stack);
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         Compute.DescriptionPassive(components, Component.literal("藤甲"));
         components.add(Component.literal("1.减免受到的").withStyle(ChatFormatting.WHITE).
                 append(Compute.AttributeDescription.AttackDamageValue("30%")));
         components.add(Component.literal("2.提高受到的").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.AttributeDescription.ManaDamageValue("30%")));
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         components.add(Component.literal("Scarecrow_ChestPlate").withStyle(style).withStyle(ChatFormatting.ITALIC));
         Compute.SuffixOfMainStoryV(components);
         super.appendHoverText(stack, level, components, flag);

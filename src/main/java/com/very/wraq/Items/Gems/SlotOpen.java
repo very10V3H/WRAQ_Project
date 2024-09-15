@@ -1,6 +1,6 @@
 package com.very.wraq.Items.Gems;
 
-import com.very.wraq.common.Compute;
+import com.very.wraq.common.util.ComponentUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
@@ -22,7 +22,7 @@ public class SlotOpen extends Item {
         components.add(Component.literal("用于装备宝石槽位的开孔").withStyle(ChatFormatting.LIGHT_PURPLE));
         components.add(Component.literal(" "));
         components.add(Component.literal("Gems-Item").withStyle(ChatFormatting.GOLD));
-        Compute.SuffixOfMainStoryI(components);
+        ComponentUtils.suffixOfChapterI(components);
         super.appendHoverText(stack, level, components, flag);
     }
 

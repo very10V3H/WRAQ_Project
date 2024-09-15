@@ -1,6 +1,6 @@
 package com.very.wraq.Items.Gems;
 
-import com.very.wraq.common.Compute;
+import com.very.wraq.common.util.ComponentUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
@@ -22,7 +22,8 @@ public class Dismantle extends Item {
         components.add(Component.literal("用于拆解已经镶嵌于装备上的宝石。").withStyle(ChatFormatting.LIGHT_PURPLE));
         components.add(Component.literal(" "));
         components.add(Component.literal("Gems-Item").withStyle(ChatFormatting.GOLD));
-        Compute.SuffixOfMainStoryI(components);
+        ComponentUtils.suffixOfChapterI(components);
+
         super.appendHoverText(stack, level, components, flag);
     }
 

@@ -1,11 +1,11 @@
 package com.very.wraq.process.system.instance;
 
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.util.ItemAndRate;
 import com.very.wraq.events.instance.*;
 import com.very.wraq.events.mob.instance.instances.*;
 import com.very.wraq.process.system.teamInstance.instances.blackCastle.NewCastleInstance;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.ItemAndRate;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;

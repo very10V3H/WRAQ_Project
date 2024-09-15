@@ -21,6 +21,7 @@ import com.very.wraq.networking.unSorted.MineHatConfirmC2SPacket;
 import com.very.wraq.networking.unSorted.PlayerIsNearbyCampfireC2SPacket;
 import com.very.wraq.networking.unSorted.UdiskWorldSoulC2SPacket;
 import com.very.wraq.process.func.item.InventoryOperation;
+import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.process.system.endlessinstance.DailyEndlessInstance;
 import com.very.wraq.process.system.forge.ForgeScreen;
@@ -432,7 +433,7 @@ public class ClientPlayerTickEvent {
 /*                if (manaAttackParticle.getType() == 2)
                     Compute.BallParticle(manaAttackParticle.getPos(), level, 2 * (20 - manaAttackParticle.getTickTime()) / 20.0, ClientUtils.manaAttackParticleTypeMap.get(manaAttackParticle.getType()), 10);
                 else*/
-                Compute.BallParticle(manaAttackParticle.getPos(), level, 2 * (20 - manaAttackParticle.getTickTime()) / 20.0, Utils.ParticleStringToParticleMap.get(manaAttackParticle.getType()), 20);
+                ParticleProvider.BallParticle(manaAttackParticle.getPos(), level, 2 * (20 - manaAttackParticle.getTickTime()) / 20.0, Utils.ParticleStringToParticleMap.get(manaAttackParticle.getType()), 20);
                 manaAttackParticle.setTickTime(Math.max(-1, manaAttackParticle.getTickTime() - 1));
             }
 

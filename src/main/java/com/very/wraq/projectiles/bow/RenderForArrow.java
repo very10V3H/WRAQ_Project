@@ -1,7 +1,7 @@
 package com.very.wraq.projectiles.bow;
 
-import com.very.wraq.core.MyArrow;
 import com.very.wraq.common.util.Utils;
+import com.very.wraq.core.MyArrow;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.ArrowRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;

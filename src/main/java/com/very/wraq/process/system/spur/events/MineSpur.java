@@ -2,6 +2,7 @@ package com.very.wraq.process.system.spur.events;
 
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.util.ItemAndRate;
+import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.util.struct.BlockAndResetTime;
 import com.very.wraq.process.func.item.InventoryOperation;
@@ -12,6 +13,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket;
 import net.minecraft.network.protocol.game.ClientboundSoundPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -101,8 +103,8 @@ public class MineSpur {
 
     public static void mineReward(Player player, BlockState blockState, BlockPos blockPos) {
         double rate = Utils.mineRewardMap.get(blockState.getBlock()).exp();
-        Compute.playerMineExpAdd(player, (int) (rate * 100));
-        rate *= (1 + Compute.playerMineLevel(player)) * 0.25;
+        addPlayerMineExp(player, (int) (rate * 100));
+        rate *= (1 + getPlayerMineLevel(player)) * 0.25;
         ItemAndRate.dropOrbs(Math.min(player.experienceLevel, 50), rate, player.level(), blockPos.getCenter(), fromMineReward);
 
         ClientboundSoundPacket clientboundSoundPacket = new ClientboundSoundPacket(Holder.direct(SoundEvents.EXPERIENCE_ORB_PICKUP), SoundSource.PLAYERS, player.getX(), player.getY(), player.getZ(), 0.5f, 1, 1);
@@ -121,5 +123,27 @@ public class MineSpur {
             CompoundTag tag = player.getPersistentData();
             tag.putInt(minePieceGetTimes, tag.getInt(minePieceGetTimes) + 1);
         }
+    }
+
+    public static int getPlayerMineLevel(Player player) {
+        CompoundTag data = player.getPersistentData();
+        int MineXp = data.getInt(StringUtils.Mine.Exp);
+        if (MineXp <= 100) return 1;
+        else if (MineXp <= 1000) return 2;
+        else if (MineXp <= 5000) return 3;
+        else if (MineXp <= 20000) return 4;
+        else if (MineXp <= 100000) return 5;
+        return 0;
+    }
+
+    public static void addPlayerMineExp(Player player, int Num) {
+        CompoundTag data = player.getPersistentData();
+        data.putInt(StringUtils.Mine.Exp, data.getInt(StringUtils.Mine.Exp) + Num);
+        ClientboundSetActionBarTextPacket clientboundSetActionBarTextPacket = new ClientboundSetActionBarTextPacket(Component.literal("采矿经验").withStyle(ChatFormatting.LIGHT_PURPLE).
+                append(Component.literal(" + ").withStyle(ChatFormatting.DARK_GREEN)).
+                append(Component.literal("" + Num).withStyle(ChatFormatting.GREEN)).
+                append(Component.literal(" (" + data.getInt(StringUtils.Mine.Exp) + ")").withStyle(ChatFormatting.GRAY)));
+        ServerPlayer serverPlayer = (ServerPlayer) player;
+        serverPlayer.connection.send(clientboundSetActionBarTextPacket);
     }
 }

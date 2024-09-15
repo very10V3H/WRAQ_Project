@@ -60,10 +60,10 @@ public class IceCrystal extends SwordItem implements ActiveItem {
         stack.getOrCreateTagElement(Utils.MOD_ID);
         Style style = CustomStyle.styleOfIce;
         components.add(Component.literal("器灵                   ").withStyle(CustomStyle.styleOfSakura).append(Component.literal("元素水晶").withStyle(style)));
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        Compute.DescriptionOfBasic(components);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionOfBasic(components);
         BasicAttributeDescription.BasicAttributeCommonDescription(components, stack);
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         Compute.DescriptionActive(components, Component.literal("凛冰元素容器").withStyle(style));
         components.add(Component.literal(" 对周围生物").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("施加").withStyle(CustomStyle.styleOfPower)).
@@ -72,7 +72,7 @@ public class IceCrystal extends SwordItem implements ActiveItem {
         ComponentUtils.coolDownTimeDescription(components, 10);
         components.add(Component.literal(" - 根据归一化元素强度至多可以将冷却时间缩短至3s").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
         Compute.LevelRequire(components, Utils.levelRequire.get(this));
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         ComponentUtils.suffixOfElement(components);
         super.appendHoverText(stack, level, components, flag);
     }

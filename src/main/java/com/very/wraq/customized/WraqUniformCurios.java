@@ -19,7 +19,8 @@ import top.theillusivec4.curios.api.type.capability.ICurioItem;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public abstract class WraqUniformCurios extends Item implements ICurioItem {
+public abstract class
+WraqUniformCurios extends Item implements ICurioItem {
 
     public WraqUniformCurios(Properties properties) {
         super(properties.stacksTo(1));
@@ -30,17 +31,17 @@ public abstract class WraqUniformCurios extends Item implements ICurioItem {
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
         Style style = hoverMainStyle();
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        Compute.DescriptionOfBasic(components);
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionOfBasic(components);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         if (!additionHoverText(stack).isEmpty()) {
-            Compute.DescriptionOfAddition(components);
+            ComponentUtils.DescriptionOfAddition(components);
             ComponentUtils.descriptionPassive(components, getFirstPassiveName());
             components.add(Component.literal(" 获得").withStyle(ChatFormatting.WHITE).
                     append(Component.literal("50%最终伤害提升").withStyle(ChatFormatting.RED)));
             components.addAll(additionHoverText(stack));
         }
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         if (getName() != null) {
             components.add(Te.m("来自", CustomStyle.styleOfWorld).
                     append(Te.m("开拓者", CustomStyle.styleOfWorld)).

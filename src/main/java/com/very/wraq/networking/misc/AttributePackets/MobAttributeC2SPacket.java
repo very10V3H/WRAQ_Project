@@ -1,8 +1,8 @@
 package com.very.wraq.networking.misc.AttributePackets;
 
+import com.very.wraq.common.attribute.MobAttributes;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.process.system.element.Element;
-import com.very.wraq.common.attribute.MobAttributes;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;

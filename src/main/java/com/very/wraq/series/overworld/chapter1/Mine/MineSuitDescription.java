@@ -1,11 +1,11 @@
 package com.very.wraq.series.overworld.chapter1.Mine;
 
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.util.ClientUtils;
 import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
@@ -21,12 +21,12 @@ import java.util.List;
 @OnlyIn(Dist.CLIENT)
 public class MineSuitDescription {
     public static void ArmorCommonDescription(List<Component> components) {
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMine, ChatFormatting.WHITE);
-        Compute.DescriptionOfAddition(components);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMine, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionOfAddition(components);
         SuitDescription(components);
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMine, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMine, ChatFormatting.WHITE);
         components.add(Component.literal("MineArmor-I").withStyle(CustomStyle.styleOfMine).withStyle(ChatFormatting.ITALIC));
-        Compute.SuffixOfMainStoryI(components);
+        ComponentUtils.suffixOfChapterI(components);
 
     }
 

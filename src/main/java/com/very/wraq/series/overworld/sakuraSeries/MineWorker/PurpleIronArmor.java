@@ -4,6 +4,7 @@ import com.very.wraq.projectiles.ForgeItem;
 import com.very.wraq.projectiles.WraqArmor;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.Utils;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.registry.ItemMaterial;

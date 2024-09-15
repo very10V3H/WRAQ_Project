@@ -1,13 +1,14 @@
 package com.very.wraq.events.core;
 
+import com.very.wraq.blocks.blocks.brew.BrewingNote;
 import com.very.wraq.blocks.blocks.forge.ForgeRecipe;
 import com.very.wraq.blocks.blocks.inject.InjectRecipe;
-import com.very.wraq.blocks.blocks.brew.BrewingNote;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.ClientUtils;
-import com.very.wraq.common.util.struct.InjectingRecipe;
-import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.ClientUtils;
+import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.Utils;
+import com.very.wraq.common.util.struct.InjectingRecipe;
 import com.very.wraq.process.func.plan.SimpleTierPaper;
 import com.very.wraq.process.system.forge.ForgeHammer;
 import com.very.wraq.projectiles.RandomCurios;
@@ -242,7 +243,7 @@ public class ToolTipEvent {
                 event.getToolTip().add(Component.literal(" "));
                 event.getToolTip().add(Component.literal("~当前酿造等阶: ").withStyle(ChatFormatting.WHITE).
                         append(Utils.BrewingLevelName[Compute.BrewingLevel(event.getItemStack())]));
-                Compute.DescriptionDash(event.getToolTip(), ChatFormatting.WHITE, CustomStyle.styleOfBrew, ChatFormatting.WHITE);
+                ComponentUtils.DescriptionDash(event.getToolTip(), ChatFormatting.WHITE, CustomStyle.styleOfBrew, ChatFormatting.WHITE);
                 event.getToolTip().add(Component.literal(" 酿造经验明细:").withStyle(CustomStyle.styleOfBrew));
                 for (int i = 0; i < Name.length; i++) {
                     if (i == 8)
@@ -256,7 +257,7 @@ public class ToolTipEvent {
                                 append(Name[i]).
                                 append(Component.literal("：" + String.valueOf(0)).withStyle(ChatFormatting.WHITE)));
                 }
-                Compute.DescriptionDash(event.getToolTip(), ChatFormatting.WHITE, CustomStyle.styleOfBrew, ChatFormatting.WHITE);
+                ComponentUtils.DescriptionDash(event.getToolTip(), ChatFormatting.WHITE, CustomStyle.styleOfBrew, ChatFormatting.WHITE);
             }
 
             if (data.contains("Number")) {
@@ -332,8 +333,8 @@ public class ToolTipEvent {
                 } else if (equip.is(ModItems.SHelmet.get()) || equip.is(ModItems.ISArmorHelmet.get())) {
                     components.add(Component.literal("防具                   ").withStyle(ChatFormatting.GRAY).append(Component.literal("头盔").withStyle(CustomStyle.styleOfSpider)));
                 }
-                Compute.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfSpider, ChatFormatting.WHITE);
-                Compute.DescriptionOfBasic(components);
+                ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfSpider, ChatFormatting.WHITE);
+                ComponentUtils.DescriptionOfBasic(components);
                 int SIndex = data.getInt("SIndex");
                 int Rate = (equip.is(ModItems.ISArmorBoots.get()) || equip.is(ModItems.ISArmorLeggings.get())
                         || equip.is(ModItems.ISArmorChest.get()) || equip.is(ModItems.ISArmorHelmet.get())) ? 2 : 1;
@@ -419,7 +420,7 @@ public class ToolTipEvent {
                         components.add(Component.literal(i + ".[待涂附]").withStyle(ChatFormatting.GRAY));
                     }
                 }
-                Compute.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfSpider, ChatFormatting.WHITE);
+                ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfSpider, ChatFormatting.WHITE);
                 components.add(Component.literal(" "));
                 if (Rate == 1) {
                     components.add(Component.literal("SArmor-I").withStyle(CustomStyle.styleOfSpider).withStyle(ChatFormatting.ITALIC));

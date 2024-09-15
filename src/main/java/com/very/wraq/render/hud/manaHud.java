@@ -1,8 +1,8 @@
 package com.very.wraq.render.hud;
 
-import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.util.Utils;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.very.wraq.common.util.Utils;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -89,8 +89,8 @@ public class manaHud {
                     }
                 }
 
-                double MaxCold = ClientColdNum.getMaxCold();
-                double CurrentCold = ClientColdNum.getCurrentCold();
+                double MaxCold = ColdData.getMaxCold();
+                double CurrentCold = ColdData.getCurrentCold();
                 int ColdRate = (int) ((CurrentCold / MaxCold) * 12);
                 if (MaxCold != 0 && CurrentCold != 0) {
                     guiGraphics.blit(Swiftness_Bar, x + 140, y - 30, 0, 0, 16, 32, 16, 32);

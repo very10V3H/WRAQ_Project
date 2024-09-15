@@ -1,11 +1,11 @@
 package com.very.wraq.series.overworld.chapter1.Mine.Sword;
 
-import com.very.wraq.process.system.element.Element;
-import com.very.wraq.projectiles.WraqSword;
-import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.Utils;
+import com.very.wraq.process.system.element.Element;
+import com.very.wraq.projectiles.WraqSword;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -37,7 +37,7 @@ public class MineSword extends WraqSword {
     public List<Component> getAdditionalComponents(ItemStack stack) {
         List<Component> components = new ArrayList<>();
         Compute.DescriptionPassive(components, Component.literal("凿击").withStyle(ChatFormatting.GRAY));
-        Compute.DescriptionNum(components, "攻击将会降低目标生物的移动速度", Component.literal("2s").withStyle(ChatFormatting.GRAY), "");
+        ComponentUtils.DescriptionNum(components, "攻击将会降低目标生物的移动速度", Component.literal("2s").withStyle(ChatFormatting.GRAY), "");
         return components;
     }
 

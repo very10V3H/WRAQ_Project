@@ -1,13 +1,12 @@
 package com.very.wraq.events.mob.chapter5;
 
+import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.ItemAndRate;
 import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.events.mob.MobSpawnController;
 import com.very.wraq.events.mob.loot.C5LootItems;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.ItemAndRate;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -66,7 +65,7 @@ public class BloodManaSpawnController extends MobSpawnController {
 
         // 设置颜色与名称
         Style style = CustomStyle.styleOfBloodMana;
-        Compute.setMobCustomName(zombie, Component.literal("腥月血灵").withStyle(style), xpLevel);
+        MobSpawn.setMobCustomName(zombie, Component.literal("腥月血灵").withStyle(style), xpLevel);
         zombie.setBaby(true);
 
         // 需要验证

@@ -3,6 +3,7 @@ package com.very.wraq.process.system.element.originSummon;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.util.StringUtils;
+import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.misc.SoundsPackets.SoundsS2CPacket;
 import com.very.wraq.process.func.item.InventoryOperation;
@@ -68,7 +69,7 @@ public class OriginSummon {
                     });
                     if (originLifeElement != null) originLifeElement.remove(Entity.RemovalReason.KILLED);
                     originLifeElement = new Slime(EntityType.SLIME, event.level);
-                    Compute.setMobCustomName(originLifeElement, ModItems.MobArmorOriginLifeElement.get(),
+                    MobSpawn.setMobCustomName(originLifeElement, ModItems.MobArmorOriginLifeElement.get(),
                             Component.literal("原初生机元素").withStyle(CustomStyle.styleOfLife));
                     originLifeElement.setItemSlot(EquipmentSlot.HEAD, ModItems.MobArmorOriginLifeElement.get().getDefaultInstance());
                     originLifeElement.setItemSlot(EquipmentSlot.CHEST, ModItems.MobArmorLifeElementChest.get().getDefaultInstance());
@@ -115,7 +116,7 @@ public class OriginSummon {
                     });
                     if (originWaterElement != null) originWaterElement.remove(Entity.RemovalReason.KILLED);
                     originWaterElement = new Zombie(EntityType.ZOMBIE, event.level);
-                    Compute.setMobCustomName(originWaterElement, ModItems.MobArmorOriginWaterElement.get(),
+                    MobSpawn.setMobCustomName(originWaterElement, ModItems.MobArmorOriginWaterElement.get(),
                             Component.literal("原初碧水元素").withStyle(CustomStyle.styleOfWater));
                     originWaterElement.setItemSlot(EquipmentSlot.HEAD, ModItems.MobArmorOriginWaterElement.get().getDefaultInstance());
                     originWaterElement.setItemSlot(EquipmentSlot.CHEST, ModItems.MobArmorWaterElementChest.get().getDefaultInstance());
@@ -162,7 +163,7 @@ public class OriginSummon {
                     });
                     if (originStoneElement != null) originStoneElement.remove(Entity.RemovalReason.KILLED);
                     originStoneElement = new Zombie(EntityType.ZOMBIE, event.level);
-                    Compute.setMobCustomName(originStoneElement, ModItems.MobArmorOriginStoneElement.get(),
+                    MobSpawn.setMobCustomName(originStoneElement, ModItems.MobArmorOriginStoneElement.get(),
                             Component.literal("原初层岩元素").withStyle(CustomStyle.styleOfStone));
                     originStoneElement.setItemSlot(EquipmentSlot.HEAD, ModItems.MobArmorOriginStoneElement.get().getDefaultInstance());
                     originStoneElement.setItemSlot(EquipmentSlot.CHEST, ModItems.MobArmorStoneElementChest.get().getDefaultInstance());
@@ -209,7 +210,7 @@ public class OriginSummon {
                     });
                     if (originIceElement != null) originIceElement.remove(Entity.RemovalReason.KILLED);
                     originIceElement = new Zombie(EntityType.ZOMBIE, event.level);
-                    Compute.setMobCustomName(originIceElement, ModItems.MobArmorOriginIceElement.get(),
+                    MobSpawn.setMobCustomName(originIceElement, ModItems.MobArmorOriginIceElement.get(),
                             Component.literal("原初凛冰元素").withStyle(CustomStyle.styleOfIce));
                     originIceElement.setItemSlot(EquipmentSlot.HEAD, ModItems.MobArmorOriginIceElement.get().getDefaultInstance());
                     originIceElement.setItemSlot(EquipmentSlot.CHEST, ModItems.MobArmorIceElementChest.get().getDefaultInstance());
@@ -257,7 +258,7 @@ public class OriginSummon {
                     });
                     if (originWindElement != null) originWindElement.remove(Entity.RemovalReason.KILLED);
                     originWindElement = new Stray(EntityType.STRAY, event.level);
-                    Compute.setMobCustomName(originWindElement, ModItems.MobArmorOriginWindElement.get(),
+                    MobSpawn.setMobCustomName(originWindElement, ModItems.MobArmorOriginWindElement.get(),
                             Component.literal("原初澄风元素").withStyle(CustomStyle.styleOfWind));
                     originWindElement.setItemSlot(EquipmentSlot.HEAD, ModItems.MobArmorOriginWindElement.get().getDefaultInstance());
                     originWindElement.setItemSlot(EquipmentSlot.CHEST, ModItems.MobArmorWindElementChest.get().getDefaultInstance());
@@ -303,7 +304,7 @@ public class OriginSummon {
                     });
                     if (originLightningElement != null) originLightningElement.remove(Entity.RemovalReason.KILLED);
                     originLightningElement = new Witch(EntityType.WITCH, event.level);
-                    Compute.setMobCustomName(originLightningElement, ModItems.MobArmorOriginLightningElement.get(),
+                    MobSpawn.setMobCustomName(originLightningElement, ModItems.MobArmorOriginLightningElement.get(),
                             Component.literal("原初怒雷元素").withStyle(CustomStyle.styleOfLightning));
                     originLightningElement.setItemSlot(EquipmentSlot.HEAD, ModItems.MobArmorOriginLightningElement.get().getDefaultInstance());
                     originLightningElement.setItemSlot(EquipmentSlot.CHEST, ModItems.MobArmorLightningElementChest.get().getDefaultInstance());
@@ -348,7 +349,7 @@ public class OriginSummon {
                     });
                     if (originFireElement != null) originFireElement.remove(Entity.RemovalReason.KILLED);
                     originFireElement = new Blaze(EntityType.BLAZE, event.level);
-                    Compute.setMobCustomName(originFireElement, ModItems.MobArmorOriginFireElement.get(),
+                    MobSpawn.setMobCustomName(originFireElement, ModItems.MobArmorOriginFireElement.get(),
                             Component.literal("原初炽焰元素").withStyle(CustomStyle.styleOfFire));
                     originFireElement.setItemSlot(EquipmentSlot.HEAD, ModItems.MobArmorOriginFireElement.get().getDefaultInstance());
                     originFireElement.setItemSlot(EquipmentSlot.CHEST, ModItems.MobArmorFireElementChest.get().getDefaultInstance());

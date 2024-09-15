@@ -1,17 +1,17 @@
 package com.very.wraq.process.system.element.equipAndCurios.fireElement;
 
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.registry.MySound;
+import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.core.MyArrow;
-import com.very.wraq.process.system.element.Element;
 import com.very.wraq.process.func.particle.ParticleProvider;
+import com.very.wraq.process.system.element.Element;
 import com.very.wraq.projectiles.ActiveItem;
 import com.very.wraq.projectiles.WraqBow;
 import com.very.wraq.render.particles.ModParticles;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.ComponentUtils;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -127,7 +127,7 @@ public class FireElementBow extends WraqBow implements ActiveItem {
     public void active(Player player) {
         if (Compute.PlayerUseWithHud(player, FireElementSword.playerActiveCoolDownMap, ModItems.FireElementBow.get(), 0, 7)) {
             Compute.playerItemCoolDown(player, this, 7);
-            List<Mob> mobList = Compute.OneShotLaser(player, true, Compute.XpStrengthADDamage(player, 2), ModParticles.LONG_RED_SPELL.get());
+            List<Mob> mobList = Compute.OneShotLaser(player, true, Compute.getXpStrengthADDamage(player, 2), ModParticles.LONG_RED_SPELL.get());
             mobList.forEach(mob -> Compute.IgniteMob(player, mob, 80));
         }
     }

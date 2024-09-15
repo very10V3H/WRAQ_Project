@@ -1,12 +1,12 @@
 package com.very.wraq.series.overworld.chapter7;
 
+import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.projectiles.ForgeItem;
 import com.very.wraq.projectiles.WraqOffHandItem;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.util.ComponentUtils;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;

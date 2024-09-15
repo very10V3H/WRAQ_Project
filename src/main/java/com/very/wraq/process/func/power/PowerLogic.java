@@ -205,7 +205,7 @@ public class PowerLogic {
                 ParticleProvider.EntityEffectVerticleCircleParticle(mob, 0.25, 0.4, 8, ParticleTypes.WITCH, 0);
                 ParticleProvider.EntityEffectVerticleCircleParticle(mob, 0, 0.4, 8, ParticleTypes.WITCH, 0);
                 Utils.NetherBoneMealPowerEffectMap.put(mob, TickCount + 100);
-                AddManaDefenceDescreaseEffectParticle(mob, 100);
+                addManaDefenceDecreaseEffectParticle(mob, 100);
             }
         }
 
@@ -359,7 +359,7 @@ public class PowerLogic {
             if (PosVec.length() <= 6) {
                 Compute.IgniteMob(player, mob, 0);
                 EffectOnMob.addSlowDownEffect(mob, 40, 0.25);
-                AddManaDefenceDescreaseEffectParticle(mob, 40);
+                addManaDefenceDecreaseEffectParticle(mob, 40);
                 Utils.LakePowerEffectMobMap.put(mob, new LakePowerEffect(TickCount + 40, (tier + 1)));
                 PlayerPowerEffectToMob(player, mob);
                 Damage.causeManaDamageToMonster_RateApDamage_ElementAddition(player, mob, effect, true,

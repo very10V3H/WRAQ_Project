@@ -1,7 +1,7 @@
 package com.very.wraq.Items.MobItem;
 
-import com.very.wraq.entities.armor.HolyArmorRenderer;
 import com.very.wraq.common.registry.ItemMaterial;
+import com.very.wraq.entities.armor.HolyArmorRenderer;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;

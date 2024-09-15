@@ -1,8 +1,8 @@
 package com.very.wraq.customized.uniform.element;
 
 import com.very.wraq.common.util.Utils;
-import com.very.wraq.process.system.element.RainbowCrystal;
 import com.very.wraq.customized.WraqUniformCurios;
+import com.very.wraq.process.system.element.RainbowCrystal;
 import net.minecraft.network.chat.Component;
 
 public abstract class WraqElementUniformCurios extends WraqUniformCurios {

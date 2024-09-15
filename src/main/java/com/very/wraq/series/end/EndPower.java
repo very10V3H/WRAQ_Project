@@ -38,7 +38,7 @@ public class EndPower extends Item implements ActiveItem {
     public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
         Style style = CustomStyle.styleOfEnd;
         components.add(Component.literal("·法术").withStyle(CustomStyle.styleOfMana));
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
         Compute.DescriptionPassive(components, Component.literal("哀思").withStyle(style));
         components.add(Component.literal(" 追忆").withStyle(style).
                 append(Component.literal("的").withStyle(ChatFormatting.WHITE)).
@@ -52,7 +52,7 @@ public class EndPower extends Item implements ActiveItem {
                 append(Component.literal("法术").withStyle(CustomStyle.styleOfMana)));
         ComponentUtils.coolDownTimeDescription(components, CoolDownTime[Level]);
         components.add(Component.literal(" - IDEA FROM : AzusaLin").withStyle(ChatFormatting.LIGHT_PURPLE));
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
         components.add(Component.literal("Powers-End").withStyle(style));
         super.appendHoverText(itemStack, level, components, flag);
     }

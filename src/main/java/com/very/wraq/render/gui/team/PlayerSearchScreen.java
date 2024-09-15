@@ -1,10 +1,10 @@
 package com.very.wraq.render.gui.team;
 
-import com.very.wraq.networking.ModNetworking;
-import com.very.wraq.networking.misc.TeamPackets.TeamInviteC2SPacket;
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.very.wraq.common.util.ClientUtils;
 import com.very.wraq.common.util.Utils;
-import com.mojang.blaze3d.systems.RenderSystem;
+import com.very.wraq.networking.ModNetworking;
+import com.very.wraq.networking.misc.TeamPackets.TeamInviteC2SPacket;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;

@@ -10,6 +10,7 @@ import com.very.wraq.common.util.struct.Instance;
 import com.very.wraq.common.util.struct.PlayerTeam;
 import com.very.wraq.entities.entities.Civil.Civil;
 import com.very.wraq.events.core.LoginInEvent;
+import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.misc.SoundsPackets.SoundsS2CPacket;
 import com.very.wraq.process.func.damage.Damage;
@@ -389,7 +390,7 @@ public class CastleSecondFloor {
 
     public static void Summon(Mob mob, Instance instance, int index) {
         Level level = mob.level();
-        Compute.setMobCustomName(mob, ModItems.MobArmorCastleKnightHelmet.get(),
+        MobSpawn.setMobCustomName(mob, ModItems.MobArmorCastleKnightHelmet.get(),
                 Component.literal("暗黑骑士").withStyle(CustomStyle.styleOfCastle));
 
         mob.getAttribute(Attributes.MAX_HEALTH).setBaseValue(MaxHealth);

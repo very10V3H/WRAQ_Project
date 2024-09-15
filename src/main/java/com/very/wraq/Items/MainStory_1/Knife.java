@@ -1,13 +1,16 @@
 package com.very.wraq.Items.MainStory_1;
 
 import com.very.wraq.common.attribute.BasicAttributeDescription;
-import com.very.wraq.common.Compute;
+import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.Utils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.SwordItem;
+import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 
 import javax.annotation.Nullable;
@@ -43,10 +46,10 @@ public class Knife extends SwordItem {
         stack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
         stack.setHoverName(Component.literal("瑞士军刀").withStyle(ChatFormatting.DARK_RED).withStyle(ChatFormatting.BOLD));
         components.add(Component.literal("主手                   ").withStyle(ChatFormatting.AQUA).append(Component.literal("匕首").withStyle(ChatFormatting.GREEN)));
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.WHITE, ChatFormatting.WHITE);
-        Compute.DescriptionOfBasic(components);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.WHITE, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionOfBasic(components);
         BasicAttributeDescription.BasicAttributeCommonDescription(components, stack);
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.WHITE, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.WHITE, ChatFormatting.WHITE);
         components.add(Component.literal("PreSent").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
         components.add(Component.literal("MainStoryO").withStyle(ChatFormatting.AQUA).withStyle(ChatFormatting.ITALIC));
         super.appendHoverText(stack, level, components, flag);

@@ -4,6 +4,7 @@ import com.very.wraq.common.Compute;
 import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.common.util.Utils;
+import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.events.mob.chapter1.ForestZombieSpawnController;
 import com.very.wraq.process.func.item.InventoryOperation;
 import com.very.wraq.render.toolTip.CustomStyle;
@@ -97,7 +98,7 @@ public class ForestRecallEvent {
                             if (Utils.ForestRecallZombie != null)
                                 Utils.ForestRecallZombie.remove(Entity.RemovalReason.KILLED);
                             Utils.ForestRecallZombie = new Zombie(EntityType.ZOMBIE, level1);
-                            Compute.setMobCustomName(Utils.ForestRecallZombie, ModItems.ArmorForestRecall.get(), Component.literal("模糊记忆中的森林僵尸").withStyle(style));
+                            MobSpawn.setMobCustomName(Utils.ForestRecallZombie, ModItems.ArmorForestRecall.get(), Component.literal("模糊记忆中的森林僵尸").withStyle(style));
                             Utils.ForestRecallZombie.setItemSlot(EquipmentSlot.HEAD, ModItems.ArmorForestRecall.get().getDefaultInstance());
                             Utils.ForestRecallZombie.setItemSlot(EquipmentSlot.MAINHAND, ModItems.ForestSword3.get().getDefaultInstance());
                             Utils.ForestRecallZombie.getAttribute(Attributes.MAX_HEALTH).setBaseValue(115200.0D);
@@ -113,7 +114,7 @@ public class ForestRecallEvent {
                             if (Utils.ForestRecallSkeleton != null)
                                 Utils.ForestRecallSkeleton.remove(Entity.RemovalReason.KILLED);
                             Utils.ForestRecallSkeleton = new Skeleton(EntityType.SKELETON, level1);
-                            Compute.setMobCustomName(Utils.ForestRecallSkeleton, ModItems.ArmorForestRecall.get(), Component.literal("模糊记忆中的森林骷髅").withStyle(style));
+                            MobSpawn.setMobCustomName(Utils.ForestRecallSkeleton, ModItems.ArmorForestRecall.get(), Component.literal("模糊记忆中的森林骷髅").withStyle(style));
                             Utils.ForestRecallSkeleton.setItemSlot(EquipmentSlot.HEAD, ModItems.ArmorForestRecall.get().getDefaultInstance());
                             Utils.ForestRecallSkeleton.setItemSlot(EquipmentSlot.MAINHAND, Items.BOW.getDefaultInstance());
                             Utils.ForestRecallSkeleton.getAttribute(Attributes.MAX_HEALTH).setBaseValue(115200.0D);

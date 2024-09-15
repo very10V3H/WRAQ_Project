@@ -1,10 +1,10 @@
 package com.very.wraq.projectiles.mana;
 
-import com.very.wraq.core.ManaAttackModule;
-import com.very.wraq.process.func.particle.ParticleProvider;
+import com.very.wraq.common.attribute.PlayerAttributes;
 import com.very.wraq.common.registry.ModEntityType;
 import com.very.wraq.common.util.StringUtils;
-import com.very.wraq.common.attribute.PlayerAttributes;
+import com.very.wraq.core.ManaAttackModule;
+import com.very.wraq.process.func.particle.ParticleProvider;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;

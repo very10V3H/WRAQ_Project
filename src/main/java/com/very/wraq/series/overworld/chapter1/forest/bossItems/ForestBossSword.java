@@ -51,11 +51,11 @@ public class ForestBossSword extends SwordItem {
         Style MainStyle = CustomStyle.styleOfHealth;
         Compute.forgingHoverName(stack);
         components.add(Component.literal("主手                   ").withStyle(ChatFormatting.AQUA).append(Utils.WeaponTypeComponents.AxeType));
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
-        Compute.DescriptionOfBasic(components);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionOfBasic(components);
         BasicAttributeDescription.BasicAttributeCommonDescription(components, stack);
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
-        Compute.DescriptionOfAddition(components);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionOfAddition(components);
         components.add(Component.literal(" - ").withStyle(ChatFormatting.GRAY).
                 append(Component.literal("生机维度展开: ").withStyle(MainStyle)).
                 append(Component.literal("森林制造者释放制造森林次元的能量，并将周围生物拖入属于森林次元。").withStyle(ChatFormatting.WHITE)));
@@ -69,9 +69,9 @@ public class ForestBossSword extends SwordItem {
                 append(Compute.AttributeDescription.ManaDefence("")));
         ComponentUtils.coolDownTimeDescription(components, 10);
         ComponentUtils.manaCostDescription(components, 180);
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
         components.add(Component.literal("Dimension-Forest").withStyle(MainStyle).withStyle(ChatFormatting.ITALIC));
-        Compute.SuffixOfMainStoryI(components);
+        ComponentUtils.suffixOfChapterI(components);
         super.appendHoverText(stack, level, components, flag);
     }
 

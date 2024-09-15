@@ -52,11 +52,11 @@ public class VolcanoBossSword extends SwordItem {
         Style MainStyle = CustomStyle.styleOfVolcano;
         Compute.forgingHoverName(stack);
         components.add(Component.literal("主手                   ").withStyle(ChatFormatting.AQUA).append(Utils.WeaponTypeComponents.ShortHandleSword));
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
-        Compute.DescriptionOfBasic(components);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionOfBasic(components);
         BasicAttributeDescription.BasicAttributeCommonDescription(components, stack);
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
-        Compute.DescriptionOfAddition(components);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionOfAddition(components);
         components.add(Component.literal(" - ").withStyle(ChatFormatting.GRAY).
                 append(Component.literal("熔岩维度展开: ").withStyle(MainStyle)).
                 append(Component.literal("森林制造者释放制造熔岩次元的能量，并将周围生物拖入属于熔岩次元。").withStyle(ChatFormatting.WHITE)));
@@ -65,9 +65,9 @@ public class VolcanoBossSword extends SwordItem {
                 append(Component.literal("的伤害并施加持续5s的减速效果。").withStyle(ChatFormatting.WHITE)));
         ComponentUtils.coolDownTimeDescription(components, 10);
         ComponentUtils.manaCostDescription(components, 180);
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
         components.add(Component.literal("Dimension-Volcano").withStyle(MainStyle).withStyle(ChatFormatting.ITALIC));
-        Compute.SuffixOfMainStoryI(components);
+        ComponentUtils.suffixOfChapterI(components);
         super.appendHoverText(stack, level, components, flag);
     }
 

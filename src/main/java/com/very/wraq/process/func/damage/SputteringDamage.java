@@ -1,6 +1,5 @@
 package com.very.wraq.process.func.damage;
 
-import com.very.wraq.common.Compute;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.AABB;

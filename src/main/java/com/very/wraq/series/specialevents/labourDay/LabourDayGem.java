@@ -1,6 +1,6 @@
 package com.very.wraq.series.specialevents.labourDay;
 
-import com.very.wraq.common.Compute;
+import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.common.util.Utils;
 import net.minecraft.ChatFormatting;
@@ -35,9 +35,9 @@ public class LabourDayGem extends Item {
         stack.getOrCreateTagElement(Utils.MOD_ID);
         ChatFormatting style = ChatFormatting.GOLD;
         components.add(Component.literal("这是最后的斗争！").withStyle(style));
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        Compute.DescriptionOfBasic(components);
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionOfBasic(components);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         OldCoin.LabourDaySuffix(components);
         super.appendHoverText(stack, level, components, flag);
     }

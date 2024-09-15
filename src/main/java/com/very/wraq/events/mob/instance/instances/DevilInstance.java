@@ -79,7 +79,7 @@ public class DevilInstance extends NoTeamInstance {
         Zombie zombie = new Zombie(EntityType.ZOMBIE, level);
 
         zombie.setBaby(true);
-        Compute.setMobCustomName(zombie, Component.literal(mobName).withStyle(CustomStyle.styleOfBloodMana), 150);
+        MobSpawn.setMobCustomName(zombie, Component.literal(mobName).withStyle(CustomStyle.styleOfBloodMana), 150);
 
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(zombie), 150);
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombie, 1500, 2000, 2000, 0.4, 4, 0.25, 900, 20, 300 * Math.pow(10, 4), 0.35);

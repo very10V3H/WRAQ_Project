@@ -1,7 +1,7 @@
 package com.very.wraq.blocks.entity;
 
-import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.registry.ModBlocks;
+import com.very.wraq.common.util.Utils;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;

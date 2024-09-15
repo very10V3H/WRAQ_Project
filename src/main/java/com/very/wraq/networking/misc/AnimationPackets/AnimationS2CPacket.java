@@ -1,7 +1,7 @@
 package com.very.wraq.networking.misc.AnimationPackets;
 
-import com.very.wraq.process.func.DelayOperationWithAnimation;
 import com.very.wraq.common.util.Utils;
+import com.very.wraq.process.func.DelayOperationWithAnimation;
 import dev.kosmx.playerAnim.api.layered.IAnimation;
 import dev.kosmx.playerAnim.api.layered.KeyframeAnimationPlayer;
 import dev.kosmx.playerAnim.api.layered.ModifierLayer;

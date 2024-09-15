@@ -24,15 +24,15 @@ import java.util.List;
 @OnlyIn(Dist.CLIENT)
 public class ObsiManaSuitDescription {
     public static void ArmorCommonDescription(List<Component> components) {
-        Compute.DescriptionOfAddition(components);
+        ComponentUtils.DescriptionOfAddition(components);
         if (Screen.hasShiftDown()) SuitDescription(components);
         else {
             Compute.SuitDescription(components);
             components.add(Component.literal("[按住shift展开套装效果]").withStyle(ChatFormatting.GRAY));
         }
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.LIGHT_PURPLE, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.LIGHT_PURPLE, ChatFormatting.WHITE);
         components.add(Component.literal("ObsiMana-I").withStyle(CustomStyle.styleOfMana).withStyle(ChatFormatting.ITALIC));
-        Compute.SuffixOfMainStoryII(components);
+        ComponentUtils.suffixOfChapterII(components);
 
     }
 
@@ -80,12 +80,12 @@ public class ObsiManaSuitDescription {
 
         Compute.SuitDoubleDescription(components, Count);
         Compute.DescriptionPassive(components, Component.literal("魔力涌动").withStyle(ChatFormatting.LIGHT_PURPLE));
-        Compute.DescriptionNum(components, "每秒回复", Compute.AttributeDescription.ManaRecover("5"), "");
+        ComponentUtils.DescriptionNum(components, "每秒回复", Compute.AttributeDescription.ManaRecover("5"), "");
         Compute.SuitQuadraDescription(components, Count);
         Compute.DescriptionPassive(components, Component.literal("黑曜能量涌动").withStyle(ChatFormatting.LIGHT_PURPLE));
-        Compute.DescriptionNum(components, "提升", Compute.AttributeDescription.AttackDamage("15%"), "");
-        Compute.DescriptionNum(components, "提升", ComponentUtils.AttributeDescription.ManaDamage("25%"), "");
-        Compute.DescriptionNum(components, "获得", Compute.AttributeDescription.CoolDown("20%"), "");
+        ComponentUtils.DescriptionNum(components, "提升", Compute.AttributeDescription.AttackDamage("15%"), "");
+        ComponentUtils.DescriptionNum(components, "提升", ComponentUtils.AttributeDescription.ManaDamage("25%"), "");
+        ComponentUtils.DescriptionNum(components, "获得", Compute.AttributeDescription.CoolDown("20%"), "");
 
     }
 }

@@ -1,8 +1,8 @@
 package com.very.wraq.Items.Lotteries;
 
-import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.common.util.Utils;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;

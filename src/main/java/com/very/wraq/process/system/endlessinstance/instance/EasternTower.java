@@ -1,6 +1,5 @@
 package com.very.wraq.process.system.endlessinstance.instance;
 
-import com.very.wraq.common.Compute;
 import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.process.system.endlessinstance.DailyEndlessInstance;
 import com.very.wraq.render.toolTip.CustomStyle;
@@ -36,7 +35,7 @@ public class EasternTower extends DailyEndlessInstance {
                 1000 + levelDifference * 5, 2000 + levelDifference * 100, 2000 + levelDifference * 100, 0.5, 10,
                 0.01 * levelDifference, 2000 * 100 * levelDifference, 0, getMobMaxHealth(), 0.2);
         Style style = CustomStyle.styleOfHusk;
-        Compute.setMobCustomName(mob, Component.literal(mobName).withStyle(style), getPlayerLevel());
+        MobSpawn.setMobCustomName(mob, Component.literal(mobName).withStyle(style), getPlayerLevel());
         return mob;
     }
 

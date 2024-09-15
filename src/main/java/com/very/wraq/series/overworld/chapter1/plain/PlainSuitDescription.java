@@ -22,8 +22,8 @@ import java.util.List;
 public class PlainSuitDescription {
     public static void ArmorCommonDescription(List<Component> components) {
         Style style = Style.EMPTY.applyFormat(ChatFormatting.GREEN);
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        Compute.DescriptionOfAddition(components);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionOfAddition(components);
         Compute.solePassiveDescription(components, Component.literal("").withStyle(style));
         components.add(Component.literal(" 获得").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.AttributeDescription.MaxHealth("等级 * 10")).
@@ -34,9 +34,9 @@ public class PlainSuitDescription {
             Compute.SuitDescription(components);
             components.add(Component.literal("[按住shift展开套装效果]").withStyle(ChatFormatting.GRAY));
         }
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         components.add(Component.literal("PlainArmor-I").withStyle(style).withStyle(ChatFormatting.ITALIC));
-        Compute.SuffixOfMainStoryI(components);
+        ComponentUtils.suffixOfChapterI(components);
 
     }
 
@@ -73,7 +73,7 @@ public class PlainSuitDescription {
 
         Compute.SuitDoubleDescription(components, Count);
         Compute.DescriptionPassive(components, Component.literal("野火不灭:").withStyle(ChatFormatting.GREEN));
-        Compute.DescriptionNum(components, "每秒回复", Compute.AttributeDescription.Health("0.5%+1"), "");
+        ComponentUtils.DescriptionNum(components, "每秒回复", Compute.AttributeDescription.Health("0.5%+1"), "");
         Compute.SuitQuadraDescription(components, Count);
         Compute.DescriptionPassive(components, Component.literal("平原生机:").withStyle(ChatFormatting.GREEN));
         components.add(Component.literal("获得").withStyle(ChatFormatting.WHITE).

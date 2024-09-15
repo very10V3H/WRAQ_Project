@@ -68,7 +68,7 @@ public class TabooSwiftArmor extends WraqArmor {
         if (!IsOn(player)) return 0;
         if (Mana.getPlayerCurrentManaNum(player) / Mana.getPlayerMaxManaNum(player) > 0.1) {
             Mana.addOrCostPlayerMana(player, (-Mana.getPlayerMaxManaNum(player) * 0.1));
-            return Compute.XpStrengthADDamage(player, 4);
+            return Compute.getXpStrengthADDamage(player, 4);
         }
         return 0;
     }

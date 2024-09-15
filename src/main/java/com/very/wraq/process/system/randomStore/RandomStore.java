@@ -1,8 +1,8 @@
 package com.very.wraq.process.system.randomStore;
 
+import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.process.system.randomStore.networking.TradeListS2CPacket;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;

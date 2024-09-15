@@ -3,6 +3,7 @@ package com.very.wraq.series.overworld.sakuraSeries.MineWorker;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.common.attribute.BasicAttributeDescription;
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.Utils;
 import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -55,10 +56,10 @@ public class PurplePickaxe extends PickaxeItem {
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
         Compute.forgingHoverName(stack);
         components.add(Component.literal("主手                   ").withStyle(ChatFormatting.AQUA).append(Component.literal("镐子").withStyle(ChatFormatting.GRAY)));
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfPurpleIron, ChatFormatting.WHITE);
-        Compute.DescriptionOfBasic(components);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfPurpleIron, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionOfBasic(components);
         BasicAttributeDescription.BasicAttributeCommonDescription(components, stack);
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfPurpleIron, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfPurpleIron, ChatFormatting.WHITE);
         Compute.SuffixOfMainStoryV(components);
         super.appendHoverText(stack, level, components, flag);
     }

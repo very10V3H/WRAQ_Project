@@ -1,10 +1,11 @@
 package com.very.wraq.projectiles;
 
 import com.very.wraq.blocks.blocks.forge.ForgeRecipe;
-import com.very.wraq.events.mob.loot.RandomLootEquip;
-import com.very.wraq.common.attribute.BasicAttributeDescription;
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.attribute.BasicAttributeDescription;
+import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.Utils;
+import com.very.wraq.events.mob.loot.RandomLootEquip;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -45,8 +46,8 @@ public abstract class WraqOffHandItem extends Item {
         Style style = getMainStyle();
         Compute.forgingHoverName(stack);
         components.add(Component.literal("副手                   ").withStyle(ChatFormatting.GOLD).append(type));
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        Compute.DescriptionOfBasic(components);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionOfBasic(components);
         BasicAttributeDescription.BasicAttributeCommonDescription(components, stack);
         if (this instanceof RandomLootEquip randomLootEquip) {
             if (randomLootEquip.levelRequire() != 0) {
@@ -57,11 +58,11 @@ public abstract class WraqOffHandItem extends Item {
                 }
             }
         }
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         if (!getAdditionalComponents().isEmpty()) {
-            Compute.DescriptionOfAddition(components);
+            ComponentUtils.DescriptionOfAddition(components);
             components.addAll(getAdditionalComponents());
-            Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+            ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         }
         components.add(getSuffix());
         super.appendHoverText(stack, level, components, flag);

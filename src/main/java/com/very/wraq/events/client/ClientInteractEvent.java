@@ -1,8 +1,8 @@
 package com.very.wraq.events.client;
 
+import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.render.gui.villagerTrade.MyVillagerData;
 import com.very.wraq.render.gui.villagerTrade.TradeList;
-import com.very.wraq.common.util.StringUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraftforge.api.distmarker.Dist;

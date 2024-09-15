@@ -1,8 +1,8 @@
 package com.very.wraq.render.mobEffects;
 
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.render.mobEffects.PotionEffect.MyEffect;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.util.Utils;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraftforge.eventbus.api.IEventBus;

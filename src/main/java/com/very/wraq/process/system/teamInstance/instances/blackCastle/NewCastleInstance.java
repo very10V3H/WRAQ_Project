@@ -71,7 +71,7 @@ public class NewCastleInstance extends NewTeamInstance {
         manaSummonPos.forEach(pos -> {
             for (int i = 0; i < 4; i++) {
                 WitherSkeleton witherSkeleton = new WitherSkeleton(EntityType.WITHER_SKELETON, level);
-                Compute.setMobCustomName(witherSkeleton, Component.literal(mobNameOf1StageMana).withStyle(CustomStyle.styleOfCastle), 180);
+                MobSpawn.setMobCustomName(witherSkeleton, Component.literal(mobNameOf1StageMana).withStyle(CustomStyle.styleOfCastle), 180);
                 MobSpawn.MobBaseAttributes.setMobBaseAttributes(witherSkeleton, 180, 3000, 7000, 1000, 0.5, 5, 0.3, 1500, 20, 800 * Math.pow(10, 4), 0.3);
                 witherSkeleton.setItemSlot(EquipmentSlot.HEAD, ModItems.MobArmorBlackCastleOneFloorManaHelmet.get().getDefaultInstance());
                 witherSkeleton.setItemSlot(EquipmentSlot.CHEST, ModItems.MobArmorBlackCastleOneFloorChest.get().getDefaultInstance());
@@ -93,7 +93,7 @@ public class NewCastleInstance extends NewTeamInstance {
         Random random = new Random();
         attackSummonPos.forEach(pos -> {
             WitherSkeleton witherSkeleton = new WitherSkeleton(EntityType.WITHER_SKELETON, level);
-            Compute.setMobCustomName(witherSkeleton, Component.literal(mobNameOf1StageAttack).withStyle(CustomStyle.styleOfCastle), 180);
+            MobSpawn.setMobCustomName(witherSkeleton, Component.literal(mobNameOf1StageAttack).withStyle(CustomStyle.styleOfCastle), 180);
             MobSpawn.MobBaseAttributes.setMobBaseAttributes(witherSkeleton, 180, 3000, 1000, 7000, 0.5, 5, 0.3, 1500, 20, 2000 * Math.pow(10, 4), 0.3);
             witherSkeleton.setItemSlot(EquipmentSlot.HEAD, ModItems.MobArmorBlackCastleOneFloorAttackHelmet.get().getDefaultInstance());
             witherSkeleton.setItemSlot(EquipmentSlot.CHEST, ModItems.MobArmorBlackCastleOneFloorChest.get().getDefaultInstance());
@@ -160,7 +160,7 @@ public class NewCastleInstance extends NewTeamInstance {
 
             for (int i = 0; i < 4; i++) {
                 Zombie zombie = new Zombie(EntityType.ZOMBIE, level);
-                Compute.setMobCustomName(zombie, Component.literal("暗黑城堡禁军 - 护卫").withStyle(CustomStyle.styleOfCastle), 180);
+                MobSpawn.setMobCustomName(zombie, Component.literal("暗黑城堡禁军 - 护卫").withStyle(CustomStyle.styleOfCastle), 180);
 
                 MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombie, 180, 3000, 3000, 3000, 0.5, 5, 0.3, 1500, 20, 1000 * Math.pow(10, 4), 0.35);
                 zombie.setBaby(true);
@@ -176,7 +176,7 @@ public class NewCastleInstance extends NewTeamInstance {
 
             for (int i = 0; i < 2; i++) {
                 Zombie zombie = new Zombie(EntityType.ZOMBIE, level);
-                Compute.setMobCustomName(zombie, Component.literal("暗黑城堡禁军 - 统领").withStyle(CustomStyle.styleOfCastle), 180);
+                MobSpawn.setMobCustomName(zombie, Component.literal("暗黑城堡禁军 - 统领").withStyle(CustomStyle.styleOfCastle), 180);
                 MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombie, 180, 3500, 5000, 5000, 0.5, 5, 0.3, 1500, 20, 2000 * Math.pow(10, 4), 0.35);
                 zombie.setItemSlot(EquipmentSlot.HEAD, ModItems.MobArmorBlackCastleOneFloorAttackHelmet.get().getDefaultInstance());
                 zombie.setItemSlot(EquipmentSlot.CHEST, ModItems.MobArmorBlackCastleOneFloorChest.get().getDefaultInstance());

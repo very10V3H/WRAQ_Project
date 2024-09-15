@@ -1,13 +1,13 @@
 package com.very.wraq.series.overworld.chapter1.waterSystem.equip.sword;
 
-import com.very.wraq.process.system.element.Element;
-import com.very.wraq.projectiles.OnHitEffectMainHandWeapon;
-import com.very.wraq.projectiles.WraqSword;
-import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.Utils;
 import com.very.wraq.process.func.StableAttributesModifier;
+import com.very.wraq.process.system.element.Element;
+import com.very.wraq.projectiles.OnHitEffectMainHandWeapon;
+import com.very.wraq.projectiles.WraqSword;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -38,7 +38,7 @@ public class LakeSword extends WraqSword implements OnHitEffectMainHandWeapon {
     public List<Component> getAdditionalComponents(ItemStack stack) {
         List<Component> components = new ArrayList<>();
         Compute.DescriptionPassive(components, Component.literal("潜泳").withStyle(ChatFormatting.BLUE));
-        Compute.DescriptionNum(components, "攻击后获得持续1秒的", ComponentUtils.AttributeDescription.movementSpeed("50%"), "");
+        ComponentUtils.DescriptionNum(components, "攻击后获得持续1秒的", ComponentUtils.AttributeDescription.movementSpeed("50%"), "");
         return components;
     }
 

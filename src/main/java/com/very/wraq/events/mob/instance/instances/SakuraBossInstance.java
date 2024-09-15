@@ -1,15 +1,15 @@
 package com.very.wraq.events.mob.instance.instances;
 
+import com.very.wraq.common.Compute;
 import com.very.wraq.common.attribute.PlayerAttributes;
+import com.very.wraq.common.registry.ModEntityType;
+import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.ItemAndRate;
 import com.very.wraq.entities.entities.Boss2.Boss2;
 import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.events.mob.instance.NoTeamInstance;
 import com.very.wraq.events.mob.instance.NoTeamInstanceModule;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.registry.ModEntityType;
-import com.very.wraq.common.util.ItemAndRate;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -52,7 +52,7 @@ public class SakuraBossInstance extends NoTeamInstance {
         Boss2 sakuraBoss = new Boss2(ModEntityType.Boss2.get(), level);
 
         sakuraBoss.setBaby(true);
-        Compute.setMobCustomName(sakuraBoss, Component.literal("突见忍").withStyle(CustomStyle.styleOfSakura), 150);
+        MobSpawn.setMobCustomName(sakuraBoss, Component.literal("突见忍").withStyle(CustomStyle.styleOfSakura), 150);
 
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(sakuraBoss), 150);
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(sakuraBoss, 1500, 2000, 2000, 0.4, 4, 0.25, 800, 20, 500 * Math.pow(10, 4), 0.35);

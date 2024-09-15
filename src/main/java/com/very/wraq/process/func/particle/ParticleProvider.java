@@ -1,9 +1,9 @@
 package com.very.wraq.process.func.particle;
 
-import com.very.wraq.networking.ModNetworking;
-import com.very.wraq.networking.misc.ParticlePackets.NewParticlePackets.*;
 import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.common.util.Utils;
+import com.very.wraq.networking.ModNetworking;
+import com.very.wraq.networking.misc.ParticlePackets.NewParticlePackets.*;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.game.ClientboundLevelParticlesPacket;
@@ -16,9 +16,9 @@ import net.minecraft.world.phys.Vec3;
 import org.joml.Vector3f;
 
 import java.util.List;
+import java.util.Random;
 
-import static java.lang.Math.cos;
-import static java.lang.Math.sin;
+import static java.lang.Math.*;
 
 public class ParticleProvider {
     public static void dustParticle(Player player, Vec3 pos, double r, int num, int color) {
@@ -508,5 +508,34 @@ public class ParticleProvider {
         level.addParticle(ParticleTypes.LAVA, X - r / Math.sqrt(2), Y + r / Math.sqrt(2), Z - r / Math.sqrt(2), 0, 0, 0);
         level.addParticle(ParticleTypes.LAVA, X - r / Math.sqrt(2), Y - r / Math.sqrt(2), Z + r / Math.sqrt(2), 0, 0, 0);
         level.addParticle(ParticleTypes.LAVA, X - r / Math.sqrt(2), Y - r / Math.sqrt(2), Z - r / Math.sqrt(2), 0, 0, 0);
+    }
+
+    public static void BallParticle(Vec3 vec3, Level level, double r, ParticleOptions particleOptions, int N) {
+        for (int i = 0; i <= N / 4; i++) {
+            double v = (r / (N / 4.0) * i) * (r / (N / 4.0) * i);
+            ParticleProvider.VerticleCircleParticle(vec3, level, r / (N / 4.0) * i + 1, Math.sqrt(r * r - v),
+                    Math.max(1, N - 4 * i), particleOptions);
+            ParticleProvider.VerticleCircleParticle(vec3, level, -r / (N / 4.0) * i + 1, Math.sqrt(r * r - v),
+                    Math.max(1, N - 4 * i), particleOptions);
+        }
+    }
+
+    public static void RandomToDesParticle(int num, Vec3 DesPos, Level level, double r) {
+        if (Utils.particleOptionsList.isEmpty()) Utils.setParticleOptionsList();
+        Random random = new Random();
+        for (int i = 0; i < num; i++) {
+            double angle = (2 * PI * random.nextDouble(1));
+            Vec3 ParticleStartPos = new Vec3(DesPos.x - 4 + random.nextDouble(8) + r * Math.cos(angle),
+                    DesPos.y - 2 + random.nextDouble(4),
+                    DesPos.z - 4 + random.nextDouble(8) + r * Math.sin(angle));
+
+            Vec3 Delta = DesPos.subtract(ParticleStartPos);
+            double randomDouble = random.nextDouble(2);
+            level.addParticle(Utils.particleOptionsList.get(random.nextInt(Utils.particleOptionsList.size())),
+                    ParticleStartPos.x, ParticleStartPos.y, ParticleStartPos.z,
+                    Delta.normalize().scale(randomDouble).x,
+                    Delta.normalize().scale(randomDouble).y,
+                    Delta.normalize().scale(randomDouble).z);
+        }
     }
 }

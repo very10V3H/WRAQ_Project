@@ -264,7 +264,7 @@ public class MyArrow extends AbstractArrow {
             damage *= (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, monster));
             damageIgnoreDefence *= (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, monster));
             //
-            damage *= Compute.defenceDamageDecreaseRate(defence, defencePenetration, defencePenetration0);
+            damage *= Damage.defenceDamageDecreaseRate(defence, defencePenetration, defencePenetration0);
             // total damage
             damage *= DamageInfluence.getPlayerTotalDamageRate(player);
             damageIgnoreDefence *= DamageInfluence.getPlayerTotalDamageRate(player);
@@ -297,9 +297,9 @@ public class MyArrow extends AbstractArrow {
             Damage.DirectDamageToMob(player, entity, damage + damageIgnoreDefence);
 
             if (critFlag)
-                Compute.SummonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", damage + damageIgnoreDefence)).withStyle(CustomStyle.styleOfPower), 0);
+                Compute.summonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", damage + damageIgnoreDefence)).withStyle(CustomStyle.styleOfPower), 0);
             else
-                Compute.SummonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", damage + damageIgnoreDefence)).withStyle(ChatFormatting.YELLOW), 0);
+                Compute.summonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", damage + damageIgnoreDefence)).withStyle(ChatFormatting.YELLOW), 0);
             if (elementDamage != 0 && !elementType.isEmpty())
                 Compute.damageActionBarPacketSend(player, damage, damageIgnoreDefence, false, critFlag, elementType, elementDamage);
             else Compute.damageActionBarPacketSend(player, damage, damageIgnoreDefence, false, critFlag);
@@ -334,7 +334,7 @@ public class MyArrow extends AbstractArrow {
                 player.sendSystemMessage(Component.literal("NormalAttackDamageEnhance : " + NormalAttackDamageEnhance));
                 player.sendSystemMessage(Component.literal("DamageEnhance : " + damageEnhance));
                 player.sendSystemMessage(Component.literal("DamageEnhances.PlayerFinalDamageEnhance(player,monster) : " + DamageInfluence.getPlayerFinalDamageEnhance(player, monster)));
-                player.sendSystemMessage(Component.literal("Compute.DefenceDamageDecreaseRate(Defence, DefencePenetration, DefencePenetration0) : " + Compute.defenceDamageDecreaseRate(defence, defencePenetration, defencePenetration0)));
+                player.sendSystemMessage(Component.literal("Damage.defenceDamageDecreaseRate(Defence, DefencePenetration, DefencePenetration0) : " + Damage.defenceDamageDecreaseRate(defence, defencePenetration, defencePenetration0)));
                 player.sendSystemMessage(Component.literal("ElementDamageEffect : " + ElementDamageEffect));
                 player.sendSystemMessage(Component.literal("ElementDamageEnhance : " + ElementDamageEnhance));
                 player.sendSystemMessage(Component.literal("Damage + DamageIgnoreDefence : " + (damage + damageIgnoreDefence)));
@@ -365,12 +365,12 @@ public class MyArrow extends AbstractArrow {
                 AttackEventModule.BowSkill5(data, player); // 狂暴（造成暴击后，提升1%攻击力，持续5s）
                 if (defencePenetration0 >= Defence) damage = baseDamage * (1.0d + critDamage);
                 else
-                    damage = baseDamage * (1.0d + critDamage) * Compute.defenceDamageDecreaseRate(Defence, defencePenetration, defencePenetration0);
+                    damage = baseDamage * (1.0d + critDamage) * Damage.defenceDamageDecreaseRate(Defence, defencePenetration, defencePenetration0);
                 data.putBoolean(StringUtils.DamageTypes.Crit, true);
             } else {
                 if (defencePenetration0 >= Defence) damage = baseDamage;
                 else
-                    damage = baseDamage * Compute.defenceDamageDecreaseRate(Defence, defencePenetration, defencePenetration0);
+                    damage = baseDamage * Damage.defenceDamageDecreaseRate(Defence, defencePenetration, defencePenetration0);
             }
             damage *= AttackEventModule.NetherBowDamageEnhance(myArrow, dataArrow, hurter);
             damage += ExDamage;

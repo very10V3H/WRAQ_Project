@@ -4,6 +4,7 @@ import com.very.wraq.common.Compute;
 import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.common.util.Utils;
+import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.events.mob.chapter3_nether.WitherSkeletonSpawnController;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.misc.ParticlePackets.NetherRecallParticleS2CPacket;
@@ -100,7 +101,7 @@ public class NetherRecallEvent1 {
                             if (Utils.NetherRecallWither != null)
                                 Utils.NetherRecallWither.remove(Entity.RemovalReason.KILLED);
                             Utils.NetherRecallWither = new WitherSkeleton(EntityType.WITHER_SKELETON, level1);
-                            Compute.setMobCustomName(Utils.NetherRecallWither, ModItems.ArmorNetherRecall.get(), Component.literal("模糊记忆中的下界凋零骷髅").withStyle(style));
+                            MobSpawn.setMobCustomName(Utils.NetherRecallWither, ModItems.ArmorNetherRecall.get(), Component.literal("模糊记忆中的下界凋零骷髅").withStyle(style));
                             Utils.NetherRecallWither.setItemSlot(EquipmentSlot.HEAD, ModItems.ArmorNetherRecall.get().getDefaultInstance());
                             Utils.NetherRecallWither.setItemSlot(EquipmentSlot.MAINHAND, ModItems.ManaSword1.get().getDefaultInstance());
                             Utils.NetherRecallWither.getAttribute(Attributes.MAX_HEALTH).setBaseValue(115200.0D);

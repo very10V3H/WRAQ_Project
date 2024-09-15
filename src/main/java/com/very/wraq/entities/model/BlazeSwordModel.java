@@ -1,7 +1,7 @@
 package com.very.wraq.entities.model;
 
-import com.very.wraq.projectiles.mana.BlazeSword;
 import com.very.wraq.common.util.Utils;
+import com.very.wraq.projectiles.mana.BlazeSword;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;

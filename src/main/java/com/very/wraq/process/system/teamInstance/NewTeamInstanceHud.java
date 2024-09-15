@@ -1,7 +1,6 @@
 package com.very.wraq.process.system.teamInstance;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.very.wraq.process.func.guide.Guide;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;

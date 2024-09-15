@@ -162,7 +162,7 @@ public class CastleManaArmor extends WraqArmor implements ForgeItem {
     public static double ExIgnoreDefenceDamage(Player player) {
         int ArmorCount = SuitCount.getCastleManaSuitCount(player);
         if (ArmorCount == 0) return 0;
-        return Compute.XpStrengthAPDamage(player, 0.5) * ArmorCount;
+        return Compute.getXpStrengthAPDamage(player, 0.5) * ArmorCount;
     }
 
     public static String attributeType = "attributeType"; // 锁定类型

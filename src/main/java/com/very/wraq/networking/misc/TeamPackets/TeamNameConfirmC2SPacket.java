@@ -1,7 +1,7 @@
 package com.very.wraq.networking.misc.TeamPackets;
 
-import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.common.util.Utils;
+import com.very.wraq.networking.ModNetworking;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;

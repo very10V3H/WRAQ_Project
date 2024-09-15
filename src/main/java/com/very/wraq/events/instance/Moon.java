@@ -10,6 +10,7 @@ import com.very.wraq.common.util.struct.Boss2Damage;
 import com.very.wraq.common.util.struct.Instance;
 import com.very.wraq.common.util.struct.PlayerTeam;
 import com.very.wraq.events.core.LoginInEvent;
+import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.process.func.damage.Damage;
 import com.very.wraq.process.func.item.InventoryOperation;
 import com.very.wraq.process.func.particle.ParticleProvider;
@@ -114,7 +115,7 @@ public class Moon {
                     }});
 
                     Mob entity = instance.getMobList().get(0);
-                    Compute.setMobCustomName(entity, ModItems.MobArmorMoonAttack.get(),
+                    MobSpawn.setMobCustomName(entity, ModItems.MobArmorMoonAttack.get(),
                             Component.literal("阿尔忒弥斯 - 明镜").withStyle(style));
 
                     entity.getAttribute(Attributes.MAX_HEALTH).setBaseValue(MaxHealth);
@@ -135,7 +136,7 @@ public class Moon {
                     });
 
                     Mob entity1 = instance.getMobList().get(1);
-                    Compute.setMobCustomName(entity1, ModItems.MobArmorMoonMana.get(),
+                    MobSpawn.setMobCustomName(entity1, ModItems.MobArmorMoonMana.get(),
                             Component.literal("阿尔忒弥斯 - 天镜").withStyle(style));
 
                     entity1.getAttribute(Attributes.MAX_HEALTH).setBaseValue(MaxHealth);

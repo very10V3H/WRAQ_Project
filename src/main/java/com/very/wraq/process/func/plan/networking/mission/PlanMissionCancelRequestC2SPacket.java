@@ -1,8 +1,8 @@
 package com.very.wraq.process.func.plan.networking.mission;
 
+import com.very.wraq.common.Compute;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.reputationMission.PlanMissionInfoS2CPacket;
-import com.very.wraq.common.Compute;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;

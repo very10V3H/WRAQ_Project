@@ -1,13 +1,12 @@
 package com.very.wraq.series.newrunes.chapter1;
 
+import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.events.mob.chapter1.PlainZombieSpawnController;
 import com.very.wraq.projectiles.UsageOrGetWayDescriptionItem;
 import com.very.wraq.projectiles.WraqCurios;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.newrunes.RuneItem;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.ComponentUtils;
-import com.very.wraq.common.util.Utils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -45,7 +44,7 @@ public class PlainNewRune extends WraqCurios implements RuneItem, UsageOrGetWayD
 
     @Override
     public Component suffix() {
-        return Compute.getSuffixOfMainStoryI();
+        return ComponentUtils.getSuffixOfChapterI();
     }
 
     @Override

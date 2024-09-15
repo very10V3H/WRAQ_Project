@@ -10,12 +10,10 @@ import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.registry.ModSounds;
 import com.very.wraq.common.registry.MySound;
 import com.very.wraq.common.util.ClientUtils;
-import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.util.struct.EffectTimeLast;
 import com.very.wraq.common.util.struct.ItemEntityAndResetTime;
-import com.very.wraq.common.util.struct.PlayerNameAndCount;
 import com.very.wraq.common.util.struct.PlayerTeam;
 import com.very.wraq.core.ManaAttackModule;
 import com.very.wraq.core.MyArrow;
@@ -37,7 +35,6 @@ import com.very.wraq.networking.misc.SkillPackets.Charging.SwordSkill12S2CPacket
 import com.very.wraq.networking.misc.ToolTipPackets.CoolDownTimeS2CPacket;
 import com.very.wraq.networking.misc.USE.MobEffectHudS2CPacket;
 import com.very.wraq.networking.reputation.ReputationValueS2CPacket;
-import com.very.wraq.networking.unSorted.ColdSyncS2CPacket;
 import com.very.wraq.networking.unSorted.DebuffTimeS2CPacket;
 import com.very.wraq.process.func.SpecialEffectOnPlayer;
 import com.very.wraq.process.func.damage.Damage;
@@ -93,10 +90,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.FireworkRocketEntity;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
@@ -119,7 +113,8 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 
-import static java.lang.Math.*;
+import static java.lang.Math.abs;
+import static java.lang.Math.acos;
 
 
 public class Compute {
@@ -302,21 +297,21 @@ public class Compute {
         }
     }
 
-    public static void AddManaDefenceDescreaseEffectParticle(Mob mob, int Tick) {
+    public static void addManaDefenceDecreaseEffectParticle(Mob mob, int Tick) {
         List<ServerPlayer> playerList = mob.level().getServer().getPlayerList().getPlayers();
         playerList.forEach(serverPlayer -> {
             ModNetworking.sendToClient(new ManaDefencePenetrationParticleS2CPacket(mob.getId(), Tick), serverPlayer);
         });
     }
 
-    public static void AddDefenceDescreaseEffectParticle(Mob mob, int Tick) {
+    public static void addDefenceDecreaseEffectParticle(Mob mob, int Tick) {
         List<ServerPlayer> playerList = mob.level().getServer().getPlayerList().getPlayers();
         playerList.forEach(serverPlayer -> {
             ModNetworking.sendToClient(new DefencePenetrationParticleS2CPacket(mob.getId(), Tick), serverPlayer);
         });
     }
 
-    public static void AddDamageDescreaseEffectParticle(Mob mob, int Tick) {
+    public static void addDamageDecreaseEffectParticle(Mob mob, int Tick) {
         List<ServerPlayer> playerList = mob.level().getServer().getPlayerList().getPlayers();
         playerList.forEach(serverPlayer -> {
             ModNetworking.sendToClient(new DamageDecreaseParticleS2CPacket(mob.getId(), Tick), serverPlayer);
@@ -427,36 +422,6 @@ public class Compute {
         for (Player player : list1) {
             player.sendSystemMessage(Component.literal(blankString).append(component));
         }
-    }
-
-    public static void DescriptionDash(List<Component> components, ChatFormatting chatFormatting0, ChatFormatting chatFormatting1, ChatFormatting chatFormatting2) {
-        components.add(Component.literal("─").withStyle(chatFormatting0).
-                append(Component.literal("───────────────────").withStyle(chatFormatting1).
-                        append(Component.literal("─").withStyle(chatFormatting2))));
-    }
-
-    public static void DescriptionDash(List<Component> components, ChatFormatting chatFormatting0, Style chatFormatting1, ChatFormatting chatFormatting2) {
-        components.add(Component.literal("─").withStyle(chatFormatting0).
-                append(Component.literal("───────────────────").withStyle(chatFormatting1).
-                        append(Component.literal("─").withStyle(chatFormatting2))));
-    }
-
-    public static void DescriptionOfBasic(List<Component> components) {
-        components.add(Component.literal("β-基础属性:").withStyle(CustomStyle.styleOfPlain));
-    }
-
-
-    public static void DescriptionOfOnly(List<Component> components) {
-        components.add(Component.literal("-唯一:").withStyle(ChatFormatting.WHITE).withStyle(ChatFormatting.GREEN));
-    }
-
-    public static void DescriptionOfAddition(List<Component> components) {
-        components.add(Component.literal("α-额外属性:").withStyle(CustomStyle.styleOfPower));
-    }
-
-    public static void DescriptionNum(List<Component> components, String string, Component component, String string1) {
-        components.add(Component.literal(string).withStyle(ChatFormatting.WHITE).
-                append(component).append(string1).withStyle(ChatFormatting.WHITE));
     }
 
     public static void RandomPotionBagProvider(Player player, int MaxNum, double Rate) {
@@ -592,7 +557,6 @@ public class Compute {
     }
 
     public static Vec3 getFaceCircleVec(Player player, double angle) {
-
         double r = 1;
         Vector3f pickVec3 = player.pick(10, 0, true).getLocation().toVector3f();
         Vector3f faceVec3 = player.pick(1, 0, true).getLocation().toVector3f();
@@ -611,7 +575,6 @@ public class Compute {
         return new Vec3(r * Math.cos(angle) * aVec.x + r * Math.sin(angle) * bVec.x,
                 r * Math.cos(angle) * aVec.y + r * Math.sin(angle) * bVec.y,
                 r * Math.cos(angle) * aVec.z + r * Math.sin(angle) * bVec.z);
-
     }
 
     public static void PlayerPowerParticle(Player player) {
@@ -660,8 +623,7 @@ public class Compute {
 
         }
     }
-
-
+    
     public static boolean RecallPlayerCheck(ServerPlayer serverPlayer) {
         if (Utils.kazeRecall.recallPlayer != null && Utils.kazeRecall.recallPlayer.equals(serverPlayer)) return true;
         return Utils.spiderRecall.recallPlayer != null && Utils.spiderRecall.recallPlayer.equals(serverPlayer);
@@ -715,82 +677,6 @@ public class Compute {
             ModNetworking.sendToClient(new BowSkill12S2CPacket(8), (ServerPlayer) player);
     }
 
-    public static void setMobCustomName(Mob mob, Item ArmorItem, Component component) {
-        int Level = Utils.mobLevel.get(ArmorItem).intValue();
-        if (Level < 25) {
-            mob.setCustomName(Component.literal("Lv." + Level + " ").withStyle(ChatFormatting.GREEN)
-                    .append(component));
-        } else if (Level < 50) {
-            mob.setCustomName(Component.literal("Lv." + Level + " ").withStyle(ChatFormatting.BLUE)
-                    .append(component));
-        } else if (Level < 75) {
-            mob.setCustomName(Component.literal("Lv." + Level + " ").withStyle(ChatFormatting.RED)
-                    .append(component));
-        } else if (Level < 100) {
-            mob.setCustomName(Component.literal("Lv." + Level + " ").withStyle(ChatFormatting.LIGHT_PURPLE)
-                    .append(component));
-        } else if (Level < 125) {
-            mob.setCustomName(Component.literal("Lv." + Level + " ").withStyle(CustomStyle.styleOfEntropy)
-                    .append(component));
-        } else if (Level < 175) {
-            mob.setCustomName(Component.literal("Lv." + Level + " ").withStyle(CustomStyle.styleOfCastle)
-                    .append(component));
-        } else if (Level < 200) {
-            mob.setCustomName(Component.literal("Lv." + Level + " ").withStyle(CustomStyle.styleOfPurpleIron)
-                    .append(component));
-        } else if (Level < 225) {
-            mob.setCustomName(Component.literal("Lv." + Level + " ").withStyle(CustomStyle.styleOfMoon1)
-                    .append(component));
-        }
-        mob.setCustomNameVisible(true);
-        mob.getAttribute(Attributes.ARMOR_TOUGHNESS).setBaseValue(0);
-        mob.getAttribute(Attributes.ARMOR).setBaseValue(0);
-    }
-
-    public static void setMobCustomName(Mob mob, Component component, int level) {
-        Style[] styles = {
-                Style.EMPTY.applyFormat(ChatFormatting.GREEN),
-                Style.EMPTY.applyFormat(ChatFormatting.BLUE), // 25 - 50
-                Style.EMPTY.applyFormat(ChatFormatting.RED), // 50 - 75
-                Style.EMPTY.applyFormat(ChatFormatting.LIGHT_PURPLE), // 75 - 100
-                CustomStyle.styleOfEntropy, // 125
-                CustomStyle.styleOfEntropy, // 150
-                CustomStyle.styleOfCastle, // 175
-                CustomStyle.styleOfPurpleIron, // 200
-                CustomStyle.styleOfMoon1, // 225
-                CustomStyle.styleOfWorld, // 250
-                CustomStyle.styleOfSakura // 275
-        };
-        mob.setCustomName(Component.literal("Lv." + level + " ").withStyle(styles[level / 25])
-                .append(component));
-        mob.setCustomNameVisible(true);
-        mob.getAttribute(Attributes.ARMOR_TOUGHNESS).setBaseValue(0);
-        mob.getAttribute(Attributes.ARMOR).setBaseValue(0);
-    }
-
-    public static double ExtractRate(int ExtractLevel) {
-        return Math.min(Math.min(0.1, ExtractLevel * 0.001)
-                        + Math.max(0, (ExtractLevel - 100) * 0.0002)
-                        + Math.max(0, (ExtractLevel - 1000) * 0.002)
-                , 0.33);
-    }
-
-    public static double defenceDamageDecreaseRate(double Defence, double DefencePenetration, double DefencePenetration0) {
-        double DefenceAfterCompute = Defence * (1 - DefencePenetration) - DefencePenetration0;
-        if (DefenceAfterCompute < 0) return 2 - (2000 / (2000 - DefenceAfterCompute));
-        return (2000 / (2000 + DefenceAfterCompute));
-    }
-
-    public static double manaDefenceDamageDecreaseRate(double Defence, double DefencePenetration, double DefencePenetration0) {
-        // DefencePenetration = 百分比穿透 // DefencePenetration0 = 固定穿透
-        double DefenceAfterCompute = Defence * (1 - DefencePenetration) - DefencePenetration0;
-        // DefenceAfterCompute = 计算完穿透的护甲/魔抗值
-
-        if (DefenceAfterCompute < 0) return 2 - (2000 / (2000 - DefenceAfterCompute));
-
-        return (2000 / (2000 + DefenceAfterCompute));
-    }
-
     public static ItemStack foilAddItemStack(ItemStack itemStack) {
         Map<Enchantment, Integer> map = EnchantmentHelper.getEnchantments(itemStack);
         map.put(Enchantments.UNBREAKING, 1);
@@ -822,10 +708,6 @@ public class Compute {
 
         public static Component Health(String content) {
             return Component.literal(Utils.Emoji.Health + " " + content + "生命值").withStyle(ChatFormatting.GREEN);
-        }
-
-        public static Component healValue(String content) {
-            return Component.literal(Utils.Emoji.Health + " " + content + "治疗量").withStyle(ChatFormatting.GREEN);
         }
 
         public static Component Defence(String content) {
@@ -923,22 +805,6 @@ public class Compute {
             components.add(Component.literal("▷4件套效果:").withStyle(ChatFormatting.GRAY));
     }
 
-    public static void SuffixOfMainStoryI(List<Component> components) {
-        components.add(Component.literal("ChapterI").withStyle(ChatFormatting.AQUA).withStyle(ChatFormatting.ITALIC));
-    }
-
-    public static Component getSuffixOfMainStoryI() {
-        return Component.literal("ChapterI").withStyle(ChatFormatting.AQUA).withStyle(ChatFormatting.ITALIC);
-    }
-
-    public static void SuffixOfMainStoryII(List<Component> components) {
-        components.add(Component.literal("ChapterII").withStyle(ChatFormatting.AQUA).withStyle(ChatFormatting.ITALIC));
-    }
-
-    public static void SuffixOfMainStoryIII(List<Component> components) {
-        components.add(Component.literal("ChapterIII").withStyle(CustomStyle.styleOfNether).withStyle(ChatFormatting.ITALIC));
-    }
-
     public static void SuffixOfMainStoryV(List<Component> components) {
         components.add(Component.literal("ChapterV").withStyle(CustomStyle.styleOfSakura).withStyle(ChatFormatting.ITALIC));
     }
@@ -977,18 +843,6 @@ public class Compute {
         put(new Color.RGB(100, 149, 237), new Color.RGB(0, 255, 127));
         put(new Color.RGB(0, 255, 127), new Color.RGB(0, 255, 0));
     }};
-
-    public static void SuffixOfPurpleIronKnight(List<Component> components) {
-        components.add(Component.literal("PurpleIronKnight").withStyle(CustomStyle.styleOfPurpleIron).withStyle(ChatFormatting.ITALIC));
-    }
-
-    public static void SuffixOfIce(List<Component> components) {
-        components.add(Component.literal("Ice").withStyle(CustomStyle.styleOfIce).withStyle(ChatFormatting.ITALIC));
-    }
-
-    public static void SuffixOfMainStoryIV(List<Component> components) {
-        components.add(Component.literal("MainStoryIV").withStyle(CustomStyle.styleOfEnd).withStyle(ChatFormatting.ITALIC));
-    }
 
     public static class MaterialLevelDescription {
         public static void Low(List<Component> components) {
@@ -1101,26 +955,6 @@ public class Compute {
         return 0;
     }
 
-    public static void BallParticle(Vec3 vec3, Level level, double r, ParticleOptions particleOptions, int N) {
-        for (int i = 0; i <= N / 4; i++) {
-            double v = (r / (N / 4.0) * i) * (r / (N / 4.0) * i);
-            ParticleProvider.VerticleCircleParticle(vec3, level, r / (N / 4.0) * i + 1, Math.sqrt(r * r - v),
-                    Math.max(1, N - 4 * i), particleOptions);
-            ParticleProvider.VerticleCircleParticle(vec3, level, -r / (N / 4.0) * i + 1, Math.sqrt(r * r - v),
-                    Math.max(1, N - 4 * i), particleOptions);
-        }
-    }
-
-    public static void BallParticle(ServerPlayer serverPlayer, Vec3 vec3, double r, ParticleOptions particleOptions, int N) {
-        for (int i = 0; i <= N / 4; i++) {
-            double v = (r / (N / 4.0) * i) * (r / (N / 4.0) * i);
-            ParticleProvider.VerticleCircleParticle(vec3, serverPlayer, r / (N / 4.0) * i + 1, Math.sqrt(r * r - v),
-                    Math.max(1, N - 4 * i), particleOptions);
-            ParticleProvider.VerticleCircleParticle(vec3, serverPlayer, -r / (N / 4.0) * i + 1, Math.sqrt(r * r - v),
-                    Math.max(1, N - 4 * i), particleOptions);
-        }
-    }
-
     public static double EntropyRate(int EntropyLevel) {
         int Level = 0;
         if (EntropyLevel <= 10) {
@@ -1154,10 +988,6 @@ public class Compute {
         }
     }
 
-    public static Component DescriptionWhiteColor(String content) {
-        return Component.literal(content).withStyle(ChatFormatting.WHITE);
-    }
-
     public static void playerHeal(Player player, double Num) {
         if (Num < 0) return;
         double healNum = Num * (PlayerAttributes.healEffectUp(player));
@@ -1169,28 +999,6 @@ public class Compute {
     public static void healByHealthSteal(Player player, double num) {
         double rate = 1;
         playerHeal(player, num * rate * 0.1);
-    }
-
-    public static void Proficiency(ItemStack equip, Item monsterhelmet) {
-        if (Utils.mainHandTag.containsKey(equip.getItem()) && !Compute.IsSoulEquip(equip) && Utils.mobLevel.containsKey(monsterhelmet)) {
-            CompoundTag dataI = equip.getOrCreateTagElement(Utils.MOD_ID);
-            if (!dataI.contains(StringUtils.KillCount.KillCount))
-                dataI.putInt(StringUtils.KillCount.KillCount, Utils.mobLevel.get(monsterhelmet).intValue() * 5);
-            else
-                dataI.putInt(StringUtils.KillCount.KillCount, Math.min(Integer.MAX_VALUE, dataI.getInt(StringUtils.KillCount.KillCount) + Utils.mobLevel.get(monsterhelmet).intValue() * 5));
-        }
-    }
-
-    public static void Proficiency(Player player, int xpLevel) {
-        ItemStack equip = player.getMainHandItem();
-        if (Utils.mainHandTag.containsKey(equip.getItem()) && !Compute.IsSoulEquip(equip)) {
-            CompoundTag dataI = equip.getOrCreateTagElement(Utils.MOD_ID);
-            InventoryCheck.addOwnerTagToItemStack(player, equip);
-            if (!dataI.contains(StringUtils.KillCount.KillCount))
-                dataI.putInt(StringUtils.KillCount.KillCount, xpLevel * 5);
-            else
-                dataI.putInt(StringUtils.KillCount.KillCount, Math.min(Integer.MAX_VALUE, dataI.getInt(StringUtils.KillCount.KillCount) + xpLevel * 5));
-        }
     }
 
     public static int SuitItemVision(Player player, Item item, EquipmentSlot equipmentSlot, List<Component> components, Style MainStyle) {
@@ -1230,25 +1038,6 @@ public class Compute {
     public static void playerItemUseWithRecord(Player player, int Num) {
         ItemStack itemStack = player.getItemInHand(InteractionHand.MAIN_HAND);
         itemStack.setCount(itemStack.getCount() - Num);
-    }
-
-    public static void RandomToDesParticle(int num, Vec3 DesPos, Level level, double r) {
-        if (Utils.particleOptionsList.isEmpty()) Utils.setParticleOptionsList();
-        Random random = new Random();
-        for (int i = 0; i < num; i++) {
-            double angle = (2 * PI * random.nextDouble(1));
-            Vec3 ParticleStartPos = new Vec3(DesPos.x - 4 + random.nextDouble(8) + r * Math.cos(angle),
-                    DesPos.y - 2 + random.nextDouble(4),
-                    DesPos.z - 4 + random.nextDouble(8) + r * Math.sin(angle));
-
-            Vec3 Delta = DesPos.subtract(ParticleStartPos);
-            double randomDouble = random.nextDouble(2);
-            level.addParticle(Utils.particleOptionsList.get(random.nextInt(Utils.particleOptionsList.size())),
-                    ParticleStartPos.x, ParticleStartPos.y, ParticleStartPos.z,
-                    Delta.normalize().scale(randomDouble).x,
-                    Delta.normalize().scale(randomDouble).y,
-                    Delta.normalize().scale(randomDouble).z);
-        }
     }
 
     public static boolean IsSoulEquip(ItemStack itemStack) {
@@ -1325,79 +1114,7 @@ public class Compute {
     public static void ManaCoreDescription(List<Component> components) {
         components.add(Component.literal("δ-魔核属性:").withStyle(ChatFormatting.LIGHT_PURPLE));
     }
-
-    public static void ClientCircleParticle(Level level, Vec3 bottomPos, Vec3 delta, double r, ParticleOptions particleOptions, int num) {
-        for (int i = 0; i < num; i++) {
-            double angle = (2 * Math.PI / num) * (i);
-            Vec3 Point = new Vec3(bottomPos.x + r * cos(angle), bottomPos.y, bottomPos.z + r * sin(angle));
-            level.addParticle(particleOptions, Point.x, Point.y, Point.z,
-                    delta.x, delta.y, delta.z);
-        }
-    }
-
-    public static void ClientCircleRollParticle(Level level, Vec3 bottomPos, Vec3 delta, double r, ParticleOptions particleOptions, int particleNum, double Height, int RollNum) {
-        for (int j = 0; j < RollNum; j++) {
-            for (int i = 0; i < particleNum; i++) {
-                double angle = (2 * Math.PI / particleNum) * (i);
-                Vec3 Point = new Vec3(bottomPos.x + r * cos(angle), bottomPos.y + Height * (j + i * 1.0 / particleNum), bottomPos.z + r * sin(angle));
-                level.addParticle(particleOptions, Point.x, Point.y, Point.z,
-                        delta.x, delta.y, delta.z);
-            }
-        }
-    }
-
-    public static void PurpleIronArmorAttributeGive(ItemStack itemStack) {
-        CompoundTag data = itemStack.getOrCreateTagElement(Utils.MOD_ID);
-        Random random = new Random();
-        data.putInt(StringUtils.RandomAttribute.attackDamage, random.nextInt(50, 100));
-        data.putInt(StringUtils.RandomAttribute.manaDamage, random.nextInt(300, 400));
-        data.putInt(StringUtils.RandomAttribute.defence, random.nextInt(50, 100));
-        data.putInt(StringUtils.RandomAttribute.maxHealth, random.nextInt(400, 800));
-    }
-
-    public static void IceArmorAttributeGive(ItemStack itemStack) {
-        CompoundTag data = itemStack.getOrCreateTagElement(Utils.MOD_ID);
-        Random random = new Random();
-        data.putInt(StringUtils.RandomAttribute.attackDamage, random.nextInt(100, 140));
-        data.putInt(StringUtils.RandomAttribute.manaDamage, random.nextInt(600, 800));
-        data.putInt(StringUtils.RandomAttribute.defence, random.nextInt(100, 200));
-        data.putInt(StringUtils.RandomAttribute.maxHealth, random.nextInt(800, 1600));
-    }
-
-    public static void PlayerColdNumAddOrCost(Player player, double Num) {
-        CompoundTag data = player.getPersistentData();
-        if (!data.contains(StringUtils.MaxCold) || !data.contains(StringUtils.CurrentCold)) {
-            data.putDouble(StringUtils.MaxCold, 100);
-            data.putDouble(StringUtils.CurrentCold, 0);
-        } else {
-            double MaxCold = data.getDouble(StringUtils.MaxCold);
-            double CurrentCold = data.getDouble(StringUtils.CurrentCold);
-            if (Num > 0) data.putDouble(StringUtils.CurrentCold, Math.min(100, CurrentCold + Num));
-            else data.putDouble(StringUtils.CurrentCold, Math.max(0, CurrentCold + Num));
-        }
-        PlayerColdNumStatusUpdate(player);
-    }
-
-    public static void PlayerColdNumStatusUpdate(Player player) {
-        CompoundTag data = player.getPersistentData();
-        ModNetworking.sendToClient(new ColdSyncS2CPacket(data.getDouble(StringUtils.MaxCold), data.getDouble(StringUtils.CurrentCold)), (ServerPlayer) player);
-    }
-
-    public static double PlayerCurrentColdNum(Player player) {
-        CompoundTag data = player.getPersistentData();
-        return data.getDouble(StringUtils.CurrentCold);
-    }
-
-    public static double PlayerMaxColdNum(Player player) {
-        CompoundTag data = player.getPersistentData();
-        return data.getDouble(StringUtils.MaxCold);
-    }
-
-    public static double PlayerColdEffect(Player player) {
-        if (PlayerCurrentColdNum(player) > 90) return -0.5;
-        return 0;
-    }
-
+    
     public static Calendar StringToCalendar(String DateString) throws ParseException {
         SimpleDateFormat tmpDate = new SimpleDateFormat("yyyyMMddHHmmss");
         Calendar cal = Calendar.getInstance();
@@ -1486,73 +1203,7 @@ public class Compute {
         return false;
     }
 
-    public static int playerMineLevel(Player player) {
-        CompoundTag data = player.getPersistentData();
-        int MineXp = data.getInt(StringUtils.Mine.Exp);
-        if (MineXp <= 100) return 1;
-        else if (MineXp <= 1000) return 2;
-        else if (MineXp <= 5000) return 3;
-        else if (MineXp <= 20000) return 4;
-        else if (MineXp <= 100000) return 5;
-        return 0;
-    }
-
-    public static void playerMineExpAdd(Player player, int Num) {
-        CompoundTag data = player.getPersistentData();
-        data.putInt(StringUtils.Mine.Exp, data.getInt(StringUtils.Mine.Exp) + Num);
-        ClientboundSetActionBarTextPacket clientboundSetActionBarTextPacket = new ClientboundSetActionBarTextPacket(Component.literal("采矿经验").withStyle(ChatFormatting.LIGHT_PURPLE).
-                append(Component.literal(" + ").withStyle(ChatFormatting.DARK_GREEN)).
-                append(Component.literal("" + Num).withStyle(ChatFormatting.GREEN)).
-                append(Component.literal(" (" + data.getInt(StringUtils.Mine.Exp) + ")").withStyle(ChatFormatting.GRAY)));
-        ServerPlayer serverPlayer = (ServerPlayer) player;
-        serverPlayer.connection.send(clientboundSetActionBarTextPacket);
-    }
-
-    public static int playerGardeningLevel(Player player) {
-        CompoundTag data = player.getPersistentData();
-        int MineXp = data.getInt(StringUtils.Gardening.Xp);
-        if (MineXp <= 100) return 1;
-        else if (MineXp <= 1000) return 2;
-        else if (MineXp <= 5000) return 3;
-        else if (MineXp <= 20000) return 4;
-        else if (MineXp <= 100000) return 5;
-        return 0;
-    }
-
-    public static void playerGardeningExpAdd(Player player, int Num) {
-        CompoundTag data = player.getPersistentData();
-        data.putInt(StringUtils.Gardening.Xp, data.getInt(StringUtils.Gardening.Xp) + Num);
-        ClientboundSetActionBarTextPacket clientboundSetActionBarTextPacket = new ClientboundSetActionBarTextPacket(Component.literal("园艺经验").withStyle(ChatFormatting.LIGHT_PURPLE).
-                append(Component.literal(" + ").withStyle(ChatFormatting.DARK_GREEN)).
-                append(Component.literal("" + Num).withStyle(ChatFormatting.GREEN)).
-                append(Component.literal(" (" + data.getInt(StringUtils.Gardening.Xp) + ")").withStyle(ChatFormatting.GRAY)));
-        ServerPlayer serverPlayer = (ServerPlayer) player;
-        serverPlayer.connection.send(clientboundSetActionBarTextPacket);
-    }
-
-    public static int playerLopLevel(Player player) {
-        CompoundTag data = player.getPersistentData();
-        int MineXp = data.getInt(StringUtils.Lop.Xp);
-        if (MineXp <= 100) return 1;
-        else if (MineXp <= 1000) return 2;
-        else if (MineXp <= 5000) return 3;
-        else if (MineXp <= 20000) return 4;
-        else if (MineXp <= 100000) return 5;
-        return 0;
-    }
-
-    public static void playerLopExpAdd(Player player, int Num) {
-        CompoundTag data = player.getPersistentData();
-        data.putInt(StringUtils.Lop.Xp, data.getInt(StringUtils.Lop.Xp) + Num);
-        ClientboundSetActionBarTextPacket clientboundSetActionBarTextPacket = new ClientboundSetActionBarTextPacket(Component.literal("伐木经验").withStyle(ChatFormatting.LIGHT_PURPLE).
-                append(Component.literal(" + ").withStyle(CustomStyle.styleOfHusk)).
-                append(Component.literal("" + Num).withStyle(CustomStyle.styleOfHusk)).
-                append(Component.literal(" (" + data.getInt(StringUtils.Lop.Xp) + ")").withStyle(ChatFormatting.GRAY)));
-        ServerPlayer serverPlayer = (ServerPlayer) player;
-        serverPlayer.connection.send(clientboundSetActionBarTextPacket);
-    }
-
-    public static void SummonValueItemEntity(Level level, Player player, Mob mob, Component component, int type) {
+    public static void summonValueItemEntity(Level level, Player player, Mob mob, Component component, int type) {
         Vec3 delta = player.position().subtract(mob.position());
         Vec3 delta0 = new Vec3(delta.x, 0, delta.z);
         ItemEntity itemEntity = new ItemEntity(EntityType.ITEM, level);
@@ -1573,256 +1224,32 @@ public class Compute {
         level.addFreshEntity(itemEntity);
     }
 
-    public static double XpStrengthADDamage(Player player, double rate) {
+    public static double getXpStrengthADDamage(Player player, double rate) {
         return PlayerAttributes.attackDamage(player) * (1 + (double) player.experienceLevel / 100) * rate;
         // rate 为倍率
     }
 
-    public static double XpStrengthAPDamage(Player player, double rate) {
+    public static double getXpStrengthAPDamage(Player player, double rate) {
         return PlayerAttributes.manaDamage(player) * (1 + (double) player.experienceLevel / 100) * rate;
         // rate 为倍率
     }
 
-    public static double XpStrengthDamage(Player player, double rate) {
+    public static double getXpStrengthDamage(Player player, double rate) {
         double attackDamage = PlayerAttributes.attackDamage(player),
                 manaDamage = PlayerAttributes.manaDamage(player),
                 base = (1 + (double) player.experienceLevel / 100);
         return attackDamage * 2 > manaDamage ? attackDamage * 2 * base * rate : manaDamage * base * rate;
     }
 
-    public static void TransformMapToSortedList() {
-        if (Utils.dayKillCountList.size() > 0) Utils.dayKillCountList = new ArrayList<>();
-        if (Utils.dayFishCountList.size() > 0) Utils.dayFishCountList = new ArrayList<>();
-        if (Utils.dayMineCountList.size() > 0) Utils.dayMineCountList = new ArrayList<>();
-        if (Utils.dayCropCountList.size() > 0) Utils.dayCropCountList = new ArrayList<>();
-        if (Utils.dayLopCountList.size() > 0) Utils.dayLopCountList = new ArrayList<>();
-        if (Utils.dayOnlineCountList.size() > 0) Utils.dayOnlineCountList = new ArrayList<>();
-
-        Utils.dayKillCount.keySet().forEach(s -> {
-            Utils.dayKillCountList.add(new PlayerNameAndCount(s, Utils.dayKillCount.get(s)));
-        });
-        Utils.dayFishCount.keySet().forEach(s -> {
-            Utils.dayFishCountList.add(new PlayerNameAndCount(s, Utils.dayFishCount.get(s)));
-        });
-        Utils.dayMineCount.keySet().forEach(s -> {
-            Utils.dayMineCountList.add(new PlayerNameAndCount(s, Utils.dayMineCount.get(s)));
-        });
-        Utils.dayCropCount.keySet().forEach(s -> {
-            Utils.dayCropCountList.add(new PlayerNameAndCount(s, Utils.dayCropCount.get(s)));
-        });
-        Utils.dayLopCount.keySet().forEach(s -> {
-            Utils.dayLopCountList.add(new PlayerNameAndCount(s, Utils.dayLopCount.get(s)));
-        });
-        Utils.dayOnlineCount.keySet().forEach(s -> {
-            Utils.dayOnlineCountList.add(new PlayerNameAndCount(s, Utils.dayOnlineCount.get(s)));
-        });
-
-        Utils.dayKillCountList.sort(Comparator.comparing(PlayerNameAndCount::count).reversed());
-        Utils.dayFishCountList.sort(Comparator.comparing(PlayerNameAndCount::count).reversed());
-        Utils.dayMineCountList.sort(Comparator.comparing(PlayerNameAndCount::count).reversed());
-        Utils.dayCropCountList.sort(Comparator.comparing(PlayerNameAndCount::count).reversed());
-        Utils.dayLopCountList.sort(Comparator.comparing(PlayerNameAndCount::count).reversed());
-        Utils.dayOnlineCountList.sort(Comparator.comparing(PlayerNameAndCount::count).reversed());
-
-    }
-
-    public static void SummonArmorStandForDisplay(Level level, List<ArmorStand> armorStands, List<PlayerNameAndCount> playerNameAndCounts, String type, Vec3 location) {
-        armorStands.forEach(armorStand -> {
-            if (armorStand.isAlive()) armorStand.remove(Entity.RemovalReason.KILLED);
-        });
-        List<Component> components = ListToComponents(playerNameAndCounts, level, type);
-        for (int i = 0; i < 6; i++) {
-            ArmorStand armorStand = new ArmorStand(EntityType.ARMOR_STAND, level);
-            armorStands.add(armorStand);
-            armorStand.setNoGravity(true);
-            armorStand.setCustomNameVisible(true);
-            armorStand.setCustomName(components.get(i));
-            armorStand.setInvulnerable(true);
-            armorStand.setInvisible(true);
-            armorStand.noPhysics = true;
-            armorStand.setBoundingBox(AABB.ofSize(new Vec3(0, 0, 0), 0.1, 0.1, 0.1));
-            armorStand.moveTo(location.add(0, -0.25 * i, 0));
-            level.addFreshEntity(armorStand);
-        }
-    }
-
-    public static List<Component> ListToComponents(List<PlayerNameAndCount> playerNameAndCounts, Level level, String type) {
-        List<Component> components = new ArrayList<>();
-        switch (type) {
-            case "Kill" -> components.add(Component.literal("击杀数排名").withStyle(CustomStyle.styleOfNether));
-            case "Fish" -> components.add(Component.literal("钓鱼数排名").withStyle(CustomStyle.styleOfSea));
-            case "Mine" -> components.add(Component.literal("挖矿数排名").withStyle(CustomStyle.styleOfSakuraMine));
-            case "Crop" -> components.add(Component.literal("采集数排名").withStyle(CustomStyle.styleOfHealth));
-            case "Lop" -> components.add(Component.literal("伐木数排名").withStyle(CustomStyle.styleOfHusk));
-            case "Online" -> components.add(Component.literal("在线时长排名").withStyle(CustomStyle.styleOfSakura));
-        }
-        for (int i = 0; i < 5; i++) {
-            if (i >= playerNameAndCounts.size()) {
-                components.add(Component.literal((i + 1) + ".暂无").withStyle(ChatFormatting.GRAY));
-            } else {
-                ChatFormatting chatFormatting;
-                switch (i) {
-                    case 0 -> chatFormatting = ChatFormatting.RED;
-                    case 1 -> chatFormatting = ChatFormatting.LIGHT_PURPLE;
-                    case 2 -> chatFormatting = ChatFormatting.GOLD;
-                    default -> chatFormatting = ChatFormatting.AQUA;
-                }
-                PlayerNameAndCount playerNameAndCount = playerNameAndCounts.get(i);
-                Component playerName = null;
-                if (level.getServer().getPlayerList().getPlayerByName(playerNameAndCount.name()) == null) {
-                    playerName = Utils.playerNameMap.get(playerNameAndCount.name());
-                } else
-                    playerName = level.getServer().getPlayerList().getPlayerByName(playerNameAndCount.name()).getDisplayName();
-
-                components.add(Component.literal((i + 1) + ". ").withStyle(chatFormatting).
-                        append(playerName).
-                        append(Component.literal(": " + playerNameAndCount.count()).withStyle(ChatFormatting.WHITE)));
-
-            }
-        }
-        return components;
-    }
-
-    public static void RemoveAllArmorStandForDisplay() {
-        LogUtils.getLogger().info("Removing armorstands.");
-        Utils.dayKillCountDisplayList.forEach(armorStand -> {
-            if (armorStand != null) armorStand.remove(Entity.RemovalReason.KILLED);
-        });
-        Utils.dayFishCountDisplayList.forEach(armorStand -> {
-            if (armorStand != null) armorStand.remove(Entity.RemovalReason.KILLED);
-        });
-        Utils.dayMineCountDisplayList.forEach(armorStand -> {
-            if (armorStand != null) armorStand.remove(Entity.RemovalReason.KILLED);
-        });
-        Utils.dayCropCountDisplayList.forEach(armorStand -> {
-            if (armorStand != null) armorStand.remove(Entity.RemovalReason.KILLED);
-        });
-        Utils.dayLopCountDisplayList.forEach(armorStand -> armorStand.remove(Entity.RemovalReason.KILLED));
-        Utils.dayOnlineCountDisplayList.forEach(armorStand -> armorStand.remove(Entity.RemovalReason.KILLED));
-        if (Utils.recordTimeArmorStand != null) Utils.recordTimeArmorStand.remove(Entity.RemovalReason.KILLED);
-        if (Utils.recordTimeArmorStand1 != null) Utils.recordTimeArmorStand1.remove(Entity.RemovalReason.KILLED);
-    }
-
-    public static void SummonRecordTimeDisplay(Level level, Vec3 location, boolean isFirst) {
-        ArmorStand armorStand = new ArmorStand(EntityType.ARMOR_STAND, level);
-        if (isFirst) {
-            if (Utils.recordTimeArmorStand != null) Utils.recordTimeArmorStand.remove(Entity.RemovalReason.KILLED);
-            Utils.recordTimeArmorStand = armorStand;
-        } else {
-            if (Utils.recordTimeArmorStand1 != null) Utils.recordTimeArmorStand1.remove(Entity.RemovalReason.KILLED);
-            Utils.recordTimeArmorStand1 = armorStand;
-        }
-        armorStand.setNoGravity(true);
-        armorStand.setCustomNameVisible(true);
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss");
-        String time = simpleDateFormat.format(Utils.countBeginToRecordTime.getTime());
-        armorStand.setCustomName(Component.literal("记录开始时间:" + time).withStyle(ChatFormatting.AQUA));
-        armorStand.setInvulnerable(true);
-        armorStand.setInvisible(true);
-        armorStand.noPhysics = true;
-        armorStand.setBoundingBox(AABB.ofSize(new Vec3(0, 0, 0), 0.1, 0.1, 0.1));
-        armorStand.moveTo(location);
-        level.addFreshEntity(armorStand);
-    }
-
     public static void AdditionEffects(Player player, Mob mob, double damage, int type) {
         if (!Element.ElementPieceOnWeapon(player)) Element.ResonanceEffectGive(player);
-    }
-
-    public static void SummonWoodenStake(Level level) {
-        Item[] Armors = {
-                ModItems.WoodenStake0.get(),
-                ModItems.WoodenStake1.get(),
-                ModItems.WoodenStake2.get(),
-                ModItems.WoodenStake3.get(),
-                ModItems.WoodenStake4.get(),
-                ModItems.WoodenStake5.get()
-        };
-        Vec3[] vec3s = {
-                new Vec3(309.5, 64, 961.5),
-                new Vec3(311.5, 64, 961.5),
-                new Vec3(313.5, 64, 961.5),
-                new Vec3(315.5, 64, 961.5),
-                new Vec3(317.5, 64, 961.5),
-                new Vec3(370.5, 83, 989.5)
-        };
-        for (int i = 0; i < 6; i++) {
-            if (Utils.WoodenStake[i] == null || !Utils.WoodenStake[i].isAlive()) {
-                Utils.WoodenStake[i] = new Zombie(EntityType.ZOMBIE, level);
-                Compute.setMobCustomName(Utils.WoodenStake[i], Armors[i], Component.literal("木桩").withStyle(ChatFormatting.GREEN));
-                Utils.WoodenStake[i].setItemSlot(EquipmentSlot.HEAD, Armors[i].getDefaultInstance());
-                Utils.WoodenStake[i].getAttribute(Attributes.MAX_HEALTH).setBaseValue(Math.pow(10, (i == 5) ? 12 : 9));
-                Utils.WoodenStake[i].getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0);
-                Utils.WoodenStake[i].heal(Utils.WoodenStake[i].getMaxHealth());
-                Utils.WoodenStake[i].moveTo(vec3s[i]);
-                level.addFreshEntity(Utils.WoodenStake[i]);
-            }
-        }
-    }
-
-
-    public static void HealWoodenStake() {
-        for (Zombie zombie : Utils.WoodenStake) {
-            if (zombie != null) zombie.heal(zombie.getMaxHealth());
-        }
     }
 
     public static boolean thisTeamIsChallenging(PlayerTeam playerTeam) {
         return Utils.ChallengingPlayerTeam.contains(playerTeam);
     }
 
-    public static void ManaCoreAddition(ItemStack stack, List<Component> components) {
-        CompoundTag data = stack.getOrCreateTagElement(Utils.MOD_ID);
-        if (data.contains(StringUtils.ManaCore.ManaCore)) {
-            Compute.ManaCoreDescription(components);
-            String ManaCore = data.getString(StringUtils.ManaCore.ManaCore);
-            String SeaCore = StringUtils.ManaCore.SeaCore;
-            String BlackForestCore = StringUtils.ManaCore.BlackForestCore;
-            String KazeCore = StringUtils.ManaCore.KazeCore;
-            String SakuraCore = StringUtils.ManaCore.SakuraCore;
-            if (ManaCore.equals(SeaCore)) {
-                Compute.DescriptionPassive(components, Component.literal("灵魂救赎").withStyle(CustomStyle.styleOfSea));
-                components.add(Component.literal("使法球附带:").withStyle(ChatFormatting.WHITE));
-                components.add(Component.literal("基于目标已损失生命值造成至多0.5倍的").withStyle(CustomStyle.styleOfSea).
-                        append(Component.literal("等级强度").withStyle(CustomStyle.styleOfLucky)).
-                        append(Component.literal("真实伤害").withStyle(CustomStyle.styleOfSea)));
-                components.add(Component.literal("倍率随目标已损失生命值线性增长").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
-            } else if (ManaCore.equals(BlackForestCore)) {
-                Compute.DescriptionPassive(components, Component.literal("灵魂收割").withStyle(CustomStyle.styleOfHusk));
-                components.add(Component.literal("使法球附带:").withStyle(ChatFormatting.WHITE));
-                components.add(Component.literal("基于目标当前生命值造成至多0.5倍的").withStyle(CustomStyle.styleOfHusk).
-                        append(Component.literal("等级强度").withStyle(CustomStyle.styleOfLucky)).
-                        append(Component.literal("额外魔法伤害").withStyle(CustomStyle.styleOfHusk)));
-                components.add(Component.literal("倍率随目标当前生命值线性增长").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
-
-            } else if (ManaCore.equals(KazeCore)) {
-                Compute.DescriptionPassive(components, Component.literal("狂风晶核").withStyle(CustomStyle.styleOfSea));
-                components.add(Component.literal("-获得").withStyle(ChatFormatting.WHITE).
-                        append(ComponentUtils.AttributeDescription.movementSpeedWithoutBattle("30%")));
-                components.add(Component.literal("-基于你的").withStyle(ChatFormatting.WHITE).
-                        append(ComponentUtils.AttributeDescription.movementSpeedWithoutBattle("")).
-                        append(Component.literal("提供").withStyle(ChatFormatting.WHITE)).
-                        append(ComponentUtils.AttributeDescription.ManaPenetration("")));
-                components.add(Component.literal("-每").withStyle(ChatFormatting.WHITE).
-                        append(ComponentUtils.AttributeDescription.ExMovementSpeed("1%")).
-                        append(Component.literal("提供").withStyle(ChatFormatting.WHITE)).
-                        append(ComponentUtils.AttributeDescription.ManaPenetration("1")));
-            } else if (ManaCore.equals(SakuraCore)) {
-                Compute.DescriptionPassive(components, Component.literal("樱妖晶核").withStyle(CustomStyle.styleOfDemon));
-                components.add(Component.literal("第一枚法球造成").withStyle(ChatFormatting.WHITE).
-                        append(ComponentUtils.AttributeDescription.ManaDamage("100%")).
-                        append(Component.literal("的").withStyle(ChatFormatting.WHITE)).
-                        append(Component.literal("真实伤害").withStyle(CustomStyle.styleOfSea)));
-                components.add(Component.literal("第二枚法球回复").withStyle(ChatFormatting.WHITE).
-                        append(ComponentUtils.AttributeDescription.ManaDamage("1.25%")).
-                        append(ComponentUtils.AttributeDescription.Health("")));
-            }
-        } else {
-            components.add(Component.literal(" 「尚未加载魔核」").withStyle(CustomStyle.styleOfMana));
-        }
-    }
-
-    public static void FireWorkSummon(Player player, Mob monster) {
+    public static void summonFireWork(Player player, Mob monster) {
         CompoundTag compoundTag = new CompoundTag();
         byte a = 1;
         byte[] bytes = {0, 1, 2, 3, 4};

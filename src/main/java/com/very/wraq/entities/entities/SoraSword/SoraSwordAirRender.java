@@ -1,5 +1,6 @@
 package com.very.wraq.entities.entities.SoraSword;
 
+import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.Utils;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;

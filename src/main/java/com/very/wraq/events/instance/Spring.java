@@ -9,6 +9,7 @@ import com.very.wraq.common.util.struct.Boss2Damage;
 import com.very.wraq.common.util.struct.Instance;
 import com.very.wraq.common.util.struct.PlayerAndDistance;
 import com.very.wraq.common.util.struct.PlayerTeam;
+import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.unSorted.SpringInstanceS2CPacket;
 import com.very.wraq.process.func.damage.Damage;
@@ -116,7 +117,7 @@ public class Spring {
                     }});
                     Mob entity = instance.getMobList().get(0);
 
-                    Compute.setMobCustomName(entity, ModItems.MobArmorSpringHelmet.get(),
+                    MobSpawn.setMobCustomName(entity, ModItems.MobArmorSpringHelmet.get(),
                             Component.literal("年兽").withStyle(CustomStyle.styleOfSpring));
 
                     entity.getAttribute(Attributes.MAX_HEALTH).setBaseValue(25000000 * difficultyEnhanceRate * (1 + (playerNum - 1) * 0.75));

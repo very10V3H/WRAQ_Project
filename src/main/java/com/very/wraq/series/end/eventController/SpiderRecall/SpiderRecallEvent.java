@@ -3,6 +3,7 @@ package com.very.wraq.series.end.eventController.SpiderRecall;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.util.Utils;
+import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.process.func.item.InventoryOperation;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.overworld.chapter2.dimension.ToEnd;
@@ -98,7 +99,7 @@ public class SpiderRecallEvent {
                             if (Utils.SpiderRecallSpider != null)
                                 Utils.SpiderRecallSpider.remove(Entity.RemovalReason.KILLED);
                             Utils.SpiderRecallSpider = new Spider(EntityType.SPIDER, level1);
-                            Compute.setMobCustomName(Utils.SpiderRecallSpider, ModItems.ArmorSpiderRecall.get(), Component.literal("模糊记忆中的微光蜘蛛").withStyle(style));
+                            MobSpawn.setMobCustomName(Utils.SpiderRecallSpider, ModItems.ArmorSpiderRecall.get(), Component.literal("模糊记忆中的微光蜘蛛").withStyle(style));
                             Utils.SpiderRecallSpider.setItemSlot(EquipmentSlot.HEAD, ModItems.ArmorSpiderRecall.get().getDefaultInstance());
                             Utils.SpiderRecallSpider.setItemSlot(EquipmentSlot.CHEST, ModItems.ArmorKazeChest.get().getDefaultInstance());
                             Utils.SpiderRecallSpider.setItemSlot(EquipmentSlot.LEGS, ModItems.ArmorKazeLeggings.get().getDefaultInstance());

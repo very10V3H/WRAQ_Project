@@ -1,9 +1,10 @@
 package com.very.wraq.projectiles;
 
-import com.very.wraq.common.attribute.BasicAttributeDescription;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.Utils;
+import com.very.wraq.common.attribute.BasicAttributeDescription;
 import com.very.wraq.common.registry.ItemTier;
+import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -40,18 +41,18 @@ public abstract class WraqPassiveEquip extends PickaxeItem {
         Compute.forgingHoverName(stack);
         components.add(Component.literal("器灵                   ").withStyle(CustomStyle.styleOfSakura)
                 .append(getType()));
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        Compute.DescriptionOfBasic(components);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionOfBasic(components);
         BasicAttributeDescription.BasicAttributeCommonDescription(components, stack);
         if (getAdditionDescriptions() != null && !getAdditionDescriptions().isEmpty()) {
-            Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-            Compute.DescriptionOfAddition(components);
+            ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+            ComponentUtils.DescriptionOfAddition(components);
             components.addAll(getAdditionDescriptions());
         }
         if (Utils.levelRequire.containsKey(this) && Utils.levelRequire.get(this) > 0) {
             Compute.LevelRequire(components, Utils.levelRequire.get(this));
         }
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         components.add(getSuffix());
         super.appendHoverText(stack, level, components, flag);
     }

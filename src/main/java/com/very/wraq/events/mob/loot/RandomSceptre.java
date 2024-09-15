@@ -4,7 +4,6 @@ import com.very.wraq.projectiles.WraqSceptre;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 
 import java.util.List;
 

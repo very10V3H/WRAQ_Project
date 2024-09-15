@@ -1,13 +1,13 @@
 package com.very.wraq.render.gui.villagerTrade;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.misc.SmartPhonePackets.Currency.*;
 import com.very.wraq.networking.misc.SmartPhonePackets.MarketScreenC2SPacket;
 import com.very.wraq.networking.unSorted.TradeBuyRequestC2SPacket;
 import com.very.wraq.process.system.randomStore.RandomStore;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;

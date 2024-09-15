@@ -8,10 +8,12 @@ import com.very.wraq.common.util.struct.Boss2Damage;
 import com.very.wraq.common.util.struct.Instance;
 import com.very.wraq.common.util.struct.PlayerTeam;
 import com.very.wraq.events.core.LoginInEvent;
+import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.process.func.damage.Damage;
 import com.very.wraq.process.func.item.InventoryOperation;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.process.system.element.Element;
+import com.very.wraq.render.hud.ColdData;
 import com.very.wraq.render.particles.ModParticles;
 import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -118,7 +120,7 @@ public class IceKnight {
                     }});
                     Mob entity = instance.getMobList().get(0);
 
-                    Compute.setMobCustomName(entity, ModItems.MobArmorIceHelmet.get(),
+                    MobSpawn.setMobCustomName(entity, ModItems.MobArmorIceHelmet.get(),
                             Component.literal("冰霜骑士").withStyle(CustomStyle.styleOfIce));
 
                     entity.getAttribute(Attributes.MAX_HEALTH).setBaseValue(MaxHealth * difficultyEnhanceRate * (1 + (playerNum - 1) * 0.75));
@@ -348,7 +350,7 @@ public class IceKnight {
                 case 2 -> {
                     playerList.forEach(player -> {
                         if (player.distanceTo(mob) < 50) {
-                            if (Compute.PlayerCurrentColdNum(player) >= 50) {
+                            if (ColdData.PlayerCurrentColdNum(player) >= 50) {
                                 Damage.AttackDamageToPlayer(mob, player, player.getMaxHealth() * 1.5);
                             }
                             ClientboundSetTitleTextPacket clientboundSetTitleTextPacket =
@@ -388,7 +390,7 @@ public class IceKnight {
                             if (Utils.IceHunterForIceKnight[i] != null)
                                 Utils.IceHunterForIceKnight[i].remove(Entity.RemovalReason.KILLED);
                             Utils.IceHunterForIceKnight[i] = new Stray(EntityType.STRAY, mob.level());
-                            Compute.setMobCustomName(Utils.IceHunterForIceKnight[i], ModItems.MobArmorIceHunterHelmet.get(),
+                            MobSpawn.setMobCustomName(Utils.IceHunterForIceKnight[i], ModItems.MobArmorIceHunterHelmet.get(),
                                     Component.literal("冰原猎手").withStyle(CustomStyle.styleOfIce));
                             Utils.IceHunterForIceKnight[i].setItemSlot(EquipmentSlot.HEAD, ModItems.MobArmorIceHunterHelmet.get().getDefaultInstance());
                             Utils.IceHunterForIceKnight[i].setItemSlot(EquipmentSlot.CHEST, ModItems.MobArmorIceHunterChest.get().getDefaultInstance());

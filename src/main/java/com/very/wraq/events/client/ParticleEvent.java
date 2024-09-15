@@ -1,12 +1,11 @@
 package com.very.wraq.events.client;
 
+import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.ClientUtils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.render.particles.ModParticles;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.ClientUtils;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.particles.ParticleOptions;
@@ -141,7 +140,7 @@ public class ParticleEvent {
             });
 
             Utils.WorldEntropyPos.forEach(worldEntropy -> {
-                Compute.RandomToDesParticle(random.nextInt(20), worldEntropy.getVec3().add(0.5, 0, 0.5), level, 5);
+                ParticleProvider.RandomToDesParticle(random.nextInt(20), worldEntropy.getVec3().add(0.5, 0, 0.5), level, 5);
             });
 
 /*            SpinParticleCreate(player, new Vec3(52.5, -53.5, 1039.5), 1.5, ModParticles.VOLCANO_TP.get(), 20);

@@ -1,7 +1,7 @@
 package com.very.wraq.series.nether.Material;
 
-import com.very.wraq.render.mobEffects.ModEffects;
 import com.very.wraq.common.Compute;
+import com.very.wraq.render.mobEffects.ModEffects;
 import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;

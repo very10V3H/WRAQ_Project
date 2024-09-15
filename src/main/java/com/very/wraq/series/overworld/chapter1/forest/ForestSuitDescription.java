@@ -1,10 +1,11 @@
 package com.very.wraq.series.overworld.chapter1.forest;
 
-import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.ClientUtils;
-import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.ClientUtils;
+import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.StringUtils;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
@@ -22,8 +23,8 @@ import java.util.List;
 public class ForestSuitDescription {
     public static void ArmorCommonDescription(List<Component> components) {
         Style style = CustomStyle.styleOfForest;
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        Compute.DescriptionOfAddition(components);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionOfAddition(components);
         Compute.solePassiveDescription(components, Component.literal("").withStyle(style));
         int level = Math.min(100, Minecraft.getInstance().player.experienceLevel);
         components.add(Component.literal(" 获得").withStyle(ChatFormatting.WHITE).
@@ -35,9 +36,9 @@ public class ForestSuitDescription {
             Compute.SuitDescription(components);
             components.add(Component.literal("[按住shift展开套装效果]").withStyle(ChatFormatting.GRAY));
         }
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         components.add(Component.literal("ForestArmor-I").withStyle(style).withStyle(ChatFormatting.ITALIC));
-        Compute.SuffixOfMainStoryI(components);
+        ComponentUtils.suffixOfChapterI(components);
     }
 
     public static void SuitDescription(List<Component> components) {
@@ -73,10 +74,10 @@ public class ForestSuitDescription {
 
         Compute.SuitDoubleDescription(components, Count);
         Compute.DescriptionPassive(components, Component.literal("繁茂生长").withStyle(ChatFormatting.DARK_GREEN));
-        Compute.DescriptionNum(components, "提升", Compute.AttributeDescription.Defence("25%"), "");
+        ComponentUtils.DescriptionNum(components, "提升", Compute.AttributeDescription.Defence("25%"), "");
         Compute.SuitQuadraDescription(components, Count);
         Compute.DescriptionPassive(components, Component.literal("森林生机").withStyle(ChatFormatting.DARK_GREEN));
-        Compute.DescriptionNum(components, "提升", Compute.AttributeDescription.HealAmplification("50%"), "");
-        Compute.DescriptionNum(components, "在白天，提供", Compute.AttributeDescription.HealthRecover("5"), "");
+        ComponentUtils.DescriptionNum(components, "提升", Compute.AttributeDescription.HealAmplification("50%"), "");
+        ComponentUtils.DescriptionNum(components, "在白天，提供", Compute.AttributeDescription.HealthRecover("5"), "");
     }
 }

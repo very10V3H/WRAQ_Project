@@ -1,11 +1,11 @@
 package com.very.wraq.series.overworld.chapter2.sky;
 
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.util.ClientUtils;
 import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
@@ -22,15 +22,15 @@ import java.util.List;
 @OnlyIn(Dist.CLIENT)
 public class SkySuitDescription {
     public static void ArmorCommonDescription(List<Component> components) {
-        Compute.DescriptionOfAddition(components);
+        ComponentUtils.DescriptionOfAddition(components);
         if (Screen.hasShiftDown()) SuitDescription(components);
         else {
             Compute.SuitDescription(components);
             components.add(Component.literal("[按住shift展开套装效果]").withStyle(ChatFormatting.GRAY));
         }
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfSky, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfSky, ChatFormatting.WHITE);
         components.add(Component.literal("SkyArmor-I").withStyle(CustomStyle.styleOfSky).withStyle(ChatFormatting.ITALIC));
-        Compute.SuffixOfMainStoryII(components);
+        ComponentUtils.suffixOfChapterII(components);
 
     }
 

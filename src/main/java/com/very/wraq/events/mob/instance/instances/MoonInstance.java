@@ -85,7 +85,7 @@ public class MoonInstance extends NoTeamInstance {
         Stray attackMob = new Stray(EntityType.STRAY, level);
         Style style = CustomStyle.styleOfMoon;
 
-        Compute.setMobCustomName(attackMob, Component.literal("阿尔忒弥斯 - 明镜").withStyle(style), 160);
+        MobSpawn.setMobCustomName(attackMob, Component.literal("阿尔忒弥斯 - 明镜").withStyle(style), 160);
 
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(attackMob), 120);
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(attackMob, 2000, 2500, 2500, 0.4, 4, 0.25, 1300, 20, 700 * Math.pow(10, 4), 0.3);
@@ -109,7 +109,7 @@ public class MoonInstance extends NoTeamInstance {
         bossInfoList.add(serverBossEvent);
 
         Stray manaMob = new Stray(EntityType.STRAY, level);
-        Compute.setMobCustomName(manaMob, Component.literal("阿尔忒弥斯 - 天镜").withStyle(style), 160);
+        MobSpawn.setMobCustomName(manaMob, Component.literal("阿尔忒弥斯 - 天镜").withStyle(style), 160);
 
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(manaMob), 120);
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(manaMob, 2000, 2500, 2500, 0.4, 4, 0.4, 1300, 20, 700 * Math.pow(10, 4), 0.3);

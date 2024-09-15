@@ -1,9 +1,9 @@
 package com.very.wraq.common.registry;
 
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.customized.UniformItems;
 import com.very.wraq.events.mob.loot.C1LootItems;
 import com.very.wraq.process.system.spur.Items.SpurItems;
-import com.very.wraq.common.util.Utils;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;

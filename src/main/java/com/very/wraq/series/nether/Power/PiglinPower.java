@@ -1,11 +1,11 @@
 package com.very.wraq.series.nether.Power;
 
-import com.very.wraq.process.func.power.PowerLogic;
-import com.very.wraq.process.system.element.Element;
-import com.very.wraq.projectiles.ActiveItem;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.Utils;
+import com.very.wraq.process.func.power.PowerLogic;
+import com.very.wraq.process.system.element.Element;
+import com.very.wraq.projectiles.ActiveItem;
 import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -31,7 +31,7 @@ public class PiglinPower extends Item implements ActiveItem {
     @Override
     public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
         components.add(Component.literal("·法术").withStyle(CustomStyle.styleOfMana));
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
         components.add(Component.literal("·[对魔]").withStyle(ChatFormatting.LIGHT_PURPLE).
                 append(Component.literal("基于").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("指针").withStyle(ChatFormatting.AQUA)).
@@ -51,7 +51,7 @@ public class PiglinPower extends Item implements ActiveItem {
         components.add(Component.literal(" - 这个效果持续5s，且仅能同时存在一个").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
         ComponentUtils.coolDownTimeDescription(components, 10);
         ComponentUtils.manaCostDescription(components, 360);
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
         components.add(Component.literal("Powers-Piglin").withStyle(Style.EMPTY.withColor(TextColor.parseColor("#a2001b"))).withStyle(ChatFormatting.ITALIC));
         super.appendHoverText(itemStack, level, components, flag);
     }

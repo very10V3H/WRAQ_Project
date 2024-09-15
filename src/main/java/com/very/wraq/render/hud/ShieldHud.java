@@ -1,7 +1,7 @@
 package com.very.wraq.render.hud;
 
-import com.very.wraq.common.util.Utils;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.very.wraq.common.util.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;

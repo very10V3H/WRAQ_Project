@@ -1,10 +1,11 @@
 package com.very.wraq.series.nether.Equip;
 
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -43,10 +44,10 @@ public class WitherBook extends Item {
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
         stack.setHoverName(Component.literal("凋零秘典").withStyle(style).withStyle(ChatFormatting.BOLD));
         components.add(Component.literal("副手                   ").withStyle(ChatFormatting.GOLD).append(Component.literal("魔导书").withStyle(CustomStyle.styleOfMana)));
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        Compute.DescriptionOfBasic(components);
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        Compute.DescriptionOfAddition(components);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionOfBasic(components);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionOfAddition(components);
         Compute.DescriptionPassive(components, Component.literal("凋零秘术").withStyle(style));
         components.add(Component.literal(" 任意").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("法术").withStyle(CustomStyle.styleOfMana)).
@@ -55,8 +56,8 @@ public class WitherBook extends Item {
                 append(Component.literal("并为你提供等额").withStyle(ChatFormatting.WHITE)).
                 append(Compute.AttributeDescription.ManaPenetration("")).
                 append(Component.literal("持续2s").withStyle(ChatFormatting.WHITE)));
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        Compute.SuffixOfMainStoryIII(components);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.suffixOfChapterIII(components);
         super.appendHoverText(stack, level, components, flag);
     }
 
@@ -65,7 +66,7 @@ public class WitherBook extends Item {
             double manaDefence = MobSpawn.MobBaseAttributes.getMobBaseAttribute(mob, MobSpawn.MobBaseAttributes.manaDefence);
             int tickCount = player.getServer().getTickCount();
             Utils.WitherBookMobEffectTick.put(mob, tickCount + 40);
-            Compute.AddManaDefenceDescreaseEffectParticle(mob, 40);
+            Compute.addManaDefenceDecreaseEffectParticle(mob, 40);
             Compute.sendMobEffectHudToNearPlayer(mob, ModItems.WitherBook.get(), "WitherBookManaDefenceDecrease", 40, 0, false);
             if (Utils.WitherBookPlayerEffectNum.containsKey(player)) {
                 if (Utils.WitherBookPlayerEffectTick.containsKey(player)) {

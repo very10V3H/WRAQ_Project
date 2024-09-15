@@ -1,7 +1,7 @@
 package com.very.wraq.entities.armor;
 
-import com.very.wraq.series.overworld.chapter1.Mine.MineHat;
 import com.very.wraq.common.util.Utils;
+import com.very.wraq.series.overworld.chapter1.Mine.MineHat;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.model.GeoModel;
 

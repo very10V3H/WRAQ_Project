@@ -3,6 +3,7 @@ package com.very.wraq.series.end.eventController.BlackForestRecall;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.util.Utils;
+import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.events.mob.chapter2.HuskSpawnController;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.misc.ParticlePackets.BlackForestRecallParticleS2CPacket;
@@ -93,7 +94,7 @@ public class HuskRecallEvent {
                         if (Utils.HuskRecallHusk == null || !Utils.HuskRecallHusk.isAlive()) {
                             if (Utils.HuskRecallHusk != null) Utils.HuskRecallHusk.remove(Entity.RemovalReason.KILLED);
                             Utils.HuskRecallHusk = new Husk(EntityType.HUSK, level1);
-                            Compute.setMobCustomName(Utils.HuskRecallHusk, ModItems.ArmorHuskRecall.get(), Component.literal("模糊记忆中的脆弱灵魂").withStyle(style));
+                            MobSpawn.setMobCustomName(Utils.HuskRecallHusk, ModItems.ArmorHuskRecall.get(), Component.literal("模糊记忆中的脆弱灵魂").withStyle(style));
                             Utils.HuskRecallHusk.setItemSlot(EquipmentSlot.HEAD, ModItems.ArmorHuskRecall.get().getDefaultInstance());
                             Utils.HuskRecallHusk.setItemSlot(EquipmentSlot.MAINHAND, ModItems.BlackForestSword4.get().getDefaultInstance());
                             Utils.HuskRecallHusk.getAttribute(Attributes.MAX_HEALTH).setBaseValue(115200.0D);

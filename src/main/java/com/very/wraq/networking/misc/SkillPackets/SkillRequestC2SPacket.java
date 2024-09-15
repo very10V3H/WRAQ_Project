@@ -1,7 +1,7 @@
 package com.very.wraq.networking.misc.SkillPackets;
 
-import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.common.util.StringUtils;
+import com.very.wraq.networking.ModNetworking;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;

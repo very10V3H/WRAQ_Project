@@ -1,6 +1,7 @@
 package com.very.wraq.series.overworld.chapter1.Snow.Runes;
 
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.util.ComponentUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -21,7 +22,7 @@ public class SnowRune3 extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level p_41422_, List<Component> components, TooltipFlag p_41424_) {
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.AQUA, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.AQUA, ChatFormatting.WHITE);
         components.add(Component.literal("符石属性:"));
         components.add(Component.literal("每过").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("5s").withStyle(ChatFormatting.AQUA)).
@@ -29,7 +30,7 @@ public class SnowRune3 extends Item {
                 append(Compute.AttributeDescription.AttackDamage("250%")).
                 append(Component.literal("的物理伤害并附带").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("3s减速效果").withStyle(ChatFormatting.AQUA)));
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.AQUA, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.AQUA, ChatFormatting.WHITE);
         components.add(Component.literal("Runes-Snow").withStyle(ChatFormatting.AQUA).withStyle(ChatFormatting.ITALIC));
         super.appendHoverText(stack, p_41422_, components, p_41424_);
     }

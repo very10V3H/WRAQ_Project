@@ -40,10 +40,10 @@ public class StarBottle extends Item implements ICurioItem {
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
         Compute.forgingHoverName(stack);
         Style style = CustomStyle.styleOfMoon1;
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        Compute.DescriptionOfBasic(components);
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        Compute.DescriptionOfAddition(components);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionOfBasic(components);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionOfAddition(components);
         Compute.DescriptionPassive(components, Component.literal("聚星集屑").withStyle(style));
         components.add(Component.literal(" 处于战斗状态时，每秒会收集一枚").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("星屑").withStyle(style)));
@@ -67,7 +67,7 @@ public class StarBottle extends Item implements ICurioItem {
                 append(Component.literal("星屑").withStyle(style)).
                 append(Component.literal("被完全释放后，你才可以再次收集").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("星屑").withStyle(style)));
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         ComponentUtils.SuffixOfMainStoryVII(components);
         super.appendHoverText(stack, level, components, flag);
     }
@@ -138,7 +138,7 @@ public class StarBottle extends Item implements ICurioItem {
         mobList.forEach(mob -> {
             if (playerCountsMap.get(player) > 0) {
                 playerCountsMap.put(player, playerCountsMap.get(player) - 1);
-                Damage.causeIgNoreDefenceDamageToMonster(player, mob, Compute.XpStrengthDamage(player, (double) playerCountsMap.get(player) / 10));
+                Damage.causeIgNoreDefenceDamageToMonster(player, mob, Compute.getXpStrengthDamage(player, (double) playerCountsMap.get(player) / 10));
                 ParticleProvider.LineParticle(player.level(), (int) mob.distanceTo(player) * 2, player.position(), mob.position(), ParticleTypes.FIREWORK);
             }
         });

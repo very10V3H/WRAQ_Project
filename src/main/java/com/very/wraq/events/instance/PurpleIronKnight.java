@@ -8,6 +8,7 @@ import com.very.wraq.common.util.struct.Boss2Damage;
 import com.very.wraq.common.util.struct.Instance;
 import com.very.wraq.common.util.struct.PlayerTeam;
 import com.very.wraq.events.core.LoginInEvent;
+import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.process.func.MobEffectAndDamageMethods;
 import com.very.wraq.process.func.item.InventoryOperation;
 import com.very.wraq.process.system.element.Element;
@@ -117,7 +118,7 @@ public class PurpleIronKnight {
                     }});
 
                     Mob entity = instance.getMobList().get(0);
-                    Compute.setMobCustomName(entity, ModItems.MobArmorPurpleIronKnightHelmet.get(),
+                    MobSpawn.setMobCustomName(entity, ModItems.MobArmorPurpleIronKnightHelmet.get(),
                             Component.literal("紫晶骑士").withStyle(CustomStyle.styleOfPurpleIron));
 
                     entity.getAttribute(Attributes.MAX_HEALTH).setBaseValue(MaxHealth * difficultyEnhanceRate * (1 + (playerNum - 1) * 0.75));

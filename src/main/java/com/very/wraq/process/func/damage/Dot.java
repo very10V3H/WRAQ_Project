@@ -1,6 +1,5 @@
 package com.very.wraq.process.func.damage;
 
-import com.very.wraq.common.Compute;
 import com.very.wraq.common.attribute.PlayerAttributes;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Mob;

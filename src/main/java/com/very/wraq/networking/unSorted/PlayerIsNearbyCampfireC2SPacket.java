@@ -1,6 +1,6 @@
 package com.very.wraq.networking.unSorted;
 
-import com.very.wraq.common.Compute;
+import com.very.wraq.render.hud.ColdData;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkEvent;
@@ -24,7 +24,7 @@ public class PlayerIsNearbyCampfireC2SPacket {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
             ServerPlayer serverPlayer = context.getSender();
-            Compute.PlayerColdNumAddOrCost(serverPlayer, -2);
+            ColdData.PlayerColdNumAddOrCost(serverPlayer, -2);
         });
         return true;
     }

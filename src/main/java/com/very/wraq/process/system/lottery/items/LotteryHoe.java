@@ -1,11 +1,12 @@
 
 package com.very.wraq.process.system.lottery.items;
 
-import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.attribute.BasicAttributeDescription;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.Utils;
+import com.very.wraq.common.attribute.BasicAttributeDescription;
 import com.very.wraq.common.registry.ItemTier;
+import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.Utils;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -58,10 +59,10 @@ public class LotteryHoe extends SwordItem {
         stack.getOrCreateTagElement(Utils.MOD_ID);
         Style style = CustomStyle.styleOfPurpleIron;
         components.add(Component.literal("器灵                   ").withStyle(CustomStyle.styleOfSakura).append(Component.literal("长剑").withStyle(style)));
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        Compute.DescriptionOfBasic(components);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionOfBasic(components);
         BasicAttributeDescription.BasicAttributeCommonDescription(components, stack);
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         Compute.DescriptionPassive(components, Component.literal(""));
         components.add(Component.literal(" 使").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("普通近战攻击").withStyle(CustomStyle.styleOfPower)).
@@ -70,8 +71,8 @@ public class LotteryHoe extends SwordItem {
                 append(Component.literal("的").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("额外物理伤害").withStyle(CustomStyle.styleOfPower)));
         Compute.LevelRequire(components, Utils.levelRequire.get(this));
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        Compute.SuffixOfPurpleIronKnight(components);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.SuffixOfPurpleIronKnight(components);
         super.appendHoverText(stack, level, components, flag);
     }
 

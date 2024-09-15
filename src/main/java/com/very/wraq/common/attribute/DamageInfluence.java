@@ -2,33 +2,34 @@ package com.very.wraq.common.attribute;
 
 import com.very.wraq.common.Compute;
 import com.very.wraq.core.ManaAttackModule;
+import com.very.wraq.customized.WraqUniformCurios;
 import com.very.wraq.events.instance.IceKnight;
 import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.events.modules.AttackEventModule;
 import com.very.wraq.process.func.EnhanceNormalAttackModifier;
-import com.very.wraq.process.func.StableAttributesModifier;
-import com.very.wraq.series.newrunes.chapter1.VolcanoNewRune;
-import com.very.wraq.series.specialevents.labourDay.LabourDayIronHoe;
-import com.very.wraq.series.specialevents.labourDay.LabourDayIronPickaxe;
-import com.very.wraq.process.system.potion.NewPotionEffects;
-import com.very.wraq.process.system.element.equipAndCurios.fireElement.FireEquip;
 import com.very.wraq.process.func.MobEffectAndDamageMethods;
+import com.very.wraq.process.func.StableAttributesModifier;
+import com.very.wraq.process.system.element.equipAndCurios.fireElement.FireEquip;
+import com.very.wraq.process.system.potion.NewPotionEffects;
 import com.very.wraq.process.system.season.MySeason;
 import com.very.wraq.process.system.tower.Tower;
 import com.very.wraq.process.system.tower.TowerMob;
 import com.very.wraq.projectiles.OnCuriosSlotHitDamageInfluence;
-import com.very.wraq.customized.WraqUniformCurios;
+import com.very.wraq.render.hud.ColdData;
 import com.very.wraq.series.instance.series.castle.CastleCurios;
 import com.very.wraq.series.instance.series.castle.CastleSword;
 import com.very.wraq.series.instance.series.ice.IceBook;
 import com.very.wraq.series.instance.series.moon.Equip.MoonArmor;
 import com.very.wraq.series.instance.series.purple.PurpleIronSword;
 import com.very.wraq.series.newrunes.chapter1.MineNewRune;
+import com.very.wraq.series.newrunes.chapter1.VolcanoNewRune;
 import com.very.wraq.series.newrunes.chapter2.HuskNewRune;
 import com.very.wraq.series.newrunes.chapter6.MoonNewRune;
 import com.very.wraq.series.overworld.chapter7.star.StarArmor;
 import com.very.wraq.series.overworld.chapter7.star.StarBottle;
 import com.very.wraq.series.overworld.chapter7.vd.VdWeaponCommon;
+import com.very.wraq.series.specialevents.labourDay.LabourDayIronHoe;
+import com.very.wraq.series.specialevents.labourDay.LabourDayIronPickaxe;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 
@@ -57,7 +58,7 @@ public class DamageInfluence {
         double rate = 0;
         rate += AttackEventModule.SwordSkill5DamageEnhance(player); // 双刃剑
         rate += AttackEventModule.ManaSkill5DamageEnhance(player); // 法术专注
-        rate += Compute.PlayerColdEffect(player); // 寒冷
+        rate += ColdData.PlayerColdEffect(player); // 寒冷
         rate += CastleSword.DamageEnhance(player);
         rate += StarBottle.DamageEnhance(player); // 星星瓶
         rate += FireEquip.DamageEnhance(player); // 炽焰元素武器

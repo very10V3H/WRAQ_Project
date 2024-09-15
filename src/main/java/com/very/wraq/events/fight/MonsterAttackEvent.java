@@ -138,17 +138,17 @@ public class MonsterAttackEvent {
         if (!event.getEntity().level().isClientSide) {
             if (event.getEntity() instanceof Civil civil && event.getSource().getEntity() instanceof Mob monster) {
                 event.setCanceled(true);
-                double Damage = 0;
+                double damage = 0;
                 if (monster.getAttribute(Attributes.ATTACK_DAMAGE) != null)
-                    Damage = monster.getAttribute(Attributes.ATTACK_DAMAGE).getValue();
+                    damage = monster.getAttribute(Attributes.ATTACK_DAMAGE).getValue();
                 double Defence = 0;
                 double DefencePenetration = Utils.defencePenetration.getOrDefault(monster.getItemBySlot(EquipmentSlot.HEAD).getItem(), 0d);
                 double DefencePenetration0 = Utils.defencePenetration0.getOrDefault(monster.getItemBySlot(EquipmentSlot.HEAD).getItem(), 0d);
                 if (civil.owner != null) Defence = PlayerAttributes.defence(civil.owner);
-                Damage *= Compute.defenceDamageDecreaseRate(Defence, DefencePenetration, DefencePenetration0);
+                damage *= Damage.defenceDamageDecreaseRate(Defence, DefencePenetration, DefencePenetration0);
 
                 civil.setLastHurtByMob(monster);
-                civil.setHealth((float) (civil.getHealth() - Damage));
+                civil.setHealth((float) (civil.getHealth() - damage));
                 List<Player> playerList = monster.level().getEntitiesOfClass(Player.class, AABB.ofSize(civil.position(), 20, 20, 20));
                 playerList.removeIf(player -> player.distanceTo(civil) > 10);
                 playerList.forEach(player -> {
@@ -175,7 +175,7 @@ public class MonsterAttackEvent {
                 exDamage += MonsterExDamage(monster, player); // 各种怪物伤害增益
 
                 double finalDamage = ((baseDamage + exDamage) * CritDamage(critRate, critDamage, CritDamageDecrease) *
-                        Compute.defenceDamageDecreaseRate(playerDefence, defencePenetration, defencePenetration0));
+                        Damage.defenceDamageDecreaseRate(playerDefence, defencePenetration, defencePenetration0));
 
                 monsterAttack(monster, player, finalDamage);
             }

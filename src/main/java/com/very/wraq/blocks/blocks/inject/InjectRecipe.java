@@ -1,8 +1,8 @@
 package com.very.wraq.blocks.blocks.inject;
 
-import com.very.wraq.series.gems.GemItems;
-import com.very.wraq.common.util.struct.InjectingRecipe;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.struct.InjectingRecipe;
+import com.very.wraq.series.gems.GemItems;
 import net.minecraft.world.item.Item;
 
 import java.util.HashMap;

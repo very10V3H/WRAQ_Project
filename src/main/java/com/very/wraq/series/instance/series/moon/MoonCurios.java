@@ -37,10 +37,10 @@ public class MoonCurios extends Item implements ICurioItem {
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
         Style style = CustomStyle.styleOfMoon1;
         CompoundTag data = stack.getOrCreateTagElement(Utils.MOD_ID);
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        Compute.DescriptionOfBasic(components);
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        Compute.DescriptionOfAddition(components);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionOfBasic(components);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionOfAddition(components);
         Compute.DescriptionPassive(components, Component.literal("朔望轮转").withStyle(style));
         components.add(Component.literal(" 每过10s，使你的下次攻击").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("附带").withStyle(style)).
@@ -48,7 +48,7 @@ public class MoonCurios extends Item implements ICurioItem {
                 append(ComponentUtils.AttributeDescription.MaxHealth("1%")).
                 append(Component.literal("的").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("真实伤害").withStyle(CustomStyle.styleOfSea)));
-        Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         components.add(Component.literal(" - 以此致敬维瑞阿契的开拓者 - " + data.getString(StringUtils.MoonCuriosPlayerName)).withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.AQUA));
         super.appendHoverText(stack, level, components, flag);
     }

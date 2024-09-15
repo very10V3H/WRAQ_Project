@@ -1,16 +1,17 @@
 package com.very.wraq.series.nether.Equip;
 
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.attribute.PlayerAttributes;
+import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.events.mob.MobSpawn;
+import com.very.wraq.process.func.damage.Damage;
 import com.very.wraq.process.func.damage.Dot;
 import com.very.wraq.projectiles.ForgeItem;
 import com.very.wraq.projectiles.OnHitEffectOffHandWeapon;
 import com.very.wraq.projectiles.WraqOffHandItem;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.ComponentUtils;
-import com.very.wraq.common.util.Utils;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.attribute.PlayerAttributes;
-import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.series.overworld.chapter1.Mine.MineShield;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -79,7 +80,7 @@ public class NetherShield extends WraqOffHandItem implements ForgeItem, OnHitEff
     public void onHit(Player player, Mob mob) {
         player.sendSystemMessage(Component.literal("1"));
         double defenceValue = PlayerAttributes.defence(player) + MobSpawn.MobBaseAttributes.getMobBaseAttribute(mob, MobSpawn.MobBaseAttributes.defence);
-        double rate = 2 - Compute.defenceDamageDecreaseRate(defenceValue, 0, 0);
+        double rate = 2 - Damage.defenceDamageDecreaseRate(defenceValue, 0, 0);
         int tick = player.getServer().getTickCount();
         Dot.addDotOnMob(mob, new Dot(1, PlayerAttributes.attackDamage(player) * 0.2 * rate, 3, tick + 20, player.getName().getString(), true));
         Compute.sendMobEffectHudToNearPlayer(mob, ModItems.NetherShield.get(), "NetherShieldDot", 20, 0, false);

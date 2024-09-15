@@ -8,11 +8,14 @@ import com.very.wraq.common.util.struct.BlockAndResetTime;
 import com.very.wraq.process.func.item.InventoryOperation;
 import com.very.wraq.process.system.missions.series.labourDay.LabourDayMission;
 import com.very.wraq.process.system.spur.Items.SpurItems;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -83,7 +86,7 @@ public class WoodSpur {
 
     public static void logReward(Player player) throws IOException {
         CompoundTag data = player.getPersistentData();
-        Compute.playerLopExpAdd(player, 2);
+        addPlayerLopExp(player, 2);
         Compute.givePercentExpToPlayer(player, 0.005, 0, Math.min(player.experienceLevel, 50));
 
         Utils.dayLopCount.put(player.getName().getString(), Utils.dayLopCount.getOrDefault(player.getName().getString(), 0) + 1);
@@ -121,6 +124,28 @@ public class WoodSpur {
             }
         }
         return ForgeRegistries.BLOCKS.getValue(new ResourceLocation(namespace));
+    }
+
+    public static int getPlayerLopLevel(Player player) {
+        CompoundTag data = player.getPersistentData();
+        int MineXp = data.getInt(StringUtils.Lop.Xp);
+        if (MineXp <= 100) return 1;
+        else if (MineXp <= 1000) return 2;
+        else if (MineXp <= 5000) return 3;
+        else if (MineXp <= 20000) return 4;
+        else if (MineXp <= 100000) return 5;
+        return 0;
+    }
+
+    public static void addPlayerLopExp(Player player, int Num) {
+        CompoundTag data = player.getPersistentData();
+        data.putInt(StringUtils.Lop.Xp, data.getInt(StringUtils.Lop.Xp) + Num);
+        ClientboundSetActionBarTextPacket clientboundSetActionBarTextPacket = new ClientboundSetActionBarTextPacket(Component.literal("伐木经验").withStyle(ChatFormatting.LIGHT_PURPLE).
+                append(Component.literal(" + ").withStyle(CustomStyle.styleOfHusk)).
+                append(Component.literal("" + Num).withStyle(CustomStyle.styleOfHusk)).
+                append(Component.literal(" (" + data.getInt(StringUtils.Lop.Xp) + ")").withStyle(ChatFormatting.GRAY)));
+        ServerPlayer serverPlayer = (ServerPlayer) player;
+        serverPlayer.connection.send(clientboundSetActionBarTextPacket);
     }
 
 }

@@ -1,9 +1,10 @@
 package com.very.wraq.events.mob.MainStoryVII;
 
-import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.Utils;
+import com.very.wraq.events.mob.MobSpawn;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -58,7 +59,7 @@ public class StarEvent {
                         if (Utils.star[i] != null) Utils.star[i].remove(Entity.RemovalReason.KILLED);
                         Utils.star[i] = new Vex(EntityType.VEX, level);
                         ItemStack itemStack = ModItems.MobArmorStar.get().getDefaultInstance();
-                        Compute.setMobCustomName(Utils.star[i], itemStack.getItem(), Component.literal("梦灵").withStyle(CustomStyle.styleOfMoon1));
+                        MobSpawn.setMobCustomName(Utils.star[i], itemStack.getItem(), Component.literal("梦灵").withStyle(CustomStyle.styleOfMoon1));
 
                         Utils.star[i].setItemSlot(EquipmentSlot.HEAD, itemStack);
                         Utils.star[i].setItemSlot(EquipmentSlot.MAINHAND, Items.GOLDEN_SWORD.getDefaultInstance());
@@ -86,7 +87,7 @@ public class StarEvent {
     public static void SummonStar1(Level level, Vec3 pos) {
         Vex vex = new Vex(EntityType.VEX, level);
         ItemStack itemStack = ModItems.MobArmorStar1.get().getDefaultInstance();
-        Compute.setMobCustomName(vex, itemStack.getItem(), Component.literal("星使").withStyle(CustomStyle.styleOfMoon1));
+        MobSpawn.setMobCustomName(vex, itemStack.getItem(), Component.literal("星使").withStyle(CustomStyle.styleOfMoon1));
 
         vex.setItemSlot(EquipmentSlot.HEAD, itemStack);
         vex.setItemSlot(EquipmentSlot.MAINHAND, Items.DIAMOND_SWORD.getDefaultInstance());

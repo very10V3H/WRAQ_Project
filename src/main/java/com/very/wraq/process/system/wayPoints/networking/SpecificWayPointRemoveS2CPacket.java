@@ -2,9 +2,7 @@ package com.very.wraq.process.system.wayPoints.networking;
 
 import com.very.wraq.process.system.wayPoints.MyWayPoint;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkEvent;
-import org.joml.Vector3f;
 
 import java.util.function.Supplier;
 

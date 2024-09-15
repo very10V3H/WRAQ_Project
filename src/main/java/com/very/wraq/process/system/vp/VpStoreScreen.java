@@ -1,12 +1,12 @@
 package com.very.wraq.process.system.vp;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.process.func.plan.PlanPlayer;
 import com.very.wraq.process.func.plan.SimpleTierPaper;
 import com.very.wraq.process.system.vp.networking.VpStoreBuyC2SPacket;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.util.Utils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;

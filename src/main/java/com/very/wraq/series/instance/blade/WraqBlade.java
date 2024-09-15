@@ -1,12 +1,12 @@
 package com.very.wraq.series.instance.blade;
 
 import com.very.wraq.common.Compute;
-import com.very.wraq.process.func.DelayOperationWithAnimation;
-import com.very.wraq.common.registry.MySound;
 import com.very.wraq.common.fast.Tick;
+import com.very.wraq.common.registry.MySound;
 import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.Utils;
 import com.very.wraq.core.AttackEvent;
+import com.very.wraq.process.func.DelayOperationWithAnimation;
 import com.very.wraq.projectiles.ActiveItem;
 import com.very.wraq.projectiles.WraqPassiveEquip;
 import com.very.wraq.projectiles.WraqSword;

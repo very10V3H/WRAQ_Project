@@ -1,5 +1,6 @@
 package com.very.wraq.entities.villagers;
 
+import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.registry.ModBlocks;
 import com.google.common.collect.ImmutableSet;

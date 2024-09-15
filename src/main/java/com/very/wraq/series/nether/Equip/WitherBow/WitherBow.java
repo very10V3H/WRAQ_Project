@@ -1,14 +1,14 @@
 package com.very.wraq.series.nether.Equip.WitherBow;
 
 import com.very.wraq.blocks.blocks.forge.ForgeRecipe;
-import com.very.wraq.projectiles.OnHitEffectMainHandWeapon;
-import com.very.wraq.projectiles.WraqBow;
-import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.Utils;
 import com.very.wraq.process.func.StableAttributesModifier;
-import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.projectiles.OnHitEffectMainHandWeapon;
+import com.very.wraq.projectiles.WraqBow;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;

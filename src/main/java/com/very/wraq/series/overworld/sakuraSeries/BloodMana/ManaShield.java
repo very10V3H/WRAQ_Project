@@ -1,12 +1,12 @@
 package com.very.wraq.series.overworld.sakuraSeries.BloodMana;
 
-import com.very.wraq.projectiles.ForgeItem;
-import com.very.wraq.projectiles.WraqOffHandItem;
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.Utils;
+import com.very.wraq.projectiles.ForgeItem;
+import com.very.wraq.projectiles.WraqOffHandItem;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.series.overworld.chapter1.Mine.MineShield;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;

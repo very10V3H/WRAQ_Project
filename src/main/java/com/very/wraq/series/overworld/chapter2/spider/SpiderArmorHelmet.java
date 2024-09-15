@@ -1,9 +1,9 @@
 package com.very.wraq.series.overworld.chapter2.spider;
 
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ItemMaterial;
 import com.very.wraq.common.util.Utils;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.registry.ItemMaterial;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;

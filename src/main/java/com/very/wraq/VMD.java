@@ -7,6 +7,7 @@ import com.very.wraq.common.*;
 import com.very.wraq.common.attribute.BasicAttributeDescription;
 import com.very.wraq.common.fast.Tick;
 import com.very.wraq.common.registry.*;
+import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.Utils;
 import com.very.wraq.customized.UniformItems;
 import com.very.wraq.entities.entities.Boss2.Boss2;
@@ -203,7 +204,6 @@ public class VMD {
     @SubscribeEvent
     public static void serverStopEvent(ServerStoppingEvent event) throws SQLException {
         BlockEvent.mineAndWoodReset(event.getServer().getLevel(Level.OVERWORLD));
-        Compute.RemoveAllArmorStandForDisplay();
         MobSpawn.removeAllMob();
 
         MarketInfo.marketItemInfoWrite(event.getServer().overworld());
