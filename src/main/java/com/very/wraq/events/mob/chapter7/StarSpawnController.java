@@ -55,7 +55,7 @@ public class StarSpawnController extends MobSpawnController {
 
         // 设置颜色与名称
         Style style = CustomStyle.styleOfMoon1;
-        Compute.SetMobCustomName(vex, Component.literal(mobName).withStyle(style), xpLevel);
+        Compute.setMobCustomName(vex, Component.literal(mobName).withStyle(style), xpLevel);
 
         // 需要验证
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(vex), xpLevel);

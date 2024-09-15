@@ -1,12 +1,13 @@
 package com.very.wraq.series.overworld.chapter1.plain;
 
-import com.very.wraq.process.func.power.PowerLogic;
-import com.very.wraq.process.system.element.Element;
-import com.very.wraq.projectiles.ActiveItem;
-import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.Utils;
+import com.very.wraq.process.func.power.PowerLogic;
+import com.very.wraq.process.func.suit.SuitCount;
+import com.very.wraq.process.system.element.Element;
+import com.very.wraq.projectiles.ActiveItem;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
@@ -41,7 +42,7 @@ public class PlainPower extends Item implements ActiveItem {
         components.add(Component.literal(" 击退").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("指针").withStyle(ChatFormatting.AQUA)).
                 append(Component.literal("周围怪物，同时对其造成").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.ManaDamageValue(String.format("%.0f", effect[this.tier] * 100) + "%")));
+                append(ComponentUtils.AttributeDescription.ManaDamageValue(String.format("%.0f", effect[this.tier] * 100) + "%")));
         components.add(Component.literal(" - 这个伤害会附带").withStyle(ChatFormatting.WHITE).
                 append(Element.Description.LifeElement("1 + 100%")));
         components.add(Component.literal(" 为").withStyle(ChatFormatting.WHITE).
@@ -49,8 +50,8 @@ public class PlainPower extends Item implements ActiveItem {
                 append(Component.literal("周围所有玩家提供持续5s的").withStyle(ChatFormatting.WHITE)).
                 append(ComponentUtils.AttributeDescription.movementSpeed("50%")));
 
-        Compute.CoolDownTimeDescription(components, CoolDownTime[this.tier]);
-        Compute.ManaCostDescription(components, manaCost[this.tier]);
+        ComponentUtils.coolDownTimeDescription(components, CoolDownTime[this.tier]);
+        ComponentUtils.manaCostDescription(components, manaCost[this.tier]);
 
         Compute.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
         components.add(Component.literal("Powers-Plain").withStyle(CustomStyle.styleOfPlain));
@@ -76,7 +77,7 @@ public class PlainPower extends Item implements ActiveItem {
 
     @Override
     public void active(Player player) {
-        if (Compute.playerManaCost(player, PlainPower.manaCost[tier] - 10 * Compute.SuitCount.getLifeManaESuitCount(player), true)) {
+        if (Compute.playerManaCost(player, PlainPower.manaCost[tier] - 10 * SuitCount.getLifeManaESuitCount(player), true)) {
             PowerLogic.PlainPower(player, this, tier);
             PowerLogic.PlayerReleasePowerType(player, 4);
         }

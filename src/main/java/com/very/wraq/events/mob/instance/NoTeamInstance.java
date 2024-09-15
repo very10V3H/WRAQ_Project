@@ -1,10 +1,11 @@
 package com.very.wraq.events.mob.instance;
 
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.events.core.InventoryCheck;
 import com.very.wraq.events.mob.MobSpawn;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.process.func.item.InventoryOperation;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -119,7 +120,7 @@ public abstract class NoTeamInstance {
                 } else {
                     if (playerHasItem(player)) {
                         rewardModule(player);
-                        Compute.removeItem(player.getInventory(), ModItems.notePaper.get(), 1);
+                        InventoryOperation.removeItem(player.getInventory(), ModItems.notePaper.get(), 1);
                     } else {
                         Compute.sendFormatMSG(player, Component.literal("副本").withStyle(ChatFormatting.RED),
                                 Component.literal("你的背包中没有 ").withStyle(ChatFormatting.WHITE).
@@ -179,7 +180,7 @@ public abstract class NoTeamInstance {
     public static void givePlayerNotePaper(Player player) throws IOException {
         ItemStack itemStack = new ItemStack(ModItems.notePaper.get(), 64);
         InventoryCheck.addOwnerTagToItemStack(player, itemStack);
-        Compute.itemStackGive(player, itemStack);
+        InventoryOperation.itemStackGive(player, itemStack);
     }
 
     public void bossInfoSet(Level level) {

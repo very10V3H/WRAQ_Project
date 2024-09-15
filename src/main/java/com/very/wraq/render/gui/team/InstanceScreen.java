@@ -1,5 +1,6 @@
 package com.very.wraq.render.gui.team;
 
+import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.misc.TeamPackets.InstanceChooseC2SPacket;
 import com.very.wraq.networking.misc.TeamPackets.QuickChooseC2SPacket;
@@ -134,13 +135,13 @@ public class InstanceScreen extends Screen {
                         append(Component.literal("拥有两个交替施放的技能:").withStyle(ChatFormatting.WHITE)));
 
                 components.add(Component.literal(" 1.对半径6格以内的玩家造成").withStyle(ChatFormatting.WHITE).
-                        append(Compute.AttributeDescription.ManaDamageValue("200 * 难度系数")).
+                        append(ComponentUtils.AttributeDescription.ManaDamageValue("200 * 难度系数")).
                         append(Component.literal("，但对半径6格以外的玩家治疗").withStyle(ChatFormatting.WHITE)).
                         append(Compute.AttributeDescription.Health("100 * 难度系数")).
                         append(Component.literal("，同时其回复与造成伤害相同的生命值。").withStyle(ChatFormatting.WHITE)));
 
                 components.add(Component.literal(" 2.对半径6格以外的玩家造成").withStyle(ChatFormatting.WHITE).
-                        append(Compute.AttributeDescription.ManaDamageValue("125 * 难度系数")).
+                        append(ComponentUtils.AttributeDescription.ManaDamageValue("125 * 难度系数")).
                         append(Component.literal("，但对半径6格以内的玩家治疗").withStyle(ChatFormatting.WHITE)).
                         append(Compute.AttributeDescription.Health("75 * 难度系数")).
                         append(Component.literal("，同时其回复与造成伤害相同的生命值。").withStyle(ChatFormatting.WHITE)));
@@ -183,7 +184,7 @@ public class InstanceScreen extends Screen {
                 components.add(Component.literal(" ·魔王会根据你的当前").withStyle(ChatFormatting.WHITE).
                         append(Compute.AttributeDescription.MaxMana("")).
                         append(Component.literal("来提升技能造成的").withStyle(ChatFormatting.WHITE)).
-                        append(Compute.AttributeDescription.ManaDamageValue("")));
+                        append(ComponentUtils.AttributeDescription.ManaDamageValue("")));
                 guiGraphics.renderComponentTooltip(fontRenderer, components, x, y);
             }
 
@@ -206,7 +207,7 @@ public class InstanceScreen extends Screen {
                 components.add(Component.literal(" ·若天镜与明镜的生命值百分比差值超过50%，则其会回复全部").withStyle(ChatFormatting.WHITE).
                         append(Compute.AttributeDescription.Health("")).
                         append(Component.literal("并对玩家造成大量").withStyle(ChatFormatting.WHITE)).
-                        append(Compute.AttributeDescription.ManaDamageValue("")));
+                        append(ComponentUtils.AttributeDescription.ManaDamageValue("")));
                 guiGraphics.renderComponentTooltip(fontRenderer, components, x, y);
             }
         }
@@ -229,7 +230,7 @@ public class InstanceScreen extends Screen {
                 components.add(Component.literal(" ·每个").withStyle(ChatFormatting.WHITE).
                         append(Component.literal("禁法方块").withStyle(CustomStyle.styleOfBloodMana)).
                         append(Component.literal("每秒会为魔物回复").withStyle(ChatFormatting.WHITE)).
-                        append(Compute.AttributeDescription.MaxHealth("1%")));
+                        append(ComponentUtils.AttributeDescription.MaxHealth("1%")));
                 components.add(Component.literal(" ·你可以通过挖掘").withStyle(ChatFormatting.WHITE).
                         append(Component.literal("禁法方块").withStyle(CustomStyle.styleOfBloodMana)).
                         append(Component.literal("来获取").withStyle(ChatFormatting.WHITE)).

@@ -1,7 +1,8 @@
 package com.very.wraq.series.overworld.chapter1.Snow.Runes;
 
-import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -27,7 +28,7 @@ public class SnowRune0 extends Item {
         components.add(Component.literal("使用").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("魔法攻击").withStyle(CustomStyle.styleOfMana)).
                 append(Component.literal("命中一个目标后，获得").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.ManaDamage("15%")).
+                append(ComponentUtils.AttributeDescription.ManaDamage("15%")).
                 append(Component.literal("加成。").withStyle(ChatFormatting.WHITE)));
         components.add(Component.literal("持续").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("5s").withStyle(ChatFormatting.AQUA)).

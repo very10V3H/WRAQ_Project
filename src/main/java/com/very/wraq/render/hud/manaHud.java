@@ -56,8 +56,8 @@ public class manaHud {
 
             if (!mc.player.isShiftKeyDown()) {
                 guiGraphics.blit(MANA_PANEL, x + 75, y - 47, 0, 0, 64, 64, 64, 64);
-                double MaxMana = ClientManaData.getMaxMana();
-                double CurrentMana = ClientManaData.getCurrentMana();
+                double MaxMana = Mana.getMaxMana();
+                double CurrentMana = Mana.getCurrentMana();
                 int Rate = (int) Math.floor(20 * (CurrentMana / MaxMana));
                 for (int i = 0; i <= 20; i++) {
                     if (Rate >= i) {
@@ -71,8 +71,8 @@ public class manaHud {
 
                 guiGraphics.blit(Swiftness_Bar, x + 135, y - 30, 0, 0, 16, 32, 16, 32);
 
-                double MaxSwift = ClientSwiftData.getMaxSwift();
-                double CurrentSwift = ClientSwiftData.getCurrentSwift();
+                double MaxSwift = SwiftData.getMaxSwift();
+                double CurrentSwift = SwiftData.getCurrentSwift();
                 int RateSwift = (int) ((CurrentSwift / MaxSwift) * 12);
                 if (MaxSwift != 0) {
                     for (int i = 0; i < 3; i++) {

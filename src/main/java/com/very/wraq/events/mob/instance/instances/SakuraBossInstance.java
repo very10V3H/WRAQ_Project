@@ -52,7 +52,7 @@ public class SakuraBossInstance extends NoTeamInstance {
         Boss2 sakuraBoss = new Boss2(ModEntityType.Boss2.get(), level);
 
         sakuraBoss.setBaby(true);
-        Compute.SetMobCustomName(sakuraBoss, Component.literal("突见忍").withStyle(CustomStyle.styleOfSakura), 150);
+        Compute.setMobCustomName(sakuraBoss, Component.literal("突见忍").withStyle(CustomStyle.styleOfSakura), 150);
 
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(sakuraBoss), 150);
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(sakuraBoss, 1500, 2000, 2000, 0.4, 4, 0.25, 800, 20, 500 * Math.pow(10, 4), 0.35);

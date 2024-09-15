@@ -1,9 +1,10 @@
 package com.very.wraq.series.overworld.chapter1.volcano.bossItems;
 
-import com.very.wraq.process.system.element.Element;
-import com.very.wraq.common.attribute.BasicAttributeDescription;
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.attribute.BasicAttributeDescription;
+import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.Utils;
+import com.very.wraq.process.system.element.Element;
 import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -11,7 +12,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.SwordItem;
+import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -59,8 +63,8 @@ public class VolcanoBossSword extends SwordItem {
         components.add(Component.literal("∰1.削减范围内的所有生物").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("⚔ 攻击力 * 熔岩次元熵").withStyle(MainStyle)).
                 append(Component.literal("的伤害并施加持续5s的减速效果。").withStyle(ChatFormatting.WHITE)));
-        Compute.CoolDownTimeDescription(components, 10);
-        Compute.ManaCostDescription(components, 180);
+        ComponentUtils.coolDownTimeDescription(components, 10);
+        ComponentUtils.manaCostDescription(components, 180);
         Compute.DescriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
         components.add(Component.literal("Dimension-Volcano").withStyle(MainStyle).withStyle(ChatFormatting.ITALIC));
         Compute.SuffixOfMainStoryI(components);

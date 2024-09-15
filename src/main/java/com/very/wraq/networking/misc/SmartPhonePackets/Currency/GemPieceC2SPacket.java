@@ -1,7 +1,7 @@
 package com.very.wraq.networking.misc.SmartPhonePackets.Currency;
 
-import com.very.wraq.common.Compute;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.process.func.item.InventoryOperation;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
@@ -30,7 +30,7 @@ public class GemPieceC2SPacket {
             ServerPlayer player = context.getSender();
 
             try {
-                Compute.itemTrade(player, new ItemStack(ModItems.gemPiece.get(), 64), new ItemStack(ModItems.completeGem.get()));
+                InventoryOperation.itemTrade(player, new ItemStack(ModItems.gemPiece.get(), 64), new ItemStack(ModItems.completeGem.get()));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

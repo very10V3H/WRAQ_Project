@@ -1,9 +1,10 @@
 package com.very.wraq.process.system.element.holyStone;
 
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.Utils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -41,7 +42,7 @@ public class FireHolyStone extends Item implements ICurioItem {
         Compute.DescriptionOfBasic(components);
         Compute.LevelRequire(components, 200);
         Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        Compute.suffixOfElement(components);
+        ComponentUtils.suffixOfElement(components);
         super.appendHoverText(stack, level, components, flag);
     }
 

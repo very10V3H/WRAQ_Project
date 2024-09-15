@@ -1,9 +1,10 @@
 package com.very.wraq.events.sec;
 
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.process.func.item.InventoryOperation;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -122,7 +123,7 @@ public class SVEvent {
                         ItemStack volcanoSoulBag = ModItems.VolcanoSoulBag.get().getDefaultInstance();
                         int playerExpLevel = player.experienceLevel;
                         volcanoSoulBag.getOrCreateTagElement(Utils.MOD_ID).putInt(StringUtils.VolcanoSoulCount, (Utils.VolcanoSecKillCount / 35 + 1) * playerExpLevel);
-                        Compute.itemStackGive(player, volcanoSoulBag);
+                        InventoryOperation.itemStackGive(player, volcanoSoulBag);
                         Utils.VolcanoSecKillCount = 0;
                     }
                 }

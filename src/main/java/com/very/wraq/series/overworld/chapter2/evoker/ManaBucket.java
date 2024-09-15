@@ -1,6 +1,7 @@
 package com.very.wraq.series.overworld.chapter2.evoker;
 
 import com.very.wraq.common.Compute;
+import com.very.wraq.render.hud.Mana;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -38,7 +39,7 @@ public class ManaBucket extends Item {
             player.setHealth(player.getHealth() * 0.5F);
             CompoundTag data = player.getPersistentData();
             data.putDouble("MANA", data.getDouble("MAXMANA"));
-            Compute.ManaStatusUpdate(player);
+            Mana.updateManaStatus(player);
             player.getCooldowns().addCooldown(this, 200);
         }
         return super.use(level, player, interactionHand);

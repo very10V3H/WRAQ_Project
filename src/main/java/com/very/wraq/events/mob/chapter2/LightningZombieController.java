@@ -66,7 +66,7 @@ public class LightningZombieController extends MobSpawnController {
 
         // 设置颜色与名称
         Style style = CustomStyle.styleOfLightning;
-        Compute.SetMobCustomName(zombie, Component.literal(mobName).withStyle(style), xpLevel);
+        Compute.setMobCustomName(zombie, Component.literal(mobName).withStyle(style), xpLevel);
 
         // 需要验证
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(zombie), xpLevel);

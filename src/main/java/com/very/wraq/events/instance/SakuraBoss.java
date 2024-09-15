@@ -1,16 +1,17 @@
 package com.very.wraq.events.instance;
 
-import com.very.wraq.entities.entities.Boss2.Boss2;
-import com.very.wraq.events.core.LoginInEvent;
-import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.registry.ModEntityType;
+import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.util.StringUtils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.util.struct.Boss2Damage;
 import com.very.wraq.common.util.struct.Instance;
 import com.very.wraq.common.util.struct.PlayerTeam;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.entities.entities.Boss2.Boss2;
+import com.very.wraq.events.core.LoginInEvent;
+import com.very.wraq.process.func.item.InventoryOperation;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -90,7 +91,7 @@ public class SakuraBoss {
                         add(new Boss2(ModEntityType.Boss2.get(), level));
                     }});
                     Mob entity = instance.getMobList().get(0);
-                    Compute.SetMobCustomName(entity, ModItems.ArmorBoss2.get(),
+                    Compute.setMobCustomName(entity, ModItems.ArmorBoss2.get(),
                             Component.literal("突见忍").withStyle(CustomStyle.styleOfSakura));
                     entity.getAttribute(Attributes.MAX_HEALTH).setBaseValue(Boss2.MaxHealth * (1 + Utils.Boss2DeadTimes) * difficultyEnhanceRate * (1 + (playerNum - 1) * 0.75));
                     entity.setHealth(entity.getMaxHealth());
@@ -189,14 +190,14 @@ public class SakuraBoss {
     }
 
     public static void singleRewardToPlayer(Player player, int difficultyEnhanceRate, int playerNum, boolean isMopUp) {
-        Compute.itemStackGive(player, new ItemStack(ModItems.Boss2Piece.get(), difficultyEnhanceRate));
+        InventoryOperation.itemStackGive(player, new ItemStack(ModItems.Boss2Piece.get(), difficultyEnhanceRate));
         Random random = new Random();
         if (!isMopUp) {
             if (random.nextDouble() <= 0.025 * (playerNum - 1) * difficultyEnhanceRate) {
                 Compute.sendFormatMSG(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
                         Component.literal("你通过组队挑战副本，额外获得了:").withStyle(ChatFormatting.WHITE).
                                 append(ModItems.Boss2Piece.get().getDefaultInstance().getDisplayName()));
-                Compute.itemStackGive(player, new ItemStack(ModItems.Boss2Piece.get(), 1));
+                InventoryOperation.itemStackGive(player, new ItemStack(ModItems.Boss2Piece.get(), 1));
             }
         }
 
@@ -205,12 +206,12 @@ public class SakuraBoss {
                     Component.literal("每日首次通关副本，额外获得了:").withStyle(ChatFormatting.WHITE).
                             append(ModItems.Boss2Piece.get().getDefaultInstance().getDisplayName()));
 
-            Compute.itemStackGive(player, new ItemStack(ModItems.Boss2Piece.get(), 6));
+            InventoryOperation.itemStackGive(player, new ItemStack(ModItems.Boss2Piece.get(), 6));
 
         }
 
         if (random.nextDouble() < 0.01) {
-            Compute.itemStackGive(player, ModItems.GoldenShieldForgeDraw.get().getDefaultInstance());
+            InventoryOperation.itemStackGive(player, ModItems.GoldenShieldForgeDraw.get().getDefaultInstance());
         }
     }
 }

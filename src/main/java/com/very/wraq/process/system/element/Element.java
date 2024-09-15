@@ -11,6 +11,7 @@ import com.very.wraq.networking.misc.ElementEffectTimeS2CPacket;
 import com.very.wraq.networking.misc.ParticlePackets.EffectParticle.DefencePenetrationParticleS2CPacket;
 import com.very.wraq.networking.misc.ParticlePackets.EffectParticle.ManaDefencePenetrationParticleS2CPacket;
 import com.very.wraq.networking.misc.ParticlePackets.ElementParticle.*;
+import com.very.wraq.process.func.damage.Damage;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.process.system.element.equipAndCurios.waterElement.WaterElementSword;
 import com.very.wraq.render.particles.ModParticles;
@@ -550,9 +551,9 @@ public class Element {
             list.forEach(livingEntity -> {
                 if (livingEntity instanceof Mob mob) {
                     if (isAd) {
-                        Compute.Damage.causeAttackDamageToMonster_AdDamage(player, mob, damage * reactionElementValue);
+                        Damage.causeAttackDamageToMonster_AdDamage(player, mob, damage * reactionElementValue);
                     } else {
-                        Compute.Damage.causeManaDamageToMonster_ApDamage(player, mob, damage * reactionElementValue);
+                        Damage.causeManaDamageToMonster_ApDamage(player, mob, damage * reactionElementValue);
                     }
                 }
             });
@@ -690,9 +691,9 @@ public class Element {
             list.forEach(livingEntity -> {
                 if (livingEntity instanceof Mob mob) {
                     if (isAd) {
-                        Compute.Damage.causeAttackDamageToMonster_AdDamage(player, mob, damage * reactionElementValue);
+                        Damage.causeAttackDamageToMonster_AdDamage(player, mob, damage * reactionElementValue);
                     } else {
-                        Compute.Damage.causeManaDamageToMonster_ApDamage(player, mob, damage * reactionElementValue);
+                        Damage.causeManaDamageToMonster_ApDamage(player, mob, damage * reactionElementValue);
                     }
                 }
             });

@@ -1,17 +1,18 @@
 package com.very.wraq.events.mob.instance.instances;
 
+import com.very.wraq.common.Compute;
 import com.very.wraq.common.attribute.PlayerAttributes;
+import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.ItemAndRate;
 import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.events.mob.instance.NoTeamInstance;
+import com.very.wraq.process.func.damage.Damage;
+import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.process.system.missions.series.dailyMission.DailyMission;
-import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.render.particles.ModParticles;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.instance.series.castle.CastleCurios;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.ItemAndRate;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -60,7 +61,7 @@ public class PlainInstance extends NoTeamInstance {
                 if (player.position().distanceTo(mob.position()) <= 6) {
                     player.heal(75);
                 } else {
-                    Compute.Damage.manaDamageToPlayer(mob, player, 125);
+                    Damage.manaDamageToPlayer(mob, player, 125);
                     mob.heal(125);
                 }
             });
@@ -73,7 +74,7 @@ public class PlainInstance extends NoTeamInstance {
         if (mob.tickCount % 100 == 50) {
             players.forEach(player -> {
                 if (player.position().distanceTo(mob.position()) <= 6) {
-                    Compute.Damage.manaDamageToPlayer(mob, player, 200);
+                    Damage.manaDamageToPlayer(mob, player, 200);
                     mob.heal(200);
                 } else {
                     player.heal(100);
@@ -91,7 +92,7 @@ public class PlainInstance extends NoTeamInstance {
     @Override
     public void summonModule(Level level) {
         Stray stray = new Stray(EntityType.STRAY, level);
-        Compute.SetMobCustomName(stray, Component.literal("普莱尼").withStyle(CustomStyle.styleOfPlain), 50);
+        Compute.setMobCustomName(stray, Component.literal("普莱尼").withStyle(CustomStyle.styleOfPlain), 50);
 
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(stray), 50);
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(stray, 400, 200, 200, 0.2, 1, 0, 0, 0, 40000, 0.2);

@@ -1,9 +1,10 @@
 package com.very.wraq.series.specialevents.springFes;
 
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.struct.ItemAndWeight;
-import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.struct.ItemAndWeight;
+import com.very.wraq.process.func.item.InventoryOperation;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -81,7 +82,7 @@ public class RedEnvelope extends Item {
                                             append(Component.literal("获得了:").withStyle(ChatFormatting.WHITE)).
                                             append(itemAndWeight.getItem().getDefaultInstance().getDisplayName()));
 
-                        Compute.itemStackGive(player, itemAndWeight.getItem().getDefaultInstance());
+                        InventoryOperation.itemStackGive(player, itemAndWeight.getItem().getDefaultInstance());
                     }
                 }
             });

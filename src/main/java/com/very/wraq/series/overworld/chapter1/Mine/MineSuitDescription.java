@@ -2,6 +2,7 @@ package com.very.wraq.series.overworld.chapter1.Mine;
 
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.util.ClientUtils;
+import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.registry.ModItems;
@@ -60,21 +61,21 @@ public class MineSuitDescription {
             Count++;
         } else components.add(Component.literal(CrestName).withStyle(ChatFormatting.GRAY));
 
-        Compute.SuitDoubleDescription(components, Count);
+        ComponentUtils.SuitDoubleDescription(components, Count);
         Compute.DescriptionPassive(components, Component.literal("顽铁").withStyle(MainStyle));
         components.add(Component.literal("减少受到的").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.CritDamage("50%")));
-        Compute.SuitQuadraDescription(components, Count);
+                append(ComponentUtils.AttributeDescription.CritDamage("50%")));
+        ComponentUtils.SuitQuadraDescription(components, Count);
         Compute.DescriptionPassive(components, Component.literal("沉重").withStyle(MainStyle));
         components.add(Component.literal("1.").withStyle(MainStyle).
                 append(Component.literal("降低").withStyle(ChatFormatting.RED)).
-                append(Compute.AttributeDescription.MovementSpeedDecrease("50%")));
+                append(ComponentUtils.AttributeDescription.MovementSpeedDecrease("50%")));
         components.add(Component.literal("2.").withStyle(MainStyle).
                 append(Component.literal("获得").withStyle(ChatFormatting.GREEN)).
-                append(Compute.AttributeDescription.Defence("250")));
+                append(ComponentUtils.AttributeDescription.Defence("250")));
         components.add(Component.literal("3.").withStyle(MainStyle).
                 append(Component.literal("获得").withStyle(ChatFormatting.GREEN)).
-                append(Compute.AttributeDescription.ExAttackDamage("30%")));
+                append(ComponentUtils.AttributeDescription.ExAttackDamage("30%")));
 
     }
 }

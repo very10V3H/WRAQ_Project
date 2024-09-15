@@ -75,7 +75,7 @@ public class PlainSceptre4 extends WraqSceptre {
         List<Component> components = new ArrayList<>();
         Compute.DescriptionPassive(components, Component.literal("生机涌动").withStyle(CustomStyle.styleOfHealth));
         components.add(Component.literal("白天额外获得").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.ManaDamage("45")).
+                append(ComponentUtils.AttributeDescription.ManaDamage("45")).
                 append(Component.literal("与")).
                 append(Compute.AttributeDescription.ManaRecover("15")));
         PlainSceptre0.PlainSceptreDescription(components);

@@ -1,13 +1,14 @@
 package com.very.wraq.series.nether.Equip;
 
-import com.very.wraq.process.system.element.Element;
-import com.very.wraq.projectiles.WraqSword;
-import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.util.struct.ServerWaltzMonster;
 import com.very.wraq.common.util.struct.ServerWaltzPlayer;
-import com.very.wraq.common.util.Utils;
+import com.very.wraq.process.system.element.Element;
+import com.very.wraq.projectiles.WraqSword;
+import com.very.wraq.render.hud.Mana;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -47,7 +48,7 @@ public class QuartzSabre extends WraqSword {
                 player.sendSystemMessage(Component.literal("[").withStyle(ChatFormatting.GRAY).append(Component.literal("维瑞阿契").withStyle(ChatFormatting.AQUA)).append("]").withStyle(ChatFormatting.GRAY).append(Component.literal("法力不足").withStyle(ChatFormatting.WHITE)));
             else {
                 data.putInt("MANA", data.getInt("MANA") - 80);
-                Compute.ManaStatusUpdate(player);
+                Mana.updateManaStatus(player);
                 Player player1 = level.getNearestPlayer(TargetingConditions.DEFAULT, player, 10, 10, 10);
                 if (player1 != null) {
                     player1.getPersistentData().putInt("QuartzSabre", 1200);
@@ -97,9 +98,9 @@ public class QuartzSabre extends WraqSword {
                 append(Component.literal("将会造成(5%攻击力)%目标最大生命值").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("额外真实伤害").withStyle(Style.EMPTY.withColor(TextColor.parseColor("#b26814")))));
         components.add(Component.literal("并回复等量生命值，提供持续2s的").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.movementSpeedWithoutBattle("50%")));
-        Compute.CoolDownTimeDescription(components, 120);
-        Compute.ManaCostDescription(components, 80);
+                append(ComponentUtils.AttributeDescription.movementSpeedWithoutBattle("50%")));
+        ComponentUtils.coolDownTimeDescription(components, 120);
+        ComponentUtils.manaCostDescription(components, 80);
         return components;
     }
 

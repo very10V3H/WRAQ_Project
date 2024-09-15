@@ -12,6 +12,7 @@ import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.events.mob.instance.NoTeamInstanceModule;
 import com.very.wraq.process.func.EffectOnMob;
 import com.very.wraq.process.func.MobEffectAndDamageMethods;
+import com.very.wraq.process.func.item.InventoryOperation;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.process.system.element.originSummon.OriginSummon;
 import com.very.wraq.process.system.season.MySeason;
@@ -527,10 +528,10 @@ public class LevelEvents {
                             if (Utils.GiantCommonReward.isEmpty()) Utils.setGiantCommonReward();
                             if (boss2Damage.getDamage() / (Utils.giant.getMaxHealth()) > 0.005) {
                                 Utils.GiantCommonReward.forEach(itemStack -> {
-                                    Compute.itemStackGive(player1, new ItemStack(itemStack.getItem(), itemStack.getCount()));
+                                    InventoryOperation.itemStackGive(player1, new ItemStack(itemStack.getItem(), itemStack.getCount()));
                                 });
                                 if (index.get() <= 3) {
-                                    Compute.itemStackGive(player1, ModItems.GiantMedal.get().getDefaultInstance());
+                                    InventoryOperation.itemStackGive(player1, ModItems.GiantMedal.get().getDefaultInstance());
                                 }
                             }
                             index.incrementAndGet();
@@ -549,7 +550,7 @@ public class LevelEvents {
             if (Utils.giant != null) Utils.giant.remove(Entity.RemovalReason.KILLED);
             Utils.giant = new Giant(EntityType.GIANT, level);
 
-            Compute.SetMobCustomName(Utils.giant, ModItems.MobArmorGiant.get(), Component.literal("悲催的巨人").withStyle(ChatFormatting.GREEN));
+            Compute.setMobCustomName(Utils.giant, ModItems.MobArmorGiant.get(), Component.literal("悲催的巨人").withStyle(ChatFormatting.GREEN));
             Utils.giant.setItemSlot(EquipmentSlot.HEAD, ModItems.MobArmorGiant.get().getDefaultInstance());
             Random r = new Random();
             Utils.giant.getAttribute(Attributes.MAX_HEALTH).setBaseValue(r.nextInt(100, 200) * Math.pow(10, 8));

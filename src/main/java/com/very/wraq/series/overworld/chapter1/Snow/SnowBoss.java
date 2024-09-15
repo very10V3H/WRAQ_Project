@@ -1,12 +1,13 @@
 package com.very.wraq.series.overworld.chapter1.Snow;
 
-import com.very.wraq.common.attribute.BasicAttributeDescription;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.StringUtils;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.render.toolTip.CustomStyle;
+import com.very.wraq.common.attribute.BasicAttributeDescription;
 import com.very.wraq.common.registry.ItemMaterial;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.StringUtils;
+import com.very.wraq.common.util.Utils;
+import com.very.wraq.process.func.item.InventoryOperation;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -14,7 +15,10 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
@@ -149,7 +153,7 @@ public class SnowBoss {
                         Compute.sendFormatMSG(player, Component.literal("次元能量").withStyle(CustomStyle.styleOfEntropy),
                                 Component.literal("你通过次元口袋获得了").withStyle(ChatFormatting.WHITE).
                                         append(Rewards[i].getDefaultInstance().getDisplayName()));
-                        Compute.itemStackGive(player, Rewards[i].getDefaultInstance());
+                        InventoryOperation.itemStackGive(player, Rewards[i].getDefaultInstance());
                         Compute.formatBroad(level, Component.literal("次元").withStyle(CustomStyle.styleOfEntropy),
                                 Component.literal("玩家").withStyle(ChatFormatting.WHITE).
                                         append(player.getDisplayName()).

@@ -96,7 +96,7 @@ public abstract class WraqSceptre extends SwordItem {
     }
 
     public void shootManaArrow(Player player, double rate, boolean mainShoot) {
-        if (Compute.ManaSkillLevelGet(player.getPersistentData(), 10) > 0
+        if (Compute.getManaSkillLevel(player.getPersistentData(), 10) > 0
                 || Compute.playerManaCost(player,
                 Utils.manaCost.getOrDefault(player.getMainHandItem().getItem(), 15d))) {
             AbstractArrow arrow = summonManaArrow(player, rate);
@@ -116,7 +116,7 @@ public abstract class WraqSceptre extends SwordItem {
     protected AbstractArrow summonManaArrow(Player player, double rate) {
         Level level = player.level();
         CompoundTag data = player.getPersistentData();
-        if (Compute.ManaSkillLevelGet(data, 10) > 0 || Compute.playerManaCost(player, EvokerSceptre.ManaCost)) {
+        if (Compute.getManaSkillLevel(data, 10) > 0 || Compute.playerManaCost(player, EvokerSceptre.ManaCost)) {
             NewArrow newArrow = new NewArrow(player, level, PlayerAttributes.manaDamage(player) * rate,
                     PlayerAttributes.manaPenetration(player), PlayerAttributes.expUp(player),
                     false, PlayerAttributes.manaPenetration0(player));

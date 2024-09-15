@@ -1,10 +1,11 @@
 package com.very.wraq.series.nether.Power;
 
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.process.func.power.PowerLogic;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.projectiles.ActiveItem;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.Utils;
 import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -34,7 +35,7 @@ public class WitherBoneMealPower extends Item implements ActiveItem {
         components.add(Component.literal(" 对").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("指针").withStyle(ChatFormatting.AQUA)).
                 append(Component.literal("周围单位造成").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.ManaDamageValue("800%")));
+                append(ComponentUtils.AttributeDescription.ManaDamageValue("800%")));
         components.add(Component.literal(" 并").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("移除范围内敌人").withStyle(ChatFormatting.WHITE)).
                 append(Compute.AttributeDescription.ManaDefence("50%")).
@@ -44,7 +45,7 @@ public class WitherBoneMealPower extends Item implements ActiveItem {
                 append(Element.Description.FireElement("1 + 100%")));
         components.add(Component.literal("扣除自身").withStyle(ChatFormatting.WHITE).
                 append(Compute.AttributeDescription.MaxMana("33%")));
-        Compute.CoolDownTimeDescription(components, 10);
+        ComponentUtils.coolDownTimeDescription(components, 10);
         Compute.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
         components.add(Component.literal("Powers-NeSkeleton").withStyle(Style.EMPTY.withColor(TextColor.parseColor("#a2001b"))).withStyle(ChatFormatting.ITALIC));
         super.appendHoverText(itemStack, level, components, flag);

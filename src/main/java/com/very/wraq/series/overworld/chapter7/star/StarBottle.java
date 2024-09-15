@@ -2,7 +2,9 @@ package com.very.wraq.series.overworld.chapter7.star;
 
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.Utils;
+import com.very.wraq.process.func.damage.Damage;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -66,7 +68,7 @@ public class StarBottle extends Item implements ICurioItem {
                 append(Component.literal("被完全释放后，你才可以再次收集").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("星屑").withStyle(style)));
         Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        Compute.SuffixOfMainStoryVII(components);
+        ComponentUtils.SuffixOfMainStoryVII(components);
         super.appendHoverText(stack, level, components, flag);
     }
 
@@ -136,7 +138,7 @@ public class StarBottle extends Item implements ICurioItem {
         mobList.forEach(mob -> {
             if (playerCountsMap.get(player) > 0) {
                 playerCountsMap.put(player, playerCountsMap.get(player) - 1);
-                Compute.Damage.causeIgNoreDefenceDamageToMonster(player, mob, Compute.XpStrengthDamage(player, (double) playerCountsMap.get(player) / 10));
+                Damage.causeIgNoreDefenceDamageToMonster(player, mob, Compute.XpStrengthDamage(player, (double) playerCountsMap.get(player) / 10));
                 ParticleProvider.LineParticle(player.level(), (int) mob.distanceTo(player) * 2, player.position(), mob.position(), ParticleTypes.FIREWORK);
             }
         });

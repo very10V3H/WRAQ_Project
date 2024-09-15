@@ -1,11 +1,11 @@
 package com.very.wraq.entities.entities.Boss2;
 
+import com.very.wraq.common.util.ClientUtils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.misc.AnimationPackets.Boss2AnimationStartS2CPacket;
 import com.very.wraq.networking.misc.ParticlePackets.UtilsParticleS2CPacket;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.ClientUtils;
-import com.very.wraq.common.util.Utils;
+import com.very.wraq.process.func.damage.Damage;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -221,7 +221,7 @@ public class Boss2 extends WitherSkeleton implements GeoEntity {
                 if (AttackTick % 10 == 0) {
                     List<Player> playerList = this.level().getEntitiesOfClass(Player.class, AABB.ofSize(this.getEyePosition(), 8, 8, 8));
                     playerList.forEach(player -> {
-                        Compute.Damage.AttackDamageToPlayer_NumDamage(this, player, 100 * (1 + Utils.Boss2DeadTimes), 0.5f, 100);
+                        Damage.AttackDamageToPlayer_NumDamage(this, player, 100 * (1 + Utils.Boss2DeadTimes), 0.5f, 100);
                     });
                 }
             }
@@ -231,7 +231,7 @@ public class Boss2 extends WitherSkeleton implements GeoEntity {
                         List<Player> playerList = this.level().getEntitiesOfClass(Player.class, AABB.ofSize(this.pick(3, 0, true).getLocation(), 10, 10, 10));
                         playerList.forEach(player -> {
                             if (player.getEyePosition().distanceTo(this.pick(3, 0, true).getLocation()) <= 3)
-                                Compute.Damage.AttackDamageToPlayer(this, player, 100 * (1 + Utils.Boss2DeadTimes));
+                                Damage.AttackDamageToPlayer(this, player, 100 * (1 + Utils.Boss2DeadTimes));
                         });
                     }
                     case 2 -> {
@@ -241,14 +241,14 @@ public class Boss2 extends WitherSkeleton implements GeoEntity {
                         List<Player> playerList = this.level().getEntitiesOfClass(Player.class, AABB.ofSize(this.pick(3, 0, true).getLocation(), 10, 10, 10));
                         playerList.forEach(player -> {
                             if (player.getEyePosition().distanceTo(this.pick(3, 0, true).getLocation()) <= 3)
-                                Compute.Damage.AttackDamageToPlayer_NumDamage(this, player, 100 * (1 + Utils.Boss2DeadTimes), 0.85f, 100);
+                                Damage.AttackDamageToPlayer_NumDamage(this, player, 100 * (1 + Utils.Boss2DeadTimes), 0.85f, 100);
                         });
                     }
                     case 3 -> {
                         List<Player> playerList = this.level().getEntitiesOfClass(Player.class, AABB.ofSize(this.pick(3, 0, true).getLocation(), 10, 10, 10));
                         playerList.forEach(player -> {
                             if (player.onGround())
-                                Compute.Damage.AttackDamageToPlayer(this, player, 200 * (1 + Utils.Boss2DeadTimes));
+                                Damage.AttackDamageToPlayer(this, player, 200 * (1 + Utils.Boss2DeadTimes));
                         });
                     }
                 }

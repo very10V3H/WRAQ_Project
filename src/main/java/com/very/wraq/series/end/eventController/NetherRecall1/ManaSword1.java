@@ -1,13 +1,14 @@
 package com.very.wraq.series.end.eventController.NetherRecall1;
 
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.attribute.PlayerAttributes;
+import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.projectiles.ActiveItem;
 import com.very.wraq.projectiles.WraqSword;
+import com.very.wraq.render.hud.Mana;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.ComponentUtils;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.attribute.PlayerAttributes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -55,7 +56,7 @@ public class ManaSword1 extends WraqSword implements ActiveItem {
                 append(Compute.AttributeDescription.MaxMana("")).
                 append(Component.literal("并获得等同于消耗量的").withStyle(ChatFormatting.WHITE)).
                 append(Compute.AttributeDescription.AttackDamage("")));
-        Compute.CoolDownTimeDescription(components, 5);
+        ComponentUtils.coolDownTimeDescription(components, 5);
         return components;
     }
 
@@ -70,7 +71,7 @@ public class ManaSword1 extends WraqSword implements ActiveItem {
         player.getCooldowns().addCooldown(this, (int) (100 - 100 * PlayerAttributes.coolDownDecrease(player)));
         data.putInt("ManaSwordActive", data.getInt("MANA"));
         data.putInt("MANA", 0);
-        Compute.ManaStatusUpdate(player);
+        Mana.updateManaStatus(player);
         Compute.PlayerPowerParticle(player);
     }
 }

@@ -48,8 +48,8 @@ public class PlainSword extends WraqSword implements ActiveItem {
         Compute.DescriptionActive(components, Component.literal("平原洗礼").withStyle(ChatFormatting.GREEN));
         components.add(Component.literal("右键恢复").withStyle(ChatFormatting.WHITE).
                 append(Compute.AttributeDescription.Health(PlainSwordAttributes.Effect[tier])));
-        Compute.CoolDownTimeDescription(components, 20);
-        Compute.ManaCostDescription(components, 60);
+        ComponentUtils.coolDownTimeDescription(components, 20);
+        ComponentUtils.manaCostDescription(components, 60);
         return components;
     }
 

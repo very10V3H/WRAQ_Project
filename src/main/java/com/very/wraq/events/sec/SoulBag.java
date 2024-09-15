@@ -2,6 +2,7 @@ package com.very.wraq.events.sec;
 
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.util.Utils;
+import com.very.wraq.process.func.item.InventoryOperation;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -45,7 +46,7 @@ public class SoulBag extends Item {
             CompoundTag data = itemStack.getOrCreateTagElement(Utils.MOD_ID);
             int Count = data.getInt(Utils.SoulBagsMap.get(item));
             if (Count == 0) Count = 64;
-            Compute.itemStackGive(player, new ItemStack(item, Count));
+            InventoryOperation.itemStackGive(player, new ItemStack(item, Count));
             Compute.playerItemUseWithRecord(player);
         }
         return super.use(level, player, interactionHand);

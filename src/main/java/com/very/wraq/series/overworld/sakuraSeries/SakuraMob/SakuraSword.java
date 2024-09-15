@@ -96,4 +96,14 @@ public class SakuraSword extends WraqSword implements ActiveItem {
             }
         }
     }
+
+    public static double SakuraDemonSword(Player player, double DamageBeforeDefence) {
+        double DamageInfluence = 0;
+        int TickCount = player.getServer().getTickCount();
+        CompoundTag data = player.getPersistentData();
+        if (data.contains(StringUtils.SakuraDemonSword) && data.getInt(StringUtils.SakuraDemonSword) > TickCount) {
+            DamageInfluence += DamageBeforeDefence * 0.5f;
+        }
+        return DamageInfluence;
+    }
 }

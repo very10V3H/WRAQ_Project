@@ -1,10 +1,11 @@
 package com.very.wraq.process.func.plan;
 
-import com.very.wraq.networking.ModNetworking;
-import com.very.wraq.process.func.plan.networking.DailySupplyS2CPacket;
-import com.very.wraq.process.func.plan.networking.PlanDateAndTierS2CPacket;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.networking.ModNetworking;
+import com.very.wraq.process.func.item.InventoryOperation;
+import com.very.wraq.process.func.plan.networking.DailySupplyS2CPacket;
+import com.very.wraq.process.func.plan.networking.PlanDateAndTierS2CPacket;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.ChatFormatting;
@@ -60,7 +61,7 @@ public class DailySupply {
                     Component.literal("成功领取了每日补给").withStyle(ChatFormatting.WHITE));
             ItemStack mapItemStack = map.getOrDefault(PlanPlayer.getPlayerTier(player), new ItemStack(Items.AIR));
             ItemStack giveItemStack = new ItemStack(mapItemStack.getItem(), mapItemStack.getCount());
-            Compute.itemStackGive(player, giveItemStack);
+            InventoryOperation.itemStackGive(player, giveItemStack);
             sendStatusToClient(player);
         } else {
             Compute.sendFormatMSG(player, Component.literal("每日补给").withStyle(ChatFormatting.AQUA),

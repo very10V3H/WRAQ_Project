@@ -49,7 +49,7 @@ public class PlainSceptre0 extends WraqSceptre {
         ComponentUtils.emojiDescriptionDefence(components, 40);
         ComponentUtils.emojiDescriptionManaDefence(components, 40);
         components.add(Component.literal("并回复").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.MaxHealth("1%")));
+                append(ComponentUtils.AttributeDescription.MaxHealth("1%")));
     }
 
     @Override

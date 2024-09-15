@@ -1,7 +1,8 @@
 package com.very.wraq.process.system.element.teleportTicket;
 
-import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -38,9 +39,9 @@ public class StoneTeleportTicket extends Item {
     public void appendHoverText(ItemStack stack, @Nullable Level p_41422_, List<Component> components, TooltipFlag p_41424_) {
         components.add(Component.literal(" 使用以前往 - ").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("层岩寨").withStyle(CustomStyle.styleOfStone)));
-        Compute.CoolDownTimeDescription(components, 120);
+        ComponentUtils.coolDownTimeDescription(components, 120);
         Compute.LevelRequire(components, 200);
-        Compute.suffixOfElement(components);
+        ComponentUtils.suffixOfElement(components);
         super.appendHoverText(stack, p_41422_, components, p_41424_);
     }
 

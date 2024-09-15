@@ -1,7 +1,9 @@
 package com.very.wraq.common.attribute;
 
-import com.very.wraq.process.func.ChangedAttributesModifier;
-import com.very.wraq.process.func.StableAttributesModifier;
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.StringUtils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.customized.uniform.attack.AttackCurios0;
 import com.very.wraq.customized.uniform.attack.AttackCurios1;
 import com.very.wraq.customized.uniform.attack.AttackCurios2;
@@ -10,7 +12,11 @@ import com.very.wraq.customized.uniform.bow.BowCurios2;
 import com.very.wraq.customized.uniform.mana.ManaCurios0;
 import com.very.wraq.customized.uniform.mana.ManaCurios2;
 import com.very.wraq.events.mob.loot.C5LootItems;
+import com.very.wraq.process.func.ChangedAttributesModifier;
+import com.very.wraq.process.func.StableAttributesModifier;
 import com.very.wraq.process.func.plan.PlanPlayer;
+import com.very.wraq.process.func.suit.SArmorAttribute;
+import com.very.wraq.process.func.suit.SuitCount;
 import com.very.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementBow;
 import com.very.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSceptre;
 import com.very.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSword;
@@ -27,39 +33,37 @@ import com.very.wraq.series.instance.series.castle.CastleSwiftArmor;
 import com.very.wraq.series.instance.series.castle.CastleSword;
 import com.very.wraq.series.instance.series.devil.DevilAttackArmor;
 import com.very.wraq.series.instance.series.devil.DevilSwiftArmor;
-import com.very.wraq.series.instance.series.moon.Equip.*;
+import com.very.wraq.series.instance.series.moon.Equip.MoonBook;
+import com.very.wraq.series.instance.series.moon.Equip.MoonKnife;
+import com.very.wraq.series.instance.series.moon.Equip.MoonShield;
 import com.very.wraq.series.instance.series.taboo.TabooManaArmor;
 import com.very.wraq.series.nether.Equip.PiglinHelmet.PiglinHelmet;
+import com.very.wraq.series.newrunes.chapter1.ForestNewRune;
+import com.very.wraq.series.newrunes.chapter1.PlainNewRune;
 import com.very.wraq.series.newrunes.chapter2.SkyNewRune;
 import com.very.wraq.series.newrunes.chapter6.CastleNewRune;
+import com.very.wraq.series.overworld.chapter1.Mine.Crest.MineCrestAttributes;
 import com.very.wraq.series.overworld.chapter1.Mine.MineShield;
+import com.very.wraq.series.overworld.chapter1.Snow.Crest.SnowCrestAttributes;
 import com.very.wraq.series.overworld.chapter1.forest.armor.ForestArmorBoots;
 import com.very.wraq.series.overworld.chapter1.forest.armor.ForestArmorChest;
 import com.very.wraq.series.overworld.chapter1.forest.armor.ForestArmorHelmet;
 import com.very.wraq.series.overworld.chapter1.forest.armor.ForestArmorLeggings;
 import com.very.wraq.series.overworld.chapter1.forest.crest.ForestCrestAttributes;
-import com.very.wraq.series.overworld.chapter1.Mine.Crest.MineCrestAttributes;
-import com.very.wraq.series.newrunes.chapter1.ForestNewRune;
 import com.very.wraq.series.overworld.chapter1.plain.armor.PlainArmorHelmet;
 import com.very.wraq.series.overworld.chapter1.plain.crest.PlainCrestAttributes;
-import com.very.wraq.series.newrunes.chapter1.PlainNewRune;
 import com.very.wraq.series.overworld.chapter1.plain.sceptre.PlainSceptre4;
-import com.very.wraq.series.overworld.chapter1.Snow.Crest.SnowCrestAttributes;
 import com.very.wraq.series.overworld.chapter1.volcano.armor.VolcanoArmorHelmet;
 import com.very.wraq.series.overworld.chapter1.volcano.crest.VolcanoCrestAttributes;
-import com.very.wraq.series.overworld.chapter1.waterSystem.equip.armor.LakeArmorHelmet;
 import com.very.wraq.series.overworld.chapter1.waterSystem.crest.LakeCrestAttributes;
+import com.very.wraq.series.overworld.chapter1.waterSystem.equip.armor.LakeArmorHelmet;
 import com.very.wraq.series.overworld.chapter2.evoker.Crest.ManaCrestAttributes;
-import com.very.wraq.series.overworld.chapter2.manaArmor.LifeMana.*;
+import com.very.wraq.series.overworld.chapter2.manaArmor.LifeMana.LifeManaArmor;
 import com.very.wraq.series.overworld.chapter2.sky.BossItems.SkyBoss;
 import com.very.wraq.series.overworld.chapter2.sky.Crest.SkyCrestAttributes;
 import com.very.wraq.series.overworld.chapter2.sky.SkyBow;
 import com.very.wraq.series.overworld.sakuraSeries.EarthMana.EarthPower;
 import com.very.wraq.series.worldsoul.SoulEquipAttribute;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.StringUtils;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -153,15 +157,15 @@ public class PlayerAttributes {
         if (leggingsTag.contains("newGems1")) exDamage += GemAttributes.gemsAttackDamage(leggingsTag);
         if (bootsTag.contains("newGems1")) exDamage += GemAttributes.gemsAttackDamage(bootsTag);
         if (stackmainhandtag.contains("newGems1") && Utils.mainHandTag.containsKey(mainhand)) exDamage += GemAttributes.gemsAttackDamage(stackmainhandtag);
-        if (Compute.SuitCount.getVolcanoSuitCount(player) >= 2) exDamage += baseAttackDamage * 0.15F;
-        if (Compute.SuitCount.getObsiManaSuitCount(player) >= 4) exDamage += baseAttackDamage * 0.15F;
+        if (SuitCount.getVolcanoSuitCount(player) >= 2) exDamage += baseAttackDamage * 0.15F;
+        if (SuitCount.getObsiManaSuitCount(player) >= 4) exDamage += baseAttackDamage * 0.15F;
         if (data.contains("Sword")) exDamage += baseAttackDamage * (data.getInt("Sword") / 1000000.0d);
         if (data.contains("Barker")) exDamage += baseAttackDamage * ((data.getInt("Barker") / 100000.0d) * 0.05);
         if (data.contains("volcanogems") && data.getBoolean("volcanogems")) exDamage += baseAttackDamage * 0.1;
         if (data.contains("ManaSwordActive") && data.getInt("ManaSwordActive") > 0)
             exDamage += data.getInt("ManaSwordActive");
 
-        if (Compute.SuitCount.getSkySuitCount(player) > 0) {
+        if (SuitCount.getSkySuitCount(player) > 0) {
             if (player.getHealth() / player.getMaxHealth() > 0.8)
                 exDamage += baseAttackDamage * 1 * Compute.SkySuitEffectRate(player);
             else if (player.getHealth() / player.getMaxHealth() > 0.4)
@@ -183,33 +187,33 @@ public class PlayerAttributes {
             exDamage += 75;
         if (mainhand.equals(ModItems.GoldSword0.get())) exDamage += data.getDouble("VB") / 10000.0;
 
-        if (Compute.SwordSkillLevelGet(data, 2) > 0 && data.contains(StringUtils.SwordSkillNum.Skill2) && data.getInt(StringUtils.SwordSkillNum.Skill2) > TickCount) {
-            exDamage += baseAttackDamage * Compute.SwordSkillLevelGet(data, 2) * 0.02;
+        if (Compute.getSwordSkillLevel(data, 2) > 0 && data.contains(StringUtils.SwordSkillNum.Skill2) && data.getInt(StringUtils.SwordSkillNum.Skill2) > TickCount) {
+            exDamage += baseAttackDamage * Compute.getSwordSkillLevel(data, 2) * 0.02;
         } // 战斗渴望（击杀一个单位时，提升2%攻击力，持续10s）‘
 
-        if (Compute.BowSkillLevelGet(data, 2) > 0 && data.contains(StringUtils.BowSkillNum.Skill2) && data.getInt(StringUtils.BowSkillNum.Skill2) > TickCount) {
-            exDamage += baseAttackDamage * Compute.BowSkillLevelGet(data, 2) * 0.02;
+        if (Compute.getBowSkillLevel(data, 2) > 0 && data.contains(StringUtils.BowSkillNum.Skill2) && data.getInt(StringUtils.BowSkillNum.Skill2) > TickCount) {
+            exDamage += baseAttackDamage * Compute.getBowSkillLevel(data, 2) * 0.02;
         } // 狩猎渴望（击杀一个单位时，提升2%攻击力，持续10s）
 
-        if (Compute.SwordSkillLevelGet(data, 5) > 0 && data.contains(StringUtils.SwordSkillNum.Skill5) && data.getInt(StringUtils.SwordSkillNum.Skill5) > TickCount) {
-            exDamage += baseAttackDamage * Compute.SwordSkillLevelGet(data, 5) * 0.015;
+        if (Compute.getSwordSkillLevel(data, 5) > 0 && data.contains(StringUtils.SwordSkillNum.Skill5) && data.getInt(StringUtils.SwordSkillNum.Skill5) > TickCount) {
+            exDamage += baseAttackDamage * Compute.getSwordSkillLevel(data, 5) * 0.015;
         } // 剑术-狂暴（造成暴击后，提升1%攻击力，持续3s）
 
-        if (Compute.BowSkillLevelGet(data, 5) > 0 && data.contains(StringUtils.BowSkillNum.Skill5) && data.getInt(StringUtils.BowSkillNum.Skill5) > TickCount) {
-            exDamage += baseAttackDamage * Compute.BowSkillLevelGet(data, 5) * 0.01;
+        if (Compute.getBowSkillLevel(data, 5) > 0 && data.contains(StringUtils.BowSkillNum.Skill5) && data.getInt(StringUtils.BowSkillNum.Skill5) > TickCount) {
+            exDamage += baseAttackDamage * Compute.getBowSkillLevel(data, 5) * 0.01;
         } // 弓术-狂暴（造成暴击后，提升1%攻击力，持续5s）
 
         String name = player.getName().getString();
-        if (Compute.SwordSkillLevelGet(data, 6) > 0 && Utils.SwordSkill6Map.containsKey(name) && Utils.SwordSkill6Map.get(name).getTime() > TickCount) {
-            exDamage += baseAttackDamage * Compute.SwordSkillLevelGet(data, 6) * 0.003 * Utils.SwordSkill6Map.get(name).getCount();
+        if (Compute.getSwordSkillLevel(data, 6) > 0 && Utils.SwordSkill6Map.containsKey(name) && Utils.SwordSkill6Map.get(name).getTime() > TickCount) {
+            exDamage += baseAttackDamage * Compute.getSwordSkillLevel(data, 6) * 0.003 * Utils.SwordSkill6Map.get(name).getCount();
         } // 完美（持续造成暴击，将提供至多30%攻击力，持续10s，在十次暴击后达最大值，在未造成暴击时重置层数）
 
-        if (Compute.BowSkillLevelGet(data, 6) > 0 && Utils.BowSkill6Map.containsKey(name) && Utils.BowSkill6Map.get(name).getTime() > TickCount) {
-            exDamage += baseAttackDamage * Compute.BowSkillLevelGet(data, 6) * 0.005 * Utils.BowSkill6Map.get(name).getCount();
+        if (Compute.getBowSkillLevel(data, 6) > 0 && Utils.BowSkill6Map.containsKey(name) && Utils.BowSkill6Map.get(name).getTime() > TickCount) {
+            exDamage += baseAttackDamage * Compute.getBowSkillLevel(data, 6) * 0.005 * Utils.BowSkill6Map.get(name).getCount();
         } // 完美（持续的命中目标的箭矢，将提供至多3%攻击力，持续10s，在十次命中后达最大值，在未命中时重置层数）
 
-        if (Compute.BowSkillLevelGet(data, 8) > 0 && Utils.bowTag.containsKey(mainhand)) {
-            exDamage += baseAttackDamage * Compute.BowSkillLevelGet(data, 8) * 0.02;
+        if (Compute.getBowSkillLevel(data, 8) > 0 && Utils.bowTag.containsKey(mainhand)) {
+            exDamage += baseAttackDamage * Compute.getBowSkillLevel(data, 8) * 0.02;
         } // 锻弦-力量（手持弓时，获得2%攻击力）
 
         int powerAbilityPoint = data.getInt(StringUtils.Ability.Power);
@@ -221,7 +225,7 @@ public class PlayerAttributes {
             exDamage += 50;
         // 矿工裤被动
 
-        if (Compute.SuitCount.getMineSuitCount(player) >= 4) exDamage += baseAttackDamage * 0.3;
+        if (SuitCount.getMineSuitCount(player) >= 4) exDamage += baseAttackDamage * 0.3;
 
         if (data.getInt(StringUtils.Crest.Volcano.Crest0) > 0)
             exDamage += VolcanoCrestAttributes.ExAttackDamage[0] * data.getInt(StringUtils.Crest.Volcano.Crest0);
@@ -240,7 +244,7 @@ public class PlayerAttributes {
 
         if (data.contains("GemSAttack")) exDamage += data.getDouble("GemSAttack");
 
-        exDamage += Compute.SArmorAttackDamage(player);
+        exDamage += SArmorAttribute.value(player, SArmorAttribute.volcanoPower);
         if (Utils.playerAttackRingMap.containsKey(name))
             exDamage += Utils.playerAttackRingMap.get(name);
 
@@ -367,9 +371,9 @@ public class PlayerAttributes {
         if (player.getEffect(ModEffects.CRITRATEUP.get()) != null && player.getEffect(ModEffects.CRITRATEUP.get()).getAmplifier() == 1)
             critRate += 0.4;
         if (data.contains("GemSCritRate")) critRate += data.getDouble("GemSCritRate");
-        critRate += Compute.SArmorCritRate(player);
-        if (Compute.BowSkillLevelGet(data, 11) > 0 && Utils.bowTag.containsKey(mainhand)) {
-            critRate += Compute.BowSkillLevelGet(data, 11) * 0.02;
+        critRate += SArmorAttribute.value(player, SArmorAttribute.skyPower);
+        if (Compute.getBowSkillLevel(data, 11) > 0 && Utils.bowTag.containsKey(mainhand)) {
+            critRate += Compute.getBowSkillLevel(data, 11) * 0.02;
         } // 锻弦-平衡（手持弓时，获得额外2%暴击几率）
 
         int luckyAbilityPoint = data.getInt(StringUtils.Ability.Lucky);
@@ -381,8 +385,8 @@ public class PlayerAttributes {
             critRate +=
                     stackmainhandtag.getInt(StringUtils.SoulEquipForge) * SoulEquipAttribute.ForgingAddition.CritRate;
 
-        if (Compute.ManaSkillLevelGet(data, 10) > 0 && Utils.sceptreTag.containsKey(mainhand)) {
-            double manaRecoverValue = 0.05 + manaRecover(player) * 0.01 * Compute.ManaSkillLevelGet(data, 10) * 0.1;
+        if (Compute.getManaSkillLevel(data, 10) > 0 && Utils.sceptreTag.containsKey(mainhand)) {
+            double manaRecoverValue = 0.05 + manaRecover(player) * 0.01 * Compute.getManaSkillLevel(data, 10) * 0.1;
             critRate += 1 - (1 / (1 + manaRecoverValue));
         } // 法术专精-力凝魔核
 
@@ -462,10 +466,10 @@ public class PlayerAttributes {
         if (player.getEffect(ModEffects.CRITDAMAGEUP.get()) != null && player.getEffect(ModEffects.CRITDAMAGEUP.get()).getAmplifier() == 1)
             critDamage += 0.8;
         if (data.contains("GemSCritDamage")) critDamage += data.getDouble("GemSCritDamage");
-        critDamage += Compute.SArmorCritDamage(player);
+        critDamage += SArmorAttribute.value(player, SArmorAttribute.snowPower);
 
-        if (Compute.BowSkillLevelGet(data, 7) > 0 && Utils.bowTag.containsKey(mainhand)) {
-            critDamage += Compute.BowSkillLevelGet(data, 7) * 0.1;
+        if (Compute.getBowSkillLevel(data, 7) > 0 && Utils.bowTag.containsKey(mainhand)) {
+            critDamage += Compute.getBowSkillLevel(data, 7) * 0.1;
         } // 锻矢-锋利（手持弓时，获得10%暴击伤害）
 
         int PowerAbilityPoint = data.getInt(StringUtils.Ability.Power);
@@ -473,7 +477,7 @@ public class PlayerAttributes {
             critDamage += PowerAbilityPoint * 0.01;
         } // 能力
 
-        if (Compute.SuitCount.getVolcanoSuitCount(player) >= 4) critDamage += 0.35;
+        if (SuitCount.getVolcanoSuitCount(player) >= 4) critDamage += 0.35;
 
         if (data.getInt(StringUtils.Crest.Sky.Crest0) > 0)
             critDamage += SkyCrestAttributes.CritDamage[0] * data.getInt(StringUtils.Crest.Sky.Crest0);
@@ -494,8 +498,8 @@ public class PlayerAttributes {
             critDamage += Utils.IceSwordEffectNumMap.get(player) / 1200;
         } //冰霜剑
 
-        if (Compute.ManaSkillLevelGet(data, 10) > 0 && Utils.sceptreTag.containsKey(mainhand)) {
-            critDamage += maxManaUp(player) * 0.003 * Compute.ManaSkillLevelGet(data, 10) * 0.1;
+        if (Compute.getManaSkillLevel(data, 10) > 0 && Utils.sceptreTag.containsKey(mainhand)) {
+            critDamage += maxManaUp(player) * 0.003 * Compute.getManaSkillLevel(data, 10) * 0.1;
         } // 法术专精-力凝魔核
 
         if (player.getItemInHand(InteractionHand.OFF_HAND).is(ModItems.ManaShield.get())) {
@@ -532,6 +536,33 @@ public class PlayerAttributes {
         return critDamage;
     }
 
+    public static double decreasePlayerCritDamage(Player player) {
+        double CritDamageDecrease = 0.0d;
+        Item boots = player.getItemBySlot(EquipmentSlot.FEET).getItem();
+        Item leggings = player.getItemBySlot(EquipmentSlot.LEGS).getItem();
+        Item chest = player.getItemBySlot(EquipmentSlot.CHEST).getItem();
+        Item helmet = player.getItemBySlot(EquipmentSlot.HEAD).getItem();
+        Item mainhand = player.getItemInHand(InteractionHand.MAIN_HAND).getItem();
+        Item offhand = player.getItemInHand(InteractionHand.OFF_HAND).getItem();
+        CompoundTag stackmainhandtag = new CompoundTag();
+        if (player.getItemInHand(InteractionHand.MAIN_HAND).getTagElement(Utils.MOD_ID) != null) {
+            stackmainhandtag = player.getItemInHand(InteractionHand.MAIN_HAND).getOrCreateTagElement(Utils.MOD_ID);
+        }
+        if (Utils.mainHandTag.containsKey(mainhand) && stackmainhandtag.contains("CritDamageDecrease"))
+            CritDamageDecrease += stackmainhandtag.getDouble("CritDamageDecrease");
+        if (Utils.critDamageDecrease.containsKey(boots)) CritDamageDecrease += Utils.critDamageDecrease.get(boots);
+        if (Utils.critDamageDecrease.containsKey(leggings))
+            CritDamageDecrease += Utils.critDamageDecrease.get(leggings);
+        if (Utils.critDamageDecrease.containsKey(chest)) CritDamageDecrease += Utils.critDamageDecrease.get(chest);
+        if (Utils.critDamageDecrease.containsKey(helmet)) CritDamageDecrease += Utils.critDamageDecrease.get(helmet);
+        if (Utils.mainHandTag.containsKey(mainhand) && Utils.critDamageDecrease.containsKey(mainhand))
+            CritDamageDecrease += Utils.critDamageDecrease.get(mainhand);
+        if (Utils.offHandTag.containsKey(offhand) && Utils.critDamageDecrease.containsKey(offhand))
+            CritDamageDecrease += Utils.critDamageDecrease.get(offhand);
+        if (SuitCount.getMineSuitCount(player) >= 2) CritDamageDecrease += 0.5;
+        return CritDamageDecrease;
+    }
+
     public static double movementSpeedCommon(Player player) {
         double movementSpeedUp = 0;
         if (TowerMob.playerIsChallenging2Floor(player)) return 0;
@@ -559,15 +590,15 @@ public class PlayerAttributes {
             movementSpeedUp += 0.6;
         // 妖刀-樱
 
-        if (Compute.SuitCount.getLakeSuitCount(player) >= 4) movementSpeedUp += 0.35;
-        if (Compute.SuitCount.getMineSuitCount(player) >= 4) movementSpeedUp -= 0.5;
+        if (SuitCount.getLakeSuitCount(player) >= 4) movementSpeedUp += 0.35;
+        if (SuitCount.getMineSuitCount(player) >= 4) movementSpeedUp -= 0.5;
 
         if (player.getEffect(ModEffects.SPEEDUP.get()) != null && player.getEffect(ModEffects.SPEEDUP.get()).getAmplifier() == 0)
             movementSpeedUp += 0.3;
         if (player.getEffect(ModEffects.SPEEDUP.get()) != null && player.getEffect(ModEffects.SPEEDUP.get()).getAmplifier() == 1)
             movementSpeedUp += 0.6;
 
-        if (Compute.SuitCount.getSkySuitCount(player) > 0 && player.getHealth() / player.getMaxHealth() > 0.8)
+        if (SuitCount.getSkySuitCount(player) > 0 && player.getHealth() / player.getMaxHealth() > 0.8)
             movementSpeedUp += 0.4 * Compute.SkySuitEffectRate(player);
 
         int flexibilityAbilityPoint = data.getInt(StringUtils.Ability.Flexibility);
@@ -575,20 +606,20 @@ public class PlayerAttributes {
             movementSpeedUp += flexibilityAbilityPoint * 0.003;
         } // 能力
 
-        if (Compute.SwordSkillLevelGet(data, 9) > 0 && Utils.swordTag.containsKey(mainHandItem)) {
-            movementSpeedUp += Compute.SwordSkillLevelGet(data, 9) * 0.05;
+        if (Compute.getSwordSkillLevel(data, 9) > 0 && Utils.swordTag.containsKey(mainHandItem)) {
+            movementSpeedUp += Compute.getSwordSkillLevel(data, 9) * 0.05;
         } // 剑舞（手持近战武器时，获得5%额外移动速度）
 
-        if (Compute.BowSkillLevelGet(data, 1) > 0 && Utils.bowTag.containsKey(mainHandItem)) {
-            movementSpeedUp += Compute.BowSkillLevelGet(data, 1) * 0.03;
+        if (Compute.getBowSkillLevel(data, 1) > 0 && Utils.bowTag.containsKey(mainHandItem)) {
+            movementSpeedUp += Compute.getBowSkillLevel(data, 1) * 0.03;
         } // 原野护符（持有弓时，获得3%的额外移动速度）
 
-        if (Compute.BowSkillLevelGet(data, 9) > 0 && Utils.bowTag.containsKey(mainHandItem)) {
-            movementSpeedUp += Compute.BowSkillLevelGet(data, 9) * 0.08;
+        if (Compute.getBowSkillLevel(data, 9) > 0 && Utils.bowTag.containsKey(mainHandItem)) {
+            movementSpeedUp += Compute.getBowSkillLevel(data, 9) * 0.08;
         } // 猎手本能（手持弓时，获得8%额外移动速度）
 
-        if (Compute.ManaSkillLevelGet(data, 9) > 0 && Utils.sceptreTag.containsKey(mainHandItem)) {
-            movementSpeedUp += Compute.ManaSkillLevelGet(data, 9) * 0.05;
+        if (Compute.getManaSkillLevel(data, 9) > 0 && Utils.sceptreTag.containsKey(mainHandItem)) {
+            movementSpeedUp += Compute.getManaSkillLevel(data, 9) * 0.05;
         } // 法师（手持法杖时，获得5%额外移动速度）
 
         if (mainHandTag != null && mainHandTag.contains(StringUtils.ManaCore.ManaCore)
@@ -818,8 +849,8 @@ public class PlayerAttributes {
                 StringUtils.CuriosAttribute.xpLevelDefence) * player.experienceLevel;
 
         // 以下为额外护甲
-        if (Compute.SuitCount.getForestSuitCount(player) >= 2) exDefence += baseDefence * 0.25;
-        if (Compute.SuitCount.getLifeManaSuitCount(player) >= 4) exDefence += baseDefence * 0.25;
+        if (SuitCount.getForestSuitCount(player) >= 2) exDefence += baseDefence * 0.25;
+        if (SuitCount.getLifeManaSuitCount(player) >= 4) exDefence += baseDefence * 0.25;
         if (data.contains("forestgems") && data.getBoolean("forestgems")) exDefence += baseDefence * 0.1;
         if (player.getEffect(ModEffects.DefenceUP.get()) != null && player.getEffect(ModEffects.DefenceUP.get()).getAmplifier() == 0)
             exDefence += baseDefence * 0.25 + 80;
@@ -829,7 +860,7 @@ public class PlayerAttributes {
         if (leggings.equals(ModItems.MinePants.get()) && (Utils.OverWorldLevelIsNight || player.getY() < 63))
             exDefence += 100;
         // 矿工裤被动
-        if (Compute.SuitCount.getMineSuitCount(player) >= 4) exDefence += 250;
+        if (SuitCount.getMineSuitCount(player) >= 4) exDefence += 250;
 
         if (helmet instanceof PiglinHelmet) {
             PiglinHelmet piglinHelmet = (PiglinHelmet) helmet;
@@ -929,7 +960,7 @@ public class PlayerAttributes {
             HealEffectUp += Utils.healEffectUp.get(mainhand);
         if (Utils.offHandTag.containsKey(offhand) && Utils.healEffectUp.containsKey(offhand))
             HealEffectUp += Utils.healEffectUp.get(offhand);
-        if (Compute.SuitCount.getForestSuitCount(player) >= 4) HealEffectUp += 0.5f;
+        if (SuitCount.getForestSuitCount(player) >= 4) HealEffectUp += 0.5f;
         int vitalityAbilityPoint = data.getInt(StringUtils.Ability.Vitality);
         if (data.contains(StringUtils.Ability.Vitality) && data.getInt(StringUtils.Ability.Vitality) > 0) {
             HealEffectUp += vitalityAbilityPoint * 0.01;
@@ -1022,8 +1053,8 @@ public class PlayerAttributes {
             RangeUp += Utils.attackRangeUp.get(mainhand);
         if (Utils.offHandTag.containsKey(offhand) && Utils.attackRangeUp.containsKey(offhand))
             RangeUp += Utils.attackRangeUp.get(offhand);
-        if (Compute.SwordSkillLevelGet(data, 11) > 0 && Utils.swordTag.containsKey(mainhand))
-            RangeUp += Compute.SwordSkillLevelGet(data, 11) * 0.2;
+        if (Compute.getSwordSkillLevel(data, 11) > 0 && Utils.swordTag.containsKey(mainhand))
+            RangeUp += Compute.getSwordSkillLevel(data, 11) * 0.2;
 
         // 请在上方添加
         RangeUp *= Compute.playerFantasyAttributeEnhance(player);
@@ -1065,8 +1096,8 @@ public class PlayerAttributes {
             releaseSpeed += Utils.coolDownDecrease.get(mainhand);
         if (Utils.offHandTag.containsKey(offhand) && Utils.coolDownDecrease.containsKey(offhand))
             releaseSpeed += Utils.coolDownDecrease.get(offhand);
-        if (Compute.SuitCount.getLakeSuitCount(player) >= 2) releaseSpeed += 0.2;
-        if (Compute.SuitCount.getObsiManaSuitCount(player) >= 4) releaseSpeed += 0.2;
+        if (SuitCount.getLakeSuitCount(player) >= 2) releaseSpeed += 0.2;
+        if (SuitCount.getObsiManaSuitCount(player) >= 4) releaseSpeed += 0.2;
         if (player.getPersistentData().contains("Blue") && player.getPersistentData().getInt("Blue") == 0)
             releaseSpeed += player.getAttribute(Attributes.MOVEMENT_SPEED).getValue() - 0.1F;
         if (data.contains("lakegems") && data.getBoolean("lakegems")) releaseSpeed += 0.1;
@@ -1078,11 +1109,11 @@ public class PlayerAttributes {
         if (player.getEffect(ModEffects.COOLDOWNUP.get()) != null && player.getEffect(ModEffects.COOLDOWNUP.get()).getAmplifier() == 1)
             releaseSpeed += 0.8;
         if (data.contains("GemSCoolDown")) releaseSpeed += data.getDouble("GemSCoolDown");
-        releaseSpeed += Compute.SArmorCoolDown(player);
-        if (Compute.SwordSkillLevelGet(data, 7) > 0 && Utils.swordTag.containsKey(mainhand))
-            releaseSpeed += Compute.SwordSkillLevelGet(data, 7) * 0.03; // 冷静（手持近战武器时，获得3%冷却缩减）
-        if (Compute.ManaSkillLevelGet(data, 7) > 0 && Utils.sceptreTag.containsKey(mainhand))
-            releaseSpeed += Compute.ManaSkillLevelGet(data, 7) * 0.06; // 冷静（手持法杖时，获得6%冷却缩减）
+        releaseSpeed += SArmorAttribute.value(player, SArmorAttribute.lakePower);
+        if (Compute.getSwordSkillLevel(data, 7) > 0 && Utils.swordTag.containsKey(mainhand))
+            releaseSpeed += Compute.getSwordSkillLevel(data, 7) * 0.03; // 冷静（手持近战武器时，获得3%冷却缩减）
+        if (Compute.getManaSkillLevel(data, 7) > 0 && Utils.sceptreTag.containsKey(mainhand))
+            releaseSpeed += Compute.getManaSkillLevel(data, 7) * 0.06; // 冷静（手持法杖时，获得6%冷却缩减）
 
         if (data.getInt(StringUtils.Crest.Lake.Crest0) > 0) releaseSpeed +=
                 LakeCrestAttributes.CoolDown[0] * data.getInt(StringUtils.Crest.Lake.Crest0);
@@ -1095,8 +1126,8 @@ public class PlayerAttributes {
         if (data.getInt(StringUtils.Crest.Lake.Crest4) > 0) releaseSpeed +=
                 LakeCrestAttributes.CoolDown[4] * data.getInt(StringUtils.Crest.Lake.Crest4);
 
-        if (Compute.ManaSkillLevelGet(data, 11) > 0 && Utils.sceptreTag.containsKey(mainhand)) {
-            releaseSpeed += Compute.ManaSkillLevelGet(data, 11) * 0.05;
+        if (Compute.getManaSkillLevel(data, 11) > 0 && Utils.sceptreTag.containsKey(mainhand)) {
+            releaseSpeed += Compute.getManaSkillLevel(data, 11) * 0.05;
         } // 术法全析
 
         releaseSpeed += EarthPower.PlayerCoolDownEnhance(player); // 地蕴法术
@@ -1226,10 +1257,10 @@ public class PlayerAttributes {
             defencePenetration0 += 50;
         if (data.contains(StringUtils.ForestSwordSkill1) && data.getInt(StringUtils.ForestSwordSkill1) > TickCount)
             defencePenetration0 += 250;
-        if (Compute.SwordSkillLevelGet(data, 10) > 0 && Utils.swordTag.containsKey(mainhand))
-            defencePenetration0 += Compute.SwordSkillLevelGet(data, 10) * player.experienceLevel * 0.5;
-        if (Compute.BowSkillLevelGet(data, 10) > 0 && Utils.bowTag.containsKey(mainhand))
-            defencePenetration0 += Compute.BowSkillLevelGet(data, 10) * player.experienceLevel * 0.5;
+        if (Compute.getSwordSkillLevel(data, 10) > 0 && Utils.swordTag.containsKey(mainhand))
+            defencePenetration0 += Compute.getSwordSkillLevel(data, 10) * player.experienceLevel * 0.5;
+        if (Compute.getBowSkillLevel(data, 10) > 0 && Utils.bowTag.containsKey(mainhand))
+            defencePenetration0 += Compute.getBowSkillLevel(data, 10) * player.experienceLevel * 0.5;
         if (data.contains("GemSDefencePenetration0")) defencePenetration0 += data.getDouble("GemSDefencePenetration0");
 
         int flexibilityAbilityPoint = data.getInt(StringUtils.Ability.Flexibility);
@@ -1337,9 +1368,9 @@ public class PlayerAttributes {
             healthRecover += Utils.healthRecover.get(mainhand);
         if (Utils.offHandTag.containsKey(offhand) && Utils.healthRecover.containsKey(offhand))
             healthRecover += Utils.healthRecover.get(offhand);
-        if (Compute.SuitCount.getPlainSuitCount(player) >= 2) healthRecover += 0.5 + player.getMaxHealth() * 0.01F;
-        if (Compute.SuitCount.getLifeManaSuitCount(player) >= 4) healthRecover += 1 + player.getMaxHealth() * 0.01F;
-        if (!Utils.OverWorldLevelIsNight && Compute.SuitCount.getForestSuitCount(player) >= 4) healthRecover += 5;
+        if (SuitCount.getPlainSuitCount(player) >= 2) healthRecover += 0.5 + player.getMaxHealth() * 0.01F;
+        if (SuitCount.getLifeManaSuitCount(player) >= 4) healthRecover += 1 + player.getMaxHealth() * 0.01F;
+        if (!Utils.OverWorldLevelIsNight && SuitCount.getForestSuitCount(player) >= 4) healthRecover += 5;
 
         if (player.getEffect(ModEffects.HEALTHRECOVER.get()) != null && player.getEffect(ModEffects.HEALTHRECOVER.get()).getAmplifier() == 0)
             healthRecover += player.getMaxHealth() * 0.025;
@@ -1420,11 +1451,11 @@ public class PlayerAttributes {
             maxHealth += Utils.maxHealth.get(mainhand);
         if (Utils.offHandTag.containsKey(offhand) && Utils.maxHealth.containsKey(offhand))
             maxHealth += Utils.maxHealth.get(offhand);
-        if (Compute.SuitCount.getPlainSuitCount(player) >= 4) maxHealth += 200;
+        if (SuitCount.getPlainSuitCount(player) >= 4) maxHealth += 200;
         if (data.contains("Barker")) maxHealth *= 1.0d + (data.getInt("Barker") / 100000.0d) * 0.05F;
 
         if (data.contains("GemSMaxHeal")) maxHealth += data.getDouble("GemSMaxHeal");
-        maxHealth += Compute.SArmorMaxHealth(player);
+        maxHealth += SArmorAttribute.value(player, SArmorAttribute.sumPower);
 
         int vitalityAbilityPoint = data.getInt(StringUtils.Ability.Vitality);
         if (data.contains(StringUtils.Ability.Vitality) && data.getInt(StringUtils.Ability.Vitality) > 0) {
@@ -1539,15 +1570,15 @@ public class PlayerAttributes {
         if (player.level().equals(player.getServer().getLevel(Level.OVERWORLD)) && !Utils.OverWorldLevelIsNight && mainhand instanceof PlainSceptre4)
             exDamage += 45;
         if (data.contains("GemSManaDamage")) exDamage += data.getDouble("GemSManaDamage");
-        exDamage += Compute.SArmorManaDamage(player);
+        exDamage += SArmorAttribute.value(player, SArmorAttribute.manaPower);
 
         int intelligentAbilityPoint = data.getInt(StringUtils.Ability.Intelligent);
         if (data.contains(StringUtils.Ability.Intelligent) && data.getInt(StringUtils.Ability.Intelligent) > 0) {
             exDamage += intelligentAbilityPoint * 2;
         } // 能力
 
-        if (Compute.ManaSkillLevelGet(data, 2) > 0 && data.contains(StringUtils.ManaSkillNum.Skill2) && data.getInt(StringUtils.ManaSkillNum.Skill2) > tickCount) {
-            exDamage += baseDamage * Compute.ManaSkillLevelGet(data, 2) * 0.02;
+        if (Compute.getManaSkillLevel(data, 2) > 0 && data.contains(StringUtils.ManaSkillNum.Skill2) && data.getInt(StringUtils.ManaSkillNum.Skill2) > tickCount) {
+            exDamage += baseDamage * Compute.getManaSkillLevel(data, 2) * 0.02;
         } // 战斗渴望（击杀一个单位时，提升2%攻击力，持续10s）
 
         if (leggings.equals(ModItems.MinePants.get()) && (Utils.OverWorldLevelIsNight || player.getY() < 63))
@@ -1565,8 +1596,8 @@ public class PlayerAttributes {
         if (data.getInt(StringUtils.Crest.Mana.Crest4) > 0)
             exDamage += ManaCrestAttributes.ExManaDamage[4] * data.getInt(StringUtils.Crest.Mana.Crest4);
 
-        if (Compute.SuitCount.getVolcanoSuitCount(player) >= 2) exDamage += baseDamage * 0.25F;
-        if (Compute.SuitCount.getObsiManaSuitCount(player) >= 4) exDamage += baseDamage * 0.25F;
+        if (SuitCount.getVolcanoSuitCount(player) >= 2) exDamage += baseDamage * 0.25F;
+        if (SuitCount.getObsiManaSuitCount(player) >= 4) exDamage += baseDamage * 0.25F;
 
         if (mainHandItemTag.contains(StringUtils.SoulEquipForge) && Utils.sceptreTag.containsKey(mainhand))
             exDamage +=
@@ -1655,9 +1686,9 @@ public class PlayerAttributes {
             ManaHealSteal += Utils.manaHealthSteal.get(mainhand);
         if (Utils.offHandTag.containsKey(offhand) && Utils.manaHealthSteal.containsKey(offhand))
             ManaHealSteal += Utils.manaHealthSteal.get(offhand);
-        if (Compute.SuitCount.getLifeManaSuitCount(player) >= 4) ManaHealSteal += 0.05;
-        if (Compute.ManaSkillLevelGet(data, 11) > 0 && Utils.sceptreTag.containsKey(mainhand))
-            ManaHealSteal += Compute.ManaSkillLevelGet(data, 11) * 0.01;
+        if (SuitCount.getLifeManaSuitCount(player) >= 4) ManaHealSteal += 0.05;
+        if (Compute.getManaSkillLevel(data, 11) > 0 && Utils.sceptreTag.containsKey(mainhand))
+            ManaHealSteal += Compute.getManaSkillLevel(data, 11) * 0.01;
         if (Utils.EarthManaCurios.containsKey(player) && Utils.EarthManaCurios.get(player)) ManaHealSteal += 0.05;
 
         CompoundTag helmetTag = player.getItemBySlot(EquipmentSlot.HEAD).getOrCreateTagElement(Utils.MOD_ID);
@@ -1716,8 +1747,8 @@ public class PlayerAttributes {
             manaRecover += Utils.manaRecover.get(mainhand);
         if (Utils.offHandTag.containsKey(offhand) && Utils.manaRecover.containsKey(offhand))
             manaRecover += Utils.manaRecover.get(offhand);
-        if (Compute.SuitCount.getLifeManaSuitCount(player) >= 2) manaRecover += 5;
-        if (Compute.SuitCount.getObsiManaSuitCount(player) >= 2) manaRecover += 5;
+        if (SuitCount.getLifeManaSuitCount(player) >= 2) manaRecover += 5;
+        if (SuitCount.getObsiManaSuitCount(player) >= 2) manaRecover += 5;
         if (stackmainhandtag.contains("newGems1")) manaRecover += GemAttributes.gemsManaRecover(stackmainhandtag);
 
         if (player.getEffect(ModEffects.MANAREPLYUP.get()) != null && player.getEffect(ModEffects.MANAREPLYUP.get()).getAmplifier() == 0)
@@ -1727,12 +1758,12 @@ public class PlayerAttributes {
         if (data.contains("GemSManaReply")) manaRecover += data.getDouble("GemSManaReply");
         if (player.level().equals(player.getServer().getLevel(Level.OVERWORLD)) && !Utils.OverWorldLevelIsNight && mainhand instanceof PlainSceptre4)
             manaRecover += 15;
-        if (Compute.SwordSkillLevelGet(data, 8) > 0 && Utils.swordTag.containsKey(mainhand))
-            manaRecover += Compute.SwordSkillLevelGet(data, 8); // 洞悉（手持近战武器时，获得1额外法力回复）
-        if (Compute.ManaSkillLevelGet(data, 1) > 0 && Utils.sceptreTag.containsKey(mainhand))
-            manaRecover += Compute.ManaSkillLevelGet(data, 1) * 0.5; // 仙女护符（持有法杖时，获得额外0.5点法力回复）
-        if (Compute.ManaSkillLevelGet(data, 8) > 0 && Utils.sceptreTag.containsKey(mainhand))
-            manaRecover += Compute.ManaSkillLevelGet(data, 8); // 洞悉（手持法杖时，获得1额外法力回复）
+        if (Compute.getSwordSkillLevel(data, 8) > 0 && Utils.swordTag.containsKey(mainhand))
+            manaRecover += Compute.getSwordSkillLevel(data, 8); // 洞悉（手持近战武器时，获得1额外法力回复）
+        if (Compute.getManaSkillLevel(data, 1) > 0 && Utils.sceptreTag.containsKey(mainhand))
+            manaRecover += Compute.getManaSkillLevel(data, 1) * 0.5; // 仙女护符（持有法杖时，获得额外0.5点法力回复）
+        if (Compute.getManaSkillLevel(data, 8) > 0 && Utils.sceptreTag.containsKey(mainhand))
+            manaRecover += Compute.getManaSkillLevel(data, 8); // 洞悉（手持法杖时，获得1额外法力回复）
 
         if (stackmainhandtag.contains(StringUtils.SoulEquipForge) && Utils.sceptreTag.containsKey(mainhand))
             manaRecover +=
@@ -1884,7 +1915,7 @@ public class PlayerAttributes {
         if (player.getEffect(ModEffects.HEALSTEALUP.get()) != null && player.getEffect(ModEffects.HEALSTEALUP.get()).getAmplifier() == 1)
             healSteal += 0.25;
         if (data.contains("GemSHealSteal")) healSteal += data.getDouble("GemSHealSteal");
-        healSteal += Compute.SArmorHealSteal(player);
+        healSteal += SArmorAttribute.value(player, SArmorAttribute.netherPower);
 
         if (stackmainhandtag.contains(StringUtils.SoulEquipForge) && (Utils.swordTag.containsKey(mainhand)))
             healSteal +=
@@ -1912,7 +1943,7 @@ public class PlayerAttributes {
         // 请在上方添加
 
         healSteal *= Compute.playerFantasyAttributeEnhance(player);
-        healSteal *= (1 + Compute.SuitCount.getBloodManaSuitCount(player) * 0.08);
+        healSteal *= (1 + SuitCount.getBloodManaSuitCount(player) * 0.08);
 
         if (player.getItemInHand(InteractionHand.OFF_HAND).is(ModItems.manaKnife.get())) {
             data.putDouble("HealthStealAfterCompute", healSteal);
@@ -2062,7 +2093,7 @@ public class PlayerAttributes {
         if (data.contains("lakegems") && data.getBoolean("lakegems")) manaPenetration0 += 10;
         if (data.contains("forestgems") && data.getBoolean("forestgems")) manaPenetration0 += 10;
 
-        if (Compute.SuitCount.getVolcanoSuitCount(player) >= 4) manaPenetration0 += 35;
+        if (SuitCount.getVolcanoSuitCount(player) >= 4) manaPenetration0 += 35;
 
         if (mainhand.equals(ModItems.ShipSceptre.get())) {
             if (Utils.ShipSceptreWaterBlockNum.containsKey(player)) {
@@ -2264,4 +2295,6 @@ public class PlayerAttributes {
         }
         return totalValue;
     }
+
+
 }

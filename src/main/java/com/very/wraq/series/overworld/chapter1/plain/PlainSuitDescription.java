@@ -1,9 +1,10 @@
 package com.very.wraq.series.overworld.chapter1.plain;
 
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.ClientUtils;
-import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.ClientUtils;
+import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.StringUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
@@ -25,7 +26,7 @@ public class PlainSuitDescription {
         Compute.DescriptionOfAddition(components);
         Compute.solePassiveDescription(components, Component.literal("").withStyle(style));
         components.add(Component.literal(" 获得").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.MaxHealth("等级 * 10")).
+                append(ComponentUtils.AttributeDescription.MaxHealth("等级 * 10")).
                 append(Component.literal("(" + Math.min(100, Minecraft.getInstance().player.experienceLevel) * 10 + ")").withStyle(ChatFormatting.GRAY)));
         components.add(Component.literal(" 在100级时达到最大收益").withStyle(ChatFormatting.GRAY));
         if (Screen.hasShiftDown()) SuitDescription(components);
@@ -76,6 +77,6 @@ public class PlainSuitDescription {
         Compute.SuitQuadraDescription(components, Count);
         Compute.DescriptionPassive(components, Component.literal("平原生机:").withStyle(ChatFormatting.GREEN));
         components.add(Component.literal("获得").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.MaxHealth("200")));
+                append(ComponentUtils.AttributeDescription.MaxHealth("200")));
     }
 }

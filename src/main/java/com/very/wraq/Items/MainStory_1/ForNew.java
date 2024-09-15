@@ -1,10 +1,11 @@
 package com.very.wraq.Items.MainStory_1;
 
-import com.very.wraq.common.registry.MySound;
-import com.very.wraq.process.system.forge.ForgeEquipUtils;
-import com.very.wraq.series.newrunes.NewRuneItems;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.registry.MySound;
+import com.very.wraq.process.func.item.InventoryOperation;
+import com.very.wraq.process.system.forge.ForgeEquipUtils;
+import com.very.wraq.series.newrunes.NewRuneItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
@@ -43,7 +44,7 @@ public class ForNew extends Item {
             ItemStack[] itemStacks = {new ItemStack(ModItems.BackPackTickets.get()), new ItemStack(ModItems.WoodHammer.get()), new ItemStack(ModItems.BackSpawn.get()), new ItemStack(Items.GOLDEN_CARROT, 64), new ItemStack(ModItems.windBottle.get()), sword, bow, sceptre, new ItemStack(NewRuneItems.endNewRune.get())};
 
             for (ItemStack stack : itemStacks) {
-                Compute.itemStackGive(player, stack);
+                InventoryOperation.itemStackGive(player, stack);
             }
 
             ItemStack itemStack = Items.ELYTRA.getDefaultInstance();
@@ -51,7 +52,7 @@ public class ForNew extends Item {
             Map<Enchantment, Integer> map = EnchantmentHelper.getEnchantments(itemStack);
             map.put(Enchantments.UNBREAKING, 5);
             EnchantmentHelper.setEnchantments(map, itemStack);
-            Compute.itemStackGive(player, itemStack);
+            InventoryOperation.itemStackGive(player, itemStack);
             Compute.sendFormatMSG(player, Component.literal("引导-锻造").withStyle(ChatFormatting.AQUA), Component.literal("前往").withStyle(ChatFormatting.WHITE).append(Component.literal("平原村").withStyle(ChatFormatting.GREEN)).append(Component.literal("收集素材，前往平原村找到铁匠铺，锻造第一件装备吧！").withStyle(ChatFormatting.WHITE)));
 
             Compute.sendFormatMSG(player, Component.literal("引导-信息").withStyle(ChatFormatting.AQUA), Component.literal("在背包中查看物品的描述，若物品下方有").withStyle(ChatFormatting.WHITE).append(Component.literal("[按住shift以...]").withStyle(ChatFormatting.GRAY)).append(Component.literal("，你可以查看其用途或获取方式").withStyle(ChatFormatting.WHITE)));

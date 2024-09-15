@@ -64,7 +64,7 @@ public class SnowStraySpawnController extends MobSpawnController {
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
         Style style = CustomStyle.styleOfSnow;
 
-        Compute.SetMobCustomName(stray, Component.literal(mobName).withStyle(style), xpLevel);
+        Compute.setMobCustomName(stray, Component.literal(mobName).withStyle(style), xpLevel);
 
         // 需要验证
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(stray), xpLevel);

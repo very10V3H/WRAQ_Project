@@ -1,15 +1,15 @@
 package com.very.wraq.networking.misc.AnimationPackets;
 
+import com.very.wraq.common.attribute.PlayerAttributes;
+import com.very.wraq.common.registry.ModSounds;
 import com.very.wraq.common.registry.MySound;
-import com.very.wraq.customized.uniform.bow.BowCurios0;
-import com.very.wraq.networking.ModNetworking;
-import com.very.wraq.process.func.guide.Guide;
-import com.very.wraq.common.Compute;
 import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.attribute.PlayerAttributes;
+import com.very.wraq.customized.uniform.bow.BowCurios0;
+import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.process.func.SpecialEffectOnPlayer;
-import com.very.wraq.common.registry.ModSounds;
+import com.very.wraq.process.func.guide.Guide;
+import com.very.wraq.render.hud.SwiftData;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
@@ -50,7 +50,7 @@ public class RollingAnimationRequestC2SPacket {
                     });
 
                     ModNetworking.sendToClient(new RollingS2CPacket(PlayerAttributes.extraSwiftness(serverPlayer) / 10.0), serverPlayer);
-                    if (!serverPlayer.isCreative()) Compute.PlayerSwiftChange(serverPlayer, -100.0 / 3);
+                    if (!serverPlayer.isCreative()) SwiftData.changePlayerSwift(serverPlayer, -100.0 / 3);
                     Utils.rollingTickMap.put(serverPlayer.getName().getString(), serverPlayer.getServer().getTickCount() + 10);
 
                     MySound.SoundToAll(serverPlayer, ModSounds.Rolling.get());

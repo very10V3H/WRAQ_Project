@@ -4,6 +4,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.fast.Te;
 import com.very.wraq.networking.ModNetworking;
+import com.very.wraq.process.func.item.InventoryOperation;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -163,7 +164,7 @@ public class Smelt {
         player.sendSystemMessage(Component.literal("current: " + current));
         if (current.after(finishTime)) {
             getProductList(player, slotIndex).forEach(stack -> {
-                Compute.itemStackGive(player, new ItemStack(stack.getItem(), stack.getCount()));
+                InventoryOperation.itemStackGive(player, new ItemStack(stack.getItem(), stack.getCount()));
             });
             setSmeltSlotInfo(player, slotIndex, smeltSlotEmpty);
         } else {

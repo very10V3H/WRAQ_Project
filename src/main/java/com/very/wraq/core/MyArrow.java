@@ -12,6 +12,7 @@ import com.very.wraq.customized.uniform.bow.BowCurios0;
 import com.very.wraq.entities.entities.Civil.Civil;
 import com.very.wraq.events.modules.AttackEventModule;
 import com.very.wraq.process.func.EnhanceNormalAttackModifier;
+import com.very.wraq.process.func.damage.Damage;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.projectiles.OnHitEffectCurios;
@@ -293,7 +294,7 @@ public class MyArrow extends AbstractArrow {
             damage *= (1 + ElementDamageEnhance) * ElementDamageEffect;
             damageIgnoreDefence *= (1 + ElementDamageEnhance) * ElementDamageEffect;
 
-            Compute.Damage.DirectDamageToMob(player, entity, damage + damageIgnoreDefence);
+            Damage.DirectDamageToMob(player, entity, damage + damageIgnoreDefence);
 
             if (critFlag)
                 Compute.SummonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", damage + damageIgnoreDefence)).withStyle(CustomStyle.styleOfPower), 0);
@@ -356,7 +357,7 @@ public class MyArrow extends AbstractArrow {
             DamageIgnoreDefence += AttackEventModule.BowSkill0(data, baseDamage); // 弓术热诚（你的箭矢额外造成攻击力1%的真实伤害）
 
             DamageEnhance += AttackEventModule.BowSkill3(data, player, hurter); // 习惯获取（对一名目标的持续攻击，可以使你对该目标的伤害至多提升至2%，在3次攻击后达到最大值）
-            DamageEnhance += Compute.BowSkillLevelGet(data, 4) * 0.03; // 专注训练（额外造成3%的伤害，额外受到1.5%的伤害）
+            DamageEnhance += Compute.getBowSkillLevel(data, 4) * 0.03; // 专注训练（额外造成3%的伤害，额外受到1.5%的伤害）
 
             if (Defence == 0)
                 Defence = (double) Objects.requireNonNull(hurter.getAttribute(Attributes.ARMOR)).getValue();
@@ -375,7 +376,7 @@ public class MyArrow extends AbstractArrow {
             damage += ExDamage;
             damage *= (1 + DamageEnhance);
             DamageIgnoreDefence *= (1 + DamageEnhance);
-            Compute.Damage.DirectDamageToPlayer(player, hurter, (damage + DamageIgnoreDefence) * 0.1f);
+            Damage.DirectDamageToPlayer(player, hurter, (damage + DamageIgnoreDefence) * 0.1f);
             AttackEventModule.BowPositiveEffect(mainHandItem, player, data, TickCount);
             AttackEventModule.BowSkill3Attack(data, player, hurter); // 习惯获取（对一名目标的持续攻击，可以使你对该目标的伤害至多提升至2%，在3次攻击后达到最大值）
             AttackEventModule.BowSkill12Attack(data, player); // 热能注入（移动、攻击以及受到攻击将会获得充能，当充能满时，下一次攻击将造成额外200%伤害，并在以目标为中心范围内造成100%伤害）

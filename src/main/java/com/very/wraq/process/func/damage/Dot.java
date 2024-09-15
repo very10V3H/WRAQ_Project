@@ -36,21 +36,21 @@ public record Dot(int type, double value, int frequency, int stopTick, String na
 
                 if (tick % (20 / dot.frequency) == 0) {
                     switch (dot.type) {
-                        case 0 -> Compute.Damage.causeIgNoreDefenceDamageToMonster(serverPlayer, mob, dot.value);
+                        case 0 -> Damage.causeIgNoreDefenceDamageToMonster(serverPlayer, mob, dot.value);
                         case 1 -> {
                             if (dot.computeCrit) {
                                 if (random.nextDouble() < PlayerAttributes.critRate(serverPlayer)) {
-                                    Compute.Damage.causeAttackDamageToMonster_AdDamage(serverPlayer, mob,
+                                    Damage.causeAttackDamageToMonster_AdDamage(serverPlayer, mob,
                                             dot.value * (1 + PlayerAttributes.critDamage(serverPlayer)));
-                                } else Compute.Damage.causeAttackDamageToMonster_AdDamage(serverPlayer, mob, dot.value);
+                                } else Damage.causeAttackDamageToMonster_AdDamage(serverPlayer, mob, dot.value);
                             }
                         }
                         case 2 -> {
                             if (dot.computeCrit) {
                                 if (random.nextDouble() < PlayerAttributes.critRate(serverPlayer)) {
-                                    Compute.Damage.causeManaDamageToMonster_ApDamage(serverPlayer, mob,
+                                    Damage.causeManaDamageToMonster_ApDamage(serverPlayer, mob,
                                             dot.value * (1 + PlayerAttributes.critDamage(serverPlayer)));
-                                } else Compute.Damage.causeManaDamageToMonster_ApDamage(serverPlayer, mob, dot.value);
+                                } else Damage.causeManaDamageToMonster_ApDamage(serverPlayer, mob, dot.value);
                             }
                         }
                     }

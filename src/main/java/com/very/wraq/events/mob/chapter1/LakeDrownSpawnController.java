@@ -64,7 +64,7 @@ public class LakeDrownSpawnController extends MobSpawnController {
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
         Style style = CustomStyle.styleOfWater;
 
-        Compute.SetMobCustomName(drowned, Component.literal(mobName).withStyle(style), xpLevel);
+        Compute.setMobCustomName(drowned, Component.literal(mobName).withStyle(style), xpLevel);
 
         // 需要验证
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(drowned), xpLevel);

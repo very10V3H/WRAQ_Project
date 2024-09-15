@@ -1,20 +1,22 @@
 package com.very.wraq.events.instance;
 
-import com.very.wraq.common.registry.MySound;
-import com.very.wraq.networking.ModNetworking;
-import com.very.wraq.networking.unSorted.SpringInstanceS2CPacket;
-import com.very.wraq.process.func.particle.ParticleProvider;
-import com.very.wraq.render.particles.ModParticles;
-import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.series.specialevents.springFes.FireWorkGun;
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.registry.MySound;
 import com.very.wraq.common.util.StringUtils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.util.struct.Boss2Damage;
 import com.very.wraq.common.util.struct.Instance;
 import com.very.wraq.common.util.struct.PlayerAndDistance;
 import com.very.wraq.common.util.struct.PlayerTeam;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.networking.ModNetworking;
+import com.very.wraq.networking.unSorted.SpringInstanceS2CPacket;
+import com.very.wraq.process.func.damage.Damage;
+import com.very.wraq.process.func.item.InventoryOperation;
+import com.very.wraq.process.func.particle.ParticleProvider;
+import com.very.wraq.render.particles.ModParticles;
+import com.very.wraq.render.toolTip.CustomStyle;
+import com.very.wraq.series.specialevents.springFes.FireWorkGun;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -114,7 +116,7 @@ public class Spring {
                     }});
                     Mob entity = instance.getMobList().get(0);
 
-                    Compute.SetMobCustomName(entity, ModItems.MobArmorSpringHelmet.get(),
+                    Compute.setMobCustomName(entity, ModItems.MobArmorSpringHelmet.get(),
                             Component.literal("年兽").withStyle(CustomStyle.styleOfSpring));
 
                     entity.getAttribute(Attributes.MAX_HEALTH).setBaseValue(25000000 * difficultyEnhanceRate * (1 + (playerNum - 1) * 0.75));
@@ -166,11 +168,11 @@ public class Spring {
                     });
                     playerAndDistances.sort(Comparator.comparing(PlayerAndDistance::distance));
                     int Count = 0;
-                    double[] Damage = {
+                    double[] damage = {
                             12000, 8000, 4000, 2000
                     };
                     for (PlayerAndDistance playerAndDistance : playerAndDistances) {
-                        Compute.Damage.AttackDamageToPlayer(mob, playerAndDistance.player(), Damage[Count]);
+                        Damage.AttackDamageToPlayer(mob, playerAndDistance.player(), damage[Count]);
                         Count++;
                     }
                 }
@@ -189,7 +191,7 @@ public class Spring {
                     playerListGetByName.forEach(player -> {
                         ItemStack itemStack = new ItemStack(Items.AIR);
                         if (difficultyEnhanceRate == 4) {
-                            Compute.itemStackGive(player, new ItemStack(ModItems.SpringPiece.get(), 1));
+                            InventoryOperation.itemStackGive(player, new ItemStack(ModItems.SpringPiece.get(), 1));
                         }
 
                         if (random.nextDouble() < 0.01 * difficultyEnhanceRate) {
@@ -214,11 +216,11 @@ public class Spring {
                                             append(player.getDisplayName()).
                                             append(Component.literal("获得了:").withStyle(ChatFormatting.WHITE)).
                                             append(itemStack.getDisplayName()));
-                            Compute.itemStackGive(player, itemStack);
+                            InventoryOperation.itemStackGive(player, itemStack);
 
                         }
 
-                        Compute.itemStackGive(player, new ItemStack(ModItems.SpringLoot.get(), difficultyEnhanceRate));
+                        InventoryOperation.itemStackGive(player, new ItemStack(ModItems.SpringLoot.get(), difficultyEnhanceRate));
 
                         Compute.respawnPlayer(player);
                     });

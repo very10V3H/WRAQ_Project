@@ -1,6 +1,7 @@
 package com.very.wraq.customized.uniform.bow;
 
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.customized.UniformItems;
 import com.very.wraq.customized.WraqUniformCurios;
 import com.very.wraq.render.toolTip.CustomStyle;
@@ -28,7 +29,7 @@ public class BowCurios0 extends WraqBowUniformCurios {
         components.add(Component.literal(" 使用").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("翻滚").withStyle(style)).
                 append(Component.literal("后，获得").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.Swiftness("15%总")).
+                append(ComponentUtils.AttributeDescription.Swiftness("15%总")).
                 append(Component.literal("，并使").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("箭矢").withStyle(style)).
                 append(Component.literal("获得").withStyle(ChatFormatting.WHITE)).

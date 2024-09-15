@@ -36,7 +36,7 @@ public class EasternTower extends DailyEndlessInstance {
                 1000 + levelDifference * 5, 2000 + levelDifference * 100, 2000 + levelDifference * 100, 0.5, 10,
                 0.01 * levelDifference, 2000 * 100 * levelDifference, 0, getMobMaxHealth(), 0.2);
         Style style = CustomStyle.styleOfHusk;
-        Compute.SetMobCustomName(mob, Component.literal(mobName).withStyle(style), getPlayerLevel());
+        Compute.setMobCustomName(mob, Component.literal(mobName).withStyle(style), getPlayerLevel());
         return mob;
     }
 

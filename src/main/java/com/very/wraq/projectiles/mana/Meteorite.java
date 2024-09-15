@@ -1,9 +1,10 @@
 package com.very.wraq.projectiles.mana;
 
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.attribute.PlayerAttributes;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.Utils;
+import com.very.wraq.process.func.damage.Damage;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
@@ -70,7 +71,7 @@ public class Meteorite extends AbstractArrow implements GeoEntity {
                 playerList.forEach(serverPlayer -> serverPlayer.connection.send(clientboundSoundPacket));
                 List<Mob> mobList = this.player.level().getEntitiesOfClass(Mob.class, AABB.ofSize(this.position(), 15, 15, 15));
                 mobList.forEach(mob -> {
-                    Compute.Damage.causeManaDamageToMonster_RateApDamage(player, mob, 15, false);
+                    Damage.causeManaDamageToMonster_RateApDamage(player, mob, 15, false);
                 });
             } else {
                 int TickCount = player.getServer().getTickCount();
@@ -181,7 +182,7 @@ public class Meteorite extends AbstractArrow implements GeoEntity {
                 playerList.forEach(serverPlayer -> serverPlayer.connection.send(clientboundSoundPacket));
                 List<Mob> mobList = this.player.level().getEntitiesOfClass(Mob.class, AABB.ofSize(this.position(), 15, 15, 15));
                 mobList.forEach(mob -> {
-                    Compute.Damage.causeManaDamageToMonster_RateApDamage(player, mob, 5, false);
+                    Damage.causeManaDamageToMonster_RateApDamage(player, mob, 5, false);
                 });
             } else {
                 List<Mob> mobList = this.player.level().getEntitiesOfClass(Mob.class, AABB.ofSize(this.position(), 15, 15, 15));

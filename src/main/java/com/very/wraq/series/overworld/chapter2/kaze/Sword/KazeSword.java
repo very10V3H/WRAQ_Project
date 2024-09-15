@@ -1,15 +1,16 @@
 package com.very.wraq.series.overworld.chapter2.kaze.Sword;
 
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.attribute.PlayerAttributes;
+import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.Utils;
+import com.very.wraq.process.func.damage.Damage;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.projectiles.ActiveItem;
 import com.very.wraq.projectiles.WraqSword;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.ComponentUtils;
-import com.very.wraq.common.util.Utils;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.attribute.PlayerAttributes;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
@@ -66,8 +67,8 @@ public class KazeSword extends WraqSword implements ActiveItem {
         components.add(Component.literal("若周围有单位位于空中，则对位于空中的所有单位造成").withStyle(ChatFormatting.WHITE).
                 append(Compute.AttributeDescription.AttackDamage(new String[]{"200%", "300%", "400%", "500%", "1000%"}[tier])).
                 append(Component.literal("的物理伤害，并将其强制牵引至地面").withStyle(ChatFormatting.WHITE)));
-        Compute.CoolDownTimeDescription(components, 3);
-        Compute.ManaCostDescription(components, 45);
+        ComponentUtils.coolDownTimeDescription(components, 3);
+        ComponentUtils.manaCostDescription(components, 45);
         return components;
     }
 
@@ -124,7 +125,7 @@ public class KazeSword extends WraqSword implements ActiveItem {
                             ParticleProvider.EntityEffectVerticleCircleParticle(mob, 1, 1, 16, ParticleTypes.ENCHANTED_HIT, 0);
                             ParticleProvider.EntityEffectVerticleCircleParticle(mob, 0.5, 0.75, 16, ParticleTypes.ENCHANTED_HIT, 0);
                             ParticleProvider.EntityEffectVerticleCircleParticle(mob, 0, 0.75, 16, ParticleTypes.ENCHANTED_HIT, 0);
-                            MobDamageCount += Compute.Damage.causeAttackDamageToMonster_RateAdDamage(player, mob, rate);
+                            MobDamageCount += Damage.causeAttackDamageToMonster_RateAdDamage(player, mob, rate);
                         }
                     }
                 }
@@ -139,7 +140,7 @@ public class KazeSword extends WraqSword implements ActiveItem {
                             ParticleProvider.EntityEffectVerticleCircleParticle(player1, 1, 1, 16, ParticleTypes.ENCHANTED_HIT, 0);
                             ParticleProvider.EntityEffectVerticleCircleParticle(player1, 0.5, 0.75, 16, ParticleTypes.ENCHANTED_HIT, 0);
                             ParticleProvider.EntityEffectVerticleCircleParticle(player1, 0, 0.75, 16, ParticleTypes.ENCHANTED_HIT, 0);
-                            PlayerDamageCount += Compute.Damage.causeAttackDamageToPlayer_RateAdDamage(player, player1, rate);
+                            PlayerDamageCount += Damage.causeAttackDamageToPlayer_RateAdDamage(player, player1, rate);
                         }
                     }
                 }

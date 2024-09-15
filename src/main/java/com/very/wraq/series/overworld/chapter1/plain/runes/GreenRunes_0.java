@@ -1,6 +1,7 @@
 package com.very.wraq.series.overworld.chapter1.plain.runes;
 
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.util.ComponentUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -24,7 +25,7 @@ public class GreenRunes_0 extends Item {
         Compute.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.GREEN, ChatFormatting.WHITE);
         Compute.RuneAttributeDescription(components);
         components.add(Component.literal("每5秒回复自身").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.LossHealth("10%")));
+                append(ComponentUtils.AttributeDescription.LossHealth("10%")));
         Compute.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.GREEN, ChatFormatting.WHITE);
         components.add(Component.literal("Runes-I").withStyle(ChatFormatting.GREEN).withStyle(ChatFormatting.ITALIC));
         super.appendHoverText(stack, p_41422_, components, p_41424_);

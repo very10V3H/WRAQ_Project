@@ -6,12 +6,12 @@ import com.very.wraq.Items.MainStory_1.BackSpawn;
 import com.very.wraq.commands.stable.ops.RoadCommand;
 import com.very.wraq.commands.stable.players.DpsCommand;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.StringUtils;
-import com.very.wraq.common.util.struct.PosAndLastTime;
-import com.very.wraq.common.util.struct.Shield;
-import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.attribute.PlayerAttributes;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.StringUtils;
+import com.very.wraq.common.util.Utils;
+import com.very.wraq.common.util.struct.PosAndLastTime;
+import com.very.wraq.common.util.struct.Shield;
 import com.very.wraq.core.MyArrow;
 import com.very.wraq.customized.Customize;
 import com.very.wraq.entities.entities.Civil.Civil;
@@ -26,11 +26,12 @@ import com.very.wraq.networking.misc.TeamPackets.TeamInfoRequestC2SPacket;
 import com.very.wraq.networking.unSorted.ClientLimitCheckS2CPacket;
 import com.very.wraq.networking.unSorted.PacketLimitS2CPacket;
 import com.very.wraq.networking.unSorted.TimeS2CPacket;
+import com.very.wraq.process.func.damage.Damage;
 import com.very.wraq.process.func.guide.Guide;
+import com.very.wraq.process.func.item.InventoryOperation;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.process.func.plan.PlanPlayer;
-import com.very.wraq.series.specialevents.labourDay.LabourDayIronHoe;
-import com.very.wraq.series.specialevents.labourDay.LabourDayIronPickaxe;
+import com.very.wraq.process.func.suit.SuitCount;
 import com.very.wraq.process.system.border.WorldBorder;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.process.system.element.equipAndCurios.fireElement.FireEquip;
@@ -65,6 +66,8 @@ import com.very.wraq.series.overworld.sakuraSeries.Boss2.GoldenAttackOffhand;
 import com.very.wraq.series.overworld.sakuraSeries.Boss2.GoldenBook;
 import com.very.wraq.series.overworld.sakuraSeries.EarthMana.EarthBook;
 import com.very.wraq.series.overworld.sakuraSeries.Slime.SlimeBoots;
+import com.very.wraq.series.specialevents.labourDay.LabourDayIronHoe;
+import com.very.wraq.series.specialevents.labourDay.LabourDayIronPickaxe;
 import com.very.wraq.series.specialevents.summer.SummerEvent;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -248,8 +251,8 @@ public class ServerPlayerTickEvent {
                         AABB.ofSize(posAndLastTime.vec3, 15, 15, 15));
                 mobList.forEach(mob -> {
                     if (mob.position().distanceTo(posAndLastTime.vec3) <= 5) {
-                        Compute.Damage.causeManaDamageToMonster_RateApDamage(player, mob, 0.5, false);
-                        Compute.Damage.causeAttackDamageToMonster_RateAdDamage(player, mob, 1);
+                        Damage.causeManaDamageToMonster_RateApDamage(player, mob, 0.5, false);
+                        Damage.causeAttackDamageToMonster_RateAdDamage(player, mob, 1);
                     }
                 });
                 posAndLastTime.TickCount -= 10;
@@ -263,7 +266,7 @@ public class ServerPlayerTickEvent {
                 FireWorkGun.RandomSummonFireworkRocket(player.level(),player);
             }*/
 
-            if (TickCount % 60 == 5 && Compute.SuitCount.getIceSuitCount(player) > 0 && player.isAlive()) {
+            if (TickCount % 60 == 5 && SuitCount.getIceSuitCount(player) > 0 && player.isAlive()) {
                 Level level = player.level();
                 List<Mob> mobList = level.getEntitiesOfClass(Mob.class, AABB.ofSize(player.position(), 15, 15, 15));
                 mobList.forEach(mob -> {
@@ -276,8 +279,8 @@ public class ServerPlayerTickEvent {
                             level.setBlockAndUpdate(new BlockPos(mob.getBlockX(), mob.getBlockY() + 1, mob.getBlockZ()), Blocks.ICE.defaultBlockState());
                             level.destroyBlock(new BlockPos(mob.getBlockX(), mob.getBlockY() + 1, mob.getBlockZ()), false);
                         }
-                        Compute.Damage.causeAttackDamageToMonster_RateAdDamage(player, mob, Compute.SuitCount.getIceSuitCount(player) * 0.5);
-                        Compute.Damage.causeManaDamageToMonster_RateApDamage(player, mob, Compute.SuitCount.getIceSuitCount(player) * 0.15, false);
+                        Damage.causeAttackDamageToMonster_RateAdDamage(player, mob, SuitCount.getIceSuitCount(player) * 0.5);
+                        Damage.causeManaDamageToMonster_RateApDamage(player, mob, SuitCount.getIceSuitCount(player) * 0.15, false);
                         Compute.addSlowDownEffect(mob, 40, 2);
                     }
                 });
@@ -332,9 +335,9 @@ public class ServerPlayerTickEvent {
                 Utils.dayOnlineCount.put(player.getName().getString(), Utils.dayOnlineCount.getOrDefault(player.getName().getString(), 0) + 1);
             }
 
-            if (player.tickCount % 200 == 0 && Compute.SuitCount.getPurpleIronSuitCount(player) > 0) {
-                int Rate = Compute.SuitCount.getPurpleIronSuitCount(player);
-                Compute.playerShieldProvider(player, 100, player.getMaxHealth() * 0.1 * Rate);
+            if (player.tickCount % 200 == 0 && SuitCount.getPurpleIronSuitCount(player) > 0) {
+                int Rate = SuitCount.getPurpleIronSuitCount(player);
+                Shield.providePlayerShield(player, 100, player.getMaxHealth() * 0.1 * Rate);
                 Compute.sendEffectLastTime(player, ModItems.PurpleIron.get().getDefaultInstance(), 100);
             }
 
@@ -345,7 +348,7 @@ public class ServerPlayerTickEvent {
                         || player.isUnderWater()) && player.getEffect(ModEffects.WARM.get()) == null) {
                     if (player.isUnderWater()) Compute.PlayerColdNumAddOrCost(player, 0.1);
                     else {
-                        if (Compute.SuitCount.getLeatherSuitCount(player) > 0) Compute.PlayerColdNumAddOrCost(player, 0.1);
+                        if (SuitCount.getLeatherSuitCount(player) > 0) Compute.PlayerColdNumAddOrCost(player, 0.1);
                         else Compute.PlayerColdNumAddOrCost(player, 1);
                     }
                 } else Compute.PlayerColdNumAddOrCost(player, -1);
@@ -447,20 +450,20 @@ public class ServerPlayerTickEvent {
                             ModNetworking.sendToClient(new SoundsS2CPacket(3),serverPlayer);
 
                             switch (MissionNum) {
-                                case 1 -> Compute.ItemStackGive(player,ModItems.PlainSword0.get().getDefaultInstance());
-                                case 2 -> Compute.ItemStackGive(player,ModItems.PlainSceptre0.get().getDefaultInstance());
-                                case 3 -> Compute.ItemStackGive(player,ModItems.PlainBow0.get().getDefaultInstance());
-                                case 4 -> Compute.ItemStackGive(player,ModItems.BackPackTickets.get().getDefaultInstance());
+                                case 1 -> InventoryOperation.itemStackGive(player,ModItems.PlainSword0.get().getDefaultInstance());
+                                case 2 -> InventoryOperation.itemStackGive(player,ModItems.PlainSceptre0.get().getDefaultInstance());
+                                case 3 -> InventoryOperation.itemStackGive(player,ModItems.PlainBow0.get().getDefaultInstance());
+                                case 4 -> InventoryOperation.itemStackGive(player,ModItems.BackPackTickets.get().getDefaultInstance());
                                 case 8 -> {
                                     ItemStack itemStack = Items.ELYTRA.getDefaultInstance();
                                     itemStack.getOrCreateTag().putBoolean("Unbreakable",true);
                                     Map<Enchantment, Integer> map = EnchantmentHelper.getEnchantments(itemStack);
                                     map.put(Enchantments.UNBREAKING,5);
                                     EnchantmentHelper.setEnchantments(map,itemStack);
-                                    Compute.ItemStackGive(player,itemStack);
+                                    InventoryOperation.itemStackGive(player,itemStack);
                                 }
                             }
-                            Compute.ItemStackGive(player,ModItems.SilverCoin.get().getDefaultInstance());
+                            InventoryOperation.itemStackGive(player,ModItems.SilverCoin.get().getDefaultInstance());
                             Compute.ExpPercentGetAndMSGSend(player,0.5,0,player.experienceLevel);
                             MissionNum ++;
                             data.putInt(StringUtils.Missions.Mission,MissionNum);
@@ -479,8 +482,8 @@ public class ServerPlayerTickEvent {
                             data.putInt(StringUtils.Missions.Mission,MissionNum);
                             Compute.FormatMSGSend(player,Component.literal("任务").withStyle(CustomStyle.styleOfSpider),
                                     Component.literal("您已经完成了全部新手引导任务。").withStyle(ChatFormatting.WHITE));
-                            Compute.ItemStackGive(player,ModItems.GoldCoin.get().getDefaultInstance());
-                            Compute.ItemStackGive(player,ModItems.SmartPhone.get().getDefaultInstance());
+                            InventoryOperation.itemStackGive(player,ModItems.GoldCoin.get().getDefaultInstance());
+                            InventoryOperation.itemStackGive(player,ModItems.SmartPhone.get().getDefaultInstance());
                             Compute.ExpPercentGetAndMSGSend(player,1,0,player.experienceLevel);
                         }
                     }
@@ -540,7 +543,7 @@ public class ServerPlayerTickEvent {
                         });*/
 
                         if (XpLevel == 99)
-                            Compute.itemStackGive(player, ModItems.SkillReset.get().getDefaultInstance());
+                            InventoryOperation.itemStackGive(player, ModItems.SkillReset.get().getDefaultInstance());
                         ModNetworking.sendToClient(new SoundsS2CPacket(3), serverPlayer);
                         if (!data.contains(StringUtils.AbilityPoint_Total)) {
                             data.putInt(StringUtils.AbilityPoint_Total, XpLevel);
@@ -581,7 +584,7 @@ public class ServerPlayerTickEvent {
                             itemStack.setCount(player.experienceLevel);
                             Compute.sendFormatMSG(player, Component.literal("经验").withStyle(ChatFormatting.LIGHT_PURPLE),
                                     Component.literal("通过提升等级，你获得了").withStyle(ChatFormatting.WHITE).append(itemStack.getDisplayName()));
-                            Compute.itemStackGive(player, itemStack);
+                            InventoryOperation.itemStackGive(player, itemStack);
                             Compute.sendFormatMSG(player, Component.literal("经验").withStyle(ChatFormatting.LIGHT_PURPLE),
                                     Component.literal(player.getName().getString() + "通过探索，达到了").withStyle(ChatFormatting.WHITE).
                                             append(Component.literal(String.valueOf(player.experienceLevel)).withStyle(ChatFormatting.LIGHT_PURPLE)).
@@ -638,10 +641,10 @@ public class ServerPlayerTickEvent {
             }
             if (flag && shieldQueue != null) shieldQueue.clear();
 
-            Compute.PlayerShieldCompute(player);
+            Shield.computePlayerShield(player);
 
-            if (Compute.SuitCount.getSkySuitCount(player) > 0 && TmpNum % 200 == 0 && player.getHealth() / player.getMaxHealth() <= 0.4) {
-                Compute.playerShieldProvider(player, 200, PlayerAttributes.attackDamage(player) * 0.1 * Compute.SkySuitEffectRate(player));
+            if (SuitCount.getSkySuitCount(player) > 0 && TmpNum % 200 == 0 && player.getHealth() / player.getMaxHealth() <= 0.4) {
+                Shield.providePlayerShield(player, 200, PlayerAttributes.attackDamage(player) * 0.1 * Compute.SkySuitEffectRate(player));
             }
 
             if (TmpNum % 20 == 0) {

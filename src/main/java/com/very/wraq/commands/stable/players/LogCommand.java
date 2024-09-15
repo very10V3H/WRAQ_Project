@@ -1,12 +1,13 @@
 package com.very.wraq.commands.stable.players;
 
-import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.StringUtils;
-import com.very.wraq.common.registry.ModItems;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.StringUtils;
+import com.very.wraq.process.func.item.InventoryOperation;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.nbt.CompoundTag;
@@ -23,7 +24,7 @@ public class LogCommand implements Command<CommandSourceStack> {
         Player player = context.getSource().getPlayer();
         CompoundTag data = player.getPersistentData();
         if (data.contains(StringUtils.Lop.Xp) && !data.contains(StringUtils.LogReward)) {
-            Compute.itemStackGive(player, new ItemStack(ModItems.LogBag.get(), data.getInt(StringUtils.Lop.Xp) / 256));
+            InventoryOperation.itemStackGive(player, new ItemStack(ModItems.LogBag.get(), data.getInt(StringUtils.Lop.Xp) / 256));
             data.putBoolean(StringUtils.LogReward, true);
         } else {
             Compute.sendFormatMSG(player, Component.literal("补偿").withStyle(CustomStyle.styleOfField),

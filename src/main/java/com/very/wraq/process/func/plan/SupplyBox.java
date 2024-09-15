@@ -1,9 +1,10 @@
 package com.very.wraq.process.func.plan;
 
-import com.very.wraq.process.system.lottery.NewLotteries;
-import com.very.wraq.process.system.tower.Tower;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.process.func.item.InventoryOperation;
+import com.very.wraq.process.system.lottery.NewLotteries;
+import com.very.wraq.process.system.tower.Tower;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -52,7 +53,7 @@ public class SupplyBox extends Item {
                         throw new RuntimeException(e);
                     }
                 } else {
-                    Compute.itemStackGive(player, itemStack);
+                    InventoryOperation.itemStackGive(player, itemStack);
                 }
             });
             Compute.playerItemUseWithRecord(player);

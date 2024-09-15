@@ -1,11 +1,12 @@
 package com.very.wraq.series.instance.series.castle;
 
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.ComponentUtils;
-import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.registry.ItemMaterial;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.core.AttackEvent;
+import com.very.wraq.process.func.suit.SuitCount;
 import com.very.wraq.projectiles.ForgeItem;
 import com.very.wraq.projectiles.WraqArmor;
 import com.very.wraq.render.toolTip.CustomStyle;
@@ -78,7 +79,7 @@ public class CastleAttackArmor extends WraqArmor implements ForgeItem {
     public static WeakHashMap<Player, Integer> playerDoubleAttackTick = new WeakHashMap<>();
 
     public static void Tick(Player player) {
-        int ArmorCount = Compute.SuitCount.getCastleAttackSuitCount(player);
+        int ArmorCount = SuitCount.getCastleAttackSuitCount(player);
         if (ArmorCount == 0) return;
         int TickCount = player.getServer().getTickCount();
         if (playerDoubleAttackTick.containsKey(player) && playerDoubleAttackTick.get(player) == TickCount) {
@@ -87,7 +88,7 @@ public class CastleAttackArmor extends WraqArmor implements ForgeItem {
     }
 
     public static void NormalAttack(Player player) {
-        int ArmorCount = Compute.SuitCount.getCastleAttackSuitCount(player);
+        int ArmorCount = SuitCount.getCastleAttackSuitCount(player);
         if (ArmorCount == 0) return;
         int TickCount = player.getServer().getTickCount();
         playerDoubleAttackTick.put(player, TickCount + 4);
@@ -98,7 +99,7 @@ public class CastleAttackArmor extends WraqArmor implements ForgeItem {
     }
 
     public static double ExIgnoreDefenceDamage(Player player) {
-        int ArmorCount = Compute.SuitCount.getCastleAttackSuitCount(player);
+        int ArmorCount = SuitCount.getCastleAttackSuitCount(player);
         if (ArmorCount == 0) return 0;
         return Compute.XpStrengthADDamage(player, 2) * ArmorCount;
     }
@@ -145,11 +146,11 @@ public class CastleAttackArmor extends WraqArmor implements ForgeItem {
         }
         int type = data.getInt(attributeType);
         Component[] components1 = {
-                Compute.AttributeDescription.MaxHealth(""),
-                Compute.AttributeDescription.AttackDamage(""),
-                Compute.AttributeDescription.Defence(""),
-                Compute.AttributeDescription.ManaDefence(""),
-                Compute.AttributeDescription.CritDamage("")
+                ComponentUtils.AttributeDescription.MaxHealth(""),
+                ComponentUtils.AttributeDescription.AttackDamage(""),
+                ComponentUtils.AttributeDescription.Defence(""),
+                ComponentUtils.AttributeDescription.ManaDefence(""),
+                ComponentUtils.AttributeDescription.CritDamage("")
         };
         components.add(Component.literal(" ").withStyle(ChatFormatting.WHITE).
                 append(components1[type]).

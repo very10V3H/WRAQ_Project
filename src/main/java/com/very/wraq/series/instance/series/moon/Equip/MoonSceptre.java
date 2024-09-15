@@ -7,6 +7,7 @@ import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.common.util.Utils;
+import com.very.wraq.common.util.struct.Shield;
 import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.process.func.ChangedAttributesModifier;
 import com.very.wraq.process.func.EnhanceNormalAttack;
@@ -89,10 +90,10 @@ public class MoonSceptre extends WraqSceptre implements ActiveItem, OnHitEffectM
         components.add(Component.literal("，提供在10s内持续衰减的").withStyle(ChatFormatting.WHITE).
                 append(Compute.AttributeDescription.ExManaDamage(String.format("%.0f%%", activeRate * 100))));
         components.add(Component.literal(" 并为你提供持续20s的").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.ManaDamage("100%")).
+                append(ComponentUtils.AttributeDescription.ManaDamage("100%")).
                 append(Component.literal("的").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("护盾").withStyle(ChatFormatting.GRAY)));
-        Compute.CoolDownTimeDescription(components, 27);
+        ComponentUtils.coolDownTimeDescription(components, 27);
         return components;
     }
 
@@ -107,7 +108,7 @@ public class MoonSceptre extends WraqSceptre implements ActiveItem, OnHitEffectM
         EnhanceNormalAttackModifier.addModifier(player, new EnhanceNormalAttackModifier("moonSceptreActive", 2, new EnhanceNormalAttack() {
             @Override
             public void hit(Player player, Mob mob) {
-                Compute.playerShieldProvider(player, 400, PlayerAttributes.manaDamage(player));
+                Shield.providePlayerShield(player, 400, PlayerAttributes.manaDamage(player));
                 Compute.sendEffectLastTime(player, ModItems.MoonSceptre.get().getDefaultInstance(), 200);
                 List<Mob> mobList = mob.level().getEntitiesOfClass(Mob.class, AABB.ofSize(mob.position(), 15, 15, 15));
                 mobList.removeIf(mob1 -> mob1.distanceTo(mob) > 6);

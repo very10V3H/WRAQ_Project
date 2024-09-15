@@ -847,7 +847,7 @@ public class SkillTreeGui extends Screen {
             components.add(Component.literal("▲弓术专精-原野护符").withStyle(CustomStyle.styleOfFlexible));
             Compute.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfFlexible, ChatFormatting.WHITE);
             components.add(Component.literal("手持弓时，获得").withStyle(ChatFormatting.WHITE).
-                    append(Compute.AttributeDescription.movementSpeedWithoutBattle(ClientUtils.BowSkillPoint.PointCache[index] * 3 + "%")));
+                    append(ComponentUtils.AttributeDescription.movementSpeedWithoutBattle(ClientUtils.BowSkillPoint.PointCache[index] * 3 + "%")));
             Compute.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfFlexible, ChatFormatting.WHITE);
             components.add(Component.literal("▶专精等级:").withStyle(CustomStyle.styleOfFlexible));
             components.add(Component.literal(ClientUtils.BowSkillPoint.PointCache[index] + " / " + 10).withStyle(CustomStyle.styleOfFlexible));
@@ -967,7 +967,7 @@ public class SkillTreeGui extends Screen {
             components.add(Component.literal("▲弓术专精-猎手本能").withStyle(CustomStyle.styleOfFlexible));
             Compute.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfFlexible, ChatFormatting.WHITE);
             components.add(Component.literal("手持弓时，获得").withStyle(ChatFormatting.WHITE).
-                    append(Compute.AttributeDescription.movementSpeedWithoutBattle(ClientUtils.BowSkillPoint.PointCache[index] * 8 + "%")));
+                    append(ComponentUtils.AttributeDescription.movementSpeedWithoutBattle(ClientUtils.BowSkillPoint.PointCache[index] * 8 + "%")));
             Compute.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfFlexible, ChatFormatting.WHITE);
             components.add(Component.literal("▶专精等级:").withStyle(CustomStyle.styleOfFlexible));
             components.add(Component.literal(ClientUtils.BowSkillPoint.PointCache[index] + " / " + 5).withStyle(CustomStyle.styleOfFlexible));
@@ -1061,7 +1061,7 @@ public class SkillTreeGui extends Screen {
             components.add(Component.literal("▲法术专精-法术热诚").withStyle(CustomStyle.styleOfMana));
             Compute.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
             components.add(Component.literal("你的法术攻击额外造成").withStyle(ChatFormatting.WHITE).
-                    append(Compute.AttributeDescription.ManaDamage(ClientUtils.ManaSkillPoint.PointCache[index] + "%")).
+                    append(ComponentUtils.AttributeDescription.ManaDamage(ClientUtils.ManaSkillPoint.PointCache[index] + "%")).
                     append(Component.literal("的").withStyle(ChatFormatting.WHITE)).
                     append(Component.literal("真实伤害。").withStyle(CustomStyle.styleOfSea)));
             Compute.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
@@ -1091,7 +1091,7 @@ public class SkillTreeGui extends Screen {
             components.add(Component.literal("▲法术专精-魔力汲取").withStyle(CustomStyle.styleOfMana));
             Compute.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
             components.add(Component.literal("击杀一个单位时，提升").withStyle(ChatFormatting.WHITE).
-                    append(Compute.AttributeDescription.ManaDamage(ClientUtils.ManaSkillPoint.PointCache[index] * 2 + "%")));
+                    append(ComponentUtils.AttributeDescription.ManaDamage(ClientUtils.ManaSkillPoint.PointCache[index] * 2 + "%")));
             Compute.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
             components.add(Component.literal("▶专精等级:").withStyle(CustomStyle.styleOfMana));
             components.add(Component.literal(ClientUtils.ManaSkillPoint.PointCache[index] + " / " + 5).withStyle(CustomStyle.styleOfMana));
@@ -1138,7 +1138,7 @@ public class SkillTreeGui extends Screen {
             components.add(Component.literal("▲法术专精-危机意识").withStyle(CustomStyle.styleOfMana));
             Compute.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
             components.add(Component.literal("当生命值低于80%时，造成").withStyle(ChatFormatting.WHITE).
-                    append(Compute.AttributeDescription.ManaDamage(ClientUtils.ManaSkillPoint.PointCache[index] * 2 + "%")).
+                    append(ComponentUtils.AttributeDescription.ManaDamage(ClientUtils.ManaSkillPoint.PointCache[index] * 2 + "%")).
                     append(Component.literal("的额外真实伤害").withStyle(CustomStyle.styleOfSea)));
             Compute.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
             components.add(Component.literal("▶专精等级:").withStyle(CustomStyle.styleOfMana));
@@ -1153,7 +1153,7 @@ public class SkillTreeGui extends Screen {
             components.add(Component.literal("▲法术专精-完美").withStyle(CustomStyle.styleOfMana));
             Compute.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
             components.add(Component.literal("持续命中目标，将至多造成").withStyle(ChatFormatting.WHITE).
-                    append(Compute.AttributeDescription.ManaDamage(ClientUtils.ManaSkillPoint.PointCache[index] * 2 + "%")).
+                    append(ComponentUtils.AttributeDescription.ManaDamage(ClientUtils.ManaSkillPoint.PointCache[index] * 2 + "%")).
                     append(Component.literal("的额外真实伤害").withStyle(CustomStyle.styleOfSea)));
             Compute.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
             components.add(Component.literal("▶专精等级:").withStyle(CustomStyle.styleOfMana));
@@ -1269,10 +1269,10 @@ public class SkillTreeGui extends Screen {
             Compute.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
             components.add(Component.literal("移动、攻击将会获得充能，当充能满时").withStyle(ChatFormatting.WHITE));
             components.add(Component.literal("下一次攻击将额外造成").withStyle(ChatFormatting.WHITE).
-                    append(Compute.AttributeDescription.ManaDamage(ClientUtils.ManaSkillPoint.PointCache[index] * 40 + "%")).
+                    append(ComponentUtils.AttributeDescription.ManaDamage(ClientUtils.ManaSkillPoint.PointCache[index] * 40 + "%")).
                     append(Component.literal("的伤害").withStyle(ChatFormatting.WHITE)));
             components.add(Component.literal("并在以目标为中心的范围内造成").withStyle(ChatFormatting.WHITE).
-                    append(Compute.AttributeDescription.ManaDamage(ClientUtils.ManaSkillPoint.PointCache[index] * 100 + "%")).
+                    append(ComponentUtils.AttributeDescription.ManaDamage(ClientUtils.ManaSkillPoint.PointCache[index] * 100 + "%")).
                     append(Component.literal("的额外伤害").withStyle(ChatFormatting.WHITE)));
             components.add(ComponentUtils.getCritDamageInfluenceDescription());
             Compute.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
@@ -1289,7 +1289,7 @@ public class SkillTreeGui extends Screen {
             Compute.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
             components.add(Component.literal("移动、攻击将会获得充能，当充能满时").withStyle(ChatFormatting.WHITE));
             components.add(Component.literal("下一次攻击将基于目标周围实体数量提供至多").withStyle(ChatFormatting.WHITE).
-                    append(Compute.AttributeDescription.ManaDamage(ClientUtils.ManaSkillPoint.PointCache[index] * 200 + "%")).
+                    append(ComponentUtils.AttributeDescription.ManaDamage(ClientUtils.ManaSkillPoint.PointCache[index] * 200 + "%")).
                     append(Component.literal("的范围伤害").withStyle(ChatFormatting.WHITE)));
             components.add(Component.literal("并回复自身").withStyle(ChatFormatting.WHITE).
                     append(Compute.AttributeDescription.MaxMana(ClientUtils.ManaSkillPoint.PointCache[index] * 5 + "%已损失")));
@@ -1306,7 +1306,7 @@ public class SkillTreeGui extends Screen {
             components.add(Component.literal("▲法术专精-应急激化").withStyle(CustomStyle.styleOfMana));
             Compute.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
             components.add(Component.literal("当你的生命值小于50%时，受到伤害将对周围的单位造成至多").withStyle(ChatFormatting.WHITE).
-                    append(Compute.AttributeDescription.ManaDamage(ClientUtils.ManaSkillPoint.PointCache[index] * 1000 + "%")).
+                    append(ComponentUtils.AttributeDescription.ManaDamage(ClientUtils.ManaSkillPoint.PointCache[index] * 1000 + "%")).
                     append(Component.literal("的法术伤害").withStyle(ChatFormatting.WHITE)));
             components.add(Component.literal("并获得基于周围实体数量的护盾数量").withStyle(ChatFormatting.WHITE));
             Compute.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);

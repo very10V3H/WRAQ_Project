@@ -1,14 +1,15 @@
 package com.very.wraq.series.end.eventController.VolcanoRecall;
 
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.StringUtils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.events.mob.chapter2.SearedSpiritSpawnController;
+import com.very.wraq.process.func.item.InventoryOperation;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.render.particles.ModParticles;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.overworld.chapter2.dimension.ToEnd;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.StringUtils;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -97,7 +98,7 @@ public class VolcanoRecallEvent {
                             if (Utils.VolcanoRecallBlaze != null)
                                 Utils.VolcanoRecallBlaze.remove(Entity.RemovalReason.KILLED);
                             Utils.VolcanoRecallBlaze = new Blaze(EntityType.BLAZE, level1);
-                            Compute.SetMobCustomName(Utils.VolcanoRecallBlaze, ModItems.ArmorVolcanoRecall.get(), Component.literal("模糊记忆中的火山熔岩").withStyle(style));
+                            Compute.setMobCustomName(Utils.VolcanoRecallBlaze, ModItems.ArmorVolcanoRecall.get(), Component.literal("模糊记忆中的火山熔岩").withStyle(style));
                             Utils.VolcanoRecallBlaze.setItemSlot(EquipmentSlot.HEAD, ModItems.ArmorVolcanoRecall.get().getDefaultInstance());
                             Utils.VolcanoRecallBlaze.setItemSlot(EquipmentSlot.MAINHAND, ModItems.ForestSword3.get().getDefaultInstance());
                             Utils.VolcanoRecallBlaze.getAttribute(Attributes.MAX_HEALTH).setBaseValue(115200.0D);
@@ -147,7 +148,7 @@ public class VolcanoRecallEvent {
                                                 append(Component.literal("的记忆。").withStyle(ChatFormatting.WHITE)));
                                 ItemStack itemStack = ModItems.IntensifiedVolcanoSoul.get().getDefaultInstance();
                                 itemStack.setCount(1);
-                                Compute.itemStackGive(Utils.volcanoRecall.recallPlayer, itemStack);
+                                InventoryOperation.itemStackGive(Utils.volcanoRecall.recallPlayer, itemStack);
                                 data.putInt(StringUtils.RecallEndRune3, 1);
                             } else {
                                 data.putInt(RecallTimes, data.getInt(RecallTimes) + 1);
@@ -164,7 +165,7 @@ public class VolcanoRecallEvent {
                                                 append(Component.literal("的记忆。").withStyle(ChatFormatting.WHITE)));
                                 ItemStack itemStack = ModItems.VolcanoRune.get().getDefaultInstance();
                                 itemStack.setCount(1);
-                                Compute.itemStackGive(Utils.volcanoRecall.recallPlayer, itemStack);
+                                InventoryOperation.itemStackGive(Utils.volcanoRecall.recallPlayer, itemStack);
                                 data.putInt(StringUtils.RecallEndRune3, 1);
                             }
                         }

@@ -1,31 +1,34 @@
 package com.very.wraq.events.fight;
 
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.attribute.DamageInfluence;
+import com.very.wraq.common.attribute.MobAttributes;
+import com.very.wraq.common.attribute.PlayerAttributes;
+import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.StringUtils;
+import com.very.wraq.common.util.Utils;
+import com.very.wraq.common.util.struct.Shield;
 import com.very.wraq.entities.entities.Civil.Civil;
 import com.very.wraq.events.modules.HurtEventModule;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.misc.ParticlePackets.EffectParticle.DamageDecreaseParticleS2CPacket;
 import com.very.wraq.networking.misc.ParticlePackets.SlowDownParticleS2CPacket;
 import com.very.wraq.networking.misc.SoundsPackets.SoundsS2CPacket;
+import com.very.wraq.process.func.damage.Damage;
+import com.very.wraq.process.func.suit.SuitCount;
 import com.very.wraq.process.system.potion.NewPotionEffects;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.series.end.eventController.LightningIslandRecall.*;
+import com.very.wraq.series.end.eventController.LightningIslandRecall.IntensifiedLightningArmor;
 import com.very.wraq.series.instance.series.castle.CastleCurios;
 import com.very.wraq.series.instance.series.devil.DevilAttackArmor;
 import com.very.wraq.series.instance.series.moon.Equip.MoonBelt;
 import com.very.wraq.series.instance.series.taboo.TabooAttackArmor;
-import com.very.wraq.series.overworld.chapter2.lightningIsland.Armor.*;
-import com.very.wraq.series.overworld.chapter7.star.StarBottle;
 import com.very.wraq.series.newrunes.chapter1.ForestNewRune;
 import com.very.wraq.series.overworld.chapter1.waterSystem.LakePower;
+import com.very.wraq.series.overworld.chapter2.lightningIsland.Armor.LightningArmor;
+import com.very.wraq.series.overworld.chapter7.star.StarBottle;
 import com.very.wraq.series.overworld.sakuraSeries.EarthMana.EarthPower;
 import com.very.wraq.series.overworld.sakuraSeries.Slime.SlimeBoots;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.StringUtils;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.attribute.DamageInfluence;
-import com.very.wraq.common.attribute.MobAttributes;
-import com.very.wraq.common.attribute.PlayerAttributes;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -59,12 +62,12 @@ public class MonsterAttackEvent {
     public static void monsterAttack(Mob monster, Player player, double damage) {
         CompoundTag data = player.getPersistentData();
 
-        double DamageDecrease = Compute.SwordSkill1And4(data, player);
+        double DamageDecrease = Compute.getSwordSkill1And4(data, player);
 
-        DamageDecrease += Compute.SwordSkill14(data, player, monster);
-        DamageDecrease += Compute.BowSkill4(data, player);
-        DamageDecrease += Compute.ManaSkill4(data, player);
-        DamageDecrease += Compute.LevelSuppress(player, monster); // 等级压制
+        DamageDecrease += Compute.getSwordSkill14(data, player, monster);
+        DamageDecrease += Compute.getBowSkill4(data, player);
+        DamageDecrease += Compute.getManaSkill4(data, player);
+        DamageDecrease += DamageInfluence.levelSuppress(player, monster); // 等级压制
         DamageDecrease += ScarecrowChestPlate(player); // 稻草甲
         DamageDecrease += SnowArmorEffectDamageDecrease(monster); // 冰川盔甲
         DamageDecrease += EarthPower.MobDamageDecrease(monster); // 地蕴法术
@@ -105,13 +108,13 @@ public class MonsterAttackEvent {
 
         if (ForestNewRune.protectPlayerFromDamage(player, damage)) damage = 0;
         if (damage > 0) {
-            double damageAfterShieldDecrease = Compute.PlayerShieldDecrease(player, damage);
+            double damageAfterShieldDecrease = Shield.decreasePlayerShield(player, damage);
             if (player.isCreative()) {
                 player.sendSystemMessage(Component.literal("" + damageAfterShieldDecrease));
             } else {
                 if (damageAfterShieldDecrease > 0 && player.isAlive()) {
                     if (player.getHealth() / player.getMaxHealth() < 0.5) HurtEventModule.ManaSkill14(data, player);
-                    Compute.Damage.DirectDamageToPlayer(monster, player, damageAfterShieldDecrease);
+                    Damage.DirectDamageToPlayer(monster, player, damageAfterShieldDecrease);
                     player.hurtTime = 10;
                     monster.heal((float) (damageAfterShieldDecrease * healthSteal));
                     MoonBelt.PassiveGetDamage(player, damageAfterShieldDecrease); // 尘月玉缠
@@ -167,7 +170,7 @@ public class MonsterAttackEvent {
                 double exDamage = 0;
 
                 double playerDefence = PlayerAttributes.defence(player);
-                double CritDamageDecrease = Compute.PlayerCritDamageDecrease(player);
+                double CritDamageDecrease = PlayerAttributes.decreasePlayerCritDamage(player);
 
                 exDamage += MonsterExDamage(monster, player); // 各种怪物伤害增益
 
@@ -234,7 +237,7 @@ public class MonsterAttackEvent {
     }
 
     public static void SnowArmorEffect(Player player, Mob monster) {
-        if (Compute.SuitCount.getSnowSuitCount(player) >= 4) {
+        if (SuitCount.getSnowSuitCount(player) >= 4) {
             int TickCount = player.getServer().getTickCount();
             monster.setDeltaMovement(0, 0, 0);
             monster.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 5, 100, false, false));

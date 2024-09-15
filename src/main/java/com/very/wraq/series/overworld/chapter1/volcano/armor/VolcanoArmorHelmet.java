@@ -1,11 +1,12 @@
 package com.very.wraq.series.overworld.chapter1.volcano.armor;
 
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.attribute.BasicAttributeDescription;
+import com.very.wraq.common.registry.ItemMaterial;
+import com.very.wraq.common.util.Utils;
+import com.very.wraq.process.func.suit.SuitCount;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.overworld.chapter1.volcano.VolcanoSuitDescription;
-import com.very.wraq.common.attribute.BasicAttributeDescription;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.registry.ItemMaterial;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
@@ -38,10 +39,10 @@ public class VolcanoArmorHelmet extends ArmorItem {
     }
 
     public static double exAttackDamage(Player player) {
-        return Compute.SuitCount.getVolcanoCountWithoutCrest(player) > 0 ? Math.min(100, player.experienceLevel) : 0;
+        return SuitCount.getVolcanoCountWithoutCrest(player) > 0 ? Math.min(100, player.experienceLevel) : 0;
     }
 
     public static double exManaDamage(Player player) {
-        return Compute.SuitCount.getVolcanoCountWithoutCrest(player) > 0 ? Math.min(100, player.experienceLevel) * 2 : 0;
+        return SuitCount.getVolcanoCountWithoutCrest(player) > 0 ? Math.min(100, player.experienceLevel) * 2 : 0;
     }
 }

@@ -1,15 +1,16 @@
 package com.very.wraq.series.newrunes.chapter2;
 
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.attribute.PlayerAttributes;
+import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.events.mob.chapter2.LightningZombieController;
+import com.very.wraq.process.func.damage.Damage;
 import com.very.wraq.projectiles.UsageOrGetWayDescriptionItem;
 import com.very.wraq.projectiles.WraqCurios;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.newrunes.NewRuneItems;
 import com.very.wraq.series.newrunes.RuneItem;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.ComponentUtils;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.attribute.PlayerAttributes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -119,7 +120,7 @@ public class LightningNewRune extends WraqCurios implements RuneItem, UsageOrGet
 
                 double finalRate = rate;
                 nearMobList.forEach(target -> {
-                    Compute.Damage.causeAutoAdaptionRateDamageToMob(player, target, finalRate);
+                    Damage.causeAutoAdaptionRateDamageToMob(player, target, finalRate);
                 });
 
             });

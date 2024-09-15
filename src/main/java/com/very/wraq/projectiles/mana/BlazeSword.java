@@ -1,6 +1,7 @@
 package com.very.wraq.projectiles.mana;
 
 import com.very.wraq.common.Compute;
+import com.very.wraq.process.func.damage.Damage;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -57,7 +58,7 @@ public class BlazeSword extends AbstractArrow implements GeoEntity {
         if (!this.level().isClientSide && this.player != null) {
             Entity entity = result.getEntity();
             if (entity instanceof Mob mob) {
-                Compute.Damage.causeManaDamageToMonster_ApDamage(player, mob, Compute.XpStrengthAPDamage(player, 0.5));
+                Damage.causeManaDamageToMonster_ApDamage(player, mob, Compute.XpStrengthAPDamage(player, 0.5));
             }
         }
         this.remove(RemovalReason.KILLED);

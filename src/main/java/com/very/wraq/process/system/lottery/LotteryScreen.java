@@ -2,12 +2,12 @@ package com.very.wraq.process.system.lottery;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.very.wraq.blocks.blocks.forge.ForgeRecipe;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.networking.ModNetworking;
+import com.very.wraq.process.func.item.InventoryOperation;
 import com.very.wraq.process.system.forge.ForgeEquipUtils;
 import com.very.wraq.process.system.forge.networking.ForgeC2SPacket;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.Utils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -103,7 +103,7 @@ public class LotteryScreen extends Screen {
                     List<Component> components = new ArrayList<>() {{
                         add(Component.literal("「材料清单」").withStyle(ChatFormatting.AQUA));
                         materialList.forEach(material -> {
-                            int playerInventoryHasNum = Compute.itemStackCount(mc.player, material.getItem());
+                            int playerInventoryHasNum = InventoryOperation.itemStackCount(mc.player, material.getItem());
                             if (playerInventoryHasNum >= material.getCount()) {
                                 add(Component.literal("").append(material.getDisplayName()).
                                         append(Component.literal(" (")).withStyle(ChatFormatting.WHITE).

@@ -1,13 +1,14 @@
 package com.very.wraq.series.end.eventController.BlackForestRecall;
 
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.events.mob.chapter2.HuskSpawnController;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.misc.ParticlePackets.BlackForestRecallParticleS2CPacket;
+import com.very.wraq.process.func.item.InventoryOperation;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.overworld.chapter2.dimension.ToEnd;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -92,7 +93,7 @@ public class HuskRecallEvent {
                         if (Utils.HuskRecallHusk == null || !Utils.HuskRecallHusk.isAlive()) {
                             if (Utils.HuskRecallHusk != null) Utils.HuskRecallHusk.remove(Entity.RemovalReason.KILLED);
                             Utils.HuskRecallHusk = new Husk(EntityType.HUSK, level1);
-                            Compute.SetMobCustomName(Utils.HuskRecallHusk, ModItems.ArmorHuskRecall.get(), Component.literal("模糊记忆中的脆弱灵魂").withStyle(style));
+                            Compute.setMobCustomName(Utils.HuskRecallHusk, ModItems.ArmorHuskRecall.get(), Component.literal("模糊记忆中的脆弱灵魂").withStyle(style));
                             Utils.HuskRecallHusk.setItemSlot(EquipmentSlot.HEAD, ModItems.ArmorHuskRecall.get().getDefaultInstance());
                             Utils.HuskRecallHusk.setItemSlot(EquipmentSlot.MAINHAND, ModItems.BlackForestSword4.get().getDefaultInstance());
                             Utils.HuskRecallHusk.getAttribute(Attributes.MAX_HEALTH).setBaseValue(115200.0D);
@@ -143,7 +144,7 @@ public class HuskRecallEvent {
                                                 append(Component.literal("的记忆。").withStyle(ChatFormatting.WHITE)));
                                 ItemStack itemStack = ModItems.BlackForestRecallSoul.get().getDefaultInstance();
                                 itemStack.setCount(1);
-                                Compute.itemStackGive(Utils.huskRecall.recallPlayer, itemStack);
+                                InventoryOperation.itemStackGive(Utils.huskRecall.recallPlayer, itemStack);
                             } else {
                                 data.putInt(RecallTimes, data.getInt(RecallTimes) + 1);
                                 ToEnd.toEndSpawnPos(Utils.huskRecall.recallPlayer);
@@ -159,7 +160,7 @@ public class HuskRecallEvent {
                                                 append(Component.literal("的记忆。").withStyle(ChatFormatting.WHITE)));
                                 ItemStack itemStack = ModItems.huskRune.get().getDefaultInstance();
                                 itemStack.setCount(1);
-                                Compute.itemStackGive(Utils.huskRecall.recallPlayer, itemStack);
+                                InventoryOperation.itemStackGive(Utils.huskRecall.recallPlayer, itemStack);
                             }
                         }
                     }

@@ -83,7 +83,7 @@ public class HuskSpawnController extends MobSpawnController {
 
         // 设置颜色与名称
         Style style = CustomStyle.styleOfHusk;
-        Compute.SetMobCustomName(husk, Component.literal(mobName).withStyle(style), xpLevel);
+        Compute.setMobCustomName(husk, Component.literal(mobName).withStyle(style), xpLevel);
 
         // 需要验证
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(husk), xpLevel);

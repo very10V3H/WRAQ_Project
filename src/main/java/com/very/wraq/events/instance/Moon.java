@@ -1,19 +1,21 @@
 package com.very.wraq.events.instance;
 
+import com.very.wraq.common.Compute;
 import com.very.wraq.common.fast.Tick;
+import com.very.wraq.common.registry.ModEntityType;
+import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.StringUtils;
+import com.very.wraq.common.util.Utils;
+import com.very.wraq.common.util.struct.Boss2Damage;
+import com.very.wraq.common.util.struct.Instance;
+import com.very.wraq.common.util.struct.PlayerTeam;
 import com.very.wraq.events.core.LoginInEvent;
+import com.very.wraq.process.func.damage.Damage;
+import com.very.wraq.process.func.item.InventoryOperation;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.projectiles.mana.ManaArrow;
 import com.very.wraq.render.particles.ModParticles;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.registry.ModEntityType;
-import com.very.wraq.common.util.StringUtils;
-import com.very.wraq.common.util.struct.Boss2Damage;
-import com.very.wraq.common.util.struct.Instance;
-import com.very.wraq.common.util.struct.PlayerTeam;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -112,7 +114,7 @@ public class Moon {
                     }});
 
                     Mob entity = instance.getMobList().get(0);
-                    Compute.SetMobCustomName(entity, ModItems.MobArmorMoonAttack.get(),
+                    Compute.setMobCustomName(entity, ModItems.MobArmorMoonAttack.get(),
                             Component.literal("阿尔忒弥斯 - 明镜").withStyle(style));
 
                     entity.getAttribute(Attributes.MAX_HEALTH).setBaseValue(MaxHealth);
@@ -133,7 +135,7 @@ public class Moon {
                     });
 
                     Mob entity1 = instance.getMobList().get(1);
-                    Compute.SetMobCustomName(entity1, ModItems.MobArmorMoonMana.get(),
+                    Compute.setMobCustomName(entity1, ModItems.MobArmorMoonMana.get(),
                             Component.literal("阿尔忒弥斯 - 天镜").withStyle(style));
 
                     entity1.getAttribute(Attributes.MAX_HEALTH).setBaseValue(MaxHealth);
@@ -327,7 +329,7 @@ public class Moon {
             }
         }
         if (AttackMob.isAlive()) {
-            Compute.Damage.manaDamageToPlayer(AttackMob, HealthLowPlayer, HealthLowPlayer.getMaxHealth() * 0.5);
+            Damage.manaDamageToPlayer(AttackMob, HealthLowPlayer, HealthLowPlayer.getMaxHealth() * 0.5);
             ParticleProvider.EntityEffectVerticleCircleParticle(HealthLowPlayer, 1, 0.4, 8, ParticleTypes.WITCH, 0);
             ParticleProvider.EntityEffectVerticleCircleParticle(HealthLowPlayer, 0.75, 0.4, 8, ParticleTypes.WITCH, 0);
             ParticleProvider.EntityEffectVerticleCircleParticle(HealthLowPlayer, 0.5, 0.4, 8, ParticleTypes.WITCH, 0);
@@ -336,7 +338,7 @@ public class Moon {
 
         }
         if (ManaMob.isAlive()) {
-            Compute.Damage.manaDamageToPlayer(ManaMob, HealthHighPlayer, HealthHighPlayer.getMaxHealth() * 0.5);
+            Damage.manaDamageToPlayer(ManaMob, HealthHighPlayer, HealthHighPlayer.getMaxHealth() * 0.5);
             ParticleProvider.EntityEffectVerticleCircleParticle(HealthHighPlayer, 1, 0.4, 8, ParticleTypes.WITCH, 0);
             ParticleProvider.EntityEffectVerticleCircleParticle(HealthHighPlayer, 0.75, 0.4, 8, ParticleTypes.WITCH, 0);
             ParticleProvider.EntityEffectVerticleCircleParticle(HealthHighPlayer, 0.5, 0.4, 8, ParticleTypes.WITCH, 0);
@@ -370,8 +372,8 @@ public class Moon {
                 ParticleProvider.EntityEffectVerticleCircleParticle(ManaMob, 0.25, 0.4, 8, ParticleTypes.COMPOSTER, 0);
                 ParticleProvider.EntityEffectVerticleCircleParticle(ManaMob, 0, 0.4, 8, ParticleTypes.COMPOSTER, 0);
                 playerList.forEach(player -> {
-                    Compute.Damage.manaDamageToPlayer(ManaMob, player, player.getMaxHealth() * 0.25);
-                    Compute.Damage.manaDamageToPlayer(AttackMob, player, player.getMaxHealth() * 0.25);
+                    Damage.manaDamageToPlayer(ManaMob, player, player.getMaxHealth() * 0.25);
+                    Damage.manaDamageToPlayer(AttackMob, player, player.getMaxHealth() * 0.25);
                     ParticleProvider.EntityEffectVerticleCircleParticle(player, 1, 0.4, 8, ParticleTypes.WITCH, 0);
                     ParticleProvider.EntityEffectVerticleCircleParticle(player, 0.75, 0.4, 8, ParticleTypes.WITCH, 0);
                     ParticleProvider.EntityEffectVerticleCircleParticle(player, 0.5, 0.4, 8, ParticleTypes.WITCH, 0);
@@ -387,8 +389,8 @@ public class Moon {
         if (ManaMob.isAlive() && ManaMob.getY() < YLimit) ManaMob.moveTo(Pos);
         playerList.forEach(player -> {
             if (player.position().distanceTo(Pos) < 150 && player.getY() < YLimit) {
-                Compute.Damage.manaDamageToPlayer(ManaMob, player, player.getMaxHealth() * 0.25);
-                Compute.Damage.manaDamageToPlayer(AttackMob, player, player.getMaxHealth() * 0.25);
+                Damage.manaDamageToPlayer(ManaMob, player, player.getMaxHealth() * 0.25);
+                Damage.manaDamageToPlayer(AttackMob, player, player.getMaxHealth() * 0.25);
                 ((ServerPlayer) player).teleportTo(player.getServer().getLevel(Level.OVERWORLD), Pos.x, Pos.y, Pos.z, 179, 0);
                 ParticleProvider.EntityEffectVerticleCircleParticle(player, 1, 0.4, 8, ParticleTypes.WITCH, 0);
                 ParticleProvider.EntityEffectVerticleCircleParticle(player, 0.75, 0.4, 8, ParticleTypes.WITCH, 0);
@@ -431,14 +433,14 @@ public class Moon {
     }
 
     public static void SingleRewardToPlayer(Player player, int difficultyEnhanceRate, int playerNum, boolean isMopUp) {
-        Compute.itemStackGive(player, new ItemStack(ModItems.MoonLoot.get(), difficultyEnhanceRate));
+        InventoryOperation.itemStackGive(player, new ItemStack(ModItems.MoonLoot.get(), difficultyEnhanceRate));
         if (!isMopUp) {
             Random random = new Random();
             if (random.nextDouble() <= 0.025 * (playerNum - 1) * difficultyEnhanceRate) {
                 Compute.sendFormatMSG(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
                         Component.literal("你通过组队挑战副本，额外获得了:").withStyle(ChatFormatting.WHITE).
                                 append(ModItems.MoonLoot.get().getDefaultInstance().getDisplayName()));
-                Compute.itemStackGive(player, new ItemStack(ModItems.MoonLoot.get(), 2));
+                InventoryOperation.itemStackGive(player, new ItemStack(ModItems.MoonLoot.get(), 2));
             }
         }
 
@@ -446,7 +448,7 @@ public class Moon {
             Compute.sendFormatMSG(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
                     Component.literal("每日首次通关副本，额外获得了:").withStyle(ChatFormatting.WHITE).
                             append(ModItems.MoonLoot.get().getDefaultInstance().getDisplayName()));
-            Compute.itemStackGive(player, new ItemStack(ModItems.MoonLoot.get(), 24));
+            InventoryOperation.itemStackGive(player, new ItemStack(ModItems.MoonLoot.get(), 24));
         }
 
     }

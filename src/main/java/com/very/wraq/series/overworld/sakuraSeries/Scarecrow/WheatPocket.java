@@ -1,8 +1,9 @@
 package com.very.wraq.series.overworld.sakuraSeries.Scarecrow;
 
 import com.very.wraq.common.Compute;
-import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.process.func.item.InventoryOperation;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -73,7 +74,7 @@ public class WheatPocket extends Item {
 
             for (int i = 0; i < 8; i++) {
                 try {
-                    Compute.RateItemStackGive(Rewards[i].getDefaultInstance(), RewardsRate[i], player);
+                    InventoryOperation.giveItemStackByRate(Rewards[i].getDefaultInstance(), RewardsRate[i], player);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }

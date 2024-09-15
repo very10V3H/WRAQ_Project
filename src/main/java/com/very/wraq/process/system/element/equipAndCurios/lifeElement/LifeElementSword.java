@@ -45,7 +45,7 @@ public class LifeElementSword extends WraqSword implements ActiveItem {
                 append(Compute.AttributeDescription.Health("80%当前")).
                 append(Component.literal("，并在10s内为你回复").withStyle(ChatFormatting.WHITE)).
                 append(Compute.AttributeDescription.Health("200%消耗的等额")));
-        Compute.CoolDownTimeDescription(components, 25);
+        ComponentUtils.coolDownTimeDescription(components, 25);
         Compute.DescriptionPassive(components, Component.literal("护花").withStyle(style));
         components.add(Component.literal(" 处于").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("化作春泥").withStyle(style)).

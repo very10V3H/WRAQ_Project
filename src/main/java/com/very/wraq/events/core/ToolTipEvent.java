@@ -429,30 +429,6 @@ public class ToolTipEvent {
                     components.add(Component.literal("Intensified-Spider").withStyle(CustomStyle.styleOfVolcano).withStyle(ChatFormatting.ITALIC));
                 }
             }
-            if (equip.is(ModItems.GoldSword0.get())) {
-                List<Component> components = event.getToolTip();
-                Compute.forgingHoverName(equip);
-                components.add(Component.literal("主手                   ").withStyle(ChatFormatting.AQUA).append(Component.literal("匕首").withStyle(ChatFormatting.GREEN)));
-                Compute.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.GOLD, ChatFormatting.WHITE);
-                Compute.DescriptionOfBasic(components);
-
-                Compute.BasicSwordDescription(equip, components, 0, 0, 0, 0, 0, 0);
-                Compute.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.GOLD, ChatFormatting.WHITE);
-                Compute.DescriptionOfAddition(components);
-                components.add(Component.literal("基于银行内的").withStyle(ChatFormatting.WHITE).
-                        append(Component.literal("VB余额").withStyle(ChatFormatting.GOLD)).
-                        append(Component.literal("提供至多").withStyle(ChatFormatting.WHITE)).
-                        append(Component.literal("300额外攻击力").withStyle(ChatFormatting.YELLOW)).
-                        append(Component.literal("与").withStyle(ChatFormatting.WHITE)).
-                        append(Component.literal("300%移动速度").withStyle(ChatFormatting.GREEN)));
-                components.add(Component.literal("·当前攻击力加成:").withStyle(ChatFormatting.YELLOW).
-                        append(Component.literal(String.format("%.2f", ClientUtils.VBNUM / 10000)).withStyle(ChatFormatting.WHITE)));
-                components.add(Component.literal("·当前移动速度加成:").withStyle(ChatFormatting.GREEN).
-                        append(Component.literal(String.format("%.2f%%", ClientUtils.VBNUM / 10000)).withStyle(ChatFormatting.WHITE)));
-                Compute.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.GOLD, ChatFormatting.WHITE);
-                components.add(Component.literal("Gold-Knife-0").withStyle(ChatFormatting.GOLD).withStyle(ChatFormatting.ITALIC));
-                components.add(Component.literal("MainStoryI").withStyle(ChatFormatting.AQUA).withStyle(ChatFormatting.ITALIC));
-            }
 
             if (data.contains(InventoryCheck.owner)) {
                 event.getToolTip().add(Component.literal("「").withStyle(ChatFormatting.AQUA).

@@ -1,6 +1,7 @@
 package com.very.wraq.series.overworld.chapter1.waterSystem.runes;
 
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.util.ComponentUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -25,7 +26,7 @@ public class LakeRune0 extends Item {
         components.add(Component.literal("符石属性:"));
         Compute.DescriptionPassive(components, Component.literal("纯净之水").withStyle(ChatFormatting.BLUE));
         components.add(Component.literal(" 当你拥有高于").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.MaxHealth("80%")).
+                append(ComponentUtils.AttributeDescription.MaxHealth("80%")).
                 append(Component.literal("，为你提供").withStyle(ChatFormatting.WHITE)).
                 append(Compute.AttributeDescription.CoolDown("20 + 20%")));
         Compute.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.BLUE, ChatFormatting.WHITE);

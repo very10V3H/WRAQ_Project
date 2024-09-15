@@ -1,13 +1,14 @@
 package com.very.wraq.networking.unSorted;
 
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.registry.MySound;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.events.core.InventoryCheck;
 import com.very.wraq.process.func.guide.Guide;
+import com.very.wraq.process.func.item.InventoryOperation;
 import com.very.wraq.process.system.lottery.NewLotteries;
 import com.very.wraq.render.gui.villagerTrade.TradeList;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -76,7 +77,7 @@ public class TradeBuyRequestC2SPacket {
 
             if (!playerHasEnoughMoney) for (ItemStack itemStack : itemList) {
                 if (itemStackIsCurrency(itemStack)) {
-                    if (Compute.checkPlayerHasItem(serverPlayer.getInventory(), itemStack.getItem(), itemStack.getCount())) {
+                    if (InventoryOperation.checkPlayerHasItem(serverPlayer.getInventory(), itemStack.getItem(), itemStack.getCount())) {
                         playerHasEnoughMoney = true;
                     }
                 }
@@ -96,12 +97,12 @@ public class TradeBuyRequestC2SPacket {
 
             itemList.forEach(itemStack -> {
                 if (playerHasItem.get())
-                    playerHasItem.set(Compute.checkPlayerHasItem(serverPlayer.getInventory(), itemStack.getItem(), itemStack.getCount()));
+                    playerHasItem.set(InventoryOperation.checkPlayerHasItem(serverPlayer.getInventory(), itemStack.getItem(), itemStack.getCount()));
             });
 
             if (playerHasEnoughMoney && playerHasItem.get()) {
                 itemList.forEach(itemStack -> {
-                    Compute.removeItem(serverPlayer.getInventory(), itemStack.getItem(), itemStack.getCount());
+                    InventoryOperation.removeItem(serverPlayer.getInventory(), itemStack.getItem(), itemStack.getCount());
                 });
 
                 if (requireVBCount > 0 && needToTransform) {
@@ -126,7 +127,7 @@ public class TradeBuyRequestC2SPacket {
                 if (NewLotteries.getRewardSerial.containsKey(giveItemStack.getItem()))
                     InventoryCheck.addOwnerTagToItemStack(serverPlayer, giveItemStack);
                 if (giveItemStack.is(TradeList.netheriteBackPack)) Guide.trig(serverPlayer, 0);
-                Compute.itemStackGive(serverPlayer, giveItemStack);
+                InventoryOperation.itemStackGive(serverPlayer, giveItemStack);
                 MySound.soundToPlayer(serverPlayer, SoundEvents.ARROW_HIT_PLAYER);
             } else {
                 Compute.sendFormatMSG(serverPlayer, Component.literal("交易").withStyle(ChatFormatting.GREEN),
@@ -137,9 +138,9 @@ public class TradeBuyRequestC2SPacket {
     }
 
     public static int playerInventoryCurrencyVBCount(Player player) {
-        return Compute.itemStackCount(player, ModItems.copperCoin.get()) +
-                Compute.itemStackCount(player, ModItems.silverCoin.get()) * 12 +
-                Compute.itemStackCount(player, ModItems.goldCoin.get()) * 144;
+        return InventoryOperation.itemStackCount(player, ModItems.copperCoin.get()) +
+                InventoryOperation.itemStackCount(player, ModItems.silverCoin.get()) * 12 +
+                InventoryOperation.itemStackCount(player, ModItems.goldCoin.get()) * 144;
     }
 
     public static int requireItemListVBCount(List<ItemStack> requireItemList) {

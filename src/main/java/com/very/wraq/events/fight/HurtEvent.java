@@ -1,8 +1,9 @@
 package com.very.wraq.events.fight;
 
-import com.very.wraq.entities.entities.Civil.Civil;
-import com.very.wraq.common.Compute;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.struct.Shield;
+import com.very.wraq.entities.entities.Civil.Civil;
+import com.very.wraq.process.func.damage.Damage;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -32,7 +33,7 @@ public class HurtEvent {
             else {
                 if (Attacker == null && Hurter instanceof Player player) {
                     double damage = event.getAmount();
-                    double damageAfterComputeShield = Compute.PlayerShieldDecrease(player, damage);
+                    double damageAfterComputeShield = Shield.decreasePlayerShield(player, damage);
                     if (damageAfterComputeShield > 0) {
                         player.setHealth((float) (player.getHealth() - damageAfterComputeShield));
                     }
@@ -59,7 +60,7 @@ public class HurtEvent {
     public static void BlazeReflectDamage(Mob monster, Player player) {
         if (monster.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.ArmorBlaze.get())
                 || monster.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.ArmorBlaze.get())) {
-            Compute.Damage.manaDamageToPlayer(monster, player, player.getMaxHealth() * 0.02f);
+            Damage.manaDamageToPlayer(monster, player, player.getMaxHealth() * 0.02f);
         }
     }
 }

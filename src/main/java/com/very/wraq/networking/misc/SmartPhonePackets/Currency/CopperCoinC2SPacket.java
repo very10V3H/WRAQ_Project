@@ -2,6 +2,7 @@ package com.very.wraq.networking.misc.SmartPhonePackets.Currency;
 
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.process.func.item.InventoryOperation;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
@@ -39,9 +40,9 @@ public class CopperCoinC2SPacket {
 
                 // 所有将铜币存入账户
                 case 0 -> {
-                    int SilverCoinNum = Compute.itemStackCount(inventory, ModItems.copperCoin.get());
+                    int SilverCoinNum = InventoryOperation.itemStackCount(inventory, ModItems.copperCoin.get());
                     if (SilverCoinNum > 0) {
-                        Compute.itemStackRemoveIgnoreVB(inventory, ModItems.copperCoin.get(), SilverCoinNum);
+                        InventoryOperation.itemStackRemoveIgnoreVB(inventory, ModItems.copperCoin.get(), SilverCoinNum);
                         Compute.VBIncomeAndMSGSend(player, SilverCoinNum);
                     } else {
                         Compute.sendFormatMSG(player, Component.literal("VB").withStyle(ChatFormatting.GOLD),
@@ -57,7 +58,7 @@ public class CopperCoinC2SPacket {
                         Compute.VBExpenseAndMSGSend(player, count * vbValue);
                         ItemStack itemStack = ModItems.copperCoin.get().getDefaultInstance();
                         itemStack.setCount(count);
-                        Compute.itemStackGive(player, itemStack);
+                        InventoryOperation.itemStackGive(player, itemStack);
                     } else {
                         Compute.sendFormatMSG(player, Component.literal("VB").withStyle(ChatFormatting.GOLD),
                                 Component.literal("VB不足。").withStyle(ChatFormatting.WHITE));
@@ -72,7 +73,7 @@ public class CopperCoinC2SPacket {
                         Compute.VBExpenseAndMSGSend(player, vbValue * count);
                         ItemStack itemStack = ModItems.copperCoin.get().getDefaultInstance();
                         itemStack.setCount(count);
-                        Compute.itemStackGive(player, itemStack);
+                        InventoryOperation.itemStackGive(player, itemStack);
                     } else {
                         Compute.sendFormatMSG(player, Component.literal("VB").withStyle(ChatFormatting.GOLD),
                                 Component.literal("VB不足。").withStyle(ChatFormatting.WHITE));
@@ -82,7 +83,7 @@ public class CopperCoinC2SPacket {
                 // 从背包中使用1枚银币兑换16枚铜币
                 case 3 -> {
                     try {
-                        Compute.itemTrade(player, new ItemStack(ModItems.silverCoin.get(), 1), new ItemStack(ModItems.copperCoin.get(), 12));
+                        InventoryOperation.itemTrade(player, new ItemStack(ModItems.silverCoin.get(), 1), new ItemStack(ModItems.copperCoin.get(), 12));
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -91,7 +92,7 @@ public class CopperCoinC2SPacket {
                 // 从背包中使用1枚金币兑换256枚铜币
                 case 4 -> {
                     try {
-                        Compute.itemTrade(player, new ItemStack(ModItems.goldCoin.get(), 1), new ItemStack(ModItems.copperCoin.get(), 144));
+                        InventoryOperation.itemTrade(player, new ItemStack(ModItems.goldCoin.get(), 1), new ItemStack(ModItems.copperCoin.get(), 144));
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }

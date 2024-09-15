@@ -1,10 +1,11 @@
 package com.very.wraq.series.worldsoul;
 
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.common.util.Utils;
+import com.very.wraq.process.func.item.InventoryOperation;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -81,8 +82,8 @@ public class SoulEquipAttribute {
                 CurrentLevel = data.getInt(StringUtils.SoulEquipForge);
             }
             if (CurrentLevel < 5) {
-                if (Compute.checkPlayerHasItem(inventory, item, 2)) {
-                    Compute.removeItem(inventory, item, 2);
+                if (InventoryOperation.checkPlayerHasItem(inventory, item, 2)) {
+                    InventoryOperation.removeItem(inventory, item, 2);
                     data.putInt(StringUtils.SoulEquipForge, CurrentLevel + 1);
                     Compute.formatBroad(player.level(), Component.literal("世界本源").withStyle(CustomStyle.styleOfWorld),
                             Component.literal("").withStyle(ChatFormatting.WHITE).
@@ -100,8 +101,8 @@ public class SoulEquipAttribute {
                                     append(item.getDefaultInstance().getDisplayName()));
                 }
             } else if (CurrentLevel < 9) {
-                if (Compute.checkPlayerHasItem(inventory, item, 4)) {
-                    Compute.removeItem(inventory, item, 4);
+                if (InventoryOperation.checkPlayerHasItem(inventory, item, 4)) {
+                    InventoryOperation.removeItem(inventory, item, 4);
                     data.putInt(StringUtils.SoulEquipForge, CurrentLevel + 1);
                     data.putInt(StringUtils.SoulEquipForge, CurrentLevel + 1);
                     Compute.formatBroad(player.level(), Component.literal("世界本源").withStyle(CustomStyle.styleOfWorld),
@@ -121,8 +122,8 @@ public class SoulEquipAttribute {
                                     append(item.getDefaultInstance().getDisplayName()));
                 }
             } else if (CurrentLevel < 13) {
-                if (Compute.checkPlayerHasItem(inventory, item, 8)) {
-                    Compute.removeItem(inventory, item, 8);
+                if (InventoryOperation.checkPlayerHasItem(inventory, item, 8)) {
+                    InventoryOperation.removeItem(inventory, item, 8);
                     data.putInt(StringUtils.SoulEquipForge, CurrentLevel + 1);
                     data.putInt(StringUtils.SoulEquipForge, CurrentLevel + 1);
                     Compute.formatBroad(player.level(), Component.literal("世界本源").withStyle(CustomStyle.styleOfWorld),
@@ -142,8 +143,8 @@ public class SoulEquipAttribute {
                                     append(item.getDefaultInstance().getDisplayName()));
                 }
             } else if (CurrentLevel < 16) {
-                if (Compute.checkPlayerHasItem(inventory, item, 16)) {
-                    Compute.removeItem(inventory, item, 16);
+                if (InventoryOperation.checkPlayerHasItem(inventory, item, 16)) {
+                    InventoryOperation.removeItem(inventory, item, 16);
                     data.putInt(StringUtils.SoulEquipForge, CurrentLevel + 1);
                     data.putInt(StringUtils.SoulEquipForge, CurrentLevel + 1);
                     Compute.formatBroad(player.level(), Component.literal("世界本源").withStyle(CustomStyle.styleOfWorld),

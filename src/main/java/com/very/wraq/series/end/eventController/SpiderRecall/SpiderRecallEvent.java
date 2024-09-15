@@ -1,10 +1,11 @@
 package com.very.wraq.series.end.eventController.SpiderRecall;
 
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.Utils;
+import com.very.wraq.process.func.item.InventoryOperation;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.overworld.chapter2.dimension.ToEnd;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -97,7 +98,7 @@ public class SpiderRecallEvent {
                             if (Utils.SpiderRecallSpider != null)
                                 Utils.SpiderRecallSpider.remove(Entity.RemovalReason.KILLED);
                             Utils.SpiderRecallSpider = new Spider(EntityType.SPIDER, level1);
-                            Compute.SetMobCustomName(Utils.SpiderRecallSpider, ModItems.ArmorSpiderRecall.get(), Component.literal("模糊记忆中的微光蜘蛛").withStyle(style));
+                            Compute.setMobCustomName(Utils.SpiderRecallSpider, ModItems.ArmorSpiderRecall.get(), Component.literal("模糊记忆中的微光蜘蛛").withStyle(style));
                             Utils.SpiderRecallSpider.setItemSlot(EquipmentSlot.HEAD, ModItems.ArmorSpiderRecall.get().getDefaultInstance());
                             Utils.SpiderRecallSpider.setItemSlot(EquipmentSlot.CHEST, ModItems.ArmorKazeChest.get().getDefaultInstance());
                             Utils.SpiderRecallSpider.setItemSlot(EquipmentSlot.LEGS, ModItems.ArmorKazeLeggings.get().getDefaultInstance());
@@ -150,7 +151,7 @@ public class SpiderRecallEvent {
                                                 append(Component.literal("的记忆。").withStyle(ChatFormatting.WHITE)));
                                 ItemStack itemStack = ModItems.SpiderRecallSoul.get().getDefaultInstance();
                                 itemStack.setCount(1);
-                                Compute.itemStackGive(Utils.spiderRecall.recallPlayer, itemStack);
+                                InventoryOperation.itemStackGive(Utils.spiderRecall.recallPlayer, itemStack);
                             } else {
                                 data.putInt(RecallTimes, data.getInt(RecallTimes) + 1);
                                 ToEnd.toEndSpawnPos(Utils.spiderRecall.recallPlayer);
@@ -166,7 +167,7 @@ public class SpiderRecallEvent {
                                                 append(Component.literal("的记忆。").withStyle(ChatFormatting.WHITE)));
                                 ItemStack itemStack = ModItems.SpiderRune.get().getDefaultInstance();
                                 itemStack.setCount(1);
-                                Compute.itemStackGive(Utils.spiderRecall.recallPlayer, itemStack);
+                                InventoryOperation.itemStackGive(Utils.spiderRecall.recallPlayer, itemStack);
                             }
                         }
                     }

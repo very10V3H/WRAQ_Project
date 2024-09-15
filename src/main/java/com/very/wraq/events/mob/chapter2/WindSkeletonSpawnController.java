@@ -69,7 +69,7 @@ public class WindSkeletonSpawnController extends MobSpawnController {
 
         // 设置颜色与名称
         Style style = CustomStyle.styleOfWind;
-        Compute.SetMobCustomName(skeleton, Component.literal(mobName).withStyle(style), xpLevel);
+        Compute.setMobCustomName(skeleton, Component.literal(mobName).withStyle(style), xpLevel);
 
         // 需要验证
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(skeleton), xpLevel);

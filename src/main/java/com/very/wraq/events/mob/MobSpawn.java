@@ -1,10 +1,10 @@
 package com.very.wraq.events.mob;
 
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.ItemAndRate;
-import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.attribute.PlayerAttributes;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.ItemAndRate;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.events.core.LoginInEvent;
 import com.very.wraq.events.mob.chapter1.ForestZombieSpawnController;
 import com.very.wraq.events.mob.chapter1.LakeDrownSpawnController;
@@ -28,6 +28,7 @@ import com.very.wraq.events.mob.chapter7.TorturedSoulSpawnController;
 import com.very.wraq.events.mob.loot.RandomLootEquip;
 import com.very.wraq.files.dataBases.DataBase;
 import com.very.wraq.process.func.guide.Guide;
+import com.very.wraq.process.func.item.InventoryOperation;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.process.system.missions.series.dailyMission.DailyMission;
 import com.very.wraq.projectiles.WraqCurios;
@@ -35,7 +36,9 @@ import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.end.Recall;
 import com.very.wraq.series.end.runes.EndRune;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -295,7 +298,7 @@ public class MobSpawn {
         Random rand = new Random();
         if (rand.nextDouble() < 0.1 * num) {
             if (WraqCurios.isOn(EndRune.class, player)) {
-                Compute.itemStackGive(player, new ItemStack(ModItems.WorldSoul1.get()));
+                InventoryOperation.itemStackGive(player, new ItemStack(ModItems.WorldSoul1.get()));
             } else ItemAndRate.summonBoundingItemEntity(mob, new ItemStack(ModItems.WorldSoul1.get()), player);
         }
     }
@@ -444,7 +447,7 @@ public class MobSpawn {
                         if (!getMap.containsKey(name) || getMap.get(name) <= 36) {
                             getMap.put(name, getMap.getOrDefault(name, 0) + 1);
                             if (WraqCurios.isOn(EndRune.class, player)) {
-                                Compute.itemStackGive(player, item.getDefaultInstance());
+                                InventoryOperation.itemStackGive(player, item.getDefaultInstance());
                             } else ItemAndRate.summonBoundingItemEntity(mob, item.getDefaultInstance(), player);
                         }
                     }

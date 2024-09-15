@@ -1,10 +1,11 @@
 package com.very.wraq.series.nether.Power;
 
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.process.func.power.PowerLogic;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.projectiles.ActiveItem;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.Utils;
 import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -34,13 +35,13 @@ public class WitherBonePower extends Item implements ActiveItem {
         components.add(Component.literal(" 对").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("指针").withStyle(ChatFormatting.AQUA)).
                 append(Component.literal("周围所有单位造成").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.ManaDamageValue("300%")));
+                append(ComponentUtils.AttributeDescription.ManaDamageValue("300%")));
         components.add(Component.literal(" - 这个伤害会附带").withStyle(ChatFormatting.WHITE).
                 append(Element.Description.FireElement("1 + 100%")));
         components.add(Component.literal("·[对魔]").withStyle(ChatFormatting.LIGHT_PURPLE).
                 append(Component.literal("使周围怪物造成伤害降低20%，持续5s。").withStyle(ChatFormatting.WHITE)));
-        Compute.CoolDownTimeDescription(components, 10);
-        Compute.ManaCostDescription(components, 360);
+        ComponentUtils.coolDownTimeDescription(components, 10);
+        ComponentUtils.manaCostDescription(components, 360);
         Compute.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
         components.add(Component.literal("Powers-Wither").withStyle(Style.EMPTY.withColor(TextColor.parseColor("#a2001b"))).withStyle(ChatFormatting.ITALIC));
         super.appendHoverText(itemStack, level, components, flag);

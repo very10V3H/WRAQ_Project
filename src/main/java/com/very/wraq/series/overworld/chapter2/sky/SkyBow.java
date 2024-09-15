@@ -37,9 +37,9 @@ public class SkyBow extends WraqBow {
         Style style = getMainStyle();
         Compute.DescriptionPassive(components, Component.literal("鹰隼之速").withStyle(ChatFormatting.AQUA));
         components.add(Component.literal("每").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.ExMovementSpeed("1%")).
+                append(ComponentUtils.AttributeDescription.ExMovementSpeed("1%")).
                 append(Component.literal("提供").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.DefencePenetration("5")));
+                append(ComponentUtils.AttributeDescription.DefencePenetration("5")));
         return components;
     }
 

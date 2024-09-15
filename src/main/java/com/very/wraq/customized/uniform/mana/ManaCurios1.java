@@ -2,6 +2,7 @@ package com.very.wraq.customized.uniform.mana;
 
 import com.very.wraq.common.Compute;
 import com.very.wraq.customized.WraqUniformCurios;
+import com.very.wraq.process.func.damage.Damage;
 import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -46,6 +47,6 @@ public class ManaCurios1 extends WraqManaUniformCurios {
 
     public static void ManaDamageExIgnoreDefenceDamage(Player player, Mob mob, double damage) {
         if (!IsOn(player)) return;
-        Compute.Damage.causeIgNoreDefenceDamageToMonster(player, mob, damage * 0.35);
+        Damage.causeIgNoreDefenceDamageToMonster(player, mob, damage * 0.35);
     }
 }

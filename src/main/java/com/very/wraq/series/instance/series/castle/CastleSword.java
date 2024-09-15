@@ -4,6 +4,7 @@ import com.very.wraq.common.Compute;
 import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.Utils;
+import com.very.wraq.process.func.damage.Damage;
 import com.very.wraq.projectiles.ActiveItem;
 import com.very.wraq.projectiles.ForgeItem;
 import com.very.wraq.projectiles.WraqSword;
@@ -46,7 +47,7 @@ public class CastleSword extends WraqSword implements ForgeItem, ActiveItem {
         components.add(Component.literal(" 你的").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("普通攻击").withStyle(CustomStyle.styleOfPower)).
                 append(Component.literal("将附带造成伤害100%的").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.ManaDamageValue("")));
+                append(ComponentUtils.AttributeDescription.ManaDamageValue("")));
         Compute.DescriptionActive(components, Component.literal("噬魔注能").withStyle(style));
         components.add(Component.literal(" 扣除自身").withStyle(ChatFormatting.WHITE).
                 append(Compute.AttributeDescription.Health("15%当前")).
@@ -56,7 +57,7 @@ public class CastleSword extends WraqSword implements ForgeItem, ActiveItem {
                 append(Compute.AttributeDescription.DefencePenetration("1500")).
                 append(Component.literal("与").withStyle(ChatFormatting.WHITE)).
                 append(Compute.AttributeDescription.ManaPenetration("1500")));
-        Compute.CoolDownTimeDescription(components, 15);
+        ComponentUtils.coolDownTimeDescription(components, 15);
         components.add(Component.literal(" 多件暗黑武器的主动将会刷新持续时间，但效果将不会叠加，且共享冷却时间").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
         return components;
     }
@@ -73,7 +74,7 @@ public class CastleSword extends WraqSword implements ForgeItem, ActiveItem {
 
     public static void NormalAttack(Player player, Mob mob, double damage) {
         if (player.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.CastleSword.get())) {
-            Compute.Damage.causeManaDamageToMonster_ApDamage_Direct(player, mob, damage, true);
+            Damage.causeManaDamageToMonster_ApDamage_Direct(player, mob, damage, true);
         }
     }
 

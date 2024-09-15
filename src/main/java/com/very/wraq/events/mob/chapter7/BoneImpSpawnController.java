@@ -63,7 +63,7 @@ public class BoneImpSpawnController extends MobSpawnController {
 
         // 设置颜色与名称
         Style style = CustomStyle.styleOfVolcano;
-        Compute.SetMobCustomName(boneImp, Component.literal(mobName).withStyle(style), xpLevel);
+        Compute.setMobCustomName(boneImp, Component.literal(mobName).withStyle(style), xpLevel);
 
         // 需要验证
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(boneImp), xpLevel);

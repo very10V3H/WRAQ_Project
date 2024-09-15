@@ -57,8 +57,8 @@ public class ShipSword extends WraqSword implements ActiveItem {
                 append(Compute.AttributeDescription.Defence("250-1000")).
                 append(Component.literal(" 持续5s").withStyle(ChatFormatting.WHITE)));
         components.add(Component.literal(" - 击碎的护甲数额随牵引的怪物数量增长。").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
-        Compute.CoolDownTimeDescription(components, 12);
-        Compute.ManaCostDescription(components, 75);
+        ComponentUtils.coolDownTimeDescription(components, 12);
+        ComponentUtils.manaCostDescription(components, 75);
         return components;
     }
 

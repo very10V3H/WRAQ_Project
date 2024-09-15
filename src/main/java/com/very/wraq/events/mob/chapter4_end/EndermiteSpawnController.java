@@ -55,7 +55,7 @@ public class EndermiteSpawnController extends MobSpawnController {
 
         // 设置颜色与名称
         Style style = CustomStyle.styleOfEnd;
-        Compute.SetMobCustomName(endermite, Component.literal(mobName).withStyle(style), xpLevel);
+        Compute.setMobCustomName(endermite, Component.literal(mobName).withStyle(style), xpLevel);
 
         // 需要验证
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(endermite), xpLevel);

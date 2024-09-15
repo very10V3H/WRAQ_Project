@@ -66,7 +66,7 @@ public class BloodManaSpawnController extends MobSpawnController {
 
         // 设置颜色与名称
         Style style = CustomStyle.styleOfBloodMana;
-        Compute.SetMobCustomName(zombie, Component.literal("腥月血灵").withStyle(style), xpLevel);
+        Compute.setMobCustomName(zombie, Component.literal("腥月血灵").withStyle(style), xpLevel);
         zombie.setBaby(true);
 
         // 需要验证

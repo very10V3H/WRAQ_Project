@@ -57,7 +57,7 @@ public class SkyVexSpawnController extends MobSpawnController {
 
         // 设置颜色与名称
         Style style = CustomStyle.styleOfSky;
-        Compute.SetMobCustomName(vex, Component.literal(mobName).withStyle(style), xpLevel);
+        Compute.setMobCustomName(vex, Component.literal(mobName).withStyle(style), xpLevel);
 
         // 需要验证
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(vex), xpLevel);

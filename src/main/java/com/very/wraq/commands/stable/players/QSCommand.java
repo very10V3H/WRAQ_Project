@@ -5,8 +5,9 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.StringUtils;
+import com.very.wraq.process.func.item.InventoryOperation;
 import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
@@ -31,7 +32,7 @@ public class QSCommand implements Command<CommandSourceStack> {
         int xpLevel = player.experienceLevel;
         if (List.of(sword, bow, mana).contains(profession)) {
             if (!player.isCreative()) {
-                if (!Compute.removeItem(player.getInventory(), ModItems.SkillReset.get(), 1)) {
+                if (!InventoryOperation.removeItem(player.getInventory(), ModItems.SkillReset.get(), 1)) {
                     Compute.sendFormatMSG(player, Component.literal("快捷配置").withStyle(CustomStyle.styleOfFlexible),
                             Component.literal("需要消耗 ").withStyle(ChatFormatting.WHITE).
                                     append(ModItems.notePaper.get().getDefaultInstance().getDisplayName()).

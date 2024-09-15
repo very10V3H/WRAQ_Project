@@ -1,13 +1,14 @@
 package com.very.wraq.series.overworld.chapter2.sky.BossItems;
 
-import com.very.wraq.process.system.element.Element;
-import com.very.wraq.projectiles.WraqBow;
-import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.process.func.item.InventoryOperation;
+import com.very.wraq.process.system.element.Element;
+import com.very.wraq.projectiles.WraqBow;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -153,7 +154,7 @@ public class SkyBoss {
                         Compute.sendFormatMSG(player, Component.literal("次元能量").withStyle(CustomStyle.styleOfEntropy),
                                 Component.literal("你通过次元口袋获得了").withStyle(ChatFormatting.WHITE).
                                         append(Rewards[i].getDefaultInstance().getDisplayName()));
-                        Compute.itemStackGive(player, Rewards[i].getDefaultInstance());
+                        InventoryOperation.itemStackGive(player, Rewards[i].getDefaultInstance());
                         Compute.formatBroad(level, Component.literal("次元").withStyle(CustomStyle.styleOfEntropy),
                                 Component.literal("玩家").withStyle(ChatFormatting.WHITE).
                                         append(player.getDisplayName()).
@@ -202,13 +203,13 @@ public class SkyBoss {
                     append(Component.literal("天空维度展开: ").withStyle(style)).
                     append(Component.literal("天空制造者释放制造天空次元的能量，使持有者具有凌驾天空的力量。").withStyle(ChatFormatting.WHITE)));
             components.add(Component.literal("∰1.使持有者至多获得").withStyle(ChatFormatting.WHITE).
-                    append(Compute.AttributeDescription.CritDamage("320%")));
+                    append(ComponentUtils.AttributeDescription.CritDamage("320%")));
 
             Compute.DescriptionPassive(components, Component.literal("鹰隼之速").withStyle(ChatFormatting.AQUA));
             components.add(Component.literal("每").withStyle(ChatFormatting.WHITE).
-                    append(Compute.AttributeDescription.ExMovementSpeed("8%")).
+                    append(ComponentUtils.AttributeDescription.ExMovementSpeed("8%")).
                     append(Component.literal("提供").withStyle(ChatFormatting.WHITE)).
-                    append(Compute.AttributeDescription.DefencePenetration("3%")));
+                    append(ComponentUtils.AttributeDescription.DefencePenetration("3%")));
             return components;
         }
 

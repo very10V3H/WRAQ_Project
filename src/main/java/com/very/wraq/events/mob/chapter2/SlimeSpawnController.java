@@ -57,7 +57,7 @@ public class SlimeSpawnController extends MobSpawnController {
 
         // 设置颜色与名称
         Style style = CustomStyle.styleOfLife;
-        Compute.SetMobCustomName(slime, Component.literal(mobName).withStyle(style), xpLevel);
+        Compute.setMobCustomName(slime, Component.literal(mobName).withStyle(style), xpLevel);
         slime.setSize(2, true);
 
         // 需要验证

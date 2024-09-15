@@ -2,6 +2,7 @@ package com.very.wraq.projectiles.firework;
 
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.process.func.damage.Damage;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -19,8 +20,8 @@ import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animatable.instance.SingletonAnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.*;
 import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.animation.*;
 import software.bernie.geckolib.core.object.PlayState;
 
 import java.util.Random;
@@ -97,7 +98,7 @@ public class Firework extends AbstractArrow implements GeoEntity {
             if (entity instanceof LivingEntity livingEntity) {
                 if (livingEntity instanceof Mob mob
                         && livingEntity.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.MobArmorSpringHelmet.get())) {
-                    Compute.Damage.causeManaDamageToMonster_ApDamage(player, mob, 2024000);
+                    Damage.causeManaDamageToMonster_ApDamage(player, mob, 2024000);
                     Compute.addSlowDownEffect(mob, 100, 100);
                 }
                 CompoundTag compoundTag = new CompoundTag();

@@ -1,8 +1,10 @@
 package com.very.wraq.series.overworld.chapter1.waterSystem;
 
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.Utils;
 import com.very.wraq.process.func.power.PowerLogic;
+import com.very.wraq.process.func.suit.SuitCount;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.projectiles.ActiveItem;
 import com.very.wraq.render.toolTip.CustomStyle;
@@ -50,7 +52,7 @@ public class LakePower extends Item implements ActiveItem {
                 append(Compute.AttributeDescription.ManaDefence(String.format("%.0f", effect[tier] * 10) + "%")).
                 append(Component.literal("持续2s。").withStyle(ChatFormatting.WHITE)));
         components.add(Component.literal(" 同时对其造成").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.ManaDamageValue(String.format("%.0f", effect[tier] * 100) + "%")));
+                append(ComponentUtils.AttributeDescription.ManaDamageValue(String.format("%.0f", effect[tier] * 100) + "%")));
         components.add(Component.literal(" - 这个伤害会附带").withStyle(ChatFormatting.WHITE).
                 append(Element.Description.WaterElement("1 + 100%")));
         components.add(Component.literal(" 为").withStyle(ChatFormatting.WHITE).
@@ -58,8 +60,8 @@ public class LakePower extends Item implements ActiveItem {
                 append(Component.literal("周围玩家提供持续4s的").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal((tier + 1) * 5 + "%").withStyle(CustomStyle.styleOfWater)).
                 append(Component.literal("伤害削减。").withStyle(ChatFormatting.GREEN)));
-        Compute.CoolDownTimeDescription(components, CoolDownTime[tier]);
-        Compute.ManaCostDescription(components, ManaCost[tier]);
+        ComponentUtils.coolDownTimeDescription(components, CoolDownTime[tier]);
+        ComponentUtils.manaCostDescription(components, ManaCost[tier]);
         Compute.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
         components.add(Component.literal("Powers-Lake").withStyle(CustomStyle.styleOfWater));
         super.appendHoverText(itemStack, level, components, flag);
@@ -92,7 +94,7 @@ public class LakePower extends Item implements ActiveItem {
 
     @Override
     public void active(Player player) {
-        if (Compute.playerManaCost(player, LakePower.ManaCost[tier] - 10 * Compute.SuitCount.getObsiManaESuitCount(player), true)) {
+        if (Compute.playerManaCost(player, LakePower.ManaCost[tier] - 10 * SuitCount.getObsiManaESuitCount(player), true)) {
             PowerLogic.LakePower(player, this, tier);
             PowerLogic.PlayerReleasePowerType(player, 6);
         }

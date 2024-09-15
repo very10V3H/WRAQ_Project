@@ -1,9 +1,10 @@
 package com.very.wraq.process.func.plan.networking.mission;
 
+import com.very.wraq.common.Compute;
 import com.very.wraq.common.registry.MySound;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.reputationMission.PlanMissionInfoS2CPacket;
-import com.very.wraq.common.Compute;
+import com.very.wraq.process.func.item.InventoryOperation;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -46,8 +47,8 @@ public class PlanMissionFinishedRequestC2SPacket {
             int count = PlanMission.planMissionContentCountMap.get(serverPlayer.getName().getString());
 
             Inventory inventory = serverPlayer.getInventory();
-            if (Compute.checkPlayerHasItem(inventory, itemStack.getItem(), count)) {
-                Compute.removeItem(inventory, itemStack.getItem(), count);
+            if (InventoryOperation.checkPlayerHasItem(inventory, itemStack.getItem(), count)) {
+                InventoryOperation.removeItem(inventory, itemStack.getItem(), count);
                 Compute.sendFormatMSG(serverPlayer, Component.literal("月卡任务").withStyle(ChatFormatting.LIGHT_PURPLE),
                         Component.literal("你完成了月卡任务！").withStyle(ChatFormatting.WHITE));
 

@@ -2,6 +2,7 @@ package com.very.wraq.process.system.instance;
 
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.process.func.item.InventoryOperation;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -43,7 +44,7 @@ public class MopUpPaperLoot extends Item {
             Random rand = new Random();
             ItemStack stack = new ItemStack(mopUpPaperList.get(rand.nextInt(mopUpPaperList.size())));
             Compute.playerItemUseWithRecord(player);
-            Compute.itemStackGive(player, stack);
+            InventoryOperation.itemStackGive(player, stack);
         }
         return InteractionResultHolder.pass(player.getItemInHand(interactionHand));
     }

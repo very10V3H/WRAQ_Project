@@ -58,7 +58,7 @@ public class MagmaSpawnController extends MobSpawnController {
 
         // 设置颜色与名称
         Style style = CustomStyle.styleOfNether;
-        Compute.SetMobCustomName(magmaCube, Component.literal(mobName).withStyle(style), xpLevel);
+        Compute.setMobCustomName(magmaCube, Component.literal(mobName).withStyle(style), xpLevel);
         magmaCube.setSize(2, true);
 
         // 需要验证

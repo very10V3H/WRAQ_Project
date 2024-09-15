@@ -1,8 +1,9 @@
 package com.very.wraq.events.instance;
 
-import com.very.wraq.events.core.LoginInEvent;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.events.core.LoginInEvent;
+import com.very.wraq.process.func.item.InventoryOperation;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
@@ -31,7 +32,7 @@ public class Plain {
                 Compute.sendFormatMSG(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
                         Component.literal("你通过组队挑战副本，额外获得了:").withStyle(ChatFormatting.WHITE).
                                 append(ModItems.PlainBossSoul.get().getDefaultInstance().getDisplayName()));
-                Compute.itemStackGive(player, new ItemStack(ModItems.PlainBossSoul.get(), 1));
+                InventoryOperation.itemStackGive(player, new ItemStack(ModItems.PlainBossSoul.get(), 1));
             }
         }
 
@@ -40,7 +41,7 @@ public class Plain {
                     Component.literal("每日首次通关副本，额外获得了:").withStyle(ChatFormatting.WHITE).
                             append(ModItems.PlainBossSoul.get().getDefaultInstance().getDisplayName()));
 
-            Compute.itemStackGive(player, new ItemStack(ModItems.PlainBossSoul.get(), 8));
+            InventoryOperation.itemStackGive(player, new ItemStack(ModItems.PlainBossSoul.get(), 8));
 
         }
 
@@ -51,8 +52,8 @@ public class Plain {
                             append(player.getDisplayName()).
                             append(Component.literal("获得了:").withStyle(ChatFormatting.WHITE)).
                             append(itemStack.getDisplayName()));
-            Compute.itemStackGive(player, itemStack);
+            InventoryOperation.itemStackGive(player, itemStack);
         }
-        Compute.itemStackGive(player, new ItemStack(ModItems.PlainBossSoul.get()));
+        InventoryOperation.itemStackGive(player, new ItemStack(ModItems.PlainBossSoul.get()));
     }
 }

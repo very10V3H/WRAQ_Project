@@ -3,7 +3,9 @@ package com.very.wraq.series.overworld.chapter7.vd;
 import com.mojang.logging.LogUtils;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.process.func.damage.Damage;
 import com.very.wraq.process.func.particle.ParticleProvider;
+import com.very.wraq.render.hud.Mana;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.overworld.chapter7.C7Items;
 import net.minecraft.ChatFormatting;
@@ -151,11 +153,11 @@ public interface VdWeaponCommon {
                 if (mobHashSet.contains(mob)) {
                     removeSet.add(mob);
                     if (mob.isAlive()) {
-                        Compute.Damage.causeIgnoreDefenceDamageToMonster_Direct(player, mob, mob.getMaxHealth() * 0.04 * countMap.get(mob));
+                        Damage.causeIgnoreDefenceDamageToMonster_Direct(player, mob, mob.getMaxHealth() * 0.04 * countMap.get(mob));
                         Compute.removeMobEffectHudToNearPlayer(mob, C7Items.vdSword.get(), "vdCount");
                         if (mob.getHealth() < mob.getMaxHealth() * 0.04 * countMap.get(mob)) {
                             player.getCooldowns().removeCooldown(item);
-                            Compute.playerManaAddOrCost(player, 100);
+                            Mana.addOrCostPlayerMana(player, 100);
                         }
                     }
                 }

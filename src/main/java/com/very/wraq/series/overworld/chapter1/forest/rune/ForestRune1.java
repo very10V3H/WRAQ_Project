@@ -1,6 +1,7 @@
 package com.very.wraq.series.overworld.chapter1.forest.rune;
 
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.util.ComponentUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -24,10 +25,10 @@ public class ForestRune1 extends Item {
         Compute.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.DARK_GREEN, ChatFormatting.WHITE);
         Compute.RuneAttributeDescription(components);
         components.add(Component.literal("受到攻击后，使攻击者受到你").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.MaxHealth("10%")).
+                append(ComponentUtils.AttributeDescription.MaxHealth("10%")).
                 append(Component.literal("的伤害。").withStyle(ChatFormatting.WHITE)));
         components.add(Component.literal("并获得持续1s的爆发性").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.movementSpeedWithoutBattle("50%")));
+                append(ComponentUtils.AttributeDescription.movementSpeedWithoutBattle("50%")));
         Compute.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.DARK_GREEN, ChatFormatting.WHITE);
         components.add(Component.literal("Runes-II").withStyle(ChatFormatting.DARK_GREEN).withStyle(ChatFormatting.ITALIC));
         super.appendHoverText(stack, p_41422_, components, p_41424_);

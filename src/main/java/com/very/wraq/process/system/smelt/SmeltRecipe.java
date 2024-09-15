@@ -1,9 +1,9 @@
 package com.very.wraq.process.system.smelt;
 
-import com.very.wraq.common.Compute;
 import com.very.wraq.common.fast.Te;
 import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.util.ItemAndRate;
+import com.very.wraq.process.func.item.InventoryOperation;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
@@ -72,10 +72,10 @@ public enum SmeltRecipe {
 
     public static void createSmeltProcess(Player player, int recipeIndex) {
         SmeltRecipe smeltRecipe = getRecipeByIndex(recipeIndex);
-        if (Compute.checkPlayerHasItem(player, smeltRecipe.needMaterialList)) {
+        if (InventoryOperation.checkPlayerHasItem(player, smeltRecipe.needMaterialList)) {
             if (Smelt.putSmeltSlotInfoToEmptySlot(player, recipeIndex, getMinutesLaterCalendar(smeltRecipe.needMinutes))) {
                 // 成功
-                Compute.removeItemWithoutCheck(player, smeltRecipe.needMaterialList);
+                InventoryOperation.removeItemWithoutCheck(player, smeltRecipe.needMaterialList);
                 player.sendSystemMessage(Te.m("success"));
             } else {
                 // 失败

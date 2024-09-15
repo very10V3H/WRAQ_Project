@@ -1,7 +1,7 @@
 package com.very.wraq.networking.unSorted;
 
-import com.very.wraq.common.Compute;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.process.func.item.InventoryOperation;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
@@ -28,9 +28,9 @@ public class UdiskWorldSoulC2SPacket {
         context.enqueueWork(() -> {
             ServerPlayer serverPlayer = context.getSender();
             Inventory inventory = serverPlayer.getInventory();
-            while (Compute.checkPlayerHasItem(inventory, ModItems.WorldSoul1.get(), 64)) {
-                Compute.removeItem(inventory, ModItems.WorldSoul1.get(), 64);
-                Compute.itemStackGive(serverPlayer, new ItemStack(ModItems.WorldSoul2.get(), 1));
+            while (InventoryOperation.checkPlayerHasItem(inventory, ModItems.WorldSoul1.get(), 64)) {
+                InventoryOperation.removeItem(inventory, ModItems.WorldSoul1.get(), 64);
+                InventoryOperation.itemStackGive(serverPlayer, new ItemStack(ModItems.WorldSoul2.get(), 1));
             }
         });
         return true;

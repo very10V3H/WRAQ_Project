@@ -1,10 +1,11 @@
 package com.very.wraq.events.mob.loot;
 
-import com.very.wraq.process.system.forge.ForgeEquipUtils;
-import com.very.wraq.projectiles.RandomEquip;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.util.ItemAndRate;
 import com.very.wraq.common.util.Utils;
+import com.very.wraq.process.func.item.InventoryOperation;
+import com.very.wraq.process.system.forge.ForgeEquipUtils;
+import com.very.wraq.projectiles.RandomEquip;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -58,7 +59,7 @@ public interface RandomLootEquip extends RandomEquip {
                 Item piece = ForgeEquipUtils.getEquipPiece(i);
                 ItemStack pieceStack = new ItemStack(piece, pieceMap.get(i));
                 count += pieceMap.get(i);
-                Compute.itemStackGive(player, pieceStack);
+                InventoryOperation.itemStackGive(player, pieceStack);
             }
         }
 

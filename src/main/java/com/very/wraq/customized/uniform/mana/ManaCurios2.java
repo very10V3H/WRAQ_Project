@@ -1,6 +1,7 @@
 package com.very.wraq.customized.uniform.mana;
 
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.customized.UniformItems;
 import com.very.wraq.customized.WraqUniformCurios;
 import net.minecraft.ChatFormatting;
@@ -28,7 +29,7 @@ public class ManaCurios2 extends WraqManaUniformCurios {
         components.add(Component.literal(" 周围").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("没有其他玩家").withStyle(style)).
                 append(Component.literal("时，为你提供").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.ManaDamage("50%总")));
+                append(ComponentUtils.AttributeDescription.ManaDamage("50%总")));
         components.add(Component.literal(" 法术的研究者，也是亚瑟王的挚友和导师——梅林，给予新生法师的礼物。").withStyle(style));
         return components;
     }

@@ -1,10 +1,11 @@
 package com.very.wraq.events.sec;
 
-import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.process.func.item.InventoryOperation;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -134,8 +135,8 @@ public class PFEvent {
                         int playerExpLevel = player.experienceLevel;
                         plainSoulBag.getOrCreateTagElement(Utils.MOD_ID).putInt(StringUtils.PlainSoulCount, (Utils.PFSecKillCount / 35 + 1) * playerExpLevel);
                         forestSoulBag.getOrCreateTagElement(Utils.MOD_ID).putInt(StringUtils.ForestSoulCount, (Utils.PFSecKillCount / 35 + 1) * playerExpLevel);
-                        Compute.itemStackGive(player, forestSoulBag);
-                        Compute.itemStackGive(player, plainSoulBag);
+                        InventoryOperation.itemStackGive(player, forestSoulBag);
+                        InventoryOperation.itemStackGive(player, plainSoulBag);
                         Utils.PFSecKillCount = 0;
                     }
                 }

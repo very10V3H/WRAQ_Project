@@ -5,6 +5,7 @@ import com.very.wraq.common.attribute.PlayerAttributes;
 import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.Utils;
+import com.very.wraq.common.util.struct.Shield;
 import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.process.func.ChangedAttributesModifier;
 import com.very.wraq.process.func.EnhanceNormalAttack;
@@ -66,7 +67,7 @@ public class MoonSword extends WraqSword implements ActiveItem, OnHitEffectMainH
                 append(Compute.AttributeDescription.AttackDamage("200%")).
                 append(Component.literal("的").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("护盾").withStyle(ChatFormatting.GRAY)));
-        Compute.CoolDownTimeDescription(components, 27);
+        ComponentUtils.coolDownTimeDescription(components, 27);
         return components;
     }
 
@@ -87,7 +88,7 @@ public class MoonSword extends WraqSword implements ActiveItem, OnHitEffectMainH
             EnhanceNormalAttackModifier.addModifier(player, new EnhanceNormalAttackModifier("moonSwordActive", 0, new EnhanceNormalAttack() {
                 @Override
                 public void hit(Player player, Mob mob) {
-                    Compute.playerShieldProvider(player, 400, PlayerAttributes.attackDamage(player) * 2);
+                    Shield.providePlayerShield(player, 400, PlayerAttributes.attackDamage(player) * 2);
                     Compute.sendEffectLastTime(player, ModItems.MoonSword.get().getDefaultInstance(), 200);
                     List<Mob> mobList = mob.level().getEntitiesOfClass(Mob.class, AABB.ofSize(mob.position(), 15, 15, 15));
                     mobList.removeIf(mob1 -> mob1.distanceTo(mob) > 6);

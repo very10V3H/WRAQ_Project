@@ -1,11 +1,12 @@
 package com.very.wraq.series.end.eventController.SnowRecall;
 
-import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.series.overworld.chapter2.dimension.ToEnd;
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.process.func.item.InventoryOperation;
+import com.very.wraq.render.toolTip.CustomStyle;
+import com.very.wraq.series.overworld.chapter2.dimension.ToEnd;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -95,7 +96,7 @@ public class SnowRecallEvent {
                             if (Utils.SnowRecallStray != null)
                                 Utils.SnowRecallStray.remove(Entity.RemovalReason.KILLED);
                             Utils.SnowRecallStray = new Stray(EntityType.STRAY, level1);
-                            Compute.SetMobCustomName(Utils.SnowRecallStray, ModItems.ArmorSnowRecall.get(), Component.literal("模糊记忆中的冰川流浪者").withStyle(style));
+                            Compute.setMobCustomName(Utils.SnowRecallStray, ModItems.ArmorSnowRecall.get(), Component.literal("模糊记忆中的冰川流浪者").withStyle(style));
                             Utils.SnowRecallStray.setItemSlot(EquipmentSlot.HEAD, ModItems.ArmorSnowRecall.get().getDefaultInstance());
                             Utils.SnowRecallStray.setItemSlot(EquipmentSlot.CHEST, ModItems.ArmorLZChest.get().getDefaultInstance());
                             Utils.SnowRecallStray.setItemSlot(EquipmentSlot.LEGS, ModItems.ArmorLZLeggings.get().getDefaultInstance());
@@ -149,7 +150,7 @@ public class SnowRecallEvent {
                                                 append(Component.literal("的记忆。").withStyle(ChatFormatting.WHITE)));
                                 ItemStack itemStack = ModItems.SnowRecallSoul.get().getDefaultInstance();
                                 itemStack.setCount(1);
-                                Compute.itemStackGive(Utils.snowRecall.recallPlayer, itemStack);
+                                InventoryOperation.itemStackGive(Utils.snowRecall.recallPlayer, itemStack);
                                 data.putInt(StringUtils.RecallEndRune3, 3);
                             } else {
                                 data.putInt(RecallTimes, data.getInt(RecallTimes) + 1);
@@ -166,7 +167,7 @@ public class SnowRecallEvent {
                                                 append(Component.literal("的记忆。").withStyle(ChatFormatting.WHITE)));
                                 ItemStack itemStack = ModItems.SnowRune.get().getDefaultInstance();
                                 itemStack.setCount(1);
-                                Compute.itemStackGive(Utils.snowRecall.recallPlayer, itemStack);
+                                InventoryOperation.itemStackGive(Utils.snowRecall.recallPlayer, itemStack);
                                 data.putInt(StringUtils.RecallEndRune3, 3);
                             }
                         }

@@ -1,12 +1,13 @@
 package com.very.wraq.networking.dailyMission;
 
-import com.very.wraq.networking.ModNetworking;
-import com.very.wraq.networking.misc.SoundsPackets.SoundsS2CPacket;
-import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.networking.ModNetworking;
+import com.very.wraq.networking.misc.SoundsPackets.SoundsS2CPacket;
+import com.very.wraq.process.func.item.InventoryOperation;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
@@ -46,15 +47,15 @@ public class DailyMissionFinishedRequestC2SPacket {
             ItemStack itemStack = Utils.playerDailyMissionContent.get(serverPlayer.getName().getString());
             int Count = Utils.playerDailyMissionContentNum.get(serverPlayer.getName().getString());
             Inventory inventory = serverPlayer.getInventory();
-            if (Compute.checkPlayerHasItem(inventory, itemStack.getItem(), Count)) {
-                Compute.removeItem(inventory, itemStack.getItem(), Count);
+            if (InventoryOperation.checkPlayerHasItem(inventory, itemStack.getItem(), Count)) {
+                InventoryOperation.removeItem(inventory, itemStack.getItem(), Count);
                 data.putString(StringUtils.LastDailyMissionFinishedTime, Compute.CalendarToString(Calendar.getInstance()));
                 Compute.sendFormatMSG(serverPlayer, Component.literal("任务").withStyle(CustomStyle.styleOfKaze),
                         Component.literal("你完成了每日任务！").withStyle(ChatFormatting.WHITE));
                 Compute.givePercentExpToPlayer(serverPlayer, 0.5, 0, serverPlayer.experienceLevel);
                 ItemStack gemPiece = ModItems.gemPiece.get().getDefaultInstance();
                 gemPiece.setCount(serverPlayer.experienceLevel);
-                Compute.itemStackGive(serverPlayer, gemPiece);
+                InventoryOperation.itemStackGive(serverPlayer, gemPiece);
                 Compute.playerReputationAddOrCost(serverPlayer, serverPlayer.experienceLevel);
                 ModNetworking.sendToClient(new DailyMissionFinishedTimeS2CPacket(data.getString(StringUtils.LastDailyMissionFinishedTime)), serverPlayer);
                 Utils.playerDailyMissionContent.remove(serverPlayer.getName().getString());

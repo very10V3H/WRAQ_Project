@@ -1,12 +1,13 @@
 package com.very.wraq.process.system.spur.events;
 
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.StringUtils;
+import com.very.wraq.common.util.Utils;
+import com.very.wraq.common.util.struct.BlockAndResetTime;
+import com.very.wraq.process.func.item.InventoryOperation;
 import com.very.wraq.process.system.missions.series.labourDay.LabourDayMission;
 import com.very.wraq.process.system.spur.Items.SpurItems;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.StringUtils;
-import com.very.wraq.common.util.struct.BlockAndResetTime;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -60,7 +61,7 @@ public class WoodSpur {
                         } while (level.getBlockState(blockPos1).getBlock().toString().contains("stripped"));
 
                         logReward(player);
-                        Compute.itemStackGive(player, new ItemStack(blockState.getBlock().asItem(), 2));
+                        InventoryOperation.itemStackGive(player, new ItemStack(blockState.getBlock().asItem(), 2));
                         Utils.worldWoodList.add(new BlockAndResetTime(blockState, blockPos1, level.getServer().getTickCount() + 36000));
 
                         level.setBlockAndUpdate(blockPos1, getStrippedLog(level.getBlockState(blockPos1).getBlock()).defaultBlockState());
@@ -70,7 +71,7 @@ public class WoodSpur {
                             Compute.sendFormatMSG(player, Component.literal("额外产出").withStyle(ChatFormatting.GOLD),
                                     Component.literal("为你提供了额外产物！").withStyle(ChatFormatting.WHITE));
                             logReward(player);
-                            Compute.itemStackGive(player, new ItemStack(blockState.getBlock().asItem(), 2));
+                            InventoryOperation.itemStackGive(player, new ItemStack(blockState.getBlock().asItem(), 2));
                         }
                     }
                 }
@@ -88,7 +89,7 @@ public class WoodSpur {
         Utils.dayLopCount.put(player.getName().getString(), Utils.dayLopCount.getOrDefault(player.getName().getString(), 0) + 1);
 
         if (data.contains(StringUtils.Lop.Xp) && !data.contains(StringUtils.LogReward)) {
-            Compute.itemStackGive(player, new ItemStack(ModItems.LogBag.get(), data.getInt(StringUtils.Lop.Xp) / 256));
+            InventoryOperation.itemStackGive(player, new ItemStack(ModItems.LogBag.get(), data.getInt(StringUtils.Lop.Xp) / 256));
             data.putBoolean(StringUtils.LogReward, true);
         }
 
@@ -97,7 +98,7 @@ public class WoodSpur {
         Random random = new Random();
         if (random.nextDouble() < 0.05) {
             data.putInt(logPieceGetTimes, data.getInt(logPieceGetTimes) + 1);
-            Compute.itemStackGive(player, new ItemStack(SpurItems.logPiece.get()));
+            InventoryOperation.itemStackGive(player, new ItemStack(SpurItems.logPiece.get()));
         }
         if (Compute.exHarvestItemGive(player, new ItemStack(SpurItems.logPiece.get()), 0.05)) {
             data.putInt(logPieceGetTimes, data.getInt(logPieceGetTimes) + 1);

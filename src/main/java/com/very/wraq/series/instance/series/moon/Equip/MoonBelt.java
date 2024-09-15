@@ -2,7 +2,10 @@ package com.very.wraq.series.instance.series.moon.Equip;
 
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.Utils;
+import com.very.wraq.common.util.struct.Shield;
+import com.very.wraq.process.func.damage.Damage;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -60,7 +63,7 @@ public class MoonBelt extends Item implements ICurioItem {
                 append(Component.literal("的").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("护盾值").withStyle(ChatFormatting.GRAY)));
         components.add(Component.literal(" -护盾值不会超过最大生命值的200%").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
-        Compute.CoolDownTimeDescription(components, 10);
+        ComponentUtils.coolDownTimeDescription(components, 10);
         Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         Compute.SuffixOfMoon(components);
         super.appendHoverText(stack, level, components, flag);
@@ -140,10 +143,10 @@ public class MoonBelt extends Item implements ICurioItem {
             List<Mob> mobList = player.level().getEntitiesOfClass(Mob.class, AABB.ofSize(player.position(), 15, 15, 15));
             mobList.forEach(mob -> {
                 if (mob.distanceTo(player) < 6) {
-                    Compute.Damage.causeIgNoreDefenceDamageToMonster(player, mob, storedDamage.get(player));
+                    Damage.causeIgNoreDefenceDamageToMonster(player, mob, storedDamage.get(player));
                 }
             });
-            Compute.playerShieldProvider(player, 200, Math.min(player.getMaxHealth() * 2, storedDamage.get(player) * 0.01));
+            Shield.providePlayerShield(player, 200, Math.min(player.getMaxHealth() * 2, storedDamage.get(player) * 0.01));
             statusType.put(player, 0);
             storedDamage.put(player, 0d);
             coolDown.put(player, TickCount + 200);

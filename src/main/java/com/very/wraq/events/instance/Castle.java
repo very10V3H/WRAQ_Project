@@ -1,16 +1,17 @@
 package com.very.wraq.events.instance;
 
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.StringUtils;
+import com.very.wraq.common.util.Utils;
+import com.very.wraq.common.util.struct.Instance;
+import com.very.wraq.common.util.struct.PlayerTeam;
 import com.very.wraq.events.core.LoginInEvent;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.misc.SoundsPackets.SoundsS2CPacket;
+import com.very.wraq.process.func.item.InventoryOperation;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.instance.series.castle.CastleCurios;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.StringUtils;
-import com.very.wraq.common.util.struct.Instance;
-import com.very.wraq.common.util.struct.PlayerTeam;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -120,7 +121,7 @@ public class Castle {
         Random random = new Random();
         for (int i = 0; i < 4; i++) mobList.add(new WitherSkeleton(EntityType.WITHER_SKELETON, level));
         mobList.forEach(mob -> {
-            Compute.SetMobCustomName(mob, ModItems.MobArmorBlackCastleOneFloorManaHelmet.get(),
+            Compute.setMobCustomName(mob, ModItems.MobArmorBlackCastleOneFloorManaHelmet.get(),
                     Component.literal("暗黑城堡遗魂 - 术士").withStyle(CustomStyle.styleOfCastle));
 
             mob.setItemSlot(EquipmentSlot.HEAD, ModItems.MobArmorBlackCastleOneFloorManaHelmet.get().getDefaultInstance());
@@ -143,7 +144,7 @@ public class Castle {
         Random random = new Random();
         for (int i = 0; i < 1; i++) mobList.add(new WitherSkeleton(EntityType.WITHER_SKELETON, level));
         mobList.forEach(mob -> {
-            Compute.SetMobCustomName(mob, ModItems.MobArmorBlackCastleOneFloorAttackHelmet.get(), Component.literal("暗黑城堡遗魂 - 骑士").withStyle(CustomStyle.styleOfCastle));
+            Compute.setMobCustomName(mob, ModItems.MobArmorBlackCastleOneFloorAttackHelmet.get(), Component.literal("暗黑城堡遗魂 - 骑士").withStyle(CustomStyle.styleOfCastle));
 
             mob.setItemSlot(EquipmentSlot.HEAD, ModItems.MobArmorBlackCastleOneFloorAttackHelmet.get().getDefaultInstance());
             mob.setItemSlot(EquipmentSlot.CHEST, ModItems.MobArmorBlackCastleOneFloorChest.get().getDefaultInstance());
@@ -223,7 +224,7 @@ public class Castle {
         for (int i = 0; i < 4; i++) {
             Mob mob = BossList.get(i);
             lightningSummon(mob);
-            Compute.SetMobCustomName(mob, ModItems.MobArmorBlackCastleOneFloorManaHelmet.get(), Component.literal("暗黑城堡禁军 - 护卫").withStyle(CustomStyle.styleOfCastle));
+            Compute.setMobCustomName(mob, ModItems.MobArmorBlackCastleOneFloorManaHelmet.get(), Component.literal("暗黑城堡禁军 - 护卫").withStyle(CustomStyle.styleOfCastle));
 
             mob.setBaby(true);
             mob.setItemSlot(EquipmentSlot.HEAD, ModItems.MobArmorBlackCastleOneFloorManaHelmet.get().getDefaultInstance());
@@ -244,7 +245,7 @@ public class Castle {
         for (int i = 4; i < 6; i++) {
             Mob mob = BossList.get(i);
             lightningSummon(mob);
-            Compute.SetMobCustomName(mob, ModItems.MobArmorBlackCastleOneFloorAttackHelmet.get(), Component.literal("暗黑城堡禁军 - 统领").withStyle(CustomStyle.styleOfCastle));
+            Compute.setMobCustomName(mob, ModItems.MobArmorBlackCastleOneFloorAttackHelmet.get(), Component.literal("暗黑城堡禁军 - 统领").withStyle(CustomStyle.styleOfCastle));
             mob.setItemSlot(EquipmentSlot.HEAD, ModItems.MobArmorBlackCastleOneFloorAttackHelmet.get().getDefaultInstance());
             mob.setItemSlot(EquipmentSlot.CHEST, ModItems.MobArmorBlackCastleOneFloorChest.get().getDefaultInstance());
             mob.setItemSlot(EquipmentSlot.LEGS, ModItems.MobArmorBlackCastleOneFloorLeggings.get().getDefaultInstance());
@@ -421,7 +422,7 @@ public class Castle {
         Random random = new Random();
         Level level = player.level();
         if (CauseDamagePlayer.contains(player) || isMopUp) {
-            Compute.itemStackGive(player, new ItemStack(ModItems.CastleLoot.get(), difficultyEnhanceRate));
+            InventoryOperation.itemStackGive(player, new ItemStack(ModItems.CastleLoot.get(), difficultyEnhanceRate));
 
             if (random.nextDouble() <= 0.1 && difficultyEnhanceRate == 4) {
                 ItemStack itemStack = ModItems.CastleNecklace.get().getDefaultInstance();
@@ -432,7 +433,7 @@ public class Castle {
                                 append(player.getDisplayName()).
                                 append(Component.literal(" 获得了: ").withStyle(ChatFormatting.WHITE)).
                                 append(itemStack.getDisplayName()));
-                Compute.itemStackGive(player, itemStack);
+                InventoryOperation.itemStackGive(player, itemStack);
             }
 
             if (!isMopUp) {
@@ -440,7 +441,7 @@ public class Castle {
                     Compute.sendFormatMSG(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
                             Component.literal("你通过组队挑战副本，额外获得了:").withStyle(ChatFormatting.WHITE).
                                     append(ModItems.CastleLoot.get().getDefaultInstance().getDisplayName()));
-                    Compute.itemStackGive(player, new ItemStack(ModItems.CastleLoot.get(), 2));
+                    InventoryOperation.itemStackGive(player, new ItemStack(ModItems.CastleLoot.get(), 2));
                 }
             }
         }
@@ -449,7 +450,7 @@ public class Castle {
             Compute.sendFormatMSG(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
                     Component.literal("每日首次通关副本，额外获得了:").withStyle(ChatFormatting.WHITE).
                             append(ModItems.CastleLoot.get().getDefaultInstance().getDisplayName()));
-            Compute.itemStackGive(player, new ItemStack(ModItems.CastleLoot.get(), 24));
+            InventoryOperation.itemStackGive(player, new ItemStack(ModItems.CastleLoot.get(), 24));
         }
     }
 }

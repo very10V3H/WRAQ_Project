@@ -1,10 +1,10 @@
 package com.very.wraq.blocks.blocks.forge;
 
+import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.util.Utils;
+import com.very.wraq.process.func.item.InventoryOperation;
 import com.very.wraq.process.system.forge.ForgeEquipUtils;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
@@ -41,7 +41,7 @@ public class ForgeRecipe {
                 List<ItemStack> list = forgeDrawRecipe.get(itemStack.getItem());
                 for (int i = 0 ; i < list.size() ; i++) {
                     ItemStack stack = list.get(i);
-                    int playerInventoryHasNum = Compute.itemStackCount(Minecraft.getInstance().player, stack.getItem());
+                    int playerInventoryHasNum = InventoryOperation.itemStackCount(Minecraft.getInstance().player, stack.getItem());
                     if (playerInventoryHasNum >= stack.getCount()) {
                         tooltip.add(Component.literal((i + 1) + ".").append(stack.getDisplayName()).
                                 append(Component.literal(" (")).withStyle(ChatFormatting.WHITE).

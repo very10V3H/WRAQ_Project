@@ -1,12 +1,13 @@
 package com.very.wraq.series.end.eventController.ForestRecall;
 
-import com.very.wraq.events.mob.chapter1.ForestZombieSpawnController;
-import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.series.overworld.chapter2.dimension.ToEnd;
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.events.mob.chapter1.ForestZombieSpawnController;
+import com.very.wraq.process.func.item.InventoryOperation;
+import com.very.wraq.render.toolTip.CustomStyle;
+import com.very.wraq.series.overworld.chapter2.dimension.ToEnd;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -96,7 +97,7 @@ public class ForestRecallEvent {
                             if (Utils.ForestRecallZombie != null)
                                 Utils.ForestRecallZombie.remove(Entity.RemovalReason.KILLED);
                             Utils.ForestRecallZombie = new Zombie(EntityType.ZOMBIE, level1);
-                            Compute.SetMobCustomName(Utils.ForestRecallZombie, ModItems.ArmorForestRecall.get(), Component.literal("模糊记忆中的森林僵尸").withStyle(style));
+                            Compute.setMobCustomName(Utils.ForestRecallZombie, ModItems.ArmorForestRecall.get(), Component.literal("模糊记忆中的森林僵尸").withStyle(style));
                             Utils.ForestRecallZombie.setItemSlot(EquipmentSlot.HEAD, ModItems.ArmorForestRecall.get().getDefaultInstance());
                             Utils.ForestRecallZombie.setItemSlot(EquipmentSlot.MAINHAND, ModItems.ForestSword3.get().getDefaultInstance());
                             Utils.ForestRecallZombie.getAttribute(Attributes.MAX_HEALTH).setBaseValue(115200.0D);
@@ -112,7 +113,7 @@ public class ForestRecallEvent {
                             if (Utils.ForestRecallSkeleton != null)
                                 Utils.ForestRecallSkeleton.remove(Entity.RemovalReason.KILLED);
                             Utils.ForestRecallSkeleton = new Skeleton(EntityType.SKELETON, level1);
-                            Compute.SetMobCustomName(Utils.ForestRecallSkeleton, ModItems.ArmorForestRecall.get(), Component.literal("模糊记忆中的森林骷髅").withStyle(style));
+                            Compute.setMobCustomName(Utils.ForestRecallSkeleton, ModItems.ArmorForestRecall.get(), Component.literal("模糊记忆中的森林骷髅").withStyle(style));
                             Utils.ForestRecallSkeleton.setItemSlot(EquipmentSlot.HEAD, ModItems.ArmorForestRecall.get().getDefaultInstance());
                             Utils.ForestRecallSkeleton.setItemSlot(EquipmentSlot.MAINHAND, Items.BOW.getDefaultInstance());
                             Utils.ForestRecallSkeleton.getAttribute(Attributes.MAX_HEALTH).setBaseValue(115200.0D);
@@ -162,7 +163,7 @@ public class ForestRecallEvent {
                                                 append(Component.literal("的记忆。").withStyle(ChatFormatting.WHITE)));
                                 ItemStack itemStack = ModItems.IntensifiedForestRecallSoul.get().getDefaultInstance();
                                 itemStack.setCount(1);
-                                Compute.itemStackGive(Utils.forestRecall.recallPlayer, itemStack);
+                                InventoryOperation.itemStackGive(Utils.forestRecall.recallPlayer, itemStack);
                                 data.putInt(StringUtils.RecallEndRune3, 0);
                             } else {
                                 data.putInt(RecallTimes, data.getInt(RecallTimes) + 1);
@@ -179,7 +180,7 @@ public class ForestRecallEvent {
                                                 append(Component.literal("的记忆。").withStyle(ChatFormatting.WHITE)));
                                 ItemStack itemStack = ModItems.ForestRune.get().getDefaultInstance();
                                 itemStack.setCount(1);
-                                Compute.itemStackGive(Utils.forestRecall.recallPlayer, itemStack);
+                                InventoryOperation.itemStackGive(Utils.forestRecall.recallPlayer, itemStack);
                                 data.putInt(StringUtils.RecallEndRune3, 0);
                             }
                         }

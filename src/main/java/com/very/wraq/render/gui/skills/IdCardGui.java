@@ -430,7 +430,7 @@ public class IdCardGui extends Screen {
             ComponentUtils.emojiDescriptionDefencePenetration0(components, 1);
 
             Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-            components.add(Component.literal("").append(Compute.AttributeDescription.Swiftness("")).
+            components.add(Component.literal("").append(ComponentUtils.AttributeDescription.Swiftness("")).
                     append(Component.literal("将会提升你的翻滚距离与体力值回复速度，").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY)));
             components.add(Component.literal(" 并为你提供箭矢攻击增幅，同时提升你的闪避几率。").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
             guiGraphics.renderComponentTooltip(fontRenderer, components, x, y);

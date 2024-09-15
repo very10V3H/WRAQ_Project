@@ -1,5 +1,16 @@
 package com.very.wraq.events.modules;
 
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.attribute.MobAttributes;
+import com.very.wraq.common.attribute.PlayerAttributes;
+import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.StringUtils;
+import com.very.wraq.common.util.Utils;
+import com.very.wraq.common.util.struct.BowSkillStruct.BowSkill3;
+import com.very.wraq.common.util.struct.BowSkillStruct.BowSkill6;
+import com.very.wraq.common.util.struct.SwordSkillStruct.SwordSkill13;
+import com.very.wraq.common.util.struct.SwordSkillStruct.SwordSkill3;
+import com.very.wraq.common.util.struct.SwordSkillStruct.SwordSkill6;
 import com.very.wraq.core.AttackEvent;
 import com.very.wraq.core.MyArrow;
 import com.very.wraq.events.mob.MobSpawn;
@@ -7,28 +18,19 @@ import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.misc.ParticlePackets.SlowDownParticleS2CPacket;
 import com.very.wraq.networking.misc.SkillPackets.Charging.ChargedClearS2CPacket;
 import com.very.wraq.networking.misc.SkillPackets.SkillImageS2CPacket;
+import com.very.wraq.process.func.damage.Damage;
+import com.very.wraq.process.func.suit.SuitCount;
 import com.very.wraq.render.mobEffects.ModEffects;
 import com.very.wraq.render.particles.ModParticles;
 import com.very.wraq.series.end.eventController.SnowRecall.SnowSword4;
-import com.very.wraq.series.overworld.chapter1.Mine.Sword.*;
-import com.very.wraq.series.overworld.chapter1.forest.bow.ForestBow;
-import com.very.wraq.series.overworld.chapter1.plain.bow.PlainBow;
+import com.very.wraq.series.overworld.chapter1.Mine.Sword.MineSword;
 import com.very.wraq.series.overworld.chapter1.Snow.Sword.SnowSword0;
 import com.very.wraq.series.overworld.chapter1.Snow.Sword.SnowSword1;
 import com.very.wraq.series.overworld.chapter1.Snow.Sword.SnowSword2;
 import com.very.wraq.series.overworld.chapter1.Snow.Sword.SnowSword3;
+import com.very.wraq.series.overworld.chapter1.forest.bow.ForestBow;
+import com.very.wraq.series.overworld.chapter1.plain.bow.PlainBow;
 import com.very.wraq.series.overworld.chapter1.volcano.bow.VolcanoBow;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.StringUtils;
-import com.very.wraq.common.util.struct.BowSkillStruct.BowSkill3;
-import com.very.wraq.common.util.struct.BowSkillStruct.BowSkill6;
-import com.very.wraq.common.util.struct.SwordSkillStruct.SwordSkill13;
-import com.very.wraq.common.util.struct.SwordSkillStruct.SwordSkill3;
-import com.very.wraq.common.util.struct.SwordSkillStruct.SwordSkill6;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.attribute.MobAttributes;
-import com.very.wraq.common.attribute.PlayerAttributes;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
@@ -40,7 +42,10 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.Item;
@@ -203,14 +208,14 @@ public class AttackEventModule {
 
     public static double SwordSkill0(CompoundTag data, double BaseDamage) {
         double ExDamageIgnoreDefence = 0;
-        ExDamageIgnoreDefence += BaseDamage * Compute.SwordSkillLevelGet(data, 0) * 0.01;
+        ExDamageIgnoreDefence += BaseDamage * Compute.getSwordSkillLevel(data, 0) * 0.01;
         return ExDamageIgnoreDefence;
     }
 
     public static void SwordSkill3Attack(CompoundTag data, Player player, Entity entity) {
         int TickCount = player.getServer().getTickCount();
         String name = player.getName().getString();
-        if (Compute.SwordSkillLevelGet(data, 3) > 0) {
+        if (Compute.getSwordSkillLevel(data, 3) > 0) {
             if (Utils.SwordSkill3Map.containsKey(name)) {
                 SwordSkill3 swordSkill3 = Utils.SwordSkill3Map.get(name);
                 if (swordSkill3.getTime() > TickCount && swordSkill3.getEntity().equals(entity)) {
@@ -234,10 +239,10 @@ public class AttackEventModule {
         double DamageEnhance = 0;
         int TickCount = player.getServer().getTickCount();
         String name = player.getName().getString();
-        if (Compute.SwordSkillLevelGet(data, 3) > 0 && Utils.SwordSkill3Map.containsKey(name)) {
+        if (Compute.getSwordSkillLevel(data, 3) > 0 && Utils.SwordSkill3Map.containsKey(name)) {
             SwordSkill3 swordSkill3 = Utils.SwordSkill3Map.get(name);
             if (swordSkill3.getEntity().equals(monster) && swordSkill3.getTime() > TickCount) {
-                DamageEnhance += Compute.SwordSkillLevelGet(data, 3) * 0.002 * swordSkill3.getCount();
+                DamageEnhance += Compute.getSwordSkillLevel(data, 3) * 0.002 * swordSkill3.getCount();
             }
         }
         return DamageEnhance;
@@ -245,7 +250,7 @@ public class AttackEventModule {
 
     public static void SwordSkill5Attack(CompoundTag data, Player player) {
         int TickCount = player.getServer().getTickCount();
-        if (Compute.SwordSkillLevelGet(data, 5) > 0) {
+        if (Compute.getSwordSkillLevel(data, 5) > 0) {
             data.putInt(StringUtils.SwordSkillNum.Skill5, TickCount + 60);
             ModNetworking.sendToClient(new SkillImageS2CPacket(6, 3, 3, 0, 0), (ServerPlayer) player);
         }
@@ -254,7 +259,7 @@ public class AttackEventModule {
     public static void SwordSkill6Attack(CompoundTag data, Player player) {
         int TickCount = player.getServer().getTickCount();
         String name = player.getName().getString();
-        if (Compute.SwordSkillLevelGet(data, 6) > 0) {
+        if (Compute.getSwordSkillLevel(data, 6) > 0) {
             if (data.getBoolean("Crit")) {
                 if (Utils.SwordSkill6Map.containsKey(name)) {
                     SwordSkill6 swordSkill6 = Utils.SwordSkill6Map.get(name);
@@ -288,7 +293,7 @@ public class AttackEventModule {
     public static void SwordSkill13Attack(CompoundTag data, Player player) {
         int TickCount = player.getServer().getTickCount();
         String name = player.getName().getString();
-        if (Compute.SwordSkillLevelGet(data, 13) > 0) {
+        if (Compute.getSwordSkillLevel(data, 13) > 0) {
             if (!Utils.SwordSkill13Map.containsKey(name)) {
                 if (data.getBoolean(StringUtils.DamageTypes.Crit)) {
                     SwordSkill13 swordSkill13 = new SwordSkill13(2, TickCount + 120);
@@ -329,12 +334,12 @@ public class AttackEventModule {
         double ExDamageIgnoreDefence = 0;
         int TickCount = player.getServer().getTickCount();
         String name = player.getName().getString();
-        if (Compute.SwordSkillLevelGet(data, 13) > 0) {
+        if (Compute.getSwordSkillLevel(data, 13) > 0) {
             if (Utils.SwordSkill13Map.containsKey(name)) {
                 SwordSkill13 swordSkill13 = Utils.SwordSkill13Map.get(name);
                 if (swordSkill13.getTime() > TickCount) {
-                    ExDamageIgnoreDefence += BaseDamage * swordSkill13.getCount() * 0.0025 * Compute.SwordSkillLevelGet(data, 13);
-                    Compute.playerHeal(player, (BaseDamage * swordSkill13.getCount() * 0.0025 * 0.01 * Compute.SwordSkillLevelGet(data, 13)));
+                    ExDamageIgnoreDefence += BaseDamage * swordSkill13.getCount() * 0.0025 * Compute.getSwordSkillLevel(data, 13);
+                    Compute.playerHeal(player, (BaseDamage * swordSkill13.getCount() * 0.0025 * 0.01 * Compute.getSwordSkillLevel(data, 13)));
                 }
             }
         }
@@ -343,7 +348,7 @@ public class AttackEventModule {
 
     public static double SwordSkill14(CompoundTag data, Player player, double BaseDamage, LivingEntity monster) {
         double ExDamageIgnoreDefence = 0;
-        if (Compute.SwordSkillLevelGet(data, 14) > 0) {
+        if (Compute.getSwordSkillLevel(data, 14) > 0) {
             double PlayerHealthRate = player.getHealth() / player.getMaxHealth();
             double MonsterHealthRate = monster.getHealth() / monster.getMaxHealth();
             if (PlayerHealthRate > MonsterHealthRate) {
@@ -355,8 +360,8 @@ public class AttackEventModule {
 
     public static double BowSkill0(CompoundTag data, double BaseDamage) {
         double ExDamageIgnoreDefence = 0;
-        if (Compute.BowSkillLevelGet(data, 0) > 0) {
-            ExDamageIgnoreDefence += BaseDamage * 0.01 * Compute.BowSkillLevelGet(data, 0);
+        if (Compute.getBowSkillLevel(data, 0) > 0) {
+            ExDamageIgnoreDefence += BaseDamage * 0.01 * Compute.getBowSkillLevel(data, 0);
         }
         return ExDamageIgnoreDefence;
     }
@@ -364,7 +369,7 @@ public class AttackEventModule {
     public static void BowSkill3Attack(CompoundTag data, Player player, Entity entity) {
         int TickCount = player.getServer().getTickCount();
         String name = player.getName().getString();
-        if (Compute.BowSkillLevelGet(data, 3) > 0) {
+        if (Compute.getBowSkillLevel(data, 3) > 0) {
             if (Utils.BowSkill3Map.containsKey(name)) {
                 BowSkill3 bowSkill3 = Utils.BowSkill3Map.get(name);
                 if (bowSkill3.getTime() > TickCount && bowSkill3.getEntity().equals(entity)) {
@@ -388,10 +393,10 @@ public class AttackEventModule {
         double DamageEnhance = 0;
         int TickCount = player.getServer().getTickCount();
         String name = player.getName().getString();
-        if (Compute.BowSkillLevelGet(data, 3) > 0 && Utils.BowSkill3Map.containsKey(name)) {
+        if (Compute.getBowSkillLevel(data, 3) > 0 && Utils.BowSkill3Map.containsKey(name)) {
             BowSkill3 bowSkill3 = Utils.BowSkill3Map.get(name);
             if (bowSkill3.getEntity().equals(monster) && bowSkill3.getTime() > TickCount) {
-                DamageEnhance += Compute.BowSkillLevelGet(data, 3) * 0.033 / 5 * bowSkill3.getCount();
+                DamageEnhance += Compute.getBowSkillLevel(data, 3) * 0.033 / 5 * bowSkill3.getCount();
             }
         }
         return DamageEnhance;
@@ -423,7 +428,7 @@ public class AttackEventModule {
 
     public static void BowSkill5(CompoundTag data, Player player) {
         int TickCount = Objects.requireNonNull(player.getServer()).getTickCount();
-        if (Compute.BowSkillLevelGet(data, 5) > 0) {
+        if (Compute.getBowSkillLevel(data, 5) > 0) {
             data.putInt(StringUtils.BowSkillNum.Skill5, TickCount + 100);
             ModNetworking.sendToClient(new SkillImageS2CPacket(6, 5, 5, 0, 1), (ServerPlayer) player);
         }
@@ -432,7 +437,7 @@ public class AttackEventModule {
     public static void BowSkill6Attack(CompoundTag data, Player player, boolean flag) {
         int TickCount = player.getServer().getTickCount();
         String name = player.getName().getString();
-        if (Compute.BowSkillLevelGet(data, 6) > 0) {
+        if (Compute.getBowSkillLevel(data, 6) > 0) {
             if (flag) {
                 if (Utils.BowSkill6Map.containsKey(name)) {
                     BowSkill6 bowSkill6 = Utils.BowSkill6Map.get(name);
@@ -464,22 +469,22 @@ public class AttackEventModule {
 
     public static double SwordSkill12(CompoundTag data, Player player, double BaseDamage) {
         String name = player.getName().getString();
-        if (Compute.SwordSkillLevelGet(data, 12) > 0 && Utils.SwordSkill12.containsKey(name)
+        if (Compute.getSwordSkillLevel(data, 12) > 0 && Utils.SwordSkill12.containsKey(name)
                 && Utils.SwordSkill12.get(name)) {
-            return BaseDamage * Compute.SwordSkillLevelGet(data, 12) * 0.4;
+            return BaseDamage * Compute.getSwordSkillLevel(data, 12) * 0.4;
         }
         return 0;
     }
 
     public static void SwordSkill12Attack(CompoundTag data, Player player) {
         String name = player.getName().getString();
-        if (Compute.SwordSkillLevelGet(data, 12) > 0 && Utils.SwordSkill12.containsKey(name)
+        if (Compute.getSwordSkillLevel(data, 12) > 0 && Utils.SwordSkill12.containsKey(name)
                 && Utils.SwordSkill12.get(name)) {
             Level level = player.level();
             Random random = new Random();
             List<Mob> mobList = level.getEntitiesOfClass(Mob.class, AABB.ofSize(player.position(), 10, 10, 10));
             for (Mob mob : mobList) {
-                AttackEvent.attackToMonster(mob, player, 0.2f * Compute.SwordSkillLevelGet(data, 12), false);
+                AttackEvent.attackToMonster(mob, player, 0.2f * Compute.getSwordSkillLevel(data, 12), false);
                 if (random.nextInt(0, 1) == 0) {
                     ClientboundLevelParticlesPacket clientboundLevelParticlesPacket = new ClientboundLevelParticlesPacket(ModParticles.BLADE0.get(), true,
                             mob.getX(), mob.getY() + 1, mob.getZ(), 0, 0, 0, 0, 0);
@@ -500,24 +505,24 @@ public class AttackEventModule {
 
     public static double BowSkill12(CompoundTag data, Player player, double BaseDamage) {
         String name = player.getName().getString();
-        if (Compute.BowSkillLevelGet(data, 12) > 0 && Utils.BowSkill12.containsKey(name)
+        if (Compute.getBowSkillLevel(data, 12) > 0 && Utils.BowSkill12.containsKey(name)
                 && Utils.BowSkill12.get(name)) {
-            return BaseDamage * Compute.BowSkillLevelGet(data, 12) * 0.4;
+            return BaseDamage * Compute.getBowSkillLevel(data, 12) * 0.4;
         }
         return 0;
     }
 
     public static void BowSkill12Attack(CompoundTag data, Player player) {
         String name = player.getName().getString();
-        if (Compute.BowSkillLevelGet(data, 12) > 0 && Utils.BowSkill12.containsKey(name)
+        if (Compute.getBowSkillLevel(data, 12) > 0 && Utils.BowSkill12.containsKey(name)
                 && Utils.BowSkill12.get(name)) {
             Level level = player.level();
             List<Mob> mobList = level.getEntitiesOfClass(Mob.class, AABB.ofSize(player.position(), 10, 10, 10));
             Random random = new Random();
             for (Mob mob : mobList) {
                 if (random.nextDouble() < PlayerAttributes.critRate(player)) {
-                    Compute.Damage.causeAttackDamageToMonster_RateAdDamage(player, mob, 0.8 * Compute.BowSkillLevelGet(data, 12) * (1 + PlayerAttributes.critDamage(player)));
-                } else Compute.Damage.causeAttackDamageToMonster_RateAdDamage(player, mob, 0.8 * Compute.BowSkillLevelGet(data, 12));
+                    Damage.causeAttackDamageToMonster_RateAdDamage(player, mob, 0.8 * Compute.getBowSkillLevel(data, 12) * (1 + PlayerAttributes.critDamage(player)));
+                } else Damage.causeAttackDamageToMonster_RateAdDamage(player, mob, 0.8 * Compute.getBowSkillLevel(data, 12));
             }
             Utils.BowSkill12.put(name, false);
             ModNetworking.sendToClient(new ChargedClearS2CPacket(1), (ServerPlayer) player);
@@ -525,19 +530,19 @@ public class AttackEventModule {
     }
 
     public static double BowSkill14(CompoundTag data, Player player, double BaseDamage) {
-        if (Compute.BowSkillLevelGet(data, 14) > 0) {
+        if (Compute.getBowSkillLevel(data, 14) > 0) {
             int TickCount = Objects.requireNonNull(player.getServer()).getTickCount();
             double rate = ((TickCount - data.getInt(StringUtils.BowSkillNum.Skill14)) / 400d);
             if (rate > 1) rate = 1;
             data.putInt(StringUtils.BowSkillNum.Skill14, TickCount);
-            return BaseDamage * Compute.BowSkillLevelGet(data, 14) * rate * 2;
+            return BaseDamage * Compute.getBowSkillLevel(data, 14) * rate * 2;
         }
         return 0;
     }
 
     public static void BowSkill13Attack(CompoundTag data, Player player, Entity entity) {
         int TickCount = player.getServer().getTickCount();
-        if (Compute.BowSkillLevelGet(data, 13) > 0 && data.getInt(StringUtils.BowSkillNum.Skill13) < TickCount) {
+        if (Compute.getBowSkillLevel(data, 13) > 0 && data.getInt(StringUtils.BowSkillNum.Skill13) < TickCount) {
             Level level = player.level();
             double damage = PlayerAttributes.attackDamage(player);
             Random random = new Random();
@@ -554,7 +559,7 @@ public class AttackEventModule {
     } // 箭雨
 
     public static void SnowArmorEffect(Player player, Mob monster) {
-        if (Compute.SuitCount.getSnowSuitCount(player) >= 4) {
+        if (SuitCount.getSnowSuitCount(player) >= 4) {
             monster.setDeltaMovement(0, 0, 0);
             monster.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 5, 100, false, false));
             player.getServer().getPlayerList().getPlayers().forEach(serverPlayer ->
@@ -563,7 +568,7 @@ public class AttackEventModule {
     }
 
     public static double NetherArmorEffect(Player player, Mob mob) {
-        if (Compute.SuitCount.getNetherSuitCount(player) > 0) {
+        if (SuitCount.getNetherSuitCount(player) > 0) {
             double Defence = MobAttributes.defence(mob);
             return Math.min(0.5f, Defence * Compute.NetherSuitEffectRate(player) * 0.5f / 500.0d);
         }
@@ -571,7 +576,7 @@ public class AttackEventModule {
     }
 
     public static double NetherArmorEffect(Player player, Player hurter) {
-        if (Compute.SuitCount.getNetherSuitCount(player) > 0) {
+        if (SuitCount.getNetherSuitCount(player) > 0) {
             double Defence = PlayerAttributes.defence(hurter);
             return Math.min(0.5f, Defence * Compute.NetherSuitEffectRate(player) * 0.5f / 500.0d);
         }
@@ -581,14 +586,14 @@ public class AttackEventModule {
     public static double BowSkill4(Player player) {
         CompoundTag data = player.getPersistentData();
         if (Utils.bowTag.containsKey(player.getItemInHand(InteractionHand.MAIN_HAND).getItem()))
-            return Compute.BowSkillLevelGet(data, 4) * 0.03;
+            return Compute.getBowSkillLevel(data, 4) * 0.03;
         return 0;
     }
 
     public static double SwordSkill4(Player player) {
         CompoundTag data = player.getPersistentData();
         if (Utils.swordTag.containsKey(player.getItemInHand(InteractionHand.MAIN_HAND).getItem()))
-            return Compute.SwordSkillLevelGet(data, 4) * 0.03;
+            return Compute.getSwordSkillLevel(data, 4) * 0.03;
         return 0;
     }
 
@@ -658,8 +663,8 @@ public class AttackEventModule {
     }
 
     public static double IceArmorDamageEnhance(Player player, Mob mob) {
-        if (Compute.SuitCount.getIceSuitCount(player) > 0 && mob.hasEffect(MobEffects.MOVEMENT_SLOWDOWN)) {
-            return Compute.SuitCount.getIceSuitCount(player) * 0.15;
+        if (SuitCount.getIceSuitCount(player) > 0 && mob.hasEffect(MobEffects.MOVEMENT_SLOWDOWN)) {
+            return SuitCount.getIceSuitCount(player) * 0.15;
         }
         return 0;
     }
@@ -693,16 +698,16 @@ public class AttackEventModule {
 
     public static double SwordSkill5DamageEnhance(Player player) {
         CompoundTag data = player.getPersistentData();
-        if (Compute.SwordSkillLevelGet(data, 4) > 0 && Utils.swordTag.containsKey(player.getMainHandItem().getItem())) {
-            return Compute.SwordSkillLevelGet(data, 4) * 0.03;
+        if (Compute.getSwordSkillLevel(data, 4) > 0 && Utils.swordTag.containsKey(player.getMainHandItem().getItem())) {
+            return Compute.getSwordSkillLevel(data, 4) * 0.03;
         }
         return 0;
     }
 
     public static double ManaSkill5DamageEnhance(Player player) {
         CompoundTag data = player.getPersistentData();
-        if (Compute.ManaSkillLevelGet(data, 4) > 0 && Utils.sceptreTag.containsKey(player.getMainHandItem().getItem())) {
-            return Compute.ManaSkillLevelGet(data, 4) * 0.03;
+        if (Compute.getManaSkillLevel(data, 4) > 0 && Utils.sceptreTag.containsKey(player.getMainHandItem().getItem())) {
+            return Compute.getManaSkillLevel(data, 4) * 0.03;
         }
         return 0;
     }

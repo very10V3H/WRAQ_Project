@@ -1,12 +1,14 @@
 package com.very.wraq.series.overworld.chapter1.waterSystem.bossItems;
 
-import com.very.wraq.process.system.element.Element;
-import com.very.wraq.common.attribute.BasicAttributeDescription;
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.attribute.BasicAttributeDescription;
+import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.common.util.Utils;
+import com.very.wraq.process.func.item.InventoryOperation;
+import com.very.wraq.process.system.element.Element;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -152,7 +154,7 @@ public class LakeBoss {
                         Compute.sendFormatMSG(player, Component.literal("次元能量").withStyle(CustomStyle.styleOfEntropy),
                                 Component.literal("你通过次元口袋获得了").withStyle(ChatFormatting.WHITE).
                                         append(Rewards[i].getDefaultInstance().getDisplayName()));
-                        Compute.itemStackGive(player, Rewards[i].getDefaultInstance());
+                        InventoryOperation.itemStackGive(player, Rewards[i].getDefaultInstance());
                         Compute.formatBroad(level, Component.literal("次元").withStyle(CustomStyle.styleOfEntropy),
                                 Component.literal("玩家").withStyle(ChatFormatting.WHITE).
                                         append(player.getDisplayName()).
@@ -211,7 +213,7 @@ public class LakeBoss {
             components.add(Component.literal("冷却时间:").withStyle(ChatFormatting.WHITE).
                     append(Component.literal("60s~20s").withStyle(ChatFormatting.AQUA)).
                     append(Component.literal("（冷却时间根据澈源次元能量的增加而减少）").withStyle(ChatFormatting.GRAY)));
-            Compute.ManaCostDescription(components, 180);
+            ComponentUtils.manaCostDescription(components, 180);
             Compute.DescriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
             components.add(Component.literal("Dimension-Lake").withStyle(MainStyle).withStyle(ChatFormatting.ITALIC));
             Compute.SuffixOfMainStoryI(components);

@@ -97,8 +97,8 @@ public class TabooManaArmor extends WraqArmor {
 
     public static double PenetrationDirectEnhance(Player player) {
         if (!IsOn(player)) return 0;
-        if (Compute.ManaSkillLevelGet(player.getPersistentData(), 10) > 0)
-            return (PlayerAttributes.maxManaUp(player) + 100) * Compute.ManaSkillLevelGet(player.getPersistentData(), 10) * 0.03;
+        if (Compute.getManaSkillLevel(player.getPersistentData(), 10) > 0)
+            return (PlayerAttributes.maxManaUp(player) + 100) * Compute.getManaSkillLevel(player.getPersistentData(), 10) * 0.03;
         return 0;
     }
 

@@ -1,18 +1,19 @@
 package com.very.wraq.process.system.teamInstance.instances.blackCastle;
 
+import com.very.wraq.common.Compute;
 import com.very.wraq.common.attribute.PlayerAttributes;
+import com.very.wraq.common.registry.ModEntityType;
+import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.ItemAndRate;
 import com.very.wraq.events.instance.Castle;
 import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.events.mob.instance.NoTeamInstance;
 import com.very.wraq.events.mob.instance.NoTeamInstanceModule;
+import com.very.wraq.process.func.item.InventoryOperation;
 import com.very.wraq.process.system.teamInstance.NewTeamInstance;
 import com.very.wraq.projectiles.mana.ManaArrow;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.newrunes.NewRuneItems;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.registry.ModEntityType;
-import com.very.wraq.common.util.ItemAndRate;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -70,7 +71,7 @@ public class NewCastleInstance extends NewTeamInstance {
         manaSummonPos.forEach(pos -> {
             for (int i = 0; i < 4; i++) {
                 WitherSkeleton witherSkeleton = new WitherSkeleton(EntityType.WITHER_SKELETON, level);
-                Compute.SetMobCustomName(witherSkeleton, Component.literal(mobNameOf1StageMana).withStyle(CustomStyle.styleOfCastle), 180);
+                Compute.setMobCustomName(witherSkeleton, Component.literal(mobNameOf1StageMana).withStyle(CustomStyle.styleOfCastle), 180);
                 MobSpawn.MobBaseAttributes.setMobBaseAttributes(witherSkeleton, 180, 3000, 7000, 1000, 0.5, 5, 0.3, 1500, 20, 800 * Math.pow(10, 4), 0.3);
                 witherSkeleton.setItemSlot(EquipmentSlot.HEAD, ModItems.MobArmorBlackCastleOneFloorManaHelmet.get().getDefaultInstance());
                 witherSkeleton.setItemSlot(EquipmentSlot.CHEST, ModItems.MobArmorBlackCastleOneFloorChest.get().getDefaultInstance());
@@ -92,7 +93,7 @@ public class NewCastleInstance extends NewTeamInstance {
         Random random = new Random();
         attackSummonPos.forEach(pos -> {
             WitherSkeleton witherSkeleton = new WitherSkeleton(EntityType.WITHER_SKELETON, level);
-            Compute.SetMobCustomName(witherSkeleton, Component.literal(mobNameOf1StageAttack).withStyle(CustomStyle.styleOfCastle), 180);
+            Compute.setMobCustomName(witherSkeleton, Component.literal(mobNameOf1StageAttack).withStyle(CustomStyle.styleOfCastle), 180);
             MobSpawn.MobBaseAttributes.setMobBaseAttributes(witherSkeleton, 180, 3000, 1000, 7000, 0.5, 5, 0.3, 1500, 20, 2000 * Math.pow(10, 4), 0.3);
             witherSkeleton.setItemSlot(EquipmentSlot.HEAD, ModItems.MobArmorBlackCastleOneFloorAttackHelmet.get().getDefaultInstance());
             witherSkeleton.setItemSlot(EquipmentSlot.CHEST, ModItems.MobArmorBlackCastleOneFloorChest.get().getDefaultInstance());
@@ -159,7 +160,7 @@ public class NewCastleInstance extends NewTeamInstance {
 
             for (int i = 0; i < 4; i++) {
                 Zombie zombie = new Zombie(EntityType.ZOMBIE, level);
-                Compute.SetMobCustomName(zombie, Component.literal("暗黑城堡禁军 - 护卫").withStyle(CustomStyle.styleOfCastle), 180);
+                Compute.setMobCustomName(zombie, Component.literal("暗黑城堡禁军 - 护卫").withStyle(CustomStyle.styleOfCastle), 180);
 
                 MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombie, 180, 3000, 3000, 3000, 0.5, 5, 0.3, 1500, 20, 1000 * Math.pow(10, 4), 0.35);
                 zombie.setBaby(true);
@@ -175,7 +176,7 @@ public class NewCastleInstance extends NewTeamInstance {
 
             for (int i = 0; i < 2; i++) {
                 Zombie zombie = new Zombie(EntityType.ZOMBIE, level);
-                Compute.SetMobCustomName(zombie, Component.literal("暗黑城堡禁军 - 统领").withStyle(CustomStyle.styleOfCastle), 180);
+                Compute.setMobCustomName(zombie, Component.literal("暗黑城堡禁军 - 统领").withStyle(CustomStyle.styleOfCastle), 180);
                 MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombie, 180, 3500, 5000, 5000, 0.5, 5, 0.3, 1500, 20, 2000 * Math.pow(10, 4), 0.35);
                 zombie.setItemSlot(EquipmentSlot.HEAD, ModItems.MobArmorBlackCastleOneFloorAttackHelmet.get().getDefaultInstance());
                 zombie.setItemSlot(EquipmentSlot.CHEST, ModItems.MobArmorBlackCastleOneFloorChest.get().getDefaultInstance());
@@ -199,7 +200,7 @@ public class NewCastleInstance extends NewTeamInstance {
     @Override
     public void reward(Player player) {
         if (NoTeamInstance.playerHasItem(player)) {
-            Compute.removeItem(player.getInventory(), ModItems.notePaper.get(), 1);
+            InventoryOperation.removeItem(player.getInventory(), ModItems.notePaper.get(), 1);
 
             getRewardList().forEach(itemAndRate -> {
                 try {

@@ -1,6 +1,7 @@
 package com.very.wraq.series.overworld.chapter1.forest.rune;
 
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.util.ComponentUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -24,7 +25,7 @@ public class ForestRune0 extends Item {
         Compute.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.DARK_GREEN, ChatFormatting.WHITE);
         Compute.RuneAttributeDescription(components);
         components.add(Component.literal("获得你").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.MaxHealth("2.5%")).
+                append(ComponentUtils.AttributeDescription.MaxHealth("2.5%")).
                 append(Component.literal("的").withStyle(ChatFormatting.WHITE)).
                 append(Compute.AttributeDescription.ExAttackDamage("")));
         Compute.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.DARK_GREEN, ChatFormatting.WHITE);

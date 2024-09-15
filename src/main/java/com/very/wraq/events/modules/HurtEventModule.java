@@ -1,16 +1,20 @@
 package com.very.wraq.events.modules;
 
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.attribute.PlayerAttributes;
+import com.very.wraq.common.registry.ModSounds;
 import com.very.wraq.common.registry.MySound;
+import com.very.wraq.common.util.StringUtils;
+import com.very.wraq.common.util.struct.Shield;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.misc.SkillPackets.SkillImageS2CPacket;
 import com.very.wraq.networking.misc.SoundsPackets.SoundsS2CPacket;
+import com.very.wraq.process.func.damage.Damage;
 import com.very.wraq.process.func.particle.ParticleProvider;
+import com.very.wraq.process.func.suit.SuitCount;
+import com.very.wraq.render.hud.Mana;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.nether.Equip.ManaSword;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.StringUtils;
-import com.very.wraq.common.attribute.PlayerAttributes;
-import com.very.wraq.common.registry.ModSounds;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -96,8 +100,8 @@ public class HurtEventModule {
                     dataA.getInt("MANA") + (int) (dataH.getInt("MAXMANA") * 0.1)));
             dataH.putInt("MANA", max(0,
                     dataH.getInt("MANA") - (int) (dataH.getInt("MAXMANA") * 0.1)));
-            Compute.ManaStatusUpdate(attacker);
-            Compute.ManaStatusUpdate(player);
+            Mana.updateManaStatus(attacker);
+            Mana.updateManaStatus(player);
             player.sendSystemMessage(Component.literal("[").withStyle(ChatFormatting.GRAY).append(Component.literal("战斗信息").withStyle(CustomStyle.styleOfNether)).append(Component.literal("]").withStyle(ChatFormatting.GRAY)).
                     append(Component.literal(attacker.getName().getString() + "在对你的攻击中偷取了").withStyle(ChatFormatting.WHITE)).
                     append(Component.literal(String.valueOf((int) (dataH.getInt("MAXMANA") * 0.1))).withStyle(CustomStyle.styleOfMana)).
@@ -127,7 +131,7 @@ public class HurtEventModule {
     }
 
     public static void LightingArmorJudge(Player attacker, Player player) {
-        int LightningArmorCount = Compute.LightningArmorCount(player);
+        int LightningArmorCount = SuitCount.getLightningArmorCount(player);
         if (LightningArmorCount > 0) {
             LightningBolt lightningBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, player.level());
             lightningBolt.setDamage(0);
@@ -191,7 +195,7 @@ public class HurtEventModule {
 
     public static void SwordSkill2(CompoundTag data, Player player) {
         int TickCount = player.getServer().getTickCount();
-        if (Compute.SwordSkillLevelGet(data, 2) > 0) {
+        if (Compute.getSwordSkillLevel(data, 2) > 0) {
             data.putInt(StringUtils.SwordSkillNum.Skill2, TickCount + 200);
             ModNetworking.sendToClient(new SkillImageS2CPacket(3, 10, 10, 0, 0), (ServerPlayer) player);
         }
@@ -199,7 +203,7 @@ public class HurtEventModule {
 
     public static void BowSkill2(CompoundTag data, Player player) {
         int TickCount = player.getServer().getTickCount();
-        if (Compute.BowSkillLevelGet(data, 2) > 0) {
+        if (Compute.getBowSkillLevel(data, 2) > 0) {
             data.putInt(StringUtils.BowSkillNum.Skill2, TickCount + 200);
             ModNetworking.sendToClient(new SkillImageS2CPacket(3, 10, 10, 0, 1), (ServerPlayer) player);
 
@@ -208,7 +212,7 @@ public class HurtEventModule {
 
     public static void ManaSkill2(CompoundTag data, Player player) {
         int TickCount = player.getServer().getTickCount();
-        if (Compute.ManaSkillLevelGet(data, 2) > 0) {
+        if (Compute.getManaSkillLevel(data, 2) > 0) {
             data.putInt(StringUtils.ManaSkillNum.Skill2, TickCount + 200);
             ModNetworking.sendToClient(new SkillImageS2CPacket(3, 10, 10, 0, 2), (ServerPlayer) player);
 
@@ -217,7 +221,7 @@ public class HurtEventModule {
 
     public static void ManaSkill14(CompoundTag data, Player player) {
         int TickCount = player.getServer().getTickCount();
-        if (Compute.ManaSkillLevelGet(data, 14) > 0 && data.getInt(StringUtils.ManaSkillNum.Skill14) < TickCount) {
+        if (Compute.getManaSkillLevel(data, 14) > 0 && data.getInt(StringUtils.ManaSkillNum.Skill14) < TickCount) {
             data.putInt(StringUtils.ManaSkillNum.Skill14, TickCount + 200);
             Level level = player.level();
             List<Mob> mobList = level.getEntitiesOfClass(Mob.class, AABB.ofSize(player.position(), 20, 20, 20));
@@ -234,14 +238,14 @@ public class HurtEventModule {
             if (Count.get() > 5) Count.set(5);
             for (Mob mob : mobList) {
                 if (mob.position().distanceTo(player.position()) < 6) {
-                    Compute.Damage.causeManaDamageToMonster_RateApDamage(player, mob, Compute.ManaSkillLevelGet(data, 14) * Count.get() * 2, false);
+                    Damage.causeManaDamageToMonster_RateApDamage(player, mob, Compute.getManaSkillLevel(data, 14) * Count.get() * 2, false);
                 }
             }
             for (Player player1 : playerList)
                 if (player1 != player)
-                    Compute.Damage.manaDamageToPlayer(player, player1, Compute.ManaSkillLevelGet(data, 14) * Count.get());
+                    Damage.manaDamageToPlayer(player, player1, Compute.getManaSkillLevel(data, 14) * Count.get());
             ServerPlayer serverPlayer = (ServerPlayer) player;
-            Compute.playerShieldProvider(player, 100, player.getMaxHealth() * 0.01 * Count.get() * Compute.ManaSkillLevelGet(data, 14));
+            Shield.providePlayerShield(player, 100, player.getMaxHealth() * 0.01 * Count.get() * Compute.getManaSkillLevel(data, 14));
             ParticleProvider.VerticleCircleParticle(serverPlayer, 1, 6, 100, ParticleTypes.WITCH);
             ParticleProvider.VerticleCircleParticle(serverPlayer, 1.5, 6, 100, ParticleTypes.WITCH);
 

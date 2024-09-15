@@ -15,8 +15,10 @@ import com.very.wraq.common.util.struct.BlockAndResetTime;
 import com.very.wraq.events.instance.CastleSecondFloor;
 import com.very.wraq.events.instance.TabooDevil;
 import com.very.wraq.networking.ModNetworking;
+import com.very.wraq.networking.misc.Limit.CheckBlockLimitS2CPacket;
 import com.very.wraq.networking.misc.TeamPackets.ScreenSetS2CPacket;
 import com.very.wraq.networking.unSorted.PlayerCallBack;
+import com.very.wraq.process.func.item.InventoryOperation;
 import com.very.wraq.process.system.bonuschest.BonusChestPlayerData;
 import com.very.wraq.process.system.forge.ForgeHammer;
 import com.very.wraq.process.system.spur.events.CropSpur;
@@ -115,7 +117,7 @@ public class BlockEvent {
 
                     worldSoul1.setCount(TransformSuccessNum);
                     Compute.playerItemUseWithRecord(player, itemStack.getCount());
-                    Compute.itemStackGive(player, worldSoul1);
+                    InventoryOperation.itemStackGive(player, worldSoul1);
                 } else {
                     if (Utils.WorldSoulMap.isEmpty()) Utils.WorldSoulMapInit();
                     if (itemStack.getCount() == 64 && Utils.WorldSoulMap.containsKey(itemStack.getItem())) {
@@ -126,11 +128,29 @@ public class BlockEvent {
                                         append(Component.literal("转换成为").withStyle(ChatFormatting.WHITE)).
                                         append(NextTireSoul.getDefaultInstance().getDisplayName()));
                         Compute.playerItemUseWithRecord(player, 64);
-                        Compute.itemStackGive(player, NextTireSoul.getDefaultInstance());
+                        InventoryOperation.itemStackGive(player, NextTireSoul.getDefaultInstance());
                     }
                 }
             }
         }
+    }
+
+    public static boolean BlockLimitContainBlockPos(BlockPos blockPos) {
+        boolean contains = false;
+        PlayerCallBack removing = null;
+        for (PlayerCallBack playerCallBack : Utils.playerCallBackList) {
+            if (playerCallBack.getBlockPos().equals(blockPos)) {
+                if (playerCallBack.getPlayer() == null || playerCallBack.getPlayer().position().distanceTo(playerCallBack.getBlockPos().getCenter()) > 8) {
+                    contains = false;
+                    removing = playerCallBack;
+                } else {
+                    ModNetworking.sendToClient(new CheckBlockLimitS2CPacket(), (ServerPlayer) playerCallBack.getPlayer());
+                    contains = true;
+                }
+            }
+        }
+        Utils.playerCallBackList.remove(removing);
+        return contains;
     }
 
     @SubscribeEvent
@@ -139,7 +159,7 @@ public class BlockEvent {
             Player player = event.getEntity();
             BlockPos blockPos = event.getHitVec().getBlockPos();
             BlockState blockState = player.level().getBlockState(blockPos);
-            if (Compute.BlockLimitContainBlockPos(blockPos) && !player.isCreative()) {
+            if (BlockLimitContainBlockPos(blockPos) && !player.isCreative()) {
                 Compute.sendFormatMSG(player, Component.literal("方块").withStyle(ChatFormatting.GREEN),
                         Component.literal("这个方块正在被使用。"));
                 event.setCanceled(true);

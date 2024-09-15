@@ -36,7 +36,7 @@ public class Color {
     }
 
     public String getRGB() {
-        return Compute.GetRGB(getR(), getG(), getB());
+        return Compute.getRGB(getR(), getG(), getB());
     }
 
 

@@ -1,14 +1,14 @@
 package com.very.wraq.series.overworld.chapter2.lavender;
 
-import com.very.wraq.projectiles.UsageOrGetWayDescriptionItem;
+import com.very.wraq.common.attribute.PlayerAttributes;
+import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.Utils;
+import com.very.wraq.common.util.struct.Shield;
 import com.very.wraq.projectiles.RandomCurios;
+import com.very.wraq.projectiles.UsageOrGetWayDescriptionItem;
 import com.very.wraq.projectiles.WraqCurios;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.instance.series.castle.CastleCurios;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.ComponentUtils;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.attribute.PlayerAttributes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -42,7 +42,7 @@ public class LavenderBracelet extends WraqCurios implements RandomCurios, UsageO
         ComponentUtils.descriptionPassive(components, Component.literal("纳德斯膜").withStyle(style));
         components.add(Component.literal(" 每秒为你提供持续1.5s的").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("5%").withStyle(style)).
-                append(Compute.AttributeDescription.MaxHealth("")).
+                append(ComponentUtils.AttributeDescription.MaxHealth("")).
                 append(Component.literal("的").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("护盾").withStyle(ChatFormatting.GRAY)));
         return components;
@@ -85,7 +85,7 @@ public class LavenderBracelet extends WraqCurios implements RandomCurios, UsageO
 
     public static void tick(Player player) {
         if (player.tickCount % 20 == 0 && WraqCurios.isOn(LavenderBracelet.class, player)) {
-            Compute.playerShieldProvider(player, 30, PlayerAttributes.maxHealth(player) * 0.05);
+            Shield.providePlayerShield(player, 30, PlayerAttributes.maxHealth(player) * 0.05);
         }
     }
 

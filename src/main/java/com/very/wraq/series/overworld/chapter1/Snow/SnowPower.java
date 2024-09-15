@@ -1,10 +1,11 @@
 package com.very.wraq.series.overworld.chapter1.Snow;
 
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.process.func.power.PowerLogic;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.projectiles.ActiveItem;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.Utils;
 import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -40,7 +41,7 @@ public class SnowPower extends Item implements ActiveItem {
         components.add(Component.literal(" 禁锢").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("指针").withStyle(ChatFormatting.AQUA)).
                 append(Component.literal("周围所有敌人1s，并造成").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.ManaDamageValue(String.format("%.0f", effect[tier] * 100) + "%")));
+                append(ComponentUtils.AttributeDescription.ManaDamageValue(String.format("%.0f", effect[tier] * 100) + "%")));
         components.add(Component.literal(" - 这个伤害会附带").withStyle(ChatFormatting.WHITE).
                 append(Element.Description.IceElement("1 + 100%")));
         components.add(Component.literal(" 为").withStyle(ChatFormatting.WHITE).
@@ -49,8 +50,8 @@ public class SnowPower extends Item implements ActiveItem {
                 append(Component.literal("能力 - 智力 * 20").withStyle(CustomStyle.styleOfMana)).
                 append(Component.literal("护盾值").withStyle(ChatFormatting.GRAY)).
                 append(Component.literal("，持续2.5s").withStyle(ChatFormatting.WHITE)));
-        Compute.CoolDownTimeDescription(components, CoolDownTime[tier]);
-        Compute.ManaCostDescription(components, ManaCost[tier]);
+        ComponentUtils.coolDownTimeDescription(components, CoolDownTime[tier]);
+        ComponentUtils.manaCostDescription(components, ManaCost[tier]);
         Compute.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
         components.add(Component.literal("Powers-Snow").withStyle(CustomStyle.styleOfSnow));
         super.appendHoverText(itemStack, level, components, flag);

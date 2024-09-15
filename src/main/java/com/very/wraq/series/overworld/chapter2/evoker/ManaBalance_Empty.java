@@ -1,8 +1,9 @@
 package com.very.wraq.series.overworld.chapter2.evoker;
 
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.Utils;
+import com.very.wraq.render.hud.Mana;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -42,7 +43,7 @@ public class ManaBalance_Empty extends Item {
             itemStack1.getOrCreateTagElement(Utils.MOD_ID).putInt("MANA", data.getInt("MANA"));
             data.putInt("MANA", 0);
             player.addItem(itemStack1);
-            Compute.ManaStatusUpdate(player);
+            Mana.updateManaStatus(player);
         }
         return super.use(level, player, interactionHand);
     }

@@ -52,7 +52,7 @@ public class NetherInstance extends NoTeamInstance {
         Ignited_Revenant_Entity entity = new Ignited_Revenant_Entity(ModEntities.IGNITED_REVENANT.get(), level);
 
         entity.setBaby(true);
-        Compute.SetMobCustomName(entity, Component.literal("燃魂").withStyle(CustomStyle.styleOfPower), 90);
+        Compute.setMobCustomName(entity, Component.literal("燃魂").withStyle(CustomStyle.styleOfPower), 90);
 
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(entity), 90);
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(entity, 1000, 900, 900, 0.35, 3, 0.2, 500, 15, 300000, 0.3);

@@ -13,6 +13,7 @@ import com.very.wraq.events.instance.CastleSecondFloor;
 import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.misc.AnimationPackets.AnimationTickResetS2CPacket;
+import com.very.wraq.process.func.item.InventoryOperation;
 import com.very.wraq.process.system.spur.events.MineSpur;
 import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -142,8 +143,8 @@ public class VariousEvents {
     @SubscribeEvent
     public static void PickUpItem(PlayerEvent.ItemPickupEvent event) throws IOException {
         if (!event.getEntity().level().isClientSide && event.getStack().is(ModItems.Value.get())) {
-            Compute.removeItem(event.getEntity().getInventory(), ModItems.Value.get(),
-                    Compute.itemStackCount(event.getEntity().getInventory(), ModItems.Value.get()));
+            InventoryOperation.removeItem(event.getEntity().getInventory(), ModItems.Value.get(),
+                    InventoryOperation.itemStackCount(event.getEntity().getInventory(), ModItems.Value.get()));
         }
         CastleSecondFloor.PlayerPickItem(event.getEntity(), event.getStack());
     }

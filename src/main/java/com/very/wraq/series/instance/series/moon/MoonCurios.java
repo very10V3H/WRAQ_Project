@@ -1,10 +1,12 @@
 package com.very.wraq.series.instance.series.moon;
 
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.common.util.Utils;
+import com.very.wraq.common.util.struct.Shield;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -19,7 +21,8 @@ import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
 import javax.annotation.Nullable;
-import java.util.*;
+import java.util.List;
+import java.util.WeakHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class MoonCurios extends Item implements ICurioItem {
@@ -42,7 +45,7 @@ public class MoonCurios extends Item implements ICurioItem {
         components.add(Component.literal(" 每过10s，使你的下次攻击").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("附带").withStyle(style)).
                 append(Component.literal("目标").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.MaxHealth("1%")).
+                append(ComponentUtils.AttributeDescription.MaxHealth("1%")).
                 append(Component.literal("的").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("真实伤害").withStyle(CustomStyle.styleOfSea)));
         Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
@@ -84,7 +87,7 @@ public class MoonCurios extends Item implements ICurioItem {
                 if (!passiveCoolDownMap.containsKey(player) || TickCount > passiveCoolDownMap.get(player)) {
                     passiveCoolDownMap.put(player, TickCount + 200);
                     Compute.coolDownTimeSend(player, ModItems.MoonCurios.get().getDefaultInstance(), 200);
-                    Compute.playerShieldProvider(player, 200, player.experienceLevel * 20);
+                    Shield.providePlayerShield(player, 200, player.experienceLevel * 20);
                     return mob.getMaxHealth() * 0.01;
                 }
             }

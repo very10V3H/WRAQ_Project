@@ -4,6 +4,7 @@ import com.very.wraq.common.Compute;
 import com.very.wraq.common.util.ItemAndRate;
 import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.util.struct.BlockAndResetTime;
+import com.very.wraq.process.func.item.InventoryOperation;
 import com.very.wraq.process.system.missions.series.labourDay.LabourDayMission;
 import com.very.wraq.process.system.spur.Items.SpurItems;
 import net.minecraft.ChatFormatting;
@@ -73,10 +74,10 @@ public class MineSpur {
                                 Utils.noMineDigMap.get(name).add(blockAndResetTime);
                                 Utils.posEvenBeenDigOrPlace.add(blockPos);
                             }
-                            if ((blockState.is(Blocks.STONE) || blockState.is(Blocks.COBBLESTONE)) && Compute.itemStackCount(player.getInventory(), Items.COBBLESTONE) < 32) {
+                            if ((blockState.is(Blocks.STONE) || blockState.is(Blocks.COBBLESTONE)) && InventoryOperation.itemStackCount(player.getInventory(), Items.COBBLESTONE) < 32) {
                                 player.addItem(Items.COBBLESTONE.getDefaultInstance());
                             }
-                            if ((blockState.is(Blocks.DEEPSLATE) || blockState.is(Blocks.COBBLED_DEEPSLATE)) && Compute.itemStackCount(player.getInventory(), Items.COBBLED_DEEPSLATE) < 32) {
+                            if ((blockState.is(Blocks.DEEPSLATE) || blockState.is(Blocks.COBBLED_DEEPSLATE)) && InventoryOperation.itemStackCount(player.getInventory(), Items.COBBLED_DEEPSLATE) < 32) {
                                 player.addItem(Items.COBBLED_DEEPSLATE.getDefaultInstance());
                             }
                             if (blockState.is(Blocks.ANDESITE)) player.addItem(Items.ANDESITE.getDefaultInstance());
@@ -114,7 +115,7 @@ public class MineSpur {
         if (random.nextDouble() < 0.08) {
             CompoundTag tag = player.getPersistentData();
             tag.putInt(minePieceGetTimes, tag.getInt(minePieceGetTimes) + 1);
-            Compute.itemStackGive(player, new ItemStack(SpurItems.minePiece.get()));
+            InventoryOperation.itemStackGive(player, new ItemStack(SpurItems.minePiece.get()));
         }
         if (Compute.exHarvestItemGive(player, new ItemStack(SpurItems.minePiece.get()), 0.08))  {
             CompoundTag tag = player.getPersistentData();

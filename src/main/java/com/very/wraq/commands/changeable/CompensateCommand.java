@@ -4,6 +4,7 @@ import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.very.wraq.common.Compute;
+import com.very.wraq.process.func.item.InventoryOperation;
 import com.very.wraq.process.system.tower.Tower;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.specialevents.SpecialEventItems;
@@ -37,7 +38,7 @@ public class CompensateCommand implements Command<CommandSourceStack> {
                 }
                 List<ItemStack> itemStackList = List.of(new ItemStack(SpecialEventItems.SUMMER_VOUCHER.get(), 20));
                 for (ItemStack itemStack : itemStackList) {
-                    Compute.itemStackGive(player, itemStack);
+                    InventoryOperation.itemStackGive(player, itemStack);
                 }
 
                 Compute.sendFormatMSG(player, Component.literal("更新补偿").withStyle(ChatFormatting.LIGHT_PURPLE),
@@ -57,43 +58,43 @@ public class CompensateCommand implements Command<CommandSourceStack> {
         if (!data.contains(version) && player.experienceLevel >= 200) {
             switch (type) {
                 case "ice" -> {
-                    Compute.itemStackGive(player, new ItemStack(ModItems.IceLoot.get(), 64));
+                    InventoryOperation.itemStackGive(player, new ItemStack(ModItems.IceLoot.get(), 64));
                 }
                 case "devil" -> {
-                    Compute.itemStackGive(player, new ItemStack(ModItems.DevilLoot.get(), 16));
+                    InventoryOperation.itemStackGive(player, new ItemStack(ModItems.DevilLoot.get(), 16));
                 }
                 case "taboo" -> {
-                    Compute.itemStackGive(player, new ItemStack(ModItems.TabooPiece.get(), 24));
+                    InventoryOperation.itemStackGive(player, new ItemStack(ModItems.TabooPiece.get(), 24));
                 }
                 case "moon" -> {
-                    Compute.itemStackGive(player, new ItemStack(ModItems.MoonLoot.get(), 64));
+                    InventoryOperation.itemStackGive(player, new ItemStack(ModItems.MoonLoot.get(), 64));
                 }
                 case "castle" -> {
-                    Compute.itemStackGive(player, new ItemStack(ModItems.CastleLoot.get(), 64));
+                    InventoryOperation.itemStackGive(player, new ItemStack(ModItems.CastleLoot.get(), 64));
                 }
                 case "purple" -> {
-                    Compute.itemStackGive(player, new ItemStack(ModItems.PurpleIronBud3.get(), 2));
+                    InventoryOperation.itemStackGive(player, new ItemStack(ModItems.PurpleIronBud3.get(), 2));
                 }
                 case "life" -> {
-                    Compute.itemStackGive(player, new ItemStack(ModItems.LifeElementPiece1.get(), 21));
+                    InventoryOperation.itemStackGive(player, new ItemStack(ModItems.LifeElementPiece1.get(), 21));
                 }
                 case "water" -> {
-                    Compute.itemStackGive(player, new ItemStack(ModItems.WaterElementPiece1.get(), 21));
+                    InventoryOperation.itemStackGive(player, new ItemStack(ModItems.WaterElementPiece1.get(), 21));
                 }
                 case "fire" -> {
-                    Compute.itemStackGive(player, new ItemStack(ModItems.FireElementPiece1.get(), 21));
+                    InventoryOperation.itemStackGive(player, new ItemStack(ModItems.FireElementPiece1.get(), 21));
                 }
                 case "stone" -> {
-                    Compute.itemStackGive(player, new ItemStack(ModItems.StoneElementPiece1.get(), 21));
+                    InventoryOperation.itemStackGive(player, new ItemStack(ModItems.StoneElementPiece1.get(), 21));
                 }
                 case "iceElement" -> {
-                    Compute.itemStackGive(player, new ItemStack(ModItems.IceElementPiece1.get(), 21));
+                    InventoryOperation.itemStackGive(player, new ItemStack(ModItems.IceElementPiece1.get(), 21));
                 }
                 case "wind" -> {
-                    Compute.itemStackGive(player, new ItemStack(ModItems.WindElementPiece1.get(), 21));
+                    InventoryOperation.itemStackGive(player, new ItemStack(ModItems.WindElementPiece1.get(), 21));
                 }
                 case "lightning" -> {
-                    Compute.itemStackGive(player, new ItemStack(ModItems.LightningElementPiece1.get(), 21));
+                    InventoryOperation.itemStackGive(player, new ItemStack(ModItems.LightningElementPiece1.get(), 21));
                 }
                 default -> {
                     Compute.formatMSGSend(player, Component.literal("补偿").withStyle(CustomStyle.styleOfSakura),
@@ -111,22 +112,22 @@ public class CompensateCommand implements Command<CommandSourceStack> {
         if (!data.contains(version) && player.experienceLevel >= 160) {
             switch (type) {
                 case "ice" -> {
-                    Compute.itemStackGive(player, new ItemStack(ModItems.IceLoot.get(), 64));
+                    InventoryOperation.itemStackGive(player, new ItemStack(ModItems.IceLoot.get(), 64));
                 }
                 case "devil" -> {
-                    Compute.itemStackGive(player, new ItemStack(ModItems.DevilLoot.get(), 16));
+                    InventoryOperation.itemStackGive(player, new ItemStack(ModItems.DevilLoot.get(), 16));
                 }
                 case "taboo" -> {
-                    Compute.itemStackGive(player, new ItemStack(ModItems.TabooPiece.get(), 24));
+                    InventoryOperation.itemStackGive(player, new ItemStack(ModItems.TabooPiece.get(), 24));
                 }
                 case "moon" -> {
-                    Compute.itemStackGive(player, new ItemStack(ModItems.MoonLoot.get(), 64));
+                    InventoryOperation.itemStackGive(player, new ItemStack(ModItems.MoonLoot.get(), 64));
                 }
                 case "castle" -> {
-                    Compute.itemStackGive(player, new ItemStack(ModItems.CastleLoot.get(), 64));
+                    InventoryOperation.itemStackGive(player, new ItemStack(ModItems.CastleLoot.get(), 64));
                 }
                 case "purple" -> {
-                    Compute.itemStackGive(player, new ItemStack(ModItems.PurpleIronBud3.get(), 2));
+                    InventoryOperation.itemStackGive(player, new ItemStack(ModItems.PurpleIronBud3.get(), 2));
                 }
                 default -> {
                     Compute.formatMSGSend(player, Component.literal("补偿").withStyle(CustomStyle.styleOfSakura),

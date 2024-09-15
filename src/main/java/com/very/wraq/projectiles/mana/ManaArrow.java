@@ -1,7 +1,7 @@
 package com.very.wraq.projectiles.mana;
 
 import com.very.wraq.core.ManaAttackModule;
-import com.very.wraq.common.Compute;
+import com.very.wraq.process.func.damage.Damage;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -109,7 +109,7 @@ public class ManaArrow extends AbstractArrow implements GeoEntity {
         if (this.mob != null && !level().isClientSide) {
             Entity entity = result.getEntity();
             if (entity instanceof Player player1) {
-                Compute.Damage.manaDamageToPlayer_RateApDamage(mob, player1, rate);
+                Damage.manaDamageToPlayer_RateApDamage(mob, player1, rate);
             }
         }
         this.discard();

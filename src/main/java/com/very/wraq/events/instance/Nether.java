@@ -1,15 +1,16 @@
 package com.very.wraq.events.instance;
 
 
-import com.very.wraq.events.core.LoginInEvent;
-import com.very.wraq.process.system.element.Element;
-import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.util.StringUtils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.util.struct.Instance;
 import com.very.wraq.common.util.struct.PlayerTeam;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.events.core.LoginInEvent;
+import com.very.wraq.process.func.item.InventoryOperation;
+import com.very.wraq.process.system.element.Element;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -238,7 +239,7 @@ public class Nether {
             Compute.sendFormatMSG(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
                     Component.literal("你通过组队挑战副本，额外获得了:").withStyle(ChatFormatting.WHITE).
                             append(ModItems.NetherQuartz.get().getDefaultInstance().getDisplayName()));
-            Compute.itemStackGive(player, new ItemStack(ModItems.NetherQuartz.get(), 30 + (int) (rank) * difficultyEnhanceRate));
+            InventoryOperation.itemStackGive(player, new ItemStack(ModItems.NetherQuartz.get(), 30 + (int) (rank) * difficultyEnhanceRate));
         }
 
         if (LoginInEvent.playerDailyInstanceReward(player, 3)) {
@@ -246,14 +247,14 @@ public class Nether {
                     Component.literal("每日首次通关副本，额外获得了:").withStyle(ChatFormatting.WHITE).
                             append(ModItems.NetherQuartz.get().getDefaultInstance().getDisplayName()).
                             append(ModItems.Ruby.get().getDefaultInstance().getDisplayName()));
-            Compute.itemStackGive(player, new ItemStack(ModItems.NetherQuartz.get(), 96));
-            Compute.itemStackGive(player, new ItemStack(ModItems.Ruby.get(), 96));
+            InventoryOperation.itemStackGive(player, new ItemStack(ModItems.NetherQuartz.get(), 96));
+            InventoryOperation.itemStackGive(player, new ItemStack(ModItems.Ruby.get(), 96));
 
         }
 
-        Compute.itemStackGive(player, itemStack);
+        InventoryOperation.itemStackGive(player, itemStack);
 
-        Compute.itemStackGive(player, itemStack1);
+        InventoryOperation.itemStackGive(player, itemStack1);
 
         if (difficultyEnhanceRate == 4) {
 /*            ItemStack NetherGem = ModItems.NetherGem.get().getDefaultInstance();
@@ -267,7 +268,7 @@ public class Nether {
                     Component.literal("").withStyle(ChatFormatting.WHITE).
                             append(Component.literal(player.getName().getString() + "获得了").withStyle(ChatFormatting.WHITE)).
                             append(NetherGem.getDisplayName()));
-            Compute.itemStackGive(player, NetherGem);*/
+            InventoryOperation.itemStackGive(player, NetherGem);*/
         }
     }
 }

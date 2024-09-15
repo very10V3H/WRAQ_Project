@@ -1,12 +1,13 @@
 package com.very.wraq.process.system.spur.events;
 
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.StringUtils;
+import com.very.wraq.common.util.Utils;
+import com.very.wraq.process.func.item.InventoryOperation;
 import com.very.wraq.process.system.missions.series.labourDay.LabourDayMission;
 import com.very.wraq.process.system.spur.Items.SpurItems;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.StringUtils;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -35,7 +36,7 @@ public class FishEvent {
         CompoundTag data = player.getPersistentData();
         if (r.nextDouble() < 0.1) {
             data.putInt(seaPieceGetTimes, data.getInt(seaPieceGetTimes) + 1);
-            Compute.itemStackGive(player, new ItemStack(SpurItems.seaPiece.get()));
+            InventoryOperation.itemStackGive(player, new ItemStack(SpurItems.seaPiece.get()));
         }
         if (Compute.exHarvestItemGive(player, new ItemStack(SpurItems.seaPiece.get()), 0.1)) {
             data.putInt(seaPieceGetTimes, data.getInt(seaPieceGetTimes) + 1);
@@ -55,13 +56,13 @@ public class FishEvent {
             if (r.nextDouble() < rate) {
                 Compute.sendFormatMSG(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
                         Component.literal("你通过钓鱼额外获得了:").append(GoldCoin.getDisplayName()).append(Component.literal("*1")));
-                Compute.itemStackGive(player, GoldCoin);
+                InventoryOperation.itemStackGive(player, GoldCoin);
             }
             if (r.nextDouble() < rate * 2) {
-                Compute.itemStackGive(player, SilverCoin);
+                InventoryOperation.itemStackGive(player, SilverCoin);
             }
             if (r.nextDouble() < rate) {
-                Compute.itemStackGive(player, SeaSoul);
+                InventoryOperation.itemStackGive(player, SeaSoul);
             }
             Compute.givePercentExpToPlayer(player, 0.05, 0, 50);
         } else if (RodLevel > 1000) {
@@ -69,15 +70,15 @@ public class FishEvent {
             if (r.nextDouble() < rate) {
                 Compute.sendFormatMSG(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
                         Component.literal("你通过钓鱼额外获得了:").append(GoldCoin.getDisplayName()).append(Component.literal("*1")));
-                Compute.itemStackGive(player, GoldCoin);
+                InventoryOperation.itemStackGive(player, GoldCoin);
             }
             if (r.nextDouble() < rate * 2) {
                 Compute.sendFormatMSG(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
                         Component.literal("你通过钓鱼额外获得了:").append(SilverCoin.getDisplayName()).append(Component.literal("*1")));
-                Compute.itemStackGive(player, SilverCoin);
+                InventoryOperation.itemStackGive(player, SilverCoin);
             }
             if (r.nextDouble() < rate) {
-                Compute.itemStackGive(player, SeaSoul);
+                InventoryOperation.itemStackGive(player, SeaSoul);
             }
             Compute.givePercentExpToPlayer(player, 0.05, 0, 40);
         } else if (RodLevel > 500) {
@@ -85,15 +86,15 @@ public class FishEvent {
             if (r.nextDouble() < rate) {
                 Compute.sendFormatMSG(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
                         Component.literal("你通过钓鱼额外获得了:").append(GoldCoin.getDisplayName()).append(Component.literal("*1")));
-                Compute.itemStackGive(player, GoldCoin);
+                InventoryOperation.itemStackGive(player, GoldCoin);
             }
             if (r.nextDouble() < rate * 2) {
                 Compute.sendFormatMSG(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
                         Component.literal("你通过钓鱼额外获得了:").append(SilverCoin.getDisplayName()).append(Component.literal("*1")));
-                Compute.itemStackGive(player, SilverCoin);
+                InventoryOperation.itemStackGive(player, SilverCoin);
             }
             if (r.nextDouble() < rate) {
-                Compute.itemStackGive(player, SeaSoul);
+                InventoryOperation.itemStackGive(player, SeaSoul);
             }
             Compute.givePercentExpToPlayer(player, 0.05, 0, 30);
         } else if (RodLevel > 200) {
@@ -101,15 +102,15 @@ public class FishEvent {
             if (r.nextDouble() < rate) {
                 Compute.sendFormatMSG(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
                         Component.literal("你通过钓鱼额外获得了:").append(GoldCoin.getDisplayName()).append(Component.literal("*1")));
-                Compute.itemStackGive(player, GoldCoin);
+                InventoryOperation.itemStackGive(player, GoldCoin);
             }
             if (r.nextDouble() < rate * 2) {
                 Compute.sendFormatMSG(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
                         Component.literal("你通过钓鱼额外获得了:").append(SilverCoin.getDisplayName()).append(Component.literal("*1")));
-                Compute.itemStackGive(player, SilverCoin);
+                InventoryOperation.itemStackGive(player, SilverCoin);
             }
             if (r.nextDouble() < rate) {
-                Compute.itemStackGive(player, SeaSoul);
+                InventoryOperation.itemStackGive(player, SeaSoul);
             }
             Compute.givePercentExpToPlayer(player, 0.05, 0, 20);
         } else if (RodLevel > 100) {
@@ -117,15 +118,15 @@ public class FishEvent {
             if (r.nextDouble() < rate) {
                 Compute.sendFormatMSG(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
                         Component.literal("你通过钓鱼额外获得了:").append(GoldCoin.getDisplayName()).append(Component.literal("*1")));
-                Compute.itemStackGive(player, GoldCoin);
+                InventoryOperation.itemStackGive(player, GoldCoin);
             }
             if (r.nextDouble() < rate * 2) {
                 Compute.sendFormatMSG(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
                         Component.literal("你通过钓鱼额外获得了:").append(SilverCoin.getDisplayName()).append(Component.literal("*1")));
-                Compute.itemStackGive(player, SilverCoin);
+                InventoryOperation.itemStackGive(player, SilverCoin);
             }
             if (r.nextDouble() < rate) {
-                Compute.itemStackGive(player, SeaSoul);
+                InventoryOperation.itemStackGive(player, SeaSoul);
             }
             Compute.givePercentExpToPlayer(player, 0.05, 0, 15);
         } else if (RodLevel > 50) {
@@ -133,15 +134,15 @@ public class FishEvent {
             if (r.nextDouble() < rate) {
                 Compute.sendFormatMSG(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
                         Component.literal("你通过钓鱼额外获得了:").append(GoldCoin.getDisplayName()).append(Component.literal("*1")));
-                Compute.itemStackGive(player, GoldCoin);
+                InventoryOperation.itemStackGive(player, GoldCoin);
             }
             if (r.nextDouble() < rate * 2) {
                 Compute.sendFormatMSG(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
                         Component.literal("你通过钓鱼额外获得了:").append(SilverCoin.getDisplayName()).append(Component.literal("*1")));
-                Compute.itemStackGive(player, SilverCoin);
+                InventoryOperation.itemStackGive(player, SilverCoin);
             }
             if (r.nextDouble() < rate) {
-                Compute.itemStackGive(player, SeaSoul);
+                InventoryOperation.itemStackGive(player, SeaSoul);
             }
             Compute.givePercentExpToPlayer(player, 0.05, 0, 10);
         } else if (RodLevel > 20) {
@@ -149,15 +150,15 @@ public class FishEvent {
             if (r.nextDouble() < rate) {
                 Compute.sendFormatMSG(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
                         Component.literal("你通过钓鱼额外获得了:").append(GoldCoin.getDisplayName()).append(Component.literal("*1")));
-                Compute.itemStackGive(player, GoldCoin);
+                InventoryOperation.itemStackGive(player, GoldCoin);
             }
             if (r.nextDouble() < rate * 2) {
                 Compute.sendFormatMSG(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
                         Component.literal("你通过钓鱼额外获得了:").append(SilverCoin.getDisplayName()).append(Component.literal("*1")));
-                Compute.itemStackGive(player, SilverCoin);
+                InventoryOperation.itemStackGive(player, SilverCoin);
             }
             if (r.nextDouble() < rate) {
-                Compute.itemStackGive(player, SeaSoul);
+                InventoryOperation.itemStackGive(player, SeaSoul);
             }
             Compute.givePercentExpToPlayer(player, 0.05, 0, 5);
         } else {
@@ -165,7 +166,7 @@ public class FishEvent {
             if (r.nextDouble() < 0.01) {
                 Compute.sendFormatMSG(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
                         Component.literal("你通过钓鱼额外获得了:").append(SilverCoin.getDisplayName()).append(Component.literal("*1")));
-                Compute.itemStackGive(player, SilverCoin);
+                InventoryOperation.itemStackGive(player, SilverCoin);
             }
         }
         Compute.sendFormatMSG(player, Component.literal("钓鱼").withStyle(CustomStyle.styleOfSea),
@@ -221,7 +222,7 @@ public class FishEvent {
                                 append(Component.literal("废旧船厂").withStyle(CustomStyle.styleOfShip)).
                                 append(Component.literal("成功打捞到了:").withStyle(ChatFormatting.WHITE)).
                                 append(itemStack.getDisplayName()));
-                Compute.itemStackGive(player, itemStack);
+                InventoryOperation.itemStackGive(player, itemStack);
                 if (data.contains(StringUtils.ShipFishTimes)) data.putInt(StringUtils.ShipFishTimes, 1);
             } else {
                 data.putInt(StringUtils.ShipFishTimes, data.getInt(StringUtils.ShipFishTimes) + 1);

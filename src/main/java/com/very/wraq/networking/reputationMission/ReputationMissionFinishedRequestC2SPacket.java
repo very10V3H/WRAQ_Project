@@ -1,10 +1,11 @@
 package com.very.wraq.networking.reputationMission;
 
-import com.very.wraq.common.registry.MySound;
-import com.very.wraq.networking.ModNetworking;
-import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.MySound;
 import com.very.wraq.common.util.Utils;
+import com.very.wraq.networking.ModNetworking;
+import com.very.wraq.process.func.item.InventoryOperation;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -45,8 +46,8 @@ public class ReputationMissionFinishedRequestC2SPacket {
             ItemStack itemStack = Utils.playerReputationMissionContent.get(serverPlayer.getName().getString());
             int Count = Utils.playerReputationMissionContentNum.get(serverPlayer.getName().getString());
             Inventory inventory = serverPlayer.getInventory();
-            if (Compute.checkPlayerHasItem(inventory, itemStack.getItem(), Count)) {
-                Compute.removeItem(inventory, itemStack.getItem(), Count);
+            if (InventoryOperation.checkPlayerHasItem(inventory, itemStack.getItem(), Count)) {
+                InventoryOperation.removeItem(inventory, itemStack.getItem(), Count);
                 Compute.sendFormatMSG(serverPlayer, Component.literal("任务").withStyle(CustomStyle.styleOfKaze),
                         Component.literal("你完成了悬赏任务！").withStyle(ChatFormatting.WHITE));
                 Calendar currentTime = Calendar.getInstance();

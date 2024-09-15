@@ -1,17 +1,18 @@
 package com.very.wraq.events.instance;
 
-import com.very.wraq.events.core.LoginInEvent;
-import com.very.wraq.process.system.element.Element;
-import com.very.wraq.process.func.MobEffectAndDamageMethods;
-import com.very.wraq.render.particles.ModParticles;
-import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.util.StringUtils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.util.struct.Boss2Damage;
 import com.very.wraq.common.util.struct.Instance;
 import com.very.wraq.common.util.struct.PlayerTeam;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.events.core.LoginInEvent;
+import com.very.wraq.process.func.MobEffectAndDamageMethods;
+import com.very.wraq.process.func.item.InventoryOperation;
+import com.very.wraq.process.system.element.Element;
+import com.very.wraq.render.particles.ModParticles;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
@@ -116,7 +117,7 @@ public class PurpleIronKnight {
                     }});
 
                     Mob entity = instance.getMobList().get(0);
-                    Compute.SetMobCustomName(entity, ModItems.MobArmorPurpleIronKnightHelmet.get(),
+                    Compute.setMobCustomName(entity, ModItems.MobArmorPurpleIronKnightHelmet.get(),
                             Component.literal("紫晶骑士").withStyle(CustomStyle.styleOfPurpleIron));
 
                     entity.getAttribute(Attributes.MAX_HEALTH).setBaseValue(MaxHealth * difficultyEnhanceRate * (1 + (playerNum - 1) * 0.75));
@@ -322,7 +323,7 @@ public class PurpleIronKnight {
         Level level = player.level();
         Random random = new Random();
         if (PlayerRewardGetJudge(player)) {
-            Compute.itemStackGive(player, new ItemStack(ModItems.PurpleIronBud1.get(), difficultyEnhanceRate * 2));
+            InventoryOperation.itemStackGive(player, new ItemStack(ModItems.PurpleIronBud1.get(), difficultyEnhanceRate * 2));
 
             if (random.nextDouble() <= 0.01) {
                 ItemStack itemStack = null;
@@ -337,7 +338,7 @@ public class PurpleIronKnight {
                                 append(player.getDisplayName()).
                                 append(Component.literal(" 获得了 ").withStyle(ChatFormatting.WHITE)).
                                 append(itemStack.getDisplayName()));
-                Compute.itemStackGive(player, itemStack);
+                InventoryOperation.itemStackGive(player, itemStack);
             }
 
             if (random.nextDouble() <= 0.1) {
@@ -347,7 +348,7 @@ public class PurpleIronKnight {
                                 append(player.getDisplayName()).
                                 append(Component.literal(" 获得了 ").withStyle(ChatFormatting.WHITE)).
                                 append(itemStack.getDisplayName()));
-                Compute.itemStackGive(player, itemStack);
+                InventoryOperation.itemStackGive(player, itemStack);
             }
 
             if (!isMopUp) {
@@ -355,7 +356,7 @@ public class PurpleIronKnight {
                     Compute.sendFormatMSG(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
                             Component.literal("你通过组队挑战副本，额外获得了:").withStyle(ChatFormatting.WHITE).
                                     append(ModItems.PurpleIronBud1.get().getDefaultInstance().getDisplayName()));
-                    Compute.itemStackGive(player, new ItemStack(ModItems.PurpleIronBud1.get(), 4));
+                    InventoryOperation.itemStackGive(player, new ItemStack(ModItems.PurpleIronBud1.get(), 4));
                 }
             }
 
@@ -363,7 +364,7 @@ public class PurpleIronKnight {
                 Compute.sendFormatMSG(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
                         Component.literal("每日首次通关副本，额外获得了:").withStyle(ChatFormatting.WHITE).
                                 append(ModItems.PurpleIronBud2.get().getDefaultInstance().getDisplayName()));
-                Compute.itemStackGive(player, new ItemStack(ModItems.PurpleIronBud2.get(), 1));
+                InventoryOperation.itemStackGive(player, new ItemStack(ModItems.PurpleIronBud2.get(), 1));
             }
         }
     }

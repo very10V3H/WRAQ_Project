@@ -3,12 +3,12 @@ package com.very.wraq.events.client;
 import com.very.wraq.Items.MainStory_1.BackSpawn;
 import com.very.wraq.Items.MainStory_1.Mission.Main0;
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.util.ClientUtils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.util.struct.ClientPlayerTeam;
 import com.very.wraq.common.util.struct.ManaAttackParticle;
 import com.very.wraq.common.util.struct.OldMission;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.misc.AttributePackets.MobAttributeC2SPacket;
 import com.very.wraq.networking.misc.CodeSceptrePackets.CodeC2SPacket;
@@ -20,6 +20,7 @@ import com.very.wraq.networking.misc.WaterBlockCountsC2SPacket;
 import com.very.wraq.networking.unSorted.MineHatConfirmC2SPacket;
 import com.very.wraq.networking.unSorted.PlayerIsNearbyCampfireC2SPacket;
 import com.very.wraq.networking.unSorted.UdiskWorldSoulC2SPacket;
+import com.very.wraq.process.func.item.InventoryOperation;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.process.system.endlessinstance.DailyEndlessInstance;
 import com.very.wraq.process.system.forge.ForgeScreen;
@@ -223,13 +224,13 @@ public class ClientPlayerTickEvent {
 
             if (event.player.tickCount % 20 == 0) {
                 Inventory inventory = event.player.getInventory();
-                if (!(Minecraft.getInstance().screen instanceof TradeScreen) && Compute.checkPlayerHasItem(inventory, ModItems.U_Disk.get(), 1)) {
-                    if (Compute.checkPlayerHasItem(inventory, ModItems.copperCoin.get(), 1)
-                            || Compute.checkPlayerHasItem(inventory, ModItems.goldCoin.get(), 1)
-                            || Compute.checkPlayerHasItem(inventory, ModItems.silverCoin.get(), 1)) {
+                if (!(Minecraft.getInstance().screen instanceof TradeScreen) && InventoryOperation.checkPlayerHasItem(inventory, ModItems.U_Disk.get(), 1)) {
+                    if (InventoryOperation.checkPlayerHasItem(inventory, ModItems.copperCoin.get(), 1)
+                            || InventoryOperation.checkPlayerHasItem(inventory, ModItems.goldCoin.get(), 1)
+                            || InventoryOperation.checkPlayerHasItem(inventory, ModItems.silverCoin.get(), 1)) {
                         ModNetworking.sendToServer(new AllCurrencyC2SPacket(false));
                     }
-                    if (Compute.checkPlayerHasItem(inventory, ModItems.WorldSoul1.get(), 64))
+                    if (InventoryOperation.checkPlayerHasItem(inventory, ModItems.WorldSoul1.get(), 64))
                         ModNetworking.sendToServer(new UdiskWorldSoulC2SPacket());
                 }
             }

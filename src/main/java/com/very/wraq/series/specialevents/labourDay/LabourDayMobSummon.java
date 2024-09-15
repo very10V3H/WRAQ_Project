@@ -1,8 +1,9 @@
 package com.very.wraq.series.specialevents.labourDay;
 
-import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.process.func.item.InventoryOperation;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -143,7 +144,7 @@ public class LabourDayMobSummon {
 
         ItemStack weapon = isWeek ? Items.IRON_HOE.getDefaultInstance() : Items.IRON_PICKAXE.getDefaultInstance();
 
-        Compute.SetMobCustomName(mob, armor.getItem(), Component.literal("工贼").withStyle(ChatFormatting.GRAY));
+        Compute.setMobCustomName(mob, armor.getItem(), Component.literal("工贼").withStyle(ChatFormatting.GRAY));
         mob.setItemSlot(EquipmentSlot.HEAD, armor);
         mob.setItemInHand(InteractionHand.MAIN_HAND, weapon);
         mob.getAttribute(Attributes.MAX_HEALTH).setBaseValue(isWeek ? 5.1 * Math.pow(10, 4) : 5.1 * Math.pow(10, 7));
@@ -178,9 +179,9 @@ public class LabourDayMobSummon {
                             append(Component.literal(" 的 ").withStyle(ChatFormatting.WHITE)).
                             append(Component.literal("工贼").withStyle(ChatFormatting.GRAY)));
             if (mobList.indexOf(skeleton) < 5) {
-                Compute.itemStackGive(player, new ItemStack(ModItems.OldGoldCoin.get()));
+                InventoryOperation.itemStackGive(player, new ItemStack(ModItems.OldGoldCoin.get()));
             } else {
-                Compute.itemStackGive(player, new ItemStack(ModItems.OldGoldCoin.get(), 2));
+                InventoryOperation.itemStackGive(player, new ItemStack(ModItems.OldGoldCoin.get(), 2));
             }
         }
     }

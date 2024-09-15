@@ -1,6 +1,6 @@
 package com.very.wraq.networking.misc;
 
-import com.very.wraq.render.hud.ClientManaData;
+import com.very.wraq.render.hud.Mana;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent;
 
@@ -28,8 +28,8 @@ public class ManaSyncS2CPacket {
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
-            ClientManaData.setMaxMana(MaxMana);
-            ClientManaData.setCurrentMana(CurrentMana);
+            Mana.setMaxMana(MaxMana);
+            Mana.setCurrentMana(CurrentMana);
         });
         return true;
     }

@@ -1,20 +1,22 @@
 package com.very.wraq.events.instance;
 
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.registry.MySound;
+import com.very.wraq.common.util.StringUtils;
+import com.very.wraq.common.util.Utils;
+import com.very.wraq.common.util.struct.Boss2Damage;
+import com.very.wraq.common.util.struct.Instance;
+import com.very.wraq.common.util.struct.PlayerTeam;
 import com.very.wraq.entities.entities.Civil.Civil;
 import com.very.wraq.events.core.LoginInEvent;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.misc.SoundsPackets.SoundsS2CPacket;
+import com.very.wraq.process.func.damage.Damage;
+import com.very.wraq.process.func.item.InventoryOperation;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.instance.series.castle.CastleCurios;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.StringUtils;
-import com.very.wraq.common.util.struct.Boss2Damage;
-import com.very.wraq.common.util.struct.Instance;
-import com.very.wraq.common.util.struct.PlayerTeam;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -114,7 +116,7 @@ public class CastleSecondFloor {
                 List<Player> players = player.level().getEntitiesOfClass(Player.class, AABB.ofSize(player.position(), 15, 15, 15));
                 players.removeIf(player1 -> player1.distanceTo(player) > 6);
                 players.forEach(player1 -> {
-                    Compute.Damage.DamageIgnoreDefenceToPlayer(mob, player1, 10000);
+                    Damage.DamageIgnoreDefenceToPlayer(mob, player1, 10000);
                 });
 
                 ClientboundLevelParticlesPacket clientboundLevelParticlesPacket =
@@ -134,7 +136,7 @@ public class CastleSecondFloor {
                 List<Player> players = player.level().getEntitiesOfClass(Player.class, AABB.ofSize(player.position(), 15, 15, 15));
                 players.removeIf(player1 -> player1.distanceTo(player) > 6);
                 players.forEach(player1 -> {
-                    Compute.Damage.DamageIgnoreDefenceToPlayer(mob, player1, (double) 25000 / players.size());
+                    Damage.DamageIgnoreDefenceToPlayer(mob, player1, (double) 25000 / players.size());
                 });
 
                 ParticleProvider.LineParticle(mob.level(), (int) (5 * mob.distanceTo(player)), mob.getEyePosition(), player.getEyePosition(), ParticleTypes.WITCH);
@@ -387,7 +389,7 @@ public class CastleSecondFloor {
 
     public static void Summon(Mob mob, Instance instance, int index) {
         Level level = mob.level();
-        Compute.SetMobCustomName(mob, ModItems.MobArmorCastleKnightHelmet.get(),
+        Compute.setMobCustomName(mob, ModItems.MobArmorCastleKnightHelmet.get(),
                 Component.literal("暗黑骑士").withStyle(CustomStyle.styleOfCastle));
 
         mob.getAttribute(Attributes.MAX_HEALTH).setBaseValue(MaxHealth);
@@ -477,7 +479,7 @@ public class CastleSecondFloor {
         }
 
         if (isMopUp || (playerDamageCount.containsKey(player) && playerDamageCount.get(player) / (MaxHealth * 2) > 0.1)) {
-            Compute.itemStackGive(player, new ItemStack(ModItems.CastleKnightStone.get(), difficultyEnhanceRate));
+            InventoryOperation.itemStackGive(player, new ItemStack(ModItems.CastleKnightStone.get(), difficultyEnhanceRate));
             if (random.nextDouble() <= 0.1 && difficultyEnhanceRate == 4) {
                 ItemStack itemStack = ModItems.CastleBrooch.get().getDefaultInstance();
                 CastleCurios.randomAttributeProvide(itemStack, 6, 1);
@@ -487,7 +489,7 @@ public class CastleSecondFloor {
                                 append(player.getDisplayName()).
                                 append(Component.literal(" 获得了: ").withStyle(ChatFormatting.WHITE)).
                                 append(itemStack.getDisplayName()));
-                Compute.itemStackGive(player, itemStack);
+                InventoryOperation.itemStackGive(player, itemStack);
 
             }
 
@@ -496,7 +498,7 @@ public class CastleSecondFloor {
                     Compute.sendFormatMSG(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
                             Component.literal("你通过组队挑战副本，额外获得了:").withStyle(ChatFormatting.WHITE).
                                     append(ModItems.CastleKnightStone.get().getDefaultInstance().getDisplayName()));
-                    Compute.itemStackGive(player, new ItemStack(ModItems.CastleKnightStone.get(), 2));
+                    InventoryOperation.itemStackGive(player, new ItemStack(ModItems.CastleKnightStone.get(), 2));
                 }
             }
         }
@@ -505,7 +507,7 @@ public class CastleSecondFloor {
             Compute.sendFormatMSG(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
                     Component.literal("每日首次通关副本，额外获得了:").withStyle(ChatFormatting.WHITE).
                             append(ModItems.CastleKnightStone.get().getDefaultInstance().getDisplayName()));
-            Compute.itemStackGive(player, new ItemStack(ModItems.CastleKnightStone.get(), 16));
+            InventoryOperation.itemStackGive(player, new ItemStack(ModItems.CastleKnightStone.get(), 16));
         }
     }
 }

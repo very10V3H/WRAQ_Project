@@ -1,6 +1,7 @@
 package com.very.wraq.series.overworld.sakuraSeries.SakuraMob;
 
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -35,7 +36,7 @@ public class SakuraReForge extends Item {
         components.add(Component.literal("5.").withStyle(ChatFormatting.WHITE).
                 append(Compute.AttributeDescription.HealthSteal("-10% ~ 10%")));
         components.add(Component.literal("6.").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.movementSpeedWithoutBattle("-25% ~ 50%")));
+                append(ComponentUtils.AttributeDescription.movementSpeedWithoutBattle("-25% ~ 50%")));
         components.add(Component.literal(" "));
         components.add(Component.literal("ReForge-Sakura").withStyle(CustomStyle.styleOfSakura).withStyle(ChatFormatting.ITALIC));
         super.appendHoverText(stack, p_41422_, components, p_41424_);

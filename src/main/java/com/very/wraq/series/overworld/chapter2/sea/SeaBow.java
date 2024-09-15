@@ -1,17 +1,19 @@
 package com.very.wraq.series.overworld.chapter2.sea;
 
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.attribute.PlayerAttributes;
 import com.very.wraq.common.registry.MySound;
+import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.Utils;
+import com.very.wraq.common.util.struct.Shield;
 import com.very.wraq.core.MyArrow;
-import com.very.wraq.process.system.element.Element;
+import com.very.wraq.process.func.damage.Damage;
 import com.very.wraq.process.func.particle.ParticleProvider;
+import com.very.wraq.process.system.element.Element;
 import com.very.wraq.projectiles.OnHitEffectMainHandWeapon;
 import com.very.wraq.projectiles.WraqBow;
 import com.very.wraq.render.particles.ModParticles;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.ComponentUtils;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.attribute.PlayerAttributes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -86,8 +88,8 @@ public class SeaBow extends WraqBow implements OnHitEffectMainHandWeapon {
             double damage = PlayerAttributes.attackDamage(player) * 0.5;
             if (random.nextDouble() < PlayerAttributes.critRate(player)) damage *= (1 + PlayerAttributes.critDamage(player));
             if (mob1.distanceTo(mob) <= 3) {
-                if (mob1.getHealth() < damage) Compute.playerShieldProvider(player, 200, damage);
-                Compute.Damage.DirectDamageToMob(player, mob1, damage);
+                if (mob1.getHealth() < damage) Shield.providePlayerShield(player, 200, damage);
+                Damage.DirectDamageToMob(player, mob1, damage);
             }
         });
     }

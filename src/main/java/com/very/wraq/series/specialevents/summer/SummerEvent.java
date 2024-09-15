@@ -1,8 +1,9 @@
 package com.very.wraq.series.specialevents.summer;
 
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.registry.MySound;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.registry.MySound;
+import com.very.wraq.process.func.item.InventoryOperation;
 import com.very.wraq.process.system.tower.Tower;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.specialevents.SpecialEventItems;
@@ -151,7 +152,7 @@ public class SummerEvent {
             if (summerVoucherGetTimesKey < 8) {
                 quitJudge = true;
                 incrementIntData(player, dailySummerVoucherGetTimesKey);
-                Compute.itemStackGive(player, new ItemStack(SpecialEventItems.SUMMER_VOUCHER.get()));
+                InventoryOperation.itemStackGive(player, new ItemStack(SpecialEventItems.SUMMER_VOUCHER.get()));
                 sendFormatMSG(player, Component.literal("今日还能获得").withStyle(ChatFormatting.WHITE).
                         append(Component.literal(String.valueOf(8 - (summerVoucherGetTimesKey + 1)) + "次").withStyle(CustomStyle.styleOfWater)).
                         append(SpecialEventItems.SUMMER_VOUCHER.get().getDefaultInstance().getDisplayName()));
@@ -183,7 +184,7 @@ public class SummerEvent {
         }
 
         if (!quitJudge) {
-            Compute.itemStackGive(player, new ItemStack(ModItems.SeaSoul.get(), 3));
+            InventoryOperation.itemStackGive(player, new ItemStack(ModItems.SeaSoul.get(), 3));
         }
 
     }

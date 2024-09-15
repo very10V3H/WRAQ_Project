@@ -3,6 +3,7 @@ package com.very.wraq.series.specialevents.summer;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.Utils;
+import com.very.wraq.process.func.item.InventoryOperation;
 import com.very.wraq.process.system.forge.ForgeEquipUtils;
 import com.very.wraq.process.system.season.MySeason;
 import com.very.wraq.projectiles.OnCuriosSlotAttributesModify;
@@ -99,7 +100,7 @@ public class SummerCurios2024 extends WraqCurios implements OnCuriosSlotAttribut
             if (player.tickCount % 300 == 0 && player.level().dimension().equals(Level.OVERWORLD)
                     && MySeason.currentSeason.contains(MySeason.summer) && player.isInWater()
                     && player.level().isDay()) {
-                Compute.itemStackGive(player, new ItemStack(Items.TROPICAL_FISH));
+                InventoryOperation.itemStackGive(player, new ItemStack(Items.TROPICAL_FISH));
                 Compute.sendFormatMSG(player, Component.literal("摸鱼!").withStyle(CustomStyle.styleOfWater),
                         Component.literal("你摸到了一条鱼！").withStyle(ChatFormatting.GOLD));
             }

@@ -53,7 +53,7 @@ public class FireElementSword extends WraqSword implements ActiveItem {
                 append(Component.literal("，并").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("点燃").withStyle(style)).
                 append(Component.literal("目标4s").withStyle(ChatFormatting.WHITE)));
-        Compute.CoolDownTimeDescription(components, 7);
+        ComponentUtils.coolDownTimeDescription(components, 7);
         Compute.DescriptionPassive(components, Component.literal("燃烬").withStyle(style));
         components.add(Component.literal(" 对处于").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("燃烧状态").withStyle(style)).

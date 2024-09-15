@@ -1,11 +1,12 @@
 package com.very.wraq.series.overworld.sakuraSeries.Scarecrow;
 
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.attribute.BasicAttributeDescription;
+import com.very.wraq.common.registry.ItemMaterial;
+import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.entities.armor.WheatArmorRenderer;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.attribute.BasicAttributeDescription;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.registry.ItemMaterial;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.network.chat.Component;
@@ -53,7 +54,7 @@ public class WheatArmorChest extends ArmorItem implements GeoItem {
         components.add(Component.literal("1.减免受到的").withStyle(ChatFormatting.WHITE).
                 append(Compute.AttributeDescription.AttackDamageValue("30%")));
         components.add(Component.literal("2.提高受到的").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.ManaDamageValue("30%")));
+                append(ComponentUtils.AttributeDescription.ManaDamageValue("30%")));
         Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         components.add(Component.literal("Scarecrow_ChestPlate").withStyle(style).withStyle(ChatFormatting.ITALIC));
         Compute.SuffixOfMainStoryV(components);

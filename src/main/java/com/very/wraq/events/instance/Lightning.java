@@ -1,14 +1,15 @@
 package com.very.wraq.events.instance;
 
-import com.very.wraq.events.core.LoginInEvent;
-import com.very.wraq.process.system.element.Element;
-import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.util.StringUtils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.util.struct.Instance;
 import com.very.wraq.common.util.struct.PlayerTeam;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.events.core.LoginInEvent;
+import com.very.wraq.process.func.item.InventoryOperation;
+import com.very.wraq.process.system.element.Element;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -164,13 +165,13 @@ public class Lightning {
     }
 
     public static void MobAttributeSet(Mob mob, int difficultyRate, int playerNum) {
-        Compute.SetMobCustomName(mob, ModItems.ArmorLZHelmet.get(),
+        Compute.setMobCustomName(mob, ModItems.ArmorLZHelmet.get(),
                 Component.literal("唤雷守卫").withStyle(CustomStyle.styleOfLightingIsland));
 
-        mob.setItemSlot(EquipmentSlot.HEAD, Compute.FoilAddItemStack(ModItems.ArmorLZHelmet.get().getDefaultInstance()));
-        mob.setItemSlot(EquipmentSlot.CHEST, Compute.FoilAddItemStack(ModItems.ArmorLZChest.get().getDefaultInstance()));
-        mob.setItemSlot(EquipmentSlot.LEGS, Compute.FoilAddItemStack(ModItems.ArmorLZLeggings.get().getDefaultInstance()));
-        mob.setItemSlot(EquipmentSlot.FEET, Compute.FoilAddItemStack(ModItems.ArmorLZBoots.get().getDefaultInstance()));
+        mob.setItemSlot(EquipmentSlot.HEAD, Compute.foilAddItemStack(ModItems.ArmorLZHelmet.get().getDefaultInstance()));
+        mob.setItemSlot(EquipmentSlot.CHEST, Compute.foilAddItemStack(ModItems.ArmorLZChest.get().getDefaultInstance()));
+        mob.setItemSlot(EquipmentSlot.LEGS, Compute.foilAddItemStack(ModItems.ArmorLZLeggings.get().getDefaultInstance()));
+        mob.setItemSlot(EquipmentSlot.FEET, Compute.foilAddItemStack(ModItems.ArmorLZBoots.get().getDefaultInstance()));
         mob.setItemSlot(EquipmentSlot.MAINHAND, Items.IRON_SWORD.getDefaultInstance());
         mob.getAttribute(Attributes.MAX_HEALTH).setBaseValue(2000 * difficultyRate * (1 + (playerNum - 1) * 0.75));
         mob.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(60 * difficultyRate);
@@ -215,18 +216,18 @@ public class Lightning {
                 Compute.sendFormatMSG(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
                         Component.literal("你通过组队挑战副本，额外获得了:").withStyle(ChatFormatting.WHITE).
                                 append(ModItems.LightningSoul.get().getDefaultInstance().getDisplayName()));
-                Compute.itemStackGive(player, new ItemStack(ModItems.LightningSoul.get(), Utils.instanceKillCount[1] * difficultyEnhanceRate));
+                InventoryOperation.itemStackGive(player, new ItemStack(ModItems.LightningSoul.get(), Utils.instanceKillCount[1] * difficultyEnhanceRate));
 
             }
         }
 
-        Compute.itemStackGive(player, new ItemStack(ModItems.LightningSoul.get(), isMopUp ? 96 : Utils.instanceKillCount[1] * difficultyEnhanceRate));
+        InventoryOperation.itemStackGive(player, new ItemStack(ModItems.LightningSoul.get(), isMopUp ? 96 : Utils.instanceKillCount[1] * difficultyEnhanceRate));
 
         if (LoginInEvent.playerDailyInstanceReward(player, 1)) {
             Compute.sendFormatMSG(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
                     Component.literal("每日首次通关副本，额外获得了:").withStyle(ChatFormatting.WHITE).
                             append(ModItems.LightningSoul.get().getDefaultInstance().getDisplayName()));
-            Compute.itemStackGive(player, new ItemStack(ModItems.LightningSoul.get(), 192));
+            InventoryOperation.itemStackGive(player, new ItemStack(ModItems.LightningSoul.get(), 192));
         }
     }
 }

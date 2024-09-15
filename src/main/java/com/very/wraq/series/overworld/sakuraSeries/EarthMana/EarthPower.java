@@ -6,6 +6,7 @@ import com.very.wraq.common.util.ClientUtils;
 import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.common.util.Utils;
+import com.very.wraq.process.func.damage.Damage;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.process.func.power.PowerLogic;
 import com.very.wraq.projectiles.ActiveItem;
@@ -27,7 +28,9 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.WeakHashMap;
 
 public class EarthPower extends Item implements ActiveItem {
 
@@ -61,7 +64,7 @@ public class EarthPower extends Item implements ActiveItem {
                 append(Component.literal(" 降低怪物造成的伤害20%").withStyle(ChatFormatting.WHITE)));
         components.add(Component.literal("    治疗附近所有玩家").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("能力-智力 * 30").withStyle(CustomStyle.styleOfMana)).
-                append(Compute.AttributeDescription.MaxHealth("")));
+                append(ComponentUtils.AttributeDescription.MaxHealth("")));
 
         components.add(Component.literal(" 森林:").withStyle(CustomStyle.styleOfForest).
                 append(Component.literal(" 对周围怪物造成减速效果").withStyle(ChatFormatting.WHITE)));
@@ -78,16 +81,16 @@ public class EarthPower extends Item implements ActiveItem {
 
         components.add(Component.literal(" 火山:").withStyle(CustomStyle.styleOfVolcano).
                 append(Component.literal(" 额外造成一次").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.ManaDamageValue("400%")));
+                append(ComponentUtils.AttributeDescription.ManaDamageValue("400%")));
         components.add(Component.literal("    使周围玩家获得").withStyle(ChatFormatting.WHITE).
                 append(Compute.AttributeDescription.AttackDamage("25%")).
                 append(Component.literal("与").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.ManaDamage("25%")));
+                append(ComponentUtils.AttributeDescription.ManaDamage("25%")));
         components.add(Component.literal(" - 对玩家的增益效果均持续3s").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
         components.add(Component.literal(" - 对怪物的负面效果均持续3s").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
 
-        Compute.CoolDownTimeDescription(components, 15);
-        Compute.ManaCostDescription(components, 225);
+        ComponentUtils.coolDownTimeDescription(components, 15);
+        ComponentUtils.manaCostDescription(components, 225);
 
         ClientUtils.EarthPowerCompute = true;
         if (ClientUtils.EarthPowerType != -1) {
@@ -164,7 +167,7 @@ public class EarthPower extends Item implements ActiveItem {
                 AABB.ofSize(TargetPos, 20, 20, 20));
         playerList.removeIf(player1 -> player1.distanceTo(player1) > 6);
         mobList.forEach(mob -> {
-            Compute.Damage.causeManaDamageToMonster_RateApDamage(player, mob, 3, true);
+            Damage.causeManaDamageToMonster_RateApDamage(player, mob, 3, true);
             PowerLogic.PlayerPowerEffectToMob(player, mob);
         });
         switch (type) {
@@ -214,7 +217,7 @@ public class EarthPower extends Item implements ActiveItem {
                     Volcano_PlayerDamageEnhance.put(player1, TickCount + 60);
                 });
                 mobList.forEach(mob1 -> {
-                    Compute.Damage.causeManaDamageToMonster_RateApDamage(player, mob1, 3, true);
+                    Damage.causeManaDamageToMonster_RateApDamage(player, mob1, 3, true);
                 });
             }
         }

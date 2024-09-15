@@ -1,17 +1,19 @@
 package com.very.wraq.events.mob.instance.instances;
 
+import com.very.wraq.common.Compute;
 import com.very.wraq.common.attribute.PlayerAttributes;
+import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.ItemAndRate;
 import com.very.wraq.events.fight.MonsterAttackEvent;
 import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.events.mob.instance.NoTeamInstance;
 import com.very.wraq.events.mob.instance.NoTeamInstanceModule;
-import com.very.wraq.process.system.missions.series.dailyMission.DailyMission;
+import com.very.wraq.process.func.damage.Damage;
 import com.very.wraq.process.func.particle.ParticleProvider;
+import com.very.wraq.process.system.missions.series.dailyMission.DailyMission;
+import com.very.wraq.render.hud.Mana;
 import com.very.wraq.render.particles.ModParticles;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.ItemAndRate;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -77,7 +79,7 @@ public class DevilInstance extends NoTeamInstance {
         Zombie zombie = new Zombie(EntityType.ZOMBIE, level);
 
         zombie.setBaby(true);
-        Compute.SetMobCustomName(zombie, Component.literal(mobName).withStyle(CustomStyle.styleOfBloodMana), 150);
+        Compute.setMobCustomName(zombie, Component.literal(mobName).withStyle(CustomStyle.styleOfBloodMana), 150);
 
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(zombie), 150);
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombie, 1500, 2000, 2000, 0.4, 4, 0.25, 900, 20, 300 * Math.pow(10, 4), 0.35);
@@ -148,11 +150,11 @@ public class DevilInstance extends NoTeamInstance {
         playerList.forEach(player -> {
             if (player.distanceTo(mob) < 50) {
                 int ManaDecrease = 300;
-                if (Compute.PlayerCurrentManaNum(player) < ManaDecrease) {
-                    ManaDecrease -= Compute.PlayerCurrentManaNum(player);
-                    Compute.playerManaAddOrCost(player, -Compute.PlayerCurrentManaNum(player));
-                    Compute.Damage.manaDamageToPlayer(mob, player, 10 * ManaDecrease);
-                } else Compute.playerManaAddOrCost(player, -ManaDecrease);
+                if (Mana.getPlayerCurrentManaNum(player) < ManaDecrease) {
+                    ManaDecrease -= Mana.getPlayerCurrentManaNum(player);
+                    Mana.addOrCostPlayerMana(player, -Mana.getPlayerCurrentManaNum(player));
+                    Damage.manaDamageToPlayer(mob, player, 10 * ManaDecrease);
+                } else Mana.addOrCostPlayerMana(player, -ManaDecrease);
                 ((ServerPlayer) player).connection.send(clientboundSetTitleTextPacket);
                 ((ServerPlayer) player).connection.send(clientboundSetSubtitleTextPacket);
             }
@@ -196,7 +198,7 @@ public class DevilInstance extends NoTeamInstance {
             devilSkill4Flag = false;
             playerList.forEach(player -> {
                 if (player.distanceTo(mob) < 50) {
-                    Compute.Damage.manaDamageToPlayer(mob, player, player.getMaxHealth());
+                    Damage.manaDamageToPlayer(mob, player, player.getMaxHealth());
                 }
             });
             ParticleProvider.DisperseParticle(mob.position(), (ServerLevel) mob.level(), 1, 1, 120, ModParticles.LONG_ENTROPY.get(), 1);

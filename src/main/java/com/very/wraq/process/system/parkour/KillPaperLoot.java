@@ -2,8 +2,9 @@ package com.very.wraq.process.system.parkour;
 
 import com.very.wraq.Items.KillPaper.KillPaper;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.Utils;
+import com.very.wraq.process.func.item.InventoryOperation;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -36,7 +37,7 @@ public class KillPaperLoot extends Item {
             String tag = KillPaper.getDropListMap().keySet().stream().toList().get(rand.nextInt(KillPaper.getDropListMap().size()));
             ItemStack itemStack = new ItemStack(ModItems.killPaper.get());
             itemStack.getOrCreateTagElement(Utils.MOD_ID).putString(KillPaper.killPaperType, tag);
-            Compute.itemStackGive(player, itemStack);
+            InventoryOperation.itemStackGive(player, itemStack);
             Compute.playerItemUseWithRecord(player);
         }
         return super.use(level, player, interactionHand);

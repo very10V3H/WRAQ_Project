@@ -9,6 +9,7 @@ import com.very.wraq.common.util.struct.Power;
 import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.attribute.MobAttributes;
 import com.very.wraq.common.attribute.PlayerAttributes;
+import com.very.wraq.series.overworld.chapter2.codeMana.CodeSceptre;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.*;
@@ -141,14 +142,14 @@ public class NewArrow extends AbstractArrow {
                         damage = BaseDamage * (1.0d - (0.25F * log(((monster.getAttribute(Attributes.ARMOR).getValue() * (1.0d - BreakDefence) * (E * E / 100) + 1)))));
                         damage *= (1 + Damage * Effect);
                         if (Range >= 0)
-                            Compute.CodeHitMonster(level(), monster, Range, (ServerPlayer) player, damage, Kaze, Effect, Snow, Lightning, Gather);
+                            CodeSceptre.hitMonster(level(), monster, Range, (ServerPlayer) player, damage, Kaze, Effect, Snow, Lightning, Gather);
                         monster.hurt(monster.damageSources().playerAttack(player), (float) damage * 3);
 
                     } else {
                         damage = BaseDamage * (1.0d - (0.25F * log(((Defence) * (1.0d - BreakDefence)) * (E * E / 100) + 1)));
                         damage *= (1 + Damage * Effect);
                         if (Range >= 0)
-                            Compute.CodeHitMonster(level(), monster, Range, (ServerPlayer) player, damage, Kaze, Effect, Snow, Lightning, Gather);
+                            CodeSceptre.hitMonster(level(), monster, Range, (ServerPlayer) player, damage, Kaze, Effect, Snow, Lightning, Gather);
                         monster.hurt(monster.damageSources().playerAttack(player), (float) damage * 3);
                     }
                 } else {
@@ -156,13 +157,13 @@ public class NewArrow extends AbstractArrow {
                         damage = BaseDamage * (1.0d - (0.25F * log(((monster.getAttribute(Attributes.ARMOR).getValue() * (1.0d - BreakDefence) * (E * E / 100) + 1)))));
                         damage *= (1 + Damage * Effect);
                         if (Range >= 0)
-                            Compute.CodeHitMonster(level(), monster, Range, (ServerPlayer) player, damage, Kaze, Effect, Snow, Lightning, Gather);
+                            CodeSceptre.hitMonster(level(), monster, Range, (ServerPlayer) player, damage, Kaze, Effect, Snow, Lightning, Gather);
                         monster.hurt(monster.damageSources().playerAttack(player), (float) damage);
                     } else {
                         damage = BaseDamage * (1.0d - (0.25F * log(((Defence) * (1.0d - BreakDefence)) * (E * E / 100) + 1)));
                         damage *= (1 + Damage * Effect);
                         if (Range >= 0)
-                            Compute.CodeHitMonster(level(), monster, Range, (ServerPlayer) player, damage, Kaze, Effect, Snow, Lightning, Gather);
+                            CodeSceptre.hitMonster(level(), monster, Range, (ServerPlayer) player, damage, Kaze, Effect, Snow, Lightning, Gather);
                         monster.hurt(monster.damageSources().playerAttack(player), (float) damage);
                     }
                 }
@@ -178,12 +179,12 @@ public class NewArrow extends AbstractArrow {
                 if (Defence == 0) {
                     damage = BaseDamage * (1.0d - (0.25F * log(((hurter.getAttribute(Attributes.ARMOR).getValue() * (1.0d - BreakDefence) * (E * E / 100) + 1)))));
                     if (Range >= 0)
-                        Compute.CodeHitPlayer(level(), hurter, Range, (ServerPlayer) player, damage, Kaze, Effect, Snow, Lightning, Gather);
+                        CodeSceptre.hitPlayer(level(), hurter, Range, (ServerPlayer) player, damage, Kaze, Effect, Snow, Lightning, Gather);
                     hurter.hurt(hurter.damageSources().playerAttack(player), (float) damage * 0.1f);
                 } else {
                     damage = BaseDamage * (1.0d - (0.25F * log(((Defence) * (1.0d - BreakDefence)) * (E * E / 100) + 1)));
                     if (Range >= 0)
-                        Compute.CodeHitPlayer(level(), hurter, Range, (ServerPlayer) player, damage, Kaze, Effect, Snow, Lightning, Gather);
+                        CodeSceptre.hitPlayer(level(), hurter, Range, (ServerPlayer) player, damage, Kaze, Effect, Snow, Lightning, Gather);
                     hurter.hurt(hurter.damageSources().playerAttack(player), (float) damage * 0.1f);
                 }
                 if (data.contains("MagmaPower") && data.getBoolean("MagmaPower")) {

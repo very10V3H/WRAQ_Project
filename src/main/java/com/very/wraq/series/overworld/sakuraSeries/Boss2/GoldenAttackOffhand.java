@@ -1,18 +1,19 @@
 package com.very.wraq.series.overworld.sakuraSeries.Boss2;
 
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.registry.MySound;
+import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.events.mob.chapter2.SlimeSpawnController;
 import com.very.wraq.events.mob.chapter3_nether.MagmaSpawnController;
+import com.very.wraq.process.func.StableAttributesModifier;
+import com.very.wraq.process.func.item.InventoryOperation;
 import com.very.wraq.projectiles.ForgeItem;
 import com.very.wraq.projectiles.OnKillEffectOffHandItem;
 import com.very.wraq.projectiles.WraqOffHandItem;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.ComponentUtils;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.process.func.StableAttributesModifier;
-import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.series.overworld.chapter1.Mine.MineShield;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -131,7 +132,7 @@ public class GoldenAttackOffhand extends WraqOffHandItem implements OnKillEffect
                 Compute.sendFormatMSG(player, Component.literal("华贵金属").withStyle(CustomStyle.styleOfGold),
                         Component.literal("额外获得了1枚").withStyle(ChatFormatting.AQUA).
                                 append(goldCoin.getDisplayName()));
-                Compute.itemStackGive(player, goldCoin);
+                InventoryOperation.itemStackGive(player, goldCoin);
                 MySound.soundToPlayer(player, SoundEvents.ARMOR_EQUIP_GOLD);
             }
         }

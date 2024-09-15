@@ -1,11 +1,12 @@
 package com.very.wraq.series.overworld.sakuraSeries.MineWorker;
 
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.attribute.BasicAttributeDescription;
+import com.very.wraq.common.registry.ItemMaterial;
+import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.entities.armor.MinePantsRenderer;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.attribute.BasicAttributeDescription;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.registry.ItemMaterial;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.network.chat.Component;
@@ -56,7 +57,7 @@ public class MinePants extends ArmorItem implements GeoItem {
         components.add(Component.literal("2.").withStyle(ChatFormatting.AQUA).
                 append(Compute.AttributeDescription.ExManaDamage("75")));
         components.add(Component.literal("3.").withStyle(ChatFormatting.AQUA).
-                append(Compute.AttributeDescription.movementSpeedWithoutBattle("40%")));
+                append(ComponentUtils.AttributeDescription.movementSpeedWithoutBattle("40%")));
         components.add(Component.literal("4.").withStyle(ChatFormatting.AQUA).
                 append(Compute.AttributeDescription.Defence("100")));
         Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);

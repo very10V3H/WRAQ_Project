@@ -1,22 +1,25 @@
 package com.very.wraq.series.nether.Equip;
 
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.attribute.PlayerAttributes;
+import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.registry.ModSounds;
 import com.very.wraq.common.registry.MySound;
+import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.Utils;
+import com.very.wraq.process.func.damage.Damage;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.projectiles.ActiveItem;
 import com.very.wraq.projectiles.WraqSword;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.ComponentUtils;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.attribute.PlayerAttributes;
-import com.very.wraq.common.registry.ModItems;
-import com.very.wraq.common.registry.ModSounds;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LightningBolt;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -54,9 +57,9 @@ public class QuartzSword extends WraqSword implements ActiveItem {
         components.add(Component.literal("对周围所有单位雷击，造成").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("燃烧").withStyle(ChatFormatting.YELLOW)).
                 append(Component.literal("与").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.ManaDamage("250%")));
-        Compute.CoolDownTimeDescription(components, 5);
-        Compute.ManaCostDescription(components, 90);
+                append(ComponentUtils.AttributeDescription.ManaDamage("250%")));
+        ComponentUtils.coolDownTimeDescription(components, 5);
+        ComponentUtils.manaCostDescription(components, 90);
         return components;
     }
 
@@ -75,7 +78,7 @@ public class QuartzSword extends WraqSword implements ActiveItem {
             Iterator<Player> iterator = playerList.iterator();
             while (iterator.hasNext()) {
                 Player player1 = iterator.next();
-                Compute.Damage.manaDamageToPlayer(player, player1, 2.5f);
+                Damage.manaDamageToPlayer(player, player1, 2.5f);
                 LightningBolt lightningBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, level);
                 lightningBolt.setCause((ServerPlayer) player);
                 lightningBolt.setSilent(true);
@@ -85,10 +88,8 @@ public class QuartzSword extends WraqSword implements ActiveItem {
                 level.addFreshEntity(lightningBolt);
             }
             List<Mob> monsterList = level.getNearbyEntities(Mob.class, TargetingConditions.DEFAULT, player, AABB.ofSize(player.position(), 10, 10, 10));
-            Iterator<Mob> iterator1 = monsterList.iterator();
-            while (iterator1.hasNext()) {
-                Mob monster = iterator1.next();
-                Compute.Damage.causeManaDamageToMonster_RateApDamage(player, monster, 2.5f, true);
+            for (Mob monster : monsterList) {
+                Damage.causeManaDamageToMonster_RateApDamage(player, monster, 2.5f, true);
                 LightningBolt lightningBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, level);
                 lightningBolt.setCause((ServerPlayer) player);
                 lightningBolt.setSilent(true);

@@ -1,7 +1,8 @@
 package com.very.wraq.series.nether.Runes;
 
-import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -27,7 +28,7 @@ public class NetherRune0 extends Item {
         components.add(Component.literal("将自身").withStyle(ChatFormatting.WHITE).
                 append(Compute.AttributeDescription.AttackDamage("100%")).
                 append(Component.literal("以60%的比例转换为").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.ManaDamage("")));
+                append(ComponentUtils.AttributeDescription.ManaDamage("")));
         Compute.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfNether, ChatFormatting.WHITE);
         components.add(Component.literal("Runes-Mana").withStyle(ChatFormatting.LIGHT_PURPLE).withStyle(ChatFormatting.ITALIC));
         super.appendHoverText(stack, p_41422_, components, p_41424_);

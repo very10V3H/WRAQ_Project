@@ -1,11 +1,12 @@
 package com.very.wraq.series.end.eventController.LightningIslandRecall;
 
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.events.mob.chapter2.LightningZombieController;
+import com.very.wraq.process.func.item.InventoryOperation;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.overworld.chapter2.dimension.ToEnd;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -96,7 +97,7 @@ public class LightningRecallEvent {
                             if (Utils.LightingRecallZombie != null)
                                 Utils.LightingRecallZombie.remove(Entity.RemovalReason.KILLED);
                             Utils.LightingRecallZombie = new Zombie(EntityType.ZOMBIE, level1);
-                            Compute.SetMobCustomName(Utils.LightingRecallZombie, ModItems.ArmorLightningRecall.get(), Component.literal("模糊记忆中的唤雷守卫").withStyle(style));
+                            Compute.setMobCustomName(Utils.LightingRecallZombie, ModItems.ArmorLightningRecall.get(), Component.literal("模糊记忆中的唤雷守卫").withStyle(style));
                             Utils.LightingRecallZombie.setItemSlot(EquipmentSlot.HEAD, ModItems.ArmorLightningRecall.get().getDefaultInstance());
                             Utils.LightingRecallZombie.setItemSlot(EquipmentSlot.CHEST, ModItems.ArmorLZChest.get().getDefaultInstance());
                             Utils.LightingRecallZombie.setItemSlot(EquipmentSlot.LEGS, ModItems.ArmorLZLeggings.get().getDefaultInstance());
@@ -149,7 +150,7 @@ public class LightningRecallEvent {
                                                 append(Component.literal("的记忆。").withStyle(ChatFormatting.WHITE)));
                                 ItemStack itemStack = ModItems.LightningRecallSoul.get().getDefaultInstance();
                                 itemStack.setCount(1);
-                                Compute.itemStackGive(Utils.lightningRecall.recallPlayer, itemStack);
+                                InventoryOperation.itemStackGive(Utils.lightningRecall.recallPlayer, itemStack);
                             } else {
                                 data.putInt(RecallTimes, data.getInt(RecallTimes) + 1);
                                 ToEnd.toEndSpawnPos(Utils.lightningRecall.recallPlayer);
@@ -165,7 +166,7 @@ public class LightningRecallEvent {
                                                 append(Component.literal("的记忆。").withStyle(ChatFormatting.WHITE)));
                                 ItemStack itemStack = ModItems.LightningRune.get().getDefaultInstance();
                                 itemStack.setCount(1);
-                                Compute.itemStackGive(Utils.lightningRecall.recallPlayer, itemStack);
+                                InventoryOperation.itemStackGive(Utils.lightningRecall.recallPlayer, itemStack);
                             }
                         }
                     }

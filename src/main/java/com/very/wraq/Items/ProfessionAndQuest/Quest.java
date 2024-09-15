@@ -1,8 +1,8 @@
 package com.very.wraq.Items.ProfessionAndQuest;
 
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.Utils;
+import com.very.wraq.process.func.item.InventoryOperation;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -31,10 +31,10 @@ public class Quest extends Item {
                     if (data.getInt("Quest") == 0) {
                         ItemStack itemStack0 = ModItems.PlainSoul.get().getDefaultInstance();
                         itemStack0.setCount(64);
-                        if (Compute.ItemCheck(player, itemStack0) != -1) {
-                            ItemStack playerItem = player.getInventory().getItem(Compute.ItemCheck(player, itemStack0));
+                        if (InventoryOperation.checkItem(player, itemStack0) != -1) {
+                            ItemStack playerItem = player.getInventory().getItem(InventoryOperation.checkItem(player, itemStack0));
                             if (playerItem.getCount() == 64) {
-                                player.getInventory().removeItem(Compute.ItemCheck(player, itemStack0), 64);
+                                player.getInventory().removeItem(InventoryOperation.checkItem(player, itemStack0), 64);
                                 if (!data.contains("QuestCounts")) data.putInt("QuestCounts", 1);
                                 else data.putInt("QuestCounts", data.getInt("QuestCounts") + 1);
                                 data.putInt("Quest", -1);
@@ -46,10 +46,10 @@ public class Quest extends Item {
                         if (data.getInt("Quest") == 1) {
                             ItemStack itemStack1 = ModItems.ForestSoul.get().getDefaultInstance();
                             itemStack1.setCount(64);
-                            if (Compute.ItemCheck(player, itemStack1) != -1) {
-                                ItemStack playerItem = player.getInventory().getItem(Compute.ItemCheck(player, itemStack1));
+                            if (InventoryOperation.checkItem(player, itemStack1) != -1) {
+                                ItemStack playerItem = player.getInventory().getItem(InventoryOperation.checkItem(player, itemStack1));
                                 if (playerItem.getCount() == 64) {
-                                    player.getInventory().removeItem(Compute.ItemCheck(player, itemStack1), 64);
+                                    player.getInventory().removeItem(InventoryOperation.checkItem(player, itemStack1), 64);
                                     if (!data.contains("QuestCounts")) data.putInt("QuestCounts", 1);
                                     else data.putInt("QuestCounts", data.getInt("QuestCounts") + 1);
                                     data.putInt("Quest", -1);
@@ -61,10 +61,10 @@ public class Quest extends Item {
                             if (data.getInt("Quest") == 2) {
                                 ItemStack itemStack2 = ModItems.LakeSoul.get().getDefaultInstance();
                                 itemStack2.setCount(64);
-                                if (Compute.ItemCheck(player, itemStack2) != -1) {
-                                    ItemStack playerItem = player.getInventory().getItem(Compute.ItemCheck(player, itemStack2));
+                                if (InventoryOperation.checkItem(player, itemStack2) != -1) {
+                                    ItemStack playerItem = player.getInventory().getItem(InventoryOperation.checkItem(player, itemStack2));
                                     if (playerItem.getCount() == 64) {
-                                        player.getInventory().removeItem(Compute.ItemCheck(player, itemStack2), 64);
+                                        player.getInventory().removeItem(InventoryOperation.checkItem(player, itemStack2), 64);
                                         if (!data.contains("QuestCounts")) data.putInt("QuestCounts", 1);
                                         else data.putInt("QuestCounts", data.getInt("QuestCounts") + 1);
                                         data.putInt("Quest", -1);
@@ -76,10 +76,10 @@ public class Quest extends Item {
                             } else {
                                 ItemStack itemStack3 = ModItems.VolcanoSoul.get().getDefaultInstance();
                                 itemStack3.setCount(64);
-                                if (Compute.ItemCheck(player, itemStack3) != -1) {
-                                    ItemStack playerItem = player.getInventory().getItem(Compute.ItemCheck(player, itemStack3));
+                                if (InventoryOperation.checkItem(player, itemStack3) != -1) {
+                                    ItemStack playerItem = player.getInventory().getItem(InventoryOperation.checkItem(player, itemStack3));
                                     if (playerItem.getCount() == 64) {
-                                        player.getInventory().removeItem(Compute.ItemCheck(player, itemStack3), 64);
+                                        player.getInventory().removeItem(InventoryOperation.checkItem(player, itemStack3), 64);
                                         if (!data.contains("QuestCounts")) data.putInt("QuestCounts", 1);
                                         else data.putInt("QuestCounts", data.getInt("QuestCounts") + 1);
                                         data.putInt("Quest", -1);

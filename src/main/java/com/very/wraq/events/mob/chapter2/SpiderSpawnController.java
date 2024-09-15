@@ -68,7 +68,7 @@ public class SpiderSpawnController extends MobSpawnController {
 
         // 设置颜色与名称
         Style style = CustomStyle.styleOfSpider;
-        Compute.SetMobCustomName(spider, Component.literal(mobName).withStyle(style), xpLevel);
+        Compute.setMobCustomName(spider, Component.literal(mobName).withStyle(style), xpLevel);
 
         // 需要验证
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(spider), xpLevel);

@@ -1,6 +1,7 @@
 package com.very.wraq.series.overworld.chapter2.evoker.Runes;
 
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.util.ComponentUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -24,7 +25,7 @@ public class ManaRune0 extends Item {
         Compute.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.LIGHT_PURPLE, ChatFormatting.WHITE);
         components.add(Component.literal("符石属性:"));
         components.add(Component.literal("基于已损失法力值提供").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.movementSpeedWithoutBattle("")));
+                append(ComponentUtils.AttributeDescription.movementSpeedWithoutBattle("")));
         Compute.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.LIGHT_PURPLE, ChatFormatting.WHITE);
         components.add(Component.literal("Runes-Mana").withStyle(ChatFormatting.LIGHT_PURPLE).withStyle(ChatFormatting.ITALIC));
         super.appendHoverText(stack, p_41422_, components, p_41424_);

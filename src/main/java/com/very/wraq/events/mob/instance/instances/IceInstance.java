@@ -1,18 +1,19 @@
 package com.very.wraq.events.mob.instance.instances;
 
+import com.very.wraq.common.Compute;
 import com.very.wraq.common.attribute.PlayerAttributes;
+import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.ItemAndRate;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.events.mob.instance.NoTeamInstance;
 import com.very.wraq.events.mob.instance.NoTeamInstanceModule;
+import com.very.wraq.process.func.damage.Damage;
+import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.process.system.missions.series.dailyMission.DailyMission;
-import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.render.particles.ModParticles;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.ItemAndRate;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -82,7 +83,7 @@ public class IceInstance extends NoTeamInstance {
 
 
             if (NearestPlayer.get() != null) {
-                Compute.Damage.AttackDamageToPlayer(mob, NearestPlayer.get(), 200);
+                Damage.AttackDamageToPlayer(mob, NearestPlayer.get(), 200);
                 NearestPlayer.get().addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 3, false, false, false));
 
                 BlockPos blockPos = new BlockPos((int) NearestPlayer.get().getX(), (int) (NearestPlayer.get().getY() + 0.9), (int) NearestPlayer.get().getZ());
@@ -94,7 +95,7 @@ public class IceInstance extends NoTeamInstance {
 
             players.forEach(player -> {
                 if (player != null && player.distanceTo(mob) < 50) {
-                    Compute.Damage.manaDamageToPlayer(mob, player, 40);
+                    Damage.manaDamageToPlayer(mob, player, 40);
                     player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 1, false, false, false));
                     BlockPos blockPos = new BlockPos((int) player.getX(), (int) (player.getY() + 0.9), (int) player.getZ());
                     if (player.level().getBlockState(blockPos).getBlock() == Blocks.AIR) {
@@ -116,7 +117,7 @@ public class IceInstance extends NoTeamInstance {
     public void summonModule(Level level) {
         Stray stray = new Stray(EntityType.STRAY, level);
 
-        Compute.SetMobCustomName(stray, Component.literal(mobName).withStyle(CustomStyle.styleOfIce), 135);
+        Compute.setMobCustomName(stray, Component.literal(mobName).withStyle(CustomStyle.styleOfIce), 135);
 
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(stray), 100);
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(stray, 1250, 1600, 1600, 0.35, 3, 0.2, 600, 20, 2000000, 0.35);
@@ -228,7 +229,7 @@ public class IceInstance extends NoTeamInstance {
                     playerList.forEach(player -> {
                         if (player.distanceTo(mob) < 50) {
                             if (Compute.PlayerCurrentColdNum(player) >= 50) {
-                                Compute.Damage.AttackDamageToPlayer(mob, player, player.getMaxHealth() * 1.5);
+                                Damage.AttackDamageToPlayer(mob, player, player.getMaxHealth() * 1.5);
                             }
                             ClientboundSetTitleTextPacket clientboundSetTitleTextPacket =
                                     new ClientboundSetTitleTextPacket(Component.literal("迸晶裂玉").withStyle(style));
@@ -267,7 +268,7 @@ public class IceInstance extends NoTeamInstance {
                             if (Utils.IceHunterForIceKnight[i] != null)
                                 Utils.IceHunterForIceKnight[i].remove(Entity.RemovalReason.KILLED);
                             Utils.IceHunterForIceKnight[i] = new Stray(EntityType.STRAY, mob.level());
-                            Compute.SetMobCustomName(Utils.IceHunterForIceKnight[i], ModItems.MobArmorIceHunterHelmet.get(),
+                            Compute.setMobCustomName(Utils.IceHunterForIceKnight[i], ModItems.MobArmorIceHunterHelmet.get(),
                                     Component.literal("冰原猎手").withStyle(CustomStyle.styleOfIce));
                             Utils.IceHunterForIceKnight[i].setItemSlot(EquipmentSlot.HEAD, ModItems.MobArmorIceHunterHelmet.get().getDefaultInstance());
                             Utils.IceHunterForIceKnight[i].setItemSlot(EquipmentSlot.CHEST, ModItems.MobArmorIceHunterChest.get().getDefaultInstance());

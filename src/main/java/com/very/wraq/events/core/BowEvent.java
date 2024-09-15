@@ -1,13 +1,17 @@
 package com.very.wraq.events.core;
 
+import com.very.wraq.common.Compute;
 import com.very.wraq.core.ManaAttackModule;
 import com.very.wraq.core.MyArrow;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.misc.ParticlePackets.ManaAttackParticleS2CPacket;
-import com.very.wraq.projectiles.mana.*;
+import com.very.wraq.process.func.damage.Damage;
+import com.very.wraq.projectiles.mana.BlazeSword;
+import com.very.wraq.projectiles.mana.ManaArrow;
+import com.very.wraq.projectiles.mana.NewArrow;
+import com.very.wraq.projectiles.mana.SwordAir;
 import com.very.wraq.series.end.curios.EndCurios;
 import com.very.wraq.series.end.curios.EndCurios1;
-import com.very.wraq.common.Compute;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Mob;
@@ -21,7 +25,9 @@ import net.minecraftforge.event.entity.player.ArrowLooseEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.WeakHashMap;
 
 @Mod.EventBusSubscriber
 public class BowEvent {
@@ -51,7 +57,7 @@ public class BowEvent {
                     }
                 }
                 if (nearestMob != null) {
-                    Compute.Damage.causeManaDamageToMonster_ApDamage(blazeSword.player, nearestMob, Compute.XpStrengthAPDamage(blazeSword.player, 0.5));
+                    Damage.causeManaDamageToMonster_ApDamage(blazeSword.player, nearestMob, Compute.XpStrengthAPDamage(blazeSword.player, 0.5));
                     blazeSword.remove(Entity.RemovalReason.KILLED);
                 } else {
                     event.setImpactResult(ProjectileImpactEvent.ImpactResult.SKIP_ENTITY);

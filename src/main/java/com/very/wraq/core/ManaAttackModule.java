@@ -20,11 +20,14 @@ import com.very.wraq.networking.misc.ParticlePackets.EffectParticle.ManaDefenceP
 import com.very.wraq.networking.misc.SkillPackets.Charging.ChargedClearS2CPacket;
 import com.very.wraq.networking.misc.SkillPackets.SkillImageS2CPacket;
 import com.very.wraq.process.func.EnhanceNormalAttackModifier;
+import com.very.wraq.process.func.damage.Damage;
 import com.very.wraq.process.func.particle.ParticleProvider;
+import com.very.wraq.process.func.suit.SuitCount;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.projectiles.OnHitEffectCurios;
 import com.very.wraq.projectiles.OnHitEffectMainHandWeapon;
 import com.very.wraq.projectiles.mana.NewArrowMagma;
+import com.very.wraq.render.hud.Mana;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.instance.series.castle.CastleManaArmor;
 import com.very.wraq.series.instance.series.ice.IceBook;
@@ -72,13 +75,13 @@ public class ManaAttackModule {
             double healthSteal = PlayerAttributes.manaHealthSteal(player);
 
             Item mainhand = player.getItemInHand(InteractionHand.MAIN_HAND).getItem();
-            if (Compute.ManaSkillLevelGet(data, 11) > 0 && Utils.sceptreTag.containsKey(mainhand)) damage = 0; //术法全析
+            if (Compute.getManaSkillLevel(data, 11) > 0 && Utils.sceptreTag.containsKey(mainhand)) damage = 0; //术法全析
 
             exDamage += ManaSkill12(data, player, baseDamage); // 盈能攻击（移动、攻击以及受到攻击将会获得充能，当充能满时，下一次攻击将造成额外200%伤害，并在以目标为中心的范围内造成100%伤害）
             exDamage += BlackForestCore(player, monster); // 收割魔核
             exDamage += EarthManaArmor(player, monster); // 地蕴魔法被动
 
-            damageIgnoreDefence += Compute.ManaSkillLevelGet(data, 0) * baseDamage * 0.01; // 法术热诚（你的法术攻击额外造成法术攻击1%的真实伤害）
+            damageIgnoreDefence += Compute.getManaSkillLevel(data, 0) * baseDamage * 0.01; // 法术热诚（你的法术攻击额外造成法术攻击1%的真实伤害）
             damageIgnoreDefence += ManaSKill6(data, player, baseDamage); // 完美（持续命中目标，将至多造成50%额外真实伤害）
             damageIgnoreDefence += SeaCore(player, monster); // 救赎魔核
             damageIgnoreDefence += SakuraCoreExIgnoreDefenceDamage(player); // 樱妖魔核
@@ -86,8 +89,8 @@ public class ManaAttackModule {
             damageIgnoreDefence += MoonBook.MoonBook(player, monster); // 尘月副手
             damageIgnoreDefence += CastleManaArmor.ExIgnoreDefenceDamage(player);
 
-            if (Compute.ManaSkillLevelGet(data, 5) > 0 && player.getHealth() / player.getMaxHealth() < 0.8) {
-                damageIgnoreDefence += baseDamage * 0.02 * Compute.ManaSkillLevelGet(data, 5);
+            if (Compute.getManaSkillLevel(data, 5) > 0 && player.getHealth() / player.getMaxHealth() < 0.8) {
+                damageIgnoreDefence += baseDamage * 0.02 * Compute.getManaSkillLevel(data, 5);
             } // 危机意识（当生命值低于50%时，造成额外20%真实伤害）
 
             double DamageEnhance = 0; // 乘区0
@@ -142,7 +145,7 @@ public class ManaAttackModule {
             damage *= (1 + ElementDamageEnhance) * ElementDamageEffect;
             damageIgnoreDefence *= (1 + ElementDamageEnhance) * ElementDamageEffect;
             // final damage
-            Compute.Damage.DirectDamageToMob(player, monster, damage + damageIgnoreDefence);
+            Damage.DirectDamageToMob(player, monster, damage + damageIgnoreDefence);
             // health steal
             Compute.healByHealthSteal(player, damage * healthSteal);
 
@@ -170,7 +173,7 @@ public class ManaAttackModule {
                 for (Mob mob : mobList) {
                     if (mob != monster) {
                         if (mob.getPosition(1).add(0, 1, 0).distanceTo(monster.getPosition(1).add(0, 1, 0)) <= 2) {
-                            Compute.Damage.causeManaDamageToMonster_RateApDamage(player, mob, 0.5f, true);
+                            Damage.causeManaDamageToMonster_RateApDamage(player, mob, 0.5f, true);
                         }
                     }
                 }
@@ -215,13 +218,13 @@ public class ManaAttackModule {
 
             ExDamage += ManaSkill12(data, player, baseDamage); // 盈能攻击（移动、攻击以及受到攻击将会获得充能，当充能满时，下一次攻击将造成额外200%伤害，并在以目标为中心的范围内造成100%伤害）
 
-            DamageIgnoreDefence += Compute.ManaSkillLevelGet(data, 0) * baseDamage * 0.01; // 法术热诚（你的法术攻击额外造成法术攻击1%的真实伤害）
-            if (Compute.ManaSkillLevelGet(data, 5) > 0 && player.getHealth() / player.getMaxHealth() < 0.5) {
-                DamageIgnoreDefence += baseDamage * 0.02 * Compute.ManaSkillLevelGet(data, 5);
+            DamageIgnoreDefence += Compute.getManaSkillLevel(data, 0) * baseDamage * 0.01; // 法术热诚（你的法术攻击额外造成法术攻击1%的真实伤害）
+            if (Compute.getManaSkillLevel(data, 5) > 0 && player.getHealth() / player.getMaxHealth() < 0.5) {
+                DamageIgnoreDefence += baseDamage * 0.02 * Compute.getManaSkillLevel(data, 5);
             } // 危机意识（当生命值低于50%时，造成额外20%真实伤害）
             DamageIgnoreDefence += ManaSKill6(data, player, baseDamage); // 完美（持续命中目标，将至多造成50%额外真实伤害）
 
-            DamageEnhance += Compute.ManaSkillLevelGet(data, 4) * 0.03; // 法术专注（额外造成3%的伤害，额外受到1.5%的伤害）
+            DamageEnhance += Compute.getManaSkillLevel(data, 4) * 0.03; // 法术专注（额外造成3%的伤害，额外受到1.5%的伤害）
 
             if (Defence < DefencePenetration0) Defence = 0;
             else Defence -= DefencePenetration0;
@@ -234,7 +237,7 @@ public class ManaAttackModule {
             damage *= (1 + DamageEnhance);
             DamageIgnoreDefence *= (1 + DamageEnhance);
 
-            Compute.Damage.DirectDamageToPlayer(player, hurter, (damage + DamageIgnoreDefence) * 0.1f);
+            Damage.DirectDamageToPlayer(player, hurter, (damage + DamageIgnoreDefence) * 0.1f);
 
             Compute.playerHeal(player, (damage + DamageIgnoreDefence) * HealSteal);
 
@@ -249,7 +252,7 @@ public class ManaAttackModule {
             for (Player player1 : playerList) {
                 if (player1 != player && player1 != hurter) {
                     if (player1.getPosition(1).add(0, 1, 0).distanceTo(hurter.getPosition(1).add(0, 1, 0)) <= 2) {
-                        Compute.Damage.manaDamageToPlayer(hurter, player1, 0.5f);
+                        Damage.manaDamageToPlayer(hurter, player1, 0.5f);
                     }
                 }
             }
@@ -295,7 +298,7 @@ public class ManaAttackModule {
     public static void ManaSkill3Attack(CompoundTag data, Player player, Entity entity) {
         int TickCount = Objects.requireNonNull(player.getServer()).getTickCount();
         String name = player.getName().getString();
-        if (Compute.ManaSkillLevelGet(data, 3) > 0) {
+        if (Compute.getManaSkillLevel(data, 3) > 0) {
             if (Utils.ManaSkill3Map.containsKey(name)) {
                 ManaSkill3 manaSkill3 = Utils.ManaSkill3Map.get(name);
                 if (manaSkill3.getTime() > TickCount && manaSkill3.getEntity().equals(entity)) {
@@ -320,10 +323,10 @@ public class ManaAttackModule {
         CompoundTag data = player.getPersistentData();
         int TickCount = Objects.requireNonNull(player.getServer()).getTickCount();
         String name = player.getName().getString();
-        if (Compute.ManaSkillLevelGet(data, 3) > 0 && Utils.ManaSkill3Map.containsKey(name)) {
+        if (Compute.getManaSkillLevel(data, 3) > 0 && Utils.ManaSkill3Map.containsKey(name)) {
             ManaSkill3 manaSkill3 = Utils.ManaSkill3Map.get(name);
             if (manaSkill3.getEntity().equals(monster) && manaSkill3.getTime() > TickCount) {
-                DamageEnhance += Compute.ManaSkillLevelGet(data, 3) * 0.04 * manaSkill3.getCount();
+                DamageEnhance += Compute.getManaSkillLevel(data, 3) * 0.04 * manaSkill3.getCount();
             }
         }
         return DamageEnhance;
@@ -332,7 +335,7 @@ public class ManaAttackModule {
     public static void ManaSkill6Attack(CompoundTag data, Player player, boolean flag) {
         int TickCount = Objects.requireNonNull(player.getServer()).getTickCount();
         String name = player.getName().getString();
-        if (Compute.ManaSkillLevelGet(data, 6) > 0) {
+        if (Compute.getManaSkillLevel(data, 6) > 0) {
             if (flag) {
                 if (Utils.ManaSkill6Map.containsKey(name)) {
                     ManaSkill6 manaSkill6 = Utils.ManaSkill6Map.get(name);
@@ -366,16 +369,16 @@ public class ManaAttackModule {
 
     public static double ManaSkill12(CompoundTag data, Player player, double BaseDamage) {
         String name = player.getName().getString();
-        if (Compute.ManaSkillLevelGet(data, 12) > 0 && Utils.ManaSkill12.containsKey(name)
+        if (Compute.getManaSkillLevel(data, 12) > 0 && Utils.ManaSkill12.containsKey(name)
                 && Utils.ManaSkill12.get(name)) {
-            return BaseDamage * Compute.ManaSkillLevelGet(data, 12) * 0.4;
+            return BaseDamage * Compute.getManaSkillLevel(data, 12) * 0.4;
         }
         return 0;
     }
 
     public static void ManaSkill12Attack(CompoundTag data, Player player) {
         String name = player.getName().getString();
-        if (Compute.ManaSkillLevelGet(data, 12) > 0 && Utils.ManaSkill12.containsKey(name)
+        if (Compute.getManaSkillLevel(data, 12) > 0 && Utils.ManaSkill12.containsKey(name)
                 && Utils.ManaSkill12.get(name)) {
             Level level = player.level();
             Random random = new Random();
@@ -383,8 +386,8 @@ public class ManaAttackModule {
             for (Mob mob : mobList) {
                 if (mob.position().distanceTo(player.position()) < 6) {
                     if (random.nextDouble() < PlayerAttributes.critRate(player)) {
-                        Compute.Damage.causeManaDamageToMonster_RateApDamage(player, mob, Compute.ManaSkillLevelGet(data, 12) * PlayerAttributes.critDamage(player), false);
-                    } else Compute.Damage.causeManaDamageToMonster_RateApDamage(player, mob, Compute.ManaSkillLevelGet(data, 12), false);
+                        Damage.causeManaDamageToMonster_RateApDamage(player, mob, Compute.getManaSkillLevel(data, 12) * PlayerAttributes.critDamage(player), false);
+                    } else Damage.causeManaDamageToMonster_RateApDamage(player, mob, Compute.getManaSkillLevel(data, 12), false);
                 }
             }
             Utils.ManaSkill12.put(name, false);
@@ -401,7 +404,7 @@ public class ManaAttackModule {
 
     public static void ManaSkill13Attack(CompoundTag data, Player player) {
         String name = player.getName().getString();
-        if (Compute.ManaSkillLevelGet(data, 13) > 0 && Utils.ManaSkill13.containsKey(name)
+        if (Compute.getManaSkillLevel(data, 13) > 0 && Utils.ManaSkill13.containsKey(name)
                 && Utils.ManaSkill13.get(name)) {
             Level level = player.level();
             List<Mob> mobList = level.getEntitiesOfClass(Mob.class, AABB.ofSize(player.position(), 20, 20, 20));
@@ -414,11 +417,11 @@ public class ManaAttackModule {
 
             if (Count.get() > 10) Count.set(10);
             for (Mob mob : mobList) {
-                Compute.Damage.causeManaDamageToMonster_RateApDamage(player, mob, 0.2 * Compute.ManaSkillLevelGet(data, 13) * Count.get(), false);
+                Damage.causeManaDamageToMonster_RateApDamage(player, mob, 0.2 * Compute.getManaSkillLevel(data, 13) * Count.get(), false);
             }
 
-            double recoverManaValue = (Compute.PlayerMaxManaNum(player) - Compute.PlayerCurrentManaNum(player)) * 0.05 * Compute.ManaSkillLevelGet(data, 13);
-            Compute.playerManaAddOrCost(player, recoverManaValue);
+            double recoverManaValue = (Mana.getPlayerMaxManaNum(player) - Mana.getPlayerCurrentManaNum(player)) * 0.05 * Compute.getManaSkillLevel(data, 13);
+            Mana.addOrCostPlayerMana(player, recoverManaValue);
             Utils.ManaSkill13.put(name, false);
             ModNetworking.sendToClient(new ChargedClearS2CPacket(3), (ServerPlayer) player);
 
@@ -433,8 +436,8 @@ public class ManaAttackModule {
     public static double ManaSKill6(CompoundTag data, Player player, double BaseDamage) {
         int TickCount = Objects.requireNonNull(player.getServer()).getTickCount();
         String name = player.getName().getString();
-        if (Compute.ManaSkillLevelGet(data, 6) > 0 && Utils.ManaSkill6Map.containsKey(name) && Utils.ManaSkill6Map.get(name).getTime() > TickCount) {
-            return Compute.ManaSkillLevelGet(data, 6) * 0.0066f * BaseDamage * Utils.ManaSkill6Map.get(name).getCount();
+        if (Compute.getManaSkillLevel(data, 6) > 0 && Utils.ManaSkill6Map.containsKey(name) && Utils.ManaSkill6Map.get(name).getTime() > TickCount) {
+            return Compute.getManaSkillLevel(data, 6) * 0.0066f * BaseDamage * Utils.ManaSkill6Map.get(name).getCount();
         }
         return 0;
     }
@@ -453,7 +456,7 @@ public class ManaAttackModule {
     public static double ManaSkill4(Player player) {
         CompoundTag data = player.getPersistentData();
         if (Utils.sceptreTag.containsKey(player.getItemInHand(InteractionHand.MAIN_HAND).getItem()))
-            return Compute.ManaSkillLevelGet(data, 4) * 0.03;
+            return Compute.getManaSkillLevel(data, 4) * 0.03;
         return 0;
     }
 
@@ -512,15 +515,15 @@ public class ManaAttackModule {
     public static double ManaSkill10(Player player) {
         CompoundTag data = player.getPersistentData();
         Item mainhand = player.getItemInHand(InteractionHand.MAIN_HAND).getItem();
-        if (Compute.ManaSkillLevelGet(data, 10) > 0 && Utils.sceptreTag.containsKey(mainhand)) {
-            return PlayerAttributes.critDamage(player) * Compute.ManaSkillLevelGet(data, 10) * 0.125;
+        if (Compute.getManaSkillLevel(data, 10) > 0 && Utils.sceptreTag.containsKey(mainhand)) {
+            return PlayerAttributes.critDamage(player) * Compute.getManaSkillLevel(data, 10) * 0.125;
         } // 法术专精-力凝魔核
         return 0;
     }
 
     public static double ManaSkill10DamageEnhance(Player player) {
         CompoundTag data = player.getPersistentData();
-        if (Compute.ManaSkillLevelGet(data, 10) > 10 && Utils.sceptreTag.containsKey(player.getMainHandItem().getItem())) {
+        if (Compute.getManaSkillLevel(data, 10) > 10 && Utils.sceptreTag.containsKey(player.getMainHandItem().getItem())) {
             return PlayerAttributes.coolDownDecrease(player) * 0.15;
         }
         return 0;
@@ -529,14 +532,14 @@ public class ManaAttackModule {
     public static double ManaSkill11(Player player) {
         CompoundTag data = player.getPersistentData();
         Item mainhand = player.getItemInHand(InteractionHand.MAIN_HAND).getItem();
-        if (Compute.ManaSkillLevelGet(data, 11) > 0 && Utils.sceptreTag.containsKey(mainhand)) {
-            return Compute.ManaSkillLevelGet(data, 11) * 0.1;
+        if (Compute.getManaSkillLevel(data, 11) > 0 && Utils.sceptreTag.containsKey(mainhand)) {
+            return Compute.getManaSkillLevel(data, 11) * 0.1;
         } // 法术专精-术法全析
         return 0;
     }
 
     public static double NetherManaArmor(Player player, Mob mob) {
-        return Compute.SuitCount.getNetherManaSuitCount(player) * 0.12 * Math.min(1, MobAttributes.manaDefence(mob) / 500.0);
+        return SuitCount.getNetherManaSuitCount(player) * 0.12 * Math.min(1, MobAttributes.manaDefence(mob) / 500.0);
     }
 
     public static void IceSceptre(Player player, Mob mob) {
@@ -554,8 +557,8 @@ public class ManaAttackModule {
     }
 
     public static double EarthManaArmor(Player player, Mob mob) {
-        if (Compute.SuitCount.getEarthManaSuitCount(player) > 0) {
-            return Compute.XpStrengthAPDamage(player, mob.getHealth() * 0.25 * Compute.SuitCount.getEarthManaSuitCount(player) / mob.getMaxHealth());
+        if (SuitCount.getEarthManaSuitCount(player) > 0) {
+            return Compute.XpStrengthAPDamage(player, mob.getHealth() * 0.25 * SuitCount.getEarthManaSuitCount(player) / mob.getMaxHealth());
         }
         return 0;
     }

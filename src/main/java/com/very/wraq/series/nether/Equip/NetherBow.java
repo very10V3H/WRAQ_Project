@@ -1,14 +1,15 @@
 package com.very.wraq.series.nether.Equip;
 
-import com.very.wraq.common.registry.MySound;
-import com.very.wraq.core.MyArrow;
-import com.very.wraq.process.system.element.Element;
-import com.very.wraq.process.func.particle.ParticleProvider;
-import com.very.wraq.projectiles.WraqBow;
-import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.MySound;
 import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.Utils;
+import com.very.wraq.core.MyArrow;
+import com.very.wraq.process.func.particle.ParticleProvider;
+import com.very.wraq.process.system.element.Element;
+import com.very.wraq.projectiles.WraqBow;
+import com.very.wraq.render.hud.Mana;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
@@ -62,8 +63,8 @@ public class NetherBow extends WraqBow {
 
     @Override
     protected MyArrow summonArrow(ServerPlayer serverPlayer, double rate) {
-        if (Compute.PlayerCurrentManaNum(serverPlayer) > 40) {
-            Compute.playerManaAddOrCost(serverPlayer, -40);
+        if (Mana.getPlayerCurrentManaNum(serverPlayer) > 40) {
+            Mana.addOrCostPlayerMana(serverPlayer, -40);
             MyArrow arrow = new MyArrow(EntityType.ARROW, serverPlayer.level(), serverPlayer, true, rate);
             arrow.shootFromRotation(serverPlayer, serverPlayer.getXRot(), serverPlayer.getYRot(), 0.0f, 4.5F, 1.0f);
             arrow.setCritArrow(true);

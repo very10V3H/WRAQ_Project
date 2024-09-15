@@ -1,11 +1,12 @@
 package com.very.wraq.process.system.parkour;
 
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.misc.SoundsPackets.SoundsS2CPacket;
+import com.very.wraq.process.func.item.InventoryOperation;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.StringUtils;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -139,7 +140,7 @@ public class Parkour {
 
                 if (point % 5 == 0 && lastRewardPoint != point) {
                     SetParkourLastRewardNum(player, GetPlayerCurrentParkourPoint(player));
-                    Compute.itemStackGive(player, rewardItems[GetPlayerCurrentParkourPoint(player) / 5 - 1].getDefaultInstance());
+                    InventoryOperation.itemStackGive(player, rewardItems[GetPlayerCurrentParkourPoint(player) / 5 - 1].getDefaultInstance());
                     Compute.formatBroad(player.level(), Component.literal("跑酷").withStyle(CustomStyle.styleOfFlexible),
                             Component.literal("").withStyle(ChatFormatting.WHITE).
                                     append(player.getDisplayName()).

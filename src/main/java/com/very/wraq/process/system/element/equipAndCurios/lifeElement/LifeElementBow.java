@@ -63,7 +63,7 @@ public class LifeElementBow extends WraqBow implements ActiveItem {
                 append(Compute.AttributeDescription.Health("80%当前")).
                 append(Component.literal("，并在10s内为你回复").withStyle(ChatFormatting.WHITE)).
                 append(Compute.AttributeDescription.Health("200%消耗的等额")));
-        Compute.CoolDownTimeDescription(components, 25);
+        ComponentUtils.coolDownTimeDescription(components, 25);
 
         Compute.DescriptionPassive(components, Component.literal("护花").withStyle(style));
         components.add(Component.literal(" 根据5s内回复的").withStyle(ChatFormatting.WHITE).

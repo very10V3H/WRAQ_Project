@@ -1,6 +1,6 @@
 package com.very.wraq.networking.unSorted;
 
-import com.very.wraq.render.hud.ClientSwiftData;
+import com.very.wraq.render.hud.SwiftData;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent;
 
@@ -28,8 +28,8 @@ public class SwiftSyncS2CPacket {
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
-            ClientSwiftData.setMaxSwift(MaxSwift);
-            ClientSwiftData.setCurrentSwift(CurrentSwift);
+            SwiftData.setMaxSwift(MaxSwift);
+            SwiftData.setCurrentSwift(CurrentSwift);
         });
         return true;
     }

@@ -63,8 +63,8 @@ public class LakeSword3 extends SwordItem implements ActiveItem, OnHitEffectMain
         Compute.DescriptionNum(components, "攻击后获得持续3秒的", ComponentUtils.AttributeDescription.movementSpeed("50%"), "");
         Compute.DescriptionActive(components, Component.literal("出水").withStyle(ChatFormatting.BLUE));
         components.add(Component.literal("右键向前冲刺"));
-        Compute.CoolDownTimeDescription(components, 8);
-        Compute.ManaCostDescription(components, 60);
+        ComponentUtils.coolDownTimeDescription(components, 8);
+        ComponentUtils.manaCostDescription(components, 60);
         Compute.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.BLUE, ChatFormatting.WHITE);
         components.add(Component.literal("Lake-Spear-III").withStyle(ChatFormatting.BLUE).withStyle(ChatFormatting.ITALIC));
         Compute.SuffixOfMainStoryI(components);

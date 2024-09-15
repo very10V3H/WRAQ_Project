@@ -2,6 +2,7 @@ package com.very.wraq.series.instance.series.moon.Equip;
 
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.Utils;
 import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -64,7 +65,7 @@ public class MoonBook extends Item {
                 append(Component.literal("14倍等级强度").withStyle(ChatFormatting.LIGHT_PURPLE)).
                 append(Component.literal("真实伤害").withStyle(CustomStyle.styleOfSea)));
         components.add(Component.literal(" - 引爆标记后，你将获得持续3s的").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.ManaDamage("12%总")));
+                append(ComponentUtils.AttributeDescription.ManaDamage("12%总")));
         Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         Compute.SuffixOfMoon(components);
         super.appendHoverText(stack, level, components, flag);

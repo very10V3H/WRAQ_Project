@@ -21,6 +21,8 @@ import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.misc.ParticlePackets.EffectParticle.CritHitParticleS2CPacket;
 import com.very.wraq.networking.misc.SoundsPackets.SoundsS2CPacket;
 import com.very.wraq.process.func.EnhanceNormalAttackModifier;
+import com.very.wraq.process.func.damage.Damage;
+import com.very.wraq.process.func.suit.SuitCount;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.projectiles.OnHitEffectCurios;
 import com.very.wraq.projectiles.OnHitEffectMainHandWeapon;
@@ -32,6 +34,7 @@ import com.very.wraq.series.instance.series.moon.MoonCurios;
 import com.very.wraq.series.nether.Equip.ManaSword;
 import com.very.wraq.series.overworld.castle.BlazeBracelet;
 import com.very.wraq.series.overworld.chapter7.BoneImpKnife;
+import com.very.wraq.series.overworld.sakuraSeries.SakuraMob.SakuraSword;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -129,7 +132,7 @@ public class AttackEvent {
         double critDamage = PlayerAttributes.critDamage(player);
 
         if (Utils.SnowRune2MobController.contains(monster)) defence *= 0.5f;
-        int LightningArmorCount = Compute.LightningArmorCount(player);
+        int LightningArmorCount = SuitCount.getLightningArmorCount(player);
         if (monster instanceof Evoker && player.getItemInHand(InteractionHand.MAIN_HAND).getItem() instanceof ManaSword)
             defencePenetration = 1.0d;
 
@@ -207,7 +210,7 @@ public class AttackEvent {
         // ExDamage
         damageBeforeDefence += exDamage;
         // 妖刀伤害影响
-        damageIgnoreDefence += Compute.SakuraDemonSword(player, damageBeforeDefence);
+        damageIgnoreDefence += SakuraSword.SakuraDemonSword(player, damageBeforeDefence);
         // Final damage decrease
         damageBeforeDefence *= (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, monster));
         damageIgnoreDefence *= (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, monster));
@@ -240,7 +243,7 @@ public class AttackEvent {
         damage *= ((1 + ElementDamageEnhance) * ElementDamageEffect);
         damageIgnoreDefence *= ((1 + ElementDamageEnhance) * ElementDamageEffect);
         // Final damage cause
-        Compute.Damage.DirectDamageToMob(player, monster, damage + damageIgnoreDefence);
+        Damage.DirectDamageToMob(player, monster, damage + damageIgnoreDefence);
         // Health steal
         Compute.healByHealthSteal(player, damage * PlayerAttributes.healthSteal(player));
         // Display
@@ -288,11 +291,11 @@ public class AttackEvent {
         double CriticalHitRate = PlayerAttributes.critRate(player);
         double CHitDamage = PlayerAttributes.critDamage(player);
         double BreakDefence0 = PlayerAttributes.defencePenetration0(player);
-        int LightningArmorCount = Compute.LightningArmorCount(player);
+        int LightningArmorCount = SuitCount.getLightningArmorCount(player);
         Random r = new Random();
         double RanNum = r.nextDouble(1.00d);
         if (Defence == 0) Defence = hurter.getAttribute(Attributes.ARMOR).getValue();
-        double Damage;
+        double damage;
         double ExDamage = 0;
         double ExDamageIgnoreDefence = 0;
         double DamageEnhance = 0;
@@ -309,7 +312,7 @@ public class AttackEvent {
         ExDamageIgnoreDefence += AttackEventModule.SwordSkill14(data, player, BaseDamage, hurter); // 恃强凌弱（对生命值百分比低于你的目标造成至多20%额外真实伤害 在百分比差值达66%时达到最大值 当受到生命值百分比高于你的目标的伤害使伤害额外提升同样的数值）
 
         DamageEnhance += AttackEventModule.SwordSkill3(data, player, hurter); // 破绽观察（对一名目标的持续攻击，可以使你对该目标的伤害至多提升至2%，在10次攻击后达到最大值）
-        DamageEnhance += Compute.SwordSkillLevelGet(data, 4) * 0.03; // 双刃剑（额外造成3%的伤害，额外受到1.5%的伤害）
+        DamageEnhance += Compute.getSwordSkillLevel(data, 4) * 0.03; // 双刃剑（额外造成3%的伤害，额外受到1.5%的伤害）
         DamageEnhance += AttackEventModule.NetherArmorEffect(player, hurter); // 下界套装
 
         if (RanNum < CriticalHitRate && Rate >= 0.8) { // 暴击
@@ -330,13 +333,13 @@ public class AttackEvent {
         DamageBeforeDefence *= (1 + DamageEnhance);
         ExDamageIgnoreDefence *= (1 + DamageEnhance);
 
-        DamageBeforeDefence -= Compute.SakuraDemonSword(player, DamageBeforeDefence);
-        ExDamageIgnoreDefence += Compute.SakuraDemonSword(player, DamageBeforeDefence);
+        DamageBeforeDefence -= SakuraSword.SakuraDemonSword(player, DamageBeforeDefence);
+        ExDamageIgnoreDefence += SakuraSword.SakuraDemonSword(player, DamageBeforeDefence);
         // 妖刀伤害影响
 
-        Damage = DamageBeforeDefence * Compute.defenceDamageDecreaseRate(Defence, BreakDefence, BreakDefence0);
-        data.putDouble(StringUtils.DamageTypes.ToPlayerDamage, (Damage + ExDamageIgnoreDefence) * 0.1f);
-        Compute.Damage.DirectDamageToPlayer(player, hurter, (Damage + ExDamageIgnoreDefence) * 0.1f);
+        damage = DamageBeforeDefence * Compute.defenceDamageDecreaseRate(Defence, BreakDefence, BreakDefence0);
+        data.putDouble(StringUtils.DamageTypes.ToPlayerDamage, (damage + ExDamageIgnoreDefence) * 0.1f);
+        Damage.DirectDamageToPlayer(player, hurter, (damage + ExDamageIgnoreDefence) * 0.1f);
     }
 
     public static void Boss2DamageCount(Player player, Mob monster, double ExDamageIgnoreDefence, double Damage) {
@@ -495,12 +498,12 @@ public class AttackEvent {
     public static void SpringAttackArmor(Player player, Mob monster) {
         if (!Utils.PlayerSpringAttackCoolDown.containsKey(player)
                 || Utils.PlayerSpringAttackCoolDown.get(player) < player.getServer().getTickCount()) {
-            if (Compute.SuitCount.getSpringAttackSuitCount(player) > 0) {
+            if (SuitCount.getSpringAttackSuitCount(player) > 0) {
                 Compute.FireWorkSummon(player, monster);
                 Compute.AddDefenceDescreaseEffectParticle(monster, 60);
                 Compute.coolDownTimeSend(player, ModItems.FireCracker.get().getDefaultInstance(), 100);
                 Utils.MobSpringAttackTick.put(monster, monster.getServer().getTickCount() + 60);
-                Utils.MobSpringAttackEffect.put(monster, Compute.SuitCount.getSpringAttackSuitCount(player));
+                Utils.MobSpringAttackEffect.put(monster, SuitCount.getSpringAttackSuitCount(player));
                 Compute.addSlowDownEffect(monster, 60, 99);
                 Utils.PlayerSpringAttackCoolDown.put(player, player.getServer().getTickCount() + 60);
             }
@@ -510,12 +513,12 @@ public class AttackEvent {
     public static void SpringSwiftArmor(Player player, Mob monster) {
         if (!Utils.PlayerSpringSwiftCoolDown.containsKey(player)
                 || Utils.PlayerSpringSwiftCoolDown.get(player) < player.getServer().getTickCount()) {
-            if (Compute.SuitCount.getSpringSwiftSuitCount(player) > 0) {
+            if (SuitCount.getSpringSwiftSuitCount(player) > 0) {
                 Compute.FireWorkSummon(player, monster);
                 Compute.AddDefenceDescreaseEffectParticle(monster, 60);
                 Compute.coolDownTimeSend(player, ModItems.FireCracker.get().getDefaultInstance(), 100);
                 Utils.MobSpringSwiftTick.put(monster, monster.getServer().getTickCount() + 60);
-                Utils.MobSpringSwiftEffect.put(monster, Compute.SuitCount.getSpringSwiftSuitCount(player));
+                Utils.MobSpringSwiftEffect.put(monster, SuitCount.getSpringSwiftSuitCount(player));
                 Compute.addSlowDownEffect(monster, 60, 99);
                 Utils.PlayerSpringSwiftCoolDown.put(player, player.getServer().getTickCount() + 60);
 
@@ -526,12 +529,12 @@ public class AttackEvent {
     public static void SpringManaArmor(Player player, Mob monster) {
         if (!Utils.PlayerSpringManaCoolDown.containsKey(player)
                 || Utils.PlayerSpringManaCoolDown.get(player) < player.getServer().getTickCount()) {
-            if (Compute.SuitCount.getSpringManaSuitCount(player) > 0) {
+            if (SuitCount.getSpringManaSuitCount(player) > 0) {
                 Compute.FireWorkSummon(player, monster);
                 Compute.AddManaDefenceDescreaseEffectParticle(monster, 60);
                 Compute.coolDownTimeSend(player, ModItems.FireCracker.get().getDefaultInstance(), 100);
                 Utils.MobSpringManaTick.put(monster, monster.getServer().getTickCount() + 60);
-                Utils.MobSpringManaEffect.put(monster, Compute.SuitCount.getSpringManaSuitCount(player));
+                Utils.MobSpringManaEffect.put(monster, SuitCount.getSpringManaSuitCount(player));
                 Compute.addSlowDownEffect(monster, 60, 99);
                 Utils.PlayerSpringManaCoolDown.put(player, player.getServer().getTickCount() + 60);
             }

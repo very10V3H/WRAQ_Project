@@ -1,6 +1,7 @@
 package com.very.wraq.series.overworld.WorldBoss;
 
 import com.very.wraq.common.Compute;
+import com.very.wraq.process.func.item.InventoryOperation;
 import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -39,7 +40,7 @@ public class CropPackets extends Item {
                     new ItemStack(Items.BEETROOT, 32)
             };
             for (ItemStack itemStack : itemStacks) {
-                Compute.itemStackGive(player, itemStack);
+                InventoryOperation.itemStackGive(player, itemStack);
             }
             Compute.playerItemUseWithRecord(player);
         }

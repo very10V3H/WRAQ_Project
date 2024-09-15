@@ -1,9 +1,10 @@
 package com.very.wraq.process.system.lottery;
 
-import com.very.wraq.events.core.InventoryCheck;
-import com.very.wraq.files.dataBases.DataBase;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.events.core.InventoryCheck;
+import com.very.wraq.files.dataBases.DataBase;
+import com.very.wraq.process.func.item.InventoryOperation;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -179,7 +180,7 @@ public class NewLotteries extends Item {
             ItemStack reward = new ItemStack(itemStack.getItem(), itemStack.getCount());
             if (InventoryCheck.boundingList.contains(reward.getItem()))
                 InventoryCheck.addOwnerTagToItemStack(player, reward); // 为部分物品添加绑定tag
-            Compute.itemStackGive(player, reward);
+            InventoryOperation.itemStackGive(player, reward);
         }
         return super.use(level, player, interactionHand);
     }

@@ -1,10 +1,11 @@
 package com.very.wraq.series.end.curios;
 
-import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.common.util.struct.Drops;
-import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.process.func.item.InventoryOperation;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -77,7 +78,7 @@ public class EndCrystal extends Item {
     public static void Summon(Level level, Vec3 pos) {
         stray = new Stray(EntityType.STRAY, level);
 
-        Compute.SetMobCustomName(stray, ModItems.MobArmorEndStrayHelmet.get(),
+        Compute.setMobCustomName(stray, ModItems.MobArmorEndStrayHelmet.get(),
                 Component.literal("终界征讨者遗骸").withStyle(CustomStyle.styleOfEnd));
 
         stray.setItemInHand(InteractionHand.MAIN_HAND, ModItems.PurpleIronSceptre.get().getDefaultInstance());
@@ -130,10 +131,10 @@ public class EndCrystal extends Item {
                             append(monster.getDisplayName()).
                             append(Component.literal(" 获得了 ").withStyle(ChatFormatting.WHITE)).
                             append(itemStack.getDisplayName()));
-            Compute.itemStackGive(player, itemStack);
+            InventoryOperation.itemStackGive(player, itemStack);
         }
-        Compute.itemStackGive(player, new ItemStack(ModItems.ShulkerSoul.get(), 16));
-        Compute.itemStackGive(player, new ItemStack(ModItems.EnderMiteSoul.get(), 16));
+        InventoryOperation.itemStackGive(player, new ItemStack(ModItems.ShulkerSoul.get(), 16));
+        InventoryOperation.itemStackGive(player, new ItemStack(ModItems.EnderMiteSoul.get(), 16));
         Drops.KillCount(player.getPersistentData(), StringUtils.MobName.EndStray);
     }
 

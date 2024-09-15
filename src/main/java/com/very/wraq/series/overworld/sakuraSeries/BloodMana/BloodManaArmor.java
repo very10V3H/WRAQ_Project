@@ -1,15 +1,16 @@
 package com.very.wraq.series.overworld.sakuraSeries.BloodMana;
 
-import com.very.wraq.process.func.damage.Dot;
-import com.very.wraq.projectiles.ForgeItem;
-import com.very.wraq.projectiles.WraqArmor;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.ComponentUtils;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.attribute.PlayerAttributes;
 import com.very.wraq.common.registry.ItemMaterial;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.Utils;
+import com.very.wraq.process.func.damage.Dot;
+import com.very.wraq.process.func.suit.SuitCount;
+import com.very.wraq.projectiles.ForgeItem;
+import com.very.wraq.projectiles.WraqArmor;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -84,8 +85,8 @@ public class BloodManaArmor extends WraqArmor implements ForgeItem {
     }
 
     public static void onAttackOrArrowHit(Player player, Mob mob) {
-        if (Compute.SuitCount.getBloodManaSuitCount(player) > 0 && (player.getHealth() / player.getMaxHealth()) >= 0.7) {
-            Dot.addDotOnMob(mob, new Dot(1, PlayerAttributes.attackDamage(player) * 0.1 * Compute.SuitCount.getBloodManaSuitCount(player),
+        if (SuitCount.getBloodManaSuitCount(player) > 0 && (player.getHealth() / player.getMaxHealth()) >= 0.7) {
+            Dot.addDotOnMob(mob, new Dot(1, PlayerAttributes.attackDamage(player) * 0.1 * SuitCount.getBloodManaSuitCount(player),
                     3, player.getServer().getTickCount() + 20, player.getName().getString(), true));
         }
     }

@@ -1,8 +1,11 @@
 package com.very.wraq.process.system.missions;
 
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.events.core.InventoryCheck;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.misc.SoundsPackets.SoundsS2CPacket;
+import com.very.wraq.process.func.item.InventoryOperation;
 import com.very.wraq.process.func.plan.PlanPlayer;
 import com.very.wraq.process.system.missions.netWorking.MissionScreenOpenS2CPacket;
 import com.very.wraq.process.system.missions.netWorking.MissionStatusS2CPacket;
@@ -10,8 +13,6 @@ import com.very.wraq.process.system.missions.series.dailyMission.DailyMission;
 import com.very.wraq.process.system.missions.series.labourDay.LabourDayMission;
 import com.very.wraq.process.system.tower.Tower;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -395,7 +396,7 @@ public class Mission {
             if (needItemContent.isEmpty()) setNeedItemContent();
             if (needItemContent.containsKey(serialNum)) {
                 for (ItemStack itemStack : needItemContent.get(serialNum)) {
-                    if (!Compute.checkPlayerHasItem(player.getInventory(), itemStack.getItem(), itemStack.getCount()))
+                    if (!InventoryOperation.checkPlayerHasItem(player.getInventory(), itemStack.getItem(), itemStack.getCount()))
                         return false;
                 }
             }
@@ -585,10 +586,10 @@ public class Mission {
                 InventoryCheck.addOwnerTagToItemStack(player, rewardItem);
             } // 为奖励添加owner标签
 
-            Compute.itemStackGive(player, rewardItem);
+            InventoryOperation.itemStackGive(player, rewardItem);
         });
         if (player.experienceLevel < 160) {
-            Compute.itemStackGive(player, new ItemStack(ModItems.RevelationBook.get(), 10));
+            InventoryOperation.itemStackGive(player, new ItemStack(ModItems.RevelationBook.get(), 10));
         }
     }
 
@@ -656,7 +657,7 @@ public class Mission {
                 if (needItemContent.containsKey(serialNum)) {
                     List<ItemStack> itemStackList = needItemContent.get(serialNum);
                     for (ItemStack itemStack : itemStackList) {
-                        Compute.removeItem(player.getInventory(), itemStack.getItem(), itemStack.getCount());
+                        InventoryOperation.removeItem(player.getInventory(), itemStack.getItem(), itemStack.getCount());
                     }
                 }
                 submitModule(player, serialNum);
@@ -677,7 +678,7 @@ public class Mission {
                 if (needItemContent.containsKey(serialNum)) {
                     List<ItemStack> itemStackList = needItemContent.get(serialNum);
                     for (ItemStack itemStack : itemStackList) {
-                        Compute.removeItem(player.getInventory(), itemStack.getItem(), itemStack.getCount());
+                        InventoryOperation.removeItem(player.getInventory(), itemStack.getItem(), itemStack.getCount());
                     }
                 }
                 submitModule(player, serialNum);

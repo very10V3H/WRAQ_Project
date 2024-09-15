@@ -2,6 +2,7 @@ package com.very.wraq.networking.misc.SmartPhonePackets.Currency;
 
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.process.func.item.InventoryOperation;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -57,9 +58,9 @@ public class AllCurrencyC2SPacket {
 
     public static int collect(Player player, Item type, int rate) {
         Inventory inventory = player.getInventory();
-        int coinCount = Compute.itemStackCount(inventory, type);
+        int coinCount = InventoryOperation.itemStackCount(inventory, type);
         if (coinCount > 0) {
-            Compute.itemStackRemoveIgnoreVB(inventory, type, coinCount);
+            InventoryOperation.itemStackRemoveIgnoreVB(inventory, type, coinCount);
             Compute.VBIncomeAndMSGSend(player, coinCount * rate);
         }
         return coinCount;

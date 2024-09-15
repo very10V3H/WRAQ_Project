@@ -1,11 +1,12 @@
 package com.very.wraq.series.end;
 
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.process.func.power.PowerLogic;
 import com.very.wraq.projectiles.ActiveItem;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -49,7 +50,7 @@ public class EndPower extends Item implements ActiveItem {
                 append(Component.literal("上次").withStyle(style)).
                 append(Component.literal("释放的").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("法术").withStyle(CustomStyle.styleOfMana)));
-        Compute.CoolDownTimeDescription(components, CoolDownTime[Level]);
+        ComponentUtils.coolDownTimeDescription(components, CoolDownTime[Level]);
         components.add(Component.literal(" - IDEA FROM : AzusaLin").withStyle(ChatFormatting.LIGHT_PURPLE));
         Compute.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
         components.add(Component.literal("Powers-End").withStyle(style));

@@ -63,7 +63,7 @@ public class EarthManaSpawnController extends MobSpawnController {
 
         // 设置颜色与名称
         Style style = CustomStyle.styleOfJacaranda;
-        Compute.SetMobCustomName(zombie, Component.literal("地蕴蓝灵").withStyle(style), xpLevel);
+        Compute.setMobCustomName(zombie, Component.literal("地蕴蓝灵").withStyle(style), xpLevel);
         zombie.setBaby(true);
 
         // 需要验证

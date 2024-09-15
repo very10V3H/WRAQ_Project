@@ -1,12 +1,13 @@
 package com.very.wraq.series.instance.series.taboo;
 
-import com.very.wraq.projectiles.WraqArmor;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.ComponentUtils;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.registry.ItemMaterial;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.Utils;
+import com.very.wraq.projectiles.WraqArmor;
+import com.very.wraq.render.hud.Mana;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -61,8 +62,8 @@ public class TabooAttackArmor extends WraqArmor {
 
     public static double Passive(Player player) {
         if (!IsOn(player)) return 1;
-        if (Compute.PlayerCurrentManaNum(player) / Compute.PlayerMaxManaNum(player) > 0.1) {
-            Compute.playerManaAddOrCost(player, (-Compute.PlayerMaxManaNum(player) * 0.1));
+        if (Mana.getPlayerCurrentManaNum(player) / Mana.getPlayerMaxManaNum(player) > 0.1) {
+            Mana.addOrCostPlayerMana(player, (-Mana.getPlayerMaxManaNum(player) * 0.1));
             return 0.2;
         }
         return 1;

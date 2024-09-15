@@ -2,6 +2,7 @@ package com.very.wraq.process.system.tp;
 
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.process.func.item.InventoryOperation;
 import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -108,7 +109,7 @@ public class GateWay {
                     }
                 }
                 if (nearGateway) {
-                    if (Compute.itemStackCount(player, ModItems.WorldSoul2.get()) == 0) {
+                    if (InventoryOperation.itemStackCount(player, ModItems.WorldSoul2.get()) == 0) {
                         playerTPDelayCount.put(name, -1);
                         Compute.setPlayerTitleAndSubTitle(player, Component.literal("位移进程中断").withStyle(ChatFormatting.RED),
                                 Component.literal("背包中的所需资源不足").withStyle(ChatFormatting.AQUA), 0, 20, 10);
@@ -133,7 +134,7 @@ public class GateWay {
                             playerTPDelayCount.put(name, -1);
                             if (destination.pos.distanceTo(skyTpCenterPos) < 30) playerTPCooldownMap.put(name, tick + 2);
                             else playerTPCooldownMap.put(name, tick + 60);
-                            Compute.removeItem(player.getInventory(), ModItems.WorldSoul2.get(), 1);
+                            InventoryOperation.removeItem(player.getInventory(), ModItems.WorldSoul2.get(), 1);
                         }
                     }
                 } else {

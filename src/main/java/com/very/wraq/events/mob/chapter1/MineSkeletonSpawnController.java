@@ -63,7 +63,7 @@ public class MineSkeletonSpawnController extends MobSpawnController {
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
         Style style = CustomStyle.styleOfMine;
 
-        Compute.SetMobCustomName(skeleton, Component.literal(mobName).withStyle(style), xpLevel);
+        Compute.setMobCustomName(skeleton, Component.literal(mobName).withStyle(style), xpLevel);
 
         // 需要验证
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(skeleton), xpLevel);

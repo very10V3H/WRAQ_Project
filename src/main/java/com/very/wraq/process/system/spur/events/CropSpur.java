@@ -1,10 +1,11 @@
 package com.very.wraq.process.system.spur.events;
 
-import com.very.wraq.process.system.missions.series.labourDay.LabourDayMission;
-import com.very.wraq.process.system.spur.Items.SpurItems;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.common.util.Utils;
+import com.very.wraq.process.func.item.InventoryOperation;
+import com.very.wraq.process.system.missions.series.labourDay.LabourDayMission;
+import com.very.wraq.process.system.spur.Items.SpurItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Player;
@@ -44,7 +45,7 @@ public class CropSpur {
             if (blockState.getBlock() instanceof CropBlock cropBlock) {
                 if (cropBlock.getAge(blockState) == cropBlock.getMaxAge()) {
                     if (cropsPickDrop.containsKey(blockState.getBlock())) {
-                        Compute.itemStackGive(player, cropsPickDrop.get(blockState.getBlock()).getDefaultInstance());
+                        InventoryOperation.itemStackGive(player, cropsPickDrop.get(blockState.getBlock()).getDefaultInstance());
                         cropsReward(player, blockState);
 
                         if (Compute.exHarvestItemGive(player, new ItemStack(cropsPickDrop.get(blockState.getBlock())), 1)) {
@@ -61,7 +62,7 @@ public class CropSpur {
                 BlockState blockState1 = Blocks.TORCHFLOWER_CROP.defaultBlockState();
                 overWorld.destroyBlock(blockPos, false);
                 overWorld.setBlockAndUpdate(blockPos, blockState1);
-                Compute.itemStackGive(player, Items.TORCHFLOWER.getDefaultInstance());
+                InventoryOperation.itemStackGive(player, Items.TORCHFLOWER.getDefaultInstance());
 
                 if (Compute.exHarvestItemGive(player, new ItemStack(Items.TORCHFLOWER), 1)) {
                     cropsReward(player, blockState);
@@ -107,7 +108,7 @@ public class CropSpur {
         Random random = new Random();
         if (random.nextDouble() < 0.035) {
             data.putInt(cropPieceGetTimes, data.getInt(cropPieceGetTimes) + 1);
-            Compute.itemStackGive(player, new ItemStack(SpurItems.cropPiece.get()));
+            InventoryOperation.itemStackGive(player, new ItemStack(SpurItems.cropPiece.get()));
         }
         if (Compute.exHarvestItemGive(player, new ItemStack(SpurItems.cropPiece.get()), 0.035)) {
             data.putInt(cropPieceGetTimes, data.getInt(cropPieceGetTimes) + 1);

@@ -1,17 +1,20 @@
 package com.very.wraq.events.instance;
 
-import com.very.wraq.events.core.LoginInEvent;
-import com.very.wraq.events.fight.MonsterAttackEvent;
-import com.very.wraq.process.func.particle.ParticleProvider;
-import com.very.wraq.render.particles.ModParticles;
-import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.util.StringUtils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.util.struct.Boss2Damage;
 import com.very.wraq.common.util.struct.Instance;
 import com.very.wraq.common.util.struct.PlayerTeam;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.events.core.LoginInEvent;
+import com.very.wraq.events.fight.MonsterAttackEvent;
+import com.very.wraq.process.func.damage.Damage;
+import com.very.wraq.process.func.item.InventoryOperation;
+import com.very.wraq.process.func.particle.ParticleProvider;
+import com.very.wraq.render.hud.Mana;
+import com.very.wraq.render.particles.ModParticles;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -124,7 +127,7 @@ public class TabooDevil {
                     }});
                     Mob entity = instance.getMobList().get(0);
                     entity.setBaby(true);
-                    Compute.SetMobCustomName(entity, ModItems.MobArmorDevilHelmet.get(),
+                    Compute.setMobCustomName(entity, ModItems.MobArmorDevilHelmet.get(),
                             Component.literal("旧世复生魔王").withStyle(CustomStyle.styleOfBloodMana));
 
                     entity.getAttribute(Attributes.MAX_HEALTH).setBaseValue(MaxHealth * difficultyEnhanceRate * (1 + (playerNum - 1) * 0.75));
@@ -176,7 +179,7 @@ public class TabooDevil {
 
                         if (mob.getHealth() / mob.getMaxHealth() < 0.1 && MobNearbyHasTabooPiece(mob)) {
                             Mob entity = new Zombie(EntityType.HUSK, level);
-                            Compute.SetMobCustomName(entity, ModItems.MobArmorTabooDevil.get(),
+                            Compute.setMobCustomName(entity, ModItems.MobArmorTabooDevil.get(),
                                     Component.literal("新世禁法魔物").withStyle(CustomStyle.styleOfBloodMana));
 
                             entity.getAttribute(Attributes.MAX_HEALTH).setBaseValue(MaxHealth * difficultyEnhanceRate * (1 + (playerNum - 1) * 0.75 * 2));
@@ -328,13 +331,13 @@ public class TabooDevil {
                     } else {
                         playerListGetByName.forEach(player -> {
                             if (random.nextDouble() <= 0.25 * difficultyEnhanceRate) {
-                                Compute.itemStackGive(player, new ItemStack(ModItems.DevilLoot.get(), 1));
+                                InventoryOperation.itemStackGive(player, new ItemStack(ModItems.DevilLoot.get(), 1));
                             }
                             if (random.nextDouble() <= 0.025 * (playerNum - 1) * difficultyEnhanceRate) {
                                 Compute.sendFormatMSG(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
                                         Component.literal("你通过组队挑战副本，额外获得了:").withStyle(ChatFormatting.WHITE).
                                                 append(ModItems.DevilLoot.get().getDefaultInstance().getDisplayName()));
-                                Compute.itemStackGive(player, new ItemStack(ModItems.DevilLoot.get(), 1));
+                                InventoryOperation.itemStackGive(player, new ItemStack(ModItems.DevilLoot.get(), 1));
                             }
                         });
 
@@ -400,11 +403,11 @@ public class TabooDevil {
         playerList.forEach(player -> {
             if (player.distanceTo(mob) < 50) {
                 int ManaDecrease = difficulty * 100;
-                if (Compute.PlayerCurrentManaNum(player) < ManaDecrease) {
-                    ManaDecrease -= Compute.PlayerCurrentManaNum(player);
-                    Compute.playerManaAddOrCost(player, -Compute.PlayerCurrentManaNum(player));
-                    Compute.Damage.manaDamageToPlayer(mob, player, 30 * ManaDecrease);
-                } else Compute.playerManaAddOrCost(player, -ManaDecrease);
+                if (Mana.getPlayerCurrentManaNum(player) < ManaDecrease) {
+                    ManaDecrease -= Mana.getPlayerCurrentManaNum(player);
+                    Mana.addOrCostPlayerMana(player, -Mana.getPlayerCurrentManaNum(player));
+                    Damage.manaDamageToPlayer(mob, player, 30 * ManaDecrease);
+                } else Mana.addOrCostPlayerMana(player, -ManaDecrease);
                 ((ServerPlayer) player).connection.send(clientboundSetTitleTextPacket);
                 ((ServerPlayer) player).connection.send(clientboundSetSubtitleTextPacket);
             }
@@ -444,7 +447,7 @@ public class TabooDevil {
             TabooDevil.DevilSkill4Flag = false;
             playerList.forEach(player -> {
                 if (player.distanceTo(mob) < 50) {
-                    Compute.Damage.manaDamageToPlayer(mob, player, (DevilBaseAttack) * difficulty * 0.5);
+                    Damage.manaDamageToPlayer(mob, player, (DevilBaseAttack) * difficulty * 0.5);
                 }
             });
             ParticleProvider.DisperseParticle(mob.position(), (ServerLevel) mob.level(), 1, 1, 120, ModParticles.LONG_ENTROPY.get(), 1);
@@ -501,10 +504,10 @@ public class TabooDevil {
         Level level = player.level();
         if (Arrays.stream(blockPosList).toList().contains(blockPos) && blockState.is(Blocks.CRYING_OBSIDIAN)) {
             level.destroyBlock(blockPos, false);
-            Compute.RateItemStackGive(ModItems.DevilBlood.get().getDefaultInstance(), 0.1, player);
-            Compute.RateItemStackGive(ModItems.TabooAttackLeggingsForgeDraw.get().getDefaultInstance(), 0.01, player);
-            Compute.RateItemStackGive(ModItems.TabooSwiftHelmetForgeDraw.get().getDefaultInstance(), 0.01, player);
-            Compute.RateItemStackGive(ModItems.TabooManaBootsForgeDraw.get().getDefaultInstance(), 0.01, player);
+            InventoryOperation.giveItemStackByRate(ModItems.DevilBlood.get().getDefaultInstance(), 0.1, player);
+            InventoryOperation.giveItemStackByRate(ModItems.TabooAttackLeggingsForgeDraw.get().getDefaultInstance(), 0.01, player);
+            InventoryOperation.giveItemStackByRate(ModItems.TabooSwiftHelmetForgeDraw.get().getDefaultInstance(), 0.01, player);
+            InventoryOperation.giveItemStackByRate(ModItems.TabooManaBootsForgeDraw.get().getDefaultInstance(), 0.01, player);
         }
     }
 
@@ -517,7 +520,7 @@ public class TabooDevil {
     public static void RangeManaDamage(Mob mob, List<Player> playerList, double damage, double distance) {
         playerList.forEach(player -> {
             if (player.distanceTo(mob) < distance) {
-                Compute.Damage.manaDamageToPlayer(mob, player, damage);
+                Damage.manaDamageToPlayer(mob, player, damage);
             }
         });
         ParticleProvider.DisperseParticle(mob.position(), (ServerLevel) mob.level(), 1, 1, 120, ModParticles.LONG_ENTROPY.get(), 1);
@@ -525,7 +528,7 @@ public class TabooDevil {
     }
 
     public static void singleRewardToPlayer(Player player, int difficultyEnhanceRate, int playerNum, boolean isMopUp) {
-        Compute.itemStackGive(player, new ItemStack(ModItems.TabooPiece.get(), difficultyEnhanceRate));
+        InventoryOperation.itemStackGive(player, new ItemStack(ModItems.TabooPiece.get(), difficultyEnhanceRate));
 
         Random random = new Random();
         if (!isMopUp) {
@@ -533,7 +536,7 @@ public class TabooDevil {
                 Compute.sendFormatMSG(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
                         Component.literal("你通过组队挑战副本，额外获得了:").withStyle(ChatFormatting.WHITE).
                                 append(ModItems.TabooPiece.get().getDefaultInstance().getDisplayName()));
-                Compute.itemStackGive(player, new ItemStack(ModItems.TabooPiece.get(), 2));
+                InventoryOperation.itemStackGive(player, new ItemStack(ModItems.TabooPiece.get(), 2));
             }
         }
 
@@ -542,7 +545,7 @@ public class TabooDevil {
                     Component.literal("每日首次通关副本，额外获得了:").withStyle(ChatFormatting.WHITE).
                             append(ModItems.TabooPiece.get().getDefaultInstance().getDisplayName()));
 
-            Compute.itemStackGive(player, new ItemStack(ModItems.TabooPiece.get(), 16));
+            InventoryOperation.itemStackGive(player, new ItemStack(ModItems.TabooPiece.get(), 16));
         }
     }
 }

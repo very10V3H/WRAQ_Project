@@ -3,9 +3,9 @@ package com.very.wraq.commands.stable.players;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.Utils;
+import com.very.wraq.process.func.item.InventoryOperation;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
@@ -26,7 +26,7 @@ public class SupplyCommand implements Command<CommandSourceStack> {
                 PatchouliAPI.get().getBookStack(new ResourceLocation(Utils.MOD_ID, "guide"))
         );
         supply.forEach(stack -> {
-            Compute.itemStackGive(player, stack);
+            InventoryOperation.itemStackGive(player, stack);
         });
         return 0;
     }

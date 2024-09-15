@@ -1,10 +1,11 @@
 package com.very.wraq.series.nether.Power;
 
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.process.func.power.PowerLogic;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.projectiles.ActiveItem;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.Utils;
 import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -33,12 +34,12 @@ public class MagmaPower extends Item implements ActiveItem {
         Compute.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
         components.add(Component.literal("·[强化法术攻击]").withStyle(ChatFormatting.LIGHT_PURPLE).
                 append(Component.literal("下次法术攻击命中时，将形成范围爆炸，对范围内的目标造成:").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.ManaDamageValue("300%")));
+                append(ComponentUtils.AttributeDescription.ManaDamageValue("300%")));
         components.add(Component.literal(" - 这个伤害会附带").withStyle(ChatFormatting.WHITE).
                 append(Element.Description.FireElement("1 + 100%")));
         components.add(Component.literal("并对受到影响的目标造成减速效果。").withStyle(ChatFormatting.GRAY));
-        Compute.CoolDownTimeDescription(components, 3);
-        Compute.ManaCostDescription(components, 120);
+        ComponentUtils.coolDownTimeDescription(components, 3);
+        ComponentUtils.manaCostDescription(components, 120);
         Compute.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
         components.add(Component.literal("Powers-Magma").withStyle(Style.EMPTY.withColor(TextColor.parseColor("#a2001b"))).withStyle(ChatFormatting.ITALIC));
         super.appendHoverText(itemStack, level, components, flag);

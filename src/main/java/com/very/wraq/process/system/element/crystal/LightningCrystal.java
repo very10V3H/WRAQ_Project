@@ -1,16 +1,17 @@
 
 package com.very.wraq.process.system.element.crystal;
 
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.attribute.BasicAttributeDescription;
+import com.very.wraq.common.attribute.PlayerAttributes;
+import com.very.wraq.common.registry.ItemTier;
+import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.process.system.element.ElementValue;
 import com.very.wraq.projectiles.ActiveItem;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.attribute.BasicAttributeDescription;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.attribute.PlayerAttributes;
-import com.very.wraq.common.registry.ItemTier;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -68,12 +69,12 @@ public class LightningCrystal extends SwordItem implements ActiveItem {
                 append(Component.literal("施加").withStyle(CustomStyle.styleOfPower)).
                 append(Element.Description.LightningElement("100%")));
         components.add(Component.literal(" - 这个效果施加的元素量将会自适应附带较低的基础伤害").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
-        Compute.CoolDownTimeDescription(components, 10);
+        ComponentUtils.coolDownTimeDescription(components, 10);
         components.add(Component.literal(" - 根据归一化元素强度至多可以将冷却时间缩短至3s").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
 
         Compute.LevelRequire(components, Utils.levelRequire.get(this));
         Compute.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        Compute.suffixOfElement(components);
+        ComponentUtils.suffixOfElement(components);
         super.appendHoverText(stack, level, components, flag);
     }
 

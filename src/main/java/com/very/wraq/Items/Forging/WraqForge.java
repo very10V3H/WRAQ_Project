@@ -2,14 +2,15 @@ package com.very.wraq.Items.Forging;
 
 import com.very.wraq.blocks.blocks.forge.ForgeRecipe;
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.registry.MySound;
 import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.events.mob.instance.NoTeamInstanceModule;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.misc.TeamPackets.ScreenSetS2CPacket;
 import com.very.wraq.process.func.guide.Guide;
+import com.very.wraq.process.func.item.InventoryOperation;
 import com.very.wraq.process.system.forge.ForgeEquipUtils;
 import com.very.wraq.process.system.forge.ForgeHammer;
 import com.very.wraq.render.toolTip.CustomStyle;
@@ -20,8 +21,6 @@ import net.minecraft.network.protocol.game.ClientboundSetSubtitleTextPacket;
 import net.minecraft.network.protocol.game.ClientboundSetTitleTextPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -63,7 +62,7 @@ public class WraqForge extends Item {
         Inventory inventory = player.getInventory();
         boolean ContainMaterial = true;
         for (int i = 0; i < MaterialList.size(); i++) {
-            if (!Compute.checkPlayerHasItem(inventory, MaterialList.get(i).getItem(), MaterialList.get(i).getCount()))
+            if (!InventoryOperation.checkPlayerHasItem(inventory, MaterialList.get(i).getItem(), MaterialList.get(i).getCount()))
                 ContainMaterial = false;
         }
 
@@ -78,7 +77,7 @@ public class WraqForge extends Item {
                         }
                     }
                 }
-                Compute.removeItem(inventory, stack.getItem(), stack.getCount());
+                InventoryOperation.removeItem(inventory, stack.getItem(), stack.getCount());
             }
 
             Compute.sendFormatMSG(player, Component.literal("锻造").withStyle(ChatFormatting.GRAY),
@@ -135,7 +134,7 @@ public class WraqForge extends Item {
             }
 
 
-            Compute.itemStackGive(player, productItemStack);
+            InventoryOperation.itemStackGive(player, productItemStack);
             Guide.trig(player, 4);
             if (!StringUtils.FlagInTag.getPlayerFlag(player, firstTimeForge)) {
                 StringUtils.FlagInTag.setPlayerString(player, firstTimeForge, true);
@@ -144,8 +143,8 @@ public class WraqForge extends Item {
         } else {
             Compute.sendFormatMSG(player, Component.literal("锻造").withStyle(ChatFormatting.GRAY), Component.literal("背包里似乎没有足够的物品用于锻造。"));
             for (ItemStack itemStack : MaterialList) {
-                if (Compute.itemStackCount(inventory, itemStack.getItem()) < itemStack.getCount()) {
-                    Compute.sendFormatMSG(player, Component.literal("锻造").withStyle(ChatFormatting.GRAY), Component.literal("缺少:").withStyle(ChatFormatting.WHITE).append(itemStack.getItem().getDefaultInstance().getDisplayName()).append(Component.literal("*" + (itemStack.getCount() - Compute.itemStackCount(inventory, itemStack.getItem())))));
+                if (InventoryOperation.itemStackCount(inventory, itemStack.getItem()) < itemStack.getCount()) {
+                    Compute.sendFormatMSG(player, Component.literal("锻造").withStyle(ChatFormatting.GRAY), Component.literal("缺少:").withStyle(ChatFormatting.WHITE).append(itemStack.getItem().getDefaultInstance().getDisplayName()).append(Component.literal("*" + (itemStack.getCount() - InventoryOperation.itemStackCount(inventory, itemStack.getItem())))));
                 }
             }
             Compute.sendFormatMSG(player, Component.literal("锻造预览").withStyle(ChatFormatting.GRAY), Component.literal("锻造预览：").withStyle(ChatFormatting.WHITE).append(forgedItem.getDefaultInstance().getDisplayName()));
@@ -170,7 +169,7 @@ public class WraqForge extends Item {
                 playerMSGSendDelayMap1.remove(name);
                 ItemStack itemStack = new ItemStack(ModItems.PlainRune.get(), 2);
                 Compute.sendFormatMSG(serverPlayer, Component.literal("引导-灌注").withStyle(ChatFormatting.AQUA), Component.literal("现在，拿着给予你的").withStyle(ChatFormatting.WHITE).append(itemStack.getDisplayName()).append(Component.literal("找到灌注台(在村庄锻造区域均有分布)，尝试给平原系列武器进行灌注升级吧！").withStyle(ChatFormatting.WHITE)));
-                Compute.itemStackGive(serverPlayer, itemStack);
+                InventoryOperation.itemStackGive(serverPlayer, itemStack);
                 playerMSGSendDelayMap2.put(name, tick + 40);
                 MySound.soundToPlayer(serverPlayer, SoundEvents.EXPERIENCE_ORB_PICKUP);
             }
@@ -194,16 +193,15 @@ public class WraqForge extends Item {
         List<ItemStack> materialList = ForgeRecipe.forgeDrawRecipe.get(forgedItem);
         if (materialList != null) {
             for (int i = 0; i < materialList.size(); i++) {
-                components.add(Compute.MaterialRequirement((i + 1), materialList.get(i).getDisplayName(), materialList.get(i).getCount()));
+                components.add(requirementDescription((i + 1), materialList.get(i).getDisplayName(), materialList.get(i).getCount()));
             }
         }
         super.appendHoverText(itemStack, level, components, tooltipFlag);
     }
 
-    @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
-        return super.use(level, player, interactionHand);
+    public static Component requirementDescription(int index, Component materialType, int num) {
+        return Component.literal(" " + index + ".").withStyle(ChatFormatting.GRAY).
+                append(materialType).
+                append(Component.literal("*" + num).withStyle(ChatFormatting.WHITE));
     }
-
-
 }

@@ -63,7 +63,7 @@ public class LumberJackSpawnController extends MobSpawnController {
 
         // 设置颜色与名称
         Style style = CustomStyle.styleOfHusk;
-        Compute.SetMobCustomName(zombieLumberjackEntity, Component.literal("伐木工").withStyle(style), xpLevel);
+        Compute.setMobCustomName(zombieLumberjackEntity, Component.literal("伐木工").withStyle(style), xpLevel);
 
         // 需要验证
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(zombieLumberjackEntity), xpLevel);

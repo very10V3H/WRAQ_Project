@@ -1,15 +1,15 @@
 package com.very.wraq.series.newrunes.chapter3;
 
+import com.very.wraq.common.attribute.PlayerAttributes;
 import com.very.wraq.common.registry.MySound;
+import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.Utils;
+import com.very.wraq.process.func.damage.Damage;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.projectiles.UsageOrGetWayDescriptionItem;
 import com.very.wraq.projectiles.WraqCurios;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.newrunes.RuneItem;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.ComponentUtils;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.attribute.PlayerAttributes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
@@ -83,8 +83,8 @@ public class NetherNewRune extends WraqCurios implements RuneItem, UsageOrGetWay
 
         mobList.removeIf(mob1 -> mob1.distanceTo(mob) > 3 || !mob1.isAlive());
         mobList.forEach(mob1 -> {
-            Compute.Damage.causeAttackDamageToMonsterOnlyComputeDefence(player, mob1, mob.getMaxHealth() * 0.08);
-            Compute.Damage.causeIgNoreDefenceDamageToMonster(player, mob1, PlayerAttributes.attackDamage(player));
+            Damage.causeAttackDamageToMonsterOnlyComputeDefence(player, mob1, mob.getMaxHealth() * 0.08);
+            Damage.causeIgNoreDefenceDamageToMonster(player, mob1, PlayerAttributes.attackDamage(player));
         });
     }
 

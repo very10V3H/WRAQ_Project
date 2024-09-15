@@ -1,11 +1,12 @@
 package com.very.wraq.series.end.eventController.KazeRecall;
 
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.events.mob.chapter2.WindSkeletonSpawnController;
+import com.very.wraq.process.func.item.InventoryOperation;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.overworld.chapter2.dimension.ToEnd;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -93,7 +94,7 @@ public class KazeRecallEvent {
                             if (Utils.KazeRecallSkeleton != null)
                                 Utils.KazeRecallSkeleton.remove(Entity.RemovalReason.KILLED);
                             Utils.KazeRecallSkeleton = new Skeleton(EntityType.SKELETON, level1);
-                            Compute.SetMobCustomName(Utils.KazeRecallSkeleton, ModItems.ArmorKazeRecall.get(), Component.literal("模糊记忆中的狂风").withStyle(style));
+                            Compute.setMobCustomName(Utils.KazeRecallSkeleton, ModItems.ArmorKazeRecall.get(), Component.literal("模糊记忆中的狂风").withStyle(style));
                             Utils.KazeRecallSkeleton.setItemSlot(EquipmentSlot.HEAD, ModItems.ArmorKazeRecall.get().getDefaultInstance());
                             Utils.KazeRecallSkeleton.setItemSlot(EquipmentSlot.CHEST, ModItems.ArmorKazeChest.get().getDefaultInstance());
                             Utils.KazeRecallSkeleton.setItemSlot(EquipmentSlot.LEGS, ModItems.ArmorKazeLeggings.get().getDefaultInstance());
@@ -146,7 +147,7 @@ public class KazeRecallEvent {
                                                 append(Component.literal("的记忆。").withStyle(ChatFormatting.WHITE)));
                                 ItemStack itemStack = ModItems.KazeRecallSoul.get().getDefaultInstance();
                                 itemStack.setCount(1);
-                                Compute.itemStackGive(Utils.kazeRecall.recallPlayer, itemStack);
+                                InventoryOperation.itemStackGive(Utils.kazeRecall.recallPlayer, itemStack);
                             } else {
                                 data.putInt(RecallTimes, data.getInt(RecallTimes) + 1);
                                 ToEnd.toEndSpawnPos(Utils.kazeRecall.recallPlayer);
@@ -162,7 +163,7 @@ public class KazeRecallEvent {
                                                 append(Component.literal("的记忆。").withStyle(ChatFormatting.WHITE)));
                                 ItemStack itemStack = ModItems.KazeRune.get().getDefaultInstance();
                                 itemStack.setCount(1);
-                                Compute.itemStackGive(Utils.kazeRecall.recallPlayer, itemStack);
+                                InventoryOperation.itemStackGive(Utils.kazeRecall.recallPlayer, itemStack);
                             }
                         }
                     }

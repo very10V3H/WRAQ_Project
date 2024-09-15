@@ -1,10 +1,12 @@
 package com.very.wraq.series.overworld.chapter1.volcano;
 
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.process.func.power.PowerLogic;
+import com.very.wraq.process.func.suit.SuitCount;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.projectiles.ActiveItem;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.Utils;
 import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -40,11 +42,11 @@ public class VolcanoPower extends Item implements ActiveItem {
         components.add(Component.literal(" 使").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("指针").withStyle(ChatFormatting.AQUA)).
                 append(Component.literal("周围所有敌人爆裂，在每个敌人位置处产生小范围").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.ManaDamageValue(String.format("%.0f", effect[tier] * 100) + "%")));
+                append(ComponentUtils.AttributeDescription.ManaDamageValue(String.format("%.0f", effect[tier] * 100) + "%")));
         components.add(Component.literal(" - 这个伤害会附带").withStyle(ChatFormatting.WHITE).
                 append(Element.Description.FireElement("1 + 100%")));
-        Compute.CoolDownTimeDescription(components, CoolDownTime[tier]);
-        Compute.ManaCostDescription(components, ManaCost[tier]);
+        ComponentUtils.coolDownTimeDescription(components, CoolDownTime[tier]);
+        ComponentUtils.manaCostDescription(components, ManaCost[tier]);
 
         Compute.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
         components.add(Component.literal("Powers-Volcano").withStyle(CustomStyle.styleOfVolcano));
@@ -70,7 +72,7 @@ public class VolcanoPower extends Item implements ActiveItem {
 
     @Override
     public void active(Player player) {
-        if (Compute.playerManaCost(player, VolcanoPower.ManaCost[tier] - 10 * Compute.SuitCount.getObsiManaESuitCount(player), true)) {
+        if (Compute.playerManaCost(player, VolcanoPower.ManaCost[tier] - 10 * SuitCount.getObsiManaESuitCount(player), true)) {
             PowerLogic.VolcanoPower(player, this, tier);
             PowerLogic.PlayerReleasePowerType(player, 7);
         }

@@ -37,7 +37,7 @@ import static com.very.wraq.core.ManaAttackModule.NetherManaArmor;
 public class DamageInfluence {
     public static double getPlayerCommonDamageUpOrDown(Player player, Mob monster) {
         double rate = 0;
-        rate += Compute.LevelSuppress(player, monster); // 等级压制
+        rate += levelSuppress(player, monster); // 等级压制
         rate += AttackEventModule.IceArmorDamageEnhance(player, monster); // 雪上覆霜
         rate += IceBook.IceBookDamageEnhance(player, monster); // 冰封的记忆
         rate += MoonArmor.DamageEnhance(player, monster); // 尘月膝
@@ -159,5 +159,10 @@ public class DamageInfluence {
         rate += VolcanoNewRune.attackEnhance(player);
         rate += EnhanceNormalAttackModifier.onHitDamageEnhance(player, type);
         return rate;
+    }
+
+    public static double levelSuppress(Player player, Mob monster) {
+        int mobLevel = MobSpawn.MobBaseAttributes.xpLevel.getOrDefault(MobSpawn.getMobOriginName(monster), 0);
+        return (player.experienceLevel - mobLevel) / 500d;
     }
 }

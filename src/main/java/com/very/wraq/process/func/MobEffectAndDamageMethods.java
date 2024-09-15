@@ -2,6 +2,7 @@ package com.very.wraq.process.func;
 
 import com.very.wraq.common.Compute;
 import com.very.wraq.events.instance.PurpleIronKnight;
+import com.very.wraq.process.func.damage.Damage;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.server.level.ServerLevel;
@@ -54,11 +55,11 @@ public class MobEffectAndDamageMethods {
 
                 playerList.forEach(player -> {
                     switch (d.damageType) {
-                        case 0 -> Compute.Damage.AttackDamageToPlayer(d.mob, player, d.damage);
+                        case 0 -> Damage.AttackDamageToPlayer(d.mob, player, d.damage);
 
-                        case 1 -> Compute.Damage.manaDamageToPlayer(d.mob, player, d.damage);
+                        case 1 -> Damage.manaDamageToPlayer(d.mob, player, d.damage);
 
-                        case 2 -> Compute.Damage.DamageIgnoreDefenceToPlayer(d.mob, player, d.damage);
+                        case 2 -> Damage.DamageIgnoreDefenceToPlayer(d.mob, player, d.damage);
 
                     }
                     BaseEffectProvide(d.mob, player);
@@ -87,11 +88,11 @@ public class MobEffectAndDamageMethods {
                 playerList.removeIf(player -> player.position().distanceTo(d.startPos) > d.range);
                 playerList.forEach(player -> {
                     switch (d.damageType) {
-                        case 0 -> Compute.Damage.AttackDamageToPlayer(d.mob, player, d.damage);
+                        case 0 -> Damage.AttackDamageToPlayer(d.mob, player, d.damage);
 
-                        case 1 -> Compute.Damage.manaDamageToPlayer(d.mob, player, d.damage);
+                        case 1 -> Damage.manaDamageToPlayer(d.mob, player, d.damage);
 
-                        case 2 -> Compute.Damage.DamageIgnoreDefenceToPlayer(d.mob, player, d.damage);
+                        case 2 -> Damage.DamageIgnoreDefenceToPlayer(d.mob, player, d.damage);
                     }
                     BaseEffectProvide(d.mob, player);
                 });

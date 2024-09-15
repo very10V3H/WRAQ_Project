@@ -1,12 +1,13 @@
 package com.very.wraq.series.instance.series.moon.Equip;
 
-import com.very.wraq.projectiles.WraqArmor;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.ComponentUtils;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.registry.ItemMaterial;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.Utils;
+import com.very.wraq.process.func.suit.SuitCount;
+import com.very.wraq.projectiles.WraqArmor;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -69,9 +70,9 @@ public class MoonArmor extends WraqArmor {
                 || player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.MoonHelmet.get())) {
             Item weapon = player.getItemInHand(InteractionHand.MAIN_HAND).getItem();
             if (Utils.swordTag.containsKey(weapon) && mob.distanceTo(player) <= 5)
-                return Compute.SuitCount.getMoonSuitCount(player) * 0.15;
+                return SuitCount.getMoonSuitCount(player) * 0.15;
             if ((Utils.bowTag.containsKey(weapon) || Utils.sceptreTag.containsKey(weapon)) && mob.distanceTo(player) >= 5)
-                return Compute.SuitCount.getMoonSuitCount(player) * 0.15;
+                return SuitCount.getMoonSuitCount(player) * 0.15;
         }
         return 0;
     }

@@ -43,7 +43,7 @@ public class PurpleIronArmor extends WraqArmor implements ForgeItem {
         List<Component> components = new ArrayList<>();
         Compute.DescriptionPassive(components, Component.literal("紫晶能量屏障").withStyle(style));
         components.add(Component.literal("每过10s，提供持续5s的").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.MaxHealth("10% - 40%")).
+                append(ComponentUtils.AttributeDescription.MaxHealth("10% - 40%")).
                 append(Component.literal("的护盾").withStyle(ChatFormatting.WHITE)));
         components.add(Component.literal("数值基于已装备的紫晶铁装备数量(1~10% 2~20% 3~30% 4~40%)").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
         return components;

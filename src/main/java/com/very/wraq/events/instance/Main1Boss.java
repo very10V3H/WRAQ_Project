@@ -1,17 +1,18 @@
 package com.very.wraq.events.instance;
 
-import com.very.wraq.entities.entities.MainBoss.MainBoss;
-import com.very.wraq.events.core.LoginInEvent;
-import com.very.wraq.process.func.particle.ParticleProvider;
-import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.attribute.PlayerAttributes;
 import com.very.wraq.common.registry.ModEntityType;
+import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.util.StringUtils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.util.struct.Instance;
 import com.very.wraq.common.util.struct.PlayerTeam;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.attribute.PlayerAttributes;
-import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.entities.entities.MainBoss.MainBoss;
+import com.very.wraq.events.core.LoginInEvent;
+import com.very.wraq.process.func.item.InventoryOperation;
+import com.very.wraq.process.func.particle.ParticleProvider;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -120,7 +121,7 @@ public class Main1Boss {
                     }});
                     Mob entity = instance.getMobList().get(0);
 
-                    Compute.SetMobCustomName(entity, ModItems.ArmorMain1Boss.get(),
+                    Compute.setMobCustomName(entity, ModItems.ArmorMain1Boss.get(),
                             Component.literal("四元方块").withStyle(CustomStyle.styleOfSnow));
                     entity.setHealth(entity.getMaxHealth());
                     entity.setItemSlot(EquipmentSlot.HEAD, ModItems.ArmorMain1Boss.get().getDefaultInstance());
@@ -184,7 +185,7 @@ public class Main1Boss {
         CompoundTag data = player.getPersistentData();
 
         ItemStack itemStack = ModItems.Main1Crystal.get().getDefaultInstance();
-        Compute.itemStackGive(player, itemStack);
+        InventoryOperation.itemStackGive(player, itemStack);
 
         if (!isMopUp) {
             if (r.nextDouble() <= 0.025 * (playerNum - 1) * difficultyEnhanceRate) {
@@ -192,7 +193,7 @@ public class Main1Boss {
                 Compute.sendFormatMSG(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
                         Component.literal("你通过组队挑战副本，额外获得了:").withStyle(ChatFormatting.WHITE).
                                 append(itemStack1.getDisplayName()));
-                Compute.itemStackGive(player, itemStack1);
+                InventoryOperation.itemStackGive(player, itemStack1);
             }
         }
 
@@ -203,7 +204,7 @@ public class Main1Boss {
                             append(itemStack1.getDisplayName()));
 
 
-            Compute.itemStackGive(player, itemStack1);
+            InventoryOperation.itemStackGive(player, itemStack1);
 
         }
 
@@ -216,7 +217,7 @@ public class Main1Boss {
                         append(Component.literal(player.getName().getString() + "获得了").withStyle(ChatFormatting.WHITE)).
                         append(itemStack1.getDisplayName()));
 
-        Compute.itemStackGive(player, itemStack1);
+        InventoryOperation.itemStackGive(player, itemStack1);
 
         CompoundTag data1 = player.getPersistentData();
         data1.putInt(StringUtils.InstanceTimes.Main1Boss, data1.getInt(StringUtils.InstanceTimes.Main1Boss) + 1);

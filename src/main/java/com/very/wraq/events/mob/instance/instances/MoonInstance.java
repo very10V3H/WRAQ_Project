@@ -1,20 +1,21 @@
 package com.very.wraq.events.mob.instance.instances;
 
+import com.very.wraq.common.Compute;
 import com.very.wraq.common.attribute.PlayerAttributes;
+import com.very.wraq.common.registry.ModEntityType;
+import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.ItemAndRate;
 import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.events.mob.instance.NoTeamInstance;
 import com.very.wraq.events.mob.instance.NoTeamInstanceModule;
-import com.very.wraq.process.system.missions.series.dailyMission.DailyMission;
+import com.very.wraq.process.func.damage.Damage;
 import com.very.wraq.process.func.particle.ParticleProvider;
+import com.very.wraq.process.system.missions.series.dailyMission.DailyMission;
 import com.very.wraq.projectiles.mana.ManaArrow;
 import com.very.wraq.render.particles.ModParticles;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.gems.GemItems;
 import com.very.wraq.series.newrunes.NewRuneItems;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.registry.ModEntityType;
-import com.very.wraq.common.util.ItemAndRate;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
@@ -84,7 +85,7 @@ public class MoonInstance extends NoTeamInstance {
         Stray attackMob = new Stray(EntityType.STRAY, level);
         Style style = CustomStyle.styleOfMoon;
 
-        Compute.SetMobCustomName(attackMob, Component.literal("阿尔忒弥斯 - 明镜").withStyle(style), 160);
+        Compute.setMobCustomName(attackMob, Component.literal("阿尔忒弥斯 - 明镜").withStyle(style), 160);
 
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(attackMob), 120);
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(attackMob, 2000, 2500, 2500, 0.4, 4, 0.25, 1300, 20, 700 * Math.pow(10, 4), 0.3);
@@ -108,7 +109,7 @@ public class MoonInstance extends NoTeamInstance {
         bossInfoList.add(serverBossEvent);
 
         Stray manaMob = new Stray(EntityType.STRAY, level);
-        Compute.SetMobCustomName(manaMob, Component.literal("阿尔忒弥斯 - 天镜").withStyle(style), 160);
+        Compute.setMobCustomName(manaMob, Component.literal("阿尔忒弥斯 - 天镜").withStyle(style), 160);
 
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(manaMob), 120);
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(manaMob, 2000, 2500, 2500, 0.4, 4, 0.4, 1300, 20, 700 * Math.pow(10, 4), 0.3);
@@ -221,7 +222,7 @@ public class MoonInstance extends NoTeamInstance {
             }
         }
         if (AttackMob.isAlive()) {
-            Compute.Damage.manaDamageToPlayer(AttackMob, HealthLowPlayer, HealthLowPlayer.getMaxHealth() * 0.5);
+            Damage.manaDamageToPlayer(AttackMob, HealthLowPlayer, HealthLowPlayer.getMaxHealth() * 0.5);
             ParticleProvider.EntityEffectVerticleCircleParticle(HealthLowPlayer, 1, 0.4, 8, ParticleTypes.WITCH, 0);
             ParticleProvider.EntityEffectVerticleCircleParticle(HealthLowPlayer, 0.75, 0.4, 8, ParticleTypes.WITCH, 0);
             ParticleProvider.EntityEffectVerticleCircleParticle(HealthLowPlayer, 0.5, 0.4, 8, ParticleTypes.WITCH, 0);
@@ -229,7 +230,7 @@ public class MoonInstance extends NoTeamInstance {
             ParticleProvider.EntityEffectVerticleCircleParticle(HealthLowPlayer, 0, 0.4, 8, ParticleTypes.WITCH, 0);
         }
         if (ManaMob.isAlive()) {
-            Compute.Damage.manaDamageToPlayer(ManaMob, HealthHighPlayer, HealthHighPlayer.getMaxHealth() * 0.5);
+            Damage.manaDamageToPlayer(ManaMob, HealthHighPlayer, HealthHighPlayer.getMaxHealth() * 0.5);
             ParticleProvider.EntityEffectVerticleCircleParticle(HealthHighPlayer, 1, 0.4, 8, ParticleTypes.WITCH, 0);
             ParticleProvider.EntityEffectVerticleCircleParticle(HealthHighPlayer, 0.75, 0.4, 8, ParticleTypes.WITCH, 0);
             ParticleProvider.EntityEffectVerticleCircleParticle(HealthHighPlayer, 0.5, 0.4, 8, ParticleTypes.WITCH, 0);
@@ -263,8 +264,8 @@ public class MoonInstance extends NoTeamInstance {
                 ParticleProvider.EntityEffectVerticleCircleParticle(ManaMob, 0.25, 0.4, 8, ParticleTypes.COMPOSTER, 0);
                 ParticleProvider.EntityEffectVerticleCircleParticle(ManaMob, 0, 0.4, 8, ParticleTypes.COMPOSTER, 0);
                 playerList.forEach(player -> {
-                    Compute.Damage.manaDamageToPlayer(ManaMob, player, player.getMaxHealth() * 0.25);
-                    Compute.Damage.manaDamageToPlayer(AttackMob, player, player.getMaxHealth() * 0.25);
+                    Damage.manaDamageToPlayer(ManaMob, player, player.getMaxHealth() * 0.25);
+                    Damage.manaDamageToPlayer(AttackMob, player, player.getMaxHealth() * 0.25);
                     ParticleProvider.EntityEffectVerticleCircleParticle(player, 1, 0.4, 8, ParticleTypes.WITCH, 0);
                     ParticleProvider.EntityEffectVerticleCircleParticle(player, 0.75, 0.4, 8, ParticleTypes.WITCH, 0);
                     ParticleProvider.EntityEffectVerticleCircleParticle(player, 0.5, 0.4, 8, ParticleTypes.WITCH, 0);
@@ -280,8 +281,8 @@ public class MoonInstance extends NoTeamInstance {
         if (manaMob.isAlive() && manaMob.getY() < yLimit) manaMob.moveTo(pos);
         playerList.forEach(player -> {
             if (player.position().distanceTo(pos) < 150 && player.getY() < yLimit) {
-                Compute.Damage.manaDamageToPlayer(manaMob, player, player.getMaxHealth() * 0.25);
-                Compute.Damage.manaDamageToPlayer(attackMob, player, player.getMaxHealth() * 0.25);
+                Damage.manaDamageToPlayer(manaMob, player, player.getMaxHealth() * 0.25);
+                Damage.manaDamageToPlayer(attackMob, player, player.getMaxHealth() * 0.25);
                 ((ServerPlayer) player).teleportTo(player.getServer().getLevel(Level.OVERWORLD), pos.x, pos.y, pos.z, 179, 0);
                 ParticleProvider.EntityEffectVerticleCircleParticle(player, 1, 0.4, 8, ParticleTypes.WITCH, 0);
                 ParticleProvider.EntityEffectVerticleCircleParticle(player, 0.75, 0.4, 8, ParticleTypes.WITCH, 0);

@@ -7,16 +7,20 @@ import com.very.wraq.common.registry.ModSounds;
 import com.very.wraq.common.registry.MySound;
 import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.common.util.Utils;
+import com.very.wraq.common.util.struct.Shield;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.misc.EarthPower.EarthPowerS2CPacket;
 import com.very.wraq.networking.misc.ParticlePackets.EffectParticle.DamageDecreaseParticleS2CPacket;
 import com.very.wraq.networking.misc.ParticlePackets.SlowDownParticleS2CPacket;
 import com.very.wraq.process.func.EffectOnMob;
 import com.very.wraq.process.func.StableAttributesModifier;
+import com.very.wraq.process.func.damage.Damage;
 import com.very.wraq.process.func.particle.ParticleProvider;
+import com.very.wraq.process.func.suit.SuitCount;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.process.system.element.ElementValue;
 import com.very.wraq.projectiles.WraqCurios;
+import com.very.wraq.render.hud.Mana;
 import com.very.wraq.render.particles.ModParticles;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.instance.series.castle.CastleManaArmor;
@@ -179,8 +183,8 @@ public class PowerLogic {
     }
 
     public static void WitherBoneMealPower(Player player, Item Tool) {
-        if (!Compute.playerManaCost(player, Compute.PlayerMaxManaNum(player) * 0.33, true)) return;
-        playerLastTimeReleasePowerManaCost.put(player, Compute.PlayerMaxManaNum(player));
+        if (!Compute.playerManaCost(player, Mana.getPlayerMaxManaNum(player) * 0.33, true)) return;
+        playerLastTimeReleasePowerManaCost.put(player, Mana.getPlayerMaxManaNum(player));
         playerLastTimeReleasePower.put(player, 2);
         int TickCount = player.getServer().getTickCount();
         PlayerPowerRelease(player);
@@ -218,7 +222,7 @@ public class PowerLogic {
             }
         }
 
-        Compute.ManaStatusUpdate(player);
+        Mana.updateManaStatus(player);
 
         ParticleProvider.VerticleCircleParticle(TargetPos, (ServerLevel) level, 1, 6, 100, ParticleTypes.WITCH);
         ParticleProvider.VerticleCircleParticle(TargetPos, (ServerLevel) level, 1.5, 6, 100, ParticleTypes.WITCH);
@@ -450,7 +454,7 @@ public class PowerLogic {
                 AABB.ofSize(TargetPos, 20, 20, 20));
         players.forEach(player1 -> {
             if (player1.distanceTo(player) < 6) {
-                playerShieldProvider(player1, 50, data.getInt(StringUtils.Ability.Intelligent) * 20);
+                Shield.providePlayerShield(player1, 50, data.getInt(StringUtils.Ability.Intelligent) * 20);
                 Compute.iceParticleCreate(player1);
                 sendEffectLastTime(player, ModItems.SnowPower.get().getDefaultInstance(), 50);
             }
@@ -486,7 +490,7 @@ public class PowerLogic {
         ChargingModule(data, player);
         ManaSkill12Attack(data, player); // 盈能攻击（移动、攻击以及受到攻击将会获得充能，当充能满时，下一次攻击将造成额外200%伤害，并在以目标为中心的范围内造成100%伤害）
         ManaSkill13Attack(data, player); // 法术收集（移动、攻击以及受到攻击将会获得充能，当充能满时，下一次攻击将基于目标周围实体数量提供至多1000%的范围伤害，并回复自身50%的法力值）
-        if (Compute.ManaSkillLevelGet(player.getPersistentData(), 11) == 10) CastleManaArmor.NormalAttack(player);
+        if (Compute.getManaSkillLevel(player.getPersistentData(), 11) == 10) CastleManaArmor.NormalAttack(player);
 
     }
 }

@@ -1,11 +1,12 @@
 package com.very.wraq.series.overworld.chapter1.plain.armor;
 
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.attribute.BasicAttributeDescription;
+import com.very.wraq.common.registry.ItemMaterial;
+import com.very.wraq.common.util.Utils;
+import com.very.wraq.process.func.suit.SuitCount;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.overworld.chapter1.plain.PlainSuitDescription;
-import com.very.wraq.common.attribute.BasicAttributeDescription;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.registry.ItemMaterial;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
@@ -37,7 +38,7 @@ public class PlainArmorHelmet extends ArmorItem {
     }
 
     public static double exMaxHealth(Player player) {
-        return Compute.SuitCount.getPlainSuitCountWithoutCrest(player) > 0 ? Math.min(100, player.experienceLevel) * 10 : 0;
+        return SuitCount.getPlainSuitCountWithoutCrest(player) > 0 ? Math.min(100, player.experienceLevel) * 10 : 0;
     }
 }
 

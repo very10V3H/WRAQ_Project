@@ -31,7 +31,7 @@ public class ManaAttackRequestC2SPacket {
             int tick = serverPlayer.getServer().getTickCount();
             if (Utils.PlayerManaAttackTime.containsKey(serverPlayer) && tick - Utils.PlayerManaAttackTime.get(serverPlayer) < 9)
                 return;
-            if (Compute.ManaSkillLevelGet(player.getPersistentData(), 10) == 10)
+            if (Compute.getManaSkillLevel(player.getPersistentData(), 10) == 10)
                 CastleManaArmor.NormalAttack(player); //
             Utils.PlayerManaAttackTime.put(serverPlayer, tick);
 

@@ -48,5 +48,8 @@ public class KeyBoradInput {
     public static final KeyMapping ElementRoulette = new KeyMapping("key.vmd.element_roulette", KeyConflictContext.IN_GAME,
             InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_LEFT_ALT, KEY_CATEGORY);
 
+    public static final KeyMapping SPACE = new KeyMapping("key.vmd.space", KeyConflictContext.IN_GAME,
+            InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_SPACE, KEY_CATEGORY);
+
 }
 

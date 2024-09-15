@@ -1,6 +1,6 @@
 package com.very.wraq.Items.MainStory_1.Mission;
 
-import com.very.wraq.common.Compute;
+import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.process.system.smelt.Smelt;
 import com.very.wraq.process.system.smelt.SmeltRecipeScreen;
 import net.minecraft.ChatFormatting;
@@ -42,7 +42,7 @@ public class Main0 extends Item {
         components.add(Component.literal(" "));
         components.add(Component.literal(" "));
         components.add(Component.literal("Prologue-O").withStyle(ChatFormatting.AQUA).withStyle(ChatFormatting.ITALIC));
-        Compute.suffixOfElement(components);
+        ComponentUtils.suffixOfElement(components);
         super.appendHoverText(stack, p_41422_, components, flag);
     }
 

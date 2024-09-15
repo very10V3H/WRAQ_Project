@@ -50,12 +50,12 @@ public class WitherSword extends WraqSword implements ActiveItem, ForgeItem {
         Style style = getMainStyle();
         Compute.DescriptionActive(components, Component.literal("碳化").withStyle(style));
         components.add(Component.literal("失去").withStyle(ChatFormatting.RED).
-                append(Compute.AttributeDescription.MaxHealth("30%")));
+                append(ComponentUtils.AttributeDescription.MaxHealth("30%")));
         components.add(Component.literal("获得").withStyle(ChatFormatting.GREEN).
                 append(Compute.AttributeDescription.DefencePenetration(String.valueOf(WitherSwordAttributes.ActiveEffect[tier]))));
         components.add(Component.literal("持续时间: 12s"));
-        Compute.CoolDownTimeDescription(components, 12);
-        Compute.ManaCostDescription(components, 60);
+        ComponentUtils.coolDownTimeDescription(components, 12);
+        ComponentUtils.manaCostDescription(components, 60);
         return components;
     }
 

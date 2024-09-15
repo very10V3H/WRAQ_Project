@@ -1,6 +1,7 @@
 package com.very.wraq.Items.LevelReward.VariousBag;
 
 import com.very.wraq.common.Compute;
+import com.very.wraq.process.func.item.InventoryOperation;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -35,7 +36,7 @@ public class LogBag extends Item {
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
         if (!level.isClientSide && interactionHand.equals(InteractionHand.MAIN_HAND)) {
             ItemStack itemStack = new ItemStack(Items.OAK_LOG, 256);
-            Compute.itemStackGive(player, itemStack);
+            InventoryOperation.itemStackGive(player, itemStack);
             Compute.playerItemUseWithRecord(player);
         }
         return super.use(level, player, interactionHand);

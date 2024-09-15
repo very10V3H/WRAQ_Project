@@ -1,22 +1,23 @@
 package com.very.wraq.series.nether.Equip;
 
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.attribute.PlayerAttributes;
+import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.registry.ModSounds;
 import com.very.wraq.common.registry.MySound;
+import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.projectiles.ActiveItem;
 import com.very.wraq.projectiles.WraqSword;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.ComponentUtils;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.attribute.PlayerAttributes;
+import com.very.wraq.render.hud.Mana;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.registry.ModItems;
-import com.very.wraq.common.registry.ModSounds;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +54,7 @@ public class ManaSword extends WraqSword implements ActiveItem {
                 append(Compute.AttributeDescription.MaxMana("")).
                 append(Component.literal("并获得等同于消耗量的").withStyle(ChatFormatting.WHITE)).
                 append(Compute.AttributeDescription.AttackDamage("")));
-        Compute.CoolDownTimeDescription(components, 5);
+        ComponentUtils.coolDownTimeDescription(components, 5);
         return components;
     }
 
@@ -69,7 +70,7 @@ public class ManaSword extends WraqSword implements ActiveItem {
         player.getCooldowns().addCooldown(ModItems.ManaSword.get(), (int) (100 - 100 * PlayerAttributes.coolDownDecrease(player)));
         data.putInt("ManaSwordActive", data.getInt("MANA"));
         data.putInt("MANA", 0);
-        Compute.ManaStatusUpdate(player);
+        Mana.updateManaStatus(player);
         MySound.SoundToAll(player, ModSounds.Mana_Sword.get());
     }
 }

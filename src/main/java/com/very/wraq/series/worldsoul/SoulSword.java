@@ -53,8 +53,8 @@ public class SoulSword extends WraqSword implements ActiveItem {
         Compute.DescriptionActive(components, Component.literal("本源打击-咒刃").withStyle(style));
         components.add(Component.literal(" 下次攻击造成").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("50%额外物理伤害").withStyle(ChatFormatting.WHITE)));
-        Compute.CoolDownTimeDescription(components, 3);
-        Compute.ManaCostDescription(components, 60);
+        ComponentUtils.coolDownTimeDescription(components, 3);
+        ComponentUtils.manaCostDescription(components, 60);
         components.add(Component.literal(" Idea From:Mr_RED").withStyle(ChatFormatting.LIGHT_PURPLE));
         return components;
     }

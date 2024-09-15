@@ -1,6 +1,7 @@
 package com.very.wraq.series.overworld.chapter2.evoker;
 
 import com.very.wraq.common.Compute;
+import com.very.wraq.render.hud.Mana;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -38,7 +39,7 @@ public class EvokerSoul extends Item {
             player.setHealth(player.getHealth() * 0.8F);
             CompoundTag data = player.getPersistentData();
             data.putDouble("MANA", Math.min(data.getDouble("MANA") + 50, data.getDouble("MAXMANA")));
-            Compute.ManaStatusUpdate(player);
+            Mana.updateManaStatus(player);
             player.getCooldowns().addCooldown(this, 200);
         }
         return super.use(level, player, interactionHand);

@@ -1,8 +1,8 @@
 package com.very.wraq.events.mob;
 
+import com.very.wraq.process.func.damage.Damage;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.process.system.teamInstance.instances.blackCastle.NewCastleInstance;
-import com.very.wraq.common.Compute;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -27,7 +27,7 @@ public class MobDeadModule {
             }
 
             if (nearestPlayer != null) {
-                Compute.Damage.manaDamageToPlayer(mob, nearestPlayer, 2500, 0.3, 750);
+                Damage.manaDamageToPlayer(mob, nearestPlayer, 2500, 0.3, 750);
                 ParticleProvider.EntityEffectVerticleCircleParticle(nearestPlayer, 1, 0.4, 8, ParticleTypes.WITCH, 0);
                 ParticleProvider.EntityEffectVerticleCircleParticle(nearestPlayer, 0.75, 0.4, 8, ParticleTypes.WITCH, 0);
                 ParticleProvider.EntityEffectVerticleCircleParticle(nearestPlayer, 0.5, 0.4, 8, ParticleTypes.WITCH, 0);
@@ -49,7 +49,7 @@ public class MobDeadModule {
                 }
             }
             if (nearestPlayer != null) {
-                Compute.Damage.AttackDamageToPlayer(mob, nearestPlayer, 5000, 0.3, 750);
+                Damage.AttackDamageToPlayer(mob, nearestPlayer, 5000, 0.3, 750);
                 ParticleProvider.EntityEffectVerticleCircleParticle(nearestPlayer, 1, 0.4, 8, ParticleTypes.WITCH, 0);
                 ParticleProvider.EntityEffectVerticleCircleParticle(nearestPlayer, 0.75, 0.4, 8, ParticleTypes.WITCH, 0);
                 ParticleProvider.EntityEffectVerticleCircleParticle(nearestPlayer, 0.5, 0.4, 8, ParticleTypes.WITCH, 0);

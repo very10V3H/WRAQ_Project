@@ -1,6 +1,7 @@
 package com.very.wraq.series.overworld.chapter2.evoker.Runes;
 
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.util.ComponentUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -25,7 +26,7 @@ public class ManaRune2 extends Item {
         components.add(Component.literal("符石属性:"));
         components.add(Component.literal("每过10s,你的下一个命中目标的法术攻击将会降下一道落雷。"));
         components.add(Component.literal("落雷将造成").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.ManaDamage("300%")).
+                append(ComponentUtils.AttributeDescription.ManaDamage("300%")).
                 append(Component.literal("的法术伤害。").withStyle(ChatFormatting.WHITE)));
         components.add(Component.literal("并击碎目标").withStyle(ChatFormatting.WHITE).
                 append(Compute.AttributeDescription.ManaDefence("100%")).

@@ -1,12 +1,13 @@
 package com.very.wraq.series.instance.series.castle;
 
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.attribute.PlayerAttributes;
 import com.very.wraq.common.registry.ModEntityType;
+import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.attribute.PlayerAttributes;
-import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.process.func.damage.Damage;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.projectiles.ActiveItem;
 import com.very.wraq.projectiles.ForgeItem;
@@ -83,7 +84,7 @@ public class CastleSceptre extends WraqSceptre implements ForgeItem, ActiveItem 
                 append(Compute.AttributeDescription.DefencePenetration("1500")).
                 append(Component.literal("与").withStyle(ChatFormatting.WHITE)).
                 append(Compute.AttributeDescription.ManaPenetration("1500")));
-        Compute.CoolDownTimeDescription(components, 15);
+        ComponentUtils.coolDownTimeDescription(components, 15);
         components.add(Component.literal(" 多件暗黑武器的主动将会刷新持续时间，但效果将不会叠加，且共享冷却时间").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
         return components;
     }
@@ -95,7 +96,7 @@ public class CastleSceptre extends WraqSceptre implements ForgeItem, ActiveItem 
 
     public static void ExDamage(Player player, Mob mob, double damage) {
         if (player.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.CastleSceptre.get())) {
-            Compute.Damage.causeAttackDamageToMonster_AdDamage_Direct(player, mob, damage, true);
+            Damage.causeAttackDamageToMonster_AdDamage_Direct(player, mob, damage, true);
         }
     }
 

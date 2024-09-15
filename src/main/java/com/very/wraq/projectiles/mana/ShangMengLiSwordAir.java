@@ -1,10 +1,11 @@
 package com.very.wraq.projectiles.mana;
 
-import com.very.wraq.core.ManaAttackModule;
-import com.very.wraq.common.Compute;
+import com.very.wraq.common.attribute.PlayerAttributes;
 import com.very.wraq.common.registry.ModEntityType;
 import com.very.wraq.common.util.StringUtils;
-import com.very.wraq.common.attribute.PlayerAttributes;
+import com.very.wraq.core.ManaAttackModule;
+import com.very.wraq.process.func.damage.Damage;
+import com.very.wraq.render.hud.Mana;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
@@ -73,13 +74,13 @@ public class ShangMengLiSwordAir extends AbstractArrow implements GeoEntity {
                 ManaAttackModule.BasicAttack(player, entity, PlayerAttributes.manaDamage(player),
                         PlayerAttributes.manaPenetration(player), PlayerAttributes.manaPenetration0(player),
                         player.level(), newArrow, true);
-                Compute.playerManaAddOrCost(player, 20);
+                Mana.addOrCostPlayerMana(player, 20);
                 player.sendSystemMessage(Component.literal("false"));
             } else {
                 Entity entity = result.getEntity();
                 if (!(entity instanceof Mob)) return;
-                Compute.Damage.causeManaDamageToMonster_RateApDamage(player, (Mob) entity, 1 + 3 * PlayerAttributes.coolDownDecrease(player), isPower);
-                Compute.playerManaAddOrCost(player, 20);
+                Damage.causeManaDamageToMonster_RateApDamage(player, (Mob) entity, 1 + 3 * PlayerAttributes.coolDownDecrease(player), isPower);
+                Mana.addOrCostPlayerMana(player, 20);
                 player.sendSystemMessage(Component.literal("true"));
             }
         }

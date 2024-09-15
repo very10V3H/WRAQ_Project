@@ -64,7 +64,7 @@ public class DreadHoundSpawnController extends MobSpawnController {
 
         // 设置颜色与名称
         Style style = CustomStyle.styleOfForest;
-        Compute.SetMobCustomName(dreadHoundEntity, Component.literal(mobName).withStyle(style), xpLevel);
+        Compute.setMobCustomName(dreadHoundEntity, Component.literal(mobName).withStyle(style), xpLevel);
 
         // 需要验证
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(dreadHoundEntity), xpLevel);

@@ -65,7 +65,7 @@ public class EvokerSpawnController extends MobSpawnController {
 
         // 设置颜色与名称
         Style style = CustomStyle.styleOfMana;
-        Compute.SetMobCustomName(evoker, Component.literal(mobName).withStyle(style), xpLevel);
+        Compute.setMobCustomName(evoker, Component.literal(mobName).withStyle(style), xpLevel);
 
         // 需要验证
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(evoker), xpLevel);

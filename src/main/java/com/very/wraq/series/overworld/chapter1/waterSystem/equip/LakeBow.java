@@ -1,16 +1,17 @@
 package com.very.wraq.series.overworld.chapter1.waterSystem.equip;
 
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.attribute.PlayerAttributes;
 import com.very.wraq.common.registry.MySound;
+import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.core.MyArrow;
-import com.very.wraq.process.system.element.Element;
+import com.very.wraq.process.func.damage.Damage;
 import com.very.wraq.process.func.particle.ParticleProvider;
+import com.very.wraq.process.system.element.Element;
 import com.very.wraq.projectiles.OnHitEffectMainHandWeapon;
 import com.very.wraq.projectiles.WraqBow;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.ComponentUtils;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.attribute.PlayerAttributes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
@@ -48,8 +49,8 @@ public class LakeBow extends WraqBow implements OnHitEffectMainHandWeapon {
         Random random = new Random();
         mobList.forEach(mob1 -> {
             if (random.nextDouble() < PlayerAttributes.critRate(player)) {
-                Compute.Damage.causeAttackDamageToMonster_RateAdDamage(player, mob1, 0.25 * (1 + tier) * (1 + PlayerAttributes.critDamage(player)));
-            } else Compute.Damage.causeAttackDamageToMonster_RateAdDamage(player, mob1, 0.25 * (1 + tier));
+                Damage.causeAttackDamageToMonster_RateAdDamage(player, mob1, 0.25 * (1 + tier) * (1 + PlayerAttributes.critDamage(player)));
+            } else Damage.causeAttackDamageToMonster_RateAdDamage(player, mob1, 0.25 * (1 + tier));
 
             Compute.addSlowDownEffect(mob1, 40, 2);
         });

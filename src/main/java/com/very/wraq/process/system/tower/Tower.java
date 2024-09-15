@@ -2,15 +2,16 @@ package com.very.wraq.process.system.tower;
 
 import com.mojang.logging.LogUtils;
 import com.very.wraq.Items.MainStory_1.BackSpawn;
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.events.core.InventoryCheck;
 import com.very.wraq.files.dataBases.DataBase;
 import com.very.wraq.networking.ModNetworking;
+import com.very.wraq.process.func.item.InventoryOperation;
 import com.very.wraq.process.func.plan.PlanPlayer;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.render.toolTip.CustomStyle;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundSetTitleTextPacket;
@@ -379,7 +380,7 @@ public class Tower {
         // 给予
         ItemStack starStack = new ItemStack(ModItems.worldSoul5.get(), count);
         InventoryCheck.addOwnerTagToItemStack(player, starStack);
-        Compute.itemStackGive(player, starStack);
+        InventoryOperation.itemStackGive(player, starStack);
         LogUtils.getLogger().info("{} {} by {}", playerName, Utils.LogTypes.worldSoul5, type);
 
         // 增加

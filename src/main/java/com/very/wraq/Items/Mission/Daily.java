@@ -1,9 +1,10 @@
 package com.very.wraq.Items.Mission;
 
-import com.very.wraq.events.core.InventoryCheck;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.Utils;
+import com.very.wraq.events.core.InventoryCheck;
+import com.very.wraq.process.func.item.InventoryOperation;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -70,7 +71,7 @@ public class Daily extends Item {
                 } else {
                     ItemStack GemPiece = ModItems.gemPiece.get().getDefaultInstance();
                     GemPiece.setCount(player.experienceLevel / 2);
-                    Compute.itemStackGive(player, GemPiece);
+                    InventoryOperation.itemStackGive(player, GemPiece);
                     Compute.RandomPotionBagProvider(player, 6, 0.75);
                     ItemStack itemStack = player.getItemInHand(InteractionHand.MAIN_HAND);
                     itemStack.setCount(itemStack.getCount() - 1);
@@ -82,7 +83,7 @@ public class Daily extends Item {
                     if (player.experienceLevel >= 60) {
                         ItemStack ironlove = ModItems.IronLove.get().getDefaultInstance();
                         ironlove.getOrCreateTagElement(Utils.MOD_ID).putString(InventoryCheck.owner, player.getName().getString());
-                        Compute.itemStackGive(player, ironlove);
+                        InventoryOperation.itemStackGive(player, ironlove);
                     }
                 }
             }

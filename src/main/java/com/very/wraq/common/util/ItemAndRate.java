@@ -1,8 +1,8 @@
 package com.very.wraq.common.util;
 
-import com.very.wraq.common.Compute;
 import com.very.wraq.events.core.InventoryCheck;
 import com.very.wraq.events.mob.loot.RandomLootEquip;
+import com.very.wraq.process.func.item.InventoryOperation;
 import com.very.wraq.projectiles.RandomCurios;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -41,9 +41,9 @@ public class ItemAndRate {
         if (rate > 1) {
             int Num = (int) Math.floor(rate);
             itemStack.setCount(Num);
-            Compute.itemStackGive(player, itemStack);
+            InventoryOperation.itemStackGive(player, itemStack);
         } else {
-            Compute.RateItemStackGive(itemStack, rate, player);
+            InventoryOperation.giveItemStackByRate(itemStack, rate, player);
         }
     }
 
@@ -89,7 +89,7 @@ public class ItemAndRate {
                 dropItemStack.setCount(dropItemStack.getCount() + 1);
             }
         }
-        Compute.itemStackGive(player, dropItemStack);
+        InventoryOperation.itemStackGive(player, dropItemStack);
     }
 
     public static void summonItemEntity(ItemStack itemStack, Vec3 pos, Level level) {

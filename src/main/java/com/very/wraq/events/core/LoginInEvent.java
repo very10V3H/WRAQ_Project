@@ -29,6 +29,7 @@ import com.very.wraq.networking.reputationMission.ReputationMissionStartTimeS2CP
 import com.very.wraq.networking.unSorted.ClientLimitSetS2CPacket;
 import com.very.wraq.networking.unSorted.PlayerCallBack;
 import com.very.wraq.networking.unSorted.SwiftSyncS2CPacket;
+import com.very.wraq.process.func.item.InventoryOperation;
 import com.very.wraq.process.func.plan.DailySupply;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.process.system.endlessinstance.EndlessInstanceItems;
@@ -145,7 +146,7 @@ public class LoginInEvent {
 
             if (!data.contains(StringUtils.PatchouliBook)) {
                 ItemStack PatchouliBook = PatchouliAPI.get().getBookStack(new ResourceLocation(Utils.MOD_ID, "guide"));
-                Compute.itemStackGive(player, PatchouliBook);
+                InventoryOperation.itemStackGive(player, PatchouliBook);
                 data.putBoolean(StringUtils.PatchouliBook, true);
             }
 
@@ -274,7 +275,7 @@ public class LoginInEvent {
             }
 
             if (!data.contains("FirstReward")) {
-                Compute.itemStackGive(player, ModItems.ForNew.get().getDefaultInstance());
+                InventoryOperation.itemStackGive(player, ModItems.ForNew.get().getDefaultInstance());
                 Compute.formatBroad(player.level(), Component.literal("维瑞阿契").withStyle(ChatFormatting.WHITE),
                         Component.literal("欢迎新地质学家").withStyle(ChatFormatting.GOLD).
                                 append(player.getDisplayName()).
@@ -291,7 +292,7 @@ public class LoginInEvent {
                 }
                 else {
                     if(!data.contains("FirstReward")) {
-                        Compute.ItemStackGive(player,ModItems.ForNew.get().getDefaultInstance());
+                        InventoryOperation.itemStackGive(player,ModItems.ForNew.get().getDefaultInstance());
                     }
                     data.putBoolean("FirstReward",true);
                     player.sendSystemMessage(Component.literal("[").withStyle(ChatFormatting.GRAY).append(Component.literal("维瑞阿契").withStyle(ChatFormatting.AQUA)).append("]").withStyle(ChatFormatting.GRAY).append(Component.literal("使用/vmd register (密码)来注册").withStyle(ChatFormatting.WHITE)));
@@ -494,7 +495,7 @@ public class LoginInEvent {
         lakeCoreGetCount.put(player.getName().getString(), 0);
         volcanoCoreGetCount.put(player.getName().getString(), 0);
         SummerEvent.resetDailyData(player);
-        Compute.itemStackGive(player, new ItemStack(EndlessInstanceItems.EASTERN_TOWER_PAPER.get(), 3));
+        InventoryOperation.itemStackGive(player, new ItemStack(EndlessInstanceItems.EASTERN_TOWER_PAPER.get(), 3));
     }
 
     public static void WeeklyRefreshContent(Player player) {

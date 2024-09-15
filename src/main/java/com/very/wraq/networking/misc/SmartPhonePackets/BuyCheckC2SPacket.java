@@ -1,10 +1,11 @@
 package com.very.wraq.networking.misc.SmartPhonePackets;
 
 import com.mojang.logging.LogUtils;
-import com.very.wraq.files.MarketItemInfo;
-import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.util.Utils;
+import com.very.wraq.files.MarketItemInfo;
+import com.very.wraq.networking.ModNetworking;
+import com.very.wraq.process.func.item.InventoryOperation;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -79,7 +80,7 @@ public class BuyCheckC2SPacket {
 
                     LogUtils.getLogger().info("市场 {} 以 {} 购买了 {} 出售的 {} ", serverPlayer.getName().getString(), price, marketItemInfo.getPlayer(), itemStack);
 
-                    Compute.itemStackGive(serverPlayer, itemStack);
+                    InventoryOperation.itemStackGive(serverPlayer, itemStack);
                 }
 
                 Utils.marketItemInfos.remove(RemoveInfo);

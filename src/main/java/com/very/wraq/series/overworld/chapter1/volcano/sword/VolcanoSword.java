@@ -51,8 +51,8 @@ public class VolcanoSword extends WraqSword implements ActiveItem {
         Compute.DescriptionNum(components, "1.获得", Compute.AttributeDescription.CritDamage((int) (VolcanoSwordAttributes.ExCritDamage[tier] * 100) + "%"), "");
         Compute.DescriptionNum(components, "2.获得", Compute.AttributeDescription.ExAttackDamage((int) VolcanoSwordAttributes.ExAttackDamage[tier] + " "), "");
         components.add(Component.literal("持续5s").withStyle(ChatFormatting.WHITE));
-        Compute.CoolDownTimeDescription(components, 10);
-        Compute.ManaCostDescription(components, 60);
+        ComponentUtils.coolDownTimeDescription(components, 10);
+        ComponentUtils.manaCostDescription(components, 60);
         return components;
     }
 

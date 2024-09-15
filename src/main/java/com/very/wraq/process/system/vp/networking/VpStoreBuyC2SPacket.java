@@ -2,12 +2,13 @@ package com.very.wraq.process.system.vp.networking;
 
 import com.mojang.logging.LogUtils;
 import com.very.wraq.commands.stable.players.CustomPrefixCommand;
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.process.func.item.InventoryOperation;
 import com.very.wraq.process.func.plan.PlanPlayer;
 import com.very.wraq.process.func.plan.SimpleTierPaper;
 import com.very.wraq.process.system.vp.VpDataHandler;
 import com.very.wraq.process.system.vp.VpStore;
-import com.very.wraq.common.Compute;
-import com.very.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
@@ -18,7 +19,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.network.NetworkEvent;
 
 import java.text.ParseException;
-import java.util.*;
+import java.util.Calendar;
 import java.util.function.Supplier;
 
 public class VpStoreBuyC2SPacket {
@@ -49,10 +50,10 @@ public class VpStoreBuyC2SPacket {
             if (VpStore.getWorldSoul5Price().containsKey(goods.getItem())) {
                 int needCount = VpStore.getWorldSoul5Price().get(goods.getItem());
                 Inventory inventory = serverPlayer.getInventory();
-                if (Compute.checkPlayerHasItem(inventory, ModItems.worldSoul5.get(), needCount)) {
-                    Compute.removeItem(inventory, ModItems.worldSoul5.get(), needCount);
+                if (InventoryOperation.checkPlayerHasItem(inventory, ModItems.worldSoul5.get(), needCount)) {
+                    InventoryOperation.removeItem(inventory, ModItems.worldSoul5.get(), needCount);
                     ItemStack itemStack = new ItemStack(goods.getItem(), count);
-                    Compute.itemStackGive(serverPlayer, itemStack);
+                    InventoryOperation.itemStackGive(serverPlayer, itemStack);
                     LogUtils.getLogger().info(serverPlayer.getName().getString() + " worldSoul5 buy " + goods);
                     buySuccessfully = true;
                     worldSoul5CostNum = needCount;
@@ -95,7 +96,7 @@ public class VpStoreBuyC2SPacket {
                     VpDataHandler.playerVpData.put(name.toLowerCase(), VpDataHandler.playerVpData.getOrDefault(name.toLowerCase(), 0d) - price);
                     ItemStack itemStack = new ItemStack(goods.getItem(), count);
                     LogUtils.getLogger().info(serverPlayer.getName().getString() + " vp buy " + goods);
-                    Compute.itemStackGive(serverPlayer, itemStack);
+                    InventoryOperation.itemStackGive(serverPlayer, itemStack);
                 }
                 VpDataHandler.sendPlayerVpValue(serverPlayer);
                 buySuccessfully = true;

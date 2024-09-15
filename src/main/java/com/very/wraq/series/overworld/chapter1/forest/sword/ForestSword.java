@@ -51,8 +51,8 @@ public class ForestSword extends WraqSword implements ActiveItem {
         components.add(Component.literal("获得").withStyle(ChatFormatting.WHITE).
                 append(Compute.AttributeDescription.DefencePenetration("15%+[50]")).
                 append(Component.literal("，持续" + (int) ForestSwordAttributes.EffectNum[tier] + "s").withStyle(ChatFormatting.WHITE)));
-        Compute.CoolDownTimeDescription(components, 30);
-        Compute.ManaCostDescription(components, 60);
+        ComponentUtils.coolDownTimeDescription(components, 30);
+        ComponentUtils.manaCostDescription(components, 60);
         return components;
     }
 

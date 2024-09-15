@@ -36,7 +36,7 @@ public class PiglinPower extends Item implements ActiveItem {
                 append(Component.literal("基于").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("指针").withStyle(ChatFormatting.AQUA)).
                 append(Component.literal("周围怪物数量，对每个怪物造成:").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.ManaDamageValue("200%*怪物数量")));
+                append(ComponentUtils.AttributeDescription.ManaDamageValue("200%*怪物数量")));
         components.add(Component.literal(" - 这个伤害会附带").withStyle(ChatFormatting.WHITE).
                 append(Element.Description.FireElement("1 + 100%")));
         components.add(Component.literal("·[对人]").withStyle(ChatFormatting.AQUA).
@@ -45,12 +45,12 @@ public class PiglinPower extends Item implements ActiveItem {
                 append(Component.literal("周围玩家数量，提升每个玩家:").withStyle(ChatFormatting.WHITE)).
                 append(ComponentUtils.AttributeDescription.movementSpeed("10%*玩家数量")).
                 append(Component.literal("以及").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.ManaDamage("3%")).
+                append(ComponentUtils.AttributeDescription.ManaDamage("3%")).
                 append(Component.literal("额外攻击力").withStyle(ChatFormatting.YELLOW)).
                 append(Component.literal("，并移除玩家的负面效果。").withStyle(ChatFormatting.AQUA)));
         components.add(Component.literal(" - 这个效果持续5s，且仅能同时存在一个").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
-        Compute.CoolDownTimeDescription(components, 10);
-        Compute.ManaCostDescription(components, 360);
+        ComponentUtils.coolDownTimeDescription(components, 10);
+        ComponentUtils.manaCostDescription(components, 360);
         Compute.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
         components.add(Component.literal("Powers-Piglin").withStyle(Style.EMPTY.withColor(TextColor.parseColor("#a2001b"))).withStyle(ChatFormatting.ITALIC));
         super.appendHoverText(itemStack, level, components, flag);

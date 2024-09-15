@@ -1294,6 +1294,11 @@ public class ModNetworking {
                 .encoder(SmeltHarvestC2SPacket::toBytes)
                 .consumerMainThread(SmeltHarvestC2SPacket::handle)
                 .add();
+        net.messageBuilder(PlayerClickSpaceC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(PlayerClickSpaceC2SPacket::new)
+                .encoder(PlayerClickSpaceC2SPacket::toBytes)
+                .consumerMainThread(PlayerClickSpaceC2SPacket::handle)
+                .add();
     }
 
     public static <MSG> void sendToServer(MSG message) {

@@ -1,9 +1,10 @@
 package com.very.wraq.Items.Lotteries;
 
-import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.struct.ItemAndWeight;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.struct.ItemAndWeight;
+import com.very.wraq.process.func.item.InventoryOperation;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -74,7 +75,7 @@ public class CommonLotteries extends Item {
                     if (RandomIndex.get() <= 0) {
                         if (itemAndWeight.getWeight() < 10)
                             Compute.formatBroad(level, Component.literal("彩券").withStyle(CustomStyle.styleOfFantasy), Component.literal("").withStyle(ChatFormatting.WHITE).append(player.getDisplayName()).append(Component.literal(" 通过").withStyle(ChatFormatting.WHITE)).append(itemStack.getDisplayName()).append(Component.literal("获得了:").withStyle(ChatFormatting.WHITE)).append(itemAndWeight.getItem().getDefaultInstance().getDisplayName()));
-                        Compute.itemStackGive(player, itemAndWeight.getItem().getDefaultInstance());
+                        InventoryOperation.itemStackGive(player, itemAndWeight.getItem().getDefaultInstance());
                     }
                 }
             });

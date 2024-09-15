@@ -1,9 +1,10 @@
 package com.very.wraq.series.overworld.chapter1.volcano;
 
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.util.ClientUtils;
-import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.ClientUtils;
+import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.StringUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
@@ -26,7 +27,7 @@ public class VolcanoSuitDescription {
                 append(Compute.AttributeDescription.AttackDamage("等级 * 1")).
                 append(Component.literal("(" + level + ")").withStyle(ChatFormatting.GRAY)).
                 append(Component.literal("与").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.ManaDamage("等级 * 2")).
+                append(ComponentUtils.AttributeDescription.ManaDamage("等级 * 2")).
                 append(Component.literal("(" + level * 2 + ")").withStyle(ChatFormatting.GRAY)));
         components.add(Component.literal(" 在100级时达到最大收益").withStyle(ChatFormatting.GRAY));
         if (Screen.hasShiftDown()) VolcanoSuitDescription(components);
@@ -75,7 +76,7 @@ public class VolcanoSuitDescription {
         components.add(Component.literal("获得").withStyle(ChatFormatting.WHITE).
                 append(Compute.AttributeDescription.ExAttackDamage("15%")));
         components.add(Component.literal("获得").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.ManaDamage("25%")));
+                append(ComponentUtils.AttributeDescription.ManaDamage("25%")));
         Compute.SuitQuadraDescription(components, Count);
         Compute.DescriptionPassive(components, Component.literal("地层震荡").withStyle(ChatFormatting.YELLOW));
         components.add(Component.literal("获得").withStyle(ChatFormatting.WHITE).

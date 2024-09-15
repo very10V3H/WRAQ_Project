@@ -1,17 +1,19 @@
 package com.very.wraq.events.instance;
 
-import com.very.wraq.events.core.LoginInEvent;
-import com.very.wraq.process.system.element.Element;
-import com.very.wraq.process.func.particle.ParticleProvider;
-import com.very.wraq.render.particles.ModParticles;
-import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.util.StringUtils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.util.struct.Boss2Damage;
 import com.very.wraq.common.util.struct.Instance;
 import com.very.wraq.common.util.struct.PlayerTeam;
-import com.very.wraq.common.util.Utils;
-import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.events.core.LoginInEvent;
+import com.very.wraq.process.func.damage.Damage;
+import com.very.wraq.process.func.item.InventoryOperation;
+import com.very.wraq.process.func.particle.ParticleProvider;
+import com.very.wraq.process.system.element.Element;
+import com.very.wraq.render.particles.ModParticles;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -116,7 +118,7 @@ public class IceKnight {
                     }});
                     Mob entity = instance.getMobList().get(0);
 
-                    Compute.SetMobCustomName(entity, ModItems.MobArmorIceHelmet.get(),
+                    Compute.setMobCustomName(entity, ModItems.MobArmorIceHelmet.get(),
                             Component.literal("冰霜骑士").withStyle(CustomStyle.styleOfIce));
 
                     entity.getAttribute(Attributes.MAX_HEALTH).setBaseValue(MaxHealth * difficultyEnhanceRate * (1 + (playerNum - 1) * 0.75));
@@ -158,7 +160,7 @@ public class IceKnight {
 
 
                     if (NearestPlayer.get() != null) {
-                        Compute.Damage.AttackDamageToPlayer(mob, NearestPlayer.get(), 200 * difficultyEnhanceRate);
+                        Damage.AttackDamageToPlayer(mob, NearestPlayer.get(), 200 * difficultyEnhanceRate);
                         NearestPlayer.get().addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 3, false, false, false));
 
                         BlockPos blockPos = new BlockPos((int) NearestPlayer.get().getX(), (int) (NearestPlayer.get().getY() + 0.9), (int) NearestPlayer.get().getZ());
@@ -170,7 +172,7 @@ public class IceKnight {
 
                     playerListGetByName.forEach(player -> {
                         if (player != null && player.distanceTo(mob) < 50) {
-                            Compute.Damage.manaDamageToPlayer(mob, player, 40 * difficultyEnhanceRate);
+                            Damage.manaDamageToPlayer(mob, player, 40 * difficultyEnhanceRate);
                             player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 1, false, false, false));
                             BlockPos blockPos = new BlockPos((int) player.getX(), (int) (player.getY() + 0.9), (int) player.getZ());
                             if (player.level().getBlockState(blockPos).getBlock() == Blocks.AIR) {
@@ -347,7 +349,7 @@ public class IceKnight {
                     playerList.forEach(player -> {
                         if (player.distanceTo(mob) < 50) {
                             if (Compute.PlayerCurrentColdNum(player) >= 50) {
-                                Compute.Damage.AttackDamageToPlayer(mob, player, player.getMaxHealth() * 1.5);
+                                Damage.AttackDamageToPlayer(mob, player, player.getMaxHealth() * 1.5);
                             }
                             ClientboundSetTitleTextPacket clientboundSetTitleTextPacket =
                                     new ClientboundSetTitleTextPacket(Component.literal("迸晶裂玉").withStyle(style));
@@ -386,7 +388,7 @@ public class IceKnight {
                             if (Utils.IceHunterForIceKnight[i] != null)
                                 Utils.IceHunterForIceKnight[i].remove(Entity.RemovalReason.KILLED);
                             Utils.IceHunterForIceKnight[i] = new Stray(EntityType.STRAY, mob.level());
-                            Compute.SetMobCustomName(Utils.IceHunterForIceKnight[i], ModItems.MobArmorIceHunterHelmet.get(),
+                            Compute.setMobCustomName(Utils.IceHunterForIceKnight[i], ModItems.MobArmorIceHunterHelmet.get(),
                                     Component.literal("冰原猎手").withStyle(CustomStyle.styleOfIce));
                             Utils.IceHunterForIceKnight[i].setItemSlot(EquipmentSlot.HEAD, ModItems.MobArmorIceHunterHelmet.get().getDefaultInstance());
                             Utils.IceHunterForIceKnight[i].setItemSlot(EquipmentSlot.CHEST, ModItems.MobArmorIceHunterChest.get().getDefaultInstance());
@@ -435,7 +437,7 @@ public class IceKnight {
                             append(player.getDisplayName()).
                             append(Component.literal("获得了:").withStyle(ChatFormatting.WHITE)).
                             append(itemStack.getDisplayName()));
-            Compute.itemStackGive(player, itemStack);
+            InventoryOperation.itemStackGive(player, itemStack);
         }
 
         itemStack = new ItemStack(Items.AIR);
@@ -448,7 +450,7 @@ public class IceKnight {
                             append(player.getDisplayName()).
                             append(Component.literal("获得了:").withStyle(ChatFormatting.WHITE)).
                             append(itemStack.getDisplayName()));
-            Compute.itemStackGive(player, itemStack);
+            InventoryOperation.itemStackGive(player, itemStack);
         }
 
         if (!isMopUp) {
@@ -456,7 +458,7 @@ public class IceKnight {
                 Compute.sendFormatMSG(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
                         Component.literal("你通过组队挑战副本，额外获得了:").withStyle(ChatFormatting.WHITE).
                                 append(ModItems.IceLoot.get().getDefaultInstance().getDisplayName()));
-                Compute.itemStackGive(player, new ItemStack(ModItems.IceLoot.get(), 2));
+                InventoryOperation.itemStackGive(player, new ItemStack(ModItems.IceLoot.get(), 2));
             }
         }
 
@@ -464,8 +466,8 @@ public class IceKnight {
             Compute.sendFormatMSG(player, Component.literal("额外奖励").withStyle(ChatFormatting.LIGHT_PURPLE),
                     Component.literal("每日首次通关副本，额外获得了:").withStyle(ChatFormatting.WHITE).
                             append(ModItems.IceLoot.get().getDefaultInstance().getDisplayName()));
-                Compute.itemStackGive(player, new ItemStack(ModItems.IceLoot.get(), 24));
+                InventoryOperation.itemStackGive(player, new ItemStack(ModItems.IceLoot.get(), 24));
         }
-        Compute.itemStackGive(player, new ItemStack(ModItems.IceLoot.get(), difficultyEnhanceRate));
+        InventoryOperation.itemStackGive(player, new ItemStack(ModItems.IceLoot.get(), difficultyEnhanceRate));
     }
 }

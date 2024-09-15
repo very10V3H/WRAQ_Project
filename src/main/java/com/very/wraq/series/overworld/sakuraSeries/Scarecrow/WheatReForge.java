@@ -1,6 +1,7 @@
 package com.very.wraq.series.overworld.sakuraSeries.Scarecrow;
 
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -29,13 +30,13 @@ public class WheatReForge extends Item {
         components.add(Component.literal("2.").withStyle(ChatFormatting.WHITE).
                 append(Compute.AttributeDescription.ManaDefence("-20% ~ 20%")));
         components.add(Component.literal("3.").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.MaxHealth("-50% ~ 100%")));
+                append(ComponentUtils.AttributeDescription.MaxHealth("-50% ~ 100%")));
         components.add(Component.literal("4.").withStyle(ChatFormatting.WHITE).
                 append(Compute.AttributeDescription.CoolDown("-20% ~ 20%")));
         components.add(Component.literal("5.").withStyle(ChatFormatting.WHITE).
                 append(Compute.AttributeDescription.MaxMana("-10% ~ 10%")));
         components.add(Component.literal("6.").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.movementSpeedWithoutBattle("-25% ~ 25%")));
+                append(ComponentUtils.AttributeDescription.movementSpeedWithoutBattle("-25% ~ 25%")));
         components.add(Component.literal(" "));
         components.add(Component.literal("ReForge-Wheat").withStyle(CustomStyle.styleOfWheat).withStyle(ChatFormatting.ITALIC));
         super.appendHoverText(stack, p_41422_, components, p_41424_);

@@ -237,8 +237,8 @@ public class NSLevelEvent {
                         ItemStack itemStack1 = ModItems.NetherQuartz.get().getDefaultInstance();
                         itemStack.setCount(Utils.NSController);
                         itemStack1.setCount(Utils.NSController/2);
-                        Compute.ItemStackGive(player,itemStack);
-                        Compute.ItemStackGive(player,itemStack1);
+                        InventoryOperation.itemStackGive(player,itemStack);
+                        InventoryOperation.itemStackGive(player,itemStack1);
                         ItemStack NetherGem = ModItems.NetherGem.get().getDefaultInstance();
                         NetherGem.getOrCreateTagElement(Utils.MOD_ID);
                         Compute.RandomAttributeProvider(NetherGem,1,rank,player);
@@ -251,7 +251,7 @@ public class NSLevelEvent {
                                 Component.literal("").withStyle(ChatFormatting.WHITE).
                                         append(Component.literal(player.getName().getString()+"获得了").withStyle(ChatFormatting.WHITE)).
                                         append(NetherGem.getDisplayName()));
-                        Compute.ItemStackGive(player,NetherGem);
+                        InventoryOperation.itemStackGive(player,NetherGem);
                     }
                     Utils.NSClear = false;
                     Utils.NSPlayerInController.clear();

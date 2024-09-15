@@ -1,12 +1,13 @@
 package com.very.wraq.process.system.tower;
 
-import com.very.wraq.events.mob.MobSpawn;
-import com.very.wraq.process.func.particle.ParticleProvider;
-import com.very.wraq.render.particles.ModParticles;
-import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.attribute.PlayerAttributes;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.events.mob.MobSpawn;
+import com.very.wraq.process.func.damage.Damage;
+import com.very.wraq.process.func.particle.ParticleProvider;
+import com.very.wraq.render.particles.ModParticles;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityType;
@@ -36,7 +37,7 @@ public class TowerMob {
 
                 Item helmet = ModItems.MobArmorTower1FloorHelmet.get();
 
-                Compute.SetMobCustomName(zombie, helmet, Component.literal("本源生机元素").withStyle(CustomStyle.styleOfLife));
+                Compute.setMobCustomName(zombie, helmet, Component.literal("本源生机元素").withStyle(CustomStyle.styleOfLife));
                 zombie.setItemSlot(EquipmentSlot.HEAD, helmet.getDefaultInstance());
                 zombie.setItemSlot(EquipmentSlot.CHEST, ModItems.MobArmorLifeElementChest.get().getDefaultInstance());
                 zombie.setItemSlot(EquipmentSlot.LEGS, ModItems.MobArmorLifeElementLeggings.get().getDefaultInstance());
@@ -62,7 +63,7 @@ public class TowerMob {
 
             Item helmet = ModItems.MobArmorTower2FloorHelmet.get();
 
-            Compute.SetMobCustomName(stray, helmet, Component.literal("本源碧水元素").withStyle(CustomStyle.styleOfWater));
+            Compute.setMobCustomName(stray, helmet, Component.literal("本源碧水元素").withStyle(CustomStyle.styleOfWater));
             stray.setItemSlot(EquipmentSlot.HEAD, helmet.getDefaultInstance());
             stray.setItemSlot(EquipmentSlot.CHEST, ModItems.MobArmorWaterElementChest.get().getDefaultInstance());
             stray.setItemSlot(EquipmentSlot.LEGS, ModItems.MobArmorWaterElementLeggings.get().getDefaultInstance());
@@ -87,7 +88,7 @@ public class TowerMob {
 
                 Item helmet = ModItems.MobArmorTower3FloorHelmet.get();
 
-                Compute.SetMobCustomName(blaze, helmet, Component.literal("本源炽焰元素").withStyle(CustomStyle.styleOfFire));
+                Compute.setMobCustomName(blaze, helmet, Component.literal("本源炽焰元素").withStyle(CustomStyle.styleOfFire));
                 blaze.setItemSlot(EquipmentSlot.HEAD, helmet.getDefaultInstance());
                 blaze.setItemSlot(EquipmentSlot.CHEST, ModItems.MobArmorFireElementChest.get().getDefaultInstance());
                 blaze.setItemSlot(EquipmentSlot.LEGS, ModItems.MobArmorFireElementLeggings.get().getDefaultInstance());
@@ -113,7 +114,7 @@ public class TowerMob {
 
             Item helmet = ModItems.MobArmorTower4FloorHelmet.get();
 
-            Compute.SetMobCustomName(skeleton, helmet, Component.literal("本源层岩元素").withStyle(CustomStyle.styleOfStone));
+            Compute.setMobCustomName(skeleton, helmet, Component.literal("本源层岩元素").withStyle(CustomStyle.styleOfStone));
             skeleton.setItemSlot(EquipmentSlot.HEAD, helmet.getDefaultInstance());
             skeleton.setItemSlot(EquipmentSlot.CHEST, ModItems.MobArmorStoneElementChest.get().getDefaultInstance());
             skeleton.setItemSlot(EquipmentSlot.LEGS, ModItems.MobArmorStoneElementLeggings.get().getDefaultInstance());
@@ -138,7 +139,7 @@ public class TowerMob {
 
                 Item helmet = ModItems.MobArmorTower5FloorHelmet.get();
 
-                Compute.SetMobCustomName(zombie, helmet, Component.literal("本源凛冰元素").withStyle(CustomStyle.styleOfIce));
+                Compute.setMobCustomName(zombie, helmet, Component.literal("本源凛冰元素").withStyle(CustomStyle.styleOfIce));
                 zombie.setItemSlot(EquipmentSlot.HEAD, helmet.getDefaultInstance());
                 zombie.setItemSlot(EquipmentSlot.CHEST, ModItems.MobArmorIceElementChest.get().getDefaultInstance());
                 zombie.setItemSlot(EquipmentSlot.LEGS, ModItems.MobArmorIceElementLeggings.get().getDefaultInstance());
@@ -165,7 +166,7 @@ public class TowerMob {
 
             Item helmet = ModItems.MobArmorTower6FloorHelmet.get();
 
-            Compute.SetMobCustomName(zombie, helmet, Component.literal("本源怒雷元素").withStyle(CustomStyle.styleOfLightning));
+            Compute.setMobCustomName(zombie, helmet, Component.literal("本源怒雷元素").withStyle(CustomStyle.styleOfLightning));
             zombie.setItemSlot(EquipmentSlot.HEAD, helmet.getDefaultInstance());
             zombie.setItemSlot(EquipmentSlot.CHEST, ModItems.MobArmorLightningElementChest.get().getDefaultInstance());
             zombie.setItemSlot(EquipmentSlot.LEGS, ModItems.MobArmorLightningElementLeggings.get().getDefaultInstance());
@@ -191,7 +192,7 @@ public class TowerMob {
 
                 List<Player> playerList = mob.level().getEntitiesOfClass(Player.class, AABB.ofSize(mob.position(), 30, 30, 30));
                 playerList.removeIf(player -> player.distanceTo(mob) > 9);
-                playerList.forEach(player -> Compute.Damage.manaDamageToPlayer(mob, player, 300));
+                playerList.forEach(player -> Damage.manaDamageToPlayer(mob, player, 300));
                 mob.heal(3000);
             }
         }
@@ -246,7 +247,7 @@ public class TowerMob {
             if (player.tickCount % 100 == 0) {
                 mobList.forEach(mob -> {
                     if (mob.isAlive()) {
-                        Compute.Damage.DamageIgnoreDefenceToPlayer(mob, player, player.getMaxHealth() * 0.1);
+                        Damage.DamageIgnoreDefenceToPlayer(mob, player, player.getMaxHealth() * 0.1);
                         LightningBolt lightningBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, player.level());
                         lightningBolt.setVisualOnly(true);
                         lightningBolt.moveTo(player.position());
