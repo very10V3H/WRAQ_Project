@@ -96,7 +96,7 @@ public class AttributeSet {
 
             // 重力调整 - 用于近战击杀恼鬼场景
             List<Pair<Vec3, Vec3>> lowGravityZone = new ArrayList<>() {{
-                add(new Pair<>(new Vec3(876, 180,491), new Vec3(1242, 280, 724)));
+                add(new Pair<>(new Vec3(876, 180, 491), new Vec3(1242, 280, 724)));
             }};
 
             if (lowGravityZone.stream().anyMatch(pair -> {
@@ -105,7 +105,7 @@ public class AttributeSet {
             })) {
                 player.getAttribute(ForgeMod.ENTITY_GRAVITY.get()).setBaseValue(0.01);
             } else {
-                player.getAttribute(ForgeMod.ENTITY_REACH.get()).setBaseValue(0.08);
+                player.getAttribute(ForgeMod.ENTITY_GRAVITY.get()).setBaseValue(0.08);
             }
         }
     }
