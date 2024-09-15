@@ -122,6 +122,43 @@ public class MyWayPoint {
         add(new MyWayPoint(new Vec3(2417, 152, -1372), "暗黑城堡团队副本挑战点", colorMap.get(black), 0));
 
         add(new MyWayPoint(new Vec3(2335, 148, 17), "东洋塔", colorMap.get(red), 0));
+
+        // 24.9.15 新增地点命名
+        add(new MyWayPoint(new Vec3(2132, 304, -228), "朔山", colorMap.get(blue), 0));
+        add(new MyWayPoint(new Vec3(2232, 281, -775), "望山", colorMap.get(blue), 0));
+        add(new MyWayPoint(new Vec3(1983, 270, -881), "望山阁", colorMap.get(darkPurple), 0));
+
+        add(new MyWayPoint(new Vec3(1460, 74, -900), "炼雨湖", colorMap.get(aqua), 0));
+        add(new MyWayPoint(new Vec3(1488, 105, -1059), "炼雨府邸", colorMap.get(darkAqua), 0));
+
+        add(new MyWayPoint(new Vec3(2688, 222, -968), "焱山", colorMap.get(darkRed), 0));
+
+        add(new MyWayPoint(new Vec3(1534, 81, 305), "炼魔平原", colorMap.get(darkPurple), 0));
+        add(new MyWayPoint(new Vec3(1584, 81, 143), "炼魔庙", colorMap.get(darkPurple), 0));
+        add(new MyWayPoint(new Vec3(1742, 63, 241), "炼魔湾", colorMap.get(blue), 0));
+        add(new MyWayPoint(new Vec3(1101, 76, 260), "纽维雨林", colorMap.get(green), 0));
+        add(new MyWayPoint(new Vec3(1280, 82, 209), "纽维庙", colorMap.get(green), 0));
+        add(new MyWayPoint(new Vec3(1147, 300, 554), "尘月之梦", colorMap.get(white), 0));
+        add(new MyWayPoint(new Vec3(1484, 63, -240), "唤魔湖", colorMap.get(purple), 0));
+        add(new MyWayPoint(new Vec3(1376, 81, -271), "唤魔庙", colorMap.get(purple), 0));
+        add(new MyWayPoint(new Vec3(2243, 72, 1418), "腥月岛", colorMap.get(red), 0));
+        add(new MyWayPoint(new Vec3(2310, 140, 1586), "绯樱林", colorMap.get(purple), 0));
+        add(new MyWayPoint(new Vec3(2437, 135, 1485), "蓝花林", colorMap.get(blue), 0));
+        add(new MyWayPoint(new Vec3(1743, 68, 1285), "雷光岛", colorMap.get(blue), 0));
+        add(new MyWayPoint(new Vec3(2688, 222, -968), "焱山", colorMap.get(red), 0));
+        add(new MyWayPoint(new Vec3(1216, 63, -107), "斯蒂河", colorMap.get(blue), 0));
+        add(new MyWayPoint(new Vec3(1035, 63, -629), "斯蒂河", colorMap.get(blue), 0));
+        add(new MyWayPoint(new Vec3(658, 63, -437), "德朗湾", colorMap.get(blue), 0));
+        add(new MyWayPoint(new Vec3(752, 63, -1241), "薰花河", colorMap.get(blue), 0));
+        add(new MyWayPoint(new Vec3(886, 63, -836), "薰花河", colorMap.get(blue), 0));
+        add(new MyWayPoint(new Vec3(136, 63, -1433), "薰花河", colorMap.get(blue), 0));
+        add(new MyWayPoint(new Vec3(1276, 63, -1503), "北洋江", colorMap.get(blue), 0));
+        add(new MyWayPoint(new Vec3(871, 63, -1886), "江东湖", colorMap.get(blue), 0));
+        add(new MyWayPoint(new Vec3(290, 63, -1738), "江西湖", colorMap.get(blue), 0));
+        add(new MyWayPoint(new Vec3(1173, 63, -2095), "北西洋", colorMap.get(aqua), 0));
+        add(new MyWayPoint(new Vec3(2320, 63, -2111), "北东洋", colorMap.get(aqua), 0));
+        add(new MyWayPoint(new Vec3(416, 63, -3332), "北西海", colorMap.get(aqua), 0));
+        add(new MyWayPoint(new Vec3(2964, 63, -3404), "北东海", colorMap.get(aqua), 0));
     }};
 
     public static List<MyWayPoint> netherPointList = new ArrayList<>() {{
