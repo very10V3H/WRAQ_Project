@@ -1,10 +1,14 @@
 package com.very.wraq.events.client;
 
+import com.very.wraq.common.Compute;
 import com.very.wraq.common.registry.KeyBoradInput;
+import com.very.wraq.common.util.ClientUtils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.misc.AnimationPackets.RollingAnimationRequestC2SPacket;
 import com.very.wraq.networking.misc.Limit.LimitC2SPacket;
-import com.very.wraq.networking.misc.USE.*;
+import com.very.wraq.networking.misc.USE.UseC2SPacket;
+import com.very.wraq.networking.unSorted.PlayerClickSpaceC2SPacket;
 import com.very.wraq.process.func.guide.GuideHud;
 import com.very.wraq.process.func.guide.networking.GuideFinishC2SPacket;
 import com.very.wraq.process.system.element.ElementRoulette;
@@ -24,8 +28,6 @@ import com.very.wraq.render.gui.skills.IdCardGui;
 import com.very.wraq.render.gui.skills.SkillTreeGui;
 import com.very.wraq.render.gui.team.*;
 import com.very.wraq.render.gui.villagerTrade.TradeScreen;
-import com.very.wraq.common.util.ClientUtils;
-import com.very.wraq.common.util.Utils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
@@ -131,6 +133,13 @@ public class KeyInput {
                     ModNetworking.sendToServer(new CurrentSeasonC2SPacket());
                     Minecraft.getInstance().setScreen(new ElementRoulette());
                     ModNetworking.sendToServer(new GuideFinishC2SPacket(6));
+                }
+
+                if (KeyBoradInput.SPACE.consumeClick()) {
+                    // 适用于低重力环境跳跃
+                    if (Compute.inLowGravityEnvironment(Minecraft.getInstance().player)) {
+                        ModNetworking.sendToServer(new PlayerClickSpaceC2SPacket());
+                    }
                 }
             }
         }
