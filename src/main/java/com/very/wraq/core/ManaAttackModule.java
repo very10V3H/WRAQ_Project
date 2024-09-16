@@ -26,6 +26,7 @@ import com.very.wraq.process.func.suit.SuitCount;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.projectiles.OnHitEffectCurios;
 import com.very.wraq.projectiles.OnHitEffectMainHandWeapon;
+import com.very.wraq.projectiles.OnHitEffectPassiveEquip;
 import com.very.wraq.projectiles.mana.NewArrowMagma;
 import com.very.wraq.render.hud.Mana;
 import com.very.wraq.render.toolTip.CustomStyle;
@@ -194,6 +195,7 @@ public class ManaAttackModule {
             }
             if (mainShoot) {
                 OnHitEffectCurios.hit(player, monster);
+                OnHitEffectPassiveEquip.hit(player, monster);
                 EnhanceNormalAttackModifier.onHitEffect(player, monster, 2);
             }
 

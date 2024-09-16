@@ -110,6 +110,7 @@ public abstract class WraqSceptre extends SwordItem {
             }
             if (mainShoot) {
                 OnShootManaArrowCurios.shoot(player);
+                OnShootManaArrowPassiveEquip.shoot(player);
             }
             MySound.SoundToAll(player, SoundEvents.EVOKER_CAST_SPELL);
         }

@@ -19,6 +19,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -161,5 +162,17 @@ public class InventoryOperation {
                     Component.literal("背包中似乎没有足够数量的 ").withStyle(ChatFormatting.WHITE).
                             append(needItem.getDisplayName()));
         }
+    }
+
+    public static List<ItemStack> getPassiveEquip(Player player) {
+        List<ItemStack> passiveEquip = new ArrayList<>();
+        Inventory inventory = player.getInventory();
+        for (int i = 3; i < 9; i++) {
+            ItemStack stack = inventory.getItem(i);
+            if (Utils.passiveEquipTag.containsKey(stack.getItem())) {
+                passiveEquip.add(stack);
+            }
+        }
+        return passiveEquip;
     }
 }

@@ -17,6 +17,7 @@ import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.projectiles.OnHitEffectCurios;
 import com.very.wraq.projectiles.OnHitEffectMainHandWeapon;
+import com.very.wraq.projectiles.OnHitEffectPassiveEquip;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.instance.series.castle.CastleBow;
 import com.very.wraq.series.instance.series.castle.CastleSwiftArmor;
@@ -329,6 +330,7 @@ public class MyArrow extends AbstractArrow {
             }
             if (myArrow.mainShoot) {
                 OnHitEffectCurios.hit(player, monster);
+                OnHitEffectPassiveEquip.hit(player, monster);
             }
             if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false)) {
                 player.sendSystemMessage(Component.literal("NormalAttackDamageEnhance : " + NormalAttackDamageEnhance));

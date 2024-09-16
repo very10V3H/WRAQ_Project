@@ -16,7 +16,7 @@ import net.minecraft.world.item.Item;
 
 import java.util.*;
 
-public class WraqMixture extends WraqPassiveEquip implements ActiveItem, OnShootManaArrowCurios, OnHitEffectCurios {
+public class WraqMixture extends WraqPassiveEquip implements ActiveItem, OnShootManaArrowPassiveEquip, OnHitEffectPassiveEquip {
 
     private final Component suffix;
     private final Style style;

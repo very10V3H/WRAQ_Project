@@ -1,5 +1,6 @@
 package com.very.wraq.projectiles;
 
+import com.very.wraq.blocks.blocks.inject.InjectRecipe;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.attribute.BasicAttributeDescription;
 import com.very.wraq.common.registry.ItemTier;
@@ -28,6 +29,10 @@ public abstract class WraqPassiveEquip extends PickaxeItem {
         super(ItemTier.VMaterial, 2, 0, p_40524_);
         Utils.passiveEquipTag.put(this, 1d);
         Utils.weaponList.add(this);
+        if (this instanceof CanBeInjected canBeInjected) {
+            InjectRecipe.injectingRecipeMap.put(this, canBeInjected.getRecipe());
+            InjectRecipe.injectedGetItemSourceItemMap.put(canBeInjected.getRecipe().getForgingGetItem(), this);
+        }
     }
 
     public abstract Style getMainStyle();
