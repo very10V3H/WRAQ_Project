@@ -7,7 +7,7 @@ import com.very.wraq.common.util.ItemAndRate;
 import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.common.util.Utils;
 import com.very.wraq.events.core.InventoryCheck;
-import com.very.wraq.events.core.LoginInEvent;
+import com.very.wraq.events.server.LoginInEvent;
 import com.very.wraq.events.mob.chapter1.ForestZombieSpawnController;
 import com.very.wraq.events.mob.chapter1.LakeDrownSpawnController;
 import com.very.wraq.events.mob.chapter1.MineSkeletonSpawnController;

@@ -1,4 +1,4 @@
-package com.very.wraq.events.core;
+package com.very.wraq.events.server;
 
 import com.very.wraq.blocks.entity.ForgingBlockEntity;
 import com.very.wraq.blocks.entity.FurnaceEntity;
@@ -12,6 +12,7 @@ import com.very.wraq.common.registry.MySound;
 import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.util.struct.PlayerTeam;
+import com.very.wraq.events.core.BlockEvent;
 import com.very.wraq.events.instance.PurpleIronKnight;
 import com.very.wraq.events.mob.instance.NoTeamInstanceModule;
 import com.very.wraq.networking.ModNetworking;

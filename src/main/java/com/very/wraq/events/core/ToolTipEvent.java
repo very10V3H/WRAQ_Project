@@ -50,11 +50,6 @@ public class ToolTipEvent {
             add(ModItems.LightningElementPiece2.get());
             add(ModItems.WindElementPiece2.get());
         }};
-        if (event.getItemStack().is(ModItems.ChangeLog.get())) {
-            for (Component component : ServerPlayerTickEvent.changeLog) {
-                event.getToolTip().add(component);
-            }
-        }
         if (items.contains(event.getItemStack().getItem())) {
             event.getToolTip().add(
                     Component.literal(" - 可置于主手武器物品栏上方").

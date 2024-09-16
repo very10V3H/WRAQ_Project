@@ -7,7 +7,6 @@ import com.very.wraq.networking.misc.ParticlePackets.SnowSwordParticleC2SPacket;
 import com.very.wraq.networking.misc.USE.MoveToC2SPacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
@@ -23,7 +22,6 @@ public class UseNetWorkEvent {
     @SubscribeEvent
     public static void AllTickEvent(TickEvent.PlayerTickEvent event) {
         Player player = event.player;
-        CompoundTag data = player.getPersistentData();
         Level level = player.level();
         if (level.isClientSide && event.player.equals(Minecraft.getInstance().player)) {
             if (ClientUtils.UseOfSnowSword) {

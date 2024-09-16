@@ -1,4 +1,4 @@
-package com.very.wraq.events.core;
+package com.very.wraq.events.server;
 
 import com.github.alexthe666.alexsmobs.entity.EntityLeafcutterAnt;
 import com.very.wraq.Items.Forging.WraqForge;
@@ -100,31 +100,11 @@ import net.minecraftforge.fml.common.Mod;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 @Mod.EventBusSubscriber
 public class ServerPlayerTickEvent {
-    public static List<Component> changeLog = new ArrayList<>() {{
-        add(Component.literal(" 盾击 ： 每100护甲 提供10%近战攻击增幅 -> 根据护甲值，至多为你提供100%近战攻击增幅。 公式为 = 1 - (800 / (800 + Defence))"));
-        add(Component.literal(" 敏捷 ： 每1敏捷 提供50%箭矢攻击增幅 -> 根据敏捷值，至多为你提供150%箭矢攻击增幅。 公式为 = 1.5 - (12 / (8 + Swiftness))"));
-        add(Component.literal(" 冰霜系列护甲 ： 雪上覆霜 对移动速度受损的目标造成的伤害提升50% -> 伤害提升15%"));
-        add(Component.literal(" 下界混沌护甲 ： 基于目标的魔法抗性提升35% -> 12%"));
-        add(Component.literal(" 尘月防具 ： 被动 - 阴晴圆缺 伤害提升 50% -> 15%"));
-        add(Component.literal(" 梦月防具 ： 被动 - 披星戴月 伤害提升 75% -> 25%"));
-        add(Component.literal(" 暗金项链、黑金胸针：各属性的伤害提升最高值"));
-        add(Component.literal(" 锐利：25% -> 10%"));
-        add(Component.literal(" 扇风：50% -> 15%"));
-        add(Component.literal(" 破冰：50% -> 15%"));
-        add(Component.literal(" 凌弱：50% -> 15%"));
-        add(Component.literal(" 克强：50% -> 15%"));
-        add(Component.literal(" 星星瓶： 被动 - 聚星集屑 每10层提供7%伤害提升 -> 提供3%伤害提升"));
-        add(Component.literal(" 遗骸铸盾： 被动 - 碎骨化灰 基于护甲差值提供的伤害提升 -> 基于护甲差值至多提供50%近战攻击增幅"));
-        add(Component.literal(" 城堡系列武器： 主动 - 噬魔注能 伤害提升 80% -> 25%"));
-        add(Component.literal(" 紫晶器灵被动： 被动 - 晶体析构 每1000差值提供25%伤害提升 -> 基于差值至多提供50%伤害提升"));
-        add(Component.literal(" 力凝魔核：每100技能急速 提供50%伤害提升 -> 15%伤害提升"));
-    }};
     @SubscribeEvent
     public static void ServerPlayerTick(TickEvent.PlayerTickEvent event) throws IOException, ParseException, SQLException {
         if (event.side.isServer() && event.phase == TickEvent.Phase.START) {

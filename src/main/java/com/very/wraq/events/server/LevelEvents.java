@@ -1,4 +1,4 @@
-package com.very.wraq.events.core;
+package com.very.wraq.events.server;
 
 import com.very.wraq.commands.changeable.PrefixCommand;
 import com.very.wraq.common.Compute;

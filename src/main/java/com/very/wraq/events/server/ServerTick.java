@@ -1,4 +1,4 @@
-package com.very.wraq.events.core;
+package com.very.wraq.events.server;
 
 import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.files.dataBases.DataBase;

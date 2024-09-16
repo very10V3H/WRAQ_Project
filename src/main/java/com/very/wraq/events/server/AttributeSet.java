@@ -1,4 +1,4 @@
-package com.very.wraq.events.core;
+package com.very.wraq.events.server;
 
 import com.mojang.datafixers.util.Pair;
 import com.very.wraq.common.Compute;

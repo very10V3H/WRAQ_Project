@@ -2,7 +2,7 @@ package com.very.wraq.events.instance;
 
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.registry.ModItems;
-import com.very.wraq.events.core.LoginInEvent;
+import com.very.wraq.events.server.LoginInEvent;
 import com.very.wraq.process.func.item.InventoryOperation;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;

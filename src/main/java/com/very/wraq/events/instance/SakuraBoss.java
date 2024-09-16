@@ -9,7 +9,7 @@ import com.very.wraq.common.util.struct.Boss2Damage;
 import com.very.wraq.common.util.struct.Instance;
 import com.very.wraq.common.util.struct.PlayerTeam;
 import com.very.wraq.entities.entities.Boss2.Boss2;
-import com.very.wraq.events.core.LoginInEvent;
+import com.very.wraq.events.server.LoginInEvent;
 import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.process.func.item.InventoryOperation;
 import com.very.wraq.render.toolTip.CustomStyle;
