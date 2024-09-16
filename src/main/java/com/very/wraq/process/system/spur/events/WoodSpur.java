@@ -24,11 +24,10 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.io.IOException;
 import java.util.Random;
 
 public class WoodSpur {
-    public static void woodEvent(net.minecraftforge.event.level.BlockEvent.BreakEvent event) throws IOException {
+    public static void woodEvent(net.minecraftforge.event.level.BlockEvent.BreakEvent event) {
         if (!event.getPlayer().level().isClientSide && !event.getPlayer().isCreative()) {
             Player player = event.getPlayer();
             BlockPos blockPos = event.getPos();
@@ -84,7 +83,7 @@ public class WoodSpur {
 
     public static String logPieceGetTimes = "logPieceGetTimes";
 
-    public static void logReward(Player player) throws IOException {
+    public static void logReward(Player player) {
         CompoundTag data = player.getPersistentData();
         addPlayerLopExp(player, 2);
         Compute.givePercentExpToPlayer(player, 0.005, 0, Math.min(player.experienceLevel, 50));

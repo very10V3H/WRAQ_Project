@@ -2,12 +2,9 @@ package com.very.wraq.Items.MainStory_1.Mission;
 
 import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.process.system.smelt.Smelt;
-import com.very.wraq.process.system.smelt.SmeltRecipeScreen;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -18,6 +15,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,17 +53,19 @@ public class Main0 extends Item {
         if (!level.isClientSide && !player.isShiftKeyDown()) {
             String name = player.getName().getString();
             CompoundTag data = player.getPersistentData();
-            ServerPlayer serverPlayer = (ServerPlayer) player;
-            Smelt.sendDataToClient(serverPlayer);
+            try {
+                Smelt.fastenAllSmeltProgress(player, 30);
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
         }
 
         if (!level.isClientSide && player.isShiftKeyDown()) {
-            Smelt.setMaxSmeltSlot(player, 11);
-            player.sendSystemMessage(Component.literal("" + Smelt.getPlayerSmeltTag(player)));
+
         }
 
         if (level.isClientSide && !player.isShiftKeyDown()) {
-            Minecraft.getInstance().setScreen(new SmeltRecipeScreen());
+
         }
 
         if (level.isClientSide && player.isShiftKeyDown()) {

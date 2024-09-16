@@ -130,7 +130,7 @@ public class InventoryOperation {
         }
     }
 
-    public static void giveItemStackByRate(ItemStack itemStack, double rate, Player player) throws IOException {
+    public static void giveItemStackByRate(ItemStack itemStack, double rate, Player player) {
         Random r = new Random();
         if (rate > 1) {
             int Count = (int) rate;

@@ -4,8 +4,11 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.very.wraq.common.util.Utils;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.misc.Limit.ScreenCloseC2SPacket;
+import com.very.wraq.process.system.smelt.SmeltDataRequestC2SPacket;
+import com.very.wraq.process.system.smelt.SmeltRecipeScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
@@ -27,8 +30,11 @@ public class FurnaceScreen extends AbstractContainerScreen<FurnaceMenu> {
     @Override
     protected void init() {
         super.init();
+        this.addRenderableWidget(Button.builder(Component.translatable("托管炼造"), (p_280814_) -> {
+            Minecraft.getInstance().setScreen(new SmeltRecipeScreen());
+            ModNetworking.sendToServer(new SmeltDataRequestC2SPacket());
+        }).pos(this.width / 2 + 90, this.height / 2 - 82).size(48, 16).build());
     }
-
 
     @Override
     protected void renderBg(GuiGraphics guiGraphics, float PartialTick, int pMouseX, int pMouseY) {
@@ -43,8 +49,6 @@ public class FurnaceScreen extends AbstractContainerScreen<FurnaceMenu> {
         if (menu.isCrafting()) {
             guiGraphics.blit(TEXTURE, x + 77, y + 25, 176, 0, menu.getScaledProgress(), 8);
         }
-
-
     }
 
 
@@ -66,5 +70,4 @@ public class FurnaceScreen extends AbstractContainerScreen<FurnaceMenu> {
         super.onClose();
         ModNetworking.sendToServer(new ScreenCloseC2SPacket());
     }
-
 }

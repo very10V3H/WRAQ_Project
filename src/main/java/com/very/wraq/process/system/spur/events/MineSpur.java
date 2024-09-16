@@ -26,13 +26,12 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
-import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Random;
 
 public class MineSpur {
 
-    public static void mineEvent(net.minecraftforge.event.level.BlockEvent.BreakEvent event) throws IOException {
+    public static void mineEvent(net.minecraftforge.event.level.BlockEvent.BreakEvent event) {
         Player player = event.getPlayer();
         BlockPos blockPos = event.getPos();
         BlockState blockState = event.getState();

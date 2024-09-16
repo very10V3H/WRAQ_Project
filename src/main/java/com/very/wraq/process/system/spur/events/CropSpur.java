@@ -25,14 +25,13 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
 public class CropSpur {
 
-    public static void cropsInteract(net.minecraftforge.event.level.BlockEvent.BreakEvent event) throws IOException {
+    public static void cropsInteract(net.minecraftforge.event.level.BlockEvent.BreakEvent event) {
         if (!event.getPlayer().level().isClientSide && !event.getPlayer().isCreative()) {
             Player player = event.getPlayer();
             BlockPos blockPos = event.getPos();
@@ -41,7 +40,7 @@ public class CropSpur {
         }
     }
 
-    public static void harvestCrops(Player player, BlockPos blockPos, Level overWorld) throws IOException {
+    public static void harvestCrops(Player player, BlockPos blockPos, Level overWorld) {
         if (player.level().equals(overWorld)) {
             if (blockPos.getX() > 1265 && blockPos.getX() < 1614
                     && blockPos.getZ() > 1297 && blockPos.getZ() < 1545) return;
@@ -76,7 +75,7 @@ public class CropSpur {
     }
 
     @SubscribeEvent
-    public static void sweetBerries(PlayerInteractEvent.RightClickBlock event) throws IOException {
+    public static void sweetBerries(PlayerInteractEvent.RightClickBlock event) {
         if (event.getSide().isServer()) {
             Player player = event.getEntity();
             BlockPos blockPos = event.getHitVec().getBlockPos();
@@ -89,7 +88,7 @@ public class CropSpur {
 
     public static String cropPieceGetTimes = "cropPieceGetTimes";
 
-    public static void cropsReward(Player player, BlockState blockState) throws IOException {
+    public static void cropsReward(Player player, BlockState blockState) {
         CompoundTag data = player.getPersistentData();
         if (blockState.is(Blocks.WHEAT))
             data.putInt(StringUtils.Gardening.Wheat, data.getInt(StringUtils.Gardening.Wheat) + 1);

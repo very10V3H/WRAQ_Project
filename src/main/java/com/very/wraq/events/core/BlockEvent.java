@@ -271,7 +271,7 @@ public class BlockEvent {
     }
 
     @SubscribeEvent
-    public static void Dig(net.minecraftforge.event.level.BlockEvent.BreakEvent event) throws IOException {
+    public static void Dig(net.minecraftforge.event.level.BlockEvent.BreakEvent event) {
         if (!event.getPlayer().isCreative() && !event.getState().is(Blocks.FIRE)) event.setCanceled(true);
         TabooDevil.DetectDig(event);
         CastleSecondFloor.DetectDig(event);

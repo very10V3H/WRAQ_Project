@@ -16,7 +16,6 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.IOException;
 import java.util.List;
 
 public class SakuraPocket extends Item {
@@ -73,11 +72,7 @@ public class SakuraPocket extends Item {
             };
 
             for (int i = 0; i < Rewards.length; i++) {
-                try {
-                    InventoryOperation.giveItemStackByRate(Rewards[i].getDefaultInstance(), RewardsRate[i], player);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                InventoryOperation.giveItemStackByRate(Rewards[i].getDefaultInstance(), RewardsRate[i], player);
             }
 
             Compute.playerItemUseWithRecord(player);

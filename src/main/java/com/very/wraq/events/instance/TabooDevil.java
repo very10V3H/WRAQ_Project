@@ -7,9 +7,9 @@ import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.util.struct.Boss2Damage;
 import com.very.wraq.common.util.struct.Instance;
 import com.very.wraq.common.util.struct.PlayerTeam;
-import com.very.wraq.events.server.LoginInEvent;
 import com.very.wraq.events.fight.MonsterAttackEvent;
 import com.very.wraq.events.mob.MobSpawn;
+import com.very.wraq.events.server.LoginInEvent;
 import com.very.wraq.process.func.damage.Damage;
 import com.very.wraq.process.func.item.InventoryOperation;
 import com.very.wraq.process.func.particle.ParticleProvider;
@@ -51,7 +51,6 @@ import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -498,7 +497,7 @@ public class TabooDevil {
         }
     }
 
-    public static void DetectDig(BlockEvent.BreakEvent event) throws IOException {
+    public static void DetectDig(BlockEvent.BreakEvent event) {
         BlockPos blockPos = event.getPos();
         BlockState blockState = event.getState();
         Player player = event.getPlayer();

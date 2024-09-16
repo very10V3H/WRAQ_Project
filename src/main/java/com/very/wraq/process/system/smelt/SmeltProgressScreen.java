@@ -41,7 +41,7 @@ public class SmeltProgressScreen extends Screen {
         this.createMenu();
     }
 
-    private final List<SmeltRecipe> list = Smelt.getSmeltRecipeByTag(Smelt.clientData);
+    private final List<SmeltRecipe> list = Smelt.getRecipeByTag(Smelt.clientData);
 
     private void createMenu() {
 
@@ -89,7 +89,7 @@ public class SmeltProgressScreen extends Screen {
         int tick = ClientUtils.clientPlayerTick;
         List<Calendar> timeList = null;
         try {
-            timeList = Smelt.getSmeltFinishTimeByTag(Smelt.clientData);
+            timeList = Smelt.getProgressFinishTimeByTag(Smelt.clientData);
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }

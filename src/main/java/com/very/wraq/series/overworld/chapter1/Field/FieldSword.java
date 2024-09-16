@@ -16,7 +16,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,11 +58,7 @@ public class FieldSword extends WraqSword implements ActiveItem {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 BlockPos blockPos1 = new BlockPos(blockPos.getX() - 1 + i, blockPos.getY(), blockPos.getZ() - 1 + j);
-                try {
-                    CropSpur.harvestCrops(player, blockPos1, player.level());
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                CropSpur.harvestCrops(player, blockPos1, player.level());
             }
         }
     }

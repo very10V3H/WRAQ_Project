@@ -70,6 +70,7 @@ import com.very.wraq.process.system.missions.series.dailyMission.netWorking.Dail
 import com.very.wraq.process.system.missions.series.labourDay.netWorking.LabourDayMissionStatusS2CPacket;
 import com.very.wraq.process.system.randomStore.networking.TradeListClearS2CPacket;
 import com.very.wraq.process.system.randomStore.networking.TradeListS2CPacket;
+import com.very.wraq.process.system.smelt.SmeltDataRequestC2SPacket;
 import com.very.wraq.process.system.smelt.SmeltDataS2CPacket;
 import com.very.wraq.process.system.smelt.SmeltHarvestC2SPacket;
 import com.very.wraq.process.system.smelt.SmeltRequestC2SPacket;
@@ -1298,6 +1299,11 @@ public class ModNetworking {
                 .decoder(PlayerClickSpaceC2SPacket::new)
                 .encoder(PlayerClickSpaceC2SPacket::toBytes)
                 .consumerMainThread(PlayerClickSpaceC2SPacket::handle)
+                .add();
+        net.messageBuilder(SmeltDataRequestC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(SmeltDataRequestC2SPacket::new)
+                .encoder(SmeltDataRequestC2SPacket::toBytes)
+                .consumerMainThread(SmeltDataRequestC2SPacket::handle)
                 .add();
     }
 

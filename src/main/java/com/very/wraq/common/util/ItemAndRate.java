@@ -37,14 +37,23 @@ public class ItemAndRate {
         this.rate = rate;
     }
 
-    public void give(Player player) throws IOException {
+    public void give(Player player) {
         if (rate > 1) {
-            int Num = (int) Math.floor(rate);
-            itemStack.setCount(Num);
+            int num = (int) Math.floor(rate);
+            itemStack.setCount(num);
             InventoryOperation.itemStackGive(player, itemStack);
         } else {
             InventoryOperation.giveItemStackByRate(itemStack, rate, player);
         }
+    }
+
+    public void giveByNewObject(Player player) {
+        Random random = new Random();
+        ItemStack newStack = itemStack.copy();
+        int num = (int) Math.floor(rate);
+        if (random.nextDouble() < rate) num ++;
+        newStack.setCount(itemStack.getCount() * num);
+        InventoryOperation.itemStackGive(player, newStack);
     }
 
     public void drop(Mob mob) {
@@ -100,6 +109,10 @@ public class ItemAndRate {
         Random rand = new Random();
         itemEntity.setDeltaMovement(rand.nextDouble(0.2) - 0.1, 0.2, rand.nextDouble(0.2) - 0.1);
         level.addFreshEntity(itemEntity);
+    }
+
+    public double getRate() {
+        return rate;
     }
 
     public boolean dropWithBounding(Mob mob, double num, Player player) {

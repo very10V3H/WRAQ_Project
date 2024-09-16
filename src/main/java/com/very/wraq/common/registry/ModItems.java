@@ -71,6 +71,8 @@ import com.very.wraq.process.system.teamInstance.instances.blackCastle.CastleNec
 import com.very.wraq.render.gui.testAndHelper.SmartPhoneOpen;
 import com.very.wraq.render.mobEffects.ModPotions;
 import com.very.wraq.render.toolTip.CustomStyle;
+import com.very.wraq.series.FoiledMaterialItem;
+import com.very.wraq.series.MaterialItem;
 import com.very.wraq.series.end.EndPower;
 import com.very.wraq.series.end.RecallPiece;
 import com.very.wraq.series.end.curios.EndCrystal;
@@ -4077,6 +4079,15 @@ public class ModItems {
 
     public static final RegistryObject<Item> GOLDEN_APPLE = ITEMS.register("golden_apple",
             () -> new SimpleFoiledItem(new Item.Properties().rarity(Rarity.UNCOMMON)));
+
+    public static final RegistryObject<Item> NETHER_IMPRINT = ITEMS.register("nether_imprint",
+            () -> new MaterialItem(new Item.Properties().rarity(CustomStyle.NetherBold)));
+
+    public static final RegistryObject<Item> FOILED_NETHER_IMPRINT = ITEMS.register("foiled_nether_imprint",
+            () -> new FoiledMaterialItem(new Item.Properties().rarity(CustomStyle.NetherBold)));
+
+    public static final RegistryObject<Item> GOLDEN_SHEET = ITEMS.register("golden_sheet",
+            () -> new MaterialItem(new Item.Properties().rarity(CustomStyle.GoldBold)));
 }
 
 
