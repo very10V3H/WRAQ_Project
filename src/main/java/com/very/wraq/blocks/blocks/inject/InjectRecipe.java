@@ -3,6 +3,9 @@ package com.very.wraq.blocks.blocks.inject;
 import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.util.struct.InjectingRecipe;
 import com.very.wraq.series.gems.GemItems;
+import com.very.wraq.series.instance.blade.BladeItems;
+import com.very.wraq.series.instance.mixture.MixtureItems;
+import com.very.wraq.series.instance.quiver.QuiverItems;
 import net.minecraft.world.item.Item;
 
 import java.util.HashMap;
@@ -892,6 +895,52 @@ public class InjectRecipe {
         injectingRecipeMap.put(ModItems.EvokerSword2.get(),
                 new InjectingRecipe(ModItems.EvokerRune.get(), 8,
                         ModItems.EvokerSword3.get()));
+
+        injectingRecipeMap.put(BladeItems.BLADE.get(),
+                new InjectingRecipe(ModItems.PlainCompleteGem.get(), 4, BladeItems.BLADE_PLAIN.get()));
+        injectingRecipeMap.put(BladeItems.BLADE_PLAIN.get(),
+                new InjectingRecipe(ModItems.FOILED_NETHER_IMPRINT.get(), 1, BladeItems.BLADE_NETHER.get()));
+        injectingRecipeMap.put(BladeItems.BLADE_NETHER.get(),
+                new InjectingRecipe(ModItems.PurpleIronBud2.get(), 4, BladeItems.BLADE_PURPLE.get()));
+        injectingRecipeMap.put(BladeItems.BLADE_PURPLE.get(),
+                new InjectingRecipe(ModItems.IceCompleteGem.get(), 4, BladeItems.BLADE_ICE.get()));
+        injectingRecipeMap.put(BladeItems.BLADE_ICE.get(),
+                new InjectingRecipe(ModItems.GOLDEN_SHEET.get(), 4, BladeItems.BLADE_SAKURA.get()));
+        injectingRecipeMap.put(BladeItems.BLADE_SAKURA.get(),
+                new InjectingRecipe(ModItems.DevilBlood.get(), 4, BladeItems.BLADE_DEVIL.get()));
+        injectingRecipeMap.put(BladeItems.BLADE_DEVIL.get(),
+                new InjectingRecipe(ModItems.MoonCompleteGem.get(), 4, BladeItems.BLADE_MOON.get()));
+
+        injectingRecipeMap.put(QuiverItems.QUIVER.get(),
+                new InjectingRecipe(ModItems.PlainCompleteGem.get(), 4, QuiverItems.QUIVER_PLAIN.get()));
+        injectingRecipeMap.put(QuiverItems.QUIVER_PLAIN.get(),
+                new InjectingRecipe(ModItems.FOILED_NETHER_IMPRINT.get(), 1, QuiverItems.QUIVER_NETHER.get()));
+        injectingRecipeMap.put(QuiverItems.QUIVER_NETHER.get(),
+                new InjectingRecipe(ModItems.PurpleIronBud2.get(), 4, QuiverItems.QUIVER_PURPLE.get()));
+        injectingRecipeMap.put(QuiverItems.QUIVER_PURPLE.get(),
+                new InjectingRecipe(ModItems.IceCompleteGem.get(), 4, QuiverItems.QUIVER_ICE.get()));
+        injectingRecipeMap.put(QuiverItems.QUIVER_ICE.get(),
+                new InjectingRecipe(ModItems.GOLDEN_SHEET.get(), 4, QuiverItems.QUIVER_SAKURA.get()));
+        injectingRecipeMap.put(QuiverItems.QUIVER_SAKURA.get(),
+                new InjectingRecipe(ModItems.DevilBlood.get(), 4, QuiverItems.QUIVER_DEVIL.get()));
+        injectingRecipeMap.put(QuiverItems.QUIVER_DEVIL.get(),
+                new InjectingRecipe(ModItems.MoonCompleteGem.get(), 4, QuiverItems.QUIVER_MOON.get()));
+
+        injectingRecipeMap.put(MixtureItems.MIXTURE.get(),
+                new InjectingRecipe(ModItems.PlainCompleteGem.get(), 4, MixtureItems.MIXTURE_PLAIN.get()));
+        injectingRecipeMap.put(MixtureItems.MIXTURE_PLAIN.get(),
+                new InjectingRecipe(ModItems.FOILED_NETHER_IMPRINT.get(), 1, MixtureItems.MIXTURE_NETHER.get()));
+        injectingRecipeMap.put(MixtureItems.MIXTURE_NETHER.get(),
+                new InjectingRecipe(ModItems.PurpleIronBud2.get(), 4, MixtureItems.MIXTURE_PURPLE.get()));
+        injectingRecipeMap.put(MixtureItems.MIXTURE_PURPLE.get(),
+                new InjectingRecipe(ModItems.IceCompleteGem.get(), 4, MixtureItems.MIXTURE_ICE.get()));
+        injectingRecipeMap.put(MixtureItems.MIXTURE_ICE.get(),
+                new InjectingRecipe(ModItems.GOLDEN_SHEET.get(), 4, MixtureItems.MIXTURE_SAKURA.get()));
+        injectingRecipeMap.put(MixtureItems.MIXTURE_SAKURA.get(),
+                new InjectingRecipe(ModItems.DevilBlood.get(), 4, MixtureItems.MIXTURE_DEVIL.get()));
+        injectingRecipeMap.put(MixtureItems.MIXTURE_DEVIL.get(),
+                new InjectingRecipe(ModItems.MoonCompleteGem.get(), 4, MixtureItems.MIXTURE_MOON.get()));
+
 
         for (Map.Entry<Item, InjectingRecipe> itemInjectingRecipeEntry : injectingRecipeMap.entrySet()) {
             injectedGetItemSourceItemMap.put(itemInjectingRecipeEntry.getValue().getForgingGetItem(), itemInjectingRecipeEntry.getKey());
