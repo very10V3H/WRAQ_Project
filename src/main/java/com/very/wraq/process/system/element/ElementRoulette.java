@@ -1,6 +1,8 @@
 package com.very.wraq.process.system.element;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.datafixers.util.Pair;
+import com.very.wraq.common.fast.Te;
 import com.very.wraq.common.util.Utils;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.process.system.element.networking.ResonanceC2SPacket;
@@ -16,6 +18,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -146,7 +149,7 @@ public class ElementRoulette extends Screen {
 
         // 46 -44 fire
         if (x > X + 46 && x < X + 46 + 28 && y > Y - 44 && y < Y - 44 + 28) {
-            compressElementType.addAll(List.of(Element.fire, Element.ice, Element.wind));
+            compressElementType.addAll(List.of(Element.life, Element.ice, Element.wind));
             compressedElementType.addAll(List.of(Element.water, Element.stone, Element.lightning));
             type = Element.fire;
         }
@@ -185,15 +188,15 @@ public class ElementRoulette extends Screen {
             }
         }
 
+        int yOffset = -110;
+        if (y > this.height / 2 && this.width < 500) yOffset = 110;
         if (type.isEmpty()) {
-            guiGraphics.drawCenteredString(fontRenderer, Component.literal(title).withStyle(ChatFormatting.AQUA), X, Y - 110, 0);
+            guiGraphics.drawCenteredString(fontRenderer, Component.literal(title).withStyle(ChatFormatting.AQUA), X, Y + yOffset, 0);
         } else {
-            guiGraphics.drawCenteredString(fontRenderer, Component.literal(Element.nameMap.get(type)).withStyle(Element.styleMap.get(type)), X, Y - 110, 0);
+            guiGraphics.drawCenteredString(fontRenderer, Component.literal(Element.nameMap.get(type)).withStyle(Element.styleMap.get(type)), X, Y + yOffset, 0);
         }
 
-
         List<Component> elementEffectContents = new ArrayList<>();
-
         if (MySeason.clientSeason != null) {
             elementEffectContents.add(Component.literal("").withStyle(ChatFormatting.WHITE).
                     append(MySeason.seasonComponentMap.get(MySeason.clientSeason)));
@@ -207,11 +210,33 @@ public class ElementRoulette extends Screen {
             elementEffectContents.addAll(MySeason.getElementEffectContent(MySeason.clientSeason));
         }
         guiGraphics.renderComponentTooltip(fontRenderer, elementEffectContents, 0, 28);
+
+        if (!StringUtils.isBlank(type)) {
+            List<Component> elementReactions = new ArrayList<>();
+            elementReactions.add(Te.m(Element.nameMap.get(type), Element.styleMap.get(type)).
+                    append(Te.m("参与的反应:")));
+            for (String element : Element.elementList) {
+                if (!element.equals(type)) {
+                    Pair<Component, Component> pair = Element.ReactionDescription.getReactionPair(new Pair<>(type, element));
+                    elementReactions.add(Te.m(Element.shortNameMap.get(type), Element.styleMap.get(type)).
+                            append(Te.m(" + ")).
+                            append(Te.m(Element.shortNameMap.get(element), Element.styleMap.get(element))).
+                            append(Te.m(" = ")).
+                            append(pair.getFirst()).
+                            append(Te.m(" - ")).
+                            append(pair.getSecond()));
+                }
+            }
+            if (y < this.height / 2 && this.width < 500) {
+                guiGraphics.renderComponentTooltip(fontRenderer, elementReactions, this.width, this.height);
+            } else {
+                guiGraphics.renderComponentTooltip(fontRenderer, elementReactions, this.width, 28);
+            }
+        }
     }
 
     @Override
     public boolean isPauseScreen() {
         return false;
     }
-
 }

@@ -1,7 +1,12 @@
 package com.very.wraq.process.system.element;
 
+import com.mojang.datafixers.util.Pair;
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.attribute.PlayerAttributes;
+import com.very.wraq.common.fast.Te;
+import com.very.wraq.common.fast.Tick;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.util.struct.ItemEntityAndResetTime;
@@ -54,6 +59,10 @@ public class Element {
     public static String ice = Prefix + "Ice";
     public static String lightning = Prefix + "Lightning";
     public static String wind = Prefix + "Wind";
+
+    public static List<String> elementList = new ArrayList<>() {{
+        addAll(List.of(life, water, fire, stone, ice, lightning, wind));
+    }};
 
     public static Map<Item, Double> LifeElementValue = new HashMap<>();
     public static Map<Item, Double> WaterElementValue = new HashMap<>();
@@ -389,16 +398,16 @@ public class Element {
     public static WeakHashMap<Entity, Double> lifeAndIceEffectMap = new WeakHashMap<>();
 
     public static void LifeAndIce(LivingEntity passive, double reactionElementValue) {
-        if (lifeAndIceTickMap.containsKey(passive) && lifeAndIceTickMap.get(passive) > passive.getServer().getTickCount()) {
-            lifeAndIceTickMap.put(passive, passive.getServer().getTickCount() + 100);
+        if (lifeAndIceTickMap.containsKey(passive) && lifeAndIceTickMap.get(passive) > Tick.get()) {
+            lifeAndIceTickMap.put(passive, Tick.get() + 100);
         } else {
-            lifeAndIceTickMap.put(passive, passive.getServer().getTickCount() + 100);
+            lifeAndIceTickMap.put(passive, Tick.get() + 100);
             lifeAndIceEffectMap.put(passive, reactionElementValue);
         }
     }
 
     public static double LifeAndIceWithStandDamageEnhance(LivingEntity passive) {
-        if (lifeAndIceTickMap.containsKey(passive) && lifeAndIceTickMap.get(passive) > passive.getServer().getTickCount()) {
+        if (lifeAndIceTickMap.containsKey(passive) && lifeAndIceTickMap.get(passive) > Tick.get()) {
             return lifeAndIceEffectMap.get(passive);
         }
         return 0;
@@ -436,10 +445,10 @@ public class Element {
     public static WeakHashMap<Entity, Double> lifeAndWindEffectMap = new WeakHashMap<>();
 
     public static void LifeAndWind(LivingEntity passive, double reactionElementValue) {
-        if (lifeAndWindTimesMap.containsKey(passive) && lifeAndWindTimesMap.get(passive) > passive.getServer().getTickCount()) {
-            lifeAndWindTimesMap.put(passive, passive.getServer().getTickCount() + 100);
+        if (lifeAndWindTimesMap.containsKey(passive) && lifeAndWindTimesMap.get(passive) > Tick.get()) {
+            lifeAndWindTimesMap.put(passive, Tick.get() + 100);
         } else {
-            lifeAndWindTimesMap.put(passive, passive.getServer().getTickCount() + 100);
+            lifeAndWindTimesMap.put(passive, Tick.get() + 100);
             lifeAndWindEffectMap.put(passive, reactionElementValue);
         }
         List<Player> players = passive.level().getEntitiesOfClass(Player.class, AABB.ofSize(passive.position(), 50, 50, 50));
@@ -449,8 +458,8 @@ public class Element {
     }
 
     public static double LifeAndWindDefenceDecrease(LivingEntity passive) {
-        if (lifeAndWindTimesMap.containsKey(passive.getId()) && lifeAndWindTimesMap.get(passive.getId()) > passive.getServer().getTickCount()) {
-            return lifeAndWindEffectMap.get(passive.getId()) * 0.1;
+        if (lifeAndWindTimesMap.containsKey(passive) && lifeAndWindTimesMap.get(passive) > Tick.get()) {
+            return lifeAndWindEffectMap.get(passive) * 0.1;
         }
         return 0;
     }
@@ -498,7 +507,15 @@ public class Element {
         }
     }
 
-    public static void WaterAndIceReflection() {
+    public static void WaterAndIceReflection(LivingEntity active, LivingEntity passive) {
+        if (active instanceof Player player) {
+            if (waterAndIceTimesMap.getOrDefault(passive, 0) > 0) {
+                waterAndIceTimesMap.put(passive, waterAndIceTimesMap.getOrDefault(passive, 0) - 1);
+                Compute.PlayerHealthDecrease(player,
+                        PlayerAttributes.getMainDamage(player) * waterAndIceEffectMap.getOrDefault(passive, 0d),
+                        Te.m("被自己造成的元素反应击杀了"));
+            }
+        }
     }
 
     // 感电
@@ -551,7 +568,7 @@ public class Element {
             list.forEach(livingEntity -> {
                 if (livingEntity instanceof Mob mob) {
                     if (isAd) {
-                        Damage.causeAttackDamageToMonster_AdDamage(player, mob, damage * reactionElementValue);
+                        Damage.causeRateAdDamageToMonsterWithCritJudge(player, mob, damage * reactionElementValue);
                     } else {
                         Damage.causeManaDamageToMonster_ApDamage(player, mob, damage * reactionElementValue);
                     }
@@ -565,16 +582,16 @@ public class Element {
     public static WeakHashMap<Entity, Double> fireAndWindEffectMap = new WeakHashMap<>();
 
     public static void FireAndWind(LivingEntity passive, double reactionElementValue) {
-        if (fireAndWindTimesMap.containsKey(passive) && fireAndWindTimesMap.get(passive) > passive.getServer().getTickCount()) {
-            fireAndWindTimesMap.put(passive, passive.getServer().getTickCount() + 100);
+        if (fireAndWindTimesMap.containsKey(passive) && fireAndWindTimesMap.get(passive) > Tick.get()) {
+            fireAndWindTimesMap.put(passive, Tick.get() + 100);
         } else {
-            fireAndWindTimesMap.put(passive, passive.getServer().getTickCount() + 100);
+            fireAndWindTimesMap.put(passive, Tick.get() + 100);
             fireAndWindEffectMap.put(passive, reactionElementValue);
         }
     }
 
     public static double FireAndWindDamageEnhance(LivingEntity passive) {
-        if (fireAndWindTimesMap.containsKey(passive) && fireAndWindTimesMap.get(passive) > passive.getServer().getTickCount()) {
+        if (fireAndWindTimesMap.containsKey(passive) && fireAndWindTimesMap.get(passive) > Tick.get()) {
             return fireAndWindEffectMap.get(passive) * 0.1;
         }
         return 0;
@@ -585,16 +602,16 @@ public class Element {
     public static WeakHashMap<Entity, Double> stoneAndIceEffectMap = new WeakHashMap<>();
 
     public static void StoneAndIce(LivingEntity passive, double reactionElementValue) {
-        if (stoneAndIceTimesMap.containsKey(passive) && stoneAndIceTimesMap.get(passive) > passive.getServer().getTickCount()) {
-            stoneAndIceTimesMap.put(passive, passive.getServer().getTickCount() + 100);
+        if (stoneAndIceTimesMap.containsKey(passive) && stoneAndIceTimesMap.get(passive) > Tick.get()) {
+            stoneAndIceTimesMap.put(passive, Tick.get() + 100);
         } else {
-            stoneAndIceTimesMap.put(passive, passive.getServer().getTickCount() + 100);
+            stoneAndIceTimesMap.put(passive, Tick.get() + 100);
             stoneAndIceEffectMap.put(passive, reactionElementValue);
         }
     }
 
     public static double StoneAndIceWithstandDamageEnhance(LivingEntity passive) {
-        if (stoneAndIceTimesMap.containsKey(passive) && stoneAndIceTimesMap.get(passive) > passive.getServer().getTickCount()) {
+        if (stoneAndIceTimesMap.containsKey(passive) && stoneAndIceTimesMap.get(passive) > Tick.get()) {
             return stoneAndIceEffectMap.get(passive) * 0.1;
         }
         return 0;
@@ -605,16 +622,16 @@ public class Element {
     public static WeakHashMap<Entity, Double> stoneAndLightningEffectMap = new WeakHashMap<>();
 
     public static void StoneAndLightning(LivingEntity passive, double reactionElementValue) {
-        if (stoneAndLightningTimesMap.containsKey(passive) && stoneAndLightningTimesMap.get(passive) > passive.getServer().getTickCount()) {
-            stoneAndLightningTimesMap.put(passive, passive.getServer().getTickCount() + 100);
+        if (stoneAndLightningTimesMap.containsKey(passive) && stoneAndLightningTimesMap.get(passive) > Tick.get()) {
+            stoneAndLightningTimesMap.put(passive, Tick.get() + 100);
         } else {
-            stoneAndLightningTimesMap.put(passive, passive.getServer().getTickCount() + 100);
+            stoneAndLightningTimesMap.put(passive, Tick.get() + 100);
             stoneAndLightningEffectMap.put(passive, reactionElementValue);
         }
     }
 
     public static double StoneAndLightningDamageEnhance(LivingEntity passive) {
-        if (stoneAndLightningTimesMap.containsKey(passive) && stoneAndLightningTimesMap.get(passive) > passive.getServer().getTickCount()) {
+        if (stoneAndLightningTimesMap.containsKey(passive) && stoneAndLightningTimesMap.get(passive) > Tick.get()) {
             return stoneAndLightningEffectMap.get(passive) * 0.1;
         }
         return 0;
@@ -625,16 +642,16 @@ public class Element {
     public static WeakHashMap<Entity, Double> stoneAndWindEffectMap = new WeakHashMap<>();
 
     public static void StoneAndWind(LivingEntity passive, double reactionElementValue) {
-        if (stoneAndWindTimesMap.containsKey(passive) && stoneAndWindTimesMap.get(passive) > passive.getServer().getTickCount()) {
-            stoneAndWindTimesMap.put(passive, passive.getServer().getTickCount() + 100);
+        if (stoneAndWindTimesMap.containsKey(passive) && stoneAndWindTimesMap.get(passive) > Tick.get()) {
+            stoneAndWindTimesMap.put(passive, Tick.get() + 100);
         } else {
-            stoneAndWindTimesMap.put(passive, passive.getServer().getTickCount() + 100);
+            stoneAndWindTimesMap.put(passive, Tick.get() + 100);
             stoneAndWindEffectMap.put(passive, reactionElementValue);
         }
     }
 
     public static double StoneAndWindWithstandDamageEnhance(LivingEntity passive) {
-        if (stoneAndWindTimesMap.containsKey(passive) && stoneAndWindTimesMap.get(passive) > passive.getServer().getTickCount()) {
+        if (stoneAndWindTimesMap.containsKey(passive) && stoneAndWindTimesMap.get(passive) > Tick.get()) {
             return stoneAndWindEffectMap.get(passive) * 0.1;
         }
         return 0;
@@ -645,10 +662,10 @@ public class Element {
     public static WeakHashMap<Entity, Double> iceAndLightningEffectMap = new WeakHashMap<>();
 
     public static void IceAndLightning(LivingEntity passive, double reactionElementValue) {
-        if (iceAndLightningTimesMap.containsKey(passive) && iceAndLightningTimesMap.get(passive) > passive.getServer().getTickCount()) {
-            iceAndLightningTimesMap.put(passive, passive.getServer().getTickCount() + 100);
+        if (iceAndLightningTimesMap.containsKey(passive) && iceAndLightningTimesMap.get(passive) > Tick.get()) {
+            iceAndLightningTimesMap.put(passive, Tick.get() + 100);
         } else {
-            iceAndLightningTimesMap.put(passive, passive.getServer().getTickCount() + 100);
+            iceAndLightningTimesMap.put(passive, Tick.get() + 100);
             iceAndLightningEffectMap.put(passive, reactionElementValue);
         }
         List<Player> players = passive.level().getEntitiesOfClass(Player.class, AABB.ofSize(passive.position(), 50, 50, 50));
@@ -658,7 +675,7 @@ public class Element {
     }
 
     public static double IceAndLightningDefenceDecrease(LivingEntity passive) {
-        if (iceAndLightningTimesMap.containsKey(passive) && iceAndLightningTimesMap.get(passive) > passive.getServer().getTickCount()) {
+        if (iceAndLightningTimesMap.containsKey(passive) && iceAndLightningTimesMap.get(passive) > Tick.get()) {
             return iceAndLightningEffectMap.get(passive) * 0.1;
         }
         return 0;
@@ -669,16 +686,16 @@ public class Element {
     public static WeakHashMap<Entity, Double> iceAndWindEffectMap = new WeakHashMap<>();
 
     public static void IceAndWind(LivingEntity passive, double reactionElementValue) {
-        if (iceAndWindTimesMap.containsKey(passive) && iceAndWindTimesMap.get(passive) > passive.getServer().getTickCount()) {
-            iceAndWindTimesMap.put(passive, passive.getServer().getTickCount() + 100);
+        if (iceAndWindTimesMap.containsKey(passive) && iceAndWindTimesMap.get(passive) > Tick.get()) {
+            iceAndWindTimesMap.put(passive, Tick.get() + 100);
         } else {
-            iceAndWindTimesMap.put(passive, passive.getServer().getTickCount() + 100);
+            iceAndWindTimesMap.put(passive, Tick.get() + 100);
             iceAndWindEffectMap.put(passive, reactionElementValue);
         }
     }
 
     public static double IceAndWindHealDecrease(LivingEntity passive) {
-        if (iceAndWindTimesMap.containsKey(passive) && iceAndWindTimesMap.get(passive) > passive.getServer().getTickCount()) {
+        if (iceAndWindTimesMap.containsKey(passive) && iceAndWindTimesMap.get(passive) > Tick.get()) {
             return iceAndWindEffectMap.get(passive) * 0.1;
         }
         return 0;
@@ -691,7 +708,7 @@ public class Element {
             list.forEach(livingEntity -> {
                 if (livingEntity instanceof Mob mob) {
                     if (isAd) {
-                        Damage.causeAttackDamageToMonster_AdDamage(player, mob, damage * reactionElementValue);
+                        Damage.causeRateAdDamageToMonsterWithCritJudge(player, mob, damage * reactionElementValue);
                     } else {
                         Damage.causeManaDamageToMonster_ApDamage(player, mob, damage * reactionElementValue);
                     }
@@ -828,7 +845,7 @@ public class Element {
         Element.windElementParticle.remove(entity);
     }
 
-    public static List<Item> elementList = new ArrayList<>();
+    public static List<Item> elementItemList = new ArrayList<>();
 
     public static void setElementList() {
         Item[] items = {
@@ -840,7 +857,7 @@ public class Element {
                 ModItems.LightningElement.get(),
                 ModItems.WindElement.get()
         };
-        elementList.addAll(List.of(items));
+        elementItemList.addAll(List.of(items));
     }
 
     public static Vec3 calculateViewVector(float p_20172_, float p_20173_) {
@@ -915,6 +932,16 @@ public class Element {
         put(ice, "凛冰元素");
         put(lightning, "怒雷元素");
         put(wind, "澄风元素");
+    }};
+
+    public static Map<String, String> shortNameMap = new HashMap<>() {{
+        put(life, "生机");
+        put(water, "碧水");
+        put(fire, "炽焰");
+        put(stone, "层岩");
+        put(ice, "凛冰");
+        put(lightning, "怒雷");
+        put(wind, "澄风");
     }};
 
     public static Map<String, Style> styleMap = new HashMap<>() {{
@@ -1054,6 +1081,75 @@ public class Element {
 
         public static Component WindElementValue(String content) {
             return Component.literal("「" + content + "归一化澄风元素强度" + "」").withStyle(CustomStyle.styleOfWind);
+        }
+    }
+
+    public static class ReactionDescription {
+        private static final Map<Pair<String, String>, Pair<Component, Component>> reactionDescription = new HashMap<>() {{
+            put(new Pair<>(life, water), new Pair<>(Te.m("滋养", CustomStyle.styleOfLife), Te.m("为被动方回复").
+                    append(ComponentUtils.AttributeDescription.health("10%"))));
+            put(new Pair<>(life, fire), new Pair<>(Te.m("燃料", CustomStyle.styleOfFire), Te.m("增幅本次伤害", CustomStyle.styleOfPower).
+                    append(Te.m("数值等同于反应量"))));
+            put(new Pair<>(life, stone), new Pair<>(Te.m("汲取", CustomStyle.styleOfLife), Te.m("为主动方回复").
+                    append(ComponentUtils.AttributeDescription.health("10%"))));
+            put(new Pair<>(life, ice), new Pair<>(Te.m("霜冻", CustomStyle.styleOfLife), Te.m("提升被动方在5s内").
+                    append(Te.m("受到的伤害", ChatFormatting.RED)).
+                    append(Te.m("，数额等同于反应量"))));
+            put(new Pair<>(life, lightning), new Pair<>(Te.m("氮化", CustomStyle.styleOfLightning), Te.m("为被动方每秒回复").
+                    append(ComponentUtils.AttributeDescription.health("5%"))));
+            put(new Pair<>(life, wind), new Pair<>(Te.m("断裂", CustomStyle.styleOfWind), Te.m("降低被动方").
+                    append(ComponentUtils.AttributeDescription.Defence("10%")).
+                    append(Te.m("与")).
+                    append(ComponentUtils.AttributeDescription.ManaDefence("10%"))));
+
+            put(new Pair<>(water, fire), new Pair<>(Te.m("蒸发", CustomStyle.styleOfWater), Te.m("增幅本次伤害", CustomStyle.styleOfPower).
+                    append(Te.m("数值等同于反应量"))));
+            put(new Pair<>(water, stone), new Pair<>(Te.m("泥化", CustomStyle.styleOfHusk), Te.m("削减", ChatFormatting.GRAY).
+                    append(Te.m("被动方将受到的3次伤害"))));
+            put(new Pair<>(water, ice), new Pair<>(Te.m("冰水", CustomStyle.styleOfIce), Te.m("回敬", ChatFormatting.LIGHT_PURPLE).
+                    append(Te.m("被动方将受到的3次伤害"))));
+            put(new Pair<>(water, lightning), new Pair<>(Te.m("感电", CustomStyle.styleOfLightning), Te.m("使被动方在接下来的3s内每秒受到").
+                    append(Te.m("等级 * 500", ChatFormatting.LIGHT_PURPLE)).
+                    append(Te.m("的伤害"))));
+            put(new Pair<>(water, wind), new Pair<>(Te.m("风浪", CustomStyle.styleOfWater), Te.m("击飞被动方", CustomStyle.styleOfWind)));
+
+            put(new Pair<>(fire, stone), new Pair<>(Te.m("灰化", CustomStyle.styleOfHusk), Te.m("增幅本次伤害", CustomStyle.styleOfPower).
+                    append(Te.m("数值等同于反应量"))));
+            put(new Pair<>(fire, ice), new Pair<>(Te.m("融化", CustomStyle.styleOfFire), Te.m("增幅本次伤害", CustomStyle.styleOfPower).
+                    append(Te.m("数值等同于反应量"))));
+            put(new Pair<>(fire, lightning), new Pair<>(Te.m("爆裂", CustomStyle.styleOfFire), Te.m("在被动方位置造成一次").
+                    append(Te.m("范围伤害", CustomStyle.styleOfPower))));
+            put(new Pair<>(fire, wind), new Pair<>(Te.m("旺盛", CustomStyle.styleOfFire), Te.m("使被动方获得持续5s的").
+                    append(Te.m("伤害提升", CustomStyle.styleOfPower))));
+
+            put(new Pair<>(stone, ice), new Pair<>(Te.m("冻土", CustomStyle.styleOfIce), Te.m("使被动方").
+                    append(Te.m("受到的伤害增加", ChatFormatting.RED)).
+                    append(Te.m("，持续5s"))));
+            put(new Pair<>(stone, lightning), new Pair<>(Te.m("接地", CustomStyle.styleOfLightning), Te.m("使被动方获得持续5s的").
+                    append(Te.m("伤害提升", CustomStyle.styleOfPower))));
+            put(new Pair<>(stone, wind), new Pair<>(Te.m("风化", CustomStyle.styleOfWind), Te.m("使被动方获得持续5s的").
+                    append(Te.m("造成/受到伤害提升", CustomStyle.styleOfPower))));
+
+            put(new Pair<>(ice, lightning), new Pair<>(Te.m("超导", CustomStyle.styleOfLightning), Te.m("降低被动方").
+                    append(ComponentUtils.AttributeDescription.Defence("10%")).
+                    append(Te.m("与")).
+                    append(ComponentUtils.AttributeDescription.ManaDefence("10%"))));
+            put(new Pair<>(ice, wind), new Pair<>(Te.m("风寒", CustomStyle.styleOfWind), Te.m("降低被动方").
+                    append(ComponentUtils.AttributeDescription.healValue("10%"))));
+
+            put(new Pair<>(lightning, wind), new Pair<>(Te.m("灾难", CustomStyle.styleOfLightning), Te.m("在被动方位置造成一次").
+                    append(Te.m("范围伤害", CustomStyle.styleOfPower))));
+        }};
+
+        public static Pair<Component, Component> getReactionPair(Pair<String, String> react) {
+            Pair<String, String> reversePair = new Pair<>(react.getSecond(), react.getFirst());
+            if (reactionDescription.containsKey(react)) {
+                return reactionDescription.get(react);
+            }
+            if (reactionDescription.containsKey(reversePair)) {
+                return reactionDescription.get(reversePair);
+            }
+            return new Pair<>(Component.literal(""), Component.literal(""));
         }
     }
 }
