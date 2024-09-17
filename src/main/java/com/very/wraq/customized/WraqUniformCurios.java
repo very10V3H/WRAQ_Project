@@ -31,17 +31,17 @@ WraqUniformCurios extends Item implements ICurioItem {
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
         Style style = hoverMainStyle();
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfBasic(components);
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfBasic(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         if (!additionHoverText(stack).isEmpty()) {
-            ComponentUtils.DescriptionOfAddition(components);
+            ComponentUtils.descriptionOfAddition(components);
             ComponentUtils.descriptionPassive(components, getFirstPassiveName());
             components.add(Component.literal(" 获得").withStyle(ChatFormatting.WHITE).
                     append(Component.literal("50%最终伤害提升").withStyle(ChatFormatting.RED)));
             components.addAll(additionHoverText(stack));
         }
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         if (getName() != null) {
             components.add(Te.m("来自", CustomStyle.styleOfWorld).
                     append(Te.m("开拓者", CustomStyle.styleOfWorld)).

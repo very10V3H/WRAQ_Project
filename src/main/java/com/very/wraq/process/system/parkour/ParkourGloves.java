@@ -34,9 +34,9 @@ public class ParkourGloves extends Item implements ICurioItem {
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
         Style style = CustomStyle.styleOfFlexible;
         stack.getOrCreateTagElement(Utils.MOD_ID);
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfBasic(components);
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfBasic(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         components.add(Component.literal(" 给予跑酷高手或坚持不懈者的嘉奖").withStyle(CustomStyle.styleOfFlexible));
         super.appendHoverText(stack, level, components, flag);
     }

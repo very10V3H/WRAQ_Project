@@ -56,19 +56,19 @@ public class SnowSword3 extends PickaxeItem implements ActiveItem {
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
         Compute.forgingHoverName(stack);
         components.add(Component.literal("主手                   ").withStyle(ChatFormatting.AQUA).append(Component.literal("镐子").withStyle(ChatFormatting.GRAY)));
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.DARK_AQUA, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfBasic(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, ChatFormatting.DARK_AQUA, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfBasic(components);
         BasicAttributeDescription.BasicAttributeCommonDescription(components, stack);
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.DARK_AQUA, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfAddition(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, ChatFormatting.DARK_AQUA, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfAddition(components);
         Compute.DescriptionPassive(components, Component.literal("凿击-Ex").withStyle(ChatFormatting.AQUA));
-        ComponentUtils.DescriptionNum(components, "攻击将会大幅降低目标生物的移动速度", Component.literal("2s").withStyle(ChatFormatting.AQUA), "");
+        ComponentUtils.descriptionNum(components, "攻击将会大幅降低目标生物的移动速度", Component.literal("2s").withStyle(ChatFormatting.AQUA), "");
         components.add(Component.literal("主动:").withStyle(ChatFormatting.AQUA).
                 append(Component.literal("冰川攀登！").withStyle(ChatFormatting.AQUA)));
         components.add(Component.literal("向前闪现一小段距离"));
         components.add(Component.literal("冷却时间: 10s"));
         components.add(Component.literal("法力消耗:").withStyle(ChatFormatting.DARK_PURPLE).withStyle(ChatFormatting.UNDERLINE).withStyle(ChatFormatting.BOLD).append(Component.literal(" 20").withStyle(ChatFormatting.WHITE)));
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.DARK_AQUA, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, ChatFormatting.DARK_AQUA, ChatFormatting.WHITE);
         components.add(Component.literal("Snow-Pickaxe-X").withStyle(ChatFormatting.BLUE).withStyle(ChatFormatting.ITALIC));
         components.add(Component.literal("MainStoryI-Fin.").withStyle(ChatFormatting.AQUA).withStyle(ChatFormatting.ITALIC));
         components.add(Component.literal(" "));

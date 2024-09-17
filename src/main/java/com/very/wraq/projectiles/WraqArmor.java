@@ -56,8 +56,8 @@ public abstract class WraqArmor extends ArmorItem {
         }};
         components.add(Component.literal("防具                   ").withStyle(ChatFormatting.GRAY).
                 append(Component.literal(typeMap.get(this.type)).withStyle(styleMap.get(this.type))));
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfBasic(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfBasic(components);
         BasicAttributeDescription.BasicAttributeCommonDescription(components, stack);
         if (this instanceof RandomLootEquip randomLootEquip) {
             if (randomLootEquip.levelRequire() != 0) {
@@ -68,11 +68,11 @@ public abstract class WraqArmor extends ArmorItem {
                 }
             }
         }
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         if (!getAdditionalComponents().isEmpty()) {
-            ComponentUtils.DescriptionOfAddition(components);
+            ComponentUtils.descriptionOfAddition(components);
             components.addAll(getAdditionalComponents());
-            ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+            ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         }
         components.add(getSuffix());
         super.appendHoverText(stack, level, components, flag);

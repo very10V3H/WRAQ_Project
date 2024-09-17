@@ -33,11 +33,11 @@ public class ObsiManaGem extends Item {
         stack.getOrCreateTagElement(Utils.MOD_ID);
         Style style = CustomStyle.styleOfMana;
         components.add(Component.literal("湖泊与火山的意志具象，凝聚成此石。").withStyle(style));
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfBasic(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfBasic(components);
 /*        Compute.EmojiDescriptionManaAttackDamage(components,ManaDamage);
         Compute.EmojiDescriptionCoolDown(components,CoolDown);*/
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         ComponentUtils.suffixOfChapterII(components);
         super.appendHoverText(stack, level, components, flag);
     }

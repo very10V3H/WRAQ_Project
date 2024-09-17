@@ -39,16 +39,16 @@ public class MineBracelet extends Item {
         Style MainStyle = CustomStyle.styleOfMine;
         stack.setHoverName(Component.literal("矿洞手环").withStyle(MainStyle).withStyle(ChatFormatting.BOLD));
         components.add(Component.literal("副手                   ").withStyle(ChatFormatting.GOLD).append(Component.literal("手环").withStyle(ChatFormatting.GRAY)));
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfBasic(components);
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfAddition(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfBasic(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfAddition(components);
         if (Screen.hasShiftDown()) MineSuitDescription.SuitDescription(components);
         else {
             Compute.SuitDescription(components);
             components.add(Component.literal("[按住shift展开套装效果]").withStyle(ChatFormatting.GRAY));
         }
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
         ComponentUtils.suffixOfChapterI(components);
         super.appendHoverText(stack, level, components, flag);
     }

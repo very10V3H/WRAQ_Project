@@ -32,9 +32,9 @@ public class ForestRing extends Item implements ICurioItem {
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
         stack.getOrCreateTagElement(Utils.MOD_ID);
         stack.setHoverName(Component.literal("森林戒指").withStyle(ChatFormatting.DARK_GREEN).withStyle(ChatFormatting.BOLD));
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.DARK_GREEN, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfBasic(components);
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.DARK_GREEN, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, ChatFormatting.DARK_GREEN, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfBasic(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, ChatFormatting.DARK_GREEN, ChatFormatting.WHITE);
         components.add(Component.literal("ForestGems-I").withStyle(ChatFormatting.DARK_GREEN).withStyle(ChatFormatting.ITALIC));
         ComponentUtils.suffixOfChapterI(components);
         super.appendHoverText(stack, level, components, flag);

@@ -36,10 +36,10 @@ public class MineShield extends Item {
         Style MainStyle = CustomStyle.styleOfMine;
         stack.setHoverName(Component.literal("精钢圆盾").withStyle(MainStyle).withStyle(ChatFormatting.BOLD));
         components.add(Component.literal("副手                   ").withStyle(ChatFormatting.GOLD).append(Component.literal("手盾").withStyle(ChatFormatting.GRAY)));
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfBasic(components);
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfAddition(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfBasic(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfAddition(components);
         shieldAdditionDescription(components);
         Compute.DescriptionPassive(components, Component.literal("沉重之铁").withStyle(ChatFormatting.GRAY));
         components.add(Component.literal("受到来自怪物的伤害时，会为你提供").withStyle(ChatFormatting.WHITE).
@@ -57,9 +57,9 @@ public class MineShield extends Item {
     public static void shieldAdditionDescription(List<Component> components) {
         ComponentUtils.descriptionPassive(components, Component.literal("坚盾").withStyle(ChatFormatting.GRAY));
         components.add(Component.literal(" 提升").withStyle(ChatFormatting.AQUA).
-                append(ComponentUtils.AttributeDescription.Defence("25%")).
+                append(ComponentUtils.AttributeDescription.defence("25%")).
                 append(Component.literal("与").withStyle(ChatFormatting.WHITE)).
-                append(ComponentUtils.AttributeDescription.ManaDefence("25%")));
+                append(ComponentUtils.AttributeDescription.manaDefence("25%")));
         Compute.DescriptionPassive(components, Component.literal("盾击").withStyle(ChatFormatting.GRAY));
         components.add(Component.literal(" 基于").withStyle(ChatFormatting.WHITE).
                 append(Compute.AttributeDescription.Defence("")).

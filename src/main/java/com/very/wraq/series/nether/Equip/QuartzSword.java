@@ -57,7 +57,7 @@ public class QuartzSword extends WraqSword implements ActiveItem {
         components.add(Component.literal("对周围所有单位雷击，造成").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("燃烧").withStyle(ChatFormatting.YELLOW)).
                 append(Component.literal("与").withStyle(ChatFormatting.WHITE)).
-                append(ComponentUtils.AttributeDescription.ManaDamage("250%")));
+                append(ComponentUtils.AttributeDescription.manaDamage("250%")));
         ComponentUtils.coolDownTimeDescription(components, 5);
         ComponentUtils.manaCostDescription(components, 90);
         return components;

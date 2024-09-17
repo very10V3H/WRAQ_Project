@@ -52,7 +52,7 @@ public class BloodManaArmor extends WraqArmor implements ForgeItem {
                 append(Component.literal("8%").withStyle(style)));
         Compute.DescriptionPassive(components, Component.literal("永升腥月").withStyle(style));
         components.add(Component.literal(" 当你拥有高于").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.Health("70%")).
+                append(ComponentUtils.AttributeDescription.health("70%")).
                 append(Component.literal("时，你的").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("近战攻击").withStyle(CustomStyle.styleOfPower)).
                 append(Component.literal("或").withStyle(ChatFormatting.WHITE)).

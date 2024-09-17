@@ -90,7 +90,7 @@ public class MoonSceptre extends WraqSceptre implements ActiveItem, OnHitEffectM
         components.add(Component.literal("，提供在10s内持续衰减的").withStyle(ChatFormatting.WHITE).
                 append(Compute.AttributeDescription.ExManaDamage(String.format("%.0f%%", activeRate * 100))));
         components.add(Component.literal(" 并为你提供持续20s的").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.ManaDamage("100%")).
+                append(ComponentUtils.AttributeDescription.manaDamage("100%")).
                 append(Component.literal("的").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("护盾").withStyle(ChatFormatting.GRAY)));
         ComponentUtils.coolDownTimeDescription(components, 27);

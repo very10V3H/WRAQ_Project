@@ -31,11 +31,11 @@ public class WitherBoneMealPower extends Item implements ActiveItem {
     @Override
     public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
         components.add(Component.literal("·法术").withStyle(CustomStyle.styleOfMana));
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
         components.add(Component.literal(" 对").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("指针").withStyle(ChatFormatting.AQUA)).
                 append(Component.literal("周围单位造成").withStyle(ChatFormatting.WHITE)).
-                append(ComponentUtils.AttributeDescription.ManaDamageValue("800%")));
+                append(ComponentUtils.AttributeDescription.manaDamageValue("800%")));
         components.add(Component.literal(" 并").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("移除范围内敌人").withStyle(ChatFormatting.WHITE)).
                 append(Compute.AttributeDescription.ManaDefence("50%")).
@@ -46,7 +46,7 @@ public class WitherBoneMealPower extends Item implements ActiveItem {
         components.add(Component.literal("扣除自身").withStyle(ChatFormatting.WHITE).
                 append(Compute.AttributeDescription.MaxMana("33%")));
         ComponentUtils.coolDownTimeDescription(components, 10);
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
         components.add(Component.literal("Powers-NeSkeleton").withStyle(Style.EMPTY.withColor(TextColor.parseColor("#a2001b"))).withStyle(ChatFormatting.ITALIC));
         super.appendHoverText(itemStack, level, components, flag);
     }

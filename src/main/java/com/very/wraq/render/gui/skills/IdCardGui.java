@@ -350,7 +350,7 @@ public class IdCardGui extends Screen {
             components.add(Component.literal("能力 ").withStyle(ChatFormatting.AQUA).
                     append(Component.literal("▶" + Ability).withStyle(ChatFormatting.BOLD).withStyle(style)));
             components.add(Component.literal("力量是探索的基础，提升力量将使你的攻击变得更加强力！").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
-            ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+            ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
             components.add(Component.literal("当前").withStyle(ChatFormatting.WHITE).
                     append(Component.literal(Ability).withStyle(style)).
                     append(Component.literal("能力点数属性加成:").withStyle(ChatFormatting.WHITE)));
@@ -360,14 +360,14 @@ public class IdCardGui extends Screen {
             ComponentUtils.emojiDescriptionExAttackDamage(components, ExAttack);
             ComponentUtils.emojiDescriptionDefence(components, ExDefence * 6);
             ComponentUtils.emojiDescriptionCritDamage(components, ExCritDamage * 0.01);
-            ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+            ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
             components.add(Component.literal(Ability).withStyle(style).
                     append(Component.literal("能力与属性点数关系:").withStyle(ChatFormatting.WHITE)));
             components.add(Component.literal("每一点能力获得:"));
             ComponentUtils.emojiDescriptionExAttackDamage(components, 1);
             ComponentUtils.emojiDescriptionDefence(components, 6);
             ComponentUtils.emojiDescriptionCritDamage(components, 0.01);
-            ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+            ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
             guiGraphics.renderComponentTooltip(fontRenderer, components, x, y);
         }
 
@@ -378,7 +378,7 @@ public class IdCardGui extends Screen {
             components.add(Component.literal("能力 ").withStyle(ChatFormatting.AQUA).
                     append(Component.literal("▶" + Ability).withStyle(ChatFormatting.BOLD).withStyle(style)));
             components.add(Component.literal("创造与扭曲，智胜区区凡人。").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
-            ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+            ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
             components.add(Component.literal("当前").withStyle(ChatFormatting.WHITE).
                     append(Component.literal(Ability).withStyle(style)).
                     append(Component.literal("能力点数属性加成:").withStyle(ChatFormatting.WHITE)));
@@ -388,14 +388,14 @@ public class IdCardGui extends Screen {
             ComponentUtils.emojiDescriptionManaAttackDamage(components, ExManaDamage * 2);
             ComponentUtils.emojiDescriptionManaRecover(components, ExManaRecover * 0.3);
             ComponentUtils.emojiDescriptionMaxMana(components, ExMaxMana);
-            ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+            ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
             components.add(Component.literal(Ability).withStyle(style).
                     append(Component.literal("能力与属性点数关系:").withStyle(ChatFormatting.WHITE)));
             components.add(Component.literal("每一点能力获得:"));
             ComponentUtils.emojiDescriptionManaAttackDamage(components, 2);
             ComponentUtils.emojiDescriptionManaRecover(components, 0.3);
             ComponentUtils.emojiDescriptionMaxMana(components, 1);
-            ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+            ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
             guiGraphics.renderComponentTooltip(fontRenderer, components, x, y);
         }
 
@@ -406,7 +406,7 @@ public class IdCardGui extends Screen {
             components.add(Component.literal("能力 ").withStyle(ChatFormatting.AQUA).
                     append(Component.literal("▶" + Ability).withStyle(ChatFormatting.BOLD).withStyle(style)));
             components.add(Component.literal("精密与灵活。").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
-            ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+            ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
             components.add(Component.literal("当前").withStyle(ChatFormatting.WHITE).
                     append(Component.literal(Ability).withStyle(style)).
                     append(Component.literal("能力点数属性加成:").withStyle(ChatFormatting.WHITE)));
@@ -419,7 +419,7 @@ public class IdCardGui extends Screen {
             ComponentUtils.emojiDescriptionCommonMovementSpeed(components, ExMoveSpeed * 0.003);
             ComponentUtils.emojiDescriptionDefencePenetration0(components, ExDefencePenetration);
 
-            ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+            ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
             components.add(Component.literal(Ability).withStyle(style).
                     append(Component.literal("能力与属性点数关系:").withStyle(ChatFormatting.WHITE)));
             components.add(Component.literal("每一点能力获得:"));
@@ -428,8 +428,8 @@ public class IdCardGui extends Screen {
             ComponentUtils.emojiDescriptionCommonMovementSpeed(components, 0.003);
             ComponentUtils.emojiDescriptionDefencePenetration0(components, 1);
 
-            ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-            components.add(Component.literal("").append(ComponentUtils.AttributeDescription.Swiftness("")).
+            ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+            components.add(Component.literal("").append(ComponentUtils.AttributeDescription.swiftness("")).
                     append(Component.literal("将会提升你的翻滚距离与体力值回复速度，").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY)));
             components.add(Component.literal(" 并为你提供箭矢攻击增幅，同时提升你的闪避几率。").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
             guiGraphics.renderComponentTooltip(fontRenderer, components, x, y);
@@ -442,7 +442,7 @@ public class IdCardGui extends Screen {
             components.add(Component.literal("能力 ").withStyle(ChatFormatting.AQUA).
                     append(Component.literal("▶" + Ability).withStyle(ChatFormatting.BOLD).withStyle(style)));
             components.add(Component.literal("诡术秘法").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
-            ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+            ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
             components.add(Component.literal("当前").withStyle(ChatFormatting.WHITE).
                     append(Component.literal(Ability).withStyle(style)).
                     append(Component.literal("能力点数属性加成:").withStyle(ChatFormatting.WHITE)));
@@ -454,7 +454,7 @@ public class IdCardGui extends Screen {
             ComponentUtils.emojiDescriptionExpUp(components, ExExpUp * 0.01);
             ComponentUtils.emojiDescriptionCoolDown(components, exCooldown * 0.01);
 
-            ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+            ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
             components.add(Component.literal(Ability).withStyle(style).
                     append(Component.literal("能力与属性点数关系:").withStyle(ChatFormatting.WHITE)));
             components.add(Component.literal("每一点能力获得:"));
@@ -463,7 +463,7 @@ public class IdCardGui extends Screen {
             ComponentUtils.emojiDescriptionExpUp(components, 0.01);
             ComponentUtils.emojiDescriptionCoolDown(components, 0.01);
 
-            ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+            ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
             guiGraphics.renderComponentTooltip(fontRenderer, components, x, y);
         }
 
@@ -474,7 +474,7 @@ public class IdCardGui extends Screen {
             components.add(Component.literal("能力 ").withStyle(ChatFormatting.AQUA).
                     append(Component.literal("▶" + Ability).withStyle(ChatFormatting.BOLD).withStyle(style)));
             components.add(Component.literal("提供生机与回复。").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
-            ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+            ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
             components.add(Component.literal("当前").withStyle(ChatFormatting.WHITE).
                     append(Component.literal(Ability).withStyle(style)).
                     append(Component.literal("能力点数属性加成:").withStyle(ChatFormatting.WHITE)));
@@ -486,7 +486,7 @@ public class IdCardGui extends Screen {
             ComponentUtils.emojiDescriptionMaxHealth(components, ExMaxHeal * 10);
             ComponentUtils.emojiDescriptionHealAmplification(components, ExHealAmplitude * 0.01);
 
-            ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+            ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
             components.add(Component.literal(Ability).withStyle(style).
                     append(Component.literal("能力与属性点数关系:").withStyle(ChatFormatting.WHITE)));
             components.add(Component.literal("每一点能力获得:"));
@@ -495,7 +495,7 @@ public class IdCardGui extends Screen {
             ComponentUtils.emojiDescriptionMaxHealth(components, 10);
             ComponentUtils.emojiDescriptionHealAmplification(components, 0.01);
 
-            ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+            ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
             guiGraphics.renderComponentTooltip(fontRenderer, components, x, y);
         }
 

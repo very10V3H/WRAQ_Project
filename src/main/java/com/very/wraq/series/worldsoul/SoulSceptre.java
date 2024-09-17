@@ -10,7 +10,6 @@ import com.very.wraq.common.Compute;
 import com.very.wraq.common.registry.ModEntityType;
 import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.StringUtils;
-import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.attribute.PlayerAttributes;
 import com.very.wraq.common.registry.ModSounds;
@@ -86,11 +85,11 @@ public class SoulSceptre extends WraqSceptre {
                 append(Component.literal("4s").withStyle(style)).
                 append(Component.literal("的负面效果").withStyle(ChatFormatting.GRAY)));
         components.add(Component.literal("  1.中毒：每秒造成").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.ManaDamage("30%")));
+                append(ComponentUtils.AttributeDescription.manaDamage("30%")));
         components.add(Component.literal("  2.缓慢：减缓目标").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.AttributeDescription.movementSpeedWithoutBattle("")));
         components.add(Component.literal("  3.燃烧：每秒造成").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.ManaDamage("35%")));
+                append(ComponentUtils.AttributeDescription.manaDamage("35%")));
         components.add(Component.literal("  4.致残：大幅降低目标").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.AttributeDescription.movementSpeedWithoutBattle("")));
         components.add(Component.literal(" 对一定范围内的玩家随机造成").withStyle(ChatFormatting.WHITE).
@@ -98,13 +97,13 @@ public class SoulSceptre extends WraqSceptre {
         components.add(Component.literal("  1.治疗：回复已损失生命值10%的").withStyle(ChatFormatting.WHITE).
                 append(Compute.AttributeDescription.Health("")));
         components.add(Component.literal("  2.抗性：持续4秒的").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.ManaDamage("5%")).
+                append(ComponentUtils.AttributeDescription.manaDamage("5%")).
                 append(Compute.AttributeDescription.Defence("")).
-                append(ComponentUtils.AttributeDescription.ManaDamage("5%")).
+                append(ComponentUtils.AttributeDescription.manaDamage("5%")).
                 append(Compute.AttributeDescription.ManaDefence("")));
         components.add(Component.literal("  3.攻击增幅：持续4秒的").withStyle(ChatFormatting.WHITE).
                 append(Compute.AttributeDescription.AttackDamage("10%")).
-                append(ComponentUtils.AttributeDescription.ManaDamage("10%")));
+                append(ComponentUtils.AttributeDescription.manaDamage("10%")));
         components.add(Component.literal("  4.穿透增幅：持续4秒的").withStyle(ChatFormatting.WHITE).
                 append(Compute.AttributeDescription.DefencePenetration("20%")).
                 append(Compute.AttributeDescription.ManaPenetration("20%")));

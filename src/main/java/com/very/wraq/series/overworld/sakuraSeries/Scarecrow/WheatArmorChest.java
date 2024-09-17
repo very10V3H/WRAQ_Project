@@ -46,16 +46,16 @@ public class WheatArmorChest extends ArmorItem implements GeoItem {
         Style style = CustomStyle.styleOfWheat;
         Compute.forgingHoverName(stack);
         components.add(Component.literal("防具                   ").withStyle(ChatFormatting.GRAY).append(Component.literal("胸甲").withStyle(style)));
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfBasic(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfBasic(components);
         BasicAttributeDescription.BasicAttributeCommonDescription(components, stack);
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         Compute.DescriptionPassive(components, Component.literal("藤甲"));
         components.add(Component.literal("1.减免受到的").withStyle(ChatFormatting.WHITE).
                 append(Compute.AttributeDescription.AttackDamageValue("30%")));
         components.add(Component.literal("2.提高受到的").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.ManaDamageValue("30%")));
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+                append(ComponentUtils.AttributeDescription.manaDamageValue("30%")));
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         components.add(Component.literal("Scarecrow_ChestPlate").withStyle(style).withStyle(ChatFormatting.ITALIC));
         Compute.SuffixOfMainStoryV(components);
         super.appendHoverText(stack, level, components, flag);

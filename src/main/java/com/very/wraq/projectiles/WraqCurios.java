@@ -34,18 +34,18 @@ public abstract class WraqCurios extends Item implements ICurioItem {
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
         Style style = hoverMainStyle();
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfBasic(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfBasic(components);
         if (getTypeDescription() != null) components.add(getTypeDescription());
         if (levelRequirement() != 0) {
             components.add(Component.literal(" 等级需求: ").withStyle(ChatFormatting.AQUA).
                     append(Component.literal("Lv." + levelRequirement()).withStyle(Utils.levelStyleList.get(levelRequirement() / 25))));
         }
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         if (!additionHoverText(stack).isEmpty()) {
-            ComponentUtils.DescriptionOfAddition(components);
+            ComponentUtils.descriptionOfAddition(components);
             components.addAll(additionHoverText(stack));
-            ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+            ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         }
         components.add(suffix());
         super.appendHoverText(stack, level, components, flag);

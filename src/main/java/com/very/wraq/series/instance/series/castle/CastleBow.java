@@ -41,7 +41,7 @@ public class CastleBow extends WraqBow implements ForgeItem, ActiveItem {
         Style style = getMainStyle();
         Compute.DescriptionPassive(components, Component.literal("暗影之刃").withStyle(style));
         components.add(Component.literal(" 你的箭矢攻击将使敌人被拖入暗影之中").withStyle(ChatFormatting.ITALIC).withStyle(style));
-        components.add(Component.literal(" 你的").withStyle(ChatFormatting.WHITE).append(Component.literal("箭矢攻击").withStyle(CustomStyle.styleOfFlexible)).append(Component.literal("将附带造成伤害100%的").withStyle(ChatFormatting.WHITE)).append(ComponentUtils.AttributeDescription.ManaDamageValue("")));
+        components.add(Component.literal(" 你的").withStyle(ChatFormatting.WHITE).append(Component.literal("箭矢攻击").withStyle(CustomStyle.styleOfFlexible)).append(Component.literal("将附带造成伤害100%的").withStyle(ChatFormatting.WHITE)).append(ComponentUtils.AttributeDescription.manaDamageValue("")));
         Compute.DescriptionActive(components, Component.literal("噬魔注能").withStyle(style));
         components.add(Component.literal(" 扣除自身").withStyle(ChatFormatting.WHITE).append(Compute.AttributeDescription.Health("15%当前")).append(Component.literal("，获得持续6s的").withStyle(ChatFormatting.WHITE)).append(Component.literal("25%伤害提升").withStyle(CustomStyle.styleOfPower)).append(Component.literal("以及").withStyle(ChatFormatting.WHITE)).append(Compute.AttributeDescription.DefencePenetration("1500")).append(Component.literal("与").withStyle(ChatFormatting.WHITE)).append(Compute.AttributeDescription.ManaPenetration("1500")));
         ComponentUtils.coolDownTimeDescription(components, 15);

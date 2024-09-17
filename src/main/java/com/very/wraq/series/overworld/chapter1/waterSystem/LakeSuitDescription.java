@@ -31,7 +31,7 @@ public class LakeSuitDescription {
             Compute.SuitDescription(components);
             components.add(Component.literal("[按住shift展开套装效果]").withStyle(ChatFormatting.GRAY));
         }
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         components.add(Component.literal("LakeArmor-I").withStyle(style).withStyle(ChatFormatting.ITALIC));
         ComponentUtils.suffixOfChapterI(components);
     }

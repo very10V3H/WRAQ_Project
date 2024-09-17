@@ -32,11 +32,11 @@ public class LakeArmorHelmet extends ArmorItem {
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
         Compute.forgingHoverName(stack);
         components.add(Component.literal("防具                   ").withStyle(ChatFormatting.GRAY).append(Component.literal("头盔").withStyle(CustomStyle.styleOfWater)));
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfWater, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfBasic(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfWater, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfBasic(components);
         BasicAttributeDescription.BasicAttributeCommonDescription(components, stack);
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfWater, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfAddition(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfWater, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfAddition(components);
         LakeSuitDescription.LakeArmorCommonDescription(components);
         super.appendHoverText(stack, level, components, flag);
     }

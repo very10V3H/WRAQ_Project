@@ -33,11 +33,11 @@ public class LifeManaGem extends Item {
         stack.getOrCreateTagElement(Utils.MOD_ID);
         Style style = CustomStyle.styleOfHealth;
         components.add(Component.literal("平原和森林的意志具象，凝聚成此石。").withStyle(style));
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfBasic(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfBasic(components);
 /*        Compute.EmojiDescriptionManaRecover(components,ManaRecover);
         Compute.EmojiDescriptionManaHealSteal(components,ManaHealSteal);*/
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         ComponentUtils.suffixOfChapterII(components);
         super.appendHoverText(stack, level, components, flag);
     }

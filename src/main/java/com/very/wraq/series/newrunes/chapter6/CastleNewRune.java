@@ -37,15 +37,15 @@ public class CastleNewRune extends WraqCurios implements RuneItem, UsageOrGetWay
                 append(Component.literal("/").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("弓").withStyle(CustomStyle.styleOfFlexible)).
                 append(Component.literal("会提供等同于").withStyle(ChatFormatting.WHITE)).
-                append(ComponentUtils.AttributeDescription.ManaDamage("20%")).
+                append(ComponentUtils.AttributeDescription.manaDamage("20%")).
                 append(Component.literal("的").withStyle(ChatFormatting.WHITE)).
-                append(ComponentUtils.AttributeDescription.AttackDamage("")));
+                append(ComponentUtils.AttributeDescription.attackDamage("")));
         components.add(Component.literal(" 手持").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("法杖").withStyle(CustomStyle.styleOfMana)).
                 append(Component.literal("会提供等同于").withStyle(ChatFormatting.WHITE)).
-                append(ComponentUtils.AttributeDescription.AttackDamage("40%")).
+                append(ComponentUtils.AttributeDescription.attackDamage("40%")).
                 append(Component.literal("的").withStyle(ChatFormatting.WHITE)).
-                append(ComponentUtils.AttributeDescription.ManaDamage("")));
+                append(ComponentUtils.AttributeDescription.manaDamage("")));
         return components;
     }
 

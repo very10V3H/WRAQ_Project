@@ -200,11 +200,11 @@ public class LakeBoss {
             ChatFormatting MainStyle = ChatFormatting.BLUE;
             Compute.forgingHoverName(stack);
             components.add(Component.literal("主手                   ").withStyle(ChatFormatting.AQUA).append(Utils.WeaponTypeComponents.ShortHandleSword));
-            ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
-            ComponentUtils.DescriptionOfBasic(components);
+            ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
+            ComponentUtils.descriptionOfBasic(components);
             BasicAttributeDescription.BasicAttributeCommonDescription(components, stack);
-            ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
-            ComponentUtils.DescriptionOfAddition(components);
+            ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
+            ComponentUtils.descriptionOfAddition(components);
             components.add(Component.literal(" - ").withStyle(ChatFormatting.GRAY).
                     append(Component.literal("澈源维度展开: ").withStyle(MainStyle)).
                     append(Component.literal("澈源制造者释放制造澈源次元的能量，将持有者净化。").withStyle(ChatFormatting.WHITE)));
@@ -214,7 +214,7 @@ public class LakeBoss {
                     append(Component.literal("60s~20s").withStyle(ChatFormatting.AQUA)).
                     append(Component.literal("（冷却时间根据澈源次元能量的增加而减少）").withStyle(ChatFormatting.GRAY)));
             ComponentUtils.manaCostDescription(components, 180);
-            ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
+            ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
             components.add(Component.literal("Dimension-Lake").withStyle(MainStyle).withStyle(ChatFormatting.ITALIC));
             ComponentUtils.suffixOfChapterI(components);
             super.appendHoverText(stack, level, components, flag);

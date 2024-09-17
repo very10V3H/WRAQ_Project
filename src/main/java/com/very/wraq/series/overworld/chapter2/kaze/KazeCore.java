@@ -58,7 +58,7 @@ public class KazeCore extends Item {
                 append(Component.literal("提供").withStyle(ChatFormatting.WHITE)).
                 append(Compute.AttributeDescription.ManaPenetration("")));
         components.add(Component.literal("-每").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.ExMovementSpeed("1%")).
+                append(ComponentUtils.AttributeDescription.exMovementSpeed("1%")).
                 append(Component.literal("提供").withStyle(ChatFormatting.WHITE)).
                 append(Compute.AttributeDescription.ManaPenetration("1")));
         super.appendHoverText(stack, p_41422_, components, p_41424_);

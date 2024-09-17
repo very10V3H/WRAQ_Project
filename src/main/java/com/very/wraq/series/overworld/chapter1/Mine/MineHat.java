@@ -49,11 +49,11 @@ public class MineHat extends ArmorItem implements GeoItem {
         Style style = CustomStyle.styleOfMine;
         Compute.forgingHoverName(stack);
         components.add(Component.literal("防具                   ").withStyle(ChatFormatting.GRAY).append(Component.literal("帽子").withStyle(style)));
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfBasic(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfBasic(components);
         BasicAttributeDescription.BasicAttributeCommonDescription(components, stack);
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfAddition(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfAddition(components);
         Compute.DescriptionPassive(components, Component.literal("矿工本能-改").withStyle(ChatFormatting.GRAY));
         components.add(Component.literal("1.当周围亮度较低时，获得夜视效果"));
         components.add(Component.literal("2.获得急迫3效果"));

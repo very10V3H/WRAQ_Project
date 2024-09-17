@@ -40,10 +40,10 @@ public class StarBottle extends Item implements ICurioItem {
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
         Compute.forgingHoverName(stack);
         Style style = CustomStyle.styleOfMoon1;
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfBasic(components);
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfAddition(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfBasic(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfAddition(components);
         Compute.DescriptionPassive(components, Component.literal("聚星集屑").withStyle(style));
         components.add(Component.literal(" 处于战斗状态时，每秒会收集一枚").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("星屑").withStyle(style)));
@@ -67,8 +67,8 @@ public class StarBottle extends Item implements ICurioItem {
                 append(Component.literal("星屑").withStyle(style)).
                 append(Component.literal("被完全释放后，你才可以再次收集").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("星屑").withStyle(style)));
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        ComponentUtils.SuffixOfMainStoryVII(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.suffixOfMainStoryVII(components);
         super.appendHoverText(stack, level, components, flag);
     }
 

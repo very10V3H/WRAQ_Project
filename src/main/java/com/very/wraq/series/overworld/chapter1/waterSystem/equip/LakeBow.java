@@ -1,7 +1,6 @@
 package com.very.wraq.series.overworld.chapter1.waterSystem.equip;
 
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.attribute.PlayerAttributes;
 import com.very.wraq.common.registry.MySound;
 import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.Utils;
@@ -26,7 +25,6 @@ import net.minecraft.world.phys.AABB;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class LakeBow extends WraqBow implements OnHitEffectMainHandWeapon {
     private final int tier;
@@ -44,16 +42,13 @@ public class LakeBow extends WraqBow implements OnHitEffectMainHandWeapon {
 
     @Override
     public void onHit(Player player, Mob mob) {
-        List<Mob> mobList = mob.level().getEntitiesOfClass(Mob.class, AABB.ofSize(mob.position(), 12, 12, 12));
-        mobList.removeIf(mob1 -> mob1.distanceTo(mob) > 6 || mob1.equals(mob));
-        Random random = new Random();
-        mobList.forEach(mob1 -> {
-            if (random.nextDouble() < PlayerAttributes.critRate(player)) {
-                Damage.causeAttackDamageToMonster_RateAdDamage(player, mob1, 0.25 * (1 + tier) * (1 + PlayerAttributes.critDamage(player)));
-            } else Damage.causeAttackDamageToMonster_RateAdDamage(player, mob1, 0.25 * (1 + tier));
-
-            Compute.addSlowDownEffect(mob1, 40, 2);
-        });
+        mob.level().getEntitiesOfClass(Mob.class, AABB.ofSize(mob.position(), 12, 12, 12))
+                .stream()
+                .filter(mob1 -> mob1.distanceTo(mob) <= 6 && !mob1.equals(mob))
+                .forEach(mob1 -> {
+                    Damage.causeRateAdDamageToMonsterWithCritJudge(player, mob1, 0.25 * (1 + tier));
+                    Compute.addSlowDownEffect(mob1, 40, 2);
+                });
     }
 
     @Override
@@ -68,7 +63,7 @@ public class LakeBow extends WraqBow implements OnHitEffectMainHandWeapon {
         ComponentUtils.descriptionPassive(components, Component.literal("迟滞之矢").withStyle(style));
         components.add(Component.literal(" 箭矢").withStyle(CustomStyle.styleOfFlexible).
                 append(Component.literal("命中目标后，对目标周围单位造成").withStyle(ChatFormatting.WHITE)).
-                append(ComponentUtils.AttributeDescription.AttackDamageValue(25 * (1 + tier) + "%")));
+                append(ComponentUtils.AttributeDescription.attackDamageValue(25 * (1 + tier) + "%")));
         components.add(Component.literal(" 并施加2s").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("减速效果").withStyle(CustomStyle.styleOfMine)));
         return components;

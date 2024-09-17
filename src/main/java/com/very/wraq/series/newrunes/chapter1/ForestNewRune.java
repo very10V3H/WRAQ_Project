@@ -38,11 +38,11 @@ public class ForestNewRune extends WraqCurios implements RuneItem, UsageOrGetWay
         components.add(Component.literal(" 受到来自").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("怪物").withStyle(ChatFormatting.RED)).
                 append(Component.literal("的伤害且该伤害会使你的").withStyle(ChatFormatting.WHITE)).
-                append(ComponentUtils.AttributeDescription.Health("")).
+                append(ComponentUtils.AttributeDescription.health("")).
                 append(Component.literal("低于20%").withStyle(ChatFormatting.GREEN)).
                 append(Component.literal("时，免疫该伤害").withStyle(ChatFormatting.WHITE)));
         components.add(Component.literal(" 并在触发后，为你提供持续5s的").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.HealthRecover("10%最大生命值")));
+                append(ComponentUtils.AttributeDescription.healthRecover("10%最大生命值")));
         return components;
     }
 

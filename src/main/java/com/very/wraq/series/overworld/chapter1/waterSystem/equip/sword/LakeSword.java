@@ -38,7 +38,7 @@ public class LakeSword extends WraqSword implements OnHitEffectMainHandWeapon {
     public List<Component> getAdditionalComponents(ItemStack stack) {
         List<Component> components = new ArrayList<>();
         Compute.DescriptionPassive(components, Component.literal("潜泳").withStyle(ChatFormatting.BLUE));
-        ComponentUtils.DescriptionNum(components, "攻击后获得持续1秒的", ComponentUtils.AttributeDescription.movementSpeed("50%"), "");
+        ComponentUtils.descriptionNum(components, "攻击后获得持续1秒的", ComponentUtils.AttributeDescription.movementSpeed("50%"), "");
         return components;
     }
 

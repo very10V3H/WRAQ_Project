@@ -48,8 +48,8 @@ public class VolcanoSword extends WraqSword implements ActiveItem {
     public List<Component> getAdditionalComponents(ItemStack stack) {
         List<Component> components = new ArrayList<>();
         Compute.DescriptionActive(components, Component.literal("喷发").withStyle(ChatFormatting.YELLOW));
-        ComponentUtils.DescriptionNum(components, "1.获得", Compute.AttributeDescription.CritDamage((int) (VolcanoSwordAttributes.ExCritDamage[tier] * 100) + "%"), "");
-        ComponentUtils.DescriptionNum(components, "2.获得", Compute.AttributeDescription.ExAttackDamage((int) VolcanoSwordAttributes.ExAttackDamage[tier] + " "), "");
+        ComponentUtils.descriptionNum(components, "1.获得", Compute.AttributeDescription.CritDamage((int) (VolcanoSwordAttributes.ExCritDamage[tier] * 100) + "%"), "");
+        ComponentUtils.descriptionNum(components, "2.获得", Compute.AttributeDescription.ExAttackDamage((int) VolcanoSwordAttributes.ExAttackDamage[tier] + " "), "");
         components.add(Component.literal("持续5s").withStyle(ChatFormatting.WHITE));
         ComponentUtils.coolDownTimeDescription(components, 10);
         ComponentUtils.manaCostDescription(components, 60);

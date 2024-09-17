@@ -55,7 +55,7 @@ public class SeaSword extends WraqSword implements ActiveItem {
                 append(Component.literal("真实伤害").withStyle(CustomStyle.styleOfSea)));
         components.add(Component.literal("倍率随目标已损失生命值线性增长").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
         components.add(Component.literal("若目标死亡，则获得自身").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.MaxHealth(tier >= 3 ? "40%" : "25%")).
+                append(ComponentUtils.AttributeDescription.maxHealth(tier >= 3 ? "40%" : "25%")).
                 append(Component.literal("的生命回复。").withStyle(ChatFormatting.WHITE)));
         ComponentUtils.coolDownTimeDescription(components, 3);
         ComponentUtils.manaCostDescription(components, 30);

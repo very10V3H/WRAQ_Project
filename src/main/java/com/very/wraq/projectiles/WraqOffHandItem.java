@@ -46,8 +46,8 @@ public abstract class WraqOffHandItem extends Item {
         Style style = getMainStyle();
         Compute.forgingHoverName(stack);
         components.add(Component.literal("副手                   ").withStyle(ChatFormatting.GOLD).append(type));
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfBasic(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfBasic(components);
         BasicAttributeDescription.BasicAttributeCommonDescription(components, stack);
         if (this instanceof RandomLootEquip randomLootEquip) {
             if (randomLootEquip.levelRequire() != 0) {
@@ -58,11 +58,11 @@ public abstract class WraqOffHandItem extends Item {
                 }
             }
         }
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         if (!getAdditionalComponents().isEmpty()) {
-            ComponentUtils.DescriptionOfAddition(components);
+            ComponentUtils.descriptionOfAddition(components);
             components.addAll(getAdditionalComponents());
-            ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+            ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         }
         components.add(getSuffix());
         super.appendHoverText(stack, level, components, flag);

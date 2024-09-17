@@ -45,11 +45,11 @@ public class MinePants extends ArmorItem implements GeoItem {
         Style style = CustomStyle.styleOfSakuraMine;
         Compute.forgingHoverName(stack);
         components.add(Component.literal("防具                   ").withStyle(ChatFormatting.GRAY).append(Component.literal("裤子").withStyle(style)));
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfBasic(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfBasic(components);
         BasicAttributeDescription.BasicAttributeCommonDescription(components, stack);
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfBasic(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfBasic(components);
         Compute.DescriptionPassive(components, Component.literal("矿工本能").withStyle(CustomStyle.styleOfSakuraMine));
         components.add(Component.literal("在夜晚或当前高度低于海平面时获得:"));
         components.add(Component.literal("1.").withStyle(ChatFormatting.AQUA).
@@ -60,7 +60,7 @@ public class MinePants extends ArmorItem implements GeoItem {
                 append(ComponentUtils.AttributeDescription.movementSpeedWithoutBattle("40%")));
         components.add(Component.literal("4.").withStyle(ChatFormatting.AQUA).
                 append(Compute.AttributeDescription.Defence("100")));
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         components.add(Component.literal("Mine_Pants").withStyle(style).withStyle(ChatFormatting.ITALIC));
         Compute.SuffixOfMainStoryV(components);
         super.appendHoverText(stack, level, components, flag);

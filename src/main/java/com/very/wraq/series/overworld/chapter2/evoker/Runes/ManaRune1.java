@@ -21,11 +21,11 @@ public class ManaRune1 extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level p_41422_, List<Component> components, TooltipFlag p_41424_) {
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.LIGHT_PURPLE, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, ChatFormatting.LIGHT_PURPLE, ChatFormatting.WHITE);
         components.add(Component.literal("符石属性:"));
         components.add(Component.literal("基于已损失生命值提供").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.ManaDamage("")));
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.LIGHT_PURPLE, ChatFormatting.WHITE);
+                append(ComponentUtils.AttributeDescription.manaDamage("")));
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, ChatFormatting.LIGHT_PURPLE, ChatFormatting.WHITE);
         components.add(Component.literal("Runes-Mana").withStyle(ChatFormatting.LIGHT_PURPLE).withStyle(ChatFormatting.ITALIC));
         super.appendHoverText(stack, p_41422_, components, p_41424_);
     }

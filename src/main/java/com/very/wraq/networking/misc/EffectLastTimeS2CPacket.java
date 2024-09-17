@@ -53,9 +53,9 @@ public class EffectLastTimeS2CPacket {
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
-            if (Element.elementList.isEmpty()) Element.setElementList();
-            if (Element.elementList.contains(itemStack.getItem())) {
-                ClientUtils.effectTimeLasts.removeIf(effectTimeLast -> Element.elementList.contains(effectTimeLast.itemStack.getItem()));
+            if (Element.elementItemList.isEmpty()) Element.setElementList();
+            if (Element.elementItemList.contains(itemStack.getItem())) {
+                ClientUtils.effectTimeLasts.removeIf(effectTimeLast -> Element.elementItemList.contains(effectTimeLast.itemStack.getItem()));
             }
 
             ClientUtils.effectTimeLasts.removeIf(effectTimeLast -> effectTimeLast.itemStack.is(this.itemStack.getItem()));

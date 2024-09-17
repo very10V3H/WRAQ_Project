@@ -45,10 +45,10 @@ public class MoonKnife extends Item {
         Style style = CustomStyle.styleOfMoon;
         stack.setHoverName(Component.literal("皎朔玉钩").withStyle(style).withStyle(ChatFormatting.BOLD));
         components.add(Component.literal("副手                   ").withStyle(ChatFormatting.GOLD).append(Component.literal("小刀").withStyle(CustomStyle.styleOfBloodMana)));
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfBasic(components);
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfAddition(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfBasic(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfAddition(components);
         Compute.DescriptionPassive(components, Component.literal("清辉夜凝").withStyle(style));
         components.add(Component.literal("箭矢攻击").withStyle(CustomStyle.styleOfFlexible).
                 append(Component.literal("将会标记一个敌人").withStyle(ChatFormatting.WHITE)).
@@ -60,7 +60,7 @@ public class MoonKnife extends Item {
                 append(Component.literal("真实伤害").withStyle(CustomStyle.styleOfSea)));
         components.add(Component.literal(" - 引爆标记后，你将获得持续3s的").withStyle(ChatFormatting.WHITE).
                 append(Compute.AttributeDescription.AttackDamage("12%总")));
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         Compute.SuffixOfMoon(components);
         super.appendHoverText(stack, level, components, flag);
     }

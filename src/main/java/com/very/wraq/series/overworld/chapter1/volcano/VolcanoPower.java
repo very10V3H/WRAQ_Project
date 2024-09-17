@@ -37,18 +37,18 @@ public class VolcanoPower extends Item implements ActiveItem {
     @Override
     public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
         components.add(Component.literal("·法术").withStyle(CustomStyle.styleOfMana));
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
         Compute.DescriptionActive(components, Component.literal("爆裂之焰").withStyle(CustomStyle.styleOfVolcano));
         components.add(Component.literal(" 使").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("指针").withStyle(ChatFormatting.AQUA)).
                 append(Component.literal("周围所有敌人爆裂，在每个敌人位置处产生小范围").withStyle(ChatFormatting.WHITE)).
-                append(ComponentUtils.AttributeDescription.ManaDamageValue(String.format("%.0f", effect[tier] * 100) + "%")));
+                append(ComponentUtils.AttributeDescription.manaDamageValue(String.format("%.0f", effect[tier] * 100) + "%")));
         components.add(Component.literal(" - 这个伤害会附带").withStyle(ChatFormatting.WHITE).
                 append(Element.Description.FireElement("1 + 100%")));
         ComponentUtils.coolDownTimeDescription(components, CoolDownTime[tier]);
         ComponentUtils.manaCostDescription(components, ManaCost[tier]);
 
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
         components.add(Component.literal("Powers-Volcano").withStyle(CustomStyle.styleOfVolcano));
         super.appendHoverText(itemStack, level, components, flag);
     }

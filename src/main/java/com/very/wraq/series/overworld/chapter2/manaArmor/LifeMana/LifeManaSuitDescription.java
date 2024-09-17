@@ -24,13 +24,13 @@ import java.util.List;
 @OnlyIn(Dist.CLIENT)
 public class LifeManaSuitDescription {
     public static void ArmorCommonDescription(List<Component> components) {
-        ComponentUtils.DescriptionOfAddition(components);
+        ComponentUtils.descriptionOfAddition(components);
         if (Screen.hasShiftDown()) SuitDescription(components);
         else {
             Compute.SuitDescription(components);
             components.add(Component.literal("[按住shift展开套装效果]").withStyle(ChatFormatting.GRAY));
         }
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.LIGHT_PURPLE, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, ChatFormatting.LIGHT_PURPLE, ChatFormatting.WHITE);
         components.add(Component.literal("LifeMana-I").withStyle(CustomStyle.styleOfMana).withStyle(ChatFormatting.ITALIC));
         ComponentUtils.suffixOfChapterII(components);
 
@@ -80,12 +80,12 @@ public class LifeManaSuitDescription {
 
         Compute.SuitDoubleDescription(components, Count);
         Compute.DescriptionPassive(components, Component.literal("魔力涌动").withStyle(ChatFormatting.LIGHT_PURPLE));
-        ComponentUtils.DescriptionNum(components, "获得", Compute.AttributeDescription.ManaRecover("5"), "");
+        ComponentUtils.descriptionNum(components, "获得", Compute.AttributeDescription.ManaRecover("5"), "");
         Compute.SuitQuadraDescription(components, Count);
         Compute.DescriptionPassive(components, Component.literal("生机涌动").withStyle(ChatFormatting.GREEN));
-        ComponentUtils.DescriptionNum(components, "每秒回复", Compute.AttributeDescription.Health("1+1%"), "");
-        ComponentUtils.DescriptionNum(components, "提升", Compute.AttributeDescription.Defence("25%"), "");
-        ComponentUtils.DescriptionNum(components, "获得", Compute.AttributeDescription.ManaHealSteal("5"), "");
+        ComponentUtils.descriptionNum(components, "每秒回复", Compute.AttributeDescription.Health("1+1%"), "");
+        ComponentUtils.descriptionNum(components, "提升", Compute.AttributeDescription.Defence("25%"), "");
+        ComponentUtils.descriptionNum(components, "获得", Compute.AttributeDescription.ManaHealSteal("5"), "");
     }
 
 }

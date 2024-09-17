@@ -21,10 +21,10 @@ import java.util.List;
 @OnlyIn(Dist.CLIENT)
 public class MineSuitDescription {
     public static void ArmorCommonDescription(List<Component> components) {
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMine, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfAddition(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMine, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfAddition(components);
         SuitDescription(components);
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMine, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMine, ChatFormatting.WHITE);
         components.add(Component.literal("MineArmor-I").withStyle(CustomStyle.styleOfMine).withStyle(ChatFormatting.ITALIC));
         ComponentUtils.suffixOfChapterI(components);
 
@@ -61,21 +61,21 @@ public class MineSuitDescription {
             Count++;
         } else components.add(Component.literal(CrestName).withStyle(ChatFormatting.GRAY));
 
-        ComponentUtils.SuitDoubleDescription(components, Count);
+        ComponentUtils.suitDoubleDescription(components, Count);
         Compute.DescriptionPassive(components, Component.literal("顽铁").withStyle(MainStyle));
         components.add(Component.literal("减少受到的").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.CritDamage("50%")));
-        ComponentUtils.SuitQuadraDescription(components, Count);
+                append(ComponentUtils.AttributeDescription.critDamage("50%")));
+        ComponentUtils.suitQuadraDescription(components, Count);
         Compute.DescriptionPassive(components, Component.literal("沉重").withStyle(MainStyle));
         components.add(Component.literal("1.").withStyle(MainStyle).
                 append(Component.literal("降低").withStyle(ChatFormatting.RED)).
-                append(ComponentUtils.AttributeDescription.MovementSpeedDecrease("50%")));
+                append(ComponentUtils.AttributeDescription.movementSpeedDecrease("50%")));
         components.add(Component.literal("2.").withStyle(MainStyle).
                 append(Component.literal("获得").withStyle(ChatFormatting.GREEN)).
-                append(ComponentUtils.AttributeDescription.Defence("250")));
+                append(ComponentUtils.AttributeDescription.defence("250")));
         components.add(Component.literal("3.").withStyle(MainStyle).
                 append(Component.literal("获得").withStyle(ChatFormatting.GREEN)).
-                append(ComponentUtils.AttributeDescription.ExAttackDamage("30%")));
+                append(ComponentUtils.AttributeDescription.exAttackDamage("30%")));
 
     }
 }

@@ -3,7 +3,6 @@ package com.very.wraq.series.specialevents.springFes;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.util.ComponentUtils;
-import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.Utils;
 import com.very.wraq.projectiles.ActiveItem;
 import com.very.wraq.render.toolTip.CustomStyle;
@@ -40,7 +39,7 @@ public class FireWorkGun extends Item implements ActiveItem {
         components.add(Component.literal(" 提升").withStyle(CustomStyle.styleOfSpring).
                 append(Compute.AttributeDescription.AttackDamage("10%")).
                 append(Component.literal("与").withStyle(CustomStyle.styleOfSpring)).
-                append(ComponentUtils.AttributeDescription.ManaDamage("10%")).
+                append(ComponentUtils.AttributeDescription.manaDamage("10%")).
                 append(Component.literal(" 持续10s").withStyle(ChatFormatting.WHITE)));
         components.add(Component.literal("SpringFestival~2024").withStyle(ChatFormatting.ITALIC).withStyle(CustomStyle.styleOfSpring));
         super.appendHoverText(stack, p_41422_, components, p_41424_);

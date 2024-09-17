@@ -34,10 +34,10 @@ public class CastleWeaponGem extends Item {
         stack.getOrCreateTagElement(Utils.MOD_ID);
         Style style = CustomStyle.styleOfCastle;
         components.add(Component.literal("暗黑魔能凝聚").withStyle(style));
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfBasic(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfBasic(components);
         components.add(Component.literal(" 仅可用于武器").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         Compute.SuffixOfCastle(components);
         super.appendHoverText(stack, level, components, flag);
     }

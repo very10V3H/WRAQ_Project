@@ -14,11 +14,11 @@ import java.util.List;
 public class ComponentUtils {
     public static class AttributeDescription {
 
-        public static Component ExpUp(String content) {
+        public static Component expUp(String content) {
             return Component.literal(Utils.Emoji.ExpUp + " " + content + "经验加成").withStyle(ChatFormatting.LIGHT_PURPLE);
         }
 
-        public static Component MaxHealth(String content) {
+        public static Component maxHealth(String content) {
             return Component.literal(Utils.Emoji.Health + " " + content + "最大生命值").withStyle(ChatFormatting.GREEN);
         }
 
@@ -26,11 +26,11 @@ public class ComponentUtils {
             return Component.literal(Utils.Emoji.Health + " " + content + "治疗量").withStyle(ChatFormatting.GREEN);
         }
 
-        public static Component LossHealth(String content) {
+        public static Component lossHealth(String content) {
             return Component.literal(Utils.Emoji.Health + " " + content + "已损失生命值").withStyle(ChatFormatting.DARK_GREEN);
         }
 
-        public static Component Swiftness(String content) {
+        public static Component swiftness(String content) {
             return Component.literal(Utils.Emoji.Swiftness + " " + content + "迅捷").withStyle(ChatFormatting.GREEN);
         }
 
@@ -42,131 +42,131 @@ public class ComponentUtils {
             return Component.literal(Utils.Emoji.Speed + " " + content + "移动速度").withStyle(ChatFormatting.GREEN);
         }
 
-        public static Component ExMovementSpeed(String content) {
+        public static Component exMovementSpeed(String content) {
             return Component.literal(Utils.Emoji.Speed + " " + content + "额外移动速度").withStyle(ChatFormatting.GREEN);
         }
 
-        public static Component MovementSpeedDecrease(String content) {
+        public static Component movementSpeedDecrease(String content) {
             return Component.literal(Utils.Emoji.Speed + " " + content + "移动速度").withStyle(ChatFormatting.RED);
         }
 
-        public static Component ManaDamage(String content) {
+        public static Component manaDamage(String content) {
             return Component.literal(Utils.Emoji.Mana + " " + content + "魔法攻击").withStyle(ChatFormatting.LIGHT_PURPLE);
         }
 
-        public static Component ManaCost(String content) {
+        public static Component manaCost(String content) {
             return Component.literal(Utils.Emoji.ManaCost + " " + content + "法力消耗").withStyle(ChatFormatting.LIGHT_PURPLE);
         }
 
-        public static Component ExManaDamage(String content) {
+        public static Component exManaDamage(String content) {
             return Component.literal(Utils.Emoji.Mana + " " + content + "额外魔法攻击").withStyle(ChatFormatting.LIGHT_PURPLE);
         }
 
-        public static Component ManaRecover(String content) {
+        public static Component manaRecover(String content) {
             return Component.literal(Utils.Emoji.ManaRecover + " " + content + "法力回复").withStyle(ChatFormatting.LIGHT_PURPLE);
         }
 
-        public static Component Health(String content) {
+        public static Component health(String content) {
             return Component.literal(Utils.Emoji.Health + " " + content + "生命值").withStyle(ChatFormatting.GREEN);
         }
 
-        public static Component Defence(String content) {
+        public static Component defence(String content) {
             return Component.literal(Utils.Emoji.Defence + " " + content + "护甲").withStyle(ChatFormatting.GRAY);
         }
 
-        public static Component HealAmplification(String content) {
+        public static Component healAmplification(String content) {
             return Component.literal(Utils.Emoji.HealthAmplification + " " + content + "治疗强度").withStyle(CustomStyle.styleOfHealth);
         }
 
-        public static Component HealthRecover(String content) {
+        public static Component healthRecover(String content) {
             return Component.literal(Utils.Emoji.HealthRecover + " " + content + "生命回复").withStyle(CustomStyle.styleOfHealth);
         }
 
-        public static Component ManaDefence(String content) {
+        public static Component manaDefence(String content) {
             return Component.literal(Utils.Emoji.Defence + " " + content + "魔法抗性").withStyle(ChatFormatting.BLUE);
         }
 
-        public static Component ExAttackDamage(String content) {
+        public static Component exAttackDamage(String content) {
             return Component.literal(Utils.Emoji.Sword + " " + content + "额外攻击力").withStyle(ChatFormatting.YELLOW);
         }
 
-        public static Component DefencePenetration(String content) {
+        public static Component defencePenetration(String content) {
             return Component.literal(Utils.Emoji.Defence + " " + content + "护甲穿透").withStyle(ChatFormatting.GRAY);
         }
 
-        public static Component CritDamage(String content) {
+        public static Component critDamage(String content) {
             return Component.literal(Utils.Emoji.CritDamage + " " + content + "暴击伤害").withStyle(ChatFormatting.BLUE);
         }
 
-        public static Component CritRate(String content) {
+        public static Component critRate(String content) {
             return Component.literal(Utils.Emoji.CritRate + " " + content + "暴击几率").withStyle(ChatFormatting.LIGHT_PURPLE);
         }
 
-        public static Component AttackDamage(String content) {
+        public static Component attackDamage(String content) {
             return Component.literal(Utils.Emoji.Sword + " " + content + "攻击力").withStyle(ChatFormatting.YELLOW);
         }
 
-        public static Component ManaPenetration(String content) {
+        public static Component manaPenetration(String content) {
             return Component.literal(Utils.Emoji.Defence + " " + content + "法术穿透").withStyle(ChatFormatting.BLUE);
         }
 
-        public static Component CoolDown(String content) {
+        public static Component coolDown(String content) {
             return Component.literal(Utils.Emoji.CoolDown + " " + content + "技能急速").withStyle(ChatFormatting.AQUA);
         }
 
-        public static Component HealthSteal(String content) {
+        public static Component healthSteal(String content) {
             return Component.literal(Utils.Emoji.HealSteal + " " + content + "生命偷取").withStyle(ChatFormatting.RED);
         }
 
-        public static Component SkillHealthSteal(String content) {
+        public static Component skillHealthSteal(String content) {
             return Component.literal(Utils.Emoji.HealSteal + " " + content + "全能吸血").withStyle(CustomStyle.styleOfField);
         }
 
-        public static Component ManaHealSteal(String content) {
+        public static Component manaHealSteal(String content) {
             return Component.literal(Utils.Emoji.HealSteal + " " + content + "法术吸血").withStyle(CustomStyle.styleOfMana);
         }
 
-        public static Component MaxMana(String content) {
+        public static Component maxMana(String content) {
             return Component.literal(Utils.Emoji.MaxMana + " " + content + "法力值").withStyle(CustomStyle.styleOfMana);
         }
 
-        public static Component ExHealth(String content) {
+        public static Component exHealth(String content) {
             return Component.literal(Utils.Emoji.Health + " " + content + "额外生命值").withStyle(ChatFormatting.GREEN);
         }
 
-        public static Component AttackRange(String content) {
+        public static Component attackRange(String content) {
             return Component.literal(Utils.Emoji.AttackRange + " " + content + "攻击距离").withStyle(CustomStyle.styleOfSea);
         }
 
-        public static Component AttackDamageValue(String content) {
+        public static Component attackDamageValue(String content) {
             return Component.literal(Utils.Emoji.Sword + " " + content + "物理伤害").withStyle(ChatFormatting.YELLOW);
         }
 
-        public static Component ManaDamageValue(String content) {
+        public static Component manaDamageValue(String content) {
             return Component.literal(Utils.Emoji.Mana + " " + content + "魔法伤害").withStyle(ChatFormatting.LIGHT_PURPLE);
         }
     }
 
-    public static void SuitDescription(List<Component> components) {
+    public static void suitDescription(List<Component> components) {
         components.add(Component.literal(Utils.Emoji.Suit + " " + "套装效果").withStyle(ChatFormatting.AQUA));
     }
 
-    public static void SuitDoubleDescription(List<Component> components) {
+    public static void suitDoubleDescription(List<Component> components) {
         components.add(Component.literal("▷2件套效果:").withStyle(ChatFormatting.YELLOW));
     }
 
-    public static void SuitDoubleDescription(List<Component> components, int Count) {
+    public static void suitDoubleDescription(List<Component> components, int Count) {
         if (Count >= 2)
             components.add(Component.literal("▷2件套效果:").withStyle(ChatFormatting.YELLOW));
         else
             components.add(Component.literal("▷2件套效果:").withStyle(ChatFormatting.GRAY));
     }
 
-    public static void SuitQuadraDescription(List<Component> components) {
+    public static void suitQuadraDescription(List<Component> components) {
         components.add(Component.literal("▷4件套效果:").withStyle(ChatFormatting.LIGHT_PURPLE));
     }
 
-    public static void SuitQuadraDescription(List<Component> components, int Count) {
+    public static void suitQuadraDescription(List<Component> components, int Count) {
         if (Count >= 4)
             components.add(Component.literal("▷4件套效果:").withStyle(ChatFormatting.LIGHT_PURPLE));
         else
@@ -241,11 +241,11 @@ public class ComponentUtils {
         return Component.literal("Plain").withStyle(CustomStyle.styleOfPlain).withStyle(ChatFormatting.ITALIC);
     }
 
-    public static void SuffixOfPurpleIronKnight(List<Component> components) {
+    public static void suffixOfPurpleIronKnight(List<Component> components) {
         components.add(Component.literal("PurpleIronKnight").withStyle(CustomStyle.styleOfPurpleIron).withStyle(ChatFormatting.ITALIC));
     }
 
-    public static void SuffixOfIce(List<Component> components) {
+    public static void suffixOfIce(List<Component> components) {
         components.add(Component.literal("Ice").withStyle(CustomStyle.styleOfIce).withStyle(ChatFormatting.ITALIC));
     }
 
@@ -257,11 +257,11 @@ public class ComponentUtils {
         return Component.literal("WorldSoul").withStyle(CustomStyle.styleOfWorld).withStyle(ChatFormatting.ITALIC);
     }
 
-    public static void SuffixOfMainStoryIV(List<Component> components) {
+    public static void suffixOfMainStoryIV(List<Component> components) {
         components.add(Component.literal("MainStoryIV").withStyle(CustomStyle.styleOfEnd).withStyle(ChatFormatting.ITALIC));
     }
 
-    public static void SuffixOfMainStoryVII(List<Component> components) {
+    public static void suffixOfMainStoryVII(List<Component> components) {
         components.add(Component.literal("ChapterVII").withStyle(CustomStyle.styleOfMoon1).withStyle(ChatFormatting.ITALIC));
     }
 
@@ -269,7 +269,7 @@ public class ComponentUtils {
         return Component.literal("ChapterVII").withStyle(CustomStyle.styleOfMoon1).withStyle(ChatFormatting.ITALIC);
     }
 
-    public static void RuneAttributeDescription(List<Component> components) {
+    public static void runeAttributeDescription(List<Component> components) {
         components.add(Component.literal(" - ").withStyle(ChatFormatting.GRAY).
                 append("符石属性:").withStyle(ChatFormatting.WHITE));
     }
@@ -293,7 +293,7 @@ public class ComponentUtils {
                 append(name));
     }
 
-    public static void SuitEffectRateDescription(List<Component> components, int Count) {
+    public static void suitEffectRateDescription(List<Component> components, int Count) {
         switch (Count) {
             case 1 -> {
                 components.add(Component.literal("基于套装数量的数值:(").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC).
@@ -322,7 +322,7 @@ public class ComponentUtils {
         }
     }
 
-    public static void SkySuitEffectRateDescription(List<Component> components, int Count) {
+    public static void skySuitEffectRateDescription(List<Component> components, int Count) {
         switch (Count) {
             case 1 -> {
                 components.add(Component.literal("基于套装数量的数值:(").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC).
@@ -454,14 +454,14 @@ public class ComponentUtils {
                 append(Component.literal(lastSeconds + "s").withStyle(ChatFormatting.AQUA)).
                 append(Component.literal("内造成").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal(times + "次").withStyle(ChatFormatting.YELLOW)).
-                append(ComponentUtils.AttributeDescription.AttackDamageValue(rate));
+                append(ComponentUtils.AttributeDescription.attackDamageValue(rate));
     }
 
     public static Component getCritDamageInfluenceDescription() {
         return Component.literal(" 这个伤害受").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.CritRate("")).
+                append(ComponentUtils.AttributeDescription.critRate("")).
                 append(Component.literal("及").withStyle(ChatFormatting.WHITE)).
-                append(ComponentUtils.AttributeDescription.CritDamage("")).
+                append(ComponentUtils.AttributeDescription.critDamage("")).
                 append(Component.literal("影响").withStyle(ChatFormatting.WHITE));
     }
 
@@ -738,32 +738,32 @@ public class ComponentUtils {
                 append(Component.literal("+" + String.format(swiftness == 0 ? "%.0f" : "%.2f", swiftness)).withStyle(ChatFormatting.WHITE)));
     }
 
-    public static void DescriptionDash(List<Component> components, ChatFormatting chatFormatting0, ChatFormatting chatFormatting1, ChatFormatting chatFormatting2) {
+    public static void descriptionDash(List<Component> components, ChatFormatting chatFormatting0, ChatFormatting chatFormatting1, ChatFormatting chatFormatting2) {
         components.add(Component.literal("─").withStyle(chatFormatting0).
                 append(Component.literal("───────────────────").withStyle(chatFormatting1).
                         append(Component.literal("─").withStyle(chatFormatting2))));
     }
 
-    public static void DescriptionDash(List<Component> components, ChatFormatting chatFormatting0, Style chatFormatting1, ChatFormatting chatFormatting2) {
+    public static void descriptionDash(List<Component> components, ChatFormatting chatFormatting0, Style chatFormatting1, ChatFormatting chatFormatting2) {
         components.add(Component.literal("─").withStyle(chatFormatting0).
                 append(Component.literal("───────────────────").withStyle(chatFormatting1).
                         append(Component.literal("─").withStyle(chatFormatting2))));
     }
 
-    public static void DescriptionOfBasic(List<Component> components) {
+    public static void descriptionOfBasic(List<Component> components) {
         components.add(Component.literal("β-基础属性:").withStyle(CustomStyle.styleOfPlain));
     }
 
 
-    public static void DescriptionOfOnly(List<Component> components) {
+    public static void descriptionOfOnly(List<Component> components) {
         components.add(Component.literal("-唯一:").withStyle(ChatFormatting.WHITE).withStyle(ChatFormatting.GREEN));
     }
 
-    public static void DescriptionOfAddition(List<Component> components) {
+    public static void descriptionOfAddition(List<Component> components) {
         components.add(Component.literal("α-额外属性:").withStyle(CustomStyle.styleOfPower));
     }
 
-    public static void DescriptionNum(List<Component> components, String string, Component component, String string1) {
+    public static void descriptionNum(List<Component> components, String string, Component component, String string1) {
         components.add(Component.literal(string).withStyle(ChatFormatting.WHITE).
                 append(component).append(string1).withStyle(ChatFormatting.WHITE));
     }

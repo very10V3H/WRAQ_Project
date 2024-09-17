@@ -33,10 +33,10 @@ public class TreeBracelet extends Item implements ICurioItem {
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
         Style style = CustomStyle.styleOfHealth;
         stack.getOrCreateTagElement(Utils.MOD_ID);
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfBasic(components);
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfAddition(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfBasic(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfAddition(components);
         Compute.DescriptionPassive(components, Component.literal("魔能汲取").withStyle(style));
         components.add(Component.literal(" 使你的").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("普通法球攻击").withStyle(CustomStyle.styleOfMana)).
@@ -46,7 +46,7 @@ public class TreeBracelet extends Item implements ICurioItem {
                 append(Component.literal("0.25倍").withStyle(style)).
                 append(Component.literal("等级强度").withStyle(ChatFormatting.LIGHT_PURPLE)).
                 append(Component.literal("魔法伤害").withStyle(style)));
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         Compute.SuffixOfCastle(components);
         super.appendHoverText(stack, level, components, flag);
     }

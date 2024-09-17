@@ -36,12 +36,12 @@ public class SnowPower extends Item implements ActiveItem {
     @Override
     public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
         components.add(Component.literal("·法术").withStyle(CustomStyle.styleOfMana));
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
         Compute.DescriptionActive(components, Component.literal("冰封陵墓").withStyle(CustomStyle.styleOfSnow));
         components.add(Component.literal(" 禁锢").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("指针").withStyle(ChatFormatting.AQUA)).
                 append(Component.literal("周围所有敌人1s，并造成").withStyle(ChatFormatting.WHITE)).
-                append(ComponentUtils.AttributeDescription.ManaDamageValue(String.format("%.0f", effect[tier] * 100) + "%")));
+                append(ComponentUtils.AttributeDescription.manaDamageValue(String.format("%.0f", effect[tier] * 100) + "%")));
         components.add(Component.literal(" - 这个伤害会附带").withStyle(ChatFormatting.WHITE).
                 append(Element.Description.IceElement("1 + 100%")));
         components.add(Component.literal(" 为").withStyle(ChatFormatting.WHITE).
@@ -52,7 +52,7 @@ public class SnowPower extends Item implements ActiveItem {
                 append(Component.literal("，持续2.5s").withStyle(ChatFormatting.WHITE)));
         ComponentUtils.coolDownTimeDescription(components, CoolDownTime[tier]);
         ComponentUtils.manaCostDescription(components, ManaCost[tier]);
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
         components.add(Component.literal("Powers-Snow").withStyle(CustomStyle.styleOfSnow));
         super.appendHoverText(itemStack, level, components, flag);
     }

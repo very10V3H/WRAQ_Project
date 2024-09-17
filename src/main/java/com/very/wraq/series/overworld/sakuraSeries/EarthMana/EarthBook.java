@@ -44,7 +44,7 @@ public class EarthBook extends WraqOffHandItem {
                 append(Component.literal("移动幅度").withStyle(ChatFormatting.GREEN)).
                 append(Component.literal("较小时，").withStyle(ChatFormatting.WHITE)));
         components.add(Component.literal(" 充满魔力的土地会吸收你的").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.MaxHealth("50%")).
+                append(ComponentUtils.AttributeDescription.maxHealth("50%")).
                 append(Component.literal("并将之以15%效率转化为").withStyle(ChatFormatting.WHITE)).
                 append(Compute.AttributeDescription.MaxMana("")).
                 append(Component.literal("，加成持续20s。").withStyle(ChatFormatting.WHITE)));

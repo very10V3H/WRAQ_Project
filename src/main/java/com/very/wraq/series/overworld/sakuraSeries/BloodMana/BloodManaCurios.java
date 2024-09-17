@@ -40,9 +40,9 @@ public class BloodManaCurios extends WraqCurios {
         Style style = hoverMainStyle();
         ComponentUtils.descriptionPassive(components, Component.literal("旧世仁慈魔浴").withStyle(style));
         components.add(Component.literal(" 当你受到").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.ManaDamageValue("")).
+                append(ComponentUtils.AttributeDescription.manaDamageValue("")).
                 append(Component.literal("时，为你提供持续3s的").withStyle(ChatFormatting.WHITE)).
-                append(ComponentUtils.AttributeDescription.HealthRecover("8%")));
+                append(ComponentUtils.AttributeDescription.healthRecover("8%")));
         return components;
     }
 

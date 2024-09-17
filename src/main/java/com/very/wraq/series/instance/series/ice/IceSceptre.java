@@ -79,7 +79,7 @@ public class IceSceptre extends WraqSceptre implements OnHitEffectMainHandWeapon
         components.add(Component.literal(" 你的普通法球攻击命中目标后，为你提供基于攻击目标").withStyle(ChatFormatting.WHITE).
                 append(Compute.AttributeDescription.ManaDefence("")).
                 append(Component.literal("的额外").withStyle(ChatFormatting.WHITE)).
-                append(ComponentUtils.AttributeDescription.ManaDamage("")).
+                append(ComponentUtils.AttributeDescription.manaDamage("")).
                 append(Component.literal("持续2s").withStyle(ChatFormatting.WHITE)));
         components.add(Component.literal(" 每1点魔法抗性提供2法术攻击").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
         components.add(Component.literal(" 最多提供6000法术攻击（在目标拥有3000魔法抗性时达到最大值）").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));

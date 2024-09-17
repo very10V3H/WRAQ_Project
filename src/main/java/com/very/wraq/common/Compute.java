@@ -1290,9 +1290,9 @@ public class Compute {
     }
 
     public static void sendEffectLastTimeToClientPlayer(Item item, int level, int tick, boolean noTime) {
-        if (Element.elementList.isEmpty()) Element.setElementList();
-        if (Element.elementList.contains(item)) {
-            ClientUtils.effectTimeLasts.removeIf(effectTimeLast -> Element.elementList.contains(effectTimeLast.itemStack.getItem()));
+        if (Element.elementItemList.isEmpty()) Element.setElementList();
+        if (Element.elementItemList.contains(item)) {
+            ClientUtils.effectTimeLasts.removeIf(effectTimeLast -> Element.elementItemList.contains(effectTimeLast.itemStack.getItem()));
         }
         ClientUtils.effectTimeLasts.removeIf(effectTimeLast -> effectTimeLast.itemStack.is(item));
         if (noTime)
@@ -1779,7 +1779,7 @@ public class Compute {
 
     public static void PlayerHealthDecrease(Player player, double value, Component component) {
         if (player.getHealth() <= value) {
-            formatBroad(player.level(), Component.literal("").withStyle(ChatFormatting.RED),
+            formatBroad(player.level(), Component.literal("孽").withStyle(ChatFormatting.RED),
                     Component.literal("").withStyle(ChatFormatting.WHITE).
                             append(player.getDisplayName()).
                             append(component));

@@ -46,6 +46,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
+import java.util.Random;
+
 public class Damage {
 
     public static void causeAutoAdaptionRateDamageToMob(Player player, Mob mob, double rate) {
@@ -94,6 +96,13 @@ public class Damage {
 
         DirectDamageToMob(player, monster, baseDamage * num);
         return baseDamage * num;
+    }
+
+    public static void causeRateAdDamageToMonsterWithCritJudge(Player player, Mob mob, double num) {
+        Random random = new Random();
+        if (random.nextDouble() < PlayerAttributes.critRate(player)) {
+            Damage.causeAttackDamageToMonster_RateAdDamage(player, mob, num * (1 + PlayerAttributes.critDamage(player)));
+        } else Damage.causeAttackDamageToMonster_RateAdDamage(player, mob, num);
     }
 
     public static double causeAttackDamageToMonster_AdDamage(Player player, Mob monster, double damage) {

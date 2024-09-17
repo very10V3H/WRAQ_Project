@@ -46,7 +46,7 @@ public class SimpleTierPaper extends SimpleFoiledItem {
                     append(Component.literal("" + supplyItem.getCount()).withStyle(ChatFormatting.AQUA)));
         }
         add(Component.literal("5. ").withStyle(CustomStyle.styleOfWorld).
-                append(ComponentUtils.AttributeDescription.ExpUp("+100%")));
+                append(ComponentUtils.AttributeDescription.expUp("+100%")));
         add(Component.literal("6. ").withStyle(CustomStyle.styleOfWorld).
                 append(Component.literal("自定义称号").withStyle(ChatFormatting.GRAY)).
                 append(Component.literal("使用次数 + ").withStyle(ChatFormatting.WHITE)).
@@ -81,7 +81,7 @@ public class SimpleTierPaper extends SimpleFoiledItem {
                     append(Component.literal("" + supplyItem.getCount()).withStyle(ChatFormatting.AQUA)));
         }
         add(Component.literal("5. ").withStyle(CustomStyle.styleOfWorld).
-                append(ComponentUtils.AttributeDescription.ExpUp("+200%")));
+                append(ComponentUtils.AttributeDescription.expUp("+200%")));
         add(Component.literal("6. ").withStyle(CustomStyle.styleOfWorld).
                 append(Component.literal("自定义称号").withStyle(ChatFormatting.GRAY)).
                 append(Component.literal("使用次数 + ").withStyle(ChatFormatting.WHITE)).
@@ -116,7 +116,7 @@ public class SimpleTierPaper extends SimpleFoiledItem {
                     append(Component.literal("" + supplyItem.getCount()).withStyle(ChatFormatting.AQUA)));
         }
         add(Component.literal("5. ").withStyle(CustomStyle.styleOfWorld).
-                append(ComponentUtils.AttributeDescription.ExpUp("+300%")));
+                append(ComponentUtils.AttributeDescription.expUp("+300%")));
         add(Component.literal("6. ").withStyle(CustomStyle.styleOfWorld).
                 append(Component.literal("在计划持续时间内可无限制地使用").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("自定义称号").withStyle(ChatFormatting.GRAY)));

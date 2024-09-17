@@ -57,18 +57,18 @@ public class LakeSword3 extends SwordItem implements ActiveItem, OnHitEffectMain
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
         Compute.forgingHoverName(stack);
         components.add(Component.literal("主手                   ").withStyle(ChatFormatting.AQUA).append(Component.literal("长柄武器").withStyle(ChatFormatting.BLUE)));
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.BLUE, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfBasic(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, ChatFormatting.BLUE, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfBasic(components);
         BasicAttributeDescription.BasicAttributeCommonDescription(components, stack);
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.BLUE, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfAddition(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, ChatFormatting.BLUE, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfAddition(components);
         Compute.DescriptionPassive(components, Component.literal("潜泳").withStyle(ChatFormatting.BLUE));
-        ComponentUtils.DescriptionNum(components, "攻击后获得持续3秒的", ComponentUtils.AttributeDescription.movementSpeed("50%"), "");
+        ComponentUtils.descriptionNum(components, "攻击后获得持续3秒的", ComponentUtils.AttributeDescription.movementSpeed("50%"), "");
         Compute.DescriptionActive(components, Component.literal("出水").withStyle(ChatFormatting.BLUE));
         components.add(Component.literal("右键向前冲刺"));
         ComponentUtils.coolDownTimeDescription(components, 8);
         ComponentUtils.manaCostDescription(components, 60);
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.BLUE, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, ChatFormatting.BLUE, ChatFormatting.WHITE);
         components.add(Component.literal("Lake-Spear-III").withStyle(ChatFormatting.BLUE).withStyle(ChatFormatting.ITALIC));
         ComponentUtils.suffixOfChapterI(components);
         super.appendHoverText(stack, level, components, flag);

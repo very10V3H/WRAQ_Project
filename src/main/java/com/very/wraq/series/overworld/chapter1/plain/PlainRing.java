@@ -32,12 +32,12 @@ public class PlainRing extends Item implements ICurioItem {
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
         stack.getOrCreateTagElement(Utils.MOD_ID);
         stack.setHoverName(Component.literal("平原戒指").withStyle(ChatFormatting.GREEN).withStyle(ChatFormatting.BOLD));
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.GREEN, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfBasic(components);
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.GREEN, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfAddition(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, ChatFormatting.GREEN, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfBasic(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, ChatFormatting.GREEN, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfAddition(components);
         components.add(Component.literal("增加0.5攀登高度").withStyle(ChatFormatting.GREEN).withStyle(ChatFormatting.YELLOW));
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.GREEN, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, ChatFormatting.GREEN, ChatFormatting.WHITE);
         components.add(Component.literal("PlainGems-I").withStyle(ChatFormatting.GREEN).withStyle(ChatFormatting.ITALIC));
         components.add(Component.literal("MainStoryI").withStyle(ChatFormatting.AQUA).withStyle(ChatFormatting.ITALIC));
         super.appendHoverText(stack, level, components, flag);

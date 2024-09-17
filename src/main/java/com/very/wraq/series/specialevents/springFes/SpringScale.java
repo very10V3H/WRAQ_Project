@@ -3,7 +3,6 @@ package com.very.wraq.series.specialevents.springFes;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.util.ComponentUtils;
-import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.Utils;
 import com.very.wraq.projectiles.ActiveItem;
 import com.very.wraq.render.toolTip.CustomStyle;
@@ -41,9 +40,9 @@ public class SpringScale extends Item implements ActiveItem {
         components.add(Component.literal(" 1.剑术精通:").withStyle(CustomStyle.styleOfPower).
                 append(Compute.AttributeDescription.AttackDamage(rate[tier])));
         components.add(Component.literal(" 2.弓术精通:").withStyle(CustomStyle.styleOfPower).
-                append(ComponentUtils.AttributeDescription.Swiftness("" + (tier + 1))));
+                append(ComponentUtils.AttributeDescription.swiftness("" + (tier + 1))));
         components.add(Component.literal(" 3.法术精通:").withStyle(CustomStyle.styleOfPower).
-                append(ComponentUtils.AttributeDescription.ManaDamage(rate[tier])));
+                append(ComponentUtils.AttributeDescription.manaDamage(rate[tier])));
         components.add(Component.literal(" 效果持续60s").withStyle(CustomStyle.styleOfSpring));
         ComponentUtils.coolDownTimeDescription(components, 60);
         components.add(Component.literal("SpringFestival~2024").withStyle(ChatFormatting.ITALIC).withStyle(CustomStyle.styleOfSpring));

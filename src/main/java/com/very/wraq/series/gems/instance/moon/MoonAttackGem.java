@@ -34,9 +34,9 @@ public class MoonAttackGem extends Item {
         stack.getOrCreateTagElement(Utils.MOD_ID);
         Style style = CustomStyle.styleOfMoon;
         components.add(Component.literal("尘月宫明镜之心").withStyle(style));
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfBasic(components);
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfBasic(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         Compute.SuffixOfMoon(components);
         super.appendHoverText(stack, level, components, flag);
     }

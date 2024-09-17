@@ -55,7 +55,7 @@ public class HuskSword extends WraqSword implements ActiveItem {
                 append(Component.literal("额外物理伤害").withStyle(CustomStyle.styleOfHusk)));
         components.add(Component.literal("倍率随目标当前生命值线性增长").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
         components.add(Component.literal("若目标死亡，则获得自身").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.MaxHealth(rate >= 3 ? "40%" : "25%")).
+                append(ComponentUtils.AttributeDescription.maxHealth(rate >= 3 ? "40%" : "25%")).
                 append(Component.literal("的护盾,持续10s。").withStyle(ChatFormatting.WHITE)));
         ComponentUtils.coolDownTimeDescription(components, 3);
         ComponentUtils.manaCostDescription(components, 30);

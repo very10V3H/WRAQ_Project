@@ -62,17 +62,17 @@ public class CodeSceptre extends PickaxeItem {
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
         Compute.forgingHoverName(stack);
         components.add(Component.literal("主手                   ").withStyle(ChatFormatting.AQUA).append(Component.literal("法杖").withStyle(ChatFormatting.LIGHT_PURPLE)));
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.LIGHT_PURPLE, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfBasic(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, ChatFormatting.LIGHT_PURPLE, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfBasic(components);
         BasicAttributeDescription.BasicAttributeCommonDescription(components, stack);
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.LIGHT_PURPLE, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfAddition(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, ChatFormatting.LIGHT_PURPLE, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfAddition(components);
         components.add(Component.literal("能量激化:").withStyle(ChatFormatting.BOLD).withStyle(CustomStyle.styleOfVolcano));
         components.add(Component.literal("能使用").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("魔符").withStyle(ChatFormatting.LIGHT_PURPLE)).
                 append(Component.literal("来强化下一次").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("魔法攻击").withStyle(ChatFormatting.LIGHT_PURPLE)));
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.LIGHT_PURPLE, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, ChatFormatting.LIGHT_PURPLE, ChatFormatting.WHITE);
         WraqSceptre.getManaCoreAddition(stack, components);
         components.add(Component.literal("Evoker-Sceptre-X").withStyle(ChatFormatting.LIGHT_PURPLE).withStyle(ChatFormatting.ITALIC));
         components.add(Component.literal("MainStoryII-I.").withStyle(ChatFormatting.AQUA).withStyle(ChatFormatting.ITALIC));

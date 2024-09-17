@@ -1098,9 +1098,9 @@ public class Element {
             put(new Pair<>(life, lightning), new Pair<>(Te.m("氮化", CustomStyle.styleOfLightning), Te.m("为被动方每秒回复").
                     append(ComponentUtils.AttributeDescription.health("5%"))));
             put(new Pair<>(life, wind), new Pair<>(Te.m("断裂", CustomStyle.styleOfWind), Te.m("降低被动方").
-                    append(ComponentUtils.AttributeDescription.Defence("10%")).
+                    append(ComponentUtils.AttributeDescription.defence("10%")).
                     append(Te.m("与")).
-                    append(ComponentUtils.AttributeDescription.ManaDefence("10%"))));
+                    append(ComponentUtils.AttributeDescription.manaDefence("10%"))));
 
             put(new Pair<>(water, fire), new Pair<>(Te.m("蒸发", CustomStyle.styleOfWater), Te.m("增幅本次伤害", CustomStyle.styleOfPower).
                     append(Te.m("数值等同于反应量"))));
@@ -1131,9 +1131,9 @@ public class Element {
                     append(Te.m("造成/受到伤害提升", CustomStyle.styleOfPower))));
 
             put(new Pair<>(ice, lightning), new Pair<>(Te.m("超导", CustomStyle.styleOfLightning), Te.m("降低被动方").
-                    append(ComponentUtils.AttributeDescription.Defence("10%")).
+                    append(ComponentUtils.AttributeDescription.defence("10%")).
                     append(Te.m("与")).
-                    append(ComponentUtils.AttributeDescription.ManaDefence("10%"))));
+                    append(ComponentUtils.AttributeDescription.manaDefence("10%"))));
             put(new Pair<>(ice, wind), new Pair<>(Te.m("风寒", CustomStyle.styleOfWind), Te.m("降低被动方").
                     append(ComponentUtils.AttributeDescription.healValue("10%"))));
 

@@ -42,7 +42,7 @@ public class LavenderBracelet extends WraqCurios implements RandomCurios, UsageO
         ComponentUtils.descriptionPassive(components, Component.literal("纳德斯膜").withStyle(style));
         components.add(Component.literal(" 每秒为你提供持续1.5s的").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("5%").withStyle(style)).
-                append(ComponentUtils.AttributeDescription.MaxHealth("")).
+                append(ComponentUtils.AttributeDescription.maxHealth("")).
                 append(Component.literal("的").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("护盾").withStyle(ChatFormatting.GRAY)));
         return components;

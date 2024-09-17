@@ -24,7 +24,7 @@ public class AttackCuriosYxwg extends WraqAttackUniformCurios implements OnCurio
         List<Component> components = new ArrayList<>();
         ComponentUtils.descriptionPassive(components, Component.literal("索命").withStyle(hoverMainStyle()));
         components.add(Component.literal(" 对").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.Health("")).
+                append(ComponentUtils.AttributeDescription.health("")).
                 append(Component.literal("低于").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("50%").withStyle(CustomStyle.styleOfHealth)).
                 append(Component.literal("的目标造成的伤害将得到").withStyle(ChatFormatting.WHITE)).

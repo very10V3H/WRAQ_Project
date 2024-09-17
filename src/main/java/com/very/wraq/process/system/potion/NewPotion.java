@@ -63,7 +63,7 @@ public class NewPotion extends Item implements ActiveItem {
         put(PotionName.CritRateUp, Compute.AttributeDescription.CritRate("20%"));
         put(PotionName.DefenceUp, Compute.AttributeDescription.Defence("80 + 25%"));
         put(PotionName.HealthStealUp, Compute.AttributeDescription.HealthSteal("12%"));
-        put(PotionName.ManaDamageUp, ComponentUtils.AttributeDescription.ManaDamage("25 + 25%"));
+        put(PotionName.ManaDamageUp, ComponentUtils.AttributeDescription.manaDamage("25 + 25%"));
         put(PotionName.ManaDefenceUp, Compute.AttributeDescription.ManaDefence("75 + 25%"));
 
         put(PotionName.MovementSpeedUp, ComponentUtils.AttributeDescription.movementSpeed("30%"));
@@ -89,7 +89,7 @@ public class NewPotion extends Item implements ActiveItem {
         put(PotionName.CritRateUp, Compute.AttributeDescription.CritRate("40%"));
         put(PotionName.DefenceUp, Compute.AttributeDescription.Defence("160 + 40%"));
         put(PotionName.HealthStealUp, Compute.AttributeDescription.HealthSteal("25%"));
-        put(PotionName.ManaDamageUp, ComponentUtils.AttributeDescription.ManaDamage("40 + 40%"));
+        put(PotionName.ManaDamageUp, ComponentUtils.AttributeDescription.manaDamage("40 + 40%"));
         put(PotionName.ManaDefenceUp, Compute.AttributeDescription.ManaDefence("125 + 40%"));
 
         put(PotionName.MovementSpeedUp, ComponentUtils.AttributeDescription.movementSpeed("60%"));

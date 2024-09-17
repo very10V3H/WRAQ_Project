@@ -54,7 +54,7 @@ public class EarthPower extends Item implements ActiveItem {
     @Override
     public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
         components.add(Component.literal("·法术").withStyle(CustomStyle.styleOfMana));
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
         Compute.DescriptionActive(components, Component.literal("汲蕴").withStyle(CustomStyle.styleOfBloodMana));
         components.add(Component.literal(" 依据").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("周边环境的物质").withStyle(CustomStyle.styleOfMoon)).
@@ -64,7 +64,7 @@ public class EarthPower extends Item implements ActiveItem {
                 append(Component.literal(" 降低怪物造成的伤害20%").withStyle(ChatFormatting.WHITE)));
         components.add(Component.literal("    治疗附近所有玩家").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("能力-智力 * 30").withStyle(CustomStyle.styleOfMana)).
-                append(ComponentUtils.AttributeDescription.MaxHealth("")));
+                append(ComponentUtils.AttributeDescription.maxHealth("")));
 
         components.add(Component.literal(" 森林:").withStyle(CustomStyle.styleOfForest).
                 append(Component.literal(" 对周围怪物造成减速效果").withStyle(ChatFormatting.WHITE)));
@@ -81,11 +81,11 @@ public class EarthPower extends Item implements ActiveItem {
 
         components.add(Component.literal(" 火山:").withStyle(CustomStyle.styleOfVolcano).
                 append(Component.literal(" 额外造成一次").withStyle(ChatFormatting.WHITE)).
-                append(ComponentUtils.AttributeDescription.ManaDamageValue("400%")));
+                append(ComponentUtils.AttributeDescription.manaDamageValue("400%")));
         components.add(Component.literal("    使周围玩家获得").withStyle(ChatFormatting.WHITE).
                 append(Compute.AttributeDescription.AttackDamage("25%")).
                 append(Component.literal("与").withStyle(ChatFormatting.WHITE)).
-                append(ComponentUtils.AttributeDescription.ManaDamage("25%")));
+                append(ComponentUtils.AttributeDescription.manaDamage("25%")));
         components.add(Component.literal(" - 对玩家的增益效果均持续3s").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
         components.add(Component.literal(" - 对怪物的负面效果均持续3s").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
 
@@ -99,7 +99,7 @@ public class EarthPower extends Item implements ActiveItem {
         }
 
         components.add(Component.literal(" - IDEA FROM : AzusaLin").withStyle(ChatFormatting.LIGHT_PURPLE));
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
         Compute.SuffixOfMainStoryV(components);
         components.add(ComponentUtils.getDemonAndElementStorySuffix1Sakura());
         super.appendHoverText(itemStack, level, components, flag);

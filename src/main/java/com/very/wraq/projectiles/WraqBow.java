@@ -64,8 +64,8 @@ public abstract class WraqBow extends SwordItem {
         Style style = getMainStyle();
         Compute.forgingHoverName(itemStack);
         components.add(Component.literal("主手                   ").withStyle(ChatFormatting.AQUA).append(Component.literal("长弓").withStyle(CustomStyle.styleOfFlexible)));
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfBasic(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfBasic(components);
         BasicAttributeDescription.BasicAttributeCommonDescription(components, itemStack);
         if (this instanceof RandomLootEquip randomLootEquip) {
             if (randomLootEquip.levelRequire() != 0) {
@@ -76,11 +76,11 @@ public abstract class WraqBow extends SwordItem {
                 }
             }
         }
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         if (!getAdditionalComponents(itemStack).isEmpty()) {
-            ComponentUtils.DescriptionOfAddition(components);
+            ComponentUtils.descriptionOfAddition(components);
             components.addAll(getAdditionalComponents(itemStack));
-            ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+            ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         }
         if (oneLineDescription() != null) {
             components.add(oneLineDescription());

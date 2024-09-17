@@ -33,11 +33,11 @@ public class MagmaGem extends Item {
         stack.getOrCreateTagElement(Utils.MOD_ID);
         Style style = CustomStyle.styleOfPower;
         components.add(Component.literal("用封装下界熔岩能量所打造而成。").withStyle(style));
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfBasic(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfBasic(components);
 /*        Compute.EmojiDescriptionManaPenetration0(components,ManaPenetration0);
         Compute.EmojiDescriptionMaxHealth(components,MaxHealth);*/
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         ComponentUtils.suffixOfChapterIII(components);
         super.appendHoverText(stack, level, components, flag);
     }

@@ -22,14 +22,14 @@ import java.util.List;
 @OnlyIn(Dist.CLIENT)
 public class SnowSuitDescription {
     public static void ArmorCommonDescription(List<Component> components) {
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfSnow, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfAddition(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfSnow, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfAddition(components);
         if (Screen.hasShiftDown()) SuitDescription(components);
         else {
             Compute.SuitDescription(components);
             components.add(Component.literal("[按住shift展开套装效果]").withStyle(ChatFormatting.GRAY));
         }
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfSnow, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfSnow, ChatFormatting.WHITE);
         components.add(Component.literal("SnowArmor-I").withStyle(CustomStyle.styleOfSnow).withStyle(ChatFormatting.ITALIC));
         ComponentUtils.suffixOfChapterI(components);
     }

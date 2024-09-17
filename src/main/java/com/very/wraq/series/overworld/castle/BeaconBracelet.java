@@ -33,10 +33,10 @@ public class BeaconBracelet extends Item implements ICurioItem {
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
         Style style = CustomStyle.styleOfPower;
         stack.getOrCreateTagElement(Utils.MOD_ID);
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfBasic(components);
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfAddition(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfBasic(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfAddition(components);
         Compute.DescriptionPassive(components, Component.literal("火矢").withStyle(style));
         components.add(Component.literal(" 使你的").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("箭矢攻击").withStyle(CustomStyle.styleOfFlexible)).
@@ -46,7 +46,7 @@ public class BeaconBracelet extends Item implements ICurioItem {
                 append(Component.literal("1倍").withStyle(style)).
                 append(Component.literal("等级强度").withStyle(ChatFormatting.LIGHT_PURPLE)).
                 append(Component.literal("物理伤害").withStyle(style)));
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         Compute.SuffixOfCastle(components);
         super.appendHoverText(stack, level, components, flag);
     }

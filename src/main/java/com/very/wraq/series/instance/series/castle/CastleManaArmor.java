@@ -83,7 +83,7 @@ public class CastleManaArmor extends WraqArmor implements ForgeItem {
                 append(Component.literal("后，0.2s后你会进行一次").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("暗影打击").withStyle(style)));
         components.add(Component.literal(" -暗影打击会在指针范围内造成").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.ManaDamage("650%")));
+                append(ComponentUtils.AttributeDescription.manaDamage("650%")));
         Compute.DescriptionPassive(components, Component.literal("灵魂痛击").withStyle(style));
         components.add(Component.literal(" 你的").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("普通法球攻击").withStyle(CustomStyle.styleOfMana)).
@@ -206,11 +206,11 @@ public class CastleManaArmor extends WraqArmor implements ForgeItem {
         }
         int type = data.getInt(attributeType);
         Component[] components1 = {
-                ComponentUtils.AttributeDescription.MaxHealth(""),
-                ComponentUtils.AttributeDescription.ManaDamage(""),
-                ComponentUtils.AttributeDescription.Defence(""),
-                ComponentUtils.AttributeDescription.ManaDefence(""),
-                ComponentUtils.AttributeDescription.CoolDown("")
+                ComponentUtils.AttributeDescription.maxHealth(""),
+                ComponentUtils.AttributeDescription.manaDamage(""),
+                ComponentUtils.AttributeDescription.defence(""),
+                ComponentUtils.AttributeDescription.manaDefence(""),
+                ComponentUtils.AttributeDescription.coolDown("")
         };
         components.add(Component.literal(" ").withStyle(ChatFormatting.WHITE).
                 append(components1[type]).

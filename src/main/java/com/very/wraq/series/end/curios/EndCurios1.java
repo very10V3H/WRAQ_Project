@@ -35,10 +35,10 @@ public class EndCurios1 extends Item implements ICurioItem {
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
         Compute.forgingHoverName(stack);
         Style style = CustomStyle.styleOfEnd;
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfBasic(components);
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfAddition(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfBasic(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfAddition(components);
         Compute.DescriptionPassive(components, Component.literal("跃迁").withStyle(style));
         components.add(Component.literal(" 使你的").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("法球").withStyle(CustomStyle.styleOfMana)).
@@ -47,7 +47,7 @@ public class EndCurios1 extends Item implements ICurioItem {
                 append(Component.literal("敌人").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("，每穿过一个敌人，使接下来造成的伤害提升").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("33%").withStyle(style)));
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         ComponentUtils.suffixOfChapterIV(components);
         super.appendHoverText(stack, level, components, flag);
     }

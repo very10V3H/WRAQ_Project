@@ -59,10 +59,10 @@ public class LotteryHoe extends SwordItem {
         stack.getOrCreateTagElement(Utils.MOD_ID);
         Style style = CustomStyle.styleOfPurpleIron;
         components.add(Component.literal("器灵                   ").withStyle(CustomStyle.styleOfSakura).append(Component.literal("长剑").withStyle(style)));
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfBasic(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfBasic(components);
         BasicAttributeDescription.BasicAttributeCommonDescription(components, stack);
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         Compute.DescriptionPassive(components, Component.literal(""));
         components.add(Component.literal(" 使").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("普通近战攻击").withStyle(CustomStyle.styleOfPower)).
@@ -71,8 +71,8 @@ public class LotteryHoe extends SwordItem {
                 append(Component.literal("的").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("额外物理伤害").withStyle(CustomStyle.styleOfPower)));
         Compute.LevelRequire(components, Utils.levelRequire.get(this));
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        ComponentUtils.SuffixOfPurpleIronKnight(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.suffixOfPurpleIronKnight(components);
         super.appendHoverText(stack, level, components, flag);
     }
 

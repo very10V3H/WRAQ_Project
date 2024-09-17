@@ -22,14 +22,14 @@ public class LakeRune0 extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level p_41422_, List<Component> components, TooltipFlag p_41424_) {
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.BLUE, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, ChatFormatting.BLUE, ChatFormatting.WHITE);
         components.add(Component.literal("符石属性:"));
         Compute.DescriptionPassive(components, Component.literal("纯净之水").withStyle(ChatFormatting.BLUE));
         components.add(Component.literal(" 当你拥有高于").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.MaxHealth("80%")).
+                append(ComponentUtils.AttributeDescription.maxHealth("80%")).
                 append(Component.literal("，为你提供").withStyle(ChatFormatting.WHITE)).
                 append(Compute.AttributeDescription.CoolDown("20 + 20%")));
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.BLUE, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, ChatFormatting.BLUE, ChatFormatting.WHITE);
         components.add(Component.literal("LakeRunes").withStyle(ChatFormatting.BLUE).withStyle(ChatFormatting.ITALIC));
         super.appendHoverText(stack, p_41422_, components, p_41424_);
     }

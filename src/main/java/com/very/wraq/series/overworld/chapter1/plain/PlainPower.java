@@ -37,12 +37,12 @@ public class PlainPower extends Item implements ActiveItem {
     @Override
     public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
         components.add(Component.literal("·法术").withStyle(CustomStyle.styleOfMana));
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
         Compute.DescriptionActive(components, Component.literal("平原之风").withStyle(CustomStyle.styleOfPlain));
         components.add(Component.literal(" 击退").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("指针").withStyle(ChatFormatting.AQUA)).
                 append(Component.literal("周围怪物，同时对其造成").withStyle(ChatFormatting.WHITE)).
-                append(ComponentUtils.AttributeDescription.ManaDamageValue(String.format("%.0f", effect[this.tier] * 100) + "%")));
+                append(ComponentUtils.AttributeDescription.manaDamageValue(String.format("%.0f", effect[this.tier] * 100) + "%")));
         components.add(Component.literal(" - 这个伤害会附带").withStyle(ChatFormatting.WHITE).
                 append(Element.Description.LifeElement("1 + 100%")));
         components.add(Component.literal(" 为").withStyle(ChatFormatting.WHITE).
@@ -53,7 +53,7 @@ public class PlainPower extends Item implements ActiveItem {
         ComponentUtils.coolDownTimeDescription(components, CoolDownTime[this.tier]);
         ComponentUtils.manaCostDescription(components, manaCost[this.tier]);
 
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
         components.add(Component.literal("Powers-Plain").withStyle(CustomStyle.styleOfPlain));
         super.appendHoverText(itemStack, level, components, flag);
     }

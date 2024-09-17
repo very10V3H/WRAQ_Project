@@ -42,19 +42,19 @@ public class LeatherArmor extends ArmorItem {
         Compute.forgingHoverName(stack);
         components.add(Component.literal("防具                   ").withStyle(ChatFormatting.GRAY).
                 append(Component.literal(Type[Num]).withStyle(ChatFormatting.BLUE)));
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfBasic(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfBasic(components);
         BasicAttributeDescription.BasicAttributeCommonDescription(components, stack);
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfAddition(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfAddition(components);
         Compute.DescriptionPassive(components, Component.literal("厚实皮囊").withStyle(style));
         components.add(Component.literal(" 你在冰雪中的").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("寒冷值").withStyle(style)).
                 append(Component.literal("提升速度").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("降低90%").withStyle(ChatFormatting.GREEN)));
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         components.add(Component.literal("LeatherArmor").withStyle(CustomStyle.styleOfSnow).withStyle(ChatFormatting.ITALIC));
-        ComponentUtils.SuffixOfIce(components);
+        ComponentUtils.suffixOfIce(components);
         super.appendHoverText(stack, level, components, flag);
     }
 

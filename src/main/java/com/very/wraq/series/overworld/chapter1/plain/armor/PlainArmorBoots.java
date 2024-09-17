@@ -32,8 +32,8 @@ public class PlainArmorBoots extends ArmorItem {
         Style style = Style.EMPTY.applyFormat(ChatFormatting.GREEN);
         Compute.forgingHoverName(stack);
         components.add(Component.literal("防具                   ").withStyle(ChatFormatting.GRAY).append(Component.literal("靴子").withStyle(ChatFormatting.GREEN)));
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfBasic(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfBasic(components);
         BasicAttributeDescription.BasicAttributeCommonDescription(components, stack);
         PlainSuitDescription.ArmorCommonDescription(components);
         super.appendHoverText(stack, level, components, flag);

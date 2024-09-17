@@ -20,13 +20,13 @@ import java.util.List;
 @OnlyIn(Dist.CLIENT)
 public class NetherSuitDescription {
     public static void ArmorCommonDescription(List<Component> components) {
-        ComponentUtils.DescriptionOfAddition(components);
+        ComponentUtils.descriptionOfAddition(components);
         if (Screen.hasShiftDown()) SuitDescription(components);
         else {
             Compute.SuitDescription(components);
             components.add(Component.literal("[按住shift展开套装效果]").withStyle(ChatFormatting.GRAY));
         }
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfNether, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfNether, ChatFormatting.WHITE);
         components.add(Component.literal("NetherArmor").withStyle(CustomStyle.styleOfNether).withStyle(ChatFormatting.ITALIC));
         ComponentUtils.suffixOfChapterII(components);
     }
@@ -63,6 +63,6 @@ public class NetherSuitDescription {
                 append(Compute.AttributeDescription.Defence("")).
                 append(Component.literal("高于500时达到最大效能。").withStyle(ChatFormatting.WHITE)));
         components.add(Component.literal(" "));
-        ComponentUtils.SuitEffectRateDescription(components, Count);
+        ComponentUtils.suitEffectRateDescription(components, Count);
     }
 }

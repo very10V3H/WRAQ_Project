@@ -42,10 +42,10 @@ public class IceBracelet extends Item {
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
         stack.setHoverName(Component.literal("冰霜手环").withStyle(style).withStyle(ChatFormatting.BOLD));
         components.add(Component.literal("副手                   ").withStyle(style).append(Component.literal("传说之证").withStyle(ChatFormatting.LIGHT_PURPLE)));
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfBasic(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfBasic(components);
         BasicAttributeDescription.BasicAttributeCommonDescription(components, stack);
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         components.add(Component.literal("IceMemory").withStyle(style).withStyle(ChatFormatting.ITALIC));
         super.appendHoverText(stack, level, components, flag);
     }

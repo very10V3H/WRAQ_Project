@@ -30,7 +30,7 @@ public class WheatReForge extends Item {
         components.add(Component.literal("2.").withStyle(ChatFormatting.WHITE).
                 append(Compute.AttributeDescription.ManaDefence("-20% ~ 20%")));
         components.add(Component.literal("3.").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.MaxHealth("-50% ~ 100%")));
+                append(ComponentUtils.AttributeDescription.maxHealth("-50% ~ 100%")));
         components.add(Component.literal("4.").withStyle(ChatFormatting.WHITE).
                 append(Compute.AttributeDescription.CoolDown("-20% ~ 20%")));
         components.add(Component.literal("5.").withStyle(ChatFormatting.WHITE).

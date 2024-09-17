@@ -156,11 +156,11 @@ public class CastleSwiftArmor extends WraqArmor implements ForgeItem {
         }
         int type = data.getInt(attributeType);
         Component[] components1 = {
-                ComponentUtils.AttributeDescription.MaxHealth(""),
-                ComponentUtils.AttributeDescription.AttackDamage(""),
-                ComponentUtils.AttributeDescription.Defence(""),
-                ComponentUtils.AttributeDescription.ManaDefence(""),
-                ComponentUtils.AttributeDescription.Swiftness("")
+                ComponentUtils.AttributeDescription.maxHealth(""),
+                ComponentUtils.AttributeDescription.attackDamage(""),
+                ComponentUtils.AttributeDescription.defence(""),
+                ComponentUtils.AttributeDescription.manaDefence(""),
+                ComponentUtils.AttributeDescription.swiftness("")
         };
         components.add(Component.literal(" ").withStyle(ChatFormatting.WHITE).
                 append(components1[type]).

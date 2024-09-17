@@ -22,12 +22,12 @@ public class SnowRune0 extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level p_41422_, List<Component> components, TooltipFlag p_41424_) {
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.AQUA, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, ChatFormatting.AQUA, ChatFormatting.WHITE);
         components.add(Component.literal("符石属性:"));
         components.add(Component.literal("使用").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("魔法攻击").withStyle(CustomStyle.styleOfMana)).
                 append(Component.literal("命中一个目标后，获得").withStyle(ChatFormatting.WHITE)).
-                append(ComponentUtils.AttributeDescription.ManaDamage("15%")).
+                append(ComponentUtils.AttributeDescription.manaDamage("15%")).
                 append(Component.literal("加成。").withStyle(ChatFormatting.WHITE)));
         components.add(Component.literal("持续").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("5s").withStyle(ChatFormatting.AQUA)).
@@ -35,7 +35,7 @@ public class SnowRune0 extends Item {
                 append(Component.literal("5层").withStyle(ChatFormatting.AQUA)).
                 append(Component.literal("，当未命中时，").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("清空层数").withStyle(ChatFormatting.AQUA)));
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.AQUA, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, ChatFormatting.AQUA, ChatFormatting.WHITE);
         components.add(Component.literal("Runes-Snow").withStyle(ChatFormatting.AQUA).withStyle(ChatFormatting.ITALIC));
         super.appendHoverText(stack, p_41422_, components, p_41424_);
     }

@@ -38,7 +38,7 @@ public class IceArmor extends WraqArmor {
         Style style = getMainStyle();
         Compute.DescriptionPassive(components, Component.literal("寒意释放").withStyle(style));
         components.add(Component.literal(" 每3s对周围单位造成").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.ManaDamage("15%")).
+                append(ComponentUtils.AttributeDescription.manaDamage("15%")).
                 append(Component.literal("的").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("魔法伤害").withStyle(ChatFormatting.YELLOW)).
                 append(Component.literal(" + ").withStyle(ChatFormatting.WHITE)).

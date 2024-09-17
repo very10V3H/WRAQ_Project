@@ -36,7 +36,7 @@ public class MineNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDe
         Style style = hoverMainStyle();
         ComponentUtils.descriptionPassive(components, Component.literal("致密金属").withStyle(style));
         components.add(Component.literal(" 拥有高于").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.Health("60%")).
+                append(ComponentUtils.AttributeDescription.health("60%")).
                 append(Component.literal("时，为你提供:").withStyle(ChatFormatting.WHITE)));
         components.add(Component.literal(" 1.").withStyle(style).
                 append(Component.literal("减少15%受到的伤害").withStyle(style)));

@@ -41,18 +41,18 @@ public abstract class WraqPassiveEquip extends PickaxeItem {
         Compute.forgingHoverName(stack);
         components.add(Component.literal("器灵                   ").withStyle(CustomStyle.styleOfSakura)
                 .append(getType()));
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfBasic(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfBasic(components);
         BasicAttributeDescription.BasicAttributeCommonDescription(components, stack);
         if (getAdditionDescriptions() != null && !getAdditionDescriptions().isEmpty()) {
-            ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-            ComponentUtils.DescriptionOfAddition(components);
+            ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+            ComponentUtils.descriptionOfAddition(components);
             components.addAll(getAdditionDescriptions());
         }
         if (Utils.levelRequire.containsKey(this) && Utils.levelRequire.get(this) > 0) {
             Compute.LevelRequire(components, Utils.levelRequire.get(this));
         }
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         components.add(getSuffix());
         super.appendHoverText(stack, level, components, flag);
     }

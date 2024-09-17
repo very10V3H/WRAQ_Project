@@ -42,7 +42,7 @@ public class SlimeBoots extends WraqArmor implements ForgeItem {
                 append(Component.literal("跳跃提升！").withStyle(style)));
         Compute.DescriptionPassive(components, Component.literal("史莱姆缓冲！").withStyle(style));
         components.add(Component.literal(" 使你受到的伤害直接减少等同于你的").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.MaxHealth("10%")).
+                append(ComponentUtils.AttributeDescription.maxHealth("10%")).
                 append(Component.literal("的数额！").withStyle(ChatFormatting.WHITE)));
         return components;
     }

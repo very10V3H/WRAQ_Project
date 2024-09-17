@@ -45,10 +45,10 @@ public class NetherNewRune extends WraqCurios implements RuneItem, UsageOrGetWay
                 append(Component.literal("小范围爆炸").withStyle(style)));
         components.add(Component.literal(" 爆炸").withStyle(style).
                 append(Component.literal("将直接对范围内的目标造成所击杀敌人的").withStyle(ChatFormatting.WHITE)).
-                append(ComponentUtils.AttributeDescription.MaxHealth("8%")).
+                append(ComponentUtils.AttributeDescription.maxHealth("8%")).
                 append(Component.literal("物理伤害").withStyle(CustomStyle.styleOfPower)));
         components.add(Component.literal(" 并且附带").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.AttackDamageValue("100%")).
+                append(ComponentUtils.AttributeDescription.attackDamageValue("100%")).
                 append(Component.literal("的").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("真实伤害").withStyle(CustomStyle.styleOfSea)));
         components.add(Component.literal(" 物理伤害仅会受护甲影响，不受任何伤害提升").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));

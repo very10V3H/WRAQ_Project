@@ -2,7 +2,6 @@ package com.very.wraq.series.specialevents.summer;
 
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.util.ComponentUtils;
-import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.Utils;
 import com.very.wraq.process.func.item.InventoryOperation;
 import com.very.wraq.process.system.forge.ForgeEquipUtils;
@@ -51,11 +50,11 @@ public class SummerCurios2024 extends WraqCurios implements OnCuriosSlotAttribut
         ComponentUtils.descriptionPassive(components, Component.literal("热切激昂").withStyle(CustomStyle.styleOfPower));
         components.add(Component.literal(" 获得以下属性:").withStyle(CustomStyle.styleOfWater));
         components.add(Component.literal(" 1.").withStyle(CustomStyle.styleOfWater).
-                append(ComponentUtils.AttributeDescription.AttackDamage(String.valueOf(exAttackDamage[tier]))));
+                append(ComponentUtils.AttributeDescription.attackDamage(String.valueOf(exAttackDamage[tier]))));
         components.add(Component.literal(" 2.").withStyle(CustomStyle.styleOfWater).
-                append(ComponentUtils.AttributeDescription.ManaDamage(String.valueOf(exManaDamage[tier]))));
+                append(ComponentUtils.AttributeDescription.manaDamage(String.valueOf(exManaDamage[tier]))));
         components.add(Component.literal(" 3.").withStyle(CustomStyle.styleOfWater).
-                append(ComponentUtils.AttributeDescription.CoolDown(String.format("%.0f", releaseSpeed[tier] * 100))));
+                append(ComponentUtils.AttributeDescription.coolDown(String.format("%.0f", releaseSpeed[tier] * 100))));
         components.add(Component.literal(" 在").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("夏季").withStyle(CustomStyle.styleOfPower)).
                 append(Component.literal("或").withStyle(ChatFormatting.WHITE)).

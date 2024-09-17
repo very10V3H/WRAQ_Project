@@ -84,6 +84,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class PlayerAttributes {
 
+    public static double getMainDamage(Player player) {
+        double attackDamage = attackDamage(player);
+        double manaDamage = manaDamage(player);
+        return Math.max(attackDamage * 2, manaDamage);
+    }
+
     public static double attackDamage(Player player) {
         int TickCount = player.getServer().getTickCount();
         double baseAttackDamage = player.experienceLevel;

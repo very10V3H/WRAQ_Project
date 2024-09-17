@@ -203,13 +203,13 @@ public class SkyBoss {
                     append(Component.literal("天空维度展开: ").withStyle(style)).
                     append(Component.literal("天空制造者释放制造天空次元的能量，使持有者具有凌驾天空的力量。").withStyle(ChatFormatting.WHITE)));
             components.add(Component.literal("∰1.使持有者至多获得").withStyle(ChatFormatting.WHITE).
-                    append(ComponentUtils.AttributeDescription.CritDamage("320%")));
+                    append(ComponentUtils.AttributeDescription.critDamage("320%")));
 
             Compute.DescriptionPassive(components, Component.literal("鹰隼之速").withStyle(ChatFormatting.AQUA));
             components.add(Component.literal("每").withStyle(ChatFormatting.WHITE).
-                    append(ComponentUtils.AttributeDescription.ExMovementSpeed("8%")).
+                    append(ComponentUtils.AttributeDescription.exMovementSpeed("8%")).
                     append(Component.literal("提供").withStyle(ChatFormatting.WHITE)).
-                    append(ComponentUtils.AttributeDescription.DefencePenetration("3%")));
+                    append(ComponentUtils.AttributeDescription.defencePenetration("3%")));
             return components;
         }
 

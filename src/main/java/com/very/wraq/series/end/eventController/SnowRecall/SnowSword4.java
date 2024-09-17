@@ -44,7 +44,7 @@ public class SnowSword4 extends WraqSword implements ActiveItem {
         List<Component> components = new ArrayList<>();
         components.add(Component.literal("被动:").withStyle(ChatFormatting.GREEN).
                 append(Component.literal("凿击-Ex").withStyle(ChatFormatting.AQUA)));
-        ComponentUtils.DescriptionNum(components, "攻击将会大幅降低目标生物的移动速度", Component.literal("2s").withStyle(ChatFormatting.AQUA), "");
+        ComponentUtils.descriptionNum(components, "攻击将会大幅降低目标生物的移动速度", Component.literal("2s").withStyle(ChatFormatting.AQUA), "");
         components.add(Component.literal("主动:").withStyle(ChatFormatting.AQUA).
                 append(Component.literal("冰川攀登！").withStyle(ChatFormatting.AQUA)));
         components.add(Component.literal("向前闪现一小段距离"));

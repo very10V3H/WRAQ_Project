@@ -48,11 +48,11 @@ public class SakuraArmorHelmet extends ArmorItem implements GeoItem {
         Style style = CustomStyle.styleOfSakura;
         Compute.forgingHoverName(stack);
         components.add(Component.literal("防具                   ").withStyle(ChatFormatting.GRAY).append(Component.literal("帽子").withStyle(style)));
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfBasic(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfBasic(components);
         BasicAttributeDescription.BasicAttributeCommonDescription(components, stack);
         /*       Compute.EmojiDescriptionLuckyUp(components,LuckyUp);*/
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         components.add(Component.literal(" "));
         components.add(Component.literal("Sakura-Helmet").withStyle(style).withStyle(ChatFormatting.ITALIC));
         Compute.SuffixOfMainStoryV(components);

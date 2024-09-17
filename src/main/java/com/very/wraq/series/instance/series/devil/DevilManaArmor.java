@@ -38,7 +38,7 @@ public class DevilManaArmor extends WraqArmor {
         Style style = getMainStyle();
         Compute.DescriptionPassive(components, Component.literal("唤魔者之威").withStyle(style));
         components.add(Component.literal(" 提升").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.ManaDamage("25%")));
+                append(ComponentUtils.AttributeDescription.manaDamage("25%")));
         return components;
     }
 

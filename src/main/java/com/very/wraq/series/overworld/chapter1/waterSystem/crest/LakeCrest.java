@@ -41,17 +41,17 @@ public class LakeCrest extends Item implements ICurioItem, CrestItem {
         ChatFormatting MainStyle = ChatFormatting.BLUE;
         stack.setHoverName(Component.literal("湖泊纹章" + "(" + LakeCrestAttributes.LevelName[Level] + ")").
                 withStyle(LakeCrestAttributes.LevelColor[Level]).withStyle(ChatFormatting.BOLD));
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfBasic(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfBasic(components);
 
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfAddition(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfAddition(components);
         if (Screen.hasShiftDown()) LakeSuitDescription.LakeSuitDescription(components);
         else {
             Compute.SuitDescription(components);
             components.add(Component.literal("[按住shift展开套装效果]").withStyle(ChatFormatting.GRAY));
         }
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
         components.add(Component.literal(CrestName + "-I").withStyle(MainStyle).withStyle(ChatFormatting.ITALIC));
         components.add(Component.literal("MainStoryI").withStyle(ChatFormatting.AQUA).withStyle(ChatFormatting.ITALIC));
         super.appendHoverText(stack, level, components, flag);

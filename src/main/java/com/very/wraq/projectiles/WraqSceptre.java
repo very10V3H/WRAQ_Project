@@ -71,8 +71,8 @@ public abstract class WraqSceptre extends SwordItem {
         Style style = getMainStyle();
         Compute.forgingHoverName(stack);
         components.add(Component.literal("主手                   ").withStyle(ChatFormatting.AQUA).append(Component.literal("法杖").withStyle(ChatFormatting.LIGHT_PURPLE)));
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfBasic(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfBasic(components);
         BasicAttributeDescription.BasicAttributeCommonDescription(components, stack);
         if (this instanceof RandomLootEquip randomLootEquip) {
             if (randomLootEquip.levelRequire() != 0) {
@@ -84,12 +84,12 @@ public abstract class WraqSceptre extends SwordItem {
             }
         }
         if (!getAdditionalComponents(stack).isEmpty()) {
-            ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-            ComponentUtils.DescriptionOfAddition(components);
+            ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+            ComponentUtils.descriptionOfAddition(components);
             components.addAll(getAdditionalComponents(stack));
         }
         getManaCoreAddition(stack, components);
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         if (oneLineDescription() != null) {
             components.add(oneLineDescription());
         }
@@ -226,20 +226,20 @@ public abstract class WraqSceptre extends SwordItem {
                 components.add(Component.literal("-基于你的").withStyle(ChatFormatting.WHITE).
                         append(ComponentUtils.AttributeDescription.movementSpeedWithoutBattle("")).
                         append(Component.literal("提供").withStyle(ChatFormatting.WHITE)).
-                        append(ComponentUtils.AttributeDescription.ManaPenetration("")));
+                        append(ComponentUtils.AttributeDescription.manaPenetration("")));
                 components.add(Component.literal("-每").withStyle(ChatFormatting.WHITE).
-                        append(ComponentUtils.AttributeDescription.ExMovementSpeed("1%")).
+                        append(ComponentUtils.AttributeDescription.exMovementSpeed("1%")).
                         append(Component.literal("提供").withStyle(ChatFormatting.WHITE)).
-                        append(ComponentUtils.AttributeDescription.ManaPenetration("1")));
+                        append(ComponentUtils.AttributeDescription.manaPenetration("1")));
             } else if (ManaCore.equals(SakuraCore)) {
                 Compute.DescriptionPassive(components, Component.literal("樱妖晶核").withStyle(CustomStyle.styleOfDemon));
                 components.add(Component.literal("第一枚法球造成").withStyle(ChatFormatting.WHITE).
-                        append(ComponentUtils.AttributeDescription.ManaDamage("100%")).
+                        append(ComponentUtils.AttributeDescription.manaDamage("100%")).
                         append(Component.literal("的").withStyle(ChatFormatting.WHITE)).
                         append(Component.literal("真实伤害").withStyle(CustomStyle.styleOfSea)));
                 components.add(Component.literal("第二枚法球回复").withStyle(ChatFormatting.WHITE).
-                        append(ComponentUtils.AttributeDescription.ManaDamage("1.25%")).
-                        append(ComponentUtils.AttributeDescription.Health("")));
+                        append(ComponentUtils.AttributeDescription.manaDamage("1.25%")).
+                        append(ComponentUtils.AttributeDescription.health("")));
             }
         } else {
             components.add(Component.literal(" 「尚未加载魔核」").withStyle(CustomStyle.styleOfMana));

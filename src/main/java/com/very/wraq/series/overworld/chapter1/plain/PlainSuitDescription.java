@@ -22,11 +22,11 @@ import java.util.List;
 public class PlainSuitDescription {
     public static void ArmorCommonDescription(List<Component> components) {
         Style style = Style.EMPTY.applyFormat(ChatFormatting.GREEN);
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfAddition(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfAddition(components);
         Compute.solePassiveDescription(components, Component.literal("").withStyle(style));
         components.add(Component.literal(" 获得").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.MaxHealth("等级 * 10")).
+                append(ComponentUtils.AttributeDescription.maxHealth("等级 * 10")).
                 append(Component.literal("(" + Math.min(100, Minecraft.getInstance().player.experienceLevel) * 10 + ")").withStyle(ChatFormatting.GRAY)));
         components.add(Component.literal(" 在100级时达到最大收益").withStyle(ChatFormatting.GRAY));
         if (Screen.hasShiftDown()) SuitDescription(components);
@@ -34,7 +34,7 @@ public class PlainSuitDescription {
             Compute.SuitDescription(components);
             components.add(Component.literal("[按住shift展开套装效果]").withStyle(ChatFormatting.GRAY));
         }
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         components.add(Component.literal("PlainArmor-I").withStyle(style).withStyle(ChatFormatting.ITALIC));
         ComponentUtils.suffixOfChapterI(components);
 
@@ -73,10 +73,10 @@ public class PlainSuitDescription {
 
         Compute.SuitDoubleDescription(components, Count);
         Compute.DescriptionPassive(components, Component.literal("野火不灭:").withStyle(ChatFormatting.GREEN));
-        ComponentUtils.DescriptionNum(components, "每秒回复", Compute.AttributeDescription.Health("0.5%+1"), "");
+        ComponentUtils.descriptionNum(components, "每秒回复", Compute.AttributeDescription.Health("0.5%+1"), "");
         Compute.SuitQuadraDescription(components, Count);
         Compute.DescriptionPassive(components, Component.literal("平原生机:").withStyle(ChatFormatting.GREEN));
         components.add(Component.literal("获得").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.MaxHealth("200")));
+                append(ComponentUtils.AttributeDescription.maxHealth("200")));
     }
 }

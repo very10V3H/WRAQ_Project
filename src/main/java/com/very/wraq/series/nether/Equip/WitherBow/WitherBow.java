@@ -53,7 +53,7 @@ public class WitherBow extends WraqBow implements OnHitEffectMainHandWeapon {
         Compute.DescriptionPassive(components, Component.literal("凋零增幅").withStyle(style));
         components.add(Component.literal("箭矢命中后:"));
         components.add(Component.literal("损失").withStyle(ChatFormatting.RED).
-                append(ComponentUtils.AttributeDescription.MaxHealth("7%")));
+                append(ComponentUtils.AttributeDescription.maxHealth("7%")));
         components.add(Component.literal("获得").withStyle(ChatFormatting.GREEN).
                 append(Compute.AttributeDescription.DefencePenetration(String.valueOf(WitherBowAttributes.Effect[tier]))));
         components.add(Component.literal("持续时间: 5s"));

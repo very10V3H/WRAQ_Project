@@ -1,6 +1,5 @@
 package com.very.wraq.series.specialevents.qingMing;
 
-import com.very.wraq.common.Compute;
 import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.Utils;
@@ -38,11 +37,11 @@ public class QingMingGem extends Item {
         stack.getOrCreateTagElement(Utils.MOD_ID);
         Style style = CustomStyle.styleOfForest;
         components.add(Component.literal("雨纷纷，欲断魂").withStyle(style));
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfBasic(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfBasic(components);
 /*        Compute.EmojiDescriptionDefencePenetration(components,DefencePenetration);
         Compute.EmojiDescriptionManaPenetration(components,ManaPenetration);*/
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         QingTuan.QingMingSuffix(components);
         super.appendHoverText(stack, level, components, flag);
     }

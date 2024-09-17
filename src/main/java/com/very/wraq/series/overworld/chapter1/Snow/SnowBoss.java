@@ -190,10 +190,10 @@ public class SnowBoss {
         public void appendHoverText(ItemStack stack, @javax.annotation.Nullable Level level, List<Component> components, TooltipFlag flag) {
             Compute.forgingHoverName(stack);
             components.add(Component.literal("防具                   ").withStyle(ChatFormatting.GRAY).append(Component.literal("胸甲").withStyle(style)));
-            ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-            ComponentUtils.DescriptionOfBasic(components);
+            ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+            ComponentUtils.descriptionOfBasic(components);
             BasicAttributeDescription.BasicAttributeCommonDescription(components, stack);
-            ComponentUtils.DescriptionOfAddition(components);
+            ComponentUtils.descriptionOfAddition(components);
             Compute.DescriptionPassive(components, Component.literal("寒玉皑皑").withStyle(style));
             components.add(Component.literal("每过3s，削减周围所有单位至多").withStyle(ChatFormatting.WHITE).
                     append(Compute.AttributeDescription.Defence("50%")).
@@ -202,7 +202,7 @@ public class SnowBoss {
                     append(Component.literal("效果。").withStyle(ChatFormatting.WHITE)));
             components.add(Component.literal("护甲削减与缓速效果持续2s,并且效果不可叠加。").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
             SnowSuitDescription.SuitDescription(components);
-            ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+            ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
             components.add(Component.literal("Dimension-Snow").withStyle(style).withStyle(ChatFormatting.ITALIC));
             ComponentUtils.suffixOfChapterI(components);
             super.appendHoverText(stack, level, components, flag);

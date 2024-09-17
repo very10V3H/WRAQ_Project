@@ -50,10 +50,10 @@ public class MoonShield extends Item {
         Style style = CustomStyle.styleOfMoon;
         stack.setHoverName(Component.literal("玉轮明盾").withStyle(style).withStyle(ChatFormatting.BOLD));
         components.add(Component.literal("副手                   ").withStyle(ChatFormatting.GOLD).append(Component.literal("手盾").withStyle(ChatFormatting.GRAY)));
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfBasic(components);
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfAddition(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfBasic(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfAddition(components);
         MineShield.shieldAdditionDescription(components);
         Compute.DescriptionPassive(components, Component.literal("月闪").withStyle(style));
         components.add(Component.literal("近战攻击").withStyle(CustomStyle.styleOfPower).
@@ -66,7 +66,7 @@ public class MoonShield extends Item {
                 append(Component.literal("真实伤害").withStyle(CustomStyle.styleOfSea)));
         components.add(Component.literal(" - 引爆标记后，你将获得持续3s的").withStyle(ChatFormatting.WHITE).
                 append(Compute.AttributeDescription.AttackDamage("12%总")));
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         Compute.SuffixOfMoon(components);
         super.appendHoverText(stack, level, components, flag);
     }

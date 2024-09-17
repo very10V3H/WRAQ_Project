@@ -48,7 +48,7 @@ public interface VdWeaponCommon {
         components.add(Component.literal(" 清空周围敌人的").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("研习值").withStyle(style)).
                 append(Component.literal("，每层对敌人造成").withStyle(ChatFormatting.WHITE)).
-                append(ComponentUtils.AttributeDescription.MaxHealth("4%")).
+                append(ComponentUtils.AttributeDescription.maxHealth("4%")).
                 append(Component.literal("真实伤害").withStyle(CustomStyle.styleOfSea)));
         ComponentUtils.manaCostDescription(components, 100);
         ComponentUtils.coolDownTimeDescription(components, 15);

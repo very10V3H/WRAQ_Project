@@ -19,15 +19,15 @@ import java.util.List;
 public class VolcanoSuitDescription {
     public static void VolcanoArmorCommonDescription(List<Component> components) {
         Style style = Style.EMPTY.applyFormat(ChatFormatting.YELLOW);
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.YELLOW, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfAddition(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, ChatFormatting.YELLOW, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfAddition(components);
         Compute.solePassiveDescription(components, Component.literal("").withStyle(style));
         int level = Math.min(100, Minecraft.getInstance().player.experienceLevel);
         components.add(Component.literal(" 获得").withStyle(ChatFormatting.WHITE).
                 append(Compute.AttributeDescription.AttackDamage("等级 * 1")).
                 append(Component.literal("(" + level + ")").withStyle(ChatFormatting.GRAY)).
                 append(Component.literal("与").withStyle(ChatFormatting.WHITE)).
-                append(ComponentUtils.AttributeDescription.ManaDamage("等级 * 2")).
+                append(ComponentUtils.AttributeDescription.manaDamage("等级 * 2")).
                 append(Component.literal("(" + level * 2 + ")").withStyle(ChatFormatting.GRAY)));
         components.add(Component.literal(" 在100级时达到最大收益").withStyle(ChatFormatting.GRAY));
         if (Screen.hasShiftDown()) VolcanoSuitDescription(components);
@@ -35,7 +35,7 @@ public class VolcanoSuitDescription {
             Compute.SuitDescription(components);
             components.add(Component.literal("[按住shift展开套装效果]").withStyle(ChatFormatting.GRAY));
         }
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.YELLOW, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, ChatFormatting.YELLOW, ChatFormatting.WHITE);
         components.add(Component.literal("VolcanoArmor-I").withStyle(ChatFormatting.YELLOW).withStyle(ChatFormatting.ITALIC));
         ComponentUtils.suffixOfChapterI(components);
     }
@@ -76,7 +76,7 @@ public class VolcanoSuitDescription {
         components.add(Component.literal("获得").withStyle(ChatFormatting.WHITE).
                 append(Compute.AttributeDescription.ExAttackDamage("15%")));
         components.add(Component.literal("获得").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.ManaDamage("25%")));
+                append(ComponentUtils.AttributeDescription.manaDamage("25%")));
         Compute.SuitQuadraDescription(components, Count);
         Compute.DescriptionPassive(components, Component.literal("地层震荡").withStyle(ChatFormatting.YELLOW));
         components.add(Component.literal("获得").withStyle(ChatFormatting.WHITE).

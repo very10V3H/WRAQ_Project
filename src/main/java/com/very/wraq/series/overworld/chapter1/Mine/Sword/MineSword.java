@@ -37,7 +37,7 @@ public class MineSword extends WraqSword {
     public List<Component> getAdditionalComponents(ItemStack stack) {
         List<Component> components = new ArrayList<>();
         Compute.DescriptionPassive(components, Component.literal("凿击").withStyle(ChatFormatting.GRAY));
-        ComponentUtils.DescriptionNum(components, "攻击将会降低目标生物的移动速度", Component.literal("2s").withStyle(ChatFormatting.GRAY), "");
+        ComponentUtils.descriptionNum(components, "攻击将会降低目标生物的移动速度", Component.literal("2s").withStyle(ChatFormatting.GRAY), "");
         return components;
     }
 

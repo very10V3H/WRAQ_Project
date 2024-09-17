@@ -22,13 +22,13 @@ import java.util.List;
 @OnlyIn(Dist.CLIENT)
 public class SkySuitDescription {
     public static void ArmorCommonDescription(List<Component> components) {
-        ComponentUtils.DescriptionOfAddition(components);
+        ComponentUtils.descriptionOfAddition(components);
         if (Screen.hasShiftDown()) SuitDescription(components);
         else {
             Compute.SuitDescription(components);
             components.add(Component.literal("[按住shift展开套装效果]").withStyle(ChatFormatting.GRAY));
         }
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfSky, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfSky, ChatFormatting.WHITE);
         components.add(Component.literal("SkyArmor-I").withStyle(CustomStyle.styleOfSky).withStyle(ChatFormatting.ITALIC));
         ComponentUtils.suffixOfChapterII(components);
 
@@ -83,7 +83,7 @@ public class SkySuitDescription {
                 append(Component.literal("护盾。")).
                 append(Component.literal("持续10s")).withStyle(ChatFormatting.WHITE));
         components.add(Component.literal(" "));
-        ComponentUtils.SkySuitEffectRateDescription(components, Count);
+        ComponentUtils.skySuitEffectRateDescription(components, Count);
 
     }
 }

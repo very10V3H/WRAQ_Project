@@ -41,7 +41,7 @@ public class LakePower extends Item implements ActiveItem {
     @Override
     public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
         components.add(Component.literal("·法术").withStyle(CustomStyle.styleOfMana));
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
         Compute.DescriptionActive(components, Component.literal("迟滞之水").withStyle(CustomStyle.styleOfWater));
 
         components.add(Component.literal(" 对").withStyle(ChatFormatting.WHITE).
@@ -52,7 +52,7 @@ public class LakePower extends Item implements ActiveItem {
                 append(Compute.AttributeDescription.ManaDefence(String.format("%.0f", effect[tier] * 10) + "%")).
                 append(Component.literal("持续2s。").withStyle(ChatFormatting.WHITE)));
         components.add(Component.literal(" 同时对其造成").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.ManaDamageValue(String.format("%.0f", effect[tier] * 100) + "%")));
+                append(ComponentUtils.AttributeDescription.manaDamageValue(String.format("%.0f", effect[tier] * 100) + "%")));
         components.add(Component.literal(" - 这个伤害会附带").withStyle(ChatFormatting.WHITE).
                 append(Element.Description.WaterElement("1 + 100%")));
         components.add(Component.literal(" 为").withStyle(ChatFormatting.WHITE).
@@ -62,7 +62,7 @@ public class LakePower extends Item implements ActiveItem {
                 append(Component.literal("伤害削减。").withStyle(ChatFormatting.GREEN)));
         ComponentUtils.coolDownTimeDescription(components, CoolDownTime[tier]);
         ComponentUtils.manaCostDescription(components, ManaCost[tier]);
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
         components.add(Component.literal("Powers-Lake").withStyle(CustomStyle.styleOfWater));
         super.appendHoverText(itemStack, level, components, flag);
     }

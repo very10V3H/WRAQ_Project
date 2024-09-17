@@ -32,10 +32,10 @@ public class VolcanoRing extends Item implements ICurioItem {
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
         stack.getOrCreateTagElement(Utils.MOD_ID);
         stack.setHoverName(Component.literal("火山戒指").withStyle(ChatFormatting.YELLOW).withStyle(ChatFormatting.BOLD));
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.YELLOW, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfBasic(components);
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, ChatFormatting.YELLOW, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfAddition(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, ChatFormatting.YELLOW, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfBasic(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, ChatFormatting.YELLOW, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfAddition(components);
         components.add(Component.literal("获得").withStyle(ChatFormatting.WHITE).
                 append(Compute.AttributeDescription.ExAttackDamage("10%")));
         components.add(Component.literal("VolcanoGems-I").withStyle(ChatFormatting.YELLOW).withStyle(ChatFormatting.ITALIC));

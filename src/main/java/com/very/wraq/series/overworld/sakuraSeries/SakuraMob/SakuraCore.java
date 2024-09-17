@@ -51,11 +51,11 @@ public class SakuraCore extends Item {
         Compute.ManaCoreDescription(components);
         Compute.DescriptionPassive(components, Component.literal("樱妖晶核").withStyle(CustomStyle.styleOfDemon));
         components.add(Component.literal("第一枚法球造成").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.ManaDamage("100%")).
+                append(ComponentUtils.AttributeDescription.manaDamage("100%")).
                 append(Component.literal("的").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("真实伤害").withStyle(CustomStyle.styleOfSea)));
         components.add(Component.literal("第二枚回复").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.ManaDamage("1.25%")).
+                append(ComponentUtils.AttributeDescription.manaDamage("1.25%")).
                 append(Compute.AttributeDescription.Health("")));
 
         super.appendHoverText(stack, p_41422_, components, p_41424_);

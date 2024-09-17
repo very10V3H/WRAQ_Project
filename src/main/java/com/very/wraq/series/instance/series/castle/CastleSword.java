@@ -47,7 +47,7 @@ public class CastleSword extends WraqSword implements ForgeItem, ActiveItem {
         components.add(Component.literal(" 你的").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("普通攻击").withStyle(CustomStyle.styleOfPower)).
                 append(Component.literal("将附带造成伤害100%的").withStyle(ChatFormatting.WHITE)).
-                append(ComponentUtils.AttributeDescription.ManaDamageValue("")));
+                append(ComponentUtils.AttributeDescription.manaDamageValue("")));
         Compute.DescriptionActive(components, Component.literal("噬魔注能").withStyle(style));
         components.add(Component.literal(" 扣除自身").withStyle(ChatFormatting.WHITE).
                 append(Compute.AttributeDescription.Health("15%当前")).

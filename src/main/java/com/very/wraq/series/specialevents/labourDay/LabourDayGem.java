@@ -35,9 +35,9 @@ public class LabourDayGem extends Item {
         stack.getOrCreateTagElement(Utils.MOD_ID);
         ChatFormatting style = ChatFormatting.GOLD;
         components.add(Component.literal("这是最后的斗争！").withStyle(style));
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfBasic(components);
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfBasic(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         OldCoin.LabourDaySuffix(components);
         super.appendHoverText(stack, level, components, flag);
     }

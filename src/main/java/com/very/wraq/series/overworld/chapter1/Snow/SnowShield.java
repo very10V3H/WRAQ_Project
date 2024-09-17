@@ -40,10 +40,10 @@ public class SnowShield extends Item {
         Style MainStyle = CustomStyle.styleOfSnow;
         stack.setHoverName(Component.literal("玉山圆盾").withStyle(MainStyle).withStyle(ChatFormatting.BOLD));
         components.add(Component.literal("副手                   ").withStyle(ChatFormatting.GOLD).append(Component.literal("手盾").withStyle(ChatFormatting.GRAY)));
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfBasic(components);
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfAddition(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfBasic(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfAddition(components);
         MineShield.shieldAdditionDescription(components);
         Compute.DescriptionPassive(components, Component.literal("破碎冰玉").withStyle(MainStyle));
         components.add(Component.literal(" 造成暴击后，击碎目标").withStyle(ChatFormatting.WHITE).
@@ -51,7 +51,7 @@ public class SnowShield extends Item {
                 append(Component.literal("并提升自身等额").withStyle(ChatFormatting.WHITE)).
                 append(Compute.AttributeDescription.Defence("")).
                 append(Component.literal(" 持续2s").withStyle(ChatFormatting.WHITE)));
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
         components.add(Component.literal("SnowShield").withStyle(MainStyle).withStyle(ChatFormatting.ITALIC));
         ComponentUtils.suffixOfChapterI(components);
         super.appendHoverText(stack, level, components, flag);

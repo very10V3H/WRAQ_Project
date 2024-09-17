@@ -33,7 +33,7 @@ public class PlainNewRune extends WraqCurios implements RuneItem, UsageOrGetWayD
         List<Component> components = new ArrayList<>();
         ComponentUtils.descriptionPassive(components, Component.literal("复苏之风").withStyle(hoverMainStyle()));
         components.add(Component.literal(" 获得").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.HealthRecover("已损失生命值1%")));
+                append(ComponentUtils.AttributeDescription.healthRecover("已损失生命值1%")));
         return components;
     }
 

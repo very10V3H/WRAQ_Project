@@ -41,7 +41,7 @@ public class EarthManaArmor extends WraqArmor implements ForgeItem {
         List<Component> components = new ArrayList<>();
         ComponentUtils.descriptionPassive(components, Component.literal("旧世斩魔遗怒").withStyle(style));
         components.add(Component.literal(" 将你消耗的").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.MaxMana("100%")).
+                append(ComponentUtils.AttributeDescription.maxMana("100%")).
                 append(Component.literal("转化为").withStyle(ChatFormatting.WHITE)).
                 append(ComponentUtils.AttributeDescription.healValue("")));
         ComponentUtils.descriptionPassive(components, Component.literal("新世唤魔复生").withStyle(style));

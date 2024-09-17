@@ -23,8 +23,8 @@ import java.util.List;
 public class ForestSuitDescription {
     public static void ArmorCommonDescription(List<Component> components) {
         Style style = CustomStyle.styleOfForest;
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        ComponentUtils.DescriptionOfAddition(components);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionOfAddition(components);
         Compute.solePassiveDescription(components, Component.literal("").withStyle(style));
         int level = Math.min(100, Minecraft.getInstance().player.experienceLevel);
         components.add(Component.literal(" 获得").withStyle(ChatFormatting.WHITE).
@@ -36,7 +36,7 @@ public class ForestSuitDescription {
             Compute.SuitDescription(components);
             components.add(Component.literal("[按住shift展开套装效果]").withStyle(ChatFormatting.GRAY));
         }
-        ComponentUtils.DescriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         components.add(Component.literal("ForestArmor-I").withStyle(style).withStyle(ChatFormatting.ITALIC));
         ComponentUtils.suffixOfChapterI(components);
     }
@@ -74,10 +74,10 @@ public class ForestSuitDescription {
 
         Compute.SuitDoubleDescription(components, Count);
         Compute.DescriptionPassive(components, Component.literal("繁茂生长").withStyle(ChatFormatting.DARK_GREEN));
-        ComponentUtils.DescriptionNum(components, "提升", Compute.AttributeDescription.Defence("25%"), "");
+        ComponentUtils.descriptionNum(components, "提升", Compute.AttributeDescription.Defence("25%"), "");
         Compute.SuitQuadraDescription(components, Count);
         Compute.DescriptionPassive(components, Component.literal("森林生机").withStyle(ChatFormatting.DARK_GREEN));
-        ComponentUtils.DescriptionNum(components, "提升", Compute.AttributeDescription.HealAmplification("50%"), "");
-        ComponentUtils.DescriptionNum(components, "在白天，提供", Compute.AttributeDescription.HealthRecover("5"), "");
+        ComponentUtils.descriptionNum(components, "提升", Compute.AttributeDescription.HealAmplification("50%"), "");
+        ComponentUtils.descriptionNum(components, "在白天，提供", Compute.AttributeDescription.HealthRecover("5"), "");
     }
 }
