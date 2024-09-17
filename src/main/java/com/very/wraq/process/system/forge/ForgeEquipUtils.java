@@ -3,9 +3,11 @@ package com.very.wraq.process.system.forge;
 import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.util.Utils;
 import com.very.wraq.events.mob.loot.RandomLootEquip;
+import com.very.wraq.projectiles.ExBaseAttributeValueEquip;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.overworld.chapter7.C7Items;
 import net.minecraft.ChatFormatting;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.player.Player;
@@ -351,9 +353,14 @@ public class ForgeEquipUtils {
     }
 
     public static double getTraditionalEquipBaseValue(ItemStack equip, Map<Item, Double> map) {
-        return map.getOrDefault(equip.getItem(), 0d) * getTierValueEffect(equip);
+        double exValue = 0;
+        if (equip.getItem() instanceof ExBaseAttributeValueEquip exBaseAttributeValueEquip
+                && exBaseAttributeValueEquip.getBaseAttributeMap().equals(map)) {
+            CompoundTag data = equip.getOrCreateTagElement(Utils.MOD_ID);
+            exValue += exBaseAttributeValueEquip.getValueByTagValue(data.getDouble(exBaseAttributeValueEquip.getTag()));
+        }
+        return (map.getOrDefault(equip.getItem(), 0d) + exValue) * getTierValueEffect(equip);
     }
-
 
     public static double getRandomEquipBaseValue(ItemStack equip, String type) {
         double attribute = equip.getOrCreateTagElement(Utils.MOD_ID).getDouble(type);

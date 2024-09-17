@@ -1,100 +1,47 @@
 package com.very.wraq.projectiles;
 
-import com.very.wraq.blocks.blocks.forge.ForgeRecipe;
 import com.very.wraq.common.Compute;
-import com.very.wraq.common.attribute.BasicAttributeDescription;
 import com.very.wraq.common.attribute.PlayerAttributes;
-import com.very.wraq.common.registry.ItemTier;
 import com.very.wraq.common.registry.ModSounds;
 import com.very.wraq.common.registry.MySound;
 import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.common.util.Utils;
 import com.very.wraq.entities.entities.Civil.Civil;
-import com.very.wraq.events.mob.loot.RandomLootEquip;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.projectiles.mana.ManaArrow;
 import com.very.wraq.projectiles.mana.NewArrow;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.overworld.chapter2.evoker.EvokerSceptre;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.Style;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.SwordItem;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public abstract class WraqSceptre extends SwordItem {
+public abstract class WraqSceptre extends WraqMainHandEquip {
 
-    public WraqSceptre(Properties p_43272_) {
-        super(ItemTier.VMaterial, 2, 0, p_43272_);
-        Utils.mainHandTag.put(this, 1d);
+    public WraqSceptre(Properties properties) {
+        super(properties);
         Utils.sceptreTag.put(this, 1d);
-        Utils.weaponList.add(this);
-        if (this instanceof ForgeItem forgeItem) {
-            ForgeRecipe.forgeDrawRecipe.put(this, forgeItem.forgeRecipe());
-        }
-    }
-
-    public abstract Style getMainStyle();
-
-    public abstract List<Component> getAdditionalComponents(ItemStack itemStack);
-
-    public abstract Component getSuffix();
-
-    public Component oneLineDescription() {
-        return null;
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag tooltipFlag) {
-        Style style = getMainStyle();
-        Compute.forgingHoverName(stack);
-        components.add(Component.literal("主手                   ").withStyle(ChatFormatting.AQUA).append(Component.literal("法杖").withStyle(ChatFormatting.LIGHT_PURPLE)));
-        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        ComponentUtils.descriptionOfBasic(components);
-        BasicAttributeDescription.BasicAttributeCommonDescription(components, stack);
-        if (this instanceof RandomLootEquip randomLootEquip) {
-            if (randomLootEquip.levelRequire() != 0) {
-                int levelRequirement = randomLootEquip.levelRequire();
-                if (levelRequirement != 0) {
-                    components.add(Component.literal(" 等级需求: ").withStyle(ChatFormatting.AQUA).
-                            append(Component.literal("Lv." + levelRequirement).withStyle(Utils.levelStyleList.get(levelRequirement / 25))));
-                }
-            }
-        }
-        if (!getAdditionalComponents(stack).isEmpty()) {
-            ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-            ComponentUtils.descriptionOfAddition(components);
-            components.addAll(getAdditionalComponents(stack));
-        }
-        getManaCoreAddition(stack, components);
-        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        if (oneLineDescription() != null) {
-            components.add(oneLineDescription());
-        }
-        components.add(getSuffix());
-        super.appendHoverText(stack, level, components, tooltipFlag);
+    public Component getType() {
+        return Component.literal("法杖").withStyle(CustomStyle.styleOfMana);
     }
 
     public void shootManaArrow(Player player, double rate, boolean mainShoot) {
@@ -160,24 +107,6 @@ public abstract class WraqSceptre extends SwordItem {
             ParticleProvider.LineParticle(player.level(), (int) NearestMob.distanceTo(player),
                     player.pick(0.5, 0, false).getLocation(), NearestMob.position().add(0, 1, 0), ParticleTypes.SNOWFLAKE);
         }
-    }
-
-    @Override
-    public boolean hurtEnemy(ItemStack p_40994_, LivingEntity p_40995_, LivingEntity p_40996_) {
-        p_40994_.hurtAndBreak(0, p_40996_, (p_41007_) -> {
-            p_41007_.broadcastBreakEvent(EquipmentSlot.MAINHAND);
-        });
-        return true;
-    }
-
-    @Override
-    public boolean mineBlock(ItemStack p_40998_, Level p_40999_, BlockState p_41000_, BlockPos p_41001_, LivingEntity p_41002_) {
-        if (!p_40999_.isClientSide && p_41000_.getDestroySpeed(p_40999_, p_41001_) != 0.0d) {
-            p_40998_.hurtAndBreak(0, p_41002_, (p_40992_) -> {
-                p_40992_.broadcastBreakEvent(EquipmentSlot.MAINHAND);
-            });
-        }
-        return true;
     }
 
     @Override
