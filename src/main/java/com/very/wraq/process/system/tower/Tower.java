@@ -297,7 +297,7 @@ public class Tower {
             }
         });
         statement.close();
-        connection.close();
+
     }
 
     public static void writeToDataBase(Statement statement) {
@@ -374,7 +374,7 @@ public class Tower {
                 playerStarGetCounts.put(playerName, Integer.parseInt(countsString));
             } else playerStarGetCounts.put(playerName, 0);
             statement.close();
-            connection.close();
+    
         }
 
         // 给予
@@ -398,7 +398,7 @@ public class Tower {
             }
         });
         statement.close();
-        connection.close();
+
     }
 
     public static void writeStarCountToDataBase(Statement statement) throws SQLException {

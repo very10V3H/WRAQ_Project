@@ -225,7 +225,7 @@ public class NewLotteries extends Item {
             result = Integer.parseInt(times);
         }
         statement.close();
-        connection.close();
+
         return result;
     }
 
@@ -259,7 +259,7 @@ public class NewLotteries extends Item {
             result = Integer.parseInt(times);
         }
         statement.close();
-        connection.close();
+
         return result;
     }
 
@@ -293,7 +293,7 @@ public class NewLotteries extends Item {
             result = Integer.parseInt(times);
         }
         statement.close();
-        connection.close();
+
         return result;
     }
 
@@ -310,7 +310,7 @@ public class NewLotteries extends Item {
             });
         });
         statement.close();
-        connection.close();
+
     }
 
     public static void writeToDataBase(Statement statement) throws SQLException {

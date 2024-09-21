@@ -46,7 +46,7 @@ public class VpDataHandler {
         }
         resultSet.close();
         statement.close();
-        connection.close();
+
     }
 
     public static void normalRead() throws SQLException {
@@ -75,7 +75,7 @@ public class VpDataHandler {
             }
         });
         statement.close();
-        connection.close();
+
     }
 
     public static void write() throws SQLException {
@@ -89,7 +89,7 @@ public class VpDataHandler {
             }
         });
         statement.close();
-        connection.close();
+
     }
 
     public static double getPlayerVp(String playerName) {

@@ -321,7 +321,6 @@ public class MobSpawn {
         Statement statement = connection.createStatement();
         writeModule(statement);
         statement.close();
-        connection.close();
     }
 
     public static void writeToSQL(Statement statement) {
@@ -363,7 +362,6 @@ public class MobSpawn {
         Statement statement = connection.createStatement();
         int count = getKillCount(statement, player, mob);
         statement.close();
-        connection.close();
         return count;
     }
 
@@ -482,7 +480,6 @@ public class MobSpawn {
             }
         }
         statement.close();
-        connection.close();
     }
 
     public static void provideProficiency(Player player, int xpLevel) {

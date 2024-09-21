@@ -112,7 +112,6 @@ public class PlanPlayer {
             }
         });
         statement.close();
-        connection.close();
     }
 
     public static void synchronizedRead() throws SQLException {
@@ -171,7 +170,7 @@ public class PlanPlayer {
             }
         }
         statement.close();
-        connection.close();
+
     }
 
     public static void read() throws SQLException, ParseException {
@@ -220,7 +219,7 @@ public class PlanPlayer {
         }
 
         statement.close();
-        connection.close();
+
     }
 
     public static void handle(ResultSet resultSet, String name, String itemString) throws SQLException {

@@ -23,10 +23,8 @@ public class DataBase {
         }
     }
 
-
     public static Connection getDatabaseConnection() throws SQLException {
-        return DriverManager.getConnection("jdbc:mysql://localhost:3306/wraq",
-                "root", "123456");
+        return DBConnection.getDatabaseConnection();
     }
 
     public static void CreatePlayerDataTable(Connection connection) throws SQLException {
@@ -60,7 +58,6 @@ public class DataBase {
             statement.executeUpdate(sql1);
         }
         statement.close();
-        connection.close();
     }
 
     public static void put(Statement statement, String worldKey, String worldValue) throws SQLException {
@@ -88,7 +85,6 @@ public class DataBase {
             statement.executeUpdate(sql1);
         }
         statement.close();
-        connection.close();
     }
 
     public static void put(Statement statement, String playerName, String key, String value) throws SQLException {
@@ -121,7 +117,6 @@ public class DataBase {
             statement.executeUpdate(sql1);
         }
         statement.close();
-        connection.close();
     }
 
     public static void put(Player player, String key, String value, String tableName) throws SQLException {
@@ -130,7 +125,6 @@ public class DataBase {
         Statement statement = connection.createStatement();
         put(statement, playerName, key, value, tableName);
         statement.close();
-        connection.close();
     }
 
     public static void put(Statement statement, Player player, String key, String value, String tableName) throws SQLException {
@@ -196,7 +190,6 @@ public class DataBase {
         }
         String resultString = result;
         statement.close();
-        connection.close();
         return resultString;
     }
 
@@ -214,7 +207,6 @@ public class DataBase {
         }
         String resultString = result;
         statement.close();
-        connection.close();
         return resultString;
     }
 
@@ -268,7 +260,6 @@ public class DataBase {
         }
         String resultString = result;
         statement.close();
-        connection.close();
         return resultString;
     }
 
@@ -284,7 +275,6 @@ public class DataBase {
                 if (!list.contains(s)) list.add(resultSet.getString(keyName));
             }
             statement.close();
-            connection.close();
             return list;
         }
         return null;
@@ -304,7 +294,6 @@ public class DataBase {
             }
         }
         preparedStatement.close();
-        connection.close();
         return list;
     }
 
@@ -320,7 +309,6 @@ public class DataBase {
             map.put(key, value);
         }
         statement.close();
-        connection.close();
         return map;
     }
 
@@ -406,7 +394,6 @@ public class DataBase {
         resultSet.next();
         boolean result = resultSet.getInt(1) > 0;
         preparedStatement.close();
-        connection.close();
         return result;
     }
 
@@ -418,7 +405,6 @@ public class DataBase {
         resultSet.next();
         boolean result = resultSet.getInt(1) > 0;
         preparedStatement.close();
-        connection.close();
         return result;
     }
 
@@ -430,7 +416,6 @@ public class DataBase {
         resultSet.next();
         boolean result = resultSet.getInt(1) > 0;
         preparedStatement.close();
-        connection.close();
         return result;
     }
 
@@ -442,7 +427,6 @@ public class DataBase {
         resultSet.next();
         boolean result = resultSet.getInt(1) > 0;
         preparedStatement.close();
-        connection.close();
         return result;
     }
 
@@ -454,7 +438,6 @@ public class DataBase {
         resultSet.next();
         boolean result = resultSet.getInt(1) > 0;
         preparedStatement.close();
-        connection.close();
         return result;
     }
 
@@ -466,7 +449,6 @@ public class DataBase {
         resultSet.next();
         boolean result = resultSet.getInt(1) > 0;
         preparedStatement.close();
-        connection.close();
         return result;
     }
 

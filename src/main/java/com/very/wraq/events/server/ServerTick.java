@@ -78,6 +78,5 @@ public class ServerTick {
         DataBase.writeWorldInfo(statement);
 
         statement.close();
-        connection.close();
     }
 }

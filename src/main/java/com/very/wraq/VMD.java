@@ -1,13 +1,12 @@
 package com.very.wraq;
 
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import com.mojang.logging.LogUtils;
 import com.very.wraq.blocks.blocks.forge.ForgeRecipe;
 import com.very.wraq.blocks.entity.ModBlockEntities;
-import com.very.wraq.common.*;
 import com.very.wraq.common.attribute.BasicAttributeDescription;
 import com.very.wraq.common.fast.Tick;
 import com.very.wraq.common.registry.*;
-import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.Utils;
 import com.very.wraq.customized.UniformItems;
 import com.very.wraq.entities.entities.Boss2.Boss2;
@@ -19,14 +18,15 @@ import com.very.wraq.events.core.BlockEvent;
 import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.events.mob.instance.NoTeamInstanceModule;
 import com.very.wraq.events.mob.loot.*;
+import com.very.wraq.files.dataBases.DBConnection;
 import com.very.wraq.files.dataBases.DataBase;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.process.func.plan.PlanPlayer;
-import com.very.wraq.process.system.lottery.NewLotteries;
 import com.very.wraq.process.system.WorldRecordInfo;
 import com.very.wraq.process.system.element.ElementItems;
 import com.very.wraq.process.system.endlessinstance.EndlessInstanceItems;
 import com.very.wraq.process.system.forge.ForgeEquipUtils;
+import com.very.wraq.process.system.lottery.NewLotteries;
 import com.very.wraq.process.system.market.MarketInfo;
 import com.very.wraq.process.system.ore.OreItems;
 import com.very.wraq.process.system.spur.Items.SpurItems;
@@ -220,11 +220,14 @@ public class VMD {
         TowerTimeRecord.writeToWorldRecordInfo();
         DataBase.writeWorldInfo(statement);
         statement.close();
-        connection.close();
 
         NoTeamInstanceModule.clearMob();
         NewTeamInstanceEvent.getOverworldInstances().forEach(NewTeamInstance::clear);
         VpDataHandler.write();
+
+        DBConnection.connection.close();
+        DBConnection.connection = null;
+        LogUtils.getLogger().info("Database connection closed");
     }
 
     @SubscribeEvent
