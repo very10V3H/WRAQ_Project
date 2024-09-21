@@ -49,12 +49,9 @@ public class PlainPower extends Item implements ActiveItem {
                 append(Component.literal("自身").withStyle(ChatFormatting.GREEN)).
                 append(Component.literal("周围所有玩家提供持续5s的").withStyle(ChatFormatting.WHITE)).
                 append(ComponentUtils.AttributeDescription.movementSpeed("50%")));
-
         ComponentUtils.coolDownTimeDescription(components, CoolDownTime[this.tier]);
         ComponentUtils.manaCostDescription(components, manaCost[this.tier]);
-
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
-        components.add(Component.literal("Powers-Plain").withStyle(CustomStyle.styleOfPlain));
         super.appendHoverText(itemStack, level, components, flag);
     }
 

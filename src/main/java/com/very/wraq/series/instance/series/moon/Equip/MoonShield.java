@@ -67,7 +67,7 @@ public class MoonShield extends Item {
         components.add(Component.literal(" - 引爆标记后，你将获得持续3s的").withStyle(ChatFormatting.WHITE).
                 append(Compute.AttributeDescription.AttackDamage("12%总")));
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        Compute.SuffixOfMoon(components);
+        ComponentUtils.suffixOfMoon(components);
         super.appendHoverText(stack, level, components, flag);
     }
 

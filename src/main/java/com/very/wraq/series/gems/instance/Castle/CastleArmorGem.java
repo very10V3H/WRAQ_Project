@@ -1,6 +1,5 @@
 package com.very.wraq.series.gems.instance.Castle;
 
-import com.very.wraq.common.Compute;
 import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.common.util.Utils;
@@ -38,7 +37,7 @@ public class CastleArmorGem extends Item {
         ComponentUtils.descriptionOfBasic(components);
         components.add(Component.literal(" 仅可用于防具").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        Compute.SuffixOfCastle(components);
+        ComponentUtils.suffixOfCastle(components);
         super.appendHoverText(stack, level, components, flag);
     }
 

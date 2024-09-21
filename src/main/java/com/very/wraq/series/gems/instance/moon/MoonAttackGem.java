@@ -1,6 +1,5 @@
 package com.very.wraq.series.gems.instance.moon;
 
-import com.very.wraq.common.Compute;
 import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.common.util.Utils;
@@ -37,7 +36,7 @@ public class MoonAttackGem extends Item {
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         ComponentUtils.descriptionOfBasic(components);
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        Compute.SuffixOfMoon(components);
+        ComponentUtils.suffixOfMoon(components);
         super.appendHoverText(stack, level, components, flag);
     }
 

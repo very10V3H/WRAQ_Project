@@ -69,8 +69,7 @@ public class SnowSword3 extends PickaxeItem implements ActiveItem {
         components.add(Component.literal("冷却时间: 10s"));
         components.add(Component.literal("法力消耗:").withStyle(ChatFormatting.DARK_PURPLE).withStyle(ChatFormatting.UNDERLINE).withStyle(ChatFormatting.BOLD).append(Component.literal(" 20").withStyle(ChatFormatting.WHITE)));
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, ChatFormatting.DARK_AQUA, ChatFormatting.WHITE);
-        components.add(Component.literal("Snow-Pickaxe-X").withStyle(ChatFormatting.BLUE).withStyle(ChatFormatting.ITALIC));
-        components.add(Component.literal("MainStoryI-Fin.").withStyle(ChatFormatting.AQUA).withStyle(ChatFormatting.ITALIC));
+        ComponentUtils.suffixOfChapterI(components);
         components.add(Component.literal(" "));
         super.appendHoverText(stack, level, components, flag);
     }
@@ -90,7 +89,6 @@ public class SnowSword3 extends PickaxeItem implements ActiveItem {
                 p_40992_.broadcastBreakEvent(EquipmentSlot.MAINHAND);
             });
         }
-
         return true;
     }
 

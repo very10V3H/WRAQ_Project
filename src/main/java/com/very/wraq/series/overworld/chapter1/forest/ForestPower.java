@@ -55,7 +55,6 @@ public class ForestPower extends Item implements ActiveItem {
         ComponentUtils.coolDownTimeDescription(components, CoolDownTime[tier]);
         ComponentUtils.manaCostDescription(components, ManaCost[tier]);
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
-        components.add(Component.literal("Powers-Forest").withStyle(CustomStyle.styleOfHealth));
         super.appendHoverText(itemStack, level, components, flag);
     }
 

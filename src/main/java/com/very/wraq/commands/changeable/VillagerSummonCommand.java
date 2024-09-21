@@ -718,8 +718,6 @@ public class VillagerSummonCommand implements Command<CommandSourceStack> {
                 Item Soul = ModItems.SnowSoul.get();
                 Item Rune = ModItems.SnowRune.get();
                 Item Sword0 = ModItems.SnowSword0.get();
-                Item Sword1 = ModItems.SnowSword1.get();
-                Item Sword2 = ModItems.SnowSword2.get();
                 Item Sword3 = ModItems.SnowSword3.get();
                 MerchantOffer[] merchantOfferList = {
                         new MerchantOffer(new ItemStack(Soul,64),

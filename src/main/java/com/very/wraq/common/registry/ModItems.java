@@ -175,9 +175,7 @@ import com.very.wraq.series.overworld.chapter1.Snow.Runes.SnowRune1;
 import com.very.wraq.series.overworld.chapter1.Snow.Runes.SnowRune2;
 import com.very.wraq.series.overworld.chapter1.Snow.Runes.SnowRune3;
 import com.very.wraq.series.overworld.chapter1.Snow.*;
-import com.very.wraq.series.overworld.chapter1.Snow.Sword.SnowSword0;
-import com.very.wraq.series.overworld.chapter1.Snow.Sword.SnowSword1;
-import com.very.wraq.series.overworld.chapter1.Snow.Sword.SnowSword2;
+import com.very.wraq.series.overworld.chapter1.Snow.Sword.SnowSword;
 import com.very.wraq.series.overworld.chapter1.Snow.Sword.SnowSword3;
 import com.very.wraq.series.overworld.chapter1.forest.*;
 import com.very.wraq.series.overworld.chapter1.forest.armor.ForestArmorBoots;
@@ -619,11 +617,11 @@ public class ModItems {
     public static final RegistryObject<Item> SnowRune = ITEMS.register("snowrune",
             () -> new SnowRune(new Item.Properties().rarity(CustomStyle.SnowBold)));
     public static final RegistryObject<Item> SnowSword0 = ITEMS.register("snowsword0",
-            () -> new SnowSword0(ItemTier.MaterialForPickaxe3, 2, 0, new Item.Properties().rarity(CustomStyle.SnowItalic)));
+            () -> new SnowSword( new Item.Properties().rarity(CustomStyle.SnowItalic), 0));
     public static final RegistryObject<Item> SnowSword1 = ITEMS.register("snowsword1",
-            () -> new SnowSword1(ItemTier.MaterialForPickaxe3, 2, 0, new Item.Properties().rarity(CustomStyle.SnowItalic)));
+            () -> new SnowSword( new Item.Properties().rarity(CustomStyle.SnowItalic), 1));
     public static final RegistryObject<Item> SnowSword2 = ITEMS.register("snowsword2",
-            () -> new SnowSword2(ItemTier.MaterialForPickaxe3, 2, 0, new Item.Properties().rarity(CustomStyle.SnowItalic)));
+            () -> new SnowSword( new Item.Properties().rarity(CustomStyle.SnowItalic), 2));
     public static final RegistryObject<Item> SnowSword3 = ITEMS.register("snowsword3",
             () -> new SnowSword3(ItemTier.MaterialForPickaxe3, 2, 0, new Item.Properties().rarity(CustomStyle.SnowItalic)));
     public static final RegistryObject<Item> Note_1 = ITEMS.register("note_1",

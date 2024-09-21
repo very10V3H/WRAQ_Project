@@ -100,7 +100,7 @@ public class EarthPower extends Item implements ActiveItem {
 
         components.add(Component.literal(" - IDEA FROM : AzusaLin").withStyle(ChatFormatting.LIGHT_PURPLE));
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
-        Compute.SuffixOfMainStoryV(components);
+        ComponentUtils.suffixOfChapterV(components);
         components.add(ComponentUtils.getDemonAndElementStorySuffix1Sakura());
         super.appendHoverText(itemStack, level, components, flag);
     }

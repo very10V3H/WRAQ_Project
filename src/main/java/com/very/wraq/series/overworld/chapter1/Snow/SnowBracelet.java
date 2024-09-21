@@ -47,7 +47,6 @@ public class SnowBracelet extends Item {
             components.add(Component.literal("[按住shift展开套装效果]").withStyle(ChatFormatting.GRAY));
         }
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
-        components.add(Component.literal("Snow_Bracelet").withStyle(MainStyle).withStyle(ChatFormatting.ITALIC));
         ComponentUtils.suffixOfChapterI(components);
         super.appendHoverText(stack, level, components, flag);
     }

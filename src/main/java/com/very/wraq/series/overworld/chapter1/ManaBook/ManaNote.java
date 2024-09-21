@@ -15,12 +15,6 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class ManaNote extends Item {
-    private final double ManaDamage;
-    private final double ManaPenetration;
-    private final double ManaPenetration0;
-    private final double MaxMana;
-    private final double MovementSpeed;
-    private final double ExpUp;
     private final int num;
 
     public ManaNote(Properties p_41383_, int num, double ManaDamage, double ManaPenetration, double ManaPenetration0,
@@ -32,12 +26,6 @@ public class ManaNote extends Item {
         Utils.movementSpeedWithoutBattle.put(this, MovementSpeed);
         Utils.expUp.put(this, ExpUp);
         Utils.manaRecover.put(this, new double[]{4, 6, 8, 10, 12, 14, 16, 18, 20}[num]);
-        this.ManaDamage = ManaDamage;
-        this.ManaPenetration = ManaPenetration;
-        this.ManaPenetration0 = ManaPenetration0;
-        this.MaxMana = maxMana;
-        this.MovementSpeed = MovementSpeed;
-        this.ExpUp = ExpUp;
         this.num = num;
         Utils.offHandTag.put(this, 1d);
         Utils.weaponList.add(this);

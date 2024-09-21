@@ -43,7 +43,6 @@ public class LakePower extends Item implements ActiveItem {
         components.add(Component.literal("·法术").withStyle(CustomStyle.styleOfMana));
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
         Compute.DescriptionActive(components, Component.literal("迟滞之水").withStyle(CustomStyle.styleOfWater));
-
         components.add(Component.literal(" 对").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("指针").withStyle(ChatFormatting.AQUA)).
                 append(Component.literal("周围敌人造成").withStyle(ChatFormatting.WHITE)).
@@ -63,7 +62,6 @@ public class LakePower extends Item implements ActiveItem {
         ComponentUtils.coolDownTimeDescription(components, CoolDownTime[tier]);
         ComponentUtils.manaCostDescription(components, ManaCost[tier]);
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
-        components.add(Component.literal("Powers-Lake").withStyle(CustomStyle.styleOfWater));
         super.appendHoverText(itemStack, level, components, flag);
     }
 

@@ -58,7 +58,7 @@ public class MineHat extends ArmorItem implements GeoItem {
         components.add(Component.literal("1.当周围亮度较低时，获得夜视效果"));
         components.add(Component.literal("2.获得急迫3效果"));
         components.add(Component.literal("MineHat").withStyle(style).withStyle(ChatFormatting.ITALIC));
-        Compute.SuffixOfMainStoryV(components);
+        ComponentUtils.suffixOfChapterV(components);
         super.appendHoverText(stack, level, components, flag);
     }
 

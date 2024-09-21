@@ -47,9 +47,7 @@ public class VolcanoPower extends Item implements ActiveItem {
                 append(Element.Description.FireElement("1 + 100%")));
         ComponentUtils.coolDownTimeDescription(components, CoolDownTime[tier]);
         ComponentUtils.manaCostDescription(components, ManaCost[tier]);
-
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
-        components.add(Component.literal("Powers-Volcano").withStyle(CustomStyle.styleOfVolcano));
         super.appendHoverText(itemStack, level, components, flag);
     }
 

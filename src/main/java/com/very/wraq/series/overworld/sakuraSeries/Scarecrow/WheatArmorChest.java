@@ -57,7 +57,7 @@ public class WheatArmorChest extends ArmorItem implements GeoItem {
                 append(ComponentUtils.AttributeDescription.manaDamageValue("30%")));
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         components.add(Component.literal("Scarecrow_ChestPlate").withStyle(style).withStyle(ChatFormatting.ITALIC));
-        Compute.SuffixOfMainStoryV(components);
+        ComponentUtils.suffixOfChapterV(components);
         super.appendHoverText(stack, level, components, flag);
     }
 

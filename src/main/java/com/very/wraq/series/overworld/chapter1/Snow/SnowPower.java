@@ -53,7 +53,6 @@ public class SnowPower extends Item implements ActiveItem {
         ComponentUtils.coolDownTimeDescription(components, CoolDownTime[tier]);
         ComponentUtils.manaCostDescription(components, ManaCost[tier]);
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
-        components.add(Component.literal("Powers-Snow").withStyle(CustomStyle.styleOfSnow));
         super.appendHoverText(itemStack, level, components, flag);
     }
 

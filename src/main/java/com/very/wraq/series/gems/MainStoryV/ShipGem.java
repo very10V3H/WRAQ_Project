@@ -39,7 +39,7 @@ public class ShipGem extends Item {
 /*        Compute.EmojiDescriptionDefencePenetration(components,DefencePenetration);
         Compute.EmojiDescriptionManaPenetration(components,ManaPenetration);*/
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        Compute.SuffixOfMainStoryV(components);
+        ComponentUtils.suffixOfChapterV(components);
         super.appendHoverText(stack, level, components, flag);
     }
 

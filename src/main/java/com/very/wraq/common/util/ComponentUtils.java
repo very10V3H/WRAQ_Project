@@ -174,99 +174,107 @@ public class ComponentUtils {
     }
 
     public static void suffixOfChapterI(List<Component> components) {
-        components.add(Component.literal("ChapterI").withStyle(ChatFormatting.AQUA).withStyle(ChatFormatting.ITALIC));
+        components.add(getSuffixOfChapterI());
     }
 
     public static Component getSuffixOfChapterI() {
-        return Component.literal("ChapterI").withStyle(ChatFormatting.AQUA).withStyle(ChatFormatting.ITALIC);
+        return Component.literal("德朗斯蒂克之作").withStyle(ChatFormatting.AQUA).withStyle(ChatFormatting.ITALIC);
     }
 
     public static void suffixOfChapterII(List<Component> components) {
-        components.add(Component.literal("ChapterII").withStyle(ChatFormatting.AQUA).withStyle(ChatFormatting.ITALIC));
+        components.add(getSuffixChapterII());
     }
 
     public static Component getSuffixChapterII() {
-        return Component.literal("ChapterII").withStyle(ChatFormatting.AQUA).withStyle(ChatFormatting.ITALIC);
+        return Component.literal("艾里蒙特大陆杰作").withStyle(ChatFormatting.LIGHT_PURPLE).withStyle(ChatFormatting.ITALIC);
     }
 
     public static void suffixOfChapterIII(List<Component> components) {
-        components.add(Component.literal("ChapterIII").withStyle(CustomStyle.styleOfNether).withStyle(ChatFormatting.ITALIC));
+        components.add(getSuffixChapterIII());
     }
 
     public static Component getSuffixChapterIII() {
-        return Component.literal("ChapterIII").withStyle(CustomStyle.styleOfNether).withStyle(ChatFormatting.ITALIC);
+        return Component.literal("凶险下界之物").withStyle(CustomStyle.styleOfNether).withStyle(ChatFormatting.ITALIC);
     }
 
     public static Component getSuffixOfIgniteRevenant() {
-        return Component.literal("IgniteRevenant").withStyle(CustomStyle.styleOfPower).withStyle(ChatFormatting.ITALIC);
+        return Component.literal("燃魂残烬").withStyle(CustomStyle.styleOfPower).withStyle(ChatFormatting.ITALIC);
     }
 
     public static void suffixOfChapterIV(List<Component> components) {
-        components.add(Component.literal("ChapterIV").withStyle(CustomStyle.styleOfEnd).withStyle(ChatFormatting.ITALIC));
+        components.add(getSuffixChapterIV());
     }
 
     public static Component getSuffixChapterIV() {
-        return Component.literal("ChapterIV").withStyle(CustomStyle.styleOfEnd).withStyle(ChatFormatting.ITALIC);
+        return Component.literal("终界遗响").withStyle(CustomStyle.styleOfEnd).withStyle(ChatFormatting.ITALIC);
     }
 
     public static void suffixOfChapterV(List<Component> components) {
-        components.add(Component.literal("ChapterV").withStyle(CustomStyle.styleOfSakura).withStyle(ChatFormatting.ITALIC));
+        components.add(getSuffixOfChapterV());
+    }
+
+    public static Component getSuffixOfSakura() {
+        return Component.literal("绯樱散华").withStyle(CustomStyle.styleOfSakura).withStyle(ChatFormatting.ITALIC);
     }
 
     public static Component getSuffixOfChapterV() {
-        return Component.literal("ChapterV").withStyle(CustomStyle.styleOfSakura).withStyle(ChatFormatting.ITALIC);
+        return Component.literal("绯樱散华").withStyle(CustomStyle.styleOfSakura).withStyle(ChatFormatting.ITALIC);
     }
 
     public static void suffixOfMoon(List<Component> components) {
-        components.add(Component.literal("MoonPalace").withStyle(CustomStyle.styleOfMoon).withStyle(ChatFormatting.ITALIC));
+        components.add(getSuffixOfMoon());
     }
 
     public static Component getSuffixOfMoon() {
-        return Component.literal("MoonPalace").withStyle(CustomStyle.styleOfMoon).withStyle(ChatFormatting.ITALIC);
+        return Component.literal("沐尘圣礼").withStyle(CustomStyle.styleOfMoon).withStyle(ChatFormatting.ITALIC);
     }
 
     public static void suffixOfCastle(List<Component> components) {
-        components.add(Component.literal("BlackCastle").withStyle(CustomStyle.styleOfCastle).withStyle(ChatFormatting.ITALIC));
+        components.add(getSuffixOfCastle());
     }
 
     public static Component getSuffixOfCastle() {
-        return Component.literal("BlackCastle").withStyle(CustomStyle.styleOfCastle).withStyle(ChatFormatting.ITALIC);
-    }
-
-    public static Component getSuffixOfPurpleIron() {
-        return Component.literal("PurpleIronKnight").withStyle(CustomStyle.styleOfPurpleIron).withStyle(ChatFormatting.ITALIC);
-    }
-
-    public static Component getSuffixOfPlainBoss() {
-        return Component.literal("Plain").withStyle(CustomStyle.styleOfPlain).withStyle(ChatFormatting.ITALIC);
+        return Component.literal("暗黑渊屑").withStyle(CustomStyle.styleOfCastle).withStyle(ChatFormatting.ITALIC);
     }
 
     public static void suffixOfPurpleIronKnight(List<Component> components) {
-        components.add(Component.literal("PurpleIronKnight").withStyle(CustomStyle.styleOfPurpleIron).withStyle(ChatFormatting.ITALIC));
+        components.add(getSuffixOfPurpleIron());
+    }
+
+    public static Component getSuffixOfPurpleIron() {
+        return Component.literal("紫晶耀光").withStyle(CustomStyle.styleOfPurpleIron).withStyle(ChatFormatting.ITALIC);
+    }
+
+    public static Component getSuffixOfPlainBoss() {
+        return Component.literal("普莱尼生机之作").withStyle(CustomStyle.styleOfPlain).withStyle(ChatFormatting.ITALIC);
     }
 
     public static void suffixOfIce(List<Component> components) {
-        components.add(Component.literal("Ice").withStyle(CustomStyle.styleOfIce).withStyle(ChatFormatting.ITALIC));
+        components.add(Component.literal("凛冰之作").withStyle(CustomStyle.styleOfIce).withStyle(ChatFormatting.ITALIC));
+    }
+
+    public static Component getSuffixOfIce() {
+        return Component.literal("凛冰之作").withStyle(CustomStyle.styleOfIce).withStyle(ChatFormatting.ITALIC);
     }
 
     public static void suffixOfWorldSoul(List<Component> components) {
-        components.add(Component.literal("WorldSoul").withStyle(CustomStyle.styleOfWorld).withStyle(ChatFormatting.ITALIC));
+        components.add(Component.literal("新维地-本源名作").withStyle(CustomStyle.styleOfWorld).withStyle(ChatFormatting.ITALIC));
     }
 
     public static Component getSuffixOfWorldSoul() {
-        return Component.literal("WorldSoul").withStyle(CustomStyle.styleOfWorld).withStyle(ChatFormatting.ITALIC);
+        return Component.literal("新维地-本源名作").withStyle(CustomStyle.styleOfWorld).withStyle(ChatFormatting.ITALIC);
     }
 
-    public static void suffixOfMainStoryIV(List<Component> components) {
-        components.add(Component.literal("MainStoryIV").withStyle(CustomStyle.styleOfEnd).withStyle(ChatFormatting.ITALIC));
+    public static Component getSuffixOfDemon() {
+        return Component.literal("妖魔邪力").withStyle(CustomStyle.styleOfDemon).withStyle(ChatFormatting.ITALIC);
     }
 
     public static void suffixOfMainStoryVII(List<Component> components) {
-        components.add(Component.literal("ChapterVII").withStyle(CustomStyle.styleOfMoon1).withStyle(ChatFormatting.ITALIC));
+        components.add(Component.literal("尘月之梦").withStyle(CustomStyle.styleOfMoon1).withStyle(ChatFormatting.ITALIC));
     }
 
     public static Component getSuffixOfChapterVII() {
-        return Component.literal("ChapterVII").withStyle(CustomStyle.styleOfMoon1).withStyle(ChatFormatting.ITALIC);
+        return Component.literal("尘月之梦").withStyle(CustomStyle.styleOfMoon1).withStyle(ChatFormatting.ITALIC);
     }
 
     public static void runeAttributeDescription(List<Component> components) {
@@ -354,7 +362,6 @@ public class ComponentUtils {
     public static void suffixOfElement(List<Component> components) {
         components.add(getSuffixOfElement());
     }
-
     public static Component getSuffixOfElement() {
         for (int i = 0; i < Compute.colorList.size(); i++) {
             Color color = Compute.colorList.get(i);
@@ -369,18 +376,6 @@ public class ComponentUtils {
                 append(Component.literal("e").withStyle(Style.EMPTY.withColor(TextColor.parseColor(Compute.colorList.get(4).getRGB()))).withStyle(ChatFormatting.ITALIC)).
                 append(Component.literal("n").withStyle(Style.EMPTY.withColor(TextColor.parseColor(Compute.colorList.get(5).getRGB()))).withStyle(ChatFormatting.ITALIC)).
                 append(Component.literal("t").withStyle(Style.EMPTY.withColor(TextColor.parseColor(Compute.colorList.get(6).getRGB()))).withStyle(ChatFormatting.ITALIC));
-    }
-
-    public static Component getSuffixOfIce() {
-        return Component.literal("IceMemory").withStyle(CustomStyle.styleOfIce).withStyle(ChatFormatting.ITALIC);
-    }
-
-    public static Component getSuffixOfSakura() {
-        return Component.literal("Sakura").withStyle(CustomStyle.styleOfSakura).withStyle(ChatFormatting.ITALIC);
-    }
-
-    public static Component getSuffixOfDemon() {
-        return Component.literal("Demon").withStyle(CustomStyle.styleOfDemon).withStyle(ChatFormatting.ITALIC);
     }
 
     public static void coolDownTimeDescription(List<Component> components, int seconds) {
@@ -442,11 +437,11 @@ public class ComponentUtils {
     }
 
     public static Component getIntensifiedSuffix() {
-        return Component.literal("Intensified").withStyle(CustomStyle.styleOfPower).withStyle(ChatFormatting.ITALIC);
+        return Component.literal("激化-非稳定之物").withStyle(CustomStyle.styleOfPower).withStyle(ChatFormatting.ITALIC);
     }
 
     public static Component getSpurSuffix() {
-        return Component.literal("Wraq-Spur").withStyle(ChatFormatting.AQUA);
+        return Component.literal("支线-生产劳动所获").withStyle(ChatFormatting.AQUA);
     }
 
     public static Component getAttackDamageDotDescription(int lastSeconds, int times, String rate) {

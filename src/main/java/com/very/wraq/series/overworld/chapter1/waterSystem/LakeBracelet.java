@@ -19,7 +19,6 @@ public class LakeBracelet extends Item {
     private final double ExpUp = 0.3F;
     private final double CriticalRate = 0.05F;
     private final double MaxHealth = 50.0d;
-
     private final double CoolDown = 0.1F;
 
     public LakeBracelet() {
@@ -27,9 +26,7 @@ public class LakeBracelet extends Item {
         Utils.critRate.put(this, CriticalRate);
         Utils.maxHealth.put(this, MaxHealth);
         Utils.expUp.put(this, ExpUp);
-
         Utils.coolDownDecrease.put(this, CoolDown);
-
         Utils.offHandTag.put(this, 1d);
         Utils.weaponList.add(this);
     }
@@ -49,7 +46,6 @@ public class LakeBracelet extends Item {
             components.add(Component.literal("[按住shift展开套装效果]").withStyle(ChatFormatting.GRAY));
         }
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, chatFormatting, ChatFormatting.WHITE);
-        components.add(Component.literal("Lake_Bracelet").withStyle(chatFormatting).withStyle(ChatFormatting.ITALIC));
         ComponentUtils.suffixOfChapterI(components);
         super.appendHoverText(stack, level, components, flag);
     }

@@ -805,18 +805,6 @@ public class Compute {
             components.add(Component.literal("▷4件套效果:").withStyle(ChatFormatting.GRAY));
     }
 
-    public static void SuffixOfMainStoryV(List<Component> components) {
-        components.add(Component.literal("ChapterV").withStyle(CustomStyle.styleOfSakura).withStyle(ChatFormatting.ITALIC));
-    }
-
-    public static void SuffixOfMoon(List<Component> components) {
-        components.add(Component.literal("MoonPalace").withStyle(CustomStyle.styleOfMoon).withStyle(ChatFormatting.ITALIC));
-    }
-
-    public static void SuffixOfCastle(List<Component> components) {
-        components.add(Component.literal("BlackCastle").withStyle(CustomStyle.styleOfCastle).withStyle(ChatFormatting.ITALIC));
-    }
-
     public static String getRGB(int r, int g, int b) {
         char[] chars = {
                 '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'

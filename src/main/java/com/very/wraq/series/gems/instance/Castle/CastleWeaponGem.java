@@ -38,7 +38,7 @@ public class CastleWeaponGem extends Item {
         ComponentUtils.descriptionOfBasic(components);
         components.add(Component.literal(" 仅可用于武器").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        Compute.SuffixOfCastle(components);
+        ComponentUtils.suffixOfCastle(components);
         super.appendHoverText(stack, level, components, flag);
     }
 

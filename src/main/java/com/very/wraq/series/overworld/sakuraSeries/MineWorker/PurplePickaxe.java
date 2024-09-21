@@ -60,7 +60,7 @@ public class PurplePickaxe extends PickaxeItem {
         ComponentUtils.descriptionOfBasic(components);
         BasicAttributeDescription.BasicAttributeCommonDescription(components, stack);
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfPurpleIron, ChatFormatting.WHITE);
-        Compute.SuffixOfMainStoryV(components);
+        ComponentUtils.suffixOfChapterV(components);
         super.appendHoverText(stack, level, components, flag);
     }
 

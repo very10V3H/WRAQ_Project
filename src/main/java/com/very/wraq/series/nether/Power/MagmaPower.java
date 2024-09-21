@@ -9,8 +9,6 @@ import com.very.wraq.projectiles.ActiveItem;
 import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.Style;
-import net.minecraft.network.chat.TextColor;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -41,7 +39,6 @@ public class MagmaPower extends Item implements ActiveItem {
         ComponentUtils.coolDownTimeDescription(components, 3);
         ComponentUtils.manaCostDescription(components, 120);
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
-        components.add(Component.literal("Powers-Magma").withStyle(Style.EMPTY.withColor(TextColor.parseColor("#a2001b"))).withStyle(ChatFormatting.ITALIC));
         super.appendHoverText(itemStack, level, components, flag);
     }
 

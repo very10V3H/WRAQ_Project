@@ -62,7 +62,7 @@ public class MinePants extends ArmorItem implements GeoItem {
                 append(Compute.AttributeDescription.Defence("100")));
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         components.add(Component.literal("Mine_Pants").withStyle(style).withStyle(ChatFormatting.ITALIC));
-        Compute.SuffixOfMainStoryV(components);
+        ComponentUtils.suffixOfChapterV(components);
         super.appendHoverText(stack, level, components, flag);
     }
 

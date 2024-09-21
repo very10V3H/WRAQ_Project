@@ -53,7 +53,6 @@ public class EndPower extends Item implements ActiveItem {
         ComponentUtils.coolDownTimeDescription(components, CoolDownTime[Level]);
         components.add(Component.literal(" - IDEA FROM : AzusaLin").withStyle(ChatFormatting.LIGHT_PURPLE));
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
-        components.add(Component.literal("Powers-End").withStyle(style));
         super.appendHoverText(itemStack, level, components, flag);
     }
 

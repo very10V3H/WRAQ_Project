@@ -9,8 +9,6 @@ import com.very.wraq.projectiles.ActiveItem;
 import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.Style;
-import net.minecraft.network.chat.TextColor;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -40,14 +38,12 @@ public class WitherBoneMealPower extends Item implements ActiveItem {
                 append(Component.literal("移除范围内敌人").withStyle(ChatFormatting.WHITE)).
                 append(Compute.AttributeDescription.ManaDefence("50%")).
                 append(Component.literal(" 持续5s").withStyle(ChatFormatting.WHITE)));
-
         components.add(Component.literal(" - 这个伤害会附带").withStyle(ChatFormatting.WHITE).
                 append(Element.Description.FireElement("1 + 100%")));
         components.add(Component.literal("扣除自身").withStyle(ChatFormatting.WHITE).
                 append(Compute.AttributeDescription.MaxMana("33%")));
         ComponentUtils.coolDownTimeDescription(components, 10);
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
-        components.add(Component.literal("Powers-NeSkeleton").withStyle(Style.EMPTY.withColor(TextColor.parseColor("#a2001b"))).withStyle(ChatFormatting.ITALIC));
         super.appendHoverText(itemStack, level, components, flag);
     }
 

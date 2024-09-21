@@ -19,7 +19,6 @@ public class VolcanoBracelet extends Item {
     private final double ExpUp = 0.3F;
     private final double CriticalRate = 0.05F;
     private final double MaxHealth = 50.0d;
-
     private final double ExDamage = 10;
 
     public VolcanoBracelet() {
@@ -27,9 +26,7 @@ public class VolcanoBracelet extends Item {
         Utils.critRate.put(this, CriticalRate);
         Utils.maxHealth.put(this, MaxHealth);
         Utils.expUp.put(this, ExpUp);
-
         Utils.attackDamage.put(this, ExDamage);
-
         Utils.offHandTag.put(this, 1d);
         Utils.weaponList.add(this);
     }
@@ -49,7 +46,6 @@ public class VolcanoBracelet extends Item {
             components.add(Component.literal("[按住shift展开套装效果]").withStyle(ChatFormatting.GRAY));
         }
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, chatFormatting, ChatFormatting.WHITE);
-        components.add(Component.literal("Volcano_Bracelet").withStyle(chatFormatting).withStyle(ChatFormatting.ITALIC));
         ComponentUtils.suffixOfChapterI(components);
         super.appendHoverText(stack, level, components, flag);
     }

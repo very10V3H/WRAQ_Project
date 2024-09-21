@@ -43,7 +43,7 @@ public class FancySapphireNecklace extends Item implements ICurioItem {
         ComponentUtils.descriptionOfBasic(components);
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         ComponentUtils.descriptionOfAddition(components);
-        Compute.SuffixOfMainStoryV(components);
+        ComponentUtils.suffixOfChapterV(components);
         super.appendHoverText(stack, level, components, flag);
     }
 

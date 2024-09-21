@@ -44,7 +44,7 @@ public class CastleCurios extends Item implements ICurioItem, RandomCurios {
         randomPassiveText(components, stack);
         Compute.LevelRequire(components, Utils.levelRequire.get(this));
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        Compute.SuffixOfCastle(components);
+        ComponentUtils.suffixOfCastle(components);
         super.appendHoverText(stack, level, components, flag);
     }
 

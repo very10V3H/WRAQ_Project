@@ -47,7 +47,7 @@ public class TreeBracelet extends Item implements ICurioItem {
                 append(Component.literal("等级强度").withStyle(ChatFormatting.LIGHT_PURPLE)).
                 append(Component.literal("魔法伤害").withStyle(style)));
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        Compute.SuffixOfCastle(components);
+        ComponentUtils.suffixOfCastle(components);
         super.appendHoverText(stack, level, components, flag);
     }
 

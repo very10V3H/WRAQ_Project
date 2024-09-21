@@ -47,7 +47,6 @@ public class PlainBracelet extends Item {
             components.add(Component.literal("[按住shift展开套装效果]").withStyle(ChatFormatting.GRAY));
         }
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, chatFormatting, ChatFormatting.WHITE);
-        components.add(Component.literal("Plain_Bracelet").withStyle(chatFormatting).withStyle(ChatFormatting.ITALIC));
         ComponentUtils.suffixOfChapterI(components);
         super.appendHoverText(stack, level, components, flag);
     }

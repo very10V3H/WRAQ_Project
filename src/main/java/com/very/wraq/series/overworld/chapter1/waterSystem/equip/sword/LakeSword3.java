@@ -69,7 +69,6 @@ public class LakeSword3 extends SwordItem implements ActiveItem, OnHitEffectMain
         ComponentUtils.coolDownTimeDescription(components, 8);
         ComponentUtils.manaCostDescription(components, 60);
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, ChatFormatting.BLUE, ChatFormatting.WHITE);
-        components.add(Component.literal("Lake-Spear-III").withStyle(ChatFormatting.BLUE).withStyle(ChatFormatting.ITALIC));
         ComponentUtils.suffixOfChapterI(components);
         super.appendHoverText(stack, level, components, flag);
     }

@@ -65,7 +65,7 @@ public class MoonBelt extends Item implements ICurioItem {
         components.add(Component.literal(" -护盾值不会超过最大生命值的200%").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
         ComponentUtils.coolDownTimeDescription(components, 10);
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        Compute.SuffixOfMoon(components);
+        ComponentUtils.suffixOfMoon(components);
         super.appendHoverText(stack, level, components, flag);
     }
 

@@ -24,9 +24,7 @@ import com.very.wraq.render.mobEffects.ModEffects;
 import com.very.wraq.render.particles.ModParticles;
 import com.very.wraq.series.end.eventController.SnowRecall.SnowSword4;
 import com.very.wraq.series.overworld.chapter1.Mine.Sword.MineSword;
-import com.very.wraq.series.overworld.chapter1.Snow.Sword.SnowSword0;
-import com.very.wraq.series.overworld.chapter1.Snow.Sword.SnowSword1;
-import com.very.wraq.series.overworld.chapter1.Snow.Sword.SnowSword2;
+import com.very.wraq.series.overworld.chapter1.Snow.Sword.SnowSword;
 import com.very.wraq.series.overworld.chapter1.Snow.Sword.SnowSword3;
 import com.very.wraq.series.overworld.chapter1.forest.bow.ForestBow;
 import com.very.wraq.series.overworld.chapter1.plain.bow.PlainBow;
@@ -79,9 +77,8 @@ public class AttackEventModule {
     }
 
     public static void MineSwordAndSnowSwordSlowDownForce(Item item, Mob monster) {
-        if (item instanceof MineSword || item instanceof SnowSword0 || item instanceof SnowSword1
-                || item instanceof SnowSword2 || item instanceof SnowSword3 || item instanceof SnowSword4) {
-            if ((item instanceof MineSword mineSword && mineSword.getWraqTier() == 3) || item instanceof SnowSword0 || item instanceof SnowSword1 || item instanceof SnowSword2
+        if (item instanceof MineSword || item instanceof SnowSword || item instanceof SnowSword3 || item instanceof SnowSword4) {
+            if ((item instanceof MineSword mineSword && mineSword.getWraqTier() == 3) || item instanceof SnowSword
                     || item instanceof SnowSword3 || item instanceof SnowSword4)
                 monster.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 40, 1, false, false));
             else monster.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 40, 2, false, false));
@@ -90,47 +87,6 @@ public class AttackEventModule {
         }
     }
 
-    /*    public static void KillPositiveEffect(Player attacker)
-        {
-            CompoundTag data = attacker.getPersistentData();
-            if (data.contains("SeaSword0") && data.getBoolean("SeaSword0")) {
-                attacker.heal(attacker.getMaxHealth() * 0.25f);
-                if(!data.contains("IgnoreFight") || (!data.getBoolean("IgnoreFight"))) Compute.FormatMSGSend(attacker, Component.literal("战斗").withStyle(ChatFormatting.DARK_RED),
-                        Component.literal("灵魂救赎者为你治疗了").append(Component.literal(String.format("%.2f", attacker.getMaxHealth() * 0.25f)).withStyle(CustomStyle.styleOfSea)).
-                                append("生命值").withStyle(ChatFormatting.GREEN));
-            }
-            if (data.contains("SeaSword3") && data.getBoolean("SeaSword3")) {
-                attacker.heal(attacker.getMaxHealth() * 0.4f);
-                if(!data.contains("IgnoreFight") || (!data.getBoolean("IgnoreFight")))Compute.FormatMSGSend(attacker, Component.literal("战斗").withStyle(ChatFormatting.DARK_RED),
-                        Component.literal("灵魂救赎者为你治疗了").append(Component.literal(String.format("%.2f", attacker.getMaxHealth() * 0.4f)).withStyle(CustomStyle.styleOfSea)).
-                                append("生命值").withStyle(ChatFormatting.GREEN));
-            }
-            if (data.contains("SeaSword4") && data.getBoolean("SeaSword4")) {
-                attacker.heal(attacker.getMaxHealth() * 0.4f);
-                if(!data.contains("IgnoreFight") || (!data.getBoolean("IgnoreFight")))Compute.FormatMSGSend(attacker, Component.literal("战斗").withStyle(ChatFormatting.DARK_RED),
-                        Component.literal("灵魂救赎者为你治疗了").append(Component.literal(String.format("%.2f", attacker.getMaxHealth() * 0.4f)).withStyle(CustomStyle.styleOfSea)).
-                                append("生命值").withStyle(ChatFormatting.GREEN));
-            }
-            if (data.contains("BlackForestSword0") && data.getBoolean("BlackForestSword0")) {
-                Compute.PlayerShieldProvider(attacker, 200, attacker.getMaxHealth() * 0.25f);
-                if(!data.contains("IgnoreFight") || (!data.getBoolean("IgnoreFight")))Compute.FormatMSGSend(attacker, Component.literal("战斗").withStyle(ChatFormatting.DARK_RED),
-                        Component.literal("灵魂收割者为你提供了").append(Component.literal(String.format("%.2f", attacker.getMaxHealth() * 0.25f)).withStyle(CustomStyle.styleOfBlackForest)).
-                                append("护盾").withStyle(ChatFormatting.GRAY));
-            }
-            if (data.contains("BlackForestSword3") && data.getBoolean("BlackForestSword3")) {
-                Compute.PlayerShieldProvider(attacker, 200, attacker.getMaxHealth() * 0.4f);
-                if(!data.contains("IgnoreFight") || (!data.getBoolean("IgnoreFight")))Compute.FormatMSGSend(attacker, Component.literal("战斗").withStyle(ChatFormatting.DARK_RED),
-                        Component.literal("灵魂收割者为你提供了").append(Component.literal(String.format("%.2f", attacker.getMaxHealth() * 0.4f)).withStyle(CustomStyle.styleOfBlackForest)).
-                                append("护盾").withStyle(ChatFormatting.GRAY));
-            }
-            if (data.contains("BlackForestSword4") && data.getBoolean("BlackForestSword4")) {
-                Compute.PlayerShieldProvider(attacker, 200, attacker.getMaxHealth() * 0.4f);
-                if(!data.contains("IgnoreFight") || (!data.getBoolean("IgnoreFight")))Compute.FormatMSGSend(attacker, Component.literal("战斗").withStyle(ChatFormatting.DARK_RED),
-                        Component.literal("灵魂收割者为你提供了").append(Component.literal(String.format("%.2f", attacker.getMaxHealth() * 0.4f)).withStyle(CustomStyle.styleOfBlackForest)).
-                                append("护盾").withStyle(ChatFormatting.GRAY));
-            }
-
-        }*/
     public static double BlackForest(Player player, Mob monster) {
         if (Utils.BlackForestSwordActiveMap.containsKey(player)) {
             double ExRate = monster.getHealth() * Utils.BlackForestSwordActiveMap.get(player) / monster.getMaxHealth();

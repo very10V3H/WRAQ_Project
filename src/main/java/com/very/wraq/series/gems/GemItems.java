@@ -300,4 +300,11 @@ public class GemItems {
 
     public static final RegistryObject<Item> moonManaGemO = ITEMS.register("moon_mana_gem_o",
             () -> new WraqGem.WraqGemO((WraqGem) moonManaGem.get(), 1));
+
+    public static final RegistryObject<Item> TEST_GEM = ITEMS.register("test_gem",
+            () -> new WraqGem(new Item.Properties().rarity(CustomStyle.Moon1Bold), new ArrayList<>() {{
+                add(new WraqGem.AttributeMapValue(Utils.defence, 400));
+                add(new WraqGem.AttributeMapValue(Utils.manaDamage, 120));
+            }}, CustomStyle.styleOfMoon1, Component.literal("测试宝石").withStyle(CustomStyle.styleOfMoon1),
+                    ComponentUtils.getSuffixOfMoon()));
 }

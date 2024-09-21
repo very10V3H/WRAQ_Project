@@ -282,131 +282,12 @@ public class LevelEvents {
                 if (!Utils.OverWorldLevelIsNight &&
                         event.level.getDayTime() % 24000 >= 12000) {
                     Utils.OverWorldLevelIsNight = true;
-/*                    Compute.FormatBroad(event.level, Component.literal("时间").withStyle(ChatFormatting.AQUA).withStyle(ChatFormatting.BOLD),
-                            Component.literal("天渐暗，怪物们得到了来自月光的强化。").withStyle(ChatFormatting.WHITE));*/
-/*                    Random r = new Random();
-                    Utils.netherMobSpawn = r.nextInt(1, 6);
-                    switch (Utils.netherMobSpawn) {
-                        case 1 -> {
-                            Compute.FormatBroad(event.level, Component.literal("下界").withStyle(CustomStyle.styleOfNether),
-                                    Component.literal("击杀下界的").withStyle(ChatFormatting.WHITE).append(Component.literal("下界凋零骷髅").withStyle(CustomStyle.styleOfNether)).
-                                            append(Component.literal("以获取额外掉落。").withStyle(ChatFormatting.WHITE)));
-                        }
-                        case 2 -> {
-                            Compute.FormatBroad(event.level, Component.literal("下界").withStyle(CustomStyle.styleOfNether),
-                                    Component.literal("击杀下界的").withStyle(ChatFormatting.WHITE).append(Component.literal("下界猪灵").withStyle(CustomStyle.styleOfNether)).
-                                            append(Component.literal("以获取额外掉落。").withStyle(ChatFormatting.WHITE)));
-                        }
-                        case 3 -> {
-                            Compute.FormatBroad(event.level, Component.literal("下界").withStyle(CustomStyle.styleOfNether),
-                                    Component.literal("击杀下界的").withStyle(ChatFormatting.WHITE).append(Component.literal("下界遗骸").withStyle(CustomStyle.styleOfNether)).
-                                            append(Component.literal("以获取额外掉落。").withStyle(ChatFormatting.WHITE)));
-                        }
-                        case 4 -> {
-                            Compute.FormatBroad(event.level, Component.literal("下界").withStyle(CustomStyle.styleOfNether),
-                                    Component.literal("击杀下界的").withStyle(ChatFormatting.WHITE).append(Component.literal("下界熔岩能量聚合物").withStyle(CustomStyle.styleOfNether)).
-                                            append(Component.literal("以获取额外掉落。").withStyle(ChatFormatting.WHITE)));
-                        }
-                    }*/
                 }
                 if (Utils.OverWorldLevelIsNight &&
                         event.level.dayTime() % 24000 == 1) {
                     Utils.OverWorldLevelIsNight = false;
-/*                    Compute.FormatBroad(event.level, Component.literal("时间").withStyle(ChatFormatting.AQUA).withStyle(ChatFormatting.BOLD),
-                            Component.literal("维瑞阿契迎来的新的一天。").withStyle(ChatFormatting.WHITE));
-                    if (Utils.netherMobSpawn >= 1 && Utils.netherMobSpawn <= 3) {
-                        Compute.FormatBroad(event.level, Component.literal("下界").withStyle(CustomStyle.styleOfNether),
-                                Component.literal("额外奖励事件结束").withStyle(ChatFormatting.WHITE));
-                    }
-                    Utils.netherMobSpawn = 0;*/
                 }
-
-/*                if(event.level.getServer().getTickCount() % 8000 == 0 && event.level.getServer().getTickCount() != Utils.securityCount1 && Utils.Security)
-                {
-                    Utils.securityCount1 = event.level.getServer().getTickCount();
-                    double sec0 = ConfigTest.Security0.get();
-                    double sec1 = ConfigTest.Security1.get();
-                    double sec2 = ConfigTest.Security2.get();
-                    double sec3 = ConfigTest.Security3.get();
-                    Utils.security0 =  sec0;
-                    Utils.security1 =  sec1;
-                    Utils.security2 =  sec2;
-                    Utils.security3 = (float) sec3;
-                    Compute.Broad(event.level,Component.literal("当前股市行情:").withStyle(ChatFormatting.GOLD));
-                    Compute.Broad(event.level,Component.literal("——————————").withStyle(ChatFormatting.AQUA));
-                    Compute.Broad(event.level,Component.literal("维瑞库尤酒店：").append(String.valueOf(Utils.security0)));
-                    Compute.Broad(event.level,Component.literal("维瑞库尤矿业：").append(String.valueOf(Utils.security1)));
-                    Compute.Broad(event.level,Component.literal("维瑞库尤渔业：").append(String.valueOf(Utils.security2)));
-                    Compute.Broad(event.level,Component.literal("维瑞库尤建设：").append(String.valueOf(Utils.security3)));
-                }
-                if(event.level.getServer().getTickCount() % 24000 == 0 && event.level.getServer().getTickCount() != Utils.securityCount && Utils.Security) {
-                    *//*                LogUtils.getLogger().info("log");*//*
-                    Utils.securityCount = event.level.getServer().getTickCount();
-                    Compute.Broad(event.level,Component.literal("今日股市行情:").withStyle(ChatFormatting.GOLD));
-                    Compute.Broad(event.level,Component.literal("——————————").withStyle(ChatFormatting.AQUA));
-                    Random r = new Random();
-                    double sec0 = ConfigTest.Security0.get();
-                    double sec1 = ConfigTest.Security1.get();
-                    double sec2 = ConfigTest.Security2.get();
-                    double sec3 = ConfigTest.Security3.get();
-                    Utils.security0 = (float) sec0;
-                    Utils.security1 = (float) sec1;
-                    Utils.security2 = (float) sec2;
-                    Utils.security3 = (float) sec3;
-
-                    float r1 = r.nextDouble(0.1F);
-                    Utils.security0 *= (0.9525+r1);
-                    if(r1 <= 0.0475) Compute.Broad(event.level,Component.literal("维瑞库尤酒店：").append(String.valueOf(Utils.security0)).append("[").append(Component.literal(String.format("%.2f",(r1-0.0475)*100)).withStyle(ChatFormatting.GREEN)).append(Component.literal("%]")));
-                    else Compute.Broad(event.level,Component.literal("维瑞库尤酒店：").append(String.valueOf(Utils.security0)).append("[").append(Component.literal("+"+String.format("%.2f",(r1-0.0475)*100)).withStyle(ChatFormatting.RED)).append(Component.literal("%]")));
-
-                    float r2 = r.nextDouble(0.1F);
-                    Utils.security1 *= (0.9525+r2);
-                    if(r2 <= 0.0475) Compute.Broad(event.level,Component.literal("维瑞库尤矿业：").append(String.valueOf(Utils.security1)).append("[").append(Component.literal(String.format("%.2f",(r2-0.0475)*100)).withStyle(ChatFormatting.GREEN)).append(Component.literal("%]")));
-                    else Compute.Broad(event.level,Component.literal("维瑞库尤矿业：").append(String.valueOf(Utils.security1)).append("[").append(Component.literal("+"+String.format("%.2f",(r2-0.0475)*100)).withStyle(ChatFormatting.RED)).append(Component.literal("%]")));
-
-                    float r3 = r.nextDouble(0.1F);
-                    Utils.security2 *= (0.9525+r3);
-                    if(r3 <= 0.0475) Compute.Broad(event.level,Component.literal("维瑞库尤渔业：").append(String.valueOf(Utils.security2)).append("[").append(Component.literal(String.format("%.2f",(r3-0.0475)*100)).withStyle(ChatFormatting.GREEN)).append(Component.literal("%]")));
-                    else Compute.Broad(event.level,Component.literal("维瑞库尤渔业：").append(String.valueOf(Utils.security2)).append("[").append(Component.literal("+"+String.format("%.2f",(r3-0.0475)*100)).withStyle(ChatFormatting.RED)).append(Component.literal("%]")));
-
-                    float r4 = r.nextDouble(0.1F);
-                    Utils.security3 *= (0.9525+r4);
-                    if(r4 <= 0.0475) Compute.Broad(event.level,Component.literal("维瑞库尤建设：").append(String.valueOf(Utils.security3)).append("[").append(Component.literal(String.format("%.2f",(r4-0.0475)*100)).withStyle(ChatFormatting.GREEN)).append(Component.literal("%]")));
-                    else Compute.Broad(event.level,Component.literal("维瑞库尤建设：").append(String.valueOf(Utils.security3)).append("[").append(Component.literal("+"+String.format("%.2f",(r4-0.0475)*100)).withStyle(ChatFormatting.RED)).append(Component.literal("%]")));
-
-                    ConfigTest.Security0.set( Utils.security0);
-                    ConfigTest.Security1.set( Utils.security1);
-                    ConfigTest.Security2.set( Utils.security2);
-                    ConfigTest.Security3.set( Utils.security3);
-                }*/
             }
-/*            if (event.level.equals(event.level.getServer().getLevel(Level.OVERWORLD))) {
-                int TickCount = event.level.getServer().getTickCount();
-                Random random = new Random();
-                if (TickCount % 36000 == 0) {
-                    double OriginalNum = Utils.WorldEntropyIncreaseSpeed;
-                    Utils.WorldEntropyIncreaseSpeed += 0.01 - (random.nextDouble(0.02));
-                    if (Utils.WorldEntropyIncreaseSpeed >= 0.75) Utils.WorldEntropyIncreaseSpeed = 0.75;
-                    if (Utils.WorldEntropyIncreaseSpeed <= 0.25) Utils.WorldEntropyIncreaseSpeed = 0.25;
-                    Compute.FormatBroad(event.level,Component.literal("世界本源").withStyle(CustomStyle.styleOfWorld),
-                            Component.literal("世界相对熵增速度发生了变化:").withStyle(ChatFormatting.WHITE).
-                                    append(Component.literal(String.format("%.2f%%",OriginalNum * 100)).withStyle(ChatFormatting.GRAY)).
-                                    append(Component.literal(" -> ").withStyle(ChatFormatting.WHITE)).
-                                    append(Component.literal(String.format("%.2f%%",Utils.WorldEntropyIncreaseSpeed * 100)).withStyle(CustomStyle.styleOfWorld)));
-                    Compute.FormatBroad(event.level,Component.literal("世界本源").withStyle(CustomStyle.styleOfWorld),
-                            Component.literal("世界不同地点本源解析场的相对介导常数发生了变化:").withStyle(ChatFormatting.WHITE));
-                    Utils.WorldEntropyPos.forEach(worldEntropy -> {
-                        double OriginalNum1 = worldEntropy.getMediumNum();
-                        worldEntropy.setMediumNum(random.nextDouble(0.25));
-                        Compute.FormatBroad(event.level,Component.literal("世界本源").withStyle(CustomStyle.styleOfWorld),
-                                Component.literal(worldEntropy.getDesName()).withStyle(ChatFormatting.WHITE).
-                                        append(Component.literal(String.format("%.2f%%",OriginalNum1 * 100)).withStyle(ChatFormatting.GRAY)).
-                                        append(Component.literal(" -> ").withStyle(ChatFormatting.WHITE)).
-                                        append(Component.literal(String.format("%.2f%%",worldEntropy.getMediumNum() * 100)).withStyle(CustomStyle.styleOfWorld)));
-                    });
-                    FileHandler.EntropyInfoWrite();
-                }
-            }*/
         }
     }
 
@@ -617,7 +498,8 @@ public class LevelEvents {
                     "对于有路径点的村庄，村庄内基本都有一些基础设施或基础物资商人",
                     "如果你不知道一个材料怎么获取，打开身份卡，点击物品图鉴，选择'材料'，试着推断或找到获取方式吧",
                     "等级带来的增益非常之高，努力提升等级吧",
-                    "推荐使用全屏时将界面尺寸调整至3以获得更好的体验"
+                    "推荐使用全屏时将界面尺寸调整至3以获得更好的体验",
+                    "你知道吗(F3+H)可以隐藏物品描述下方的灰色NBT(如果你曾不小心开启过)，可以让你的物品描述更加干净"
             };
             int tick = level.getServer().getTickCount();
 

@@ -27,9 +27,7 @@ public class MineBracelet extends Item {
         Utils.critRate.put(this, CriticalRate);
         Utils.maxHealth.put(this, MaxHealth);
         Utils.expUp.put(this, ExpUp);
-
         Utils.defence.put(this, Defence);
-
         Utils.offHandTag.put(this, 1d);
         Utils.weaponList.add(this);
     }
