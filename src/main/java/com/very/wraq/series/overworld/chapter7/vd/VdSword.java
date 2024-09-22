@@ -5,7 +5,7 @@ import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.Utils;
 import com.very.wraq.projectiles.ActiveItem;
 import com.very.wraq.projectiles.ForgeItem;
-import com.very.wraq.projectiles.MainHandTickItem;
+import com.very.wraq.projectiles.TickMainHandItem;
 import com.very.wraq.projectiles.WraqSword;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.overworld.chapter7.C7Items;
@@ -18,7 +18,7 @@ import net.minecraft.world.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VdSword extends WraqSword implements ForgeItem, ActiveItem, MainHandTickItem, VdWeaponCommon {
+public class VdSword extends WraqSword implements ForgeItem, ActiveItem, TickMainHandItem, VdWeaponCommon {
 
     public VdSword(Properties properties) {
         super(properties);

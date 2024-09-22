@@ -5,6 +5,7 @@ import com.very.wraq.common.attribute.DamageInfluence;
 import com.very.wraq.common.attribute.MobAttributes;
 import com.very.wraq.common.attribute.PlayerAttributes;
 import com.very.wraq.common.registry.ModItems;
+import com.very.wraq.common.registry.MySound;
 import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.util.struct.Shield;
@@ -62,19 +63,19 @@ public class MonsterAttackEvent {
     public static void monsterAttack(Mob monster, Player player, double damage) {
         CompoundTag data = player.getPersistentData();
 
-        double DamageDecrease = Compute.getSwordSkill1And4(data, player);
+        double damageDecreaseRate = Compute.getSwordSkill1And4(data, player);
 
-        DamageDecrease += Compute.getSwordSkill14(data, player, monster);
-        DamageDecrease += Compute.getBowSkill4(data, player);
-        DamageDecrease += Compute.getManaSkill4(data, player);
-        DamageDecrease += DamageInfluence.levelSuppress(player, monster); // 等级压制
-        DamageDecrease += ScarecrowChestPlate(player); // 稻草甲
-        DamageDecrease += SnowArmorEffectDamageDecrease(monster); // 冰川盔甲
-        DamageDecrease += EarthPower.MobDamageDecrease(monster); // 地蕴法术
-        DamageDecrease += CastleCurios.DamageDecrease(player);
-        DamageDecrease += LakePower.PlayerDefend(player); // 湖泊法术
+        damageDecreaseRate += Compute.getSwordSkill14(data, player, monster);
+        damageDecreaseRate += Compute.getBowSkill4(data, player);
+        damageDecreaseRate += Compute.getManaSkill4(data, player);
+        damageDecreaseRate += DamageInfluence.levelSuppress(player, monster); // 等级压制
+        damageDecreaseRate += ScarecrowChestPlate(player); // 稻草甲
+        damageDecreaseRate += SnowArmorEffectDamageDecrease(monster); // 冰川盔甲
+        damageDecreaseRate += EarthPower.MobDamageDecrease(monster); // 地蕴法术
+        damageDecreaseRate += CastleCurios.DamageDecrease(player);
+        damageDecreaseRate += LakePower.PlayerDefend(player); // 湖泊法术
 
-        damage *= (1 - DamageDecrease);
+        damage *= (1 - damageDecreaseRate);
         damage *= TabooAttackArmor.Passive(player);
         damage *= (1 - NewPotionEffects.resistanceEnhance(player));
 
@@ -84,15 +85,7 @@ public class MonsterAttackEvent {
         if (data.contains(StringUtils.SakuraDemonSword)
                 && data.getInt(StringUtils.SakuraDemonSword) > player.getServer().getTickCount()) damage = 0;
 
-        if (SlimeBoots.IsOn(player)) {
-            damage -= player.getMaxHealth() * 0.1;
-            ClientboundSoundPacket clientboundSoundPacket =
-                    new ClientboundSoundPacket(Holder.direct(SoundEvents.SLIME_HURT), SoundSource.PLAYERS, player.getX(), player.getY(), player.getZ(), 0.4f, 0.4f, 0);
-            ((ServerPlayer) player).connection.send(clientboundSoundPacket);
-        } // 史莱姆鞋子 伤害削减
-
-        double healthSteal = MobAttributes.healthSteal(monster);
-
+        // 闪避几率
         Random random = new Random();
         if (random.nextDouble() < Compute.PlayerDodgeRate(player)) {
             damage = 0;
@@ -101,12 +94,35 @@ public class MonsterAttackEvent {
             ClientboundSetActionBarTextPacket clientboundSetActionBarTextPacket =
                     new ClientboundSetActionBarTextPacket(Component.literal("闪避！").withStyle(CustomStyle.styleOfFlexible));
             ((ServerPlayer) player).connection.send(clientboundSetActionBarTextPacket);
-        } // 闪避几率
-        String name = player.getName().getString();
-        if (Utils.rollingTickMap.containsKey(name) && player.getServer().getTickCount() < Utils.rollingTickMap.get(name))
-            damage = 0;
+        }
 
-        if (ForestNewRune.protectPlayerFromDamage(player, damage)) damage = 0;
+        String name = player.getName().getString();
+        if (Utils.rollingTickMap.containsKey(name) && player.getServer().getTickCount() < Utils.rollingTickMap.get(name)) {
+            damage = 0;
+        }
+        if (ForestNewRune.protectPlayerFromDamage(player, damage)) {
+            damage = 0;
+        }
+
+        // 史莱姆鞋子 伤害削减
+        if (SlimeBoots.IsOn(player) && damage > 0) {
+            damage -= player.getMaxHealth() * 0.1;
+            ClientboundSoundPacket clientboundSoundPacket =
+                    new ClientboundSoundPacket(Holder.direct(SoundEvents.SLIME_HURT), SoundSource.PLAYERS, player.getX(), player.getY(), player.getZ(), 0.4f, 0.4f, 0);
+            ((ServerPlayer) player).connection.send(clientboundSoundPacket);
+        }
+
+        // 副手盾受到伤害削减
+        if (Utils.shieldTag.containsKey(player.getOffhandItem().getItem())) {
+            double damageDecreaseValue = PlayerAttributes.defence(player) * 0.35 + PlayerAttributes.manaDefence(player) * 0.35;
+            if (damageDecreaseValue > damage * 0.75) {
+                MySound.soundToPlayer(player, SoundEvents.SHIELD_BLOCK);
+            }
+            damage -= damageDecreaseValue;
+        }
+
+        double healthSteal = MobAttributes.healthSteal(monster);
+
         if (damage > 0) {
             double damageAfterShieldDecrease = Shield.decreasePlayerShield(player, damage);
             if (player.isCreative()) {

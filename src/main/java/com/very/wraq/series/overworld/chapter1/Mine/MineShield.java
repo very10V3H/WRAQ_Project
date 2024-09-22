@@ -1,6 +1,7 @@
 package com.very.wraq.series.overworld.chapter1.Mine;
 
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.fast.Te;
 import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.Utils;
 import com.very.wraq.render.toolTip.CustomStyle;
@@ -17,15 +18,12 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class MineShield extends Item {
-    private final double ExpUp = 0.3F;
-    private final double MaxHealth = 200;
-    private final double Defence = 100;
 
     public MineShield() {
         super(new Properties().rarity(CustomStyle.VolcanoItalic));
-        Utils.maxHealth.put(this, MaxHealth);
-        Utils.expUp.put(this, ExpUp);
-        Utils.defence.put(this, Defence);
+        Utils.maxHealth.put(this, 200d);
+        Utils.expUp.put(this, 0.3);
+        Utils.defence.put(this, 100d);
         Utils.offHandTag.put(this, 1d);
         Utils.weaponList.add(this);
         Utils.shieldTag.put(this, 1d);
@@ -60,6 +58,12 @@ public class MineShield extends Item {
                 append(ComponentUtils.AttributeDescription.defence("25%")).
                 append(Component.literal("与").withStyle(ChatFormatting.WHITE)).
                 append(ComponentUtils.AttributeDescription.manaDefence("25%")));
+        components.add(Te.m(" 并基于").
+                append(ComponentUtils.AttributeDescription.defence("35%")).
+                append(Te.m("与")).
+                append(ComponentUtils.AttributeDescription.manaDefence("35%")).
+                append(Te.m("之和，在受击时提供等额")).
+                append(Te.m("直接伤害减免", ChatFormatting.GRAY)));
         Compute.DescriptionPassive(components, Component.literal("盾击").withStyle(ChatFormatting.GRAY));
         components.add(Component.literal(" 基于").withStyle(ChatFormatting.WHITE).
                 append(Compute.AttributeDescription.Defence("")).

@@ -111,7 +111,6 @@ public abstract class WraqSceptre extends WraqMainHandEquip {
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
-        /*Compute.ManaAttack(player);*/
         if (player.getItemInHand(InteractionHand.OFF_HAND).is(Items.AIR)
                 && interactionHand.equals(InteractionHand.MAIN_HAND)) {
             CompoundTag data = player.getItemInHand(InteractionHand.MAIN_HAND).getOrCreateTagElement(Utils.MOD_ID);
@@ -121,7 +120,8 @@ public abstract class WraqSceptre extends WraqMainHandEquip {
                 data.remove(StringUtils.ManaCore.ManaCore);
             }
         }
-        return super.use(level, player, interactionHand);
+        return interactionHand.equals(InteractionHand.MAIN_HAND)
+                ? InteractionResultHolder.success(player.getMainHandItem()) : InteractionResultHolder.success(player.getOffhandItem());
     }
 
     public static void getManaCoreAddition(ItemStack stack, List<Component> components) {

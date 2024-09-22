@@ -11,7 +11,7 @@ import com.very.wraq.common.util.Utils;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.projectiles.ActiveItem;
 import com.very.wraq.projectiles.ForgeItem;
-import com.very.wraq.projectiles.MainHandTickItem;
+import com.very.wraq.projectiles.TickMainHandItem;
 import com.very.wraq.projectiles.WraqSceptre;
 import com.very.wraq.projectiles.mana.ManaArrow;
 import com.very.wraq.render.particles.ModParticles;
@@ -30,7 +30,7 @@ import net.minecraft.world.level.Level;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VdSceptre extends WraqSceptre implements ForgeItem, ActiveItem, MainHandTickItem, VdWeaponCommon {
+public class VdSceptre extends WraqSceptre implements ForgeItem, ActiveItem, TickMainHandItem, VdWeaponCommon {
     public VdSceptre(Properties properties) {
         super(properties);
         Utils.manaDamage.put(this, 3600d);

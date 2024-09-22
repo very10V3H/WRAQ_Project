@@ -44,7 +44,7 @@ import com.very.wraq.process.system.missions.series.dailyMission.DailyMission;
 import com.very.wraq.process.system.respawn.MyRespawnRule;
 import com.very.wraq.process.system.season.MySeason;
 import com.very.wraq.process.system.tower.TowerMob;
-import com.very.wraq.projectiles.MainHandTickItem;
+import com.very.wraq.projectiles.TickMainHandItem;
 import com.very.wraq.projectiles.OnCuriosSlotTickEffect;
 import com.very.wraq.projectiles.mana.BlazeSword;
 import com.very.wraq.projectiles.mana.SwordAir;
@@ -149,7 +149,7 @@ public class ServerPlayerTickEvent {
             SummerEvent.tick(player);
             OnCuriosSlotTickEffect.tickEvent(player);
 
-            if (player.getMainHandItem().getItem() instanceof MainHandTickItem mainHandTickItem) mainHandTickItem.tick(player);
+            if (player.getMainHandItem().getItem() instanceof TickMainHandItem tickMainHandItem) tickMainHandItem.tick(player);
 
             if (player.tickCount % 20 == 4) {
                 List<EntityLeafcutterAnt> ants = serverPlayer.level().getEntitiesOfClass(EntityLeafcutterAnt.class, AABB.ofSize(serverPlayer.position(), 100, 100, 100));
