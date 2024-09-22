@@ -8,7 +8,7 @@ import java.util.Map;
 
 public enum BonusChestInfo {
 
-    ZONE0_0(new BlockPos(0, 0, 0), 0, 0, 0);
+    ZONE0_0(new BlockPos(958, 224, 17), 0, 0, 0);
 
     public final BlockPos chestPos;
     public final int tier;
@@ -22,7 +22,7 @@ public enum BonusChestInfo {
         this.serial = serial;
     }
 
-    public static Map<BlockPos, BonusChestInfo> infoMap = new HashMap<>() {{
+    public static final Map<BlockPos, BonusChestInfo> infoMap = new HashMap<>() {{
         Arrays.stream(BonusChestInfo.values())
                 .forEach(info -> put(info.chestPos, info));
     }};

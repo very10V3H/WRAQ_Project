@@ -52,6 +52,10 @@ public class BonusChestPlayerData {
         data.putString(getZoneInfoKey(zoneNum), info);
     }
 
+    public static void resetZoneInfo(Player player, int zoneNum) {
+        setZoneInfo(player, zoneNum, ORIGIN_INFO_STRING);
+    }
+
     private static int getInfoBySerialNum(Player player, int zoneNum, int serialNum) {
         if (serialNum >= 255) {
             player.sendSystemMessage(
@@ -79,14 +83,14 @@ public class BonusChestPlayerData {
     }
     private static void addZoneCount(Player player, int zone) {
         CompoundTag data = getBonusChestData(player);
-        data.putInt(ZONE_COUNT_KEY + zone, data.getInt(ZONE_COUNT_KEY) + 1);
+        data.putInt(ZONE_COUNT_KEY + zone, data.getInt(ZONE_COUNT_KEY + zone) + 1);
     }
     public static int getTierCount(Player player, int tier) {
         return getBonusChestData(player).getInt(TIER_COUNT_KEY + tier);
     }
     private static void addTierCount(Player player, int tier) {
         CompoundTag data = getBonusChestData(player);
-        data.putInt(TIER_COUNT_KEY + tier, data.getInt(TIER_COUNT_KEY) + 1);
+        data.putInt(TIER_COUNT_KEY + tier, data.getInt(TIER_COUNT_KEY + tier) + 1);
     }
 
     public static void onPlayerSuccessOpenBonusChest(Player player, BlockPos blockPos,

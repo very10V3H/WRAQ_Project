@@ -1,7 +1,6 @@
 package com.very.wraq.Items.MainStory_1.Mission;
 
 import com.very.wraq.common.util.ComponentUtils;
-import com.very.wraq.process.system.smelt.Smelt;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -15,7 +14,6 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,11 +51,6 @@ public class Main0 extends Item {
         if (!level.isClientSide && !player.isShiftKeyDown()) {
             String name = player.getName().getString();
             CompoundTag data = player.getPersistentData();
-            try {
-                Smelt.fastenAllSmeltProgress(player, 30);
-            } catch (ParseException e) {
-                throw new RuntimeException(e);
-            }
         }
 
         if (!level.isClientSide && player.isShiftKeyDown()) {

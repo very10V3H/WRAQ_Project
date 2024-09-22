@@ -19,6 +19,7 @@ import com.very.wraq.networking.misc.Limit.CheckBlockLimitS2CPacket;
 import com.very.wraq.networking.misc.TeamPackets.ScreenSetS2CPacket;
 import com.very.wraq.networking.unSorted.PlayerCallBack;
 import com.very.wraq.process.func.item.InventoryOperation;
+import com.very.wraq.process.system.bonuschest.BonusChestInfo;
 import com.very.wraq.process.system.bonuschest.BonusChestPlayerData;
 import com.very.wraq.process.system.forge.ForgeHammer;
 import com.very.wraq.process.system.spur.events.CropSpur;
@@ -243,10 +244,10 @@ public class BlockEvent {
                     && !blockState.getBlock().toString().contains("seat")) {
                 event.setCanceled(true);
             }
-            if (block instanceof ChestBlock && event.getSide().isServer() && !Utils.rewardChestPos.contains(blockPos)) {
+            if (block instanceof ChestBlock && event.getSide().isServer() && !BonusChestInfo.infoMap.containsKey(blockPos)) {
                 event.setCanceled(true);
             }
-            if (block instanceof ChestBlock && event.getSide().isServer() && Utils.rewardChestPos.contains(blockPos)) {
+            if (block instanceof ChestBlock && event.getSide().isServer() && BonusChestInfo.infoMap.containsKey(blockPos)) {
                 if (player.getItemInHand(InteractionHand.MAIN_HAND).is(Items.AIR)) {
                     if (Utils.playerIsUsingBlockBlockPosMap.containsValue(blockPos)) {
                         Compute.sendFormatMSG(player, Component.literal("奖励箱").withStyle(ChatFormatting.LIGHT_PURPLE),
