@@ -4063,8 +4063,12 @@ public class ModItems {
     public static final RegistryObject<Item> pickUpgradePaper = ITEMS.register("pick_upgrade_paper",
             () -> new SimpleFoiledItem(new Item.Properties().rarity(Rarity.UNCOMMON)));
 
+    public static final RegistryObject<Item> INCEPTION_UPGRADE_PAPER = ITEMS.register("inception_upgrade_paper",
+            () -> new SimpleFoiledItem(new Item.Properties().rarity(Rarity.UNCOMMON)));
+
     public static final RegistryObject<Item> goldCoinLottery = ITEMS.register("gold_coin_lottery",
             () -> new NewLotteries(new Item.Properties().rarity(CustomStyle.GoldBold), new ArrayList<>() {{
+                add(new NewLotteries.Loot(ModItems.INCEPTION_UPGRADE_PAPER.get().getDefaultInstance(), 0.01));
                 add(new NewLotteries.Loot(ModItems.skinTemplatePaper.get().getDefaultInstance(), 0.02));
                 add(new NewLotteries.Loot(ModItems.pickUpgradePaper.get().getDefaultInstance(), 0.02));
                 add(new NewLotteries.Loot(ModItems.RefiningGold.get().getDefaultInstance(), 0.02));
