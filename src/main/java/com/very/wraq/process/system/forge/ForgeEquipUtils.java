@@ -355,9 +355,9 @@ public class ForgeEquipUtils {
     public static double getTraditionalEquipBaseValue(ItemStack equip, Map<Item, Double> map) {
         double exValue = 0;
         if (equip.getItem() instanceof ExBaseAttributeValueEquip exBaseAttributeValueEquip
-                && exBaseAttributeValueEquip.getBaseAttributeMap().equals(map)) {
-            CompoundTag data = equip.getOrCreateTagElement(Utils.MOD_ID);
-            exValue += exBaseAttributeValueEquip.getValueByTagValue(data.getDouble(exBaseAttributeValueEquip.getTag()));
+                && exBaseAttributeValueEquip.getTagAndRateMap().containsKey(map)) {
+            CompoundTag data = ExBaseAttributeValueEquip.getStackExBaseAttributeData(equip);
+            exValue += exBaseAttributeValueEquip.getTagAndRateMap().get(map).getValueByData(data);
         }
         return (map.getOrDefault(equip.getItem(), 0d) + exValue) * getTierValueEffect(equip);
     }

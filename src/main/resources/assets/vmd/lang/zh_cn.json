@@ -1653,6 +1653,11 @@
   "item.vmd.wraq_ore_3_item": "粉钻",
   "item.vmd.wraq_ore_4_item": "炽焰石",
 
+  "block.vmd.wraq_ore_1": "德朗斯蒂克玛瑙矿石",
+  "block.vmd.wraq_ore_2": "北境晶钻矿石",
+  "block.vmd.wraq_ore_3": "粉钻矿石",
+  "block.vmd.wraq_ore_4": "炽焰石矿石",
+
   "item.vmd.mid_autumn_soul": "中秋月荧",
   "item.vmd.moon_feather_0": "月荧翎",
   "item.vmd.moon_feather_1": "月荧翎¹",
@@ -1667,6 +1672,10 @@
   "item.vmd.nether_imprint": "燃魂印记",
   "item.vmd.foiled_nether_imprint": "注魔燃魂印记",
   "item.vmd.golden_sheet": "大金板",
+
+  "item.vmd.moontain_sword": "望山刀",
+  "item.vmd.moontain_bow": "望山弓",
+  "item.vmd.moontain_sceptre": "望山杖",
 
   "curios.identifier.rune": "符石",
   "curios.identifier.crest": "纹章",

@@ -49,6 +49,7 @@ import com.very.wraq.series.gems.GemItems;
 import com.very.wraq.series.instance.blade.BladeItems;
 import com.very.wraq.series.instance.mixture.MixtureItems;
 import com.very.wraq.series.instance.quiver.QuiverItems;
+import com.very.wraq.series.moontain.MoontainItems;
 import com.very.wraq.series.newrunes.NewRuneItems;
 import com.very.wraq.series.overworld.chapter7.C7Items;
 import com.very.wraq.series.specialevents.SpecialEventItems;
@@ -109,6 +110,7 @@ public class VMD {
         BladeItems.ITEMS.register(modEvenBus);
         MixtureItems.ITEMS.register(modEvenBus);
         OreItems.ITEMS.register(modEvenBus);
+        MoontainItems.ITEMS.register(modEvenBus);
 
         ModBlocks.BLOCKS.register(modEvenBus);
         ModEntityType.ENTITY_TYPES.register(modEvenBus);

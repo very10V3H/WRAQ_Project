@@ -277,6 +277,10 @@ public class ComponentUtils {
         return Component.literal("尘月之梦").withStyle(CustomStyle.styleOfMoon1).withStyle(ChatFormatting.ITALIC);
     }
 
+    public static Component getSuffixOfMoontain() {
+        return Component.literal("望山楼阁").withStyle(CustomStyle.styleOfMoontain).withStyle(ChatFormatting.ITALIC);
+    }
+
     public static void runeAttributeDescription(List<Component> components) {
         components.add(Component.literal(" - ").withStyle(ChatFormatting.GRAY).
                 append("符石属性:").withStyle(ChatFormatting.WHITE));

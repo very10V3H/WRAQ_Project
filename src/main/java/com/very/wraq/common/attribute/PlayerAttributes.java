@@ -372,6 +372,9 @@ public class PlayerAttributes {
         if (Utils.offHandTag.containsKey(offhand) && Utils.critRate.containsKey(offhand))
             critRate += Utils.critRate.get(offhand);
 
+        // 器灵属性加成
+        critRate += Compute.PassiveEquip.getAttribute(player, Utils.critRate);
+
         if (player.getEffect(ModEffects.CRITRATEUP.get()) != null && player.getEffect(ModEffects.CRITRATEUP.get()).getAmplifier() == 0)
             critRate += 0.2;
         if (player.getEffect(ModEffects.CRITRATEUP.get()) != null && player.getEffect(ModEffects.CRITRATEUP.get()).getAmplifier() == 1)
@@ -1248,6 +1251,9 @@ public class PlayerAttributes {
         defencePenetration0 += Compute.CuriosAttribute.attributeValue(player, Utils.xpLevelDefencePenetration0,
                 StringUtils.CuriosAttribute.xpLevelDefencePenetration0) * player.experienceLevel;
 
+        // 器灵属性加成
+        defencePenetration0 += Compute.PassiveEquip.getAttribute(player, Utils.defencePenetration0);
+
         if (Utils.mainHandTag.containsKey(mainhand) && stackmainhandtag.contains("BreakDefence0"))
             defencePenetration0 += stackmainhandtag.getDouble("BreakDefence0");
         if (Utils.defencePenetration0.containsKey(boots)) defencePenetration0 += Utils.defencePenetration0.get(boots);
@@ -1905,6 +1911,9 @@ public class PlayerAttributes {
 
         healSteal += handleAllEquipRandomAttribute(player, StringUtils.RandomAttribute.healthSteal);
 
+        // 器灵属性加成
+        healSteal += Compute.PassiveEquip.getAttribute(player, Utils.healthSteal);
+
         if (Utils.mainHandTag.containsKey(mainhand) && stackmainhandtag.contains("healsteal"))
             healSteal += stackmainhandtag.getDouble("healsteal");
         if (Utils.healthSteal.containsKey(boots)) healSteal += Utils.healthSteal.get(boots);
@@ -2301,6 +2310,4 @@ public class PlayerAttributes {
         }
         return totalValue;
     }
-
-
 }

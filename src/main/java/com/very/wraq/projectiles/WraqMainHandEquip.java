@@ -8,6 +8,7 @@ import com.very.wraq.common.registry.ItemTier;
 import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.Utils;
 import com.very.wraq.events.mob.loot.RandomLootEquip;
+import com.very.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -78,7 +79,7 @@ public abstract class WraqMainHandEquip extends SwordItem {
             components.addAll(getAdditionalComponents(stack));
         }
         if (this instanceof WraqMainHandOrPassiveEquip wraqMainHandOrPassiveEquip) {
-            ComponentUtils.descriptionPassive(components, Component.literal("伴魂").withStyle(ChatFormatting.GRAY));
+            ComponentUtils.descriptionPassive(components, Component.literal("伴魂").withStyle(CustomStyle.styleOfMoontain));
             components.add(Te.m(" 若将这件装备放置于").
                     append(Te.m("快捷使用栏", ChatFormatting.AQUA)));
             components.add(Te.m(" 则将获得这件装备").

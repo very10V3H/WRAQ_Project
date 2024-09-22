@@ -78,6 +78,7 @@ public class CustomStyle {
     public static Style styleOfCastle = Style.EMPTY.withColor(TextColor.parseColor("#535353"));
     public static Style styleOfCastleCrystal = Style.EMPTY.withColor(TextColor.parseColor("#444375"));
     public static Style styleOfCopper = Style.EMPTY.withColor(TextColor.parseColor("#ff8e68"));
+    public static Style styleOfMoontain = Style.EMPTY.withColor(TextColor.parseColor("#51dea9"));
 
     public static Rarity GrayItalic = Rarity.create("gray_italic", style -> {
         return style.applyFormat(ChatFormatting.GRAY).withItalic(true).withBold(true);
@@ -686,5 +687,17 @@ public class CustomStyle {
 
     public static final Rarity demonItalic = Rarity.create("demon_italic", style -> {
         return style.applyTo(CustomStyle.styleOfDemon).withBold(true).withItalic(true);
+    });
+
+    public static final Rarity MOONTAIN = Rarity.create("moontain", style -> {
+        return style.applyTo(CustomStyle.styleOfMoontain);
+    });
+
+    public static final Rarity MOONTAIN_BOLD = Rarity.create("moontain_bold", style -> {
+        return style.applyTo(CustomStyle.styleOfMoontain).withBold(true);
+    });
+
+    public static final Rarity MOONTAIN_ITALIC = Rarity.create("moontain_italic", style -> {
+        return style.applyTo(CustomStyle.styleOfMoontain).withBold(true).withItalic(true);
     });
 }

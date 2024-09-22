@@ -48,11 +48,13 @@ import com.very.wraq.process.system.element.Element;
 import com.very.wraq.process.system.element.ElementValue;
 import com.very.wraq.process.system.element.equipAndCurios.fireElement.FireEquip;
 import com.very.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSword;
+import com.very.wraq.process.system.forge.ForgeEquipUtils;
 import com.very.wraq.process.system.potion.NewPotionEffects;
 import com.very.wraq.process.system.tower.Tower;
 import com.very.wraq.projectiles.ActiveItem;
 import com.very.wraq.projectiles.CrestItem;
 import com.very.wraq.projectiles.RandomCurios;
+import com.very.wraq.projectiles.WraqMainHandOrPassiveEquip;
 import com.very.wraq.projectiles.mana.ManaArrow;
 import com.very.wraq.render.hud.Mana;
 import com.very.wraq.render.particles.ModParticles;
@@ -1746,17 +1748,31 @@ public class Compute {
 
         public static double getAttribute(Player player, Map<Item, Double> map) {
             HashSet<Class<? extends Item>> set = new HashSet<>();
-            double total = 0;
+            double value = 0;
             for (int i = 3; i < 9; i++) {
-                Item item = player.getInventory().getItem(i).getItem();
+                ItemStack equip = player.getInventory().getItem(i);
+                Item item = equip.getItem();
                 if (!set.contains(item.getClass()) && Utils.passiveEquipTag.containsKey(item)
                         && map.containsKey(item)
                         && (!Utils.levelRequire.containsKey(item) || Utils.levelRequire.get(item) <= player.experienceLevel)) {
-                    total += map.get(item);
+                    if (item instanceof WraqMainHandOrPassiveEquip wraqMainHandOrPassiveEquip) {
+                        if (!(player.getMainHandItem().is(item) && player.getInventory().selected >= 3)) {
+                            double computeValue = 0;
+                            double baseValue = 0;
+                            baseValue += ForgeEquipUtils.getTraditionalEquipBaseValue(equip, map);
+                            computeValue += baseValue;
+                            computeValue += Compute.proficiencyValue(equip, baseValue);
+                            computeValue += Compute.forgingValue(equip, baseValue);
+                            computeValue *= wraqMainHandOrPassiveEquip.rate();
+                            value += computeValue;
+                        }
+                    } else {
+                        value += map.get(item);
+                    }
                     set.add(item.getClass());
                 }
             }
-            return total;
+            return value;
         }
     }
 
