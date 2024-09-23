@@ -32,6 +32,7 @@ import com.very.wraq.networking.unSorted.PlayerCallBack;
 import com.very.wraq.networking.unSorted.SwiftSyncS2CPacket;
 import com.very.wraq.process.func.item.InventoryOperation;
 import com.very.wraq.process.func.plan.DailySupply;
+import com.very.wraq.process.system.bonuschest.BonusChestPlayerData;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.process.system.endlessinstance.EndlessInstanceItems;
 import com.very.wraq.process.system.missions.series.dailyMission.DailyMission;
@@ -500,6 +501,7 @@ public class LoginInEvent {
     }
 
     public static void WeeklyRefreshContent(Player player) {
+        BonusChestPlayerData.resetAllZoneInfo(player);
 
     }
 

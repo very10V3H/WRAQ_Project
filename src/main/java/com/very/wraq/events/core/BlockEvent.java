@@ -244,10 +244,10 @@ public class BlockEvent {
                     && !blockState.getBlock().toString().contains("seat")) {
                 event.setCanceled(true);
             }
-            if (block instanceof ChestBlock && event.getSide().isServer() && !BonusChestInfo.infoMap.containsKey(blockPos)) {
+            if (block instanceof ChestBlock && event.getSide().isServer() && BonusChestInfo.getBonusChestInfo(blockPos) == null) {
                 event.setCanceled(true);
             }
-            if (block instanceof ChestBlock && event.getSide().isServer() && BonusChestInfo.infoMap.containsKey(blockPos)) {
+            if (block instanceof ChestBlock && event.getSide().isServer() && BonusChestInfo.getBonusChestInfo(blockPos) != null) {
                 if (player.getItemInHand(InteractionHand.MAIN_HAND).is(Items.AIR)) {
                     if (Utils.playerIsUsingBlockBlockPosMap.containsValue(blockPos)) {
                         Compute.sendFormatMSG(player, Component.literal("奖励箱").withStyle(ChatFormatting.LIGHT_PURPLE),

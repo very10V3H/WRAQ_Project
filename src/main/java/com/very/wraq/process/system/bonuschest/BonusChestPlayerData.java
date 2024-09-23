@@ -18,6 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * 奖励箱玩家数据
+ */
 public class BonusChestPlayerData {
 
     private static final String BONUS_CHEST_DATA_KEY = "bonus_chest_data_key";
@@ -54,6 +57,12 @@ public class BonusChestPlayerData {
 
     public static void resetZoneInfo(Player player, int zoneNum) {
         setZoneInfo(player, zoneNum, ORIGIN_INFO_STRING);
+    }
+
+    public static void resetAllZoneInfo(Player player) {
+        for (int i = 0 ; i <= 2 ; i ++) {
+            setZoneInfo(player, i, ORIGIN_INFO_STRING);
+        }
     }
 
     private static int getInfoBySerialNum(Player player, int zoneNum, int serialNum) {
@@ -95,15 +104,16 @@ public class BonusChestPlayerData {
 
     public static void onPlayerSuccessOpenBonusChest(Player player, BlockPos blockPos,
                                                      PlayerInteractEvent.RightClickBlock event) {
-        BonusChestInfo bonusChestInfo = BonusChestInfo.infoMap.get(blockPos);
+        BonusChestInfo bonusChestInfo = BonusChestInfo.getBonusChestInfo(blockPos);
         if (bonusChestInfo == null) {
             player.sendSystemMessage(
                     Te.m("看到此信息请联系管理员!奖励箱错误：blockPos = " + blockPos));
             return;
         }
-        if (getInfoBySerialNum(player, bonusChestInfo.zone, bonusChestInfo.serial) == 0) {
+        int serial = BonusChestInfo.getSerialNum(blockPos);
+        if (getInfoBySerialNum(player, bonusChestInfo.zone, serial) == 0) {
             // 未获取过奖励
-            setInfoBySerialNum(player, bonusChestInfo.zone, bonusChestInfo.serial);
+            setInfoBySerialNum(player, bonusChestInfo.zone, serial);
             addZoneCount(player, bonusChestInfo.zone);
             addTierCount(player, bonusChestInfo.tier);
 
@@ -112,15 +122,12 @@ public class BonusChestPlayerData {
             for (int i = 0; i < 27; i++) {
                 chestBlockEntity.setItem(i, Items.AIR.getDefaultInstance());
             }
-
-            Compute.sendFormatMSG(player, Component.literal("奖励箱").withStyle(ChatFormatting.LIGHT_PURPLE),
-                    Component.literal("你找到了一个奖励箱!").withStyle(ChatFormatting.WHITE));
+            sendMSG(player, Te.m("你找到了一个奖励箱。"));
             Utils.playerIsUsingBlockBlockPosMap.put(player.getName().getString(), blockPos);
         } else {
             // 已获取过奖励
             event.setCanceled(true);
-            Compute.sendFormatMSG(player, Component.literal("奖励箱").withStyle(ChatFormatting.LIGHT_PURPLE),
-                    Component.literal("你最近已经打开过这个奖励箱了。").withStyle(ChatFormatting.WHITE));
+            sendMSG(player, Te.m("你最近已经打开过这个奖励箱了。"));
         }
     }
 
@@ -153,5 +160,9 @@ public class BonusChestPlayerData {
         result.addAll(getOneTimeCommonTier2Loot());
         result.addAll(ItemAndRate.getOneTimeLoot(commonTier3Loot));
         return result;
+    }
+
+    public static void sendMSG(Player player, Component content) {
+        Compute.sendFormatMSG(player, Component.literal("奖励箱").withStyle(ChatFormatting.LIGHT_PURPLE), content);
     }
 }
