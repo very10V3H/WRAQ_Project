@@ -269,7 +269,7 @@ public class ForgeEquipUtils {
     public static int getForgeQualityOnEquip(ItemStack equip) {
         if (equip.getTagElement(Utils.MOD_ID) != null) {
             if (equip.getTagElement(Utils.MOD_ID).contains(itemTag))
-                return equip.getTagElement(Utils.MOD_ID).getInt(itemTag);
+                return Math.min(13, equip.getTagElement(Utils.MOD_ID).getInt(itemTag));
         }
         return -1;
     }

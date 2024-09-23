@@ -37,7 +37,7 @@ public class MoontainBow extends WraqBow implements ExBaseAttributeValueEquip, W
 
     @Override
     public Component getSuffix() {
-        return ComponentUtils.getSuffixOfChapterI();
+        return ComponentUtils.getSuffixOfMoontain();
     }
 
     @Override

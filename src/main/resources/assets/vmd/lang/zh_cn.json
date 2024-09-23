@@ -1678,6 +1678,24 @@
   "item.vmd.moontain_bow": "望山弓",
   "item.vmd.moontain_sceptre": "望山杖",
 
+  "item.vmd.moontain_helmet": "望山头盔",
+  "item.vmd.moontain_chest": "望山胸甲",
+  "item.vmd.moontain_leggings": "望山护腿",
+  "item.vmd.moontain_boots": "望山靴子",
+
+  "item.vmd.moontain_soul_fragment": "望山孤魂残躯",
+  "item.vmd.moontain_leather": "望山魂革",
+  "item.vmd.moontain_falling_soul": "望山阁灵落",
+  "item.vmd.moontain_fragment": "望山屑",
+  "item.vmd.moontain_nugget": "望山心屑",
+
+  "item.vmd.moontain_heart": "衡望山之心",
+  "item.vmd.moontain_stone_fragment": "望山母岩碎块",
+
+  "item.vmd.moontain_jadeite": "望山翡翠",
+  "item.vmd.moontain_emerald": "望山碧玉",
+
+
   "curios.identifier.rune": "符石",
   "curios.identifier.crest": "纹章",
 

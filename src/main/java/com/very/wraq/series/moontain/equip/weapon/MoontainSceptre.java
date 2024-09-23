@@ -38,7 +38,7 @@ public class MoontainSceptre extends WraqSceptre implements ExBaseAttributeValue
 
     @Override
     public Component getSuffix() {
-        return ComponentUtils.getSuffixOfChapterI();
+        return ComponentUtils.getSuffixOfMoontain();
     }
 
     @Override
