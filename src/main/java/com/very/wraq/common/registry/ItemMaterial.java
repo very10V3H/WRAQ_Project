@@ -56,7 +56,9 @@ public enum ItemMaterial implements ArmorMaterial {
     LightningElement("lightening_element", 0, 0, 15, 1, 1, SoundEvents.ARMOR_EQUIP_DIAMOND),
     WindElement("wind_element", 0, 0, 15, 1, 1, SoundEvents.ARMOR_EQUIP_DIAMOND),
 
-    Castle("castle", 0, 0, 15, 1, 1, SoundEvents.ARMOR_EQUIP_NETHERITE);
+    Castle("castle", 0, 0, 15, 1, 1, SoundEvents.ARMOR_EQUIP_NETHERITE),
+
+    MOONTAIN("moontain", 0, 0, 15, 1, 1, SoundEvents.ARMOR_EQUIP_DIAMOND);
 
     private final int Durability;
     private final int Defense;

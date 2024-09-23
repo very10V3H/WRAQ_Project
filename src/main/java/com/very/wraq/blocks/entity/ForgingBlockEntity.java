@@ -15,6 +15,7 @@ import com.very.wraq.customized.WraqUniformCurios;
 import com.very.wraq.events.core.InventoryCheck;
 import com.very.wraq.events.mob.loot.RandomLootEquip;
 import com.very.wraq.process.system.forge.ForgeEquipUtils;
+import com.very.wraq.projectiles.ExBaseAttributeValueEquip;
 import com.very.wraq.render.gui.blocks.ForgingBlockMenu;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.series.gems.GemItems;
@@ -940,7 +941,8 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider {
 
         if (equipStack.getTagElement(Utils.MOD_ID) == null) return false;
         CompoundTag tag = equipStack.getTagElement(Utils.MOD_ID);
-        boolean canBeForged = tag != null && tag.contains(ForgeEquipUtils.itemTag);
+        boolean canBeForged = tag != null && tag.contains(ForgeEquipUtils.itemTag)
+                && !(equipStack.getItem() instanceof ExBaseAttributeValueEquip);
 
         int equipTier = ForgeEquipUtils.getForgeQualityOnEquip(equipStack);
         ItemStack productSlot = blockEntity.itemStackHandler.getStackInSlot(2);
