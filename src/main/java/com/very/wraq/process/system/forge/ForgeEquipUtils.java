@@ -318,11 +318,11 @@ public class ForgeEquipUtils {
         put(6, Component.literal("终末").withStyle(tierStyle.get(6))); // 100%
         put(7, Component.literal("思旧").withStyle(tierStyle.get(7)));
         put(8, Component.literal("追忆").withStyle(tierStyle.get(8)));
-        put(9, Component.literal("Unavailable").withStyle(tierStyle.get(9)));
-        put(10, Component.literal("Endless").withStyle(tierStyle.get(10)));
-        put(11, Component.literal("Dream").withStyle(tierStyle.get(11)));
-        put(12, Component.literal("Impossible").withStyle(tierStyle.get(12)));
-        put(13, Component.literal("wraq").withStyle(tierStyle.get(13)));
+        put(9, Component.literal("不可思议").withStyle(tierStyle.get(9)));
+        put(10, Component.literal("望尘莫及").withStyle(tierStyle.get(10)));
+        put(11, Component.literal("仅存于梦").withStyle(tierStyle.get(11)));
+        put(12, Component.literal("绝无仅有").withStyle(tierStyle.get(12)));
+        put(13, Component.literal("巅峰之作").withStyle(tierStyle.get(13)));
     }};
 
     public static double getTierValueEffect(int tier) {

@@ -5,6 +5,7 @@ import com.mojang.datafixers.util.Pair;
 import com.mojang.logging.LogUtils;
 import com.very.wraq.commands.changeable.CompensateCommand;
 import com.very.wraq.common.attribute.PlayerAttributes;
+import com.very.wraq.common.fast.Te;
 import com.very.wraq.common.registry.ModEntityType;
 import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.registry.ModSounds;
@@ -189,10 +190,17 @@ public class Compute {
             }
         }
 
-        Component defaultName = stack.getItem().getDefaultInstance().getHoverName();
+        MutableComponent quality = Te.m("");
+        int forgeQuality = ForgeEquipUtils.getForgeQualityOnEquip(stack);
+        if (forgeQuality != -1) {
+            quality = Te.m("").append(ForgeEquipUtils.description.get(forgeQuality)).
+                    append(Te.m(" - ", ForgeEquipUtils.tierStyle.get(forgeQuality)));
+        }
 
+        Component defaultName = stack.getItem().getDefaultInstance().getHoverName();
         stack.setHoverName(Component.literal("")
                 .append(prefix)
+                .append(quality)
                 .append(suffix)
                 .append(defaultName));
     }
