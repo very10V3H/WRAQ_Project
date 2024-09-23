@@ -212,16 +212,19 @@ public class Compute {
         return Math.pow(Math.E, 3 + (xpLevel / 100d) * 7);
     }
 
-    public static void givePercentExpToPlayer(Player player, double num, double ExpUp, int ExpLevel) {
+    public static void givePercentExpToPlayer(Player player, double num, double expUp, int expLevel) {
         if (player.experienceLevel >= levelUpperLimit) return;
-        if (ExpLevel >= expGetUpperLimit) ExpLevel = expGetUpperLimit;
-        if (ExpLevel - player.experienceLevel > 8) ExpLevel = player.experienceLevel;
+        if (expLevel >= expGetUpperLimit) {
+            num *= (double) expLevel / expGetUpperLimit;
+            expLevel = expGetUpperLimit;
+        }
+        if (expLevel - player.experienceLevel > 8) expLevel = player.experienceLevel;
 
         CompoundTag data = player.getPersistentData();
         double LevelUpNeedXp = getCurrentXpLevelUpNeedXpPoint(player.experienceLevel);
-        double ExpLevelXp = getCurrentXpLevelUpNeedXpPoint(ExpLevel);
+        double ExpLevelXp = getCurrentXpLevelUpNeedXpPoint(expLevel);
         double XpBeforeUp = (ExpLevelXp * num);
-        double XpUp = (ExpLevelXp * num) * ExpUp;
+        double XpUp = (ExpLevelXp * num) * expUp;
         double Xp = XpBeforeUp + XpUp;
         if (data.contains("Xp")) data.putDouble("Xp", data.getDouble("Xp") + Xp);
         else data.putDouble("Xp", Xp);
