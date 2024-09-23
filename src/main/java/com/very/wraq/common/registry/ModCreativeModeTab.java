@@ -53,6 +53,8 @@ public class ModCreativeModeTab {
             CreativeModeTab.builder().icon(() -> new ItemStack(C1LootItems.forestZombieAxe.get())).title(Component.literal("简易装备")).build());
     public static RegistryObject<CreativeModeTab> SPUR_ITEMS = CREATIVE_MODE_TAB.register("spur_items", () ->
             CreativeModeTab.builder().icon(() -> new ItemStack(SpurItems.cropPiece.get())).title(Component.literal("支线")).build());
+    public static RegistryObject<CreativeModeTab> BLOCK = CREATIVE_MODE_TAB.register("block", () ->
+            CreativeModeTab.builder().icon(() -> new ItemStack(ModBlocks.WRAQ_ORE_1.get().asItem())).title(Component.literal("方块")).build());
 
     public static void register(IEventBus eventBus) {
         CREATIVE_MODE_TAB.register(eventBus);
