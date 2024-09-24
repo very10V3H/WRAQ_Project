@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "vmd:item/ore_gem_2_outline",
+    "layer1": "vmd:item/obsi_mana_gem_o"
+  }
+}

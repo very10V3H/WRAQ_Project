@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "vmd:item/ore_gem_3_outline",
+    "layer1": "vmd:item/castle_gem_o"
+  }
+}

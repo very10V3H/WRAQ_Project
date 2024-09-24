@@ -1695,6 +1695,29 @@
   "item.vmd.moontain_jadeite": "望山翡翠",
   "item.vmd.moontain_emerald": "望山碧玉",
 
+  "item.vmd.field_gem_o": "原野意志玛瑙",
+  "item.vmd.forest_gem_o": "森林意志玛瑙",
+  "item.vmd.lake_gem_o": "湖泊意志玛瑙",
+  "item.vmd.mine_gem_o": "矿洞意志玛瑙",
+  "item.vmd.plain_gem_o": "平原意志玛瑙",
+
+  "item.vmd.volcano_gem_o": "火山意志晶钻",
+  "item.vmd.snow_gem_o": "冰川意志晶钻",
+  "item.vmd.evoker_gem_o": "唤魔力量晶钻",
+  "item.vmd.life_mana_gem_o": "生机魔力晶钻",
+  "item.vmd.obsi_mana_gem_o": "黑曜魔力晶钻",
+  "item.vmd.sky_gem_o": "天空意志晶钻",
+
+  "item.vmd.magma_gem_o": "熔岩化炽焰石",
+  "item.vmd.nether_skeleton_gem_o": "骷髅化炽焰石",
+  "item.vmd.piglin_gem_o": "团结化炽焰石",
+  "item.vmd.wither_gem_o": "凋零化炽焰石",
+
+  "item.vmd.sakura_gem_o": "绯樱粉钻",
+  "item.vmd.ship_gem_o": "深海粉钻",
+  "item.vmd.castle_gem_o": "暗黑粉钻",
+  "item.vmd.moon_attack_gem_o": "尘月明镜粉钻",
+  "item.vmd.moon_mana_gem_o": "尘月天镜粉钻",
 
   "curios.identifier.rune": "符石",
   "curios.identifier.crest": "纹章",

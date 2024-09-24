@@ -91,7 +91,7 @@ public class GemItems {
             () -> new WraqGem.WraqGemD((WraqGem) snowGem.get()));
 
     public static final RegistryObject<Item> snowGemO = ITEMS.register("snow_gem_o",
-            () -> new WraqGem.WraqGemO((WraqGem) snowGem.get(), 1));
+            () -> new WraqGem.WraqGemO((WraqGem) snowGem.get(), 2));
 
     public static final RegistryObject<Item> volcanoGem = ITEMS.register("volcano_gem",
             () -> new WraqGem(new Item.Properties().rarity(CustomStyle.VolcanoBold), new ArrayList<>() {{
@@ -103,7 +103,7 @@ public class GemItems {
             () -> new WraqGem.WraqGemD((WraqGem) volcanoGem.get()));
 
     public static final RegistryObject<Item> volcanoGemO = ITEMS.register("volcano_gem_o",
-            () -> new WraqGem.WraqGemO((WraqGem) volcanoGem.get(), 1));
+            () -> new WraqGem.WraqGemO((WraqGem) volcanoGem.get(), 2));
 
     //* 2 *//
 
@@ -117,7 +117,7 @@ public class GemItems {
             () -> new WraqGem.WraqGemD((WraqGem) evokerGem.get()));
 
     public static final RegistryObject<Item> evokerGemO = ITEMS.register("evoker_gem_o",
-            () -> new WraqGem.WraqGemO((WraqGem) evokerGem.get(), 1));
+            () -> new WraqGem.WraqGemO((WraqGem) evokerGem.get(), 2));
 
     public static final RegistryObject<Item> lifeManaGem = ITEMS.register("life_mana_gem",
             () -> new WraqGem(new Item.Properties().rarity(CustomStyle.LifeBold), new ArrayList<>() {{
@@ -131,7 +131,7 @@ public class GemItems {
             () -> new WraqGem.WraqGemD((WraqGem) lifeManaGem.get()));
 
     public static final RegistryObject<Item> lifeManaGemO = ITEMS.register("life_mana_gem_o",
-            () -> new WraqGem.WraqGemO((WraqGem) lifeManaGem.get(), 1));
+            () -> new WraqGem.WraqGemO((WraqGem) lifeManaGem.get(), 2));
 
     public static final RegistryObject<Item> obsiManaGem = ITEMS.register("obsi_mana_gem",
             () -> new WraqGem(new Item.Properties().rarity(CustomStyle.ManaBold), new ArrayList<>() {{
@@ -144,7 +144,7 @@ public class GemItems {
             () -> new WraqGem.WraqGemD((WraqGem) obsiManaGem.get()));
 
     public static final RegistryObject<Item> obsiManaGemO = ITEMS.register("obsi_mana_gem_o",
-            () -> new WraqGem.WraqGemO((WraqGem) obsiManaGem.get(), 1));
+            () -> new WraqGem.WraqGemO((WraqGem) obsiManaGem.get(), 2));
 
     public static final RegistryObject<Item> skyGem = ITEMS.register("sky_gem",
             () -> new WraqGem(new Item.Properties().rarity(CustomStyle.SkyBold), new ArrayList<>() {{
@@ -157,7 +157,7 @@ public class GemItems {
             () -> new WraqGem.WraqGemD((WraqGem) skyGem.get()));
 
     public static final RegistryObject<Item> skyGemO = ITEMS.register("sky_gem_o",
-            () -> new WraqGem.WraqGemO((WraqGem) skyGem.get(), 1));
+            () -> new WraqGem.WraqGemO((WraqGem) skyGem.get(), 2));
 
     //* 3 *//
 
@@ -173,7 +173,7 @@ public class GemItems {
             () -> new WraqGem.WraqGemD((WraqGem) magmaGem.get()));
 
     public static final RegistryObject<Item> magmaGemO = ITEMS.register("magma_gem_o",
-            () -> new WraqGem.WraqGemO((WraqGem) magmaGem.get(), 1));
+            () -> new WraqGem.WraqGemO((WraqGem) magmaGem.get(), 4));
 
     public static final RegistryObject<Item> netherSkeletonGem = ITEMS.register("nether_skeleton_gem",
             () -> new WraqGem(new Item.Properties().rarity(CustomStyle.WitherBold), new ArrayList<>() {{
@@ -187,7 +187,7 @@ public class GemItems {
             () -> new WraqGem.WraqGemD((WraqGem) netherSkeletonGem.get()));
 
     public static final RegistryObject<Item> netherSkeletonGemO = ITEMS.register("nether_skeleton_gem_o",
-            () -> new WraqGem.WraqGemO((WraqGem) netherSkeletonGem.get(), 1));
+            () -> new WraqGem.WraqGemO((WraqGem) netherSkeletonGem.get(), 4));
 
     public static final RegistryObject<Item> piglinGem = ITEMS.register("piglin_gem",
             () -> new WraqGem(new Item.Properties().rarity(CustomStyle.PiglinBold), new ArrayList<>() {{
@@ -200,7 +200,7 @@ public class GemItems {
             () -> new WraqGem.WraqGemD((WraqGem) piglinGem.get()));
 
     public static final RegistryObject<Item> piglinGemO = ITEMS.register("piglin_gem_o",
-            () -> new WraqGem.WraqGemO((WraqGem) piglinGem.get(), 1));
+            () -> new WraqGem.WraqGemO((WraqGem) piglinGem.get(), 4));
 
     public static final RegistryObject<Item> witherGem = ITEMS.register("wither_gem",
             () -> new WraqGem(new Item.Properties().rarity(CustomStyle.WitherBold), new ArrayList<>() {{
@@ -213,7 +213,7 @@ public class GemItems {
             () -> new WraqGem.WraqGemD((WraqGem) witherGem.get()));
 
     public static final RegistryObject<Item> witherGemO = ITEMS.register("wither_gem_o",
-            () -> new WraqGem.WraqGemO((WraqGem) witherGem.get(), 1));
+            () -> new WraqGem.WraqGemO((WraqGem) witherGem.get(), 4));
 
     //* 5 *//
 
@@ -231,7 +231,7 @@ public class GemItems {
             () -> new WraqGem.WraqGemD((WraqGem) sakuraGem.get()));
 
     public static final RegistryObject<Item> sakuraGemO = ITEMS.register("sakura_gem_o",
-            () -> new WraqGem.WraqGemO((WraqGem) sakuraGem.get(), 1));
+            () -> new WraqGem.WraqGemO((WraqGem) sakuraGem.get(), 3));
 
     public static final RegistryObject<Item> shipGem = ITEMS.register("ship_gem",
             () -> new WraqGem(new Item.Properties().rarity(CustomStyle.ShipBold), new ArrayList<>() {{
@@ -244,7 +244,7 @@ public class GemItems {
             () -> new WraqGem.WraqGemD((WraqGem) shipGem.get()));
 
     public static final RegistryObject<Item> shipGemO = ITEMS.register("ship_gem_o",
-            () -> new WraqGem.WraqGemO((WraqGem) shipGem.get(), 1));
+            () -> new WraqGem.WraqGemO((WraqGem) shipGem.get(), 3));
 
     //* instance *//
 
@@ -286,20 +286,20 @@ public class GemItems {
             () -> new WraqGem.WraqGemD((WraqGem) moonAttackGem.get()));
 
     public static final RegistryObject<Item> moonAttackGemO = ITEMS.register("moon_attack_gem_o",
-            () -> new WraqGem.WraqGemO((WraqGem) moonAttackGem.get(), 1));
+            () -> new WraqGem.WraqGemO((WraqGem) moonAttackGem.get(), 3));
 
     public static final RegistryObject<Item> moonManaGem = ITEMS.register("moon_mana_gem",
             () -> new WraqGem(new Item.Properties().rarity(CustomStyle.Moon1Bold), new ArrayList<>() {{
                 add(new WraqGem.AttributeMapValue(Utils.defence, 400));
                 add(new WraqGem.AttributeMapValue(Utils.manaDamage, 120));
-            }}, CustomStyle.styleOfMoon1, Component.literal("尘月宫明镜之心").withStyle(CustomStyle.styleOfMoon1),
+            }}, CustomStyle.styleOfMoon1, Component.literal("尘月宫天镜之心").withStyle(CustomStyle.styleOfMoon1),
                     ComponentUtils.getSuffixOfMoon()));
 
     public static final RegistryObject<Item> moonManaGemD = ITEMS.register("moon_mana_gem_d",
             () -> new WraqGem.WraqGemD((WraqGem) moonManaGem.get()));
 
     public static final RegistryObject<Item> moonManaGemO = ITEMS.register("moon_mana_gem_o",
-            () -> new WraqGem.WraqGemO((WraqGem) moonManaGem.get(), 1));
+            () -> new WraqGem.WraqGemO((WraqGem) moonManaGem.get(), 3));
 
     public static final RegistryObject<Item> TEST_GEM = ITEMS.register("test_gem",
             () -> new WraqGem(new Item.Properties().rarity(CustomStyle.Moon1Bold), new ArrayList<>() {{
