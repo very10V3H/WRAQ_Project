@@ -13,7 +13,6 @@ import com.very.wraq.common.util.StringUtils;
 import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.util.struct.PlayerTeam;
 import com.very.wraq.events.core.BlockEvent;
-import com.very.wraq.events.instance.PurpleIronKnight;
 import com.very.wraq.events.mob.instance.NoTeamInstanceModule;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.VersionCheckS2CPacket;
@@ -486,7 +485,6 @@ public class LoginInEvent {
         data.putBoolean(StringUtils.DailyInstance.DailyMineInstance, true);
         data.putBoolean(StringUtils.DailyInstance.DailyCropInstance, true);
         data.putString(StringUtils.DailyInstanceCode, StringUtils.DailyInstanceCode0);
-        PurpleIronKnight.RefreshRewardGetTimes(player); //
         data.putInt(StringUtils.OriginElementGetTimes, 0);
         Compute.sendFormatMSG(player, Component.literal("日常").withStyle(CustomStyle.styleOfHealth),
                 Component.literal(" 你的日常活动已被刷新！").withStyle(ChatFormatting.WHITE));

@@ -12,9 +12,7 @@ import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.util.struct.Boss2Damage;
 import com.very.wraq.customized.uniform.attack.AttackCurios1;
 import com.very.wraq.entities.entities.Boss2.Boss2;
-import com.very.wraq.entities.entities.Civil.Civil;
 import com.very.wraq.events.fight.HurtEvent;
-import com.very.wraq.events.instance.CastleSecondFloor;
 import com.very.wraq.events.modules.AttackEventModule;
 import com.very.wraq.events.modules.HurtEventModule;
 import com.very.wraq.networking.ModNetworking;
@@ -491,12 +489,6 @@ public class AttackEvent {
         }
     }
 
-    public static void CastleKnightDamageCount(Player player, Mob monster, double ExDamageIgnoreDefence, double Damage) {
-        if (monster.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.MobArmorCastleKnightHelmet.get()) && monster.isAlive() && !(monster instanceof Civil)) {
-            CastleSecondFloor.playerDamageCount.put(player, CastleSecondFloor.playerDamageCount.getOrDefault(player, 0d) + ExDamageIgnoreDefence + Damage);
-        }
-    }
-
     public static void SpringAttackArmor(Player player, Mob monster) {
         if (!Utils.PlayerSpringAttackCoolDown.containsKey(player)
                 || Utils.PlayerSpringAttackCoolDown.get(player) < player.getServer().getTickCount()) {
@@ -551,7 +543,6 @@ public class AttackEvent {
         DevilDamageCount(player, monster, ExDamageIgnoreDefence, Damage);
         MoonDamageCount(player, monster, ExDamageIgnoreDefence, Damage);
         TabooDevilDamageCount(player, monster, ExDamageIgnoreDefence, Damage);
-        CastleKnightDamageCount(player, monster, ExDamageIgnoreDefence, Damage);
         PurpleIronKnightDamageCount(player, monster, ExDamageIgnoreDefence, Damage);
     }
 }

@@ -5,7 +5,6 @@ import com.very.wraq.common.attribute.PlayerAttributes;
 import com.very.wraq.common.registry.ModEntityType;
 import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.util.ItemAndRate;
-import com.very.wraq.events.instance.Castle;
 import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.events.mob.instance.NoTeamInstance;
 import com.very.wraq.events.mob.instance.NoTeamInstanceModule;
@@ -22,6 +21,7 @@ import net.minecraft.network.protocol.game.ClientboundSetTitleTextPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.WitherSkeleton;
 import net.minecraft.world.entity.monster.Zombie;
@@ -133,7 +133,7 @@ public class NewCastleInstance extends NewTeamInstance {
                     }
                     if (hasPlayerNearby) {
                         hasSummonedMobs.add(mob);
-                        if (mob instanceof Zombie) Castle.lightningSummon(mob);
+                        if (mob instanceof Zombie) summonLightning(mob);
                         level.addFreshEntity(mob);
                     }
                 }
@@ -254,6 +254,13 @@ public class NewCastleInstance extends NewTeamInstance {
         manaArrow.setSilent(true);
         manaArrow.setNoGravity(true);
         mob.level().addFreshEntity(manaArrow);
+    }
+
+    public static void summonLightning(Mob mob) {
+        LightningBolt lightningBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, mob.level());
+        lightningBolt.moveTo(mob.position());
+        lightningBolt.setVisualOnly(true);
+        mob.level().addFreshEntity(lightningBolt);
     }
 }
 

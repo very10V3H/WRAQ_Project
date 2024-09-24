@@ -290,4 +290,20 @@ public class IceInstance extends NoTeamInstance {
             }
         }
     }
+
+    public static double IceKnightHealthAttackDamageFix(Mob mob) {
+        if (mob.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.MobArmorIceHelmet.get())) {
+            if (mob.getHealth() / mob.getMaxHealth() > 2.0 / 3) return -0.5;
+            if (mob.getHealth() / mob.getMaxHealth() < 1.0 / 3) return 0.5;
+        }
+        return 0;
+    }
+
+    public static double IceKnightHealthManaDamageFix(Mob mob) {
+        if (mob.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.MobArmorIceHelmet.get())) {
+            if (mob.getHealth() / mob.getMaxHealth() > 2.0 / 3) return 0.5;
+            if (mob.getHealth() / mob.getMaxHealth() < 1.0 / 3) return -0.5;
+        }
+        return 0;
+    }
 }

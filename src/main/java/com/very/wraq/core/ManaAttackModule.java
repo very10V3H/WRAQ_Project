@@ -14,7 +14,7 @@ import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.util.struct.ManaSkillStruct.ManaSkill3;
 import com.very.wraq.common.util.struct.ManaSkillStruct.ManaSkill6;
 import com.very.wraq.customized.uniform.mana.ManaCurios1;
-import com.very.wraq.events.instance.IceKnight;
+import com.very.wraq.events.mob.instance.instances.IceInstance;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.misc.ParticlePackets.EffectParticle.ManaDefencePenetrationParticleS2CPacket;
 import com.very.wraq.networking.misc.SkillPackets.Charging.ChargedClearS2CPacket;
@@ -97,7 +97,7 @@ public class ManaAttackModule {
             double DamageEnhance = 0; // 乘区0
             DamageEnhance += SakuraCoreDecreaseDamage(player); // 樱妖魔核
             DamageEnhance += DamageInfluence.getPlayerCommonDamageUpOrDown(player, monster);
-            DamageEnhance += IceKnight.IceKnightHealthManaDamageFix(monster); // 冰霜骑士伤害修正
+            DamageEnhance += IceInstance.IceKnightHealthManaDamageFix(monster); // 冰霜骑士伤害修正
             DamageEnhance += DamageInfluence.getPlayerManaDamageEnhance(player); // 魔法伤害提升
 
             double NormalAttackDamageEnhance = 0;

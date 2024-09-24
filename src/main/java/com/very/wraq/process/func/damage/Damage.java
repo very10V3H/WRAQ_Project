@@ -13,11 +13,10 @@ import com.very.wraq.common.registry.MySound;
 import com.very.wraq.common.util.Utils;
 import com.very.wraq.customized.uniform.mana.ManaCurios1;
 import com.very.wraq.events.fight.MonsterAttackEvent;
-import com.very.wraq.events.instance.CastleSecondFloor;
-import com.very.wraq.events.instance.IceKnight;
-import com.very.wraq.events.instance.Moon;
 import com.very.wraq.events.mob.MobDeadModule;
 import com.very.wraq.events.mob.MobSpawn;
+import com.very.wraq.events.mob.instance.instances.IceInstance;
+import com.very.wraq.events.mob.instance.instances.MoonInstance;
 import com.very.wraq.events.modules.HurtEventModule;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.process.system.element.equipAndCurios.fireElement.FireEquip;
@@ -176,7 +175,7 @@ public class Damage {
         double ExDamage = 0;
 
         DamageEnhance += DamageInfluence.getPlayerCommonDamageUpOrDown(player, monster);
-        DamageEnhance += IceKnight.IceKnightHealthManaDamageFix(monster); // 冰霜骑士伤害修正
+        DamageEnhance += IceInstance.IceKnightHealthManaDamageFix(monster); // 冰霜骑士伤害修正
         DamageEnhance += DamageInfluence.getPlayerManaDamageEnhance(player); // 魔法伤害提升
         if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false) && isPower) {
             player.sendSystemMessage(Component.literal("---ManaPower---"));
@@ -234,7 +233,7 @@ public class Damage {
         double ExDamage = 0;
 
         DamageEnhance += DamageInfluence.getPlayerCommonDamageUpOrDown(player, monster);
-        DamageEnhance += IceKnight.IceKnightHealthManaDamageFix(monster); // 冰霜骑士伤害修正
+        DamageEnhance += IceInstance.IceKnightHealthManaDamageFix(monster); // 冰霜骑士伤害修正
         DamageEnhance += DamageInfluence.getPlayerManaDamageEnhance(player); // 魔法伤害提升
         if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false) && isPower) {
             player.sendSystemMessage(Component.literal("---ManaPower---"));
@@ -294,7 +293,7 @@ public class Damage {
         double ExDamage = 0;
 
         DamageEnhance += DamageInfluence.getPlayerCommonDamageUpOrDown(player, monster);
-        DamageEnhance += IceKnight.IceKnightHealthManaDamageFix(monster); // 冰霜骑士伤害修正
+        DamageEnhance += IceInstance.IceKnightHealthManaDamageFix(monster); // 冰霜骑士伤害修正
         DamageEnhance += DamageInfluence.getPlayerManaDamageEnhance(player); // 魔法伤害提升
 
         damage += ExDamage;
@@ -317,7 +316,7 @@ public class Damage {
         double ExDamage = 0;
 
         DamageEnhance += DamageInfluence.getPlayerCommonDamageUpOrDown(player, monster);
-        DamageEnhance += IceKnight.IceKnightHealthManaDamageFix(monster); // 冰霜骑士伤害修正
+        DamageEnhance += IceInstance.IceKnightHealthManaDamageFix(monster); // 冰霜骑士伤害修正
         DamageEnhance += DamageInfluence.getPlayerManaDamageEnhance(player); // 魔法伤害提升
 
         if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false) && isPower) {
@@ -447,10 +446,8 @@ public class Damage {
             if (mob.isDeadOrDying()) return;
             if (DailyEndlessInstance.prohibitPlayerCauseDamage(player, mob)) return;
             /*Castle.CauseDamageRecord(player, mob); */
-            if (Moon.isMoonAttackImmune(player, (Mob) entity)) damage *= 0.5;
-            if (Moon.isMoonManaImmune(player, (Mob) entity)) damage *= 0.5;
-            CastleSecondFloor.PlayerPickItemExDamage(player, mob);
-            damage *= CastleSecondFloor.MobDamageImmune(player, mob);
+            if (MoonInstance.isMoonAttackImmune(player, (Mob) entity)) damage *= 0.5;
+            if (MoonInstance.isMoonManaImmune(player, (Mob) entity)) damage *= 0.5;
             /*AttackEvent.DamageCount(player, (Mob) entity, 0, damage);*/
             if (player.isCreative())
                 player.sendSystemMessage(Component.literal("" + mob.getHealth() / mob.getMaxHealth()));

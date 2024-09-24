@@ -9,7 +9,6 @@ import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.util.ClientUtils;
 import com.very.wraq.common.util.ItemAndRate;
 import com.very.wraq.common.util.Utils;
-import com.very.wraq.events.instance.CastleSecondFloor;
 import com.very.wraq.events.mob.MobSpawn;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.misc.AnimationPackets.AnimationTickResetS2CPacket;
@@ -146,7 +145,6 @@ public class VariousEvents {
             InventoryOperation.removeItem(event.getEntity().getInventory(), ModItems.Value.get(),
                     InventoryOperation.itemStackCount(event.getEntity().getInventory(), ModItems.Value.get()));
         }
-        CastleSecondFloor.PlayerPickItem(event.getEntity(), event.getStack());
     }
 
     @SubscribeEvent

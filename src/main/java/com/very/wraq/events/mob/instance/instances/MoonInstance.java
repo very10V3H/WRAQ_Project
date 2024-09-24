@@ -2,6 +2,7 @@ package com.very.wraq.events.mob.instance.instances;
 
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.attribute.PlayerAttributes;
+import com.very.wraq.common.fast.Tick;
 import com.very.wraq.common.registry.ModEntityType;
 import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.util.ItemAndRate;
@@ -42,6 +43,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.WeakHashMap;
 
 public class MoonInstance extends NoTeamInstance {
 
@@ -300,5 +302,36 @@ public class MoonInstance extends NoTeamInstance {
                 itemEntity.moveTo(pos);
             }
         });
+    }
+
+    public static WeakHashMap<Player, Integer> attackImmuneMSGMap = new WeakHashMap<>();
+
+    public static boolean isMoonAttackImmune(Player player, Mob mob) {
+        if (player.isCreative()) return false;
+        if (mob.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.MobArmorMoonAttack.get())) {
+            if (player.distanceTo(mob) > 6 && attackImmuneMSGMap.getOrDefault(player, 0) < Tick.get()) {
+                attackImmuneMSGMap.put(player, Tick.get() + 100);
+                Compute.sendFormatMSG(player, Component.literal("尘月宫").withStyle(CustomStyle.styleOfMoon),
+                        Component.literal("似乎这个距离对阿尔忒弥斯的伤害将会减半。").withStyle(CustomStyle.styleOfMoon1));
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static WeakHashMap<Player, Integer> manaImmuneMSGMap = new WeakHashMap<>();
+
+    public static boolean isMoonManaImmune(Player player, Mob mob) {
+        if (player.isCreative()) return false;
+        if (mob.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.MobArmorMoonMana.get())) {
+            if (player.distanceTo(mob) < 6 && manaImmuneMSGMap.getOrDefault(player, 0) < Tick.get()) {
+                manaImmuneMSGMap.put(player, Tick.get() + 100);
+                Compute.sendFormatMSG(player, Component.literal("尘月宫").withStyle(CustomStyle.styleOfMoon),
+                        Component.literal("似乎这个距离对阿尔忒弥斯的伤害将会减半。").withStyle(CustomStyle.styleOfMoon1));
+
+                return true;
+            }
+        }
+        return false;
     }
 }

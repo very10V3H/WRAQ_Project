@@ -1,7 +1,6 @@
 package com.very.wraq.process.func;
 
 import com.very.wraq.common.Compute;
-import com.very.wraq.events.instance.PurpleIronKnight;
 import com.very.wraq.process.func.damage.Damage;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import net.minecraft.core.particles.ParticleOptions;
@@ -129,11 +128,10 @@ public class MobEffectAndDamageMethods {
     }
 
     public static void BaseEffectProvide(Mob mob, Player player) {
-        PurpleIronKnight.SkillBaseEffectProvide(mob, player);
+
     }
 
     public static void AdditionEffectProvide(Mob mob) {
-        PurpleIronKnight.SkillAdditionEffectProvide(mob);
-    }
 
+    }
 }

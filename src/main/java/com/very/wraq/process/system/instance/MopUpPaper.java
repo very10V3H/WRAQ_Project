@@ -2,7 +2,6 @@ package com.very.wraq.process.system.instance;
 
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.util.ItemAndRate;
-import com.very.wraq.events.instance.*;
 import com.very.wraq.events.mob.instance.instances.*;
 import com.very.wraq.process.system.teamInstance.instances.blackCastle.NewCastleInstance;
 import com.very.wraq.render.toolTip.CustomStyle;
@@ -82,17 +81,12 @@ public class MopUpPaper extends Item {
             List<ItemAndRate> rewardList = new ArrayList<>();
             switch (instanceSerialNumMap.get(instanceName)) {
                 case 0 -> rewardList = NewCastleInstance.getRewardList();
-                case 1 -> CastleSecondFloor.SingleRewardToPlayer(player, 4, 4, true);
                 case 2 -> rewardList = DevilInstance.getRewardList();
                 case 3 -> rewardList = IceInstance.getRewardList();
-                case 4 -> Lightning.SingleRewardToPlayer(player, 4, 4, true);
-                case 5 -> Main1Boss.SingleRewardToPlayer(player, 4, 4, true);
                 case 6 -> rewardList = MoonInstance.getRewardList();
-                case 7 -> Nether.SingleRewardToPlayer(player, 4, 4, 2, true);
                 case 8 -> rewardList = PlainInstance.getRewardList();
                 case 9 -> rewardList = PurpleIronInstance.getRewardList();
                 case 10 -> rewardList = SakuraBossInstance.getRewardList();
-                case 11 -> TabooDevil.singleRewardToPlayer(player, 4, 4, true);
             }
 
             rewardList.forEach(itemAndRate -> {

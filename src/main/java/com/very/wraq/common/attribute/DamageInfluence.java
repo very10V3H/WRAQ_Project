@@ -3,8 +3,8 @@ package com.very.wraq.common.attribute;
 import com.very.wraq.common.Compute;
 import com.very.wraq.core.ManaAttackModule;
 import com.very.wraq.customized.WraqUniformCurios;
-import com.very.wraq.events.instance.IceKnight;
 import com.very.wraq.events.mob.MobSpawn;
+import com.very.wraq.events.mob.instance.instances.IceInstance;
 import com.very.wraq.events.modules.AttackEventModule;
 import com.very.wraq.process.func.EnhanceNormalAttackModifier;
 import com.very.wraq.process.func.MobEffectAndDamageMethods;
@@ -89,7 +89,7 @@ public class DamageInfluence {
 
     public static double getPlayerAttackDamageEnhance(Player player, Mob mob) {
         double rate = 0;
-        rate += IceKnight.IceKnightHealthAttackDamageFix(mob);
+        rate += IceInstance.IceKnightHealthAttackDamageFix(mob);
         rate += getPlayerAttackDamageEnhance(player);
         return rate;
     }

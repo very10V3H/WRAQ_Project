@@ -12,8 +12,6 @@ import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.registry.MySound;
 import com.very.wraq.common.util.Utils;
 import com.very.wraq.common.util.struct.BlockAndResetTime;
-import com.very.wraq.events.instance.CastleSecondFloor;
-import com.very.wraq.events.instance.TabooDevil;
 import com.very.wraq.networking.ModNetworking;
 import com.very.wraq.networking.misc.Limit.CheckBlockLimitS2CPacket;
 import com.very.wraq.networking.misc.TeamPackets.ScreenSetS2CPacket;
@@ -274,8 +272,6 @@ public class BlockEvent {
     @SubscribeEvent
     public static void Dig(net.minecraftforge.event.level.BlockEvent.BreakEvent event) {
         if (!event.getPlayer().isCreative() && !event.getState().is(Blocks.FIRE)) event.setCanceled(true);
-        TabooDevil.DetectDig(event);
-        CastleSecondFloor.DetectDig(event);
         MineSpur.mineEvent(event);
         WoodSpur.woodEvent(event);
         CropSpur.cropsInteract(event);
