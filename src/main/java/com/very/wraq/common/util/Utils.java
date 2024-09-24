@@ -101,7 +101,6 @@ public class Utils {
     public static Map<Item, Double> mobLevel = new HashMap<>();
     public static Map<Item, Double> passiveEquipTag = new HashMap<>();
     public static Map<Item, Integer> levelRequire = new HashMap<>();
-    public static int Count = -1;
     public static Map<Item, Integer> gemsTag = new HashMap<>();
     public static Map<String, Double> gemsAttackDamage = new HashMap<>();
     public static Map<String, Double> gemsSpeedUp = new HashMap<>();

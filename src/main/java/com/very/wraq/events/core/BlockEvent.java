@@ -7,6 +7,7 @@ import com.very.wraq.blocks.entity.FurnaceEntity;
 import com.very.wraq.blocks.entity.HBrewingEntity;
 import com.very.wraq.blocks.entity.InjectBlockEntity;
 import com.very.wraq.common.Compute;
+import com.very.wraq.common.attribute.PlayerAttributes;
 import com.very.wraq.common.registry.ModBlocks;
 import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.registry.MySound;
@@ -55,8 +56,10 @@ import java.util.concurrent.atomic.AtomicReference;
 @Mod.EventBusSubscriber
 public class BlockEvent {
     @SubscribeEvent
-    public static void BreakSpeed(PlayerEvent.BreakSpeed event) {
+    public static void setMineSpeed(PlayerEvent.BreakSpeed event) {
         Player player = event.getEntity();
+        double mineSpeed = PlayerAttributes.getMineSpeed(player);
+        event.setNewSpeed((float) (10 * (1 + mineSpeed)));
     }
 
     @SubscribeEvent

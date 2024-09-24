@@ -25,6 +25,7 @@ import com.very.wraq.process.system.potion.NewPotionEffects;
 import com.very.wraq.process.system.tower.TowerMob;
 import com.very.wraq.projectiles.OnCuriosSlotAttributesModify;
 import com.very.wraq.projectiles.WraqCurios;
+import com.very.wraq.projectiles.WraqPickaxe;
 import com.very.wraq.render.mobEffects.ModEffects;
 import com.very.wraq.series.gems.GemAttributes;
 import com.very.wraq.series.instance.series.castle.CastleAttackArmor;
@@ -2207,6 +2208,10 @@ public class PlayerAttributes {
         return maxMana;
     }
 
+    public static double getMineSpeed(Player player) {
+        return computeAllEquipSlotBaseAttributeValue(player, WraqPickaxe.mineSpeed, false);
+    }
+
     public static double handleArmorRandomAttribute(Player player, String attributeType) {
         double value = 0;
         CompoundTag helmetTag = player.getItemBySlot(EquipmentSlot.HEAD).getOrCreateTagElement(Utils.MOD_ID);
@@ -2301,6 +2306,24 @@ public class PlayerAttributes {
             if (attributeMap.containsKey(item)) {
                 double value = 0;
                 double baseValue = xpLevel * attributeMap.get(item);
+                if (computeForgeAndProficiency && equip.getTagElement(Utils.MOD_ID) != null) {
+                    value += Compute.forgingValue(equip, baseValue);
+                    value += Compute.proficiencyValue(equip, baseValue);
+                }
+                totalValue += baseValue + value;
+            }
+        }
+        return totalValue;
+    }
+
+    private static double computeAllEquipSlotBaseAttributeValue(Player player, Map<Item, Double> attributeMap,
+                                                                boolean computeForgeAndProficiency) {
+        double totalValue = 0;
+        for (ItemStack equip : getAllEquipSlotItems(player)) {
+            Item item = equip.getItem();
+            if (attributeMap.containsKey(item) && player.experienceLevel >= Utils.levelRequire.getOrDefault(item, 0)) {
+                double value = 0;
+                double baseValue = attributeMap.get(item);
                 if (computeForgeAndProficiency && equip.getTagElement(Utils.MOD_ID) != null) {
                     value += Compute.forgingValue(equip, baseValue);
                     value += Compute.proficiencyValue(equip, baseValue);

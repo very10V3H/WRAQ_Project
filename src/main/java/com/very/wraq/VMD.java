@@ -595,7 +595,6 @@ public class VMD {
             event.accept(ModItems.attributecheck.get().getDefaultInstance());
             event.accept(ModItems.hovertest.get().getDefaultInstance());
             event.accept(ModItems.ArrowItem.get().getDefaultInstance());
-            event.accept(ModItems.Extraction.get().getDefaultInstance());
             event.accept(ModItems.Security.get().getDefaultInstance());
             event.accept(ModItems.ResetSecurity.get().getDefaultInstance());
             event.accept(ModItems.tick.get().getDefaultInstance());

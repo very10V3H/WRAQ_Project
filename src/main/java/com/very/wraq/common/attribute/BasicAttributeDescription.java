@@ -12,6 +12,7 @@ import com.very.wraq.process.system.element.Element;
 import com.very.wraq.process.system.forge.ForgeEquipUtils;
 import com.very.wraq.projectiles.RandomCurios;
 import com.very.wraq.projectiles.WraqCurios;
+import com.very.wraq.projectiles.WraqPickaxe;
 import com.very.wraq.render.toolTip.CustomStyle;
 import com.very.wraq.render.toolTip.NewTooltip;
 import com.very.wraq.render.toolTip.TraditionalTooltip;
@@ -862,6 +863,10 @@ public class BasicAttributeDescription {
         index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.manaDefence, Utils.percentManaDefenceEnhance,
                 StringUtils.CuriosAttribute.percentManaDefenceEnhance, "魔法抗性",
                 Style.EMPTY.applyFormat(ChatFormatting.BLUE), "%.0f%%", true, itemStack, event.getTooltipElements());
+
+        index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.stoneElement, WraqPickaxe.mineSpeed,
+                "EmptyTypeAttribute", "挖掘速度",
+                Style.EMPTY.applyFormat(ChatFormatting.GRAY), "%.0f%%", true, itemStack, event.getTooltipElements());
 
         // 以下为新版宝石内容提示
         List<WraqGem> gemList = WraqGem.getEquipContainGemList(itemStack);

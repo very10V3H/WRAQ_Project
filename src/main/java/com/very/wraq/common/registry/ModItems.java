@@ -630,8 +630,6 @@ public class ModItems {
             () -> new Note_2(new Item.Properties().rarity(Rarity.UNCOMMON)));
     public static final RegistryObject<Item> Note_3 = ITEMS.register("note_3",
             () -> new Note_3(new Item.Properties().rarity(Rarity.UNCOMMON)));
-    public static final RegistryObject<Item> Extraction = ITEMS.register("extraction",
-            () -> new Extraction(ItemTier.Extraction, 2, 0));
     public static final RegistryObject<Item> SmartPhone = ITEMS.register("smartphone",
             () -> new SmartPhoneitem(new Item.Properties().rarity(Rarity.RARE)));
     public static final RegistryObject<Item> PlainBow0 = ITEMS.register("plainbow0",
@@ -1748,16 +1746,16 @@ public class ModItems {
             () -> new Item(new Item.Properties().rarity(CustomStyle.PurpleIron)));
 
     public static final RegistryObject<Item> PurpleIronPickaxe0 = ITEMS.register("purpleiron_pickaxe0",
-            () -> new PurplePickaxe(ItemTier.MaterialForPurplePickaxe0, new Item.Properties().rarity(CustomStyle.PurpleIronItalic), 0));
+            () -> new PurplePickaxe(new Item.Properties().rarity(CustomStyle.PurpleIronItalic), 0));
 
     public static final RegistryObject<Item> PurpleIronPickaxe1 = ITEMS.register("purpleiron_pickaxe1",
-            () -> new PurplePickaxe(ItemTier.MaterialForPurplePickaxe1, new Item.Properties().rarity(CustomStyle.PurpleIronItalic), 1));
+            () -> new PurplePickaxe(new Item.Properties().rarity(CustomStyle.PurpleIronItalic), 1));
 
     public static final RegistryObject<Item> PurpleIronPickaxe2 = ITEMS.register("purpleiron_pickaxe2",
-            () -> new PurplePickaxe(ItemTier.MaterialForPurplePickaxe2, new Item.Properties().rarity(CustomStyle.PurpleIronItalic), 2));
+            () -> new PurplePickaxe(new Item.Properties().rarity(CustomStyle.PurpleIronItalic), 2));
 
     public static final RegistryObject<Item> PurpleIronPickaxe3 = ITEMS.register("purpleiron_pickaxe3",
-            () -> new PurplePickaxe(ItemTier.MaterialForPurplePickaxe3, new Item.Properties().rarity(CustomStyle.PurpleIronItalic), 3));
+            () -> new PurplePickaxe(new Item.Properties().rarity(CustomStyle.PurpleIronItalic), 3));
 
     public static final RegistryObject<Item> PurpleIronArmorHelmet = ITEMS.register("purpleiron_armor_helmet",
             () -> new PurpleIronArmor(ItemMaterial.PurpleIron, ArmorItem.Type.HELMET, new Item.Properties().rarity(CustomStyle.PurpleIronItalic)));

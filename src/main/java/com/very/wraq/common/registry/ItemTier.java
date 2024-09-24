@@ -10,10 +10,6 @@ public enum ItemTier implements Tier {
     MaterialForPickaxe2(10, 100, 4.0f, 0.0f, 15),
     MaterialForPickaxe3(10, 100, 5.0f, 0.0f, 15),
     Extraction(0, 64, 1.6F, 0.0f, 15),
-    MaterialForPurplePickaxe0(10, 100, 8.0f, 0.0f, 15),
-    MaterialForPurplePickaxe1(10, 100, 10.0f, 0.0f, 15),
-    MaterialForPurplePickaxe2(10, 100, 12.0f, 0.0f, 15),
-    MaterialForPurplePickaxe3(10, 100, 15.0f, 0.0f, 15),
     XiangLiPickaxe(10, 100, 15.0f, 0.0f, 15);
 
 
