@@ -8,7 +8,7 @@ public class MineBowAttributes {
             50, 55, 60, 75
     };
     public static double[] DefencePenetration0 = {
-            350, 400, 450, 500
+            3, 4, 5, 6
     };
     public static double[] CriticalRate = {
             0.2f, 0.2f, 0.2f, 0.25f

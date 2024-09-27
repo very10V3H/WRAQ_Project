@@ -25,7 +25,7 @@ public class SpringSwiftArmor extends ArmorItem {
         super(Material, Slots, itemProperties);
         Utils.maxHealth.put(this, 1024d);
         Utils.attackDamage.put(this, 224d);
-        Utils.defence.put(this, 124d);
+        Utils.defence.put(this, 1d);
         Utils.swiftnessUp.put(this, 2.4);
         Utils.armorTag.put(this, 1d);
         Utils.armorList.add(this);

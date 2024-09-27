@@ -23,24 +23,18 @@ import java.util.List;
 import java.util.WeakHashMap;
 
 public class MoonBook extends Item {
-    private final double ManaDamage = 577;
-    private final double ManaPenetration0 = 777;
-    private final double MaxMana = 77;
-    private final double MovementSpeed = 1.27;
-    private final double CoolDown = 0.27;
-    private final double ExpUp = 1.57;
 
     public static WeakHashMap<Player, Mob> PlayerMoonBookMap = new WeakHashMap<>();
     public static WeakHashMap<Player, Integer> PlayerMoonBookCountMap = new WeakHashMap<>();
 
     public MoonBook() {
         super(new Properties().rarity(CustomStyle.MoonItalic).stacksTo(1));
-        Utils.manaDamage.put(this, ManaDamage);
-        Utils.manaPenetration0.put(this, ManaPenetration0);
-        Utils.maxMana.put(this, MaxMana);
-        Utils.movementSpeedWithoutBattle.put(this, MovementSpeed);
-        Utils.coolDownDecrease.put(this, CoolDown);
-        Utils.expUp.put(this, ExpUp);
+        Utils.manaDamage.put(this, 577d);
+        Utils.manaPenetration0.put(this, 777d);
+        Utils.maxMana.put(this, 77d);
+        Utils.movementSpeedWithoutBattle.put(this, 1.27);
+        Utils.coolDownDecrease.put(this, 0.27);
+        Utils.expUp.put(this, 1.57);
         Utils.offHandTag.put(this, 1d);
         Utils.weaponList.add(this);
     }

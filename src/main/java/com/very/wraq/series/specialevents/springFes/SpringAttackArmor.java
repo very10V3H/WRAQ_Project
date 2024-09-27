@@ -25,7 +25,7 @@ public class SpringAttackArmor extends ArmorItem {
         super(Material, Slots, itemProperties);
         Utils.maxHealth.put(this, 2024d);
         Utils.attackDamage.put(this, 224d);
-        Utils.defence.put(this, 224d);
+        Utils.defence.put(this, 2d);
         Utils.critDamage.put(this, 0.35);
         Utils.armorTag.put(this, 1d);
         Utils.armorList.add(this);

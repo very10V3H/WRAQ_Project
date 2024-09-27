@@ -68,7 +68,7 @@ public class EvokerSpawnController extends MobSpawnController {
 
         // 需要验证
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(evoker), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(evoker, 200, 300, 300, 0.3, 2, 0.1, 250, 10, 4000, 0.3);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(evoker, 200, 3, 3, 0.3, 2, 0.1, 3, 10, 4000, 0.3);
 
         // 设置物品
         ItemStack[] itemStacks = {new ItemStack(Items.LEATHER_HELMET), new ItemStack(Items.LEATHER_CHESTPLATE),

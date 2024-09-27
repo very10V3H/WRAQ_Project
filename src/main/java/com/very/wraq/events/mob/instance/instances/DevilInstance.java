@@ -82,7 +82,7 @@ public class DevilInstance extends NoTeamInstance {
         MobSpawn.setMobCustomName(zombie, Component.literal(mobName).withStyle(CustomStyle.styleOfBloodMana), 150);
 
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(zombie), 150);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombie, 1500, 2000, 2000, 0.4, 4, 0.25, 900, 20, 300 * Math.pow(10, 4), 0.35);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombie, 1500, 20, 20, 0.4, 4, 0.25, 9, 20, 300 * Math.pow(10, 4), 0.35);
 
         zombie.setHealth(zombie.getMaxHealth());
         zombie.setItemSlot(EquipmentSlot.HEAD, ModItems.MobArmorDevilHelmet.get().getDefaultInstance());

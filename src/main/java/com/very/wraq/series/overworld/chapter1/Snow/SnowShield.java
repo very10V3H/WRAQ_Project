@@ -17,19 +17,13 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class SnowShield extends Item {
-    private final double Defence = 175;
-    private final double MaxHealth = 350;
-    private final double AttackDamage = 10;
-    private final double CritRate = 0.05;
-    private final double ExpUp = 0.75;
-
     public SnowShield() {
         super(new Properties().rarity(CustomStyle.SnowItalic).stacksTo(1));
-        Utils.defence.put(this, Defence);
-        Utils.maxHealth.put(this, MaxHealth);
-        Utils.attackDamage.put(this, AttackDamage);
-        Utils.critRate.put(this, CritRate);
-        Utils.expUp.put(this, ExpUp);
+        Utils.defence.put(this, 2d);
+        Utils.maxHealth.put(this, 350d);
+        Utils.attackDamage.put(this, 10d);
+        Utils.critRate.put(this, 0.05);
+        Utils.expUp.put(this, 0.75);
         Utils.offHandTag.put(this, 1d);
         Utils.weaponList.add(this);
         Utils.shieldTag.put(this, 1d);
@@ -52,7 +46,6 @@ public class SnowShield extends Item {
                 append(Compute.AttributeDescription.Defence("")).
                 append(Component.literal(" 持续2s").withStyle(ChatFormatting.WHITE)));
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
-        components.add(Component.literal("SnowShield").withStyle(MainStyle).withStyle(ChatFormatting.ITALIC));
         ComponentUtils.suffixOfChapterI(components);
         super.appendHoverText(stack, level, components, flag);
     }

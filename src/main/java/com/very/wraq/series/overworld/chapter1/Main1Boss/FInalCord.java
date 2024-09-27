@@ -13,23 +13,16 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class FInalCord extends Item {
-    private final double ExpUp = 1;
-    protected double CriticalRate = 0.15F;
-    protected double HealReply = 2.0d;
-    protected double MaxHealth = 250.0d;
-    protected double Defence = 50.0d;
-    protected double CoolDown = 0.2F;
-    protected double Damage = 20.0d;
 
     public FInalCord(Properties p_41383_) {
         super(p_41383_);
-        Utils.expUp.put(this, ExpUp);
-        Utils.critRate.put(this, CriticalRate);
-        Utils.healthRecover.put(this, HealReply);
-        Utils.maxHealth.put(this, MaxHealth);
-        Utils.defence.put(this, Defence);
-        Utils.attackDamage.put(this, Damage);
-        Utils.coolDownDecrease.put(this, CoolDown);
+        Utils.expUp.put(this, 1d);
+        Utils.critRate.put(this, 0.15);
+        Utils.healthRecover.put(this, 2d);
+        Utils.maxHealth.put(this, 250d);
+        Utils.defence.put(this, 50d);
+        Utils.attackDamage.put(this, 20d);
+        Utils.coolDownDecrease.put(this, 0.2);
         Utils.offHandTag.put(this, 1d);
         Utils.weaponList.add(this);
     }

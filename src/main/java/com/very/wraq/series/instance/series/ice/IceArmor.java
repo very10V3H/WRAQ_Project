@@ -19,7 +19,7 @@ public class IceArmor extends WraqArmor {
         super(Material, Slots, itemProperties);
         Utils.attackDamage.put(this, 350d);
         Utils.manaDamage.put(this, 700d);
-        Utils.defence.put(this, 600d);
+        Utils.defence.put(this, 6d);
         Utils.maxHealth.put(this, 1600d);
         if (type.equals(Type.BOOTS)) {
             Utils.movementSpeedCommon.put(this, 0.4);

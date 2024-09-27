@@ -70,7 +70,7 @@ public class BloodManaSpawnController extends MobSpawnController {
 
         // 需要验证
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(zombie), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombie, 700, 1250, 1250, 0.4, 4, 0.25, 700, 20, 100000, 0.35);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombie, 700, 13, 13, 0.4, 4, 0.25, 7, 20, 100000, 0.35);
 
         // 设置物品
         ItemStack[] itemStacks = {new ItemStack(Items.LEATHER_HELMET), new ItemStack(Items.LEATHER_CHESTPLATE),

@@ -18,14 +18,12 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class SkyArmorBoots extends ArmorItem {
-    private final double Defence = 80;
-    private final double MaxHealth = 200.0d;
 
     public SkyArmorBoots(ItemMaterial material, Type Slots) {
         super(material, Slots, new Properties().rarity(CustomStyle.SkyItalic));
-        Utils.defence.put(this, Defence);
+        Utils.defence.put(this, 80d);
         if (type.equals(Type.BOOTS)) Utils.movementSpeedCommon.put(this, 0.5);
-        Utils.maxHealth.put(this, MaxHealth);
+        Utils.maxHealth.put(this, 200d);
         Utils.armorTag.put(this, 1d);
         Utils.armorList.add(this);
     }

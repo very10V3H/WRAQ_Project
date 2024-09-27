@@ -71,7 +71,7 @@ public class FireLightSpawnController extends MobSpawnController {
 
         // 需要验证
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(firelight), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(firelight, 80, 50, 50, 0.2, 1, 0, 0, 0, 1500, 0.2);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(firelight, 80, 2, 2, 0.2, 1, 0, 0, 0, 1500, 0.2);
 
         // 设置物品
         ItemStack[] itemStacks = {new ItemStack(Items.LEATHER_HELMET), new ItemStack(Items.LEATHER_CHESTPLATE),

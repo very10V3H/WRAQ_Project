@@ -17,6 +17,6 @@ public class SkyCrestAttributes {
             0.04, 0.08, 0.1, 0.12, 0.25
     };
     public static double[] ManaDefencePenetration0 = {
-            20, 40, 60, 80, 320
+            1, 2, 3, 4, 6
     };
 }

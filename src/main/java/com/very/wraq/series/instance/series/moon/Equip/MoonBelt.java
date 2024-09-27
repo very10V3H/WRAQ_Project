@@ -35,8 +35,8 @@ public class MoonBelt extends Item implements ICurioItem {
         Utils.curiosList.add(this);
         Utils.attackDamage.put(this, 150d);
         Utils.manaDamage.put(this, 300d);
-        Utils.defencePenetration0.put(this, 200d);
-        Utils.manaPenetration0.put(this, 200d);
+        Utils.defencePenetration0.put(this, 2d);
+        Utils.manaPenetration0.put(this, 2d);
         Utils.coolDownDecrease.put(this, 0.2);
     }
 

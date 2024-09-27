@@ -28,8 +28,8 @@ public class ForestSuitDescription {
         Compute.solePassiveDescription(components, Component.literal("").withStyle(style));
         int level = Math.min(100, Minecraft.getInstance().player.experienceLevel);
         components.add(Component.literal(" 获得").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.Defence("等级 * 8")).
-                append(Component.literal("(" + level * 8 + ")").withStyle(ChatFormatting.GRAY)));
+                append(Compute.AttributeDescription.Defence("等级 * 0.4")).
+                append(Component.literal("(" + level * 0.4 + ")").withStyle(ChatFormatting.GRAY)));
         components.add(Component.literal(" 在100级时达到最大收益").withStyle(ChatFormatting.GRAY));
         if (Screen.hasShiftDown()) SuitDescription(components);
         else {

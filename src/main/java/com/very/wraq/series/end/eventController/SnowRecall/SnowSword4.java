@@ -26,7 +26,7 @@ public class SnowSword4 extends WraqSword implements ActiveItem {
     public SnowSword4(Properties properties) {
         super(properties);
         Utils.attackDamage.put(this, 200.0d);
-        Utils.defencePenetration0.put(this, 1800d);
+        Utils.defencePenetration0.put(this, 18d);
         Utils.healthSteal.put(this, 0.08);
         Utils.critRate.put(this, 0.45);
         Utils.critDamage.put(this, 0.6);

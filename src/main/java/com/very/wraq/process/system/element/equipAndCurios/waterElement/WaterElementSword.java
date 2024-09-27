@@ -31,7 +31,7 @@ public class WaterElementSword extends WraqSword implements ActiveItem {
     public WaterElementSword(Properties properties) {
         super(properties);
         Utils.attackDamage.put(this, 600d);
-        Utils.defencePenetration0.put(this, 4000d);
+        Utils.defencePenetration0.put(this, 40d);
         Utils.healthSteal.put(this, 0.08);
         Utils.critRate.put(this, 0.3);
         Utils.critDamage.put(this, 0.9);

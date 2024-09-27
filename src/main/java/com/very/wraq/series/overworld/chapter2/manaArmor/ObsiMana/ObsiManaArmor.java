@@ -19,11 +19,11 @@ public class ObsiManaArmor extends WraqArmor {
 
     public ObsiManaArmor(ItemMaterial material, Type type) {
         super(material, type, new Properties().rarity(CustomStyle.EvokerItalic));
-        Utils.defence.put(this, 100d);
+        Utils.defence.put(this, 1d);
         Utils.manaDamage.put(this, 75d);
         Utils.maxHealth.put(this, 80d);
         Utils.maxMana.put(this, 10d);
-        Utils.manaPenetration0.put(this, 12d);
+        Utils.manaPenetration0.put(this, 1d);
         if (type.equals(Type.BOOTS)) Utils.movementSpeedCommon.put(this, 0.3);
     }
 

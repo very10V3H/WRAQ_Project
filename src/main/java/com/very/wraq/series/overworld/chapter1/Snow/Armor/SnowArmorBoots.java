@@ -19,15 +19,12 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class SnowArmorBoots extends ArmorItem {
-
-    private final double MaxHealth = 480;
-    private final double Defence = 160;
     private static final Style style = CustomStyle.styleOfSnow;
 
     public SnowArmorBoots(ItemMaterial Material, Type Slots) {
         super(Material, Slots, new Properties().rarity(CustomStyle.SnowItalic));
-        Utils.maxHealth.put(this, MaxHealth);
-        Utils.defence.put(this, Defence);
+        Utils.maxHealth.put(this, 480d);
+        Utils.defence.put(this, 2d);
         Utils.armorTag.put(this, 1d);
         Utils.armorList.add(this);
         if (type.equals(Type.BOOTS)) Utils.movementSpeedCommon.put(this, 0.3);

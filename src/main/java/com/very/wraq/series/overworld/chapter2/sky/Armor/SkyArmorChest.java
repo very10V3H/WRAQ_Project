@@ -18,15 +18,12 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class SkyArmorChest extends ArmorItem {
-    private final double Defence = 240;
-    private final double critRate = 0.20d;
-    private final double MaxHealth = 200.0d;
 
     public SkyArmorChest(ItemMaterial Materrial, Type Slots) {
         super(Materrial, Slots, new Properties().rarity(CustomStyle.SkyItalic));
-        Utils.defence.put(this, Defence);
-        Utils.critRate.put(this, critRate);
-        Utils.maxHealth.put(this, MaxHealth);
+        Utils.defence.put(this, 2d);
+        Utils.critRate.put(this, 0.20d);
+        Utils.maxHealth.put(this, 200.0d);
         Utils.armorTag.put(this, 1d);
         Utils.armorList.add(this);
     }

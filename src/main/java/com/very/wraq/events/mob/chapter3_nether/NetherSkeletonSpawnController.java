@@ -67,7 +67,7 @@ public class NetherSkeletonSpawnController extends MobSpawnController {
 
         // 需要验证
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(skeleton), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(skeleton, 200, 600, 600, 0.35, 3, 0.2, 500, 15, 9000, 0.25);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(skeleton, 200, 6, 6, 0.35, 3, 0.2, 5, 15, 9000, 0.25);
 
         // 设置物品
         ItemStack[] itemStacks = {new ItemStack(Items.NETHERITE_HELMET), new ItemStack(Items.NETHERITE_CHESTPLATE),

@@ -14,6 +14,6 @@ public class SnowCrestAttributes {
             ChatFormatting.RED
     };
     public static double[] DefencePenetration = {
-            20, 40, 60, 80, 320
+            1, 2, 3, 4, 10
     };
 }

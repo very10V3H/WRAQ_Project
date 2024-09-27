@@ -33,7 +33,7 @@ public class LakeBow extends WraqBow implements OnHitEffectMainHandWeapon {
         super(properties);
         this.tier = tier;
         Utils.attackDamage.put(this, new double[]{50, 60, 70, 80}[tier]);
-        Utils.defencePenetration0.put(this, new double[]{150, 200, 250, 300}[tier]);
+        Utils.defencePenetration0.put(this, new double[]{2, 2, 3, 3}[tier]);
         Utils.critRate.put(this, new double[]{0.4, 0.4, 0.4, 0.4}[tier]);
         Utils.critDamage.put(this, new double[]{0.3, 0.35, 0.4, 0.5}[tier]);
         Utils.movementSpeedWithoutBattle.put(this, new double[]{0.3, 0.45, 0.6, 0.75}[tier]);

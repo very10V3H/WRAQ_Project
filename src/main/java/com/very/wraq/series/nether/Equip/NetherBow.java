@@ -27,7 +27,7 @@ public class NetherBow extends WraqBow {
     public NetherBow(Properties p_40524_) {
         super(p_40524_);
         Utils.attackDamage.put(this, 140d);
-        Utils.defencePenetration0.put(this, 900d);
+        Utils.defencePenetration0.put(this, 9d);
         Utils.critRate.put(this, 0.25);
         Utils.critDamage.put(this, 0.6);
         Utils.movementSpeedWithoutBattle.put(this, 0.3);

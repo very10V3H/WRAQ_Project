@@ -23,12 +23,12 @@ public class C6LootItems {
     public static final RegistryObject<Item> blazeSword = ITEMS.register("blaze_loot_sword", () ->
             new RandomSword(new Item.Properties().rarity(CustomStyle.MagmaBold), CustomStyle.styleOfPower,
                     ComponentUtils.getSuffixOfCastle(), List.of(new RandomAttributeValue(StringUtils.RandomAttribute.attackDamage, 500, 600),
-                    new RandomAttributeValue(StringUtils.RandomAttribute.defence, 400, 500),
+                    new RandomAttributeValue(StringUtils.RandomAttribute.defence, 4, 5),
                     new RandomAttributeValue(StringUtils.RandomAttribute.maxHealth, 800, 1000)), 180));
 
     public static final RegistryObject<Item> treeSceptre = ITEMS.register("tree_loot_sceptre", () ->
             new RandomSceptre(new Item.Properties().rarity(CustomStyle.EvokerBold), CustomStyle.styleOfMana,
                     ComponentUtils.getSuffixOfCastle(), List.of(new RandomAttributeValue(StringUtils.RandomAttribute.manaDamage, 1000, 1200),
                     new RandomAttributeValue(StringUtils.RandomAttribute.maxMana, 75, 100),
-                    new RandomAttributeValue(StringUtils.RandomAttribute.manaPenetration0, 300, 400)), 180));
+                    new RandomAttributeValue(StringUtils.RandomAttribute.manaPenetration0, 3, 4)), 180));
 }

@@ -19,7 +19,7 @@ public class SkyBow extends WraqBow {
     public SkyBow(Properties p_40524_) {
         super(p_40524_);
         Utils.attackDamage.put(this, 120d);
-        Utils.defencePenetration0.put(this, 600d);
+        Utils.defencePenetration0.put(this, 6d);
         Utils.critRate.put(this, 0.25);
         Utils.critDamage.put(this, 0.35);
         Utils.movementSpeedWithoutBattle.put(this, 0.6);

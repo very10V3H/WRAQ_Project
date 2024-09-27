@@ -20,8 +20,8 @@ public class DevilManaArmor extends WraqArmor {
         super(Material, Slots, itemProperties);
         Utils.maxHealth.put(this, 1728d);
         Utils.manaDamage.put(this, 900d);
-        Utils.defence.put(this, 360d);
-        Utils.manaDefence.put(this, 240d);
+        Utils.defence.put(this, 4d);
+        Utils.manaDefence.put(this, 2d);
         Utils.manaRecover.put(this, 20d);
         Utils.coolDownDecrease.put(this, 0.2);
         if (type.equals(Type.BOOTS)) Utils.movementSpeedCommon.put(this, 0.45);

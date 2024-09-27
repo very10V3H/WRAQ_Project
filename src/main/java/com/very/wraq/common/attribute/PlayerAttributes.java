@@ -24,6 +24,7 @@ import com.very.wraq.process.system.forge.ForgeEquipUtils;
 import com.very.wraq.process.system.potion.NewPotionEffects;
 import com.very.wraq.process.system.tower.TowerMob;
 import com.very.wraq.projectiles.OnCuriosSlotAttributesModify;
+import com.very.wraq.projectiles.OnEquipmentSlotAttributeEnhance;
 import com.very.wraq.projectiles.WraqCurios;
 import com.very.wraq.projectiles.WraqPickaxe;
 import com.very.wraq.render.mobEffects.ModEffects;
@@ -38,7 +39,6 @@ import com.very.wraq.series.instance.series.moon.Equip.MoonBook;
 import com.very.wraq.series.instance.series.moon.Equip.MoonKnife;
 import com.very.wraq.series.instance.series.moon.Equip.MoonShield;
 import com.very.wraq.series.instance.series.taboo.TabooManaArmor;
-import com.very.wraq.series.nether.Equip.PiglinHelmet.PiglinHelmet;
 import com.very.wraq.series.newrunes.chapter1.ForestNewRune;
 import com.very.wraq.series.newrunes.chapter1.PlainNewRune;
 import com.very.wraq.series.newrunes.chapter2.SkyNewRune;
@@ -53,7 +53,7 @@ import com.very.wraq.series.overworld.chapter1.forest.armor.ForestArmorLeggings;
 import com.very.wraq.series.overworld.chapter1.forest.crest.ForestCrestAttributes;
 import com.very.wraq.series.overworld.chapter1.plain.armor.PlainArmorHelmet;
 import com.very.wraq.series.overworld.chapter1.plain.crest.PlainCrestAttributes;
-import com.very.wraq.series.overworld.chapter1.plain.sceptre.PlainSceptre4;
+import com.very.wraq.series.overworld.chapter1.plain.sceptre.PlainSceptre;
 import com.very.wraq.series.overworld.chapter1.volcano.armor.VolcanoArmorHelmet;
 import com.very.wraq.series.overworld.chapter1.volcano.crest.VolcanoCrestAttributes;
 import com.very.wraq.series.overworld.chapter1.waterSystem.crest.LakeCrestAttributes;
@@ -68,7 +68,6 @@ import com.very.wraq.series.worldsoul.SoulEquipAttribute;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -807,7 +806,7 @@ public class PlayerAttributes {
     public static double defence(Player player) {
         int TickCount = player.getServer().getTickCount();
         CompoundTag data = player.getPersistentData();
-        double baseDefence = player.experienceLevel;
+        double baseDefence = player.experienceLevel * 0.2;
         double exDefence = 0.0d;
         Item boots = player.getItemBySlot(EquipmentSlot.FEET).getItem();
         Item leggings = player.getItemBySlot(EquipmentSlot.LEGS).getItem();
@@ -862,23 +861,18 @@ public class PlayerAttributes {
         if (SuitCount.getForestSuitCount(player) >= 2) exDefence += baseDefence * 0.25;
         if (SuitCount.getLifeManaSuitCount(player) >= 4) exDefence += baseDefence * 0.25;
         if (data.contains("forestgems") && data.getBoolean("forestgems")) exDefence += baseDefence * 0.1;
-        if (player.getEffect(ModEffects.DefenceUP.get()) != null && player.getEffect(ModEffects.DefenceUP.get()).getAmplifier() == 0)
-            exDefence += baseDefence * 0.25 + 80;
-        if (player.getEffect(ModEffects.DefenceUP.get()) != null && player.getEffect(ModEffects.DefenceUP.get()).getAmplifier() == 1)
-            exDefence += baseDefence * 0.40 + 160;
-        if (data.contains("GemSDefence")) exDefence += data.getDouble("GemSDefence");
-        if (leggings.equals(ModItems.MinePants.get()) && (Utils.OverWorldLevelIsNight || player.getY() < 63))
-            exDefence += 100;
-        // 矿工裤被动
-        if (SuitCount.getMineSuitCount(player) >= 4) exDefence += 250;
-
-        if (helmet instanceof PiglinHelmet) {
-            PiglinHelmet piglinHelmet = (PiglinHelmet) helmet;
-            int Rate = (1 + piglinHelmet.tier) * 5;
-            Level level = player.level();
-            List<Mob> mobList = level.getEntitiesOfClass(Mob.class, AABB.ofSize(player.getPosition(1), 10, 10, 10));
-            exDefence += Math.min(200, Rate * mobList.size());
+        if (player.getEffect(ModEffects.DefenceUP.get()) != null
+                && player.getEffect(ModEffects.DefenceUP.get()).getAmplifier() == 0) {
+            exDefence += baseDefence * 0.25 + 5;
         }
+        if (player.getEffect(ModEffects.DefenceUP.get()) != null
+                && player.getEffect(ModEffects.DefenceUP.get()).getAmplifier() == 1) {
+            exDefence += baseDefence * 0.40 + 10;
+        }
+        if (leggings.equals(ModItems.MinePants.get()) && (Utils.OverWorldLevelIsNight || player.getY() < 63))
+            exDefence += 1;
+        // 矿工裤被动
+        if (SuitCount.getMineSuitCount(player) >= 4) exDefence += 2.5;
 
         if (data.getInt(StringUtils.Crest.Mine.Crest0) > 0)
             exDefence += MineCrestAttributes.ExDefence[0] * data.getInt(StringUtils.Crest.Mine.Crest0);
@@ -891,10 +885,10 @@ public class PlayerAttributes {
         if (data.getInt(StringUtils.Crest.Mine.Crest4) > 0)
             exDefence += MineCrestAttributes.ExDefence[4] * data.getInt(StringUtils.Crest.Mine.Crest4);
 
-        if (data.getInt(StringUtils.PlainSwordActive.PlainSceptre) > TickCount) exDefence += 40;
+        if (data.getInt(StringUtils.PlainSwordActive.PlainSceptre) > TickCount) exDefence += 1;
 
         if (data.contains(StringUtils.Ability.Power) && data.getInt(StringUtils.Ability.Power) > 0) {
-            exDefence += data.getInt(StringUtils.Ability.Power) * 6;
+            exDefence += data.getInt(StringUtils.Ability.Power);
         } // 能力
 
         String name = player.getName().getString();
@@ -902,23 +896,23 @@ public class PlayerAttributes {
             exDefence += Utils.playerDefenceRingMap.get(name);
 
         if (Utils.MineShieldEffect.containsKey(player) && Utils.MineShieldEffect.get(player) > TickCount) {
-            exDefence += player.experienceLevel * 5;
+            exDefence += player.experienceLevel;
         }
 
         if (Utils.SakuraBowEffectMap.containsKey(player) && Utils.SakuraBowEffectMap.get(player) > TickCount) {
-            exDefence += 400;
+            exDefence += 4;
         } // 妖弓-樱
 
         if (Utils.PlayerSpringHandDefenceAttribute.containsKey(player) && Utils.PlayerSpringHandLevelRequire.get(player) <= player.experienceLevel) {
-            exDefence += Utils.PlayerSpringHandDefenceAttribute.get(player);
+            exDefence += Utils.PlayerSpringHandDefenceAttribute.get(player) * 0.01;
         }
 
         if (Utils.MeteoriteDefenceMap.containsKey(player) && Utils.MeteoriteDefenceTimeMap.get(player) > TickCount) {
-            exDefence += Utils.MeteoriteDefenceMap.get(player);
+            exDefence += Utils.MeteoriteDefenceMap.get(player) * 0.01;
         }
 
         if (Utils.SnowShieldPlayerEffectTickMap.containsKey(player) && Utils.SnowShieldPlayerEffectTickMap.get(player) > TickCount) {
-            exDefence += Utils.SnowShieldPlayerEffectMap.get(player);
+            exDefence += Utils.SnowShieldPlayerEffectMap.get(player) * 0.01;
         } // 玉山圆盾
 
         exDefence += Compute.CuriosAttribute.attributeValue(player, Utils.defence, StringUtils.CuriosAttribute.defence); // 新版饰品属性加成
@@ -929,6 +923,7 @@ public class PlayerAttributes {
         exDefence += CastleManaArmor.ExAttributeValue(player, CastleManaArmor.ExDefence);
         exDefence += CastleSwiftArmor.ExAttributeValue(player, CastleSwiftArmor.ExDefence);
         exDefence += ForestArmorHelmet.exDefence(player);
+        exDefence += computeAllEquipmentSlotAttributeEnhance(player, Utils.defence);
         // 请在上方添加
         double totalDefence = 0;
         totalDefence = baseDefence + exDefence;
@@ -1255,8 +1250,6 @@ public class PlayerAttributes {
         // 器灵属性加成
         defencePenetration0 += Compute.PassiveEquip.getAttribute(player, Utils.defencePenetration0);
 
-        if (Utils.mainHandTag.containsKey(mainhand) && stackmainhandtag.contains("BreakDefence0"))
-            defencePenetration0 += stackmainhandtag.getDouble("BreakDefence0");
         if (Utils.defencePenetration0.containsKey(boots)) defencePenetration0 += Utils.defencePenetration0.get(boots);
         if (Utils.defencePenetration0.containsKey(leggings))
             defencePenetration0 += Utils.defencePenetration0.get(leggings);
@@ -1267,24 +1260,23 @@ public class PlayerAttributes {
         if (Utils.offHandTag.containsKey(offhand) && Utils.defencePenetration0.containsKey(offhand))
             defencePenetration0 += Utils.defencePenetration0.get(offhand);
         if (data.contains(StringUtils.ForestSwordSkill0) && data.getInt(StringUtils.ForestSwordSkill0) > TickCount)
-            defencePenetration0 += 50;
+            defencePenetration0 += 5;
         if (data.contains(StringUtils.ForestSwordSkill1) && data.getInt(StringUtils.ForestSwordSkill1) > TickCount)
-            defencePenetration0 += 250;
+            defencePenetration0 += 25;
         if (Compute.getSwordSkillLevel(data, 10) > 0 && Utils.swordTag.containsKey(mainhand))
-            defencePenetration0 += Compute.getSwordSkillLevel(data, 10) * player.experienceLevel * 0.5;
+            defencePenetration0 += Compute.getSwordSkillLevel(data, 10) * 3;
         if (Compute.getBowSkillLevel(data, 10) > 0 && Utils.bowTag.containsKey(mainhand))
-            defencePenetration0 += Compute.getBowSkillLevel(data, 10) * player.experienceLevel * 0.5;
-        if (data.contains("GemSDefencePenetration0")) defencePenetration0 += data.getDouble("GemSDefencePenetration0");
+            defencePenetration0 += Compute.getBowSkillLevel(data, 10) * 3;
 
         int flexibilityAbilityPoint = data.getInt(StringUtils.Ability.Flexibility);
         if (data.contains(StringUtils.Ability.Flexibility) && data.getInt(StringUtils.Ability.Flexibility) > 0) {
-            defencePenetration0 += flexibilityAbilityPoint;
+            defencePenetration0 += flexibilityAbilityPoint * 0.01;
         } // 能力
 
-        if (data.getInt(StringUtils.WitherBow.Effect3) > TickCount) defencePenetration0 += 400;
-        else if (data.getInt(StringUtils.WitherBow.Effect2) > TickCount) defencePenetration0 += 300;
-        else if (data.getInt(StringUtils.WitherBow.Effect1) > TickCount) defencePenetration0 += 200;
-        else if (data.getInt(StringUtils.WitherBow.Effect0) > TickCount) defencePenetration0 += 100;
+        if (data.getInt(StringUtils.WitherBow.Effect3) > TickCount) defencePenetration0 += 4;
+        else if (data.getInt(StringUtils.WitherBow.Effect2) > TickCount) defencePenetration0 += 3;
+        else if (data.getInt(StringUtils.WitherBow.Effect1) > TickCount) defencePenetration0 += 2;
+        else if (data.getInt(StringUtils.WitherBow.Effect0) > TickCount) defencePenetration0 += 1;
 
         if (data.getInt(StringUtils.Crest.Snow.Crest0) > 0)
             defencePenetration0 += SnowCrestAttributes.DefencePenetration[0] * data.getInt(StringUtils.Crest.Snow.Crest0);
@@ -1303,7 +1295,7 @@ public class PlayerAttributes {
                     stackmainhandtag.getInt(StringUtils.SoulEquipForge) * SoulEquipAttribute.ForgingAddition.DefencePenetration0;
 
         if (mainhand instanceof SkyBow || mainhand instanceof SkyBoss.SkyBossBow)
-            defencePenetration0 += movementSpeedCommon(player) * 500;
+            defencePenetration0 += movementSpeedCommon(player) * 5;
 
         if (mainhand.equals(ModItems.ShipBow.get())) {
             List<Player> serverPlayerList = player.level().getEntitiesOfClass(Player.class, AABB.ofSize(player.position(), 20, 20, 20));
@@ -1311,19 +1303,19 @@ public class PlayerAttributes {
             serverPlayerList.forEach(player1 -> {
                 if (player1.distanceTo(player) <= 6) Count.getAndIncrement();
             });
-            defencePenetration0 += 250 * Math.min(Count.get(), 4);
+            defencePenetration0 += 2.5 * Math.min(Count.get(), 4);
         }
 
         if (Utils.IceBowEffectMap.containsKey(player) && Utils.IceBowEffectMap.get(player) > TickCount) {
-            defencePenetration0 += Utils.IceBowEffectNumMap.get(player) / 2;
+            defencePenetration0 += Utils.IceBowEffectNumMap.get(player) / 200;
         } //冰霜弓
 
         if (Utils.PlayerSpringRingDefencePenetration0Attribute.containsKey(player) && Utils.PlayerSpringRingLevelRequire.get(player) <= player.experienceLevel) {
-            defencePenetration0 += Utils.PlayerSpringRingDefencePenetration0Attribute.get(player);
+            defencePenetration0 += Utils.PlayerSpringRingDefencePenetration0Attribute.get(player) * 0.01;
         }
 
         if (Utils.PlayerSpringBeltDefencePenetration0Attribute.containsKey(player) && Utils.PlayerSpringBeltLevelRequire.get(player) <= player.experienceLevel) {
-            defencePenetration0 += Utils.PlayerSpringBeltDefencePenetration0Attribute.get(player);
+            defencePenetration0 += Utils.PlayerSpringBeltDefencePenetration0Attribute.get(player) * 0.01;
         }
 
         CompoundTag helmetTag = player.getItemBySlot(EquipmentSlot.HEAD).getOrCreateTagElement(Utils.MOD_ID);
@@ -1580,8 +1572,10 @@ public class PlayerAttributes {
             exDamage += baseDamage * 0.25 + 25;
         if (player.getEffect(ModEffects.MANADAMAGEUP.get()) != null && player.getEffect(ModEffects.MANADAMAGEUP.get()).getAmplifier() == 1)
             exDamage += baseDamage * 0.4 + 40;
-        if (player.level().equals(player.getServer().getLevel(Level.OVERWORLD)) && !Utils.OverWorldLevelIsNight && mainhand instanceof PlainSceptre4)
+        if (player.level().equals(player.getServer().getLevel(Level.OVERWORLD)) && !Utils.OverWorldLevelIsNight
+                && mainhand instanceof PlainSceptre plainSceptre && plainSceptre.is4Tier()) {
             exDamage += 45;
+        }
         if (data.contains("GemSManaDamage")) exDamage += data.getDouble("GemSManaDamage");
         exDamage += SArmorAttribute.value(player, SArmorAttribute.manaPower);
 
@@ -1769,8 +1763,10 @@ public class PlayerAttributes {
         if (player.getEffect(ModEffects.MANAREPLYUP.get()) != null && player.getEffect(ModEffects.MANAREPLYUP.get()).getAmplifier() == 1)
             manaRecover += 45;
         if (data.contains("GemSManaReply")) manaRecover += data.getDouble("GemSManaReply");
-        if (player.level().equals(player.getServer().getLevel(Level.OVERWORLD)) && !Utils.OverWorldLevelIsNight && mainhand instanceof PlainSceptre4)
+        if (player.level().equals(player.getServer().getLevel(Level.OVERWORLD)) && !Utils.OverWorldLevelIsNight
+                && mainhand instanceof PlainSceptre plainSceptre && plainSceptre.is4Tier()) {
             manaRecover += 15;
+        }
         if (Compute.getSwordSkillLevel(data, 8) > 0 && Utils.swordTag.containsKey(mainhand))
             manaRecover += Compute.getSwordSkillLevel(data, 8); // 洞悉（手持近战武器时，获得1额外法力回复）
         if (Compute.getManaSkillLevel(data, 1) > 0 && Utils.sceptreTag.containsKey(mainhand))
@@ -1802,7 +1798,7 @@ public class PlayerAttributes {
     public static double manaDefence(Player player) {
         int tickCount = player.getServer().getTickCount();
         CompoundTag data = player.getPersistentData();
-        double basicDefence = player.experienceLevel;
+        double basicDefence = player.experienceLevel * 0.2;
         double exDefence = 0.0d;
         Item boots = player.getItemBySlot(EquipmentSlot.FEET).getItem();
         Item leggings = player.getItemBySlot(EquipmentSlot.LEGS).getItem();
@@ -1852,17 +1848,14 @@ public class PlayerAttributes {
             exDefence += basicDefence * 0.25;
         if (LifeManaArmor.getPlayerLifeManaArmorCount(player) == 4) exDefence += basicDefence * 0.25;
         if (player.getEffect(ModEffects.MANADefenceUP.get()) != null && player.getEffect(ModEffects.MANADefenceUP.get()).getAmplifier() == 0)
-            exDefence += basicDefence * 0.25 + 75;
+            exDefence += basicDefence * 0.25 + 3;
         if (player.getEffect(ModEffects.MANADefenceUP.get()) != null && player.getEffect(ModEffects.MANADefenceUP.get()).getAmplifier() == 1)
-            exDefence += basicDefence * 0.4 + 125;
-        if (data.contains("GemSManaDefence")) exDefence += data.getDouble("GemSManaDefence");
-/*            if (data.contains(StringUtils.ForestBossSwordActive.Pare) && data.getInt(StringUtils.ForestBossSwordActive.PareTime) > TickCount) {
-                ExDefence -= data.getInt(StringUtils.ForestBossSwordActive.Pare) * 10;
-            }*/
-        if (data.getInt(StringUtils.PlainSwordActive.PlainSceptre) > tickCount) exDefence += 40;
+            exDefence += basicDefence * 0.4 + 6;
+
+        if (data.getInt(StringUtils.PlainSwordActive.PlainSceptre) > tickCount) exDefence += 4;
 
         if (Utils.SakuraBowEffectMap.containsKey(player) && Utils.SakuraBowEffectMap.get(player) > tickCount) {
-            exDefence += 400;
+            exDefence += 4;
         } // 妖弓-樱
 
         if (helmetTag.contains("newGems1")) exDefence += GemAttributes.gemsManaDefence(helmetTag);
@@ -1872,10 +1865,10 @@ public class PlayerAttributes {
         if (stackmainhandtag.contains("newGems1") && Utils.mainHandTag.containsKey(mainhand))
             exDefence += GemAttributes.gemsManaDefence(stackmainhandtag);
 
-        if (Utils.EarthManaCurios.containsKey(player) && Utils.EarthManaCurios.get(player)) exDefence += 200;
-        if (Utils.BloodManaCurios.containsKey(player) && Utils.BloodManaCurios.get(player)) exDefence += 200;
-        if (Utils.DevilEarthManaCurios.containsKey(player) && Utils.DevilEarthManaCurios.get(player)) exDefence += 400;
-        if (Utils.DevilBloodManaCurios.containsKey(player) && Utils.DevilBloodManaCurios.get(player)) exDefence += 400;
+        if (Utils.EarthManaCurios.containsKey(player) && Utils.EarthManaCurios.get(player)) exDefence += 2;
+        if (Utils.BloodManaCurios.containsKey(player) && Utils.BloodManaCurios.get(player)) exDefence += 2;
+        if (Utils.DevilEarthManaCurios.containsKey(player) && Utils.DevilEarthManaCurios.get(player)) exDefence += 4;
+        if (Utils.DevilBloodManaCurios.containsKey(player) && Utils.DevilBloodManaCurios.get(player)) exDefence += 4;
 
         exDefence += Compute.CuriosAttribute.attributeValue(player, Utils.manaDefence, StringUtils.CuriosAttribute.manaDefence); // 新版饰品属性加成
         exDefence += CastleAttackArmor.ExAttributeValue(player, CastleAttackArmor.ExManaDefence);
@@ -2066,8 +2059,6 @@ public class PlayerAttributes {
         manaPenetration0 += Compute.CuriosAttribute.attributeValue(player, Utils.xpLevelManaPenetration0,
                 StringUtils.CuriosAttribute.xpLevelManaPenetration0) * player.experienceLevel;
 
-        if (Utils.mainHandTag.containsKey(mainhand) && stackmainhandtag.contains("ManaBreakDefence0"))
-            manaPenetration0 += stackmainhandtag.getDouble("ManaBreakDefence0");
         if (Utils.manaPenetration0.containsKey(boots))
             manaPenetration0 += Utils.manaPenetration0.get(boots);
         if (Utils.manaPenetration0.containsKey(leggings))
@@ -2080,10 +2071,6 @@ public class PlayerAttributes {
             manaPenetration0 += Utils.manaPenetration0.get(mainhand);
         if (Utils.offHandTag.containsKey(offhand) && Utils.manaPenetration0.containsKey(offhand))
             manaPenetration0 += Utils.manaPenetration0.get(offhand);
-/*            if (ManaSkillLevelGet(data, 10) > 0 && Utils.SceptreTag.containsKey(mainhand))
-                ManaBreakDefence0 += ManaSkillLevelGet(data, 10) * 5;*/
-        if (data.contains("GemSManaDefencePenetration0"))
-            manaPenetration0 += data.getDouble("GemSManaDefencePenetration0");
         if (stackmainhandtag.contains(StringUtils.SoulEquipForge) && Utils.sceptreTag.containsKey(mainhand))
             manaPenetration0 +=
                     stackmainhandtag.getInt(StringUtils.SoulEquipForge) * SoulEquipAttribute.ForgingAddition.ManaPenetration0;
@@ -2101,7 +2088,7 @@ public class PlayerAttributes {
 
         if (stackmainhandtag.contains(StringUtils.ManaCore.ManaCore) && stackmainhandtag.getString(StringUtils.ManaCore.ManaCore).
                 equals(StringUtils.ManaCore.KazeCore)) {
-            manaPenetration0 += movementSpeedWithoutBattle(player) / 0.01;
+            manaPenetration0 += movementSpeedWithoutBattle(player);
         }
 
         if (data.contains("volcanogems") && data.getBoolean("volcanogems")) manaPenetration0 += 10;
@@ -2109,27 +2096,27 @@ public class PlayerAttributes {
         if (data.contains("lakegems") && data.getBoolean("lakegems")) manaPenetration0 += 10;
         if (data.contains("forestgems") && data.getBoolean("forestgems")) manaPenetration0 += 10;
 
-        if (SuitCount.getVolcanoSuitCount(player) >= 4) manaPenetration0 += 35;
+        if (SuitCount.getVolcanoSuitCount(player) >= 4) manaPenetration0 += 3;
 
         if (mainhand.equals(ModItems.ShipSceptre.get())) {
             if (Utils.ShipSceptreWaterBlockNum.containsKey(player)) {
                 int Count = Utils.ShipSceptreWaterBlockNum.get(player);
                 if (Count > 0) {
-                    manaPenetration0 += 100 + 0.5 * Count;
+                    manaPenetration0 += 1 + 0.005 * Count;
                 }
             }
         } // 唤潮之杖
 
         if (Utils.PlayerSpringRingManaPenetration0Attribute.containsKey(player) && Utils.PlayerSpringRingLevelRequire.get(player) <= player.experienceLevel) {
-            manaPenetration0 += Utils.PlayerSpringRingManaPenetration0Attribute.get(player);
+            manaPenetration0 += Utils.PlayerSpringRingManaPenetration0Attribute.get(player) * 0.01;
         }
 
         if (Utils.PlayerSpringBraceletManaPenetration0Attribute.containsKey(player) && Utils.PlayerSpringBraceletLevelRequire.get(player) <= player.experienceLevel) {
-            manaPenetration0 += Utils.PlayerSpringBraceletManaPenetration0Attribute.get(player);
+            manaPenetration0 += Utils.PlayerSpringBraceletManaPenetration0Attribute.get(player) * 0.01;
         }
 
         if (Utils.WitherBookPlayerEffectTick.containsKey(player) && Utils.WitherBookPlayerEffectTick.get(player) > TickCount) {
-            manaPenetration0 += Utils.WitherBookPlayerEffectNum.get(player);
+            manaPenetration0 += Utils.WitherBookPlayerEffectNum.get(player) * 0.01;
         } // 凋零秘典
 
         CompoundTag helmetTag = player.getItemBySlot(EquipmentSlot.HEAD).getOrCreateTagElement(Utils.MOD_ID);
@@ -2330,6 +2317,14 @@ public class PlayerAttributes {
                 }
                 totalValue += baseValue + value;
             }
+        }
+        return totalValue;
+    }
+
+    private static double computeAllEquipmentSlotAttributeEnhance(Player player, Map<Item, Double> attributeMap) {
+        double totalValue = 0;
+        for (ItemStack equip : getAllEquipSlotItems(player)) {
+            totalValue += OnEquipmentSlotAttributeEnhance.getAttribute(equip.getItem(), player, attributeMap);
         }
         return totalValue;
     }

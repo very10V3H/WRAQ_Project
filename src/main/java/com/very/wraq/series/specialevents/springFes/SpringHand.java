@@ -24,7 +24,7 @@ public class SpringHand extends Item implements ICurioItem {
         super(p_41383_);
         this.level = level;
         Utils.attackDamage.put(this, Attack[level]);
-        Utils.defence.put(this, Defence[level]);
+        Utils.defence.put(this, new double[]{1, 1, 2, 2}[level]);
         Utils.maxHealth.put(this, MaxHealth[level]);
         Utils.defencePenetration.put(this, DefencePenetration[level]);
         Utils.expUp.put(this, ExpUp[level]);
@@ -36,7 +36,7 @@ public class SpringHand extends Item implements ICurioItem {
             20, 40, 60, 80
     };
     private final double[] Defence = {
-            50, 100, 150, 200
+            1, 1, 2, 2
     };
     private final double[] MaxHealth = {
             100, 200, 300, 400

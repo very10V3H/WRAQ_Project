@@ -26,7 +26,7 @@ public class CastleSword extends WraqSword implements ForgeItem, ActiveItem {
     public CastleSword(Properties properties) {
         super(properties);
         Utils.attackDamage.put(this, 1500d);
-        Utils.defencePenetration0.put(this, 3600d);
+        Utils.defencePenetration0.put(this, 36d);
         Utils.healthSteal.put(this, 0.08);
         Utils.critRate.put(this, 0.30d);
         Utils.critDamage.put(this, 0.8);
@@ -54,9 +54,9 @@ public class CastleSword extends WraqSword implements ForgeItem, ActiveItem {
                 append(Component.literal("，获得持续6s的").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("25%伤害提升").withStyle(CustomStyle.styleOfPower)).
                 append(Component.literal("以及").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.DefencePenetration("1500")).
+                append(Compute.AttributeDescription.DefencePenetration("150")).
                 append(Component.literal("与").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.ManaPenetration("1500")));
+                append(Compute.AttributeDescription.ManaPenetration("15")));
         ComponentUtils.coolDownTimeDescription(components, 15);
         components.add(Component.literal(" 多件暗黑武器的主动将会刷新持续时间，但效果将不会叠加，且共享冷却时间").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
         return components;
@@ -89,7 +89,7 @@ public class CastleSword extends WraqSword implements ForgeItem, ActiveItem {
 
     public static double ExPenetration0(Player player) {
         if (CastleWeaponActiveLastTick.containsKey(player) && CastleWeaponActiveLastTick.get(player) > player.getServer().getTickCount())
-            return 1500;
+            return 15;
         return 0;
     }
 

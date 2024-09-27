@@ -2,7 +2,6 @@ package com.very.wraq.series.worldsoul;
 
 import com.very.wraq.common.registry.MySound;
 import com.very.wraq.common.util.ComponentUtils;
-import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.Utils;
 import com.very.wraq.core.MyArrow;
 import com.very.wraq.process.func.particle.ParticleProvider;
@@ -43,7 +42,6 @@ public class SoulBow extends WraqBow {
     @Override
     public List<Component> getAdditionalComponents(ItemStack stack) {
         List<Component> components = new ArrayList<>();
-        Style style = getMainStyle();
         return components;
     }
 

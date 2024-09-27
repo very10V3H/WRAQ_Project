@@ -13,19 +13,14 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class PFCord extends Item {
-    private final double ExpUp = 0.75f;
-    protected double CriticalRate = 0.1F;
-    protected double HealReply = 2.0d;
-    protected double MaxHealth = 150.0d;
-    protected double Defence = 50.0d;
 
     public PFCord(Properties p_41383_) {
         super(p_41383_);
-        Utils.expUp.put(this, ExpUp);
-        Utils.critRate.put(this, CriticalRate);
-        Utils.healthRecover.put(this, HealReply);
-        Utils.maxHealth.put(this, MaxHealth);
-        Utils.defence.put(this, Defence);
+        Utils.expUp.put(this, 0.75);
+        Utils.critRate.put(this, 0.1);
+        Utils.healthRecover.put(this, 2d);
+        Utils.maxHealth.put(this, 150d);
+        Utils.defence.put(this, 50d);
         Utils.offHandTag.put(this, 1d);
         Utils.weaponList.add(this);
     }

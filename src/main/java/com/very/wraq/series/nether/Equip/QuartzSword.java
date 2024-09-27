@@ -36,7 +36,7 @@ public class QuartzSword extends WraqSword implements ActiveItem {
         super(properties);
         Utils.attackDamage.put(this, 80d);
         Utils.manaDamage.put(this, 65d);
-        Utils.defencePenetration0.put(this, 1200d);
+        Utils.defencePenetration0.put(this, 12d);
         Utils.healthSteal.put(this, 0.08);
         Utils.critRate.put(this, 0.45);
         Utils.critDamage.put(this, 0.35);

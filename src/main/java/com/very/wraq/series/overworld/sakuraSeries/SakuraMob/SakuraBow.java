@@ -26,7 +26,7 @@ public class SakuraBow extends WraqBow {
     public SakuraBow(Properties p_40524_) {
         super(p_40524_);
         Utils.attackDamage.put(this, 400d);
-        Utils.defencePenetration0.put(this, 1800d);
+        Utils.defencePenetration0.put(this, 18d);
         Utils.critRate.put(this, 0.25);
         Utils.critDamage.put(this, 0.95);
         Utils.movementSpeedWithoutBattle.put(this, 0.6);
@@ -44,9 +44,9 @@ public class SakuraBow extends WraqBow {
         Style style = getMainStyle();
         Compute.DescriptionPassive(components, Component.literal("妖化箭矢").withStyle(CustomStyle.styleOfDemon));
         components.add(Component.literal("第一发箭矢命中目标后，提供").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.Defence("400")).
+                append(Compute.AttributeDescription.Defence("4")).
                 append(Component.literal(" ")).
-                append(Compute.AttributeDescription.ManaDefence("400")));
+                append(Compute.AttributeDescription.ManaDefence("4")));
         components.add(Component.literal("第二发箭矢回复").withStyle(ChatFormatting.WHITE).
                 append(Compute.AttributeDescription.Health("5%")));
         return components;

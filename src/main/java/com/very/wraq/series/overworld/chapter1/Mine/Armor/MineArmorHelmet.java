@@ -19,12 +19,11 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class MineArmorHelmet extends ArmorItem {
-    double Defence = 200;
     private static final Style style = CustomStyle.styleOfMine;
 
     public MineArmorHelmet(ItemMaterial Material, Type Slots) {
         super(Material, Slots, new Properties().rarity(CustomStyle.MineItalic));
-        Utils.defence.put(this, Defence);
+        Utils.defence.put(this, 2d);
         Utils.armorTag.put(this, 1d);
         Utils.armorList.add(this);
     }

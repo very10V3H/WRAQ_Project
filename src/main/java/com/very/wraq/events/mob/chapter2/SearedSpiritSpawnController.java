@@ -64,7 +64,7 @@ public class SearedSpiritSpawnController extends MobSpawnController {
 
         // 需要验证
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(searedSpiritEntity), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(searedSpiritEntity, 200, 200, 200, 0.3, 2, 0.1, 250, 10, 3000, 0.3);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(searedSpiritEntity, 200, 2, 2, 0.3, 2, 0.1, 3, 10, 3000, 0.3);
 
         // 设置物品
         ItemStack[] itemStacks = {new ItemStack(Items.LEATHER_HELMET), new ItemStack(Items.LEATHER_CHESTPLATE),

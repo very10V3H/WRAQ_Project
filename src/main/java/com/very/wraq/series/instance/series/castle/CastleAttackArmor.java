@@ -35,8 +35,8 @@ public class CastleAttackArmor extends WraqArmor implements ForgeItem {
         super(Material, Slots, itemProperties);
         Utils.maxHealth.put(this, 6144d);
         Utils.attackDamage.put(this, 750d);
-        Utils.defence.put(this, 800d);
-        Utils.manaDefence.put(this, 800d);
+        Utils.defence.put(this, 8d);
+        Utils.manaDefence.put(this, 8d);
         Utils.critDamage.put(this, 0.55);
         if (type.equals(Type.BOOTS)) {
             Utils.movementSpeedCommon.put(this, 0.45);

@@ -64,7 +64,7 @@ public class ForestZombieSpawnController extends MobSpawnController {
 
         // 需要验证
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(zombie), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombie, 60, 50, 50, 0.2, 1, 0, 0, 0, 300, 0.2);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombie, 60, 0, 0, 0.2, 1, 0, 0, 0, 300, 0.2);
 
         // 设置物品
         ItemStack[] itemStacks = {new ItemStack(Items.LEATHER_HELMET), new ItemStack(Items.LEATHER_CHESTPLATE),

@@ -72,7 +72,7 @@ public class WindSkeletonSpawnController extends MobSpawnController {
 
         // 需要验证
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(skeleton), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(skeleton, 400, 650, 650, 0.35, 3, 0.2, 500, 15, 9000, 0.3);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(skeleton, 400, 7, 7, 0.35, 3, 0.2, 5, 15, 9000, 0.3);
 
         // 设置物品
         ItemStack[] itemStacks = {new ItemStack(Items.LEATHER_HELMET), new ItemStack(Items.LEATHER_CHESTPLATE),

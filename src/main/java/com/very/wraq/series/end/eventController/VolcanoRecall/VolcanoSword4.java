@@ -29,7 +29,7 @@ public class VolcanoSword4 extends WraqSword implements ActiveItem {
     public VolcanoSword4(Properties properties) {
         super(properties);
         Utils.attackDamage.put(this, 80d);
-        Utils.defencePenetration0.put(this, 1800d);
+        Utils.defencePenetration0.put(this, 18d);
         Utils.healthSteal.put(this, 0.08);
         Utils.critRate.put(this, 0.2);
         Utils.critDamage.put(this, 0.25);

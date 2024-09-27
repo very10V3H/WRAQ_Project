@@ -22,19 +22,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShipBow extends WraqBow {
-    private final double BaseDamage = 450;
-    private final double DefencePenetration0 = 2200;
-    private final double CriticalHitRate = 0.25;
-    private final double CHitDamage = 1.2;
-    private final double SpeedUp = 0.6F;
 
     public ShipBow(Properties p_40524_) {
         super(p_40524_);
-        Utils.attackDamage.put(this, this.BaseDamage);
-        Utils.defencePenetration0.put(this, this.DefencePenetration0);
-        Utils.critRate.put(this, this.CriticalHitRate);
-        Utils.critDamage.put(this, this.CHitDamage);
-        Utils.movementSpeedWithoutBattle.put(this, this.SpeedUp);
+        Utils.attackDamage.put(this, 450d);
+        Utils.defencePenetration0.put(this, 22d);
+        Utils.critRate.put(this, 0.25);
+        Utils.critDamage.put(this, 1.2);
+        Utils.movementSpeedWithoutBattle.put(this, 0.6);
         Element.WaterElementValue.put(this, 1d);
     }
 

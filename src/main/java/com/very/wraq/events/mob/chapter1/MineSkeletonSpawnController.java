@@ -66,7 +66,7 @@ public class MineSkeletonSpawnController extends MobSpawnController {
 
         // 需要验证
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(skeleton), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(skeleton, 100, 50, 50, 0.2, 1, 0, 0, 0, 1250, 0.2);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(skeleton, 100, 1, 1, 0.2, 1, 0, 0, 0, 1250, 0.2);
 
         // 设置物品
         ItemStack[] itemStacks = {new ItemStack(Items.IRON_HELMET), new ItemStack(Items.IRON_CHESTPLATE),

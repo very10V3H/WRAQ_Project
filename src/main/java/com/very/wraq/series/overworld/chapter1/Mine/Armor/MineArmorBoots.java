@@ -19,14 +19,12 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class MineArmorBoots extends ArmorItem {
-    double Defence = 250;
-    double SpeedUp = -0.2F;
     private static final Style style = CustomStyle.styleOfMine;
 
     public MineArmorBoots(ItemMaterial Material, Type Slots) {
         super(Material, Slots, new Properties().rarity(CustomStyle.MineItalic));
-        Utils.defence.put(this, Defence);
-        Utils.movementSpeedWithoutBattle.put(this, SpeedUp);
+        Utils.defence.put(this, 2d);
+        Utils.movementSpeedWithoutBattle.put(this, -0.2);
         Utils.armorTag.put(this, 1d);
         Utils.armorList.add(this);
     }

@@ -66,7 +66,7 @@ public class BeaconSpawnController extends MobSpawnController {
 
         // 需要验证
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(beacon), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(beacon, 2000, 4000, 2000, 0.4, 4, 0.25, 1400, 20, 300 * Math.pow(10, 4), 0.35);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(beacon, 2000, 40, 20, 0.4, 4, 0.25, 14, 20, 300 * Math.pow(10, 4), 0.35);
 
         // 设置物品
         ItemStack[] itemStacks = {new ItemStack(Items.GOLDEN_HELMET), new ItemStack(Items.CHAINMAIL_CHESTPLATE),

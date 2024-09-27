@@ -16,24 +16,18 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class IceBracelet extends Item {
-    private final double ExpUp = 1;
-    protected double HealReply = 10.0d;
-    protected double MaxHealth = 500.0d;
-    protected double Defence = 200.0d;
-    protected double CoolDown = 0.2F;
-    protected double Damage = 100.0d;
     private final Style style = CustomStyle.styleOfIce;
 
     public IceBracelet(Properties p_41383_) {
         super(p_41383_);
-        Utils.expUp.put(this, ExpUp);
+        Utils.expUp.put(this, 1d);
         Utils.critRate.put(this, 0.15);
         Utils.critDamage.put(this, 0.25);
-        Utils.healthRecover.put(this, HealReply);
-        Utils.maxHealth.put(this, MaxHealth);
-        Utils.defence.put(this, Defence);
-        Utils.attackDamage.put(this, Damage);
-        Utils.coolDownDecrease.put(this, CoolDown);
+        Utils.healthRecover.put(this, 10d);
+        Utils.maxHealth.put(this, 500d);
+        Utils.defence.put(this, 2d);
+        Utils.attackDamage.put(this, 100d);
+        Utils.coolDownDecrease.put(this, 0.2);
         Utils.offHandTag.put(this, 1d);
         Utils.weaponList.add(this);
     }

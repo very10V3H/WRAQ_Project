@@ -33,7 +33,7 @@ public class MoonBow extends WraqBow implements OnHitEffectMainHandWeapon {
     public MoonBow(Properties properties, int exTargetCount) {
         super(properties);
         Utils.attackDamage.put(this, 1200d);
-        Utils.defencePenetration0.put(this, 2900d);
+        Utils.defencePenetration0.put(this, 29d);
         Utils.critRate.put(this, 0.25);
         Utils.critDamage.put(this, 1.35);
         Utils.movementSpeedWithoutBattle.put(this, 0.6);

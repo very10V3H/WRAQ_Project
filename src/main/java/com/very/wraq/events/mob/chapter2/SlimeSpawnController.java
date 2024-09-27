@@ -61,7 +61,7 @@ public class SlimeSpawnController extends MobSpawnController {
 
         // 需要验证
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(slime), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(slime, 200, 500, 500, 0.35, 3, 0.2, 500, 15, 42000, 0.3);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(slime, 200, 5, 5, 0.35, 3, 0.2, 5, 15, 42000, 0.3);
 
         // 设置物品
 

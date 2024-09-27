@@ -182,8 +182,8 @@ public class Damage {
             player.sendSystemMessage(Component.literal("BaseDamage : " + BaseDamage));
             player.sendSystemMessage(Component.literal("ExDamage : " + ExDamage));
         }
-        BaseDamage *= Damage.manaDefenceDamageDecreaseRate(Defence, BreakDefence, BreakDefence0);
-        ExDamage *= Damage.manaDefenceDamageDecreaseRate(Defence, BreakDefence, BreakDefence0);
+        BaseDamage *= Damage.defenceDamageDecreaseRate(Defence, BreakDefence, BreakDefence0);
+        ExDamage *= Damage.defenceDamageDecreaseRate(Defence, BreakDefence, BreakDefence0);
         double totalDamage = (BaseDamage + ExDamage) * (1 + DamageEnhance) * (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, monster));
 
         // 元素
@@ -240,8 +240,8 @@ public class Damage {
             player.sendSystemMessage(Component.literal("BaseDamage : " + baseDamage));
             player.sendSystemMessage(Component.literal("ExDamage : " + ExDamage));
         }
-        baseDamage *= Damage.manaDefenceDamageDecreaseRate(defence, defencePenetration, defencePenetration0);
-        ExDamage *= Damage.manaDefenceDamageDecreaseRate(defence, defencePenetration, defencePenetration0);
+        baseDamage *= Damage.defenceDamageDecreaseRate(defence, defencePenetration, defencePenetration0);
+        ExDamage *= Damage.defenceDamageDecreaseRate(defence, defencePenetration, defencePenetration0);
         double totalDamage = (baseDamage + ExDamage) * (1 + DamageEnhance) * (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, monster));
 
         // 元素
@@ -298,7 +298,7 @@ public class Damage {
 
         damage += ExDamage;
 
-        damage *= Damage.manaDefenceDamageDecreaseRate(Defence, BreakDefence, BreakDefence0);
+        damage *= Damage.defenceDamageDecreaseRate(Defence, BreakDefence, BreakDefence0);
 
         double totalDamage = damage * (1 + DamageEnhance) * (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, monster));
         totalDamage *= DamageInfluence.getMonsterControlDamageEffect(player, monster);
@@ -326,7 +326,7 @@ public class Damage {
         }
 
         damage += ExDamage;
-        damage *= Damage.manaDefenceDamageDecreaseRate(Defence, BreakDefence, BreakDefence0);
+        damage *= Damage.defenceDamageDecreaseRate(Defence, BreakDefence, BreakDefence0);
 
         double totalDamage = damage * (1 + DamageEnhance) * (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, monster));
         // 元素
@@ -371,21 +371,21 @@ public class Damage {
         double Defence = PlayerAttributes.manaDefence(hurter);
         double DamageEnhance = 0;
 
-        DamageEnhance -= (1 - manaDefenceDamageDecreaseRate(Defence, BreakDefence, BreakDefence0));
+        DamageEnhance -= (1 - defenceDamageDecreaseRate(Defence, BreakDefence, BreakDefence0));
 
         DirectDamageToPlayer(player, hurter, BaseDamage * num * 0.1f * (1 + DamageEnhance));
     }
 
     public static void manaDamageToPlayer(Mob monster, Player player, double damage) {
         double manaDefence = PlayerAttributes.manaDefence(player);
-        damage *= manaDefenceDamageDecreaseRate(manaDefence, MobAttributes.defencePenetration(monster), MobAttributes.defencePenetration0(monster));
+        damage *= defenceDamageDecreaseRate(manaDefence, MobAttributes.defencePenetration(monster), MobAttributes.defencePenetration0(monster));
         MonsterAttackEvent.monsterAttack(monster, player, damage);
         BloodManaCurios.passive(player);
     }
 
     public static void manaDamageToPlayer(Mob monster, Player player, double damage, double penetration, double penetration0) {
         double manaDefence = PlayerAttributes.manaDefence(player);
-        damage *= manaDefenceDamageDecreaseRate(manaDefence, penetration, penetration0);
+        damage *= defenceDamageDecreaseRate(manaDefence, penetration, penetration0);
         MonsterAttackEvent.monsterAttack(monster, player, damage);
         BloodManaCurios.passive(player);
     }
@@ -395,7 +395,7 @@ public class Damage {
         double manaDefence = PlayerAttributes.manaDefence(player);
         double manaPenetration = PlayerAttributes.manaPenetration(player);
         double manaPenetration0 = PlayerAttributes.manaPenetration0(player);
-        damage *= manaDefenceDamageDecreaseRate(manaDefence, manaPenetration, manaPenetration0);
+        damage *= defenceDamageDecreaseRate(manaDefence, manaPenetration, manaPenetration0);
         MonsterAttackEvent.monsterAttack(mob, player, damage);
         BloodManaCurios.passive(player);
     }
@@ -505,19 +505,8 @@ public class Damage {
     // 对 怪物对玩家的伤害 或 玩家受到怪物伤害，只需在MonsterAttack修改
     // 对于玩家对怪物造成的伤害增益，需分为不同类型的伤害值进行计算。即需前往每个类型进行修改。其中，有RateAd/ApDamage可用。
 
-    public static double defenceDamageDecreaseRate(double Defence, double DefencePenetration, double DefencePenetration0) {
-        double DefenceAfterCompute = Defence * (1 - DefencePenetration) - DefencePenetration0;
-        if (DefenceAfterCompute < 0) return 2 - (2000 / (2000 - DefenceAfterCompute));
-        return (2000 / (2000 + DefenceAfterCompute));
-    }
-
-    public static double manaDefenceDamageDecreaseRate(double Defence, double DefencePenetration, double DefencePenetration0) {
-        // DefencePenetration = 百分比穿透 // DefencePenetration0 = 固定穿透
-        double DefenceAfterCompute = Defence * (1 - DefencePenetration) - DefencePenetration0;
-        // DefenceAfterCompute = 计算完穿透的护甲/魔抗值
-
-        if (DefenceAfterCompute < 0) return 2 - (2000 / (2000 - DefenceAfterCompute));
-
-        return (2000 / (2000 + DefenceAfterCompute));
+    public static double defenceDamageDecreaseRate(double defence, double defencePenetration, double defencePenetration0) {
+        double defenceAfterCompute = Math.max(0, (defence - defencePenetration0) * (1 - defencePenetration));
+        return (100 / (100 + defenceAfterCompute));
     }
 }

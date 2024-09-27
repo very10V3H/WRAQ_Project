@@ -122,7 +122,7 @@ public class ManaAttackModule {
             damage *= (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, monster));
             damageIgnoreDefence *= (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, monster));
             // defence compute
-            damage *= Damage.manaDefenceDamageDecreaseRate(defence, DefencePenetration, DefencePenetration0);
+            damage *= Damage.defenceDamageDecreaseRate(defence, DefencePenetration, DefencePenetration0);
             // total damage
             damage *= DamageInfluence.getPlayerTotalDamageRate(player);
             damageIgnoreDefence *= DamageInfluence.getPlayerTotalDamageRate(player);

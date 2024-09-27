@@ -8,7 +8,7 @@ public class WitherBowAttributes {
             80, 90, 110, 120
     };
     public static double[] DefencePenetration0 = {
-            850, 900, 950, 1000
+            9, 10, 11, 12
     };
     public static double[] CriticalRate = {
             0.2, 0.25, 0.25, 0.25
@@ -26,6 +26,6 @@ public class WitherBowAttributes {
             0.2, 0.4, 0.6, 0.8
     };
     public static int[] Effect = {
-            300, 500, 700, 900
+            3, 5, 7, 9
     };
 }

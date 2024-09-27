@@ -24,22 +24,17 @@ import java.util.List;
 import java.util.WeakHashMap;
 
 public class MoonShield extends Item {
-    private final double Defence = 777;
-    private final double MaxHealth = 777;
-    private final double AttackDamage = 77;
-    private final double CritDamage = 0.27;
-    private final double ExpUp = 1.57;
 
     public static WeakHashMap<Player, Mob> PlayerMoonShieldMap = new WeakHashMap<>();
     public static WeakHashMap<Player, Integer> PlayerMoonShieldCountMap = new WeakHashMap<>();
 
     public MoonShield() {
         super(new Properties().rarity(CustomStyle.MoonItalic).stacksTo(1));
-        Utils.defence.put(this, Defence);
-        Utils.maxHealth.put(this, MaxHealth);
-        Utils.attackDamage.put(this, AttackDamage);
-        Utils.critDamage.put(this, CritDamage);
-        Utils.expUp.put(this, ExpUp);
+        Utils.defence.put(this, 7d);
+        Utils.maxHealth.put(this, 777d);
+        Utils.attackDamage.put(this, 77d);
+        Utils.critDamage.put(this, 0.27);
+        Utils.expUp.put(this, 1.57);
         Utils.offHandTag.put(this, 1d);
         Utils.weaponList.add(this);
         Utils.shieldTag.put(this, 1d);

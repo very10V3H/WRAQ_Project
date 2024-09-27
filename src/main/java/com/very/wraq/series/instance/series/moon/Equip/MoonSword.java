@@ -31,7 +31,7 @@ public class MoonSword extends WraqSword implements ActiveItem, OnHitEffectMainH
     public MoonSword(Properties properties, double activeRate) {
         super(properties);
         Utils.attackDamage.put(this, 1200d);
-        Utils.defencePenetration0.put(this, 2900d);
+        Utils.defencePenetration0.put(this, 29d);
         Utils.healthSteal.put(this, 0.3);
         Utils.critRate.put(this, 0.3);
         Utils.critDamage.put(this, 0.8);

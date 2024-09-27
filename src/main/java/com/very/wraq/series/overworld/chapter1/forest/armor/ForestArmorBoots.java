@@ -20,7 +20,7 @@ import java.util.List;
 public class ForestArmorBoots extends ArmorItem {
     public ForestArmorBoots(ItemMaterial Materrial, Type Slots) {
         super(Materrial, Slots, new Properties().rarity(CustomStyle.ForestItalic));
-        Utils.defence.put(this, 120d);
+        Utils.defence.put(this, 1d);
         Utils.movementSpeedCommon.put(this, 0.25);
         Utils.armorTag.put(this, 1d);
         Utils.armorList.add(this);

@@ -90,7 +90,7 @@ public class MoonInstance extends NoTeamInstance {
         MobSpawn.setMobCustomName(attackMob, Component.literal("阿尔忒弥斯 - 明镜").withStyle(style), 160);
 
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(attackMob), 120);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(attackMob, 2000, 2500, 2500, 0.4, 4, 0.25, 1300, 20, 700 * Math.pow(10, 4), 0.3);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(attackMob, 2000, 25, 25, 0.4, 4, 0.25, 13, 20, 700 * Math.pow(10, 4), 0.3);
 
         attackMob.setHealth(attackMob.getMaxHealth());
         attackMob.setItemSlot(EquipmentSlot.HEAD, ModItems.MobArmorMoonAttack.get().getDefaultInstance());
@@ -114,7 +114,7 @@ public class MoonInstance extends NoTeamInstance {
         MobSpawn.setMobCustomName(manaMob, Component.literal("阿尔忒弥斯 - 天镜").withStyle(style), 160);
 
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(manaMob), 120);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(manaMob, 2000, 2500, 2500, 0.4, 4, 0.4, 1300, 20, 700 * Math.pow(10, 4), 0.3);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(manaMob, 2000, 2500, 2500, 0.4, 4, 0.4, 13, 20, 700 * Math.pow(10, 4), 0.3);
 
         manaMob.setHealth(manaMob.getMaxHealth());
         manaMob.setItemSlot(EquipmentSlot.HEAD, ModItems.MobArmorMoonMana.get().getDefaultInstance());

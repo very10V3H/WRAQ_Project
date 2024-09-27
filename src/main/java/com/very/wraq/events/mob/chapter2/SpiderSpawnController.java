@@ -71,7 +71,7 @@ public class SpiderSpawnController extends MobSpawnController {
 
         // 需要验证
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(spider), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(spider, 120, 100, 100, 0.3, 2, 0.1, 250, 10, 1750, 0.3);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(spider, 120, 1, 1, 0.3, 2, 0.1, 3, 10, 1750, 0.3);
 
         // 设置物品
         ItemStack[] itemStacks = {new ItemStack(Items.LEATHER_HELMET), new ItemStack(Items.LEATHER_CHESTPLATE),

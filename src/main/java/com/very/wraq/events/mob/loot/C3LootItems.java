@@ -27,10 +27,10 @@ public class C3LootItems {
     public static final RegistryObject<Item> netherSkeletonLootBow = ITEMS.register("nether_skeleton_loot_bow", () ->
             new RandomBow(new Item.Properties().rarity(CustomStyle.WitherBold), CustomStyle.styleOfWither,
                     ComponentUtils.getSuffixChapterIII(), List.of(new RandomAttributeValue(StringUtils.RandomAttribute.attackDamage, 110, 130),
-                    new RandomAttributeValue(StringUtils.RandomAttribute.defence, 200, 220)), 80));
+                    new RandomAttributeValue(StringUtils.RandomAttribute.defence, 2, 4)), 80));
 
     public static final RegistryObject<Item> piglinSword = ITEMS.register("piglin_sword", () ->
             new RandomSword(new Item.Properties().rarity(CustomStyle.PiglinBold), CustomStyle.styleOfGold,
-                    ComponentUtils.getSuffixChapterIII(), List.of(new RandomAttributeValue(StringUtils.RandomAttribute.defence, 220, 240),
+                    ComponentUtils.getSuffixChapterIII(), List.of(new RandomAttributeValue(StringUtils.RandomAttribute.defence, 2, 4),
                     new RandomAttributeValue(StringUtils.RandomAttribute.critRate, 0.2, 0.4)), 80));
 }

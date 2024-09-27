@@ -20,11 +20,11 @@ public class LifeManaArmor extends WraqArmor {
 
     public LifeManaArmor(ItemMaterial material, Type type, Properties properties) {
         super(material, type, properties);
-        Utils.defence.put(this, 70d);
+        Utils.defence.put(this, 1d);
         Utils.manaDamage.put(this, 50d);
         Utils.maxHealth.put(this, 40d);
         Utils.maxMana.put(this, 10d);
-        Utils.manaPenetration0.put(this, 15d);
+        Utils.manaPenetration0.put(this, 1d);
         if (type.equals(Type.BOOTS)) Utils.movementSpeedCommon.put(this, 0.3);
     }
 

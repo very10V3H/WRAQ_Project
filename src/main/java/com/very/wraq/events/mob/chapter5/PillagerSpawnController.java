@@ -67,7 +67,7 @@ public class PillagerSpawnController extends MobSpawnController {
 
         // 需要验证
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(pillager), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(pillager, 600, 1150, 1150, 0.4, 4, 0.25, 600, 20, 60000, 0.35);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(pillager, 600, 12, 12, 0.4, 4, 0.25, 6, 20, 60000, 0.35);
 
         // 设置物品
         ItemStack[] itemStacks = {new ItemStack(Items.LEATHER_HELMET), new ItemStack(Items.LEATHER_CHESTPLATE),

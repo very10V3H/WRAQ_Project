@@ -24,7 +24,7 @@ public class FieldSword extends WraqSword implements ActiveItem {
     public FieldSword(Properties properties, int tier) {
         super(properties);
         Utils.attackDamage.put(this, new double[]{50, 50, 50, 60}[tier]);
-        Utils.defencePenetration0.put(this, new double[]{400, 450, 500, 550}[tier]);
+        Utils.defencePenetration0.put(this, new double[]{4, 5, 6, 7}[tier]);
         Utils.healthSteal.put(this, 0.2);
         Utils.critRate.put(this, 0.5);
         Utils.critDamage.put(this, 0.35);

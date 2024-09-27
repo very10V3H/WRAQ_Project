@@ -36,7 +36,7 @@ public class SpringNecklace extends Item implements ICurioItem {
             40, 80, 120, 160
     };
     private final double[] DefencePenetration0 = {
-            25, 50, 75, 100
+            1, 1, 2, 2
     };
     private final double[] ManaRecover = {
             1, 2, 3, 4

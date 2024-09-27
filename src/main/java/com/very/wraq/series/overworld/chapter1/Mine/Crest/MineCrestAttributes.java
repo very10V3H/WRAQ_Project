@@ -14,6 +14,6 @@ public class MineCrestAttributes {
             ChatFormatting.RED
     };
     public static double[] ExDefence = {
-            40, 60, 80, 100, 400
+            1, 1, 2, 2, 4
     };
 }

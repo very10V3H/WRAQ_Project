@@ -707,15 +707,15 @@ public class ModItems {
             () -> new EvokerSceptre(new Item.Properties().rarity(CustomStyle.EvokerItalic), 3));
 
     public static final RegistryObject<Item> PlainSceptre0 = ITEMS.register("plainsceptre0",
-            () -> new PlainSceptre0(new Item.Properties().rarity(CustomStyle.PlainItalic)));
+            () -> new PlainSceptre(new Item.Properties().rarity(CustomStyle.PlainItalic), 0));
     public static final RegistryObject<Item> PlainSceptre1 = ITEMS.register("plainsceptre1",
-            () -> new PlainSceptre1(new Item.Properties().rarity(CustomStyle.PlainItalic)));
+            () -> new PlainSceptre(new Item.Properties().rarity(CustomStyle.PlainItalic), 1));
     public static final RegistryObject<Item> PlainSceptre2 = ITEMS.register("plainsceptre2",
-            () -> new PlainSceptre2(new Item.Properties().rarity(CustomStyle.PlainItalic)));
+            () -> new PlainSceptre(new Item.Properties().rarity(CustomStyle.PlainItalic), 2));
     public static final RegistryObject<Item> PlainSceptre3 = ITEMS.register("plainsceptre3",
-            () -> new PlainSceptre3(new Item.Properties().rarity(CustomStyle.PlainItalic)));
+            () -> new PlainSceptre(new Item.Properties().rarity(CustomStyle.PlainItalic), 3));
     public static final RegistryObject<Item> PlainSceptre4 = ITEMS.register("plainsceptre4",
-            () -> new PlainSceptre4(new Item.Properties().rarity(CustomStyle.LifeItalic)));
+            () -> new PlainSceptre(new Item.Properties().rarity(CustomStyle.LifeItalic), 4));
     public static final RegistryObject<Item> LifeManaArmorBoots = ITEMS.register("lifemanaarmorboots",
             () -> new LifeManaArmor(ItemMaterial.LifeMana, ArmorItem.Type.BOOTS, new Item.Properties().rarity(CustomStyle.LifeItalic)));
     public static final RegistryObject<Item> LifeManaArmorLeggings = ITEMS.register("lifemanaarmorleggings",
@@ -822,19 +822,19 @@ public class ModItems {
             () -> new LightningRune(new Item.Properties().rarity(CustomStyle.LightningBold)));
 
     public static final RegistryObject<Item> lightningArmorHelmet = ITEMS.register("islandarmorhelmet",
-            () -> new LightningArmor(ItemMaterial.IslandMaterial, ArmorItem.Type.HELMET, new Item.Properties().rarity(CustomStyle.LightningItalic), 600, 240));
+            () -> new LightningArmor(ItemMaterial.IslandMaterial, ArmorItem.Type.HELMET, new Item.Properties().rarity(CustomStyle.LightningItalic), 600, 2));
     public static final RegistryObject<Item> IslandHelmetForgeDraw = ITEMS.register("island_helmet_forge_draw",
             () -> new WraqForge(new Item.Properties().rarity(CustomStyle.LightningBold), ModItems.lightningArmorHelmet.get()));
     public static final RegistryObject<Item> lightningArmorChest = ITEMS.register("islandarmorchest",
-            () -> new LightningArmor(ItemMaterial.IslandMaterial, ArmorItem.Type.CHESTPLATE, new Item.Properties().rarity(CustomStyle.LightningItalic), 1000, 330));
+            () -> new LightningArmor(ItemMaterial.IslandMaterial, ArmorItem.Type.CHESTPLATE, new Item.Properties().rarity(CustomStyle.LightningItalic), 1000, 3));
     public static final RegistryObject<Item> IslandChestForgeDraw = ITEMS.register("island_chest_forge_draw",
             () -> new WraqForge(new Item.Properties().rarity(CustomStyle.LightningBold), ModItems.lightningArmorChest.get()));
     public static final RegistryObject<Item> lightningArmorLeggings = ITEMS.register("islandarmorleggings",
-            () -> new LightningArmor(ItemMaterial.IslandMaterial, ArmorItem.Type.LEGGINGS, new Item.Properties().rarity(CustomStyle.LightningItalic), 800, 300));
+            () -> new LightningArmor(ItemMaterial.IslandMaterial, ArmorItem.Type.LEGGINGS, new Item.Properties().rarity(CustomStyle.LightningItalic), 800, 3));
     public static final RegistryObject<Item> IslandLeggingsForgeDraw = ITEMS.register("island_leggings_forge_draw",
             () -> new WraqForge(new Item.Properties().rarity(CustomStyle.LightningBold), ModItems.lightningArmorLeggings.get()));
     public static final RegistryObject<Item> lightningArmorBoots = ITEMS.register("islandarmorboots",
-            () -> new LightningArmor(ItemMaterial.IslandMaterial, ArmorItem.Type.BOOTS, new Item.Properties().rarity(CustomStyle.LightningItalic), 300, 210));
+            () -> new LightningArmor(ItemMaterial.IslandMaterial, ArmorItem.Type.BOOTS, new Item.Properties().rarity(CustomStyle.LightningItalic), 300, 2));
     public static final RegistryObject<Item> IslandBootsForgeDraw = ITEMS.register("island_boots_forge_draw",
             () -> new WraqForge(new Item.Properties().rarity(CustomStyle.LightningBold), ModItems.lightningArmorBoots.get()));
 
@@ -1158,16 +1158,16 @@ public class ModItems {
 
     public static final RegistryObject<Item> ILArmorHelmet = ITEMS.register("ilarmorhelmet",
             () -> new IntensifiedLightningArmor(ItemMaterial.ArmorIL, ArmorItem.Type.HELMET,
-                    new Item.Properties().rarity(CustomStyle.LightningItalic), 800, 360));
+                    new Item.Properties().rarity(CustomStyle.LightningItalic), 800, 4));
     public static final RegistryObject<Item> ILArmorChest = ITEMS.register("ilarmorchest",
             () -> new IntensifiedLightningArmor(ItemMaterial.ArmorIL, ArmorItem.Type.CHESTPLATE,
-                    new Item.Properties().rarity(CustomStyle.LightningItalic), 1200, 420));
+                    new Item.Properties().rarity(CustomStyle.LightningItalic), 1200, 4));
     public static final RegistryObject<Item> ILArmorLeggings = ITEMS.register("ilarmorleggings",
             () -> new IntensifiedLightningArmor(ItemMaterial.ArmorIL, ArmorItem.Type.LEGGINGS,
-                    new Item.Properties().rarity(CustomStyle.LightningItalic), 1000, 360));
+                    new Item.Properties().rarity(CustomStyle.LightningItalic), 1000, 4));
     public static final RegistryObject<Item> ILArmorBoots = ITEMS.register("ilarmorboots",
             () -> new IntensifiedLightningArmor(ItemMaterial.ArmorIL, ArmorItem.Type.HELMET,
-                    new Item.Properties().rarity(CustomStyle.LightningItalic), 800, 300));
+                    new Item.Properties().rarity(CustomStyle.LightningItalic), 800, 4));
 
     public static final RegistryObject<Item> LightningRecallSoul = ITEMS.register("lightningrecallsoul",
             () -> new LightningRecallSoul(new Item.Properties().rarity(CustomStyle.Lightning)));
@@ -1505,39 +1505,39 @@ public class ModItems {
 
     public static final RegistryObject<Item> PlainManaBook = ITEMS.register("mananote_plain",
             () -> new ManaNote(new Item.Properties().rarity(CustomStyle.PlainItalic), 0,
-                    20, 0.1f, 50, 30, 3, 0.05f, 0.1f));
+                    20, 0.1f, 1, 30, 3, 0.05f, 0.1f));
 
     public static final RegistryObject<Item> ForestManaBook = ITEMS.register("mananote_forest",
             () -> new ManaNote(new Item.Properties().rarity(CustomStyle.ForestItalic), 1,
-                    40, 0.12f, 75, 45, 4, 0.1f, 0.2f));
+                    40, 0.12f, 1, 45, 4, 0.1f, 0.2f));
 
     public static final RegistryObject<Item> LakeManaBook = ITEMS.register("mananote_lake",
             () -> new ManaNote(new Item.Properties().rarity(CustomStyle.LakeItalic), 2,
-                    60, 0.14f, 100, 60, 6, 0.15f, 0.3f));
+                    60, 0.14f, 1, 60, 6, 0.15f, 0.3f));
 
     public static final RegistryObject<Item> VolcanoManaBook = ITEMS.register("mananote_volcano",
             () -> new ManaNote(new Item.Properties().rarity(CustomStyle.VolcanoItalic), 3,
-                    80, 0.17f, 125, 75, 8, 0.20d, 0.4f));
+                    80, 0.17f, 2, 75, 8, 0.20d, 0.4f));
 
     public static final RegistryObject<Item> SnowManaBook = ITEMS.register("mananote_snow",
             () -> new ManaNote(new Item.Properties().rarity(CustomStyle.SnowItalic), 4,
-                    100, 0.2f, 150, 90, 10, 0.25f, 0.5f));
+                    100, 0.2f, 2, 90, 10, 0.25f, 0.5f));
 
     public static final RegistryObject<Item> EvokerBook0 = ITEMS.register("evokerbook0",
             () -> new ManaNote(new Item.Properties().rarity(CustomStyle.EvokerItalic), 5,
-                    120, 0.22f, 200, 105, 12, 0.3f, 0.6f));
+                    120, 0.22f, 2, 105, 12, 0.3f, 0.6f));
 
     public static final RegistryObject<Item> EvokerBook1 = ITEMS.register("evokerbook1",
             () -> new ManaNote(new Item.Properties().rarity(CustomStyle.EvokerItalic), 6,
-                    140, 0.24f, 300, 120, 14, 0.35f, 0.7f));
+                    140, 0.24f, 3, 120, 14, 0.35f, 0.7f));
 
     public static final RegistryObject<Item> EvokerBook2 = ITEMS.register("evokerbook2",
             () -> new ManaNote(new Item.Properties().rarity(CustomStyle.EvokerItalic), 7,
-                    160, 0.26f, 400, 135, 16, 0.4f, 0.8f));
+                    160, 0.26f, 4, 135, 16, 0.4f, 0.8f));
 
     public static final RegistryObject<Item> EvokerBook3 = ITEMS.register("evokerbook3",
             () -> new ManaNote(new Item.Properties().rarity(CustomStyle.EvokerItalic), 8,
-                    180, 0.28f, 500, 150, 18, 0.45f, 0.9f));
+                    180, 0.28f, 5, 150, 18, 0.45f, 0.9f));
 
     public static final RegistryObject<Item> WorldSoul1 = ITEMS.register("worldsoul1",
             () -> new Item(new Item.Properties().rarity(CustomStyle.WorldBold)));

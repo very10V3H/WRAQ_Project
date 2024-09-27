@@ -22,7 +22,7 @@ import java.util.List;
 public class ForestArmorHelmet extends ArmorItem {
     public ForestArmorHelmet(ItemMaterial Materrial, Type Slots) {
         super(Materrial, Slots, new Properties().rarity(CustomStyle.ForestItalic));
-        Utils.defence.put(this, 100d);
+        Utils.defence.put(this, 1d);
         Utils.armorTag.put(this, 1d);
         Utils.armorList.add(this);
     }
@@ -39,6 +39,7 @@ public class ForestArmorHelmet extends ArmorItem {
     }
 
     public static double exDefence(Player player) {
-        return SuitCount.getForestSuitCountWithoutCrest(player) > 0 ? Math.min(100, player.experienceLevel) * 8 : 0;
+        return SuitCount.getForestSuitCountWithoutCrest(player) > 0 ? Math.min(100, player.experienceLevel) * 0.4 : 0;
+
     }
 }

@@ -16,7 +16,7 @@ public class EarthManaCurios extends WraqCurios {
 
     public EarthManaCurios(Properties p_41383_, int tier) {
         super(p_41383_);
-        Utils.manaDefence.put(this, tier == 0 ? 500d : 800d);
+        Utils.manaDefence.put(this, tier == 0 ? 5d : 8d);
         Utils.manaDamage.put(this, tier == 0 ? 200d : 350d);
         Utils.manaHealthSteal.put(this, tier == 0 ? 0.05 : 0.08);
         Utils.manaRecover.put(this, tier == 0 ? 15d : 25d);

@@ -18,15 +18,12 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class SkyArmorHelmet extends ArmorItem {
-    private final double Defence = 240;
-    private final double healReply = 5;
-    private final double MaxHealth = 200.0d;
 
     public SkyArmorHelmet(ItemMaterial Materrial, Type Slots) {
         super(Materrial, Slots, new Properties().rarity(CustomStyle.SkyItalic));
-        Utils.defence.put(this, Defence);
-        Utils.healthRecover.put(this, healReply);
-        Utils.maxHealth.put(this, MaxHealth);
+        Utils.defence.put(this, 2d);
+        Utils.healthRecover.put(this, 5d);
+        Utils.maxHealth.put(this, 200.0d);
         Utils.armorTag.put(this, 1d);
         Utils.armorList.add(this);
     }

@@ -8,7 +8,7 @@ public class MagmaSceptreAttributes {
             10, 12, 15, 20
     };
     public static double[] ManaDefencePenetration0 = {
-            400, 450, 500, 600
+            4, 5, 5, 6
     };
     public static double[] MovementSpeed = {
             0.4f, 0.4f, 0.4f, 0.4f

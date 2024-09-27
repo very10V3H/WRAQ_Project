@@ -29,7 +29,7 @@ public class ForestSword4 extends WraqSword implements ActiveItem {
     public ForestSword4(Properties p_40524_) {
         super(p_40524_);
         Utils.attackDamage.put(this, 50d);
-        Utils.defencePenetration0.put(this, 1800d);
+        Utils.defencePenetration0.put(this, 18d);
         Utils.healthSteal.put(this, 0.05);
         Utils.critRate.put(this, 0.3);
         Utils.critDamage.put(this, 0.4);

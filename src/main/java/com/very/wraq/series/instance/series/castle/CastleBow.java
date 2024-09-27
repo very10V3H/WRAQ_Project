@@ -24,7 +24,7 @@ public class CastleBow extends WraqBow implements ForgeItem, ActiveItem {
     public CastleBow(Properties p_40524_) {
         super(p_40524_);
         Utils.attackDamage.put(this, 1500d);
-        Utils.defencePenetration0.put(this, 3600d);
+        Utils.defencePenetration0.put(this, 36d);
         Utils.critRate.put(this, 0.25);
         Utils.critDamage.put(this, 1.35);
         Utils.movementSpeedWithoutBattle.put(this, 0.6);
@@ -41,9 +41,19 @@ public class CastleBow extends WraqBow implements ForgeItem, ActiveItem {
         Style style = getMainStyle();
         Compute.DescriptionPassive(components, Component.literal("暗影之刃").withStyle(style));
         components.add(Component.literal(" 你的箭矢攻击将使敌人被拖入暗影之中").withStyle(ChatFormatting.ITALIC).withStyle(style));
-        components.add(Component.literal(" 你的").withStyle(ChatFormatting.WHITE).append(Component.literal("箭矢攻击").withStyle(CustomStyle.styleOfFlexible)).append(Component.literal("将附带造成伤害100%的").withStyle(ChatFormatting.WHITE)).append(ComponentUtils.AttributeDescription.manaDamageValue("")));
+        components.add(Component.literal(" 你的").withStyle(ChatFormatting.WHITE).
+                append(Component.literal("箭矢攻击").withStyle(CustomStyle.styleOfFlexible)).
+                append(Component.literal("将附带造成伤害100%的").withStyle(ChatFormatting.WHITE)).
+                append(ComponentUtils.AttributeDescription.manaDamageValue("")));
         Compute.DescriptionActive(components, Component.literal("噬魔注能").withStyle(style));
-        components.add(Component.literal(" 扣除自身").withStyle(ChatFormatting.WHITE).append(Compute.AttributeDescription.Health("15%当前")).append(Component.literal("，获得持续6s的").withStyle(ChatFormatting.WHITE)).append(Component.literal("25%伤害提升").withStyle(CustomStyle.styleOfPower)).append(Component.literal("以及").withStyle(ChatFormatting.WHITE)).append(Compute.AttributeDescription.DefencePenetration("1500")).append(Component.literal("与").withStyle(ChatFormatting.WHITE)).append(Compute.AttributeDescription.ManaPenetration("1500")));
+        components.add(Component.literal(" 扣除自身").withStyle(ChatFormatting.WHITE).
+                append(Compute.AttributeDescription.Health("15%当前")).
+                append(Component.literal("，获得持续6s的").withStyle(ChatFormatting.WHITE)).
+                append(Component.literal("25%伤害提升").withStyle(CustomStyle.styleOfPower)).
+                append(Component.literal("以及").withStyle(ChatFormatting.WHITE)).
+                append(Compute.AttributeDescription.DefencePenetration("15")).
+                append(Component.literal("与").withStyle(ChatFormatting.WHITE)).
+                append(Compute.AttributeDescription.ManaPenetration("15")));
         ComponentUtils.coolDownTimeDescription(components, 15);
         components.add(Component.literal(" 多件暗黑武器的主动将会刷新持续时间，但效果将不会叠加，且共享冷却时间").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
         return components;

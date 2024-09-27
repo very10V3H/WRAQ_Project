@@ -20,19 +20,14 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class IceBook extends Item {
-    private final double ManaDamage = 400;
-    private final double ManaPenetration0 = 600;
-    private final double MaxMana = 50;
-    private final double MovementSpeed = 1;
-    private final double ExpUp = 1;
 
     public IceBook(Properties p_41383_) {
         super(p_41383_);
-        Utils.manaDamage.put(this, ManaDamage);
-        Utils.manaPenetration0.put(this, ManaPenetration0);
-        Utils.maxMana.put(this, MaxMana);
-        Utils.movementSpeedWithoutBattle.put(this, MovementSpeed);
-        Utils.expUp.put(this, ExpUp);
+        Utils.manaDamage.put(this, 400d);
+        Utils.manaPenetration0.put(this, 6d);
+        Utils.maxMana.put(this, 50d);
+        Utils.movementSpeedWithoutBattle.put(this, 1d);
+        Utils.expUp.put(this, 1d);
         Utils.offHandTag.put(this, 1d);
         Utils.weaponList.add(this);
     }

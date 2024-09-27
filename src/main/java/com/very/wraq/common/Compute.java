@@ -897,13 +897,13 @@ public class Compute {
         if (data.contains(StringUtils.LabourDayForgePaper)) ++forgingLevel;
 
         if (forgingLevel <= 10) {
-            return 2 * forgingLevel + BaseValue * 0.02f * forgingLevel;
+            return BaseValue * 0.02f * forgingLevel;
         } else if (forgingLevel <= 20) {
-            return 20 + 4 * (forgingLevel - 10) + BaseValue * (0.04f * (forgingLevel - 10) + 0.2f);
+            return BaseValue * (0.04f * (forgingLevel - 10) + 0.2f);
         } else if (forgingLevel <= 24) {
-            return 60 + BaseValue * (0.2f * (forgingLevel - 20) + 0.6f);
+            return BaseValue * (0.2f * (forgingLevel - 20) + 0.6f);
         } else {
-            return 60 + BaseValue * (1.4 + (forgingLevel - 24) * 0.4);
+            return BaseValue * (1.4 + (forgingLevel - 24) * 0.4);
         }
     }
 

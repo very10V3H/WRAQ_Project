@@ -25,8 +25,8 @@ public class TabooManaArmor extends WraqArmor {
         super(Material, type, itemProperties);
         Utils.maxHealth.put(this, 2560d);
         Utils.manaDamage.put(this, 1500d);
-        Utils.defence.put(this, 400d);
-        Utils.manaDefence.put(this, 280d);
+        Utils.defence.put(this, 4d);
+        Utils.manaDefence.put(this, 3d);
         Utils.manaRecover.put(this, 30d);
         Utils.coolDownDecrease.put(this, 0.2);
         if (this.type.equals(Type.BOOTS)) Utils.movementSpeedCommon.put(this, 0.45);
@@ -88,9 +88,9 @@ public class TabooManaArmor extends WraqArmor {
         if (!nearCostListMap.containsKey(player)) return 0;
         List<NearCostMana> list = nearCostListMap.get(player);
         list.removeIf(nearCostMana -> nearCostMana.tick < TickCount);
-        int storedValue = 0;
+        double storedValue = 0;
         for (NearCostMana nearCostMana : list) {
-            storedValue += nearCostMana.value;
+            storedValue += (nearCostMana.value * 0.01);
         }
         return storedValue;
     }
@@ -98,7 +98,7 @@ public class TabooManaArmor extends WraqArmor {
     public static double PenetrationDirectEnhance(Player player) {
         if (!IsOn(player)) return 0;
         if (Compute.getManaSkillLevel(player.getPersistentData(), 10) > 0)
-            return (PlayerAttributes.maxManaUp(player) + 100) * Compute.getManaSkillLevel(player.getPersistentData(), 10) * 0.03;
+            return (PlayerAttributes.maxManaUp(player) + 100) * Compute.getManaSkillLevel(player.getPersistentData(), 10) * 0.0003;
         return 0;
     }
 

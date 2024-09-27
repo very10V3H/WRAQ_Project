@@ -420,56 +420,6 @@ public class ServerPlayerTickEvent {
                 }
             }
 
-            if (TmpNum % 20 == 0) {
-/*                if (data.contains(StringUtils.Missions.Mission) && data.getInt(StringUtils.Missions.Mission) <= 10) {
-                    int MissionNum = data.getInt(StringUtils.Missions.Mission);
-                    Vec3 Des = Utils.MissionMap.get(MissionNum).getDes();
-                    Vec3 Pos = player.getPosition(1);
-                    if (Des.distanceTo(Pos) < 10) {
-                        if (MissionNum < 10) {
-                            ModNetworking.sendToClient(new MissionCompletedS2CPacket(Utils.MissionMap.get(MissionNum).getTitle()),serverPlayer);
-                            ModNetworking.sendToClient(new SoundsS2CPacket(3),serverPlayer);
-
-                            switch (MissionNum) {
-                                case 1 -> InventoryOperation.itemStackGive(player,ModItems.PlainSword0.get().getDefaultInstance());
-                                case 2 -> InventoryOperation.itemStackGive(player,ModItems.PlainSceptre0.get().getDefaultInstance());
-                                case 3 -> InventoryOperation.itemStackGive(player,ModItems.PlainBow0.get().getDefaultInstance());
-                                case 4 -> InventoryOperation.itemStackGive(player,ModItems.BackPackTickets.get().getDefaultInstance());
-                                case 8 -> {
-                                    ItemStack itemStack = Items.ELYTRA.getDefaultInstance();
-                                    itemStack.getOrCreateTag().putBoolean("Unbreakable",true);
-                                    Map<Enchantment, Integer> map = EnchantmentHelper.getEnchantments(itemStack);
-                                    map.put(Enchantments.UNBREAKING,5);
-                                    EnchantmentHelper.setEnchantments(map,itemStack);
-                                    InventoryOperation.itemStackGive(player,itemStack);
-                                }
-                            }
-                            InventoryOperation.itemStackGive(player,ModItems.SilverCoin.get().getDefaultInstance());
-                            Compute.ExpPercentGetAndMSGSend(player,0.5,0,player.experienceLevel);
-                            MissionNum ++;
-                            data.putInt(StringUtils.Missions.Mission,MissionNum);
-                            ModNetworking.sendToClient(new MissionInfoS2CPacket(Utils.MissionMap.get(MissionNum).getTitle(),
-                                    Utils.MissionMap.get(MissionNum).getContent(),
-                                    Utils.MissionMap.get(MissionNum).getDes().x,Utils.MissionMap.get(MissionNum).getDes().y,
-                                    Utils.MissionMap.get(MissionNum).getDes().z),serverPlayer);
-                            Compute.FormatMSGSend(player,Component.literal("任务").withStyle(CustomStyle.styleOfSpider),
-                                    Component.literal("您收到了一个新任务。").withStyle(ChatFormatting.WHITE));
-
-                        }
-                        else {
-                            ModNetworking.sendToClient(new MissionCompletedS2CPacket(Utils.MissionMap.get(MissionNum).getTitle()),serverPlayer);
-                            ModNetworking.sendToClient(new SoundsS2CPacket(3),serverPlayer);
-                            MissionNum ++;
-                            data.putInt(StringUtils.Missions.Mission,MissionNum);
-                            Compute.FormatMSGSend(player,Component.literal("任务").withStyle(CustomStyle.styleOfSpider),
-                                    Component.literal("您已经完成了全部新手引导任务。").withStyle(ChatFormatting.WHITE));
-                            InventoryOperation.itemStackGive(player,ModItems.GoldCoin.get().getDefaultInstance());
-                            InventoryOperation.itemStackGive(player,ModItems.SmartPhone.get().getDefaultInstance());
-                            Compute.ExpPercentGetAndMSGSend(player,1,0,player.experienceLevel);
-                        }
-                    }
-                }*/
-            }
             if (data.contains("arrowflyingForBug") && data.getInt("arrowflyingForBug") > 0)
                 data.putInt("arrowflyingForBug", data.getInt("arrowflyingForBug") - 1);
             if (data.contains("ManaSwordActive") && data.getInt("ManaSwordActive") > 0)
@@ -485,10 +435,6 @@ public class ServerPlayerTickEvent {
             if (TickCount % 4 == 0 && data.contains(StringUtils.SakuraDemonSword) && data.getInt(StringUtils.SakuraDemonSword) > TickCount) {
                 ParticleProvider.VerticleCircleParticle(serverPlayer, 0.2, 1, 20, ParticleTypes.CHERRY_LEAVES);
             }
-/*
-            if (player.getPersistentData().getString(StringUtils.Login.Status).equals(StringUtils.Login.Offline))
-                player.teleportTo(data.getDouble("DX"), data.getDouble("DY"), data.getDouble("DZ"));
-*/
 
             //等级机制改革
             {
@@ -499,29 +445,6 @@ public class ServerPlayerTickEvent {
                     double needXpForLevelUp = Compute.getCurrentXpLevelUpNeedXpPoint(player.experienceLevel);
                     double Rate = Xp / needXpForLevelUp;
                     if (Rate >= 1) {
-/*                        Element.ResonanceLevelRequireMap.forEach((s, integer) -> {
-                            if (XpLevel == integer) {
-                                String name = Element.nameMap.get(s);
-                                Style style = Element.styleMap.get(s);
-                                ClientboundSetTitleTextPacket clientboundSetTitleTextPacket =
-                                        new ClientboundSetTitleTextPacket(Component.literal("已解锁" + name).withStyle(style));
-                                serverPlayer.connection.send(clientboundSetTitleTextPacket);
-                            }
-                            if (XpLevel == 10) Mission.acceptMission(player,
-                                    Mission.nameToSerailNumMap.get(Mission.MissionName.LifeElementAltar));
-                            if (XpLevel == 25) Mission.acceptMission(player,
-                                    Mission.nameToSerailNumMap.get(Mission.MissionName.WaterElementAltar));
-                            if (XpLevel == 32) Mission.acceptMission(player,
-                                    Mission.nameToSerailNumMap.get(Mission.MissionName.FireElementAltar));
-                            if (XpLevel == 40) Mission.acceptMission(player,
-                                    Mission.nameToSerailNumMap.get(Mission.MissionName.StoneElementAltar));
-                            if (XpLevel == 40) Mission.acceptMission(player,
-                                    Mission.nameToSerailNumMap.get(Mission.MissionName.IceElementAltar));
-                            if (XpLevel == 70) Mission.acceptMission(player,
-                                    Mission.nameToSerailNumMap.get(Mission.MissionName.WindElementAltar));
-                            if (XpLevel == 70) Mission.acceptMission(player,
-                                    Mission.nameToSerailNumMap.get(Mission.MissionName.LightningElementAltar));
-                        });*/
 
                         if (XpLevel == 99)
                             InventoryOperation.itemStackGive(player, ModItems.SkillReset.get().getDefaultInstance());

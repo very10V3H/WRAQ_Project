@@ -8,7 +8,7 @@ public class VolcanoBowAttributes {
             80, 85, 90, 100
     };
     public static double[] DefencePenetration0 = {
-            150, 200, 250, 300
+            2, 2, 3, 3
     };
     public static double[] CriticalRate = {
             0.2f, 0.2f, 0.2f, 0.25f

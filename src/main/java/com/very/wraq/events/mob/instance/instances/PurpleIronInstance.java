@@ -62,7 +62,7 @@ public class PurpleIronInstance extends NoTeamInstance {
         MobSpawn.setMobCustomName(amethystCrabEntity, Component.literal("紫水晶巨蟹").withStyle(CustomStyle.styleOfPurpleIron), 120);
 
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(amethystCrabEntity), 120);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(amethystCrabEntity, 1000, 1200, 1200, 0.35, 3, 0.2, 500, 15, 400000, 0.3);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(amethystCrabEntity, 1000, 12, 12, 0.35, 3, 0.2, 5, 15, 400000, 0.3);
 
         amethystCrabEntity.setHealth(amethystCrabEntity.getMaxHealth());
 

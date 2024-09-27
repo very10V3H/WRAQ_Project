@@ -32,7 +32,7 @@ public class MoonKnife extends Item {
     public MoonKnife() {
         super(new Properties().rarity(CustomStyle.MoonItalic).stacksTo(1));
         Utils.attackDamage.put(this, 77d);
-        Utils.defencePenetration0.put(this, 600d);
+        Utils.defencePenetration0.put(this, 6d);
         Utils.critRate.put(this, 0.17);
         Utils.critDamage.put(this, 0.62);
         Utils.expUp.put(this, 1.57);

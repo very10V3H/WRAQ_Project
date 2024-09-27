@@ -31,26 +31,17 @@ public class SnowSword3 extends PickaxeItem implements ActiveItem {
 
     public SnowSword3(Tier p_42961_, int p_42962_, float p_42963_, Properties p_42964_) {
         super(p_42961_, p_42962_, p_42963_, p_42964_);
-        Utils.attackDamage.put(this, this.BaseDamage);
-        Utils.defencePenetration0.put(this, this.DefencePenetration0);
-        Utils.healthSteal.put(this, this.HealSteal);
-        Utils.critRate.put(this, this.CriticalHitRate);
-        Utils.critDamage.put(this, this.CHitDamage);
-        Utils.movementSpeedWithoutBattle.put(this, this.SpeedUp);
-        Utils.attackSpeedUp.put(this, AttackSpeedUp);
+        Utils.attackDamage.put(this, 120d);
+        Utils.defencePenetration0.put(this, 8d);
+        Utils.healthSteal.put(this, 0.04);
+        Utils.critRate.put(this, 0.4);
+        Utils.critDamage.put(this, 0.6);
+        Utils.movementSpeedWithoutBattle.put(this, 0.4);
         Element.IceElementValue.put(this, 0.8);
         Utils.mainHandTag.put(this, 1d);
         Utils.weaponList.add(this);
         Utils.swordTag.put(this, 1d);
     }
-
-    private final double BaseDamage = 120;
-    private final double DefencePenetration0 = 800;
-    private final double CriticalHitRate = 0.4F;
-    private final double CHitDamage = 0.6;
-    private final double HealSteal = 0.04F;
-    private final double SpeedUp = 0.4F;
-    private final double AttackSpeedUp = -2f;
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {

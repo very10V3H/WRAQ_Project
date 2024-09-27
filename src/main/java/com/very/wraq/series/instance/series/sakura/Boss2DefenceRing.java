@@ -28,7 +28,7 @@ public class Boss2DefenceRing extends Item implements ICurioItem {
     }
 
     private final int[] Attributes = {
-            280, 380, 480, 580
+            3, 4, 5, 6
     };
 
     @Override

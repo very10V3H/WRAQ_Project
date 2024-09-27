@@ -5,7 +5,7 @@ public class VolcanoSwordAttributes {
             80, 85, 90, 100
     };
     public static final double[] DefencePenetration0 = {
-            150, 200, 250, 300
+            2, 2, 3, 3
     };
     public static final double[] CriticalRate = {
             0.2, 0.2, 0.2, 0.2

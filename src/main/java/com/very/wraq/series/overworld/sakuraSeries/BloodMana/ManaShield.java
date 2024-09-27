@@ -21,8 +21,8 @@ public class ManaShield extends WraqOffHandItem implements ForgeItem {
 
     public ManaShield(Properties properties) {
         super(properties, Component.literal("手盾").withStyle(CustomStyle.styleOfMine));
-        Utils.defence.put(this, 150d);
-        Utils.manaDefence.put(this, 300d);
+        Utils.defence.put(this, 2d);
+        Utils.manaDefence.put(this, 3d);
         Utils.maxHealth.put(this, 300d);
         Utils.attackDamage.put(this, 40d);
         Utils.manaDamage.put(this, 80d);

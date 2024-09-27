@@ -752,7 +752,7 @@ public class SkillTreeGui extends Screen {
             components.add(Component.literal("▲剑术专精-残暴").withStyle(CustomStyle.styleOfPower));
             ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfPower, ChatFormatting.WHITE);
             components.add(Component.literal("手持近战武器时，获得").withStyle(ChatFormatting.WHITE).
-                    append(Compute.AttributeDescription.DefencePenetration("[玩家等级 * 0.5 * " + ClientUtils.SwordSkillPoint.PointCache[index] + "] ")));
+                    append(Compute.AttributeDescription.DefencePenetration(String.valueOf(ClientUtils.SwordSkillPoint.PointCache[index] * 3))));
             ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfPower, ChatFormatting.WHITE);
             components.add(Component.literal("▶专精等级:").withStyle(CustomStyle.styleOfPower));
             components.add(Component.literal(ClientUtils.SwordSkillPoint.PointCache[index] + " / " + 10).withStyle(CustomStyle.styleOfPower));
@@ -981,7 +981,7 @@ public class SkillTreeGui extends Screen {
             components.add(Component.literal("▲弓术专精-锻矢-材质").withStyle(CustomStyle.styleOfFlexible));
             ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfFlexible, ChatFormatting.WHITE);
             components.add(Component.literal("手持弓时，获得").withStyle(ChatFormatting.WHITE).
-                    append(Compute.AttributeDescription.DefencePenetration("[玩家等级 * 0.5 * " + ClientUtils.BowSkillPoint.PointCache[index] + "] ")));
+                    append(Compute.AttributeDescription.DefencePenetration(String.valueOf(ClientUtils.BowSkillPoint.PointCache[index] * 3))));
             ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfFlexible, ChatFormatting.WHITE);
             components.add(Component.literal("▶专精等级:").withStyle(CustomStyle.styleOfFlexible));
             components.add(Component.literal(ClientUtils.BowSkillPoint.PointCache[index] + " / " + 10).withStyle(CustomStyle.styleOfFlexible));

@@ -21,7 +21,7 @@ public class TreeSceptre extends WraqPassiveEquip {
     };
 
     private static final double[] ManaPenetration0 = {
-            200, 250, 300, 400
+            2, 3, 3, 4
     };
 
     public TreeSceptre(Properties properties, int tier) {

@@ -32,7 +32,7 @@ public class ShipSword extends WraqSword implements ActiveItem {
     public ShipSword(Properties properties) {
         super(properties);
         Utils.attackDamage.put(this, 450d);
-        Utils.defencePenetration0.put(this, 2200d);
+        Utils.defencePenetration0.put(this, 22d);
         Utils.healthSteal.put(this, 0.08);
         Utils.critRate.put(this, 0.3);
         Utils.critDamage.put(this, 0.65);

@@ -26,7 +26,7 @@ public class PurpleIronSword extends WraqPassiveEquip implements PurpleIronTier 
     };
 
     private static final double[] Defence = {
-            150, 300, 450, 600
+            2, 3, 5, 6
     };
 
     private static final double[] MaxHealth = {

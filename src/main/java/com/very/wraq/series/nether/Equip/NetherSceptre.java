@@ -36,7 +36,7 @@ public class NetherSceptre extends WraqSceptre {
         Utils.manaDamage.put(this, 1024d);
         Utils.manaRecover.put(this, 20d);
         Utils.coolDownDecrease.put(this, 0.35);
-        Utils.manaPenetration0.put(this, 2400d);
+        Utils.manaPenetration0.put(this, 24d);
         Utils.movementSpeedWithoutBattle.put(this, 0.5);
         Utils.manaCost.put(this, 45d);
         Element.FireElementValue.put(this, 1d);

@@ -36,7 +36,7 @@ public class IceSceptre extends WraqSceptre implements OnHitEffectMainHandWeapon
         Utils.manaDamage.put(this, 1400d);
         Utils.manaRecover.put(this, 30d);
         Utils.coolDownDecrease.put(this, 0.45);
-        Utils.manaPenetration0.put(this, 2100d);
+        Utils.manaPenetration0.put(this, 21d);
         Utils.movementSpeedWithoutBattle.put(this, 0.4);
         Utils.manaCost.put(this, 45d);
         Element.IceElementValue.put(this, 1.25);

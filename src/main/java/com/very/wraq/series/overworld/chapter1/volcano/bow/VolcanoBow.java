@@ -15,16 +15,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class VolcanoBow extends WraqBow {
-    private final int Num;
 
-    public VolcanoBow(Properties p_40524_, int Num) {
+    public VolcanoBow(Properties p_40524_, int tier) {
         super(p_40524_);
-        this.Num = Num;
-        Utils.attackDamage.put(this, VolcanoBowAttributes.BaseDamage[Num]);
-        Utils.defencePenetration0.put(this, VolcanoBowAttributes.DefencePenetration0[Num]);
-        Utils.critRate.put(this, VolcanoBowAttributes.CriticalRate[Num]);
-        Utils.critDamage.put(this, VolcanoBowAttributes.CriticalDamage[Num]);
-        Element.FireElementValue.put(this, VolcanoBowAttributes.FireElementValue[Num]);
+        Utils.attackDamage.put(this, VolcanoBowAttributes.BaseDamage[tier]);
+        Utils.defencePenetration0.put(this, VolcanoBowAttributes.DefencePenetration0[tier]);
+        Utils.critRate.put(this, VolcanoBowAttributes.CriticalRate[tier]);
+        Utils.critDamage.put(this, VolcanoBowAttributes.CriticalDamage[tier]);
+        Element.FireElementValue.put(this, VolcanoBowAttributes.FireElementValue[tier]);
     }
 
     @Override

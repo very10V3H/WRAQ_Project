@@ -15,8 +15,8 @@ public class MineCharm extends WraqCurios {
     public MineCharm(Properties properties, int serial) {
         super(properties);
         int[] levelRequires = {40, 60, 80, 100, 120, 140, 160};
-        double[] defencePenetration0 = {50, 100, 200, 300, 500, 800, 1200};
-        double[] manaPenetration0 = {50, 100, 200, 300, 500, 800, 1200};
+        double[] defencePenetration0 = {1, 2, 3, 4, 6, 9, 13};
+        double[] manaPenetration0 = {1, 2, 3, 4, 6, 9, 13};
         Utils.levelRequire.put(this, levelRequires[serial]);
         Utils.defencePenetration0.put(this, defencePenetration0[serial]);
         Utils.manaPenetration0.put(this, manaPenetration0[serial]);

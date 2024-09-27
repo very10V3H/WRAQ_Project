@@ -29,7 +29,7 @@ public class IceBow extends WraqBow implements OnHitEffectMainHandWeapon {
     public IceBow(Properties p_40524_) {
         super(p_40524_);
         Utils.attackDamage.put(this, 700d);
-        Utils.defencePenetration0.put(this, 2100d);
+        Utils.defencePenetration0.put(this, 21d);
         Utils.critRate.put(this, 0.25);
         Utils.critDamage.put(this, 1.35);
         Utils.movementSpeedWithoutBattle.put(this, 0.6);

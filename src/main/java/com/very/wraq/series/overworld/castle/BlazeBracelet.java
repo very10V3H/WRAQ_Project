@@ -24,7 +24,7 @@ public class BlazeBracelet extends Item implements ICurioItem {
 
     public BlazeBracelet(Properties p_41383_) {
         super(p_41383_);
-        Utils.defence.put(this, 400d);
+        Utils.defence.put(this, 4d);
         Utils.curiosTag.put(this, 1d);
         Utils.curiosList.add(this);
     }

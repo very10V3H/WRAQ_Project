@@ -21,7 +21,7 @@ public class ManaKnife extends WraqOffHandItem implements ForgeItem {
     public ManaKnife(Properties properties) {
         super(properties, Component.literal("匕首").withStyle(CustomStyle.styleOfBloodMana));
         Utils.attackDamage.put(this, 40d);
-        Utils.defencePenetration0.put(this, 400d);
+        Utils.defencePenetration0.put(this, 4d);
         Utils.critRate.put(this, 0.12);
         Utils.critDamage.put(this, 0.5);
         Utils.healthSteal.put(this, 0.04);

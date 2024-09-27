@@ -24,8 +24,8 @@ public class TabooSwiftArmor extends WraqArmor {
         super(Material, Slots, itemProperties);
         Utils.maxHealth.put(this, 2560d);
         Utils.attackDamage.put(this, 550d);
-        Utils.defence.put(this, 400d);
-        Utils.manaDefence.put(this, 280d);
+        Utils.defence.put(this, 4d);
+        Utils.manaDefence.put(this, 3d);
         Utils.swiftnessUp.put(this, 3d);
     }
 

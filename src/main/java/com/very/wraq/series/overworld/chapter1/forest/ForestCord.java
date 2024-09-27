@@ -13,17 +13,13 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class ForestCord extends Item {
-    protected double CriticalRate = 0.05F;
-    protected double Defence = 50.0d;
-    protected double MaxHealth = 100.0d;
-    private final double ExpUp = 0.5f;
 
     public ForestCord(Properties p_41383_) {
         super(p_41383_);
-        Utils.expUp.put(this, ExpUp);
-        Utils.critRate.put(this, CriticalRate);
-        Utils.defence.put(this, Defence);
-        Utils.maxHealth.put(this, MaxHealth);
+        Utils.expUp.put(this, 0.5);
+        Utils.critRate.put(this, 0.05);
+        Utils.defence.put(this, 1d);
+        Utils.maxHealth.put(this, 100d);
         Utils.offHandTag.put(this, 1d);
         Utils.weaponList.add(this);
     }

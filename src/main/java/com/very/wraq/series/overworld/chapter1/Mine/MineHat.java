@@ -33,13 +33,10 @@ public class MineHat extends ArmorItem implements GeoItem {
 
     private final AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
 
-    final double Defence = 50.0d;
-    final double MaxHealth = 100;
-
     public MineHat(ItemMaterial Material, Type Slots) {
         super(Material, Slots, new Properties().rarity(CustomStyle.MineItalic));
-        Utils.defence.put(this, Defence);
-        Utils.maxHealth.put(this, MaxHealth);
+        Utils.defence.put(this, 1d);
+        Utils.maxHealth.put(this, 100d);
         Utils.armorTag.put(this, 1d);
         Utils.armorList.add(this);
     }

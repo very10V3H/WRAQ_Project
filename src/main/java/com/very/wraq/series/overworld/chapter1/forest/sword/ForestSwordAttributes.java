@@ -5,7 +5,7 @@ public class ForestSwordAttributes {
             50, 55, 60, 70
     };
     public static final double[] DefencePenetration0 = {
-            50, 60, 80, 100
+            1, 1, 2, 2
     };
     public static final double[] CriticalRate = {
             0.3, 0.3, 0.3, 0.3

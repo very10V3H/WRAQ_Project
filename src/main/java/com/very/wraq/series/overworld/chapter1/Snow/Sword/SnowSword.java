@@ -18,7 +18,7 @@ public class SnowSword extends WraqSword {
     public SnowSword(Properties p_42964_, int tier) {
         super(p_42964_);
         Utils.attackDamage.put(this, new double[]{100, 105, 110}[tier]);
-        Utils.defencePenetration0.put(this, new double[]{600, 650, 700}[tier]);
+        Utils.defencePenetration0.put(this, new double[]{6, 7, 8}[tier]);
         Utils.healthSteal.put(this, new double[]{0.02, 105, 110}[tier]);
         Utils.critRate.put(this, new double[]{0.3, 0.33, 0.36}[tier]);
         Utils.critDamage.put(this, new double[]{0.4, 0.45, 0.5}[tier]);

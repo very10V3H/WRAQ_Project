@@ -8,7 +8,7 @@ public class ForestBowAttributes {
             50, 55, 60, 70
     };
     public static double[] DefencePenetration0 = {
-            50, 60, 80, 100
+            1, 1, 2, 2
     };
     public static double[] CriticalRate = {
             0.2f, 0.2f, 0.2f, 0.25f

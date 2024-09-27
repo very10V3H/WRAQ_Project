@@ -20,7 +20,7 @@ public class C5LootItems {
             new RandomBow(new Item.Properties().rarity(CustomStyle.ShipBold), CustomStyle.styleOfShip,
                     ComponentUtils.getSuffixOfChapterV(), List.of(new RandomAttributeValue(StringUtils.RandomAttribute.attackDamage, 200, 300),
                     new RandomAttributeValue(StringUtils.RandomAttribute.critRate, 0.3, 0.4),
-                    new RandomAttributeValue(StringUtils.RandomAttribute.defencePenetration0, 200, 300)), 108));
+                    new RandomAttributeValue(StringUtils.RandomAttribute.defencePenetration0, 2, 3)), 108));
 
     public static final RegistryObject<Item> bloodManaBoots = ITEMS.register("blood_mana_loot_boots", () ->
             new RandomArmor(ItemMaterial.BloodMana, ArmorItem.Type.BOOTS, new Item.Properties().rarity(CustomStyle.BloodManaBold), CustomStyle.styleOfBloodMana,

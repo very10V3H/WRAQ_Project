@@ -358,14 +358,14 @@ public class IdCardGui extends Screen {
             double ExDefence = ClientUtils.AbilityChangeCache.Power;
             double ExCritDamage = ClientUtils.AbilityChangeCache.Power;
             ComponentUtils.emojiDescriptionExAttackDamage(components, ExAttack);
-            ComponentUtils.emojiDescriptionDefence(components, ExDefence * 6);
+            ComponentUtils.emojiDescriptionDefence(components, ExDefence);
             ComponentUtils.emojiDescriptionCritDamage(components, ExCritDamage * 0.01);
             ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
             components.add(Component.literal(Ability).withStyle(style).
                     append(Component.literal("能力与属性点数关系:").withStyle(ChatFormatting.WHITE)));
             components.add(Component.literal("每一点能力获得:"));
             ComponentUtils.emojiDescriptionExAttackDamage(components, 1);
-            ComponentUtils.emojiDescriptionDefence(components, 6);
+            ComponentUtils.emojiDescriptionDefence(components, 1);
             ComponentUtils.emojiDescriptionCritDamage(components, 0.01);
             ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
             guiGraphics.renderComponentTooltip(fontRenderer, components, x, y);

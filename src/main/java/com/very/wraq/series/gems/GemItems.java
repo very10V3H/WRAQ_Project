@@ -164,7 +164,7 @@ public class GemItems {
     public static final RegistryObject<Item> magmaGem = ITEMS.register("magma_gem",
             () -> new WraqGem(new Item.Properties().rarity(CustomStyle.MagmaBold), new ArrayList<>() {{
                 add(new WraqGem.AttributeMapValue(Utils.manaPenetration, 0.06));
-                add(new WraqGem.AttributeMapValue(Utils.manaPenetration0, 300));
+                add(new WraqGem.AttributeMapValue(Utils.manaPenetration0, 3));
                 add(new WraqGem.AttributeMapValue(Utils.percentMaxHealthEnhance, -0.05));
             }}, CustomStyle.styleOfMagma, Component.literal("用封装下界熔岩能量所打造而成。").withStyle(CustomStyle.styleOfMagma),
                     ComponentUtils.getSuffixChapterIII()));
@@ -178,7 +178,7 @@ public class GemItems {
     public static final RegistryObject<Item> netherSkeletonGem = ITEMS.register("nether_skeleton_gem",
             () -> new WraqGem(new Item.Properties().rarity(CustomStyle.WitherBold), new ArrayList<>() {{
                 add(new WraqGem.AttributeMapValue(Utils.defencePenetration, 0.06));
-                add(new WraqGem.AttributeMapValue(Utils.defencePenetration0, 300));
+                add(new WraqGem.AttributeMapValue(Utils.defencePenetration0, 3));
                 add(new WraqGem.AttributeMapValue(Utils.percentMaxHealthEnhance, -0.05));
             }}, CustomStyle.styleOfWither, Component.literal("用精细下界骷髅粉末打造而成。").withStyle(CustomStyle.styleOfWither),
                     ComponentUtils.getSuffixChapterIII()));
@@ -250,8 +250,8 @@ public class GemItems {
 
     public static final RegistryObject<Item> castleArmorGem = ITEMS.register("castle_armor_gem",
             () -> new WraqGem(new Item.Properties().rarity(CustomStyle.CastleBold), new ArrayList<>() {{
-                add(new WraqGem.AttributeMapValue(Utils.defencePenetration0, 750));
-                add(new WraqGem.AttributeMapValue(Utils.manaPenetration0, 750));
+                add(new WraqGem.AttributeMapValue(Utils.defencePenetration0, 8));
+                add(new WraqGem.AttributeMapValue(Utils.manaPenetration0, 8));
             }}, CustomStyle.styleOfCastle, Component.literal("暗黑蕴魔注能").withStyle(CustomStyle.styleOfCastle),
                     ComponentUtils.getSuffixOfCastle()));
 
@@ -290,7 +290,7 @@ public class GemItems {
 
     public static final RegistryObject<Item> moonManaGem = ITEMS.register("moon_mana_gem",
             () -> new WraqGem(new Item.Properties().rarity(CustomStyle.Moon1Bold), new ArrayList<>() {{
-                add(new WraqGem.AttributeMapValue(Utils.defence, 400));
+                add(new WraqGem.AttributeMapValue(Utils.defence, 4));
                 add(new WraqGem.AttributeMapValue(Utils.manaDamage, 120));
             }}, CustomStyle.styleOfMoon1, Component.literal("尘月宫天镜之心").withStyle(CustomStyle.styleOfMoon1),
                     ComponentUtils.getSuffixOfMoon()));
@@ -303,7 +303,7 @@ public class GemItems {
 
     public static final RegistryObject<Item> TEST_GEM = ITEMS.register("test_gem",
             () -> new WraqGem(new Item.Properties().rarity(CustomStyle.Moon1Bold), new ArrayList<>() {{
-                add(new WraqGem.AttributeMapValue(Utils.defence, 400));
+                add(new WraqGem.AttributeMapValue(Utils.defence, 4));
                 add(new WraqGem.AttributeMapValue(Utils.manaDamage, 120));
             }}, CustomStyle.styleOfMoon1, Component.literal("测试宝石").withStyle(CustomStyle.styleOfMoon1),
                     ComponentUtils.getSuffixOfMoon()));

@@ -63,7 +63,7 @@ public class JorogumoSpawnController extends MobSpawnController {
 
         // 需要验证
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(jorogumoEntity), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(jorogumoEntity, 450, 1000, 1000, 0.35, 3, 0.2, 500, 15, 18000, 0.3);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(jorogumoEntity, 450, 10, 10, 0.35, 3, 0.2, 5, 15, 18000, 0.3);
 
         // 设置物品
 

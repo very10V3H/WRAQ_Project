@@ -36,7 +36,7 @@ public class CastleSceptre extends WraqSceptre implements ForgeItem, ActiveItem 
         super(p_42964_);
         Utils.manaDamage.put(this, 3000d);
         Utils.manaRecover.put(this, 30d);
-        Utils.manaPenetration0.put(this, 3600d);
+        Utils.manaPenetration0.put(this, 36d);
         Utils.movementSpeedWithoutBattle.put(this, 0.4);
         Utils.manaCost.put(this, 45d);
         Utils.coolDownDecrease.put(this, 0.2);
@@ -81,9 +81,9 @@ public class CastleSceptre extends WraqSceptre implements ForgeItem, ActiveItem 
                 append(Component.literal("，获得持续6s的").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("25%伤害提升").withStyle(CustomStyle.styleOfPower)).
                 append(Component.literal("以及").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.DefencePenetration("1500")).
+                append(Compute.AttributeDescription.DefencePenetration("15")).
                 append(Component.literal("与").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.ManaPenetration("1500")));
+                append(Compute.AttributeDescription.ManaPenetration("15")));
         ComponentUtils.coolDownTimeDescription(components, 15);
         components.add(Component.literal(" 多件暗黑武器的主动将会刷新持续时间，但效果将不会叠加，且共享冷却时间").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
         return components;

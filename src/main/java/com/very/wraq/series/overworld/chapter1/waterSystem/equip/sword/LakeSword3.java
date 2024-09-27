@@ -34,24 +34,16 @@ import java.util.List;
 public class LakeSword3 extends SwordItem implements ActiveItem, OnHitEffectMainHandWeapon {
     public LakeSword3(Tier tier, int num1, float num2) {
         super(tier, num1, num2, new Properties().rarity(CustomStyle.WaterItalic));
-        Utils.attackDamage.put(this, this.BaseDamage);
-        Utils.defencePenetration0.put(this, this.DefencePenetration0);
-        Utils.critRate.put(this, this.CriticalHitRate);
-        Utils.critDamage.put(this, this.CHitDamage);
-        Utils.movementSpeedWithoutBattle.put(this, this.SpeedUp);
-        Utils.attackSpeedUp.put(this, AttackSpeedUp);
+        Utils.attackDamage.put(this, 80.0d);
+        Utils.defencePenetration0.put(this, 3d);
+        Utils.critRate.put(this, 0.3);
+        Utils.critDamage.put(this, 0.45);
+        Utils.movementSpeedWithoutBattle.put(this, 0.75);
         Element.WaterElementValue.put(this, 0.8);
         Utils.mainHandTag.put(this, 1d);
         Utils.weaponList.add(this);
         Utils.swordTag.put(this, 1d);
     }
-
-    private final double BaseDamage = 80.0d;
-    private final double DefencePenetration0 = 300;
-    private final double CriticalHitRate = 0.3F;
-    private final double CHitDamage = 0.45;
-    private final double SpeedUp = 0.75F;
-    private final double AttackSpeedUp = -2f;
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {

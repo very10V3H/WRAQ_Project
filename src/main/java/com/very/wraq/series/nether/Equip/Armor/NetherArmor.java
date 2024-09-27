@@ -19,7 +19,7 @@ public class NetherArmor extends WraqArmor {
 
     public NetherArmor(ItemMaterial material, Type type, Properties properties) {
         super(material, type, properties);
-        Utils.defence.put(this, 225d);
+        Utils.defence.put(this, 2d);
         Utils.maxHealth.put(this, 400d);
         Utils.attackDamage.put(this, 100d);
         if (type.equals(Type.BOOTS)) {

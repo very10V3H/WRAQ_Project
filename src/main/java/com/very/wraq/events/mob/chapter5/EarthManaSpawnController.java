@@ -67,7 +67,7 @@ public class EarthManaSpawnController extends MobSpawnController {
 
         // 需要验证
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(zombie), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombie, 800, 1300, 1300, 0.4, 4, 0.25, 700, 20, 180000, 0.35);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombie, 800, 13, 13, 0.4, 4, 0.25, 7, 20, 180000, 0.35);
 
         // 设置物品
         ItemStack[] itemStacks = {new ItemStack(Items.LEATHER_HELMET), new ItemStack(Items.LEATHER_CHESTPLATE),

@@ -22,7 +22,7 @@ public class LakeSword extends WraqSword implements OnHitEffectMainHandWeapon {
     public LakeSword(Properties properties, int tier) {
         super(properties);
         Utils.attackDamage.put(this, new double[]{50, 60, 70}[tier]);
-        Utils.defencePenetration0.put(this, new double[]{150, 200, 250}[tier]);
+        Utils.defencePenetration0.put(this, new double[]{2, 2, 3}[tier]);
         Utils.critRate.put(this, 0.3);
         Utils.critDamage.put(this, new double[]{0.25, 0.3, 0.35}[tier]);
         Utils.movementSpeedWithoutBattle.put(this, new double[]{0.3, 0.4, 0.5}[tier]);

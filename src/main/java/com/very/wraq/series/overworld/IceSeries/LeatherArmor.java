@@ -18,9 +18,6 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class LeatherArmor extends ArmorItem {
-    private final double Defence = 33;
-    private final double MaxHealth = 333;
-    private final double BootsMovementSpeed = 0.4;
     private final Style style = CustomStyle.styleOfSnow;
     private final int Num;
     private final String[] Type = {
@@ -30,9 +27,9 @@ public class LeatherArmor extends ArmorItem {
     public LeatherArmor(ItemMaterial Material, Type Slots, int Num) {
         super(Material, Slots, new Properties().rarity(CustomStyle.SnowItalic));
         this.Num = Num;
-        Utils.defence.put(this, Defence);
-        if (Num != 3) Utils.maxHealth.put(this, MaxHealth);
-        if (Num == 3) Utils.movementSpeedWithoutBattle.put(this, BootsMovementSpeed);
+        Utils.defence.put(this, 1d);
+        if (Num != 3) Utils.maxHealth.put(this, 333d);
+        if (Num == 3) Utils.movementSpeedWithoutBattle.put(this, 0.4);
         Utils.armorTag.put(this, 1d);
         Utils.armorList.add(this);
     }

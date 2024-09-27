@@ -24,7 +24,7 @@ public class PurpleIronSceptre extends WraqPassiveEquip implements PurpleIronTie
     };
 
     private static final double[] ManaPenetration0 = {
-            200, 250, 300, 400
+            2, 3, 3, 4
     };
 
     private final int tier;

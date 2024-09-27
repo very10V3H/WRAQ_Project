@@ -23,7 +23,7 @@ public class ForestRing extends Item implements ICurioItem {
         Utils.critDamage.put(this, 0.1);
         Utils.manaPenetration0.put(this, 10d);
         Utils.expUp.put(this, 0.1);
-        Utils.defence.put(this, 10d);
+        Utils.defence.put(this, 1d);
         Utils.curiosTag.put(this, 1d);
         Utils.curiosList.add(this);
     }

@@ -174,14 +174,12 @@ public class SnowBoss {
     }
 
     public static class SnowBossArmorChest extends ArmorItem {
-        private final double MaxHealth = 300;
-        private final double Defence = 100;
         private static final Style style = CustomStyle.styleOfSnow;
 
         public SnowBossArmorChest(ItemMaterial Material, Type Slots) {
             super(Material, Slots, new Properties().rarity(CustomStyle.EntropyItalic));
-            Utils.maxHealth.put(this, MaxHealth);
-            Utils.defence.put(this, Defence);
+            Utils.maxHealth.put(this, 300d);
+            Utils.defence.put(this, 1d);
             Utils.armorTag.put(this, 1d);
             Utils.armorList.add(this);
         }

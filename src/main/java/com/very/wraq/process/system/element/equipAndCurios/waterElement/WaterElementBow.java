@@ -35,7 +35,7 @@ public class WaterElementBow extends WraqBow implements ActiveItem {
     public WaterElementBow(Properties p_40524_) {
         super(p_40524_);
         Utils.attackDamage.put(this, 600d);
-        Utils.defencePenetration0.put(this, 4000d);
+        Utils.defencePenetration0.put(this, 40d);
         Utils.critRate.put(this, 0.25);
         Utils.critDamage.put(this, 1.45);
         Utils.movementSpeedWithoutBattle.put(this, 0.6);

@@ -3,7 +3,6 @@ package com.very.wraq.series.worldsoul;
 import com.very.wraq.common.Compute;
 import com.very.wraq.common.registry.ModItems;
 import com.very.wraq.common.util.StringUtils;
-import com.very.wraq.common.util.ComponentUtils;
 import com.very.wraq.common.util.Utils;
 import com.very.wraq.process.func.item.InventoryOperation;
 import com.very.wraq.render.toolTip.CustomStyle;
@@ -25,7 +24,7 @@ public class SoulEquipAttribute {
             public static double CritRate = 0.4;
             public static double CritDamage = 0.55;
             public static double DefencePenetration = 0.3;
-            public static double DefencePenetration0 = 1200;
+            public static double DefencePenetration0 = 12;
             public static double HealthSteal = 0.04;
             public static double MovementSpeed = 0.4;
         }
@@ -35,7 +34,7 @@ public class SoulEquipAttribute {
             public static double CritRate = 0.2;
             public static double CritDamage = 1.05;
             public static double DefencePenetration = 0.3;
-            public static double DefencePenetration0 = 1200;
+            public static double DefencePenetration0 = 12;
             public static double MovementSpeed = 0.4;
         }
 
@@ -44,7 +43,7 @@ public class SoulEquipAttribute {
             public static double ManaCost = 60;
             public static double ManaRecover = 15;
             public static double ManaPenetration = 0.4;
-            public static double ManaPenetration0 = 1200;
+            public static double ManaPenetration0 = 12;
             public static double MovementSpeed = 0.4;
             public static double MaxMana = 40;
         }

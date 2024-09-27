@@ -71,10 +71,10 @@ public class CastleCurios extends Item implements ICurioItem, RandomCurios {
         put(StringUtils.CuriosAttribute.attackDamage, 200d);
         put(StringUtils.CuriosAttribute.manaDamage, 400d);
         put(StringUtils.CuriosAttribute.maxHealth, 800d);
-        put(StringUtils.CuriosAttribute.defence, 600d);
-        put(StringUtils.CuriosAttribute.manaDefence, 500d);
-        put(StringUtils.CuriosAttribute.defencePenetration0, 300d);
-        put(StringUtils.CuriosAttribute.manaPenetration0, 300d);
+        put(StringUtils.CuriosAttribute.defence, 6d);
+        put(StringUtils.CuriosAttribute.manaDefence, 5d);
+        put(StringUtils.CuriosAttribute.defencePenetration0, 3d);
+        put(StringUtils.CuriosAttribute.manaPenetration0, 3d);
         put(StringUtils.CuriosAttribute.coolDown, 0.3);
         put(StringUtils.CuriosAttribute.manaRecover, 30d);
         put(StringUtils.CuriosAttribute.maxMana, 50d);

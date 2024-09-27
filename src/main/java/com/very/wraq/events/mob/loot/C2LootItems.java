@@ -32,7 +32,7 @@ public class C2LootItems {
 
     public static final RegistryObject<Item> lumberJackAxe = ITEMS.register("lumber_jack_axe", () ->
             new RandomSword(new Item.Properties().rarity(CustomStyle.ForestBold), CustomStyle.styleOfForest,
-                    ComponentUtils.getSuffixChapterII(), List.of(new RandomAttributeValue(StringUtils.RandomAttribute.defencePenetration0, 180, 220),
+                    ComponentUtils.getSuffixChapterII(), List.of(new RandomAttributeValue(StringUtils.RandomAttribute.defencePenetration0, 1, 2),
                     new RandomAttributeValue(StringUtils.RandomAttribute.attackDamage, 80, 100)), 60));
 
     public static final RegistryObject<Item> forestWolfChest = ITEMS.register("forest_wolf_chest", () ->

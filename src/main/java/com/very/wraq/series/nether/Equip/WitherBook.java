@@ -21,19 +21,14 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class WitherBook extends Item {
-    private final double ManaDamage = 200;
-    private final double ManaPenetration0 = 550;
-    private final double MaxMana = 50;
-    private final double MovementSpeed = 0.5;
-    private final double ExpUp = 1;
 
     public WitherBook(Properties p_41383_) {
         super(p_41383_);
-        Utils.manaDamage.put(this, ManaDamage);
-        Utils.manaPenetration0.put(this, ManaPenetration0);
-        Utils.maxMana.put(this, MaxMana);
-        Utils.movementSpeedWithoutBattle.put(this, MovementSpeed);
-        Utils.expUp.put(this, ExpUp);
+        Utils.manaDamage.put(this, 200d);
+        Utils.manaPenetration0.put(this, 6d);
+        Utils.maxMana.put(this, 50d);
+        Utils.movementSpeedWithoutBattle.put(this, 0.5);
+        Utils.expUp.put(this, 1d);
         Utils.offHandTag.put(this, 1d);
         Utils.weaponList.add(this);
     }

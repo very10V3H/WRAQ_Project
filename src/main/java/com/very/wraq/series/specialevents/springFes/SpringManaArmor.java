@@ -25,8 +25,8 @@ public class SpringManaArmor extends ArmorItem {
         super(Material, Slots, itemProperties);
         Utils.maxHealth.put(this, 1024d);
         Utils.manaDamage.put(this, 512d);
-        Utils.defence.put(this, 124d);
-        Utils.manaPenetration0.put(this, 224d);
+        Utils.defence.put(this, 1d);
+        Utils.manaPenetration0.put(this, 2d);
         Utils.maxMana.put(this, 24d);
         Utils.armorTag.put(this, 1d);
         Utils.armorList.add(this);

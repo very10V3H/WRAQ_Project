@@ -5,7 +5,7 @@ public class WitherSwordAttributes {
             80, 100, 120, 140
     };
     public static double[] DefencePenetration0 = {
-            850, 900, 950, 1000
+            9, 10, 11, 12
     };
     public static double[] CriticalRate = {
             0.2f, 0.22f, 0.24f, 0.3f
@@ -29,6 +29,6 @@ public class WitherSwordAttributes {
             "", "-I", "-II", "-III", "-IV", "-V"
     };
     public static int[] ActiveEffect = {
-            400, 600, 800, 1200
+            4, 6, 8, 12
     };
 }

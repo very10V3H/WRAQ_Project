@@ -21,7 +21,7 @@ public class BloodManaCurios extends WraqCurios {
 
     public BloodManaCurios(Properties p_41383_, int tier) {
         super(p_41383_);
-        Utils.manaDefence.put(this, tier == 0 ? 500d : 800d);
+        Utils.manaDefence.put(this, tier == 0 ? 5d : 8d);
         Utils.attackDamage.put(this, tier == 0 ? 100d : 175d);
         Utils.healthSteal.put(this, tier == 0 ? 0.05 : 0.08);
         Utils.manaRecover.put(this, tier == 0 ? 15d : 25d);

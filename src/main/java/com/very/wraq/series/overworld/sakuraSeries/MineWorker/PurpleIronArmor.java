@@ -25,7 +25,7 @@ public class PurpleIronArmor extends WraqArmor implements ForgeItem {
         Utils.armorList.add(this);
         Utils.attackDamage.put(this, 200d);
         Utils.manaDamage.put(this, 400d);
-        Utils.defence.put(this, 500d);
+        Utils.defence.put(this, 5d);
         Utils.maxHealth.put(this, 1000d);
         if (type.equals(Type.BOOTS)) {
             Utils.movementSpeedCommon.put(this, 0.4);

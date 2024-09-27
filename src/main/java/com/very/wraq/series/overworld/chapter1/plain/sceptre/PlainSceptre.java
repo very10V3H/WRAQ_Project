@@ -25,31 +25,43 @@ import net.minecraft.world.level.Level;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlainSceptre0 extends WraqSceptre {
-    public PlainSceptre0(Properties p_42964_) {
-        super(p_42964_);
-        Utils.manaDamage.put(this, this.ManaDamage);
-        Utils.manaRecover.put(this, this.ManaReply);
-        Utils.manaPenetration0.put(this, this.ManaPenetration0);
-        Utils.coolDownDecrease.put(this, 0.1);
-        Utils.movementSpeedWithoutBattle.put(this, this.SpeedUp);
-        Utils.manaCost.put(this, (double) ManaCost);
-        Element.LifeElementValue.put(this, 0.2);
+public class PlainSceptre extends WraqSceptre {
+
+    private final int tier;
+    public PlainSceptre(Properties properties, int tier) {
+        super(properties);
+        this.tier = tier;
+        Utils.manaDamage.put(this, new double[]{20, 25, 35, 45, 60}[tier]);
+        Utils.manaRecover.put(this, new double[]{8, 9, 10, 12, 15}[tier]);
+        Utils.manaPenetration0.put(this, new double[]{1, 1, 2, 2, 3}[tier]);
+        Utils.coolDownDecrease.put(this, new double[]{0.1, 0.12, 0.14, 0.16, 0.2}[tier]);
+        Utils.movementSpeedWithoutBattle.put(this, new double[]{0.15, 0.15, 0.15, 0.2, 0.3}[tier]);
+        Utils.manaCost.put(this, (double) 45);
+        Element.LifeElementValue.put(this, new double[]{0.2, 0.4, 0.6, 0.8, 1}[tier]);
     }
 
-    private final double ManaDamage = 20;
-    private final double ManaPenetration0 = 25;
-    private final double ManaReply = 8;
-    private final double SpeedUp = 0.1F;
-    public static final int ManaCost = 45;
+    @Override
+    public Style getMainStyle() {
+        return CustomStyle.styleOfPlain;
+    }
 
-    public static void PlainSceptreDescription(List<Component> components) {
+    @Override
+    public List<Component> getAdditionalComponents(ItemStack stack) {
+        List<Component> components = new ArrayList<>();
         Compute.DescriptionPassive(components, Component.literal("平原的加护").withStyle(ChatFormatting.GREEN));
         components.add(Component.literal("当法球命中单位时，获得:"));
         ComponentUtils.emojiDescriptionDefence(components, 40);
         ComponentUtils.emojiDescriptionManaDefence(components, 40);
         components.add(Component.literal("并回复").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.AttributeDescription.maxHealth("1%")));
+        if (tier > 3) {
+            Compute.DescriptionPassive(components, Component.literal("生机涌动").withStyle(CustomStyle.styleOfHealth));
+            components.add(Component.literal("白天额外获得").withStyle(ChatFormatting.WHITE).
+                    append(ComponentUtils.AttributeDescription.manaDamage("45")).
+                    append(Component.literal("与")).
+                    append(Compute.AttributeDescription.ManaRecover("15")));
+        }
+        return components;
     }
 
     @Override
@@ -64,25 +76,23 @@ public class PlainSceptre0 extends WraqSceptre {
         ProjectileUtil.rotateTowardsMovement(newArrow, 0);
         WraqSceptre.adjustOrb(newArrow, player);
         level.addFreshEntity(newArrow);
-        ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1, 0.75, 20, ParticleTypes.SCRAPE);
-        ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1.5, 0.5, 16, ParticleTypes.SCRAPE);
+        if (tier > 3) {
+            ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1, 0.75, 20, ParticleTypes.COMPOSTER);
+            ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1.5, 0.5, 16, ParticleTypes.COMPOSTER);
+            ParticleProvider.FaceCircleCreate((ServerPlayer) player, 2, 0.25, 12, ParticleTypes.COMPOSTER);
+        } else {
+            ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1, 0.75, 20, ParticleTypes.SCRAPE);
+            ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1.5, 0.5, 16, ParticleTypes.SCRAPE);
+        }
         return newArrow;
-    }
-
-    @Override
-    public Style getMainStyle() {
-        return CustomStyle.styleOfPlain;
-    }
-
-    @Override
-    public List<Component> getAdditionalComponents(ItemStack stack) {
-        List<Component> components = new ArrayList<>();
-        PlainSceptre0.PlainSceptreDescription(components);
-        return components;
     }
 
     @Override
     public Component getSuffix() {
         return ComponentUtils.getSuffixOfChapterI();
+    }
+
+    public boolean is4Tier() {
+        return tier == 4;
     }
 }

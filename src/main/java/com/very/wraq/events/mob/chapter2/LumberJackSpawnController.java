@@ -66,7 +66,7 @@ public class LumberJackSpawnController extends MobSpawnController {
 
         // 需要验证
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(zombieLumberjackEntity), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombieLumberjackEntity, 200, 400, 400, 0.3, 2, 0.1, 250, 10, 5500, 0.3);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombieLumberjackEntity, 200, 4, 4, 0.3, 2, 0.1, 3, 10, 5500, 0.3);
 
         // 设置物品
         ItemStack[] itemStacks = {new ItemStack(Items.LEATHER_HELMET), new ItemStack(Items.LEATHER_CHESTPLATE),

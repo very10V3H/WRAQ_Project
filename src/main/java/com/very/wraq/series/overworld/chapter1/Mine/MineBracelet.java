@@ -17,17 +17,13 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class MineBracelet extends Item {
-    private final double ExpUp = 0.3F;
-    private final double CriticalRate = 0.05F;
-    private final double MaxHealth = 50.0d;
-    private final double Defence = 10;
 
     public MineBracelet() {
         super(new Properties().rarity(CustomStyle.MineItalic));
-        Utils.critRate.put(this, CriticalRate);
-        Utils.maxHealth.put(this, MaxHealth);
-        Utils.expUp.put(this, ExpUp);
-        Utils.defence.put(this, Defence);
+        Utils.critRate.put(this, 0.05);
+        Utils.maxHealth.put(this, 50d);
+        Utils.expUp.put(this, 0.3);
+        Utils.defence.put(this, 10d);
         Utils.offHandTag.put(this, 1d);
         Utils.weaponList.add(this);
     }

@@ -39,10 +39,10 @@ public class SpringRing extends Item implements ICurioItem {
             40, 80, 120, 160
     };
     private final double[] DefencePenetration0 = {
-            35, 70, 105, 140
+            1, 1, 1, 1
     };
     private final double[] ManaPenetration0 = {
-            25, 65, 95, 130
+            1, 1, 2, 2
     };
     private final double[] ExpUp = {
             0.3, 0.5, 0.7, 1.0

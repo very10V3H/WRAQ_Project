@@ -36,7 +36,7 @@ public class SpringBelt extends Item implements ICurioItem {
             20, 40, 60, 80
     };
     private final double[] DefencePenetration0 = {
-            25, 50, 75, 100
+            1, 1, 1, 1
     };
     private final double[] Swift = {
             1, 2, 3, 4

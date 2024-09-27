@@ -23,7 +23,7 @@ public class MineShield extends Item {
         super(new Properties().rarity(CustomStyle.VolcanoItalic));
         Utils.maxHealth.put(this, 200d);
         Utils.expUp.put(this, 0.3);
-        Utils.defence.put(this, 100d);
+        Utils.defence.put(this, 1d);
         Utils.offHandTag.put(this, 1d);
         Utils.weaponList.add(this);
         Utils.shieldTag.put(this, 1d);
@@ -42,7 +42,6 @@ public class MineShield extends Item {
         Compute.DescriptionPassive(components, Component.literal("沉重之铁").withStyle(ChatFormatting.GRAY));
         components.add(Component.literal("受到来自怪物的伤害时，会为你提供").withStyle(ChatFormatting.WHITE).
                 append(Compute.AttributeDescription.Defence("等级*5")));
-        components.add(Component.literal("MineShield").withStyle(MainStyle).withStyle(ChatFormatting.ITALIC));
         ComponentUtils.suffixOfChapterI(components);
         super.appendHoverText(stack, level, components, flag);
     }

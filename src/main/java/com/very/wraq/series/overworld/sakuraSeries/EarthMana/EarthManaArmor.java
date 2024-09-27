@@ -23,8 +23,8 @@ public class EarthManaArmor extends WraqArmor implements ForgeItem {
         super(Material, Slots, itemProperties);
         Utils.maxHealth.put(this, 800d);
         Utils.manaDamage.put(this, 400d);
-        Utils.defence.put(this, 400d);
-        Utils.manaDefence.put(this, 400d);
+        Utils.defence.put(this, 4d);
+        Utils.manaDefence.put(this, 4d);
         if (type.equals(Type.BOOTS)) {
             Utils.movementSpeedCommon.put(this, 0.4);
             Utils.maxHealth.put(this, 400d);

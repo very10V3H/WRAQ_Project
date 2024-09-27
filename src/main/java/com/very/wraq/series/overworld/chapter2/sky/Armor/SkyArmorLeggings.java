@@ -18,15 +18,12 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class SkyArmorLeggings extends ArmorItem {
-    private final double Defence = 240;
-    private final double critDamage = 0.35;
-    private final double MaxHealth = 200.0d;
 
     public SkyArmorLeggings(ItemMaterial Materrial, Type Slots) {
         super(Materrial, Slots, new Properties().rarity(CustomStyle.SkyItalic));
-        Utils.defence.put(this, Defence);
-        Utils.critDamage.put(this, critDamage);
-        Utils.maxHealth.put(this, MaxHealth);
+        Utils.defence.put(this, 2d);
+        Utils.critDamage.put(this, 0.35);
+        Utils.maxHealth.put(this, 200.0d);
         Utils.armorTag.put(this, 1d);
         Utils.armorList.add(this);
     }
