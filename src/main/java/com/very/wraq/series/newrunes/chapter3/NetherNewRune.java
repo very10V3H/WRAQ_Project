@@ -65,12 +65,6 @@ public class NetherNewRune extends WraqCurios implements RuneItem, UsageOrGetWay
         return ComponentUtils.getSuffixChapterIII();
     }
 
-    @Override
-    public int levelRequirement() {
-        return 0;
-    }
-
-
     public static void onKill(Player player, Mob mob) {
         if (!WraqCurios.isOn(NetherNewRune.class, player)) return;
         List<Mob> mobList = mob.level().getEntitiesOfClass(Mob.class, AABB.ofSize(mob.position(), 6, 6, 6));

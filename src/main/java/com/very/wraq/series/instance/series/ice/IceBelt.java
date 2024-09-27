@@ -1,6 +1,7 @@
 package com.very.wraq.series.instance.series.ice;
 
 import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.process.system.element.Element;
 import com.very.wraq.projectiles.RandomCurios;
 import com.very.wraq.projectiles.UsageOrGetWayDescriptionItem;
@@ -21,6 +22,7 @@ public class IceBelt extends WraqCurios implements RandomCurios, UsageOrGetWayDe
     public IceBelt(Properties properties) {
         super(properties);
         Element.IceElementValue.put(this, 0.5);
+        Utils.levelRequire.put(this, 135);
     }
 
     @Override
@@ -56,12 +58,6 @@ public class IceBelt extends WraqCurios implements RandomCurios, UsageOrGetWayDe
     public Component suffix() {
         return ComponentUtils.getSuffixOfIce();
     }
-
-    @Override
-    public int levelRequirement() {
-        return 135;
-    }
-
 
     @Override
     public void setAttribute(ItemStack stack) {

@@ -53,12 +53,6 @@ public class LakeNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDe
         return ComponentUtils.getSuffixOfChapterI();
     }
 
-    @Override
-    public int levelRequirement() {
-        return 0;
-    }
-
-
     public static boolean isOn(Player player) {
         return WraqCurios.isOn(LakeNewRune.class, player);
     }

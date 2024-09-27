@@ -56,12 +56,6 @@ public class HuskNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDe
     }
 
     @Override
-    public int levelRequirement() {
-        return 0;
-    }
-
-
-    @Override
     public List<Component> getWayDescription() {
         List<Component> components = new ArrayList<>();
         components.add(Component.literal("击杀").withStyle(ChatFormatting.WHITE).

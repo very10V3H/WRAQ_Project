@@ -56,12 +56,6 @@ public class ForestNewRune extends WraqCurios implements RuneItem, UsageOrGetWay
         return ComponentUtils.getSuffixOfChapterI();
     }
 
-    @Override
-    public int levelRequirement() {
-        return 0;
-    }
-
-
     public static boolean isOn(Player player) {
         return WraqCurios.isOn(ForestNewRune.class, player);
     }

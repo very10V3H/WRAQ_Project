@@ -25,7 +25,6 @@ public abstract class WraqCurios extends Item implements ICurioItem {
         super(properties.stacksTo(1));
         Utils.curiosList.add(this);
         Utils.curiosTag.put(this, 1d);
-        Utils.levelRequire.put(this, levelRequirement());
         if (this instanceof ForgeItem forgeItem) {
             ForgeRecipe.forgeDrawRecipe.put(this, forgeItem.forgeRecipe());
         }
@@ -37,9 +36,10 @@ public abstract class WraqCurios extends Item implements ICurioItem {
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         ComponentUtils.descriptionOfBasic(components);
         if (getTypeDescription() != null) components.add(getTypeDescription());
-        if (levelRequirement() != 0) {
+        int levelRequirement = Utils.levelRequire.getOrDefault(stack.getItem(), 0);
+        if (levelRequirement != 0) {
             components.add(Component.literal(" 等级需求: ").withStyle(ChatFormatting.AQUA).
-                    append(Component.literal("Lv." + levelRequirement()).withStyle(Utils.levelStyleList.get(levelRequirement() / 25))));
+                    append(Component.literal("Lv." + levelRequirement).withStyle(Utils.levelStyleList.get(levelRequirement / 25))));
         }
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         if (!additionHoverText(stack).isEmpty()) {
@@ -58,8 +58,6 @@ public abstract class WraqCurios extends Item implements ICurioItem {
     public abstract Style hoverMainStyle();
 
     public abstract Component suffix();
-
-    public abstract int levelRequirement();
 
     @Override
     public void onEquip(SlotContext slotContext, ItemStack prevStack, ItemStack stack) {

@@ -1,6 +1,7 @@
 package com.very.wraq.process.system.teamInstance.instances.blackCastle;
 
 import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.projectiles.RandomCurios;
 import com.very.wraq.projectiles.UsageOrGetWayDescriptionItem;
 import com.very.wraq.projectiles.WraqCurios;
@@ -18,6 +19,7 @@ import java.util.List;
 public class CastleNecklace extends WraqCurios implements RandomCurios, UsageOrGetWayDescriptionItem {
     public CastleNecklace(Properties properties) {
         super(properties);
+        Utils.levelRequire.put(this, 180);
     }
 
     @Override
@@ -43,12 +45,6 @@ public class CastleNecklace extends WraqCurios implements RandomCurios, UsageOrG
     public Component suffix() {
         return ComponentUtils.getSuffixOfCastle();
     }
-
-    @Override
-    public int levelRequirement() {
-        return 180;
-    }
-
 
     @Override
     public void setAttribute(ItemStack stack) {

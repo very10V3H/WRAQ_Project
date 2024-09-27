@@ -67,12 +67,6 @@ public class KazeNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDe
         return ComponentUtils.getSuffixChapterII();
     }
 
-    @Override
-    public int levelRequirement() {
-        return 0;
-    }
-
-
     public static void onHit(Player player) {
         if (WraqCurios.isOn(KazeNewRune.class, player)) {
             ChangedAttributesModifier.addAttributeModifier(player, ChangedAttributesModifier.movementSpeedUp,

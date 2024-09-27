@@ -59,12 +59,6 @@ public class CastleNewRune extends WraqCurios implements RuneItem, UsageOrGetWay
         return ComponentUtils.getSuffixOfCastle();
     }
 
-    @Override
-    public int levelRequirement() {
-        return 0;
-    }
-
-
     public static boolean isOn(Player player) {
         return WraqCurios.isOn(CastleNewRune.class, player);
     }

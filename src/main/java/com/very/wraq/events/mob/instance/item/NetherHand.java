@@ -1,6 +1,7 @@
 package com.very.wraq.events.mob.instance.item;
 
 import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.projectiles.RandomCurios;
 import com.very.wraq.projectiles.UsageOrGetWayDescriptionItem;
 import com.very.wraq.projectiles.WraqCurios;
@@ -19,6 +20,7 @@ public class NetherHand extends WraqCurios implements RandomCurios, UsageOrGetWa
 
     public NetherHand(Properties properties) {
         super(properties);
+        Utils.levelRequire.put(this, 90);
     }
 
     @Override
@@ -54,12 +56,6 @@ public class NetherHand extends WraqCurios implements RandomCurios, UsageOrGetWa
     public Component suffix() {
         return ComponentUtils.getSuffixChapterIII();
     }
-
-    @Override
-    public int levelRequirement() {
-        return 90;
-    }
-
 
     @Override
     public void setAttribute(ItemStack stack) {

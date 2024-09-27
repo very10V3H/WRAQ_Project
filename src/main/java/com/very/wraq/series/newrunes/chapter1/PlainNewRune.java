@@ -47,12 +47,6 @@ public class PlainNewRune extends WraqCurios implements RuneItem, UsageOrGetWayD
         return ComponentUtils.getSuffixOfChapterI();
     }
 
-    @Override
-    public int levelRequirement() {
-        return 0;
-    }
-
-
     public static boolean isOn(Player player) {
         return WraqCurios.isOn(PlainNewRune.class, player);
     }

@@ -31,6 +31,7 @@ public class MoonFeather extends WraqCurios implements OnHitEffectCurios, OnKill
     public MoonFeather(Properties properties, int tier) {
         super(properties);
         this.tier = tier;
+        Utils.levelRequire.put(this, new int[]{160, 180, 200, 220}[tier]);
         Utils.xpLevelDefence.put(this, new double[]{1, 2, 2, 3}[tier]);
         Utils.xpLevelManaDefence.put(this, new double[]{1, 2, 2, 3}[tier]);
     }
@@ -91,10 +92,5 @@ public class MoonFeather extends WraqCurios implements OnHitEffectCurios, OnKill
     @Override
     public Component suffix() {
         return Te.m("「中秋 - 月荧」", CustomStyle.styleOfMoon);
-    }
-
-    @Override
-    public int levelRequirement() {
-        return new int[]{160, 180, 200, 220}[tier];
     }
 }

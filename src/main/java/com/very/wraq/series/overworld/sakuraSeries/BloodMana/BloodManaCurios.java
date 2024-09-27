@@ -56,12 +56,6 @@ public class BloodManaCurios extends WraqCurios {
         return ComponentUtils.getDemonAndElementStorySuffix1Sakura();
     }
 
-    @Override
-    public int levelRequirement() {
-        return 0;
-    }
-
-
     public static void passive(Player player) {
         if (WraqCurios.isOn(BloodManaCurios.class, player) || WraqCurios.isOn(EarthManaCurios.class, player)) {
             StableAttributesModifier.addAttributeModifier(player, StableAttributesModifier.playerHealthRecoverModifier,

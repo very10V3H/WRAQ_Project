@@ -50,10 +50,4 @@ public class EarthManaCurios extends WraqCurios {
     public Component suffix() {
         return ComponentUtils.getDemonAndElementStorySuffix1Sakura();
     }
-
-    @Override
-    public int levelRequirement() {
-        return 0;
-    }
-
 }

@@ -29,6 +29,7 @@ public class SummerCurios2024 extends WraqCurios implements OnCuriosSlotAttribut
         this.tier = tier;
         Utils.maxHealth.put(this, new double[]{150, 200, 250, 300, 350, 400}[tier]);
         Utils.expUp.put(this, new double[]{0.2, 0.25, 0.3, 0.35, 0.4, 0.5}[tier]);
+        Utils.levelRequire.put(this, new int[]{60, 90, 120, 150, 180, 210}[tier]);
     }
 
     private final int[] exAttackDamage = new int[]{40, 80, 120, 160, 240, 320};
@@ -74,14 +75,8 @@ public class SummerCurios2024 extends WraqCurios implements OnCuriosSlotAttribut
     }
 
     @Override
-    public int levelRequirement() {
-        return new int[]{60, 90, 120, 150, 180, 210}[tier];
-    }
-
-
-    @Override
     public double attributes(Player player, String attributesType) {
-        if (player.experienceLevel < levelRequirement()) return 0;
+        if (player.experienceLevel < Utils.levelRequire.get(this)) return 0;
         double rate = 1;
         if (player.isInWater()
                 || (player.level().dimension().equals(Level.OVERWORLD)

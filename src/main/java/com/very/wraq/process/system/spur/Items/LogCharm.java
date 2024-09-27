@@ -12,14 +12,12 @@ import java.util.List;
 
 public class LogCharm extends WraqCurios {
 
-    private final int levelRequire;
-
     public LogCharm(Properties properties, int serial) {
         super(properties);
         int[] levelRequires = {40, 60, 80, 100, 120, 140, 160};
         double[] defence = {50, 100, 200, 300, 500, 800, 1200};
         double[] manaDefence = {50, 100, 200, 300, 500, 800, 1200};
-        this.levelRequire = levelRequires[serial];
+        Utils.levelRequire.put(this, levelRequires[serial]);
         Utils.defence.put(this, defence[serial]);
         Utils.manaDefence.put(this, manaDefence[serial]);
     }
@@ -43,10 +41,4 @@ public class LogCharm extends WraqCurios {
     public Component suffix() {
         return ComponentUtils.getSpurSuffix();
     }
-
-    @Override
-    public int levelRequirement() {
-        return levelRequire;
-    }
-
 }

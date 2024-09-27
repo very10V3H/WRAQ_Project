@@ -26,6 +26,7 @@ public class LavenderBracelet extends WraqCurios implements RandomCurios, UsageO
 
     public LavenderBracelet(Properties properties) {
         super(properties);
+        Utils.levelRequire.put(this, 80);
     }
 
     @Override
@@ -66,12 +67,6 @@ public class LavenderBracelet extends WraqCurios implements RandomCurios, UsageO
     public Component suffix() {
         return ComponentUtils.getSuffixChapterII();
     }
-
-    @Override
-    public int levelRequirement() {
-        return 80;
-    }
-
 
     @Override
     public List<Component> getWayDescription() {

@@ -12,14 +12,12 @@ import java.util.List;
 
 public class CropCharm extends WraqCurios {
 
-    private final int levelRequire;
-
     public CropCharm(Properties properties, int serial) {
         super(properties);
         int[] levelRequires = {40, 60, 80, 100, 120, 140, 160};
         double[] maxHealth = {200, 400, 700, 1100, 1600, 2200, 2900};
         double[] healthRecover = {5, 10, 20, 35, 55, 80, 110};
-        this.levelRequire = levelRequires[serial];
+        Utils.levelRequire.put(this, levelRequires[serial]);
         Utils.maxHealth.put(this, maxHealth[serial]);
         Utils.healthRecover.put(this, healthRecover[serial]);
     }
@@ -43,10 +41,4 @@ public class CropCharm extends WraqCurios {
     public Component suffix() {
         return ComponentUtils.getSpurSuffix();
     }
-
-    @Override
-    public int levelRequirement() {
-        return levelRequire;
-    }
-
 }

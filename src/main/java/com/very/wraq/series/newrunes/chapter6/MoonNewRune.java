@@ -57,12 +57,6 @@ public class MoonNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDe
         return ComponentUtils.getSuffixOfMoon();
     }
 
-    @Override
-    public int levelRequirement() {
-        return 0;
-    }
-
-
     public static int getPassiveCount(Player player) {
         if (!WraqCurios.isOn(MoonNewRune.class, player)) return 0;
         int count = 0;

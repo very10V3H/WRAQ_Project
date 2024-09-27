@@ -12,8 +12,6 @@ import java.util.List;
 
 public class SeaCharm extends WraqCurios {
 
-    private final int levelRequire;
-
     public SeaCharm(Properties properties, int serial) {
         super(properties);
         int[] levelRequires = {40, 60, 80, 100, 120, 140, 160};
@@ -21,7 +19,7 @@ public class SeaCharm extends WraqCurios {
         double[] manaRecover = {5, 8, 12, 17, 23, 30, 38};
         double[] cooldown = {0.05, 0.08, 0.12, 0.17, 0.23, 0.30, 0.38};
         double[] swiftnessUp = {0.2, 0.4, 0.7, 1.1, 1.6, 2.2, 2.9};
-        this.levelRequire = levelRequires[serial];
+        Utils.levelRequire.put(this, levelRequires[serial]);
         Utils.healthRecover.put(this, healthRecover[serial]);
         Utils.manaRecover.put(this, manaRecover[serial]);
         Utils.coolDownDecrease.put(this, cooldown[serial]);
@@ -47,11 +45,4 @@ public class SeaCharm extends WraqCurios {
     public Component suffix() {
         return ComponentUtils.getSpurSuffix();
     }
-
-    @Override
-    public int levelRequirement() {
-        return levelRequire;
-    }
-
-
 }

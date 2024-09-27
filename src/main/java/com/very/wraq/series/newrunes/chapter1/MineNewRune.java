@@ -55,12 +55,6 @@ public class MineNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDe
         return ComponentUtils.getSuffixOfChapterI();
     }
 
-    @Override
-    public int levelRequirement() {
-        return 0;
-    }
-
-
     public static boolean passiveTrig(Player player) {
         return WraqCurios.isOn(MineNewRune.class, player) && player.getHealth() / player.getMaxHealth() >= 0.6;
     }

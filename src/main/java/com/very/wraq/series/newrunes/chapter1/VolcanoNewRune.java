@@ -57,12 +57,6 @@ public class VolcanoNewRune extends WraqCurios implements RuneItem, UsageOrGetWa
         return ComponentUtils.getSuffixOfChapterI();
     }
 
-    @Override
-    public int levelRequirement() {
-        return 0;
-    }
-
-
     public static boolean isOn(Player player) {
         return WraqCurios.isOn(VolcanoNewRune.class, player);
     }

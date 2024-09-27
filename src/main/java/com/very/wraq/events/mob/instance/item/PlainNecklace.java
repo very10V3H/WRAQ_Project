@@ -1,6 +1,7 @@
 package com.very.wraq.events.mob.instance.item;
 
 import com.very.wraq.common.util.ComponentUtils;
+import com.very.wraq.common.util.Utils;
 import com.very.wraq.projectiles.RandomCurios;
 import com.very.wraq.projectiles.UsageOrGetWayDescriptionItem;
 import com.very.wraq.projectiles.WraqCurios;
@@ -19,6 +20,7 @@ public class PlainNecklace extends WraqCurios implements RandomCurios, UsageOrGe
 
     public PlainNecklace(Properties properties) {
         super(properties);
+        Utils.levelRequire.put(this, 50);
     }
 
     @Override
@@ -42,11 +44,6 @@ public class PlainNecklace extends WraqCurios implements RandomCurios, UsageOrGe
     @Override
     public Component suffix() {
         return ComponentUtils.getSuffixOfChapterI();
-    }
-
-    @Override
-    public int levelRequirement() {
-        return 50;
     }
 
     @Override
