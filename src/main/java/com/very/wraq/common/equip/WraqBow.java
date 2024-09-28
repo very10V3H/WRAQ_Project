@@ -1,11 +1,13 @@
-package com.very.wraq.projectiles;
+package com.very.wraq.common.equip;
 
+import com.very.wraq.common.impl.onshoot.OnShootArrowCurios;
 import com.very.wraq.common.registry.MySound;
 import com.very.wraq.common.util.Utils;
 import com.very.wraq.core.MyArrow;
 import com.very.wraq.entities.entities.Civil.Civil;
 import com.very.wraq.process.func.particle.ParticleProvider;
 import com.very.wraq.render.toolTip.CustomStyle;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -48,13 +50,30 @@ public abstract class WraqBow extends WraqMainHandEquip {
         }
     }
 
+    public record ShootParticle(ParticleOptions options, int times) {}
+    protected ShootParticle getShootParticle() {
+        return new ShootParticle(null, 0);
+    }
+
+    protected float getArrowSpeed() {
+        return 0;
+    }
+
     protected MyArrow summonArrow(ServerPlayer serverPlayer, double rate) {
         MyArrow arrow = new MyArrow(EntityType.ARROW, serverPlayer.level(), serverPlayer, true, rate);
-        arrow.shootFromRotation(serverPlayer, serverPlayer.getXRot(), serverPlayer.getYRot(), 0.0f, 3F, 1.0f);
+        arrow.shootFromRotation(serverPlayer, serverPlayer.getXRot(), serverPlayer.getYRot(), 0.0f,
+                getArrowSpeed() == 0 ? 3F : getArrowSpeed(), 1.0f);
         arrow.setCritArrow(true);
         serverPlayer.level().addFreshEntity(arrow);
         MySound.SoundToAll(serverPlayer, SoundEvents.ARROW_SHOOT);
-        ParticleProvider.FaceCircleCreate(serverPlayer, 1, 0.75, 20, ParticleTypes.WAX_OFF);
+        if (getShootParticle() != null) {
+            for (int i = 0 ; i < getShootParticle().times ; i ++) {
+                ParticleProvider.FaceCircleCreate(serverPlayer, 1 + 0.5 * i, 0.75 - 0.25 * i, 20 - 4 * i,
+                        getShootParticle().options);
+            }
+        } else {
+            ParticleProvider.FaceCircleCreate(serverPlayer, 1, 0.75, 20, ParticleTypes.WAX_OFF);
+        }
         return arrow;
     }
 
