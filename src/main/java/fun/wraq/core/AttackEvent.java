@@ -6,7 +6,7 @@ import fun.wraq.common.attribute.DamageInfluence;
 import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.attribute.SameTypeModule;
-import fun.wraq.common.impl.onhit.OnHitEffectArmor;
+import fun.wraq.common.impl.onhit.*;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
@@ -23,9 +23,6 @@ import fun.wraq.process.func.EnhanceNormalAttackModifier;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.suit.SuitCount;
 import fun.wraq.process.system.element.Element;
-import fun.wraq.common.impl.onhit.OnHitEffectCurios;
-import fun.wraq.common.impl.onhit.OnHitEffectMainHandWeapon;
-import fun.wraq.common.impl.onhit.OnHitEffectPassiveEquip;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.castle.CastleAttackArmor;
 import fun.wraq.series.instance.series.castle.CastleSword;
@@ -55,6 +52,7 @@ import net.minecraft.world.item.MinecartItem;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import org.apache.commons.lang3.RandomUtils;
 
 import java.util.List;
 import java.util.Random;
@@ -89,33 +87,31 @@ public class AttackEvent {
     public static void module(Player player, double rate) {
         List<Mob> mobList = getPlayerNormalAttackRangeMobList(player);
 
-        AtomicReference<Mob> NearestMob = new AtomicReference<>();
-        AtomicReference<Double> Distance = new AtomicReference<>((double) 20);
+        AtomicReference<Mob> nearestMob = new AtomicReference<>();
+        AtomicReference<Double> distance = new AtomicReference<>((double) 20);
         mobList.forEach(mob -> {
-            if (mob.distanceTo(player) < Distance.get()) {
-                NearestMob.set(mob);
-                Distance.set((double) mob.distanceTo(player));
+            if (mob.distanceTo(player) < distance.get()) {
+                nearestMob.set(mob);
+                distance.set((double) mob.distanceTo(player));
             }
         });
 
-        if (NearestMob.get() != null) {
-            AttackEvent.attackToMonster(NearestMob.get(), player, rate, false);
-            HurtEventModule.ForestRune3Judge(player, NearestMob.get(), PlayerAttributes.attackDamage(player));
-            HurtEvent.BlazeReflectDamage(NearestMob.get(), player);
-            AttackEventModule.SwordSkill3Attack(player.getPersistentData(), player, NearestMob.get());// 破绽观察（对一名目标的持续攻击，可以使你对该目标的伤害至多提升至2%，在10次攻击后达到最大值）
+        if (nearestMob.get() != null) {
+            AttackEvent.attackToMonster(nearestMob.get(), player, rate, true, false);
+            HurtEventModule.ForestRune3Judge(player, nearestMob.get(), PlayerAttributes.attackDamage(player));
+            HurtEvent.BlazeReflectDamage(nearestMob.get(), player);
+            AttackEventModule.SwordSkill3Attack(player.getPersistentData(), player, nearestMob.get());// 破绽观察（对一名目标的持续攻击，可以使你对该目标的伤害至多提升至2%，在10次攻击后达到最大值）
             AttackEventModule.SwordSkill12Attack(player.getPersistentData(), player); // 刀光剑影（移动、攻击以及受到攻击将会获得充能，当充能满时，下一次攻击将造成额外200%伤害，并在以自身为中心范围内造成100%伤害）
             mobList.forEach(mob -> {
-                if (mob != NearestMob.get()) AttackEvent.attackToMonster(mob, player, 0.5, false);
+                if (mob != nearestMob.get()) AttackEvent.attackToMonster(mob, player, 0.5, false, false);
             });
         }
     }
 
-    public static void attackToMonster(Mob monster, Player player, double rate, boolean critSurely) {
+    public static void attackToMonster(Mob monster, Player player, double rate, boolean mainAttack, boolean critSurely) {
         Item equip = player.getMainHandItem().getItem();
         CompoundTag data = player.getPersistentData();
         Utils.PlayerFireWorkFightCoolDown.put(player, player.getServer().getTickCount() + 200);
-
-        boolean mainAttack = (rate > 0.5);
 
         double defence = MobAttributes.defence(monster);
 
@@ -136,7 +132,6 @@ public class AttackEvent {
             defencePenetration = 1.0d;
 
         Random r = new Random();
-        double RanNum = r.nextDouble(1);
         if (defence == 0) defence = (monster.getAttribute(Attributes.ARMOR).getValue());
 
         double damage;
@@ -170,19 +165,19 @@ public class AttackEvent {
 
         boolean critFlag = false;
         if (BoneImpKnife.passive(player, monster)) critRate = 1;
-        if (RanNum < critRate) {
+        if (RandomUtils.nextDouble(0, 1) < critRate) {
             critFlag = true;
             damageBeforeDefence = baseDamage * (1 + critDamage);
             data.putBoolean(StringUtils.DamageTypes.Crit, true);
             AttackEventModule.SwordSkill5Attack(data, player); // 狂暴（造成暴击后，提升1%攻击力，持续3s）
             AttackEventModule.SwordSkill6Attack(data, player); // 完美（持续造成暴击，将提供至多3%攻击力，持续10s，在十次暴击后达最大值，在未造成暴击时重置层数）
             AttackEventModule.SwordSkill13Attack(player.getPersistentData(), player); // 战争热诚（攻击将会提供1层充能，暴击提供2层充能，每层充能将会提升1%的额外真实伤害，并获得等量治疗效果 持续6秒）
-            AttackEventModule.IceSword(player, monster); // 蔚境冰锥
             ModNetworking.sendToClient(new CritHitParticleS2CPacket(monster.getX(), monster.getY(), monster.getZ()), (ServerPlayer) player);
             ModNetworking.sendToClient(new SoundsS2CPacket(0), (ServerPlayer) player);
             HurtEventModule.SabreDamage(player, monster);
             AttackEventModule.snowShieldEffect(player, monster);
             AttackCurios1.playerCritEffect(player);
+            OnCritHitEffectMainHandWeapon.critHit(player, monster);
         } else {
             damageBeforeDefence = baseDamage;
             data.putBoolean(StringUtils.DamageTypes.Crit, false);

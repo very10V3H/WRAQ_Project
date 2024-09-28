@@ -268,7 +268,7 @@ public class Compute {
                 player.getCooldowns().addCooldown(ModItems.ForestBossSword.get(), (int) (200 - 200 * PlayerAttributes.coolDownDecrease(player)));
                 ParticleProvider.VerticleCircleParticle((ServerPlayer) player, 1, 6, 100, ModParticles.LONG_ENTROPY.get());
                 ParticleProvider.VerticleCircleParticle((ServerPlayer) player, 1.5, 6, 100, ModParticles.LONG_ENTROPY.get());
-                MySound.SoundToAll(player, ModSounds.Nether_Power.get());
+                MySound.soundToNearPlayer(player, ModSounds.Nether_Power.get());
             } else {
                 Compute.sendFormatMSG(player, Component.literal("次元能量").withStyle(CustomStyle.styleOfHealth),
                         Component.literal("你的次元能量不足以召唤这个次元。").withStyle(ChatFormatting.WHITE));
@@ -297,7 +297,7 @@ public class Compute {
                 ParticleProvider.VerticleCircleParticle((ServerPlayer) player, 1, 6, 100, ModParticles.LONG_ENTROPY.get());
                 ParticleProvider.VerticleCircleParticle((ServerPlayer) player, 1.5, 6, 100, ModParticles.LONG_ENTROPY.get());
 
-                MySound.SoundToAll(player, ModSounds.Lava.get());
+                MySound.soundToNearPlayer(player, ModSounds.Lava.get());
             } else {
                 Compute.sendFormatMSG(player, Component.literal("次元能量").withStyle(CustomStyle.styleOfPower),
                         Component.literal("你的次元能量不足以召唤这个次元。").withStyle(ChatFormatting.WHITE));
@@ -1341,7 +1341,7 @@ public class Compute {
         ModNetworking.sendToClient(new DebuffTimeS2CPacket(item.getDefaultInstance(), tickCount, level), (ServerPlayer) player);
     }
 
-    public static void iceParticleCreate(Entity entity) {
+    public static void createIceParticle(Entity entity) {
         BlockPos blockPos = entity.blockPosition().above();
         if (entity.level().getBlockState(blockPos).is(Blocks.AIR)) {
             entity.level().setBlockAndUpdate(blockPos, Blocks.ICE.defaultBlockState());

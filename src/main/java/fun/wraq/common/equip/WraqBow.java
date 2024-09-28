@@ -65,7 +65,7 @@ public abstract class WraqBow extends WraqMainHandEquip {
                 getArrowSpeed() == 0 ? 3F : getArrowSpeed(), 1.0f);
         arrow.setCritArrow(true);
         serverPlayer.level().addFreshEntity(arrow);
-        MySound.SoundToAll(serverPlayer, SoundEvents.ARROW_SHOOT);
+        MySound.soundToNearPlayer(serverPlayer, SoundEvents.ARROW_SHOOT);
         if (getShootParticle() != null) {
             for (int i = 0 ; i < getShootParticle().times ; i ++) {
                 ParticleProvider.FaceCircleCreate(serverPlayer, 1 + 0.5 * i, 0.75 - 0.25 * i, 20 - 4 * i,

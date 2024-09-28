@@ -73,7 +73,7 @@ public class LightningArmor extends WraqArmor implements TickArmor, OnHitEffectA
     public static Map<Player, Integer> enhanceNormalAttackTickMap = new WeakHashMap<>();
     @Override
     public void tick(Player player) {
-        if (enhanceNormalAttackTickMap.get(player) == Tick.get()) {
+        if (enhanceNormalAttackTickMap.getOrDefault(player, 0) == Tick.get()) {
             EnhanceNormalAttackModifier.addModifier(player,
                     new EnhanceNormalAttackModifier("LightningArmor passive", true, 0, 0, (player1, mob) -> {
                         Compute.getNearEntity(mob, Mob.class, 8).
@@ -83,21 +83,23 @@ public class LightningArmor extends WraqArmor implements TickArmor, OnHitEffectA
                                     lightningBolt.moveTo(soleMob.position());
                                     soleMob.level().addFreshEntity(lightningBolt);
 
-                                    List<Mob> nearMobList = soleMob.level().getEntitiesOfClass(Mob.class, AABB.ofSize(soleMob.position(), 4, 4, 4));
-                                    nearMobList.removeIf(mob1 -> mob1.distanceTo(soleMob) > 2);
                                     double rate = 0.25 * SuitCount.getLightningArmorCount(player1);
                                     Random random = new Random();
                                     if (random.nextDouble() < PlayerAttributes.critRate(player1))
                                         rate *= (1 + PlayerAttributes.critDamage(player1));
-
                                     double finalRate = rate;
-                                    nearMobList.forEach(target -> {
-                                        Damage.causeAutoAdaptionRateDamageToMob(player1, target, finalRate);
-                                    });
+                                    soleMob.level()
+                                            .getEntitiesOfClass(Mob.class, AABB.ofSize(soleMob.position(), 4, 4, 4))
+                                            .stream()
+                                            .filter(mob1 -> mob1.distanceTo(soleMob) < 2)
+                                            .forEach(target -> {
+                                                Damage.causeAutoAdaptionRateDamageToMob(player1, target, finalRate);
+                                            });
                                 });
-                        Compute.removeEffectLastTime(player, ModItems.LightningSoul.get());
+                        Compute.removeEffectLastTime(player, ModItems.LIGHTNING_CHEST.get());
+                        Compute.coolDownTimeSend(player, ModItems.LIGHTNING_CHEST.get(), 80);
                     }));
-            Compute.sendEffectLastTime(player, ModItems.LightningSoul.get(), 0, true);
+            Compute.sendEffectLastTime(player, ModItems.LIGHTNING_CHEST.get(), 0, true);
         }
     }
 

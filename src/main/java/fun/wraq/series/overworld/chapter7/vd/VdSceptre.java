@@ -17,7 +17,6 @@ import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.render.particles.ModParticles;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.overworld.chapter7.C7Items;
-import fun.wraq.series.overworld.chapter7.vd.VdWeaponCommon;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -94,7 +93,7 @@ public class VdSceptre extends WraqSceptre implements ForgeItem, ActiveItem, Tic
         ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1, 0.75, 20, ModParticles.WORLD.get());
         ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1.5, 0.5, 16, ModParticles.WORLD.get());
         ParticleProvider.FaceCircleCreate((ServerPlayer) player, 2, 0.25, 12, ModParticles.WORLD.get());
-        MySound.SoundToAll(player, ModSounds.Mana.get());
+        MySound.soundToNearPlayer(player, ModSounds.Mana.get());
         return newArrow;
     }
 

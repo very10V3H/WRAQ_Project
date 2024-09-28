@@ -135,10 +135,10 @@ public class ForgeEquipUtils {
                 ModItems.ShipSword.get(),
                 ModItems.ShipBow.get(),
                 ModItems.ShipSceptre.get(),
-                ModItems.lightningArmorHelmet.get(),
-                ModItems.lightningArmorChest.get(),
-                ModItems.lightningArmorLeggings.get(),
-                ModItems.lightningArmorBoots.get()
+                ModItems.LIGHTNING_HELMET.get(),
+                ModItems.LIGHTNING_CHEST.get(),
+                ModItems.LIGHTNING_LEGGINGS.get(),
+                ModItems.LIGHTNING_BOOTS.get()
         );
         zoneForgeItemListMap.put(new Zone(2021, 1767, 1814, 1592), new ArrayList<>() {{
             birch.forEach(item -> add(item.getDefaultInstance()));

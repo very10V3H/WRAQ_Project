@@ -71,6 +71,6 @@ public class ManaSword extends WraqSword implements ActiveItem {
         data.putInt("ManaSwordActive", data.getInt("MANA"));
         data.putInt("MANA", 0);
         Mana.updateManaStatus(player);
-        MySound.SoundToAll(player, ModSounds.Mana_Sword.get());
+        MySound.soundToNearPlayer(player, ModSounds.Mana_Sword.get());
     }
 }

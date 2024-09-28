@@ -7,6 +7,9 @@ import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.attribute.SameTypeModule;
 import fun.wraq.common.impl.onhit.OnHitEffectArmor;
+import fun.wraq.common.impl.onhit.OnHitEffectCurios;
+import fun.wraq.common.impl.onhit.OnHitEffectMainHandWeapon;
+import fun.wraq.common.impl.onhit.OnHitEffectPassiveEquip;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.ModSounds;
 import fun.wraq.common.registry.MySound;
@@ -14,7 +17,6 @@ import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.struct.ManaSkillStruct.ManaSkill3;
 import fun.wraq.common.util.struct.ManaSkillStruct.ManaSkill6;
-import fun.wraq.core.AttackEvent;
 import fun.wraq.customized.uniform.mana.ManaCurios1;
 import fun.wraq.events.mob.instance.instances.IceInstance;
 import fun.wraq.networking.ModNetworking;
@@ -26,9 +28,6 @@ import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.func.suit.SuitCount;
 import fun.wraq.process.system.element.Element;
-import fun.wraq.common.impl.onhit.OnHitEffectCurios;
-import fun.wraq.common.impl.onhit.OnHitEffectMainHandWeapon;
-import fun.wraq.common.impl.onhit.OnHitEffectPassiveEquip;
 import fun.wraq.projectiles.mana.NewArrowMagma;
 import fun.wraq.render.hud.Mana;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -37,7 +36,6 @@ import fun.wraq.series.instance.series.ice.IceBook;
 import fun.wraq.series.instance.series.moon.Equip.MoonBook;
 import fun.wraq.series.instance.series.moon.MoonCurios;
 import fun.wraq.series.overworld.castle.TreeBracelet;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -49,7 +47,6 @@ import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
 
 import java.util.List;
@@ -184,7 +181,6 @@ public class ManaAttackModule {
 
             AttackEvent.SpringManaArmor(player, monster);
             Compute.ChargingModule(data, player);
-            ManaAttackModule.IceSceptre(player, monster);
             IceBook.IceBookPassive(player, monster);
             Compute.manaDamageExEffect(player, monster, damage);
             SameTypeModule.onNormalAttackHitMob(player, monster, 1, damage + damageIgnoreDefence);
@@ -402,7 +398,7 @@ public class ManaAttackModule {
             ParticleProvider.VerticleCircleParticle(serverPlayer, 1, 6, 100, ParticleTypes.WITCH);
             ParticleProvider.VerticleCircleParticle(serverPlayer, 1.5, 6, 100, ParticleTypes.WITCH);
 
-            MySound.SoundToAll(player, ModSounds.Nether_Power.get());
+            MySound.soundToNearPlayer(player, ModSounds.Nether_Power.get());
 
         }
     }
@@ -434,7 +430,7 @@ public class ManaAttackModule {
             ParticleProvider.VerticleCircleParticle(serverPlayer, 1, 6, 100, ParticleTypes.WITCH);
             ParticleProvider.VerticleCircleParticle(serverPlayer, 1.5, 6, 100, ParticleTypes.WITCH);
 
-            MySound.SoundToAll(player, ModSounds.Nether_Power.get());
+            MySound.soundToNearPlayer(player, ModSounds.Nether_Power.get());
         }
     }
 
@@ -545,20 +541,6 @@ public class ManaAttackModule {
 
     public static double NetherManaArmor(Player player, Mob mob) {
         return SuitCount.getNetherManaSuitCount(player) * 0.12 * Math.min(1, MobAttributes.manaDefence(mob) / 500.0);
-    }
-
-    public static void IceSceptre(Player player, Mob mob) {
-        if (player.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.IceSceptre.get())
-                || player.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.DevilSceptre.get())) {
-            Utils.IceSceptreEffectMap.put(player, player.getServer().getTickCount() + 40);
-            Utils.IceSceptreEffectNumMap.put(player, Math.min(3000, MobAttributes.manaDefence(mob)));
-            Compute.sendEffectLastTime(player, ModItems.IceSceptre.get().getDefaultInstance(), 40);
-            Level level = player.level();
-            if (level.getBlockState(new BlockPos(mob.getBlockX(), mob.getBlockY() + 1, mob.getBlockZ())).is(Blocks.AIR)) {
-                level.setBlockAndUpdate(new BlockPos(mob.getBlockX(), mob.getBlockY() + 1, mob.getBlockZ()), Blocks.ICE.defaultBlockState());
-                level.destroyBlock(new BlockPos(mob.getBlockX(), mob.getBlockY() + 1, mob.getBlockZ()), false);
-            }
-        }
     }
 
     public static double EarthManaArmor(Player player, Mob mob) {

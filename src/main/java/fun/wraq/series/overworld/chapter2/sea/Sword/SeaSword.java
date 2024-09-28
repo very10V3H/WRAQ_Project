@@ -83,7 +83,7 @@ public class SeaSword extends WraqSword implements ActiveItem {
             else if (tier == 3) Utils.SeaSwordActiveMap.put(player, 2);
             else Utils.SeaSwordActiveMap.put(player, 1);
             Compute.sendEffectLastTime(player, ModItems.SeaSword0.get().getDefaultInstance(), 8888, 0, true);
-            MySound.SoundToAll(player, ModSounds.Attack.get());
+            MySound.soundToNearPlayer(player, ModSounds.Attack.get());
         }
     }
 }

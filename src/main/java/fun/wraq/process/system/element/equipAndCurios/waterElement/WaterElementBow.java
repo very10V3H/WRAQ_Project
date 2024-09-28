@@ -12,7 +12,6 @@ import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.element.ElementValue;
 import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.equip.WraqBow;
-import fun.wraq.process.system.element.equipAndCurios.waterElement.WaterElementSword;
 import fun.wraq.render.particles.ModParticles;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -50,7 +49,7 @@ public class WaterElementBow extends WraqBow implements ActiveItem {
         arrow.setCritArrow(true);
         WraqBow.adjustArrow(arrow, serverPlayer);
         serverPlayer.level().addFreshEntity(arrow);
-        MySound.SoundToAll(serverPlayer, SoundEvents.ARROW_SHOOT);
+        MySound.soundToNearPlayer(serverPlayer, SoundEvents.ARROW_SHOOT);
         ParticleProvider.FaceCircleCreate(serverPlayer, 1, 0.75, 20, ModParticles.WaterElementParticle.get());
         ParticleProvider.FaceCircleCreate(serverPlayer, 1.5, 0.5, 16, ModParticles.WaterElementParticle.get());
         return arrow;

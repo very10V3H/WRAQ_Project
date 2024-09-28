@@ -13,7 +13,7 @@ import net.minecraft.world.phys.Vec3;
 import java.util.List;
 
 public class MySound {
-    public static void SoundToAll(Player player, SoundEvent soundEvent) {
+    public static void soundToNearPlayer(Player player, SoundEvent soundEvent) {
         if (soundEvent.equals(ModSounds.Mana.get()) || soundEvent.equals(ModSounds.Use.get()) || soundEvent.equals(ModSounds.Wind.get())
                 || soundEvent.equals(ModSounds.Lava.get()) || soundEvent.equals(ModSounds.Nether_Power.get()) || soundEvent.equals(ModSounds.Mana_Sword.get()))
             return;

@@ -65,6 +65,6 @@ public class NetherArmor extends WraqArmor implements OnHitEffectArmor {
     @Override
     public void onHit(Player player, Mob mob) {
         StableTierAttributeModifier.addM(mob, StableTierAttributeModifier.percentDefence, "NetherArmor passive",
-                SuitCount.getNetherSuitCount(player) * 0.01, Tick.get() + 60, 8, ModItems.netherSkeletonSoul.get());
+                -SuitCount.getNetherSuitCount(player) * 0.01, Tick.get() + 60, 8, ModItems.netherSkeletonSoul.get());
     }
 }

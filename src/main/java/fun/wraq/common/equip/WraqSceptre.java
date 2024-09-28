@@ -61,7 +61,7 @@ public abstract class WraqSceptre extends WraqMainHandEquip {
                 OnShootManaArrowCurios.shoot(player);
                 OnShootManaArrowPassiveEquip.shoot(player);
             }
-            MySound.SoundToAll(player, SoundEvents.EVOKER_CAST_SPELL);
+            MySound.soundToNearPlayer(player, SoundEvents.EVOKER_CAST_SPELL);
         }
     }
 
@@ -80,7 +80,7 @@ public abstract class WraqSceptre extends WraqMainHandEquip {
             level.addFreshEntity(newArrow);
             ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1, 0.75, 20, ParticleTypes.WITCH);
             ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1.5, 0.5, 16, ParticleTypes.WITCH);
-            MySound.SoundToAll(player, ModSounds.Mana.get());
+            MySound.soundToNearPlayer(player, ModSounds.Mana.get());
             return newArrow;
         }
         return null;

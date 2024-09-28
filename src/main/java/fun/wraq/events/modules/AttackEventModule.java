@@ -1,7 +1,6 @@
 package fun.wraq.events.modules;
 
 import fun.wraq.common.Compute;
-import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.StringUtils;
@@ -29,7 +28,6 @@ import fun.wraq.series.overworld.chapter1.Snow.Sword.SnowSword3;
 import fun.wraq.series.overworld.chapter1.forest.bow.ForestBow;
 import fun.wraq.series.overworld.chapter1.plain.bow.PlainBow;
 import fun.wraq.series.overworld.chapter1.volcano.bow.VolcanoBow;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundLevelParticlesPacket;
@@ -49,7 +47,6 @@ import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
@@ -432,7 +429,7 @@ public class AttackEventModule {
             Random random = new Random();
             List<Mob> mobList = level.getEntitiesOfClass(Mob.class, AABB.ofSize(player.position(), 10, 10, 10));
             for (Mob mob : mobList) {
-                AttackEvent.attackToMonster(mob, player, 0.2f * Compute.getSwordSkillLevel(data, 12), false);
+                AttackEvent.attackToMonster(mob, player, 0.2f * Compute.getSwordSkillLevel(data, 12), true, false);
                 if (random.nextInt(0, 1) == 0) {
                     ClientboundLevelParticlesPacket clientboundLevelParticlesPacket = new ClientboundLevelParticlesPacket(ModParticles.BLADE0.get(), true,
                             mob.getX(), mob.getY() + 1, mob.getZ(), 0, 0, 0, 0, 0);
@@ -539,34 +536,6 @@ public class AttackEventModule {
         if (Utils.shieldTag.containsKey(player.getItemInHand(InteractionHand.OFF_HAND).getItem()))
             return 0.75 * (1 - (1600 / (1600 + PlayerAttributes.defence(player))));
         else return 0;
-    }
-
-    public static void IceSword(Player player, Mob mob) {
-        if (player.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.IceSword.get())
-                || player.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.DevilSword.get())) {
-            Utils.IceSwordEffectMap.put(player, player.getServer().getTickCount() + 40);
-            Utils.IceSwordEffectNumMap.put(player, Math.min(3000, MobAttributes.defence(mob)));
-            Compute.sendEffectLastTime(player, ModItems.IceSword.get().getDefaultInstance(), 40);
-            Level level = player.level();
-            if (level.getBlockState(new BlockPos(mob.getBlockX(), mob.getBlockY() + 1, mob.getBlockZ())).is(Blocks.AIR)) {
-                level.setBlockAndUpdate(new BlockPos(mob.getBlockX(), mob.getBlockY() + 1, mob.getBlockZ()), Blocks.ICE.defaultBlockState());
-                level.destroyBlock(new BlockPos(mob.getBlockX(), mob.getBlockY() + 1, mob.getBlockZ()), false);
-            }
-        }
-    }
-
-    public static void IceBow(Player player, Mob mob) {
-        if (player.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.IceBow.get())
-                || player.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.DevilBow.get())) {
-            Utils.IceBowEffectMap.put(player, player.getServer().getTickCount() + 40);
-            Utils.IceBowEffectNumMap.put(player, MobAttributes.defence(mob));
-            Compute.sendEffectLastTime(player, ModItems.IceBow.get().getDefaultInstance(), 40);
-            Level level = player.level();
-            if (level.getBlockState(new BlockPos(mob.getBlockX(), mob.getBlockY() + 1, mob.getBlockZ())).is(Blocks.AIR)) {
-                level.setBlockAndUpdate(new BlockPos(mob.getBlockX(), mob.getBlockY() + 1, mob.getBlockZ()), Blocks.ICE.defaultBlockState());
-                level.destroyBlock(new BlockPos(mob.getBlockX(), mob.getBlockY() + 1, mob.getBlockZ()), false);
-            }
-        }
     }
 
     public static double IceArmorDamageEnhance(Player player, Mob mob) {

@@ -305,7 +305,7 @@ public class ForgeRecipe {
             add(new ItemStack(ModItems.WorldSoul3.get(), 1));
         }});
 
-        forgeDrawRecipe.put(ModItems.lightningArmorHelmet.get(), new ArrayList<>() {{
+        forgeDrawRecipe.put(ModItems.LIGHTNING_HELMET.get(), new ArrayList<>() {{
             add(new ItemStack(ModItems.LightningRune.get(), 10));
             add(new ItemStack(ModItems.goldCoin.get(), 128));
             add(new ItemStack(ModItems.completeGem.get(), 4));
@@ -315,7 +315,7 @@ public class ForgeRecipe {
             add(new ItemStack(ModItems.WorldSoul3.get(), 1));
         }});
 
-        forgeDrawRecipe.put(ModItems.lightningArmorChest.get(), new ArrayList<>() {{
+        forgeDrawRecipe.put(ModItems.LIGHTNING_CHEST.get(), new ArrayList<>() {{
             add(new ItemStack(ModItems.LightningRune.get(), 16));
             add(new ItemStack(ModItems.goldCoin.get(), 128));
             add(new ItemStack(ModItems.completeGem.get(), 4));
@@ -325,7 +325,7 @@ public class ForgeRecipe {
             add(new ItemStack(ModItems.WorldSoul3.get(), 1));
         }});
 
-        forgeDrawRecipe.put(ModItems.lightningArmorLeggings.get(), new ArrayList<>() {{
+        forgeDrawRecipe.put(ModItems.LIGHTNING_LEGGINGS.get(), new ArrayList<>() {{
             add(new ItemStack(ModItems.LightningRune.get(), 14));
             add(new ItemStack(ModItems.goldCoin.get(), 128));
             add(new ItemStack(ModItems.completeGem.get(), 4));
@@ -335,7 +335,7 @@ public class ForgeRecipe {
             add(new ItemStack(ModItems.WorldSoul3.get(), 1));
         }});
 
-        forgeDrawRecipe.put(ModItems.lightningArmorBoots.get(), new ArrayList<>() {{
+        forgeDrawRecipe.put(ModItems.LIGHTNING_BOOTS.get(), new ArrayList<>() {{
             add(new ItemStack(ModItems.LightningRune.get(), 8));
             add(new ItemStack(ModItems.goldCoin.get(), 128));
             add(new ItemStack(ModItems.completeGem.get(), 4));

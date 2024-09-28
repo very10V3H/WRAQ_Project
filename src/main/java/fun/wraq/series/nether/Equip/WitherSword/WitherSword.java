@@ -13,7 +13,6 @@ import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.equip.WraqSword;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.nether.Equip.WitherSword.WitherSwordAttributes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -83,7 +82,7 @@ public class WitherSword extends WraqSword implements ActiveItem, ForgeItem {
             player.setHealth(player.getHealth() - player.getMaxHealth() * 0.3f);
             StableAttributesModifier.addAttributeModifier(player, StableAttributesModifier.playerDefencePenetration0Modifier,
                     new StableAttributesModifier("witherSwordActiveDefencePenetration0", WitherSwordAttributes.ActiveEffect[tier], tickCount + 240));
-            MySound.SoundToAll(player, ModSounds.Nether_Power.get());
+            MySound.soundToNearPlayer(player, ModSounds.Nether_Power.get());
         }
     }
 

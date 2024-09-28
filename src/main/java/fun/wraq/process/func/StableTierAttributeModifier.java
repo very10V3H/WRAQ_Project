@@ -7,16 +7,14 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.WeakHashMap;
+import java.util.*;
 
 public record StableTierAttributeModifier(String tag, double eachTierValue, int stopTick, int tier, int maxTier) {
 
     public static Map<LivingEntity, List<StableTierAttributeModifier>> defence = new WeakHashMap<>();
     public static Map<LivingEntity, List<StableTierAttributeModifier>> manaDefence = new WeakHashMap<>();
     public static Map<LivingEntity, List<StableTierAttributeModifier>> percentDefence = new WeakHashMap<>();
+    public static Map<LivingEntity, List<StableTierAttributeModifier>> onlyDisplay = new WeakHashMap<>();
 
     public static List<StableTierAttributeModifier> getAttributeModifierList(LivingEntity entity, Map<LivingEntity, List<StableTierAttributeModifier>> modifierMap) {
         if (!modifierMap.containsKey(entity)) {
@@ -48,6 +46,24 @@ public record StableTierAttributeModifier(String tag, double eachTierValue, int 
         }
         if (entity instanceof Player player) {
             Compute.sendEffectLastTime(player, icon, modifier.stopTick - Tick.get(), finalTier, false);
+        }
+    }
+
+    public static int getAttributeModifierTier(LivingEntity entity,
+                                               Map<LivingEntity, List<StableTierAttributeModifier>> modifierMap,
+                                               String tag) {
+        return getAttributeModifierList(entity, modifierMap)
+                .stream().filter(modifier -> modifier.tag.equals(tag))
+                .findAny()
+                .map(tierAttributeModifier -> tierAttributeModifier.tier)
+                .orElse(0);
+    }
+
+    public static void removeAttributeModifier(LivingEntity entity, Map<LivingEntity, List<StableTierAttributeModifier>> modifierMap,
+                                               String tag, Item icon) {
+        getAttributeModifierList(entity, modifierMap).removeIf(modifier -> modifier.tag.equals(tag));
+        if (entity instanceof Mob mob) {
+            Compute.removeMobEffectHudToNearPlayer(mob, icon, tag);
         }
     }
 

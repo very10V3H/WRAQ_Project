@@ -4,14 +4,18 @@ import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.ParticlePackets.NewParticlePackets.*;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.game.ClientboundLevelParticlesPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Vector3f;
 
@@ -536,6 +540,14 @@ public class ParticleProvider {
                     Delta.normalize().scale(randomDouble).x,
                     Delta.normalize().scale(randomDouble).y,
                     Delta.normalize().scale(randomDouble).z);
+        }
+    }
+
+    public static void createBreakBlockParticle(LivingEntity target, Block block) {
+        BlockPos blockPos = target.blockPosition().above();
+        if (target.level().getBlockState(blockPos).is(Blocks.AIR)) {
+            target.level().setBlockAndUpdate(blockPos, block.defaultBlockState());
+            target.level().destroyBlock(blockPos, false);
         }
     }
 }

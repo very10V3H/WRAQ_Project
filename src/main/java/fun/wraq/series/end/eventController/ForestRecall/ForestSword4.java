@@ -78,7 +78,7 @@ public class ForestSword4 extends WraqSword implements ActiveItem {
             player.getCooldowns().addCooldown(ModItems.ForestSword2.get(), (int) (600 - 600.0 * PlayerAttributes.coolDownDecrease(player)));
             player.getCooldowns().addCooldown(ModItems.ForestSword3.get(), (int) (600 - 600.0 * PlayerAttributes.coolDownDecrease(player)));
             player.getCooldowns().addCooldown(ModItems.ForestSword4.get(), (int) (600 - 600.0 * PlayerAttributes.coolDownDecrease(player)));
-            MySound.SoundToAll(player, ModSounds.Attack.get());
+            MySound.soundToNearPlayer(player, ModSounds.Attack.get());
         }
     }
 }

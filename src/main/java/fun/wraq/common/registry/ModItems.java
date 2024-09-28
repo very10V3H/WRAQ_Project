@@ -34,9 +34,6 @@ import fun.wraq.Items.SkillItems.ID_Card;
 import fun.wraq.Items.SkyCity.TicketToSkyCity;
 import fun.wraq.blocks.blocks.brew.*;
 import fun.wraq.blocks.blocks.brew.solidifiedSouls.*;
-import fun.wraq.common.registry.ItemMaterial;
-import fun.wraq.common.registry.ItemTier;
-import fun.wraq.common.registry.ModSounds;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.customized.UniformItems;
@@ -110,6 +107,9 @@ import fun.wraq.series.gems.Curios.SapphireNecklace;
 import fun.wraq.series.instance.series.castle.*;
 import fun.wraq.series.instance.series.devil.*;
 import fun.wraq.series.instance.series.ice.*;
+import fun.wraq.series.instance.series.ice.weapon.IceBow;
+import fun.wraq.series.instance.series.ice.weapon.IceSceptre;
+import fun.wraq.series.instance.series.ice.weapon.IceSword;
 import fun.wraq.series.instance.series.moon.Equip.*;
 import fun.wraq.series.instance.series.moon.MoonCurios;
 import fun.wraq.series.instance.series.moon.MoonLoot;
@@ -824,22 +824,14 @@ public class ModItems {
     public static final RegistryObject<Item> LightningRune = ITEMS.register("lightningrune",
             () -> new LightningRune(new Item.Properties().rarity(CustomStyle.LightningBold)));
 
-    public static final RegistryObject<Item> lightningArmorHelmet = ITEMS.register("islandarmorhelmet",
+    public static final RegistryObject<Item> LIGHTNING_HELMET = ITEMS.register("islandarmorhelmet",
             () -> new LightningArmor(ItemMaterial.IslandMaterial, ArmorItem.Type.HELMET, new Item.Properties().rarity(CustomStyle.LightningItalic), 600, 2));
-    public static final RegistryObject<Item> IslandHelmetForgeDraw = ITEMS.register("island_helmet_forge_draw",
-            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.LightningBold), ModItems.lightningArmorHelmet.get()));
-    public static final RegistryObject<Item> lightningArmorChest = ITEMS.register("islandarmorchest",
+    public static final RegistryObject<Item> LIGHTNING_CHEST = ITEMS.register("islandarmorchest",
             () -> new LightningArmor(ItemMaterial.IslandMaterial, ArmorItem.Type.CHESTPLATE, new Item.Properties().rarity(CustomStyle.LightningItalic), 1000, 3));
-    public static final RegistryObject<Item> IslandChestForgeDraw = ITEMS.register("island_chest_forge_draw",
-            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.LightningBold), ModItems.lightningArmorChest.get()));
-    public static final RegistryObject<Item> lightningArmorLeggings = ITEMS.register("islandarmorleggings",
+    public static final RegistryObject<Item> LIGHTNING_LEGGINGS = ITEMS.register("islandarmorleggings",
             () -> new LightningArmor(ItemMaterial.IslandMaterial, ArmorItem.Type.LEGGINGS, new Item.Properties().rarity(CustomStyle.LightningItalic), 800, 3));
-    public static final RegistryObject<Item> IslandLeggingsForgeDraw = ITEMS.register("island_leggings_forge_draw",
-            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.LightningBold), ModItems.lightningArmorLeggings.get()));
-    public static final RegistryObject<Item> lightningArmorBoots = ITEMS.register("islandarmorboots",
+    public static final RegistryObject<Item> LIGHTNING_BOOTS = ITEMS.register("islandarmorboots",
             () -> new LightningArmor(ItemMaterial.IslandMaterial, ArmorItem.Type.BOOTS, new Item.Properties().rarity(CustomStyle.LightningItalic), 300, 2));
-    public static final RegistryObject<Item> IslandBootsForgeDraw = ITEMS.register("island_boots_forge_draw",
-            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.LightningBold), ModItems.lightningArmorBoots.get()));
 
     public static final RegistryObject<Item> SeaSword0 = ITEMS.register("seasword0",
             () -> new SeaSword(new Item.Properties().rarity(CustomStyle.SeaItalic), 0));

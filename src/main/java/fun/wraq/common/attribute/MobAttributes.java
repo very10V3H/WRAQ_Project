@@ -3,6 +3,7 @@ package fun.wraq.common.attribute;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.MobSpawn;
+import fun.wraq.process.func.StableAttributesModifier;
 import fun.wraq.process.func.StableTierAttributeModifier;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.element.equipAndCurios.waterElement.WaterElementSword;
@@ -35,7 +36,8 @@ public class MobAttributes {
         if (Utils.SnowShieldMobEffectMap.containsKey(monster) && Utils.SnowShieldMobEffectMap.get(monster) > tickCount)
             rate *= 0.75;
 
-        rate *= (1 - StableTierAttributeModifier.getModifierValue(monster, StableTierAttributeModifier.percentDefence));
+        rate *= (1 + StableTierAttributeModifier.getModifierValue(monster, StableTierAttributeModifier.percentDefence));
+        rate *= (1 + StableAttributesModifier.getModifierValue(monster, StableAttributesModifier.mobPercentDefenceModifier));
 
         rate *= WaterElementSword.MobDefenceDecrease(monster);
         rate *= Element.ElementDefenceDecrease(monster);
@@ -68,6 +70,8 @@ public class MobAttributes {
 
         if (Utils.WitherBookMobEffectTick.containsKey(monster) && Utils.WitherBookMobEffectTick.get(monster) > tick)
             rate *= 0.5;
+
+        rate *= (1 + StableAttributesModifier.getModifierValue(monster, StableAttributesModifier.mobPercentManaDefenceModifier));
 
         rate *= Element.ElementDefenceDecrease(monster);
         rate *= WaterElementSword.MobDefenceDecrease(monster);

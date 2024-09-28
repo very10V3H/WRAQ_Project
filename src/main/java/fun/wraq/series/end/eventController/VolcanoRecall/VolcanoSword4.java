@@ -73,7 +73,7 @@ public class VolcanoSword4 extends WraqSword implements ActiveItem {
             player.getCooldowns().addCooldown(ModItems.VolcanoSword2.get(), (int) (200 - 200.0 * PlayerAttributes.coolDownDecrease(player)));
             player.getCooldowns().addCooldown(ModItems.VolcanoSword3.get(), (int) (200 - 200.0 * PlayerAttributes.coolDownDecrease(player)));
             player.getCooldowns().addCooldown(ModItems.VolcanoSword4.get(), (int) (200 - 200.0 * PlayerAttributes.coolDownDecrease(player)));
-            MySound.SoundToAll(player, ModSounds.Lava.get());
+            MySound.soundToNearPlayer(player, ModSounds.Lava.get());
         }
     }
 }

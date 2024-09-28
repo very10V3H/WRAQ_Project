@@ -50,7 +50,7 @@ public class MineBow extends WraqBow implements OnHitEffectMainHandWeapon {
         arrow.setCritArrow(true);
         WraqBow.adjustArrow(arrow, serverPlayer);
         serverPlayer.level().addFreshEntity(arrow);
-        MySound.SoundToAll(serverPlayer, SoundEvents.ARROW_SHOOT);
+        MySound.soundToNearPlayer(serverPlayer, SoundEvents.ARROW_SHOOT);
         ParticleProvider.FaceCircleCreate(serverPlayer, 1, 0.75, 20, ModParticles.BLACKFOREST_RECALL.get());
         ParticleProvider.FaceCircleCreate(serverPlayer, 1.5, 0.5, 16, ModParticles.LONG_SEA.get());
         return arrow;

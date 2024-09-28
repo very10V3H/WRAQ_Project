@@ -5,7 +5,6 @@ import fun.wraq.common.registry.MySound;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.reputationMission.PlanMissionInfoS2CPacket;
 import fun.wraq.process.func.item.InventoryOperation;
-import fun.wraq.process.func.plan.networking.mission.PlanMission;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -99,7 +98,7 @@ public class PlanMissionFinishedRequestC2SPacket {
 
                 PlanMission.planMissionAllowRequestTimeMap.remove(serverPlayer.getName().getString());
 
-                MySound.SoundToAll(serverPlayer, SoundEvents.PLAYER_LEVELUP);
+                MySound.soundToNearPlayer(serverPlayer, SoundEvents.PLAYER_LEVELUP);
             } else {
                 Compute.sendFormatMSG(serverPlayer, Component.literal("月卡任务").withStyle(ChatFormatting.LIGHT_PURPLE),
                         Component.literal("暂未达成任务要求。").withStyle(ChatFormatting.WHITE));

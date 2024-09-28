@@ -71,7 +71,7 @@ public class NetherBow extends WraqBow {
             arrow.setNoGravity(true);
             WraqBow.adjustArrow(arrow, serverPlayer);
             serverPlayer.level().addFreshEntity(arrow);
-            MySound.SoundToAll(serverPlayer, SoundEvents.ARROW_SHOOT);
+            MySound.soundToNearPlayer(serverPlayer, SoundEvents.ARROW_SHOOT);
             ParticleProvider.FaceCircleCreate(serverPlayer, 1, 0.75, 20, ParticleTypes.WITCH);
             return arrow;
         } else {
@@ -80,7 +80,7 @@ public class NetherBow extends WraqBow {
             arrow.setCritArrow(true);
             WraqBow.adjustArrow(arrow, serverPlayer);
             serverPlayer.level().addFreshEntity(arrow);
-            MySound.SoundToAll(serverPlayer, SoundEvents.ARROW_SHOOT);
+            MySound.soundToNearPlayer(serverPlayer, SoundEvents.ARROW_SHOOT);
             ParticleProvider.FaceCircleCreate(serverPlayer, 1, 0.75, 20, ParticleTypes.WAX_OFF);
             return arrow;
         }

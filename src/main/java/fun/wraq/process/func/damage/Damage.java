@@ -8,6 +8,8 @@ import fun.wraq.common.attribute.DamageInfluence;
 import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.impl.onkill.OnKillEffectCurios;
+import fun.wraq.common.impl.onkill.OnKillEffectOffHandItem;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.Utils;
@@ -22,8 +24,6 @@ import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.element.equipAndCurios.fireElement.FireEquip;
 import fun.wraq.process.system.endlessinstance.DailyEndlessInstance;
 import fun.wraq.process.system.teamInstance.NewTeamInstanceEvent;
-import fun.wraq.common.impl.onkill.OnKillEffectCurios;
-import fun.wraq.common.impl.onkill.OnKillEffectOffHandItem;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.moon.Equip.MoonBelt;
 import fun.wraq.series.nether.Equip.WitherBook;
@@ -44,6 +44,7 @@ import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import org.apache.commons.lang3.RandomUtils;
 
 import java.util.Random;
 
@@ -56,6 +57,14 @@ public class Damage {
             causeAttackDamageToMonster_RateAdDamage(player, mob, rate * 2);
         if (Utils.sceptreTag.containsKey(item))
             causeManaDamageToMonster_RateApDamage(player, mob, rate, false);
+    }
+
+    public static void causeAutoAdaptionRateDamageToMobWithCritJudge(Player player, Mob mob, double rate) {
+        double damageRate = rate;
+        if (RandomUtils.nextDouble(0, 1) < PlayerAttributes.critRate(player)) {
+            damageRate *= (1 + PlayerAttributes.critDamage(player));
+        }
+        causeAutoAdaptionRateDamageToMob(player, mob, damageRate);
     }
 
     public static double causeIgNoreDefenceDamageToMonster(Player player, Mob monster, double damage) {

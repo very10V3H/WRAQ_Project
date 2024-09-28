@@ -13,7 +13,6 @@ import fun.wraq.process.system.element.Element;
 import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.equip.WraqSword;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.overworld.chapter1.forest.sword.ForestSwordAttributes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -82,7 +81,7 @@ public class ForestSword extends WraqSword implements ActiveItem {
             player.getCooldowns().addCooldown(ModItems.ForestSword2.get(), (int) (600 - 600.0 * PlayerAttributes.coolDownDecrease(player)));
             player.getCooldowns().addCooldown(ModItems.ForestSword3.get(), (int) (600 - 600.0 * PlayerAttributes.coolDownDecrease(player)));
             player.getCooldowns().addCooldown(ModItems.ForestSword4.get(), (int) (600 - 600.0 * PlayerAttributes.coolDownDecrease(player)));
-            MySound.SoundToAll(player, ModSounds.Attack.get());
+            MySound.soundToNearPlayer(player, ModSounds.Attack.get());
         }
     }
 }

@@ -13,7 +13,6 @@ import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.registry.ModSounds;
-import fun.wraq.series.worldsoul.SoulEquipAttribute;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -66,7 +65,7 @@ public class SoulSceptre extends WraqSceptre {
             ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1, 0.75, 20, ModParticles.WORLD.get());
             ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1.5, 0.5, 16, ModParticles.WORLD.get());
             ParticleProvider.FaceCircleCreate((ServerPlayer) player, 2, 0.25, 12, ModParticles.WORLD.get());
-            MySound.SoundToAll(player, ModSounds.Mana.get());
+            MySound.soundToNearPlayer(player, ModSounds.Mana.get());
             return newArrow;
         }
         return null;

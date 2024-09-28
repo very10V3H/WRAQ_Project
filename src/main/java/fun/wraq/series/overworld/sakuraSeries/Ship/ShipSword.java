@@ -90,7 +90,7 @@ public class ShipSword extends WraqSword implements ActiveItem {
                 Utils.shipSwordEffect.put(mob, Math.min(mobList.size(), 4));
                 Compute.sendMobEffectHudToNearPlayer(mob, ModItems.ShipSword.get(), "ShipSwordDefenceDecrease", 100, 0, false);
             });
-            MySound.SoundToAll(player, SoundEvents.ANVIL_LAND);
+            MySound.soundToNearPlayer(player, SoundEvents.ANVIL_LAND);
 
             ParticleProvider.GatherParticle(desPos, (ServerLevel) player.level(), 1, 6, 120, ModParticles.LONG_LAKE.get(), 0.25);
             ParticleProvider.GatherParticle(desPos, (ServerLevel) player.level(), 1.5, 6, 120, ModParticles.LONG_LAKE.get(), 0.25);

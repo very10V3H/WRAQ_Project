@@ -306,19 +306,19 @@ public class InjectRecipe {
                 new InjectingRecipe(ModItems.IntensifiedSeaSoul.get(), 1,
                         ModItems.SeaSword4.get()));
 
-        injectingRecipeMap.put(ModItems.lightningArmorHelmet.get(),
+        injectingRecipeMap.put(ModItems.LIGHTNING_HELMET.get(),
                 new InjectingRecipe(ModItems.IntensifiedLightningSoul.get(), 1,
                         ModItems.ILArmorHelmet.get()));
 
-        injectingRecipeMap.put(ModItems.lightningArmorChest.get(),
+        injectingRecipeMap.put(ModItems.LIGHTNING_CHEST.get(),
                 new InjectingRecipe(ModItems.IntensifiedLightningSoul.get(), 1,
                         ModItems.ILArmorChest.get()));
 
-        injectingRecipeMap.put(ModItems.lightningArmorLeggings.get(),
+        injectingRecipeMap.put(ModItems.LIGHTNING_LEGGINGS.get(),
                 new InjectingRecipe(ModItems.IntensifiedLightningSoul.get(), 1,
                         ModItems.ILArmorLeggings.get()));
 
-        injectingRecipeMap.put(ModItems.lightningArmorBoots.get(),
+        injectingRecipeMap.put(ModItems.LIGHTNING_BOOTS.get(),
                 new InjectingRecipe(ModItems.IntensifiedLightningSoul.get(), 1,
                         ModItems.ILArmorBoots.get()));
 

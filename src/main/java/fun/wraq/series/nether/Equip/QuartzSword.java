@@ -98,7 +98,7 @@ public class QuartzSword extends WraqSword implements ActiveItem {
                 lightningBolt.moveTo(monster.position());
                 level.addFreshEntity(lightningBolt);
             }
-            MySound.SoundToAll(player, ModSounds.Nether_Power.get());
+            MySound.soundToNearPlayer(player, ModSounds.Nether_Power.get());
         }
     }
 }

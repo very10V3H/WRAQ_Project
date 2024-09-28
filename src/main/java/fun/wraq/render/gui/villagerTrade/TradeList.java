@@ -7,7 +7,6 @@ import fun.wraq.customized.UniformItems;
 import fun.wraq.process.system.element.ElementItems;
 import fun.wraq.process.system.enhanceForge.ForgeMaterials;
 import fun.wraq.process.system.spur.Items.SpurItems;
-import fun.wraq.render.gui.villagerTrade.MyVillagerData;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.gems.GemItems;
 import fun.wraq.series.newrunes.NewRuneItems;
@@ -86,7 +85,6 @@ public class TradeList {
         BossItem();
         SeaEquip();
         BlackForestEquip();
-        LightingEquip();
 
         PlainRune();
         ForestRune();
@@ -1181,26 +1179,6 @@ public class TradeList {
                     add(new ItemStack(ModItems.huskSword3.get(), 1));
                     add(new ItemStack(ModItems.huskSword2.get(), 1));
                     add(new ItemStack(ModItems.huskSword1.get(), 1));
-                }});
-            }
-        }
-    }
-
-    public static void LightingEquip() {
-        ItemStack[] itemStacks = {
-                ModItems.IslandChestForgeDraw.get().getDefaultInstance(),
-        };
-        List<ItemStack> contentList = new ArrayList<>();
-        Collections.addAll(contentList, itemStacks);
-        tradeContent.put(StringUtils.VillagerName.LightningEquip, contentList);
-
-        for (int i = 0; i < itemStacks.length; i++) {
-            switch (i) {
-                case 0 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.lightningArmorHelmet.get(), 1));
-                    add(new ItemStack(ModItems.lightningArmorChest.get(), 1));
-                    add(new ItemStack(ModItems.lightningArmorLeggings.get(), 1));
-                    add(new ItemStack(ModItems.lightningArmorBoots.get(), 1));
                 }});
             }
         }

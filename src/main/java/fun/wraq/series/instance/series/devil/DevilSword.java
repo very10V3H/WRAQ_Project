@@ -1,7 +1,7 @@
 package fun.wraq.series.instance.series.devil;
 
 import fun.wraq.common.util.Utils;
-import fun.wraq.series.instance.series.ice.IceSword;
+import fun.wraq.series.instance.series.ice.weapon.IceSword;
 
 public class DevilSword extends IceSword {
 

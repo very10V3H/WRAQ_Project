@@ -4,7 +4,6 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.Utils;
 import fun.wraq.networking.ModNetworking;
-import fun.wraq.networking.reputationMission.ReputationMissionContentS2CPacket;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -97,7 +96,7 @@ public class ReputationMissionFinishedRequestC2SPacket {
                     Utils.playerReputationMissionPunishLevel.put(serverPlayer.getName().getString(), Utils.playerReputationMissionPunishLevel.get(serverPlayer.getName().getString()) - 1);
                 }
 
-                MySound.SoundToAll(serverPlayer, SoundEvents.PLAYER_LEVELUP);
+                MySound.soundToNearPlayer(serverPlayer, SoundEvents.PLAYER_LEVELUP);
             } else {
                 Compute.sendFormatMSG(serverPlayer, Component.literal("任务").withStyle(CustomStyle.styleOfKaze),
                         Component.literal("暂未达成任务要求。").withStyle(ChatFormatting.WHITE));

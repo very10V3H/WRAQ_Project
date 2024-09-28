@@ -1,7 +1,7 @@
 package fun.wraq.common.util;
 
 import fun.wraq.common.Compute;
-import fun.wraq.common.util.Utils;
+import fun.wraq.common.fast.Te;
 import fun.wraq.process.system.element.Color;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.worldsoul.SoulEquipAttribute;
@@ -766,5 +766,9 @@ public class ComponentUtils {
     public static void descriptionNum(List<Component> components, String string, Component component, String string1) {
         components.add(Component.literal(string).withStyle(ChatFormatting.WHITE).
                 append(component).append(string1).withStyle(ChatFormatting.WHITE));
+    }
+
+    public static Component getAutoAdaptDamageDescription(String value) {
+        return Te.m(value + "自适应伤害", CustomStyle.styleOfSea);
     }
 }

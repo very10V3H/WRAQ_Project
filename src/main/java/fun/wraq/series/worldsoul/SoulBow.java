@@ -8,7 +8,6 @@ import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.common.equip.WraqBow;
 import fun.wraq.render.particles.ModParticles;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.worldsoul.SoulEquipAttribute;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.server.level.ServerPlayer;
@@ -76,7 +75,7 @@ public class SoulBow extends WraqBow {
         arrow.setCritArrow(true);
         WraqBow.adjustArrow(arrow, serverPlayer);
         serverPlayer.level().addFreshEntity(arrow);
-        MySound.SoundToAll(serverPlayer, SoundEvents.ARROW_SHOOT);
+        MySound.soundToNearPlayer(serverPlayer, SoundEvents.ARROW_SHOOT);
         ParticleProvider.FaceCircleCreate(serverPlayer, 1, 0.75, 20, ModParticles.WORLD.get());
         ParticleProvider.FaceCircleCreate(serverPlayer, 1.5, 0.5, 16, ModParticles.WORLD.get());
         ParticleProvider.FaceCircleCreate(serverPlayer, 2, 0.25, 12, ModParticles.WORLD.get());

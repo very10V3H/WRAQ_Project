@@ -105,7 +105,7 @@ public class CastleSwiftArmor extends WraqArmor implements ForgeItem {
         myArrow.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0f, 3F, 1.0f);
         myArrow.setCritArrow(true);
         player.level().addFreshEntity(myArrow);
-        MySound.SoundToAll(player, SoundEvents.ARROW_SHOOT);
+        MySound.soundToNearPlayer(player, SoundEvents.ARROW_SHOOT);
         ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1, 0.75, 20, ParticleTypes.WAX_OFF);
     }
 

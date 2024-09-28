@@ -1,7 +1,7 @@
 package fun.wraq.series.instance.series.devil;
 
 import fun.wraq.common.util.Utils;
-import fun.wraq.series.instance.series.ice.IceSceptre;
+import fun.wraq.series.instance.series.ice.weapon.IceSceptre;
 
 public class DevilSceptre extends IceSceptre {
 

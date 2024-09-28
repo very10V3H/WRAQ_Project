@@ -13,7 +13,6 @@ import fun.wraq.common.equip.WraqBow;
 import fun.wraq.render.particles.ModParticles;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.overworld.chapter7.C7Items;
-import fun.wraq.series.overworld.chapter7.vd.VdWeaponCommon;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -81,7 +80,7 @@ public class VdBow extends WraqBow implements ForgeItem, ActiveItem, TickMainHan
         arrow.setCritArrow(true);
         WraqBow.adjustArrow(arrow, serverPlayer);
         serverPlayer.level().addFreshEntity(arrow);
-        MySound.SoundToAll(serverPlayer, SoundEvents.ARROW_SHOOT);
+        MySound.soundToNearPlayer(serverPlayer, SoundEvents.ARROW_SHOOT);
         ParticleProvider.FaceCircleCreate(serverPlayer, 1, 0.75, 20, ModParticles.WORLD.get());
         ParticleProvider.FaceCircleCreate(serverPlayer, 1.5, 0.5, 16, ModParticles.WORLD.get());
         ParticleProvider.FaceCircleCreate(serverPlayer, 2, 0.25, 12, ModParticles.WORLD.get());

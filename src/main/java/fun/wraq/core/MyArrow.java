@@ -6,10 +6,9 @@ import fun.wraq.common.attribute.DamageInfluence;
 import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.attribute.SameTypeModule;
-import fun.wraq.common.impl.onhit.OnHitEffectArmor;
+import fun.wraq.common.impl.onhit.*;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.core.AttackEvent;
 import fun.wraq.customized.uniform.bow.BowCurios0;
 import fun.wraq.entities.entities.Civil.Civil;
 import fun.wraq.events.modules.AttackEventModule;
@@ -17,9 +16,6 @@ import fun.wraq.process.func.EnhanceNormalAttackModifier;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.element.Element;
-import fun.wraq.common.impl.onhit.OnHitEffectCurios;
-import fun.wraq.common.impl.onhit.OnHitEffectMainHandWeapon;
-import fun.wraq.common.impl.onhit.OnHitEffectPassiveEquip;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.castle.CastleBow;
 import fun.wraq.series.instance.series.castle.CastleSwiftArmor;
@@ -49,11 +45,11 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
+import org.apache.commons.lang3.RandomUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Random;
 
 public class MyArrow extends AbstractArrow {
 
@@ -197,7 +193,6 @@ public class MyArrow extends AbstractArrow {
         CompoundTag data = player.getPersistentData();
         CompoundTag dataArrow = myArrow.getPersistentData();
         Level level = player.level();
-        Random r = new Random();
         boolean shootByPlayer = myArrow.WhetherShootByPlayer;
         double defencePenetration = PlayerAttributes.defencePenetration(player);
         double defencePenetration0 = PlayerAttributes.defencePenetration0(player);
@@ -242,12 +237,12 @@ public class MyArrow extends AbstractArrow {
 
             boolean critFlag = false;
             if (BoneImpKnife.passive(player, monster)) critRate = 1;
-            if (r.nextDouble(1) < critRate) {
+            if (RandomUtils.nextDouble(0, 1) < critRate) {
                 critFlag = true;
                 AttackEventModule.BowSkill5(data, player); // 狂暴（造成暴击后，提升1%攻击力，持续5s）
-                AttackEventModule.IceBow(player, monster); // 冬
                 damage = baseDamage * (1 + critDamage);
                 data.putBoolean(StringUtils.DamageTypes.Crit, true);
+                OnCritHitEffectMainHandWeapon.critHit(player, monster);
             } else damage = baseDamage;
 
             if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false)) {
@@ -362,7 +357,7 @@ public class MyArrow extends AbstractArrow {
 
             if (Defence == 0)
                 Defence = (double) Objects.requireNonNull(hurter.getAttribute(Attributes.ARMOR)).getValue();
-            if (r.nextDouble(1.0d) < critRate) {
+            if (RandomUtils.nextDouble(0, 1) < critRate) {
                 AttackEventModule.BowSkill5(data, player); // 狂暴（造成暴击后，提升1%攻击力，持续5s）
                 if (defencePenetration0 >= Defence) damage = baseDamage * (1.0d + critDamage);
                 else

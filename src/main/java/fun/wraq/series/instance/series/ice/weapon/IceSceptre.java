@@ -1,8 +1,10 @@
-package fun.wraq.series.instance.series.ice;
+package fun.wraq.series.instance.series.ice.weapon;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModEntityType;
+import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.ModSounds;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
@@ -32,7 +34,7 @@ import java.util.List;
 public class IceSceptre extends WraqSceptre implements OnHitEffectMainHandWeapon {
 
     public IceSceptre(Properties p_42964_) {
-        super(p_42964_.rarity(CustomStyle.IceItalic));
+        super(p_42964_);
         Utils.manaDamage.put(this, 1400d);
         Utils.manaRecover.put(this, 30d);
         Utils.coolDownDecrease.put(this, 0.45);
@@ -58,7 +60,7 @@ public class IceSceptre extends WraqSceptre implements OnHitEffectMainHandWeapon
         level.addFreshEntity(newArrow);
         ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1, 0.75, 20, ParticleTypes.SNOWFLAKE);
         ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1.5, 0.5, 16, ParticleTypes.SNOWFLAKE);
-        MySound.SoundToAll(player, ModSounds.Mana.get());
+        MySound.soundToNearPlayer(player, ModSounds.Mana.get());
         return newArrow;
     }
 
@@ -75,14 +77,21 @@ public class IceSceptre extends WraqSceptre implements OnHitEffectMainHandWeapon
         components.add(Component.literal(" 攻击").withStyle(CustomStyle.styleOfPower).
                 append(Component.literal("将对目标造成持续1s的").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("减速").withStyle(CustomStyle.styleOfIce)));
-        Compute.DescriptionPassive(components, Component.literal("凝结爆裂").withStyle(style));
-        components.add(Component.literal(" 你的普通法球攻击命中目标后，为你提供基于攻击目标").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.ManaDefence("")).
-                append(Component.literal("的额外").withStyle(ChatFormatting.WHITE)).
-                append(ComponentUtils.AttributeDescription.manaDamage("")).
-                append(Component.literal("持续2s").withStyle(ChatFormatting.WHITE)));
-        components.add(Component.literal(" 每1点魔法抗性提供2法术攻击").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
-        components.add(Component.literal(" 最多提供6000法术攻击（在目标拥有3000魔法抗性时达到最大值）").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
+        Compute.DescriptionPassive(components, Component.literal("凝结爆裂").withStyle(CustomStyle.styleOfIce));
+        components.add(Te.m(" 法球对处于").
+                append(Te.m("减速", CustomStyle.styleOfIce)).
+                append(Te.m("状态的目标造成")).
+                append(Te.m("伤害", ChatFormatting.BLUE)).
+                append(Te.m("后，施加一层")).
+                append(Te.m("寒冰", CustomStyle.styleOfIce)));
+        components.add(Te.m(" 当目标的").
+                append(Te.m("寒冰", CustomStyle.styleOfIce)).
+                append(Te.m("达到8层后，下次暴击会引爆所有层数")));
+        components.add(Te.m(" 对目标造成").
+                append(ComponentUtils.getAutoAdaptDamageDescription("200%")));
+        components.add(Te.m(" 并击碎目标").
+                append(ComponentUtils.AttributeDescription.manaDefence("25%")).
+                append(Te.m("，持续5s")));
         return components;
     }
 
@@ -93,7 +102,7 @@ public class IceSceptre extends WraqSceptre implements OnHitEffectMainHandWeapon
 
     @Override
     public void onHit(Player player, Mob mob) {
-        Compute.addSlowDownEffect(mob, 20, 1);
-        Compute.iceParticleCreate(mob);
+        IceWeaponPassiveHelper.onHit(player, mob);
+        IceWeaponPassiveHelper.onCritHit(player, mob, ModItems.IceSceptre.get(), 8);
     }
 }

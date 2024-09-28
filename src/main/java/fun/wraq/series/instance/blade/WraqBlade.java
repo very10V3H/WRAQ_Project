@@ -1,17 +1,16 @@
 package fun.wraq.series.instance.blade;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqPassiveEquip;
+import fun.wraq.common.equip.WraqSword;
+import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.core.AttackEvent;
 import fun.wraq.process.func.DelayOperationWithAnimation;
-import fun.wraq.common.equip.impl.ActiveItem;
-import fun.wraq.common.equip.WraqPassiveEquip;
-import fun.wraq.common.equip.WraqSword;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.instance.blade.BladeItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -75,9 +74,9 @@ public class WraqBlade extends WraqPassiveEquip implements ActiveItem {
             @Override
             public void trig() {
                 if (player.getMainHandItem().getItem() instanceof WraqSword) {
-                    MySound.SoundToAll(player, SoundEvents.PLAYER_ATTACK_KNOCKBACK);
+                    MySound.soundToNearPlayer(player, SoundEvents.PLAYER_ATTACK_KNOCKBACK);
                     AttackEvent.getPlayerNormalAttackRangeMobList(player).forEach(mob -> {
-                        AttackEvent.attackToMonster(mob, player, rate, true);
+                        AttackEvent.attackToMonster(mob, player, rate, true, true);
                     });
                 }
             }

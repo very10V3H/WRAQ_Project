@@ -57,7 +57,7 @@ public class ShipSceptre extends WraqSceptre {
         level.addFreshEntity(newArrow);
         ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1, 0.75, 20, ParticleTypes.DRIPPING_WATER);
         ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1.5, 0.5, 16, ParticleTypes.DRIPPING_WATER);
-        MySound.SoundToAll(player, ModSounds.Mana.get());
+        MySound.soundToNearPlayer(player, ModSounds.Mana.get());
         return newArrow;
     }
 

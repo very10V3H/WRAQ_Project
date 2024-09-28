@@ -39,15 +39,15 @@ public class AttackC2SPacket {
             switch (count) {
                 case 0 -> {
                     AttackEvent.module(player, 0.8);
-                    MySound.SoundToAll(player, SoundEvents.PLAYER_ATTACK_WEAK);
+                    MySound.soundToNearPlayer(player, SoundEvents.PLAYER_ATTACK_WEAK);
                 }
                 case 1 -> {
                     AttackEvent.module(player, 1.2);
-                    MySound.SoundToAll(player, SoundEvents.PLAYER_ATTACK_STRONG);
+                    MySound.soundToNearPlayer(player, SoundEvents.PLAYER_ATTACK_STRONG);
                 }
                 case 2 -> {
                     AttackEvent.module(player, 1.5);
-                    MySound.SoundToAll(player, SoundEvents.PLAYER_ATTACK_SWEEP);
+                    MySound.soundToNearPlayer(player, SoundEvents.PLAYER_ATTACK_SWEEP);
                 }
             }
         });

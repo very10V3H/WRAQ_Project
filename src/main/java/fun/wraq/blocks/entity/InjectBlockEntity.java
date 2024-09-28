@@ -1,7 +1,6 @@
 package fun.wraq.blocks.entity;
 
 import fun.wraq.blocks.blocks.inject.InjectRecipe;
-import fun.wraq.blocks.entity.ModBlockEntities;
 import fun.wraq.common.Compute;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
@@ -227,7 +226,7 @@ public class InjectBlockEntity extends BlockEntity implements MenuProvider {
             blockEntity.itemStackHandler.extractItem(1, InjectRecipe.injectingRecipeMap.get(injectedItem.getItem()).getOriginalMaterialNeedCount(), false);
             blockEntity.itemStackHandler.setStackInSlot(2, productItemStack);
 
-            MySound.SoundToAll(player, SoundEvents.BREWING_STAND_BREW);
+            MySound.soundToNearPlayer(player, SoundEvents.BREWING_STAND_BREW);
         }
     }
 

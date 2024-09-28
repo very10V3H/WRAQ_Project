@@ -116,7 +116,7 @@ public class PowerLogic {
         }
         ParticleProvider.VerticleCircleParticle(TargetPos, (ServerLevel) level, 1, 6, 100, ParticleTypes.WITCH);
         ParticleProvider.VerticleCircleParticle(TargetPos, (ServerLevel) level, 1.5, 6, 100, ParticleTypes.WITCH);
-        MySound.SoundToAll(player, ModSounds.Nether_Power.get());
+        MySound.soundToNearPlayer(player, ModSounds.Nether_Power.get());
     }
 
     public static void PiglinPower(Player player, Item Tool) {
@@ -179,7 +179,7 @@ public class PowerLogic {
         ParticleProvider.VerticleCircleParticle(TargetPos, (ServerLevel) level, 1, 6, 100, ParticleTypes.WITCH);
         ParticleProvider.VerticleCircleParticle(TargetPos, (ServerLevel) level, 1.5, 6, 100, ParticleTypes.WITCH);
 
-        MySound.SoundToAll(player, ModSounds.Nether_Power.get());
+        MySound.soundToNearPlayer(player, ModSounds.Nether_Power.get());
     }
 
     public static void WitherBoneMealPower(Player player, Item Tool) {
@@ -227,7 +227,7 @@ public class PowerLogic {
         ParticleProvider.VerticleCircleParticle(TargetPos, (ServerLevel) level, 1, 6, 100, ParticleTypes.WITCH);
         ParticleProvider.VerticleCircleParticle(TargetPos, (ServerLevel) level, 1.5, 6, 100, ParticleTypes.WITCH);
 
-        MySound.SoundToAll(player, ModSounds.Nether_Power.get());
+        MySound.soundToNearPlayer(player, ModSounds.Nether_Power.get());
     }
 
     public static void MagmaPower(Player player, Item Tool) {
@@ -235,7 +235,7 @@ public class PowerLogic {
         CompoundTag data = player.getPersistentData();
         if (Tool != null) playerItemCoolDown(player, Tool, 3);
         data.putBoolean("MagmaPower", true);
-        MySound.SoundToAll(player, ModSounds.Nether_Power.get());
+        MySound.soundToNearPlayer(player, ModSounds.Nether_Power.get());
     }
 
     public static void PlainPower(Player player, Item Tool, int level) {
@@ -286,7 +286,7 @@ public class PowerLogic {
         ParticleProvider.DisperseParticle(TargetPos, (ServerLevel) player.level(), 1, 1, 120, ModParticles.LONG_PLAIN.get(), 1);
         ParticleProvider.DisperseParticle(TargetPos, (ServerLevel) player.level(), 1.5, 1, 120, ModParticles.LONG_PLAIN.get(), 1);
 
-        MySound.SoundToAll(player, ModSounds.Wind.get());
+        MySound.soundToNearPlayer(player, ModSounds.Wind.get());
     }
 
     public static void ForestPower(Player player, Item Tool, int level) {
@@ -374,7 +374,7 @@ public class PowerLogic {
 
         ParticleProvider.DisperseParticle(TargetPos, (ServerLevel) player.level(), 1, 1, 120, ModParticles.LONG_LAKE.get(), 1);
         ParticleProvider.DisperseParticle(TargetPos, (ServerLevel) player.level(), 1.5, 1, 120, ModParticles.LONG_LAKE.get(), 1);
-        MySound.SoundToAll(player, SoundEvents.WATER_AMBIENT);
+        MySound.soundToNearPlayer(player, SoundEvents.WATER_AMBIENT);
     }
 
     public static void VolcanoPower(Player player, Item Tool, int level) {
@@ -418,7 +418,7 @@ public class PowerLogic {
         ParticleProvider.DisperseParticle(TargetPos, (ServerLevel) player.level(), 1, 1, 120, ModParticles.LONG_VOLCANO.get(), 1);
         ParticleProvider.DisperseParticle(TargetPos, (ServerLevel) player.level(), 1.5, 1, 120, ModParticles.LONG_VOLCANO.get(), 1);
 
-        MySound.SoundToAll(player, SoundEvents.DRAGON_FIREBALL_EXPLODE);
+        MySound.soundToNearPlayer(player, SoundEvents.DRAGON_FIREBALL_EXPLODE);
     }
 
     public static void SnowPower(Player player, Item Tool, int level) {
@@ -455,7 +455,7 @@ public class PowerLogic {
         players.forEach(player1 -> {
             if (player1.distanceTo(player) < 6) {
                 Shield.providePlayerShield(player1, 50, data.getInt(StringUtils.Ability.Intelligent) * 20);
-                Compute.iceParticleCreate(player1);
+                Compute.createIceParticle(player1);
                 sendEffectLastTime(player, ModItems.SnowPower.get().getDefaultInstance(), 50);
             }
         });
@@ -465,7 +465,7 @@ public class PowerLogic {
 
         ParticleProvider.DisperseParticle(TargetPos, (ServerLevel) player.level(), 1, 1, 120, ModParticles.LONG_SNOW.get(), 1);
         ParticleProvider.DisperseParticle(TargetPos, (ServerLevel) player.level(), 1.5, 1, 120, ModParticles.LONG_SNOW.get(), 1);
-        MySound.SoundToAll(player, ModSounds.Mana.get());
+        MySound.soundToNearPlayer(player, ModSounds.Mana.get());
     }
 
 
