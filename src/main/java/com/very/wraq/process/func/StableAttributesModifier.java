@@ -1,6 +1,9 @@
 package com.very.wraq.process.func;
 
+import com.very.wraq.common.Compute;
+import com.very.wraq.common.fast.Tick;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +32,8 @@ public record StableAttributesModifier(String tag, double value, int stopTick) {
         return modifierMap.get(player);
     }
 
-    public static void addAttributeModifier(Player player, Map<Player, List<StableAttributesModifier>> modifierMap, StableAttributesModifier attributeModifier) {
+    public static void addAttributeModifier(Player player, Map<Player, List<StableAttributesModifier>> modifierMap,
+                                            StableAttributesModifier attributeModifier) {
         List<StableAttributesModifier> modifierList = getAttributeModifierList(player, modifierMap);
         List<StableAttributesModifier> removeList = new ArrayList<>();
         modifierList.forEach(modifier -> {
@@ -39,6 +43,17 @@ public record StableAttributesModifier(String tag, double value, int stopTick) {
         });
         modifierList.removeAll(removeList);
         modifierList.add(attributeModifier);
+    }
+
+    public static void addM(Player player, Map<Player, List<StableAttributesModifier>> modifierMap,
+                            String tag, double value, int stopTick) {
+        addAttributeModifier(player, modifierMap, new StableAttributesModifier(tag, value, stopTick));
+    }
+
+    public static void addM(Player player, Map<Player, List<StableAttributesModifier>> modifierMap,
+                            String tag, double value, int stopTick, Item icon) {
+        addAttributeModifier(player, modifierMap, new StableAttributesModifier(tag, value, stopTick));
+        Compute.sendEffectLastTime(player, icon, stopTick - Tick.get());
     }
 
     public static void removeAttributeModifierByTag(Player player, Map<Player, List<StableAttributesModifier>> modifierMap, String tag) {
