@@ -17,4 +17,20 @@ public class Te {
     public static MutableComponent m(String v, ChatFormatting style) {
         return Component.literal(v).withStyle(style);
     }
+
+    public static MutableComponent m(Component... components) {
+        MutableComponent mutableComponent = Component.literal("");
+        for (Component component : components) {
+            mutableComponent.append(component);
+        }
+        return mutableComponent;
+    }
+
+    public static MutableComponent s(Component... components) {
+        MutableComponent mutableComponent = Component.literal(" ");
+        for (Component component : components) {
+            mutableComponent.append(component);
+        }
+        return mutableComponent;
+    }
 }
