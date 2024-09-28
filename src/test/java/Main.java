@@ -1,5 +1,5 @@
-import com.very.wraq.common.attribute.MobAttributes;
-import com.very.wraq.files.CSVReader;
+import fun.wraq.common.attribute.MobAttributes;
+import fun.wraq.files.CSVReader;
 
 import java.io.IOException;
 
