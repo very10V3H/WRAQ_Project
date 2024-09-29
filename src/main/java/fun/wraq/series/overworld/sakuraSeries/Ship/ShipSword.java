@@ -1,14 +1,15 @@
 package fun.wraq.series.overworld.sakuraSeries.Ship;
 
 import fun.wraq.common.Compute;
-import fun.wraq.common.registry.ModItems;
+import fun.wraq.common.equip.WraqSword;
+import fun.wraq.common.equip.impl.ActiveItem;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.process.func.StableAttributesModifier;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.element.Element;
-import fun.wraq.common.equip.impl.ActiveItem;
-import fun.wraq.common.equip.WraqSword;
 import fun.wraq.render.particles.ModParticles;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.overworld.chapter1.forest.ForestPowerEffectMob;
@@ -54,7 +55,7 @@ public class ShipSword extends WraqSword implements ActiveItem {
                 append(Component.literal("牵引").withStyle(style)).
                 append(Component.literal("至自身位置").withStyle(ChatFormatting.WHITE)));
         components.add(Component.literal(" 并击碎其").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.Defence("250-1000")).
+                append(Compute.AttributeDescription.Defence("10-40")).
                 append(Component.literal(" 持续5s").withStyle(ChatFormatting.WHITE)));
         components.add(Component.literal(" - 击碎的护甲数额随牵引的怪物数量增长。").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
         ComponentUtils.coolDownTimeDescription(components, 12);
@@ -75,20 +76,18 @@ public class ShipSword extends WraqSword implements ActiveItem {
     @Override
     public void active(Player player) {
         if (Compute.playerManaCost(player, 75)) {
-            int tickCount = player.getServer().getTickCount();
             Level dimension = player.level();
             Compute.playerItemCoolDown(player, this, 12);
             Vec3 desPos = player.position();
             List<Mob> mobList = dimension.getEntitiesOfClass(Mob.class,
-                    AABB.ofSize(player.position(), 20, 20, 20));
-            mobList.removeIf(mob -> mob.position().distanceTo(desPos) > 6);
+                            AABB.ofSize(player.position(), 20, 20, 20))
+                    .stream().filter(mob -> mob.position().distanceTo(desPos) <= 6).toList();
             mobList.forEach(mob -> {
                 Utils.ForestPowerEffectMobList.add(new ForestPowerEffectMob(desPos, 20, mob));
                 Compute.addSlowDownEffect(mob, 40, 2);
                 Compute.addDefenceDecreaseEffectParticle(mob, 100);
-                Utils.shipSwordTime.put(mob, tickCount + 100);
-                Utils.shipSwordEffect.put(mob, Math.min(mobList.size(), 4));
-                Compute.sendMobEffectHudToNearPlayer(mob, ModItems.ShipSword.get(), "ShipSwordDefenceDecrease", 100, 0, false);
+                StableAttributesModifier.addM(mob, StableAttributesModifier.mobDefenceModifier,
+                        "ShipSword active", -10 * Math.min(4, mobList.size()), Tick.get() + 100, this);
             });
             MySound.soundToNearPlayer(player, SoundEvents.ANVIL_LAND);
 

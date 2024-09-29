@@ -5,6 +5,10 @@ import com.mojang.datafixers.util.Pair;
 import com.mojang.logging.LogUtils;
 import fun.wraq.commands.changeable.CompensateCommand;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.equip.impl.ActiveItem;
+import fun.wraq.common.equip.impl.CrestItem;
+import fun.wraq.common.equip.impl.RandomCurios;
+import fun.wraq.common.equip.impl.WraqMainHandOrPassiveEquip;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModEntityType;
 import fun.wraq.common.registry.ModItems;
@@ -23,9 +27,6 @@ import fun.wraq.events.core.InventoryCheck;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.EffectLastTimeS2CPacket;
 import fun.wraq.networking.misc.EntropyPackets.EntropyS2CPacket;
-import fun.wraq.networking.misc.ParticlePackets.EffectParticle.DamageDecreaseParticleS2CPacket;
-import fun.wraq.networking.misc.ParticlePackets.EffectParticle.DefencePenetrationParticleS2CPacket;
-import fun.wraq.networking.misc.ParticlePackets.EffectParticle.ManaDefencePenetrationParticleS2CPacket;
 import fun.wraq.networking.misc.ParticlePackets.SlowDownParticleS2CPacket;
 import fun.wraq.networking.misc.PsValueS2CPacket;
 import fun.wraq.networking.misc.RemoveEffectLastTimeS2CPacket;
@@ -52,10 +53,6 @@ import fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSwo
 import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.process.system.potion.NewPotionEffects;
 import fun.wraq.process.system.tower.Tower;
-import fun.wraq.common.equip.impl.ActiveItem;
-import fun.wraq.common.equip.impl.CrestItem;
-import fun.wraq.common.equip.impl.RandomCurios;
-import fun.wraq.common.equip.impl.WraqMainHandOrPassiveEquip;
 import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.render.hud.Mana;
 import fun.wraq.render.particles.ModParticles;
@@ -311,32 +308,32 @@ public class Compute {
     }
 
     public static void addManaDefenceDecreaseEffectParticle(Mob mob, int Tick) {
-        List<ServerPlayer> playerList = mob.level().getServer().getPlayerList().getPlayers();
+/*        List<ServerPlayer> playerList = mob.level().getServer().getPlayerList().getPlayers();
         playerList.forEach(serverPlayer -> {
             ModNetworking.sendToClient(new ManaDefencePenetrationParticleS2CPacket(mob.getId(), Tick), serverPlayer);
-        });
+        });*/
     }
 
     public static void addDefenceDecreaseEffectParticle(Mob mob, int Tick) {
-        List<ServerPlayer> playerList = mob.level().getServer().getPlayerList().getPlayers();
+/*        List<ServerPlayer> playerList = mob.level().getServer().getPlayerList().getPlayers();
         playerList.forEach(serverPlayer -> {
             ModNetworking.sendToClient(new DefencePenetrationParticleS2CPacket(mob.getId(), Tick), serverPlayer);
-        });
+        });*/
     }
 
     public static void addDamageDecreaseEffectParticle(Mob mob, int Tick) {
-        List<ServerPlayer> playerList = mob.level().getServer().getPlayerList().getPlayers();
+/*        List<ServerPlayer> playerList = mob.level().getServer().getPlayerList().getPlayers();
         playerList.forEach(serverPlayer -> {
             ModNetworking.sendToClient(new DamageDecreaseParticleS2CPacket(mob.getId(), Tick), serverPlayer);
-        });
+        });*/
     }
 
     public static void addSlowDownEffect(Mob mob, int Tick, int Tier) {
         mob.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, Tick, Tier, false, false, false));
-        List<ServerPlayer> playerList = mob.level().getServer().getPlayerList().getPlayers();
+/*        List<ServerPlayer> playerList = mob.level().getServer().getPlayerList().getPlayers();
         playerList.forEach(serverPlayer -> {
             ModNetworking.sendToClient(new SlowDownParticleS2CPacket(mob.getId(), Tick), serverPlayer);
-        });
+        });*/
     }
 
     public static void playerItemCoolDown(Player player, Item item, double Seconds) {

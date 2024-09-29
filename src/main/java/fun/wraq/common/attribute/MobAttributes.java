@@ -23,6 +23,10 @@ public class MobAttributes {
         double exDefence = 0;
         double rate = 1;
 
+        // 固定
+        exDefence += TowerMob.mobDefenceUp(monster);
+        exDefence += StableAttributesModifier.getModifierValue(monster, StableAttributesModifier.mobDefenceModifier);
+
         CompoundTag data = monster.getPersistentData();
         // 百分比
         if (data.getInt(StringUtils.Entropy.Snow) > tickCount)
@@ -42,14 +46,10 @@ public class MobAttributes {
         rate *= WaterElementSword.MobDefenceDecrease(monster);
         rate *= Element.ElementDefenceDecrease(monster);
 
+        defence += exDefence;
         defence *= rate;
-        // 固定
-        exDefence += TowerMob.mobDefenceUp(monster);
-        if (Utils.shipSwordEffect.containsKey(monster) && Utils.shipSwordTime.get(monster) > tickCount) {
-            exDefence -= Utils.shipSwordEffect.get(monster) * 250;
-        }
 
-        return Math.max(defence + exDefence, 0);
+        return Math.max(defence, 0);
     }
 
     public static double manaDefence(Mob monster) {

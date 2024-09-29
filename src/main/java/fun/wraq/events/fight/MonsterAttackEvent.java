@@ -110,7 +110,7 @@ public class MonsterAttackEvent {
 
         // 副手盾受到伤害削减
         if (Utils.shieldTag.containsKey(player.getOffhandItem().getItem())) {
-            double damageDecreaseValue = PlayerAttributes.defence(player) * 0.35 + PlayerAttributes.manaDefence(player) * 0.35;
+            double damageDecreaseValue = PlayerAttributes.defence(player) * 1.5 + PlayerAttributes.manaDefence(player) * 1.5;
             if (damageDecreaseValue > damage * 0.75) {
                 MySound.soundToPlayer(player, SoundEvents.SHIELD_BLOCK);
             }

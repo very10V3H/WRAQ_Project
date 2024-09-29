@@ -907,7 +907,7 @@ public class PlayerAttributes {
         }
 
         if (Utils.SnowShieldPlayerEffectTickMap.containsKey(player) && Utils.SnowShieldPlayerEffectTickMap.get(player) > TickCount) {
-            exDefence += Utils.SnowShieldPlayerEffectMap.get(player) * 0.01;
+            exDefence += Utils.SnowShieldPlayerEffectMap.get(player);
         } // 玉山圆盾
 
         exDefence += Compute.CuriosAttribute.attributeValue(player, Utils.defence, StringUtils.CuriosAttribute.defence); // 新版饰品属性加成
@@ -1326,6 +1326,7 @@ public class PlayerAttributes {
 
         defencePenetration0 += CastleSword.ExPenetration0(player); // 暗黑武器主动
         defencePenetration0 += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerDefencePenetration0Modifier);
+        defencePenetration0 += computeAllEquipmentSlotAttributeEnhance(player, Utils.defencePenetration0);
         // 请在上方添加
         defencePenetration0 *= Compute.playerFantasyAttributeEnhance(player);
 
@@ -2088,15 +2089,6 @@ public class PlayerAttributes {
 
         if (SuitCount.getVolcanoSuitCount(player) >= 4) manaPenetration0 += 3;
 
-        if (mainhand.equals(ModItems.ShipSceptre.get())) {
-            if (Utils.ShipSceptreWaterBlockNum.containsKey(player)) {
-                int Count = Utils.ShipSceptreWaterBlockNum.get(player);
-                if (Count > 0) {
-                    manaPenetration0 += 1 + 0.005 * Count;
-                }
-            }
-        } // 唤潮之杖
-
         if (Utils.PlayerSpringRingManaPenetration0Attribute.containsKey(player) && Utils.PlayerSpringRingLevelRequire.get(player) <= player.experienceLevel) {
             manaPenetration0 += Utils.PlayerSpringRingManaPenetration0Attribute.get(player) * 0.01;
         }
@@ -2127,6 +2119,7 @@ public class PlayerAttributes {
 
         manaPenetration0 += Compute.PassiveEquip.getAttribute(player, Utils.manaPenetration0); // 器灵属性加成
         manaPenetration0 += CastleSword.ExPenetration0(player); // 暗黑武器主动
+        manaPenetration0 += computeAllEquipmentSlotAttributeEnhance(player, Utils.manaPenetration0);
         // 请在上方添加
         manaPenetration0 *= Compute.playerFantasyAttributeEnhance(player);
         return manaPenetration0;

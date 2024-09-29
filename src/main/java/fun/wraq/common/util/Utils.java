@@ -1,7 +1,6 @@
 package fun.wraq.common.util;
 
 import fun.wraq.common.registry.ModItems;
-import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.struct.*;
 import fun.wraq.common.util.struct.BowSkillStruct.BowSkill3;
 import fun.wraq.common.util.struct.BowSkillStruct.BowSkill6;
@@ -1182,13 +1181,6 @@ public class Utils {
     }};
 
     public static WeakHashMap<Player, Integer> MineShieldEffect = new WeakHashMap<>();
-
-    public static WeakHashMap<Mob, Integer> shipSwordTime = new WeakHashMap<>();
-    public static WeakHashMap<Mob, Integer> shipSwordEffect = new WeakHashMap<>();
-
-    public static WeakHashMap<Player, Integer> ShipSceptreWaterBlockNum = new WeakHashMap<>();
-
-    public static WeakHashMap<Player, Integer> SakuraBowEffectMap = new WeakHashMap<>();
 
     public static WeakHashMap<Player, Integer> IceSwordEffectMap = new WeakHashMap<>();
     public static WeakHashMap<Player, Double> IceSwordEffectNumMap = new WeakHashMap<>();

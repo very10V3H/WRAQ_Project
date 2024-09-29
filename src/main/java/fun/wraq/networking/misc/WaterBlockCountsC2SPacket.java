@@ -1,6 +1,6 @@
 package fun.wraq.networking.misc;
 
-import fun.wraq.common.util.Utils;
+import fun.wraq.series.overworld.sakuraSeries.Ship.ShipSceptre;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkEvent;
@@ -26,7 +26,7 @@ public class WaterBlockCountsC2SPacket {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
             ServerPlayer serverPlayer = context.getSender();
-            Utils.ShipSceptreWaterBlockNum.put(serverPlayer, counts);
+            ShipSceptre.waterBlockCount.put(serverPlayer, counts);
         });
         return true;
     }

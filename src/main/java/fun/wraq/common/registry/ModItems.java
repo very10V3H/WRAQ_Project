@@ -1945,7 +1945,7 @@ public class ModItems {
             () -> new ShipBow(new Item.Properties().stacksTo(1).rarity(CustomStyle.ShipItalic)));
 
     public static final RegistryObject<Item> ShipSceptre = ITEMS.register("ship_sceptre",
-            () -> new ShipSceptre(new Item.Properties().rarity(CustomStyle.ShipItalic), 0));
+            () -> new ShipSceptre(new Item.Properties().rarity(CustomStyle.ShipItalic)));
 
     public static final RegistryObject<Item> ShipPiece = ITEMS.register("ship_piece",
             () -> new Item(new Item.Properties().rarity(CustomStyle.ShipBold)));
