@@ -42,10 +42,28 @@ public class Te {
         return mutableComponent;
     }
 
-    public static MutableComponent s(Component... components) {
-        MutableComponent mutableComponent = Component.literal(" ");
-        for (Component component : components) {
-            mutableComponent.append(component);
+    @SafeVarargs
+    public static<T> MutableComponent s(T... textAndStyle) {
+        MutableComponent mutableComponent = Component.literal("");
+        for (int i = 0; i < textAndStyle.length; i++) {
+            T componentOrStyle = textAndStyle[i];
+            if (componentOrStyle instanceof Component component) {
+                mutableComponent.append(component);
+                continue;
+            }
+            if (componentOrStyle instanceof String string) {
+                MutableComponent soleComponent = Component.literal(string);
+                int index = i + 1;
+                if (index < textAndStyle.length && !(textAndStyle[index] instanceof Style || textAndStyle[index] instanceof ChatFormatting)) {
+                    soleComponent.withStyle(ChatFormatting.WHITE);
+                }
+                while (index < textAndStyle.length && (textAndStyle[index] instanceof Style || textAndStyle[index] instanceof ChatFormatting)) {
+                    if (textAndStyle[index] instanceof Style style) soleComponent.withStyle(style);
+                    if (textAndStyle[index] instanceof ChatFormatting chatFormatting) soleComponent.withStyle(chatFormatting);
+                    index ++;
+                }
+                mutableComponent.append(soleComponent);
+            }
         }
         return mutableComponent;
     }

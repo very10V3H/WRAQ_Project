@@ -2002,6 +2002,11 @@ public class Compute {
         return list.stream().filter(e -> e.distanceTo(center) <= distance).toList();
     }
 
+    public static List<? extends Entity> getNearEntity(Level level, Vec3 center, Class<? extends Entity> type, double distance) {
+        List<? extends Entity> list = level.getEntitiesOfClass(type, AABB.ofSize(center, distance * 2, distance * 2, distance * 2));
+        return list.stream().filter(e -> e.position().distanceTo(center) <= distance).toList();
+    }
+
     public static void sendMobEffectHudToNearPlayer(Mob mob, Item icon, String tag, int lastTick, int level, boolean forever) {
         List<? extends Entity> list = getNearEntity(mob, Player.class, 16);
         list.stream().filter(e -> e instanceof Player).forEach(p -> {

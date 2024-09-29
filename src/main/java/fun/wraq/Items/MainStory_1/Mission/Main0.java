@@ -1,8 +1,10 @@
 package fun.wraq.Items.MainStory_1.Mission;
 
 import fun.wraq.common.util.ComponentUtils;
-import fun.wraq.process.system.bonuschest.BonusChestPlayerData;
+import fun.wraq.process.func.particle.ParticleProvider;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvent;
@@ -53,17 +55,15 @@ public class Main0 extends Item {
             String name = player.getName().getString();
             CompoundTag data = player.getPersistentData();
 
-            player.sendSystemMessage(Component.literal(data.getCompound("bonus_chest_data_key").toString()));
         }
 
         if (!level.isClientSide && player.isShiftKeyDown()) {
-            BonusChestPlayerData.resetZoneInfo(player, 0);
-            BonusChestPlayerData.resetZoneInfo(player, 1);
-            BonusChestPlayerData.resetZoneInfo(player, 2);
+
         }
 
         if (level.isClientSide && !player.isShiftKeyDown()) {
-
+            ParticleProvider.createBallDisperseParticle(ParticleTypes.END_ROD,
+                    (ClientLevel) player.level(), player.position(), 0.5, 20);
         }
 
         if (level.isClientSide && player.isShiftKeyDown()) {

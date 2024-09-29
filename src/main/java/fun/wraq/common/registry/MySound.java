@@ -8,6 +8,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
@@ -25,6 +26,20 @@ public class MySound {
                 serverPlayer.connection.send(clientboundSoundPacket);
             }
         });
+    }
+
+    public static void soundToNearPlayer(Level level, Vec3 pos, SoundEvent soundEvent) {
+        if (soundEvent.equals(ModSounds.Mana.get()) || soundEvent.equals(ModSounds.Use.get()) || soundEvent.equals(ModSounds.Wind.get())
+                || soundEvent.equals(ModSounds.Lava.get()) || soundEvent.equals(ModSounds.Nether_Power.get()) || soundEvent.equals(ModSounds.Mana_Sword.get()))
+            return;
+        level.getEntitiesOfClass(Player.class, AABB.ofSize(pos, 32, 32, 32))
+                .stream().filter(player -> player.position().distanceTo(pos) <= 16)
+                .map(player -> (ServerPlayer) player)
+                .forEach(serverPlayer -> {
+                    ClientboundSoundPacket clientboundSoundPacket = new ClientboundSoundPacket(Holder.direct(soundEvent),
+                            SoundSource.PLAYERS, pos.x, pos.y, pos.z, 1f, 1, 0);
+                    serverPlayer.connection.send(clientboundSoundPacket);
+                });
     }
 
     public static void soundToAllPlayer(Level level, SoundEvent soundEvent) {

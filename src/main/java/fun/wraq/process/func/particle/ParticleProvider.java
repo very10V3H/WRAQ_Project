@@ -4,6 +4,8 @@ import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.ParticlePackets.NewParticlePackets.*;
+import fun.wraq.process.func.particle.packets.DisperseBallParticleS2CPacket;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
@@ -16,6 +18,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Vector3f;
 
@@ -550,4 +553,29 @@ public class ParticleProvider {
             target.level().destroyBlock(blockPos, false);
         }
     }
+
+    public static void createBallDisperseParticle(ParticleOptions particleOptions, ClientLevel level, Vec3 pos, double radius, int num) {
+        for (int i = 0 ; i < num ; i ++) {
+            for (int j = 0 ; j < num ; j ++) {
+                double theta = (i * 1.0 / num) * 2 * Math.PI;
+                double phi = Math.acos(2 * (j * 1.0 / num) - 1);
+                double x = radius * Math.sin(phi) * Math.cos(theta);
+                double y = radius * Math.sin(phi) * Math.sin(theta);
+                double z = radius * Math.cos(phi);
+                level.addParticle(particleOptions, pos.x, pos.y, pos.z, x, y, z);
+            }
+        }
+    }
+
+    public static void createBallDisperseParticle(ParticleOptions particleOptions, ServerLevel level, Vec3 pos, double radius, int num) {
+        level.getEntitiesOfClass(Player.class, AABB.ofSize(pos, 32, 32, 32))
+                .stream().filter(player -> player.position().distanceTo(pos) <= 16)
+                .map(player -> (ServerPlayer) player)
+                .forEach(serverPlayer -> {
+                    ModNetworking.sendToClient(
+                            new DisperseBallParticleS2CPacket(Utils.ParticleToParticleStringMap.get(particleOptions),
+                                    pos.x, pos.y, pos.z, radius, num), serverPlayer);
+                });
+    }
+
 }

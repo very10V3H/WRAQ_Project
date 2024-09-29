@@ -920,6 +920,7 @@ public class PlayerAttributes {
         exDefence += ForestArmorHelmet.exDefence(player);
         exDefence += computeAllEquipmentSlotAttributeEnhance(player, Utils.defence);
         exDefence += StableTierAttributeModifier.getModifierValue(player, StableTierAttributeModifier.defence);
+        exDefence += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerDefenceModifier);
         // 请在上方添加
         double totalDefence = 0;
         totalDefence = baseDefence + exDefence;
@@ -1865,6 +1866,7 @@ public class PlayerAttributes {
         exDefence += CastleManaArmor.ExAttributeValue(player, CastleManaArmor.ExManaDefence);
         exDefence += CastleSwiftArmor.ExAttributeValue(player, CastleSwiftArmor.ExManaDefence);
         exDefence += StableTierAttributeModifier.getModifierValue(player, StableTierAttributeModifier.manaDefence);
+        exDefence += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerManaDefenceModifier);
         // 请在上方添加
 
         double totalDefence = basicDefence + exDefence;

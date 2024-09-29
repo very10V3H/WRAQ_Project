@@ -2,6 +2,9 @@ package fun.wraq;
 
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.logging.LogUtils;
+import dev.kosmx.playerAnim.api.layered.IAnimation;
+import dev.kosmx.playerAnim.api.layered.ModifierLayer;
+import dev.kosmx.playerAnim.minecraftApi.PlayerAnimationFactory;
 import fun.wraq.blocks.blocks.forge.ForgeRecipe;
 import fun.wraq.blocks.entity.ModBlockEntities;
 import fun.wraq.common.attribute.BasicAttributeDescription;
@@ -49,13 +52,11 @@ import fun.wraq.series.gems.GemItems;
 import fun.wraq.series.instance.blade.BladeItems;
 import fun.wraq.series.instance.mixture.MixtureItems;
 import fun.wraq.series.instance.quiver.QuiverItems;
+import fun.wraq.series.instance.series.purple.PurpleIronCommon;
 import fun.wraq.series.moontain.MoontainItems;
 import fun.wraq.series.newrunes.NewRuneItems;
 import fun.wraq.series.overworld.chapter7.C7Items;
 import fun.wraq.series.specialevents.SpecialEventItems;
-import dev.kosmx.playerAnim.api.layered.IAnimation;
-import dev.kosmx.playerAnim.api.layered.ModifierLayer;
-import dev.kosmx.playerAnim.minecraftApi.PlayerAnimationFactory;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.resources.ResourceLocation;
@@ -115,7 +116,7 @@ public class VMD {
         ModBlocks.BLOCKS.register(modEvenBus);
         ModEntityType.ENTITY_TYPES.register(modEvenBus);
         modEvenBus.addListener(this::enqueueIMC);
-        modEvenBus.addListener(this::SetUp);
+        modEvenBus.addListener(this::clientStart);
         HAttribute.ATTRIBUTES.register(modEvenBus);
         ModSounds.register(modEvenBus);
         ModEffects.register(modEvenBus);
@@ -126,10 +127,55 @@ public class VMD {
         ModParticles.register(modEvenBus);
         ModCreativeModeTab.register(modEvenBus);
         modEvenBus.addListener(this::AddItemToTab);
-        modEvenBus.addListener(this::SetUp0);
+        modEvenBus.addListener(this::commonStart);
     }
 
-    private void SetUp0(FMLCommonSetupEvent event) {
+    @SubscribeEvent
+    public static void serverStartEvent(ServerStartingEvent event) throws SQLException, CommandSyntaxException, ParseException {
+        Tick.server = event.getServer();
+        PlanPlayer.read();
+
+        MarketInfo.marketItemInfoRead(event.getServer().overworld());
+        MarketInfo.marketProfitInfoRead(event.getServer().overworld());
+
+        MobSpawn.readKillCount();
+        VpDataHandler.firstRead();
+        WorldRecordInfo.recordInfoMap = DataBase.readWorldInfo();
+        TowerTimeRecord.readFromWorldRecordInfo();
+    }
+
+    @SubscribeEvent
+    public static void serverStopEvent(ServerStoppingEvent event) throws SQLException {
+        BlockEvent.mineAndWoodReset(event.getServer().getLevel(Level.OVERWORLD));
+        MobSpawn.removeAllMob();
+
+        MarketInfo.marketItemInfoWrite(event.getServer().overworld());
+        MarketInfo.marketProfitInfoWrite(event.getServer().overworld());
+
+        PlanPlayer.write();
+
+        PurpleIronCommon.destroyOnServerStop();
+
+        Connection connection = DataBase.getDatabaseConnection();
+        Statement statement = connection.createStatement();
+        Tower.writeToDataBase(statement);
+        Tower.writeStarCountToDataBase(statement);
+        NewLotteries.writeToDataBase(statement);
+        MobSpawn.writeToSQL(statement);
+        TowerTimeRecord.writeToWorldRecordInfo();
+        DataBase.writeWorldInfo(statement);
+        statement.close();
+
+        NoTeamInstanceModule.clearMob();
+        NewTeamInstanceEvent.getOverworldInstances().forEach(NewTeamInstance::clear);
+        VpDataHandler.write();
+
+        DBConnection.connection.close();
+        DBConnection.connection = null;
+        LogUtils.getLogger().info("Database connection closed");
+    }
+
+    private void commonStart(FMLCommonSetupEvent event) {
         ModNetworking.register();
         replaceAttributeValue((RangedAttribute) Attributes.MAX_HEALTH, Double.MAX_VALUE);
         replaceAttributeValue((RangedAttribute) Attributes.ARMOR, Double.MAX_VALUE);
@@ -140,7 +186,7 @@ public class VMD {
         ForgeEquipUtils.setZoneForgeItemListMap();
     }
 
-    private void SetUp(FMLClientSetupEvent event) {
+    private void clientStart(FMLClientSetupEvent event) {
         ModItemProperties.addCustomBowProperties();
         MenuScreens.register(ModMenuTypes.FIRST_MENU.get(), ForgingBlockScreen::new);
         MenuScreens.register(ModMenuTypes.BREWING_MENU.get(), BrewingScreen::new);
@@ -177,49 +223,6 @@ public class VMD {
     @SubscribeEvent
     public static void onEntityAttributeModificationEvent(EntityAttributeModificationEvent event) {
         event.add(ModEntityType.HETITY.get(), HAttribute.MAXHEALTH.get());
-    }
-
-    @SubscribeEvent
-    public static void serverStartEvent(ServerStartingEvent event) throws SQLException, CommandSyntaxException, ParseException {
-        Tick.server = event.getServer();
-        PlanPlayer.read();
-
-        MarketInfo.marketItemInfoRead(event.getServer().overworld());
-        MarketInfo.marketProfitInfoRead(event.getServer().overworld());
-
-        MobSpawn.readKillCount();
-        VpDataHandler.firstRead();
-        WorldRecordInfo.recordInfoMap = DataBase.readWorldInfo();
-        TowerTimeRecord.readFromWorldRecordInfo();
-    }
-
-    @SubscribeEvent
-    public static void serverStopEvent(ServerStoppingEvent event) throws SQLException {
-        BlockEvent.mineAndWoodReset(event.getServer().getLevel(Level.OVERWORLD));
-        MobSpawn.removeAllMob();
-
-        MarketInfo.marketItemInfoWrite(event.getServer().overworld());
-        MarketInfo.marketProfitInfoWrite(event.getServer().overworld());
-
-        PlanPlayer.write();
-
-        Connection connection = DataBase.getDatabaseConnection();
-        Statement statement = connection.createStatement();
-        Tower.writeToDataBase(statement);
-        Tower.writeStarCountToDataBase(statement);
-        NewLotteries.writeToDataBase(statement);
-        MobSpawn.writeToSQL(statement);
-        TowerTimeRecord.writeToWorldRecordInfo();
-        DataBase.writeWorldInfo(statement);
-        statement.close();
-
-        NoTeamInstanceModule.clearMob();
-        NewTeamInstanceEvent.getOverworldInstances().forEach(NewTeamInstance::clear);
-        VpDataHandler.write();
-
-        DBConnection.connection.close();
-        DBConnection.connection = null;
-        LogUtils.getLogger().info("Database connection closed");
     }
 
     @SubscribeEvent

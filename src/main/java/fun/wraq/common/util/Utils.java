@@ -616,7 +616,7 @@ public class Utils {
         put(StringUtils.ParticleTypes.Entropy, ModParticles.ENTROPY.get());
         put(StringUtils.ParticleTypes.Sea, ModParticles.SEA.get());
 
-
+        put(StringUtils.ParticleTypes.END_ROD, ParticleTypes.END_ROD);
     }};
     public static HashMap<ParticleOptions, String> ParticleToParticleStringMap = new HashMap<>() {{
         put(ParticleTypes.WITCH, StringUtils.ParticleTypes.Witch);
@@ -692,7 +692,7 @@ public class Utils {
 
         put(ModParticles.SoraSwordParticle.get(), StringUtils.ParticleTypes.SoraSwordParticle);
 
-
+        put(ParticleTypes.END_ROD, StringUtils.ParticleTypes.END_ROD);
     }};
 
     public static List<Boss2Damage> boss2DamageList = new ArrayList<>();

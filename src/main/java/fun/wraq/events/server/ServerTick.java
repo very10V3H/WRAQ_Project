@@ -1,7 +1,6 @@
 package fun.wraq.events.server;
 
 import fun.wraq.events.mob.MobSpawn;
-import fun.wraq.events.server.LoginInEvent;
 import fun.wraq.files.dataBases.DataBase;
 import fun.wraq.process.func.DelayOperationWithAnimation;
 import fun.wraq.process.func.damage.Dot;
@@ -12,6 +11,7 @@ import fun.wraq.process.system.tower.Tower;
 import fun.wraq.process.system.vp.VpDataHandler;
 import fun.wraq.series.instance.mixture.WraqMixture;
 import fun.wraq.series.instance.quiver.WraqQuiver;
+import fun.wraq.series.instance.series.purple.PurpleIronCommon;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -49,8 +49,10 @@ public class ServerTick {
                     }
                 }).start();
             }
-
             if (tickCount % 100 == 0) VpDataHandler.reviseDataMSGSend(event.getServer());
+            if (tickCount % 80 == 0) {
+                PurpleIronCommon.handleServerTick();
+            }
         }
     }
 

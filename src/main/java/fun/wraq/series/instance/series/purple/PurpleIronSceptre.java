@@ -1,20 +1,21 @@
 package fun.wraq.series.instance.series.purple;
 
-import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqPassiveEquip;
+import fun.wraq.common.impl.onhit.OnHitEffectPassiveEquip;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.common.equip.WraqPassiveEquip;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.instance.series.purple.PurpleIronTier;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PurpleIronSceptre extends WraqPassiveEquip implements PurpleIronTier {
+public class PurpleIronSceptre extends WraqPassiveEquip implements PurpleIronCommon, OnHitEffectPassiveEquip {
 
     private static final double[] ManaDamage = {
             200, 300, 400, 500
@@ -47,14 +48,7 @@ public class PurpleIronSceptre extends WraqPassiveEquip implements PurpleIronTie
     @Override
     public List<Component> getAdditionDescriptions() {
         List<Component> components = new ArrayList<>();
-        Style style = getMainStyle();
-        Compute.DescriptionPassive(components, Component.literal("晶体析构").withStyle(style));
-        components.add(Component.literal(" 基于你与目标的").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.ManaDefence("")).
-                append(Component.literal("差的").withStyle(ChatFormatting.WHITE)).
-                append(Component.literal("绝对值").withStyle(style)).
-                append(Component.literal("至多提供").withStyle(ChatFormatting.WHITE)).
-                append(Component.literal("50%伤害提升").withStyle(style)));
+        PurpleIronCommon.setDescription(components, tier);
         return components;
     }
 
@@ -76,5 +70,10 @@ public class PurpleIronSceptre extends WraqPassiveEquip implements PurpleIronTie
     @Override
     public int getPassiveTier() {
         return tier;
+    }
+
+    @Override
+    public void onHit(Player player, Mob mob) {
+        PurpleIronCommon.onHit(player, mob, this);
     }
 }

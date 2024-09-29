@@ -6,7 +6,6 @@ import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.core.BowRequestC2SPacket;
 import fun.wraq.core.ManaAttackRequestC2SPacket;
-import fun.wraq.networking.VersionC2SPacket;
 import fun.wraq.networking.bowAndSceptreActive.CommonActiveC2SPacket;
 import fun.wraq.networking.dailyMission.DailyMissionContentS2CPacket;
 import fun.wraq.networking.dailyMission.DailyMissionFinishedRequestC2SPacket;
@@ -54,6 +53,7 @@ import fun.wraq.networking.reputationMission.*;
 import fun.wraq.networking.unSorted.*;
 import fun.wraq.process.func.guide.networking.GuideFinishC2SPacket;
 import fun.wraq.process.func.guide.networking.GuideStageS2CPacket;
+import fun.wraq.process.func.particle.packets.DisperseBallParticleS2CPacket;
 import fun.wraq.process.func.plan.networking.DailySupplyC2SPacket;
 import fun.wraq.process.func.plan.networking.DailySupplyS2CPacket;
 import fun.wraq.process.func.plan.networking.PlanDateAndTierS2CPacket;
@@ -1305,6 +1305,11 @@ public class ModNetworking {
                 .decoder(SmeltDataRequestC2SPacket::new)
                 .encoder(SmeltDataRequestC2SPacket::toBytes)
                 .consumerMainThread(SmeltDataRequestC2SPacket::handle)
+                .add();
+        net.messageBuilder(DisperseBallParticleS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(DisperseBallParticleS2CPacket::new)
+                .encoder(DisperseBallParticleS2CPacket::toBytes)
+                .consumerMainThread(DisperseBallParticleS2CPacket::handle)
                 .add();
     }
 

@@ -1,26 +1,21 @@
 
 package fun.wraq.series.instance.series.purple;
 
-import fun.wraq.common.Compute;
-import fun.wraq.common.attribute.MobAttributes;
-import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.equip.WraqPassiveEquip;
+import fun.wraq.common.impl.onhit.OnHitEffectPassiveEquip;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.common.equip.WraqPassiveEquip;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.instance.series.purple.PurpleIronTier;
-import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PurpleIronSword extends WraqPassiveEquip implements fun.wraq.series.instance.series.purple.PurpleIronTier {
+public class PurpleIronSword extends WraqPassiveEquip implements PurpleIronCommon, OnHitEffectPassiveEquip {
 
     private static final double[] ExAttackDamage = {
             100, 150, 200, 250
@@ -53,14 +48,7 @@ public class PurpleIronSword extends WraqPassiveEquip implements fun.wraq.series
     @Override
     public List<Component> getAdditionDescriptions() {
         List<Component> components = new ArrayList<>();
-        Style style = getMainStyle();
-        Compute.DescriptionPassive(components, Component.literal("晶体析构").withStyle(style));
-        components.add(Component.literal(" 基于你与目标的").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.ManaDefence("")).
-                append(Component.literal("差的").withStyle(ChatFormatting.WHITE)).
-                append(Component.literal("绝对值").withStyle(style)).
-                append(Component.literal("至多提供").withStyle(ChatFormatting.WHITE)).
-                append(Component.literal(new String[]{"20%", "35%", "50%", "65%"}[tier] + "伤害提升").withStyle(style)));
+        PurpleIronCommon.setDescription(components, tier);
         return components;
     }
 
@@ -79,27 +67,13 @@ public class PurpleIronSword extends WraqPassiveEquip implements fun.wraq.series
         return true;
     }
 
-    public static double damageEnhance(Player player, Mob mob) {
-        if (player.experienceLevel < 120) return 0;
-        boolean isOn = false;
-        double rate = 0;
-        Inventory inventory = player.getInventory();
-        for (int i = 3; i < 9; i++) {
-            ItemStack itemStack = inventory.getItem(i);
-            if (itemStack.getItem() instanceof PurpleIronTier purpleIronTier) {
-                isOn = true;
-                rate = new double[]{0.2, 0.35, 0.5, 0.65}[purpleIronTier.getPassiveTier()];
-            }
-        }
-        if (!isOn) return 0;
-        double manaDefence = 0;
-        manaDefence = MobAttributes.manaDefence(mob);
-        double value = Math.abs(PlayerAttributes.manaDefence(player) - manaDefence);
-        return (rate - (rate * 750 / (750 + value)));
-    }
-
     @Override
     public int getPassiveTier() {
         return tier;
+    }
+
+    @Override
+    public void onHit(Player player, Mob mob) {
+        PurpleIronCommon.onHit(player, mob, this);
     }
 }

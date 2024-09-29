@@ -1,6 +1,7 @@
 package fun.wraq.common.attribute;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.impl.onhit.OnHitDamageInfluenceCurios;
 import fun.wraq.core.ManaAttackModule;
 import fun.wraq.customized.WraqUniformCurios;
 import fun.wraq.events.mob.MobSpawn;
@@ -14,13 +15,11 @@ import fun.wraq.process.system.potion.NewPotionEffects;
 import fun.wraq.process.system.season.MySeason;
 import fun.wraq.process.system.tower.Tower;
 import fun.wraq.process.system.tower.TowerMob;
-import fun.wraq.common.impl.onhit.OnHitDamageInfluenceCurios;
 import fun.wraq.render.hud.ColdData;
 import fun.wraq.series.instance.series.castle.CastleCurios;
 import fun.wraq.series.instance.series.castle.CastleSword;
 import fun.wraq.series.instance.series.ice.IceBook;
 import fun.wraq.series.instance.series.moon.Equip.MoonArmor;
-import fun.wraq.series.instance.series.purple.PurpleIronSword;
 import fun.wraq.series.newrunes.chapter1.MineNewRune;
 import fun.wraq.series.newrunes.chapter1.VolcanoNewRune;
 import fun.wraq.series.newrunes.chapter2.HuskNewRune;
@@ -43,7 +42,6 @@ public class DamageInfluence {
         rate += IceBook.IceBookDamageEnhance(player, monster); // 冰封的记忆
         rate += MoonArmor.DamageEnhance(player, monster); // 尘月膝
         rate += CastleCurios.DamageEnhance(player, monster); // 随机饰品被动
-        rate += PurpleIronSword.damageEnhance(player, monster);
         rate += StarArmor.DamageEnhance(player, monster); // 梦月
         rate += VdWeaponCommon.damageEnhance(player, monster); // vd weapon
         rate += OnHitDamageInfluenceCurios.damageInfluence(player, monster);

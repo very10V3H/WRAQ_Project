@@ -447,6 +447,7 @@ public class StringUtils {
         public static String Sea = "Sea";
         public static String EXPLOSION = "EXPLOSION";
         public static String FLAME = "FLAME";
+        public static String END_ROD = "END_ROD";
     }
 
     public static class MobName {
