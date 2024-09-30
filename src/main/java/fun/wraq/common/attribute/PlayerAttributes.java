@@ -24,8 +24,7 @@ import fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSwo
 import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.process.system.potion.NewPotionEffects;
 import fun.wraq.process.system.tower.TowerMob;
-import fun.wraq.common.impl.inslot.InCuriosSlotAttributesModify;
-import fun.wraq.common.impl.inslot.InEquipmentSlotAttributeEnhance;
+import fun.wraq.common.impl.inslot.InCuriosOrEquipSlotAttributesModify;
 import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.equip.WraqPickaxe;
 import fun.wraq.render.mobEffects.ModEffects;
@@ -312,7 +311,7 @@ public class PlayerAttributes {
         exDamage += CastleNewRune.attackDamage(player);
         exDamage += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerAttackDamageModifier);
         exDamage += ChangedAttributesModifier.getModifierValue(player, ChangedAttributesModifier.exAttackDamage);
-        exDamage += InCuriosSlotAttributesModify.getAttributes(player, InCuriosSlotAttributesModify.exAttackDamage);
+        exDamage += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.attackDamage);
         // 请在上方添加
 
         double totalAttackDamage = baseAttackDamage + exDamage;
@@ -918,7 +917,7 @@ public class PlayerAttributes {
         exDefence += CastleManaArmor.ExAttributeValue(player, CastleManaArmor.ExDefence);
         exDefence += CastleSwiftArmor.ExAttributeValue(player, CastleSwiftArmor.ExDefence);
         exDefence += ForestArmorHelmet.exDefence(player);
-        exDefence += computeAllEquipmentSlotAttributeEnhance(player, Utils.defence);
+        exDefence += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.defence);
         exDefence += StableTierAttributeModifier.getModifierValue(player, StableTierAttributeModifier.defence);
         exDefence += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerDefenceModifier);
         // 请在上方添加
@@ -1144,7 +1143,7 @@ public class PlayerAttributes {
         }
 
         releaseSpeed += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerCooldownModifier);
-        releaseSpeed += InCuriosSlotAttributesModify.getAttributes(player, InCuriosSlotAttributesModify.exReleaseSpeed);
+        releaseSpeed += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.coolDownDecrease);
         // 请在上方添加
         releaseSpeed *= Compute.playerFantasyAttributeEnhance(player);
         return releaseSpeed;
@@ -1327,7 +1326,7 @@ public class PlayerAttributes {
 
         defencePenetration0 += CastleSword.ExPenetration0(player); // 暗黑武器主动
         defencePenetration0 += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerDefencePenetration0Modifier);
-        defencePenetration0 += computeAllEquipmentSlotAttributeEnhance(player, Utils.defencePenetration0);
+        defencePenetration0 += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.defencePenetration0);
         // 请在上方添加
         defencePenetration0 *= Compute.playerFantasyAttributeEnhance(player);
 
@@ -1648,7 +1647,7 @@ public class PlayerAttributes {
         exDamage += LifeElementSceptre.ExManaDamage(player);
         exDamage += VolcanoArmorHelmet.exManaDamage(player);
         exDamage += CastleNewRune.manaDamage(player);
-        exDamage += InCuriosSlotAttributesModify.getAttributes(player, InCuriosSlotAttributesModify.exManaDamage);
+        exDamage += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.manaDamage);
         exDamage += ChangedAttributesModifier.getModifierValue(player, ChangedAttributesModifier.exManaDamage);
 
         // 请在上方添加
@@ -2121,7 +2120,7 @@ public class PlayerAttributes {
 
         manaPenetration0 += Compute.PassiveEquip.getAttribute(player, Utils.manaPenetration0); // 器灵属性加成
         manaPenetration0 += CastleSword.ExPenetration0(player); // 暗黑武器主动
-        manaPenetration0 += computeAllEquipmentSlotAttributeEnhance(player, Utils.manaPenetration0);
+        manaPenetration0 += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.manaPenetration0);
         // 请在上方添加
         manaPenetration0 *= Compute.playerFantasyAttributeEnhance(player);
         return manaPenetration0;
@@ -2260,7 +2259,7 @@ public class PlayerAttributes {
         return rate;
     }
 
-    private static List<ItemStack> getAllEquipSlotItems(Player player) {
+    public static List<ItemStack> getAllEquipSlotItems(Player player) {
         List<ItemStack> list = new ArrayList<>(List.of(player.getItemBySlot(EquipmentSlot.HEAD),
                 player.getItemBySlot(EquipmentSlot.CHEST), player.getItemBySlot(EquipmentSlot.LEGS),
                 player.getItemBySlot(EquipmentSlot.FEET)));
@@ -2302,14 +2301,6 @@ public class PlayerAttributes {
                 }
                 totalValue += baseValue + value;
             }
-        }
-        return totalValue;
-    }
-
-    private static double computeAllEquipmentSlotAttributeEnhance(Player player, Map<Item, Double> attributeMap) {
-        double totalValue = 0;
-        for (ItemStack equip : getAllEquipSlotItems(player)) {
-            totalValue += InEquipmentSlotAttributeEnhance.getAttribute(equip.getItem(), player, attributeMap);
         }
         return totalValue;
     }

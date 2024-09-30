@@ -13,6 +13,11 @@ public interface ExBaseAttributeValueEquip {
             return data.getDouble(tag) * rate;
         }
     }
+
+    /**
+     * 注意，一定需要使用此接口的getStackExBaseAttributeData方法来获取nbt放入对应key
+     * @return 额外属性表
+     */
     Map<Map<Item, Double>, TagAndRate> getTagAndRateMap();
 
     String EX_BASE_ATTRIBUTE_DATA_KEY = "EX_BASE_ATTRIBUTE_DATA_KEY";

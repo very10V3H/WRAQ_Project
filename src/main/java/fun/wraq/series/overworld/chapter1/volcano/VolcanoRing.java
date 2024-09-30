@@ -38,7 +38,6 @@ public class VolcanoRing extends Item implements ICurioItem {
         ComponentUtils.descriptionOfAddition(components);
         components.add(Component.literal("获得").withStyle(ChatFormatting.WHITE).
                 append(Compute.AttributeDescription.ExAttackDamage("10%")));
-        components.add(Component.literal("VolcanoGems-I").withStyle(ChatFormatting.YELLOW).withStyle(ChatFormatting.ITALIC));
         ComponentUtils.suffixOfChapterI(components);
         super.appendHoverText(stack, level, components, flag);
     }

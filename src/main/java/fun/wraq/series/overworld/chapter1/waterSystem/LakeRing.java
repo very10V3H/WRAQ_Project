@@ -36,7 +36,6 @@ public class LakeRing extends Item implements ICurioItem {
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfWater, ChatFormatting.WHITE);
         ComponentUtils.descriptionOfBasic(components);
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfWater, ChatFormatting.WHITE);
-        components.add(Component.literal("LakeGems-I").withStyle(CustomStyle.styleOfWater).withStyle(ChatFormatting.ITALIC));
         ComponentUtils.suffixOfChapterI(components);
         super.appendHoverText(stack, level, components, flag);
     }

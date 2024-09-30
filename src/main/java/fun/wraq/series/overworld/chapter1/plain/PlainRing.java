@@ -3,7 +3,6 @@ package fun.wraq.series.overworld.chapter1.plain;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import net.minecraft.ChatFormatting;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -38,26 +37,21 @@ public class PlainRing extends Item implements ICurioItem {
         ComponentUtils.descriptionOfAddition(components);
         components.add(Component.literal("增加0.5攀登高度").withStyle(ChatFormatting.GREEN).withStyle(ChatFormatting.YELLOW));
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, ChatFormatting.GREEN, ChatFormatting.WHITE);
-        components.add(Component.literal("PlainGems-I").withStyle(ChatFormatting.GREEN).withStyle(ChatFormatting.ITALIC));
-        components.add(Component.literal("MainStoryI").withStyle(ChatFormatting.AQUA).withStyle(ChatFormatting.ITALIC));
+        components.add(ComponentUtils.getSuffixOfChapterI());
         super.appendHoverText(stack, level, components, flag);
     }
 
     @Override
     public void onEquip(SlotContext slotContext, ItemStack prevStack, ItemStack stack) {
         Player player = (Player) slotContext.entity();
-        CompoundTag data = player.getPersistentData();
-        data.putBoolean("plaingems", true);
-        player.getAttribute(ForgeMod.STEP_HEIGHT_ADDITION.get()).setBaseValue(0.5D);
+        player.getAttribute(ForgeMod.STEP_HEIGHT_ADDITION.get()).setBaseValue(0.5);
         ICurioItem.super.onEquip(slotContext, prevStack, stack);
     }
 
     @Override
     public void onUnequip(SlotContext slotContext, ItemStack newStack, ItemStack stack) {
         Player player = (Player) slotContext.entity();
-        CompoundTag data = player.getPersistentData();
-        data.putBoolean("plaingems", false);
-        player.getAttribute(ForgeMod.STEP_HEIGHT_ADDITION.get()).setBaseValue(0.0D);
+        player.getAttribute(ForgeMod.STEP_HEIGHT_ADDITION.get()).setBaseValue(0.0);
         ICurioItem.super.onUnequip(slotContext, newStack, stack);
     }
 

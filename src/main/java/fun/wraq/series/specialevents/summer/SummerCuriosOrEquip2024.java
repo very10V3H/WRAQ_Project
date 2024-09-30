@@ -1,14 +1,14 @@
 package fun.wraq.series.specialevents.summer;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqCurios;
+import fun.wraq.common.impl.inslot.InCuriosOrEquipSlotAttributesModify;
+import fun.wraq.common.impl.tick.TickCurios;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.process.system.season.MySeason;
-import fun.wraq.common.impl.inslot.InCuriosSlotAttributesModify;
-import fun.wraq.common.impl.tick.TickCurios;
-import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -21,10 +21,10 @@ import net.minecraft.world.level.Level;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SummerCurios2024 extends WraqCurios implements InCuriosSlotAttributesModify, TickCurios {
+public class SummerCuriosOrEquip2024 extends WraqCurios implements InCuriosOrEquipSlotAttributesModify, TickCurios {
 
     private final int tier;
-    public SummerCurios2024(Properties properties, int tier) {
+    public SummerCuriosOrEquip2024(Properties properties, int tier) {
         super(properties);
         this.tier = tier;
         Utils.maxHealth.put(this, new double[]{150, 200, 250, 300, 350, 400}[tier]);
@@ -74,19 +74,11 @@ public class SummerCurios2024 extends WraqCurios implements InCuriosSlotAttribut
         return ComponentUtils.getSuffixOfSummerEvent();
     }
 
-    @Override
-    public double attributes(Player player, String attributesType) {
+    private double getRate(Player player) {
         if (player.experienceLevel < Utils.levelRequire.get(this)) return 0;
-        double rate = 1;
-        if (player.isInWater()
+        return (player.isInWater()
                 || (player.level().dimension().equals(Level.OVERWORLD)
-                && MySeason.currentSeason.contains(MySeason.summer))) rate = 2;
-        return switch (attributesType) {
-            case InCuriosSlotAttributesModify.exAttackDamage -> exAttackDamage[tier] * rate;
-            case InCuriosSlotAttributesModify.exManaDamage -> exManaDamage[tier] * rate;
-            case InCuriosSlotAttributesModify.exReleaseSpeed -> releaseSpeed[tier] * rate;
-            default -> 0;
-        };
+                && MySeason.currentSeason.contains(MySeason.summer))) ? 2 : 1;
     }
 
     @Override
@@ -106,5 +98,15 @@ public class SummerCurios2024 extends WraqCurios implements InCuriosSlotAttribut
                     && MySeason.clientSeason != null && MySeason.clientSeason.contains(MySeason.summer))) rate = 2;
             Compute.sendEffectLastTimeToClientPlayer(this, rate, 20, false);
         }
+    }
+
+    @Override
+    public List<Attribute> getAttributes(Player player) {
+        double rate = getRate(player);
+        return List.of(
+                new Attribute(Utils.attackDamage, exAttackDamage[tier] * rate),
+                new Attribute(Utils.manaDamage, exManaDamage[tier] * rate),
+                new Attribute(Utils.coolDownDecrease, releaseSpeed[tier] * rate)
+        );
     }
 }

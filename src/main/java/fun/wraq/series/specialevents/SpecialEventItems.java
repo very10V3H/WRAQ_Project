@@ -1,7 +1,6 @@
 package fun.wraq.series.specialevents;
 
 import fun.wraq.commands.changeable.PrefixPaperItem;
-import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.FoiledMaterialItem;
@@ -10,7 +9,7 @@ import fun.wraq.series.specialevents.midautumn.MidAutumnBow;
 import fun.wraq.series.specialevents.midautumn.MidAutumnSceptre;
 import fun.wraq.series.specialevents.midautumn.MidAutumnSword;
 import fun.wraq.series.specialevents.midautumn.MoonFeather;
-import fun.wraq.series.specialevents.summer.SummerCurios2024;
+import fun.wraq.series.specialevents.summer.SummerCuriosOrEquip2024;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -23,22 +22,22 @@ public class SpecialEventItems {
             new MaterialItem(new Item.Properties().rarity(CustomStyle.WaterBold)));
 
     public static final RegistryObject<Item> SUMMER_CURIOS0 = ITEMS.register("summer24_curios0", () ->
-            new SummerCurios2024(new Item.Properties().rarity(CustomStyle.WaterBold), 0));
+            new SummerCuriosOrEquip2024(new Item.Properties().rarity(CustomStyle.WaterBold), 0));
 
     public static final RegistryObject<Item> SUMMER_CURIOS1 = ITEMS.register("summer24_curios1", () ->
-            new SummerCurios2024(new Item.Properties().rarity(CustomStyle.WaterBold), 1));
+            new SummerCuriosOrEquip2024(new Item.Properties().rarity(CustomStyle.WaterBold), 1));
 
     public static final RegistryObject<Item> SUMMER_CURIOS2 = ITEMS.register("summer24_curios2", () ->
-            new SummerCurios2024(new Item.Properties().rarity(CustomStyle.WaterBold), 2));
+            new SummerCuriosOrEquip2024(new Item.Properties().rarity(CustomStyle.WaterBold), 2));
 
     public static final RegistryObject<Item> SUMMER_CURIOS3 = ITEMS.register("summer24_curios3", () ->
-            new SummerCurios2024(new Item.Properties().rarity(CustomStyle.WaterBold), 3));
+            new SummerCuriosOrEquip2024(new Item.Properties().rarity(CustomStyle.WaterBold), 3));
 
     public static final RegistryObject<Item> SUMMER_CURIOS4 = ITEMS.register("summer24_curios4", () ->
-            new SummerCurios2024(new Item.Properties().rarity(CustomStyle.WaterBold), 4));
+            new SummerCuriosOrEquip2024(new Item.Properties().rarity(CustomStyle.WaterBold), 4));
 
     public static final RegistryObject<Item> SUMMER_CURIOS5 = ITEMS.register("summer24_curios5", () ->
-            new SummerCurios2024(new Item.Properties().rarity(CustomStyle.WaterBold), 5));
+            new SummerCuriosOrEquip2024(new Item.Properties().rarity(CustomStyle.WaterBold), 5));
 
     public static final RegistryObject<Item> MID_AUTUMN_SOUL = ITEMS.register("mid_autumn_soul", () ->
             new FoiledMaterialItem(new Item.Properties().rarity(CustomStyle.MoonBold)));

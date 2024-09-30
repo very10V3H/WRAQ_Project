@@ -1,29 +1,26 @@
 package fun.wraq.series.nether.Equip.PiglinHelmet;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqArmor;
+import fun.wraq.common.impl.display.ForgeItem;
+import fun.wraq.common.impl.inslot.InCuriosOrEquipSlotAttributesModify;
 import fun.wraq.common.registry.ItemMaterial;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.common.impl.display.ForgeItem;
-import fun.wraq.common.impl.inslot.InEquipmentSlotAttributeEnhance;
-import fun.wraq.common.equip.WraqArmor;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.nether.Equip.PiglinHelmet.PiglinHelmetAttributes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-public class PiglinHelmet extends WraqArmor implements ForgeItem, InEquipmentSlotAttributeEnhance {
+public class PiglinHelmet extends WraqArmor implements ForgeItem, InCuriosOrEquipSlotAttributesModify {
 
     public final int tier;
     public PiglinHelmet(ItemMaterial Material, Type Slots, int tier) {
@@ -74,12 +71,7 @@ public class PiglinHelmet extends WraqArmor implements ForgeItem, InEquipmentSlo
     }
 
     @Override
-    public double getAttributeValue(Player player) {
-        return Math.min(50, PiglinHelmetAttributes.Effect[tier] * Compute.getNearEntity(player, Mob.class, 8).size());
-    }
-
-    @Override
-    public Map<Item, Double> baseAttributeMap() {
-        return Utils.defence;
+    public List<Attribute> getAttributes(Player player) {
+        return List.of(new Attribute(Utils.defence, Math.min(50, PiglinHelmetAttributes.Effect[tier] * Compute.getNearEntity(player, Mob.class, 8).size())));
     }
 }

@@ -1,14 +1,14 @@
 package fun.wraq.series.overworld.sakuraSeries.Ship;
 
 import fun.wraq.common.Compute;
-import fun.wraq.common.impl.inslot.InEquipmentSlotAttributeEnhance;
+import fun.wraq.common.equip.WraqBow;
+import fun.wraq.common.impl.inslot.InCuriosOrEquipSlotAttributesModify;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.core.MyArrow;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.element.Element;
-import fun.wraq.common.equip.WraqBow;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
@@ -18,14 +18,12 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-public class ShipBow extends WraqBow implements InEquipmentSlotAttributeEnhance {
+public class ShipBow extends WraqBow implements InCuriosOrEquipSlotAttributesModify {
 
     public ShipBow(Properties p_40524_) {
         super(p_40524_);
@@ -72,13 +70,8 @@ public class ShipBow extends WraqBow implements InEquipmentSlotAttributeEnhance 
     }
 
     @Override
-    public double getAttributeValue(Player player) {
-        return 5 * Math.min(4, Compute.getNearEntity(player, Player.class, 6)
-                .stream().filter(entity -> entity.distanceTo(player) <= 6).count());
-    }
-
-    @Override
-    public Map<Item, Double> baseAttributeMap() {
-        return Utils.defencePenetration0;
+    public List<Attribute> getAttributes(Player player) {
+        return List.of(new Attribute(Utils.defencePenetration0, 5 * Math.min(4, Compute.getNearEntity(player, Player.class, 6)
+                .stream().filter(entity -> entity.distanceTo(player) <= 6).count())));
     }
 }
