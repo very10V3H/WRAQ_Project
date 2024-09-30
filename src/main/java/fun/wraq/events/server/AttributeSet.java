@@ -15,6 +15,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.event.TickEvent;
@@ -94,7 +95,7 @@ public class AttributeSet {
             }
 
             // 重力调整 - 用于近战击杀恼鬼场景
-            if (Compute.inLowGravityEnvironment(player)) {
+            if (Compute.inLowGravityEnvironment(player) && player.level().dimension().equals(Level.OVERWORLD)) {
                 player.getAttribute(ForgeMod.ENTITY_GRAVITY.get()).setBaseValue(0.01);
             } else {
                 player.getAttribute(ForgeMod.ENTITY_GRAVITY.get()).setBaseValue(0.08);

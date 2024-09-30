@@ -48,6 +48,7 @@ import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.client.gui.screens.multiplayer.JoinMultiplayerScreen;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.multiplayer.resolver.ServerAddress;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -80,6 +81,7 @@ public class ClientPlayerTickEvent {
         if (event.side.isClient() && event.phase.equals(TickEvent.Phase.START)) {
             TickCurios.tickEvent(event.player);
             Main0.clientTick(event.player);
+            Compute.setDownDeltaInLowGravityEnvironment((LocalPlayer) event.player);
         }
         if (event.side.isClient() && event.phase == TickEvent.Phase.END) {
             Minecraft mc = Minecraft.getInstance();
@@ -361,10 +363,6 @@ public class ClientPlayerTickEvent {
                 ClientUtils.ChargedCountsSakuraDemonSword += 0.5;
             }
 
-/*            if (ClientUtils.ChargedCountsZeusSword < 100 && player.getDeltaMovement().length() > 0.1
-                    && MainHand.equals(ModItems.ZeusSword.get()) && ClientUtils.Demon_Image[2] != null && ClientUtils.Demon_Image[2].getTickTime() == 0)
-                ClientUtils.ChargedCountsZeusSword += Speed;*/
-
             if (ClientUtils.ChargedCountsSwordSkill12 >= 100 && ClientUtils.ChargedFlagSwordSkill12) {
                 ModNetworking.sendToServer(new ChargedFullC2SPacket(0));
                 ClientUtils.ChargedFlagSwordSkill12 = false;
@@ -430,9 +428,6 @@ public class ClientPlayerTickEvent {
             Level level = player.level();
 
             for (ManaAttackParticle manaAttackParticle : ClientUtils.manaAttackParticleArrayList) {
-/*                if (manaAttackParticle.getType() == 2)
-                    Compute.BallParticle(manaAttackParticle.getPos(), level, 2 * (20 - manaAttackParticle.getTickTime()) / 20.0, ClientUtils.manaAttackParticleTypeMap.get(manaAttackParticle.getType()), 10);
-                else*/
                 ParticleProvider.BallParticle(manaAttackParticle.getPos(), level, 2 * (20 - manaAttackParticle.getTickTime()) / 20.0, Utils.ParticleStringToParticleMap.get(manaAttackParticle.getType()), 20);
                 manaAttackParticle.setTickTime(Math.max(-1, manaAttackParticle.getTickTime() - 1));
             }

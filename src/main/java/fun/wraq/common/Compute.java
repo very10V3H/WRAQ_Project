@@ -69,6 +69,7 @@ import fun.wraq.series.specialevents.labourDay.LabourDayIronHoe;
 import fun.wraq.series.specialevents.labourDay.LabourDayIronPickaxe;
 import fun.wraq.series.specialevents.summer.SummerEvent;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleOptions;
@@ -2034,13 +2035,20 @@ public class Compute {
     }
 
     public record LowGravityZone(ResourceKey<Level> dimension, Pair<Vec3, Vec3> space) {}
+    public static final List<Pair<Vec3, Vec3>> lowGravityZone = new ArrayList<>() {{
+        add(new Pair<>(new Vec3(876, 180, 491), new Vec3(1242, 280, 724)));
+        add(new Pair<>(new Vec3(898, 186, -62), new Vec3(1042, 318, 126)));
+    }};
     public static boolean inLowGravityEnvironment(Player player) {
-        List<Pair<Vec3, Vec3>> lowGravityZone = new ArrayList<>() {{
-            add(new Pair<>(new Vec3(876, 180, 491), new Vec3(1242, 280, 724)));
-        }};
         return lowGravityZone.stream().anyMatch(pair -> {
             return player.getX() > pair.getFirst().x && player.getY() > pair.getFirst().y && player.getZ() > pair.getFirst().z
                     && player.getX() < pair.getSecond().x && player.getY() < pair.getSecond().y && player.getZ() < pair.getSecond().z;
         });
+    }
+
+    public static void setDownDeltaInLowGravityEnvironment(LocalPlayer player) {
+        if (inLowGravityEnvironment(player) && player.isShiftKeyDown()) {
+            player.setDeltaMovement(player.getDeltaMovement().add(0, -0.05, 0));
+        }
     }
 }
