@@ -165,7 +165,6 @@ public class PlayerAttributes {
         if (SuitCount.getObsiManaSuitCount(player) >= 4) exDamage += baseAttackDamage * 0.15F;
         if (data.contains("Sword")) exDamage += baseAttackDamage * (data.getInt("Sword") / 1000000.0d);
         if (data.contains("Barker")) exDamage += baseAttackDamage * ((data.getInt("Barker") / 100000.0d) * 0.05);
-        if (data.contains("volcanogems") && data.getBoolean("volcanogems")) exDamage += baseAttackDamage * 0.1;
         if (data.contains("ManaSwordActive") && data.getInt("ManaSwordActive") > 0)
             exDamage += data.getInt("ManaSwordActive");
 
@@ -320,7 +319,9 @@ public class PlayerAttributes {
         totalAttackDamage *= (1 + MoonKnife.damageEnhance(player));
         totalAttackDamage *= Compute.playerFantasyAttributeEnhance(player);
         totalAttackDamage *= AttackCurios1.playerAttackDamageEnhance(player);
-        totalAttackDamage *= (1 + GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.percentAttackDamageEnhance));
+        totalAttackDamage *= (1 + GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.percentAttackDamageEnhance)
+                + Compute.CuriosAttribute.attributeValue(player, Utils.percentAttackDamageEnhance,
+                StringUtils.CuriosAttribute.percentAttackDamage));
         if (data.contains("NetherRecallBuff") && data.getInt("NetherRecallBuff") > 0)
             return totalAttackDamage * 0.5f;
         return totalAttackDamage;
@@ -463,10 +464,6 @@ public class PlayerAttributes {
             critDamage += 0.9;
         if (data.contains(StringUtils.VolcanoSwordSkill.Skill4) && data.getInt(StringUtils.VolcanoSwordSkill.Skill4) > tickCount)
             critDamage += 1.2;
-        if (data.contains("plaingems") && data.getBoolean("plaingems")) critDamage += 0.1;
-        if (data.contains("forestgems") && data.getBoolean("forestgems")) critDamage += 0.1;
-        if (data.contains("lakegems") && data.getBoolean("lakegems")) critDamage += 0.1;
-        if (data.contains("volcanogems") && data.getBoolean("volcanogems")) critDamage += 0.1;
 
         if (player.getEffect(ModEffects.CRITDAMAGEUP.get()) != null && player.getEffect(ModEffects.CRITDAMAGEUP.get()).getAmplifier() == 0)
             critDamage += 0.4;
@@ -745,10 +742,6 @@ public class PlayerAttributes {
             expUp += Utils.expUp.get(mainhand);
         if (Utils.offHandTag.containsKey(offhand) && Utils.expUp.containsKey(offhand))
             expUp += Utils.expUp.get(offhand);
-        if (data.contains("plaingems") && data.getBoolean("plaingems")) expUp += 0.1;
-        if (data.contains("forestgems") && data.getBoolean("forestgems")) expUp += 0.1;
-        if (data.contains("lakegems") && data.getBoolean("lakegems")) expUp += 0.1;
-        if (data.contains("volcanogems") && data.getBoolean("volcanogems")) expUp += 0.1;
 
         if (data.contains("GemSExpImprove")) expUp += data.getDouble("GemSExpImprove");
         int luckyAbilityPoint = data.getInt(StringUtils.Ability.Lucky);
@@ -858,7 +851,6 @@ public class PlayerAttributes {
         // 以下为额外护甲
         if (SuitCount.getForestSuitCount(player) >= 2) exDefence += baseDefence * 0.25;
         if (SuitCount.getLifeManaSuitCount(player) >= 4) exDefence += baseDefence * 0.25;
-        if (data.contains("forestgems") && data.getBoolean("forestgems")) exDefence += baseDefence * 0.1;
         if (player.getEffect(ModEffects.DefenceUP.get()) != null
                 && player.getEffect(ModEffects.DefenceUP.get()).getAmplifier() == 0) {
             exDefence += baseDefence * 0.25 + 5;
@@ -926,7 +918,9 @@ public class PlayerAttributes {
         totalDefence *= (1 + EarthPower.PlayerDefenceEnhance(player));
         totalDefence *= Compute.playerFantasyAttributeEnhance(player);
         totalDefence *= MineShield.defenceEnhance(player);
-        totalDefence *= (1 + GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.percentDefenceEnhance));
+        totalDefence *= (1 + GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.percentDefenceEnhance) +
+                Compute.CuriosAttribute.attributeValue(player, Utils.percentDefenceEnhance,
+                StringUtils.CuriosAttribute.percentDefenceEnhance));
         if (data.contains("ManaRune") && data.getInt("ManaRune") == 3) return (baseDefence + exDefence) * 0.5f;
 
         if (totalDefence < 0) return 0;
@@ -1101,7 +1095,6 @@ public class PlayerAttributes {
         if (SuitCount.getObsiManaSuitCount(player) >= 4) releaseSpeed += 0.2;
         if (player.getPersistentData().contains("Blue") && player.getPersistentData().getInt("Blue") == 0)
             releaseSpeed += player.getAttribute(Attributes.MOVEMENT_SPEED).getValue() - 0.1F;
-        if (data.contains("lakegems") && data.getBoolean("lakegems")) releaseSpeed += 0.1;
 
         releaseSpeed += handleAllEquipRandomAttribute(player, StringUtils.RandomAttribute.coolDown);
 
@@ -1490,7 +1483,9 @@ public class PlayerAttributes {
         // 请在上方添加
         maxHealth *= Compute.playerFantasyAttributeEnhance(player);
         maxHealth *= (1 + NewPotionEffects.maxHealthEnhance(player));
-        maxHealth *= (1 + GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.percentMaxHealthEnhance));
+        maxHealth *= (1 + GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.percentMaxHealthEnhance) +
+                Compute.CuriosAttribute.attributeValue(player, Utils.percentMaxHealthEnhance,
+                StringUtils.CuriosAttribute.percentMaxHealthEnhance));
         return maxHealth;
     }
 
@@ -1656,7 +1651,9 @@ public class PlayerAttributes {
         totalDamage *= Compute.playerFantasyAttributeEnhance(player);
         totalDamage *= ManaCurios0.PlayerFinalManaDamageEnhance(player);
         totalDamage *= ManaCurios2.playerFinalManaDamageEnhance(player);
-        totalDamage *= (1 + GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.percentManaDamageEnhance));
+        totalDamage *= (1 + GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.percentManaDamageEnhance) +
+                Compute.CuriosAttribute.attributeValue(player, Utils.percentManaDamageEnhance,
+                StringUtils.CuriosAttribute.percentManaDamageEnhance));
 
         Utils.playerManaDamageBeforeTransform.put(player, totalDamage);
 
@@ -1872,7 +1869,9 @@ public class PlayerAttributes {
         totalDefence *= (1 + EarthPower.PlayerDefenceEnhance(player));
         totalDefence *= Compute.playerFantasyAttributeEnhance(player);
         totalDefence *= MineShield.defenceEnhance(player);
-        totalDefence *= (1 + GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.percentManaDefenceEnhance));
+        totalDefence *= (1 + GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.percentManaDefenceEnhance) +
+                Compute.CuriosAttribute.attributeValue(player, Utils.percentManaDefenceEnhance,
+                StringUtils.CuriosAttribute.percentManaDefenceEnhance));
         if (totalDefence < 0) return 0;
         return totalDefence;
     }
@@ -2082,11 +2081,6 @@ public class PlayerAttributes {
                 equals(StringUtils.ManaCore.KazeCore)) {
             manaPenetration0 += movementSpeedWithoutBattle(player);
         }
-
-        if (data.contains("volcanogems") && data.getBoolean("volcanogems")) manaPenetration0 += 10;
-        if (data.contains("plaingems") && data.getBoolean("plaingems")) manaPenetration0 += 10;
-        if (data.contains("lakegems") && data.getBoolean("lakegems")) manaPenetration0 += 10;
-        if (data.contains("forestgems") && data.getBoolean("forestgems")) manaPenetration0 += 10;
 
         if (SuitCount.getVolcanoSuitCount(player) >= 4) manaPenetration0 += 3;
 

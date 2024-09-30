@@ -125,6 +125,10 @@ public class BasicAttributeDescription {
             }
         }
 
+        index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.attackDamage, Utils.percentAttackDamageEnhance,
+                StringUtils.CuriosAttribute.percentAttackDamage, "物理攻击",
+                Style.EMPTY.applyFormat(ChatFormatting.AQUA), "%.0f%%", true, itemStack, event.getTooltipElements());
+
         index = descriptionXpLevelAttributeTemplate(index, TraditionalTooltip.manaDamage, Utils.xpLevelManaDamage,
                 StringUtils.CuriosAttribute.xpLevelManaDamage, "魔法攻击", Style.EMPTY.applyFormat(ChatFormatting.LIGHT_PURPLE),
                 "%.0f", false, itemStack, event.getTooltipElements(), localPlayer, true, Style.EMPTY.applyFormat(ChatFormatting.LIGHT_PURPLE));
@@ -167,6 +171,10 @@ public class BasicAttributeDescription {
             }
         }
 
+        index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.manaDamage, Utils.percentManaDamageEnhance,
+                StringUtils.CuriosAttribute.percentManaDamageEnhance, "魔法攻击",
+                CustomStyle.styleOfMana, "%.0f%%", true, itemStack, event.getTooltipElements());
+
         index = descriptionXpLevelAttributeTemplate(index, TraditionalTooltip.defence, Utils.xpLevelDefence,
                 StringUtils.CuriosAttribute.xpLevelDefence, "基础护甲", Style.EMPTY.applyFormat(ChatFormatting.GRAY),
                 "%.0f", false, itemStack, event.getTooltipElements(), localPlayer, false, Style.EMPTY);
@@ -193,6 +201,10 @@ public class BasicAttributeDescription {
             event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.defence)));
         }
 
+        index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.defence, Utils.percentDefenceEnhance,
+                StringUtils.CuriosAttribute.percentDefenceEnhance, "基础护甲",
+                Style.EMPTY.applyFormat(ChatFormatting.GRAY), "%.0f%%", true, itemStack, event.getTooltipElements());
+
         index = descriptionXpLevelAttributeTemplate(index, TraditionalTooltip.manaDefence, Utils.xpLevelManaDefence,
                 StringUtils.CuriosAttribute.xpLevelManaDefence, "魔法抗性", Style.EMPTY.applyFormat(ChatFormatting.BLUE),
                 "%.0f", false, itemStack, event.getTooltipElements(), localPlayer, false, Style.EMPTY);
@@ -214,6 +226,10 @@ public class BasicAttributeDescription {
             index++;
             event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.manaDefence)));
         }
+
+        index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.manaDefence, Utils.percentManaDefenceEnhance,
+                StringUtils.CuriosAttribute.percentManaDefenceEnhance, "魔法抗性",
+                Style.EMPTY.applyFormat(ChatFormatting.BLUE), "%.0f%%", true, itemStack, event.getTooltipElements());
 
         if (Utils.maxHealth.containsKey(item) || data.contains(StringUtils.RandomAttribute.maxHealth)
                 || data.contains(StringUtils.CuriosAttribute.maxHealth)) {
@@ -256,6 +272,10 @@ public class BasicAttributeDescription {
             index++;
             event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.maxHealth)));
         }
+
+        index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.maxHealth, Utils.percentMaxHealthEnhance,
+                StringUtils.CuriosAttribute.percentMaxHealthEnhance, "最大生命值",
+                Style.EMPTY.applyFormat(ChatFormatting.GREEN), "%.0f%%", true, itemStack, event.getTooltipElements());
 
         if (Utils.healthRecover.containsKey(item) || data.contains(StringUtils.CuriosAttribute.healthRecover)
                 || data.contains(StringUtils.RandomAttribute.healthRecover)) {
@@ -843,26 +863,6 @@ public class BasicAttributeDescription {
             index++;
             event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.windElement)));
         }
-
-        index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.attackDamage, Utils.percentAttackDamageEnhance,
-                StringUtils.CuriosAttribute.percentAttackDamage, "物理攻击",
-                Style.EMPTY.applyFormat(ChatFormatting.AQUA), "%.0f%%", true, itemStack, event.getTooltipElements());
-
-        index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.defence, Utils.percentDefenceEnhance,
-                StringUtils.CuriosAttribute.percentDefenceEnhance, "基础护甲",
-                Style.EMPTY.applyFormat(ChatFormatting.GRAY), "%.0f%%", true, itemStack, event.getTooltipElements());
-
-        index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.maxHealth, Utils.percentMaxHealthEnhance,
-                StringUtils.CuriosAttribute.percentMaxHealthEnhance, "最大生命值",
-                Style.EMPTY.applyFormat(ChatFormatting.GREEN), "%.0f%%", true, itemStack, event.getTooltipElements());
-
-        index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.manaDamage, Utils.percentManaDamageEnhance,
-                StringUtils.CuriosAttribute.percentManaDamageEnhance, "魔法攻击",
-                CustomStyle.styleOfMana, "%.0f%%", true, itemStack, event.getTooltipElements());
-
-        index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.manaDefence, Utils.percentManaDefenceEnhance,
-                StringUtils.CuriosAttribute.percentManaDefenceEnhance, "魔法抗性",
-                Style.EMPTY.applyFormat(ChatFormatting.BLUE), "%.0f%%", true, itemStack, event.getTooltipElements());
 
         index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.stoneElement, WraqPickaxe.mineSpeed,
                 "EmptyTypeAttribute", "挖掘速度",
