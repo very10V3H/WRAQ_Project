@@ -50,6 +50,7 @@ public class BasicAttributeDescription {
         if (!(itemStack.getItem() instanceof WraqCurios || itemStack.getItem() instanceof WraqUniformCurios)
                 && itemStack.getTagElement(Utils.MOD_ID) == null && !Utils.offHandTag.containsKey(itemStack.getItem()))
             return;
+        if (event.getTooltipElements().size() < 5) return;
         CompoundTag data = itemStack.getOrCreateTagElement(Utils.MOD_ID);
         Item item = itemStack.getItem();
         if (itemStack.is(ModItems.ManageSword.get())) return;
