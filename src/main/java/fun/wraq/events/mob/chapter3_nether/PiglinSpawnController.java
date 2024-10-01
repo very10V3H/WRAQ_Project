@@ -64,7 +64,7 @@ public class PiglinSpawnController extends MobSpawnController {
 
         // 需要验证
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(piglin), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(piglin, 200, 6, 6, 0.35, 3, 0.2, 5, 15, 9000, 0.25);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(piglin, 200, 50, 50, 0.35, 3, 0.2, 5, 15, 9000, 0.25);
 
         // 设置物品
         ItemStack[] itemStacks = {new ItemStack(Items.GOLDEN_HELMET), new ItemStack(Items.GOLDEN_CHESTPLATE),

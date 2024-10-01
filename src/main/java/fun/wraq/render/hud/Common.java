@@ -10,20 +10,18 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderGuiOverlayEvent;
 import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 import org.joml.Vector3f;
 
 import java.util.Objects;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE, value = {Dist.CLIENT})
 public class Common {
-    @SubscribeEvent
+
     public static void render(RenderGuiOverlayEvent.Post event) {
-        if (event.getOverlay().equals(VanillaGuiOverlay.CROSSHAIR.type()) && (Boolean)Configuration.ADVANCED_TOOLTIPS.get() && (Minecraft.getInstance().screen == null || Minecraft.getInstance().screen instanceof ChatScreen)) {
+        if (event.getOverlay().equals(VanillaGuiOverlay.CROSSHAIR.type())
+                && (Boolean)Configuration.ADVANCED_TOOLTIPS.get()
+                && (Minecraft.getInstance().screen == null || Minecraft.getInstance().screen instanceof ChatScreen)) {
             Player player = Minecraft.getInstance().player;
             ItemStack itemStack = ModItems.PlainSword0.get().getDefaultInstance();
             Vec3 pos = new Vec3(1099, 81, 40);

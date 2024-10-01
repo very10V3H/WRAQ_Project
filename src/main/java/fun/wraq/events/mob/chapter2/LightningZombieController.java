@@ -69,7 +69,7 @@ public class LightningZombieController extends MobSpawnController {
 
         // 需要验证
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(zombie), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombie, 450, 10, 10, 0.35, 3, 0.2, 5, 15, 20000, 0.3);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombie, 450, 55, 55, 0.35, 3, 0.2, 5, 15, 20000, 0.3);
 
         // 设置物品
         ItemStack[] itemStacks = {new ItemStack(Items.IRON_HELMET), new ItemStack(Items.IRON_CHESTPLATE),

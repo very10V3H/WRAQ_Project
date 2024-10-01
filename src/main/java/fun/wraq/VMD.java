@@ -589,6 +589,7 @@ public class VMD {
             event.accept(ModItems.Ps_Bottle2.get().getDefaultInstance());
             event.accept(ModItems.ParkourMedal.get().getDefaultInstance());
             event.accept(ModItems.KillPaperLoot.get().getDefaultInstance());
+            event.accept(ModItems.MopUpPaperLoot.get().getDefaultInstance());
         }
         if (event.getTabKey().equals(ModCreativeModeTab.DEVELOPMENT_TAB.getKey())) {
             event.accept(ModItems.SignInReset.get().getDefaultInstance());

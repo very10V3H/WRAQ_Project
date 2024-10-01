@@ -67,7 +67,7 @@ public class DreadHoundSpawnController extends MobSpawnController {
 
         // 需要验证
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(dreadHoundEntity), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(dreadHoundEntity, 200, 5, 5, 0.3, 2, 0.1, 3, 10, 6500, 0.3);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(dreadHoundEntity, 200, 45, 45, 0.3, 2, 0.1, 3, 10, 6500, 0.3);
 
         // 设置物品
         ItemStack[] itemStacks = {new ItemStack(Items.LEATHER_HELMET), new ItemStack(Items.LEATHER_CHESTPLATE),

@@ -65,7 +65,7 @@ public class WitherSkeletonSpawnController extends MobSpawnController {
 
         // 需要验证
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(witherSkeleton), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(witherSkeleton, 200, 6, 6, 0.35, 3, 0.2, 5, 15, 9000, 0.25);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(witherSkeleton, 200, 50, 50, 0.35, 3, 0.2, 5, 15, 9000, 0.25);
 
         // 设置物品
         witherSkeleton.setItemInHand(InteractionHand.MAIN_HAND, Items.STONE_SWORD.getDefaultInstance());

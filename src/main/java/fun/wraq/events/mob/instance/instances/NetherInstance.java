@@ -54,7 +54,7 @@ public class NetherInstance extends NoTeamInstance {
         MobSpawn.setMobCustomName(entity, Component.literal("燃魂").withStyle(CustomStyle.styleOfPower), 90);
 
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(entity), 90);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(entity, 600, 9, 9, 0.35, 3, 0.2, 5, 15, 300000, 0.3);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(entity, 600, 55, 55, 0.35, 3, 0.2, 5, 15, 300000, 0.3);
 
         entity.moveTo(pos);
         level.addFreshEntity(entity);

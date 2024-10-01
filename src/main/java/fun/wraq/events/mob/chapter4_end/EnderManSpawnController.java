@@ -69,7 +69,7 @@ public class EnderManSpawnController extends MobSpawnController {
 
         // 需要验证
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(enderMan), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(enderMan, 220, 7, 7, 0.35, 3, 0.2, 5, 15, 9900, 0.25);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(enderMan, 220, 50, 50, 0.35, 3, 0.2, 5, 15, 9900, 0.25);
 
         // 设置物品
 

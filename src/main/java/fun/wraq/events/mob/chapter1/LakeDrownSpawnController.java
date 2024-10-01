@@ -67,7 +67,7 @@ public class LakeDrownSpawnController extends MobSpawnController {
 
         // 需要验证
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(drowned), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(drowned, 80, 0, 0, 0.2, 1, 0, 0, 0, 750, 0.2);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(drowned, 80, 10, 10, 0.2, 1, 0, 0, 0, 750, 0.2);
 
         // 设置物品
         ItemStack[] itemStacks = {new ItemStack(Items.LEATHER_HELMET), new ItemStack(Items.LEATHER_CHESTPLATE),

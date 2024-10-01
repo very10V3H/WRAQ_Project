@@ -86,7 +86,7 @@ public class HuskSpawnController extends MobSpawnController {
 
         // 需要验证
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(husk), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(husk, 400, 8, 8, 0.35, 3, 0.2, 5, 15, 12000, 0.3);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(husk, 400, 50, 50, 0.35, 3, 0.2, 5, 15, 12000, 0.3);
 
         // 设置物品
 /*        ItemStack[] itemStacks = {new ItemStack(Items.LEATHER_HELMET), new ItemStack(Items.LEATHER_CHESTPLATE),

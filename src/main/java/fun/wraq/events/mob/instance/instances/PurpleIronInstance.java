@@ -9,7 +9,6 @@ import fun.wraq.common.util.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstance;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
-import fun.wraq.events.mob.instance.instances.NetherInstance;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.missions.series.dailyMission.DailyMission;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -63,7 +62,7 @@ public class PurpleIronInstance extends NoTeamInstance {
         MobSpawn.setMobCustomName(amethystCrabEntity, Component.literal("紫水晶巨蟹").withStyle(CustomStyle.styleOfPurpleIron), 120);
 
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(amethystCrabEntity), 120);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(amethystCrabEntity, 1000, 12, 12, 0.35, 3, 0.2, 5, 15, 400000, 0.3);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(amethystCrabEntity, 1000, 70, 70, 0.35, 3, 0.2, 5, 15, 400000, 0.3);
 
         amethystCrabEntity.setHealth(amethystCrabEntity.getMaxHealth());
 

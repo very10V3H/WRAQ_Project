@@ -90,7 +90,7 @@ public class MoonInstance extends NoTeamInstance {
         MobSpawn.setMobCustomName(attackMob, Component.literal("阿尔忒弥斯 - 明镜").withStyle(style), 160);
 
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(attackMob), 120);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(attackMob, 2000, 25, 25, 0.4, 4, 0.25, 13, 20, 700 * Math.pow(10, 4), 0.3);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(attackMob, 2000, 130, 130, 0.4, 4, 0.25, 13, 20, 700 * Math.pow(10, 4), 0.3);
 
         attackMob.setHealth(attackMob.getMaxHealth());
         attackMob.setItemSlot(EquipmentSlot.HEAD, ModItems.MobArmorMoonAttack.get().getDefaultInstance());
