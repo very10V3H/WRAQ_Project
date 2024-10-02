@@ -75,7 +75,7 @@ public class BasicAttributeDescription {
 
         index = descriptionXpLevelAttributeTemplate(index, TraditionalTooltip.attackDamage, Utils.xpLevelAttackDamage,
                 StringUtils.CuriosAttribute.xpLevelAttackDamage, "物理攻击", Style.EMPTY.applyFormat(ChatFormatting.AQUA),
-                "%.0f", false, itemStack, event.getTooltipElements(), localPlayer, true, Style.EMPTY.applyFormat(ChatFormatting.YELLOW));
+                1, false, itemStack, event.getTooltipElements(), localPlayer, true, Style.EMPTY.applyFormat(ChatFormatting.YELLOW));
 
         if (Utils.attackDamage.containsKey(item) || data.contains(StringUtils.RandomAttribute.attackDamage)
                 || data.contains(StringUtils.CuriosAttribute.attackDamage)) {
@@ -133,7 +133,7 @@ public class BasicAttributeDescription {
 
         index = descriptionXpLevelAttributeTemplate(index, TraditionalTooltip.manaDamage, Utils.xpLevelManaDamage,
                 StringUtils.CuriosAttribute.xpLevelManaDamage, "魔法攻击", Style.EMPTY.applyFormat(ChatFormatting.LIGHT_PURPLE),
-                "%.0f", false, itemStack, event.getTooltipElements(), localPlayer, true, Style.EMPTY.applyFormat(ChatFormatting.LIGHT_PURPLE));
+                1, false, itemStack, event.getTooltipElements(), localPlayer, true, Style.EMPTY.applyFormat(ChatFormatting.LIGHT_PURPLE));
 
         if (Utils.manaDamage.containsKey(item) || data.contains(StringUtils.RandomAttribute.manaDamage)
                 || data.contains(StringUtils.CuriosAttribute.manaDamage)) {
@@ -178,7 +178,7 @@ public class BasicAttributeDescription {
 
         index = descriptionXpLevelAttributeTemplate(index, TraditionalTooltip.defence, Utils.xpLevelDefence,
                 StringUtils.CuriosAttribute.xpLevelDefence, "基础护甲", Style.EMPTY.applyFormat(ChatFormatting.GRAY),
-                "%.0f", false, itemStack, event.getTooltipElements(), localPlayer, false, Style.EMPTY);
+                1, false, itemStack, event.getTooltipElements(), localPlayer, false, Style.EMPTY);
 
         if (Utils.defence.containsKey(item) || data.contains(StringUtils.RandomAttribute.defence)
                 || data.contains(StringUtils.CuriosAttribute.defence)) {
@@ -208,7 +208,7 @@ public class BasicAttributeDescription {
 
         index = descriptionXpLevelAttributeTemplate(index, TraditionalTooltip.manaDefence, Utils.xpLevelManaDefence,
                 StringUtils.CuriosAttribute.xpLevelManaDefence, "魔法抗性", Style.EMPTY.applyFormat(ChatFormatting.BLUE),
-                "%.0f", false, itemStack, event.getTooltipElements(), localPlayer, false, Style.EMPTY);
+                1, false, itemStack, event.getTooltipElements(), localPlayer, false, Style.EMPTY);
 
         if (Utils.manaDefence.containsKey(item) || data.contains(StringUtils.CuriosAttribute.manaDefence)) {
             double manaDefence = 0;
@@ -307,7 +307,7 @@ public class BasicAttributeDescription {
 
         index = descriptionXpLevelAttributeTemplate(index, TraditionalTooltip.defencePenetration0, Utils.xpLevelDefencePenetration0,
                 StringUtils.CuriosAttribute.xpLevelDefencePenetration0, "护甲穿透", Style.EMPTY.applyFormat(ChatFormatting.GRAY),
-                "%.0f", false, itemStack, event.getTooltipElements(), localPlayer, false, Style.EMPTY);
+                1, false, itemStack, event.getTooltipElements(), localPlayer, false, Style.EMPTY);
 
         if (Utils.defencePenetration0.containsKey(item) || data.contains(StringUtils.CuriosAttribute.defencePenetration0)
                 || data.contains(StringUtils.RandomAttribute.defencePenetration0)) {
@@ -404,7 +404,7 @@ public class BasicAttributeDescription {
 
         index = descriptionXpLevelAttributeTemplate(index, TraditionalTooltip.critDamage, Utils.xpLevelCritDamage,
                 StringUtils.CuriosAttribute.xpLevelCritDamage, "暴击伤害", Style.EMPTY.applyFormat(ChatFormatting.BLUE),
-                "%.0f%%", true, itemStack, event.getTooltipElements(), localPlayer, false, Style.EMPTY);
+                0, true, itemStack, event.getTooltipElements(), localPlayer, false, Style.EMPTY);
 
         if (Utils.critDamage.containsKey(item) || data.contains(StringUtils.CuriosAttribute.critDamage)
                 || data.contains(StringUtils.RandomAttribute.critDamage)) {
@@ -554,7 +554,7 @@ public class BasicAttributeDescription {
 
         index = descriptionXpLevelAttributeTemplate(index, TraditionalTooltip.manaPenetration0, Utils.xpLevelManaPenetration0,
                 StringUtils.CuriosAttribute.xpLevelManaPenetration0, "魔法穿透", Style.EMPTY.applyFormat(ChatFormatting.BLUE),
-                "%.0f", false, itemStack, event.getTooltipElements(), localPlayer, false, Style.EMPTY);
+                1, false, itemStack, event.getTooltipElements(), localPlayer, false, Style.EMPTY);
 
         if (Utils.manaPenetration0.containsKey(item) || data.contains(StringUtils.CuriosAttribute.manaPenetration0)
                 || data.contains(StringUtils.RandomAttribute.manaPenetration0)) {
@@ -1001,7 +1001,7 @@ public class BasicAttributeDescription {
 
     public static int descriptionXpLevelAttributeTemplate(int index, ResourceLocation resourceLocation,
                                                           Map<Item, Double> map, String curiosAttributeTag,
-                                                          String attributeName, Style style, String valueFormat,
+                                                          String attributeName, Style style, int decimalScale,
                                                           boolean isPercent, ItemStack itemStack,
                                                           List<Either<FormattedText, TooltipComponent>> components,
                                                           LocalPlayer localPlayer, boolean acceptForge,
@@ -1026,13 +1026,16 @@ public class BasicAttributeDescription {
             if (localPlayer.tickCount % 60 < 30) {
                 mutableComponent.append(Component.literal(" " + attributeName).withStyle(style).
                         append(Component.literal((value > 0 ? "+" : "")
-                                        + String.format(valueFormat, value * (isPercent ? 100 : 1)))
+                                        + getDecimal(value * (isPercent ? 100 : 1), 1)
+                                        + (isPercent ? "%" : ""))
                                 .withStyle(value > 0 ? ChatFormatting.WHITE : ChatFormatting.RED)).
                         append(Component.literal(" x ").withStyle(ChatFormatting.DARK_PURPLE)).
                         append(Component.literal(xpLevel + "").withStyle(ChatFormatting.LIGHT_PURPLE)));
             } else {
                 mutableComponent.append(Component.literal(" " + attributeName).withStyle(style).
-                        append(Component.literal((totalValue > 0 ? "+" : "") + String.format(valueFormat, totalValue * (isPercent ? 100 : 1)))
+                        append(Component.literal((totalValue > 0 ? "+" : "")
+                                        + getDecimal(totalValue * (isPercent ? 100 : 1), 1)
+                                        + (isPercent ? "%" : ""))
                                 .withStyle(totalValue > 0 ? ChatFormatting.LIGHT_PURPLE : ChatFormatting.RED)));
             }
             if (acceptForge) {

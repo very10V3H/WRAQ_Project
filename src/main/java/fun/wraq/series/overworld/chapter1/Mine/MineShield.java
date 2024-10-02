@@ -33,7 +33,8 @@ public class MineShield extends Item {
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
         Style MainStyle = CustomStyle.styleOfMine;
         stack.setHoverName(Component.literal("精钢圆盾").withStyle(MainStyle).withStyle(ChatFormatting.BOLD));
-        components.add(Component.literal("副手                   ").withStyle(ChatFormatting.GOLD).append(Component.literal("手盾").withStyle(ChatFormatting.GRAY)));
+        components.add(Component.literal("副手                   ").withStyle(ChatFormatting.GOLD).
+                append(Component.literal("手盾").withStyle(ChatFormatting.GRAY)));
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
         ComponentUtils.descriptionOfBasic(components);
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);

@@ -9,11 +9,11 @@ public abstract class WraqElementUniformCurios extends WraqUniformCurios {
 
     public WraqElementUniformCurios(Properties properties) {
         super(properties);
-        Utils.xpLevelDefence.put(this, 2d);
-        Utils.xpLevelManaDefence.put(this, 2d);
-        Utils.xpLevelDefencePenetration0.put(this, 2d);
-        Utils.xpLevelManaPenetration0.put(this, 2d);
-        Utils.coolDownDecrease.put(this, 0.25);
+        Utils.xpLevelDefence.put(this, 0.4d);
+        Utils.xpLevelManaDefence.put(this, 0.4d);
+        Utils.xpLevelDefencePenetration0.put(this, 0.2d);
+        Utils.xpLevelManaPenetration0.put(this, 0.2d);
+        Utils.coolDownDecrease.put(this, 0.1);
     }
 
     @Override

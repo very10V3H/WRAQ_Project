@@ -263,7 +263,7 @@ public class MonsterAttackEvent {
     public static void MineShield(Player player) {
         if (player.getItemInHand(InteractionHand.OFF_HAND).is(ModItems.MineShield.get())) {
             Utils.MineShieldEffect.put(player, player.getServer().getTickCount() + 100);
-            Compute.sendEffectLastTime(player, ModItems.MineSoul.get().getDefaultInstance(), 100);
+            Compute.sendEffectLastTime(player, ModItems.OreRune.get().getDefaultInstance(), 100);
         }
     }
 
