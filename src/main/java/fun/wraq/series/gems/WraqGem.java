@@ -25,7 +25,7 @@ public class WraqGem extends Item {
     private final Style hoverStyle;
     private final Component oneLineDescription;
     private final Component suffix;
-    private final List<AttributeMapValue> attributeMapValues;
+    private List<AttributeMapValue> attributeMapValues;
     private final Properties properties;
 
     public record AttributeMapValue(Map<Item, Double> attributeMap, double value) {}
@@ -52,6 +52,13 @@ public class WraqGem extends Item {
             for (AttributeMapValue attributeMapValue : wraqGem.getAttributeMapValues()) {
                 attributeMapValue.attributeMap().put(this, attributeMapValue.value() * 2);
             }
+
+            // 将属性写回属性表 以修正物品镶嵌宝石后ALT无法获取全部宝石属性的问题
+            List<AttributeMapValue> newValueList = new ArrayList<>();
+            wraqGem.getAttributeMapValues().forEach(attributeMapValue -> {
+                newValueList.add(new AttributeMapValue(attributeMapValue.attributeMap, attributeMapValue.value * 2));
+            });
+            setAttributeMapValues(newValueList);
         }
     }
 
@@ -71,16 +78,23 @@ public class WraqGem extends Item {
                         new AttributeMapValue(Utils.percentManaDamageEnhance, 0.04)));
             }};
 
+            // 获取原宝石属性
             Map<Map<Item, Double>, Double> map = new HashMap<>() {{
                 wraqGem.getAttributeMapValues().forEach(attributeMapValue -> {
                     put(attributeMapValue.attributeMap(), attributeMapValue.value());
                 });
             }};
 
-            attributeMapValues.get(type)
-                    .forEach(attributeMapValue -> {
+            // 加上指定属性，写入Utils属性map
+            attributeMapValues.get(type).forEach(attributeMapValue -> {
                 attributeMapValue.attributeMap.put(this, attributeMapValue.value + map.getOrDefault(attributeMapValue.attributeMap, 0d));
             });
+
+            // 将属性写回属性表 以修正物品镶嵌宝石后ALT无法获取全部宝石属性的问题
+            List<AttributeMapValue> newValueList = new ArrayList<>();
+            newValueList.addAll(attributeMapValues.get(type));
+            newValueList.addAll(wraqGem.getAttributeMapValues());
+            setAttributeMapValues(newValueList);
         }
     }
 
@@ -107,6 +121,10 @@ public class WraqGem extends Item {
 
     public List<AttributeMapValue> getAttributeMapValues() {
         return attributeMapValues;
+    }
+
+    public void setAttributeMapValues(List<AttributeMapValue> attributeMapValues) {
+        this.attributeMapValues = attributeMapValues;
     }
 
     public Component getOneLineDescription() {
