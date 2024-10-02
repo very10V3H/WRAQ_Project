@@ -24,6 +24,10 @@ public class GemAttributes {
         return value;
     }
 
+    public static double getGemsAttributeModifier(ItemStack equip, Map<Item, Double> map) {
+        return getGemsAttributeModifier(equip.getOrCreateTagElement(Utils.MOD_ID), map);
+    }
+
     public static double getGemsAttributeModifier(CompoundTag data, Map<Item, Double> map) {
         double value = 0;
         for (int i = 1; i <= 3; i++) {

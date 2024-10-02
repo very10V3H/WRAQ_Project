@@ -1,6 +1,5 @@
 package fun.wraq.process.system.forge;
 
-import fun.wraq.process.system.forge.ForgeEquipUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
@@ -26,7 +25,7 @@ public class ForgeHammer extends Item {
         components.add(Component.literal("锻造品质几率:").withStyle(ChatFormatting.GOLD));
         for (int i = 0; i < rateList.size(); i++) {
             components.add(Component.literal("").withStyle(ChatFormatting.WHITE).
-                    append(ForgeEquipUtils.description.get(i)).
+                    append(ForgeEquipUtils.getDescription(i)).
                     append(Component.literal(" - ").withStyle(ChatFormatting.GRAY)).
                     append(Component.literal(String.format("%.0f%%", (ForgeEquipUtils.successForgeRate.get(tier).get(i) * 100)))));
         }

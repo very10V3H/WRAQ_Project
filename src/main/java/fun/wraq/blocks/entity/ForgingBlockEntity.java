@@ -5,8 +5,8 @@ import fun.wraq.Items.Forging.ForgeEnhance;
 import fun.wraq.Items.Forging.ForgeProtect;
 import fun.wraq.Items.Gems.Dismantle;
 import fun.wraq.Items.Gems.SlotOpen;
-import fun.wraq.blocks.entity.ModBlockEntities;
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.impl.ExBaseAttributeValueEquip;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.StringUtils;
@@ -16,7 +16,6 @@ import fun.wraq.customized.WraqUniformCurios;
 import fun.wraq.events.core.InventoryCheck;
 import fun.wraq.events.mob.loot.RandomLootEquip;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
-import fun.wraq.common.equip.impl.ExBaseAttributeValueEquip;
 import fun.wraq.render.gui.blocks.ForgingBlockMenu;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.gems.GemItems;
@@ -759,7 +758,7 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider {
                                 append(Component.literal(" 将").withStyle(ChatFormatting.WHITE)).
                                 append(equip.getDisplayName()).
                                 append(Component.literal(" 提升至 ").withStyle(ChatFormatting.WHITE)).
-                                append(ForgeEquipUtils.description.get(equipTier + 1)).
+                                append(ForgeEquipUtils.getDescription(equipTier + 1)).
                                 append(Component.literal(" 品质").withStyle(ChatFormatting.AQUA)));
             }
             blockEntity.itemStackHandler.setStackInSlot(2, equip);

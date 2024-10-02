@@ -1,5 +1,6 @@
 package fun.wraq.process.system.forge;
 
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.loot.RandomLootEquip;
@@ -274,63 +275,41 @@ public class ForgeEquipUtils {
         return -1;
     }
 
-    public static Map<Integer, Double> tierValueEffect = new HashMap<>() {{
-        put(0, 0.3);
-        put(1, 0.5);
-        put(2, 0.6);
-        put(3, 0.7);
-        put(4, 0.8);
-        put(5, 0.9);
-        put(6, 1d);
-        put(7, 1.1);
-        put(8, 1.2);
-        put(9, 1.5);
-        put(10, 1.75);
-        put(11, 2d);
-        put(12, 2.5);
-        put(13, 3d);
-    }};
+    public record TierValueAndDescription(double value, String description, Style style) {}
 
-    public static Map<Integer, Style> tierStyle = new HashMap<>() {{
-        put(0, Style.EMPTY.applyFormat(ChatFormatting.GRAY));
-        put(1, Style.EMPTY.applyFormat(ChatFormatting.GREEN));
-        put(2, Style.EMPTY.applyFormat(ChatFormatting.AQUA));
-        put(3, Style.EMPTY.applyFormat(ChatFormatting.LIGHT_PURPLE));
-        put(4, Style.EMPTY.applyFormat(ChatFormatting.GOLD));
-        put(5, Style.EMPTY.applyFormat(ChatFormatting.RED));
-        put(6, CustomStyle.styleOfEnd);
-        put(7, CustomStyle.styleOfMoon);
-        put(8, CustomStyle.styleOfMoon1);
-        put(9, CustomStyle.styleOfPower);
-        put(10, CustomStyle.styleOfCastleCrystal);
-        put(11, CustomStyle.styleOfSakura);
-        put(12, CustomStyle.styleOfYSR);
-        put(13, CustomStyle.styleOfSky);
-    }};
-
-    public static Map<Integer, Component> description = new HashMap<>() {{
-        put(0, Component.literal("粗糙").withStyle(tierStyle.get(0))); // 30%
-        put(1, Component.literal("优秀").withStyle(tierStyle.get(1))); // 50%
-        put(2, Component.literal("精良").withStyle(tierStyle.get(2))); // 60%
-        put(3, Component.literal("史诗").withStyle(tierStyle.get(3))); // 70%
-        put(4, Component.literal("传说").withStyle(tierStyle.get(4))); // 80%
-        put(5, Component.literal("神话").withStyle(tierStyle.get(5))); // 90%
-        put(6, Component.literal("终末").withStyle(tierStyle.get(6))); // 100%
-        put(7, Component.literal("思旧").withStyle(tierStyle.get(7)));
-        put(8, Component.literal("追忆").withStyle(tierStyle.get(8)));
-        put(9, Component.literal("不可思议").withStyle(tierStyle.get(9)));
-        put(10, Component.literal("望尘莫及").withStyle(tierStyle.get(10)));
-        put(11, Component.literal("仅存于梦").withStyle(tierStyle.get(11)));
-        put(12, Component.literal("绝无仅有").withStyle(tierStyle.get(12)));
-        put(13, Component.literal("巅峰之作").withStyle(tierStyle.get(13)));
+    public static Map<Integer, TierValueAndDescription> tierValueAndDescriptionMap = new HashMap<>() {{
+        put(0, new TierValueAndDescription(0.8, "粗糙", Style.EMPTY.applyFormat(ChatFormatting.GRAY)));
+        put(1, new TierValueAndDescription(1, "优秀", Style.EMPTY.applyFormat(ChatFormatting.GREEN)));
+        put(2, new TierValueAndDescription(1.1, "精良", Style.EMPTY.applyFormat(ChatFormatting.AQUA)));
+        put(3, new TierValueAndDescription(1.2, "史诗", Style.EMPTY.applyFormat(ChatFormatting.LIGHT_PURPLE)));
+        put(4, new TierValueAndDescription(1.3, "传说", Style.EMPTY.applyFormat(ChatFormatting.GOLD)));
+        put(5, new TierValueAndDescription(1.4, "神话", Style.EMPTY.applyFormat(ChatFormatting.RED)));
+        put(6, new TierValueAndDescription(1.5, "终末", CustomStyle.styleOfEnd));
+        put(7, new TierValueAndDescription(1.65, "思旧", CustomStyle.styleOfMoon));
+        put(8, new TierValueAndDescription(1.8, "追忆", CustomStyle.styleOfMoon1));
+        put(9, new TierValueAndDescription(2, "不可思议", CustomStyle.styleOfPower));
+        put(10, new TierValueAndDescription(2.25, "望尘莫及", CustomStyle.styleOfCastleCrystal));
+        put(11, new TierValueAndDescription(2.5, "仅存于梦", CustomStyle.styleOfSakura));
+        put(12, new TierValueAndDescription(2.75, "绝无仅有", CustomStyle.styleOfYSR));
+        put(13, new TierValueAndDescription(3d, "巅峰之作", CustomStyle.styleOfSky));
     }};
 
     public static double getTierValueEffect(int tier) {
-        return tierValueEffect.getOrDefault(tier, 1d);
+        return tierValueAndDescriptionMap.getOrDefault(tier, new TierValueAndDescription(1, "无名", CustomStyle.styleOfMoontain)).value;
     }
 
     public static double getTierValueEffect(ItemStack equip) {
         return getTierValueEffect(getForgeQualityOnEquip(equip));
+    }
+
+    public static Component getDescription(int tier) {
+        TierValueAndDescription tierValueAndDescription = tierValueAndDescriptionMap.getOrDefault(tier,
+                new TierValueAndDescription(1, "无名", CustomStyle.styleOfMoontain));
+        return Te.m(tierValueAndDescription.description, tierValueAndDescription.style);
+    }
+
+    public static Style getStyle(int tier) {
+        return tierValueAndDescriptionMap.getOrDefault(tier, new TierValueAndDescription(1, "无名", CustomStyle.styleOfMoontain)).style;
     }
 
     public static Map<Integer, List<Double>> successForgeRate = new HashMap<>() {{

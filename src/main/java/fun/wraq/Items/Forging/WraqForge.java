@@ -98,8 +98,8 @@ public class WraqForge extends Item {
                 Compute.formatBroad(player.level(), Component.literal("锻造").withStyle(ChatFormatting.GRAY),
                         Component.literal("").withStyle(ChatFormatting.WHITE).append(player.getDisplayName()).
                                 append(Component.literal(" 成功锻造了 ").withStyle(ChatFormatting.WHITE)).
-                                append(ForgeEquipUtils.description.get(tier)).append(Component.literal(" 的 ").withStyle(ChatFormatting.WHITE)).
-                                append(productItemStack.getDisplayName()));
+                                append(ForgeEquipUtils.getDescription(tier)).append(Component.literal(" 的 ")
+                                        .withStyle(ChatFormatting.WHITE)).append(productItemStack.getDisplayName()));
             } else {
                 Compute.formatBroad(player.level(), Component.literal("锻造").withStyle(ChatFormatting.GRAY),
                         Component.literal("").withStyle(ChatFormatting.WHITE).append(player.getDisplayName()).

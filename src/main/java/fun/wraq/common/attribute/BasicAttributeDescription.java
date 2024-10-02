@@ -1059,7 +1059,7 @@ public class BasicAttributeDescription {
         if (forgeQuality != -1) {
             components.add(Component.literal("").withStyle(ChatFormatting.WHITE).
                     append(Component.literal("θ-锻造品质: ").withStyle(CustomStyle.styleOfGold)).
-                    append(ForgeEquipUtils.description.get(forgeQuality)));
+                    append(ForgeEquipUtils.getDescription(forgeQuality)));
         }
     }
 

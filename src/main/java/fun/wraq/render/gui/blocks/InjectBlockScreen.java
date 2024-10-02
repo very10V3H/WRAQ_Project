@@ -9,7 +9,6 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.struct.InjectingRecipe;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.Limit.ScreenCloseC2SPacket;
-import fun.wraq.render.gui.blocks.InjectBlockMenu;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;

@@ -189,10 +189,12 @@ public class Compute {
         }
 
         MutableComponent quality = Te.m("");
-        int forgeQuality = ForgeEquipUtils.getForgeQualityOnEquip(stack);
-        if (forgeQuality != -1) {
-            quality = Te.m("").append(ForgeEquipUtils.description.get(forgeQuality)).
-                    append(Te.m(" - ", ForgeEquipUtils.tierStyle.get(forgeQuality)));
+
+        if (Utils.armorTag.containsKey(stack.getItem()) || Utils.mainHandTag.containsKey(stack.getItem())) {
+            int forgeQuality = ForgeEquipUtils.getForgeQualityOnEquip(stack);
+
+            quality = Te.m("").append(ForgeEquipUtils.getDescription(forgeQuality)).
+                    append(Te.m(" - ", ForgeEquipUtils.getStyle(forgeQuality)));
         }
 
         Component defaultName = stack.getItem().getDefaultInstance().getHoverName();
@@ -903,16 +905,6 @@ public class Compute {
         } else {
             return BaseValue * (1.4 + (forgingLevel - 24) * 0.4);
         }
-    }
-
-    public static double proficiencyValue(ItemStack itemStack, double baseValue) {
-        if (itemStack.getTagElement(Utils.MOD_ID) == null) return 0;
-        CompoundTag data = itemStack.getOrCreateTagElement(Utils.MOD_ID);
-        if (data.contains(StringUtils.KillCount.KillCount)) {
-            return baseValue * 0.5 *
-                    Math.min(1, (data.getInt(StringUtils.KillCount.KillCount) / 100000.0));
-        }
-        return 0;
     }
 
     public static double SkySuitEffectRate(Player player) {
@@ -1770,7 +1762,6 @@ public class Compute {
                             double baseValue = 0;
                             baseValue += ForgeEquipUtils.getTraditionalEquipBaseValue(equip, map);
                             computeValue += baseValue;
-                            computeValue += Compute.proficiencyValue(equip, baseValue);
                             computeValue += Compute.forgingValue(equip, baseValue);
                             computeValue *= wraqMainHandOrPassiveEquip.rate();
                             value += computeValue;

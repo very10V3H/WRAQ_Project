@@ -1,8 +1,10 @@
 package fun.wraq.render.gui.illustrate;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import fun.wraq.common.Compute;
+import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.render.gui.illustrate.Display;
+import fun.wraq.process.system.forge.ForgeEquipUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -133,6 +135,8 @@ public class Illustrate extends Screen {
             for (int j = 0; j < 9; j++) {
                 if (page * 45 + i * 9 + j < list.size()) {
                     ItemStack itemStack = list.get(page * 45 + i * 9 + j).getDefaultInstance();
+                    ForgeEquipUtils.setForgeQualityOnEquip(itemStack, ClientUtils.clientPlayerTick / 20 % 13);
+                    Compute.forgingHoverName(itemStack);
                     itemStack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
                     guiGraphics.renderItem(itemStack,
                             this.width / 2 - 100 + j * 30 + xOffset, this.height / 2 - 73 + 32 * i);

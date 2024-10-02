@@ -170,6 +170,7 @@ public class StringUtils {
     }
 
     public static class KillCount {
+        public static String NEW_KILL_COUNT = "newKillCount";
         public static String KillCountOf = "KillCountOf";
         public static String KillCount = "KillCount";
         public static String Total = "KillCountTotal";

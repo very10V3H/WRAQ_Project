@@ -66,7 +66,7 @@ public class SummerCuriosOrEquip2024 extends WraqCurios implements InCuriosOrEqu
 
     @Override
     public Style hoverMainStyle() {
-        return ForgeEquipUtils.tierStyle.get(tier);
+        return ForgeEquipUtils.getStyle(tier);
     }
 
     @Override
