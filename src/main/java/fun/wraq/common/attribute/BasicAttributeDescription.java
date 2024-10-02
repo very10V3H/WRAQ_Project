@@ -118,7 +118,6 @@ public class BasicAttributeDescription {
                     mutableComponent.append(Component.literal(" 物理攻击").withStyle(ChatFormatting.AQUA).
                             append(Component.literal(" " + String.format("%.0f", baseDamage)).withStyle(ChatFormatting.WHITE)));
 
-                    handleProficiency(data, baseDamage, mutableComponent);
                     handleForge(data, baseDamage, mutableComponent);
                     handleRandomAttributeRate(itemStack, StringUtils.CuriosAttribute.attackDamage, mutableComponent);
 
@@ -164,7 +163,6 @@ public class BasicAttributeDescription {
                     mutableComponent.append(Component.literal(" 法术攻击").withStyle(ChatFormatting.LIGHT_PURPLE).
                             append(Component.literal(" " + String.format("%.0f", baseDamage)).withStyle(ChatFormatting.WHITE)));
 
-                    handleProficiency(data, baseDamage, mutableComponent);
                     handleForge(data, baseDamage, mutableComponent);
                     handleRandomAttributeRate(itemStack, StringUtils.CuriosAttribute.manaDamage, mutableComponent);
 
@@ -956,7 +954,7 @@ public class BasicAttributeDescription {
     public static int newAttributeCommonDescriptionTemplate(int index, ResourceLocation resourceLocation, Map<Item, Double> map,
                                                             String curiosAttributeTag, String attributeName,
                                                             Style style, int decimalScale, boolean isPercent,
-                                                            ItemStack itemStack, boolean acceptForgeAndProficiency,
+                                                            ItemStack itemStack, boolean computeForge,
                                                             Style forgeValueStyle,
                                                             List<Either<FormattedText, TooltipComponent>> components) {
         Item item = itemStack.getItem();
@@ -982,24 +980,10 @@ public class BasicAttributeDescription {
                 mutableComponent.append(Component.literal(" + " + getDecimal(gemsValue * (isPercent ? 100 : 1), decimalScale) + percent).withStyle(style));
             }
 
-            if (acceptForgeAndProficiency) {
+            if (computeForge) {
                 double exForgingValue = 0;
                 if (data.contains(StringUtils.ForgeLevel)) {
                     exForgingValue = Compute.forgingValue(data, value);
-                }
-                double exProficiencyValue = 0;
-                if (data.contains(StringUtils.KillCount.KillCount)) {
-                    exProficiencyValue = value * 0.5 *
-                            Math.min(1, (data.getInt(StringUtils.KillCount.KillCount) / 100000.0));
-                }
-                ChatFormatting[] chatFormattings = {
-                        ChatFormatting.GREEN, ChatFormatting.AQUA, ChatFormatting.YELLOW,
-                        ChatFormatting.LIGHT_PURPLE, ChatFormatting.RED
-                };
-
-                if (exProficiencyValue != 0) {
-                    mutableComponent.append(Component.literal(" + " + getDecimal(exProficiencyValue * (isPercent ? 100 : 1), decimalScale) + percent).
-                            withStyle(ChatFormatting.RESET).withStyle(chatFormattings[Math.min(data.getInt(StringUtils.KillCount.KillCount) / 20000, 4)]));
                 }
 
                 if (exForgingValue != 0) {
@@ -1020,7 +1004,7 @@ public class BasicAttributeDescription {
                                                           String attributeName, Style style, String valueFormat,
                                                           boolean isPercent, ItemStack itemStack,
                                                           List<Either<FormattedText, TooltipComponent>> components,
-                                                          LocalPlayer localPlayer, boolean acceptForgeAndProficiency,
+                                                          LocalPlayer localPlayer, boolean acceptForge,
                                                           Style forgeValueStyle) {
         Item item = itemStack.getItem();
         CompoundTag data = itemStack.getOrCreateTagElement(Utils.MOD_ID);
@@ -1051,24 +1035,10 @@ public class BasicAttributeDescription {
                         append(Component.literal((totalValue > 0 ? "+" : "") + String.format(valueFormat, totalValue * (isPercent ? 100 : 1)))
                                 .withStyle(totalValue > 0 ? ChatFormatting.LIGHT_PURPLE : ChatFormatting.RED)));
             }
-            if (acceptForgeAndProficiency) {
+            if (acceptForge) {
                 double exForgingValue = 0;
                 if (data.contains(StringUtils.ForgeLevel)) {
                     exForgingValue = Compute.forgingValue(data, totalValue);
-                }
-                double exProficiencyValue = 0;
-                if (data.contains(StringUtils.KillCount.KillCount)) {
-                    exProficiencyValue = totalValue * 0.5 *
-                            Math.min(1, (data.getInt(StringUtils.KillCount.KillCount) / 100000.0));
-                }
-                ChatFormatting[] chatFormattings = {
-                        ChatFormatting.GREEN, ChatFormatting.AQUA, ChatFormatting.YELLOW,
-                        ChatFormatting.LIGHT_PURPLE, ChatFormatting.RED
-                };
-
-                if (exProficiencyValue != 0) {
-                    mutableComponent.append(Component.literal(" + " + String.format("%.0f", exProficiencyValue)).
-                            withStyle(ChatFormatting.RESET).withStyle(chatFormattings[Math.min(data.getInt(StringUtils.KillCount.KillCount) / 20000, 4)]));
                 }
 
                 if (exForgingValue != 0) {
@@ -1090,23 +1060,6 @@ public class BasicAttributeDescription {
             components.add(Component.literal("").withStyle(ChatFormatting.WHITE).
                     append(Component.literal("θ-锻造品质: ").withStyle(CustomStyle.styleOfGold)).
                     append(ForgeEquipUtils.description.get(forgeQuality)));
-        }
-    }
-
-    private static void handleProficiency(CompoundTag data, double baseValue, MutableComponent mutableComponent) {
-        double ExDamageProficiency = 0;
-        if (data.contains(StringUtils.KillCount.KillCount))
-            ExDamageProficiency = baseValue * 0.5 * Math.min(1, (data.getInt(StringUtils.KillCount.KillCount) / 100000.0));
-        ChatFormatting[] chatFormattings = {
-                ChatFormatting.GREEN,
-                ChatFormatting.AQUA,
-                ChatFormatting.YELLOW,
-                ChatFormatting.LIGHT_PURPLE,
-                ChatFormatting.RED
-        };
-        if (ExDamageProficiency != 0) {
-            mutableComponent.append(Component.literal(" + " + String.format("%.0f", ExDamageProficiency)).
-                    withStyle(ChatFormatting.RESET).withStyle(chatFormattings[Math.min(data.getInt(StringUtils.KillCount.KillCount) / 20000, 4)]));
         }
     }
 

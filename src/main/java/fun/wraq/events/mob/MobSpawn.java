@@ -2,13 +2,11 @@ package fun.wraq.events.mob;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ItemAndRate;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.events.core.InventoryCheck;
-import fun.wraq.events.mob.MobSpawnController;
-import fun.wraq.events.server.LoginInEvent;
 import fun.wraq.events.mob.chapter1.ForestZombieSpawnController;
 import fun.wraq.events.mob.chapter1.LakeDrownSpawnController;
 import fun.wraq.events.mob.chapter1.MineSkeletonSpawnController;
@@ -29,12 +27,12 @@ import fun.wraq.events.mob.chapter7.BoneImpSpawnController;
 import fun.wraq.events.mob.chapter7.StarSpawnController;
 import fun.wraq.events.mob.chapter7.TorturedSoulSpawnController;
 import fun.wraq.events.mob.loot.RandomLootEquip;
+import fun.wraq.events.server.LoginInEvent;
 import fun.wraq.files.dataBases.DataBase;
 import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.missions.series.dailyMission.DailyMission;
-import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.end.Recall;
 import fun.wraq.series.end.runes.EndRune;
@@ -293,7 +291,7 @@ public class MobSpawn {
             });
         }
 
-        provideProficiency(player, xpLevel);
+        computeKillCount(player);
 
         if (!tempKillCount.containsKey(player.getName().getString()))
             tempKillCount.put(player.getName().getString(), new HashMap<>());
@@ -483,16 +481,23 @@ public class MobSpawn {
         statement.close();
     }
 
-    public static void provideProficiency(Player player, int xpLevel) {
-        ItemStack equip = player.getMainHandItem();
-        if (Utils.mainHandTag.containsKey(equip.getItem()) && !Compute.IsSoulEquip(equip)) {
-            CompoundTag dataI = equip.getOrCreateTagElement(Utils.MOD_ID);
-            InventoryCheck.addOwnerTagToItemStack(player, equip);
-            if (!dataI.contains(StringUtils.KillCount.KillCount))
-                dataI.putInt(StringUtils.KillCount.KillCount, xpLevel * 5);
-            else
-                dataI.putInt(StringUtils.KillCount.KillCount, Math.min(Integer.MAX_VALUE, dataI.getInt(StringUtils.KillCount.KillCount) + xpLevel * 5));
+    public static void computeKillCount(Player player) {
+        InventoryOperation.getAllEquipSlotItems(player).forEach(equip -> {
+            incrementKillCount(equip, 1);
+        });
+    }
+
+    public static int getKillCount(ItemStack equip) {
+        if (equip.getTagElement(Utils.MOD_ID) != null) {
+            equip.getOrCreateTagElement(Utils.MOD_ID).getInt(StringUtils.KillCount.NEW_KILL_COUNT);
         }
+        return 0;
+    }
+
+    private static void incrementKillCount(ItemStack equip, int num) {
+        CompoundTag data = equip.getOrCreateTagElement(Utils.MOD_ID);
+        data.putInt(StringUtils.KillCount.NEW_KILL_COUNT,
+                data.getInt(StringUtils.KillCount.NEW_KILL_COUNT) + num);
     }
 
     public static void setMobCustomName(Mob mob, Item ArmorItem, Component component) {

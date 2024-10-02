@@ -143,15 +143,6 @@ public class PlayerAttributes {
         if (Utils.armorTag.containsKey(boots) && Utils.attackDamage.containsKey(boots) && bootsTag.contains("Forging"))
             baseAttackDamage += Compute.forgingValue(bootsTag, ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.FEET), Utils.attackDamage));
 
-        // 计算熟练度数值
-        if (Utils.mainHandTag.containsKey(mainhand) && (Utils.attackDamage.containsKey(mainhand)
-                || mainHandItemTag.contains(StringUtils.RandomAttribute.attackDamage)) && mainHandItemTag.contains(StringUtils.KillCount.KillCount)) {
-            int killCount = mainHandItemTag.getInt(StringUtils.KillCount.KillCount);
-            if (killCount >= 100000) killCount = 100000;
-            baseAttackDamage += ForgeEquipUtils.getTraditionalEquipBaseValue(player.getMainHandItem(), Utils.attackDamage) * 0.5 * (killCount / 100000.0);
-            baseAttackDamage += ForgeEquipUtils.getRandomEquipBaseValue(player.getMainHandItem(), StringUtils.RandomAttribute.attackDamage) * 0.5 * (killCount / 100000.0);
-        }
-
         // 计算线性等级强度属性数值
         baseAttackDamage += computeAllEquipSlotXpLevelAttributeValue(player, Utils.xpLevelAttackDamage, true);
 
@@ -1522,13 +1513,6 @@ public class PlayerAttributes {
             baseDamage += ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.HEAD), Utils.manaDamage);
         if (Utils.offHandTag.containsKey(offhand) && Utils.manaDamage.containsKey(offhand))
             baseDamage += ForgeEquipUtils.getTraditionalEquipBaseValue(player.getOffhandItem(), Utils.manaDamage);
-        if (Utils.mainHandTag.containsKey(mainhand) && (Utils.manaDamage.containsKey(mainhand) || mainHandItemTag.contains(StringUtils.RandomAttribute.manaDamage))
-                && mainHandItemTag.contains(StringUtils.KillCount.KillCount)) {
-            int killCount = mainHandItemTag.getInt(StringUtils.KillCount.KillCount);
-            if (killCount >= 100000) killCount = 100000;
-            baseDamage += ForgeEquipUtils.getTraditionalEquipBaseValue(player.getMainHandItem(), Utils.manaDamage) * 0.5 * (killCount / 100000.0);
-            baseDamage += ForgeEquipUtils.getRandomEquipBaseValue(player.getMainHandItem(), StringUtils.RandomAttribute.manaDamage) * 0.5 * (killCount / 100000.0);
-        }
 
         baseDamage += computeAllEquipSlotXpLevelAttributeValue(player, Utils.xpLevelManaDamage, true);
         exDamage += Compute.CuriosAttribute.attributeValue(player, Utils.xpLevelManaDamage,
@@ -2247,7 +2231,7 @@ public class PlayerAttributes {
     }
 
     private static double computeAllEquipSlotXpLevelAttributeValue(Player player, Map<Item, Double> attributeMap,
-                                                                   boolean computeForgeAndProficiency) {
+                                                                   boolean computeForge) {
         int xpLevel = player.experienceLevel;
         double totalValue = 0;
         for (ItemStack equip : getAllEquipSlotItems(player)) {
@@ -2255,9 +2239,8 @@ public class PlayerAttributes {
             if (attributeMap.containsKey(item)) {
                 double value = 0;
                 double baseValue = xpLevel * attributeMap.get(item);
-                if (computeForgeAndProficiency && equip.getTagElement(Utils.MOD_ID) != null) {
+                if (computeForge && equip.getTagElement(Utils.MOD_ID) != null) {
                     value += Compute.forgingValue(equip, baseValue);
-                    value += Compute.proficiencyValue(equip, baseValue);
                 }
                 totalValue += baseValue + value;
             }
@@ -2269,20 +2252,19 @@ public class PlayerAttributes {
      * 计算所有盔甲 + 主手 + 副手基础属性的总和
      * @param player 玩家
      * @param attributeMap 属性表
-     * @param computeForgeAndProficiency 是否计算强化等级与熟练度
+     * @param computeForge 是否计算强化等级
      * @return 得到的基础数值
      */
     private static double computeAllEquipSlotBaseAttributeValue(Player player, Map<Item, Double> attributeMap,
-                                                                boolean computeForgeAndProficiency) {
+                                                                boolean computeForge) {
         double totalValue = 0;
         for (ItemStack equip : getAllEquipSlotItems(player)) {
             Item item = equip.getItem();
             if (attributeMap.containsKey(item) && player.experienceLevel >= Utils.levelRequire.getOrDefault(item, 0)) {
                 double value = 0;
                 double baseValue = attributeMap.get(item);
-                if (computeForgeAndProficiency && equip.getTagElement(Utils.MOD_ID) != null) {
+                if (computeForge && equip.getTagElement(Utils.MOD_ID) != null) {
                     value += Compute.forgingValue(equip, baseValue);
-                    value += Compute.proficiencyValue(equip, baseValue);
                 }
                 totalValue += baseValue + value;
             }
