@@ -1,14 +1,13 @@
 package fun.wraq.series.instance.series.moon.Equip;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqBow;
+import fun.wraq.common.impl.onhit.OnHitEffectMainHandWeapon;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.core.MyArrow;
-import fun.wraq.entities.entities.Civil.Civil;
 import fun.wraq.process.func.particle.ParticleProvider;
-import fun.wraq.common.impl.onhit.OnHitEffectMainHandWeapon;
-import fun.wraq.common.equip.WraqBow;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
@@ -22,10 +21,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class MoonBow extends WraqBow implements OnHitEffectMainHandWeapon {
 
@@ -64,7 +62,7 @@ public class MoonBow extends WraqBow implements OnHitEffectMainHandWeapon {
                 append(Component.literal("造成").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("25%伤害").withStyle(CustomStyle.styleOfMoon)));
         components.add(Component.literal(" 额外箭矢").withStyle(CustomStyle.styleOfFlexible).
-                append(Component.literal("会自动锁定自身半径30格内的目标").withStyle(ChatFormatting.WHITE)));
+                append(Component.literal("会自动锁定前方锥形范围内的目标").withStyle(ChatFormatting.WHITE)));
         return components;
     }
 
@@ -74,29 +72,42 @@ public class MoonBow extends WraqBow implements OnHitEffectMainHandWeapon {
     }
 
     private void shootExArrow(Player player) {
-        player.level().getEntitiesOfClass(Mob.class, AABB.ofSize(player.position(), 80, 80, 80))
-                .stream().filter(mob -> mob.distanceTo(player) <= 30 && !(mob instanceof Civil))
-                .sorted(new Comparator<Mob>() {
-                    @Override
-                    public int compare(Mob o1, Mob o2) {
-                        if (o1.distanceTo(player) - o2.distanceTo(player) < 0) return -1;
-                        else if (o1.distanceTo(player) - o2.distanceTo(player) == 0) return 0;
-                        else return 1;
-                    }
-                })
-                .limit(exTargetCount)
-                .forEach(mob -> {
-                    MyArrow myArrow = new MyArrow(EntityType.ARROW, player.level(), player, true, 0.25);
-                    myArrow.setDeltaMovement(mob.position().add(0, 1, 0).subtract(player.position().add(0, 1.5, 0)).normalize().scale(4.5));
-                    myArrow.moveTo(player.pick(0.5, 0, false).getLocation());
-                    myArrow.setCritArrow(true);
-                    myArrow.setNoGravity(true);
-                    ProjectileUtil.rotateTowardsMovement(myArrow, 1);
-                    player.level().addFreshEntity(myArrow);
-                    ParticleProvider.LineParticle(player.level(), (int) mob.distanceTo(player),
-                            player.pick(0.5, 0, false).getLocation(),
-                            mob.position().add(0, 1, 0), ParticleTypes.FIREWORK);
-                });
+        List<Mob> targetList = new ArrayList<>();
+        Map<Mob, Double> distance = new HashMap<>();
+        for (int i = 0 ; i < 30 ; i ++) {
+            Vec3 pickPos = player.pick(i, 0, false).getLocation();
+            int finalI = i;
+            player.level().getEntitiesOfClass(Mob.class, AABB.ofSize(pickPos, i * 2, i * 2, i * 2))
+                    .stream().filter(mob -> mob.position().distanceTo(pickPos) < finalI)
+                    .forEach(mob -> {
+                        if (distance.containsKey(mob)) {
+                            if (distance.get(mob) > mob.position().distanceTo(pickPos)) {
+                                distance.put(mob, mob.position().distanceTo(pickPos));
+                            }
+                        } else {
+                            distance.put(mob, mob.position().distanceTo(pickPos));
+                        }
+                        if (!targetList.contains(mob)) targetList.add(mob);
+                    });
+        }
+        targetList.sort(new Comparator<Mob>() {
+            @Override
+            public int compare(Mob o1, Mob o2) {
+                return (int) (distance.get(o1) - distance.get(o2));
+            }
+        });
+        targetList.subList(1, Math.min(3, targetList.size())).forEach(mob -> {
+            MyArrow myArrow = new MyArrow(EntityType.ARROW, player.level(), player, true, 0.25);
+            myArrow.setDeltaMovement(mob.position().add(0, 1, 0).subtract(player.position().add(0, 1.5, 0)).normalize().scale(4.5));
+            myArrow.moveTo(player.pick(0.5, 0, false).getLocation());
+            myArrow.setCritArrow(true);
+            myArrow.setNoGravity(true);
+            ProjectileUtil.rotateTowardsMovement(myArrow, 1);
+            player.level().addFreshEntity(myArrow);
+            ParticleProvider.LineParticle(player.level(), (int) mob.distanceTo(player),
+                    player.pick(0.5, 0, false).getLocation(),
+                    mob.position().add(0, 1, 0), ParticleTypes.FIREWORK);
+        });
     }
 
     @Override
