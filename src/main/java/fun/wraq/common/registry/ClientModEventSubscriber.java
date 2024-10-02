@@ -1,6 +1,5 @@
 package fun.wraq.common.registry;
 
-import fun.wraq.common.registry.ModEntityType;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.struct.SkillImage;
@@ -11,8 +10,11 @@ import fun.wraq.entities.entities.SoraSword.SoraSwordAirRender;
 import fun.wraq.entities.render.*;
 import fun.wraq.process.func.guide.GuideHud;
 import fun.wraq.process.system.teamInstance.NewTeamInstanceHud;
-import fun.wraq.render.hud.AttributeHud;
+import fun.wraq.render.hud.main.BuffHud;
 import fun.wraq.render.hud.ShieldHud;
+import fun.wraq.render.hud.main.MobAttributesHud;
+import fun.wraq.render.hud.main.PlayerOtherAttributesHud;
+import fun.wraq.render.hud.main.PlayerSelfAttributesHud;
 import fun.wraq.render.hud.manaHud;
 import fun.wraq.render.particles.*;
 import fun.wraq.render.toolTip.NewTooltip;
@@ -164,7 +166,13 @@ public class ClientModEventSubscriber {
         MinecraftForge.EVENT_BUS.addListener(ClientModEventSubscriber::Disabled);
         event.registerBelowAll("mana", manaHud.HUD_MANA);
         event.registerBelowAll("shield", ShieldHud.HUD_SHIELD);
-        event.registerAboveAll("attributehud", AttributeHud.HUD_ATTRIBUTE);
+
+        // 玩家主操作界面HUD
+        event.registerAboveAll("buff_hud", BuffHud.HUD_ATTRIBUTE);
+        event.registerAboveAll("player_self_attributes_hud", PlayerSelfAttributesHud.SELF_ATTRIBUTES_HUD);
+        event.registerAboveAll("mob_attributes_hud", MobAttributesHud.MOB_ATTRIBUTES_HUD);
+        event.registerAboveAll("player_other_attributes_hud", PlayerOtherAttributesHud.OTHER_PLAYER_HUD);
+
         event.registerAboveAll("guide_hud", GuideHud.GUIDE_HUD);
         event.registerAboveAll("new_team_instance_hud", NewTeamInstanceHud.NEW_TEAM_INSTANCE_HUD);
     }

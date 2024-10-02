@@ -161,24 +161,24 @@ public class IdCardGui extends Screen {
                 ClientUtils.SkillChangeCache.Mana++;
             }
         }).pos(this.width / 2 + 29, this.height / 2 + 98 - 68).size(12, 12).build());
-        this.addRenderableWidget(Button.builder(Component.literal("TREE").withStyle(CustomStyle.styleOfPower), (p_280814_) -> {
+        this.addRenderableWidget(Button.builder(Component.literal("精通树").withStyle(CustomStyle.styleOfPower), (p_280814_) -> {
             ClientUtils.SwordSkillPoint.SwordSkillPointCacheInit();
             ClientUtils.BowSkillPoint.BowSkillPointCacheInit();
             ClientUtils.ManaSkillPoint.ManaSkillPointCacheInit();
             DistExecutor.safeCallWhenOn(Dist.CLIENT, () -> OpenSkillTreeGui::new);
-        }).pos(this.width / 2 - 117, this.height / 2 + 113 - 68).size(21, 12).build());
-        this.addRenderableWidget(Button.builder(Component.literal("TREE").withStyle(CustomStyle.styleOfFlexible), (p_280814_) -> {
+        }).pos(this.width / 2 - 122, this.height / 2 + 113 - 68).size(30, 12).build());
+        this.addRenderableWidget(Button.builder(Component.literal("精通树").withStyle(CustomStyle.styleOfFlexible), (p_280814_) -> {
             ClientUtils.SwordSkillPoint.SwordSkillPointCacheInit();
             ClientUtils.BowSkillPoint.BowSkillPointCacheInit();
             ClientUtils.ManaSkillPoint.ManaSkillPointCacheInit();
             DistExecutor.safeCallWhenOn(Dist.CLIENT, () -> OpenSkillTreeGui::new);
-        }).pos(this.width / 2 - 55, this.height / 2 + 113 - 68).size(21, 12).build());
-        this.addRenderableWidget(Button.builder(Component.literal("TREE").withStyle(CustomStyle.styleOfIntelligent), (p_280814_) -> {
+        }).pos(this.width / 2 - 60, this.height / 2 + 113 - 68).size(30, 12).build());
+        this.addRenderableWidget(Button.builder(Component.literal("精通树").withStyle(CustomStyle.styleOfIntelligent), (p_280814_) -> {
             ClientUtils.SwordSkillPoint.SwordSkillPointCacheInit();
             ClientUtils.BowSkillPoint.BowSkillPointCacheInit();
             ClientUtils.ManaSkillPoint.ManaSkillPointCacheInit();
             DistExecutor.safeCallWhenOn(Dist.CLIENT, () -> OpenSkillTreeGui::new);
-        }).pos(this.width / 2 + 7, this.height / 2 + 113 - 68).size(21, 12).build());
+        }).pos(this.width / 2 + 2, this.height / 2 + 113 - 68).size(30, 12).build());
 
 /*        this.addRenderableWidget(Button.builder(Component.literal("组队/副本").withStyle(ChatFormatting.AQUA), (p_280814_) -> {
             ModNetworking.sendToServer(new TeamScreenOpenRequestC2SPacket());

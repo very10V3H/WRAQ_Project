@@ -1,7 +1,6 @@
 package fun.wraq.common.util;
 
 import fun.wraq.common.registry.ModItems;
-import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.struct.*;
 import fun.wraq.events.client.ClientAttackEvent;
 import fun.wraq.files.MarketItemInfo;
@@ -121,11 +120,6 @@ public class ClientUtils {
     };
     public static boolean BlackForestParticle = false;
     public static boolean NetherParticle = false;
-    public static int RangeAttackCount = -1;
-    public static int RangeAttackAnimationCount = -1;
-    public static int PickAxeAttackCount = -1;
-    public static int PickAxeAttackAnimationCount = -1;
-    public static boolean AnimationFlag = false;
     public static int PlayerSkillPoint_Total = 0;
     public static int PlayerSkillPoint_Used = 0;
     public static int PlayerAbilityPoint_Total = 0;
@@ -561,22 +555,6 @@ public class ClientUtils {
 
     public static Player playerAttribute;
     public static int playerId;
-
-    public static double playerAttack = 0;
-    public static double playerDefencePenetration = 0;
-    public static double playerCritRate = 0;
-    public static double playerCritDamage = 0;
-    public static double playerManaDamage = 0;
-    public static double playerManaPenetration = 0;
-    public static double playerManaRecover = 0;
-    public static double playerCooldown = 0;
-    public static double playerHealthSteal = 0;
-    public static double playerDefence = 0;
-    public static double playerManaDefence = 0;
-    public static double playerMovementSpeed = 0;
-    public static double playerDefencePenetration0 = 0;
-    public static double playerManaPenetration0 = 0;
-    public static double playerExpUp = 0;
 
     public static List<Double> playerAttributeList = new ArrayList<>();
 
