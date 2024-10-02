@@ -18,12 +18,10 @@ import fun.wraq.networking.misc.ParticlePackets.EffectParticle.ManaDefencePenetr
 import fun.wraq.networking.misc.ParticlePackets.ElementParticle.*;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
-import fun.wraq.process.system.element.ElementValue;
 import fun.wraq.process.system.element.equipAndCurios.waterElement.WaterElementSword;
 import fun.wraq.render.particles.ModParticles;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.network.chat.Component;
@@ -31,6 +29,7 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.protocol.game.ClientboundSetSubtitleTextPacket;
 import net.minecraft.network.protocol.game.ClientboundSetTitleTextPacket;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
@@ -718,36 +717,6 @@ public class Element {
         }
     }
 
-    public static void ClientTick(Level level) {
-        ParticleCreate(lifeElementParticle, level, life);
-        ParticleCreate(waterElementParticle, level, water);
-        ParticleCreate(fireElementParticle, level, fire);
-        ParticleCreate(stoneElementParticle, level, stone);
-        ParticleCreate(iceElementParticle, level, ice);
-        ParticleCreate(lightningElementParticle, level, lightning);
-        ParticleCreate(windElementParticle, level, wind);
-    }
-
-    public static void ParticleCreate(Map<Entity, Integer> map, Level level, String element) {
-        Map<String, ParticleOptions> particleOptionsMap = new HashMap<>() {{
-            put(life, ModParticles.LifeElement.get());
-            put(water, ModParticles.WaterElement.get());
-            put(fire, ModParticles.FireElement.get());
-            put(stone, ModParticles.StoneElement.get());
-            put(ice, ModParticles.IceElement.get());
-            put(lightning, ModParticles.LightningElement.get());
-            put(wind, ModParticles.WindElement.get());
-        }};
-        map.forEach((entity, integer) -> {
-            Vec3 dis = entity.getEyePosition().subtract(Minecraft.getInstance().player.getEyePosition());
-            Vec3 vec3 = entity.getEyePosition().add(dis.normalize().scale(-0.75).add(Minecraft.getInstance().player.getHandHoldingItemAngle(ModItems.PlainSword0.get())));
-            level.addParticle(particleOptionsMap.get(element), vec3.x, vec3.y, vec3.z, 0, 0, 0);
-
-            if (integer > 0) map.put(entity, integer - 1);
-        });
-        map.keySet().removeIf(integer -> map.get(integer) == 0);
-    }
-
     public static void SummonReactionTypeItem(LivingEntity passive, MutableComponent component) {
         Level level = passive.level();
         ItemEntity itemEntity = new ItemEntity(EntityType.ITEM, level);
@@ -1152,5 +1121,19 @@ public class Element {
             }
             return new Pair<>(Component.literal(""), Component.literal(""));
         }
+    }
+
+    public static Map<String, String> typeLocationMap = new HashMap<>() {{
+        put(Element.life, "life_element");
+        put(Element.water, "water_element");
+        put(Element.fire, "fire_element");
+        put(Element.stone, "stone_element");
+        put(Element.ice, "ice_element");
+        put(Element.lightning, "lightning_element");
+        put(Element.wind, "wind_element");
+    }};
+
+    public static ResourceLocation getResource(String type) {
+        return new ResourceLocation(Utils.MOD_ID, "textures/hud/" + typeLocationMap.get(type) + ".png");
     }
 }

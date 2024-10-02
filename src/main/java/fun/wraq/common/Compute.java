@@ -1400,7 +1400,7 @@ public class Compute {
         Vec3 startPos = player.pick(0.5, 0, false).getLocation();
         Vec3 posVec = targetPos.subtract(startPos).normalize();
         List<Mob> mobList = new ArrayList<>();
-        for (double i = 0; i < maxDistance; i += detectStep) {
+        for (double i = detectStep; i <= maxDistance; i += detectStep) {
             List<Mob> mobList1 = level.getEntitiesOfClass(Mob.class, AABB.ofSize(startPos.add(posVec.scale(i)), detectRange, detectRange, detectRange));
             for (Mob mob : mobList1) {
                 if (!mobList.contains(mob)) mobList.add(mob);

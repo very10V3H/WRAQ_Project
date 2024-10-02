@@ -3,6 +3,7 @@ package fun.wraq.events.client;
 import fun.wraq.Items.MainStory_1.BackSpawn;
 import fun.wraq.Items.MainStory_1.Mission.Main0;
 import fun.wraq.common.Compute;
+import fun.wraq.common.impl.tick.TickCurios;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.Utils;
@@ -22,13 +23,11 @@ import fun.wraq.networking.unSorted.PlayerIsNearbyCampfireC2SPacket;
 import fun.wraq.networking.unSorted.UdiskWorldSoulC2SPacket;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.particle.ParticleProvider;
-import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.endlessinstance.DailyEndlessInstance;
 import fun.wraq.process.system.forge.ForgeScreen;
 import fun.wraq.process.system.missions.MissionScreen;
 import fun.wraq.process.system.respawn.MyRespawnRule;
 import fun.wraq.process.system.wayPoints.MyWayPoint;
-import fun.wraq.common.impl.tick.TickCurios;
 import fun.wraq.render.gui.market.MarketScreen;
 import fun.wraq.render.gui.skills.IdCardGui;
 import fun.wraq.render.gui.team.PlayerRequestScreen;
@@ -161,8 +160,6 @@ public class ClientPlayerTickEvent {
 
             if (event.player.position().distanceTo(new Vec3(1138.5, 67.5, 384.5)) < 2)
                 event.player.addDeltaMovement(new Vec3(0, 11, 0));
-
-            Element.ClientTick(event.player.level());
 
             if (ClientUtils.clientPlayer == null) ClientUtils.clientPlayer = Minecraft.getInstance().player;
 
