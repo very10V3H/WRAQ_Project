@@ -87,6 +87,8 @@ import fun.wraq.process.system.wayPoints.networking.SpecificWayPointAddS2CPacket
 import fun.wraq.process.system.wayPoints.networking.SpecificWayPointRemoveS2CPacket;
 import fun.wraq.render.hud.networking.AttributeDataC2SPacket;
 import fun.wraq.render.hud.networking.AttributeDataS2CPacket;
+import fun.wraq.render.hud.networking.ExpGetS2CPacket;
+import fun.wraq.render.hud.networking.ItemGetS2CPacket;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -1310,6 +1312,17 @@ public class ModNetworking {
                 .decoder(DisperseBallParticleS2CPacket::new)
                 .encoder(DisperseBallParticleS2CPacket::toBytes)
                 .consumerMainThread(DisperseBallParticleS2CPacket::handle)
+                .add();
+
+        net.messageBuilder(ExpGetS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(ExpGetS2CPacket::new)
+                .encoder(ExpGetS2CPacket::toBytes)
+                .consumerMainThread(ExpGetS2CPacket::handle)
+                .add();
+        net.messageBuilder(ItemGetS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(ItemGetS2CPacket::new)
+                .encoder(ItemGetS2CPacket::toBytes)
+                .consumerMainThread(ItemGetS2CPacket::handle)
                 .add();
     }
 

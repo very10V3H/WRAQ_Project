@@ -36,6 +36,7 @@ import fun.wraq.render.gui.team.TeamInfoScreen;
 import fun.wraq.render.gui.team.TeamManageScreen;
 import fun.wraq.render.gui.team.TeamSearchScreen;
 import fun.wraq.render.gui.villagerTrade.TradeScreen;
+import fun.wraq.render.hud.main.ItemAndExpGetHud;
 import fun.wraq.render.hud.networking.AttributeDataC2SPacket;
 import fun.wraq.render.particles.ModParticles;
 import fun.wraq.series.overworld.sakuraSeries.EarthMana.EarthPower;
@@ -82,6 +83,7 @@ public class ClientPlayerTickEvent {
             TickCurios.tickEvent(event.player);
             Main0.clientTick(event.player);
             Compute.setDownDeltaInLowGravityEnvironment((LocalPlayer) event.player);
+            ItemAndExpGetHud.clientTick();
         }
         if (event.side.isClient() && event.phase == TickEvent.Phase.END) {
             Minecraft mc = Minecraft.getInstance();

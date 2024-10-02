@@ -4,6 +4,8 @@ import com.mojang.logging.LogUtils;
 import fun.wraq.common.Compute;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.core.InventoryCheck;
+import fun.wraq.networking.ModNetworking;
+import fun.wraq.render.hud.networking.ItemGetS2CPacket;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
@@ -106,20 +108,9 @@ public class InventoryOperation {
         if (itemStack.getCount() > 0) {
             if (InventoryCheck.getBoundingList().contains(itemStack.getItem()))
                 InventoryCheck.addOwnerTagToItemStack(player, itemStack);
-            if (!Compute.PlayerIgnore.IgnoreItemGet(player)) {
-                if (itemStack.getCount() > 1) {
-                    Compute.sendFormatMSG(player, Component.literal("物品").withStyle(ChatFormatting.GREEN),
-                            Component.literal("你获得了：").withStyle(ChatFormatting.WHITE).
-                                    append(itemStack.getDisplayName()).
-                                    append(Component.literal("*" + itemStack.getCount()).withStyle(ChatFormatting.AQUA)));
-                } else {
-                    Compute.sendFormatMSG(player, Component.literal("物品").withStyle(ChatFormatting.GREEN),
-                            Component.literal("你获得了：").withStyle(ChatFormatting.WHITE).
-                                    append(itemStack.getDisplayName()));
-                }
-            }
             Inventory inventory = player.getInventory();
             if (inventory.getFreeSlot() != -1) {
+                ModNetworking.sendToClient(new ItemGetS2CPacket(itemStack), (ServerPlayer) player);
                 player.addItem(itemStack);
             } else {
                 ItemEntity itemEntity = new ItemEntity(EntityType.ITEM, player.level());

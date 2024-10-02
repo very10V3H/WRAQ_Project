@@ -55,6 +55,7 @@ import fun.wraq.process.system.potion.NewPotionEffects;
 import fun.wraq.process.system.tower.Tower;
 import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.render.hud.Mana;
+import fun.wraq.render.hud.networking.ExpGetS2CPacket;
 import fun.wraq.render.particles.ModParticles;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.castle.CastleCurios;
@@ -221,20 +222,21 @@ public class Compute {
         if (expLevel - player.experienceLevel > 8) expLevel = player.experienceLevel;
 
         CompoundTag data = player.getPersistentData();
-        double LevelUpNeedXp = getCurrentXpLevelUpNeedXpPoint(player.experienceLevel);
-        double ExpLevelXp = getCurrentXpLevelUpNeedXpPoint(expLevel);
-        double XpBeforeUp = (ExpLevelXp * num);
-        double XpUp = (ExpLevelXp * num) * expUp;
-        double Xp = XpBeforeUp + XpUp;
-        if (data.contains("Xp")) data.putDouble("Xp", data.getDouble("Xp") + Xp);
-        else data.putDouble("Xp", Xp);
-        if (!data.contains("IgnoreExp") || (!data.getBoolean("IgnoreExp")))
+        double levelUpNeedXp = getCurrentXpLevelUpNeedXpPoint(player.experienceLevel);
+        double expLevelXp = getCurrentXpLevelUpNeedXpPoint(expLevel);
+        double xpBeforeUp = (expLevelXp * num);
+        double xpUp = (expLevelXp * num) * expUp;
+        double xp = xpBeforeUp + xpUp;
+        if (data.contains("Xp")) data.putDouble("Xp", data.getDouble("Xp") + xp);
+        else data.putDouble("Xp", xp);
+/*        if (!data.contains("IgnoreExp") || (!data.getBoolean("IgnoreExp")))
             Compute.sendFormatMSG(player, Component.literal("经验").withStyle(ChatFormatting.LIGHT_PURPLE),
                     Component.literal("经验值").withStyle(ChatFormatting.LIGHT_PURPLE).
                             append(Component.literal(" + ").withStyle(ChatFormatting.DARK_PURPLE)).
                             append(Component.literal(String.format("%.1f", XpBeforeUp)).withStyle(ChatFormatting.LIGHT_PURPLE)).
                             append(Component.literal(" + " + String.format("%.1f", XpUp)).withStyle(CustomStyle.styleOfLucky)).
-                            append(Component.literal(String.format(" (%.1f/%.1f)", data.getDouble("Xp"), LevelUpNeedXp)).withStyle(ChatFormatting.GRAY)));
+                            append(Component.literal(String.format(" (%.1f/%.1f)", data.getDouble("Xp"), LevelUpNeedXp)).withStyle(ChatFormatting.GRAY)));*/
+        ModNetworking.sendToClient(new ExpGetS2CPacket(xp), (ServerPlayer) player);
     }
 
     public static void giveExpToPlayer(Player player, double num) {
