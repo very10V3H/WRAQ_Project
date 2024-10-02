@@ -130,7 +130,7 @@ public class BasicAttributeDescription {
 
         index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.attackDamage, Utils.percentAttackDamageEnhance,
                 StringUtils.CuriosAttribute.percentAttackDamage, "物理攻击",
-                Style.EMPTY.applyFormat(ChatFormatting.AQUA), "%.0f%%", true, itemStack, event.getTooltipElements());
+                Style.EMPTY.applyFormat(ChatFormatting.AQUA), 0, true, itemStack, false, null, event.getTooltipElements());
 
         index = descriptionXpLevelAttributeTemplate(index, TraditionalTooltip.manaDamage, Utils.xpLevelManaDamage,
                 StringUtils.CuriosAttribute.xpLevelManaDamage, "魔法攻击", Style.EMPTY.applyFormat(ChatFormatting.LIGHT_PURPLE),
@@ -176,7 +176,7 @@ public class BasicAttributeDescription {
 
         index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.manaDamage, Utils.percentManaDamageEnhance,
                 StringUtils.CuriosAttribute.percentManaDamageEnhance, "魔法攻击",
-                CustomStyle.styleOfMana, "%.0f%%", true, itemStack, event.getTooltipElements());
+                CustomStyle.styleOfMana, 0, true, itemStack, false, null, event.getTooltipElements());
 
         index = descriptionXpLevelAttributeTemplate(index, TraditionalTooltip.defence, Utils.xpLevelDefence,
                 StringUtils.CuriosAttribute.xpLevelDefence, "基础护甲", Style.EMPTY.applyFormat(ChatFormatting.GRAY),
@@ -206,7 +206,7 @@ public class BasicAttributeDescription {
 
         index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.defence, Utils.percentDefenceEnhance,
                 StringUtils.CuriosAttribute.percentDefenceEnhance, "基础护甲",
-                Style.EMPTY.applyFormat(ChatFormatting.GRAY), "%.0f%%", true, itemStack, event.getTooltipElements());
+                Style.EMPTY.applyFormat(ChatFormatting.GRAY), 0, true, itemStack, false, null, event.getTooltipElements());
 
         index = descriptionXpLevelAttributeTemplate(index, TraditionalTooltip.manaDefence, Utils.xpLevelManaDefence,
                 StringUtils.CuriosAttribute.xpLevelManaDefence, "魔法抗性", Style.EMPTY.applyFormat(ChatFormatting.BLUE),
@@ -232,7 +232,7 @@ public class BasicAttributeDescription {
 
         index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.manaDefence, Utils.percentManaDefenceEnhance,
                 StringUtils.CuriosAttribute.percentManaDefenceEnhance, "魔法抗性",
-                Style.EMPTY.applyFormat(ChatFormatting.BLUE), "%.0f%%", true, itemStack, event.getTooltipElements());
+                Style.EMPTY.applyFormat(ChatFormatting.BLUE), 0, true, itemStack, false, null, event.getTooltipElements());
 
         if (Utils.maxHealth.containsKey(item) || data.contains(StringUtils.RandomAttribute.maxHealth)
                 || data.contains(StringUtils.CuriosAttribute.maxHealth)) {
@@ -278,36 +278,15 @@ public class BasicAttributeDescription {
 
         index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.maxHealth, Utils.percentMaxHealthEnhance,
                 StringUtils.CuriosAttribute.percentMaxHealthEnhance, "最大生命值",
-                Style.EMPTY.applyFormat(ChatFormatting.GREEN), "%.0f%%", true, itemStack, event.getTooltipElements());
+                Style.EMPTY.applyFormat(ChatFormatting.GREEN), 0, true, itemStack, false, null, event.getTooltipElements());
 
-        if (Utils.healthRecover.containsKey(item) || data.contains(StringUtils.CuriosAttribute.healthRecover)
-                || data.contains(StringUtils.RandomAttribute.healthRecover)) {
-            double healthRecover;
-            if (Utils.healthRecover.containsKey(item)) healthRecover = Utils.healthRecover.get(item);
-            else if (item instanceof RandomCurios)
-                healthRecover = data.getDouble(StringUtils.CuriosAttribute.healthRecover) * CastleCurios.attributeValueMap.get(StringUtils.CuriosAttribute.healthRecover);
-            else healthRecover = data.getInt(StringUtils.CuriosAttribute.healthRecover);
-            if (data.contains(StringUtils.RandomAttribute.healthRecover))
-                healthRecover += ForgeEquipUtils.getRandomEquipBaseValue(itemStack, StringUtils.RandomAttribute.healthRecover);
-
-            MutableComponent mutableComponent = Component.literal("");
-            if (healthRecover > 0) {
-                mutableComponent.append(Component.literal(" 生命回复").withStyle(ChatFormatting.GREEN).
-                        append(Component.literal("+" + String.format("%.1f", healthRecover)).withStyle(ChatFormatting.WHITE)));
-            } else {
-                mutableComponent.append(Component.literal(" 生命回复").withStyle(ChatFormatting.GREEN).
-                        append(Component.literal("-" + String.format("%.1f", -healthRecover)).withStyle(ChatFormatting.RED)));
-            }
-
-            handleRandomAttributeRate(itemStack, StringUtils.CuriosAttribute.healthRecover, mutableComponent);
-
-            index++;
-            event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.healthRecover)));
-        }
+        index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.healthRecover, Utils.healthRecover,
+                StringUtils.CuriosAttribute.healthRecover, "生命回复",
+                Style.EMPTY.applyFormat(ChatFormatting.GREEN), 1, false, itemStack, true, CustomStyle.styleOfLife, event.getTooltipElements());
 
         index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.healthRecover, Utils.percentHealthRecover,
                 StringUtils.CuriosAttribute.percentHealthRecover, "生命回复",
-                Style.EMPTY.applyFormat(ChatFormatting.GREEN), "%.0f%%", true, itemStack, event.getTooltipElements());
+                Style.EMPTY.applyFormat(ChatFormatting.GREEN), 1, true, itemStack, true, CustomStyle.styleOfLife, event.getTooltipElements());
 
         if (Utils.defencePenetration.containsKey(item) || data.contains(StringUtils.CuriosAttribute.defencePenetration)) {
 
@@ -667,7 +646,7 @@ public class BasicAttributeDescription {
 
         index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.movementSpeed, Utils.movementSpeedCommon,
                 StringUtils.CuriosAttribute.commonMovementSpeed, "移动速度",
-                Style.EMPTY.applyFormat(ChatFormatting.GREEN), "%.0f%%", true, itemStack, event.getTooltipElements());
+                Style.EMPTY.applyFormat(ChatFormatting.GREEN), 0, true, itemStack, false, null, event.getTooltipElements());
 
         if (Utils.movementSpeedWithoutBattle.containsKey(item) || data.contains(StringUtils.CuriosAttribute.movementSpeed)
                 || data.contains(StringUtils.RandomAttribute.movementSpeed)) {
@@ -872,7 +851,7 @@ public class BasicAttributeDescription {
 
         index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.stoneElement, WraqPickaxe.mineSpeed,
                 "EmptyTypeAttribute", "挖掘速度",
-                Style.EMPTY.applyFormat(ChatFormatting.GRAY), "%.0f%%", true, itemStack, event.getTooltipElements());
+                Style.EMPTY.applyFormat(ChatFormatting.GRAY), 0, true, itemStack, false, null, event.getTooltipElements());
 
         // 以下为新版宝石内容提示
         List<WraqGem> gemList = WraqGem.getEquipContainGemList(itemStack);
@@ -976,8 +955,9 @@ public class BasicAttributeDescription {
     // 新的属性描述模板，仅需按照参数进行配置即可，但是需要注意的是，仅接受不能被强化增幅的属性。
     public static int newAttributeCommonDescriptionTemplate(int index, ResourceLocation resourceLocation, Map<Item, Double> map,
                                                             String curiosAttributeTag, String attributeName,
-                                                            Style style, String valueFormat, boolean isPercent,
-                                                            ItemStack itemStack,
+                                                            Style style, int decimalScale, boolean isPercent,
+                                                            ItemStack itemStack, boolean acceptForgeAndProficiency,
+                                                            Style forgeValueStyle,
                                                             List<Either<FormattedText, TooltipComponent>> components) {
         Item item = itemStack.getItem();
         CompoundTag data = itemStack.getOrCreateTagElement(Utils.MOD_ID);
@@ -990,15 +970,42 @@ public class BasicAttributeDescription {
                 value = data.getDouble(curiosAttributeTag) * CastleCurios.attributeValueMap.get(curiosAttributeTag);
             else value = data.getInt(curiosAttributeTag);
 
+            String percent = isPercent ? "%" : "";
             MutableComponent mutableComponent = Component.literal("");
             mutableComponent.append(Component.literal(" " + attributeName).withStyle(style).
-                    append(Component.literal((value > 0 ? "+" : "") + String.format(valueFormat, value * (isPercent ? 100 : 1)))
+                    append(Component.literal((value > 0 ? "+" : "") + getDecimal(value * (isPercent ? 100 : 1), decimalScale) + percent)
                             .withStyle(value > 0 ? ChatFormatting.WHITE : ChatFormatting.RED)));
 
             double gemsValue = GemAttributes.getGemsAttributeModifier(data, map);
 
             if (gemsValue != 0) {
-                mutableComponent.append(Component.literal(" + " + String.format(valueFormat, gemsValue * (isPercent ? 100 : 1))).withStyle(style));
+                mutableComponent.append(Component.literal(" + " + getDecimal(gemsValue * (isPercent ? 100 : 1), decimalScale) + percent).withStyle(style));
+            }
+
+            if (acceptForgeAndProficiency) {
+                double exForgingValue = 0;
+                if (data.contains(StringUtils.ForgeLevel)) {
+                    exForgingValue = Compute.forgingValue(data, value);
+                }
+                double exProficiencyValue = 0;
+                if (data.contains(StringUtils.KillCount.KillCount)) {
+                    exProficiencyValue = value * 0.5 *
+                            Math.min(1, (data.getInt(StringUtils.KillCount.KillCount) / 100000.0));
+                }
+                ChatFormatting[] chatFormattings = {
+                        ChatFormatting.GREEN, ChatFormatting.AQUA, ChatFormatting.YELLOW,
+                        ChatFormatting.LIGHT_PURPLE, ChatFormatting.RED
+                };
+
+                if (exProficiencyValue != 0) {
+                    mutableComponent.append(Component.literal(" + " + getDecimal(exProficiencyValue * (isPercent ? 100 : 1), decimalScale) + percent).
+                            withStyle(ChatFormatting.RESET).withStyle(chatFormattings[Math.min(data.getInt(StringUtils.KillCount.KillCount) / 20000, 4)]));
+                }
+
+                if (exForgingValue != 0) {
+                    mutableComponent.append(Component.literal(" + " + getDecimal(exForgingValue * (isPercent ? 100 : 1), decimalScale) + percent).withStyle(forgeValueStyle)).
+                            append(Component.literal("⮅").withStyle(CustomStyle.styleOfPower));
+                }
             }
 
             index++;
@@ -1129,6 +1136,7 @@ public class BasicAttributeDescription {
     }
 
     private static String getDecimal(double value, int scale) {
+        if (value >= 10) return String.format("%.0f", value);
         return BigDecimal.valueOf(value).setScale(scale, RoundingMode.HALF_UP).stripTrailingZeros().toString();
     }
 }

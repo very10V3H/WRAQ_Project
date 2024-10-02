@@ -1329,37 +1329,17 @@ public class PlayerAttributes {
     public static double healthRecover(Player player) {
         double healthRecover = 5 + player.experienceLevel * 0.1;
         CompoundTag data = player.getPersistentData();
-        Item boots = player.getItemBySlot(EquipmentSlot.FEET).getItem();
-        Item leggings = player.getItemBySlot(EquipmentSlot.LEGS).getItem();
-        Item chest = player.getItemBySlot(EquipmentSlot.CHEST).getItem();
-        Item helmet = player.getItemBySlot(EquipmentSlot.HEAD).getItem();
-        Item mainhand = player.getItemInHand(InteractionHand.MAIN_HAND).getItem();
-        Item offhand = player.getItemInHand(InteractionHand.OFF_HAND).getItem();
-        CompoundTag helmetTag = player.getItemBySlot(EquipmentSlot.HEAD).getOrCreateTagElement(Utils.MOD_ID);
-        CompoundTag chestTag = player.getItemBySlot(EquipmentSlot.CHEST).getOrCreateTagElement(Utils.MOD_ID);
-        CompoundTag leggingsTag = player.getItemBySlot(EquipmentSlot.LEGS).getOrCreateTagElement(Utils.MOD_ID);
-        CompoundTag bootsTag = player.getItemBySlot(EquipmentSlot.FEET).getOrCreateTagElement(Utils.MOD_ID);
-        CompoundTag stackmainhandtag = new CompoundTag();
-        if (player.getItemInHand(InteractionHand.MAIN_HAND).getTagElement(Utils.MOD_ID) != null) {
-            stackmainhandtag = player.getItemInHand(InteractionHand.MAIN_HAND).getOrCreateTagElement(Utils.MOD_ID);
-        }
 
+        // 处理随机属性装备
         healthRecover += handleAllEquipRandomAttribute(player, StringUtils.RandomAttribute.healthRecover);
 
-        if (helmetTag.contains("newGems1")) healthRecover += GemAttributes.gemsHealRecover(helmetTag);
-        if (chestTag.contains("newGems1")) healthRecover += GemAttributes.gemsHealRecover(chestTag);
-        if (leggingsTag.contains("newGems1")) healthRecover += GemAttributes.gemsHealRecover(leggingsTag);
-        if (bootsTag.contains("newGems1")) healthRecover += GemAttributes.gemsHealRecover(bootsTag);
-        if (stackmainhandtag.contains("newGems1") && Utils.mainHandTag.containsKey(mainhand))
-            healthRecover += GemAttributes.gemsHealRecover(stackmainhandtag);
-        if (Utils.healthRecover.containsKey(boots)) healthRecover += Utils.healthRecover.get(boots);
-        if (Utils.healthRecover.containsKey(leggings)) healthRecover += Utils.healthRecover.get(leggings);
-        if (Utils.healthRecover.containsKey(chest)) healthRecover += Utils.healthRecover.get(chest);
-        if (Utils.healthRecover.containsKey(helmet)) healthRecover += Utils.healthRecover.get(helmet);
-        if (Utils.mainHandTag.containsKey(mainhand) && Utils.healthRecover.containsKey(mainhand))
-            healthRecover += Utils.healthRecover.get(mainhand);
-        if (Utils.offHandTag.containsKey(offhand) && Utils.healthRecover.containsKey(offhand))
-            healthRecover += Utils.healthRecover.get(offhand);
+        // 处理宝石属性
+        healthRecover += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.healthRecover);
+
+        // 处理基础属性
+        healthRecover += computeAllEquipSlotBaseAttributeValue(player, Utils.healthRecover, true);
+
+        // 处理主动被动等额外属性
         if (SuitCount.getPlainSuitCount(player) >= 2) healthRecover += 0.5 + player.getMaxHealth() * 0.01F;
         if (SuitCount.getLifeManaSuitCount(player) >= 4) healthRecover += 1 + player.getMaxHealth() * 0.01F;
         if (!Utils.OverWorldLevelIsNight && SuitCount.getForestSuitCount(player) >= 4) healthRecover += 5;
@@ -1391,7 +1371,8 @@ public class PlayerAttributes {
         healthRecover += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerHealthRecoverModifier);
 
         // 最大生命值百分比生命回复
-        healthRecover += computeAllEquipSlotBaseAttributeValue(player, Utils.percentHealthRecover, false) * player.getMaxHealth();
+        healthRecover += computeAllEquipSlotBaseAttributeValue(player, Utils.percentHealthRecover, true) * player.getMaxHealth();
+
         // 请在上方添加
         healthRecover *= Compute.playerFantasyAttributeEnhance(player);
 
@@ -2284,6 +2265,13 @@ public class PlayerAttributes {
         return totalValue;
     }
 
+    /**
+     * 计算所有盔甲 + 主手 + 副手基础属性的总和
+     * @param player 玩家
+     * @param attributeMap 属性表
+     * @param computeForgeAndProficiency 是否计算强化等级与熟练度
+     * @return 得到的基础数值
+     */
     private static double computeAllEquipSlotBaseAttributeValue(Player player, Map<Item, Double> attributeMap,
                                                                 boolean computeForgeAndProficiency) {
         double totalValue = 0;
