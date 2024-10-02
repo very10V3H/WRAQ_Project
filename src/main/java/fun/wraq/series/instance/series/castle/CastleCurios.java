@@ -85,7 +85,9 @@ public class CastleCurios extends Item implements ICurioItem, RandomCurios {
         put(StringUtils.CuriosAttribute.healthSteal, 0.1);
         put(StringUtils.CuriosAttribute.defencePenetration, 0.15);
         put(StringUtils.CuriosAttribute.movementSpeed, 0.5);
+        put(StringUtils.CuriosAttribute.commonMovementSpeed, 0.25);
         put(StringUtils.CuriosAttribute.healthRecover, 50d);
+        put(StringUtils.CuriosAttribute.percentHealthRecover, 0.05d);
         put(StringUtils.CuriosAttribute.healEffectUp, 0.5);
         put(StringUtils.CuriosAttribute.manaPenetration, 0.15);
         put(StringUtils.CuriosAttribute.manaHealthSteal, 0.1);
@@ -153,7 +155,8 @@ public class CastleCurios extends Item implements ICurioItem, RandomCurios {
                     StringUtils.CuriosAttribute.maxMana,
                     StringUtils.CuriosAttribute.swiftnessUp,
                     StringUtils.CuriosAttribute.expUp,
-                    StringUtils.CuriosAttribute.movementSpeed
+                    StringUtils.CuriosAttribute.movementSpeed,
+                    StringUtils.CuriosAttribute.commonMovementSpeed
             };
             addAll(List.of(strings));
         }};

@@ -10,8 +10,6 @@ import fun.wraq.common.util.struct.SwordSkillStruct.SwordSkill13;
 import fun.wraq.common.util.struct.SwordSkillStruct.SwordSkill3;
 import fun.wraq.common.util.struct.SwordSkillStruct.SwordSkill6;
 import fun.wraq.entities.entities.Boss2.Boss2;
-import fun.wraq.entities.entities.SakuraMob.SakuraMob;
-import fun.wraq.entities.entities.Scarecrow.Scarecrow;
 import fun.wraq.files.MarketItemInfo;
 import fun.wraq.networking.unSorted.PlayerCallBack;
 import fun.wraq.render.mobEffects.ModEffects;
@@ -35,7 +33,6 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -89,6 +86,8 @@ public class Utils {
     public static Map<Item, Double> critDamageDecrease = new HashMap<>();
     public static Map<Item, Double> luckyUp = new HashMap<>();
     public static Map<Item, Double> toughness = new HashMap<>();
+    public static Map<Item, Double> percentHealthRecover = new HashMap<>();
+
     public static Map<Item, Double> mainHandTag = new HashMap<>();
     public static Map<Item, Double> swordTag = new HashMap<>();
     public static Map<Item, Double> bowTag = new HashMap<>();
@@ -102,121 +101,11 @@ public class Utils {
     public static Map<Item, Double> passiveEquipTag = new HashMap<>();
     public static Map<Item, Integer> levelRequire = new HashMap<>();
     public static Map<Item, Integer> gemsTag = new HashMap<>();
-    public static Map<String, Double> gemsAttackDamage = new HashMap<>();
-    public static Map<String, Double> gemsSpeedUp = new HashMap<>();
-    public static Map<String, Double> gemsManaDamage = new HashMap<>();
-    public static Map<String, Double> gemsManaRecover = new HashMap<>();
-    public static Map<String, Double> gemsHealthRecover = new HashMap<>();
-    public static Map<String, Double> gemsMaxHealth = new HashMap<>();
-    public static Map<String, Double> gemsDefence = new HashMap<>();
-    public static Map<String, Double> gemsCoolDown = new HashMap<>();
-    public static Map<String, Double> gemsCritDamage = new HashMap<>();
-    public static Map<String, Double> gemsCritRate = new HashMap<>();
-    public static Map<String, Double> gemsHealStrength = new HashMap<>();
-    public static Map<String, Double> gemsManaHealthSteal = new HashMap<>();
-    public static Map<String, Double> gemsDefencePenetration0 = new HashMap<>();
-    public static Map<String, Double> gemsManaPenetration0 = new HashMap<>();
-    public static Map<String, Double> gemsExpUp = new HashMap<>();
-    public static Map<String, Double> gemsLuckyUp = new HashMap<>();
-    public static Map<String, Double> gemsDefencePenetration = new HashMap<>();
-    public static Map<String, Double> gemsManaPenetration = new HashMap<>();
-    public static Map<String, Double> gemsHealthSteal = new HashMap<>();
-    public static Map<String, Double> gemsManaDefence = new HashMap<>();
 
     public static List<LivingEntity> MonsterAttributeDataProvider = new ArrayList<>();
 
     public static int AttributeDataTick = 0;
     public static Entity EntityCopy;
-    public static Map<Item, Boolean> ItemCheck = new HashMap<>() {
-        {
-            put(Items.PRISMARINE_BRICK_SLAB, true);
-            put(Items.SMITHING_TABLE, true);
-            put(Items.POLISHED_BLACKSTONE_SLAB, true);
-            put(Items.SEA_LANTERN, true);
-            put(Items.QUARTZ_SLAB, true);
-            put(Items.GRANITE_SLAB, true);
-            put(Items.POLISHED_BLACKSTONE_BRICK_SLAB, true);
-            put(Items.SPRUCE_SLAB, true);
-            put(Items.BIRCH_SLAB, true);
-            put(Items.OAK_SLAB, true);
-            put(Items.LOOM, true);
-            put(Items.SMOKER, true);
-            put(Items.GREEN_STAINED_GLASS, true);
-            put(Items.SMOOTH_QUARTZ_SLAB, true);
-            put(Items.POLISHED_DEEPSLATE_SLAB, true);
-            put(Items.ANVIL, true);
-            put(Items.WHITE_STAINED_GLASS, true);
-            put(Items.LECTERN, true);
-            put(Items.CARTOGRAPHY_TABLE, true);
-            put(Items.LIME_STAINED_GLASS, true);
-            put(Items.DARK_OAK_SLAB, true);
-            put(Items.PEARLESCENT_FROGLIGHT, true);
-            put(Items.END_STONE, true);
-            put(Items.BLACK_WOOL, true);
-            put(Items.ACACIA_LOG, true);
-            put(Items.BIRCH_LOG, true);
-            put(Items.DARK_OAK_LOG, true);
-            put(Items.OAK_LOG, true);
-            put(Items.JUNGLE_LOG, true);
-            put(Items.MANGROVE_LOG, true);
-            put(Items.SPRUCE_LOG, true);
-            put(Items.OAK_FENCE, true);
-            put(Items.BEACON, true);
-            put(Items.PURPLE_STAINED_GLASS, true);
-            put(Items.ACACIA_LEAVES, true);
-            put(Items.AZALEA_LEAVES, true);
-            put(Items.BIRCH_LEAVES, true);
-            put(Items.JUNGLE_LEAVES, true);
-            put(Items.DARK_OAK_LEAVES, true);
-            put(Items.OAK_LEAVES, true);
-            put(Items.MANGROVE_LEAVES, true);
-            put(Items.FLOWERING_AZALEA_LEAVES, true);
-            put(Items.SPRUCE_LEAVES, true);
-            put(Items.TWISTING_VINES, true);
-            put(Items.WEEPING_VINES, true);
-            put(Items.GILDED_BLACKSTONE, true);
-            put(Items.BAMBOO, true);
-            put(Items.PRISMARINE_BRICKS, true);
-            put(Items.GRASS, true);
-            put(Items.DANDELION, true);
-            put(Items.POPPY, true);
-            put(Items.BLUE_ORCHID, true);
-            put(Items.ALLIUM, true);
-            put(Items.AZURE_BLUET, true);
-            put(Items.RED_TULIP, true);
-            put(Items.ORANGE_TULIP, true);
-            put(Items.WHITE_TULIP, true);
-            put(Items.PINK_TULIP, true);
-            put(Items.OXEYE_DAISY, true);
-            put(Items.CORNFLOWER, true);
-            put(Items.LILY_OF_THE_VALLEY, true);
-            put(Items.WITHER_ROSE, true);
-            put(Items.SPORE_BLOSSOM, true);
-            put(Items.CRIMSON_ROOTS, true);
-            put(Items.WARPED_ROOTS, true);
-            put(Items.NETHER_SPROUTS, true);
-            put(Items.SUGAR_CANE, true);
-            put(Items.KELP, true);
-            put(Items.CHORUS_PLANT, true);
-            put(Items.CHORUS_FLOWER, true);
-            put(Items.CACTUS, true);
-            put(Items.CHAIN, true);
-            put(Items.VINE, true);
-            put(Items.GLOW_LICHEN, true);
-            put(Items.SCULK_VEIN, true);
-            put(Items.SUNFLOWER, true);
-            put(Items.LILAC, true);
-            put(Items.ROSE_BUSH, true);
-            put(Items.PEONY, true);
-            put(Items.TALL_GRASS, true);
-            put(Items.LARGE_FERN, true);
-            put(Items.POINTED_DRIPSTONE, true);
-            put(Items.OBSIDIAN, true);
-            put(Items.SEAGRASS, true);
-            put(Items.CHERRY_LEAVES, true);
-            put(Items.CHERRY_LOG, true);
-        }
-    };
 
     public static List<PlayerCallBack> playerCallBackList = new ArrayList<>();
 
@@ -230,43 +119,9 @@ public class Utils {
 
     // Entity
 
-    public static Zombie[] PlainZombie = new Zombie[25];
-    public static Skeleton[] ForestSkeleton = new Skeleton[15];
-    public static Zombie[] ForestZombie = new Zombie[15];
-    public static Stray[] SnowStray = new Stray[15];
-    public static WitherSkeleton[] WitherSkeleton = new WitherSkeleton[15];
-    public static Evoker[] EvokerMaster = new Evoker[15];
-    public static Skeleton[] NetherSkeleton = new Skeleton[15];
-    public static Zombie[] LightingZombie = new Zombie[15];
-    public static Spider[] Spider = new Spider[15];
-    public static Silverfish[] SilverFish = new Silverfish[15];
-    public static EnderMan[] EnderMan = new EnderMan[15];
-    public static SakuraMob[] SakuraMob = new SakuraMob[15];
-    public static Scarecrow[] Scarecrow = new Scarecrow[15];
-    public static Zombie[] MineWorker = new Zombie[15];
-    public static Stray[] IceHunter = new Stray[15];
-    public static Pillager[] pillagers = new Pillager[15];
     public static Stray[] IceHunterForIceKnight = new Stray[15];
-    public static Zombie[] WoodenStake = new Zombie[15];
-    public static Zombie[] EarthMana = new Zombie[15];
-    public static Zombie[] BloodMana = new Zombie[15];
-    public static Slime[] Slime = new Slime[15];
-    public static Vex[] star = new Vex[25];
-
-    public static Zombie ForestBoss = null;
-    public static Blaze VolcanoBoss = null;
-    public static Drowned LakeBoss = null;
-    public static Vex SkyBoss = null;
-    public static Stray SnowBoss = null;
-
-    public static int SummonTick = 0;
-    public static int SummonTick0 = 0;
-    public static int PFSummonTick = 0;
-    public static int PVSummonTick = 0;
-    public static int PLSummonTick = 0;
 
     public static boolean OverWorldLevelIsNight = false;
-    public static int netherMobSpawn = 0;
 
     public static List<Mob> witherBonePowerCCMonster = new ArrayList<>();
 
@@ -330,8 +185,6 @@ public class Utils {
     }
 
     public static Map<Item, Item> BrewSoulMap = new HashMap<>();
-    public static boolean GemsForPlain = true;
-    public static boolean GemsForForest = true;
     public static Map<MobEffect, Boolean> MobEffectMap = new HashMap<>();
     public static Map<Item, Boolean> ItemRightClickCheck = new HashMap<>() {
         {
@@ -379,9 +232,6 @@ public class Utils {
             put(Items.DROPPER, true);
         }
     };
-    public static int PFController = 0;
-    public static int SVController = 0;
-    public static int SLController = 0;
     public static int NSController = -1;
     public static List<Player> NSPlayerController = new ArrayList<>();
 
@@ -914,8 +764,6 @@ public class Utils {
         add(CustomStyle.styleOfLightning);
     }};
 
-    public static boolean NetherInstanceFlag = false;
-
     public static int[] instanceKillCount = new int[instanceList.size()];
 
     public static Map<String, Integer> playerAttackRingMap = new HashMap<>();
@@ -1077,92 +925,15 @@ public class Utils {
 
     public static Map<String, Component> playerNameMap = new HashMap<>();
 
-    public static Map<String, Integer> dayKillCount = new HashMap<>();
-    public static List<PlayerNameAndCount> dayKillCountList = new ArrayList<>();
-    public static List<ArmorStand> dayKillCountDisplayList = new ArrayList<>();
-
-    public static Map<String, Double> dayVBCount = new HashMap<>();
-    public static Map<String, Integer> dayInstanceFinishedTime = new HashMap<>();
-
     public static Map<String, Integer> dayFishCount = new HashMap<>();
-    public static List<PlayerNameAndCount> dayFishCountList = new ArrayList<>();
-    public static List<ArmorStand> dayFishCountDisplayList = new ArrayList<>();
 
     public static Map<String, Integer> dayMineCount = new HashMap<>();
-    public static List<PlayerNameAndCount> dayMineCountList = new ArrayList<>();
-    public static List<ArmorStand> dayMineCountDisplayList = new ArrayList<>();
 
     public static Map<String, Integer> dayLopCount = new HashMap<>();
-    public static List<PlayerNameAndCount> dayLopCountList = new ArrayList<>();
-    public static List<ArmorStand> dayLopCountDisplayList = new ArrayList<>();
 
     public static Map<String, Integer> dayCropCount = new HashMap<>();
-    public static List<PlayerNameAndCount> dayCropCountList = new ArrayList<>();
-    public static List<ArmorStand> dayCropCountDisplayList = new ArrayList<>();
 
     public static Map<String, Integer> dayOnlineCount = new HashMap<>();
-    public static List<PlayerNameAndCount> dayOnlineCountList = new ArrayList<>();
-    public static List<ArmorStand> dayOnlineCountDisplayList = new ArrayList<>();
-
-    public static Calendar countBeginToRecordTime = null;
-    public static ArmorStand recordTimeArmorStand = null;
-    public static ArmorStand recordTimeArmorStand1 = null;
-
-    public static Set<BlockPos> rewardChestPos = new HashSet<>() {{
-        add(new BlockPos(393, 62, 949));
-        add(new BlockPos(386, 63, 924));
-        add(new BlockPos(356, 72, 870));
-        add(new BlockPos(344, 61, 957));
-        add(new BlockPos(312, 63, 977));
-        add(new BlockPos(227, 69, 920));
-        add(new BlockPos(285, 62, 993));
-        add(new BlockPos(234, 72, 1061));
-        add(new BlockPos(302, 65, 1104));
-        add(new BlockPos(221, 107, 1088));
-        add(new BlockPos(255, 104, 1208));
-        add(new BlockPos(266, 136, 1262));
-        // 以上为平原地区奖励箱
-
-        add(new BlockPos(105, 121, 1166));
-        add(new BlockPos(152, 87, 1114));
-        add(new BlockPos(125, 69, 1060));
-        add(new BlockPos(174, 75, 1018));
-        add(new BlockPos(141, 71, 954));
-        add(new BlockPos(36, 63, 929));
-        add(new BlockPos(-28, 77, 925));
-        add(new BlockPos(-64, 80, 955));
-        add(new BlockPos(-96, 96, 968));
-        // 以上为森林地区奖励箱
-
-        add(new BlockPos(36, 56, 932));
-        add(new BlockPos(30, 19, 1019));
-        add(new BlockPos(77, -20, 979));
-        add(new BlockPos(48, -45, 982));
-        add(new BlockPos(-6, -53, 1012));
-        // 以上为湖泊地区奖励箱
-
-        add(new BlockPos(33, -48, 1012));
-        add(new BlockPos(15, -54, 1028));
-        add(new BlockPos(-20, -54, 1070));
-        add(new BlockPos(8, -54, 1095));
-        add(new BlockPos(38, -52, 1116));
-        add(new BlockPos(51, -49, 1081));
-        // 以上为火山地区奖励箱
-
-        add(new BlockPos(113, 109, 1039));
-        add(new BlockPos(77, 115, 1039));
-        add(new BlockPos(76, 116, 1028));
-        add(new BlockPos(43, 113, 1051));
-        add(new BlockPos(51, 118, 1073));
-        add(new BlockPos(34, 128, 1053));
-        add(new BlockPos(20, 154, 1072));
-        add(new BlockPos(15, 119, 1047));
-        add(new BlockPos(31, 117, 1032));
-        add(new BlockPos(44, 118, 1010));
-        add(new BlockPos(19, 118, 1063));
-        add(new BlockPos(57, 126, 1044));
-        // 以上为天空城地区奖励箱
-    }};
 
     public static Map<String, BlockPos> playerIsUsingBlockBlockPosMap = new HashMap<>();
 
@@ -1253,8 +1024,6 @@ public class Utils {
     public static WeakHashMap<Player, PosAndLastTime> EndRune2Pos = new WeakHashMap<>();
 
     public static WeakHashMap<Mob, Integer> NetherBoneMealPowerEffectMap = new WeakHashMap<>();
-
-    public static WeakHashMap<Player, Double> PiglinPowerAp = new WeakHashMap<>();
 
     public static WeakHashMap<Player, Boolean> playerRecycleMap = new WeakHashMap<>();
 

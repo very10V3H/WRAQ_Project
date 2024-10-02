@@ -2,6 +2,7 @@ package fun.wraq.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.DoubleArgumentType;
+import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import fun.wraq.commands.changeable.*;
@@ -469,10 +470,21 @@ public class CommandHandler {
                                 Commands.argument("equip", StringArgumentType.string()).then(
                                         Commands.argument("attribute", StringArgumentType.string()).then(
                                                 Commands.argument("value", DoubleArgumentType.doubleArg())
+                                                        .executes(EquipAttributeCommand.instance)
                                         )
                                 )
                         ).requires(commandSourceStack -> commandSourceStack.hasPermission(2))
-                                .executes(EquipAttributeCommand.instance)
+                )
+        );
+        CommandDispatcher<CommandSourceStack> dispatcher51 = event.getDispatcher();
+        LiteralCommandNode<CommandSourceStack> cmd51 = dispatcher51.register(
+                Commands.literal(Utils.MOD_ID).then(
+                        Commands.literal("curios").then(
+                                Commands.argument("type", StringArgumentType.string()).then(
+                                        Commands.argument("num", IntegerArgumentType.integer(1, 36))
+                                                .executes(CuriosCommand.instance)
+                                )
+                        ).requires(commandSourceStack -> commandSourceStack.hasPermission(2))
                 )
         );
     }

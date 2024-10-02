@@ -3,6 +3,9 @@ package fun.wraq.common.attribute;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.datafixers.util.Either;
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqCurios;
+import fun.wraq.common.equip.WraqPickaxe;
+import fun.wraq.common.equip.impl.RandomCurios;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.StringUtils;
@@ -10,9 +13,6 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.customized.WraqUniformCurios;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
-import fun.wraq.common.equip.impl.RandomCurios;
-import fun.wraq.common.equip.WraqCurios;
-import fun.wraq.common.equip.WraqPickaxe;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.render.toolTip.NewTooltip;
 import fun.wraq.render.toolTip.TraditionalTooltip;
@@ -35,6 +35,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.event.RenderTooltipEvent;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -193,7 +195,7 @@ public class BasicAttributeDescription {
 
             MutableComponent mutableComponent = Component.literal("");
             mutableComponent.append(Component.literal(" 基础护甲").withStyle(ChatFormatting.GRAY).
-                    append(Component.literal("+" + String.format("%.0f", defence)).withStyle(ChatFormatting.WHITE)));
+                    append(Component.literal("+" + getDecimal(defence, 1)).withStyle(ChatFormatting.WHITE)));
 
             handleForge(data, defence, mutableComponent);
             handleRandomAttributeRate(itemStack, StringUtils.CuriosAttribute.defence, mutableComponent);
@@ -219,7 +221,7 @@ public class BasicAttributeDescription {
 
             MutableComponent mutableComponent = Component.literal("");
             mutableComponent.append(Component.literal(" 魔法抗性").withStyle(ChatFormatting.BLUE).
-                    append(Component.literal("+" + String.format("%.0f", manaDefence)).withStyle(ChatFormatting.WHITE)));
+                    append(Component.literal("+" + getDecimal(manaDefence, 1)).withStyle(ChatFormatting.WHITE)));
 
             handleForge(data, manaDefence, mutableComponent);
             handleRandomAttributeRate(itemStack, StringUtils.CuriosAttribute.manaDefence, mutableComponent);
@@ -303,6 +305,10 @@ public class BasicAttributeDescription {
             event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.healthRecover)));
         }
 
+        index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.healthRecover, Utils.percentHealthRecover,
+                StringUtils.CuriosAttribute.percentHealthRecover, "生命回复",
+                Style.EMPTY.applyFormat(ChatFormatting.GREEN), "%.0f%%", true, itemStack, event.getTooltipElements());
+
         if (Utils.defencePenetration.containsKey(item) || data.contains(StringUtils.CuriosAttribute.defencePenetration)) {
 
             double DefencePenetration;
@@ -364,7 +370,8 @@ public class BasicAttributeDescription {
                 if (defencePenetration0 != 0) {
                     MutableComponent mutableComponent = Component.literal("");
                     mutableComponent.append(Component.literal(" 护甲穿透").withStyle(ChatFormatting.GRAY).
-                            append(Component.literal("+" + String.format("%.0f", defencePenetration0)).withStyle(ChatFormatting.WHITE)));
+                            append(Component.literal("+" + getDecimal(defencePenetration0, 1))
+                                    .withStyle(ChatFormatting.WHITE)));
 
                     handleRandomAttributeRate(itemStack, StringUtils.CuriosAttribute.defencePenetration0, mutableComponent);
 
@@ -596,7 +603,7 @@ public class BasicAttributeDescription {
                 if (manaPenetration0 != 0) {
                     MutableComponent mutableComponent = Component.literal("");
                     mutableComponent.append(Component.literal(" 魔法穿透").withStyle(ChatFormatting.BLUE).
-                            append(Component.literal("+" + String.format("%.0f", manaPenetration0)).withStyle(ChatFormatting.WHITE)));
+                            append(Component.literal("+" + getDecimal(manaPenetration0, 1)).withStyle(ChatFormatting.WHITE)));
 
                     handleRandomAttributeRate(itemStack, StringUtils.CuriosAttribute.manaPenetration0, mutableComponent);
 
@@ -657,13 +664,11 @@ public class BasicAttributeDescription {
             index++;
             event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.releaseSpeed)));
         }
-        if (Utils.movementSpeedCommon.containsKey(item)) {
-            MutableComponent mutableComponent = Component.literal("");
-            mutableComponent.append(Component.literal(" 移动速度").withStyle(CustomStyle.styleOfFlexible).
-                    append(Component.literal(" " + String.format("%.0f%%", Utils.movementSpeedCommon.get(item) * 100)).withStyle(ChatFormatting.WHITE)));
-            index++;
-            event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.movementSpeed)));
-        }
+
+        index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.movementSpeed, Utils.movementSpeedCommon,
+                StringUtils.CuriosAttribute.commonMovementSpeed, "移动速度",
+                Style.EMPTY.applyFormat(ChatFormatting.GREEN), "%.0f%%", true, itemStack, event.getTooltipElements());
+
         if (Utils.movementSpeedWithoutBattle.containsKey(item) || data.contains(StringUtils.CuriosAttribute.movementSpeed)
                 || data.contains(StringUtils.RandomAttribute.movementSpeed)) {
             if (itemStack.is(ModItems.SoulSword.get()) || itemStack.is(ModItems.SoulBow.get())
@@ -1121,5 +1126,9 @@ public class BasicAttributeDescription {
                     append(Te.m(String.format("%.2f%%", percent * 100), styles[Math.min(4, (int) (percent / 0.3))])).
                     append(Te.m("]")));
         }
+    }
+
+    private static String getDecimal(double value, int scale) {
+        return BigDecimal.valueOf(value).setScale(scale, RoundingMode.HALF_UP).stripTrailingZeros().toString();
     }
 }

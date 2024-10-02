@@ -1,9 +1,7 @@
 package fun.wraq.series.specialevents.labourDay;
 
 import fun.wraq.common.util.ComponentUtils;
-import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.series.specialevents.labourDay.OldCoin;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
@@ -16,18 +14,11 @@ import java.util.List;
 
 public class LabourDayGem extends Item {
 
-    private final double AttackDamage = 155;
-    private final double ManaDamage = 310;
-    private final double MovementSpeed = 0.4;
-
     public LabourDayGem(Properties p_41383_) {
         super(p_41383_);
-        Utils.gemsAttackDamage.put(StringUtils.GemName.LabourDayGem, AttackDamage);
-        Utils.gemsManaDamage.put(StringUtils.GemName.LabourDayGem, ManaDamage);
-        Utils.gemsSpeedUp.put(StringUtils.GemName.LabourDayGem, MovementSpeed);
-        Utils.attackDamage.put(this, AttackDamage);
-        Utils.manaDamage.put(this, ManaDamage);
-        Utils.movementSpeedWithoutBattle.put(this, MovementSpeed);
+        Utils.attackDamage.put(this, 155d);
+        Utils.manaDamage.put(this, 310d);
+        Utils.movementSpeedWithoutBattle.put(this, 0.4);
         Utils.gemsTag.put(this, 1);
     }
 

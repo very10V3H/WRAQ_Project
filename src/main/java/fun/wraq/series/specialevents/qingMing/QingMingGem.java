@@ -1,10 +1,8 @@
 package fun.wraq.series.specialevents.qingMing;
 
-import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.specialevents.qingMing.QingTuan;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -18,18 +16,11 @@ import java.util.List;
 
 public class QingMingGem extends Item {
 
-    private final double AttackDamage = 135;
-    private final double ManaDamage = 270;
-    private final double MovementSpeed = 0.3;
-
     public QingMingGem(Properties p_41383_) {
         super(p_41383_);
-        Utils.gemsAttackDamage.put(StringUtils.GemName.QingMingGem, AttackDamage);
-        Utils.gemsManaDamage.put(StringUtils.GemName.QingMingGem, ManaDamage);
-        Utils.gemsSpeedUp.put(StringUtils.GemName.QingMingGem, MovementSpeed);
-        Utils.attackDamage.put(this, AttackDamage);
-        Utils.manaDamage.put(this, ManaDamage);
-        Utils.movementSpeedWithoutBattle.put(this, MovementSpeed);
+        Utils.attackDamage.put(this, 135d);
+        Utils.manaDamage.put(this, 270d);
+        Utils.movementSpeedWithoutBattle.put(this, 0.3);
         Utils.gemsTag.put(this, 1);
     }
 

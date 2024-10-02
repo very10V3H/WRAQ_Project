@@ -1148,6 +1148,7 @@ public class StringUtils {
         public static String percentMaxHealthEnhance = "percentMaxHealthEnhance";
         public static String percentManaDamageEnhance = "percentManaDamageEnhance";
         public static String percentManaDefenceEnhance = "percentManaDefenceEnhance";
+        public static String percentHealthRecover = "percentHealthRecover";
 
         public static String xpLevelAttackDamage = "xpLevelAttackDamage";
         public static String xpLevelCritDamage = "xpLevelCritDamage";

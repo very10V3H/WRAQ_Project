@@ -1389,6 +1389,9 @@ public class PlayerAttributes {
         healthRecover += ForestNewRune.playerHealthRecoverUp(player);
 
         healthRecover += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerHealthRecoverModifier);
+
+        // 最大生命值百分比生命回复
+        healthRecover += computeAllEquipSlotBaseAttributeValue(player, Utils.percentHealthRecover, false) * player.getMaxHealth();
         // 请在上方添加
         healthRecover *= Compute.playerFantasyAttributeEnhance(player);
 
