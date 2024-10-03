@@ -41,7 +41,7 @@ public class MineNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDe
         components.add(Component.literal(" 1.").withStyle(style).
                 append(Component.literal("减少15%受到的伤害").withStyle(style)));
         components.add(Component.literal(" 2.").withStyle(style).
-                append(Component.literal("12%伤害提升").withStyle(CustomStyle.styleOfPower)));
+                append(ComponentUtils.getCommonDamageEnhance("12%")));
         return components;
     }
 

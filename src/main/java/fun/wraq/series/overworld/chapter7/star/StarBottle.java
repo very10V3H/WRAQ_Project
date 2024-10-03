@@ -50,7 +50,7 @@ public class StarBottle extends Item implements ICurioItem {
         components.add(Component.literal(" 每拥有10枚").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("星屑").withStyle(style)).
                 append(Component.literal("，获得").withStyle(ChatFormatting.WHITE)).
-                append(Component.literal("3%伤害提升").withStyle(CustomStyle.styleOfSea)));
+                append(ComponentUtils.getCommonDamageEnhance("3%")));
         components.add(Component.literal(" 当你拥有70枚").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("星屑").withStyle(style)).
                 append(Component.literal("时，会开始释放收集到的").withStyle(ChatFormatting.WHITE)).

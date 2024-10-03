@@ -80,7 +80,7 @@ public class CastleSceptre extends WraqSceptre implements ForgeItem, ActiveItem 
         components.add(Component.literal(" 扣除自身").withStyle(ChatFormatting.WHITE).
                 append(Compute.AttributeDescription.Health("15%当前")).
                 append(Component.literal("，获得持续6s的").withStyle(ChatFormatting.WHITE)).
-                append(Component.literal("25%伤害提升").withStyle(CustomStyle.styleOfPower)).
+                append(ComponentUtils.getCommonDamageEnhance("25%")).
                 append(Component.literal("以及").withStyle(ChatFormatting.WHITE)).
                 append(Compute.AttributeDescription.DefencePenetration("15")).
                 append(Component.literal("与").withStyle(ChatFormatting.WHITE)).

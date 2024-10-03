@@ -253,7 +253,7 @@ public class IceInstance extends NoTeamInstance {
                                 ServerPlayer serverPlayer = (ServerPlayer) player;
                                 serverPlayer.connection.send(clientboundSetEntityMotionPacket);
                                 ClientboundSetTitleTextPacket clientboundSetTitleTextPacket =
-                                        new ClientboundSetTitleTextPacket(Component.literal("凝聚寒意").withStyle(style));
+                                        new ClientboundSetTitleTextPacket(Component.literal("凝寒聚意").withStyle(style));
                                 serverPlayer.connection.send(clientboundSetTitleTextPacket);
                             }
                         }

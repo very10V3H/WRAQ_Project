@@ -63,7 +63,7 @@ public class AttributeSet {
                 Compute.playerHeal(player, HealthRecover / 20);
 
                 double ManaUp = PlayerAttributes.maxManaUp(player);
-                data.putDouble("MAXMANA", 1000 + player.experienceLevel + ManaUp);
+                data.putDouble("MAXMANA", 1000 + ManaUp);
             }
 
             // 最大生命值、魔力、攻击距离修改。

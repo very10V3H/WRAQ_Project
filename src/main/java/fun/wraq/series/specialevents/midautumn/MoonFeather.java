@@ -80,7 +80,7 @@ public class MoonFeather extends WraqCurios implements OnHitEffectCurios, OnKill
         components.add(Te.m(" 1.", CustomStyle.styleOfMoon1).
                 append(ComponentUtils.AttributeDescription.movementSpeed("30%")));
         components.add(Te.m(" 2.", CustomStyle.styleOfMoon1).
-                append(Te.m("25%伤害提升", CustomStyle.styleOfPower)));
+                append(ComponentUtils.getCommonDamageEnhance("25%")));
         return components;
     }
 

@@ -29,7 +29,9 @@ public class MoonNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDe
     @Override
     public List<Component> getWayDescription() {
         List<Component> components = new ArrayList<>();
-        components.add(Component.literal(" 通关").withStyle(ChatFormatting.WHITE).append(Component.literal("阿尔忒弥斯").withStyle(CustomStyle.styleOfMoon)).append(Component.literal("概率获得").withStyle(ChatFormatting.WHITE)));
+        components.add(Component.literal(" 通关").withStyle(ChatFormatting.WHITE).
+                append(Component.literal("阿尔忒弥斯").withStyle(CustomStyle.styleOfMoon)).
+                append(Component.literal("概率获得").withStyle(ChatFormatting.WHITE)));
         return components;
     }
 
@@ -42,8 +44,12 @@ public class MoonNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDe
     public List<Component> additionHoverText(ItemStack stack) {
         List<Component> components = new ArrayList<>();
         ComponentUtils.descriptionPassive(components, Component.literal("明镜止水").withStyle(CustomStyle.styleOfMoon));
-        components.add(Component.literal(" 快捷栏4 ~ 9").withStyle(CustomStyle.styleOfMoon).append(Component.literal("每存在1件可以").withStyle(ChatFormatting.WHITE)).append(Component.literal("主动释放但未在冷却时间的").withStyle(ChatFormatting.AQUA)).append(Component.literal("物品").withStyle(ChatFormatting.WHITE)));
-        components.add(Component.literal(" 为你提供").withStyle(ChatFormatting.WHITE).append(Component.literal("6%伤害提升").withStyle(CustomStyle.styleOfPower)));
+        components.add(Component.literal(" 快捷栏4 ~ 9").withStyle(CustomStyle.styleOfMoon).
+                append(Component.literal("每存在1件可以").withStyle(ChatFormatting.WHITE)).
+                append(Component.literal("主动释放但未在冷却时间的").withStyle(ChatFormatting.AQUA)).
+                append(Component.literal("物品").withStyle(ChatFormatting.WHITE)));
+        components.add(Component.literal(" 为你提供").withStyle(ChatFormatting.WHITE).
+                append(ComponentUtils.getCommonDamageEnhance("6%")));
         return components;
     }
 

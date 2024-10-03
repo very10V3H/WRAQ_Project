@@ -2091,7 +2091,7 @@ public class PlayerAttributes {
     public static double maxManaUp(Player player) {
         int TickCount = player.getServer().getTickCount();
         CompoundTag data = player.getPersistentData();
-        double maxMana = 0.0d;
+        double maxMana = player.experienceLevel;
         Item boots = player.getItemBySlot(EquipmentSlot.FEET).getItem();
         Item leggings = player.getItemBySlot(EquipmentSlot.LEGS).getItem();
         Item chest = player.getItemBySlot(EquipmentSlot.CHEST).getItem();

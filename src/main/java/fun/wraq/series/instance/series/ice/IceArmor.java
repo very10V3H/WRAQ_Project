@@ -50,8 +50,8 @@ public class IceArmor extends WraqArmor {
         Compute.DescriptionPassive(components, Component.literal("雪上覆霜").withStyle(style));
         components.add(Component.literal(" 对").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("移动速度受损").withStyle(style)).
-                append(Component.literal("的敌人，造成的伤害提升").withStyle(ChatFormatting.WHITE)).
-                append(Component.literal("15%").withStyle(CustomStyle.styleOfIce)));
+                append(Component.literal("的敌人造成的伤害受").withStyle(ChatFormatting.WHITE)).
+                append(ComponentUtils.getCommonDamageEnhance("15%")));
         components.add(Component.literal(" -多件冰霜骑士装备能够线性提升伤害值").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
         return components;
     }

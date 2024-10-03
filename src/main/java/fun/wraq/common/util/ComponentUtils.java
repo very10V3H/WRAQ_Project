@@ -470,7 +470,27 @@ public class ComponentUtils {
     }
 
     public static Component getCommonDamageEnhance(String value) {
-        return Component.literal(value + "普通伤害提升").withStyle(CustomStyle.styleOfMoon);
+        return Te.m(value + "普通伤害提升", CustomStyle.styleOfMoon);
+    }
+
+    public static Component getAttackDamageEnhance(String value) {
+        return Te.m(value + "物理伤害提升", CustomStyle.styleOfPower);
+    }
+
+    public static Component getManaDamageEnhance(String value) {
+        return Te.m(value + "魔法伤害提升", CustomStyle.styleOfMana);
+    }
+
+    public static Component getNormalAttackDamageEnhance(String value) {
+        return Te.m(value + "近战攻击增幅", ChatFormatting.YELLOW);
+    }
+
+    public static Component getBowAttackDamageEnhance(String value) {
+        return Te.m(value + "箭矢攻击增幅", CustomStyle.styleOfFlexible);
+    }
+
+    public static Component getManaAttackDamageEnhance(String value) {
+        return Te.m(value + "法球攻击增幅", CustomStyle.styleOfMana);
     }
 
     public static void emojiDescriptionBaseAttackDamage(List<Component> components, double BaseDamage) {

@@ -41,7 +41,7 @@ public class NetherManaArmor extends WraqArmor {
         components.add(Component.literal(" -你的普通法球攻击与法术攻击将基于目标的").withStyle(ChatFormatting.WHITE).
                 append(Compute.AttributeDescription.ManaDefence("")).
                 append(Component.literal("提供").withStyle(ChatFormatting.WHITE)).
-                append(Component.literal("12%伤害提升").withStyle(CustomStyle.styleOfPower)));
+                append(ComponentUtils.getCommonDamageEnhance("12%")));
         components.add(Component.literal(" -每件下界混沌装备提供的伤害提升可以线性增长").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
         components.add(Component.literal(" -当目标的魔法抗性达到500时给予满额伤害提升").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
         return components;

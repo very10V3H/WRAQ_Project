@@ -40,7 +40,7 @@ public class HuskNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDe
                 append(Component.literal("灵魂").withStyle(style)));
         components.add(Component.literal(" 每枚").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("提供").withStyle(ChatFormatting.WHITE)).
-                append(Component.literal("1%伤害提升").withStyle(CustomStyle.styleOfPower)));
+                append(ComponentUtils.getCommonDamageEnhance("1%")));
         components.add(Component.literal(" 至多可收集20枚，每枚存活5min").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
         return components;
     }

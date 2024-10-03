@@ -47,10 +47,10 @@ public class MoonArmor extends WraqArmor {
         Compute.DescriptionPassive(components, Component.literal("阴晴圆缺").withStyle(style));
         components.add(Component.literal(" - 其一 手持近战武器时:").withStyle(CustomStyle.styleOfPower));
         components.add(Component.literal(" 对距离5格以内的目标造成的伤害将获得").withStyle(ChatFormatting.WHITE).
-                append(Component.literal("15%伤害提升").withStyle(CustomStyle.styleOfPower)));
+                append(ComponentUtils.getCommonDamageEnhance("15%")));
         components.add(Component.literal(" - 其二 手持远程武器时:").withStyle(CustomStyle.styleOfFlexible));
         components.add(Component.literal(" 对距离5格以外的目标造成的伤害将获得").withStyle(ChatFormatting.WHITE).
-                append(Component.literal("15%伤害提升").withStyle(CustomStyle.styleOfMana)));
+                append(ComponentUtils.getCommonDamageEnhance("15%")));
         components.add(Component.literal(" -多件尘月防具能够线性提升被动的伤害提升效果").withStyle(ChatFormatting.GRAY));
         return components;
     }

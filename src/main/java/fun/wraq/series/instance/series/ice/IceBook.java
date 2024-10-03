@@ -46,8 +46,8 @@ public class IceBook extends Item {
                 append(Component.literal("普通法球攻击").withStyle(CustomStyle.styleOfMana)).
                 append(Component.literal("将使目标").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("减速").withStyle(style)).
-                append(Component.literal("，并使你对其伤害提升").withStyle(ChatFormatting.WHITE)).
-                append(Component.literal("20%").withStyle(style)).
+                append(Component.literal("，并使你对其伤害受").withStyle(ChatFormatting.WHITE)).
+                append(ComponentUtils.getCommonDamageEnhance("20%")).
                 append(Component.literal("，持续3s").withStyle(ChatFormatting.WHITE)));
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         components.add(Component.literal("IceMemory").withStyle(style).withStyle(ChatFormatting.ITALIC));

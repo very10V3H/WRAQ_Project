@@ -34,8 +34,8 @@ public interface VdWeaponCommon {
                 append(Component.literal("，至多5层").withStyle(ChatFormatting.WHITE)));
         components.add(Component.literal(" 每层").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("研习值").withStyle(style)).
-                append(Component.literal("会使你对其造成的伤害提升").withStyle(ChatFormatting.WHITE)).
-                append(Component.literal("8%").withStyle(CustomStyle.styleOfPower)));
+                append(Component.literal("会使你对其造成的伤害受").withStyle(ChatFormatting.WHITE)).
+                append(ComponentUtils.getCommonDamageEnhance("8%")));
         ComponentUtils.descriptionPassive(components, Component.literal("分析").withStyle(style));
         components.add(Component.literal(" 使用任意").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("主动效果").withStyle(ChatFormatting.AQUA)).
