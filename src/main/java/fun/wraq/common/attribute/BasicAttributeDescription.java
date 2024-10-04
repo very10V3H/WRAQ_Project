@@ -644,7 +644,7 @@ public class BasicAttributeDescription {
 
         index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.movementSpeed, Utils.movementSpeedCommon,
                 StringUtils.CuriosAttribute.commonMovementSpeed, "移动速度",
-                Style.EMPTY.applyFormat(ChatFormatting.GREEN), 0, true, itemStack, false, null, event.getTooltipElements());
+                Style.EMPTY.applyFormat(ChatFormatting.GREEN), 0, true, itemStack, true, CustomStyle.styleOfFlexible, event.getTooltipElements());
 
         if (Utils.movementSpeedWithoutBattle.containsKey(item) || data.contains(StringUtils.CuriosAttribute.movementSpeed)
                 || data.contains(StringUtils.RandomAttribute.movementSpeed)) {

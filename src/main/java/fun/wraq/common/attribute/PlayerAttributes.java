@@ -1,6 +1,9 @@
 package fun.wraq.common.attribute;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqCurios;
+import fun.wraq.common.equip.WraqPickaxe;
+import fun.wraq.common.impl.inslot.InCuriosOrEquipSlotAttributesModify;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
@@ -24,9 +27,6 @@ import fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSwo
 import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.process.system.potion.NewPotionEffects;
 import fun.wraq.process.system.tower.TowerMob;
-import fun.wraq.common.impl.inslot.InCuriosOrEquipSlotAttributesModify;
-import fun.wraq.common.equip.WraqCurios;
-import fun.wraq.common.equip.WraqPickaxe;
 import fun.wraq.render.mobEffects.ModEffects;
 import fun.wraq.series.gems.GemAttributes;
 import fun.wraq.series.instance.series.castle.CastleAttackArmor;
@@ -67,7 +67,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -563,21 +562,11 @@ public class PlayerAttributes {
         if (TowerMob.playerIsChallenging2Floor(player)) return 0;
         int tick = player.getServer().getTickCount();
         CompoundTag data = player.getPersistentData();
-        Inventory inventory = player.getInventory();
-        for (ItemStack itemStack : inventory.armor) {
-            if (Utils.movementSpeedCommon.containsKey(itemStack.getItem()))
-                movementSpeedUp += Utils.movementSpeedCommon.get(itemStack.getItem());
-        }
         ItemStack mainHandStack = player.getMainHandItem();
         Item mainHandItem = mainHandStack.getItem();
         CompoundTag mainHandTag = mainHandStack.getTagElement(Utils.MOD_ID);
-        ItemStack offHandStack = player.getOffhandItem();
-        Item offHandItem = offHandStack.getItem();
-        if (Utils.movementSpeedCommon.containsKey(mainHandItem) && Utils.mainHandTag.containsKey(mainHandItem))
-            movementSpeedUp += Utils.movementSpeedCommon.get(mainHandItem);
-        if (Utils.movementSpeedCommon.containsKey(offHandItem) && Utils.offHandTag.containsKey(offHandItem))
-            movementSpeedUp += Utils.movementSpeedCommon.get(offHandItem);
 
+        movementSpeedUp += computeAllEquipSlotBaseAttributeValue(player, Utils.movementSpeedCommon, true);
         movementSpeedUp += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerMovementSpeedModifier);
         movementSpeedUp += ChangedAttributesModifier.getModifierValue(player, ChangedAttributesModifier.movementSpeedUp);
 
