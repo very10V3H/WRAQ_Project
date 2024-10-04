@@ -58,7 +58,7 @@ public class ShulkerSpawnController extends MobSpawnController {
 
         // 需要验证
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(shulker), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(shulker, 1200, 100, 100, 0.45, 5, 0.3, 12, 25, 100 * Math.pow(10, 4), 0.4);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(shulker, 1200, 100, 100, 0.45, 5, 0.3, 30, 25, 100 * Math.pow(10, 4), 0.4);
 
         // 设置物品
 

@@ -66,7 +66,7 @@ public class BoneImpSpawnController extends MobSpawnController {
 
         // 需要验证
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(boneImp), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(boneImp, 2800, 190, 190, 0.4, 4, 0.3, 22, 20, 800 * Math.pow(10, 4), 0.4);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(boneImp, 2800, 190, 190, 0.4, 4, 0.3, 70, 20, 800 * Math.pow(10, 4), 0.4);
 
         // 设置物品
         ItemStack[] itemStacks = {new ItemStack(Items.LEATHER_HELMET), new ItemStack(Items.LEATHER_CHESTPLATE),

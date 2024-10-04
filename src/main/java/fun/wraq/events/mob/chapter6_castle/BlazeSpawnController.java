@@ -65,7 +65,7 @@ public class BlazeSpawnController extends MobSpawnController {
 
         // 需要验证
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(blaze), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(blaze, 2000, 160, 130, 0.4, 4, 0.25, 14, 20, 300 * Math.pow(10, 4), 0.35);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(blaze, 2000, 160, 130, 0.4, 4, 0.25, 55, 20, 300 * Math.pow(10, 4), 0.35);
 
         // 设置物品
         ItemStack[] itemStacks = {new ItemStack(Items.GOLDEN_HELMET), new ItemStack(Items.CHAINMAIL_CHESTPLATE),
