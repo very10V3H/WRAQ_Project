@@ -2,6 +2,7 @@ package fun.wraq.events.mob.instance.instances;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ItemAndRate;
 import fun.wraq.events.fight.MonsterAttackEvent;
@@ -15,10 +16,9 @@ import fun.wraq.render.hud.Mana;
 import fun.wraq.render.particles.ModParticles;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.protocol.game.ClientboundSetSubtitleTextPacket;
-import net.minecraft.network.protocol.game.ClientboundSetTitleTextPacket;
 import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -70,7 +70,7 @@ public class DevilInstance extends NoTeamInstance {
                 skill1(mob, players);
             } else skill2(mob, players);
         }
-        skill3(mob);
+        skill3(mob, players);
         skill4(mob, players);
     }
 
@@ -143,53 +143,48 @@ public class DevilInstance extends NoTeamInstance {
     }
 
     public static void skill1(Mob mob, List<Player> playerList) {
-        ClientboundSetTitleTextPacket clientboundSetTitleTextPacket =
-                new ClientboundSetTitleTextPacket(Component.literal("魔源奔流").withStyle(CustomStyle.styleOfBloodMana));
-        ClientboundSetSubtitleTextPacket clientboundSetSubtitleTextPacket =
-                new ClientboundSetSubtitleTextPacket(Component.literal("魔王吸取大量法力值!").withStyle(ChatFormatting.RED));
         playerList.forEach(player -> {
             if (player.distanceTo(mob) < 50) {
-                int ManaDecrease = 300;
-                if (Mana.getPlayerCurrentManaNum(player) < ManaDecrease) {
-                    ManaDecrease -= Mana.getPlayerCurrentManaNum(player);
+                int manaDecrease = 300;
+                if (Mana.getPlayerCurrentManaNum(player) < manaDecrease) {
+                    manaDecrease -= (int) Mana.getPlayerCurrentManaNum(player);
                     Mana.addOrCostPlayerMana(player, -Mana.getPlayerCurrentManaNum(player));
-                    Damage.manaDamageToPlayer(mob, player, 10 * ManaDecrease);
-                } else Mana.addOrCostPlayerMana(player, -ManaDecrease);
-                ((ServerPlayer) player).connection.send(clientboundSetTitleTextPacket);
-                ((ServerPlayer) player).connection.send(clientboundSetSubtitleTextPacket);
+                    Damage.manaDamageToPlayer(mob, player, 10 * manaDecrease);
+                } else Mana.addOrCostPlayerMana(player, -manaDecrease);
+/*                Compute.setPlayerTitleAndSubTitle((ServerPlayer) player, Te.m("魔源奔流", CustomStyle.styleOfBloodMana),
+                        Te.m("魔王吸取大量法力值!", ChatFormatting.RED), 0, 20, 10);*/
             }
         });
         exDamage += 300;
         MobSpawn.MobBaseAttributes.attackDamage.put(mobName, 1500 + exDamage);
         ParticleProvider.GatherParticle(mob.position(), (ServerLevel) mob.level(), 1, 6, 120, ModParticles.LONG_ENTROPY.get(), 0.25);
         ParticleProvider.GatherParticle(mob.position(), (ServerLevel) mob.level(), 1.5, 6, 120, ModParticles.LONG_ENTROPY.get(), 0.25);
-
     }
 
     public static void skill2(Mob mob, List<Player> playerList) {
-        ClientboundSetTitleTextPacket clientboundSetTitleTextPacket =
-                new ClientboundSetTitleTextPacket(Component.literal("腥月之子").withStyle(CustomStyle.styleOfBloodMana));
-        ClientboundSetSubtitleTextPacket clientboundSetSubtitleTextPacket =
-                new ClientboundSetSubtitleTextPacket(Component.literal("魔王吸取大量生命值!").withStyle(ChatFormatting.RED));
         playerList.forEach(player -> {
             if (player.distanceTo(mob) < 50) {
                 MonsterAttackEvent.monsterAttack(mob, player, 1000);
                 mob.heal(250000);
-                ((ServerPlayer) player).connection.send(clientboundSetTitleTextPacket);
-                ((ServerPlayer) player).connection.send(clientboundSetSubtitleTextPacket);
+/*                Compute.setPlayerTitleAndSubTitle((ServerPlayer) player, Te.m("腥月之子", CustomStyle.styleOfBloodMana),
+                        Te.m("魔王吸取大量生命值!", ChatFormatting.RED), 0, 20, 10);*/
             }
         });
         ParticleProvider.GatherParticle(mob.position(), (ServerLevel) mob.level(), 1, 6, 120, ModParticles.LONG_ENTROPY.get(), 0.25);
         ParticleProvider.GatherParticle(mob.position(), (ServerLevel) mob.level(), 1.5, 6, 120, ModParticles.LONG_ENTROPY.get(), 0.25);
-
     }
 
-    public static void skill3(Mob mob) {
+    public static void skill3(Mob mob, List<Player> playerList) {
         if (devilSkill3Flag && mob.getHealth() < mob.getMaxHealth() * 0.25) {
+            playerList.forEach(player -> {
+                Compute.setPlayerTitleAndSubTitle((ServerPlayer) player, Te.m("浴魔复生", CustomStyle.styleOfBloodMana),
+                        Te.m("魔王回复大量生命值!", ChatFormatting.RED), 0, 20, 10);
+            });
+            exDamage = 0;
+            MobSpawn.MobBaseAttributes.attackDamage.put(mobName, 1500d);
             devilSkill3Flag = false;
             mob.heal(mob.getMaxHealth() * 0.75f);
-            ParticleProvider.DisperseParticle(mob.position(), (ServerLevel) mob.level(), 1, 1, 120, ModParticles.LONG_ENTROPY.get(), 1);
-            ParticleProvider.DisperseParticle(mob.position(), (ServerLevel) mob.level(), 1.5, 1, 120, ModParticles.LONG_ENTROPY.get(), 1);
+            ParticleProvider.createBallDisperseParticle(ParticleTypes.WITCH, (ServerLevel) mob.level(), mob.position(), 0.75, 30);
         }
     }
 
@@ -197,12 +192,13 @@ public class DevilInstance extends NoTeamInstance {
         if (devilSkill4Flag && mob.getHealth() < mob.getMaxHealth() * 0.2) {
             devilSkill4Flag = false;
             playerList.forEach(player -> {
+                Compute.setPlayerTitleAndSubTitle((ServerPlayer) player, Te.m("魔能释溢", CustomStyle.styleOfBloodMana),
+                        Te.m("魔王对所有玩家造成高额魔法伤害!", ChatFormatting.RED), 0, 20, 10);
                 if (player.distanceTo(mob) < 50) {
                     Damage.manaDamageToPlayer(mob, player, player.getMaxHealth());
                 }
             });
-            ParticleProvider.DisperseParticle(mob.position(), (ServerLevel) mob.level(), 1, 1, 120, ModParticles.LONG_ENTROPY.get(), 1);
-            ParticleProvider.DisperseParticle(mob.position(), (ServerLevel) mob.level(), 1.5, 1, 120, ModParticles.LONG_ENTROPY.get(), 1);
+            ParticleProvider.createBallDisperseParticle(ParticleTypes.WITCH, (ServerLevel) mob.level(), mob.position(), 0.75, 30);
         }
     }
 }

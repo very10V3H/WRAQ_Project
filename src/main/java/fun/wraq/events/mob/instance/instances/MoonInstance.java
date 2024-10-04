@@ -2,6 +2,7 @@ package fun.wraq.events.mob.instance.instances;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModEntityType;
 import fun.wraq.common.registry.ModItems;
@@ -22,8 +23,6 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
-import net.minecraft.network.protocol.game.ClientboundSetSubtitleTextPacket;
-import net.minecraft.network.protocol.game.ClientboundSetTitleTextPacket;
 import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -178,12 +177,10 @@ public class MoonInstance extends NoTeamInstance {
     }
 
     public static void Skill1(Mob AttackMob, Mob ManaMob, List<Player> playerList) {
-        ClientboundSetTitleTextPacket clientboundSetTitleTextPacket =
-                new ClientboundSetTitleTextPacket(Component.literal("潮汐之源").withStyle(CustomStyle.styleOfMoon));
-        ClientboundSetSubtitleTextPacket clientboundSetSubtitleTextPacket =
-                new ClientboundSetSubtitleTextPacket(Component.literal(""));
-        playerList.forEach(player -> ((ServerPlayer) player).connection.send(clientboundSetTitleTextPacket));
-        playerList.forEach(player -> ((ServerPlayer) player).connection.send(clientboundSetSubtitleTextPacket));
+/*        playerList.forEach(player -> {
+            Compute.setPlayerTitleAndSubTitle((ServerPlayer) player, Te.m("潮汐之源", CustomStyle.styleOfMoon),
+                    Te.m(""), 0, 20, 10);
+        });*/
         if (AttackMob.isAlive()) {
             Compute.RepelPlayer(AttackMob, AttackMob.position(), 6, 3, 3);
             ParticleProvider.DisperseParticle(AttackMob.position(), (ServerLevel) AttackMob.level(), 1, 1, 120, ModParticles.LONG_LIGHTNINGISLAND.get(), 1);
@@ -201,13 +198,11 @@ public class MoonInstance extends NoTeamInstance {
     }
 
     public static void Skill2(Mob AttackMob, Mob ManaMob, List<Player> playerList) {
-        ClientboundSetTitleTextPacket clientboundSetTitleTextPacket =
-                new ClientboundSetTitleTextPacket(Component.literal("阴晴圆缺").withStyle(CustomStyle.styleOfMoon));
-        ClientboundSetSubtitleTextPacket clientboundSetSubtitleTextPacket =
-                new ClientboundSetSubtitleTextPacket(Component.literal(""));
-        playerList.forEach(player -> ((ServerPlayer) player).connection.send(clientboundSetTitleTextPacket));
-        playerList.forEach(player -> ((ServerPlayer) player).connection.send(clientboundSetSubtitleTextPacket));
-        if (playerList.size() == 0) return;
+/*        playerList.forEach(player -> {
+            Compute.setPlayerTitleAndSubTitle((ServerPlayer) player, Te.m("阴晴圆缺", CustomStyle.styleOfMoon),
+                    Te.m(""), 0, 20, 10);
+        });*/
+        if (playerList.isEmpty()) return;
         Player HealthHighPlayer = playerList.get(0);
         Player HealthLowPlayer = playerList.get(0);
         double HighNum = 0;
@@ -242,17 +237,10 @@ public class MoonInstance extends NoTeamInstance {
     }
 
     public static void Skill3(Mob AttackMob, Mob ManaMob, List<Player> playerList) {
-
         if (AttackMob.isAlive() && ManaMob.isAlive()) {
             double attackMobRate = AttackMob.getHealth() / AttackMob.getMaxHealth();
             double manaMobRate = ManaMob.getHealth() / ManaMob.getMaxHealth();
             if (Math.abs(attackMobRate - manaMobRate) > 0.5) {
-                ClientboundSetTitleTextPacket clientboundSetTitleTextPacket =
-                        new ClientboundSetTitleTextPacket(Component.literal("月食").withStyle(CustomStyle.styleOfMoon));
-                ClientboundSetSubtitleTextPacket clientboundSetSubtitleTextPacket =
-                        new ClientboundSetSubtitleTextPacket(Component.literal(""));
-                playerList.forEach(player -> ((ServerPlayer) player).connection.send(clientboundSetTitleTextPacket));
-                playerList.forEach(player -> ((ServerPlayer) player).connection.send(clientboundSetSubtitleTextPacket));
                 AttackMob.heal(AttackMob.getMaxHealth());
                 ManaMob.heal(ManaMob.getMaxHealth());
                 ParticleProvider.EntityEffectVerticleCircleParticle(AttackMob, 1, 0.4, 8, ParticleTypes.COMPOSTER, 0);
@@ -266,6 +254,8 @@ public class MoonInstance extends NoTeamInstance {
                 ParticleProvider.EntityEffectVerticleCircleParticle(ManaMob, 0.25, 0.4, 8, ParticleTypes.COMPOSTER, 0);
                 ParticleProvider.EntityEffectVerticleCircleParticle(ManaMob, 0, 0.4, 8, ParticleTypes.COMPOSTER, 0);
                 playerList.forEach(player -> {
+                    Compute.setPlayerTitleAndSubTitle((ServerPlayer) player, Te.m("月食", CustomStyle.styleOfMoon),
+                            Te.m("天镜与明镜的生命值差距过大"), 0, 20, 10);
                     Damage.manaDamageToPlayer(ManaMob, player, player.getMaxHealth() * 0.25);
                     Damage.manaDamageToPlayer(AttackMob, player, player.getMaxHealth() * 0.25);
                     ParticleProvider.EntityEffectVerticleCircleParticle(player, 1, 0.4, 8, ParticleTypes.WITCH, 0);
@@ -283,6 +273,8 @@ public class MoonInstance extends NoTeamInstance {
         if (manaMob.isAlive() && manaMob.getY() < yLimit) manaMob.moveTo(pos);
         playerList.forEach(player -> {
             if (player.position().distanceTo(pos) < 150 && player.getY() < yLimit) {
+                Compute.setPlayerTitleAndSubTitle((ServerPlayer) player, Te.m("月引", CustomStyle.styleOfMoon),
+                        Te.m(""), 0, 20, 10);
                 Damage.manaDamageToPlayer(manaMob, player, player.getMaxHealth() * 0.25);
                 Damage.manaDamageToPlayer(attackMob, player, player.getMaxHealth() * 0.25);
                 ((ServerPlayer) player).teleportTo(player.getServer().getLevel(Level.OVERWORLD), pos.x, pos.y, pos.z, 179, 0);

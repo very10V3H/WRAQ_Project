@@ -2,6 +2,7 @@ package fun.wraq.events.mob.instance.instances;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ItemAndRate;
 import fun.wraq.common.util.Utils;
@@ -17,11 +18,11 @@ import fun.wraq.render.particles.ModParticles;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.protocol.game.ClientboundSetEntityMotionPacket;
-import net.minecraft.network.protocol.game.ClientboundSetTitleTextPacket;
 import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -106,10 +107,7 @@ public class IceInstance extends NoTeamInstance {
                 }
             });
 
-            ParticleProvider.DisperseParticle(mob.position(), (ServerLevel) level,
-                    1, 1, 120, ModParticles.LONG_SNOW.get(), 1);
-            ParticleProvider.DisperseParticle(mob.position(), (ServerLevel) level,
-                    1.5, 1, 120, ModParticles.LONG_SNOW.get(), 1);
+            ParticleProvider.createBallDisperseParticle(ParticleTypes.SNOWFLAKE, (ServerLevel) level, mob.position(), 0.75, 30);
         }
         Element.ElementProvider(mob, Element.ice, 4);
     }
@@ -197,16 +195,11 @@ public class IceInstance extends NoTeamInstance {
                                 player.level().setBlockAndUpdate(blockPos, Blocks.ICE.defaultBlockState());
                                 player.level().destroyBlock(blockPos, false);
                             }
-                            ClientboundSetTitleTextPacket clientboundSetTitleTextPacket =
-                                    new ClientboundSetTitleTextPacket(Component.literal("寒意释放").withStyle(style));
-                            ServerPlayer serverPlayer = (ServerPlayer) player;
-                            serverPlayer.connection.send(clientboundSetTitleTextPacket);
+/*                            Compute.setPlayerTitleAndSubTitle((ServerPlayer) player, Te.m("寒意释放", style),
+                                    Te.m(""), 0, 20, 10);*/
                         }
                     });
-                    ParticleProvider.DisperseParticle(mob.position(), (ServerLevel) level,
-                            1, 1, 120, ModParticles.LONG_SKY.get(), 2);
-                    ParticleProvider.DisperseParticle(mob.position(), (ServerLevel) level,
-                            1.5, 1, 120, ModParticles.LONG_SKY.get(), 2);
+                    ParticleProvider.createBallDisperseParticle(ParticleTypes.SNOWFLAKE, (ServerLevel) level, mob.position(), 1, 40);
                 } // 寒意释放
                 case 1 -> {
                     playerList.forEach(player -> {
@@ -216,9 +209,8 @@ public class IceInstance extends NoTeamInstance {
                                     new ClientboundSetEntityMotionPacket(player.getId(), vec3.normalize().scale(3));
                             ServerPlayer serverPlayer = (ServerPlayer) player;
                             serverPlayer.connection.send(clientboundSetEntityMotionPacket);
-                            ClientboundSetTitleTextPacket clientboundSetTitleTextPacket =
-                                    new ClientboundSetTitleTextPacket(Component.literal("高压寒风").withStyle(style));
-                            serverPlayer.connection.send(clientboundSetTitleTextPacket);
+/*                            Compute.setPlayerTitleAndSubTitle((ServerPlayer) player, Te.m("高压寒风", style),
+                                    Te.m(""), 0, 20, 10);*/
                         }
                     });
                     ParticleProvider.GatherParticle(mob.position(), (ServerLevel) level,
@@ -232,16 +224,11 @@ public class IceInstance extends NoTeamInstance {
                             if (ColdData.PlayerCurrentColdNum(player) >= 50) {
                                 Damage.AttackDamageToPlayer(mob, player, player.getMaxHealth() * 1.5);
                             }
-                            ClientboundSetTitleTextPacket clientboundSetTitleTextPacket =
-                                    new ClientboundSetTitleTextPacket(Component.literal("迸晶裂玉").withStyle(style));
-                            ServerPlayer serverPlayer = (ServerPlayer) player;
-                            serverPlayer.connection.send(clientboundSetTitleTextPacket);
+                            Compute.setPlayerTitleAndSubTitle((ServerPlayer) player, Te.m("迸晶裂玉", style),
+                                    Te.m("对寒冷值低的玩家造成致命伤害", style), 0, 20, 10);
                         }
                     });
-                    ParticleProvider.DisperseParticle(mob.position(), (ServerLevel) level,
-                            1, 1, 120, ModParticles.LONG_SKY.get(), 2);
-                    ParticleProvider.DisperseParticle(mob.position(), (ServerLevel) level,
-                            1.5, 1, 120, ModParticles.LONG_SKY.get(), 2);
+                    ParticleProvider.createBallDisperseParticle(ModParticles.LONG_SKY.get(), (ServerLevel) level, mob.position(), 1, 40);
                 } // 迸晶裂玉
                 case 3 -> {
                     playerList.forEach(player -> {
@@ -252,9 +239,8 @@ public class IceInstance extends NoTeamInstance {
                                         new ClientboundSetEntityMotionPacket(player.getId(), vec3.normalize().scale(Math.min(2, 8 / vec3.length())));
                                 ServerPlayer serverPlayer = (ServerPlayer) player;
                                 serverPlayer.connection.send(clientboundSetEntityMotionPacket);
-                                ClientboundSetTitleTextPacket clientboundSetTitleTextPacket =
-                                        new ClientboundSetTitleTextPacket(Component.literal("凝寒聚意").withStyle(style));
-                                serverPlayer.connection.send(clientboundSetTitleTextPacket);
+/*                                Compute.setPlayerTitleAndSubTitle((ServerPlayer) player, Te.m("凝寒聚意", style),
+                                        Te.m(""), 0, 20, 10);*/
                             }
                         }
                     });
