@@ -1,10 +1,10 @@
 package fun.wraq.series.instance.series.devil;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqArmor;
 import fun.wraq.common.registry.ItemMaterial;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.common.equip.WraqArmor;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -18,13 +18,8 @@ public class DevilManaArmor extends WraqArmor {
 
     public DevilManaArmor(ItemMaterial Material, Type Slots, Properties itemProperties) {
         super(Material, Slots, itemProperties);
-        Utils.maxHealth.put(this, 1728d);
-        Utils.manaDamage.put(this, 900d);
-        Utils.defence.put(this, 4d);
-        Utils.manaDefence.put(this, 2d);
-        Utils.manaRecover.put(this, 20d);
-        Utils.coolDownDecrease.put(this, 0.2);
-        if (type.equals(Type.BOOTS)) Utils.movementSpeedCommon.put(this, 0.45);
+        Utils.percentHealthRecover.put(this, 0.02);
+        Utils.healthRecover.put(this, 45d);
     }
 
     @Override

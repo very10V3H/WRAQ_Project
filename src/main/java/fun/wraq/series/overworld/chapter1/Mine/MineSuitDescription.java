@@ -25,9 +25,7 @@ public class MineSuitDescription {
         ComponentUtils.descriptionOfAddition(components);
         SuitDescription(components);
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMine, ChatFormatting.WHITE);
-        components.add(Component.literal("MineArmor-I").withStyle(CustomStyle.styleOfMine).withStyle(ChatFormatting.ITALIC));
         ComponentUtils.suffixOfChapterI(components);
-
     }
 
     public static void SuitDescription(List<Component> components) {
@@ -72,7 +70,7 @@ public class MineSuitDescription {
                 append(ComponentUtils.AttributeDescription.movementSpeedDecrease("50%")));
         components.add(Component.literal("2.").withStyle(MainStyle).
                 append(Component.literal("获得").withStyle(ChatFormatting.GREEN)).
-                append(ComponentUtils.AttributeDescription.defence("250")));
+                append(ComponentUtils.AttributeDescription.defence("60")));
         components.add(Component.literal("3.").withStyle(MainStyle).
                 append(Component.literal("获得").withStyle(ChatFormatting.GREEN)).
                 append(ComponentUtils.AttributeDescription.exAttackDamage("30%")));

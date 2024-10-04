@@ -21,9 +21,7 @@ public class SkyArmorChest extends ArmorItem {
 
     public SkyArmorChest(ItemMaterial Materrial, Type Slots) {
         super(Materrial, Slots, new Properties().rarity(CustomStyle.SkyItalic));
-        Utils.defence.put(this, 2d);
-        Utils.critRate.put(this, 0.20d);
-        Utils.maxHealth.put(this, 200.0d);
+        Utils.defence.put(this, 40d);
         Utils.armorTag.put(this, 1d);
         Utils.armorList.add(this);
     }

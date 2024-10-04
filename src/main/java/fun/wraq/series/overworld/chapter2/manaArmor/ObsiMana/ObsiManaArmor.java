@@ -1,12 +1,11 @@
 package fun.wraq.series.overworld.chapter2.manaArmor.ObsiMana;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqArmor;
 import fun.wraq.common.registry.ItemMaterial;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.common.equip.WraqArmor;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.overworld.chapter2.manaArmor.ObsiMana.ObsiManaSuitDescription;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -20,12 +19,13 @@ public class ObsiManaArmor extends WraqArmor {
 
     public ObsiManaArmor(ItemMaterial material, Type type) {
         super(material, type, new Properties().rarity(CustomStyle.EvokerItalic));
-        Utils.defence.put(this, 1d);
+        if (type.equals(Type.HELMET)) Utils.healthRecover.put(this, 5d);
+        if (type.equals(Type.CHESTPLATE)) Utils.defence.put(this, 20d);
+        if (type.equals(Type.LEGGINGS)) Utils.maxHealth.put(this, 300d);
+        if (type.equals(Type.BOOTS)) Utils.movementSpeedCommon.put(this, 0.35);
         Utils.manaDamage.put(this, 75d);
-        Utils.maxHealth.put(this, 80d);
         Utils.maxMana.put(this, 10d);
-        Utils.manaPenetration0.put(this, 1d);
-        if (type.equals(Type.BOOTS)) Utils.movementSpeedCommon.put(this, 0.3);
+        Utils.manaPenetration0.put(this, 2d);
     }
 
     @Override

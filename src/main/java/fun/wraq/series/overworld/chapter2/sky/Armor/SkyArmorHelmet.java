@@ -19,11 +19,9 @@ import java.util.List;
 
 public class SkyArmorHelmet extends ArmorItem {
 
-    public SkyArmorHelmet(ItemMaterial Materrial, Type Slots) {
-        super(Materrial, Slots, new Properties().rarity(CustomStyle.SkyItalic));
-        Utils.defence.put(this, 2d);
-        Utils.healthRecover.put(this, 5d);
-        Utils.maxHealth.put(this, 200.0d);
+    public SkyArmorHelmet(ItemMaterial material, Type Slots) {
+        super(material, Slots, new Properties().rarity(CustomStyle.SkyItalic));
+        Utils.healthRecover.put(this, 20d);
         Utils.armorTag.put(this, 1d);
         Utils.armorList.add(this);
     }
@@ -45,5 +43,4 @@ public class SkyArmorHelmet extends ArmorItem {
     public boolean isFoil(ItemStack p_41453_) {
         return true;
     }
-
 }

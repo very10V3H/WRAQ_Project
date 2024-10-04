@@ -17,14 +17,11 @@ import java.util.List;
 
 public class KazeArmorBoots extends ArmorItem {
 
-    final double AttackDamage = 250;
-    final double ManaDamage = 500;
-
     public KazeArmorBoots(ItemMaterial Material, Type Slots) {
         super(Material, Slots, new Properties().rarity(CustomStyle.KazeItalic));
-        if (type.equals(Type.BOOTS)) Utils.movementSpeedCommon.put(this, 0.6);
-        Utils.attackDamage.put(this, AttackDamage);
-        Utils.manaDamage.put(this, ManaDamage);
+        Utils.movementSpeedCommon.put(this, 0.5);
+        Utils.attackDamage.put(this, 250d);
+        Utils.manaDamage.put(this, 500d);
         Utils.swiftnessUp.put(this, 1d);
         Utils.armorTag.put(this, 1d);
         Utils.armorList.add(this);
@@ -38,7 +35,6 @@ public class KazeArmorBoots extends ArmorItem {
         ComponentUtils.descriptionOfBasic(components);
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfKaze, ChatFormatting.WHITE);
         components.add(Component.literal(" "));
-        components.add(Component.literal("KazeArmor-I").withStyle(CustomStyle.styleOfKaze).withStyle(ChatFormatting.ITALIC));
         ComponentUtils.suffixOfChapterII(components);
         super.appendHoverText(stack, level, components, flag);
     }

@@ -3,7 +3,6 @@ package fun.wraq.series.overworld.chapter1.Snow;
 import fun.wraq.common.Compute;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ClientUtils;
-import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -22,16 +21,11 @@ import java.util.List;
 @OnlyIn(Dist.CLIENT)
 public class SnowSuitDescription {
     public static void ArmorCommonDescription(List<Component> components) {
-        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfSnow, ChatFormatting.WHITE);
-        ComponentUtils.descriptionOfAddition(components);
         if (Screen.hasShiftDown()) SuitDescription(components);
         else {
             Compute.SuitDescription(components);
             components.add(Component.literal("[按住shift展开套装效果]").withStyle(ChatFormatting.GRAY));
         }
-        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfSnow, ChatFormatting.WHITE);
-        components.add(Component.literal("SnowArmor-I").withStyle(CustomStyle.styleOfSnow).withStyle(ChatFormatting.ITALIC));
-        ComponentUtils.suffixOfChapterI(components);
     }
 
     public static void SuitDescription(List<Component> components) {

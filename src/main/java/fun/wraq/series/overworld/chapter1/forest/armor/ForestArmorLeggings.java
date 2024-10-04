@@ -20,7 +20,7 @@ import java.util.List;
 public class ForestArmorLeggings extends ArmorItem {
     public ForestArmorLeggings(ItemMaterial Materrial, Type Slots) {
         super(Materrial, Slots, new Properties().rarity(CustomStyle.ForestItalic));
-        Utils.defence.put(this, 2d);
+        Utils.defence.put(this, 3.5d);
         Utils.armorTag.put(this, 1d);
         Utils.armorList.add(this);
     }

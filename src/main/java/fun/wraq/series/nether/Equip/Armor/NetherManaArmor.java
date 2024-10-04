@@ -18,15 +18,10 @@ public class NetherManaArmor extends WraqArmor {
 
     public NetherManaArmor(ItemMaterial Material, Type Slots, Properties itemProperties) {
         super(Material, Slots, itemProperties);
-        Utils.maxHealth.put(this, 500d);
-        Utils.defence.put(this, 2d);
-        Utils.manaDamage.put(this, 200d);
-        Utils.manaPenetration.put(this, 0.08);
-        Utils.manaPenetration0.put(this, 1d);
-        if (type.equals(Type.BOOTS)) {
-            Utils.movementSpeedCommon.put(this, 0.4);
-            Utils.maxHealth.put(this, 250d);
-        }
+        if (type.equals(Type.HELMET)) Utils.healthRecover.put(this, 30d);
+        if (type.equals(Type.CHESTPLATE)) Utils.defence.put(this, 50d);
+        if (type.equals(Type.LEGGINGS)) Utils.maxHealth.put(this, 2000d);
+        if (type.equals(Type.BOOTS)) Utils.movementSpeedCommon.put(this, 0.35);
     }
 
     @Override

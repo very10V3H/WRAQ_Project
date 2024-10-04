@@ -1,12 +1,11 @@
 package fun.wraq.series.overworld.chapter2.manaArmor.LifeMana;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqArmor;
 import fun.wraq.common.registry.ItemMaterial;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.common.equip.WraqArmor;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.overworld.chapter2.manaArmor.LifeMana.LifeManaSuitDescription;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -21,12 +20,13 @@ public class LifeManaArmor extends WraqArmor {
 
     public LifeManaArmor(ItemMaterial material, Type type, Properties properties) {
         super(material, type, properties);
-        Utils.defence.put(this, 1d);
+        if (type.equals(Type.HELMET)) Utils.healthRecover.put(this, 8d);
+        if (type.equals(Type.CHESTPLATE)) Utils.defence.put(this, 10d);
+        if (type.equals(Type.LEGGINGS)) Utils.maxHealth.put(this, 400d);
+        if (type.equals(Type.BOOTS)) Utils.movementSpeedCommon.put(this, 0.35);
         Utils.manaDamage.put(this, 50d);
-        Utils.maxHealth.put(this, 40d);
         Utils.maxMana.put(this, 10d);
-        Utils.manaPenetration0.put(this, 1d);
-        if (type.equals(Type.BOOTS)) Utils.movementSpeedCommon.put(this, 0.3);
+        Utils.manaPenetration0.put(this, 1.5d);
     }
 
     @Override

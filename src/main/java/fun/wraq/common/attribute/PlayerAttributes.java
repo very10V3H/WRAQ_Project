@@ -842,7 +842,7 @@ public class PlayerAttributes {
         if (leggings.equals(ModItems.MinePants.get()) && (Utils.OverWorldLevelIsNight || player.getY() < 63))
             exDefence += 1;
         // 矿工裤被动
-        if (SuitCount.getMineSuitCount(player) >= 4) exDefence += 2.5;
+        if (SuitCount.getMineSuitCount(player) >= 4) exDefence += 60;
 
         if (data.getInt(StringUtils.Crest.Mine.Crest0) > 0)
             exDefence += MineCrestAttributes.ExDefence[0] * data.getInt(StringUtils.Crest.Mine.Crest0);

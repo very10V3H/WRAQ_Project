@@ -23,7 +23,7 @@ public class MineArmorChest extends ArmorItem {
 
     public MineArmorChest(ItemMaterial Material, Type Slots) {
         super(Material, Slots, new Properties().rarity(CustomStyle.MineItalic));
-        Utils.defence.put(this, 2d);
+        Utils.defence.put(this, 5d);
         Utils.armorTag.put(this, 1d);
         Utils.armorList.add(this);
     }

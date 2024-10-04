@@ -22,7 +22,7 @@ import java.util.List;
 public class ForestArmorHelmet extends ArmorItem {
     public ForestArmorHelmet(ItemMaterial Materrial, Type Slots) {
         super(Materrial, Slots, new Properties().rarity(CustomStyle.ForestItalic));
-        Utils.defence.put(this, 1d);
+        Utils.defence.put(this, 2.5d);
         Utils.armorTag.put(this, 1d);
         Utils.armorList.add(this);
     }

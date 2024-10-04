@@ -1,11 +1,11 @@
 package fun.wraq.series.instance.series.taboo;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqArmor;
 import fun.wraq.common.registry.ItemMaterial;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.common.equip.WraqArmor;
 import fun.wraq.render.hud.Mana;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -22,11 +22,8 @@ public class TabooSwiftArmor extends WraqArmor {
 
     public TabooSwiftArmor(ItemMaterial Material, Type Slots, Properties itemProperties) {
         super(Material, Slots, itemProperties);
-        Utils.maxHealth.put(this, 2560d);
-        Utils.attackDamage.put(this, 550d);
-        Utils.defence.put(this, 4d);
-        Utils.manaDefence.put(this, 3d);
-        Utils.swiftnessUp.put(this, 3d);
+        Utils.percentHealthRecover.put(this, 0.04);
+        Utils.healthRecover.put(this, 50d);
     }
 
     @Override

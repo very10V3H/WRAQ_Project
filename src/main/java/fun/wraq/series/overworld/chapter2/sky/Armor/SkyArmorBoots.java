@@ -21,9 +21,7 @@ public class SkyArmorBoots extends ArmorItem {
 
     public SkyArmorBoots(ItemMaterial material, Type Slots) {
         super(material, Slots, new Properties().rarity(CustomStyle.SkyItalic));
-        Utils.defence.put(this, 80d);
-        if (type.equals(Type.BOOTS)) Utils.movementSpeedCommon.put(this, 0.5);
-        Utils.maxHealth.put(this, 200d);
+        Utils.movementSpeedCommon.put(this, 0.45);
         Utils.armorTag.put(this, 1d);
         Utils.armorList.add(this);
     }

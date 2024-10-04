@@ -23,7 +23,6 @@ public class PlainArmorHelmet extends ArmorItem {
     public PlainArmorHelmet(ItemMaterial Material, Type Slots) {
         super(Material, Slots, new Properties().rarity(CustomStyle.PlainItalic));
         Utils.maxHealth.put(this, 50d);
-        Utils.percentHealthRecover.put(this, 0.1);
         Utils.armorTag.put(this, 1d);
         Utils.armorList.add(this);
     }

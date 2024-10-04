@@ -24,12 +24,7 @@ public class DevilSwiftArmor extends WraqArmor {
 
     public DevilSwiftArmor(ItemMaterial Material, Type Slots, Properties itemProperties) {
         super(Material, Slots, itemProperties);
-        Utils.maxHealth.put(this, 1728d);
-        Utils.attackDamage.put(this, 450d);
-        Utils.defence.put(this, 4d);
-        Utils.manaDefence.put(this, 2d);
-        Utils.swiftnessUp.put(this, 2d);
-        if (type.equals(Type.BOOTS)) Utils.movementSpeedCommon.put(this, 0.45);
+        Utils.movementSpeedCommon.put(this, 0.45);
     }
 
     @Override

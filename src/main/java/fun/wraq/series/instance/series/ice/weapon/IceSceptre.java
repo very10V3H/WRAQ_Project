@@ -3,6 +3,7 @@ package fun.wraq.series.instance.series.ice.weapon;
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.impl.onhit.OnPowerCauseDamageEquip;
 import fun.wraq.common.registry.ModEntityType;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.ModSounds;
@@ -31,7 +32,7 @@ import net.minecraft.world.level.Level;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IceSceptre extends WraqSceptre implements OnHitEffectMainHandWeapon {
+public class IceSceptre extends WraqSceptre implements OnHitEffectMainHandWeapon, OnPowerCauseDamageEquip {
 
     public IceSceptre(Properties p_42964_) {
         super(p_42964_);
@@ -102,6 +103,12 @@ public class IceSceptre extends WraqSceptre implements OnHitEffectMainHandWeapon
 
     @Override
     public void onHit(Player player, Mob mob) {
+        IceWeaponPassiveHelper.onHit(player, mob);
+        IceWeaponPassiveHelper.onCritHit(player, mob, ModItems.IceSceptre.get(), 8);
+    }
+
+    @Override
+    public void onCauseDamage(Player player, Mob mob) {
         IceWeaponPassiveHelper.onHit(player, mob);
         IceWeaponPassiveHelper.onCritHit(player, mob, ModItems.IceSceptre.get(), 8);
     }

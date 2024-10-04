@@ -1,17 +1,16 @@
 package fun.wraq.series.nether.Equip.Armor;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqArmor;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.onhit.OnHitEffectArmor;
 import fun.wraq.common.registry.ItemMaterial;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.common.equip.WraqArmor;
 import fun.wraq.process.func.StableTierAttributeModifier;
 import fun.wraq.process.func.suit.SuitCount;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.nether.Equip.Armor.NetherSuitDescription;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -27,13 +26,10 @@ public class NetherArmor extends WraqArmor implements OnHitEffectArmor {
 
     public NetherArmor(ItemMaterial material, Type type, Properties properties) {
         super(material, type, properties);
-        Utils.defence.put(this, 2d);
-        Utils.maxHealth.put(this, 400d);
-        Utils.attackDamage.put(this, 100d);
-        if (type.equals(Type.BOOTS)) {
-            Utils.movementSpeedCommon.put(this, 0.35);
-            Utils.maxHealth.put(this, 200d);
-        }
+        if (type.equals(Type.HELMET)) Utils.healthRecover.put(this, 30d);
+        if (type.equals(Type.CHESTPLATE)) Utils.defence.put(this, 50d);
+        if (type.equals(Type.LEGGINGS)) Utils.maxHealth.put(this, 2000d);
+        if (type.equals(Type.BOOTS)) Utils.movementSpeedCommon.put(this, 0.35);
     }
 
     @Override

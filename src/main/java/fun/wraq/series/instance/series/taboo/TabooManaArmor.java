@@ -2,11 +2,11 @@ package fun.wraq.series.instance.series.taboo;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.equip.WraqArmor;
 import fun.wraq.common.registry.ItemMaterial;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.common.equip.WraqArmor;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -23,13 +23,7 @@ public class TabooManaArmor extends WraqArmor {
 
     public TabooManaArmor(ItemMaterial Material, Type type, Properties itemProperties) {
         super(Material, type, itemProperties);
-        Utils.maxHealth.put(this, 2560d);
-        Utils.manaDamage.put(this, 1500d);
-        Utils.defence.put(this, 4d);
-        Utils.manaDefence.put(this, 3d);
-        Utils.manaRecover.put(this, 30d);
-        Utils.coolDownDecrease.put(this, 0.2);
-        if (this.type.equals(Type.BOOTS)) Utils.movementSpeedCommon.put(this, 0.45);
+        Utils.movementSpeedCommon.put(this, 0.45);
     }
 
     @Override

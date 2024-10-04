@@ -23,7 +23,7 @@ public class MineArmorLeggings extends ArmorItem {
 
     public MineArmorLeggings(ItemMaterial Material, Type Slots) {
         super(Material, Slots, new Properties().rarity(CustomStyle.MineItalic));
-        Utils.defence.put(this, 3d);
+        Utils.defence.put(this, 5d);
         Utils.armorTag.put(this, 1d);
         Utils.armorList.add(this);
     }

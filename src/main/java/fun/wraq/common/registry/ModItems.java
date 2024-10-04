@@ -168,10 +168,7 @@ import fun.wraq.series.overworld.chapter1.Mine.Bow.MineBow;
 import fun.wraq.series.overworld.chapter1.Mine.Crest.MineCrest;
 import fun.wraq.series.overworld.chapter1.Mine.*;
 import fun.wraq.series.overworld.chapter1.Mine.Sword.MineSword;
-import fun.wraq.series.overworld.chapter1.Snow.Armor.SnowArmorBoots;
-import fun.wraq.series.overworld.chapter1.Snow.Armor.SnowArmorChest;
-import fun.wraq.series.overworld.chapter1.Snow.Armor.SnowArmorHelmet;
-import fun.wraq.series.overworld.chapter1.Snow.Armor.SnowArmorLeggings;
+import fun.wraq.series.overworld.chapter1.Snow.Armor.*;
 import fun.wraq.series.overworld.chapter1.Snow.Crest.SnowCrest;
 import fun.wraq.series.overworld.chapter1.Snow.Runes.SnowRune0;
 import fun.wraq.series.overworld.chapter1.Snow.Runes.SnowRune1;
@@ -835,13 +832,13 @@ public class ModItems {
             () -> new LightningRune(new Item.Properties().rarity(CustomStyle.LightningBold)));
 
     public static final RegistryObject<Item> LIGHTNING_HELMET = ITEMS.register("islandarmorhelmet",
-            () -> new LightningArmor(ItemMaterial.IslandMaterial, ArmorItem.Type.HELMET, new Item.Properties().rarity(CustomStyle.LightningItalic)));
+            () -> new LightningArmor(ItemMaterial.IslandMaterial, ArmorItem.Type.HELMET, new Item.Properties().rarity(CustomStyle.LightningItalic), 0));
     public static final RegistryObject<Item> LIGHTNING_CHEST = ITEMS.register("islandarmorchest",
-            () -> new LightningArmor(ItemMaterial.IslandMaterial, ArmorItem.Type.CHESTPLATE, new Item.Properties().rarity(CustomStyle.LightningItalic)));
+            () -> new LightningArmor(ItemMaterial.IslandMaterial, ArmorItem.Type.CHESTPLATE, new Item.Properties().rarity(CustomStyle.LightningItalic), 0));
     public static final RegistryObject<Item> LIGHTNING_LEGGINGS = ITEMS.register("islandarmorleggings",
-            () -> new LightningArmor(ItemMaterial.IslandMaterial, ArmorItem.Type.LEGGINGS, new Item.Properties().rarity(CustomStyle.LightningItalic)));
+            () -> new LightningArmor(ItemMaterial.IslandMaterial, ArmorItem.Type.LEGGINGS, new Item.Properties().rarity(CustomStyle.LightningItalic), 0));
     public static final RegistryObject<Item> LIGHTNING_BOOTS = ITEMS.register("islandarmorboots",
-            () -> new LightningArmor(ItemMaterial.IslandMaterial, ArmorItem.Type.BOOTS, new Item.Properties().rarity(CustomStyle.LightningItalic)));
+            () -> new LightningArmor(ItemMaterial.IslandMaterial, ArmorItem.Type.BOOTS, new Item.Properties().rarity(CustomStyle.LightningItalic), 0));
 
     public static final RegistryObject<Item> SeaSword0 = ITEMS.register("seasword0",
             () -> new SeaSword(new Item.Properties().rarity(CustomStyle.SeaItalic), 0));
@@ -1309,13 +1306,13 @@ public class ModItems {
             () -> new MineArmorBoots(ItemMaterial.IslandMaterial, ArmorItem.Type.BOOTS));
 
     public static final RegistryObject<Item> SnowArmorHelmet = ITEMS.register("snowarmorhelmet",
-            () -> new SnowArmorHelmet(ItemMaterial.SkyMaterial, ArmorItem.Type.HELMET));
+            () -> new SnowArmor(ItemMaterial.SkyMaterial, ArmorItem.Type.HELMET));
     public static final RegistryObject<Item> SnowArmorChest = ITEMS.register("snowarmorchest",
-            () -> new SnowArmorChest(ItemMaterial.SkyMaterial, ArmorItem.Type.CHESTPLATE));
+            () -> new SnowArmor(ItemMaterial.SkyMaterial, ArmorItem.Type.CHESTPLATE));
     public static final RegistryObject<Item> SnowArmorLeggings = ITEMS.register("snowarmorleggings",
-            () -> new SnowArmorLeggings(ItemMaterial.SkyMaterial, ArmorItem.Type.LEGGINGS));
+            () -> new SnowArmor(ItemMaterial.SkyMaterial, ArmorItem.Type.LEGGINGS));
     public static final RegistryObject<Item> SnowArmorBoots = ITEMS.register("snowarmorboots",
-            () -> new SnowArmorBoots(ItemMaterial.SkyMaterial, ArmorItem.Type.BOOTS));
+            () -> new SnowArmor(ItemMaterial.SkyMaterial, ArmorItem.Type.BOOTS));
 
     public static final RegistryObject<Item> LakeBossSword = ITEMS.register("lake_boss_sword",
             () -> new LakeBoss.LakeBossSword(ItemTier.VMaterial, 2, 0));

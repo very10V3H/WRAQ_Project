@@ -24,10 +24,7 @@ public class DevilAttackArmor extends WraqArmor {
 
     public DevilAttackArmor(ItemMaterial Material, Type Slots, Properties itemProperties) {
         super(Material, Slots, itemProperties);
-        Utils.maxHealth.put(this, 3072d);
-        Utils.attackDamage.put(this, 450d);
-        Utils.defence.put(this, 6d);
-        Utils.manaDefence.put(this, 4d);
+        Utils.defence.put(this, 100d);
     }
 
     @Override

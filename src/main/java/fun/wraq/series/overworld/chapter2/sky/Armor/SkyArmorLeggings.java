@@ -21,9 +21,7 @@ public class SkyArmorLeggings extends ArmorItem {
 
     public SkyArmorLeggings(ItemMaterial Materrial, Type Slots) {
         super(Materrial, Slots, new Properties().rarity(CustomStyle.SkyItalic));
-        Utils.defence.put(this, 2d);
-        Utils.critDamage.put(this, 0.35);
-        Utils.maxHealth.put(this, 200.0d);
+        Utils.maxHealth.put(this, 1500d);
         Utils.armorTag.put(this, 1d);
         Utils.armorList.add(this);
     }

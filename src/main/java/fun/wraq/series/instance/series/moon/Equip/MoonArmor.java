@@ -23,16 +23,14 @@ import java.util.List;
 
 public class MoonArmor extends WraqArmor {
 
-    public MoonArmor(ItemMaterial Material, Type Slots, Properties itemProperties) {
-        super(Material, Slots, itemProperties);
-        Utils.maxHealth.put(this, 4096d);
-        Utils.attackDamage.put(this, 700d);
-        Utils.manaDamage.put(this, 1400d);
-        Utils.defence.put(this, 4d);
-        Utils.manaDefence.put(this, 3d);
-        Utils.critDamage.put(this, 0.35);
-        Utils.coolDownDecrease.put(this, 0.15);
-        Utils.swiftnessUp.put(this, 1.5d);
+    public MoonArmor(ItemMaterial material, Type type, Properties properties) {
+        super(material, type, properties);
+        if (type.equals(Type.LEGGINGS)) Utils.maxHealth.put(this, 6000d);
+        if (type.equals(Type.HELMET)) {
+            Utils.percentHealthRecover.put(this, 0.03);
+            Utils.healthRecover.put(this, 50d);
+        }
+
     }
 
     @Override

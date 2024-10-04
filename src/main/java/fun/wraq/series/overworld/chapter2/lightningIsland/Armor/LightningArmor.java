@@ -29,10 +29,13 @@ import java.util.*;
 
 public class LightningArmor extends WraqArmor implements TickArmor, OnHitEffectArmor {
 
-    public LightningArmor(ItemMaterial material, Type type, Properties properties, double maxHealth, double defence) {
+    private final int tier;
+    public LightningArmor(ItemMaterial material, Type type, Properties properties, int tier) {
         super(material, type, properties);
-        Utils.defence.put(this, defence);
-        Utils.maxHealth.put(this, maxHealth);
+        this.tier = tier;
+        if (type.equals(Type.HELMET)) Utils.healthRecover.put(this, 30d * (tier + 1));
+        if (type.equals(Type.CHESTPLATE)) Utils.defence.put(this, 50d * (tier + 1));
+        if (type.equals(Type.LEGGINGS)) Utils.maxHealth.put(this, 2000d * (tier + 1));
         if (type.equals(Type.BOOTS)) Utils.movementSpeedCommon.put(this, 0.35);
     }
 
@@ -54,7 +57,7 @@ public class LightningArmor extends WraqArmor implements TickArmor, OnHitEffectA
                 append(Component.literal("落雷").withStyle(style)));
         components.add(Component.literal(" 每道落雷").withStyle(style).
                 append(Component.literal("对范围内单位造成").withStyle(ChatFormatting.WHITE)).
-                append(Component.literal("25%自适应伤害").withStyle(CustomStyle.styleOfSea)));
+                append(Component.literal(tier == 1 ? "50%" : "25%" +"自适应伤害").withStyle(CustomStyle.styleOfSea)));
         components.add(Te.m(" 多件唤雷装备能够线性提升这个伤害数值", ChatFormatting.ITALIC, ChatFormatting.GRAY));
         components.add(ComponentUtils.getCritDamageInfluenceDescription());
         return components;
@@ -83,7 +86,7 @@ public class LightningArmor extends WraqArmor implements TickArmor, OnHitEffectA
                                     lightningBolt.moveTo(soleMob.position());
                                     soleMob.level().addFreshEntity(lightningBolt);
 
-                                    double rate = 0.25 * SuitCount.getLightningArmorCount(player1);
+                                    double rate = 0.25 * (tier + 1) * SuitCount.getLightningArmorCount(player1);
                                     Random random = new Random();
                                     if (random.nextDouble() < PlayerAttributes.critRate(player1))
                                         rate *= (1 + PlayerAttributes.critDamage(player1));

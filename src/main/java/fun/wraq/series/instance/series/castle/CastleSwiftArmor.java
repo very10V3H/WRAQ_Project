@@ -39,15 +39,13 @@ public class CastleSwiftArmor extends WraqArmor implements ForgeItem {
 
     public CastleSwiftArmor(ItemMaterial Material, Type Slots, Properties itemProperties) {
         super(Material, Slots, itemProperties);
-        Utils.maxHealth.put(this, 5120d);
-        Utils.attackDamage.put(this, 450d);
-        Utils.defence.put(this, 4d);
-        Utils.manaDefence.put(this, 4d);
-        Utils.swiftnessUp.put(this, 4d);
-        if (type.equals(Type.BOOTS)) {
-            Utils.movementSpeedCommon.put(this, 0.45);
-            Utils.maxHealth.put(this, 2560d);
+        if (type.equals(Type.HELMET)) {
+            Utils.percentHealthRecover.put(this, 0.04);
+            Utils.healthRecover.put(this, 100d);
         }
+        if (type.equals(Type.CHESTPLATE)) Utils.defence.put(this, 125d);
+        if (type.equals(Type.LEGGINGS)) Utils.maxHealth.put(this, 12500d);
+        if (type.equals(Type.BOOTS)) Utils.movementSpeedCommon.put(this, 0.5);
     }
 
     @Override

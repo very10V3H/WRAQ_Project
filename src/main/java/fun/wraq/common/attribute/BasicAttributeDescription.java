@@ -13,6 +13,7 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.customized.WraqUniformCurios;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
+import fun.wraq.render.gui.illustrate.Illustrate;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.render.toolTip.NewTooltip;
 import fun.wraq.render.toolTip.TraditionalTooltip;
@@ -1063,6 +1064,10 @@ public class BasicAttributeDescription {
             components.add(Component.literal("").withStyle(ChatFormatting.WHITE).
                     append(Component.literal("θ-锻造品质: ").withStyle(CustomStyle.styleOfGold)).
                     append(ForgeEquipUtils.getDescription(forgeQuality)));
+            if (itemStack.getTagElement(Utils.MOD_ID) != null
+                    && itemStack.getTagElement(Utils.MOD_ID).contains(Illustrate.DISPLAY_FLAG)) {
+                components.add(Te.m(" 按住左ALT停止品质滚动", ChatFormatting.AQUA));
+            }
         }
     }
 

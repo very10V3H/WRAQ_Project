@@ -29,9 +29,7 @@ public class SkySuitDescription {
             components.add(Component.literal("[按住shift展开套装效果]").withStyle(ChatFormatting.GRAY));
         }
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfSky, ChatFormatting.WHITE);
-        components.add(Component.literal("SkyArmor-I").withStyle(CustomStyle.styleOfSky).withStyle(ChatFormatting.ITALIC));
         ComponentUtils.suffixOfChapterII(components);
-
     }
 
     public static void SuitDescription(List<Component> components) {

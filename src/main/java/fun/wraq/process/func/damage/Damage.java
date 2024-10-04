@@ -8,6 +8,7 @@ import fun.wraq.common.attribute.DamageInfluence;
 import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.impl.onhit.OnPowerCauseDamageEquip;
 import fun.wraq.common.impl.onkill.OnKillEffectCurios;
 import fun.wraq.common.impl.onkill.OnKillEffectOffHandItem;
 import fun.wraq.common.registry.ModItems;
@@ -218,6 +219,7 @@ public class Damage {
         if (isPower) {
             Compute.AdditionEffects(player, monster, totalDamage, 1);
             WitherBook.witherBookEffect(player, monster);
+            OnPowerCauseDamageEquip.causeDamage(player, monster);
         }
 
         if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false) && isPower) {
@@ -280,6 +282,7 @@ public class Damage {
         if (isPower) {
             Compute.AdditionEffects(player, monster, totalDamage, 1);
             WitherBook.witherBookEffect(player, monster);
+            OnPowerCauseDamageEquip.causeDamage(player, monster);
         }
 
         if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false) && isPower) {
@@ -359,6 +362,7 @@ public class Damage {
         if (isPower) {
             WitherBook.witherBookEffect(player, monster);
             Compute.AdditionEffects(player, monster, totalDamage, 1);
+            OnPowerCauseDamageEquip.causeDamage(player, monster);
         }
 
         if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false) && isPower) {

@@ -893,19 +893,19 @@ public class Compute {
         return forgingValue(itemStack.getOrCreateTagElement(Utils.MOD_ID), baseValue);
     }
 
-    public static double forgingValue(CompoundTag data, double BaseValue) {
+    public static double forgingValue(CompoundTag data, double baseValue) {
         int forgingLevel = data.getInt("Forging");
         if (data.contains(StringUtils.QingMingForgePaper)) ++forgingLevel;
         if (data.contains(StringUtils.LabourDayForgePaper)) ++forgingLevel;
 
         if (forgingLevel <= 10) {
-            return BaseValue * 0.02f * forgingLevel;
+            return baseValue * 0.04 * forgingLevel;
         } else if (forgingLevel <= 20) {
-            return BaseValue * (0.04f * (forgingLevel - 10) + 0.2f);
+            return baseValue * (0.08 * (forgingLevel - 10) + 0.4);
         } else if (forgingLevel <= 24) {
-            return BaseValue * (0.2f * (forgingLevel - 20) + 0.6f);
+            return baseValue * (0.16 * (forgingLevel - 20) + 1.2);
         } else {
-            return BaseValue * (1.4 + (forgingLevel - 24) * 0.4);
+            return baseValue * (0.32 * (forgingLevel - 24) + 1.84);
         }
     }
 

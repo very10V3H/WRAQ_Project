@@ -5,6 +5,6 @@ import fun.wraq.series.overworld.chapter2.lightningIsland.Armor.LightningArmor;
 
 public class IntensifiedLightningArmor extends LightningArmor {
     public IntensifiedLightningArmor(ItemMaterial material, Type type, Properties properties) {
-        super(material, type, properties);
+        super(material, type, properties, 1);
     }
 }
