@@ -1,6 +1,5 @@
 package fun.wraq.process.func.damage;
 
-import fun.wraq.process.func.damage.Damage;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.AABB;
@@ -42,7 +41,7 @@ public class SputteringDamage {
                             if (this.damageType == 1)
                                 fun.wraq.process.func.damage.Damage.causeManaDamageToMonster_ApDamage_Direct(originPlayer, mob, this.originDamage / (2 * (this.generation + 1)), false);
                             if (this.damageType == 2)
-                                fun.wraq.process.func.damage.Damage.causeIgnoreDefenceDamageToMonster_Direct(originPlayer, mob, this.originDamage / (2 * (this.generation + 1)));
+                                fun.wraq.process.func.damage.Damage.causeIgNoreDefenceDamageToMonster(originPlayer, mob, this.originDamage / (2 * (this.generation + 1)));
                         }
                         causedDamageMob.add(mob);
                     });
@@ -64,7 +63,7 @@ public class SputteringDamage {
                             if (this.damageType == 1)
                                 fun.wraq.process.func.damage.Damage.causeManaDamageToMonster_ApDamage_Direct(originPlayer, mob, this.originDamage / (2 * (this.generation + 1)), false);
                             if (this.damageType == 2)
-                                Damage.causeIgnoreDefenceDamageToMonster_Direct(originPlayer, mob, this.originDamage / (2 * (this.generation + 1)));
+                                Damage.causeIgNoreDefenceDamageToMonster(originPlayer, mob, this.originDamage / (2 * (this.generation + 1)));
                         }
                         causedDamageMob.add(mob);
                     });

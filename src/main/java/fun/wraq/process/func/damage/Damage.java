@@ -68,21 +68,8 @@ public class Damage {
     }
 
     public static double causeIgNoreDefenceDamageToMonster(Player player, Mob monster, double damage) {
-        double damageEnhance = 0;
-
-        damageEnhance += DamageInfluence.getPlayerCommonDamageUpOrDown(player, monster);
-        damage *= (1 + damageEnhance) * (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, monster));
-
         Compute.summonValueItemEntity(monster.level(), player, monster,
                 Component.literal(String.format("%.0f", damage)).withStyle(CustomStyle.styleOfSea), 2);
-
-        DirectDamageToMob(player, monster, damage);
-        return damage;
-    }
-
-    public static double causeIgnoreDefenceDamageToMonster_Direct(Player player, Mob monster, double damage) {
-        Compute.summonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", damage)).withStyle(CustomStyle.styleOfSea), 2);
-
         DirectDamageToMob(player, monster, damage);
         return damage;
     }
