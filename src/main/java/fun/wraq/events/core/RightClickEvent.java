@@ -1,12 +1,12 @@
 package fun.wraq.events.core;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.events.core.InventoryCheck;
+import fun.wraq.events.mob.instance.NoTeamInstanceModule;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.unSorted.VillagerTradeScreenS2CPacket;
-import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.render.gui.villagerTrade.MyVillagerData;
 import fun.wraq.render.gui.villagerTrade.TradeList;
 import net.minecraft.nbt.CompoundTag;
@@ -25,13 +25,11 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import java.io.IOException;
-
 @Mod.EventBusSubscriber
 public class RightClickEvent {
 
     @SubscribeEvent
-    public static void RightClick(PlayerInteractEvent.RightClickItem event) throws IOException {
+    public static void RightClick(PlayerInteractEvent.RightClickItem event) {
         Player player = event.getEntity();
         ItemStack itemStack = player.getItemInHand(InteractionHand.MAIN_HAND);
         Item item = itemStack.getItem();
@@ -50,6 +48,8 @@ public class RightClickEvent {
         }
         if (Utils.ItemRightClickCheck.containsKey(event.getItemStack().getItem()) && !player.isCreative())
             event.setCanceled(true);
+
+        NoTeamInstanceModule.handlePlayerRightClick(player);
     }
 
     @SubscribeEvent

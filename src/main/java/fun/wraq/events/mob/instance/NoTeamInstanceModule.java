@@ -1,6 +1,7 @@
 package fun.wraq.events.mob.instance;
 
-import fun.wraq.events.mob.instance.NoTeamInstance;
+import fun.wraq.common.fast.Tick;
+import fun.wraq.common.registry.ModItems;
 import fun.wraq.events.mob.instance.instances.*;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -100,6 +101,25 @@ public class NoTeamInstanceModule {
                     && serverPlayer.position().distanceTo(noTeamInstance.pos) < noTeamInstance.range) hasPlayerNearby = true;
         }
         return hasPlayerNearby;
+    }
+
+    public static void handlePlayerRightClick(Player player) {
+        if ((player.getMainHandItem().is(ModItems.notePaper.get()))) {
+            if (player.level().dimension().equals(Level.OVERWORLD)) {
+                noTeamInstancesOverworld.forEach(instance -> {
+                    if (player.position().distanceTo(instance.pos) < 4 && Tick.get() > instance.summonTick) {
+                        instance.ready = true;
+                    }
+                });
+            }
+            if (player.level().dimension().equals(Level.NETHER)) {
+                noTeamInstancesNether.forEach(instance -> {
+                    if (player.position().distanceTo(instance.pos) < 4 && Tick.get() > instance.summonTick) {
+                        instance.ready = true;
+                    }
+                });
+            }
+        }
     }
 }
 

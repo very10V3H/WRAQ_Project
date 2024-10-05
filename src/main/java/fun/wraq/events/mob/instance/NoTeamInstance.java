@@ -1,6 +1,8 @@
 package fun.wraq.events.mob.instance;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Te;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.core.InventoryCheck;
@@ -38,6 +40,7 @@ public abstract class NoTeamInstance {
     public boolean inChallenge;
     public final Vec3 armorStandPos;
     public final MutableComponent name;
+    public boolean ready;
 
     public NoTeamInstance(final Vec3 pos, final double range, final int delayTick,
                           final Vec3 armorStandPos, final MutableComponent name) {
@@ -47,6 +50,7 @@ public abstract class NoTeamInstance {
         this.inChallenge = false;
         this.armorStandPos = armorStandPos;
         this.name = name;
+        this.ready = false;
     }
 
     public void detectAndSummon(Level level) {
@@ -66,7 +70,8 @@ public abstract class NoTeamInstance {
                 break;
             }
         }
-        if (!inChallenge && tick > summonTick && (allMobIsNull || allMobIsNotAlive) && !playerList.isEmpty()) {
+        if (!inChallenge && tick > summonTick && (allMobIsNull || allMobIsNotAlive)
+                && !playerList.isEmpty() && ready) {
             mobList.clear();
             bossInfoList.clear();
             summonModule(level);
@@ -145,11 +150,16 @@ public abstract class NoTeamInstance {
         if (!getPlayerList(level).isEmpty() && !inChallenge) {
             List<ArmorStand> armorStandList = level.getEntitiesOfClass(ArmorStand.class, AABB.ofSize(armorStandPos, range * 2, range * 2, range * 2));
             armorStandList.forEach(armorStand -> armorStand.remove(Entity.RemovalReason.KILLED));
-            int tick = level.getServer().getTickCount();
-            summonArmorStand(level, new Vec3(0, -0.25, 0), Component.literal("剩余:").withStyle(ChatFormatting.WHITE).
-                    append(Component.literal(String.valueOf((summonTick - tick) / 20)).withStyle(ChatFormatting.WHITE)).
-                    append(Component.literal("秒").withStyle(ChatFormatting.WHITE)));
-            summonArmorStand(level, new Vec3(0, 0, 0), name);
+            int tick = Tick.get();
+            if (tick > summonTick) {
+                summonArmorStand(level, new Vec3(0, -0.25, 0), Te.s("手持",
+                        ModItems.notePaper.get().getDefaultInstance().getDisplayName(), "右键以召唤", ChatFormatting.AQUA));
+            } else {
+                summonArmorStand(level, new Vec3(0, -0.25, 0), Component.literal("剩余:").withStyle(ChatFormatting.WHITE).
+                        append(Component.literal(String.valueOf((summonTick - tick) / 20)).withStyle(ChatFormatting.WHITE)).
+                        append(Component.literal("秒").withStyle(ChatFormatting.WHITE)));
+            }
+            summonArmorStand(level, new Vec3(0, 0, 0), Te.s("领主级怪物", ChatFormatting.RED, ":", name));
         } else {
             List<ArmorStand> armorStandList = level.getEntitiesOfClass(ArmorStand.class, AABB.ofSize(armorStandPos, range * 2, range * 2, range * 2));
             armorStandList.forEach(armorStand -> armorStand.remove(Entity.RemovalReason.KILLED));
