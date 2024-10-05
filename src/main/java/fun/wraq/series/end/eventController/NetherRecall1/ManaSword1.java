@@ -53,7 +53,7 @@ public class ManaSword1 extends WraqSword implements ActiveItem {
         components.add(Component.literal("将自身魔力全部灌注入玛莫提乌斯之噬，获得短暂的巨幅攻击力加成。").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
         components.add(Component.literal("消耗全部法力值，并获得与消耗法力值等同的逐渐衰减的攻击力加成。").withStyle(ChatFormatting.RED));
         components.add(Component.literal("消耗全部").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.MaxMana("")).
+                append(ComponentUtils.AttributeDescription.manaValue("")).
                 append(Component.literal("并获得等同于消耗量的").withStyle(ChatFormatting.WHITE)).
                 append(Compute.AttributeDescription.AttackDamage("")));
         ComponentUtils.coolDownTimeDescription(components, 5);

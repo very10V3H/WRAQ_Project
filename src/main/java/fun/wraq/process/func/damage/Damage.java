@@ -27,7 +27,6 @@ import fun.wraq.process.system.endlessinstance.DailyEndlessInstance;
 import fun.wraq.process.system.teamInstance.NewTeamInstanceEvent;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.moon.Equip.MoonBelt;
-import fun.wraq.series.nether.Equip.WitherBook;
 import fun.wraq.series.newrunes.chapter2.HuskNewRune;
 import fun.wraq.series.newrunes.chapter3.NetherNewRune;
 import fun.wraq.series.overworld.chapter7.star.StarBottle;
@@ -218,7 +217,6 @@ public class Damage {
         ManaCurios1.ManaDamageExIgnoreDefenceDamage(player, monster, totalDamage);
         if (isPower) {
             Compute.AdditionEffects(player, monster, totalDamage, 1);
-            WitherBook.witherBookEffect(player, monster);
             OnPowerCauseDamageEquip.causeDamage(player, monster);
         }
 
@@ -281,7 +279,6 @@ public class Damage {
         ManaCurios1.ManaDamageExIgnoreDefenceDamage(player, monster, totalDamage);
         if (isPower) {
             Compute.AdditionEffects(player, monster, totalDamage, 1);
-            WitherBook.witherBookEffect(player, monster);
             OnPowerCauseDamageEquip.causeDamage(player, monster);
         }
 
@@ -360,7 +357,6 @@ public class Damage {
         Compute.manaDamageExEffect(player, monster, totalDamage);
         ManaCurios1.ManaDamageExIgnoreDefenceDamage(player, monster, totalDamage);
         if (isPower) {
-            WitherBook.witherBookEffect(player, monster);
             Compute.AdditionEffects(player, monster, totalDamage, 1);
             OnPowerCauseDamageEquip.causeDamage(player, monster);
         }

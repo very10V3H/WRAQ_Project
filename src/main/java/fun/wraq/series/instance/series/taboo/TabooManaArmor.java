@@ -1,17 +1,17 @@
 package fun.wraq.series.instance.series.taboo;
 
 import fun.wraq.common.Compute;
-import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.equip.WraqArmor;
+import fun.wraq.common.fast.Tick;
+import fun.wraq.common.impl.inslot.InCuriosOrEquipSlotAttributesModify;
+import fun.wraq.common.impl.oncostmana.OnCostManaEquip;
 import fun.wraq.common.registry.ItemMaterial;
-import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.WeakHashMap;
 
-public class TabooManaArmor extends WraqArmor {
+public class TabooManaArmor extends WraqArmor implements OnCostManaEquip, InCuriosOrEquipSlotAttributesModify {
 
     public TabooManaArmor(ItemMaterial Material, Type type, Properties itemProperties) {
         super(Material, type, itemProperties);
@@ -37,14 +37,8 @@ public class TabooManaArmor extends WraqArmor {
         Style style = getMainStyle();
         Compute.DescriptionPassive(components, Component.literal("禁忌秘法-涌动").withStyle(style));
         components.add(Component.literal(" 根据你最近5s内消耗的").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.MaxMana("")).
+                append(ComponentUtils.AttributeDescription.manaValue("4%")).
                 append(Component.literal("来提供等量").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.ManaPenetration("")));
-        components.add(Component.literal(" 若你拥有至少一点:").withStyle(ChatFormatting.WHITE).
-                append(Component.literal("法术专精-力凝魔核").withStyle(CustomStyle.styleOfMana)).
-                append(Component.literal("为你提供等同于层数 * 3%").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.MaxMana("最大")).
-                append(Component.literal("的").withStyle(ChatFormatting.WHITE)).
                 append(Compute.AttributeDescription.ManaPenetration("")));
         return components;
     }
@@ -59,41 +53,29 @@ public class TabooManaArmor extends WraqArmor {
         return true;
     }
 
-    public record NearCostMana(int tick, double value) {
-    }
+    public record NearCostMana(int tick, double value) {}
 
     public static WeakHashMap<Player, List<NearCostMana>> nearCostListMap = new WeakHashMap<>();
 
-    public static boolean IsOn(Player player) {
-        return player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.TabooManaBoots.get());
-    }
-
-    public static void storeCostToList(Player player, double value) {
-        if (!IsOn(player)) return;
-        int TickCount = player.getServer().getTickCount();
+    @Override
+    public void onCostMana(Player player, double costManaValue) {
         if (!nearCostListMap.containsKey(player)) nearCostListMap.put(player, new ArrayList<>());
         List<NearCostMana> list = nearCostListMap.get(player);
-        list.add(new NearCostMana(TickCount + 100, value));
+        list.add(new NearCostMana(Tick.get() + 100, costManaValue));
+        if (getStoredTotalValue(player) * 0.04 >= 1) {
+            Compute.sendEffectLastTime(player, this, (int) (getStoredTotalValue(player) * 0.04), true);
+        }
     }
 
-    public static double storeCostValue(Player player) {
-        if (!IsOn(player)) return 0;
-        int TickCount = player.getServer().getTickCount();
+    @Override
+    public List<Attribute> getAttributes(Player player) {
+        return List.of(new Attribute(Utils.manaPenetration0, getStoredTotalValue(player) * 0.04));
+    }
+
+    private double getStoredTotalValue(Player player) {
         if (!nearCostListMap.containsKey(player)) return 0;
         List<NearCostMana> list = nearCostListMap.get(player);
-        list.removeIf(nearCostMana -> nearCostMana.tick < TickCount);
-        double storedValue = 0;
-        for (NearCostMana nearCostMana : list) {
-            storedValue += (nearCostMana.value * 0.01);
-        }
-        return storedValue;
+        list.removeIf(nearCostMana -> nearCostMana.tick < Tick.get());
+        return list.stream().mapToDouble(cost -> cost.value).sum();
     }
-
-    public static double PenetrationDirectEnhance(Player player) {
-        if (!IsOn(player)) return 0;
-        if (Compute.getManaSkillLevel(player.getPersistentData(), 10) > 0)
-            return (PlayerAttributes.maxManaUp(player) + 100) * Compute.getManaSkillLevel(player.getPersistentData(), 10) * 0.0003;
-        return 0;
-    }
-
 }

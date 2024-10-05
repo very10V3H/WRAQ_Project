@@ -280,7 +280,6 @@ public class PlayerAttributes {
         if (Utils.DevilBloodManaCurios.containsKey(player) && Utils.DevilBloodManaCurios.get(player)) exDamage += 400;
 
         exDamage += DevilAttackArmor.DevilAttackArmorPassiveExDamage(player);
-        exDamage += DevilSwiftArmor.DevilSwiftArmorPassiveExDamage(player);
         exDamage += baseAttackDamage * EarthPower.PlayerDamageEnhance(player);
 
         // 新版饰品属性加成
@@ -2049,10 +2048,6 @@ public class PlayerAttributes {
             manaPenetration0 += Utils.PlayerSpringBraceletManaPenetration0Attribute.get(player) * 0.01;
         }
 
-        if (Utils.WitherBookPlayerEffectTick.containsKey(player) && Utils.WitherBookPlayerEffectTick.get(player) > TickCount) {
-            manaPenetration0 += Utils.WitherBookPlayerEffectNum.get(player) * 0.01;
-        } // 凋零秘典
-
         CompoundTag helmetTag = player.getItemBySlot(EquipmentSlot.HEAD).getOrCreateTagElement(Utils.MOD_ID);
         CompoundTag chestTag = player.getItemBySlot(EquipmentSlot.CHEST).getOrCreateTagElement(Utils.MOD_ID);
         CompoundTag leggingsTag = player.getItemBySlot(EquipmentSlot.LEGS).getOrCreateTagElement(Utils.MOD_ID);
@@ -2065,10 +2060,6 @@ public class PlayerAttributes {
             manaPenetration0 += GemAttributes.gemsManaPenetration0(stackmainhandtag);
 
         manaPenetration0 += Compute.CuriosAttribute.attributeValue(player, Utils.manaPenetration0, StringUtils.CuriosAttribute.manaPenetration0); // 新版饰品属性加成
-
-        manaPenetration0 += TabooManaArmor.storeCostValue(player);
-        manaPenetration0 += TabooManaArmor.PenetrationDirectEnhance(player);
-
         manaPenetration0 += Compute.PassiveEquip.getAttribute(player, Utils.manaPenetration0); // 器灵属性加成
         manaPenetration0 += CastleSword.ExPenetration0(player); // 暗黑武器主动
         manaPenetration0 += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.manaPenetration0);

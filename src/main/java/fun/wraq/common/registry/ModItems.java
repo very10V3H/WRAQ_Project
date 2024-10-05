@@ -1985,7 +1985,7 @@ public class ModItems {
             () -> new ForgeProtect(new Item.Properties().rarity(CustomStyle.EndBold)));
 
     public static final RegistryObject<Item> NetherSceptre = ITEMS.register("nether_sceptre",
-            () -> new NetherSceptre(new Item.Properties().rarity(CustomStyle.ShipItalic), 0));
+            () -> new NetherSceptre(new Item.Properties().rarity(CustomStyle.ShipItalic)));
 
     public static final RegistryObject<Item> NetherManaArmorHelmet = ITEMS.register("nether_mana_helmet",
             () -> new NetherManaArmor(ItemMaterial.NetherMana, ArmorItem.Type.HELMET, new Item.Properties().rarity(CustomStyle.NetherItalic)));
@@ -2353,7 +2353,7 @@ public class ModItems {
             () -> new ManaKnife(new Item.Properties().rarity(CustomStyle.BloodManaItalic).stacksTo(1)));
 
     public static final RegistryObject<Item> WitherBook = ITEMS.register("wither_book",
-            () -> new WitherBook(new Item.Properties().rarity(CustomStyle.IceItalic)));
+            () -> new WitherBook(new Item.Properties().rarity(CustomStyle.WitherItalic)));
 
     public static final RegistryObject<Item> EarthBook = ITEMS.register("earth_book",
             () -> new EarthBook(new Item.Properties().rarity(CustomStyle.BloodManaItalic)));

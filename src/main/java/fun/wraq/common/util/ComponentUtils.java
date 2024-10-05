@@ -131,6 +131,10 @@ public class ComponentUtils {
             return Component.literal(fun.wraq.common.util.Utils.Emoji.MaxMana + " " + content + "法力值").withStyle(CustomStyle.styleOfMana);
         }
 
+        public static Component manaValue(String content) {
+            return Component.literal(fun.wraq.common.util.Utils.Emoji.MaxMana + " " + content + "法力值").withStyle(CustomStyle.styleOfMana);
+        }
+
         public static Component exHealth(String content) {
             return Component.literal(fun.wraq.common.util.Utils.Emoji.Health + " " + content + "额外生命值").withStyle(ChatFormatting.GREEN);
         }

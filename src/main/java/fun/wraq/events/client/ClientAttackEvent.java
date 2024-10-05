@@ -1,5 +1,6 @@
 package fun.wraq.events.client;
 
+import fun.wraq.common.equip.impl.Laser;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.Utils;
@@ -110,7 +111,7 @@ public class ClientAttackEvent {
                 ModNetworking.sendToServer(new AttackC2SPacket(clientAttackCounts - 1));
             }
             if (player.tickCount - ClientUtils.ManaAttackTick == 5 && ClientUtils.ManaAttackTick != 0
-                    && Utils.sceptreTag.containsKey(mainHandItem)) {
+                    && Utils.sceptreTag.containsKey(mainHandItem) && !(mainHandItem instanceof Laser)) {
                 ModNetworking.sendToServer(new ManaAttackRequestC2SPacket());
             }
             if (player.tickCount - ClientUtils.UseTick == 8 && ClientUtils.UseTick != 0) {

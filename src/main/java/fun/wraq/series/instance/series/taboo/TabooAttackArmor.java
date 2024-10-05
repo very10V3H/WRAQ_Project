@@ -36,9 +36,10 @@ public class TabooAttackArmor extends WraqArmor {
         Style style = getMainStyle();
         Compute.DescriptionPassive(components, Component.literal("禁忌秘法-加护").withStyle(style));
         components.add(Component.literal(" 当受到来自怪物的伤害时，若拥有高于").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.MaxMana("10%")).
-                append(Component.literal("，则消耗").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.MaxMana("10%")).
+                append(ComponentUtils.AttributeDescription.manaValue("10%")));
+        components.add(Component.literal(" ").
+                append(Component.literal("则消耗").withStyle(ChatFormatting.WHITE)).
+                append(ComponentUtils.AttributeDescription.manaValue("10%")).
                 append(Component.literal("来使即将到来的伤害减少80%").withStyle(ChatFormatting.WHITE)));
         return components;
     }

@@ -31,8 +31,6 @@ import fun.wraq.series.specialevents.labourDay.LabourDayIronPickaxe;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 
-import static fun.wraq.core.ManaAttackModule.NetherManaArmor;
-
 public class DamageInfluence {
     public static double getPlayerCommonDamageUpOrDown(Player player, Mob monster) {
         double rate = 0;
@@ -45,7 +43,6 @@ public class DamageInfluence {
         rate += VdWeaponCommon.damageEnhance(player, monster); // vd weapon
         rate += OnHitDamageInfluenceCurios.damageInfluence(player, monster);
         rate += ManaAttackModule.getManaSkill3DamageEnhance(player, monster); // 机体解构（对一名目标的持续法术攻击，可以使你对该目标的伤害至多提升至2%，在5次攻击后达到最大值）
-        rate += NetherManaArmor(player, monster); // 下界混沌套装
 
         rate += getPlayerCommonDamageUpOrDown(player);
         return rate;

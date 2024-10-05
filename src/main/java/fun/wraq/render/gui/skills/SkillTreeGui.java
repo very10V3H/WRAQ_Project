@@ -1215,9 +1215,9 @@ public class SkillTreeGui extends Screen {
                     append(Component.literal("转化为").withStyle(ChatFormatting.WHITE)).
                     append(Compute.AttributeDescription.CritRate("")));
             components.add(Component.literal(" ·减少你的").withStyle(ChatFormatting.WHITE).
-                    append(Compute.AttributeDescription.MaxMana(ClientUtils.ManaSkillPoint.PointCache[index] * 10 + "%最大")));
+                    append(ComponentUtils.AttributeDescription.maxMana(ClientUtils.ManaSkillPoint.PointCache[index] * 10 + "%")));
             components.add(Component.literal(" ·将你的").withStyle(ChatFormatting.WHITE).
-                    append(Compute.AttributeDescription.MaxMana(ClientUtils.ManaSkillPoint.PointCache[index] * 3 + "%额外")).
+                    append(ComponentUtils.AttributeDescription.manaValue(ClientUtils.ManaSkillPoint.PointCache[index] * 3 + "%额外")).
                     append(Component.literal("转化为").withStyle(ChatFormatting.WHITE)).
                     append(Compute.AttributeDescription.CritDamage("")));
             components.add(Component.literal(" ·你每拥有").withStyle(ChatFormatting.WHITE).
@@ -1233,7 +1233,7 @@ public class SkillTreeGui extends Screen {
                     append(Component.literal(String.format("%.0f%%", ClientUtils.ManaSkillPoint.PointCache[index] * 12.5)).withStyle(ChatFormatting.LIGHT_PURPLE)).
                     append(Component.literal("提供的法球攻击增幅。").withStyle(ChatFormatting.WHITE)));
             components.add(Component.literal(" ·你的普通法球攻击将不会消耗").withStyle(ChatFormatting.WHITE).
-                    append(Compute.AttributeDescription.MaxMana("")));
+                    append(ComponentUtils.AttributeDescription.manaValue("")));
             ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
             components.add(Component.literal("Idea From:liulixian_").withStyle(ChatFormatting.LIGHT_PURPLE));
 
@@ -1292,7 +1292,7 @@ public class SkillTreeGui extends Screen {
                     append(ComponentUtils.AttributeDescription.manaDamage(ClientUtils.ManaSkillPoint.PointCache[index] * 200 + "%")).
                     append(Component.literal("的范围伤害").withStyle(ChatFormatting.WHITE)));
             components.add(Component.literal("并回复自身").withStyle(ChatFormatting.WHITE).
-                    append(Compute.AttributeDescription.MaxMana(ClientUtils.ManaSkillPoint.PointCache[index] * 5 + "%已损失")));
+                    append(ComponentUtils.AttributeDescription.manaValue(ClientUtils.ManaSkillPoint.PointCache[index] * 5 + "%已损失")));
             ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
             components.add(Component.literal("▶专精等级:").withStyle(CustomStyle.styleOfMana));
             components.add(Component.literal(ClientUtils.ManaSkillPoint.PointCache[index] + " / " + 5).withStyle(CustomStyle.styleOfMana));

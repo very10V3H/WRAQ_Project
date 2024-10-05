@@ -182,7 +182,7 @@ public class InstanceScreen extends Screen {
                 components.add(Component.literal(" 旧世复生魔王").withStyle(CustomStyle.styleOfBloodMana).
                         append(Component.literal("对魔法的渴望达到了极点!").withStyle(ChatFormatting.WHITE)));
                 components.add(Component.literal(" ·魔王会根据你的当前").withStyle(ChatFormatting.WHITE).
-                        append(Compute.AttributeDescription.MaxMana("")).
+                        append(ComponentUtils.AttributeDescription.manaValue("")).
                         append(Component.literal("来提升技能造成的").withStyle(ChatFormatting.WHITE)).
                         append(ComponentUtils.AttributeDescription.manaDamageValue("")));
                 guiGraphics.renderComponentTooltip(fontRenderer, components, x, y);

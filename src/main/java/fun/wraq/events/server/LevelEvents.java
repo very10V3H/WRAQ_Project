@@ -101,57 +101,12 @@ public class LevelEvents {
                 projectileList.forEach(entity -> entity.remove(Entity.RemovalReason.KILLED));
         }// 尝试清理
 
-/*        if (event.side.isServer() && event.phase.equals(TickEvent.Phase.START)
-                && event.level.equals(event.level.getServer().getLevel(Level.NETHER))) {
-            BlockPos blockPos1 = new BlockPos(225,200,622);
-            BlockPos blockPos2 = new BlockPos(-80,90,419);
-            int TickCount = event.level.getServer().getTickCount();
-
-
-            if (TickCount % 36000 < 18200 && TickCount % 36000 > 18090) {
-                int index = (TickCount % 36000) - 18000;
-                for (int i = blockPos2.getX(); i < blockPos1.getX(); i ++) {
-                    for (int j = blockPos2.getZ(); j < blockPos1.getZ(); j ++) {
-                        BlockPos blockPos = new BlockPos(i,index,j);
-                        if (event.level.getBlockState(blockPos).is(Blocks.FIRE))
-                            event.level.destroyBlock(blockPos,false);
-                    }
-                }
-            }
-        }*/
-
         if (event.side.isServer() && event.phase.equals(TickEvent.Phase.START)
                 && event.level.equals(event.level.getServer().getLevel(Level.OVERWORLD))) {
             MobEffectAndDamageMethods.Tick(event.level);
             int TickCount = event.level.getServer().getTickCount();
             if (TickCount % 100 == 0) TryToRemoveMobInMap();
             if (TickCount % 20 == 0) Element.Tick(event.level);
-
-/*            BlockPos blockPos1 = new BlockPos(1020,128,1089);
-            BlockPos blockPos2 = new BlockPos(702,59,808);
-
-            if (TickCount % 36000 < 128 && TickCount % 36000 > 59) {
-                int index = TickCount % 36000;
-                for (int i = blockPos2.getX(); i < blockPos1.getX(); i ++) {
-                    for (int j = blockPos2.getZ(); j < blockPos1.getZ(); j ++) {
-                        BlockPos blockPos = new BlockPos(i,index,j);
-                        if (event.level.getBlockState(blockPos).is(Blocks.FIRE))
-                            event.level.destroyBlock(blockPos,false);
-                    }
-                }
-            }
-
-            if (TickCount % 36000 < 27000 + 28 && TickCount % 36000 > 27000 - 56) {
-                int index = (TickCount % 36000) - 27000;
-                for (int i = blockPos2.getX(); i < blockPos1.getX(); i ++) {
-                    for (int j = blockPos2.getZ(); j < blockPos1.getZ(); j ++) {
-                        BlockPos blockPos = new BlockPos(i,index,j);
-                        if (event.level.getBlockState(blockPos).is(Blocks.FIRE))
-                            event.level.destroyBlock(blockPos,false);
-                    }
-                }
-            }*/
-
             Compute.Gather(TickCount); // 聚集
         }
 

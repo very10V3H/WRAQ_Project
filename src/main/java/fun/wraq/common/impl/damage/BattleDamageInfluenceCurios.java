@@ -3,18 +3,14 @@ package fun.wraq.common.impl.damage;
 import fun.wraq.common.Compute;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 
 public interface BattleDamageInfluenceCurios {
     double rate(Player player, Mob mob);
 
     static double getRate(Player player, Mob mob) {
-        double rate = 0;
-        for (ItemStack armor : Compute.CuriosAttribute.getDistinctCuriosList(player)) {
-            if (armor.getItem() instanceof BattleDamageInfluenceCurios curios) {
-                rate += curios.rate(player, mob);
-            }
-        }
-        return rate;
+        return Compute.CuriosAttribute.getDistinctCuriosList(player)
+                .stream().filter(itemStack -> itemStack.getItem() instanceof BattleDamageInfluenceCurios)
+                .map(itemStack -> (BattleDamageInfluenceCurios) itemStack.getItem())
+                .mapToDouble(curios -> curios.rate(player, mob)).sum();
     }
 }

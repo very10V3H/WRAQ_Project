@@ -48,7 +48,7 @@ public class NetherBow extends WraqBow {
                 append(Component.literal("下界能量石英").withStyle(CustomStyle.styleOfNether)).
                 append(Component.literal("制作而成的长弓。").withStyle(ChatFormatting.WHITE)));
         components.add(Component.literal("射出箭矢时，将会消耗").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.MaxMana("40")).
+                append(ComponentUtils.AttributeDescription.manaValue("40")).
                 append(Component.literal("使箭矢不会下坠，并造成").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("50%额外伤害。").withStyle(ChatFormatting.YELLOW)));
         components.add(Component.literal("所有箭矢会根据飞行距离，至多提供").withStyle(ChatFormatting.WHITE).

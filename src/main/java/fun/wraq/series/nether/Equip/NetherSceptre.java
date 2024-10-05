@@ -2,37 +2,35 @@ package fun.wraq.series.nether.Equip;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
-import fun.wraq.common.registry.ModEntityType;
-import fun.wraq.common.registry.ModSounds;
-import fun.wraq.common.registry.MySound;
-import fun.wraq.common.util.ComponentUtils;
-import fun.wraq.common.util.StringUtils;
-import fun.wraq.common.util.Utils;
-import fun.wraq.process.func.particle.ParticleProvider;
-import fun.wraq.process.system.element.Element;
 import fun.wraq.common.equip.WraqSceptre;
-import fun.wraq.projectiles.mana.ManaArrow;
+import fun.wraq.common.equip.impl.Laser;
+import fun.wraq.common.fast.Te;
+import fun.wraq.common.fast.Tick;
+import fun.wraq.common.impl.tick.TickEquip;
+import fun.wraq.common.util.ComponentUtils;
+import fun.wraq.common.util.Utils;
+import fun.wraq.process.system.element.Element;
 import fun.wraq.render.particles.ModParticles;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
-import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.WeakHashMap;
 
-public class NetherSceptre extends WraqSceptre {
-    private final int Num;
+public class NetherSceptre extends WraqSceptre implements Laser, TickEquip {
 
-    public NetherSceptre(Properties p_42964_, int Num) {
+    public NetherSceptre(Properties p_42964_) {
         super(p_42964_.rarity(CustomStyle.NetherItalic));
-        this.Num = Num;
         Utils.manaDamage.put(this, 1024d);
         Utils.manaRecover.put(this, 20d);
         Utils.coolDownDecrease.put(this, 0.35);
@@ -44,21 +42,7 @@ public class NetherSceptre extends WraqSceptre {
 
     @Override
     protected AbstractArrow summonManaArrow(Player player, double rate) {
-        Level level = player.level();
-        ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_NETHER.get(),
-                player, level, PlayerAttributes.manaDamage(player) * rate,
-                PlayerAttributes.manaPenetration(player),
-                PlayerAttributes.manaPenetration0(player), StringUtils.ParticleTypes.Entropy);
-        newArrow.setSilent(true);
-        newArrow.setNoGravity(true);
-        newArrow.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0f, 3, 1.0f);
-        ProjectileUtil.rotateTowardsMovement(newArrow, 0);
-        WraqSceptre.adjustOrb(newArrow, player);
-        level.addFreshEntity(newArrow);
-        ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1, 0.75, 20, ModParticles.LONG_ENTROPY.get());
-        ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1.5, 0.5, 16, ModParticles.LONG_ENTROPY.get());
-        MySound.soundToNearPlayer(player, ModSounds.Mana.get());
-        return newArrow;
+        return null;
     }
 
     @Override
@@ -69,16 +53,35 @@ public class NetherSceptre extends WraqSceptre {
     @Override
     public List<Component> getAdditionalComponents(ItemStack stack) {
         List<Component> components = new ArrayList<>();
-        Compute.DescriptionPassive(components, Component.literal("下界混沌解构术法").withStyle(CustomStyle.styleOfMana));
-        components.add(Component.literal(" -你的普通法球攻击与法术攻击将基于目标的").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.ManaDefence("")).
-                append(Component.literal("提供70%的伤害提升").withStyle(ChatFormatting.WHITE)));
-        components.add(Component.literal(" -当目标的魔法抗性达到500时给予满额伤害提升").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
+        ComponentUtils.descriptionPassive(components, Te.m("解构射线", CustomStyle.styleOfNether));
+        components.add(Te.s("你的", "普通法球攻击", CustomStyle.styleOfMana, "被替换为", "解构射线", ChatFormatting.RED));
+        components.add(Te.s("解构射线", ChatFormatting.RED, "具有以下特征:"));
+        components.add(Te.s("1.", ChatFormatting.RED, "最远可达30格"));
+        components.add(Te.s("2.", ChatFormatting.RED, "对沿途的所有敌人每0.5s造成一次伤害"));
+        components.add(Te.s("3.", ChatFormatting.RED, "伤害被视为", "普通法球攻击", CustomStyle.styleOfMana));
         return components;
     }
 
     @Override
     public Component getSuffix() {
         return ComponentUtils.getSuffixChapterIII();
+    }
+
+    public static Map<Player, Integer> passiveLastTickMap = new WeakHashMap<>();
+
+    @Override
+    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
+        if (!level.isClientSide) {
+            passiveLastTickMap.put(player, Tick.get() + 8);
+        }
+        return super.use(level, player, interactionHand);
+    }
+
+    @Override
+    public void tick(Player player) {
+        if (passiveLastTickMap.getOrDefault(player, 0) > Tick.get()) {
+            Compute.TargetLocationLaser(player, player.pick(30, 0, false).getLocation(),
+                    ModParticles.YSR1.get(), PlayerAttributes.manaDamage(player), 10);
+        }
     }
 }

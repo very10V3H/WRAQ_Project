@@ -2,6 +2,7 @@ package fun.wraq.series.nether.Equip.Armor;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqArmor;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.onhit.OnHitEffectEquip;
 import fun.wraq.common.registry.ItemMaterial;
@@ -12,7 +13,6 @@ import fun.wraq.process.func.StableTierAttributeModifier;
 import fun.wraq.process.func.suit.SuitCount;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.Mob;
@@ -40,11 +40,14 @@ public class NetherArmor extends WraqArmor implements OnHitEffectEquip {
     @Override
     public List<Component> getAdditionalComponents() {
         List<Component> components = new ArrayList<>();
-        if (Screen.hasShiftDown()) NetherSuitDescription.SuitDescription(components);
-        else {
-            Compute.SuitDescription(components);
-            components.add(Component.literal("[按住shift展开套装效果]").withStyle(ChatFormatting.GRAY));
-        }
+        Compute.DescriptionPassive(components, Component.literal("迸骸成末").withStyle(CustomStyle.styleOfNether));
+        components.add(Te.m(" 普通近战攻击", CustomStyle.styleOfPower).
+                append(Te.m("与")).
+                append(Te.m("普通箭矢攻击", CustomStyle.styleOfFlexible)).
+                append(Te.m("会击碎目标")).
+                append(ComponentUtils.AttributeDescription.defence(getSuitCount(NetherArmor.class) + "%")));
+        components.add(Te.m(" 至多叠加至8层，每层持续5s"));
+        components.add(Te.m(" 套装数量对应每层提供的百分比", ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
         return components;
     }
 
@@ -61,6 +64,6 @@ public class NetherArmor extends WraqArmor implements OnHitEffectEquip {
     @Override
     public void onHit(Player player, Mob mob) {
         StableTierAttributeModifier.addM(mob, StableTierAttributeModifier.percentDefence, "NetherArmor passive",
-                -SuitCount.getNetherSuitCount(player) * 0.01, Tick.get() + 60, 6, ModItems.netherSkeletonSoul.get());
+                -SuitCount.getNetherSuitCount(player) * 0.01, Tick.get() + 60, 8, ModItems.netherSkeletonSoul.get());
     }
 }

@@ -533,10 +533,6 @@ public class ManaAttackModule {
         return 0;
     }
 
-    public static double NetherManaArmor(Player player, Mob mob) {
-        return SuitCount.getNetherManaSuitCount(player) * 0.12 * Math.min(1, MobAttributes.manaDefence(mob) / 500.0);
-    }
-
     public static double EarthManaArmor(Player player, Mob mob) {
         if (SuitCount.getEarthManaSuitCount(player) > 0) {
             return Compute.getXpStrengthAPDamage(player, mob.getHealth() * 0.25 * SuitCount.getEarthManaSuitCount(player) / mob.getMaxHealth());

@@ -44,7 +44,7 @@ public class EvokerNewRune extends WraqCurios implements RuneItem, UsageOrGetWay
         components.add(Component.literal(" 每过4s，对半径8格内的所有怪物造成").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.AttributeDescription.manaDamageValue("100%")));
         components.add(Component.literal(" 并基于怪物数量，为你回复至多").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.maxMana("25%")));
+                append(ComponentUtils.AttributeDescription.manaValue("25%")));
         components.add(Component.literal(" 倍率线性增长").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
         return components;
     }

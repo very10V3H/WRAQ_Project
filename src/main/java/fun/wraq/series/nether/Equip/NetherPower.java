@@ -3,7 +3,6 @@ package fun.wraq.series.nether.Equip;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.nether.Equip.Armor.NetherSuitDescription;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
@@ -41,10 +40,6 @@ public class NetherPower extends Item {
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfNether, ChatFormatting.WHITE);
         ComponentUtils.descriptionOfBasic(components);
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfNether, ChatFormatting.WHITE);
-        ComponentUtils.descriptionOfAddition(components);
-        NetherSuitDescription.SuitDescription(components);
-        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfNether, ChatFormatting.WHITE);
-        components.add(Component.literal("Nether-Star").withStyle(CustomStyle.styleOfNether).withStyle(ChatFormatting.ITALIC));
         ComponentUtils.suffixOfChapterIII(components);
         super.appendHoverText(stack, level, components, flag);
     }

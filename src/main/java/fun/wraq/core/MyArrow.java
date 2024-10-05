@@ -6,7 +6,9 @@ import fun.wraq.common.attribute.DamageInfluence;
 import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.attribute.SameTypeModule;
-import fun.wraq.common.impl.onhit.*;
+import fun.wraq.common.impl.onhit.OnCritHitEffectMainHandWeapon;
+import fun.wraq.common.impl.onhit.OnHitEffectEquip;
+import fun.wraq.common.impl.onhit.OnHitEffectPassiveEquip;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.customized.uniform.bow.BowCurios0;
@@ -19,7 +21,6 @@ import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.castle.CastleBow;
 import fun.wraq.series.instance.series.castle.CastleSwiftArmor;
-import fun.wraq.series.instance.series.devil.DevilSwiftArmor;
 import fun.wraq.series.instance.series.moon.Equip.MoonKnife;
 import fun.wraq.series.instance.series.moon.MoonCurios;
 import fun.wraq.series.instance.series.taboo.TabooSwiftArmor;
@@ -312,7 +313,6 @@ public class MyArrow extends AbstractArrow {
             AttackEvent.SpringSwiftArmor(player, monster);
             Compute.ChargingModule(data, player);
             BeaconBracelet.Passive(player, monster); // 烽火手镯
-            DevilSwiftArmor.DevilSwiftArmorPassive(player, monster); // 猎魔者足具
             if (shootByPlayer) {
                 MoonKnife.MoonKnife(player, monster);
                 CastleBow.NormalAttack(player, monster, damage);

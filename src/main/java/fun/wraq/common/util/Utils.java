@@ -1065,10 +1065,6 @@ public class Utils {
     public static WeakHashMap<Player, Double> SnowShieldPlayerEffectMap = new WeakHashMap<>();
     public static WeakHashMap<Player, Integer> SnowShieldPlayerEffectTickMap = new WeakHashMap<>();
 
-    public static WeakHashMap<Mob, Integer> WitherBookMobEffectTick = new WeakHashMap<>();
-    public static WeakHashMap<Player, Integer> WitherBookPlayerEffectTick = new WeakHashMap<>();
-    public static WeakHashMap<Player, Double> WitherBookPlayerEffectNum = new WeakHashMap<>();
-
     public static WeakHashMap<Player, Queue<Vec3>> EarthBookPlayerPosMap = new WeakHashMap<>();
     public static WeakHashMap<Player, Integer> EarthBookPlayerEffectMap = new WeakHashMap<>();
 

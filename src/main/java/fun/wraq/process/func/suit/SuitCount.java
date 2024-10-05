@@ -260,7 +260,6 @@ public class SuitCount {
         if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.NetherManaArmorChest.get())) count++;
         if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.NetherManaArmorLeggings.get())) count++;
         if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.NetherManaArmorBoots.get())) count++;
-        if (player.getItemBySlot(EquipmentSlot.MAINHAND).is(ModItems.NetherSceptre.get())) count += 2;
         return count;
     }
 

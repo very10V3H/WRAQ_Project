@@ -37,9 +37,10 @@ public class TabooSwiftArmor extends WraqArmor {
         Style style = getMainStyle();
         Compute.DescriptionPassive(components, Component.literal("禁忌秘法-狩猎").withStyle(style));
         components.add(Component.literal(" 当箭矢命中目标时，若拥有高于").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.MaxMana("10%")).
+                append(ComponentUtils.AttributeDescription.manaValue("10%")));
+        components.add(Component.literal(" ").
                 append(Component.literal("则消耗").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.MaxMana("10%")).
+                append(ComponentUtils.AttributeDescription.manaValue("10%")).
                 append(Component.literal("，来使你的箭矢附带").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("4倍").withStyle(CustomStyle.styleOfPower)).
                 append(Component.literal("等级强度").withStyle(ChatFormatting.LIGHT_PURPLE)).

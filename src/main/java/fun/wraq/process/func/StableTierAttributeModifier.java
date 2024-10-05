@@ -14,6 +14,7 @@ public record StableTierAttributeModifier(String tag, double eachTierValue, int 
     public static Map<LivingEntity, List<StableTierAttributeModifier>> defence = new WeakHashMap<>();
     public static Map<LivingEntity, List<StableTierAttributeModifier>> manaDefence = new WeakHashMap<>();
     public static Map<LivingEntity, List<StableTierAttributeModifier>> percentDefence = new WeakHashMap<>();
+    public static Map<LivingEntity, List<StableTierAttributeModifier>> percentManaDefence = new WeakHashMap<>();
     public static Map<LivingEntity, List<StableTierAttributeModifier>> onlyDisplay = new WeakHashMap<>();
 
     public static List<StableTierAttributeModifier> getAttributeModifierList(LivingEntity entity, Map<LivingEntity, List<StableTierAttributeModifier>> modifierMap) {

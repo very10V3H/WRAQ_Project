@@ -58,6 +58,10 @@ public class MobAttributes {
         double exDefence = 0;
         double rate = 1;
 
+        exDefence += defence * EarthPower.MobManaDefenceDecrease(monster); // 地蕴法术
+        exDefence += TowerMob.mobManaDefenceUp(monster);
+        exDefence += StableTierAttributeModifier.getModifierValue(monster, StableTierAttributeModifier.manaDefence);
+
         // 百分比
         if (Utils.LakePowerEffectMobMap.containsKey(monster) && Utils.LakePowerEffectMobMap.get(monster).getTick() > tick)
             rate *= (1 - Utils.LakePowerEffectMobMap.get(monster).getEffect() * 0.05);
@@ -68,20 +72,16 @@ public class MobAttributes {
         if (Utils.NetherBoneMealPowerEffectMap.containsKey(monster) && Utils.NetherBoneMealPowerEffectMap.get(monster) > tick)
             rate *= 0.5;
 
-        if (Utils.WitherBookMobEffectTick.containsKey(monster) && Utils.WitherBookMobEffectTick.get(monster) > tick)
-            rate *= 0.5;
-
         rate *= (1 + StableAttributesModifier.getModifierValue(monster, StableAttributesModifier.mobPercentManaDefenceModifier));
+        rate *= (1 + StableTierAttributeModifier.getModifierValue(monster, StableTierAttributeModifier.percentManaDefence));
 
         rate *= Element.ElementDefenceDecrease(monster);
         rate *= WaterElementSword.MobDefenceDecrease(monster);
 
+        defence += exDefence;
         defence *= rate;
 
-        // 固定
-        exDefence += defence * EarthPower.MobManaDefenceDecrease(monster); // 地蕴法术
-        exDefence += TowerMob.mobManaDefenceUp(monster);
-        return Math.max(defence + exDefence, 0);
+        return Math.max(defence, 0);
     }
 
     public static double attackDamage(Mob mob) {

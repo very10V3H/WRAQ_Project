@@ -10,6 +10,7 @@ import fun.wraq.common.equip.impl.CrestItem;
 import fun.wraq.common.equip.impl.RandomCurios;
 import fun.wraq.common.equip.impl.WraqMainHandOrPassiveEquip;
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.impl.oncostmana.OnCostManaEquip;
 import fun.wraq.common.registry.ModEntityType;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.ModSounds;
@@ -60,7 +61,6 @@ import fun.wraq.render.particles.ModParticles;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.castle.CastleCurios;
 import fun.wraq.series.instance.series.castle.CastleSceptre;
-import fun.wraq.series.instance.series.taboo.TabooManaArmor;
 import fun.wraq.series.overworld.chapter1.forest.bossItems.ForestBossSword;
 import fun.wraq.series.overworld.chapter1.volcano.bossItems.VolcanoBossSword;
 import fun.wraq.series.overworld.chapter1.waterSystem.bossItems.LakeBoss;
@@ -70,7 +70,6 @@ import fun.wraq.series.specialevents.labourDay.LabourDayIronHoe;
 import fun.wraq.series.specialevents.labourDay.LabourDayIronPickaxe;
 import fun.wraq.series.specialevents.summer.SummerEvent;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleOptions;
@@ -367,7 +366,7 @@ public class Compute {
             if (SuitCount.getEarthManaSuitCount(player) > 0) {
                 playerHeal(player, manaCost * SuitCount.getEarthManaSuitCount(player));
             }
-            TabooManaArmor.storeCostToList(player, manaCost); //
+            OnCostManaEquip.costMana(player, manaCost);
             Mana.addOrCostPlayerMana(player, -manaCost);
         }
         return true;
@@ -387,7 +386,7 @@ public class Compute {
             if (SuitCount.getEarthManaSuitCount(player) > 0) {
                 playerHeal(player, manaCost * SuitCount.getEarthManaSuitCount(player));
             }
-            TabooManaArmor.storeCostToList(player, manaCost); //
+            OnCostManaEquip.costMana(player, manaCost);
             Mana.addOrCostPlayerMana(player, -manaCost);
         }
         return true;
@@ -773,16 +772,8 @@ public class Compute {
             return Component.literal(Utils.Emoji.HealSteal + " " + content + "生命偷取").withStyle(ChatFormatting.RED);
         }
 
-        public static Component SkillHealthSteal(String content) {
-            return Component.literal(Utils.Emoji.HealSteal + " " + content + "全能吸血").withStyle(CustomStyle.styleOfField);
-        }
-
         public static Component ManaHealSteal(String content) {
             return Component.literal(Utils.Emoji.HealSteal + " " + content + "法术吸血").withStyle(CustomStyle.styleOfMana);
-        }
-
-        public static Component MaxMana(String content) {
-            return Component.literal(Utils.Emoji.MaxMana + " " + content + "法力值").withStyle(CustomStyle.styleOfMana);
         }
 
         public static Component ExHealth(String content) {
@@ -795,10 +786,6 @@ public class Compute {
 
         public static Component AttackDamageValue(String content) {
             return Component.literal(Utils.Emoji.Sword + " " + content + "物理伤害").withStyle(ChatFormatting.YELLOW);
-        }
-
-        public static Component ManaDamageValue(String content) {
-            return Component.literal(Utils.Emoji.Mana + " " + content + "魔法伤害").withStyle(ChatFormatting.LIGHT_PURPLE);
         }
     }
 
@@ -1447,7 +1434,7 @@ public class Compute {
         });
     }
 
-    public static void TargetLocationLaser(Player player, Vec3 location, ParticleOptions particleOptions, double BaseDamage, int TickCoolDown) {
+    public static void TargetLocationLaser(Player player, Vec3 location, ParticleOptions particleOptions, double baseDamage, int tickCoolDown) {
         Level level = player.level();
         int TickCount = player.getServer().getTickCount();
         Vec3 TargetPos = location;
@@ -1468,12 +1455,12 @@ public class Compute {
 
         mobList.forEach(mob -> {
             if (!laserCoolDownMap.containsKey(mob) || laserCoolDownMap.get(mob) <= TickCount) {
-                laserCoolDownMap.put(mob, TickCount + TickCoolDown);
+                laserCoolDownMap.put(mob, TickCount + tickCoolDown);
                 ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_MAGMA.get(), player, level,
                         PlayerAttributes.manaDamage(player),
                         PlayerAttributes.manaPenetration(player),
                         PlayerAttributes.manaPenetration0(player), StringUtils.ParticleTypes.Lava);
-                ManaAttackModule.BasicAttack(player, mob, BaseDamage,
+                ManaAttackModule.BasicAttack(player, mob, baseDamage,
                         PlayerAttributes.manaPenetration(player),
                         PlayerAttributes.manaPenetration0(player),
                         level, newArrow, true);
@@ -2039,7 +2026,7 @@ public class Compute {
         });
     }
 
-    public static void setDownDeltaInLowGravityEnvironment(LocalPlayer player) {
+    public static void setDownDeltaInLowGravityEnvironment(Player player) {
         if (inLowGravityEnvironment(player) && player.isShiftKeyDown()) {
             player.setDeltaMovement(player.getDeltaMovement().add(0, -0.05, 0));
         }

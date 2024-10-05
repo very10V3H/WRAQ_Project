@@ -34,7 +34,7 @@ public class WheatReForge extends Item {
         components.add(Component.literal("4.").withStyle(ChatFormatting.WHITE).
                 append(Compute.AttributeDescription.CoolDown("-20% ~ 20%")));
         components.add(Component.literal("5.").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.MaxMana("-10% ~ 10%")));
+                append(ComponentUtils.AttributeDescription.maxMana("-10% ~ 10%")));
         components.add(Component.literal("6.").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.AttributeDescription.movementSpeedWithoutBattle("-25% ~ 25%")));
         components.add(Component.literal(" "));

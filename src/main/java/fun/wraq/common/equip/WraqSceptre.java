@@ -51,6 +51,7 @@ public abstract class WraqSceptre extends WraqMainHandEquip {
                 || Compute.playerManaCost(player,
                 Utils.manaCost.getOrDefault(player.getMainHandItem().getItem(), 15d))) {
             AbstractArrow arrow = summonManaArrow(player, rate);
+            if (arrow == null) return;
             if (arrow instanceof NewArrow newArrow) {
                 newArrow.mainShoot = mainShoot;
             }

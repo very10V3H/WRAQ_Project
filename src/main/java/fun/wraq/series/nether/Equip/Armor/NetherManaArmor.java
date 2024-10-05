@@ -1,20 +1,29 @@
 package fun.wraq.series.nether.Equip.Armor;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqArmor;
+import fun.wraq.common.fast.Te;
+import fun.wraq.common.fast.Tick;
+import fun.wraq.common.impl.onhit.OnHitEffectEquip;
+import fun.wraq.common.impl.onhit.OnPowerCauseDamageEquip;
 import fun.wraq.common.registry.ItemMaterial;
+import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.common.equip.WraqArmor;
+import fun.wraq.process.func.StableTierAttributeModifier;
+import fun.wraq.process.func.suit.SuitCount;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class NetherManaArmor extends WraqArmor {
+public class NetherManaArmor extends WraqArmor implements OnHitEffectEquip, OnPowerCauseDamageEquip {
 
     public NetherManaArmor(ItemMaterial Material, Type Slots, Properties itemProperties) {
         super(Material, Slots, itemProperties);
@@ -32,13 +41,12 @@ public class NetherManaArmor extends WraqArmor {
     @Override
     public List<Component> getAdditionalComponents() {
         List<Component> components = new ArrayList<>();
-        Compute.DescriptionPassive(components, Component.literal("下界混沌解构术法").withStyle(CustomStyle.styleOfMana));
-        components.add(Component.literal(" -你的普通法球攻击与法术攻击将基于目标的").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.ManaDefence("")).
-                append(Component.literal("提供").withStyle(ChatFormatting.WHITE)).
-                append(ComponentUtils.getCommonDamageEnhance("12%")));
-        components.add(Component.literal(" -每件下界混沌装备提供的伤害提升可以线性增长").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
-        components.add(Component.literal(" -当目标的魔法抗性达到500时给予满额伤害提升").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
+        Compute.DescriptionPassive(components, Component.literal("混沌崩解").withStyle(CustomStyle.styleOfNether));
+        components.add(Te.m(" 造成伤害时").
+                append(Te.m("会击碎目标")).
+                append(ComponentUtils.AttributeDescription.manaDefence(String.valueOf(getSuitCount(NetherManaArmor.class)))));
+        components.add(Te.m(" 至多叠加至10层，每层持续5s"));
+        components.add(Te.m(" 套装数量对应每层提供的固定穿透", ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
         return components;
     }
 
@@ -50,5 +58,17 @@ public class NetherManaArmor extends WraqArmor {
     @Override
     public boolean isFoil(ItemStack p_41453_) {
         return true;
+    }
+
+    @Override
+    public void onHit(Player player, Mob mob) {
+        StableTierAttributeModifier.addM(mob, StableTierAttributeModifier.manaDefence, "NetherManaArmor passive",
+                -SuitCount.getNetherManaSuitCount(player), Tick.get() + 60, 10, ModItems.MagmaRune.get());
+    }
+
+    @Override
+    public void onCauseDamage(Player player, Mob mob) {
+        StableTierAttributeModifier.addM(mob, StableTierAttributeModifier.manaDefence, "NetherManaArmor passive",
+                -SuitCount.getNetherManaSuitCount(player), Tick.get() + 60, 10, ModItems.MagmaRune.get());
     }
 }
