@@ -1,6 +1,7 @@
 package fun.wraq.series.overworld.chapter2.sea;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -51,9 +52,8 @@ public class SeaCore extends Item {
         Compute.ManaCoreDescription(components);
         Compute.DescriptionPassive(components, Component.literal("灵魂救赎").withStyle(CustomStyle.styleOfSea));
         components.add(Component.literal("使法球附带:").withStyle(ChatFormatting.WHITE));
-        components.add(Component.literal("基于目标已损失生命值造成至多0.5倍的").withStyle(CustomStyle.styleOfSea).
-                append(Component.literal("等级强度").withStyle(CustomStyle.styleOfLucky)).
-                append(Component.literal("真实伤害").withStyle(CustomStyle.styleOfSea)));
+        components.add(Component.literal("基于目标已损失生命值造成至多").withStyle(CustomStyle.styleOfSea).
+                append(ComponentUtils.exTrueDamage("100%")));
         components.add(Component.literal("倍率随目标已损失生命值线性增长").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
         super.appendHoverText(stack, p_41422_, components, p_41424_);
     }

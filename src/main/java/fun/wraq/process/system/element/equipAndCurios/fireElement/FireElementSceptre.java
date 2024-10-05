@@ -2,6 +2,8 @@ package fun.wraq.process.system.element.equipAndCurios.fireElement;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.equip.WraqSceptre;
+import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.registry.ModEntityType;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
@@ -9,9 +11,6 @@ import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.element.Element;
-import fun.wraq.common.equip.impl.ActiveItem;
-import fun.wraq.common.equip.WraqSceptre;
-import fun.wraq.process.system.element.equipAndCurios.fireElement.FireElementSword;
 import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.render.particles.ModParticles;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -103,9 +102,7 @@ public class FireElementSceptre extends WraqSceptre implements ActiveItem {
                 append(Component.literal("激光").withStyle(style)).
                 append(Component.literal("，对沿途的目标").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("造成").withStyle(ChatFormatting.WHITE)).
-                append(Component.literal("0.5倍").withStyle(CustomStyle.styleOfPower)).
-                append(Component.literal("等级强度").withStyle(ChatFormatting.LIGHT_PURPLE)).
-                append(Component.literal("魔法伤害").withStyle(CustomStyle.styleOfMana)).
+                append(ComponentUtils.exManaDamage("50%")).
                 append(Component.literal("，并").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("点燃").withStyle(style)).
                 append(Component.literal("目标4s").withStyle(ChatFormatting.WHITE)));
@@ -137,7 +134,7 @@ public class FireElementSceptre extends WraqSceptre implements ActiveItem {
     public void active(Player player) {
         if (Compute.PlayerUseWithHud(player, FireElementSword.playerActiveCoolDownMap, ModItems.FireElementSceptre.get(), 0, 7)) {
             Compute.playerItemCoolDown(player, this, 7);
-            List<Mob> mobList = Compute.OneShotLaser(player, true, Compute.getXpStrengthAPDamage(player, 0.5), ModParticles.LONG_RED_SPELL.get());
+            List<Mob> mobList = Compute.OneShotLaser(player, true, PlayerAttributes.manaDamage(player) * 0.5, ModParticles.LONG_RED_SPELL.get());
             mobList.forEach(mob -> Compute.IgniteMob(player, mob, 80));
         }
     }

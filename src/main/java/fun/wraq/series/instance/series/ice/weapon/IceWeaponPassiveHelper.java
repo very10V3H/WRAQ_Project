@@ -28,7 +28,7 @@ public class IceWeaponPassiveHelper {
     public static void onCritHit(Player player, Mob mob, Item icon, int maxTier) {
         String tag = "Ice equip passive" + icon;
         if (StableTierAttributeModifier.getAttributeModifierTier(mob, StableTierAttributeModifier.onlyDisplay, tag) == maxTier) {
-            Damage.causeAutoAdaptionRateDamageToMobWithCritJudge(player, mob, 2);
+            Damage.causeAutoAdaptionRateDamageToMob(player, mob, 2, false);
             StableTierAttributeModifier.removeAttributeModifier(mob, StableTierAttributeModifier.onlyDisplay, tag, icon);
             StableAttributesModifier.addM(mob,
                     maxTier == 5 ? StableAttributesModifier.mobPercentDefenceModifier : StableAttributesModifier.mobPercentManaDefenceModifier,

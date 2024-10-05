@@ -793,6 +793,22 @@ public class ComponentUtils {
     }
 
     public static Component getAutoAdaptDamageDescription(String value) {
-        return Te.m(value + "自适应伤害", CustomStyle.styleOfSea);
+        return Te.m(value + "自适应伤害", ChatFormatting.LIGHT_PURPLE);
+    }
+
+    public static Component getAutoAdaptIgnoreDefenceDamageDescription(String value) {
+        return Te.m(value + "自适应真实伤害", CustomStyle.styleOfSea);
+    }
+
+    public static Component exAttackDamage(String content) {
+        return Component.literal(content + "额外物理伤害").withStyle(CustomStyle.styleOfPower);
+    }
+
+    public static Component exManaDamage(String content) {
+        return Component.literal(content + "额外魔法伤害").withStyle(CustomStyle.styleOfMana);
+    }
+
+    public static Component exTrueDamage(String content) {
+        return Component.literal(content + "额外真实伤害").withStyle(CustomStyle.styleOfSea);
     }
 }

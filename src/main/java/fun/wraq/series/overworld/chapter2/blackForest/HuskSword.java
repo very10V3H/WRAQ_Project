@@ -50,8 +50,7 @@ public class HuskSword extends WraqSword implements ActiveItem {
         int rate = 2;
         if (tier == 4) rate = 4;
         else if (tier == 3) rate = 3;
-        components.add(Component.literal("基于目标当前生命值造成至多" + rate + "倍的").withStyle(CustomStyle.styleOfHusk).
-                append(Component.literal("等级强度").withStyle(CustomStyle.styleOfLucky)).
+        components.add(Component.literal("基于目标当前生命值造成至多" + rate * 100 + "%").withStyle(CustomStyle.styleOfHusk).
                 append(Component.literal("额外物理伤害").withStyle(CustomStyle.styleOfHusk)));
         components.add(Component.literal("倍率随目标当前生命值线性增长").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
         components.add(Component.literal("若目标死亡，则获得自身").withStyle(ChatFormatting.WHITE).

@@ -48,7 +48,6 @@ public class LightningNewRune extends WraqCurios implements RuneItem, UsageOrGet
         components.add(Component.literal(" 每道落雷").withStyle(style).
                 append(Component.literal("对范围内单位造成").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("50%自适应伤害").withStyle(CustomStyle.styleOfSea)));
-        components.add(ComponentUtils.getCritDamageInfluenceDescription());
         return components;
     }
 
@@ -114,7 +113,7 @@ public class LightningNewRune extends WraqCurios implements RuneItem, UsageOrGet
 
                 double finalRate = rate;
                 nearMobList.forEach(target -> {
-                    Damage.causeAutoAdaptionRateDamageToMob(player, target, finalRate);
+                    Damage.causeAutoAdaptionRateDamageToMob(player, target, finalRate, false);
                 });
             });
         }

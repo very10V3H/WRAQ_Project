@@ -1,6 +1,7 @@
 package fun.wraq.series.instance.series.taboo;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.equip.WraqArmor;
 import fun.wraq.common.registry.ItemMaterial;
 import fun.wraq.common.registry.ModItems;
@@ -37,14 +38,12 @@ public class TabooSwiftArmor extends WraqArmor {
         Style style = getMainStyle();
         Compute.DescriptionPassive(components, Component.literal("禁忌秘法-狩猎").withStyle(style));
         components.add(Component.literal(" 当箭矢命中目标时，若拥有高于").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.manaValue("10%")));
+                append(ComponentUtils.AttributeDescription.manaValue("5%")));
         components.add(Component.literal(" ").
                 append(Component.literal("则消耗").withStyle(ChatFormatting.WHITE)).
-                append(ComponentUtils.AttributeDescription.manaValue("10%")).
+                append(ComponentUtils.AttributeDescription.manaValue("5%")).
                 append(Component.literal("，来使你的箭矢附带").withStyle(ChatFormatting.WHITE)).
-                append(Component.literal("4倍").withStyle(CustomStyle.styleOfPower)).
-                append(Component.literal("等级强度").withStyle(ChatFormatting.LIGHT_PURPLE)).
-                append(Component.literal("物理伤害").withStyle(CustomStyle.styleOfPower)));
+                append(ComponentUtils.exAttackDamage("400%")));
         return components;
     }
 
@@ -64,9 +63,9 @@ public class TabooSwiftArmor extends WraqArmor {
 
     public static double ExDamage(Player player) {
         if (!IsOn(player)) return 0;
-        if (Mana.getPlayerCurrentManaNum(player) / Mana.getPlayerMaxManaNum(player) > 0.1) {
-            Mana.addOrCostPlayerMana(player, (-Mana.getPlayerMaxManaNum(player) * 0.1));
-            return Compute.getXpStrengthADDamage(player, 4);
+        if (Mana.getPlayerCurrentManaNum(player) / Mana.getPlayerMaxManaNum(player) > 0.05) {
+            Mana.addOrCostPlayerMana(player, (-Mana.getPlayerMaxManaNum(player) * 0.05));
+            return PlayerAttributes.attackDamage(player) * 4;
         }
         return 0;
     }

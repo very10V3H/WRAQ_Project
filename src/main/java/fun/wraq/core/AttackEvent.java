@@ -6,7 +6,9 @@ import fun.wraq.common.attribute.DamageInfluence;
 import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.attribute.SameTypeModule;
-import fun.wraq.common.impl.onhit.*;
+import fun.wraq.common.impl.onhit.OnCritHitEffectMainHandWeapon;
+import fun.wraq.common.impl.onhit.OnHitEffectEquip;
+import fun.wraq.common.impl.onhit.OnHitEffectPassiveEquip;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
@@ -26,7 +28,6 @@ import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.castle.CastleAttackArmor;
 import fun.wraq.series.instance.series.castle.CastleSword;
-import fun.wraq.series.instance.series.moon.Equip.MoonShield;
 import fun.wraq.series.instance.series.moon.MoonCurios;
 import fun.wraq.series.nether.Equip.ManaSword;
 import fun.wraq.series.overworld.castle.BlazeBracelet;
@@ -154,7 +155,6 @@ public class AttackEvent {
         damageIgnoreDefence += AttackEventModule.SwordSkill13(data, player, baseDamage); // 战争热诚（攻击将会提供1层充能，暴击提供2层充能，每层充能将会提升1%的额外真实伤害，并获得等量治疗效果 持续6秒）
         damageIgnoreDefence += AttackEventModule.SwordSkill14(data, player, baseDamage, monster); // 恃强凌弱（对生命值百分比低于你的目标造成至多20%额外真实伤害 在百分比差值达66%时达到最大值 当受到生命值百分比高于你的目标的伤害使伤害额外提升同样的数值）
         damageIgnoreDefence += MoonCurios.Passive(player, monster); // 朔望馈赠
-        damageIgnoreDefence += MoonShield.MoonShield(player, monster); // 尘月护盾
         damageIgnoreDefence += CastleAttackArmor.ExIgnoreDefenceDamage(player);
         damageEnhance += AttackEventModule.SwordSkill3(data, player, monster); // 破绽观察（对一名目标的持续攻击，可以使你对该目标的伤害至多提升至2%，在10次攻击后达到最大值）
         damageEnhance += DamageInfluence.getPlayerCommonDamageUpOrDown(player, monster);

@@ -44,9 +44,7 @@ public class EarthManaArmor extends WraqArmor implements ForgeItem {
         components.add(Component.literal(" 你的").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("普通法球攻击").withStyle(CustomStyle.styleOfMana)).
                 append(Component.literal("将根据目标的当前生命值附带至多").withStyle(ChatFormatting.WHITE)).
-                append(Component.literal("0.25倍").withStyle(CustomStyle.styleOfMana)).
-                append(Component.literal("等级强度").withStyle(ChatFormatting.LIGHT_PURPLE)).
-                append(Component.literal("额外魔法伤害").withStyle(CustomStyle.styleOfMana)));
+                append(ComponentUtils.exManaDamage("25%")));
         components.add(Component.literal(" -多件地蕴魔力防具可以线性增长被动效能。").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
         return components;
     }

@@ -60,9 +60,8 @@ public class StarBottle extends Item implements ICurioItem {
                 append(Component.literal("掷向半径16格内的目标，每枚").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("星屑").withStyle(style)).
                 append(Component.literal("造成").withStyle(ChatFormatting.WHITE)).
-                append(Component.literal("(星屑数) / 10倍").withStyle(CustomStyle.styleOfSea)).
-                append(Component.literal("等级强度").withStyle(ChatFormatting.LIGHT_PURPLE)).
-                append(Component.literal("真实伤害").withStyle(CustomStyle.styleOfSea)));
+                append(Component.literal("(星屑数) * 10%").withStyle(CustomStyle.styleOfSea)).
+                append(ComponentUtils.getAutoAdaptIgnoreDefenceDamageDescription("")));
         components.add(Component.literal(" 只有当星星瓶中的").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("星屑").withStyle(style)).
                 append(Component.literal("被完全释放后，你才可以再次收集").withStyle(ChatFormatting.WHITE)).
@@ -138,7 +137,7 @@ public class StarBottle extends Item implements ICurioItem {
         mobList.forEach(mob -> {
             if (playerCountsMap.get(player) > 0) {
                 playerCountsMap.put(player, playerCountsMap.get(player) - 1);
-                Damage.causeIgNoreDefenceDamageToMonster(player, mob, Compute.getXpStrengthDamage(player, (double) playerCountsMap.get(player) / 10));
+                Damage.causeAutoAdaptionRateDamageToMob(player, mob, (double) playerCountsMap.get(player) / 10, true);
                 ParticleProvider.LineParticle(player.level(), (int) mob.distanceTo(player) * 2, player.position(), mob.position(), ParticleTypes.FIREWORK);
             }
         });

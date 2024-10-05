@@ -50,8 +50,7 @@ public class SeaSword extends WraqSword implements ActiveItem {
         int rate = 2;
         if (tier == 4) rate = 4;
         else if (tier == 3) rate = 3;
-        components.add(Component.literal("基于目标已损失生命值造成至多" + (rate) + "倍的").withStyle(CustomStyle.styleOfSea).
-                append(Component.literal("等级强度").withStyle(CustomStyle.styleOfLucky)).
+        components.add(Component.literal("基于目标已损失生命值造成至多" + (rate * 100) + "%").withStyle(CustomStyle.styleOfSea).
                 append(Component.literal("真实伤害").withStyle(CustomStyle.styleOfSea)));
         components.add(Component.literal("倍率随目标已损失生命值线性增长").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
         components.add(Component.literal("若目标死亡，则获得自身").withStyle(ChatFormatting.WHITE).

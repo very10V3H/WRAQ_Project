@@ -1,12 +1,9 @@
 package fun.wraq.events.core;
 
-import fun.wraq.common.Compute;
 import fun.wraq.core.ManaAttackModule;
 import fun.wraq.core.MyArrow;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.ParticlePackets.ManaAttackParticleS2CPacket;
-import fun.wraq.process.func.damage.Damage;
-import fun.wraq.projectiles.mana.BlazeSword;
 import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.projectiles.mana.NewArrow;
 import fun.wraq.projectiles.mana.SwordAir;
@@ -39,32 +36,6 @@ public class BowEvent {
         Entity entity = event.getProjectile();
         Level level = event.getEntity().level();
         List<Entity> list = level.getEntitiesOfClass(Entity.class, entity.getBoundingBox().expandTowards(entity.getDeltaMovement()).inflate(1.0D));
-
-        if (!entity.level().isClientSide && entity instanceof BlazeSword blazeSword && blazeSword.player != null) {
-            List<Entity> list0 = blazeSword.level().getEntitiesOfClass(Entity.class, blazeSword.getBoundingBox().expandTowards(blazeSword.getDeltaMovement()).inflate(1.0D));
-            if (!list0.isEmpty()) {
-                Vec3 vec = blazeSword.getDeltaMovement().normalize();
-                double distance = 100;
-                Mob nearestMob = null;
-                for (int i = 0; i < 20; i++) {
-                    Vec3 pos = blazeSword.position().add(vec.scale(0.25 * i));
-                    List<Mob> mobList = blazeSword.level().getEntitiesOfClass(Mob.class, AABB.ofSize(pos, 1.5, 1.5, 1.5));
-                    for (Mob mob : mobList) {
-                        if (mob.getEyePosition().distanceTo(pos) < distance) {
-                            distance = mob.getEyePosition().distanceTo(pos);
-                            nearestMob = mob;
-                        }
-                    }
-                }
-                if (nearestMob != null) {
-                    Damage.causeManaDamageToMonster_ApDamage(blazeSword.player, nearestMob, Compute.getXpStrengthAPDamage(blazeSword.player, 0.5));
-                    blazeSword.remove(Entity.RemovalReason.KILLED);
-                } else {
-                    event.setImpactResult(ProjectileImpactEvent.ImpactResult.SKIP_ENTITY);
-                }
-            }
-
-        }
 
         if (!entity.level().isClientSide && entity instanceof MyArrow myArrow) {
             List<Entity> list0 = myArrow.level().getEntitiesOfClass(Entity.class, myArrow.getBoundingBox().expandTowards(myArrow.getDeltaMovement()).inflate(1.0D));

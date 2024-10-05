@@ -1204,23 +1204,6 @@ public class Compute {
         level.addFreshEntity(itemEntity);
     }
 
-    public static double getXpStrengthADDamage(Player player, double rate) {
-        return PlayerAttributes.attackDamage(player) * (1 + (double) player.experienceLevel / 100) * rate;
-        // rate 为倍率
-    }
-
-    public static double getXpStrengthAPDamage(Player player, double rate) {
-        return PlayerAttributes.manaDamage(player) * (1 + (double) player.experienceLevel / 100) * rate;
-        // rate 为倍率
-    }
-
-    public static double getXpStrengthDamage(Player player, double rate) {
-        double attackDamage = PlayerAttributes.attackDamage(player),
-                manaDamage = PlayerAttributes.manaDamage(player),
-                base = (1 + (double) player.experienceLevel / 100);
-        return attackDamage * 2 > manaDamage ? attackDamage * 2 * base * rate : manaDamage * base * rate;
-    }
-
     public static void AdditionEffects(Player player, Mob mob, double damage, int type) {
         if (!Element.ElementPieceOnWeapon(player)) Element.ResonanceEffectGive(player);
     }

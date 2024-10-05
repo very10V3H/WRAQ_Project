@@ -4,6 +4,7 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.equip.WraqSword;
@@ -47,9 +48,7 @@ public class FireElementSword extends WraqSword implements ActiveItem {
                 append(Component.literal("激光").withStyle(style)).
                 append(Component.literal("，对沿途的目标").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("造成").withStyle(ChatFormatting.WHITE)).
-                append(Component.literal("2倍").withStyle(CustomStyle.styleOfPower)).
-                append(Component.literal("等级强度").withStyle(ChatFormatting.LIGHT_PURPLE)).
-                append(Component.literal("物理伤害").withStyle(CustomStyle.styleOfPower)).
+                append(ComponentUtils.getAutoAdaptDamageDescription("200%")).
                 append(Component.literal("，并").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("点燃").withStyle(style)).
                 append(Component.literal("目标4s").withStyle(ChatFormatting.WHITE)));
@@ -102,7 +101,7 @@ public class FireElementSword extends WraqSword implements ActiveItem {
     public void active(Player player) {
         if (Compute.PlayerUseWithHud(player, FireElementSword.playerActiveCoolDownMap, ModItems.FireElementSword.get(), 0, 7)) {
             Compute.playerItemCoolDown(player, this, 7);
-            List<Mob> mobList = Compute.OneShotLaser(player, true, Compute.getXpStrengthADDamage(player, 2), ModParticles.LONG_RED_SPELL.get());
+            List<Mob> mobList = Compute.OneShotLaser(player, true, Damage.getAutoAdaptionDamageValue(player, 2), ModParticles.LONG_RED_SPELL.get());
             mobList.forEach(mob -> Compute.IgniteMob(player, mob, 80));
         }
     }

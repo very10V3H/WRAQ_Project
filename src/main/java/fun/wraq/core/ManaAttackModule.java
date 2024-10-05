@@ -31,7 +31,6 @@ import fun.wraq.render.hud.Mana;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.castle.CastleManaArmor;
 import fun.wraq.series.instance.series.ice.IceBook;
-import fun.wraq.series.instance.series.moon.Equip.MoonBook;
 import fun.wraq.series.instance.series.moon.MoonCurios;
 import fun.wraq.series.overworld.castle.TreeBracelet;
 import net.minecraft.core.particles.ParticleTypes;
@@ -84,7 +83,6 @@ public class ManaAttackModule {
             damageIgnoreDefence += SeaCore(player, monster); // 救赎魔核
             damageIgnoreDefence += SakuraCoreExIgnoreDefenceDamage(player); // 樱妖魔核
             damageIgnoreDefence += MoonCurios.Passive(player, monster); // 朔望馈赠
-            damageIgnoreDefence += MoonBook.MoonBook(player, monster); // 尘月副手
             damageIgnoreDefence += CastleManaArmor.ExIgnoreDefenceDamage(player);
 
             if (Compute.getManaSkillLevel(data, 5) > 0 && player.getHealth() / player.getMaxHealth() < 0.8) {
@@ -460,7 +458,7 @@ public class ManaAttackModule {
         if (data.contains(StringUtils.ManaCore.ManaCore)
                 && data.getString(StringUtils.ManaCore.ManaCore).equals(StringUtils.ManaCore.SeaCore)) {
             double Rate = (1 - monster.getHealth() / monster.getMaxHealth());
-            return Compute.getXpStrengthAPDamage(player, Rate) * 0.5;
+            return PlayerAttributes.manaDamage(player) * Rate;
         }
         return 0;
     }
@@ -470,7 +468,7 @@ public class ManaAttackModule {
         if (data.contains(StringUtils.ManaCore.ManaCore)
                 && data.getString(StringUtils.ManaCore.ManaCore).equals(StringUtils.ManaCore.BlackForestCore)) {
             double Rate = monster.getHealth() / monster.getMaxHealth();
-            return Compute.getXpStrengthAPDamage(player, Rate) * 0.5;
+            return PlayerAttributes.manaDamage(player) * Rate;
         }
         return 0;
     }
@@ -535,7 +533,7 @@ public class ManaAttackModule {
 
     public static double EarthManaArmor(Player player, Mob mob) {
         if (SuitCount.getEarthManaSuitCount(player) > 0) {
-            return Compute.getXpStrengthAPDamage(player, mob.getHealth() * 0.25 * SuitCount.getEarthManaSuitCount(player) / mob.getMaxHealth());
+            return PlayerAttributes.manaDamage(player) * mob.getHealth() * 0.25 * SuitCount.getEarthManaSuitCount(player) / mob.getMaxHealth();
         }
         return 0;
     }

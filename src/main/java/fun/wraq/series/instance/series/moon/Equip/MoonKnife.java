@@ -56,8 +56,7 @@ public class MoonKnife extends Item {
                 append(Component.literal("7").withStyle(style)).
                 append(Component.literal("次伤害后，").withStyle(ChatFormatting.WHITE)));
         components.add(Component.literal(" 你将会引爆标记，并对周围所有目标造成").withStyle(ChatFormatting.WHITE).
-                append(Component.literal("14倍等级强度").withStyle(ChatFormatting.LIGHT_PURPLE)).
-                append(Component.literal("真实伤害").withStyle(CustomStyle.styleOfSea)));
+                append(ComponentUtils.getAutoAdaptIgnoreDefenceDamageDescription("1400%")));
         components.add(Component.literal(" - 引爆标记后，你将获得持续3s的").withStyle(ChatFormatting.WHITE).
                 append(Compute.AttributeDescription.AttackDamage("12%总")));
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
@@ -90,7 +89,7 @@ public class MoonKnife extends Item {
                 List<Mob> mobList = mob.level().getEntitiesOfClass(Mob.class, AABB.ofSize(mob.position(), 15, 15, 15));
                 mobList.forEach(mob1 -> {
                     if (mob1.distanceTo(mob) < 6) {
-                        Damage.causeIgNoreDefenceDamageToMonster(player, mob1, Compute.getXpStrengthADDamage(player, 14));
+                        Damage.causeAutoAdaptionRateDamageToMob(player, mob1, 14, true);
                     }
                 });
                 playerDamageEnhanceTickMap.put(player, TickCount + 60);

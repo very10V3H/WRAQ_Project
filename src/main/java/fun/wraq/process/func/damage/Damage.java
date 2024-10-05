@@ -50,21 +50,47 @@ import java.util.Random;
 
 public class Damage {
 
-    public static void causeAutoAdaptionRateDamageToMob(Player player, Mob mob, double rate) {
+    /**
+     * 自适应伤害，根据手持武器类型判定。物理类自带暴击几率与暴击伤害修正
+     * @param player 玩家
+     * @param mob 目标怪物
+     * @param rate 倍率
+     * @param ignoreDefence 真实伤害
+     */
+    public static void causeAutoAdaptionRateDamageToMob(Player player, Mob mob, double rate, boolean ignoreDefence) {
         ItemStack itemStack = player.getMainHandItem();
         Item item = itemStack.getItem();
-        if (Utils.swordTag.containsKey(item) || Utils.bowTag.containsKey(item))
-            causeAttackDamageToMonster_RateAdDamage(player, mob, rate * 2);
-        if (Utils.sceptreTag.containsKey(item))
-            causeManaDamageToMonster_RateApDamage(player, mob, rate, false);
+        if (Utils.swordTag.containsKey(item) || Utils.bowTag.containsKey(item)) {
+            double damageRate = rate;
+            if (RandomUtils.nextDouble(0, 1) < PlayerAttributes.critRate(player)) {
+                damageRate *= (1 + PlayerAttributes.critDamage(player));
+            }
+            if (ignoreDefence) {
+                causeIgNoreDefenceDamageToMonster(player, mob, PlayerAttributes.attackDamage(player) * damageRate);
+            } else {
+                causeAttackDamageToMonster_RateAdDamage(player, mob, damageRate);
+            }
+        }
+        if (Utils.sceptreTag.containsKey(item)) {
+            if (ignoreDefence) {
+                causeIgNoreDefenceDamageToMonster(player, mob, PlayerAttributes.manaDamage(player));
+            } else {
+                causeManaDamageToMonster_RateApDamage(player, mob, rate, false);
+            }
+        }
     }
 
-    public static void causeAutoAdaptionRateDamageToMobWithCritJudge(Player player, Mob mob, double rate) {
-        double damageRate = rate;
-        if (RandomUtils.nextDouble(0, 1) < PlayerAttributes.critRate(player)) {
-            damageRate *= (1 + PlayerAttributes.critDamage(player));
+    public static double getAutoAdaptionDamageValue(Player player, double rate) {
+        ItemStack itemStack = player.getMainHandItem();
+        Item item = itemStack.getItem();
+        if (Utils.swordTag.containsKey(item) || Utils.bowTag.containsKey(item)) {
+            double damageRate = rate;
+            if (RandomUtils.nextDouble(0, 1) < PlayerAttributes.critRate(player)) {
+                damageRate *= (1 + PlayerAttributes.critDamage(player));
+            }
+            return PlayerAttributes.attackDamage(player) * damageRate;
         }
-        causeAutoAdaptionRateDamageToMob(player, mob, damageRate);
+        return PlayerAttributes.manaDamage(player) * rate;
     }
 
     public static double causeIgNoreDefenceDamageToMonster(Player player, Mob monster, double damage) {

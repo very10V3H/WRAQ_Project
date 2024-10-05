@@ -89,7 +89,7 @@ public class AttackEventModule {
             double ExRate = monster.getHealth() * Utils.BlackForestSwordActiveMap.get(player) / monster.getMaxHealth();
             Utils.BlackForestSwordActiveMap.remove(player);
             Compute.sendEffectLastTime(player, ModItems.huskSword0.get().getDefaultInstance(), 0);
-            return Compute.getXpStrengthADDamage(player, 1 + ExRate);
+            return PlayerAttributes.attackDamage(player) * (1 + ExRate);
         }
         return 0;
     }
@@ -99,7 +99,7 @@ public class AttackEventModule {
             double ExRate = (1 - (monster.getHealth() / monster.getMaxHealth())) * Utils.SeaSwordActiveMap.get(player);
             Utils.SeaSwordActiveMap.remove(player);
             Compute.sendEffectLastTime(player, ModItems.SeaSword0.get().getDefaultInstance(), 0);
-            return Compute.getXpStrengthADDamage(player, 1 + ExRate);
+            return PlayerAttributes.attackDamage(player) * (1 + ExRate);
         }
         return 0;
     }

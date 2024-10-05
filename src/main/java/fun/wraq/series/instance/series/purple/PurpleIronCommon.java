@@ -81,7 +81,7 @@ public interface PurpleIronCommon {
                 Compute.getNearEntity(info.level, info.blockPos.getCenter(), Mob.class, 6)
                         .stream().map(entity -> (Mob) entity)
                         .forEach(mob -> {
-                            Damage.causeAutoAdaptionRateDamageToMobWithCritJudge(info.creator, mob, effect[info.tier]);
+                            Damage.causeAutoAdaptionRateDamageToMob(info.creator, mob, effect[info.tier], false);
                         });
 
                 // 对玩家带来增益

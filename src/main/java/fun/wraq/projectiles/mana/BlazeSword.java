@@ -1,18 +1,14 @@
 package fun.wraq.projectiles.mana;
 
-import fun.wraq.common.Compute;
-import fun.wraq.process.func.damage.Damage;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.MinecartItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.EntityHitResult;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -50,18 +46,6 @@ public class BlazeSword extends AbstractArrow implements GeoEntity {
     @Override
     protected boolean canHitEntity(Entity p_36743_) {
         return super.canHitEntity(p_36743_);
-    }
-
-    @Override
-    protected void onHitEntity(EntityHitResult result) {
-        super.onHitEntity(result);
-        if (!this.level().isClientSide && this.player != null) {
-            Entity entity = result.getEntity();
-            if (entity instanceof Mob mob) {
-                Damage.causeManaDamageToMonster_ApDamage(player, mob, Compute.getXpStrengthAPDamage(player, 0.5));
-            }
-        }
-        this.remove(RemovalReason.KILLED);
     }
 
     @Override

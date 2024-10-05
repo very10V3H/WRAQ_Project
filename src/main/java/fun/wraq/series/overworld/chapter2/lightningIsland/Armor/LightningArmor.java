@@ -59,7 +59,6 @@ public class LightningArmor extends WraqArmor implements TickEquip, OnHitEffectE
                 append(Component.literal("对范围内单位造成").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal(tier == 1 ? "50%" : "25%" +"自适应伤害").withStyle(CustomStyle.styleOfSea)));
         components.add(Te.m(" 多件唤雷装备能够线性提升这个伤害数值", ChatFormatting.ITALIC, ChatFormatting.GRAY));
-        components.add(ComponentUtils.getCritDamageInfluenceDescription());
         return components;
     }
 
@@ -96,7 +95,7 @@ public class LightningArmor extends WraqArmor implements TickEquip, OnHitEffectE
                                             .stream()
                                             .filter(mob1 -> mob1.distanceTo(soleMob) < 2)
                                             .forEach(target -> {
-                                                Damage.causeAutoAdaptionRateDamageToMob(player1, target, finalRate);
+                                                Damage.causeAutoAdaptionRateDamageToMob(player1, target, finalRate, false);
                                             });
                                 });
                         Compute.removeEffectLastTime(player, ModItems.LIGHTNING_CHEST.get());
