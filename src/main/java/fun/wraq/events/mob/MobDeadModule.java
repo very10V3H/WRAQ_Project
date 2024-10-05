@@ -27,7 +27,7 @@ public class MobDeadModule {
             }
 
             if (nearestPlayer != null) {
-                Damage.manaDamageToPlayer(mob, nearestPlayer, 2500, 0.3, 750);
+                Damage.manaDamageToPlayer(mob, nearestPlayer, 2500);
                 ParticleProvider.EntityEffectVerticleCircleParticle(nearestPlayer, 1, 0.4, 8, ParticleTypes.WITCH, 0);
                 ParticleProvider.EntityEffectVerticleCircleParticle(nearestPlayer, 0.75, 0.4, 8, ParticleTypes.WITCH, 0);
                 ParticleProvider.EntityEffectVerticleCircleParticle(nearestPlayer, 0.5, 0.4, 8, ParticleTypes.WITCH, 0);
