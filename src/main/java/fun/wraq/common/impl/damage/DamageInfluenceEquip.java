@@ -9,7 +9,7 @@ public interface DamageInfluenceEquip {
 
     static double getRate(Player player) {
         double rate = 0;
-        for (ItemStack armor : InventoryOperation.getAllEquipSlotItems(player)) {
+        for (ItemStack armor : InventoryOperation.getDistinctAllEquipSlotItems(player)) {
             if (armor.getItem() instanceof DamageInfluenceEquip armorItem) {
                 rate += armorItem.rate(player);
             }

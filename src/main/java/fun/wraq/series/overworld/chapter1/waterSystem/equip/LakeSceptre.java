@@ -12,7 +12,7 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.StableAttributesModifier;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.element.Element;
-import fun.wraq.common.impl.onhit.OnHitEffectMainHandWeapon;
+import fun.wraq.common.impl.onhit.OnHitEffectEquip;
 import fun.wraq.common.equip.WraqSceptre;
 import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -31,7 +31,7 @@ import net.minecraft.world.level.Level;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LakeSceptre extends WraqSceptre implements OnHitEffectMainHandWeapon {
+public class LakeSceptre extends WraqSceptre implements OnHitEffectEquip {
     private final int num;
 
     public LakeSceptre(Properties properties, int num) {

@@ -8,7 +8,7 @@ import fun.wraq.core.MyArrow;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.element.Element;
-import fun.wraq.common.impl.onhit.OnHitEffectMainHandWeapon;
+import fun.wraq.common.impl.onhit.OnHitEffectEquip;
 import fun.wraq.common.equip.WraqBow;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -26,7 +26,7 @@ import net.minecraft.world.phys.AABB;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LakeBow extends WraqBow implements OnHitEffectMainHandWeapon {
+public class LakeBow extends WraqBow implements OnHitEffectEquip {
     private final int tier;
 
     public LakeBow(Properties properties, int tier) {

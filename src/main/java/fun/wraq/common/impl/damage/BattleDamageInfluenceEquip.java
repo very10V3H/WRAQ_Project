@@ -10,7 +10,7 @@ public interface BattleDamageInfluenceEquip {
 
     static double getRate(Player player, Mob mob) {
         double rate = 0;
-        for (ItemStack armor : InventoryOperation.getAllEquipSlotItems(player)) {
+        for (ItemStack armor : InventoryOperation.getDistinctAllEquipSlotItems(player)) {
             if (armor.getItem() instanceof BattleDamageInfluenceEquip armorItem) {
                 rate += armorItem.rate(player, mob);
             }

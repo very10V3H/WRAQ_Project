@@ -8,7 +8,7 @@ public interface OnPowerCauseDamageEquip {
     void onCauseDamage(Player player, Mob mob);
 
     static void causeDamage(Player player, Mob mob) {
-        InventoryOperation.getAllEquipSlotItems(player)
+        InventoryOperation.getDistinctAllEquipSlotItems(player)
                 .stream().filter(itemStack -> itemStack.getItem() instanceof OnPowerCauseDamageEquip)
                 .map(itemStack -> (OnPowerCauseDamageEquip) itemStack.getItem())
                 .forEach(equip -> {

@@ -1,14 +1,14 @@
 package fun.wraq.series.specialevents.midautumn;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
+import fun.wraq.common.impl.onhit.OnHitEffectEquip;
+import fun.wraq.common.impl.onkill.OnKillEffectCurios;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.StableAttributesModifier;
-import fun.wraq.common.impl.onhit.OnHitEffectCurios;
-import fun.wraq.common.impl.onkill.OnKillEffectCurios;
-import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class MoonFeather extends WraqCurios implements OnHitEffectCurios, OnKillEffectCurios {
+public class MoonFeather extends WraqCurios implements OnHitEffectEquip, OnKillEffectCurios {
 
     private final int tier;
     private final double[] rate = new double[]{0.05, 0.08, 0.12, 0.15};

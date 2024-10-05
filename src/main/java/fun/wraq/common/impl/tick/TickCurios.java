@@ -7,7 +7,7 @@ public interface TickCurios {
     void tick(Player player);
 
     static void tickEvent(Player player) {
-        Compute.CuriosAttribute.getCuriosList(player)
+        Compute.CuriosAttribute.getDistinctCuriosList(player)
                 .stream().filter(itemStack -> itemStack.getItem() instanceof TickCurios)
                 .map(itemStack -> (TickCurios) itemStack.getItem())
                 .forEach(curios -> curios.tick(player));

@@ -2,7 +2,7 @@ package fun.wraq.series.instance.series.moon.Equip;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqBow;
-import fun.wraq.common.impl.onhit.OnHitEffectMainHandWeapon;
+import fun.wraq.common.impl.onhit.OnHitEffectEquip;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
@@ -25,7 +25,7 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.*;
 
-public class MoonBow extends WraqBow implements OnHitEffectMainHandWeapon {
+public class MoonBow extends WraqBow implements OnHitEffectEquip {
 
     private final int exTargetCount;
     public MoonBow(Properties properties, int exTargetCount) {

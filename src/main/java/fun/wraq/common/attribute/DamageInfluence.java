@@ -122,7 +122,7 @@ public class DamageInfluence {
     public static double getPlayerFinalDamageEnhance(Player player) {
         double rate = 0;
 
-        rate += 0.5 * Compute.CuriosAttribute.getCuriosList(player)
+        rate += 0.5 * Compute.CuriosAttribute.getDistinctCuriosList(player)
                 .stream().filter(curios -> curios.getItem() instanceof WraqUniformCurios)
                 .count();
         return rate;

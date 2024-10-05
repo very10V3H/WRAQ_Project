@@ -10,7 +10,7 @@ import fun.wraq.events.mob.chapter2.SlimeSpawnController;
 import fun.wraq.events.mob.chapter3_nether.MagmaSpawnController;
 import fun.wraq.process.func.StableAttributesModifier;
 import fun.wraq.process.func.item.InventoryOperation;
-import fun.wraq.common.impl.onkill.OnKillEffectOffHandItem;
+import fun.wraq.common.impl.onkill.OnKillEffectEquip;
 import fun.wraq.common.equip.WraqOffHandItem;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -26,7 +26,7 @@ import net.minecraft.world.level.Level;
 
 import java.util.*;
 
-public class GoldenBook extends WraqOffHandItem implements OnKillEffectOffHandItem {
+public class GoldenBook extends WraqOffHandItem implements OnKillEffectEquip {
 
     public GoldenBook(Properties properties) {
         super(properties, Component.literal("圣经").withStyle(CustomStyle.styleOfGold));

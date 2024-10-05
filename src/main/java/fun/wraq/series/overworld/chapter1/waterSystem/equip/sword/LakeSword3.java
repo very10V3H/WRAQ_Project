@@ -11,7 +11,7 @@ import fun.wraq.networking.misc.USE.UtilsLakeSwordS2CPacket;
 import fun.wraq.process.func.StableAttributesModifier;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.common.equip.impl.ActiveItem;
-import fun.wraq.common.impl.onhit.OnHitEffectMainHandWeapon;
+import fun.wraq.common.impl.onhit.OnHitEffectEquip;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -31,7 +31,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class LakeSword3 extends SwordItem implements ActiveItem, OnHitEffectMainHandWeapon {
+public class LakeSword3 extends SwordItem implements ActiveItem, OnHitEffectEquip {
     public LakeSword3(Tier tier, int num1, float num2) {
         super(tier, num1, num2, new Properties().rarity(CustomStyle.WaterItalic));
         Utils.attackDamage.put(this, 80.0d);

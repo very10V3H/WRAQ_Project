@@ -9,7 +9,7 @@ public interface DamageInfluenceCurios {
 
     static double getRate(Player player) {
         double rate = 0;
-        for (ItemStack armor : Compute.CuriosAttribute.getCuriosList(player)) {
+        for (ItemStack armor : Compute.CuriosAttribute.getDistinctCuriosList(player)) {
             if (armor.getItem() instanceof DamageInfluenceCurios curios) {
                 rate += curios.rate(player);
             }

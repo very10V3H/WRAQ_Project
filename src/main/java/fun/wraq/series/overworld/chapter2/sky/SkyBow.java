@@ -8,7 +8,7 @@ import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.StableAttributesModifier;
 import fun.wraq.process.system.element.Element;
-import fun.wraq.common.impl.onhit.OnHitEffectMainHandWeapon;
+import fun.wraq.common.impl.onhit.OnHitEffectEquip;
 import fun.wraq.common.equip.WraqBow;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.network.chat.Component;
@@ -20,7 +20,7 @@ import net.minecraft.world.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SkyBow extends WraqBow implements OnHitEffectMainHandWeapon {
+public class SkyBow extends WraqBow implements OnHitEffectEquip {
 
     public SkyBow(Properties p_40524_) {
         super(p_40524_);

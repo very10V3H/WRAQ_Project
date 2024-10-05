@@ -2,7 +2,7 @@ package fun.wraq.series.instance.series.ice.weapon;
 
 import fun.wraq.common.equip.WraqBow;
 import fun.wraq.common.impl.onhit.OnCritHitEffectMainHandWeapon;
-import fun.wraq.common.impl.onhit.OnHitEffectMainHandWeapon;
+import fun.wraq.common.impl.onhit.OnHitEffectEquip;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
@@ -24,7 +24,7 @@ import net.minecraft.world.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IceBow extends WraqBow implements OnHitEffectMainHandWeapon, OnCritHitEffectMainHandWeapon {
+public class IceBow extends WraqBow implements OnHitEffectEquip, OnCritHitEffectMainHandWeapon {
 
     public IceBow(Properties p_40524_) {
         super(p_40524_);

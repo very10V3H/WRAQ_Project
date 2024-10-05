@@ -10,7 +10,7 @@ public interface BattleDamageInfluenceCurios {
 
     static double getRate(Player player, Mob mob) {
         double rate = 0;
-        for (ItemStack armor : Compute.CuriosAttribute.getCuriosList(player)) {
+        for (ItemStack armor : Compute.CuriosAttribute.getDistinctCuriosList(player)) {
             if (armor.getItem() instanceof BattleDamageInfluenceCurios curios) {
                 rate += curios.rate(player, mob);
             }

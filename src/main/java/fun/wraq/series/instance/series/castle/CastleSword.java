@@ -54,7 +54,7 @@ public class CastleSword extends WraqSword implements ForgeItem, ActiveItem {
                 append(Component.literal("，获得持续6s的").withStyle(ChatFormatting.WHITE)).
                 append(ComponentUtils.getCommonDamageEnhance("25%")).
                 append(Component.literal("以及").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.DefencePenetration("150")).
+                append(Compute.AttributeDescription.DefencePenetration("15")).
                 append(Component.literal("与").withStyle(ChatFormatting.WHITE)).
                 append(Compute.AttributeDescription.ManaPenetration("15")));
         ComponentUtils.coolDownTimeDescription(components, 15);

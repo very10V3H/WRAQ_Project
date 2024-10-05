@@ -1,7 +1,7 @@
 package fun.wraq.common.impl.inslot;
 
 import fun.wraq.common.Compute;
-import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.process.func.item.InventoryOperation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -17,7 +17,7 @@ public interface InCuriosOrEquipSlotAttributesModify {
 
     static double getAttributes(Player player, Map<Item, Double> baseAttributeMap) {
         double value = 0;
-        for (ItemStack stack : Compute.CuriosAttribute.getCuriosList(player)) {
+        for (ItemStack stack : Compute.CuriosAttribute.getDistinctCuriosList(player)) {
             Item item = stack.getItem();
             if (item instanceof InCuriosOrEquipSlotAttributesModify curios) {
                 for (Attribute attribute : curios.getAttributes(player)) {
@@ -27,7 +27,7 @@ public interface InCuriosOrEquipSlotAttributesModify {
                 }
             }
         }
-        for (ItemStack equip : PlayerAttributes.getAllEquipSlotItems(player)) {
+        for (ItemStack equip : InventoryOperation.getDistinctAllEquipSlotItems(player)) {
             if (equip.getItem() instanceof InCuriosOrEquipSlotAttributesModify item) {
                 for (Attribute attribute : item.getAttributes(player)) {
                     if (baseAttributeMap.equals(attribute.baseAttributeMap)) {

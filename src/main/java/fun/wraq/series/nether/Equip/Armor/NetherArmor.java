@@ -3,7 +3,7 @@ package fun.wraq.series.nether.Equip.Armor;
 import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqArmor;
 import fun.wraq.common.fast.Tick;
-import fun.wraq.common.impl.onhit.OnHitEffectArmor;
+import fun.wraq.common.impl.onhit.OnHitEffectEquip;
 import fun.wraq.common.registry.ItemMaterial;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
@@ -22,7 +22,7 @@ import net.minecraft.world.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NetherArmor extends WraqArmor implements OnHitEffectArmor {
+public class NetherArmor extends WraqArmor implements OnHitEffectEquip {
 
     public NetherArmor(ItemMaterial material, Type type, Properties properties) {
         super(material, type, properties);
@@ -61,6 +61,6 @@ public class NetherArmor extends WraqArmor implements OnHitEffectArmor {
     @Override
     public void onHit(Player player, Mob mob) {
         StableTierAttributeModifier.addM(mob, StableTierAttributeModifier.percentDefence, "NetherArmor passive",
-                -SuitCount.getNetherSuitCount(player) * 0.01, Tick.get() + 60, 8, ModItems.netherSkeletonSoul.get());
+                -SuitCount.getNetherSuitCount(player) * 0.01, Tick.get() + 60, 6, ModItems.netherSkeletonSoul.get());
     }
 }

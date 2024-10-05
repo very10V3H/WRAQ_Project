@@ -7,7 +7,8 @@ import fun.wraq.commands.stable.ops.RoadCommand;
 import fun.wraq.commands.stable.players.DpsCommand;
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
-import fun.wraq.common.impl.tick.TickArmor;
+import fun.wraq.common.impl.tick.TickCurios;
+import fun.wraq.common.impl.tick.TickEquip;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
@@ -45,8 +46,6 @@ import fun.wraq.process.system.missions.series.dailyMission.DailyMission;
 import fun.wraq.process.system.respawn.MyRespawnRule;
 import fun.wraq.process.system.season.MySeason;
 import fun.wraq.process.system.tower.TowerMob;
-import fun.wraq.common.impl.tick.TickMainHandItem;
-import fun.wraq.common.impl.tick.TickCurios;
 import fun.wraq.projectiles.mana.BlazeSword;
 import fun.wraq.projectiles.mana.SwordAir;
 import fun.wraq.render.hud.ColdData;
@@ -149,9 +148,8 @@ public class ServerPlayerTickEvent {
             MoonNewRune.tick(player);
             SummerEvent.tick(player);
             TickCurios.tickEvent(player);
-            TickArmor.handleTick(player);
 
-            if (player.getMainHandItem().getItem() instanceof TickMainHandItem tickMainHandItem) tickMainHandItem.tick(player);
+            TickEquip.handleTick(player);
 
             if (player.tickCount % 20 == 4) {
                 List<EntityLeafcutterAnt> ants = serverPlayer.level().getEntitiesOfClass(EntityLeafcutterAnt.class, AABB.ofSize(serverPlayer.position(), 100, 100, 100));

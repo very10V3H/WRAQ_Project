@@ -6,10 +6,9 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.StableAttributesModifier;
-import fun.wraq.common.impl.onhit.OnHitEffectMainHandWeapon;
+import fun.wraq.common.impl.onhit.OnHitEffectEquip;
 import fun.wraq.common.equip.WraqBow;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.nether.Equip.WitherBow.WitherBowAttributes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -21,7 +20,7 @@ import net.minecraft.world.item.Items;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WitherBow extends WraqBow implements OnHitEffectMainHandWeapon {
+public class WitherBow extends WraqBow implements OnHitEffectEquip {
     public final int tier;
 
     public WitherBow(Properties p_40524_, int tier) {

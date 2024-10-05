@@ -249,13 +249,9 @@ public class AttackEvent {
                 Compute.damageActionBarPacketSend(player, damage, damageIgnoreDefence, false, critFlag, elementType, elementDamage);
             else Compute.damageActionBarPacketSend(player, damage, damageIgnoreDefence, false, critFlag);
             SameTypeModule.onNormalAttackHitMob(player, monster, 0, damage + damageIgnoreDefence);
-            if (equip instanceof OnHitEffectMainHandWeapon onHitEffectMainHandWeapon) {
-                onHitEffectMainHandWeapon.onHit(player, monster);
-            }
-            OnHitEffectCurios.hit(player, monster);
+            OnHitEffectEquip.hit(player, monster);
             OnHitEffectPassiveEquip.hit(player, monster);
             EnhanceNormalAttackModifier.onHitEffect(player, monster, 0);
-            OnHitEffectArmor.hit(player, monster);
         }
 
         // effect

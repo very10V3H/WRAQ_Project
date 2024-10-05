@@ -11,7 +11,7 @@ public interface OnHitDamageInfluenceCurios {
 
     static double damageInfluence(Player player, Mob mob) {
         AtomicReference<Double> influence = new AtomicReference<>((double) 0);
-        Compute.CuriosAttribute.getCuriosList(player).stream()
+        Compute.CuriosAttribute.getDistinctCuriosList(player).stream()
                 .filter(stack -> stack.getItem() instanceof OnHitDamageInfluenceCurios)
                 .map(stack -> (OnHitDamageInfluenceCurios) stack.getItem())
                 .forEach(curios -> {

@@ -11,7 +11,7 @@ import fun.wraq.process.func.ChangedAttributesModifier;
 import fun.wraq.process.func.EnhanceNormalAttack;
 import fun.wraq.process.func.EnhanceNormalAttackModifier;
 import fun.wraq.common.equip.impl.ActiveItem;
-import fun.wraq.common.impl.onhit.OnHitEffectMainHandWeapon;
+import fun.wraq.common.impl.onhit.OnHitEffectEquip;
 import fun.wraq.common.equip.WraqSword;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -25,7 +25,7 @@ import net.minecraft.world.phys.AABB;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MoonSword extends WraqSword implements ActiveItem, OnHitEffectMainHandWeapon {
+public class MoonSword extends WraqSword implements ActiveItem, OnHitEffectEquip {
 
     private final double activeRate;
     public MoonSword(Properties properties, double activeRate) {

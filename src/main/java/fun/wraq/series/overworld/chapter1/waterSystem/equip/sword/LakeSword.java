@@ -5,7 +5,7 @@ import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.StableAttributesModifier;
 import fun.wraq.process.system.element.Element;
-import fun.wraq.common.impl.onhit.OnHitEffectMainHandWeapon;
+import fun.wraq.common.impl.onhit.OnHitEffectEquip;
 import fun.wraq.common.equip.WraqSword;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -18,7 +18,7 @@ import net.minecraft.world.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LakeSword extends WraqSword implements OnHitEffectMainHandWeapon {
+public class LakeSword extends WraqSword implements OnHitEffectEquip {
     public LakeSword(Properties properties, int tier) {
         super(properties);
         Utils.attackDamage.put(this, new double[]{50, 60, 70}[tier]);

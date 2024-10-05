@@ -14,7 +14,7 @@ import fun.wraq.process.func.EnhanceNormalAttack;
 import fun.wraq.process.func.EnhanceNormalAttackModifier;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.common.equip.impl.ActiveItem;
-import fun.wraq.common.impl.onhit.OnHitEffectMainHandWeapon;
+import fun.wraq.common.impl.onhit.OnHitEffectEquip;
 import fun.wraq.common.equip.WraqSceptre;
 import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -34,7 +34,7 @@ import net.minecraft.world.phys.AABB;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MoonSceptre extends WraqSceptre implements ActiveItem, OnHitEffectMainHandWeapon {
+public class MoonSceptre extends WraqSceptre implements ActiveItem, OnHitEffectEquip {
 
     private final double activeRate;
     public MoonSceptre(Properties properties, double activeRate) {

@@ -10,7 +10,7 @@ import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.impl.onhit.OnPowerCauseDamageEquip;
 import fun.wraq.common.impl.onkill.OnKillEffectCurios;
-import fun.wraq.common.impl.onkill.OnKillEffectOffHandItem;
+import fun.wraq.common.impl.onkill.OnKillEffectEquip;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.Utils;
@@ -482,15 +482,13 @@ public class Damage {
                 HurtEventModule.BowSkill2(data, player); // 狩猎渴望（击杀一个单位时，提升2%攻击力，持续10s）
                 HurtEventModule.ManaSkill2(data, player); // 魔力汲取（击杀一个单位时，提升2%法术攻击，持续10s）
 
-                // 副手击杀效果
-                Item offhandItem = player.getOffhandItem().getItem();
-                if (offhandItem instanceof OnKillEffectOffHandItem item) item.onKill(player, mob);
-
                 NetherNewRune.onKill(player, mob);
                 HuskNewRune.onKill(player, mob);
                 DailyEndlessInstance.onKillMob(player, mob);
 
+                OnKillEffectEquip.kill(player, mob);
                 OnKillEffectCurios.kill(player, mob);
+
             } else mob.setHealth((float) (mob.getHealth() - finalDamage));
 
             // ---- //

@@ -11,7 +11,7 @@ import fun.wraq.events.mob.chapter3_nether.MagmaSpawnController;
 import fun.wraq.process.func.StableAttributesModifier;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.common.impl.display.ForgeItem;
-import fun.wraq.common.impl.onkill.OnKillEffectOffHandItem;
+import fun.wraq.common.impl.onkill.OnKillEffectEquip;
 import fun.wraq.common.equip.WraqOffHandItem;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.overworld.chapter1.Mine.MineShield;
@@ -28,7 +28,7 @@ import net.minecraft.world.level.Level;
 
 import java.util.*;
 
-public class GoldenAttackOffhand extends WraqOffHandItem implements OnKillEffectOffHandItem, ForgeItem {
+public class GoldenAttackOffhand extends WraqOffHandItem implements OnKillEffectEquip, ForgeItem {
 
     private final int type;
     public GoldenAttackOffhand(Properties properties, Component component, int type) {

@@ -4,7 +4,7 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqBow;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
-import fun.wraq.common.impl.onhit.OnHitEffectMainHandWeapon;
+import fun.wraq.common.impl.onhit.OnHitEffectEquip;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 
-public class SakuraBow extends WraqBow implements OnHitEffectMainHandWeapon {
+public class SakuraBow extends WraqBow implements OnHitEffectEquip {
 
     public SakuraBow(Properties p_40524_) {
         super(p_40524_);

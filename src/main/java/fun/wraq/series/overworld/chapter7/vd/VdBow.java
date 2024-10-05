@@ -8,7 +8,7 @@ import fun.wraq.core.MyArrow;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.impl.display.ForgeItem;
-import fun.wraq.common.impl.tick.TickMainHandItem;
+import fun.wraq.common.impl.tick.TickEquip;
 import fun.wraq.common.equip.WraqBow;
 import fun.wraq.render.particles.ModParticles;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -25,7 +25,7 @@ import net.minecraft.world.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VdBow extends WraqBow implements ForgeItem, ActiveItem, TickMainHandItem, VdWeaponCommon {
+public class VdBow extends WraqBow implements ForgeItem, ActiveItem, TickEquip, VdWeaponCommon {
 
     public VdBow(Properties properties) {
         super(properties);

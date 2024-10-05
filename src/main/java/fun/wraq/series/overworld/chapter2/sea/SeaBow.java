@@ -10,7 +10,7 @@ import fun.wraq.core.MyArrow;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.element.Element;
-import fun.wraq.common.impl.onhit.OnHitEffectMainHandWeapon;
+import fun.wraq.common.impl.onhit.OnHitEffectEquip;
 import fun.wraq.common.equip.WraqBow;
 import fun.wraq.render.particles.ModParticles;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class SeaBow extends WraqBow implements OnHitEffectMainHandWeapon {
+public class SeaBow extends WraqBow implements OnHitEffectEquip {
 
     public SeaBow(Properties p_40524_) {
         super(p_40524_);

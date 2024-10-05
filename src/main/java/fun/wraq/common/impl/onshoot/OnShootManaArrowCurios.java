@@ -7,7 +7,7 @@ public interface OnShootManaArrowCurios {
     void onShoot(Player player);
 
     static void shoot(Player player) {
-        Compute.CuriosAttribute.getCuriosList(player).stream()
+        Compute.CuriosAttribute.getDistinctCuriosList(player).stream()
                 .filter(stack -> stack.getItem() instanceof OnShootManaArrowCurios)
                 .map(stack -> (OnShootManaArrowCurios) stack.getItem())
                 .forEach(curios -> curios.onShoot(player));

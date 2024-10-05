@@ -317,14 +317,11 @@ public class MyArrow extends AbstractArrow {
                 MoonKnife.MoonKnife(player, monster);
                 CastleBow.NormalAttack(player, monster, damage);
                 Compute.AdditionEffects(player, monster, damage + damageIgnoreDefence, 0);
-                if (mainHandItem.getItem() instanceof OnHitEffectMainHandWeapon onHitEffectMainHandWeapon)
-                    onHitEffectMainHandWeapon.onHit(player, monster);
+                OnHitEffectEquip.hit(player, monster);
                 SameTypeModule.onNormalAttackHitMob(player, monster, 0, damage + damageIgnoreDefence);
             }
             if (myArrow.mainShoot) {
-                OnHitEffectCurios.hit(player, monster);
                 OnHitEffectPassiveEquip.hit(player, monster);
-                OnHitEffectArmor.hit(player, monster);
             }
             if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false)) {
                 player.sendSystemMessage(Component.literal("NormalAttackDamageEnhance : " + NormalAttackDamageEnhance));

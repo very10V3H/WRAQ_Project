@@ -1502,7 +1502,7 @@ public class Compute {
         /**
          * 获取玩家去重饰品列表
          */
-        public static List<ItemStack> getCuriosList(Player player) {
+        public static List<ItemStack> getDistinctCuriosList(Player player) {
             if (!Utils.playerCuriosListMap.containsKey(player)) return List.of();
             List<ItemStack> originCuriosList = Utils.playerCuriosListMap.get(player);
             Set<Item> curiosItemSet = new HashSet<>();

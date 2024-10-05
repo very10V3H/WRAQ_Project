@@ -6,9 +6,7 @@ import fun.wraq.common.attribute.DamageInfluence;
 import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.attribute.SameTypeModule;
-import fun.wraq.common.impl.onhit.OnHitEffectArmor;
-import fun.wraq.common.impl.onhit.OnHitEffectCurios;
-import fun.wraq.common.impl.onhit.OnHitEffectMainHandWeapon;
+import fun.wraq.common.impl.onhit.OnHitEffectEquip;
 import fun.wraq.common.impl.onhit.OnHitEffectPassiveEquip;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.ModSounds;
@@ -188,14 +186,10 @@ public class ManaAttackModule {
             ManaCurios1.ManaDamageExIgnoreDefenceDamage(player, monster, damage);
             TreeBracelet.Passive(player, monster); // 古树手镯
             Compute.AdditionEffects(player, monster, damage + damageIgnoreDefence, 1);
-            if (mainhand instanceof OnHitEffectMainHandWeapon onHitEffectMainHandWeapon) {
-                onHitEffectMainHandWeapon.onHit(player, monster);
-            }
+            OnHitEffectEquip.hit(player, monster);
             if (mainShoot) {
-                OnHitEffectCurios.hit(player, monster);
                 OnHitEffectPassiveEquip.hit(player, monster);
                 EnhanceNormalAttackModifier.onHitEffect(player, monster, 2);
-                OnHitEffectArmor.hit(player, monster);
             }
 
             if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false)) {

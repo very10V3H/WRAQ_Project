@@ -5,11 +5,10 @@ import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.impl.display.ForgeItem;
-import fun.wraq.common.impl.tick.TickMainHandItem;
+import fun.wraq.common.impl.tick.TickEquip;
 import fun.wraq.common.equip.WraqSword;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.overworld.chapter7.C7Items;
-import fun.wraq.series.overworld.chapter7.vd.VdWeaponCommon;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -19,7 +18,7 @@ import net.minecraft.world.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VdSword extends WraqSword implements ForgeItem, ActiveItem, TickMainHandItem, VdWeaponCommon {
+public class VdSword extends WraqSword implements ForgeItem, ActiveItem, TickEquip, VdWeaponCommon {
 
     public VdSword(Properties properties) {
         super(properties);

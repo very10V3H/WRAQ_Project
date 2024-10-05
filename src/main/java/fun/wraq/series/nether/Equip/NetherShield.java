@@ -2,15 +2,15 @@ package fun.wraq.series.nether.Equip;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.equip.WraqOffHandItem;
+import fun.wraq.common.impl.display.ForgeItem;
+import fun.wraq.common.impl.onhit.OnHitEffectEquip;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.damage.Dot;
-import fun.wraq.common.impl.display.ForgeItem;
-import fun.wraq.common.impl.onhit.OnHitEffectOffHandWeapon;
-import fun.wraq.common.equip.WraqOffHandItem;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.overworld.chapter1.Mine.MineShield;
 import net.minecraft.ChatFormatting;
@@ -24,7 +24,7 @@ import net.minecraft.world.item.Items;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NetherShield extends WraqOffHandItem implements ForgeItem, OnHitEffectOffHandWeapon {
+public class NetherShield extends WraqOffHandItem implements ForgeItem, OnHitEffectEquip {
 
     public NetherShield(Properties properties) {
         super(properties, Component.literal("手盾").withStyle(CustomStyle.styleOfMine));

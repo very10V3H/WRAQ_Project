@@ -2,7 +2,7 @@ package fun.wraq.series.instance.series.ice.weapon;
 
 import fun.wraq.common.equip.WraqSword;
 import fun.wraq.common.impl.onhit.OnCritHitEffectMainHandWeapon;
-import fun.wraq.common.impl.onhit.OnHitEffectMainHandWeapon;
+import fun.wraq.common.impl.onhit.OnHitEffectEquip;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
@@ -17,7 +17,7 @@ import net.minecraft.world.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IceSword extends WraqSword implements OnHitEffectMainHandWeapon, OnCritHitEffectMainHandWeapon {
+public class IceSword extends WraqSword implements OnHitEffectEquip, OnCritHitEffectMainHandWeapon {
     public IceSword(Properties properties) {
         super(properties);
         Utils.attackDamage.put(this, 700d);

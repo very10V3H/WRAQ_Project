@@ -22,9 +22,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class InventoryOperation {
     public static int itemStackCount(Player player, Item item) {
@@ -174,10 +172,36 @@ public class InventoryOperation {
                 player.getItemBySlot(EquipmentSlot.FEET));
     }
 
+    public static List<ItemStack> getDistinctArmors(Player player) {
+        List<ItemStack> list = getArmors(player);
+        List<ItemStack> distinctArmors = new ArrayList<>();
+        Set<Class<? extends Item>> set = new HashSet<>();
+        for (ItemStack itemStack : list) {
+            if (!set.contains(itemStack.getItem().getClass())) {
+                set.add(itemStack.getItem().getClass());
+                distinctArmors.add(itemStack);
+            }
+        }
+        return distinctArmors;
+    }
+
     public static List<ItemStack> getAllEquipSlotItems(Player player) {
         List<ItemStack> list = new ArrayList<>(getArmors(player));
         if (Utils.mainHandTag.containsKey(player.getMainHandItem().getItem())) list.add(player.getMainHandItem());
         if (Utils.offHandTag.containsKey(player.getOffhandItem().getItem())) list.add(player.getOffhandItem());
         return list;
+    }
+
+    public static List<ItemStack> getDistinctAllEquipSlotItems(Player player) {
+        List<ItemStack> list = getAllEquipSlotItems(player);
+        List<ItemStack> distinctAllEquipSlotItems = new ArrayList<>();
+        Set<Class<? extends Item>> set = new HashSet<>();
+        for (ItemStack itemStack : list) {
+            if (!set.contains(itemStack.getItem().getClass())) {
+                set.add(itemStack.getItem().getClass());
+                distinctAllEquipSlotItems.add(itemStack);
+            }
+        }
+        return distinctAllEquipSlotItems;
     }
 }
