@@ -9,7 +9,6 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.ItemAndRate;
 import fun.wraq.common.util.Utils;
-import fun.wraq.events.core.InventoryCheck;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.AnimationPackets.AnimationTickResetS2CPacket;
@@ -23,7 +22,6 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -31,7 +29,6 @@ import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
@@ -246,16 +243,6 @@ public class VariousEvents {
     @SubscribeEvent
     public static void PreventBreak(BlockEvent.FarmlandTrampleEvent event) {
         event.setCanceled(true);
-    }
-
-    @SubscribeEvent
-    public static void EnchantmentBook(PlayerInteractEvent.RightClickItem event) {
-        ItemStack itemStack = event.getItemStack();
-        if (event.getSide().isServer() && itemStack.getOrCreateTag().contains("StoredEnchantments") && event.getHand().equals(InteractionHand.MAIN_HAND)) {
-            Player player = event.getEntity();
-            player.setItemInHand(InteractionHand.MAIN_HAND, Items.AIR.getDefaultInstance());
-            Compute.givePercentExpToPlayer(player, 0.1, 0, player.experienceLevel);
-        }
     }
 
     @SubscribeEvent

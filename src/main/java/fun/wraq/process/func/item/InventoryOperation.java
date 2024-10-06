@@ -56,6 +56,7 @@ public class InventoryOperation {
             list.forEach(stack -> {
                 removeItem(player.getInventory(), stack.getItem(), stack.getCount());
             });
+            return true;
         }
         return false;
     }

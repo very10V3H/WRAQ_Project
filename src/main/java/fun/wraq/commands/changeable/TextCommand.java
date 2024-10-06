@@ -15,6 +15,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
@@ -379,20 +380,25 @@ public class TextCommand implements Command<CommandSourceStack> {
         if (components.isEmpty()) {
             player.sendSystemMessage(Component.literal("检查参数"));
         } else {
-            for (int i = 0; i < components.size(); i++) {
-                ArmorStand armorStand = new ArmorStand(EntityType.ARMOR_STAND, player.level());
-                armorStand.setNoGravity(true);
-                armorStand.setCustomNameVisible(true);
-                armorStand.setCustomName(components.get(i));
-                armorStand.setInvulnerable(true);
-                armorStand.setInvisible(true);
-                armorStand.noPhysics = true;
-                armorStand.setBoundingBox(AABB.ofSize(new Vec3(0, 0, 0), 0.1, 0.1, 0.1));
-                armorStand.moveTo(player.pick(3, 0, false).getLocation().add(0, -0.25 * i, 0));
-                player.level().addFreshEntity(armorStand);
-                player.sendSystemMessage(Component.literal("已生成").withStyle(ChatFormatting.WHITE).
-                        append(components.get(i)));
+            summonArmorStand(components, player.level(), player.pick(3, 0, false).getLocation());
+            for (Component component : components) {
+                player.sendSystemMessage(Component.literal("已生成").withStyle(ChatFormatting.WHITE).append(component));
             }
+        }
+    }
+
+    public static void summonArmorStand(List<Component> components, Level level, Vec3 pos) {
+        for (int i = 0; i < components.size(); i++) {
+            ArmorStand armorStand = new ArmorStand(EntityType.ARMOR_STAND, level);
+            armorStand.setNoGravity(true);
+            armorStand.setCustomNameVisible(true);
+            armorStand.setCustomName(components.get(i));
+            armorStand.setInvulnerable(true);
+            armorStand.setInvisible(true);
+            armorStand.noPhysics = true;
+            armorStand.setBoundingBox(AABB.ofSize(new Vec3(0, 0, 0), 0.1, 0.1, 0.1));
+            armorStand.moveTo(pos.add(0, -0.25 * i, 0));
+            level.addFreshEntity(armorStand);
         }
     }
 }

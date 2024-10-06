@@ -24,6 +24,7 @@ import fun.wraq.events.mob.loot.*;
 import fun.wraq.files.dataBases.DBConnection;
 import fun.wraq.files.dataBases.DataBase;
 import fun.wraq.networking.ModNetworking;
+import fun.wraq.process.func.multiblockactive.rightclick.RightClickActiveHandler;
 import fun.wraq.process.func.plan.PlanPlayer;
 import fun.wraq.process.system.WorldRecordInfo;
 import fun.wraq.process.system.element.ElementItems;
@@ -142,6 +143,8 @@ public class VMD {
         VpDataHandler.firstRead();
         WorldRecordInfo.recordInfoMap = DataBase.readWorldInfo();
         TowerTimeRecord.readFromWorldRecordInfo();
+
+        RightClickActiveHandler.removeThenSummonArmorStandOnCenterPos(event.getServer().overworld());
     }
 
     @SubscribeEvent

@@ -7,6 +7,7 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.unSorted.VillagerTradeScreenS2CPacket;
+import fun.wraq.process.func.multiblockactive.rightclick.RightClickActiveHandler;
 import fun.wraq.render.gui.villagerTrade.MyVillagerData;
 import fun.wraq.render.gui.villagerTrade.TradeList;
 import net.minecraft.nbt.CompoundTag;
@@ -49,7 +50,11 @@ public class RightClickEvent {
         if (Utils.ItemRightClickCheck.containsKey(event.getItemStack().getItem()) && !player.isCreative())
             event.setCanceled(true);
 
-        NoTeamInstanceModule.handlePlayerRightClick(player);
+        // 需要判断当前与哪个手的物品上交互，否则将会执行两次
+        if (event.getSide().isServer() && event.getHand().equals(InteractionHand.MAIN_HAND)) {
+            NoTeamInstanceModule.handlePlayerRightClick(player);
+            RightClickActiveHandler.handleOnPlayerRightClick(player);
+        }
     }
 
     @SubscribeEvent
