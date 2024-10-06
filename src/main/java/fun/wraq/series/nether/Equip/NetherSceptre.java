@@ -6,7 +6,6 @@ import fun.wraq.common.equip.WraqSceptre;
 import fun.wraq.common.equip.impl.Laser;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
-import fun.wraq.common.impl.tick.TickEquip;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.system.element.Element;
@@ -27,7 +26,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 
-public class NetherSceptre extends WraqSceptre implements Laser, TickEquip {
+public class NetherSceptre extends WraqSceptre implements Laser {
 
     public NetherSceptre(Properties p_42964_) {
         super(p_42964_.rarity(CustomStyle.NetherItalic));

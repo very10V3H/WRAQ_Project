@@ -6,7 +6,6 @@ import fun.wraq.common.equip.WraqArmor;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.onhit.OnHitEffectEquip;
-import fun.wraq.common.impl.tick.TickEquip;
 import fun.wraq.common.registry.ItemMaterial;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
@@ -27,7 +26,7 @@ import net.minecraft.world.phys.AABB;
 
 import java.util.*;
 
-public class LightningArmor extends WraqArmor implements TickEquip, OnHitEffectEquip {
+public class LightningArmor extends WraqArmor implements OnHitEffectEquip {
 
     private final int tier;
     public LightningArmor(ItemMaterial material, Type type, Properties properties, int tier) {

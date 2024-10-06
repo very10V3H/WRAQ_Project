@@ -14,6 +14,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
@@ -91,5 +92,15 @@ public abstract class WraqArmor extends ArmorItem {
         if (player == null) return 0;
         return (int) InventoryOperation.getArmors(player)
                 .stream().filter(itemStack -> itemStack.getItem().getClass().equals(clazz)).count();
+    }
+
+    public void tick(Player player) {}
+
+    @Override
+    public void onInventoryTick(ItemStack stack, Level level, Player player, int slotIndex, int selectedIndex) {
+        if (!level.isClientSide) {
+            tick(player);
+        }
+        super.onInventoryTick(stack, level, player, slotIndex, selectedIndex);
     }
 }

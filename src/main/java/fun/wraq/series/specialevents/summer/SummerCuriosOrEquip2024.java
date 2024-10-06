@@ -3,7 +3,6 @@ package fun.wraq.series.specialevents.summer;
 import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.impl.inslot.InCuriosOrEquipSlotAttributesModify;
-import fun.wraq.common.impl.tick.TickCurios;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.item.InventoryOperation;
@@ -21,9 +20,10 @@ import net.minecraft.world.level.Level;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SummerCuriosOrEquip2024 extends WraqCurios implements InCuriosOrEquipSlotAttributesModify, TickCurios {
+public class SummerCuriosOrEquip2024 extends WraqCurios implements InCuriosOrEquipSlotAttributesModify {
 
     private final int tier;
+
     public SummerCuriosOrEquip2024(Properties properties, int tier) {
         super(properties);
         this.tier = tier;
@@ -83,21 +83,23 @@ public class SummerCuriosOrEquip2024 extends WraqCurios implements InCuriosOrEqu
 
     @Override
     public void tick(Player player) {
-        if (!player.level().isClientSide) {
-            if (player.tickCount % 300 == 0 && player.level().dimension().equals(Level.OVERWORLD)
-                    && MySeason.currentSeason.contains(MySeason.summer) && player.isInWater()
-                    && player.level().isDay()) {
-                InventoryOperation.itemStackGive(player, new ItemStack(Items.TROPICAL_FISH));
-                Compute.sendFormatMSG(player, Component.literal("摸鱼!").withStyle(CustomStyle.styleOfWater),
-                        Component.literal("你摸到了一条鱼！").withStyle(ChatFormatting.GOLD));
-            }
-        } else {
-            int rate = 1;
-            if (player.isInWater()
-                    || (player.level().dimension().equals(Level.OVERWORLD)
-                    && MySeason.clientSeason != null && MySeason.clientSeason.contains(MySeason.summer))) rate = 2;
-            Compute.sendEffectLastTimeToClientPlayer(this, rate, 20, false);
+        if (player.tickCount % 300 == 0 && player.level().dimension().equals(Level.OVERWORLD)
+                && MySeason.currentSeason.contains(MySeason.summer) && player.isInWater()
+                && player.level().isDay()) {
+            InventoryOperation.itemStackGive(player, new ItemStack(Items.TROPICAL_FISH));
+            Compute.sendFormatMSG(player, Component.literal("摸鱼!").withStyle(CustomStyle.styleOfWater),
+                    Component.literal("你摸到了一条鱼！").withStyle(ChatFormatting.GOLD));
         }
+    }
+
+    @Override
+    public void clientTick(Player player) {
+        int rate = 1;
+        if (player.isInWater()
+                || (player.level().dimension().equals(Level.OVERWORLD)
+                && MySeason.clientSeason != null && MySeason.clientSeason.contains(MySeason.summer))) rate = 2;
+        Compute.sendEffectLastTimeToClientPlayer(this, rate, 20, false);
+        super.clientTick(player);
     }
 
     @Override

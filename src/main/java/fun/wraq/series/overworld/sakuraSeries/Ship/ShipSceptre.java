@@ -4,7 +4,6 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.equip.WraqSceptre;
 import fun.wraq.common.impl.inslot.InCuriosOrEquipSlotAttributesModify;
-import fun.wraq.common.impl.tick.TickEquip;
 import fun.wraq.common.registry.ModEntityType;
 import fun.wraq.common.registry.ModSounds;
 import fun.wraq.common.registry.MySound;
@@ -31,7 +30,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 
-public class ShipSceptre extends WraqSceptre implements InCuriosOrEquipSlotAttributesModify, TickEquip {
+public class ShipSceptre extends WraqSceptre implements InCuriosOrEquipSlotAttributesModify {
 
     public ShipSceptre(Properties p_42964_) {
         super(p_42964_.rarity(CustomStyle.ShipItalic));

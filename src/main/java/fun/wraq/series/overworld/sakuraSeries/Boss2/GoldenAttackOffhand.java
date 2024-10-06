@@ -138,7 +138,8 @@ public class GoldenAttackOffhand extends WraqOffHandItem implements OnKillEffect
         }
     }
 
-    public static void tick(Player player) {
+    @Override
+    public void tick(Player player) {
         int tick = player.getServer().getTickCount();
         String name = player.getName().getString();
         if (passiveLastTimeMap.getOrDefault(name, 0) > tick && !(player.getOffhandItem().getItem() instanceof GoldenAttackOffhand)) {

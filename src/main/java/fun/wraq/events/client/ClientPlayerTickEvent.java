@@ -3,7 +3,6 @@ package fun.wraq.events.client;
 import fun.wraq.Items.MainStory_1.BackSpawn;
 import fun.wraq.Items.MainStory_1.Mission.Main0;
 import fun.wraq.common.Compute;
-import fun.wraq.common.impl.tick.TickCurios;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.Utils;
@@ -79,7 +78,6 @@ public class ClientPlayerTickEvent {
         if (!event.player.equals(Minecraft.getInstance().player)) return;
         MyWayPoint.clientTick(event);
         if (event.side.isClient() && event.phase.equals(TickEvent.Phase.START)) {
-            TickCurios.tickEvent(event.player);
             Main0.clientTick(event.player);
             Compute.setDownDeltaInLowGravityEnvironment((LocalPlayer) event.player);
             ItemAndExpGetHud.clientTick();

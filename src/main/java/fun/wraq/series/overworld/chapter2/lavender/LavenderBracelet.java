@@ -78,7 +78,8 @@ public class LavenderBracelet extends WraqCurios implements RandomCurios, UsageO
         return components;
     }
 
-    public static void tick(Player player) {
+    @Override
+    public void tick(Player player) {
         if (player.tickCount % 20 == 0 && WraqCurios.isOn(LavenderBracelet.class, player)) {
             Shield.providePlayerShield(player, 30, PlayerAttributes.maxHealth(player) * 0.05);
         }

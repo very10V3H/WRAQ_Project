@@ -119,7 +119,8 @@ public class GoldenBook extends WraqOffHandItem implements OnKillEffectEquip {
         }
     }
 
-    public static void tick(Player player) {
+    @Override
+    public void tick(Player player) {
         int tick = player.getServer().getTickCount();
         String name = player.getName().getString();
         if (passiveLastTimeMap.getOrDefault(name, 0) > tick && !(player.getOffhandItem().getItem() instanceof GoldenBook)) {
