@@ -7,6 +7,7 @@ import fun.wraq.commands.stable.ops.RoadCommand;
 import fun.wraq.commands.stable.players.DpsCommand;
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.tick.TickCurios;
 import fun.wraq.common.impl.tick.TickEquip;
 import fun.wraq.common.registry.ModItems;
@@ -43,6 +44,7 @@ import fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSwo
 import fun.wraq.process.system.element.networking.CurrentSeasonAndResonanceTypeS2CPacket;
 import fun.wraq.process.system.missions.Mission;
 import fun.wraq.process.system.missions.series.dailyMission.DailyMission;
+import fun.wraq.process.system.point.Point;
 import fun.wraq.process.system.respawn.MyRespawnRule;
 import fun.wraq.process.system.season.MySeason;
 import fun.wraq.process.system.tower.TowerMob;
@@ -150,6 +152,11 @@ public class ServerPlayerTickEvent {
             TickCurios.tickEvent(player);
 
             TickEquip.handleTick(player);
+
+            // 探索点数发包
+            if (Tick.get() % 20 == 0) {
+                Point.sendDataToClient(player);
+            }
 
             if (player.tickCount % 20 == 4) {
                 List<EntityLeafcutterAnt> ants = serverPlayer.level().getEntitiesOfClass(EntityLeafcutterAnt.class, AABB.ofSize(serverPlayer.position(), 100, 100, 100));

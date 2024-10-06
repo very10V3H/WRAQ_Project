@@ -1,5 +1,7 @@
 package fun.wraq.render.gui.skills;
 
+import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
@@ -11,6 +13,7 @@ import fun.wraq.process.func.guide.networking.GuideFinishC2SPacket;
 import fun.wraq.process.func.plan.DailySupply;
 import fun.wraq.process.func.plan.networking.DailySupplyC2SPacket;
 import fun.wraq.process.system.missions.netWorking.MissionScreenOpenC2SPacket;
+import fun.wraq.process.system.point.Point;
 import fun.wraq.process.system.tower.TowerScreen;
 import fun.wraq.process.system.vp.VpStoreScreen;
 import fun.wraq.render.gui.illustrate.Illustrate;
@@ -256,50 +259,100 @@ public class IdCardGui extends Screen {
         assert Minecraft.getInstance().player != null;
         guiGraphics.drawCenteredString(fontRenderer, Minecraft.getInstance().player.getName(), this.width / 2 - 100, this.height / 2 - 88, 5636095);
 
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal("基础攻击").withStyle(ChatFormatting.AQUA), this.width / 2 - 116, this.height / 2 - 71, 0);
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%.0f", ClientUtils.AttackDamageC)), this.width / 2 - 87, this.height / 2 - 71, 5636095);
+        /* - */
 
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal("护甲穿透").withStyle(ChatFormatting.GRAY), this.width / 2 - 116, this.height / 2 - 54, 0);
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%.0f%%", ClientUtils.BreakDefenceC * 100)), this.width / 2 - 87, this.height / 2 - 54, 11184810);
+        if (!Point.clientData.isEmpty()) {
+            for (int i = 1 ; i <= Point.DESCRIPTION.size() ; i ++) {
+                String type = Point.DESCRIPTION.keySet().stream().toList().get(i - 1);
+                Component typeDescription = Point.TYPE.get(type);
+                double value = Point.clientData.get(i - 1);
+                guiGraphics.drawCenteredString(fontRenderer, typeDescription,
+                        this.width / 2 - 116 + 62 * (i / 5), this.height / 2 - 88 + 17 * (i % 5), 0);
+                guiGraphics.drawCenteredString(fontRenderer, Te.m(Compute.getSimplifiedNumberDescription(value)),
+                        this.width / 2 - 87 + 62 * (i / 5), this.height / 2 - 88 + 17 * (i % 5), 0);
+                if (x > this.width / 2 - 116 + 62 * (i / 5) - 10 && x < this.width / 2 - 116 + 62 * (i / 5) + 10
+                        && y > this.height / 2 - 88 + 17 * (i % 5) && y < this.height / 2 - 88 + 17 * (i % 5) + 10) {
+                    List<Component> components = new ArrayList<>();
+                    components.add(Point.DESCRIPTION.get(type));
+                    components.add(Te.s("当前拥有" + String.format("%.2f", value) + "点"));
+                    guiGraphics.renderComponentTooltip(font, components, x, y);
+                }
+            }
+        }
 
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal("暴击几率").withStyle(ChatFormatting.LIGHT_PURPLE), this.width / 2 - 116, this.height / 2 - 37, 0);
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%.0f%%", ClientUtils.CritRateC * 100)), this.width / 2 - 87, this.height / 2 - 37, 16733695);
+/*        guiGraphics.drawCenteredString(fontRenderer, Component.literal("基础攻击").withStyle(ChatFormatting.AQUA),
+                this.width / 2 - 116, this.height / 2 - 71, 0);
+        guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%.0f", ClientUtils.AttackDamageC)),
+                this.width / 2 - 87, this.height / 2 - 71, 5636095);
 
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal("暴击伤害").withStyle(ChatFormatting.BLUE), this.width / 2 - 116, this.height / 2 - 20, 0);
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%.0f%%", ClientUtils.CritDamageC * 100)), this.width / 2 - 87, this.height / 2 - 20, 5592575);
+        guiGraphics.drawCenteredString(fontRenderer, Component.literal("护甲穿透").withStyle(ChatFormatting.GRAY),
+                this.width / 2 - 116, this.height / 2 - 54, 0);
+        guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%.0f%%", ClientUtils.BreakDefenceC * 100)),
+                this.width / 2 - 87, this.height / 2 - 54, 11184810);
 
+        guiGraphics.drawCenteredString(fontRenderer, Component.literal("暴击几率").withStyle(ChatFormatting.LIGHT_PURPLE),
+                this.width / 2 - 116, this.height / 2 - 37, 0);
+        guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%.0f%%", ClientUtils.CritRateC * 100)),
+                this.width / 2 - 87, this.height / 2 - 37, 16733695);
 
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal("法术攻击").withStyle(ChatFormatting.LIGHT_PURPLE), this.width / 2 - 54, this.height / 2 - 88, 0);
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%.0f", ClientUtils.ManaDamageC)), this.width / 2 - 25, this.height / 2 - 88, 16733695);
-
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal("法术穿透").withStyle(ChatFormatting.BLUE), this.width / 2 - 54, this.height / 2 - 71, 0);
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%.0f%%", ClientUtils.BreakManaDefenceC * 100)), this.width / 2 - 25, this.height / 2 - 71, 5592575);
-
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal("法力回复").withStyle(ChatFormatting.LIGHT_PURPLE), this.width / 2 - 54, this.height / 2 - 54, 0);
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%.0f", ClientUtils.ManaReplyC + 5)), this.width / 2 - 25, this.height / 2 - 54, 16733695);
-
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal("技能急速").withStyle(ChatFormatting.AQUA), this.width / 2 - 54, this.height / 2 - 37, 0);
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%.0f", ClientUtils.CoolDownC * 100)), this.width / 2 - 25, this.height / 2 - 37, 5636095);
-
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal("移动速度").withStyle(ChatFormatting.GREEN), this.width / 2 - 54, this.height / 2 - 20, 0);
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%.0f%%", ClientUtils.SpeedC * 100)), this.width / 2 - 25, this.height / 2 - 20, 5635925);
+        guiGraphics.drawCenteredString(fontRenderer, Component.literal("暴击伤害").withStyle(ChatFormatting.BLUE),
+                this.width / 2 - 116, this.height / 2 - 20, 0);
+        guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%.0f%%", ClientUtils.CritDamageC * 100)),
+                this.width / 2 - 87, this.height / 2 - 20, 5592575);
 
 
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal("生命偷取").withStyle(ChatFormatting.RED), this.width / 2 + 8, this.height / 2 - 88, 0);
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%.0f%%", ClientUtils.HealStealC * 100)), this.width / 2 + 37, this.height / 2 - 88, 16733525);
+        guiGraphics.drawCenteredString(fontRenderer, Component.literal("法术攻击").withStyle(ChatFormatting.LIGHT_PURPLE),
+                this.width / 2 - 54, this.height / 2 - 88, 0);
+        guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%.0f", ClientUtils.ManaDamageC)),
+                this.width / 2 - 25, this.height / 2 - 88, 16733695);
 
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal("固定穿甲").withStyle(ChatFormatting.GRAY), this.width / 2 + 8, this.height / 2 - 71, 0);
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%.0f", ClientUtils.BreakDefence0C)), this.width / 2 + 37, this.height / 2 - 71, 11184810);
+        guiGraphics.drawCenteredString(fontRenderer, Component.literal("法术穿透").withStyle(ChatFormatting.BLUE),
+                this.width / 2 - 54, this.height / 2 - 71, 0);
+        guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%.0f%%", ClientUtils.BreakManaDefenceC * 100)),
+                this.width / 2 - 25, this.height / 2 - 71, 5592575);
 
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal("基础护甲").withStyle(ChatFormatting.GRAY), this.width / 2 + 8, this.height / 2 - 54, 0);
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%.0f", ClientUtils.DefenceC)), this.width / 2 + 37, this.height / 2 - 54, 11184810);
+        guiGraphics.drawCenteredString(fontRenderer, Component.literal("法力回复").withStyle(ChatFormatting.LIGHT_PURPLE),
+                this.width / 2 - 54, this.height / 2 - 54, 0);
+        guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%.0f", ClientUtils.ManaReplyC + 5)),
+                this.width / 2 - 25, this.height / 2 - 54, 16733695);
 
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal("法术抗性").withStyle(ChatFormatting.BLUE), this.width / 2 + 8, this.height / 2 - 37, 0);
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%.0f", ClientUtils.ManaDefenceC)), this.width / 2 + 37, this.height / 2 - 37, 5592575);
+        guiGraphics.drawCenteredString(fontRenderer, Component.literal("技能急速").withStyle(ChatFormatting.AQUA),
+                this.width / 2 - 54, this.height / 2 - 37, 0);
+        guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%.0f", ClientUtils.CoolDownC * 100)),
+                this.width / 2 - 25, this.height / 2 - 37, 5636095);
 
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal("生命值").withStyle(ChatFormatting.GREEN), this.width / 2 + 8, this.height / 2 - 20, 0);
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%.0f", Minecraft.getInstance().player.getMaxHealth())), this.width / 2 + 37, this.height / 2 - 20, 5635925);
+        guiGraphics.drawCenteredString(fontRenderer, Component.literal("移动速度").withStyle(ChatFormatting.GREEN),
+                this.width / 2 - 54, this.height / 2 - 20, 0);
+        guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%.0f%%", ClientUtils.SpeedC * 100)),
+                this.width / 2 - 25, this.height / 2 - 20, 5635925);
 
+
+        guiGraphics.drawCenteredString(fontRenderer, Component.literal("生命偷取").withStyle(ChatFormatting.RED),
+                this.width / 2 + 8, this.height / 2 - 88, 0);
+        guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%.0f%%", ClientUtils.HealStealC * 100)),
+                this.width / 2 + 37, this.height / 2 - 88, 16733525);
+
+        guiGraphics.drawCenteredString(fontRenderer, Component.literal("固定穿甲").withStyle(ChatFormatting.GRAY),
+                this.width / 2 + 8, this.height / 2 - 71, 0);
+        guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%.0f", ClientUtils.BreakDefence0C)),
+                this.width / 2 + 37, this.height / 2 - 71, 11184810);
+
+        guiGraphics.drawCenteredString(fontRenderer, Component.literal("基础护甲").withStyle(ChatFormatting.GRAY),
+                this.width / 2 + 8, this.height / 2 - 54, 0);
+        guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%.0f", ClientUtils.DefenceC)),
+                this.width / 2 + 37, this.height / 2 - 54, 11184810);
+
+        guiGraphics.drawCenteredString(fontRenderer, Component.literal("法术抗性").withStyle(ChatFormatting.BLUE),
+                this.width / 2 + 8, this.height / 2 - 37, 0);
+        guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%.0f", ClientUtils.ManaDefenceC)),
+                this.width / 2 + 37, this.height / 2 - 37, 5592575);
+
+        guiGraphics.drawCenteredString(fontRenderer, Component.literal("生命值").withStyle(ChatFormatting.GREEN),
+                this.width / 2 + 8, this.height / 2 - 20, 0);
+        guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%.0f", Minecraft.getInstance().player.getMaxHealth())),
+                this.width / 2 + 37, this.height / 2 - 20, 5635925);*/
+
+        /* - */
         int PowerOffsetX = 100;
         int PowerOffsetY = -84;
         guiGraphics.drawCenteredString(fontRenderer, Component.literal("力量").withStyle(CustomStyle.styleOfPower), this.width / 2 + 100, this.height / 2 - 16 - 68, 0);

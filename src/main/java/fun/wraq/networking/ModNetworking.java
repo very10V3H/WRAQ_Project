@@ -69,6 +69,7 @@ import fun.wraq.process.system.lottery.networking.LotteryRewardS2CPacket;
 import fun.wraq.process.system.missions.netWorking.*;
 import fun.wraq.process.system.missions.series.dailyMission.netWorking.DailyMissionStatusS2CPacket;
 import fun.wraq.process.system.missions.series.labourDay.netWorking.LabourDayMissionStatusS2CPacket;
+import fun.wraq.process.system.point.network.PointDataS2CPacket;
 import fun.wraq.process.system.randomStore.networking.TradeListClearS2CPacket;
 import fun.wraq.process.system.randomStore.networking.TradeListS2CPacket;
 import fun.wraq.process.system.smelt.SmeltDataRequestC2SPacket;
@@ -1313,7 +1314,6 @@ public class ModNetworking {
                 .encoder(DisperseBallParticleS2CPacket::toBytes)
                 .consumerMainThread(DisperseBallParticleS2CPacket::handle)
                 .add();
-
         net.messageBuilder(ExpGetS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
                 .decoder(ExpGetS2CPacket::new)
                 .encoder(ExpGetS2CPacket::toBytes)
@@ -1323,6 +1323,11 @@ public class ModNetworking {
                 .decoder(ItemGetS2CPacket::new)
                 .encoder(ItemGetS2CPacket::toBytes)
                 .consumerMainThread(ItemGetS2CPacket::handle)
+                .add();
+        net.messageBuilder(PointDataS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(PointDataS2CPacket::new)
+                .encoder(PointDataS2CPacket::toBytes)
+                .consumerMainThread(PointDataS2CPacket::handle)
                 .add();
     }
 

@@ -2014,4 +2014,33 @@ public class Compute {
             player.setDeltaMovement(player.getDeltaMovement().add(0, -0.05, 0));
         }
     }
+
+    /**
+     * 将数值转换为长度较短的字符串以更好地展示 保证最多占用五位
+     * @param value 数值
+     * @return 简化后字符串形式数值
+     */
+    public static String getSimplifiedNumberDescription(double value) {
+        if (value < 1000) {
+            // 正常显示 999.9
+            return String.format("%.1f", value);
+        }
+        if (value < 10000) {
+            // 显示99.99k
+            return String.format("%.2fk", value / 1000);
+        }
+        if (value < 10000000) {
+            // 显示99.99w
+            if (value > 1000000) {
+                return String.format("%.1fw", value / 10000);
+            }
+            return String.format("%.2fw", value / 10000);
+        }
+        if (value < 100000000) {
+            // 显示99.9kw
+            return String.format("%.1fkw", value / 10000000);
+        }
+        // 显示99.99e
+        return String.format("%.2fe", value / 100000000);
+    }
 }
