@@ -1719,6 +1719,18 @@
   "item.vmd.moon_attack_gem_o": "尘月明镜粉钻",
   "item.vmd.moon_mana_gem_o": "尘月天镜粉钻",
 
+  "item.vmd.expt": "探勘点数",
+  "item.vmd.dspt": "德朗斯蒂克探索点",
+  "item.vmd.elpt": "艾里蒙特探索点",
+  "item.vmd.skpt": "绯樱岛探索点",
+  "item.vmd.ntpt": "下界征讨点数",
+  "item.vmd.edpt": "终界征讨点数",
+  "item.vmd.bcpt": "暗黑城堡征讨点数",
+  "item.vmd.mtpt": "望山探索点数",
+  "item.vmd.ocpt": "海洋探索点数",
+  "item.vmd.nopt": "北洋探索点",
+  "item.vmd.atpt": "考勤点数",
+
   "curios.identifier.rune": "符石",
   "curios.identifier.crest": "纹章",
 
