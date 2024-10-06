@@ -1,5 +1,6 @@
 package fun.wraq.process.system.point;
 
+import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.system.point.network.PointDataS2CPacket;
@@ -7,10 +8,14 @@ import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Point {
 
@@ -88,6 +93,20 @@ public class Point {
         put(ATPT, Te.m("ATPT", CustomStyle.styleOfGold));
     }};
 
+    public static final Map<String, Style> STYLE = new LinkedHashMap<>() {{
+        put(EXPT, CustomStyle.styleOfWorld);
+        put(DSPT, CustomStyle.styleOfPlain);
+        put(ELPT, CustomStyle.styleOfMoon);
+        put(SKPT, CustomStyle.styleOfSakura);
+        put(NTPT, CustomStyle.styleOfRed);
+        put(EDPT, CustomStyle.styleOfEnd);
+        put(BCPT, CustomStyle.styleOfCastleCrystal);
+        put(MTPT, CustomStyle.styleOfMoontain);
+        put(OCPT, CustomStyle.styleOfSea);
+        put(NOPT, CustomStyle.styleOfIce);
+        put(ATPT, CustomStyle.styleOfGold);
+    }};
+
     private static final String TAG_KEY = "wraq_point";
 
     private static CompoundTag getTag(Player player) {
@@ -100,7 +119,9 @@ public class Point {
 
     public static void increment(Player player, String type, int num) {
         CompoundTag tag = getTag(player);
-        tag.putInt(type, tag.getInt(type) + num);
+        int currentNum = tag.getInt(type);
+        tag.putInt(type, currentNum + num);
+        sendFormatMSG(player, Te.s(DESCRIPTION.get(type), " + " + num, ChatFormatting.AQUA, " (" + (currentNum + num) + ")"));
     }
 
     public static boolean decrement(Player player, String type, int num) {
@@ -108,7 +129,9 @@ public class Point {
         if (tag.getInt(type) < num) {
             return false;
         }
-        tag.putInt(type, tag.getInt(type) - num);
+        int currentNum = tag.getInt(type);
+        tag.putInt(type, currentNum - num);
+        sendFormatMSG(player, Te.s(DESCRIPTION.get(type), " - " + num, ChatFormatting.RED, " (" + (currentNum - num) + ")"));
         return true;
     }
 
@@ -123,5 +146,9 @@ public class Point {
 
     public static void sendDataToClient(Player player) {
         ModNetworking.sendToClient(new PointDataS2CPacket(getAllData(player)), (ServerPlayer) player);
+    }
+
+    private static void sendFormatMSG(Player player, Component content) {
+        Compute.sendFormatMSG(player, Te.m("点数", CustomStyle.styleOfWorld), content);
     }
 }

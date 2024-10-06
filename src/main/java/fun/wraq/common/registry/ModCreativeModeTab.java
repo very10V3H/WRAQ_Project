@@ -1,10 +1,9 @@
 package fun.wraq.common.registry;
 
-import fun.wraq.common.registry.ModBlocks;
-import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.Utils;
 import fun.wraq.customized.UniformItems;
 import fun.wraq.events.mob.loot.C1LootItems;
+import fun.wraq.process.system.point.PointItems;
 import fun.wraq.process.system.spur.Items.SpurItems;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -57,6 +56,8 @@ public class ModCreativeModeTab {
             CreativeModeTab.builder().icon(() -> new ItemStack(SpurItems.cropPiece.get())).title(Component.literal("支线")).build());
     public static RegistryObject<CreativeModeTab> BLOCK = CREATIVE_MODE_TAB.register("block", () ->
             CreativeModeTab.builder().icon(() -> new ItemStack(ModBlocks.WRAQ_ORE_1.get().asItem())).title(Component.literal("方块")).build());
+    public static RegistryObject<CreativeModeTab> POINT = CREATIVE_MODE_TAB.register("point", () ->
+            CreativeModeTab.builder().icon(() -> new ItemStack(PointItems.EXPT.get().asItem())).title(Component.literal("点数物品")).build());
 
     public static void register(IEventBus eventBus) {
         CREATIVE_MODE_TAB.register(eventBus);

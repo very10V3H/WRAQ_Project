@@ -33,6 +33,7 @@ import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.process.system.lottery.NewLotteries;
 import fun.wraq.process.system.market.MarketInfo;
 import fun.wraq.process.system.ore.OreItems;
+import fun.wraq.process.system.point.PointItems;
 import fun.wraq.process.system.spur.Items.SpurItems;
 import fun.wraq.process.system.teamInstance.NewTeamInstance;
 import fun.wraq.process.system.teamInstance.NewTeamInstanceEvent;
@@ -113,6 +114,7 @@ public class VMD {
         MixtureItems.ITEMS.register(modEvenBus);
         OreItems.ITEMS.register(modEvenBus);
         MoontainItems.ITEMS.register(modEvenBus);
+        PointItems.ITEMS.register(modEvenBus);
 
         ModBlocks.BLOCKS.register(modEvenBus);
         ModEntityType.ENTITY_TYPES.register(modEvenBus);
@@ -660,6 +662,13 @@ public class VMD {
                     .stream().map(block -> block.get().asItem())
                     .forEach(event::accept);
         }
+        if (event.getTabKey().equals(ModCreativeModeTab.POINT.getKey())) {
+            PointItems.ITEMS.getEntries()
+                    .stream()
+                    .map(entry -> entry.get().asItem())
+                    .forEach(event::accept);
+        }
+
     }
 }
 
