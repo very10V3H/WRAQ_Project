@@ -92,4 +92,19 @@ public abstract class WraqCurios extends Item implements ICurioItem {
         return map.containsKey(player.getName().getString())
                 && map.get(player.getName().getString()) > player.getServer().getTickCount();
     }
+
+    public void tick(Player player) {}
+    public void clientTick(Player player) {}
+
+    @Override
+    public void curioTick(SlotContext slotContext, ItemStack stack) {
+        Player player = (Player) slotContext.entity();
+        if (player.level().isClientSide) {
+            clientTick(player);
+        }
+        else {
+            tick(player);
+        }
+        ICurioItem.super.curioTick(slotContext, stack);
+    }
 }

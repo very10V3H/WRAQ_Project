@@ -1,11 +1,11 @@
 package fun.wraq.series.newrunes.chapter1;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqCurios;
+import fun.wraq.common.impl.display.UsageOrGetWayDescriptionItem;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.chapter1.MineSkeletonSpawnController;
-import fun.wraq.common.impl.display.UsageOrGetWayDescriptionItem;
-import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.newrunes.NewRuneItems;
 import fun.wraq.series.newrunes.RuneItem;
@@ -59,13 +59,15 @@ public class MineNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDe
         return WraqCurios.isOn(MineNewRune.class, player) && player.getHealth() / player.getMaxHealth() >= 0.6;
     }
 
-    public static void tick(Player player) {
-        if (player.tickCount % 20 == 8)
+    @Override
+    public void tick(Player player) {
+        if (player.tickCount % 20 == 8) {
             if (passiveTrig(player)) {
                 Compute.sendEffectLastTime(player, NewRuneItems.mineNewRune.get(), 0, true);
             } else {
                 Compute.removeEffectLastTime(player, NewRuneItems.mineNewRune.get());
             }
+        }
     }
 
     public static double withstandDamageInfluence(Player player) {

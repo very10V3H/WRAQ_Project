@@ -76,7 +76,8 @@ public class MoonNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDe
         return count;
     }
 
-    public static void tick(Player player) {
+    @Override
+    public void tick(Player player) {
         int count = getPassiveCount(player);
         if (count > 0) {
             Compute.sendEffectLastTime(player, NewRuneItems.moonNewRune.get(), count, true);

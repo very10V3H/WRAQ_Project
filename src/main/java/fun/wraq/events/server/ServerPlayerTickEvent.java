@@ -8,8 +8,6 @@ import fun.wraq.commands.stable.players.DpsCommand;
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.fast.Tick;
-import fun.wraq.common.impl.tick.TickCurios;
-import fun.wraq.common.impl.tick.TickEquip;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
@@ -57,16 +55,7 @@ import fun.wraq.series.instance.series.castle.CastleAttackArmor;
 import fun.wraq.series.instance.series.castle.CastleManaArmor;
 import fun.wraq.series.instance.series.castle.CastleSwiftArmor;
 import fun.wraq.series.instance.series.moon.Equip.MoonBelt;
-import fun.wraq.series.newrunes.chapter1.MineNewRune;
-import fun.wraq.series.newrunes.chapter2.EvokerNewRune;
-import fun.wraq.series.newrunes.chapter2.HuskNewRune;
-import fun.wraq.series.newrunes.chapter2.LightningNewRune;
-import fun.wraq.series.newrunes.chapter2.SkyNewRune;
-import fun.wraq.series.newrunes.chapter6.MoonNewRune;
-import fun.wraq.series.overworld.chapter2.lavender.LavenderBracelet;
 import fun.wraq.series.overworld.chapter7.star.StarBottle;
-import fun.wraq.series.overworld.sakuraSeries.Boss2.GoldenAttackOffhand;
-import fun.wraq.series.overworld.sakuraSeries.Boss2.GoldenBook;
 import fun.wraq.series.overworld.sakuraSeries.EarthMana.EarthBook;
 import fun.wraq.series.overworld.sakuraSeries.Slime.SlimeBoots;
 import fun.wraq.series.specialevents.labourDay.LabourDayIronHoe;
@@ -137,21 +126,9 @@ public class ServerPlayerTickEvent {
             BackSpawn.tick(player);
             MyRespawnRule.setPlayerSpawnPoint(player);
             WraqForge.tick(event);
-            LavenderBracelet.tick(player);
             PlanPlayer.setFoodData(serverPlayer);
-            GoldenBook.tick(player);
-            GoldenAttackOffhand.tick(player);
-            EvokerNewRune.tick(player);
-            LightningNewRune.tick(player);
-            HuskNewRune.tick(player);
-            MineNewRune.tick(player);
             WorldBorder.playerTick(event);
-            SkyNewRune.tick(player);
-            MoonNewRune.tick(player);
             SummerEvent.tick(player);
-            TickCurios.tickEvent(player);
-
-            TickEquip.handleTick(player);
 
             // 探索点数发包
             if (Tick.get() % 20 == 0) {

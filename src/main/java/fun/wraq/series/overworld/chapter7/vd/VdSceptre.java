@@ -1,6 +1,9 @@
 package fun.wraq.series.overworld.chapter7.vd;
 
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.equip.WraqSceptre;
+import fun.wraq.common.equip.impl.ActiveItem;
+import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.registry.ModEntityType;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.ModSounds;
@@ -9,10 +12,6 @@ import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.particle.ParticleProvider;
-import fun.wraq.common.equip.impl.ActiveItem;
-import fun.wraq.common.impl.display.ForgeItem;
-import fun.wraq.common.impl.tick.TickEquip;
-import fun.wraq.common.equip.WraqSceptre;
 import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.render.particles.ModParticles;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -30,7 +29,7 @@ import net.minecraft.world.level.Level;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VdSceptre extends WraqSceptre implements ForgeItem, ActiveItem, TickEquip, VdWeaponCommon {
+public class VdSceptre extends WraqSceptre implements ForgeItem, ActiveItem, VdWeaponCommon {
     public VdSceptre(Properties properties) {
         super(properties);
         Utils.manaDamage.put(this, 3600d);

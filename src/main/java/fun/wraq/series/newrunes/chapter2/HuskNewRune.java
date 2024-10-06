@@ -76,7 +76,8 @@ public class HuskNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDe
         ParticleProvider.dustParticle(player, mob.getEyePosition().add(0, 0, 0), 0.3, 8, CustomStyle.styleOfHusk.getColor().getValue());
     }
 
-    public static void tick(Player player) {
+    @Override
+    public void tick(Player player) {
         if (!isOn(player)) {
             Compute.removeEffectLastTime(player, NewRuneItems.huskNewRune.get());
             return;

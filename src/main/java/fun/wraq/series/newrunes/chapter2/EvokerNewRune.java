@@ -59,7 +59,8 @@ public class EvokerNewRune extends WraqCurios implements RuneItem, UsageOrGetWay
         return ComponentUtils.getSuffixChapterII();
     }
 
-    public static void tick(Player player) {
+    @Override
+    public void tick(Player player) {
         if (WraqCurios.isOn(EvokerNewRune.class, player)) {
             int tick = player.getServer().getTickCount();
             if (tick % 80 == 0) {

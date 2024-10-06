@@ -76,7 +76,8 @@ public class LightningNewRune extends WraqCurios implements RuneItem, UsageOrGet
         return WraqCurios.isOn(LightningNewRune.class, player);
     }
 
-    public static void tick(Player player) {
+    @Override
+    public void tick(Player player) {
         if (!isOn(player)) {
             Compute.removeEffectLastTime(player, NewRuneItems.lightningNewRune.get());
             return;
