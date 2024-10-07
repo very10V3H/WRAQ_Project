@@ -1,14 +1,13 @@
 package fun.wraq.series.instance.quiver;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqBow;
+import fun.wraq.common.equip.WraqPassiveEquip;
+import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.common.equip.impl.ActiveItem;
-import fun.wraq.common.equip.WraqBow;
-import fun.wraq.common.equip.WraqPassiveEquip;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.instance.quiver.QuiverItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -84,6 +83,7 @@ public class WraqQuiver extends WraqPassiveEquip implements ActiveItem {
     public static WeakHashMap<Player, Queue<Double>> exShootRateQueueMap = new WeakHashMap<>();
 
     public static void addExShoot(Player player, double rate) {
+        exShootRateQueueMap.entrySet().removeIf(entry -> !entry.getKey().isAlive());
         if (!exShootRateQueueMap.containsKey(player)) exShootRateQueueMap.put(player, new ArrayDeque<>());
         Queue<Double> queue = exShootRateQueueMap.get(player);
         queue.add(rate);

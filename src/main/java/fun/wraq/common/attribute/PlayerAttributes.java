@@ -34,11 +34,9 @@ import fun.wraq.series.instance.series.castle.CastleManaArmor;
 import fun.wraq.series.instance.series.castle.CastleSwiftArmor;
 import fun.wraq.series.instance.series.castle.CastleSword;
 import fun.wraq.series.instance.series.devil.DevilAttackArmor;
-import fun.wraq.series.instance.series.devil.DevilSwiftArmor;
 import fun.wraq.series.instance.series.moon.Equip.MoonBook;
 import fun.wraq.series.instance.series.moon.Equip.MoonKnife;
 import fun.wraq.series.instance.series.moon.Equip.MoonShield;
-import fun.wraq.series.instance.series.taboo.TabooManaArmor;
 import fun.wraq.series.newrunes.chapter1.ForestNewRune;
 import fun.wraq.series.newrunes.chapter1.PlainNewRune;
 import fun.wraq.series.newrunes.chapter2.SkyNewRune;
@@ -856,10 +854,6 @@ public class PlayerAttributes {
 
         if (data.getInt(StringUtils.PlainSwordActive.PlainSceptre) > TickCount) exDefence += 1;
 
-        if (data.contains(StringUtils.Ability.Power) && data.getInt(StringUtils.Ability.Power) > 0) {
-            exDefence += data.getInt(StringUtils.Ability.Power);
-        } // 能力
-
         String name = player.getName().getString();
         if (Utils.playerDefenceRingMap.containsKey(name))
             exDefence += Utils.playerDefenceRingMap.get(name);
@@ -1235,11 +1229,6 @@ public class PlayerAttributes {
             defencePenetration0 += Compute.getSwordSkillLevel(data, 10) * 3;
         if (Compute.getBowSkillLevel(data, 10) > 0 && Utils.bowTag.containsKey(mainhand))
             defencePenetration0 += Compute.getBowSkillLevel(data, 10) * 3;
-
-        int flexibilityAbilityPoint = data.getInt(StringUtils.Ability.Flexibility);
-        if (data.contains(StringUtils.Ability.Flexibility) && data.getInt(StringUtils.Ability.Flexibility) > 0) {
-            defencePenetration0 += flexibilityAbilityPoint * 0.01;
-        } // 能力
 
         if (data.getInt(StringUtils.WitherBow.Effect3) > TickCount) defencePenetration0 += 4;
         else if (data.getInt(StringUtils.WitherBow.Effect2) > TickCount) defencePenetration0 += 3;

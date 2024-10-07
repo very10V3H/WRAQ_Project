@@ -34,7 +34,7 @@ public class LightningArmor extends WraqArmor implements OnHitEffectEquip {
         this.tier = tier;
         if (type.equals(Type.HELMET)) Utils.healthRecover.put(this, 30d * (tier + 1));
         if (type.equals(Type.CHESTPLATE)) Utils.defence.put(this, 50d * (tier + 1));
-        if (type.equals(Type.LEGGINGS)) Utils.maxHealth.put(this, 2000d * (tier + 1));
+        if (type.equals(Type.LEGGINGS)) Utils.maxHealth.put(this, 3000d * (tier + 1));
         if (type.equals(Type.BOOTS)) Utils.movementSpeedCommon.put(this, 0.35);
     }
 

@@ -37,7 +37,7 @@ public class PurpleIronInstance extends NoTeamInstance {
 
     public static PurpleIronInstance getInstance() {
         if (instance == null) {
-            instance = new PurpleIronInstance(new Vec3(1171.5, -35.5, -171.5), 50, 200, new Vec3(1171.5, -35.5, -171.5),
+            instance = new PurpleIronInstance(new Vec3(1171, -36, -172), 50, 200, new Vec3(1171, -36, -172),
                     Component.literal("紫水晶巨蟹").withStyle(CustomStyle.styleOfPurpleIron));
         }
         return instance;

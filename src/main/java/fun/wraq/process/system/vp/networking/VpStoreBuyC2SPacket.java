@@ -3,12 +3,14 @@ package fun.wraq.process.system.vp.networking;
 import com.mojang.logging.LogUtils;
 import fun.wraq.commands.stable.players.CustomPrefixCommand;
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.plan.PlanPlayer;
 import fun.wraq.process.func.plan.SimpleTierPaper;
 import fun.wraq.process.system.vp.VpDataHandler;
 import fun.wraq.process.system.vp.VpStore;
+import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
@@ -88,6 +90,9 @@ public class VpStoreBuyC2SPacket {
                             if (tier == 2)
                                 data.putInt(CustomPrefixCommand.customPrefixTimes, data.getInt(CustomPrefixCommand.customPrefixTimes) + 6);
                             LogUtils.getLogger().info(serverPlayer.getName().getString() + " vp buy " + goods);
+                            Compute.clearPlayerScreen(serverPlayer);
+                            Compute.setPlayerTitleAndSubTitle(serverPlayer, Te.m(goods.getDisplayName()),
+                                    Te.s("已成功激活!", CustomStyle.styleOfWorld));
                         }
                     } catch (ParseException e) {
                         throw new RuntimeException(e);
