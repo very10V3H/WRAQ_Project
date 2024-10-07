@@ -228,5 +228,6 @@ public abstract class NoTeamInstance {
         bossInfoList.clear();
         mobList.forEach(mob -> mob.remove(Entity.RemovalReason.KILLED));
         mobList.clear();
+        ready = false;
     }
 }

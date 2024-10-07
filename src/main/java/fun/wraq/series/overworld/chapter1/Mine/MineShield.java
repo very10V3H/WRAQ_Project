@@ -59,9 +59,9 @@ public class MineShield extends Item {
                 append(Component.literal("与").withStyle(ChatFormatting.WHITE)).
                 append(ComponentUtils.AttributeDescription.manaDefence("25%")));
         components.add(Te.m(" 并基于").
-                append(ComponentUtils.AttributeDescription.defence("150%")).
+                append(ComponentUtils.AttributeDescription.defence("100%")).
                 append(Te.m("与")).
-                append(ComponentUtils.AttributeDescription.manaDefence("150%")).
+                append(ComponentUtils.AttributeDescription.manaDefence("100%")).
                 append(Te.m("之和，在受击时提供等额")).
                 append(Te.m("直接伤害减免", ChatFormatting.GRAY)));
         Compute.DescriptionPassive(components, Component.literal("盾击").withStyle(ChatFormatting.GRAY));

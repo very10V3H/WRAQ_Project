@@ -22,7 +22,7 @@ public class TabooAttackArmor extends WraqArmor {
 
     public TabooAttackArmor(ItemMaterial Material, Type Slots, Properties itemProperties) {
         super(Material, Slots, itemProperties);
-        Utils.maxHealth.put(this, 6000d);
+        Utils.maxHealth.put(this, 8000d);
     }
 
     @Override

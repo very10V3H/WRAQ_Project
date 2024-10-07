@@ -63,10 +63,12 @@ public class ItemAndExpGetHud {
             if (displayStartTick + 30 < ClientUtils.clientPlayerTick || displayStartTick > ClientUtils.clientPlayerTick) {
                 displayStacks.clear();
             }
+            boolean added = false;
             for (int i = 0 ; i < Math.min(4 - displayStacks.size(), getItemStacks.size()) ; i ++) {
                 displayStacks.add(getItemStacks.poll());
+                added = true;
             }
-            displayStartTick = ClientUtils.clientPlayerTick;
+            if (added) displayStartTick = ClientUtils.clientPlayerTick;
         }
     }
 }

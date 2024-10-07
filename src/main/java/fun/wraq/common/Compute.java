@@ -35,6 +35,7 @@ import fun.wraq.networking.misc.SkillPackets.Charging.BowSkill12S2CPacket;
 import fun.wraq.networking.misc.SkillPackets.Charging.ManaSkill12S2CPacket;
 import fun.wraq.networking.misc.SkillPackets.Charging.ManaSkill13S2CPacket;
 import fun.wraq.networking.misc.SkillPackets.Charging.SwordSkill12S2CPacket;
+import fun.wraq.networking.misc.TeamPackets.ScreenSetS2CPacket;
 import fun.wraq.networking.misc.ToolTipPackets.CoolDownTimeS2CPacket;
 import fun.wraq.networking.misc.USE.MobEffectHudS2CPacket;
 import fun.wraq.networking.reputation.ReputationValueS2CPacket;
@@ -2042,5 +2043,9 @@ public class Compute {
         }
         // 显示99.99e
         return String.format("%.2fe", value / 100000000);
+    }
+
+    public static void clearPlayerScreen(Player player) {
+        ModNetworking.sendToClient(new ScreenSetS2CPacket(0), (ServerPlayer) player);
     }
 }

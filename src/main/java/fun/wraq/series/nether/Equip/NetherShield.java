@@ -78,7 +78,6 @@ public class NetherShield extends WraqOffHandItem implements ForgeItem, OnHitEff
 
     @Override
     public void onHit(Player player, Mob mob) {
-        player.sendSystemMessage(Component.literal("1"));
         double defenceValue = PlayerAttributes.defence(player) + MobSpawn.MobBaseAttributes.getMobBaseAttribute(mob, MobSpawn.MobBaseAttributes.defence);
         double rate = 2 - Damage.defenceDamageDecreaseRate(defenceValue, 0, 0);
         int tick = player.getServer().getTickCount();

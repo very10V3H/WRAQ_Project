@@ -19,7 +19,7 @@ public class IceArmor extends WraqArmor {
         super(Material, Slots, itemProperties);
         if (type.equals(Type.HELMET)) Utils.healthRecover.put(this, 40d);
         if (type.equals(Type.CHESTPLATE)) Utils.defence.put(this, 75d);
-        if (type.equals(Type.LEGGINGS)) Utils.maxHealth.put(this, 4000d);
+        if (type.equals(Type.LEGGINGS)) Utils.maxHealth.put(this, 5000d);
         if (type.equals(Type.BOOTS)) Utils.movementSpeedCommon.put(this, 0.35);
     }
 

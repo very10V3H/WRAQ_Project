@@ -2,7 +2,6 @@ package fun.wraq.series.instance.blade;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqPassiveEquip;
-import fun.wraq.common.equip.WraqSword;
 import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.MySound;
@@ -16,6 +15,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.ArrayList;
@@ -68,12 +68,13 @@ public class WraqBlade extends WraqPassiveEquip implements ActiveItem {
 
     @Override
     public void active(Player player) {
-        if (player.experienceLevel < Utils.levelRequire.get(this) || !(player.getMainHandItem().getItem() instanceof WraqSword)) return;
+        Item mainHandItem = player.getMainHandItem().getItem();
+        if (player.experienceLevel < Utils.levelRequire.get(this) || !(Utils.swordTag.containsKey(mainHandItem))) return;
         boolean success = DelayOperationWithAnimation.addToQueue(new DelayOperationWithAnimation(
                 DelayOperationWithAnimation.Animation.samurai, Tick.get() + 10, player) {
             @Override
             public void trig() {
-                if (player.getMainHandItem().getItem() instanceof WraqSword) {
+                if (Utils.swordTag.containsKey(mainHandItem)) {
                     MySound.soundToNearPlayer(player, SoundEvents.PLAYER_ATTACK_KNOCKBACK);
                     AttackEvent.getPlayerNormalAttackRangeMobList(player).forEach(mob -> {
                         AttackEvent.attackToMonster(mob, player, rate, true, true);

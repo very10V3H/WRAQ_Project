@@ -400,7 +400,7 @@ public class Damage {
 
     public static void manaDamageToPlayer(Mob monster, Player player, double damage) {
         double manaDefence = PlayerAttributes.manaDefence(player);
-        damage *= defenceDamageDecreaseRate(manaDefence, MobAttributes.defencePenetration(monster), MobAttributes.defencePenetration0(monster));
+        damage *= defenceDamageDecreaseRate(manaDefence, 0, 0);
         MonsterAttackEvent.monsterAttack(monster, player, damage);
         BloodManaCurios.passive(player);
     }
@@ -446,7 +446,7 @@ public class Damage {
 
     public static void AttackDamageToPlayer(Mob monster, Player player, double Damage) {
         double Defence = PlayerAttributes.defence(player);
-        Damage *= defenceDamageDecreaseRate(Defence, 0, 0);
+        Damage *= defenceDamageDecreaseRate(Defence, MobAttributes.defencePenetration(monster), MobAttributes.defencePenetration0(monster));
         MonsterAttackEvent.monsterAttack(monster, player, Damage);
     }
 
