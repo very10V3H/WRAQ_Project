@@ -9,7 +9,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.TickEvent;
@@ -189,17 +188,6 @@ public class MySeason {
         return map.getOrDefault(elementType, 0d);
     }
 
-    public static double mobHurtDamageEffect(Mob mob) {
-        Element.Unit unit = Element.entityElementUnit.getOrDefault(mob, new Element.Unit(Element.life, 0d));
-        if (unit.value() == 0) return 0;
-        return getCurrentSeasonElementEffect(unit.type());
-    }
-
-    public static double playerResonanceDamageEnhance(Player player) {
-        if (!Element.PlayerResonanceType.containsKey(player)) return 0;
-        return getCurrentSeasonElementEffect(Element.PlayerResonanceType.get(player));
-    }
-
     public static double playerTotalDamageRate() {
         if (currentSeason.contains(spring) || currentSeason.contains(autumn)) {
             return 0.25;
@@ -253,11 +241,11 @@ public class MySeason {
     }
 
     public static void sendExElementEffectInfoToPlayer(Player player) {
-        Compute.sendFormatMSG(player, Component.literal("季节").withStyle(CustomStyle.styleOfLife), Component.literal("自然元素强度将会影响:").withStyle(ChatFormatting.WHITE));
-        Compute.msgSendToPlayer(player, Component.literal("1.受到该元素影响的怪物受到的伤害（正的自然元素将减少怪物受到的伤害）").withStyle(ChatFormatting.WHITE), 2);
-        Compute.msgSendToPlayer(player, Component.literal("2.玩家归一化元素强度的改变（将直接百分比改变玩家归一化元素强度）").withStyle(ChatFormatting.WHITE), 2);
-        Compute.msgSendToPlayer(player, Component.literal("3.共鸣元素将会提供伤害影响").withStyle(ChatFormatting.WHITE), 2);
-        Compute.sendFormatMSG(player, Component.literal("季节").withStyle(CustomStyle.styleOfLife), Component.literal("在").withStyle(ChatFormatting.WHITE).
+        Compute.sendFormatMSG(player, Component.literal("季节").withStyle(CustomStyle.styleOfLife),
+                Component.literal("自然元素强度将会影响:").withStyle(ChatFormatting.WHITE));
+        Compute.msgSendToPlayer(player, Component.literal("玩家与怪物的归一化元素强度的改变（百分比作用于归一化元素强度）").withStyle(ChatFormatting.WHITE), 2);
+        Compute.sendFormatMSG(player, Component.literal("季节").withStyle(CustomStyle.styleOfLife),
+                Component.literal("在").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("春").withStyle(CustomStyle.styleOfLife)).
                 append(Component.literal("/").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("秋").withStyle(CustomStyle.styleOfGold)).

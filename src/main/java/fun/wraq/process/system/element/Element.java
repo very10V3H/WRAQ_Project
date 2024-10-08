@@ -19,6 +19,7 @@ import fun.wraq.networking.misc.ParticlePackets.ElementParticle.*;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.element.equipAndCurios.waterElement.WaterElementSword;
+import fun.wraq.process.system.season.MySeason;
 import fun.wraq.render.particles.ModParticles;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -97,6 +98,11 @@ public class Element {
             put(lightning, ModItems.LightningElement.get());
             put(wind, ModItems.WindElement.get());
         }};
+
+        // 季节影响怪物元素量
+        if (livingEntity instanceof Mob) {
+            value *= (1 + MySeason.getCurrentSeasonElementEffect(type));
+        }
         entityElementUnit.put(livingEntity, new Unit(type, value));
         if (livingEntity instanceof Player player) ElementEffectTimeSend(player,
                 map.get(type).getDefaultInstance(), 8888, (int) (value * 100), true);

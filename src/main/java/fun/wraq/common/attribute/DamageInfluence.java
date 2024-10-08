@@ -57,7 +57,6 @@ public class DamageInfluence {
         rate += StarBottle.DamageEnhance(player); // 星星瓶
         rate += FireEquip.DamageEnhance(player); // 炽焰元素武器
         rate += NewPotionEffects.damageEnhance(player);
-        rate += MySeason.playerResonanceDamageEnhance(player);
         rate += MineNewRune.damageEnhance(player);
         rate += HuskNewRune.damageEnhance(player);
         rate += MoonNewRune.damageEnhance(player);
@@ -135,7 +134,6 @@ public class DamageInfluence {
         double rate = 1;
         rate += TowerMob.playerIsChallenging3FloorAndInFire(player) ? -0.5 : 0;
         rate -= TowerMob.playerIsChallenging5FloorDamageDecrease(player);
-        rate -= MySeason.mobHurtDamageEffect(mob);
         if (Tower.mobIsTowerMob(mob) != -1 && Tower.playerIsChallengingTower(player) != Tower.mobIsTowerMob(mob))
             return 0;
         if (MobSpawn.getMobOriginName(mob).contains("本源") && player.distanceTo(mob) >= 16) rate += -0.6;
