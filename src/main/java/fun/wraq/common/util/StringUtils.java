@@ -542,51 +542,6 @@ public class StringUtils {
 
     public static String BowAttackSlowDown = "BowAttackSlowDownCount";
 
-    public static class GemName {
-        public static String SkyGem = "skyGem";
-        public static String EvokerGem = "EvokerGem";
-        public static String PlainGem = "plainGem";
-        public static String ForestGem = "forestGem";
-        public static String LakeGem = "lakeGem";
-        public static String VolcanoGem = "volcanoGem";
-        public static String SnowGem = "snowGem";
-        public static String FieldGem = "fieldGem";
-        public static String MineGem = "mineGem";
-        public static String LifeManaGem = "lifeManaGem";
-        public static String ObsiManaGem = "obsiManaGem";
-        public static String NetherSkeletonGem = "netherSkeletonGem";
-        public static String MagmaGem = "magmaGem";
-        public static String WitherGem = "witherGem";
-        public static String PiglinGem = "piglinGem";
-        public static String SakuraGem = "sakuraGem";
-        public static String ShipGem = "shipGem";
-        public static String MoonAttackGem = "MoonAttackGem";
-        public static String MoonManaGem = "MoonManaGem";
-        public static String SkyGemD = "skyGemD";
-        public static String EvokerGemD = "EvokerGemD";
-        public static String PlainGemD = "plainGemD";
-        public static String ForestGemD = "forestGemD";
-        public static String LakeGemD = "lakeGemD";
-        public static String VolcanoGemD = "volcanoGemD";
-        public static String SnowGemD = "snowGemD";
-        public static String FieldGemD = "fieldGemD";
-        public static String MineGemD = "mineGemD";
-        public static String LifeManaGemD = "lifeManaGemD";
-        public static String ObsiManaGemD = "obsiManaGemD";
-        public static String NetherSkeletonGemD = "netherSkeletonGemD";
-        public static String MagmaGemD = "magmaGemD";
-        public static String WitherGemD = "witherGemD";
-        public static String PiglinGemD = "piglinGemD";
-        public static String SakuraGemD = "sakuraGemD";
-        public static String ShipGemD = "shipGemD";
-        public static String MoonAttackGemD = "MoonAttackGemD";
-        public static String MoonManaGemD = "MoonManaGemD";
-        public static String CastleWeaponGem = "CastleWeaponGem";
-        public static String CastleArmorGem = "CastleArmorGem";
-        public static String QingMingGem = "QingMingGem";
-        public static String LabourDayGem = "LabourDayGem";
-    }
-
     public static class PotionTypes {
         public static String AttackUp = "attackup_potion";
         public static String BreakDefenceUp = "breakdefenceup_potion";
