@@ -58,7 +58,7 @@ public class LightningNewRune extends WraqCurios implements RuneItem, UsageOrGet
 
     @Override
     public Component suffix() {
-        return ComponentUtils.getSuffixChapterII();
+        return ComponentUtils.getSuffixOfChapterII();
     }
 
     @Override

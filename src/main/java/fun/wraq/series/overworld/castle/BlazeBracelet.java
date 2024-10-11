@@ -25,7 +25,6 @@ public class BlazeBracelet extends Item implements ICurioItem {
     public BlazeBracelet(Properties p_41383_) {
         super(p_41383_);
         Utils.defence.put(this, 4d);
-        Utils.curiosTag.put(this, 1d);
         Utils.curiosList.add(this);
     }
 
@@ -53,13 +52,13 @@ public class BlazeBracelet extends Item implements ICurioItem {
 
     @Override
     public void onEquip(SlotContext slotContext, ItemStack prevStack, ItemStack stack) {
-        Compute.AddCuriosToList((Player) slotContext.entity(), stack);
+        Compute.addCuriosToList((Player) slotContext.entity(), stack);
         ICurioItem.super.onEquip(slotContext, prevStack, stack);
     }
 
     @Override
     public void onUnequip(SlotContext slotContext, ItemStack newStack, ItemStack stack) {
-        Compute.RemoveCuriosInList((Player) slotContext.entity(), stack);
+        Compute.removeCuriosInList((Player) slotContext.entity(), stack);
         ICurioItem.super.onUnequip(slotContext, newStack, stack);
     }
 
@@ -69,7 +68,7 @@ public class BlazeBracelet extends Item implements ICurioItem {
     }
 
     public static void Passive(Player player, Mob mob) {
-        if (Compute.PlayerHasCurios(player, ModItems.BlazeBracelet.get())) {
+        if (Compute.hasCurios(player, ModItems.BlazeBracelet.get())) {
             /*Damage.LastXpStrengthDamageToMob(player, mob, 1, 40, 10, true);*/
             Compute.IgniteMob(player, mob, 40);
         }

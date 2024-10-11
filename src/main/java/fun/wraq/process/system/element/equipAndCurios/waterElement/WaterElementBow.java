@@ -70,9 +70,9 @@ public class WaterElementBow extends WraqBow implements ActiveItem {
                 append(Component.literal("一定范围内的目标施加").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("100%碧水元素").withStyle(style)).
                 append(Component.literal("，并削减其").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.Defence("50%")).
+                append(ComponentUtils.AttributeDescription.defence("50%")).
                 append(Component.literal("与").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.ManaDefence("50%")).
+                append(ComponentUtils.AttributeDescription.manaDefence("50%")).
                 append(Component.literal("，持续7s").withStyle(ChatFormatting.WHITE)));
         ComponentUtils.coolDownTimeDescription(components, 25);
         Compute.DescriptionPassive(components, Component.literal("千丈见底").withStyle(style));

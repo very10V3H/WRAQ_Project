@@ -57,7 +57,7 @@ public class SkyNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDes
 
     @Override
     public Component suffix() {
-        return ComponentUtils.getSuffixChapterII();
+        return ComponentUtils.getSuffixOfChapterII();
     }
 
     @Override

@@ -1,10 +1,8 @@
 package fun.wraq.series.overworld.chapter1.forest;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.overworld.chapter1.forest.ForestSuitDescription;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -39,7 +37,7 @@ public class ForestBracelet extends Item {
         ComponentUtils.descriptionOfAddition(components);
         if (Screen.hasShiftDown()) ForestSuitDescription.SuitDescription(components);
         else {
-            Compute.SuitDescription(components);
+            ComponentUtils.suitDescription(components);
             components.add(Component.literal("[按住shift展开套装效果]").withStyle(ChatFormatting.GRAY));
         }
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, chatFormatting, ChatFormatting.WHITE);

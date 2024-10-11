@@ -105,6 +105,6 @@ public class QuartzSabre extends WraqSword {
 
     @Override
     public Component getSuffix() {
-        return ComponentUtils.getSuffixChapterIII();
+        return ComponentUtils.getSuffixNether();
     }
 }

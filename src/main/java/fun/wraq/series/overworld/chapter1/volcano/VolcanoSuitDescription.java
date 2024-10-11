@@ -24,7 +24,7 @@ public class VolcanoSuitDescription {
         Compute.solePassiveDescription(components, Component.literal("").withStyle(style));
         int level = Math.min(100, Minecraft.getInstance().player.experienceLevel);
         components.add(Component.literal(" 获得").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.AttackDamage("等级 * 1")).
+                append(ComponentUtils.AttributeDescription.attackDamage("等级 * 1")).
                 append(Component.literal("(" + level + ")").withStyle(ChatFormatting.GRAY)).
                 append(Component.literal("与").withStyle(ChatFormatting.WHITE)).
                 append(ComponentUtils.AttributeDescription.manaDamage("等级 * 2")).
@@ -32,7 +32,7 @@ public class VolcanoSuitDescription {
         components.add(Component.literal(" 在100级时达到最大收益").withStyle(ChatFormatting.GRAY));
         if (Screen.hasShiftDown()) VolcanoSuitDescription(components);
         else {
-            Compute.SuitDescription(components);
+            ComponentUtils.suitDescription(components);
             components.add(Component.literal("[按住shift展开套装效果]").withStyle(ChatFormatting.GRAY));
         }
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, ChatFormatting.YELLOW, ChatFormatting.WHITE);
@@ -41,7 +41,7 @@ public class VolcanoSuitDescription {
     }
 
     public static void VolcanoSuitDescription(List<Component> components) {
-        Compute.SuitDescription(components);
+        ComponentUtils.suitDescription(components);
 
         int Count = 0;
         Player player = Minecraft.getInstance().player;
@@ -71,17 +71,17 @@ public class VolcanoSuitDescription {
             Count++;
         } else components.add(Component.literal(CrestName).withStyle(ChatFormatting.GRAY));
 
-        Compute.SuitDoubleDescription(components, Count);
+        ComponentUtils.suitDoubleDescription(components, Count);
         Compute.DescriptionPassive(components, Component.literal("熔岩涌动").withStyle(ChatFormatting.YELLOW));
         components.add(Component.literal("获得").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.ExAttackDamage("15%")));
+                append(ComponentUtils.AttributeDescription.exAttackDamage("15%")));
         components.add(Component.literal("获得").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.AttributeDescription.manaDamage("25%")));
-        Compute.SuitQuadraDescription(components, Count);
+        ComponentUtils.suitQuadraDescription(components, Count);
         Compute.DescriptionPassive(components, Component.literal("地层震荡").withStyle(ChatFormatting.YELLOW));
         components.add(Component.literal("获得").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.CritDamage("35%")));
+                append(ComponentUtils.AttributeDescription.critDamage("35%")));
         components.add(Component.literal("获得").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.ManaPenetration("35")));
+                append(ComponentUtils.AttributeDescription.manaPenetration("35")));
     }
 }

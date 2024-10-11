@@ -1,7 +1,8 @@
 package fun.wraq.process.func.suit;
 
+import fun.wraq.common.Compute;
 import fun.wraq.common.registry.ModItems;
-import fun.wraq.common.util.Utils;
+import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.series.end.eventController.LightningIslandRecall.IntensifiedLightningArmor;
 import fun.wraq.series.overworld.chapter1.ManaBook.ManaNote;
 import fun.wraq.series.overworld.chapter1.Mine.Crest.MineCrest;
@@ -16,10 +17,6 @@ import fun.wraq.series.overworld.chapter2.sky.Crest.SkyCrest;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-
-import java.util.ArrayList;
 
 public class SuitCount {
     public static int getStarSuitCount(Player player) {
@@ -37,16 +34,12 @@ public class SuitCount {
     }
 
     public static int getPlainSuitCount(Player player) {
-        int count = 0;
-        if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.PlainArmorHelmet.get())) count++;
-        if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.PlainArmorChest.get())) count++;
-        if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.PlainArmorLeggings.get())) count++;
-        if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.PlainArmorBoots.get())) count++;
+        int count = getPlainSuitCountWithoutCrest(player);
         if (player.getItemBySlot(EquipmentSlot.OFFHAND).is(ModItems.PlainBracelet.get())) count++;
-        count += (int) Utils.playerCuriosListMap.getOrDefault(player, new ArrayList<>())
-                .stream().map(ItemStack::getItem)
-                .filter(item -> item instanceof PlainCrest)
-                .count();
+        if (Compute.CuriosAttribute.getDistinctCuriosList(player).stream()
+                .anyMatch(stack -> stack.getItem() instanceof PlainCrest)) {
+            count ++;
+        }
         return count;
     }
 
@@ -60,16 +53,12 @@ public class SuitCount {
     }
 
     public static int getForestSuitCount(Player player) {
-        int count = 0;
-        if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.ForestArmorHelmet.get())) count++;
-        if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.ForestArmorChest.get())) count++;
-        if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.ForestArmorLeggings.get())) count++;
-        if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.ForestArmorBoots.get())) count++;
+        int count = getForestSuitCountWithoutCrest(player);
         if (player.getItemBySlot(EquipmentSlot.OFFHAND).is(ModItems.ForestBracelet.get())) count++;
-        count += (int) Utils.playerCuriosListMap.getOrDefault(player, new ArrayList<>())
-                .stream().map(ItemStack::getItem)
-                .filter(item -> item instanceof ForestCrest)
-                .count();
+        if (Compute.CuriosAttribute.getDistinctCuriosList(player).stream()
+                .anyMatch(stack -> stack.getItem() instanceof ForestCrest)) {
+            count ++;
+        }
         return count;
     }
 
@@ -83,16 +72,12 @@ public class SuitCount {
     }
 
     public static int getLakeSuitCount(Player player) {
-        int count = 0;
-        if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.LakeArmorHelmet.get())) count++;
-        if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.LakeArmorChest.get())) count++;
-        if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.LakeArmorLeggings.get())) count++;
-        if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.LakeArmorBoots.get())) count++;
+        int count = getLakeSuitCountWithoutCrest(player);
         if (player.getItemBySlot(EquipmentSlot.OFFHAND).is(ModItems.LakeBracelet.get())) count++;
-        count += (int) Utils.playerCuriosListMap.getOrDefault(player, new ArrayList<>())
-                .stream().map(ItemStack::getItem)
-                .filter(item -> item instanceof LakeCrest)
-                .count();
+        if (Compute.CuriosAttribute.getDistinctCuriosList(player).stream()
+                .anyMatch(stack -> stack.getItem() instanceof LakeCrest)) {
+            count ++;
+        }
         return count;
     }
 
@@ -106,16 +91,12 @@ public class SuitCount {
     }
 
     public static int getVolcanoSuitCount(Player player) {
-        int count = 0;
-        if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.VolcanoArmorHelmet.get())) count++;
-        if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.VolcanoArmorChest.get())) count++;
-        if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.VolcanoArmorLeggings.get())) count++;
-        if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.VolcanoArmorBoots.get())) count++;
+        int count = getVolcanoCountWithoutCrest(player);
         if (player.getItemBySlot(EquipmentSlot.OFFHAND).is(ModItems.VolcanoBracelet.get())) count++;
-        count += (int) Utils.playerCuriosListMap.getOrDefault(player, new ArrayList<>())
-                .stream().map(ItemStack::getItem)
-                .filter(item -> item instanceof VolcanoCrest)
-                .count();
+        if (Compute.CuriosAttribute.getDistinctCuriosList(player).stream()
+                .anyMatch(stack -> stack.getItem() instanceof VolcanoCrest)) {
+            count ++;
+        }
         return count;
     }
 
@@ -134,10 +115,10 @@ public class SuitCount {
         if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.LifeManaArmorChest.get())) count++;
         if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.LifeManaArmorLeggings.get())) count++;
         if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.LifeManaArmorBoots.get())) count++;
-        count += (int) Utils.playerCuriosListMap.getOrDefault(player, new ArrayList<>())
-                .stream().map(ItemStack::getItem)
-                .filter(item -> item instanceof ManaCrest)
-                .count();
+        if (Compute.CuriosAttribute.getDistinctCuriosList(player).stream()
+                .anyMatch(stack -> stack.getItem() instanceof ManaCrest)) {
+            count ++;
+        }
         if (player.getItemInHand(InteractionHand.OFF_HAND).getItem() instanceof ManaNote) count++;
         return count;
     }
@@ -157,10 +138,10 @@ public class SuitCount {
         if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.ObsiManaArmorChest.get())) count++;
         if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.ObsiManaArmorLeggings.get())) count++;
         if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.ObsiManaArmorBoots.get())) count++;
-        count += (int) Utils.playerCuriosListMap.getOrDefault(player, new ArrayList<>())
-                .stream().map(ItemStack::getItem)
-                .filter(item -> item instanceof ManaCrest)
-                .count();
+        if (Compute.CuriosAttribute.getDistinctCuriosList(player).stream()
+                .anyMatch(stack -> stack.getItem() instanceof ManaCrest)) {
+            count ++;
+        }
         if (player.getItemInHand(InteractionHand.OFF_HAND).getItem() instanceof ManaNote) count++;
         return count;
     }
@@ -181,11 +162,10 @@ public class SuitCount {
         if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.MineArmorLeggings.get())) count++;
         if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.MineArmorBoots.get())) count++;
         if (player.getItemBySlot(EquipmentSlot.OFFHAND).is(ModItems.MineBracelet.get())) count++;
-        count += (int) Utils.playerCuriosListMap.getOrDefault(player, new ArrayList<>())
-                .stream().map(ItemStack::getItem)
-                .filter(item -> item instanceof MineCrest)
-                .count();
-
+        if (Compute.CuriosAttribute.getDistinctCuriosList(player).stream()
+                .anyMatch(stack -> stack.getItem() instanceof MineCrest)) {
+            count ++;
+        }
         return count;
     }
 
@@ -196,10 +176,10 @@ public class SuitCount {
         if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.SnowArmorLeggings.get())) count++;
         if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.SnowArmorBoots.get())) count++;
         if (player.getItemBySlot(EquipmentSlot.OFFHAND).is(ModItems.SnowBracelet.get())) count++;
-        count += (int) Utils.playerCuriosListMap.getOrDefault(player, new ArrayList<>())
-                .stream().map(ItemStack::getItem)
-                .filter(item -> item instanceof SnowCrest)
-                .count();
+        if (Compute.CuriosAttribute.getDistinctCuriosList(player).stream()
+                .anyMatch(stack -> stack.getItem() instanceof SnowCrest)) {
+            count ++;
+        }
         return count;
     }
 
@@ -210,10 +190,10 @@ public class SuitCount {
         if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.SkyArmorLeggings.get())) count++;
         if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.SkyArmorBoots.get())) count++;
         if (player.getItemBySlot(EquipmentSlot.OFFHAND).is(ModItems.SkyBracelet.get())) count++;
-        count += (int) Utils.playerCuriosListMap.getOrDefault(player, new ArrayList<>())
-                .stream().map(ItemStack::getItem)
-                .filter(item -> item instanceof SkyCrest)
-                .count();
+        if (Compute.CuriosAttribute.getDistinctCuriosList(player).stream()
+                .anyMatch(stack -> stack.getItem() instanceof SkyCrest)) {
+            count ++;
+        }
         return Math.min(count, 4);
     }
 
@@ -336,19 +316,13 @@ public class SuitCount {
     }
 
     public static int getLightningArmorCount(Player player) {
-        Item PlayerHelmet = player.getItemBySlot(EquipmentSlot.HEAD).getItem();
-        Item PlayerChest = player.getItemBySlot(EquipmentSlot.CHEST).getItem();
-        Item PlayerLeggings = player.getItemBySlot(EquipmentSlot.LEGS).getItem();
-        Item PlayerBoots = player.getItemBySlot(EquipmentSlot.FEET).getItem();
         int count = 0;
-        if (PlayerHelmet instanceof LightningArmor) count++;
-        if (PlayerChest instanceof LightningArmor) count++;
-        if (PlayerLeggings instanceof LightningArmor) count++;
-        if (PlayerBoots instanceof LightningArmor) count++;
-        if (PlayerHelmet instanceof IntensifiedLightningArmor) count += 2;
-        if (PlayerChest instanceof IntensifiedLightningArmor) count += 2;
-        if (PlayerLeggings instanceof IntensifiedLightningArmor) count += 2;
-        if (PlayerBoots instanceof IntensifiedLightningArmor) count += 2;
+        count += (int) InventoryOperation.getArmors(player).stream()
+                .filter(itemStack -> itemStack.getItem() instanceof LightningArmor)
+                .count();
+        count += (int) InventoryOperation.getArmors(player).stream()
+                .filter(itemStack -> itemStack.getItem() instanceof IntensifiedLightningArmor)
+                .count() * 2;
         return count;
     }
 }

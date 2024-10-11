@@ -54,8 +54,6 @@ import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.castle.CastleAttackArmor;
 import fun.wraq.series.instance.series.castle.CastleManaArmor;
 import fun.wraq.series.instance.series.castle.CastleSwiftArmor;
-import fun.wraq.series.instance.series.moon.Equip.MoonBelt;
-import fun.wraq.series.overworld.chapter7.star.StarBottle;
 import fun.wraq.series.overworld.sakuraSeries.EarthMana.EarthBook;
 import fun.wraq.series.overworld.sakuraSeries.Slime.SlimeBoots;
 import fun.wraq.series.specialevents.labourDay.LabourDayIronHoe;
@@ -105,12 +103,10 @@ public class ServerPlayerTickEvent {
             int TickCount = player.getServer().getTickCount();
             Customize.CustomizeTickEvent(player);
             /*Parkour.Tick(player);*/ // 跑酷
-            MoonBelt.Tick(player); // 尘月玉缠
             CastleAttackArmor.Tick(player);
             CastleSwiftArmor.Tick(player);
             CastleManaArmor.Tick(player);
             DpsCommand.Tick(player);
-            StarBottle.Tick(player);
             Element.PlayerTick(player);
             LifeElementSword.Tick(player);
             LifeElementBow.Tick(player);

@@ -41,14 +41,14 @@ public class WitherBook extends WraqOffHandItem implements OnPowerCauseDamageEqu
         components.add(Component.literal(" 任意").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("法术").withStyle(CustomStyle.styleOfMana)).
                 append(Component.literal("命中敌人时，击碎敌人").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.ManaDefence("5%")));
+                append(ComponentUtils.AttributeDescription.manaDefence("5%")));
         components.add(Te.s("至多叠加至4层，每层持续3s"));
         return components;
     }
 
     @Override
     public Component getSuffix() {
-        return ComponentUtils.getSuffixChapterIII();
+        return ComponentUtils.getSuffixNether();
     }
 
     @Override

@@ -43,19 +43,19 @@ public class FancySapphireNecklace extends Item implements ICurioItem {
         ComponentUtils.descriptionOfBasic(components);
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         ComponentUtils.descriptionOfAddition(components);
-        ComponentUtils.suffixOfChapterV(components);
+        ComponentUtils.suffixOfSakura(components);
         super.appendHoverText(stack, level, components, flag);
     }
 
     @Override
     public void onEquip(SlotContext slotContext, ItemStack prevStack, ItemStack stack) {
-        Compute.AddCuriosToList((Player) slotContext.entity(), stack);
+        Compute.addCuriosToList((Player) slotContext.entity(), stack);
         ICurioItem.super.onEquip(slotContext, prevStack, stack);
     }
 
     @Override
     public void onUnequip(SlotContext slotContext, ItemStack newStack, ItemStack stack) {
-        Compute.RemoveCuriosInList((Player) slotContext.entity(), stack);
+        Compute.removeCuriosInList((Player) slotContext.entity(), stack);
         ICurioItem.super.onUnequip(slotContext, newStack, stack);
     }
 

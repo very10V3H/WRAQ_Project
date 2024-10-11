@@ -53,7 +53,7 @@ public class SkyBow extends WraqBow implements OnHitEffectEquip {
 
     @Override
     public Component getSuffix() {
-        return ComponentUtils.getSuffixChapterII();
+        return ComponentUtils.getSuffixOfChapterII();
     }
 
     @Override

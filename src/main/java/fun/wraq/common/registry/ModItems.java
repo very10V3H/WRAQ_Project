@@ -76,8 +76,8 @@ import fun.wraq.series.MaterialItem;
 import fun.wraq.series.end.EndPower;
 import fun.wraq.series.end.RecallPiece;
 import fun.wraq.series.end.curios.EndCrystal;
-import fun.wraq.series.end.curios.EndCurios;
-import fun.wraq.series.end.curios.EndCurios1;
+import fun.wraq.series.end.curios.EndCuriosBow;
+import fun.wraq.series.end.curios.EndCuriosMana;
 import fun.wraq.series.end.eventController.BlackForestRecall.BlackForestRecallSoul;
 import fun.wraq.series.end.eventController.BlackForestRecall.IntensifiedBlackForestSoul;
 import fun.wraq.series.end.eventController.ForestRecall.ForestRecallSoul;
@@ -95,7 +95,6 @@ import fun.wraq.series.end.eventController.SeaRecall.IntensifiedSeaSoul;
 import fun.wraq.series.end.eventController.SeaRecall.SeaRecallSoul;
 import fun.wraq.series.end.eventController.SnowRecall.IntensifiedSnowSoul;
 import fun.wraq.series.end.eventController.SnowRecall.SnowRecallSoul;
-import fun.wraq.series.end.eventController.SnowRecall.SnowSword4;
 import fun.wraq.series.end.eventController.SpiderRecall.*;
 import fun.wraq.series.end.eventController.VolcanoRecall.IntensifiedVolcanoSoul;
 import fun.wraq.series.end.eventController.VolcanoRecall.VolcanoRecallSoul;
@@ -176,7 +175,6 @@ import fun.wraq.series.overworld.chapter1.Snow.Runes.SnowRune2;
 import fun.wraq.series.overworld.chapter1.Snow.Runes.SnowRune3;
 import fun.wraq.series.overworld.chapter1.Snow.*;
 import fun.wraq.series.overworld.chapter1.Snow.Sword.SnowSword;
-import fun.wraq.series.overworld.chapter1.Snow.Sword.SnowSword3;
 import fun.wraq.series.overworld.chapter1.forest.*;
 import fun.wraq.series.overworld.chapter1.forest.armor.ForestArmorBoots;
 import fun.wraq.series.overworld.chapter1.forest.armor.ForestArmorChest;
@@ -223,7 +221,6 @@ import fun.wraq.series.overworld.chapter1.waterSystem.equip.armor.LakeArmorChest
 import fun.wraq.series.overworld.chapter1.waterSystem.equip.armor.LakeArmorHelmet;
 import fun.wraq.series.overworld.chapter1.waterSystem.equip.armor.LakeArmorLeggings;
 import fun.wraq.series.overworld.chapter1.waterSystem.equip.sword.LakeSword;
-import fun.wraq.series.overworld.chapter1.waterSystem.equip.sword.LakeSword3;
 import fun.wraq.series.overworld.chapter1.waterSystem.runes.LakeRune0;
 import fun.wraq.series.overworld.chapter1.waterSystem.runes.LakeRune1;
 import fun.wraq.series.overworld.chapter1.waterSystem.runes.LakeRune2;
@@ -523,7 +520,7 @@ public class ModItems {
     public static final RegistryObject<Item> LakeSword2 = ITEMS.register("lakesword2",
             () -> new LakeSword(new Item.Properties().rarity(CustomStyle.LakeItalic), 2));
     public static final RegistryObject<Item> LakeSword3 = ITEMS.register("lakesword3",
-            () -> new LakeSword3(fun.wraq.common.registry.ItemTier.VMaterial, 2, 0));
+            () -> new LakeSword(new Item.Properties().rarity(CustomStyle.LakeItalic), 3));
 
     public static final RegistryObject<Item> lakeSceptre0 = ITEMS.register("lake_sceptre0",
             () -> new LakeSceptre(new Item.Properties().rarity(CustomStyle.WaterItalic), 0));
@@ -624,13 +621,13 @@ public class ModItems {
     public static final RegistryObject<Item> SnowRune = ITEMS.register("snowrune",
             () -> new SnowRune(new Item.Properties().rarity(CustomStyle.SnowBold)));
     public static final RegistryObject<Item> SnowSword0 = ITEMS.register("snowsword0",
-            () -> new SnowSword( new Item.Properties().rarity(CustomStyle.SnowItalic), 0));
+            () -> new SnowSword(new Item.Properties().rarity(CustomStyle.SnowItalic), 0));
     public static final RegistryObject<Item> SnowSword1 = ITEMS.register("snowsword1",
-            () -> new SnowSword( new Item.Properties().rarity(CustomStyle.SnowItalic), 1));
+            () -> new SnowSword(new Item.Properties().rarity(CustomStyle.SnowItalic), 1));
     public static final RegistryObject<Item> SnowSword2 = ITEMS.register("snowsword2",
-            () -> new SnowSword( new Item.Properties().rarity(CustomStyle.SnowItalic), 2));
+            () -> new SnowSword(new Item.Properties().rarity(CustomStyle.SnowItalic), 2));
     public static final RegistryObject<Item> SnowSword3 = ITEMS.register("snowsword3",
-            () -> new SnowSword3(fun.wraq.common.registry.ItemTier.MaterialForPickaxe3, 2, 0, new Item.Properties().rarity(CustomStyle.SnowItalic)));
+            () -> new SnowSword(new Item.Properties().rarity(CustomStyle.SnowItalic), 3));
     public static final RegistryObject<Item> Note_1 = ITEMS.register("note_1",
             () -> new Note_1(new Item.Properties().rarity(Rarity.UNCOMMON)));
     public static final RegistryObject<Item> Note_2 = ITEMS.register("note_2",
@@ -1192,7 +1189,7 @@ public class ModItems {
     public static final RegistryObject<Item> ArmorSnowRecall = ITEMS.register("armorsnowrecall",
             () -> new MobArmor(ItemMaterial.IslandMaterial, ArmorItem.Type.HELMET, 500, 50, 90));
     public static final RegistryObject<Item> SnowSword4 = ITEMS.register("snowsword4",
-            () -> new SnowSword4(new Item.Properties().rarity(CustomStyle.MagmaItalic)));
+            () -> new SnowSword(new Item.Properties().rarity(CustomStyle.SnowItalic), 4));
     public static final RegistryObject<Item> IntensifiedForestSoul = ITEMS.register("forestrecallsoul",
             () -> new ForestRecallSoul(new Item.Properties().rarity(CustomStyle.Forest)));
     public static final RegistryObject<Item> IntensifiedForestRecallSoul = ITEMS.register("intensifiedforestsoul",
@@ -3196,17 +3193,17 @@ public class ModItems {
     public static final RegistryObject<Item> EnderMiteSoul = ITEMS.register("ender_mite_soul",
             () -> new SimpleFoiledItem(new Item.Properties().rarity(CustomStyle.EndBold)));
 
-    public static final RegistryObject<Item> EndCurios = ITEMS.register("end_curios",
-            () -> new EndCurios(new Item.Properties().rarity(CustomStyle.EndBold)));
+    public static final RegistryObject<Item> END_CURIOS_BOW = ITEMS.register("end_curios",
+            () -> new EndCuriosBow(new Item.Properties().rarity(CustomStyle.EndBold)));
 
-    public static final RegistryObject<Item> EndCurios1 = ITEMS.register("end_curios1",
-            () -> new EndCurios1(new Item.Properties().rarity(CustomStyle.EndBold)));
+    public static final RegistryObject<Item> END_CURIOS_MANA = ITEMS.register("end_curios1",
+            () -> new EndCuriosMana(new Item.Properties().rarity(CustomStyle.EndBold)));
 
     public static final RegistryObject<Item> EndCuriosForgeDraw = ITEMS.register("end_curios_forge_draw",
-            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.EndBold), ModItems.EndCurios.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.EndBold), ModItems.END_CURIOS_BOW.get()));
 
     public static final RegistryObject<Item> EndCurios1ForgeDraw = ITEMS.register("end_curios1_forge_draw",
-            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.EndBold), ModItems.EndCurios1.get()));
+            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.EndBold), ModItems.END_CURIOS_MANA.get()));
 
     public static final RegistryObject<Item> EndCrystal = ITEMS.register("end_crystal",
             () -> new EndCrystal(new Item.Properties().rarity(CustomStyle.EndBold)));

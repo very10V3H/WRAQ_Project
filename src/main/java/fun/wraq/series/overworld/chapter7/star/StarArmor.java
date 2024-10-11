@@ -53,7 +53,7 @@ public class StarArmor extends WraqArmor {
 
     @Override
     public Component getSuffix() {
-        return ComponentUtils.getSuffixOfChapterVII();
+        return ComponentUtils.getSuffixOfChapterStar();
     }
 
     @Override

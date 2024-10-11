@@ -25,9 +25,9 @@ public class ManaRune3 extends Item {
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, ChatFormatting.LIGHT_PURPLE, ChatFormatting.WHITE);
         components.add(Component.literal("符石属性:"));
         components.add(Component.literal("损失").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.Defence("50%")).
+                append(ComponentUtils.AttributeDescription.defence("50%")).
                 append(Component.literal("，获得")).
-                append(Compute.AttributeDescription.ManaPenetration("能力-智力 * 9")));
+                append(ComponentUtils.AttributeDescription.manaPenetration("能力-智力 * 9")));
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, ChatFormatting.LIGHT_PURPLE, ChatFormatting.WHITE);
         components.add(Component.literal("Runes-Mana").withStyle(ChatFormatting.LIGHT_PURPLE).withStyle(ChatFormatting.ITALIC));
         super.appendHoverText(stack, p_41422_, components, p_41424_);

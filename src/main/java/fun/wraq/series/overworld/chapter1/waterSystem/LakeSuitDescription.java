@@ -23,12 +23,12 @@ public class LakeSuitDescription {
         Compute.solePassiveDescription(components, Component.literal("").withStyle(style));
         int level = Math.min(100, Minecraft.getInstance().player.experienceLevel);
         components.add(Component.literal(" 获得").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.CoolDown("等级 * 0.25")).
+                append(ComponentUtils.AttributeDescription.coolDown("等级 * 0.25")).
                 append(Component.literal("(" + String.format("%.0f", level * 0.25) + ")").withStyle(ChatFormatting.GRAY)));
         components.add(Component.literal(" 在100级时达到最大收益").withStyle(ChatFormatting.GRAY));
         if (Screen.hasShiftDown()) LakeSuitDescription(components);
         else {
-            Compute.SuitDescription(components);
+            ComponentUtils.suitDescription(components);
             components.add(Component.literal("[按住shift展开套装效果]").withStyle(ChatFormatting.GRAY));
         }
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
@@ -37,7 +37,7 @@ public class LakeSuitDescription {
     }
 
     public static void LakeSuitDescription(List<Component> components) {
-        Compute.SuitDescription(components);
+        ComponentUtils.suitDescription(components);
 
         int Count = 0;
         Player player = Minecraft.getInstance().player;
@@ -67,11 +67,11 @@ public class LakeSuitDescription {
             Count++;
         } else components.add(Component.literal(CrestName).withStyle(ChatFormatting.GRAY));
 
-        Compute.SuitDoubleDescription(components, Count);
+        ComponentUtils.suitDoubleDescription(components, Count);
         Compute.DescriptionPassive(components, Component.literal("冷却剂").withStyle(CustomStyle.styleOfWater));
         components.add(Component.literal("获得").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.CoolDown("20")));
-        Compute.SuitQuadraDescription(components, Count);
+                append(ComponentUtils.AttributeDescription.coolDown("20")));
+        ComponentUtils.suitQuadraDescription(components, Count);
         Compute.DescriptionPassive(components, Component.literal("循环").withStyle(CustomStyle.styleOfWater));
         components.add(Component.literal("获得").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.AttributeDescription.movementSpeed("35%")));

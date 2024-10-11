@@ -28,7 +28,6 @@ public class SpringRing extends Item implements ICurioItem {
         Utils.defencePenetration0.put(this, DefencePenetration0[level]);
         Utils.manaPenetration0.put(this, ManaPenetration0[level]);
         Utils.expUp.put(this, ExpUp[level]);
-        Utils.curiosTag.put(this, 1d);
         Utils.curiosList.add(this);
     }
 

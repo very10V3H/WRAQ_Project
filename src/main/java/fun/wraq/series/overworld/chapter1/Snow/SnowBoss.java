@@ -195,7 +195,7 @@ public class SnowBoss {
             ComponentUtils.descriptionOfAddition(components);
             Compute.DescriptionPassive(components, Component.literal("寒玉皑皑").withStyle(style));
             components.add(Component.literal("每过3s，削减周围所有单位至多").withStyle(ChatFormatting.WHITE).
-                    append(Compute.AttributeDescription.Defence("50%")).
+                    append(ComponentUtils.AttributeDescription.defence("50%")).
                     append(Component.literal("并造成").withStyle(ChatFormatting.WHITE)).
                     append(Component.literal("缓速").withStyle(style)).
                     append(Component.literal("效果。").withStyle(ChatFormatting.WHITE)));

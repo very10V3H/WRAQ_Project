@@ -25,7 +25,7 @@ public class SkySuitDescription {
         ComponentUtils.descriptionOfAddition(components);
         if (Screen.hasShiftDown()) SuitDescription(components);
         else {
-            Compute.SuitDescription(components);
+            ComponentUtils.suitDescription(components);
             components.add(Component.literal("[按住shift展开套装效果]").withStyle(ChatFormatting.GRAY));
         }
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfSky, ChatFormatting.WHITE);
@@ -33,7 +33,7 @@ public class SkySuitDescription {
     }
 
     public static void SuitDescription(List<Component> components) {
-        Compute.SuitDescription(components);
+        ComponentUtils.suitDescription(components);
 
         int Count = 0;
         Player player = Minecraft.getInstance().player;
@@ -65,19 +65,19 @@ public class SkySuitDescription {
 
         Compute.DescriptionPassive(components, Component.literal("天空的加护").withStyle(CustomStyle.styleOfSky));
         components.add(Component.literal("1.").
-                append(Compute.AttributeDescription.Health("")).
+                append(ComponentUtils.AttributeDescription.health("")).
                 append(Component.literal("高于80%时，至多提升")).
-                append(Compute.AttributeDescription.AttackDamage("100%")).
+                append(ComponentUtils.AttributeDescription.attackDamage("100%")).
                 append(Component.literal("与").withStyle(ChatFormatting.WHITE)).
                 append(ComponentUtils.AttributeDescription.movementSpeed("40%")));
         components.add(Component.literal("2.").
-                append(Compute.AttributeDescription.Health("")).
+                append(ComponentUtils.AttributeDescription.health("")).
                 append(Component.literal("介于40%与80%之间时，至多提升")).
-                append(Compute.AttributeDescription.AttackDamage("40%")));
+                append(ComponentUtils.AttributeDescription.attackDamage("40%")));
         components.add(Component.literal("3.").
-                append(Compute.AttributeDescription.Health("")).
+                append(ComponentUtils.AttributeDescription.health("")).
                 append(Component.literal("低于40%时，每十秒至多获得")).
-                append(Compute.AttributeDescription.AttackDamage("10%")).
+                append(ComponentUtils.AttributeDescription.attackDamage("10%")).
                 append(Component.literal("护盾。")).
                 append(Component.literal("持续10s")).withStyle(ChatFormatting.WHITE));
         components.add(Component.literal(" "));

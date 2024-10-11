@@ -39,7 +39,7 @@ public class LifeManaArmor extends WraqArmor {
         List<Component> components = new ArrayList<>();
         if (Screen.hasShiftDown()) LifeManaSuitDescription.SuitDescription(components);
         else {
-            Compute.SuitDescription(components);
+            ComponentUtils.suitDescription(components);
             components.add(Component.literal("[按住shift展开套装效果]").withStyle(ChatFormatting.GRAY));
         }
         return components;
@@ -47,7 +47,7 @@ public class LifeManaArmor extends WraqArmor {
 
     @Override
     public Component getSuffix() {
-        return ComponentUtils.getSuffixChapterII();
+        return ComponentUtils.getSuffixOfChapterII();
     }
 
     @Override

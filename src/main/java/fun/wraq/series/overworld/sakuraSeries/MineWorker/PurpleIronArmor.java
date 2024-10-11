@@ -45,7 +45,7 @@ public class PurpleIronArmor extends WraqArmor implements ForgeItem {
 
     @Override
     public Component getSuffix() {
-        return ComponentUtils.getSuffixChapterII();
+        return ComponentUtils.getSuffixOfChapterII();
     }
 
 

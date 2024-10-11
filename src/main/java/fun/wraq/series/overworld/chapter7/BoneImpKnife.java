@@ -7,7 +7,6 @@ import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.equip.WraqOffHandItem;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.overworld.chapter7.C7Items;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
@@ -58,14 +57,14 @@ public class BoneImpKnife extends WraqOffHandItem implements ForgeItem {
 
     @Override
     public Component getSuffix() {
-        return ComponentUtils.getSuffixOfChapterVII();
+        return ComponentUtils.getSuffixOfChapterStar();
     }
 
     public static boolean passive(Player player, Mob mob) {
         return player.getOffhandItem().is(fun.wraq.series.overworld.chapter7.C7Items.boneImpKnife.get()) && player.position().y > mob.position().y;
     }
 
-    public static double exDamageIgnoreDefence(Player player, Mob mob) {
+    public static double exTrueDamage(Player player, Mob mob) {
         if (passive(player, mob)) {
             Item mainHand = player.getMainHandItem().getItem();
             if (Utils.swordTag.containsKey(mainHand) || Utils.bowTag.containsKey(mainHand)) {

@@ -28,7 +28,6 @@ public class SpringBelt extends Item implements ICurioItem {
         Utils.swiftnessUp.put(this, Swift[level]);
         Utils.movementSpeedWithoutBattle.put(this, MovementSpeed[level]);
         Utils.expUp.put(this, ExpUp[level]);
-        Utils.curiosTag.put(this, 1d);
         Utils.curiosList.add(this);
     }
 

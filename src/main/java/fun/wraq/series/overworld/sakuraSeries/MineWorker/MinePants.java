@@ -53,16 +53,16 @@ public class MinePants extends ArmorItem implements GeoItem {
         Compute.DescriptionPassive(components, Component.literal("矿工本能").withStyle(CustomStyle.styleOfSakuraMine));
         components.add(Component.literal("在夜晚或当前高度低于海平面时获得:"));
         components.add(Component.literal("1.").withStyle(ChatFormatting.AQUA).
-                append(Compute.AttributeDescription.ExAttackDamage("50")));
+                append(ComponentUtils.AttributeDescription.exAttackDamage("50")));
         components.add(Component.literal("2.").withStyle(ChatFormatting.AQUA).
-                append(Compute.AttributeDescription.ExManaDamage("75")));
+                append(ComponentUtils.AttributeDescription.exManaDamage("75")));
         components.add(Component.literal("3.").withStyle(ChatFormatting.AQUA).
                 append(ComponentUtils.AttributeDescription.movementSpeedWithoutBattle("40%")));
         components.add(Component.literal("4.").withStyle(ChatFormatting.AQUA).
-                append(Compute.AttributeDescription.Defence("100")));
+                append(ComponentUtils.AttributeDescription.defence("100")));
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         components.add(Component.literal("Mine_Pants").withStyle(style).withStyle(ChatFormatting.ITALIC));
-        ComponentUtils.suffixOfChapterV(components);
+        ComponentUtils.suffixOfSakura(components);
         super.appendHoverText(stack, level, components, flag);
     }
 

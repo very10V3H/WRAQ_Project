@@ -28,7 +28,7 @@ public class NetherRune1 extends Item {
         components.add(Component.literal("将自身").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.AttributeDescription.manaDamage("100%")).
                 append(Component.literal("以10%的比例转换为").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.AttackDamage("")));
+                append(ComponentUtils.AttributeDescription.attackDamage("")));
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfNether, ChatFormatting.WHITE);
         components.add(Component.literal("Runes-Mana").withStyle(ChatFormatting.LIGHT_PURPLE).withStyle(ChatFormatting.ITALIC));
         super.appendHoverText(stack, p_41422_, components, p_41424_);

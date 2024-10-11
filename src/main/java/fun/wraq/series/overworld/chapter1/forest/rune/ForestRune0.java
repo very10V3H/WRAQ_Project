@@ -27,7 +27,7 @@ public class ForestRune0 extends Item {
         components.add(Component.literal("获得你").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.AttributeDescription.maxHealth("2.5%")).
                 append(Component.literal("的").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.ExAttackDamage("")));
+                append(ComponentUtils.AttributeDescription.exAttackDamage("")));
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, ChatFormatting.DARK_GREEN, ChatFormatting.WHITE);
         components.add(Component.literal("Runes-II").withStyle(ChatFormatting.DARK_GREEN).withStyle(ChatFormatting.ITALIC));
         super.appendHoverText(stack, p_41422_, components, p_41424_);

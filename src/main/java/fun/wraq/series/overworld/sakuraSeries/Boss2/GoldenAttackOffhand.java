@@ -85,7 +85,7 @@ public class GoldenAttackOffhand extends WraqOffHandItem implements OnKillEffect
 
     @Override
     public Component getSuffix() {
-        return ComponentUtils.getSuffixOfChapterV();
+        return ComponentUtils.getSuffixOfSakura();
     }
 
 

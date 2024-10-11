@@ -51,13 +51,13 @@ public class SakuraBow extends WraqBow implements OnHitEffectEquip {
         components.add(Te.s(ComponentUtils.AttributeDescription.manaDefence("3")));
         components.add(Te.s(Te.m("持续6s，至多叠加至8层")));
         components.add(Component.literal(" 第二发箭矢回复").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.Health("5%")));
+                append(ComponentUtils.AttributeDescription.health("5%")));
         return components;
     }
 
     @Override
     public Component getSuffix() {
-        return ComponentUtils.getSuffixOfChapterV();
+        return ComponentUtils.getSuffixOfSakura();
     }
 
     @Override

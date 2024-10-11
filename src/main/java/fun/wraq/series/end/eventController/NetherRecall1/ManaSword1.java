@@ -55,7 +55,7 @@ public class ManaSword1 extends WraqSword implements ActiveItem {
         components.add(Component.literal("消耗全部").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.AttributeDescription.manaValue("")).
                 append(Component.literal("并获得等同于消耗量的").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.AttackDamage("")));
+                append(ComponentUtils.AttributeDescription.attackDamage("")));
         ComponentUtils.coolDownTimeDescription(components, 5);
         return components;
     }

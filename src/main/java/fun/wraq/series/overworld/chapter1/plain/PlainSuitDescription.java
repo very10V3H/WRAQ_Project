@@ -31,7 +31,7 @@ public class PlainSuitDescription {
         components.add(Component.literal(" 在100级时达到最大收益").withStyle(ChatFormatting.GRAY));
         if (Screen.hasShiftDown()) SuitDescription(components);
         else {
-            Compute.SuitDescription(components);
+            ComponentUtils.suitDescription(components);
             components.add(Component.literal("[按住shift展开套装效果]").withStyle(ChatFormatting.GRAY));
         }
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
@@ -41,7 +41,7 @@ public class PlainSuitDescription {
     }
 
     public static void SuitDescription(List<Component> components) {
-        Compute.SuitDescription(components);
+        ComponentUtils.suitDescription(components);
 
         int Count = 0;
         Player player = Minecraft.getInstance().player;
@@ -71,10 +71,10 @@ public class PlainSuitDescription {
             Count++;
         } else components.add(Component.literal(CrestName).withStyle(ChatFormatting.GRAY));
 
-        Compute.SuitDoubleDescription(components, Count);
+        ComponentUtils.suitDoubleDescription(components, Count);
         Compute.DescriptionPassive(components, Component.literal("野火不灭:").withStyle(ChatFormatting.GREEN));
-        ComponentUtils.descriptionNum(components, "每秒回复", Compute.AttributeDescription.Health("0.5%+1"), "");
-        Compute.SuitQuadraDescription(components, Count);
+        ComponentUtils.descriptionNum(components, "每秒回复", ComponentUtils.AttributeDescription.health("0.5%+1"), "");
+        ComponentUtils.suitQuadraDescription(components, Count);
         Compute.DescriptionPassive(components, Component.literal("平原生机:").withStyle(ChatFormatting.GREEN));
         components.add(Component.literal("获得").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.AttributeDescription.maxHealth("200")));

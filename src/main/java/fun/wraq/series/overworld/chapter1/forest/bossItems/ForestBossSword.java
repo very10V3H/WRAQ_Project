@@ -62,11 +62,11 @@ public class ForestBossSword extends SwordItem {
         components.add(Component.literal("∰1.削减范围内的所有生物").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("20 * 森林次元熵").withStyle(MainStyle)).
                 append(Component.literal("的").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.Defence("")));
+                append(ComponentUtils.AttributeDescription.defence("")));
         components.add(Component.literal("∰2.削减范围内的所有生物").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("10 * 森林次元熵").withStyle(MainStyle)).
                 append(Component.literal("的").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.ManaDefence("")));
+                append(ComponentUtils.AttributeDescription.manaDefence("")));
         ComponentUtils.coolDownTimeDescription(components, 10);
         ComponentUtils.manaCostDescription(components, 180);
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);

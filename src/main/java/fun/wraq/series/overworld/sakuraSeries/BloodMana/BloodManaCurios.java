@@ -25,7 +25,6 @@ public class BloodManaCurios extends WraqCurios {
         Utils.attackDamage.put(this, tier == 0 ? 100d : 175d);
         Utils.healthSteal.put(this, tier == 0 ? 0.05 : 0.08);
         Utils.manaRecover.put(this, tier == 0 ? 15d : 25d);
-        Utils.curiosTag.put(this, 1d);
         Utils.curiosList.add(this);
     }
 

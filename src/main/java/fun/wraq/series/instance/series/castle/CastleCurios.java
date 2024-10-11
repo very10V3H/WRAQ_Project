@@ -28,7 +28,6 @@ public class CastleCurios extends Item implements ICurioItem, RandomCurios {
 
     public CastleCurios(Properties p_41383_) {
         super(p_41383_);
-        Utils.curiosTag.put(this, 1d);
         Utils.curiosList.add(this);
         Utils.levelRequire.put(this, 140);
     }
@@ -51,14 +50,14 @@ public class CastleCurios extends Item implements ICurioItem, RandomCurios {
     @Override
     public void onEquip(SlotContext slotContext, ItemStack prevStack, ItemStack stack) {
         Player player = (Player) slotContext.entity();
-        Compute.AddCuriosToList(player, stack);
+        Compute.addCuriosToList(player, stack);
         ICurioItem.super.onEquip(slotContext, prevStack, stack);
     }
 
     @Override
     public void onUnequip(SlotContext slotContext, ItemStack newStack, ItemStack stack) {
         Player player = (Player) slotContext.entity();
-        Compute.RemoveCuriosInList(player, stack);
+        Compute.removeCuriosInList(player, stack);
         ICurioItem.super.onUnequip(slotContext, newStack, stack);
     }
 
@@ -225,7 +224,7 @@ public class CastleCurios extends Item implements ICurioItem, RandomCurios {
                 case 4 -> {
                     Compute.DescriptionPassive(components, Component.literal("凌弱").withStyle(CustomStyle.styleOfSky));
                     components.add(Component.literal(" 对低于").withStyle(ChatFormatting.WHITE).
-                            append(Compute.AttributeDescription.Health("40%")).
+                            append(ComponentUtils.AttributeDescription.health("40%")).
                             append(Component.literal("的目标造成的伤害，将获得").withStyle(ChatFormatting.WHITE)).
                             append(Component.literal(String.format("%.1f%%", passiveValues[type] * rate * 100)).withStyle(CustomStyle.styleOfPower)).
                             append(Component.literal("伤害提升").withStyle(ChatFormatting.WHITE)));
@@ -233,7 +232,7 @@ public class CastleCurios extends Item implements ICurioItem, RandomCurios {
                 case 5 -> {
                     Compute.DescriptionPassive(components, Component.literal("克强").withStyle(CustomStyle.styleOfLightingIsland));
                     components.add(Component.literal(" 对高于于").withStyle(ChatFormatting.WHITE).
-                            append(Compute.AttributeDescription.Health("40%")).
+                            append(ComponentUtils.AttributeDescription.health("40%")).
                             append(Component.literal("的目标造成的伤害，将获得").withStyle(ChatFormatting.WHITE)).
                             append(Component.literal(String.format("%.1f%%", passiveValues[type] * rate * 100)).withStyle(CustomStyle.styleOfPower)).
                             append(Component.literal("伤害提升").withStyle(ChatFormatting.WHITE)));
@@ -275,7 +274,7 @@ public class CastleCurios extends Item implements ICurioItem, RandomCurios {
                 case 4 -> {
                     Compute.DescriptionPassive(components, Component.literal("凌弱").withStyle(CustomStyle.styleOfSky));
                     components.add(Component.literal(" 对低于").withStyle(ChatFormatting.WHITE).
-                            append(Compute.AttributeDescription.Health("40%")).
+                            append(ComponentUtils.AttributeDescription.health("40%")).
                             append(Component.literal("的目标造成的伤害，将获得").withStyle(ChatFormatting.WHITE)).
                             append(Component.literal(String.format("%.1f%%", passiveValues[type] * rate * 100)).withStyle(CustomStyle.styleOfPower)).
                             append(Component.literal("伤害提升").withStyle(ChatFormatting.WHITE)));
@@ -283,7 +282,7 @@ public class CastleCurios extends Item implements ICurioItem, RandomCurios {
                 case 5 -> {
                     Compute.DescriptionPassive(components, Component.literal("克强").withStyle(CustomStyle.styleOfLightingIsland));
                     components.add(Component.literal(" 对高于于").withStyle(ChatFormatting.WHITE).
-                            append(Compute.AttributeDescription.Health("40%")).
+                            append(ComponentUtils.AttributeDescription.health("40%")).
                             append(Component.literal("的目标造成的伤害，将获得").withStyle(ChatFormatting.WHITE)).
                             append(Component.literal(String.format("%.1f%%", passiveValues[type] * rate * 100)).withStyle(CustomStyle.styleOfPower)).
                             append(Component.literal("伤害提升").withStyle(ChatFormatting.WHITE)));

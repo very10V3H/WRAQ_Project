@@ -75,13 +75,13 @@ public class ShipSceptre extends WraqSceptre implements InCuriosOrEquipSlotAttri
         components.add(Component.literal(" 手持该武器时，会根据周围").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("水方块的数量").withStyle(style)).
                 append(Component.literal("为你提供至多").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.ManaPenetration("40")));
+                append(ComponentUtils.AttributeDescription.manaPenetration("40")));
         return components;
     }
 
     @Override
     public Component getSuffix() {
-        return ComponentUtils.getSuffixOfChapterV();
+        return ComponentUtils.getSuffixOfSakura();
     }
 
     public static final Map<Player, Integer> waterBlockCount = new WeakHashMap<>();

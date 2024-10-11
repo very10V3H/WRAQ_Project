@@ -55,14 +55,14 @@ public class WitherBow extends WraqBow implements OnHitEffectEquip {
         components.add(Component.literal("损失").withStyle(ChatFormatting.RED).
                 append(ComponentUtils.AttributeDescription.maxHealth("7%")));
         components.add(Component.literal("获得").withStyle(ChatFormatting.GREEN).
-                append(Compute.AttributeDescription.DefencePenetration(String.valueOf(WitherBowAttributes.Effect[tier]))));
+                append(ComponentUtils.AttributeDescription.defencePenetration(String.valueOf(WitherBowAttributes.Effect[tier]))));
         components.add(Component.literal("持续时间: 5s"));
         return components;
     }
 
     @Override
     public Component getSuffix() {
-        return ComponentUtils.getSuffixChapterIII();
+        return ComponentUtils.getSuffixNether();
     }
 
     @Override

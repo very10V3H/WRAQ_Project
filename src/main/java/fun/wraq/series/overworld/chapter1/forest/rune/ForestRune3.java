@@ -29,7 +29,7 @@ public class ForestRune3 extends Item {
                 append(Component.literal("等级强度").withStyle(ChatFormatting.LIGHT_PURPLE)).
                 append(Component.literal("额外物理伤害").withStyle(ChatFormatting.YELLOW)));
         components.add(Component.literal("并恢复").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.Health("100 + 10%攻击力")));
+                append(ComponentUtils.AttributeDescription.health("100 + 10%攻击力")));
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, ChatFormatting.DARK_GREEN, ChatFormatting.WHITE);
         components.add(Component.literal("Runes-II").withStyle(ChatFormatting.DARK_GREEN).withStyle(ChatFormatting.ITALIC));
         super.appendHoverText(stack, p_41422_, components, p_41424_);

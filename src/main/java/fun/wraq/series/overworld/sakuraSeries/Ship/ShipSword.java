@@ -55,7 +55,7 @@ public class ShipSword extends WraqSword implements ActiveItem {
                 append(Component.literal("牵引").withStyle(style)).
                 append(Component.literal("至自身位置").withStyle(ChatFormatting.WHITE)));
         components.add(Component.literal(" 并击碎其").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.Defence("10-40")).
+                append(ComponentUtils.AttributeDescription.defence("10-40")).
                 append(Component.literal(" 持续5s").withStyle(ChatFormatting.WHITE)));
         components.add(Component.literal(" - 击碎的护甲数额随牵引的怪物数量增长。").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
         ComponentUtils.coolDownTimeDescription(components, 12);
@@ -65,7 +65,7 @@ public class ShipSword extends WraqSword implements ActiveItem {
 
     @Override
     public Component getSuffix() {
-        return ComponentUtils.getSuffixOfChapterV();
+        return ComponentUtils.getSuffixOfSakura();
     }
 
     @Override

@@ -58,7 +58,7 @@ public class NetherBow extends WraqBow {
 
     @Override
     public Component getSuffix() {
-        return ComponentUtils.getSuffixChapterIII();
+        return ComponentUtils.getSuffixNether();
     }
 
     @Override

@@ -42,7 +42,7 @@ public class EndCrystal extends Item {
         components.add(Component.literal(" 凝聚终界能量的水晶，具有扭曲时间与空间的强大能量").withStyle(CustomStyle.styleOfEnd));
 /*        components.add(Component.literal(" - 于终界寂域中心使用，召唤").withStyle(ChatFormatting.WHITE).
                 append(Component.literal(" 终界征讨者遗骸").withStyle(CustomStyle.styleOfEnd)));*/
-        ComponentUtils.suffixOfChapterIV(components);
+        ComponentUtils.suffixOfEnd(components);
         super.appendHoverText(stack, level, components, flag);
     }
 

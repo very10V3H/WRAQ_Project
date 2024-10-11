@@ -54,21 +54,21 @@ public class NewPotion extends Item implements ActiveItem {
     }
 
     public static Map<String, Component> effect0DescriptionMap = new HashMap<>() {{
-        put(PotionName.AttackUp, Compute.AttributeDescription.AttackDamage("25 + 25%"));
-        put(PotionName.DefencePenetrationUp, Compute.AttributeDescription.DefencePenetration("20%"));
-        put(PotionName.ManaPenetrationUp, Compute.AttributeDescription.ManaPenetration("20%"));
-        put(PotionName.CooldownUp, Compute.AttributeDescription.CoolDown("35"));
-        put(PotionName.CritDamageUp, Compute.AttributeDescription.CritDamage("40%"));
+        put(PotionName.AttackUp, ComponentUtils.AttributeDescription.attackDamage("25 + 25%"));
+        put(PotionName.DefencePenetrationUp, ComponentUtils.AttributeDescription.defencePenetration("20%"));
+        put(PotionName.ManaPenetrationUp, ComponentUtils.AttributeDescription.manaPenetration("20%"));
+        put(PotionName.CooldownUp, ComponentUtils.AttributeDescription.coolDown("35"));
+        put(PotionName.CritDamageUp, ComponentUtils.AttributeDescription.critDamage("40%"));
 
-        put(PotionName.CritRateUp, Compute.AttributeDescription.CritRate("20%"));
-        put(PotionName.DefenceUp, Compute.AttributeDescription.Defence("80 + 25%"));
-        put(PotionName.HealthStealUp, Compute.AttributeDescription.HealthSteal("12%"));
+        put(PotionName.CritRateUp, ComponentUtils.AttributeDescription.critRate("20%"));
+        put(PotionName.DefenceUp, ComponentUtils.AttributeDescription.defence("80 + 25%"));
+        put(PotionName.HealthStealUp, ComponentUtils.AttributeDescription.healthSteal("12%"));
         put(PotionName.ManaDamageUp, ComponentUtils.AttributeDescription.manaDamage("25 + 25%"));
-        put(PotionName.ManaDefenceUp, Compute.AttributeDescription.ManaDefence("75 + 25%"));
+        put(PotionName.ManaDefenceUp, ComponentUtils.AttributeDescription.manaDefence("75 + 25%"));
 
         put(PotionName.MovementSpeedUp, ComponentUtils.AttributeDescription.movementSpeed("30%"));
-        put(PotionName.HealthRecoverUp, Compute.AttributeDescription.HealthRecover("2.5%"));
-        put(PotionName.ManaRecoverUp, Compute.AttributeDescription.ManaRecover("10"));
+        put(PotionName.HealthRecoverUp, ComponentUtils.AttributeDescription.healthRecover("2.5%"));
+        put(PotionName.ManaRecoverUp, ComponentUtils.AttributeDescription.manaRecover("10"));
 
         put(PotionName.damageEnhance, Component.literal("35%伤害提升").withStyle(CustomStyle.styleOfPower));
         put(PotionName.attackDamageEnhance, Component.literal("35%物理伤害提升").withStyle(CustomStyle.styleOfPower));
@@ -80,21 +80,21 @@ public class NewPotion extends Item implements ActiveItem {
     }};
 
     public static Map<String, Component> effect1DescriptionMap = new HashMap<>() {{
-        put(PotionName.AttackUp, Compute.AttributeDescription.AttackDamage("40 + 40%"));
-        put(PotionName.DefencePenetrationUp, Compute.AttributeDescription.DefencePenetration("45%"));
-        put(PotionName.ManaPenetrationUp, Compute.AttributeDescription.ManaPenetration("45%"));
-        put(PotionName.CooldownUp, Compute.AttributeDescription.CoolDown("80"));
-        put(PotionName.CritDamageUp, Compute.AttributeDescription.CritDamage("80%"));
+        put(PotionName.AttackUp, ComponentUtils.AttributeDescription.attackDamage("40 + 40%"));
+        put(PotionName.DefencePenetrationUp, ComponentUtils.AttributeDescription.defencePenetration("45%"));
+        put(PotionName.ManaPenetrationUp, ComponentUtils.AttributeDescription.manaPenetration("45%"));
+        put(PotionName.CooldownUp, ComponentUtils.AttributeDescription.coolDown("80"));
+        put(PotionName.CritDamageUp, ComponentUtils.AttributeDescription.critDamage("80%"));
 
-        put(PotionName.CritRateUp, Compute.AttributeDescription.CritRate("40%"));
-        put(PotionName.DefenceUp, Compute.AttributeDescription.Defence("160 + 40%"));
-        put(PotionName.HealthStealUp, Compute.AttributeDescription.HealthSteal("25%"));
+        put(PotionName.CritRateUp, ComponentUtils.AttributeDescription.critRate("40%"));
+        put(PotionName.DefenceUp, ComponentUtils.AttributeDescription.defence("160 + 40%"));
+        put(PotionName.HealthStealUp, ComponentUtils.AttributeDescription.healthSteal("25%"));
         put(PotionName.ManaDamageUp, ComponentUtils.AttributeDescription.manaDamage("40 + 40%"));
-        put(PotionName.ManaDefenceUp, Compute.AttributeDescription.ManaDefence("125 + 40%"));
+        put(PotionName.ManaDefenceUp, ComponentUtils.AttributeDescription.manaDefence("125 + 40%"));
 
         put(PotionName.MovementSpeedUp, ComponentUtils.AttributeDescription.movementSpeed("60%"));
-        put(PotionName.HealthRecoverUp, Compute.AttributeDescription.HealthRecover("5%"));
-        put(PotionName.ManaRecoverUp, Compute.AttributeDescription.ManaRecover("25"));
+        put(PotionName.HealthRecoverUp, ComponentUtils.AttributeDescription.healthRecover("5%"));
+        put(PotionName.ManaRecoverUp, ComponentUtils.AttributeDescription.manaRecover("25"));
 
         put(PotionName.damageEnhance, Component.literal("50%伤害提升").withStyle(CustomStyle.styleOfPower));
         put(PotionName.attackDamageEnhance, Component.literal("50%物理伤害提升").withStyle(CustomStyle.styleOfPower));

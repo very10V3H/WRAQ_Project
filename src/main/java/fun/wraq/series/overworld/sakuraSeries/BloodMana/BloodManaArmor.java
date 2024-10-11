@@ -43,7 +43,7 @@ public class BloodManaArmor extends WraqArmor implements ForgeItem {
         Style style = getMainStyle();
         Compute.DescriptionPassive(components, Component.literal("腥月初升").withStyle(style));
         components.add(Component.literal(" 你的").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.HealthSteal("")).
+                append(ComponentUtils.AttributeDescription.healthSteal("")).
                 append(Component.literal("提升").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("8%").withStyle(style)));
         Compute.DescriptionPassive(components, Component.literal("永升腥月").withStyle(style));

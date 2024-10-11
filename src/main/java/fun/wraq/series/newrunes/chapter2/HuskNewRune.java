@@ -52,7 +52,7 @@ public class HuskNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDe
 
     @Override
     public Component suffix() {
-        return ComponentUtils.getSuffixChapterII();
+        return ComponentUtils.getSuffixOfChapterII();
     }
 
     @Override

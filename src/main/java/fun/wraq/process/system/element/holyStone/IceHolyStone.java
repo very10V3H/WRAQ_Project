@@ -23,7 +23,6 @@ public class IceHolyStone extends Item implements ICurioItem {
 
     public IceHolyStone(Properties p_41383_, int type) {
         super(p_41383_);
-        Utils.curiosTag.put(this, 1d);
         Utils.curiosList.add(this);
         switch (type) {
             case 0 -> Utils.attackDamage.put(this, 200d);
@@ -48,13 +47,13 @@ public class IceHolyStone extends Item implements ICurioItem {
 
     @Override
     public void onEquip(SlotContext slotContext, ItemStack prevStack, ItemStack stack) {
-        Compute.AddCuriosToList((Player) slotContext.entity(), stack);
+        Compute.addCuriosToList((Player) slotContext.entity(), stack);
         ICurioItem.super.onEquip(slotContext, prevStack, stack);
     }
 
     @Override
     public void onUnequip(SlotContext slotContext, ItemStack newStack, ItemStack stack) {
-        Compute.RemoveCuriosInList((Player) slotContext.entity(), stack);
+        Compute.removeCuriosInList((Player) slotContext.entity(), stack);
         ICurioItem.super.onUnequip(slotContext, newStack, stack);
     }
 

@@ -1,6 +1,5 @@
 package fun.wraq.series.overworld.chapter1.volcano.rune;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.util.ComponentUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -25,9 +24,9 @@ public class VolcanoRune3 extends Item {
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, ChatFormatting.YELLOW, ChatFormatting.WHITE);
         components.add(Component.literal("符石属性:"));
         components.add(Component.literal("获得").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.CritDamage("50%")).
+                append(ComponentUtils.AttributeDescription.critDamage("50%")).
                 append(Component.literal("，损失").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.ExHealth("50%")));
+                append(ComponentUtils.AttributeDescription.exHealth("50%")));
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, ChatFormatting.YELLOW, ChatFormatting.WHITE);
         components.add(Component.literal("Runes-III").withStyle(ChatFormatting.YELLOW).withStyle(ChatFormatting.ITALIC));
         super.appendHoverText(stack, p_41422_, components, p_41424_);

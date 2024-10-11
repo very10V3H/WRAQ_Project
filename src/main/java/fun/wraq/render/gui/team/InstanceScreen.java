@@ -137,13 +137,13 @@ public class InstanceScreen extends Screen {
                 components.add(Component.literal(" 1.对半径6格以内的玩家造成").withStyle(ChatFormatting.WHITE).
                         append(ComponentUtils.AttributeDescription.manaDamageValue("200 * 难度系数")).
                         append(Component.literal("，但对半径6格以外的玩家治疗").withStyle(ChatFormatting.WHITE)).
-                        append(Compute.AttributeDescription.Health("100 * 难度系数")).
+                        append(ComponentUtils.AttributeDescription.health("100 * 难度系数")).
                         append(Component.literal("，同时其回复与造成伤害相同的生命值。").withStyle(ChatFormatting.WHITE)));
 
                 components.add(Component.literal(" 2.对半径6格以外的玩家造成").withStyle(ChatFormatting.WHITE).
                         append(ComponentUtils.AttributeDescription.manaDamageValue("125 * 难度系数")).
                         append(Component.literal("，但对半径6格以内的玩家治疗").withStyle(ChatFormatting.WHITE)).
-                        append(Compute.AttributeDescription.Health("75 * 难度系数")).
+                        append(ComponentUtils.AttributeDescription.health("75 * 难度系数")).
                         append(Component.literal("，同时其回复与造成伤害相同的生命值。").withStyle(ChatFormatting.WHITE)));
 
                 components.add(Component.literal(" 技能每2.5s施放一次，并且交替施放。").withStyle(ChatFormatting.WHITE));
@@ -205,7 +205,7 @@ public class InstanceScreen extends Screen {
                         append(Component.literal("尘月").withStyle(CustomStyle.styleOfMoon)).
                         append(Component.literal("的神秘力量，将你牵引会月宫中心。").withStyle(ChatFormatting.WHITE)));
                 components.add(Component.literal(" ·若天镜与明镜的生命值百分比差值超过50%，则其会回复全部").withStyle(ChatFormatting.WHITE).
-                        append(Compute.AttributeDescription.Health("")).
+                        append(ComponentUtils.AttributeDescription.health("")).
                         append(Component.literal("并对玩家造成大量").withStyle(ChatFormatting.WHITE)).
                         append(ComponentUtils.AttributeDescription.manaDamageValue("")));
                 guiGraphics.renderComponentTooltip(fontRenderer, components, x, y);
@@ -220,7 +220,7 @@ public class InstanceScreen extends Screen {
                 components.add(Component.literal(" 想要召唤出新世禁法与旧世魔力的混合产物 - ").withStyle(ChatFormatting.WHITE).
                         append(Component.literal("新世禁法魔物").withStyle(CustomStyle.styleOfBloodMana)).
                         append(Component.literal("你需要在副本场地将旧世复生魔王的").withStyle(ChatFormatting.WHITE)).
-                        append(Compute.AttributeDescription.Health("")).
+                        append(ComponentUtils.AttributeDescription.health("")).
                         append(Component.literal("削减至10%，随后将").withStyle(ChatFormatting.WHITE)).
                         append(ModItems.IntensifiedDevilBlood.get().getDefaultInstance().getDisplayName()).
                         append(Component.literal("丢弃出去，让旧世复生魔王吸收新世禁法，召唤:").withStyle(ChatFormatting.WHITE)).
@@ -245,10 +245,10 @@ public class InstanceScreen extends Screen {
                 components.add(Component.literal(" 暗黑城堡").withStyle(CustomStyle.styleOfCastle).
                         append(Component.literal("拥有8个房间，北4，南4，其中:").withStyle(ChatFormatting.WHITE)));
                 components.add(Component.literal(" ·北部的每个房间有四只怪物，其").withStyle(ChatFormatting.WHITE).
-                        append(Compute.AttributeDescription.ManaDefence("")).
+                        append(ComponentUtils.AttributeDescription.manaDefence("")).
                         append(Component.literal("较低，推荐法师清理。").withStyle(ChatFormatting.WHITE)));
                 components.add(Component.literal(" ·南部的每个房间只有一只怪物，其").withStyle(ChatFormatting.WHITE).
-                        append(Compute.AttributeDescription.Defence("")).
+                        append(ComponentUtils.AttributeDescription.defence("")).
                         append(Component.literal("较低，推荐战士与弓箭手清理。").withStyle(ChatFormatting.WHITE)));
                 components.add(Component.literal(" ·在清理完所有房间后，请回到城堡大门，迎接回防的城堡守备军!").withStyle(ChatFormatting.WHITE));
                 guiGraphics.renderComponentTooltip(fontRenderer, components, x, y);

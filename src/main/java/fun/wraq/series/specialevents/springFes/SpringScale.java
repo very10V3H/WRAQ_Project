@@ -38,7 +38,7 @@ public class SpringScale extends Item implements ActiveItem {
         Compute.DescriptionActive(components, Component.literal("锣鼓驱年！").withStyle(CustomStyle.styleOfSpring));
         components.add(Component.literal(" 根据精通等级的最高值，提供").withStyle(ChatFormatting.WHITE));
         components.add(Component.literal(" 1.剑术精通:").withStyle(CustomStyle.styleOfPower).
-                append(Compute.AttributeDescription.AttackDamage(rate[tier])));
+                append(ComponentUtils.AttributeDescription.attackDamage(rate[tier])));
         components.add(Component.literal(" 2.弓术精通:").withStyle(CustomStyle.styleOfPower).
                 append(ComponentUtils.AttributeDescription.swiftness("" + (tier + 1))));
         components.add(Component.literal(" 3.法术精通:").withStyle(CustomStyle.styleOfPower).

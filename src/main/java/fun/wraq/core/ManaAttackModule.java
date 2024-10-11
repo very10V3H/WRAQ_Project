@@ -181,7 +181,7 @@ public class ManaAttackModule {
             Compute.manaDamageExEffect(player, monster, damage);
             SameTypeModule.onNormalAttackHitMob(player, monster, 1, damage + damageIgnoreDefence);
 
-            ManaCurios1.ManaDamageExIgnoreDefenceDamage(player, monster, damage);
+            ManaCurios1.ManaDamageExTrueDamage(player, monster, damage);
             TreeBracelet.Passive(player, monster); // 古树手镯
             Compute.AdditionEffects(player, monster, damage + damageIgnoreDefence, 1);
             OnHitEffectEquip.hit(player, monster);

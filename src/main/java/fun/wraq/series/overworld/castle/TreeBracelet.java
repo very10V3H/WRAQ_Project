@@ -24,7 +24,6 @@ public class TreeBracelet extends Item implements ICurioItem {
 
     public TreeBracelet(Properties p_41383_) {
         super(p_41383_);
-        Utils.curiosTag.put(this, 1d);
         Utils.manaDamage.put(this, 400d);
         Utils.curiosList.add(this);
     }
@@ -53,13 +52,13 @@ public class TreeBracelet extends Item implements ICurioItem {
 
     @Override
     public void onEquip(SlotContext slotContext, ItemStack prevStack, ItemStack stack) {
-        Compute.AddCuriosToList((Player) slotContext.entity(), stack);
+        Compute.addCuriosToList((Player) slotContext.entity(), stack);
         ICurioItem.super.onEquip(slotContext, prevStack, stack);
     }
 
     @Override
     public void onUnequip(SlotContext slotContext, ItemStack newStack, ItemStack stack) {
-        Compute.RemoveCuriosInList((Player) slotContext.entity(), stack);
+        Compute.removeCuriosInList((Player) slotContext.entity(), stack);
         ICurioItem.super.onUnequip(slotContext, newStack, stack);
     }
 
@@ -69,7 +68,7 @@ public class TreeBracelet extends Item implements ICurioItem {
     }
 
     public static void Passive(Player player, Mob mob) {
-        if (Compute.PlayerHasCurios(player, ModItems.TreeBracelet.get())) {
+        if (Compute.hasCurios(player, ModItems.TreeBracelet.get())) {
             /*Damage.LastXpStrengthDamageToMob(player, mob, 0.25, 40, 10, false);*/
         }
     }

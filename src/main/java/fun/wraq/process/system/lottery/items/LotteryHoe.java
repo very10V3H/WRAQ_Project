@@ -67,7 +67,7 @@ public class LotteryHoe extends SwordItem {
         components.add(Component.literal(" 使").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("普通近战攻击").withStyle(CustomStyle.styleOfPower)).
                 append(Component.literal("附带目标").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.Health("6%当前")).
+                append(ComponentUtils.AttributeDescription.health("6%当前")).
                 append(Component.literal("的").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("额外物理伤害").withStyle(CustomStyle.styleOfPower)));
         Compute.LevelRequire(components, Utils.levelRequire.get(this));

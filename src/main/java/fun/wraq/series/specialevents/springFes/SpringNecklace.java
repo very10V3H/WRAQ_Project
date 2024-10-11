@@ -28,7 +28,6 @@ public class SpringNecklace extends Item implements ICurioItem {
         Utils.manaRecover.put(this, ManaRecover[level]);
         Utils.maxMana.put(this, MaxMana[level]);
         Utils.expUp.put(this, ExpUp[level]);
-        Utils.curiosTag.put(this, 1d);
         Utils.curiosList.add(this);
     }
 

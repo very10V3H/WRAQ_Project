@@ -1,6 +1,7 @@
 package fun.wraq.customized.uniform.attack;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.customized.WraqUniformCurios;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -24,7 +25,7 @@ public class AttackCurios0 extends WraqAttackUniformCurios {
         Style style = CustomStyle.styleOfPower;
         Compute.DescriptionPassive(components, Component.literal("暴政").withStyle(style));
         components.add(Component.literal(" 获得").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.CritDamage("15%总")));
+                append(ComponentUtils.AttributeDescription.critDamage("15%总")));
         components.add(Component.literal(" 残暴的君主，终将被民众推翻。").withStyle(style));
         return components;
     }

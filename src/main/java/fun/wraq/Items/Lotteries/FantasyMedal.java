@@ -20,7 +20,6 @@ public class FantasyMedal extends Item implements ICurioItem {
 
     public FantasyMedal(Properties p_41383_) {
         super(p_41383_);
-        Utils.curiosTag.put(this, 1d);
         Utils.curiosList.add(this);
     }
 

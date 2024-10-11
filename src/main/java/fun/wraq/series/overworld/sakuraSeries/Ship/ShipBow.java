@@ -46,14 +46,14 @@ public class ShipBow extends WraqBow implements InCuriosOrEquipSlotAttributesMod
         Style style = getMainStyle();
         Compute.DescriptionPassive(components, Component.literal("领航").withStyle(style));
         components.add(Component.literal(" 根据周围玩家数量，为你提供").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.DefencePenetration("5 - 20")));
+                append(ComponentUtils.AttributeDescription.defencePenetration("5 - 20")));
         components.add(Component.literal(" - 提供的护甲数额随周围玩家数量增长。").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
         return components;
     }
 
     @Override
     public Component getSuffix() {
-        return ComponentUtils.getSuffixOfChapterV();
+        return ComponentUtils.getSuffixOfSakura();
     }
 
     @Override

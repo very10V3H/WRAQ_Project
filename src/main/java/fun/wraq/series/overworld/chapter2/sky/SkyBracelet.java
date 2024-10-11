@@ -44,7 +44,7 @@ public class SkyBracelet extends Item {
         ComponentUtils.descriptionOfAddition(components);
         if (Screen.hasShiftDown()) SkySuitDescription.SuitDescription(components);
         else {
-            Compute.SuitDescription(components);
+            ComponentUtils.suitDescription(components);
             components.add(Component.literal("[按住shift展开套装效果]").withStyle(ChatFormatting.GRAY));
         }
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);

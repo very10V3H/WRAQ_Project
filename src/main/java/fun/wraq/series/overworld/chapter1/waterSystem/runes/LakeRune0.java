@@ -28,7 +28,7 @@ public class LakeRune0 extends Item {
         components.add(Component.literal(" 当你拥有高于").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.AttributeDescription.maxHealth("80%")).
                 append(Component.literal("，为你提供").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.CoolDown("20 + 20%")));
+                append(ComponentUtils.AttributeDescription.coolDown("20 + 20%")));
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, ChatFormatting.BLUE, ChatFormatting.WHITE);
         components.add(Component.literal("LakeRunes").withStyle(ChatFormatting.BLUE).withStyle(ChatFormatting.ITALIC));
         super.appendHoverText(stack, p_41422_, components, p_41424_);

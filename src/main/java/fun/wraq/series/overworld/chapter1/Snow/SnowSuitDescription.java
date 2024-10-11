@@ -3,6 +3,7 @@ package fun.wraq.series.overworld.chapter1.Snow;
 import fun.wraq.common.Compute;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ClientUtils;
+import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -23,13 +24,13 @@ public class SnowSuitDescription {
     public static void ArmorCommonDescription(List<Component> components) {
         if (Screen.hasShiftDown()) SuitDescription(components);
         else {
-            Compute.SuitDescription(components);
+            ComponentUtils.suitDescription(components);
             components.add(Component.literal("[按住shift展开套装效果]").withStyle(ChatFormatting.GRAY));
         }
     }
 
     public static void SuitDescription(List<Component> components) {
-        Compute.SuitDescription(components);
+        ComponentUtils.suitDescription(components);
 
         int Count = 0;
         Player player = Minecraft.getInstance().player;
@@ -61,13 +62,13 @@ public class SnowSuitDescription {
             Count++;
         } else components.add(Component.literal(CrestName).withStyle(ChatFormatting.GRAY));
 
-        Compute.SuitDoubleDescription(components, Count);
+        ComponentUtils.suitDoubleDescription(components, Count);
         Compute.DescriptionPassive(components, Component.literal("冰川增幅").withStyle(MainStyle));
         components.add(Component.literal("攻击或箭矢攻击将会").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("缓速").withStyle(MainStyle)).
                 append(Component.literal("目标").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("0.25s").withStyle(MainStyle)));
-        Compute.SuitQuadraDescription(components, Count);
+        ComponentUtils.suitQuadraDescription(components, Count);
         Compute.DescriptionPassive(components, Component.literal("寒铁").withStyle(MainStyle));
         components.add(Component.literal("受击将会").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("缓速").withStyle(MainStyle)).

@@ -215,7 +215,7 @@ public class SkyBoss {
 
         @Override
         public Component getSuffix() {
-            return ComponentUtils.getSuffixChapterII();
+            return ComponentUtils.getSuffixOfChapterII();
         }
 
         @Override

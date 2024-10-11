@@ -102,14 +102,14 @@ public class LifeElementSceptre extends WraqSceptre implements ActiveItem {
         Style style = getMainStyle();
         Compute.DescriptionActive(components, Component.literal("化作春泥").withStyle(style));
         components.add(Component.literal(" 失去").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.Health("80%当前")).
+                append(ComponentUtils.AttributeDescription.health("80%当前")).
                 append(Component.literal("，并在10s内为你回复").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.Health("200%消耗的等额")));
+                append(ComponentUtils.AttributeDescription.health("200%消耗的等额")));
         ComponentUtils.coolDownTimeDescription(components, 25);
 
         Compute.DescriptionPassive(components, Component.literal("护花").withStyle(style));
         components.add(Component.literal(" 根据5s内回复的").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.Health("")).
+                append(ComponentUtils.AttributeDescription.health("")).
                 append(Component.literal("，为你提供等同于回复量50%的").withStyle(ChatFormatting.WHITE)).
                 append(ComponentUtils.AttributeDescription.manaDamage("")));
         components.add(Component.literal(" 多件生机武器的效果将不会叠加").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));

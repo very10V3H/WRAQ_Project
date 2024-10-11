@@ -83,6 +83,6 @@ public class MagmaSceptre extends WraqSceptre {
 
     @Override
     public Component getSuffix() {
-        return ComponentUtils.getSuffixChapterIII();
+        return ComponentUtils.getSuffixNether();
     }
 }

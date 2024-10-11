@@ -1,7 +1,6 @@
 package fun.wraq.process.func.damage;
 
 import fun.wraq.common.attribute.PlayerAttributes;
-import fun.wraq.process.func.damage.Damage;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Mob;
 import net.minecraftforge.event.TickEvent;
@@ -36,7 +35,7 @@ public record Dot(int type, double value, int frequency, int stopTick, String na
 
                 if (tick % (20 / dot.frequency) == 0) {
                     switch (dot.type) {
-                        case 0 -> Damage.causeIgNoreDefenceDamageToMonster(serverPlayer, mob, dot.value);
+                        case 0 -> Damage.causeTrueDamageToMonster(serverPlayer, mob, dot.value);
                         case 1 -> {
                             if (dot.computeCrit) {
                                 if (random.nextDouble() < PlayerAttributes.critRate(serverPlayer)) {

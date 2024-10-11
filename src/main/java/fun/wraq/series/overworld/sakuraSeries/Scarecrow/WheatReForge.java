@@ -26,13 +26,13 @@ public class WheatReForge extends Item {
         components.add(Component.literal("对装备性能进行调整。"));
         components.add(Component.literal("调整属性与范围:"));
         components.add(Component.literal("1.").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.Defence("-20% ~ 20%")));
+                append(ComponentUtils.AttributeDescription.defence("-20% ~ 20%")));
         components.add(Component.literal("2.").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.ManaDefence("-20% ~ 20%")));
+                append(ComponentUtils.AttributeDescription.manaDefence("-20% ~ 20%")));
         components.add(Component.literal("3.").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.AttributeDescription.maxHealth("-50% ~ 100%")));
         components.add(Component.literal("4.").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.CoolDown("-20% ~ 20%")));
+                append(ComponentUtils.AttributeDescription.coolDown("-20% ~ 20%")));
         components.add(Component.literal("5.").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.AttributeDescription.maxMana("-10% ~ 10%")));
         components.add(Component.literal("6.").withStyle(ChatFormatting.WHITE).

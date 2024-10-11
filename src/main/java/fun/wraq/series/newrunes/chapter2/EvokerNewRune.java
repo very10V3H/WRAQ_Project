@@ -56,7 +56,7 @@ public class EvokerNewRune extends WraqCurios implements RuneItem, UsageOrGetWay
 
     @Override
     public Component suffix() {
-        return ComponentUtils.getSuffixChapterII();
+        return ComponentUtils.getSuffixOfChapterII();
     }
 
     @Override

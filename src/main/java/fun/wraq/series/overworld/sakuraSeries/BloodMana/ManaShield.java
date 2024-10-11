@@ -42,17 +42,17 @@ public class ManaShield extends WraqOffHandItem implements ForgeItem {
         MineShield.shieldAdditionDescription(components);
         Compute.DescriptionPassive(components, Component.literal("旧世封魔遗志").withStyle(getMainStyle()));
         components.add(Component.literal(" 当拥有高于").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.Health("50%")).
+                append(ComponentUtils.AttributeDescription.health("50%")).
                 append(Component.literal("时，将你的").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.HealthSteal("")).
+                append(ComponentUtils.AttributeDescription.healthSteal("")).
                 append(Component.literal("以1:5全部转化为").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.CritDamage("")));
+                append(ComponentUtils.AttributeDescription.critDamage("")));
         components.add(Component.literal(" 当拥有低于").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.Health("50%")).
+                append(ComponentUtils.AttributeDescription.health("50%")).
                 append(Component.literal("时，将你的").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.CritDamage("")).
+                append(ComponentUtils.AttributeDescription.critDamage("")).
                 append(Component.literal("以5:1全部转化为").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.HealthSteal("")));
+                append(ComponentUtils.AttributeDescription.healthSteal("")));
         return components;
     }
 

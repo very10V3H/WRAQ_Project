@@ -25,7 +25,6 @@ public class RubyNecklace extends Item implements ICurioItem {
     public RubyNecklace(Properties p_41383_, int num) {
         super(p_41383_);
         Utils.maxHealth.put(this, attribute[num]);
-        Utils.curiosTag.put(this, 1d);
         Utils.curiosList.add(this);
     }
 
@@ -42,13 +41,13 @@ public class RubyNecklace extends Item implements ICurioItem {
 
     @Override
     public void onEquip(SlotContext slotContext, ItemStack prevStack, ItemStack stack) {
-        Compute.AddCuriosToList((Player) slotContext.entity(), stack);
+        Compute.addCuriosToList((Player) slotContext.entity(), stack);
         ICurioItem.super.onEquip(slotContext, prevStack, stack);
     }
 
     @Override
     public void onUnequip(SlotContext slotContext, ItemStack newStack, ItemStack stack) {
-        Compute.RemoveCuriosInList((Player) slotContext.entity(), stack);
+        Compute.removeCuriosInList((Player) slotContext.entity(), stack);
         ICurioItem.super.onUnequip(slotContext, newStack, stack);
     }
 

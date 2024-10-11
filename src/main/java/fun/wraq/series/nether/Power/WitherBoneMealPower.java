@@ -36,7 +36,7 @@ public class WitherBoneMealPower extends Item implements ActiveItem {
                 append(ComponentUtils.AttributeDescription.manaDamageValue("800%")));
         components.add(Component.literal(" 并").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("移除范围内敌人").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.ManaDefence("50%")).
+                append(ComponentUtils.AttributeDescription.manaDefence("50%")).
                 append(Component.literal(" 持续5s").withStyle(ChatFormatting.WHITE)));
         components.add(Component.literal(" - 这个伤害会附带").withStyle(ChatFormatting.WHITE).
                 append(Element.Description.FireElement("1 + 100%")));

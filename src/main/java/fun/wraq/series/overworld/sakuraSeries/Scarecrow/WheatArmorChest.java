@@ -52,12 +52,12 @@ public class WheatArmorChest extends ArmorItem implements GeoItem {
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         Compute.DescriptionPassive(components, Component.literal("藤甲"));
         components.add(Component.literal("1.减免受到的").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.AttackDamageValue("30%")));
+                append(ComponentUtils.AttributeDescription.attackDamageValue("30%")));
         components.add(Component.literal("2.提高受到的").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.AttributeDescription.manaDamageValue("30%")));
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         components.add(Component.literal("Scarecrow_ChestPlate").withStyle(style).withStyle(ChatFormatting.ITALIC));
-        ComponentUtils.suffixOfChapterV(components);
+        ComponentUtils.suffixOfSakura(components);
         super.appendHoverText(stack, level, components, flag);
     }
 

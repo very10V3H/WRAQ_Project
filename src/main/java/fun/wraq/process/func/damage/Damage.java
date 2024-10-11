@@ -8,6 +8,7 @@ import fun.wraq.common.attribute.DamageInfluence;
 import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.impl.damage.OnCauseFinalDamageCurios;
 import fun.wraq.common.impl.onhit.OnPowerCauseDamageEquip;
 import fun.wraq.common.impl.onkill.OnKillEffectCurios;
 import fun.wraq.common.impl.onkill.OnKillEffectEquip;
@@ -26,7 +27,6 @@ import fun.wraq.process.system.element.equipAndCurios.fireElement.FireEquip;
 import fun.wraq.process.system.endlessinstance.DailyEndlessInstance;
 import fun.wraq.process.system.teamInstance.NewTeamInstanceEvent;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.instance.series.moon.Equip.MoonBelt;
 import fun.wraq.series.newrunes.chapter2.HuskNewRune;
 import fun.wraq.series.newrunes.chapter3.NetherNewRune;
 import fun.wraq.series.overworld.chapter7.star.StarBottle;
@@ -55,9 +55,9 @@ public class Damage {
      * @param player 玩家
      * @param mob 目标怪物
      * @param rate 倍率
-     * @param ignoreDefence 真实伤害
+     * @param trueDamage 真实伤害
      */
-    public static void causeAutoAdaptionRateDamageToMob(Player player, Mob mob, double rate, boolean ignoreDefence) {
+    public static void causeAutoAdaptionRateDamageToMob(Player player, Mob mob, double rate, boolean trueDamage) {
         ItemStack itemStack = player.getMainHandItem();
         Item item = itemStack.getItem();
         if (Utils.swordTag.containsKey(item) || Utils.bowTag.containsKey(item)) {
@@ -65,15 +65,15 @@ public class Damage {
             if (RandomUtils.nextDouble(0, 1) < PlayerAttributes.critRate(player)) {
                 damageRate *= (1 + PlayerAttributes.critDamage(player));
             }
-            if (ignoreDefence) {
-                causeIgNoreDefenceDamageToMonster(player, mob, PlayerAttributes.attackDamage(player) * damageRate);
+            if (trueDamage) {
+                causeTrueDamageToMonster(player, mob, PlayerAttributes.attackDamage(player) * damageRate);
             } else {
                 causeAttackDamageToMonster_RateAdDamage(player, mob, damageRate);
             }
         }
         if (Utils.sceptreTag.containsKey(item)) {
-            if (ignoreDefence) {
-                causeIgNoreDefenceDamageToMonster(player, mob, PlayerAttributes.manaDamage(player));
+            if (trueDamage) {
+                causeTrueDamageToMonster(player, mob, PlayerAttributes.manaDamage(player));
             } else {
                 causeManaDamageToMonster_RateApDamage(player, mob, rate, false);
             }
@@ -93,7 +93,7 @@ public class Damage {
         return PlayerAttributes.manaDamage(player) * rate;
     }
 
-    public static double causeIgNoreDefenceDamageToMonster(Player player, Mob monster, double damage) {
+    public static double causeTrueDamageToMonster(Player player, Mob monster, double damage) {
         Compute.summonValueItemEntity(monster.level(), player, monster,
                 Component.literal(String.format("%.0f", damage)).withStyle(CustomStyle.styleOfSea), 2);
         DirectDamageToMob(player, monster, damage);
@@ -227,7 +227,7 @@ public class Damage {
 
         DirectDamageToMob(player, monster, totalDamage);
         Compute.manaDamageExEffect(player, monster, totalDamage);
-        ManaCurios1.ManaDamageExIgnoreDefenceDamage(player, monster, totalDamage);
+        ManaCurios1.ManaDamageExTrueDamage(player, monster, totalDamage);
         if (isPower) {
             Compute.AdditionEffects(player, monster, totalDamage, 1);
             OnPowerCauseDamageEquip.causeDamage(player, monster);
@@ -289,7 +289,7 @@ public class Damage {
 
         DirectDamageToMob(player, monster, totalDamage);
         Compute.manaDamageExEffect(player, monster, totalDamage);
-        ManaCurios1.ManaDamageExIgnoreDefenceDamage(player, monster, totalDamage);
+        ManaCurios1.ManaDamageExTrueDamage(player, monster, totalDamage);
         if (isPower) {
             Compute.AdditionEffects(player, monster, totalDamage, 1);
             OnPowerCauseDamageEquip.causeDamage(player, monster);
@@ -327,7 +327,7 @@ public class Damage {
         Compute.summonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", totalDamage)).withStyle(ChatFormatting.LIGHT_PURPLE), 1);
         DirectDamageToMob(player, monster, totalDamage);
         Compute.manaDamageExEffect(player, monster, totalDamage);
-        ManaCurios1.ManaDamageExIgnoreDefenceDamage(player, monster, totalDamage);
+        ManaCurios1.ManaDamageExTrueDamage(player, monster, totalDamage);
     }
 
     public static void causeManaDamageToMonster_ApDamage(Player player, Mob monster, double damage, boolean isPower) {
@@ -368,7 +368,7 @@ public class Damage {
         Compute.summonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", totalDamage)).withStyle(ChatFormatting.LIGHT_PURPLE), 1);
         DirectDamageToMob(player, monster, totalDamage);
         Compute.manaDamageExEffect(player, monster, totalDamage);
-        ManaCurios1.ManaDamageExIgnoreDefenceDamage(player, monster, totalDamage);
+        ManaCurios1.ManaDamageExTrueDamage(player, monster, totalDamage);
         if (isPower) {
             Compute.AdditionEffects(player, monster, totalDamage, 1);
             OnPowerCauseDamageEquip.causeDamage(player, monster);
@@ -422,7 +422,7 @@ public class Damage {
         BloodManaCurios.passive(player);
     }
 
-    public static void DamageIgnoreDefenceToPlayer(Mob mob, Player player, double Damage) {
+    public static void causeTrueDamageToPlayer(Mob mob, Player player, double Damage) {
         MonsterAttackEvent.monsterAttack(mob, player, Damage);
     }
 
@@ -502,11 +502,11 @@ public class Damage {
 
             // ---- //
             FireEquip.IgniteEffect(player, mob);
-            DpsCommand.CalculateDamage(player, damage);
-            MoonBelt.PassiveCauseDamage(player, damage); // 尘月玉缠
+            DpsCommand.CalculateDamage(player, finalDamage);
             entity.invulnerableTime = 0;
             StarBottle.playerBattleTickMapRefresh(player);
             Element.ElementParticleProvider(mob);
+            OnCauseFinalDamageCurios.causeFinalDamage(player, mob, finalDamage);
         }
     }
 

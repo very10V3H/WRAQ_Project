@@ -68,6 +68,6 @@ public class EvokerSceptre extends WraqSceptre {
 
     @Override
     public Component getSuffix() {
-        return ComponentUtils.getSuffixChapterII();
+        return ComponentUtils.getSuffixOfChapterII();
     }
 }

@@ -48,7 +48,7 @@ public class LakePower extends Item implements ActiveItem {
                 append(Component.literal("周围敌人造成").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("25%减速").withStyle(ChatFormatting.GRAY)).
                 append(Component.literal("，并削减其").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.ManaDefence(String.format("%.0f", effect[tier] * 10) + "%")).
+                append(ComponentUtils.AttributeDescription.manaDefence(String.format("%.0f", effect[tier] * 10) + "%")).
                 append(Component.literal("持续2s。").withStyle(ChatFormatting.WHITE)));
         components.add(Component.literal(" 同时对其造成").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.AttributeDescription.manaDamageValue(String.format("%.0f", effect[tier] * 100) + "%")));

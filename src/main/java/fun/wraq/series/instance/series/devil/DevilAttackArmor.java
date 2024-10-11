@@ -38,9 +38,9 @@ public class DevilAttackArmor extends WraqArmor {
         Style style = getMainStyle();
         Compute.DescriptionPassive(components, Component.literal("封魔者之怒").withStyle(style));
         components.add(Component.literal(" 受到来自怪物的伤害时，为你提供等同于怪物").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.AttackDamage("50%")).
+                append(ComponentUtils.AttributeDescription.attackDamage("50%")).
                 append(Component.literal("的").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.AttackDamage("")).
+                append(ComponentUtils.AttributeDescription.attackDamage("")).
                 append(Component.literal("加成，持续2s").withStyle(ChatFormatting.WHITE)));
         return components;
     }
