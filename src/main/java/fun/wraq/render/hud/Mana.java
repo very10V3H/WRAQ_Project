@@ -40,10 +40,10 @@ public class Mana {
         ModNetworking.sendToClient(new ManaSyncS2CPacket(MaxMana, data.getDouble("MANA")), (ServerPlayer) player);
     }
 
-    public static void addOrCostPlayerMana(Player player, double Mana) {
+    public static void addOrCostPlayerMana(Player player, double value) {
         CompoundTag data = player.getPersistentData();
-        if (Mana > 0) data.putDouble("MANA", Math.min(data.getDouble("MANA") + Mana, data.getDouble("MAXMANA")));
-        else data.putDouble("MANA", Math.max(data.getDouble("MANA") + Mana, 0));
+        if (value > 0) data.putDouble("MANA", Math.min(data.getDouble("MANA") + value, data.getDouble("MAXMANA")));
+        else data.putDouble("MANA", Math.max(data.getDouble("MANA") + value, 0));
         updateManaStatus(player);
     }
 

@@ -9,6 +9,7 @@ import fun.wraq.common.fast.Tick;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.system.element.Element;
+import fun.wraq.render.hud.Mana;
 import fun.wraq.render.particles.ModParticles;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -58,6 +59,7 @@ public class NetherSceptre extends WraqSceptre implements Laser {
         components.add(Te.s("1.", ChatFormatting.RED, "最远可达30格"));
         components.add(Te.s("2.", ChatFormatting.RED, "对沿途的所有敌人每0.5s造成一次伤害"));
         components.add(Te.s("3.", ChatFormatting.RED, "伤害被视为", "普通法球攻击", CustomStyle.styleOfMana));
+        components.add(Te.s(" 解构射线", ChatFormatting.RED, "每秒消耗", "90法力", CustomStyle.styleOfMana));
         return components;
     }
 
@@ -79,6 +81,7 @@ public class NetherSceptre extends WraqSceptre implements Laser {
     @Override
     public void tick(Player player) {
         if (passiveLastTickMap.getOrDefault(player, 0) > Tick.get()) {
+            Mana.addOrCostPlayerMana(player, -4.5);
             Compute.TargetLocationLaser(player, player.pick(30, 0, false).getLocation(),
                     ModParticles.YSR1.get(), PlayerAttributes.manaDamage(player), 10);
         }
