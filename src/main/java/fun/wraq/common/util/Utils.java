@@ -615,59 +615,9 @@ public class Utils {
         particleOptionsList.add(ModParticles.LONG_LIGHTNINGISLAND.get());
     }
 
-    public static Map<String, Style> gemStringStyleMap = new HashMap<>() {{
-        this.put("skyGem", CustomStyle.styleOfSky);
-        this.put("EvokerGem", CustomStyle.styleOfMana);
-        this.put("plainGem", CustomStyle.styleOfPlain);
-        this.put("forestGem", CustomStyle.styleOfForest);
-        this.put("lakeGem", CustomStyle.styleOfLake);
-        this.put("volcanoGem", CustomStyle.styleOfVolcano);
-        this.put("snowGem", CustomStyle.styleOfSnow);
-        this.put(StringUtils.GemName.FieldGem, CustomStyle.styleOfField);
-        this.put(StringUtils.GemName.MineGem, CustomStyle.styleOfMine);
-        this.put(StringUtils.GemName.LifeManaGem, CustomStyle.styleOfHealth);
-        this.put(StringUtils.GemName.ObsiManaGem, CustomStyle.styleOfMana);
-        this.put(StringUtils.GemName.NetherSkeletonGem, CustomStyle.styleOfWither);
-        this.put(StringUtils.GemName.MagmaGem, CustomStyle.styleOfPower);
-        this.put(StringUtils.GemName.WitherGem, CustomStyle.styleOfWither);
-        this.put(StringUtils.GemName.PiglinGem, CustomStyle.styleOfGold);
-        this.put(StringUtils.GemName.SakuraGem, CustomStyle.styleOfSakura);
-        this.put(StringUtils.GemName.ShipGem, CustomStyle.styleOfShip);
-        this.put(StringUtils.GemName.MoonAttackGem, CustomStyle.styleOfMoon);
-        this.put(StringUtils.GemName.MoonManaGem, CustomStyle.styleOfMoon1);
-
-        this.put(StringUtils.GemName.SkyGemD, CustomStyle.styleOfSky);
-        this.put(StringUtils.GemName.EvokerGemD, CustomStyle.styleOfMana);
-        this.put(StringUtils.GemName.PlainGemD, CustomStyle.styleOfPlain);
-        this.put(StringUtils.GemName.ForestGemD, CustomStyle.styleOfForest);
-        this.put(StringUtils.GemName.LakeGemD, CustomStyle.styleOfLake);
-        this.put(StringUtils.GemName.VolcanoGemD, CustomStyle.styleOfVolcano);
-        this.put(StringUtils.GemName.SnowGemD, CustomStyle.styleOfSnow);
-        this.put(StringUtils.GemName.FieldGemD, CustomStyle.styleOfField);
-        this.put(StringUtils.GemName.MineGemD, CustomStyle.styleOfMine);
-        this.put(StringUtils.GemName.LifeManaGemD, CustomStyle.styleOfHealth);
-        this.put(StringUtils.GemName.ObsiManaGemD, CustomStyle.styleOfMana);
-        this.put(StringUtils.GemName.NetherSkeletonGemD, CustomStyle.styleOfWither);
-        this.put(StringUtils.GemName.MagmaGemD, CustomStyle.styleOfPower);
-        this.put(StringUtils.GemName.WitherGemD, CustomStyle.styleOfWither);
-        this.put(StringUtils.GemName.PiglinGemD, CustomStyle.styleOfGold);
-        this.put(StringUtils.GemName.SakuraGemD, CustomStyle.styleOfSakura);
-        this.put(StringUtils.GemName.ShipGemD, CustomStyle.styleOfShip);
-        this.put(StringUtils.GemName.MoonAttackGemD, CustomStyle.styleOfMoon);
-        this.put(StringUtils.GemName.MoonManaGemD, CustomStyle.styleOfMoon1);
-        this.put(StringUtils.GemName.CastleWeaponGem, CustomStyle.styleOfCastleCrystal);
-        this.put(StringUtils.GemName.CastleArmorGem, CustomStyle.styleOfCastleCrystal);
-        this.put(StringUtils.GemName.QingMingGem, CustomStyle.styleOfHealth);
-        this.put(StringUtils.GemName.LabourDayGem, CustomStyle.styleOfField);
-    }};
-
     public static List<ForestPowerEffectMob> ForestPowerEffectMobList = new ArrayList<>();
 
     public static WeakHashMap<Mob, LakePowerEffect> LakePowerEffectMobMap = new WeakHashMap<>();
-
-    public static int PFSecKillCount = 0;
-    public static int LakeSecKillCount = 0;
-    public static int VolcanoSecKillCount = 0;
 
     public static Map<Item, String> SoulBagsMap = new HashMap<>();
 
