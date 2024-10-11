@@ -25,7 +25,14 @@ public abstract class WraqCurios extends Item implements ICurioItem {
     public WraqCurios(Properties properties) {
         super(properties.stacksTo(1));
         Utils.curiosList.add(this);
-        Utils.curiosTag.put(this, 1d);
+        if (this instanceof ForgeItem forgeItem) {
+            ForgeRecipe.forgeDrawRecipe.put(this, forgeItem.forgeRecipe());
+        }
+    }
+
+    public WraqCurios(Properties properties, int maxSlotSize) {
+        super(properties.stacksTo(maxSlotSize));
+        Utils.curiosList.add(this);
         if (this instanceof ForgeItem forgeItem) {
             ForgeRecipe.forgeDrawRecipe.put(this, forgeItem.forgeRecipe());
         }
@@ -62,13 +69,13 @@ public abstract class WraqCurios extends Item implements ICurioItem {
 
     @Override
     public void onEquip(SlotContext slotContext, ItemStack prevStack, ItemStack stack) {
-        Compute.AddCuriosToList((Player) slotContext.entity(), stack);
+        Compute.addCuriosToList((Player) slotContext.entity(), stack);
         ICurioItem.super.onEquip(slotContext, prevStack, stack);
     }
 
     @Override
     public void onUnequip(SlotContext slotContext, ItemStack newStack, ItemStack stack) {
-        Compute.RemoveCuriosInList((Player) slotContext.entity(), stack);
+        Compute.removeCuriosInList((Player) slotContext.entity(), stack);
         ICurioItem.super.onUnequip(slotContext, newStack, stack);
     }
 

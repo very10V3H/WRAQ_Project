@@ -65,7 +65,7 @@ public class LavenderBracelet extends WraqCurios implements RandomCurios, UsageO
 
     @Override
     public Component suffix() {
-        return ComponentUtils.getSuffixChapterII();
+        return ComponentUtils.getSuffixOfChapterII();
     }
 
     @Override

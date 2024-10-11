@@ -27,7 +27,7 @@ public class SnowRune3 extends Item {
         components.add(Component.literal("每过").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("5s").withStyle(ChatFormatting.AQUA)).
                 append(Component.literal("你的下次箭矢将对目标周围造成").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.AttackDamage("250%")).
+                append(ComponentUtils.AttributeDescription.attackDamage("250%")).
                 append(Component.literal("的物理伤害并附带").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("3s减速效果").withStyle(ChatFormatting.AQUA)));
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, ChatFormatting.AQUA, ChatFormatting.WHITE);

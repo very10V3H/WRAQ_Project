@@ -41,24 +41,17 @@ import fun.wraq.series.newrunes.chapter1.ForestNewRune;
 import fun.wraq.series.newrunes.chapter1.PlainNewRune;
 import fun.wraq.series.newrunes.chapter2.SkyNewRune;
 import fun.wraq.series.newrunes.chapter6.CastleNewRune;
-import fun.wraq.series.overworld.chapter1.Mine.Crest.MineCrestAttributes;
 import fun.wraq.series.overworld.chapter1.Mine.MineShield;
-import fun.wraq.series.overworld.chapter1.Snow.Crest.SnowCrestAttributes;
 import fun.wraq.series.overworld.chapter1.forest.armor.ForestArmorBoots;
 import fun.wraq.series.overworld.chapter1.forest.armor.ForestArmorChest;
 import fun.wraq.series.overworld.chapter1.forest.armor.ForestArmorHelmet;
 import fun.wraq.series.overworld.chapter1.forest.armor.ForestArmorLeggings;
-import fun.wraq.series.overworld.chapter1.forest.crest.ForestCrestAttributes;
 import fun.wraq.series.overworld.chapter1.plain.armor.PlainArmorHelmet;
-import fun.wraq.series.overworld.chapter1.plain.crest.PlainCrestAttributes;
 import fun.wraq.series.overworld.chapter1.plain.sceptre.PlainSceptre;
 import fun.wraq.series.overworld.chapter1.volcano.armor.VolcanoArmorHelmet;
-import fun.wraq.series.overworld.chapter1.volcano.crest.VolcanoCrestAttributes;
-import fun.wraq.series.overworld.chapter1.waterSystem.crest.LakeCrestAttributes;
 import fun.wraq.series.overworld.chapter1.waterSystem.equip.armor.LakeArmorHelmet;
 import fun.wraq.series.overworld.chapter2.evoker.Crest.ManaCrestAttributes;
 import fun.wraq.series.overworld.chapter2.manaArmor.LifeMana.LifeManaArmor;
-import fun.wraq.series.overworld.chapter2.sky.Crest.SkyCrestAttributes;
 import fun.wraq.series.overworld.sakuraSeries.EarthMana.EarthPower;
 import fun.wraq.series.worldsoul.SoulEquipAttribute;
 import net.minecraft.nbt.CompoundTag;
@@ -217,17 +210,6 @@ public class PlayerAttributes {
         // 矿工裤被动
 
         if (SuitCount.getMineSuitCount(player) >= 4) exDamage += baseAttackDamage * 0.3;
-
-        if (data.getInt(StringUtils.Crest.Volcano.Crest0) > 0)
-            exDamage += VolcanoCrestAttributes.ExAttackDamage[0] * data.getInt(StringUtils.Crest.Volcano.Crest0);
-        if (data.getInt(StringUtils.Crest.Volcano.Crest1) > 0)
-            exDamage += VolcanoCrestAttributes.ExAttackDamage[1] * data.getInt(StringUtils.Crest.Volcano.Crest1);
-        if (data.getInt(StringUtils.Crest.Volcano.Crest2) > 0)
-            exDamage += VolcanoCrestAttributes.ExAttackDamage[2] * data.getInt(StringUtils.Crest.Volcano.Crest2);
-        if (data.getInt(StringUtils.Crest.Volcano.Crest3) > 0)
-            exDamage += VolcanoCrestAttributes.ExAttackDamage[3] * data.getInt(StringUtils.Crest.Volcano.Crest3);
-        if (data.getInt(StringUtils.Crest.Volcano.Crest4) > 0)
-            exDamage += VolcanoCrestAttributes.ExAttackDamage[4] * data.getInt(StringUtils.Crest.Volcano.Crest4);
 
         if (stackmainhandtag.contains(StringUtils.SoulEquipForge) && (Utils.swordTag.containsKey(mainhand) || Utils.bowTag.containsKey(mainhand)))
             exDamage +=
@@ -469,17 +451,6 @@ public class PlayerAttributes {
         } // 能力
 
         if (SuitCount.getVolcanoSuitCount(player) >= 4) critDamage += 0.35;
-
-        if (data.getInt(StringUtils.Crest.Sky.Crest0) > 0)
-            critDamage += SkyCrestAttributes.CritDamage[0] * data.getInt(StringUtils.Crest.Sky.Crest0);
-        if (data.getInt(StringUtils.Crest.Sky.Crest1) > 0)
-            critDamage += SkyCrestAttributes.CritDamage[1] * data.getInt(StringUtils.Crest.Sky.Crest1);
-        if (data.getInt(StringUtils.Crest.Sky.Crest2) > 0)
-            critDamage += SkyCrestAttributes.CritDamage[2] * data.getInt(StringUtils.Crest.Sky.Crest2);
-        if (data.getInt(StringUtils.Crest.Sky.Crest3) > 0)
-            critDamage += SkyCrestAttributes.CritDamage[3] * data.getInt(StringUtils.Crest.Sky.Crest3);
-        if (data.getInt(StringUtils.Crest.Sky.Crest4) > 0)
-            critDamage += SkyCrestAttributes.CritDamage[4] * data.getInt(StringUtils.Crest.Sky.Crest4);
 
         if (stackmainhandtag.contains(StringUtils.SoulEquipForge) && (Utils.swordTag.containsKey(mainhand) || Utils.bowTag.containsKey(mainhand)))
             critDamage +=
@@ -841,17 +812,6 @@ public class PlayerAttributes {
         // 矿工裤被动
         if (SuitCount.getMineSuitCount(player) >= 4) exDefence += 60;
 
-        if (data.getInt(StringUtils.Crest.Mine.Crest0) > 0)
-            exDefence += MineCrestAttributes.ExDefence[0] * data.getInt(StringUtils.Crest.Mine.Crest0);
-        if (data.getInt(StringUtils.Crest.Mine.Crest1) > 0)
-            exDefence += MineCrestAttributes.ExDefence[1] * data.getInt(StringUtils.Crest.Mine.Crest1);
-        if (data.getInt(StringUtils.Crest.Mine.Crest2) > 0)
-            exDefence += MineCrestAttributes.ExDefence[2] * data.getInt(StringUtils.Crest.Mine.Crest2);
-        if (data.getInt(StringUtils.Crest.Mine.Crest3) > 0)
-            exDefence += MineCrestAttributes.ExDefence[3] * data.getInt(StringUtils.Crest.Mine.Crest3);
-        if (data.getInt(StringUtils.Crest.Mine.Crest4) > 0)
-            exDefence += MineCrestAttributes.ExDefence[4] * data.getInt(StringUtils.Crest.Mine.Crest4);
-
         if (data.getInt(StringUtils.PlainSwordActive.PlainSceptre) > TickCount) exDefence += 1;
 
         String name = player.getName().getString();
@@ -1082,17 +1042,6 @@ public class PlayerAttributes {
         if (Compute.getManaSkillLevel(data, 7) > 0 && Utils.sceptreTag.containsKey(mainhand))
             releaseSpeed += Compute.getManaSkillLevel(data, 7) * 0.06; // 冷静（手持法杖时，获得6%冷却缩减）
 
-        if (data.getInt(StringUtils.Crest.Lake.Crest0) > 0) releaseSpeed +=
-                LakeCrestAttributes.CoolDown[0] * data.getInt(StringUtils.Crest.Lake.Crest0);
-        if (data.getInt(StringUtils.Crest.Lake.Crest1) > 0) releaseSpeed +=
-                LakeCrestAttributes.CoolDown[1] * data.getInt(StringUtils.Crest.Lake.Crest1);
-        if (data.getInt(StringUtils.Crest.Lake.Crest2) > 0) releaseSpeed +=
-                LakeCrestAttributes.CoolDown[2] * data.getInt(StringUtils.Crest.Lake.Crest2);
-        if (data.getInt(StringUtils.Crest.Lake.Crest3) > 0) releaseSpeed +=
-                LakeCrestAttributes.CoolDown[3] * data.getInt(StringUtils.Crest.Lake.Crest3);
-        if (data.getInt(StringUtils.Crest.Lake.Crest4) > 0) releaseSpeed +=
-                LakeCrestAttributes.CoolDown[4] * data.getInt(StringUtils.Crest.Lake.Crest4);
-
         if (Compute.getManaSkillLevel(data, 11) > 0 && Utils.sceptreTag.containsKey(mainhand)) {
             releaseSpeed += Compute.getManaSkillLevel(data, 11) * 0.05;
         } // 术法全析
@@ -1235,18 +1184,6 @@ public class PlayerAttributes {
         else if (data.getInt(StringUtils.WitherBow.Effect1) > TickCount) defencePenetration0 += 2;
         else if (data.getInt(StringUtils.WitherBow.Effect0) > TickCount) defencePenetration0 += 1;
 
-        if (data.getInt(StringUtils.Crest.Snow.Crest0) > 0)
-            defencePenetration0 += SnowCrestAttributes.DefencePenetration[0] * data.getInt(StringUtils.Crest.Snow.Crest0);
-        if (data.getInt(StringUtils.Crest.Snow.Crest1) > 0)
-            defencePenetration0 += SnowCrestAttributes.DefencePenetration[1] * data.getInt(StringUtils.Crest.Snow.Crest1);
-        if (data.getInt(StringUtils.Crest.Snow.Crest2) > 0)
-            defencePenetration0 += SnowCrestAttributes.DefencePenetration[2] * data.getInt(StringUtils.Crest.Snow.Crest2);
-        if (data.getInt(StringUtils.Crest.Snow.Crest3) > 0)
-            defencePenetration0 += SnowCrestAttributes.DefencePenetration[3] * data.getInt(StringUtils.Crest.Snow.Crest3);
-        if (data.getInt(StringUtils.Crest.Snow.Crest4) > 0)
-            defencePenetration0 += SnowCrestAttributes.DefencePenetration[4] * data.getInt(StringUtils.Crest.Snow.Crest4);
-
-
         if (stackmainhandtag.contains(StringUtils.SoulEquipForge) && (Utils.swordTag.containsKey(mainhand) || Utils.bowTag.containsKey(mainhand)))
             defencePenetration0 +=
                     stackmainhandtag.getInt(StringUtils.SoulEquipForge) * SoulEquipAttribute.ForgingAddition.DefencePenetration0;
@@ -1321,16 +1258,6 @@ public class PlayerAttributes {
         if (data.contains(StringUtils.Ability.Vitality) && data.getInt(StringUtils.Ability.Vitality) > 0) {
             healthRecover += vitalityAbilityPoint;
         }
-        if (data.getInt(StringUtils.Crest.Plain.Crest0) > 0)
-            healthRecover += PlainCrestAttributes.HealthRecover[0] * data.getInt(StringUtils.Crest.Plain.Crest0);
-        if (data.getInt(StringUtils.Crest.Plain.Crest1) > 0)
-            healthRecover += PlainCrestAttributes.HealthRecover[1] * data.getInt(StringUtils.Crest.Plain.Crest1);
-        if (data.getInt(StringUtils.Crest.Plain.Crest2) > 0)
-            healthRecover += PlainCrestAttributes.HealthRecover[2] * data.getInt(StringUtils.Crest.Plain.Crest2);
-        if (data.getInt(StringUtils.Crest.Plain.Crest3) > 0)
-            healthRecover += PlainCrestAttributes.HealthRecover[3] * data.getInt(StringUtils.Crest.Plain.Crest3);
-        if (data.getInt(StringUtils.Crest.Plain.Crest4) > 0)
-            healthRecover += PlainCrestAttributes.HealthRecover[4] * data.getInt(StringUtils.Crest.Plain.Crest4);
 
         healthRecover += Compute.CuriosAttribute.attributeValue(player, Utils.healthRecover, StringUtils.CuriosAttribute.healthRecover); // 新版饰品属性加成
         healthRecover += PlainNewRune.playerHealthRecover(player);
@@ -1405,17 +1332,6 @@ public class PlayerAttributes {
         if (data.contains(StringUtils.Ability.Vitality) && data.getInt(StringUtils.Ability.Vitality) > 0) {
             maxHealth += vitalityAbilityPoint * 10;
         }
-
-        if (data.getInt(StringUtils.Crest.Forest.Crest0) > 0)
-            maxHealth += ForestCrestAttributes.MaxHealth[0] * data.getInt(StringUtils.Crest.Forest.Crest0);
-        if (data.getInt(StringUtils.Crest.Forest.Crest1) > 0)
-            maxHealth += ForestCrestAttributes.MaxHealth[1] * data.getInt(StringUtils.Crest.Forest.Crest1);
-        if (data.getInt(StringUtils.Crest.Forest.Crest2) > 0)
-            maxHealth += ForestCrestAttributes.MaxHealth[2] * data.getInt(StringUtils.Crest.Forest.Crest2);
-        if (data.getInt(StringUtils.Crest.Forest.Crest3) > 0)
-            maxHealth += ForestCrestAttributes.MaxHealth[3] * data.getInt(StringUtils.Crest.Forest.Crest3);
-        if (data.getInt(StringUtils.Crest.Forest.Crest4) > 0)
-            maxHealth += ForestCrestAttributes.MaxHealth[4] * data.getInt(StringUtils.Crest.Forest.Crest4);
 
         String name = player.getName().getString();
         if (Utils.playerHealthRingMap.containsKey(name))
@@ -2010,17 +1926,6 @@ public class PlayerAttributes {
         if (stackmainhandtag.contains(StringUtils.SoulEquipForge) && Utils.sceptreTag.containsKey(mainhand))
             manaPenetration0 +=
                     stackmainhandtag.getInt(StringUtils.SoulEquipForge) * SoulEquipAttribute.ForgingAddition.ManaPenetration0;
-
-        if (data.getInt(StringUtils.Crest.Sky.Crest0) > 0)
-            manaPenetration0 += SkyCrestAttributes.ManaDefencePenetration0[0] * data.getInt(StringUtils.Crest.Sky.Crest0);
-        if (data.getInt(StringUtils.Crest.Sky.Crest1) > 0)
-            manaPenetration0 += SkyCrestAttributes.ManaDefencePenetration0[1] * data.getInt(StringUtils.Crest.Sky.Crest1);
-        if (data.getInt(StringUtils.Crest.Sky.Crest2) > 0)
-            manaPenetration0 += SkyCrestAttributes.ManaDefencePenetration0[2] * data.getInt(StringUtils.Crest.Sky.Crest2);
-        if (data.getInt(StringUtils.Crest.Sky.Crest3) > 0)
-            manaPenetration0 += SkyCrestAttributes.ManaDefencePenetration0[3] * data.getInt(StringUtils.Crest.Sky.Crest3);
-        if (data.getInt(StringUtils.Crest.Sky.Crest4) > 0)
-            manaPenetration0 += SkyCrestAttributes.ManaDefencePenetration0[4] * data.getInt(StringUtils.Crest.Sky.Crest4);
 
         if (stackmainhandtag.contains(StringUtils.ManaCore.ManaCore) && stackmainhandtag.getString(StringUtils.ManaCore.ManaCore).
                 equals(StringUtils.ManaCore.KazeCore)) {

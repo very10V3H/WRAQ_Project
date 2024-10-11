@@ -52,7 +52,7 @@ public class NetherManaArmor extends WraqArmor implements OnHitEffectEquip, OnPo
 
     @Override
     public Component getSuffix() {
-        return ComponentUtils.getSuffixChapterIII();
+        return ComponentUtils.getSuffixNether();
     }
 
     @Override

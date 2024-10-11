@@ -4,7 +4,6 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.specialevents.qingMing.QingTuan;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -23,7 +22,6 @@ public class QingMingBowRing extends Item implements ICurioItem {
 
     public QingMingBowRing(Properties p_41383_) {
         super(p_41383_);
-        Utils.curiosTag.put(this, 1d);
         Utils.curiosList.add(this);
         Utils.movementSpeedWithoutBattle.put(this, 0.6);
         Utils.critDamage.put(this, 0.2);
@@ -44,13 +42,13 @@ public class QingMingBowRing extends Item implements ICurioItem {
 
     @Override
     public void onEquip(SlotContext slotContext, ItemStack prevStack, ItemStack stack) {
-        Compute.AddCuriosToList((Player) slotContext.entity(), stack);
+        Compute.addCuriosToList((Player) slotContext.entity(), stack);
         ICurioItem.super.onEquip(slotContext, prevStack, stack);
     }
 
     @Override
     public void onUnequip(SlotContext slotContext, ItemStack newStack, ItemStack stack) {
-        Compute.RemoveCuriosInList((Player) slotContext.entity(), stack);
+        Compute.removeCuriosInList((Player) slotContext.entity(), stack);
         ICurioItem.super.onUnequip(slotContext, newStack, stack);
     }
 

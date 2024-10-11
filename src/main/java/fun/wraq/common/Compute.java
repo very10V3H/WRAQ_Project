@@ -6,8 +6,8 @@ import com.mojang.logging.LogUtils;
 import fun.wraq.commands.changeable.CompensateCommand;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.equip.impl.ActiveItem;
-import fun.wraq.common.equip.impl.CrestItem;
 import fun.wraq.common.equip.impl.RandomCurios;
+import fun.wraq.common.equip.impl.RepeatableCurios;
 import fun.wraq.common.equip.impl.WraqMainHandOrPassiveEquip;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.impl.oncostmana.OnCostManaEquip;
@@ -113,7 +113,6 @@ import org.joml.Vector3f;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicReference;
 
 import static java.lang.Math.abs;
 import static java.lang.Math.acos;
@@ -638,7 +637,7 @@ public class Compute {
 
         }
     }
-    
+
     public static boolean RecallPlayerCheck(ServerPlayer serverPlayer) {
         if (Utils.kazeRecall.recallPlayer != null && Utils.kazeRecall.recallPlayer.equals(serverPlayer)) return true;
         return Utils.spiderRecall.recallPlayer != null && Utils.spiderRecall.recallPlayer.equals(serverPlayer);
@@ -705,107 +704,6 @@ public class Compute {
         int Z = entity.getBlockZ();
         return entity.level().getBlockState(new BlockPos(X, Y - 2, Z)) == Blocks.AIR.defaultBlockState()
                 || entity.level().getBlockState(new BlockPos(X, Y - 1, Z)) == Blocks.AIR.defaultBlockState();
-    }
-
-    public static class AttributeDescription {
-
-        public static Component ManaCost(String content) {
-            return Component.literal(Utils.Emoji.ManaCost + " " + content + "法力消耗").withStyle(ChatFormatting.LIGHT_PURPLE);
-        }
-
-        public static Component ExManaDamage(String content) {
-            return Component.literal(Utils.Emoji.Mana + " " + content + "额外魔法攻击").withStyle(ChatFormatting.LIGHT_PURPLE);
-        }
-
-        public static Component ManaRecover(String content) {
-            return Component.literal(Utils.Emoji.ManaRecover + " " + content + "法力回复").withStyle(ChatFormatting.LIGHT_PURPLE);
-        }
-
-        public static Component Health(String content) {
-            return Component.literal(Utils.Emoji.Health + " " + content + "生命值").withStyle(ChatFormatting.GREEN);
-        }
-
-        public static Component Defence(String content) {
-            return Component.literal(Utils.Emoji.Defence + " " + content + "护甲").withStyle(ChatFormatting.GRAY);
-        }
-
-        public static Component HealAmplification(String content) {
-            return Component.literal(Utils.Emoji.HealthAmplification + " " + content + "治疗强度").withStyle(CustomStyle.styleOfHealth);
-        }
-
-        public static Component HealthRecover(String content) {
-            return Component.literal(Utils.Emoji.HealthRecover + " " + content + "生命回复").withStyle(CustomStyle.styleOfHealth);
-        }
-
-        public static Component ManaDefence(String content) {
-            return Component.literal(Utils.Emoji.Defence + " " + content + "魔法抗性").withStyle(ChatFormatting.BLUE);
-        }
-
-        public static Component ExAttackDamage(String content) {
-            return Component.literal(Utils.Emoji.Sword + " " + content + "额外攻击力").withStyle(ChatFormatting.YELLOW);
-        }
-
-        public static Component DefencePenetration(String content) {
-            return Component.literal(Utils.Emoji.Defence + " " + content + "护甲穿透").withStyle(ChatFormatting.GRAY);
-        }
-
-        public static Component CritDamage(String content) {
-            return Component.literal(Utils.Emoji.CritDamage + " " + content + "暴击伤害").withStyle(ChatFormatting.BLUE);
-        }
-
-        public static Component CritRate(String content) {
-            return Component.literal(Utils.Emoji.CritRate + " " + content + "暴击几率").withStyle(ChatFormatting.LIGHT_PURPLE);
-        }
-
-        public static Component AttackDamage(String content) {
-            return Component.literal(Utils.Emoji.Sword + " " + content + "攻击力").withStyle(ChatFormatting.YELLOW);
-        }
-
-        public static Component ManaPenetration(String content) {
-            return Component.literal(Utils.Emoji.Defence + " " + content + "法术穿透").withStyle(ChatFormatting.BLUE);
-        }
-
-        public static Component CoolDown(String content) {
-            return Component.literal(Utils.Emoji.CoolDown + " " + content + "技能急速").withStyle(ChatFormatting.AQUA);
-        }
-
-        public static Component HealthSteal(String content) {
-            return Component.literal(Utils.Emoji.HealSteal + " " + content + "生命偷取").withStyle(ChatFormatting.RED);
-        }
-
-        public static Component ManaHealSteal(String content) {
-            return Component.literal(Utils.Emoji.HealSteal + " " + content + "法术吸血").withStyle(CustomStyle.styleOfMana);
-        }
-
-        public static Component ExHealth(String content) {
-            return Component.literal(Utils.Emoji.Health + " " + content + "额外生命值").withStyle(ChatFormatting.GREEN);
-        }
-
-        public static Component AttackRange(String content) {
-            return Component.literal(Utils.Emoji.AttackRange + " " + content + "攻击距离").withStyle(CustomStyle.styleOfSea);
-        }
-
-        public static Component AttackDamageValue(String content) {
-            return Component.literal(Utils.Emoji.Sword + " " + content + "物理伤害").withStyle(ChatFormatting.YELLOW);
-        }
-    }
-
-    public static void SuitDescription(List<Component> components) {
-        components.add(Component.literal(Utils.Emoji.Suit + " " + "套装效果").withStyle(ChatFormatting.AQUA));
-    }
-
-    public static void SuitDoubleDescription(List<Component> components, int Count) {
-        if (Count >= 2)
-            components.add(Component.literal("▷2件套效果:").withStyle(ChatFormatting.YELLOW));
-        else
-            components.add(Component.literal("▷2件套效果:").withStyle(ChatFormatting.GRAY));
-    }
-
-    public static void SuitQuadraDescription(List<Component> components, int Count) {
-        if (Count >= 4)
-            components.add(Component.literal("▷4件套效果:").withStyle(ChatFormatting.LIGHT_PURPLE));
-        else
-            components.add(Component.literal("▷4件套效果:").withStyle(ChatFormatting.GRAY));
     }
 
     public static String getRGB(int r, int g, int b) {
@@ -1095,7 +993,7 @@ public class Compute {
     public static void ManaCoreDescription(List<Component> components) {
         components.add(Component.literal("δ-魔核属性:").withStyle(ChatFormatting.LIGHT_PURPLE));
     }
-    
+
     public static Calendar StringToCalendar(String DateString) throws ParseException {
         SimpleDateFormat tmpDate = new SimpleDateFormat("yyyyMMddHHmmss");
         Calendar cal = Calendar.getInstance();
@@ -1480,7 +1378,9 @@ public class Compute {
             List<ItemStack> curiosList = new ArrayList<>();
             originCuriosList.forEach(stack -> {
                 if (!curiosItemSet.contains(stack.getItem())) {
-                    curiosItemSet.add(stack.getItem());
+                    if (!(stack.getItem() instanceof RepeatableCurios)) {
+                        curiosItemSet.add(stack.getItem());
+                    }
                     curiosList.add(stack);
                 }
             });
@@ -1488,49 +1388,26 @@ public class Compute {
         }
 
         public static double attributeValue(Player player, Map<Item, Double> attributeMap, String attributeName) {
-            if (Utils.playerCuriosListMap.containsKey(player)) {
-                AtomicReference<Double> value = new AtomicReference<>((double) 0);
-                List<ItemStack> curiosList = Utils.playerCuriosListMap.get(player);
-                Set<Item> itemSet = new HashSet<>();
-                curiosList.forEach(curiosStack -> {
-                    Item curiosItem = curiosStack.getItem();
-                    if (!itemSet.contains(curiosItem)
-                            && (!Utils.levelRequire.containsKey(curiosItem)
-                            || player.experienceLevel >= Utils.levelRequire.get(curiosItem))) {
-                        if (attributeMap.containsKey(curiosItem)) {
-                            value.set(value.get() + attributeMap.get(curiosItem));
+            return getDistinctCuriosList(player).stream()
+                    .mapToDouble(stack -> {
+                        double value = 0;
+                        Item curiosItem = stack.getItem();
+                        if (attributeMap.containsKey(curiosItem)
+                                && player.experienceLevel >= Utils.levelRequire.getOrDefault(curiosItem, 0)) {
+                            value += attributeMap.get(curiosItem);
                         }
-                        CompoundTag data = curiosStack.getOrCreateTagElement(Utils.MOD_ID);
+                        CompoundTag data = stack.getOrCreateTagElement(Utils.MOD_ID);
                         if (data.contains(attributeName)) {
                             if (curiosItem instanceof RandomCurios) {
-                                value.set(value.get() + data.getDouble(attributeName)
-                                        * CastleCurios.attributeValueMap.get(attributeName));
-                            }
-                            else {
-                                value.set(value.get() + data.getInt(attributeName));
+                                value += data.getDouble(attributeName)
+                                        * CastleCurios.attributeValueMap.get(attributeName);
+                            } else {
+                                value += data.getInt(attributeName);
                             }
                         }
-                        if (!(curiosItem instanceof CrestItem)) {
-                            itemSet.add(curiosStack.getItem());
-                        }
-                    }
-                });
-                return value.get();
-            }
-            return 0;
+                        return value;
+                    }).sum();
         }
-    }
-
-    public static boolean isOnCurios(Player player, Item curios) {
-        if (Utils.playerCuriosListMap.containsKey(player)) {
-            List<ItemStack> curiosList = Utils.playerCuriosListMap.get(player);
-            for (ItemStack itemStack : curiosList) {
-                if (itemStack.is(curios)) {
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 
     public static Mob detectPlayerPickMob(Player player) {
@@ -1573,30 +1450,21 @@ public class Compute {
         ParticleProvider.EntityEffectVerticleCircleParticle(entity, 0.25, 0.4, 8, particleOptions, 0);
     }
 
-    public static void AddCuriosToList(Player player, ItemStack stack) {
+    public static void addCuriosToList(Player player, ItemStack stack) {
         if (!Utils.playerCuriosListMap.containsKey(player)) Utils.playerCuriosListMap.put(player, new ArrayList<>());
         List<ItemStack> curiosList = Utils.playerCuriosListMap.get(player);
-        boolean hasSamaItem = false;
-        for (ItemStack itemStack : curiosList) {
-            if (itemStack.is(stack.getItem())) hasSamaItem = true;
-        }
-        if (!hasSamaItem) curiosList.add(stack);
+        curiosList.add(stack);
     }
 
-    public static void RemoveCuriosInList(Player player, ItemStack stack) {
+    public static void removeCuriosInList(Player player, ItemStack stack) {
         if (!Utils.playerCuriosListMap.containsKey(player)) Utils.playerCuriosListMap.put(player, new ArrayList<>());
         List<ItemStack> curiosList = Utils.playerCuriosListMap.get(player);
-        curiosList.removeIf(s -> s.is(Items.AIR) || s.is(stack.getItem()));
+        curiosList.remove(stack);
     }
 
-    public static boolean PlayerHasCurios(Player player, Item item) {
-        if (Utils.playerCuriosListMap.containsKey(player)) {
-            List<ItemStack> curiosList = Utils.playerCuriosListMap.get(player);
-            for (ItemStack itemStack : curiosList) {
-                if (itemStack.is(item)) return true;
-            }
-        }
-        return false;
+    public static boolean hasCurios(Player player, Item curios) {
+        return CuriosAttribute.getDistinctCuriosList(player).stream()
+                .anyMatch(itemStack -> itemStack.is(curios));
     }
 
     public static void EndTp(List<Player> playerList, Vec3 pos) {
@@ -1998,11 +1866,14 @@ public class Compute {
         });
     }
 
-    public record LowGravityZone(ResourceKey<Level> dimension, Pair<Vec3, Vec3> space) {}
+    public record LowGravityZone(ResourceKey<Level> dimension, Pair<Vec3, Vec3> space) {
+    }
+
     public static final List<Pair<Vec3, Vec3>> lowGravityZone = new ArrayList<>() {{
         add(new Pair<>(new Vec3(876, 180, 491), new Vec3(1242, 280, 724)));
         add(new Pair<>(new Vec3(898, 186, -62), new Vec3(1042, 318, 126)));
     }};
+
     public static boolean inLowGravityEnvironment(Player player) {
         return lowGravityZone.stream().anyMatch(pair -> {
             return player.getX() > pair.getFirst().x && player.getY() > pair.getFirst().y && player.getZ() > pair.getFirst().z
@@ -2018,6 +1889,7 @@ public class Compute {
 
     /**
      * 将数值转换为长度较短的字符串以更好地展示 保证最多占用五位
+     *
      * @param value 数值
      * @return 简化后字符串形式数值
      */

@@ -65,7 +65,7 @@ public class QuartzSword extends WraqSword implements ActiveItem {
 
     @Override
     public Component getSuffix() {
-        return ComponentUtils.getSuffixChapterIII();
+        return ComponentUtils.getSuffixNether();
     }
 
     @Override

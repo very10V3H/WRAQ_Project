@@ -40,7 +40,7 @@ public class NetherPower extends Item {
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfNether, ChatFormatting.WHITE);
         ComponentUtils.descriptionOfBasic(components);
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfNether, ChatFormatting.WHITE);
-        ComponentUtils.suffixOfChapterIII(components);
+        ComponentUtils.suffixOfNether(components);
         super.appendHoverText(stack, level, components, flag);
     }
 

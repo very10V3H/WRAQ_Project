@@ -28,7 +28,7 @@ public class NetherRune3 extends Item {
         components.add(Component.literal("装备").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("下界系列武器").withStyle(CustomStyle.styleOfNether)).
                 append(Component.literal("时获得额外").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.ManaRecover("10")));
+                append(ComponentUtils.AttributeDescription.manaRecover("10")));
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfNether, ChatFormatting.WHITE);
         components.add(Component.literal("Runes-Mana").withStyle(ChatFormatting.LIGHT_PURPLE).withStyle(ChatFormatting.ITALIC));
         super.appendHoverText(stack, p_41422_, components, p_41424_);

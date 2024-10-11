@@ -59,7 +59,7 @@ public class PlainSceptre extends WraqSceptre {
             components.add(Component.literal("白天额外获得").withStyle(ChatFormatting.WHITE).
                     append(ComponentUtils.AttributeDescription.manaDamage("45")).
                     append(Component.literal("与")).
-                    append(Compute.AttributeDescription.ManaRecover("15")));
+                    append(ComponentUtils.AttributeDescription.manaRecover("15")));
         }
         return components;
     }

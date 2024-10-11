@@ -28,7 +28,6 @@ public class SpringHand extends Item implements ICurioItem {
         Utils.maxHealth.put(this, MaxHealth[level]);
         Utils.defencePenetration.put(this, DefencePenetration[level]);
         Utils.expUp.put(this, ExpUp[level]);
-        Utils.curiosTag.put(this, 1d);
         Utils.curiosList.add(this);
     }
 

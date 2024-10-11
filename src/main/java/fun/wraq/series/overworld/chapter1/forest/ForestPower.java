@@ -51,7 +51,7 @@ public class ForestPower extends Item implements ActiveItem {
                 append(Component.literal("周围所有玩家").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("能力-智力 * 20").withStyle(ChatFormatting.LIGHT_PURPLE)).
                 append(Component.literal("的").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.Health("")));
+                append(ComponentUtils.AttributeDescription.health("")));
         ComponentUtils.coolDownTimeDescription(components, CoolDownTime[tier]);
         ComponentUtils.manaCostDescription(components, ManaCost[tier]);
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);

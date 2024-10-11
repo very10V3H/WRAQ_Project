@@ -42,9 +42,9 @@ public class EndPower extends Item implements ActiveItem {
         Compute.DescriptionPassive(components, Component.literal("哀思").withStyle(style));
         components.add(Component.literal(" 追忆").withStyle(style).
                 append(Component.literal("的").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.ManaCost("")).
+                append(ComponentUtils.AttributeDescription.manaCost("")).
                 append(Component.literal("等于同于上次释放法术的").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.ManaCost("150%")));
+                append(ComponentUtils.AttributeDescription.manaCost("150%")));
         Compute.DescriptionActive(components, Component.literal("追忆").withStyle(style));
         components.add(Component.literal(" 重复释放").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("上次").withStyle(style)).

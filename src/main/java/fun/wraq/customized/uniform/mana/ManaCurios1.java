@@ -45,8 +45,8 @@ public class ManaCurios1 extends WraqManaUniformCurios {
         return WraqUniformCurios.isOn(ManaCurios1.class, player);
     }
 
-    public static void ManaDamageExIgnoreDefenceDamage(Player player, Mob mob, double damage) {
+    public static void ManaDamageExTrueDamage(Player player, Mob mob, double damage) {
         if (!IsOn(player)) return;
-        Damage.causeIgNoreDefenceDamageToMonster(player, mob, damage * 0.35);
+        Damage.causeTrueDamageToMonster(player, mob, damage * 0.35);
     }
 }

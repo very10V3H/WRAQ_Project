@@ -38,7 +38,7 @@ public class ForestBow extends WraqBow {
         Style style = getMainStyle();
         Compute.DescriptionPassive(components, Component.literal("森林祝福").withStyle(ChatFormatting.DARK_GREEN));
         components.add(Component.literal("箭矢命中目标后治疗自身").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.Health("5%")));
+                append(ComponentUtils.AttributeDescription.health("5%")));
         return components;
     }
 

@@ -1,10 +1,7 @@
 package fun.wraq.Items.MainStory_1.Mission;
 
 import fun.wraq.common.util.ComponentUtils;
-import fun.wraq.process.func.particle.ParticleProvider;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvent;
@@ -62,8 +59,7 @@ public class Main0 extends Item {
         }
 
         if (level.isClientSide && !player.isShiftKeyDown()) {
-            ParticleProvider.createBallDisperseParticle(ParticleTypes.END_ROD,
-                    (ClientLevel) player.level(), player.position(), 0.5, 20);
+
         }
 
         if (level.isClientSide && player.isShiftKeyDown()) {

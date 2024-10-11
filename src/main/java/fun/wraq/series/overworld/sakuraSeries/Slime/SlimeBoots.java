@@ -47,7 +47,7 @@ public class SlimeBoots extends WraqArmor implements ForgeItem {
 
     @Override
     public Component getSuffix() {
-        return ComponentUtils.getSuffixChapterII();
+        return ComponentUtils.getSuffixOfChapterII();
     }
 
     @Override

@@ -41,7 +41,7 @@ public class SputteringDamage {
                             if (this.damageType == 1)
                                 fun.wraq.process.func.damage.Damage.causeManaDamageToMonster_ApDamage_Direct(originPlayer, mob, this.originDamage / (2 * (this.generation + 1)), false);
                             if (this.damageType == 2)
-                                fun.wraq.process.func.damage.Damage.causeIgNoreDefenceDamageToMonster(originPlayer, mob, this.originDamage / (2 * (this.generation + 1)));
+                                fun.wraq.process.func.damage.Damage.causeTrueDamageToMonster(originPlayer, mob, this.originDamage / (2 * (this.generation + 1)));
                         }
                         causedDamageMob.add(mob);
                     });
@@ -63,7 +63,7 @@ public class SputteringDamage {
                             if (this.damageType == 1)
                                 fun.wraq.process.func.damage.Damage.causeManaDamageToMonster_ApDamage_Direct(originPlayer, mob, this.originDamage / (2 * (this.generation + 1)), false);
                             if (this.damageType == 2)
-                                Damage.causeIgNoreDefenceDamageToMonster(originPlayer, mob, this.originDamage / (2 * (this.generation + 1)));
+                                Damage.causeTrueDamageToMonster(originPlayer, mob, this.originDamage / (2 * (this.generation + 1)));
                         }
                         causedDamageMob.add(mob);
                     });

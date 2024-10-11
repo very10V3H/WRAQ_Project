@@ -1,6 +1,7 @@
 package fun.wraq.common.attribute;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.impl.damage.DamageInfluenceCurios;
 import fun.wraq.common.impl.onhit.OnHitDamageInfluenceCurios;
 import fun.wraq.core.ManaAttackModule;
 import fun.wraq.customized.WraqUniformCurios;
@@ -24,7 +25,6 @@ import fun.wraq.series.newrunes.chapter1.VolcanoNewRune;
 import fun.wraq.series.newrunes.chapter2.HuskNewRune;
 import fun.wraq.series.newrunes.chapter6.MoonNewRune;
 import fun.wraq.series.overworld.chapter7.star.StarArmor;
-import fun.wraq.series.overworld.chapter7.star.StarBottle;
 import fun.wraq.series.overworld.chapter7.vd.VdWeaponCommon;
 import fun.wraq.series.specialevents.labourDay.LabourDayIronHoe;
 import fun.wraq.series.specialevents.labourDay.LabourDayIronPickaxe;
@@ -54,13 +54,13 @@ public class DamageInfluence {
         rate += AttackEventModule.ManaSkill5DamageEnhance(player); // 法术专注
         rate += ColdData.PlayerColdEffect(player); // 寒冷
         rate += CastleSword.DamageEnhance(player);
-        rate += StarBottle.DamageEnhance(player); // 星星瓶
         rate += FireEquip.DamageEnhance(player); // 炽焰元素武器
         rate += NewPotionEffects.damageEnhance(player);
         rate += MineNewRune.damageEnhance(player);
         rate += HuskNewRune.damageEnhance(player);
         rate += MoonNewRune.damageEnhance(player);
         rate += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerCommonDamageEnhance);
+        rate += DamageInfluenceCurios.getRate(player);
         return rate;
     }
 

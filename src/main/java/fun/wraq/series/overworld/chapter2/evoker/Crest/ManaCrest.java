@@ -34,7 +34,6 @@ public class ManaCrest extends Item implements ICurioItem {
         super(p_41383_);
         this.Level = Level;
         Utils.manaDamage.put(this, ManaCrestAttributes.ExManaDamage[Level]);
-        Utils.curiosTag.put(this, 1d);
         Utils.curiosList.add(this);
     }
 
@@ -51,7 +50,7 @@ public class ManaCrest extends Item implements ICurioItem {
         ComponentUtils.descriptionOfAddition(components);
         if (Screen.hasShiftDown()) SuitDescription.CrestSuitDescription(components);
         else {
-            Compute.SuitDescription(components);
+            ComponentUtils.suitDescription(components);
             components.add(Component.literal("[按住shift展开套装效果]").withStyle(ChatFormatting.GRAY));
         }
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);

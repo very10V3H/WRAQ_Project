@@ -50,7 +50,7 @@ public class SpringAttackArmor extends ArmorItem {
         components.add(Component.literal("每过5s,你的攻击会释放一个").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("烟花").withStyle(style)).
                 append(Component.literal("使得一定范围内的怪物禁锢并降低").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.Defence("20%~40%")).
+                append(ComponentUtils.AttributeDescription.defence("20%~40%")).
                 append(Component.literal("持续3s").withStyle(ChatFormatting.WHITE)));
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         components.add(Component.literal("SpringFestival~2024").withStyle(ChatFormatting.ITALIC).withStyle(CustomStyle.styleOfSpring));

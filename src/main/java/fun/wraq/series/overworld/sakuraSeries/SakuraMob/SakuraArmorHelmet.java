@@ -55,7 +55,7 @@ public class SakuraArmorHelmet extends ArmorItem implements GeoItem {
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         components.add(Component.literal(" "));
         components.add(Component.literal("Sakura-Helmet").withStyle(style).withStyle(ChatFormatting.ITALIC));
-        ComponentUtils.suffixOfChapterV(components);
+        ComponentUtils.suffixOfSakura(components);
         super.appendHoverText(stack, level, components, flag);
     }
 

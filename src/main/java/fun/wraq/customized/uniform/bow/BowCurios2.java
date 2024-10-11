@@ -1,6 +1,7 @@
 package fun.wraq.customized.uniform.bow;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.customized.UniformItems;
 import fun.wraq.customized.WraqUniformCurios;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -30,9 +31,9 @@ public class BowCurios2 extends WraqBowUniformCurios {
                 append(Component.literal("没有其他玩家").withStyle(style)).
                 append(Component.literal("时，为你提供:").withStyle(ChatFormatting.WHITE)));
         components.add(Component.literal(" 1.").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.CritRate("20%")));
+                append(ComponentUtils.AttributeDescription.critRate("20%")));
         components.add(Component.literal(" 2.").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.CritDamage("20%总")));
+                append(ComponentUtils.AttributeDescription.critDamage("20%总")));
         components.add(Component.literal(" 不仅是敏捷，力量、智慧对在恶劣环境中的猎手同样重要。").withStyle(style));
         return components;
     }

@@ -95,18 +95,18 @@ public class SoulSceptre extends WraqSceptre {
         components.add(Component.literal(" 对一定范围内的玩家随机造成").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("增益效果").withStyle(ChatFormatting.GREEN)));
         components.add(Component.literal("  1.治疗：回复已损失生命值10%的").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.Health("")));
+                append(ComponentUtils.AttributeDescription.health("")));
         components.add(Component.literal("  2.抗性：持续4秒的").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.AttributeDescription.manaDamage("5%")).
-                append(Compute.AttributeDescription.Defence("")).
+                append(ComponentUtils.AttributeDescription.defence("")).
                 append(ComponentUtils.AttributeDescription.manaDamage("5%")).
-                append(Compute.AttributeDescription.ManaDefence("")));
+                append(ComponentUtils.AttributeDescription.manaDefence("")));
         components.add(Component.literal("  3.攻击增幅：持续4秒的").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.AttackDamage("10%")).
+                append(ComponentUtils.AttributeDescription.attackDamage("10%")).
                 append(ComponentUtils.AttributeDescription.manaDamage("10%")));
         components.add(Component.literal("  4.穿透增幅：持续4秒的").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.DefencePenetration("20%")).
-                append(Compute.AttributeDescription.ManaPenetration("20%")));
+                append(ComponentUtils.AttributeDescription.defencePenetration("20%")).
+                append(ComponentUtils.AttributeDescription.manaPenetration("20%")));
         ComponentUtils.coolDownTimeDescription(components, 8);
         ComponentUtils.manaCostDescription(components, 120);
         components.add(Component.literal(" Idea From:Mr_RED").withStyle(ChatFormatting.LIGHT_PURPLE));

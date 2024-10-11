@@ -26,7 +26,7 @@ public class NetherRune0 extends Item {
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfNether, ChatFormatting.WHITE);
         components.add(Component.literal("符石属性:"));
         components.add(Component.literal("将自身").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.AttackDamage("100%")).
+                append(ComponentUtils.AttributeDescription.attackDamage("100%")).
                 append(Component.literal("以60%的比例转换为").withStyle(ChatFormatting.WHITE)).
                 append(ComponentUtils.AttributeDescription.manaDamage("")));
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfNether, ChatFormatting.WHITE);

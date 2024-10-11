@@ -25,13 +25,13 @@ public class SnowRune1 extends Item {
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, ChatFormatting.AQUA, ChatFormatting.WHITE);
         components.add(Component.literal("符石属性:"));
         components.add(Component.literal("将").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.CritRate("")).
+                append(ComponentUtils.AttributeDescription.critRate("")).
                 append(Component.literal("与").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.CritDamage("")).
+                append(ComponentUtils.AttributeDescription.critDamage("")).
                 append(Component.literal("以").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("80%增伤期望").withStyle(ChatFormatting.AQUA)).
                 append(Component.literal("转化为").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.ExAttackDamage("")));
+                append(ComponentUtils.AttributeDescription.exAttackDamage("")));
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, ChatFormatting.AQUA, ChatFormatting.WHITE);
         components.add(Component.literal("Runes-Snow").withStyle(ChatFormatting.AQUA).withStyle(ChatFormatting.ITALIC));
         super.appendHoverText(stack, p_41422_, components, p_41424_);

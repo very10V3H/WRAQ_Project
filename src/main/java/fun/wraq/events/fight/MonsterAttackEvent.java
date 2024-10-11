@@ -4,6 +4,7 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.DamageInfluence;
 import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.impl.damage.OnWithStandDamageCurios;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.StringUtils;
@@ -21,7 +22,6 @@ import fun.wraq.process.system.potion.NewPotionEffects;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.castle.CastleCurios;
 import fun.wraq.series.instance.series.devil.DevilAttackArmor;
-import fun.wraq.series.instance.series.moon.Equip.MoonBelt;
 import fun.wraq.series.instance.series.taboo.TabooAttackArmor;
 import fun.wraq.series.newrunes.chapter1.ForestNewRune;
 import fun.wraq.series.overworld.chapter1.waterSystem.LakePower;
@@ -120,16 +120,16 @@ public class MonsterAttackEvent {
         double healthSteal = MobAttributes.healthSteal(monster);
 
         if (damage > 0) {
-            double damageAfterShieldDecrease = Shield.decreasePlayerShield(player, damage);
+            double finalDamage = Shield.decreasePlayerShield(player, damage);
             if (player.isCreative()) {
-                player.sendSystemMessage(Component.literal("" + damageAfterShieldDecrease));
+                player.sendSystemMessage(Component.literal("" + finalDamage));
             } else {
-                if (damageAfterShieldDecrease > 0 && player.isAlive()) {
+                if (finalDamage > 0 && player.isAlive()) {
                     if (player.getHealth() / player.getMaxHealth() < 0.5) HurtEventModule.ManaSkill14(data, player);
-                    Damage.DirectDamageToPlayer(monster, player, damageAfterShieldDecrease);
+                    Damage.DirectDamageToPlayer(monster, player, finalDamage);
                     player.hurtTime = 10;
-                    monster.heal((float) (damageAfterShieldDecrease * healthSteal));
-                    MoonBelt.PassiveGetDamage(player, damageAfterShieldDecrease); // 尘月玉缠
+                    monster.heal((float) (finalDamage * healthSteal));
+                    OnWithStandDamageCurios.withStandDamage(player, monster, finalDamage);
                 }
                 ModNetworking.sendToClient(new SoundsS2CPacket(2), (ServerPlayer) player);
             }

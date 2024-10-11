@@ -215,7 +215,7 @@ public class AttackEvent {
         damage *= DamageInfluence.getMonsterControlDamageEffect(player, monster);
         damageIgnoreDefence *= DamageInfluence.getMonsterControlDamageEffect(player, monster);
         // 至此 关于基本的计算已结束 下方是最终乘区的计算
-        damageIgnoreDefence += BoneImpKnife.exDamageIgnoreDefence(player, monster) * damage;
+        damageIgnoreDefence += BoneImpKnife.exTrueDamage(player, monster) * damage;
 
         // 元素
         double ElementDamageEnhance = 0;

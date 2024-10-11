@@ -53,6 +53,6 @@ public class EndRune extends WraqCurios implements UsageOrGetWayDescriptionItem 
 
     @Override
     public Component suffix() {
-        return ComponentUtils.getSuffixChapterIV();
+        return ComponentUtils.getSuffixOfEnd();
     }
 }

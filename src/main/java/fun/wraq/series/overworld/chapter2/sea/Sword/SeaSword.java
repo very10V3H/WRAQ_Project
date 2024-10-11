@@ -63,7 +63,7 @@ public class SeaSword extends WraqSword implements ActiveItem {
 
     @Override
     public Component getSuffix() {
-        return ComponentUtils.getSuffixChapterII();
+        return ComponentUtils.getSuffixOfChapterII();
     }
 
     @Override

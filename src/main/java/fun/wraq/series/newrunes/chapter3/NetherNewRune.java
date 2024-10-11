@@ -62,7 +62,7 @@ public class NetherNewRune extends WraqCurios implements RuneItem, UsageOrGetWay
 
     @Override
     public Component suffix() {
-        return ComponentUtils.getSuffixChapterIII();
+        return ComponentUtils.getSuffixNether();
     }
 
     public static void onKill(Player player, Mob mob) {
@@ -78,7 +78,7 @@ public class NetherNewRune extends WraqCurios implements RuneItem, UsageOrGetWay
         mobList.removeIf(mob1 -> mob1.distanceTo(mob) > 3 || !mob1.isAlive());
         mobList.forEach(mob1 -> {
             Damage.causeAttackDamageToMonsterOnlyComputeDefence(player, mob1, mob.getMaxHealth() * 0.08);
-            Damage.causeIgNoreDefenceDamageToMonster(player, mob1, PlayerAttributes.attackDamage(player));
+            Damage.causeTrueDamageToMonster(player, mob1, PlayerAttributes.attackDamage(player));
         });
     }
 

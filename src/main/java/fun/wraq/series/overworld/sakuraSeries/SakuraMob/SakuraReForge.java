@@ -26,15 +26,15 @@ public class SakuraReForge extends Item {
         components.add(Component.literal("对装备性能进行调整。"));
         components.add(Component.literal("调整属性与范围:"));
         components.add(Component.literal("1.").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.AttackDamage("-20% ~ 20%")));
+                append(ComponentUtils.AttributeDescription.attackDamage("-20% ~ 20%")));
         components.add(Component.literal("2.").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.DefencePenetration("-100% ~ 50%")));
+                append(ComponentUtils.AttributeDescription.defencePenetration("-100% ~ 50%")));
         components.add(Component.literal("3.").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.CritRate("-25% ~ 50%")));
+                append(ComponentUtils.AttributeDescription.critRate("-25% ~ 50%")));
         components.add(Component.literal("4.").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.CritDamage("-10% ~ 10%")));
+                append(ComponentUtils.AttributeDescription.critDamage("-10% ~ 10%")));
         components.add(Component.literal("5.").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.HealthSteal("-10% ~ 10%")));
+                append(ComponentUtils.AttributeDescription.healthSteal("-10% ~ 10%")));
         components.add(Component.literal("6.").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.AttributeDescription.movementSpeedWithoutBattle("-25% ~ 50%")));
         components.add(Component.literal(" "));

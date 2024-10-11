@@ -36,6 +36,6 @@ public class SnowArmor extends WraqArmor {
 
     @Override
     public Component getSuffix() {
-        return ComponentUtils.getSuffixChapterII();
+        return ComponentUtils.getSuffixOfChapterII();
     }
 }

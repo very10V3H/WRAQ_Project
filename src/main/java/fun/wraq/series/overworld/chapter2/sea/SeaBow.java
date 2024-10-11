@@ -52,7 +52,7 @@ public class SeaBow extends WraqBow implements OnHitEffectEquip {
         List<Component> components = new ArrayList<>();
         Compute.DescriptionPassive(components, Component.literal("破碎晶石").withStyle(CustomStyle.styleOfSea));
         components.add(Component.literal("箭矢命中目标后，会对目标周围所有单位造成").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.AttackDamage("50%")).
+                append(ComponentUtils.AttributeDescription.attackDamage("50%")).
                 append(Component.literal("真实伤害").withStyle(CustomStyle.styleOfSea)).
                 append(Component.literal("包括目标本身").withStyle(ChatFormatting.GRAY)));
         components.add(ComponentUtils.getCritDamageInfluenceDescription());
@@ -63,7 +63,7 @@ public class SeaBow extends WraqBow implements OnHitEffectEquip {
 
     @Override
     public Component getSuffix() {
-        return ComponentUtils.getSuffixChapterII();
+        return ComponentUtils.getSuffixOfChapterII();
     }
 
     @Override

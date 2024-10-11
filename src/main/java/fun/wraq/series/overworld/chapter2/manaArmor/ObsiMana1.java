@@ -45,11 +45,11 @@ public class ObsiMana1 extends WraqArmor {
                 append(Component.literal(" ")).
                 append(ModItems.VolcanoPower.get().getDefaultInstance().getDisplayName()));
         components.add(Component.literal(" ").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.CoolDown("")).
+                append(ComponentUtils.AttributeDescription.coolDown("")).
                 append(Component.literal("减少").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("0.75s").withStyle(ChatFormatting.AQUA)));
         components.add(Component.literal(" ").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.ManaCost("")).
+                append(ComponentUtils.AttributeDescription.manaCost("")).
                 append(Component.literal("减少")).
                 append(Component.literal("10").withStyle(CustomStyle.styleOfMana)));
         return components;
@@ -57,7 +57,7 @@ public class ObsiMana1 extends WraqArmor {
 
     @Override
     public Component getSuffix() {
-        return ComponentUtils.getSuffixChapterII();
+        return ComponentUtils.getSuffixOfChapterII();
     }
 
     @Override

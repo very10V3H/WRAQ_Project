@@ -38,7 +38,7 @@ public class IceArmor extends WraqArmor {
                 append(Component.literal("的").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("魔法伤害").withStyle(ChatFormatting.YELLOW)).
                 append(Component.literal(" + ").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.AttackDamage("50%")).
+                append(ComponentUtils.AttributeDescription.attackDamage("50%")).
                 append(Component.literal("的").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("物理伤害").withStyle(ChatFormatting.LIGHT_PURPLE)));
         components.add(Component.literal("并施加持续2s的").withStyle(ChatFormatting.WHITE).

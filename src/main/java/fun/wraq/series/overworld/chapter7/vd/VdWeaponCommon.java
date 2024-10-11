@@ -153,7 +153,7 @@ public interface VdWeaponCommon {
                 if (mobHashSet.contains(mob)) {
                     removeSet.add(mob);
                     if (mob.isAlive()) {
-                        Damage.causeIgNoreDefenceDamageToMonster(player, mob, mob.getMaxHealth() * 0.04 * countMap.get(mob));
+                        Damage.causeTrueDamageToMonster(player, mob, mob.getMaxHealth() * 0.04 * countMap.get(mob));
                         Compute.removeMobEffectHudToNearPlayer(mob, C7Items.vdSword.get(), "vdCount");
                         if (mob.getHealth() < mob.getMaxHealth() * 0.04 * countMap.get(mob)) {
                             player.getCooldowns().removeCooldown(item);

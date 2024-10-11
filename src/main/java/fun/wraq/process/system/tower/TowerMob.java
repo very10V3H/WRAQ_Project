@@ -246,7 +246,7 @@ public class TowerMob {
             if (player.tickCount % 100 == 0) {
                 mobList.forEach(mob -> {
                     if (mob.isAlive()) {
-                        Damage.DamageIgnoreDefenceToPlayer(mob, player, player.getMaxHealth() * 0.1);
+                        Damage.causeTrueDamageToPlayer(mob, player, player.getMaxHealth() * 0.1);
                         LightningBolt lightningBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, player.level());
                         lightningBolt.setVisualOnly(true);
                         lightningBolt.moveTo(player.position());

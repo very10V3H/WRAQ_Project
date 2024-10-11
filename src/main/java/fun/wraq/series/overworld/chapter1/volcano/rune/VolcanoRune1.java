@@ -25,7 +25,7 @@ public class VolcanoRune1 extends Item {
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, ChatFormatting.YELLOW, ChatFormatting.WHITE);
         components.add(Component.literal("符石属性:"));
         components.add(Component.literal("根据已损失生命值提供至多").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.ExAttackDamage("25%")));
+                append(ComponentUtils.AttributeDescription.exAttackDamage("25%")));
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, ChatFormatting.YELLOW, ChatFormatting.WHITE);
         components.add(Component.literal("Runes-III").withStyle(ChatFormatting.YELLOW).withStyle(ChatFormatting.ITALIC));
         super.appendHoverText(stack, p_41422_, components, p_41424_);

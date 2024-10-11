@@ -1080,7 +1080,7 @@ public class ForgeRecipe {
             add(new ItemStack(ModItems.WorldSoul3.get(), 12));
         }});
 
-        forgeDrawRecipe.put(ModItems.EndCurios.get(), new ArrayList<>() {{
+        forgeDrawRecipe.put(ModItems.END_CURIOS_BOW.get(), new ArrayList<>() {{
             add(new ItemStack(ModItems.EndCrystal.get(), 12));
             add(new ItemStack(ModItems.goldCoin.get(), 320));
             add(new ItemStack(ModItems.completeGem.get(), 8));
@@ -1089,7 +1089,7 @@ public class ForgeRecipe {
             add(new ItemStack(ModItems.WorldSoul3.get(), 3));
         }});
 
-        forgeDrawRecipe.put(ModItems.EndCurios1.get(), new ArrayList<>() {{
+        forgeDrawRecipe.put(ModItems.END_CURIOS_MANA.get(), new ArrayList<>() {{
             add(new ItemStack(ModItems.EndCrystal.get(), 12));
             add(new ItemStack(ModItems.goldCoin.get(), 320));
             add(new ItemStack(ModItems.completeGem.get(), 8));

@@ -57,7 +57,7 @@ public class NetherShield extends WraqOffHandItem implements ForgeItem, OnHitEff
 
     @Override
     public Component getSuffix() {
-        return ComponentUtils.getSuffixChapterIII();
+        return ComponentUtils.getSuffixNether();
     }
 
     @Override

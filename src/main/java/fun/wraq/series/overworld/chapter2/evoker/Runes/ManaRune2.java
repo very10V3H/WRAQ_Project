@@ -29,7 +29,7 @@ public class ManaRune2 extends Item {
                 append(ComponentUtils.AttributeDescription.manaDamage("300%")).
                 append(Component.literal("的法术伤害。").withStyle(ChatFormatting.WHITE)));
         components.add(Component.literal("并击碎目标").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.ManaDefence("100%")).
+                append(ComponentUtils.AttributeDescription.manaDefence("100%")).
                 append(Component.literal("，持续3s").withStyle(ChatFormatting.WHITE)));
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, ChatFormatting.LIGHT_PURPLE, ChatFormatting.WHITE);
         components.add(Component.literal("Runes-Mana").withStyle(ChatFormatting.LIGHT_PURPLE).withStyle(ChatFormatting.ITALIC));

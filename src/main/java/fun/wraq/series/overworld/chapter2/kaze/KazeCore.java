@@ -56,11 +56,11 @@ public class KazeCore extends Item {
         components.add(Component.literal("-基于你的").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.AttributeDescription.movementSpeedWithoutBattle("")).
                 append(Component.literal("提供").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.ManaPenetration("")));
+                append(ComponentUtils.AttributeDescription.manaPenetration("")));
         components.add(Component.literal("-每").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.AttributeDescription.exMovementSpeed("1%")).
                 append(Component.literal("提供").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.ManaPenetration("1")));
+                append(ComponentUtils.AttributeDescription.manaPenetration("1")));
         super.appendHoverText(stack, p_41422_, components, p_41424_);
     }
 

@@ -56,7 +56,7 @@ public class SakuraCore extends Item {
                 append(Component.literal("真实伤害").withStyle(CustomStyle.styleOfSea)));
         components.add(Component.literal("第二枚回复").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.AttributeDescription.manaDamage("1.25%")).
-                append(Compute.AttributeDescription.Health("")));
+                append(ComponentUtils.AttributeDescription.health("")));
 
         super.appendHoverText(stack, p_41422_, components, p_41424_);
     }

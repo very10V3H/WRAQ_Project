@@ -26,7 +26,7 @@ public class LakeRune3 extends Item {
         components.add(Component.literal("符石属性:"));
         Compute.DescriptionPassive(components, Component.literal("热量交换").withStyle(ChatFormatting.BLUE));
         components.add(Component.literal(" 处于水中时，为你提供").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.CoolDown("200")));
+                append(ComponentUtils.AttributeDescription.coolDown("200")));
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, ChatFormatting.BLUE, ChatFormatting.WHITE);
         components.add(Component.literal("LakeRunes").withStyle(ChatFormatting.BLUE).withStyle(ChatFormatting.ITALIC));
         super.appendHoverText(stack, p_41422_, components, p_41424_);

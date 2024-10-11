@@ -28,12 +28,12 @@ public class ForestSuitDescription {
         Compute.solePassiveDescription(components, Component.literal("").withStyle(style));
         int level = Math.min(100, Minecraft.getInstance().player.experienceLevel);
         components.add(Component.literal(" 获得").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.Defence("等级 * 0.4")).
+                append(ComponentUtils.AttributeDescription.defence("等级 * 0.4")).
                 append(Component.literal("(" + level * 0.4 + ")").withStyle(ChatFormatting.GRAY)));
         components.add(Component.literal(" 在100级时达到最大收益").withStyle(ChatFormatting.GRAY));
         if (Screen.hasShiftDown()) SuitDescription(components);
         else {
-            Compute.SuitDescription(components);
+            ComponentUtils.suitDescription(components);
             components.add(Component.literal("[按住shift展开套装效果]").withStyle(ChatFormatting.GRAY));
         }
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
@@ -42,7 +42,7 @@ public class ForestSuitDescription {
     }
 
     public static void SuitDescription(List<Component> components) {
-        Compute.SuitDescription(components);
+        ComponentUtils.suitDescription(components);
 
         int Count = 0;
         Player player = Minecraft.getInstance().player;
@@ -72,12 +72,12 @@ public class ForestSuitDescription {
             Count++;
         } else components.add(Component.literal(CrestName).withStyle(ChatFormatting.GRAY));
 
-        Compute.SuitDoubleDescription(components, Count);
+        ComponentUtils.suitDoubleDescription(components, Count);
         Compute.DescriptionPassive(components, Component.literal("繁茂生长").withStyle(ChatFormatting.DARK_GREEN));
-        ComponentUtils.descriptionNum(components, "提升", Compute.AttributeDescription.Defence("25%"), "");
-        Compute.SuitQuadraDescription(components, Count);
+        ComponentUtils.descriptionNum(components, "提升", ComponentUtils.AttributeDescription.defence("25%"), "");
+        ComponentUtils.suitQuadraDescription(components, Count);
         Compute.DescriptionPassive(components, Component.literal("森林生机").withStyle(ChatFormatting.DARK_GREEN));
-        ComponentUtils.descriptionNum(components, "提升", Compute.AttributeDescription.HealAmplification("50%"), "");
-        ComponentUtils.descriptionNum(components, "在白天，提供", Compute.AttributeDescription.HealthRecover("5"), "");
+        ComponentUtils.descriptionNum(components, "提升", ComponentUtils.AttributeDescription.healAmplification("50%"), "");
+        ComponentUtils.descriptionNum(components, "在白天，提供", ComponentUtils.AttributeDescription.healthRecover("5"), "");
     }
 }

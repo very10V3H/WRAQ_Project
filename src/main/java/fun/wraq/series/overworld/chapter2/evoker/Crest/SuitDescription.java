@@ -1,8 +1,8 @@
 package fun.wraq.series.overworld.chapter2.evoker.Crest;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ClientUtils;
+import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -22,7 +22,7 @@ import java.util.List;
 @OnlyIn(Dist.CLIENT)
 public class SuitDescription {
     public static void CrestSuitDescription(List<Component> components) {
-        Compute.SuitDescription(components);
+        ComponentUtils.suitDescription(components);
 
         int Count = 0;
         Player player = Minecraft.getInstance().player;

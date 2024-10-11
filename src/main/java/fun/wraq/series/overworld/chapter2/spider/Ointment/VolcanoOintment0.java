@@ -1,6 +1,6 @@
 package fun.wraq.series.overworld.chapter2.spider.Ointment;
 
-import fun.wraq.common.Compute;
+import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -53,15 +53,15 @@ public class VolcanoOintment0 extends Item {
         if (this.levelNum == 0) {
             components.add(Component.literal(" - ").withStyle(ChatFormatting.GRAY).
                     append(Component.literal("微光加成:").withStyle(CustomStyle.styleOfSpider)).
-                    append(Compute.AttributeDescription.AttackDamage(Max * 0.25 + "~" + Max * 0.75)));
+                    append(ComponentUtils.AttributeDescription.attackDamage(Max * 0.25 + "~" + Max * 0.75)));
         } else if (this.levelNum == 1) {
             components.add(Component.literal(" - ").withStyle(ChatFormatting.GRAY).
                     append(Component.literal("微光加成:").withStyle(CustomStyle.styleOfSpider)).
-                    append(Compute.AttributeDescription.AttackDamage(Max * 0.5 + "~" + Max)));
+                    append(ComponentUtils.AttributeDescription.attackDamage(Max * 0.5 + "~" + Max)));
         } else if (this.levelNum == 2) {
             components.add(Component.literal(" - ").withStyle(ChatFormatting.GRAY).
                     append(Component.literal("微光加成:").withStyle(CustomStyle.styleOfSpider)).
-                    append(Compute.AttributeDescription.AttackDamage(Max * 0.75 + "~" + Max)));
+                    append(ComponentUtils.AttributeDescription.attackDamage(Max * 0.75 + "~" + Max)));
         }
     }
 }

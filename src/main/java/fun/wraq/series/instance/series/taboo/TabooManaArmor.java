@@ -39,7 +39,7 @@ public class TabooManaArmor extends WraqArmor implements OnCostManaEquip, InCuri
         components.add(Component.literal(" 根据你最近5s内消耗的").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.AttributeDescription.manaValue("4%")).
                 append(Component.literal("来提供等量").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.ManaPenetration("")));
+                append(ComponentUtils.AttributeDescription.manaPenetration("")));
         return components;
     }
 

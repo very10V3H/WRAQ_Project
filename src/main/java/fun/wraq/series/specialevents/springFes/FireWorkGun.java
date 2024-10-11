@@ -37,7 +37,7 @@ public class FireWorkGun extends Item implements ActiveItem {
         components.add(Component.literal(" 右键发射一枚烟花火箭").withStyle(ChatFormatting.WHITE));
         Compute.DescriptionActive(components, Component.literal("过年啦！").withStyle(CustomStyle.styleOfSpring));
         components.add(Component.literal(" 提升").withStyle(CustomStyle.styleOfSpring).
-                append(Compute.AttributeDescription.AttackDamage("10%")).
+                append(ComponentUtils.AttributeDescription.attackDamage("10%")).
                 append(Component.literal("与").withStyle(CustomStyle.styleOfSpring)).
                 append(ComponentUtils.AttributeDescription.manaDamage("10%")).
                 append(Component.literal(" 持续10s").withStyle(ChatFormatting.WHITE)));

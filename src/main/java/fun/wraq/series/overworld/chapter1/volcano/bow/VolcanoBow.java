@@ -36,7 +36,7 @@ public class VolcanoBow extends WraqBow {
         Style style = getMainStyle();
         Compute.DescriptionPassive(components, Component.literal("熔岩涌动").withStyle(ChatFormatting.YELLOW));
         components.add(Component.literal("箭矢命中目标后获得持续2.5s的").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.DefencePenetration("40%")));
+                append(ComponentUtils.AttributeDescription.defencePenetration("40%")));
         return components;
     }
 

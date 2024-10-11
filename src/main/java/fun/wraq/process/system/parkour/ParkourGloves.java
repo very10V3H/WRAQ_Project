@@ -26,7 +26,6 @@ public class ParkourGloves extends Item implements ICurioItem {
         Utils.coolDownDecrease.put(this, 0.15);
         Utils.critDamage.put(this, 0.5);
         Utils.expUp.put(this, 0.5);
-        Utils.curiosTag.put(this, 1d);
         Utils.curiosList.add(this);
     }
 
@@ -44,14 +43,14 @@ public class ParkourGloves extends Item implements ICurioItem {
     @Override
     public void onEquip(SlotContext slotContext, ItemStack prevStack, ItemStack stack) {
         Player player = (Player) slotContext.entity();
-        Compute.AddCuriosToList(player, stack);
+        Compute.addCuriosToList(player, stack);
         ICurioItem.super.onEquip(slotContext, prevStack, stack);
     }
 
     @Override
     public void onUnequip(SlotContext slotContext, ItemStack newStack, ItemStack stack) {
         Player player = (Player) slotContext.entity();
-        Compute.RemoveCuriosInList(player, stack);
+        Compute.removeCuriosInList(player, stack);
         ICurioItem.super.onUnequip(slotContext, newStack, stack);
     }
 

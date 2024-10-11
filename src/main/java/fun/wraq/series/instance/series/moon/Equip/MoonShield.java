@@ -58,9 +58,9 @@ public class MoonShield extends Item implements OnHitEffectEquip {
                 append(Component.literal("7").withStyle(style)).
                 append(Component.literal("次伤害后，").withStyle(ChatFormatting.WHITE)));
         components.add(Component.literal(" 你将会引爆标记，并对该敌人造成").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.getAutoAdaptIgnoreDefenceDamageDescription("1400%")));
+                append(ComponentUtils.getAutoAdaptTrueDamageDescription("1400%")));
         components.add(Component.literal(" - 引爆标记后，你将获得持续3s的").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.AttackDamage("12%总")));
+                append(ComponentUtils.AttributeDescription.attackDamage("12%总")));
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         ComponentUtils.suffixOfMoon(components);
         super.appendHoverText(stack, level, components, flag);

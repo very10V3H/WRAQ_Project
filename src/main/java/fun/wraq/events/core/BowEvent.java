@@ -1,5 +1,7 @@
 package fun.wraq.events.core;
 
+import fun.wraq.common.Compute;
+import fun.wraq.common.registry.ModItems;
 import fun.wraq.core.ManaAttackModule;
 import fun.wraq.core.MyArrow;
 import fun.wraq.networking.ModNetworking;
@@ -7,8 +9,6 @@ import fun.wraq.networking.misc.ParticlePackets.ManaAttackParticleS2CPacket;
 import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.projectiles.mana.NewArrow;
 import fun.wraq.projectiles.mana.SwordAir;
-import fun.wraq.series.end.curios.EndCurios;
-import fun.wraq.series.end.curios.EndCurios1;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Mob;
@@ -42,7 +42,7 @@ public class BowEvent {
             if (!list0.isEmpty()) {
                 if (myArrow.player != null) {
                     Player player = myArrow.player;
-                    if (EndCurios.IsOn(player)) {
+                    if (Compute.hasCurios(player, ModItems.END_CURIOS_BOW.get())) {
                         List<Mob> mobList = new ArrayList<>();
                         Vec3 vec = myArrow.getDeltaMovement().normalize();
                         for (int i = 0; i < 20; i++) {
@@ -92,7 +92,7 @@ public class BowEvent {
             if (!list0.isEmpty()) {
                 if (manaArrow.player != null) {
                     Player player = manaArrow.player;
-                    if (EndCurios1.IsOn(player)) {
+                    if (Compute.hasCurios(player, ModItems.END_CURIOS_MANA.get())) {
                         List<Mob> mobList = new ArrayList<>();
                         Vec3 vec = manaArrow.getDeltaMovement().normalize();
                         for (int i = 0; i < 20; i++) {
@@ -145,7 +145,7 @@ public class BowEvent {
             if (!list0.isEmpty()) {
                 if (newArrow.player != null) {
                     Player player = newArrow.player;
-                    if (EndCurios1.IsOn(player)) {
+                    if (Compute.hasCurios(player, ModItems.END_CURIOS_MANA.get())) {
                         List<Mob> mobList = new ArrayList<>();
                         Vec3 vec = newArrow.getDeltaMovement().normalize();
                         for (int i = 0; i < 20; i++) {

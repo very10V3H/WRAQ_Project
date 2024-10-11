@@ -63,7 +63,7 @@ public class NetherSceptre extends WraqSceptre implements Laser {
 
     @Override
     public Component getSuffix() {
-        return ComponentUtils.getSuffixChapterIII();
+        return ComponentUtils.getSuffixNether();
     }
 
     public static Map<Player, Integer> passiveLastTickMap = new WeakHashMap<>();

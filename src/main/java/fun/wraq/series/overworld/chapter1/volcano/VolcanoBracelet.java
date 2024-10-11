@@ -43,7 +43,7 @@ public class VolcanoBracelet extends Item {
         ComponentUtils.descriptionOfAddition(components);
         if (Screen.hasShiftDown()) VolcanoSuitDescription.VolcanoSuitDescription(components);
         else {
-            Compute.SuitDescription(components);
+            ComponentUtils.suitDescription(components);
             components.add(Component.literal("[按住shift展开套装效果]").withStyle(ChatFormatting.GRAY));
         }
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, chatFormatting, ChatFormatting.WHITE);

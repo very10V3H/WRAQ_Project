@@ -60,11 +60,11 @@ public class MoonSword extends WraqSword implements ActiveItem, OnHitEffectEquip
                 append(Component.literal("将").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("吸收").withStyle(style)).
                 append(Component.literal("目标周围半径6内所有敌方单位的").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.AttackDamage("")));
+                append(ComponentUtils.AttributeDescription.attackDamage("")));
         components.add(Component.literal("，提供在10s内持续衰减的等额").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.ExAttackDamage(String.format("%.0f%%", activeRate * 100))));
+                append(ComponentUtils.AttributeDescription.exAttackDamage(String.format("%.0f%%", activeRate * 100))));
         components.add(Component.literal(" 并为你提供持续20s的").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.AttackDamage("200%")).
+                append(ComponentUtils.AttributeDescription.attackDamage("200%")).
                 append(Component.literal("的").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("护盾").withStyle(ChatFormatting.GRAY)));
         ComponentUtils.coolDownTimeDescription(components, 27);

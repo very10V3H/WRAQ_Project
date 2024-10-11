@@ -47,7 +47,7 @@ public class ForestSword4 extends WraqSword implements ActiveItem {
         List<Component> components = new ArrayList<>();
         Compute.DescriptionActive(components, Component.literal("切割/砍伐").withStyle(ChatFormatting.DARK_RED));
         components.add(Component.literal("获得").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.DefencePenetration("15%+[250]")).
+                append(ComponentUtils.AttributeDescription.defencePenetration("15%+[250]")).
                 append(Component.literal("持续20s").withStyle(ChatFormatting.WHITE)));
         ComponentUtils.coolDownTimeDescription(components, 30);
         ComponentUtils.manaCostDescription(components, 60);

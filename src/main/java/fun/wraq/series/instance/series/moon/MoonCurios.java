@@ -29,7 +29,6 @@ public class MoonCurios extends Item implements ICurioItem {
 
     public MoonCurios(Properties p_41383_) {
         super(p_41383_);
-        Utils.curiosTag.put(this, 1d);
         Utils.curiosList.add(this);
     }
 
@@ -57,14 +56,14 @@ public class MoonCurios extends Item implements ICurioItem {
     public void onEquip(SlotContext slotContext, ItemStack prevStack, ItemStack stack) {
         Player player = (Player) slotContext.entity();
         MonthCuriosAttributeProvide(player, stack);
-        Compute.AddCuriosToList(player, stack);
+        Compute.addCuriosToList(player, stack);
         ICurioItem.super.onEquip(slotContext, prevStack, stack);
     }
 
     @Override
     public void onUnequip(SlotContext slotContext, ItemStack newStack, ItemStack stack) {
         Player player = (Player) slotContext.entity();
-        Compute.RemoveCuriosInList(player, stack);
+        Compute.removeCuriosInList(player, stack);
         ICurioItem.super.onUnequip(slotContext, newStack, stack);
     }
 

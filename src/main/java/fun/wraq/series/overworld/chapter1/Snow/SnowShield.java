@@ -41,9 +41,9 @@ public class SnowShield extends Item {
         MineShield.shieldAdditionDescription(components);
         Compute.DescriptionPassive(components, Component.literal("破碎冰玉").withStyle(MainStyle));
         components.add(Component.literal(" 造成暴击后，击碎目标").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.Defence("25%")).
+                append(ComponentUtils.AttributeDescription.defence("25%")).
                 append(Component.literal("并提升自身等额").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.Defence("")).
+                append(ComponentUtils.AttributeDescription.defence("")).
                 append(Component.literal(" 持续2s").withStyle(ChatFormatting.WHITE)));
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
         ComponentUtils.suffixOfChapterI(components);

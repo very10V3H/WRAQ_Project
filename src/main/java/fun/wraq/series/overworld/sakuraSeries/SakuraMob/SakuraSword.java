@@ -70,7 +70,7 @@ public class SakuraSword extends WraqSword implements ActiveItem {
 
     @Override
     public Component getSuffix() {
-        return ComponentUtils.getSuffixOfChapterV();
+        return ComponentUtils.getSuffixOfSakura();
     }
 
     @Override

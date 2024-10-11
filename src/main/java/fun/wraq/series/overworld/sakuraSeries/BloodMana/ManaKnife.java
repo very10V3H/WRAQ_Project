@@ -39,13 +39,13 @@ public class ManaKnife extends WraqOffHandItem implements ForgeItem {
         Style style = getMainStyle();
         Compute.DescriptionPassive(components, Component.literal("旧世猎魔遗忆").withStyle(style));
         components.add(Component.literal(" 当你的箭矢命中目标后，为你提供").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.AttackDamage("5%")).
-                append(Compute.AttributeDescription.Health("")));
+                append(ComponentUtils.AttributeDescription.attackDamage("5%")).
+                append(ComponentUtils.AttributeDescription.health("")));
         Compute.DescriptionPassive(components, Component.literal("新世猎魔传技").withStyle(style));
         components.add(Component.literal(" 将你的").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.HealthSteal("")).
+                append(ComponentUtils.AttributeDescription.healthSteal("")).
                 append(Component.literal("以1:3全部转化为").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.CritDamage("")));
+                append(ComponentUtils.AttributeDescription.critDamage("")));
         return components;
     }
 

@@ -72,7 +72,7 @@ public class GoldenBook extends WraqOffHandItem implements OnKillEffectEquip {
 
     @Override
     public Component getSuffix() {
-        return ComponentUtils.getSuffixOfChapterV();
+        return ComponentUtils.getSuffixOfSakura();
     }
 
     public static Map<String, Integer> passiveLastTimeMap = new HashMap<>();

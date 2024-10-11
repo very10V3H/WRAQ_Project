@@ -40,7 +40,7 @@ public class PiglinHelmet extends WraqArmor implements ForgeItem, InCuriosOrEqui
         Style style = getMainStyle();
         Compute.DescriptionPassive(components, Component.literal("群攻").withStyle(style));
         components.add(Component.literal("基于附近怪物数量，为你提供").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.Defence("怪物数量 * "
+                append(ComponentUtils.AttributeDescription.defence("怪物数量 * "
                         + String.format("%.0f", new double[]{3, 5, 8, 10}[tier]))));
         components.add(Component.literal("最大值：50").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
         components.add(Component.literal("明明是金头盔，为什么不防猪灵呢？").withStyle(ChatFormatting.ITALIC).
@@ -50,7 +50,7 @@ public class PiglinHelmet extends WraqArmor implements ForgeItem, InCuriosOrEqui
 
     @Override
     public Component getSuffix() {
-        return ComponentUtils.getSuffixChapterIII();
+        return ComponentUtils.getSuffixNether();
     }
 
     @Override

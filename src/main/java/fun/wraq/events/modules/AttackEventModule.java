@@ -21,10 +21,8 @@ import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.suit.SuitCount;
 import fun.wraq.render.mobEffects.ModEffects;
 import fun.wraq.render.particles.ModParticles;
-import fun.wraq.series.end.eventController.SnowRecall.SnowSword4;
 import fun.wraq.series.overworld.chapter1.Mine.Sword.MineSword;
 import fun.wraq.series.overworld.chapter1.Snow.Sword.SnowSword;
-import fun.wraq.series.overworld.chapter1.Snow.Sword.SnowSword3;
 import fun.wraq.series.overworld.chapter1.forest.bow.ForestBow;
 import fun.wraq.series.overworld.chapter1.plain.bow.PlainBow;
 import fun.wraq.series.overworld.chapter1.volcano.bow.VolcanoBow;
@@ -74,9 +72,8 @@ public class AttackEventModule {
     }
 
     public static void MineSwordAndSnowSwordSlowDownForce(Item item, Mob monster) {
-        if (item instanceof MineSword || item instanceof SnowSword || item instanceof SnowSword3 || item instanceof SnowSword4) {
-            if ((item instanceof MineSword mineSword && mineSword.getWraqTier() == 3) || item instanceof SnowSword
-                    || item instanceof SnowSword3 || item instanceof SnowSword4)
+        if (item instanceof MineSword || item instanceof SnowSword) {
+            if ((item instanceof MineSword mineSword && mineSword.getWraqTier() == 3) || item instanceof SnowSword)
                 monster.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 40, 1, false, false));
             else monster.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 40, 2, false, false));
             monster.getServer().getPlayerList().getPlayers().forEach(serverPlayer ->

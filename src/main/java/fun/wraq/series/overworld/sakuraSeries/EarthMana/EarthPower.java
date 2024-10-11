@@ -69,21 +69,21 @@ public class EarthPower extends Item implements ActiveItem {
         components.add(Component.literal(" 森林:").withStyle(CustomStyle.styleOfForest).
                 append(Component.literal(" 对周围怪物造成减速效果").withStyle(ChatFormatting.WHITE)));
         components.add(Component.literal("    提升周围玩家的").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.Defence("25%")).
+                append(ComponentUtils.AttributeDescription.defence("25%")).
                 append(Component.literal("与").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.ManaDefence("25%")));
+                append(ComponentUtils.AttributeDescription.manaDefence("25%")));
 
         components.add(Component.literal(" 澈源:").withStyle(CustomStyle.styleOfLake).
                 append(Component.literal(" 削减周围怪物").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.ManaDefence("40%")));
+                append(ComponentUtils.AttributeDescription.manaDefence("40%")));
         components.add(Component.literal("    使周围玩家获得").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.CoolDown("30")));
+                append(ComponentUtils.AttributeDescription.coolDown("30")));
 
         components.add(Component.literal(" 火山:").withStyle(CustomStyle.styleOfVolcano).
                 append(Component.literal(" 额外造成一次").withStyle(ChatFormatting.WHITE)).
                 append(ComponentUtils.AttributeDescription.manaDamageValue("400%")));
         components.add(Component.literal("    使周围玩家获得").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.AttackDamage("25%")).
+                append(ComponentUtils.AttributeDescription.attackDamage("25%")).
                 append(Component.literal("与").withStyle(ChatFormatting.WHITE)).
                 append(ComponentUtils.AttributeDescription.manaDamage("25%")));
         components.add(Component.literal(" - 对玩家的增益效果均持续3s").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
@@ -100,7 +100,7 @@ public class EarthPower extends Item implements ActiveItem {
 
         components.add(Component.literal(" - IDEA FROM : AzusaLin").withStyle(ChatFormatting.LIGHT_PURPLE));
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
-        ComponentUtils.suffixOfChapterV(components);
+        ComponentUtils.suffixOfSakura(components);
         components.add(ComponentUtils.getDemonAndElementStorySuffix1Sakura());
         super.appendHoverText(itemStack, level, components, flag);
     }

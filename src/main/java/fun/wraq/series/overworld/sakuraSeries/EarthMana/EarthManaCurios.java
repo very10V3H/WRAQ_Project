@@ -20,7 +20,6 @@ public class EarthManaCurios extends WraqCurios {
         Utils.manaDamage.put(this, tier == 0 ? 200d : 350d);
         Utils.manaHealthSteal.put(this, tier == 0 ? 0.05 : 0.08);
         Utils.manaRecover.put(this, tier == 0 ? 15d : 25d);
-        Utils.curiosTag.put(this, 1d);
         Utils.curiosList.add(this);
     }
 

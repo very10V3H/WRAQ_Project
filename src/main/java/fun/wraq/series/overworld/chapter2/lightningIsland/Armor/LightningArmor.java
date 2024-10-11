@@ -63,7 +63,7 @@ public class LightningArmor extends WraqArmor implements OnHitEffectEquip {
 
     @Override
     public Component getSuffix() {
-        return ComponentUtils.getSuffixChapterII();
+        return ComponentUtils.getSuffixOfChapterII();
     }
 
     @Override

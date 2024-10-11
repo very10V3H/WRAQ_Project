@@ -96,7 +96,6 @@ public class Utils {
     public static Map<Item, Double> shieldTag = new HashMap<>();
     public static Map<Item, Double> armorTag = new HashMap<>();
     public static Map<Item, Double> powerTag = new HashMap<>();
-    public static Map<Item, Double> curiosTag = new HashMap<>();
     public static Map<Item, Double> mobLevel = new HashMap<>();
     public static Map<Item, Double> passiveEquipTag = new HashMap<>();
     public static Map<Item, Integer> levelRequire = new HashMap<>();

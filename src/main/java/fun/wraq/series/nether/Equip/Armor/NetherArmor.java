@@ -53,7 +53,7 @@ public class NetherArmor extends WraqArmor implements OnHitEffectEquip {
 
     @Override
     public Component getSuffix() {
-        return ComponentUtils.getSuffixChapterIII();
+        return ComponentUtils.getSuffixNether();
     }
 
     @Override

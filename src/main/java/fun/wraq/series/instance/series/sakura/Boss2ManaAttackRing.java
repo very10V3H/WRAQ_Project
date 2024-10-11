@@ -23,7 +23,6 @@ public class Boss2ManaAttackRing extends Item implements ICurioItem {
         super(p_41383_);
         this.level = level;
         Utils.manaDamage.put(this, (double) Attributes[level]);
-        Utils.curiosTag.put(this, 1d);
         Utils.curiosList.add(this);
     }
 

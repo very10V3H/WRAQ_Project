@@ -48,13 +48,13 @@ public class CastleBow extends WraqBow implements ForgeItem, ActiveItem {
                 append(ComponentUtils.AttributeDescription.manaDamageValue("")));
         Compute.DescriptionActive(components, Component.literal("噬魔注能").withStyle(style));
         components.add(Component.literal(" 扣除自身").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.Health("15%当前")).
+                append(ComponentUtils.AttributeDescription.health("15%当前")).
                 append(Component.literal("，获得持续6s的").withStyle(ChatFormatting.WHITE)).
                 append(ComponentUtils.getCommonDamageEnhance("25%")).
                 append(Component.literal("以及").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.DefencePenetration("15")).
+                append(ComponentUtils.AttributeDescription.defencePenetration("15")).
                 append(Component.literal("与").withStyle(ChatFormatting.WHITE)).
-                append(Compute.AttributeDescription.ManaPenetration("15")));
+                append(ComponentUtils.AttributeDescription.manaPenetration("15")));
         ComponentUtils.coolDownTimeDescription(components, 15);
         components.add(Component.literal(" 多件暗黑武器的主动将会刷新持续时间，但效果将不会叠加，且共享冷却时间").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
         return components;

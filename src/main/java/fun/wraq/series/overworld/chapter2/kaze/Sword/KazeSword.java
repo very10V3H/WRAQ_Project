@@ -65,7 +65,7 @@ public class KazeSword extends WraqSword implements ActiveItem {
                 append(Component.literal(" 不可被冷却缩减减少").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY)));
         components.add(Component.literal("2.狂风绝息:").withStyle(CustomStyle.styleOfKaze));
         components.add(Component.literal("若周围有单位位于空中，则对位于空中的所有单位造成").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.AttackDamage(new String[]{"200%", "300%", "400%", "500%", "1000%"}[tier])).
+                append(ComponentUtils.AttributeDescription.attackDamage(new String[]{"200%", "300%", "400%", "500%", "1000%"}[tier])).
                 append(Component.literal("的物理伤害，并将其强制牵引至地面").withStyle(ChatFormatting.WHITE)));
         ComponentUtils.coolDownTimeDescription(components, 3);
         ComponentUtils.manaCostDescription(components, 45);
@@ -74,7 +74,7 @@ public class KazeSword extends WraqSword implements ActiveItem {
 
     @Override
     public Component getSuffix() {
-        return ComponentUtils.getSuffixChapterII();
+        return ComponentUtils.getSuffixOfChapterII();
     }
 
     @Override

@@ -58,7 +58,7 @@ public class MobEffectAndDamageMethods {
 
                         case 1 -> Damage.manaDamageToPlayer(d.mob, player, d.damage);
 
-                        case 2 -> Damage.DamageIgnoreDefenceToPlayer(d.mob, player, d.damage);
+                        case 2 -> Damage.causeTrueDamageToPlayer(d.mob, player, d.damage);
 
                     }
                     BaseEffectProvide(d.mob, player);
@@ -91,7 +91,7 @@ public class MobEffectAndDamageMethods {
 
                         case 1 -> Damage.manaDamageToPlayer(d.mob, player, d.damage);
 
-                        case 2 -> Damage.DamageIgnoreDefenceToPlayer(d.mob, player, d.damage);
+                        case 2 -> Damage.causeTrueDamageToPlayer(d.mob, player, d.damage);
                     }
                     BaseEffectProvide(d.mob, player);
                 });

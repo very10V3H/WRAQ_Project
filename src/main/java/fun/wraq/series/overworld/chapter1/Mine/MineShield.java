@@ -42,7 +42,7 @@ public class MineShield extends Item {
         shieldAdditionDescription(components);
         Compute.DescriptionPassive(components, Component.literal("沉重之铁").withStyle(ChatFormatting.GRAY));
         components.add(Component.literal("受到来自怪物的伤害时，会为你提供").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.Defence("等级*0.4")));
+                append(ComponentUtils.AttributeDescription.defence("等级*0.4")));
         ComponentUtils.suffixOfChapterI(components);
         super.appendHoverText(stack, level, components, flag);
     }
@@ -66,7 +66,7 @@ public class MineShield extends Item {
                 append(Te.m("直接伤害减免", ChatFormatting.GRAY)));
         Compute.DescriptionPassive(components, Component.literal("盾击").withStyle(ChatFormatting.GRAY));
         components.add(Component.literal(" 基于").withStyle(ChatFormatting.WHITE).
-                append(Compute.AttributeDescription.Defence("")).
+                append(ComponentUtils.AttributeDescription.defence("")).
                 append(Component.literal("为你至多提供").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("75%近战攻击增幅").withStyle(CustomStyle.styleOfPower)));
     }
