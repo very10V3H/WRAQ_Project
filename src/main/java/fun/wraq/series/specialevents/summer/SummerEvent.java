@@ -125,7 +125,7 @@ public class SummerEvent {
         }
     }
 
-    public static void reward(Player player) throws SQLException {
+    private static void reward(Player player) throws SQLException {
         int dailySwimmingSeconds = getIntData(player, dailySwimmingSecondsKey);
         MySound.soundToPlayer(player, SoundEvents.EXPERIENCE_ORB_PICKUP);
         Component timeFormat;
@@ -213,7 +213,7 @@ public class SummerEvent {
         }
     }
 
-    public static Component getTimeFormat(int dailySwimmingSeconds) {
+    private static Component getTimeFormat(int dailySwimmingSeconds) {
         Component timeFormat;
         if (dailySwimmingSeconds >= 600) {
             timeFormat = Component.literal(String.format("%.2f", dailySwimmingSeconds / 60.0) + "min").withStyle(CustomStyle.styleOfWater);
@@ -223,16 +223,16 @@ public class SummerEvent {
         return timeFormat;
     }
 
-    public static void sendFormatMSG(Player player, Component component) {
+    private static void sendFormatMSG(Player player, Component component) {
         Compute.sendFormatMSG(player, Component.literal("暑期活动").withStyle(CustomStyle.styleOfPower), component);
     }
 
-    public static int getIntData(Player player, String key) {
+    private static int getIntData(Player player, String key) {
         CompoundTag data = player.getPersistentData();
         return data.getInt(key);
     }
 
-    public static void incrementIntData(Player player, String key) {
+    private static void incrementIntData(Player player, String key) {
         CompoundTag data = player.getPersistentData();
         data.putInt(key, data.getInt(key) + 1);
     }

@@ -464,9 +464,9 @@ public class LevelEvents {
                         Component.literal(BroadCastContent[random.nextInt(BroadCastContent.length)]).withStyle(ChatFormatting.WHITE));
             }
 
-            if (tick % 12000 == 726) {
+/*            if (tick % 12000 == 726) {
                 SummerEvent.sendDailyTimeRank(level);
-            }
+            }*/
         }
     }
 

@@ -69,7 +69,6 @@ import fun.wraq.series.overworld.chapter7.star.StarBottle;
 import fun.wraq.series.overworld.chapter7.vd.VdWeaponCommon;
 import fun.wraq.series.specialevents.labourDay.LabourDayIronHoe;
 import fun.wraq.series.specialevents.labourDay.LabourDayIronPickaxe;
-import fun.wraq.series.specialevents.summer.SummerEvent;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -1753,7 +1752,7 @@ public class Compute {
             throw new RuntimeException(e);
         }
         rate += new double[]{0, 0.15, 0.3, 0.5}[tier];
-        rate += SummerEvent.exHarvest(player);
+        /*rate += SummerEvent.exHarvest(player);*/
         if (CompensateCommand.singleReward.equals("singleReward13")) rate += 0.5;
         return rate;
     }

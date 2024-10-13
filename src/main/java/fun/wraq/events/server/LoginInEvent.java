@@ -494,7 +494,7 @@ public class LoginInEvent {
         sunPowerGetCount.put(player.getName().getString(), 0);
         lakeCoreGetCount.put(player.getName().getString(), 0);
         volcanoCoreGetCount.put(player.getName().getString(), 0);
-        SummerEvent.resetDailyData(player);
+        /*SummerEvent.resetDailyData(player);*/
         InventoryOperation.itemStackGive(player, new ItemStack(EndlessInstanceItems.EASTERN_TOWER_PAPER.get(), 3));
     }
 

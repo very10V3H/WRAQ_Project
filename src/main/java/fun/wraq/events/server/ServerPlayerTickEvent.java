@@ -58,7 +58,6 @@ import fun.wraq.series.overworld.sakuraSeries.EarthMana.EarthBook;
 import fun.wraq.series.overworld.sakuraSeries.Slime.SlimeBoots;
 import fun.wraq.series.specialevents.labourDay.LabourDayIronHoe;
 import fun.wraq.series.specialevents.labourDay.LabourDayIronPickaxe;
-import fun.wraq.series.specialevents.summer.SummerEvent;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -124,7 +123,7 @@ public class ServerPlayerTickEvent {
             WraqForge.tick(event);
             PlanPlayer.setFoodData(serverPlayer);
             WorldBorder.playerTick(event);
-            SummerEvent.tick(player);
+            /*SummerEvent.tick(player);*/
 
             // 探索点数发包
             if (Tick.get() % 20 == 0) {
