@@ -1,7 +1,6 @@
-package fun.wraq.process.system.endlessinstance;
+package fun.wraq.process.system.endlessinstance.item;
 
 import fun.wraq.common.util.Utils;
-import fun.wraq.process.system.endlessinstance.item.EasternTowerPaper;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import net.minecraftforge.registries.DeferredRegister;

@@ -28,7 +28,7 @@ import fun.wraq.process.func.multiblockactive.rightclick.RightClickActiveHandler
 import fun.wraq.process.func.plan.PlanPlayer;
 import fun.wraq.process.system.WorldRecordInfo;
 import fun.wraq.process.system.element.ElementItems;
-import fun.wraq.process.system.endlessinstance.EndlessInstanceItems;
+import fun.wraq.process.system.endlessinstance.item.EndlessInstanceItems;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.process.system.lottery.NewLotteries;
 import fun.wraq.process.system.market.MarketInfo;

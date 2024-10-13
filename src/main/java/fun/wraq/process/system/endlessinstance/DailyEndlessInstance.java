@@ -3,7 +3,7 @@ package fun.wraq.process.system.endlessinstance;
 import fun.wraq.common.Compute;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.networking.ModNetworking;
-import fun.wraq.process.system.endlessinstance.DailyEndlessInstanceEvent;
+import fun.wraq.process.system.endlessinstance.data.EndlessInstanceRecordData;
 import fun.wraq.process.system.endlessinstance.network.EndlessInstanceKillCountS2CPacket;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -58,6 +58,7 @@ public abstract class DailyEndlessInstance {
                         append(Component.literal("共击杀了").withStyle(ChatFormatting.WHITE)).
                         append(Component.literal(String.valueOf(killCount)).withStyle(ChatFormatting.RED)).
                         append(Component.literal("只怪物").withStyle(ChatFormatting.WHITE)));
+                EndlessInstanceRecordData.record(name.getString(), serverPlayer, killCount);
             } else {
                 sendFormatBroad(level, Component.literal("").withStyle(ChatFormatting.WHITE).
                         append(Component.literal(challengingPlayerName).withStyle(ChatFormatting.WHITE)).

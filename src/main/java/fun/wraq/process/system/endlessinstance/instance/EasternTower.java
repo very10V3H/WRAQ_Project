@@ -16,7 +16,7 @@ public class EasternTower extends DailyEndlessInstance {
 
     private static EasternTower instance;
     public static EasternTower getInstance() {
-        if (instance == null) instance = new EasternTower(new Vec3(2336, 148, 17), 1200, -1, 0, 4);
+        if (instance == null) instance = new EasternTower(new Vec3(2336, 148, 17), 200, -1, 0, 4);
         return instance;
     }
 
