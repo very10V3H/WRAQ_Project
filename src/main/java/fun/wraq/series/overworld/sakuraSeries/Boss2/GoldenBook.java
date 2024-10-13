@@ -57,7 +57,7 @@ public class GoldenBook extends WraqOffHandItem implements OnKillEffectEquip {
         components.add(Component.literal(" 1.").withStyle(style).
                 append(ComponentUtils.AttributeDescription.critRate("25%")));
         components.add(Component.literal(" 2.").withStyle(style).
-                append(ComponentUtils.AttributeDescription.coolDown("150")));
+                append(ComponentUtils.AttributeDescription.releaseSpeed("35")));
         components.add(Component.literal(" 3.").withStyle(style).
                 append(ComponentUtils.AttributeDescription.manaRecover("30")));
         components.add(Component.literal(" 持续5min，在持续期间").withStyle(ChatFormatting.WHITE).
@@ -91,7 +91,7 @@ public class GoldenBook extends WraqOffHandItem implements OnKillEffectEquip {
                 StableAttributesModifier.addAttributeModifier(player, StableAttributesModifier.playerCritRateModifier,
                         new StableAttributesModifier(critRateTag, 0.25, tick + 6000));
                 StableAttributesModifier.addAttributeModifier(player, StableAttributesModifier.playerCooldownModifier,
-                        new StableAttributesModifier(cooldownTag, 1.5, tick + 6000));
+                        new StableAttributesModifier(cooldownTag, 0.35, tick + 6000));
                 StableAttributesModifier.addAttributeModifier(player, StableAttributesModifier.playerManaRecoverModifier,
                         new StableAttributesModifier(manaRecoverTag, 30, tick + 6000));
                 Compute.sendEffectLastTime(player, ModItems.goldCoin.get(), 6000);

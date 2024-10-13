@@ -77,7 +77,7 @@ public class EarthPower extends Item implements ActiveItem {
                 append(Component.literal(" 削减周围怪物").withStyle(ChatFormatting.WHITE)).
                 append(ComponentUtils.AttributeDescription.manaDefence("40%")));
         components.add(Component.literal("    使周围玩家获得").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.coolDown("30")));
+                append(ComponentUtils.AttributeDescription.releaseSpeed("30")));
 
         components.add(Component.literal(" 火山:").withStyle(CustomStyle.styleOfVolcano).
                 append(Component.literal(" 额外造成一次").withStyle(ChatFormatting.WHITE)).

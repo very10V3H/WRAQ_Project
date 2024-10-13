@@ -57,7 +57,7 @@ public class NewPotion extends Item implements ActiveItem {
         put(PotionName.AttackUp, ComponentUtils.AttributeDescription.attackDamage("25 + 25%"));
         put(PotionName.DefencePenetrationUp, ComponentUtils.AttributeDescription.defencePenetration("20%"));
         put(PotionName.ManaPenetrationUp, ComponentUtils.AttributeDescription.manaPenetration("20%"));
-        put(PotionName.CooldownUp, ComponentUtils.AttributeDescription.coolDown("35"));
+        put(PotionName.CooldownUp, ComponentUtils.AttributeDescription.releaseSpeed("20"));
         put(PotionName.CritDamageUp, ComponentUtils.AttributeDescription.critDamage("40%"));
 
         put(PotionName.CritRateUp, ComponentUtils.AttributeDescription.critRate("20%"));
@@ -83,7 +83,7 @@ public class NewPotion extends Item implements ActiveItem {
         put(PotionName.AttackUp, ComponentUtils.AttributeDescription.attackDamage("40 + 40%"));
         put(PotionName.DefencePenetrationUp, ComponentUtils.AttributeDescription.defencePenetration("45%"));
         put(PotionName.ManaPenetrationUp, ComponentUtils.AttributeDescription.manaPenetration("45%"));
-        put(PotionName.CooldownUp, ComponentUtils.AttributeDescription.coolDown("80"));
+        put(PotionName.CooldownUp, ComponentUtils.AttributeDescription.releaseSpeed("40"));
         put(PotionName.CritDamageUp, ComponentUtils.AttributeDescription.critDamage("80%"));
 
         put(PotionName.CritRateUp, ComponentUtils.AttributeDescription.critRate("40%"));

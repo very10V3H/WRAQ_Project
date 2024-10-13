@@ -209,7 +209,7 @@ public class LakeBoss {
                     append(Component.literal("澈源维度展开: ").withStyle(MainStyle)).
                     append(Component.literal("澈源制造者释放制造澈源次元的能量，将持有者净化。").withStyle(ChatFormatting.WHITE)));
             components.add(Component.literal("∰1.重置持有者全部").withStyle(ChatFormatting.WHITE).
-                    append(ComponentUtils.AttributeDescription.coolDown("")));
+                    append(ComponentUtils.AttributeDescription.releaseSpeed("")));
             components.add(Component.literal("冷却时间:").withStyle(ChatFormatting.WHITE).
                     append(Component.literal("60s~20s").withStyle(ChatFormatting.AQUA)).
                     append(Component.literal("（冷却时间根据澈源次元能量的增加而减少）").withStyle(ChatFormatting.GRAY)));

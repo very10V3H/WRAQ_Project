@@ -1023,9 +1023,9 @@ public class PlayerAttributes {
         releaseSpeed += handleAllEquipRandomAttribute(player, StringUtils.RandomAttribute.coolDown);
 
         if (player.getEffect(ModEffects.COOLDOWNUP.get()) != null && player.getEffect(ModEffects.COOLDOWNUP.get()).getAmplifier() == 0)
-            releaseSpeed += 0.35;
+            releaseSpeed += 0.2;
         if (player.getEffect(ModEffects.COOLDOWNUP.get()) != null && player.getEffect(ModEffects.COOLDOWNUP.get()).getAmplifier() == 1)
-            releaseSpeed += 0.8;
+            releaseSpeed += 0.4;
         if (data.contains("GemSCoolDown")) releaseSpeed += data.getDouble("GemSCoolDown");
         releaseSpeed += SArmorAttribute.value(player, SArmorAttribute.lakePower);
         if (Compute.getSwordSkillLevel(data, 7) > 0 && Utils.swordTag.containsKey(mainhand))

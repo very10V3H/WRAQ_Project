@@ -26,7 +26,7 @@ public class LakeRune1 extends Item {
         components.add(Component.literal("符石属性:"));
         Compute.DescriptionPassive(components, Component.literal("水之张力").withStyle(ChatFormatting.BLUE));
         components.add(Component.literal(" 将你").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.coolDown("50%")).
+                append(ComponentUtils.AttributeDescription.releaseSpeed("50%")).
                 append(Component.literal("转化为等量").withStyle(ChatFormatting.WHITE)).
                 append(ComponentUtils.AttributeDescription.critDamage("")));
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, ChatFormatting.BLUE, ChatFormatting.WHITE);

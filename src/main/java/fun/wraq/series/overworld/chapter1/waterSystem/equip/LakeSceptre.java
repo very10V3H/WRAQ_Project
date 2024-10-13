@@ -78,7 +78,7 @@ public class LakeSceptre extends WraqSceptre implements OnHitEffectEquip {
         components.add(Component.literal(" 法球").withStyle(CustomStyle.styleOfMana).
                 append(Component.literal("命中目标后，获得持续2s的:").withStyle(ChatFormatting.WHITE)));
         components.add(Component.literal(" ").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.coolDown(String.valueOf(10 * (1 + num)))));
+                append(ComponentUtils.AttributeDescription.releaseSpeed(String.valueOf(10 * (1 + num)))));
         components.add(Component.literal(" ").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.AttributeDescription.movementSpeed((10 * (1 + num)) + "%")));
         return components;

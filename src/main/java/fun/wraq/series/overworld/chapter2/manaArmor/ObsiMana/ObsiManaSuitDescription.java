@@ -85,7 +85,7 @@ public class ObsiManaSuitDescription {
         Compute.DescriptionPassive(components, Component.literal("黑曜能量涌动").withStyle(ChatFormatting.LIGHT_PURPLE));
         ComponentUtils.descriptionNum(components, "提升", ComponentUtils.AttributeDescription.attackDamage("15%"), "");
         ComponentUtils.descriptionNum(components, "提升", ComponentUtils.AttributeDescription.manaDamage("25%"), "");
-        ComponentUtils.descriptionNum(components, "获得", ComponentUtils.AttributeDescription.coolDown("20%"), "");
+        ComponentUtils.descriptionNum(components, "获得", ComponentUtils.AttributeDescription.releaseSpeed("20%"), "");
 
     }
 }

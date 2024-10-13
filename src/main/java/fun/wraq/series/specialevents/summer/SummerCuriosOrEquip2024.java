@@ -55,7 +55,7 @@ public class SummerCuriosOrEquip2024 extends WraqCurios implements InCuriosOrEqu
         components.add(Component.literal(" 2.").withStyle(CustomStyle.styleOfWater).
                 append(ComponentUtils.AttributeDescription.manaDamage(String.valueOf(exManaDamage[tier]))));
         components.add(Component.literal(" 3.").withStyle(CustomStyle.styleOfWater).
-                append(ComponentUtils.AttributeDescription.coolDown(String.format("%.0f", releaseSpeed[tier] * 100))));
+                append(ComponentUtils.AttributeDescription.releaseSpeed(String.format("%.0f", releaseSpeed[tier] * 100))));
         components.add(Component.literal(" 在").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("夏季").withStyle(CustomStyle.styleOfPower)).
                 append(Component.literal("或").withStyle(ChatFormatting.WHITE)).

@@ -709,7 +709,7 @@ public class SkillTreeGui extends Screen {
             components.add(Component.literal("▲剑术专精-冷静").withStyle(CustomStyle.styleOfPower));
             ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfPower, ChatFormatting.WHITE);
             components.add(Component.literal("手持近战武器时，获得").withStyle(ChatFormatting.WHITE).
-                    append(ComponentUtils.AttributeDescription.coolDown(String.valueOf(ClientUtils.SwordSkillPoint.PointCache[index] * 3))));
+                    append(ComponentUtils.AttributeDescription.releaseSpeed(String.valueOf(ClientUtils.SwordSkillPoint.PointCache[index] * 3))));
             ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfPower, ChatFormatting.WHITE);
             components.add(Component.literal("▶专精等级:").withStyle(CustomStyle.styleOfPower));
             components.add(Component.literal(ClientUtils.SwordSkillPoint.PointCache[index] + " / " + 5).withStyle(CustomStyle.styleOfPower));
@@ -1167,7 +1167,7 @@ public class SkillTreeGui extends Screen {
             components.add(Component.literal("▲法术专精-冷静").withStyle(CustomStyle.styleOfMana));
             ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
             components.add(Component.literal("手持法杖时，获得").withStyle(ChatFormatting.WHITE).
-                    append(ComponentUtils.AttributeDescription.coolDown(String.valueOf(ClientUtils.ManaSkillPoint.PointCache[index] * 6))));
+                    append(ComponentUtils.AttributeDescription.releaseSpeed(String.valueOf(ClientUtils.ManaSkillPoint.PointCache[index] * 6))));
             ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
             components.add(Component.literal("▶专精等级:").withStyle(CustomStyle.styleOfMana));
             components.add(Component.literal(ClientUtils.ManaSkillPoint.PointCache[index] + " / " + 5).withStyle(CustomStyle.styleOfMana));
@@ -1223,7 +1223,7 @@ public class SkillTreeGui extends Screen {
             components.add(Component.literal("▲法术专精-术法全析").withStyle(CustomStyle.styleOfMana));
             ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
             components.add(Component.literal("手持法杖时，获得").withStyle(ChatFormatting.WHITE).
-                    append(ComponentUtils.AttributeDescription.coolDown(String.valueOf(ClientUtils.ManaSkillPoint.PointCache[index] * 4))));
+                    append(ComponentUtils.AttributeDescription.releaseSpeed(String.valueOf(ClientUtils.ManaSkillPoint.PointCache[index] * 4))));
             ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
             components.add(Component.literal("▶专精等级:").withStyle(CustomStyle.styleOfMana));
             components.add(Component.literal(ClientUtils.ManaSkillPoint.PointCache[index] + " / " + 10).withStyle(CustomStyle.styleOfMana));

@@ -206,7 +206,7 @@ public class CastleManaArmor extends WraqArmor implements ForgeItem {
                 ComponentUtils.AttributeDescription.manaDamage(""),
                 ComponentUtils.AttributeDescription.defence(""),
                 ComponentUtils.AttributeDescription.manaDefence(""),
-                ComponentUtils.AttributeDescription.coolDown("")
+                ComponentUtils.AttributeDescription.releaseSpeed("")
         };
         components.add(Component.literal(" ").withStyle(ChatFormatting.WHITE).
                 append(components1[type]).

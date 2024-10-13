@@ -9,7 +9,7 @@
     },
     {
       "type": "patchouli:spotlight",
-      "item": "vmd:ruby,vmd:netherquartz,vmd:nethergem",
+      "item": "vmd:ruby,vmd:netherquartz",
       "title": "主要掉落物",
       "text": "  主要掉落下界装备打造的必要材料以及下界征讨者徽记。$(br) -下界征讨者徽记将根据所挑战难度给予属性条数，还将根据挑战花费的时间给予属性强度。同样可以在锻造台分解饰品，在下界征讨协会兑换饰品袋。"
     }

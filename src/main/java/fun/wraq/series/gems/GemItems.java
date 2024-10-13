@@ -45,7 +45,7 @@ public class GemItems {
 
     public static final RegistryObject<Item> lakeGem = ITEMS.register("lake_gem",
             () -> new fun.wraq.series.gems.WraqGem(new Item.Properties().rarity(CustomStyle.LakeBold), new ArrayList<>() {{
-                add(new fun.wraq.series.gems.WraqGem.AttributeMapValue(Utils.coolDownDecrease, 0.2));
+                add(new fun.wraq.series.gems.WraqGem.AttributeMapValue(Utils.coolDownDecrease, 0.1));
             }}, CustomStyle.styleOfLake, Component.literal("湖泊意志的具象，凝聚于此石。").withStyle(CustomStyle.styleOfLake),
                     ComponentUtils.getSuffixOfChapterI()));
 

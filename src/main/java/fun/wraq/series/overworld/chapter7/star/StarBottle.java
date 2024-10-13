@@ -16,11 +16,8 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.WeakHashMap;
@@ -32,20 +29,6 @@ public class StarBottle extends WraqCurios implements DamageInfluenceCurios {
         Utils.defencePenetration.put(this, 0.15);
         Utils.manaPenetration.put(this, 0.15);
         Utils.movementSpeedWithoutBattle.put(this, 0.4);
-    }
-
-    @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
-        Compute.forgingHoverName(stack);
-        Style style = CustomStyle.styleOfMoon1;
-        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        ComponentUtils.descriptionOfBasic(components);
-        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        ComponentUtils.descriptionOfAddition(components);
-
-        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        ComponentUtils.suffixOfMainStoryStar(components);
-        super.appendHoverText(stack, level, components, flag);
     }
 
     @Override

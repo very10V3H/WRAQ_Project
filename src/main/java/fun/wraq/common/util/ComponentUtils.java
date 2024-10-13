@@ -111,8 +111,12 @@ public class ComponentUtils {
             return Component.literal(fun.wraq.common.util.Utils.Emoji.Defence + " " + content + "法术穿透").withStyle(ChatFormatting.BLUE);
         }
 
-        public static Component coolDown(String content) {
+        public static Component releaseSpeed(String content) {
             return Component.literal(fun.wraq.common.util.Utils.Emoji.CoolDown + " " + content + "技能急速").withStyle(ChatFormatting.AQUA);
+        }
+
+        public static Component coolDown(String content) {
+            return Component.literal(fun.wraq.common.util.Utils.Emoji.CoolDown + " " + content + "冷却时间").withStyle(ChatFormatting.AQUA);
         }
 
         public static Component healthSteal(String content) {

@@ -1,59 +1,39 @@
 package fun.wraq.series.gems.Curios;
 
-import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
-import net.minecraft.ChatFormatting;
+import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
+import net.minecraft.network.chat.Style;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
-import top.theillusivec4.curios.api.SlotContext;
-import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
-import javax.annotation.Nullable;
 import java.util.List;
 
-public class RubyNecklace extends Item implements ICurioItem {
-
-    private final double[] attribute = {
-            500, 1000, 1500, 2000
-    };
+public class RubyNecklace extends WraqCurios {
 
     public RubyNecklace(Properties p_41383_, int num) {
         super(p_41383_);
-        Utils.maxHealth.put(this, attribute[num]);
-        Utils.curiosList.add(this);
+        Utils.maxHealth.put(this, new double[]{500, 1000, 1500, 2000}[num]);
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
-        ChatFormatting style = ChatFormatting.RED;
-        stack.getOrCreateTagElement(Utils.MOD_ID);
-        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        ComponentUtils.descriptionOfBasic(components);
-        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        ComponentUtils.suffixOfChapterI(components);
-        super.appendHoverText(stack, level, components, flag);
+    public Component getTypeDescription() {
+        return ComponentUtils.getDefenceTypeDescriptionOfCurios();
     }
 
     @Override
-    public void onEquip(SlotContext slotContext, ItemStack prevStack, ItemStack stack) {
-        Compute.addCuriosToList((Player) slotContext.entity(), stack);
-        ICurioItem.super.onEquip(slotContext, prevStack, stack);
+    public List<Component> additionHoverText(ItemStack stack) {
+        return List.of();
     }
 
     @Override
-    public void onUnequip(SlotContext slotContext, ItemStack newStack, ItemStack stack) {
-        Compute.removeCuriosInList((Player) slotContext.entity(), stack);
-        ICurioItem.super.onUnequip(slotContext, newStack, stack);
+    public Style hoverMainStyle() {
+        return CustomStyle.styleOfRed;
     }
 
     @Override
-    public boolean canEquipFromUse(SlotContext slotContext, ItemStack stack) {
-        return true;
+    public Component suffix() {
+        return ComponentUtils.getSuffixOfChapterI();
     }
-
 }
