@@ -89,8 +89,6 @@ public class DamageInfluence {
 
     public static double getPlayerManaDamageEnhance(Player player) {
         double rate = 0;
-        rate += ManaAttackModule.ManaSkill10DamageEnhance(player);
-        rate += ManaAttackModule.ManaSkill11(player);
         rate += AttackEventModule.ManaSKillEnhance(player);
         rate += LabourDayIronHoe.playerManaDamageEnhance(player);
         rate += NewPotionEffects.manaDamageEnhance(player);

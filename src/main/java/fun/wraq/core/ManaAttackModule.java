@@ -42,7 +42,6 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 
@@ -71,9 +70,6 @@ public class ManaAttackModule {
             double damageIgnoreDefence = 0;
             double healthSteal = PlayerAttributes.manaHealthSteal(player);
 
-            Item mainhand = player.getItemInHand(InteractionHand.MAIN_HAND).getItem();
-            if (Compute.getManaSkillLevel(data, 11) > 0 && Utils.sceptreTag.containsKey(mainhand)) damage = 0; //术法全析
-
             exDamage += ManaSkill12(data, player, baseDamage); // 盈能攻击（移动、攻击以及受到攻击将会获得充能，当充能满时，下一次攻击将造成额外200%伤害，并在以目标为中心的范围内造成100%伤害）
             exDamage += BlackForestCore(player, monster); // 收割魔核
             exDamage += EarthManaArmor(player, monster); // 地蕴魔法被动
@@ -99,7 +95,6 @@ public class ManaAttackModule {
             NormalAttackDamageEnhance += DamageInfluence.getPlayerNormalManaAttackDamageEnhance(player); // 普通法球攻击伤害提升
             Random random = new Random();
             boolean isCrit = random.nextDouble(1) < PlayerAttributes.critRate(player);
-            if (isCrit) NormalAttackDamageEnhance += ManaSkill10(player); // 力凝魔核
             data.putBoolean(StringUtils.DamageTypes.Crit, isCrit);
 
             if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false)) {
@@ -503,32 +498,6 @@ public class ManaAttackModule {
             if (!Utils.playerSakuraCoreMap.containsKey(name)) Utils.playerSakuraCoreMap.put(name, true);
             else Utils.playerSakuraCoreMap.put(name, !Utils.playerSakuraCoreMap.get(name));
         }
-    }
-
-    public static double ManaSkill10(Player player) {
-        CompoundTag data = player.getPersistentData();
-        Item mainhand = player.getItemInHand(InteractionHand.MAIN_HAND).getItem();
-        if (Compute.getManaSkillLevel(data, 10) > 0 && Utils.sceptreTag.containsKey(mainhand)) {
-            return PlayerAttributes.critDamage(player) * Compute.getManaSkillLevel(data, 10) * 0.125;
-        } // 法术专精-力凝魔核
-        return 0;
-    }
-
-    public static double ManaSkill10DamageEnhance(Player player) {
-        CompoundTag data = player.getPersistentData();
-        if (Compute.getManaSkillLevel(data, 10) > 10 && Utils.sceptreTag.containsKey(player.getMainHandItem().getItem())) {
-            return PlayerAttributes.coolDownDecrease(player) * 0.15;
-        }
-        return 0;
-    }
-
-    public static double ManaSkill11(Player player) {
-        CompoundTag data = player.getPersistentData();
-        Item mainhand = player.getItemInHand(InteractionHand.MAIN_HAND).getItem();
-        if (Compute.getManaSkillLevel(data, 11) > 0 && Utils.sceptreTag.containsKey(mainhand)) {
-            return Compute.getManaSkillLevel(data, 11) * 0.1;
-        } // 法术专精-术法全析
-        return 0;
     }
 
     public static double EarthManaArmor(Player player, Mob mob) {

@@ -362,11 +362,6 @@ public class PlayerAttributes {
             critRate +=
                     stackmainhandtag.getInt(StringUtils.SoulEquipForge) * SoulEquipAttribute.ForgingAddition.CritRate;
 
-        if (Compute.getManaSkillLevel(data, 10) > 0 && Utils.sceptreTag.containsKey(mainhand)) {
-            double manaRecoverValue = 0.05 + manaRecover(player) * 0.01 * Compute.getManaSkillLevel(data, 10) * 0.1;
-            critRate += 1 - (1 / (1 + manaRecoverValue));
-        } // 法术专精-力凝魔核
-
         critRate += Compute.CuriosAttribute.attributeValue(player, Utils.critRate, StringUtils.CuriosAttribute.critRate); // 新版饰品属性加成
 
         critRate += AttackCurios2.playerCritRateUp(player);
@@ -459,10 +454,6 @@ public class PlayerAttributes {
         if (Utils.IceSwordEffectMap.containsKey(player) && Utils.IceSwordEffectMap.get(player) > tickCount) {
             critDamage += Utils.IceSwordEffectNumMap.get(player) / 1200;
         } //冰霜剑
-
-        if (Compute.getManaSkillLevel(data, 10) > 0 && Utils.sceptreTag.containsKey(mainhand)) {
-            critDamage += maxManaUp(player) * 0.003 * Compute.getManaSkillLevel(data, 10) * 0.1;
-        } // 法术专精-力凝魔核
 
         if (player.getItemInHand(InteractionHand.OFF_HAND).is(ModItems.ManaShield.get())) {
             if (player.getHealth() / player.getMaxHealth() > 0.5) {
@@ -1042,10 +1033,6 @@ public class PlayerAttributes {
         if (Compute.getManaSkillLevel(data, 7) > 0 && Utils.sceptreTag.containsKey(mainhand))
             releaseSpeed += Compute.getManaSkillLevel(data, 7) * 0.06; // 冷静（手持法杖时，获得6%冷却缩减）
 
-        if (Compute.getManaSkillLevel(data, 11) > 0 && Utils.sceptreTag.containsKey(mainhand)) {
-            releaseSpeed += Compute.getManaSkillLevel(data, 11) * 0.05;
-        } // 术法全析
-
         releaseSpeed += EarthPower.PlayerCoolDownEnhance(player); // 地蕴法术
 
         releaseSpeed += Compute.CuriosAttribute.attributeValue(player, Utils.coolDownDecrease, StringUtils.CuriosAttribute.coolDown); // 新版饰品属性加成
@@ -1059,6 +1046,9 @@ public class PlayerAttributes {
 
         releaseSpeed += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerCooldownModifier);
         releaseSpeed += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.coolDownDecrease);
+        if (Utils.sceptreTag.containsKey(mainhand)) {
+            releaseSpeed += Compute.getManaSkillLevel(data, 11) * 0.04; // 术法全析
+        }
         // 请在上方添加
         releaseSpeed *= Compute.playerFantasyAttributeEnhance(player);
         return releaseSpeed;
@@ -1546,8 +1536,6 @@ public class PlayerAttributes {
         if (Utils.offHandTag.containsKey(offhand) && Utils.manaHealthSteal.containsKey(offhand))
             ManaHealSteal += Utils.manaHealthSteal.get(offhand);
         if (SuitCount.getLifeManaSuitCount(player) >= 4) ManaHealSteal += 0.05;
-        if (Compute.getManaSkillLevel(data, 11) > 0 && Utils.sceptreTag.containsKey(mainhand))
-            ManaHealSteal += Compute.getManaSkillLevel(data, 11) * 0.01;
         if (Utils.EarthManaCurios.containsKey(player) && Utils.EarthManaCurios.get(player)) ManaHealSteal += 0.05;
 
         CompoundTag helmetTag = player.getItemBySlot(EquipmentSlot.HEAD).getOrCreateTagElement(Utils.MOD_ID);
@@ -1891,7 +1879,6 @@ public class PlayerAttributes {
     }
 
     public static double manaPenetration0(Player player) {
-        int TickCount = player.getServer().getTickCount();
         CompoundTag data = player.getPersistentData();
         double manaPenetration0 = 0;
         Item boots = player.getItemBySlot(EquipmentSlot.FEET).getItem();
@@ -1957,6 +1944,9 @@ public class PlayerAttributes {
         manaPenetration0 += Compute.PassiveEquip.getAttribute(player, Utils.manaPenetration0); // 器灵属性加成
         manaPenetration0 += CastleSword.ExPenetration0(player); // 暗黑武器主动
         manaPenetration0 += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.manaPenetration0);
+        if (Utils.sceptreTag.containsKey(mainhand)) {
+            manaPenetration0 += Compute.getManaSkillLevel(data, 10) * 3; // 力凝魔核
+        }
         // 请在上方添加
         manaPenetration0 *= Compute.playerFantasyAttributeEnhance(player);
         return manaPenetration0;

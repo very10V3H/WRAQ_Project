@@ -4,17 +4,14 @@ import com.mojang.datafixers.util.Pair;
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.util.StringUtils;
-import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.SpecialEffectOnPlayer;
 import fun.wraq.render.hud.Mana;
 import fun.wraq.render.hud.SwiftData;
 import fun.wraq.series.newrunes.chapter1.LakeNewRune;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
@@ -80,11 +77,6 @@ public class AttributeSet {
             if (data.contains("MANA") && data.contains("MAXMANA")) {
                 double MaxMana = data.getDouble("MAXMANA");
                 double ManaRecover = 10 + PlayerAttributes.manaRecover(player);
-                Item mainhand = player.getItemInHand(InteractionHand.MAIN_HAND).getItem();
-                if (Compute.getManaSkillLevel(data, 10) > 0 && Utils.sceptreTag.containsKey(mainhand)) {
-                    MaxMana *= (1 - Compute.getManaSkillLevel(data, 10) * 0.1);
-                    ManaRecover *= (1 - Compute.getManaSkillLevel(data, 10) * 0.1);
-                }
                 data.putDouble("MANA", Math.min(data.getDouble("MANA") + ManaRecover / 20, MaxMana));
                 Mana.updateManaStatus(player);
             }

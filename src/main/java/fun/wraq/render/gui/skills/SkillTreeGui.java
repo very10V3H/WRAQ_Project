@@ -1,6 +1,5 @@
 package fun.wraq.render.gui.skills;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
@@ -1209,34 +1208,9 @@ public class SkillTreeGui extends Screen {
             List<Component> components = new ArrayList<>();
             components.add(Component.literal("▲法术专精-力凝魔核").withStyle(CustomStyle.styleOfMana));
             ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
-            components.add(Component.literal("手持法杖时:"));
-            components.add(Component.literal(" ·将你的").withStyle(ChatFormatting.WHITE).
-                    append(ComponentUtils.AttributeDescription.manaRecover(ClientUtils.ManaSkillPoint.PointCache[index] * 10 + "%")).
-                    append(Component.literal("转化为").withStyle(ChatFormatting.WHITE)).
-                    append(ComponentUtils.AttributeDescription.critRate("")));
-            components.add(Component.literal(" ·减少你的").withStyle(ChatFormatting.WHITE).
-                    append(ComponentUtils.AttributeDescription.maxMana(ClientUtils.ManaSkillPoint.PointCache[index] * 10 + "%")));
-            components.add(Component.literal(" ·将你的").withStyle(ChatFormatting.WHITE).
-                    append(ComponentUtils.AttributeDescription.manaValue(ClientUtils.ManaSkillPoint.PointCache[index] * 3 + "%额外")).
-                    append(Component.literal("转化为").withStyle(ChatFormatting.WHITE)).
-                    append(ComponentUtils.AttributeDescription.critDamage("")));
-            components.add(Component.literal(" ·你每拥有").withStyle(ChatFormatting.WHITE).
-                    append(ComponentUtils.AttributeDescription.coolDown("100")).
-                    append(Component.literal("，为你提供").withStyle(ChatFormatting.WHITE)).
-                    append(Component.literal("15%魔法伤害提升").withStyle(CustomStyle.styleOfMana)));
-            components.add(Component.literal(" ·你的").withStyle(ChatFormatting.WHITE).
-                    append(Component.literal("普通法球攻击").withStyle(ChatFormatting.LIGHT_PURPLE)).
-                    append(Component.literal("将受到").withStyle(ChatFormatting.WHITE)).
-                    append(ComponentUtils.AttributeDescription.critRate("")).
-                    append(Component.literal("与").withStyle(ChatFormatting.WHITE)).
-                    append(ComponentUtils.AttributeDescription.critDamage("")).
-                    append(Component.literal(String.format("%.0f%%", ClientUtils.ManaSkillPoint.PointCache[index] * 12.5)).withStyle(ChatFormatting.LIGHT_PURPLE)).
-                    append(Component.literal("提供的法球攻击增幅。").withStyle(ChatFormatting.WHITE)));
-            components.add(Component.literal(" ·你的普通法球攻击将不会消耗").withStyle(ChatFormatting.WHITE).
-                    append(ComponentUtils.AttributeDescription.manaValue("")));
+            components.add(Component.literal("手持法杖时，获得").withStyle(ChatFormatting.WHITE).
+                    append(ComponentUtils.AttributeDescription.manaPenetration(String.valueOf(ClientUtils.ManaSkillPoint.PointCache[index] * 3))));
             ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
-            components.add(Component.literal("Idea From:liulixian_").withStyle(ChatFormatting.LIGHT_PURPLE));
-
             components.add(Component.literal("▶专精等级:").withStyle(CustomStyle.styleOfMana));
             components.add(Component.literal(ClientUtils.ManaSkillPoint.PointCache[index] + " / " + 10).withStyle(CustomStyle.styleOfMana));
             guiGraphics.renderComponentTooltip(fontRenderer, components, x, y);
@@ -1246,16 +1220,11 @@ public class SkillTreeGui extends Screen {
         if (x > this.width / 2 - 150 + OffsetX[index] - 1 + 172 && x < this.width / 2 - 150 + OffsetX[index] + 19 + 172
                 && y > this.height / 2 - 100 + OffsetY[index] - 1 && y < this.height / 2 - 100 + OffsetY[index] + 19) {
             List<Component> components = new ArrayList<>();
-
             components.add(Component.literal("▲法术专精-术法全析").withStyle(CustomStyle.styleOfMana));
             ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
-            components.add(Component.literal("当你手持法杖时，你的法球将失去基础伤害。").withStyle(ChatFormatting.WHITE));
-            components.add(Component.literal("但是，你将获得:").withStyle(ChatFormatting.WHITE).
-                    append(ComponentUtils.AttributeDescription.coolDown(String.valueOf(ClientUtils.ManaSkillPoint.PointCache[index] * 5))).
-                    append(Component.literal("以及").withStyle(ChatFormatting.WHITE)).
-                    append(Component.literal(ClientUtils.ManaSkillPoint.PointCache[index] * 10 + "%法术伤害提升").withStyle(ChatFormatting.LIGHT_PURPLE)));
+            components.add(Component.literal("手持法杖时，获得").withStyle(ChatFormatting.WHITE).
+                    append(ComponentUtils.AttributeDescription.coolDown(String.valueOf(ClientUtils.ManaSkillPoint.PointCache[index] * 4))));
             ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
-            components.add(Component.literal("Idea From:liulixian_").withStyle(ChatFormatting.LIGHT_PURPLE));
             components.add(Component.literal("▶专精等级:").withStyle(CustomStyle.styleOfMana));
             components.add(Component.literal(ClientUtils.ManaSkillPoint.PointCache[index] + " / " + 10).withStyle(CustomStyle.styleOfMana));
             guiGraphics.renderComponentTooltip(fontRenderer, components, x, y);

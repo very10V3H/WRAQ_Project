@@ -1,14 +1,10 @@
 package fun.wraq.render.hud;
 
-import fun.wraq.common.Compute;
-import fun.wraq.common.util.Utils;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.ManaSyncS2CPacket;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 
 public class Mana {
 
@@ -34,9 +30,6 @@ public class Mana {
     public static void updateManaStatus(Player player) {
         CompoundTag data = player.getPersistentData();
         double MaxMana = data.getDouble("MAXMANA");
-        Item mainhand = player.getItemInHand(InteractionHand.MAIN_HAND).getItem();
-        if (Compute.getManaSkillLevel(data, 10) > 0 && Utils.sceptreTag.containsKey(mainhand))
-            MaxMana *= (1 - Compute.getManaSkillLevel(data, 10) * 0.1);
         ModNetworking.sendToClient(new ManaSyncS2CPacket(MaxMana, data.getDouble("MANA")), (ServerPlayer) player);
     }
 

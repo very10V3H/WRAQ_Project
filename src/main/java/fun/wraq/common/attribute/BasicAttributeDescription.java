@@ -1097,7 +1097,7 @@ public class BasicAttributeDescription {
     }
 
     private static String getDecimal(double value, int scale) {
-        if (value >= 10) return String.format("%.0f", value);
+        if (Math.abs(value) >= 10) return String.format("%.0f", value);
         return BigDecimal.valueOf(value).setScale(scale, RoundingMode.HALF_UP).stripTrailingZeros().toString();
     }
 }

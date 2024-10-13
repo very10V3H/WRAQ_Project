@@ -48,16 +48,14 @@ public class SoulSceptre extends WraqSceptre {
 
     @Override
     protected AbstractArrow summonManaArrow(Player player, double rate) {
-        CompoundTag data = player.getPersistentData();
         Level level = player.level();
         double ManaCost = SoulSceptre.getManaCost(player.getItemInHand(InteractionHand.MAIN_HAND).getOrCreateTagElement(Utils.MOD_ID));
-        if (Compute.getManaSkillLevel(data, 10) > 0 || Compute.playerManaCost(player, (int) ManaCost)) {
+        if (Compute.playerManaCost(player, (int) ManaCost)) {
             ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_WORLD.get(), player, level,
                     PlayerAttributes.manaDamage(player) * rate, PlayerAttributes.manaPenetration(player),
                     PlayerAttributes.manaPenetration0(player), StringUtils.ParticleTypes.Sky);
             newArrow.setSilent(true);
             newArrow.setNoGravity(true);
-
             newArrow.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0f, 3, 1.0f);
             ProjectileUtil.rotateTowardsMovement(newArrow, 0);
             WraqSceptre.adjustOrb(newArrow, player);

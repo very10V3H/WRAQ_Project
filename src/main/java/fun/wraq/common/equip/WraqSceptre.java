@@ -68,8 +68,7 @@ public abstract class WraqSceptre extends WraqMainHandEquip {
 
     protected AbstractArrow summonManaArrow(Player player, double rate) {
         Level level = player.level();
-        CompoundTag data = player.getPersistentData();
-        if (Compute.getManaSkillLevel(data, 10) > 0 || Compute.playerManaCost(player, EvokerSceptre.ManaCost)) {
+        if (Compute.playerManaCost(player, EvokerSceptre.ManaCost)) {
             NewArrow newArrow = new NewArrow(player, level, PlayerAttributes.manaDamage(player) * rate,
                     PlayerAttributes.manaPenetration(player), PlayerAttributes.expUp(player),
                     false, PlayerAttributes.manaPenetration0(player));
