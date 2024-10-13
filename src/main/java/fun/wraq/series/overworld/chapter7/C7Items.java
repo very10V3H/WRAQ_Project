@@ -2,8 +2,7 @@ package fun.wraq.series.overworld.chapter7;
 
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.MaterialItem;
-import fun.wraq.series.overworld.chapter7.BoneImpKnife;
+import fun.wraq.series.WraqItem;
 import fun.wraq.series.overworld.chapter7.vd.VdBow;
 import fun.wraq.series.overworld.chapter7.vd.VdSceptre;
 import fun.wraq.series.overworld.chapter7.vd.VdSword;
@@ -17,13 +16,13 @@ public class C7Items {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Utils.MOD_ID);
 
     public static final RegistryObject<Item> boneImpSoul = ITEMS.register("bone_imp_soul", () ->
-            new MaterialItem(new Item.Properties().rarity(CustomStyle.WitherBold)));
+            new WraqItem(new Item.Properties().rarity(CustomStyle.WitherBold)));
 
     public static final RegistryObject<Item> boneImpKnife = ITEMS.register("bone_imp_knife", () ->
             new BoneImpKnife(new Item.Properties().rarity(CustomStyle.WitherBold), Component.literal("利刃短匕").withStyle(CustomStyle.styleOfBloodMana)));
 
     public static final RegistryObject<Item> vdSoul = ITEMS.register("vd_soul", () ->
-            new MaterialItem(new Item.Properties().rarity(CustomStyle.WorldBold)));
+            new WraqItem(new Item.Properties().rarity(CustomStyle.WorldBold)));
 
     public static final RegistryObject<Item> vdSword = ITEMS.register("vd_sword",
             () -> new VdSword(new Item.Properties().rarity(CustomStyle.WorldItalic)));

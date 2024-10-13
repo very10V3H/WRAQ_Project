@@ -3,7 +3,7 @@ package fun.wraq.series.moontain;
 import fun.wraq.common.registry.ItemMaterial;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.FoiledMaterialItem;
+import fun.wraq.series.WraqItem;
 import fun.wraq.series.moontain.equip.armor.MoontainArmor;
 import fun.wraq.series.moontain.equip.weapon.MoontainBow;
 import fun.wraq.series.moontain.equip.weapon.MoontainSceptre;
@@ -43,29 +43,29 @@ public class MoontainItems {
                     new Item.Properties().rarity(CustomStyle.MOONTAIN_ITALIC)));
 
     public static final RegistryObject<Item> SOUL_FRAGMENT = ITEMS.register("moontain_soul_fragment",
-            () -> new FoiledMaterialItem(new Item.Properties().rarity(CustomStyle.MOONTAIN_BOLD)));
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.MOONTAIN_BOLD), false, true));
 
     public static final RegistryObject<Item> LEATHER = ITEMS.register("moontain_leather",
-            () -> new FoiledMaterialItem(new Item.Properties().rarity(CustomStyle.MOONTAIN_BOLD)));
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.MOONTAIN_BOLD), false, true));
 
     public static final RegistryObject<Item> FALLING_SOUL = ITEMS.register("moontain_falling_soul",
-            () -> new FoiledMaterialItem(new Item.Properties().rarity(CustomStyle.MOONTAIN_BOLD)));
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.MOONTAIN_BOLD), false, true));
 
     public static final RegistryObject<Item> FRAGMENT = ITEMS.register("moontain_fragment",
-            () -> new FoiledMaterialItem(new Item.Properties().rarity(CustomStyle.MOONTAIN)));
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.MOONTAIN), false, true));
 
     public static final RegistryObject<Item> NUGGET = ITEMS.register("moontain_nugget",
-            () -> new FoiledMaterialItem(new Item.Properties().rarity(CustomStyle.MOONTAIN_ITALIC)));
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.MOONTAIN_ITALIC), false, true));
 
     public static final RegistryObject<Item> RING = ITEMS.register("moontain_heart",
-            () -> new FoiledMaterialItem(new Item.Properties().rarity(CustomStyle.MOONTAIN_ITALIC)));
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.MOONTAIN_ITALIC), false, true));
 
     public static final RegistryObject<Item> STONE_FRAGMENT = ITEMS.register("moontain_stone_fragment",
-            () -> new FoiledMaterialItem(new Item.Properties().rarity(CustomStyle.MOONTAIN_ITALIC)));
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.MOONTAIN_ITALIC), false, true));
 
     public static final RegistryObject<Item> JADEITE = ITEMS.register("moontain_jadeite",
-            () -> new FoiledMaterialItem(new Item.Properties().rarity(CustomStyle.MOONTAIN_ITALIC)));
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.MOONTAIN_ITALIC), false, true));
 
     public static final RegistryObject<Item> EMERALD = ITEMS.register("moontain_emerald",
-            () -> new FoiledMaterialItem(new Item.Properties().rarity(CustomStyle.MOONTAIN_ITALIC)));
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.MOONTAIN_ITALIC), false, true));
 }

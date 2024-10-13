@@ -3,8 +3,6 @@ package fun.wraq.blocks.entity;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import fun.wraq.Items.Forging.ForgeEnhance;
 import fun.wraq.Items.Forging.ForgeProtect;
-import fun.wraq.Items.Gems.Dismantle;
-import fun.wraq.Items.Gems.SlotOpen;
 import fun.wraq.common.Compute;
 import fun.wraq.common.equip.impl.ExBaseAttributeValueEquip;
 import fun.wraq.common.registry.ModItems;
@@ -166,7 +164,8 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider {
     public static void tick(Level level, BlockPos pos, BlockState blockState, ForgingBlockEntity blockEntity) {
         if (!level.isClientSide) {
             for (int i = 0 ; i < blockEntity.itemStackHandler.getSlots() ; i ++) {
-                blockEntity.itemStackHandler.getStackInSlot(i).hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
+                ItemStack stack = blockEntity.itemStackHandler.getStackInSlot(i);
+                stack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
             }
         }
         if (level.isClientSide()) {
@@ -176,7 +175,7 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider {
             }
             return;
         }
-        if (hasRecipe(blockEntity) || hasRecipe1(blockEntity) || hasRecipe2(blockEntity)
+        if (hasRecipe(blockEntity) || hasRecipeOfOpenSlot(blockEntity) || hasRecipe2(blockEntity)
                 || hasRecipe8(blockEntity) || hasRecipeOfDismantle(blockEntity) || hasRecipeOfCastleArmor(blockEntity)
                 || hasRecipeOfForgePaper(blockEntity) || hasRecipeOfEquipPiece(blockEntity) || hasRecipeOfEquipPieceForge(blockEntity)) {
             /*blockEntity.progress++;*/
@@ -302,7 +301,7 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider {
         }
 
         // 开孔
-        if (hasRecipe1(blockEntity)) {
+        if (hasRecipeOfOpenSlot(blockEntity)) {
             ItemStack equip = blockEntity.itemStackHandler.getStackInSlot(4);
             CompoundTag data = equip.getOrCreateTagElement(Utils.MOD_ID);
 
@@ -568,7 +567,7 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider {
         ItemStack gem = blockEntity.itemStackHandler.getStackInSlot(0);
         ItemStack sword = blockEntity.itemStackHandler.getStackInSlot(4);
 
-        boolean hasDismantleInFirstSlot = blockEntity.itemStackHandler.getStackInSlot(3).getItem() instanceof Dismantle;
+        boolean hasDismantleInFirstSlot = blockEntity.itemStackHandler.getStackInSlot(3).is(GemItems.DISMANTLE.get());
 
         if (sword.getTagElement(Utils.MOD_ID) == null) return false;
 
@@ -599,29 +598,34 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider {
                 inventory.getItem(2).isEmpty() && correctType;
     }   //镶嵌
 
-    private static boolean hasRecipe1(ForgingBlockEntity blockEntity) {
+    private static boolean hasRecipeOfOpenSlot(ForgingBlockEntity blockEntity) {
         SimpleContainer inventory = new SimpleContainer(blockEntity.itemStackHandler.getSlots());
         for (int i = 0; i < blockEntity.itemStackHandler.getSlots(); i++) {
             inventory.setItem(i, blockEntity.itemStackHandler.getStackInSlot(i));
         }
-
-        boolean hasOpenSlotInFirstSlot = blockEntity.itemStackHandler.getStackInSlot(3).getItem() instanceof SlotOpen;
-
         ItemStack equip = blockEntity.itemStackHandler.getStackInSlot(4);
+        ItemStack openSlot = blockEntity.itemStackHandler.getStackInSlot(3);
 
-        boolean hasSwordBowSceptreInSecondSlot = (Utils.mainHandTag.containsKey(equip.getItem()) ||
-                Utils.armorTag.containsKey(equip.getItem()));
-
+        CompoundTag data = new CompoundTag();
         if (equip.getTagElement(Utils.MOD_ID) != null) {
-            CompoundTag data = equip.getOrCreateTagElement(Utils.MOD_ID);
-            if (data.contains("newMaxSlot") && data.getInt("newMaxSlot") == 3) return false;
-            if (Utils.armorTag.containsKey(equip.getItem()) && data.contains("newMaxSlot") && data.getInt("newMaxSlot") == 2)
-                return false;
+            data = equip.getOrCreateTagElement(Utils.MOD_ID);
         }
+        boolean isOpenSlotApplied = openSlot.is(GemItems.OPEN_SLOT.get())
+                && (Utils.mainHandTag.containsKey(equip.getItem()) || Utils.armorTag.containsKey(equip.getItem()))
+                && data.getInt(WraqGem.NEW_MAX_SLOT_DATA_KEY) < 1;
 
-        return hasOpenSlotInFirstSlot && canInsertItemIntoOutPutSlot(inventory) && hasSwordBowSceptreInSecondSlot &&
-                inventory.getItem(2).isEmpty() && !Compute.IsSoulEquip(equip);
+        boolean isOpenSlotGoldenApplied = openSlot.is(GemItems.OPEN_SLOT_GOLDEN.get())
+                && Utils.mainHandTag.containsKey(equip.getItem())
+                && data.getInt(WraqGem.NEW_MAX_SLOT_DATA_KEY) == 1;
 
+        boolean isOpenSlotDiamondApplied = openSlot.is(GemItems.OPEN_SLOT_DIAMOND.get())
+                && ((Utils.mainHandTag.containsKey(equip.getItem()) && data.getInt(WraqGem.NEW_MAX_SLOT_DATA_KEY) == 2)
+                || (Utils.armorTag.containsKey(equip.getItem()) && data.getInt(WraqGem.NEW_MAX_SLOT_DATA_KEY) == 1));
+
+        return canInsertItemIntoOutPutSlot(inventory)
+                && (isOpenSlotApplied || isOpenSlotGoldenApplied || isOpenSlotDiamondApplied)
+                && inventory.getItem(2).isEmpty()
+                && !Compute.IsSoulEquip(equip);
     }   //开孔
 
     private static boolean hasRecipe2(ForgingBlockEntity blockEntity) {

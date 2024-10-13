@@ -2,7 +2,7 @@ package fun.wraq.process.system.ore;
 
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.FoiledMaterialItem;
+import fun.wraq.series.WraqItem;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -12,14 +12,14 @@ public class OreItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Utils.MOD_ID);
 
     public static final RegistryObject<Item> WRAQ_ORE_1_ITEM = ITEMS.register("wraq_ore_1_item",
-            () -> new FoiledMaterialItem(new Item.Properties().rarity(CustomStyle.Plain)));
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.Plain), false, true));
 
     public static final RegistryObject<Item> WRAQ_ORE_2_ITEM = ITEMS.register("wraq_ore_2_item",
-            () -> new FoiledMaterialItem(new Item.Properties().rarity(CustomStyle.Ice)));
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.Ice), false, true));
 
     public static final RegistryObject<Item> WRAQ_ORE_3_ITEM = ITEMS.register("wraq_ore_3_item",
-            () -> new FoiledMaterialItem(new Item.Properties().rarity(CustomStyle.Sakura)));
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.Sakura), false, true));
 
     public static final RegistryObject<Item> WRAQ_ORE_4_ITEM = ITEMS.register("wraq_ore_4_item",
-            () -> new FoiledMaterialItem(new Item.Properties().rarity(CustomStyle.Magma)));
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.Magma), false, true));
 }

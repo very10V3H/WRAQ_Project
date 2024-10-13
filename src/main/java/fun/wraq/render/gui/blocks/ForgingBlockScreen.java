@@ -7,7 +7,7 @@ import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.Limit.ScreenCloseC2SPacket;
 import fun.wraq.process.system.forge.networking.CraftC2SPacket;
 import fun.wraq.process.system.forge.networking.DecomposeC2SPacket;
-import fun.wraq.render.gui.blocks.ForgingBlockMenu;
+import fun.wraq.series.gems.GemItems;
 import fun.wraq.series.overworld.forging.ForgingMaterial;
 import fun.wraq.series.overworld.forging.ForgingStone0;
 import fun.wraq.series.overworld.forging.ForgingStone1;
@@ -84,7 +84,7 @@ public class ForgingBlockScreen extends AbstractContainerScreen<fun.wraq.render.
         add(Component.literal("2.开孔").withStyle(ChatFormatting.AQUA));
         add(Component.literal("").withStyle(ChatFormatting.AQUA).
                 append(Component.literal(" 将").withStyle(ChatFormatting.WHITE)).
-                append(ModItems.OpenSlot.get().getDefaultInstance().getDisplayName()).
+                append(GemItems.OPEN_SLOT.get().getDefaultInstance().getDisplayName()).
                 append(Component.literal("放置于右上").withStyle(ChatFormatting.WHITE)));
         add(Component.literal(" 将要强化的").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("装备").withStyle(ChatFormatting.AQUA)).
@@ -100,7 +100,7 @@ public class ForgingBlockScreen extends AbstractContainerScreen<fun.wraq.render.
         add(Component.literal("4.拆卸宝石").withStyle(ChatFormatting.AQUA));
         add(Component.literal("").withStyle(ChatFormatting.AQUA).
                 append(Component.literal(" 将").withStyle(ChatFormatting.WHITE)).
-                append(ModItems.Dismantle.get().getDefaultInstance().getDisplayName()).
+                append(GemItems.DISMANTLE.get().getDefaultInstance().getDisplayName()).
                 append(Component.literal("放置于右上").withStyle(ChatFormatting.WHITE)));
         add(Component.literal(" 将要强化的").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("装备").withStyle(ChatFormatting.AQUA)).

@@ -480,7 +480,6 @@ public class VMD {
 
             event.accept(ModItems.randomsword.get().getDefaultInstance());
             event.accept(ModItems.SpeIron.get().getDefaultInstance());
-            event.accept(ModItems.OpenSlot.get().getDefaultInstance());
             event.accept(ModItems.ForgingStone0.get().getDefaultInstance());
             event.accept(ModItems.ForgingStone1.get().getDefaultInstance());
             event.accept(ModItems.ForgingStone2.get().getDefaultInstance());
@@ -489,7 +488,7 @@ public class VMD {
             event.accept(ModItems.ForgeEnhance2.get().getDefaultInstance());
             event.accept(ModItems.ForgeProtect.get().getDefaultInstance());
 
-            event.accept(ModItems.Dismantle.get().getDefaultInstance());
+            event.accept(GemItems.DISMANTLE.get().getDefaultInstance());
         }
         if (event.getTabKey().equals(ModCreativeModeTab.MONEYANDMISSION_TAB.getKey())) {
             event.accept(ModItems.pickUpgradePaper.get().getDefaultInstance());

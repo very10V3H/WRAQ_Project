@@ -1731,6 +1731,11 @@
   "item.vmd.nopt": "北洋探索点",
   "item.vmd.atpt": "考勤点数",
 
+  "item.vmd.open_slot": "铁制开孔刃",
+  "item.vmd.open_slot_golden": "金制开孔刃",
+  "item.vmd.open_slot_diamond": "钻石开孔刃",
+
+
   "curios.identifier.rune": "符石",
   "curios.identifier.crest": "纹章",
 

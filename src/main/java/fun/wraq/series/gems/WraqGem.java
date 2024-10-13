@@ -22,6 +22,9 @@ import java.util.Map;
 
 public class WraqGem extends Item {
 
+    public static final String NEW_MAX_SLOT_DATA_KEY = "newMaxSlot";
+    public static final String NEW_SLOT_DATA_KEY = "newSlot";
+
     private final Style hoverStyle;
     private final Component oneLineDescription;
     private final Component suffix;

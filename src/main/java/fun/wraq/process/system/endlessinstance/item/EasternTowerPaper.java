@@ -5,7 +5,7 @@ import fun.wraq.process.system.endlessinstance.DailyEndlessInstance;
 import fun.wraq.process.system.endlessinstance.DailyEndlessInstanceEvent;
 import fun.wraq.process.system.endlessinstance.instance.EasternTower;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.MaterialItem;
+import fun.wraq.series.WraqItem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -19,7 +19,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class EasternTowerPaper extends MaterialItem {
+public class EasternTowerPaper extends WraqItem {
 
     public EasternTowerPaper(Properties p_41383_) {
         super(p_41383_);

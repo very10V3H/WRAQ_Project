@@ -3,8 +3,7 @@ package fun.wraq.series.specialevents;
 import fun.wraq.commands.changeable.PrefixPaperItem;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.FoiledMaterialItem;
-import fun.wraq.series.MaterialItem;
+import fun.wraq.series.WraqItem;
 import fun.wraq.series.specialevents.midautumn.MidAutumnBow;
 import fun.wraq.series.specialevents.midautumn.MidAutumnSceptre;
 import fun.wraq.series.specialevents.midautumn.MidAutumnSword;
@@ -19,7 +18,7 @@ public class SpecialEventItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Utils.MOD_ID);
 
     public static final RegistryObject<Item> SUMMER_VOUCHER = ITEMS.register("summer_voucher", () ->
-            new MaterialItem(new Item.Properties().rarity(CustomStyle.WaterBold)));
+            new WraqItem(new Item.Properties().rarity(CustomStyle.WaterBold)));
 
     public static final RegistryObject<Item> SUMMER_CURIOS0 = ITEMS.register("summer24_curios0", () ->
             new SummerCuriosOrEquip2024(new Item.Properties().rarity(CustomStyle.WaterBold), 0));
@@ -40,7 +39,7 @@ public class SpecialEventItems {
             new SummerCuriosOrEquip2024(new Item.Properties().rarity(CustomStyle.WaterBold), 5));
 
     public static final RegistryObject<Item> MID_AUTUMN_SOUL = ITEMS.register("mid_autumn_soul", () ->
-            new FoiledMaterialItem(new Item.Properties().rarity(CustomStyle.MoonBold)));
+            new WraqItem(new Item.Properties().rarity(CustomStyle.MoonBold), false, true));
 
     public static final RegistryObject<Item> MOON_FEATHER_0 = ITEMS.register("moon_feather_0", () ->
             new MoonFeather(new Item.Properties().rarity(CustomStyle.MoonBold), 0));

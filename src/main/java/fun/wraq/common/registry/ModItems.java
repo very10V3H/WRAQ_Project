@@ -3,8 +3,6 @@ package fun.wraq.common.registry;
 import fun.wraq.Items.DevelopmentTools.*;
 import fun.wraq.Items.Explore.*;
 import fun.wraq.Items.Forging.*;
-import fun.wraq.Items.Gems.Dismantle;
-import fun.wraq.Items.Gems.SlotOpen;
 import fun.wraq.Items.Gems.gemspiece;
 import fun.wraq.Items.KillPaper.KillPaper;
 import fun.wraq.Items.LevelReward.PotionPackets.PotionBag;
@@ -71,8 +69,7 @@ import fun.wraq.process.system.teamInstance.instances.blackCastle.CastleNecklace
 import fun.wraq.render.gui.testAndHelper.SmartPhoneOpen;
 import fun.wraq.render.mobEffects.ModPotions;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.FoiledMaterialItem;
-import fun.wraq.series.MaterialItem;
+import fun.wraq.series.WraqItem;
 import fun.wraq.series.end.EndPower;
 import fun.wraq.series.end.RecallPiece;
 import fun.wraq.series.end.curios.EndCrystal;
@@ -684,8 +681,6 @@ public class ModItems {
             () -> new skysoul(new Item.Properties().rarity(CustomStyle.Sky)));
     public static final RegistryObject<Item> SkyRune = ITEMS.register("skyrune",
             () -> new skyrune(new Item.Properties().rarity(CustomStyle.SkyBold)));
-    public static final RegistryObject<Item> OpenSlot = ITEMS.register("openslot",
-            () -> new SlotOpen(new Item.Properties().rarity(Rarity.UNCOMMON)));
     public static final RegistryObject<Item> EntityCopy = ITEMS.register("entitycopy",
             () -> new EntityTP(new Item.Properties().rarity(Rarity.UNCOMMON)));
     public static final RegistryObject<Item> BlockReset = ITEMS.register("blockreset",
@@ -1498,9 +1493,6 @@ public class ModItems {
 
     public static final RegistryObject<Item> Boss2Piece = ITEMS.register("boss_2_piece",
             () -> new Boss2Piece(new Item.Properties().rarity(Rarity.EPIC)));
-
-    public static final RegistryObject<Item> Dismantle = ITEMS.register("dismantle",
-            () -> new Dismantle(new Item.Properties().rarity(Rarity.RARE)));
 
     public static final RegistryObject<Item> PlainManaBook = ITEMS.register("mananote_plain",
             () -> new ManaNote(new Item.Properties().rarity(CustomStyle.PlainItalic), 0,
@@ -4080,13 +4072,13 @@ public class ModItems {
             () -> new SimpleFoiledItem(new Item.Properties().rarity(Rarity.UNCOMMON)));
 
     public static final RegistryObject<Item> NETHER_IMPRINT = ITEMS.register("nether_imprint",
-            () -> new MaterialItem(new Item.Properties().rarity(CustomStyle.NetherBold)));
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.NetherBold)));
 
     public static final RegistryObject<Item> FOILED_NETHER_IMPRINT = ITEMS.register("foiled_nether_imprint",
-            () -> new FoiledMaterialItem(new Item.Properties().rarity(CustomStyle.NetherBold)));
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.NetherBold), false, true));
 
     public static final RegistryObject<Item> GOLDEN_SHEET = ITEMS.register("golden_sheet",
-            () -> new MaterialItem(new Item.Properties().rarity(CustomStyle.GoldBold)));
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.GoldBold)));
 }
 
 
