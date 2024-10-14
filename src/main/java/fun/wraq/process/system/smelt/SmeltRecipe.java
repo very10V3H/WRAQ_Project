@@ -4,7 +4,6 @@ import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ItemAndRate;
 import fun.wraq.process.func.item.InventoryOperation;
-import fun.wraq.process.system.smelt.Smelt;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -51,7 +50,7 @@ public enum SmeltRecipe {
     GOLDEN_SHEET(Te.m("大金板", CustomStyle.styleOfGold),
             List.of(new ItemStack(ModItems.Boss2Piece.get(), 32),
                     new ItemStack(ModItems.goldCoin.get(), 32)),
-            List.of(new ItemStack(ModItems.GOLDEN_SHEET.get(), 1)),
+            List.of(new ItemStack(ModItems.PHOENIX_LEATHER.get(), 1)),
             List.of(new ItemAndRate(new ItemStack(ModItems.goldCoin.get(), 96), 0.5)),
             75),
 

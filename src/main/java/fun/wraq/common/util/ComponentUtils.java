@@ -199,10 +199,10 @@ public class ComponentUtils {
     }
 
     public static void suffixOfNether(List<Component> components) {
-        components.add(getSuffixNether());
+        components.add(getSuffixOfNether());
     }
 
-    public static Component getSuffixNether() {
+    public static Component getSuffixOfNether() {
         return Component.literal("凶险下界之物").withStyle(CustomStyle.styleOfNether).withStyle(ChatFormatting.ITALIC);
     }
 

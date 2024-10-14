@@ -443,7 +443,6 @@ public class VMD {
         }
 
         if (event.getTabKey().equals(ModCreativeModeTab.DROPSANDMATERIAL_TAB.getKey())) {
-            if (Display.materialList.isEmpty()) Display.setMaterialList();
             for (Item item : Display.materialList) event.accept(item.getDefaultInstance());
         }
         if (event.getTabKey().equals(ModCreativeModeTab.LOOT_EQUIP.getKey())) {

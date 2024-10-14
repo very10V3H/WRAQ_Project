@@ -131,7 +131,6 @@ public class Illustrate extends Screen {
 
     public static final String DISPLAY_FLAG = "illustrate_display_flag";
     public void sameModule(List<Item> list, GuiGraphics guiGraphics, int x, int y, int xOffset) {
-        if (list.isEmpty()) Display.setMaterialList();
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 9; j++) {
                 if (page * 45 + i * 9 + j < list.size()) {

@@ -16,7 +16,6 @@ public class ForgeMaterials {
                 ModItems.LakeSoul.get(),
                 ModItems.VolcanoSoul.get(),
                 ModItems.MineSoul.get(),
-                /*ModItems.FieldSoul.get(),*/
                 ModItems.SnowSoul.get()
         };
         chapter1.addAll(List.of(items));
@@ -31,9 +30,7 @@ public class ForgeMaterials {
                 ModItems.SeaSoul.get(),
                 ModItems.huskSoul.get(),
                 ModItems.KazeSoul.get(),
-                /*ModItems.SpiderSoul.get(),*/
                 ModItems.LightningSoul.get(),
-                /*ModItems.SlimeBall.get()*/
         };
         chapter2.addAll(List.of(items));
     }

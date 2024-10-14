@@ -1,6 +1,7 @@
 package fun.wraq.common.equip;
 
 import fun.wraq.common.impl.onshoot.OnShootArrowCurios;
+import fun.wraq.common.impl.onshoot.OnShootArrowEquip;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.Utils;
 import fun.wraq.core.MyArrow;
@@ -47,6 +48,7 @@ public abstract class WraqBow extends WraqMainHandEquip {
         myArrow.mainShoot = mainShoot;
         if (mainShoot) {
             OnShootArrowCurios.shoot(serverPlayer);
+            OnShootArrowEquip.shoot(serverPlayer);
         }
     }
 

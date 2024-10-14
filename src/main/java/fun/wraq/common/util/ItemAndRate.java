@@ -102,10 +102,14 @@ public class ItemAndRate {
     }
 
     public static void summonItemEntity(ItemStack itemStack, Vec3 pos, Level level) {
+        summonItemEntity(itemStack, pos, level, 8);
+    }
+
+    public static void summonItemEntity(ItemStack itemStack, Vec3 pos, Level level, int pickUpDelay) {
         ItemEntity itemEntity = new ItemEntity(EntityType.ITEM, level);
         itemEntity.setItem(itemStack);
         itemEntity.setPos(pos.add(0, 0.5, 0));
-        itemEntity.setPickUpDelay(8);
+        itemEntity.setPickUpDelay(pickUpDelay);
         Random rand = new Random();
         itemEntity.setDeltaMovement(rand.nextDouble(0.2) - 0.1, 0.2, rand.nextDouble(0.2) - 0.1);
         level.addFreshEntity(itemEntity);

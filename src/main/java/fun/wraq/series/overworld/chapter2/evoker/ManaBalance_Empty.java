@@ -3,6 +3,7 @@ package fun.wraq.series.overworld.chapter2.evoker;
 import fun.wraq.common.Compute;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.Utils;
+import fun.wraq.render.gui.illustrate.Display;
 import fun.wraq.render.hud.Mana;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -21,6 +22,7 @@ import java.util.List;
 public class ManaBalance_Empty extends Item {
     public ManaBalance_Empty(Properties p_41383_) {
         super(p_41383_);
+        Display.materialList.add(this);
     }
 
     @Override

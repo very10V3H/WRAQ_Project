@@ -12,7 +12,7 @@ import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.render.hud.Mana;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.nether.Equip.ManaSword;
+import fun.wraq.series.nether.equip.attack.sword.ManaSword;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;

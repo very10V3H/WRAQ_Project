@@ -1,7 +1,5 @@
 package fun.wraq.process.func;
 
-import com.google.common.util.concurrent.AtomicDouble;
-import fun.wraq.process.func.EnhanceNormalAttack;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 
@@ -18,8 +16,8 @@ import java.util.Map;
 public class EnhanceNormalAttackModifier {
 
     private final String tag;
-    private boolean status; // status为true时，将会使用数值参数对本次强化普攻的数值进行修正
-    private double enhanceRate; // 若status为true时才生效
+    private final boolean status; // status为true时，将会使用数值参数对本次强化普攻的数值进行修正
+    private final double enhanceRate; // 若status为true时才生效
     private fun.wraq.process.func.EnhanceNormalAttack enhanceNormalAttack;
     private final int type; // 0 - sword 1 - bow 2 - mana
 
@@ -50,8 +48,7 @@ public class EnhanceNormalAttackModifier {
     public static Map<Player, List<EnhanceNormalAttackModifier>> playerMap = new HashMap<>();
 
     public static List<EnhanceNormalAttackModifier> getModifierList(Player player) {
-        if (!playerMap.containsKey(player)) playerMap.put(player, new ArrayList<>());
-        return playerMap.get(player);
+        return playerMap.computeIfAbsent(player, key -> new ArrayList<>());
     }
 
     public static void addModifier(Player player, EnhanceNormalAttackModifier enhanceNormalAttackModifier) {
@@ -62,27 +59,22 @@ public class EnhanceNormalAttackModifier {
     }
 
     public static double onHitDamageEnhance(Player player, int type) {
-        List<EnhanceNormalAttackModifier> list = getModifierList(player);
-        AtomicDouble atomicDouble = new AtomicDouble();
-        list.forEach(modifier -> {
-            if (modifier.status && modifier.type == type) {
-                atomicDouble.addAndGet(modifier.enhanceRate);
-            }
-        });
-        return atomicDouble.get();
+        return getModifierList(player).stream()
+                .filter(modifier -> modifier.status && modifier.type == type)
+                .mapToDouble(modifier -> modifier.enhanceRate)
+                .sum();
     }
 
     public static void onHitEffect(Player player, Mob mob, int type) {
         List<EnhanceNormalAttackModifier> list = getModifierList(player);
-        List<EnhanceNormalAttackModifier> removeList = new ArrayList<>();
-        list.forEach(modifier -> {
+        list.removeIf(modifier -> {
             if (modifier.type == type) {
-                removeList.add(modifier);
                 if (modifier.enhanceNormalAttack != null) {
                     modifier.enhanceNormalAttack.hit(player, mob);
                 }
+                return true;
             }
+            return false;
         });
-        list.removeAll(removeList);
     }
 }

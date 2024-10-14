@@ -2,6 +2,7 @@ package fun.wraq.series.end.recallBooks;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.util.Utils;
+import fun.wraq.render.gui.illustrate.Display;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -20,6 +21,7 @@ import java.util.List;
 public class KazeRecallBook extends Item {
     public KazeRecallBook(Properties p_41383_) {
         super(p_41383_);
+        Display.materialList.add(this);
     }
 
     @Override

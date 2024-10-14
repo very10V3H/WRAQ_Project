@@ -864,6 +864,11 @@ public class ModNetworking {
                 .encoder(EffectLastTimeS2CPacket::toBytes)
                 .consumerMainThread(EffectLastTimeS2CPacket::handle)
                 .add();
+        net.messageBuilder(EffectLastTimeByItemIdS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(EffectLastTimeByItemIdS2CPacket::new)
+                .encoder(EffectLastTimeByItemIdS2CPacket::toBytes)
+                .consumerMainThread(EffectLastTimeByItemIdS2CPacket::handle)
+                .add();
         net.messageBuilder(CoolDownTimeS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
                 .decoder(CoolDownTimeS2CPacket::new)
                 .encoder(CoolDownTimeS2CPacket::toBytes)
@@ -1253,6 +1258,11 @@ public class ModNetworking {
                 .decoder(RemoveEffectLastTimeS2CPacket::new)
                 .encoder(RemoveEffectLastTimeS2CPacket::toBytes)
                 .consumerMainThread(RemoveEffectLastTimeS2CPacket::handle)
+                .add();
+        net.messageBuilder(RemoveEffectLastTimeByItemIdS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(RemoveEffectLastTimeByItemIdS2CPacket::new)
+                .encoder(RemoveEffectLastTimeByItemIdS2CPacket::toBytes)
+                .consumerMainThread(RemoveEffectLastTimeByItemIdS2CPacket::handle)
                 .add();
         net.messageBuilder(DustParticleS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
                 .decoder(DustParticleS2CPacket::new)

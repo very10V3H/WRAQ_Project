@@ -62,7 +62,7 @@ public class NetherNewRune extends WraqCurios implements RuneItem, UsageOrGetWay
 
     @Override
     public Component suffix() {
-        return ComponentUtils.getSuffixNether();
+        return ComponentUtils.getSuffixOfNether();
     }
 
     public static void onKill(Player player, Mob mob) {

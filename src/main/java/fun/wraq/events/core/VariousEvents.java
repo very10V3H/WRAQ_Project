@@ -6,6 +6,7 @@ import fun.wraq.commands.changeable.PrefixCommand;
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.registry.ModItems;
+import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.ItemAndRate;
 import fun.wraq.common.util.Utils;
@@ -15,6 +16,7 @@ import fun.wraq.networking.misc.AnimationPackets.AnimationTickResetS2CPacket;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.system.spur.events.MineSpur;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.WraqItem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -22,6 +24,8 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -56,9 +60,17 @@ public class VariousEvents {
         Player player = event.getEntity();
         ItemEntity itemEntity = event.getItem();
         ItemStack itemStack = itemEntity.getItem();
+        Item item = itemStack.getItem();
+        if (item instanceof WraqItem wraqItem) {
+            if (wraqItem.onPickupListener != null) {
+                wraqItem.onPickupListener.onPickup(player);
+                MySound.soundToPlayer(player, SoundEvents.ITEM_PICKUP);
+                event.setCanceled(true);
+                itemEntity.remove(Entity.RemovalReason.KILLED);
+            }
+        }
         if (!InventoryCheck.itemOwnerCorrect(player, itemStack)) event.setCanceled(true);
         else {
-            Item item = itemStack.getItem();
             if (itemStack.getTagElement(Utils.MOD_ID) != null) {
                 CompoundTag data = itemStack.getOrCreateTagElement(Utils.MOD_ID);
                 if (InventoryCheck.boundingList.isEmpty()) InventoryCheck.setBoundingList();

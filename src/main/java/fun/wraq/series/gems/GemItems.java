@@ -172,7 +172,7 @@ public class GemItems {
                 add(new WraqGem.AttributeMapValue(Utils.manaPenetration0, 3));
                 add(new WraqGem.AttributeMapValue(Utils.percentMaxHealthEnhance, -0.05));
             }}, CustomStyle.styleOfMagma, Component.literal("用封装下界熔岩能量所打造而成。").withStyle(CustomStyle.styleOfMagma),
-                    ComponentUtils.getSuffixNether()));
+                    ComponentUtils.getSuffixOfNether()));
 
     public static final RegistryObject<Item> magmaGemD = ITEMS.register("magma_gem_d",
             () -> new WraqGem.WraqGemD((WraqGem) magmaGem.get()));
@@ -186,7 +186,7 @@ public class GemItems {
                 add(new WraqGem.AttributeMapValue(Utils.defencePenetration0, 3));
                 add(new WraqGem.AttributeMapValue(Utils.percentMaxHealthEnhance, -0.05));
             }}, CustomStyle.styleOfWither, Component.literal("用精细下界骷髅粉末打造而成。").withStyle(CustomStyle.styleOfWither),
-                    ComponentUtils.getSuffixNether()));
+                    ComponentUtils.getSuffixOfNether()));
 
     public static final RegistryObject<Item> netherSkeletonGemD = ITEMS.register("nether_skeleton_gem_d",
             () -> new WraqGem.WraqGemD((WraqGem) netherSkeletonGem.get()));
@@ -199,7 +199,7 @@ public class GemItems {
                 add(new WraqGem.AttributeMapValue(Utils.expUp, 0.4));
                 add(new WraqGem.AttributeMapValue(Utils.healthRecover, -5));
             }}, CustomStyle.styleOfPiglin, Component.literal("用猪灵之好所打造而成。").withStyle(CustomStyle.styleOfPiglin),
-                    ComponentUtils.getSuffixNether()));
+                    ComponentUtils.getSuffixOfNether()));
 
     public static final RegistryObject<Item> piglinGemD = ITEMS.register("piglin_gem_d",
             () -> new WraqGem.WraqGemD((WraqGem) piglinGem.get()));
@@ -212,7 +212,7 @@ public class GemItems {
                 add(new WraqGem.AttributeMapValue(Utils.critDamage, 0.3));
                 add(new WraqGem.AttributeMapValue(Utils.percentMaxHealthEnhance, -0.05));
             }}, CustomStyle.styleOfWither, Component.literal("用能量灌注凋零残骨所打造而成。").withStyle(CustomStyle.styleOfWither),
-                    ComponentUtils.getSuffixNether()));
+                    ComponentUtils.getSuffixOfNether()));
 
     public static final RegistryObject<Item> witherGemD = ITEMS.register("wither_gem_d",
             () -> new WraqGem.WraqGemD((WraqGem) witherGem.get()));

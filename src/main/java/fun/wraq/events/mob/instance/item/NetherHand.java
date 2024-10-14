@@ -54,7 +54,7 @@ public class NetherHand extends WraqCurios implements RandomCurios, UsageOrGetWa
 
     @Override
     public Component suffix() {
-        return ComponentUtils.getSuffixNether();
+        return ComponentUtils.getSuffixOfNether();
     }
 
     @Override

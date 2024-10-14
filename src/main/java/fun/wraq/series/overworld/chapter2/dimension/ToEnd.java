@@ -1,6 +1,7 @@
 package fun.wraq.series.overworld.chapter2.dimension;
 
 import fun.wraq.common.Compute;
+import fun.wraq.render.gui.illustrate.Display;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -27,6 +28,7 @@ public class ToEnd extends Item {
 
     public ToEnd(Properties p_41383_) {
         super(p_41383_);
+        Display.materialList.add(this);
     }
 
     @Override

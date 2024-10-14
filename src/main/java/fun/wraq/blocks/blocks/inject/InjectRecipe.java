@@ -905,7 +905,7 @@ public class InjectRecipe {
         injectingRecipeMap.put(BladeItems.BLADE_PURPLE.get(),
                 new InjectingRecipe(ModItems.IceCompleteGem.get(), 4, BladeItems.BLADE_ICE.get()));
         injectingRecipeMap.put(BladeItems.BLADE_ICE.get(),
-                new InjectingRecipe(ModItems.GOLDEN_SHEET.get(), 4, BladeItems.BLADE_SAKURA.get()));
+                new InjectingRecipe(ModItems.PHOENIX_LEATHER.get(), 4, BladeItems.BLADE_SAKURA.get()));
         injectingRecipeMap.put(BladeItems.BLADE_SAKURA.get(),
                 new InjectingRecipe(ModItems.DevilBlood.get(), 4, BladeItems.BLADE_DEVIL.get()));
         injectingRecipeMap.put(BladeItems.BLADE_DEVIL.get(),
@@ -920,7 +920,7 @@ public class InjectRecipe {
         injectingRecipeMap.put(QuiverItems.QUIVER_PURPLE.get(),
                 new InjectingRecipe(ModItems.IceCompleteGem.get(), 4, QuiverItems.QUIVER_ICE.get()));
         injectingRecipeMap.put(QuiverItems.QUIVER_ICE.get(),
-                new InjectingRecipe(ModItems.GOLDEN_SHEET.get(), 4, QuiverItems.QUIVER_SAKURA.get()));
+                new InjectingRecipe(ModItems.PHOENIX_LEATHER.get(), 4, QuiverItems.QUIVER_SAKURA.get()));
         injectingRecipeMap.put(QuiverItems.QUIVER_SAKURA.get(),
                 new InjectingRecipe(ModItems.DevilBlood.get(), 4, QuiverItems.QUIVER_DEVIL.get()));
         injectingRecipeMap.put(QuiverItems.QUIVER_DEVIL.get(),
@@ -935,7 +935,7 @@ public class InjectRecipe {
         injectingRecipeMap.put(MixtureItems.MIXTURE_PURPLE.get(),
                 new InjectingRecipe(ModItems.IceCompleteGem.get(), 4, MixtureItems.MIXTURE_ICE.get()));
         injectingRecipeMap.put(MixtureItems.MIXTURE_ICE.get(),
-                new InjectingRecipe(ModItems.GOLDEN_SHEET.get(), 4, MixtureItems.MIXTURE_SAKURA.get()));
+                new InjectingRecipe(ModItems.PHOENIX_LEATHER.get(), 4, MixtureItems.MIXTURE_SAKURA.get()));
         injectingRecipeMap.put(MixtureItems.MIXTURE_SAKURA.get(),
                 new InjectingRecipe(ModItems.DevilBlood.get(), 4, MixtureItems.MIXTURE_DEVIL.get()));
         injectingRecipeMap.put(MixtureItems.MIXTURE_DEVIL.get(),

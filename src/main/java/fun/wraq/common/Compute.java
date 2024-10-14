@@ -26,11 +26,9 @@ import fun.wraq.core.MyArrow;
 import fun.wraq.entities.entities.Civil.Civil;
 import fun.wraq.events.core.InventoryCheck;
 import fun.wraq.networking.ModNetworking;
-import fun.wraq.networking.misc.EffectLastTimeS2CPacket;
+import fun.wraq.networking.misc.*;
 import fun.wraq.networking.misc.EntropyPackets.EntropyS2CPacket;
 import fun.wraq.networking.misc.ParticlePackets.SlowDownParticleS2CPacket;
-import fun.wraq.networking.misc.PsValueS2CPacket;
-import fun.wraq.networking.misc.RemoveEffectLastTimeS2CPacket;
 import fun.wraq.networking.misc.SkillPackets.Charging.BowSkill12S2CPacket;
 import fun.wraq.networking.misc.SkillPackets.Charging.ManaSkill12S2CPacket;
 import fun.wraq.networking.misc.SkillPackets.Charging.ManaSkill13S2CPacket;
@@ -1146,6 +1144,10 @@ public class Compute {
         ModNetworking.sendToClient(new RemoveEffectLastTimeS2CPacket(item.getDefaultInstance()), (ServerPlayer) player);
     }
 
+    public static void removeEffectLastTimeByItemId(Player player, String itemId) {
+        ModNetworking.sendToClient(new RemoveEffectLastTimeByItemIdS2CPacket(itemId), (ServerPlayer) player);
+    }
+
     public static void sendEffectLastTime(Player player, ItemStack itemStack, int tickCount) {
         ModNetworking.sendToClient(new EffectLastTimeS2CPacket(itemStack, tickCount), (ServerPlayer) player);
     }
@@ -1179,6 +1181,10 @@ public class Compute {
 
     public static void sendEffectLastTime(Player player, Item item, int level, boolean forever) {
         sendEffectLastTime(player, item, 25565, level, forever);
+    }
+
+    public static void sendEffectLastTimeByItemId(Player player, String itemId, int level, boolean forever) {
+        ModNetworking.sendToClient(new EffectLastTimeByItemIdS2CPacket(itemId, 25565, level, forever), (ServerPlayer) player);
     }
 
     public static void sendEffectLastTime(Player player, Item item, int tickCount, int level, boolean forever) {
