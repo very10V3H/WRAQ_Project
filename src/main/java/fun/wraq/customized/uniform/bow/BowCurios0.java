@@ -1,6 +1,7 @@
 package fun.wraq.customized.uniform.bow;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.customized.UniformItems;
 import fun.wraq.customized.WraqUniformCurios;
@@ -54,19 +55,19 @@ public class BowCurios0 extends WraqBowUniformCurios {
 
     public static void Active(Player player) {
         if (!IsOn(player)) return;
-        activeLastTick += player.getServer().getTickCount() + 60;
+        activeLastTick += Tick.get() + 60;
         Compute.sendEffectLastTime(player, UniformItems.BowCurios0.get().getDefaultInstance(), 60);
     }
 
     public static double BaseDamageEnhance(Player player) {
-        if (!IsOn(player)) return 1;
-        if (activeLastTick > player.getServer().getTickCount()) return 1.5;
-        return 1;
+        if (!IsOn(player)) return 0;
+        if (activeLastTick > Tick.get()) return 0.5;
+        return 0;
     }
 
     public static double SwiftnessUp(Player player) {
         if (!IsOn(player)) return 1;
-        if (activeLastTick > player.getServer().getTickCount()) return 1.15;
+        if (activeLastTick > Tick.get()) return 1.15;
         return 1;
     }
 }

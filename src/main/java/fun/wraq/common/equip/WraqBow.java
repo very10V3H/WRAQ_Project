@@ -7,6 +7,7 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.core.MyArrow;
 import fun.wraq.entities.entities.Civil.Civil;
 import fun.wraq.process.func.particle.ParticleProvider;
+import fun.wraq.process.system.skill.BowSkillTree;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
@@ -44,6 +45,7 @@ public abstract class WraqBow extends WraqMainHandEquip {
     }
 
     public void shoot(ServerPlayer serverPlayer, double rate, boolean mainShoot) {
+        rate += BowSkillTree.skillIndex14(serverPlayer);
         MyArrow myArrow = summonArrow(serverPlayer, rate);
         myArrow.mainShoot = mainShoot;
         if (mainShoot) {

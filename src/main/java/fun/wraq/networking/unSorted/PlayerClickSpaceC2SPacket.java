@@ -39,7 +39,7 @@ public class PlayerClickSpaceC2SPacket {
             ServerPlayer player = context.getSender();
             if (nextAllowJumpTickMap.getOrDefault(player, 0) < Tick.get()) {
                 nextAllowJumpTickMap.put(player, Tick.get() + 50);
-                Compute.coolDownTimeSend(player, ModItems.windBottle.get(), 50);
+                Compute.sendCoolDownTime(player, ModItems.windBottle.get(), 50);
                 ClientboundSetEntityMotionPacket clientboundSetEntityMotionPacket =
                         new ClientboundSetEntityMotionPacket(player.getId(), player.getDeltaMovement().add(0, 1, 0));
                 player.connection.send(clientboundSetEntityMotionPacket);

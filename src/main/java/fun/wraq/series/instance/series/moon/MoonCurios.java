@@ -85,7 +85,7 @@ public class MoonCurios extends Item implements ICurioItem {
                 int TickCount = player.getServer().getTickCount();
                 if (!passiveCoolDownMap.containsKey(player) || TickCount > passiveCoolDownMap.get(player)) {
                     passiveCoolDownMap.put(player, TickCount + 200);
-                    Compute.coolDownTimeSend(player, ModItems.MoonCurios.get().getDefaultInstance(), 200);
+                    Compute.sendCoolDownTime(player, ModItems.MoonCurios.get().getDefaultInstance(), 200);
                     Shield.providePlayerShield(player, 200, player.experienceLevel * 20);
                     return mob.getMaxHealth() * 0.01;
                 }

@@ -18,7 +18,7 @@ import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.common.util.struct.EffectTimeLast;
+import fun.wraq.common.util.struct.HudIcon;
 import fun.wraq.common.util.struct.ItemEntityAndResetTime;
 import fun.wraq.common.util.struct.PlayerTeam;
 import fun.wraq.core.ManaAttackModule;
@@ -26,15 +26,18 @@ import fun.wraq.core.MyArrow;
 import fun.wraq.entities.entities.Civil.Civil;
 import fun.wraq.events.core.InventoryCheck;
 import fun.wraq.networking.ModNetworking;
-import fun.wraq.networking.misc.*;
+import fun.wraq.networking.hud.CoolDownTimeS2CPacket;
+import fun.wraq.networking.hud.EffectLastTimeS2CPacket;
 import fun.wraq.networking.misc.EntropyPackets.EntropyS2CPacket;
 import fun.wraq.networking.misc.ParticlePackets.SlowDownParticleS2CPacket;
+import fun.wraq.networking.misc.PsValueS2CPacket;
+import fun.wraq.networking.misc.RemoveEffectLastTimeByItemIdS2CPacket;
+import fun.wraq.networking.misc.RemoveEffectLastTimeS2CPacket;
 import fun.wraq.networking.misc.SkillPackets.Charging.BowSkill12S2CPacket;
 import fun.wraq.networking.misc.SkillPackets.Charging.ManaSkill12S2CPacket;
 import fun.wraq.networking.misc.SkillPackets.Charging.ManaSkill13S2CPacket;
 import fun.wraq.networking.misc.SkillPackets.Charging.SwordSkill12S2CPacket;
 import fun.wraq.networking.misc.TeamPackets.ScreenSetS2CPacket;
-import fun.wraq.networking.misc.ToolTipPackets.CoolDownTimeS2CPacket;
 import fun.wraq.networking.misc.USE.MobEffectHudS2CPacket;
 import fun.wraq.networking.reputation.ReputationValueS2CPacket;
 import fun.wraq.networking.unSorted.DebuffTimeS2CPacket;
@@ -1149,30 +1152,21 @@ public class Compute {
     }
 
     public static void sendEffectLastTime(Player player, ItemStack itemStack, int tickCount) {
-        ModNetworking.sendToClient(new EffectLastTimeS2CPacket(itemStack, tickCount), (ServerPlayer) player);
+        ModNetworking.sendToClient(new EffectLastTimeS2CPacket("item/" + itemStack.getItem(), tickCount), (ServerPlayer) player);
     }
 
     public static void sendEffectLastTimeToClientPlayer(Item item, int level, int tick, boolean noTime) {
-        if (Element.elementItemList.isEmpty()) Element.setElementList();
-        if (Element.elementItemList.contains(item)) {
-            ClientUtils.effectTimeLasts.removeIf(effectTimeLast -> Element.elementItemList.contains(effectTimeLast.itemStack.getItem()));
+        ClientUtils.effectTimeLasts.removeIf(hudIcon -> hudIcon.url.equals("item/" + item.toString()));
+        if (noTime) {
+            ClientUtils.effectTimeLasts.add(new HudIcon("item/" + item, tick, tick, level, true));
         }
-        ClientUtils.effectTimeLasts.removeIf(effectTimeLast -> effectTimeLast.itemStack.is(item));
-        if (noTime)
-            ClientUtils.effectTimeLasts.add(new EffectTimeLast(item.getDefaultInstance(), tick, tick, level, true));
-        else ClientUtils.effectTimeLasts.add(new EffectTimeLast(item.getDefaultInstance(), tick, tick, level));
+        else {
+            ClientUtils.effectTimeLasts.add(new HudIcon("item/" + item, tick, tick, level));
+        }
     }
 
     public static void sendEffectLastTime(Player player, Item item, int tickCount) {
         sendEffectLastTime(player, item, tickCount, 0, false);
-    }
-
-    public static void sendEffectLastTime(Player player, ItemStack itemStack, int tickCount, int level) {
-        sendEffectLastTime(player, itemStack.getItem(), tickCount, level, false);
-    }
-
-    public static void sendEffectLastTime(Player player, Item item, int tickCount, int level) {
-        sendEffectLastTime(player, item, tickCount, level, false);
     }
 
     public static void sendEffectLastTime(Player player, ItemStack itemStack, int tickCount, int level, boolean forever) {
@@ -1184,19 +1178,27 @@ public class Compute {
     }
 
     public static void sendEffectLastTimeByItemId(Player player, String itemId, int level, boolean forever) {
-        ModNetworking.sendToClient(new EffectLastTimeByItemIdS2CPacket(itemId, 25565, level, forever), (ServerPlayer) player);
+        sendEffectLastTime(player, "item/" + itemId, 25565, level, forever);
     }
 
     public static void sendEffectLastTime(Player player, Item item, int tickCount, int level, boolean forever) {
-        ModNetworking.sendToClient(new EffectLastTimeS2CPacket(item.getDefaultInstance(), tickCount, level, forever), (ServerPlayer) player);
+        sendEffectLastTime(player, "item/" + item, tickCount, level, forever);
     }
 
-    public static void coolDownTimeSend(Player player, Item item, int tickCount) {
-        ModNetworking.sendToClient(new CoolDownTimeS2CPacket(item.getDefaultInstance(), tickCount), (ServerPlayer) player);
+    public static void sendEffectLastTime(Player player, String url, int tickCount, int level, boolean forever) {
+        ModNetworking.sendToClient(new EffectLastTimeS2CPacket(url, tickCount, level, forever), (ServerPlayer) player);
     }
 
-    public static void coolDownTimeSend(Player player, ItemStack itemStack, int tickCount) {
-        ModNetworking.sendToClient(new CoolDownTimeS2CPacket(itemStack, tickCount), (ServerPlayer) player);
+    public static void sendCoolDownTime(Player player, Item item, int tickCount) {
+        ModNetworking.sendToClient(new CoolDownTimeS2CPacket("item/" + item, tickCount), (ServerPlayer) player);
+    }
+
+    public static void sendCoolDownTime(Player player, ItemStack itemStack, int tickCount) {
+        ModNetworking.sendToClient(new CoolDownTimeS2CPacket("item/" + itemStack.getItem(), tickCount), (ServerPlayer) player);
+    }
+
+    public static void sendCoolDownTime(Player player, String url, int tickCount) {
+        ModNetworking.sendToClient(new CoolDownTimeS2CPacket(url, tickCount), (ServerPlayer) player);
     }
 
     public static void debuffTimeSend(Player player, ItemStack itemStack, int tickCount, int level) {
@@ -1283,7 +1285,7 @@ public class Compute {
         return mobList;
     }
 
-    public static void Laser(Player player, ParticleOptions particleOptions, double BaseDamage, int TickCoolDown, boolean isPower) {
+    public static void Laser(Player player, ParticleOptions particleOptions, double rate, int TickCoolDown, boolean isPower) {
         Level level = player.level();
         int TickCount = player.getServer().getTickCount();
         Vec3 TargetPos = player.pick(25, 0, false).getLocation();
@@ -1306,13 +1308,13 @@ public class Compute {
             if (!laserCoolDownMap.containsKey(mob) || laserCoolDownMap.get(mob) <= TickCount) {
                 laserCoolDownMap.put(mob, TickCount + TickCoolDown);
                 if (isPower) {
-                    Damage.causeManaDamageToMonster_ApDamage(player, mob, BaseDamage, true);
+                    Damage.causeManaDamageToMonster_ApDamage(player, mob, rate, true);
                 } else {
                     ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_MAGMA.get(), player, level,
                             PlayerAttributes.manaDamage(player),
                             PlayerAttributes.manaPenetration(player),
                             PlayerAttributes.manaPenetration0(player), StringUtils.ParticleTypes.Lava);
-                    ManaAttackModule.BasicAttack(player, mob, BaseDamage,
+                    ManaAttackModule.BasicAttack(player, mob, rate,
                             PlayerAttributes.manaPenetration(player),
                             PlayerAttributes.manaPenetration0(player),
                             level, newArrow, true);
@@ -1321,7 +1323,7 @@ public class Compute {
         });
     }
 
-    public static void TargetLocationLaser(Player player, Vec3 location, ParticleOptions particleOptions, double baseDamage, int tickCoolDown) {
+    public static void TargetLocationLaser(Player player, Vec3 location, ParticleOptions particleOptions, double rate, int tickCoolDown) {
         Level level = player.level();
         int TickCount = player.getServer().getTickCount();
         Vec3 TargetPos = location;
@@ -1347,7 +1349,7 @@ public class Compute {
                         PlayerAttributes.manaDamage(player),
                         PlayerAttributes.manaPenetration(player),
                         PlayerAttributes.manaPenetration0(player), StringUtils.ParticleTypes.Lava);
-                ManaAttackModule.BasicAttack(player, mob, baseDamage,
+                ManaAttackModule.BasicAttack(player, mob, rate,
                         PlayerAttributes.manaPenetration(player),
                         PlayerAttributes.manaPenetration0(player),
                         level, newArrow, true);
@@ -1651,7 +1653,7 @@ public class Compute {
         if (!coolDownMap.containsKey(player) || coolDownMap.get(player) < tickCount) {
             Compute.playerManaCost(player, manaCost);
             coolDownMap.put(player, tickCount + (int) (coolDownSeconds * 15 * (1 - PlayerAttributes.coolDownDecrease(player))));
-            Compute.coolDownTimeSend(player, item.getDefaultInstance(), (int) (coolDownSeconds * 15 * (1 - PlayerAttributes.coolDownDecrease(player))));
+            Compute.sendCoolDownTime(player, item.getDefaultInstance(), (int) (coolDownSeconds * 15 * (1 - PlayerAttributes.coolDownDecrease(player))));
             lastTickMap.put(player, tickCount + lastTick);
             Compute.sendEffectLastTime(player, item.getDefaultInstance(), lastTick);
             return true;
@@ -1664,7 +1666,7 @@ public class Compute {
         if (!coolDownMap.containsKey(player) || coolDownMap.get(player) < tickCount) {
             Compute.playerManaCost(player, manaCost);
             coolDownMap.put(player, tickCount + (int) (coolDownSeconds * 15 * (1 - PlayerAttributes.coolDownDecrease(player))));
-            Compute.coolDownTimeSend(player, item.getDefaultInstance(), (int) (coolDownSeconds * 15 * (1 - PlayerAttributes.coolDownDecrease(player))));
+            Compute.sendCoolDownTime(player, item.getDefaultInstance(), (int) (coolDownSeconds * 15 * (1 - PlayerAttributes.coolDownDecrease(player))));
             return true;
         }
         return false;
@@ -1849,7 +1851,15 @@ public class Compute {
         List<? extends Entity> list = getNearEntity(mob, Player.class, 16);
         list.stream().filter(e -> e instanceof Player).forEach(p -> {
             ServerPlayer serverPlayer = (ServerPlayer) p;
-            ModNetworking.sendToClient(new MobEffectHudS2CPacket(mob.getId(), icon.getDefaultInstance(), tag, lastTick, level, forever), serverPlayer);
+            ModNetworking.sendToClient(new MobEffectHudS2CPacket(mob.getId(), "item/" + icon, tag, lastTick, level, forever), serverPlayer);
+        });
+    }
+
+    public static void sendMobEffectHudToNearPlayer(Mob mob, String url, String tag, int lastTick, int level, boolean forever) {
+        List<? extends Entity> list = getNearEntity(mob, Player.class, 16);
+        list.stream().filter(e -> e instanceof Player).forEach(p -> {
+            ServerPlayer serverPlayer = (ServerPlayer) p;
+            ModNetworking.sendToClient(new MobEffectHudS2CPacket(mob.getId(), url, tag, lastTick, level, forever), serverPlayer);
         });
     }
 
@@ -1857,7 +1867,7 @@ public class Compute {
         List<? extends Entity> list = getNearEntity(mob, Player.class, 16);
         list.stream().filter(e -> e instanceof Player).forEach(p -> {
             ServerPlayer serverPlayer = (ServerPlayer) p;
-            ModNetworking.sendToClient(new MobEffectHudS2CPacket(mob.getId(), icon.getDefaultInstance(), tag, 0, 0, false), serverPlayer);
+            ModNetworking.sendToClient(new MobEffectHudS2CPacket(mob.getId(), "item/" + icon, tag, 0, 0, false), serverPlayer);
         });
     }
 

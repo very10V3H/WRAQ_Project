@@ -1,7 +1,6 @@
 package fun.wraq.series.nether.equip.mana;
 
 import fun.wraq.common.Compute;
-import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.equip.WraqSceptre;
 import fun.wraq.common.equip.impl.Laser;
 import fun.wraq.common.fast.Te;
@@ -83,7 +82,7 @@ public class NetherSceptre extends WraqSceptre implements Laser {
         if (passiveLastTickMap.getOrDefault(player, 0) > Tick.get()) {
             Mana.addOrCostPlayerMana(player, -4.5);
             Compute.TargetLocationLaser(player, player.pick(30, 0, false).getLocation(),
-                    ModParticles.YSR1.get(), PlayerAttributes.manaDamage(player), 10);
+                    ModParticles.YSR1.get(), 1, 10);
         }
     }
 }

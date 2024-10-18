@@ -4,7 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.common.util.struct.EffectTimeLast;
+import fun.wraq.common.util.struct.HudIcon;
 import fun.wraq.common.util.struct.SkillImage;
 import fun.wraq.process.system.endlessinstance.DailyEndlessInstance;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -164,38 +164,38 @@ public class BuffHud {
             }
         }
 
-        ClientUtils.effectTimeLasts.sort(new Comparator<EffectTimeLast>() {
+        ClientUtils.effectTimeLasts.sort(new Comparator<HudIcon>() {
             @Override
-            public int compare(EffectTimeLast o1, EffectTimeLast o2) {
+            public int compare(HudIcon o1, HudIcon o2) {
                 if (o1.lastTick != o2.lastTick) {
                     return o1.lastTick - o2.lastTick;
                 } else {
-                    return o1.itemStack.getItem().toString().compareTo(o2.itemStack.getItem().toString());
+                    return o1.url.compareTo(o2.url);
                 }
             }
         });
 
-        for (EffectTimeLast effectTimeLast : ClientUtils.effectTimeLasts) {
-            guiGraphics.blit(new ResourceLocation(Utils.MOD_ID, "textures/item/" + effectTimeLast.itemStack.getItem().toString() + ".png"), x + XXOffset + count * 15, y - 60, 0, 0, 16, 16, 16, 16);
-            int Time = (int) Math.ceil(effectTimeLast.lastTick * 12.0f / effectTimeLast.maxTick);
-            if (effectTimeLast.forever) Time = 12;
+        for (HudIcon hudIcon : ClientUtils.effectTimeLasts) {
+            guiGraphics.blit(new ResourceLocation(Utils.MOD_ID, "textures/" + hudIcon.url+ ".png"), x + XXOffset + count * 15, y - 60, 0, 0, 16, 16, 16, 16);
+            int Time = (int) Math.ceil(hudIcon.lastTick * 12.0f / hudIcon.maxTick);
+            if (hudIcon.forever) Time = 12;
             guiGraphics.blit(ClientUtils.CdResourceLocation[Time], x + XXOffset + count * 15, y - 60, 0, 0, 16, 16, 16, 16);
-            if (effectTimeLast.level > 0)
-                guiGraphics.drawCenteredString(fontRenderer, Component.literal("" + effectTimeLast.level).withStyle(ChatFormatting.WHITE), x + XXOffset + count * 15 + 11, y - 52, 10);
-            if (effectTimeLast.lastTick > 0 && effectTimeLast.level == 0 && !effectTimeLast.forever)
+            if (hudIcon.level > 0)
+                guiGraphics.drawCenteredString(fontRenderer, Component.literal("" + hudIcon.level).withStyle(ChatFormatting.WHITE), x + XXOffset + count * 15 + 11, y - 52, 10);
+            if (hudIcon.lastTick > 0 && hudIcon.level == 0 && !hudIcon.forever)
                 guiGraphics.drawCenteredString(fontRenderer,
-                        Component.literal(effectTimeLast.lastTick >= 20 ? String.format("%.0f", effectTimeLast.lastTick / 20d) : String.format("%.1f", effectTimeLast.lastTick / 20d)).withStyle(ChatFormatting.WHITE), x + XXOffset + count * 15 + 11, y - 52, 10);
+                        Component.literal(hudIcon.lastTick >= 20 ? String.format("%.0f", hudIcon.lastTick / 20d) : String.format("%.1f", hudIcon.lastTick / 20d)).withStyle(ChatFormatting.WHITE), x + XXOffset + count * 15 + 11, y - 52, 10);
             count++;
         }
 
         count++;
 
-        for (EffectTimeLast effectTimeLast : ClientUtils.coolDownTimes) {
-            guiGraphics.blit(new ResourceLocation(Utils.MOD_ID, "textures/item/" + effectTimeLast.itemStack.getItem().toString() + ".png"), x + XXOffset + count * 15, y - 60, 0, 0, 16, 16, 16, 16);
-            int Time = (int) (12 - effectTimeLast.lastTick * 12.0f / effectTimeLast.maxTick);
+        for (HudIcon hudIcon : ClientUtils.coolDownTimes) {
+            guiGraphics.blit(new ResourceLocation(Utils.MOD_ID, "textures/" + hudIcon.url + ".png"), x + XXOffset + count * 15, y - 60, 0, 0, 16, 16, 16, 16);
+            int Time = (int) (12 - hudIcon.lastTick * 12.0f / hudIcon.maxTick);
             guiGraphics.blit(ClientUtils.CdResourceLocation[Time], x + XXOffset + count * 15, y - 60, 0, 0, 16, 16, 16, 16);
-            if (effectTimeLast.lastTick > 0) guiGraphics.drawCenteredString(fontRenderer,
-                    Component.literal(effectTimeLast.lastTick >= 20 ? String.format("%.0f", effectTimeLast.lastTick / 20d) : String.format("%.1f", effectTimeLast.lastTick / 20d)).withStyle(ChatFormatting.WHITE), x + XXOffset + count * 15 + 11, y - 52, 10);
+            if (hudIcon.lastTick > 0) guiGraphics.drawCenteredString(fontRenderer,
+                    Component.literal(hudIcon.lastTick >= 20 ? String.format("%.0f", hudIcon.lastTick / 20d) : String.format("%.1f", hudIcon.lastTick / 20d)).withStyle(ChatFormatting.WHITE), x + XXOffset + count * 15 + 11, y - 52, 10);
             count++;
         }
 

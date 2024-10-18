@@ -144,6 +144,14 @@ public class LoginInEvent {
                         Component.literal("因经验改动你的能力与专精点数已被重置").withStyle(ChatFormatting.WHITE));
             }
 
+            String skillPointResetV2037 = "skillPointResetV2037";
+            if (!data.contains(skillPointResetV2037)) {
+                data.putBoolean(skillPointResetV2037, true);
+                Compute.resetSkillAndAbility(player);
+                Compute.sendFormatMSG(player, Component.literal("专精改动").withStyle(ChatFormatting.LIGHT_PURPLE),
+                        Component.literal("因专精改动你的能力与专精点数已被重置").withStyle(ChatFormatting.WHITE));
+            }
+
             if (!data.contains(StringUtils.PatchouliBook)) {
                 ItemStack PatchouliBook = PatchouliAPI.get().getBookStack(new ResourceLocation(Utils.MOD_ID, "guide"));
                 InventoryOperation.itemStackGive(player, PatchouliBook);
@@ -202,9 +210,9 @@ public class LoginInEvent {
                 ModNetworking.sendToClient(new ManaSyncS2CPacket(9, 100), (ServerPlayer) player);
             }
             if (!data.contains(StringUtils.SkillPoint_Total))
-                data.putDouble(StringUtils.SkillPoint_Total, player.experienceLevel);
+                data.putInt(StringUtils.SkillPoint_Total, player.experienceLevel / 2);
             if (!data.contains(StringUtils.AbilityPoint_Total))
-                data.putDouble(StringUtils.AbilityPoint_Total, player.experienceLevel);
+                data.putInt(StringUtils.AbilityPoint_Total, player.experienceLevel / 2);
             if (!data.contains("ID_Card")) {
                 player.addItem(ModItems.ID_Card.get().getDefaultInstance());
                 data.putBoolean("ID_Card", false);

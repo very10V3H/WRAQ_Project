@@ -6,6 +6,7 @@ import fun.wraq.common.attribute.DamageInfluence;
 import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.attribute.SameTypeModule;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.onhit.OnCritHitEffectMainHandWeapon;
 import fun.wraq.common.impl.onhit.OnHitEffectEquip;
 import fun.wraq.common.impl.onhit.OnHitEffectPassiveEquip;
@@ -112,15 +113,15 @@ public class AttackEvent {
     public static void attackToMonster(Mob monster, Player player, double rate, boolean mainAttack, boolean critSurely) {
         Item equip = player.getMainHandItem().getItem();
         CompoundTag data = player.getPersistentData();
-        Utils.PlayerFireWorkFightCoolDown.put(player, player.getServer().getTickCount() + 200);
+        Utils.PlayerFireWorkFightCoolDown.put(player, Tick.get() + 200);
 
         double defence = MobAttributes.defence(monster);
 
-        double baseDamage = PlayerAttributes.attackDamage(player) * rate;
         if (mainAttack) {
-            baseDamage *= DamageInfluence.getPlayerNormalAttackBaseRate(player, 0);
+            rate += DamageInfluence.getPlayerNormalAttackBaseRate(player, 0);
         }
 
+        double baseDamage = PlayerAttributes.attackDamage(player) * rate;
         double defencePenetration = PlayerAttributes.defencePenetration(player);
         double defencePenetration0 = PlayerAttributes.defencePenetration0(player);
 
@@ -132,7 +133,6 @@ public class AttackEvent {
         if (monster instanceof Evoker && player.getItemInHand(InteractionHand.MAIN_HAND).getItem() instanceof ManaSword)
             defencePenetration = 1.0d;
 
-        Random r = new Random();
         if (defence == 0) defence = (monster.getAttribute(Attributes.ARMOR).getValue());
 
         double damage;
@@ -482,7 +482,7 @@ public class AttackEvent {
             if (SuitCount.getSpringAttackSuitCount(player) > 0) {
                 Compute.summonFireWork(player, monster);
                 Compute.addDefenceDecreaseEffectParticle(monster, 60);
-                Compute.coolDownTimeSend(player, ModItems.FireCracker.get().getDefaultInstance(), 100);
+                Compute.sendCoolDownTime(player, ModItems.FireCracker.get().getDefaultInstance(), 100);
                 Utils.MobSpringAttackTick.put(monster, monster.getServer().getTickCount() + 60);
                 Utils.MobSpringAttackEffect.put(monster, SuitCount.getSpringAttackSuitCount(player));
                 Compute.addSlowDownEffect(monster, 60, 99);
@@ -497,7 +497,7 @@ public class AttackEvent {
             if (SuitCount.getSpringSwiftSuitCount(player) > 0) {
                 Compute.summonFireWork(player, monster);
                 Compute.addDefenceDecreaseEffectParticle(monster, 60);
-                Compute.coolDownTimeSend(player, ModItems.FireCracker.get().getDefaultInstance(), 100);
+                Compute.sendCoolDownTime(player, ModItems.FireCracker.get().getDefaultInstance(), 100);
                 Utils.MobSpringSwiftTick.put(monster, monster.getServer().getTickCount() + 60);
                 Utils.MobSpringSwiftEffect.put(monster, SuitCount.getSpringSwiftSuitCount(player));
                 Compute.addSlowDownEffect(monster, 60, 99);
@@ -513,7 +513,7 @@ public class AttackEvent {
             if (SuitCount.getSpringManaSuitCount(player) > 0) {
                 Compute.summonFireWork(player, monster);
                 Compute.addManaDefenceDecreaseEffectParticle(monster, 60);
-                Compute.coolDownTimeSend(player, ModItems.FireCracker.get().getDefaultInstance(), 100);
+                Compute.sendCoolDownTime(player, ModItems.FireCracker.get().getDefaultInstance(), 100);
                 Utils.MobSpringManaTick.put(monster, monster.getServer().getTickCount() + 60);
                 Utils.MobSpringManaEffect.put(monster, SuitCount.getSpringManaSuitCount(player));
                 Compute.addSlowDownEffect(monster, 60, 99);

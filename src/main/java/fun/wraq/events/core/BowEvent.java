@@ -57,7 +57,7 @@ public class BowEvent {
                                 causeDamageList.put(myArrow, new ArrayList<>());
                             List<Integer> causedList = causeDamageList.get(myArrow);
                             if (!causedList.contains(mob.getId())) {
-                                MyArrow.CauseDamage(myArrow, mob, myArrow.BaseDamage * (1 + causedList.size() * 0.33));
+                                MyArrow.causeDamage(myArrow, mob, 1 + causedList.size() * 0.33);
                                 causedList.add(mob.getId());
                             }
                             event.setImpactResult(ProjectileImpactEvent.ImpactResult.SKIP_ENTITY);
@@ -77,7 +77,7 @@ public class BowEvent {
                             }
                         }
                         if (nearestMob != null) {
-                            MyArrow.CauseDamage(myArrow, nearestMob, myArrow.BaseDamage);
+                            MyArrow.causeDamage(myArrow, nearestMob, 1);
                             myArrow.remove(Entity.RemovalReason.KILLED);
                         } else {
                             event.setImpactResult(ProjectileImpactEvent.ImpactResult.SKIP_ENTITY);
@@ -107,7 +107,7 @@ public class BowEvent {
                                 causeDamageList.put(manaArrow, new ArrayList<>());
                             List<Integer> causedList = causeDamageList.get(manaArrow);
                             if (!causedList.contains(mob.getId())) {
-                                ManaAttackModule.BasicAttack(manaArrow.player, mob, manaArrow.BaseDamage * (1 + causedList.size() * 0.33),
+                                ManaAttackModule.BasicAttack(manaArrow.player, mob, (1 + causedList.size() * 0.33),
                                         manaArrow.BreakDefence, manaArrow.BreakDefence0, manaArrow.level(), manaArrow, manaArrow.mainShoot);
                                 causedList.add(mob.getId());
                             }
@@ -128,7 +128,7 @@ public class BowEvent {
                             }
                         }
                         if (nearestMob != null && manaArrow.player != null) {
-                            ManaAttackModule.BasicAttack(manaArrow.player, nearestMob, manaArrow.BaseDamage,
+                            ManaAttackModule.BasicAttack(manaArrow.player, nearestMob, 1,
                                     manaArrow.BreakDefence, manaArrow.BreakDefence0, manaArrow.level(), manaArrow, manaArrow.mainShoot);
                             ModNetworking.sendToClient(new ManaAttackParticleS2CPacket(nearestMob.getX(), nearestMob.getY(), nearestMob.getZ(), manaArrow.type), (ServerPlayer) manaArrow.player);
                             manaArrow.remove(Entity.RemovalReason.KILLED);
@@ -160,7 +160,7 @@ public class BowEvent {
                                 causeDamageList.put(newArrow, new ArrayList<>());
                             List<Integer> causedList = causeDamageList.get(newArrow);
                             if (!causedList.contains(mob.getId())) {
-                                ManaAttackModule.BasicAttack(newArrow.player, mob, newArrow.BaseDamage * (1 + causedList.size() * 0.33),
+                                ManaAttackModule.BasicAttack(newArrow.player, mob, (1 + causedList.size() * 0.33),
                                         newArrow.BreakDefence, newArrow.BreakDefence0, newArrow.level(), newArrow, newArrow.mainShoot);
                                 causedList.add(mob.getId());
                             }
@@ -182,7 +182,7 @@ public class BowEvent {
                             }
                         }
                         if (nearestMob != null && newArrow.player != null) {
-                            ManaAttackModule.BasicAttack(newArrow.player, nearestMob, newArrow.BaseDamage,
+                            ManaAttackModule.BasicAttack(newArrow.player, nearestMob, 1,
                                     newArrow.BreakDefence, newArrow.BreakDefence0, newArrow.level(), newArrow, newArrow.mainShoot);
                             newArrow.remove(Entity.RemovalReason.KILLED);
                         } else {

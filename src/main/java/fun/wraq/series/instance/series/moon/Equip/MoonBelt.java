@@ -95,7 +95,7 @@ public class MoonBelt extends WraqCurios implements OnCauseFinalDamageCurios, On
             statusType.put(player, 0);
             storedDamage.put(player, 0d);
             coolDown.put(player, tick + 200);
-            Compute.coolDownTimeSend(player, ModItems.MoonBelt.get().getDefaultInstance(), 200);
+            Compute.sendCoolDownTime(player, ModItems.MoonBelt.get().getDefaultInstance(), 200);
             ParticleProvider.DisperseParticle(player.position(), (ServerLevel) player.level(), 1, 1, 120, ParticleTypes.FIREWORK, 1);
             ParticleProvider.DisperseParticle(player.position(), (ServerLevel) player.level(), 1.5, 1, 120, ParticleTypes.FIREWORK, 1);
         }

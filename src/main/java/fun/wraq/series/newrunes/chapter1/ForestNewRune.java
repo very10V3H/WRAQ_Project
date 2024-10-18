@@ -72,7 +72,7 @@ public class ForestNewRune extends WraqCurios implements RuneItem, UsageOrGetWay
                 passiveNextActiveTime.put(name, tick + 1200);
                 healthRecoverUpTime.put(name, tick + 100);
                 Compute.sendEffectLastTime(player, NewRuneItems.forestNewRune.get(), 100);
-                Compute.coolDownTimeSend(player, NewRuneItems.forestNewRune.get(), 1200);
+                Compute.sendCoolDownTime(player, NewRuneItems.forestNewRune.get(), 1200);
                 return true;
             }
         }

@@ -73,7 +73,7 @@ public class EvokerNewRune extends WraqCurios implements RuneItem, UsageOrGetWay
                                 player.position().add(0, 1, 0), mob.getEyePosition(), ParticleTypes.WITCH);
                     });
                     Mana.addOrCostPlayerMana(player, Mana.getPlayerMaxManaNum(player) * Math.min(5, mobList.size()) * 0.05);
-                    Compute.coolDownTimeSend(player, NewRuneItems.evokerNewRune.get(), 80);
+                    Compute.sendCoolDownTime(player, NewRuneItems.evokerNewRune.get(), 80);
                 }
             }
         }

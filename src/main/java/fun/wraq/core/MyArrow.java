@@ -6,6 +6,7 @@ import fun.wraq.common.attribute.DamageInfluence;
 import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.attribute.SameTypeModule;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.onhit.OnCritHitEffectMainHandWeapon;
 import fun.wraq.common.impl.onhit.OnHitEffectEquip;
 import fun.wraq.common.impl.onhit.OnHitEffectPassiveEquip;
@@ -15,9 +16,11 @@ import fun.wraq.customized.uniform.bow.BowCurios0;
 import fun.wraq.entities.entities.Civil.Civil;
 import fun.wraq.events.modules.AttackEventModule;
 import fun.wraq.process.func.EnhanceNormalAttackModifier;
+import fun.wraq.process.func.StableTierAttributeModifier;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.element.Element;
+import fun.wraq.process.system.skill.BowSkillTree;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.castle.CastleBow;
 import fun.wraq.series.instance.series.castle.CastleSwiftArmor;
@@ -35,7 +38,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
@@ -188,11 +190,10 @@ public class MyArrow extends AbstractArrow {
         return super.shouldRender(p_20296_, p_20297_, p_20298_);
     }
 
-    public static void CauseDamage(MyArrow myArrow, Entity entity, double baseDamage) {
+    public static void causeDamage(MyArrow myArrow, Entity entity, double rate) {
         if (myArrow.player == null) return;
         Player player = myArrow.player;
         CompoundTag data = player.getPersistentData();
-        CompoundTag dataArrow = myArrow.getPersistentData();
         Level level = player.level();
         boolean shootByPlayer = myArrow.WhetherShootByPlayer;
         double defencePenetration = PlayerAttributes.defencePenetration(player);
@@ -201,15 +202,19 @@ public class MyArrow extends AbstractArrow {
         double critDamage = PlayerAttributes.critDamage(player);
         ItemStack mainHandItem = player.getItemInHand(InteractionHand.MAIN_HAND);
         if (entity instanceof Mob monster && !level.isClientSide) {
-            Utils.PlayerFireWorkFightCoolDown.put(player, player.getServer().getTickCount() + 200);
+            Utils.PlayerFireWorkFightCoolDown.put(player, Tick.get() + 200);
             int tickCount = Objects.requireNonNull(player.getServer()).getTickCount();
             double defence = MobAttributes.defence(monster);
 
             if (shootByPlayer) {
-                baseDamage *= DamageInfluence.getPlayerNormalAttackBaseRate(player, 1);
-                baseDamage *= BowCurios0.BaseDamageEnhance(player);
+                rate += DamageInfluence.getPlayerNormalAttackBaseRate(player, 1);
+                rate += BowCurios0.BaseDamageEnhance(player);
             }
 
+            rate += StableTierAttributeModifier
+                    .getModifierValue(player, StableTierAttributeModifier.baseArrowDamageEnhanceRate);
+
+            double baseDamage = PlayerAttributes.attackDamage(player) * rate;
             double damage;
             double exDamage = 0;
             double damageIgnoreDefence = 0;
@@ -219,7 +224,6 @@ public class MyArrow extends AbstractArrow {
             AttackEventModule.SnowArmorEffect(player, monster); //冰川增幅
 
             exDamage += AttackEventModule.BowSkill12(data, player, baseDamage); // 热能注入（移动、攻击以及受到攻击将会获得充能，当充能满时，下一次攻击将造成额外200%伤害，并在以目标为中心范围内造成100%伤害）
-            exDamage += AttackEventModule.BowSkill14(data, player, baseDamage); // 全神贯注（完成一次攻击后，基于时间在下次攻击额外造成至多500%的额外伤害，在攻击间隔时间5s后达最大值）
             exDamage += AttackEventModule.BlackForest(player, monster); // 灵魂收割者主动
             exDamage += TabooSwiftArmor.ExDamage(player);
 
@@ -248,7 +252,7 @@ public class MyArrow extends AbstractArrow {
 
             if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false)) {
                 player.sendSystemMessage(Component.literal("---NormalBowAttack---"));
-                player.sendSystemMessage(Component.literal("Damage : " + damage));
+                player.sendSystemMessage(Component.literal("baseDamage : " + baseDamage));
                 player.sendSystemMessage(Component.literal("ExDamage : " + exDamage));
                 player.sendSystemMessage(Component.literal("DamageIgnoreDefence : " + damageIgnoreDefence));
             }
@@ -308,7 +312,6 @@ public class MyArrow extends AbstractArrow {
             AttackEventModule.BowPositiveEffect(mainHandItem, player, data, tickCount);
             AttackEventModule.BowSkill3Attack(data, player, monster); // 习惯获取（对一名目标的持续攻击，可以使你对该目标的伤害至多提升至2%，在3次攻击后达到最大值）
             AttackEventModule.BowSkill12Attack(data, player); // 盈能攻击（移动、攻击以及受到攻击将会获得充能，当充能满时，下一次攻击将造成额外200%伤害，并在以目标为中心范围内造成100%伤害）
-            AttackEventModule.BowSkill13Attack(data, player, monster); // 箭雨（每过10s，下次攻击将在箭矢落点造成箭雨）
             AttackEventModule.ManaKnifeHealthRecover(player); // 猎魔者小刀
             AttackEvent.SpringSwiftArmor(player, monster);
             Compute.ChargingModule(data, player);
@@ -319,6 +322,7 @@ public class MyArrow extends AbstractArrow {
                 Compute.AdditionEffects(player, monster, damage + damageIgnoreDefence, 0);
                 OnHitEffectEquip.hit(player, monster);
                 SameTypeModule.onNormalAttackHitMob(player, monster, 0, damage + damageIgnoreDefence);
+                BowSkillTree.skillIndex13(player);
             }
             if (myArrow.mainShoot) {
                 OnHitEffectPassiveEquip.hit(player, monster);
@@ -333,47 +337,6 @@ public class MyArrow extends AbstractArrow {
                 player.sendSystemMessage(Component.literal("Damage + DamageIgnoreDefence : " + (damage + damageIgnoreDefence)));
                 player.sendSystemMessage(Component.literal("——————————————————————————————————————————"));
             }
-        }
-        if (entity instanceof Player hurter) {
-            AttackEventModule.BowSkill6Attack(data, player, true); // 连续命中目标的箭矢，将会提供至多30%攻击力加成
-            int TickCount = Objects.requireNonNull(hurter.getServer()).getTickCount();
-
-            double Defence = PlayerAttributes.defence(hurter);
-            double damage;
-            double ExDamage = 0;
-            double DamageIgnoreDefence = 0;
-            double DamageEnhance = 0;
-
-            ExDamage += AttackEventModule.BowSkill12(data, player, baseDamage); // 热能注入（移动、攻击以及受到攻击将会获得充能，当充能满时，下一次攻击将造成额外200%伤害，并在以目标为中心范围内造成100%伤害）
-            ExDamage += AttackEventModule.BowSkill14(data, player, baseDamage); // 全神贯注（完成一次攻击后，基于时间在下次攻击额外造成至多500%的额外伤害，在攻击间隔时间5s后达最大值）
-
-            DamageIgnoreDefence += AttackEventModule.BowSkill0(data, baseDamage); // 弓术热诚（你的箭矢额外造成攻击力1%的真实伤害）
-
-            DamageEnhance += AttackEventModule.BowSkill3(data, player, hurter); // 习惯获取（对一名目标的持续攻击，可以使你对该目标的伤害至多提升至2%，在3次攻击后达到最大值）
-            DamageEnhance += Compute.getBowSkillLevel(data, 4) * 0.03; // 专注训练（额外造成3%的伤害，额外受到1.5%的伤害）
-
-            if (Defence == 0)
-                Defence = (double) Objects.requireNonNull(hurter.getAttribute(Attributes.ARMOR)).getValue();
-            if (RandomUtils.nextDouble(0, 1) < critRate) {
-                AttackEventModule.BowSkill5(data, player); // 狂暴（造成暴击后，提升1%攻击力，持续5s）
-                if (defencePenetration0 >= Defence) damage = baseDamage * (1.0d + critDamage);
-                else
-                    damage = baseDamage * (1.0d + critDamage) * Damage.defenceDamageDecreaseRate(Defence, defencePenetration, defencePenetration0);
-                data.putBoolean(StringUtils.DamageTypes.Crit, true);
-            } else {
-                if (defencePenetration0 >= Defence) damage = baseDamage;
-                else
-                    damage = baseDamage * Damage.defenceDamageDecreaseRate(Defence, defencePenetration, defencePenetration0);
-            }
-            damage *= AttackEventModule.NetherBowDamageEnhance(myArrow, dataArrow, hurter);
-            damage += ExDamage;
-            damage *= (1 + DamageEnhance);
-            DamageIgnoreDefence *= (1 + DamageEnhance);
-            Damage.DirectDamageToPlayer(player, hurter, (damage + DamageIgnoreDefence) * 0.1f);
-            AttackEventModule.BowPositiveEffect(mainHandItem, player, data, TickCount);
-            AttackEventModule.BowSkill3Attack(data, player, hurter); // 习惯获取（对一名目标的持续攻击，可以使你对该目标的伤害至多提升至2%，在3次攻击后达到最大值）
-            AttackEventModule.BowSkill12Attack(data, player); // 热能注入（移动、攻击以及受到攻击将会获得充能，当充能满时，下一次攻击将造成额外200%伤害，并在以目标为中心范围内造成100%伤害）
-            AttackEventModule.BowSkill13Attack(data, player, hurter); // 箭雨（每过10s，下次攻击将在箭矢落点造成箭雨）
         }
     }
 }

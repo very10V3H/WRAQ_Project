@@ -562,11 +562,11 @@ public class ClientUtils {
 
     public static int SpringInstanceAttackCount = 0;
 
-    public static List<EffectTimeLast> effectTimeLasts = new ArrayList<>();
-    public static List<EffectTimeLast> coolDownTimes = new ArrayList<>();
+    public static List<HudIcon> effectTimeLasts = new ArrayList<>();
+    public static List<HudIcon> coolDownTimes = new ArrayList<>();
     public static List<EffectTimeLast> debuffTimes = new ArrayList<>();
 
-    public record Effect(ItemStack itemStack, String tag, int startTick, int lastTick, int level, boolean forever) {}
+    public record Effect(String url, String tag, int startTick, int lastTick, int level, boolean forever) {}
 
     public static int clientPlayerTick = 0;
 

@@ -65,7 +65,7 @@ public class NewArrowMagma extends AbstractArrow {
         super.onHitEntity(result);
         if (this.player != null && !level().isClientSide) {
             Entity entity = result.getEntity();
-            ManaAttackModule.BasicAttack(player, entity, BaseDamage, BreakDefence, BreakDefence0, level(), this, true);
+            ManaAttackModule.BasicAttack(player, entity, 1, BreakDefence, BreakDefence0, level(), this, true);
         }
     }
 

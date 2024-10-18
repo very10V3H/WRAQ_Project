@@ -98,7 +98,7 @@ public class LightningArmor extends WraqArmor implements OnHitEffectEquip {
                                             });
                                 });
                         Compute.removeEffectLastTime(player, ModItems.LIGHTNING_CHEST.get());
-                        Compute.coolDownTimeSend(player, ModItems.LIGHTNING_CHEST.get(), 80);
+                        Compute.sendCoolDownTime(player, ModItems.LIGHTNING_CHEST.get(), 80);
                     }));
             Compute.sendEffectLastTime(player, ModItems.LIGHTNING_CHEST.get(), 0, true);
         }

@@ -25,7 +25,7 @@ public class RemoveEffectLastTimeS2CPacket {
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
-            ClientUtils.effectTimeLasts.removeIf(effectTimeLast -> effectTimeLast.itemStack.getItem().equals(itemStack.getItem()));
+            ClientUtils.effectTimeLasts.removeIf(hudIcon -> hudIcon.url.equals("item/" + this.itemStack.getItem()));
         });
         return true;
     }

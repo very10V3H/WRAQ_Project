@@ -43,7 +43,7 @@ public class SoulSceptreC2SPacket {
                 serverPlayer.level().addFreshEntity(meteorite);
                 Utils.PlayerSoulSceptreCoolDown.put((Player) serverPlayer,
                         TickCount + (int) (160 * (1 - PlayerAttributes.coolDownDecrease(serverPlayer))));
-                Compute.coolDownTimeSend(serverPlayer, ModItems.SoulSceptre.get().getDefaultInstance(),
+                Compute.sendCoolDownTime(serverPlayer, ModItems.SoulSceptre.get().getDefaultInstance(),
                         (int) (160 * (1 - PlayerAttributes.coolDownDecrease(serverPlayer))));
             }
         });

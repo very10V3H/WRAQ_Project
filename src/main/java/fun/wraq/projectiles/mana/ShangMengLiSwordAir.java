@@ -5,7 +5,6 @@ import fun.wraq.common.registry.ModEntityType;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.core.ManaAttackModule;
 import fun.wraq.process.func.damage.Damage;
-import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.render.hud.Mana;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
@@ -72,7 +71,7 @@ public class ShangMengLiSwordAir extends AbstractArrow implements GeoEntity {
                         PlayerAttributes.manaDamage(player),
                         PlayerAttributes.manaPenetration(player),
                         PlayerAttributes.manaPenetration0(player), StringUtils.ParticleTypes.EndParticle);
-                ManaAttackModule.BasicAttack(player, entity, PlayerAttributes.manaDamage(player),
+                ManaAttackModule.BasicAttack(player, entity, 1,
                         PlayerAttributes.manaPenetration(player), PlayerAttributes.manaPenetration0(player),
                         player.level(), newArrow, true);
                 Mana.addOrCostPlayerMana(player, 20);

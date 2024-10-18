@@ -7,6 +7,7 @@ import fun.wraq.commands.stable.ops.RoadCommand;
 import fun.wraq.commands.stable.players.DpsCommand;
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.StringUtils;
@@ -419,48 +420,37 @@ public class ServerPlayerTickEvent {
             {
                 serverPlayer.setExperienceLevels(data.getInt(StringUtils.ExpLevel));
                 if (data.contains("Xp")) {
-                    double Xp = data.getDouble("Xp");
-                    int XpLevel = player.experienceLevel;
+                    double xpValue = data.getDouble("Xp");
+                    int oldLevel = player.experienceLevel;
                     double needXpForLevelUp = Compute.getCurrentXpLevelUpNeedXpPoint(player.experienceLevel);
-                    double Rate = Xp / needXpForLevelUp;
-                    if (Rate >= 1) {
-
-                        if (XpLevel == 99)
-                            InventoryOperation.itemStackGive(player, ModItems.SkillReset.get().getDefaultInstance());
-                        ModNetworking.sendToClient(new SoundsS2CPacket(3), serverPlayer);
-                        if (!data.contains(StringUtils.AbilityPoint_Total)) {
-                            data.putInt(StringUtils.AbilityPoint_Total, XpLevel);
-                        } else {
-                            data.putInt(StringUtils.AbilityPoint_Total, data.getInt(StringUtils.AbilityPoint_Total) + 1);
-                        }
-                        Compute.sendFormatMSG(player, Component.literal("维瑞阿契").withStyle(ChatFormatting.AQUA),
-                                Component.literal("你获得了一点能力点，当前剩余的能力点为: " +
-                                        (data.getInt(StringUtils.AbilityPoint_Total) - data.getInt(StringUtils.AbilityPoint_Used))).withStyle(ChatFormatting.WHITE));
-
-                        if (!data.contains(StringUtils.SkillPoint_Total)) {
-                            data.putInt(StringUtils.SkillPoint_Total, XpLevel);
-                        } else {
-                            data.putInt(StringUtils.SkillPoint_Total, data.getInt(StringUtils.SkillPoint_Total) + 1);
-                        }
-                        Compute.sendFormatMSG(player, Component.literal("维瑞阿契").withStyle(ChatFormatting.AQUA),
-                                Component.literal("你获得了一点专精点，当前剩余的专精点为: " +
-                                        (data.getInt(StringUtils.SkillPoint_Total) - data.getInt(StringUtils.SkillPoint_Used))).withStyle(ChatFormatting.WHITE));
-
-
+                    double rate = xpValue / needXpForLevelUp;
+                    if (rate >= 1) {
                         ((ServerPlayer) player).setExperiencePoints(0);
-                        ((ServerPlayer) player).setExperienceLevels(XpLevel + 1);
-                        data.putInt(StringUtils.ExpLevel, XpLevel + 1);
-                        data.putDouble("Xp", Xp - needXpForLevelUp);
-                        player.experienceProgress = (float) Rate;
-                        if (player.experienceLevel % 5 == 0 && player.experienceLevel <= 60) {
-                            int num = player.experienceLevel;
+                        ((ServerPlayer) player).setExperienceLevels(oldLevel + 1);
+                        data.putInt(StringUtils.ExpLevel, oldLevel + 1);
+                        data.putDouble("Xp", xpValue - needXpForLevelUp);
+                        player.experienceProgress = (float) rate;
 
-                            ModNetworking.sendToClient(new SoundsS2CPacket(3), (ServerPlayer) player);
-                            Compute.sendFormatMSG(player, Component.literal("经验").withStyle(ChatFormatting.LIGHT_PURPLE),
-                                    Component.literal(player.getName().getString() + "通过探索，达到了").withStyle(ChatFormatting.WHITE).
-                                            append(Component.literal("" + num).withStyle(ChatFormatting.LIGHT_PURPLE)).
-                                            append(Component.literal("级").withStyle(ChatFormatting.WHITE)));
+                        if ((oldLevel + 1) % 2 == 0) {
+                            if (!data.contains(StringUtils.AbilityPoint_Total)) {
+                                data.putInt(StringUtils.AbilityPoint_Total, (oldLevel + 1) / 2);
+                            } else {
+                                data.putInt(StringUtils.AbilityPoint_Total, data.getInt(StringUtils.AbilityPoint_Total) + 1);
+                            }
+                            Compute.sendFormatMSG(player, Component.literal("维瑞阿契").withStyle(ChatFormatting.AQUA),
+                                    Component.literal("你获得了一点能力点，当前剩余的能力点为: " +
+                                            (data.getInt(StringUtils.AbilityPoint_Total) - data.getInt(StringUtils.AbilityPoint_Used))).withStyle(ChatFormatting.WHITE));
+
+                            if (!data.contains(StringUtils.SkillPoint_Total)) {
+                                data.putInt(StringUtils.SkillPoint_Total, (oldLevel + 1) / 2);
+                            } else {
+                                data.putInt(StringUtils.SkillPoint_Total, data.getInt(StringUtils.SkillPoint_Total) + 1);
+                            }
+                            Compute.sendFormatMSG(player, Component.literal("维瑞阿契").withStyle(ChatFormatting.AQUA),
+                                    Component.literal("你获得了一点专精点，当前剩余的专精点为: " +
+                                            (data.getInt(StringUtils.SkillPoint_Total) - data.getInt(StringUtils.SkillPoint_Used))).withStyle(ChatFormatting.WHITE));
                         }
+
                         if (player.experienceLevel % 5 == 0) {
                             ModNetworking.sendToClient(new SoundsS2CPacket(3), (ServerPlayer) player);
                             ItemStack itemStack = ModItems.gemPiece.get().getDefaultInstance();
@@ -468,15 +458,17 @@ public class ServerPlayerTickEvent {
                             Compute.sendFormatMSG(player, Component.literal("经验").withStyle(ChatFormatting.LIGHT_PURPLE),
                                     Component.literal("通过提升等级，你获得了").withStyle(ChatFormatting.WHITE).append(itemStack.getDisplayName()));
                             InventoryOperation.itemStackGive(player, itemStack);
-                            Compute.sendFormatMSG(player, Component.literal("经验").withStyle(ChatFormatting.LIGHT_PURPLE),
-                                    Component.literal(player.getName().getString() + "通过探索，达到了").withStyle(ChatFormatting.WHITE).
-                                            append(Component.literal(String.valueOf(player.experienceLevel)).withStyle(ChatFormatting.LIGHT_PURPLE)).
-                                            append(Component.literal("级").withStyle(ChatFormatting.WHITE)));
+                            Compute.formatBroad(player.level(), Te.m("经验", ChatFormatting.LIGHT_PURPLE),
+                                    Te.s(player.getName(), " 通过探索，达到了", String.valueOf(player.experienceLevel), ChatFormatting.LIGHT_PURPLE, "级"));
                         }
+                        if (oldLevel == 99) {
+                            InventoryOperation.itemStackGive(player, ModItems.SkillReset.get().getDefaultInstance());
+                        }
+                        ModNetworking.sendToClient(new SoundsS2CPacket(3), serverPlayer);
                     } else {
                         ((ServerPlayer) player).setExperiencePoints(0);
-                        ((ServerPlayer) player).setExperienceLevels(XpLevel);
-                        player.experienceProgress = (float) Rate;
+                        ((ServerPlayer) player).setExperienceLevels(oldLevel);
+                        player.experienceProgress = (float) rate;
                     }
                 }
             }

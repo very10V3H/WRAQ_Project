@@ -11,7 +11,6 @@ import fun.wraq.common.util.struct.SwordSkillStruct.SwordSkill13;
 import fun.wraq.common.util.struct.SwordSkillStruct.SwordSkill3;
 import fun.wraq.common.util.struct.SwordSkillStruct.SwordSkill6;
 import fun.wraq.core.AttackEvent;
-import fun.wraq.core.MyArrow;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.ParticlePackets.SlowDownParticleS2CPacket;
@@ -37,11 +36,9 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -470,35 +467,6 @@ public class AttackEventModule {
             ModNetworking.sendToClient(new ChargedClearS2CPacket(1), (ServerPlayer) player);
         }
     }
-
-    public static double BowSkill14(CompoundTag data, Player player, double BaseDamage) {
-        if (Compute.getBowSkillLevel(data, 14) > 0) {
-            int TickCount = Objects.requireNonNull(player.getServer()).getTickCount();
-            double rate = ((TickCount - data.getInt(StringUtils.BowSkillNum.Skill14)) / 400d);
-            if (rate > 1) rate = 1;
-            data.putInt(StringUtils.BowSkillNum.Skill14, TickCount);
-            return BaseDamage * Compute.getBowSkillLevel(data, 14) * rate * 2;
-        }
-        return 0;
-    }
-
-    public static void BowSkill13Attack(CompoundTag data, Player player, Entity entity) {
-        int TickCount = player.getServer().getTickCount();
-        if (Compute.getBowSkillLevel(data, 13) > 0 && data.getInt(StringUtils.BowSkillNum.Skill13) < TickCount) {
-            Level level = player.level();
-            double damage = PlayerAttributes.attackDamage(player);
-            Random random = new Random();
-            for (int i = 0; i < 20; i++) {
-                MyArrow arrow = new MyArrow(EntityType.ARROW, level, player, damage, false);
-                arrow.setDeltaMovement(0, -1, 0);
-                arrow.moveTo(entity.getX() + random.nextInt(-2, 2), entity.getY() + random.nextInt(-5, 5) + 10, entity.getZ() + random.nextInt(-2, 2));
-                ProjectileUtil.rotateTowardsMovement(arrow, 0);
-                level.addFreshEntity(arrow);
-            }
-            data.putInt(StringUtils.BowSkillNum.Skill13, TickCount + 200);
-            ModNetworking.sendToClient(new SkillImageS2CPacket(14, 10, 10, 0, 1), (ServerPlayer) player);
-        }
-    } // 箭雨
 
     public static void SnowArmorEffect(Player player, Mob monster) {
         if (SuitCount.getSnowSuitCount(player) >= 4) {

@@ -97,7 +97,7 @@ public class LightningNewRune extends WraqCurios implements RuneItem, UsageOrGet
         Random random = new Random();
         if (!cooldownMap.containsKey(name) || cooldownMap.get(name) < tick) {
             cooldownMap.put(name, tick + 160);
-            Compute.coolDownTimeSend(player, NewRuneItems.lightningNewRune.get(), 160);
+            Compute.sendCoolDownTime(player, NewRuneItems.lightningNewRune.get(), 160);
             List<Mob> mobList = mob.level().getEntitiesOfClass(Mob.class, AABB.ofSize(mob.position(), 16, 16, 16));
             mobList.removeIf(mob1 -> mob1.distanceTo(mob) > 8);
             mobList.forEach(soleMob -> {

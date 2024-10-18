@@ -1,6 +1,7 @@
 package fun.wraq.customized.uniform.attack;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.customized.UniformItems;
 import fun.wraq.customized.WraqUniformCurios;
@@ -55,18 +56,18 @@ public class AttackCurios1 extends WraqAttackUniformCurios {
 
     public static void playerCritEffect(Player player) {
         if (!isOn(player)) return;
-        if (!playerLastTickMap.containsKey(player) || playerLastTickMap.get(player) < player.getServer().getTickCount()) {
+        if (!playerLastTickMap.containsKey(player) || playerLastTickMap.get(player) < Tick.get()) {
             playerCountsMap.put(player, 0);
         }
-        playerLastTickMap.put(player, player.getServer().getTickCount() + 100);
+        playerLastTickMap.put(player, Tick.get() + 100);
         int counts = Math.min(5, playerCountsMap.getOrDefault(player, 0) + 1);
         playerCountsMap.put(player, counts);
-        Compute.sendEffectLastTime(player, UniformItems.AttackCurios1.get(), 100, counts);
+        Compute.sendEffectLastTime(player, UniformItems.AttackCurios1.get(), 100, counts, false);
     }
 
     public static double playerCritDamageUp(Player player) {
         if (!isOn(player)) return 0;
-        if (playerLastTickMap.getOrDefault(player, 0) > player.getServer().getTickCount()) {
+        if (playerLastTickMap.getOrDefault(player, 0) > Tick.get()) {
             return 0.2 * playerCountsMap.getOrDefault(player, 0);
         }
         return 0;
@@ -74,7 +75,7 @@ public class AttackCurios1 extends WraqAttackUniformCurios {
 
     public static double playerAttackDamageEnhance(Player player) {
         if (!isOn(player)) return 1;
-        if (playerLastTickMap.getOrDefault(player, 0) > player.getServer().getTickCount()) {
+        if (playerLastTickMap.getOrDefault(player, 0) > Tick.get()) {
             return 1 + 0.05 * playerCountsMap.getOrDefault(player, 0);
         }
         return 1;

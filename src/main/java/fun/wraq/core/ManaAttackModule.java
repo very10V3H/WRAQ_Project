@@ -39,7 +39,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -50,46 +49,44 @@ import java.util.Objects;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static java.lang.Math.E;
-import static java.lang.Math.log;
-
 public class ManaAttackModule {
 
-    public static void BasicAttack(Player player, Entity entity, double baseDamage, double DefencePenetration,
-                                   double DefencePenetration0, Level level, Entity Arrow, boolean mainShoot) {
+    public static void BasicAttack(Player player, Entity entity, double rate, double defencePenetration,
+                                   double defencePenetration0, Level level, Entity arrow, boolean mainShoot) {
         if (player == null) return;
         CompoundTag data = player.getPersistentData();
 
         if (entity instanceof Mob monster && !(entity instanceof Villager)) {
 
             Utils.PlayerFireWorkFightCoolDown.put(player, player.getServer().getTickCount() + 200);
-            double damage = baseDamage * DamageInfluence.getPlayerNormalAttackBaseRate(player, 2);
 
+            rate += DamageInfluence.getPlayerNormalAttackBaseRate(player, 2);
+            double damage = PlayerAttributes.manaDamage(player) * rate;
             double defence = MobAttributes.manaDefence(monster);
             double exDamage = 0;
-            double damageIgnoreDefence = 0;
+            double trueDamage = 0;
             double healthSteal = PlayerAttributes.manaHealthSteal(player);
 
-            exDamage += ManaSkill12(data, player, baseDamage); // 盈能攻击（移动、攻击以及受到攻击将会获得充能，当充能满时，下一次攻击将造成额外200%伤害，并在以目标为中心的范围内造成100%伤害）
+            exDamage += ManaSkill12(data, player, damage); // 盈能攻击（移动、攻击以及受到攻击将会获得充能，当充能满时，下一次攻击将造成额外200%伤害，并在以目标为中心的范围内造成100%伤害）
             exDamage += BlackForestCore(player, monster); // 收割魔核
             exDamage += EarthManaArmor(player, monster); // 地蕴魔法被动
 
-            damageIgnoreDefence += Compute.getManaSkillLevel(data, 0) * baseDamage * 0.01; // 法术热诚（你的法术攻击额外造成法术攻击1%的真实伤害）
-            damageIgnoreDefence += ManaSKill6(data, player, baseDamage); // 完美（持续命中目标，将至多造成50%额外真实伤害）
-            damageIgnoreDefence += SeaCore(player, monster); // 救赎魔核
-            damageIgnoreDefence += SakuraCoreExIgnoreDefenceDamage(player); // 樱妖魔核
-            damageIgnoreDefence += MoonCurios.Passive(player, monster); // 朔望馈赠
-            damageIgnoreDefence += CastleManaArmor.ExIgnoreDefenceDamage(player);
+            trueDamage += Compute.getManaSkillLevel(data, 0) * damage * 0.01; // 法术热诚（你的法术攻击额外造成法术攻击1%的真实伤害）
+            trueDamage += ManaSKill6(data, player, damage); // 完美（持续命中目标，将至多造成50%额外真实伤害）
+            trueDamage += SeaCore(player, monster); // 救赎魔核
+            trueDamage += SakuraCoreExIgnoreDefenceDamage(player); // 樱妖魔核
+            trueDamage += MoonCurios.Passive(player, monster); // 朔望馈赠
+            trueDamage += CastleManaArmor.ExIgnoreDefenceDamage(player);
 
             if (Compute.getManaSkillLevel(data, 5) > 0 && player.getHealth() / player.getMaxHealth() < 0.8) {
-                damageIgnoreDefence += baseDamage * 0.02 * Compute.getManaSkillLevel(data, 5);
+                trueDamage += damage * 0.02 * Compute.getManaSkillLevel(data, 5);
             } // 危机意识（当生命值低于50%时，造成额外20%真实伤害）
 
-            double DamageEnhance = 0; // 乘区0
-            DamageEnhance += SakuraCoreDecreaseDamage(player); // 樱妖魔核
-            DamageEnhance += DamageInfluence.getPlayerCommonDamageUpOrDown(player, monster);
-            DamageEnhance += IceInstance.IceKnightHealthManaDamageFix(monster); // 冰霜骑士伤害修正
-            DamageEnhance += DamageInfluence.getPlayerManaDamageEnhance(player); // 魔法伤害提升
+            double damageEnhance = 0; // 乘区0
+            damageEnhance += SakuraCoreDecreaseDamage(player); // 樱妖魔核
+            damageEnhance += DamageInfluence.getPlayerCommonDamageUpOrDown(player, monster);
+            damageEnhance += IceInstance.IceKnightHealthManaDamageFix(monster); // 冰霜骑士伤害修正
+            damageEnhance += DamageInfluence.getPlayerManaDamageEnhance(player); // 魔法伤害提升
 
             double NormalAttackDamageEnhance = 0;
             NormalAttackDamageEnhance += DamageInfluence.getPlayerNormalManaAttackDamageEnhance(player); // 普通法球攻击伤害提升
@@ -99,26 +96,26 @@ public class ManaAttackModule {
 
             if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false)) {
                 player.sendSystemMessage(Component.literal("---NormalManaAttack---"));
-                player.sendSystemMessage(Component.literal("Damage : " + damage));
+                player.sendSystemMessage(Component.literal("baseDamage : " + damage));
                 player.sendSystemMessage(Component.literal("ExDamage : " + exDamage));
-                player.sendSystemMessage(Component.literal("DamageIgnoreDefence : " + damageIgnoreDefence));
+                player.sendSystemMessage(Component.literal("DamageIgnoreDefence : " + trueDamage));
             }
 
-            damage *= (1 + DamageEnhance) * (1 + NormalAttackDamageEnhance);
-            exDamage *= (1 + DamageEnhance);
-            damageIgnoreDefence *= (1 + DamageEnhance);
+            damage *= (1 + damageEnhance) * (1 + NormalAttackDamageEnhance);
+            exDamage *= (1 + damageEnhance);
+            trueDamage *= (1 + damageEnhance);
             damage += exDamage;
             // final damage enhance
             damage *= (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, monster));
-            damageIgnoreDefence *= (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, monster));
+            trueDamage *= (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, monster));
             // defence compute
-            damage *= Damage.defenceDamageDecreaseRate(defence, DefencePenetration, DefencePenetration0);
+            damage *= Damage.defenceDamageDecreaseRate(defence, defencePenetration, defencePenetration0);
             // total damage
             damage *= DamageInfluence.getPlayerTotalDamageRate(player);
-            damageIgnoreDefence *= DamageInfluence.getPlayerTotalDamageRate(player);
+            trueDamage *= DamageInfluence.getPlayerTotalDamageRate(player);
             // mob control
             damage *= DamageInfluence.getMonsterControlDamageEffect(player, monster);
-            damageIgnoreDefence *= DamageInfluence.getMonsterControlDamageEffect(player, monster);
+            trueDamage *= DamageInfluence.getMonsterControlDamageEffect(player, monster);
             // 元素
             double ElementDamageEnhance = 0;
             double ElementDamageEffect = 1;
@@ -127,28 +124,28 @@ public class ManaAttackModule {
             Element.Unit playerUnit = Element.entityElementUnit.getOrDefault(player, new Element.Unit(Element.life, 0));
             elementType = playerUnit.type();
             if (playerUnit.value() > 0) {
-                ElementDamageEffect = Element.ElementEffectAddToEntity(player, monster, playerUnit.type(), playerUnit.value(), false, damage + damageIgnoreDefence);
+                ElementDamageEffect = Element.ElementEffectAddToEntity(player, monster, playerUnit.type(), playerUnit.value(), false, damage + trueDamage);
                 Element.entityElementUnit.put(player, new Element.Unit(Element.life, 0));
             }
 
-            double elementDamage = (damage + damageIgnoreDefence) * ((1 + ElementDamageEnhance) * ElementDamageEffect - 1);
+            double elementDamage = (damage + trueDamage) * ((1 + ElementDamageEnhance) * ElementDamageEffect - 1);
 
             damage *= (1 + ElementDamageEnhance) * ElementDamageEffect;
-            damageIgnoreDefence *= (1 + ElementDamageEnhance) * ElementDamageEffect;
+            trueDamage *= (1 + ElementDamageEnhance) * ElementDamageEffect;
             // final damage
-            Damage.DirectDamageToMob(player, monster, damage + damageIgnoreDefence);
+            Damage.DirectDamageToMob(player, monster, damage + trueDamage);
             // health steal
             Compute.healByHealthSteal(player, damage * healthSteal);
 
             // display
             if (isCrit)
-                Compute.summonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", damage + damageIgnoreDefence)).withStyle(CustomStyle.styleOfEntropy), 1);
+                Compute.summonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", damage + trueDamage)).withStyle(CustomStyle.styleOfEntropy), 1);
             else
-                Compute.summonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", damage + damageIgnoreDefence)).withStyle(CustomStyle.styleOfMana), 1);
+                Compute.summonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", damage + trueDamage)).withStyle(CustomStyle.styleOfMana), 1);
 
             if (elementDamage != 0 && !elementType.isEmpty())
-                Compute.damageActionBarPacketSend(player, damage, damageIgnoreDefence, true, isCrit, elementType, elementDamage);
-            else Compute.damageActionBarPacketSend(player, damage, damageIgnoreDefence, true, isCrit);
+                Compute.damageActionBarPacketSend(player, damage, trueDamage, true, isCrit, elementType, elementDamage);
+            else Compute.damageActionBarPacketSend(player, damage, trueDamage, true, isCrit);
 
             // effect
             PlainSceptrePassive(player);
@@ -157,9 +154,9 @@ public class ManaAttackModule {
             ManaSkill12Attack(data, player); // 盈能攻击（移动、攻击以及受到攻击将会获得充能，当充能满时，下一次攻击将造成额外200%伤害，并在以目标为中心的范围内造成100%伤害）
             ManaSkill13Attack(data, player); // 法术收集（移动、攻击以及受到攻击将会获得充能，当充能满时，下一次攻击将基于目标周围实体数量提供至多1000%的范围伤害，并回复自身50%的法力值）
             SakuraCore(player); // 樱妖魔核
-            MagmaPower(data, player, level, monster, Arrow);
+            MagmaPower(data, player, level, monster, arrow);
 
-            if (!(Arrow instanceof NewArrowMagma)) {
+            if (!(arrow instanceof NewArrowMagma)) {
                 List<Mob> mobList = level.getEntitiesOfClass(Mob.class, AABB.ofSize(monster.getPosition(1), 5, 5, 5));
                 for (Mob mob : mobList) {
                     if (mob != monster) {
@@ -174,11 +171,11 @@ public class ManaAttackModule {
             Compute.ChargingModule(data, player);
             IceBook.IceBookPassive(player, monster);
             Compute.manaDamageExEffect(player, monster, damage);
-            SameTypeModule.onNormalAttackHitMob(player, monster, 1, damage + damageIgnoreDefence);
+            SameTypeModule.onNormalAttackHitMob(player, monster, 1, damage + trueDamage);
 
             ManaCurios1.ManaDamageExTrueDamage(player, monster, damage);
             TreeBracelet.Passive(player, monster); // 古树手镯
-            Compute.AdditionEffects(player, monster, damage + damageIgnoreDefence, 1);
+            Compute.AdditionEffects(player, monster, damage + trueDamage, 1);
             OnHitEffectEquip.hit(player, monster);
             if (mainShoot) {
                 OnHitEffectPassiveEquip.hit(player, monster);
@@ -187,62 +184,13 @@ public class ManaAttackModule {
 
             if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false)) {
                 player.sendSystemMessage(Component.literal("NormalAttackDamageEnhance : " + NormalAttackDamageEnhance));
-                player.sendSystemMessage(Component.literal("DamageEnhance : " + DamageEnhance));
+                player.sendSystemMessage(Component.literal("DamageEnhance : " + damageEnhance));
                 player.sendSystemMessage(Component.literal("DamageEnhances.PlayerFinalDamageEnhance(player,monster) : " + DamageInfluence.getPlayerFinalDamageEnhance(player, monster)));
-                player.sendSystemMessage(Component.literal("Damage.defenceDamageDecreaseRate(Defence, DefencePenetration, DefencePenetration0) : " + Damage.defenceDamageDecreaseRate(defence, DefencePenetration, DefencePenetration0)));
+                player.sendSystemMessage(Component.literal("Damage.defenceDamageDecreaseRate(Defence, DefencePenetration, DefencePenetration0) : " + Damage.defenceDamageDecreaseRate(defence, defencePenetration, defencePenetration0)));
                 player.sendSystemMessage(Component.literal("ElementDamageEffect : " + ElementDamageEffect));
                 player.sendSystemMessage(Component.literal("ElementDamageEnhance : " + ElementDamageEnhance));
-                player.sendSystemMessage(Component.literal("Damage + DamageIgnoreDefence : " + (damage + damageIgnoreDefence)));
+                player.sendSystemMessage(Component.literal("Damage + DamageIgnoreDefence : " + (damage + trueDamage)));
                 player.sendSystemMessage(Component.literal("——————————————————————————————————————————"));
-            }
-        }
-        if (entity instanceof Player hurter) {
-            double damage;
-            double Defence = PlayerAttributes.manaDefence(hurter);
-            double ExDamage = 0;
-            double DamageIgnoreDefence = 0;
-            double DamageEnhance = 0;
-            double HealSteal = PlayerAttributes.manaHealthSteal(player);
-
-            ExDamage += ManaSkill12(data, player, baseDamage); // 盈能攻击（移动、攻击以及受到攻击将会获得充能，当充能满时，下一次攻击将造成额外200%伤害，并在以目标为中心的范围内造成100%伤害）
-
-            DamageIgnoreDefence += Compute.getManaSkillLevel(data, 0) * baseDamage * 0.01; // 法术热诚（你的法术攻击额外造成法术攻击1%的真实伤害）
-            if (Compute.getManaSkillLevel(data, 5) > 0 && player.getHealth() / player.getMaxHealth() < 0.5) {
-                DamageIgnoreDefence += baseDamage * 0.02 * Compute.getManaSkillLevel(data, 5);
-            } // 危机意识（当生命值低于50%时，造成额外20%真实伤害）
-            DamageIgnoreDefence += ManaSKill6(data, player, baseDamage); // 完美（持续命中目标，将至多造成50%额外真实伤害）
-
-            DamageEnhance += Compute.getManaSkillLevel(data, 4) * 0.03; // 法术专注（额外造成3%的伤害，额外受到1.5%的伤害）
-
-            if (Defence < DefencePenetration0) Defence = 0;
-            else Defence -= DefencePenetration0;
-
-            if (Defence < 0) Defence = Objects.requireNonNull(hurter.getAttribute(Attributes.ARMOR)).getValue();
-            damage = baseDamage * (1.0d - (0.25F * log(((Defence) * (1.0d - DefencePenetration)) * (E * E / 250) + 1)));
-            if (ManaRune2(data, player, hurter, damage)) damage *= 3;
-
-            damage += ExDamage;
-            damage *= (1 + DamageEnhance);
-            DamageIgnoreDefence *= (1 + DamageEnhance);
-
-            Damage.DirectDamageToPlayer(player, hurter, (damage + DamageIgnoreDefence) * 0.1f);
-
-            Compute.playerHeal(player, (damage + DamageIgnoreDefence) * HealSteal);
-
-            ManaSkill3Attack(data, player, hurter); // 机体解构（对一名目标的持续法术攻击，可以使你对该目标的伤害至多提升至2%，在5次攻击后达到最大值）
-            ManaSkill6Attack(data, player, true); // 完美（持续命中目标，将至多造成50%额外真实伤害）
-            ManaSkill12Attack(data, player); // 盈能攻击（移动、攻击以及受到攻击将会获得充能，当充能满时，下一次攻击将造成额外200%伤害，并在以目标为中心的范围内造成100%伤害）
-            ManaSkill13Attack(data, player); // 法术收集（移动、攻击以及受到攻击将会获得充能，当充能满时，下一次攻击将基于目标周围实体数量提供至多1000%的范围伤害，并回复自身50%的法力值）
-
-            MagmaPower(data, player, level, hurter, Arrow);
-
-            List<Player> playerList = level.getEntitiesOfClass(Player.class, AABB.ofSize(hurter.getPosition(1), 5, 5, 5));
-            for (Player player1 : playerList) {
-                if (player1 != player && player1 != hurter) {
-                    if (player1.getPosition(1).add(0, 1, 0).distanceTo(hurter.getPosition(1).add(0, 1, 0)) <= 2) {
-                        Damage.manaDamageToPlayer(hurter, player1, 0.5f);
-                    }
-                }
             }
         }
     }

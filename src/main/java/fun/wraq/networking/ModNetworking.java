@@ -11,6 +11,7 @@ import fun.wraq.networking.dailyMission.DailyMissionContentS2CPacket;
 import fun.wraq.networking.dailyMission.DailyMissionFinishedRequestC2SPacket;
 import fun.wraq.networking.dailyMission.DailyMissionFinishedTimeS2CPacket;
 import fun.wraq.networking.dailyMission.DailyMissionRequestC2SPacket;
+import fun.wraq.networking.hud.EffectLastTimeS2CPacket;
 import fun.wraq.networking.misc.AnimationPackets.*;
 import fun.wraq.networking.misc.AttackPackets.AttackC2SPacket;
 import fun.wraq.networking.misc.AttributePackets.*;
@@ -44,7 +45,7 @@ import fun.wraq.networking.misc.SmartPhonePackets.Currency.*;
 import fun.wraq.networking.misc.SoundsPackets.SoundsS2CPacket;
 import fun.wraq.networking.misc.TeamPackets.*;
 import fun.wraq.networking.misc.TestPackets.TestC2SPacket;
-import fun.wraq.networking.misc.ToolTipPackets.CoolDownTimeS2CPacket;
+import fun.wraq.networking.hud.CoolDownTimeS2CPacket;
 import fun.wraq.networking.misc.ToolTipPackets.DailyMissionS2CPacket;
 import fun.wraq.networking.misc.USE.*;
 import fun.wraq.networking.reputation.ReputationBuyRequestC2SPacket;
@@ -863,11 +864,6 @@ public class ModNetworking {
                 .decoder(EffectLastTimeS2CPacket::new)
                 .encoder(EffectLastTimeS2CPacket::toBytes)
                 .consumerMainThread(EffectLastTimeS2CPacket::handle)
-                .add();
-        net.messageBuilder(EffectLastTimeByItemIdS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
-                .decoder(EffectLastTimeByItemIdS2CPacket::new)
-                .encoder(EffectLastTimeByItemIdS2CPacket::toBytes)
-                .consumerMainThread(EffectLastTimeByItemIdS2CPacket::handle)
                 .add();
         net.messageBuilder(CoolDownTimeS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
                 .decoder(CoolDownTimeS2CPacket::new)

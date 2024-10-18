@@ -16,6 +16,7 @@ public record StableTierAttributeModifier(String tag, double eachTierValue, int 
     public static Map<LivingEntity, List<StableTierAttributeModifier>> percentDefence = new WeakHashMap<>();
     public static Map<LivingEntity, List<StableTierAttributeModifier>> percentManaDefence = new WeakHashMap<>();
     public static Map<LivingEntity, List<StableTierAttributeModifier>> onlyDisplay = new WeakHashMap<>();
+    public static Map<LivingEntity, List<StableTierAttributeModifier>> baseArrowDamageEnhanceRate = new WeakHashMap<>();
 
     public static List<StableTierAttributeModifier> getAttributeModifierList(LivingEntity entity, Map<LivingEntity, List<StableTierAttributeModifier>> modifierMap) {
         if (!modifierMap.containsKey(entity)) {
@@ -25,7 +26,7 @@ public record StableTierAttributeModifier(String tag, double eachTierValue, int 
     }
 
     public static void addAttributeModifier(LivingEntity entity, Map<LivingEntity, List<StableTierAttributeModifier>> modifierMap,
-                                            StableTierAttributeModifier modifier, Item icon) {
+                                            StableTierAttributeModifier modifier, String url) {
         List<StableTierAttributeModifier> modifierList = getAttributeModifierList(entity, modifierMap);
         List<StableTierAttributeModifier> removeList = new ArrayList<>();
         int highestTier = 0;
@@ -43,10 +44,10 @@ public record StableTierAttributeModifier(String tag, double eachTierValue, int 
         modifierList.add(new StableTierAttributeModifier(modifier.tag, modifier.eachTierValue,
                 modifier.stopTick, finalTier, modifier.maxTier));
         if (entity instanceof Mob mob) {
-            Compute.sendMobEffectHudToNearPlayer(mob, icon, modifier.tag, modifier.stopTick - Tick.get(), finalTier, false);
+            Compute.sendMobEffectHudToNearPlayer(mob, url, modifier.tag, modifier.stopTick - Tick.get(), finalTier, false);
         }
         if (entity instanceof Player player) {
-            Compute.sendEffectLastTime(player, icon, modifier.stopTick - Tick.get(), finalTier, false);
+            Compute.sendEffectLastTime(player, url, modifier.stopTick - Tick.get(), finalTier, false);
         }
     }
 
@@ -70,7 +71,12 @@ public record StableTierAttributeModifier(String tag, double eachTierValue, int 
 
     public static void addM(LivingEntity entity, Map<LivingEntity, List<StableTierAttributeModifier>> modifierMap,
                             String tag, double eachTierValue, int stopTick, int maxTier, Item icon) {
-        addAttributeModifier(entity, modifierMap, new StableTierAttributeModifier(tag, eachTierValue, stopTick, 1, maxTier), icon);
+        addAttributeModifier(entity, modifierMap, new StableTierAttributeModifier(tag, eachTierValue, stopTick, 1, maxTier), "item/" + icon);
+    }
+
+    public static void addM(LivingEntity entity, Map<LivingEntity, List<StableTierAttributeModifier>> modifierMap,
+                            String tag, double eachTierValue, int stopTick, int maxTier, String url) {
+        addAttributeModifier(entity, modifierMap, new StableTierAttributeModifier(tag, eachTierValue, stopTick, 1, maxTier), url);
     }
 
     public static double getModifierValue(LivingEntity entity, Map<LivingEntity, List<StableTierAttributeModifier>> modifierMap) {

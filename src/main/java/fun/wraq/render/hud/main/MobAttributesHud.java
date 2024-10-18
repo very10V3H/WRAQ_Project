@@ -42,7 +42,7 @@ public class MobAttributesHud {
                 for (ClientUtils.Effect effect : effectList) {
                     int time = (int) (12 * (1 - (double) (ClientUtils.clientPlayerTick - effect.startTick()) / effect.lastTick()));
                     if (time < 0 && !effect.forever()) continue;
-                    guiGraphics.blit(new ResourceLocation(Utils.MOD_ID, "textures/item/" + effect.itemStack().getItem().toString() + ".png"),
+                    guiGraphics.blit(new ResourceLocation(Utils.MOD_ID, "textures/" + effect.url() + ".png"),
                             count * 15 + offsetX, 60 + offsetY, 0, 0, 16, 16, 16, 16);
                     if (effect.forever()) time = 12;
                     guiGraphics.blit(ClientUtils.CdResourceLocation[time], count * 15 + offsetX, 60 + offsetY, 0, 0, 16, 16, 16, 16);

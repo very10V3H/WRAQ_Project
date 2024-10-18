@@ -5,7 +5,6 @@ import fun.wraq.common.registry.ModEntityType;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.core.ManaAttackModule;
 import fun.wraq.process.func.particle.ParticleProvider;
-import fun.wraq.projectiles.mana.ManaArrow;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
@@ -95,7 +94,7 @@ public class SwordAir extends AbstractArrow implements GeoEntity {
                                 PlayerAttributes.manaDamage(player),
                                 PlayerAttributes.manaPenetration(player),
                                 PlayerAttributes.manaPenetration0(player), StringUtils.ParticleTypes.Sea);
-                        ManaAttackModule.BasicAttack(player, mob, PlayerAttributes.manaDamage(player) * 0.5,
+                        ManaAttackModule.BasicAttack(player, mob,  0.5,
                                 PlayerAttributes.manaPenetration(player), PlayerAttributes.manaPenetration0(player),
                                 player.level(), newArrow, true);
                     } else {
@@ -103,7 +102,7 @@ public class SwordAir extends AbstractArrow implements GeoEntity {
                                 PlayerAttributes.manaDamage(player),
                                 PlayerAttributes.manaPenetration(player),
                                 PlayerAttributes.manaPenetration0(player), StringUtils.ParticleTypes.Sea);
-                        ManaAttackModule.BasicAttack(player, mob, PlayerAttributes.manaDamage(player) * 2,
+                        ManaAttackModule.BasicAttack(player, mob, 2,
                                 PlayerAttributes.manaPenetration(player), PlayerAttributes.manaPenetration0(player),
                                 player.level(), newArrow, true);
                     }
@@ -117,7 +116,7 @@ public class SwordAir extends AbstractArrow implements GeoEntity {
                                     PlayerAttributes.manaDamage(player),
                                     PlayerAttributes.manaPenetration(player),
                                     PlayerAttributes.manaPenetration0(player), StringUtils.ParticleTypes.Sea);
-                            ManaAttackModule.BasicAttack(player, mob, PlayerAttributes.manaDamage(player) * 2,
+                            ManaAttackModule.BasicAttack(player, mob, 2,
                                     PlayerAttributes.manaPenetration(player), PlayerAttributes.manaPenetration0(player),
                                     player.level(), newArrow, true);
                         } else {
@@ -125,7 +124,7 @@ public class SwordAir extends AbstractArrow implements GeoEntity {
                                     PlayerAttributes.manaDamage(player),
                                     PlayerAttributes.manaPenetration(player),
                                     PlayerAttributes.manaPenetration0(player), StringUtils.ParticleTypes.Sea);
-                            ManaAttackModule.BasicAttack(player, mob, PlayerAttributes.manaDamage(player) * 8,
+                            ManaAttackModule.BasicAttack(player, mob, 8,
                                     PlayerAttributes.manaPenetration(player), PlayerAttributes.manaPenetration0(player),
                                     player.level(), newArrow, true);
                         }

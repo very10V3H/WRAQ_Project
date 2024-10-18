@@ -2,11 +2,6 @@ package fun.wraq.networking.misc.SkillPackets;
 
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.networking.ModNetworking;
-import fun.wraq.networking.misc.SkillPackets.AbilityDataS2CPacket;
-import fun.wraq.networking.misc.SkillPackets.AbilityPointS2CPacket;
-import fun.wraq.networking.misc.SkillPackets.SkillDataS2CPacket;
-import fun.wraq.networking.misc.SkillPackets.SkillPointS2CPacket;
-import fun.wraq.networking.misc.SkillPackets.SkillSaveS2CPacket;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
@@ -32,14 +27,14 @@ public class SkillRequestC2SPacket {
         context.enqueueWork(() -> {
             ServerPlayer player = context.getSender();
             CompoundTag data = player.getPersistentData();
-            int XpLevel = player.experienceLevel;
+            int xpLevel = player.experienceLevel;
 
             if (!data.contains(StringUtils.SkillPoint_Total)) {
-                data.putInt(StringUtils.SkillPoint_Total, XpLevel);
+                data.putInt(StringUtils.SkillPoint_Total, xpLevel / 2);
             }
 
             if (!data.contains(StringUtils.AbilityPoint_Total)) {
-                data.putInt(StringUtils.AbilityPoint_Total, XpLevel);
+                data.putInt(StringUtils.AbilityPoint_Total, xpLevel / 2);
             }
 
             if (!data.contains(StringUtils.SkillPoint_Used)) {
@@ -71,25 +66,13 @@ public class SkillRequestC2SPacket {
             ModNetworking.sendToClient(new SkillDataS2CPacket(data.getInt(StringUtils.SkillArray[0]), data.getInt(StringUtils.SkillArray[1]), data.getInt(StringUtils.SkillArray[2])), player);
 
             if (!data.contains(StringUtils.SkillData.Sword)) {
-                StringBuilder SwordData = new StringBuilder();
-                for (int i = 0; i < 15; i++) {
-                    SwordData.append('0');
-                }
-                data.putString(StringUtils.SkillData.Sword, SwordData.toString());
+                data.putString(StringUtils.SkillData.Sword, "0".repeat(15));
             }
             if (!data.contains(StringUtils.SkillData.Bow)) {
-                StringBuilder BowData = new StringBuilder();
-                for (int i = 0; i < 15; i++) {
-                    BowData.append('0');
-                }
-                data.putString(StringUtils.SkillData.Bow, BowData.toString());
+                data.putString(StringUtils.SkillData.Bow, "0".repeat(15));
             }
             if (!data.contains(StringUtils.SkillData.Mana)) {
-                StringBuilder ManaData = new StringBuilder();
-                for (int i = 0; i < 15; i++) {
-                    ManaData.append('0');
-                }
-                data.putString(StringUtils.SkillData.Mana, ManaData.toString());
+                data.putString(StringUtils.SkillData.Mana, "0".repeat(15));
             }
 
             ModNetworking.sendToClient(new SkillSaveS2CPacket(data.getString(StringUtils.SkillData.Sword),
