@@ -3,7 +3,6 @@ package fun.wraq.common;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.logging.LogUtils;
-import fun.wraq.commands.changeable.CompensateCommand;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.equip.impl.RandomCurios;
@@ -1753,7 +1752,7 @@ public class Compute {
         rate += LabourDayIronHoe.playerExHarvest(player);
         rate += LabourDayIronPickaxe.playerExHarvest(player);
         rate += NewPotionEffects.exHarvestEnhance(player);
-        int tier = 0;
+        int tier;
         try {
             tier = PlanPlayer.getPlayerTier(player);
         } catch (ParseException e) {
@@ -1761,7 +1760,6 @@ public class Compute {
         }
         rate += new double[]{0, 0.15, 0.3, 0.5}[tier];
         /*rate += SummerEvent.exHarvest(player);*/
-        if (CompensateCommand.singleReward.equals("singleReward13")) rate += 0.5;
         return rate;
     }
 

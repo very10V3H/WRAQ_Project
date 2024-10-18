@@ -60,7 +60,7 @@ public class ManaAttackModule {
 
             Utils.PlayerFireWorkFightCoolDown.put(player, player.getServer().getTickCount() + 200);
 
-            rate += DamageInfluence.getPlayerNormalAttackBaseRate(player, 2);
+            rate += DamageInfluence.getPlayerNormalAttackBaseDamageEnhance(player, 2);
             double damage = PlayerAttributes.manaDamage(player) * rate;
             double defence = MobAttributes.manaDefence(monster);
             double exDamage = 0;

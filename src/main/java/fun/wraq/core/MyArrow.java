@@ -207,7 +207,7 @@ public class MyArrow extends AbstractArrow {
             double defence = MobAttributes.defence(monster);
 
             if (shootByPlayer) {
-                rate += DamageInfluence.getPlayerNormalAttackBaseRate(player, 1);
+                rate += DamageInfluence.getPlayerNormalAttackBaseDamageEnhance(player, 1);
                 rate += BowCurios0.BaseDamageEnhance(player);
             }
 

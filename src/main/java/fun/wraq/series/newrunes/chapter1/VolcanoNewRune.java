@@ -64,8 +64,8 @@ public class VolcanoNewRune extends WraqCurios implements RuneItem, UsageOrGetWa
     public static Map<String, Integer> playerAttackCounts = new HashMap<>();
 
     public static double attackEnhance(Player player) {
-        if (!isOn(player)) return 1;
-        double rate = 1;
+        if (!isOn(player)) return 0;
+        double rate = 0;
         String name = player.getName().getString();
         int counts = (playerAttackCounts.getOrDefault(name, 0) + 1);
         if (counts == 3) rate += 1;

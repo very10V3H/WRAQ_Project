@@ -82,7 +82,10 @@ import fun.wraq.series.end.eventController.LightningIslandRecall.IntensifiedLigh
 import fun.wraq.series.end.eventController.LightningIslandRecall.IntensifiedLightningSoul;
 import fun.wraq.series.end.eventController.LightningIslandRecall.LightningRecallSoul;
 import fun.wraq.series.end.eventController.NetherRecall1.ManaSword1;
-import fun.wraq.series.end.eventController.SpiderRecall.*;
+import fun.wraq.series.end.eventController.SpiderRecall.SpiderRecallArmorBoots;
+import fun.wraq.series.end.eventController.SpiderRecall.SpiderRecallArmorChest;
+import fun.wraq.series.end.eventController.SpiderRecall.SpiderRecallArmorHelmet;
+import fun.wraq.series.end.eventController.SpiderRecall.SpiderRecallArmorLeggings;
 import fun.wraq.series.end.eventController.VolcanoRecall.VolcanoSword4;
 import fun.wraq.series.end.recallBooks.*;
 import fun.wraq.series.gems.Curios.FancySapphireNecklace;
@@ -297,7 +300,6 @@ import fun.wraq.series.specialevents.springFes.*;
 import fun.wraq.series.worldsoul.*;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.*;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -4113,4 +4115,7 @@ public class ModItems {
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.NetherBold), false, (player) -> {
                 player.getCooldowns().removeCooldown(NETHER_SWORD.get());
             }));
+
+    public static final RegistryObject<Item> REFINED_PIECE = ITEMS.register("refined_piece",
+            () -> new WraqItem(new Item.Properties().rarity(Rarity.RARE).stacksTo(16)));
 }

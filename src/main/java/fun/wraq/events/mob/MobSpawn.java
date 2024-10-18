@@ -49,6 +49,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.TickEvent;
+import org.apache.commons.lang3.RandomUtils;
 
 import java.io.IOException;
 import java.sql.*;
@@ -250,6 +251,10 @@ public class MobSpawn {
 
     public static void drop(Mob mob, Player player) {
         int xpLevel = MobBaseAttributes.xpLevel.getOrDefault(MobSpawn.getMobOriginName(mob), 0);
+
+        if (RandomUtils.nextInt(0, 10000) < xpLevel) {
+            InventoryOperation.itemStackGive(player, ModItems.REFINED_PIECE.get().getDefaultInstance());
+        }
 
         recall(mob, player);
         if (!MobSpawn.dropList.containsKey(MobSpawn.getMobOriginName(mob))) return;

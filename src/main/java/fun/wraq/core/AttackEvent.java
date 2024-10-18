@@ -118,7 +118,7 @@ public class AttackEvent {
         double defence = MobAttributes.defence(monster);
 
         if (mainAttack) {
-            rate += DamageInfluence.getPlayerNormalAttackBaseRate(player, 0);
+            rate += DamageInfluence.getPlayerNormalAttackBaseDamageEnhance(player, 0);
         }
 
         double baseDamage = PlayerAttributes.attackDamage(player) * rate;

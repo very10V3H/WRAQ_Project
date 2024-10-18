@@ -116,12 +116,6 @@ public class LoginInEvent {
                         Component.literal("你有待领取的补偿，输入/vmd compensate领取补偿！").withStyle(ChatFormatting.AQUA));
             }
 
-            if (CompensateCommand.singleReward.equals("singleReward13")) {
-                Compute.sendFormatMSG(player, Component.literal("补偿").withStyle(CustomStyle.styleOfSakura),
-                        Component.literal("中断服务补偿，已提供").withStyle(ChatFormatting.WHITE).
-                                append(Component.literal("50%额外产出").withStyle(ChatFormatting.GOLD)));
-            }
-
             String expAdjust = "24.8.1-expAdjust";
             if (!data.contains(expAdjust) && player.experienceLevel > 180) {
                 double levelUpNeedXp = Math.pow(Math.E, 3 + (player.experienceLevel / 100d) * 7);

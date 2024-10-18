@@ -144,7 +144,7 @@ public class DamageInfluence {
         return rate;
     }
 
-    public static double getPlayerNormalAttackBaseRate(Player player, int type) {
+    public static double getPlayerNormalAttackBaseDamageEnhance(Player player, int type) {
         double rate = 0;
         rate += VdWeaponCommon.normalAttackRateEnhance(player);
         rate += VolcanoNewRune.attackEnhance(player);

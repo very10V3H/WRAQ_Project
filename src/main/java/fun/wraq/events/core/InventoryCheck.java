@@ -31,9 +31,10 @@ public class InventoryCheck {
             Player player = event.player;
             Inventory inventory = player.getInventory();
             for (int i = 0; i < inventory.getMaxStackSize(); i++) {
+                ItemStack itemStack = inventory.getItem(i);
                 if (inventory.getItem(i).getTagElement(Utils.MOD_ID) != null) {
                     CompoundTag data = inventory.getItem(i).getOrCreateTagElement(Utils.MOD_ID);
-                    ItemStack itemStack = inventory.getItem(i);
+
                     if (data.contains(InventoryCheck.owner) && !data.getString(InventoryCheck.owner).equals(player.getName().getString())) {
                         Player ItemOwner = player.getServer().getPlayerList().getPlayerByName(data.getString(InventoryCheck.owner));
                         if (ItemOwner == null) {

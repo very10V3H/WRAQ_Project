@@ -28,7 +28,7 @@ public class CompensateCommand implements Command<CommandSourceStack> {
         Player player = context.getSource().getPlayer();
         CompoundTag data = player.getPersistentData();
 
-        if (!data.contains(singleReward)) {
+/*        if (!data.contains(singleReward)) {
             data.putBoolean(singleReward, true);
             if (player.experienceLevel >= 60) {
                 try {
@@ -45,7 +45,7 @@ public class CompensateCommand implements Command<CommandSourceStack> {
                         Component.literal("你收到了来自铁头的补偿!").withStyle(ChatFormatting.WHITE));
             }
             return 0;
-        }
+        }*/
         Compute.sendFormatMSG(player, Component.literal("补偿").withStyle(CustomStyle.styleOfSakura),
                 Component.literal("似乎已经领取过/没有资格领取补偿呢").withStyle(ChatFormatting.AQUA));
 
