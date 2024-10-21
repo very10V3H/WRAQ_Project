@@ -5,8 +5,6 @@ import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.networking.ModNetworking;
-import fun.wraq.process.system.smelt.SmeltRecipe;
-import fun.wraq.process.system.smelt.SmeltRequestC2SPacket;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -39,7 +37,7 @@ public class SmeltRecipeScreen extends Screen {
         this.createMenu();
     }
 
-    private final List<fun.wraq.process.system.smelt.SmeltRecipe> list = Arrays.stream(fun.wraq.process.system.smelt.SmeltRecipe.values()).toList();
+    private final List<SmeltRecipe> list = Arrays.stream(SmeltRecipe.values()).toList();
 
     private void createMenu() {
 

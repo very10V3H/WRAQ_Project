@@ -6,9 +6,6 @@ import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.networking.ModNetworking;
-import fun.wraq.process.system.smelt.Smelt;
-import fun.wraq.process.system.smelt.SmeltHarvestC2SPacket;
-import fun.wraq.process.system.smelt.SmeltRecipe;
 import fun.wraq.process.system.vp.VpStore;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -44,7 +41,7 @@ public class SmeltProgressScreen extends Screen {
         this.createMenu();
     }
 
-    private final List<fun.wraq.process.system.smelt.SmeltRecipe> list = fun.wraq.process.system.smelt.Smelt.getRecipeByTag(fun.wraq.process.system.smelt.Smelt.clientData);
+    private final List<SmeltRecipe> list = Smelt.getRecipeByTag(Smelt.clientData);
 
     private void createMenu() {
 
@@ -53,7 +50,7 @@ public class SmeltProgressScreen extends Screen {
         }).pos(this.width / 2 - 39 + 5, this.height / 2 - 20 + 97).size(20, 20).build());
 
         this.addRenderableWidget(Button.builder(Component.translatable("→"), (p_280814_) -> {
-            if (page < (list.size() - 1) / 10) page++;
+            if (page < Math.max(0, (list.size() - 1) / 10)) page++;
         }).pos(this.width / 2 + 20 - 4, this.height / 2 - 20 + 97).size(20, 20).build());
 
         this.addRenderableWidget(Button.builder(Component.translatable("x"), (p_280814_) -> {
@@ -74,6 +71,10 @@ public class SmeltProgressScreen extends Screen {
                 ModNetworking.sendToServer(new SmeltHarvestC2SPacket(finalI + 5 + page * 10));
             }).pos(this.width / 2 - 35 + 140, this.height / 2 - 83 + 32 * i).size(32, 16).build());
         }
+
+        this.addRenderableWidget(Button.builder(Component.translatable("配方"), (p_280814_) -> {
+            Minecraft.getInstance().setScreen(new SmeltRecipeScreen());
+        }).pos(this.width / 2 + 70, this.height / 2 + 77).size(32, 20).build());
     }
 
     public void tick() {

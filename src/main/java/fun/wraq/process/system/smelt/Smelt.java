@@ -3,16 +3,16 @@ package fun.wraq.process.system.smelt;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ItemAndRate;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.func.item.InventoryOperation;
-import fun.wraq.process.system.smelt.SmeltDataS2CPacket;
-import fun.wraq.process.system.smelt.SmeltRecipe;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
@@ -203,6 +203,7 @@ public class Smelt {
                 itemAndRate.giveByNewObject(player);
             });
             setSlotInfo(player, slotIndex, smeltSlotEmpty);
+            MySound.soundToPlayer(player, SoundEvents.ITEM_PICKUP);
         } else {
             // 还未到时间
 

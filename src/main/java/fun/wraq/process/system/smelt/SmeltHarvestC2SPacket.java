@@ -1,7 +1,6 @@
 package fun.wraq.process.system.smelt;
 
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import fun.wraq.process.system.smelt.Smelt;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent;
 
@@ -28,7 +27,7 @@ public class SmeltHarvestC2SPacket {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
             try {
-                fun.wraq.process.system.smelt.Smelt.checkFinishAndGiveItem(context.getSender(), index + 1);
+                Smelt.checkFinishAndGiveItem(context.getSender(), index + 1);
             } catch (ParseException | CommandSyntaxException e) {
                 throw new RuntimeException(e);
             }
