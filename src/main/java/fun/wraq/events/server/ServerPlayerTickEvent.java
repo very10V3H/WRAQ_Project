@@ -46,6 +46,7 @@ import fun.wraq.process.system.missions.series.dailyMission.DailyMission;
 import fun.wraq.process.system.point.Point;
 import fun.wraq.process.system.respawn.MyRespawnRule;
 import fun.wraq.process.system.season.MySeason;
+import fun.wraq.process.system.smelt.Smelt;
 import fun.wraq.process.system.tower.TowerMob;
 import fun.wraq.projectiles.mana.BlazeSword;
 import fun.wraq.projectiles.mana.SwordAir;
@@ -125,6 +126,10 @@ public class ServerPlayerTickEvent {
             PlanPlayer.setFoodData(serverPlayer);
             WorldBorder.playerTick(event);
             /*SummerEvent.tick(player);*/
+
+            if (player.tickCount % 6000 == 0) {
+                Smelt.checkIfAnyProgressFinished(player);
+            }
 
             // 探索点数发包
             if (Tick.get() % 20 == 0) {

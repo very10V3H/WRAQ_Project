@@ -7,6 +7,7 @@ import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.system.vp.VpStore;
+import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -93,7 +94,7 @@ public class SmeltProgressScreen extends Screen {
         int tick = ClientUtils.clientPlayerTick;
         List<Calendar> timeList = null;
         try {
-            timeList = fun.wraq.process.system.smelt.Smelt.getProgressFinishTimeByTag(Smelt.clientData);
+            timeList = Smelt.getProgressFinishTimeByTag(Smelt.clientData);
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
@@ -106,6 +107,29 @@ public class SmeltProgressScreen extends Screen {
             }
         }
 
+        int inProgress = 0;
+        try {
+            inProgress = Smelt.getInProgressSlotCountForClient();
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        int finished = 0;
+        try {
+            finished = Smelt.getFinishedSlotCountForClient();
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        int idle = Smelt.getMaxSmeltSlotForClientSide() - inProgress - finished;
+
+        guiGraphics.drawCenteredString(fontRenderer, Te.s("进程中:" + inProgress, ChatFormatting.AQUA),
+                this.width / 2 - 120, this.height / 2 + 73, 0);
+
+        guiGraphics.drawCenteredString(fontRenderer, Te.s("已完成:" + finished, ChatFormatting.GREEN),
+                this.width / 2 - 120, this.height / 2 + 85, 0);
+
+        guiGraphics.drawCenteredString(fontRenderer, Te.s("空闲:" + idle, CustomStyle.styleOfMoon),
+                this.width / 2 - 75, this.height / 2 + 85, 0);
+
         guiGraphics.drawCenteredString(fontRenderer, Component.literal("" + (page + 1)).withStyle(ChatFormatting.WHITE)
                 , this.width / 2, this.height / 2 - 20 + 105, 0);
 
@@ -116,7 +140,7 @@ public class SmeltProgressScreen extends Screen {
         super.render(graphics, x, y, v);
     }
 
-    private void displaySingleRecipe(List<fun.wraq.process.system.smelt.SmeltRecipe> list, List<Calendar> timeList, GuiGraphics guiGraphics, int index, int tick , int xOffset, int x, int y) {
+    private void displaySingleRecipe(List<SmeltRecipe> list, List<Calendar> timeList, GuiGraphics guiGraphics, int index, int tick , int xOffset, int x, int y) {
         SmeltRecipe smeltRecipe = list.get(index);
         Calendar finishedTime = timeList.get(index);
         index %= 5;
@@ -140,8 +164,13 @@ public class SmeltProgressScreen extends Screen {
         guiGraphics.drawCenteredString(font, smeltRecipe.name, this.width / 2 - 56 + xOffset, this.height / 2 - 86 + 32 * index, 0);
 
         // 需要材料 -> 剩余时间
-        Component leftTime = Te.m("剩余时间:" + Compute.getDifferenceFormatText(finishedTime, Calendar.getInstance()), ChatFormatting.AQUA);
-        guiGraphics.drawCenteredString(font, leftTime, this.width / 2 - 56 + xOffset, this.height / 2 - 71 + 32 * index, 0);
+        String differenceFormatText = Compute.getDifferenceFormatText(finishedTime, Calendar.getInstance());
+        if (differenceFormatText.equals("00:00:00")) {
+            guiGraphics.drawCenteredString(font, Te.s("已完成", ChatFormatting.GREEN), this.width / 2 - 56 + xOffset, this.height / 2 - 71 + 32 * index, 0);
+        } else {
+            Component leftTime = Te.m("剩余时间:" + differenceFormatText, ChatFormatting.AQUA);
+            guiGraphics.drawCenteredString(font, leftTime, this.width / 2 - 56 + xOffset, this.height / 2 - 71 + 32 * index, 0);
+        }
 
         // 当指针移动至图表处时显示的ToolTip
         if (x > this.width / 2 - 117 + xOffset && x < this.width / 2 - 117 + 16 + xOffset

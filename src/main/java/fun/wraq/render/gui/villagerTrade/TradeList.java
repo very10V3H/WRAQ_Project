@@ -6,6 +6,7 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.customized.UniformItems;
 import fun.wraq.process.system.element.ElementItems;
 import fun.wraq.process.system.enhanceForge.ForgeMaterials;
+import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.process.system.spur.Items.SpurItems;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.gems.GemItems;
@@ -3263,8 +3264,6 @@ public class TradeList {
                 ModItems.WoodHammer.get().getDefaultInstance(),
                 ModItems.StoneHammer.get().getDefaultInstance(),
                 ModItems.IronHammer.get().getDefaultInstance(),
-                Items.IRON_INGOT.getDefaultInstance(),
-                ModItems.PlainBracelet.get().getDefaultInstance(),
                 GemItems.plainGem.get().getDefaultInstance(),
         };
         List<ItemStack> contentList = new ArrayList<>();
@@ -3283,15 +3282,6 @@ public class TradeList {
                     add(new ItemStack(ModItems.silverCoin.get(), 16));
                 }});
                 case 3 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.silverCoin.get(), 8));
-                }});
-                case 4 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.PlainRune.get(), 4));
-                    add(new ItemStack(ModItems.LifeElementPiece0.get(), 14));
-                    add(new ItemStack(Items.IRON_INGOT, 2));
-                    add(new ItemStack(ModItems.gemPiece.get(), 8));
-                }});
-                case 5 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.PlainRune.get(), 10));
                     add(new ItemStack(ModItems.completeGem.get(), 16));
                 }});
@@ -3304,11 +3294,9 @@ public class TradeList {
         ItemStack stoneHammer = new ItemStack(ModItems.StoneHammer.get());
         ItemStack ironHammer = new ItemStack(ModItems.IronHammer.get());
         ItemStack copperHammer = new ItemStack(ModItems.CopperHammer.get());
-        ItemStack ironIngot = new ItemStack(Items.IRON_INGOT);
-        ItemStack forestBracelet = new ItemStack(ModItems.ForestBracelet.get());
         ItemStack forestGem = new ItemStack(GemItems.forestGem.get());
         ItemStack[] itemStacks = {
-                woodHammer, stoneHammer, ironHammer, copperHammer, ironIngot, forestBracelet, forestGem
+                woodHammer, stoneHammer, ironHammer, copperHammer, forestGem
         };
         List<ItemStack> contentList = new ArrayList<>();
         Collections.addAll(contentList, itemStacks);
@@ -3322,13 +3310,6 @@ public class TradeList {
                 List.of(new ItemStack(ModItems.silverCoin.get(), 16)));
         tradeRecipeMap.put(copperHammer,
                 List.of(new ItemStack(ModItems.goldCoin.get(), 4)));
-        tradeRecipeMap.put(ironIngot,
-                List.of(new ItemStack(ModItems.silverCoin.get(), 8)));
-        tradeRecipeMap.put(forestBracelet,
-                List.of(new ItemStack(ModItems.ForestRune.get(), 4),
-                        new ItemStack(ModItems.LifeElementPiece0.get(), 14),
-                        new ItemStack(Items.IRON_INGOT, 2),
-                        new ItemStack(ModItems.gemPiece.get(), 8)));
         tradeRecipeMap.put(forestGem,
                 List.of(new ItemStack(ModItems.ForestRune.get(), 10),
                         new ItemStack(ModItems.completeGem.get(), 16)));
@@ -3375,13 +3356,11 @@ public class TradeList {
         ItemStack waterBottle = new ItemStack(ModItems.WaterBottle.get(), 64);
         ItemStack lakeRune = new ItemStack(ModItems.LakeRune.get());
         ItemStack lakePower = new ItemStack(ModItems.LakePower.get());
-        ItemStack lakeBracelet = new ItemStack(ModItems.LakeBracelet.get());
         ItemStack lakeManaBook = new ItemStack(ModItems.LakeManaBook.get());
         ItemStack lakeGem = new ItemStack(GemItems.lakeGem.get());
         ItemStack silverCoin = new ItemStack(ModItems.silverCoin.get(), 8);
         ItemStack[] itemStacks = {
-                waterBottle, lakeRune, lakePower,
-                lakeBracelet, lakeManaBook, lakeGem, silverCoin
+                waterBottle, lakeRune, lakePower, lakeManaBook, lakeGem, silverCoin
         };
 
         List<ItemStack> contentList = new ArrayList<>();
@@ -3399,11 +3378,6 @@ public class TradeList {
                         new ItemStack(ModItems.WaterElementPiece0.get(), 14),
                         new ItemStack(Items.LEATHER, 12),
                         new ItemStack(ModItems.gemPiece.get(), 8)));
-        tradeRecipeMap.put(lakeBracelet,
-                List.of(new ItemStack(ModItems.LakeRune.get(), 4),
-                        new ItemStack(ModItems.WaterElementPiece0.get(), 14),
-                        new ItemStack(Items.IRON_INGOT, 2),
-                        new ItemStack(ModItems.gemPiece.get(), 8)));
         tradeRecipeMap.put(lakeManaBook,
                 List.of(new ItemStack(ModItems.ForestManaBook.get()),
                         new ItemStack(ModItems.LakeRune.get(), 4),
@@ -3418,12 +3392,11 @@ public class TradeList {
 
     public static void mineTool() {
         ItemStack mineRune = new ItemStack(ModItems.MineRune.get());
-        ItemStack mineBracelet = new ItemStack(ModItems.MineBracelet.get());
         ItemStack mineShield = new ItemStack(ModItems.MineShield.get());
         ItemStack mineGem = new ItemStack(GemItems.mineGem.get());
         ItemStack silverCoin = new ItemStack(ModItems.silverCoin.get(), 10);
         ItemStack[] itemStacks = {
-                mineRune, mineBracelet, mineShield, mineGem, silverCoin
+                mineRune, mineShield, mineGem, silverCoin
         };
 
         List<ItemStack> contentList = new ArrayList<>();
@@ -3434,11 +3407,6 @@ public class TradeList {
                 List.of(new ItemStack(ModItems.MineSoul.get(), 64),
                         new ItemStack(ModItems.silverCoin.get(), 8),
                         new ItemStack(ModItems.gemPiece.get(), 2)));
-        tradeRecipeMap.put(mineBracelet,
-                List.of(new ItemStack(ModItems.MineRune.get(), 4),
-                        new ItemStack(ModItems.StoneElementPiece0.get(), 14),
-                        new ItemStack(Items.IRON_INGOT, 2),
-                        new ItemStack(ModItems.gemPiece.get(), 8)));
         tradeRecipeMap.put(mineShield,
                 List.of(new ItemStack(ModItems.MineRune.get(), 8),
                         new ItemStack(ModItems.StoneElementPiece0.get(), 14),
@@ -3455,11 +3423,9 @@ public class TradeList {
         ItemStack copperHammer = new ItemStack(ModItems.CopperHammer.get());
         ItemStack goldHammer = new ItemStack(ModItems.GoldHammer.get());
         ItemStack diamondHammer = new ItemStack(ModItems.DiamondHammer.get());
-        ItemStack ironIngot = new ItemStack(Items.IRON_INGOT);
-        ItemStack volcanoBracelet = new ItemStack(ModItems.VolcanoBracelet.get());
         ItemStack volcanoGem = new ItemStack(GemItems.volcanoGem.get());
         ItemStack[] itemStacks = {
-                ironHammer, copperHammer, goldHammer, diamondHammer, ironIngot, volcanoBracelet, volcanoGem
+                ironHammer, copperHammer, goldHammer, diamondHammer, volcanoGem
         };
         List<ItemStack> contentList = new ArrayList<>();
         Collections.addAll(contentList, itemStacks);
@@ -3473,37 +3439,23 @@ public class TradeList {
                 List.of(new ItemStack(ModItems.goldCoin.get(), 16)));
         tradeRecipeMap.put(diamondHammer,
                 List.of(new ItemStack(ModItems.goldCoin.get(), 64)));
-        tradeRecipeMap.put(ironIngot,
-                List.of(new ItemStack(ModItems.silverCoin.get(), 8)));
-        tradeRecipeMap.put(volcanoBracelet,
-                List.of(new ItemStack(ModItems.VolcanoRune.get(), 4),
-                        new ItemStack(ModItems.FireElementPiece0.get(), 14),
-                        new ItemStack(Items.IRON_INGOT, 2),
-                        new ItemStack(ModItems.gemPiece.get(), 8)));
         tradeRecipeMap.put(volcanoGem,
                 List.of(new ItemStack(ModItems.VolcanoRune.get(), 10),
                         new ItemStack(ModItems.completeGem.get(), 16)));
     }
 
     public static void volcanoTool() {
-        ItemStack coal4 = new ItemStack(Items.COAL, 4);
-        ItemStack coal16 = new ItemStack(Items.COAL, 16);
         ItemStack volcanoRune = new ItemStack(ModItems.VolcanoRune.get());
         ItemStack volcanoPower = new ItemStack(ModItems.VolcanoPower.get());
         ItemStack volcanoManaBook = new ItemStack(ModItems.VolcanoManaBook.get());
         ItemStack silverCoin = new ItemStack(ModItems.silverCoin.get(), 12);
         ItemStack[] itemStacks = {
-                coal4, coal16, volcanoRune,
-                volcanoPower, volcanoManaBook, silverCoin
+                volcanoRune, volcanoPower, volcanoManaBook, silverCoin
         };
         List<ItemStack> contentList = new ArrayList<>();
         Collections.addAll(contentList, itemStacks);
         MyVillagerData.setMyVillagerData("火山村工具制作师", "volcanoTool", CustomStyle.styleOfVolcano, VillagerType.DESERT,
                 VillagerProfession.TOOLSMITH, contentList);
-        tradeRecipeMap.put(coal4,
-                List.of(new ItemStack(ModItems.VolcanoSoul.get(), 1)));
-        tradeRecipeMap.put(coal16,
-                List.of(new ItemStack(ModItems.VolcanoSoul.get(), 4)));
         tradeRecipeMap.put(volcanoRune,
                 List.of(new ItemStack(ModItems.VolcanoSoul.get(), 64),
                         new ItemStack(ModItems.goldCoin.get(), 2),
@@ -3527,11 +3479,9 @@ public class TradeList {
         ItemStack copperHammer = new ItemStack(ModItems.CopperHammer.get());
         ItemStack goldHammer = new ItemStack(ModItems.GoldHammer.get());
         ItemStack diamondHammer = new ItemStack(ModItems.DiamondHammer.get());
-        ItemStack ironIngot = new ItemStack(Items.IRON_INGOT);
-        ItemStack snowBracelet = new ItemStack(ModItems.SnowBracelet.get());
         ItemStack snowGem = new ItemStack(GemItems.snowGem.get());
         ItemStack[] itemStacks = {
-                ironHammer, copperHammer, goldHammer, diamondHammer, ironIngot, snowBracelet, snowGem
+                ironHammer, copperHammer, goldHammer, diamondHammer, snowGem
         };
         List<ItemStack> contentList = new ArrayList<>();
         Collections.addAll(contentList, itemStacks);
@@ -3545,13 +3495,6 @@ public class TradeList {
                 List.of(new ItemStack(ModItems.goldCoin.get(), 16)));
         tradeRecipeMap.put(diamondHammer,
                 List.of(new ItemStack(ModItems.goldCoin.get(), 64)));
-        tradeRecipeMap.put(ironIngot,
-                List.of(new ItemStack(ModItems.silverCoin.get(), 8)));
-        tradeRecipeMap.put(snowBracelet,
-                List.of(new ItemStack(ModItems.SnowRune.get(), 4),
-                        new ItemStack(ModItems.IceElementPiece0.get(), 14),
-                        new ItemStack(Items.IRON_INGOT, 2),
-                        new ItemStack(ModItems.gemPiece.get(), 8)));
         tradeRecipeMap.put(snowGem,
                 List.of(new ItemStack(ModItems.SnowRune.get(), 10),
                         new ItemStack(ModItems.completeGem.get(), 16)));
@@ -3589,11 +3532,10 @@ public class TradeList {
 
     public static void skyTool() {
         ItemStack skyRune = new ItemStack(ModItems.SkyRune.get());
-        ItemStack skyBracelet = new ItemStack(ModItems.SkyBracelet.get());
         ItemStack skyGem = new ItemStack(GemItems.skyGem.get());
         ItemStack silverCoin = new ItemStack(ModItems.silverCoin.get(), 16);
         ItemStack[] itemStacks = {
-                skyRune, skyBracelet, skyGem, silverCoin
+                skyRune, skyGem, silverCoin
         };
         List<ItemStack> contentList = new ArrayList<>();
         Collections.addAll(contentList, itemStacks);
@@ -3604,11 +3546,6 @@ public class TradeList {
                 List.of(new ItemStack(ModItems.SkySoul.get(), 64),
                         new ItemStack(ModItems.goldCoin.get(), 4),
                         new ItemStack(ModItems.gemPiece.get(), 1)));
-        tradeRecipeMap.put(skyBracelet,
-                List.of(new ItemStack(ModItems.SkyRune.get(), 4),
-                        new ItemStack(ModItems.WindElementPiece0.get(), 14),
-                        new ItemStack(Items.LEATHER, 12),
-                        new ItemStack(ModItems.gemPiece.get(), 8)));
         tradeRecipeMap.put(skyGem,
                 List.of(new ItemStack(ModItems.SkyRune.get(), 10),
                         new ItemStack(ModItems.completeGem.get(), 16)));
@@ -3617,9 +3554,7 @@ public class TradeList {
     }
 
     public static void mineCharm() {
-        ItemStack ironPickaxe = new ItemStack(Items.IRON_PICKAXE);
-        ItemStack diamondPickaxe = new ItemStack(Items.DIAMOND_PICKAXE);
-        ItemStack netheritePickaxe = new ItemStack(Items.NETHERITE_PICKAXE);
+        ItemStack stonePickaxe = new ItemStack(PickaxeItems.STONE_PICKAXE_0.get());
         ItemStack potion = new ItemStack(Items.POTION);
         potion.getOrCreateTag().putString("Potion", "minecraft:long_night_vision");
 
@@ -3633,7 +3568,7 @@ public class TradeList {
         ItemStack mineCharm6 = new ItemStack(SpurItems.mineCharm6.get());
         ItemStack oreRune = new ItemStack(ModItems.OreRune.get(), 1);
         ItemStack[] itemStacks = {
-                ironPickaxe, diamondPickaxe, netheritePickaxe, minePiece1, potion, oreRune,
+                stonePickaxe, minePiece1, potion, oreRune,
                 mineCharm0, mineCharm1, mineCharm2, mineCharm3, mineCharm4, mineCharm5, mineCharm6,
 
         };
@@ -3642,14 +3577,12 @@ public class TradeList {
         MyVillagerData.setMyVillagerData("采矿大师", "mineCharm", CustomStyle.styleOfMine, VillagerType.PLAINS,
                 VillagerProfession.WEAPONSMITH, contentList);
 
-        tradeRecipeMap.put(ironPickaxe, List.of(new ItemStack(ModItems.goldCoin.get(), 1)));
-        tradeRecipeMap.put(diamondPickaxe, List.of(new ItemStack(ModItems.goldCoin.get(), 3)));
-        tradeRecipeMap.put(netheritePickaxe, List.of(new ItemStack(ModItems.goldCoin.get(), 8)));
+        tradeRecipeMap.put(stonePickaxe, List.of(new ItemStack(ModItems.goldCoin.get(), 1)));
         tradeRecipeMap.put(potion, List.of(new ItemStack(ModItems.silverCoin.get(), 1)));
-        tradeRecipeMap.put(oreRune, List.of(new ItemStack(Items.EMERALD, 4), new ItemStack(Items.DIAMOND, 4),
-                new ItemStack(Items.REDSTONE, 16), new ItemStack(Items.LAPIS_LAZULI, 16)));
+        tradeRecipeMap.put(oreRune, List.of(new ItemStack(Items.EMERALD, 2), new ItemStack(Items.DIAMOND, 2),
+                new ItemStack(Items.REDSTONE, 8), new ItemStack(Items.LAPIS_LAZULI, 8)));
 
-        tradeRecipeMap.put(minePiece1, List.of(new ItemStack(SpurItems.minePiece.get(), 64)));
+        tradeRecipeMap.put(minePiece1, List.of(new ItemStack(SpurItems.minePiece.get(), 16)));
 
         tradeRecipeMap.put(mineCharm0, List.of(new ItemStack(SpurItems.minePiece1.get(), 1)));
 

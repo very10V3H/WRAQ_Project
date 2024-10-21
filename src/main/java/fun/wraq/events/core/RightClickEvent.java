@@ -22,9 +22,12 @@ import net.minecraft.world.entity.vehicle.MinecartChest;
 import net.minecraft.world.entity.vehicle.MinecartHopper;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
+import java.util.Set;
 
 @Mod.EventBusSubscriber
 public class RightClickEvent {
@@ -72,6 +75,13 @@ public class RightClickEvent {
                 ModNetworking.sendToClient(new VillagerTradeScreenS2CPacket(
                         villager.getName().getString()), (ServerPlayer) event.getEntity());
                 event.setCanceled(true);
+            }
+            else {
+                Set<Item> itemList = Set.of(Items.RAW_IRON, Items.RAW_COPPER, Items.RAW_GOLD, Items.DIAMOND);
+                if (villager.getOffers().stream()
+                        .anyMatch(merchantOffer -> itemList.contains(merchantOffer.getResult().getItem()))) {
+                    event.setCanceled(true);
+                }
             }
         }
 

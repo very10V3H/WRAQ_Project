@@ -5,6 +5,7 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ItemAndRate;
 import fun.wraq.process.func.item.InventoryOperation;
+import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -42,6 +43,46 @@ public enum SmeltRecipe {
             List.of(new ItemStack(Items.GOLD_INGOT, 8)),
             List.of(new ItemAndRate(new ItemStack(Items.GOLD_INGOT, 2), 0.5)),
             0),
+
+    TINKER_STONE(Te.m("工匠石", CustomStyle.styleOfMine),
+            List.of(new ItemStack(Items.COBBLESTONE, 32),
+                    new ItemStack(Items.COAL, 1),
+                    new ItemStack(ModItems.goldCoin.get(), 1)),
+            List.of(new ItemStack(PickaxeItems.TINKER_STONE.get(), 1)),
+            List.of(new ItemAndRate(new ItemStack(Items.COBBLESTONE, 8), 0.25)),
+            5),
+
+    TINKER_IRON(Te.m("工匠铁锭", CustomStyle.styleOfMine),
+            List.of(new ItemStack(Items.IRON_INGOT, 32),
+                    new ItemStack(Items.COAL, 2),
+                    new ItemStack(ModItems.goldCoin.get(), 4)),
+            List.of(new ItemStack(PickaxeItems.TINKER_IRON.get(), 1)),
+            List.of(new ItemAndRate(new ItemStack(Items.IRON_INGOT, 8), 0.25)),
+            10),
+
+    TINKER_GOLD(Te.m("工匠金锭", CustomStyle.styleOfGold),
+            List.of(new ItemStack(Items.GOLD_INGOT, 32),
+                    new ItemStack(Items.COAL, 4),
+                    new ItemStack(ModItems.goldCoin.get(), 8)),
+            List.of(new ItemStack(PickaxeItems.TINKER_GOLD.get(), 1)),
+            List.of(new ItemAndRate(new ItemStack(Items.GOLD_INGOT, 8), 0.25)),
+            20),
+
+    TINKER_DIAMOND(Te.m("工匠钻石", CustomStyle.styleOfWorld),
+            List.of(new ItemStack(Items.DIAMOND, 32),
+                    new ItemStack(Items.COAL, 8),
+                    new ItemStack(ModItems.goldCoin.get(), 16)),
+            List.of(new ItemStack(PickaxeItems.TINKER_DIAMOND.get(), 1)),
+            List.of(new ItemAndRate(new ItemStack(Items.DIAMOND, 8), 0.25)),
+            35),
+
+    TINKER_NETHERITE(Te.m("工匠合金", CustomStyle.styleOfRed),
+            List.of(new ItemStack(Items.NETHERITE_INGOT, 32),
+                    new ItemStack(Items.COAL, 16),
+                    new ItemStack(ModItems.goldCoin.get(), 32)),
+            List.of(new ItemStack(PickaxeItems.TINKER_NETHERITE.get(), 1)),
+            List.of(new ItemAndRate(new ItemStack(Items.NETHERITE_INGOT, 8), 0.25)),
+            60),
 
     PLAIN_COMPLETE_GEM(Te.m("普莱尼水晶", CustomStyle.styleOfPlain),
             List.of(new ItemStack(ModItems.PlainBossSoul.get(), 64),

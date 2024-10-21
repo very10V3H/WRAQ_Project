@@ -5,6 +5,7 @@ import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.networking.ModNetworking;
+import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -18,6 +19,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import java.text.ParseException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -96,7 +98,31 @@ public class SmeltRecipeScreen extends Screen {
             }
         }
 
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal("" + (page + 1)).withStyle(ChatFormatting.WHITE), this.width / 2, this.height / 2 - 20 + 105, 0);
+        guiGraphics.drawCenteredString(fontRenderer, Component.literal("" + (page + 1)).withStyle(ChatFormatting.WHITE),
+                this.width / 2, this.height / 2 - 20 + 105, 0);
+
+        int inProgress = 0;
+        try {
+            inProgress = Smelt.getInProgressSlotCountForClient();
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        int finished = 0;
+        try {
+            finished = Smelt.getFinishedSlotCountForClient();
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        int idle = Smelt.getMaxSmeltSlotForClientSide() - inProgress - finished;
+
+        guiGraphics.drawCenteredString(fontRenderer, Te.s("进程中:" + inProgress, ChatFormatting.AQUA),
+                this.width / 2 - 120, this.height / 2 + 73, 0);
+
+        guiGraphics.drawCenteredString(fontRenderer, Te.s("已完成:" + finished, ChatFormatting.GREEN),
+                this.width / 2 - 120, this.height / 2 + 85, 0);
+
+        guiGraphics.drawCenteredString(fontRenderer, Te.s("空闲:" + idle, CustomStyle.styleOfMoon),
+                this.width / 2 - 75, this.height / 2 + 85, 0);
 
         int textureWidth = 300;
         int textureHeight = 200;
@@ -105,7 +131,7 @@ public class SmeltRecipeScreen extends Screen {
         super.render(graphics, x, y, v);
     }
 
-    private void displaySingleRecipe(List<fun.wraq.process.system.smelt.SmeltRecipe> list, GuiGraphics guiGraphics, int i, int tick, int xOffset, int yOffset, int x, int y) {
+    private void displaySingleRecipe(List<SmeltRecipe> list, GuiGraphics guiGraphics, int i, int tick, int xOffset, int yOffset, int x, int y) {
         SmeltRecipe smeltRecipe = list.get(page * 10 + i);
         int currentProductDisplayIndex = tick / 30 % smeltRecipe.productList.size();
         ItemStack currentDisplayProduct = smeltRecipe.productList.get(currentProductDisplayIndex);

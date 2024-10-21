@@ -2,6 +2,7 @@ package fun.wraq.blocks.blocks.inject;
 
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.struct.InjectingRecipe;
+import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.series.gems.GemItems;
 import fun.wraq.series.instance.blade.BladeItems;
 import fun.wraq.series.instance.mixture.MixtureItems;
@@ -941,6 +942,58 @@ public class InjectRecipe {
         injectingRecipeMap.put(MixtureItems.MIXTURE_DEVIL.get(),
                 new InjectingRecipe(ModItems.MoonCompleteGem.get(), 4, MixtureItems.MIXTURE_MOON.get()));
 
+        injectingRecipeMap.put(PickaxeItems.STONE_PICKAXE_0.get(),
+                new InjectingRecipe(PickaxeItems.TINKER_STONE.get(), 1, PickaxeItems.STONE_PICKAXE_1.get()));
+        injectingRecipeMap.put(PickaxeItems.STONE_PICKAXE_1.get(),
+                new InjectingRecipe(PickaxeItems.TINKER_STONE.get(), 1, PickaxeItems.STONE_PICKAXE_2.get()));
+        injectingRecipeMap.put(PickaxeItems.STONE_PICKAXE_2.get(),
+                new InjectingRecipe(PickaxeItems.TINKER_STONE.get(), 1, PickaxeItems.STONE_PICKAXE_3.get()));
+        injectingRecipeMap.put(PickaxeItems.STONE_PICKAXE_3.get(),
+                new InjectingRecipe(PickaxeItems.TINKER_STONE.get(), 1, PickaxeItems.STONE_PICKAXE_4.get()));
+        injectingRecipeMap.put(PickaxeItems.STONE_PICKAXE_4.get(),
+                new InjectingRecipe(PickaxeItems.TINKER_IRON.get(), 1, PickaxeItems.IRON_PICKAXE_0.get()));
+
+        injectingRecipeMap.put(PickaxeItems.IRON_PICKAXE_0.get(),
+                new InjectingRecipe(PickaxeItems.TINKER_IRON.get(), 1, PickaxeItems.IRON_PICKAXE_1.get()));
+        injectingRecipeMap.put(PickaxeItems.IRON_PICKAXE_1.get(),
+                new InjectingRecipe(PickaxeItems.TINKER_IRON.get(), 1, PickaxeItems.IRON_PICKAXE_2.get()));
+        injectingRecipeMap.put(PickaxeItems.IRON_PICKAXE_2.get(),
+                new InjectingRecipe(PickaxeItems.TINKER_IRON.get(), 1, PickaxeItems.IRON_PICKAXE_3.get()));
+        injectingRecipeMap.put(PickaxeItems.IRON_PICKAXE_3.get(),
+                new InjectingRecipe(PickaxeItems.TINKER_IRON.get(), 1, PickaxeItems.IRON_PICKAXE_4.get()));
+        injectingRecipeMap.put(PickaxeItems.IRON_PICKAXE_4.get(),
+                new InjectingRecipe(PickaxeItems.TINKER_GOLD.get(), 1, PickaxeItems.GOLD_PICKAXE_0.get()));
+
+        injectingRecipeMap.put(PickaxeItems.GOLD_PICKAXE_0.get(),
+                new InjectingRecipe(PickaxeItems.TINKER_GOLD.get(), 1, PickaxeItems.GOLD_PICKAXE_1.get()));
+        injectingRecipeMap.put(PickaxeItems.GOLD_PICKAXE_1.get(),
+                new InjectingRecipe(PickaxeItems.TINKER_GOLD.get(), 1, PickaxeItems.GOLD_PICKAXE_2.get()));
+        injectingRecipeMap.put(PickaxeItems.GOLD_PICKAXE_2.get(),
+                new InjectingRecipe(PickaxeItems.TINKER_GOLD.get(), 1, PickaxeItems.GOLD_PICKAXE_3.get()));
+        injectingRecipeMap.put(PickaxeItems.GOLD_PICKAXE_3.get(),
+                new InjectingRecipe(PickaxeItems.TINKER_GOLD.get(), 1, PickaxeItems.GOLD_PICKAXE_4.get()));
+        injectingRecipeMap.put(PickaxeItems.GOLD_PICKAXE_4.get(),
+                new InjectingRecipe(PickaxeItems.TINKER_DIAMOND.get(), 1, PickaxeItems.DIAMOND_PICKAXE_0.get()));
+
+        injectingRecipeMap.put(PickaxeItems.DIAMOND_PICKAXE_0.get(),
+                new InjectingRecipe(PickaxeItems.TINKER_DIAMOND.get(), 1, PickaxeItems.DIAMOND_PICKAXE_1.get()));
+        injectingRecipeMap.put(PickaxeItems.DIAMOND_PICKAXE_1.get(),
+                new InjectingRecipe(PickaxeItems.TINKER_DIAMOND.get(), 1, PickaxeItems.DIAMOND_PICKAXE_2.get()));
+        injectingRecipeMap.put(PickaxeItems.DIAMOND_PICKAXE_2.get(),
+                new InjectingRecipe(PickaxeItems.TINKER_DIAMOND.get(), 1, PickaxeItems.DIAMOND_PICKAXE_3.get()));
+        injectingRecipeMap.put(PickaxeItems.DIAMOND_PICKAXE_3.get(),
+                new InjectingRecipe(PickaxeItems.TINKER_DIAMOND.get(), 1, PickaxeItems.DIAMOND_PICKAXE_4.get()));
+        injectingRecipeMap.put(PickaxeItems.DIAMOND_PICKAXE_4.get(),
+                new InjectingRecipe(PickaxeItems.TINKER_NETHERITE.get(), 1, PickaxeItems.NETHERITE_PICKAXE_0.get()));
+
+        injectingRecipeMap.put(PickaxeItems.NETHERITE_PICKAXE_0.get(),
+                new InjectingRecipe(PickaxeItems.TINKER_NETHERITE.get(), 1, PickaxeItems.NETHERITE_PICKAXE_1.get()));
+        injectingRecipeMap.put(PickaxeItems.NETHERITE_PICKAXE_1.get(),
+                new InjectingRecipe(PickaxeItems.TINKER_NETHERITE.get(), 1, PickaxeItems.NETHERITE_PICKAXE_2.get()));
+        injectingRecipeMap.put(PickaxeItems.NETHERITE_PICKAXE_2.get(),
+                new InjectingRecipe(PickaxeItems.TINKER_NETHERITE.get(), 1, PickaxeItems.NETHERITE_PICKAXE_3.get()));
+        injectingRecipeMap.put(PickaxeItems.NETHERITE_PICKAXE_3.get(),
+                new InjectingRecipe(PickaxeItems.TINKER_NETHERITE.get(), 1, PickaxeItems.NETHERITE_PICKAXE_4.get()));
 
         for (Map.Entry<Item, InjectingRecipe> itemInjectingRecipeEntry : injectingRecipeMap.entrySet()) {
             injectedGetItemSourceItemMap.put(itemInjectingRecipeEntry.getValue().getForgingGetItem(), itemInjectingRecipeEntry.getKey());

@@ -4,6 +4,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.MySound;
+import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.ItemAndRate;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.func.item.InventoryOperation;
@@ -39,6 +40,10 @@ public class Smelt {
     private static final String maxSmeltSlotKey = "maxSmeltSlotKey";
     private static int getMaxSmeltSlot(Player player) {
         return getPlayerSmeltTag(player).getInt(maxSmeltSlotKey);
+    }
+
+    public static int getMaxSmeltSlotForClientSide() {
+        return clientData.getInt(maxSmeltSlotKey);
     }
 
     public static void setMaxSmeltSlot(Player player, int slot) {
@@ -259,6 +264,16 @@ public class Smelt {
         checkIfAnyProgressFinished(player);
     }
 
+    private static final String FINISHED_NUM_KEY = "FINISHED_NUM";
+
+    private static int getLastTimeFinishedNum(Player player) {
+        return getPlayerSmeltTag(player).getInt(FINISHED_NUM_KEY);
+    }
+
+    private static void setLastTimeFinishedNum(Player player, int num) {
+        getPlayerSmeltTag(player).putInt(FINISHED_NUM_KEY, num);
+    }
+
     public static void checkIfAnyProgressFinished(Player player) throws ParseException {
         int finishedCount = 0;
         for (int i = 1 ; i <= getMaxSmeltSlot(player) ; i ++) {
@@ -269,11 +284,42 @@ public class Smelt {
                 if (calendar.after(finishTime)) finishedCount ++;
             }
         }
-        if (finishedCount > 0) {
+        if (finishedCount > 0 && finishedCount != getLastTimeFinishedNum(player)) {
+            setLastTimeFinishedNum(player, finishedCount);
             sendFormatMSG(player, Te.m("你有")
                     .append(Te.m(String.valueOf(finishedCount), ChatFormatting.GOLD))
                     .append(Te.m("个已完成的炼造配方，前往炼造台查看")));
         }
+    }
+
+    public static int getInProgressSlotCountForClient() throws ParseException {
+        int inProgressSlotCount = 0;
+        for (int i = 1 ; i <= getMaxSmeltSlotForClientSide() ; i ++) {
+            String slotInfo = getSlotInfoForClientSide(i);
+            if (slotInfo != null && !slotInfo.equals(smeltSlotEmpty)) {
+                Calendar finishTime = getFinishTimeBySlotInfo(slotInfo);
+                Calendar calendar = Compute.StringToCalendar(ClientUtils.serverTime);
+                if (calendar.before(finishTime)) {
+                    inProgressSlotCount ++;
+                }
+            }
+        }
+        return inProgressSlotCount;
+    }
+
+    public static int getFinishedSlotCountForClient() throws ParseException {
+        int finishedSlotCount = 0;
+        for (int i = 1 ; i <= getMaxSmeltSlotForClientSide() ; i ++) {
+            String slotInfo = getSlotInfoForClientSide(i);
+            if (slotInfo != null && !slotInfo.equals(smeltSlotEmpty)) {
+                Calendar finishTime = getFinishTimeBySlotInfo(slotInfo);
+                Calendar calendar = Compute.StringToCalendar(ClientUtils.serverTime);
+                if (calendar.after(finishTime)) {
+                    finishedSlotCount ++;
+                }
+            }
+        }
+        return finishedSlotCount;
     }
 
     public static void sendFormatMSG(Player player, Component component) {

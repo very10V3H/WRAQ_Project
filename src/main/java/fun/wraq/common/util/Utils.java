@@ -798,69 +798,6 @@ public class Utils {
 
     public static Map<BlockPos, String> whoIsUsingBlock = new HashMap<>();
 
-    public record DropAndExp(Item item, double exp) {}
-    
-    public static Map<Block, DropAndExp> mineRewardMap = new HashMap<>() {{
-        put(Blocks.COAL_ORE, new DropAndExp(Items.COAL, 0.01));
-        put(Blocks.DEEPSLATE_COAL_ORE, new DropAndExp(Items.COAL, 0.01));
-        put(Blocks.COPPER_ORE, new DropAndExp(Items.RAW_COPPER, 0.02));
-        put(Blocks.DEEPSLATE_COPPER_ORE, new DropAndExp(Items.RAW_COPPER, 0.02));
-        put(Blocks.RAW_COPPER_BLOCK, new DropAndExp(Items.RAW_COPPER, 0.02));
-        put(Blocks.IRON_ORE, new DropAndExp(Items.RAW_IRON, 0.03));
-        put(Blocks.DEEPSLATE_IRON_ORE, new DropAndExp(Items.RAW_IRON, 0.03));
-        put(Blocks.RAW_IRON_BLOCK, new DropAndExp(Items.RAW_IRON, 0.03));
-        put(Blocks.LAPIS_ORE, new DropAndExp(Items.LAPIS_LAZULI, 0.03));
-        put(Blocks.DEEPSLATE_LAPIS_ORE, new DropAndExp(Items.LAPIS_LAZULI, 0.03));
-        put(Blocks.REDSTONE_ORE, new DropAndExp(Items.REDSTONE, 0.03));
-        put(Blocks.DEEPSLATE_REDSTONE_ORE, new DropAndExp(Items.REDSTONE, 0.03));
-        put(Blocks.GOLD_ORE, new DropAndExp(Items.RAW_GOLD, 0.04));
-        put(Blocks.DEEPSLATE_GOLD_ORE, new DropAndExp(Items.RAW_GOLD, 0.04));
-        put(Blocks.RAW_GOLD_BLOCK, new DropAndExp(Items.RAW_GOLD, 0.04));
-        put(Blocks.DIAMOND_ORE, new DropAndExp(Items.DIAMOND, 0.05));
-        put(Blocks.DEEPSLATE_DIAMOND_ORE, new DropAndExp(Items.DIAMOND, 0.05));
-        put(Blocks.EMERALD_ORE, new DropAndExp(Items.EMERALD, 0.05));
-        put(Blocks.DEEPSLATE_EMERALD_ORE, new DropAndExp(Items.EMERALD, 0.05));
-    }};
-
-    public static Set<Block> canBeDigBlockList = new HashSet<>() {{
-        Block[] blocks = {
-                Blocks.DIRT,
-                Blocks.COBBLESTONE,
-                Blocks.STONE,
-                Blocks.GRAVEL,
-                Blocks.SMOOTH_BASALT,
-                Blocks.TUFF,
-                Blocks.DIORITE,
-                Blocks.GRANITE,
-                Blocks.ANDESITE,
-                Blocks.DEEPSLATE,
-                Blocks.COBBLED_DEEPSLATE,
-                Blocks.SCULK,
-                Blocks.COAL_ORE,
-                Blocks.DEEPSLATE_COAL_ORE,
-                Blocks.COPPER_ORE,
-                Blocks.DEEPSLATE_COPPER_ORE,
-                Blocks.RAW_COPPER_BLOCK,
-                Blocks.IRON_ORE,
-                Blocks.DEEPSLATE_IRON_ORE,
-                Blocks.RAW_IRON_BLOCK,
-                Blocks.LAPIS_ORE,
-                Blocks.DEEPSLATE_LAPIS_ORE,
-                Blocks.REDSTONE_ORE,
-                Blocks.DEEPSLATE_REDSTONE_ORE,
-                Blocks.GOLD_ORE,
-                Blocks.DEEPSLATE_GOLD_ORE,
-                Blocks.RAW_GOLD_BLOCK,
-                Blocks.DIAMOND_ORE,
-                Blocks.DEEPSLATE_DIAMOND_ORE,
-                Blocks.EMERALD_ORE,
-                Blocks.DEEPSLATE_EMERALD_ORE,
-                Blocks.POINTED_DRIPSTONE
-        };
-        this.addAll(Arrays.asList(blocks));
-        this.addAll(mineRewardMap.keySet());
-    }};
-
     public static Map<String, Queue<BlockAndResetTime>> noMineDigMap = new HashMap<>();
     public static Map<String, Queue<BlockAndResetTime>> blockPlaceMap = new HashMap<>();
 

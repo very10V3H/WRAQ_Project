@@ -5,6 +5,7 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.fast.Te;
 import fun.wraq.process.system.element.ElementValue;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -40,6 +41,7 @@ public class InfoCommand implements Command<CommandSourceStack> {
         player.sendSystemMessage(Component.literal("·治疗强度:").withStyle(CustomStyle.styleOfHealth).withStyle(ChatFormatting.BOLD).append(Component.literal(String.format("%.0f", PlayerAttributes.healEffectUp(player) * 100)).withStyle(ChatFormatting.WHITE)).append(Component.literal("%").withStyle(ChatFormatting.WHITE)));
         player.sendSystemMessage(Component.literal("·基础护甲:").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.BOLD).append(Component.literal(String.format("%.1f", PlayerAttributes.defence(player))).withStyle(ChatFormatting.WHITE)));
         player.sendSystemMessage(Component.literal("·冷却缩减:").withStyle(ChatFormatting.BLUE).withStyle(ChatFormatting.BOLD).append(Component.literal(String.format("%.0f", PlayerAttributes.coolDownDecrease(player) * 100)).withStyle(ChatFormatting.WHITE)).append(Component.literal("%").withStyle(ChatFormatting.WHITE)));
+        player.sendSystemMessage(Te.s("·挖掘速度:", ChatFormatting.GRAY, String.format("%.0f%%", PlayerAttributes.getMineSpeed(player) * 100)));
         player.sendSystemMessage(Component.literal("·经验加成:").withStyle(ChatFormatting.LIGHT_PURPLE).withStyle(ChatFormatting.UNDERLINE).withStyle(ChatFormatting.BOLD).append(Component.literal(String.format("%.2f", PlayerAttributes.expUp(player) * 100)).withStyle(ChatFormatting.WHITE).append(Component.literal("%"))));
         player.sendSystemMessage(Component.literal("·额外产出:").withStyle(ChatFormatting.GOLD).withStyle(ChatFormatting.BOLD).append(Component.literal(String.format("%.2f", Compute.playerExHarvest(player) * 100)).withStyle(ChatFormatting.WHITE).append(Component.literal("%"))));
 

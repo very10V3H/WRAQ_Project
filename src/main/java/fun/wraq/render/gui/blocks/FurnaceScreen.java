@@ -6,7 +6,7 @@ import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.Limit.ScreenCloseC2SPacket;
 import fun.wraq.process.system.smelt.SmeltDataRequestC2SPacket;
 import fun.wraq.process.system.smelt.SmeltRecipeScreen;
-import fun.wraq.render.gui.blocks.FurnaceMenu;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
@@ -58,8 +58,11 @@ public class FurnaceScreen extends AbstractContainerScreen<fun.wraq.render.gui.b
 
         Minecraft mc = Minecraft.getInstance();
 
-        int x = (width - imageWidth) / 2;
-        int y = (height - imageHeight) / 2;
+        int x = width / 2;
+        int y = height / 2;
+
+        guiGraphics.drawString(mc.font, Component.literal("使用托管炼造以炼造新配方").withStyle(ChatFormatting.AQUA),
+                x - 86, y - 92, 0);
 
         renderBackground(guiGraphics);
         super.render(guiGraphics, mouseX, mouseY, delta);

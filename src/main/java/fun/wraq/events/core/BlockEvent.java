@@ -48,7 +48,6 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
@@ -59,7 +58,7 @@ public class BlockEvent {
     public static void setMineSpeed(PlayerEvent.BreakSpeed event) {
         Player player = event.getEntity();
         double mineSpeed = PlayerAttributes.getMineSpeed(player);
-        event.setNewSpeed((float) (10 * (1 + mineSpeed)));
+        event.setNewSpeed((float) (1 + mineSpeed));
     }
 
     @SubscribeEvent
@@ -77,7 +76,7 @@ public class BlockEvent {
     }
 
     @SubscribeEvent
-    public static void worldSoulTransform(PlayerInteractEvent.RightClickBlock event) throws IOException {
+    public static void worldSoulTransform(PlayerInteractEvent.RightClickBlock event) {
         if (!event.getEntity().level().isClientSide) {
             Player player = event.getEntity();
             BlockPos blockPos = event.getHitVec().getBlockPos();

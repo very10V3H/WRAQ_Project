@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class WraqPickaxe extends PickaxeItem {
-    public static final List<Item> PICKAXE_ITEM_LIST = new ArrayList<>();
+    public static List<Item> PICKAXE_ITEM_LIST = new ArrayList<>();
     public static Map<Item, Double> mineSpeed = new HashMap<>();
 
     public WraqPickaxe(Properties properties) {
@@ -72,7 +72,9 @@ public abstract class WraqPickaxe extends PickaxeItem {
         if (oneLineDescription() != null) {
             components.add(oneLineDescription());
         }
-        components.add(getSuffix());
+        if (getSuffix() != null) {
+            components.add(getSuffix());
+        }
         super.appendHoverText(stack, level, components, flag);
     }
 

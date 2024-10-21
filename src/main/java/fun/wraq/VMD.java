@@ -8,6 +8,7 @@ import dev.kosmx.playerAnim.minecraftApi.PlayerAnimationFactory;
 import fun.wraq.blocks.blocks.forge.ForgeRecipe;
 import fun.wraq.blocks.entity.ModBlockEntities;
 import fun.wraq.common.attribute.BasicAttributeDescription;
+import fun.wraq.common.equip.WraqPickaxe;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.*;
 import fun.wraq.common.util.Utils;
@@ -33,6 +34,7 @@ import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.process.system.lottery.NewLotteries;
 import fun.wraq.process.system.market.MarketInfo;
 import fun.wraq.process.system.ore.OreItems;
+import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.process.system.point.PointItems;
 import fun.wraq.process.system.spur.Items.SpurItems;
 import fun.wraq.process.system.teamInstance.NewTeamInstance;
@@ -115,6 +117,7 @@ public class VMD {
         OreItems.ITEMS.register(modEvenBus);
         MoontainItems.ITEMS.register(modEvenBus);
         PointItems.ITEMS.register(modEvenBus);
+        PickaxeItems.ITEMS.register(modEvenBus);
 
         ModBlocks.BLOCKS.register(modEvenBus);
         ModEntityType.ENTITY_TYPES.register(modEvenBus);
@@ -634,7 +637,9 @@ public class VMD {
 
             OreItems.ITEMS.getEntries()
                     .stream().map(RegistryObject::get)
-                    .forEach(item -> event.accept(item.getDefaultInstance()));
+                    .forEach(event::accept);
+
+            WraqPickaxe.PICKAXE_ITEM_LIST.forEach(event::accept);
 
             event.accept(ModItems.CrudeCoal.get().getDefaultInstance());
             event.accept(ModItems.HotCoal.get().getDefaultInstance());

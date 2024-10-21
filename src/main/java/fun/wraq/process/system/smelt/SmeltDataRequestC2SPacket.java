@@ -1,6 +1,5 @@
 package fun.wraq.process.system.smelt;
 
-import fun.wraq.process.system.smelt.Smelt;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent;
 

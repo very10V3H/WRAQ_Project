@@ -135,11 +135,13 @@ public class Illustrate extends Screen {
             for (int j = 0; j < 9; j++) {
                 if (page * 45 + i * 9 + j < list.size()) {
                     ItemStack itemStack = list.get(page * 45 + i * 9 + j).getDefaultInstance();
-                    if (!Screen.hasAltDown()) {
+                    Item item = itemStack.getItem();
+                    itemStack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
+                    if (!Screen.hasControlDown()
+                            && (Utils.mainHandTag.containsKey(item) || Utils.armorTag.containsKey(item))) {
                         itemStack.getOrCreateTagElement(Utils.MOD_ID).putBoolean(DISPLAY_FLAG, true);
                         ForgeEquipUtils.setForgeQualityOnEquip(itemStack, ClientUtils.clientPlayerTick / 20 % 13);
                         Compute.forgingHoverName(itemStack);
-                        itemStack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
                     }
                     guiGraphics.renderItem(itemStack,
                             this.width / 2 - 100 + j * 30 + xOffset, this.height / 2 - 73 + 32 * i);

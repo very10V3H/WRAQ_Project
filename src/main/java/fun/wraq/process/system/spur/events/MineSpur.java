@@ -1,12 +1,14 @@
 package fun.wraq.process.system.spur.events;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.registry.ModBlocks;
 import fun.wraq.common.util.ItemAndRate;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.struct.BlockAndResetTime;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.system.missions.series.labourDay.LabourDayMission;
+import fun.wraq.process.system.ore.OreItems;
 import fun.wraq.process.system.spur.Items.SpurItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -19,6 +21,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -26,8 +29,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
-import java.util.LinkedList;
-import java.util.Random;
+import java.util.*;
 
 public class MineSpur {
 
@@ -44,15 +46,15 @@ public class MineSpur {
             if (!level.isClientSide && level.equals(OverWorld)) {
                 int tickCount = level.getServer().getTickCount();
                 Block block = blockState.getBlock();
-                if (blockPos.getY() <= 11 || Utils.mineRewardMap.containsKey(block)) {
-                    if (Utils.canBeDigBlockList.contains(block)) {
-                        if (Utils.mineRewardMap.containsKey(block)) {
+                if (blockPos.getY() <= 11 || mineRewardMap.containsKey(block)) {
+                    if (canBeDigBlockList.contains(block)) {
+                        if (mineRewardMap.containsKey(block)) {
                             BlockAndResetTime blockAndResetTime = new BlockAndResetTime(blockState, blockPos, tickCount + 36000);
                             if (!Utils.posEvenBeenDigOrPlace.contains(blockPos)) {
                                 Utils.worldMineList.add(blockAndResetTime);
                                 Utils.posEvenBeenDigOrPlace.add(blockPos);
                             }
-                            ItemAndRate.summonItemEntity(Utils.mineRewardMap.get(block).item().getDefaultInstance(),
+                            ItemAndRate.summonItemEntity(mineRewardMap.get(block).item().getDefaultInstance(),
                                     blockPos.getCenter(), level);
 
                             level.destroyBlock(blockPos, false);
@@ -62,7 +64,7 @@ public class MineSpur {
                             if (random.nextDouble() < Compute.playerExHarvest(player)) {
                                 Compute.sendFormatMSG(player, Component.literal("额外产出").withStyle(ChatFormatting.GOLD),
                                         Component.literal("为你提供了额外产物！").withStyle(ChatFormatting.WHITE));
-                                ItemAndRate.summonItemEntity(Utils.mineRewardMap.get(block).item().getDefaultInstance(),
+                                ItemAndRate.summonItemEntity(mineRewardMap.get(block).item().getDefaultInstance(),
                                         blockPos.getCenter(), level);
                                 mineReward(player, blockState, blockPos);
                             }
@@ -75,7 +77,7 @@ public class MineSpur {
                                 Utils.noMineDigMap.get(name).add(blockAndResetTime);
                                 Utils.posEvenBeenDigOrPlace.add(blockPos);
                             }
-                            if ((blockState.is(Blocks.STONE) || blockState.is(Blocks.COBBLESTONE)) && InventoryOperation.itemStackCount(player.getInventory(), Items.COBBLESTONE) < 32) {
+                            if ((blockState.is(Blocks.STONE) || blockState.is(Blocks.COBBLESTONE))) {
                                 player.addItem(Items.COBBLESTONE.getDefaultInstance());
                             }
                             if ((blockState.is(Blocks.DEEPSLATE) || blockState.is(Blocks.COBBLED_DEEPSLATE)) && InventoryOperation.itemStackCount(player.getInventory(), Items.COBBLED_DEEPSLATE) < 32) {
@@ -101,7 +103,7 @@ public class MineSpur {
     public static String fromMineReward = "fromMineReward";
 
     public static void mineReward(Player player, BlockState blockState, BlockPos blockPos) {
-        double rate = Utils.mineRewardMap.get(blockState.getBlock()).exp();
+        double rate = mineRewardMap.get(blockState.getBlock()).exp();
         addPlayerMineExp(player, (int) (rate * 100));
         rate *= (1 + getPlayerMineLevel(player)) * 0.25;
         ItemAndRate.dropOrbs(Math.min(player.experienceLevel, 50), rate, player.level(), blockPos.getCenter(), fromMineReward);
@@ -145,4 +147,74 @@ public class MineSpur {
         ServerPlayer serverPlayer = (ServerPlayer) player;
         serverPlayer.connection.send(clientboundSetActionBarTextPacket);
     }
+
+    public record DropAndExp(Item item, double exp) {}
+
+    public static Map<Block, DropAndExp> mineRewardMap = new HashMap<>() {{
+        put(Blocks.COAL_ORE, new DropAndExp(Items.COAL, 0.01));
+        put(Blocks.DEEPSLATE_COAL_ORE, new DropAndExp(Items.COAL, 0.01));
+        put(Blocks.COPPER_ORE, new DropAndExp(Items.RAW_COPPER, 0.02));
+        put(Blocks.DEEPSLATE_COPPER_ORE, new DropAndExp(Items.RAW_COPPER, 0.02));
+        put(Blocks.RAW_COPPER_BLOCK, new DropAndExp(Items.RAW_COPPER, 0.02));
+        put(Blocks.IRON_ORE, new DropAndExp(Items.RAW_IRON, 0.03));
+        put(Blocks.DEEPSLATE_IRON_ORE, new DropAndExp(Items.RAW_IRON, 0.03));
+        put(Blocks.RAW_IRON_BLOCK, new DropAndExp(Items.RAW_IRON, 0.03));
+        put(Blocks.LAPIS_ORE, new DropAndExp(Items.LAPIS_LAZULI, 0.03));
+        put(Blocks.DEEPSLATE_LAPIS_ORE, new DropAndExp(Items.LAPIS_LAZULI, 0.03));
+        put(Blocks.REDSTONE_ORE, new DropAndExp(Items.REDSTONE, 0.03));
+        put(Blocks.DEEPSLATE_REDSTONE_ORE, new DropAndExp(Items.REDSTONE, 0.03));
+        put(Blocks.GOLD_ORE, new DropAndExp(Items.RAW_GOLD, 0.04));
+        put(Blocks.DEEPSLATE_GOLD_ORE, new DropAndExp(Items.RAW_GOLD, 0.04));
+        put(Blocks.RAW_GOLD_BLOCK, new DropAndExp(Items.RAW_GOLD, 0.04));
+        put(Blocks.DIAMOND_ORE, new DropAndExp(Items.DIAMOND, 0.05));
+        put(Blocks.DEEPSLATE_DIAMOND_ORE, new DropAndExp(Items.DIAMOND, 0.05));
+        put(Blocks.EMERALD_ORE, new DropAndExp(Items.EMERALD, 0.05));
+        put(Blocks.DEEPSLATE_EMERALD_ORE, new DropAndExp(Items.EMERALD, 0.05));
+
+        put(ModBlocks.WRAQ_ORE_1.get(), new DropAndExp(OreItems.WRAQ_ORE_1_ITEM.get(), 0.05));
+        put(ModBlocks.WRAQ_ORE_2.get(), new DropAndExp(OreItems.WRAQ_ORE_2_ITEM.get(), 0.05));
+        put(ModBlocks.WRAQ_ORE_3.get(), new DropAndExp(OreItems.WRAQ_ORE_3_ITEM.get(), 0.05));
+        put(ModBlocks.WRAQ_ORE_4.get(), new DropAndExp(OreItems.WRAQ_ORE_4_ITEM.get(), 0.05));
+    }};
+
+    public static Set<Block> canBeDigBlockList = new HashSet<>() {{
+        Block[] blocks = {
+                Blocks.DIRT,
+                Blocks.COBBLESTONE,
+                Blocks.STONE,
+                Blocks.GRAVEL,
+                Blocks.SMOOTH_BASALT,
+                Blocks.TUFF,
+                Blocks.DIORITE,
+                Blocks.GRANITE,
+                Blocks.ANDESITE,
+                Blocks.DEEPSLATE,
+                Blocks.COBBLED_DEEPSLATE,
+                Blocks.SCULK,
+                Blocks.COAL_ORE,
+                Blocks.DEEPSLATE_COAL_ORE,
+                Blocks.COPPER_ORE,
+                Blocks.DEEPSLATE_COPPER_ORE,
+                Blocks.RAW_COPPER_BLOCK,
+                Blocks.IRON_ORE,
+                Blocks.DEEPSLATE_IRON_ORE,
+                Blocks.RAW_IRON_BLOCK,
+                Blocks.LAPIS_ORE,
+                Blocks.DEEPSLATE_LAPIS_ORE,
+                Blocks.REDSTONE_ORE,
+                Blocks.DEEPSLATE_REDSTONE_ORE,
+                Blocks.GOLD_ORE,
+                Blocks.DEEPSLATE_GOLD_ORE,
+                Blocks.RAW_GOLD_BLOCK,
+                Blocks.DIAMOND_ORE,
+                Blocks.DEEPSLATE_DIAMOND_ORE,
+                Blocks.EMERALD_ORE,
+                Blocks.DEEPSLATE_EMERALD_ORE,
+                Blocks.POINTED_DRIPSTONE,
+                ModBlocks.WRAQ_ORE_1.get(), ModBlocks.WRAQ_ORE_2.get(),
+                ModBlocks.WRAQ_ORE_3.get(), ModBlocks.WRAQ_ORE_4.get()
+        };
+        this.addAll(Arrays.asList(blocks));
+        this.addAll(mineRewardMap.keySet());
+    }};
 }

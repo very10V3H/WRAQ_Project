@@ -1742,6 +1742,41 @@
 
   "item.vmd.refined_piece": "黯淡团露",
 
+  "item.vmd.stone_pickaxe_0": "斯蒂十字镐",
+  "item.vmd.stone_pickaxe_1": "斯蒂十字镐¹",
+  "item.vmd.stone_pickaxe_2": "斯蒂十字镐²",
+  "item.vmd.stone_pickaxe_3": "斯蒂十字镐³",
+  "item.vmd.stone_pickaxe_4": "斯蒂十字镐⁴",
+  "item.vmd.tinker_stone": "工匠石",
+
+  "item.vmd.iron_pickaxe_0": "标准铁镐",
+  "item.vmd.iron_pickaxe_1": "标准铁镐¹",
+  "item.vmd.iron_pickaxe_2": "标准铁镐²",
+  "item.vmd.iron_pickaxe_3": "标准铁镐³",
+  "item.vmd.iron_pickaxe_4": "标准铁镐⁴",
+  "item.vmd.tinker_iron": "工匠铁锭",
+
+  "item.vmd.golden_pickaxe_0": "华贵金十字",
+  "item.vmd.golden_pickaxe_1": "华贵金十字¹",
+  "item.vmd.golden_pickaxe_2": "华贵金十字²",
+  "item.vmd.golden_pickaxe_3": "华贵金十字³",
+  "item.vmd.golden_pickaxe_4": "华贵金十字⁴",
+  "item.vmd.tinker_gold": "工匠金锭",
+
+  "item.vmd.diamond_pickaxe_0": "璀璨钻十字",
+  "item.vmd.diamond_pickaxe_1": "璀璨钻十字¹",
+  "item.vmd.diamond_pickaxe_2": "璀璨钻十字²",
+  "item.vmd.diamond_pickaxe_3": "璀璨钻十字³",
+  "item.vmd.diamond_pickaxe_4": "璀璨钻十字⁴",
+  "item.vmd.tinker_diamond": "工匠钻石",
+
+  "item.vmd.netherite_pickaxe_0": "合金十字",
+  "item.vmd.netherite_pickaxe_1": "合金十字¹",
+  "item.vmd.netherite_pickaxe_2": "合金十字²",
+  "item.vmd.netherite_pickaxe_3": "合金十字³",
+  "item.vmd.netherite_pickaxe_4": "合金十字⁴",
+  "item.vmd.tinker_netherite": "工匠合金",
+
 
   "curios.identifier.rune": "符石",
   "curios.identifier.crest": "纹章",

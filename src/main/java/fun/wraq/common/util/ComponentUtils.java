@@ -453,6 +453,10 @@ public class ComponentUtils {
         return Component.literal("支线-生产劳动所获").withStyle(ChatFormatting.AQUA);
     }
 
+    public static Component getNormalPickaxeSuffix() {
+        return Component.literal("史蒂夫圣剑").withStyle(ChatFormatting.AQUA);
+    }
+
     public static Component getAttackDamageDotDescription(int lastSeconds, int times, String rate) {
         return Component.literal("在").withStyle(ChatFormatting.WHITE).
                 append(Component.literal(lastSeconds + "s").withStyle(ChatFormatting.AQUA)).
