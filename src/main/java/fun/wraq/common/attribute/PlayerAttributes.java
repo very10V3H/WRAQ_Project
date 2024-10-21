@@ -202,7 +202,7 @@ public class PlayerAttributes {
 
         int powerAbilityPoint = data.getInt(StringUtils.Ability.Power);
         if (data.contains(StringUtils.Ability.Power) && data.getInt(StringUtils.Ability.Power) > 0) {
-            exDamage += powerAbilityPoint;
+            exDamage += powerAbilityPoint * 2;
         } // 能力
 
         if (leggings.equals(ModItems.MinePants.get()) && (Utils.OverWorldLevelIsNight || player.getY() < 63))
@@ -439,11 +439,6 @@ public class PlayerAttributes {
         if (Compute.getBowSkillLevel(data, 7) > 0 && Utils.bowTag.containsKey(mainhand)) {
             critDamage += Compute.getBowSkillLevel(data, 7) * 0.1;
         } // 锻矢-锋利（手持弓时，获得10%暴击伤害）
-
-        int PowerAbilityPoint = data.getInt(StringUtils.Ability.Power);
-        if (data.contains(StringUtils.Ability.Power) && data.getInt(StringUtils.Ability.Power) > 0) {
-            critDamage += PowerAbilityPoint * 0.01;
-        } // 能力
 
         if (SuitCount.getVolcanoSuitCount(player) >= 4) critDamage += 0.35;
 
