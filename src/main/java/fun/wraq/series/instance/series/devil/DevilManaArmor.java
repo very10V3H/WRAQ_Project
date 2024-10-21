@@ -2,9 +2,12 @@ package fun.wraq.series.instance.series.devil;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqArmor;
+import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.registry.ItemMaterial;
+import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.process.system.ore.OreItems;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -14,7 +17,7 @@ import net.minecraft.world.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DevilManaArmor extends WraqArmor {
+public class DevilManaArmor extends WraqArmor implements ForgeItem {
 
     public DevilManaArmor(ItemMaterial Material, Type Slots, Properties itemProperties) {
         super(Material, Slots, itemProperties);
@@ -47,4 +50,11 @@ public class DevilManaArmor extends WraqArmor {
         return true;
     }
 
+    @Override
+    public List<ItemStack> forgeRecipe() {
+        return List.of(
+                new ItemStack(ModItems.DevilManaSoul.get(), 128),
+                new ItemStack(OreItems.WRAQ_ORE_3_ITEM.get(), 32)
+        );
+    }
 }

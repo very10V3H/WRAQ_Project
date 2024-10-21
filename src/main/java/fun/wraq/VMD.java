@@ -96,6 +96,8 @@ public class VMD {
     public VMD() {
         IEventBus modEvenBus = FMLJavaModLoadingContext.get().getModEventBus();
         UniformItems.ITEMS.register(modEvenBus);
+        PickaxeItems.ITEMS.register(modEvenBus);
+        OreItems.ITEMS.register(modEvenBus);
         ModItems.ITEMS.register(modEvenBus);
         C1LootItems.ITEMS.register(modEvenBus);
         C2LootItems.ITEMS.register(modEvenBus);
@@ -114,10 +116,8 @@ public class VMD {
         QuiverItems.ITEMS.register(modEvenBus);
         BladeItems.ITEMS.register(modEvenBus);
         MixtureItems.ITEMS.register(modEvenBus);
-        OreItems.ITEMS.register(modEvenBus);
         MoontainItems.ITEMS.register(modEvenBus);
         PointItems.ITEMS.register(modEvenBus);
-        PickaxeItems.ITEMS.register(modEvenBus);
 
         ModBlocks.BLOCKS.register(modEvenBus);
         ModEntityType.ENTITY_TYPES.register(modEvenBus);

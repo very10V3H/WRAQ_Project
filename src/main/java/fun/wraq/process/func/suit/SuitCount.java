@@ -35,7 +35,6 @@ public class SuitCount {
 
     public static int getPlainSuitCount(Player player) {
         int count = getPlainSuitCountWithoutCrest(player);
-        if (player.getItemBySlot(EquipmentSlot.OFFHAND).is(ModItems.PlainBracelet.get())) count++;
         if (Compute.CuriosAttribute.getDistinctCuriosList(player).stream()
                 .anyMatch(stack -> stack.getItem() instanceof PlainCrest)) {
             count ++;
@@ -54,7 +53,6 @@ public class SuitCount {
 
     public static int getForestSuitCount(Player player) {
         int count = getForestSuitCountWithoutCrest(player);
-        if (player.getItemBySlot(EquipmentSlot.OFFHAND).is(ModItems.ForestBracelet.get())) count++;
         if (Compute.CuriosAttribute.getDistinctCuriosList(player).stream()
                 .anyMatch(stack -> stack.getItem() instanceof ForestCrest)) {
             count ++;
@@ -73,7 +71,6 @@ public class SuitCount {
 
     public static int getLakeSuitCount(Player player) {
         int count = getLakeSuitCountWithoutCrest(player);
-        if (player.getItemBySlot(EquipmentSlot.OFFHAND).is(ModItems.LakeBracelet.get())) count++;
         if (Compute.CuriosAttribute.getDistinctCuriosList(player).stream()
                 .anyMatch(stack -> stack.getItem() instanceof LakeCrest)) {
             count ++;
@@ -92,7 +89,6 @@ public class SuitCount {
 
     public static int getVolcanoSuitCount(Player player) {
         int count = getVolcanoCountWithoutCrest(player);
-        if (player.getItemBySlot(EquipmentSlot.OFFHAND).is(ModItems.VolcanoBracelet.get())) count++;
         if (Compute.CuriosAttribute.getDistinctCuriosList(player).stream()
                 .anyMatch(stack -> stack.getItem() instanceof VolcanoCrest)) {
             count ++;
@@ -161,7 +157,6 @@ public class SuitCount {
         if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.MineArmorChest.get())) count++;
         if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.MineArmorLeggings.get())) count++;
         if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.MineArmorBoots.get())) count++;
-        if (player.getItemBySlot(EquipmentSlot.OFFHAND).is(ModItems.MineBracelet.get())) count++;
         if (Compute.CuriosAttribute.getDistinctCuriosList(player).stream()
                 .anyMatch(stack -> stack.getItem() instanceof MineCrest)) {
             count ++;
@@ -175,7 +170,6 @@ public class SuitCount {
         if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.SnowArmorChest.get())) count++;
         if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.SnowArmorLeggings.get())) count++;
         if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.SnowArmorBoots.get())) count++;
-        if (player.getItemBySlot(EquipmentSlot.OFFHAND).is(ModItems.SnowBracelet.get())) count++;
         if (Compute.CuriosAttribute.getDistinctCuriosList(player).stream()
                 .anyMatch(stack -> stack.getItem() instanceof SnowCrest)) {
             count ++;
@@ -185,11 +179,10 @@ public class SuitCount {
 
     public static int getSkySuitCount(Player player) {
         int count = 0;
-        if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.SkyArmorHelmet.get())) count++;
-        if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.SkyArmorChest.get())) count++;
-        if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.SkyArmorLeggings.get())) count++;
-        if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.SkyArmorBoots.get())) count++;
-        if (player.getItemBySlot(EquipmentSlot.OFFHAND).is(ModItems.SkyBracelet.get())) count++;
+        if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.SKY_ARMOR_HELMET.get())) count++;
+        if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.SKY_ARMOR_CHEST.get())) count++;
+        if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.SKY_ARMOR_LEGGINGS.get())) count++;
+        if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.SKY_ARMOR_BOOTS.get())) count++;
         if (Compute.CuriosAttribute.getDistinctCuriosList(player).stream()
                 .anyMatch(stack -> stack.getItem() instanceof SkyCrest)) {
             count ++;
@@ -199,10 +192,10 @@ public class SuitCount {
 
     public static int getNetherSuitCount(Player player) {
         int count = 0;
-        if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.NetherArmorHelmet.get())) count++;
-        if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.NetherArmorChest.get())) count++;
-        if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.NetherArmorLeggings.get())) count++;
-        if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.NetherArmorBoots.get())) count++;
+        if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.NETHER_ARMOR_HELMET.get())) count++;
+        if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.NETHER_ARMOR_CHEST.get())) count++;
+        if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.NETHER_ARMOR_LEGGINGS.get())) count++;
+        if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.NETHER_ARMOR_BOOTS.get())) count++;
         if (player.getItemBySlot(EquipmentSlot.OFFHAND).is(ModItems.NetherPower.get())) count++;
         return Math.min(count, 4);
     }

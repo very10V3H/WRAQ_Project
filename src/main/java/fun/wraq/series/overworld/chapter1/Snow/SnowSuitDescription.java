@@ -40,16 +40,14 @@ public class SnowSuitDescription {
                 ModItems.SnowArmorChest.get(),
                 ModItems.SnowBossArmorChest.get(),
                 ModItems.SnowArmorLeggings.get(),
-                ModItems.SnowArmorBoots.get(),
-                ModItems.SnowBracelet.get()
+                ModItems.SnowArmorBoots.get()
         };
         EquipmentSlot[] equipmentSlot = {
                 EquipmentSlot.HEAD,
                 EquipmentSlot.CHEST,
                 EquipmentSlot.CHEST,
                 EquipmentSlot.LEGS,
-                EquipmentSlot.FEET,
-                EquipmentSlot.OFFHAND
+                EquipmentSlot.FEET
         };
         for (int i = 0; i < items.length; i++) {
             Count += Compute.SuitItemVision(player, items[i], equipmentSlot[i], components, MainStyle);

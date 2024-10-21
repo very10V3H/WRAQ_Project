@@ -5,6 +5,7 @@ import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.equip.WraqArmor;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
+import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.impl.onhit.OnHitEffectEquip;
 import fun.wraq.common.registry.ItemMaterial;
 import fun.wraq.common.registry.ModItems;
@@ -13,6 +14,7 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.EnhanceNormalAttackModifier;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.suit.SuitCount;
+import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -26,7 +28,7 @@ import net.minecraft.world.phys.AABB;
 
 import java.util.*;
 
-public class LightningArmor extends WraqArmor implements OnHitEffectEquip {
+public class LightningArmor extends WraqArmor implements OnHitEffectEquip, ForgeItem {
 
     private final int tier;
     public LightningArmor(ItemMaterial material, Type type, Properties properties, int tier) {
@@ -109,5 +111,16 @@ public class LightningArmor extends WraqArmor implements OnHitEffectEquip {
         if (enhanceNormalAttackTickMap.getOrDefault(player, 0) < Tick.get()) {
             enhanceNormalAttackTickMap.put(player, Tick.get() + 80);
         }
+    }
+
+    @Override
+    public List<ItemStack> forgeRecipe() {
+        if (this.tier == 0) {
+            return List.of(
+                    new ItemStack(ModItems.LightningRune.get(), 10),
+                    new ItemStack(PickaxeItems.TINKER_IRON.get(), 2)
+            );
+        }
+        return List.of();
     }
 }

@@ -2,6 +2,8 @@ package fun.wraq.series.end.curios;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqCurios;
+import fun.wraq.common.impl.display.ForgeItem;
+import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -13,7 +15,7 @@ import net.minecraft.world.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EndCuriosBow extends WraqCurios {
+public class EndCuriosBow extends WraqCurios implements ForgeItem {
 
     public EndCuriosBow(Properties p_41383_) {
         super(p_41383_);
@@ -52,5 +54,17 @@ public class EndCuriosBow extends WraqCurios {
     @Override
     public Component suffix() {
         return ComponentUtils.getSuffixOfEnd();
+    }
+
+    @Override
+    public List<ItemStack> forgeRecipe() {
+        return List.of(
+                new ItemStack(ModItems.EndCrystal.get(), 12),
+                new ItemStack(ModItems.goldCoin.get(), 320),
+                new ItemStack(ModItems.completeGem.get(), 8),
+                new ItemStack(ModItems.ReputationMedal.get(), 32),
+                new ItemStack(ModItems.RefiningGold.get(), 3),
+                new ItemStack(ModItems.WorldSoul3.get(), 3)
+        );
     }
 }

@@ -1,5 +1,6 @@
 package fun.wraq.series;
 
+import fun.wraq.common.impl.display.UsageOrGetWayDescriptionItem;
 import fun.wraq.render.gui.illustrate.Display;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
@@ -11,7 +12,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class WraqItem extends Item {
+public class WraqItem extends Item implements UsageOrGetWayDescriptionItem {
 
     public OnPickupListener onPickupListener;
     private boolean isFoiled = false;
@@ -45,6 +46,17 @@ public class WraqItem extends Item {
     public WraqItem(Properties properties, boolean isMaterial, boolean isFoiled, List<Component> description) {
         this(properties, isMaterial, isFoiled);
         this.description = description;
+    }
+
+    private List<Component> getWayDescription;
+    public WraqItem(Properties properties, boolean isFoiled, List<Component> description) {
+        this(properties, true, isFoiled);
+        this.getWayDescription = description;
+    }
+
+    @Override
+    public List<Component> getWayDescription() {
+        return getWayDescription == null ? List.of() : getWayDescription;
     }
 
     @Override

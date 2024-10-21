@@ -37,7 +37,6 @@ public class ForestSuitDescription {
             components.add(Component.literal("[按住shift展开套装效果]").withStyle(ChatFormatting.GRAY));
         }
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        components.add(Component.literal("ForestArmor-I").withStyle(style).withStyle(ChatFormatting.ITALIC));
         ComponentUtils.suffixOfChapterI(components);
     }
 
@@ -51,15 +50,13 @@ public class ForestSuitDescription {
                 ModItems.ForestArmorHelmet.get(),
                 ModItems.ForestArmorChest.get(),
                 ModItems.ForestArmorLeggings.get(),
-                ModItems.ForestArmorBoots.get(),
-                ModItems.ForestBracelet.get()
+                ModItems.ForestArmorBoots.get()
         };
         EquipmentSlot[] equipmentSlot = {
                 EquipmentSlot.HEAD,
                 EquipmentSlot.CHEST,
                 EquipmentSlot.LEGS,
-                EquipmentSlot.FEET,
-                EquipmentSlot.OFFHAND
+                EquipmentSlot.FEET
         };
         for (int i = 0; i < items.length; i++) {
             Count += Compute.SuitItemVision(player, items[i], equipmentSlot[i], components, MainStyle);

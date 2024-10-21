@@ -1,8 +1,9 @@
 package fun.wraq.series.nether.equip.mana;
 
-import fun.wraq.blocks.blocks.forge.ForgeRecipe;
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.equip.WraqSceptre;
+import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.ModSounds;
 import fun.wraq.common.registry.MySound;
@@ -10,7 +11,6 @@ import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.element.Element;
-import fun.wraq.common.equip.WraqSceptre;
 import fun.wraq.projectiles.mana.NewArrowMagma;
 import fun.wraq.render.particles.ModParticles;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -28,7 +28,7 @@ import net.minecraft.world.level.Level;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MagmaSceptre extends WraqSceptre {
+public class MagmaSceptre extends WraqSceptre implements ForgeItem {
 
     public MagmaSceptre(Properties p_42964_, int tier) {
         super(p_42964_.rarity(CustomStyle.MagmaItalic));
@@ -38,13 +38,6 @@ public class MagmaSceptre extends WraqSceptre {
         Utils.movementSpeedWithoutBattle.put(this, new double[]{0.4, 0.4, 0.4, 0.4}[tier]);
         Utils.manaCost.put(this, new double[]{180, 210, 240, 270}[tier]);
         Element.FireElementValue.put(this, new double[]{0.2, 0.4, 0.6, 0.8}[tier]);
-        ForgeRecipe.forgeDrawRecipe.put(this, new ArrayList<>() {{
-            add(new ItemStack(ModItems.MagmaRune.get(), 4));
-            add(new ItemStack(ModItems.Ruby.get(), 128));
-            add(new ItemStack(ModItems.NetherQuartz.get(), 32));
-            add(new ItemStack(Items.RAW_GOLD, 32));
-            add(new ItemStack(ModItems.goldCoin.get(), 64));
-        }});
     }
 
     @Override
@@ -82,5 +75,16 @@ public class MagmaSceptre extends WraqSceptre {
     @Override
     public Component getSuffix() {
         return ComponentUtils.getSuffixOfNether();
+    }
+
+    @Override
+    public List<ItemStack> forgeRecipe() {
+        return List.of(
+                new ItemStack(ModItems.MagmaRune.get(), 4),
+                new ItemStack(ModItems.Ruby.get(), 128),
+                new ItemStack(ModItems.NetherQuartz.get(), 32),
+                new ItemStack(Items.RAW_GOLD, 32),
+                new ItemStack(ModItems.goldCoin.get(), 64)
+        );
     }
 }

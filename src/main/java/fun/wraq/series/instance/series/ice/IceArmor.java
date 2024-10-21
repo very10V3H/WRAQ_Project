@@ -1,19 +1,23 @@
 package fun.wraq.series.instance.series.ice;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqArmor;
+import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.registry.ItemMaterial;
+import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.common.equip.WraqArmor;
+import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class IceArmor extends WraqArmor {
+public class IceArmor extends WraqArmor implements ForgeItem {
 
     public IceArmor(ItemMaterial Material, Type Slots, Properties itemProperties) {
         super(Material, Slots, itemProperties);
@@ -55,5 +59,13 @@ public class IceArmor extends WraqArmor {
     @Override
     public Component getSuffix() {
         return ComponentUtils.getSuffixOfIce();
+    }
+
+    @Override
+    public List<ItemStack> forgeRecipe() {
+        return List.of(
+                new ItemStack(ModItems.IceCompleteGem.get(), 4),
+                new ItemStack(PickaxeItems.TINKER_DIAMOND.get(), 1)
+        );
     }
 }

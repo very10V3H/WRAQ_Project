@@ -152,7 +152,6 @@ import fun.wraq.series.overworld.chapter1.Mine.Armor.MineArmorHelmet;
 import fun.wraq.series.overworld.chapter1.Mine.Armor.MineArmorLeggings;
 import fun.wraq.series.overworld.chapter1.Mine.Bow.MineBow;
 import fun.wraq.series.overworld.chapter1.Mine.Crest.MineCrest;
-import fun.wraq.series.overworld.chapter1.Mine.MineBracelet;
 import fun.wraq.series.overworld.chapter1.Mine.MineHat;
 import fun.wraq.series.overworld.chapter1.Mine.MineShield;
 import fun.wraq.series.overworld.chapter1.Mine.Sword.MineSword;
@@ -163,11 +162,9 @@ import fun.wraq.series.overworld.chapter1.Snow.Runes.SnowRune1;
 import fun.wraq.series.overworld.chapter1.Snow.Runes.SnowRune2;
 import fun.wraq.series.overworld.chapter1.Snow.Runes.SnowRune3;
 import fun.wraq.series.overworld.chapter1.Snow.SnowBoss;
-import fun.wraq.series.overworld.chapter1.Snow.SnowBracelet;
 import fun.wraq.series.overworld.chapter1.Snow.SnowPower;
 import fun.wraq.series.overworld.chapter1.Snow.SnowShield;
 import fun.wraq.series.overworld.chapter1.Snow.Sword.SnowSword;
-import fun.wraq.series.overworld.chapter1.forest.ForestBracelet;
 import fun.wraq.series.overworld.chapter1.forest.ForestCord;
 import fun.wraq.series.overworld.chapter1.forest.ForestPower;
 import fun.wraq.series.overworld.chapter1.forest.ForestRing;
@@ -183,7 +180,6 @@ import fun.wraq.series.overworld.chapter1.forest.rune.ForestRune1;
 import fun.wraq.series.overworld.chapter1.forest.rune.ForestRune2;
 import fun.wraq.series.overworld.chapter1.forest.rune.ForestRune3;
 import fun.wraq.series.overworld.chapter1.forest.sword.ForestSword;
-import fun.wraq.series.overworld.chapter1.plain.PlainBracelet;
 import fun.wraq.series.overworld.chapter1.plain.PlainCord;
 import fun.wraq.series.overworld.chapter1.plain.PlainPower;
 import fun.wraq.series.overworld.chapter1.plain.PlainRing;
@@ -196,7 +192,6 @@ import fun.wraq.series.overworld.chapter1.plain.crest.PlainCrest;
 import fun.wraq.series.overworld.chapter1.plain.runes.*;
 import fun.wraq.series.overworld.chapter1.plain.sceptre.PlainSceptre;
 import fun.wraq.series.overworld.chapter1.plain.sword.PlainSword;
-import fun.wraq.series.overworld.chapter1.volcano.VolcanoBracelet;
 import fun.wraq.series.overworld.chapter1.volcano.VolcanoCord;
 import fun.wraq.series.overworld.chapter1.volcano.VolcanoPower;
 import fun.wraq.series.overworld.chapter1.volcano.VolcanoRing;
@@ -212,7 +207,6 @@ import fun.wraq.series.overworld.chapter1.volcano.rune.VolcanoRune1;
 import fun.wraq.series.overworld.chapter1.volcano.rune.VolcanoRune2;
 import fun.wraq.series.overworld.chapter1.volcano.rune.VolcanoRune3;
 import fun.wraq.series.overworld.chapter1.volcano.sword.VolcanoSword;
-import fun.wraq.series.overworld.chapter1.waterSystem.LakeBracelet;
 import fun.wraq.series.overworld.chapter1.waterSystem.LakeCord;
 import fun.wraq.series.overworld.chapter1.waterSystem.LakePower;
 import fun.wraq.series.overworld.chapter1.waterSystem.LakeRing;
@@ -254,14 +248,10 @@ import fun.wraq.series.overworld.chapter2.manaArmor.ObsiMana1;
 import fun.wraq.series.overworld.chapter2.sea.SeaBow;
 import fun.wraq.series.overworld.chapter2.sea.SeaCore;
 import fun.wraq.series.overworld.chapter2.sea.Sword.SeaSword;
-import fun.wraq.series.overworld.chapter2.sky.Armor.SkyArmorBoots;
-import fun.wraq.series.overworld.chapter2.sky.Armor.SkyArmorChest;
-import fun.wraq.series.overworld.chapter2.sky.Armor.SkyArmorHelmet;
-import fun.wraq.series.overworld.chapter2.sky.Armor.SkyArmorLeggings;
+import fun.wraq.series.overworld.chapter2.sky.Armor.SkyArmor;
 import fun.wraq.series.overworld.chapter2.sky.BossItems.SkyBoss;
 import fun.wraq.series.overworld.chapter2.sky.Crest.SkyCrest;
 import fun.wraq.series.overworld.chapter2.sky.SkyBow;
-import fun.wraq.series.overworld.chapter2.sky.SkyBracelet;
 import fun.wraq.series.overworld.chapter2.sky.WindBottle;
 import fun.wraq.series.overworld.chapter2.spider.Ointment.*;
 import fun.wraq.series.overworld.chapter2.spider.SpiderArmorBoots;
@@ -357,6 +347,29 @@ public class ModItems {
             () -> new Knife(fun.wraq.common.registry.ItemTier.VMaterial, 2, 0));
     public static final RegistryObject<Item> ForNew = ITEMS.register("fornew",
             () -> new ForNew(new Item.Properties()));
+    public static final RegistryObject<Item> ORIGIN_KNIFE_PLAIN = ITEMS.register("origin_knife_plain",
+            () -> new OriginKnife(new Item.Properties().rarity(CustomStyle.Plain),
+                    CustomStyle.styleOfPlain, ComponentUtils.getSuffixOfChapterI(), 0));
+
+    public static final RegistryObject<Item> ORIGIN_KNIFE_FOREST = ITEMS.register("origin_knife_forest",
+            () -> new OriginKnife(new Item.Properties().rarity(CustomStyle.Forest),
+                    CustomStyle.styleOfForest, ComponentUtils.getSuffixOfChapterI(), 1));
+
+    public static final RegistryObject<Item> ORIGIN_KNIFE_LAKE = ITEMS.register("origin_knife_lake",
+            () -> new OriginKnife(new Item.Properties().rarity(CustomStyle.Lake),
+                    CustomStyle.styleOfLake, ComponentUtils.getSuffixOfChapterI(), 2));
+
+    public static final RegistryObject<Item> ORIGIN_KNIFE_MINE = ITEMS.register("origin_knife_mine",
+            () -> new OriginKnife(new Item.Properties().rarity(CustomStyle.Mine),
+                    CustomStyle.styleOfMine, ComponentUtils.getSuffixOfChapterI(), 3));
+
+    public static final RegistryObject<Item> ORIGIN_KNIFE_VOLCANO = ITEMS.register("origin_knife_volcano",
+            () -> new OriginKnife(new Item.Properties().rarity(CustomStyle.Volcano),
+                    CustomStyle.styleOfVolcano, ComponentUtils.getSuffixOfChapterII(), 4));
+
+    public static final RegistryObject<Item> ORIGIN_KNIFE_SKY = ITEMS.register("origin_knife_sky",
+            () -> new OriginKnife(new Item.Properties().rarity(CustomStyle.Sky),
+                    CustomStyle.styleOfSky, ComponentUtils.getSuffixOfChapterII(), 5));
     public static final RegistryObject<Item> RunePiece = ITEMS.register("rune_piece",
             () -> new Piece(new Item.Properties()));
     public static final RegistryObject<Item> PlainRune0 = ITEMS.register("green_runes_0",
@@ -467,7 +480,15 @@ public class ModItems {
             () -> new Item(new Item.Properties().rarity(CustomStyle.Lake)));
 
     public static final RegistryObject<Item> NaturalCore = ITEMS.register("natural_core",
-            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.Life)));
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.Life), false, List.of(
+                    Te.s("与", "农耕大师", CustomStyle.styleOfField, "交易获取")
+            )));
+
+    public static final RegistryObject<Item> OreRune = ITEMS.register("ore_rune",
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.MineBold), false, List.of(
+                    Te.s("与", "采矿大师", CustomStyle.styleOfMine, "交易获取")
+            )));
+
     public static final RegistryObject<Item> bossaward1 = ITEMS.register("bossaward1",
             () -> new Boss1(new Item.Properties().rarity(Rarity.UNCOMMON)));
     public static final RegistryObject<Item> bossaward2 = ITEMS.register("bossaward2",
@@ -871,39 +892,19 @@ public class ModItems {
             () -> new VolcanoRune3(new Item.Properties().rarity(CustomStyle.Volcano)));
     public static final RegistryObject<Item> DailyMission = ITEMS.register("dailymission",
             () -> new Daily(new Item.Properties().rarity(Rarity.UNCOMMON).stacksTo(1)));
-    public static final RegistryObject<Item> SkyArmorHelmet = ITEMS.register("skyarmorhelmet",
-            () -> new SkyArmorHelmet(ItemMaterial.SkyMaterial, ArmorItem.Type.HELMET));
-    public static final RegistryObject<Item> SkyHelmetForgeDraw = ITEMS.register("sky_helmet_forge_draw",
-            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.SkyBold), ModItems.SkyArmorHelmet.get()));
-    public static final RegistryObject<Item> SkyArmorChest = ITEMS.register("skyarmorchest",
-            () -> new SkyArmorChest(ItemMaterial.SkyMaterial, ArmorItem.Type.CHESTPLATE));
-    public static final RegistryObject<Item> SkyChestForgeDraw = ITEMS.register("sky_chest_forge_draw",
-            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.SkyBold), ModItems.SkyArmorChest.get()));
-    public static final RegistryObject<Item> SkyArmorLeggings = ITEMS.register("skyarmorleggings",
-            () -> new SkyArmorLeggings(ItemMaterial.SkyMaterial, ArmorItem.Type.LEGGINGS));
-    public static final RegistryObject<Item> SkyLeggingsForgeDraw = ITEMS.register("sky_leggings_forge_draw",
-            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.SkyBold), ModItems.SkyArmorLeggings.get()));
-    public static final RegistryObject<Item> SkyArmorBoots = ITEMS.register("skyarmorboots",
-            () -> new SkyArmorBoots(ItemMaterial.SkyMaterial, ArmorItem.Type.BOOTS));
-    public static final RegistryObject<Item> SkyBootsForgeDraw = ITEMS.register("sky_boots_forge_draw",
-            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.SkyBold), ModItems.SkyArmorBoots.get()));
 
-    public static final RegistryObject<Item> NetherArmorHelmet = ITEMS.register("netherarmorhelmet",
-            () -> new NetherArmor(ItemMaterial.NetherAll, ArmorItem.Type.HELMET, new Item.Properties().rarity(CustomStyle.NetherItalic)));
-    public static final RegistryObject<Item> NetherHelmetForgeDraw = ITEMS.register("nether_helmet_forge_draw",
-            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.NetherBold), ModItems.NetherArmorHelmet.get()));
-    public static final RegistryObject<Item> NetherArmorChest = ITEMS.register("netherarmorchest",
-            () -> new NetherArmor(ItemMaterial.NetherAll, ArmorItem.Type.CHESTPLATE, new Item.Properties().rarity(CustomStyle.NetherItalic)));
-    public static final RegistryObject<Item> NetherChestForgeDraw = ITEMS.register("nether_chest_forge_draw",
-            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.NetherBold), ModItems.NetherArmorChest.get()));
-    public static final RegistryObject<Item> NetherArmorLeggings = ITEMS.register("netherarmorleggings",
-            () -> new NetherArmor(ItemMaterial.NetherAll, ArmorItem.Type.LEGGINGS, new Item.Properties().rarity(CustomStyle.NetherItalic)));
-    public static final RegistryObject<Item> NetherLeggingsForgeDraw = ITEMS.register("nether_leggings_forge_draw",
-            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.NetherBold), ModItems.NetherArmorLeggings.get()));
-    public static final RegistryObject<Item> NetherArmorBoots = ITEMS.register("netherarmorboots",
-            () -> new NetherArmor(ItemMaterial.NetherAll, ArmorItem.Type.BOOTS, new Item.Properties().rarity(CustomStyle.NetherItalic)));
-    public static final RegistryObject<Item> NetherBootsForgeDraw = ITEMS.register("nether_boots_forge_draw",
-            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.NetherBold), ModItems.NetherArmorBoots.get()));
+    public static final RegistryObject<Item> SKY_ARMOR_HELMET = ITEMS.register("skyarmorhelmet",
+            () -> new SkyArmor(ItemMaterial.SkyMaterial, ArmorItem.Type.HELMET,
+                    new Item.Properties().rarity(CustomStyle.SkyBold)));
+    public static final RegistryObject<Item> SKY_ARMOR_CHEST = ITEMS.register("skyarmorchest",
+            () -> new SkyArmor(ItemMaterial.SkyMaterial, ArmorItem.Type.CHESTPLATE,
+                    new Item.Properties().rarity(CustomStyle.SkyBold)));
+    public static final RegistryObject<Item> SKY_ARMOR_LEGGINGS = ITEMS.register("skyarmorleggings",
+            () -> new SkyArmor(ItemMaterial.SkyMaterial, ArmorItem.Type.LEGGINGS,
+                    new Item.Properties().rarity(CustomStyle.SkyBold)));
+    public static final RegistryObject<Item> SKY_ARMOR_BOOTS = ITEMS.register("skyarmorboots",
+            () -> new SkyArmor(ItemMaterial.SkyMaterial, ArmorItem.Type.BOOTS,
+                    new Item.Properties().rarity(CustomStyle.SkyBold)));
 
     public static final RegistryObject<Item> GoldCoinBag = ITEMS.register("goldcoinbag",
             () -> new GoldCoinBag(new Item.Properties().rarity(Rarity.UNCOMMON)));
@@ -1280,21 +1281,6 @@ public class ModItems {
     public static final RegistryObject<Item> MinePantsForgingDraw = ITEMS.register("mine_leggings_fd",
             () -> new WraqForge(new Item.Properties().rarity(Rarity.EPIC), ModItems.MinePants.get()));
 
-    public static final RegistryObject<Item> PlainBracelet = ITEMS.register("plainbracelet",
-            () -> new PlainBracelet());
-    public static final RegistryObject<Item> ForestBracelet = ITEMS.register("forestbracelet",
-            () -> new ForestBracelet());
-    public static final RegistryObject<Item> LakeBracelet = ITEMS.register("lakebracelet",
-            () -> new LakeBracelet());
-    public static final RegistryObject<Item> VolcanoBracelet = ITEMS.register("volcanobracelet",
-            () -> new VolcanoBracelet());
-    public static final RegistryObject<Item> MineBracelet = ITEMS.register("minebracelet",
-            () -> new MineBracelet());
-    public static final RegistryObject<Item> SnowBracelet = ITEMS.register("snowbracelet",
-            () -> new SnowBracelet());
-    public static final RegistryObject<Item> SkyBracelet = ITEMS.register("skybracelet",
-            () -> new SkyBracelet());
-
     public static final RegistryObject<Item> MineArmorHelmet = ITEMS.register("minearmorhelmet",
             () -> new MineArmorHelmet(ItemMaterial.IslandMaterial, ArmorItem.Type.HELMET));
     public static final RegistryObject<Item> MineArmorChest = ITEMS.register("minearmorchest",
@@ -1363,6 +1349,19 @@ public class ModItems {
                     Te.s("封装的下界熔岩能量。", CustomStyle.styleOfPower),
                     Te.s("能够放置在背包里已经是个奇迹了。", CustomStyle.styleOfPower)
             )));
+
+    public static final RegistryObject<Item> NETHER_ARMOR_HELMET = ITEMS.register("netherarmorhelmet",
+            () -> new NetherArmor(ItemMaterial.NetherAll, ArmorItem.Type.HELMET,
+                    new Item.Properties().rarity(CustomStyle.NetherItalic)));
+    public static final RegistryObject<Item> NETHER_ARMOR_CHEST = ITEMS.register("netherarmorchest",
+            () -> new NetherArmor(ItemMaterial.NetherAll, ArmorItem.Type.CHESTPLATE,
+                    new Item.Properties().rarity(CustomStyle.NetherItalic)));
+    public static final RegistryObject<Item> NETHER_ARMOR_LEGGINGS = ITEMS.register("netherarmorleggings",
+            () -> new NetherArmor(ItemMaterial.NetherAll, ArmorItem.Type.LEGGINGS,
+                    new Item.Properties().rarity(CustomStyle.NetherItalic)));
+    public static final RegistryObject<Item> NETHER_ARMOR_BOOTS = ITEMS.register("netherarmorboots",
+            () -> new NetherArmor(ItemMaterial.NetherAll, ArmorItem.Type.BOOTS,
+                    new Item.Properties().rarity(CustomStyle.NetherItalic)));
 
     public static final RegistryObject<Item> WitherSword0 = ITEMS.register("wither_sword_0",
             () -> new WitherSword(new Item.Properties().rarity(CustomStyle.WitherItalic), 0));
@@ -1778,23 +1777,8 @@ public class ModItems {
     public static final RegistryObject<Item> PurpleIronArmorBoots = ITEMS.register("purpleiron_armor_boots",
             () -> new PurpleIronArmor(ItemMaterial.PurpleIron, ArmorItem.Type.BOOTS, new Item.Properties().rarity(CustomStyle.PurpleIronItalic)));
 
-    public static final RegistryObject<Item> IceArmorHelmet = ITEMS.register("ice_armor_helmet",
-            () -> new IceArmor(ItemMaterial.ArmorIce, ArmorItem.Type.HELMET, new Item.Properties().rarity(CustomStyle.IceItalic)));
-
-    public static final RegistryObject<Item> IceArmorChest = ITEMS.register("ice_armor_chest",
-            () -> new IceArmor(ItemMaterial.ArmorIce, ArmorItem.Type.CHESTPLATE, new Item.Properties().rarity(CustomStyle.IceItalic)));
-
-    public static final RegistryObject<Item> IceArmorLeggings = ITEMS.register("ice_armor_leggings",
-            () -> new IceArmor(ItemMaterial.ArmorIce, ArmorItem.Type.LEGGINGS, new Item.Properties().rarity(CustomStyle.IceItalic)));
-
-    public static final RegistryObject<Item> IceArmorBoots = ITEMS.register("ice_armor_boots",
-            () -> new IceArmor(ItemMaterial.ArmorIce, ArmorItem.Type.BOOTS, new Item.Properties().rarity(CustomStyle.IceItalic)));
-
     public static final RegistryObject<Item> IceBook = ITEMS.register("ice_book",
             () -> new IceBook(new Item.Properties().rarity(CustomStyle.IceItalic)));
-
-    public static final RegistryObject<Item> IceBracelet = ITEMS.register("ice_bracelet",
-            () -> new IceBracelet(new Item.Properties().rarity(CustomStyle.IceItalic)));
 
     public static final RegistryObject<Item> MobArmorIceHelmet = ITEMS.register("mob_armor_ice_helmet",
             () -> new MobArmor(ItemMaterial.ArmorIce, ArmorItem.Type.HELMET, StringUtils.MobName.IceKnight));
@@ -1820,17 +1804,17 @@ public class ModItems {
     public static final RegistryObject<Item> IceCompleteGem = ITEMS.register("ice_complete_gem",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.IceBold)));
 
-    public static final RegistryObject<Item> IceHelmetForgeDraw = ITEMS.register("ice_helmet_forge_draw",
-            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.IceBold), ModItems.IceArmorHelmet.get()));
+    public static final RegistryObject<Item> IceArmorHelmet = ITEMS.register("ice_armor_helmet",
+            () -> new IceArmor(ItemMaterial.ArmorIce, ArmorItem.Type.HELMET, new Item.Properties().rarity(CustomStyle.IceItalic)));
 
-    public static final RegistryObject<Item> IceChestForgeDraw = ITEMS.register("ice_chest_forge_draw",
-            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.IceBold), ModItems.IceArmorChest.get()));
+    public static final RegistryObject<Item> IceArmorChest = ITEMS.register("ice_armor_chest",
+            () -> new IceArmor(ItemMaterial.ArmorIce, ArmorItem.Type.CHESTPLATE, new Item.Properties().rarity(CustomStyle.IceItalic)));
 
-    public static final RegistryObject<Item> IceLeggingsForgeDraw = ITEMS.register("ice_leggings_forge_draw",
-            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.IceBold), ModItems.IceArmorLeggings.get()));
+    public static final RegistryObject<Item> IceArmorLeggings = ITEMS.register("ice_armor_leggings",
+            () -> new IceArmor(ItemMaterial.ArmorIce, ArmorItem.Type.LEGGINGS, new Item.Properties().rarity(CustomStyle.IceItalic)));
 
-    public static final RegistryObject<Item> IceBootsForgeDraw = ITEMS.register("ice_boots_forge_draw",
-            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.IceBold), ModItems.IceArmorBoots.get()));
+    public static final RegistryObject<Item> IceArmorBoots = ITEMS.register("ice_armor_boots",
+            () -> new IceArmor(ItemMaterial.ArmorIce, ArmorItem.Type.BOOTS, new Item.Properties().rarity(CustomStyle.IceItalic)));
 
     public static final RegistryObject<Item> FantasyMedal = ITEMS.register("fantasy_medal",
             () -> new FantasyMedal(new Item.Properties().rarity(CustomStyle.FantasyBold)));
@@ -1879,12 +1863,6 @@ public class ModItems {
 
     public static final RegistryObject<Item> MobArmorIceHunterBoots = ITEMS.register("mob_armor_ice_hunter_boots",
             () -> new MobArmor(ItemMaterial.ArmorLeather, ArmorItem.Type.BOOTS, StringUtils.MobName.IceHunter));
-
-    public static final RegistryObject<Item> OreSoul = ITEMS.register("ore_soul",
-            () -> new Item(new Item.Properties().rarity(CustomStyle.Mine)));
-
-    public static final RegistryObject<Item> OreRune = ITEMS.register("ore_rune",
-            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.MineBold)));
 
     public static final RegistryObject<Item> Value = ITEMS.register("value",
             () -> new Item(new Item.Properties().stacksTo(1)));
@@ -1993,6 +1971,26 @@ public class ModItems {
 
     public static final RegistryObject<Item> NetherSceptre = ITEMS.register("nether_sceptre",
             () -> new NetherSceptre(new Item.Properties().rarity(CustomStyle.ShipItalic)));
+
+    public static final RegistryObject<Item> NETHER_KNIFE = ITEMS.register("nether_knife",
+            () -> new NetherKnife(new Item.Properties().rarity(CustomStyle.NetherBold), Te.m("朱雀之翎", CustomStyle.styleOfRed)));
+
+    public static final RegistryObject<Item> PHOENIX_LEATHER = ITEMS.register("phoenix_leather",
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.NetherBold), false, (player) -> {
+                Compute.sendEffectLastTimeByItemId(player, "phoenix_leather", 0, true);
+                EnhanceNormalAttackModifier.addModifier(player,
+                        new EnhanceNormalAttackModifier("PHOENIX_LEATHER", true, 1, 1, (p, mob) -> {
+                            Compute.removeEffectLastTimeByItemId(p, "phoenix_leather" );
+                        }));
+            }));
+
+    public static final RegistryObject<Item> NETHER_SWORD = ITEMS.register("nether_sword",
+            () -> new NetherSword(new Item.Properties().rarity(CustomStyle.NetherBold)));
+
+    public static final RegistryObject<Item> BASALT_ROCK = ITEMS.register("basalt_rock",
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.NetherBold), false, (player) -> {
+                player.getCooldowns().removeCooldown(NETHER_SWORD.get());
+            }));
 
     public static final RegistryObject<Item> NetherManaArmorHelmet = ITEMS.register("nether_mana_helmet",
             () -> new NetherManaArmor(ItemMaterial.NetherMana, ArmorItem.Type.HELMET, new Item.Properties().rarity(CustomStyle.NetherItalic)));
@@ -3203,6 +3201,9 @@ public class ModItems {
     public static final RegistryObject<Item> EnderMiteSoul = ITEMS.register("ender_mite_soul",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.EndBold), true, true));
 
+    public static final RegistryObject<Item> EndCrystal = ITEMS.register("end_crystal",
+            () -> new EndCrystal(new Item.Properties().rarity(CustomStyle.EndBold)));
+
     public static final RegistryObject<Item> END_CURIOS_BOW = ITEMS.register("end_curios",
             () -> new EndCuriosBow(new Item.Properties().rarity(CustomStyle.EndBold)));
 
@@ -3214,9 +3215,6 @@ public class ModItems {
 
     public static final RegistryObject<Item> EndCurios1ForgeDraw = ITEMS.register("end_curios1_forge_draw",
             () -> new WraqForge(new Item.Properties().rarity(CustomStyle.EndBold), ModItems.END_CURIOS_MANA.get()));
-
-    public static final RegistryObject<Item> EndCrystal = ITEMS.register("end_crystal",
-            () -> new EndCrystal(new Item.Properties().rarity(CustomStyle.EndBold)));
 
     public static final RegistryObject<Item> MobArmorEndStrayHelmet = ITEMS.register("mob_armor_end_stray_helmet",
             () -> new MobArmor(ItemMaterial.PurpleIron, ArmorItem.Type.HELMET, StringUtils.MobName.EndStray));
@@ -3870,7 +3868,7 @@ public class ModItems {
             () -> new SimpleTierPaper(new Item.Properties().rarity(Rarity.EPIC), 3));
 
     public static final RegistryObject<Item> CastleSoul = ITEMS.register("castle_soul",
-            () -> new Item(new Item.Properties().rarity(CustomStyle.Castle)));
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.Castle)));
 
     public static final RegistryObject<Item> BeaconBow = ITEMS.register("beacon_bow",
             () -> new BeaconBow(new Item.Properties().rarity(CustomStyle.MagmaItalic), 0));
@@ -3951,22 +3949,22 @@ public class ModItems {
             () -> new MobArmor(ItemMaterial.Castle, ArmorItem.Type.BOOTS, StringUtils.MobName.NoAttribute));
 
     public static final RegistryObject<Item> CastlePiece = ITEMS.register("castle_piece",
-            () -> new Item(new Item.Properties().rarity(CustomStyle.Castle)));
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.Castle)));
 
     public static final RegistryObject<Item> CastleIngot = ITEMS.register("castle_ingot",
-            () -> new Item(new Item.Properties().rarity(CustomStyle.CastleBold)));
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.CastleBold)));
 
     public static final RegistryObject<Item> CastleSwordPiece = ITEMS.register("castle_sword_piece",
-            () -> new Item(new Item.Properties().rarity(CustomStyle.CastleBold)));
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.CastleBold)));
 
     public static final RegistryObject<Item> CastleBowPiece = ITEMS.register("castle_bow_piece",
-            () -> new Item(new Item.Properties().rarity(CustomStyle.CastleBold)));
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.CastleBold)));
 
     public static final RegistryObject<Item> CastleSceptrePiece = ITEMS.register("castle_sceptre_piece",
-            () -> new Item(new Item.Properties().rarity(CustomStyle.CastleBold)));
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.CastleBold)));
 
     public static final RegistryObject<Item> CastleArmorPiece = ITEMS.register("castle_armor_piece",
-            () -> new Item(new Item.Properties().rarity(CustomStyle.CastleBold)));
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.CastleBold)));
 
     public static final RegistryObject<Item> CastleLoot = ITEMS.register("castle_loot",
             () -> new CastleLoot(new Item.Properties().rarity(CustomStyle.CastleBold)));
@@ -4098,50 +4096,6 @@ public class ModItems {
     public static final RegistryObject<Item> GOLDEN_SHEET = ITEMS.register("golden_sheet",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.GoldBold)));
 
-    public static final RegistryObject<Item> NETHER_KNIFE = ITEMS.register("nether_knife",
-            () -> new NetherKnife(new Item.Properties().rarity(CustomStyle.NetherBold), Te.m("朱雀之翎", CustomStyle.styleOfRed)));
-
-    public static final RegistryObject<Item> PHOENIX_LEATHER = ITEMS.register("phoenix_leather",
-            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.NetherBold), false, (player) -> {
-                Compute.sendEffectLastTimeByItemId(player, "phoenix_leather", 0, true);
-                EnhanceNormalAttackModifier.addModifier(player,
-                        new EnhanceNormalAttackModifier("PHOENIX_LEATHER", true, 1, 1, (p, mob) -> {
-                            Compute.removeEffectLastTimeByItemId(p, "phoenix_leather" );
-                        }));
-            }));
-
-    public static final RegistryObject<Item> NETHER_SWORD = ITEMS.register("nether_sword",
-            () -> new NetherSword(new Item.Properties().rarity(CustomStyle.NetherBold)));
-
-    public static final RegistryObject<Item> BASALT_ROCK = ITEMS.register("basalt_rock",
-            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.NetherBold), false, (player) -> {
-                player.getCooldowns().removeCooldown(NETHER_SWORD.get());
-            }));
-
     public static final RegistryObject<Item> REFINED_PIECE = ITEMS.register("refined_piece",
             () -> new WraqItem(new Item.Properties().rarity(Rarity.RARE).stacksTo(16)));
-
-    public static final RegistryObject<Item> ORIGIN_KNIFE_PLAIN = ITEMS.register("origin_knife_plain",
-            () -> new OriginKnife(new Item.Properties().rarity(CustomStyle.Plain),
-                    CustomStyle.styleOfPlain, ComponentUtils.getSuffixOfChapterI(), 0));
-
-    public static final RegistryObject<Item> ORIGIN_KNIFE_FOREST = ITEMS.register("origin_knife_forest",
-            () -> new OriginKnife(new Item.Properties().rarity(CustomStyle.Forest),
-                    CustomStyle.styleOfForest, ComponentUtils.getSuffixOfChapterI(), 1));
-
-    public static final RegistryObject<Item> ORIGIN_KNIFE_LAKE = ITEMS.register("origin_knife_lake",
-            () -> new OriginKnife(new Item.Properties().rarity(CustomStyle.Lake),
-                    CustomStyle.styleOfLake, ComponentUtils.getSuffixOfChapterI(), 2));
-
-    public static final RegistryObject<Item> ORIGIN_KNIFE_MINE = ITEMS.register("origin_knife_mine",
-            () -> new OriginKnife(new Item.Properties().rarity(CustomStyle.Mine),
-                    CustomStyle.styleOfMine, ComponentUtils.getSuffixOfChapterI(), 3));
-
-    public static final RegistryObject<Item> ORIGIN_KNIFE_VOLCANO = ITEMS.register("origin_knife_volcano",
-            () -> new OriginKnife(new Item.Properties().rarity(CustomStyle.Volcano),
-                    CustomStyle.styleOfVolcano, ComponentUtils.getSuffixOfChapterII(), 4));
-
-    public static final RegistryObject<Item> ORIGIN_KNIFE_SKY = ITEMS.register("origin_knife_sky",
-            () -> new OriginKnife(new Item.Properties().rarity(CustomStyle.Sky),
-                    CustomStyle.styleOfSky, ComponentUtils.getSuffixOfChapterII(), 5));
 }

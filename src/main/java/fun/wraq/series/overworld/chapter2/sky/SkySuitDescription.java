@@ -39,18 +39,16 @@ public class SkySuitDescription {
         Player player = Minecraft.getInstance().player;
         Style MainStyle = CustomStyle.styleOfSky;
         Item[] items = {
-                ModItems.SkyArmorHelmet.get(),
-                ModItems.SkyArmorChest.get(),
-                ModItems.SkyArmorLeggings.get(),
-                ModItems.SkyArmorBoots.get(),
-                ModItems.SkyBracelet.get()
+                ModItems.SKY_ARMOR_HELMET.get(),
+                ModItems.SKY_ARMOR_CHEST.get(),
+                ModItems.SKY_ARMOR_LEGGINGS.get(),
+                ModItems.SKY_ARMOR_BOOTS.get()
         };
         EquipmentSlot[] equipmentSlot = {
                 EquipmentSlot.HEAD,
                 EquipmentSlot.CHEST,
                 EquipmentSlot.LEGS,
-                EquipmentSlot.FEET,
-                EquipmentSlot.OFFHAND
+                EquipmentSlot.FEET
         };
         for (int i = 0; i < items.length; i++) {
             Count += Compute.SuitItemVision(player, items[i], equipmentSlot[i], components, MainStyle);
@@ -63,25 +61,6 @@ public class SkySuitDescription {
             Count++;
         } else components.add(Component.literal(CrestName).withStyle(ChatFormatting.GRAY));
 
-        Compute.DescriptionPassive(components, Component.literal("天空的加护").withStyle(CustomStyle.styleOfSky));
-        components.add(Component.literal("1.").
-                append(ComponentUtils.AttributeDescription.health("")).
-                append(Component.literal("高于80%时，至多提升")).
-                append(ComponentUtils.AttributeDescription.attackDamage("100%")).
-                append(Component.literal("与").withStyle(ChatFormatting.WHITE)).
-                append(ComponentUtils.AttributeDescription.movementSpeed("40%")));
-        components.add(Component.literal("2.").
-                append(ComponentUtils.AttributeDescription.health("")).
-                append(Component.literal("介于40%与80%之间时，至多提升")).
-                append(ComponentUtils.AttributeDescription.attackDamage("40%")));
-        components.add(Component.literal("3.").
-                append(ComponentUtils.AttributeDescription.health("")).
-                append(Component.literal("低于40%时，每十秒至多获得")).
-                append(ComponentUtils.AttributeDescription.attackDamage("10%")).
-                append(Component.literal("护盾。")).
-                append(Component.literal("持续10s")).withStyle(ChatFormatting.WHITE));
-        components.add(Component.literal(" "));
-        ComponentUtils.skySuitEffectRateDescription(components, Count);
 
     }
 }

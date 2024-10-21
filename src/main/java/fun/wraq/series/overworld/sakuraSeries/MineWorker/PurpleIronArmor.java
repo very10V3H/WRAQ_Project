@@ -1,13 +1,14 @@
 package fun.wraq.series.overworld.sakuraSeries.MineWorker;
 
-import fun.wraq.common.impl.display.ForgeItem;
-import fun.wraq.common.equip.WraqArmor;
 import fun.wraq.common.Compute;
-import fun.wraq.common.util.ComponentUtils;
-import fun.wraq.common.util.Utils;
-import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.common.equip.WraqArmor;
+import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.registry.ItemMaterial;
 import fun.wraq.common.registry.ModItems;
+import fun.wraq.common.util.ComponentUtils;
+import fun.wraq.common.util.Utils;
+import fun.wraq.process.system.ore.PickaxeItems;
+import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -51,14 +52,9 @@ public class PurpleIronArmor extends WraqArmor implements ForgeItem {
 
     @Override
     public List<ItemStack> forgeRecipe() {
-        return new ArrayList<>() {{
-            add(new ItemStack(ModItems.PurpleIron.get(), 16));
-            add(new ItemStack(ModItems.goldCoin.get(), 128));
-            add(new ItemStack(ModItems.completeGem.get(), 4));
-            add(new ItemStack(ModItems.ReputationMedal.get(), 16));
-            add(new ItemStack(ModItems.RefiningIron.get(), 1));
-            add(new ItemStack(ModItems.RefiningCopper.get(), 1));
-            add(new ItemStack(ModItems.WorldSoul3.get(), 1));
-        }};
+        return List.of(
+                new ItemStack(ModItems.PurpleIron.get(), 16),
+                new ItemStack(PickaxeItems.TINKER_IRON.get(), 2)
+        );
     }
 }

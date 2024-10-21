@@ -1,12 +1,14 @@
 package fun.wraq.series.instance.series.moon.Equip;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.registry.ItemMaterial;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.suit.SuitCount;
 import fun.wraq.common.equip.WraqArmor;
+import fun.wraq.process.system.ore.OreItems;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -21,7 +23,7 @@ import net.minecraft.world.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MoonArmor extends WraqArmor {
+public class MoonArmor extends WraqArmor implements ForgeItem {
 
     public MoonArmor(ItemMaterial material, Type type, Properties properties) {
         super(material, type, properties);
@@ -30,7 +32,6 @@ public class MoonArmor extends WraqArmor {
             Utils.percentHealthRecover.put(this, 0.03);
             Utils.healthRecover.put(this, 50d);
         }
-
     }
 
     @Override
@@ -73,5 +74,13 @@ public class MoonArmor extends WraqArmor {
                 return SuitCount.getMoonSuitCount(player) * 0.15;
         }
         return 0;
+    }
+
+    @Override
+    public List<ItemStack> forgeRecipe() {
+        return List.of(
+                new ItemStack(ModItems.MoonCompleteGem.get(), 12),
+                new ItemStack(OreItems.WRAQ_ORE_1_ITEM.get(), 64)
+        );
     }
 }

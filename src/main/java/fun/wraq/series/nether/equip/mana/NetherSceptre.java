@@ -5,6 +5,8 @@ import fun.wraq.common.equip.WraqSceptre;
 import fun.wraq.common.equip.impl.Laser;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
+import fun.wraq.common.impl.display.ForgeItem;
+import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.system.element.Element;
@@ -26,7 +28,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 
-public class NetherSceptre extends WraqSceptre implements Laser {
+public class NetherSceptre extends WraqSceptre implements Laser, ForgeItem {
 
     public NetherSceptre(Properties p_42964_) {
         super(p_42964_.rarity(CustomStyle.NetherItalic));
@@ -84,5 +86,17 @@ public class NetherSceptre extends WraqSceptre implements Laser {
             Compute.TargetLocationLaser(player, player.pick(30, 0, false).getLocation(),
                     ModParticles.YSR1.get(), 1, 10);
         }
+    }
+
+    @Override
+    public List<ItemStack> forgeRecipe() {
+        return List.of(
+                new ItemStack(ModItems.NetherRune.get(), 2),
+                new ItemStack(ModItems.QuartzRune.get(), 1),
+                new ItemStack(ModItems.goldCoin.get(), 192),
+                new ItemStack(ModItems.completeGem.get(), 8),
+                new ItemStack(ModItems.ReputationMedal.get(), 8),
+                new ItemStack(ModItems.RefiningGold.get(), 1)
+        );
     }
 }

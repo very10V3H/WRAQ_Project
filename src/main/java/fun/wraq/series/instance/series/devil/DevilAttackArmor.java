@@ -1,12 +1,14 @@
 package fun.wraq.series.instance.series.devil;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.registry.ItemMaterial;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.common.equip.WraqArmor;
+import fun.wraq.process.system.ore.OreItems;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -20,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.WeakHashMap;
 
-public class DevilAttackArmor extends WraqArmor {
+public class DevilAttackArmor extends WraqArmor implements ForgeItem {
 
     public DevilAttackArmor(ItemMaterial Material, Type Slots, Properties itemProperties) {
         super(Material, Slots, itemProperties);
@@ -72,5 +74,13 @@ public class DevilAttackArmor extends WraqArmor {
         if (DevilAttackArmorPassiveTickMap.containsKey(player) && DevilAttackArmorPassiveTickMap.get(player) > TickCount)
             return DevilAttackArmorPassiveNumMap.get(player);
         return 0;
+    }
+
+    @Override
+    public List<ItemStack> forgeRecipe() {
+        return List.of(
+                new ItemStack(ModItems.DevilAttackSoul.get(), 128),
+                new ItemStack(OreItems.WRAQ_ORE_3_ITEM.get(), 32)
+        );
     }
 }

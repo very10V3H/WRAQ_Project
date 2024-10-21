@@ -4,16 +4,15 @@ import fun.wraq.blocks.blocks.brew.BrewingNote;
 import fun.wraq.blocks.blocks.forge.ForgeRecipe;
 import fun.wraq.blocks.blocks.inject.InjectRecipe;
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.impl.RandomCurios;
+import fun.wraq.common.impl.display.UsageOrGetWayDescriptionItem;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.struct.InjectingRecipe;
-import fun.wraq.events.core.InventoryCheck;
 import fun.wraq.process.func.plan.SimpleTierPaper;
 import fun.wraq.process.system.forge.ForgeHammer;
-import fun.wraq.common.equip.impl.RandomCurios;
-import fun.wraq.common.impl.display.UsageOrGetWayDescriptionItem;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.castle.CastleCurios;
 import net.minecraft.ChatFormatting;
@@ -484,34 +483,7 @@ public class ToolTipEvent {
             usage.add(Component.literal("这些").withStyle(ChatFormatting.WHITE).
                     append(Component.literal("元素").withStyle(ChatFormatting.LIGHT_PURPLE)).
                     append(Component.literal("构成了整个世界").withStyle(ChatFormatting.WHITE)));
-/*            usage.add(Component.literal("在非战斗状态右键").withStyle(ChatFormatting.WHITE).
-                    append(Component.literal("微型元素碎片").withStyle(ChatFormatting.AQUA)).
-                    append(Component.literal("即可与对应元素共鸣").withStyle(ChatFormatting.WHITE)));
-            usage.add(Component.literal("右键使用以共鸣 ").withStyle(ChatFormatting.WHITE).
-                    append(Component.literal("生机元素").withStyle(CustomStyle.styleOfLife)));*/
         }
-/*        Item[] elementPiece0 = {
-                ModItems.WaterElementPiece0.get(),
-                ModItems.FireElementPiece0.get(),
-                ModItems.StoneElementPiece0.get(),
-                ModItems.IceElementPiece0.get(),
-                ModItems.LightningElementPiece0.get(),
-                ModItems.WindElementPiece0.get()
-        };
-        String[] type = {
-                "碧水", "炽焰", "层岩", "凛冰", "怒雷", "澄风"
-        };
-        Style[] styles = {
-                CustomStyle.styleOfWater, CustomStyle.styleOfFire, CustomStyle.styleOfStone,
-                CustomStyle.styleOfIce, CustomStyle.styleOfLightning, CustomStyle.styleOfWind
-        };
-        for (int i = 0; i < elementPiece0.length; i++) {
-            if (item.equals(elementPiece0[i])) {
-                hasUsage = true;
-                usage.add(Component.literal("右键使用以共鸣 ").withStyle(ChatFormatting.WHITE).
-                        append(Component.literal(type[i] + "元素").withStyle(styles[i])));
-            }
-        }*/
         if (item.equals(ModItems.SunPower.get())) {
             hasUsage = true;
             usage.add(Component.literal("击杀带有").withStyle(ChatFormatting.WHITE).
@@ -534,8 +506,10 @@ public class ToolTipEvent {
             usage.add(Component.literal("每名玩家每日最多可获取36个").withStyle(ChatFormatting.WHITE));
         }
         if (item instanceof UsageOrGetWayDescriptionItem usageOrGetWayDescriptionItem) {
-            hasUsage = true;
-            usage.addAll(usageOrGetWayDescriptionItem.getWayDescription());
+            if (!usageOrGetWayDescriptionItem.getWayDescription().isEmpty()) {
+                hasUsage = true;
+                usage.addAll(usageOrGetWayDescriptionItem.getWayDescription());
+            }
         }
         if (hasUsage) {
             if (Screen.hasShiftDown()) {

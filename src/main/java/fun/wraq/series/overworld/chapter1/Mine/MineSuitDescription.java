@@ -38,15 +38,13 @@ public class MineSuitDescription {
                 ModItems.MineArmorHelmet.get(),
                 ModItems.MineArmorChest.get(),
                 ModItems.MineArmorLeggings.get(),
-                ModItems.MineArmorBoots.get(),
-                ModItems.MineBracelet.get()
+                ModItems.MineArmorBoots.get()
         };
         EquipmentSlot[] equipmentSlot = {
                 EquipmentSlot.HEAD,
                 EquipmentSlot.CHEST,
                 EquipmentSlot.LEGS,
-                EquipmentSlot.FEET,
-                EquipmentSlot.OFFHAND
+                EquipmentSlot.FEET
         };
         for (int i = 0; i < items.length; i++) {
             Count += Compute.SuitItemVision(player, items[i], equipmentSlot[i], components, MainStyle);

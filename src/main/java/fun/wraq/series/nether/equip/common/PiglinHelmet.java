@@ -64,7 +64,7 @@ public class PiglinHelmet extends WraqArmor implements ForgeItem, InCuriosOrEqui
             add(new ItemStack(ModItems.WitherRune.get(), 4));
             add(new ItemStack(ModItems.Ruby.get(), 128));
             add(new ItemStack(ModItems.NetherQuartz.get(), 32));
-            add(new ItemStack(Items.RAW_GOLD, 32));
+            add(new ItemStack(Items.RAW_GOLD, 6));
             add(new ItemStack(ModItems.goldCoin.get(), 64));
         }};
     }

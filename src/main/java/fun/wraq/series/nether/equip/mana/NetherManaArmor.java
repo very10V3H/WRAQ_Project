@@ -4,6 +4,7 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqArmor;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
+import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.impl.onhit.OnHitEffectEquip;
 import fun.wraq.common.impl.onhit.OnPowerCauseDamageEquip;
 import fun.wraq.common.registry.ItemMaterial;
@@ -23,7 +24,7 @@ import net.minecraft.world.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NetherManaArmor extends WraqArmor implements OnHitEffectEquip, OnPowerCauseDamageEquip {
+public class NetherManaArmor extends WraqArmor implements OnHitEffectEquip, OnPowerCauseDamageEquip, ForgeItem {
 
     public NetherManaArmor(ItemMaterial Material, Type Slots, Properties itemProperties) {
         super(Material, Slots, itemProperties);
@@ -70,5 +71,38 @@ public class NetherManaArmor extends WraqArmor implements OnHitEffectEquip, OnPo
     public void onCauseDamage(Player player, Mob mob) {
         StableTierAttributeModifier.addM(mob, StableTierAttributeModifier.manaDefence, "NetherManaArmor passive",
                 -SuitCount.getNetherManaSuitCount(player), Tick.get() + 60, 10, ModItems.MagmaRune.get());
+    }
+
+    @Override
+    public List<ItemStack> forgeRecipe() {
+        if (type.equals(Type.HELMET)) {
+            return List.of(
+                    new ItemStack(ModItems.WitherRune.get(), 8),
+                    new ItemStack(ModItems.NetherRune.get(), 2),
+                    new ItemStack(ModItems.QuartzRune.get(), 1)
+            );
+        }
+        if (type.equals(Type.CHESTPLATE)) {
+            return List.of(
+                    new ItemStack(ModItems.NetherSkeletonRune.get(), 8),
+                    new ItemStack(ModItems.NetherRune.get(), 2),
+                    new ItemStack(ModItems.QuartzRune.get(), 1)
+            );
+        }
+        if (type.equals(Type.LEGGINGS)) {
+            return List.of(
+                    new ItemStack(ModItems.MagmaRune.get(), 8),
+                    new ItemStack(ModItems.NetherRune.get(), 2),
+                    new ItemStack(ModItems.QuartzRune.get(), 1)
+            );
+        }
+        if (type.equals(Type.BOOTS)) {
+            return List.of(
+                    new ItemStack(ModItems.PiglinRune.get(), 8),
+                    new ItemStack(ModItems.NetherRune.get(), 2),
+                    new ItemStack(ModItems.QuartzRune.get(), 1)
+            );
+        }
+        return List.of();
     }
 }

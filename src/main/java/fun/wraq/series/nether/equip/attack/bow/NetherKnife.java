@@ -2,6 +2,7 @@ package fun.wraq.series.nether.equip.attack.bow;
 
 import fun.wraq.common.equip.WraqOffHandItem;
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.impl.onshoot.OnShootArrowEquip;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
@@ -16,13 +17,14 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import org.apache.commons.lang3.RandomUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class NetherKnife extends WraqOffHandItem implements OnShootArrowEquip {
+public class NetherKnife extends WraqOffHandItem implements OnShootArrowEquip, ForgeItem {
 
     public NetherKnife(Properties properties, Component type) {
         super(properties, type);
@@ -59,5 +61,17 @@ public class NetherKnife extends WraqOffHandItem implements OnShootArrowEquip {
             MySound.soundToPlayer(player, SoundEvents.BLAZE_SHOOT);
             ParticleProvider.createBallDisperseParticle(ParticleTypes.FLAME, (ServerLevel) player.level(), summonPos, 0.25, 8);
         }
+    }
+
+    @Override
+    public List<ItemStack> forgeRecipe() {
+        return List.of(
+                new ItemStack(ModItems.NetherRune.get(), 2),
+                new ItemStack(ModItems.QuartzRune.get(), 1),
+                new ItemStack(ModItems.goldCoin.get(), 192),
+                new ItemStack(ModItems.completeGem.get(), 8),
+                new ItemStack(ModItems.ReputationMedal.get(), 8),
+                new ItemStack(ModItems.RefiningGold.get(), 1)
+        );
     }
 }

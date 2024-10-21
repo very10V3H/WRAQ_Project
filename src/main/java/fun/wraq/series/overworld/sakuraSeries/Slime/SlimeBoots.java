@@ -7,6 +7,7 @@ import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.equip.WraqArmor;
+import fun.wraq.process.system.ore.OreItems;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -63,12 +64,7 @@ public class SlimeBoots extends WraqArmor implements ForgeItem {
     public List<ItemStack> forgeRecipe() {
         return new ArrayList<>() {{
             add(new ItemStack(ModItems.SlimeBall.get(), 384));
-            add(new ItemStack(ModItems.goldCoin.get(), 128));
-            add(new ItemStack(ModItems.completeGem.get(), 3));
-            add(new ItemStack(ModItems.ReputationMedal.get(), 12));
-            add(new ItemStack(ModItems.RefiningIron.get(), 1));
-            add(new ItemStack(ModItems.RefiningCopper.get(), 1));
-            add(new ItemStack(ModItems.WorldSoul3.get(), 1));
+            add(new ItemStack(OreItems.WRAQ_ORE_1_ITEM.get(), 32));
         }};
     }
 }

@@ -36,7 +36,6 @@ public class VolcanoSuitDescription {
             components.add(Component.literal("[按住shift展开套装效果]").withStyle(ChatFormatting.GRAY));
         }
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, ChatFormatting.YELLOW, ChatFormatting.WHITE);
-        components.add(Component.literal("VolcanoArmor-I").withStyle(ChatFormatting.YELLOW).withStyle(ChatFormatting.ITALIC));
         ComponentUtils.suffixOfChapterI(components);
     }
 
@@ -50,15 +49,13 @@ public class VolcanoSuitDescription {
                 ModItems.VolcanoArmorHelmet.get(),
                 ModItems.VolcanoArmorChest.get(),
                 ModItems.VolcanoArmorLeggings.get(),
-                ModItems.VolcanoArmorBoots.get(),
-                ModItems.VolcanoBracelet.get()
+                ModItems.VolcanoArmorBoots.get()
         };
         EquipmentSlot[] equipmentSlot = {
                 EquipmentSlot.HEAD,
                 EquipmentSlot.CHEST,
                 EquipmentSlot.LEGS,
-                EquipmentSlot.FEET,
-                EquipmentSlot.OFFHAND
+                EquipmentSlot.FEET
         };
         for (int i = 0; i < items.length; i++) {
             Count += Compute.SuitItemVision(player, items[i], equipmentSlot[i], components, MainStyle);

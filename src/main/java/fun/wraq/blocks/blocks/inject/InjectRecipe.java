@@ -501,10 +501,6 @@ public class InjectRecipe {
                 new InjectingRecipe(ModItems.OreRune.get(), 6,
                         ModItems.ObsiManaArmorBootsE.get()));
 
-        injectingRecipeMap.put(ModItems.FinalCord.get(),
-                new InjectingRecipe(ModItems.IceHeart.get(), 2,
-                        ModItems.IceBracelet.get()));
-
         injectingRecipeMap.put(ModItems.EvokerBook3.get(),
                 new InjectingRecipe(ModItems.IceHeart.get(), 2,
                         ModItems.IceBook.get()));

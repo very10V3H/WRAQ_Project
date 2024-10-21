@@ -19,7 +19,7 @@ public class ModCreativeModeTab {
     public static RegistryObject<CreativeModeTab> WEAPON_TAB = CREATIVE_MODE_TAB.register("weapon", () ->
             CreativeModeTab.builder().icon(() -> new ItemStack(fun.wraq.common.registry.ModItems.KazeSword3.get())).title(Component.literal("武器")).build());
     public static RegistryObject<CreativeModeTab> ARMOR_TAB = CREATIVE_MODE_TAB.register("armor", () ->
-            CreativeModeTab.builder().icon(() -> new ItemStack(fun.wraq.common.registry.ModItems.NetherArmorHelmet.get())).title(Component.literal("护甲")).build());
+            CreativeModeTab.builder().icon(() -> new ItemStack(fun.wraq.common.registry.ModItems.NETHER_ARMOR_HELMET.get())).title(Component.literal("护甲")).build());
     public static RegistryObject<CreativeModeTab> BREWING_TAB = CREATIVE_MODE_TAB.register("brewing", () ->
             CreativeModeTab.builder().icon(() -> new ItemStack(Items.POTION)).title(Component.literal("酿造")).build());
     public static RegistryObject<CreativeModeTab> FORGING_TAB = CREATIVE_MODE_TAB.register("forgings", () ->

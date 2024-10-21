@@ -212,12 +212,7 @@ public class CastleSwiftArmor extends WraqArmor implements ForgeItem {
         return new ArrayList<>() {{
             add(new ItemStack(ModItems.CastleArmorPiece.get(), 24));
             add(new ItemStack(ModItems.CastlePiece.get(), 128));
-            add(new ItemStack(ModItems.BeaconRune.get(), 8));
-            add(new ItemStack(ModItems.completeGem.get(), 26));
-            add(new ItemStack(ModItems.ReputationMedal.get(), 104));
-            add(new ItemStack(ModItems.RefiningIron.get(), 6));
-            add(new ItemStack(ModItems.RefiningCopper.get(), 6));
-            add(new ItemStack(ModItems.WorldSoul3.get(), 6));
+            add(new ItemStack(ModItems.BeaconRune.get(), 24));
         }};
     }
 }

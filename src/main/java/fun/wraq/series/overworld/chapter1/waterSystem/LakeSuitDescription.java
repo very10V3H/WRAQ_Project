@@ -32,7 +32,6 @@ public class LakeSuitDescription {
             components.add(Component.literal("[按住shift展开套装效果]").withStyle(ChatFormatting.GRAY));
         }
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        components.add(Component.literal("LakeArmor-I").withStyle(style).withStyle(ChatFormatting.ITALIC));
         ComponentUtils.suffixOfChapterI(components);
     }
 
@@ -46,15 +45,13 @@ public class LakeSuitDescription {
                 ModItems.LakeArmorHelmet.get(),
                 ModItems.LakeArmorChest.get(),
                 ModItems.LakeArmorLeggings.get(),
-                ModItems.LakeArmorBoots.get(),
-                ModItems.LakeBracelet.get()
+                ModItems.LakeArmorBoots.get()
         };
         EquipmentSlot[] equipmentSlot = {
                 EquipmentSlot.HEAD,
                 EquipmentSlot.CHEST,
                 EquipmentSlot.LEGS,
-                EquipmentSlot.FEET,
-                EquipmentSlot.OFFHAND
+                EquipmentSlot.FEET
         };
         for (int i = 0; i < items.length; i++) {
             Count += Compute.SuitItemVision(player, items[i], equipmentSlot[i], components, MainStyle);
