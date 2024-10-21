@@ -56,10 +56,8 @@ public class ManaNote extends Item {
         ComponentUtils.descriptionOfBasic(components);
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
         if (num > 4) {
-            components.add(Component.literal("Evoker-Book" + Name[num - 5]).withStyle(ChatFormatting.LIGHT_PURPLE).withStyle(ChatFormatting.ITALIC));
             ComponentUtils.suffixOfChapterII(components);
         } else {
-            components.add(Component.literal("ManaNote" + Name[num]).withStyle(styles[num]).withStyle(ChatFormatting.ITALIC));
             ComponentUtils.suffixOfChapterI(components);
         }
         super.appendHoverText(stack, level, components, flag);

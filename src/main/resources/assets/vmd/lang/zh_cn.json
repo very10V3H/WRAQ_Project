@@ -1777,6 +1777,13 @@
   "item.vmd.netherite_pickaxe_4": "合金十字⁴",
   "item.vmd.tinker_netherite": "工匠合金",
 
+  "item.vmd.origin_knife_plain": "探路者",
+  "item.vmd.origin_knife_forest": "探路者",
+  "item.vmd.origin_knife_lake": "探路者",
+  "item.vmd.origin_knife_mine": "探路者",
+  "item.vmd.origin_knife_volcano": "探路者",
+  "item.vmd.origin_knife_sky": "探路者",
+
 
   "curios.identifier.rune": "符石",
   "curios.identifier.crest": "纹章",

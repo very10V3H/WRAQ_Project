@@ -34,6 +34,7 @@ import fun.wraq.blocks.blocks.brew.*;
 import fun.wraq.blocks.blocks.brew.solidifiedSouls.*;
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.customized.UniformItems;
@@ -272,6 +273,7 @@ import fun.wraq.series.overworld.chapter7.star.StarBottle;
 import fun.wraq.series.overworld.forging.ForgingStone0;
 import fun.wraq.series.overworld.forging.ForgingStone1;
 import fun.wraq.series.overworld.forging.ForgingStone2;
+import fun.wraq.series.overworld.knife.OriginKnife;
 import fun.wraq.series.overworld.sakuraSeries.BloodMana.BloodManaArmor;
 import fun.wraq.series.overworld.sakuraSeries.BloodMana.BloodManaCurios;
 import fun.wraq.series.overworld.sakuraSeries.BloodMana.ManaKnife;
@@ -4118,4 +4120,28 @@ public class ModItems {
 
     public static final RegistryObject<Item> REFINED_PIECE = ITEMS.register("refined_piece",
             () -> new WraqItem(new Item.Properties().rarity(Rarity.RARE).stacksTo(16)));
+
+    public static final RegistryObject<Item> ORIGIN_KNIFE_PLAIN = ITEMS.register("origin_knife_plain",
+            () -> new OriginKnife(new Item.Properties().rarity(CustomStyle.Plain),
+                    CustomStyle.styleOfPlain, ComponentUtils.getSuffixOfChapterI(), 0));
+
+    public static final RegistryObject<Item> ORIGIN_KNIFE_FOREST = ITEMS.register("origin_knife_forest",
+            () -> new OriginKnife(new Item.Properties().rarity(CustomStyle.Forest),
+                    CustomStyle.styleOfForest, ComponentUtils.getSuffixOfChapterI(), 1));
+
+    public static final RegistryObject<Item> ORIGIN_KNIFE_LAKE = ITEMS.register("origin_knife_lake",
+            () -> new OriginKnife(new Item.Properties().rarity(CustomStyle.Lake),
+                    CustomStyle.styleOfLake, ComponentUtils.getSuffixOfChapterI(), 2));
+
+    public static final RegistryObject<Item> ORIGIN_KNIFE_MINE = ITEMS.register("origin_knife_mine",
+            () -> new OriginKnife(new Item.Properties().rarity(CustomStyle.Mine),
+                    CustomStyle.styleOfMine, ComponentUtils.getSuffixOfChapterI(), 3));
+
+    public static final RegistryObject<Item> ORIGIN_KNIFE_VOLCANO = ITEMS.register("origin_knife_volcano",
+            () -> new OriginKnife(new Item.Properties().rarity(CustomStyle.Volcano),
+                    CustomStyle.styleOfVolcano, ComponentUtils.getSuffixOfChapterII(), 4));
+
+    public static final RegistryObject<Item> ORIGIN_KNIFE_SKY = ITEMS.register("origin_knife_sky",
+            () -> new OriginKnife(new Item.Properties().rarity(CustomStyle.Sky),
+                    CustomStyle.styleOfSky, ComponentUtils.getSuffixOfChapterII(), 5));
 }

@@ -41,11 +41,18 @@ public class ForNew extends Item {
             ForgeEquipUtils.setForgeQualityOnEquip(bow, 6);
             ForgeEquipUtils.setForgeQualityOnEquip(sceptre, 6);
 
-            ItemStack[] itemStacks = {new ItemStack(ModItems.BackPackTickets.get()), new ItemStack(ModItems.WoodHammer.get()), new ItemStack(ModItems.BackSpawn.get()), new ItemStack(Items.GOLDEN_CARROT, 64), new ItemStack(ModItems.windBottle.get()), sword, bow, sceptre, new ItemStack(NewRuneItems.endNewRune.get())};
+            List<ItemStack> itemStacks = List.of(
+                    new ItemStack(ModItems.BackPackTickets.get()),
+                    new ItemStack(ModItems.WoodHammer.get()),
+                    new ItemStack(ModItems.BackSpawn.get()),
+                    new ItemStack(Items.GOLDEN_CARROT, 64),
+                    new ItemStack(ModItems.windBottle.get()),
+                    sword, bow, sceptre,
+                    new ItemStack(ModItems.ORIGIN_KNIFE_PLAIN.get()),
+                    new ItemStack(ModItems.PlainManaBook.get()),
+                    new ItemStack(NewRuneItems.endNewRune.get()));
 
-            for (ItemStack stack : itemStacks) {
-                InventoryOperation.itemStackGive(player, stack);
-            }
+            itemStacks.forEach(stack -> InventoryOperation.itemStackGive(player, stack));
 
             ItemStack itemStack = Items.ELYTRA.getDefaultInstance();
             itemStack.getOrCreateTag().putBoolean("Unbreakable", true);
