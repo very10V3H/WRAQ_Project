@@ -7,9 +7,12 @@ import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.multiblockactive.rightclick.top.RightClickActivation;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
@@ -44,6 +47,8 @@ public class ItemChanger extends RightClickActivation {
 
     @Override
     public void summonArmorStand(Level level) {
+        level.getEntitiesOfClass(ArmorStand.class, AABB.ofSize(getCenterPos(), 8, 8, 8))
+                .forEach(armorStand -> armorStand.remove(Entity.RemovalReason.KILLED));
         List<Component> components = new ArrayList<>();
         components.add(getTitle());
         components.add(Te.m("使用:"));

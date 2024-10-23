@@ -4,7 +4,6 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.ItemAndRate;
 import fun.wraq.common.util.Utils;
-import fun.wraq.process.system.bonuschest.BonusChestInfo;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -33,18 +32,19 @@ public class BonusChestPlayerData {
         return data.getCompound(BONUS_CHEST_DATA_KEY);
     }
 
-    private static final String ORIGIN_INFO_STRING = "0".repeat(255);
+    private static final int EACH_ZONE_MAX_CHEST_NUM = 512;
+    private static final String ORIGIN_INFO_STRING = "0".repeat(EACH_ZONE_MAX_CHEST_NUM);
     private static final String ZONE_INFO_KEY = "bonus_chest_zone_";
     private static String getZoneInfoKey(int zoneNum) {
         return ZONE_INFO_KEY + zoneNum;
     }
 
-    private static final int MAX_ZONE_NUM = 4;
+    private static final int MAX_ZONE_NUM = 3;
     private static String getZoneInfo(Player player, int zoneNum) {
         if (zoneNum >= MAX_ZONE_NUM) {
             player.sendSystemMessage(
                     Te.m("看到此信息请联系管理员!奖励箱错误：zoneNum = " + zoneNum));
-            return "1".repeat(255);
+            return "1".repeat(EACH_ZONE_MAX_CHEST_NUM);
         }
         CompoundTag data = getBonusChestData(player);
         if (!data.contains(getZoneInfoKey(zoneNum))) data.putString(getZoneInfoKey(zoneNum), ORIGIN_INFO_STRING);
@@ -61,13 +61,13 @@ public class BonusChestPlayerData {
     }
 
     public static void resetAllZoneInfo(Player player) {
-        for (int i = 0 ; i <= 2 ; i ++) {
+        for (int i = 0 ; i <= MAX_ZONE_NUM ; i ++) {
             setZoneInfo(player, i, ORIGIN_INFO_STRING);
         }
     }
 
     private static int getInfoBySerialNum(Player player, int zoneNum, int serialNum) {
-        if (serialNum >= 255) {
+        if (serialNum >= EACH_ZONE_MAX_CHEST_NUM) {
             player.sendSystemMessage(
                     Te.m("看到此信息请联系管理员!奖励箱错误：zoneNum = " + zoneNum + " serialNum = " + serialNum));
             return 1;
@@ -76,7 +76,7 @@ public class BonusChestPlayerData {
     }
 
     private static void setInfoBySerialNum(Player player, int zoneNum, int serialNum) {
-        if (serialNum >= 255) {
+        if (serialNum >= EACH_ZONE_MAX_CHEST_NUM) {
             player.sendSystemMessage(
                     Te.m("看到此信息请联系管理员!奖励箱错误：zoneNum = " + zoneNum + " serialNum = " + serialNum));
             return;

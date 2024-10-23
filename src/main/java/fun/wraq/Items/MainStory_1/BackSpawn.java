@@ -111,7 +111,7 @@ public class BackSpawn extends Item {
 
             int needTicks = needSeconds * 20;
             calledTicksMap.put(name, calledTicksMap.getOrDefault(name, 0) + 1);
-            if (calledTicksMap.get(name) >= needTicks) {
+            if (calledTicksMap.get(name) >= needTicks || player.isCreative()) {
                 calledTicksMap.remove(name);
                 isCallingMap.remove(name);
                 if (serverPlayer.level().dimension().equals(Level.OVERWORLD)) {

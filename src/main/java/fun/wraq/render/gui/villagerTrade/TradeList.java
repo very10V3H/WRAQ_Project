@@ -61,13 +61,7 @@ public class TradeList {
         WaterElement();
         IceElement();
 
-        Plain();
-        Forest();
-        Lake();
-        Volcano();
-        Mine();
         Snow();
-        Sky();
         Evoker();
 
         Wither();
@@ -82,7 +76,6 @@ public class TradeList {
         Currency();
         SoulToGoldCoin();
         BossCore();
-        Cord();
         BossItem();
         SeaEquip();
         BlackForestEquip();
@@ -3175,7 +3168,7 @@ public class TradeList {
         };
         List<ItemStack> contentList = new ArrayList<>();
         Collections.addAll(contentList, itemStacks);
-        MyVillagerData.setMyVillagerData("北冰村锻造师", "snowForgeHammer", CustomStyle.styleOfSnow, VillagerType.SNOW,
+        MyVillagerData.setMyVillagerData("北洋村锻造师", "snowForgeHammer", CustomStyle.styleOfSnow, VillagerType.SNOW,
                 VillagerProfession.ARMORER, contentList);
         tradeRecipeMap.put(ironHammer,
                 List.of(new ItemStack(ModItems.silverCoin.get(), 16)));
@@ -3200,7 +3193,7 @@ public class TradeList {
         };
         List<ItemStack> contentList = new ArrayList<>();
         Collections.addAll(contentList, itemStacks);
-        MyVillagerData.setMyVillagerData("北冰村工具制作师", "snowTool", CustomStyle.styleOfSnow, VillagerType.DESERT,
+        MyVillagerData.setMyVillagerData("北洋村工具制作师", "snowTool", CustomStyle.styleOfSnow, VillagerType.DESERT,
                 VillagerProfession.TOOLSMITH, contentList);
         tradeRecipeMap.put(snowRune,
                 List.of(new ItemStack(ModItems.SnowSoul.get(), 64),

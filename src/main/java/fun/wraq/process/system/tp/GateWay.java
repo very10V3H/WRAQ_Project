@@ -1,6 +1,7 @@
 package fun.wraq.process.system.tp;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -78,7 +79,7 @@ public class GateWay {
         if (event.side.isServer() && event.phase.equals(TickEvent.Phase.START)) {
             ServerPlayer player = (ServerPlayer) event.player;
             String name = player.getName().getString();
-            int tick = player.getServer().getTickCount();
+            int tick = Tick.get();
             Vec3 skyTpCenterPos = new Vec3(962, 207, 13);
             // 天空城传送至传送中枢
             if (player.position().distanceTo(new Vec3(957.5, 224.5, 14.5)) < 1) {
@@ -88,14 +89,7 @@ public class GateWay {
                 playerTPCooldownMap.put(name, tick + 2);
             }
             int coolDownTick = playerTPCooldownMap.getOrDefault(name, 0);
-            // 传送中枢传送回天空城
-            if (player.getX() < 971 && player.getZ() < 25
-                    && player.getX() > 953 && player.getZ() > 1
-                    && player.getY() - 207 < 2) {
-                if (!player.onGround() && tick > coolDownTick) {
-                    player.teleportTo(player.getServer().getLevel(Level.OVERWORLD), 956, 232, 17, 0, 0);
-                }
-            }
+
             if (tick > coolDownTick) {
                 boolean nearGateway = false;
                 Des nearDes = null;

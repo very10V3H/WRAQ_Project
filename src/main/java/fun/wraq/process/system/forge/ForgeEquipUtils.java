@@ -124,7 +124,7 @@ public class ForgeEquipUtils {
             snow.forEach(item -> add(item.getDefaultInstance()));
         }});
         snow.forEach(item -> {
-            itemZoneMap.put(item, Component.literal("北冰村").withStyle(CustomStyle.styleOfSnow));
+            itemZoneMap.put(item, Component.literal("北洋村").withStyle(CustomStyle.styleOfSnow));
         });
 
         List<Item> birch = List.of(

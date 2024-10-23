@@ -30,6 +30,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BoatItem;
@@ -244,7 +245,8 @@ public class BlockEvent {
                     && !blockState.getBlock().toString().contains("seat")) {
                 event.setCanceled(true);
             }
-            if (block instanceof ChestBlock && event.getSide().isServer() && BonusChestInfo.getBonusChestInfo(blockPos) == null) {
+            if (player.level().getBlockEntity(blockPos) instanceof Container
+                    && event.getSide().isServer() && BonusChestInfo.getBonusChestInfo(blockPos) == null) {
                 event.setCanceled(true);
             }
             if (block instanceof ChestBlock && event.getSide().isServer() && BonusChestInfo.getBonusChestInfo(blockPos) != null) {

@@ -51,7 +51,6 @@ public class Main0 extends Item {
         if (!level.isClientSide && !player.isShiftKeyDown()) {
             String name = player.getName().getString();
             CompoundTag data = player.getPersistentData();
-
         }
 
         if (!level.isClientSide && player.isShiftKeyDown()) {

@@ -45,7 +45,6 @@ import fun.wraq.networking.misc.SmartPhonePackets.*;
 import fun.wraq.networking.misc.SmartPhonePackets.Currency.*;
 import fun.wraq.networking.misc.SoundsPackets.SoundsS2CPacket;
 import fun.wraq.networking.misc.TeamPackets.*;
-import fun.wraq.networking.misc.TestPackets.TestC2SPacket;
 import fun.wraq.networking.misc.ToolTipPackets.DailyMissionS2CPacket;
 import fun.wraq.networking.misc.USE.*;
 import fun.wraq.networking.reputation.ReputationBuyRequestC2SPacket;
@@ -238,11 +237,6 @@ public class ModNetworking {
                 .decoder(RuneHud0S2CPacket::new)
                 .encoder(RuneHud0S2CPacket::toBytes)
                 .consumerMainThread(RuneHud0S2CPacket::handle)
-                .add();
-        net.messageBuilder(TestC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
-                .decoder(TestC2SPacket::new)
-                .encoder(TestC2SPacket::toBytes)
-                .consumerMainThread(TestC2SPacket::handle)
                 .add();
         net.messageBuilder(CritHitParticleS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
                 .decoder(CritHitParticleS2CPacket::new)
