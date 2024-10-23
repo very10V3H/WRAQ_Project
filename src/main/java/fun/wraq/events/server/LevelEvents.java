@@ -2,41 +2,39 @@ package fun.wraq.events.server;
 
 import fun.wraq.commands.changeable.PrefixCommand;
 import fun.wraq.common.Compute;
-import fun.wraq.common.registry.ModItems;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.Utils;
-import fun.wraq.common.util.struct.Boss2Damage;
 import fun.wraq.common.util.struct.Gather;
 import fun.wraq.customized.uniform.bow.BowCurios1;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
 import fun.wraq.process.func.EffectOnMob;
 import fun.wraq.process.func.MobEffectAndDamageMethods;
-import fun.wraq.process.func.item.InventoryOperation;
+import fun.wraq.process.func.multiblockactive.rightclick.RightClickActiveHandler;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.element.originSummon.OriginSummon;
 import fun.wraq.process.system.season.MySeason;
 import fun.wraq.process.system.tower.Tower;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.specialevents.summer.SummerEvent;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundSetEntityMotionPacket;
 import net.minecraft.network.protocol.game.ClientboundSetSubtitleTextPacket;
 import net.minecraft.network.protocol.game.ClientboundSetTitleTextPacket;
-import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.BossEvent;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.monster.Giant;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LightningBolt;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.TickEvent;
@@ -51,7 +49,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @Mod.EventBusSubscriber
 public class LevelEvents {
@@ -78,20 +75,20 @@ public class LevelEvents {
 
         timeEvent(event);
         /*WorldBossEvent(event);*/
-        Broad(event);
-        Stop(event);
+        broad(event);
+        stop(event);
         OriginSummon.DetectElementPiece(event);
         /*LabourDayMobSummon.levelTick(event);*/
         BowCurios1.tick(event);
         Tower.tick(event);
         MySeason.tick(event);
-
         MobSpawn.tick(event); // 新怪物生成控制
         NoTeamInstanceModule.tick(event); // 新副本
-
         EffectOnMob.levelTick(event);
+        RightClickActiveHandler.detectNearPlayer(event);
+        clearFire(event); // 清理火焰
 
-        if (event.side.isServer() && event.phase.equals(TickEvent.Phase.START) && event.level.getServer().getTickCount() % 18000 == 0) {
+        if (event.side.isServer() && event.phase.equals(TickEvent.Phase.START) && Tick.get() % 18000 == 0) {
             ServerLevel serverLevel = (ServerLevel) event.level;
             List<Entity> projectileList = new ArrayList<>();
             serverLevel.getAllEntities().forEach(entity -> {
@@ -105,7 +102,7 @@ public class LevelEvents {
                 && event.level.equals(event.level.getServer().getLevel(Level.OVERWORLD))) {
             MobEffectAndDamageMethods.Tick(event.level);
             int TickCount = event.level.getServer().getTickCount();
-            if (TickCount % 100 == 0) TryToRemoveMobInMap();
+            if (TickCount % 100 == 0) tryToRemoveMobInMap();
             if (TickCount % 20 == 0) Element.Tick(event.level);
             Compute.Gather(TickCount); // 聚集
         }
@@ -170,7 +167,7 @@ public class LevelEvents {
 
             if (event.level.equals(event.level.getServer().getLevel(Level.OVERWORLD)) && event.level.getServer().getTickCount() % 20 == 0) {
                 List<Player> playerList = event.level.getEntitiesOfClass(Player.class, AABB.ofSize(new Vec3(1352, 80, 502), 150, 60, 100));
-                if (playerList.size() > 0) {
+                if (!playerList.isEmpty()) {
                     Random r = new Random();
                     LightningBolt lightningBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, event.level);
                     lightningBolt.setVisualOnly(true);
@@ -179,23 +176,6 @@ public class LevelEvents {
                     event.level.addFreshEntity(lightningBolt);
                 }
             }
-/*            if(event.level.getServer().getTickCount() % 20 == 0)
-            {
-                if(event.level.equals(event.level.getServer().getLevel(Level.OVERWORLD)) && event.level.isThundering() && Utils.IsLandBarrier)
-                {
-                    Utils.IsLandBarrier = false;
-                    BarrierBuild.Destroy(event.level);
-                    Compute.FormatBroad(event.level,Component.literal("唤雷岛").withStyle(CustomStyle.styleOfLightingIsland),
-                            Component.literal("唤雷塔的唤雷力量被天空的雷电削弱了。").withStyle(ChatFormatting.WHITE));
-                }
-                if(event.level.equals(event.level.getServer().getLevel(Level.OVERWORLD)) && !event.level.isThundering() && !Utils.IsLandBarrier)
-                {
-                    Utils.IsLandBarrier = true;
-                    BarrierBuild.Build(event.level);
-                    Compute.FormatBroad(event.level,Component.literal("唤雷岛").withStyle(CustomStyle.styleOfLightingIsland),
-                            Component.literal("天空的响雷停息了，唤雷塔的唤雷力量恢复了。").withStyle(ChatFormatting.WHITE));
-                }
-            }*/
             if (!Utils.MonsterAttributeDataProvider.isEmpty() && Utils.AttributeDataTick != event.level.getServer().getTickCount()) {
                 Utils.AttributeDataTick = event.level.getServer().getTickCount();
                 Utils.MonsterAttributeDataProvider.forEach(monster -> {
@@ -307,116 +287,7 @@ public class LevelEvents {
         }
     }
 
-    public static void WorldBossEvent(TickEvent.LevelTickEvent event) {
-        if (event.side.isServer() && event.phase.equals(TickEvent.Phase.START) && event.level.equals(event.level.getServer().getLevel(Level.OVERWORLD))) {
-            Calendar calendar = Calendar.getInstance();
-            Level level = event.level;
-            if (Utils.giant != null && Utils.giant.isAlive())
-                Utils.GiantBossInfo.setProgress(Utils.giant.getHealth() / Utils.giant.getMaxHealth());
-            if (level.getServer().getTickCount() % 20 == 0) {
-                if (calendar.get(Calendar.SECOND) == 1 && calendar.get(Calendar.MINUTE) == 59
-                        && (calendar.get(Calendar.HOUR_OF_DAY) == 9
-                        || calendar.get(Calendar.HOUR_OF_DAY) == 14
-                        || calendar.get(Calendar.HOUR_OF_DAY) == 18
-                        || calendar.get(Calendar.HOUR_OF_DAY) == 20
-                        || calendar.get(Calendar.HOUR_OF_DAY) == 22)) {
-                    Compute.formatBroad(level, Component.literal("世界Boss").withStyle(ChatFormatting.LIGHT_PURPLE),
-                            Component.literal(" 巨人僵尸还有1分钟就要出现了！").withStyle(ChatFormatting.WHITE));
-                    Utils.GiantPlayerList.forEach(playerName -> {
-                        if (level.getServer().getPlayerList().getPlayerByName(playerName) != null) {
-                            ServerPlayer serverPlayer = level.getServer().getPlayerList().getPlayerByName(playerName);
-                            serverPlayer.teleportTo((ServerLevel) level, 638, 114, 1357, 0, 0);
-                        }
-                    });
-                }
-                if (calendar.get(Calendar.HOUR_OF_DAY) == 10
-                        || calendar.get(Calendar.HOUR_OF_DAY) == 15
-                        || calendar.get(Calendar.HOUR_OF_DAY) == 19
-                        || calendar.get(Calendar.HOUR_OF_DAY) == 21
-                        || calendar.get(Calendar.HOUR_OF_DAY) == 23) {
-                    if (Utils.GiantHour != calendar.get(Calendar.HOUR_OF_DAY)) {
-                        Utils.GiantHour = calendar.get(Calendar.HOUR_OF_DAY);
-                        SummonGiant(level);
-                    }
-                }
-                if (Utils.GiantFlag && Utils.giant != null && Utils.giant.isDeadOrDying() && Utils.GiantDamageList.size() > 0) {
-                    Utils.GiantFlag = false;
-                    Compute.formatBroad(level, Component.literal("世界Boss").withStyle(ChatFormatting.LIGHT_PURPLE),
-                            Component.literal("  征讨伤害排名如下：").withStyle(ChatFormatting.WHITE));
-                    Utils.GiantDamageList.sort(Comparator.comparing(Boss2Damage::getDamage).reversed());
-                    AtomicInteger index = new AtomicInteger(1);
-
-                    if (Utils.GiantBossInfo != null) Utils.GiantPlayerList.forEach(playerName -> {
-                        if (level.getServer().getPlayerList().getPlayerByName(playerName) != null) {
-                            ServerPlayer serverPlayer = level.getServer().getPlayerList().getPlayerByName(playerName);
-                            Utils.GiantBossInfo.removePlayer(serverPlayer);
-                        }
-                    });
-
-                    Utils.GiantDamageList.forEach(boss2Damage -> {
-                        if (boss2Damage.getPlayer() != null) {
-                            Player player1 = boss2Damage.getPlayer();
-                            double damage = boss2Damage.getDamage();
-                            Compute.formatBroad(level, Component.literal(index + ".").withStyle(ChatFormatting.RED),
-                                    Component.literal(" ").withStyle(ChatFormatting.WHITE).
-                                            append(player1.getDisplayName()).
-                                            append(Component.literal("  DMG:" + damage + "[" + String.format("%.2f", damage * 100 / (Utils.giant.getMaxHealth())) + "%]").withStyle(ChatFormatting.WHITE)));
-                            if (Utils.GiantCommonReward.isEmpty()) Utils.setGiantCommonReward();
-                            if (boss2Damage.getDamage() / (Utils.giant.getMaxHealth()) > 0.005) {
-                                Utils.GiantCommonReward.forEach(itemStack -> {
-                                    InventoryOperation.itemStackGive(player1, new ItemStack(itemStack.getItem(), itemStack.getCount()));
-                                });
-                                if (index.get() <= 3) {
-                                    InventoryOperation.itemStackGive(player1, ModItems.GiantMedal.get().getDefaultInstance());
-                                }
-                            }
-                            index.incrementAndGet();
-                        }
-                    });
-                    Utils.GiantPlayerList.clear();
-                    Utils.GiantDamageList.clear();
-                }
-            }
-        }
-    }
-
-    public static void SummonGiant(Level level) {
-
-        if (!Utils.GiantPlayerList.isEmpty()) {
-            if (Utils.giant != null) Utils.giant.remove(Entity.RemovalReason.KILLED);
-            Utils.giant = new Giant(EntityType.GIANT, level);
-
-            MobSpawn.setMobCustomName(Utils.giant, ModItems.MobArmorGiant.get(), Component.literal("悲催的巨人").withStyle(ChatFormatting.GREEN));
-            Utils.giant.setItemSlot(EquipmentSlot.HEAD, ModItems.MobArmorGiant.get().getDefaultInstance());
-            Random r = new Random();
-            Utils.giant.getAttribute(Attributes.MAX_HEALTH).setBaseValue(r.nextInt(100, 200) * Math.pow(10, 8));
-            Utils.giant.setHealth(Utils.giant.getMaxHealth());
-            Utils.giant.moveTo(638, 114, 1357);
-            level.addFreshEntity(Utils.giant);
-            Compute.formatBroad(level, Component.literal("世界Boss").withStyle(ChatFormatting.LIGHT_PURPLE),
-                    Component.literal(" 巨人僵尸已经出现！").withStyle(ChatFormatting.WHITE));
-            Utils.GiantFlag = true;
-            Utils.GiantPlayerList.forEach(playerName -> {
-                if (level.getServer().getPlayerList().getPlayerByName(playerName) != null) {
-                    ServerPlayer serverPlayer = level.getServer().getPlayerList().getPlayerByName(playerName);
-                    serverPlayer.teleportTo((ServerLevel) level, 638, 114, 1357, 0, 0);
-                }
-            });
-            Utils.GiantBossInfo = (ServerBossEvent) (new ServerBossEvent(Utils.giant.getDisplayName(), BossEvent.BossBarColor.GREEN, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
-
-            Utils.GiantPlayerList.forEach(playerName -> {
-                if (level.getServer().getPlayerList().getPlayerByName(playerName) != null) {
-                    ServerPlayer serverPlayer = level.getServer().getPlayerList().getPlayerByName(playerName);
-                    Utils.GiantBossInfo.addPlayer(serverPlayer);
-                }
-            });
-        } else {
-            Compute.formatBroad(level, Component.literal("世界Boss").withStyle(ChatFormatting.LIGHT_PURPLE),
-                    Component.literal(" 没有人来找巨人僵尸玩，巨人僵尸伤心欲绝。").withStyle(ChatFormatting.WHITE));
-        }
-    }
-
-    public static void TryToRemoveMobInMap() {
+    public static void tryToRemoveMobInMap() {
         Utils.playerLaserCoolDown.forEach((player, mobIntegerMap) -> {
             if (mobIntegerMap != null) {
                 mobIntegerMap.entrySet().removeIf(mobIntegerEntry -> mobIntegerEntry.getKey().isDeadOrDying());
@@ -424,7 +295,7 @@ public class LevelEvents {
         });
     }
 
-    public static void Broad(TickEvent.LevelTickEvent event) {
+    public static void broad(TickEvent.LevelTickEvent event) {
         Level level = event.level;
         if (level.getServer() != null && event.phase.equals(TickEvent.Phase.START) && level.equals(level.getServer().getLevel(Level.OVERWORLD))) {
             String[] BroadCastContent = {
@@ -470,7 +341,7 @@ public class LevelEvents {
         }
     }
 
-    public static void Stop(TickEvent.LevelTickEvent event) {
+    public static void stop(TickEvent.LevelTickEvent event) {
         if (event.level.getServer() != null && event.phase.equals(TickEvent.Phase.START) && event.level.equals(event.level.getServer().getLevel(Level.OVERWORLD))) {
             if (Utils.ServerStopTick != -1) {
                 Utils.ServerStopTick--;
@@ -493,5 +364,33 @@ public class LevelEvents {
                 }
             }
         }
+    }
+
+    public static void clearFire(TickEvent.LevelTickEvent event) {
+        if (event.level.dimension().equals(Level.OVERWORLD)
+                && event.phase.equals(TickEvent.Phase.START) && event.side.isServer()
+                && Tick.get() % 6000 == 0) {
+            Level level = event.level;
+            // 清理城堡火焰
+            clearFireModule(level, new BlockPos(2189, 135, -1626), new BlockPos(2577, 217, -1271));
+
+            // 清理焰芒虫火焰
+            clearFireModule(level, new BlockPos(1219, 57, -21), new BlockPos(1338, 85, 147));
+        }
+    }
+
+    public static void clearFireModule(Level level, BlockPos posStart, BlockPos posEnd) {
+        new Thread(() -> {
+            for (int x = posStart.getX(); x <= posEnd.getX(); x ++) {
+                for (int y = posStart.getY(); y <= posEnd.getY(); y ++) {
+                    for (int z = posStart.getZ(); z <= posEnd.getZ(); z++) {
+                        BlockPos blockPos = new BlockPos(x, y, z);
+                        if (level.getBlockState(blockPos).getBlock().equals(Blocks.FIRE)) {
+                            level.setBlockAndUpdate(blockPos, Blocks.AIR.defaultBlockState());
+                        }
+                    }
+                }
+            }
+        }).start();
     }
 }
