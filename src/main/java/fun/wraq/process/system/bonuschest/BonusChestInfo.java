@@ -1,6 +1,9 @@
 package fun.wraq.process.system.bonuschest;
 
+import fun.wraq.common.fast.Te;
+import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -652,6 +655,8 @@ public enum BonusChestInfo {
     DEVIL_ZONE_7(new BlockPos(2624, 189, 1742), 0, Util.SAKURA_ZONE_NUM),
     DEVIL_ZONE_8(new BlockPos(2628, 191, 1725), 1, Util.SAKURA_ZONE_NUM),
 
+
+    // 下界区域
     NETHER_0(new BlockPos(565, 70, -624), 1, Util.NETHER_ZONE_NUM, 1),
     NETHER_1(new BlockPos(560, 55, -578), 1, Util.NETHER_ZONE_NUM, 1),
     NETHER_2(new BlockPos(530, 63, -534), 1, Util.NETHER_ZONE_NUM, 1),
@@ -661,6 +666,8 @@ public enum BonusChestInfo {
     NETHER_6(new BlockPos(519, 67, -709), 1, Util.NETHER_ZONE_NUM, 1),
     NETHER_7(new BlockPos(476, 65, -623), 1, Util.NETHER_ZONE_NUM, 1),
 
+
+    // 终界区域
     END_0(new BlockPos(117, 58, 0), 1, Util.END_ZONE_NUM, 2),
     END_1(new BlockPos(95, 57, 12), 1, Util.END_ZONE_NUM, 2),
     END_2(new BlockPos(0, 65, 0), 3, Util.END_ZONE_NUM, 2),
@@ -682,7 +689,12 @@ public enum BonusChestInfo {
     END_18(new BlockPos(30, 127, -211), 1, Util.END_ZONE_NUM, 2),
 
 
-    NETHER_0_END(new BlockPos(958, 228, 17), 2, Util.NETHER_ZONE_NUM, 1);
+    // 测试箱
+    TEST_0(new BlockPos(962, 233, 13), 0, Util.DRUMSTICK_ZONE_NUM),
+    TEST_1(new BlockPos(962, 233, 15), 1, Util.DRUMSTICK_ZONE_NUM),
+    TEST_2(new BlockPos(962, 233, 17), 2, Util.DRUMSTICK_ZONE_NUM),
+    TEST_3(new BlockPos(962, 233, 19), 3, Util.DRUMSTICK_ZONE_NUM);
+
 
     public final BlockPos chestPos;
     public final int tier;
@@ -700,48 +712,42 @@ public enum BonusChestInfo {
         this.levelSerial = levelSerial;
     }
 
-    // 获取序列号偏移位
     public static class Util {
         public static final int DRUMSTICK_ZONE_NUM = 0;
-        public static final int ELEMENT_CONTINENT_SOUTH_ZONE_NUM = 1;
-        public static final int NETHER_ZONE_NUM = 2;
-        public static final int SAKURA_ZONE_NUM = 3;
-        public static final int ELEMENT_CONTINENT_CENTER_ZONE_NUM = 4;
-        public static final int ELEMENT_CONTINENT_NORTH_ZONE_NUM = 5;
-        public static final int ELEMENT_CONTINENT_EAST_ZONE_NUM = 6;
+        public static final int ELEMENT_CONTINENT_CENTER_ZONE_NUM = 1;
+        public static final int ELEMENT_CONTINENT_NORTH_ZONE_NUM = 2;
+        public static final int ELEMENT_CONTINENT_EAST_ZONE_NUM = 3;
+        public static final int ELEMENT_CONTINENT_SOUTH_ZONE_NUM = 4;
+        public static final int SAKURA_ZONE_NUM = 5;
+        public static final int NETHER_ZONE_NUM = 6;
         public static final int END_ZONE_NUM = 7;
+
+        public static final Map<Integer, Component> ZONE_NAME_MAP = new HashMap<>() {{
+            put(0, Te.s("德朗斯蒂克", CustomStyle.styleOfWorld));
+            put(1, Te.s("艾里蒙特大陆中部", CustomStyle.styleOfLucky));
+            put(2, Te.s("艾里蒙特大陆北部", CustomStyle.styleOfIce));
+            put(3, Te.s("艾里蒙特大陆东部", CustomStyle.styleOfVolcano));
+            put(4, Te.s("艾里蒙特大陆南部", CustomStyle.styleOfPower));
+            put(5, Te.s("绯樱岛", CustomStyle.styleOfSakura));
+            put(6, Te.s("下界", CustomStyle.styleOfNether));
+            put(7, Te.s("终界", CustomStyle.styleOfEnd));
+        }};
+
+        public static final Map<Integer, Component> TIER_NAME_MAP = new HashMap<>() {{
+            put(0, Te.s("普通奖励箱", CustomStyle.styleOfPlain));
+            put(1, Te.s("非凡奖励箱", CustomStyle.styleOfWorld));
+            put(2, Te.s("丰饶奖励箱", CustomStyle.styleOfGold));
+            put(3, Te.s("富饶奖励箱", CustomStyle.styleOfRed));
+        }};
     }
 
-    public static final int DRUMSTICK_ZONE_COUNT_OFFSET = 0;
-    public static int ELEMENT_CONTINENT_COUNT_OFFSET = 0;
-    public static int NETHER_COUNT_OFFSET = 0;
-    public static int SAKURA_ZONE_COUNT_OFFSET = 0;
-    public static int ELEMENT_CONTINENT_CENTER_COUNT_OFFSET = 0;
-    public static int ELEMENT_CONTINENT_NORTH_COUNT_OFFSET = 0;
-    public static int ELEMENT_CONTINENT_EAST_COUNT_OFFSET = 0;
-    public static int END_ZONE_COUNT_OFFSET = 0;
-
-
     public static final Map<Integer, Integer> ZONE_OFFSET_MAP = new HashMap<>();
+    public static final Map<Integer, Integer> EACH_ZONE_COUNT_MAP = new HashMap<>();
     static {
         for (BonusChestInfo value : BonusChestInfo.values()) {
-            if (value.zone < Util.ELEMENT_CONTINENT_SOUTH_ZONE_NUM) ELEMENT_CONTINENT_COUNT_OFFSET ++;
-            if (value.zone < Util.NETHER_ZONE_NUM) NETHER_COUNT_OFFSET ++;
-            if (value.zone < Util.SAKURA_ZONE_NUM) SAKURA_ZONE_COUNT_OFFSET ++;
-            if (value.zone < Util.ELEMENT_CONTINENT_CENTER_ZONE_NUM) ELEMENT_CONTINENT_CENTER_COUNT_OFFSET ++;
-            if (value.zone < Util.ELEMENT_CONTINENT_NORTH_ZONE_NUM) ELEMENT_CONTINENT_NORTH_COUNT_OFFSET ++;
-            if (value.zone < Util.ELEMENT_CONTINENT_EAST_ZONE_NUM) ELEMENT_CONTINENT_EAST_COUNT_OFFSET ++;
-            if (value.zone < Util.END_ZONE_NUM) END_ZONE_COUNT_OFFSET ++;
+            ZONE_OFFSET_MAP.put(value.ordinal(), EACH_ZONE_COUNT_MAP.getOrDefault(value.zone, 0));
+            EACH_ZONE_COUNT_MAP.compute(value.zone, (k, v) -> v == null ? 1 : v + 1);
         }
-        ZONE_OFFSET_MAP.put(Util.DRUMSTICK_ZONE_NUM, DRUMSTICK_ZONE_COUNT_OFFSET);
-        ZONE_OFFSET_MAP.put(Util.ELEMENT_CONTINENT_SOUTH_ZONE_NUM, ELEMENT_CONTINENT_COUNT_OFFSET);
-        ZONE_OFFSET_MAP.put(Util.NETHER_ZONE_NUM, NETHER_COUNT_OFFSET);
-        ZONE_OFFSET_MAP.put(Util.SAKURA_ZONE_NUM, SAKURA_ZONE_COUNT_OFFSET);
-        ZONE_OFFSET_MAP.put(Util.ELEMENT_CONTINENT_CENTER_ZONE_NUM, ELEMENT_CONTINENT_CENTER_COUNT_OFFSET);
-        ZONE_OFFSET_MAP.put(Util.ELEMENT_CONTINENT_NORTH_ZONE_NUM, ELEMENT_CONTINENT_NORTH_COUNT_OFFSET);
-        ZONE_OFFSET_MAP.put(Util.ELEMENT_CONTINENT_EAST_ZONE_NUM, ELEMENT_CONTINENT_EAST_COUNT_OFFSET);
-        ZONE_OFFSET_MAP.put(Util.END_ZONE_NUM, END_ZONE_COUNT_OFFSET);
-
     }
 
     private static final Map<BlockPos, BonusChestInfo> infoMap = new HashMap<>() {{
@@ -760,7 +766,7 @@ public enum BonusChestInfo {
 
     public static int getSerialNum(BlockPos blockPos) {
         BonusChestInfo bonusChestInfo = infoMap.get(blockPos);
-        return bonusChestInfo.ordinal() - ZONE_OFFSET_MAP.get(bonusChestInfo.zone);
+        return ZONE_OFFSET_MAP.get(bonusChestInfo.ordinal());
     }
 
     public static int getTierNum(BlockPos blockPos) {

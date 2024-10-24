@@ -2646,7 +2646,7 @@ public class TradeList {
                 new ItemStack(ModItems.Pearl4.get(), 1),
                 new ItemStack(ModItems.Pearl5.get(), 1),
                 new ItemStack(ModItems.Pearl6.get(), 1),
-                new ItemStack(ModItems.worldForgeStone.get(), 1)
+                new ItemStack(ModItems.WORLD_FORGE_STONE.get(), 1)
         };
         List<ItemStack> contentList = new ArrayList<>();
         Collections.addAll(contentList, itemStacks);

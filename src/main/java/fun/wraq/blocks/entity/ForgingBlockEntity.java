@@ -417,7 +417,7 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider {
                 }
             }
 
-            if (stone.getItem().equals(ModItems.worldForgeStone.get())) {
+            if (stone.getItem().equals(ModItems.WORLD_FORGE_STONE.get())) {
                 if (forgeLevel < 24) {
                     data.putInt("Forging", forgeLevel + 1);
                     flag = false;
@@ -643,7 +643,7 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider {
         boolean hasGemInFirstSlot = (forgeStone.equals(ModItems.ForgingStone0.get())
                 || forgeStone.equals(ModItems.ForgingStone1.get())
                 || forgeStone.equals(ModItems.ForgingStone2.get())
-                || forgeStone.equals(ModItems.worldForgeStone.get()));
+                || forgeStone.equals(ModItems.WORLD_FORGE_STONE.get()));
 
         boolean hasSwordInSecondSlot = false;
         ItemStack equip = blockEntity.itemStackHandler.getStackInSlot(1);

@@ -5,7 +5,7 @@ import fun.wraq.Items.Explore.*;
 import fun.wraq.Items.Forging.*;
 import fun.wraq.Items.Gems.gemspiece;
 import fun.wraq.Items.KillPaper.KillPaper;
-import fun.wraq.Items.LevelReward.PotionPackets.PotionBag;
+import fun.wraq.process.system.potion.PotionBag;
 import fun.wraq.Items.LevelReward.VariousBag.GoldCoinBag;
 import fun.wraq.Items.LevelReward.VariousBag.LogBag;
 import fun.wraq.Items.Lotteries.*;
@@ -3580,43 +3580,43 @@ public class ModItems {
     public static final RegistryObject<Item> SplashHealthRecoverUpLongPotion = ITEMS.register("splash_healreply_long_potion",
             () -> new NewThrowablePotion(new Item.Properties().rarity(CustomStyle.Plain), ModPotions.Type.LongHealthRecoverUp));
 
-    public static final RegistryObject<Item> AttackUp_PotionBag = ITEMS.register("attackup_potionbag",
+    public static final RegistryObject<Item> ATTACK_UP_POTION_BAG = ITEMS.register("attackup_potionbag",
             () -> new PotionBag(new Item.Properties().rarity(Rarity.RARE), AttackUpPotion.get()));
 
-    public static final RegistryObject<Item> Breakdefenceup_potionBag = ITEMS.register("breakdefenceup_potionbag",
+    public static final RegistryObject<Item> DEFENCE_PENETRATION_POTION_BAG = ITEMS.register("breakdefenceup_potionbag",
             () -> new PotionBag(new Item.Properties().rarity(Rarity.RARE), DefencePenetrationUpPotion.get()));
 
-    public static final RegistryObject<Item> CritRateUp_PotionBag = ITEMS.register("critrateup_potionbag",
+    public static final RegistryObject<Item> CRIT_RATE_UP_POTIONBAG = ITEMS.register("critrateup_potionbag",
             () -> new PotionBag(new Item.Properties().rarity(Rarity.RARE), CritRateUpPotion.get()));
 
-    public static final RegistryObject<Item> CritDamageUp_PotionBag = ITEMS.register("critdamageup_potionbag",
+    public static final RegistryObject<Item> CRIT_DAMAGE_UP_POTION_BAG = ITEMS.register("critdamageup_potionbag",
             () -> new PotionBag(new Item.Properties().rarity(Rarity.RARE), CritDamageUpPotion.get()));
 
-    public static final RegistryObject<Item> ManaDamageUp_PotionBag = ITEMS.register("manadamageup_potionbag",
+    public static final RegistryObject<Item> MANA_DAMAGE_UP_POTION_BAG = ITEMS.register("manadamageup_potionbag",
             () -> new PotionBag(new Item.Properties().rarity(Rarity.RARE), ManaDamageUpPotion.get()));
 
-    public static final RegistryObject<Item> ManaBreakdefenceup_potionBag = ITEMS.register("manabreakdefenceup_potionbag",
+    public static final RegistryObject<Item> MANA_PENETRATION_POTION_BAG = ITEMS.register("manabreakdefenceup_potionbag",
             () -> new PotionBag(new Item.Properties().rarity(Rarity.RARE), ManaPenetrationUpPotion.get()));
 
-    public static final RegistryObject<Item> ManaReplyUp_PotionBag = ITEMS.register("manareplyup_potionbag",
+    public static final RegistryObject<Item> MANA_RECOVER_POTION_BAG = ITEMS.register("manareplyup_potionbag",
             () -> new PotionBag(new Item.Properties().rarity(Rarity.RARE), ManaRecoverUpPotion.get()));
 
-    public static final RegistryObject<Item> CoolDownDecreaseUp_PotionBag = ITEMS.register("cooldowndecreaseup_potionbag",
+    public static final RegistryObject<Item> POWER_RELEASE_SPEED_POTION_BAG = ITEMS.register("cooldowndecreaseup_potionbag",
             () -> new PotionBag(new Item.Properties().rarity(Rarity.RARE), CooldownUpPotion.get()));
 
-    public static final RegistryObject<Item> HealStealUp_PotionBag = ITEMS.register("healstealup_potionbag",
+    public static final RegistryObject<Item> HEALTH_STEAL_UP_POTION_BAG = ITEMS.register("healstealup_potionbag",
             () -> new PotionBag(new Item.Properties().rarity(Rarity.RARE), HealthStealUpPotion.get()));
 
-    public static final RegistryObject<Item> defenceup_potionBag = ITEMS.register("defenceup_potionbag",
+    public static final RegistryObject<Item> DEFENCE_UP_POTION_BAG = ITEMS.register("defenceup_potionbag",
             () -> new PotionBag(new Item.Properties().rarity(Rarity.RARE), DefenceUpPotion.get()));
 
-    public static final RegistryObject<Item> Manadefenceup_potionBag = ITEMS.register("manadefenceup_potionbag",
+    public static final RegistryObject<Item> MANA_DEFENCE_UP_POTION_BAG = ITEMS.register("manadefenceup_potionbag",
             () -> new PotionBag(new Item.Properties().rarity(Rarity.RARE), ManaDefenceUpPotion.get()));
 
-    public static final RegistryObject<Item> SpeedUp_PotionBag = ITEMS.register("speedup_potionbag",
+    public static final RegistryObject<Item> MOVEMENT_SPEED_UP_POTION_BAG = ITEMS.register("speedup_potionbag",
             () -> new PotionBag(new Item.Properties().rarity(Rarity.RARE), MovementSpeedUpPotion.get()));
 
-    public static final RegistryObject<Item> HealthRecover_PotionBag = ITEMS.register("healthrecover_potionbag",
+    public static final RegistryObject<Item> HEALTH_RECOVER_POTION_BAG = ITEMS.register("healthrecover_potionbag",
             () -> new PotionBag(new Item.Properties().rarity(Rarity.RARE), HealthRecoverUpPotion.get()));
 
     public static final RegistryObject<Item> Pearl1 = ITEMS.register("pearl1",
@@ -3637,7 +3637,7 @@ public class ModItems {
     public static final RegistryObject<Item> Pearl6 = ITEMS.register("pearl6",
             () -> new Pearl(new Item.Properties().rarity(CustomStyle.MoonBold)));
 
-    public static final RegistryObject<Item> worldForgeStone = ITEMS.register("world_forge_stone",
+    public static final RegistryObject<Item> WORLD_FORGE_STONE = ITEMS.register("world_forge_stone",
             () -> new SimpleFoiledItem(new Item.Properties().rarity(CustomStyle.WorldBold)));
 
     public static final RegistryObject<Item> Splasher = ITEMS.register("splasher",

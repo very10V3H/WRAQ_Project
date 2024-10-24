@@ -88,7 +88,7 @@ public class ToolTipEvent {
                         append(injectingRecipe.getForgingGetItem().getDefaultInstance().getDisplayName()));
             }
         }
-        if (event.getItemStack().is(ModItems.worldForgeStone.get())) {
+        if (event.getItemStack().is(ModItems.WORLD_FORGE_STONE.get())) {
             event.getToolTip().add(Component.literal(" 用于装备的24+增幅").withStyle(CustomStyle.styleOfWorld));
         }
         if (event.getItemStack().getTagElement(Utils.MOD_ID) != null) {

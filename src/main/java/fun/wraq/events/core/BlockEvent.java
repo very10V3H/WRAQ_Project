@@ -39,6 +39,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.Vec3;
@@ -237,7 +238,7 @@ public class BlockEvent {
                 add(Blocks.BARREL);
             }};
             if (set.contains(block) || block instanceof ShulkerBoxBlock
-                    || block instanceof AnvilBlock){
+                    || block instanceof AnvilBlock) {
                 event.setCanceled(true);
             }
             if (blockState.getBlock().toString().length() > 12
@@ -249,28 +250,33 @@ public class BlockEvent {
                     && event.getSide().isServer() && BonusChestInfo.getBonusChestInfo(blockPos) == null) {
                 event.setCanceled(true);
             }
-            if (block instanceof ChestBlock && event.getSide().isServer() && BonusChestInfo.getBonusChestInfo(blockPos) != null) {
-                if (player.getItemInHand(InteractionHand.MAIN_HAND).is(Items.AIR)) {
-                    if (Utils.playerIsUsingBlockBlockPosMap.containsValue(blockPos)) {
-                        Compute.sendFormatMSG(player, Component.literal("奖励箱").withStyle(ChatFormatting.LIGHT_PURPLE),
-                                Component.literal("有其他玩家正在获取这个奖励箱的内容，请稍等片刻。").withStyle(ChatFormatting.WHITE));
-                        event.setCanceled(true);
-                    } else {
-                        BonusChestPlayerData.onPlayerSuccessOpenBonusChest(player, blockPos, event);
-                    }
-                } else {
-                    event.setCanceled(true);
-                    Compute.sendFormatMSG(player, Component.literal("奖励箱").withStyle(ChatFormatting.LIGHT_PURPLE),
-                            Component.literal("为确保物品能够正确被拾取，请空手右击箱子打开。").withStyle(ChatFormatting.WHITE));
-                }
+        }
+
+        if (block instanceof ChestBlock && event.getSide().isServer() && BonusChestInfo.getBonusChestInfo(blockPos) != null) {
+            if (Utils.playerIsUsingBlockBlockPosMap.containsValue(blockPos)) {
+                Compute.sendFormatMSG(player, Component.literal("奖励箱").withStyle(ChatFormatting.LIGHT_PURPLE),
+                        Component.literal("有其他玩家正在获取这个奖励箱的内容，请稍等片刻。").withStyle(ChatFormatting.WHITE));
+                event.setCanceled(true);
+            } else {
+                BonusChestPlayerData.onPlayerSuccessOpenBonusChest(player, blockPos, event);
             }
         }
     }
 
     @SubscribeEvent
     public static void PlayerContainerCloseCheck(PlayerContainerEvent.Close event) {
-        String playerName = event.getEntity().getName().getString();
+        Player player = event.getEntity();
+        String playerName = player.getName().getString();
         Utils.playerIsUsingBlockBlockPosMap.remove(playerName);
+        ChestBlockEntity chestBlockEntity = BonusChestPlayerData.openBonusChestMap.getOrDefault(player, null);
+        if (chestBlockEntity != null) {
+            for (int i = 0; i < 27; i++) {
+                if (!chestBlockEntity.getItem(i).is(Items.AIR)) {
+                    InventoryOperation.itemStackGive(player, chestBlockEntity.getItem(i));
+                }
+            }
+            BonusChestPlayerData.openBonusChestMap.remove(player);
+        }
     }
 
     @SubscribeEvent

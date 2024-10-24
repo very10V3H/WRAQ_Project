@@ -1,6 +1,7 @@
-package fun.wraq.Items.LevelReward.PotionPackets;
+package fun.wraq.process.system.potion;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.registry.ModItems;
 import fun.wraq.process.func.item.InventoryOperation;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -44,5 +45,23 @@ public class PotionBag extends Item {
             Compute.playerItemUseWithRecord(player);
         }
         return super.use(level, player, interactionHand);
+    }
+
+    public static List<Item> getPotionBagItems() {
+        return List.of(
+                ModItems.ATTACK_UP_POTION_BAG.get(),
+                ModItems.DEFENCE_PENETRATION_POTION_BAG.get(),
+                ModItems.CRIT_RATE_UP_POTIONBAG.get(),
+                ModItems.CRIT_DAMAGE_UP_POTION_BAG.get(),
+                ModItems.MANA_DAMAGE_UP_POTION_BAG.get(),
+                ModItems.MANA_PENETRATION_POTION_BAG.get(),
+                ModItems.MANA_RECOVER_POTION_BAG.get(),
+                ModItems.POWER_RELEASE_SPEED_POTION_BAG.get(),
+                ModItems.HEALTH_STEAL_UP_POTION_BAG.get(),
+                ModItems.DEFENCE_UP_POTION_BAG.get(),
+                ModItems.MANA_DEFENCE_UP_POTION_BAG.get(),
+                ModItems.MOVEMENT_SPEED_UP_POTION_BAG.get(),
+                ModItems.HEALTH_RECOVER_POTION_BAG.get()
+        );
     }
 }

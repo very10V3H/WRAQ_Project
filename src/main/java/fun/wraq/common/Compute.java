@@ -440,19 +440,19 @@ public class Compute {
     public static void RandomPotionBagProvider(Player player, int MaxNum, double Rate) {
         Random random = new Random();
         ItemStack[] itemStack = new ItemStack[13];
-        itemStack[0] = ModItems.AttackUp_PotionBag.get().getDefaultInstance();
-        itemStack[1] = ModItems.Breakdefenceup_potionBag.get().getDefaultInstance();
-        itemStack[2] = ModItems.CoolDownDecreaseUp_PotionBag.get().getDefaultInstance();
-        itemStack[3] = ModItems.CritDamageUp_PotionBag.get().getDefaultInstance();
-        itemStack[4] = ModItems.CritRateUp_PotionBag.get().getDefaultInstance();
-        itemStack[5] = ModItems.defenceup_potionBag.get().getDefaultInstance();
-        itemStack[6] = ModItems.HealStealUp_PotionBag.get().getDefaultInstance();
-        itemStack[7] = ModItems.ManaBreakdefenceup_potionBag.get().getDefaultInstance();
-        itemStack[8] = ModItems.ManaDamageUp_PotionBag.get().getDefaultInstance();
-        itemStack[9] = ModItems.Manadefenceup_potionBag.get().getDefaultInstance();
-        itemStack[10] = ModItems.ManaReplyUp_PotionBag.get().getDefaultInstance();
-        itemStack[11] = ModItems.SpeedUp_PotionBag.get().getDefaultInstance();
-        itemStack[12] = ModItems.HealthRecover_PotionBag.get().getDefaultInstance();
+        itemStack[0] = ModItems.ATTACK_UP_POTION_BAG.get().getDefaultInstance();
+        itemStack[1] = ModItems.DEFENCE_PENETRATION_POTION_BAG.get().getDefaultInstance();
+        itemStack[2] = ModItems.POWER_RELEASE_SPEED_POTION_BAG.get().getDefaultInstance();
+        itemStack[3] = ModItems.CRIT_DAMAGE_UP_POTION_BAG.get().getDefaultInstance();
+        itemStack[4] = ModItems.CRIT_RATE_UP_POTIONBAG.get().getDefaultInstance();
+        itemStack[5] = ModItems.DEFENCE_UP_POTION_BAG.get().getDefaultInstance();
+        itemStack[6] = ModItems.HEALTH_STEAL_UP_POTION_BAG.get().getDefaultInstance();
+        itemStack[7] = ModItems.MANA_PENETRATION_POTION_BAG.get().getDefaultInstance();
+        itemStack[8] = ModItems.MANA_DAMAGE_UP_POTION_BAG.get().getDefaultInstance();
+        itemStack[9] = ModItems.MANA_DEFENCE_UP_POTION_BAG.get().getDefaultInstance();
+        itemStack[10] = ModItems.MANA_RECOVER_POTION_BAG.get().getDefaultInstance();
+        itemStack[11] = ModItems.MOVEMENT_SPEED_UP_POTION_BAG.get().getDefaultInstance();
+        itemStack[12] = ModItems.HEALTH_RECOVER_POTION_BAG.get().getDefaultInstance();
         for (int i = 0; i < MaxNum; i++) {
             ItemStack TmpStack = itemStack[random.nextInt(13)];
             TmpStack.getOrCreateTagElement(Utils.MOD_ID);

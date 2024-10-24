@@ -52,21 +52,26 @@ import java.util.*;
 
 @Mod.EventBusSubscriber
 public class LevelEvents {
-    public static int seasonChangeTick = 0;
+    private static int seasonChangeTick = 0;
+    private static String lastSubSeasonName = "";
 
     @SubscribeEvent
     public static void season(SeasonChangedEvent event) {
         Level level = event.getLevel();
-        if (!level.isClientSide && level.getServer().getTickCount() != seasonChangeTick) {
-            seasonChangeTick = level.getServer().getTickCount();
+        if (!level.isClientSide) {
             SeasonSavedData seasonData = SeasonHandler.getSeasonSavedData(level);
             SeasonTime time = new SeasonTime(seasonData.seasonCycleTicks);
-            MySeason.currentElementEffectBroadDelay = level.getServer().getTickCount() + 200;
-            Compute.formatBroad(level, Component.literal("季节").withStyle(CustomStyle.styleOfLife), Component.literal("").withStyle(ChatFormatting.WHITE).
-                    append(MySeason.seasonComponentMap.get(time.getSubSeason().name())).
-                    append(Component.literal(" 时分已经到来").withStyle(ChatFormatting.WHITE)));
-            MySeason.currentSeason = time.getSubSeason().name();
-            MySound.soundToAllPlayer(event.getLevel(), SoundEvents.EXPERIENCE_ORB_PICKUP);
+            if (Tick.get() != seasonChangeTick && !Objects.equals(lastSubSeasonName, time.getSubSeason().name())) {
+                seasonChangeTick = Tick.get();
+                lastSubSeasonName = time.getSubSeason().name();
+                MySeason.currentElementEffectBroadDelay = Tick.get() + 200;
+                Compute.formatBroad(level, Component.literal("季节").withStyle(CustomStyle.styleOfLife),
+                        Component.literal("").withStyle(ChatFormatting.WHITE).
+                        append(MySeason.seasonComponentMap.get(time.getSubSeason().name())).
+                        append(Component.literal(" 时分已经到来").withStyle(ChatFormatting.WHITE)));
+                MySeason.currentSeason = time.getSubSeason().name();
+                MySound.soundToAllPlayer(event.getLevel(), SoundEvents.EXPERIENCE_ORB_PICKUP);
+            }
         }
     }
 

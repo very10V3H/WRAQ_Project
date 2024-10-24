@@ -462,7 +462,7 @@ public class VMD {
                     ModItems.Pearl1.get(), ModItems.Pearl2.get(),
                     ModItems.Pearl3.get(), ModItems.Pearl4.get(),
                     ModItems.Pearl5.get(), ModItems.Pearl6.get(),
-                    ModItems.worldForgeStone.get(), ModItems.Splasher.get(),
+                    ModItems.WORLD_FORGE_STONE.get(), ModItems.Splasher.get(),
                     ModItems.WoodHammer.get(), ModItems.StoneHammer.get(),
                     ModItems.CopperHammer.get(), ModItems.IronHammer.get(),
                     ModItems.GoldHammer.get(), ModItems.DiamondHammer.get(),
@@ -502,18 +502,18 @@ public class VMD {
             event.accept(ModItems.SignInReward.get().getDefaultInstance());
             event.accept(ModItems.SmartPhone.get().getDefaultInstance());
             event.accept(ModItems.DailyMission.get().getDefaultInstance());
-            event.accept(ModItems.AttackUp_PotionBag.get().getDefaultInstance());
-            event.accept(ModItems.Breakdefenceup_potionBag.get().getDefaultInstance());
-            event.accept(ModItems.CritRateUp_PotionBag.get().getDefaultInstance());
-            event.accept(ModItems.CritDamageUp_PotionBag.get().getDefaultInstance());
-            event.accept(ModItems.ManaDamageUp_PotionBag.get().getDefaultInstance());
-            event.accept(ModItems.ManaBreakdefenceup_potionBag.get().getDefaultInstance());
-            event.accept(ModItems.ManaReplyUp_PotionBag.get().getDefaultInstance());
-            event.accept(ModItems.CoolDownDecreaseUp_PotionBag.get().getDefaultInstance());
-            event.accept(ModItems.HealStealUp_PotionBag.get().getDefaultInstance());
-            event.accept(ModItems.defenceup_potionBag.get().getDefaultInstance());
-            event.accept(ModItems.Manadefenceup_potionBag.get().getDefaultInstance());
-            event.accept(ModItems.SpeedUp_PotionBag.get().getDefaultInstance());
+            event.accept(ModItems.ATTACK_UP_POTION_BAG.get().getDefaultInstance());
+            event.accept(ModItems.DEFENCE_PENETRATION_POTION_BAG.get().getDefaultInstance());
+            event.accept(ModItems.CRIT_RATE_UP_POTIONBAG.get().getDefaultInstance());
+            event.accept(ModItems.CRIT_DAMAGE_UP_POTION_BAG.get().getDefaultInstance());
+            event.accept(ModItems.MANA_DAMAGE_UP_POTION_BAG.get().getDefaultInstance());
+            event.accept(ModItems.MANA_PENETRATION_POTION_BAG.get().getDefaultInstance());
+            event.accept(ModItems.MANA_RECOVER_POTION_BAG.get().getDefaultInstance());
+            event.accept(ModItems.POWER_RELEASE_SPEED_POTION_BAG.get().getDefaultInstance());
+            event.accept(ModItems.HEALTH_STEAL_UP_POTION_BAG.get().getDefaultInstance());
+            event.accept(ModItems.DEFENCE_UP_POTION_BAG.get().getDefaultInstance());
+            event.accept(ModItems.MANA_DEFENCE_UP_POTION_BAG.get().getDefaultInstance());
+            event.accept(ModItems.MOVEMENT_SPEED_UP_POTION_BAG.get().getDefaultInstance());
             event.accept(ModItems.GoldCoinBag.get().getDefaultInstance());
             event.accept(ModItems.BackPackTickets.get().getDefaultInstance());
             event.accept(ModItems.SakuraPocket.get().getDefaultInstance());

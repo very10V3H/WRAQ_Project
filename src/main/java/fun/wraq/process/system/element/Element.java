@@ -1142,4 +1142,16 @@ public class Element {
     public static ResourceLocation getResource(String type) {
         return new ResourceLocation(Utils.MOD_ID, "textures/hud/" + typeLocationMap.get(type) + ".png");
     }
+
+    public static List<Item> getPiece0Items() {
+        return List.of(
+                ModItems.LifeElementPiece0.get(),
+                ModItems.WaterElementPiece0.get(),
+                ModItems.FireElementPiece0.get(),
+                ModItems.StoneElementPiece0.get(),
+                ModItems.IceElementPiece0.get(),
+                ModItems.WindElementPiece0.get(),
+                ModItems.LightningElementPiece0.get()
+        );
+    }
 }

@@ -170,7 +170,7 @@ public class ForgingBlockScreen extends AbstractContainerScreen<fun.wraq.render.
         ItemStack equip = this.getMenu().blockEntity.getItemStackHandler().getStackInSlot(1);
         ItemStack enhancePaper = this.getMenu().blockEntity.getItemStackHandler().getStackInSlot(3);
 
-        if ((stone.getItem() instanceof ForgingMaterial || stone.is(ModItems.worldForgeStone.get()))
+        if ((stone.getItem() instanceof ForgingMaterial || stone.is(ModItems.WORLD_FORGE_STONE.get()))
                 && Utils.mainHandTag.containsKey(equip.getItem())) {
             CompoundTag data = equip.getTagElement(Utils.MOD_ID);
             if (data != null) {
@@ -200,7 +200,7 @@ public class ForgingBlockScreen extends AbstractContainerScreen<fun.wraq.render.
                     successRate = ((24 - forgelevel) / 24d) * enhanceRate;
                 }
 
-                if (stone.getItem().equals(ModItems.worldForgeStone.get())) {
+                if (stone.getItem().equals(ModItems.WORLD_FORGE_STONE.get())) {
                     if (forgelevel < 24) {
                         successRate = 1;
                     } else {

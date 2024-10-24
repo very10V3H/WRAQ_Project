@@ -9,6 +9,7 @@ import fun.wraq.commands.changeable.*;
 import fun.wraq.commands.stable.ops.*;
 import fun.wraq.commands.stable.players.*;
 import fun.wraq.common.util.Utils;
+import fun.wraq.process.system.bonuschest.BonusInfoCommand;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.GameProfileArgument;
@@ -485,6 +486,13 @@ public class CommandHandler {
                                                 .executes(CuriosCommand.instance)
                                 )
                         ).requires(commandSourceStack -> commandSourceStack.hasPermission(2))
+                )
+        );
+        CommandDispatcher<CommandSourceStack> dispatcher52 = event.getDispatcher();
+        LiteralCommandNode<CommandSourceStack> cmd52 = dispatcher52.register(
+                Commands.literal(Utils.MOD_ID).then(
+                        Commands.literal("bonusInfo")
+                                .executes(BonusInfoCommand.instance)
                 )
         );
     }

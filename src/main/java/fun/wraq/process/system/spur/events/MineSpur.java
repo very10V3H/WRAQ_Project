@@ -177,6 +177,18 @@ public class MineSpur {
         put(ModBlocks.WRAQ_ORE_4.get(), new DropAndExp(OreItems.WRAQ_ORE_4_ITEM.get(), 0.05));
     }};
 
+    public static List<Item> getVanillaIngotItems() {
+        return List.of(
+                Items.COPPER_INGOT,
+                Items.IRON_INGOT,
+                Items.LAPIS_LAZULI,
+                Items.REDSTONE,
+                Items.GOLD_INGOT,
+                Items.DIAMOND,
+                Items.EMERALD
+        );
+    }
+
     public static Set<Block> canBeDigBlockList = new HashSet<>() {{
         Block[] blocks = {
                 Blocks.DIRT,

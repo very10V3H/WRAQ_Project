@@ -1,6 +1,7 @@
 package fun.wraq.Items.MainStory_1.Mission;
 
 import fun.wraq.common.util.ComponentUtils;
+import fun.wraq.process.system.bonuschest.BonusChestPlayerData;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -51,10 +52,12 @@ public class Main0 extends Item {
         if (!level.isClientSide && !player.isShiftKeyDown()) {
             String name = player.getName().getString();
             CompoundTag data = player.getPersistentData();
+
+            System.out.println(data.getCompound("bonus_chest_data_key"));
         }
 
         if (!level.isClientSide && player.isShiftKeyDown()) {
-
+            BonusChestPlayerData.resetAllZoneInfo(player);
         }
 
         if (level.isClientSide && !player.isShiftKeyDown()) {

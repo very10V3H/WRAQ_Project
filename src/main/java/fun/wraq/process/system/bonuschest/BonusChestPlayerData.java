@@ -2,22 +2,21 @@ package fun.wraq.process.system.bonuschest;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
-import fun.wraq.common.util.ItemAndRate;
 import fun.wraq.common.util.Utils;
+import fun.wraq.events.core.InventoryCheck;
+import fun.wraq.process.system.point.Point;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 奖励箱玩家数据
@@ -40,9 +39,9 @@ public class BonusChestPlayerData {
         return ZONE_INFO_KEY + zoneNum;
     }
 
-    private static final int MAX_ZONE_NUM = 3;
+    private static final int MAX_ZONE_NUM = 7;
     private static String getZoneInfo(Player player, int zoneNum) {
-        if (zoneNum >= MAX_ZONE_NUM) {
+        if (zoneNum > MAX_ZONE_NUM) {
             player.sendSystemMessage(
                     Te.m("看到此信息请联系管理员!奖励箱错误：zoneNum = " + zoneNum));
             return "1".repeat(EACH_ZONE_MAX_CHEST_NUM);
@@ -104,6 +103,7 @@ public class BonusChestPlayerData {
         data.putInt(TIER_COUNT_KEY + tier, data.getInt(TIER_COUNT_KEY + tier) + 1);
     }
 
+    public static Map<Player, ChestBlockEntity> openBonusChestMap = new HashMap<>();
     public static void onPlayerSuccessOpenBonusChest(Player player, BlockPos blockPos,
                                                      PlayerInteractEvent.RightClickBlock event) {
         BonusChestInfo bonusChestInfo = BonusChestInfo.getBonusChestInfo(blockPos);
@@ -116,56 +116,34 @@ public class BonusChestPlayerData {
                 || (player.level().dimension().equals(Level.NETHER) && bonusChestInfo.levelSerial == 1)
                 || (player.level().dimension().equals(Level.END) && bonusChestInfo.levelSerial == 2)) {
             int serial = BonusChestInfo.getSerialNum(blockPos);
-            if (getInfoBySerialNum(player, bonusChestInfo.zone, serial) == 0) {
+            if (getInfoBySerialNum(player, bonusChestInfo.zone, serial) == 0 || player.isCreative()) {
                 // 未获取过奖励
                 setInfoBySerialNum(player, bonusChestInfo.zone, serial);
                 addZoneCount(player, bonusChestInfo.zone);
                 addTierCount(player, bonusChestInfo.tier);
 
                 ChestBlockEntity chestBlockEntity = (ChestBlockEntity) player.level().getBlockEntity(blockPos);
-                Random random = new Random();
-                for (int i = 0; i < 27; i++) {
-                    chestBlockEntity.setItem(i, Items.AIR.getDefaultInstance());
-                }
+                chestBlockEntity.clearContent();
+                BonusChestContent.getBonusContent(bonusChestInfo.tier).forEach(pair -> {
+                    ItemStack itemStack = pair.getFirst();
+                    if (InventoryCheck.boundingList.contains(itemStack.getItem())) {
+                        InventoryCheck.addOwnerTagToItemStack(player, itemStack);
+                    }
+                    chestBlockEntity.setItem(pair.getSecond(), itemStack);
+                });
+                Point.increment(player, BonusChestContent.getZoneToPointType(bonusChestInfo.zone),
+                        bonusChestInfo.tier + 1);
+                Point.increment(player, Point.EXPT, bonusChestInfo.tier + 1);
+
                 sendMSG(player, Te.m("你找到了一个奖励箱。"));
                 Utils.playerIsUsingBlockBlockPosMap.put(player.getName().getString(), blockPos);
+                openBonusChestMap.put(player, chestBlockEntity);
             } else {
                 // 已获取过奖励
                 event.setCanceled(true);
                 sendMSG(player, Te.m("你最近已经打开过这个奖励箱了。"));
             }
         }
-    }
-
-    private static List<ItemAndRate> commonTier1Loot;
-    public static List<ItemStack> getOneTimeCommonTier1Loot() {
-        if (commonTier1Loot == null) {
-            commonTier1Loot = List.of();
-        }
-        return ItemAndRate.getOneTimeLoot(commonTier1Loot);
-    }
-
-    private static List<ItemAndRate> commonTier2Loot = new ArrayList<>();
-    public static List<ItemStack> getOneTimeCommonTier2Loot() {
-        if (commonTier2Loot == null) {
-            commonTier2Loot = List.of();
-        }
-        List<ItemStack> result = new ArrayList<>();
-        result.addAll(getOneTimeCommonTier1Loot());
-        result.addAll(ItemAndRate.getOneTimeLoot(commonTier2Loot));
-        return result;
-    }
-
-    private static List<ItemAndRate> commonTier3Loot = new ArrayList<>();
-    public static List<ItemStack> getOneTimeCommonTier3Loot() {
-        if (commonTier3Loot == null) {
-            commonTier3Loot = List.of();
-        }
-        List<ItemStack> result = new ArrayList<>();
-        result.addAll(getOneTimeCommonTier1Loot());
-        result.addAll(getOneTimeCommonTier2Loot());
-        result.addAll(ItemAndRate.getOneTimeLoot(commonTier3Loot));
-        return result;
     }
 
     public static void sendMSG(Player player, Component content) {
