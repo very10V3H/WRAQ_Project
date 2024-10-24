@@ -690,10 +690,7 @@ public enum BonusChestInfo {
     public final int levelSerial;
 
     BonusChestInfo(BlockPos blockPos, int tier, int zone) {
-        this.chestPos = blockPos;
-        this.tier = tier;
-        this.zone = zone;
-        this.levelSerial = 0;
+        this(blockPos, tier, zone, 0);
     }
 
     BonusChestInfo(BlockPos blockPos, int tier, int zone, int levelSerial) {

@@ -21,8 +21,6 @@ public class ForgingStone2 extends Item implements ForgingMaterial {
         components.add(Component.literal(" "));
         components.add(Component.literal("一颗").withStyle(ChatFormatting.GRAY).append(Component.literal("顶级").withStyle(ChatFormatting.LIGHT_PURPLE).append(Component.literal("的强化石。").withStyle(ChatFormatting.GRAY))));
         components.add(Component.literal("将力量注入物品，使物品获得更好性能。").withStyle(ChatFormatting.WHITE));
-        components.add(Component.literal(" "));
-        components.add(Component.literal("Items-Forging").withStyle(ChatFormatting.AQUA).withStyle(ChatFormatting.ITALIC));
         super.appendHoverText(stack, p_41422_, components, p_41424_);
     }
 

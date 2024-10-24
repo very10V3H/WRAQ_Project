@@ -10,29 +10,30 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class ForgeEnhance extends Item {
+public class ForgeEnhancePaper extends Item {
 
-    private int Num = 0;
+    private int num = 0;
 
-    public ForgeEnhance(Properties p_41383_, int num) {
+    public ForgeEnhancePaper(Properties p_41383_, int num) {
         super(p_41383_);
-        this.Num = num;
+        this.num = num;
     }
 
-    private final String[] Rate = {
-            "25%", "50%", "100%"
+    private final String[] rate = {
+            "25%", "50%", "100%", "150%"
     };
     private final ChatFormatting[] chatFormattings = {
             ChatFormatting.GREEN,
             ChatFormatting.AQUA,
-            ChatFormatting.LIGHT_PURPLE
+            ChatFormatting.LIGHT_PURPLE,
+            ChatFormatting.RED
     };
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level p_41422_, List<Component> components, TooltipFlag p_41424_) {
         components.add(Component.literal(" 使本次强化成功率").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("提升").withStyle(ChatFormatting.GOLD)).
-                append(Component.literal(Rate[Num]).withStyle(chatFormattings[Num])));
+                append(Component.literal(rate[num]).withStyle(chatFormattings[num])));
         super.appendHoverText(stack, p_41422_, components, p_41424_);
     }
 

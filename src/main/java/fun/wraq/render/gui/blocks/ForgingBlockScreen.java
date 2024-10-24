@@ -1,5 +1,6 @@
 package fun.wraq.render.gui.blocks;
 
+import com.google.common.collect.ImmutableMap;
 import com.mojang.blaze3d.systems.RenderSystem;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.Utils;
@@ -23,10 +24,12 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class ForgingBlockScreen extends AbstractContainerScreen<fun.wraq.render.gui.blocks.ForgingBlockMenu> {
 
@@ -173,26 +176,28 @@ public class ForgingBlockScreen extends AbstractContainerScreen<fun.wraq.render.
             if (data != null) {
                 int forgelevel = 0;
                 double successRate = 0;
-                if (data.contains("Forging")) forgelevel = data.getInt("Forging");
+
+                Map<Item, Double> enhanceRateMap = ImmutableMap.of(
+                        ModItems.ForgeEnhance0.get(), 1.25,
+                        ModItems.ForgeEnhance1.get(), 1.5,
+                        ModItems.ForgeEnhance2.get(), 2d,
+                        ModItems.ForgeEnhance3.get(), 2.5d
+                );
+                double enhanceRate = enhanceRateMap.getOrDefault(enhancePaper.getItem(), 1d);
+
+                if (data.contains("Forging")) {
+                    forgelevel = data.getInt("Forging");
+                }
                 if (stone.getItem() instanceof ForgingStone0) {
-                    successRate = (double) (10 - forgelevel) / 10;
-                    if (enhancePaper.is(ModItems.ForgeEnhance0.get())) successRate *= (1.25);
-                    if (enhancePaper.is(ModItems.ForgeEnhance1.get())) successRate *= (1.5);
-                    if (enhancePaper.is(ModItems.ForgeEnhance2.get())) successRate *= (2);
+                    successRate = ((10 - forgelevel) / 10d) * enhanceRate;
                 }
 
                 if (stone.getItem() instanceof ForgingStone1) {
-                    successRate = (double) (20 - forgelevel) / 20;
-                    if (enhancePaper.is(ModItems.ForgeEnhance0.get())) successRate *= (1.25);
-                    if (enhancePaper.is(ModItems.ForgeEnhance1.get())) successRate *= (1.5);
-                    if (enhancePaper.is(ModItems.ForgeEnhance2.get())) successRate *= (2);
+                    successRate = ((20 - forgelevel) / 20d) * enhanceRate;
                 }
 
                 if (stone.getItem() instanceof ForgingStone2) {
-                    successRate = (double) (24 - forgelevel) / 24;
-                    if (enhancePaper.is(ModItems.ForgeEnhance0.get())) successRate *= (1.25);
-                    if (enhancePaper.is(ModItems.ForgeEnhance1.get())) successRate *= (1.5);
-                    if (enhancePaper.is(ModItems.ForgeEnhance2.get())) successRate *= (2);
+                    successRate = ((24 - forgelevel) / 24d) * enhanceRate;
                 }
 
                 if (stone.getItem().equals(ModItems.worldForgeStone.get())) {
@@ -200,10 +205,7 @@ public class ForgingBlockScreen extends AbstractContainerScreen<fun.wraq.render.
                         successRate = 1;
                     } else {
                         int minus = 32 - forgelevel;
-                        successRate = 0.01 + minus * 0.005;
-                        if (enhancePaper.is(ModItems.ForgeEnhance0.get())) successRate *= (1.25);
-                        if (enhancePaper.is(ModItems.ForgeEnhance1.get())) successRate *= (1.5);
-                        if (enhancePaper.is(ModItems.ForgeEnhance2.get())) successRate *= (2);
+                        successRate = (0.01 + minus * 0.005) * enhanceRate;
                     }
                 }
 

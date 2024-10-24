@@ -1958,13 +1958,16 @@ public class ModItems {
             () -> new MineHat(ItemMaterial.SkyMaterial, ArmorItem.Type.HELMET));
 
     public static final RegistryObject<Item> ForgeEnhance0 = ITEMS.register("forge_enhance_0",
-            () -> new ForgeEnhance(new Item.Properties().rarity(CustomStyle.Plain), 0));
+            () -> new ForgeEnhancePaper(new Item.Properties().rarity(CustomStyle.Plain), 0));
 
     public static final RegistryObject<Item> ForgeEnhance1 = ITEMS.register("forge_enhance_1",
-            () -> new ForgeEnhance(new Item.Properties().rarity(CustomStyle.Sky), 1));
+            () -> new ForgeEnhancePaper(new Item.Properties().rarity(CustomStyle.Sky), 1));
 
     public static final RegistryObject<Item> ForgeEnhance2 = ITEMS.register("forge_enhance_2",
-            () -> new ForgeEnhance(new Item.Properties().rarity(CustomStyle.EndBold), 2));
+            () -> new ForgeEnhancePaper(new Item.Properties().rarity(CustomStyle.EndBold), 2));
+
+    public static final RegistryObject<Item> ForgeEnhance3 = ITEMS.register("forge_enhance_3",
+            () -> new ForgeEnhancePaper(new Item.Properties().rarity(CustomStyle.RedBold), 3));
 
     public static final RegistryObject<Item> ForgeProtect = ITEMS.register("forge_protect",
             () -> new ForgeProtect(new Item.Properties().rarity(CustomStyle.EndBold)));

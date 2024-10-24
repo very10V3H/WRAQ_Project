@@ -1,7 +1,8 @@
 package fun.wraq.blocks.entity;
 
+import com.google.common.collect.ImmutableMap;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import fun.wraq.Items.Forging.ForgeEnhance;
+import fun.wraq.Items.Forging.ForgeEnhancePaper;
 import fun.wraq.Items.Forging.ForgeProtect;
 import fun.wraq.common.Compute;
 import fun.wraq.common.equip.impl.ExBaseAttributeValueEquip;
@@ -53,7 +54,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 public class ForgingBlockEntity extends BlockEntity implements MenuProvider {
@@ -369,65 +370,62 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider {
             ItemStack enhancePaper = blockEntity.itemStackHandler.getStackInSlot(3);
             ItemStack protect = blockEntity.itemStackHandler.getStackInSlot(4);
 
-            ItemStack slot3Item = blockEntity.itemStackHandler.getStackInSlot(3);
-            ItemStack slot4Item = blockEntity.itemStackHandler.getStackInSlot(4);
-            if (slot3Item.is(ModItems.ForgeProtect.get())) protect = slot3Item;
-            if (slot4Item.is(ModItems.ForgeProtect.get())) protect = slot4Item;
-            List<Item> items = List.of(ModItems.ForgeEnhance0.get(), ModItems.ForgeEnhance1.get(), ModItems.ForgeEnhance2.get());
-            if (items.contains(slot3Item.getItem())) enhancePaper = slot3Item;
-            if (items.contains(slot4Item.getItem())) enhancePaper = slot4Item;
+            ItemStack slot3Stack = blockEntity.itemStackHandler.getStackInSlot(3);
+            ItemStack slot4Stack = blockEntity.itemStackHandler.getStackInSlot(4);
+            if (slot3Stack.is(ModItems.ForgeProtect.get())) protect = slot3Stack;
+            if (slot4Stack.is(ModItems.ForgeProtect.get())) protect = slot4Stack;
+            if (slot3Stack.getItem() instanceof ForgeEnhancePaper) enhancePaper = slot3Stack;
+            if (slot4Stack.getItem() instanceof ForgeEnhancePaper) enhancePaper = slot4Stack;
+
+            Map<Item, Double> enhanceRateMap = ImmutableMap.of(
+                    ModItems.ForgeEnhance0.get(), 1.25,
+                    ModItems.ForgeEnhance1.get(), 1.5,
+                    ModItems.ForgeEnhance2.get(), 2d,
+                    ModItems.ForgeEnhance3.get(), 2.5d
+            );
+            double enhanceRate = enhanceRateMap.getOrDefault(enhancePaper.getItem(), 1d);
 
             CompoundTag data = equip.getOrCreateTagElement(Utils.MOD_ID);
             Compute.forgingHoverName(equip);
-            int forgelevel = 0;
+            int forgeLevel = 0;
             Random r = new Random();
-            if (data.contains("Forging")) forgelevel = data.getInt("Forging");
+            if (data.contains("Forging")) {
+                forgeLevel = data.getInt("Forging");
+            }
             boolean flag = true;
             if (stone.getItem() instanceof ForgingStone0) {
-                double successRate = (double) (10 - forgelevel) / 10;
-                if (enhancePaper.is(ModItems.ForgeEnhance0.get())) successRate *= (1.25);
-                if (enhancePaper.is(ModItems.ForgeEnhance1.get())) successRate *= (1.5);
-                if (enhancePaper.is(ModItems.ForgeEnhance2.get())) successRate *= (2);
+                double successRate = ((10 - forgeLevel) / 10d) * enhanceRate;
                 if (r.nextDouble(1) < successRate) {
-                    data.putInt("Forging", forgelevel + 1);
+                    data.putInt("Forging", forgeLevel + 1);
                     flag = false;
                 }
             }
 
             if (stone.getItem() instanceof ForgingStone1) {
-                double successRate = (double) (20 - forgelevel) / 20;
-                if (enhancePaper.is(ModItems.ForgeEnhance0.get())) successRate *= (1.25);
-                if (enhancePaper.is(ModItems.ForgeEnhance1.get())) successRate *= (1.5);
-                if (enhancePaper.is(ModItems.ForgeEnhance2.get())) successRate *= (2);
+                double successRate = ((20 - forgeLevel) / 20d) * enhanceRate;
                 if (r.nextDouble(1) < successRate) {
-                    data.putInt("Forging", forgelevel + 1);
+                    data.putInt("Forging", forgeLevel + 1);
                     flag = false;
                 }
             }
 
             if (stone.getItem() instanceof ForgingStone2) {
-                double successRate = (double) (24 - forgelevel) / 24;
-                if (enhancePaper.is(ModItems.ForgeEnhance0.get())) successRate *= (1.25);
-                if (enhancePaper.is(ModItems.ForgeEnhance1.get())) successRate *= (1.5);
-                if (enhancePaper.is(ModItems.ForgeEnhance2.get())) successRate *= (2);
+                double successRate = ((24 - forgeLevel) / 24d) * enhanceRate;
                 if (r.nextDouble(1) < successRate) {
-                    data.putInt("Forging", forgelevel + 1);
+                    data.putInt("Forging", forgeLevel + 1);
                     flag = false;
                 }
             }
 
             if (stone.getItem().equals(ModItems.worldForgeStone.get())) {
-                if (forgelevel < 24) {
-                    data.putInt("Forging", forgelevel + 1);
+                if (forgeLevel < 24) {
+                    data.putInt("Forging", forgeLevel + 1);
                     flag = false;
                 } else {
-                    int minus = 32 - forgelevel;
-                    double rate = 0.01 + minus * 0.005;
-                    if (enhancePaper.is(ModItems.ForgeEnhance0.get())) rate *= (1.25);
-                    if (enhancePaper.is(ModItems.ForgeEnhance1.get())) rate *= (1.5);
-                    if (enhancePaper.is(ModItems.ForgeEnhance2.get())) rate *= (2);
+                    int minus = 32 - forgeLevel;
+                    double rate = (0.01 + minus * 0.005) * enhanceRate;
                     if (r.nextDouble() < rate) {
-                        data.putInt("Forging", forgelevel + 1);
+                        data.putInt("Forging", forgeLevel + 1);
                         flag = false;
                     }
                 }
@@ -436,8 +434,8 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider {
             boolean useProtect = false;
             if (player != null) {
                 if (flag) {
-                    if (forgelevel >= 24 && !protect.is(ModItems.ForgeProtect.get())) {
-                        int level = Math.max(forgelevel - 2, 23);
+                    if (forgeLevel >= 24 && !protect.is(ModItems.ForgeProtect.get())) {
+                        int level = Math.max(forgeLevel - 2, 23);
                         data.putInt("Forging", level);
                         Compute.formatBroad(player.level(), Component.literal("强化").withStyle(ChatFormatting.AQUA),
                                 Component.literal("").withStyle(ChatFormatting.WHITE).
@@ -448,7 +446,7 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider {
                                         append(Component.literal("+" + level).withStyle(CustomStyle.styleOfWorld)));
                     }
 
-                    if (forgelevel >= 17 && forgelevel < 19 && !protect.is(ModItems.ForgeProtect.get())) {
+                    if (forgeLevel >= 17 && forgeLevel < 19 && !protect.is(ModItems.ForgeProtect.get())) {
                         Compute.formatBroad(player.level(), Component.literal("强化").withStyle(ChatFormatting.AQUA),
                                 Component.literal("").withStyle(ChatFormatting.WHITE).
                                         append(player.getDisplayName()).
@@ -457,7 +455,7 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider {
                                         append(Component.literal("时失败，装备等级掉至 16").withStyle(ChatFormatting.WHITE)));
                         data.putInt("Forging", 16);
                     }
-                    if (forgelevel >= 20 && forgelevel < 22 && !protect.is(ModItems.ForgeProtect.get())) {
+                    if (forgeLevel >= 20 && forgeLevel < 22 && !protect.is(ModItems.ForgeProtect.get())) {
                         Compute.formatBroad(player.level(), Component.literal("强化").withStyle(ChatFormatting.AQUA),
                                 Component.literal("").withStyle(ChatFormatting.WHITE).
                                         append(player.getDisplayName()).
@@ -466,7 +464,7 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider {
                                         append(Component.literal("时失败，装备等级掉至 19").withStyle(ChatFormatting.WHITE)));
                         data.putInt("Forging", 19);
                     }
-                    if (forgelevel == 23 && !protect.is(ModItems.ForgeProtect.get())) {
+                    if (forgeLevel == 23 && !protect.is(ModItems.ForgeProtect.get())) {
                         Compute.formatBroad(player.level(), Component.literal("强化").withStyle(ChatFormatting.AQUA),
                                 Component.literal("").withStyle(ChatFormatting.WHITE).
                                         append(player.getDisplayName()).
@@ -476,7 +474,7 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider {
                         data.putInt("Forging", 22);
                     }
 
-                    if (forgelevel >= 17 && protect.is(ModItems.ForgeProtect.get())) {
+                    if (forgeLevel >= 17 && protect.is(ModItems.ForgeProtect.get())) {
                         useProtect = true;
                         Compute.sendFormatMSG(player, Component.literal("强化").withStyle(ChatFormatting.AQUA),
                                 Component.literal("使用了强化保护符，防止了强化等级掉落。").withStyle(ChatFormatting.WHITE));
@@ -493,7 +491,7 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider {
                     MySound.soundToPlayer(player, SoundEvents.ANVIL_DESTROY, blockEntity.getBlockPos().getCenter());
 
                 } else {
-                    if (forgelevel >= 17)
+                    if (forgeLevel >= 17)
                         Compute.broad(blockEntity.level, (Component.literal("[").withStyle(ChatFormatting.GRAY).
                                 append(Component.literal("强化").withStyle(ChatFormatting.AQUA)).
                                 append(Component.literal("]").withStyle(ChatFormatting.GRAY)).
@@ -511,14 +509,21 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider {
             blockEntity.itemStackHandler.setStackInSlot(2, equip);
             blockEntity.itemStackHandler.extractItem(0, 1, false);
             blockEntity.itemStackHandler.extractItem(1, 1, false);
-            if (enhancePaper.getItem() instanceof ForgeEnhance) {
-                if (items.contains(slot3Item.getItem())) blockEntity.itemStackHandler.extractItem(3, 1, false);
-                else if (items.contains(slot4Item.getItem())) blockEntity.itemStackHandler.extractItem(4, 1, false);
+            if (enhancePaper.getItem() instanceof ForgeEnhancePaper) {
+                if (slot3Stack.getItem() instanceof ForgeEnhancePaper) {
+                    blockEntity.itemStackHandler.extractItem(3, 1, false);
+                }
+                else if (slot4Stack.getItem() instanceof ForgeEnhancePaper) {
+                    blockEntity.itemStackHandler.extractItem(4, 1, false);
+                }
             }
             if (useProtect && protect.getItem() instanceof ForgeProtect) {
-                if (slot3Item.is(ModItems.ForgeProtect.get())) blockEntity.itemStackHandler.extractItem(3, 1, false);
-                else if (slot4Item.is(ModItems.ForgeProtect.get()))
+                if (slot3Stack.is(ModItems.ForgeProtect.get())) {
+                    blockEntity.itemStackHandler.extractItem(3, 1, false);
+                }
+                else if (slot4Stack.is(ModItems.ForgeProtect.get())) {
                     blockEntity.itemStackHandler.extractItem(4, 1, false);
+                }
             }
         }
 
