@@ -696,6 +696,9 @@ public class StringUtils {
     public static String WeeklyRefreshWeekNum = "WeeklyRefreshWeekNum";
     public static String WeeklyRefreshYearNum = "WeeklyRefreshYearNum";
 
+    public static String monthlyRefreshYearNum = "monthlyRefreshYearNum";
+    public static String monthlyRefreshMonthNum = "monthlyRefreshMonthNum";
+
 
     public static class Mine {
         public static String Exp = "MineExp";

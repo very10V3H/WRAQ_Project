@@ -276,6 +276,20 @@ public class LoginInEvent {
                 }
             }
 
+            if (!data.contains(StringUtils.monthlyRefreshMonthNum)) {
+                data.putInt(StringUtils.monthlyRefreshMonthNum, calendar.get(Calendar.MONTH));
+                data.putInt(StringUtils.monthlyRefreshYearNum, calendar.get(Calendar.YEAR));
+                monthlyRefreshContent(player);
+            } else {
+                int month = data.getInt(StringUtils.monthlyRefreshMonthNum);
+                int year = data.getInt(StringUtils.monthlyRefreshYearNum);
+                if (month != calendar.get(Calendar.MONTH) || year != calendar.get(Calendar.YEAR)) {
+                    data.putInt(StringUtils.monthlyRefreshMonthNum, calendar.get(Calendar.MONTH));
+                    data.putInt(StringUtils.monthlyRefreshYearNum, calendar.get(Calendar.YEAR));
+                    monthlyRefreshContent(player);
+                }
+            }
+
             if (!data.contains("FirstReward")) {
                 InventoryOperation.itemStackGive(player, ModItems.ForNew.get().getDefaultInstance());
                 Compute.formatBroad(player.level(), Component.literal("维瑞阿契").withStyle(ChatFormatting.WHITE),
@@ -500,8 +514,11 @@ public class LoginInEvent {
     }
 
     public static void WeeklyRefreshContent(Player player) {
-        BonusChestPlayerData.resetAllZoneInfo(player);
 
+    }
+
+    public static void monthlyRefreshContent(Player player) {
+        BonusChestPlayerData.resetAllZoneInfo(player);
     }
 
 

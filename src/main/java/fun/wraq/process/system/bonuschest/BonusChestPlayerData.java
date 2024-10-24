@@ -64,6 +64,7 @@ public class BonusChestPlayerData {
         for (int i = 0 ; i <= MAX_ZONE_NUM ; i ++) {
             setZoneInfo(player, i, ORIGIN_INFO_STRING);
         }
+        sendMSG(player, Te.s("奖励箱已被刷新！", ChatFormatting.WHITE));
     }
 
     private static int getInfoBySerialNum(Player player, int zoneNum, int serialNum) {
