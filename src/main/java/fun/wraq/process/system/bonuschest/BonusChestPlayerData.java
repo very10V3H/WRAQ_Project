@@ -11,6 +11,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
@@ -105,30 +106,34 @@ public class BonusChestPlayerData {
 
     public static void onPlayerSuccessOpenBonusChest(Player player, BlockPos blockPos,
                                                      PlayerInteractEvent.RightClickBlock event) {
-        fun.wraq.process.system.bonuschest.BonusChestInfo bonusChestInfo = fun.wraq.process.system.bonuschest.BonusChestInfo.getBonusChestInfo(blockPos);
+        BonusChestInfo bonusChestInfo = BonusChestInfo.getBonusChestInfo(blockPos);
         if (bonusChestInfo == null) {
             player.sendSystemMessage(
                     Te.m("看到此信息请联系管理员!奖励箱错误：blockPos = " + blockPos));
             return;
         }
-        int serial = BonusChestInfo.getSerialNum(blockPos);
-        if (getInfoBySerialNum(player, bonusChestInfo.zone, serial) == 0) {
-            // 未获取过奖励
-            setInfoBySerialNum(player, bonusChestInfo.zone, serial);
-            addZoneCount(player, bonusChestInfo.zone);
-            addTierCount(player, bonusChestInfo.tier);
+        if ((player.level().dimension().equals(Level.OVERWORLD) && bonusChestInfo.levelSerial == 0)
+                || (player.level().dimension().equals(Level.NETHER) && bonusChestInfo.levelSerial == 1)
+                || (player.level().dimension().equals(Level.END) && bonusChestInfo.levelSerial == 2)) {
+            int serial = BonusChestInfo.getSerialNum(blockPos);
+            if (getInfoBySerialNum(player, bonusChestInfo.zone, serial) == 0) {
+                // 未获取过奖励
+                setInfoBySerialNum(player, bonusChestInfo.zone, serial);
+                addZoneCount(player, bonusChestInfo.zone);
+                addTierCount(player, bonusChestInfo.tier);
 
-            ChestBlockEntity chestBlockEntity = (ChestBlockEntity) player.level().getBlockEntity(blockPos);
-            Random random = new Random();
-            for (int i = 0; i < 27; i++) {
-                chestBlockEntity.setItem(i, Items.AIR.getDefaultInstance());
+                ChestBlockEntity chestBlockEntity = (ChestBlockEntity) player.level().getBlockEntity(blockPos);
+                Random random = new Random();
+                for (int i = 0; i < 27; i++) {
+                    chestBlockEntity.setItem(i, Items.AIR.getDefaultInstance());
+                }
+                sendMSG(player, Te.m("你找到了一个奖励箱。"));
+                Utils.playerIsUsingBlockBlockPosMap.put(player.getName().getString(), blockPos);
+            } else {
+                // 已获取过奖励
+                event.setCanceled(true);
+                sendMSG(player, Te.m("你最近已经打开过这个奖励箱了。"));
             }
-            sendMSG(player, Te.m("你找到了一个奖励箱。"));
-            Utils.playerIsUsingBlockBlockPosMap.put(player.getName().getString(), blockPos);
-        } else {
-            // 已获取过奖励
-            event.setCanceled(true);
-            sendMSG(player, Te.m("你最近已经打开过这个奖励箱了。"));
         }
     }
 

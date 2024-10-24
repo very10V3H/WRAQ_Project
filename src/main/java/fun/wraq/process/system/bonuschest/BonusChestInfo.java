@@ -537,16 +537,170 @@ public enum BonusChestInfo {
     EASTERN_TOWER_14(new BlockPos(2323, 139, 27), 2, Util.ELEMENT_CONTINENT_EAST_ZONE_NUM),
 
 
-    NETHER_0(new BlockPos(958, 228, 17), 2, Util.NETHER_ZONE_NUM);
+    // 东洋塔至火山村路径
+    EASTERN_TOWER_TO_VOLCANO_VILLAGE_PATH_0(new BlockPos(2424, 107, 44), 0, Util.ELEMENT_CONTINENT_EAST_ZONE_NUM),
+    EASTERN_TOWER_TO_VOLCANO_VILLAGE_PATH_1(new BlockPos(2570, 65, 120), 3, Util.ELEMENT_CONTINENT_EAST_ZONE_NUM),
+    EASTERN_TOWER_TO_VOLCANO_VILLAGE_PATH_2(new BlockPos(2481, 107, -42), 1, Util.ELEMENT_CONTINENT_EAST_ZONE_NUM),
+    EASTERN_TOWER_TO_VOLCANO_VILLAGE_PATH_3(new BlockPos(2481, 122, -87), 0, Util.ELEMENT_CONTINENT_EAST_ZONE_NUM),
+    EASTERN_TOWER_TO_VOLCANO_VILLAGE_PATH_4(new BlockPos(2516, 123, -131), 0, Util.ELEMENT_CONTINENT_EAST_ZONE_NUM),
+    EASTERN_TOWER_TO_VOLCANO_VILLAGE_PATH_5(new BlockPos(2561, 120, -171), 1, Util.ELEMENT_CONTINENT_EAST_ZONE_NUM),
+    EASTERN_TOWER_TO_VOLCANO_VILLAGE_PATH_6(new BlockPos(2557, 125, -282), 0, Util.ELEMENT_CONTINENT_EAST_ZONE_NUM),
+    EASTERN_TOWER_TO_VOLCANO_VILLAGE_PATH_7(new BlockPos(2557, 127, -323), 1, Util.ELEMENT_CONTINENT_EAST_ZONE_NUM),
+    EASTERN_TOWER_TO_VOLCANO_VILLAGE_PATH_8(new BlockPos(2548, 124, -366), 0, Util.ELEMENT_CONTINENT_EAST_ZONE_NUM),
+    EASTERN_TOWER_TO_VOLCANO_VILLAGE_PATH_9(new BlockPos(2547, 121, -405), 1, Util.ELEMENT_CONTINENT_EAST_ZONE_NUM),
+    EASTERN_TOWER_TO_VOLCANO_VILLAGE_PATH_10(new BlockPos(2544, 123, -462), 0, Util.ELEMENT_CONTINENT_EAST_ZONE_NUM),
+    EASTERN_TOWER_TO_VOLCANO_VILLAGE_PATH_11(new BlockPos(2541, 124, -484), 1, Util.ELEMENT_CONTINENT_EAST_ZONE_NUM),
+
+
+    // 火山村
+    VOLCANO_VILLAGE_0(new BlockPos(2550, 122, -496), 0, Util.ELEMENT_CONTINENT_EAST_ZONE_NUM),
+    VOLCANO_VILLAGE_1(new BlockPos(2546, 120, -510), 0, Util.ELEMENT_CONTINENT_EAST_ZONE_NUM),
+    VOLCANO_VILLAGE_2(new BlockPos(2567, 120, -493), 2, Util.ELEMENT_CONTINENT_EAST_ZONE_NUM),
+    VOLCANO_VILLAGE_3(new BlockPos(2576, 123, -487), 1, Util.ELEMENT_CONTINENT_EAST_ZONE_NUM),
+    VOLCANO_VILLAGE_4(new BlockPos(2573, 117, -527), 1, Util.ELEMENT_CONTINENT_EAST_ZONE_NUM),
+    VOLCANO_VILLAGE_5(new BlockPos(2544, 113, -517), 0, Util.ELEMENT_CONTINENT_EAST_ZONE_NUM),
+    VOLCANO_VILLAGE_6(new BlockPos(2540, 101, -516), 1, Util.ELEMENT_CONTINENT_EAST_ZONE_NUM),
+    VOLCANO_VILLAGE_7(new BlockPos(2557, 92, -523), 0, Util.ELEMENT_CONTINENT_EAST_ZONE_NUM),
+    VOLCANO_VILLAGE_8(new BlockPos(2565, 77, -511), 0, Util.ELEMENT_CONTINENT_EAST_ZONE_NUM),
+    VOLCANO_VILLAGE_9(new BlockPos(2552, 76, -536), 2, Util.ELEMENT_CONTINENT_EAST_ZONE_NUM),
+    VOLCANO_VILLAGE_10(new BlockPos(2595, 63, -539), 0, Util.ELEMENT_CONTINENT_EAST_ZONE_NUM),
+    VOLCANO_VILLAGE_11(new BlockPos(2590, 65, -527), 0, Util.ELEMENT_CONTINENT_EAST_ZONE_NUM),
+    VOLCANO_VILLAGE_12(new BlockPos(2589, 64, -527), 0, Util.ELEMENT_CONTINENT_EAST_ZONE_NUM),
+
+
+    // 沙岸村
+    SAND_BANK_VILLAGE_0(new BlockPos(1900, 67, 1634), 1, Util.SAKURA_ZONE_NUM),
+    SAND_BANK_VILLAGE_1(new BlockPos(1919, 80, 1669), 0, Util.SAKURA_ZONE_NUM),
+    SAND_BANK_VILLAGE_2(new BlockPos(1944, 78, 1658), 0, Util.SAKURA_ZONE_NUM),
+    SAND_BANK_VILLAGE_3(new BlockPos(1909, 84, 1678), 0, Util.SAKURA_ZONE_NUM),
+    SAND_BANK_VILLAGE_4(new BlockPos(1931, 85, 1684), 0, Util.SAKURA_ZONE_NUM),
+    SAND_BANK_VILLAGE_5(new BlockPos(1942, 90, 1686), 0, Util.SAKURA_ZONE_NUM),
+    SAND_BANK_VILLAGE_6(new BlockPos(1964, 89, 1711), 0, Util.SAKURA_ZONE_NUM),
+    SAND_BANK_VILLAGE_7(new BlockPos(1928, 92, 1712), 0, Util.SAKURA_ZONE_NUM),
+    SAND_BANK_VILLAGE_8(new BlockPos(1906, 94, 1710), 0, Util.SAKURA_ZONE_NUM),
+    SAND_BANK_VILLAGE_9(new BlockPos(1912, 99, 1727), 0, Util.SAKURA_ZONE_NUM),
+    SAND_BANK_VILLAGE_10(new BlockPos(1906, 99, 1727), 0, Util.SAKURA_ZONE_NUM),
+
+
+    // 腥月岛
+    BLOOD_ISLAND_0(new BlockPos(2282, 62, 1444), 1, Util.SAKURA_ZONE_NUM),
+    BLOOD_ISLAND_1(new BlockPos(2279, 70, 1421), 0, Util.SAKURA_ZONE_NUM),
+    BLOOD_ISLAND_2(new BlockPos(2311, 64, 1385), 2, Util.SAKURA_ZONE_NUM),
+    BLOOD_ISLAND_3(new BlockPos(2318, 63, 1379), 0, Util.SAKURA_ZONE_NUM),
+    BLOOD_ISLAND_4(new BlockPos(2267, 65, 1354), 0, Util.SAKURA_ZONE_NUM),
+    BLOOD_ISLAND_5(new BlockPos(2235, 63, 1375), 0, Util.SAKURA_ZONE_NUM),
+    BLOOD_ISLAND_6(new BlockPos(2242, 73, 1416), 0, Util.SAKURA_ZONE_NUM),
+    BLOOD_ISLAND_7(new BlockPos(2261, 73, 1419), 2, Util.SAKURA_ZONE_NUM),
+
+
+    // 突见忍
+    SAKURA_BOSS_0(new BlockPos(2257, 136, 1705), 0, Util.SAKURA_ZONE_NUM),
+    SAKURA_BOSS_1(new BlockPos(2252, 140, 1702), 0, Util.SAKURA_ZONE_NUM),
+    SAKURA_BOSS_2(new BlockPos(2262, 140, 1688), 0, Util.SAKURA_ZONE_NUM),
+    SAKURA_BOSS_3(new BlockPos(2253, 151, 1695), 0, Util.SAKURA_ZONE_NUM),
+    SAKURA_BOSS_4(new BlockPos(2260, 159, 1695), 1, Util.SAKURA_ZONE_NUM),
+    SAKURA_BOSS_5(new BlockPos(2258, 167, 1695), 2, Util.SAKURA_ZONE_NUM),
+    SAKURA_BOSS_6(new BlockPos(2256, 167, 1695), 2, Util.SAKURA_ZONE_NUM),
+    SAKURA_BOSS_7(new BlockPos(2257, 167, 1694), 1, Util.SAKURA_ZONE_NUM),
+    SAKURA_BOSS_8(new BlockPos(2257, 167, 1696), 1, Util.SAKURA_ZONE_NUM),
+    SAKURA_BOSS_9(new BlockPos(2257, 175, 1695), 3, Util.SAKURA_ZONE_NUM),
+
+
+    // 樱灵
+    SAKURA_MOB_0(new BlockPos(2302, 147, 1717), 0, Util.SAKURA_ZONE_NUM),
+    SAKURA_MOB_1(new BlockPos(2311, 150, 1732), 0, Util.SAKURA_ZONE_NUM),
+    SAKURA_MOB_2(new BlockPos(2324, 151, 1722), 0, Util.SAKURA_ZONE_NUM),
+    SAKURA_MOB_3(new BlockPos(2330, 149, 1670), 0, Util.SAKURA_ZONE_NUM),
+    SAKURA_MOB_4(new BlockPos(2356, 157, 1693), 0, Util.SAKURA_ZONE_NUM),
+    SAKURA_MOB_5(new BlockPos(2339, 147, 1660), 1, Util.SAKURA_ZONE_NUM),
+    SAKURA_MOB_6(new BlockPos(2358, 153, 1630), 0, Util.SAKURA_ZONE_NUM),
+    SAKURA_MOB_7(new BlockPos(2383, 158, 1608), 0, Util.SAKURA_ZONE_NUM),
+
+
+    // 地蕴
+    EARTH_MANA_MOB_0(new BlockPos(2412, 164, 1592), 0, Util.SAKURA_ZONE_NUM),
+    EARTH_MANA_MOB_1(new BlockPos(2428, 160, 1569), 1, Util.SAKURA_ZONE_NUM),
+    EARTH_MANA_MOB_2(new BlockPos(2436, 148, 1546), 0, Util.SAKURA_ZONE_NUM),
+    EARTH_MANA_MOB_3(new BlockPos(2407, 141, 1551), 0, Util.SAKURA_ZONE_NUM),
+    EARTH_MANA_MOB_4(new BlockPos(2389, 154, 1589), 0, Util.SAKURA_ZONE_NUM),
+
+
+    // 绯樱村
+    SAKURA_VILLAGE_0(new BlockPos(2359, 168, 1756), 1, Util.SAKURA_ZONE_NUM),
+    SAKURA_VILLAGE_1(new BlockPos(2364, 172, 1756), 1, Util.SAKURA_ZONE_NUM),
+    SAKURA_VILLAGE_2(new BlockPos(2366, 176, 1748), 0, Util.SAKURA_ZONE_NUM),
+    SAKURA_VILLAGE_3(new BlockPos(2367, 180, 1747), 1, Util.SAKURA_ZONE_NUM),
+    SAKURA_VILLAGE_4(new BlockPos(2374, 177, 1746), 0, Util.SAKURA_ZONE_NUM),
+    SAKURA_VILLAGE_5(new BlockPos(2372, 177, 1746), 0, Util.SAKURA_ZONE_NUM),
+    SAKURA_VILLAGE_6(new BlockPos(2376, 174, 1763), 2, Util.SAKURA_ZONE_NUM),
+    SAKURA_VILLAGE_7(new BlockPos(2385, 177, 1734), 0, Util.SAKURA_ZONE_NUM),
+    SAKURA_VILLAGE_8(new BlockPos(2392, 182, 1752), 1, Util.SAKURA_ZONE_NUM),
+    SAKURA_VILLAGE_9(new BlockPos(2396, 179, 1729), 0, Util.SAKURA_ZONE_NUM),
+    SAKURA_VILLAGE_10(new BlockPos(2406, 184, 1729), 0, Util.SAKURA_ZONE_NUM),
+    SAKURA_VILLAGE_11(new BlockPos(2409, 185, 1739), 0, Util.SAKURA_ZONE_NUM),
+    SAKURA_VILLAGE_12(new BlockPos(2464, 170, 1751), 0, Util.SAKURA_ZONE_NUM),
+
+
+    // 魔王区域
+    DEVIL_ZONE_0(new BlockPos(2594, 191, 1721), 0, Util.SAKURA_ZONE_NUM),
+    DEVIL_ZONE_1(new BlockPos(2605, 190, 1705), 0, Util.SAKURA_ZONE_NUM),
+    DEVIL_ZONE_2(new BlockPos(2606, 187, 1697), 1, Util.SAKURA_ZONE_NUM),
+    DEVIL_ZONE_3(new BlockPos(2632, 192, 1707), 1, Util.SAKURA_ZONE_NUM),
+    DEVIL_ZONE_4(new BlockPos(2655, 191, 1702), 0, Util.SAKURA_ZONE_NUM),
+    DEVIL_ZONE_5(new BlockPos(2649, 191, 1744), 0, Util.SAKURA_ZONE_NUM),
+    DEVIL_ZONE_6(new BlockPos(2611, 191, 1739), 1, Util.SAKURA_ZONE_NUM),
+    DEVIL_ZONE_7(new BlockPos(2624, 189, 1742), 0, Util.SAKURA_ZONE_NUM),
+    DEVIL_ZONE_8(new BlockPos(2628, 191, 1725), 1, Util.SAKURA_ZONE_NUM),
+
+    NETHER_0(new BlockPos(565, 70, -624), 1, Util.NETHER_ZONE_NUM, 1),
+    NETHER_1(new BlockPos(560, 55, -578), 1, Util.NETHER_ZONE_NUM, 1),
+    NETHER_2(new BlockPos(530, 63, -534), 1, Util.NETHER_ZONE_NUM, 1),
+    NETHER_3(new BlockPos(507, 73, -620), 1, Util.NETHER_ZONE_NUM, 1),
+    NETHER_4(new BlockPos(531, 67, -665), 1, Util.NETHER_ZONE_NUM, 1),
+    NETHER_5(new BlockPos(520, 73, -709), 1, Util.NETHER_ZONE_NUM, 1),
+    NETHER_6(new BlockPos(519, 67, -709), 1, Util.NETHER_ZONE_NUM, 1),
+    NETHER_7(new BlockPos(476, 65, -623), 1, Util.NETHER_ZONE_NUM, 1),
+
+    END_0(new BlockPos(117, 58, 0), 1, Util.END_ZONE_NUM, 2),
+    END_1(new BlockPos(95, 57, 12), 1, Util.END_ZONE_NUM, 2),
+    END_2(new BlockPos(0, 65, 0), 3, Util.END_ZONE_NUM, 2),
+    END_3(new BlockPos(-2, 83, 0), 1, Util.END_ZONE_NUM, 2),
+    END_4(new BlockPos(-4, 88, -155), 1, Util.END_ZONE_NUM, 2),
+    END_5(new BlockPos(-8, 91, -188), 1, Util.END_ZONE_NUM, 2),
+    END_6(new BlockPos(-33, 87, -188), 1, Util.END_ZONE_NUM, 2),
+    END_7(new BlockPos(19, 87, -191), 1, Util.END_ZONE_NUM, 2),
+    END_8(new BlockPos(74, 87, -187), 1, Util.END_ZONE_NUM, 2),
+    END_9(new BlockPos(-12, 87, -241), 1, Util.END_ZONE_NUM, 2),
+    END_10(new BlockPos(2, 86, -263), 1, Util.END_ZONE_NUM, 2),
+    END_11(new BlockPos(62, 98, -253), 1, Util.END_ZONE_NUM, 2),
+    END_12(new BlockPos(60, 110, -241), 2, Util.END_ZONE_NUM, 2),
+    END_13(new BlockPos(-12, 110, -169), 2, Util.END_ZONE_NUM, 2),
+    END_14(new BlockPos(24, 132, -205), 3, Util.END_ZONE_NUM, 2),
+    END_15(new BlockPos(30, 127, -199), 1, Util.END_ZONE_NUM, 2),
+    END_16(new BlockPos(18, 127, -199), 1, Util.END_ZONE_NUM, 2),
+    END_17(new BlockPos(18, 127, -211), 1, Util.END_ZONE_NUM, 2),
+    END_18(new BlockPos(30, 127, -211), 1, Util.END_ZONE_NUM, 2),
+
+
+    NETHER_0_END(new BlockPos(958, 228, 17), 2, Util.NETHER_ZONE_NUM, 1);
 
     public final BlockPos chestPos;
     public final int tier;
     public final int zone;
+    public final int levelSerial;
 
     BonusChestInfo(BlockPos blockPos, int tier, int zone) {
         this.chestPos = blockPos;
         this.tier = tier;
         this.zone = zone;
+        this.levelSerial = 0;
+    }
+
+    BonusChestInfo(BlockPos blockPos, int tier, int zone, int levelSerial) {
+        this.chestPos = blockPos;
+        this.tier = tier;
+        this.zone = zone;
+        this.levelSerial = levelSerial;
     }
 
     // 获取序列号偏移位
@@ -558,7 +712,7 @@ public enum BonusChestInfo {
         public static final int ELEMENT_CONTINENT_CENTER_ZONE_NUM = 4;
         public static final int ELEMENT_CONTINENT_NORTH_ZONE_NUM = 5;
         public static final int ELEMENT_CONTINENT_EAST_ZONE_NUM = 6;
-
+        public static final int END_ZONE_NUM = 7;
     }
 
     public static final int DRUMSTICK_ZONE_COUNT_OFFSET = 0;
@@ -568,6 +722,8 @@ public enum BonusChestInfo {
     public static int ELEMENT_CONTINENT_CENTER_COUNT_OFFSET = 0;
     public static int ELEMENT_CONTINENT_NORTH_COUNT_OFFSET = 0;
     public static int ELEMENT_CONTINENT_EAST_COUNT_OFFSET = 0;
+    public static int END_ZONE_COUNT_OFFSET = 0;
+
 
     public static final Map<Integer, Integer> ZONE_OFFSET_MAP = new HashMap<>();
     static {
@@ -578,6 +734,7 @@ public enum BonusChestInfo {
             if (value.zone < Util.ELEMENT_CONTINENT_CENTER_ZONE_NUM) ELEMENT_CONTINENT_CENTER_COUNT_OFFSET ++;
             if (value.zone < Util.ELEMENT_CONTINENT_NORTH_ZONE_NUM) ELEMENT_CONTINENT_NORTH_COUNT_OFFSET ++;
             if (value.zone < Util.ELEMENT_CONTINENT_EAST_ZONE_NUM) ELEMENT_CONTINENT_EAST_COUNT_OFFSET ++;
+            if (value.zone < Util.END_ZONE_NUM) END_ZONE_COUNT_OFFSET ++;
         }
         ZONE_OFFSET_MAP.put(Util.DRUMSTICK_ZONE_NUM, DRUMSTICK_ZONE_COUNT_OFFSET);
         ZONE_OFFSET_MAP.put(Util.ELEMENT_CONTINENT_SOUTH_ZONE_NUM, ELEMENT_CONTINENT_COUNT_OFFSET);
@@ -586,6 +743,8 @@ public enum BonusChestInfo {
         ZONE_OFFSET_MAP.put(Util.ELEMENT_CONTINENT_CENTER_ZONE_NUM, ELEMENT_CONTINENT_CENTER_COUNT_OFFSET);
         ZONE_OFFSET_MAP.put(Util.ELEMENT_CONTINENT_NORTH_ZONE_NUM, ELEMENT_CONTINENT_NORTH_COUNT_OFFSET);
         ZONE_OFFSET_MAP.put(Util.ELEMENT_CONTINENT_EAST_ZONE_NUM, ELEMENT_CONTINENT_EAST_COUNT_OFFSET);
+        ZONE_OFFSET_MAP.put(Util.END_ZONE_NUM, END_ZONE_COUNT_OFFSET);
+
     }
 
     private static final Map<BlockPos, BonusChestInfo> infoMap = new HashMap<>() {{

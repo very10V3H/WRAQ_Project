@@ -157,7 +157,7 @@ public class ServerPlayerTickEvent {
             if (player.level().equals(player.getServer().getLevel(Level.END))) {
                 Vec3 vec3 = new Vec3(24.5, 88, -135.5);
                 if (player.position().distanceTo(vec3) < 1) {
-                    serverPlayer.teleportTo(player.getServer().getLevel(Level.END), 100.5, 49, 0.5, 90, -45);
+                    serverPlayer.teleportTo(player.getServer().getLevel(Level.END), 137.5, 50, 0.5, 90, -45);
                 }
             }
 
