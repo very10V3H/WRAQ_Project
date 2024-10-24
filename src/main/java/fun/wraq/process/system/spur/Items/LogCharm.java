@@ -15,8 +15,8 @@ public class LogCharm extends WraqCurios {
     public LogCharm(Properties properties, int serial) {
         super(properties);
         int[] levelRequires = {40, 60, 80, 100, 120, 140, 160};
-        double[] defence = {1, 2, 2, 3, 5, 8, 12};
-        double[] manaDefence = {1, 2, 2, 3, 5, 8, 12};
+        double[] defence = {2, 3, 4, 6, 8, 12, 15};
+        double[] manaDefence = {2, 3, 4, 6, 8, 12, 15};
         Utils.levelRequire.put(this, levelRequires[serial]);
         Utils.defence.put(this, defence[serial]);
         Utils.manaDefence.put(this, manaDefence[serial]);

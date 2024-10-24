@@ -23,7 +23,7 @@ public class EarthBook extends WraqOffHandItem {
 
     public EarthBook(Properties properties) {
         super(properties, Component.literal("魔法书").withStyle(CustomStyle.styleOfMana));
-        Utils.manaDamage.put(this, 400d);
+        Utils.manaDamage.put(this, 100d);
         Utils.manaPenetration0.put(this, 6d);
         Utils.maxMana.put(this, 50d);
         Utils.movementSpeedWithoutBattle.put(this, 1d);

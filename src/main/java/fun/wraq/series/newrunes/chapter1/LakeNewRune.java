@@ -23,7 +23,7 @@ public class LakeNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDe
 
     public LakeNewRune(Properties properties) {
         super(properties);
-        Utils.coolDownDecrease.put(this, 0.2);
+        Utils.coolDownDecrease.put(this, 0.1);
     }
 
     @Override

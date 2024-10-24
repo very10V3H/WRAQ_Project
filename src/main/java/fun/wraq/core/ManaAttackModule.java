@@ -30,7 +30,6 @@ import fun.wraq.projectiles.mana.NewArrowMagma;
 import fun.wraq.render.hud.Mana;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.castle.CastleManaArmor;
-import fun.wraq.series.instance.series.ice.IceBook;
 import fun.wraq.series.instance.series.moon.MoonCurios;
 import fun.wraq.series.overworld.castle.TreeBracelet;
 import net.minecraft.core.particles.ParticleTypes;
@@ -169,7 +168,6 @@ public class ManaAttackModule {
 
             AttackEvent.SpringManaArmor(player, monster);
             Compute.ChargingModule(data, player);
-            IceBook.IceBookPassive(player, monster);
             Compute.manaDamageExEffect(player, monster, damage);
             SameTypeModule.onNormalAttackHitMob(player, monster, 1, damage + trueDamage);
 

@@ -30,11 +30,10 @@ public class MoonBook extends Item implements OnHitEffectEquip {
 
     public MoonBook() {
         super(new Properties().rarity(CustomStyle.MoonItalic).stacksTo(1));
-        Utils.manaDamage.put(this, 577d);
-        Utils.manaPenetration0.put(this, 777d);
+        Utils.manaDamage.put(this, 154d);
+        Utils.manaPenetration0.put(this, 7.7d);
         Utils.maxMana.put(this, 77d);
-        Utils.movementSpeedWithoutBattle.put(this, 1.27);
-        Utils.coolDownDecrease.put(this, 0.27);
+        Utils.coolDownDecrease.put(this, 0.17);
         Utils.expUp.put(this, 1.57);
         Utils.offHandTag.put(this, 1d);
         Utils.weaponList.add(this);

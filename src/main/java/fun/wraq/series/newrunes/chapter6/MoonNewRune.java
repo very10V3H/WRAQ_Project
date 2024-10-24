@@ -23,7 +23,7 @@ public class MoonNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDe
 
     public MoonNewRune(Properties properties) {
         super(properties);
-        Utils.coolDownDecrease.put(this, 0.15);
+        Utils.coolDownDecrease.put(this, 0.08);
     }
 
     @Override

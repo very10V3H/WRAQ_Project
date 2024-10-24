@@ -15,7 +15,7 @@ public class FancySapphireNecklace extends WraqCurios {
     public FancySapphireNecklace(Properties p_41383_, int num) {
         super(p_41383_);
         Utils.maxHealth.put(this, new double[]{3000, 4000, 5000, 6000}[num]);
-        Utils.coolDownDecrease.put(this, new double[]{0.24, 0.28, 0.32, 0.36}[num]);
+        Utils.coolDownDecrease.put(this, new double[]{0.12, 0.14, 0.16, 0.2}[num]);
     }
 
     @Override

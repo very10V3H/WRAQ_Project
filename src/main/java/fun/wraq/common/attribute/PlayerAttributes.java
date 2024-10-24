@@ -159,16 +159,7 @@ public class PlayerAttributes {
             exDamage += baseAttackDamage * 0.25 + 25;
         if (player.getEffect(ModEffects.ATTACKUP.get()) != null && player.getEffect(ModEffects.ATTACKUP.get()).getAmplifier() == 1)
             exDamage += baseAttackDamage * 0.40 + 40;
-        if (data.contains(StringUtils.VolcanoSwordSkill.Skill0) && data.getInt(StringUtils.VolcanoSwordSkill.Skill0) > TickCount)
-            exDamage += 10;
-        if (data.contains(StringUtils.VolcanoSwordSkill.Skill1) && data.getInt(StringUtils.VolcanoSwordSkill.Skill1) > TickCount)
-            exDamage += 15;
-        if (data.contains(StringUtils.VolcanoSwordSkill.Skill2) && data.getInt(StringUtils.VolcanoSwordSkill.Skill2) > TickCount)
-            exDamage += 20;
-        if (data.contains(StringUtils.VolcanoSwordSkill.Skill3) && data.getInt(StringUtils.VolcanoSwordSkill.Skill3) > TickCount)
-            exDamage += 30;
-        if (data.contains(StringUtils.VolcanoSwordSkill.Skill4) && data.getInt(StringUtils.VolcanoSwordSkill.Skill4) > TickCount)
-            exDamage += 75;
+
         if (mainhand.equals(ModItems.GoldSword0.get())) exDamage += data.getDouble("VB") / 10000.0;
 
         if (Compute.getSwordSkillLevel(data, 2) > 0 && data.contains(StringUtils.SwordSkillNum.Skill2) && data.getInt(StringUtils.SwordSkillNum.Skill2) > TickCount) {
@@ -418,16 +409,6 @@ public class PlayerAttributes {
         if (Utils.offHandTag.containsKey(offhand) && Utils.critDamage.containsKey(offhand))
             critDamage += Utils.critDamage.get(offhand);
         if (data.contains("Bow")) critDamage += (data.getInt("Bow") / 30000.0d) * 0.3F;
-        if (data.contains(StringUtils.VolcanoSwordSkill.Skill0) && data.getInt(StringUtils.VolcanoSwordSkill.Skill0) > tickCount)
-            critDamage += 0.5;
-        if (data.contains(StringUtils.VolcanoSwordSkill.Skill1) && data.getInt(StringUtils.VolcanoSwordSkill.Skill1) > tickCount)
-            critDamage += 0.6;
-        if (data.contains(StringUtils.VolcanoSwordSkill.Skill2) && data.getInt(StringUtils.VolcanoSwordSkill.Skill2) > tickCount)
-            critDamage += 0.7;
-        if (data.contains(StringUtils.VolcanoSwordSkill.Skill3) && data.getInt(StringUtils.VolcanoSwordSkill.Skill3) > tickCount)
-            critDamage += 0.9;
-        if (data.contains(StringUtils.VolcanoSwordSkill.Skill4) && data.getInt(StringUtils.VolcanoSwordSkill.Skill4) > tickCount)
-            critDamage += 1.2;
 
         if (player.getEffect(ModEffects.CRITDAMAGEUP.get()) != null && player.getEffect(ModEffects.CRITDAMAGEUP.get()).getAmplifier() == 0)
             critDamage += 0.4;

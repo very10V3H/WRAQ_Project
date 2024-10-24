@@ -14,7 +14,7 @@ public class SapphireNecklace extends WraqCurios {
 
     public SapphireNecklace(Properties p_41383_, int num) {
         super(p_41383_);
-        Utils.coolDownDecrease.put(this, new double[]{0.05, 0.1, 0.15, 0.2}[num]);
+        Utils.coolDownDecrease.put(this, new double[]{0.04, 0.06, 0.08, 0.1}[num]);
     }
 
     @Override

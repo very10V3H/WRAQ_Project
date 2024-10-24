@@ -87,7 +87,6 @@ import fun.wraq.series.end.eventController.SpiderRecall.SpiderRecallArmorBoots;
 import fun.wraq.series.end.eventController.SpiderRecall.SpiderRecallArmorChest;
 import fun.wraq.series.end.eventController.SpiderRecall.SpiderRecallArmorHelmet;
 import fun.wraq.series.end.eventController.SpiderRecall.SpiderRecallArmorLeggings;
-import fun.wraq.series.end.eventController.VolcanoRecall.VolcanoSword4;
 import fun.wraq.series.end.recallBooks.*;
 import fun.wraq.series.gems.Curios.FancySapphireNecklace;
 import fun.wraq.series.gems.Curios.RubyNecklace;
@@ -201,12 +200,12 @@ import fun.wraq.series.overworld.chapter1.volcano.armor.VolcanoArmorHelmet;
 import fun.wraq.series.overworld.chapter1.volcano.armor.VolcanoArmorLeggings;
 import fun.wraq.series.overworld.chapter1.volcano.bossItems.*;
 import fun.wraq.series.overworld.chapter1.volcano.bow.VolcanoBow;
-import fun.wraq.series.overworld.chapter1.volcano.crest.VolcanoCrest;
+import fun.wraq.series.overworld.chapter1.volcano.VolcanoCrest;
 import fun.wraq.series.overworld.chapter1.volcano.rune.VolcanoRune0;
 import fun.wraq.series.overworld.chapter1.volcano.rune.VolcanoRune1;
 import fun.wraq.series.overworld.chapter1.volcano.rune.VolcanoRune2;
 import fun.wraq.series.overworld.chapter1.volcano.rune.VolcanoRune3;
-import fun.wraq.series.overworld.chapter1.volcano.sword.VolcanoSword;
+import fun.wraq.series.overworld.chapter1.volcano.VolcanoSword;
 import fun.wraq.series.overworld.chapter1.waterSystem.LakeCord;
 import fun.wraq.series.overworld.chapter1.waterSystem.LakePower;
 import fun.wraq.series.overworld.chapter1.waterSystem.LakeRing;
@@ -1202,7 +1201,7 @@ public class ModItems {
     public static final RegistryObject<Item> ForestSword4 = ITEMS.register("forestsword4",
             () -> new ForestSword4(new Item.Properties().rarity(CustomStyle.MagmaItalic)));
     public static final RegistryObject<Item> VolcanoSword4 = ITEMS.register("volcanosword4",
-            () -> new VolcanoSword4(new Item.Properties().rarity(CustomStyle.MagmaItalic)));
+            () -> new VolcanoSword(new Item.Properties().rarity(CustomStyle.MagmaItalic), 4));
     public static final RegistryObject<Item> IntensifiedVolcanoSoul = ITEMS.register("intensifiedvolcanosoul",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.VolcanoBold)));
     public static final RegistryObject<Item> ArmorVolcanoRecall = ITEMS.register("armorvolcanorecall",

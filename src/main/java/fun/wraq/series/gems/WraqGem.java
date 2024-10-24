@@ -71,12 +71,12 @@ public class WraqGem extends Item {
             super(wraqGem.getProperties(), wraqGem.getAttributeMapValues(), wraqGem.getHoverStyle(), wraqGem.getOneLineDescription(), wraqGem.getSuffix());
 
             Map<Integer, List<AttributeMapValue>> attributeMapValues = new HashMap<>() {{
-                put(1, List.of(new AttributeMapValue(Utils.percentMaxHealthEnhance, 0.1),
+                put(1, List.of(new AttributeMapValue(Utils.percentMaxHealthEnhance, 0.08),
                         new AttributeMapValue(Utils.healthRecover, 20)));
-                put(2, List.of(new AttributeMapValue(Utils.critDamage, 0.25),
-                        new AttributeMapValue(Utils.coolDownDecrease, 0.15)));
-                put(3, List.of(new AttributeMapValue(Utils.defencePenetration, 0.1),
-                        new AttributeMapValue(Utils.manaPenetration, 0.1)));
+                put(2, List.of(new AttributeMapValue(Utils.critDamage, 0.15),
+                        new AttributeMapValue(Utils.coolDownDecrease, 0.08)));
+                put(3, List.of(new AttributeMapValue(Utils.defencePenetration, 0.08),
+                        new AttributeMapValue(Utils.manaPenetration, 0.08)));
                 put(4, List.of(new AttributeMapValue(Utils.percentAttackDamageEnhance, 0.04),
                         new AttributeMapValue(Utils.percentManaDamageEnhance, 0.04)));
             }};

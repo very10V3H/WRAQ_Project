@@ -19,7 +19,7 @@ public class SkyCrest extends WraqCurios implements RepeatableCurios {
 
     public SkyCrest(Properties p_41383_, int Level) {
         super(p_41383_, 16);
-        Utils.critDamage.put(this, new double[]{0.04, 0.08, 0.1, 0.12, 0.25}[Level]);
+        Utils.critDamage.put(this, new double[]{0.03, 0.05, 0.07, 0.09, 0.18}[Level]);
         Utils.manaPenetration0.put(this, new double[]{1, 2, 3, 4, 8}[Level]);
     }
 

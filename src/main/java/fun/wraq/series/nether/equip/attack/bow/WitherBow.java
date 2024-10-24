@@ -53,9 +53,9 @@ public class WitherBow extends WraqBow implements OnHitEffectEquip {
         Compute.DescriptionPassive(components, Component.literal("凋零增幅").withStyle(style));
         components.add(Component.literal("箭矢命中后:"));
         components.add(Component.literal("损失").withStyle(ChatFormatting.RED).
-                append(ComponentUtils.AttributeDescription.maxHealth("7%")));
+                append(ComponentUtils.AttributeDescription.health("7%")));
         components.add(Component.literal("获得").withStyle(ChatFormatting.GREEN).
-                append(ComponentUtils.AttributeDescription.defencePenetration(String.valueOf(new int[]{3, 5, 7, 9}[tier]))));
+                append(ComponentUtils.AttributeDescription.defencePenetration(String.valueOf(new int[]{4, 6, 8, 12}[tier]))));
         components.add(Component.literal("持续时间: 5s"));
         return components;
     }
@@ -76,7 +76,7 @@ public class WitherBow extends WraqBow implements OnHitEffectEquip {
 
         StableAttributesModifier.addAttributeModifier(player, StableAttributesModifier.playerDefencePenetration0Modifier,
                 new StableAttributesModifier("witherBowActiveDefencePenetration0",
-                        new int[]{3, 5, 7, 9}[tier], player.getServer().getTickCount() + 100));
+                        new int[]{4, 6, 8, 12}[tier], player.getServer().getTickCount() + 100));
 
         Compute.sendEffectLastTime(player, ModItems.WitherBow0.get().getDefaultInstance(), 100);
     }

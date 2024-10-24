@@ -30,7 +30,7 @@ public class GoldenBook extends WraqOffHandItem implements OnKillEffectEquip {
 
     public GoldenBook(Properties properties) {
         super(properties, Component.literal("圣经").withStyle(CustomStyle.styleOfGold));
-        Utils.manaDamage.put(this, 400d);
+        Utils.manaDamage.put(this, 100d);
         Utils.manaPenetration0.put(this, 6d);
         Utils.maxMana.put(this, 50d);
         Utils.movementSpeedWithoutBattle.put(this, 1d);

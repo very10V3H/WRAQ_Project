@@ -9,7 +9,7 @@ import fun.wraq.series.overworld.chapter1.Mine.Crest.MineCrest;
 import fun.wraq.series.overworld.chapter1.Snow.Crest.SnowCrest;
 import fun.wraq.series.overworld.chapter1.forest.crest.ForestCrest;
 import fun.wraq.series.overworld.chapter1.plain.crest.PlainCrest;
-import fun.wraq.series.overworld.chapter1.volcano.crest.VolcanoCrest;
+import fun.wraq.series.overworld.chapter1.volcano.VolcanoCrest;
 import fun.wraq.series.overworld.chapter1.waterSystem.crest.LakeCrest;
 import fun.wraq.series.overworld.chapter2.evoker.Crest.ManaCrest;
 import fun.wraq.series.overworld.chapter2.lightningIsland.Armor.LightningArmor;

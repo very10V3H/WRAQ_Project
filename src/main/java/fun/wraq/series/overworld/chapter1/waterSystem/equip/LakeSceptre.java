@@ -76,7 +76,7 @@ public class LakeSceptre extends WraqSceptre implements OnHitEffectEquip {
         Style style = getMainStyle();
         ComponentUtils.descriptionPassive(components, Component.literal("青碧无暇").withStyle(style));
         components.add(Component.literal(" 法球").withStyle(CustomStyle.styleOfMana).
-                append(Component.literal("命中目标后，获得持续2s的:").withStyle(ChatFormatting.WHITE)));
+                append(Component.literal("命中目标后，获得持续4s的:").withStyle(ChatFormatting.WHITE)));
         components.add(Component.literal(" ").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.AttributeDescription.releaseSpeed(String.valueOf(10 * (1 + num)))));
         components.add(Component.literal(" ").withStyle(ChatFormatting.WHITE).
@@ -92,9 +92,9 @@ public class LakeSceptre extends WraqSceptre implements OnHitEffectEquip {
     @Override
     public void onHit(Player player, Mob mob) {
         StableAttributesModifier.addAttributeModifier(player, StableAttributesModifier.playerCooldownModifier,
-                new StableAttributesModifier("lakeSceptrePassiveCooldown", (this.num + 1) * 0.1, player.getServer().getTickCount() + 40));
+                new StableAttributesModifier("lakeSceptrePassiveCooldown", (this.num + 1) * 0.1, player.getServer().getTickCount() + 80));
         StableAttributesModifier.addAttributeModifier(player, StableAttributesModifier.playerMovementSpeedModifier,
-                new StableAttributesModifier("lakeSceptrePassiveMovementSpeed", (this.num + 1) * 0.1, player.getServer().getTickCount() + 40));
+                new StableAttributesModifier("lakeSceptrePassiveMovementSpeed", (this.num + 1) * 0.1, player.getServer().getTickCount() + 80));
         Compute.sendEffectLastTime(player, ModItems.lakeSceptre0.get(), 40);
     }
 }

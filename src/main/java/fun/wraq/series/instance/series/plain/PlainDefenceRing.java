@@ -27,7 +27,7 @@ public class PlainDefenceRing extends Item implements ICurioItem {
     }
 
     private final int[] Attributes = {
-            1, 2, 3, 4
+            2, 3, 4, 5
     };
 
     @Override

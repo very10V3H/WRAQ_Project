@@ -19,7 +19,7 @@ public class LakeCrest extends WraqCurios implements RepeatableCurios {
 
     public LakeCrest(Properties p_41383_, int Level) {
         super(p_41383_, 16);
-        Utils.coolDownDecrease.put(this, new double[]{0.03, 0.06, 0.09, 0.12, 0.24}[Level]);
+        Utils.coolDownDecrease.put(this, new double[]{0.03, 0.05, 0.07, 0.09, 0.18}[Level]);
     }
 
     @Override

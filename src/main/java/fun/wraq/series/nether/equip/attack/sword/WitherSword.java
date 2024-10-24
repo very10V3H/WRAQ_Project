@@ -50,7 +50,7 @@ public class WitherSword extends WraqSword implements ActiveItem, ForgeItem {
         Style style = getMainStyle();
         Compute.DescriptionActive(components, Component.literal("碳化").withStyle(style));
         components.add(Component.literal("失去").withStyle(ChatFormatting.RED).
-                append(ComponentUtils.AttributeDescription.maxHealth("30%")));
+                append(ComponentUtils.AttributeDescription.health("30%")));
         components.add(Component.literal("获得").withStyle(ChatFormatting.GREEN).
                 append(ComponentUtils.AttributeDescription.defencePenetration(String.valueOf(new int[]{4, 6, 8, 12}[tier]))));
         components.add(Component.literal("持续时间: 12s"));

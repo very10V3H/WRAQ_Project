@@ -70,14 +70,6 @@ public class StringUtils {
         public static String Mana = "SkillData_Mana";
     }
 
-    public static class VolcanoSwordSkill {
-        public static String Skill0 = "Critical0";
-        public static String Skill1 = "Critical1";
-        public static String Skill2 = "Critical2";
-        public static String Skill3 = "Critical3";
-        public static String Skill4 = "Critical4";
-    }
-
     public static String VolcanoBowSkill = "volcanobow";
     public static String PlainBowSkill = "plainbow";
     public static String LakeSwordSkill = "lakesword";
