@@ -24,6 +24,7 @@ import fun.wraq.core.ManaAttackModule;
 import fun.wraq.core.MyArrow;
 import fun.wraq.entities.entities.Civil.Civil;
 import fun.wraq.events.core.InventoryCheck;
+import fun.wraq.events.mob.moontain.MoontainEntities;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.hud.CoolDownTimeS2CPacket;
 import fun.wraq.networking.hud.EffectLastTimeS2CPacket;
@@ -1932,5 +1933,14 @@ public class Compute {
 
     public static void clearPlayerScreen(Player player) {
         ModNetworking.sendToClient(new ScreenSetS2CPacket(0), (ServerPlayer) player);
+    }
+
+    public static boolean isEntityInTwoPoint(Entity entity, Vec3 downPos, Vec3 upPos) {
+        return entity.getX() > MoontainEntities.commonDownPos.x
+                && entity.getY() > MoontainEntities.commonDownPos.y
+                && entity.getZ() > MoontainEntities.commonDownPos.z
+                && entity.getX() < MoontainEntities.commonUpPos.x
+                && entity.getY() < MoontainEntities.commonUpPos.y
+                && entity.getZ() < MoontainEntities.commonUpPos.z;
     }
 }

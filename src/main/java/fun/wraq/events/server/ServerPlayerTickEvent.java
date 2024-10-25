@@ -17,6 +17,7 @@ import fun.wraq.common.util.struct.Shield;
 import fun.wraq.core.MyArrow;
 import fun.wraq.customized.Customize;
 import fun.wraq.entities.entities.Civil.Civil;
+import fun.wraq.events.mob.moontain.MoontainFloorTitle;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.VersionCheckS2CPacket;
 import fun.wraq.networking.misc.AttributePackets.*;
@@ -126,6 +127,7 @@ public class ServerPlayerTickEvent {
             PlanPlayer.setFoodData(serverPlayer);
             WorldBorder.playerTick(event);
             /*SummerEvent.tick(player);*/
+            MoontainFloorTitle.tick(player);
 
             if (player.tickCount % 6000 == 0) {
                 Smelt.checkIfAnyProgressFinished(player);
