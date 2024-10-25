@@ -45,14 +45,15 @@ public class LakeDrownSpawnController extends MobSpawnController {
                     new Vec3(1233, 63, 61),
                     new Vec3(1215, 63, 63)
             );
-            instance = new LakeDrownSpawnController(spawnPos, 40, 1262, 71, 1182, -4, world, 4, 18);
+            instance = new LakeDrownSpawnController(spawnPos, 1262, 71, 1182, -4, world, 18);
         }
         return instance;
     }
 
-    public LakeDrownSpawnController(List<Vec3> canSpawnPos, int oneZoneMaxMobNum, int boundaryUpX, int boundaryUpZ,
-                                    int boundaryDownX, int boundaryDownZ, Level level, int mobPlayerRate, int averageLevel) {
-        super(canSpawnPos, oneZoneMaxMobNum, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, 60, level, mobPlayerRate, averageLevel);
+    public LakeDrownSpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpZ,
+                                    int boundaryDownX, int boundaryDownZ,
+                                    Level level, int averageLevel) {
+        super(canSpawnPos, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, level, averageLevel);
     }
 
     @Override

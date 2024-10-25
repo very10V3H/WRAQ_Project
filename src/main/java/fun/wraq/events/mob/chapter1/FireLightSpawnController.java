@@ -48,14 +48,14 @@ public class FireLightSpawnController extends MobSpawnController {
                     new Vec3(458, 78, 72),
                     new Vec3(488, 81, 74)
             );
-            instance = new FireLightSpawnController(spawnPos, spawnPos.size() * 4, 553, 129, 374, -109, world, 4, 28);
+            instance = new FireLightSpawnController(spawnPos, 553, 129, 374, -109, world, 28);
         }
         return instance;
     }
 
-    public FireLightSpawnController(List<Vec3> canSpawnPos, int oneZoneMaxMobNum, int boundaryUpX, int boundaryUpZ,
-                                    int boundaryDownX, int boundaryDownZ, Level level, int mobPlayerRate, int averageLevel) {
-        super(canSpawnPos, oneZoneMaxMobNum, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, 60, level, mobPlayerRate, averageLevel);
+    public FireLightSpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpZ,
+                                    int boundaryDownX, int boundaryDownZ, Level level, int averageLevel) {
+        super(canSpawnPos, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, level, averageLevel);
     }
 
     @Override

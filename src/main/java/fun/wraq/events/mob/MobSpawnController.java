@@ -58,6 +58,24 @@ public abstract class MobSpawnController {
                 level, mobPlayerRate, averageLevel);
     }
 
+    public MobSpawnController(List<Vec3> canSpawnPos,
+                              int boundaryUpX, int boundaryUpZ,
+                              int boundaryDownX, int boundaryDownZ,
+                              Level level, int averageLevel) {
+        this(canSpawnPos, canSpawnPos.size() * 4, boundaryUpX, Integer.MAX_VALUE, boundaryUpZ,
+                boundaryDownX, -Integer.MAX_VALUE, boundaryDownZ, 1, 16,
+                level, 1, averageLevel);
+    }
+
+    public MobSpawnController(List<Vec3> canSpawnPos,
+                              int boundaryUpX, int boundaryUpY, int boundaryUpZ,
+                              int boundaryDownX, int boundaryDownY, int boundaryDownZ,
+                              Level level, int averageLevel) {
+        this(canSpawnPos, canSpawnPos.size() * 4, boundaryUpX, boundaryUpY, boundaryUpZ,
+                boundaryDownX, boundaryDownY, boundaryDownZ, 1, 16,
+                level, 1, averageLevel);
+    }
+
     public MobSpawnController(List<Vec3> canSpawnPos, int oneZoneMaxMobNum,
                               int detectionRange, Level level, int mobPlayerRate, int averageLevel,
                               List<Boundary> multiBoundaryList) {
@@ -92,51 +110,57 @@ public abstract class MobSpawnController {
             }
         });
 
-        // 对每个刷新点附近进行探测，若满足生成条件，则生成
-        canSpawnPos.forEach(pos -> {
-            // 该点探测附近玩家列表
-            List<Player> playerList = level.getEntitiesOfClass(Player.class, AABB.ofSize(pos,
-                    detectionRange * 2, detectionRange * 2, detectionRange * 2))
-                    .stream().filter(player -> player.position().distanceTo(pos) < detectionRange)
-                    .toList();
-            if (playerList.isEmpty()) return;
+        if (this.level.getServer().getPlayerList().getPlayers().stream()
+                .anyMatch(player -> canSpawnPos.stream().anyMatch(pos -> player.position().distanceTo(pos) < 60))) {
+            // 对每个刷新点附近进行探测，若满足生成条件，则生成
+            canSpawnPos.forEach(pos -> {
+                // 该点探测附近玩家列表
+                List<Player> playerList = level.getEntitiesOfClass(Player.class, AABB.ofSize(pos,
+                                detectionRange * 2, detectionRange * 2, detectionRange * 2))
+                        .stream().filter(player -> player.position().distanceTo(pos) < detectionRange)
+                        .toList();
 
-            // 该点探测附近怪物列表
-            List<Mob> mobList = this.mobList
-                    .stream().filter(mob -> mob.position().distanceTo(pos) < detectionRange)
-                    .toList();
+                // 该点探测附近怪物列表
+                List<Mob> mobList = this.mobList
+                        .stream().filter(mob -> mob.position().distanceTo(pos) < detectionRange)
+                        .toList();
 
-            // 玩家距离此刷新点距离小于4格则不生成怪物
-            if (playerList.stream().anyMatch(player -> player.position().distanceTo(pos) < 4)) return;
+                // 玩家距离此刷新点距离小于4格则不生成怪物
+                if (playerList.stream().anyMatch(player -> player.position().distanceTo(pos) < 4)) return;
 
-            // 若该点附近怪物与玩家比较小且怪物数量不超过上限 则生成
-            if (mobList.size() * 1.0 / playerList.size() < mobPlayerRate && this.mobList.size() < oneZoneMaxMobNum) {
-                int summonTimes = 1;
-                if (canSpawnPos.size() == 1) {
-                    summonTimes = 2 + playerList.size();
-                }
-                for (int i = 0 ; i < summonTimes ; i ++) {
-                    Mob mob = this.mobItemAndAttributeSet();
-                    Random r = new Random();
-                    Vec3 offset = Vec3.ZERO;
-                    if (summonOffset > 0) {
-                        offset = new Vec3(
-                                r.nextDouble(summonOffset) - summonOffset / 2,
-                                r.nextDouble(summonOffset) - summonOffset / 2,
-                                r.nextDouble(summonOffset) - summonOffset / 2
-                        );
+                // 若该点附近怪物与玩家比较小且怪物数量不超过上限 则生成
+                if (mobList.size() * 1.0 / Math.max(1, playerList.size()) < mobPlayerRate
+                        && this.mobList.size() < oneZoneMaxMobNum) {
+                    if (level.getServer().getPlayerList().getPlayers().stream()
+                            .anyMatch(player -> player.position().distanceTo(pos) < 60)) {
+                        int summonTimes = 1;
+                        if (canSpawnPos.size() == 1) {
+                            summonTimes = 2 + playerList.size();
+                        }
+                        for (int i = 0 ; i < summonTimes ; i ++) {
+                            Mob mob = this.mobItemAndAttributeSet();
+                            Random r = new Random();
+                            Vec3 offset = Vec3.ZERO;
+                            if (summonOffset > 0) {
+                                offset = new Vec3(
+                                        r.nextDouble(summonOffset) - summonOffset / 2,
+                                        r.nextDouble(summonOffset) - summonOffset / 2,
+                                        r.nextDouble(summonOffset) - summonOffset / 2
+                                );
+                            }
+                            mob.moveTo(pos.add(0.5, 0.5, 0.5).add(offset));
+                            this.mobList.add(mob);
+                            this.level.addFreshEntity(mob);
+                        }
                     }
-                    mob.moveTo(pos.add(0.5, 0.5, 0.5).add(offset));
-                    this.mobList.add(mob);
-                    this.level.addFreshEntity(mob);
                 }
-            }
-        });
+            });
+        }
 
         // 移除距离玩家过远的怪物
         mobList.forEach(mob -> {
             if (mob.getServer().getPlayerList().getPlayers()
-                    .stream().allMatch(player -> player.distanceTo(mob) > 32)) {
+                    .stream().allMatch(player -> player.distanceTo(mob) > 60)) {
                 mob.remove(Entity.RemovalReason.KILLED);
             }
         });

@@ -48,14 +48,14 @@ public class SpiderSpawnController extends MobSpawnController {
                     new Vec3(1174, 71, 290),
                     new Vec3(1150, 63, 323)
             );
-            instance = new SpiderSpawnController(spawnPos, spawnPos.size() * 4, 1247, 355, 1092, 87, world, 4, 32);
+            instance = new SpiderSpawnController(spawnPos, 1247, 355, 1092, 87, world, 32);
         }
         return instance;
     }
 
-    public SpiderSpawnController(List<Vec3> canSpawnPos, int oneZoneMaxMobNum, int boundaryUpX, int boundaryUpZ,
-                                 int boundaryDownX, int boundaryDownZ, Level level, int mobPlayerRate, int averageLevel) {
-        super(canSpawnPos, oneZoneMaxMobNum, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, 60, level, mobPlayerRate, averageLevel);
+    public SpiderSpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpZ,
+                                 int boundaryDownX, int boundaryDownZ, Level level, int averageLevel) {
+        super(canSpawnPos, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, level, averageLevel);
     }
 
     @Override

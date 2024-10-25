@@ -40,15 +40,14 @@ public class TorturedSoulSpawnController extends MobSpawnController {
                     new Vec3(943, 196, 24),
                     new Vec3(943, 196, 35)
             );
-            instance = new TorturedSoulSpawnController(spawnPos, spawnPos.size() * 4, 1000, 51, 900, -50, world, 2, 220);
+            instance = new TorturedSoulSpawnController(spawnPos, 1000, 51, 900, -50, world, 220);
         }
         return instance;
     }
 
-    public TorturedSoulSpawnController(List<Vec3> canSpawnPos, int oneZoneMaxMobNum, int boundaryUpX, int boundaryUpZ,
-                                       int boundaryDownX, int boundaryDownZ, Level level, int mobPlayerRate, int averageLevel) {
-        super(canSpawnPos, oneZoneMaxMobNum, boundaryUpX, 210, boundaryUpZ, boundaryDownX, 188,
-                boundaryDownZ, 0, 60, level, mobPlayerRate, averageLevel);
+    public TorturedSoulSpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpZ,
+                                       int boundaryDownX, int boundaryDownZ, Level level, int averageLevel) {
+        super(canSpawnPos, boundaryUpX, 210, boundaryUpZ, boundaryDownX, 188, boundaryDownZ, level, averageLevel);
     }
 
     @Override

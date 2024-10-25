@@ -42,14 +42,16 @@ public class ForestZombieSpawnController extends MobSpawnController {
                     new Vec3(948, 80, 140),
                     new Vec3(932, 79, 171)
             );
-            instance = new ForestZombieSpawnController(spawnPos, 40, 975, 260, 824, 81, world, 4, 12);
+            instance = new ForestZombieSpawnController(spawnPos, 975, 260, 824, 81, world, 12);
         }
         return instance;
     }
 
-    public ForestZombieSpawnController(List<Vec3> canSpawnPos, int oneZoneMaxMobNum, int boundaryUpX, int boundaryUpZ,
-                                       int boundaryDownX, int boundaryDownZ, Level level, int mobPlayerRate, int averageLevel) {
-        super(canSpawnPos, oneZoneMaxMobNum, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, 60, level, mobPlayerRate, averageLevel);
+    public ForestZombieSpawnController(List<Vec3> canSpawnPos,
+                                       int boundaryUpX, int boundaryUpZ,
+                                       int boundaryDownX, int boundaryDownZ,
+                                       Level level, int averageLevel) {
+        super(canSpawnPos, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, level, averageLevel);
     }
 
     @Override

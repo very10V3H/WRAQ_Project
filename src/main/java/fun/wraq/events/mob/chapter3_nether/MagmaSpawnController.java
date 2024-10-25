@@ -38,14 +38,14 @@ public class MagmaSpawnController extends MobSpawnController {
                     new Vec3(577, 60, -614),
                     new Vec3(517, 60, -607)
             );
-            instance = new MagmaSpawnController(spawnPos, spawnPos.size() * 4, 528, -582, 464, -645, world, 4, 80);
+            instance = new MagmaSpawnController(spawnPos, 528, -582, 464, -645, world, 80);
         }
         return instance;
     }
 
-    public MagmaSpawnController(List<Vec3> canSpawnPos, int oneZoneMaxMobNum, int boundaryUpX, int boundaryUpZ,
-                                int boundaryDownX, int boundaryDownZ, Level level, int mobPlayerRate, int averageLevel) {
-        super(canSpawnPos, oneZoneMaxMobNum, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, 60, level, mobPlayerRate, averageLevel);
+    public MagmaSpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpZ,
+                                int boundaryDownX, int boundaryDownZ, Level level, int averageLevel) {
+        super(canSpawnPos, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, level, averageLevel);
     }
 
     @Override

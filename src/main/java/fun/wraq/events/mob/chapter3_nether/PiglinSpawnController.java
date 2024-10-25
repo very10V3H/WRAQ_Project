@@ -41,14 +41,14 @@ public class PiglinSpawnController extends MobSpawnController {
                     new Vec3(597, 79, -599),
                     new Vec3(609, 80, -595)
             );
-            instance = new PiglinSpawnController(spawnPos, spawnPos.size() * 4, 633, -588, 574, -659, world, 4, 80);
+            instance = new PiglinSpawnController(spawnPos, 633, -588, 574, -659, world, 80);
         }
         return instance;
     }
 
-    public PiglinSpawnController(List<Vec3> canSpawnPos, int oneZoneMaxMobNum, int boundaryUpX, int boundaryUpZ,
-                                 int boundaryDownX, int boundaryDownZ, Level level, int mobPlayerRate, int averageLevel) {
-        super(canSpawnPos, oneZoneMaxMobNum, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, 60, level, mobPlayerRate, averageLevel);
+    public PiglinSpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpZ,
+                                 int boundaryDownX, int boundaryDownZ, Level level, int averageLevel) {
+        super(canSpawnPos, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, level, averageLevel);
     }
 
     @Override

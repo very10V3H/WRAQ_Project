@@ -43,14 +43,14 @@ public class LumberJackSpawnController extends MobSpawnController {
                     new Vec3(1700, 80, 33),
                     new Vec3(1701, 78, 47)
             );
-            instance = new LumberJackSpawnController(spawnPos, spawnPos.size() * 4, 1737, 64, 1571, -7, world, 4, 60);
+            instance = new LumberJackSpawnController(spawnPos, 1737, 64, 1571, -7, world, 60);
         }
         return instance;
     }
 
-    public LumberJackSpawnController(List<Vec3> canSpawnPos, int oneZoneMaxMobNum, int boundaryUpX, int boundaryUpZ,
-                                     int boundaryDownX, int boundaryDownZ, Level level, int mobPlayerRate, int averageLevel) {
-        super(canSpawnPos, oneZoneMaxMobNum, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, 60, level, mobPlayerRate, averageLevel);
+    public LumberJackSpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpZ,
+                                     int boundaryDownX, int boundaryDownZ, Level level, int averageLevel) {
+        super(canSpawnPos, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, level, averageLevel);
     }
 
     @Override

@@ -46,14 +46,14 @@ public class BloodManaSpawnController extends MobSpawnController {
                     new Vec3(2307, 65, 1396),
                     new Vec3(2295, 65, 1422)
             );
-            instance = new BloodManaSpawnController(spawnPos, spawnPos.size() * 4, 2326, 1480, 2162, 1322, world, 4, 116);
+            instance = new BloodManaSpawnController(spawnPos, 2326, 1480, 2162, 1322, world, 116);
         }
         return instance;
     }
 
-    public BloodManaSpawnController(List<Vec3> canSpawnPos, int oneZoneMaxMobNum, int boundaryUpX, int boundaryUpZ,
-                                    int boundaryDownX, int boundaryDownZ, Level level, int mobPlayerRate, int averageLevel) {
-        super(canSpawnPos, oneZoneMaxMobNum, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, 60, level, mobPlayerRate, averageLevel);
+    public BloodManaSpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpZ,
+                                   int boundaryDownX, int boundaryDownZ, Level level, int averageLevel) {
+        super(canSpawnPos, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, level, averageLevel);
     }
 
     @Override

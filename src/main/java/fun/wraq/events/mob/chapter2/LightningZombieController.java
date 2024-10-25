@@ -46,14 +46,14 @@ public class LightningZombieController extends MobSpawnController {
                     new Vec3(1735, 67, 1275),
                     new Vec3(1717, 66, 1288)
             );
-            instance = new LightningZombieController(spawnPos, spawnPos.size() * 4, 1790, 1312, 1694, 1131, world, 4, 92);
+            instance = new LightningZombieController(spawnPos, 1790, 1312, 1694, 1131, world, 92);
         }
         return instance;
     }
 
-    public LightningZombieController(List<Vec3> canSpawnPos, int oneZoneMaxMobNum, int boundaryUpX, int boundaryUpZ,
-                                     int boundaryDownX, int boundaryDownZ, Level level, int mobPlayerRate, int averageLevel) {
-        super(canSpawnPos, oneZoneMaxMobNum, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, 60, level, mobPlayerRate, averageLevel);
+    public LightningZombieController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpZ,
+                                     int boundaryDownX, int boundaryDownZ, Level level, int averageLevel) {
+        super(canSpawnPos, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, level, averageLevel);
     }
 
     @Override

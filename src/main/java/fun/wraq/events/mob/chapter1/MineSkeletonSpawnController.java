@@ -44,14 +44,14 @@ public class MineSkeletonSpawnController extends MobSpawnController {
                     new Vec3(1169, -35, -137),
                     new Vec3(1173, -36, -148)
             );
-            instance = new MineSkeletonSpawnController(spawnPos, 30, 1200, -30, 1149, -164, world, 2, 24);
+            instance = new MineSkeletonSpawnController(spawnPos, 1200, -30, 1149, -164, world, 24);
         }
         return instance;
     }
 
-    public MineSkeletonSpawnController(List<Vec3> canSpawnPos, int oneZoneMaxMobNum, int boundaryUpX, int boundaryUpZ,
-                                       int boundaryDownX, int boundaryDownZ, Level level, int mobPlayerRate, int averageLevel) {
-        super(canSpawnPos, oneZoneMaxMobNum, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, 30, level, mobPlayerRate, averageLevel);
+    public MineSkeletonSpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpZ,
+                                       int boundaryDownX, int boundaryDownZ, Level level, int averageLevel) {
+        super(canSpawnPos, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, level, averageLevel);
     }
 
     @Override

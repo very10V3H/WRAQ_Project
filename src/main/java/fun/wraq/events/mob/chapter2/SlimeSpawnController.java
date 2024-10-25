@@ -37,14 +37,14 @@ public class SlimeSpawnController extends MobSpawnController {
                     new Vec3(1059, 64, -565),
                     new Vec3(1054, 66, -579)
             );
-            instance = new SlimeSpawnController(spawnPos, spawnPos.size() * 4, 1072, -454, 1004, -631, world, 4, 76);
+            instance = new SlimeSpawnController(spawnPos, 1072, -454, 1004, -631, world, 76);
         }
         return instance;
     }
 
-    public SlimeSpawnController(List<Vec3> canSpawnPos, int oneZoneMaxMobNum, int boundaryUpX, int boundaryUpZ,
-                                int boundaryDownX, int boundaryDownZ, Level level, int mobPlayerRate, int averageLevel) {
-        super(canSpawnPos, oneZoneMaxMobNum, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, 60, level, mobPlayerRate, averageLevel);
+    public SlimeSpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpZ,
+                                int boundaryDownX, int boundaryDownZ, Level level, int averageLevel) {
+        super(canSpawnPos, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, level, averageLevel);
     }
 
     @Override

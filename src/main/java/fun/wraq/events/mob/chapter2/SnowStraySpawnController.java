@@ -45,14 +45,14 @@ public class SnowStraySpawnController extends MobSpawnController {
                     new Vec3(1502, 63, -2278),
                     new Vec3(1490, 63, -2303)
             );
-            instance = new SnowStraySpawnController(spawnPos, 40, 1682, -2171, 1461, -2377, world, 4, 100);
+            instance = new SnowStraySpawnController(spawnPos, 1682, -2171, 1461, -2377, world, 100);
         }
         return instance;
     }
 
-    public SnowStraySpawnController(List<Vec3> canSpawnPos, int oneZoneMaxMobNum, int boundaryUpX, int boundaryUpZ,
-                                    int boundaryDownX, int boundaryDownZ, Level level, int mobPlayerRate, int averageLevel) {
-        super(canSpawnPos, oneZoneMaxMobNum, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, 60, level, mobPlayerRate, averageLevel);
+    public SnowStraySpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpZ,
+                                    int boundaryDownX, int boundaryDownZ, Level level, int averageLevel) {
+        super(canSpawnPos, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, level, averageLevel);
     }
 
     @Override

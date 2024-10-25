@@ -40,14 +40,14 @@ public class JorogumoSpawnController extends MobSpawnController {
                     new Vec3(1146, 80, -1268),
                     new Vec3(1118, 79, -1263)
             );
-            instance = new JorogumoSpawnController(spawnPos, spawnPos.size() * 4, 1200, -1150, 1050, -1330, world, 4, 92);
+            instance = new JorogumoSpawnController(spawnPos, 1200, -1150, 1050, -1330, world, 92);
         }
         return instance;
     }
 
-    public JorogumoSpawnController(List<Vec3> canSpawnPos, int oneZoneMaxMobNum, int boundaryUpX, int boundaryUpZ,
-                                   int boundaryDownX, int boundaryDownZ, Level level, int mobPlayerRate, int averageLevel) {
-        super(canSpawnPos, oneZoneMaxMobNum, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, 60, level, mobPlayerRate, averageLevel);
+    public JorogumoSpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpZ,
+                                   int boundaryDownX, int boundaryDownZ, Level level, int averageLevel) {
+        super(canSpawnPos, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, level, averageLevel);
     }
 
     @Override

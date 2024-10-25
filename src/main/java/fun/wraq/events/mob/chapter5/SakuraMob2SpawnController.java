@@ -43,14 +43,14 @@ public class SakuraMob2SpawnController extends MobSpawnController {
                     new Vec3(2318, 148, 1699),
                     new Vec3(2339, 150, 1677)
             );
-            instance = new SakuraMob2SpawnController(spawnPos, spawnPos.size() * 4, 2358, 1775, 2221, 1630, world, 4, 132);
+            instance = new SakuraMob2SpawnController(spawnPos, 2358, 1775, 2221, 1630, world, 132);
         }
         return instance;
     }
 
-    public SakuraMob2SpawnController(List<Vec3> canSpawnPos, int oneZoneMaxMobNum, int boundaryUpX, int boundaryUpZ,
-                                     int boundaryDownX, int boundaryDownZ, Level level, int mobPlayerRate, int averageLevel) {
-        super(canSpawnPos, oneZoneMaxMobNum, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, 60, level, mobPlayerRate, averageLevel);
+    public SakuraMob2SpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpZ,
+                                   int boundaryDownX, int boundaryDownZ, Level level, int averageLevel) {
+        super(canSpawnPos, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, level, averageLevel);
     }
 
     @Override

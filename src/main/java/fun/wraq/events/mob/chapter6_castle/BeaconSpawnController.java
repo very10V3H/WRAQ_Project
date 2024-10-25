@@ -43,14 +43,14 @@ public class BeaconSpawnController extends MobSpawnController {
                     new Vec3(2452, 170, -1534),
                     new Vec3(2451, 168, -1517)
             );
-            instance = new BeaconSpawnController(spawnPos, spawnPos.size() * 4, 2467, -1506, 2400, -1559, world, 4, 180);
+            instance = new BeaconSpawnController(spawnPos, 2467, -1506, 2400, -1559, world, 180);
         }
         return instance;
     }
 
-    public BeaconSpawnController(List<Vec3> canSpawnPos, int oneZoneMaxMobNum, int boundaryUpX, int boundaryUpZ,
-                                 int boundaryDownX, int boundaryDownZ, Level level, int mobPlayerRate, int averageLevel) {
-        super(canSpawnPos, oneZoneMaxMobNum, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, 60, level, mobPlayerRate, averageLevel);
+    public BeaconSpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpZ,
+                                   int boundaryDownX, int boundaryDownZ, Level level, int averageLevel) {
+        super(canSpawnPos, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, level, averageLevel);
     }
 
     @Override

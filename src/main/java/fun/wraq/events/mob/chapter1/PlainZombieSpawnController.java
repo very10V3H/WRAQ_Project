@@ -44,14 +44,14 @@ public class PlainZombieSpawnController extends MobSpawnController {
                     new Vec3(787, 77, 279),
                     new Vec3(823, 79, 265)
             );
-            instance = new PlainZombieSpawnController(spawnPos, 40, 850, 290, 666, 235, world, 4, 4);
+            instance = new PlainZombieSpawnController(spawnPos, 850, 290, 666, 235, world, 4);
         }
         return instance;
     }
 
-    public PlainZombieSpawnController(List<Vec3> canSpawnPos, int oneZoneMaxMobNum, int boundaryUpX, int boundaryUpZ,
-                                      int boundaryDownX, int boundaryDownZ, Level level, int mobPlayerRate, int averageLevel) {
-        super(canSpawnPos, oneZoneMaxMobNum, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, 60, level, mobPlayerRate, averageLevel);
+    public PlainZombieSpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpZ,
+                                      int boundaryDownX, int boundaryDownZ, Level level, int averageLevel) {
+        super(canSpawnPos, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, level, averageLevel);
     }
 
     @Override

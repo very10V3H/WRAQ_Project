@@ -44,14 +44,14 @@ public class DreadHoundSpawnController extends MobSpawnController {
                     new Vec3(1871, 79, 46),
                     new Vec3(1888, 86, 23)
             );
-            instance = new DreadHoundSpawnController(spawnPos, spawnPos.size() * 4, 1916, 56, 1731, -1, world, 4, 66);
+            instance = new DreadHoundSpawnController(spawnPos, 1916, 56, 1731, -1, world, 66);
         }
         return instance;
     }
 
-    public DreadHoundSpawnController(List<Vec3> canSpawnPos, int oneZoneMaxMobNum, int boundaryUpX, int boundaryUpZ,
-                                     int boundaryDownX, int boundaryDownZ, Level level, int mobPlayerRate, int averageLevel) {
-        super(canSpawnPos, oneZoneMaxMobNum, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, 60, level, mobPlayerRate, averageLevel);
+    public DreadHoundSpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpZ,
+                                     int boundaryDownX, int boundaryDownZ, Level level, int averageLevel) {
+        super(canSpawnPos, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, level, averageLevel);
     }
 
     @Override

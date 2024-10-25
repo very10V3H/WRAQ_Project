@@ -39,18 +39,17 @@ public class MoontainCommon2SpawnController extends MobSpawnController {
                     new Vec3(1996, 223, -883),
                     new Vec3(1997, 223, -872)
             );
-            instance = new MoontainCommon2SpawnController(spawnPos, spawnPos.size() * 4,
+            instance = new MoontainCommon2SpawnController(spawnPos,
                     (int) MoontainEntities.commonUpPos.x, (int) MoontainEntities.commonUpPos.y, (int) MoontainEntities.commonUpPos.z,
                     (int) MoontainEntities.commonDownPos.x, (int) MoontainEntities.commonDownPos.y, (int) MoontainEntities.commonDownPos.z,
-                    world, 3, 160);
+                    world, 160);
         }
         return instance;
     }
 
-    public MoontainCommon2SpawnController(List<Vec3> canSpawnPos, int oneZoneMaxMobNum, int boundaryUpX, int boundaryUpY, int boundaryUpZ,
-                                          int boundaryDownX, int boundaryDownY, int boundaryDownZ, Level level, int mobPlayerRate, int averageLevel) {
-        super(canSpawnPos, oneZoneMaxMobNum, boundaryUpX, boundaryUpY, boundaryUpZ, boundaryDownX, boundaryDownY, boundaryDownZ,
-                0, 16, level, mobPlayerRate, averageLevel);
+    public MoontainCommon2SpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpY, int boundaryUpZ,
+                                          int boundaryDownX, int boundaryDownY, int boundaryDownZ, Level level, int averageLevel) {
+        super(canSpawnPos, boundaryUpX, boundaryUpY, boundaryUpZ, boundaryDownX, boundaryDownY, boundaryDownZ, level, averageLevel);
     }
 
     @Override

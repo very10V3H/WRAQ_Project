@@ -44,14 +44,14 @@ public class GuardianSpawnController extends MobSpawnController {
                     new Vec3(1089, 20, 932),
                     new Vec3(1089, 20, 888)
             );
-            instance = new GuardianSpawnController(spawnPos, 40, 1168, 949, 1007, 801, world, 4, 100);
+            instance = new GuardianSpawnController(spawnPos, 1168, 949, 1007, 801, world, 100);
         }
         return instance;
     }
 
-    public GuardianSpawnController(List<Vec3> canSpawnPos, int oneZoneMaxMobNum, int boundaryUpX, int boundaryUpZ,
-                                   int boundaryDownX, int boundaryDownZ, Level level, int mobPlayerRate, int averageLevel) {
-        super(canSpawnPos, oneZoneMaxMobNum, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, 60, level, mobPlayerRate, averageLevel);
+    public GuardianSpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpZ,
+                                   int boundaryDownX, int boundaryDownZ, Level level, int averageLevel) {
+        super(canSpawnPos, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, level, averageLevel);
     }
 
     @Override

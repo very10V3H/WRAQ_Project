@@ -46,14 +46,14 @@ public class EnderManSpawnController extends MobSpawnController {
                     new Vec3(23, 63, 37),
                     new Vec3(54, 61, 49)
             );
-            instance = new EnderManSpawnController(spawnPos, spawnPos.size() * 4, 99, 62, -8, -114, world, 4, 80);
+            instance = new EnderManSpawnController(spawnPos, 99, 62, -8, -114, world, 80);
         }
         return instance;
     }
 
-    public EnderManSpawnController(List<Vec3> canSpawnPos, int oneZoneMaxMobNum, int boundaryUpX, int boundaryUpZ,
-                                   int boundaryDownX, int boundaryDownZ, Level level, int mobPlayerRate, int averageLevel) {
-        super(canSpawnPos, oneZoneMaxMobNum, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, 60, level, mobPlayerRate, averageLevel);
+    public EnderManSpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpZ,
+                                   int boundaryDownX, int boundaryDownZ, Level level, int averageLevel) {
+        super(canSpawnPos, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, level, averageLevel);
     }
 
     @Override

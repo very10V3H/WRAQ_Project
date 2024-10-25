@@ -62,13 +62,13 @@ public class HuskSpawnController extends MobSpawnController {
                     new Vec3(1240, 65, 418),
                     new Vec3(1257, 63, 427)
             );
-            instance = new HuskSpawnController(spawnPos, spawnPos.size() * 2, world, 2, 84);
+            instance = new HuskSpawnController(spawnPos, spawnPos.size() * 2, world, 1, 84);
         }
         return instance;
     }
 
     public HuskSpawnController(List<Vec3> canSpawnPos, int oneZoneMaxMobNum, Level level, int mobPlayerRate, int averageLevel) {
-        super(canSpawnPos, oneZoneMaxMobNum, 60, level, mobPlayerRate, averageLevel,
+        super(canSpawnPos, oneZoneMaxMobNum, 16, level, mobPlayerRate, averageLevel,
                 List.of(new Boundary(new Vec3(933, 1000, 415), new Vec3(760, -100, 289)),
                         new Boundary(new Vec3(1230, 1000, 453), new Vec3(1034, -100, 270))));
     }

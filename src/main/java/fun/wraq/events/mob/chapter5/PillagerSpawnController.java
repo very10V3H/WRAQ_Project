@@ -44,14 +44,14 @@ public class PillagerSpawnController extends MobSpawnController {
                     new Vec3(1176, 64, 1155),
                     new Vec3(1176, 63, 1147)
             );
-            instance = new PillagerSpawnController(spawnPos, spawnPos.size() * 4, 1205, 1179, 1014, 1048, world, 4, 108);
+            instance = new PillagerSpawnController(spawnPos, 1205, 1179, 1014, 1048, world, 108);
         }
         return instance;
     }
 
-    public PillagerSpawnController(List<Vec3> canSpawnPos, int oneZoneMaxMobNum, int boundaryUpX, int boundaryUpZ,
-                                   int boundaryDownX, int boundaryDownZ, Level level, int mobPlayerRate, int averageLevel) {
-        super(canSpawnPos, oneZoneMaxMobNum, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, 60, level, mobPlayerRate, averageLevel);
+    public PillagerSpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpZ,
+                                   int boundaryDownX, int boundaryDownZ, Level level, int averageLevel) {
+        super(canSpawnPos, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, level, averageLevel);
     }
 
     @Override

@@ -42,14 +42,14 @@ public class TreeSpawnController extends MobSpawnController {
                     new Vec3(2362, 154, -1446),
                     new Vec3(2373, 154, -1453)
             );
-            instance = new TreeSpawnController(spawnPos, spawnPos.size() * 4, 2413, -1409, 2351, -1474, world, 4, 180);
+            instance = new TreeSpawnController(spawnPos, 2413, -1409, 2351, -1474, world, 180);
         }
         return instance;
     }
 
-    public TreeSpawnController(List<Vec3> canSpawnPos, int oneZoneMaxMobNum, int boundaryUpX, int boundaryUpZ,
-                               int boundaryDownX, int boundaryDownZ, Level level, int mobPlayerRate, int averageLevel) {
-        super(canSpawnPos, oneZoneMaxMobNum, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, 60, level, mobPlayerRate, averageLevel);
+    public TreeSpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpZ,
+                               int boundaryDownX, int boundaryDownZ, Level level, int averageLevel) {
+        super(canSpawnPos, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, level, averageLevel);
     }
 
     @Override

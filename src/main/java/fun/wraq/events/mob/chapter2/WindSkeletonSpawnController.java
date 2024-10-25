@@ -49,14 +49,14 @@ public class WindSkeletonSpawnController extends MobSpawnController {
                     new Vec3(629, 69, 483),
                     new Vec3(699, 68, 489)
             );
-            instance = new WindSkeletonSpawnController(spawnPos, spawnPos.size() * 4, 796, 537, 467, 272, world, 4, 80);
+            instance = new WindSkeletonSpawnController(spawnPos, 796, 537, 467, 272, world, 80);
         }
         return instance;
     }
 
-    public WindSkeletonSpawnController(List<Vec3> canSpawnPos, int oneZoneMaxMobNum, int boundaryUpX, int boundaryUpZ,
-                                       int boundaryDownX, int boundaryDownZ, Level level, int mobPlayerRate, int averageLevel) {
-        super(canSpawnPos, oneZoneMaxMobNum, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, 60, level, mobPlayerRate, averageLevel);
+    public WindSkeletonSpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpZ,
+                                       int boundaryDownX, int boundaryDownZ, Level level, int averageLevel) {
+        super(canSpawnPos, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, level, averageLevel);
     }
 
     @Override

@@ -44,14 +44,14 @@ public class SearedSpirit2SpawnController extends MobSpawnController {
                     new Vec3(2588, 124, -610),
                     new Vec3(2594, 123, -594)
             );
-            instance = new SearedSpirit2SpawnController(spawnPos, spawnPos.size() * 4, 2605, -575, 2525, -624, world, 4, 56);
+            instance = new SearedSpirit2SpawnController(spawnPos, 2605, -575, 2525, -624, world, 56);
         }
         return instance;
     }
 
-    public SearedSpirit2SpawnController(List<Vec3> canSpawnPos, int oneZoneMaxMobNum, int boundaryUpX, int boundaryUpZ,
-                                        int boundaryDownX, int boundaryDownZ, Level level, int mobPlayerRate, int averageLevel) {
-        super(canSpawnPos, oneZoneMaxMobNum, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, 60, level, mobPlayerRate, averageLevel);
+    public SearedSpirit2SpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpZ,
+                                        int boundaryDownX, int boundaryDownZ, Level level, int averageLevel) {
+        super(canSpawnPos, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, level, averageLevel);
     }
 
     @Override

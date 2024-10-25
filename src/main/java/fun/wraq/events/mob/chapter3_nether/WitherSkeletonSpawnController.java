@@ -42,14 +42,14 @@ public class WitherSkeletonSpawnController extends MobSpawnController {
                     new Vec3(577, 67, -665),
                     new Vec3(507, 67, -620)
             );
-            instance = new WitherSkeletonSpawnController(spawnPos, spawnPos.size() * 4, 598, -583, 445, -753, world, 4, 80);
+            instance = new WitherSkeletonSpawnController(spawnPos, 598, -583, 445, -753, world, 80);
         }
         return instance;
     }
 
-    public WitherSkeletonSpawnController(List<Vec3> canSpawnPos, int oneZoneMaxMobNum, int boundaryUpX, int boundaryUpZ,
-                                         int boundaryDownX, int boundaryDownZ, Level level, int mobPlayerRate, int averageLevel) {
-        super(canSpawnPos, oneZoneMaxMobNum, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, 60, level, mobPlayerRate, averageLevel);
+    public WitherSkeletonSpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpZ,
+                                         int boundaryDownX, int boundaryDownZ, Level level, int averageLevel) {
+        super(canSpawnPos, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, level, averageLevel);
     }
 
     @Override

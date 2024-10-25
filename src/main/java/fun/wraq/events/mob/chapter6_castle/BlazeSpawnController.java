@@ -42,14 +42,14 @@ public class BlazeSpawnController extends MobSpawnController {
                     new Vec3(2461, 152, -1409),
                     new Vec3(2447, 152, -1402)
             );
-            instance = new BlazeSpawnController(spawnPos, spawnPos.size() * 4, 2476, -1395, 2420, -1448, world, 4, 180);
+            instance = new BlazeSpawnController(spawnPos, 2476, -1395, 2420, -1448, world, 180);
         }
         return instance;
     }
 
-    public BlazeSpawnController(List<Vec3> canSpawnPos, int oneZoneMaxMobNum, int boundaryUpX, int boundaryUpZ,
-                                int boundaryDownX, int boundaryDownZ, Level level, int mobPlayerRate, int averageLevel) {
-        super(canSpawnPos, oneZoneMaxMobNum, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, 60, level, mobPlayerRate, averageLevel);
+    public BlazeSpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpZ,
+                                int boundaryDownX, int boundaryDownZ, Level level, int averageLevel) {
+        super(canSpawnPos, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, level, averageLevel);
     }
 
     @Override

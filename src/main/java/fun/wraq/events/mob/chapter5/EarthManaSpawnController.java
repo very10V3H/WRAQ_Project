@@ -43,14 +43,14 @@ public class EarthManaSpawnController extends MobSpawnController {
                     new Vec3(2449, 149, 1515),
                     new Vec3(2468, 158, 1501)
             );
-            instance = new EarthManaSpawnController(spawnPos, spawnPos.size() * 4, 2488, 1638, 2363, 1456, world, 4, 124);
+            instance = new EarthManaSpawnController(spawnPos, 2488, 1638, 2363, 1456, world, 124);
         }
         return instance;
     }
 
-    public EarthManaSpawnController(List<Vec3> canSpawnPos, int oneZoneMaxMobNum, int boundaryUpX, int boundaryUpZ,
-                                    int boundaryDownX, int boundaryDownZ, Level level, int mobPlayerRate, int averageLevel) {
-        super(canSpawnPos, oneZoneMaxMobNum, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, 60, level, mobPlayerRate, averageLevel);
+    public EarthManaSpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpZ,
+                                   int boundaryDownX, int boundaryDownZ, Level level, int averageLevel) {
+        super(canSpawnPos, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, level, averageLevel);
     }
 
     @Override

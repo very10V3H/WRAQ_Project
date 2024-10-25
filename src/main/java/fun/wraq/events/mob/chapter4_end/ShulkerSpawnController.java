@@ -35,14 +35,14 @@ public class ShulkerSpawnController extends MobSpawnController {
                     new Vec3(-11.5, 87, -168.5),
                     new Vec3(-26, 88, -178)
             );
-            instance = new ShulkerSpawnController(spawnPos, spawnPos.size() * 4, 104, -128, -61, -289, world, 4, 140);
+            instance = new ShulkerSpawnController(spawnPos, 104, -128, -61, -289, world, 140);
         }
         return instance;
     }
 
-    public ShulkerSpawnController(List<Vec3> canSpawnPos, int oneZoneMaxMobNum, int boundaryUpX, int boundaryUpZ,
-                                  int boundaryDownX, int boundaryDownZ, Level level, int mobPlayerRate, int averageLevel) {
-        super(canSpawnPos, oneZoneMaxMobNum, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, 60, level, mobPlayerRate, averageLevel);
+    public ShulkerSpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpZ,
+                                   int boundaryDownX, int boundaryDownZ, Level level, int averageLevel) {
+        super(canSpawnPos, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, level, averageLevel);
     }
 
     @Override
