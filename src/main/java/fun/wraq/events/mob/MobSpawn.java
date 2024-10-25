@@ -27,6 +27,9 @@ import fun.wraq.events.mob.chapter7.BoneImpSpawnController;
 import fun.wraq.events.mob.chapter7.StarSpawnController;
 import fun.wraq.events.mob.chapter7.TorturedSoulSpawnController;
 import fun.wraq.events.mob.loot.RandomLootEquip;
+import fun.wraq.events.mob.moontain.MoontainCommon1SpawnController;
+import fun.wraq.events.mob.moontain.MoontainCommon2SpawnController;
+import fun.wraq.events.mob.moontain.MoontainCommon3SpawnController;
 import fun.wraq.events.server.LoginInEvent;
 import fun.wraq.files.dataBases.DataBase;
 import fun.wraq.process.func.guide.Guide;
@@ -135,6 +138,10 @@ public class MobSpawn {
         overWolrdList.add(StarSpawnController.getInstance(overWorld));
         overWolrdList.add(BoneImpSpawnController.getInstance(overWorld));
         overWolrdList.add(TorturedSoulSpawnController.getInstance(overWorld));
+
+        overWolrdList.add(MoontainCommon1SpawnController.getInstance(overWorld));
+        overWolrdList.add(MoontainCommon2SpawnController.getInstance(overWorld));
+        overWolrdList.add(MoontainCommon3SpawnController.getInstance(overWorld));
     }
 
     public static List<MobSpawnController> netherList = new ArrayList<>();

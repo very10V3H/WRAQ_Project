@@ -689,6 +689,70 @@ public enum BonusChestInfo {
     END_18(new BlockPos(30, 127, -211), 1, Util.END_ZONE_NUM, 2),
 
 
+    // 望山阁
+    MOONTAIN_0(new BlockPos(1971, 151, -894), 0, Util.MOONTAIN_NUM),
+    MOONTAIN_1(new BlockPos(1966, 151, -877), 0, Util.MOONTAIN_NUM),
+    MOONTAIN_2(new BlockPos(1983, 155, -895), 1, Util.MOONTAIN_NUM),
+    MOONTAIN_3(new BlockPos(1984, 152, -881), 0, Util.MOONTAIN_NUM),
+    MOONTAIN_4(new BlockPos(2000, 151, -885), 0, Util.MOONTAIN_NUM),
+    MOONTAIN_5(new BlockPos(2000, 151, -874), 1, Util.MOONTAIN_NUM),
+    MOONTAIN_6(new BlockPos(1974, 151, -863), 0, Util.MOONTAIN_NUM),
+    MOONTAIN_7(new BlockPos(1982, 158, -869), 0, Util.MOONTAIN_NUM),
+    MOONTAIN_8(new BlockPos(1993, 163, -882), 1, Util.MOONTAIN_NUM),
+    MOONTAIN_9(new BlockPos(2001, 159, -864), 0, Util.MOONTAIN_NUM),
+    MOONTAIN_10(new BlockPos(2000, 161, -890), 0, Util.MOONTAIN_NUM),
+    MOONTAIN_11(new BlockPos(1979, 166, -891), 0, Util.MOONTAIN_NUM),
+    MOONTAIN_12(new BlockPos(1980, 170, -894), 2, Util.MOONTAIN_NUM),
+    MOONTAIN_13(new BlockPos(1965, 167, -898), 0, Util.MOONTAIN_NUM),
+    MOONTAIN_14(new BlockPos(1967, 166, -878), 0, Util.MOONTAIN_NUM),
+    MOONTAIN_15(new BlockPos(1966, 169, -872), 0, Util.MOONTAIN_NUM),
+    MOONTAIN_16(new BlockPos(1983, 175, -869), 0, Util.MOONTAIN_NUM),
+    MOONTAIN_17(new BlockPos(2001, 175, -864), 0, Util.MOONTAIN_NUM),
+    MOONTAIN_18(new BlockPos(2000, 174, -884), 0, Util.MOONTAIN_NUM),
+    MOONTAIN_19(new BlockPos(1991, 175, -893), 0, Util.MOONTAIN_NUM),
+    MOONTAIN_20(new BlockPos(1983, 184, -869), 0, Util.MOONTAIN_NUM),
+    MOONTAIN_21(new BlockPos(2000, 183, -885), 0, Util.MOONTAIN_NUM),
+    MOONTAIN_22(new BlockPos(1992, 183, -866), 0, Util.MOONTAIN_NUM),
+    MOONTAIN_23(new BlockPos(1983, 183, -869), 0, Util.MOONTAIN_NUM),
+    MOONTAIN_24(new BlockPos(1969, 183, -983), 0, Util.MOONTAIN_NUM),
+    MOONTAIN_25(new BlockPos(1966, 183, -877), 0, Util.MOONTAIN_NUM),
+    MOONTAIN_26(new BlockPos(1983, 192, -866), 0, Util.MOONTAIN_NUM),
+    MOONTAIN_27(new BlockPos(1993, 191, -868), 2, Util.MOONTAIN_NUM),
+    MOONTAIN_28(new BlockPos(1992, 191, -885), 0, Util.MOONTAIN_NUM),
+    MOONTAIN_29(new BlockPos(1984, 191, -895), 0, Util.MOONTAIN_NUM),
+    MOONTAIN_30(new BlockPos(1971, 191, -891), 0, Util.MOONTAIN_NUM),
+    MOONTAIN_31(new BlockPos(1966, 191, -877), 0, Util.MOONTAIN_NUM),
+    MOONTAIN_32(new BlockPos(1981, 200, -893), 0, Util.MOONTAIN_NUM),
+    MOONTAIN_33(new BlockPos(1983, 200, -879), 3, Util.MOONTAIN_NUM),
+    MOONTAIN_34(new BlockPos(1995, 199, -864), 1, Util.MOONTAIN_NUM),
+    MOONTAIN_35(new BlockPos(1965, 199, -898), 0, Util.MOONTAIN_NUM),
+    MOONTAIN_36(new BlockPos(1965, 198, -880), 0, Util.MOONTAIN_NUM),
+    MOONTAIN_37(new BlockPos(1965, 199, -867), 0, Util.MOONTAIN_NUM),
+    MOONTAIN_38(new BlockPos(1983, 207, -866), 0, Util.MOONTAIN_NUM),
+    MOONTAIN_39(new BlockPos(1995, 207, -871), 0, Util.MOONTAIN_NUM),
+    MOONTAIN_40(new BlockPos(1971, 208, -893), 2, Util.MOONTAIN_NUM),
+    MOONTAIN_41(new BlockPos(1986, 208, -893), 0, Util.MOONTAIN_NUM),
+    MOONTAIN_42(new BlockPos(1979, 216, -895), 0, Util.MOONTAIN_NUM),
+    MOONTAIN_43(new BlockPos(1966, 215, -898), 0, Util.MOONTAIN_NUM),
+    MOONTAIN_44(new BlockPos(2000, 215, -885), 0, Util.MOONTAIN_NUM),
+    MOONTAIN_45(new BlockPos(1995, 216, -869), 1, Util.MOONTAIN_NUM),
+    MOONTAIN_46(new BlockPos(1980, 215, -871), 0, Util.MOONTAIN_NUM),
+    MOONTAIN_47(new BlockPos(1990, 223, -864), 0, Util.MOONTAIN_NUM),
+    MOONTAIN_48(new BlockPos(2001, 223, -864), 0, Util.MOONTAIN_NUM),
+    MOONTAIN_49(new BlockPos(2001, 223, -893), 1, Util.MOONTAIN_NUM),
+    MOONTAIN_50(new BlockPos(1983, 232, -896), 0, Util.MOONTAIN_NUM),
+    MOONTAIN_51(new BlockPos(1971, 232, -893), 1, Util.MOONTAIN_NUM),
+    MOONTAIN_52(new BlockPos(1974, 231, -877), 0, Util.MOONTAIN_NUM),
+    MOONTAIN_53(new BlockPos(1990, 231, -864), 0, Util.MOONTAIN_NUM),
+    MOONTAIN_54(new BlockPos(2000, 231, -885), 0, Util.MOONTAIN_NUM),
+    MOONTAIN_55(new BlockPos(1983, 231, -869), 0, Util.MOONTAIN_NUM),
+    MOONTAIN_56(new BlockPos(1983, 239, -899), 2, Util.MOONTAIN_NUM),
+    MOONTAIN_57(new BlockPos(2001, 239, -881), 2, Util.MOONTAIN_NUM),
+    MOONTAIN_58(new BlockPos(1965, 239, -881), 2, Util.MOONTAIN_NUM),
+    MOONTAIN_59(new BlockPos(1983, 239, -863), 2, Util.MOONTAIN_NUM),
+    MOONTAIN_60(new BlockPos(1983, 261, -881), 3, Util.MOONTAIN_NUM),
+
+
     // 测试箱
     TEST_0(new BlockPos(962, 233, 13), 0, Util.DRUMSTICK_ZONE_NUM),
     TEST_1(new BlockPos(962, 233, 15), 1, Util.DRUMSTICK_ZONE_NUM),
@@ -721,6 +785,9 @@ public enum BonusChestInfo {
         public static final int SAKURA_ZONE_NUM = 5;
         public static final int NETHER_ZONE_NUM = 6;
         public static final int END_ZONE_NUM = 7;
+        public static final int MOONTAIN_NUM = 8;
+
+        public static final int MAX_ZONE_NUM = 8;
 
         public static final Map<Integer, Component> ZONE_NAME_MAP = new HashMap<>() {{
             put(0, Te.s("德朗斯蒂克", CustomStyle.styleOfWorld));
@@ -731,6 +798,7 @@ public enum BonusChestInfo {
             put(5, Te.s("绯樱岛", CustomStyle.styleOfSakura));
             put(6, Te.s("下界", CustomStyle.styleOfNether));
             put(7, Te.s("终界", CustomStyle.styleOfEnd));
+            put(8, Te.s("望山阁", CustomStyle.styleOfMoontain));
         }};
 
         public static final Map<Integer, Component> TIER_NAME_MAP = new HashMap<>() {{

@@ -47,7 +47,8 @@ public class TorturedSoulSpawnController extends MobSpawnController {
 
     public TorturedSoulSpawnController(List<Vec3> canSpawnPos, int oneZoneMaxMobNum, int boundaryUpX, int boundaryUpZ,
                                        int boundaryDownX, int boundaryDownZ, Level level, int mobPlayerRate, int averageLevel) {
-        super(canSpawnPos, oneZoneMaxMobNum, boundaryUpX, 210, boundaryUpZ, boundaryDownX, 188, boundaryDownZ, 0, 60, level, mobPlayerRate, averageLevel);
+        super(canSpawnPos, oneZoneMaxMobNum, boundaryUpX, 210, boundaryUpZ, boundaryDownX, 188,
+                boundaryDownZ, 0, 60, level, mobPlayerRate, averageLevel);
     }
 
     @Override
@@ -63,7 +64,7 @@ public class TorturedSoulSpawnController extends MobSpawnController {
 
         // 需要验证
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(boneImp), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(boneImp, 220, 3200, 200, 200, 0.4, 5, 0.3, 70, 25, 2000 * Math.pow(10, 4), 0.4);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(boneImp, 3200, 200, 200, 0.4, 5, 0.3, 70, 25, 2000 * Math.pow(10, 4), 0.4);
 
         // 设置物品
 

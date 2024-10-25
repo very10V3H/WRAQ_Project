@@ -42,30 +42,31 @@ public class MoontainItems {
             () -> new MoontainArmor(ItemMaterial.MOONTAIN, ArmorItem.Type.BOOTS,
                     new Item.Properties().rarity(CustomStyle.MOONTAIN_ITALIC)));
 
+    // 望山孤魂残躯
     public static final RegistryObject<Item> SOUL_FRAGMENT = ITEMS.register("moontain_soul_fragment",
-            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.MOONTAIN_BOLD), false, true));
-
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.MOONTAIN_BOLD), true, true));
+    // 望山魂革
     public static final RegistryObject<Item> LEATHER = ITEMS.register("moontain_leather",
-            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.MOONTAIN_BOLD), false, true));
-
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.MOONTAIN_BOLD), true, true));
+    // 望山阁灵落
     public static final RegistryObject<Item> FALLING_SOUL = ITEMS.register("moontain_falling_soul",
-            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.MOONTAIN_BOLD), false, true));
-
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.MOONTAIN_BOLD), true, true));
+    // 望山屑
     public static final RegistryObject<Item> FRAGMENT = ITEMS.register("moontain_fragment",
-            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.MOONTAIN), false, true));
-
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.MOONTAIN), true, true));
+    // 望山心屑
     public static final RegistryObject<Item> NUGGET = ITEMS.register("moontain_nugget",
-            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.MOONTAIN_ITALIC), false, true));
-
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.MOONTAIN_ITALIC), true, true));
+    // 衡望山之心
     public static final RegistryObject<Item> RING = ITEMS.register("moontain_heart",
-            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.MOONTAIN_ITALIC), false, true));
-
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.MOONTAIN_ITALIC), true, true));
+    // 望山母岩碎块
     public static final RegistryObject<Item> STONE_FRAGMENT = ITEMS.register("moontain_stone_fragment",
-            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.MOONTAIN_ITALIC), false, true));
-
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.MOONTAIN_ITALIC), true, true));
+    // 望山翡翠
     public static final RegistryObject<Item> JADEITE = ITEMS.register("moontain_jadeite",
-            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.MOONTAIN_ITALIC), false, true));
-
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.MOONTAIN_ITALIC), true, true));
+    // 望山碧玉
     public static final RegistryObject<Item> EMERALD = ITEMS.register("moontain_emerald",
-            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.MOONTAIN_ITALIC), false, true));
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.MOONTAIN_ITALIC), true, true));
 }

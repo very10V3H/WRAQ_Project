@@ -20,6 +20,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
@@ -96,7 +97,12 @@ public abstract class NoTeamInstance {
                 if (playerList.size() >= 4) summonTick -= (playerList.size() / 4 - 1);
                 tickModule();
                 for (Mob mob : mobList) {
-                    if (mob != null && mob.isAlive()) lastMob = mob;
+                    if (mob != null && mob.isAlive()) {
+                        if (mob.position().distanceTo(pos) > 30) {
+                            mob.moveTo(pos);
+                        }
+                        lastMob = mob;
+                    }
                 }
             }
         }
@@ -105,6 +111,10 @@ public abstract class NoTeamInstance {
     public abstract void tickModule();
 
     public abstract void summonModule(Level level);
+
+    public Item getSummonAndRewardNeedItem() {
+        return ModItems.notePaper.get();
+    }
 
     public void rewardNearPlayer(Level level) {
         List<Player> playerList = getPlayerList(level);
@@ -129,7 +139,7 @@ public abstract class NoTeamInstance {
                     } else {
                         Compute.sendFormatMSG(player, Component.literal("副本").withStyle(ChatFormatting.RED),
                                 Component.literal("你的背包中没有 ").withStyle(ChatFormatting.WHITE).
-                                        append(ModItems.notePaper.get().getDefaultInstance().getDisplayName()).
+                                        append(getSummonAndRewardNeedItem().getDefaultInstance().getDisplayName()).
                                         append(Component.literal(" 因此你无法获得奖励").withStyle(ChatFormatting.WHITE)));
                     }
                 }
@@ -137,23 +147,24 @@ public abstract class NoTeamInstance {
         });
     }
 
-    public static boolean playerHasItem(Player player) {
+    public boolean playerHasItem(Player player) {
         Inventory inventory = player.getInventory();
         for (int i = 0; i < inventory.getContainerSize(); i++) {
             ItemStack stack = inventory.getItem(i);
-            if (stack.is(ModItems.notePaper.get())) return true;
+            if (stack.is(getSummonAndRewardNeedItem())) return true;
         }
         return false;
     }
 
     public void summonLeftSecondsArmorStand(Level level) {
         if (!getPlayerList(level).isEmpty() && !inChallenge) {
-            List<ArmorStand> armorStandList = level.getEntitiesOfClass(ArmorStand.class, AABB.ofSize(armorStandPos, range * 2, range * 2, range * 2));
+            List<ArmorStand> armorStandList = level.getEntitiesOfClass(ArmorStand.class, AABB.ofSize(armorStandPos,
+                    8, 8, 8));
             armorStandList.forEach(armorStand -> armorStand.remove(Entity.RemovalReason.KILLED));
             int tick = Tick.get();
             if (tick > summonTick) {
                 summonArmorStand(level, new Vec3(0, -0.25, 0), Te.s("手持",
-                        ModItems.notePaper.get().getDefaultInstance().getDisplayName(), "右键以召唤", ChatFormatting.AQUA));
+                        getSummonAndRewardNeedItem().getDefaultInstance().getDisplayName(), "右键以召唤", ChatFormatting.AQUA));
             } else {
                 summonArmorStand(level, new Vec3(0, -0.25, 0), Component.literal("剩余:").withStyle(ChatFormatting.WHITE).
                         append(Component.literal(String.valueOf((summonTick - tick) / 20)).withStyle(ChatFormatting.WHITE)).
@@ -184,6 +195,13 @@ public abstract class NoTeamInstance {
     public List<Player> getPlayerList(Level level) {
         List<Player> playerList = level.getEntitiesOfClass(Player.class, AABB.ofSize(pos, range * 2, range * 2, range * 2));
         playerList.removeIf(player -> player.position().distanceTo(pos) > range);
+        if (!mobList.isEmpty()) {
+            for (Mob mob : mobList) {
+                playerList.addAll(level.getEntitiesOfClass(Player.class, AABB.ofSize(mob.position(),
+                        range * 2, range * 2, range * 2))
+                        .stream().filter(player -> player.distanceTo(mob) < range).toList());
+            }
+        }
         return playerList;
     }
 

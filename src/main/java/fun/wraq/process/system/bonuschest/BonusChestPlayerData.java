@@ -39,9 +39,8 @@ public class BonusChestPlayerData {
         return ZONE_INFO_KEY + zoneNum;
     }
 
-    private static final int MAX_ZONE_NUM = 7;
     private static String getZoneInfo(Player player, int zoneNum) {
-        if (zoneNum > MAX_ZONE_NUM) {
+        if (zoneNum > BonusChestInfo.Util.MAX_ZONE_NUM) {
             player.sendSystemMessage(
                     Te.m("看到此信息请联系管理员!奖励箱错误：zoneNum = " + zoneNum));
             return "1".repeat(EACH_ZONE_MAX_CHEST_NUM);
@@ -61,7 +60,7 @@ public class BonusChestPlayerData {
     }
 
     public static void resetAllZoneInfo(Player player) {
-        for (int i = 0 ; i <= MAX_ZONE_NUM ; i ++) {
+        for (int i = 0 ; i <= BonusChestInfo.Util.MAX_ZONE_NUM ; i ++) {
             setZoneInfo(player, i, ORIGIN_INFO_STRING);
         }
         sendMSG(player, Te.s("奖励箱已被刷新！", ChatFormatting.WHITE));

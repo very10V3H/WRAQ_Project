@@ -10,7 +10,6 @@ import net.minecraft.world.phys.Vec3;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public abstract class MobSpawnController {
     public List<Mob> mobList = new ArrayList<>();
@@ -49,47 +48,26 @@ public abstract class MobSpawnController {
         this.level = level;
         this.mobPlayerRate = mobPlayerRate;
         this.averageLevel = averageLevel;
-
     }
 
     public MobSpawnController(List<Vec3> canSpawnPos, int oneZoneMaxMobNum,
                               int boundaryUpX, int boundaryUpZ, int boundaryDownX, int boundaryDownZ,
                               int detectionRange, Level level, int mobPlayerRate, int averageLevel) {
-        this.canSpawnPos = canSpawnPos;
-        this.oneZoneMaxMobNum = oneZoneMaxMobNum;
-        this.boundaryUpX = boundaryUpX;
-        this.boundaryUpY = Integer.MAX_VALUE;
-        this.boundaryUpZ = boundaryUpZ;
-        this.boundaryDownX = boundaryDownX;
-        this.boundaryDownY = -Integer.MAX_VALUE;
-        this.boundaryDownZ = boundaryDownZ;
-        this.summonOffset = 1;
-        this.detectionRange = detectionRange;
-        this.level = level;
-        this.mobPlayerRate = mobPlayerRate;
-        this.averageLevel = averageLevel;
+        this(canSpawnPos, oneZoneMaxMobNum, boundaryUpX, Integer.MAX_VALUE, boundaryUpZ,
+                boundaryDownX, -Integer.MAX_VALUE, boundaryDownZ, 1, detectionRange,
+                level, mobPlayerRate, averageLevel);
     }
 
     public MobSpawnController(List<Vec3> canSpawnPos, int oneZoneMaxMobNum,
                               int detectionRange, Level level, int mobPlayerRate, int averageLevel,
                               List<Boundary> multiBoundaryList) {
-        this.canSpawnPos = canSpawnPos;
-        this.oneZoneMaxMobNum = oneZoneMaxMobNum;
-        this.boundaryUpX = Integer.MAX_VALUE;
-        this.boundaryUpY = Integer.MAX_VALUE;
-        this.boundaryUpZ = Integer.MAX_VALUE;
-        this.boundaryDownX = -Integer.MAX_VALUE;
-        this.boundaryDownY = -Integer.MAX_VALUE;
-        this.boundaryDownZ = -Integer.MAX_VALUE;
-        this.summonOffset = 1;
-        this.detectionRange = detectionRange;
-        this.level = level;
-        this.mobPlayerRate = mobPlayerRate;
-        this.averageLevel = averageLevel;
+        this(canSpawnPos, oneZoneMaxMobNum, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE,
+                -Integer.MAX_VALUE, -Integer.MAX_VALUE, -Integer.MAX_VALUE, 1, detectionRange,
+                level, mobPlayerRate, averageLevel);
         this.multiBoundaryList = multiBoundaryList;
     }
 
-    public <T> void detectAndSpawn() {
+    public void detectAndSpawn() {
         mobList.removeIf(mob -> !mob.isAlive());
 
         // 若怪物越过边界 则将怪物随机传送至可重生地点
@@ -114,22 +92,24 @@ public abstract class MobSpawnController {
             }
         });
 
-        AtomicBoolean thisZoneHasPlayer = new AtomicBoolean(false);
+        // 对每个刷新点附近进行探测，若满足生成条件，则生成
         canSpawnPos.forEach(pos -> {
+            // 该点探测附近玩家列表
             List<Player> playerList = level.getEntitiesOfClass(Player.class, AABB.ofSize(pos,
-                    detectionRange, detectionRange, detectionRange));
-            for (Player player : playerList) {
-                if (player.position().distanceTo(pos) < 4) {
-                    thisZoneHasPlayer.set(true);
-                    return;
-                }
-            }
-            List<Mob> mobList = level.getEntitiesOfClass(Mob.class, AABB.ofSize(pos,
-                    detectionRange, detectionRange, detectionRange));
-            mobList.removeIf(mob -> !this.mobList.contains(mob));
-            if (!playerList.isEmpty()) thisZoneHasPlayer.set(true);
-            else return;
-            // 若区域内怪物与玩家比较小且怪物数量不超过上限 则生成
+                    detectionRange * 2, detectionRange * 2, detectionRange * 2))
+                    .stream().filter(player -> player.position().distanceTo(pos) < detectionRange)
+                    .toList();
+            if (playerList.isEmpty()) return;
+
+            // 该点探测附近怪物列表
+            List<Mob> mobList = this.mobList
+                    .stream().filter(mob -> mob.position().distanceTo(pos) < detectionRange)
+                    .toList();
+
+            // 玩家距离此刷新点距离小于4格则不生成怪物
+            if (playerList.stream().anyMatch(player -> player.position().distanceTo(pos) < 4)) return;
+
+            // 若该点附近怪物与玩家比较小且怪物数量不超过上限 则生成
             if (mobList.size() * 1.0 / playerList.size() < mobPlayerRate && this.mobList.size() < oneZoneMaxMobNum) {
                 int summonTimes = 1;
                 if (canSpawnPos.size() == 1) {
@@ -140,8 +120,11 @@ public abstract class MobSpawnController {
                     Random r = new Random();
                     Vec3 offset = Vec3.ZERO;
                     if (summonOffset > 0) {
-                        offset = new Vec3(r.nextDouble(summonOffset) - summonOffset / 2,
-                                r.nextDouble(summonOffset) - summonOffset / 2, r.nextDouble(summonOffset) - summonOffset / 2);
+                        offset = new Vec3(
+                                r.nextDouble(summonOffset) - summonOffset / 2,
+                                r.nextDouble(summonOffset) - summonOffset / 2,
+                                r.nextDouble(summonOffset) - summonOffset / 2
+                        );
                     }
                     mob.moveTo(pos.add(0.5, 0.5, 0.5).add(offset));
                     this.mobList.add(mob);
@@ -150,10 +133,13 @@ public abstract class MobSpawnController {
             }
         });
 
-        // 若该区域全部检测范围内无玩家，则移除所有怪物
-        if (!thisZoneHasPlayer.get()) {
-            mobList.forEach(mob -> mob.remove(Entity.RemovalReason.KILLED));
-        }
+        // 移除距离玩家过远的怪物
+        mobList.forEach(mob -> {
+            if (mob.getServer().getPlayerList().getPlayers()
+                    .stream().allMatch(player -> player.distanceTo(mob) > 32)) {
+                mob.remove(Entity.RemovalReason.KILLED);
+            }
+        });
     }
 
     // 生成怪物

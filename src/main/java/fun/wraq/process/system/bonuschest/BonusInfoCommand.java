@@ -16,7 +16,7 @@ public class BonusInfoCommand implements Command<CommandSourceStack> {
         Player player = context.getSource().getPlayer();
         if (player == null) return 0;
         player.sendSystemMessage(Te.s("奖励箱明细:"));
-        for (int i = 0 ; i <= 7 ; i ++) {
+        for (int i = 0 ; i <= BonusChestInfo.Util.MAX_ZONE_NUM ; i ++) {
             player.sendSystemMessage(Te.s(BonusChestInfo.Util.ZONE_NAME_MAP.get(i), "区域",
                     " " + BonusChestPlayerData.getZoneCount(player, i)));
         }

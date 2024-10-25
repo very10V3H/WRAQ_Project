@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "vmd:item/moontain_soul_falling"
+    "layer0": "vmd:item/moontain_falling_soul"
   }
 }

@@ -6,7 +6,6 @@ import fun.wraq.common.registry.ModEntityType;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
-import fun.wraq.events.mob.instance.NoTeamInstance;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.system.teamInstance.NewTeamInstance;
@@ -26,6 +25,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.WitherSkeleton;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
@@ -199,8 +199,7 @@ public class NewCastleInstance extends NewTeamInstance {
 
     @Override
     public void reward(Player player) {
-        if (NoTeamInstance.playerHasItem(player)) {
-            InventoryOperation.removeItem(player.getInventory(), ModItems.notePaper.get(), 1);
+        if (InventoryOperation.checkItemRemoveIfHas(player, List.of(new ItemStack(ModItems.notePaper.get())))) {
 
             getRewardList().forEach(itemAndRate -> {
                 try {

@@ -49,6 +49,9 @@ public class NoTeamInstanceModule {
         add(PurpleIronInstance.getInstance());
         add(SakuraBossInstance.getInstance());
         add(IceInstance.getInstance());
+        add(MoontainBoss1Instance.getInstance());
+        add(MoontainBoss2Instance.getInstance());
+        add(MoontainBoss3Instance.getInstance());
     }};
 
     public static List<fun.wraq.events.mob.instance.NoTeamInstance> noTeamInstancesNether = new ArrayList<>() {{
@@ -61,7 +64,7 @@ public class NoTeamInstanceModule {
             Level overworld = event.level.getServer().getLevel(Level.OVERWORLD);
             int tick = level.getServer().getTickCount();
             if (level.equals(overworld)) {
-                for (fun.wraq.events.mob.instance.NoTeamInstance noTeamInstance : noTeamInstancesOverworld) {
+                for (NoTeamInstance noTeamInstance : noTeamInstancesOverworld) {
                     if (hasPlayerNearInstance(level, noTeamInstance)) {
                         noTeamInstance.detectAndSummon(level);
                         noTeamInstance.tickModule();
@@ -73,7 +76,7 @@ public class NoTeamInstanceModule {
                 }
             }
             if (level.dimension().equals(Level.NETHER)) {
-                for (fun.wraq.events.mob.instance.NoTeamInstance noTeamInstance : noTeamInstancesNether) {
+                for (NoTeamInstance noTeamInstance : noTeamInstancesNether) {
                     if (hasPlayerNearInstance(level, noTeamInstance)) {
                         noTeamInstance.detectAndSummon(level);
                         noTeamInstance.tickModule();
