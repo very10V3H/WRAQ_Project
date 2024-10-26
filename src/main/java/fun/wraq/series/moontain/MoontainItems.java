@@ -51,16 +51,16 @@ public class MoontainItems {
     // 望山阁灵落
     public static final RegistryObject<Item> FALLING_SOUL = ITEMS.register("moontain_falling_soul",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.MOONTAIN_BOLD), true, true));
-    // 望山屑
+    // 望山屑 - 武器
     public static final RegistryObject<Item> FRAGMENT = ITEMS.register("moontain_fragment",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.MOONTAIN), true, true));
-    // 望山心屑
+    // 望山心屑 - 防具
     public static final RegistryObject<Item> NUGGET = ITEMS.register("moontain_nugget",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.MOONTAIN_ITALIC), true, true));
-    // 衡望山之心
+    // 衡望山之心 - 召唤物
     public static final RegistryObject<Item> RING = ITEMS.register("moontain_heart",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.MOONTAIN_ITALIC), true, true));
-    // 望山母岩碎块
+    // 望山母岩碎块 - common drops
     public static final RegistryObject<Item> STONE_FRAGMENT = ITEMS.register("moontain_stone_fragment",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.MOONTAIN_ITALIC), true, true));
     // 望山翡翠

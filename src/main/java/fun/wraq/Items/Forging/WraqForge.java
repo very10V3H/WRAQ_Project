@@ -121,16 +121,19 @@ public class WraqForge extends Item {
             });
 
             // 前置条件判定
-            List<Item> iceKnightEquips = List.of(ModItems.IceSword.get(), ModItems.IceBow.get(), ModItems.IceSceptre.get(),
-                    ModItems.IceArmorHelmet.get(), ModItems.IceArmorChest.get(), ModItems.IceArmorLeggings.get(), ModItems.IceArmorBoots.get());
-            List<Item> moonEquips = List.of(ModItems.MoonSword.get(), ModItems.MoonBow.get(), ModItems.MoonSceptre.get(),
-                    ModItems.MoonHelmet.get(), ModItems.MoonLeggings.get());
-            if (iceKnightEquips.contains(productItemStack.getItem())) {
+            Item item = productItemStack.getItem();
+            List<Item> iceKnightEquips = List.of(ModItems.IceSword.get(), ModItems.IceBow.get(), ModItems.IceSceptre.get());
+            List<Item> moonEquips = List.of(ModItems.MoonSword.get(), ModItems.MoonBow.get(), ModItems.MoonSceptre.get());
+            List<Item> castleEquips = List.of(ModItems.CastleSword.get(), ModItems.CastleBow.get(), ModItems.CastleSceptre.get());
+            if (iceKnightEquips.contains(item)) {
                 NoTeamInstanceModule.putPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.sakuraBoss, true);
                 NoTeamInstanceModule.putPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.devil, true);
             }
-            if (moonEquips.contains(productItemStack.getItem())) {
+            if (moonEquips.contains(item)) {
                 NoTeamInstanceModule.putPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.blackCastle, true);
+            }
+            if (castleEquips.contains(item)) {
+                NoTeamInstanceModule.putPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.moontainBoss, true);
             }
 
 

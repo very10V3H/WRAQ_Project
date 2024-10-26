@@ -3,12 +3,14 @@ package fun.wraq.events.mob.instance;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.events.mob.instance.instances.*;
+import fun.wraq.series.moontain.MoontainItems;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.TickEvent;
 
@@ -26,6 +28,7 @@ public class NoTeamInstanceModule {
         public static String devil = "allowRewardDevil";
         public static String moon = "allowRewardMoon";
         public static String blackCastle = "allowRewardBlackCastle";
+        public static String moontainBoss = "allowRewardMoontainBoss";
     }
 
     public static boolean getPlayerAllowReward(Player player, String tag) {
@@ -107,17 +110,21 @@ public class NoTeamInstanceModule {
     }
 
     public static void handlePlayerRightClick(Player player) {
-        if ((player.getMainHandItem().is(ModItems.notePaper.get()))) {
+        if ((player.getMainHandItem().is(ModItems.notePaper.get()))
+                || player.getMainHandItem().is(MoontainItems.RING.get())) {
+            Item item = player.getMainHandItem().getItem();
             if (player.level().dimension().equals(Level.OVERWORLD)) {
                 noTeamInstancesOverworld.forEach(instance -> {
-                    if (player.position().distanceTo(instance.pos) < 4 && Tick.get() > instance.summonTick) {
+                    if (instance.getSummonAndRewardNeedItem().equals(item)
+                            && player.position().distanceTo(instance.pos) < 4 && Tick.get() > instance.summonTick) {
                         instance.ready = true;
                     }
                 });
             }
             if (player.level().dimension().equals(Level.NETHER)) {
                 noTeamInstancesNether.forEach(instance -> {
-                    if (player.position().distanceTo(instance.pos) < 4 && Tick.get() > instance.summonTick) {
+                    if (instance.getSummonAndRewardNeedItem().equals(item)
+                            && player.position().distanceTo(instance.pos) < 4 && Tick.get() > instance.summonTick) {
                         instance.ready = true;
                     }
                 });

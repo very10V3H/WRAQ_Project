@@ -58,10 +58,10 @@ public class MoontainBoss3Instance extends NoTeamInstance {
 
         MobSpawn.setMobCustomName(entity, Component.literal(mobName).withStyle(style), 215);
 
-        MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(entity), 215);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(entity, 1500, 110, 110,
-                0.4, 4, 0.25, 50, 20,
-                500 * Math.pow(10, 4), 0.35);
+        MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(entity), 240);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(entity, 3800, 240, 240,
+                0.4, 5, 0.3, 90, 25,
+                4000 * Math.pow(10, 4), 0.45);
 
         entity.setHealth(entity.getMaxHealth());
 
@@ -91,7 +91,7 @@ public class MoontainBoss3Instance extends NoTeamInstance {
 
     @Override
     public boolean allowReward(Player player) {
-        return NoTeamInstanceModule.getPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.sakuraBoss);
+        return NoTeamInstanceModule.getPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.moontainBoss);
     }
 
     @Override
@@ -100,18 +100,19 @@ public class MoontainBoss3Instance extends NoTeamInstance {
                 append(Component.literal("锻造").withStyle(ChatFormatting.GRAY)).
                 append(Component.literal("过").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("1件").withStyle(ChatFormatting.AQUA)).
-                append(Component.literal("冰霜骑士装备").withStyle(CustomStyle.styleOfIce)).
+                append(Component.literal("暗黑城堡武器").withStyle(CustomStyle.styleOfCastleCrystal)).
                 append(Component.literal("，方能获取奖励。").withStyle(ChatFormatting.WHITE));
     }
 
     public static List<ItemAndRate> getRewardList() {
         return List.of(new ItemAndRate(ModItems.Boss2Piece.get(), 1),
+                new ItemAndRate(MoontainItems.STONE_FRAGMENT.get(), 16),
                 new ItemAndRate(ModItems.WorldSoul2.get(), 0.25),
                 new ItemAndRate(ModItems.GoldCoinBag.get(), 0.1));
     }
 
     @Override
     public Item getSummonAndRewardNeedItem() {
-        return MoontainItems.NUGGET.get();
+        return MoontainItems.RING.get();
     }
 }

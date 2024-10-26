@@ -36,7 +36,8 @@ public class MoontainFloorTitle {
                 playerLastFloorMap.put(player, nearFloor);
                 Compute.setPlayerTitleAndSubTitle((ServerPlayer) player,
                         Te.s("望山阁" + (nearFloor) + "层", CustomStyle.styleOfMoontain),
-                        Te.s(getFloorContent(nearFloor) + "出没", CustomStyle.styleOfMoontain));
+                        Te.s(getFloorContent(nearFloor) + " - 所在", CustomStyle.styleOfMoontain),
+                        10, 20, 10);
             }
         }
     }
@@ -44,10 +45,10 @@ public class MoontainFloorTitle {
     private static String getFloorContent(int floor) {
         switch (floor) {
             case 0, 1, 7 -> {
-                return  "望山孤魂";
+                return "望山孤魂";
             }
             case 2, 3, 9 -> {
-                return  "望山魂驹";
+                return "望山魂驹";
             }
             case 4, 5, 10 -> {
                 return "望山阁灵";

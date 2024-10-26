@@ -5,7 +5,7 @@ import fun.wraq.common.util.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.MobSpawnController;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.overworld.chapter7.C7Items;
+import fun.wraq.series.moontain.MoontainItems;
 import net.mcreator.borninchaosv.entity.SenorPumpkinEntity;
 import net.mcreator.borninchaosv.init.BornInChaosV1ModEntities;
 import net.minecraft.network.chat.Component;
@@ -51,7 +51,7 @@ public class MoontainCommon3SpawnController extends MobSpawnController {
             instance = new MoontainCommon3SpawnController(spawnPos,
                     (int) MoontainEntities.commonUpPos.x, (int) MoontainEntities.commonUpPos.y, (int) MoontainEntities.commonUpPos.z,
                     (int) MoontainEntities.commonDownPos.x, (int) MoontainEntities.commonDownPos.y, (int) MoontainEntities.commonDownPos.z,
-                    world, 160);
+                    world, 190);
         }
         return instance;
     }
@@ -73,9 +73,9 @@ public class MoontainCommon3SpawnController extends MobSpawnController {
         MobSpawn.setMobCustomName(senorPumpkinEntity, Component.literal(mobName).withStyle(style), xpLevel);
 
         // 需要验证
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(senorPumpkinEntity, xpLevel, 3200, 200,
-                200, 0.4, 5, 0.3, 70, 25,
-                2000 * Math.pow(10, 4), 0.4);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(senorPumpkinEntity, xpLevel, 2400, 160,
+                160, 0.4, 5, 0.3, 55, 20,
+                400 * Math.pow(10, 4), 0.45);
 
         // 设置物品
 
@@ -94,7 +94,8 @@ public class MoontainCommon3SpawnController extends MobSpawnController {
 
     public static List<ItemAndRate> getDropList() {
         return new ArrayList<>() {{
-            add(new ItemAndRate(C7Items.vdSoul.get(), 0.1));
+            add(new ItemAndRate(MoontainItems.FALLING_SOUL.get(), 0.1));
+            add(new ItemAndRate(MoontainItems.STONE_FRAGMENT.get(), 1));
             add(new ItemAndRate(ModItems.silverCoin.get(), 1));
             add(new ItemAndRate(ModItems.gemPiece.get(), 0.06));
         }};

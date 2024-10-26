@@ -5,7 +5,7 @@ import fun.wraq.common.util.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.MobSpawnController;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.overworld.chapter7.C7Items;
+import fun.wraq.series.moontain.MoontainItems;
 import net.mcreator.borninchaosv.entity.MrPumpkinEntity;
 import net.mcreator.borninchaosv.init.BornInChaosV1ModEntities;
 import net.minecraft.network.chat.Component;
@@ -71,9 +71,9 @@ public class MoontainCommon1SpawnController extends MobSpawnController {
         MobSpawn.setMobCustomName(mrPumpkin, Component.literal(mobName).withStyle(style), xpLevel);
 
         // 需要验证
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(mrPumpkin, xpLevel, 3200, 200,
-                200, 0.4, 5, 0.3, 70, 25,
-                2000 * Math.pow(10, 4), 0.4);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(mrPumpkin, xpLevel, 1600, 130,
+                130, 0.4, 4, 0.3, 45, 20,
+                250 * Math.pow(10, 4), 0.35);
 
         // 设置物品
 
@@ -92,8 +92,9 @@ public class MoontainCommon1SpawnController extends MobSpawnController {
 
     public static List<ItemAndRate> getDropList() {
         return new ArrayList<>() {{
-            add(new ItemAndRate(C7Items.vdSoul.get(), 0.1));
-            add(new ItemAndRate(ModItems.silverCoin.get(), 1));
+            add(new ItemAndRate(MoontainItems.SOUL_FRAGMENT.get(), 0.1));
+            add(new ItemAndRate(MoontainItems.STONE_FRAGMENT.get(), 0.8));
+            add(new ItemAndRate(ModItems.silverCoin.get(), 0.8));
             add(new ItemAndRate(ModItems.gemPiece.get(), 0.06));
         }};
     }

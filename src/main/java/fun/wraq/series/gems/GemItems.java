@@ -306,13 +306,6 @@ public class GemItems {
     public static final RegistryObject<Item> moonManaGemO = ITEMS.register("moon_mana_gem_o",
             () -> new WraqGem.WraqGemO((WraqGem) moonManaGem.get(), 3));
 
-    public static final RegistryObject<Item> TEST_GEM = ITEMS.register("test_gem",
-            () -> new WraqGem(new Item.Properties().rarity(CustomStyle.Moon1Bold), new ArrayList<>() {{
-                add(new WraqGem.AttributeMapValue(Utils.defence, 4));
-                add(new WraqGem.AttributeMapValue(Utils.manaDamage, 120));
-            }}, CustomStyle.styleOfMoon1, Component.literal("测试宝石").withStyle(CustomStyle.styleOfMoon1),
-                    ComponentUtils.getSuffixOfMoon()));
-
     public static final RegistryObject<Item> OPEN_SLOT = ITEMS.register("open_slot",
             () -> new WraqItem(new Item.Properties().rarity(Rarity.UNCOMMON), false, false, List.of(
                     Te.s("用于", "武器宝石孔 - 1 与 防具宝石孔 - 1", ChatFormatting.LIGHT_PURPLE, "的开孔")
