@@ -140,11 +140,15 @@ public class CustomStyle {
         return style.applyFormat(ChatFormatting.GOLD).withBold(true);
     });
 
-    public static Rarity WorldBold = Rarity.create("world", style -> {
+    public static Rarity World = Rarity.create("world", style -> {
+        return style.withColor(TextColor.parseColor("#9ef7ff"));
+    });
+
+    public static Rarity WorldBold = Rarity.create("world_bold", style -> {
         return style.withColor(TextColor.parseColor("#9ef7ff")).withBold(true);
     });
 
-    public static Rarity WorldItalic = Rarity.create("world", style -> {
+    public static Rarity WorldItalic = Rarity.create("world_italic", style -> {
         return style.withColor(TextColor.parseColor("#9ef7ff")).withItalic(true);
     });
 

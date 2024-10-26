@@ -1,6 +1,5 @@
 package fun.wraq.commands.changeable;
 
-import fun.wraq.commands.changeable.PrefixCommand;
 import fun.wraq.common.Compute;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -19,7 +18,7 @@ public class PrefixPaperItem extends Item {
     private final Style style;
     public PrefixPaperItem(Properties properties, String tag, String prefix, Style style) {
         super(properties);
-        fun.wraq.commands.changeable.PrefixCommand.simplePrefixTypeList.add(new fun.wraq.commands.changeable.PrefixCommand.SimpleFlagPrefixType(tag, prefix, style));
+        PrefixCommand.getSimplePrefixTypeList().add(new PrefixCommand.SimpleFlagPrefixType(tag, prefix, style));
         this.tag = tag;
         this.prefix = prefix;
         this.style = style;

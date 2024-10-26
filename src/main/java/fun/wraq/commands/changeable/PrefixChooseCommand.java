@@ -4,7 +4,6 @@ import com.mojang.brigadier.Command;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import fun.wraq.commands.changeable.PrefixCommand;
 import fun.wraq.common.Compute;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
@@ -33,11 +32,11 @@ public class PrefixChooseCommand implements Command<CommandSourceStack> {
             flag = false;
         }
 
-        for (fun.wraq.commands.changeable.PrefixCommand.PrefixCondition prefixCondition : fun.wraq.commands.changeable.PrefixCommand.simplePrefixTypeList) {
+        for (PrefixCommand.PrefixCondition prefixCondition : PrefixCommand.getSimplePrefixTypeList()) {
             if (prefixCondition.matchCondition(player) == 1) {
                 count++;
                 if (chooseCount == count) {
-                    data.putString(fun.wraq.commands.changeable.PrefixCommand.prefix, prefixCondition.getPrefixDescription());
+                    data.putString(PrefixCommand.prefix, prefixCondition.getPrefixDescription());
                     data.putString(PrefixCommand.prefixColor, String.valueOf(prefixCondition.getStyle().getColor()));
                     Compute.sendFormatMSG(player, Component.literal("称号").withStyle(ChatFormatting.GOLD),
                             Component.literal("已激活称号").withStyle(ChatFormatting.WHITE).

@@ -155,100 +155,106 @@ public class PrefixCommand implements Command<CommandSourceStack> {
         return true;
     }
 
-    public static List<PrefixCondition> simplePrefixTypeList = List.of(
-            new SimplePrefixType(PlainZombieSpawnController.mobName, 1000, "平原统治者", CustomStyle.styleOfPlain),
-            new SimplePrefixType(ForestZombieSpawnController.mobName, 1000, "森林统治者", CustomStyle.styleOfForest),
-            new SimplePrefixType(LakeDrownSpawnController.mobName, 1000, "河流统治者", CustomStyle.styleOfLake),
-            new SimplePrefixType(MineSkeletonSpawnController.mobName, 1000, "矿洞统治者", CustomStyle.styleOfMine),
-            new SimplePrefixType(SpiderSpawnController.mobName, 1000, "雨林统治者", CustomStyle.styleOfSpider),
+    public static List<PrefixCondition> getSimplePrefixTypeList() {
+        if (simplePrefixTypeList.isEmpty()) {
+            simplePrefixTypeList = new ArrayList<>(List.of(
+                    new SimplePrefixType(PlainZombieSpawnController.mobName, 1000, "平原统治者", CustomStyle.styleOfPlain),
+                    new SimplePrefixType(ForestZombieSpawnController.mobName, 1000, "森林统治者", CustomStyle.styleOfForest),
+                    new SimplePrefixType(LakeDrownSpawnController.mobName, 1000, "河流统治者", CustomStyle.styleOfLake),
+                    new SimplePrefixType(MineSkeletonSpawnController.mobName, 1000, "矿洞统治者", CustomStyle.styleOfMine),
+                    new SimplePrefixType(SpiderSpawnController.mobName, 1000, "雨林统治者", CustomStyle.styleOfSpider),
 
-            new SimplePrefixType(PlainInstance.mobName, 320, "生机焕发", CustomStyle.styleOfLife),
-            new SimplePrefixType(FireLightSpawnController.mobName, 1000, "焰芒虫天敌", CustomStyle.styleOfFire),
-            new SimplePrefixType(EvokerSpawnController.mobName, 1000, "净魔者", CustomStyle.styleOfMana),
-            new SimplePrefixType(LumberJackSpawnController.mobName, 1000, "伐伐伐伐伐木工", CustomStyle.styleOfHusk),
-            new SimplePrefixType(DreadHoundSpawnController.mobName, 1000, "群狼之首", CustomStyle.styleOfForest),
-            new SimplePrefixType(SkyVexSpawnController.mobName, 1000, "天空城授卫", CustomStyle.styleOfSky),
-            new SimplePrefixType(SlimeSpawnController.mobName, 1000, "史莱姆的好伙伴(?)", CustomStyle.styleOfLife),
-            new SimplePrefixType(JorogumoSpawnController.mobName, 1000, "紫水晶之辉", CustomStyle.styleOfPurpleIron),
-            new SimplePrefixType(SnowStraySpawnController.mobName, 1000, "冰川统治者", CustomStyle.styleOfIce),
-            new SimplePrefixType(NetherInstance.mobName, 320, "焰烬魂燃", CustomStyle.styleOfPower),
+                    new SimplePrefixType(PlainInstance.mobName, 320, "生机焕发", CustomStyle.styleOfLife),
+                    new SimplePrefixType(FireLightSpawnController.mobName, 1000, "焰芒虫天敌", CustomStyle.styleOfFire),
+                    new SimplePrefixType(EvokerSpawnController.mobName, 1000, "净魔者", CustomStyle.styleOfMana),
+                    new SimplePrefixType(LumberJackSpawnController.mobName, 1000, "伐伐伐伐伐木工", CustomStyle.styleOfHusk),
+                    new SimplePrefixType(DreadHoundSpawnController.mobName, 1000, "群狼之首", CustomStyle.styleOfForest),
+                    new SimplePrefixType(SkyVexSpawnController.mobName, 1000, "天空城授卫", CustomStyle.styleOfSky),
+                    new SimplePrefixType(SlimeSpawnController.mobName, 1000, "史莱姆的好伙伴(?)", CustomStyle.styleOfLife),
+                    new SimplePrefixType(JorogumoSpawnController.mobName, 1000, "紫水晶之辉", CustomStyle.styleOfPurpleIron),
+                    new SimplePrefixType(SnowStraySpawnController.mobName, 1000, "冰川统治者", CustomStyle.styleOfIce),
+                    new SimplePrefixType(NetherInstance.mobName, 320, "焰烬魂燃", CustomStyle.styleOfPower),
 
-            new SimplePrefixType(WindSkeletonSpawnController.mobName, 1000, "风抹层丛", CustomStyle.styleOfWind),
-            new SimplePrefixType(HuskSpawnController.mobName, 1000, "岩裂石隙", CustomStyle.styleOfHusk),
-            new SimplePrefixType(LightningZombieController.mobName, 1000, "雷光辐照", CustomStyle.styleOfLightning),
-            new SimplePrefixType(GuardianSpawnController.mobName, 1000, "远古神殿清道夫", CustomStyle.styleOfSea),
-            new SimplePrefixType(PurpleIronInstance.mobName, 320, "紫水晶之耀", CustomStyle.styleOfPurpleIron),
-            new SimplePrefixType(IceInstance.mobName, 320, "迷阵之玉", CustomStyle.styleOfIce),
+                    new SimplePrefixType(WindSkeletonSpawnController.mobName, 1000, "风抹层丛", CustomStyle.styleOfWind),
+                    new SimplePrefixType(HuskSpawnController.mobName, 1000, "岩裂石隙", CustomStyle.styleOfHusk),
+                    new SimplePrefixType(LightningZombieController.mobName, 1000, "雷光辐照", CustomStyle.styleOfLightning),
+                    new SimplePrefixType(GuardianSpawnController.mobName, 1000, "远古神殿清道夫", CustomStyle.styleOfSea),
+                    new SimplePrefixType(PurpleIronInstance.mobName, 320, "紫水晶之耀", CustomStyle.styleOfPurpleIron),
+                    new SimplePrefixType(IceInstance.mobName, 320, "迷阵之玉", CustomStyle.styleOfIce),
 
-            new SimplePrefixType(WitherSkeletonSpawnController.mobName, 1000, "凋零灵魂收集者", CustomStyle.styleOfWither),
-            new SimplePrefixType(MagmaSpawnController.mobName, 1000, "熔岩能量收割者", CustomStyle.styleOfPower),
-            new SimplePrefixType(NetherSkeletonSpawnController.mobName, 1000, "下界猎颅者", CustomStyle.styleOfNether),
-            new SimplePrefixType(PiglinSpawnController.mobName, 1000, "拒绝交易(?)", CustomStyle.styleOfGold),
+                    new SimplePrefixType(WitherSkeletonSpawnController.mobName, 1000, "凋零灵魂收集者", CustomStyle.styleOfWither),
+                    new SimplePrefixType(MagmaSpawnController.mobName, 1000, "熔岩能量收割者", CustomStyle.styleOfPower),
+                    new SimplePrefixType(NetherSkeletonSpawnController.mobName, 1000, "下界猎颅者", CustomStyle.styleOfNether),
+                    new SimplePrefixType(PiglinSpawnController.mobName, 1000, "拒绝交易(?)", CustomStyle.styleOfGold),
 
-            new SimplePrefixType(PillagerSpawnController.mobName, 1000, "远洋护卫", CustomStyle.styleOfShip),
-            new SimplePrefixType(BloodManaSpawnController.mobName, 1000, "旧世腥月封印者", CustomStyle.styleOfBloodMana),
-            new SimplePrefixType(EarthManaSpawnController.mobName, 1000, "旧世地蕴封印者", CustomStyle.styleOfJacaranda),
-            new SimplePrefixType(SakuraMobSpawnController.mobName, 1000, "隙之落樱", CustomStyle.styleOfSakura),
-            new SimplePrefixType(SakuraBossInstance.mobName, 320, "黄金大盗", CustomStyle.styleOfGold),
-            new SimplePrefixType(DevilInstance.mobName, 320, "旧世弑君者", CustomStyle.styleOfDemon),
+                    new SimplePrefixType(PillagerSpawnController.mobName, 1000, "远洋护卫", CustomStyle.styleOfShip),
+                    new SimplePrefixType(BloodManaSpawnController.mobName, 1000, "旧世腥月封印者", CustomStyle.styleOfBloodMana),
+                    new SimplePrefixType(EarthManaSpawnController.mobName, 1000, "旧世地蕴封印者", CustomStyle.styleOfJacaranda),
+                    new SimplePrefixType(SakuraMobSpawnController.mobName, 1000, "隙之落樱", CustomStyle.styleOfSakura),
+                    new SimplePrefixType(SakuraBossInstance.mobName, 320, "黄金大盗", CustomStyle.styleOfGold),
+                    new SimplePrefixType(DevilInstance.mobName, 320, "旧世弑君者", CustomStyle.styleOfDemon),
 
-            new SimplePrefixType(EnderManSpawnController.mobName, 1000, "终界入侵者", CustomStyle.styleOfEnd),
-            new SimplePrefixType(EndermiteSpawnController.mobName, 1000, "圆寂之域", CustomStyle.styleOfEnd),
-            new SimplePrefixType(ShulkerSpawnController.mobName, 1000, "圆寂清道夫", CustomStyle.styleOfEnd),
+                    new SimplePrefixType(EnderManSpawnController.mobName, 1000, "终界入侵者", CustomStyle.styleOfEnd),
+                    new SimplePrefixType(EndermiteSpawnController.mobName, 1000, "圆寂之域", CustomStyle.styleOfEnd),
+                    new SimplePrefixType(ShulkerSpawnController.mobName, 1000, "圆寂清道夫", CustomStyle.styleOfEnd),
 
-            new SimplePrefixType(MoonInstance.mobName, 320, "清辉夜凝", CustomStyle.styleOfMoon1),
+                    new SimplePrefixType(MoonInstance.mobName, 320, "清辉夜凝", CustomStyle.styleOfMoon1),
 
-            new SimplePrefixType(BeaconSpawnController.mobName, 1000, "哨戒烽火", CustomStyle.styleOfFire),
-            new SimplePrefixType(BlazeSpawnController.mobName, 1000, "熔岩涌动", CustomStyle.styleOfPower),
-            new SimplePrefixType(TreeSpawnController.mobName, 1000, "古树学者", CustomStyle.styleOfMana),
+                    new SimplePrefixType(BeaconSpawnController.mobName, 1000, "哨戒烽火", CustomStyle.styleOfFire),
+                    new SimplePrefixType(BlazeSpawnController.mobName, 1000, "熔岩涌动", CustomStyle.styleOfPower),
+                    new SimplePrefixType(TreeSpawnController.mobName, 1000, "古树学者", CustomStyle.styleOfMana),
 
-            new SimplePrefixType(StarSpawnController.mobName, 1000, "星梦之灵", CustomStyle.styleOfMoon1),
-            new SimplePrefixType(BoneImpSpawnController.mobName, 1000, "炽焰魂魄", CustomStyle.styleOfVolcano),
-            new SimplePrefixType(TorturedSoulSpawnController.mobName, 1000, "解脱者", CustomStyle.styleOfWorld),
+                    new SimplePrefixType(StarSpawnController.mobName, 1000, "星梦之灵", CustomStyle.styleOfMoon1),
+                    new SimplePrefixType(BoneImpSpawnController.mobName, 1000, "炽焰魂魄", CustomStyle.styleOfVolcano),
+                    new SimplePrefixType(TorturedSoulSpawnController.mobName, 1000, "解脱者", CustomStyle.styleOfWorld),
 
-            new SimplePrefixType(MoontainCommon1SpawnController.mobName, 1000, "御魂者", CustomStyle.styleOfMoontain),
-            new SimplePrefixType(MoontainCommon1SpawnController.mobName, 1000, "御魂师", CustomStyle.styleOfMoontain),
-            new SimplePrefixType(MoontainCommon1SpawnController.mobName, 1000, "典狱长", CustomStyle.styleOfMoontain),
+                    new SimplePrefixType(MoontainCommon1SpawnController.mobName, 1000, "御魂者", CustomStyle.styleOfMoontain),
+                    new SimplePrefixType(MoontainCommon1SpawnController.mobName, 1000, "御魂师", CustomStyle.styleOfMoontain),
+                    new SimplePrefixType(MoontainCommon1SpawnController.mobName, 1000, "典狱长", CustomStyle.styleOfMoontain),
 
-            new SimplePrefixType(MoontainBoss1Instance.mobName, 320, "望山阁之顶", CustomStyle.styleOfMoontain),
-            new SimplePrefixType(MoontainBoss1Instance.mobName, 320, "望山阁之峰", CustomStyle.styleOfMoontain),
-            new SimplePrefixType(MoontainBoss1Instance.mobName, 64, "望山阁之巅", CustomStyle.styleOfMoontain),
+                    new SimplePrefixType(MoontainBoss1Instance.mobName, 320, "望山阁之顶", CustomStyle.styleOfMoontain),
+                    new SimplePrefixType(MoontainBoss1Instance.mobName, 320, "望山阁之峰", CustomStyle.styleOfMoontain),
+                    new SimplePrefixType(MoontainBoss1Instance.mobName, 64, "望山阁之巅", CustomStyle.styleOfMoontain),
 
-            new ProgressPrefixType(StringUtils.FishCount, 20, 50, "见习渔夫", Style.EMPTY.applyFormat(ChatFormatting.DARK_GRAY)),
-            new ProgressPrefixType(StringUtils.FishCount, 50, 100, "入门渔夫", Style.EMPTY.applyFormat(ChatFormatting.GRAY)),
-            new ProgressPrefixType(StringUtils.FishCount, 100, 200, "中阶渔夫", Style.EMPTY.applyFormat(ChatFormatting.YELLOW)),
-            new ProgressPrefixType(StringUtils.FishCount, 200, 500, "高阶渔夫", Style.EMPTY.applyFormat(ChatFormatting.BLUE)),
-            new ProgressPrefixType(StringUtils.FishCount, 500, 1000, "经常空军的钓鱼佬", Style.EMPTY.applyFormat(ChatFormatting.GOLD)),
-            new ProgressPrefixType(StringUtils.FishCount, 1000, 2000, "偶尔空军的钓鱼佬", Style.EMPTY.applyFormat(ChatFormatting.RED)),
-            new ProgressPrefixType(StringUtils.FishCount, 2000, Integer.MAX_VALUE, "永不空军的钓鱼佬", Style.EMPTY.applyFormat(ChatFormatting.LIGHT_PURPLE)),
+                    new ProgressPrefixType(StringUtils.FishCount, 20, 50, "见习渔夫", Style.EMPTY.applyFormat(ChatFormatting.DARK_GRAY)),
+                    new ProgressPrefixType(StringUtils.FishCount, 50, 100, "入门渔夫", Style.EMPTY.applyFormat(ChatFormatting.GRAY)),
+                    new ProgressPrefixType(StringUtils.FishCount, 100, 200, "中阶渔夫", Style.EMPTY.applyFormat(ChatFormatting.YELLOW)),
+                    new ProgressPrefixType(StringUtils.FishCount, 200, 500, "高阶渔夫", Style.EMPTY.applyFormat(ChatFormatting.BLUE)),
+                    new ProgressPrefixType(StringUtils.FishCount, 500, 1000, "经常空军的钓鱼佬", Style.EMPTY.applyFormat(ChatFormatting.GOLD)),
+                    new ProgressPrefixType(StringUtils.FishCount, 1000, 2000, "偶尔空军的钓鱼佬", Style.EMPTY.applyFormat(ChatFormatting.RED)),
+                    new ProgressPrefixType(StringUtils.FishCount, 2000, Integer.MAX_VALUE, "永不空军的钓鱼佬", Style.EMPTY.applyFormat(ChatFormatting.LIGHT_PURPLE)),
 
-            new ProgressPrefixType(StringUtils.Mine.Exp, 0, 100, "见习矿工", Style.EMPTY.applyFormat(ChatFormatting.DARK_GRAY)),
-            new ProgressPrefixType(StringUtils.Mine.Exp, 100, 1000, "入门矿工", Style.EMPTY.applyFormat(ChatFormatting.GRAY)),
-            new ProgressPrefixType(StringUtils.Mine.Exp, 1000, 5000, "职业矿工", Style.EMPTY.applyFormat(ChatFormatting.GOLD)),
-            new ProgressPrefixType(StringUtils.Mine.Exp, 5000, 20000, "悲催苦力矿工", Style.EMPTY.applyFormat(ChatFormatting.GREEN)),
-            new ProgressPrefixType(StringUtils.Mine.Exp, 20000, 100000, "一只挖矿的帕鲁", Style.EMPTY.applyFormat(ChatFormatting.AQUA)),
+                    new ProgressPrefixType(StringUtils.Mine.Exp, 0, 100, "见习矿工", Style.EMPTY.applyFormat(ChatFormatting.DARK_GRAY)),
+                    new ProgressPrefixType(StringUtils.Mine.Exp, 100, 1000, "入门矿工", Style.EMPTY.applyFormat(ChatFormatting.GRAY)),
+                    new ProgressPrefixType(StringUtils.Mine.Exp, 1000, 5000, "职业矿工", Style.EMPTY.applyFormat(ChatFormatting.GOLD)),
+                    new ProgressPrefixType(StringUtils.Mine.Exp, 5000, 20000, "悲催苦力矿工", Style.EMPTY.applyFormat(ChatFormatting.GREEN)),
+                    new ProgressPrefixType(StringUtils.Mine.Exp, 20000, 100000, "一只挖矿的帕鲁", Style.EMPTY.applyFormat(ChatFormatting.AQUA)),
 
-            new ProgressPrefixType(StringUtils.Lop.Xp, 0, 100, "见习伐木工", Style.EMPTY.applyFormat(ChatFormatting.DARK_GRAY)),
-            new ProgressPrefixType(StringUtils.Lop.Xp, 100, 1000, "入门伐木工", Style.EMPTY.applyFormat(ChatFormatting.GRAY)),
-            new ProgressPrefixType(StringUtils.Lop.Xp, 1000, 5000, "职业伐木工", Style.EMPTY.applyFormat(ChatFormatting.GOLD)),
-            new ProgressPrefixType(StringUtils.Lop.Xp, 5000, 20000, "光头强", Style.EMPTY.applyFormat(ChatFormatting.GREEN)),
-            new ProgressPrefixType(StringUtils.Lop.Xp, 20000, 100000, "一只砍树的帕鲁", Style.EMPTY.applyFormat(ChatFormatting.AQUA)),
+                    new ProgressPrefixType(StringUtils.Lop.Xp, 0, 100, "见习伐木工", Style.EMPTY.applyFormat(ChatFormatting.DARK_GRAY)),
+                    new ProgressPrefixType(StringUtils.Lop.Xp, 100, 1000, "入门伐木工", Style.EMPTY.applyFormat(ChatFormatting.GRAY)),
+                    new ProgressPrefixType(StringUtils.Lop.Xp, 1000, 5000, "职业伐木工", Style.EMPTY.applyFormat(ChatFormatting.GOLD)),
+                    new ProgressPrefixType(StringUtils.Lop.Xp, 5000, 20000, "光头强", Style.EMPTY.applyFormat(ChatFormatting.GREEN)),
+                    new ProgressPrefixType(StringUtils.Lop.Xp, 20000, 100000, "一只砍树的帕鲁", Style.EMPTY.applyFormat(ChatFormatting.AQUA)),
 
-            new ProgressPrefixType(StringUtils.Gardening.Xp, 0, 100, "见习农夫", Style.EMPTY.applyFormat(ChatFormatting.DARK_GRAY)),
-            new ProgressPrefixType(StringUtils.Gardening.Xp, 100, 1000, "入门农夫", Style.EMPTY.applyFormat(ChatFormatting.GRAY)),
-            new ProgressPrefixType(StringUtils.Gardening.Xp, 1000, 5000, "职业农夫", Style.EMPTY.applyFormat(ChatFormatting.GOLD)),
-            new ProgressPrefixType(StringUtils.Gardening.Xp, 5000, 20000, "农耕大师", Style.EMPTY.applyFormat(ChatFormatting.GREEN)),
-            new ProgressPrefixType(StringUtils.Gardening.Xp, 20000, 100000, "一只种田的帕鲁", Style.EMPTY.applyFormat(ChatFormatting.AQUA)),
+                    new ProgressPrefixType(StringUtils.Gardening.Xp, 0, 100, "见习农夫", Style.EMPTY.applyFormat(ChatFormatting.DARK_GRAY)),
+                    new ProgressPrefixType(StringUtils.Gardening.Xp, 100, 1000, "入门农夫", Style.EMPTY.applyFormat(ChatFormatting.GRAY)),
+                    new ProgressPrefixType(StringUtils.Gardening.Xp, 1000, 5000, "职业农夫", Style.EMPTY.applyFormat(ChatFormatting.GOLD)),
+                    new ProgressPrefixType(StringUtils.Gardening.Xp, 5000, 20000, "农耕大师", Style.EMPTY.applyFormat(ChatFormatting.GREEN)),
+                    new ProgressPrefixType(StringUtils.Gardening.Xp, 20000, 100000, "一只种田的帕鲁", Style.EMPTY.applyFormat(ChatFormatting.AQUA)),
 
-            new ProgressPrefixType(BrewingNote.brewingLevel, 0, 0, "酿造初识", Style.EMPTY.applyFormat(ChatFormatting.GRAY)),
-            new ProgressPrefixType(BrewingNote.brewingLevel, 1, 1, "酿造入门", Style.EMPTY.applyFormat(ChatFormatting.GREEN)),
-            new ProgressPrefixType(BrewingNote.brewingLevel, 2, 2, "酿造初级", Style.EMPTY.applyFormat(ChatFormatting.BLUE)),
-            new ProgressPrefixType(BrewingNote.brewingLevel, 3, 3, "酿造中级", Style.EMPTY.applyFormat(ChatFormatting.YELLOW)),
-            new ProgressPrefixType(BrewingNote.brewingLevel, 4, 4, "酿造高级", Style.EMPTY.applyFormat(ChatFormatting.AQUA)),
-            new ProgressPrefixType(BrewingNote.brewingLevel, 5, 5, "酿造学士", Style.EMPTY.applyFormat(ChatFormatting.GOLD)),
-            new ProgressPrefixType(BrewingNote.brewingLevel, 6, 6, "酿造大师", Style.EMPTY.applyFormat(ChatFormatting.LIGHT_PURPLE))
-    );
+                    new ProgressPrefixType(BrewingNote.brewingLevel, 0, 0, "酿造初识", Style.EMPTY.applyFormat(ChatFormatting.GRAY)),
+                    new ProgressPrefixType(BrewingNote.brewingLevel, 1, 1, "酿造入门", Style.EMPTY.applyFormat(ChatFormatting.GREEN)),
+                    new ProgressPrefixType(BrewingNote.brewingLevel, 2, 2, "酿造初级", Style.EMPTY.applyFormat(ChatFormatting.BLUE)),
+                    new ProgressPrefixType(BrewingNote.brewingLevel, 3, 3, "酿造中级", Style.EMPTY.applyFormat(ChatFormatting.YELLOW)),
+                    new ProgressPrefixType(BrewingNote.brewingLevel, 4, 4, "酿造高级", Style.EMPTY.applyFormat(ChatFormatting.AQUA)),
+                    new ProgressPrefixType(BrewingNote.brewingLevel, 5, 5, "酿造学士", Style.EMPTY.applyFormat(ChatFormatting.GOLD)),
+                    new ProgressPrefixType(BrewingNote.brewingLevel, 6, 6, "酿造大师", Style.EMPTY.applyFormat(ChatFormatting.LIGHT_PURPLE))
+            ));
+        }
+        return simplePrefixTypeList;
+    }
 
+    public static List<PrefixCondition> simplePrefixTypeList = new ArrayList<>();
 
     @Override
     public int run(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
@@ -261,7 +267,7 @@ public class PrefixCommand implements Command<CommandSourceStack> {
         player.sendSystemMessage(Component.literal(count + ".").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("初来乍到").withStyle(ChatFormatting.GRAY)));
 
-        for (PrefixCondition prefixCondition : simplePrefixTypeList) {
+        for (PrefixCondition prefixCondition : getSimplePrefixTypeList()) {
             if (prefixCondition.matchCondition(player) == 1) {
                 count++;
                 player.sendSystemMessage(Component.literal(count + ".").withStyle(ChatFormatting.WHITE).

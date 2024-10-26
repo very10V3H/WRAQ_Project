@@ -19,6 +19,7 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public abstract class DailyEndlessInstance {
     public static int clientKillCount = 0;
@@ -74,9 +75,10 @@ public abstract class DailyEndlessInstance {
 
         if (isChallenging()) {
             mobList.removeIf(LivingEntity::isDeadOrDying);
-            while(mobList.size() < maxMobNum) {
+            Random random = new Random();
+            while (mobList.size() < maxMobNum) {
                 Mob mob = summonMob(level);
-                mob.moveTo(getPos());
+                mob.moveTo(getPos().add(0.5 - random.nextDouble(), 0.5 - random.nextDouble(), 0.5 - random.nextDouble()));
                 level.addFreshEntity(mob);
                 mobList.add(mob);
             } // 击杀后立即刷新

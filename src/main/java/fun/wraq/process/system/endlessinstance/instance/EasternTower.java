@@ -1,7 +1,10 @@
 package fun.wraq.process.system.endlessinstance.instance;
 
+import fun.wraq.common.registry.ModItems;
 import fun.wraq.events.mob.MobSpawn;
+import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.system.endlessinstance.DailyEndlessInstance;
+import fun.wraq.process.system.endlessinstance.item.EndlessInstanceItems;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.mcreator.borninchaosv.entity.BarrelZombieEntity;
 import net.mcreator.borninchaosv.init.BornInChaosV1ModEntities;
@@ -9,18 +12,23 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+
+import java.util.List;
 
 public class EasternTower extends DailyEndlessInstance {
 
     private static EasternTower instance;
+
     public static EasternTower getInstance() {
-        if (instance == null) instance = new EasternTower(new Vec3(2336, 148, 17), 200, -1, 0, 4);
+        if (instance == null) instance = new EasternTower(new Vec3(2336, 148, 17), 1200, -1, 0, 4);
         return instance;
     }
 
     public static Component name = Component.literal("东洋塔").withStyle(CustomStyle.styleOfHusk);
+
     private EasternTower(Vec3 pos, int lastTick, int leftTick, int killCount, int maxMobNum) {
         super(name, pos, lastTick, leftTick, killCount, maxMobNum);
     }
@@ -41,7 +49,9 @@ public class EasternTower extends DailyEndlessInstance {
 
     @Override
     protected void reward(Player player) {
-        sendFormatMSG(player, Component.literal("测试阶段，暂无奖励"));
+        List.of(new ItemStack(ModItems.goldCoin.get(), getKillCount() / 10),
+                new ItemStack(EndlessInstanceItems.ENDLESS_INSTANCE_CORE.get(), getKillCount() / 20))
+                .forEach(itemStack -> InventoryOperation.itemStackGive(player, itemStack));
     }
 
     private double getMobMaxHealth() {
