@@ -14,7 +14,6 @@ import fun.wraq.common.util.struct.InjectingRecipe;
 import fun.wraq.process.func.plan.SimpleTierPaper;
 import fun.wraq.process.system.forge.ForgeHammer;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.instance.series.castle.CastleCurios;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.nbt.CompoundTag;
@@ -65,8 +64,7 @@ public class ToolTipEvent {
         }
         if (InjectRecipe.injectingRecipeMap.isEmpty()) InjectRecipe.setInjectingRecipeMap();
         if ((InjectRecipe.injectingRecipeMap.containsKey(event.getItemStack().getItem())
-                || InjectRecipe.injectedGetItemSourceItemMap.containsKey(event.getItemStack().getItem()))
-                && !(event.getItemStack().getItem() instanceof CastleCurios)) {
+                || InjectRecipe.injectedGetItemSourceItemMap.containsKey(event.getItemStack().getItem()))) {
             if (!Screen.hasShiftDown())
                 event.getToolTip().add(Component.literal("[在灌注配方中，shift查看配方]").withStyle(ChatFormatting.BOLD).withStyle(CustomStyle.styleOfInject));
             else {

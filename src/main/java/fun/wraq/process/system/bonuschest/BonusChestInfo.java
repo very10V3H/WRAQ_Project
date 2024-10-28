@@ -91,6 +91,7 @@ public enum BonusChestInfo {
 
     NEAR_FOREST_VILLAGE_0(new BlockPos(966, 79, 141), 0, Util.DRUMSTICK_ZONE_NUM),
     NEAR_FOREST_VILLAGE_1(new BlockPos(983, 80, 100), 1, Util.DRUMSTICK_ZONE_NUM),
+    NEAR_FOREST_VILLAGE_2(new BlockPos(979, 80, 101), 0, Util.DRUMSTICK_ZONE_NUM),
 
 
     // 雨林村

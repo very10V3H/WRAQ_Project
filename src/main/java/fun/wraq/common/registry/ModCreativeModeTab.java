@@ -5,6 +5,7 @@ import fun.wraq.customized.UniformItems;
 import fun.wraq.events.mob.loot.C1LootItems;
 import fun.wraq.process.system.point.PointItems;
 import fun.wraq.process.system.spur.Items.SpurItems;
+import fun.wraq.series.moontain.MoontainItems;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -58,6 +59,8 @@ public class ModCreativeModeTab {
             CreativeModeTab.builder().icon(() -> new ItemStack(ModBlocks.WRAQ_ORE_1.get().asItem())).title(Component.literal("方块")).build());
     public static RegistryObject<CreativeModeTab> POINT = CREATIVE_MODE_TAB.register("point", () ->
             CreativeModeTab.builder().icon(() -> new ItemStack(PointItems.EXPT.get().asItem())).title(Component.literal("点数物品")).build());
+    public static RegistryObject<CreativeModeTab> MOONTAIN = CREATIVE_MODE_TAB.register("moontain", () ->
+            CreativeModeTab.builder().icon(() -> new ItemStack(MoontainItems.SWORD.get().asItem())).title(Component.literal("望山物品")).build());
 
     public static void register(IEventBus eventBus) {
         CREATIVE_MODE_TAB.register(eventBus);

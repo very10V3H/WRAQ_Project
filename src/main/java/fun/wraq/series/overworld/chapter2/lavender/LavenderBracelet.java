@@ -8,7 +8,7 @@ import fun.wraq.common.equip.impl.RandomCurios;
 import fun.wraq.common.impl.display.UsageOrGetWayDescriptionItem;
 import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.instance.series.castle.CastleCurios;
+import fun.wraq.series.instance.series.castle.RandomCuriosAttributesUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -33,7 +33,7 @@ public class LavenderBracelet extends WraqCurios implements RandomCurios, UsageO
     public Component getTypeDescription() {
         return Component.literal("").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.getFuncTypeDescriptionOfCurios()).
-                append(Component.literal(" v = 3 * " + BigDecimal.valueOf(rate())).withStyle(CustomStyle.styleOfPlain));
+                append(Component.literal(" v = 3 * " + BigDecimal.valueOf(fullRate())).withStyle(CustomStyle.styleOfPlain));
     }
 
     @Override
@@ -53,7 +53,7 @@ public class LavenderBracelet extends WraqCurios implements RandomCurios, UsageO
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
         if (!level.isClientSide() && interactionHand.equals(InteractionHand.MAIN_HAND)) {
             ItemStack stack = player.getItemInHand(interactionHand);
-            if (stack.getTagElement(Utils.MOD_ID) == null) CastleCurios.randomAttributeProvide(stack, 4, 0.5);
+            if (stack.getTagElement(Utils.MOD_ID) == null) RandomCuriosAttributesUtil.randomAttributeProvide(stack, 4, 0.5);
         }
         return super.use(level, player, interactionHand);
     }
@@ -87,11 +87,11 @@ public class LavenderBracelet extends WraqCurios implements RandomCurios, UsageO
 
     @Override
     public void setAttribute(ItemStack stack) {
-        CastleCurios.randomDefenceAttributeProvide(stack, 3, rate());
+        RandomCuriosAttributesUtil.randomDefenceAttributeProvide(stack, 3, fullRate());
     }
 
     @Override
-    public double rate() {
+    public double fullRate() {
         return 0.5;
     }
 }

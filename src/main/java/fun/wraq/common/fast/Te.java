@@ -44,7 +44,7 @@ public class Te {
 
     @SafeVarargs
     public static<T> MutableComponent s(T... textAndStyle) {
-        MutableComponent mutableComponent = Component.literal("");
+        MutableComponent mutableComponent = Component.literal("").withStyle(ChatFormatting.WHITE);
         for (int i = 0; i < textAndStyle.length; i++) {
             T componentOrStyle = textAndStyle[i];
             if (componentOrStyle instanceof Component component) {

@@ -2010,7 +2010,6 @@ public class TradeList {
                 new ItemStack(ModItems.CastleCrystalNorth.get(), 1),
                 new ItemStack(ModItems.CastleCrystalSouth.get(), 1),
                 new ItemStack(ModItems.CastleCuriosPowder.get(), 1),
-                new ItemStack(ModItems.CastleCuriosPowder.get(), 1),
                 new ItemStack(GemItems.castleWeaponGem.get(), 1),
                 new ItemStack(GemItems.castleArmorGem.get(), 1),
         };
@@ -2060,10 +2059,7 @@ public class TradeList {
                 case 9 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.CastleNecklace.get(), 1));
                 }});
-                case 10 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.CastleBrooch.get(), 1));
-                }});
-                case 11, 12 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
+                case 10, 11 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.completeGem.get(), 16));
                     add(new ItemStack(ModItems.CastleCuriosPowder.get(), 16));
                 }});

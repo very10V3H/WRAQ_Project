@@ -20,7 +20,6 @@ import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.suit.SuitCount;
 import fun.wraq.process.system.potion.NewPotionEffects;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.instance.series.castle.CastleCurios;
 import fun.wraq.series.instance.series.devil.DevilAttackArmor;
 import fun.wraq.series.instance.series.taboo.TabooAttackArmor;
 import fun.wraq.series.newrunes.chapter1.ForestNewRune;
@@ -68,7 +67,6 @@ public class MonsterAttackEvent {
         damageDecreaseRate += ScarecrowChestPlate(player); // 稻草甲
         damageDecreaseRate += SnowArmorEffectDamageDecrease(monster); // 冰川盔甲
         damageDecreaseRate += EarthPower.MobDamageDecrease(monster); // 地蕴法术
-        damageDecreaseRate += CastleCurios.DamageDecrease(player);
         damageDecreaseRate += LakePower.PlayerDefend(player); // 湖泊法术
 
         damage *= (1 - damageDecreaseRate);

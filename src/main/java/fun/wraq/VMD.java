@@ -668,7 +668,12 @@ public class VMD {
                     .map(entry -> entry.get().asItem())
                     .forEach(event::accept);
         }
-
+        if (event.getTabKey().equals(ModCreativeModeTab.MOONTAIN.getKey())) {
+            MoontainItems.ITEMS.getEntries()
+                    .stream()
+                    .map(entry -> entry.get().asItem())
+                    .forEach(event::accept);
+        }
     }
 }
 

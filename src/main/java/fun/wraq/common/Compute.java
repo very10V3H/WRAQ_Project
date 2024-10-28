@@ -61,7 +61,7 @@ import fun.wraq.render.hud.Mana;
 import fun.wraq.render.hud.networking.ExpGetS2CPacket;
 import fun.wraq.render.particles.ModParticles;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.instance.series.castle.CastleCurios;
+import fun.wraq.series.instance.series.castle.RandomCuriosAttributesUtil;
 import fun.wraq.series.instance.series.castle.CastleSceptre;
 import fun.wraq.series.overworld.chapter1.forest.bossItems.ForestBossSword;
 import fun.wraq.series.overworld.chapter1.volcano.bossItems.VolcanoBossSword;
@@ -1407,7 +1407,7 @@ public class Compute {
                         if (data.contains(attributeName)) {
                             if (curiosItem instanceof RandomCurios) {
                                 value += data.getDouble(attributeName)
-                                        * CastleCurios.attributeValueMap.get(attributeName);
+                                        * RandomCuriosAttributesUtil.attributeValueMap.get(attributeName);
                             } else {
                                 value += data.getInt(attributeName);
                             }

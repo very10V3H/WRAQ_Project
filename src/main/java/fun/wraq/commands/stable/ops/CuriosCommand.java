@@ -9,6 +9,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import fun.wraq.common.equip.impl.RandomCurios;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.process.func.item.InventoryOperation;
+import fun.wraq.series.moontain.MoontainItems;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -24,7 +25,12 @@ public class CuriosCommand implements Command<CommandSourceStack> {
             "PlainNecklace", ModItems.plainNecklace.get(),
             "CastleNecklace", ModItems.CastleNecklace.get(),
             "IceBelt", ModItems.iceBelt.get(),
-            "LavenderBracelet", ModItems.lavenderBracelet.get());
+            "LavenderBracelet", ModItems.lavenderBracelet.get(),
+            "MoontainChest", MoontainItems.CHEST_CURIOS.get(),
+            "MoontainBracelet", MoontainItems.BRACELET.get(),
+            "MoontainHand", MoontainItems.HAND.get(),
+            "MoontainRing", MoontainItems.RING.get()
+            );
 
     @Override
     public int run(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {

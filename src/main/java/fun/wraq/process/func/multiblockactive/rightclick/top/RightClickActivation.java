@@ -2,8 +2,9 @@ package fun.wraq.process.func.multiblockactive.rightclick.top;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+
+import java.util.List;
 
 public abstract class RightClickActivation {
     private final Component title;
@@ -24,5 +25,5 @@ public abstract class RightClickActivation {
 
     public abstract void handleRightClick(Player player);
 
-    public abstract void summonArmorStand(Level level);
+    public abstract List<Component> getDescription();
 }

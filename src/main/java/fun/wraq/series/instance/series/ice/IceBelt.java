@@ -7,7 +7,7 @@ import fun.wraq.common.equip.impl.RandomCurios;
 import fun.wraq.common.impl.display.UsageOrGetWayDescriptionItem;
 import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.instance.series.castle.CastleCurios;
+import fun.wraq.series.instance.series.castle.RandomCuriosAttributesUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -41,7 +41,7 @@ public class IceBelt extends WraqCurios implements RandomCurios, UsageOrGetWayDe
     public Component getTypeDescription() {
         return Component.literal("").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.getComprehensiveTypeDescriptionOfCurios()).
-                append(Component.literal(" v = 6 * " + BigDecimal.valueOf(rate()).stripTrailingZeros()).withStyle(CustomStyle.styleOfIce));
+                append(Component.literal(" v = 6 * " + BigDecimal.valueOf(fullRate()).stripTrailingZeros()).withStyle(CustomStyle.styleOfIce));
     }
 
     @Override
@@ -61,13 +61,13 @@ public class IceBelt extends WraqCurios implements RandomCurios, UsageOrGetWayDe
 
     @Override
     public void setAttribute(ItemStack stack) {
-        CastleCurios.randomAttackAttributeProvide(stack, 2, rate());
-        CastleCurios.randomDefenceAttributeProvide(stack, 2, rate());
-        CastleCurios.randomFunctionAttributeProvide(stack, 2, rate());
+        RandomCuriosAttributesUtil.randomAttackAttributeProvide(stack, 2, fullRate());
+        RandomCuriosAttributesUtil.randomDefenceAttributeProvide(stack, 2, fullRate());
+        RandomCuriosAttributesUtil.randomFunctionAttributeProvide(stack, 2, fullRate());
     }
 
     @Override
-    public double rate() {
+    public double fullRate() {
         return 0.7;
     }
 }

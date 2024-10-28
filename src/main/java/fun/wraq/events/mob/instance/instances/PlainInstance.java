@@ -12,7 +12,7 @@ import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.missions.series.dailyMission.DailyMission;
 import fun.wraq.render.particles.ModParticles;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.instance.series.castle.CastleCurios;
+import fun.wraq.series.instance.series.castle.RandomCuriosAttributesUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -119,7 +119,7 @@ public class PlainInstance extends NoTeamInstance {
         List<ItemAndRate> rewardList = getRewardList();
         rewardList.forEach(itemAndRate -> {
             if (itemAndRate.getItemStack().is(ModItems.plainNecklace.get())) {
-                CastleCurios.randomFunctionAttributeProvide(itemAndRate.getItemStack(), 3, 0.4);
+                RandomCuriosAttributesUtil.randomFunctionAttributeProvide(itemAndRate.getItemStack(), 3, 0.4);
             }
             itemAndRate.dropWithBounding(lastMob, 1, player);
         });

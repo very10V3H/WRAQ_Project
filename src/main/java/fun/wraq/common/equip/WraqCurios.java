@@ -2,9 +2,13 @@ package fun.wraq.common.equip;
 
 import fun.wraq.blocks.blocks.forge.ForgeRecipe;
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.impl.RandomCurios;
+import fun.wraq.common.fast.Te;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.common.impl.display.ForgeItem;
+import fun.wraq.series.moontain.equip.curios.MoontainCurios;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -43,7 +47,15 @@ public abstract class WraqCurios extends Item implements ICurioItem {
         Style style = hoverMainStyle();
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         ComponentUtils.descriptionOfBasic(components);
-        if (getTypeDescription() != null) components.add(getTypeDescription());
+        Component type = RandomCurios.getTypeDescriptionByTag(stack);
+        if (type != null) {
+            components.add(Te.s(type, " v = ", hoverMainStyle(),
+                    String.format("%.1f", RandomCurios.getFullRateByTag(stack)), hoverMainStyle()));
+        } else {
+            if (getTypeDescription() != null) {
+                components.add(getTypeDescription());
+            }
+        }
         int levelRequirement = Utils.levelRequire.getOrDefault(stack.getItem(), 0);
         if (levelRequirement != 0) {
             components.add(Component.literal(" 等级需求: ").withStyle(ChatFormatting.AQUA).
@@ -81,7 +93,7 @@ public abstract class WraqCurios extends Item implements ICurioItem {
 
     @Override
     public boolean canEquipFromUse(SlotContext slotContext, ItemStack stack) {
-        return true;
+        return !(this instanceof MoontainCurios);
     }
 
     public static boolean isOn(Class<? extends WraqCurios> clazz, Player player) {
@@ -92,12 +104,12 @@ public abstract class WraqCurios extends Item implements ICurioItem {
 
     public static boolean coolDownOver(Map<String, Integer> map, Player player) {
         return !map.containsKey(player.getName().getString())
-                || map.get(player.getName().getString()) < player.getServer().getTickCount();
+                || map.get(player.getName().getString()) < Tick.get();
     }
 
     public static boolean inLastTime(Map<String, Integer> map, Player player) {
         return map.containsKey(player.getName().getString())
-                && map.get(player.getName().getString()) > player.getServer().getTickCount();
+                && map.get(player.getName().getString()) > Tick.get();
     }
 
     public void tick(Player player) {}

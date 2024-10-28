@@ -6,7 +6,7 @@ import fun.wraq.common.equip.impl.RandomCurios;
 import fun.wraq.common.impl.display.UsageOrGetWayDescriptionItem;
 import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.instance.series.castle.CastleCurios;
+import fun.wraq.series.instance.series.castle.RandomCuriosAttributesUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -39,7 +39,7 @@ public class NetherHand extends WraqCurios implements RandomCurios, UsageOrGetWa
     public Component getTypeDescription() {
         return Component.literal("").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.getAttackTypeDescriptionOfCurios()).
-                append(Component.literal(" v = 3 * " + BigDecimal.valueOf(rate()).stripTrailingZeros()).withStyle(CustomStyle.styleOfPower));
+                append(Component.literal(" v = 3 * " + BigDecimal.valueOf(fullRate()).stripTrailingZeros()).withStyle(CustomStyle.styleOfPower));
     }
 
     @Override
@@ -59,11 +59,11 @@ public class NetherHand extends WraqCurios implements RandomCurios, UsageOrGetWa
 
     @Override
     public void setAttribute(ItemStack stack) {
-        CastleCurios.randomAttackAttributeProvide(stack, 3, rate());
+        RandomCuriosAttributesUtil.randomAttackAttributeProvide(stack, 3, fullRate());
     }
 
     @Override
-    public double rate() {
+    public double fullRate() {
         return 0.6;
     }
 }

@@ -701,10 +701,6 @@ public class InjectRecipe {
                 new InjectingRecipe(ModItems.CastleNecklace.get(), 1,
                         ModItems.CastleNecklace.get()));
 
-        injectingRecipeMap.put(ModItems.CastleBrooch.get(),
-                new InjectingRecipe(ModItems.CastleBrooch.get(), 1,
-                        ModItems.CastleBrooch.get()));
-
         injectingRecipeMap.put(ModItems.RubyNecklace.get(),
                 new InjectingRecipe(ModItems.VolcanoRune.get(), 8,
                         ModItems.RubyNecklace1.get()));

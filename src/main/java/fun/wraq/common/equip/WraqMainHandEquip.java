@@ -72,6 +72,11 @@ public abstract class WraqMainHandEquip extends SwordItem {
                 }
             }
         }
+        int levelRequirement = Utils.levelRequire.getOrDefault(stack.getItem(), 0);
+        if (levelRequirement != 0) {
+            components.add(Component.literal(" 等级需求: ").withStyle(ChatFormatting.AQUA).
+                    append(Component.literal("Lv." + levelRequirement).withStyle(Utils.levelStyleList.get(levelRequirement / 25))));
+        }
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         boolean shouldRenderAddition = !getAdditionalComponents(stack).isEmpty() || this instanceof fun.wraq.common.equip.WraqSceptre;
         if (shouldRenderAddition) {

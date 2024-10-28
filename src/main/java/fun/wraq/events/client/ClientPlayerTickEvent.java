@@ -3,6 +3,8 @@ package fun.wraq.events.client;
 import fun.wraq.Items.MainStory_1.BackSpawn;
 import fun.wraq.Items.MainStory_1.Mission.Main0;
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqArmor;
+import fun.wraq.common.equip.WraqMainHandEquip;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.Utils;
@@ -152,9 +154,10 @@ public class ClientPlayerTickEvent {
                 }
             }
 
-            if (Utils.mainHandTag.containsKey(event.player.getMainHandItem().getItem()))
+            Item mainhandItem = event.player.getMainHandItem().getItem();
+            if (mainhandItem instanceof WraqMainHandEquip || mainhandItem instanceof WraqArmor) {
                 Compute.forgingHoverName(event.player.getMainHandItem());
-
+            }
 
             if (event.player.position().distanceTo(new Vec3(1138.5, 67.5, 384.5)) < 2)
                 event.player.addDeltaMovement(new Vec3(0, 11, 0));

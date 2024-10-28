@@ -1787,6 +1787,16 @@
 
   "item.vmd.endless_instance_core": "逆熵者核心",
 
+  "item.vmd.moontain_chest_curios": "望山岩环",
+  "item.vmd.moontain_bracelet": "望山岩镯",
+  "item.vmd.moontain_hand": "望山岩护手",
+  "item.vmd.moontain_ring": "望山岩戒",
+
+  "item.vmd.moontain_weapon_enhancer": "望山",
+  "item.vmd.moontain_armor_enhancer": "望山",
+  "item.vmd.moontain_curios_rate_enhancer": "望山",
+  "item.vmd.moontain_curios_full_rate_enhancer": "望山",
+
   "curios.identifier.rune": "符石",
   "curios.identifier.crest": "纹章",
 

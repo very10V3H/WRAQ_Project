@@ -8,7 +8,7 @@ import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstance;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.instance.series.castle.CastleCurios;
+import fun.wraq.series.instance.series.castle.RandomCuriosAttributesUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -72,7 +72,7 @@ public class NetherInstance extends NoTeamInstance {
         List<ItemAndRate> rewardList = getRewardList();
         rewardList.forEach(itemAndRate -> {
             if (itemAndRate.getItemStack().is(ModItems.netherHand.get())) {
-                CastleCurios.randomAttackAttributeProvide(itemAndRate.getItemStack(), 3, 0.6);
+                RandomCuriosAttributesUtil.randomAttackAttributeProvide(itemAndRate.getItemStack(), 3, 0.6);
             }
             itemAndRate.dropWithBounding(lastMob, 1, player);
         });

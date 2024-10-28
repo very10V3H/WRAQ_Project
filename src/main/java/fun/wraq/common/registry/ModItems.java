@@ -2581,9 +2581,6 @@ public class ModItems {
     public static final RegistryObject<Item> MobArmorCastleKnightHelmet = ITEMS.register("mob_armor_castle_knight_helmet",
             () -> new MobArmor(ItemMaterial.Castle, ArmorItem.Type.HELMET, StringUtils.MobName.CastleKnight));
 
-    public static final RegistryObject<Item> CastleBrooch = ITEMS.register("castle_brooch",
-            () -> new CastleCurios(new Item.Properties().rarity(CustomStyle.CastleBold).stacksTo(1)));
-
     public static final RegistryObject<Item> CastleKnightStone = ITEMS.register("castle_knight_stone",
             () -> new Item(new Item.Properties().rarity(CustomStyle.CastleCrystalBold)));
 

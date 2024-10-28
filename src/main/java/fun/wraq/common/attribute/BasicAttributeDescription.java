@@ -19,7 +19,7 @@ import fun.wraq.render.toolTip.NewTooltip;
 import fun.wraq.render.toolTip.TraditionalTooltip;
 import fun.wraq.series.gems.GemAttributes;
 import fun.wraq.series.gems.WraqGem;
-import fun.wraq.series.instance.series.castle.CastleCurios;
+import fun.wraq.series.instance.series.castle.RandomCuriosAttributesUtil;
 import fun.wraq.series.worldsoul.SoulEquipAttribute;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -109,7 +109,7 @@ public class BasicAttributeDescription {
                     if (Utils.attackDamage.containsKey(item))
                         baseDamage = ForgeEquipUtils.getTraditionalEquipBaseValue(itemStack, Utils.attackDamage);
                     else if (item instanceof RandomCurios)
-                        baseDamage = data.getDouble(StringUtils.CuriosAttribute.attackDamage) * CastleCurios.attributeValueMap.get(StringUtils.CuriosAttribute.attackDamage);
+                        baseDamage = data.getDouble(StringUtils.CuriosAttribute.attackDamage) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.CuriosAttribute.attackDamage);
                     else baseDamage = data.getInt(StringUtils.CuriosAttribute.attackDamage);
                 } else
                     baseDamage = ForgeEquipUtils.getRandomEquipBaseValue(itemStack, StringUtils.RandomAttribute.attackDamage);
@@ -154,7 +154,7 @@ public class BasicAttributeDescription {
                     if (Utils.manaDamage.containsKey(item))
                         baseDamage = ForgeEquipUtils.getTraditionalEquipBaseValue(itemStack, Utils.manaDamage);
                     else if (item instanceof RandomCurios)
-                        baseDamage = data.getDouble(StringUtils.CuriosAttribute.manaDamage) * CastleCurios.attributeValueMap.get(StringUtils.CuriosAttribute.manaDamage);
+                        baseDamage = data.getDouble(StringUtils.CuriosAttribute.manaDamage) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.CuriosAttribute.manaDamage);
                     else baseDamage = data.getInt(StringUtils.CuriosAttribute.manaDamage);
                 } else
                     baseDamage = ForgeEquipUtils.getRandomEquipBaseValue(itemStack, StringUtils.RandomAttribute.manaDamage);
@@ -188,7 +188,7 @@ public class BasicAttributeDescription {
                 if (Utils.defence.containsKey(item))
                     defence = ForgeEquipUtils.getTraditionalEquipBaseValue(itemStack, Utils.defence);
                 else if (item instanceof RandomCurios)
-                    defence = data.getDouble(StringUtils.CuriosAttribute.defence) * CastleCurios.attributeValueMap.get(StringUtils.CuriosAttribute.defence);
+                    defence = data.getDouble(StringUtils.CuriosAttribute.defence) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.CuriosAttribute.defence);
                 else defence = data.getInt(StringUtils.CuriosAttribute.defence);
             } else defence = ForgeEquipUtils.getRandomEquipBaseValue(itemStack, StringUtils.RandomAttribute.defence);
 
@@ -216,7 +216,7 @@ public class BasicAttributeDescription {
             if (Utils.manaDefence.containsKey(item))
                 manaDefence = ForgeEquipUtils.getTraditionalEquipBaseValue(itemStack, Utils.manaDefence);
             else if (item instanceof RandomCurios)
-                manaDefence = data.getDouble(StringUtils.CuriosAttribute.manaDefence) * CastleCurios.attributeValueMap.get(StringUtils.CuriosAttribute.manaDefence);
+                manaDefence = data.getDouble(StringUtils.CuriosAttribute.manaDefence) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.CuriosAttribute.manaDefence);
 
             MutableComponent mutableComponent = Component.literal("");
             mutableComponent.append(Component.literal(" 魔法抗性").withStyle(ChatFormatting.BLUE).
@@ -240,7 +240,7 @@ public class BasicAttributeDescription {
                 if (Utils.maxHealth.containsKey(item))
                     maxHealth = ForgeEquipUtils.getTraditionalEquipBaseValue(itemStack, Utils.maxHealth);
                 else if (item instanceof RandomCurios)
-                    maxHealth = data.getDouble(StringUtils.CuriosAttribute.maxHealth) * CastleCurios.attributeValueMap.get(StringUtils.CuriosAttribute.maxHealth);
+                    maxHealth = data.getDouble(StringUtils.CuriosAttribute.maxHealth) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.CuriosAttribute.maxHealth);
                 else
                     maxHealth = ForgeEquipUtils.getRandomEquipBaseValue(itemStack, StringUtils.RandomAttribute.maxHealth);
             } else
@@ -292,7 +292,7 @@ public class BasicAttributeDescription {
             double DefencePenetration;
             if (Utils.defencePenetration.containsKey(item)) DefencePenetration = Utils.defencePenetration.get(item);
             else if (item instanceof RandomCurios)
-                DefencePenetration = data.getDouble(StringUtils.CuriosAttribute.defencePenetration) * CastleCurios.attributeValueMap.get(StringUtils.CuriosAttribute.defencePenetration);
+                DefencePenetration = data.getDouble(StringUtils.CuriosAttribute.defencePenetration) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.CuriosAttribute.defencePenetration);
             else DefencePenetration = data.getInt(StringUtils.CuriosAttribute.defencePenetration);
 
             MutableComponent mutableComponent = Component.literal("");
@@ -340,7 +340,7 @@ public class BasicAttributeDescription {
                 if (Utils.defencePenetration0.containsKey(item))
                     defencePenetration0 = Utils.defencePenetration0.get(item);
                 else if (item instanceof RandomCurios)
-                    defencePenetration0 = data.getDouble(StringUtils.CuriosAttribute.defencePenetration0) * CastleCurios.attributeValueMap.get(StringUtils.CuriosAttribute.defencePenetration0);
+                    defencePenetration0 = data.getDouble(StringUtils.CuriosAttribute.defencePenetration0) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.CuriosAttribute.defencePenetration0);
                 else defencePenetration0 = data.getInt(StringUtils.CuriosAttribute.defencePenetration0);
                 if (data.contains(StringUtils.RandomAttribute.defencePenetration0))
                     defencePenetration0 += data.getDouble(StringUtils.RandomAttribute.defencePenetration0);
@@ -388,7 +388,7 @@ public class BasicAttributeDescription {
                 double critRate;
                 if (Utils.critRate.containsKey(item)) critRate = Utils.critRate.get(item);
                 else if (item instanceof RandomCurios)
-                    critRate = data.getDouble(StringUtils.CuriosAttribute.critRate) * CastleCurios.attributeValueMap.get(StringUtils.CuriosAttribute.critRate);
+                    critRate = data.getDouble(StringUtils.CuriosAttribute.critRate) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.CuriosAttribute.critRate);
                 else critRate = data.getInt(StringUtils.CuriosAttribute.critRate);
                 if (data.contains(StringUtils.RandomAttribute.critRate))
                     critRate += data.getDouble(StringUtils.RandomAttribute.critRate);
@@ -436,7 +436,7 @@ public class BasicAttributeDescription {
                 double critDamage;
                 if (Utils.critDamage.containsKey(item)) critDamage = Utils.critDamage.get(item);
                 else if (item instanceof RandomCurios)
-                    critDamage = data.getDouble(StringUtils.CuriosAttribute.critDamage) * CastleCurios.attributeValueMap.get(StringUtils.CuriosAttribute.critDamage);
+                    critDamage = data.getDouble(StringUtils.CuriosAttribute.critDamage) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.CuriosAttribute.critDamage);
                 else critDamage = data.getInt(StringUtils.CuriosAttribute.critDamage);
                 if (data.contains(StringUtils.RandomAttribute.critDamage))
                     critDamage += data.getDouble(StringUtils.RandomAttribute.critDamage);
@@ -469,7 +469,7 @@ public class BasicAttributeDescription {
                 double healSteal;
                 if (Utils.healthSteal.containsKey(item)) healSteal = Utils.healthSteal.get(item);
                 else if (item instanceof RandomCurios)
-                    healSteal = data.getDouble(StringUtils.CuriosAttribute.healthSteal) * CastleCurios.attributeValueMap.get(StringUtils.CuriosAttribute.healthSteal);
+                    healSteal = data.getDouble(StringUtils.CuriosAttribute.healthSteal) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.CuriosAttribute.healthSteal);
                 else healSteal = data.getInt(StringUtils.CuriosAttribute.healthSteal);
                 if (data.contains(StringUtils.RandomAttribute.healthSteal))
                     healSteal += ForgeEquipUtils.getRandomEquipBaseValue(itemStack, StringUtils.RandomAttribute.healthSteal);
@@ -521,7 +521,7 @@ public class BasicAttributeDescription {
                 double maxMana = 0;
                 if (Utils.maxMana.containsKey(item)) maxMana = Utils.maxMana.get(item);
                 else if (item instanceof RandomCurios)
-                    maxMana = data.getDouble(StringUtils.CuriosAttribute.maxMana) * CastleCurios.attributeValueMap.get(StringUtils.CuriosAttribute.maxMana);
+                    maxMana = data.getDouble(StringUtils.CuriosAttribute.maxMana) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.CuriosAttribute.maxMana);
                 if (data.contains(StringUtils.RandomAttribute.maxMana))
                     maxMana = data.getDouble(StringUtils.RandomAttribute.maxMana);
 
@@ -540,7 +540,7 @@ public class BasicAttributeDescription {
             double ManaPenetration;
             if (Utils.manaPenetration.containsKey(item)) ManaPenetration = Utils.manaPenetration.get(item);
             else if (item instanceof RandomCurios)
-                ManaPenetration = data.getDouble(StringUtils.CuriosAttribute.manaPenetration) * CastleCurios.attributeValueMap.get(StringUtils.CuriosAttribute.manaPenetration);
+                ManaPenetration = data.getDouble(StringUtils.CuriosAttribute.manaPenetration) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.CuriosAttribute.manaPenetration);
             else ManaPenetration = data.getInt(StringUtils.CuriosAttribute.manaPenetration);
 
             MutableComponent mutableComponent = Component.literal("");
@@ -573,7 +573,7 @@ public class BasicAttributeDescription {
                 double manaPenetration0;
                 if (Utils.manaPenetration0.containsKey(item)) manaPenetration0 = Utils.manaPenetration0.get(item);
                 else if (item instanceof RandomCurios)
-                    manaPenetration0 = data.getDouble(StringUtils.CuriosAttribute.manaPenetration0) * CastleCurios.attributeValueMap.get(StringUtils.CuriosAttribute.manaPenetration0);
+                    manaPenetration0 = data.getDouble(StringUtils.CuriosAttribute.manaPenetration0) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.CuriosAttribute.manaPenetration0);
                 else manaPenetration0 = data.getInt(StringUtils.CuriosAttribute.manaPenetration0);
                 if (data.contains(StringUtils.RandomAttribute.manaPenetration0))
                     manaPenetration0 += ForgeEquipUtils.getRandomEquipBaseValue(itemStack, StringUtils.RandomAttribute.manaPenetration0);
@@ -607,7 +607,7 @@ public class BasicAttributeDescription {
                 double manaRecover;
                 if (Utils.manaRecover.containsKey(item)) manaRecover = Utils.manaRecover.get(item);
                 else if (item instanceof RandomCurios)
-                    manaRecover = data.getDouble(StringUtils.CuriosAttribute.manaRecover) * CastleCurios.attributeValueMap.get(StringUtils.CuriosAttribute.manaRecover);
+                    manaRecover = data.getDouble(StringUtils.CuriosAttribute.manaRecover) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.CuriosAttribute.manaRecover);
                 else manaRecover = data.getInt(StringUtils.CuriosAttribute.manaRecover);
                 if (data.contains(StringUtils.RandomAttribute.manaRecover))
                     manaRecover += data.getDouble(StringUtils.RandomAttribute.manaRecover);
@@ -628,7 +628,7 @@ public class BasicAttributeDescription {
             double coolDown;
             if (Utils.coolDownDecrease.containsKey(item)) coolDown = Utils.coolDownDecrease.get(item);
             else if (item instanceof RandomCurios)
-                coolDown = data.getDouble(StringUtils.CuriosAttribute.coolDown) * CastleCurios.attributeValueMap.get(StringUtils.CuriosAttribute.coolDown);
+                coolDown = data.getDouble(StringUtils.CuriosAttribute.coolDown) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.CuriosAttribute.coolDown);
             else coolDown = data.getInt(StringUtils.CuriosAttribute.coolDown);
             if (data.contains(StringUtils.RandomAttribute.coolDown))
                 coolDown = ForgeEquipUtils.getRandomEquipBaseValue(itemStack, StringUtils.RandomAttribute.coolDown);
@@ -689,7 +689,7 @@ public class BasicAttributeDescription {
                 if (Utils.movementSpeedWithoutBattle.containsKey(item))
                     MovementSpeed = Utils.movementSpeedWithoutBattle.get(item);
                 else if (item instanceof RandomCurios)
-                    MovementSpeed = data.getDouble(StringUtils.CuriosAttribute.movementSpeed) * CastleCurios.attributeValueMap.get(StringUtils.CuriosAttribute.movementSpeed);
+                    MovementSpeed = data.getDouble(StringUtils.CuriosAttribute.movementSpeed) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.CuriosAttribute.movementSpeed);
                 else MovementSpeed = data.getInt(StringUtils.CuriosAttribute.movementSpeed);
                 if (data.contains(StringUtils.RandomAttribute.movementSpeed))
                     MovementSpeed += ForgeEquipUtils.getRandomEquipBaseValue(itemStack, StringUtils.RandomAttribute.movementSpeed);
@@ -716,7 +716,7 @@ public class BasicAttributeDescription {
         if (Utils.expUp.containsKey(item) || data.contains(StringUtils.CuriosAttribute.expUp)) {
             double ExpUp;
             if (item instanceof RandomCurios)
-                ExpUp = data.getDouble(StringUtils.CuriosAttribute.expUp) * CastleCurios.attributeValueMap.get(StringUtils.CuriosAttribute.expUp);
+                ExpUp = data.getDouble(StringUtils.CuriosAttribute.expUp) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.CuriosAttribute.expUp);
             else ExpUp = Utils.expUp.get(item);
             MutableComponent mutableComponent = Component.literal("");
             mutableComponent.append(Component.literal(" 经验加成").withStyle(ChatFormatting.LIGHT_PURPLE).
@@ -730,7 +730,7 @@ public class BasicAttributeDescription {
         if (Utils.swiftnessUp.containsKey(item) || data.contains(StringUtils.CuriosAttribute.swiftnessUp)) {
             double SwiftnessUp;
             if (item instanceof RandomCurios)
-                SwiftnessUp = data.getDouble(StringUtils.CuriosAttribute.swiftnessUp) * CastleCurios.attributeValueMap.get(StringUtils.CuriosAttribute.swiftnessUp);
+                SwiftnessUp = data.getDouble(StringUtils.CuriosAttribute.swiftnessUp) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.CuriosAttribute.swiftnessUp);
             else SwiftnessUp = Utils.swiftnessUp.get(item);
             MutableComponent mutableComponent = Component.literal("");
             mutableComponent.append(Component.literal(" 迅捷加成").withStyle(CustomStyle.styleOfFlexible).
@@ -745,7 +745,7 @@ public class BasicAttributeDescription {
             double ManaHealSteal;
             if (Utils.manaHealthSteal.containsKey(item)) ManaHealSteal = Utils.manaHealthSteal.get(item);
             else if (item instanceof RandomCurios)
-                ManaHealSteal = data.getDouble(StringUtils.CuriosAttribute.manaHealthSteal) * CastleCurios.attributeValueMap.get(StringUtils.CuriosAttribute.manaHealthSteal);
+                ManaHealSteal = data.getDouble(StringUtils.CuriosAttribute.manaHealthSteal) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.CuriosAttribute.manaHealthSteal);
             else ManaHealSteal = data.getInt(StringUtils.CuriosAttribute.manaHealthSteal);
 
             MutableComponent mutableComponent = Component.literal("");
@@ -761,7 +761,7 @@ public class BasicAttributeDescription {
             double HealEffectUp;
             if (Utils.healEffectUp.containsKey(item)) HealEffectUp = Utils.healEffectUp.get(item);
             else if (item instanceof RandomCurios)
-                HealEffectUp = data.getDouble(StringUtils.CuriosAttribute.healEffectUp) * CastleCurios.attributeValueMap.get(StringUtils.CuriosAttribute.healEffectUp);
+                HealEffectUp = data.getDouble(StringUtils.CuriosAttribute.healEffectUp) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.CuriosAttribute.healEffectUp);
             else HealEffectUp = data.getInt(StringUtils.CuriosAttribute.healEffectUp);
 
             MutableComponent mutableComponent = Component.literal("");
@@ -966,7 +966,7 @@ public class BasicAttributeDescription {
             if (map.containsKey(item))
                 value = ForgeEquipUtils.getTraditionalEquipBaseValue(itemStack, map);
             else if (item instanceof RandomCurios)
-                value = data.getDouble(curiosAttributeTag) * CastleCurios.attributeValueMap.get(curiosAttributeTag);
+                value = data.getDouble(curiosAttributeTag) * RandomCuriosAttributesUtil.attributeValueMap.get(curiosAttributeTag);
             else value = data.getInt(curiosAttributeTag);
 
             String percent = isPercent ? "%" : "";
@@ -993,6 +993,8 @@ public class BasicAttributeDescription {
                 }
             }
 
+            handleRandomAttributeRate(itemStack, curiosAttributeTag, mutableComponent);
+
             index++;
             components.add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, resourceLocation)));
         }
@@ -1016,7 +1018,7 @@ public class BasicAttributeDescription {
                 value = map.get(item);
             } else {
                 if (item instanceof RandomCurios) {
-                    value = data.getDouble(curiosAttributeTag) * CastleCurios.attributeValueMap.get(curiosAttributeTag);
+                    value = data.getDouble(curiosAttributeTag) * RandomCuriosAttributesUtil.attributeValueMap.get(curiosAttributeTag);
                 } else {
                     value = data.getDouble(curiosAttributeTag);
                 }
@@ -1084,7 +1086,12 @@ public class BasicAttributeDescription {
         Item curios = equip.getItem();
         if (curios instanceof RandomCurios randomCurios) {
             CompoundTag data = equip.getOrCreateTagElement(Utils.MOD_ID);
-            double fullRate = randomCurios.rate();
+            double fullRate = randomCurios.fullRate();
+            double fullRateGetByTag = RandomCurios.getFullRateByTag(equip);
+            if (fullRateGetByTag != 0) {
+                fullRate = fullRateGetByTag;
+            }
+
             double rate = data.getDouble(attributeType);
             double percent = rate / fullRate;
 

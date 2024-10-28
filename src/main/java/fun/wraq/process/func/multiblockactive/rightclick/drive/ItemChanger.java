@@ -1,18 +1,13 @@
 package fun.wraq.process.func.multiblockactive.rightclick.drive;
 
-import fun.wraq.commands.changeable.TextCommand;
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.multiblockactive.rightclick.top.RightClickActivation;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
@@ -46,11 +41,8 @@ public class ItemChanger extends RightClickActivation {
     }
 
     @Override
-    public void summonArmorStand(Level level) {
-        level.getEntitiesOfClass(ArmorStand.class, AABB.ofSize(getCenterPos(), 8, 8, 8))
-                .forEach(armorStand -> armorStand.remove(Entity.RemovalReason.KILLED));
+    public List<Component> getDescription() {
         List<Component> components = new ArrayList<>();
-        components.add(getTitle());
         components.add(Te.m("使用:"));
         materials.forEach(stack -> {
             components.add(Te.s(stack.getDisplayName(), " * ", String.valueOf(stack.getCount())));
@@ -59,7 +51,7 @@ public class ItemChanger extends RightClickActivation {
         products.forEach(stack -> {
             components.add(Te.s(stack.getDisplayName(), " * ", String.valueOf(stack.getCount())));
         });
-        TextCommand.summonArmorStand(components, level, getCenterPos());
+        return components;
     }
 
     private void sendFormatMSG(Player player, Component content) {

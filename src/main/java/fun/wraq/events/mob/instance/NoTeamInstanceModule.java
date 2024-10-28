@@ -111,7 +111,7 @@ public class NoTeamInstanceModule {
 
     public static void handlePlayerRightClick(Player player) {
         if ((player.getMainHandItem().is(ModItems.notePaper.get()))
-                || player.getMainHandItem().is(MoontainItems.RING.get())) {
+                || player.getMainHandItem().is(MoontainItems.HEART.get())) {
             Item item = player.getMainHandItem().getItem();
             if (player.level().dimension().equals(Level.OVERWORLD)) {
                 noTeamInstancesOverworld.forEach(instance -> {

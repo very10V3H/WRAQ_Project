@@ -8,7 +8,6 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
 import fun.wraq.process.func.guide.Guide;
 import fun.wraq.render.gui.blocks.InjectBlockMenu;
-import fun.wraq.series.instance.series.castle.CastleCurios;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -198,17 +197,13 @@ public class InjectBlockEntity extends BlockEntity implements MenuProvider {
             ItemStack productItemStack = InjectRecipe.injectingRecipeMap.get(injectedItem.getItem()).getForgingGetItem().getDefaultInstance();
             if (injectedItem.getTagElement(Utils.MOD_ID) != null)
                 productItemStack.getOrCreateTagElement(Utils.MOD_ID).merge(injectedItem.getOrCreateTagElement(Utils.MOD_ID));
-            if (productItemStack.getItem() instanceof CastleCurios) {
-                productItemStack.removeTagKey(Utils.MOD_ID);
-                CastleCurios.randomAttributeProvide(productItemStack, 6, 1);
-                CastleCurios.RandomPassiveProvide(productItemStack);
-            }
             if (player != null) {
                 Compute.formatBroad(blockEntity.level, Component.literal("打造").withStyle(ChatFormatting.GRAY),
                         Component.literal("").withStyle(ChatFormatting.WHITE).
                                 append(player.getDisplayName()).
                                 append(" 成功打造了 ").withStyle(ChatFormatting.WHITE).
                                 append(productItemStack.getDisplayName()));
+                Guide.trig(player, 5);
             }
 
             List<Item> plainBossTier3Rings = List.of(ModItems.PlainAttackRing3.get(), ModItems.PlainManaAttackRing3.get(),

@@ -6,7 +6,7 @@ import fun.wraq.common.equip.impl.RandomCurios;
 import fun.wraq.common.impl.display.UsageOrGetWayDescriptionItem;
 import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.instance.series.castle.CastleCurios;
+import fun.wraq.series.instance.series.castle.RandomCuriosAttributesUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -27,7 +27,7 @@ public class PlainNecklace extends WraqCurios implements RandomCurios, UsageOrGe
     public Component getTypeDescription() {
         return Component.literal("").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.getFuncTypeDescriptionOfCurios()).
-                append(Component.literal(" v = 3 * " + BigDecimal.valueOf(rate()).stripTrailingZeros())
+                append(Component.literal(" v = 3 * " + BigDecimal.valueOf(fullRate()).stripTrailingZeros())
                         .withStyle(CustomStyle.styleOfWorld));
     }
 
@@ -60,11 +60,11 @@ public class PlainNecklace extends WraqCurios implements RandomCurios, UsageOrGe
 
     @Override
     public void setAttribute(ItemStack stack) {
-        CastleCurios.randomFunctionAttributeProvide(stack, 3, rate());
+        RandomCuriosAttributesUtil.randomFunctionAttributeProvide(stack, 3, fullRate());
     }
 
     @Override
-    public double rate() {
+    public double fullRate() {
         return 0.4;
     }
 }
