@@ -1,10 +1,10 @@
 package fun.wraq.events.mob.loot;
 
 import fun.wraq.common.equip.WraqArmor;
-import fun.wraq.events.mob.loot.RandomAttributeValue;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
 
@@ -40,7 +40,7 @@ public class RandomArmor extends WraqArmor implements RandomLootEquip {
     }
 
     @Override
-    public List<Component> getAdditionalComponents() {
+    public List<Component> getAdditionalComponents(ItemStack stack) {
         return List.of();
     }
 

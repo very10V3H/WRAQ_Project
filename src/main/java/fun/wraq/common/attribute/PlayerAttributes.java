@@ -3,6 +3,7 @@ package fun.wraq.common.attribute;
 import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.equip.WraqPickaxe;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.inslot.InCuriosOrEquipSlotAttributesModify;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.StringUtils;
@@ -495,7 +496,7 @@ public class PlayerAttributes {
     public static double movementSpeedCommon(Player player) {
         double movementSpeedUp = 0;
         if (TowerMob.playerIsChallenging2Floor(player)) return 0;
-        int tick = player.getServer().getTickCount();
+        int tick = Tick.get();
         CompoundTag data = player.getPersistentData();
         ItemStack mainHandStack = player.getMainHandItem();
         Item mainHandItem = mainHandStack.getItem();
@@ -2102,7 +2103,7 @@ public class PlayerAttributes {
             Item item = equip.getItem();
             if (attributeMap.containsKey(item) && player.experienceLevel >= Utils.levelRequire.getOrDefault(item, 0)) {
                 double value = 0;
-                double baseValue = attributeMap.get(item);
+                double baseValue = ForgeEquipUtils.getTraditionalEquipBaseValue(equip, attributeMap);
                 if (computeForge && equip.getTagElement(Utils.MOD_ID) != null) {
                     value += Compute.forgingValue(equip, baseValue);
                 }

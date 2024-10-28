@@ -35,7 +35,7 @@ public class TabooManaArmor extends WraqArmor implements OnCostManaEquip, InCuri
     }
 
     @Override
-    public List<Component> getAdditionalComponents() {
+    public List<Component> getAdditionalComponents(ItemStack stack) {
         List<Component> components = new ArrayList<>();
         Style style = getMainStyle();
         Compute.DescriptionPassive(components, Component.literal("禁忌秘法-涌动").withStyle(style));

@@ -40,7 +40,7 @@ public class NetherManaArmor extends WraqArmor implements OnHitEffectEquip, OnPo
     }
 
     @Override
-    public List<Component> getAdditionalComponents() {
+    public List<Component> getAdditionalComponents(ItemStack stack) {
         List<Component> components = new ArrayList<>();
         Compute.DescriptionPassive(components, Component.literal("混沌崩解").withStyle(CustomStyle.styleOfNether));
         components.add(Te.m(" 造成伤害时").

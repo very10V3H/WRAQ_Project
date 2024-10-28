@@ -16,7 +16,7 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.struct.ManaSkillStruct.ManaSkill3;
 import fun.wraq.common.util.struct.ManaSkillStruct.ManaSkill6;
 import fun.wraq.customized.uniform.mana.ManaCurios1;
-import fun.wraq.events.mob.instance.instances.IceInstance;
+import fun.wraq.events.mob.instance.instances.element.IceInstance;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.ParticlePackets.EffectParticle.ManaDefencePenetrationParticleS2CPacket;
 import fun.wraq.networking.misc.SkillPackets.Charging.ChargedClearS2CPacket;

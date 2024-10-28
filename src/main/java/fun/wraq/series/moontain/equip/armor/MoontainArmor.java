@@ -1,15 +1,19 @@
 package fun.wraq.series.moontain.equip.armor;
 
+import fun.wraq.common.equip.WraqArmor;
+import fun.wraq.common.equip.impl.ExBaseAttributeValueEquip;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.common.equip.impl.ExBaseAttributeValueEquip;
-import fun.wraq.common.equip.WraqArmor;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.moontain.equip.weapon.MoontainUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -17,14 +21,30 @@ public class MoontainArmor extends WraqArmor implements ExBaseAttributeValueEqui
 
     public MoontainArmor(ArmorMaterial armorMaterial, Type type, Properties properties) {
         super(armorMaterial, type, properties);
-        Utils.maxHealth.put(this, 10925d);
-        Utils.attackDamage.put(this, 1814.5);
-        Utils.manaDamage.put(this, 3629d);
+        if (type.equals(Type.HELMET)) {
+            Utils.percentHealthRecover.put(this, 0.04);
+            Utils.healthRecover.put(this, 100d);
+        }
+        if (type.equals(Type.CHESTPLATE)) Utils.defence.put(this, 125d);
+        if (type.equals(Type.LEGGINGS)) Utils.maxHealth.put(this, 15000d);
+        if (type.equals(Type.BOOTS)) Utils.movementSpeedCommon.put(this, 0.5);
         Utils.levelRequire.put(this, 240);
     }
 
     @Override
-    public Map<Map<Item, Double>, TagAndRate> getTagAndRateMap() {
+    public Map<Map<Item, Double>, TagAndEachTierValue> getTagAndRateMap() {
+        if (type.equals(Type.HELMET)) {
+            return Map.of(Utils.healthRecover, new TagAndEachTierValue(MoontainUtils.MOONTAIN_HEALTH_RECOVER_TAG_KEY, 10));
+        }
+        if (type.equals(Type.CHESTPLATE)) {
+            return Map.of(Utils.defence, new TagAndEachTierValue(MoontainUtils.MOONTAIN_DEFENCE_TAG_KEY, 5));
+        }
+        if (type.equals(Type.LEGGINGS)) {
+            return Map.of(Utils.maxHealth, new TagAndEachTierValue(MoontainUtils.MOONTAIN_MAX_HEALTH_TAG_KEY, 500d));
+        }
+        if (type.equals(Type.BOOTS)) {
+            return Map.of(Utils.movementSpeedCommon, new TagAndEachTierValue(MoontainUtils.MOONTAIN_MOVEMENT_SPEED_TAG_KEY, 0.02));
+        }
         return Map.of();
     }
 
@@ -34,8 +54,12 @@ public class MoontainArmor extends WraqArmor implements ExBaseAttributeValueEqui
     }
 
     @Override
-    public List<Component> getAdditionalComponents() {
-        return List.of();
+    public List<Component> getAdditionalComponents(ItemStack stack) {
+        List<Component> components = new ArrayList<>();
+        ComponentUtils.descriptionPassive(components, Te.s("筑造", getMainStyle()));
+        components.add(Te.s(" 筑造阶数: ", getMainStyle(),
+                String.valueOf(ExBaseAttributeValueEquip.getForgeTier(stack, MoontainUtils.getTraditionalAttributeMap(stack)))));
+        return components;
     }
 
     @Override

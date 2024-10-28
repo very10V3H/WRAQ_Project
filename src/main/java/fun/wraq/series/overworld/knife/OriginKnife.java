@@ -6,6 +6,7 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class OriginKnife extends WraqOffHandItem {
     }
 
     @Override
-    public List<Component> getAdditionalComponents() {
+    public List<Component> getAdditionalComponents(ItemStack stack) {
         return List.of();
     }
 

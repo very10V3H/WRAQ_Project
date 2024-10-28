@@ -319,6 +319,17 @@ public class MobSpawn {
         }
     }
 
+    public static void killCountIncrement(Player player, String mobName) {
+        if (!tempKillCount.containsKey(player.getName().getString()))
+            tempKillCount.put(player.getName().getString(), new HashMap<>());
+        Map<String, Integer> map = tempKillCount.get(player.getName().getString());
+        map.put(mobName, map.getOrDefault(mobName, 0) + 1);
+    }
+
+    public static void killCountIncrement(Player player, Mob mob) {
+        killCountIncrement(player, getMobOriginName(mob));
+    }
+
     public static String fromMobSpawnTag = "fromMobSpawn";
     public static String fromSlime = "fromSlime";
 

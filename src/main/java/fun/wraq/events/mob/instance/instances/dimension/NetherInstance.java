@@ -1,4 +1,4 @@
-package fun.wraq.events.mob.instance.instances;
+package fun.wraq.events.mob.instance.instances.dimension;
 
 import com.github.L_Ender.cataclysm.entity.AnimationMonster.BossMonsters.Ignited_Revenant_Entity;
 import com.github.L_Ender.cataclysm.init.ModEntities;

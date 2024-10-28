@@ -39,7 +39,7 @@ public abstract class WraqOffHandItem extends Item {
 
     public abstract Style getMainStyle();
 
-    public abstract List<Component> getAdditionalComponents();
+    public abstract List<Component> getAdditionalComponents(ItemStack stack);
 
     public abstract Component getSuffix();
 
@@ -61,9 +61,9 @@ public abstract class WraqOffHandItem extends Item {
             }
         }
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        if (!getAdditionalComponents().isEmpty()) {
+        if (!getAdditionalComponents(stack).isEmpty()) {
             ComponentUtils.descriptionOfAddition(components);
-            components.addAll(getAdditionalComponents());
+            components.addAll(getAdditionalComponents(stack));
             ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         }
         components.add(getSuffix());

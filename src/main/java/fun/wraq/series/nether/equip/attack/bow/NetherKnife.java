@@ -39,7 +39,7 @@ public class NetherKnife extends WraqOffHandItem implements OnShootArrowEquip, F
     }
 
     @Override
-    public List<Component> getAdditionalComponents() {
+    public List<Component> getAdditionalComponents(ItemStack stack) {
         List<Component> components = new ArrayList<>();
         ComponentUtils.descriptionPassive(components, Te.m("朱雀吐息", getMainStyle()));
         components.add(Te.s(" 普通箭矢攻击", CustomStyle.styleOfFlexible, "15%掉落", "朱雀翎", getMainStyle()));

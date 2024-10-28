@@ -45,7 +45,7 @@ public class GoldenBook extends WraqOffHandItem implements OnKillEffectEquip {
     }
 
     @Override
-    public List<Component> getAdditionalComponents() {
+    public List<Component> getAdditionalComponents(ItemStack stack) {
         List<Component> components = new ArrayList<>();
         Compute.DescriptionPassive(components, Component.literal("华贵金属").withStyle(style));
         components.add(Component.literal(" 副手").withStyle(ChatFormatting.GOLD).

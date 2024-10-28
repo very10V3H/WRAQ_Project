@@ -1,21 +1,49 @@
 package fun.wraq.series.moontain.equip.weapon;
 
+import fun.wraq.common.Compute;
+import fun.wraq.common.equip.impl.ExBaseAttributeValueEquip;
 import fun.wraq.common.equip.impl.RandomCurios;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.multiblockactive.rightclick.drive.EnhanceCondition;
 import fun.wraq.process.func.multiblockactive.rightclick.drive.EnhanceOperation;
-import fun.wraq.process.system.forge.ForgeEquipUtils;
+import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.castle.RandomCuriosAttributesUtil;
 import fun.wraq.series.moontain.MoontainItems;
 import fun.wraq.series.moontain.equip.curios.MoontainCurios;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
+import java.security.SecureRandom;
 import java.util.List;
+import java.util.Map;
 
 public class MoontainUtils {
     public static String MOONTAIN_ATTACK_TAG_KEY = "MOONTAIN_ATTACK_TAG_KEY";
     public static String MOONTAIN_MANA_ATTACK_TAG_KEY = "MOONTAIN_MANA_ATTACK_TAG_KEY";
+    public static String MOONTAIN_HEALTH_RECOVER_TAG_KEY = "MOONTAIN_HEALTH_RECOVER_TAG_KEY";
+    public static String MOONTAIN_MAX_HEALTH_TAG_KEY = "MOONTAIN_MAX_HEALTH_TAG_KEY";
+    public static String MOONTAIN_DEFENCE_TAG_KEY = "MOONTAIN_DEFENCE_TAG_KEY";
+    public static String MOONTAIN_MOVEMENT_SPEED_TAG_KEY = "MOONTAIN_MOVEMENT_SPEED_TAG_KEY";
+
+    public static void formatBroad(Level level, Component content) {
+        Compute.formatBroad(level, Te.s("望山阁", CustomStyle.styleOfMoontain), content);
+    }
+
+    public static Map<Item, Double> getTraditionalAttributeMap(ItemStack stack) {
+        return Map.of(
+                MoontainItems.SWORD.get(), Utils.attackDamage,
+                MoontainItems.BOW.get(), Utils.attackDamage,
+                MoontainItems.SCEPTRE.get(), Utils.manaDamage,
+                MoontainItems.HELMET.get(), Utils.healthRecover,
+                MoontainItems.CHEST.get(), Utils.defence,
+                MoontainItems.LEGGINGS.get(), Utils.maxHealth,
+                MoontainItems.BOOTS.get(), Utils.movementSpeedCommon
+        ).get(stack.getItem());
+    }
 
     public static List<Item> getMoontainWeapons() {
         return List.of(
@@ -36,24 +64,32 @@ public class MoontainUtils {
 
     public static EnhanceCondition weaponEnhanceCondition = (stack -> {
         if (getMoontainWeapons().contains(stack.getItem())) {
-            return ForgeEquipUtils.getForgeQualityOnEquip(stack) < 11;
+            return ExBaseAttributeValueEquip.getForgeTier(stack, MoontainUtils.getTraditionalAttributeMap(stack)) < 20;
         }
         return false;
     });
 
     public static EnhanceOperation weaponEnhanceOperation = (stack -> {
-        ForgeEquipUtils.setForgeQualityOnEquip(stack, ForgeEquipUtils.getForgeQualityOnEquip(stack) + 1);
+        int qualityTier = ExBaseAttributeValueEquip.getForgeTier(stack, MoontainUtils.getTraditionalAttributeMap(stack));
+        SecureRandom secureRandom = new SecureRandom();
+        if (secureRandom.nextDouble() < (1 - qualityTier / 20d)) {
+            ExBaseAttributeValueEquip.forgeThisTypeEquip(stack, getTraditionalAttributeMap(stack), 1);
+        }
     });
 
     public static EnhanceCondition armorsEnhanceCondition = (stack -> {
         if (getMoontainArmors().contains(stack.getItem())) {
-            return ForgeEquipUtils.getForgeQualityOnEquip(stack) < 11;
+            return ExBaseAttributeValueEquip.getForgeTier(stack, MoontainUtils.getTraditionalAttributeMap(stack)) < 20;
         }
         return false;
     });
 
     public static EnhanceOperation armorsEnhanceOperation = (stack -> {
-        ForgeEquipUtils.setForgeQualityOnEquip(stack, ForgeEquipUtils.getForgeQualityOnEquip(stack) + 1);
+        int qualityTier = ExBaseAttributeValueEquip.getForgeTier(stack, MoontainUtils.getTraditionalAttributeMap(stack));
+        SecureRandom secureRandom = new SecureRandom();
+        if (secureRandom.nextDouble() < (1 - qualityTier / 20d)) {
+            ExBaseAttributeValueEquip.forgeThisTypeEquip(stack, getTraditionalAttributeMap(stack), 1);
+        }
     });
 
     public static List<Item> getMoontainCurios() {

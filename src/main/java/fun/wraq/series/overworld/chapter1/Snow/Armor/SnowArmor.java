@@ -8,6 +8,7 @@ import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.overworld.chapter1.Snow.SnowSuitDescription;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +29,7 @@ public class SnowArmor extends WraqArmor {
     }
 
     @Override
-    public List<Component> getAdditionalComponents() {
+    public List<Component> getAdditionalComponents(ItemStack stack) {
         List<Component> components = new ArrayList<>();
         SnowSuitDescription.ArmorCommonDescription(components);
         return components;

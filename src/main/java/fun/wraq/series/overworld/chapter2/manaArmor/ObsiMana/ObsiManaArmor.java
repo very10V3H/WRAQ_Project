@@ -34,7 +34,7 @@ public class ObsiManaArmor extends WraqArmor {
     }
 
     @Override
-    public List<Component> getAdditionalComponents() {
+    public List<Component> getAdditionalComponents(ItemStack stack) {
         List<Component> components = new ArrayList<>();
         if (Screen.hasShiftDown()) ObsiManaSuitDescription.SuitDescription(components);
         else {

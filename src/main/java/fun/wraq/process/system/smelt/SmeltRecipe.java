@@ -5,8 +5,10 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ItemAndRate;
 import fun.wraq.process.func.item.InventoryOperation;
+import fun.wraq.process.system.ore.OreItems;
 import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.moontain.MoontainItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
@@ -137,7 +139,40 @@ public enum SmeltRecipe {
                     new ItemStack(ModItems.goldCoin.get(), 16)),
             List.of(new ItemStack(ModItems.MoonCompleteGem.get(), 4)),
             List.of(new ItemAndRate(new ItemStack(ModItems.MoonCompleteGem.get(), 1), 0.25)),
-            105);
+            105),
+
+    MOONTAIN_JADEITE(Te.m("望山翡翠", CustomStyle.styleOfMoontain),
+            List.of(new ItemStack(MoontainItems.FRAGMENT.get(), 8),
+                    new ItemStack(MoontainItems.SOUL_FRAGMENT.get(), 128),
+                    new ItemStack(OreItems.WRAQ_ORE_1_ITEM.get(), 16),
+                    new ItemStack(ModItems.goldCoin.get(), 32),
+                    new ItemStack(MoontainItems.STONE_FRAGMENT.get(), 256)
+            ),
+            List.of(new ItemStack(MoontainItems.JADEITE.get(), 1)),
+            List.of(new ItemAndRate(new ItemStack(MoontainItems.JADEITE.get(), 1), 0.25)),
+            15),
+
+    MOONTAIN_EMERALD(Te.m("望山碧玉", CustomStyle.styleOfMoontain),
+            List.of(new ItemStack(MoontainItems.NUGGET.get(), 8),
+                    new ItemStack(MoontainItems.LEATHER.get(), 128),
+                    new ItemStack(OreItems.WRAQ_ORE_1_ITEM.get(), 16),
+                    new ItemStack(ModItems.goldCoin.get(), 32),
+                    new ItemStack(MoontainItems.STONE_FRAGMENT.get(), 256)
+            ),
+            List.of(new ItemStack(MoontainItems.EMERALD.get(), 1)),
+            List.of(new ItemAndRate(new ItemStack(MoontainItems.EMERALD.get(), 1), 0.25)),
+            15),
+
+    MOONTAIN_HEART(Te.m("衡望山之心", CustomStyle.styleOfMoontain),
+            List.of(new ItemStack(MoontainItems.JADEITE.get(), 1),
+                    new ItemStack(MoontainItems.EMERALD.get(), 1),
+                    new ItemStack(ModItems.goldCoin.get(), 64),
+                    new ItemStack(MoontainItems.STONE_FRAGMENT.get(), 128)),
+            List.of(new ItemStack(MoontainItems.HEART.get(), 2)),
+            List.of(new ItemAndRate(new ItemStack(MoontainItems.JADEITE.get(), 1), 0.25),
+                    new ItemAndRate(new ItemStack(MoontainItems.EMERALD.get(), 1), 0.25)),
+            30);
+
 
     public final Component name;
     public final List<ItemStack> needMaterialList;

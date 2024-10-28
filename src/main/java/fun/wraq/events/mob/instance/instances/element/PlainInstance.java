@@ -1,4 +1,4 @@
-package fun.wraq.events.mob.instance.instances;
+package fun.wraq.events.mob.instance.instances.element;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;

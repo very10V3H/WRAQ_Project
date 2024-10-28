@@ -46,7 +46,7 @@ public class LightningArmor extends WraqArmor implements OnHitEffectEquip, Forge
     }
 
     @Override
-    public List<Component> getAdditionalComponents() {
+    public List<Component> getAdditionalComponents(ItemStack stack) {
         List<Component> components = new ArrayList<>();
         Style style = getMainStyle();
         ComponentUtils.descriptionPassive(components, Component.literal("唤雷").withStyle(style));

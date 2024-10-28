@@ -55,7 +55,7 @@ public class CastleSwiftArmor extends WraqArmor implements ForgeItem {
     }
 
     @Override
-    public List<Component> getAdditionalComponents() {
+    public List<Component> getAdditionalComponents(ItemStack stack) {
         List<Component> components = new ArrayList<>();
         Compute.DescriptionPassive(components, Component.literal("暗影打击").withStyle(style));
         components.add(Component.literal(" 进行").withStyle(ChatFormatting.WHITE).

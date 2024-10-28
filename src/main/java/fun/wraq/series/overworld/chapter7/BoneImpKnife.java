@@ -36,7 +36,7 @@ public class BoneImpKnife extends WraqOffHandItem implements ForgeItem {
     }
 
     @Override
-    public List<Component> getAdditionalComponents() {
+    public List<Component> getAdditionalComponents(ItemStack stack) {
         List<Component> components = new ArrayList<>();
         Style style = getMainStyle();
         ComponentUtils.descriptionPassive(components, Component.literal("诡压").withStyle(style));

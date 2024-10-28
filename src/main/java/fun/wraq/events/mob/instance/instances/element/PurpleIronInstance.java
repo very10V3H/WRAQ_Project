@@ -1,4 +1,4 @@
-package fun.wraq.events.mob.instance.instances;
+package fun.wraq.events.mob.instance.instances.element;
 
 import com.github.L_Ender.cataclysm.entity.AnimationMonster.BossMonsters.Amethyst_Crab_Entity;
 import com.github.L_Ender.cataclysm.init.ModEntities;
@@ -9,6 +9,7 @@ import fun.wraq.common.util.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstance;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
+import fun.wraq.events.mob.instance.instances.dimension.NetherInstance;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.missions.series.dailyMission.DailyMission;
 import fun.wraq.render.toolTip.CustomStyle;

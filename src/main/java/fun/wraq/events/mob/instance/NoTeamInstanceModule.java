@@ -2,7 +2,14 @@ package fun.wraq.events.mob.instance;
 
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
-import fun.wraq.events.mob.instance.instances.*;
+import fun.wraq.events.mob.instance.instances.dimension.NetherInstance;
+import fun.wraq.events.mob.instance.instances.element.IceInstance;
+import fun.wraq.events.mob.instance.instances.element.MoonInstance;
+import fun.wraq.events.mob.instance.instances.element.PlainInstance;
+import fun.wraq.events.mob.instance.instances.element.PurpleIronInstance;
+import fun.wraq.events.mob.instance.instances.moontain.*;
+import fun.wraq.events.mob.instance.instances.sakura.DevilInstance;
+import fun.wraq.events.mob.instance.instances.sakura.SakuraBossInstance;
 import fun.wraq.series.moontain.MoontainItems;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;

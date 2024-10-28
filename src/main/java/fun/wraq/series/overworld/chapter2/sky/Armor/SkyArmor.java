@@ -34,7 +34,7 @@ public class SkyArmor extends WraqArmor implements ForgeItem {
     }
 
     @Override
-    public List<Component> getAdditionalComponents() {
+    public List<Component> getAdditionalComponents(ItemStack stack) {
         List<Component> components = new ArrayList<>();
         Compute.DescriptionPassive(components, Component.literal("天空的加护").withStyle(CustomStyle.styleOfSky));
         components.add(Component.literal("1.").

@@ -35,7 +35,7 @@ public class PiglinHelmet extends WraqArmor implements ForgeItem, InCuriosOrEqui
     }
 
     @Override
-    public List<Component> getAdditionalComponents() {
+    public List<Component> getAdditionalComponents(ItemStack stack) {
         List<Component> components = new ArrayList<>();
         Style style = getMainStyle();
         Compute.DescriptionPassive(components, Component.literal("群攻").withStyle(style));

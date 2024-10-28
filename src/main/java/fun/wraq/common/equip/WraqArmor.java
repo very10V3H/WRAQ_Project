@@ -41,7 +41,7 @@ public abstract class WraqArmor extends ArmorItem {
 
     public abstract Style getMainStyle();
 
-    public abstract List<Component> getAdditionalComponents();
+    public abstract List<Component> getAdditionalComponents(ItemStack stack);
 
     public abstract Component getSuffix();
 
@@ -75,10 +75,15 @@ public abstract class WraqArmor extends ArmorItem {
                 }
             }
         }
+        int levelRequirement = Utils.levelRequire.getOrDefault(stack.getItem(), 0);
+        if (levelRequirement != 0) {
+            components.add(Component.literal(" 等级需求: ").withStyle(ChatFormatting.AQUA).
+                    append(Component.literal("Lv." + levelRequirement).withStyle(Utils.levelStyleList.get(levelRequirement / 25))));
+        }
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        if (!getAdditionalComponents().isEmpty()) {
+        if (!getAdditionalComponents(stack).isEmpty()) {
             ComponentUtils.descriptionOfAddition(components);
-            components.addAll(getAdditionalComponents());
+            components.addAll(getAdditionalComponents(stack));
             ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         }
         components.add(getSuffix());

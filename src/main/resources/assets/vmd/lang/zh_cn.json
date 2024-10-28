@@ -1792,10 +1792,10 @@
   "item.vmd.moontain_hand": "望山岩护手",
   "item.vmd.moontain_ring": "望山岩戒",
 
-  "item.vmd.moontain_weapon_enhancer": "望山",
-  "item.vmd.moontain_armor_enhancer": "望山",
-  "item.vmd.moontain_curios_rate_enhancer": "望山",
-  "item.vmd.moontain_curios_full_rate_enhancer": "望山",
+  "item.vmd.moontain_weapon_enhancer": "望山剑翎",
+  "item.vmd.moontain_armor_enhancer": "望山翡玉",
+  "item.vmd.moontain_curios_rate_enhancer": "望山母岩团",
+  "item.vmd.moontain_curios_full_rate_enhancer": "望山母岩簇",
 
   "curios.identifier.rune": "符石",
   "curios.identifier.crest": "纹章",

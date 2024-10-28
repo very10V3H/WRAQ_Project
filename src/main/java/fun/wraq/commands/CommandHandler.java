@@ -282,7 +282,7 @@ public class CommandHandler {
         LiteralCommandNode<CommandSourceStack> cmd31 = dispatcher31.register(
                 Commands.literal(Utils.MOD_ID).then(
                         Commands.literal("speed").then(
-                                Commands.argument("rate", StringArgumentType.string())
+                                Commands.argument("eachTierValue", StringArgumentType.string())
                                         .executes(SpeedCommand.instance)
                         ).requires(commandSourceStack -> commandSourceStack.hasPermission(0))
                 )

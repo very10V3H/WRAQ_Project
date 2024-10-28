@@ -36,7 +36,7 @@ public class LifeMana1 extends WraqArmor {
     }
 
     @Override
-    public List<Component> getAdditionalComponents() {
+    public List<Component> getAdditionalComponents(ItemStack stack) {
         List<Component> components = new ArrayList<>();
         Compute.DescriptionPassive(components, Component.literal("自然能量迸发").withStyle(CustomStyle.styleOfHealth));
         components.add(Component.literal(" 每穿着一件生机自然魔力装备，都会使你的").withStyle(ChatFormatting.WHITE));

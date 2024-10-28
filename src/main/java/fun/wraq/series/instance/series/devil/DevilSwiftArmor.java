@@ -34,7 +34,7 @@ public class DevilSwiftArmor extends WraqArmor implements OnKillEffectEquip, InC
     }
 
     @Override
-    public List<Component> getAdditionalComponents() {
+    public List<Component> getAdditionalComponents(ItemStack stack) {
         List<Component> components = new ArrayList<>();
         Style style = getMainStyle();
         Compute.DescriptionPassive(components, Component.literal("猎魔追命").withStyle(style));

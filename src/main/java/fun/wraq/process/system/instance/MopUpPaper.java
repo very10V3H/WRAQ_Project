@@ -2,7 +2,12 @@ package fun.wraq.process.system.instance;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.util.ItemAndRate;
-import fun.wraq.events.mob.instance.instances.*;
+import fun.wraq.events.mob.instance.instances.element.IceInstance;
+import fun.wraq.events.mob.instance.instances.element.MoonInstance;
+import fun.wraq.events.mob.instance.instances.element.PlainInstance;
+import fun.wraq.events.mob.instance.instances.element.PurpleIronInstance;
+import fun.wraq.events.mob.instance.instances.sakura.DevilInstance;
+import fun.wraq.events.mob.instance.instances.sakura.SakuraBossInstance;
 import fun.wraq.process.system.teamInstance.instances.blackCastle.NewCastleInstance;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;

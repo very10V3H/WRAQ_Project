@@ -1760,7 +1760,7 @@ public class Compute {
             throw new RuntimeException(e);
         }
         rate += new double[]{0, 0.15, 0.3, 0.5}[tier];
-        /*rate += SummerEvent.exHarvest(player);*/
+        /*eachTierValue += SummerEvent.exHarvest(player);*/
         return rate;
     }
 

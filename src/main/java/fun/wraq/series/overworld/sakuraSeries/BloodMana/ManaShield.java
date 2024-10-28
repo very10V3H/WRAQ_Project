@@ -37,7 +37,7 @@ public class ManaShield extends WraqOffHandItem implements ForgeItem {
     }
 
     @Override
-    public List<Component> getAdditionalComponents() {
+    public List<Component> getAdditionalComponents(ItemStack stack) {
         List<Component> components = new ArrayList<>();
         MineShield.shieldAdditionDescription(components);
         Compute.DescriptionPassive(components, Component.literal("旧世封魔遗志").withStyle(getMainStyle()));

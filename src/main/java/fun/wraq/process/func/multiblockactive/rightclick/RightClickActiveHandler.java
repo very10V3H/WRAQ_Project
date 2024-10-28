@@ -25,28 +25,28 @@ import java.util.List;
 public class RightClickActiveHandler {
 
     public static final List<RightClickActivation> activations = List.of(
-            new ItemEnhancer(Te.s("强化望山武器", CustomStyle.styleOfMoontain), new Vec3(1099, 81, 40),
+            new ItemEnhancer(Te.s("强化望山武器", CustomStyle.styleOfMoontain), new Vec3(1926, 152, -908),
                     List.of(new ItemStack(MoontainItems.WEAPON_ENHANCER.get())),
                     MoontainUtils.weaponEnhanceCondition, MoontainUtils.weaponEnhanceOperation,
                     List.of(Te.s("至多可以将", "望山武器", CustomStyle.styleOfMoontain,
-                            "提升到", "「仅存于梦」", CustomStyle.styleOfSakura),
-                            Te.s("成功概率随品质的提升而降低", CustomStyle.styleOfPlain))),
+                            "提升到", "20阶", CustomStyle.styleOfSakura),
+                            Te.s("成功概率随阶数的提升而降低", CustomStyle.styleOfPlain))),
 
-            new ItemEnhancer(Te.s("强化望山防具", CustomStyle.styleOfMoontain), new Vec3(1099, 91, 40),
+            new ItemEnhancer(Te.s("强化望山防具", CustomStyle.styleOfMoontain), new Vec3(1917, 152, -908),
                     List.of(new ItemStack(MoontainItems.ARMOR_ENHANCER.get())),
                     MoontainUtils.armorsEnhanceCondition, MoontainUtils.armorsEnhanceOperation,
                     List.of(Te.s("至多可以将", "望山防具", CustomStyle.styleOfMoontain,
-                            "提升到", "「仅存于梦」", CustomStyle.styleOfSakura),
-                            Te.s("成功概率随品质的提升而降低", CustomStyle.styleOfPlain))),
+                            "提升到", "20阶", CustomStyle.styleOfSakura),
+                            Te.s("成功概率随阶数的提升而降低", CustomStyle.styleOfPlain))),
 
-            new ItemEnhancer(Te.s("强化望山饰品数值", CustomStyle.styleOfMoontain), new Vec3(1099, 101, 40),
+            new ItemEnhancer(Te.s("强化望山饰品数值", CustomStyle.styleOfMoontain), new Vec3(1926, 152, -922),
                     List.of(new ItemStack(MoontainItems.CURIOS_RATE_ENHANCER.get())),
                     MoontainUtils.curiosEnhanceRateCondition, MoontainUtils.curiosEnhanceRateOperation,
                     List.of(Te.s("至多可以将", "望山饰品属性", CustomStyle.styleOfMoontain,
                             "提升到", "数值上限", CustomStyle.styleOfRed),
                             Te.s("每次提升", "0.1比例数值", ChatFormatting.AQUA))),
 
-            new ItemEnhancer(Te.s("强化望山饰品数值上限", CustomStyle.styleOfMoontain), new Vec3(1099, 111, 40),
+            new ItemEnhancer(Te.s("强化望山饰品数值上限", CustomStyle.styleOfMoontain), new Vec3(1917, 152, -922),
                     List.of(new ItemStack(MoontainItems.CURIOS_FULL_RATE_ENHANCER.get())),
                     MoontainUtils.curiosEnhanceFullRateCondition, MoontainUtils.curiosEnhanceFullRateOperation,
                     List.of(Te.s("至多可以将", "望山饰品属性上限", CustomStyle.styleOfMoontain,
@@ -68,7 +68,7 @@ public class RightClickActiveHandler {
                                 List<Component> components = new ArrayList<>();
                                 components.add(activation.getTitle());
                                 components.addAll(activation.getDescription());
-                                TextCommand.summonArmorStand(components, level, activation.getCenterPos());
+                                TextCommand.summonArmorStand(components, level, activation.getCenterPos().add(0.5, 0.5, 0.5));
                             });
                 });
             }

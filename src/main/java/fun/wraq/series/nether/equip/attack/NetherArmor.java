@@ -39,7 +39,7 @@ public class NetherArmor extends WraqArmor implements OnHitEffectEquip, ForgeIte
     }
 
     @Override
-    public List<Component> getAdditionalComponents() {
+    public List<Component> getAdditionalComponents(ItemStack stack) {
         List<Component> components = new ArrayList<>();
         Compute.DescriptionPassive(components, Component.literal("迸骸成末").withStyle(CustomStyle.styleOfNether));
         components.add(Te.m(" 普通近战攻击", CustomStyle.styleOfPower).

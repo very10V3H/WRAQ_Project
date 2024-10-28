@@ -33,7 +33,7 @@ public class EarthManaArmor extends WraqArmor implements ForgeItem {
     }
 
     @Override
-    public List<Component> getAdditionalComponents() {
+    public List<Component> getAdditionalComponents(ItemStack stack) {
         List<Component> components = new ArrayList<>();
         ComponentUtils.descriptionPassive(components, Component.literal("旧世斩魔遗怒").withStyle(style));
         components.add(Component.literal(" 将你消耗的").withStyle(ChatFormatting.WHITE).

@@ -5,6 +5,7 @@ import com.mojang.datafixers.util.Either;
 import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.equip.WraqPickaxe;
+import fun.wraq.common.equip.impl.ExBaseAttributeValueEquip;
 import fun.wraq.common.equip.impl.RandomCurios;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
@@ -119,6 +120,7 @@ public class BasicAttributeDescription {
                     mutableComponent.append(Component.literal(" 物理攻击").withStyle(ChatFormatting.AQUA).
                             append(Component.literal(" " + String.format("%.0f", baseDamage)).withStyle(ChatFormatting.WHITE)));
 
+                    handleExBaseAttributeValue(itemStack, mutableComponent, Utils.attackDamage);
                     handleForge(data, baseDamage, mutableComponent);
                     handleRandomAttributeRate(itemStack, StringUtils.CuriosAttribute.attackDamage, mutableComponent);
 
@@ -164,6 +166,7 @@ public class BasicAttributeDescription {
                     mutableComponent.append(Component.literal(" 法术攻击").withStyle(ChatFormatting.LIGHT_PURPLE).
                             append(Component.literal(" " + String.format("%.0f", baseDamage)).withStyle(ChatFormatting.WHITE)));
 
+                    handleExBaseAttributeValue(itemStack, mutableComponent, Utils.manaDamage);
                     handleForge(data, baseDamage, mutableComponent);
                     handleRandomAttributeRate(itemStack, StringUtils.CuriosAttribute.manaDamage, mutableComponent);
 
@@ -196,6 +199,7 @@ public class BasicAttributeDescription {
             mutableComponent.append(Component.literal(" 基础护甲").withStyle(ChatFormatting.GRAY).
                     append(Component.literal("+" + getDecimal(defence, 1)).withStyle(ChatFormatting.WHITE)));
 
+            handleExBaseAttributeValue(itemStack, mutableComponent, Utils.defence);
             handleForge(data, defence, mutableComponent);
             handleRandomAttributeRate(itemStack, StringUtils.CuriosAttribute.defence, mutableComponent);
 
@@ -257,6 +261,7 @@ public class BasicAttributeDescription {
 
             }
 
+            handleExBaseAttributeValue(itemStack, mutableComponent, Utils.maxHealth);
             double ExHealth = 0;
             if (data.contains(StringUtils.ForgeLevel)) ExHealth = Compute.forgingValue(data, maxHealth);
 
@@ -981,6 +986,8 @@ public class BasicAttributeDescription {
                 mutableComponent.append(Component.literal(" + " + getDecimal(gemsValue * (isPercent ? 100 : 1), decimalScale) + percent).withStyle(style));
             }
 
+            handleExBaseAttributeValue(itemStack, mutableComponent, map, decimalScale, isPercent);
+
             if (computeForge) {
                 double exForgingValue = 0;
                 if (data.contains(StringUtils.ForgeLevel)) {
@@ -1070,6 +1077,20 @@ public class BasicAttributeDescription {
                     && itemStack.getTagElement(Utils.MOD_ID).contains(Illustrate.DISPLAY_FLAG)) {
                 components.add(Te.m(" 按住左CTRL停止品质滚动", ChatFormatting.AQUA));
             }
+        }
+    }
+
+    private static void handleExBaseAttributeValue(ItemStack itemStack, MutableComponent mutableComponent, Map<Item, Double> map) {
+        handleExBaseAttributeValue(itemStack, mutableComponent, map, 0, false);
+    }
+
+    private static void handleExBaseAttributeValue(ItemStack itemStack, MutableComponent mutableComponent,
+                                                   Map<Item, Double> map, int decimalScale, boolean isPercent) {
+        double exBaseAttributeValue = ExBaseAttributeValueEquip.getExBaseAttributeValue(itemStack, map);
+        if (exBaseAttributeValue != 0) {
+            mutableComponent.append(Te.s("(", CustomStyle.styleOfMoontain,
+                    getDecimal(exBaseAttributeValue * (isPercent ? 100 : 1), decimalScale) + (isPercent ? "%" : ""), ChatFormatting.GREEN,
+                    ")", CustomStyle.styleOfMoontain));
         }
     }
 

@@ -95,7 +95,7 @@ public class MoontainCommon3SpawnController extends MobSpawnController {
     public static List<ItemAndRate> getDropList() {
         return new ArrayList<>() {{
             add(new ItemAndRate(MoontainItems.FALLING_SOUL.get(), 0.1));
-            add(new ItemAndRate(MoontainItems.STONE_FRAGMENT.get(), 1));
+            add(new ItemAndRate(MoontainItems.STONE_FRAGMENT.get(), 0.35));
             add(new ItemAndRate(ModItems.silverCoin.get(), 1));
             add(new ItemAndRate(ModItems.gemPiece.get(), 0.06));
         }};

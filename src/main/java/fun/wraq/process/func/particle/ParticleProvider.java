@@ -170,16 +170,16 @@ public class ParticleProvider {
             Vec3 Point = new Vec3(Location.x+r*Math.cos(angle)*aVec.x+r*Math.sin(angle)*bVec.x,
                     Location.y+r*Math.cos(angle)*aVec.y+r*Math.sin(angle)*bVec.y,
                     Location.z+r*Math.cos(angle)*aVec.z+r*Math.sin(angle)*bVec.z);
-            double rate = i * 1.0 / num * 1.0;
-            entity.level().addParticle(particleOptions,Point.x + DX * rate,Point.y + DY * rate,Point.z + DZ * rate,0,0,0);
+            double eachTierValue = i * 1.0 / num * 1.0;
+            entity.level().addParticle(particleOptions,Point.x + DX * eachTierValue,Point.y + DY * eachTierValue,Point.z + DZ * eachTierValue,0,0,0);
             List<ServerPlayer> list = entity.level().getServer().getPlayerList().getPlayers();
             for (ServerPlayer serverPlayer : list) {
                 ClientboundLevelParticlesPacket clientboundLevelParticlesPacket = new ClientboundLevelParticlesPacket(
                         particleOptions,
                         true,
-                        Point.x + DX * rate,
-                        Point.y + DY * rate,
-                        Point.z + DZ * rate,
+                        Point.x + DX * eachTierValue,
+                        Point.y + DY * eachTierValue,
+                        Point.z + DZ * eachTierValue,
                         0,0,0,0,0
                 );
                 serverPlayer.connection.send(clientboundLevelParticlesPacket);

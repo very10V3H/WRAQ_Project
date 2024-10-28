@@ -1,14 +1,19 @@
-package fun.wraq.events.mob.instance.instances;
+package fun.wraq.events.mob.instance.instances.moontain;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ItemAndRate;
+import fun.wraq.events.core.InventoryCheck;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstance;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
+import fun.wraq.process.func.item.InventoryOperation;
+import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.moontain.MoontainItems;
+import fun.wraq.series.moontain.equip.weapon.MoontainUtils;
 import net.mcreator.borninchaosv.entity.LordTheHeadlessEntity;
 import net.mcreator.borninchaosv.init.BornInChaosV1ModEntities;
 import net.minecraft.ChatFormatting;
@@ -20,12 +25,12 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
-import java.util.HashMap;
+import java.security.SecureRandom;
 import java.util.List;
-import java.util.Map;
 
 public class MoontainBoss3Instance extends NoTeamInstance {
 
@@ -81,12 +86,41 @@ public class MoontainBoss3Instance extends NoTeamInstance {
     public void rewardModule(Player player) {
         List<ItemAndRate> rewardList = getRewardList();
         rewardList.forEach(itemAndRate -> itemAndRate.dropWithBounding(lastMob, 1, player));
+        MobSpawn.killCountIncrement(player, mobName);
+        Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player), 240);
 
-        String name = player.getName().getString();
-        if (!MobSpawn.tempKillCount.containsKey(name)) MobSpawn.tempKillCount.put(name, new HashMap<>());
-        Map<String, Integer> map = MobSpawn.tempKillCount.get(name);
-        map.put(mobName, map.getOrDefault(mobName, 0) + 1);
-        Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player), 150);
+        SecureRandom secureRandom = new SecureRandom();
+        if (secureRandom.nextDouble() < 0.05) {
+            ItemStack stack;
+            if (secureRandom.nextBoolean()) {
+                List<Item> weapons = MoontainUtils.getMoontainWeapons();
+                stack = new ItemStack(weapons.get(secureRandom.nextInt(weapons.size())));
+            } else {
+                List<Item> armors = MoontainUtils.getMoontainArmors();
+                stack = new ItemStack(armors.get(secureRandom.nextInt(armors.size())));
+            }
+            double randomDouble = secureRandom.nextDouble();
+            if (randomDouble < 0.05) {
+                ForgeEquipUtils.setForgeQualityOnEquip(stack, secureRandom.nextInt(7, 10));
+            } else {
+                ForgeEquipUtils.setForgeQualityOnEquip(stack, secureRandom.nextInt(2, 7));
+            }
+            InventoryCheck.addOwnerTagToItemStack(player, stack);
+            Compute.forgingHoverName(stack);
+            MoontainUtils.formatBroad(player.level(), Te.s(player.getDisplayName(),
+                    " 击杀 ", mobName, style, " 获得了 ", stack.getDisplayName()));
+            InventoryOperation.itemStackGive(player, stack);
+        }
+
+        if (secureRandom.nextDouble() < 0.1) {
+            List<Item> curiosList = MoontainUtils.getMoontainCurios();
+            ItemStack stack = new ItemStack(curiosList.get(secureRandom.nextInt(curiosList.size())));
+            InventoryCheck.addOwnerTagToItemStack(player, stack);
+            Compute.forgingHoverName(stack);
+            MoontainUtils.formatBroad(player.level(), Te.s(player.getDisplayName(),
+                    " 击杀 ", mobName, style, " 获得了 ", stack.getDisplayName()));
+            InventoryOperation.itemStackGive(player, stack);
+        }
     }
 
     @Override
@@ -105,7 +139,7 @@ public class MoontainBoss3Instance extends NoTeamInstance {
     }
 
     public static List<ItemAndRate> getRewardList() {
-        return List.of(new ItemAndRate(ModItems.Boss2Piece.get(), 1),
+        return List.of(
                 new ItemAndRate(MoontainItems.STONE_FRAGMENT.get(), 16),
                 new ItemAndRate(ModItems.WorldSoul2.get(), 0.25),
                 new ItemAndRate(ModItems.GoldCoinBag.get(), 0.1));

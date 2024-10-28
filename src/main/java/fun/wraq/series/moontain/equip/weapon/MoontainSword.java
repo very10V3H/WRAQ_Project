@@ -1,17 +1,18 @@
 package fun.wraq.series.moontain.equip.weapon;
 
-import fun.wraq.common.util.ComponentUtils;
-import fun.wraq.common.util.Utils;
+import fun.wraq.common.equip.WraqSword;
 import fun.wraq.common.equip.impl.ExBaseAttributeValueEquip;
 import fun.wraq.common.equip.impl.WraqMainHandOrPassiveEquip;
-import fun.wraq.common.equip.WraqSword;
+import fun.wraq.common.fast.Te;
+import fun.wraq.common.util.ComponentUtils;
+import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.moontain.equip.weapon.MoontainUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,7 +37,11 @@ public class MoontainSword extends WraqSword implements ExBaseAttributeValueEqui
 
     @Override
     public List<Component> getAdditionalComponents(ItemStack stack) {
-        return List.of();
+        List<Component> components = new ArrayList<>();
+        ComponentUtils.descriptionPassive(components, Te.s("筑造", getMainStyle()));
+        components.add(Te.s(" 筑造阶数: ", getMainStyle(),
+                String.valueOf(ExBaseAttributeValueEquip.getForgeTier(stack, MoontainUtils.getTraditionalAttributeMap(stack)))));
+        return components;
     }
 
     @Override
@@ -50,9 +55,9 @@ public class MoontainSword extends WraqSword implements ExBaseAttributeValueEqui
     }
 
     @Override
-    public Map<Map<Item, Double>, TagAndRate> getTagAndRateMap() {
+    public Map<Map<Item, Double>, TagAndEachTierValue> getTagAndRateMap() {
         return new HashMap<>() {{
-            put(Utils.attackDamage, new TagAndRate(MoontainUtils.MOONTAIN_ATTACK_TAG_KEY, 100));
+            put(Utils.attackDamage, new TagAndEachTierValue(MoontainUtils.MOONTAIN_ATTACK_TAG_KEY, 100));
         }};
     }
 }

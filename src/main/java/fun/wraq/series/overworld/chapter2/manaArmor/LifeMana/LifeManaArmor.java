@@ -35,7 +35,7 @@ public class LifeManaArmor extends WraqArmor {
     }
 
     @Override
-    public List<Component> getAdditionalComponents() {
+    public List<Component> getAdditionalComponents(ItemStack stack) {
         List<Component> components = new ArrayList<>();
         if (Screen.hasShiftDown()) LifeManaSuitDescription.SuitDescription(components);
         else {

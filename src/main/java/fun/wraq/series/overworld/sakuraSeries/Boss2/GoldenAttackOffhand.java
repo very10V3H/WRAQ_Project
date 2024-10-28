@@ -56,7 +56,7 @@ public class GoldenAttackOffhand extends WraqOffHandItem implements OnKillEffect
     }
 
     @Override
-    public List<Component> getAdditionalComponents() {
+    public List<Component> getAdditionalComponents(ItemStack stack) {
         List<Component> components = new ArrayList<>();
         Style style = getMainStyle();
         if (type == 0) MineShield.shieldAdditionDescription(components);

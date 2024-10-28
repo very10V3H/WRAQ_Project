@@ -1,18 +1,20 @@
-package fun.wraq.events.mob.instance.instances;
+package fun.wraq.events.mob.instance.instances.moontain;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
-import fun.wraq.common.registry.ModEntityType;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ItemAndRate;
-import fun.wraq.entities.entities.Boss2.Boss2;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstance;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.moontain.MoontainItems;
+import net.mcreator.borninchaosv.entity.SirPumpkinheadEntity;
+import net.mcreator.borninchaosv.init.BornInChaosV1ModEntities;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.Style;
 import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.BossEvent;
@@ -24,21 +26,22 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SakuraBossInstance extends NoTeamInstance {
+public class MoontainBoss2Instance extends NoTeamInstance {
 
-    private static SakuraBossInstance instance;
+    private static MoontainBoss2Instance instance;
 
-    public static String mobName = "突见忍";
+    public static String mobName = "望山骑士";
+    public static Style style = CustomStyle.styleOfMoontain;
 
-    public static SakuraBossInstance getInstance() {
+    public static MoontainBoss2Instance getInstance() {
         if (instance == null) {
-            instance = new SakuraBossInstance(new Vec3(2257, 140, 1694), 30, 200, new Vec3(2257, 140, 1694),
-                    Component.literal("突见忍").withStyle(CustomStyle.styleOfSakura));
+            instance = new MoontainBoss2Instance(new Vec3(1978, 215, -881), 15, 200, new Vec3(1978, 215, -881),
+                    Component.literal(mobName).withStyle(style));
         }
         return instance;
     }
 
-    public SakuraBossInstance(Vec3 pos, double range, int delayTick, Vec3 armorStandPos, MutableComponent name) {
+    public MoontainBoss2Instance(Vec3 pos, double range, int delayTick, Vec3 armorStandPos, MutableComponent name) {
         super(pos, range, delayTick, armorStandPos, name);
     }
 
@@ -49,25 +52,28 @@ public class SakuraBossInstance extends NoTeamInstance {
 
     @Override
     public void summonModule(Level level) {
-        Boss2 sakuraBoss = new Boss2(ModEntityType.Boss2.get(), level);
+        SirPumpkinheadEntity entity =
+                new SirPumpkinheadEntity(BornInChaosV1ModEntities.SIR_PUMPKINHEAD.get(), level);
 
-        sakuraBoss.setBaby(true);
-        MobSpawn.setMobCustomName(sakuraBoss, Component.literal("突见忍").withStyle(CustomStyle.styleOfSakura), 150);
+        MobSpawn.setMobCustomName(entity, Component.literal(mobName).withStyle(style), 220);
 
-        MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(sakuraBoss), 150);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(sakuraBoss, 1500, 110, 110, 0.4, 4, 0.25, 50, 20, 500 * Math.pow(10, 4), 0.35);
+        MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(entity), 215);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(entity, 3200, 220, 220,
+                0.4, 5, 0.3, 80, 25,
+                2000 * Math.pow(10, 4), 0.45);
 
-        sakuraBoss.setHealth(sakuraBoss.getMaxHealth());
+        entity.setHealth(entity.getMaxHealth());
 
-        sakuraBoss.moveTo(pos);
-        level.addFreshEntity(sakuraBoss);
+        entity.moveTo(pos);
+        level.addFreshEntity(entity);
 
-        ServerBossEvent serverBossEvent = (ServerBossEvent) (new ServerBossEvent(sakuraBoss.getDisplayName(), BossEvent.BossBarColor.PURPLE, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
+        ServerBossEvent serverBossEvent = (ServerBossEvent) (new ServerBossEvent(entity.getDisplayName(),
+                BossEvent.BossBarColor.PURPLE, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
         getPlayerList(level).forEach(player -> {
             serverBossEvent.addPlayer((ServerPlayer) player);
         });
         bossInfoList.add(serverBossEvent);
-        mobList.add(sakuraBoss);
+        mobList.add(entity);
     }
 
     @Override
@@ -79,12 +85,12 @@ public class SakuraBossInstance extends NoTeamInstance {
         if (!MobSpawn.tempKillCount.containsKey(name)) MobSpawn.tempKillCount.put(name, new HashMap<>());
         Map<String, Integer> map = MobSpawn.tempKillCount.get(name);
         map.put(mobName, map.getOrDefault(mobName, 0) + 1);
-        Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player), 150);
+        Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player), 220);
     }
 
     @Override
     public boolean allowReward(Player player) {
-        return NoTeamInstanceModule.getPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.sakuraBoss);
+        return NoTeamInstanceModule.getPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.moontainBoss);
     }
 
     @Override
@@ -93,12 +99,13 @@ public class SakuraBossInstance extends NoTeamInstance {
                 append(Component.literal("锻造").withStyle(ChatFormatting.GRAY)).
                 append(Component.literal("过").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("1件").withStyle(ChatFormatting.AQUA)).
-                append(Component.literal("冰霜骑士装备").withStyle(CustomStyle.styleOfIce)).
+                append(Component.literal("暗黑城堡武器").withStyle(CustomStyle.styleOfCastleCrystal)).
                 append(Component.literal("，方能获取奖励。").withStyle(ChatFormatting.WHITE));
     }
 
     public static List<ItemAndRate> getRewardList() {
-        return List.of(new ItemAndRate(ModItems.Boss2Piece.get(), 1),
+        return List.of(new ItemAndRate(MoontainItems.NUGGET.get(), 1),
+                new ItemAndRate(MoontainItems.STONE_FRAGMENT.get(), 7),
                 new ItemAndRate(ModItems.WorldSoul2.get(), 0.25),
                 new ItemAndRate(ModItems.GoldCoinBag.get(), 0.1));
     }

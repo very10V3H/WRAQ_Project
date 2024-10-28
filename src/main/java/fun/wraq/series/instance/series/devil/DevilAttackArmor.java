@@ -35,7 +35,7 @@ public class DevilAttackArmor extends WraqArmor implements ForgeItem {
     }
 
     @Override
-    public List<Component> getAdditionalComponents() {
+    public List<Component> getAdditionalComponents(ItemStack stack) {
         List<Component> components = new ArrayList<>();
         Style style = getMainStyle();
         Compute.DescriptionPassive(components, Component.literal("封魔者之怒").withStyle(style));

@@ -32,7 +32,7 @@ public class KazeArmorBoots extends WraqArmor implements ForgeItem {
     }
 
     @Override
-    public List<Component> getAdditionalComponents() {
+    public List<Component> getAdditionalComponents(ItemStack stack) {
         return List.of();
     }
 

@@ -8,17 +8,17 @@ import net.minecraft.world.item.ItemStack;
 import java.util.Map;
 
 public interface ExBaseAttributeValueEquip {
-    record TagAndRate(String tag, double rate) {
+    record TagAndEachTierValue(String tag, double eachTierValue) {
         public double getValueByData(CompoundTag data) {
-            return data.getDouble(tag) * rate;
+            return data.getDouble(tag) * eachTierValue;
         }
     }
 
     /**
-     * 注意，一定需要使用此接口的getStackExBaseAttributeData方法来获取nbt放入对应key
+     * 注意，必须使用此接口的getStackExBaseAttributeData方法来获取nbt放入对应key
      * @return 额外属性表
      */
-    Map<Map<Item, Double>, TagAndRate> getTagAndRateMap();
+    Map<Map<Item, Double>, TagAndEachTierValue> getTagAndRateMap();
 
     String EX_BASE_ATTRIBUTE_DATA_KEY = "EX_BASE_ATTRIBUTE_DATA_KEY";
     static CompoundTag getStackExBaseAttributeData(ItemStack stack) {
@@ -31,8 +31,26 @@ public interface ExBaseAttributeValueEquip {
     static void forgeThisTypeEquip(ItemStack itemStack, Map<Item, Double> attributeMap, int forgeTier) {
         if (itemStack.getItem() instanceof ExBaseAttributeValueEquip equip) {
             CompoundTag data = getStackExBaseAttributeData(itemStack);
-            TagAndRate tagAndRate = equip.getTagAndRateMap().get(attributeMap);
-            data.putInt(tagAndRate.tag(), data.getInt(tagAndRate.tag()) + forgeTier);
+            TagAndEachTierValue tagAndEachTierValue = equip.getTagAndRateMap().get(attributeMap);
+            data.putInt(tagAndEachTierValue.tag(), data.getInt(tagAndEachTierValue.tag()) + forgeTier);
         }
+    }
+
+    static int getForgeTier(ItemStack itemStack, Map<Item, Double> attributeMap) {
+        if (itemStack.getItem() instanceof ExBaseAttributeValueEquip equip) {
+            CompoundTag data = getStackExBaseAttributeData(itemStack);
+            TagAndEachTierValue tagAndEachTierValue = equip.getTagAndRateMap().get(attributeMap);
+            return data.getInt(tagAndEachTierValue.tag());
+        }
+        return 0;
+    }
+
+    static double getExBaseAttributeValue(ItemStack itemStack, Map<Item, Double> map) {
+        if (itemStack.getItem() instanceof ExBaseAttributeValueEquip equip && equip.getTagAndRateMap().containsKey(map)) {
+            CompoundTag data = getStackExBaseAttributeData(itemStack);
+            TagAndEachTierValue tagAndEachTierValue = equip.getTagAndRateMap().get(map);
+            return tagAndEachTierValue.getValueByData(data);
+        }
+        return 0;
     }
 }

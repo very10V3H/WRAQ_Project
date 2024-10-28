@@ -42,7 +42,7 @@ public class NetherShield extends WraqOffHandItem implements ForgeItem, OnHitEff
     }
 
     @Override
-    public List<Component> getAdditionalComponents() {
+    public List<Component> getAdditionalComponents(ItemStack stack) {
         List<Component> components = new ArrayList<>();
         Style style = getMainStyle();
         MineShield.shieldAdditionDescription(components);

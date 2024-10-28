@@ -20,7 +20,7 @@ public class SpeedCommand implements Command<CommandSourceStack> {
     public int run(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         Player player = context.getSource().getPlayer();
         CompoundTag data = player.getPersistentData();
-        String s = StringArgumentType.getString(context, "rate");
+        String s = StringArgumentType.getString(context, "eachTierValue");
         int rate = Integer.parseInt(s);
         if (rate >= 0 && rate <= 100) {
             data.putInt(StringUtils.MovementSpeedRate, rate);
