@@ -20,6 +20,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.ChestBoat;
 import net.minecraft.world.entity.vehicle.MinecartChest;
 import net.minecraft.world.entity.vehicle.MinecartHopper;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -57,6 +58,12 @@ public class RightClickEvent {
         if (event.getSide().isServer() && event.getHand().equals(InteractionHand.MAIN_HAND)) {
             NoTeamInstanceModule.handlePlayerRightClick(player);
             RightClickActiveHandler.handleOnPlayerRightClick(player);
+        }
+
+        if (event.getHand().equals(InteractionHand.MAIN_HAND)) {
+            if (item instanceof ArmorItem) {
+                event.setCanceled(true);
+            }
         }
     }
 
