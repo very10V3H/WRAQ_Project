@@ -126,9 +126,7 @@ public class BonusChestPlayerData {
                 chestBlockEntity.clearContent();
                 BonusChestContent.getBonusContent(bonusChestInfo.tier).forEach(pair -> {
                     ItemStack itemStack = pair.getFirst();
-                    if (InventoryCheck.boundingList.contains(itemStack.getItem())) {
-                        InventoryCheck.addOwnerTagToItemStack(player, itemStack);
-                    }
+                    InventoryCheck.addOwnerTagToItemStack(player, itemStack);
                     chestBlockEntity.setItem(pair.getSecond(), itemStack);
                 });
                 Point.increment(player, BonusChestContent.getZoneToPointType(bonusChestInfo.zone),

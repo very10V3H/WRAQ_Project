@@ -76,7 +76,7 @@ public class VariousEvents {
                 if (InventoryCheck.boundingList.isEmpty()) InventoryCheck.setBoundingList();
                 if (!Utils.mainHandTag.containsKey(item) && !Utils.offHandTag.containsKey(item)
                         && !Utils.armorTag.containsKey(item) && !InventoryCheck.boundingList.contains(item)) {
-                    data.remove(InventoryCheck.owner);
+                    InventoryCheck.removeOwnerTagDirect(itemStack);
                     if (data.isEmpty()) itemStack.removeTagKey(Utils.MOD_ID);
                 }
             }

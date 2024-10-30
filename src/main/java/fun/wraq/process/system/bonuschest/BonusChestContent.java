@@ -133,7 +133,7 @@ public class BonusChestContent {
     public static String getZoneToPointType(int zoneId) {
         Map<Integer, String> itemMap = new HashMap<>() {{
             put(0, Point.DSPT);
-            put(1, Point.EDPT);
+            put(1, Point.ELPT);
             put(2, Point.NTPT);
             put(3, Point.SKPT);
             put(4, Point.ELPT);

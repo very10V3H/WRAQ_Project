@@ -6,6 +6,7 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.logging.LogUtils;
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.*;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.core.InventoryCheck;
 import fun.wraq.files.MarketItemInfo;
@@ -15,6 +16,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.npc.Villager;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.phys.AABB;
@@ -60,10 +62,14 @@ public class SellCommand implements Command<CommandSourceStack> {
         } else {
             boolean flag = false;
             ItemStack itemStack = player.getItemInHand(InteractionHand.MAIN_HAND);
-            if (!InventoryCheck.getBoundingList().contains(itemStack.getItem())) InventoryCheck.removeOwnerTag(player, itemStack);
+            Item item = itemStack.getItem();
+            if (isAllowedSold(item)) {
+                InventoryCheck.removeOwnerTag(player, itemStack);
+            }
             MarketItemInfo marketItemInfo = new MarketItemInfo(player.getName().getString(), itemStack, price);
 
-            if (!itemStack.is(Items.AIR) && MarketItemInfo.itemCanBeSold(itemStack)) {
+            if (!itemStack.is(Items.AIR)
+                    && MarketItemInfo.itemCanBeSold(itemStack) && !InventoryCheck.containOwnerTag(itemStack)) {
                 flag = true;
                 Utils.marketItemInfos.add(marketItemInfo);
                 player.setItemInHand(InteractionHand.MAIN_HAND, Items.AIR.getDefaultInstance());
@@ -95,5 +101,15 @@ public class SellCommand implements Command<CommandSourceStack> {
             }
         }
         return " ";
+    }
+
+    public boolean isAllowedSold(Item item) {
+        return !InventoryCheck.getBoundingList().contains(item)
+                && (item instanceof WraqMainHandEquip
+                || item instanceof WraqArmor
+                || item instanceof WraqCurios
+                || item instanceof WraqOffHandItem
+                || item instanceof WraqPassiveEquip
+                || item instanceof WraqPickaxe);
     }
 }
