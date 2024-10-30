@@ -29,8 +29,6 @@ public class GoldCoinBag extends Item {
         components.add(Component.literal(" 1.").withStyle(ChatFormatting.WHITE).
                 append(ModItems.goldCoin.get().getDefaultInstance().getDisplayName()).
                 append(Component.literal("*(2~5)")));
-        components.add(Component.literal(" "));
-        components.add(Component.literal("Items-GoldCoinBag").withStyle(ChatFormatting.AQUA));
         super.appendHoverText(itemStack, level, components, flag);
     }
 

@@ -116,6 +116,13 @@ public class BonusChestPlayerData {
                 || (player.level().dimension().equals(Level.NETHER) && bonusChestInfo.levelSerial == 1)
                 || (player.level().dimension().equals(Level.END) && bonusChestInfo.levelSerial == 2)) {
             int serial = BonusChestInfo.getSerialNum(blockPos);
+            int levelRequire = BonusChestInfo.Util.ZONE_LEVEL_REQUIREMENT.getOrDefault(bonusChestInfo.zone, 0);
+            if (player.experienceLevel < levelRequire) {
+                sendMSG(player, Te.s(BonusChestInfo.Util.ZONE_NAME_MAP.get(bonusChestInfo.zone),
+                        "区域的奖励箱需要达到", "Lv." + levelRequire, Utils.levelStyleList.get(levelRequire / 25), "才能开启"));
+                event.setCanceled(true);
+                return;
+            }
             if (getInfoBySerialNum(player, bonusChestInfo.zone, serial) == 0 || player.isCreative()) {
                 // 未获取过奖励
                 setInfoBySerialNum(player, bonusChestInfo.zone, serial);

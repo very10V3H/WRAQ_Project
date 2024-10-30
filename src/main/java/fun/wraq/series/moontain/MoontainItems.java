@@ -97,13 +97,13 @@ public class MoontainItems {
     public static final RegistryObject<Item> WEAPON_ENHANCER = ITEMS.register("moontain_weapon_enhancer",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.MOONTAIN_ITALIC), true, true, List.of(
                     Te.s("用于", "提升", ChatFormatting.AQUA, "望山武器", CustomStyle.styleOfMoontain,
-                            "锻造品质", ChatFormatting.GOLD)
+                            "阶数", ChatFormatting.GOLD)
             )));
 
     public static final RegistryObject<Item> ARMOR_ENHANCER = ITEMS.register("moontain_armor_enhancer",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.MOONTAIN_ITALIC), true, true, List.of(
                     Te.s("用于", "提升", ChatFormatting.AQUA, "望山防具", CustomStyle.styleOfMoontain,
-                            "锻造品质", ChatFormatting.GOLD)
+                            "阶数", ChatFormatting.GOLD)
             )));
 
     public static final RegistryObject<Item> CURIOS_RATE_ENHANCER = ITEMS.register("moontain_curios_rate_enhancer",

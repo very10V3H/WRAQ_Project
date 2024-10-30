@@ -753,6 +753,16 @@ public enum BonusChestInfo {
     MOONTAIN_59(new BlockPos(1983, 239, -863), 2, Util.MOONTAIN_NUM),
     MOONTAIN_60(new BlockPos(1983, 261, -881), 3, Util.MOONTAIN_NUM),
 
+    MOONTAIN_61(new BlockPos(1964, 150, -804), 0, Util.MOONTAIN_NUM),
+    MOONTAIN_62(new BlockPos(1996, 152, -793), 1, Util.MOONTAIN_NUM),
+    MOONTAIN_63(new BlockPos(2024, 159, -787), 0, Util.MOONTAIN_NUM),
+    MOONTAIN_64(new BlockPos(2021, 161, -799), 1, Util.MOONTAIN_NUM),
+    MOONTAIN_65(new BlockPos(2038, 169, -813), 0, Util.MOONTAIN_NUM),
+    MOONTAIN_66(new BlockPos(2083, 161, -826), 0, Util.MOONTAIN_NUM),
+    MOONTAIN_67(new BlockPos(2135, 161, -817), 0, Util.MOONTAIN_NUM),
+    MOONTAIN_68(new BlockPos(2173, 147, -791), 2, Util.MOONTAIN_NUM),
+    MOONTAIN_69(new BlockPos(2184, 143, -783), 3, Util.MOONTAIN_NUM),
+
 
     // 测试箱
     TEST_0(new BlockPos(962, 233, 13), 0, Util.DRUMSTICK_ZONE_NUM),
@@ -799,7 +809,7 @@ public enum BonusChestInfo {
             put(5, Te.s("绯樱岛", CustomStyle.styleOfSakura));
             put(6, Te.s("下界", CustomStyle.styleOfNether));
             put(7, Te.s("终界", CustomStyle.styleOfEnd));
-            put(8, Te.s("望山阁", CustomStyle.styleOfMoontain));
+            put(8, Te.s("望山", CustomStyle.styleOfMoontain));
         }};
 
         public static final Map<Integer, Component> TIER_NAME_MAP = new HashMap<>() {{
@@ -807,6 +817,11 @@ public enum BonusChestInfo {
             put(1, Te.s("非凡奖励箱", CustomStyle.styleOfWorld));
             put(2, Te.s("丰饶奖励箱", CustomStyle.styleOfGold));
             put(3, Te.s("富饶奖励箱", CustomStyle.styleOfRed));
+        }};
+
+        public static final Map<Integer, Integer> ZONE_LEVEL_REQUIREMENT = new HashMap<>() {{
+            put(5, 100);
+            put(8, 160);
         }};
     }
 
