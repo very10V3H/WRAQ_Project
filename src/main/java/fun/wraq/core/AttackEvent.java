@@ -71,7 +71,7 @@ public class AttackEvent {
             Entity entity = event.getTarget();
             if (entity.getClass() == Villager.class ||
                     entity.getClass() == WanderingTrader.class ||
-                    entity instanceof Animal
+                    (entity instanceof Animal && !entity.hasCustomName())
             ) event.setCanceled(true);                    //保护动物人人有责。
             CompoundTag data = player.getPersistentData();
             data.putBoolean("ARROW", false);

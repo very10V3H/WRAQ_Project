@@ -53,13 +53,6 @@ public class TradeList {
         summerEvent();
 
         /* 1.0 */
-        LifeElement();
-        WindElement();
-        StoneElement();
-        FireElement();
-        LightningElement();
-        WaterElement();
-        IceElement();
 
         Snow();
         Evoker();
@@ -545,9 +538,6 @@ public class TradeList {
                 GemItems.DISMANTLE.get().getDefaultInstance(),
                 GemItems.DISMANTLE.get().getDefaultInstance(),
                 GemItems.DISMANTLE.get().getDefaultInstance(),
-                ModItems.LifeTeleportTicket.get().getDefaultInstance(),
-                ModItems.WindTeleportTicket.get().getDefaultInstance(),
-                ModItems.StoneTeleportTicket.get().getDefaultInstance(),
                 ModItems.SwordLottery.get().getDefaultInstance(),
                 ModItems.BowLottery.get().getDefaultInstance(),
                 ModItems.SceptreLottery.get().getDefaultInstance()
@@ -568,13 +558,10 @@ public class TradeList {
                 case 1, 2, 3 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.WorldSoul3.get(), 16));
                 }});
-                case 4, 8, 9, 10 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
+                case 4, 5, 6, 7 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.WorldSoul3.get(), 4));
                 }});
-                case 5, 6, 7 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.WorldSoul2.get(), 8));
-                }});
-                case 11, 12, 13 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
+                case 8, 9, 10 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.worldSoul5.get(), 40));
                 }});
             }
@@ -2199,237 +2186,6 @@ public class TradeList {
                     add(new ItemStack(ModItems.QingTuan.get(), 64));
                     add(new ItemStack(ModItems.QingTuan.get(), 64));
                     add(new ItemStack(ModItems.QingTuan.get(), 64));
-                }});
-            }
-        }
-    }
-
-    public static void LifeElement() {
-        ItemStack[] itemStacks = {
-                new ItemStack(ModItems.LifeElementPiece1.get(), 1),
-                new ItemStack(ModItems.LifeElementPiece2.get(), 1),
-                new ItemStack(ModItems.LifeCrystal0.get(), 1),
-                new ItemStack(ModItems.LifeTeleportTicket.get(), 1),
-        };
-
-        List<ItemStack> contentList = new ArrayList<>();
-        Collections.addAll(contentList, itemStacks);
-        tradeContent.put(StringUtils.VillagerName.LifeElement, contentList);
-
-        for (int i = 0; i < itemStacks.length; i++) {
-            switch (i) {
-                case 0 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.WorldSoul2.get(), 1));
-                    add(new ItemStack(ModItems.LifeElementPiece0.get(), 64));
-                }});
-                case 1 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.RainbowPowder.get(), 4));
-                    add(new ItemStack(ModItems.LifeElementPiece1.get(), 64));
-                }});
-                case 2 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.PurpleIronBud3.get(), 2));
-                    add(new ItemStack(ModItems.LifeElementPiece2.get(), 4));
-                }});
-                case 3 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.WorldSoul3.get(), 4));
-                }});
-            }
-        }
-    }
-
-    public static void WindElement() {
-        ItemStack[] itemStacks = {
-                new ItemStack(ModItems.WindElementPiece1.get(), 1),
-                new ItemStack(ModItems.WindElementPiece2.get(), 1),
-                new ItemStack(ModItems.WindCrystal0.get(), 1),
-                new ItemStack(ModItems.WindTeleportTicket.get(), 1),
-        };
-
-        List<ItemStack> contentList = new ArrayList<>();
-        Collections.addAll(contentList, itemStacks);
-        tradeContent.put(StringUtils.VillagerName.WindElement, contentList);
-
-        for (int i = 0; i < itemStacks.length; i++) {
-            switch (i) {
-                case 0 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.WorldSoul2.get(), 1));
-                    add(new ItemStack(ModItems.WindElementPiece0.get(), 64));
-                }});
-                case 1 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.RainbowPowder.get(), 4));
-                    add(new ItemStack(ModItems.WindElementPiece1.get(), 64));
-                }});
-                case 2 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.PurpleIronBud3.get(), 2));
-                    add(new ItemStack(ModItems.WindElementPiece2.get(), 4));
-                }});
-                case 3 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.WorldSoul3.get(), 4));
-                }});
-            }
-        }
-    }
-
-    public static void StoneElement() {
-        ItemStack[] itemStacks = {
-                new ItemStack(ModItems.StoneElementPiece1.get(), 1),
-                new ItemStack(ModItems.StoneElementPiece2.get(), 1),
-                new ItemStack(ModItems.StoneCrystal0.get(), 1),
-                new ItemStack(ModItems.StoneTeleportTicket.get(), 1),
-        };
-
-        List<ItemStack> contentList = new ArrayList<>();
-        Collections.addAll(contentList, itemStacks);
-        tradeContent.put(StringUtils.VillagerName.StoneElement, contentList);
-
-        for (int i = 0; i < itemStacks.length; i++) {
-            switch (i) {
-                case 0 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.WorldSoul2.get(), 1));
-                    add(new ItemStack(ModItems.StoneElementPiece0.get(), 64));
-                }});
-                case 1 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.RainbowPowder.get(), 4));
-                    add(new ItemStack(ModItems.StoneElementPiece1.get(), 64));
-                }});
-                case 2 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.PurpleIronBud3.get(), 2));
-                    add(new ItemStack(ModItems.StoneElementPiece2.get(), 4));
-                }});
-                case 3 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.WorldSoul3.get(), 4));
-                }});
-            }
-        }
-    }
-
-    public static void LightningElement() {
-        ItemStack[] itemStacks = {
-                new ItemStack(ModItems.LightningElementPiece1.get(), 1),
-                new ItemStack(ModItems.LightningElementPiece2.get(), 1),
-                new ItemStack(ModItems.LightningCrystal0.get(), 1),
-                new ItemStack(ModItems.LightningTeleportTicket.get(), 1),
-        };
-
-        List<ItemStack> contentList = new ArrayList<>();
-        Collections.addAll(contentList, itemStacks);
-        tradeContent.put(StringUtils.VillagerName.LightningElement, contentList);
-
-        for (int i = 0; i < itemStacks.length; i++) {
-            switch (i) {
-                case 0 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.WorldSoul2.get(), 1));
-                    add(new ItemStack(ModItems.LightningElementPiece0.get(), 64));
-                }});
-                case 1 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.RainbowPowder.get(), 4));
-                    add(new ItemStack(ModItems.LightningElementPiece1.get(), 64));
-                }});
-                case 2 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.PurpleIronBud3.get(), 2));
-                    add(new ItemStack(ModItems.LightningElementPiece2.get(), 4));
-                }});
-                case 3 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.WorldSoul3.get(), 4));
-                }});
-            }
-        }
-    }
-
-    public static void WaterElement() {
-        ItemStack[] itemStacks = {
-                new ItemStack(ModItems.WaterElementPiece1.get(), 1),
-                new ItemStack(ModItems.WaterElementPiece2.get(), 1),
-                new ItemStack(ModItems.WaterCrystal0.get(), 1),
-                new ItemStack(ModItems.WaterTeleportTicket.get(), 1),
-        };
-
-        List<ItemStack> contentList = new ArrayList<>();
-        Collections.addAll(contentList, itemStacks);
-        tradeContent.put(StringUtils.VillagerName.WaterElement, contentList);
-
-        for (int i = 0; i < itemStacks.length; i++) {
-            switch (i) {
-                case 0 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.WorldSoul2.get(), 1));
-                    add(new ItemStack(ModItems.WaterElementPiece0.get(), 64));
-                }});
-                case 1 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.RainbowPowder.get(), 4));
-                    add(new ItemStack(ModItems.WaterElementPiece1.get(), 64));
-                }});
-                case 2 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.PurpleIronBud3.get(), 2));
-                    add(new ItemStack(ModItems.WaterElementPiece2.get(), 4));
-                }});
-                case 3 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.WorldSoul3.get(), 4));
-                }});
-            }
-        }
-    }
-
-    public static void FireElement() {
-        ItemStack[] itemStacks = {
-                new ItemStack(ModItems.FireElementPiece1.get(), 1),
-                new ItemStack(ModItems.FireElementPiece2.get(), 1),
-                new ItemStack(ModItems.FireCrystal0.get(), 1),
-                new ItemStack(ModItems.FireTeleportTicket.get(), 1),
-        };
-
-        List<ItemStack> contentList = new ArrayList<>();
-        Collections.addAll(contentList, itemStacks);
-        tradeContent.put(StringUtils.VillagerName.FireElement, contentList);
-
-        for (int i = 0; i < itemStacks.length; i++) {
-            switch (i) {
-                case 0 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.WorldSoul2.get(), 1));
-                    add(new ItemStack(ModItems.FireElementPiece0.get(), 64));
-                }});
-                case 1 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.RainbowPowder.get(), 4));
-                    add(new ItemStack(ModItems.FireElementPiece1.get(), 64));
-                }});
-                case 2 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.PurpleIronBud3.get(), 2));
-                    add(new ItemStack(ModItems.FireElementPiece2.get(), 4));
-                }});
-                case 3 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.WorldSoul3.get(), 4));
-                }});
-            }
-        }
-    }
-
-    public static void IceElement() {
-        ItemStack[] itemStacks = {
-                new ItemStack(ModItems.IceElementPiece1.get(), 1),
-                new ItemStack(ModItems.IceElementPiece2.get(), 1),
-                new ItemStack(ModItems.IceCrystal0.get(), 1),
-                new ItemStack(ModItems.IceTeleportTicket.get(), 1),
-        };
-
-        List<ItemStack> contentList = new ArrayList<>();
-        Collections.addAll(contentList, itemStacks);
-        tradeContent.put(StringUtils.VillagerName.IceElement, contentList);
-
-        for (int i = 0; i < itemStacks.length; i++) {
-            switch (i) {
-                case 0 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.WorldSoul2.get(), 1));
-                    add(new ItemStack(ModItems.IceElementPiece0.get(), 64));
-                }});
-                case 1 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.RainbowPowder.get(), 4));
-                    add(new ItemStack(ModItems.IceElementPiece1.get(), 64));
-                }});
-                case 2 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.PurpleIronBud3.get(), 2));
-                    add(new ItemStack(ModItems.IceElementPiece2.get(), 4));
-                }});
-                case 3 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.WorldSoul3.get(), 4));
                 }});
             }
         }

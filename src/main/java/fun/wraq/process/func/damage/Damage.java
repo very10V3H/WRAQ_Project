@@ -463,7 +463,8 @@ public class Damage {
     }
 
     public static void DirectDamageToMob(Player player, Entity entity, double damage) {
-        if (entity instanceof Mob mob && !(entity instanceof Allay) && !(entity instanceof Animal)) {
+        if (entity instanceof Mob mob && !(entity instanceof Allay)
+                && !(entity instanceof Animal && !entity.hasCustomName())) {
             if (entity instanceof Villager) return;
             if (mob.isDeadOrDying()) return;
             if (DailyEndlessInstance.prohibitPlayerCauseDamage(player, mob)) return;

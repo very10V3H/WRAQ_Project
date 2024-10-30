@@ -3,6 +3,7 @@ package fun.wraq.process.func.multiblockactive.rightclick;
 import fun.wraq.commands.changeable.TextCommand;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
+import fun.wraq.process.func.multiblockactive.rightclick.drive.ItemDecomposer;
 import fun.wraq.process.func.multiblockactive.rightclick.drive.ItemEnhancer;
 import fun.wraq.process.func.multiblockactive.rightclick.top.RightClickActivation;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -51,7 +52,16 @@ public class RightClickActiveHandler {
                     MoontainUtils.curiosEnhanceFullRateCondition, MoontainUtils.curiosEnhanceFullRateOperation,
                     List.of(Te.s("至多可以将", "望山饰品属性上限", CustomStyle.styleOfMoontain,
                             "提升到", "5.0", CustomStyle.styleOfRed),
-                            Te.s("每次提升", "0.1比例数值上限", ChatFormatting.AQUA)))
+                            Te.s("每次提升", "0.1比例数值上限", ChatFormatting.AQUA))),
+
+            new ItemDecomposer(Te.s("分解望山饰品", CustomStyle.styleOfMoontain), new Vec3(1926, 152, -931),
+                    List.of(
+                        List.of(new ItemStack(MoontainItems.CHEST_CURIOS.get())),
+                        List.of(new ItemStack(MoontainItems.HAND.get())),
+                        List.of(new ItemStack(MoontainItems.RING.get())),
+                        List.of(new ItemStack(MoontainItems.BRACELET.get()))
+                    ),
+                    List.of(new ItemStack(MoontainItems.CURIOS_PIECE.get())))
     );
 
     public static void detectNearPlayer(TickEvent.LevelTickEvent event) {

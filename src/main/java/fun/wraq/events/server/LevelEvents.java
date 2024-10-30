@@ -13,7 +13,6 @@ import fun.wraq.process.func.EffectOnMob;
 import fun.wraq.process.func.MobEffectAndDamageMethods;
 import fun.wraq.process.func.multiblockactive.rightclick.RightClickActiveHandler;
 import fun.wraq.process.system.element.Element;
-import fun.wraq.process.system.element.originSummon.OriginSummon;
 import fun.wraq.process.system.season.MySeason;
 import fun.wraq.process.system.tower.Tower;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -82,7 +81,6 @@ public class LevelEvents {
         /*WorldBossEvent(event);*/
         broad(event);
         stop(event);
-        OriginSummon.DetectElementPiece(event);
         /*LabourDayMobSummon.levelTick(event);*/
         BowCurios1.tick(event);
         Tower.tick(event);

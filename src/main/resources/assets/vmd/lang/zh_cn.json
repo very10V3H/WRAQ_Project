@@ -1797,6 +1797,13 @@
   "item.vmd.moontain_curios_rate_enhancer": "望山母岩团",
   "item.vmd.moontain_curios_full_rate_enhancer": "望山母岩簇",
 
+  "item.vmd.moontain_ore_item": "望山翡翠",
+  "block.vmd.moontain_ore": "望山翡翠矿石",
+
+  "item.vmd.moontain_feather": "望山翎羽",
+  "item.vmd.moontain_curios_piece": "望山饰品碎屑",
+
+
   "curios.identifier.rune": "符石",
   "curios.identifier.crest": "纹章",
 

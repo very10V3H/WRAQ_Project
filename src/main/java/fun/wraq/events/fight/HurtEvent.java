@@ -24,14 +24,15 @@ public class HurtEvent {
     public static void Hurt(LivingHurtEvent event) {
         event.setPhase(EventPriority.LOWEST);
         if (!event.getEntity().level().isClientSide) {
-            Entity Attacker = event.getSource().getEntity();
-            Entity Hurter = event.getEntity();
-            if (Hurter.getClass() == Villager.class ||
-                    Hurter.getClass() == WanderingTrader.class ||
-                    Hurter instanceof Animal || event.getEntity().level().isClientSide
+            Entity attacker = event.getSource().getEntity();
+            Entity hurter = event.getEntity();
+            if (hurter.getClass() == Villager.class
+                    || hurter.getClass() == WanderingTrader.class
+                    || (hurter instanceof Animal && !hurter.hasCustomName())
+                    || event.getEntity().level().isClientSide
             ) event.setCanceled(true);
             else {
-                if (Attacker == null && Hurter instanceof Player player) {
+                if (attacker == null && hurter instanceof Player player) {
                     double damage = event.getAmount();
                     double damageAfterComputeShield = Shield.decreasePlayerShield(player, damage);
                     if (damageAfterComputeShield > 0) {
@@ -39,17 +40,17 @@ public class HurtEvent {
                     }
                     event.setCanceled(true);
                 }
-                if (Attacker instanceof Player) {
+                if (attacker instanceof Player) {
                     Player player = (Player) event.getSource().getEntity();
                     if (player.getName().getString().equals("very_H") && player.getItemInHand(InteractionHand.MAIN_HAND).getItem().equals(MinecartItem.byId(765))) {
-                        Hurter.remove(Entity.RemovalReason.KILLED);
+                        hurter.remove(Entity.RemovalReason.KILLED);
                     }
-                    if (Hurter instanceof Civil) {
+                    if (hurter instanceof Civil) {
                         event.setCanceled(true);
                         return;
                     }
 
-                    if (Hurter instanceof Player hurter) {
+                    if (hurter instanceof Player) {
                         event.setCanceled(true);
                     }
                 }

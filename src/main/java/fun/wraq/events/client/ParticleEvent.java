@@ -3,7 +3,6 @@ package fun.wraq.events.client;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.render.particles.ModParticles;
 import net.minecraft.client.Minecraft;
@@ -47,21 +46,6 @@ public class ParticleEvent {
                             0, 0.5, 0);
                 }
             }
-
-/*            if (ClientUtils.ClientLevelFlag == 0 && player.getX() > 1873 && player.getX() < 1942
-                    && player.getY() > 108 && player.getY() < 146
-                    && player.getZ() > 1202 && player.getZ() < 1283) {
-                for (int i = 0 ; i < 75 ; i ++) {
-                    level.addParticle(ParticleTypes.WITCH,player.getX() + random.nextInt(100) - 50,
-                            player.getY() + random.nextInt(100) - 50, player.getZ() + random.nextInt(100) - 50,
-                            0,0.5,0);
-                }
-                for (int i = 0 ; i < 75 ; i ++) {
-                    level.addParticle(ModParticles.LONG_ENTROPY.get(), player.getX() + random.nextInt(100) - 50,
-                            player.getY() + random.nextInt(100) - 50, player.getZ() + random.nextInt(100) - 50,
-                            0,0.5,0);
-                }
-            }*/
 
             if (isInOverWorld) {
                 List<Vec3> pos = List.of(
@@ -201,31 +185,6 @@ public class ParticleEvent {
         }
     }
 
-    /*    @SubscribeEvent
-        public static void WaltzParticle(TickEvent.PlayerTickEvent event)
-        {
-            Level level = event.player.level;
-            if(level.isClientSide && ClientUtils.QuartzSabreParticlePos != -1)
-            {
-                if(ClientUtils.QuartzSabreParticlePos == 0)
-                {
-                    level.addParticle(ParticleTypes.FIREWORK,ClientUtils.QuartzSabreParticleIndexX,ClientUtils.QuartzSabreParticleIndexY,ClientUtils.QuartzSabreParticleIndexZ-1,0,0,0);
-                }
-                if(ClientUtils.QuartzSabreParticlePos == 1)
-                {
-                    level.addParticle(ParticleTypes.FIREWORK,ClientUtils.QuartzSabreParticleIndexX+1,ClientUtils.QuartzSabreParticleIndexY,ClientUtils.QuartzSabreParticleIndexZ,0,0,0);
-                }
-                if(ClientUtils.QuartzSabreParticlePos == 2)
-                {
-                    level.addParticle(ParticleTypes.FIREWORK,ClientUtils.QuartzSabreParticleIndexX,ClientUtils.QuartzSabreParticleIndexY,ClientUtils.QuartzSabreParticleIndexZ+1,0,0,0);
-                }
-                if(ClientUtils.QuartzSabreParticlePos == 3)
-                {
-                    level.addParticle(ParticleTypes.FIREWORK,ClientUtils.QuartzSabreParticleIndexX-1,ClientUtils.QuartzSabreParticleIndexY,ClientUtils.QuartzSabreParticleIndexZ,0,0,0);
-                }
-                ClientUtils.QuartzSabreParticlePos = -1;
-            }
-        }*/
     public static void SpinParticleCreate(Player player, Vec3 pos, double r, ParticleOptions particleOptions, int cycle) {
         int tick = player.tickCount % cycle;
         Vec3 delta = new Vec3(0, 4.0 / cycle, 0);
@@ -242,62 +201,6 @@ public class ParticleEvent {
             int TickCount = player.tickCount;
             List<Mob> list = level.getEntitiesOfClass(Mob.class, AABB.ofSize(player.position(), 100, 100, 100));
             for (Mob mob : list) {
-
-                if (mob.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.MobArmorOriginLifeElement.get())) {
-                    ParticleDouble(mob, ModParticles.LifeElement1TickParticle.get());
-                }
-
-                if (mob.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.MobArmorOriginWaterElement.get())) {
-                    ParticleDouble(mob, ModParticles.WaterElement1TickParticle.get());
-                }
-
-                if (mob.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.MobArmorOriginFireElement.get())) {
-                    ParticleDouble(mob, ModParticles.FireElement1TickParticle.get());
-                }
-
-                if (mob.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.MobArmorOriginStoneElement.get())) {
-                    ParticleDouble(mob, ModParticles.StoneElement1TickParticle.get());
-                }
-
-                if (mob.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.MobArmorOriginIceElement.get())) {
-                    ParticleDouble(mob, ModParticles.IceElement1TickParticle.get());
-                }
-
-                if (mob.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.MobArmorOriginLightningElement.get())) {
-                    ParticleDouble(mob, ModParticles.LightningElement1TickParticle.get());
-                }
-
-                if (mob.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.MobArmorOriginWindElement.get())) {
-                    ParticleDouble(mob, ModParticles.WindElement1TickParticle.get());
-                }
-
-                if (mob.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.MobArmorStar1.get())) {
-                    ParticleDouble(mob, ModParticles.LIGHTNINGISLAND.get());
-                }
-
-                if (mob.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.MobArmorMoonAttack.get())) {
-                    ParticleDouble(mob, ModParticles.LIGHTNINGISLAND.get());
-                }
-
-                if (mob.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.MobArmorMoonMana.get())) {
-                    ParticleDouble(mob, ModParticles.ENTROPY.get());
-                }
-
-                if (MobSpawn.getMobOriginName(mob).equals("终界使者")) {
-                    ParticleDouble(mob, ModParticles.END_PARTICLE.get());
-                }
-
-                if (mob.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.MobArmorIceHelmet.get())) {
-                    ParticleDouble(mob, ModParticles.SNOW.get());
-                }
-
-                if (mob.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.MobArmorSpringHelmet.get())) {
-                    ParticleDouble(mob, ModParticles.SPRING.get());
-                }
-
-                if (mob.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.MobArmorDevilHelmet.get())) {
-                    ParticleDouble(mob, ModParticles.ENTROPY.get());
-                }
 
                 if (mob.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.ArmorKazeRecall.get())) {
                     ParticleFour(mob, ModParticles.KAZE.get(), ModParticles.KAZE.get());
@@ -330,21 +233,6 @@ public class ParticleEvent {
                 }
                 if (mob.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.ArmorSnowRecall.get())) {
                     ParticleFour(mob, ModParticles.SNOW.get(), ModParticles.SNOW.get());
-                }
-                if (mob.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.ArmorForestBoss.get())) {
-                    ParticleFour(mob, ModParticles.ENTROPY.get(), ModParticles.FOREST.get());
-                }
-                if (mob.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.ArmorVolcanoBoss.get())) {
-                    ParticleFour(mob, ModParticles.ENTROPY.get(), ModParticles.VOLCANO.get());
-                }
-                if (mob.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.ArmorLakeBoss.get())) {
-                    ParticleFour(mob, ModParticles.ENTROPY.get(), ModParticles.LAKE.get());
-                }
-                if (mob.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.ArmorSkyBoss.get())) {
-                    ParticleFour(mob, ModParticles.ENTROPY.get(), ModParticles.SKY.get());
-                }
-                if (mob.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.ArmorSnowBoss.get())) {
-                    ParticleFour(mob, ModParticles.ENTROPY.get(), ModParticles.SNOW.get());
                 }
             }
 

@@ -209,7 +209,7 @@ public class BlockEvent {
     }
 
     @SubscribeEvent
-    public static void PreventRightClick(PlayerInteractEvent.RightClickBlock event) {
+    public static void disallowToRightClick(PlayerInteractEvent.RightClickBlock event) {
         Player player = event.getEntity();
         BlockPos blockPos = event.getHitVec().getBlockPos();
         BlockState blockState = player.level().getBlockState(blockPos);
@@ -238,7 +238,7 @@ public class BlockEvent {
                 add(Blocks.BARREL);
             }};
             if (set.contains(block) || block instanceof ShulkerBoxBlock
-                    || block instanceof AnvilBlock) {
+                    || block instanceof AnvilBlock || block instanceof StonecutterBlock) {
                 event.setCanceled(true);
             }
             if (blockState.getBlock().toString().length() > 12

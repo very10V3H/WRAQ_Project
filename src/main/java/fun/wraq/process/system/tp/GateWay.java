@@ -33,24 +33,26 @@ public class GateWay {
         this.pos2 = pos2;
     }
 
-    public static GateWay skyCityCN2IceKnight = new GateWay(
-            new Des(new Vec3(962, 207, -1), 0, 0, Component.literal("天空城").withStyle(CustomStyle.styleOfSky)),
-            new Des(new Vec3(1553, 64, -2935), 90, 0, Component.literal("冰霜骑士驻地").withStyle(CustomStyle.styleOfIce)));
-    public static GateWay skyCityCN2StarDream = new GateWay(
-            new Des(new Vec3(962, 207, 27), 180, 0, Component.literal("天空城").withStyle(CustomStyle.styleOfSky)),
-            new Des(new Vec3(1043, 227, 620), 180, 0, Component.literal("尘月之梦").withStyle(CustomStyle.styleOfMoon1)));
-    public static GateWay skyCityCN2Lightning = new GateWay(
-            new Des(new Vec3(970, 207, 27), 180, 0, Component.literal("天空城").withStyle(CustomStyle.styleOfSky)),
-            new Des(new Vec3(1744, 71, 1215), 180, 0, Component.literal("雷光灯塔").withStyle(CustomStyle.styleOfLightning)));
-    public static GateWay skyCityCN2EasternTower = new GateWay(
-            new Des(new Vec3(973, 207, 13), 90, 0, Component.literal("天空城").withStyle(CustomStyle.styleOfSky)),
-            new Des(new Vec3(2352, 130, 30), 90, 0, Component.literal("东洋塔").withStyle(CustomStyle.styleOfHusk)));
-    public static GateWay skyCityCN2Forest = new GateWay(
-            new Des(new Vec3(973, 207, 15), 90, 0, Component.literal("天空城").withStyle(CustomStyle.styleOfSky)),
-            new Des(new Vec3(1760, 79, 58), 180, 0, Component.literal("原始森林").withStyle(CustomStyle.styleOfForest)));
-
     public static List<GateWay> getConnections() {
-        return List.of(skyCityCN2IceKnight, skyCityCN2StarDream, skyCityCN2Lightning, skyCityCN2EasternTower, skyCityCN2Forest);
+        return List.of(new GateWay(
+                        new Des(new Vec3(962, 207, -1), 0, 0, Component.literal("天空城").withStyle(CustomStyle.styleOfSky)),
+                        new Des(new Vec3(1553, 64, -2935), 90, 0, Component.literal("冰霜骑士驻地").withStyle(CustomStyle.styleOfIce))),
+                new GateWay(
+                        new Des(new Vec3(962, 207, 27), 180, 0, Component.literal("天空城").withStyle(CustomStyle.styleOfSky)),
+                        new Des(new Vec3(1043, 227, 620), 180, 0, Component.literal("尘月之梦").withStyle(CustomStyle.styleOfMoon1))),
+                new GateWay(
+                        new Des(new Vec3(970, 207, 27), 180, 0, Component.literal("天空城").withStyle(CustomStyle.styleOfSky)),
+                        new Des(new Vec3(1744, 71, 1215), 180, 0, Component.literal("雷光灯塔").withStyle(CustomStyle.styleOfLightning))),
+                new GateWay(
+                        new Des(new Vec3(973, 207, 13), 90, 0, Component.literal("天空城").withStyle(CustomStyle.styleOfSky)),
+                        new Des(new Vec3(2352, 130, 30), 90, 0, Component.literal("东洋塔").withStyle(CustomStyle.styleOfHusk))),
+                new GateWay(
+                        new Des(new Vec3(973, 207, 15), 90, 0, Component.literal("天空城").withStyle(CustomStyle.styleOfSky)),
+                        new Des(new Vec3(1760, 79, 58), 180, 0, Component.literal("原始森林").withStyle(CustomStyle.styleOfForest))),
+                new GateWay(
+                        new Des(new Vec3(970, 207, -1), 0, 0, Component.literal("天空城").withStyle(CustomStyle.styleOfSky)),
+                        new Des(new Vec3(1914, 151, -936), -90, 0, Component.literal("望山据点").withStyle(CustomStyle.styleOfForest)))
+        );
     }
 
     public static Map<Des, Des> getDestinationMap() {
@@ -126,7 +128,8 @@ public class GateWay {
                                     Component.literal("已前往:").withStyle(CustomStyle.styleOfEnd).
                                             append(destination.name), 20, 60, 20);
                             playerTPDelayCount.put(name, -1);
-                            if (destination.pos.distanceTo(skyTpCenterPos) < 30) playerTPCooldownMap.put(name, tick + 2);
+                            if (destination.pos.distanceTo(skyTpCenterPos) < 30)
+                                playerTPCooldownMap.put(name, tick + 2);
                             else playerTPCooldownMap.put(name, tick + 60);
                             InventoryOperation.removeItem(player.getInventory(), ModItems.WorldSoul2.get(), 1);
                         }

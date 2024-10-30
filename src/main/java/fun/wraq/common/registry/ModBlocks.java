@@ -61,6 +61,10 @@ public class ModBlocks {
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_ORE).destroyTime(24).sound(SoundType.STONE)),
             CreativeModeTabs.getDefaultTab());
 
+    public static final RegistryObject<Block> MOONTAIN_ORE = registerBlock("moontain_ore",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_ORE).destroyTime(12).sound(SoundType.STONE)),
+            CreativeModeTabs.getDefaultTab());
+
     public static void register(IEventBus eventBus) {
         BLOCKS.register(eventBus);
     }

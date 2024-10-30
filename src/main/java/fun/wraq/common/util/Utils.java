@@ -185,52 +185,7 @@ public class Utils {
 
     public static Map<Item, Item> BrewSoulMap = new HashMap<>();
     public static Map<MobEffect, Boolean> MobEffectMap = new HashMap<>();
-    public static Map<Item, Boolean> ItemRightClickCheck = new HashMap<>() {
-        {
-            put(Items.WATER_BUCKET, true);
-            put(Items.BUCKET, true);
-            put(Items.LAVA_BUCKET, true);
-            put(Items.POWDER_SNOW_BUCKET, true);
-            put(Items.FLINT_AND_STEEL, true);
-            put(Items.DIAMOND_HOE, true);
-            put(Items.IRON_HOE, true);
-            put(Items.GOLDEN_HOE, true);
-            put(Items.NETHERITE_HOE, true);
-            put(Items.STONE_HOE, true);
-            put(Items.WOODEN_HOE, true);
-            put(Items.DIAMOND_SHOVEL, true);
-            put(Items.IRON_SHOVEL, true);
-            put(Items.GOLDEN_SHOVEL, true);
-            put(Items.NETHERITE_SHOVEL, true);
-            put(Items.STONE_SHOVEL, true);
-            put(Items.WOODEN_SHOVEL, true);
-            put(Items.DIAMOND_AXE, true);
-            put(Items.IRON_AXE, true);
-            put(Items.GOLDEN_AXE, true);
-            put(Items.NETHERITE_AXE, true);
-            put(Items.STONE_AXE, true);
-            put(Items.WOODEN_AXE, true);
-            put(Items.SAND, true);
-            put(Items.RED_SAND, true);
-            put(Items.GRAVEL, true);
-            put(Items.TNT, true);
-            put(Items.REDSTONE, true);
-            put(Items.REDSTONE_TORCH, true);
-            put(Items.RAIL, true);
-            put(Items.ACTIVATOR_RAIL, true);
-            put(Items.DETECTOR_RAIL, true);
-            put(Items.POWERED_RAIL, true);
-            put(Items.REDSTONE_BLOCK, true);
-            put(Items.REPEATER, true);
-            put(Items.COMPARATOR, true);
-            put(Items.PISTON, true);
-            put(Items.STICKY_PISTON, true);
-            put(Items.OBSERVER, true);
-            put(Items.HOPPER, true);
-            put(Items.DISPENSER, true);
-            put(Items.DROPPER, true);
-        }
-    };
+
     public static int NSController = -1;
     public static List<Player> NSPlayerController = new ArrayList<>();
 

@@ -77,6 +77,13 @@ public class TextCommand implements Command<CommandSourceStack> {
                                 append(ModItems.WorldSoul2.get().getDefaultInstance().getDisplayName()).
                                 append(Component.literal(" * 1").withStyle(ChatFormatting.AQUA))
                 ));
+                put("toMoontain", List.of(
+                        Component.literal("前往:").withStyle(CustomStyle.styleOfEnd),
+                        Component.literal("望山据点").withStyle(CustomStyle.styleOfMoontain),
+                        Component.literal("消耗 ").withStyle(ChatFormatting.RED).
+                                append(ModItems.WorldSoul2.get().getDefaultInstance().getDisplayName()).
+                                append(Component.literal(" * 1").withStyle(ChatFormatting.AQUA))
+                ));
                 put("toSkyCitySpawnPoint", List.of(
                         Component.literal("在此区域跳跃").withStyle(CustomStyle.styleOfMoon),
                         Component.literal("可以回到天空城").withStyle(CustomStyle.styleOfMoon)

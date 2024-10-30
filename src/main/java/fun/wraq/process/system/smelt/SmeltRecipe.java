@@ -152,6 +152,17 @@ public enum SmeltRecipe {
             List.of(new ItemAndRate(new ItemStack(MoontainItems.JADEITE.get(), 1), 0.25)),
             15),
 
+    MOONTAIN_WEAPON_ENHANCER(Te.m("望山剑翎", CustomStyle.styleOfMoontain),
+            List.of(new ItemStack(MoontainItems.JADEITE.get(), 8),
+                    new ItemStack(MoontainItems.SOUL_FRAGMENT.get(), 128),
+                    new ItemStack(MoontainItems.FEATHER.get(), 256),
+                    new ItemStack(ModItems.goldCoin.get(), 128),
+                    new ItemStack(MoontainItems.STONE_FRAGMENT.get(), 256)
+            ),
+            List.of(new ItemStack(MoontainItems.WEAPON_ENHANCER.get(), 1)),
+            List.of(new ItemAndRate(new ItemStack(MoontainItems.WEAPON_ENHANCER.get(), 1), 0.25)),
+            60),
+
     MOONTAIN_EMERALD(Te.m("望山碧玉", CustomStyle.styleOfMoontain),
             List.of(new ItemStack(MoontainItems.NUGGET.get(), 8),
                     new ItemStack(MoontainItems.LEATHER.get(), 128),
@@ -163,6 +174,39 @@ public enum SmeltRecipe {
             List.of(new ItemAndRate(new ItemStack(MoontainItems.EMERALD.get(), 1), 0.25)),
             15),
 
+    MOONTAIN_ARMOR_ENHANCER(Te.m("望山翡玉", CustomStyle.styleOfMoontain),
+            List.of(new ItemStack(MoontainItems.EMERALD.get(), 8),
+                    new ItemStack(MoontainItems.SOUL_FRAGMENT.get(), 128),
+                    new ItemStack(OreItems.MOONTAIN_ORE_ITEM.get(), 256),
+                    new ItemStack(ModItems.goldCoin.get(), 128),
+                    new ItemStack(MoontainItems.STONE_FRAGMENT.get(), 256)
+            ),
+            List.of(new ItemStack(MoontainItems.ARMOR_ENHANCER.get(), 1)),
+            List.of(new ItemAndRate(new ItemStack(MoontainItems.ARMOR_ENHANCER.get(), 1), 0.25)),
+            60),
+
+    MOONTAIN_CURIOS_RATE_ENHANCER(Te.m("望山母岩团", CustomStyle.styleOfMoontain),
+            List.of(new ItemStack(MoontainItems.CURIOS_PIECE.get(), 4),
+                    new ItemStack(MoontainItems.FALLING_SOUL.get(), 128),
+                    new ItemStack(ModItems.goldCoin.get(), 128),
+                    new ItemStack(ModItems.completeGem.get(), 4),
+                    new ItemStack(MoontainItems.STONE_FRAGMENT.get(), 128)
+            ),
+            List.of(new ItemStack(MoontainItems.CURIOS_RATE_ENHANCER.get(), 1)),
+            List.of(new ItemAndRate(new ItemStack(MoontainItems.CURIOS_RATE_ENHANCER.get(), 1), 0.25)),
+            60),
+
+    MOONTAIN_CURIOS_FULL_RATE_ENHANCER(Te.m("望山母岩簇", CustomStyle.styleOfMoontain),
+            List.of(new ItemStack(MoontainItems.CURIOS_PIECE.get(), 8),
+                    new ItemStack(MoontainItems.FALLING_SOUL.get(), 256),
+                    new ItemStack(ModItems.goldCoin.get(), 256),
+                    new ItemStack(ModItems.completeGem.get(), 8),
+                    new ItemStack(MoontainItems.STONE_FRAGMENT.get(), 256)
+            ),
+            List.of(new ItemStack(MoontainItems.CURIOS_FULL_RATE_ENHANCER.get(), 1)),
+            List.of(new ItemAndRate(new ItemStack(MoontainItems.CURIOS_FULL_RATE_ENHANCER.get(), 1), 0.25)),
+            60),
+
     MOONTAIN_HEART(Te.m("衡望山之心", CustomStyle.styleOfMoontain),
             List.of(new ItemStack(MoontainItems.JADEITE.get(), 1),
                     new ItemStack(MoontainItems.EMERALD.get(), 1),
@@ -172,7 +216,6 @@ public enum SmeltRecipe {
             List.of(new ItemAndRate(new ItemStack(MoontainItems.JADEITE.get(), 1), 0.25),
                     new ItemAndRate(new ItemStack(MoontainItems.EMERALD.get(), 1), 0.25)),
             30);
-
 
     public final Component name;
     public final List<ItemStack> needMaterialList;

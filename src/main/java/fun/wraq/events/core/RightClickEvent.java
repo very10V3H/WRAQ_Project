@@ -51,7 +51,7 @@ public class RightClickEvent {
             if (data.contains(fun.wraq.events.core.InventoryCheck.owner) && !data.getString(InventoryCheck.owner).equals(player.getName().getString()))
                 event.setCanceled(true);
         }
-        if (Utils.ItemRightClickCheck.containsKey(event.getItemStack().getItem()) && !player.isCreative())
+        if (disallowToRightClickItems.contains(event.getItemStack().getItem()) && !player.isCreative())
             event.setCanceled(true);
 
         // 需要判断当前与哪个手的物品上交互，否则将会执行两次
@@ -82,8 +82,7 @@ public class RightClickEvent {
                 ModNetworking.sendToClient(new VillagerTradeScreenS2CPacket(
                         villager.getName().getString()), (ServerPlayer) event.getEntity());
                 event.setCanceled(true);
-            }
-            else {
+            } else {
                 Set<Item> itemList = Set.of(Items.RAW_IRON, Items.RAW_COPPER, Items.RAW_GOLD, Items.DIAMOND);
                 if (villager.getOffers().stream()
                         .anyMatch(merchantOffer -> itemList.contains(merchantOffer.getResult().getItem()))) {
@@ -97,4 +96,49 @@ public class RightClickEvent {
                 || event.getTarget() instanceof MinecartHopper
                 || event.getTarget() instanceof Allay) event.setCanceled(true);
     }
+
+    public static Set<Item> disallowToRightClickItems = Set.of(
+            Items.WATER_BUCKET,
+            Items.BUCKET,
+            Items.LAVA_BUCKET,
+            Items.POWDER_SNOW_BUCKET,
+            Items.FLINT_AND_STEEL,
+            Items.DIAMOND_HOE,
+            Items.IRON_HOE,
+            Items.GOLDEN_HOE,
+            Items.NETHERITE_HOE,
+            Items.STONE_HOE,
+            Items.WOODEN_HOE,
+            Items.DIAMOND_SHOVEL,
+            Items.IRON_SHOVEL,
+            Items.GOLDEN_SHOVEL,
+            Items.NETHERITE_SHOVEL,
+            Items.STONE_SHOVEL,
+            Items.WOODEN_SHOVEL,
+            Items.DIAMOND_AXE,
+            Items.IRON_AXE,
+            Items.GOLDEN_AXE,
+            Items.NETHERITE_AXE,
+            Items.STONE_AXE,
+            Items.WOODEN_AXE,
+            Items.SAND,
+            Items.RED_SAND,
+            Items.GRAVEL,
+            Items.TNT,
+            Items.REDSTONE,
+            Items.REDSTONE_TORCH,
+            Items.RAIL,
+            Items.ACTIVATOR_RAIL,
+            Items.DETECTOR_RAIL,
+            Items.POWERED_RAIL,
+            Items.REDSTONE_BLOCK,
+            Items.REPEATER,
+            Items.COMPARATOR,
+            Items.PISTON,
+            Items.STICKY_PISTON,
+            Items.OBSERVER,
+            Items.HOPPER,
+            Items.DISPENSER,
+            Items.DROPPER
+    );
 }

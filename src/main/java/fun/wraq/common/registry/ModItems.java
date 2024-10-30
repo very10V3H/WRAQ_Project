@@ -58,7 +58,6 @@ import fun.wraq.process.system.element.equipAndCurios.waterElement.WaterElementB
 import fun.wraq.process.system.element.equipAndCurios.waterElement.WaterElementSceptre;
 import fun.wraq.process.system.element.equipAndCurios.waterElement.WaterElementSword;
 import fun.wraq.process.system.element.holyStone.*;
-import fun.wraq.process.system.element.teleportTicket.*;
 import fun.wraq.process.system.enhanceForge.Pearl;
 import fun.wraq.process.system.forge.ForgeHammer;
 import fun.wraq.process.system.instance.MopUpPaper;
@@ -3031,48 +3030,6 @@ public class ModItems {
 
     public static final RegistryObject<Item> RainbowCrystal = ITEMS.register("rainbow_crystal",
             () -> new RainbowCrystal(new Item.Properties()));
-
-    public static final RegistryObject<Item> LifeTeleportTicket = ITEMS.register("life_teleport_ticket",
-            () -> new LifeTeleportTicket(new Item.Properties().rarity(CustomStyle.LifeBold)));
-
-    public static final RegistryObject<Item> WindTeleportTicket = ITEMS.register("wind_teleport_ticket",
-            () -> new WindTeleportTicket(new Item.Properties().rarity(CustomStyle.WindBold)));
-
-    public static final RegistryObject<Item> StoneTeleportTicket = ITEMS.register("stone_teleport_ticket",
-            () -> new StoneTeleportTicket(new Item.Properties().rarity(CustomStyle.StoneBold)));
-
-    public static final RegistryObject<Item> WaterTeleportTicket = ITEMS.register("water_teleport_ticket",
-            () -> new WaterTeleportTicket(new Item.Properties().rarity(CustomStyle.WaterBold)));
-
-    public static final RegistryObject<Item> LightningTeleportTicket = ITEMS.register("lightning_teleport_ticket",
-            () -> new LightningTeleportTicket(new Item.Properties().rarity(CustomStyle.LightningBold)));
-
-    public static final RegistryObject<Item> FireTeleportTicket = ITEMS.register("fire_teleport_ticket",
-            () -> new FireTeleportTicket(new Item.Properties().rarity(CustomStyle.FireBold)));
-
-    public static final RegistryObject<Item> IceTeleportTicket = ITEMS.register("ice_teleport_ticket",
-            () -> new IceTeleportTicket(new Item.Properties().rarity(CustomStyle.IceBold)));
-
-    public static final RegistryObject<Item> MobArmorOriginLifeElement = ITEMS.register("mob_armor_origin_life_element_helmet",
-            () -> new MobArmor(ItemMaterial.LifeElement, ArmorItem.Type.HELMET, StringUtils.MobName.OriginLifeElement));
-
-    public static final RegistryObject<Item> MobArmorOriginWaterElement = ITEMS.register("mob_armor_origin_water_element_helmet",
-            () -> new MobArmor(ItemMaterial.WaterElement, ArmorItem.Type.HELMET, StringUtils.MobName.OriginWaterElement));
-
-    public static final RegistryObject<Item> MobArmorOriginFireElement = ITEMS.register("mob_armor_origin_fire_element_helmet",
-            () -> new MobArmor(ItemMaterial.FireElement, ArmorItem.Type.HELMET, StringUtils.MobName.OriginFireElement));
-
-    public static final RegistryObject<Item> MobArmorOriginStoneElement = ITEMS.register("mob_armor_origin_stone_element_helmet",
-            () -> new MobArmor(ItemMaterial.StoneElement, ArmorItem.Type.HELMET, StringUtils.MobName.OriginStoneElement));
-
-    public static final RegistryObject<Item> MobArmorOriginIceElement = ITEMS.register("mob_armor_origin_ice_element_helmet",
-            () -> new MobArmor(ItemMaterial.IceElement, ArmorItem.Type.HELMET, StringUtils.MobName.OriginIceElement));
-
-    public static final RegistryObject<Item> MobArmorOriginLightningElement = ITEMS.register("mob_armor_origin_lightning_element_helmet",
-            () -> new MobArmor(ItemMaterial.LightningElement, ArmorItem.Type.HELMET, StringUtils.MobName.OriginLightningElement));
-
-    public static final RegistryObject<Item> MobArmorOriginWindElement = ITEMS.register("mob_armor_origin_wind_element_helmet",
-            () -> new MobArmor(ItemMaterial.WindElement, ArmorItem.Type.HELMET, StringUtils.MobName.OriginWindElement));
 
     public static final RegistryObject<Item> LifeHolyStone0 = ITEMS.register("life_holy_stone_0",
             () -> new LifeHolyStone(new Item.Properties().rarity(CustomStyle.LifeBold), 0));

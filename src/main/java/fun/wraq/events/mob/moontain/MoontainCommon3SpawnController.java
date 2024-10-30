@@ -1,5 +1,6 @@
 package fun.wraq.events.mob.moontain;
 
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
@@ -10,6 +11,8 @@ import net.mcreator.borninchaosv.entity.SenorPumpkinEntity;
 import net.mcreator.borninchaosv.init.BornInChaosV1ModEntities;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -89,7 +92,11 @@ public class MoontainCommon3SpawnController extends MobSpawnController {
 
     @Override
     public void tick() {
-
+        if (Tick.get() % 100 == 0) {
+            mobList.forEach(mob -> {
+                mob.addEffect(new MobEffectInstance(MobEffects.LUCK, 200));
+            });
+        }
     }
 
     public static List<ItemAndRate> getDropList() {
