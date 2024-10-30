@@ -54,7 +54,7 @@ public class AttributeSet {
             exSwimSpeed += 2;
             player.getAttribute(ForgeMod.SWIM_SPEED.get()).setBaseValue(1 + exSwimSpeed);
 
-            // 生命回复与魔力回复
+            // 生命回复与最大法力值
             if (!player.isDeadOrDying()) {
                 double HealthRecover = PlayerAttributes.healthRecover(player);
                 Compute.playerHeal(player, HealthRecover / 20);
@@ -63,7 +63,7 @@ public class AttributeSet {
                 data.putDouble("MAXMANA", 1000 + ManaUp);
             }
 
-            // 最大生命值、魔力、攻击距离修改。
+            // 最大生命值、魔力回复、攻击距离修改。
             double MaxHealth = PlayerAttributes.maxHealth(player);
             player.getAttribute(Attributes.MAX_HEALTH).setBaseValue(Math.max(1, MaxHealth));
 
@@ -75,10 +75,8 @@ public class AttributeSet {
 
             // 最大法力值 与 法力回
             if (data.contains("MANA") && data.contains("MAXMANA")) {
-                double MaxMana = data.getDouble("MAXMANA");
-                double ManaRecover = 10 + PlayerAttributes.manaRecover(player);
-                data.putDouble("MANA", Math.min(data.getDouble("MANA") + ManaRecover / 20, MaxMana));
-                Mana.updateManaStatus(player);
+                double manaRecover = 10 + PlayerAttributes.manaRecover(player);
+                Mana.addOrCostPlayerMana(player, manaRecover / 20);
             }
 
             //

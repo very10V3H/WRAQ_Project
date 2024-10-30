@@ -1274,12 +1274,15 @@ public class SkillTreeGui extends Screen {
         if (x > this.width / 2 - 150 + OffsetX[index] - 1 + 172 && x < this.width / 2 - 150 + OffsetX[index] + 19 + 172
                 && y > this.height / 2 - 100 + OffsetY[index] - 1 && y < this.height / 2 - 100 + OffsetY[index] + 19) {
             List<Component> components = new ArrayList<>();
-            components.add(Component.literal("▲法术专精 - 应急激化").withStyle(CustomStyle.styleOfMana));
+            components.add(Component.literal("▲法术专精 - 能量倾泻").withStyle(CustomStyle.styleOfMana));
             ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
-            components.add(Component.literal("当你的生命值小于50%时，受到伤害将对周围的单位造成至多").withStyle(ChatFormatting.WHITE).
-                    append(ComponentUtils.AttributeDescription.manaDamage(ClientUtils.ManaSkillPoint.PointCache[index] * 1000 + "%")).
-                    append(Component.literal("的法术伤害").withStyle(ChatFormatting.WHITE)));
-            components.add(Component.literal("并获得基于周围实体数量的护盾数量").withStyle(ChatFormatting.WHITE));
+            components.add(Te.s(" 在", "战斗状态", ChatFormatting.RED, "下，计算回复的",
+                    ComponentUtils.AttributeDescription.manaValue("")));
+            components.add(Te.s(" 当计算值等于", ComponentUtils.AttributeDescription.maxMana(""),
+                    "时，释放", String.valueOf(ClientUtils.ManaSkillPoint.PointCache[index]), CustomStyle.styleOfMana,
+                    "枚", "法球", CustomStyle.styleOfMana));
+            components.add(Te.s(" 每", ComponentUtils.AttributeDescription.maxMana("100"), "为",
+                    "法球", CustomStyle.styleOfMana, "提供", "5%基础伤害", CustomStyle.styleOfMoon));
             ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
             components.add(Component.literal("▶专精等级:").withStyle(CustomStyle.styleOfMana));
             components.add(Component.literal(ClientUtils.ManaSkillPoint.PointCache[index] + " / " + 5).withStyle(CustomStyle.styleOfMana));

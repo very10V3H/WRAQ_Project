@@ -11,7 +11,6 @@ import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.struct.Shield;
 import fun.wraq.entities.entities.Civil.Civil;
-import fun.wraq.events.modules.HurtEventModule;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.ParticlePackets.EffectParticle.DamageDecreaseParticleS2CPacket;
 import fun.wraq.networking.misc.ParticlePackets.SlowDownParticleS2CPacket;
@@ -123,7 +122,6 @@ public class MonsterAttackEvent {
                 player.sendSystemMessage(Component.literal("" + finalDamage));
             } else {
                 if (finalDamage > 0 && player.isAlive()) {
-                    if (player.getHealth() / player.getMaxHealth() < 0.5) HurtEventModule.ManaSkill14(data, player);
                     Damage.DirectDamageToPlayer(monster, player, finalDamage);
                     player.hurtTime = 10;
                     monster.heal((float) (finalDamage * healthSteal));
@@ -135,8 +133,8 @@ public class MonsterAttackEvent {
             SnowArmorEffect(player, monster);
             SnowStrayAttackEffect(player, monster);
             ForestZombieHealEffect(monster);
-            MineMonsterAttack(monster, player);
-            MineShield(player);
+            mineMonsterAttack(monster, player);
+            mineShield(player);
             DevilAttackArmor.DevilAttackArmorPassive(player, monster); // 封魔者圣铠
             StarBottle.playerBattleTickMapRefresh(player);
         }
@@ -250,7 +248,7 @@ public class MonsterAttackEvent {
         }
     }
 
-    public static void MineMonsterAttack(Mob monster, Player player) {
+    public static void mineMonsterAttack(Mob monster, Player player) {
         if (monster.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.ArmorMine.get())) {
             int TickCount = player.getServer().getTickCount();
             CompoundTag data = player.getPersistentData();
@@ -258,26 +256,10 @@ public class MonsterAttackEvent {
         }
     }
 
-    public static void MineShield(Player player) {
+    public static void mineShield(Player player) {
         if (player.getItemInHand(InteractionHand.OFF_HAND).is(ModItems.MineShield.get())) {
             Utils.MineShieldEffect.put(player, player.getServer().getTickCount() + 100);
             Compute.sendEffectLastTime(player, ModItems.OreRune.get().getDefaultInstance(), 100);
         }
     }
-
-/*    public static WeakHashMap<Player,Integer> playerPlainRune3CoolDownMap = new HashMap<>();
-
-    public static boolean playerIsProtectingByPlainRune3(Player player) {
-        CompoundTag data = player.getPersistentData();
-        int TickCount = player.getServer().getTickCount();
-        if (data.contains(StringUtils.PlainRunes.Rune) && data.getInt(StringUtils.PlainRunes.Rune) == 3) {
-            if (!playerPlainRune3CoolDownMap.containsKey(player) || playerPlainRune3CoolDownMap.get(player) < TickCount) {
-                playerPlainRune3CoolDownMap.put(player,TickCount + 200);
-                Compute.CoolDownTimeSend(player,ModItems.PlainRune3.get().getDefaultInstance(),200);
-                return true;
-            }
-        }
-        return false;
-    }*/
-
 }

@@ -2,6 +2,7 @@ package fun.wraq.render.hud;
 
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.ManaSyncS2CPacket;
+import fun.wraq.process.system.skill.ManaSkillTree;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
@@ -35,8 +36,16 @@ public class Mana {
 
     public static void addOrCostPlayerMana(Player player, double value) {
         CompoundTag data = player.getPersistentData();
-        if (value > 0) data.putDouble("MANA", Math.min(data.getDouble("MANA") + value, data.getDouble("MAXMANA")));
-        else data.putDouble("MANA", Math.max(data.getDouble("MANA") + value, 0));
+        double currentValue = getPlayerCurrentManaNum(player);
+        if (value > 0) {
+            data.putDouble("MANA",
+                    Math.min(currentValue + value, getPlayerMaxManaNum(player)));
+
+            ManaSkillTree.skill14OnPlayerManaRecover(player, Math.min(getPlayerMaxManaNum(player) - currentValue, value));
+        }
+        else {
+            data.putDouble("MANA", Math.max(currentValue + value, 0));
+        }
         updateManaStatus(player);
     }
 

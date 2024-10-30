@@ -49,7 +49,8 @@ public class ManaArrow extends AbstractArrow implements GeoEntity {
         this.setNoPhysics(true);
     }
 
-    public ManaArrow(EntityType<? extends AbstractArrow> entityType, LivingEntity shooter, Level level, double BaseDamage, double BreakDefence, double BreakDefence0, String type) {
+    public ManaArrow(EntityType<? extends AbstractArrow> entityType, LivingEntity shooter, Level level,
+                     double BaseDamage, double BreakDefence, double BreakDefence0, String type) {
         super(entityType, shooter, level);
         this.player = (Player) shooter;
         this.BaseDamage = BaseDamage;
@@ -77,6 +78,13 @@ public class ManaArrow extends AbstractArrow implements GeoEntity {
     public ManaArrow(EntityType<? extends AbstractArrow> entityType, LivingEntity mob, Level level, double rate) {
         super(entityType, mob, level);
         this.mob = (Mob) mob;
+        this.rate = rate;
+    }
+
+    public ManaArrow(EntityType<? extends AbstractArrow> entityType, LivingEntity mob,
+                     Player player, Level level, double rate) {
+        super(entityType, mob, level);
+        this.player = player;
         this.rate = rate;
     }
 

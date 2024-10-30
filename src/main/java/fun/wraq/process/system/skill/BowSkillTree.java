@@ -4,7 +4,6 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.process.func.StableTierAttributeModifier;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Player;
 
 import java.util.Map;
@@ -13,19 +12,7 @@ import java.util.WeakHashMap;
 public class BowSkillTree {
 
     public static int getBowSkillTier(Player player, int index) {
-        CompoundTag data = player.getPersistentData();
-        String bowSkillData = data.getString(StringUtils.SkillData.Bow);
-        if (bowSkillData.length() != 15) {
-            return 0;
-        }
-        else {
-            if (bowSkillData.charAt(index) == 'X') {
-                return 10;
-            }
-            else {
-                return bowSkillData.charAt(index) - 48;
-            }
-        }
+        return SkillUtil.getSkillTier(player, index, StringUtils.SkillData.Bow);
     }
 
     /**
