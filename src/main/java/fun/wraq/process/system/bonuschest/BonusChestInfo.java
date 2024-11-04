@@ -140,7 +140,7 @@ public enum BonusChestInfo {
 
     // 脆弱的灵魂区域
     HUSK_ZONE_0(new BlockPos(813, 57, 400), 1, Util.DRUMSTICK_ZONE_NUM),
-    HUSK_ZONE_1(new BlockPos(760, 73, 340), 0, Util.DRUMSTICK_ZONE_NUM),
+    HUSK_ZONE_1(new BlockPos(760, 73, 341), 0, Util.DRUMSTICK_ZONE_NUM),
     HUSK_ZONE_2(new BlockPos(809, 68, 345), 0, Util.DRUMSTICK_ZONE_NUM),
     HUSK_ZONE_3(new BlockPos(776, 66, 421), 0, Util.DRUMSTICK_ZONE_NUM),
     HUSK_ZONE_4(new BlockPos(773, 68, 369), 0, Util.DRUMSTICK_ZONE_NUM),
@@ -263,6 +263,8 @@ public enum BonusChestInfo {
     NETHER_PLAIN_TEMPLE_8(new BlockPos(1564, 54, 158), 0, Util.ELEMENT_CONTINENT_SOUTH_ZONE_NUM),
     NETHER_PLAIN_TEMPLE_9(new BlockPos(1578, 54, 134), 1, Util.ELEMENT_CONTINENT_SOUTH_ZONE_NUM),
     NETHER_PLAIN_TEMPLE_10(new BlockPos(1583, 48, 129), 3, Util.ELEMENT_CONTINENT_SOUTH_ZONE_NUM),
+    NETHER_PLAIN_TEMPLE_11(new BlockPos(1582, 74, 142), 0, Util.ELEMENT_CONTINENT_SOUTH_ZONE_NUM),
+
 
 
     // 海底神殿区域

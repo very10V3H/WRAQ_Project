@@ -9,7 +9,7 @@
     },
     {
       "type": "patchouli:spotlight",
-      "item": "vmd:ice_soul,vmd:ice_helmet_forge_draw,vmd:ice_chest_forge_draw,vmd:ice_leggings_forge_draw,vmd:ice_boots_forge_draw,vmd:ice_bracelet,vmd:ice_book",
+      "item": "vmd:ice_book",
       "title": "主要掉落物",
       "text": "  掉落强力数值系列装备:冰霜骑士系列装备。$(br) -冰霜骑士系列装备是紫晶系列装备的上层系列，是维瑞阿契目前的顶级数值。"
     }

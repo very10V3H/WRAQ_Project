@@ -495,5 +495,13 @@ public class CommandHandler {
                                 .executes(BonusInfoCommand.instance)
                 )
         );
+        CommandDispatcher<CommandSourceStack> dispatcher53 = event.getDispatcher();
+        LiteralCommandNode<CommandSourceStack> cmd53 = dispatcher53.register(
+                Commands.literal(Utils.MOD_ID).then(
+                        Commands.literal("resetAccount")
+                                .executes(ResetAccountCommand.instance)
+                                .requires(commandSourceStack -> commandSourceStack.hasPermission(2))
+                )
+        );
     }
 }

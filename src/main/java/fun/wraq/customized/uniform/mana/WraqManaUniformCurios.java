@@ -10,10 +10,10 @@ public abstract class WraqManaUniformCurios extends WraqUniformCurios {
     public WraqManaUniformCurios(Properties properties) {
         super(properties);
         Utils.xpLevelManaDamage.put(this, 4d);
-        Utils.xpLevelManaPenetration0.put(this, 0.2d);
+        Utils.xpLevelManaPenetration0.put(this, 0.1d);
         Utils.manaRecover.put(this, 20d);
         Utils.maxMana.put(this, 80d);
-        Utils.coolDownDecrease.put(this, 0.2);
+        Utils.coolDownDecrease.put(this, 0.1);
     }
 
     @Override

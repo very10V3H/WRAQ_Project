@@ -32,8 +32,6 @@ public class PotionBag extends Item {
         components.add(Component.literal(" ").withStyle(ChatFormatting.WHITE).
                 append(potion.getDefaultInstance().getDisplayName()).
                 append(Component.literal("药水 * 5").withStyle(ChatFormatting.WHITE)));
-        components.add(Component.literal(" "));
-        components.add(Component.literal("Items-PotionBag").withStyle(ChatFormatting.AQUA));
         super.appendHoverText(itemStack, level, components, flag);
     }
 

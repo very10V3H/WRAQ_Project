@@ -557,22 +557,10 @@ public class VMD {
 
         if (event.getTabKey().equals(ModCreativeModeTab.MISC_TAB.getKey())) {
             event.accept(ModItems.Main0.get().getDefaultInstance());
-            event.accept(ModItems.Main0_1.get().getDefaultInstance());
-            event.accept(ModItems.Main0_2.get().getDefaultInstance());
-            event.accept(ModItems.Main0_3.get().getDefaultInstance());
-            event.accept(ModItems.Main0_4.get().getDefaultInstance());
-            event.accept(ModItems.Main0_5.get().getDefaultInstance());
-            event.accept(ModItems.Main1_0.get().getDefaultInstance());
-            event.accept(ModItems.Main1_1.get().getDefaultInstance());
-            event.accept(ModItems.Main1_2.get().getDefaultInstance());
-            event.accept(ModItems.Main1_3.get().getDefaultInstance());
-            event.accept(ModItems.Main1_4.get().getDefaultInstance());
-            event.accept(ModItems.Main1_5.get().getDefaultInstance());
             event.accept(ModItems.Note_0.get().getDefaultInstance());
             event.accept(ModItems.ExploreNote.get().getDefaultInstance());
             event.accept(ModItems.ForNew.get().getDefaultInstance());
             event.accept(ModItems.BackSpawn.get().getDefaultInstance());
-            event.accept(ModItems.main1reward.get().getDefaultInstance());
             event.accept(ModItems.tickettosky.get().getDefaultInstance());
             event.accept(ModItems.quest.get().getDefaultInstance());
             event.accept(ModItems.profession_bow.get().getDefaultInstance());

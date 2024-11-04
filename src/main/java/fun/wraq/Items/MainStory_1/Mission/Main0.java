@@ -5,6 +5,7 @@ import fun.wraq.process.system.bonuschest.BonusChestPlayerData;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -52,8 +53,8 @@ public class Main0 extends Item {
         if (!level.isClientSide && !player.isShiftKeyDown()) {
             String name = player.getName().getString();
             CompoundTag data = player.getPersistentData();
-
-            System.out.println(data.getCompound("bonus_chest_data_key"));
+            ServerPlayer serverPlayer = (ServerPlayer) player;
+            System.out.println(serverPlayer.getGameProfile().getId());
         }
 
         if (!level.isClientSide && player.isShiftKeyDown()) {

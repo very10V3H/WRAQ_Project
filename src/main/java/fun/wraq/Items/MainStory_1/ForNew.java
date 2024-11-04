@@ -5,6 +5,9 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
+import fun.wraq.series.instance.blade.BladeItems;
+import fun.wraq.series.instance.mixture.MixtureItems;
+import fun.wraq.series.instance.quiver.QuiverItems;
 import fun.wraq.series.newrunes.NewRuneItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -35,8 +38,11 @@ public class ForNew extends Item {
         if (!level.isClientSide && interactionHand.equals(InteractionHand.MAIN_HAND)) {
             Compute.playerItemUseWithRecord(player);
             ItemStack sword = new ItemStack(ModItems.PlainSword0.get());
+            ItemStack blade = new ItemStack(BladeItems.BLADE.get());
             ItemStack bow = new ItemStack(ModItems.PlainBow0.get());
+            ItemStack quiver = new ItemStack(QuiverItems.QUIVER.get());
             ItemStack sceptre = new ItemStack(ModItems.PlainSceptre0.get());
+            ItemStack mixture = new ItemStack(MixtureItems.MIXTURE.get());
             ForgeEquipUtils.setForgeQualityOnEquip(sword, 6);
             ForgeEquipUtils.setForgeQualityOnEquip(bow, 6);
             ForgeEquipUtils.setForgeQualityOnEquip(sceptre, 6);
@@ -47,7 +53,9 @@ public class ForNew extends Item {
                     new ItemStack(ModItems.BackSpawn.get()),
                     new ItemStack(Items.GOLDEN_CARROT, 64),
                     new ItemStack(ModItems.windBottle.get()),
-                    sword, bow, sceptre,
+                    sword, blade,
+                    bow, quiver,
+                    sceptre, mixture,
                     new ItemStack(ModItems.ORIGIN_KNIFE_PLAIN.get()),
                     new ItemStack(ModItems.PlainManaBook.get()),
                     new ItemStack(NewRuneItems.endNewRune.get()));
@@ -75,7 +83,6 @@ public class ForNew extends Item {
         components.add(Component.literal("右键打开它!"));
         components.add(Component.literal(" "));
         components.add(Component.literal(" "));
-        components.add(Component.literal("Present").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
         super.appendHoverText(stack, p_41422_, components, p_41424_);
     }
 }
