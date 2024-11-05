@@ -33,7 +33,6 @@ public class ForestSword4 extends WraqSword implements ActiveItem {
         Utils.healthSteal.put(this, 0.05);
         Utils.critRate.put(this, 0.3);
         Utils.critDamage.put(this, 0.4);
-        Utils.movementSpeedWithoutBattle.put(this, 0.4);
         Element.LifeElementValue.put(this, 1d);
     }
 

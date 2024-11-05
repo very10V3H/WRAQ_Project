@@ -28,7 +28,6 @@ public class EvokerSceptre extends WraqSceptre {
         Utils.manaDamage.put(this, new double[]{200, 300, 400, 600}[tier]);
         Utils.manaRecover.put(this, new double[]{20, 25, 30, 40}[tier]);
         Utils.manaPenetration0.put(this, new double[]{4, 5, 6, 7}[tier]);
-        Utils.movementSpeedWithoutBattle.put(this, new double[]{0.3, 0.4, 0.5, 0.6}[tier]);
         Utils.manaCost.put(this, 60d);
         Utils.coolDownDecrease.put(this, new double[]{0.1, 0.2, 0.3, 0.4}[tier]);
         Element.LightningElementValue.put(this, new double[]{0.8, 0.9, 1, 1.2}[tier]);

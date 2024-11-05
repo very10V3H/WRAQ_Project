@@ -28,7 +28,6 @@ public class SkyBow extends WraqBow implements OnHitEffectEquip {
         Utils.defencePenetration0.put(this, 6d);
         Utils.critRate.put(this, 0.25);
         Utils.critDamage.put(this, 0.35);
-        Utils.movementSpeedWithoutBattle.put(this, 0.6);
         Element.WindElementValue.put(this, 0.8);
     }
 

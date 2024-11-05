@@ -4,6 +4,7 @@ import fun.wraq.blocks.blocks.forge.ForgeRecipe;
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.BasicAttributeDescription;
 import fun.wraq.common.impl.display.ForgeItem;
+import fun.wraq.common.registry.ItemTier;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.loot.RandomLootEquip;
@@ -14,8 +15,8 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -23,12 +24,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public abstract class WraqOffHandItem extends Item {
+public abstract class WraqOffHandItem extends SwordItem {
 
     private final Component type;
 
     public WraqOffHandItem(Properties properties, Component type) {
-        super(properties);
+        super(ItemTier.VMaterial, 2, 0, properties);
         Utils.offHandTag.put(this, 1d);
         Utils.weaponList.add(this);
         this.type = type;

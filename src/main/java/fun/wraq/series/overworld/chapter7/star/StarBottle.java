@@ -28,7 +28,6 @@ public class StarBottle extends WraqCurios implements DamageInfluenceCurios {
         super(p_41383_);
         Utils.defencePenetration.put(this, 0.15);
         Utils.manaPenetration.put(this, 0.15);
-        Utils.movementSpeedWithoutBattle.put(this, 0.4);
     }
 
     @Override

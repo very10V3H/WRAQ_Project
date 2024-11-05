@@ -1,15 +1,14 @@
 package fun.wraq.series.instance.series.castle;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqBow;
+import fun.wraq.common.equip.impl.ActiveItem;
+import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.damage.Damage;
-import fun.wraq.common.equip.impl.ActiveItem;
-import fun.wraq.common.impl.display.ForgeItem;
-import fun.wraq.common.equip.WraqBow;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.instance.series.castle.CastleSword;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -28,7 +27,6 @@ public class CastleBow extends WraqBow implements ForgeItem, ActiveItem {
         Utils.defencePenetration0.put(this, 36d);
         Utils.critRate.put(this, 0.25);
         Utils.critDamage.put(this, 1.35);
-        Utils.movementSpeedWithoutBattle.put(this, 0.6);
     }
 
     @Override

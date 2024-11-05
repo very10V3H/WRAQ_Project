@@ -2,6 +2,8 @@ package fun.wraq.process.system.element.equipAndCurios.waterElement;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.equip.WraqSceptre;
+import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.registry.ModEntityType;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
@@ -10,9 +12,6 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.element.ElementValue;
-import fun.wraq.common.equip.impl.ActiveItem;
-import fun.wraq.common.equip.WraqSceptre;
-import fun.wraq.process.system.element.equipAndCurios.waterElement.WaterElementSword;
 import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.render.particles.ModParticles;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -40,7 +39,6 @@ public class WaterElementSceptre extends WraqSceptre implements ActiveItem {
         Utils.manaDamage.put(this, 1774d);
         Utils.manaRecover.put(this, 30d);
         Utils.manaPenetration0.put(this, 40d);
-        Utils.movementSpeedWithoutBattle.put(this, 0.4);
         Utils.manaCost.put(this, 45d);
         Utils.coolDownDecrease.put(this, 0.2);
         Element.WaterElementValue.put(this, 2d);

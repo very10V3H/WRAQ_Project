@@ -987,6 +987,13 @@ public class InjectRecipe {
         injectingRecipeMap.put(PickaxeItems.NETHERITE_PICKAXE_3.get(),
                 new InjectingRecipe(PickaxeItems.TINKER_NETHERITE.get(), 1, PickaxeItems.NETHERITE_PICKAXE_4.get()));
 
+        injectingRecipeMap.put(ModItems.BAMBOO_KANATA.get(),
+                new InjectingRecipe(ModItems.SkyRune.get(), 4, ModItems.SKY_KANATA.get()));
+        injectingRecipeMap.put(ModItems.SKY_KANATA.get(),
+                new InjectingRecipe(ModItems.NetherRune.get(), 2, ModItems.NETHER_KANATA.get()));
+        injectingRecipeMap.put(ModItems.NETHER_KANATA.get(),
+                new InjectingRecipe(ModItems.Boss2Piece.get(), 16, ModItems.SAKURA_KANATA.get()));
+
         for (Map.Entry<Item, InjectingRecipe> itemInjectingRecipeEntry : injectingRecipeMap.entrySet()) {
             injectedGetItemSourceItemMap.put(itemInjectingRecipeEntry.getValue().getForgingGetItem(), itemInjectingRecipeEntry.getKey());
         }

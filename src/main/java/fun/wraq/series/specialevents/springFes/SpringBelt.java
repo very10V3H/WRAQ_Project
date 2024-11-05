@@ -26,7 +26,6 @@ public class SpringBelt extends Item implements ICurioItem {
         Utils.attackDamage.put(this, Attack[level]);
         Utils.defencePenetration0.put(this, DefencePenetration0[level]);
         Utils.swiftnessUp.put(this, Swift[level]);
-        Utils.movementSpeedWithoutBattle.put(this, MovementSpeed[level]);
         Utils.expUp.put(this, ExpUp[level]);
         Utils.curiosList.add(this);
     }

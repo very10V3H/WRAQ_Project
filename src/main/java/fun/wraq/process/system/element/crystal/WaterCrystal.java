@@ -36,10 +36,6 @@ public class WaterCrystal extends SwordItem implements ActiveItem {
             400, 600, 800, 1000
     };
 
-    private static final double[] MovementSpeed = {
-            0.2, 0.3, 0.4, 0.6
-    };
-
     private static final double[] ExpUp = {
             0.5, 1, 1.5, 2
     };
@@ -47,7 +43,6 @@ public class WaterCrystal extends SwordItem implements ActiveItem {
     public WaterCrystal(Properties properties, int tier) {
         super(ItemTier.VMaterial, 2, 0, properties);
         Utils.maxHealth.put(this, MaxHealth[tier]);
-        Utils.movementSpeedWithoutBattle.put(this, MovementSpeed[tier]);
         Utils.expUp.put(this, ExpUp[tier]);
         Element.WaterElementValue.put(this, new double[]{0.4, 0.6, 0.8, 1}[tier]);
         Utils.passiveEquipTag.put(this, 1d);

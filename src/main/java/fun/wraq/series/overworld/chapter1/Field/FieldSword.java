@@ -28,7 +28,6 @@ public class FieldSword extends WraqSword implements ActiveItem {
         Utils.healthSteal.put(this, 0.2);
         Utils.critRate.put(this, 0.5);
         Utils.critDamage.put(this, 0.35);
-        Utils.movementSpeedWithoutBattle.put(this, new double[]{0.2, 0.3, 0.4, 0.5}[tier]);
         Element.LifeElementValue.put(this, new double[]{0.2, 0.4, 0.6, 0.8}[tier]);
     }
 

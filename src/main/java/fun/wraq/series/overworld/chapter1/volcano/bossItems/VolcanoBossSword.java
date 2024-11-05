@@ -29,8 +29,6 @@ public class VolcanoBossSword extends SwordItem {
     private final double CriticalHitRate = 0.30d;
     private final double CHitDamage = 0.4;
     private final double HealSteal = 0.05F;
-    private final double SpeedUp = 0.4F;
-    private final double AttackSpeedUp = -2f;
 
     public VolcanoBossSword(Tier tier, int num1, float num2) {
         super(tier, num1, num2, new Properties().rarity(CustomStyle.EntropyItalic));
@@ -39,8 +37,6 @@ public class VolcanoBossSword extends SwordItem {
         Utils.healthSteal.put(this, this.HealSteal);
         Utils.critRate.put(this, this.CriticalHitRate);
         Utils.critDamage.put(this, this.CHitDamage);
-        Utils.movementSpeedWithoutBattle.put(this, this.SpeedUp);
-        Utils.attackSpeedUp.put(this, AttackSpeedUp);
         Element.FireElementValue.put(this, 1.25);
         Utils.mainHandTag.put(this, 1d);
         Utils.weaponList.add(this);

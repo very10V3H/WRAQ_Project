@@ -2,6 +2,9 @@ package fun.wraq.series.instance.series.castle;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.equip.WraqSceptre;
+import fun.wraq.common.equip.impl.ActiveItem;
+import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.registry.ModEntityType;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
@@ -9,12 +12,8 @@ import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
-import fun.wraq.common.equip.impl.ActiveItem;
-import fun.wraq.common.impl.display.ForgeItem;
-import fun.wraq.common.equip.WraqSceptre;
 import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.instance.series.castle.CastleSword;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
@@ -38,7 +37,6 @@ public class CastleSceptre extends WraqSceptre implements ForgeItem, ActiveItem 
         Utils.manaDamage.put(this, 3000d);
         Utils.manaRecover.put(this, 30d);
         Utils.manaPenetration0.put(this, 36d);
-        Utils.movementSpeedWithoutBattle.put(this, 0.4);
         Utils.manaCost.put(this, 45d);
         Utils.coolDownDecrease.put(this, 0.2);
     }

@@ -32,7 +32,6 @@ public class PlainSword extends WraqSword implements ActiveItem {
         Utils.attackDamage.put(this, PlainSwordAttributes.BaseDamage[num]);
         Utils.critRate.put(this, PlainSwordAttributes.CriticalRate[num]);
         Utils.critDamage.put(this, PlainSwordAttributes.CriticalDamage[num]);
-        Utils.movementSpeedWithoutBattle.put(this, PlainSwordAttributes.MovementSpeed[num]);
         Utils.attackSpeedUp.put(this, PlainSwordAttributes.AttackSpeedUp[num]);
         Element.LifeElementValue.put(this, PlainSwordAttributes.LifeElementValue[num]);
     }

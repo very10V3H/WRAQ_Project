@@ -29,7 +29,6 @@ public class IceBook extends WraqOffHandItem implements OnHitEffectEquip, OnHitD
         Utils.manaDamage.put(this, 100d);
         Utils.manaPenetration0.put(this, 6d);
         Utils.maxMana.put(this, 50d);
-        Utils.movementSpeedWithoutBattle.put(this, 1d);
         Utils.expUp.put(this, 1d);
     }
 

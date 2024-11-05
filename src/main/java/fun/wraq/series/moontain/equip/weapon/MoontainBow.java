@@ -25,7 +25,6 @@ public class MoontainBow extends WraqBow implements ExBaseAttributeValueEquip, W
         Utils.defencePenetration0.put(this, 40d);
         Utils.critRate.put(this, 0.25);
         Utils.critDamage.put(this, 1.55);
-        Utils.movementSpeedWithoutBattle.put(this, 0.6);
         Utils.levelRequire.put(this, 240);
     }
 

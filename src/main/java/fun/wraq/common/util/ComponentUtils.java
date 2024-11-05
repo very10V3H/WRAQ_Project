@@ -40,7 +40,7 @@ public class ComponentUtils {
         }
 
         public static Component movementSpeedWithoutBattle(String content) {
-            return Component.literal(fun.wraq.common.util.Utils.Emoji.Speed + " " + content + "移动速度").withStyle(ChatFormatting.GREEN);
+            return Component.literal(fun.wraq.common.util.Utils.Emoji.Speed + " " + content + "脱战移动速度").withStyle(ChatFormatting.GREEN);
         }
 
         public static Component exMovementSpeed(String content) {

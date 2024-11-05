@@ -18,7 +18,6 @@ public class LabourDayGem extends Item {
         super(p_41383_);
         Utils.attackDamage.put(this, 155d);
         Utils.manaDamage.put(this, 310d);
-        Utils.movementSpeedWithoutBattle.put(this, 0.4);
         Utils.gemsTag.put(this, 1);
     }
 

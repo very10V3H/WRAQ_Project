@@ -21,7 +21,6 @@ public class LakeArmorChest extends ArmorItem {
     public LakeArmorChest(ItemMaterial itemMaterial, Type Slots) {
         super(itemMaterial, Slots, new Properties().rarity(CustomStyle.WaterItalic));
         Utils.coolDownDecrease.put(this, 0.16);
-        Utils.movementSpeedWithoutBattle.put(this, 0.15);
         Utils.armorTag.put(this, 1d);
         Utils.armorList.add(this);
     }

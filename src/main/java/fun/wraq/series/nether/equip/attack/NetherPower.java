@@ -14,10 +14,10 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class NetherPower extends Item {
+
     protected double ManaDamage = 20;
     protected double ManaBreakDenfence = 0.2f;
     protected double ManaReply = 5;
-    protected double SpeedUp = 0.2f;
     protected double CoolDown = 0.1f;
 
     public NetherPower(Properties p_41383_) {
@@ -27,7 +27,6 @@ public class NetherPower extends Item {
         Utils.manaDamage.put(this, ManaDamage);
         Utils.manaPenetration.put(this, ManaBreakDenfence);
         Utils.manaRecover.put(this, ManaReply);
-        Utils.movementSpeedWithoutBattle.put(this, SpeedUp);
         Utils.coolDownDecrease.put(this, CoolDown);
         Utils.offHandTag.put(this, 1d);
         Utils.weaponList.add(this);

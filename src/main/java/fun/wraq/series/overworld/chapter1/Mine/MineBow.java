@@ -1,4 +1,4 @@
-package fun.wraq.series.overworld.chapter1.Mine.Bow;
+package fun.wraq.series.overworld.chapter1.Mine;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
@@ -35,12 +35,11 @@ public class MineBow extends WraqBow implements OnHitEffectEquip {
     public MineBow(Properties p_40524_, int tier) {
         super(p_40524_);
         this.tier = tier;
-        Utils.attackDamage.put(this, MineBowAttributes.BaseDamage[tier]);
-        Utils.defencePenetration0.put(this, MineBowAttributes.DefencePenetration0[tier]);
-        Utils.critRate.put(this, MineBowAttributes.CriticalRate[tier]);
-        Utils.critDamage.put(this, MineBowAttributes.CriticalDamage[tier]);
-        Utils.movementSpeedWithoutBattle.put(this, MineBowAttributes.SpeedUp[tier]);
-        Element.StoneElementValue.put(this, MineBowAttributes.StoneElementValue[tier]);
+        Utils.attackDamage.put(this, new double[]{50, 55, 60, 75}[tier]);
+        Utils.defencePenetration0.put(this, new double[]{3, 4, 5, 6}[tier]);
+        Utils.critRate.put(this, new double[]{0.2, 0.2, 0.2, 0.25}[tier]);
+        Utils.critDamage.put(this, new double[]{0.35, 0.4, 0.45, 0.55}[tier]);
+        Element.StoneElementValue.put(this, new double[]{0.2, 0.4, 0.6, 0.8}[tier]);
     }
 
     @Override
@@ -78,7 +77,6 @@ public class MineBow extends WraqBow implements OnHitEffectEquip {
 
     @Override
     public void onHit(Player player, Mob mob) {
-        double rate = (tier + 1) * 0.2;
         Level level = player.level();
         List<Mob> mobList = level.getEntitiesOfClass(Mob.class, AABB.ofSize(mob.position(), 13, 13, 13));
         mobList.forEach(mob1 -> {

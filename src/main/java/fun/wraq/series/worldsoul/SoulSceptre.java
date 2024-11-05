@@ -37,7 +37,6 @@ public class SoulSceptre extends WraqSceptre {
         Utils.manaDamage.put(this, SoulEquipAttribute.BaseAttribute.SoulSceptre.ManaAttackDamage);
         Utils.manaRecover.put(this, SoulEquipAttribute.BaseAttribute.SoulSceptre.ManaRecover);
         Utils.manaPenetration0.put(this, SoulEquipAttribute.BaseAttribute.SoulSceptre.ManaPenetration0);
-        Utils.movementSpeedWithoutBattle.put(this, SoulEquipAttribute.BaseAttribute.SoulSceptre.MovementSpeed);
         Utils.manaCost.put(this, SoulEquipAttribute.BaseAttribute.SoulSceptre.ManaCost);
         Utils.mainHandTag.put(this, 1d);
         Utils.weaponList.add(this);

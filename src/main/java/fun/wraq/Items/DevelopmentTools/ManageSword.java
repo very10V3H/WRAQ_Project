@@ -16,8 +16,6 @@ public class ManageSword extends SwordItem {
     private final double CriticalHitRate = 1;
     private final double CHitDamage = 10;
     private final double HealSteal = 0.05F;
-    private final double SpeedUp = 0.8F;
-    private final double AttackSpeedUp = -2f;
 
     public ManageSword(Tier tier, int num1, float num2) {
         super(tier, num1, num2, new Properties());
@@ -26,8 +24,6 @@ public class ManageSword extends SwordItem {
         Utils.healthSteal.put(this, this.HealSteal);
         Utils.critRate.put(this, this.CriticalHitRate);
         Utils.critDamage.put(this, this.CHitDamage);
-        Utils.movementSpeedWithoutBattle.put(this, this.SpeedUp);
-        Utils.attackSpeedUp.put(this, AttackSpeedUp);
         Utils.mainHandTag.put(this, 1d);
         Utils.swordTag.put(this, 1d);
     }

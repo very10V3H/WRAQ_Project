@@ -38,7 +38,6 @@ public class ShipSceptre extends WraqSceptre implements InCuriosOrEquipSlotAttri
         Utils.manaRecover.put(this, 20d);
         Utils.coolDownDecrease.put(this, 0.4);
         Utils.manaPenetration0.put(this, 22d);
-        Utils.movementSpeedWithoutBattle.put(this, 0.5);
         Utils.manaCost.put(this, 30d);
         Element.WaterElementValue.put(this, 1d);
     }

@@ -17,6 +17,7 @@ public record StableAttributesModifier(String tag, double value, int stopTick) {
 
     public static Map<LivingEntity, List<StableAttributesModifier>> playerCooldownModifier = new WeakHashMap<>();
     public static Map<LivingEntity, List<StableAttributesModifier>> playerMovementSpeedModifier = new WeakHashMap<>();
+    public static Map<LivingEntity, List<StableAttributesModifier>> playerMovementSpeedWithoutBattleModifier = new WeakHashMap<>();
     public static Map<LivingEntity, List<StableAttributesModifier>> playerHealthRecoverModifier = new WeakHashMap<>();
     public static Map<LivingEntity, List<StableAttributesModifier>> playerCritRateModifier = new WeakHashMap<>();
     public static Map<LivingEntity, List<StableAttributesModifier>> playerManaRecoverModifier = new WeakHashMap<>();

@@ -23,7 +23,6 @@ public class EndCuriosBow extends WraqCurios implements ForgeItem {
         Utils.defencePenetration.put(this, 0.1);
         Utils.critDamage.put(this, 0.2);
         Utils.swiftnessUp.put(this, 1d);
-        Utils.movementSpeedWithoutBattle.put(this, 0.3);
     }
 
     @Override

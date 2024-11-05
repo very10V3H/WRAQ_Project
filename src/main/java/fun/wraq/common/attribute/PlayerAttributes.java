@@ -624,6 +624,7 @@ public class PlayerAttributes {
         speedUp += Compute.CuriosAttribute.attributeValue(player, Utils.movementSpeedWithoutBattle,
                 StringUtils.CuriosAttribute.movementSpeed); // 新版饰品属性加成
         speedUp += Compute.PassiveEquip.getAttribute(player, Utils.movementSpeedWithoutBattle); // 器灵属性加成
+        speedUp += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerMovementSpeedWithoutBattleModifier);
 
         // 请在上方添加
         speedUp *= Compute.playerFantasyAttributeEnhance(player);

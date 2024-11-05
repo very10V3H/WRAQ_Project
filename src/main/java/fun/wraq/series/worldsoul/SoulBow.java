@@ -30,7 +30,6 @@ public class SoulBow extends WraqBow {
         Utils.critRate.put(this, SoulEquipAttribute.BaseAttribute.SoulBow.CritRate);
         Utils.critDamage.put(this, SoulEquipAttribute.BaseAttribute.SoulBow.CritDamage);
         Utils.defencePenetration0.put(this, SoulEquipAttribute.BaseAttribute.SoulBow.DefencePenetration0);
-        Utils.movementSpeedWithoutBattle.put(this, SoulEquipAttribute.BaseAttribute.SoulBow.MovementSpeed);
     }
 
 

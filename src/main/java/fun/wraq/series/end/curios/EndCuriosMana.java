@@ -23,7 +23,6 @@ public class EndCuriosMana extends WraqCurios implements ForgeItem {
         Utils.manaPenetration.put(this, 0.1);
         Utils.maxMana.put(this, 20d);
         Utils.manaRecover.put(this, 10d);
-        Utils.movementSpeedWithoutBattle.put(this, 0.3);
     }
 
     @Override

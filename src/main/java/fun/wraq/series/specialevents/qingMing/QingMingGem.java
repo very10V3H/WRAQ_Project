@@ -20,7 +20,6 @@ public class QingMingGem extends Item {
         super(p_41383_);
         Utils.attackDamage.put(this, 135d);
         Utils.manaDamage.put(this, 270d);
-        Utils.movementSpeedWithoutBattle.put(this, 0.3);
         Utils.gemsTag.put(this, 1);
     }
 

@@ -21,7 +21,6 @@ public class LakeArmorLeggings extends ArmorItem {
     public LakeArmorLeggings(ItemMaterial itemMaterial, Type Slots) {
         super(itemMaterial, Slots, new Properties().rarity(CustomStyle.WaterItalic));
         Utils.coolDownDecrease.put(this, 0.14);
-        Utils.movementSpeedWithoutBattle.put(this, 0.15);
         Utils.armorTag.put(this, 1d);
         Utils.armorList.add(this);
     }

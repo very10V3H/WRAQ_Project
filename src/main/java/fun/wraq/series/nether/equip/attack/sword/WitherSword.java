@@ -35,7 +35,6 @@ public class WitherSword extends WraqSword implements ActiveItem, ForgeItem {
         Utils.healthSteal.put(this, new double[]{0.2, 0.22, 0.24, 0.3}[tier]);
         Utils.critRate.put(this, new double[]{0.2, 0.22, 0.24, 0.3}[tier]);
         Utils.critDamage.put(this, new double[]{0.35, 0.4, 0.45, 0.55}[tier]);
-        Utils.movementSpeedWithoutBattle.put(this, new double[]{0.3, 0.3, 0.3, 0.3}[tier]);
         Element.FireElementValue.put(this, new double[]{0.2, 0.4, 0.6, 0.8}[tier]);
     }
 

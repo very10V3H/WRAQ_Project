@@ -23,7 +23,6 @@ public class ManaNote extends Item {
         Utils.manaDamage.put(this, ManaDamage);
         Utils.manaPenetration0.put(this, ManaPenetration0);
         Utils.maxMana.put(this, maxMana);
-        Utils.movementSpeedWithoutBattle.put(this, MovementSpeed);
         Utils.expUp.put(this, ExpUp);
         Utils.manaRecover.put(this, new double[]{4, 6, 8, 10, 12, 14, 16, 18, 20}[num]);
         this.num = num;

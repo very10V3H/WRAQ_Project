@@ -26,7 +26,6 @@ public class WitherBook extends WraqOffHandItem implements OnPowerCauseDamageEqu
         Utils.manaDamage.put(this, 100d);
         Utils.manaPenetration0.put(this, 6d);
         Utils.maxMana.put(this, 50d);
-        Utils.movementSpeedWithoutBattle.put(this, 0.5);
         Utils.expUp.put(this, 1d);
     }
 

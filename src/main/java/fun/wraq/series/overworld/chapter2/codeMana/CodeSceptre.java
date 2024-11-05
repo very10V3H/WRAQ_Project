@@ -44,7 +44,6 @@ public class CodeSceptre extends PickaxeItem {
         Utils.manaDamage.put(this, this.ManaDamage);
         Utils.manaRecover.put(this, this.ManaReply);
         Utils.manaPenetration.put(this, this.ManaBreakDefence);
-        Utils.movementSpeedWithoutBattle.put(this, this.SpeedUp);
         Utils.manaCost.put(this, (double) ManaCost);
         Utils.mainHandTag.put(this, 1d);
         Utils.weaponList.add(this);
@@ -55,7 +54,6 @@ public class CodeSceptre extends PickaxeItem {
     private double ManaDamage = 50;
     private double ManaReply = 10.0f;
     private double ManaBreakDefence = 0.3F;
-    private double SpeedUp = 0.4F;
     private final double ManaCost = 21;
 
     @Override

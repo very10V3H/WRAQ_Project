@@ -146,7 +146,7 @@ import fun.wraq.series.overworld.chapter1.Mine.Armor.MineArmorBoots;
 import fun.wraq.series.overworld.chapter1.Mine.Armor.MineArmorChest;
 import fun.wraq.series.overworld.chapter1.Mine.Armor.MineArmorHelmet;
 import fun.wraq.series.overworld.chapter1.Mine.Armor.MineArmorLeggings;
-import fun.wraq.series.overworld.chapter1.Mine.Bow.MineBow;
+import fun.wraq.series.overworld.chapter1.Mine.MineBow;
 import fun.wraq.series.overworld.chapter1.Mine.Crest.MineCrest;
 import fun.wraq.series.overworld.chapter1.Mine.MineHat;
 import fun.wraq.series.overworld.chapter1.Mine.MineShield;
@@ -252,6 +252,7 @@ import fun.wraq.series.overworld.chapter7.star.StarBottle;
 import fun.wraq.series.overworld.forging.ForgingStone0;
 import fun.wraq.series.overworld.forging.ForgingStone1;
 import fun.wraq.series.overworld.forging.ForgingStone2;
+import fun.wraq.series.overworld.kanata.WraqKanata;
 import fun.wraq.series.overworld.knife.OriginKnife;
 import fun.wraq.series.overworld.sakuraSeries.BloodMana.BloodManaArmor;
 import fun.wraq.series.overworld.sakuraSeries.BloodMana.BloodManaCurios;
@@ -357,6 +358,23 @@ public class ModItems {
     public static final RegistryObject<Item> ORIGIN_KNIFE_SKY = ITEMS.register("origin_knife_sky",
             () -> new OriginKnife(new Item.Properties().rarity(CustomStyle.Sky),
                     CustomStyle.styleOfSky, ComponentUtils.getSuffixOfChapterII(), 5));
+
+    public static final RegistryObject<Item> BAMBOO_KANATA = ITEMS.register("bamboo_kanata",
+            () -> new WraqKanata(new Item.Properties().rarity(CustomStyle.WindBold), 0.15, CustomStyle.styleOfKaze,
+                    ComponentUtils.getSuffixOfChapterI()));
+
+    public static final RegistryObject<Item> SKY_KANATA = ITEMS.register("sky_kanata",
+            () -> new WraqKanata(new Item.Properties().rarity(CustomStyle.SkyBold), 0.3, CustomStyle.styleOfSky,
+                    ComponentUtils.getSuffixOfChapterII()));
+
+    public static final RegistryObject<Item> NETHER_KANATA = ITEMS.register("nether_kanata",
+            () -> new WraqKanata(new Item.Properties().rarity(CustomStyle.NetherBold), 0.45, CustomStyle.styleOfNether,
+                    ComponentUtils.getSuffixOfNether()));
+
+    public static final RegistryObject<Item> SAKURA_KANATA = ITEMS.register("sakura_kanata",
+            () -> new WraqKanata(new Item.Properties().rarity(CustomStyle.SakuraBold), 0.6, CustomStyle.styleOfSakura,
+                    ComponentUtils.getSuffixOfSakura()));
+
     public static final RegistryObject<Item> RunePiece = ITEMS.register("rune_piece",
             () -> new Piece(new Item.Properties()));
     public static final RegistryObject<Item> PlainRune0 = ITEMS.register("green_runes_0",

@@ -181,7 +181,6 @@ public class LakeBoss {
             Utils.healthSteal.put(this, this.HealSteal);
             Utils.critRate.put(this, this.CriticalHitRate);
             Utils.critDamage.put(this, this.CHitDamage);
-            Utils.movementSpeedWithoutBattle.put(this, this.SpeedUp);
             Element.WaterElementValue.put(this, 1.25);
             Utils.mainHandTag.put(this, 1d);
             Utils.weaponList.add(this);
@@ -193,7 +192,6 @@ public class LakeBoss {
         private final double CriticalHitRate = 0.3F;
         private final double CHitDamage = 0.4;
         private final double HealSteal = 0.08F;
-        private final double SpeedUp = 0.75F;
 
         @Override
         public void appendHoverText(ItemStack stack, @javax.annotation.Nullable Level level, List<Component> components, TooltipFlag flag) {

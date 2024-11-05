@@ -29,7 +29,7 @@ public class LeatherArmor extends ArmorItem {
         this.Num = Num;
         Utils.defence.put(this, 1d);
         if (Num != 3) Utils.maxHealth.put(this, 333d);
-        if (Num == 3) Utils.movementSpeedWithoutBattle.put(this, 0.4);
+        if (Num == 3) Utils.movementSpeedCommon.put(this, 0.4);
         Utils.armorTag.put(this, 1d);
         Utils.armorList.add(this);
     }

@@ -45,7 +45,6 @@ public class KazeSword extends WraqSword implements ActiveItem {
         Utils.healthSteal.put(this, 0.05);
         Utils.critRate.put(this, 0.3);
         Utils.critDamage.put(this, new double[]{0.4, 0.45, 0.55, 0.65, 0.75}[tier]);
-        Utils.movementSpeedWithoutBattle.put(this, new double[]{0.2, 0.4, 0.6, 0.8, 1}[tier]);
         Element.WindElementValue.put(this, new double[]{0.2, 0.4, 0.6, 0.8, 1}[tier]);
     }
 

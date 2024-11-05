@@ -1,21 +1,20 @@
 package fun.wraq.series.worldsoul;
 
-import fun.wraq.common.equip.impl.ActiveItem;
-import fun.wraq.common.equip.WraqSword;
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqSword;
+import fun.wraq.common.equip.impl.ActiveItem;
+import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.common.registry.ModItems;
-import fun.wraq.series.worldsoul.SoulEquipAttribute;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 import java.io.IOException;
@@ -29,7 +28,6 @@ public class SoulSword extends WraqSword implements ActiveItem {
         Utils.critRate.put(this, SoulEquipAttribute.BaseAttribute.SoulSword.CritRate);
         Utils.critDamage.put(this, SoulEquipAttribute.BaseAttribute.SoulSword.CritDamage);
         Utils.defencePenetration0.put(this, SoulEquipAttribute.BaseAttribute.SoulSword.DefencePenetration0);
-        Utils.movementSpeedWithoutBattle.put(this, SoulEquipAttribute.BaseAttribute.SoulSword.MovementSpeed);
         Utils.healthSteal.put(this, SoulEquipAttribute.BaseAttribute.SoulSword.HealthSteal);
     }
 
