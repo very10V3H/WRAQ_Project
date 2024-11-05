@@ -1,4 +1,4 @@
-package fun.wraq.series.overworld.chapter1.plain.bow;
+package fun.wraq.series.overworld.chapter1.plain;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.util.ComponentUtils;
@@ -22,11 +22,11 @@ public class PlainBow extends WraqBow implements OnHitEffectEquip {
 
     public PlainBow(Properties p_40524_, int tier) {
         super(p_40524_);
-        Utils.attackDamage.put(this, PlainBowAttributes.BaseDamage[tier]);
-        Utils.critRate.put(this, PlainBowAttributes.CriticalRate[tier]);
-        Utils.critDamage.put(this, PlainBowAttributes.CriticalDamage[tier]);
-        Utils.movementSpeedWithoutBattle.put(this, PlainBowAttributes.SpeedUp[tier]);
-        Element.LifeElementValue.put(this, PlainBowAttributes.LifeElementValue[tier]);
+        Utils.attackDamage.put(this, new double[]{20, 25, 35, 40}[tier]);
+        Utils.critRate.put(this, new double[]{0.2, 0.2, 0.2, 0.25}[tier]);
+        Utils.critDamage.put(this, new double[]{0.35, 0.35, 0.35, 0.35}[tier]);
+        Utils.movementSpeedWithoutBattle.put(this, new double[]{0.15, 0.2, 0.25, 0.3}[tier]);
+        Element.LifeElementValue.put(this, new double[]{0.2, 0.4, 0.6, 0.8}[tier]);
     }
 
     @Override
@@ -50,7 +50,7 @@ public class PlainBow extends WraqBow implements OnHitEffectEquip {
 
     @Override
     public void onHit(Player player, Mob mob) {
-        StableAttributesModifier.addAttributeModifier(player, StableAttributesModifier.playerMovementSpeedModifier,
-                new StableAttributesModifier("plainBowPassiveExMovementSpeed", 0.4, player.getServer().getTickCount() + 40));
+        StableAttributesModifier.addM(player, StableAttributesModifier.playerMovementSpeedModifier,
+                "plainBowPassiveExMovementSpeed", 0.4, player.getServer().getTickCount() + 40, this);
     }
 }

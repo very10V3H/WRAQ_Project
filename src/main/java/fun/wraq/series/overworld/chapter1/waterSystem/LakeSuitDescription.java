@@ -2,10 +2,9 @@ package fun.wraq.series.overworld.chapter1.waterSystem;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.registry.ModItems;
-import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.ComponentUtils;
-import fun.wraq.common.util.StringUtils;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.overworld.chapter1.waterSystem.crest.LakeCrest;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
@@ -38,9 +37,9 @@ public class LakeSuitDescription {
     public static void LakeSuitDescription(List<Component> components) {
         ComponentUtils.suitDescription(components);
 
-        int Count = 0;
+        int count = 0;
         Player player = Minecraft.getInstance().player;
-        ChatFormatting MainStyle = ChatFormatting.BLUE;
+        ChatFormatting mainStyle = ChatFormatting.BLUE;
         Item[] items = {
                 ModItems.LakeArmorHelmet.get(),
                 ModItems.LakeArmorChest.get(),
@@ -54,21 +53,20 @@ public class LakeSuitDescription {
                 EquipmentSlot.FEET
         };
         for (int i = 0; i < items.length; i++) {
-            Count += Compute.SuitItemVision(player, items[i], equipmentSlot[i], components, MainStyle);
+            count += Compute.SuitItemVision(player, items[i], equipmentSlot[i], components, mainStyle);
         }
 
-        String CrestString = StringUtils.Crest.Lake.Crest;
-        String CrestName = "[湖泊纹章]";
-        if (ClientUtils.CrestMap.containsKey(CrestString) && ClientUtils.CrestMap.get(CrestString)) {
-            components.add(Component.literal(CrestName).withStyle(MainStyle));
-            Count++;
-        } else components.add(Component.literal(CrestName).withStyle(ChatFormatting.GRAY));
+        String crestName = "[湖泊纹章]";
+        if (Compute.CuriosAttribute.getDistinctCuriosList(player).stream().anyMatch(stack -> stack.getItem() instanceof LakeCrest)) {
+            components.add(Component.literal(crestName).withStyle(mainStyle));
+            count++;
+        } else components.add(Component.literal(crestName).withStyle(ChatFormatting.GRAY));
 
-        ComponentUtils.suitDoubleDescription(components, Count);
+        ComponentUtils.suitDoubleDescription(components, count);
         Compute.DescriptionPassive(components, Component.literal("冷却剂").withStyle(CustomStyle.styleOfWater));
         components.add(Component.literal("获得").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.AttributeDescription.releaseSpeed("20")));
-        ComponentUtils.suitQuadraDescription(components, Count);
+        ComponentUtils.suitQuadraDescription(components, count);
         Compute.DescriptionPassive(components, Component.literal("循环").withStyle(CustomStyle.styleOfWater));
         components.add(Component.literal("获得").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.AttributeDescription.movementSpeed("35%")));

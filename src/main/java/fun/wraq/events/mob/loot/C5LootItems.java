@@ -26,7 +26,7 @@ public class C5LootItems {
             new RandomArmor(ItemMaterial.BloodMana, ArmorItem.Type.BOOTS, new Item.Properties().rarity(CustomStyle.BloodManaBold), CustomStyle.styleOfBloodMana,
                     ComponentUtils.getSuffixOfSakura(), List.of(new RandomAttributeValue(StringUtils.RandomAttribute.manaDamage, 300, 400),
                     new RandomAttributeValue(StringUtils.RandomAttribute.attackDamage, 200, 300),
-                    new RandomAttributeValue(StringUtils.RandomAttribute.movementSpeed, 0.3, 0.6)), 116));
+                    new RandomAttributeValue(StringUtils.RandomAttribute.movementSpeedWithoutBattle, 0.3, 0.6)), 116));
 
     public static final RegistryObject<Item> earthManaSceptre = ITEMS.register("earth_mana_sceptre", () ->
             new RandomSceptre(new Item.Properties().rarity(CustomStyle.JacarandaBold), CustomStyle.styleOfJacaranda,

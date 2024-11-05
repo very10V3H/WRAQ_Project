@@ -11,6 +11,7 @@ import fun.wraq.common.impl.onhit.OnCritHitEffectMainHandWeapon;
 import fun.wraq.common.impl.onhit.OnHitEffectEquip;
 import fun.wraq.common.impl.onhit.OnHitEffectPassiveEquip;
 import fun.wraq.common.registry.ModItems;
+import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.struct.Boss2Damage;
@@ -21,7 +22,6 @@ import fun.wraq.events.modules.AttackEventModule;
 import fun.wraq.events.modules.HurtEventModule;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.ParticlePackets.EffectParticle.CritHitParticleS2CPacket;
-import fun.wraq.networking.misc.SoundsPackets.SoundsS2CPacket;
 import fun.wraq.process.func.EnhanceNormalAttackModifier;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.suit.SuitCount;
@@ -38,6 +38,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -99,18 +100,26 @@ public class AttackEvent {
         });
 
         if (nearestMob.get() != null) {
-            AttackEvent.attackToMonster(nearestMob.get(), player, rate, true, false);
+            boolean crit = AttackEvent.crit(player, nearestMob.get(), false);
+            AttackEvent.attackToMonster(nearestMob.get(), player, rate, true, crit);
             HurtEventModule.ForestRune3Judge(player, nearestMob.get(), PlayerAttributes.attackDamage(player));
             HurtEvent.BlazeReflectDamage(nearestMob.get(), player);
             AttackEventModule.SwordSkill3Attack(player.getPersistentData(), player, nearestMob.get());// 破绽观察（对一名目标的持续攻击，可以使你对该目标的伤害至多提升至2%，在10次攻击后达到最大值）
             AttackEventModule.SwordSkill12Attack(player.getPersistentData(), player); // 刀光剑影（移动、攻击以及受到攻击将会获得充能，当充能满时，下一次攻击将造成额外200%伤害，并在以自身为中心范围内造成100%伤害）
             mobList.forEach(mob -> {
-                if (mob != nearestMob.get()) AttackEvent.attackToMonster(mob, player, rate * 0.5, false, false);
+                if (mob != nearestMob.get()) AttackEvent.attackToMonster(mob, player, rate * 0.5, false, crit);
             });
         }
     }
 
-    public static void attackToMonster(Mob monster, Player player, double rate, boolean mainAttack, boolean critSurely) {
+    public static boolean crit(Player player, Mob mob, boolean critSurely) {
+        double critRate = PlayerAttributes.critRate(player);
+        if (critSurely) critRate = 1;
+        if (BoneImpKnife.passive(player, mob)) critRate = 1;
+        return RandomUtils.nextDouble(0, 1) < critRate;
+    }
+
+    public static void attackToMonster(Mob monster, Player player, double rate, boolean mainAttack, boolean crit) {
         Item equip = player.getMainHandItem().getItem();
         CompoundTag data = player.getPersistentData();
         Utils.PlayerFireWorkFightCoolDown.put(player, Tick.get() + 200);
@@ -125,8 +134,6 @@ public class AttackEvent {
         double defencePenetration = PlayerAttributes.defencePenetration(player);
         double defencePenetration0 = PlayerAttributes.defencePenetration0(player);
 
-        double critRate = PlayerAttributes.critRate(player);
-        if (critSurely) critRate = 1;
         double critDamage = PlayerAttributes.critDamage(player);
 
         if (Utils.SnowRune2MobController.contains(monster)) defence *= 0.5f;
@@ -163,28 +170,29 @@ public class AttackEvent {
         double NormalAttackDamageEnhance = 0;
         NormalAttackDamageEnhance += DamageInfluence.getPlayerNormalSwordAttackDamageEnhance(player); // 普通近战攻击伤害加成
 
-        boolean critFlag = false;
-        if (BoneImpKnife.passive(player, monster)) critRate = 1;
-        if (RandomUtils.nextDouble(0, 1) < critRate) {
-            critFlag = true;
+        if (crit) {
             damageBeforeDefence = baseDamage * (1 + critDamage);
             data.putBoolean(StringUtils.DamageTypes.Crit, true);
-            AttackEventModule.SwordSkill5Attack(data, player); // 狂暴（造成暴击后，提升1%攻击力，持续3s）
-            AttackEventModule.SwordSkill6Attack(data, player); // 完美（持续造成暴击，将提供至多3%攻击力，持续10s，在十次暴击后达最大值，在未造成暴击时重置层数）
-            AttackEventModule.SwordSkill13Attack(player.getPersistentData(), player); // 战争热诚（攻击将会提供1层充能，暴击提供2层充能，每层充能将会提升1%的额外真实伤害，并获得等量治疗效果 持续6秒）
+            if (mainAttack) {
+                AttackEventModule.SwordSkill5Attack(data, player); // 狂暴（造成暴击后，提升1%攻击力，持续3s）
+                AttackEventModule.SwordSkill6Attack(data, player); // 完美（持续造成暴击，将提供至多3%攻击力，持续10s，在十次暴击后达最大值，在未造成暴击时重置层数）
+                AttackEventModule.SwordSkill13Attack(player.getPersistentData(), player); // 战争热诚（攻击将会提供1层充能，暴击提供2层充能，每层充能将会提升1%的额外真实伤害，并获得等量治疗效果 持续6秒）
+                HurtEventModule.SabreDamage(player, monster);
+                AttackEventModule.snowShieldEffect(player, monster);
+                AttackCurios1.playerCritEffect(player);
+                OnCritHitEffectMainHandWeapon.critHit(player, monster);
+                MySound.soundToPlayer(player, SoundEvents.PLAYER_ATTACK_CRIT);
+            }
             ModNetworking.sendToClient(new CritHitParticleS2CPacket(monster.getX(), monster.getY(), monster.getZ()), (ServerPlayer) player);
-            ModNetworking.sendToClient(new SoundsS2CPacket(0), (ServerPlayer) player);
-            HurtEventModule.SabreDamage(player, monster);
-            AttackEventModule.snowShieldEffect(player, monster);
-            AttackCurios1.playerCritEffect(player);
-            OnCritHitEffectMainHandWeapon.critHit(player, monster);
         } else {
             damageBeforeDefence = baseDamage;
             data.putBoolean(StringUtils.DamageTypes.Crit, false);
-            AttackEventModule.SwordSkill6Attack(data, player); // 完美（持续造成暴击，将提供至多3%攻击力，持续10s，在十次暴击后达最大值，在未造成暴击时重置层数）
-            AttackEventModule.SwordSkill13Attack(player.getPersistentData(), player); // 战争热诚（攻击将会提供1层充能，暴击提供2层充能，每层充能将会提升1%的额外真实伤害，并获得等量治疗效果 持续6秒）
-            ModNetworking.sendToClient(new SoundsS2CPacket(1), (ServerPlayer) player);
-            HurtEventModule.SabreDamage(player, monster);
+            if (mainAttack) {
+                AttackEventModule.SwordSkill6Attack(data, player); // 完美（持续造成暴击，将提供至多3%攻击力，持续10s，在十次暴击后达最大值，在未造成暴击时重置层数）
+                AttackEventModule.SwordSkill13Attack(player.getPersistentData(), player); // 战争热诚（攻击将会提供1层充能，暴击提供2层充能，每层充能将会提升1%的额外真实伤害，并获得等量治疗效果 持续6秒）
+                HurtEventModule.SabreDamage(player, monster);
+                MySound.soundToPlayer(player, SoundEvents.PLAYER_ATTACK_STRONG);
+            }
         }
 
         if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false)) {
@@ -239,15 +247,15 @@ public class AttackEvent {
         // Health steal
         Compute.healByHealthSteal(player, damage * PlayerAttributes.healthSteal(player));
         // Display
-        if (critFlag)
+        if (crit)
             Compute.summonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", damage + damageIgnoreDefence)).withStyle(CustomStyle.styleOfPower), 0);
         else
             Compute.summonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", damage + damageIgnoreDefence)).withStyle(ChatFormatting.YELLOW), 0);
 
         if (mainAttack) {
             if (elementDamage != 0 && !elementType.isEmpty())
-                Compute.damageActionBarPacketSend(player, damage, damageIgnoreDefence, false, critFlag, elementType, elementDamage);
-            else Compute.damageActionBarPacketSend(player, damage, damageIgnoreDefence, false, critFlag);
+                Compute.damageActionBarPacketSend(player, damage, damageIgnoreDefence, false, crit, elementType, elementDamage);
+            else Compute.damageActionBarPacketSend(player, damage, damageIgnoreDefence, false, crit);
             SameTypeModule.onNormalAttackHitMob(player, monster, 0, damage + damageIgnoreDefence);
             OnHitEffectEquip.hit(player, monster);
             OnHitEffectPassiveEquip.hit(player, monster);

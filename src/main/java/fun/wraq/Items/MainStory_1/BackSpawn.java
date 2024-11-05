@@ -1,5 +1,8 @@
 package fun.wraq.Items.MainStory_1;
 
+import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Te;
+import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.system.respawn.MyRespawnRule;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -33,26 +36,29 @@ public class BackSpawn extends Item {
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
-        if (interactionHand.equals(InteractionHand.MAIN_HAND)) {
-            if (!level.isClientSide) {
-                CompoundTag data = player.getMainHandItem().getOrCreateTagElement(Utils.MOD_ID);
-                if (!player.isShiftKeyDown()) {
-                    String name = player.getName().getString();
-                    if (isCallingMap.containsKey(name)) {
-                        isCallingMap.remove(name);
-                        calledTicksMap.remove(name);
-                        ClientboundSetActionBarTextPacket clientboundSetActionBarTextPacket =
-                                new ClientboundSetActionBarTextPacket(Component.literal("中断了回城引导..").withStyle(ChatFormatting.GREEN));
-                        ServerPlayer serverPlayer = (ServerPlayer) player;
-                        serverPlayer.connection.send(clientboundSetActionBarTextPacket);
-                    } else {
-                        isCallingMap.put(name, true);
-                        posIndexMap.put(name, data.getInt(spawnPointIndex));
-                    }
+        if (interactionHand.equals(InteractionHand.MAIN_HAND) && !level.isClientSide) {
+            CompoundTag data = player.getMainHandItem().getOrCreateTagElement(Utils.MOD_ID);
+            if (!player.isShiftKeyDown()) {
+                String name = player.getName().getString();
+                if (isCallingMap.containsKey(name)) {
+                    isCallingMap.remove(name);
+                    calledTicksMap.remove(name);
+                    ClientboundSetActionBarTextPacket clientboundSetActionBarTextPacket =
+                            new ClientboundSetActionBarTextPacket(Component.literal("中断了回城引导..").withStyle(ChatFormatting.GREEN));
+                    ServerPlayer serverPlayer = (ServerPlayer) player;
+                    serverPlayer.connection.send(clientboundSetActionBarTextPacket);
                 } else {
-                    if (player.level().dimension().equals(Level.OVERWORLD)) {
-                        player.getCooldowns().addCooldown(this, 20);
-                        MyRespawnRule.SpawnPoint spawnPoint = MyRespawnRule.findNearestSpawnPoint(player);
+                    isCallingMap.put(name, true);
+                    posIndexMap.put(name, data.getInt(spawnPointIndex));
+                }
+            } else {
+                if (player.level().dimension().equals(Level.OVERWORLD)) {
+                    player.getCooldowns().addCooldown(this, 20);
+                    MyRespawnRule.SpawnPoint spawnPoint = MyRespawnRule.findNearestSpawnPoint(player);
+                    if (spawnPoint.vec3().distanceTo(player.position()) > 32) {
+                        Compute.sendActionBarMSG(player, Te.s("距离最近的传送点 - ", spawnPoint.zoneName(),
+                                " 太远了，无法重新绑定传送点！"));
+                    } else {
                         int index = MyRespawnRule.overworldSpawnPos.indexOf(spawnPoint);
                         if (index != -1) data.putInt(spawnPointIndex, index);
                         ClientboundSetActionBarTextPacket clientboundSetActionBarTextPacket =
@@ -60,11 +66,21 @@ public class BackSpawn extends Item {
                                         append(spawnPoint.zoneName()));
                         ServerPlayer serverPlayer = (ServerPlayer) player;
                         serverPlayer.connection.send(clientboundSetActionBarTextPacket);
+                        setName(player.getMainHandItem());
                     }
                 }
             }
         }
         return super.use(level, player, interactionHand);
+    }
+
+    public static void setName(ItemStack itemStack) {
+        if (itemStack.is(ModItems.BackSpawn.get())) {
+            CompoundTag data = itemStack.getOrCreateTagElement(Utils.MOD_ID);
+            int index = data.getInt(BackSpawn.spawnPointIndex);
+            itemStack.setHoverName(Component.literal("回城卷轴 - ").withStyle(ChatFormatting.BLUE).
+                    append(MyRespawnRule.overworldSpawnPos.get(index).zoneName()));
+        }
     }
 
     @Override

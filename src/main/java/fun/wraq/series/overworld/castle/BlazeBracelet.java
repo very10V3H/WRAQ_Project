@@ -51,18 +51,6 @@ public class BlazeBracelet extends Item implements ICurioItem {
     }
 
     @Override
-    public void onEquip(SlotContext slotContext, ItemStack prevStack, ItemStack stack) {
-        Compute.addCuriosToList((Player) slotContext.entity(), stack);
-        ICurioItem.super.onEquip(slotContext, prevStack, stack);
-    }
-
-    @Override
-    public void onUnequip(SlotContext slotContext, ItemStack newStack, ItemStack stack) {
-        Compute.removeCuriosInList((Player) slotContext.entity(), stack);
-        ICurioItem.super.onUnequip(slotContext, newStack, stack);
-    }
-
-    @Override
     public boolean canEquipFromUse(SlotContext slotContext, ItemStack stack) {
         return true;
     }

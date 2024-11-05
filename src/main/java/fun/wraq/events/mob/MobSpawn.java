@@ -52,7 +52,6 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.event.TickEvent;
 import org.apache.commons.lang3.RandomUtils;
 
-import java.io.IOException;
 import java.sql.*;
 import java.util.*;
 
@@ -107,7 +106,7 @@ public class MobSpawn {
         overWolrdList.add(MineSkeletonSpawnController.getInstance(overWorld));
 
         overWolrdList.add(SkyVexSpawnController.getInstance(overWorld));
-        overWolrdList.add(FireLight2SpawnController.getInstance(overWorld));
+        overWolrdList.add(FireLightSpawnController.getInstance(overWorld));
         overWolrdList.add(SearedSpiritSpawnController.getInstance(overWorld));
         overWolrdList.add(SearedSpirit2SpawnController.getInstance(overWorld));
         overWolrdList.add(EvokerSpawnController.getInstance(overWorld));
@@ -257,8 +256,19 @@ public class MobSpawn {
         return num;
     }
 
+    private static int getMobXpLevel(Mob mob) {
+        String name = mob.getName().getString();
+        int start = name.indexOf('.');
+        int end = name.indexOf(' ');
+        String xpLevelString = name.substring(start + 1, end);
+        if (org.apache.commons.lang3.StringUtils.isNumeric(xpLevelString)) {
+            return Integer.parseInt(xpLevelString);
+        }
+        return 0;
+    }
+
     public static void drop(Mob mob, Player player) {
-        int xpLevel = MobBaseAttributes.xpLevel.getOrDefault(MobSpawn.getMobOriginName(mob), 0);
+        int xpLevel = getMobXpLevel(mob);
 
         if (RandomUtils.nextInt(0, 10000) < xpLevel) {
             InventoryOperation.itemStackGive(player, ModItems.REFINED_PIECE.get().getDefaultInstance());
@@ -288,11 +298,7 @@ public class MobSpawn {
             Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player), xpLevel);
             list.forEach(itemAndRate -> {
                 RandomLootEquip.handleItemAndRate(itemAndRate);
-                try {
-                    itemAndRate.send(player, num);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                itemAndRate.send(player, num);
             });
         } else {
             double rate = MobSpawn.getMobOriginName(mob).equals(MagmaSpawnController.mobName)

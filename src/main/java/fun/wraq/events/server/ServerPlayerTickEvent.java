@@ -457,14 +457,8 @@ public class ServerPlayerTickEvent {
                                     Component.literal("你获得了一点专精点，当前剩余的专精点为: " +
                                             (data.getInt(StringUtils.SkillPoint_Total) - data.getInt(StringUtils.SkillPoint_Used))).withStyle(ChatFormatting.WHITE));
                         }
-
                         if (player.experienceLevel % 5 == 0) {
                             ModNetworking.sendToClient(new SoundsS2CPacket(3), (ServerPlayer) player);
-                            ItemStack itemStack = ModItems.gemPiece.get().getDefaultInstance();
-                            itemStack.setCount(player.experienceLevel);
-                            Compute.sendFormatMSG(player, Component.literal("经验").withStyle(ChatFormatting.LIGHT_PURPLE),
-                                    Component.literal("通过提升等级，你获得了").withStyle(ChatFormatting.WHITE).append(itemStack.getDisplayName()));
-                            InventoryOperation.itemStackGive(player, itemStack);
                             Compute.formatBroad(player.level(), Te.m("经验", ChatFormatting.LIGHT_PURPLE),
                                     Te.s(player.getName(), " 通过探索，达到了", String.valueOf(player.experienceLevel), ChatFormatting.LIGHT_PURPLE, "级"));
                         }

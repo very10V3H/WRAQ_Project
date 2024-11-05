@@ -4,6 +4,7 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.equip.WraqSword;
 import fun.wraq.common.equip.impl.ActiveItem;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.impl.onhit.OnHitEffectEquip;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
@@ -38,6 +39,8 @@ public class LakeSword extends WraqSword implements ActiveItem, OnHitEffectEquip
         Element.WaterElementValue.put(this, new double[]{0.2, 0.4, 0.6, 0.8}[tier]);
     }
 
+    private final int[] coolDownSeconds = new int[]{12, 11, 10, 8};
+
     @Override
     public Style getMainStyle() {
         return CustomStyle.styleOfLake;
@@ -47,13 +50,11 @@ public class LakeSword extends WraqSword implements ActiveItem, OnHitEffectEquip
     public List<Component> getAdditionalComponents(ItemStack stack) {
         List<Component> components = new ArrayList<>();
         Compute.DescriptionPassive(components, Component.literal("潜泳").withStyle(ChatFormatting.BLUE));
-        ComponentUtils.descriptionNum(components, "攻击后获得持续1秒的", ComponentUtils.AttributeDescription.movementSpeed("50%"), "");
-        if (tier == 3) {
-            Compute.DescriptionActive(components, Component.literal("出水").withStyle(ChatFormatting.BLUE));
-            components.add(Component.literal("右键向前冲刺"));
-            ComponentUtils.coolDownTimeDescription(components, 8);
-            ComponentUtils.manaCostDescription(components, 60);
-        }
+        components.add(Te.s("攻击后获得持续2秒的", ComponentUtils.AttributeDescription.movementSpeed("35%")));
+        Compute.DescriptionActive(components, Component.literal("出水").withStyle(ChatFormatting.BLUE));
+        components.add(Component.literal(" 右键向前冲刺"));
+        ComponentUtils.coolDownTimeDescription(components, coolDownSeconds[tier]);
+        ComponentUtils.manaCostDescription(components, 100);
         return components;
     }
 
@@ -64,15 +65,20 @@ public class LakeSword extends WraqSword implements ActiveItem, OnHitEffectEquip
 
     @Override
     public void onHit(Player player, Mob mob) {
-        StableAttributesModifier.addAttributeModifier(player, StableAttributesModifier.playerMovementSpeedModifier,
-                new StableAttributesModifier("lakeSwordPassiveExMovementSpeed", 0.5, player.getServer().getTickCount() + 20));
+        StableAttributesModifier.addM(player, StableAttributesModifier.playerMovementSpeedModifier,
+                "lakeSwordPassiveExMovementSpeed", 0.35, player.getServer().getTickCount() + 20, this);
     }
 
     @Override
     public void active(Player player) {
-        if (Compute.playerManaCost(player, 60)) {
+        if (Compute.playerManaCost(player, 100)) {
             ModNetworking.sendToClient(new UtilsLakeSwordS2CPacket(true), (ServerPlayer) player);
-            player.getCooldowns().addCooldown(ModItems.LakeSword3.get(), (int) (160 * (1.0 - PlayerAttributes.coolDownDecrease(player))));
+            List.of(ModItems.LakeSword0.get(), ModItems.LakeSword1.get(),
+                    ModItems.LakeSword2.get(), ModItems.LakeSword3.get())
+                    .forEach(item -> {
+                        player.getCooldowns().addCooldown(item,
+                                (int) (coolDownSeconds[tier] * 20 * (1.0 - PlayerAttributes.coolDownDecrease(player))));
+                    });
         }
     }
 }

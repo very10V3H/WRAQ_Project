@@ -73,7 +73,7 @@ public class SakuraBossInstance extends NoTeamInstance {
     @Override
     public void rewardModule(Player player) {
         List<ItemAndRate> rewardList = getRewardList();
-        rewardList.forEach(itemAndRate -> itemAndRate.dropWithBounding(lastMob, 1, player));
+        rewardList.forEach(itemAndRate -> itemAndRate.sendWithMSG(player, 1));
 
         String name = player.getName().getString();
         if (!MobSpawn.tempKillCount.containsKey(name)) MobSpawn.tempKillCount.put(name, new HashMap<>());

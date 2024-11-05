@@ -33,7 +33,6 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -53,12 +52,7 @@ public class KillPaper extends Item {
             if (!list.isEmpty()) {
                 list.forEach(itemAndRate -> {
                     RandomLootEquip.handleItemAndRate(itemAndRate);
-
-                    try {
-                        itemAndRate.send(player, 64);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
+                    itemAndRate.send(player, 64);
                 });
             }
             Compute.playerItemUseWithRecord(player);

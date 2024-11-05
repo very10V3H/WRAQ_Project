@@ -2,10 +2,14 @@ package fun.wraq.series.overworld.chapter1.plain.sceptre;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.fast.Tick;
+import fun.wraq.common.impl.inslot.InCuriosOrEquipSlotAttributesModify;
+import fun.wraq.common.impl.onhit.OnHitEffectEquip;
 import fun.wraq.common.registry.ModEntityType;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.process.func.StableAttributesModifier;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.common.equip.WraqSceptre;
@@ -16,6 +20,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
@@ -25,7 +30,7 @@ import net.minecraft.world.level.Level;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlainSceptre extends WraqSceptre {
+public class PlainSceptre extends WraqSceptre implements OnHitEffectEquip, InCuriosOrEquipSlotAttributesModify {
 
     private final int tier;
     public PlainSceptre(Properties properties, int tier) {
@@ -49,14 +54,14 @@ public class PlainSceptre extends WraqSceptre {
     public List<Component> getAdditionalComponents(ItemStack stack) {
         List<Component> components = new ArrayList<>();
         Compute.DescriptionPassive(components, Component.literal("平原的加护").withStyle(ChatFormatting.GREEN));
-        components.add(Component.literal("当法球命中单位时，获得:"));
-        ComponentUtils.emojiDescriptionDefence(components, 40);
-        ComponentUtils.emojiDescriptionManaDefence(components, 40);
-        components.add(Component.literal("并回复").withStyle(ChatFormatting.WHITE).
+        components.add(Component.literal(" 当法球命中单位时，获得持续5s的:"));
+        ComponentUtils.emojiDescriptionDefence(components, 15);
+        ComponentUtils.emojiDescriptionManaDefence(components, 15);
+        components.add(Component.literal(" 并回复").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.AttributeDescription.maxHealth("1%")));
         if (tier > 3) {
             Compute.DescriptionPassive(components, Component.literal("生机涌动").withStyle(CustomStyle.styleOfHealth));
-            components.add(Component.literal("白天额外获得").withStyle(ChatFormatting.WHITE).
+            components.add(Component.literal(" 白天额外获得").withStyle(ChatFormatting.WHITE).
                     append(ComponentUtils.AttributeDescription.manaDamage("45")).
                     append(Component.literal("与")).
                     append(ComponentUtils.AttributeDescription.manaRecover("15")));
@@ -92,7 +97,25 @@ public class PlainSceptre extends WraqSceptre {
         return ComponentUtils.getSuffixOfChapterI();
     }
 
-    public boolean is4Tier() {
-        return tier == 4;
+    @Override
+    public List<Attribute> getAttributes(Player player) {
+        if (player.getMainHandItem().is(this) && tier == 4
+                && !Utils.OverWorldLevelIsNight && player.level().dimension().equals(Level.OVERWORLD)) {
+            return List.of(
+                    new Attribute(Utils.manaDamage, 45),
+                    new Attribute(Utils.manaRecover, 15)
+            );
+        }
+        return List.of();
+    }
+
+    @Override
+    public void onHit(Player player, Mob mob) {
+        StableAttributesModifier.addM(player, StableAttributesModifier.playerDefenceModifier,
+                "PlainSceptrePassiveDefence", 15, Tick.get() + 100);
+        StableAttributesModifier.addM(player, StableAttributesModifier.playerManaDefenceModifier,
+                "PlainSceptrePassiveManaDefence", 15, Tick.get() + 100);
+        Compute.sendEffectLastTime(player,this, 100);
+        Compute.playerHeal(player, player.getMaxHealth() * 0.01);
     }
 }

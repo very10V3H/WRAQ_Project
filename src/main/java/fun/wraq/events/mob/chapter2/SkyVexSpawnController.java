@@ -60,7 +60,8 @@ public class SkyVexSpawnController extends MobSpawnController {
 
         // 需要验证
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(vex), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(vex, 200, 50, 50, 0.35, 3, 0.2, 5, 15, 6000, 0.3);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(vex, 200, 50, 50, 0.35,
+                3, 0.2, 5, 15, 7500, 0.3);
 
         // 设置物品
         ItemStack[] itemStacks = {new ItemStack(Items.LEATHER_HELMET), new ItemStack(Items.LEATHER_CHESTPLATE),

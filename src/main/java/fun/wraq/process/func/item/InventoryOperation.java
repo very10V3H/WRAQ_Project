@@ -2,6 +2,7 @@ package fun.wraq.process.func.item;
 
 import com.mojang.logging.LogUtils;
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.core.InventoryCheck;
 import fun.wraq.networking.ModNetworking;
@@ -117,9 +118,15 @@ public class InventoryOperation {
                 itemEntity.moveTo(player.position());
                 player.level().addFreshEntity(itemEntity);
                 Compute.sendFormatMSG(player, Component.literal("物品").withStyle(ChatFormatting.GREEN),
-                        Component.literal("背包已无空位，请注意。"));
+                        Te.s("背包已无空位，请注意。无法放入背包的物品将掉落在地上"));
             }
         }
+    }
+
+    public static void itemStackGiveWithMSG(Player player, ItemStack itemStack) {
+        Compute.sendFormatMSG(player, Te.s("物品", ChatFormatting.GREEN),
+                Te.s("你收到了", itemStack.getDisplayName(), " * " + itemStack.getCount(), ChatFormatting.AQUA));
+        itemStackGive(player, itemStack);
     }
 
     public static void giveItemStackByRate(ItemStack itemStack, double rate, Player player) {

@@ -94,7 +94,9 @@ public class LoginInEvent {
                 data.remove(string);
             }
 
+            boolean isNewPlayer = !data.contains("FirstReward");
             String frontConditionForOldPlayer = "frontConditionForOldPlayer";
+            if (isNewPlayer) data.putBoolean(frontConditionForOldPlayer, true);
             if (!data.contains(frontConditionForOldPlayer)) {
                 data.putBoolean(frontConditionForOldPlayer, true);
                 if (player.experienceLevel > 0) {
@@ -107,43 +109,32 @@ public class LoginInEvent {
                     });
                     Compute.sendFormatMSG(player, Component.literal("副本").withStyle(ChatFormatting.RED),
                             Component.literal("所有副本的前置条件已解锁").withStyle(ChatFormatting.WHITE));
+                    InventoryOperation.itemStackGiveWithMSG(player, new ItemStack(ModItems.ForNew.get()));
                 }
             }
 
             String singleReward = CompensateCommand.singleReward;
+            if (isNewPlayer) data.putBoolean(singleReward, true);
             if (!data.contains(singleReward)) {
                 Compute.sendFormatMSG(player, Component.literal("补偿").withStyle(CustomStyle.styleOfSakura),
                         Component.literal("你有待领取的补偿，输入/vmd compensate领取补偿！").withStyle(ChatFormatting.AQUA));
             }
 
-            String expAdjust = "24.8.1-expAdjust";
+            String expAdjust = "2.0.37-expAdjust";
+            if (isNewPlayer) data.putBoolean(expAdjust, true);
             if (!data.contains(expAdjust) && player.experienceLevel > 180) {
-                double levelUpNeedXp = Math.pow(Math.E, 3 + (player.experienceLevel / 100d) * 7);
+                data.putBoolean(expAdjust, true);
+                double levelUpNeedXp = Compute.getCurrentXpLevelUpNeedXpPoint(player.experienceLevel);
                 double currentXpRate = data.getDouble("Xp") / levelUpNeedXp;
-                int newXpLevel = (int) (180 + (player.experienceLevel - 180) * 0.5);
+                int newXpLevel = (int) (180 + (player.experienceLevel - 180) * 0.1);
                 data.putInt(StringUtils.ExpLevel, newXpLevel);
                 ((ServerPlayer) player).setExperienceLevels(newXpLevel);
-                data.putDouble("Xp", Math.pow(Math.E, 3 + (player.experienceLevel / 100d) * 7) * currentXpRate);
-                data.putBoolean(expAdjust, true);
+                data.putDouble("Xp", Compute.getCurrentXpLevelUpNeedXpPoint(player.experienceLevel) * currentXpRate);
                 Compute.sendFormatMSG(player, Component.literal("经验改动").withStyle(ChatFormatting.LIGHT_PURPLE),
                         Component.literal("你的经验已经被改动，原因可查看群公告更新通知").withStyle(ChatFormatting.LIGHT_PURPLE));
                 Compute.resetSkillAndAbility(player);
-            }
-
-            String skillPointReset = "skillPointReset";
-            if (!data.contains(skillPointReset)) {
-                data.putBoolean(skillPointReset, true);
-                Compute.resetSkillAndAbility(player);
                 Compute.sendFormatMSG(player, Component.literal("经验改动").withStyle(ChatFormatting.LIGHT_PURPLE),
                         Component.literal("因经验改动你的能力与专精点数已被重置").withStyle(ChatFormatting.WHITE));
-            }
-
-            String skillPointResetV2037 = "skillPointResetV2037";
-            if (!data.contains(skillPointResetV2037)) {
-                data.putBoolean(skillPointResetV2037, true);
-                Compute.resetSkillAndAbility(player);
-                Compute.sendFormatMSG(player, Component.literal("专精改动").withStyle(ChatFormatting.LIGHT_PURPLE),
-                        Component.literal("因专精改动你的能力与专精点数已被重置").withStyle(ChatFormatting.WHITE));
             }
 
             if (!data.contains(StringUtils.PatchouliBook)) {
@@ -151,16 +142,6 @@ public class LoginInEvent {
                 InventoryOperation.itemStackGive(player, PatchouliBook);
                 data.putBoolean(StringUtils.PatchouliBook, true);
             }
-
-/*            if (!data.contains("version:1.0.3") && player.experienceLevel >= 200) {
-                Compute.FormatMSGSend(player,Component.literal("补偿").withStyle(CustomStyle.styleOfSakura),
-                        Component.literal("你有待领取的补偿，输入/vmd compensate [life/water/fire/stone/iceElement/lightning/wind/ice/devil/taboo/moon/castle/purple]领取补偿！").withStyle(ChatFormatting.AQUA));
-            }
-
-            if (!data.contains("version:1.0.3") && player.experienceLevel >= 160) {
-                Compute.FormatMSGSend(player,Component.literal("补偿").withStyle(CustomStyle.styleOfSakura),
-                        Component.literal("你有待领取的补偿，输入/vmd compensate [ice/devil/taboo/moon/castle/purple]领取补偿！").withStyle(ChatFormatting.AQUA));
-            }*/
 
             List<ServerPlayer> list = event.getEntity().getServer().getPlayerList().getPlayers();
             PrefixCommand.handlePrefix(list);

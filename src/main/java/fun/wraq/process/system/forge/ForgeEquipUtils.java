@@ -1,5 +1,6 @@
 package fun.wraq.process.system.forge;
 
+import com.google.common.collect.ImmutableMap;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.Utils;
@@ -23,7 +24,41 @@ public class ForgeEquipUtils {
     }
 
     public static Map<Zone, List<ItemStack>> zoneForgeItemListMap = new HashMap<>();
-    public static Map<Item, Component> itemZoneMap = new HashMap<>();
+    public static Map<Item, List<Component>> itemForgePlaceMap = new HashMap<>();
+
+    public static final Zone PLAIN_VILLAGE = new Zone(828, 261, 650, 120);
+    public static final Component PLAIN_VILLAGE_NAME = Te.s("平原村", CustomStyle.styleOfPlain);
+    public static final Zone FOREST_VILLAGE = new Zone(1159, 103, 1010, -2);
+    public static final Component FOREST_VILLAGE_NAME = Te.s("雨林村", CustomStyle.styleOfForest);
+    public static final Zone LAKE_VILLAGE = new Zone(942, -375, 842, -458);
+    public static final Component LAKE_VILLAGE_NAME = Te.s("海岸村", CustomStyle.styleOfLake);
+    public static final Zone VOLCANO_VILLAGE = new Zone(2631, -476, 2512, -600);
+    public static final Component VOLCANO_VILLAGE_NAME = Te.s("火山村", CustomStyle.styleOfVolcano);
+    public static final Zone SNOW_VILLAGE = new Zone(1395, -1509, 1251, -1702);
+    public static final Component SNOW_VILLAGE_NAME = Te.s("北洋村", CustomStyle.styleOfSnow);
+    public static final Zone BIRCH_VILLAGE = new Zone(2021, 1767, 1814, 1592);
+    public static final Component BIRCH_VILLAGE_NAME = Te.s("沙岸村", CustomStyle.styleOfHusk);
+    public static final Zone SAKURA_VILLAGE = new Zone(2445, 1799, 2353, 1719);
+    public static final Component SAKURA_VILLAGE_NAME = Te.s("绯樱村", CustomStyle.styleOfSakura);
+    public static final Zone SKY_CITY = new Zone(1013, 64, 900, -42);
+    public static final Component SKY_CITY_NAME = Te.s("天空城", CustomStyle.styleOfSakura);
+    public static final Zone XUNNAN_VILLAGE = new Zone(1268, -1024, 1066, -1132);
+    public static final Component XUNNAN_VILLAGE_NAME = Te.s("薰楠村", CustomStyle.styleOfJacaranda);
+    public static final Zone XUNXI_VILLAGE = new Zone(1093, -1241, 970, -1358);
+    public static final Component XUNXI_VILLAGE_NAME = Te.s("薰曦村", CustomStyle.styleOfJacaranda);
+
+    public static final Map<Zone, Component> zoneNameMap = ImmutableMap.of(
+            PLAIN_VILLAGE, PLAIN_VILLAGE_NAME,
+            FOREST_VILLAGE, FOREST_VILLAGE_NAME,
+            LAKE_VILLAGE, LAKE_VILLAGE_NAME,
+            VOLCANO_VILLAGE, VOLCANO_VILLAGE_NAME,
+            SNOW_VILLAGE, SNOW_VILLAGE_NAME,
+            BIRCH_VILLAGE, BIRCH_VILLAGE_NAME,
+            SAKURA_VILLAGE, SAKURA_VILLAGE_NAME,
+            SKY_CITY, SKY_CITY_NAME,
+            XUNNAN_VILLAGE, XUNNAN_VILLAGE_NAME,
+            XUNXI_VILLAGE, XUNXI_VILLAGE_NAME
+    );
 
     public static void setZoneForgeItemListMap() {
         List<Item> plain = List.of(
@@ -39,12 +74,9 @@ public class ForgeEquipUtils {
                 ModItems.KazeBoots.get()
         );
 
-        zoneForgeItemListMap.put(new Zone(828, 261, 650, 120), new ArrayList<>() {{
+        zoneForgeItemListMap.put(PLAIN_VILLAGE, new ArrayList<>() {{
             plain.forEach(item -> add(item.getDefaultInstance()));
         }});
-        plain.forEach(item -> {
-            itemZoneMap.put(item, Component.literal("平原村").withStyle(CustomStyle.styleOfPlain));
-        });
 
         List<Item> forest = List.of(
                 ModItems.ForestSword0.get(),
@@ -65,14 +97,17 @@ public class ForgeEquipUtils {
                 ModItems.MineArmorHelmet.get(),
                 ModItems.MineArmorChest.get(),
                 ModItems.MineArmorLeggings.get(),
-                ModItems.MineArmorBoots.get()
+                ModItems.MineArmorBoots.get(),
+                ModItems.VolcanoSword0.get(),
+                ModItems.VolcanoBow0.get(),
+                ModItems.VolcanoArmorHelmet.get(),
+                ModItems.VolcanoArmorChest.get(),
+                ModItems.VolcanoArmorLeggings.get(),
+                ModItems.VolcanoArmorBoots.get()
         );
-        zoneForgeItemListMap.put(new Zone(1159, 103, 1010, -2), new ArrayList<>() {{
+        zoneForgeItemListMap.put(FOREST_VILLAGE, new ArrayList<>() {{
             forest.forEach(item -> add(item.getDefaultInstance()));
         }});
-        forest.forEach(item -> {
-            itemZoneMap.put(item, Component.literal("雨林村").withStyle(CustomStyle.styleOfForest));
-        });
 
         List<Item> lake = List.of(
                 ModItems.LakeSword0.get(),
@@ -82,12 +117,9 @@ public class ForgeEquipUtils {
                 ModItems.LakeArmorBoots.get(),
                 ModItems.SlimeBoots.get()
         );
-        zoneForgeItemListMap.put(new Zone(942, -375, 842, -458), new ArrayList<>() {{
+        zoneForgeItemListMap.put(LAKE_VILLAGE, new ArrayList<>() {{
             lake.forEach(item -> add(item.getDefaultInstance()));
         }});
-        lake.forEach(item -> {
-            itemZoneMap.put(item, Component.literal("海岸村").withStyle(CustomStyle.styleOfLake));
-        });
 
         List<Item> volcano = List.of(
                 ModItems.VolcanoSword0.get(),
@@ -98,12 +130,9 @@ public class ForgeEquipUtils {
                 ModItems.VolcanoArmorBoots.get(),
                 C7Items.boneImpKnife.get()
         );
-        zoneForgeItemListMap.put(new Zone(2631, -476, 2512, -600), new ArrayList<>() {{
+        zoneForgeItemListMap.put(VOLCANO_VILLAGE, new ArrayList<>() {{
             volcano.forEach(item -> add(item.getDefaultInstance()));
         }});
-        volcano.forEach(item -> {
-            itemZoneMap.put(item, Component.literal("火山村").withStyle(CustomStyle.styleOfVolcano));
-        });
 
         List<Item> snow = List.of(
                 ModItems.SnowSword0.get(),
@@ -120,12 +149,9 @@ public class ForgeEquipUtils {
                 ModItems.CastleSwiftHelmet.get(), ModItems.CastleSwiftChest.get(), ModItems.CastleSwiftLeggings.get(), ModItems.CastleSwiftBoots.get(),
                 ModItems.CastleManaHelmet.get(), ModItems.CastleManaChest.get(), ModItems.CastleManaLeggings.get(), ModItems.CastleManaBoots.get()
         );
-        zoneForgeItemListMap.put(new Zone(1395, -1509, 1251, -1702), new ArrayList<>() {{
+        zoneForgeItemListMap.put(SNOW_VILLAGE, new ArrayList<>() {{
             snow.forEach(item -> add(item.getDefaultInstance()));
         }});
-        snow.forEach(item -> {
-            itemZoneMap.put(item, Component.literal("北洋村").withStyle(CustomStyle.styleOfSnow));
-        });
 
         List<Item> birch = List.of(
                 ModItems.SeaSword0.get(),
@@ -141,12 +167,9 @@ public class ForgeEquipUtils {
                 ModItems.LIGHTNING_LEGGINGS.get(),
                 ModItems.LIGHTNING_BOOTS.get()
         );
-        zoneForgeItemListMap.put(new Zone(2021, 1767, 1814, 1592), new ArrayList<>() {{
+        zoneForgeItemListMap.put(BIRCH_VILLAGE, new ArrayList<>() {{
             birch.forEach(item -> add(item.getDefaultInstance()));
         }});
-        birch.forEach(item -> {
-            itemZoneMap.put(item, Component.literal("沙岸村").withStyle(CustomStyle.styleOfHusk));
-        });
 
         List<Item> sakura = List.of(
                 ModItems.SakuraDemonSword.get(),
@@ -172,12 +195,9 @@ public class ForgeEquipUtils {
                 ModItems.TabooSwiftHelmet.get(),
                 ModItems.TabooManaBoots.get()
         );
-        zoneForgeItemListMap.put(new Zone(2445, 1799, 2353, 1719), new ArrayList<>() {{
+        zoneForgeItemListMap.put(SAKURA_VILLAGE, new ArrayList<>() {{
             sakura.forEach(item -> add(item.getDefaultInstance()));
         }});
-        sakura.forEach(item -> {
-            itemZoneMap.put(item, Component.literal("绯樱村").withStyle(CustomStyle.styleOfSakura));
-        });
 
         List<Item> sky = List.of(
                 ModItems.SkyBow.get(),
@@ -209,12 +229,9 @@ public class ForgeEquipUtils {
                 C7Items.vdSceptre.get()
         );
 
-        zoneForgeItemListMap.put(new Zone(1013, 64, 900, -42), new ArrayList<>() {{
+        zoneForgeItemListMap.put(SKY_CITY, new ArrayList<>() {{
             sky.forEach(item -> add(item.getDefaultInstance()));
         }});
-        sky.forEach(item -> {
-            itemZoneMap.put(item, Component.literal("天空城").withStyle(CustomStyle.styleOfSky));
-        });
 
         List<Item> xunNan = List.of(
                 ModItems.PurpleIronArmorHelmet.get(),
@@ -230,12 +247,9 @@ public class ForgeEquipUtils {
                 ModItems.MoonLeggings.get()
         );
 
-        zoneForgeItemListMap.put(new Zone(1268, -1024, 1066, -1132), new ArrayList<>() {{
+        zoneForgeItemListMap.put(XUNNAN_VILLAGE, new ArrayList<>() {{
             xunNan.forEach(item -> add(item.getDefaultInstance()));
         }});
-        xunNan.forEach(item -> {
-            itemZoneMap.put(item, Component.literal("薰楠村").withStyle(CustomStyle.styleOfJacaranda));
-        });
 
         List<Item> xunXi = List.of(
                 ModItems.PurpleIronArmorHelmet.get(),
@@ -244,11 +258,19 @@ public class ForgeEquipUtils {
                 ModItems.PurpleIronArmorBoots.get()
         );
 
-        zoneForgeItemListMap.put(new Zone(1093, -1241, 970, -1358), new ArrayList<>() {{
+        zoneForgeItemListMap.put(XUNXI_VILLAGE, new ArrayList<>() {{
             xunXi.forEach(item -> add(item.getDefaultInstance()));
         }});
-        xunXi.forEach(item -> {
-            itemZoneMap.put(item, Component.literal("薰曦村").withStyle(CustomStyle.styleOfJacaranda));
+
+        zoneForgeItemListMap.forEach((zone, itemList) -> {
+            Component zoneName = zoneNameMap.get(zone);
+            itemList.forEach(stack -> {
+                Item item = stack.getItem();
+                if (!itemForgePlaceMap.containsKey(item)) {
+                    itemForgePlaceMap.put(item, new ArrayList<>());
+                }
+                itemForgePlaceMap.get(item).add(zoneName);
+            });
         });
     }
 

@@ -4,9 +4,6 @@ import fun.wraq.common.registry.ItemMaterial;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.events.mob.loot.RandomArmor;
-import fun.wraq.events.mob.loot.RandomAttributeValue;
-import fun.wraq.events.mob.loot.RandomSword;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
@@ -44,5 +41,5 @@ public class C1LootItems {
             new RandomArmor(ItemMaterial.ArmorS, ArmorItem.Type.BOOTS,
                     new Item.Properties().rarity(CustomStyle.SpiderBold), CustomStyle.styleOfSpider,
                     ComponentUtils.getSuffixOfChapterI(), List.of(new RandomAttributeValue(
-                    StringUtils.RandomAttribute.movementSpeed, 0.2, 0.6)), 32));
+                    StringUtils.RandomAttribute.movementSpeedWithoutBattle, 0.2, 0.6)), 32));
 }

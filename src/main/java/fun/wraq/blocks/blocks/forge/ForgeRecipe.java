@@ -1,5 +1,6 @@
 package fun.wraq.blocks.blocks.forge;
 
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.item.InventoryOperation;
@@ -9,6 +10,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -27,20 +29,30 @@ public class ForgeRecipe {
     @OnlyIn(Dist.CLIENT)
     public static void toolTip(ItemTooltipEvent event) {
         ItemStack itemStack = event.getItemStack();
+        Item item = itemStack.getItem();
         List<Component> tooltip = event.getToolTip();
-        if (forgeDrawRecipe.containsKey(itemStack.getItem())
-                && ForgeEquipUtils.itemZoneMap.containsKey(itemStack.getItem())) {
+        if (forgeDrawRecipe.containsKey(item)
+                && ForgeEquipUtils.itemForgePlaceMap.containsKey(item)) {
             if (!Screen.hasShiftDown()) {
-                tooltip.add(Component.literal("[按下shift查看获取方式]").withStyle(ChatFormatting.GRAY));
+                tooltip.add(Component.literal("[按下shift查看锻造方式]").withStyle(ChatFormatting.GRAY));
             } else {
-                if (ForgeEquipUtils.itemZoneMap.containsKey(itemStack.getItem())) {
-                    tooltip.add(Component.literal("于").withStyle(ChatFormatting.WHITE).
-                            append(ForgeEquipUtils.itemZoneMap.get(itemStack.getItem())).
-                            append(Component.literal("锻造").withStyle(ChatFormatting.WHITE)));
+                tooltip.add(Te.s("->", ChatFormatting.GOLD, "锻造方式", CustomStyle.styleOfStone, "->", ChatFormatting.GOLD));
+                List<Component> components = ForgeEquipUtils.itemForgePlaceMap.get(item);
+                MutableComponent description = Te.s("于 ");
+                for (int i = 0; i < components.size(); i++) {
+                    Component component = components.get(i);
+                    if (i != components.size() - 1) {
+                        description.append(component).append("、");
+                    } else {
+                        description.append(component);
+                    }
                 }
+                description.append(Te.s(" 锻造"));
+                tooltip.add(description);
+
                 tooltip.add(Component.literal(" 材料需求:").withStyle(CustomStyle.styleOfSky));
                 List<ItemStack> list = forgeDrawRecipe.get(itemStack.getItem());
-                for (int i = 0 ; i < list.size() ; i++) {
+                for (int i = 0; i < list.size(); i++) {
                     ItemStack stack = list.get(i);
                     int playerInventoryHasNum = InventoryOperation.itemStackCount(Minecraft.getInstance().player, stack.getItem());
                     if (playerInventoryHasNum >= stack.getCount()) {
@@ -112,181 +124,181 @@ public class ForgeRecipe {
         }});
 
         forgeDrawRecipe.put(ModItems.ForestArmorHelmet.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.ForestRune.get(), 4));
+            add(new ItemStack(ModItems.ForestRune.get(), 3));
             add(new ItemStack(ModItems.LifeElementPiece0.get(), 14));
             add(new ItemStack(Items.LEATHER, 10));
         }});
 
         forgeDrawRecipe.put(ModItems.ForestArmorChest.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.ForestRune.get(), 4));
+            add(new ItemStack(ModItems.ForestRune.get(), 3));
             add(new ItemStack(ModItems.LifeElementPiece0.get(), 14));
             add(new ItemStack(Items.LEATHER, 16));
         }});
 
         forgeDrawRecipe.put(ModItems.ForestArmorLeggings.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.ForestRune.get(), 4));
+            add(new ItemStack(ModItems.ForestRune.get(), 3));
             add(new ItemStack(ModItems.LifeElementPiece0.get(), 14));
             add(new ItemStack(Items.LEATHER, 14));
         }});
 
         forgeDrawRecipe.put(ModItems.ForestArmorBoots.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.ForestRune.get(), 4));
+            add(new ItemStack(ModItems.ForestRune.get(), 3));
             add(new ItemStack(ModItems.LifeElementPiece0.get(), 14));
             add(new ItemStack(Items.LEATHER, 8));
         }});
 
         forgeDrawRecipe.put(ModItems.ForestSword0.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.ForestRune.get(), 4));
+            add(new ItemStack(ModItems.ForestRune.get(), 3));
             add(new ItemStack(ModItems.LifeElementPiece0.get(), 14));
             add(new ItemStack(Items.IRON_INGOT, 2));
         }});
 
         forgeDrawRecipe.put(ModItems.ForestBow0.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.ForestRune.get(), 4));
+            add(new ItemStack(ModItems.ForestRune.get(), 3));
             add(new ItemStack(ModItems.LifeElementPiece0.get(), 14));
             add(new ItemStack(Items.IRON_INGOT, 2));
         }});
 
         forgeDrawRecipe.put(ModItems.LakeArmorHelmet.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.LakeRune.get(), 4));
+            add(new ItemStack(ModItems.LakeRune.get(), 3));
             add(new ItemStack(ModItems.WaterElementPiece0.get(), 14));
             add(new ItemStack(Items.LEATHER, 10));
         }});
 
         forgeDrawRecipe.put(ModItems.LakeArmorChest.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.LakeRune.get(), 4));
+            add(new ItemStack(ModItems.LakeRune.get(), 3));
             add(new ItemStack(ModItems.WaterElementPiece0.get(), 14));
             add(new ItemStack(Items.LEATHER, 16));
         }});
 
         forgeDrawRecipe.put(ModItems.LakeArmorLeggings.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.LakeRune.get(), 4));
+            add(new ItemStack(ModItems.LakeRune.get(), 3));
             add(new ItemStack(ModItems.WaterElementPiece0.get(), 14));
             add(new ItemStack(Items.LEATHER, 14));
         }});
 
         forgeDrawRecipe.put(ModItems.LakeArmorBoots.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.LakeRune.get(), 4));
+            add(new ItemStack(ModItems.LakeRune.get(), 3));
             add(new ItemStack(ModItems.WaterElementPiece0.get(), 14));
             add(new ItemStack(Items.LEATHER, 8));
         }});
 
         forgeDrawRecipe.put(ModItems.LakeSword0.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.LakeRune.get(), 4));
+            add(new ItemStack(ModItems.LakeRune.get(), 3));
             add(new ItemStack(ModItems.WaterElementPiece0.get(), 14));
             add(new ItemStack(Items.IRON_INGOT, 2));
         }});
 
         forgeDrawRecipe.put(ModItems.lakeBow0.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.LakeRune.get(), 4));
+            add(new ItemStack(ModItems.LakeRune.get(), 3));
             add(new ItemStack(ModItems.WaterElementPiece0.get(), 14));
             add(new ItemStack(Items.IRON_INGOT, 2));
         }});
 
         forgeDrawRecipe.put(ModItems.lakeSceptre0.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.LakeRune.get(), 4));
+            add(new ItemStack(ModItems.LakeRune.get(), 3));
             add(new ItemStack(ModItems.WaterElementPiece0.get(), 14));
             add(new ItemStack(Items.IRON_INGOT, 2));
         }});
 
         forgeDrawRecipe.put(ModItems.VolcanoArmorHelmet.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.VolcanoRune.get(), 4));
+            add(new ItemStack(ModItems.VolcanoRune.get(), 3));
             add(new ItemStack(ModItems.FireElementPiece0.get(), 14));
             add(new ItemStack(Items.LEATHER, 10));
         }});
 
         forgeDrawRecipe.put(ModItems.VolcanoArmorChest.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.VolcanoRune.get(), 4));
+            add(new ItemStack(ModItems.VolcanoRune.get(), 3));
             add(new ItemStack(ModItems.FireElementPiece0.get(), 14));
             add(new ItemStack(Items.LEATHER, 16));
         }});
 
         forgeDrawRecipe.put(ModItems.VolcanoArmorLeggings.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.VolcanoRune.get(), 4));
+            add(new ItemStack(ModItems.VolcanoRune.get(), 3));
             add(new ItemStack(ModItems.FireElementPiece0.get(), 14));
             add(new ItemStack(Items.LEATHER, 14));
         }});
 
         forgeDrawRecipe.put(ModItems.VolcanoArmorBoots.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.VolcanoRune.get(), 4));
+            add(new ItemStack(ModItems.VolcanoRune.get(), 3));
             add(new ItemStack(ModItems.FireElementPiece0.get(), 14));
             add(new ItemStack(Items.LEATHER, 8));
         }});
 
         forgeDrawRecipe.put(ModItems.VolcanoSword0.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.VolcanoRune.get(), 4));
+            add(new ItemStack(ModItems.VolcanoRune.get(), 3));
             add(new ItemStack(ModItems.FireElementPiece0.get(), 14));
             add(new ItemStack(Items.IRON_INGOT, 2));
         }});
 
         forgeDrawRecipe.put(ModItems.VolcanoBow0.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.VolcanoRune.get(), 4));
+            add(new ItemStack(ModItems.VolcanoRune.get(), 3));
             add(new ItemStack(ModItems.FireElementPiece0.get(), 14));
             add(new ItemStack(Items.IRON_INGOT, 2));
         }});
 
         forgeDrawRecipe.put(ModItems.MineArmorHelmet.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.MineRune.get(), 4));
+            add(new ItemStack(ModItems.MineRune.get(), 3));
             add(new ItemStack(ModItems.StoneElementPiece0.get(), 14));
             add(new ItemStack(Items.IRON_INGOT, 10));
         }});
 
         forgeDrawRecipe.put(ModItems.MineArmorChest.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.MineRune.get(), 4));
+            add(new ItemStack(ModItems.MineRune.get(), 3));
             add(new ItemStack(ModItems.StoneElementPiece0.get(), 14));
             add(new ItemStack(Items.IRON_INGOT, 16));
         }});
 
         forgeDrawRecipe.put(ModItems.MineArmorLeggings.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.MineRune.get(), 4));
+            add(new ItemStack(ModItems.MineRune.get(), 3));
             add(new ItemStack(ModItems.StoneElementPiece0.get(), 14));
             add(new ItemStack(Items.IRON_INGOT, 14));
         }});
 
         forgeDrawRecipe.put(ModItems.MineArmorBoots.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.MineRune.get(), 4));
+            add(new ItemStack(ModItems.MineRune.get(), 3));
             add(new ItemStack(ModItems.StoneElementPiece0.get(), 14));
             add(new ItemStack(Items.IRON_INGOT, 8));
         }});
 
         forgeDrawRecipe.put(ModItems.MineSword0.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.MineRune.get(), 4));
+            add(new ItemStack(ModItems.MineRune.get(), 3));
             add(new ItemStack(ModItems.StoneElementPiece0.get(), 14));
             add(new ItemStack(Items.IRON_INGOT, 2));
         }});
 
         forgeDrawRecipe.put(ModItems.MineBow0.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.MineRune.get(), 4));
+            add(new ItemStack(ModItems.MineRune.get(), 3));
             add(new ItemStack(ModItems.StoneElementPiece0.get(), 14));
             add(new ItemStack(Items.IRON_INGOT, 2));
         }});
 
         forgeDrawRecipe.put(ModItems.SnowArmorHelmet.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.SnowRune.get(), 4));
+            add(new ItemStack(ModItems.SnowRune.get(), 3));
             add(new ItemStack(ModItems.IceElementPiece0.get(), 14));
             add(new ItemStack(Items.DIAMOND, 10));
         }});
 
         forgeDrawRecipe.put(ModItems.SnowArmorChest.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.SnowRune.get(), 4));
+            add(new ItemStack(ModItems.SnowRune.get(), 3));
             add(new ItemStack(ModItems.IceElementPiece0.get(), 14));
             add(new ItemStack(Items.DIAMOND, 16));
         }});
 
         forgeDrawRecipe.put(ModItems.SnowArmorLeggings.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.SnowRune.get(), 4));
+            add(new ItemStack(ModItems.SnowRune.get(), 3));
             add(new ItemStack(ModItems.IceElementPiece0.get(), 14));
             add(new ItemStack(Items.DIAMOND, 14));
         }});
 
         forgeDrawRecipe.put(ModItems.SnowArmorBoots.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.SnowRune.get(), 4));
+            add(new ItemStack(ModItems.SnowRune.get(), 3));
             add(new ItemStack(ModItems.IceElementPiece0.get(), 14));
             add(new ItemStack(Items.DIAMOND, 8));
         }});
 
         forgeDrawRecipe.put(ModItems.SnowSword0.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.SnowRune.get(), 4));
+            add(new ItemStack(ModItems.SnowRune.get(), 3));
             add(new ItemStack(ModItems.IceElementPiece0.get(), 14));
             add(new ItemStack(Items.DIAMOND, 2));
         }});

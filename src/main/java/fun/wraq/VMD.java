@@ -519,7 +519,7 @@ public class VMD {
             event.accept(ModItems.commonLotteries.get().getDefaultInstance());
             event.accept(ModItems.UnCommonLotteries.get().getDefaultInstance());
             event.accept(ModItems.RevelationBook.get().getDefaultInstance());
-            event.accept(ModItems.NewRevelationBook.get().getDefaultInstance());
+            event.accept(ModItems.RevelationBook.get().getDefaultInstance());
             event.accept(ModItems.U_Disk.get().getDefaultInstance());
             event.accept(ModItems.IceLoot.get().getDefaultInstance());
             event.accept(ModItems.FireWorkGun.get().getDefaultInstance());

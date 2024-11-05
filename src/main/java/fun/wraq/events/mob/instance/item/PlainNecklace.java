@@ -1,10 +1,11 @@
 package fun.wraq.events.mob.instance.item;
 
-import fun.wraq.common.util.ComponentUtils;
-import fun.wraq.common.util.Utils;
+import fun.wraq.common.attribute.BasicAttributeDescription;
+import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.equip.impl.RandomCurios;
 import fun.wraq.common.impl.display.UsageOrGetWayDescriptionItem;
-import fun.wraq.common.equip.WraqCurios;
+import fun.wraq.common.util.ComponentUtils;
+import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.castle.RandomCuriosAttributesUtil;
 import net.minecraft.ChatFormatting;
@@ -12,7 +13,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.item.ItemStack;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +27,7 @@ public class PlainNecklace extends WraqCurios implements RandomCurios, UsageOrGe
     public Component getTypeDescription() {
         return Component.literal("").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.getFuncTypeDescriptionOfCurios()).
-                append(Component.literal(" v = 3 * " + BigDecimal.valueOf(fullRate()).stripTrailingZeros())
+                append(Component.literal(" v = 3 * " + BasicAttributeDescription.getDecimal(fullRate(), 1))
                         .withStyle(CustomStyle.styleOfWorld));
     }
 

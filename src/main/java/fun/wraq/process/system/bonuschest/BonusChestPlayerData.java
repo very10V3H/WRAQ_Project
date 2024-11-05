@@ -103,6 +103,8 @@ public class BonusChestPlayerData {
         data.putInt(TIER_COUNT_KEY + tier, data.getInt(TIER_COUNT_KEY + tier) + 1);
     }
 
+    private static final String FIRST_OPEN_KEY = "first_open_key";
+
     public static Map<Player, ChestBlockEntity> openBonusChestMap = new HashMap<>();
     public static void onPlayerSuccessOpenBonusChest(Player player, BlockPos blockPos,
                                                      PlayerInteractEvent.RightClickBlock event) {
@@ -140,18 +142,23 @@ public class BonusChestPlayerData {
                         bonusChestInfo.tier + 1);
                 Point.increment(player, Point.EXPT, bonusChestInfo.tier + 1);
 
-                sendMSG(player, Te.m("你找到了一个奖励箱。"));
+                sendMSG(player, Te.s("你找到了一个:", BonusChestInfo.Util.TIER_NAME_MAP.get(bonusChestInfo.tier)));
                 Utils.playerIsUsingBlockBlockPosMap.put(player.getName().getString(), blockPos);
                 openBonusChestMap.put(player, chestBlockEntity);
+                if (!getBonusChestData(player).contains(FIRST_OPEN_KEY)) {
+                    getBonusChestData(player).putBoolean(FIRST_OPEN_KEY, true);
+                    sendMSG(player, Te.s("你知道吗，找到奖励箱后直接按", "E", ChatFormatting.AQUA, "关闭，奖励箱的",
+                            "所有物品", ChatFormatting.LIGHT_PURPLE, "会直接送至背包!"));
+                }
             } else {
                 // 已获取过奖励
                 event.setCanceled(true);
-                sendMSG(player, Te.m("你最近已经打开过这个奖励箱了。"));
+                sendMSG(player, Te.m("你最近已经打开过这个奖励箱了，下个月再来试试吧!"));
             }
         }
     }
 
-    public static void sendMSG(Player player, Component content) {
+    private static void sendMSG(Player player, Component content) {
         Compute.sendFormatMSG(player, Component.literal("奖励箱").withStyle(ChatFormatting.LIGHT_PURPLE), content);
     }
 }

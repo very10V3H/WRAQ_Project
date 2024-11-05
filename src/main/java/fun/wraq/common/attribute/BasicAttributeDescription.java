@@ -653,7 +653,7 @@ public class BasicAttributeDescription {
                 Style.EMPTY.applyFormat(ChatFormatting.GREEN), 0, true, itemStack, true, CustomStyle.styleOfFlexible, event.getTooltipElements());
 
         if (Utils.movementSpeedWithoutBattle.containsKey(item) || data.contains(StringUtils.CuriosAttribute.movementSpeed)
-                || data.contains(StringUtils.RandomAttribute.movementSpeed)) {
+                || data.contains(StringUtils.RandomAttribute.movementSpeedWithoutBattle)) {
             if (itemStack.is(ModItems.SoulSword.get()) || itemStack.is(ModItems.SoulBow.get())
                     || itemStack.is(ModItems.SoulSceptre.get())) {
                 if (itemStack.is(ModItems.SoulSword.get())) {
@@ -696,8 +696,8 @@ public class BasicAttributeDescription {
                 else if (item instanceof RandomCurios)
                     MovementSpeed = data.getDouble(StringUtils.CuriosAttribute.movementSpeed) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.CuriosAttribute.movementSpeed);
                 else MovementSpeed = data.getInt(StringUtils.CuriosAttribute.movementSpeed);
-                if (data.contains(StringUtils.RandomAttribute.movementSpeed))
-                    MovementSpeed += ForgeEquipUtils.getRandomEquipBaseValue(itemStack, StringUtils.RandomAttribute.movementSpeed);
+                if (data.contains(StringUtils.RandomAttribute.movementSpeedWithoutBattle))
+                    MovementSpeed += ForgeEquipUtils.getRandomEquipBaseValue(itemStack, StringUtils.RandomAttribute.movementSpeedWithoutBattle);
 
                 MutableComponent mutableComponent = Component.literal("");
 
@@ -1124,7 +1124,7 @@ public class BasicAttributeDescription {
         }
     }
 
-    private static String getDecimal(double value, int scale) {
+    public static String getDecimal(double value, int scale) {
         if (Math.abs(value) >= 10) return String.format("%.0f", value);
         return BigDecimal.valueOf(value).setScale(scale, RoundingMode.HALF_UP).stripTrailingZeros().toString();
     }

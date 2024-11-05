@@ -23,7 +23,6 @@ import top.theillusivec4.curios.api.type.capability.ICurioItem;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.WeakHashMap;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class MoonCurios extends Item implements ICurioItem {
 
@@ -53,21 +52,6 @@ public class MoonCurios extends Item implements ICurioItem {
     }
 
     @Override
-    public void onEquip(SlotContext slotContext, ItemStack prevStack, ItemStack stack) {
-        Player player = (Player) slotContext.entity();
-        MonthCuriosAttributeProvide(player, stack);
-        Compute.addCuriosToList(player, stack);
-        ICurioItem.super.onEquip(slotContext, prevStack, stack);
-    }
-
-    @Override
-    public void onUnequip(SlotContext slotContext, ItemStack newStack, ItemStack stack) {
-        Player player = (Player) slotContext.entity();
-        Compute.removeCuriosInList(player, stack);
-        ICurioItem.super.onUnequip(slotContext, newStack, stack);
-    }
-
-    @Override
     public boolean canEquipFromUse(SlotContext slotContext, ItemStack stack) {
         return true;
     }
@@ -75,20 +59,14 @@ public class MoonCurios extends Item implements ICurioItem {
     public static WeakHashMap<Player, Integer> passiveCoolDownMap = new WeakHashMap<>();
 
     public static double Passive(Player player, Mob mob) {
-        if (Utils.playerCuriosListMap.containsKey(player)) {
-            List<ItemStack> curiosList = Utils.playerCuriosListMap.get(player);
-            AtomicBoolean isOn = new AtomicBoolean(false);
-            curiosList.forEach(itemStack -> {
-                if (itemStack.is(ModItems.MoonCurios.get())) isOn.set(true);
-            });
-            if (isOn.get()) {
-                int TickCount = player.getServer().getTickCount();
-                if (!passiveCoolDownMap.containsKey(player) || TickCount > passiveCoolDownMap.get(player)) {
-                    passiveCoolDownMap.put(player, TickCount + 200);
-                    Compute.sendCoolDownTime(player, ModItems.MoonCurios.get().getDefaultInstance(), 200);
-                    Shield.providePlayerShield(player, 200, player.experienceLevel * 20);
-                    return mob.getMaxHealth() * 0.01;
-                }
+        List<ItemStack> curiosList = Compute.CuriosAttribute.getDistinctCuriosList(player);
+        if (curiosList.stream().anyMatch(itemStack -> itemStack.is(ModItems.MoonCurios.get()))) {
+            int TickCount = player.getServer().getTickCount();
+            if (!passiveCoolDownMap.containsKey(player) || TickCount > passiveCoolDownMap.get(player)) {
+                passiveCoolDownMap.put(player, TickCount + 200);
+                Compute.sendCoolDownTime(player, ModItems.MoonCurios.get().getDefaultInstance(), 200);
+                Shield.providePlayerShield(player, 200, player.experienceLevel * 20);
+                return mob.getMaxHealth() * 0.01;
             }
         }
         return 0;

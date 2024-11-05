@@ -2,6 +2,8 @@ package fun.wraq.process.system.forge;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import fun.wraq.blocks.blocks.forge.ForgeRecipe;
+import fun.wraq.common.Compute;
+import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.func.item.InventoryOperation;
@@ -88,6 +90,8 @@ public class ForgeScreen extends Screen {
                 int xOffset = -102 + 95 * i;
                 int yOffset = -36;
                 guiGraphics.renderItem(itemStack, this.width / 2 + xOffset, this.height / 2 + yOffset);
+                ForgeEquipUtils.setForgeQualityOnEquip(itemStack, ClientUtils.clientPlayerTick / 20 % 13);
+                Compute.forgingHoverName(itemStack);
                 if (x > this.width / 2 + xOffset && x < this.width / 2 + xOffset + 16
                         && y > this.height / 2 + yOffset && y < this.height / 2 + 16 + yOffset) {
                     guiGraphics.renderTooltip(font, itemStack, x, y);

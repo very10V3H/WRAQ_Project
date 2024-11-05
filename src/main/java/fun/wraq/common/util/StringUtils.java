@@ -663,7 +663,7 @@ public class StringUtils {
         public static String defence = "RandomDefence";
         public static String maxHealth = "RandomMaxHealth";
         public static String coolDown = "RandomCoolDown";
-        public static String movementSpeed = "RandomMovementSpeed";
+        public static String movementSpeedWithoutBattle = "RandomMovementSpeed";
 
         public static String critDamage = "RandomCritDamage";
         public static String critRate = "RandomCritRate";

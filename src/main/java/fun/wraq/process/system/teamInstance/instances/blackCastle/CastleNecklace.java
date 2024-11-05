@@ -1,10 +1,11 @@
 package fun.wraq.process.system.teamInstance.instances.blackCastle;
 
-import fun.wraq.common.util.ComponentUtils;
-import fun.wraq.common.util.Utils;
+import fun.wraq.common.attribute.BasicAttributeDescription;
+import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.equip.impl.RandomCurios;
 import fun.wraq.common.impl.display.UsageOrGetWayDescriptionItem;
-import fun.wraq.common.equip.WraqCurios;
+import fun.wraq.common.util.ComponentUtils;
+import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.castle.RandomCuriosAttributesUtil;
 import net.minecraft.ChatFormatting;
@@ -12,7 +13,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.item.ItemStack;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +26,7 @@ public class CastleNecklace extends WraqCurios implements RandomCurios, UsageOrG
     public Component getTypeDescription() {
         return Component.literal("").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.getAllTypeDescriptionOfCurios()).
-                append(Component.literal(" v = 6 * " + BigDecimal.valueOf(fullRate()).stripTrailingZeros()).withStyle(CustomStyle.styleOfCastleCrystal));
+                append(Component.literal(" v = 6 * " + BasicAttributeDescription.getDecimal(fullRate(), 1)).withStyle(CustomStyle.styleOfCastleCrystal));
     }
 
     @Override

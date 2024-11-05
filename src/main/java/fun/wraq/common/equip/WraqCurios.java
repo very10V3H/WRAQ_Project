@@ -5,9 +5,9 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.equip.impl.RandomCurios;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
+import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.series.moontain.equip.curios.MoontainCurios;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -80,25 +80,12 @@ public abstract class WraqCurios extends Item implements ICurioItem {
     public abstract Component suffix();
 
     @Override
-    public void onEquip(SlotContext slotContext, ItemStack prevStack, ItemStack stack) {
-        Compute.addCuriosToList((Player) slotContext.entity(), stack);
-        ICurioItem.super.onEquip(slotContext, prevStack, stack);
-    }
-
-    @Override
-    public void onUnequip(SlotContext slotContext, ItemStack newStack, ItemStack stack) {
-        Compute.removeCuriosInList((Player) slotContext.entity(), stack);
-        ICurioItem.super.onUnequip(slotContext, newStack, stack);
-    }
-
-    @Override
     public boolean canEquipFromUse(SlotContext slotContext, ItemStack stack) {
         return !(this instanceof MoontainCurios);
     }
 
-    public static boolean isOn(Class<? extends WraqCurios> clazz, Player player) {
-        if (!Utils.playerCuriosListMap.containsKey(player)) return false;
-        List<ItemStack> curiosList = Utils.playerCuriosListMap.get(player);
+    public static boolean isOn(Class<? extends Item> clazz, Player player) {
+        List<ItemStack> curiosList = Compute.CuriosAttribute.getDistinctCuriosList(player);
         return curiosList.stream().anyMatch(itemStack -> itemStack.getItem().getClass() == clazz);
     }
 

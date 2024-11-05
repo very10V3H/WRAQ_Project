@@ -86,10 +86,7 @@ import fun.wraq.process.system.vp.networking.VpValueS2CPacket;
 import fun.wraq.process.system.wayPoints.networking.ClientWayPointS2CPacket;
 import fun.wraq.process.system.wayPoints.networking.SpecificWayPointAddS2CPacket;
 import fun.wraq.process.system.wayPoints.networking.SpecificWayPointRemoveS2CPacket;
-import fun.wraq.render.hud.networking.AttributeDataC2SPacket;
-import fun.wraq.render.hud.networking.AttributeDataS2CPacket;
-import fun.wraq.render.hud.networking.ExpGetS2CPacket;
-import fun.wraq.render.hud.networking.ItemGetS2CPacket;
+import fun.wraq.render.hud.networking.*;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -1328,6 +1325,11 @@ public class ModNetworking {
                 .decoder(PointDataS2CPacket::new)
                 .encoder(PointDataS2CPacket::toBytes)
                 .consumerMainThread(PointDataS2CPacket::handle)
+                .add();
+        net.messageBuilder(ExpGetResetS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(ExpGetResetS2CPacket::new)
+                .encoder(ExpGetResetS2CPacket::toBytes)
+                .consumerMainThread(ExpGetResetS2CPacket::handle)
                 .add();
     }
 

@@ -27,7 +27,6 @@ import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.endlessinstance.DailyEndlessInstance;
 import fun.wraq.process.system.forge.ForgeScreen;
 import fun.wraq.process.system.missions.MissionScreen;
-import fun.wraq.process.system.respawn.MyRespawnRule;
 import fun.wraq.process.system.wayPoints.MyWayPoint;
 import fun.wraq.render.gui.market.MarketScreen;
 import fun.wraq.render.gui.skills.IdCardGui;
@@ -40,7 +39,6 @@ import fun.wraq.render.hud.main.ItemAndExpGetHud;
 import fun.wraq.render.hud.networking.AttributeDataC2SPacket;
 import fun.wraq.render.particles.ModParticles;
 import fun.wraq.series.overworld.sakuraSeries.EarthMana.EarthPower;
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.ConnectScreen;
 import net.minecraft.client.gui.screens.GenericDirtMessageScreen;
@@ -51,7 +49,6 @@ import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.multiplayer.resolver.ServerAddress;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -136,7 +133,7 @@ public class ClientPlayerTickEvent {
                 Minecraft.getInstance().setScreen(new MissionScreen(ClientUtils.missionScreenFlag, 0));
                 ClientUtils.missionScreenFlag = -1;
             }
-            if (event.player.tickCount % 200 == 0) {
+            if (event.player.tickCount % 100 == 0) {
                 Inventory inventory = event.player.getInventory();
                 for (int i = 0; i < inventory.getContainerSize(); i++) {
                     ItemStack itemStack = inventory.getItem(i);
@@ -145,12 +142,7 @@ public class ClientPlayerTickEvent {
                             || Utils.curiosList.contains(item) || Utils.passiveEquipTag.containsKey(item))) {
                         itemStack.resetHoverName();
                     }
-                    if (itemStack.is(ModItems.BackSpawn.get())) {
-                        CompoundTag data = itemStack.getOrCreateTagElement(Utils.MOD_ID);
-                        int index = data.getInt(BackSpawn.spawnPointIndex);
-                        itemStack.setHoverName(Component.literal("回城卷轴 - ").withStyle(ChatFormatting.BLUE).
-                                append(MyRespawnRule.overworldSpawnPos.get(index).zoneName()));
-                    }
+                    BackSpawn.setName(itemStack);
                 }
             }
 

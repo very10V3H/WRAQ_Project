@@ -29,7 +29,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -202,11 +201,7 @@ public class NewCastleInstance extends NewTeamInstance {
         if (InventoryOperation.checkItemRemoveIfHas(player, List.of(new ItemStack(ModItems.notePaper.get())))) {
 
             getRewardList().forEach(itemAndRate -> {
-                try {
-                    itemAndRate.send(player, (1 + Compute.playerExHarvest(player)));
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                itemAndRate.sendWithMSG(player, (1 + Compute.playerExHarvest(player)));
             });
             Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player), 180);
 

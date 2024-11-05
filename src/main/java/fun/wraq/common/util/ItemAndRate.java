@@ -1,9 +1,9 @@
 package fun.wraq.common.util;
 
+import fun.wraq.common.equip.impl.RandomCurios;
 import fun.wraq.events.core.InventoryCheck;
 import fun.wraq.events.mob.loot.RandomLootEquip;
 import fun.wraq.process.func.item.InventoryOperation;
-import fun.wraq.common.equip.impl.RandomCurios;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -17,7 +17,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -80,7 +79,7 @@ public class ItemAndRate {
         summonItemEntity(dropItemStack, mob.position(), mob.level());
     }
 
-    public void send(Player player, double num) throws IOException {
+    public boolean send(Player player, double num) {
         ItemStack dropItemStack;
         if (itemStack.getItem() instanceof RandomCurios randomCurios) {
             randomCurios.setAttribute(itemStack);
@@ -91,7 +90,7 @@ public class ItemAndRate {
         dropItemStack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
         Random rand = new Random();
         double finalRate = rate * num;
-        if (finalRate < 1 && rand.nextDouble() >= finalRate) return;
+        if (finalRate < 1 && rand.nextDouble() >= finalRate) return false;
         if (finalRate > 1) {
             dropItemStack.setCount((int) finalRate);
             if (rand.nextDouble() < finalRate % 1) {
@@ -99,6 +98,29 @@ public class ItemAndRate {
             }
         }
         InventoryOperation.itemStackGive(player, dropItemStack);
+        return true;
+    }
+
+    public boolean sendWithMSG(Player player, double num) {
+        ItemStack dropItemStack;
+        if (itemStack.getItem() instanceof RandomCurios randomCurios) {
+            randomCurios.setAttribute(itemStack);
+        }
+        if (itemStack.getItem() instanceof RandomCurios || itemStack.getItem() instanceof RandomLootEquip)
+            dropItemStack = itemStack;
+        else dropItemStack = new ItemStack(itemStack.getItem());
+        dropItemStack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
+        Random rand = new Random();
+        double finalRate = rate * num;
+        if (finalRate < 1 && rand.nextDouble() >= finalRate) return false;
+        if (finalRate > 1) {
+            dropItemStack.setCount((int) finalRate);
+            if (rand.nextDouble() < finalRate % 1) {
+                dropItemStack.setCount(dropItemStack.getCount() + 1);
+            }
+        }
+        InventoryOperation.itemStackGiveWithMSG(player, dropItemStack);
+        return true;
     }
 
     public static void summonItemEntity(ItemStack itemStack, Vec3 pos, Level level) {

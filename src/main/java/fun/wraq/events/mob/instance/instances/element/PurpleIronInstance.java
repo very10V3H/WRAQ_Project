@@ -84,7 +84,7 @@ public class PurpleIronInstance extends NoTeamInstance {
         List<Item> purpleIronQUWeapons = List.of(ModItems.PurpleIronSword.get(),
                 ModItems.PurpleIronBow.get(), ModItems.PurpleIronSceptre.get());
         rewardList.forEach(itemAndRate -> {
-            if (itemAndRate.dropWithBounding(lastMob, 1, player)) {
+            if (itemAndRate.sendWithMSG(player, 1)) {
                 if (purpleIronQUWeapons.contains(itemAndRate.getItemStack().getItem())) {
                     NoTeamInstanceModule.putPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.iceKnight, true);
                 }

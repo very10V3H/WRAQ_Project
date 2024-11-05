@@ -38,7 +38,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -137,11 +136,7 @@ public class MoonInstance extends NoTeamInstance {
     public void rewardModule(Player player) {
         List<ItemAndRate> rewardList = getRewardList();
         rewardList.forEach(itemAndRate -> {
-            try {
-                itemAndRate.send(player, 1);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            itemAndRate.sendWithMSG(player, 1);
         });
         DailyMission.addCount(player, DailyMission.moonInstanceCountMap);
 

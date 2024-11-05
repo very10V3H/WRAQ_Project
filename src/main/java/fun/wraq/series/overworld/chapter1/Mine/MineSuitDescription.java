@@ -2,10 +2,9 @@ package fun.wraq.series.overworld.chapter1.Mine;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.registry.ModItems;
-import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.ComponentUtils;
-import fun.wraq.common.util.StringUtils;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.overworld.chapter1.Mine.Crest.MineCrest;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
@@ -31,7 +30,7 @@ public class MineSuitDescription {
     public static void SuitDescription(List<Component> components) {
         ComponentUtils.suitDescription(components);
 
-        int Count = 0;
+        int count = 0;
         Player player = Minecraft.getInstance().player;
         Style MainStyle = CustomStyle.styleOfMine;
         Item[] items = {
@@ -47,21 +46,20 @@ public class MineSuitDescription {
                 EquipmentSlot.FEET
         };
         for (int i = 0; i < items.length; i++) {
-            Count += Compute.SuitItemVision(player, items[i], equipmentSlot[i], components, MainStyle);
+            count += Compute.SuitItemVision(player, items[i], equipmentSlot[i], components, MainStyle);
         }
 
-        String CrestString = StringUtils.Crest.Mine.Crest;
-        String CrestName = "[矿山纹章]";
-        if (ClientUtils.CrestMap.containsKey(CrestString) && ClientUtils.CrestMap.get(CrestString)) {
-            components.add(Component.literal(CrestName).withStyle(MainStyle));
-            Count++;
-        } else components.add(Component.literal(CrestName).withStyle(ChatFormatting.GRAY));
+        String crestName = "[矿山纹章]";
+        if (Compute.CuriosAttribute.getDistinctCuriosList(player).stream().anyMatch(stack -> stack.getItem() instanceof MineCrest)) {
+            components.add(Component.literal(crestName).withStyle(MainStyle));
+            count++;
+        } else components.add(Component.literal(crestName).withStyle(ChatFormatting.GRAY));
 
-        ComponentUtils.suitDoubleDescription(components, Count);
+        ComponentUtils.suitDoubleDescription(components, count);
         Compute.DescriptionPassive(components, Component.literal("顽铁").withStyle(MainStyle));
         components.add(Component.literal("减少受到的").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.AttributeDescription.critDamage("50%")));
-        ComponentUtils.suitQuadraDescription(components, Count);
+        ComponentUtils.suitQuadraDescription(components, count);
         Compute.DescriptionPassive(components, Component.literal("沉重").withStyle(MainStyle));
         components.add(Component.literal("1.").withStyle(MainStyle).
                 append(Component.literal("降低").withStyle(ChatFormatting.RED)).

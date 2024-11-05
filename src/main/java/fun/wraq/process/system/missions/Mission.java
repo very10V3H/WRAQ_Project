@@ -258,31 +258,31 @@ public class Mission {
         // 备注 24 ~ 28 为每日清理任务
         add(new Mission(index++, Component.literal("日常清理任务").withStyle(CustomStyle.styleOfBloodMana),
                 Component.literal("击杀：").withStyle(ChatFormatting.WHITE).
-                        append(Component.literal("平原僵尸 * 192").withStyle(CustomStyle.styleOfPlain)),
+                        append(Component.literal("平原僵尸 * 128").withStyle(CustomStyle.styleOfPlain)),
                 Component.literal("日常清理任务").withStyle(CustomStyle.styleOfBloodMana),
                 Component.literal("每日任务").withStyle(ChatFormatting.WHITE), true)); // 位置 24
 
         add(new Mission(index++, Component.literal("日常清理任务").withStyle(CustomStyle.styleOfBloodMana),
                 Component.literal("击杀：").withStyle(ChatFormatting.WHITE).
-                        append(Component.literal("森林狼 * 192").withStyle(CustomStyle.styleOfForest)),
+                        append(Component.literal("森林狼 * 128").withStyle(CustomStyle.styleOfForest)),
                 Component.literal("日常清理任务").withStyle(CustomStyle.styleOfBloodMana),
                 Component.literal("每日任务").withStyle(ChatFormatting.WHITE), true)); // 位置 25
 
         add(new Mission(index++, Component.literal("日常清理任务").withStyle(CustomStyle.styleOfBloodMana),
                 Component.literal("击杀：").withStyle(ChatFormatting.WHITE).
-                        append(Component.literal("怀德风骨 * 192").withStyle(CustomStyle.styleOfPower)),
+                        append(Component.literal("怀德风骨 * 128").withStyle(CustomStyle.styleOfPower)),
                 Component.literal("日常清理任务").withStyle(CustomStyle.styleOfBloodMana),
                 Component.literal("每日任务").withStyle(ChatFormatting.WHITE), true)); // 位置 26
 
         add(new Mission(index++, Component.literal("日常清理任务").withStyle(CustomStyle.styleOfBloodMana),
                 Component.literal("击杀：").withStyle(ChatFormatting.WHITE).
-                        append(Component.literal("樱灵 * 192").withStyle(CustomStyle.styleOfSakura)),
+                        append(Component.literal("樱灵 * 128").withStyle(CustomStyle.styleOfSakura)),
                 Component.literal("日常清理任务").withStyle(CustomStyle.styleOfBloodMana),
                 Component.literal("每日任务").withStyle(ChatFormatting.WHITE), true)); // 位置 27
 
         add(new Mission(index++, Component.literal("日常清理任务").withStyle(CustomStyle.styleOfBloodMana),
                 Component.literal("击杀：").withStyle(ChatFormatting.WHITE).
-                        append(Component.literal("寂域灵螨 * 192").withStyle(CustomStyle.styleOfEnd)),
+                        append(Component.literal("寂域灵螨 * 128").withStyle(CustomStyle.styleOfEnd)),
                 Component.literal("日常清理任务").withStyle(CustomStyle.styleOfBloodMana),
                 Component.literal("每日任务").withStyle(ChatFormatting.WHITE), true)); // 位置 28
 
@@ -547,7 +547,7 @@ public class Mission {
         for (int i = 19; i <= 38; i++) {
             rewardContent.put(i, List.of(new ItemStack(ModItems.worldSoul5.get(), 4),
                     new ItemStack(ModItems.goldCoin.get(), 2),
-                    new ItemStack(ModItems.NewRevelationBook.get(), 1)));
+                    new ItemStack(ModItems.RevelationBook.get(), 1)));
         }
     }
 
@@ -582,7 +582,7 @@ public class Mission {
             }
 
             if (rewardItem.is(ModItems.OldGoldCoin.get()) || rewardItem.is(ModItems.OldSilverCoin.get())
-                    || rewardItem.is(ModItems.LabourDayLottery.get()) || rewardItem.is(ModItems.NewRevelationBook.get())) {
+                    || rewardItem.is(ModItems.LabourDayLottery.get()) || rewardItem.is(ModItems.RevelationBook.get())) {
                 InventoryCheck.addOwnerTagToItemStack(player, rewardItem);
             } // 为奖励添加owner标签
 

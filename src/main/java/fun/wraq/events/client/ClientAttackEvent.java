@@ -1,5 +1,9 @@
 package fun.wraq.events.client;
 
+import fun.wraq.common.equip.WraqBow;
+import fun.wraq.common.equip.WraqPickaxe;
+import fun.wraq.common.equip.WraqSceptre;
+import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.equip.impl.Laser;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ClientUtils;
@@ -14,14 +18,10 @@ import fun.wraq.networking.misc.AnimationPackets.ManaAttackAnimationRequestC2SPa
 import fun.wraq.networking.misc.AnimationPackets.UseRequestC2SPacket;
 import fun.wraq.networking.misc.AttackPackets.AttackC2SPacket;
 import fun.wraq.networking.unSorted.SoulSceptreC2SPacket;
-import fun.wraq.common.equip.impl.ActiveItem;
-import fun.wraq.common.equip.WraqBow;
-import fun.wraq.common.equip.WraqSceptre;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.PickaxeItem;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
@@ -52,7 +52,7 @@ public class ClientAttackEvent {
     public static void clientAttackTimeAndCount(PlayerInteractEvent.LeftClickBlock event) {
         if (event.getEntity().level().isClientSide && event.getEntity().equals(Minecraft.getInstance().player)) {
             Player player = event.getEntity();
-            if (!(player.getItemInHand(InteractionHand.MAIN_HAND).getItem() instanceof PickaxeItem && player.getY() < 15)) {
+            if (!(player.getItemInHand(InteractionHand.MAIN_HAND).getItem() instanceof WraqPickaxe)) {
                 leftClick(player);
             }
         }

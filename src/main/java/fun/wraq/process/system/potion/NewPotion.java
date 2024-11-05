@@ -1,15 +1,13 @@
 package fun.wraq.process.system.potion;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -128,14 +126,6 @@ public class NewPotion extends Item implements ActiveItem {
             }
         }
         super.appendHoverText(itemStack, level, components, flag);
-    }
-
-    @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
-        if (!level.isClientSide() && interactionHand == InteractionHand.MAIN_HAND) {
-            active(player);
-        }
-        return super.use(level, player, interactionHand);
     }
 
     @Override

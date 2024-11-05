@@ -48,7 +48,6 @@ import fun.wraq.series.overworld.chapter1.forest.armor.ForestArmorChest;
 import fun.wraq.series.overworld.chapter1.forest.armor.ForestArmorHelmet;
 import fun.wraq.series.overworld.chapter1.forest.armor.ForestArmorLeggings;
 import fun.wraq.series.overworld.chapter1.plain.armor.PlainArmorHelmet;
-import fun.wraq.series.overworld.chapter1.plain.sceptre.PlainSceptre;
 import fun.wraq.series.overworld.chapter1.volcano.armor.VolcanoArmorHelmet;
 import fun.wraq.series.overworld.chapter1.waterSystem.equip.armor.LakeArmorHelmet;
 import fun.wraq.series.overworld.chapter2.evoker.Crest.ManaCrestAttributes;
@@ -62,7 +61,6 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 
 import java.text.ParseException;
@@ -160,8 +158,6 @@ public class PlayerAttributes {
             exDamage += baseAttackDamage * 0.25 + 25;
         if (player.getEffect(ModEffects.ATTACKUP.get()) != null && player.getEffect(ModEffects.ATTACKUP.get()).getAmplifier() == 1)
             exDamage += baseAttackDamage * 0.40 + 40;
-
-        if (mainhand.equals(ModItems.GoldSword0.get())) exDamage += data.getDouble("VB") / 10000.0;
 
         if (Compute.getSwordSkillLevel(data, 2) > 0 && data.contains(StringUtils.SwordSkillNum.Skill2) && data.getInt(StringUtils.SwordSkillNum.Skill2) > TickCount) {
             exDamage += baseAttackDamage * Compute.getSwordSkillLevel(data, 2) * 0.02;
@@ -603,7 +599,7 @@ public class PlayerAttributes {
         if (Utils.offHandTag.containsKey(offhand) && Utils.movementSpeedWithoutBattle.containsKey(offhand))
             speedUp += Utils.movementSpeedWithoutBattle.get(offhand);
 
-        speedUp += handleAllEquipRandomAttribute(player, StringUtils.RandomAttribute.movementSpeed);
+        speedUp += handleAllEquipRandomAttribute(player, StringUtils.RandomAttribute.movementSpeedWithoutBattle);
 
         if (helmetTag.contains("newGems1")) speedUp += GemAttributes.gemsMovementSpeedUp(helmetTag);
         if (chestTag.contains("newGems1")) speedUp += GemAttributes.gemsMovementSpeedUp(chestTag);
@@ -613,7 +609,6 @@ public class PlayerAttributes {
             speedUp += GemAttributes.gemsMovementSpeedUp(stackmainhandtag);
 
         if (data.contains("GemSSpeed")) speedUp += data.getDouble("GemSSpeed");
-        if (mainhand.equals(ModItems.GoldSword0.get())) speedUp += data.getDouble("VB") / 1000000.0;
 
         if (leggings.equals(ModItems.MinePants.get()) && (Utils.OverWorldLevelIsNight || player.getY() < 63))
             speedUp += 0.4;
@@ -1389,10 +1384,6 @@ public class PlayerAttributes {
             exDamage += baseDamage * 0.25 + 25;
         if (player.getEffect(ModEffects.MANADAMAGEUP.get()) != null && player.getEffect(ModEffects.MANADAMAGEUP.get()).getAmplifier() == 1)
             exDamage += baseDamage * 0.4 + 40;
-        if (player.level().equals(player.getServer().getLevel(Level.OVERWORLD)) && !Utils.OverWorldLevelIsNight
-                && mainhand instanceof PlainSceptre plainSceptre && plainSceptre.is4Tier()) {
-            exDamage += 45;
-        }
         if (data.contains("GemSManaDamage")) exDamage += data.getDouble("GemSManaDamage");
         exDamage += SArmorAttribute.value(player, SArmorAttribute.manaPower);
 
@@ -1472,7 +1463,7 @@ public class PlayerAttributes {
         exDamage += CastleNewRune.manaDamage(player);
         exDamage += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.manaDamage);
         exDamage += ChangedAttributesModifier.getModifierValue(player, ChangedAttributesModifier.exManaDamage);
-
+        exDamage += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.manaDamage);
         // 请在上方添加
         double totalDamage = baseDamage + exDamage;
         totalDamage *= (1 + MoonBook.damageEnhance(player));
@@ -1580,10 +1571,6 @@ public class PlayerAttributes {
         if (player.getEffect(ModEffects.MANAREPLYUP.get()) != null && player.getEffect(ModEffects.MANAREPLYUP.get()).getAmplifier() == 1)
             manaRecover += 45;
         if (data.contains("GemSManaReply")) manaRecover += data.getDouble("GemSManaReply");
-        if (player.level().equals(player.getServer().getLevel(Level.OVERWORLD)) && !Utils.OverWorldLevelIsNight
-                && mainhand instanceof PlainSceptre plainSceptre && plainSceptre.is4Tier()) {
-            manaRecover += 15;
-        }
         if (Compute.getSwordSkillLevel(data, 8) > 0 && Utils.swordTag.containsKey(mainhand))
             manaRecover += Compute.getSwordSkillLevel(data, 8); // 洞悉（手持近战武器时，获得1额外法力回复）
         if (Compute.getManaSkillLevel(data, 1) > 0 && Utils.sceptreTag.containsKey(mainhand))
@@ -1606,6 +1593,7 @@ public class PlayerAttributes {
 
         manaRecover += Compute.CuriosAttribute.attributeValue(player, Utils.manaRecover, StringUtils.CuriosAttribute.manaRecover); // 新版饰品属性加成
         manaRecover += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerManaRecoverModifier);
+        manaRecover += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.manaRecover);
         // 请在上方添加
         manaRecover *= Compute.playerFantasyAttributeEnhance(player);
 

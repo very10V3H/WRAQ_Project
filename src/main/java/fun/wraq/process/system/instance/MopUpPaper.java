@@ -21,7 +21,6 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -95,11 +94,7 @@ public class MopUpPaper extends Item {
             }
 
             rewardList.forEach(itemAndRate -> {
-                try {
-                    itemAndRate.send(player, 1);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                itemAndRate.send(player, 1);
             });
 
             Compute.playerItemUseWithRecord(player);

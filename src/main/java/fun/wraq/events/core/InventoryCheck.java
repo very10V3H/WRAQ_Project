@@ -2,9 +2,11 @@ package fun.wraq.events.core;
 
 import com.mojang.logging.LogUtils;
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.Utils;
 import fun.wraq.customized.UniformItems;
+import fun.wraq.events.mob.loot.RandomLootEquip;
 import fun.wraq.series.specialevents.SpecialEventItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -32,9 +34,14 @@ public class InventoryCheck {
             Inventory inventory = player.getInventory();
             for (int i = 0; i < inventory.getMaxStackSize(); i++) {
                 ItemStack itemStack = inventory.getItem(i);
+                Item item = itemStack.getItem();
                 if (inventory.getItem(i).getTagElement(Utils.MOD_ID) != null) {
                     CompoundTag data = inventory.getItem(i).getOrCreateTagElement(Utils.MOD_ID);
-
+                    if (item instanceof RandomLootEquip && !data.contains(RandomLootEquip.NEW_VERSION_CHANGE_TAG)) {
+                        Compute.sendFormatMSG(player, Te.s("调整", ChatFormatting.AQUA),
+                                Te.s(itemStack.getDisplayName(), "在版本改动后数值有所调整，其数值已被重置"));
+                        RandomLootEquip.setRandomAttribute(itemStack);
+                    }
                     if (data.contains(InventoryCheck.owner) && !data.getString(InventoryCheck.owner).equals(player.getName().getString())) {
                         Player ItemOwner = player.getServer().getPlayerList().getPlayerByName(data.getString(InventoryCheck.owner));
                         if (ItemOwner == null) {

@@ -8,7 +8,6 @@ import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.attribute.SameTypeModule;
 import fun.wraq.common.impl.onhit.OnHitEffectEquip;
 import fun.wraq.common.impl.onhit.OnHitEffectPassiveEquip;
-import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.ModSounds;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.StringUtils;
@@ -147,7 +146,6 @@ public class ManaAttackModule {
             else Compute.damageActionBarPacketSend(player, damage, trueDamage, true, isCrit);
 
             // effect
-            PlainSceptrePassive(player);
             ManaSkill3Attack(data, player, monster); // 机体解构（对一名目标的持续法术攻击，可以使你对该目标的伤害至多提升至2%，在5次攻击后达到最大值）
             ManaSkill6Attack(data, player, true); // 完美（持续命中目标，将至多造成50%额外真实伤害）
             ManaSkill12Attack(data, player); // 盈能攻击（移动、攻击以及受到攻击将会获得充能，当充能满时，下一次攻击将造成额外200%伤害，并在以目标为中心的范围内造成100%伤害）
@@ -374,17 +372,6 @@ public class ManaAttackModule {
             return Compute.getManaSkillLevel(data, 6) * 0.0066f * BaseDamage * Utils.ManaSkill6Map.get(name).getCount();
         }
         return 0;
-    }
-
-    public static void PlainSceptrePassive(Player player) {
-        if (player.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.PlainSceptre0.get())
-                || player.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.PlainSceptre1.get())
-                || player.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.PlainSceptre2.get())
-                || player.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.PlainSceptre3.get())
-                || player.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.PlainSceptre4.get())) {
-            Compute.playerHeal(player, player.getMaxHealth() * 0.01f);
-            player.getPersistentData().putInt(StringUtils.PlainSwordActive.PlainSceptre, player.getServer().getTickCount() + 100);
-        }
     }
 
     public static double ManaSkill4(Player player) {

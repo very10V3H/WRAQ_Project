@@ -85,7 +85,7 @@ public class MoontainBoss3Instance extends NoTeamInstance {
     @Override
     public void rewardModule(Player player) {
         List<ItemAndRate> rewardList = getRewardList();
-        rewardList.forEach(itemAndRate -> itemAndRate.dropWithBounding(lastMob, 1, player));
+        rewardList.forEach(itemAndRate -> itemAndRate.sendWithMSG(player, 1));
         MobSpawn.killCountIncrement(player, mobName);
         Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player), 240);
 

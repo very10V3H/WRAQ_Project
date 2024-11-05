@@ -39,7 +39,6 @@ public class ForestArmorHelmet extends ArmorItem {
     }
 
     public static double exDefence(Player player) {
-        return SuitCount.getForestSuitCountWithoutCrest(player) > 0 ? Math.min(100, player.experienceLevel) * 0.4 : 0;
-
+        return SuitCount.getForestSuitCountWithoutCrest(player) > 0 ? Math.min(100, player.experienceLevel) * 0.3 : 0;
     }
 }

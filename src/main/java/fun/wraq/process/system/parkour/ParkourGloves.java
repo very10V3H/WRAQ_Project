@@ -1,13 +1,11 @@
 package fun.wraq.process.system.parkour;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -38,20 +36,6 @@ public class ParkourGloves extends Item implements ICurioItem {
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         components.add(Component.literal(" 给予跑酷高手或坚持不懈者的嘉奖").withStyle(CustomStyle.styleOfFlexible));
         super.appendHoverText(stack, level, components, flag);
-    }
-
-    @Override
-    public void onEquip(SlotContext slotContext, ItemStack prevStack, ItemStack stack) {
-        Player player = (Player) slotContext.entity();
-        Compute.addCuriosToList(player, stack);
-        ICurioItem.super.onEquip(slotContext, prevStack, stack);
-    }
-
-    @Override
-    public void onUnequip(SlotContext slotContext, ItemStack newStack, ItemStack stack) {
-        Player player = (Player) slotContext.entity();
-        Compute.removeCuriosInList(player, stack);
-        ICurioItem.super.onUnequip(slotContext, newStack, stack);
     }
 
     @Override

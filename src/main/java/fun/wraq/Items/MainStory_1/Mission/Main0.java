@@ -54,7 +54,6 @@ public class Main0 extends Item {
             String name = player.getName().getString();
             CompoundTag data = player.getPersistentData();
             ServerPlayer serverPlayer = (ServerPlayer) player;
-            System.out.println(serverPlayer.getGameProfile().getId());
         }
 
         if (!level.isClientSide && player.isShiftKeyDown()) {

@@ -20,16 +20,14 @@ public class BonusChestContent {
     public record ItemAndMaxNum(Item item, int maxNum) {}
 
     private final static List<ItemAndMaxNum> tier0Loot = List.of(
-            new ItemAndMaxNum(ModItems.NewRevelationBook.get(), 3),
+            new ItemAndMaxNum(ModItems.RevelationBook.get(), 3),
             new ItemAndMaxNum(ModItems.goldCoin.get(), 1),
             new ItemAndMaxNum(Items.IRON_INGOT, 2),
             new ItemAndMaxNum(ModItems.worldSoul5.get(), 1),
             new ItemAndMaxNum(ModItems.gemPiece.get(), 4),
             new ItemAndMaxNum(ModItems.LifeElementPiece0.get(), 4),
-            new ItemAndMaxNum(ModItems.REFINED_PIECE.get(), 1),
-            new ItemAndMaxNum(ModItems.WorldSoul2.get(), 4),
             new ItemAndMaxNum(ModItems.ATTACK_UP_POTION_BAG.get(), 2),
-            new ItemAndMaxNum(ModItems.ForgingStone0.get(), 1)
+            new ItemAndMaxNum(ModItems.ForgingStone0.get(), 2)
     );
 
     private final static List<ItemAndMaxNum> tier1Loot = List.of(
@@ -38,7 +36,8 @@ public class BonusChestContent {
             new ItemAndMaxNum(ModItems.ForgingStone1.get(), 2),
             new ItemAndMaxNum(ModItems.equipPiece0.get(), 2),
             new ItemAndMaxNum(ModItems.worldSoul5.get(), 2),
-            new ItemAndMaxNum(ModItems.REFINED_PIECE.get(), 2)
+            new ItemAndMaxNum(ModItems.WorldSoul2.get(), 2),
+            new ItemAndMaxNum(ModItems.REFINED_PIECE.get(), 1)
     );
 
     private final static List<ItemAndMaxNum> tier2Loot = List.of(
@@ -50,7 +49,7 @@ public class BonusChestContent {
             new ItemAndMaxNum(ModItems.ForgingStone2.get(), 1),
             new ItemAndMaxNum(ModItems.Pearl1.get(), 1),
             new ItemAndMaxNum(ModItems.worldSoul5.get(), 3),
-            new ItemAndMaxNum(ModItems.REFINED_PIECE.get(), 3)
+            new ItemAndMaxNum(ModItems.REFINED_PIECE.get(), 2)
     );
 
     private final static List<ItemAndMaxNum> tier3Loot = List.of(
@@ -135,9 +134,9 @@ public class BonusChestContent {
             put(0, Point.DSPT);
             put(1, Point.ELPT);
             put(2, Point.NTPT);
-            put(3, Point.SKPT);
+            put(3, Point.ELPT);
             put(4, Point.ELPT);
-            put(5, Point.ELPT);
+            put(5, Point.SKPT);
             put(6, Point.ELPT);
             put(7, Point.EDPT);
             put(8, Point.MTPT);

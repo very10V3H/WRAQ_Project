@@ -200,11 +200,6 @@ public class BlockEvent {
                     Utils.whoIsUsingBlock.put(blockPos, player.getName().getString());
                 }
             }
-            ItemStack Sword = player.getItemInHand(InteractionHand.MAIN_HAND);
-            if (!blockState.is(Blocks.CHEST) && (Sword.is(ModItems.ForestSword0.get()) || Sword.is(ModItems.ForestSword1.get()) ||
-                    Sword.is(ModItems.ForestSword2.get()) || Sword.is(ModItems.ForestSword3.get()))) {
-                event.setCanceled(true);
-            }
         }
     }
 

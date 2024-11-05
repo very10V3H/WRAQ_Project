@@ -24,12 +24,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class FireLight2SpawnController extends MobSpawnController {
+public class FireLightSpawnController extends MobSpawnController {
 
     public static String mobName = "焰芒虫";
-    private static FireLight2SpawnController instance;
+    private static FireLightSpawnController instance;
 
-    public static FireLight2SpawnController getInstance(Level world) {
+    public static FireLightSpawnController getInstance(Level world) {
         if (instance == null) {
             List<Vec3> spawnPos = List.of(
                     new Vec3(1274, 77, 112),
@@ -42,13 +42,13 @@ public class FireLight2SpawnController extends MobSpawnController {
                     new Vec3(1276, 75, 42),
                     new Vec3(1284, 76, 25)
             );
-            instance = new FireLight2SpawnController(spawnPos, 1313, 126, 1243, -8, world, 40);
+            instance = new FireLightSpawnController(spawnPos, 1313, 126, 1243, -8, world, 40);
         }
         return instance;
     }
 
-    public FireLight2SpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpZ,
-                                     int boundaryDownX, int boundaryDownZ, Level level, int averageLevel) {
+    public FireLightSpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpZ,
+                                    int boundaryDownX, int boundaryDownZ, Level level, int averageLevel) {
         super(canSpawnPos, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, level, averageLevel);
     }
 

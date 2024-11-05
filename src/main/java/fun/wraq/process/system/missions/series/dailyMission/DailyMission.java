@@ -64,19 +64,19 @@ public class DailyMission {
     public static boolean serialNumJudge(Player player, int serialNum) {
         switch (serialNum) {
             case 24 -> {
-                return CountsEnough(player, plainZombieKillCountMap, 192);
+                return CountsEnough(player, plainZombieKillCountMap, 128);
             }
             case 25 -> {
-                return CountsEnough(player, dreadHoundKillCountMap, 192);
+                return CountsEnough(player, dreadHoundKillCountMap, 128);
             }
             case 26 -> {
-                return CountsEnough(player, windSkeletonKillCountMap, 192);
+                return CountsEnough(player, windSkeletonKillCountMap, 128);
             }
             case 27 -> {
-                return CountsEnough(player, sakuraMobKillCountMap, 192);
+                return CountsEnough(player, sakuraMobKillCountMap, 128);
             }
             case 28 -> {
-                return CountsEnough(player, endermiteKillCountMap, 192);
+                return CountsEnough(player, endermiteKillCountMap, 128);
             }
 
             case 34 -> {
@@ -111,7 +111,7 @@ public class DailyMission {
             int finalI = i;
             Mission.detailContent.put(24 + i, new ArrayList<>() {{
                 add(Component.literal(" 进度: ").withStyle(ChatFormatting.WHITE).
-                        append(Component.literal(clientKillCount[finalI] + " / 192").withStyle(ChatFormatting.RED)));
+                        append(Component.literal(clientKillCount[finalI] + " / 128").withStyle(ChatFormatting.RED)));
             }});
         }
         for (int i = 0; i < clientInstanceCount.length; i++) {

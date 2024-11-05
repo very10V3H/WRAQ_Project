@@ -23,13 +23,13 @@ public class C4LootItems {
 
     public static final RegistryObject<Item> endermiteSceptre = ITEMS.register("endermite_sceptre", () ->
             new RandomSceptre(new Item.Properties().rarity(CustomStyle.EndBold), CustomStyle.styleOfEnd,
-                    ComponentUtils.getSuffixOfEnd(), List.of(new RandomAttributeValue(StringUtils.RandomAttribute.defence, 300, 350),
+                    ComponentUtils.getSuffixOfEnd(), List.of(new RandomAttributeValue(StringUtils.RandomAttribute.defence, 15, 20),
                     new RandomAttributeValue(StringUtils.RandomAttribute.manaPenetration0, 3, 4),
                     new RandomAttributeValue(StringUtils.RandomAttribute.defencePenetration0, 3, 4)), 140));
 
     public static final RegistryObject<Item> shulkerChest = ITEMS.register("shulker_chest", () ->
             new RandomArmor(ItemMaterial.PurpleIron, ArmorItem.Type.CHESTPLATE, new Item.Properties().rarity(CustomStyle.EndBold), CustomStyle.styleOfEnd,
-                    ComponentUtils.getSuffixOfEnd(), List.of(new RandomAttributeValue(StringUtils.RandomAttribute.defence, 3, 4),
+                    ComponentUtils.getSuffixOfEnd(), List.of(new RandomAttributeValue(StringUtils.RandomAttribute.defence, 15, 20),
                     new RandomAttributeValue(StringUtils.RandomAttribute.attackDamage, 300, 350),
                     new RandomAttributeValue(StringUtils.RandomAttribute.manaDamage, 300, 350)), 140));
 }

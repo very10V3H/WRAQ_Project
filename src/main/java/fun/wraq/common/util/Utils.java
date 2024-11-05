@@ -37,9 +37,6 @@ import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.*;
@@ -918,8 +915,6 @@ public class Utils {
     public static List<Item> curiosList = new ArrayList<>();
     public static List<Item> customizedList = new ArrayList<>();
     public static List<Item> uniformList = new ArrayList<>();
-
-    public static WeakHashMap<Player, List<ItemStack>> playerCuriosListMap = new WeakHashMap<>();
 
     public static WeakHashMap<Player, Integer> BlackForestSwordActiveMap = new WeakHashMap<>();
     public static WeakHashMap<Player, Integer> SeaSwordActiveMap = new WeakHashMap<>();

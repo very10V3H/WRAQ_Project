@@ -5,6 +5,7 @@ import fun.wraq.blocks.blocks.forge.ForgeRecipe;
 import fun.wraq.blocks.blocks.inject.InjectRecipe;
 import fun.wraq.common.Compute;
 import fun.wraq.common.equip.impl.RandomCurios;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.impl.display.UsageOrGetWayDescriptionItem;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ClientUtils;
@@ -30,6 +31,7 @@ import java.util.List;
 public class ToolTipEvent {
     @SubscribeEvent
     public static void ToolTipChange(ItemTooltipEvent event) {
+        List<Component> tooltip = event.getToolTip();
         event.getItemStack().hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
         if (event.getItemStack().is(ModItems.notePaper.get())) {
             event.getToolTip().add(Component.literal(" 置于背包以获取").withStyle(ChatFormatting.WHITE).
@@ -76,6 +78,8 @@ public class ToolTipEvent {
                     sourceItem = InjectRecipe.injectedGetItemSourceItemMap.get(event.getItemStack().getItem());
                     injectingRecipe = InjectRecipe.injectingRecipeMap.get(sourceItem);
                 }
+                tooltip.add(Te.s("->", ChatFormatting.GOLD, "在", "灌注台", CustomStyle.styleOfPurpleIron,
+                        "->", ChatFormatting.GOLD));
                 event.getToolTip().add(Component.literal("使用 ").withStyle(ChatFormatting.GREEN).
                         append(injectingRecipe.getForgingNeededMaterial().getDefaultInstance().getDisplayName()).
                         append(Component.literal(" * " + injectingRecipe.getMaterialCount()).withStyle(ChatFormatting.WHITE)));
@@ -511,6 +515,7 @@ public class ToolTipEvent {
         }
         if (hasUsage) {
             if (Screen.hasShiftDown()) {
+                tooltip.add(Te.s("->", ChatFormatting.GOLD, "来源/用途", CustomStyle.styleOfWorld, "->", ChatFormatting.GOLD));
                 event.getToolTip().addAll(usage);
             } else {
                 event.getToolTip().add(Component.literal("[按住shift查看来源/用途]").withStyle(ChatFormatting.GRAY));

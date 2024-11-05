@@ -23,7 +23,7 @@ import fun.wraq.render.particles.ModParticles;
 import fun.wraq.series.overworld.chapter1.Mine.Sword.MineSword;
 import fun.wraq.series.overworld.chapter1.Snow.Sword.SnowSword;
 import fun.wraq.series.overworld.chapter1.forest.bow.ForestBow;
-import fun.wraq.series.overworld.chapter1.plain.bow.PlainBow;
+import fun.wraq.series.overworld.chapter1.plain.PlainBow;
 import fun.wraq.series.overworld.chapter1.volcano.bow.VolcanoBow;
 import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
@@ -423,7 +423,8 @@ public class AttackEventModule {
             Random random = new Random();
             List<Mob> mobList = level.getEntitiesOfClass(Mob.class, AABB.ofSize(player.position(), 10, 10, 10));
             for (Mob mob : mobList) {
-                AttackEvent.attackToMonster(mob, player, 0.2f * Compute.getSwordSkillLevel(data, 12), true, false);
+                AttackEvent.attackToMonster(mob, player, 0.2f * Compute.getSwordSkillLevel(data, 12),
+                        true, AttackEvent.crit(player, mob, false));
                 if (random.nextInt(0, 1) == 0) {
                     ClientboundLevelParticlesPacket clientboundLevelParticlesPacket = new ClientboundLevelParticlesPacket(ModParticles.BLADE0.get(), true,
                             mob.getX(), mob.getY() + 1, mob.getZ(), 0, 0, 0, 0, 0);

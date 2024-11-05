@@ -1,10 +1,12 @@
 package fun.wraq.process.func.guide;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.func.guide.networking.GuideStageS2CPacket;
+import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.system.wayPoints.MyWayPoint;
 import fun.wraq.render.toolTip.CustomStyle;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
@@ -88,10 +90,12 @@ public class Guide {
             if (stage == 3) MyWayPoint.sendRemovePacketToClient(player, "平原僵尸刷怪点");
             if (stage == 4) MyWayPoint.sendRemovePacketToClient(player, "锻造台");
             if (stage == 5) MyWayPoint.sendRemovePacketToClient(player, "灌注台");
-            if (stage >= descriptionMap.size()) {
+            if (stage == descriptionMap.size() - 1) {
+                ItemStack stack = new ItemStack(ModItems.PlainRing.get());
                 Compute.sendFormatMSG(player, Component.literal("引导").withStyle(ChatFormatting.AQUA),
-                        Component.literal("你完成了所有基础引导任务，继续探索维瑞阿契世界吧！").withStyle(ChatFormatting.WHITE));
-                player.addItem(new ItemStack(ModItems.PlainRing.get()));
+                        Component.literal("你完成了所有基础引导任务，继续探索维瑞阿契世界吧！").withStyle(ChatFormatting.WHITE).
+                                append(Te.s("这件", stack.getDisplayName(), "应该能在探索的途中帮到你。")));
+                InventoryOperation.itemStackGiveWithMSG(player, stack);
             }
         }
     }

@@ -15,6 +15,7 @@ import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.AnimationPackets.AnimationTickResetS2CPacket;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.system.spur.events.MineSpur;
+import fun.wraq.render.hud.networking.ExpGetResetS2CPacket;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.WraqItem;
 import net.minecraft.ChatFormatting;
@@ -76,7 +77,6 @@ public class VariousEvents {
                 if (InventoryCheck.boundingList.isEmpty()) InventoryCheck.setBoundingList();
                 if (!Utils.mainHandTag.containsKey(item) && !Utils.offHandTag.containsKey(item)
                         && !Utils.armorTag.containsKey(item) && !InventoryCheck.boundingList.contains(item)) {
-                    InventoryCheck.removeOwnerTagDirect(itemStack);
                     if (data.isEmpty()) itemStack.removeTagKey(Utils.MOD_ID);
                 }
             }
@@ -95,26 +95,21 @@ public class VariousEvents {
     @SubscribeEvent
     public static void Clone(PlayerEvent.Clone event) {
         if (!event.getEntity().level().isClientSide) {
+            Player player = event.getOriginal();
+            ServerPlayer serverPlayer = (ServerPlayer) player;
             if (event.isWasDeath()) {
-                Player player = event.getOriginal();
-                ServerPlayer serverPlayer = (ServerPlayer) player;
-                Compute.CuriosAttribute.resetCuriosList(player);
                 Compute.broad(event.getEntity().level(), Component.literal("[").withStyle(ChatFormatting.GRAY).append(Component.literal("维瑞阿契").withStyle(ChatFormatting.AQUA)).append("]").withStyle(ChatFormatting.GRAY).append(Component.literal(event.getEntity().getName().getString() + "在探索过程中身负重伤，经过救治恢复了活力。").withStyle(ChatFormatting.WHITE)));
-                event.getEntity().getPersistentData().merge(event.getOriginal().getPersistentData());
                 serverPlayer.teleportTo(serverPlayer.getServer().getLevel(Level.OVERWORLD), 437.5, 69, 916.6, 0, 0);
-                ModNetworking.sendToClient(new AnimationTickResetS2CPacket(), (ServerPlayer) event.getEntity());
                 Utils.instanceList.forEach(instance -> {
                     if (instance.getCurrentChallengePlayerTeam() != null && instance.getCurrentChallengePlayerTeam().getPlayerList().contains(player)) {
                         instance.addDeadTimes();
                     }
                 });
                 Utils.PlayerDeadTimeMap.put(player.getName().getString(), player.getServer().getTickCount() + 6000);
-            } else {
-                Player player = event.getOriginal();
-                Compute.CuriosAttribute.resetCuriosList(player);
-                event.getEntity().getPersistentData().merge(event.getOriginal().getPersistentData());
-                ModNetworking.sendToClient(new AnimationTickResetS2CPacket(), (ServerPlayer) event.getEntity());
             }
+            ModNetworking.sendToClient(new ExpGetResetS2CPacket(), serverPlayer);
+            event.getEntity().getPersistentData().merge(event.getOriginal().getPersistentData());
+            ModNetworking.sendToClient(new AnimationTickResetS2CPacket(), serverPlayer);
         }
     }
 

@@ -36,7 +36,7 @@ public class ItemAndExpGetHud {
         int x = width / 2;
         int y = height;
 
-        if (getExp != 0 && lastFreshTick + 30 >= ClientUtils.clientPlayerTick) {
+        if (getExp != 0 && lastFreshTick + 40 >= ClientUtils.clientPlayerTick) {
             guiGraphics.drawString(fontRenderer, Te.s("经验值", ChatFormatting.LIGHT_PURPLE,
                             " + ", ChatFormatting.DARK_PURPLE, Compute.getSimplifiedNumberDescription(getExp), CustomStyle.styleOfLucky),
                     x + xOffset + 5, y - 38, 0);
@@ -57,10 +57,10 @@ public class ItemAndExpGetHud {
     public static void clientTick() {
         // 检测display表元素删除时间，若时间到达或者表为空，则删除，并放入新元素至display表，同时指定display表元素删除时间
         if (displayStacks.isEmpty()
-                || displayStartTick + 30 < ClientUtils.clientPlayerTick
+                || displayStartTick + 40 < ClientUtils.clientPlayerTick
                 || displayStartTick > ClientUtils.clientPlayerTick
                 || displayStacks.size() < 4) {
-            if (displayStartTick + 30 < ClientUtils.clientPlayerTick || displayStartTick > ClientUtils.clientPlayerTick) {
+            if (displayStartTick + 40 < ClientUtils.clientPlayerTick || displayStartTick > ClientUtils.clientPlayerTick) {
                 displayStacks.clear();
             }
             boolean added = false;

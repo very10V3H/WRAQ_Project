@@ -1,11 +1,12 @@
 package fun.wraq.series.instance.series.ice;
 
+import fun.wraq.common.attribute.BasicAttributeDescription;
+import fun.wraq.common.equip.WraqCurios;
+import fun.wraq.common.equip.impl.RandomCurios;
+import fun.wraq.common.impl.display.UsageOrGetWayDescriptionItem;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.system.element.Element;
-import fun.wraq.common.equip.impl.RandomCurios;
-import fun.wraq.common.impl.display.UsageOrGetWayDescriptionItem;
-import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.castle.RandomCuriosAttributesUtil;
 import net.minecraft.ChatFormatting;
@@ -13,7 +14,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.item.ItemStack;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +41,7 @@ public class IceBelt extends WraqCurios implements RandomCurios, UsageOrGetWayDe
     public Component getTypeDescription() {
         return Component.literal("").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.getComprehensiveTypeDescriptionOfCurios()).
-                append(Component.literal(" v = 6 * " + BigDecimal.valueOf(fullRate()).stripTrailingZeros()).withStyle(CustomStyle.styleOfIce));
+                append(Component.literal(" v = 6 * " + BasicAttributeDescription.getDecimal(fullRate(), 1)).withStyle(CustomStyle.styleOfIce));
     }
 
     @Override

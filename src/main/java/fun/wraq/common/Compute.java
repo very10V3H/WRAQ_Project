@@ -109,6 +109,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
+import top.theillusivec4.curios.api.CuriosApi;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -1369,26 +1370,22 @@ public class Compute {
 
     public static class CuriosAttribute {
 
-        public static void resetCuriosList(Player player) {
-            if (Utils.playerCuriosListMap.containsKey(player)) {
-                Utils.playerCuriosListMap.get(player).clear();
-            }
-        }
-
         /**
          * 获取玩家去重饰品列表
          */
         public static List<ItemStack> getDistinctCuriosList(Player player) {
-            if (!Utils.playerCuriosListMap.containsKey(player)) return List.of();
-            List<ItemStack> originCuriosList = Utils.playerCuriosListMap.get(player);
-            Set<Item> curiosItemSet = new HashSet<>();
             List<ItemStack> curiosList = new ArrayList<>();
-            originCuriosList.forEach(stack -> {
-                if (!curiosItemSet.contains(stack.getItem())) {
-                    if (!(stack.getItem() instanceof RepeatableCurios)) {
-                        curiosItemSet.add(stack.getItem());
+            CuriosApi.getCuriosInventory(player).ifPresent(iCuriosItemHandler -> {
+                int size = iCuriosItemHandler.getEquippedCurios().getSlots();
+                Set<Item> curiosItemSet = new HashSet<>();
+                for (int i = 0 ; i < size ; i ++) {
+                    ItemStack stack = iCuriosItemHandler.getEquippedCurios().getStackInSlot(i);
+                    if (!curiosItemSet.contains(stack.getItem())) {
+                        if (!(stack.getItem() instanceof RepeatableCurios)) {
+                            curiosItemSet.add(stack.getItem());
+                        }
+                        curiosList.add(stack);
                     }
-                    curiosList.add(stack);
                 }
             });
             return curiosList;
@@ -1455,18 +1452,6 @@ public class Compute {
         ParticleProvider.EntityEffectVerticleCircleParticle(entity, 0.75, 0.4, 8, particleOptions, 0);
         ParticleProvider.EntityEffectVerticleCircleParticle(entity, 0.5, 0.4, 8, particleOptions, 0);
         ParticleProvider.EntityEffectVerticleCircleParticle(entity, 0.25, 0.4, 8, particleOptions, 0);
-    }
-
-    public static void addCuriosToList(Player player, ItemStack stack) {
-        if (!Utils.playerCuriosListMap.containsKey(player)) Utils.playerCuriosListMap.put(player, new ArrayList<>());
-        List<ItemStack> curiosList = Utils.playerCuriosListMap.get(player);
-        curiosList.add(stack);
-    }
-
-    public static void removeCuriosInList(Player player, ItemStack stack) {
-        if (!Utils.playerCuriosListMap.containsKey(player)) Utils.playerCuriosListMap.put(player, new ArrayList<>());
-        List<ItemStack> curiosList = Utils.playerCuriosListMap.get(player);
-        curiosList.remove(stack);
     }
 
     public static boolean hasCurios(Player player, Item curios) {

@@ -39,28 +39,28 @@ public class C2LootItems {
             new RandomArmor(ItemMaterial.Forest, ArmorItem.Type.CHESTPLATE,
                     new Item.Properties().rarity(CustomStyle.ForestBold), CustomStyle.styleOfForest,
                     ComponentUtils.getSuffixOfChapterII(), List.of(new RandomAttributeValue(StringUtils.RandomAttribute.maxHealth, 180, 220),
-                    new RandomAttributeValue(StringUtils.RandomAttribute.defence, 90, 110)), 66));
+                    new RandomAttributeValue(StringUtils.RandomAttribute.defence, 9, 11)), 66));
 
     public static final RegistryObject<Item> skyVexBow = ITEMS.register("sky_vex_bow", () ->
             new RandomBow(new Item.Properties().rarity(CustomStyle.SkyBold), CustomStyle.styleOfSky,
                     ComponentUtils.getSuffixOfChapterII(), List.of(new RandomAttributeValue(StringUtils.RandomAttribute.critRate, 0.2, 0.3),
                     new RandomAttributeValue(StringUtils.RandomAttribute.attackDamage, 90, 110),
-                    new RandomAttributeValue(StringUtils.RandomAttribute.movementSpeed, 0.5, 0.7)), 72));
+                    new RandomAttributeValue(StringUtils.RandomAttribute.movementSpeedWithoutBattle, 0.5, 0.7)), 72));
 
     public static final RegistryObject<Item> slimeChest = ITEMS.register("slime_chest", () ->
             new RandomArmor(ItemMaterial.LifeElement, ArmorItem.Type.CHESTPLATE, new Item.Properties().rarity(CustomStyle.LifeBold), CustomStyle.styleOfLife,
                     ComponentUtils.getSuffixOfChapterII(), List.of(new RandomAttributeValue(StringUtils.RandomAttribute.maxHealth, 300, 400),
-                    new RandomAttributeValue(StringUtils.RandomAttribute.movementSpeed, 0.4, 0.6)), 76));
+                    new RandomAttributeValue(StringUtils.RandomAttribute.movementSpeedWithoutBattle, 0.4, 0.6)), 76));
 
     public static final RegistryObject<Item> jorogumoLeggings = ITEMS.register("jorogumo_leggings", () ->
             new RandomArmor(ItemMaterial.PurpleIron, ArmorItem.Type.LEGGINGS, new Item.Properties().rarity(CustomStyle.PurpleIronBold), CustomStyle.styleOfPurpleIron,
                     ComponentUtils.getSuffixOfChapterII(), List.of(new RandomAttributeValue(StringUtils.RandomAttribute.maxHealth, 600, 800),
-                    new RandomAttributeValue(StringUtils.RandomAttribute.defence, 180, 220)), 92));
+                    new RandomAttributeValue(StringUtils.RandomAttribute.defence, 18, 22)), 92));
 
     public static final RegistryObject<Item> windSkeletonSword = ITEMS.register("wind_skeleton_sword", () ->
             new RandomSword(new Item.Properties().rarity(CustomStyle.WindBold), CustomStyle.styleOfWind,
                     ComponentUtils.getSuffixOfChapterII(), List.of(new RandomAttributeValue(StringUtils.RandomAttribute.attackDamage, 110, 130),
-                    new RandomAttributeValue(StringUtils.RandomAttribute.movementSpeed, 0.7, 0.9)), 80));
+                    new RandomAttributeValue(StringUtils.RandomAttribute.movementSpeedWithoutBattle, 0.7, 0.9)), 80));
 
     public static final RegistryObject<Item> huskSword = ITEMS.register("husk_sword", () ->
             new RandomSword(new Item.Properties().rarity(CustomStyle.HuskBold), CustomStyle.styleOfHusk,

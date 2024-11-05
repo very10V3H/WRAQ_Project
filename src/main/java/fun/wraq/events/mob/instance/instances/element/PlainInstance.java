@@ -95,7 +95,8 @@ public class PlainInstance extends NoTeamInstance {
         MobSpawn.setMobCustomName(stray, Component.literal("普莱尼").withStyle(CustomStyle.styleOfPlain), 50);
 
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(stray), 50);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(stray, 400, 40, 40, 0.2, 1, 0, 0, 0, 40000, 0.2);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(stray, 400, 40, 40, 0.2,
+                1, 0, 0, 0, 15000, 0.2);
 
         stray.setHealth(stray.getMaxHealth());
         stray.setItemSlot(EquipmentSlot.HEAD, ModItems.ArmorPlainBossHelmet.get().getDefaultInstance());
@@ -121,7 +122,7 @@ public class PlainInstance extends NoTeamInstance {
             if (itemAndRate.getItemStack().is(ModItems.plainNecklace.get())) {
                 RandomCuriosAttributesUtil.randomFunctionAttributeProvide(itemAndRate.getItemStack(), 3, 0.4);
             }
-            itemAndRate.dropWithBounding(lastMob, 1, player);
+            itemAndRate.sendWithMSG(player, 1);
         });
         DailyMission.addCount(player, DailyMission.plainInstanceCountMap);
 

@@ -54,10 +54,10 @@ public class MineSpur {
                                 Utils.worldMineList.add(blockAndResetTime);
                                 Utils.posEvenBeenDigOrPlace.add(blockPos);
                             }
+                            level.destroyBlock(blockPos, false);
                             ItemAndRate.summonItemEntity(mineRewardMap.get(block).item().getDefaultInstance(),
                                     blockPos.getCenter(), level);
 
-                            level.destroyBlock(blockPos, false);
                             mineReward(player, blockState, blockPos);
 
                             Random random = new Random();

@@ -74,7 +74,7 @@ public class NetherInstance extends NoTeamInstance {
             if (itemAndRate.getItemStack().is(ModItems.netherHand.get())) {
                 RandomCuriosAttributesUtil.randomAttackAttributeProvide(itemAndRate.getItemStack(), 3, 0.6);
             }
-            itemAndRate.dropWithBounding(lastMob, 1, player);
+            itemAndRate.sendWithMSG(player, 1);
         });
 
         String name = player.getName().getString();

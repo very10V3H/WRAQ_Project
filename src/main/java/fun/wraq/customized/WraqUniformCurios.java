@@ -1,6 +1,6 @@
 package fun.wraq.customized;
 
-import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
@@ -69,25 +69,11 @@ WraqUniformCurios extends Item implements ICurioItem {
     public abstract Component getFirstPassiveName();
 
     @Override
-    public void onEquip(SlotContext slotContext, ItemStack prevStack, ItemStack stack) {
-        Compute.addCuriosToList((Player) slotContext.entity(), stack);
-        ICurioItem.super.onEquip(slotContext, prevStack, stack);
-    }
-
-    @Override
-    public void onUnequip(SlotContext slotContext, ItemStack newStack, ItemStack stack) {
-        Compute.removeCuriosInList((Player) slotContext.entity(), stack);
-        ICurioItem.super.onUnequip(slotContext, newStack, stack);
-    }
-
-    @Override
     public boolean canEquipFromUse(SlotContext slotContext, ItemStack stack) {
         return true;
     }
 
-    public static boolean isOn(Class<? extends WraqUniformCurios> clazz, Player player) {
-        if (!Utils.playerCuriosListMap.containsKey(player)) return false;
-        List<ItemStack> curiosList = Utils.playerCuriosListMap.get(player);
-        return curiosList.stream().anyMatch(itemStack -> itemStack.getItem().getClass() == clazz);
+    public static boolean isOn(Class<? extends Item> clazz, Player player) {
+        return WraqCurios.isOn(clazz, player);
     }
 }
