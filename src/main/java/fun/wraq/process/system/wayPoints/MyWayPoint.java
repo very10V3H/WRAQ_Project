@@ -169,6 +169,7 @@ public class MyWayPoint {
         add(new MyWayPoint(new Vec3(2459, 170, 1753), "粉钻矿区", colorMap.get(purple), 0));
         add(new MyWayPoint(new Vec3(1408, 12, -2853), "北境晶钻矿区", colorMap.get(aqua), 0));
 
+        add(new MyWayPoint(new Vec3(1808, 74, 339), "日升岛", colorMap.get(yellow), 0));
 
     }};
 

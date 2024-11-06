@@ -34,7 +34,7 @@ public class VolcanoSuitDescription {
             components.add(Component.literal("[按住shift展开套装效果]").withStyle(ChatFormatting.GRAY));
         }
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, ChatFormatting.YELLOW, ChatFormatting.WHITE);
-        ComponentUtils.suffixOfChapterI(components);
+        ComponentUtils.suffixOfChapterII(components);
     }
 
     public static void VolcanoSuitDescription(List<Component> components) {

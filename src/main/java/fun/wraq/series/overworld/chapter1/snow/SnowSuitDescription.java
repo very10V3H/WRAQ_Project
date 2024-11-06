@@ -1,10 +1,9 @@
-package fun.wraq.series.overworld.chapter1.Snow;
+package fun.wraq.series.overworld.chapter1.snow;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.overworld.chapter1.Snow.Crest.SnowCrest;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;

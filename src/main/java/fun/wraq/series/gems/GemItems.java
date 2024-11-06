@@ -85,12 +85,14 @@ public class GemItems {
     public static final RegistryObject<Item> plainGemO = ITEMS.register("plain_gem_o",
             () -> new WraqGem.WraqGemO((WraqGem) plainGem.get(), 1));
 
+    //* 2 *//
+
     public static final RegistryObject<Item> snowGem = ITEMS.register("snow_gem",
             () -> new WraqGem(new Item.Properties().rarity(CustomStyle.SnowBold), new ArrayList<>() {{
                 add(new WraqGem.AttributeMapValue(Utils.critRate, 0.02));
                 add(new WraqGem.AttributeMapValue(Utils.critDamage, 0.05));
             }}, CustomStyle.styleOfSnow, Component.literal("冰川意志的具象，凝聚于此石。").withStyle(CustomStyle.styleOfSnow),
-                    ComponentUtils.getSuffixOfChapterI()));
+                    ComponentUtils.getSuffixOfChapterII()));
 
     public static final RegistryObject<Item> snowGemD = ITEMS.register("snow_gem_d",
             () -> new WraqGem.WraqGemD((WraqGem) snowGem.get()));
@@ -102,15 +104,13 @@ public class GemItems {
             () -> new WraqGem(new Item.Properties().rarity(CustomStyle.VolcanoBold), new ArrayList<>() {{
                 add(new WraqGem.AttributeMapValue(Utils.percentAttackDamageEnhance, 0.03));
             }}, CustomStyle.styleOfVolcano, Component.literal("火山意志的具象，凝聚于此石。").withStyle(CustomStyle.styleOfVolcano),
-                    ComponentUtils.getSuffixOfChapterI()));
+                    ComponentUtils.getSuffixOfChapterII()));
 
     public static final RegistryObject<Item> volcanoGemD = ITEMS.register("volcano_gem_d",
             () -> new WraqGem.WraqGemD((WraqGem) volcanoGem.get()));
 
     public static final RegistryObject<Item> volcanoGemO = ITEMS.register("volcano_gem_o",
             () -> new WraqGem.WraqGemO((WraqGem) volcanoGem.get(), 2));
-
-    //* 2 *//
 
     public static final RegistryObject<Item> evokerGem = ITEMS.register("evoker_gem",
             () -> new WraqGem(new Item.Properties().rarity(CustomStyle.ManaBold), new ArrayList<>() {{

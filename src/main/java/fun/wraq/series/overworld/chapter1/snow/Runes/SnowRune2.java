@@ -1,4 +1,4 @@
-package fun.wraq.series.overworld.chapter1.Snow.Runes;
+package fun.wraq.series.overworld.chapter1.snow.Runes;
 
 import fun.wraq.common.util.ComponentUtils;
 import net.minecraft.ChatFormatting;

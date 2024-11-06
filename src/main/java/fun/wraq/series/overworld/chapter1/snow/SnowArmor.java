@@ -1,11 +1,10 @@
-package fun.wraq.series.overworld.chapter1.Snow.Armor;
+package fun.wraq.series.overworld.chapter1.snow;
 
 import fun.wraq.common.equip.WraqArmor;
 import fun.wraq.common.registry.ItemMaterial;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.overworld.chapter1.Snow.SnowSuitDescription;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.item.ItemStack;

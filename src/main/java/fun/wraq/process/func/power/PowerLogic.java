@@ -25,7 +25,7 @@ import fun.wraq.render.particles.ModParticles;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.castle.CastleManaArmor;
 import fun.wraq.series.newrunes.chapter6.CastleNewRune;
-import fun.wraq.series.overworld.chapter1.Snow.SnowPower;
+import fun.wraq.series.overworld.chapter1.snow.SnowPower;
 import fun.wraq.series.overworld.chapter1.forest.ForestPower;
 import fun.wraq.series.overworld.chapter1.forest.ForestPowerEffectMob;
 import fun.wraq.series.overworld.chapter1.plain.PlainPower;

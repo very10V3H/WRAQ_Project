@@ -1,4 +1,4 @@
-package fun.wraq.series.overworld.chapter1.Snow.Sword;
+package fun.wraq.series.overworld.chapter1.snow;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
@@ -57,7 +57,7 @@ public class SnowSword extends WraqSword implements ActiveItem {
 
     @Override
     public Component getSuffix() {
-        return ComponentUtils.getSuffixOfChapterI();
+        return ComponentUtils.getSuffixOfChapterII();
     }
 
     @Override

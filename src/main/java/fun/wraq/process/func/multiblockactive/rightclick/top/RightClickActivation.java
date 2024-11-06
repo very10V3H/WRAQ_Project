@@ -7,15 +7,20 @@ import net.minecraft.world.phys.Vec3;
 import java.util.List;
 
 public abstract class RightClickActivation {
-    private final Component title;
+    private final List<Component> title;
     private final Vec3 centerPos;
 
     public RightClickActivation(Component title, Vec3 centerPos) {
+        this.title = List.of(title);
+        this.centerPos = centerPos;
+    }
+
+    public RightClickActivation(List<Component> title, Vec3 centerPos) {
         this.title = title;
         this.centerPos = centerPos;
     }
 
-    public Component getTitle() {
+    public List<Component> getTitle() {
         return title;
     }
 

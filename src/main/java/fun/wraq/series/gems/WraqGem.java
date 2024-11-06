@@ -65,10 +65,15 @@ public class WraqGem extends Item {
         }
     }
 
+    public static Map<Integer, Map<Item, Item>> GEM_ENHANCE_TYPE_MAP = new HashMap<>();
+
     // 矿石
     public static class WraqGemO extends WraqGem {
         public WraqGemO(WraqGem wraqGem, int type) {
             super(wraqGem.getProperties(), wraqGem.getAttributeMapValues(), wraqGem.getHoverStyle(), wraqGem.getOneLineDescription(), wraqGem.getSuffix());
+
+            GEM_ENHANCE_TYPE_MAP.computeIfAbsent(type, k -> new HashMap<>());
+            GEM_ENHANCE_TYPE_MAP.get(type).put(wraqGem, this);
 
             Map<Integer, List<AttributeMapValue>> attributeMapValues = new HashMap<>() {{
                 put(1, List.of(new AttributeMapValue(Utils.percentMaxHealthEnhance, 0.08),

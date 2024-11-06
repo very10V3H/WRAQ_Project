@@ -6,7 +6,7 @@ import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.series.end.eventController.LightningIslandRecall.IntensifiedLightningArmor;
 import fun.wraq.series.overworld.chapter1.ManaBook.ManaNote;
 import fun.wraq.series.overworld.chapter1.Mine.Crest.MineCrest;
-import fun.wraq.series.overworld.chapter1.Snow.Crest.SnowCrest;
+import fun.wraq.series.overworld.chapter1.snow.SnowCrest;
 import fun.wraq.series.overworld.chapter1.forest.crest.ForestCrest;
 import fun.wraq.series.overworld.chapter1.plain.crest.PlainCrest;
 import fun.wraq.series.overworld.chapter1.volcano.VolcanoCrest;

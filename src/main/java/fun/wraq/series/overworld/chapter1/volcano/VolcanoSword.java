@@ -61,7 +61,7 @@ public class VolcanoSword extends WraqSword implements ActiveItem {
 
     @Override
     public Component getSuffix() {
-        return ComponentUtils.getSuffixOfChapterI();
+        return ComponentUtils.getSuffixOfChapterII();
     }
 
     @Override

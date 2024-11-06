@@ -151,16 +151,16 @@ import fun.wraq.series.overworld.chapter1.Mine.Crest.MineCrest;
 import fun.wraq.series.overworld.chapter1.Mine.MineHat;
 import fun.wraq.series.overworld.chapter1.Mine.MineShield;
 import fun.wraq.series.overworld.chapter1.Mine.Sword.MineSword;
-import fun.wraq.series.overworld.chapter1.Snow.Armor.SnowArmor;
-import fun.wraq.series.overworld.chapter1.Snow.Crest.SnowCrest;
-import fun.wraq.series.overworld.chapter1.Snow.Runes.SnowRune0;
-import fun.wraq.series.overworld.chapter1.Snow.Runes.SnowRune1;
-import fun.wraq.series.overworld.chapter1.Snow.Runes.SnowRune2;
-import fun.wraq.series.overworld.chapter1.Snow.Runes.SnowRune3;
-import fun.wraq.series.overworld.chapter1.Snow.SnowBoss;
-import fun.wraq.series.overworld.chapter1.Snow.SnowPower;
-import fun.wraq.series.overworld.chapter1.Snow.SnowShield;
-import fun.wraq.series.overworld.chapter1.Snow.Sword.SnowSword;
+import fun.wraq.series.overworld.chapter1.snow.SnowArmor;
+import fun.wraq.series.overworld.chapter1.snow.SnowCrest;
+import fun.wraq.series.overworld.chapter1.snow.Runes.SnowRune0;
+import fun.wraq.series.overworld.chapter1.snow.Runes.SnowRune1;
+import fun.wraq.series.overworld.chapter1.snow.Runes.SnowRune2;
+import fun.wraq.series.overworld.chapter1.snow.Runes.SnowRune3;
+import fun.wraq.series.overworld.chapter1.snow.SnowBoss;
+import fun.wraq.series.overworld.chapter1.snow.SnowPower;
+import fun.wraq.series.overworld.chapter1.snow.SnowShield;
+import fun.wraq.series.overworld.chapter1.snow.SnowSword;
 import fun.wraq.series.overworld.chapter1.forest.ForestPower;
 import fun.wraq.series.overworld.chapter1.forest.ForestRing;
 import fun.wraq.series.overworld.chapter1.forest.armor.ForestArmorBoots;
@@ -192,7 +192,7 @@ import fun.wraq.series.overworld.chapter1.volcano.armor.VolcanoArmorChest;
 import fun.wraq.series.overworld.chapter1.volcano.armor.VolcanoArmorHelmet;
 import fun.wraq.series.overworld.chapter1.volcano.armor.VolcanoArmorLeggings;
 import fun.wraq.series.overworld.chapter1.volcano.bossItems.*;
-import fun.wraq.series.overworld.chapter1.volcano.bow.VolcanoBow;
+import fun.wraq.series.overworld.chapter1.volcano.VolcanoBow;
 import fun.wraq.series.overworld.chapter1.volcano.rune.VolcanoRune0;
 import fun.wraq.series.overworld.chapter1.volcano.rune.VolcanoRune1;
 import fun.wraq.series.overworld.chapter1.volcano.rune.VolcanoRune2;
@@ -685,6 +685,9 @@ public class ModItems {
 
     public static final RegistryObject<Item> attributecheck = ITEMS.register("attributecheck",
             () -> new AttributeCheck(new Item.Properties()));
+
+    public static final RegistryObject<Item> ClearTree = ITEMS.register("clear_tree",
+            () -> new ClearTree(new Item.Properties()));
 
     public static final RegistryObject<Item> PlainRing = ITEMS.register("plaingems",
             () -> new PlainRing(new Item.Properties().stacksTo(1).rarity(CustomStyle.PlainItalic)));

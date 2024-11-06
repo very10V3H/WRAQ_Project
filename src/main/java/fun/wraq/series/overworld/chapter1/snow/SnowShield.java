@@ -1,4 +1,4 @@
-package fun.wraq.series.overworld.chapter1.Snow;
+package fun.wraq.series.overworld.chapter1.snow;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.util.ComponentUtils;
@@ -46,7 +46,7 @@ public class SnowShield extends Item {
                 append(ComponentUtils.AttributeDescription.defence("")).
                 append(Component.literal(" 持续2s").withStyle(ChatFormatting.WHITE)));
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
-        ComponentUtils.suffixOfChapterI(components);
+        ComponentUtils.suffixOfChapterII(components);
         super.appendHoverText(stack, level, components, flag);
     }
 

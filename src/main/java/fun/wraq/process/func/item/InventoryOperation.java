@@ -41,6 +41,10 @@ public class InventoryOperation {
         return ExistNum;
     }
 
+    public static boolean checkPlayerHasItem(Player player, Item item, int RequirementNum) {
+        return itemStackCount(player.getInventory(), item) >= RequirementNum;
+    }
+
     public static boolean checkPlayerHasItem(Inventory inventory, Item item, int RequirementNum) {
         return itemStackCount(inventory, item) >= RequirementNum;
     }
@@ -70,6 +74,10 @@ public class InventoryOperation {
         list.forEach(stack -> {
             removeItem(player.getInventory(), stack.getItem(), stack.getCount());
         });
+    }
+
+    public static void removeItemWithoutCheck(Player player, ItemStack itemStack) {
+        removeItem(player.getInventory(), itemStack.getItem(), itemStack.getCount());
     }
 
     public static boolean removeItem(Inventory inventory, Item item, int removeNum) {
@@ -127,6 +135,11 @@ public class InventoryOperation {
         Compute.sendFormatMSG(player, Te.s("物品", ChatFormatting.GREEN),
                 Te.s("你收到了", itemStack.getDisplayName(), " * " + itemStack.getCount(), ChatFormatting.AQUA));
         itemStackGive(player, itemStack);
+    }
+
+    public static void itemStackGiveWithMSG(Player player, Item item) {
+        ItemStack itemStack = item.getDefaultInstance();
+        itemStackGiveWithMSG(player, itemStack);
     }
 
     public static void giveItemStackByRate(ItemStack itemStack, double rate, Player player) {

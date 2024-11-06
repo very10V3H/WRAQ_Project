@@ -1,12 +1,17 @@
 package fun.wraq.process.func.multiblockactive.rightclick;
 
 import fun.wraq.commands.changeable.TextCommand;
+import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
+import fun.wraq.common.registry.ModItems;
+import fun.wraq.process.func.multiblockactive.rightclick.drive.GemEnhancer;
 import fun.wraq.process.func.multiblockactive.rightclick.drive.ItemDecomposer;
 import fun.wraq.process.func.multiblockactive.rightclick.drive.ItemEnhancer;
 import fun.wraq.process.func.multiblockactive.rightclick.top.RightClickActivation;
+import fun.wraq.process.system.ore.OreItems;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.gems.WraqGem;
 import fun.wraq.series.moontain.MoontainItems;
 import fun.wraq.series.moontain.equip.weapon.MoontainUtils;
 import net.minecraft.ChatFormatting;
@@ -61,7 +66,49 @@ public class RightClickActiveHandler {
                         List.of(new ItemStack(MoontainItems.RING.get())),
                         List.of(new ItemStack(MoontainItems.BRACELET.get()))
                     ),
-                    List.of(new ItemStack(MoontainItems.CURIOS_PIECE.get())))
+                    List.of(new ItemStack(MoontainItems.CURIOS_PIECE.get()))),
+
+            new GemEnhancer(List.of(Te.s("升级", "德朗斯蒂克", CustomStyle.styleOfWorld , "宝石")), new Vec3(1816, 72, 298),
+                    WraqGem.GEM_ENHANCE_TYPE_MAP.get(1),
+                    List.of(
+                            new ItemStack(OreItems.WRAQ_ORE_1_ITEM.get(), 256),
+                            new ItemStack(ModItems.REFINED_PIECE.get(), 64)
+                    ),
+                    List.of(
+                            Te.s("德朗斯蒂克宝石", CustomStyle.styleOfWorld)
+                    )),
+
+            new GemEnhancer(List.of(Te.s("升级", "艾里蒙特", CustomStyle.styleOfEntropy , "宝石")), new Vec3(1824, 72, 298),
+                    WraqGem.GEM_ENHANCE_TYPE_MAP.get(2),
+                    List.of(
+                            new ItemStack(OreItems.WRAQ_ORE_2_ITEM.get(), 256),
+                            new ItemStack(ModItems.REFINED_PIECE.get(), 64)
+                    ),
+                    List.of(
+                            Te.s("艾里蒙特宝石", CustomStyle.styleOfEntropy)
+                    )),
+
+            new GemEnhancer(List.of(Te.s("升级", "下界", CustomStyle.styleOfEntropy , "宝石")), new Vec3(1832, 72, 298),
+                    WraqGem.GEM_ENHANCE_TYPE_MAP.get(3),
+                    List.of(
+                            new ItemStack(OreItems.WRAQ_ORE_4_ITEM.get(), 256),
+                            new ItemStack(ModItems.REFINED_PIECE.get(), 64)
+                    ),
+                    List.of(
+                            Te.s("下界宝石", CustomStyle.styleOfEntropy)
+                    )),
+
+            new GemEnhancer(List.of(Te.s("升级", "绯樱岛、副本", CustomStyle.styleOfEntropy , "宝石")), new Vec3(1848, 68, 284),
+                    WraqGem.GEM_ENHANCE_TYPE_MAP.get(4),
+                    List.of(
+                            new ItemStack(OreItems.WRAQ_ORE_3_ITEM.get(), 256),
+                            new ItemStack(ModItems.REFINED_PIECE.get(), 64)
+                    ),
+                    List.of(
+                            Te.s("船厂宝石", CustomStyle.styleOfShip),
+                            Te.s("绯樱岛宝石", CustomStyle.styleOfShip),
+                            Te.s("尘月宫宝石", CustomStyle.styleOfMoon)
+                    ))
     );
 
     public static void detectNearPlayer(TickEvent.LevelTickEvent event) {
@@ -76,7 +123,7 @@ public class RightClickActiveHandler {
                                                 AABB.ofSize(activation.getCenterPos(), 8, 8, 8))
                                         .forEach(armorStand -> armorStand.remove(Entity.RemovalReason.KILLED));
                                 List<Component> components = new ArrayList<>();
-                                components.add(activation.getTitle());
+                                components.addAll(activation.getTitle());
                                 components.addAll(activation.getDescription());
                                 TextCommand.summonArmorStand(components, level, activation.getCenterPos().add(0.5, 0.5, 0.5));
                             });
@@ -86,10 +133,15 @@ public class RightClickActiveHandler {
     }
 
     public static void handleOnPlayerRightClick(Player player) {
-        if (player.isShiftKeyDown()) {
-            activations.stream().filter(activation -> activation.getCenterPos().distanceTo(player.position()) < 4)
-                    .findFirst()
-                    .ifPresent(activation -> activation.handleRightClick(player));
-        }
+        activations.stream().filter(activation -> activation.getCenterPos().distanceTo(player.position()) < 4)
+                .findFirst()
+                .ifPresent(activation -> {
+                    if (player.isShiftKeyDown()) {
+                        activation.handleRightClick(player);
+                    } else {
+                        Compute.sendFormatMSG(player, Te.s("交互", ChatFormatting.AQUA),
+                                Te.s("使用shift + 右键来交互"));
+                    }
+                });
     }
 }
