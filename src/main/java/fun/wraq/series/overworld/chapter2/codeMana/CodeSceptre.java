@@ -44,10 +44,8 @@ public class CodeSceptre extends PickaxeItem {
         Utils.manaDamage.put(this, this.ManaDamage);
         Utils.manaRecover.put(this, this.ManaReply);
         Utils.manaPenetration.put(this, this.ManaBreakDefence);
-        Utils.manaCost.put(this, (double) ManaCost);
+        Utils.manaCost.put(this, ManaCost);
         Utils.mainHandTag.put(this, 1d);
-        Utils.weaponList.add(this);
-
         Utils.sceptreTag.put(this, 1.0d);
     }
 

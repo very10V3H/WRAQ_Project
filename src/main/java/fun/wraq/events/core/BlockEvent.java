@@ -64,16 +64,15 @@ public class BlockEvent {
     }
 
     @SubscribeEvent
-    public static void skyTowerTeleport(PlayerInteractEvent.RightClickBlock event) {
+    public static void lampAndSignCanceller(PlayerInteractEvent.RightClickBlock event) {
         Player player = event.getEntity();
         Level level = player.level();
         BlockPos blockPos = event.getHitVec().getBlockPos();
-        if (!player.isCreative() && level.getBlockState(blockPos).getBlock().toString().contains("lamp"))
+        Block block = level.getBlockState(blockPos).getBlock();
+        if (!player.isCreative() &&
+                (block.toString().contains("lamp")
+                || block.toString().contains("sign"))) {
             event.setCanceled(true);
-        if (!event.getEntity().level().isClientSide) {
-            if (blockPos.equals(new BlockPos(945, 267, 45))) {
-                player.teleportTo(941, 282, -6);
-            }
         }
     }
 

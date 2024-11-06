@@ -574,79 +574,79 @@ public class InjectRecipe {
                         ModItems.DevilSceptre.get()));
 
         injectingRecipeMap.put(GemItems.skyGem.get(),
-                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 3,
+                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 4,
                         GemItems.skyGemD.get()));
 
         injectingRecipeMap.put(GemItems.evokerGem.get(),
-                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 3,
+                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 4,
                         GemItems.evokerGemD.get()));
 
         injectingRecipeMap.put(GemItems.plainGem.get(),
-                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 3,
+                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 4,
                         GemItems.plainGemD.get()));
 
         injectingRecipeMap.put(GemItems.forestGem.get(),
-                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 3,
+                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 4,
                         GemItems.forestGemD.get()));
 
         injectingRecipeMap.put(GemItems.lakeGem.get(),
-                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 3,
+                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 4,
                         GemItems.lakeGemD.get()));
 
         injectingRecipeMap.put(GemItems.volcanoGem.get(),
-                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 3,
+                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 4,
                         GemItems.volcanoGemD.get()));
 
         injectingRecipeMap.put(GemItems.snowGem.get(),
-                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 3,
+                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 4,
                         GemItems.snowGemD.get()));
 
         injectingRecipeMap.put(GemItems.fieldGem.get(),
-                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 3,
+                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 4,
                         GemItems.fieldGemD.get()));
 
         injectingRecipeMap.put(GemItems.mineGem.get(),
-                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 3,
+                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 4,
                         GemItems.mineGemD.get()));
 
         injectingRecipeMap.put(GemItems.lifeManaGem.get(),
-                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 3,
+                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 4,
                         GemItems.lifeManaGemD.get()));
 
         injectingRecipeMap.put(GemItems.obsiManaGem.get(),
-                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 3,
+                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 4,
                         GemItems.obsiManaGemD.get()));
 
         injectingRecipeMap.put(GemItems.netherSkeletonGem.get(),
-                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 3,
+                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 4,
                         GemItems.netherSkeletonGemD.get()));
 
         injectingRecipeMap.put(GemItems.magmaGem.get(),
-                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 3,
+                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 4,
                         GemItems.magmaGemD.get()));
 
         injectingRecipeMap.put(GemItems.witherGem.get(),
-                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 3,
+                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 4,
                         GemItems.witherGemD.get()));
 
         injectingRecipeMap.put(GemItems.piglinGem.get(),
-                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 3,
+                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 4,
                         GemItems.piglinGemD.get()));
 
         injectingRecipeMap.put(GemItems.sakuraGem.get(),
-                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 3,
+                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 4,
                         GemItems.sakuraGemD.get()));
 
         injectingRecipeMap.put(GemItems.shipGem.get(),
-                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 3,
+                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 4,
                         GemItems.shipGemD.get()));
 
         injectingRecipeMap.put(GemItems.moonAttackGem.get(),
-                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 3,
+                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 4,
                         GemItems.moonAttackGemD.get()));
 
         injectingRecipeMap.put(GemItems.moonManaGem.get(),
-                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 3,
+                new InjectingRecipe(ModItems.ConstrainTaboo.get(), 4,
                         GemItems.moonManaGemD.get()));
 
         injectingRecipeMap.put(ModItems.BeaconBow.get(),

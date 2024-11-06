@@ -407,14 +407,18 @@ public class IdCardGui extends Screen {
             components.add(Component.literal("当前").withStyle(ChatFormatting.WHITE).
                     append(Component.literal(Ability).withStyle(style)).
                     append(Component.literal("能力点数属性加成:").withStyle(ChatFormatting.WHITE)));
-            double ExAttack = ClientUtils.AbilityChangeCache.Power;
-            ComponentUtils.emojiDescriptionExAttackDamage(components, ExAttack * 2);
+            double tier = ClientUtils.AbilityChangeCache.Power;
+            ComponentUtils.emojiDescriptionExAttackDamage(components, tier * 2);
+            ComponentUtils.emojiDescriptionDamageDirectDecrease(components, tier);
             ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
             components.add(Component.literal(Ability).withStyle(style).
                     append(Component.literal("能力与属性点数关系:").withStyle(ChatFormatting.WHITE)));
             components.add(Component.literal("每一点能力获得:"));
             ComponentUtils.emojiDescriptionExAttackDamage(components, 2);
+            ComponentUtils.emojiDescriptionDamageDirectDecrease(components, 1);
             ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
+            components.add(Te.s("", ComponentUtils.AttributeDescription.damageDirectDecrease(""),
+                    "将会直接", "减少", CustomStyle.styleOfStone, "你受到的", "最终伤害", ChatFormatting.RED));
             guiGraphics.renderComponentTooltip(fontRenderer, components, x, y);
         }
 

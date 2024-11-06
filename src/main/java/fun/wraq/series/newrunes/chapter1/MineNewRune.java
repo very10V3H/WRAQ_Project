@@ -22,7 +22,7 @@ public class MineNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDe
 
     public MineNewRune(Properties properties) {
         super(properties);
-        Utils.movementSpeedWithoutBattle.put(this, -0.1);
+        Utils.defence.put(this, 4d);
     }
 
     @Override

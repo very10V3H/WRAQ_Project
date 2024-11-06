@@ -824,6 +824,18 @@ public class PlayerAttributes {
         return totalDefence;
     }
 
+    public static double damageDirectDecrease(Player player) {
+        double value = 0;
+        CompoundTag data = player.getPersistentData();
+
+        int powerAbilityPoint = data.getInt(StringUtils.Ability.Power);
+        if (data.contains(StringUtils.Ability.Power) && data.getInt(StringUtils.Ability.Power) > 0) {
+            value += powerAbilityPoint;
+        } // 能力
+
+        return value;
+    }
+
     public static double healEffectUp(Player player) {
         int TickCount = player.getServer().getTickCount();
         double HealEffectUp = 1;

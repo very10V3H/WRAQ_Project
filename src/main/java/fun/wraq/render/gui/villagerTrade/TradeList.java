@@ -70,8 +70,6 @@ public class TradeList {
         SoulToGoldCoin();
         BossCore();
         BossItem();
-        SeaEquip();
-        BlackForestEquip();
 
         PlainRune();
         ForestRune();
@@ -807,48 +805,6 @@ public class TradeList {
 
                 case 12 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.PurpleIronSceptre.get(), 1));
-                }});
-            }
-        }
-    }
-
-    public static void SeaEquip() {
-        ItemStack[] itemStacks = {
-                ModItems.SeaSwordForgeDraw.get().getDefaultInstance(),
-        };
-        List<ItemStack> contentList = new ArrayList<>();
-        Collections.addAll(contentList, itemStacks);
-        tradeContent.put(StringUtils.VillagerName.SeaEquip, contentList);
-
-        for (int i = 0; i < itemStacks.length; i++) {
-            switch (i) {
-                case 0 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.SeaManaCore.get(), 1));
-                    add(new ItemStack(ModItems.SeaSword4.get(), 1));
-                    add(new ItemStack(ModItems.SeaSword3.get(), 1));
-                    add(new ItemStack(ModItems.SeaSword2.get(), 1));
-                    add(new ItemStack(ModItems.SeaSword1.get(), 1));
-                }});
-            }
-        }
-    }
-
-    public static void BlackForestEquip() {
-        ItemStack[] itemStacks = {
-                ModItems.BlackForestSwordForgeDraw.get().getDefaultInstance(),
-        };
-        List<ItemStack> contentList = new ArrayList<>();
-        Collections.addAll(contentList, itemStacks);
-        tradeContent.put(StringUtils.VillagerName.BlackForestEquip, contentList);
-
-        for (int i = 0; i < itemStacks.length; i++) {
-            switch (i) {
-                case 0 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.BlackForestManaCore.get(), 1));
-                    add(new ItemStack(ModItems.BlackForestSword4.get(), 1));
-                    add(new ItemStack(ModItems.huskSword3.get(), 1));
-                    add(new ItemStack(ModItems.huskSword2.get(), 1));
-                    add(new ItemStack(ModItems.huskSword1.get(), 1));
                 }});
             }
         }

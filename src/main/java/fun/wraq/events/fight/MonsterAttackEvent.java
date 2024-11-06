@@ -114,10 +114,15 @@ public class MonsterAttackEvent {
             damage -= damageDecreaseValue;
         }
 
+
         double healthSteal = MobAttributes.healthSteal(monster);
 
         if (damage > 0) {
             double finalDamage = Shield.decreasePlayerShield(player, damage);
+
+            // 伤害削减属性
+            finalDamage -= PlayerAttributes.damageDirectDecrease(player);
+
             if (player.isCreative()) {
                 player.sendSystemMessage(Component.literal("" + finalDamage));
             } else {

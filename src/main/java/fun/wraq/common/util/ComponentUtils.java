@@ -16,148 +16,152 @@ public class ComponentUtils {
     public static class AttributeDescription {
 
         public static Component expUp(String content) {
-            return Component.literal(fun.wraq.common.util.Utils.Emoji.ExpUp + " " + content + "经验加成").withStyle(ChatFormatting.LIGHT_PURPLE);
+            return Component.literal(Utils.Emoji.ExpUp + " " + content + "经验加成").withStyle(ChatFormatting.LIGHT_PURPLE);
         }
 
         public static Component maxHealth(String content) {
-            return Component.literal(fun.wraq.common.util.Utils.Emoji.Health + " " + content + "最大生命值").withStyle(ChatFormatting.GREEN);
+            return Component.literal(Utils.Emoji.Health + " " + content + "最大生命值").withStyle(ChatFormatting.GREEN);
         }
 
         public static Component healValue(String content) {
-            return Component.literal(fun.wraq.common.util.Utils.Emoji.Health + " " + content + "治疗量").withStyle(ChatFormatting.GREEN);
+            return Component.literal(Utils.Emoji.Health + " " + content + "治疗量").withStyle(ChatFormatting.GREEN);
         }
 
         public static Component lossHealth(String content) {
-            return Component.literal(fun.wraq.common.util.Utils.Emoji.Health + " " + content + "已损失生命值").withStyle(ChatFormatting.DARK_GREEN);
+            return Component.literal(Utils.Emoji.Health + " " + content + "已损失生命值").withStyle(ChatFormatting.DARK_GREEN);
         }
 
         public static Component swiftness(String content) {
-            return Component.literal(fun.wraq.common.util.Utils.Emoji.Swiftness + " " + content + "迅捷").withStyle(ChatFormatting.GREEN);
+            return Component.literal(Utils.Emoji.Swiftness + " " + content + "迅捷").withStyle(ChatFormatting.GREEN);
         }
 
         public static Component movementSpeed(String content) {
-            return Component.literal(fun.wraq.common.util.Utils.Emoji.Speed + " " + content + "移动速度").withStyle(ChatFormatting.GREEN);
+            return Component.literal(Utils.Emoji.Speed + " " + content + "移动速度").withStyle(ChatFormatting.GREEN);
         }
 
         public static Component movementSpeedWithoutBattle(String content) {
-            return Component.literal(fun.wraq.common.util.Utils.Emoji.Speed + " " + content + "脱战移动速度").withStyle(ChatFormatting.GREEN);
+            return Component.literal(Utils.Emoji.Speed + " " + content + "脱战移动速度").withStyle(ChatFormatting.GREEN);
         }
 
         public static Component exMovementSpeed(String content) {
-            return Component.literal(fun.wraq.common.util.Utils.Emoji.Speed + " " + content + "额外移动速度").withStyle(ChatFormatting.GREEN);
+            return Component.literal(Utils.Emoji.Speed + " " + content + "额外移动速度").withStyle(ChatFormatting.GREEN);
         }
 
         public static Component movementSpeedDecrease(String content) {
-            return Component.literal(fun.wraq.common.util.Utils.Emoji.Speed + " " + content + "移动速度").withStyle(ChatFormatting.RED);
+            return Component.literal(Utils.Emoji.Speed + " " + content + "移动速度").withStyle(ChatFormatting.RED);
         }
 
         public static Component manaDamage(String content) {
-            return Component.literal(fun.wraq.common.util.Utils.Emoji.Mana + " " + content + "魔法攻击").withStyle(ChatFormatting.LIGHT_PURPLE);
+            return Component.literal(Utils.Emoji.Mana + " " + content + "魔法攻击").withStyle(ChatFormatting.LIGHT_PURPLE);
         }
 
         public static Component manaCost(String content) {
-            return Component.literal(fun.wraq.common.util.Utils.Emoji.ManaCost + " " + content + "法力消耗").withStyle(ChatFormatting.LIGHT_PURPLE);
+            return Component.literal(Utils.Emoji.ManaCost + " " + content + "法力消耗").withStyle(ChatFormatting.LIGHT_PURPLE);
         }
 
         public static Component exManaDamage(String content) {
-            return Component.literal(fun.wraq.common.util.Utils.Emoji.Mana + " " + content + "额外魔法攻击").withStyle(ChatFormatting.LIGHT_PURPLE);
+            return Component.literal(Utils.Emoji.Mana + " " + content + "额外魔法攻击").withStyle(ChatFormatting.LIGHT_PURPLE);
         }
 
         public static Component manaRecover(String content) {
-            return Component.literal(fun.wraq.common.util.Utils.Emoji.ManaRecover + " " + content + "法力回复").withStyle(ChatFormatting.LIGHT_PURPLE);
+            return Component.literal(Utils.Emoji.ManaRecover + " " + content + "法力回复").withStyle(ChatFormatting.LIGHT_PURPLE);
         }
 
         public static Component health(String content) {
-            return Component.literal(fun.wraq.common.util.Utils.Emoji.Health + " " + content + "生命值").withStyle(ChatFormatting.GREEN);
+            return Component.literal(Utils.Emoji.Health + " " + content + "生命值").withStyle(ChatFormatting.GREEN);
         }
 
         public static Component defence(String content) {
-            return Component.literal(fun.wraq.common.util.Utils.Emoji.Defence + " " + content + "护甲").withStyle(ChatFormatting.GRAY);
+            return Component.literal(Utils.Emoji.Defence + " " + content + "护甲").withStyle(ChatFormatting.GRAY);
+        }
+
+        public static Component damageDirectDecrease(String content) {
+            return Component.literal(Utils.Emoji.Defence + " " + content + "伤害削减").withStyle(CustomStyle.styleOfStone);
         }
 
         public static Component healAmplification(String content) {
-            return Component.literal(fun.wraq.common.util.Utils.Emoji.HealthAmplification + " " + content + "治疗强度").withStyle(CustomStyle.styleOfHealth);
+            return Component.literal(Utils.Emoji.HealthAmplification + " " + content + "治疗强度").withStyle(CustomStyle.styleOfHealth);
         }
 
         public static Component healthRecover(String content) {
-            return Component.literal(fun.wraq.common.util.Utils.Emoji.HealthRecover + " " + content + "生命回复").withStyle(CustomStyle.styleOfHealth);
+            return Component.literal(Utils.Emoji.HealthRecover + " " + content + "生命回复").withStyle(CustomStyle.styleOfHealth);
         }
 
         public static Component manaDefence(String content) {
-            return Component.literal(fun.wraq.common.util.Utils.Emoji.Defence + " " + content + "魔法抗性").withStyle(ChatFormatting.BLUE);
+            return Component.literal(Utils.Emoji.Defence + " " + content + "魔法抗性").withStyle(ChatFormatting.BLUE);
         }
 
         public static Component exAttackDamage(String content) {
-            return Component.literal(fun.wraq.common.util.Utils.Emoji.Sword + " " + content + "额外攻击力").withStyle(ChatFormatting.YELLOW);
+            return Component.literal(Utils.Emoji.Sword + " " + content + "额外攻击力").withStyle(ChatFormatting.YELLOW);
         }
 
         public static Component defencePenetration(String content) {
-            return Component.literal(fun.wraq.common.util.Utils.Emoji.Defence + " " + content + "护甲穿透").withStyle(ChatFormatting.GRAY);
+            return Component.literal(Utils.Emoji.Defence + " " + content + "护甲穿透").withStyle(ChatFormatting.GRAY);
         }
 
         public static Component critDamage(String content) {
-            return Component.literal(fun.wraq.common.util.Utils.Emoji.CritDamage + " " + content + "暴击伤害").withStyle(ChatFormatting.BLUE);
+            return Component.literal(Utils.Emoji.CritDamage + " " + content + "暴击伤害").withStyle(ChatFormatting.BLUE);
         }
 
         public static Component critRate(String content) {
-            return Component.literal(fun.wraq.common.util.Utils.Emoji.CritRate + " " + content + "暴击几率").withStyle(ChatFormatting.LIGHT_PURPLE);
+            return Component.literal(Utils.Emoji.CritRate + " " + content + "暴击几率").withStyle(ChatFormatting.LIGHT_PURPLE);
         }
 
         public static Component attackDamage(String content) {
-            return Component.literal(fun.wraq.common.util.Utils.Emoji.Sword + " " + content + "攻击力").withStyle(ChatFormatting.YELLOW);
+            return Component.literal(Utils.Emoji.Sword + " " + content + "攻击力").withStyle(ChatFormatting.YELLOW);
         }
 
         public static Component manaPenetration(String content) {
-            return Component.literal(fun.wraq.common.util.Utils.Emoji.Defence + " " + content + "法术穿透").withStyle(ChatFormatting.BLUE);
+            return Component.literal(Utils.Emoji.Defence + " " + content + "法术穿透").withStyle(ChatFormatting.BLUE);
         }
 
         public static Component releaseSpeed(String content) {
-            return Component.literal(fun.wraq.common.util.Utils.Emoji.CoolDown + " " + content + "技能急速").withStyle(ChatFormatting.AQUA);
+            return Component.literal(Utils.Emoji.CoolDown + " " + content + "技能急速").withStyle(ChatFormatting.AQUA);
         }
 
         public static Component coolDown(String content) {
-            return Component.literal(fun.wraq.common.util.Utils.Emoji.CoolDown + " " + content + "冷却时间").withStyle(ChatFormatting.AQUA);
+            return Component.literal(Utils.Emoji.CoolDown + " " + content + "冷却时间").withStyle(ChatFormatting.AQUA);
         }
 
         public static Component healthSteal(String content) {
-            return Component.literal(fun.wraq.common.util.Utils.Emoji.HealSteal + " " + content + "生命偷取").withStyle(ChatFormatting.RED);
+            return Component.literal(Utils.Emoji.HealSteal + " " + content + "生命偷取").withStyle(ChatFormatting.RED);
         }
 
         public static Component skillHealthSteal(String content) {
-            return Component.literal(fun.wraq.common.util.Utils.Emoji.HealSteal + " " + content + "全能吸血").withStyle(CustomStyle.styleOfField);
+            return Component.literal(Utils.Emoji.HealSteal + " " + content + "全能吸血").withStyle(CustomStyle.styleOfField);
         }
 
         public static Component manaHealSteal(String content) {
-            return Component.literal(fun.wraq.common.util.Utils.Emoji.HealSteal + " " + content + "法术吸血").withStyle(CustomStyle.styleOfMana);
+            return Component.literal(Utils.Emoji.HealSteal + " " + content + "法术吸血").withStyle(CustomStyle.styleOfMana);
         }
 
         public static Component maxMana(String content) {
-            return Component.literal(fun.wraq.common.util.Utils.Emoji.MaxMana + " " + content + "法力值").withStyle(CustomStyle.styleOfMana);
+            return Component.literal(Utils.Emoji.MaxMana + " " + content + "法力值").withStyle(CustomStyle.styleOfMana);
         }
 
         public static Component manaValue(String content) {
-            return Component.literal(fun.wraq.common.util.Utils.Emoji.MaxMana + " " + content + "法力值").withStyle(CustomStyle.styleOfMana);
+            return Component.literal(Utils.Emoji.MaxMana + " " + content + "法力值").withStyle(CustomStyle.styleOfMana);
         }
 
         public static Component exHealth(String content) {
-            return Component.literal(fun.wraq.common.util.Utils.Emoji.Health + " " + content + "额外生命值").withStyle(ChatFormatting.GREEN);
+            return Component.literal(Utils.Emoji.Health + " " + content + "额外生命值").withStyle(ChatFormatting.GREEN);
         }
 
         public static Component attackRange(String content) {
-            return Component.literal(fun.wraq.common.util.Utils.Emoji.AttackRange + " " + content + "攻击距离").withStyle(CustomStyle.styleOfSea);
+            return Component.literal(Utils.Emoji.AttackRange + " " + content + "攻击距离").withStyle(CustomStyle.styleOfSea);
         }
 
         public static Component attackDamageValue(String content) {
-            return Component.literal(fun.wraq.common.util.Utils.Emoji.Sword + " " + content + "物理伤害").withStyle(ChatFormatting.YELLOW);
+            return Component.literal(Utils.Emoji.Sword + " " + content + "物理伤害").withStyle(ChatFormatting.YELLOW);
         }
 
         public static Component manaDamageValue(String content) {
-            return Component.literal(fun.wraq.common.util.Utils.Emoji.Mana + " " + content + "魔法伤害").withStyle(ChatFormatting.LIGHT_PURPLE);
+            return Component.literal(Utils.Emoji.Mana + " " + content + "魔法伤害").withStyle(ChatFormatting.LIGHT_PURPLE);
         }
     }
 
     public static void suitDescription(List<Component> components) {
-        components.add(Component.literal(fun.wraq.common.util.Utils.Emoji.Suit + " " + "套装效果").withStyle(ChatFormatting.AQUA));
+        components.add(Component.literal(Utils.Emoji.Suit + " " + "套装效果").withStyle(ChatFormatting.AQUA));
     }
 
     public static void suitDoubleDescription(List<Component> components) {
@@ -502,12 +506,12 @@ public class ComponentUtils {
     }
 
     public static void emojiDescriptionBaseAttackDamage(List<Component> components, double BaseDamage) {
-        components.add(Component.literal(fun.wraq.common.util.Utils.Emoji.Sword + " 基础攻击").withStyle(ChatFormatting.AQUA).
+        components.add(Component.literal(Utils.Emoji.Sword + " 基础攻击").withStyle(ChatFormatting.AQUA).
                 append(Component.literal(" " + String.format("%.0f", BaseDamage)).withStyle(ChatFormatting.WHITE)));
     }
 
     public static void soulEmojiDescriptionBaseAttackDamage(List<Component> components, double BaseDamage, int ForgeTimes) {
-        components.add(Component.literal(fun.wraq.common.util.Utils.Emoji.Sword + " 基础攻击").withStyle(ChatFormatting.AQUA).
+        components.add(Component.literal(Utils.Emoji.Sword + " 基础攻击").withStyle(ChatFormatting.AQUA).
                 append(Component.literal(" " + String.format("%.0f", BaseDamage)).withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("  ")).
                 append(Component.literal("+ " + String.format("%.0f", SoulEquipAttribute.ForgingAddition.AttackDamage)).withStyle(CustomStyle.styleOfWorld)).
@@ -515,17 +519,17 @@ public class ComponentUtils {
     }
 
     public static void emojiDescriptionAttackSpeed(List<Component> components, double AttackSpeed) {
-        components.add(Component.literal(fun.wraq.common.util.Utils.Emoji.AttackSpeed + " 攻击速度").withStyle(CustomStyle.styleOfSky).
+        components.add(Component.literal(Utils.Emoji.AttackSpeed + " 攻击速度").withStyle(CustomStyle.styleOfSky).
                 append(Component.literal(" " + String.format("%.1f", (4 + AttackSpeed))).withStyle(ChatFormatting.WHITE)));
     }
 
     public static void emojiDescriptionDefencePenetration(List<Component> components, double DefencePenetration) {
-        components.add(Component.literal(fun.wraq.common.util.Utils.Emoji.Defence + " 护甲穿透").withStyle(ChatFormatting.GRAY).
+        components.add(Component.literal(Utils.Emoji.Defence + " 护甲穿透").withStyle(ChatFormatting.GRAY).
                 append(Component.literal("+" + String.format("%.0f%%", DefencePenetration * 100)).withStyle(ChatFormatting.WHITE)));
     }
 
     public static void soulEmojiDescriptionDefencePenetration(List<Component> components, double DefencePenetration, int ForgeTimes) {
-        components.add(Component.literal(fun.wraq.common.util.Utils.Emoji.Defence + " 护甲穿透").withStyle(ChatFormatting.GRAY).
+        components.add(Component.literal(Utils.Emoji.Defence + " 护甲穿透").withStyle(ChatFormatting.GRAY).
                 append(Component.literal("+" + String.format("%.0f%%", DefencePenetration * 100)).withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("  ")).
                 append(Component.literal("+ " + String.format("%.0f%%", SoulEquipAttribute.ForgingAddition.DefencePenetration * 100)).withStyle(CustomStyle.styleOfWorld)).
@@ -533,12 +537,12 @@ public class ComponentUtils {
     }
 
     public static void emojiDescriptionDefencePenetration0(List<Component> components, double DefencePenetration) {
-        components.add(Component.literal(fun.wraq.common.util.Utils.Emoji.Defence + " 护甲穿透").withStyle(ChatFormatting.GRAY).
+        components.add(Component.literal(Utils.Emoji.Defence + " 护甲穿透").withStyle(ChatFormatting.GRAY).
                 append(Component.literal("+" + String.format("%.0f", DefencePenetration)).withStyle(ChatFormatting.WHITE)));
     }
 
     public static void soulEmojiDescriptionDefencePenetration0(List<Component> components, double DefencePenetration, int ForgeTimes) {
-        components.add(Component.literal(fun.wraq.common.util.Utils.Emoji.Defence + " 护甲穿透").withStyle(ChatFormatting.GRAY).
+        components.add(Component.literal(Utils.Emoji.Defence + " 护甲穿透").withStyle(ChatFormatting.GRAY).
                 append(Component.literal("+" + String.format("%.0f", DefencePenetration)).withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("  ")).
                 append(Component.literal("+ " + String.format("%.0f", SoulEquipAttribute.ForgingAddition.DefencePenetration0)).withStyle(CustomStyle.styleOfWorld)).
@@ -546,12 +550,12 @@ public class ComponentUtils {
     }
 
     public static void emojiDescriptionCritRate(List<Component> components, double criticalHitRate) {
-        components.add(Component.literal(fun.wraq.common.util.Utils.Emoji.CritRate + " 暴击几率").withStyle(ChatFormatting.LIGHT_PURPLE).
+        components.add(Component.literal(Utils.Emoji.CritRate + " 暴击几率").withStyle(ChatFormatting.LIGHT_PURPLE).
                 append(Component.literal("+" + String.format(criticalHitRate == 0 ? "%.0f%%" : "%.1f%%", criticalHitRate * 100)).withStyle(ChatFormatting.WHITE)));
     }
 
     public static void soulEmojiDescriptionCritRate(List<Component> components, double CriticalHitRate, int ForgeTimes) {
-        components.add(Component.literal(fun.wraq.common.util.Utils.Emoji.CritRate + " 暴击几率").withStyle(ChatFormatting.LIGHT_PURPLE).
+        components.add(Component.literal(Utils.Emoji.CritRate + " 暴击几率").withStyle(ChatFormatting.LIGHT_PURPLE).
                 append(Component.literal("+" + String.format(CriticalHitRate == 0 ? "%.0f%%" : "%.1f%%", CriticalHitRate * 100)).withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("  ")).
                 append(Component.literal("+ " + String.format("%.1f%%", SoulEquipAttribute.ForgingAddition.CritRate * 100)).withStyle(CustomStyle.styleOfWorld)).
@@ -559,12 +563,12 @@ public class ComponentUtils {
     }
 
     public static void emojiDescriptionCritDamage(List<Component> components, double CriticalHitDamage) {
-        components.add(Component.literal(fun.wraq.common.util.Utils.Emoji.CritDamage + " 暴击伤害").withStyle(ChatFormatting.BLUE).
+        components.add(Component.literal(Utils.Emoji.CritDamage + " 暴击伤害").withStyle(ChatFormatting.BLUE).
                 append(Component.literal("+" + String.format("%.0f%%", CriticalHitDamage * 100)).withStyle(ChatFormatting.WHITE)));
     }
 
     public static void soulEmojiDescriptionCritDamage(List<Component> components, double CriticalHitDamage, int ForgeTimes) {
-        components.add(Component.literal(fun.wraq.common.util.Utils.Emoji.CritDamage + " 暴击伤害").withStyle(ChatFormatting.BLUE).
+        components.add(Component.literal(Utils.Emoji.CritDamage + " 暴击伤害").withStyle(ChatFormatting.BLUE).
                 append(Component.literal("+" + String.format("%.0f%%", CriticalHitDamage * 100)).withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("  ")).
                 append(Component.literal("+ " + String.format("%.0f%%", SoulEquipAttribute.ForgingAddition.CritDamage * 100)).withStyle(CustomStyle.styleOfWorld)).
@@ -572,17 +576,17 @@ public class ComponentUtils {
     }
 
     public static void emojiDescriptionHealSteal(List<Component> components, double HealSteal) {
-        components.add(Component.literal(fun.wraq.common.util.Utils.Emoji.HealSteal + " 生命偷取").withStyle(ChatFormatting.RED).
+        components.add(Component.literal(Utils.Emoji.HealSteal + " 生命偷取").withStyle(ChatFormatting.RED).
                 append(Component.literal("+" + String.format("%.0f‱", HealSteal * 100)).withStyle(ChatFormatting.WHITE)));
     }
 
     public static void emojiDescriptionManaHealSteal(List<Component> components, double HealSteal) {
-        components.add(Component.literal(fun.wraq.common.util.Utils.Emoji.HealSteal + " 法术吸血").withStyle(CustomStyle.styleOfMana).
+        components.add(Component.literal(Utils.Emoji.HealSteal + " 法术吸血").withStyle(CustomStyle.styleOfMana).
                 append(Component.literal("+" + String.format("%.0f‱", HealSteal * 100)).withStyle(ChatFormatting.WHITE)));
     }
 
     public static void soulEmojiDescriptionHealSteal(List<Component> components, double HealSteal, int ForgeTimes) {
-        components.add(Component.literal(fun.wraq.common.util.Utils.Emoji.HealSteal + " 生命偷取").withStyle(ChatFormatting.RED).
+        components.add(Component.literal(Utils.Emoji.HealSteal + " 生命偷取").withStyle(ChatFormatting.RED).
                 append(Component.literal("+" + String.format("%.0f‱", HealSteal * 100)).withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("  ")).
                 append(Component.literal("+ " + String.format("%.0f‱", SoulEquipAttribute.ForgingAddition.HealthSteal * 100)).withStyle(CustomStyle.styleOfWorld)).
@@ -591,10 +595,10 @@ public class ComponentUtils {
 
     public static void emojiDescriptionCommonMovementSpeed(List<Component> components, double movementSpeed) {
         if (movementSpeed >= 0) {
-            components.add(Component.literal(fun.wraq.common.util.Utils.Emoji.Speed + " 移动速度").withStyle(ChatFormatting.GREEN).
+            components.add(Component.literal(Utils.Emoji.Speed + " 移动速度").withStyle(ChatFormatting.GREEN).
                     append(Component.literal("+" + String.format(movementSpeed == 0 ? "%.0f%%" : "%.1f%%", movementSpeed * 100)).withStyle(ChatFormatting.WHITE)));
         } else {
-            components.add(Component.literal(fun.wraq.common.util.Utils.Emoji.Speed + " 移动速度").withStyle(ChatFormatting.RED).
+            components.add(Component.literal(Utils.Emoji.Speed + " 移动速度").withStyle(ChatFormatting.RED).
                     append(Component.literal("-" + String.format(movementSpeed == 0 ? "%.0f%%" : "%.1f%%", -movementSpeed * 100)).withStyle(ChatFormatting.WHITE)));
 
         }
@@ -602,13 +606,13 @@ public class ComponentUtils {
 
     public static void soulEmojiDescriptionMovementSpeed(List<Component> components, double MovementSpeed, int ForgeTimes) {
         if (MovementSpeed >= 0) {
-            components.add(Component.literal(fun.wraq.common.util.Utils.Emoji.Speed + " 移动速度").withStyle(ChatFormatting.GREEN).
+            components.add(Component.literal(Utils.Emoji.Speed + " 移动速度").withStyle(ChatFormatting.GREEN).
                     append(Component.literal("+" + String.format("%.0f%%", MovementSpeed * 100)).withStyle(ChatFormatting.WHITE)).
                     append(Component.literal("  ")).
                     append(Component.literal("+ " + String.format("%.0f%%", SoulEquipAttribute.ForgingAddition.MovementSpeed * 100)).withStyle(CustomStyle.styleOfWorld)).
                     append(Component.literal(" x [" + ForgeTimes + "]").withStyle(CustomStyle.styleOfWorld)));
         } else {
-            components.add(Component.literal(fun.wraq.common.util.Utils.Emoji.Speed + " 移动速度").withStyle(ChatFormatting.RED).
+            components.add(Component.literal(Utils.Emoji.Speed + " 移动速度").withStyle(ChatFormatting.RED).
                     append(Component.literal("-" + String.format("%.0f%%", -MovementSpeed * 100)).withStyle(ChatFormatting.WHITE)).
                     append(Component.literal("  ")).
                     append(Component.literal("+ " + String.format("%.0f%%", SoulEquipAttribute.ForgingAddition.MovementSpeed * 100)).withStyle(CustomStyle.styleOfWorld)).
@@ -618,17 +622,17 @@ public class ComponentUtils {
     }
 
     public static void emojiDescriptionAttackRange(List<Component> components, double attackRangeUp) {
-        components.add(Component.literal(fun.wraq.common.util.Utils.Emoji.AttackRange + " 攻击距离").withStyle(CustomStyle.styleOfSea).
+        components.add(Component.literal(Utils.Emoji.AttackRange + " 攻击距离").withStyle(CustomStyle.styleOfSea).
                 append(Component.literal("+" + String.format(attackRangeUp == 0 ? "%.0f" : "%.2f", attackRangeUp)).withStyle(ChatFormatting.WHITE)));
     }
 
     public static void emojiDescriptionManaAttackDamage(List<Component> components, double ManaDamage) {
-        components.add(Component.literal(fun.wraq.common.util.Utils.Emoji.Mana + " 魔法攻击").withStyle(ChatFormatting.LIGHT_PURPLE).
+        components.add(Component.literal(Utils.Emoji.Mana + " 魔法攻击").withStyle(ChatFormatting.LIGHT_PURPLE).
                 append(Component.literal(" " + String.format("%.0f", ManaDamage)).withStyle(ChatFormatting.WHITE)));
     }
 
     public static void soulEmojiDescriptionManaAttackDamage(List<Component> components, double ManaDamage, int ForgeTimes) {
-        components.add(Component.literal(fun.wraq.common.util.Utils.Emoji.Mana + " 魔法攻击").withStyle(ChatFormatting.LIGHT_PURPLE).
+        components.add(Component.literal(Utils.Emoji.Mana + " 魔法攻击").withStyle(ChatFormatting.LIGHT_PURPLE).
                 append(Component.literal(" " + String.format("%.0f", ManaDamage)).withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("  ")).
                 append(Component.literal("+ " + String.format("%.0f", SoulEquipAttribute.ForgingAddition.ManaAttackDamage)).withStyle(CustomStyle.styleOfWorld)).
@@ -636,12 +640,12 @@ public class ComponentUtils {
     }
 
     public static void manaCostDescription(List<Component> components, double ManaCost) {
-        components.add(Component.literal(fun.wraq.common.util.Utils.Emoji.ManaCost + " 法力消耗").withStyle(ChatFormatting.DARK_PURPLE).
+        components.add(Component.literal(Utils.Emoji.ManaCost + " 法力消耗").withStyle(ChatFormatting.DARK_PURPLE).
                 append(Component.literal(" " + String.format("%.0f", ManaCost)).withStyle(ChatFormatting.WHITE)));
     }
 
     public static void soulManaCostDescription(List<Component> components, double ManaCost, int ForgeTimes) {
-        components.add(Component.literal(fun.wraq.common.util.Utils.Emoji.ManaCost + " 法力消耗").withStyle(ChatFormatting.DARK_PURPLE).
+        components.add(Component.literal(Utils.Emoji.ManaCost + " 法力消耗").withStyle(ChatFormatting.DARK_PURPLE).
                 append(Component.literal(" " + String.format("%.0f", ManaCost)).withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("  ")).
                 append(Component.literal("- " + String.format("%.0f", SoulEquipAttribute.ForgingAddition.ManaCost)).withStyle(CustomStyle.styleOfWorld)).
@@ -649,12 +653,12 @@ public class ComponentUtils {
     }
 
     public static void emojiDescriptionManaPenetration(List<Component> components, double ManaPenetration) {
-        components.add(Component.literal(fun.wraq.common.util.Utils.Emoji.Defence + " 魔法穿透").withStyle(ChatFormatting.BLUE).
+        components.add(Component.literal(Utils.Emoji.Defence + " 魔法穿透").withStyle(ChatFormatting.BLUE).
                 append(Component.literal("+" + String.format("%.0f%%", ManaPenetration * 100)).withStyle(ChatFormatting.WHITE)));
     }
 
     public static void soulEmojiDescriptionManaPenetration(List<Component> components, double ManaPenetration, int ForgeTimes) {
-        components.add(Component.literal(fun.wraq.common.util.Utils.Emoji.Defence + " 魔法穿透").withStyle(ChatFormatting.BLUE).
+        components.add(Component.literal(Utils.Emoji.Defence + " 魔法穿透").withStyle(ChatFormatting.BLUE).
                 append(Component.literal("+" + String.format("%.0f%%", ManaPenetration * 100)).withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("  ")).
                 append(Component.literal("+ " + String.format("%.0f%%", SoulEquipAttribute.ForgingAddition.ManaPenetration * 100)).withStyle(CustomStyle.styleOfWorld)).
@@ -662,12 +666,12 @@ public class ComponentUtils {
     }
 
     public static void emojiDescriptionManaPenetration0(List<Component> components, double ManaPenetration0) {
-        components.add(Component.literal(fun.wraq.common.util.Utils.Emoji.Defence + " 魔法穿透").withStyle(ChatFormatting.BLUE).
+        components.add(Component.literal(Utils.Emoji.Defence + " 魔法穿透").withStyle(ChatFormatting.BLUE).
                 append(Component.literal("+" + String.format("%.0f", ManaPenetration0)).withStyle(ChatFormatting.WHITE)));
     }
 
     public static void soulEmojiDescriptionManaPenetration0(List<Component> components, double ManaPenetration0, int ForgeTimes) {
-        components.add(Component.literal(fun.wraq.common.util.Utils.Emoji.Defence + " 魔法穿透").withStyle(ChatFormatting.BLUE).
+        components.add(Component.literal(Utils.Emoji.Defence + " 魔法穿透").withStyle(ChatFormatting.BLUE).
                 append(Component.literal("+" + String.format("%.0f", ManaPenetration0)).withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("  ")).
                 append(Component.literal("+ " + String.format("%.0f", SoulEquipAttribute.ForgingAddition.ManaPenetration0)).withStyle(CustomStyle.styleOfWorld)).
@@ -675,12 +679,12 @@ public class ComponentUtils {
     }
 
     public static void emojiDescriptionManaRecover(List<Component> components, double manaRecover) {
-        components.add(Component.literal(fun.wraq.common.util.Utils.Emoji.ManaRecover + " 法力回复").withStyle(ChatFormatting.LIGHT_PURPLE).
+        components.add(Component.literal(Utils.Emoji.ManaRecover + " 法力回复").withStyle(ChatFormatting.LIGHT_PURPLE).
                 append(Component.literal("+" + String.format(manaRecover == 0 ? "%.0f" : "%.1f", manaRecover)).withStyle(ChatFormatting.WHITE)));
     }
 
     public static void soulEmojiDescriptionManaRecover(List<Component> components, double ManaRecover, int ForgeTimes) {
-        components.add(Component.literal(fun.wraq.common.util.Utils.Emoji.ManaRecover + " 法力回复").withStyle(ChatFormatting.LIGHT_PURPLE).
+        components.add(Component.literal(Utils.Emoji.ManaRecover + " 法力回复").withStyle(ChatFormatting.LIGHT_PURPLE).
                 append(Component.literal("+" + String.format("%.0f", ManaRecover)).withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("  ")).
                 append(Component.literal("+ " + String.format("%.0f", SoulEquipAttribute.ForgingAddition.ManaRecover)).withStyle(CustomStyle.styleOfWorld)).
@@ -689,73 +693,80 @@ public class ComponentUtils {
 
     public static void emojiDescriptionMaxHealth(List<Component> components, double MaxHealth) {
         if (MaxHealth < 0) {
-            components.add(Component.literal(fun.wraq.common.util.Utils.Emoji.Health + " 最大生命值").withStyle(ChatFormatting.GREEN).
+            components.add(Component.literal(Utils.Emoji.Health + " 最大生命值").withStyle(ChatFormatting.GREEN).
                     append(Component.literal("-" + String.format("%.0f", -MaxHealth)).withStyle(ChatFormatting.RED)));
 
         } else {
-            components.add(Component.literal(fun.wraq.common.util.Utils.Emoji.Health + " 最大生命值").withStyle(ChatFormatting.GREEN).
+            components.add(Component.literal(Utils.Emoji.Health + " 最大生命值").withStyle(ChatFormatting.GREEN).
                     append(Component.literal("+" + String.format("%.0f", MaxHealth)).withStyle(ChatFormatting.WHITE)));
         }
     }
 
 
     public static void emojiDescriptionHealAmplification(List<Component> components, double HealEffect) {
-        components.add(Component.literal(fun.wraq.common.util.Utils.Emoji.HealthAmplification + " 治疗强度").withStyle(CustomStyle.styleOfHealth).
+        components.add(Component.literal(Utils.Emoji.HealthAmplification + " 治疗强度").withStyle(CustomStyle.styleOfHealth).
                 append(Component.literal("+" + String.format("%.0f%%", HealEffect * 100)).withStyle(ChatFormatting.WHITE)));
     }
 
     public static void emojiDescriptionExpUp(List<Component> components, double ExpUp) {
-        components.add(Component.literal(fun.wraq.common.util.Utils.Emoji.ExpUp + " 经验加成").withStyle(ChatFormatting.LIGHT_PURPLE).
+        components.add(Component.literal(Utils.Emoji.ExpUp + " 经验加成").withStyle(ChatFormatting.LIGHT_PURPLE).
                 append(Component.literal("+" + String.format("%.0f%%", ExpUp * 100)).withStyle(ChatFormatting.WHITE)));
     }
 
     public static void emojiDescriptionLuckyUp(List<Component> components, double Lucky) {
-        components.add(Component.literal(fun.wraq.common.util.Utils.Emoji.Lucky + " 幸运加成").withStyle(ChatFormatting.LIGHT_PURPLE).
+        components.add(Component.literal(Utils.Emoji.Lucky + " 幸运加成").withStyle(ChatFormatting.LIGHT_PURPLE).
                 append(Component.literal("+" + String.format("%.0f%%", Lucky * 100)).withStyle(ChatFormatting.WHITE)));
     }
 
     public static void emojiDescriptionDefenceRate(List<Component> components, double Defence) {
-        components.add(Component.literal(fun.wraq.common.util.Utils.Emoji.Defence + " 护甲加成").withStyle(ChatFormatting.GRAY).
+        components.add(Component.literal(Utils.Emoji.Defence + " 护甲加成").withStyle(ChatFormatting.GRAY).
                 append(Component.literal("+" + String.format("%.0f%%", Defence * 100)).withStyle(ChatFormatting.WHITE)));
     }
 
     public static void emojiDescriptionExAttackDamageRate(List<Component> components, double ExDamageRate) {
-        components.add(Component.literal(fun.wraq.common.util.Utils.Emoji.Sword + " 额外攻击").withStyle(ChatFormatting.YELLOW).
+        components.add(Component.literal(Utils.Emoji.Sword + " 额外攻击").withStyle(ChatFormatting.YELLOW).
                 append(Component.literal(" " + String.format("%.0f%%", ExDamageRate * 100)).withStyle(ChatFormatting.WHITE)));
     }
 
     public static void emojiDescriptionCoolDown(List<Component> components, double CoolDown) {
-        components.add(Component.literal(fun.wraq.common.util.Utils.Emoji.CoolDown + " 技能急速").withStyle(ChatFormatting.AQUA).
+        components.add(Component.literal(Utils.Emoji.CoolDown + " 技能急速").withStyle(ChatFormatting.AQUA).
                 append(Component.literal(" " + String.format("%.0f", CoolDown * 100)).withStyle(ChatFormatting.WHITE)));
     }
 
     public static void emojiDescriptionDefence(List<Component> components, double Defence) {
-        components.add(Component.literal(fun.wraq.common.util.Utils.Emoji.Defence + " 基础护甲").withStyle(ChatFormatting.GRAY).
+        components.add(Component.literal(Utils.Emoji.Defence + " 基础护甲").withStyle(ChatFormatting.GRAY).
                 append(Component.literal("+" + String.format("%.0f", Defence)).withStyle(ChatFormatting.WHITE)));
     }
 
+    public static void emojiDescriptionDamageDirectDecrease(List<Component> components, double value) {
+        components.add(Component.literal(Utils.Emoji.Defence + " 伤害削减").withStyle(CustomStyle.styleOfStone).
+                append(Component.literal("+" + String.format("%.0f", value)).withStyle(ChatFormatting.WHITE)));
+    }
+
+
+
     public static void emojiDescriptionHealthRecover(List<Component> components, double healthReplay) {
-        components.add(Component.literal(fun.wraq.common.util.Utils.Emoji.HealthRecover + " 生命回复").withStyle(ChatFormatting.GREEN).
+        components.add(Component.literal(Utils.Emoji.HealthRecover + " 生命回复").withStyle(ChatFormatting.GREEN).
                 append(Component.literal("+" + String.format(healthReplay == 0 ? "%.0f" : "%.1f", healthReplay)).withStyle(ChatFormatting.WHITE)));
     }
 
     public static void emojiDescriptionExAttackDamage(List<Component> components, double ExDamage) {
-        components.add(Component.literal(fun.wraq.common.util.Utils.Emoji.Sword + " 额外攻击").withStyle(ChatFormatting.YELLOW).
+        components.add(Component.literal(Utils.Emoji.Sword + " 额外攻击").withStyle(ChatFormatting.YELLOW).
                 append(Component.literal(" " + String.format("%.0f", ExDamage)).withStyle(ChatFormatting.WHITE)));
     }
 
     public static void emojiDescriptionManaDefence(List<Component> components, double Defence) {
-        components.add(Component.literal(fun.wraq.common.util.Utils.Emoji.Defence + " 魔法抗性").withStyle(ChatFormatting.BLUE).
+        components.add(Component.literal(Utils.Emoji.Defence + " 魔法抗性").withStyle(ChatFormatting.BLUE).
                 append(Component.literal("+" + String.format("%.0f", Defence)).withStyle(ChatFormatting.WHITE)));
     }
 
     public static void emojiDescriptionMaxMana(List<Component> components, double MaxMana) {
-        components.add(Component.literal(fun.wraq.common.util.Utils.Emoji.MaxMana + " 最大法力值").withStyle(ChatFormatting.LIGHT_PURPLE).
+        components.add(Component.literal(Utils.Emoji.MaxMana + " 最大法力值").withStyle(ChatFormatting.LIGHT_PURPLE).
                 append(Component.literal("+" + String.format("%.0f", MaxMana)).withStyle(ChatFormatting.WHITE)));
     }
 
     public static void soulEmojiDescriptionMaxMana(List<Component> components, double MaxMana, int ForgeTimes) {
-        components.add(Component.literal(fun.wraq.common.util.Utils.Emoji.MaxMana + " 最大法力值").withStyle(ChatFormatting.LIGHT_PURPLE).
+        components.add(Component.literal(Utils.Emoji.MaxMana + " 最大法力值").withStyle(ChatFormatting.LIGHT_PURPLE).
                 append(Component.literal("+" + String.format("%.0f", MaxMana)).withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("  ")).
                 append(Component.literal("+ 16 x [" + ForgeTimes + "]").withStyle(CustomStyle.styleOfWorld)));

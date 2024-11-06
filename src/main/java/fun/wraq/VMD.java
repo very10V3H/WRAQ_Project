@@ -473,7 +473,6 @@ public class VMD {
 
             for (Item item : items) event.accept(item.getDefaultInstance());
 
-            event.accept(ModItems.randomsword.get().getDefaultInstance());
             event.accept(ModItems.SpeIron.get().getDefaultInstance());
             event.accept(ModItems.ForgingStone0.get().getDefaultInstance());
             event.accept(ModItems.ForgingStone1.get().getDefaultInstance());

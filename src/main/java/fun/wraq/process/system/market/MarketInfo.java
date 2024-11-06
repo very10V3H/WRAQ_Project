@@ -1,7 +1,6 @@
 package fun.wraq.process.system.market;
 
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import com.mojang.logging.LogUtils;
 import fun.wraq.common.Compute;
 import fun.wraq.common.util.MarketItemData;
 import fun.wraq.common.util.MarketProfitData;
@@ -11,13 +10,11 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
-import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
 public class MarketInfo {
     public static void marketItemInfoRead(ServerLevel overworld) throws CommandSyntaxException {
-        long startTime = Calendar.getInstance().getTimeInMillis();
         List<String> marketItemList = MarketItemData.getInstance(overworld).getMarketInfoStringList();
         Utils.marketItemInfos.clear();
         for (String string : marketItemList) {
@@ -50,11 +47,9 @@ public class MarketInfo {
                 }
             }
         }
-        LogUtils.getLogger().info("Market item info read completed in {}ms", System.currentTimeMillis() - startTime);
     }
 
     public static void marketItemInfoWrite(ServerLevel overworld) {
-        long startTime = Calendar.getInstance().getTimeInMillis();
         MarketItemData marketItemData = MarketItemData.getInstance(overworld);
         List<String> marketItemList = marketItemData.getMarketInfoStringList();
         marketItemList.clear();
@@ -62,24 +57,19 @@ public class MarketInfo {
             marketItemList.add(marketItemInfo.getPlayer() + "#" + Compute.getItemStackString(marketItemInfo.getItemStack()) + "*" + marketItemInfo.getPrice());
         });
         marketItemData.setDirty();
-        LogUtils.getLogger().info("Market item info write completed in {}ms", System.currentTimeMillis() - startTime);
     }
 
     public static void marketProfitInfoRead(ServerLevel overworld) {
-        long startTime = Calendar.getInstance().getTimeInMillis();
         MarketProfitData marketProfitData = MarketProfitData.getInstance(overworld);
         Map<String, Double> marketProfitInfos = marketProfitData.getMarketProfitInfo();
         Utils.marketPlayerInfos.putAll(marketProfitInfos);
-        LogUtils.getLogger().info("Market profit info read completed in {}ms", System.currentTimeMillis() - startTime);
     }
 
     public static void marketProfitInfoWrite(ServerLevel overworld) {
-        long startTime = Calendar.getInstance().getTimeInMillis();
         MarketProfitData marketProfitData = MarketProfitData.getInstance(overworld);
         Map<String, Double> marketProfitInfos = marketProfitData.getMarketProfitInfo();
         marketProfitInfos.clear();
         marketProfitInfos.putAll(Utils.marketPlayerInfos);
         marketProfitData.setDirty();
-        LogUtils.getLogger().info("Market profit info write completed in {}ms", System.currentTimeMillis() - startTime);
     }
 }

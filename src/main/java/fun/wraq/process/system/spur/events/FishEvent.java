@@ -2,18 +2,15 @@ package fun.wraq.process.system.spur.events;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.registry.ModItems;
-import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.system.missions.series.labourDay.LabourDayMission;
 import fun.wraq.process.system.spur.Items.SpurItems;
 import fun.wraq.render.toolTip.CustomStyle;
-import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraftforge.event.entity.player.ItemFishedEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -206,31 +203,6 @@ public class FishEvent {
                     Component.literal("距离下一个钓鱼等阶，还需:").
                             append(Component.literal(" " + (20 - RodLevel)).withStyle(CustomStyle.styleOfSea)).
                             append(Component.literal("熟练度。")));
-        }
-        if (player.level().equals(player.getServer().getLevel(Level.OVERWORLD)) && player.getX() < 2039 && player.getZ() < 1115 && player.getX() > 1940 && player.getZ() > 1052) {
-            if (r.nextDouble() <= 0.005 || data.getInt(StringUtils.ShipFishTimes) == 199) {
-                ItemStack[] itemStacks = {
-                        new ItemStack(ModItems.ShipSwordForgeDraw.get()),
-                        new ItemStack(ModItems.ShipBowForgeDraw.get()),
-                        new ItemStack(ModItems.ShipSceptreForgeDraw.get())
-                };
-                ItemStack itemStack = itemStacks[r.nextInt(3)];
-                Compute.formatBroad(player.level(), Component.literal("打捞").withStyle(CustomStyle.styleOfShip),
-                        Component.literal("").withStyle(ChatFormatting.WHITE).
-                                append(player.getDisplayName()).
-                                append(Component.literal("在").withStyle(ChatFormatting.WHITE)).
-                                append(Component.literal("废旧船厂").withStyle(CustomStyle.styleOfShip)).
-                                append(Component.literal("成功打捞到了:").withStyle(ChatFormatting.WHITE)).
-                                append(itemStack.getDisplayName()));
-                InventoryOperation.itemStackGive(player, itemStack);
-                if (data.contains(StringUtils.ShipFishTimes)) data.putInt(StringUtils.ShipFishTimes, 1);
-            } else {
-                data.putInt(StringUtils.ShipFishTimes, data.getInt(StringUtils.ShipFishTimes) + 1);
-                Compute.sendFormatMSG(player, Component.literal("打捞").withStyle(CustomStyle.styleOfShip),
-                        Component.literal("你已经打捞了").withStyle(ChatFormatting.WHITE).
-                                append(Component.literal("" + data.getInt(StringUtils.ShipFishTimes)).withStyle(CustomStyle.styleOfShip)).
-                                append(Component.literal("次都没有发现废弃船厂遗物了。").withStyle(ChatFormatting.WHITE)));
-            }
         }
     }
 }
