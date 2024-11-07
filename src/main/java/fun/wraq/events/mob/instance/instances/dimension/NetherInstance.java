@@ -8,7 +8,6 @@ import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstance;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.instance.series.castle.RandomCuriosAttributesUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -54,7 +53,8 @@ public class NetherInstance extends NoTeamInstance {
         MobSpawn.setMobCustomName(entity, Component.literal("燃魂").withStyle(CustomStyle.styleOfPower), 90);
 
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(entity), 90);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(entity, 600, 55, 55, 0.35, 3, 0.2, 20, 15, 300000, 0.3);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(entity, 400, 55, 55, 0.35,
+                3, 0.2, 20, 0, 300000, 0.3);
 
         entity.moveTo(pos);
         level.addFreshEntity(entity);
@@ -71,9 +71,6 @@ public class NetherInstance extends NoTeamInstance {
     public void rewardModule(Player player) {
         List<ItemAndRate> rewardList = getRewardList();
         rewardList.forEach(itemAndRate -> {
-            if (itemAndRate.getItemStack().is(ModItems.netherHand.get())) {
-                RandomCuriosAttributesUtil.randomAttackAttributeProvide(itemAndRate.getItemStack(), 3, 0.6);
-            }
             itemAndRate.sendWithMSG(player, 1);
         });
 

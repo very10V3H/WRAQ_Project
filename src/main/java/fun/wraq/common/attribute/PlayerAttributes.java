@@ -150,9 +150,9 @@ public class PlayerAttributes {
 
         if (SuitCount.getSkySuitCount(player) > 0) {
             if (player.getHealth() / player.getMaxHealth() > 0.8)
-                exDamage += baseAttackDamage * 1 * Compute.SkySuitEffectRate(player);
+                exDamage += baseAttackDamage * 0.7 * Compute.SkySuitEffectRate(player);
             else if (player.getHealth() / player.getMaxHealth() > 0.4)
-                exDamage += baseAttackDamage * 0.4 * Compute.SkySuitEffectRate(player);
+                exDamage += baseAttackDamage * 0.2 * Compute.SkySuitEffectRate(player);
         }
         if (player.getEffect(ModEffects.ATTACKUP.get()) != null && player.getEffect(ModEffects.ATTACKUP.get()).getAmplifier() == 0)
             exDamage += baseAttackDamage * 0.25 + 25;
@@ -515,7 +515,7 @@ public class PlayerAttributes {
             movementSpeedUp += 0.6;
 
         if (SuitCount.getSkySuitCount(player) > 0 && player.getHealth() / player.getMaxHealth() > 0.8)
-            movementSpeedUp += 0.4 * Compute.SkySuitEffectRate(player);
+            movementSpeedUp += 0.2 * Compute.SkySuitEffectRate(player);
 
         int flexibilityAbilityPoint = data.getInt(StringUtils.Ability.Flexibility);
         if (data.contains(StringUtils.Ability.Flexibility) && data.getInt(StringUtils.Ability.Flexibility) > 0) {

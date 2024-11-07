@@ -800,16 +800,16 @@ public class Compute {
         int Count = SuitCount.getSkySuitCount(player);
         switch (Count) {
             case 1 -> {
-                return 0.2f;
+                return 0.2;
             }
             case 2 -> {
-                return 0.5f;
+                return 0.5;
             }
             case 3 -> {
-                return 1.4f;
+                return 0.7;
             }
             case 4 -> {
-                return 2;
+                return 1;
             }
         }
         return 0;

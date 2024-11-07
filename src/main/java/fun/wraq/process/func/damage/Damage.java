@@ -223,7 +223,7 @@ public class Damage {
         totalDamage *= DamageInfluence.getMonsterControlDamageEffect(player, monster);
         totalDamage *= (1 + ElementDamageEnhance) * ElementDamageEffect;
         Compute.summonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", totalDamage)).withStyle(ChatFormatting.LIGHT_PURPLE), 1);
-        Compute.damageActionBarPacketSend(player, totalDamage, 0, true, false);
+        if (isPower) Compute.damageActionBarPacketSend(player, totalDamage, 0, true, false);
 
         DirectDamageToMob(player, monster, totalDamage);
         Compute.manaDamageExEffect(player, monster, totalDamage);
@@ -282,10 +282,14 @@ public class Damage {
 
         Compute.summonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", totalDamage)).withStyle(ChatFormatting.LIGHT_PURPLE), 1);
 
-        if (elementDamage != 0 && !elementType.isEmpty() && elementValue != 0)
-            Compute.damageActionBarPacketSend(player, totalDamage, 0, true, false, elementType, elementDamage);
-        else
-            Compute.damageActionBarPacketSend(player, totalDamage, 0, true, false);
+        if (isPower) {
+            if (elementDamage != 0 && !elementType.isEmpty() && elementValue != 0) {
+                Compute.damageActionBarPacketSend(player, totalDamage, 0, true, false, elementType, elementDamage);
+            }
+            else {
+                Compute.damageActionBarPacketSend(player, totalDamage, 0, true, false);
+            }
+        }
 
         DirectDamageToMob(player, monster, totalDamage);
         Compute.manaDamageExEffect(player, monster, totalDamage);

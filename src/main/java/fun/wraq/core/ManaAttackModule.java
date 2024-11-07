@@ -99,6 +99,10 @@ public class ManaAttackModule {
                 player.sendSystemMessage(Component.literal("DamageIgnoreDefence : " + trueDamage));
             }
 
+            if (isCrit) {
+                damage *= PlayerAttributes.critDamage(player);
+            }
+
             damage *= (1 + damageEnhance) * (1 + NormalAttackDamageEnhance);
             exDamage *= (1 + damageEnhance);
             trueDamage *= (1 + damageEnhance);

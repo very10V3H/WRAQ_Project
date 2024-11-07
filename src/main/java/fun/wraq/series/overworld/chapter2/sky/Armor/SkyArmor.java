@@ -40,13 +40,13 @@ public class SkyArmor extends WraqArmor implements ForgeItem {
         components.add(Component.literal("1.").
                 append(ComponentUtils.AttributeDescription.health("")).
                 append(Component.literal("高于80%时，至多提升")).
-                append(ComponentUtils.AttributeDescription.attackDamage("100%")).
+                append(ComponentUtils.AttributeDescription.attackDamage("70%")).
                 append(Component.literal("与").withStyle(ChatFormatting.WHITE)).
-                append(ComponentUtils.AttributeDescription.movementSpeed("40%")));
+                append(ComponentUtils.AttributeDescription.movementSpeed("20%")));
         components.add(Component.literal("2.").
                 append(ComponentUtils.AttributeDescription.health("")).
                 append(Component.literal("介于40%与80%之间时，至多提升")).
-                append(ComponentUtils.AttributeDescription.attackDamage("40%")));
+                append(ComponentUtils.AttributeDescription.attackDamage("20%")));
         components.add(Component.literal("3.").
                 append(ComponentUtils.AttributeDescription.health("")).
                 append(Component.literal("低于40%时，每十秒至多获得")).
@@ -54,7 +54,7 @@ public class SkyArmor extends WraqArmor implements ForgeItem {
                 append(Component.literal("护盾。")).
                 append(Component.literal("持续10s")).withStyle(ChatFormatting.WHITE));
         components.add(Component.literal(" "));
-        components.add(Te.s("基于套装数量的数值:(1_20%,2_50%,3_140%,4_200%").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
+        components.add(Te.s("基于套装数量的数值:(1_20%,2_50%,3_70%,4_100%)").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
         return components;
     }
 

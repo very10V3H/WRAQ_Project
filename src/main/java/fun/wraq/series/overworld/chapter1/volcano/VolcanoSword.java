@@ -37,7 +37,7 @@ public class VolcanoSword extends WraqSword implements ActiveItem {
         Element.FireElementValue.put(this, new double[]{0.2, 0.4, 0.6, 0.8, 1}[tier]);
     }
 
-    private final double[] exCritDamage = new double[]{0.2, 0.35, 0.5, 0.65, 0.9};
+    private final double[] exCritDamage = new double[]{0.1, 0.2, 0.3, 0.4, 0.5};
     private final double[] exAttackDamage = new double[]{10, 15, 20, 30, 60};
 
     @Override

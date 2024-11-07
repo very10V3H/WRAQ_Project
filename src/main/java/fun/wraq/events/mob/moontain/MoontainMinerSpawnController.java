@@ -75,7 +75,7 @@ public class MoontainMinerSpawnController extends MobSpawnController {
         // 需要验证
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombieVillager, xpLevel, 3500, 210,
                 210, 0.4, 5, 0.3, 80, 25,
-                250 * Math.pow(10, 4), 0.4);
+                600 * Math.pow(10, 4), 0.4);
 
         // 设置物品
         ItemStack[] itemStacks = {new ItemStack(Items.IRON_HELMET), new ItemStack(Items.CHAINMAIL_CHESTPLATE),

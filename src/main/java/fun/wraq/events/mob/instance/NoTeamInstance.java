@@ -28,7 +28,9 @@ import net.minecraft.world.phys.Vec3;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public abstract class NoTeamInstance {
     public List<ServerBossEvent> bossInfoList = new ArrayList<>();
@@ -195,14 +197,15 @@ public abstract class NoTeamInstance {
     public List<Player> getPlayerList(Level level) {
         List<Player> playerList = level.getEntitiesOfClass(Player.class, AABB.ofSize(pos, range * 2, range * 2, range * 2));
         playerList.removeIf(player -> player.position().distanceTo(pos) > range);
+        Set<Player> players = new HashSet<>(playerList);
         if (!mobList.isEmpty()) {
             for (Mob mob : mobList) {
-                playerList.addAll(level.getEntitiesOfClass(Player.class, AABB.ofSize(mob.position(),
-                        range * 2, range * 2, range * 2))
+                players.addAll(level.getEntitiesOfClass(Player.class, AABB.ofSize(mob.position(),
+                                range * 2, range * 2, range * 2))
                         .stream().filter(player -> player.distanceTo(mob) < range).toList());
             }
         }
-        return playerList;
+        return players.stream().toList();
     }
 
     public static void givePlayerNotePaper(Player player) throws IOException {

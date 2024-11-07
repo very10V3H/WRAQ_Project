@@ -91,6 +91,8 @@ public class NoTeamInstanceModule {
                         noTeamInstance.detectAndSummon(level);
                         noTeamInstance.tickModule();
                         if (tick % 20 == 0) noTeamInstance.summonLeftSecondsArmorStand(level);
+                    } else {
+                        noTeamInstance.reset(tick, true);
                     }
                     noTeamInstance.bossInfoSet(level);
                 }

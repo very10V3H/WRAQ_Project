@@ -40,11 +40,11 @@ public class IceArmor extends WraqArmor implements ForgeItem {
         components.add(Component.literal(" 每3s对周围单位造成").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.AttributeDescription.manaDamage("15%")).
                 append(Component.literal("的").withStyle(ChatFormatting.WHITE)).
-                append(Component.literal("魔法伤害").withStyle(ChatFormatting.YELLOW)).
+                append(Component.literal("魔法伤害").withStyle(ChatFormatting.LIGHT_PURPLE)).
                 append(Component.literal(" + ").withStyle(ChatFormatting.WHITE)).
                 append(ComponentUtils.AttributeDescription.attackDamage("50%")).
                 append(Component.literal("的").withStyle(ChatFormatting.WHITE)).
-                append(Component.literal("物理伤害").withStyle(ChatFormatting.LIGHT_PURPLE)));
+                append(Component.literal("物理伤害").withStyle(ChatFormatting.YELLOW)));
         components.add(Component.literal("并施加持续2s的").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("减速效果").withStyle(style)));
         Compute.DescriptionPassive(components, Component.literal("雪上覆霜").withStyle(style));

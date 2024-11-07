@@ -12,7 +12,6 @@ import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.missions.series.dailyMission.DailyMission;
 import fun.wraq.render.particles.ModParticles;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.instance.series.castle.RandomCuriosAttributesUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -40,7 +39,8 @@ public class PlainInstance extends NoTeamInstance {
 
     public static PlainInstance getInstance() {
         if (instance == null) {
-            instance = new PlainInstance(new Vec3(1167, 111, 24), 30, 200, new Vec3(1167, 111, 24), Component.literal("普莱尼").withStyle(ChatFormatting.GREEN));
+            instance = new PlainInstance(new Vec3(1167, 111, 24), 30, 200, new Vec3(1167, 111, 24),
+                    Component.literal("普莱尼").withStyle(ChatFormatting.GREEN));
         }
         return instance;
     }
@@ -96,7 +96,7 @@ public class PlainInstance extends NoTeamInstance {
 
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(stray), 50);
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(stray, 400, 40, 40, 0.2,
-                1, 0, 0, 0, 15000, 0.2);
+                1, 0, 0, 0, 20000, 0.2);
 
         stray.setHealth(stray.getMaxHealth());
         stray.setItemSlot(EquipmentSlot.HEAD, ModItems.ArmorPlainBossHelmet.get().getDefaultInstance());
@@ -119,9 +119,6 @@ public class PlainInstance extends NoTeamInstance {
     public void rewardModule(Player player) {
         List<ItemAndRate> rewardList = getRewardList();
         rewardList.forEach(itemAndRate -> {
-            if (itemAndRate.getItemStack().is(ModItems.plainNecklace.get())) {
-                RandomCuriosAttributesUtil.randomFunctionAttributeProvide(itemAndRate.getItemStack(), 3, 0.4);
-            }
             itemAndRate.sendWithMSG(player, 1);
         });
         DailyMission.addCount(player, DailyMission.plainInstanceCountMap);

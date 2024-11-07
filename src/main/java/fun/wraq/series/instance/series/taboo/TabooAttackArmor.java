@@ -38,7 +38,7 @@ public class TabooAttackArmor extends WraqArmor implements ForgeItem {
         Style style = getMainStyle();
         Compute.DescriptionPassive(components, Component.literal("禁忌秘法-加护").withStyle(style));
         components.add(Component.literal(" 当受到来自怪物的伤害时，若拥有高于").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.manaValue("10%")));
+                append(ComponentUtils.AttributeDescription.manaValue("40%")));
         components.add(Component.literal(" ").
                 append(Component.literal("则消耗").withStyle(ChatFormatting.WHITE)).
                 append(ComponentUtils.AttributeDescription.manaValue("10%")).
@@ -62,7 +62,7 @@ public class TabooAttackArmor extends WraqArmor implements ForgeItem {
 
     public static double Passive(Player player) {
         if (!IsOn(player)) return 1;
-        if (Mana.getPlayerCurrentManaNum(player) / Mana.getPlayerMaxManaNum(player) > 0.1) {
+        if (Mana.getPlayerCurrentManaNum(player) / Mana.getPlayerMaxManaNum(player) > 0.4) {
             Mana.addOrCostPlayerMana(player, (-Mana.getPlayerMaxManaNum(player) * 0.1));
             return 0.2;
         }

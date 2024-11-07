@@ -63,7 +63,9 @@ public class TorturedSoulSpawnController extends MobSpawnController {
 
         // 需要验证
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(boneImp), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(boneImp, 3200, 200, 200, 0.4, 5, 0.3, 70, 25, 2000 * Math.pow(10, 4), 0.4);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(boneImp, 3200, 200, 200,
+                0.4, 5, 0.3, 70, 25,
+                500 * Math.pow(10, 4), 0.4);
 
         // 设置物品
 

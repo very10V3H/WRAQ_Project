@@ -68,11 +68,11 @@ public class GoldenAttackOffhand extends WraqOffHandItem implements OnKillEffect
                 append(ModItems.goldCoin.get().getDefaultInstance().getDisplayName()).
                 append(Component.literal("右键消耗，获得:").withStyle(ChatFormatting.WHITE)));
         components.add(Component.literal(" 1.").withStyle(style).
-                append(ComponentUtils.AttributeDescription.critRate("25%")));
+                append(ComponentUtils.AttributeDescription.critRate("15%")));
         components.add(Component.literal(" 2.").withStyle(style).
-                append(ComponentUtils.AttributeDescription.critDamage("100%")));
+                append(ComponentUtils.AttributeDescription.critDamage("65%")));
         components.add(Component.literal(" 3.").withStyle(style).
-                append(ComponentUtils.AttributeDescription.defencePenetration("30%")));
+                append(ComponentUtils.AttributeDescription.defencePenetration("30")));
         components.add(Component.literal(" 持续5min，在持续期间").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("击杀").withStyle(ChatFormatting.RED)).
                 append(Component.literal("任意怪物，将有").withStyle(ChatFormatting.WHITE)).
@@ -108,11 +108,11 @@ public class GoldenAttackOffhand extends WraqOffHandItem implements OnKillEffect
                 targetGoldCoin.shrink(1);
                 passiveLastTimeMap.put(player.getName().getString(), tick + 6000);
                 StableAttributesModifier.addAttributeModifier(player, StableAttributesModifier.playerCritRateModifier,
-                        new StableAttributesModifier(critRateTag, 0.25, tick + 6000));
+                        new StableAttributesModifier(critRateTag, 0.15, tick + 6000));
                 StableAttributesModifier.addAttributeModifier(player, StableAttributesModifier.playerCritDamageModifier,
-                        new StableAttributesModifier(critDamageTag, 1, tick + 6000));
-                StableAttributesModifier.addAttributeModifier(player, StableAttributesModifier.playerDefencePenetrationModifier,
-                        new StableAttributesModifier(defencePenetrationTag, 0.3, tick + 6000));
+                        new StableAttributesModifier(critDamageTag, 0.65, tick + 6000));
+                StableAttributesModifier.addAttributeModifier(player, StableAttributesModifier.playerDefencePenetration0Modifier,
+                        new StableAttributesModifier(defencePenetrationTag, 30, tick + 6000));
                 Compute.sendEffectLastTime(player, ModItems.goldCoin.get(), 6000);
             }
         }

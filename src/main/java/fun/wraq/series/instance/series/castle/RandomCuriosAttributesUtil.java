@@ -13,15 +13,15 @@ public class RandomCuriosAttributesUtil {
         put(StringUtils.CuriosAttribute.attackDamage, 200d);
         put(StringUtils.CuriosAttribute.manaDamage, 400d);
         put(StringUtils.CuriosAttribute.maxHealth, 800d);
-        put(StringUtils.CuriosAttribute.defence, 6d);
-        put(StringUtils.CuriosAttribute.manaDefence, 5d);
-        put(StringUtils.CuriosAttribute.defencePenetration0, 3d);
-        put(StringUtils.CuriosAttribute.manaPenetration0, 3d);
-        put(StringUtils.CuriosAttribute.coolDown, 0.3);
+        put(StringUtils.CuriosAttribute.defence, 8d);
+        put(StringUtils.CuriosAttribute.manaDefence, 8d);
+        put(StringUtils.CuriosAttribute.defencePenetration0, 4d);
+        put(StringUtils.CuriosAttribute.manaPenetration0, 4d);
+        put(StringUtils.CuriosAttribute.coolDown, 0.15);
         put(StringUtils.CuriosAttribute.manaRecover, 30d);
         put(StringUtils.CuriosAttribute.maxMana, 50d);
         put(StringUtils.CuriosAttribute.swiftnessUp, 1.5);
-        put(StringUtils.CuriosAttribute.critDamage, 0.4);
+        put(StringUtils.CuriosAttribute.critDamage, 0.2);
         put(StringUtils.CuriosAttribute.expUp, 0.5);
         put(StringUtils.CuriosAttribute.critRate, 0.1);
         put(StringUtils.CuriosAttribute.healthSteal, 0.1);
@@ -93,7 +93,7 @@ public class RandomCuriosAttributesUtil {
     }
 
     public static void randomAttackAttributeProvide(ItemStack itemStack, int attributeNum, double rate) {
-        randomAttributeProvide(itemStack, attributeNum, rate, false);
+        randomAttackAttributeProvide(itemStack, attributeNum, rate, false);
     }
 
     public static void randomDefenceAttributeProvide(ItemStack itemStack, int attributeNum, double rate, boolean distinct) {
@@ -127,7 +127,7 @@ public class RandomCuriosAttributesUtil {
     }
 
     public static void randomDefenceAttributeProvide(ItemStack itemStack, int attributeNum, double rate) {
-        randomAttributeProvide(itemStack, attributeNum, rate, false);
+        randomDefenceAttributeProvide(itemStack, attributeNum, rate, false);
     }
 
     public static void randomFunctionAttributeProvide(ItemStack itemStack, int attributeNum, double rate, boolean distinct) {
@@ -163,6 +163,6 @@ public class RandomCuriosAttributesUtil {
     }
 
     public static void randomFunctionAttributeProvide(ItemStack itemStack, int attributeNum, double rate) {
-        randomAttributeProvide(itemStack, attributeNum, rate, false);
+        randomFunctionAttributeProvide(itemStack, attributeNum, rate, false);
     }
 }

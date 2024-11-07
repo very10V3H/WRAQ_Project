@@ -11,8 +11,6 @@ import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.plan.PlanPlayer;
 import fun.wraq.process.system.element.Element;
-import fun.wraq.process.system.tower.TowerMob;
-import fun.wraq.process.system.tower.TowerStatusS2CPacket;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -269,7 +267,7 @@ public class Tower {
         }
         serverPlayer.teleportTo(serverPlayer.getServer().getLevel(Level.OVERWORLD), tower.playerTpPos.x, tower.playerTpPos.y, tower.playerTpPos.z, 0, 0);
         tower.isChallenging = true;
-        tower.mobSummonTimes = 3;
+        tower.mobSummonTimes = 2;
         tower.currentPlayer = serverPlayer;
         tower.summonDelay = serverPlayer.getServer().getTickCount() + 100;
         tower.startTime = serverPlayer.getServer().getTickCount();

@@ -1,6 +1,7 @@
 package fun.wraq.process.func.guide.networking;
 
 import fun.wraq.process.func.guide.Guide;
+import fun.wraq.process.func.guide.GuideHud;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent;
 
@@ -26,6 +27,7 @@ public class GuideStageS2CPacket {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
             Guide.clientStage = status;
+            GuideHud.display = true;
         });
         return true;
     }
