@@ -64,7 +64,7 @@ public class PurpleIronInstance extends NoTeamInstance {
 
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(amethystCrabEntity), 120);
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(amethystCrabEntity, 1000, 120, 120,
-                0.35, 3, 0.2, 25, 0, 50 * Math.pow(10, 4), 0.3);
+                0.35, 3, 0.2, 25, 0, 30 * Math.pow(10, 4), 0.3);
 
         amethystCrabEntity.setHealth(amethystCrabEntity.getMaxHealth());
 

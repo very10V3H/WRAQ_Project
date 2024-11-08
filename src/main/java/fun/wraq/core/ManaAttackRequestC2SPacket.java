@@ -1,8 +1,7 @@
 package fun.wraq.core;
 
-import fun.wraq.common.Compute;
-import fun.wraq.common.util.Utils;
 import fun.wraq.common.equip.WraqSceptre;
+import fun.wraq.common.util.Utils;
 import fun.wraq.series.instance.series.castle.CastleManaArmor;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
@@ -29,10 +28,11 @@ public class ManaAttackRequestC2SPacket {
             ServerPlayer serverPlayer = context.getSender();
             Player player = (Player) serverPlayer;
             int tick = serverPlayer.getServer().getTickCount();
-            if (Utils.PlayerManaAttackTime.containsKey(serverPlayer) && tick - Utils.PlayerManaAttackTime.get(serverPlayer) < 9)
+            if (Utils.PlayerManaAttackTime.containsKey(serverPlayer) && tick - Utils.PlayerManaAttackTime.get(serverPlayer) < 9) {
                 return;
-            if (Compute.getManaSkillLevel(player.getPersistentData(), 10) == 10)
-                CastleManaArmor.NormalAttack(player); //
+            }
+
+            CastleManaArmor.NormalAttack(player);
             Utils.PlayerManaAttackTime.put(serverPlayer, tick);
 
             Item sceptre = player.getMainHandItem().getItem();

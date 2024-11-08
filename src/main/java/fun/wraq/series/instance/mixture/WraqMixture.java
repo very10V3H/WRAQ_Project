@@ -95,7 +95,7 @@ public class WraqMixture extends WraqPassiveEquip implements ActiveItem, OnShoot
         activeItem.put(player, this);
         Compute.sendEffectLastTime(player, this, (int) (lastSecond * 20));
         MixtureItems.ITEMS.getEntries().forEach(item -> {
-            Compute.playerItemCoolDown(player, item.get(), (int) (coolDownSecond * 20));
+            Compute.playerItemCoolDown(player, item.get(), coolDownSecond);
         });
     }
 

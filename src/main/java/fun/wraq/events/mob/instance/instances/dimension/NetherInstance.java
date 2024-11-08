@@ -54,7 +54,7 @@ public class NetherInstance extends NoTeamInstance {
 
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(entity), 90);
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(entity, 400, 55, 55, 0.35,
-                3, 0.2, 20, 0, 300000, 0.3);
+                3, 0.2, 20, 0, 250000, 0.3);
 
         entity.moveTo(pos);
         level.addFreshEntity(entity);

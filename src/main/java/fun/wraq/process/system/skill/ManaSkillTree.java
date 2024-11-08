@@ -27,7 +27,7 @@ public class ManaSkillTree {
         int tier = getManaSkillTier(player, 14);
         if (tier > 0 && Compute.playerIsInBattle(player)) {
             skill14Map.compute(player, (k, v) -> v == null ? value : v + value);
-            double maxMana = 1000 + PlayerAttributes.maxManaUp(player);
+            double maxMana = PlayerAttributes.maxMana(player);
             if (skill14Map.getOrDefault(player, 0d) >= maxMana) {
                 WraqMixture.batchAddExShoot(player, (maxMana) / 100 * 0.05, tier);
                 skill14Map.put(player, 0d);

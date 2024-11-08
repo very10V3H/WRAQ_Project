@@ -32,11 +32,11 @@ public class NetherSceptre extends WraqSceptre implements Laser, ForgeItem {
 
     public NetherSceptre(Properties p_42964_) {
         super(p_42964_.rarity(CustomStyle.NetherItalic));
-        Utils.manaDamage.put(this, 1024d);
+        Utils.critRate.put(this, 0.25);
+        Utils.manaDamage.put(this, 480d);
         Utils.manaRecover.put(this, 20d);
         Utils.coolDownDecrease.put(this, 0.35);
         Utils.manaPenetration0.put(this, 24d);
-        Utils.manaCost.put(this, 45d);
         Element.FireElementValue.put(this, 1d);
     }
 
@@ -72,7 +72,7 @@ public class NetherSceptre extends WraqSceptre implements Laser, ForgeItem {
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
-        if (!level.isClientSide) {
+        if (!level.isClientSide && Mana.getPlayerCurrentManaNum(player) > 45) {
             passiveLastTickMap.put(player, Tick.get() + 8);
         }
         return super.use(level, player, interactionHand);
@@ -80,8 +80,11 @@ public class NetherSceptre extends WraqSceptre implements Laser, ForgeItem {
 
     @Override
     public void tick(Player player) {
-        if (passiveLastTickMap.getOrDefault(player, 0) > Tick.get()) {
-            Mana.addOrCostPlayerMana(player, -4.5);
+        if (passiveLastTickMap.getOrDefault(player, 0) > Tick.get()
+                && Mana.getPlayerCurrentManaNum(player) > 45) {
+            if (Tick.get() % 10 == 0) {
+                Mana.addOrCostPlayerMana(player, -45);
+            }
             Compute.TargetLocationLaser(player, player.pick(30, 0, false).getLocation(),
                     ModParticles.YSR1.get(), 1, 10);
         }

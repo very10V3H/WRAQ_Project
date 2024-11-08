@@ -8,9 +8,8 @@ public class DevilSceptre extends IceSceptre {
     public DevilSceptre(Properties p_42964_) {
         super(p_42964_);
         Utils.manaDamage.put(this, 2000d);
-        Utils.manaRecover.put(this, 30d);
+        Utils.manaRecover.put(this, 22d);
         Utils.manaPenetration0.put(this, 25d);
-        Utils.manaCost.put(this, 45d);
-        Utils.coolDownDecrease.put(this, 0.5);
+        Utils.coolDownDecrease.put(this, 0.3);
     }
 }

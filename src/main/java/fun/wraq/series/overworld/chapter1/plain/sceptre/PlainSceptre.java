@@ -37,10 +37,9 @@ public class PlainSceptre extends WraqSceptre implements OnHitEffectEquip, InCur
         super(properties);
         this.tier = tier;
         Utils.manaDamage.put(this, new double[]{20, 25, 35, 45, 60}[tier]);
-        Utils.manaRecover.put(this, new double[]{8, 9, 10, 12, 15}[tier]);
+        Utils.manaRecover.put(this, new double[]{8, 9, 10, 11, 12}[tier]);
         Utils.manaPenetration0.put(this, new double[]{1, 1, 2, 2, 3}[tier]);
         Utils.coolDownDecrease.put(this, new double[]{0.1, 0.12, 0.14, 0.16, 0.2}[tier]);
-        Utils.manaCost.put(this, (double) 45);
         Element.LifeElementValue.put(this, new double[]{0.2, 0.4, 0.6, 0.8, 1}[tier]);
     }
 

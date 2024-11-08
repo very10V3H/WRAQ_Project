@@ -34,7 +34,6 @@ public class LifeElementSceptre extends WraqSceptre implements ActiveItem {
         Utils.manaDamage.put(this, 1774d);
         Utils.manaRecover.put(this, 30d);
         Utils.manaPenetration0.put(this, 40d);
-        Utils.manaCost.put(this, 45d);
         Utils.coolDownDecrease.put(this, 0.2);
         Element.LifeElementValue.put(this, 2d);
     }

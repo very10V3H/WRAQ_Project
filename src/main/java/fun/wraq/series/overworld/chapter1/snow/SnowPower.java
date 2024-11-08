@@ -62,7 +62,7 @@ public class SnowPower extends Item implements ActiveItem {
     }
 
     public static int[] ManaCost = {
-            180, 150, 150, 120
+            100, 125, 150, 175
     };
 
     public static int[] CoolDownTime = {
@@ -70,7 +70,7 @@ public class SnowPower extends Item implements ActiveItem {
     };
 
     public static double[] effect = {
-            1.5, 2, 2.5, 3
+            1, 1.25, 1.5, 1.75
     };
 
     @Override

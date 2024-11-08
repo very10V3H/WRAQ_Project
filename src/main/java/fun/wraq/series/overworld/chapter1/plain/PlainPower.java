@@ -48,7 +48,7 @@ public class PlainPower extends Item implements ActiveItem {
         components.add(Component.literal(" 为").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("自身").withStyle(ChatFormatting.GREEN)).
                 append(Component.literal("周围所有玩家提供持续5s的").withStyle(ChatFormatting.WHITE)).
-                append(ComponentUtils.AttributeDescription.movementSpeed("50%")));
+                append(ComponentUtils.AttributeDescription.movementSpeed("20%")));
         ComponentUtils.coolDownTimeDescription(components, CoolDownTime[this.tier]);
         ComponentUtils.manaCostDescription(components, manaCost[this.tier]);
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
@@ -61,7 +61,7 @@ public class PlainPower extends Item implements ActiveItem {
     }
 
     public static int[] manaCost = {
-            180, 150, 150, 120
+            100, 115, 130, 150
     };
 
     public static int[] CoolDownTime = {
@@ -69,7 +69,7 @@ public class PlainPower extends Item implements ActiveItem {
     };
 
     public static double[] effect = {
-            1, 1.25, 1.5, 2
+            1, 1.15, 1.3, 1.5
     };
 
     @Override

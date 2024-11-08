@@ -1,13 +1,13 @@
 package fun.wraq.series.newrunes.chapter2;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqCurios;
+import fun.wraq.common.impl.display.UsageOrGetWayDescriptionItem;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.chapter2.EvokerSpawnController;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
-import fun.wraq.common.impl.display.UsageOrGetWayDescriptionItem;
-import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.render.hud.Mana;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.newrunes.NewRuneItems;
@@ -44,7 +44,7 @@ public class EvokerNewRune extends WraqCurios implements RuneItem, UsageOrGetWay
         components.add(Component.literal(" 每过4s，对半径8格内的所有怪物造成").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.AttributeDescription.manaDamageValue("100%")));
         components.add(Component.literal(" 并基于怪物数量，为你回复至多").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.manaValue("25%")));
+                append(ComponentUtils.AttributeDescription.manaValue("10%")));
         components.add(Component.literal(" 倍率线性增长").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
         return components;
     }
@@ -64,7 +64,8 @@ public class EvokerNewRune extends WraqCurios implements RuneItem, UsageOrGetWay
         if (WraqCurios.isOn(EvokerNewRune.class, player)) {
             int tick = player.getServer().getTickCount();
             if (tick % 80 == 0) {
-                List<Mob> mobList = player.level().getEntitiesOfClass(Mob.class, AABB.ofSize(player.position(), 16, 16, 16));
+                List<Mob> mobList = player.level().getEntitiesOfClass(Mob.class, AABB.ofSize(player.position(),
+                        16, 16, 16));
                 mobList.removeIf(mob -> mob.distanceTo(player) > 8);
                 if (!mobList.isEmpty()) {
                     mobList.forEach(mob -> {
@@ -72,7 +73,7 @@ public class EvokerNewRune extends WraqCurios implements RuneItem, UsageOrGetWay
                         ParticleProvider.LineParticle(player.level(), (int) (mob.distanceTo(player) * 5),
                                 player.position().add(0, 1, 0), mob.getEyePosition(), ParticleTypes.WITCH);
                     });
-                    Mana.addOrCostPlayerMana(player, Mana.getPlayerMaxManaNum(player) * Math.min(5, mobList.size()) * 0.05);
+                    Mana.addOrCostPlayerMana(player, Mana.getPlayerMaxManaNum(player) * Math.min(5, mobList.size()) * 0.02);
                     Compute.sendCoolDownTime(player, NewRuneItems.evokerNewRune.get(), 80);
                 }
             }

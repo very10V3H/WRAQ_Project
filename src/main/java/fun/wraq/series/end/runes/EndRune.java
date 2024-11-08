@@ -18,7 +18,7 @@ public class EndRune extends WraqCurios implements UsageOrGetWayDescriptionItem 
 
     public EndRune(Properties properties) {
         super(properties);
-        Utils.expUp.put(this, 0.33);
+        Utils.expUp.put(this, 0.15);
     }
 
     @Override

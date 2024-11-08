@@ -23,7 +23,7 @@ public class SnowShield extends Item {
         Utils.maxHealth.put(this, 350d);
         Utils.attackDamage.put(this, 10d);
         Utils.critRate.put(this, 0.05);
-        Utils.expUp.put(this, 0.75);
+        Utils.expUp.put(this, 0.4);
         Utils.offHandTag.put(this, 1d);
         Utils.weaponList.add(this);
         Utils.shieldTag.put(this, 1d);

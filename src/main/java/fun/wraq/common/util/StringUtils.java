@@ -441,6 +441,9 @@ public class StringUtils {
         public static String EXPLOSION = "EXPLOSION";
         public static String FLAME = "FLAME";
         public static String END_ROD = "END_ROD";
+        public static String BUBBLE = "BUBBLE";
+        public static String BUBBLE_POP = "BUBBLE_POP";
+        public static String BUBBLE_COLUMN_UP = "BUBBLE_COLUMN_UP";
     }
 
     public static class MobName {

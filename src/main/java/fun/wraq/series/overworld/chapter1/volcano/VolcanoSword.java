@@ -55,7 +55,7 @@ public class VolcanoSword extends WraqSword implements ActiveItem {
                 ComponentUtils.AttributeDescription.exAttackDamage((int) exAttackDamage[tier] + " "), "");
         components.add(Component.literal("持续10s").withStyle(ChatFormatting.WHITE));
         ComponentUtils.coolDownTimeDescription(components, 18);
-        ComponentUtils.manaCostDescription(components, 60);
+        ComponentUtils.manaCostDescription(components, 30);
         return components;
     }
 
@@ -66,7 +66,7 @@ public class VolcanoSword extends WraqSword implements ActiveItem {
 
     @Override
     public void active(Player player) {
-        if (Compute.playerManaCost(player, 60)) {
+        if (Compute.playerManaCost(player, 30)) {
             ParticleProvider.VerticleCircleParticle((ServerPlayer) player, 0.25, 1, 16, ParticleTypes.ANGRY_VILLAGER);
             ParticleProvider.RandomMoveParticle((ServerPlayer) player, 0, 0.25, 32, ParticleTypes.ASH);
             Compute.sendEffectLastTime(player, ModItems.VolcanoSword3.get().getDefaultInstance(), 200);

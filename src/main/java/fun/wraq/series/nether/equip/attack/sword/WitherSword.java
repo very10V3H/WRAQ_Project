@@ -32,7 +32,7 @@ public class WitherSword extends WraqSword implements ActiveItem, ForgeItem {
         this.tier = tier;
         Utils.attackDamage.put(this, new double[]{80, 100, 120, 140}[tier]);
         Utils.defencePenetration0.put(this, new double[]{9, 10, 11, 12}[tier]);
-        Utils.healthSteal.put(this, new double[]{0.2, 0.22, 0.24, 0.3}[tier]);
+        Utils.healthSteal.put(this, new double[]{0.04, 0.06, 0.08, 0.1}[tier]);
         Utils.critRate.put(this, new double[]{0.2, 0.22, 0.24, 0.3}[tier]);
         Utils.critDamage.put(this, new double[]{0.35, 0.4, 0.45, 0.55}[tier]);
         Element.FireElementValue.put(this, new double[]{0.2, 0.4, 0.6, 0.8}[tier]);

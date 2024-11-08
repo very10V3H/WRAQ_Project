@@ -1,6 +1,7 @@
 package fun.wraq.series.overworld.chapter1.forest;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.power.PowerLogic;
@@ -46,12 +47,8 @@ public class ForestPower extends Item implements ActiveItem {
                 append(ComponentUtils.AttributeDescription.manaDamageValue(String.format("%.0f", effect[tier] * 100) + "%")));
         components.add(Component.literal(" - 这个伤害会附带").withStyle(ChatFormatting.WHITE).
                 append(Element.Description.LifeElement("1 + 100%")));
-        components.add(Component.literal(" 治疗").withStyle(ChatFormatting.WHITE).
-                append(Component.literal("自身").withStyle(ChatFormatting.GREEN)).
-                append(Component.literal("周围所有玩家").withStyle(ChatFormatting.WHITE)).
-                append(Component.literal("能力-智力 * 20").withStyle(ChatFormatting.LIGHT_PURPLE)).
-                append(Component.literal("的").withStyle(ChatFormatting.WHITE)).
-                append(ComponentUtils.AttributeDescription.health("")));
+        components.add(Te.s(" 为", "自身", ChatFormatting.GREEN, "周围所欲玩家提供持续5s的",
+                ComponentUtils.AttributeDescription.healthRecover("能力 - 智力 * 4 ")));
         ComponentUtils.coolDownTimeDescription(components, CoolDownTime[tier]);
         ComponentUtils.manaCostDescription(components, ManaCost[tier]);
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
@@ -64,7 +61,7 @@ public class ForestPower extends Item implements ActiveItem {
     }
 
     public static int[] ManaCost = {
-            180, 150, 150, 120
+            100, 115, 130, 150
     };
 
     public static int[] CoolDownTime = {
@@ -72,7 +69,7 @@ public class ForestPower extends Item implements ActiveItem {
     };
 
     public static double[] effect = {
-            1, 1.25, 1.5, 2
+            1, 1.15, 1.3, 1.5
     };
 
     @Override

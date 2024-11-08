@@ -37,10 +37,9 @@ public class IceSceptre extends WraqSceptre implements OnHitEffectEquip, OnPower
     public IceSceptre(Properties p_42964_) {
         super(p_42964_);
         Utils.manaDamage.put(this, 1400d);
-        Utils.manaRecover.put(this, 30d);
-        Utils.coolDownDecrease.put(this, 0.45);
+        Utils.manaRecover.put(this, 20d);
+        Utils.coolDownDecrease.put(this, 0.25);
         Utils.manaPenetration0.put(this, 21d);
-        Utils.manaCost.put(this, 45d);
         Element.IceElementValue.put(this, 1.25);
     }
 

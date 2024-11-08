@@ -591,5 +591,8 @@ public class ClientUtils {
 
     public static int ipFlag = -1;
 
+    public static boolean isInBattle = false;
+
+    public static int tabSwitchLastTime = 0;
 }
 

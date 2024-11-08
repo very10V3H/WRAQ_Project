@@ -18,13 +18,9 @@ import fun.wraq.networking.misc.SkillPackets.Charging.ChargedClearS2CPacket;
 import fun.wraq.networking.misc.SkillPackets.SkillImageS2CPacket;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.suit.SuitCount;
-import fun.wraq.render.mobEffects.ModEffects;
 import fun.wraq.render.particles.ModParticles;
 import fun.wraq.series.overworld.chapter1.Mine.Sword.MineSword;
 import fun.wraq.series.overworld.chapter1.snow.SnowSword;
-import fun.wraq.series.overworld.chapter1.forest.bow.ForestBow;
-import fun.wraq.series.overworld.chapter1.plain.PlainBow;
-import fun.wraq.series.overworld.chapter1.volcano.VolcanoBow;
 import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundLevelParticlesPacket;
@@ -40,7 +36,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -351,18 +346,6 @@ public class AttackEventModule {
             EnhanceDamage = (1.5 + Distance / 100.0);
         }
         return EnhanceDamage;
-    }
-
-    public static void BowPositiveEffect(ItemStack Bow, Player player, CompoundTag data, int TickCount) {
-        if (Bow.getItem() instanceof PlainBow) {
-            player.addEffect(new MobEffectInstance(ModEffects.PLAINBOW.get(), 40));
-            data.putInt(StringUtils.PlainBowSkill, TickCount + 40);
-        }
-        if (Bow.getItem() instanceof ForestBow) player.heal(player.getMaxHealth() * 0.05f);
-        if (Bow.getItem() instanceof VolcanoBow) {
-            player.addEffect(new MobEffectInstance(ModEffects.VOLCANOBOW.get(), 50));
-            data.putInt(StringUtils.VolcanoBowSkill, TickCount + 50);
-        }
     }
 
     public static void BowSkill5(CompoundTag data, Player player) {

@@ -25,11 +25,10 @@ import java.util.List;
 public class EvokerSceptre extends WraqSceptre {
     public EvokerSceptre(Properties p_42964_, int tier) {
         super(p_42964_);
-        Utils.manaDamage.put(this, new double[]{200, 300, 400, 600}[tier]);
-        Utils.manaRecover.put(this, new double[]{20, 25, 30, 40}[tier]);
+        Utils.manaDamage.put(this, new double[]{220, 260, 300, 360}[tier]);
+        Utils.manaRecover.put(this, new double[]{13, 14, 15, 16}[tier]);
         Utils.manaPenetration0.put(this, new double[]{4, 5, 6, 7}[tier]);
-        Utils.manaCost.put(this, 60d);
-        Utils.coolDownDecrease.put(this, new double[]{0.1, 0.2, 0.3, 0.4}[tier]);
+        Utils.coolDownDecrease.put(this, new double[]{0.2, 0.2, 0.2, 0.2}[tier]);
         Element.LightningElementValue.put(this, new double[]{0.8, 0.9, 1, 1.2}[tier]);
     }
 

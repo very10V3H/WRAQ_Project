@@ -40,7 +40,6 @@ public class Mana {
         if (value > 0) {
             data.putDouble("MANA",
                     Math.min(currentValue + value, getPlayerMaxManaNum(player)));
-
             ManaSkillTree.skill14OnPlayerManaRecover(player, Math.min(getPlayerMaxManaNum(player) - currentValue, value));
         }
         else {

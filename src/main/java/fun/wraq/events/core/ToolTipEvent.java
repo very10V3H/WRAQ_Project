@@ -4,6 +4,8 @@ import fun.wraq.blocks.blocks.brew.BrewingNote;
 import fun.wraq.blocks.blocks.forge.ForgeRecipe;
 import fun.wraq.blocks.blocks.inject.InjectRecipe;
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqArmor;
+import fun.wraq.common.equip.WraqMainHandEquip;
 import fun.wraq.common.equip.impl.RandomCurios;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.impl.display.UsageOrGetWayDescriptionItem;
@@ -68,7 +70,8 @@ public class ToolTipEvent {
         if ((InjectRecipe.injectingRecipeMap.containsKey(event.getItemStack().getItem())
                 || InjectRecipe.injectedGetItemSourceItemMap.containsKey(event.getItemStack().getItem()))) {
             if (!Screen.hasShiftDown())
-                event.getToolTip().add(Component.literal("[在灌注配方中，shift查看配方]").withStyle(ChatFormatting.BOLD).withStyle(CustomStyle.styleOfInject));
+                event.getToolTip().add(Component.literal("[在灌注配方中，按下Shift查看配方]")
+                        .withStyle(ChatFormatting.BOLD).withStyle(CustomStyle.styleOfInject));
             else {
                 InjectingRecipe injectingRecipe;
                 Item sourceItem = event.getItemStack().getItem();
@@ -86,6 +89,9 @@ public class ToolTipEvent {
                 event.getToolTip().add(Component.literal("灌注 ").withStyle(CustomStyle.styleOfInject).
                         append(sourceItem.getDefaultInstance().getDisplayName()).
                         append(Component.literal(" * " + injectingRecipe.getOriginalMaterialNeedCount()).withStyle(ChatFormatting.WHITE)));
+                if (sourceItem instanceof WraqArmor || sourceItem instanceof WraqMainHandEquip) {
+                    tooltip.add(Te.s("▲将保留强化等级/品质/宝石等信息", CustomStyle.styleOfGold));
+                }
                 event.getToolTip().add(Component.literal("得到 ").withStyle(ChatFormatting.AQUA).
                         append(injectingRecipe.getForgingGetItem().getDefaultInstance().getDisplayName()));
             }

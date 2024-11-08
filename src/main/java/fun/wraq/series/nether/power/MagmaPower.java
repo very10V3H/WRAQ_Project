@@ -37,7 +37,7 @@ public class MagmaPower extends Item implements ActiveItem {
                 append(Element.Description.FireElement("1 + 100%")));
         components.add(Component.literal("并对受到影响的目标造成减速效果。").withStyle(ChatFormatting.GRAY));
         ComponentUtils.coolDownTimeDescription(components, 3);
-        ComponentUtils.manaCostDescription(components, 120);
+        ComponentUtils.manaCostDescription(components, 300);
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
         super.appendHoverText(itemStack, level, components, flag);
     }
@@ -49,7 +49,7 @@ public class MagmaPower extends Item implements ActiveItem {
 
     @Override
     public void active(Player player) {
-        if (Compute.playerManaCost(player, 40, true)) {
+        if (Compute.playerManaCost(player, 300, true)) {
             PowerLogic.MagmaPower(player, this);
             PowerLogic.PlayerReleasePowerType(player, 3);
         }

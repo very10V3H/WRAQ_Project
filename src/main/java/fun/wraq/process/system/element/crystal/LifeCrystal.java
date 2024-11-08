@@ -37,7 +37,7 @@ public class LifeCrystal extends SwordItem implements ActiveItem {
     };
 
     private static final double[] ExpUp = {
-            0.5, 1, 1.5, 2
+            0.2, 0.25, 0.3, 0.35
     };
 
     public LifeCrystal(Properties properties, int tier) {

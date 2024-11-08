@@ -847,7 +847,7 @@ public class SkillTreeGui extends Screen {
             components.add(Component.literal("▲弓术专精 - 原野护符").withStyle(CustomStyle.styleOfFlexible));
             ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfFlexible, ChatFormatting.WHITE);
             components.add(Component.literal("手持弓时，获得").withStyle(ChatFormatting.WHITE).
-                    append(ComponentUtils.AttributeDescription.movementSpeedWithoutBattle(ClientUtils.BowSkillPoint.PointCache[index] * 3 + "%")));
+                    append(ComponentUtils.AttributeDescription.movementSpeed(ClientUtils.BowSkillPoint.PointCache[index] * 2 + "%")));
             ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfFlexible, ChatFormatting.WHITE);
             components.add(Component.literal("▶专精等级:").withStyle(CustomStyle.styleOfFlexible));
             components.add(Component.literal(ClientUtils.BowSkillPoint.PointCache[index] + " / " + 10).withStyle(CustomStyle.styleOfFlexible));
@@ -967,7 +967,7 @@ public class SkillTreeGui extends Screen {
             components.add(Component.literal("▲弓术专精 - 猎手本能").withStyle(CustomStyle.styleOfFlexible));
             ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfFlexible, ChatFormatting.WHITE);
             components.add(Component.literal("手持弓时，获得").withStyle(ChatFormatting.WHITE).
-                    append(ComponentUtils.AttributeDescription.movementSpeedWithoutBattle(ClientUtils.BowSkillPoint.PointCache[index] * 8 + "%")));
+                    append(ComponentUtils.AttributeDescription.movementSpeed(ClientUtils.BowSkillPoint.PointCache[index] * 3 + "%")));
             ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfFlexible, ChatFormatting.WHITE);
             components.add(Component.literal("▶专精等级:").withStyle(CustomStyle.styleOfFlexible));
             components.add(Component.literal(ClientUtils.BowSkillPoint.PointCache[index] + " / " + 5).withStyle(CustomStyle.styleOfFlexible));
@@ -1169,7 +1169,7 @@ public class SkillTreeGui extends Screen {
             components.add(Component.literal("▲法术专精 - 冷静").withStyle(CustomStyle.styleOfMana));
             ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
             components.add(Component.literal("手持法杖时，获得").withStyle(ChatFormatting.WHITE).
-                    append(ComponentUtils.AttributeDescription.releaseSpeed(String.valueOf(ClientUtils.ManaSkillPoint.PointCache[index] * 6))));
+                    append(ComponentUtils.AttributeDescription.releaseSpeed(String.valueOf(ClientUtils.ManaSkillPoint.PointCache[index] * 3))));
             ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
             components.add(Component.literal("▶专精等级:").withStyle(CustomStyle.styleOfMana));
             components.add(Component.literal(ClientUtils.ManaSkillPoint.PointCache[index] + " / " + 5).withStyle(CustomStyle.styleOfMana));
@@ -1225,7 +1225,7 @@ public class SkillTreeGui extends Screen {
             components.add(Component.literal("▲法术专精 - 术法全析").withStyle(CustomStyle.styleOfMana));
             ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
             components.add(Component.literal("手持法杖时，获得").withStyle(ChatFormatting.WHITE).
-                    append(ComponentUtils.AttributeDescription.releaseSpeed(String.valueOf(ClientUtils.ManaSkillPoint.PointCache[index] * 4))));
+                    append(ComponentUtils.AttributeDescription.releaseSpeed(String.valueOf(ClientUtils.ManaSkillPoint.PointCache[index] * 2))));
             ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
             components.add(Component.literal("▶专精等级:").withStyle(CustomStyle.styleOfMana));
             components.add(Component.literal(ClientUtils.ManaSkillPoint.PointCache[index] + " / " + 10).withStyle(CustomStyle.styleOfMana));

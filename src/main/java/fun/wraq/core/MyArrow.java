@@ -309,7 +309,6 @@ public class MyArrow extends AbstractArrow {
             // Health steal
             Compute.healByHealthSteal(player, damage * PlayerAttributes.healthSteal(player));
 
-            AttackEventModule.BowPositiveEffect(mainHandItem, player, data, tickCount);
             AttackEventModule.BowSkill3Attack(data, player, monster); // 习惯获取（对一名目标的持续攻击，可以使你对该目标的伤害至多提升至2%，在3次攻击后达到最大值）
             AttackEventModule.BowSkill12Attack(data, player); // 盈能攻击（移动、攻击以及受到攻击将会获得充能，当充能满时，下一次攻击将造成额外200%伤害，并在以目标为中心范围内造成100%伤害）
             AttackEventModule.ManaKnifeHealthRecover(player); // 猎魔者小刀

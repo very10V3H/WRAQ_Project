@@ -53,7 +53,7 @@ public class LakeSword extends WraqSword implements ActiveItem, OnHitEffectEquip
         Compute.DescriptionActive(components, Component.literal("出水").withStyle(ChatFormatting.BLUE));
         components.add(Component.literal(" 右键向前冲刺"));
         ComponentUtils.coolDownTimeDescription(components, coolDownSeconds[tier]);
-        ComponentUtils.manaCostDescription(components, 100);
+        ComponentUtils.manaCostDescription(components, 80);
         return components;
     }
 
@@ -70,7 +70,7 @@ public class LakeSword extends WraqSword implements ActiveItem, OnHitEffectEquip
 
     @Override
     public void active(Player player) {
-        if (Compute.playerManaCost(player, 100)) {
+        if (Compute.playerManaCost(player, 80)) {
             ModNetworking.sendToClient(new UtilsLakeSwordS2CPacket(true), (ServerPlayer) player);
             List.of(ModItems.LakeSword0.get(), ModItems.LakeSword1.get(),
                     ModItems.LakeSword2.get(), ModItems.LakeSword3.get())

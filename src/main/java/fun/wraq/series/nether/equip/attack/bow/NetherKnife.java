@@ -28,9 +28,9 @@ public class NetherKnife extends WraqOffHandItem implements OnShootArrowEquip, F
 
     public NetherKnife(Properties properties, Component type) {
         super(properties, type);
-        Utils.attackDamage.put(this, 50d);
+        Utils.attackDamage.put(this, 80d);
         Utils.critDamage.put(this, 0.15);
-        Utils.expUp.put(this, 0.75);
+        Utils.expUp.put(this, 0.6);
     }
 
     @Override

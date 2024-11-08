@@ -41,7 +41,7 @@ public class TabooAttackArmor extends WraqArmor implements ForgeItem {
                 append(ComponentUtils.AttributeDescription.manaValue("40%")));
         components.add(Component.literal(" ").
                 append(Component.literal("则消耗").withStyle(ChatFormatting.WHITE)).
-                append(ComponentUtils.AttributeDescription.manaValue("10%")).
+                append(ComponentUtils.AttributeDescription.manaValue("5%")).
                 append(Component.literal("来使即将到来的伤害减少80%").withStyle(ChatFormatting.WHITE)));
         return components;
     }
@@ -63,7 +63,7 @@ public class TabooAttackArmor extends WraqArmor implements ForgeItem {
     public static double Passive(Player player) {
         if (!IsOn(player)) return 1;
         if (Mana.getPlayerCurrentManaNum(player) / Mana.getPlayerMaxManaNum(player) > 0.4) {
-            Mana.addOrCostPlayerMana(player, (-Mana.getPlayerMaxManaNum(player) * 0.1));
+            Mana.addOrCostPlayerMana(player, (-Mana.getPlayerMaxManaNum(player) * 0.05));
             return 0.2;
         }
         return 1;

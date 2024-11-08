@@ -27,7 +27,7 @@ public class NetherSword extends WraqSword implements ActiveItem, ForgeItem {
 
     public NetherSword(Properties properties) {
         super(properties);
-        Utils.attackDamage.put(this, 160d);
+        Utils.attackDamage.put(this, 240d);
         Utils.defencePenetration0.put(this, 12d);
         Utils.critRate.put(this, 0.25);
         Utils.critDamage.put(this, 0.5);

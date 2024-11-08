@@ -18,7 +18,7 @@ public class RandomCuriosAttributesUtil {
         put(StringUtils.CuriosAttribute.defencePenetration0, 4d);
         put(StringUtils.CuriosAttribute.manaPenetration0, 4d);
         put(StringUtils.CuriosAttribute.coolDown, 0.15);
-        put(StringUtils.CuriosAttribute.manaRecover, 30d);
+        put(StringUtils.CuriosAttribute.manaRecover, 15d);
         put(StringUtils.CuriosAttribute.maxMana, 50d);
         put(StringUtils.CuriosAttribute.swiftnessUp, 1.5);
         put(StringUtils.CuriosAttribute.critDamage, 0.2);

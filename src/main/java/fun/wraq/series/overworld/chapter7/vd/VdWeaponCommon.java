@@ -97,7 +97,8 @@ public interface VdWeaponCommon {
             }
             else {
                 list.add(new CountOnMob(mob, Math.min(5, countOnMob.count + 1), tick));
-                if (countOnMob.count < 5) ParticleProvider.dustParticle(player, mob.getEyePosition(), 0.5 + (countOnMob.count * 0.05), countOnMob.count * 6, CustomStyle.styleOfWorld.getColor().getValue());
+                if (countOnMob.count < 5) ParticleProvider.dustParticle(player, mob.getEyePosition(),
+                        0.5 + (countOnMob.count * 0.05), countOnMob.count * 6, CustomStyle.styleOfWorld.getColor().getValue());
                 else {
                     ParticleProvider.dustParticle(player, mob.getEyePosition(), 0.5 + (countOnMob.count * 0.05), countOnMob.count * 3, CustomStyle.styleOfWorld.getColor().getValue());
                     ParticleProvider.dustParticle(player, mob.getEyePosition(), 0.5 + (countOnMob.count * 0.05), countOnMob.count * 3, CustomStyle.styleOfRed.getColor().getValue());

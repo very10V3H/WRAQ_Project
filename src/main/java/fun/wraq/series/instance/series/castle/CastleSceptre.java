@@ -35,10 +35,9 @@ public class CastleSceptre extends WraqSceptre implements ForgeItem, ActiveItem 
     public CastleSceptre(Properties p_42964_) {
         super(p_42964_);
         Utils.manaDamage.put(this, 3000d);
-        Utils.manaRecover.put(this, 30d);
+        Utils.manaRecover.put(this, 26d);
         Utils.manaPenetration0.put(this, 36d);
-        Utils.manaCost.put(this, 45d);
-        Utils.coolDownDecrease.put(this, 0.2);
+        Utils.coolDownDecrease.put(this, 0.35);
     }
 
     @Override
@@ -84,7 +83,8 @@ public class CastleSceptre extends WraqSceptre implements ForgeItem, ActiveItem 
                 append(Component.literal("与").withStyle(ChatFormatting.WHITE)).
                 append(ComponentUtils.AttributeDescription.manaPenetration("15")));
         ComponentUtils.coolDownTimeDescription(components, 15);
-        components.add(Component.literal(" 多件暗黑武器的主动将会刷新持续时间，但效果将不会叠加，且共享冷却时间").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
+        components.add(Component.literal(" 多件暗黑武器的主动将会刷新持续时间，但效果将不会叠加，且共享冷却时间")
+                .withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
         return components;
     }
 

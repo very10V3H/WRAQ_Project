@@ -527,12 +527,12 @@ public class PlayerAttributes {
         } // 剑舞（手持近战武器时，获得5%额外移动速度）
 
         if (Compute.getBowSkillLevel(data, 1) > 0 && Utils.bowTag.containsKey(mainHandItem)) {
-            movementSpeedUp += Compute.getBowSkillLevel(data, 1) * 0.03;
-        } // 原野护符（持有弓时，获得3%的额外移动速度）
+            movementSpeedUp += Compute.getBowSkillLevel(data, 1) * 0.02;
+        } // 原野护符（持有弓时，获得2%的额外移动速度）
 
         if (Compute.getBowSkillLevel(data, 9) > 0 && Utils.bowTag.containsKey(mainHandItem)) {
-            movementSpeedUp += Compute.getBowSkillLevel(data, 9) * 0.08;
-        } // 猎手本能（手持弓时，获得8%额外移动速度）
+            movementSpeedUp += Compute.getBowSkillLevel(data, 9) * 0.03;
+        } // 猎手本能（手持弓时，获得3%额外移动速度）
 
         if (Compute.getManaSkillLevel(data, 9) > 0 && Utils.sceptreTag.containsKey(mainHandItem)) {
             movementSpeedUp += Compute.getManaSkillLevel(data, 9) * 0.05;
@@ -1000,7 +1000,7 @@ public class PlayerAttributes {
             releaseSpeed += Utils.coolDownDecrease.get(mainhand);
         if (Utils.offHandTag.containsKey(offhand) && Utils.coolDownDecrease.containsKey(offhand))
             releaseSpeed += Utils.coolDownDecrease.get(offhand);
-        if (SuitCount.getLakeSuitCount(player) >= 2) releaseSpeed += 0.2;
+        if (SuitCount.getLakeSuitCount(player) >= 2) releaseSpeed += 0.1;
         if (SuitCount.getObsiManaSuitCount(player) >= 4) releaseSpeed += 0.2;
         if (player.getPersistentData().contains("Blue") && player.getPersistentData().getInt("Blue") == 0)
             releaseSpeed += player.getAttribute(Attributes.MOVEMENT_SPEED).getValue() - 0.1F;
@@ -1015,8 +1015,9 @@ public class PlayerAttributes {
         releaseSpeed += SArmorAttribute.value(player, SArmorAttribute.lakePower);
         if (Compute.getSwordSkillLevel(data, 7) > 0 && Utils.swordTag.containsKey(mainhand))
             releaseSpeed += Compute.getSwordSkillLevel(data, 7) * 0.03; // 冷静（手持近战武器时，获得3%冷却缩减）
+
         if (Compute.getManaSkillLevel(data, 7) > 0 && Utils.sceptreTag.containsKey(mainhand))
-            releaseSpeed += Compute.getManaSkillLevel(data, 7) * 0.06; // 冷静（手持法杖时，获得6%冷却缩减）
+            releaseSpeed += Compute.getManaSkillLevel(data, 7) * 0.03; // 冷静（手持法杖时，获得3%冷却缩减）
 
         releaseSpeed += EarthPower.PlayerCoolDownEnhance(player); // 地蕴法术
 
@@ -1032,8 +1033,9 @@ public class PlayerAttributes {
         releaseSpeed += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerCooldownModifier);
         releaseSpeed += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.coolDownDecrease);
         if (Utils.sceptreTag.containsKey(mainhand)) {
-            releaseSpeed += Compute.getManaSkillLevel(data, 11) * 0.04; // 术法全析
+            releaseSpeed += Compute.getManaSkillLevel(data, 11) * 0.02; // 术法全析
         }
+
         // 请在上方添加
         releaseSpeed *= Compute.playerFantasyAttributeEnhance(player);
         return releaseSpeed;
@@ -1072,8 +1074,6 @@ public class PlayerAttributes {
             DefenceRate *= (1 - Utils.defencePenetration.get(mainhand));
         if (Utils.offHandTag.containsKey(offhand) && Utils.defencePenetration.containsKey(offhand))
             DefenceRate *= (1 - Utils.defencePenetration.get(offhand));
-        if (data.contains(StringUtils.VolcanoBowSkill) && data.getInt(StringUtils.VolcanoBowSkill) > TickCount)
-            DefenceRate *= (1 - 0.4);
 
         if (player.getEffect(ModEffects.BREAKDefenceUP.get()) != null && player.getEffect(ModEffects.BREAKDefenceUP.get()).getAmplifier() == 0)
             DefenceRate *= (1 - 0.20d);
@@ -1595,11 +1595,6 @@ public class PlayerAttributes {
             manaRecover +=
                     stackmainhandtag.getInt(StringUtils.SoulEquipForge) * SoulEquipAttribute.ForgingAddition.ManaRecover;
 
-        int intelligentAbilityPoint = data.getInt(StringUtils.Ability.Intelligent);
-        if (data.contains(StringUtils.Ability.Intelligent) && data.getInt(StringUtils.Ability.Intelligent) > 0) {
-            manaRecover += intelligentAbilityPoint * 0.1;
-        } // 能力
-
         if (Utils.PlayerSpringBraceletManaRecoverAttribute.containsKey(player) && Utils.PlayerSpringBraceletLevelRequire.get(player) <= player.experienceLevel) {
             manaRecover += Utils.PlayerSpringBraceletManaRecoverAttribute.get(player);
         }
@@ -1897,7 +1892,7 @@ public class PlayerAttributes {
             manaPenetration0 += movementSpeedWithoutBattle(player);
         }
 
-        if (SuitCount.getVolcanoSuitCount(player) >= 4) manaPenetration0 += 3;
+        if (SuitCount.getVolcanoSuitCount(player) >= 4) manaPenetration0 += 10;
 
         if (Utils.PlayerSpringRingManaPenetration0Attribute.containsKey(player) && Utils.PlayerSpringRingLevelRequire.get(player) <= player.experienceLevel) {
             manaPenetration0 += Utils.PlayerSpringRingManaPenetration0Attribute.get(player) * 0.01;
@@ -1930,7 +1925,7 @@ public class PlayerAttributes {
         return manaPenetration0;
     }
 
-    public static double maxManaUp(Player player) {
+    public static double maxMana(Player player) {
         int TickCount = player.getServer().getTickCount();
         CompoundTag data = player.getPersistentData();
         double maxMana = player.experienceLevel;
@@ -1956,7 +1951,7 @@ public class PlayerAttributes {
 
         int intelligentAbilityPoint = data.getInt(StringUtils.Ability.Intelligent);
         if (data.contains(StringUtils.Ability.Intelligent) && data.getInt(StringUtils.Ability.Intelligent) > 0) {
-            maxMana += intelligentAbilityPoint;
+            maxMana += intelligentAbilityPoint * 10;
         } // 能力
 
         if (stackmainhandtag.contains(StringUtils.SoulEquipForge) && Utils.sceptreTag.containsKey(mainhand))
@@ -1980,7 +1975,7 @@ public class PlayerAttributes {
 
         maxMana *= Compute.playerFantasyAttributeEnhance(player);
 
-        return maxMana;
+        return 250 + maxMana;
     }
 
     public static double getMineSpeed(Player player) {

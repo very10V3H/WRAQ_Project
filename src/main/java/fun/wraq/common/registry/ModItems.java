@@ -283,9 +283,11 @@ import fun.wraq.series.worldsoul.*;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -314,11 +316,29 @@ public class ModItems {
     public static final RegistryObject<Item> Main1_4 = ITEMS.register("main1_4",
             () -> new Main1_4(new Item.Properties()));
     public static final RegistryObject<Item> goldCoin = ITEMS.register("gold_coin",
-            () -> new Item(new Item.Properties().rarity(Rarity.UNCOMMON)));
+            () -> new Item(new Item.Properties().rarity(Rarity.UNCOMMON)) {
+                @Override
+                public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
+                    components.add(Te.s("等价于: ", CustomStyle.styleOfWorld, stack.getCount() * 144 + "vb", CustomStyle.styleOfGold));
+                    super.appendHoverText(stack, level, components, flag);
+                }
+            });
     public static final RegistryObject<Item> silverCoin = ITEMS.register("silver_coin",
-            () -> new Item(new Item.Properties()));
+            () -> new Item(new Item.Properties()) {
+                @Override
+                public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
+                    components.add(Te.s("等价于: ", CustomStyle.styleOfWorld, stack.getCount() * 12 + "vb", CustomStyle.styleOfGold));
+                    super.appendHoverText(stack, level, components, flag);
+                }
+            });
     public static final RegistryObject<Item> copperCoin = ITEMS.register("copper_coin",
-            () -> new Item(new Item.Properties().rarity(CustomStyle.Copper)));
+            () -> new Item(new Item.Properties().rarity(CustomStyle.Copper)) {
+                @Override
+                public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
+                    components.add(Te.s("等价于: ", CustomStyle.styleOfWorld, stack.getCount() + "vb", CustomStyle.styleOfGold));
+                    super.appendHoverText(stack, level, components, flag);
+                }
+            });
     public static final RegistryObject<Item> SignInReset = ITEMS.register("signinreset",
             () -> new SignInReset(new Item.Properties()));
     public static final RegistryObject<Item> SignInGet = ITEMS.register("signinget",
@@ -436,7 +456,7 @@ public class ModItems {
 
     public static final RegistryObject<Item> PlainManaBook = ITEMS.register("mananote_plain",
             () -> new ManaNote(new Item.Properties().rarity(CustomStyle.PlainItalic), 0,
-                    20, 0.1, 1, 30, 3, 0.05, 0.1));
+                    20, 0.1, 1, 100, 8, 0.05, 0.1));
 
     public static final RegistryObject<Item> PlainArmorHelmet = ITEMS.register("plainarmorhelmet",
             () -> new PlainArmorHelmet(ItemMaterial.PlainMaterialHelmet, ArmorItem.Type.HELMET));
@@ -485,7 +505,7 @@ public class ModItems {
 
     public static final RegistryObject<Item> ForestManaBook = ITEMS.register("mananote_forest",
             () -> new ManaNote(new Item.Properties().rarity(CustomStyle.ForestItalic), 1,
-                    40, 0.12, 1, 45, 4, 0.1, 0.2));
+                    40, 0.12, 1, 125, 10, 0.1, 0.15));
 
     public static final RegistryObject<Item> ForestArmorHelmet = ITEMS.register("forestarmorhelmet",
             () -> new ForestArmorHelmet(ItemMaterial.Forest, ArmorItem.Type.HELMET));
@@ -620,7 +640,7 @@ public class ModItems {
 
     public static final RegistryObject<Item> LakeManaBook = ITEMS.register("mananote_lake",
             () -> new ManaNote(new Item.Properties().rarity(CustomStyle.LakeItalic), 2,
-                    60, 0.14, 1, 60, 6, 0.15, 0.3));
+                    60, 0.14, 1, 150, 12, 0.15, 0.2));
 
     public static final RegistryObject<Item> LakeArmorHelmet = ITEMS.register("lakearmorhelmet",
             () -> new LakeArmorHelmet(ItemMaterial.Lake, ArmorItem.Type.HELMET));
@@ -690,7 +710,7 @@ public class ModItems {
 
     public static final RegistryObject<Item> VolcanoManaBook = ITEMS.register("mananote_volcano",
             () -> new ManaNote(new Item.Properties().rarity(CustomStyle.VolcanoItalic), 3,
-                    80, 0.17, 2, 75, 8, 0.2, 0.4));
+                    80, 0.17, 2, 175, 14, 0.2, 0.25));
 
     public static final RegistryObject<Item> VolcanoArmorHelmet = ITEMS.register("volcanoarmorhelmet",
             () -> new VolcanoArmorHelmet(ItemMaterial.VolcanoMaterialHelmet, ArmorItem.Type.HELMET));
@@ -775,7 +795,7 @@ public class ModItems {
 
     public static final RegistryObject<Item> SnowManaBook = ITEMS.register("mananote_snow",
             () -> new ManaNote(new Item.Properties().rarity(CustomStyle.SnowItalic), 4,
-                    100, 0.2, 2, 90, 10, 0.25, 0.5));
+                    100, 0.2, 2, 200, 16, 0.25, 0.3));
 
     public static final RegistryObject<Item> SnowShield = ITEMS.register("snow_shield",
             () -> new SnowShield());
@@ -833,19 +853,19 @@ public class ModItems {
 
     public static final RegistryObject<Item> EvokerBook0 = ITEMS.register("evokerbook0",
             () -> new ManaNote(new Item.Properties().rarity(CustomStyle.EvokerItalic), 5,
-                    120, 0.22, 2, 105, 12, 0.3, 0.6));
+                    120, 0.22, 2, 225, 17, 0.3, 0.35));
 
     public static final RegistryObject<Item> EvokerBook1 = ITEMS.register("evokerbook1",
             () -> new ManaNote(new Item.Properties().rarity(CustomStyle.EvokerItalic), 6,
-                    140, 0.24, 3, 120, 14, 0.35, 0.7f));
+                    140, 0.24, 3, 250, 18, 0.35, 0.4));
 
     public static final RegistryObject<Item> EvokerBook2 = ITEMS.register("evokerbook2",
             () -> new ManaNote(new Item.Properties().rarity(CustomStyle.EvokerItalic), 7,
-                    160, 0.26, 4, 135, 16, 0.4, 0.8));
+                    160, 0.26, 4, 275, 19, 0.4, 0.45));
 
     public static final RegistryObject<Item> EvokerBook3 = ITEMS.register("evokerbook3",
             () -> new ManaNote(new Item.Properties().rarity(CustomStyle.EvokerItalic), 8,
-                    180, 0.28, 5, 150, 18, 0.45, 0.9));
+                    180, 0.28, 5, 300, 20, 0.45, 0.5));
 
     public static final RegistryObject<Item> LifeManaArmorHelmet = ITEMS.register("lifemanaarmorhelmet",
             () -> new LifeManaArmor(ItemMaterial.LifeMana, ArmorItem.Type.HELMET, new Item.Properties().rarity(CustomStyle.LifeItalic)));
@@ -856,6 +876,15 @@ public class ModItems {
     public static final RegistryObject<Item> LifeManaArmorBoots = ITEMS.register("lifemanaarmorboots",
             () -> new LifeManaArmor(ItemMaterial.LifeMana, ArmorItem.Type.BOOTS, new Item.Properties().rarity(CustomStyle.LifeItalic)));
 
+    public static final RegistryObject<Item> LifeManaArmorHelmetE = ITEMS.register("life_armor_helmet_e",
+            () -> new LifeMana1(ItemMaterial.ArmorLifeE, ArmorItem.Type.HELMET, new Item.Properties().rarity(CustomStyle.LifeItalic)));
+    public static final RegistryObject<Item> LifeManaArmorChestE = ITEMS.register("life_armor_chest_e",
+            () -> new LifeMana1(ItemMaterial.ArmorLifeE, ArmorItem.Type.CHESTPLATE, new Item.Properties().rarity(CustomStyle.LifeItalic)));
+    public static final RegistryObject<Item> LifeManaArmorLeggingsE = ITEMS.register("life_armor_leggings_e",
+            () -> new LifeMana1(ItemMaterial.ArmorLifeE, ArmorItem.Type.LEGGINGS, new Item.Properties().rarity(CustomStyle.LifeItalic)));
+    public static final RegistryObject<Item> LifeManaArmorBootsE = ITEMS.register("life_armor_boots_e",
+            () -> new LifeMana1(ItemMaterial.ArmorLifeE, ArmorItem.Type.BOOTS, new Item.Properties().rarity(CustomStyle.LifeItalic)));
+
     public static final RegistryObject<Item> ObsiManaArmorHelmet = ITEMS.register("obsimanaarmorhelmet",
             () -> new ObsiManaArmor(ItemMaterial.ObsiMana, ArmorItem.Type.HELMET));
     public static final RegistryObject<Item> ObsiManaArmorChest = ITEMS.register("obsimanaarmorchest",
@@ -864,6 +893,15 @@ public class ModItems {
             () -> new ObsiManaArmor(ItemMaterial.ObsiMana, ArmorItem.Type.LEGGINGS));
     public static final RegistryObject<Item> ObsiManaArmorBoots = ITEMS.register("obsimanaarmorboots",
             () -> new ObsiManaArmor(ItemMaterial.ObsiMana, ArmorItem.Type.BOOTS));
+
+    public static final RegistryObject<Item> ObsiManaArmorHelmetE = ITEMS.register("obsi_armor_helmet_e",
+            () -> new ObsiMana1(ItemMaterial.ArmorObsiE, ArmorItem.Type.HELMET, new Item.Properties().rarity(CustomStyle.EvokerItalic)));
+    public static final RegistryObject<Item> ObsiManaArmorChestE = ITEMS.register("obsi_armor_chest_e",
+            () -> new ObsiMana1(ItemMaterial.ArmorObsiE, ArmorItem.Type.CHESTPLATE, new Item.Properties().rarity(CustomStyle.EvokerItalic)));
+    public static final RegistryObject<Item> ObsiManaArmorLeggingsE = ITEMS.register("obsi_armor_leggings_e",
+            () -> new ObsiMana1(ItemMaterial.ArmorObsiE, ArmorItem.Type.LEGGINGS, new Item.Properties().rarity(CustomStyle.EvokerItalic)));
+    public static final RegistryObject<Item> ObsiManaArmorBootsE = ITEMS.register("obsi_armor_boots_e",
+            () -> new ObsiMana1(ItemMaterial.ArmorObsiE, ArmorItem.Type.BOOTS, new Item.Properties().rarity(CustomStyle.EvokerItalic)));
 
     public static final RegistryObject<Item> plainmana = ITEMS.register("plainmana",
             () -> new WraqItem(new Item.Properties().rarity(Rarity.EPIC)));
@@ -1019,6 +1057,9 @@ public class ModItems {
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.NetherBold), false, (player) -> {
                 player.getCooldowns().removeCooldown(NETHER_SWORD.get());
             }));
+
+    public static final RegistryObject<Item> NetherShield = ITEMS.register("nether_shield",
+            () -> new NetherShield(new Item.Properties().rarity(CustomStyle.NetherItalic).stacksTo(1)));
 
     public static final RegistryObject<Item> quartzcheck = ITEMS.register("quartzcheck",
             () -> new quartzsabrecheck(new Item.Properties().rarity(Rarity.UNCOMMON)));
@@ -1894,30 +1935,6 @@ public class ModItems {
     public static final RegistryObject<Item> IceBook = ITEMS.register("ice_book",
             () -> new IceBook(new Item.Properties().rarity(CustomStyle.IceItalic)));
 
-    public static final RegistryObject<Item> LifeManaArmorHelmetE = ITEMS.register("life_armor_helmet_e",
-            () -> new LifeMana1(ItemMaterial.ArmorLifeE, ArmorItem.Type.HELMET, new Item.Properties().rarity(CustomStyle.LifeItalic)));
-
-    public static final RegistryObject<Item> LifeManaArmorChestE = ITEMS.register("life_armor_chest_e",
-            () -> new LifeMana1(ItemMaterial.ArmorLifeE, ArmorItem.Type.CHESTPLATE, new Item.Properties().rarity(CustomStyle.LifeItalic)));
-
-    public static final RegistryObject<Item> LifeManaArmorLeggingsE = ITEMS.register("life_armor_leggings_e",
-            () -> new LifeMana1(ItemMaterial.ArmorLifeE, ArmorItem.Type.LEGGINGS, new Item.Properties().rarity(CustomStyle.LifeItalic)));
-
-    public static final RegistryObject<Item> LifeManaArmorBootsE = ITEMS.register("life_armor_boots_e",
-            () -> new LifeMana1(ItemMaterial.ArmorLifeE, ArmorItem.Type.BOOTS, new Item.Properties().rarity(CustomStyle.LifeItalic)));
-
-    public static final RegistryObject<Item> ObsiManaArmorHelmetE = ITEMS.register("obsi_armor_helmet_e",
-            () -> new ObsiMana1(ItemMaterial.ArmorObsiE, ArmorItem.Type.HELMET, new Item.Properties().rarity(CustomStyle.EvokerItalic)));
-
-    public static final RegistryObject<Item> ObsiManaArmorChestE = ITEMS.register("obsi_armor_chest_e",
-            () -> new ObsiMana1(ItemMaterial.ArmorObsiE, ArmorItem.Type.CHESTPLATE, new Item.Properties().rarity(CustomStyle.EvokerItalic)));
-
-    public static final RegistryObject<Item> ObsiManaArmorLeggingsE = ITEMS.register("obsi_armor_leggings_e",
-            () -> new ObsiMana1(ItemMaterial.ArmorObsiE, ArmorItem.Type.LEGGINGS, new Item.Properties().rarity(CustomStyle.EvokerItalic)));
-
-    public static final RegistryObject<Item> ObsiManaArmorBootsE = ITEMS.register("obsi_armor_boots_e",
-            () -> new ObsiMana1(ItemMaterial.ArmorObsiE, ArmorItem.Type.BOOTS, new Item.Properties().rarity(CustomStyle.EvokerItalic)));
-
     public static final RegistryObject<Item> U_Disk = ITEMS.register("u_disk",
             () -> new U_Disk(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON)));
 
@@ -2244,9 +2261,6 @@ public class ModItems {
 
     public static final RegistryObject<Item> BloodManaCurios = ITEMS.register("blood_mana_curios",
             () -> new BloodManaCurios(new Item.Properties().rarity(CustomStyle.BloodManaBold).stacksTo(1), 0));
-
-    public static final RegistryObject<Item> NetherShield = ITEMS.register("nether_shield",
-            () -> new NetherShield(new Item.Properties().rarity(CustomStyle.NetherItalic).stacksTo(1)));
 
     public static final RegistryObject<Item> ManaShield = ITEMS.register("mana_shield",
             () -> new ManaShield(new Item.Properties().rarity(CustomStyle.BloodManaItalic).stacksTo(1)));

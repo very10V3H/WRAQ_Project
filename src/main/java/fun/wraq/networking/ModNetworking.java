@@ -91,6 +91,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.PacketDistributor;
@@ -1331,6 +1332,16 @@ public class ModNetworking {
                 .encoder(ExpGetResetS2CPacket::toBytes)
                 .consumerMainThread(ExpGetResetS2CPacket::handle)
                 .add();
+        net.messageBuilder(PlayerIsInBattleS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(PlayerIsInBattleS2CPacket::new)
+                .encoder(PlayerIsInBattleS2CPacket::toBytes)
+                .consumerMainThread(PlayerIsInBattleS2CPacket::handle)
+                .add();
+        net.messageBuilder(QuickUseDisplayS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(QuickUseDisplayS2CPacket::new)
+                .encoder(QuickUseDisplayS2CPacket::toBytes)
+                .consumerMainThread(QuickUseDisplayS2CPacket::handle)
+                .add();
     }
 
     public static <MSG> void sendToServer(MSG message) {
@@ -1346,5 +1357,9 @@ public class ModNetworking {
 
     public static <MSG> void sendToClient(MSG message, ServerPlayer player) {
         INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), message);
+    }
+
+    public static <MSG> void sendToClient(MSG message, Player player) {
+        INSTANCE.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) player), message);
     }
 }

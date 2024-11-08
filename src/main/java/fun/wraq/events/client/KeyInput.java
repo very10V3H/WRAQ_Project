@@ -1,6 +1,7 @@
 package fun.wraq.events.client;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.KeyBoradInput;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.Utils;
@@ -31,13 +32,15 @@ import fun.wraq.render.gui.villagerTrade.TradeScreen;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
+import java.util.Calendar;
 
 public class KeyInput {
     @Mod.EventBusSubscriber(modid = Utils.MOD_ID, value = Dist.CLIENT)
@@ -45,6 +48,8 @@ public class KeyInput {
         @SubscribeEvent
         public static void onKeyInput(InputEvent.Key event) {
             Minecraft mc = Minecraft.getInstance();
+            LocalPlayer player = mc.player;
+            if (player == null) return;
             if (isModScreen(mc) && event.getKey() == 69 && event.getAction() == 1) mc.popGuiLayer();
             if (ClientUtils.PacketsLimit <= 0) {
                 ModNetworking.sendToServer(new LimitC2SPacket());
@@ -96,7 +101,6 @@ public class KeyInput {
                     ModNetworking.sendToServer(new UseC2SPacket(8));
                 }
                 if (KeyBoradInput.Rolling.consumeClick()) {
-                    Player player = Minecraft.getInstance().player;
                     if (!ClientUtils.PlayerIsManaAttacking(player) && !ClientUtils.PlayerIsUsing(player)
                             && !ClientUtils.PlayerIsBowAttacking(player) && !ClientUtils.PlayerIsAttacking(player))
                         ModNetworking.sendToServer(new RollingAnimationRequestC2SPacket(0));
@@ -110,23 +114,33 @@ public class KeyInput {
                     if (ClientUtils.Mission) {
                         if (ClientUtils.NavigateIndex == -1) {
                             ClientUtils.NavigateIndex = ClientUtils.ListIndex;
-                            Minecraft.getInstance().player.sendSystemMessage(Component.literal("[系统]").withStyle(ChatFormatting.GRAY).
+                            player.sendSystemMessage(Component.literal("[系统]").withStyle(ChatFormatting.GRAY).
                                     append(Component.literal("已启用目的地准星定点，请尝试移动准星直到无法看见红色粒子，位置即为目的地方向。[默认左Alt开启或关闭]").withStyle(ChatFormatting.WHITE)));
                         } else {
                             ClientUtils.NavigateIndex = -1;
-                            Minecraft.getInstance().player.sendSystemMessage(Component.literal("[系统]").withStyle(ChatFormatting.GRAY).
+                            player.sendSystemMessage(Component.literal("[系统]").withStyle(ChatFormatting.GRAY).
                                     append(Component.literal("已关闭目的地准星定点。[默认左Alt开启或关闭]").withStyle(ChatFormatting.WHITE)));
 
                         }
                     } else {
-                        Minecraft.getInstance().player.sendSystemMessage(Component.literal("[系统]").withStyle(ChatFormatting.GRAY).
+                        player.sendSystemMessage(Component.literal("[系统]").withStyle(ChatFormatting.GRAY).
                                 append(Component.literal("似乎没有任务坐标用于准星定点。").withStyle(ChatFormatting.WHITE)));
 
                     }
                 }
 
                 if (KeyBoradInput.GUIDE.consumeClick()) {
-                    GuideHud.display = !GuideHud.display;
+                    if (Calendar.getInstance().getTimeInMillis() - ClientUtils.tabSwitchLastTime > 250) {
+                        GuideHud.display = !GuideHud.display;
+                        if (GuideHud.display) {
+                            Compute.sendFormatMSG(player, Te.s("系统", ChatFormatting.AQUA),
+                                    Te.s("已开启", ChatFormatting.GREEN, "指引界面"));
+                        } else {
+                            Compute.sendFormatMSG(player, Te.s("系统", ChatFormatting.AQUA),
+                                    Te.s("已关闭", ChatFormatting.RED, "指引界面"));
+                        }
+                    }
+                    ClientUtils.tabSwitchLastTime = (int) Calendar.getInstance().getTimeInMillis();
                 }
 
                 if (KeyBoradInput.ElementRoulette.consumeClick()) {
@@ -137,7 +151,7 @@ public class KeyInput {
 
                 if (KeyBoradInput.SPACE.consumeClick()) {
                     // 适用于低重力环境跳跃
-                    if (Compute.inLowGravityEnvironment(Minecraft.getInstance().player)) {
+                    if (Compute.inLowGravityEnvironment(player)) {
                         ModNetworking.sendToServer(new PlayerClickSpaceC2SPacket());
                     }
                 }

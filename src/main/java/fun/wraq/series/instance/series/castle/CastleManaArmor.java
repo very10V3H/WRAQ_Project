@@ -3,17 +3,16 @@ package fun.wraq.series.instance.series.castle;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.equip.WraqArmor;
+import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.registry.ItemMaterial;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.ModSounds;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.func.suit.SuitCount;
-import fun.wraq.common.impl.display.ForgeItem;
-import fun.wraq.common.equip.WraqArmor;
 import fun.wraq.projectiles.mana.NewArrow;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -21,16 +20,11 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec3;
 
 import java.util.*;
 
@@ -65,8 +59,6 @@ public class CastleManaArmor extends WraqArmor implements ForgeItem {
     public List<Component> getAdditionalComponents(ItemStack stack) {
         List<Component> components = new ArrayList<>();
         Compute.DescriptionPassive(components, Component.literal("暗影打击").withStyle(style));
-        components.add(Component.literal(" 1.当你拥有").withStyle(ChatFormatting.WHITE).
-                append(Component.literal("法术专精-力凝魔核:").withStyle(CustomStyle.styleOfMana)));
         components.add(Component.literal(" 进行").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("普通法球攻击").withStyle(CustomStyle.styleOfMana)).
                 append(Component.literal("后，0.2s后你会进行一次").withStyle(ChatFormatting.WHITE)).
@@ -74,14 +66,6 @@ public class CastleManaArmor extends WraqArmor implements ForgeItem {
         components.add(Component.literal(" 暗影打击").withStyle(style).
                 append(Component.literal("被视为拥有15%基础伤害值的").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("普通法球攻击").withStyle(CustomStyle.styleOfMana)));
-        components.add(Component.literal(" 2.当你拥有").withStyle(ChatFormatting.WHITE).
-                append(Component.literal("法术专精-术法全析:").withStyle(CustomStyle.styleOfMana)));
-        components.add(Component.literal("在").withStyle(ChatFormatting.WHITE).
-                append(Component.literal("施法").withStyle(CustomStyle.styleOfMana)).
-                append(Component.literal("后，0.2s后你会进行一次").withStyle(ChatFormatting.WHITE)).
-                append(Component.literal("暗影打击").withStyle(style)));
-        components.add(Component.literal(" -暗影打击会在指针范围内造成").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.manaDamage("650%")));
         Compute.DescriptionPassive(components, Component.literal("灵魂痛击").withStyle(style));
         components.add(Component.literal(" 你的").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("普通法球攻击").withStyle(CustomStyle.styleOfMana)).
@@ -103,8 +87,7 @@ public class CastleManaArmor extends WraqArmor implements ForgeItem {
         if (ArmorCount == 0) return;
         int TickCount = player.getServer().getTickCount();
         if (playerDoubleAttackTick.containsKey(player) && playerDoubleAttackTick.get(player) == TickCount) {
-            if (Compute.getManaSkillLevel(player.getPersistentData(), 10) == 10) ExAttack(player, ArmorCount * 0.15);
-            else ExPower(player, ArmorCount * 6.5);
+            ExAttack(player, ArmorCount * 0.15);
         }
     }
 
@@ -113,8 +96,7 @@ public class CastleManaArmor extends WraqArmor implements ForgeItem {
         if (ArmorCount == 0) return;
         int TickCount = player.getServer().getTickCount();
         if (playerDoubleAttackTick.containsKey(player) && playerDoubleAttackTick.get(player) > TickCount) {
-            if (Compute.getManaSkillLevel(player.getPersistentData(), 10) == 10) ExAttack(player, ArmorCount * 0.15);
-            else ExPower(player, ArmorCount * 6.5);
+            ExAttack(player, ArmorCount * 0.15);
             playerDoubleAttackTick.put(player, 0);
         } else playerDoubleAttackTick.put(player, TickCount + 4);
     }
@@ -132,27 +114,6 @@ public class CastleManaArmor extends WraqArmor implements ForgeItem {
         ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1, 0.75, 20, ParticleTypes.WITCH);
         ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1.5, 0.5, 16, ParticleTypes.WITCH);
         MySound.soundToNearPlayer(player, ModSounds.Mana.get());
-
-    }
-
-    public static void ExPower(Player player, double rate) {
-        Level level = player.level();
-        Vec3 TargetPos = player.pick(15, 0, false).getLocation();
-        if (Compute.detectPlayerPickMob(player) != null) TargetPos = Compute.detectPlayerPickMob(player).position();
-        List<Mob> monsterList = level.getEntitiesOfClass(Mob.class, AABB.ofSize(TargetPos, 20, 20, 20));
-        for (Mob mob : monsterList) {
-            if (mob.getPosition(0).distanceTo(TargetPos) < 6) {
-                Damage.causeManaDamageToMonster_RateApDamage(player, mob, rate, true);
-
-                ParticleProvider.EntityEffectVerticleCircleParticle(mob, 1, 0.4, 8, ParticleTypes.WITCH, 0);
-                ParticleProvider.EntityEffectVerticleCircleParticle(mob, 0.75, 0.4, 8, ParticleTypes.WITCH, 0);
-                ParticleProvider.EntityEffectVerticleCircleParticle(mob, 0.5, 0.4, 8, ParticleTypes.WITCH, 0);
-                ParticleProvider.EntityEffectVerticleCircleParticle(mob, 0.25, 0.4, 8, ParticleTypes.WITCH, 0);
-                ParticleProvider.EntityEffectVerticleCircleParticle(mob, 0, 0.4, 8, ParticleTypes.WITCH, 0);
-            }
-        }
-        ParticleProvider.VerticleCircleParticle(TargetPos, (ServerLevel) level, 1, 6, 100, ParticleTypes.WITCH);
-        ParticleProvider.VerticleCircleParticle(TargetPos, (ServerLevel) level, 1.5, 6, 100, ParticleTypes.WITCH);
     }
 
     public static double ExIgnoreDefenceDamage(Player player) {

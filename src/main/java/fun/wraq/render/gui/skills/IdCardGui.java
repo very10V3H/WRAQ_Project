@@ -434,18 +434,15 @@ public class IdCardGui extends Screen {
                     append(Component.literal(Ability).withStyle(style)).
                     append(Component.literal("能力点数属性加成:").withStyle(ChatFormatting.WHITE)));
             double ExManaDamage = ClientUtils.AbilityChangeCache.Intelligent;
-            double ExManaRecover = ClientUtils.AbilityChangeCache.Intelligent;
             double ExMaxMana = ClientUtils.AbilityChangeCache.Intelligent;
             ComponentUtils.emojiDescriptionManaAttackDamage(components, ExManaDamage * 2);
-            ComponentUtils.emojiDescriptionManaRecover(components, ExManaRecover * 0.3);
-            ComponentUtils.emojiDescriptionMaxMana(components, ExMaxMana);
+            ComponentUtils.emojiDescriptionMaxMana(components, ExMaxMana * 10);
             ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
             components.add(Component.literal(Ability).withStyle(style).
                     append(Component.literal("能力与属性点数关系:").withStyle(ChatFormatting.WHITE)));
             components.add(Component.literal("每一点能力获得:"));
             ComponentUtils.emojiDescriptionManaAttackDamage(components, 2);
-            ComponentUtils.emojiDescriptionManaRecover(components, 0.3);
-            ComponentUtils.emojiDescriptionMaxMana(components, 1);
+            ComponentUtils.emojiDescriptionMaxMana(components, 10);
             ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
             guiGraphics.renderComponentTooltip(fontRenderer, components, x, y);
         }

@@ -33,8 +33,8 @@ public class ForgeRecipe {
         List<Component> tooltip = event.getToolTip();
         if (forgeDrawRecipe.containsKey(item)
                 && ForgeEquipUtils.itemForgePlaceMap.containsKey(item)) {
-            if (!Screen.hasShiftDown()) {
-                tooltip.add(Component.literal("[按下shift查看锻造方式]").withStyle(ChatFormatting.GRAY));
+            if (!Screen.hasAltDown()) {
+                tooltip.add(Component.literal("[按下Alt查看锻造方式]").withStyle(CustomStyle.styleOfStone));
             } else {
                 tooltip.add(Te.s("->", ChatFormatting.GOLD, "锻造方式", CustomStyle.styleOfStone, "->", ChatFormatting.GOLD));
                 List<Component> components = ForgeEquipUtils.itemForgePlaceMap.get(item);
@@ -73,7 +73,7 @@ public class ForgeRecipe {
                                 append(Component.literal(" -").withStyle(ChatFormatting.WHITE)));
                     }
                     if (Utils.weaponList.contains(stack.getItem())) {
-                        tooltip.add(Component.literal(" 将保留强化/宝石/熟练度等信息").withStyle(ChatFormatting.GOLD));
+                        tooltip.add(Te.s("▲将保留强化等级/品质/宝石等信息", CustomStyle.styleOfGold));
                     }
                 }
             }

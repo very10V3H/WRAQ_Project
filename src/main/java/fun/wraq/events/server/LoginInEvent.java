@@ -40,6 +40,8 @@ import fun.wraq.process.system.teamInstance.NewTeamInstanceEvent;
 import fun.wraq.process.system.tower.Tower;
 import fun.wraq.process.system.tower.TowerStatusS2CPacket;
 import fun.wraq.process.system.vp.VpDataHandler;
+import fun.wraq.render.hud.main.QuickUseHud;
+import fun.wraq.render.hud.networking.QuickUseDisplayS2CPacket;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -322,6 +324,12 @@ public class LoginInEvent {
 
             DailySupply.sendStatusToClient(player);
             VpDataHandler.sendPlayerVpValue(player);
+
+            if (data.contains(QuickUseHud.DISPLAY_KEY)) {
+                if (!data.getBoolean(QuickUseHud.DISPLAY_KEY)) {
+                    ModNetworking.sendToClient(new QuickUseDisplayS2CPacket(false), serverPlayer);
+                }
+            }
         }
     }
 

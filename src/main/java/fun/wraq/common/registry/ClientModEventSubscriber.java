@@ -173,6 +173,8 @@ public class ClientModEventSubscriber {
 
         event.registerAboveAll("guide_hud", GuideHud.GUIDE_HUD);
         event.registerAboveAll("new_team_instance_hud", NewTeamInstanceHud.NEW_TEAM_INSTANCE_HUD);
+
+        event.registerAboveAll("quick_use_hud", QuickUseHud.QUICK_USE_HUD);
     }
 
     private static final List<ResourceLocation> overlays = List.of(VanillaGuiOverlay.ARMOR_LEVEL.id(),

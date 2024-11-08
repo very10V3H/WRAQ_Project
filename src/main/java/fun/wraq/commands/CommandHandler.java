@@ -503,5 +503,13 @@ public class CommandHandler {
                                 .requires(commandSourceStack -> commandSourceStack.hasPermission(2))
                 )
         );
+
+        CommandDispatcher<CommandSourceStack> dispatcher54 = event.getDispatcher();
+        LiteralCommandNode<CommandSourceStack> cmd54 = dispatcher54.register(
+                Commands.literal(Utils.MOD_ID).then(
+                        Commands.literal("quickUseDisplay")
+                                .executes(QuickUseDisplayCommand.instance)
+                )
+        );
     }
 }

@@ -119,7 +119,7 @@ public class IceInstance extends NoTeamInstance {
 
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(stray), 135);
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(stray, 1250, 90, 90, 0.35,
-                3, 0.2, 30, 0, 100 * Math.pow(10, 4), 0.35);
+                3, 0.2, 30, 0, 75 * Math.pow(10, 4), 0.35);
 
         stray.setHealth(stray.getMaxHealth());
         stray.setItemSlot(EquipmentSlot.HEAD, ModItems.MobArmorIceHelmet.get().getDefaultInstance());

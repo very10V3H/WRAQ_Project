@@ -56,7 +56,7 @@ public class SeaSword extends WraqSword implements ActiveItem {
                 append(ComponentUtils.AttributeDescription.maxHealth(tier >= 3 ? "40%" : "25%")).
                 append(Component.literal("的生命回复。").withStyle(ChatFormatting.WHITE)));
         ComponentUtils.coolDownTimeDescription(components, 3);
-        ComponentUtils.manaCostDescription(components, 30);
+        ComponentUtils.manaCostDescription(components, 20);
         return components;
     }
 
@@ -67,7 +67,7 @@ public class SeaSword extends WraqSword implements ActiveItem {
 
     @Override
     public void active(Player player) {
-        if (Compute.playerManaCost(player, 30)) {
+        if (Compute.playerManaCost(player, 20)) {
             CompoundTag data = player.getPersistentData();
             player.getCooldowns().addCooldown(ModItems.SeaSword0.get(), (int) (60 - 60 * PlayerAttributes.coolDownDecrease(player)));
             player.getCooldowns().addCooldown(ModItems.SeaSword1.get(), (int) (60 - 60 * PlayerAttributes.coolDownDecrease(player)));

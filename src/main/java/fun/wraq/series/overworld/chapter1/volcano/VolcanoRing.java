@@ -18,6 +18,7 @@ public class VolcanoRing extends WraqCurios {
         Utils.manaPenetration0.put(this, 2d);
         Utils.expUp.put(this, 0.1);
         Utils.percentAttackDamageEnhance.put(this, 0.1);
+        Utils.percentManaDamageEnhance.put(this, 0.1);
     }
 
     @Override

@@ -52,7 +52,7 @@ public class ForestSword extends WraqSword implements ActiveItem {
                 append(ComponentUtils.AttributeDescription.defencePenetration("15%+[50]")).
                 append(Component.literal("，持续" + (int) ForestSwordAttributes.EffectNum[tier] + "s").withStyle(ChatFormatting.WHITE)));
         ComponentUtils.coolDownTimeDescription(components, 30);
-        ComponentUtils.manaCostDescription(components, 60);
+        ComponentUtils.manaCostDescription(components, 30);
         return components;
     }
 
@@ -63,7 +63,7 @@ public class ForestSword extends WraqSword implements ActiveItem {
 
     @Override
     public void active(Player player) {
-        if (Compute.playerManaCost(player, 60)) {
+        if (Compute.playerManaCost(player, 30)) {
             ServerPlayer serverPlayer = (ServerPlayer) player;
             CompoundTag data = serverPlayer.getPersistentData();
             int tickCount = serverPlayer.getServer().getTickCount();

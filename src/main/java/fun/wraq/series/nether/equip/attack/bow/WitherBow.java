@@ -26,10 +26,10 @@ public class WitherBow extends WraqBow implements OnHitEffectEquip {
     public WitherBow(Properties p_40524_, int tier) {
         super(p_40524_);
         this.tier = tier;
-        Utils.attackDamage.put(this, new double[]{80, 90, 110, 120}[tier]);
+        Utils.attackDamage.put(this, new double[]{80, 100, 120, 140}[tier]);
         Utils.defencePenetration0.put(this, new double[]{9, 10, 11, 12}[tier]);
         Utils.critRate.put(this, new double[]{0.2, 0.25, 0.25, 0.25}[tier]);
-        Utils.critDamage.put(this, new double[]{0.35, 0.35, 0.35, 0.35}[tier]);
+        Utils.critDamage.put(this, new double[]{0.35, 0.4, 0.45, 0.55}[tier]);
 
         ForgeRecipe.forgeDrawRecipe.put(this, new ArrayList<>() {{
             add(new ItemStack(ModItems.NetherRune.get(), 4));

@@ -2,6 +2,8 @@ package fun.wraq.process.func.power;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.equip.WraqCurios;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.ModSounds;
 import fun.wraq.common.registry.MySound;
@@ -19,19 +21,18 @@ import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.func.suit.SuitCount;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.element.ElementValue;
-import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.render.hud.Mana;
 import fun.wraq.render.particles.ModParticles;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.instance.series.castle.CastleManaArmor;
 import fun.wraq.series.newrunes.chapter6.CastleNewRune;
-import fun.wraq.series.overworld.chapter1.snow.SnowPower;
 import fun.wraq.series.overworld.chapter1.forest.ForestPower;
 import fun.wraq.series.overworld.chapter1.forest.ForestPowerEffectMob;
 import fun.wraq.series.overworld.chapter1.plain.PlainPower;
+import fun.wraq.series.overworld.chapter1.snow.SnowPower;
 import fun.wraq.series.overworld.chapter1.volcano.VolcanoPower;
 import fun.wraq.series.overworld.chapter1.waterSystem.LakePower;
 import fun.wraq.series.overworld.chapter1.waterSystem.LakePowerEffect;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -240,7 +241,6 @@ public class PowerLogic {
 
     public static void PlainPower(Player player, Item Tool, int level) {
         playerLastTimeReleasePower.put(player, 4);
-        CompoundTag data = player.getPersistentData();
         PlayerPowerRelease(player);
         Level Dimension = player.level();
         double effect = PlainPower.effect[level];
@@ -257,6 +257,8 @@ public class PowerLogic {
                 Damage.causeManaDamageToMonster_RateApDamage_ElementAddition(player, mob, effect, true,
                         Element.life, ElementValue.ElementValueJudgeByType(player, Element.life) + 1);
                 PlayerPowerEffectToMob(player, mob);
+                ParticleProvider.dustParticle(player, mob.getEyePosition(), 0.8, 20,
+                        CustomStyle.styleOfLife.getColor().getValue());
             }
         });
 
@@ -265,10 +267,8 @@ public class PowerLogic {
 
         playerList.forEach(player1 -> {
             if (player1.distanceTo(player) <= 6) {
-                Compute.playerHeal(player1, data.getInt(StringUtils.Ability.Intelligent) * 20);
-
                 StableAttributesModifier.addAttributeModifier(player1, StableAttributesModifier.playerMovementSpeedModifier,
-                        new StableAttributesModifier("plainPowerMovementSpeed", 0.5, player.getServer().getTickCount() + 100));
+                        new StableAttributesModifier("plainPowerMovementSpeed", 0.2, player.getServer().getTickCount() + 100));
                 Compute.sendEffectLastTime(player1, ModItems.PlainPower.get(), 100);
 
                 ParticleProvider.EntityEffectVerticleCircleParticle(player1, 1.25, 0.4, 8, ParticleTypes.COMPOSTER, 0);
@@ -315,7 +315,10 @@ public class PowerLogic {
                 AABB.ofSize(player.position(), 20, 20, 20));
         playerList.forEach(player1 -> {
             if (player1.distanceTo(player) <= 6) {
-                Compute.playerHeal(player1, player.getPersistentData().getInt(StringUtils.Ability.Intelligent) * 20);
+                StableAttributesModifier.addM(player1, StableAttributesModifier.playerHealthRecoverModifier,
+                        "Forest power health recover",
+                        player.getPersistentData().getInt(StringUtils.Ability.Intelligent) * 4,
+                        Tick.get() + 100, "/item/forest_power");
 
                 ParticleProvider.EntityEffectVerticleCircleParticle(player1, 1.25, 0.4, 8, ParticleTypes.COMPOSTER, 0);
                 ParticleProvider.EntityEffectVerticleCircleParticle(player1, 1, 0.4, 8, ParticleTypes.COMPOSTER, 0);
@@ -335,67 +338,64 @@ public class PowerLogic {
 
     public static void LakePower(Player player, Item Tool, int tier) {
         playerLastTimeReleasePower.put(player, 6);
-        int TickCount = player.getServer().getTickCount();
+        int tick = Tick.get();
         PlayerPowerRelease(player);
-        Level Dimension = player.level();
+        Level dimension = player.level();
         double effect = LakePower.effect[tier];
-        Vec3 TargetPos = player.pick(15, 0, false).getLocation();
-        if (detectPlayerPickMob(player) != null) TargetPos = detectPlayerPickMob(player).position();
-        List<Mob> mobList = Dimension.getEntitiesOfClass(Mob.class,
-                AABB.ofSize(TargetPos, 20, 20, 20));
+        Vec3 targetPos = player.pick(15, 0, false).getLocation();
+        if (detectPlayerPickMob(player) != null) targetPos = detectPlayerPickMob(player).position();
+        List<Mob> mobList = dimension.getEntitiesOfClass(Mob.class,
+                AABB.ofSize(targetPos, 20, 20, 20));
 
-        List<Player> playerList = Dimension.getEntitiesOfClass(Player.class, AABB.ofSize(player.position(), 20, 20, 20));
+        List<Player> playerList = dimension.getEntitiesOfClass(Player.class, AABB.ofSize(player.position(), 20, 20, 20));
         playerList.removeIf(player1 -> player1.distanceTo(player) > 6);
         playerList.forEach(player1 -> {
             LakePower.playerDefendRateMap.put(player1, tier + 1);
-            LakePower.playerDefendTickMap.put(player1, TickCount + 80);
+            LakePower.playerDefendTickMap.put(player1, tick + 80);
             Compute.sendEffectLastTime(player, ModItems.LakePower.get().getDefaultInstance(), 80);
         });
         ParticleProvider.dustParticle(player, player.getEyePosition(), 6, 36, CustomStyle.styleOfLake.getColor().getValue());
 
-        Vec3 finalTargetPos = TargetPos;
+        Vec3 finalTargetPos = targetPos;
         mobList.forEach(mob -> {
             Vec3 PosVec = mob.position().subtract(finalTargetPos);
             if (PosVec.length() <= 6) {
                 Compute.IgniteMob(player, mob, 0);
                 EffectOnMob.addSlowDownEffect(mob, 40, 0.25);
                 addManaDefenceDecreaseEffectParticle(mob, 40);
-                Utils.LakePowerEffectMobMap.put(mob, new LakePowerEffect(TickCount + 40, (tier + 1)));
+                Utils.LakePowerEffectMobMap.put(mob, new LakePowerEffect(tick + 40, (tier + 1)));
                 PlayerPowerEffectToMob(player, mob);
                 Damage.causeManaDamageToMonster_RateApDamage_ElementAddition(player, mob, effect, true,
                         Element.water, ElementValue.ElementValueJudgeByType(player, Element.water) + 1);
-                Compute.sendMobEffectHudToNearPlayer(mob, ModItems.LakePower.get(), "lakePowerManaDefenceDecrease", 40, 0, false);
+                Compute.sendMobEffectHudToNearPlayer(mob, ModItems.LakePower.get(), "lakePowerManaDefenceDecrease",
+                        40, 0, false);
+                ParticleProvider.dustParticle(player, mob.getEyePosition(), 0.8, 20,
+                        ChatFormatting.BLUE.getColor().intValue());
             }
         });
-
-
         if (Tool != null)
             playerItemCoolDown(player, Tool, LakePower.CoolDownTime[tier] - SuitCount.getObsiManaESuitCount(player) * 0.75);
-
-        ParticleProvider.DisperseParticle(TargetPos, (ServerLevel) player.level(), 1, 1, 120, ModParticles.LONG_LAKE.get(), 1);
-        ParticleProvider.DisperseParticle(TargetPos, (ServerLevel) player.level(), 1.5, 1, 120, ModParticles.LONG_LAKE.get(), 1);
         MySound.soundToNearPlayer(player, SoundEvents.WATER_AMBIENT);
+        ParticleProvider.SpaceRangeParticle((ServerLevel) dimension, targetPos, 6, 150,
+                ParticleTypes.BUBBLE_POP);
     }
 
     public static void VolcanoPower(Player player, Item Tool, int level) {
         playerLastTimeReleasePower.put(player, 7);
         PlayerPowerRelease(player);
-        Level Dimension = player.level();
-        ServerLevel serverLevel = (ServerLevel) Dimension;
+        Level dimension = player.level();
         double effect = VolcanoPower.effect[level];
-        Vec3 TargetPos = player.pick(15, 0, false).getLocation();
-        if (detectPlayerPickMob(player) != null) TargetPos = detectPlayerPickMob(player).position();
-        List<Mob> mobList = Dimension.getEntitiesOfClass(Mob.class,
-                AABB.ofSize(TargetPos, 20, 20, 20));
-        List<ServerPlayer> playerList = Dimension.getServer().getPlayerList().getPlayers();
-        Vec3 finalTargetPos = TargetPos;
+        Vec3 targetPos = player.pick(15, 0, false).getLocation();
+        if (detectPlayerPickMob(player) != null) targetPos = detectPlayerPickMob(player).position();
+        List<Mob> mobList = dimension.getEntitiesOfClass(Mob.class,
+                AABB.ofSize(targetPos, 20, 20, 20));
+        List<ServerPlayer> playerList = dimension.getServer().getPlayerList().getPlayers();
+        Vec3 finalTargetPos = targetPos;
         mobList.forEach(mob -> {
             Vec3 PosVec = mob.position().subtract(finalTargetPos);
             if (PosVec.length() <= 6) {
-                ParticleProvider.VerticleCircleParticle(mob.position(), serverLevel, 1, 2, 40, ModParticles.LONG_VOLCANO.get());
-                ParticleProvider.VerticleCircleParticle(mob.position(), serverLevel, 1.5, 2, 40, ModParticles.LONG_VOLCANO.get());
                 Compute.IgniteMob(player, mob, 40);
-                List<Mob> mobList1 = Dimension.getEntitiesOfClass(Mob.class,
+                List<Mob> mobList1 = dimension.getEntitiesOfClass(Mob.class,
                         AABB.ofSize(mob.position(), 10, 10, 10));
                 mobList1.forEach(mob1 -> {
                     if (mob1.position().subtract(mob.position()).length() <= 2) {
@@ -411,14 +411,11 @@ public class PowerLogic {
                 });
             }
         });
-
         if (Tool != null)
             playerItemCoolDown(player, Tool, VolcanoPower.CoolDownTime[level] - SuitCount.getObsiManaESuitCount(player) * 0.75);
-
-        ParticleProvider.DisperseParticle(TargetPos, (ServerLevel) player.level(), 1, 1, 120, ModParticles.LONG_VOLCANO.get(), 1);
-        ParticleProvider.DisperseParticle(TargetPos, (ServerLevel) player.level(), 1.5, 1, 120, ModParticles.LONG_VOLCANO.get(), 1);
-
         MySound.soundToNearPlayer(player, SoundEvents.DRAGON_FIREBALL_EXPLODE);
+        ParticleProvider.SpaceRangeParticle((ServerLevel) dimension, targetPos, 6, 10,
+                ParticleTypes.EXPLOSION);
     }
 
     public static void SnowPower(Player player, Item Tool, int level) {
@@ -426,13 +423,13 @@ public class PowerLogic {
         PlayerPowerRelease(player);
         Level Dimension = player.level();
         double effect = SnowPower.effect[level];
-        Vec3 TargetPos = player.pick(15, 0, false).getLocation();
+        Vec3 targetPos = player.pick(15, 0, false).getLocation();
         CompoundTag data = player.getPersistentData();
-        if (detectPlayerPickMob(player) != null) TargetPos = detectPlayerPickMob(player).position();
+        if (detectPlayerPickMob(player) != null) targetPos = detectPlayerPickMob(player).position();
 
         List<Mob> mobList = Dimension.getEntitiesOfClass(Mob.class,
-                AABB.ofSize(TargetPos, 20, 20, 20));
-        Vec3 finalTargetPos = TargetPos;
+                AABB.ofSize(targetPos, 20, 20, 20));
+        Vec3 finalTargetPos = targetPos;
         mobList.forEach(mob -> {
             Vec3 PosVec = mob.position().subtract(finalTargetPos);
             if (PosVec.length() <= 6) {
@@ -451,7 +448,7 @@ public class PowerLogic {
         });
 
         List<Player> players = Dimension.getEntitiesOfClass(Player.class,
-                AABB.ofSize(TargetPos, 20, 20, 20));
+                AABB.ofSize(player.position(), 20, 20, 20));
         players.forEach(player1 -> {
             if (player1.distanceTo(player) < 6) {
                 Shield.providePlayerShield(player1, 50, data.getInt(StringUtils.Ability.Intelligent) * 20);
@@ -459,12 +456,10 @@ public class PowerLogic {
                 sendEffectLastTime(player, ModItems.SnowPower.get().getDefaultInstance(), 50);
             }
         });
-        ParticleProvider.SpaceRangeParticle((ServerLevel) player.level(), player.getEyePosition(), 6, 36, ParticleTypes.SNOWFLAKE);
+        ParticleProvider.dustParticle(player, player.getEyePosition(), 6, 36, CustomStyle.styleOfSnow.getColor().getValue());
 
+        ParticleProvider.SpaceRangeParticle((ServerLevel) player.level(), targetPos, 6, 100, ParticleTypes.SNOWFLAKE);
         if (Tool != null) playerItemCoolDown(player, Tool, SnowPower.CoolDownTime[level]);
-
-        ParticleProvider.DisperseParticle(TargetPos, (ServerLevel) player.level(), 1, 1, 120, ModParticles.LONG_SNOW.get(), 1);
-        ParticleProvider.DisperseParticle(TargetPos, (ServerLevel) player.level(), 1.5, 1, 120, ModParticles.LONG_SNOW.get(), 1);
         MySound.soundToNearPlayer(player, ModSounds.Mana.get());
     }
 
@@ -490,7 +485,5 @@ public class PowerLogic {
         ChargingModule(data, player);
         ManaSkill12Attack(data, player); // 盈能攻击（移动、攻击以及受到攻击将会获得充能，当充能满时，下一次攻击将造成额外200%伤害，并在以目标为中心的范围内造成100%伤害）
         ManaSkill13Attack(data, player); // 法术收集（移动、攻击以及受到攻击将会获得充能，当充能满时，下一次攻击将基于目标周围实体数量提供至多1000%的范围伤害，并回复自身50%的法力值）
-        if (Compute.getManaSkillLevel(player.getPersistentData(), 11) == 10) CastleManaArmor.NormalAttack(player);
-
     }
 }

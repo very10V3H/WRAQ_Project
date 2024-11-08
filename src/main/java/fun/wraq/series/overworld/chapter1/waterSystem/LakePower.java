@@ -71,7 +71,7 @@ public class LakePower extends Item implements ActiveItem {
     }
 
     public static int[] ManaCost = {
-            150, 150, 150, 120
+            100, 115, 130, 150
     };
 
     public static int[] CoolDownTime = {
@@ -79,7 +79,7 @@ public class LakePower extends Item implements ActiveItem {
     };
 
     public static double[] effect = {
-            0.5, 1.0, 1.5, 2.0
+            1, 1.15, 1.3, 1.5
     };
 
     public static double PlayerDefend(Player player) {
@@ -88,7 +88,6 @@ public class LakePower extends Item implements ActiveItem {
         }
         return 0;
     }
-
 
     @Override
     public void active(Player player) {

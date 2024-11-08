@@ -52,6 +52,7 @@ import fun.wraq.process.system.tower.TowerMob;
 import fun.wraq.projectiles.mana.BlazeSword;
 import fun.wraq.projectiles.mana.SwordAir;
 import fun.wraq.render.hud.ColdData;
+import fun.wraq.render.hud.networking.PlayerIsInBattleS2CPacket;
 import fun.wraq.render.mobEffects.ModEffects;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.castle.CastleAttackArmor;
@@ -128,6 +129,10 @@ public class ServerPlayerTickEvent {
             WorldBorder.playerTick(event);
             /*SummerEvent.tick(player);*/
             MoontainFloorTitle.tick(player);
+
+            if (player.tickCount % 20 == 0) {
+                ModNetworking.sendToClient(new PlayerIsInBattleS2CPacket(Compute.playerIsInBattle(player)), serverPlayer);
+            }
 
             if (player.tickCount % 6000 == 0) {
                 Smelt.checkIfAnyProgressFinished(player);

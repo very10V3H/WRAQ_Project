@@ -27,7 +27,7 @@ public class ManaShield extends WraqOffHandItem implements ForgeItem {
         Utils.attackDamage.put(this, 40d);
         Utils.manaDamage.put(this, 80d);
         Utils.healthSteal.put(this, 0.04);
-        Utils.expUp.put(this, 1d);
+        Utils.expUp.put(this, 0.65);
         Utils.shieldTag.put(this, 1d);
     }
 

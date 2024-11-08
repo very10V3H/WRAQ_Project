@@ -23,11 +23,11 @@ public class BoneImpKnife extends WraqOffHandItem implements ForgeItem {
 
     public BoneImpKnife(Properties properties, Component type) {
         super(properties, type);
-        Utils.attackDamage.put(this, 77d);
+        Utils.attackDamage.put(this, 277d);
         Utils.defencePenetration0.put(this, 6d);
         Utils.critRate.put(this, 0.17);
         Utils.critDamage.put(this, 0.62);
-        Utils.expUp.put(this, 1.57);
+        Utils.expUp.put(this, 0.77);
     }
 
     @Override

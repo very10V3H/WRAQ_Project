@@ -70,6 +70,17 @@ public record StableAttributesModifier(String tag, double value, int stopTick) {
         }
     }
 
+    public static void addM(LivingEntity entity, Map<LivingEntity, List<StableAttributesModifier>> modifierMap,
+                            String tag, double value, int stopTick, String url) {
+        addAttributeModifier(entity, modifierMap, new StableAttributesModifier(tag, value, stopTick));
+        if (entity instanceof Player player) {
+            Compute.sendEffectLastTime(player, url, stopTick - Tick.get(), 0, false);
+        }
+        if (entity instanceof Mob mob) {
+            Compute.sendMobEffectHudToNearPlayer(mob, url, tag, stopTick - Tick.get(), 0, false);
+        }
+    }
+
     public static void removeAttributeModifierByTag(LivingEntity entity, Map<LivingEntity, List<StableAttributesModifier>> modifierMap, String tag) {
         List<StableAttributesModifier> modifierList = getAttributeModifierList(entity, modifierMap);
         List<StableAttributesModifier> removeList = new ArrayList<>();

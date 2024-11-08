@@ -76,6 +76,6 @@ public class VolcanoSuitDescription {
         components.add(Component.literal("获得").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.AttributeDescription.critDamage("35%")));
         components.add(Component.literal("获得").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.manaPenetration("35")));
+                append(ComponentUtils.AttributeDescription.manaPenetration("10")));
     }
 }
