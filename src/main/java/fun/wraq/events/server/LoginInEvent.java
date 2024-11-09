@@ -118,8 +118,8 @@ public class LoginInEvent {
             String singleReward = CompensateCommand.singleReward;
             if (isNewPlayer) data.putBoolean(singleReward, true);
             if (!data.contains(singleReward)) {
-                Compute.sendFormatMSG(player, Component.literal("补偿").withStyle(CustomStyle.styleOfSakura),
-                        Component.literal("你有待领取的补偿，输入/vmd compensate领取补偿！").withStyle(ChatFormatting.AQUA));
+/*                Compute.sendFormatMSG(player, Component.literal("补偿").withStyle(CustomStyle.styleOfSakura),
+                        Component.literal("你有待领取的补偿，输入/vmd compensate领取补偿！").withStyle(ChatFormatting.AQUA));*/
             }
 
             String expAdjust = "2.0.37-expAdjust";

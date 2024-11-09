@@ -140,7 +140,7 @@ public class KeyInput {
                                     Te.s("已关闭", ChatFormatting.RED, "指引界面"));
                         }
                     }
-                    ClientUtils.tabSwitchLastTime = (int) Calendar.getInstance().getTimeInMillis();
+                    ClientUtils.tabSwitchLastTime = Calendar.getInstance().getTimeInMillis();
                 }
 
                 if (KeyBoradInput.ElementRoulette.consumeClick()) {

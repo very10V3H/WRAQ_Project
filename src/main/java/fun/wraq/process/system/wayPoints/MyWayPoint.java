@@ -135,7 +135,7 @@ public class MyWayPoint {
 
         add(new MyWayPoint(new Vec3(1534, 81, 305), "炼魔平原", colorMap.get(darkPurple), 0));
         add(new MyWayPoint(new Vec3(1584, 81, 143), "炼魔庙", colorMap.get(darkPurple), 0));
-        add(new MyWayPoint(new Vec3(1742, 63, 241), "炼魔湾", colorMap.get(blue), 0));
+        add(new MyWayPoint(new Vec3(1742, 63, 241), "旭升湾", colorMap.get(yellow), 0));
         add(new MyWayPoint(new Vec3(1101, 76, 260), "纽维雨林", colorMap.get(green), 0));
         add(new MyWayPoint(new Vec3(1280, 82, 209), "纽维庙", colorMap.get(green), 0));
         add(new MyWayPoint(new Vec3(1147, 300, 554), "尘月之梦", colorMap.get(white), 0));

@@ -593,6 +593,6 @@ public class ClientUtils {
 
     public static boolean isInBattle = false;
 
-    public static int tabSwitchLastTime = 0;
+    public static long tabSwitchLastTime = 0;
 }
 

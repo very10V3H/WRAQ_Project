@@ -31,8 +31,6 @@ public class GuideHud {
             components.add(Component.literal("").withStyle(ChatFormatting.WHITE));
             components.add(Te.s("按下", "[Tab]", ChatFormatting.AQUA, "以打开/关闭此指引"));
             components.add(Te.s("你也可以前往", "按键绑定", CustomStyle.styleOfStone, "修改此开关按键"));
-            components.add(Component.literal("按下[Tab]打开/关闭此指引").withStyle(ChatFormatting.WHITE));
-            components.add(Component.literal("你也可以前往按键绑定修改此开关按键").withStyle(ChatFormatting.WHITE));
             guiGraphics.renderComponentTooltip(fontRenderer, components, 0, (int) (y / 1.5));
         }
     });

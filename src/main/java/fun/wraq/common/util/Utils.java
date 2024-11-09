@@ -527,7 +527,8 @@ public class Utils {
     public static double WorldEntropyIncreaseSpeed = 0.5;
 
     public static List<WorldEntropy> WorldEntropyPos = new ArrayList<>() {{
-        this.add(new WorldEntropy(new Vec3(976, 249, 47), 0, "天空城 "));
+        add(new WorldEntropy(new Vec3(976, 249, 47), 0, "天空城 "));
+        add(new WorldEntropy(new Vec3(1774, 75, 339), 0, "旭升岛 "));
     }};
 
     public static List<Item> SoulList = new ArrayList<>();
