@@ -20,6 +20,7 @@ import java.util.Map;
 public class QuickUseHud {
 
     public static boolean display = true;
+    public static int mode = 1;
 
     public static final String DISPLAY_KEY = "QUICK_USE_HUD_DISPLAY";
 
@@ -54,10 +55,13 @@ public class QuickUseHud {
             }
         }
 
-        int xOffset = -72;
-        int yOffset = -48;
+        int xOffset;
+        int yOffset;
 
-        if (ClientUtils.isInBattle && display) {
+        if (mode == 0 && ClientUtils.isInBattle && display) {
+            xOffset = -72;
+            yOffset = -48;
+
             for (int i = 0; i < 3; i++) {
                 ItemStack stack = player.getInventory().getItem(i + 3);
                 Item item = stack.getItem();
@@ -78,6 +82,22 @@ public class QuickUseHud {
                         guiGraphics.drawCenteredString(font, Te.s(getKeyName(i + 3), ChatFormatting.AQUA),
                                 x + xOffset + 128, y / 2 + yOffset + 40 * i, 0);
                         guiGraphics.renderItem(stack, x + xOffset + 128, y / 2 + yOffset + 40 * i);
+                    }
+                }
+            }
+        }
+
+        if (mode == 1 && ClientUtils.isInBattle && display) {
+            xOffset = -68;
+            yOffset = 8;
+            for (int i = 0; i < 6; i++) {
+                ItemStack stack = player.getInventory().getItem(i + 3);
+                Item item = stack.getItem();
+                if (item instanceof ActiveItem) {
+                    if (!player.getCooldowns().isOnCooldown(item)) {
+                        guiGraphics.drawCenteredString(font, Te.s(getKeyName(i), ChatFormatting.AQUA),
+                                x + xOffset + 24 * i, y / 2 + yOffset, 0);
+                        guiGraphics.renderItem(stack, x + xOffset + 24 * i, y / 2 + yOffset);
                     }
                 }
             }

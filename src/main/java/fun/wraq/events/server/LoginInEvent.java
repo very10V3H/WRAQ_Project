@@ -7,6 +7,7 @@ import fun.wraq.blocks.entity.InjectBlockEntity;
 import fun.wraq.commands.changeable.CompensateCommand;
 import fun.wraq.commands.changeable.PrefixCommand;
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.StringUtils;
@@ -327,10 +328,16 @@ public class LoginInEvent {
             DailySupply.sendStatusToClient(player);
             VpDataHandler.sendPlayerVpValue(player);
 
+            int quickUseMode = 1;
             if (data.contains(QuickUseHud.DISPLAY_KEY)) {
-                if (!data.getBoolean(QuickUseHud.DISPLAY_KEY)) {
-                    ModNetworking.sendToClient(new QuickUseDisplayS2CPacket(false), serverPlayer);
-                }
+                ModNetworking.sendToClient(
+                        new QuickUseDisplayS2CPacket(data.getInt(QuickUseHud.DISPLAY_KEY)), serverPlayer);
+                quickUseMode = data.getInt(QuickUseHud.DISPLAY_KEY);
+            }
+            if (quickUseMode != -1) {
+                Compute.sendFormatMSG(player, Te.s("系统", ChatFormatting.AQUA),
+                        Te.s("战斗快捷使用显示正在以 ", "模式" + quickUseMode, ChatFormatting.AQUA,
+                                " 显示，使用/vmd quickUseDisplay [模式] 来关闭或切换模式"));
             }
 
             if (!serverPlayer.getName().getString().equals("very_H")) {

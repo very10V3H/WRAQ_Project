@@ -8,23 +8,23 @@ import java.util.function.Supplier;
 
 public class QuickUseDisplayS2CPacket {
 
-    private final boolean quickUseDisplay;
-    public QuickUseDisplayS2CPacket(boolean quickUseDisplay) {
-        this.quickUseDisplay = quickUseDisplay;
+    private final int mode;
+    public QuickUseDisplayS2CPacket(int mode) {
+        this.mode = mode;
     }
 
     public QuickUseDisplayS2CPacket(FriendlyByteBuf buf) {
-        this.quickUseDisplay = buf.readBoolean();
+        this.mode = buf.readInt();
     }
 
     public void toBytes(FriendlyByteBuf buf) {
-        buf.writeBoolean(quickUseDisplay);
+        buf.writeInt(mode);
     }
 
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
-            QuickUseHud.display = quickUseDisplay;
+            QuickUseHud.mode = mode;
         });
         return true;
     }

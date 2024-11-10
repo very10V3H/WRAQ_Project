@@ -507,8 +507,10 @@ public class CommandHandler {
         CommandDispatcher<CommandSourceStack> dispatcher54 = event.getDispatcher();
         LiteralCommandNode<CommandSourceStack> cmd54 = dispatcher54.register(
                 Commands.literal(Utils.MOD_ID).then(
-                        Commands.literal("quickUseDisplay")
-                                .executes(QuickUseDisplayCommand.instance)
+                        Commands.literal("quickUseDisplay").then(
+                                Commands.argument("mode", IntegerArgumentType.integer(-1, 1))
+                                        .executes(QuickUseDisplayCommand.instance)
+                        )
                 )
         );
     }

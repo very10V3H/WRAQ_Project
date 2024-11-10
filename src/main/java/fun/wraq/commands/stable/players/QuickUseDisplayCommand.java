@@ -1,6 +1,7 @@
 package fun.wraq.commands.stable.players;
 
 import com.mojang.brigadier.Command;
+import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import fun.wraq.common.Compute;
@@ -19,21 +20,24 @@ public class QuickUseDisplayCommand implements Command<CommandSourceStack> {
     @Override
     public int run(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         Player player = context.getSource().getPlayer();
+        int mode = IntegerArgumentType.getInteger(context, "mode");
         CompoundTag data = player.getPersistentData();
-        if (!data.contains(QuickUseHud.DISPLAY_KEY)) {
-            data.putBoolean(QuickUseHud.DISPLAY_KEY, false);
-        } else {
-            data.putBoolean(QuickUseHud.DISPLAY_KEY, !data.getBoolean(QuickUseHud.DISPLAY_KEY));
+        data.putInt(QuickUseHud.DISPLAY_KEY, mode);
+        switch (mode) {
+            case -1 -> {
+                Compute.sendFormatMSG(player, Te.s("系统", ChatFormatting.AQUA),
+                        Te.s("已关闭", ChatFormatting.RED, "战斗快捷使用显示"));
+            }
+            case 0 -> {
+                Compute.sendFormatMSG(player, Te.s("系统", ChatFormatting.AQUA),
+                        Te.s("战斗快捷使用提示，现在使用", " 模式0", ChatFormatting.AQUA));
+            }
+            case 1 -> {
+                Compute.sendFormatMSG(player, Te.s("系统", ChatFormatting.AQUA),
+                        Te.s("战斗快捷使用提示，现在使用", " 模式1", ChatFormatting.AQUA));
+            }
         }
-
-        if (data.getBoolean(QuickUseHud.DISPLAY_KEY)) {
-            Compute.sendFormatMSG(player, Te.s("系统", ChatFormatting.AQUA),
-                    Te.s("已开启", ChatFormatting.GREEN, "战斗快捷使用显示"));
-        } else {
-            Compute.sendFormatMSG(player, Te.s("系统", ChatFormatting.AQUA),
-                    Te.s("已关闭", ChatFormatting.RED, "战斗快捷使用显示"));
-        }
-        ModNetworking.sendToClient(new QuickUseDisplayS2CPacket(data.getBoolean(QuickUseHud.DISPLAY_KEY)), player);
+        ModNetworking.sendToClient(new QuickUseDisplayS2CPacket(data.getInt(QuickUseHud.DISPLAY_KEY)), player);
         return 0;
     }
 }
