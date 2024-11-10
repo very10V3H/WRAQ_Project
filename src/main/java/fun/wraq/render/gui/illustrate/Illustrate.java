@@ -59,40 +59,45 @@ public class Illustrate extends Screen {
             this.minecraft.mouseHandler.grabMouse();
         }).pos(X + 136, Y - 98).size(12, 12).build());
 
-        this.addRenderableWidget(Button.builder(Component.translatable("武器"), (p_280814_) -> {
+        this.addRenderableWidget(Button.builder(Component.literal("武器"), (p_280814_) -> {
             this.type = 0;
             this.page = 0;
         }).pos(X + 150, Y - 98).size(28, 16).build());
 
-        this.addRenderableWidget(Button.builder(Component.translatable("防具"), (p_280814_) -> {
+        this.addRenderableWidget(Button.builder(Component.literal("防具"), (p_280814_) -> {
             this.type = 1;
             this.page = 0;
         }).pos(X + 150, Y - 98 + 20).size(28, 16).build());
 
-        this.addRenderableWidget(Button.builder(Component.translatable("饰品"), (p_280814_) -> {
+        this.addRenderableWidget(Button.builder(Component.literal("饰品"), (p_280814_) -> {
             this.type = 2;
             this.page = 0;
         }).pos(X + 150, Y - 98 + 20 * 2).size(28, 16).build());
 
-        this.addRenderableWidget(Button.builder(Component.translatable("宝石"), (p_280814_) -> {
-            this.type = 6;
+        this.addRenderableWidget(Button.builder(Component.literal("符石"), (p_280814_) -> {
+            this.type = 7;
             this.page = 0;
         }).pos(X + 150, Y - 98 + 20 * 3).size(28, 16).build());
 
-        this.addRenderableWidget(Button.builder(Component.translatable("制式"), (p_280814_) -> {
-            this.type = 3;
+        this.addRenderableWidget(Button.builder(Component.literal("宝石"), (p_280814_) -> {
+            this.type = 6;
             this.page = 0;
         }).pos(X + 150, Y - 98 + 20 * 4).size(28, 16).build());
 
-        this.addRenderableWidget(Button.builder(Component.translatable("酿造"), (p_280814_) -> {
-            this.type = 4;
+        this.addRenderableWidget(Button.builder(Component.literal("制式"), (p_280814_) -> {
+            this.type = 3;
             this.page = 0;
         }).pos(X + 150, Y - 98 + 20 * 5).size(28, 16).build());
 
-        this.addRenderableWidget(Button.builder(Component.translatable("材料"), (p_280814_) -> {
-            this.type = 5;
+        this.addRenderableWidget(Button.builder(Component.literal("酿造"), (p_280814_) -> {
+            this.type = 4;
             this.page = 0;
         }).pos(X + 150, Y - 98 + 20 * 6).size(28, 16).build());
+
+        this.addRenderableWidget(Button.builder(Component.literal("材料"), (p_280814_) -> {
+            this.type = 5;
+            this.page = 0;
+        }).pos(X + 150, Y - 98 + 20 * 7).size(28, 16).build());
     }
 
     public void tick() {
@@ -111,9 +116,10 @@ public class Illustrate extends Screen {
             case 1 -> sameModule(Utils.armorList, guiGraphics, x, y, xOffset);
             case 2 -> sameModule(Utils.curiosList, guiGraphics, x, y, xOffset);
             case 3 -> sameModule(Utils.customizedList, guiGraphics, x, y, xOffset);
-            case 4 -> sameModule(fun.wraq.render.gui.illustrate.Display.getBrewingList(), guiGraphics, x, y, xOffset);
-            case 5 -> sameModule(fun.wraq.render.gui.illustrate.Display.materialList, guiGraphics, x, y, xOffset);
-            case 6 -> sameModule(fun.wraq.render.gui.illustrate.Display.gemList, guiGraphics, x, y, xOffset);
+            case 4 -> sameModule(Display.getBrewingList(), guiGraphics, x, y, xOffset);
+            case 5 -> sameModule(Display.materialList, guiGraphics, x, y, xOffset);
+            case 6 -> sameModule(Display.gemList, guiGraphics, x, y, xOffset);
+            case 7 -> sameModule(Display.runeList, guiGraphics, x, y, xOffset);
         }
         guiGraphics.drawCenteredString(fontRenderer, Component.literal("" + (page + 1)).withStyle(ChatFormatting.WHITE), this.width / 2 + 5, this.height / 2 - 22 + 105, 0);
 

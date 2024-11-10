@@ -54,6 +54,14 @@ public enum SmeltRecipe {
             List.of(new ItemAndRate(new ItemStack(Items.COBBLESTONE, 8), 0.25)),
             5),
 
+    TINKER_COPPER(Te.m("工匠铜锭", CustomStyle.styleOfMine),
+            List.of(new ItemStack(Items.COPPER_INGOT, 32),
+                    new ItemStack(Items.COAL, 2),
+                    new ItemStack(ModItems.goldCoin.get(), 2)),
+            List.of(new ItemStack(PickaxeItems.TINKER_COPPER.get(), 1)),
+            List.of(new ItemAndRate(new ItemStack(Items.COPPER_INGOT, 8), 0.25)),
+            8),
+
     TINKER_IRON(Te.m("工匠铁锭", CustomStyle.styleOfMine),
             List.of(new ItemStack(Items.IRON_INGOT, 32),
                     new ItemStack(Items.COAL, 2),

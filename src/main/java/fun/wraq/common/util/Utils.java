@@ -741,7 +741,6 @@ public class Utils {
 
     public static void setReputationStoreItemList() {
         ReputationStoreItemList.add(ModItems.ReputationMedal.get());
-        ReputationStoreItemList.add(ModItems.notePaper.get());
         ReputationStoreItemList.add(ModItems.GoldCoinBag.get());
         ReputationStoreItemList.add(ModItems.commonLotteries.get());
         ReputationStoreItemList.add(ModItems.UnCommonLotteries.get());
@@ -751,7 +750,6 @@ public class Utils {
 
     public static void setReputationStorePrice() {
         ReputationStorePrice.put(ModItems.ReputationMedal.get(), 64);
-        ReputationStorePrice.put(ModItems.notePaper.get(), 16);
         ReputationStorePrice.put(ModItems.GoldCoinBag.get(), 16);
         ReputationStorePrice.put(ModItems.commonLotteries.get(), 32);
         ReputationStorePrice.put(ModItems.UnCommonLotteries.get(), 64);

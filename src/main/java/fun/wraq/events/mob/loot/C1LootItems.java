@@ -30,7 +30,7 @@ public class C1LootItems {
             new RandomArmor(ItemMaterial.Lake, ArmorItem.Type.HELMET,
                     new Item.Properties().rarity(CustomStyle.WaterBold), CustomStyle.styleOfWater,
                     ComponentUtils.getSuffixOfChapterI(), List.of(new RandomAttributeValue(
-                    StringUtils.RandomAttribute.coolDown, 0.2, 0.6)), 18));
+                    StringUtils.RandomAttribute.coolDown, 0.1, 0.25)), 18));
 
     public static final RegistryObject<Item> mineSkeletonPickaxe = ITEMS.register("mine_skeleton_pickaxe", () ->
             new RandomSword(new Item.Properties().rarity(CustomStyle.MineBold), CustomStyle.styleOfMine,

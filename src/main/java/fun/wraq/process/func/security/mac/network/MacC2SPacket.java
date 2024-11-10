@@ -1,30 +1,30 @@
-package fun.wraq.networking;
+package fun.wraq.process.func.security.mac.network;
 
-import fun.wraq.networking.ModNetworking;
-import fun.wraq.networking.VersionC2SPacket;
+import fun.wraq.process.func.security.mac.MacServer;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-public class VersionCheckS2CPacket {
+public class MacC2SPacket {
+    private final String mac;
 
-    public VersionCheckS2CPacket() {
-
+    public MacC2SPacket(String mac) {
+        this.mac = mac;
     }
 
-    public VersionCheckS2CPacket(FriendlyByteBuf buf) {
-
+    public MacC2SPacket(FriendlyByteBuf buf) {
+        this.mac = buf.readUtf();
     }
 
     public void toBytes(FriendlyByteBuf buf) {
-
+        buf.writeUtf(this.mac);
     }
 
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
-            ModNetworking.sendToServer(new VersionC2SPacket("2.0.37"));
+            MacServer.checkMac(context.getSender(), this.mac);
         });
         return true;
     }

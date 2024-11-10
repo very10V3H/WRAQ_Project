@@ -1,6 +1,5 @@
 package fun.wraq.series.specialevents.midautumn;
 
-import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.moon.Equip.MoonSceptre;
@@ -13,7 +12,7 @@ public class MidAutumnSceptre extends MoonSceptre {
         Utils.manaDamage.put(this, 0d);
         Utils.xpLevelManaDamage.put(this, 16d);
         Utils.manaPenetration0.put(this, 0d);
-        Utils.xpLevelManaPenetration0.put(this, 16d);
+        Utils.xpLevelManaPenetration0.put(this, 0.2);
     }
 
     @Override

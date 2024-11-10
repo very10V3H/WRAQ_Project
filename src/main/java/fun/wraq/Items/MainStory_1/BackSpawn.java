@@ -122,8 +122,8 @@ public class BackSpawn extends Item {
         if (isCallingMap.containsKey(name) && isCallingMap.get(name)) {
 
             if (player.level().dimension().equals(Level.OVERWORLD)) {
-                needSeconds = (int) (5 + vec3.distanceTo(player.position()) / 100);
-            } else needSeconds = 20;
+                needSeconds = (int) (vec3.distanceTo(player.position()) / 100);
+            } else needSeconds = 15;
 
             int needTicks = needSeconds * 20;
             calledTicksMap.put(name, calledTicksMap.getOrDefault(name, 0) + 1);

@@ -94,7 +94,7 @@ public abstract class WraqOffHandItem extends SwordItem {
     @Override
     public void onInventoryTick(ItemStack stack, Level level, Player player, int slotIndex, int selectedIndex) {
         if (!level.isClientSide) {
-            tick(player);
+            if (slotIndex == 40) tick(player);
         }
         super.onInventoryTick(stack, level, player, slotIndex, selectedIndex);
     }

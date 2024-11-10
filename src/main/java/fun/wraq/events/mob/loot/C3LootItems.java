@@ -16,21 +16,25 @@ public class C3LootItems {
 
     public static final RegistryObject<Item> witherSkeletonLootSword = ITEMS.register("wither_skeleton_loot_sword", () ->
             new RandomSword(new Item.Properties().rarity(CustomStyle.WitherBold), CustomStyle.styleOfWither,
-                    ComponentUtils.getSuffixOfNether(), List.of(new RandomAttributeValue(StringUtils.RandomAttribute.attackDamage, 130, 150),
+                    ComponentUtils.getSuffixOfNether(), List.of(
+                    new RandomAttributeValue(StringUtils.RandomAttribute.attackDamage, 130, 150),
                     new RandomAttributeValue(StringUtils.RandomAttribute.critDamage, 0.35, 0.75)), 80));
 
     public static final RegistryObject<Item> magmaLootSceptre = ITEMS.register("magma_loot_sceptre", () ->
             new RandomSceptre(new Item.Properties().rarity(CustomStyle.MagmaBold), CustomStyle.styleOfPower,
-                    ComponentUtils.getSuffixOfNether(), List.of(new RandomAttributeValue(StringUtils.RandomAttribute.manaDamage, 175, 185),
+                    ComponentUtils.getSuffixOfNether(), List.of(
+                    new RandomAttributeValue(StringUtils.RandomAttribute.manaDamage, 175, 185),
                     new RandomAttributeValue(StringUtils.RandomAttribute.critDamage, 0.4, 0.8)), 80));
 
     public static final RegistryObject<Item> netherSkeletonLootBow = ITEMS.register("nether_skeleton_loot_bow", () ->
             new RandomBow(new Item.Properties().rarity(CustomStyle.WitherBold), CustomStyle.styleOfWither,
-                    ComponentUtils.getSuffixOfNether(), List.of(new RandomAttributeValue(StringUtils.RandomAttribute.attackDamage, 110, 130),
+                    ComponentUtils.getSuffixOfNether(), List.of(
+                    new RandomAttributeValue(StringUtils.RandomAttribute.attackDamage, 110, 130),
                     new RandomAttributeValue(StringUtils.RandomAttribute.defence, 2, 4)), 80));
 
     public static final RegistryObject<Item> piglinSword = ITEMS.register("piglin_sword", () ->
             new RandomSword(new Item.Properties().rarity(CustomStyle.PiglinBold), CustomStyle.styleOfGold,
-                    ComponentUtils.getSuffixOfNether(), List.of(new RandomAttributeValue(StringUtils.RandomAttribute.defence, 2, 4),
+                    ComponentUtils.getSuffixOfNether(), List.of(
+                    new RandomAttributeValue(StringUtils.RandomAttribute.defence, 2, 4),
                     new RandomAttributeValue(StringUtils.RandomAttribute.critRate, 0.2, 0.4)), 80));
 }

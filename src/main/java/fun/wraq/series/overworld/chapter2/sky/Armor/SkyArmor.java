@@ -11,6 +11,7 @@ import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -69,5 +70,20 @@ public class SkyArmor extends WraqArmor implements ForgeItem {
                 new ItemStack(ModItems.SkyRune.get(), 10),
                 new ItemStack(Items.DIAMOND, 16)
         );
+    }
+
+    @Override
+    public void tick(Player player) {
+        double healthRate = player.getHealth() / player.getMaxHealth();
+        int effectTier;
+        if (healthRate > 0.8) {
+            effectTier = 3;
+        } else if (healthRate > 0.4) {
+            effectTier = 2;
+        } else {
+            effectTier = 1;
+        }
+        Compute.sendEffectLastTime(player, ModItems.SKY_ARMOR_HELMET.get(), effectTier, true);
+        super.tick(player);
     }
 }

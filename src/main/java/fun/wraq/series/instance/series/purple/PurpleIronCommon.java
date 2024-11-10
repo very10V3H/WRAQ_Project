@@ -62,6 +62,9 @@ public interface PurpleIronCommon {
                 player.getCooldowns().addCooldown(item, 600);
 
                 // 生成
+                while (level.getBlockState(blockPos.below()).is(Blocks.AIR)) {
+                    blockPos = blockPos.below();
+                }
                 blockInfoList.add(new BlockInfo(blockPos, player, level,
                         Tick.get() + 600, ((PurpleIronCommon) item).getPassiveTier()));
                 level.setBlockAndUpdate(blockPos, Blocks.AMETHYST_CLUSTER.defaultBlockState());

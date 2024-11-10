@@ -17,9 +17,7 @@ public class SpiderArmorLeggings extends ArmorItem {
 
     public SpiderArmorLeggings(ItemMaterial Materrial, Type Slots) {
         super(Materrial, Slots, new Properties().rarity(CustomStyle.SpiderItalic));
-
         Utils.armorTag.put(this, 1d);
-        Utils.armorList.add(this);
     }
 
     @Override

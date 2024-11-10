@@ -6,6 +6,7 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.equip.WraqOffHandItem;
+import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
@@ -84,7 +85,7 @@ public class BoneImpKnife extends WraqOffHandItem implements ForgeItem {
             add(new ItemStack(ModItems.goldCoin.get(), 288));
             add(new ItemStack(ModItems.completeGem.get(), 16));
             add(new ItemStack(ModItems.ReputationMedal.get(), 64));
-            add(new ItemStack(ModItems.RefiningGold.get(), 4));
+            add(new ItemStack(PickaxeItems.TINKER_GOLD.get(), 12));
             add(new ItemStack(ModItems.WorldSoul3.get(), 4));
         }};
     }

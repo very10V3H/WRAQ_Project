@@ -55,6 +55,11 @@ public class PickaxeItems {
                     Te.s("通过", "炼造", CustomStyle.styleOfPower, "获取")
             )));
 
+    public static final RegistryObject<Item> TINKER_COPPER = ITEMS.register("tinker_copper",
+            () -> new WraqItem(new Item.Properties(), true, List.of(
+                    Te.s("通过", "炼造", CustomStyle.styleOfPower, "获取")
+            )));
+
     public static final RegistryObject<Item> GOLD_PICKAXE_0 = ITEMS.register("golden_pickaxe_0",
             () -> new NormalPickaxe(new Item.Properties().rarity(Rarity.UNCOMMON), 2.2, CustomStyle.styleOfGold, true));
 

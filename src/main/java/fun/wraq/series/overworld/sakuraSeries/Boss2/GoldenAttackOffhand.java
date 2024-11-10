@@ -1,6 +1,7 @@
 package fun.wraq.series.overworld.sakuraSeries.Boss2;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
@@ -13,6 +14,7 @@ import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.impl.onkill.OnKillEffectEquip;
 import fun.wraq.common.equip.WraqOffHandItem;
+import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.overworld.chapter1.Mine.MineShield;
 import net.minecraft.ChatFormatting;
@@ -139,8 +141,19 @@ public class GoldenAttackOffhand extends WraqOffHandItem implements OnKillEffect
     }
 
     @Override
-    public void tick(Player player) {
-        int tick = player.getServer().getTickCount();
+    public List<ItemStack> forgeRecipe() {
+        return new ArrayList<>() {{
+            add(new ItemStack(ModItems.Boss2Piece.get(), 256));
+            add(new ItemStack(ModItems.goldCoin.get(), 128));
+            add(new ItemStack(ModItems.completeGem.get(), 4));
+            add(new ItemStack(ModItems.ReputationMedal.get(), 16));
+            add(new ItemStack(PickaxeItems.TINKER_GOLD.get(), 4));
+            add(new ItemStack(ModItems.WorldSoul3.get(), 1));
+        }};
+    }
+
+    public static void handleTick(Player player) {
+        int tick = Tick.get();
         String name = player.getName().getString();
         if (passiveLastTimeMap.getOrDefault(name, 0) > tick && !(player.getOffhandItem().getItem() instanceof GoldenAttackOffhand)) {
             passiveLastTimeMap.put(name, 0);
@@ -149,17 +162,5 @@ public class GoldenAttackOffhand extends WraqOffHandItem implements OnKillEffect
             StableAttributesModifier.removeAttributeModifierByTag(player, StableAttributesModifier.playerDefencePenetrationModifier, defencePenetrationTag);
             Compute.removeEffectLastTime(player, ModItems.goldCoin.get());
         }
-    }
-
-    @Override
-    public List<ItemStack> forgeRecipe() {
-        return new ArrayList<>() {{
-            add(new ItemStack(ModItems.Boss2Piece.get(), 256));
-            add(new ItemStack(ModItems.goldCoin.get(), 128));
-            add(new ItemStack(ModItems.completeGem.get(), 4));
-            add(new ItemStack(ModItems.ReputationMedal.get(), 16));
-            add(new ItemStack(ModItems.RefiningGold.get(), 1));
-            add(new ItemStack(ModItems.WorldSoul3.get(), 1));
-        }};
     }
 }

@@ -1,6 +1,5 @@
 package fun.wraq.common.util;
 
-import com.mojang.logging.LogUtils;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
@@ -38,7 +37,6 @@ public class MarketItemData extends SavedData {
             listTag.add(tag);
         });
         pCompoundTag.put(marketItemInfoListKeyString, listTag);
-        LogUtils.getLogger().info("Market info saved!");
         return pCompoundTag;
     }
 

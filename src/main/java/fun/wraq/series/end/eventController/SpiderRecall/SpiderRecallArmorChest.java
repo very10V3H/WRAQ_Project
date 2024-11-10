@@ -17,9 +17,7 @@ public class SpiderRecallArmorChest extends ArmorItem {
 
     public SpiderRecallArmorChest(ItemMaterial Materrial, Type Slots) {
         super(Materrial, Slots, new Properties().rarity(CustomStyle.MagmaItalic));
-
         Utils.armorTag.put(this, 1d);
-        Utils.armorList.add(this);
     }
 
     @Override

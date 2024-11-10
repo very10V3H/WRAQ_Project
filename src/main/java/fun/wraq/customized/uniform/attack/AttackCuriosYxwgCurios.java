@@ -1,6 +1,7 @@
 package fun.wraq.customized.uniform.attack;
 
 import fun.wraq.common.util.ComponentUtils;
+import fun.wraq.customized.uniform.UnCommonUniform;
 import fun.wraq.process.system.element.RainbowCrystal;
 import fun.wraq.common.impl.onhit.OnHitDamageInfluenceCurios;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -13,7 +14,7 @@ import net.minecraft.world.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AttackCuriosYxwgCurios extends WraqAttackUniformCurios implements OnHitDamageInfluenceCurios {
+public class AttackCuriosYxwgCurios extends WraqAttackUniformCurios implements OnHitDamageInfluenceCurios, UnCommonUniform {
 
     public AttackCuriosYxwgCurios(Properties properties) {
         super(properties);

@@ -3644,16 +3644,16 @@ public class ModItems {
             () -> new SupplyBox(new Item.Properties().rarity(CustomStyle.Green), new ArrayList<>() {{
                 add(new ItemStack(MopUpPaperLoot.get(), 4));
                 add(new ItemStack(KillPaperLoot.get(), 8));
-                add(new ItemStack(notePaper.get(), 96));
-                add(new ItemStack(RevelationBook.get(), 16));
+                add(new ItemStack(notePaper.get(), 32));
+                add(new ItemStack(RevelationBook.get(), 8));
             }}));
 
     public static final RegistryObject<Item> supplyBoxTier2 = ITEMS.register("supply_box_tier_2",
             () -> new SupplyBox(new Item.Properties().rarity(Rarity.RARE), new ArrayList<>() {{
                 add(new ItemStack(MopUpPaperLoot.get(), 8));
                 add(new ItemStack(KillPaperLoot.get(), 16));
-                add(new ItemStack(notePaper.get(), 128));
-                add(new ItemStack(RevelationBook.get(), 32));
+                add(new ItemStack(notePaper.get(), 64));
+                add(new ItemStack(RevelationBook.get(), 16));
                 add(new ItemStack(worldSoul5.get(), 80));
             }}));
 
@@ -3661,8 +3661,8 @@ public class ModItems {
             () -> new SupplyBox(new Item.Properties().rarity(Rarity.EPIC), new ArrayList<>() {{
                 add(new ItemStack(MopUpPaperLoot.get(), 16));
                 add(new ItemStack(KillPaperLoot.get(), 32));
-                add(new ItemStack(notePaper.get(), 160));
-                add(new ItemStack(RevelationBook.get(), 64));
+                add(new ItemStack(notePaper.get(), 128));
+                add(new ItemStack(RevelationBook.get(), 32));
                 add(new ItemStack(worldSoul5.get(), 200));
             }}));
 

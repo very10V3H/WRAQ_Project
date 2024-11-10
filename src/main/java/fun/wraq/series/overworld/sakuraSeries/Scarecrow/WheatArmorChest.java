@@ -32,13 +32,11 @@ import java.util.function.Consumer;
 
 public class WheatArmorChest extends ArmorItem implements GeoItem {
     private final AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
-    private final double MaxHealth = 500;
 
     public WheatArmorChest(ItemMaterial Material, Type Slots) {
         super(Material, Slots, new Properties().rarity(Rarity.UNCOMMON));
-        Utils.maxHealth.put(this, MaxHealth);
+        Utils.maxHealth.put(this, 500d);
         Utils.armorTag.put(this, 1d);
-        Utils.armorList.add(this);
     }
 
     @Override

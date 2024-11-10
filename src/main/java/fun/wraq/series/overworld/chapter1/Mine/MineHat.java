@@ -38,7 +38,6 @@ public class MineHat extends ArmorItem implements GeoItem {
         Utils.defence.put(this, 1d);
         Utils.maxHealth.put(this, 100d);
         Utils.armorTag.put(this, 1d);
-        Utils.armorList.add(this);
     }
 
     @Override

@@ -1380,6 +1380,7 @@ public class Compute {
                 Set<Item> curiosItemSet = new HashSet<>();
                 for (int i = 0 ; i < size ; i ++) {
                     ItemStack stack = iCuriosItemHandler.getEquippedCurios().getStackInSlot(i);
+                    if (stack.is(Items.AIR)) continue;
                     if (!curiosItemSet.contains(stack.getItem())) {
                         if (!(stack.getItem() instanceof RepeatableCurios)) {
                             curiosItemSet.add(stack.getItem());

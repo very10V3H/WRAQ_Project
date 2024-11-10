@@ -1,6 +1,7 @@
 package fun.wraq.series.overworld.sakuraSeries.Boss2;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
@@ -118,17 +119,15 @@ public class GoldenBook extends WraqOffHandItem implements OnKillEffectEquip {
         }
     }
 
-    @Override
-    public void tick(Player player) {
-        int tick = player.getServer().getTickCount();
+    public static void handleTick(Player player) {
+        int tick = Tick.get();
         String name = player.getName().getString();
         if (passiveLastTimeMap.getOrDefault(name, 0) > tick && !(player.getOffhandItem().getItem() instanceof GoldenBook)) {
             passiveLastTimeMap.put(name, 0);
             StableAttributesModifier.removeAttributeModifierByTag(player, StableAttributesModifier.playerCritRateModifier, critRateTag);
-            StableAttributesModifier.removeAttributeModifierByTag(player, StableAttributesModifier.playerCooldownModifier, cooldownTag);
-            StableAttributesModifier.removeAttributeModifierByTag(player, StableAttributesModifier.playerManaRecoverModifier, manaRecoverTag);
+            StableAttributesModifier.removeAttributeModifierByTag(player, StableAttributesModifier.playerCritDamageModifier, cooldownTag);
+            StableAttributesModifier.removeAttributeModifierByTag(player, StableAttributesModifier.playerDefencePenetrationModifier, manaRecoverTag);
             Compute.removeEffectLastTime(player, ModItems.goldCoin.get());
         }
     }
-
 }

@@ -104,7 +104,10 @@ public abstract class WraqArmor extends ArmorItem {
     @Override
     public void onInventoryTick(ItemStack stack, Level level, Player player, int slotIndex, int selectedIndex) {
         if (!level.isClientSide) {
-            tick(player);
+            if (this.type.equals(Type.HELMET) && slotIndex == 39) tick(player);
+            if (this.type.equals(Type.CHESTPLATE) && slotIndex == 38) tick(player);
+            if (this.type.equals(Type.LEGGINGS) && slotIndex == 37) tick(player);
+            if (this.type.equals(Type.BOOTS) && slotIndex == 36) tick(player);
         }
         super.onInventoryTick(stack, level, player, slotIndex, selectedIndex);
     }

@@ -1,16 +1,14 @@
-import org.apache.http.HttpEntity;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
+import fun.wraq.process.func.security.Security;
 
-import java.io.IOException;
+import java.net.InetAddress;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
 
-        CloseableHttpClient httpClient = HttpClients.createDefault();
+    public static void main(String[] args) throws Exception {
+
+        System.out.println(Security.getMACAddress(InetAddress.getLocalHost()));
+
+/*        CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpGet httpGet = new HttpGet("https://littleskin.cn/api/yggdrasil/sessionserver/session/minecraft/profile" +
                 "/ddd94abb438d479ea6f9ce89de0bcbc3?unsigned=false");
         httpGet.addHeader("Accept", "application/json");
@@ -21,7 +19,7 @@ public class Main {
             HttpEntity entity = response.getEntity();
             String result = EntityUtils.toString(entity);
             System.out.println(result);
-        }
+        }*/
 
 /*        Map<Integer, Integer> map = new HashMap<>();
         for (BonusChestInfo value : BonusChestInfo.values()) {

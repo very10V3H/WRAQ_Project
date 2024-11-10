@@ -42,7 +42,7 @@ public class CastleManaArmor extends WraqArmor implements ForgeItem {
     public CastleManaArmor(ItemMaterial Material, Type Slots, Properties itemProperties) {
         super(Material, Slots, itemProperties);
         if (type.equals(Type.HELMET)) {
-            Utils.percentHealthRecover.put(this, 0.04);
+            Utils.percentHealthRecover.put(this, 0.02);
             Utils.healthRecover.put(this, 100d);
         }
         if (type.equals(Type.CHESTPLATE)) Utils.defence.put(this, 125d);

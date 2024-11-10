@@ -58,6 +58,8 @@ import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.castle.CastleAttackArmor;
 import fun.wraq.series.instance.series.castle.CastleManaArmor;
 import fun.wraq.series.instance.series.castle.CastleSwiftArmor;
+import fun.wraq.series.overworld.sakuraSeries.Boss2.GoldenAttackOffhand;
+import fun.wraq.series.overworld.sakuraSeries.Boss2.GoldenBook;
 import fun.wraq.series.overworld.sakuraSeries.EarthMana.EarthBook;
 import fun.wraq.series.overworld.sakuraSeries.Slime.SlimeBoots;
 import fun.wraq.series.specialevents.labourDay.LabourDayIronHoe;
@@ -129,6 +131,8 @@ public class ServerPlayerTickEvent {
             WorldBorder.playerTick(event);
             /*SummerEvent.tick(player);*/
             MoontainFloorTitle.tick(player);
+            GoldenAttackOffhand.handleTick(player);
+            GoldenBook.handleTick(player);
 
             if (player.tickCount % 20 == 0) {
                 ModNetworking.sendToClient(new PlayerIsInBattleS2CPacket(Compute.playerIsInBattle(player)), serverPlayer);

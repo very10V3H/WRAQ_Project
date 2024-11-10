@@ -5,6 +5,7 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
+import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -108,19 +109,16 @@ public class ForgeRecipe {
         forgeDrawRecipe.put(ModItems.PlainSword0.get(), new ArrayList<>() {{
             add(new ItemStack(ModItems.PlainRune.get(), 2));
             add(new ItemStack(ModItems.LifeElementPiece0.get(), 7));
-            add(new ItemStack(Items.IRON_INGOT, 1));
         }});
 
         forgeDrawRecipe.put(ModItems.PlainBow0.get(), new ArrayList<>() {{
             add(new ItemStack(ModItems.PlainRune.get(), 2));
             add(new ItemStack(ModItems.LifeElementPiece0.get(), 7));
-            add(new ItemStack(Items.IRON_INGOT, 1));
         }});
 
         forgeDrawRecipe.put(ModItems.PlainSceptre0.get(), new ArrayList<>() {{
             add(new ItemStack(ModItems.PlainRune.get(), 2));
             add(new ItemStack(ModItems.LifeElementPiece0.get(), 7));
-            add(new ItemStack(Items.IRON_INGOT, 1));
         }});
 
         forgeDrawRecipe.put(ModItems.ForestArmorHelmet.get(), new ArrayList<>() {{
@@ -150,13 +148,11 @@ public class ForgeRecipe {
         forgeDrawRecipe.put(ModItems.ForestSword0.get(), new ArrayList<>() {{
             add(new ItemStack(ModItems.ForestRune.get(), 3));
             add(new ItemStack(ModItems.LifeElementPiece0.get(), 14));
-            add(new ItemStack(Items.IRON_INGOT, 2));
         }});
 
         forgeDrawRecipe.put(ModItems.ForestBow0.get(), new ArrayList<>() {{
             add(new ItemStack(ModItems.ForestRune.get(), 3));
             add(new ItemStack(ModItems.LifeElementPiece0.get(), 14));
-            add(new ItemStack(Items.IRON_INGOT, 2));
         }});
 
         forgeDrawRecipe.put(ModItems.LakeArmorHelmet.get(), new ArrayList<>() {{
@@ -186,19 +182,16 @@ public class ForgeRecipe {
         forgeDrawRecipe.put(ModItems.LakeSword0.get(), new ArrayList<>() {{
             add(new ItemStack(ModItems.LakeRune.get(), 3));
             add(new ItemStack(ModItems.WaterElementPiece0.get(), 14));
-            add(new ItemStack(Items.IRON_INGOT, 2));
         }});
 
         forgeDrawRecipe.put(ModItems.lakeBow0.get(), new ArrayList<>() {{
             add(new ItemStack(ModItems.LakeRune.get(), 3));
             add(new ItemStack(ModItems.WaterElementPiece0.get(), 14));
-            add(new ItemStack(Items.IRON_INGOT, 2));
         }});
 
         forgeDrawRecipe.put(ModItems.lakeSceptre0.get(), new ArrayList<>() {{
             add(new ItemStack(ModItems.LakeRune.get(), 3));
             add(new ItemStack(ModItems.WaterElementPiece0.get(), 14));
-            add(new ItemStack(Items.IRON_INGOT, 2));
         }});
 
         forgeDrawRecipe.put(ModItems.VolcanoArmorHelmet.get(), new ArrayList<>() {{
@@ -228,85 +221,85 @@ public class ForgeRecipe {
         forgeDrawRecipe.put(ModItems.VolcanoSword0.get(), new ArrayList<>() {{
             add(new ItemStack(ModItems.VolcanoRune.get(), 3));
             add(new ItemStack(ModItems.FireElementPiece0.get(), 14));
-            add(new ItemStack(Items.IRON_INGOT, 2));
+            add(new ItemStack(Items.IRON_INGOT, 16));
         }});
 
         forgeDrawRecipe.put(ModItems.VolcanoBow0.get(), new ArrayList<>() {{
             add(new ItemStack(ModItems.VolcanoRune.get(), 3));
             add(new ItemStack(ModItems.FireElementPiece0.get(), 14));
-            add(new ItemStack(Items.IRON_INGOT, 2));
+            add(new ItemStack(Items.IRON_INGOT, 16));
         }});
 
         forgeDrawRecipe.put(ModItems.MineArmorHelmet.get(), new ArrayList<>() {{
             add(new ItemStack(ModItems.MineRune.get(), 3));
             add(new ItemStack(ModItems.StoneElementPiece0.get(), 14));
-            add(new ItemStack(Items.IRON_INGOT, 10));
+            add(new ItemStack(Items.IRON_INGOT, 4));
         }});
 
         forgeDrawRecipe.put(ModItems.MineArmorChest.get(), new ArrayList<>() {{
             add(new ItemStack(ModItems.MineRune.get(), 3));
             add(new ItemStack(ModItems.StoneElementPiece0.get(), 14));
-            add(new ItemStack(Items.IRON_INGOT, 16));
+            add(new ItemStack(Items.IRON_INGOT, 4));
         }});
 
         forgeDrawRecipe.put(ModItems.MineArmorLeggings.get(), new ArrayList<>() {{
             add(new ItemStack(ModItems.MineRune.get(), 3));
             add(new ItemStack(ModItems.StoneElementPiece0.get(), 14));
-            add(new ItemStack(Items.IRON_INGOT, 14));
+            add(new ItemStack(Items.IRON_INGOT, 4));
         }});
 
         forgeDrawRecipe.put(ModItems.MineArmorBoots.get(), new ArrayList<>() {{
             add(new ItemStack(ModItems.MineRune.get(), 3));
             add(new ItemStack(ModItems.StoneElementPiece0.get(), 14));
-            add(new ItemStack(Items.IRON_INGOT, 8));
+            add(new ItemStack(Items.IRON_INGOT, 4));
         }});
 
         forgeDrawRecipe.put(ModItems.MineSword0.get(), new ArrayList<>() {{
             add(new ItemStack(ModItems.MineRune.get(), 3));
             add(new ItemStack(ModItems.StoneElementPiece0.get(), 14));
-            add(new ItemStack(Items.IRON_INGOT, 2));
+            add(new ItemStack(Items.IRON_INGOT, 16));
         }});
 
         forgeDrawRecipe.put(ModItems.MineBow0.get(), new ArrayList<>() {{
             add(new ItemStack(ModItems.MineRune.get(), 3));
             add(new ItemStack(ModItems.StoneElementPiece0.get(), 14));
-            add(new ItemStack(Items.IRON_INGOT, 2));
+            add(new ItemStack(Items.IRON_INGOT, 16));
         }});
 
         forgeDrawRecipe.put(ModItems.SnowArmorHelmet.get(), new ArrayList<>() {{
             add(new ItemStack(ModItems.SnowRune.get(), 3));
             add(new ItemStack(ModItems.IceElementPiece0.get(), 14));
-            add(new ItemStack(Items.DIAMOND, 10));
+            add(new ItemStack(Items.DIAMOND, 4));
         }});
 
         forgeDrawRecipe.put(ModItems.SnowArmorChest.get(), new ArrayList<>() {{
             add(new ItemStack(ModItems.SnowRune.get(), 3));
             add(new ItemStack(ModItems.IceElementPiece0.get(), 14));
-            add(new ItemStack(Items.DIAMOND, 16));
+            add(new ItemStack(Items.DIAMOND, 4));
         }});
 
         forgeDrawRecipe.put(ModItems.SnowArmorLeggings.get(), new ArrayList<>() {{
             add(new ItemStack(ModItems.SnowRune.get(), 3));
             add(new ItemStack(ModItems.IceElementPiece0.get(), 14));
-            add(new ItemStack(Items.DIAMOND, 14));
+            add(new ItemStack(Items.DIAMOND, 4));
         }});
 
         forgeDrawRecipe.put(ModItems.SnowArmorBoots.get(), new ArrayList<>() {{
             add(new ItemStack(ModItems.SnowRune.get(), 3));
             add(new ItemStack(ModItems.IceElementPiece0.get(), 14));
-            add(new ItemStack(Items.DIAMOND, 8));
+            add(new ItemStack(Items.DIAMOND, 4));
         }});
 
         forgeDrawRecipe.put(ModItems.SnowSword0.get(), new ArrayList<>() {{
             add(new ItemStack(ModItems.SnowRune.get(), 3));
             add(new ItemStack(ModItems.IceElementPiece0.get(), 14));
-            add(new ItemStack(Items.DIAMOND, 2));
+            add(new ItemStack(Items.DIAMOND, 10));
         }});
 
         forgeDrawRecipe.put(ModItems.SkyBow.get(), new ArrayList<>() {{
             add(new ItemStack(ModItems.SkyRune.get(), 10));
             add(new ItemStack(ModItems.WindElementPiece0.get(), 14));
-            add(new ItemStack(Items.DIAMOND, 16));
+            add(new ItemStack(Items.DIAMOND, 10));
         }});
 
         forgeDrawRecipe.put(ModItems.SakuraDemonSword.get(), new ArrayList<>() {{
@@ -314,7 +307,7 @@ public class ForgeRecipe {
             add(new ItemStack(ModItems.goldCoin.get(), 192));
             add(new ItemStack(ModItems.completeGem.get(), 6));
             add(new ItemStack(ModItems.ReputationMedal.get(), 24));
-            add(new ItemStack(ModItems.RefiningGold.get(), 1));
+            add(new ItemStack(PickaxeItems.TINKER_GOLD.get(), 4));
             add(new ItemStack(ModItems.WorldSoul3.get(), 1));
         }});
 
@@ -323,7 +316,7 @@ public class ForgeRecipe {
             add(new ItemStack(ModItems.goldCoin.get(), 128));
             add(new ItemStack(ModItems.completeGem.get(), 4));
             add(new ItemStack(ModItems.ReputationMedal.get(), 16));
-            add(new ItemStack(ModItems.RefiningGold.get(), 1));
+            add(new ItemStack(PickaxeItems.TINKER_GOLD.get(), 4));
             add(new ItemStack(ModItems.WorldSoul3.get(), 1));
         }});
 
@@ -332,7 +325,7 @@ public class ForgeRecipe {
             add(new ItemStack(ModItems.goldCoin.get(), 128));
             add(new ItemStack(ModItems.completeGem.get(), 4));
             add(new ItemStack(ModItems.ReputationMedal.get(), 16));
-            add(new ItemStack(ModItems.RefiningGold.get(), 1));
+            add(new ItemStack(PickaxeItems.TINKER_GOLD.get(), 4));
             add(new ItemStack(ModItems.WorldSoul3.get(), 1));
         }});
 
@@ -341,7 +334,7 @@ public class ForgeRecipe {
             add(new ItemStack(ModItems.goldCoin.get(), 128));
             add(new ItemStack(ModItems.completeGem.get(), 4));
             add(new ItemStack(ModItems.ReputationMedal.get(), 16));
-            add(new ItemStack(ModItems.RefiningGold.get(), 1));
+            add(new ItemStack(PickaxeItems.TINKER_GOLD.get(), 4));
             add(new ItemStack(ModItems.WorldSoul3.get(), 1));
         }});
 
@@ -350,7 +343,7 @@ public class ForgeRecipe {
             add(new ItemStack(ModItems.goldCoin.get(), 128));
             add(new ItemStack(ModItems.completeGem.get(), 4));
             add(new ItemStack(ModItems.ReputationMedal.get(), 16));
-            add(new ItemStack(ModItems.RefiningGold.get(), 1));
+            add(new ItemStack(PickaxeItems.TINKER_GOLD.get(), 4));
             add(new ItemStack(ModItems.WorldSoul3.get(), 1));
         }});
 
@@ -359,7 +352,7 @@ public class ForgeRecipe {
             add(new ItemStack(ModItems.goldCoin.get(), 128));
             add(new ItemStack(ModItems.completeGem.get(), 4));
             add(new ItemStack(ModItems.ReputationMedal.get(), 16));
-            add(new ItemStack(ModItems.RefiningGold.get(), 1));
+            add(new ItemStack(PickaxeItems.TINKER_GOLD.get(), 4));
             add(new ItemStack(ModItems.WorldSoul3.get(), 1));
         }});
 
@@ -368,7 +361,7 @@ public class ForgeRecipe {
             add(new ItemStack(ModItems.goldCoin.get(), 128));
             add(new ItemStack(ModItems.completeGem.get(), 4));
             add(new ItemStack(ModItems.ReputationMedal.get(), 16));
-            add(new ItemStack(ModItems.RefiningGold.get(), 1));
+            add(new ItemStack(PickaxeItems.TINKER_GOLD.get(), 4));
             add(new ItemStack(ModItems.WorldSoul3.get(), 1));
         }});
 
@@ -377,7 +370,7 @@ public class ForgeRecipe {
             add(new ItemStack(ModItems.goldCoin.get(), 192));
             add(new ItemStack(ModItems.completeGem.get(), 6));
             add(new ItemStack(ModItems.ReputationMedal.get(), 24));
-            add(new ItemStack(ModItems.RefiningGold.get(), 1));
+            add(new ItemStack(PickaxeItems.TINKER_GOLD.get(), 4));
             add(new ItemStack(ModItems.WorldSoul3.get(), 1));
         }});
 
@@ -386,7 +379,7 @@ public class ForgeRecipe {
             add(new ItemStack(ModItems.goldCoin.get(), 128));
             add(new ItemStack(ModItems.completeGem.get(), 4));
             add(new ItemStack(ModItems.ReputationMedal.get(), 16));
-            add(new ItemStack(ModItems.RefiningGold.get(), 1));
+            add(new ItemStack(PickaxeItems.TINKER_GOLD.get(), 4));
             add(new ItemStack(ModItems.WorldSoul3.get(), 1));
         }});
 
@@ -395,8 +388,8 @@ public class ForgeRecipe {
             add(new ItemStack(ModItems.goldCoin.get(), 256));
             add(new ItemStack(ModItems.completeGem.get(), 12));
             add(new ItemStack(ModItems.ReputationMedal.get(), 48));
-            add(new ItemStack(ModItems.RefiningIron.get(), 4));
-            add(new ItemStack(ModItems.RefiningCopper.get(), 4));
+            add(new ItemStack(PickaxeItems.TINKER_IRON.get(), 12));
+            add(new ItemStack(PickaxeItems.TINKER_COPPER.get(), 12));
             add(new ItemStack(ModItems.WorldSoul3.get(), 1));
         }});
 
@@ -406,7 +399,7 @@ public class ForgeRecipe {
             add(new ItemStack(ModItems.goldCoin.get(), 128));
             add(new ItemStack(ModItems.completeGem.get(), 6));
             add(new ItemStack(ModItems.ReputationMedal.get(), 24));
-            add(new ItemStack(ModItems.RefiningGold.get(), 1));
+            add(new ItemStack(PickaxeItems.TINKER_GOLD.get(), 4));
             add(new ItemStack(ModItems.WorldSoul3.get(), 1));
         }});
 
@@ -415,7 +408,7 @@ public class ForgeRecipe {
             add(new ItemStack(ModItems.goldCoin.get(), 256));
             add(new ItemStack(ModItems.completeGem.get(), 12));
             add(new ItemStack(ModItems.ReputationMedal.get(), 48));
-            add(new ItemStack(ModItems.RefiningGold.get(), 2));
+            add(new ItemStack(PickaxeItems.TINKER_GOLD.get(), 8));
             add(new ItemStack(ModItems.WorldSoul3.get(), 2));
         }});
 
@@ -424,7 +417,7 @@ public class ForgeRecipe {
             add(new ItemStack(ModItems.goldCoin.get(), 256));
             add(new ItemStack(ModItems.completeGem.get(), 12));
             add(new ItemStack(ModItems.ReputationMedal.get(), 48));
-            add(new ItemStack(ModItems.RefiningGold.get(), 2));
+            add(new ItemStack(PickaxeItems.TINKER_GOLD.get(), 8));
             add(new ItemStack(ModItems.WorldSoul3.get(), 2));
         }});
 
@@ -433,7 +426,7 @@ public class ForgeRecipe {
             add(new ItemStack(ModItems.goldCoin.get(), 256));
             add(new ItemStack(ModItems.completeGem.get(), 12));
             add(new ItemStack(ModItems.ReputationMedal.get(), 48));
-            add(new ItemStack(ModItems.RefiningGold.get(), 2));
+            add(new ItemStack(PickaxeItems.TINKER_GOLD.get(), 8));
             add(new ItemStack(ModItems.WorldSoul3.get(), 2));
         }});
 
@@ -442,7 +435,7 @@ public class ForgeRecipe {
             add(new ItemStack(ModItems.goldCoin.get(), 256));
             add(new ItemStack(ModItems.completeGem.get(), 12));
             add(new ItemStack(ModItems.ReputationMedal.get(), 48));
-            add(new ItemStack(ModItems.RefiningGold.get(), 2));
+            add(new ItemStack(PickaxeItems.TINKER_GOLD.get(), 8));
             add(new ItemStack(ModItems.WorldSoul3.get(), 2));
         }});
 
@@ -451,7 +444,7 @@ public class ForgeRecipe {
             add(new ItemStack(ModItems.goldCoin.get(), 256));
             add(new ItemStack(ModItems.completeGem.get(), 12));
             add(new ItemStack(ModItems.ReputationMedal.get(), 48));
-            add(new ItemStack(ModItems.RefiningGold.get(), 2));
+            add(new ItemStack(PickaxeItems.TINKER_GOLD.get(), 8));
             add(new ItemStack(ModItems.WorldSoul3.get(), 2));
         }});
 
@@ -460,7 +453,7 @@ public class ForgeRecipe {
             add(new ItemStack(ModItems.goldCoin.get(), 256));
             add(new ItemStack(ModItems.completeGem.get(), 12));
             add(new ItemStack(ModItems.ReputationMedal.get(), 48));
-            add(new ItemStack(ModItems.RefiningGold.get(), 2));
+            add(new ItemStack(PickaxeItems.TINKER_GOLD.get(), 8));
             add(new ItemStack(ModItems.WorldSoul3.get(), 2));
         }});
 
@@ -470,8 +463,8 @@ public class ForgeRecipe {
             add(new ItemStack(ModItems.goldCoin.get(), 288));
             add(new ItemStack(ModItems.completeGem.get(), 12));
             add(new ItemStack(ModItems.ReputationMedal.get(), 48));
-            add(new ItemStack(ModItems.RefiningIron.get(), 4));
-            add(new ItemStack(ModItems.RefiningCopper.get(), 4));
+            add(new ItemStack(PickaxeItems.TINKER_IRON.get(), 12));
+            add(new ItemStack(PickaxeItems.TINKER_COPPER.get(), 12));
             add(new ItemStack(ModItems.WorldSoul3.get(), 4));
         }});
 
@@ -481,8 +474,8 @@ public class ForgeRecipe {
             add(new ItemStack(ModItems.goldCoin.get(), 288));
             add(new ItemStack(ModItems.completeGem.get(), 12));
             add(new ItemStack(ModItems.ReputationMedal.get(), 48));
-            add(new ItemStack(ModItems.RefiningIron.get(), 4));
-            add(new ItemStack(ModItems.RefiningCopper.get(), 4));
+            add(new ItemStack(PickaxeItems.TINKER_IRON.get(), 12));
+            add(new ItemStack(PickaxeItems.TINKER_COPPER.get(), 12));
             add(new ItemStack(ModItems.WorldSoul3.get(), 4));
         }});
 
@@ -492,8 +485,8 @@ public class ForgeRecipe {
             add(new ItemStack(ModItems.goldCoin.get(), 288));
             add(new ItemStack(ModItems.completeGem.get(), 12));
             add(new ItemStack(ModItems.ReputationMedal.get(), 48));
-            add(new ItemStack(ModItems.RefiningIron.get(), 4));
-            add(new ItemStack(ModItems.RefiningCopper.get(), 4));
+            add(new ItemStack(PickaxeItems.TINKER_IRON.get(), 12));
+            add(new ItemStack(PickaxeItems.TINKER_COPPER.get(), 12));
             add(new ItemStack(ModItems.WorldSoul3.get(), 4));
         }});
 
@@ -502,8 +495,8 @@ public class ForgeRecipe {
             add(new ItemStack(ModItems.goldCoin.get(), 384));
             add(new ItemStack(ModItems.completeGem.get(), 20));
             add(new ItemStack(ModItems.ReputationMedal.get(), 80));
-            add(new ItemStack(ModItems.RefiningIron.get(), 6));
-            add(new ItemStack(ModItems.RefiningCopper.get(), 6));
+            add(new ItemStack(PickaxeItems.TINKER_IRON.get(), 16));
+            add(new ItemStack(PickaxeItems.TINKER_COPPER.get(), 16));
             add(new ItemStack(ModItems.WorldSoul3.get(), 8));
         }});
 
@@ -512,8 +505,8 @@ public class ForgeRecipe {
             add(new ItemStack(ModItems.goldCoin.get(), 384));
             add(new ItemStack(ModItems.completeGem.get(), 20));
             add(new ItemStack(ModItems.ReputationMedal.get(), 80));
-            add(new ItemStack(ModItems.RefiningIron.get(), 6));
-            add(new ItemStack(ModItems.RefiningCopper.get(), 6));
+            add(new ItemStack(PickaxeItems.TINKER_IRON.get(), 16));
+            add(new ItemStack(PickaxeItems.TINKER_COPPER.get(), 16));
             add(new ItemStack(ModItems.WorldSoul3.get(), 8));
         }});
 
@@ -522,8 +515,8 @@ public class ForgeRecipe {
             add(new ItemStack(ModItems.goldCoin.get(), 384));
             add(new ItemStack(ModItems.completeGem.get(), 20));
             add(new ItemStack(ModItems.ReputationMedal.get(), 80));
-            add(new ItemStack(ModItems.RefiningIron.get(), 6));
-            add(new ItemStack(ModItems.RefiningCopper.get(), 6));
+            add(new ItemStack(PickaxeItems.TINKER_IRON.get(), 16));
+            add(new ItemStack(PickaxeItems.TINKER_COPPER.get(), 16));
             add(new ItemStack(ModItems.WorldSoul3.get(), 8));
         }});
 
@@ -532,8 +525,8 @@ public class ForgeRecipe {
             add(new ItemStack(ModItems.goldCoin.get(), 384));
             add(new ItemStack(ModItems.completeGem.get(), 20));
             add(new ItemStack(ModItems.ReputationMedal.get(), 80));
-            add(new ItemStack(ModItems.RefiningIron.get(), 6));
-            add(new ItemStack(ModItems.RefiningCopper.get(), 6));
+            add(new ItemStack(PickaxeItems.TINKER_IRON.get(), 16));
+            add(new ItemStack(PickaxeItems.TINKER_COPPER.get(), 16));
             add(new ItemStack(ModItems.WorldSoul3.get(), 8));
         }});
 
@@ -542,7 +535,7 @@ public class ForgeRecipe {
             add(new ItemStack(ModItems.goldCoin.get(), 384));
             add(new ItemStack(ModItems.completeGem.get(), 16));
             add(new ItemStack(ModItems.ReputationMedal.get(), 64));
-            add(new ItemStack(ModItems.RefiningGold.get(), 3));
+            add(new ItemStack(PickaxeItems.TINKER_GOLD.get(), 12));
             add(new ItemStack(ModItems.WorldSoul3.get(), 3));
         }});
     }

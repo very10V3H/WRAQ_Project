@@ -16,16 +16,16 @@ public class EarthManaCurios extends WraqCurios {
 
     public EarthManaCurios(Properties p_41383_, int tier) {
         super(p_41383_);
-        Utils.manaDefence.put(this, tier == 0 ? 5d : 8d);
-        Utils.manaDamage.put(this, tier == 0 ? 200d : 350d);
-        Utils.manaHealthSteal.put(this, tier == 0 ? 0.05 : 0.08);
-        Utils.manaRecover.put(this, tier == 0 ? 15d : 25d);
+        Utils.manaDefence.put(this, tier == 0 ? 4d : 8d);
+        Utils.manaDamage.put(this, tier == 0 ? 200d : 400d);
+        Utils.manaHealthSteal.put(this, tier == 0 ? 0.04 : 0.08);
+        Utils.manaRecover.put(this, tier == 0 ? 8d : 16d);
         Utils.curiosList.add(this);
     }
 
     @Override
     public Component getTypeDescription() {
-        return null;
+        return ComponentUtils.getDefenceTypeDescriptionOfCurios();
     }
 
     @Override
@@ -36,7 +36,7 @@ public class EarthManaCurios extends WraqCurios {
         components.add(Component.literal(" 当你受到").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.AttributeDescription.manaDamageValue("")).
                 append(Component.literal("时，为你提供持续3s的").withStyle(ChatFormatting.WHITE)).
-                append(ComponentUtils.AttributeDescription.healthRecover("8%")));
+                append(ComponentUtils.AttributeDescription.healthRecover("5%")));
         return components;
     }
 

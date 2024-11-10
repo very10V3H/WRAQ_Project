@@ -2,10 +2,12 @@ package fun.wraq.series.newrunes.chapter1;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqCurios;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.impl.display.UsageOrGetWayDescriptionItem;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.chapter2.FireLightSpawnController;
+import fun.wraq.events.mob.chapter2.SearedSpiritSpawnController;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.newrunes.NewRuneItems;
 import fun.wraq.series.newrunes.RuneItem;
@@ -79,6 +81,7 @@ public class VolcanoNewRune extends WraqCurios implements RuneItem, UsageOrGetWa
         List<Component> components = new ArrayList<>();
         components.add(Component.literal("击杀").withStyle(ChatFormatting.WHITE).
                 append(Component.literal(FireLightSpawnController.mobName).withStyle(CustomStyle.styleOfVolcano)).
+                append(Te.s("、", SearedSpiritSpawnController.mobName, CustomStyle.styleOfPower)).
                 append(Component.literal("概率掉落").withStyle(ChatFormatting.WHITE)));
         return components;
     }

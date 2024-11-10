@@ -19,6 +19,8 @@ public class Display {
 
     public static List<Item> BrewingList = new ArrayList<>();
 
+    public static List<Item> runeList = new ArrayList<>();
+
     public static List<Item> getBrewingList() {
         if (BrewingList.isEmpty()) setBrewingList();
         return BrewingList;

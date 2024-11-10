@@ -8,7 +8,9 @@ import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.render.gui.illustrate.Display;
 import fun.wraq.series.moontain.equip.curios.MoontainCurios;
+import fun.wraq.series.newrunes.RuneItem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -31,6 +33,9 @@ public abstract class WraqCurios extends Item implements ICurioItem {
         Utils.curiosList.add(this);
         if (this instanceof ForgeItem forgeItem) {
             ForgeRecipe.forgeDrawRecipe.put(this, forgeItem.forgeRecipe());
+        }
+        if (this instanceof RuneItem) {
+            Display.runeList.add(this);
         }
     }
 

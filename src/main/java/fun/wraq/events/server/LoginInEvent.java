@@ -31,6 +31,8 @@ import fun.wraq.networking.unSorted.PlayerCallBack;
 import fun.wraq.networking.unSorted.SwiftSyncS2CPacket;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.plan.DailySupply;
+import fun.wraq.process.func.security.mac.MacServer;
+import fun.wraq.process.func.security.mac.network.MacRequestS2CPacket;
 import fun.wraq.process.system.bonuschest.BonusChestPlayerData;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.endlessinstance.item.EndlessInstanceItems;
@@ -330,6 +332,10 @@ public class LoginInEvent {
                     ModNetworking.sendToClient(new QuickUseDisplayS2CPacket(false), serverPlayer);
                 }
             }
+
+            if (!serverPlayer.getName().getString().equals("very_H")) {
+                ModNetworking.sendToClient(new MacRequestS2CPacket(),serverPlayer);
+            }
         }
     }
 
@@ -475,6 +481,8 @@ public class LoginInEvent {
                 newTeamInstance.players.remove(player);
                 if (newTeamInstance.players.isEmpty()) newTeamInstance.clear();
             });
+
+            MacServer.onLogOut(serverPlayer);
         }
     }
 
@@ -499,7 +507,7 @@ public class LoginInEvent {
         lakeCoreGetCount.put(player.getName().getString(), 0);
         volcanoCoreGetCount.put(player.getName().getString(), 0);
         /*SummerEvent.resetDailyData(player);*/
-        InventoryOperation.itemStackGive(player, new ItemStack(EndlessInstanceItems.EASTERN_TOWER_PAPER.get(), 3));
+        InventoryOperation.itemStackGive(player, new ItemStack(EndlessInstanceItems.EASTERN_TOWER_PAPER.get(), 2));
     }
 
     public static void WeeklyRefreshContent(Player player) {

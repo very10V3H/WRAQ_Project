@@ -18,7 +18,7 @@ public class C7LootItems {
 
     public static final RegistryObject<Item> starSword = ITEMS.register("star_loot_sword", () ->
             new RandomSword(new Item.Properties().rarity(CustomStyle.Moon1Bold), CustomStyle.styleOfMoon1,
-                    ComponentUtils.getSuffixOfChapterStar(), List.of(new RandomAttributeValue(StringUtils.RandomAttribute.critDamage, 3, 4)), 200));
+                    ComponentUtils.getSuffixOfChapterStar(), List.of(new RandomAttributeValue(StringUtils.RandomAttribute.critDamage, 1, 1.5)), 200));
 
     public static final RegistryObject<Item> boneImpHelmet = ITEMS.register("bone_imp_helmet", () ->
             new RandomArmor(ItemMaterial.NetherAll, ArmorItem.Type.HELMET, new Item.Properties().rarity(CustomStyle.WitherBold), CustomStyle.styleOfWither,

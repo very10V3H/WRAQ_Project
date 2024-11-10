@@ -6,6 +6,7 @@ import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -62,7 +63,7 @@ public class EndCuriosBow extends WraqCurios implements ForgeItem {
                 new ItemStack(ModItems.goldCoin.get(), 320),
                 new ItemStack(ModItems.completeGem.get(), 8),
                 new ItemStack(ModItems.ReputationMedal.get(), 32),
-                new ItemStack(ModItems.RefiningGold.get(), 3),
+                new ItemStack(PickaxeItems.TINKER_GOLD.get(), 6),
                 new ItemStack(ModItems.WorldSoul3.get(), 3)
         );
     }

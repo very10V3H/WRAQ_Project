@@ -17,9 +17,7 @@ public class SpiderRecallArmorBoots extends ArmorItem {
 
     public SpiderRecallArmorBoots(ItemMaterial Materrial, Type Slots) {
         super(Materrial, Slots, new Properties().rarity(CustomStyle.MagmaItalic));
-
         Utils.armorTag.put(this, 1d);
-        Utils.armorList.add(this);
     }
 
     @Override

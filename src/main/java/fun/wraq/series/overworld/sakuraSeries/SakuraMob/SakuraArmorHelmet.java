@@ -40,7 +40,6 @@ public class SakuraArmorHelmet extends ArmorItem implements GeoItem {
         Utils.manaDamage.put(this, 300d);
         Utils.swiftnessUp.put(this, 0.6);
         Utils.armorTag.put(this, 1d);
-        Utils.armorList.add(this);
     }
 
     @Override

@@ -31,13 +31,11 @@ import java.util.function.Consumer;
 
 public class MinePants extends ArmorItem implements GeoItem {
     private final AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
-    private final double MaxHealth = 750;
 
     public MinePants(ItemMaterial Material, Type Slots) {
         super(Material, Slots, new Properties().rarity(CustomStyle.MineItalic));
-        Utils.maxHealth.put(this, MaxHealth);
+        Utils.maxHealth.put(this, 750d);
         Utils.armorTag.put(this, 1d);
-        Utils.armorList.add(this);
     }
 
     @Override

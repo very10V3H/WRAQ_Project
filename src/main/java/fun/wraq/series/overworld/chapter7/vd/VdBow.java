@@ -9,6 +9,7 @@ import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.core.MyArrow;
 import fun.wraq.process.func.particle.ParticleProvider;
+import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.render.particles.ModParticles;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.overworld.chapter7.C7Items;
@@ -66,7 +67,7 @@ public class VdBow extends WraqBow implements ForgeItem, ActiveItem, VdWeaponCom
             add(new ItemStack(C7Items.vdSoul.get(), 256));
             add(new ItemStack(ModItems.completeGem.get(), 32));
             add(new ItemStack(ModItems.ReputationMedal.get(), 128));
-            add(new ItemStack(ModItems.RefiningGold.get(), 8));
+            add(new ItemStack(PickaxeItems.TINKER_GOLD.get(), 16));
             add(new ItemStack(ModItems.WorldSoul3.get(), 8));
         }};
     }

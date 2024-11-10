@@ -22,7 +22,7 @@ public class MoontainArmor extends WraqArmor implements ExBaseAttributeValueEqui
     public MoontainArmor(ArmorMaterial armorMaterial, Type type, Properties properties) {
         super(armorMaterial, type, properties);
         if (type.equals(Type.HELMET)) {
-            Utils.percentHealthRecover.put(this, 0.04);
+            Utils.percentHealthRecover.put(this, 0.02);
             Utils.healthRecover.put(this, 100d);
         }
         if (type.equals(Type.CHESTPLATE)) Utils.defence.put(this, 125d);

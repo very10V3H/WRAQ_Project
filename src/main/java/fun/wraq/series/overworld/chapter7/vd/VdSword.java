@@ -6,6 +6,7 @@ import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.overworld.chapter7.C7Items;
 import net.minecraft.ChatFormatting;
@@ -60,7 +61,7 @@ public class VdSword extends WraqSword implements ForgeItem, ActiveItem, VdWeapo
             add(new ItemStack(C7Items.vdSoul.get(), 256));
             add(new ItemStack(ModItems.completeGem.get(), 32));
             add(new ItemStack(ModItems.ReputationMedal.get(), 128));
-            add(new ItemStack(ModItems.RefiningGold.get(), 8));
+            add(new ItemStack(PickaxeItems.TINKER_GOLD.get(), 16));
             add(new ItemStack(ModItems.WorldSoul3.get(), 8));
         }};
     }

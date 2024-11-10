@@ -2,6 +2,7 @@ package fun.wraq.events.server;
 
 import fun.wraq.commands.changeable.PrefixCommand;
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.Utils;
@@ -301,46 +302,43 @@ public class LevelEvents {
     public static void broad(TickEvent.LevelTickEvent event) {
         Level level = event.level;
         if (level.getServer() != null && event.phase.equals(TickEvent.Phase.START) && level.equals(level.getServer().getLevel(Level.OVERWORLD))) {
-            String[] BroadCastContent = {
-                    "对于物品描述下方有[可灌注/增幅]标签的物品，可以将其放置在能量灌注器灌注位查看灌注配方。",
-                    "你知道吗，每日任务的冷却时间是22小时。",
-                    "维瑞阿契一直在努力更新。",
-                    "觉得爬山难？游泳慢？想要各种除战斗属性外的增益？积攒宝石碎片，找天空城珠宝商人兑换珠宝吧！",
-                    "当穿透属性使得抗性在计算中成为负值，负值部分将为本次伤害提供增幅。",
-                    "百分比护甲穿透、百分比法术穿透，均是乘算的哦！",
-                    "觉得提示信息过多？使用/vmd ignore [Fight/Exp/QuickUse/ItemGet/Rune/Mana/Instance]来屏蔽一些信息吧！",
-                    "注意，当你以鞘翅开启状态进入水中，鞘翅可能不会关闭，这将影响你在水中的运动。脱下鞘翅或者找到站立点是解决方法。",
+            String[] broadCastContents = {
+                    "你知道吗，每日任务的冷却时间是22小时。完成每日任务可以获取水晶碎片、经验值等奖励！",
+                    "觉得提示信息过多？使用 /vmd ignore 命令来屏蔽一些信息吧！",
                     "能力点数的配置将大幅影响你的游戏体验。",
                     "快捷使用将使你的主动释放没有前后摇。赶紧配置你的快捷使用键位吧！",
-                    "现在，世界各地出现了本源学者。他们带着他们的本源解析器来到了天空城，将解析出来的本源交给他们，可以换取他们的一些研究成果。",
-                    "下界维度充满着危险，因此需要你达到75级才可以前往，终界维度同样需要75级。",
-                    /*"在世界各处散落着奖励箱，每隔一段时间，你便能够从中获取一些稀有奖励。（测试阶段）",*/
+                    "其他维度充满着危险，因此需要你达到75级才可以前往。",
+                    "在世界各处散落着奖励箱，每个自然月，你都能够从中获取一些稀有奖励。",
                     "在体力充足的情况下，按下翻滚（默认Z键）可以让跑图更加顺畅、战斗节奏更加紧凑",
                     "你可以通过/vmd bow来开关弓的视角拉伸",
                     "不知道做什么了？打开身份卡，查看图鉴，找到你喜爱的装备，努力制作吧！",
-                    "欢迎加入维瑞阿契群:184453807 维瑞阿契更新通知群:693292427",
-                    "觉得移动速度过快？使用/vmd speed [效能]来手动调整你的移动速度加成效能吧！（手动调整仅会影响你的移动速度加成属性在玩家移速上的体现）",
+                    "欢迎加入维瑞阿契群:184453807，有任何疑问敬请在群里提出！",
                     "你知道吗？身份卡的图鉴可以查看装备的获取方式。",
                     "你知道吗？如果没有归一化元素强度，元素共鸣提供的反应元素量将会忽略不计。",
                     "使用身份卡打开任务列表，查看进行中的任务，完成获得奖励吧！",
-                    "推荐打开声音设置中的音乐，享受MC原版BGM！",
                     "对于有路径点的村庄，村庄内基本都有一些基础设施或基础物资商人",
                     "如果你不知道一个材料怎么获取，打开身份卡，点击物品图鉴，选择'材料'，试着推断或找到获取方式吧",
                     "等级带来的增益非常之高，努力提升等级吧",
                     "推荐使用全屏时将界面尺寸调整至3以获得更好的体验",
-                    "你知道吗(F3+H)可以隐藏物品描述下方的灰色NBT(如果你曾不小心开启过)，可以让你的物品描述更加干净"
+                    "你知道吗(F3+H)可以隐藏物品描述下方的灰色NBT(如果你曾不小心开启过)，可以让你的物品描述更加干净",
+                    "法师的普通攻击也可以造成暴击！",
+                    "非常推荐使用新版客户端的光影，可以给游戏带来更好的体验。",
+                    "游玩过程中，有任何的细节处觉得不合理，欢迎向铁头提建议",
+                    "向铁头私聊反馈bug，可以获取vp奖励！",
+                    "有关游戏内容的任何想法，欢迎私聊铁头！qq:2016187250",
+                    "当你达到180级后，这类提示信息将不再出现在你的聊天窗中"
             };
             int tick = level.getServer().getTickCount();
 
             if (tick % 6000 == 0) {
                 Random random = new Random();
-                Compute.formatBroad(level, Component.literal("提示").withStyle(ChatFormatting.AQUA),
-                        Component.literal(BroadCastContent[random.nextInt(BroadCastContent.length)]).withStyle(ChatFormatting.WHITE));
+                level.getServer().getPlayerList().getPlayers()
+                        .stream().filter(player -> player.experienceLevel < 180)
+                        .forEach(player -> {
+                    Compute.sendFormatMSG(player, Te.s("提示", ChatFormatting.AQUA),
+                            Te.s(broadCastContents[random.nextInt(broadCastContents.length)]));
+                });
             }
-
-/*            if (tick % 12000 == 726) {
-                SummerEvent.sendDailyTimeRank(level);
-            }*/
         }
     }
 

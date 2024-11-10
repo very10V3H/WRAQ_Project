@@ -20,7 +20,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -92,18 +91,24 @@ public class MineSkeletonSpawnController extends MobSpawnController {
     }
 
     public static List<ItemAndRate> getDropList() {
-        return new ArrayList<>() {{
-            add(new ItemAndRate(ModItems.MineSoul.get(), 0.8));
-            add(new ItemAndRate(ModItems.MineSoul1.get(), 0.1));
-            add(new ItemAndRate(ModItems.copperCoin.get(), 3));
-            add(new ItemAndRate(ModItems.gemPiece.get(), 0.01));
-            add(new ItemAndRate(ModItems.MineCrest0.get(), 0.02));
-            add(new ItemAndRate(ModItems.MineCrest1.get(), 0.005));
-            add(new ItemAndRate(ModItems.MineCrest2.get(), 0.001));
-            add(new ItemAndRate(ModItems.MineCrest3.get(), 0.0002));
-            add(new ItemAndRate(ModItems.StoneElementPiece0.get(), 0.1));
-            add(new ItemAndRate(C1LootItems.mineSkeletonPickaxe.get(), 0.005));
-            add(new ItemAndRate(NewRuneItems.mineNewRune.get(), 0.001));
-        }};
+        return List.of(
+                new ItemAndRate(ModItems.MineSoul.get(), 0.8),
+                new ItemAndRate(ModItems.MineSoul1.get(), 0.1),
+                new ItemAndRate(ModItems.copperCoin.get(), 3),
+                new ItemAndRate(ModItems.gemPiece.get(), 0.01),
+                new ItemAndRate(ModItems.MineCrest0.get(), 0.02),
+                new ItemAndRate(ModItems.MineCrest1.get(), 0.005),
+                new ItemAndRate(ModItems.MineCrest2.get(), 0.001),
+                new ItemAndRate(ModItems.MineCrest3.get(), 0.0002),
+                new ItemAndRate(ModItems.StoneElementPiece0.get(), 0.1),
+                new ItemAndRate(C1LootItems.mineSkeletonPickaxe.get(), 0.005),
+                new ItemAndRate(NewRuneItems.mineNewRune.get(), 0.001),
+
+                // 以下为矿石掉落
+                new ItemAndRate(Items.RAW_COPPER, 0.2),
+                new ItemAndRate(Items.RAW_IRON, 0.2),
+                new ItemAndRate(Items.RAW_GOLD, 0.05),
+                new ItemAndRate(Items.DIAMOND, 0.05)
+        );
     }
 }

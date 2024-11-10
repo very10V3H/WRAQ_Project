@@ -1,6 +1,7 @@
 package fun.wraq.customized.uniform.bow;
 
 import fun.wraq.common.util.ComponentUtils;
+import fun.wraq.customized.uniform.UnCommonUniform;
 import fun.wraq.process.system.element.RainbowCrystal;
 import fun.wraq.common.impl.onshoot.OnShootArrowCurios;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class BowCuriosYxwg extends WraqBowUniformCurios implements OnShootArrowCurios {
+public class BowCuriosYxwg extends WraqBowUniformCurios implements OnShootArrowCurios, UnCommonUniform {
 
     public BowCuriosYxwg(Properties properties) {
         super(properties);

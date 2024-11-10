@@ -1,6 +1,5 @@
 package fun.wraq.process.system.vp.networking;
 
-import com.mojang.logging.LogUtils;
 import fun.wraq.commands.stable.players.CustomPrefixCommand;
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
@@ -8,6 +7,7 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.plan.PlanPlayer;
 import fun.wraq.process.func.plan.SimpleTierPaper;
+import fun.wraq.process.func.security.Security;
 import fun.wraq.process.system.vp.VpDataHandler;
 import fun.wraq.process.system.vp.VpStore;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -53,10 +53,16 @@ public class VpStoreBuyC2SPacket {
                 int needCount = VpStore.getWorldSoul5Price().get(goods.getItem());
                 Inventory inventory = serverPlayer.getInventory();
                 if (InventoryOperation.checkPlayerHasItem(inventory, ModItems.worldSoul5.get(), needCount)) {
+
+                    Security.recordItemStream(name, Security.SYSTEM,
+                            new ItemStack(ModItems.worldSoul5.get(), needCount), Security.RecordType.WORLD_SOUL_5_VP_PAY);
                     InventoryOperation.removeItem(inventory, ModItems.worldSoul5.get(), needCount);
+
                     ItemStack itemStack = new ItemStack(goods.getItem(), count);
+
+                    Security.recordItemStream(name, itemStack, Security.RecordType.WORLD_SOUL_5_VP_PAY);
                     InventoryOperation.itemStackGive(serverPlayer, itemStack);
-                    LogUtils.getLogger().info(serverPlayer.getName().getString() + " worldSoul5 buy " + goods);
+
                     buySuccessfully = true;
                     worldSoul5CostNum = needCount;
                 }
@@ -89,7 +95,10 @@ public class VpStoreBuyC2SPacket {
                                 data.putInt(CustomPrefixCommand.customPrefixTimes, data.getInt(CustomPrefixCommand.customPrefixTimes) + 2);
                             if (tier == 2)
                                 data.putInt(CustomPrefixCommand.customPrefixTimes, data.getInt(CustomPrefixCommand.customPrefixTimes) + 6);
-                            LogUtils.getLogger().info(serverPlayer.getName().getString() + " vp buy " + goods);
+
+                            Security.recordVPStream(name, Security.SYSTEM, price, Security.RecordType.VP_PAY);
+                            Security.recordItemStream(name, goods, Security.RecordType.VP_PAY);
+
                             Compute.clearPlayerScreen(serverPlayer);
                             Compute.setPlayerTitleAndSubTitle(serverPlayer, Te.m(goods.getDisplayName()),
                                     Te.s("已成功激活!", CustomStyle.styleOfWorld));
@@ -100,7 +109,10 @@ public class VpStoreBuyC2SPacket {
                 } else {
                     VpDataHandler.playerVpData.put(name.toLowerCase(), VpDataHandler.playerVpData.getOrDefault(name.toLowerCase(), 0d) - price);
                     ItemStack itemStack = new ItemStack(goods.getItem(), count);
-                    LogUtils.getLogger().info(serverPlayer.getName().getString() + " vp buy " + goods);
+
+                    Security.recordVPStream(name, Security.SYSTEM, price, Security.RecordType.VP_PAY);
+                    Security.recordItemStream(name, goods, Security.RecordType.VP_PAY);
+
                     InventoryOperation.itemStackGive(serverPlayer, itemStack);
                 }
                 VpDataHandler.sendPlayerVpValue(serverPlayer);

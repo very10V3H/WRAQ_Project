@@ -4,6 +4,7 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.core.InventoryCheck;
+import fun.wraq.process.func.security.Security;
 import fun.wraq.process.system.point.Point;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -136,6 +137,8 @@ public class BonusChestPlayerData {
                 BonusChestContent.getBonusContent(bonusChestInfo.tier).forEach(pair -> {
                     ItemStack itemStack = pair.getFirst();
                     InventoryCheck.addOwnerTagToItemStack(player, itemStack);
+                    Security.recordItemStream(player.getName().getString(), itemStack,
+                            Security.RecordType.BONUS_CHEST_REWARD);
                     chestBlockEntity.setItem(pair.getSecond(), itemStack);
                 });
                 Point.increment(player, BonusChestContent.getZoneToPointType(bonusChestInfo.zone),

@@ -12,6 +12,7 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.EnhanceNormalAttackModifier;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.element.Element;
+import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -77,7 +78,7 @@ public class NetherSword extends WraqSword implements ActiveItem, ForgeItem {
                 new ItemStack(ModItems.goldCoin.get(), 192),
                 new ItemStack(ModItems.completeGem.get(), 8),
                 new ItemStack(ModItems.ReputationMedal.get(), 8),
-                new ItemStack(ModItems.RefiningGold.get(), 1)
+                new ItemStack(PickaxeItems.TINKER_GOLD.get(), 4)
         );
     }
 }

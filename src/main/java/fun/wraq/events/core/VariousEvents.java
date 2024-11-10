@@ -1,10 +1,11 @@
 package fun.wraq.events.core;
 
-import com.mojang.logging.LogUtils;
 import fun.wraq.Items.Prefix.PrefixInfo;
 import fun.wraq.commands.changeable.PrefixCommand;
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.equip.impl.RepeatableCurios;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ClientUtils;
@@ -14,6 +15,7 @@ import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.AnimationPackets.AnimationTickResetS2CPacket;
 import fun.wraq.process.func.item.InventoryOperation;
+import fun.wraq.process.func.security.Security;
 import fun.wraq.process.system.spur.events.MineSpur;
 import fun.wraq.render.hud.networking.ExpGetResetS2CPacket;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -46,6 +48,7 @@ import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import top.theillusivec4.curios.api.event.CurioEquipEvent;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -77,6 +80,13 @@ public class VariousEvents {
                 if (InventoryCheck.boundingList.isEmpty()) InventoryCheck.setBoundingList();
                 if (!Utils.mainHandTag.containsKey(item) && !Utils.offHandTag.containsKey(item)
                         && !Utils.armorTag.containsKey(item) && !InventoryCheck.boundingList.contains(item)) {
+                    if (data.isEmpty()) itemStack.removeTagKey(Utils.MOD_ID);
+                }
+
+                if (data.contains("TossFrom")) {
+                    Security.recordItemStream(data.getString("TossFrom"), player.getName().getString(),
+                            itemStack, Security.RecordType.TOSS_PICK);
+                    data.remove("TossFrom");
                     if (data.isEmpty()) itemStack.removeTagKey(Utils.MOD_ID);
                 }
             }
@@ -139,13 +149,14 @@ public class VariousEvents {
                 dropped = false;
             }
             if (dropped) {
-                LogUtils.getLogger().info("{} {} {}", player.getName().getString(), Utils.LogTypes.dropped, itemStack);
+                Security.recordToss(player.getName().getString(), itemStack);
+                itemStack.getOrCreateTagElement(Utils.MOD_ID).putString("TossFrom", player.getName().getString());
             }
         }
     }
 
     @SubscribeEvent
-    public static void PickUpItem(PlayerEvent.ItemPickupEvent event) throws IOException {
+    public static void PickUpItem(PlayerEvent.ItemPickupEvent event) {
         if (!event.getEntity().level().isClientSide && event.getStack().is(ModItems.Value.get())) {
             InventoryOperation.removeItem(event.getEntity().getInventory(), ModItems.Value.get(),
                     InventoryOperation.itemStackCount(event.getEntity().getInventory(), ModItems.Value.get()));
@@ -306,5 +317,18 @@ public class VariousEvents {
     @SubscribeEvent
     public static void livingConversionEvent(LivingConversionEvent event) {
         if (event.getEntity() instanceof Villager) event.setCanceled(true);
+    }
+
+    @SubscribeEvent
+    public static void curiosTipEvent(CurioEquipEvent event) {
+        if (event.getEntity() instanceof Player player && !player.level().isClientSide) {
+            ItemStack itemStack = event.getStack();
+            if (Compute.CuriosAttribute.getDistinctCuriosList(player)
+                    .stream().anyMatch(
+                            stack -> stack.is(itemStack.getItem()) && !(stack.getItem() instanceof RepeatableCurios))) {
+                Compute.sendFormatMSG(player, Te.s("饰品", ChatFormatting.LIGHT_PURPLE),
+                        Te.s("该饰品因重复而未生效:", itemStack.getDisplayName()));
+            }
+        }
     }
 }

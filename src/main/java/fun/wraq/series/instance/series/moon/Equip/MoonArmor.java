@@ -29,7 +29,7 @@ public class MoonArmor extends WraqArmor implements ForgeItem {
         super(material, type, properties);
         if (type.equals(Type.LEGGINGS)) Utils.maxHealth.put(this, 8000d);
         if (type.equals(Type.HELMET)) {
-            Utils.percentHealthRecover.put(this, 0.03);
+            Utils.percentHealthRecover.put(this, 0.015);
             Utils.healthRecover.put(this, 50d);
         }
     }

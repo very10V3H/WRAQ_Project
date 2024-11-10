@@ -48,7 +48,7 @@ public interface VdWeaponCommon {
         components.add(Component.literal(" 清空周围敌人的").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("研习值").withStyle(style)).
                 append(Component.literal("，每层对敌人造成").withStyle(ChatFormatting.WHITE)).
-                append(ComponentUtils.AttributeDescription.maxHealth("4%")).
+                append(ComponentUtils.AttributeDescription.maxHealth("2.5%")).
                 append(Component.literal("真实伤害").withStyle(CustomStyle.styleOfSea)));
         ComponentUtils.manaCostDescription(components, 100);
         ComponentUtils.coolDownTimeDescription(components, 15);
@@ -65,7 +65,8 @@ public interface VdWeaponCommon {
     record CountOnMob(Mob mob, int count, int tick) {}
 
     static List<Mob> getNearMobs(Player player) {
-        return player.level().getEntitiesOfClass(Mob.class, AABB.ofSize(player.position(), 12, 12, 12)).stream().filter(mob -> mob.distanceTo(player) < 6).toList();
+        return player.level().getEntitiesOfClass(Mob.class, AABB.ofSize(player.position(), 12, 12, 12))
+                .stream().filter(mob -> mob.distanceTo(player) < 6).toList();
     }
 
     static void tick(Player player) {
@@ -154,9 +155,9 @@ public interface VdWeaponCommon {
                 if (mobHashSet.contains(mob)) {
                     removeSet.add(mob);
                     if (mob.isAlive()) {
-                        Damage.causeTrueDamageToMonster(player, mob, mob.getMaxHealth() * 0.04 * countMap.get(mob));
+                        Damage.causeTrueDamageToMonster(player, mob, mob.getMaxHealth() * 0.025 * countMap.get(mob));
                         Compute.removeMobEffectHudToNearPlayer(mob, C7Items.vdSword.get(), "vdCount");
-                        if (mob.getHealth() < mob.getMaxHealth() * 0.04 * countMap.get(mob)) {
+                        if (mob.getHealth() < mob.getMaxHealth() * 0.025 * countMap.get(mob)) {
                             player.getCooldowns().removeCooldown(item);
                             Mana.addOrCostPlayerMana(player, 100);
                         }

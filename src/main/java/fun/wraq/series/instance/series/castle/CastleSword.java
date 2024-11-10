@@ -8,6 +8,7 @@ import fun.wraq.process.func.damage.Damage;
 import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.equip.WraqSword;
+import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -100,7 +101,7 @@ public class CastleSword extends WraqSword implements ForgeItem, ActiveItem {
             add(new ItemStack(ModItems.BlazeRune.get(), 8));
             add(new ItemStack(ModItems.completeGem.get(), 26));
             add(new ItemStack(ModItems.ReputationMedal.get(), 104));
-            add(new ItemStack(ModItems.RefiningGold.get(), 6));
+            add(new ItemStack(PickaxeItems.TINKER_GOLD.get(), 12));
             add(new ItemStack(ModItems.WorldSoul3.get(), 6));
         }};
     }

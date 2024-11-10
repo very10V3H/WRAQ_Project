@@ -60,6 +60,8 @@ import fun.wraq.process.func.plan.networking.PlanDateAndTierS2CPacket;
 import fun.wraq.process.func.plan.networking.mission.PlanMissionCancelRequestC2SPacket;
 import fun.wraq.process.func.plan.networking.mission.PlanMissionFinishedRequestC2SPacket;
 import fun.wraq.process.func.plan.networking.mission.PlanMissionRequestC2SPacket;
+import fun.wraq.process.func.security.mac.network.MacC2SPacket;
+import fun.wraq.process.func.security.mac.network.MacRequestS2CPacket;
 import fun.wraq.process.system.element.networking.CurrentSeasonAndResonanceTypeS2CPacket;
 import fun.wraq.process.system.element.networking.CurrentSeasonC2SPacket;
 import fun.wraq.process.system.element.networking.ResonanceC2SPacket;
@@ -1341,6 +1343,16 @@ public class ModNetworking {
                 .decoder(QuickUseDisplayS2CPacket::new)
                 .encoder(QuickUseDisplayS2CPacket::toBytes)
                 .consumerMainThread(QuickUseDisplayS2CPacket::handle)
+                .add();
+        net.messageBuilder(MacRequestS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(MacRequestS2CPacket::new)
+                .encoder(MacRequestS2CPacket::toBytes)
+                .consumerMainThread(MacRequestS2CPacket::handle)
+                .add();
+        net.messageBuilder(MacC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(MacC2SPacket::new)
+                .encoder(MacC2SPacket::toBytes)
+                .consumerMainThread(MacC2SPacket::handle)
                 .add();
     }
 

@@ -4,6 +4,7 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.customized.UniformItems;
+import fun.wraq.customized.uniform.UnCommonUniform;
 import fun.wraq.process.system.element.ElementItems;
 import fun.wraq.process.system.enhanceForge.ForgeMaterials;
 import fun.wraq.process.system.ore.PickaxeItems;
@@ -542,7 +543,11 @@ public class TradeList {
         List<ItemStack> contentList = new ArrayList<>();
         Collections.addAll(contentList, itemStacks);
         List<ItemStack> uniformList = new ArrayList<>() {{
-            for (Item item : Utils.uniformList) add(item.getDefaultInstance());
+            for (Item item : Utils.uniformList) {
+                if (!(item instanceof UnCommonUniform)) {
+                    add(item.getDefaultInstance());
+                }
+            }
         }};
         contentList.addAll(uniformList);
         tradeContent.put(StringUtils.VillagerName.WorldSoul, contentList);
@@ -563,8 +568,9 @@ public class TradeList {
                 }});
             }
         }
-        for (ItemStack itemStack : uniformList)
+        for (ItemStack itemStack : uniformList) {
             tradeRecipeMap.put(itemStack, List.of(new ItemStack(UniformItems.uniformPiece.get(), 2)));
+        }
     }
 
     public static void PurpleIron() {
@@ -2598,8 +2604,9 @@ public class TradeList {
         ItemStack volcanoManaBook = new ItemStack(ModItems.VolcanoManaBook.get());
         ItemStack originKnifeVolcano = new ItemStack(ModItems.ORIGIN_KNIFE_VOLCANO.get());
         ItemStack silverCoin = new ItemStack(ModItems.silverCoin.get(), 12);
+        ItemStack coal = new ItemStack(Items.COAL);
         ItemStack[] itemStacks = {
-                volcanoRune, volcanoPower, volcanoManaBook, originKnifeVolcano, silverCoin
+                volcanoRune, volcanoPower, volcanoManaBook, originKnifeVolcano, coal, silverCoin
         };
         List<ItemStack> contentList = new ArrayList<>();
         Collections.addAll(contentList, itemStacks);
@@ -2624,6 +2631,8 @@ public class TradeList {
                         new ItemStack(ModItems.VolcanoRune.get(), 4),
                         new ItemStack(ModItems.FireElementPiece0.get(), 14),
                         new ItemStack(ModItems.goldCoin.get(), 16)));
+        tradeRecipeMap.put(coal,
+                List.of(new ItemStack(ModItems.VolcanoSoul.get(), 8)));
         tradeRecipeMap.put(silverCoin,
                 List.of(new ItemStack(ModItems.VolcanoSoul.get(), 64)));
     }
