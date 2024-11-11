@@ -108,7 +108,8 @@ public class LoginInEvent {
                     List<String> tags = List.of(NoTeamInstanceModule.AllowRewardKey.blackCastle, NoTeamInstanceModule.AllowRewardKey.nether,
                             NoTeamInstanceModule.AllowRewardKey.iceKnight, NoTeamInstanceModule.AllowRewardKey.purpleIron,
                             NoTeamInstanceModule.AllowRewardKey.devil, NoTeamInstanceModule.AllowRewardKey.moon,
-                            NoTeamInstanceModule.AllowRewardKey.sakuraBoss);
+                            NoTeamInstanceModule.AllowRewardKey.sakuraBoss, NoTeamInstanceModule.AllowRewardKey.blackCastle,
+                            NoTeamInstanceModule.AllowRewardKey.moontainBoss);
                     tags.forEach(s -> {
                         NoTeamInstanceModule.putPlayerAllowReward(player, s, true);
                     });
