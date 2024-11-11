@@ -95,18 +95,20 @@ public class MoonBow extends WraqBow implements OnHitEffectEquip {
                 return (int) (distance.get(o1) - distance.get(o2));
             }
         });
-        targetList.subList(1, Math.min(3, targetList.size())).forEach(mob -> {
-            MyArrow myArrow = new MyArrow(EntityType.ARROW, player.level(), player, true, 0.25);
-            myArrow.setDeltaMovement(mob.position().add(0, 1, 0).subtract(player.position().add(0, 1.5, 0)).normalize().scale(4.5));
-            myArrow.moveTo(player.pick(0.5, 0, false).getLocation());
-            myArrow.setCritArrow(true);
-            myArrow.setNoGravity(true);
-            ProjectileUtil.rotateTowardsMovement(myArrow, 1);
-            player.level().addFreshEntity(myArrow);
-            ParticleProvider.LineParticle(player.level(), (int) mob.distanceTo(player),
-                    player.pick(0.5, 0, false).getLocation(),
-                    mob.position().add(0, 1, 0), ParticleTypes.FIREWORK);
-        });
+        if (targetList.size() > 1) {
+            targetList.subList(1, Math.min(3, targetList.size())).forEach(mob -> {
+                MyArrow myArrow = new MyArrow(EntityType.ARROW, player.level(), player, true, 0.25);
+                myArrow.setDeltaMovement(mob.position().add(0, 1, 0).subtract(player.position().add(0, 1.5, 0)).normalize().scale(4.5));
+                myArrow.moveTo(player.pick(0.5, 0, false).getLocation());
+                myArrow.setCritArrow(true);
+                myArrow.setNoGravity(true);
+                ProjectileUtil.rotateTowardsMovement(myArrow, 1);
+                player.level().addFreshEntity(myArrow);
+                ParticleProvider.LineParticle(player.level(), (int) mob.distanceTo(player),
+                        player.pick(0.5, 0, false).getLocation(),
+                        mob.position().add(0, 1, 0), ParticleTypes.FIREWORK);
+            });
+        }
     }
 
     @Override

@@ -126,6 +126,13 @@ public class Damage {
         } else Damage.causeAttackDamageToMonster_RateAdDamage(player, mob, num);
     }
 
+    public static void causeAdDamageToMonsterWithCritJudge(Player player, Mob mob, double damage) {
+        Random random = new Random();
+        if (random.nextDouble() < PlayerAttributes.critRate(player)) {
+            Damage.causeAttackDamageToMonster_AdDamage(player, mob, damage * (1 + PlayerAttributes.critDamage(player)));
+        } else Damage.causeAttackDamageToMonster_AdDamage(player, mob, damage);
+    }
+
     public static double causeAttackDamageToMonster_AdDamage(Player player, Mob monster, double damage) {
         double damageEnhance = 0;
 

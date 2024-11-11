@@ -240,6 +240,7 @@ public class BlockEvent {
                     && !blockState.getBlock().toString().contains("seat")) {
                 event.setCanceled(true);
             }
+            if (block.getName().toString().contains("workshop")) return;
             if (player.level().getBlockEntity(blockPos) instanceof Container
                     && event.getSide().isServer() && BonusChestInfo.getBonusChestInfo(blockPos) == null) {
                 event.setCanceled(true);

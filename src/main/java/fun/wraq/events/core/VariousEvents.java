@@ -4,6 +4,7 @@ import fun.wraq.Items.Prefix.PrefixInfo;
 import fun.wraq.commands.changeable.PrefixCommand;
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.equip.impl.RepeatableCurios;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
@@ -325,7 +326,8 @@ public class VariousEvents {
             ItemStack itemStack = event.getStack();
             if (Compute.CuriosAttribute.getDistinctCuriosList(player)
                     .stream().anyMatch(
-                            stack -> stack.is(itemStack.getItem()) && !(stack.getItem() instanceof RepeatableCurios))) {
+                            stack -> stack.is(itemStack.getItem()) && !(stack.getItem() instanceof RepeatableCurios)
+                                    && stack.getItem() instanceof WraqCurios)) {
                 Compute.sendFormatMSG(player, Te.s("饰品", ChatFormatting.LIGHT_PURPLE),
                         Te.s("该饰品因重复而未生效:", itemStack.getDisplayName()));
             }

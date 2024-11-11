@@ -96,6 +96,7 @@ public class NetherInstance extends NoTeamInstance {
 
     public static List<ItemAndRate> getRewardList() {
         return List.of(new ItemAndRate(ModItems.NetherQuartz.get(), 8),
+                new ItemAndRate(ModItems.NETHER_IMPRINT.get(), 0.25),
                 new ItemAndRate(ModItems.Ruby.get(), 8),
                 new ItemAndRate(ModItems.netherHand.get(), 0.08),
                 new ItemAndRate(ModItems.WorldSoul2.get(), 0.25),
