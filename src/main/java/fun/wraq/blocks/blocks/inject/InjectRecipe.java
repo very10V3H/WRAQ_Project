@@ -892,7 +892,7 @@ public class InjectRecipe {
         injectingRecipeMap.put(BladeItems.BLADE.get(),
                 new InjectingRecipe(ModItems.PlainCompleteGem.get(), 4, BladeItems.BLADE_PLAIN.get()));
         injectingRecipeMap.put(BladeItems.BLADE_PLAIN.get(),
-                new InjectingRecipe(ModItems.FOILED_NETHER_IMPRINT.get(), 1, BladeItems.BLADE_NETHER.get()));
+                new InjectingRecipe(ModItems.FOILED_NETHER_IMPRINT.get(), 4, BladeItems.BLADE_NETHER.get()));
         injectingRecipeMap.put(BladeItems.BLADE_NETHER.get(),
                 new InjectingRecipe(ModItems.PurpleIronBud2.get(), 4, BladeItems.BLADE_PURPLE.get()));
         injectingRecipeMap.put(BladeItems.BLADE_PURPLE.get(),
@@ -907,7 +907,7 @@ public class InjectRecipe {
         injectingRecipeMap.put(QuiverItems.QUIVER.get(),
                 new InjectingRecipe(ModItems.PlainCompleteGem.get(), 4, QuiverItems.QUIVER_PLAIN.get()));
         injectingRecipeMap.put(QuiverItems.QUIVER_PLAIN.get(),
-                new InjectingRecipe(ModItems.FOILED_NETHER_IMPRINT.get(), 1, QuiverItems.QUIVER_NETHER.get()));
+                new InjectingRecipe(ModItems.FOILED_NETHER_IMPRINT.get(), 4, QuiverItems.QUIVER_NETHER.get()));
         injectingRecipeMap.put(QuiverItems.QUIVER_NETHER.get(),
                 new InjectingRecipe(ModItems.PurpleIronBud2.get(), 4, QuiverItems.QUIVER_PURPLE.get()));
         injectingRecipeMap.put(QuiverItems.QUIVER_PURPLE.get(),
@@ -922,7 +922,7 @@ public class InjectRecipe {
         injectingRecipeMap.put(MixtureItems.MIXTURE.get(),
                 new InjectingRecipe(ModItems.PlainCompleteGem.get(), 4, MixtureItems.MIXTURE_PLAIN.get()));
         injectingRecipeMap.put(MixtureItems.MIXTURE_PLAIN.get(),
-                new InjectingRecipe(ModItems.FOILED_NETHER_IMPRINT.get(), 1, MixtureItems.MIXTURE_NETHER.get()));
+                new InjectingRecipe(ModItems.FOILED_NETHER_IMPRINT.get(), 4, MixtureItems.MIXTURE_NETHER.get()));
         injectingRecipeMap.put(MixtureItems.MIXTURE_NETHER.get(),
                 new InjectingRecipe(ModItems.PurpleIronBud2.get(), 4, MixtureItems.MIXTURE_PURPLE.get()));
         injectingRecipeMap.put(MixtureItems.MIXTURE_PURPLE.get(),

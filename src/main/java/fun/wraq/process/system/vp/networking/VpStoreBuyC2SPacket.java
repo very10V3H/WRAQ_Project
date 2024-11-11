@@ -46,7 +46,7 @@ public class VpStoreBuyC2SPacket {
             ServerPlayer serverPlayer = context.getSender();
             String name = serverPlayer.getName().getString();
             double price = VpStore.getPriceMap().get(goods.getItem());
-            int count = VpStore.getCountMap().get(goods.getItem());
+            int count = VpStore.getCountMap().getOrDefault(goods.getItem(), 1);
             boolean buySuccessfully = false;
             int worldSoul5CostNum = 0;
             if (VpStore.getWorldSoul5Price().containsKey(goods.getItem())) {

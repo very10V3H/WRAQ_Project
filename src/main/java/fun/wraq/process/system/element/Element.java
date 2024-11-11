@@ -574,7 +574,7 @@ public class Element {
             list.forEach(livingEntity -> {
                 if (livingEntity instanceof Mob mob) {
                     if (isAd) {
-                        Damage.causeRateAdDamageToMonsterWithCritJudge(player, mob, damage * reactionElementValue);
+                        Damage.causeAdDamageToMonsterWithCritJudge(player, mob, damage * reactionElementValue);
                     } else {
                         Damage.causeManaDamageToMonster_ApDamage(player, mob, damage * reactionElementValue);
                     }
@@ -714,7 +714,7 @@ public class Element {
             list.forEach(livingEntity -> {
                 if (livingEntity instanceof Mob mob) {
                     if (isAd) {
-                        Damage.causeRateAdDamageToMonsterWithCritJudge(player, mob, damage * reactionElementValue);
+                        Damage.causeAdDamageToMonsterWithCritJudge(player, mob, damage * reactionElementValue);
                     } else {
                         Damage.causeManaDamageToMonster_ApDamage(player, mob, damage * reactionElementValue);
                     }
