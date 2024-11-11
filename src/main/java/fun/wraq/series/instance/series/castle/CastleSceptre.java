@@ -4,12 +4,14 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.equip.WraqSceptre;
 import fun.wraq.common.equip.impl.ActiveItem;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.registry.ModEntityType;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.process.func.StableAttributesModifier;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.ore.PickaxeItems;
@@ -115,9 +117,10 @@ public class CastleSceptre extends WraqSceptre implements ForgeItem, ActiveItem 
 
     @Override
     public void active(Player player) {
-        Compute.playerItemCoolDown(player, this, 20);
-        Compute.sendEffectLastTime(player, this, 120);
-        CastleSword.CastleWeaponActiveLastTick.put(player, player.getServer().getTickCount() + 120);
-        Compute.PlayerHealthDecrease(player, player.getHealth() * 0.15, Component.literal(" 被暗黑魔能吞噬了。").withStyle(CustomStyle.styleOfCastle));
+        Compute.PlayerHealthDecrease(player, player.getHealth() * 0.15,
+                Component.literal(" 被暗黑魔能吞噬了。").withStyle(CustomStyle.styleOfCastle));
+        Compute.playerItemCoolDown(player, this, 15);
+        StableAttributesModifier.addM(player, StableAttributesModifier.playerCommonDamageEnhance,
+                "castle weapon active", 0.2, Tick.get() + 120);
     }
 }

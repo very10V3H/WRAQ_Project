@@ -61,12 +61,12 @@ public class MoontainBoss3Instance extends NoTeamInstance {
         LordTheHeadlessEntity entity =
                 new LordTheHeadlessEntity(BornInChaosV1ModEntities.LORD_THE_HEADLESS.get(), level);
 
-        MobSpawn.setMobCustomName(entity, Component.literal(mobName).withStyle(style), 215);
+        MobSpawn.setMobCustomName(entity, Component.literal(mobName).withStyle(style), 240);
 
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(entity), 240);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(entity, 3800, 240, 240,
-                0.4, 5, 0.3, 90, 0,
-                4000 * Math.pow(10, 4), 0.45);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(entity, 3800, 360, 360,
+                0.4, 5, 0.6, 175, 0,
+                5000 * Math.pow(10, 4), 0.45);
 
         entity.setHealth(entity.getMaxHealth());
 

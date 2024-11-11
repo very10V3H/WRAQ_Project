@@ -44,7 +44,8 @@ public class TowerMob {
                 zombie.setItemSlot(EquipmentSlot.MAINHAND, ModItems.LifeElementSword.get().getDefaultInstance());
 
                 MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(zombie), 100);
-                MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombie, 500, 60, 60, 0.35, 3, 0.2, 10, 15, 15000, 0.3);
+                MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombie, 500, 60, 60,
+                        0.35, 3, 0.2, 10, 15, 15000, 0.3);
 
                 zombie.setHealth(zombie.getMaxHealth());
 
@@ -70,7 +71,8 @@ public class TowerMob {
             stray.setItemSlot(EquipmentSlot.MAINHAND, ModItems.WaterElementSceptre.get().getDefaultInstance());
 
             MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(stray), 120);
-            MobSpawn.MobBaseAttributes.setMobBaseAttributes(stray, 800, 70, 70, 0.4, 4, 0.22, 20, 20, 180000, 0.35);
+            MobSpawn.MobBaseAttributes.setMobBaseAttributes(stray, 800, 70, 70, 0.4,
+                    4, 0.25, 20, 20, 180000, 0.35);
 
             stray.setHealth(stray.getMaxHealth());
 
@@ -95,7 +97,8 @@ public class TowerMob {
                 blaze.setItemSlot(EquipmentSlot.MAINHAND, ModItems.FireElementSword.get().getDefaultInstance());
 
                 MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(blaze), 140);
-                MobSpawn.MobBaseAttributes.setMobBaseAttributes(blaze, 1200, 90, 90, 0.45, 5, 0.24, 45, 25, 160000, 0.4);
+                MobSpawn.MobBaseAttributes.setMobBaseAttributes(blaze, 1200, 90, 90,
+                        0.45, 5, 0.3, 45, 25, 480000, 0.4);
 
                 blaze.setHealth(blaze.getMaxHealth());
 
@@ -121,7 +124,8 @@ public class TowerMob {
             skeleton.setItemSlot(EquipmentSlot.MAINHAND, ModItems.MineSword3.get().getDefaultInstance());
 
             MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(skeleton), 160);
-            MobSpawn.MobBaseAttributes.setMobBaseAttributes(skeleton, 2000, 130, 130, 0.5, 5, 0.26, 55, 25, 300 * Math.pow(10, 4), 0.45);
+            MobSpawn.MobBaseAttributes.setMobBaseAttributes(skeleton, 2000, 150, 150,
+                    0.5, 5, 0.35, 55, 25, 600 * Math.pow(10, 4), 0.45);
 
             skeleton.setHealth(skeleton.getMaxHealth());
 
@@ -146,7 +150,8 @@ public class TowerMob {
                 zombie.setItemSlot(EquipmentSlot.MAINHAND, ModItems.IceSword.get().getDefaultInstance());
 
                 MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(zombie), 180);
-                MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombie, 2500, 160, 160, 0.5, 5, 0.28, 55, 25, 184 * Math.pow(10, 4), 0.45);
+                MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombie, 2500, 200, 200,
+                        0.5, 5, 0.4, 55, 25, 800 * Math.pow(10, 4), 0.45);
 
                 zombie.setHealth(zombie.getMaxHealth());
                 zombie.setBaby(true);
@@ -173,7 +178,8 @@ public class TowerMob {
             zombie.setItemSlot(EquipmentSlot.MAINHAND, Items.IRON_SWORD.getDefaultInstance());
 
             MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(zombie), 200);
-            MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombie, 3500, 180, 180, 0.5, 5, 0.3, 70, 25, 1000 * Math.pow(10, 4), 0.45);
+            MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombie, 3500, 250, 250,
+                    0.5, 5, 0.5, 70, 25, 3000 * Math.pow(10, 4), 0.45);
 
             zombie.setHealth(zombie.getMaxHealth());
 

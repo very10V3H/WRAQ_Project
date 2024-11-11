@@ -58,6 +58,7 @@ import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.castle.CastleAttackArmor;
 import fun.wraq.series.instance.series.castle.CastleManaArmor;
 import fun.wraq.series.instance.series.castle.CastleSwiftArmor;
+import fun.wraq.series.moontain.equip.weapon.MoontainUtils;
 import fun.wraq.series.overworld.sakuraSeries.Boss2.GoldenAttackOffhand;
 import fun.wraq.series.overworld.sakuraSeries.Boss2.GoldenBook;
 import fun.wraq.series.overworld.sakuraSeries.EarthMana.EarthBook;
@@ -133,6 +134,7 @@ public class ServerPlayerTickEvent {
             MoontainFloorTitle.tick(player);
             GoldenAttackOffhand.handleTick(player);
             GoldenBook.handleTick(player);
+            MoontainUtils.buffTick(player);
 
             if (player.tickCount % 20 == 0) {
                 ModNetworking.sendToClient(new PlayerIsInBattleS2CPacket(Compute.playerIsInBattle(player)), serverPlayer);

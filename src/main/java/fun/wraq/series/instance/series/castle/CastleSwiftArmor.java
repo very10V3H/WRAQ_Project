@@ -69,9 +69,7 @@ public class CastleSwiftArmor extends WraqArmor implements ForgeItem {
         components.add(Component.literal(" 你的").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("普通箭矢攻击").withStyle(CustomStyle.styleOfFlexible)).
                 append(Component.literal("附带").withStyle(ChatFormatting.WHITE)).
-                append(Component.literal("2倍").withStyle(CustomStyle.styleOfSea)).
-                append(Component.literal("等级强度").withStyle(ChatFormatting.LIGHT_PURPLE)).
-                append(Component.literal("真实伤害").withStyle(CustomStyle.styleOfSea)));
+                append(ComponentUtils.exTrueDamage("50%")));
         components.add(Component.literal(" -多件暗影城堡防具能线性提升伤害值百分比/伤害值").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
         return components;
     }
@@ -111,7 +109,7 @@ public class CastleSwiftArmor extends WraqArmor implements ForgeItem {
     public static double ExIgnoreDefenceDamage(Player player) {
         int ArmorCount = SuitCount.getCastleSwiftSuitCount(player);
         if (ArmorCount == 0) return 0;
-        return PlayerAttributes.attackDamage(player) * 2 * ArmorCount;
+        return PlayerAttributes.attackDamage(player) * 0.5 * ArmorCount;
     }
 
     public static String attributeType = "attributeType"; // 锁定类型

@@ -1,9 +1,11 @@
 package fun.wraq.series.instance.series.castle;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.process.func.StableAttributesModifier;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.impl.display.ForgeItem;
@@ -58,7 +60,6 @@ public class CastleSword extends WraqSword implements ForgeItem, ActiveItem {
                 append(Component.literal("与").withStyle(ChatFormatting.WHITE)).
                 append(ComponentUtils.AttributeDescription.manaPenetration("15")));
         ComponentUtils.coolDownTimeDescription(components, 15);
-        components.add(Component.literal(" 多件暗黑武器的主动将会刷新持续时间，但效果将不会叠加，且共享冷却时间").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
         return components;
     }
 
@@ -108,8 +109,10 @@ public class CastleSword extends WraqSword implements ForgeItem, ActiveItem {
 
     @Override
     public void active(Player player) {
-        if (Compute.PlayerUseWithHud(player, CastleWeaponActiveCoolDown, ModItems.CastleSword.get(), CastleWeaponActiveLastTick, 120, 0, 20)) {
-            Compute.PlayerHealthDecrease(player, player.getHealth() * 0.15, Component.literal(" 被暗黑魔能吞噬了。").withStyle(CustomStyle.styleOfCastle));
-        }
+        Compute.PlayerHealthDecrease(player, player.getHealth() * 0.15,
+                Component.literal(" 被暗黑魔能吞噬了。").withStyle(CustomStyle.styleOfCastle));
+        Compute.playerItemCoolDown(player, this, 15);
+        StableAttributesModifier.addM(player, StableAttributesModifier.playerCommonDamageEnhance,
+                "castle weapon active", 0.2, Tick.get() + 120);
     }
 }

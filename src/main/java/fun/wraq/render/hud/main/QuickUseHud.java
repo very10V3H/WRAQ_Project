@@ -5,12 +5,14 @@ import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.KeyBoradInput;
 import fun.wraq.common.util.ClientUtils;
+import fun.wraq.common.util.Utils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
@@ -19,10 +21,11 @@ import java.util.Map;
 
 public class QuickUseHud {
 
-    public static boolean display = true;
     public static int mode = 1;
 
     public static final String DISPLAY_KEY = "QUICK_USE_HUD_DISPLAY";
+
+    public static final ResourceLocation cross = new ResourceLocation(Utils.MOD_ID, "textures/hud/mainhand_active.png");
 
     public static final IGuiOverlay QUICK_USE_HUD = ((gui, poseStack, partialTick, width, height) -> {
         Minecraft mc = Minecraft.getInstance();
@@ -55,10 +58,21 @@ public class QuickUseHud {
             }
         }
 
+        if (mode != -1 && ClientUtils.isInBattle) {
+            Item mainHandItem = player.getMainHandItem().getItem();
+            if (mainHandItem instanceof ActiveItem) {
+                if (!player.getCooldowns().isOnCooldown(mainHandItem)) {
+                    guiGraphics.blit(cross, x - 5 + (width % 2 != 0 ? 1 : 0), y / 2 - 5 + (height % 2 != 0 ? 1 : 0),
+                            0, 0,
+                            16, 16, 16, 16);
+                }
+            }
+        }
+
         int xOffset;
         int yOffset;
 
-        if (mode == 0 && ClientUtils.isInBattle && display) {
+        if (mode == 0 && ClientUtils.isInBattle) {
             xOffset = -72;
             yOffset = -48;
 
@@ -87,7 +101,7 @@ public class QuickUseHud {
             }
         }
 
-        if (mode == 1 && ClientUtils.isInBattle && display) {
+        if (mode == 1 && ClientUtils.isInBattle) {
             xOffset = -68;
             yOffset = 8;
             for (int i = 0; i < 6; i++) {

@@ -63,7 +63,7 @@ public class CastleAttackArmor extends WraqArmor implements ForgeItem {
         components.add(Component.literal(" 你的").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("普通近战攻击").withStyle(CustomStyle.styleOfPower)).
                 append(Component.literal("附带").withStyle(ChatFormatting.WHITE)).
-                append(ComponentUtils.exTrueDamage("200%")));
+                append(ComponentUtils.exTrueDamage("50%")));
         components.add(Component.literal(" -多件暗影城堡防具能线性提升伤害值百分比/伤害值").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
         return components;
     }
@@ -98,7 +98,7 @@ public class CastleAttackArmor extends WraqArmor implements ForgeItem {
     public static double ExIgnoreDefenceDamage(Player player) {
         int ArmorCount = SuitCount.getCastleAttackSuitCount(player);
         if (ArmorCount == 0) return 0;
-        return PlayerAttributes.attackDamage(player) * 2 * ArmorCount;
+        return PlayerAttributes.attackDamage(player) * 0.5 * ArmorCount;
     }
 
     public static String attributeType = "attributeType"; // 锁定类型
