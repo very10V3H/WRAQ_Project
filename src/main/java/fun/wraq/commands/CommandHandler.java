@@ -503,7 +503,6 @@ public class CommandHandler {
                                 .requires(commandSourceStack -> commandSourceStack.hasPermission(2))
                 )
         );
-
         CommandDispatcher<CommandSourceStack> dispatcher54 = event.getDispatcher();
         LiteralCommandNode<CommandSourceStack> cmd54 = dispatcher54.register(
                 Commands.literal(Utils.MOD_ID).then(
@@ -511,6 +510,14 @@ public class CommandHandler {
                                 Commands.argument("mode", IntegerArgumentType.integer(-1, 1))
                                         .executes(QuickUseDisplayCommand.instance)
                         )
+                )
+        );
+        CommandDispatcher<CommandSourceStack> dispatcher55 = event.getDispatcher();
+        LiteralCommandNode<CommandSourceStack> cmd55 = dispatcher55.register(
+                Commands.literal(Utils.MOD_ID).then(
+                        Commands.literal("resetTowerData")
+                                .executes(ResetTowerDataCommand.instance)
+                                .requires(commandSourceStack -> commandSourceStack.hasPermission(2))
                 )
         );
     }

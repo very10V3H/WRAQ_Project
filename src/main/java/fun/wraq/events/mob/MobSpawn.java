@@ -260,6 +260,9 @@ public class MobSpawn {
         String name = mob.getName().getString();
         int start = name.indexOf('.');
         int end = name.indexOf(' ');
+        if (end <= start + 1) {
+            return MobBaseAttributes.xpLevel.getOrDefault(getMobOriginName(mob), 0);
+        }
         String xpLevelString = name.substring(start + 1, end);
         if (org.apache.commons.lang3.StringUtils.isNumeric(xpLevelString)) {
             return Integer.parseInt(xpLevelString);

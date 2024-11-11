@@ -58,9 +58,9 @@ public class MoontainBoss1Instance extends NoTeamInstance {
         MobSpawn.setMobCustomName(entity, Component.literal(mobName).withStyle(style), 200);
 
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(entity), 200);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(entity, 2800, 200, 200,
-                0.4, 5, 0.3, 70, 0,
-                1250 * Math.pow(10, 4), 0.45);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(entity, 2800, 240, 240,
+                0.4, 5, 0.4, 70, 0,
+                1500 * Math.pow(10, 4), 0.45);
 
         entity.setHealth(entity.getMaxHealth());
 

@@ -11,8 +11,11 @@ import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.castle.RandomCuriosAttributesUtil;
 import fun.wraq.series.moontain.MoontainItems;
 import fun.wraq.series.moontain.equip.curios.MoontainCurios;
+import net.mcreator.borninchaosv.init.BornInChaosV1ModMobEffects;
+import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -127,4 +130,13 @@ public class MoontainUtils {
     public static EnhanceOperation curiosEnhanceFullRateOperation = (stack -> {
         MoontainCurios.enhanceAttributesFullRate(stack, 0.1);
     });
+
+    public static void buffTick(Player player) {
+        if (player.tickCount % 20 == 0) {
+            if (player.hasEffect(BornInChaosV1ModMobEffects.INFERNAL_FLAME.get())) {
+                Compute.PlayerHealthDecrease(player, player.getMaxHealth() * 0.08,
+                        Te.s("被", "望山黯魂", CustomStyle.styleOfMoontain, "吞噬了", ChatFormatting.RED));
+            }
+        }
+    }
 }
