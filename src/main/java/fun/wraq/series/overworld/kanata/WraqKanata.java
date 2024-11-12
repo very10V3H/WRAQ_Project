@@ -66,4 +66,9 @@ public class WraqKanata extends WraqMainHandEquip implements ActiveItem {
                             movementSpeedWithoutBattle, Tick.get() + 20 * 30, this);
         });
     }
+
+    @Override
+    public double manaCost(Player player) {
+        return 0;
+    }
 }

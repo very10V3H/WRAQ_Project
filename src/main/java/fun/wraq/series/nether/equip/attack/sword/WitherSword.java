@@ -65,23 +65,26 @@ public class WitherSword extends WraqSword implements ActiveItem, ForgeItem {
 
     @Override
     public void active(Player player) {
-        if (Compute.playerManaCost(player, 180)) {
-            int tickCount = player.getServer().getTickCount();
-            player.getCooldowns().addCooldown(ModItems.WitherSword0.get(), (int) (240 - 240 * PlayerAttributes.coolDownDecrease(player)));
-            player.getCooldowns().addCooldown(ModItems.WitherSword1.get(), (int) (240 - 240 * PlayerAttributes.coolDownDecrease(player)));
-            player.getCooldowns().addCooldown(ModItems.WitherSword2.get(), (int) (240 - 240 * PlayerAttributes.coolDownDecrease(player)));
-            player.getCooldowns().addCooldown(ModItems.WitherSword3.get(), (int) (240 - 240 * PlayerAttributes.coolDownDecrease(player)));
-            Compute.sendEffectLastTime(player, ModItems.WitherSword0.get().getDefaultInstance(), 240);
-            if (player.getHealth() <= player.getMaxHealth() * 0.3f) {
-                player.kill();
-                Compute.formatBroad(player.level(), Component.literal("死亡").withStyle(ChatFormatting.RED),
-                        Component.literal(player.getName().getString() + "被自己的魔法干掉了。"));
-            }
-            player.setHealth(player.getHealth() - player.getMaxHealth() * 0.3f);
-            StableAttributesModifier.addAttributeModifier(player, StableAttributesModifier.playerDefencePenetration0Modifier,
-                    new StableAttributesModifier("witherSwordActiveDefencePenetration0", new int[]{4, 6, 8, 12}[tier], tickCount + 240));
-            MySound.soundToNearPlayer(player, ModSounds.Nether_Power.get());
+        int tickCount = player.getServer().getTickCount();
+        player.getCooldowns().addCooldown(ModItems.WitherSword0.get(), (int) (240 - 240 * PlayerAttributes.coolDownDecrease(player)));
+        player.getCooldowns().addCooldown(ModItems.WitherSword1.get(), (int) (240 - 240 * PlayerAttributes.coolDownDecrease(player)));
+        player.getCooldowns().addCooldown(ModItems.WitherSword2.get(), (int) (240 - 240 * PlayerAttributes.coolDownDecrease(player)));
+        player.getCooldowns().addCooldown(ModItems.WitherSword3.get(), (int) (240 - 240 * PlayerAttributes.coolDownDecrease(player)));
+        Compute.sendEffectLastTime(player, ModItems.WitherSword0.get().getDefaultInstance(), 240);
+        if (player.getHealth() <= player.getMaxHealth() * 0.3f) {
+            player.kill();
+            Compute.formatBroad(player.level(), Component.literal("死亡").withStyle(ChatFormatting.RED),
+                    Component.literal(player.getName().getString() + "被自己的魔法干掉了。"));
         }
+        player.setHealth(player.getHealth() - player.getMaxHealth() * 0.3f);
+        StableAttributesModifier.addAttributeModifier(player, StableAttributesModifier.playerDefencePenetration0Modifier,
+                new StableAttributesModifier("witherSwordActiveDefencePenetration0", new int[]{4, 6, 8, 12}[tier], tickCount + 240));
+        MySound.soundToNearPlayer(player, ModSounds.Nether_Power.get());
+    }
+
+    @Override
+    public double manaCost(Player player) {
+        return 60;
     }
 
     @Override

@@ -1,43 +1,39 @@
 package fun.wraq.series.overworld.sakuraSeries.EarthMana;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.StringUtils;
-import fun.wraq.common.util.Utils;
+import fun.wraq.networking.ModNetworking;
+import fun.wraq.networking.misc.EarthPower.EarthPowerS2CPacket;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.func.power.PowerLogic;
-import fun.wraq.common.equip.impl.ActiveItem;
+import fun.wraq.process.func.power.WraqPower;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.WeakHashMap;
 
-public class EarthPower extends Item implements ActiveItem {
+public class EarthPower extends WraqPower {
 
     public EarthPower(Properties p_41383_) {
         super(p_41383_);
-        Utils.powerTag.put(this, 1d);
-        Utils.weaponList.add(this);
     }
 
     private final String[] elements = {
@@ -52,10 +48,13 @@ public class EarthPower extends Item implements ActiveItem {
     };
 
     @Override
-    public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
-        components.add(Component.literal("·法术").withStyle(CustomStyle.styleOfMana));
-        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
-        Compute.DescriptionActive(components, Component.literal("汲蕴").withStyle(CustomStyle.styleOfBloodMana));
+    public Component getActiveName() {
+        return Component.literal("汲蕴").withStyle(CustomStyle.styleOfBloodMana);
+    }
+
+    @Override
+    public List<Component> getAdditionalComponents() {
+        List<Component> components = new ArrayList<>();
         components.add(Component.literal(" 依据").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("周边环境的物质").withStyle(CustomStyle.styleOfMoon)).
                 append(Component.literal("提供不同的效果:").withStyle(ChatFormatting.WHITE)));
@@ -99,15 +98,28 @@ public class EarthPower extends Item implements ActiveItem {
         }
 
         components.add(Component.literal(" - IDEA FROM : AzusaLin").withStyle(ChatFormatting.LIGHT_PURPLE));
-        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
-        ComponentUtils.suffixOfSakura(components);
-        components.add(ComponentUtils.getDemonAndElementStorySuffix1Sakura());
-        super.appendHoverText(itemStack, level, components, flag);
+        return components;
     }
 
     @Override
-    public boolean isFoil(ItemStack p_41453_) {
-        return true;
+    public int getCoolDownSecond() {
+        return 15;
+    }
+
+    @Override
+    public double getManaCost() {
+        return 225;
+    }
+
+    @Override
+    public Component getSuffix() {
+        return ComponentUtils.getDemonAndElementStorySuffix1Sakura();
+    }
+
+    @Override
+    public void release(Player player) {
+        Compute.playerItemCoolDown(player, ModItems.EarthPower.get(), 15);
+        ModNetworking.sendToClient(new EarthPowerS2CPacket(), (ServerPlayer) player);
     }
 
     public static WeakHashMap<Mob, Integer> Plain_MobDamageDecrease = new WeakHashMap<>();
@@ -157,14 +169,14 @@ public class EarthPower extends Item implements ActiveItem {
     }
 
     public static void Active(Player player, int type) {
-        int TickCount = player.getServer().getTickCount();
-        Vec3 TargetPos = player.pick(15, 0, false).getLocation();
-        if (Compute.detectPlayerPickMob(player) != null) TargetPos = Compute.detectPlayerPickMob(player).position();
+        int tick = Tick.get();
+        Vec3 targetPos = player.pick(15, 0, false).getLocation();
+        if (Compute.detectPlayerPickMob(player) != null) targetPos = Compute.detectPlayerPickMob(player).position();
         List<Mob> mobList = player.level().getEntitiesOfClass(Mob.class,
-                AABB.ofSize(TargetPos, 20, 20, 20));
+                AABB.ofSize(targetPos, 20, 20, 20));
         mobList.removeIf(mob1 -> mob1.distanceTo(player) > 6);
         List<Player> playerList = player.level().getEntitiesOfClass(Player.class,
-                AABB.ofSize(TargetPos, 20, 20, 20));
+                AABB.ofSize(targetPos, 20, 20, 20));
         playerList.removeIf(player1 -> player1.distanceTo(player1) > 6);
         mobList.forEach(mob -> {
             Damage.causeManaDamageToMonster_RateApDamage(player, mob, 3, true);
@@ -173,7 +185,7 @@ public class EarthPower extends Item implements ActiveItem {
         switch (type) {
             case 0 -> {
                 mobList.forEach(mob1 -> {
-                    Plain_MobDamageDecrease.put(mob1, TickCount + 80);
+                    Plain_MobDamageDecrease.put(mob1, tick + 80);
                     Compute.addDamageDecreaseEffectParticle(mob1, 80);
                 });
                 playerList.forEach(player1 -> {
@@ -188,7 +200,7 @@ public class EarthPower extends Item implements ActiveItem {
             case 1 -> {
                 playerList.forEach(player1 -> {
                     Compute.sendEffectLastTime(player1, ModItems.EarthPower.get().getDefaultInstance(), 60);
-                    Forest_PlayerDefenceEnhance.put(player1, TickCount + 60);
+                    Forest_PlayerDefenceEnhance.put(player1, tick + 60);
                     ParticleProvider.EntityEffectVerticleCircleParticle(player1, 1.25, 0.4, 8, ParticleTypes.COMPOSTER, 0);
                     ParticleProvider.EntityEffectVerticleCircleParticle(player1, 1, 0.4, 8, ParticleTypes.COMPOSTER, 0);
                     ParticleProvider.EntityEffectVerticleCircleParticle(player1, 0.75, 0.4, 8, ParticleTypes.COMPOSTER, 0);
@@ -198,12 +210,12 @@ public class EarthPower extends Item implements ActiveItem {
             }
             case 2 -> {
                 mobList.forEach(mob1 -> {
-                    Lake_MobManaDefenceDecrease.put(mob1, TickCount + 60);
+                    Lake_MobManaDefenceDecrease.put(mob1, tick + 60);
                     Compute.addManaDefenceDecreaseEffectParticle(mob1, 60);
                 });
                 playerList.forEach(player1 -> {
                     Compute.sendEffectLastTime(player1, ModItems.EarthPower.get().getDefaultInstance(), 60);
-                    Lake_PlayerCoolDownEnhance.put(player1, TickCount + 60);
+                    Lake_PlayerCoolDownEnhance.put(player1, tick + 60);
                     ParticleProvider.EntityEffectVerticleCircleParticle(player1, 1.25, 0.4, 8, ParticleTypes.DRIPPING_WATER, 0);
                     ParticleProvider.EntityEffectVerticleCircleParticle(player1, 1, 0.4, 8, ParticleTypes.DRIPPING_WATER, 0);
                     ParticleProvider.EntityEffectVerticleCircleParticle(player1, 0.75, 0.4, 8, ParticleTypes.DRIPPING_WATER, 0);
@@ -214,7 +226,7 @@ public class EarthPower extends Item implements ActiveItem {
             case 3 -> {
                 playerList.forEach(player1 -> {
                     Compute.sendEffectLastTime(player1, ModItems.EarthPower.get().getDefaultInstance(), 60);
-                    Volcano_PlayerDamageEnhance.put(player1, TickCount + 60);
+                    Volcano_PlayerDamageEnhance.put(player1, tick + 60);
                 });
                 mobList.forEach(mob1 -> {
                     Damage.causeManaDamageToMonster_RateApDamage(player, mob1, 3, true);
@@ -296,10 +308,7 @@ public class EarthPower extends Item implements ActiveItem {
     }
 
     @Override
-    public void active(Player player) {
-        if (Compute.playerManaCost(player, 225, true)) {
-            PowerLogic.EarthPower(player, false);
-            PowerLogic.PlayerReleasePowerType(player, 9);
-        }
+    public double manaCost(Player player) {
+        return 225;
     }
 }

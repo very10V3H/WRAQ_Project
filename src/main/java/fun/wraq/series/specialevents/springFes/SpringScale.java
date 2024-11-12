@@ -68,4 +68,9 @@ public class SpringScale extends Item implements ActiveItem {
         Compute.playerItemCoolDown(player, ModItems.SpringScale2.get(), 60);
         Compute.playerItemCoolDown(player, ModItems.SpringScale3.get(), 60);
     }
+
+    @Override
+    public double manaCost(Player player) {
+        return 0;
+    }
 }

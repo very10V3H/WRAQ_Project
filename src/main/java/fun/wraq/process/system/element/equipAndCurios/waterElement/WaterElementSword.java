@@ -123,4 +123,9 @@ public class WaterElementSword extends WraqSword implements ActiveItem {
             ParticleProvider.DisperseParticle(pos, (ServerLevel) player.level(), 1.5, 1, 120, ModParticles.WaterElementParticle.get(), 1);
         }
     }
+
+    @Override
+    public double manaCost(Player player) {
+        return 0;
+    }
 }

@@ -100,6 +100,11 @@ public class WraqMixture extends WraqPassiveEquip implements ActiveItem, OnShoot
     }
 
     @Override
+    public double manaCost(Player player) {
+        return 0;
+    }
+
+    @Override
     public void onShoot(Player player) {
         if (effectLastTickMap.getOrDefault(player, 0) < Tick.get()) return;
         batchAddExShoot(player, activeItem.get(player).rate, activeItem.get(player).exManaArrowCount);

@@ -28,6 +28,7 @@ import java.util.List;
 public class LakeSword extends WraqSword implements ActiveItem, OnHitEffectEquip {
 
     private final int tier;
+
     public LakeSword(Properties properties, int tier) {
         super(properties);
         this.tier = tier;
@@ -70,14 +71,17 @@ public class LakeSword extends WraqSword implements ActiveItem, OnHitEffectEquip
 
     @Override
     public void active(Player player) {
-        if (Compute.playerManaCost(player, 80)) {
-            ModNetworking.sendToClient(new UtilsLakeSwordS2CPacket(true), (ServerPlayer) player);
-            List.of(ModItems.LakeSword0.get(), ModItems.LakeSword1.get(),
-                    ModItems.LakeSword2.get(), ModItems.LakeSword3.get())
-                    .forEach(item -> {
-                        player.getCooldowns().addCooldown(item,
-                                (int) (coolDownSeconds[tier] * 20 * (1.0 - PlayerAttributes.coolDownDecrease(player))));
-                    });
-        }
+        ModNetworking.sendToClient(new UtilsLakeSwordS2CPacket(true), (ServerPlayer) player);
+        List.of(ModItems.LakeSword0.get(), ModItems.LakeSword1.get(),
+                        ModItems.LakeSword2.get(), ModItems.LakeSword3.get())
+                .forEach(item -> {
+                    player.getCooldowns().addCooldown(item,
+                            (int) (coolDownSeconds[tier] * 20 * (1.0 - PlayerAttributes.coolDownDecrease(player))));
+                });
+    }
+
+    @Override
+    public double manaCost(Player player) {
+        return 80;
     }
 }

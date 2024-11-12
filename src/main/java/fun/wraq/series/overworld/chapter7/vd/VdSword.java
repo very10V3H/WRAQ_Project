@@ -55,6 +55,11 @@ public class VdSword extends WraqSword implements ForgeItem, ActiveItem, VdWeapo
     }
 
     @Override
+    public double manaCost(Player player) {
+        return 0;
+    }
+
+    @Override
     public List<ItemStack> forgeRecipe() {
         return new ArrayList<>() {{
             add(new ItemStack(ModItems.DevilSword.get(), 1));

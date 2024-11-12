@@ -87,4 +87,9 @@ public class SoulSword extends WraqSword implements ActiveItem {
             Utils.SoulSwordMap.put(player, true);
         }
     }
+
+    @Override
+    public double manaCost(Player player) {
+        return 60;
+    }
 }

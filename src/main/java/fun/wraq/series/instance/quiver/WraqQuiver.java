@@ -76,6 +76,11 @@ public class WraqQuiver extends WraqPassiveEquip implements ActiveItem {
         });
     }
 
+    @Override
+    public double manaCost(Player player) {
+        return 0;
+    }
+
     private List<Item> getAllQuiver() {
         return QuiverItems.ITEMS.getEntries().stream().map(RegistryObject::get).toList();
     }

@@ -64,6 +64,7 @@ public class SakuraSword extends WraqSword implements ActiveItem {
         components.add(Component.literal(" 3.").withStyle(CustomStyle.styleOfDemon).
                 append(Component.literal("获得").withStyle(ChatFormatting.WHITE)).
                 append(ComponentUtils.AttributeDescription.movementSpeed("60%")));
+        ComponentUtils.manaCostDescription(components, 60);
         return components;
     }
 
@@ -79,21 +80,24 @@ public class SakuraSword extends WraqSword implements ActiveItem {
 
     @Override
     public void active(Player player) {
-        if (Compute.playerManaCost(player, 120)) {
-            CompoundTag data = player.getPersistentData();
-            int tickCount = player.getServer().getTickCount();
-            String name = player.getName().getString();
-            if (Utils.SakuraDemonSword.containsKey(name) && Utils.SakuraDemonSword.get(name)) {
-                ModNetworking.sendToClient(new ChargedClearS2CPacket(4), (ServerPlayer) player);
-                ModNetworking.sendToClient(new SkillImageS2CPacket(1, 10, 10, 0, 3), (ServerPlayer) player);
-                Utils.SakuraDemonSword.put(name, false);
-                data.putInt(StringUtils.SakuraDemonSword, tickCount + 200);
-                player.getCooldowns().addCooldown(ModItems.SakuraDemonSword.get(), (int) (300 - 300 * PlayerAttributes.coolDownDecrease(player)));
-            } else {
-                Compute.sendFormatMSG(player, Component.literal("妖刀").withStyle(CustomStyle.styleOfDemon),
-                        Component.literal("妖刀能量尚未充盈完毕。").withStyle(ChatFormatting.WHITE));
-            }
+        CompoundTag data = player.getPersistentData();
+        int tickCount = player.getServer().getTickCount();
+        String name = player.getName().getString();
+        if (Utils.SakuraDemonSword.containsKey(name) && Utils.SakuraDemonSword.get(name)) {
+            ModNetworking.sendToClient(new ChargedClearS2CPacket(4), (ServerPlayer) player);
+            ModNetworking.sendToClient(new SkillImageS2CPacket(1, 10, 10, 0, 3), (ServerPlayer) player);
+            Utils.SakuraDemonSword.put(name, false);
+            data.putInt(StringUtils.SakuraDemonSword, tickCount + 200);
+            player.getCooldowns().addCooldown(ModItems.SakuraDemonSword.get(), (int) (300 - 300 * PlayerAttributes.coolDownDecrease(player)));
+        } else {
+            Compute.sendFormatMSG(player, Component.literal("妖刀").withStyle(CustomStyle.styleOfDemon),
+                    Component.literal("妖刀能量尚未充盈完毕。").withStyle(ChatFormatting.WHITE));
         }
+    }
+
+    @Override
+    public double manaCost(Player player) {
+        return 60;
     }
 
     public static double SakuraDemonSword(Player player, double DamageBeforeDefence) {

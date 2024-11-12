@@ -115,4 +115,9 @@ public class CastleSword extends WraqSword implements ForgeItem, ActiveItem {
         StableAttributesModifier.addM(player, StableAttributesModifier.playerCommonDamageEnhance,
                 "castle weapon active", 0.2, Tick.get() + 120);
     }
+
+    @Override
+    public double manaCost(Player player) {
+        return 0;
+    }
 }

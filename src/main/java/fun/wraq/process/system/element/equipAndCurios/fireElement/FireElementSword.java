@@ -105,6 +105,11 @@ public class FireElementSword extends WraqSword implements ActiveItem {
         }
     }
 
+    @Override
+    public double manaCost(Player player) {
+        return 0;
+    }
+
     public record IgniteMob(Integer id, Integer tick) {
     }
 

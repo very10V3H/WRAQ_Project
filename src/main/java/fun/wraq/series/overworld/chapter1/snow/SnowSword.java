@@ -22,10 +22,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SnowSword extends WraqSword implements ActiveItem {
-    private final int tier;
+
     public SnowSword(Properties p_42964_, int tier) {
         super(p_42964_);
-        this.tier = tier;
         Utils.attackDamage.put(this, new double[]{100, 105, 110, 120, 200}[tier]);
         Utils.defencePenetration0.put(this, new double[]{6, 7, 8, 9, 18}[tier]);
         Utils.healthSteal.put(this, new double[]{0.02, 0.03, 0.04, 0.08, 0.08}[tier]);
@@ -44,14 +43,11 @@ public class SnowSword extends WraqSword implements ActiveItem {
         List<Component> components = new ArrayList<>();
         Compute.DescriptionPassive(components, Component.literal("凿击-Ex").withStyle(ChatFormatting.AQUA));
         ComponentUtils.descriptionNum(components, "攻击将会大幅降低目标生物的移动速度", Component.literal("2s").withStyle(ChatFormatting.AQUA), "");
-        if (tier >= 3) {
-            components.add(Component.literal("主动:").withStyle(ChatFormatting.AQUA).
-                    append(Component.literal("冰川攀登！").withStyle(ChatFormatting.AQUA)));
-            components.add(Component.literal("向前闪现一小段距离"));
-            components.add(Component.literal("冷却时间: 10s"));
-            components.add(Component.literal("法力消耗:").withStyle(ChatFormatting.DARK_PURPLE).withStyle(ChatFormatting.UNDERLINE)
-                    .withStyle(ChatFormatting.BOLD).append(Component.literal(" 20").withStyle(ChatFormatting.WHITE)));
-        }
+        components.add(Component.literal("主动:").withStyle(ChatFormatting.AQUA).
+                append(Component.literal("冰川攀登！").withStyle(ChatFormatting.AQUA)));
+        components.add(Component.literal("向前闪现一小段距离"));
+        components.add(Component.literal("冷却时间: 10s"));
+        ComponentUtils.manaCostDescription(components, 60);
         return components;
     }
 
@@ -62,12 +58,16 @@ public class SnowSword extends WraqSword implements ActiveItem {
 
     @Override
     public void active(Player player) {
-        if (tier >= 3) {
-            if (Compute.playerManaCost(player, 60)) {
-                ModNetworking.sendToClient(new UtilsSnowSwordS2CPacket(true), (ServerPlayer) player);
-                player.getCooldowns().addCooldown(ModItems.SnowSword3.get(), (int) (200 * (1.0 - PlayerAttributes.coolDownDecrease(player))));
-                player.getCooldowns().addCooldown(ModItems.SnowSword4.get(), (int) (200 * (1.0 - PlayerAttributes.coolDownDecrease(player))));
-            }
-        }
+        ModNetworking.sendToClient(new UtilsSnowSwordS2CPacket(true), (ServerPlayer) player);
+        player.getCooldowns().addCooldown(ModItems.SnowSword0.get(), (int) (200 * (1.0 - PlayerAttributes.coolDownDecrease(player))));
+        player.getCooldowns().addCooldown(ModItems.SnowSword1.get(), (int) (200 * (1.0 - PlayerAttributes.coolDownDecrease(player))));
+        player.getCooldowns().addCooldown(ModItems.SnowSword2.get(), (int) (200 * (1.0 - PlayerAttributes.coolDownDecrease(player))));
+        player.getCooldowns().addCooldown(ModItems.SnowSword3.get(), (int) (200 * (1.0 - PlayerAttributes.coolDownDecrease(player))));
+        player.getCooldowns().addCooldown(ModItems.SnowSword4.get(), (int) (200 * (1.0 - PlayerAttributes.coolDownDecrease(player))));
+    }
+
+    @Override
+    public double manaCost(Player player) {
+        return 60;
     }
 }

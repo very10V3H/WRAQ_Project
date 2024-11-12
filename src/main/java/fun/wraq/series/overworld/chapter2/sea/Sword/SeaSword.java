@@ -67,21 +67,24 @@ public class SeaSword extends WraqSword implements ActiveItem {
 
     @Override
     public void active(Player player) {
-        if (Compute.playerManaCost(player, 20)) {
-            CompoundTag data = player.getPersistentData();
-            player.getCooldowns().addCooldown(ModItems.SeaSword0.get(), (int) (60 - 60 * PlayerAttributes.coolDownDecrease(player)));
-            player.getCooldowns().addCooldown(ModItems.SeaSword1.get(), (int) (60 - 60 * PlayerAttributes.coolDownDecrease(player)));
-            player.getCooldowns().addCooldown(ModItems.SeaSword2.get(), (int) (60 - 60 * PlayerAttributes.coolDownDecrease(player)));
-            player.getCooldowns().addCooldown(ModItems.SeaSword3.get(), (int) (60 - 60 * PlayerAttributes.coolDownDecrease(player)));
-            Compute.playerItemCoolDown(player, ModItems.SeaSword4.get(), 3);
-            data.putBoolean("SeaSword4", false);
-            data.putBoolean("SeaSword3", false);
-            data.putBoolean("SeaSword0", false);
-            if (tier == 4) Utils.SeaSwordActiveMap.put(player, 3);
-            else if (tier == 3) Utils.SeaSwordActiveMap.put(player, 2);
-            else Utils.SeaSwordActiveMap.put(player, 1);
-            Compute.sendEffectLastTime(player, ModItems.SeaSword0.get().getDefaultInstance(), 8888, 0, true);
-            MySound.soundToNearPlayer(player, ModSounds.Attack.get());
-        }
+        CompoundTag data = player.getPersistentData();
+        player.getCooldowns().addCooldown(ModItems.SeaSword0.get(), (int) (60 - 60 * PlayerAttributes.coolDownDecrease(player)));
+        player.getCooldowns().addCooldown(ModItems.SeaSword1.get(), (int) (60 - 60 * PlayerAttributes.coolDownDecrease(player)));
+        player.getCooldowns().addCooldown(ModItems.SeaSword2.get(), (int) (60 - 60 * PlayerAttributes.coolDownDecrease(player)));
+        player.getCooldowns().addCooldown(ModItems.SeaSword3.get(), (int) (60 - 60 * PlayerAttributes.coolDownDecrease(player)));
+        Compute.playerItemCoolDown(player, ModItems.SeaSword4.get(), 3);
+        data.putBoolean("SeaSword4", false);
+        data.putBoolean("SeaSword3", false);
+        data.putBoolean("SeaSword0", false);
+        if (tier == 4) Utils.SeaSwordActiveMap.put(player, 3);
+        else if (tier == 3) Utils.SeaSwordActiveMap.put(player, 2);
+        else Utils.SeaSwordActiveMap.put(player, 1);
+        Compute.sendEffectLastTime(player, ModItems.SeaSword0.get().getDefaultInstance(), 8888, 0, true);
+        MySound.soundToNearPlayer(player, ModSounds.Attack.get());
+    }
+
+    @Override
+    public double manaCost(Player player) {
+        return 20;
     }
 }

@@ -1,26 +1,38 @@
 package fun.wraq.series.overworld.chapter1.waterSystem;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Tick;
+import fun.wraq.common.registry.ModItems;
+import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.process.func.EffectOnMob;
+import fun.wraq.process.func.damage.Damage;
+import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.func.power.PowerLogic;
+import fun.wraq.process.func.power.WraqPower;
 import fun.wraq.process.func.suit.SuitCount;
 import fun.wraq.process.system.element.Element;
-import fun.wraq.common.equip.impl.ActiveItem;
+import fun.wraq.process.system.element.ElementValue;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.WeakHashMap;
 
-public class LakePower extends Item implements ActiveItem {
+import static fun.wraq.common.Compute.*;
+
+public class LakePower extends WraqPower {
 
     private final int tier;
 
@@ -30,8 +42,6 @@ public class LakePower extends Item implements ActiveItem {
     public LakePower(Properties p_41383_, int tier) {
         super(p_41383_);
         this.tier = tier;
-        Utils.powerTag.put(this, 1d);
-        Utils.weaponList.add(this);
     }
 
     public int getTier() {
@@ -39,10 +49,13 @@ public class LakePower extends Item implements ActiveItem {
     }
 
     @Override
-    public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
-        components.add(Component.literal("·法术").withStyle(CustomStyle.styleOfMana));
-        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
-        Compute.DescriptionActive(components, Component.literal("迟滞之水").withStyle(CustomStyle.styleOfWater));
+    public Component getActiveName() {
+        return Component.literal("迟滞之水").withStyle(CustomStyle.styleOfWater);
+    }
+
+    @Override
+    public List<Component> getAdditionalComponents() {
+        List<Component> components = new ArrayList<>();
         components.add(Component.literal(" 对").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("指针").withStyle(ChatFormatting.AQUA)).
                 append(Component.literal("周围敌人造成").withStyle(ChatFormatting.WHITE)).
@@ -59,15 +72,69 @@ public class LakePower extends Item implements ActiveItem {
                 append(Component.literal("周围玩家提供持续4s的").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal((tier + 1) * 5 + "%").withStyle(CustomStyle.styleOfWater)).
                 append(Component.literal("伤害削减。").withStyle(ChatFormatting.GREEN)));
-        ComponentUtils.coolDownTimeDescription(components, CoolDownTime[tier]);
-        ComponentUtils.manaCostDescription(components, ManaCost[tier]);
-        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
-        super.appendHoverText(itemStack, level, components, flag);
+        return components;
     }
 
     @Override
-    public boolean isFoil(ItemStack p_41453_) {
-        return true;
+    public int getCoolDownSecond() {
+        return CoolDownTime[tier];
+    }
+
+    @Override
+    public double getManaCost() {
+        return ManaCost[tier];
+    }
+
+    @Override
+    public Component getSuffix() {
+        return null;
+    }
+
+    @Override
+    public void release(Player player) {
+        List.of(ModItems.LakePower.get(), ModItems.LakePower1.get(),
+                        ModItems.LakePower2.get(), ModItems.LakePower3.get())
+                .forEach(item -> {
+                    playerItemCoolDown(player, item, LakePower.CoolDownTime[tier] - SuitCount.getObsiManaESuitCount(player) * 0.75);
+                });
+        int tick = Tick.get();
+        Level dimension = player.level();
+        double effect = LakePower.effect[tier];
+        Vec3 targetPos = player.pick(15, 0, false).getLocation();
+        if (detectPlayerPickMob(player) != null) targetPos = detectPlayerPickMob(player).position();
+        List<Mob> mobList = dimension.getEntitiesOfClass(Mob.class,
+                AABB.ofSize(targetPos, 20, 20, 20));
+
+        List<Player> playerList = dimension.getEntitiesOfClass(Player.class, AABB.ofSize(player.position(), 20, 20, 20));
+        playerList.removeIf(player1 -> player1.distanceTo(player) > 6);
+        playerList.forEach(player1 -> {
+            LakePower.playerDefendRateMap.put(player1, tier + 1);
+            LakePower.playerDefendTickMap.put(player1, tick + 80);
+            Compute.sendEffectLastTime(player, ModItems.LakePower.get().getDefaultInstance(), 80);
+        });
+        ParticleProvider.dustParticle(player, player.getEyePosition(), 6, 36, CustomStyle.styleOfLake.getColor().getValue());
+
+        Vec3 finalTargetPos = targetPos;
+        mobList.forEach(mob -> {
+            Vec3 PosVec = mob.position().subtract(finalTargetPos);
+            if (PosVec.length() <= 6) {
+                Compute.IgniteMob(player, mob, 0);
+                EffectOnMob.addSlowDownEffect(mob, 40, 0.25);
+                addManaDefenceDecreaseEffectParticle(mob, 40);
+                Utils.LakePowerEffectMobMap.put(mob, new LakePowerEffect(tick + 40, (tier + 1)));
+                PowerLogic.PlayerPowerEffectToMob(player, mob);
+                Damage.causeManaDamageToMonster_RateApDamage_ElementAddition(player, mob, effect, true,
+                        Element.water, ElementValue.ElementValueJudgeByType(player, Element.water) + 1);
+                Compute.sendMobEffectHudToNearPlayer(mob, ModItems.LakePower.get(), "lakePowerManaDefenceDecrease",
+                        40, 0, false);
+                ParticleProvider.dustParticle(player, mob.getEyePosition(), 0.8, 20,
+                        ChatFormatting.BLUE.getColor().intValue());
+            }
+        });
+
+        MySound.soundToNearPlayer(player, SoundEvents.WATER_AMBIENT);
+        ParticleProvider.SpaceRangeParticle((ServerLevel) dimension, targetPos, 6, 150,
+                ParticleTypes.BUBBLE_POP);
     }
 
     public static int[] ManaCost = {
@@ -87,13 +154,5 @@ public class LakePower extends Item implements ActiveItem {
             return 0.05 * playerDefendRateMap.get(player);
         }
         return 0;
-    }
-
-    @Override
-    public void active(Player player) {
-        if (Compute.playerManaCost(player, LakePower.ManaCost[tier] - 10 * SuitCount.getObsiManaESuitCount(player), true)) {
-            PowerLogic.LakePower(player, this, tier);
-            PowerLogic.PlayerReleasePowerType(player, 6);
-        }
     }
 }

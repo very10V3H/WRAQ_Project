@@ -113,4 +113,9 @@ public class WaterElementBow extends WraqBow implements ActiveItem {
             });
         }
     }
+
+    @Override
+    public double manaCost(Player player) {
+        return 0;
+    }
 }

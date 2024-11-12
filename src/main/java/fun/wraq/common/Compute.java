@@ -63,8 +63,12 @@ import fun.wraq.render.particles.ModParticles;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.castle.RandomCuriosAttributesUtil;
 import fun.wraq.series.instance.series.castle.CastleSceptre;
+import fun.wraq.series.overworld.chapter1.forest.ForestPower;
 import fun.wraq.series.overworld.chapter1.forest.bossItems.ForestBossSword;
+import fun.wraq.series.overworld.chapter1.plain.PlainPower;
+import fun.wraq.series.overworld.chapter1.volcano.VolcanoPower;
 import fun.wraq.series.overworld.chapter1.volcano.bossItems.VolcanoBossSword;
+import fun.wraq.series.overworld.chapter1.waterSystem.LakePower;
 import fun.wraq.series.overworld.chapter1.waterSystem.bossItems.LakeBoss;
 import fun.wraq.series.overworld.chapter7.star.StarBottle;
 import fun.wraq.series.overworld.chapter7.vd.VdWeaponCommon;
@@ -260,9 +264,27 @@ public class Compute {
 
         CompoundTag data = player.getPersistentData();
         if (player.getCooldowns().isOnCooldown(tool)) return;
+
         if (tool instanceof ActiveItem activeItem) {
-            activeItem.active(player);
-            VdWeaponCommon.onReleaseActive(player, tool);
+            if (tool instanceof PlainPower || tool instanceof ForestPower
+                    || tool instanceof LakePower || tool instanceof VolcanoPower) {
+                if (tool instanceof PlainPower || tool instanceof ForestPower) {
+                    if (playerManaCost(player, activeItem.manaCost(player) - SuitCount.getLifeManaESuitCount(player) * 10)) {
+                        activeItem.active(player);
+                        VdWeaponCommon.onReleaseActive(player, tool);
+                    }
+                } else {
+                    if (playerManaCost(player, activeItem.manaCost(player) - SuitCount.getObsiManaESuitCount(player) * 10)) {
+                        activeItem.active(player);
+                        VdWeaponCommon.onReleaseActive(player, tool);
+                    }
+                }
+            } else {
+                if (playerManaCost(player, activeItem.manaCost(player))) {
+                    activeItem.active(player);
+                    VdWeaponCommon.onReleaseActive(player, tool);
+                }
+            }
         }
 
         if (tool instanceof ForestBossSword && playerManaCost(player, 180)) {

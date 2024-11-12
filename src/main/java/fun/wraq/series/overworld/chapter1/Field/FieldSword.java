@@ -61,4 +61,9 @@ public class FieldSword extends WraqSword implements ActiveItem {
             }
         }
     }
+
+    @Override
+    public double manaCost(Player player) {
+        return 0;
+    }
 }

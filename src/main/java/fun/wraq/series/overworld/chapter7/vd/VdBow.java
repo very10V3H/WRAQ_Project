@@ -61,6 +61,11 @@ public class VdBow extends WraqBow implements ForgeItem, ActiveItem, VdWeaponCom
     }
 
     @Override
+    public double manaCost(Player player) {
+        return 0;
+    }
+
+    @Override
     public List<ItemStack> forgeRecipe() {
         return new ArrayList<>() {{
             add(new ItemStack(ModItems.DevilBow.get(), 1));

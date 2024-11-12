@@ -80,4 +80,9 @@ public class ForestSword4 extends WraqSword implements ActiveItem {
             MySound.soundToNearPlayer(player, ModSounds.Attack.get());
         }
     }
+
+    @Override
+    public double manaCost(Player player) {
+        return 60;
+    }
 }

@@ -28,6 +28,7 @@ import java.util.List;
 public class MoonSword extends WraqSword implements ActiveItem, OnHitEffectEquip {
 
     private final double activeRate;
+
     public MoonSword(Properties properties, double activeRate) {
         super(properties);
         Utils.attackDamage.put(this, 1200d);
@@ -82,25 +83,28 @@ public class MoonSword extends WraqSword implements ActiveItem, OnHitEffectEquip
 
     @Override
     public void active(Player player) {
-        if (Compute.playerManaCost(player, 60)) {
-            Compute.playerItemCoolDown(player, ModItems.MoonSword.get(), 27);
-            EnhanceNormalAttackModifier.addModifier(player, new EnhanceNormalAttackModifier("moonSwordActive", 0, new EnhanceNormalAttack() {
-                @Override
-                public void hit(Player player, Mob mob) {
-                    Shield.providePlayerShield(player, 400, PlayerAttributes.attackDamage(player) * 2);
-                    Compute.sendEffectLastTime(player, ModItems.MoonSword.get().getDefaultInstance(), 200);
-                    List<Mob> mobList = mob.level().getEntitiesOfClass(Mob.class, AABB.ofSize(mob.position(), 15, 15, 15));
-                    mobList.removeIf(mob1 -> mob1.distanceTo(mob) > 6);
-                    double attackDamage = 0;
-                    for (Mob mob1 : mobList) {
-                        attackDamage += MobSpawn.MobBaseAttributes.getMobBaseAttribute(mob1, MobSpawn.MobBaseAttributes.attackDamage);
-                    }
-                    ChangedAttributesModifier.addAttributeModifier(player, ChangedAttributesModifier.exAttackDamage,
-                            "moonSwordActive", attackDamage * activeRate, 200, true);
+        Compute.playerItemCoolDown(player, ModItems.MoonSword.get(), 27);
+        EnhanceNormalAttackModifier.addModifier(player, new EnhanceNormalAttackModifier("moonSwordActive", 0, new EnhanceNormalAttack() {
+            @Override
+            public void hit(Player player, Mob mob) {
+                Shield.providePlayerShield(player, 400, PlayerAttributes.attackDamage(player) * 2);
+                Compute.sendEffectLastTime(player, ModItems.MoonSword.get().getDefaultInstance(), 200);
+                List<Mob> mobList = mob.level().getEntitiesOfClass(Mob.class, AABB.ofSize(mob.position(), 15, 15, 15));
+                mobList.removeIf(mob1 -> mob1.distanceTo(mob) > 6);
+                double attackDamage = 0;
+                for (Mob mob1 : mobList) {
+                    attackDamage += MobSpawn.MobBaseAttributes.getMobBaseAttribute(mob1, MobSpawn.MobBaseAttributes.attackDamage);
                 }
-            }));
-            Compute.sendEffectLastTime(player, ModItems.MoonSword.get().getDefaultInstance(), 8888, 0, true);
-        }
+                ChangedAttributesModifier.addAttributeModifier(player, ChangedAttributesModifier.exAttackDamage,
+                        "moonSwordActive", attackDamage * activeRate, 200, true);
+            }
+        }));
+        Compute.sendEffectLastTime(player, ModItems.MoonSword.get().getDefaultInstance(), 8888, 0, true);
+    }
+
+    @Override
+    public double manaCost(Player player) {
+        return 60;
     }
 
     @Override

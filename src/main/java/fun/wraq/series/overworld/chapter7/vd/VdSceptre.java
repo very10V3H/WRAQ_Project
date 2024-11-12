@@ -65,6 +65,11 @@ public class VdSceptre extends WraqSceptre implements ForgeItem, ActiveItem, VdW
     }
 
     @Override
+    public double manaCost(Player player) {
+        return 0;
+    }
+
+    @Override
     public List<ItemStack> forgeRecipe() {
         return new ArrayList<>() {{
             add(new ItemStack(ModItems.DevilSceptre.get(), 1));

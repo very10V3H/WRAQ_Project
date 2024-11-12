@@ -79,4 +79,9 @@ public class EndPower extends Item implements ActiveItem {
     public void active(Player player) {
         EndPower.Release(player);
     }
+
+    @Override
+    public double manaCost(Player player) {
+        return PowerLogic.playerLastTimeReleasePowerManaCost.getOrDefault(player, 45d) * 1.5;
+    }
 }

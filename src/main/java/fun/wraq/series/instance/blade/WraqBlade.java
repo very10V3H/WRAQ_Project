@@ -88,5 +88,10 @@ public class WraqBlade extends WraqPassiveEquip implements ActiveItem {
             });
         }
     }
+
+    @Override
+    public double manaCost(Player player) {
+        return 0;
+    }
 }
 

@@ -27,6 +27,7 @@ import java.util.List;
 public class VolcanoSword extends WraqSword implements ActiveItem {
 
     private final int tier;
+
     public VolcanoSword(Properties properties, int tier) {
         super(properties);
         this.tier = tier;
@@ -66,23 +67,26 @@ public class VolcanoSword extends WraqSword implements ActiveItem {
 
     @Override
     public void active(Player player) {
-        if (Compute.playerManaCost(player, 30)) {
-            ParticleProvider.VerticleCircleParticle((ServerPlayer) player, 0.25, 1, 16, ParticleTypes.ANGRY_VILLAGER);
-            ParticleProvider.RandomMoveParticle((ServerPlayer) player, 0, 0.25, 32, ParticleTypes.ASH);
-            Compute.sendEffectLastTime(player, ModItems.VolcanoSword3.get().getDefaultInstance(), 200);
+        ParticleProvider.VerticleCircleParticle((ServerPlayer) player, 0.25, 1, 16, ParticleTypes.ANGRY_VILLAGER);
+        ParticleProvider.RandomMoveParticle((ServerPlayer) player, 0, 0.25, 32, ParticleTypes.ASH);
+        Compute.sendEffectLastTime(player, ModItems.VolcanoSword3.get().getDefaultInstance(), 200);
 
-            StableAttributesModifier.addM(player, StableAttributesModifier.playerAttackDamageModifier,
-                    "Volcano Sword Active", exAttackDamage[tier], Tick.get() + 200);
-            StableAttributesModifier.addM(player, StableAttributesModifier.playerCritDamageModifier,
-                    "Volcano Sword Active", exCritDamage[tier], Tick.get() + 200);
+        StableAttributesModifier.addM(player, StableAttributesModifier.playerAttackDamageModifier,
+                "Volcano Sword Active", exAttackDamage[tier], Tick.get() + 200);
+        StableAttributesModifier.addM(player, StableAttributesModifier.playerCritDamageModifier,
+                "Volcano Sword Active", exCritDamage[tier], Tick.get() + 200);
 
-            List.of(ModItems.VolcanoSword0.get(), ModItems.VolcanoSword1.get(),
-                    ModItems.VolcanoSword2.get(), ModItems.VolcanoSword3.get(), ModItems.VolcanoSword4.get())
-                    .forEach(item -> {
-                        Compute.playerItemCoolDown(player, item, 18);
-                    });
+        List.of(ModItems.VolcanoSword0.get(), ModItems.VolcanoSword1.get(),
+                        ModItems.VolcanoSword2.get(), ModItems.VolcanoSword3.get(), ModItems.VolcanoSword4.get())
+                .forEach(item -> {
+                    Compute.playerItemCoolDown(player, item, 18);
+                });
 
-            MySound.soundToNearPlayer(player, ModSounds.Lava.get());
-        }
+        MySound.soundToNearPlayer(player, ModSounds.Lava.get());
+    }
+
+    @Override
+    public double manaCost(Player player) {
+        return 30;
     }
 }

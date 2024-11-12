@@ -122,6 +122,11 @@ public class MoonSceptre extends WraqSceptre implements ActiveItem, OnHitEffectE
     }
 
     @Override
+    public double manaCost(Player player) {
+        return 60;
+    }
+
+    @Override
     public void onHit(Player player, Mob mob) {
         mob.level().getEntitiesOfClass(Mob.class, AABB.ofSize(mob.position(), 15, 15, 15))
                 .stream().filter(mob1 -> mob1.distanceTo(mob) <= 6 && !mob1.equals(mob))

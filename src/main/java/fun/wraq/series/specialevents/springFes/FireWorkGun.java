@@ -119,4 +119,9 @@ public class FireWorkGun extends Item implements ActiveItem {
         }
         player.getCooldowns().addCooldown(this, 20);
     }
+
+    @Override
+    public double manaCost(Player player) {
+        return 0;
+    }
 }

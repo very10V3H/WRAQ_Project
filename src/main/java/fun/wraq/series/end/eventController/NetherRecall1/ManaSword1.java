@@ -73,4 +73,9 @@ public class ManaSword1 extends WraqSword implements ActiveItem {
         Mana.updateManaStatus(player);
         Compute.PlayerPowerParticle(player);
     }
+
+    @Override
+    public double manaCost(Player player) {
+        return 0;
+    }
 }

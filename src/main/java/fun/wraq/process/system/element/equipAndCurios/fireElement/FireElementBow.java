@@ -129,5 +129,10 @@ public class FireElementBow extends WraqBow implements ActiveItem {
             mobList.forEach(mob -> Compute.IgniteMob(player, mob, 80));
         }
     }
+
+    @Override
+    public double manaCost(Player player) {
+        return 0;
+    }
 }
 

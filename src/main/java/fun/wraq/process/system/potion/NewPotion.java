@@ -139,4 +139,9 @@ public class NewPotion extends Item implements ActiveItem {
         Item item = player.getMainHandItem().getItem();
         player.getCooldowns().addCooldown(item, 20);
     }
+
+    @Override
+    public double manaCost(Player player) {
+        return 0;
+    }
 }

@@ -82,6 +82,11 @@ public class LifeElementSword extends WraqSword implements ActiveItem {
         }
     }
 
+    @Override
+    public double manaCost(Player player) {
+        return 0;
+    }
+
     public record ShortTimeStoreHealth(int tickCount, double num) {
     }
 

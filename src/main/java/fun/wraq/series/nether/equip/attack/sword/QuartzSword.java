@@ -2,6 +2,8 @@ package fun.wraq.series.nether.equip.attack.sword;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.equip.WraqSword;
+import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.ModSounds;
 import fun.wraq.common.registry.MySound;
@@ -9,8 +11,6 @@ import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.system.element.Element;
-import fun.wraq.common.equip.impl.ActiveItem;
-import fun.wraq.common.equip.WraqSword;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -27,7 +27,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class QuartzSword extends WraqSword implements ActiveItem {
@@ -69,35 +68,36 @@ public class QuartzSword extends WraqSword implements ActiveItem {
 
     @Override
     public void active(Player player) {
-        if (Compute.playerManaCost(player, 90)) {
-            Compute.PlayerPowerParticle(player);
-            Level level = player.level();
-            player.getCooldowns().addCooldown(ModItems.QuartzSword.get(), (int) (100 - 100 * PlayerAttributes.coolDownDecrease(player)));
-            List<Player> playerList = level.getNearbyPlayers(TargetingConditions.DEFAULT, player, AABB.ofSize(player.position(), 10, 10, 10));
-            Iterator<Player> iterator = playerList.iterator();
-            while (iterator.hasNext()) {
-                Player player1 = iterator.next();
-                Damage.manaDamageToPlayer(player, player1, 2.5f);
-                LightningBolt lightningBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, level);
-                lightningBolt.setCause((ServerPlayer) player);
-                lightningBolt.setSilent(true);
-                lightningBolt.setVisualOnly(true);
-                lightningBolt.setDamage(0);
-                lightningBolt.moveTo(player1.position());
-                level.addFreshEntity(lightningBolt);
-            }
-            List<Mob> monsterList = level.getNearbyEntities(Mob.class, TargetingConditions.DEFAULT, player, AABB.ofSize(player.position(), 10, 10, 10));
-            for (Mob monster : monsterList) {
-                Damage.causeManaDamageToMonster_RateApDamage(player, monster, 2.5f, true);
-                LightningBolt lightningBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, level);
-                lightningBolt.setCause((ServerPlayer) player);
-                lightningBolt.setSilent(true);
-                lightningBolt.setVisualOnly(true);
-                lightningBolt.setDamage(0);
-                lightningBolt.moveTo(monster.position());
-                level.addFreshEntity(lightningBolt);
-            }
-            MySound.soundToNearPlayer(player, ModSounds.Nether_Power.get());
+        Compute.PlayerPowerParticle(player);
+        Level level = player.level();
+        player.getCooldowns().addCooldown(ModItems.QuartzSword.get(), (int) (100 - 100 * PlayerAttributes.coolDownDecrease(player)));
+        List<Player> playerList = level.getNearbyPlayers(TargetingConditions.DEFAULT, player, AABB.ofSize(player.position(), 10, 10, 10));
+        for (Player player1 : playerList) {
+            Damage.manaDamageToPlayer(player, player1, 2.5f);
+            LightningBolt lightningBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, level);
+            lightningBolt.setCause((ServerPlayer) player);
+            lightningBolt.setSilent(true);
+            lightningBolt.setVisualOnly(true);
+            lightningBolt.setDamage(0);
+            lightningBolt.moveTo(player1.position());
+            level.addFreshEntity(lightningBolt);
         }
+        List<Mob> monsterList = level.getNearbyEntities(Mob.class, TargetingConditions.DEFAULT, player, AABB.ofSize(player.position(), 10, 10, 10));
+        for (Mob monster : monsterList) {
+            Damage.causeManaDamageToMonster_RateApDamage(player, monster, 2.5f, true);
+            LightningBolt lightningBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, level);
+            lightningBolt.setCause((ServerPlayer) player);
+            lightningBolt.setSilent(true);
+            lightningBolt.setVisualOnly(true);
+            lightningBolt.setDamage(0);
+            lightningBolt.moveTo(monster.position());
+            level.addFreshEntity(lightningBolt);
+        }
+        MySound.soundToNearPlayer(player, ModSounds.Nether_Power.get());
+    }
+
+    @Override
+    public double manaCost(Player player) {
+        return 90;
     }
 }

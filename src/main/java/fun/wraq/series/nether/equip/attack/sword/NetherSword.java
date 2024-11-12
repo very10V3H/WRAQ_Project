@@ -71,6 +71,11 @@ public class NetherSword extends WraqSword implements ActiveItem, ForgeItem {
     }
 
     @Override
+    public double manaCost(Player player) {
+        return 0;
+    }
+
+    @Override
     public List<ItemStack> forgeRecipe() {
         return List.of(
                 new ItemStack(ModItems.NetherRune.get(), 2),

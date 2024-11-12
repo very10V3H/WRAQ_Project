@@ -28,6 +28,7 @@ import java.util.List;
 public class ForestSword extends WraqSword implements ActiveItem {
 
     private final int tier;
+
     public ForestSword(Properties properties, int tier) {
         super(properties);
         this.tier = tier;
@@ -63,25 +64,28 @@ public class ForestSword extends WraqSword implements ActiveItem {
 
     @Override
     public void active(Player player) {
-        if (Compute.playerManaCost(player, 30)) {
-            ServerPlayer serverPlayer = (ServerPlayer) player;
-            CompoundTag data = serverPlayer.getPersistentData();
-            int tickCount = serverPlayer.getServer().getTickCount();
-            ParticleProvider.VerticleCircleParticle(serverPlayer, 1.5 * 2, 0.25, 12, ParticleTypes.COMPOSTER);
-            ParticleProvider.VerticleCircleParticle(serverPlayer, 1.25 * 2, 0.5, 16, ParticleTypes.COMPOSTER);
-            ParticleProvider.VerticleCircleParticle(serverPlayer, 1.0 * 2, 0.75, 20, ParticleTypes.COMPOSTER);
-            ParticleProvider.VerticleCircleParticle(serverPlayer, 0.75 * 2, 1, 24, ParticleTypes.COMPOSTER);
-            ParticleProvider.VerticleCircleParticle(serverPlayer, 0.5 * 2, 1.25, 28, ParticleTypes.COMPOSTER);
-            ParticleProvider.VerticleCircleParticle(serverPlayer, 0.25 * 2, 1.5, 32, ParticleTypes.COMPOSTER);
-            ParticleProvider.VerticleCircleParticle(serverPlayer, 0.0 * 2, 1.75, 36, ParticleTypes.COMPOSTER);
-            Compute.sendEffectLastTime(player, this, (int) ForestSwordAttributes.EffectNum[tier] * 20);
-            data.putInt(StringUtils.ForestSwordSkill0, tickCount + (int) ForestSwordAttributes.EffectNum[tier] * 20);
-            player.getCooldowns().addCooldown(ModItems.ForestSword0.get(), (int) (600 - 600.0 * PlayerAttributes.coolDownDecrease(player)));
-            player.getCooldowns().addCooldown(ModItems.ForestSword1.get(), (int) (600 - 600.0 * PlayerAttributes.coolDownDecrease(player)));
-            player.getCooldowns().addCooldown(ModItems.ForestSword2.get(), (int) (600 - 600.0 * PlayerAttributes.coolDownDecrease(player)));
-            player.getCooldowns().addCooldown(ModItems.ForestSword3.get(), (int) (600 - 600.0 * PlayerAttributes.coolDownDecrease(player)));
-            player.getCooldowns().addCooldown(ModItems.ForestSword4.get(), (int) (600 - 600.0 * PlayerAttributes.coolDownDecrease(player)));
-            MySound.soundToNearPlayer(player, ModSounds.Attack.get());
-        }
+        ServerPlayer serverPlayer = (ServerPlayer) player;
+        CompoundTag data = serverPlayer.getPersistentData();
+        int tickCount = serverPlayer.getServer().getTickCount();
+        ParticleProvider.VerticleCircleParticle(serverPlayer, 1.5 * 2, 0.25, 12, ParticleTypes.COMPOSTER);
+        ParticleProvider.VerticleCircleParticle(serverPlayer, 1.25 * 2, 0.5, 16, ParticleTypes.COMPOSTER);
+        ParticleProvider.VerticleCircleParticle(serverPlayer, 1.0 * 2, 0.75, 20, ParticleTypes.COMPOSTER);
+        ParticleProvider.VerticleCircleParticle(serverPlayer, 0.75 * 2, 1, 24, ParticleTypes.COMPOSTER);
+        ParticleProvider.VerticleCircleParticle(serverPlayer, 0.5 * 2, 1.25, 28, ParticleTypes.COMPOSTER);
+        ParticleProvider.VerticleCircleParticle(serverPlayer, 0.25 * 2, 1.5, 32, ParticleTypes.COMPOSTER);
+        ParticleProvider.VerticleCircleParticle(serverPlayer, 0.0 * 2, 1.75, 36, ParticleTypes.COMPOSTER);
+        Compute.sendEffectLastTime(player, this, (int) ForestSwordAttributes.EffectNum[tier] * 20);
+        data.putInt(StringUtils.ForestSwordSkill0, tickCount + (int) ForestSwordAttributes.EffectNum[tier] * 20);
+        player.getCooldowns().addCooldown(ModItems.ForestSword0.get(), (int) (600 - 600.0 * PlayerAttributes.coolDownDecrease(player)));
+        player.getCooldowns().addCooldown(ModItems.ForestSword1.get(), (int) (600 - 600.0 * PlayerAttributes.coolDownDecrease(player)));
+        player.getCooldowns().addCooldown(ModItems.ForestSword2.get(), (int) (600 - 600.0 * PlayerAttributes.coolDownDecrease(player)));
+        player.getCooldowns().addCooldown(ModItems.ForestSword3.get(), (int) (600 - 600.0 * PlayerAttributes.coolDownDecrease(player)));
+        player.getCooldowns().addCooldown(ModItems.ForestSword4.get(), (int) (600 - 600.0 * PlayerAttributes.coolDownDecrease(player)));
+        MySound.soundToNearPlayer(player, ModSounds.Attack.get());
+    }
+
+    @Override
+    public double manaCost(Player player) {
+        return 30;
     }
 }

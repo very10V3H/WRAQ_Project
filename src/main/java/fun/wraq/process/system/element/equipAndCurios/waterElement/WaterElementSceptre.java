@@ -120,4 +120,9 @@ public class WaterElementSceptre extends WraqSceptre implements ActiveItem {
             });
         }
     }
+
+    @Override
+    public double manaCost(Player player) {
+        return 0;
+    }
 }

@@ -32,18 +32,10 @@ import java.util.List;
 
 public class IceCrystal extends SwordItem implements ActiveItem {
 
-    private static final double[] MaxHealth = {
-            400, 600, 800, 1000
-    };
-
-    private static final double[] ExpUp = {
-            0.2, 0.25, 0.3, 0.35
-    };
-
     public IceCrystal(Properties properties, int tier) {
         super(ItemTier.VMaterial, 2, 0, properties);
-        Utils.maxHealth.put(this, MaxHealth[tier]);
-        Utils.expUp.put(this, ExpUp[tier]);
+        Utils.maxHealth.put(this, new double[]{400, 600, 800, 1000}[tier]);
+        Utils.expUp.put(this, new double[]{0.2, 0.25, 0.3, 0.35}[tier]);
         Element.IceElementValue.put(this, new double[]{0.4, 0.6, 0.8, 1}[tier]);
         Utils.passiveEquipTag.put(this, 1d);
         Utils.weaponList.add(this);
@@ -112,5 +104,10 @@ public class IceCrystal extends SwordItem implements ActiveItem {
             Element.RangeElementProvider(player, Element.ice, ElementValue.PlayerIceElementValue(player),
                     isAd, isAd ? PlayerAttributes.attackDamage(player) * 4 : PlayerAttributes.manaDamage(player), 6);
         }
+    }
+
+    @Override
+    public double manaCost(Player player) {
+        return 0;
     }
 }

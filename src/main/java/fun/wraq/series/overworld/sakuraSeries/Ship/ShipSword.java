@@ -74,24 +74,27 @@ public class ShipSword extends WraqSword implements ActiveItem {
 
     @Override
     public void active(Player player) {
-        if (Compute.playerManaCost(player, 75)) {
-            Level dimension = player.level();
-            Compute.playerItemCoolDown(player, this, 12);
-            Vec3 desPos = player.position();
-            List<Mob> mobList = dimension.getEntitiesOfClass(Mob.class,
-                            AABB.ofSize(player.position(), 20, 20, 20))
-                    .stream().filter(mob -> mob.position().distanceTo(desPos) <= 6).toList();
-            mobList.forEach(mob -> {
-                Utils.ForestPowerEffectMobList.add(new ForestPowerEffectMob(desPos, 20, mob));
-                Compute.addSlowDownEffect(mob, 40, 2);
-                Compute.addDefenceDecreaseEffectParticle(mob, 100);
-                StableAttributesModifier.addM(mob, StableAttributesModifier.mobDefenceModifier,
-                        "ShipSword active", -10 * Math.min(4, mobList.size()), Tick.get() + 100, this);
-            });
-            MySound.soundToNearPlayer(player, SoundEvents.ANVIL_LAND);
+        Level dimension = player.level();
+        Compute.playerItemCoolDown(player, this, 12);
+        Vec3 desPos = player.position();
+        List<Mob> mobList = dimension.getEntitiesOfClass(Mob.class,
+                        AABB.ofSize(player.position(), 20, 20, 20))
+                .stream().filter(mob -> mob.position().distanceTo(desPos) <= 6).toList();
+        mobList.forEach(mob -> {
+            Utils.ForestPowerEffectMobList.add(new ForestPowerEffectMob(desPos, 20, mob));
+            Compute.addSlowDownEffect(mob, 40, 2);
+            Compute.addDefenceDecreaseEffectParticle(mob, 100);
+            StableAttributesModifier.addM(mob, StableAttributesModifier.mobDefenceModifier,
+                    "ShipSword active", -10 * Math.min(4, mobList.size()), Tick.get() + 100, this);
+        });
+        MySound.soundToNearPlayer(player, SoundEvents.ANVIL_LAND);
 
-            ParticleProvider.GatherParticle(desPos, (ServerLevel) player.level(), 1, 6, 120, ModParticles.LONG_LAKE.get(), 0.25);
-            ParticleProvider.GatherParticle(desPos, (ServerLevel) player.level(), 1.5, 6, 120, ModParticles.LONG_LAKE.get(), 0.25);
-        }
+        ParticleProvider.GatherParticle(desPos, (ServerLevel) player.level(), 1, 6, 120, ModParticles.LONG_LAKE.get(), 0.25);
+        ParticleProvider.GatherParticle(desPos, (ServerLevel) player.level(), 1.5, 6, 120, ModParticles.LONG_LAKE.get(), 0.25);
+    }
+
+    @Override
+    public double manaCost(Player player) {
+        return 75;
     }
 }

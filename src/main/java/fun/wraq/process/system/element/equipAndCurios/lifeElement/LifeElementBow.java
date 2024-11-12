@@ -119,4 +119,9 @@ public class LifeElementBow extends WraqBow implements ActiveItem {
             Compute.PlayerHealthDecrease(player, player.getHealth() * 0.8, Component.literal(" 被生机元素吞噬了。").withStyle(CustomStyle.styleOfLife));
         }
     }
+
+    @Override
+    public double manaCost(Player player) {
+        return 0;
+    }
 }
