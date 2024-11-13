@@ -187,13 +187,13 @@ public class InjectRecipe {
                         ModItems.KazeSword3.get()));
 
         injectingRecipeMap.put(ModItems.WitherSword0.get(),
-                new InjectingRecipe(ModItems.WitherRune.get(), 1,
+                new InjectingRecipe(ModItems.WITHER_RUNE.get(), 1,
                         ModItems.WitherSword1.get()));
         injectingRecipeMap.put(ModItems.WitherSword1.get(),
-                new InjectingRecipe(ModItems.WitherRune.get(), 2,
+                new InjectingRecipe(ModItems.WITHER_RUNE.get(), 2,
                         ModItems.WitherSword2.get()));
         injectingRecipeMap.put(ModItems.WitherSword2.get(),
-                new InjectingRecipe(ModItems.WitherRune.get(), 3,
+                new InjectingRecipe(ModItems.WITHER_RUNE.get(), 3,
                         ModItems.WitherSword3.get()));
 
         injectingRecipeMap.put(ModItems.WitherBow0.get(),
@@ -217,13 +217,13 @@ public class InjectRecipe {
                         ModItems.MagmaSceptre3.get()));
 
         injectingRecipeMap.put(ModItems.PiglinHelmet0.get(),
-                new InjectingRecipe(ModItems.PiglinRune.get(), 1,
+                new InjectingRecipe(ModItems.PIGLIN_RUNE.get(), 1,
                         ModItems.PiglinHelmet1.get()));
         injectingRecipeMap.put(ModItems.PiglinHelmet1.get(),
-                new InjectingRecipe(ModItems.PiglinRune.get(), 2,
+                new InjectingRecipe(ModItems.PIGLIN_RUNE.get(), 2,
                         ModItems.PiglinHelmet2.get()));
         injectingRecipeMap.put(ModItems.PiglinHelmet2.get(),
-                new InjectingRecipe(ModItems.PiglinRune.get(), 3,
+                new InjectingRecipe(ModItems.PIGLIN_RUNE.get(), 3,
                         ModItems.PiglinHelmet3.get()));
 
         injectingRecipeMap.put(ModItems.LightningRune.get(),
@@ -993,6 +993,36 @@ public class InjectRecipe {
                 new InjectingRecipe(ModItems.NetherRune.get(), 2, ModItems.NETHER_KANATA.get()));
         injectingRecipeMap.put(ModItems.NETHER_KANATA.get(),
                 new InjectingRecipe(ModItems.Boss2Piece.get(), 16, ModItems.SAKURA_KANATA.get()));
+
+        injectingRecipeMap.put(ModItems.MAGMA_POWER.get(),
+                new InjectingRecipe(ModItems.MagmaRune.get(), 1, ModItems.MAGMA_POWER_1.get()));
+        injectingRecipeMap.put(ModItems.MAGMA_POWER_1.get(),
+                new InjectingRecipe(ModItems.MagmaRune.get(), 1, ModItems.MAGMA_POWER_2.get()));
+        injectingRecipeMap.put(ModItems.MAGMA_POWER_2.get(),
+                new InjectingRecipe(ModItems.MagmaRune.get(), 1, ModItems.MAGMA_POWER_3.get()));
+
+        injectingRecipeMap.put(ModItems.LIFE_MANA_POWER_0.get(),
+                new InjectingRecipe(ModItems.EvokerRune.get(), 2, ModItems.LIFE_MANA_POWER_1.get()));
+        injectingRecipeMap.put(ModItems.LIFE_MANA_POWER_1.get(),
+                new InjectingRecipe(ModItems.EvokerRune.get(), 2, ModItems.LIFE_MANA_POWER_2.get()));
+        injectingRecipeMap.put(ModItems.LIFE_MANA_POWER_2.get(),
+                new InjectingRecipe(ModItems.EvokerRune.get(), 2, ModItems.LIFE_MANA_POWER_3.get()));
+
+        injectingRecipeMap.put(ModItems.OBSI_MANA_POWER_0.get(),
+                new InjectingRecipe(ModItems.EvokerRune.get(), 2, ModItems.OBSI_MANA_POWER_1.get()));
+        injectingRecipeMap.put(ModItems.OBSI_MANA_POWER_1.get(),
+                new InjectingRecipe(ModItems.EvokerRune.get(), 2, ModItems.OBSI_MANA_POWER_2.get()));
+        injectingRecipeMap.put(ModItems.OBSI_MANA_POWER_2.get(),
+                new InjectingRecipe(ModItems.EvokerRune.get(), 2, ModItems.OBSI_MANA_POWER_3.get()));
+
+        injectingRecipeMap.put(ModItems.WITHER_POWER.get(),
+                new InjectingRecipe(ModItems.WITHER_RUNE.get(), 3, ModItems.WITHER_ENHANCE_POWER.get()));
+
+        injectingRecipeMap.put(ModItems.WITHER_BONE_MEAL_POWER.get(),
+                new InjectingRecipe(ModItems.NETHER_SKELETON_RUNE.get(), 3, ModItems.WITHER_SKELETON_ENHANCE_POWER.get()));
+
+        injectingRecipeMap.put(ModItems.SnowPower3.get(),
+                new InjectingRecipe(ModItems.IceHeart.get(), 3, ModItems.ICE_POWER.get()));
 
         for (Map.Entry<Item, InjectingRecipe> itemInjectingRecipeEntry : injectingRecipeMap.entrySet()) {
             injectedGetItemSourceItemMap.put(itemInjectingRecipeEntry.getValue().getForgingGetItem(), itemInjectingRecipeEntry.getKey());

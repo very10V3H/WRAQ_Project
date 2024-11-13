@@ -117,7 +117,7 @@ public class PiglinPower extends WraqPower {
         for (Player player1 : playerList) {
             if (player1.distanceTo(player) < 6) {
 
-                Compute.sendEffectLastTime(player1, ModItems.PigLinPower.get(), 100);
+                Compute.sendEffectLastTime(player1, ModItems.PIGLIN_POWER.get(), 100);
 
                 StableAttributesModifier.addAttributeModifier(player1, StableAttributesModifier.playerMovementSpeedModifier,
                         new StableAttributesModifier("piglinPowerMovementSpeedUp", 0.1 * playerList.size(), player.getServer().getTickCount() + 100));

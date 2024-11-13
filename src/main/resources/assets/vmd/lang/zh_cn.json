@@ -299,6 +299,10 @@
   "item.vmd.netherarmorleggings": "玄武岩之洲",
   "item.vmd.netherarmorboots": "熔岩之湖",
   "item.vmd.magmapower": "法术-熔岩能量附着",
+  "item.vmd.magmapower1": "法术-熔岩能量附着¹",
+  "item.vmd.magmapower2": "法术-熔岩能量附着²",
+  "item.vmd.magmapower3": "法术-熔岩能量附着³",
+
   "item.vmd.netherrune0": "下界符石-法术调制",
   "item.vmd.netherrune1": "下界符石-法术解调",
   "item.vmd.netherrune2": "下界符石-循环法流",
@@ -1809,7 +1813,22 @@
   "item.vmd.nether_kanata": "红莲行军刀",
   "item.vmd.sakura_kanata": "绯樱行军刀",
 
+  "item.vmd.blood_mana_power": "法术 - 腥月魔力",
+  "item.vmd.ice_power": "法术 - 凛冬之临",
 
+  "item.vmd.life_mana_power_0": "法术 - 魔源生机",
+  "item.vmd.life_mana_power_1": "法术 - 魔源生机¹",
+  "item.vmd.life_mana_power_2": "法术 - 魔源生机²",
+  "item.vmd.life_mana_power_3": "法术 - 魔源生机³",
+
+  "item.vmd.obsi_mana_power_0": "法术 - 黑曜裹身",
+  "item.vmd.obsi_mana_power_1": "法术 - 黑曜裹身¹",
+  "item.vmd.obsi_mana_power_2": "法术 - 黑曜裹身²",
+  "item.vmd.obsi_mana_power_3": "法术 - 黑曜裹身³",
+
+  "item.vmd.sakura_power": "法术 - 开春之樱",
+  "item.vmd.wither_enhance_power": "法术 - 凋落利刃",
+  "item.vmd.wither_skeleton_enhance_power": "法术 - 凋零之息",
 
   "curios.identifier.rune": "符石",
   "curios.identifier.crest": "纹章",

@@ -2,7 +2,10 @@ package fun.wraq.common.registry;
 
 import fun.wraq.Items.DevelopmentTools.*;
 import fun.wraq.Items.Explore.*;
-import fun.wraq.Items.Forging.*;
+import fun.wraq.Items.Forging.ForgeEnhancePaper;
+import fun.wraq.Items.Forging.ForgeProtect;
+import fun.wraq.Items.Forging.SpeIronIngot;
+import fun.wraq.Items.Forging.WraqForge;
 import fun.wraq.Items.KillPaper.KillPaper;
 import fun.wraq.Items.LevelReward.VariousBag.GoldCoinBag;
 import fun.wraq.Items.LevelReward.VariousBag.LogBag;
@@ -15,7 +18,10 @@ import fun.wraq.Items.Mission.Daily;
 import fun.wraq.Items.Mission.IronLove;
 import fun.wraq.Items.MobItem.HolyArmor;
 import fun.wraq.Items.MobItem.MobArmor;
-import fun.wraq.Items.Money.*;
+import fun.wraq.Items.Money.ResetSecurity;
+import fun.wraq.Items.Money.SmartPhoneitem;
+import fun.wraq.Items.Money.U_Disk;
+import fun.wraq.Items.Money.openSecurity;
 import fun.wraq.Items.ProfessionAndQuest.Profession_Barker;
 import fun.wraq.Items.ProfessionAndQuest.Profession_Bow;
 import fun.wraq.Items.ProfessionAndQuest.Profession_Sword;
@@ -42,6 +48,7 @@ import fun.wraq.events.sec.SoulBag;
 import fun.wraq.process.func.EnhanceNormalAttackModifier;
 import fun.wraq.process.func.plan.SimpleTierPaper;
 import fun.wraq.process.func.plan.SupplyBox;
+import fun.wraq.process.func.power.impl.*;
 import fun.wraq.process.system.element.RainbowCrystal;
 import fun.wraq.process.system.element.RainbowPowder;
 import fun.wraq.process.system.element.crystal.*;
@@ -146,21 +153,11 @@ import fun.wraq.series.overworld.chapter1.Mine.Armor.MineArmorBoots;
 import fun.wraq.series.overworld.chapter1.Mine.Armor.MineArmorChest;
 import fun.wraq.series.overworld.chapter1.Mine.Armor.MineArmorHelmet;
 import fun.wraq.series.overworld.chapter1.Mine.Armor.MineArmorLeggings;
-import fun.wraq.series.overworld.chapter1.Mine.MineBow;
 import fun.wraq.series.overworld.chapter1.Mine.Crest.MineCrest;
+import fun.wraq.series.overworld.chapter1.Mine.MineBow;
 import fun.wraq.series.overworld.chapter1.Mine.MineHat;
 import fun.wraq.series.overworld.chapter1.Mine.MineShield;
 import fun.wraq.series.overworld.chapter1.Mine.Sword.MineSword;
-import fun.wraq.series.overworld.chapter1.snow.SnowArmor;
-import fun.wraq.series.overworld.chapter1.snow.SnowCrest;
-import fun.wraq.series.overworld.chapter1.snow.Runes.SnowRune0;
-import fun.wraq.series.overworld.chapter1.snow.Runes.SnowRune1;
-import fun.wraq.series.overworld.chapter1.snow.Runes.SnowRune2;
-import fun.wraq.series.overworld.chapter1.snow.Runes.SnowRune3;
-import fun.wraq.series.overworld.chapter1.snow.SnowBoss;
-import fun.wraq.series.overworld.chapter1.snow.SnowPower;
-import fun.wraq.series.overworld.chapter1.snow.SnowShield;
-import fun.wraq.series.overworld.chapter1.snow.SnowSword;
 import fun.wraq.series.overworld.chapter1.forest.ForestPower;
 import fun.wraq.series.overworld.chapter1.forest.ForestRing;
 import fun.wraq.series.overworld.chapter1.forest.armor.ForestArmorBoots;
@@ -175,24 +172,28 @@ import fun.wraq.series.overworld.chapter1.forest.rune.ForestRune1;
 import fun.wraq.series.overworld.chapter1.forest.rune.ForestRune2;
 import fun.wraq.series.overworld.chapter1.forest.rune.ForestRune3;
 import fun.wraq.series.overworld.chapter1.forest.sword.ForestSword;
+import fun.wraq.series.overworld.chapter1.plain.PlainBow;
 import fun.wraq.series.overworld.chapter1.plain.PlainPower;
 import fun.wraq.series.overworld.chapter1.plain.PlainRing;
 import fun.wraq.series.overworld.chapter1.plain.armor.PlainArmorBoots;
 import fun.wraq.series.overworld.chapter1.plain.armor.PlainArmorChest;
 import fun.wraq.series.overworld.chapter1.plain.armor.PlainArmorHelmet;
 import fun.wraq.series.overworld.chapter1.plain.armor.PlainArmorLeggings;
-import fun.wraq.series.overworld.chapter1.plain.PlainBow;
 import fun.wraq.series.overworld.chapter1.plain.crest.PlainCrest;
 import fun.wraq.series.overworld.chapter1.plain.runes.*;
 import fun.wraq.series.overworld.chapter1.plain.sceptre.PlainSceptre;
 import fun.wraq.series.overworld.chapter1.plain.sword.PlainSword;
+import fun.wraq.series.overworld.chapter1.snow.Runes.SnowRune0;
+import fun.wraq.series.overworld.chapter1.snow.Runes.SnowRune1;
+import fun.wraq.series.overworld.chapter1.snow.Runes.SnowRune2;
+import fun.wraq.series.overworld.chapter1.snow.Runes.SnowRune3;
+import fun.wraq.series.overworld.chapter1.snow.*;
 import fun.wraq.series.overworld.chapter1.volcano.*;
 import fun.wraq.series.overworld.chapter1.volcano.armor.VolcanoArmorBoots;
 import fun.wraq.series.overworld.chapter1.volcano.armor.VolcanoArmorChest;
 import fun.wraq.series.overworld.chapter1.volcano.armor.VolcanoArmorHelmet;
 import fun.wraq.series.overworld.chapter1.volcano.armor.VolcanoArmorLeggings;
 import fun.wraq.series.overworld.chapter1.volcano.bossItems.*;
-import fun.wraq.series.overworld.chapter1.volcano.VolcanoBow;
 import fun.wraq.series.overworld.chapter1.volcano.rune.VolcanoRune0;
 import fun.wraq.series.overworld.chapter1.volcano.rune.VolcanoRune1;
 import fun.wraq.series.overworld.chapter1.volcano.rune.VolcanoRune2;
@@ -851,6 +852,24 @@ public class ModItems {
     public static final RegistryObject<Item> EvokerSword3 = ITEMS.register("evokersword3",
             () -> new EvokerSceptre(new Item.Properties().rarity(CustomStyle.EvokerItalic), 3));
 
+    public static final RegistryObject<Item> LIFE_MANA_POWER_0 = ITEMS.register("life_mana_power_0",
+            () -> new LifeManaPower(new Item.Properties().rarity(CustomStyle.LifeBold), 0));
+    public static final RegistryObject<Item> LIFE_MANA_POWER_1 = ITEMS.register("life_mana_power_1",
+            () -> new LifeManaPower(new Item.Properties().rarity(CustomStyle.LifeBold), 1));
+    public static final RegistryObject<Item> LIFE_MANA_POWER_2 = ITEMS.register("life_mana_power_2",
+            () -> new LifeManaPower(new Item.Properties().rarity(CustomStyle.LifeBold), 2));
+    public static final RegistryObject<Item> LIFE_MANA_POWER_3 = ITEMS.register("life_mana_power_3",
+            () -> new LifeManaPower(new Item.Properties().rarity(CustomStyle.LifeBold), 3));
+
+    public static final RegistryObject<Item> OBSI_MANA_POWER_0 = ITEMS.register("obsi_mana_power_0",
+            () -> new ObsiManaPower(new Item.Properties().rarity(CustomStyle.EvokerBold), 0));
+    public static final RegistryObject<Item> OBSI_MANA_POWER_1 = ITEMS.register("obsi_mana_power_1",
+            () -> new ObsiManaPower(new Item.Properties().rarity(CustomStyle.EvokerBold), 1));
+    public static final RegistryObject<Item> OBSI_MANA_POWER_2 = ITEMS.register("obsi_mana_power_2",
+            () -> new ObsiManaPower(new Item.Properties().rarity(CustomStyle.EvokerBold), 2));
+    public static final RegistryObject<Item> OBSI_MANA_POWER_3 = ITEMS.register("obsi_mana_power_3",
+            () -> new ObsiManaPower(new Item.Properties().rarity(CustomStyle.EvokerBold), 3));
+
     public static final RegistryObject<Item> EvokerBook0 = ITEMS.register("evokerbook0",
             () -> new ManaNote(new Item.Properties().rarity(CustomStyle.EvokerItalic), 5,
                     120, 0.22, 2, 225, 17, 0.3, 0.35));
@@ -933,16 +952,16 @@ public class ModItems {
     public static final RegistryObject<Item> ManaSword = ITEMS.register("manasword",
             () -> new ManaSword(new Item.Properties().rarity(CustomStyle.EvokerItalic)));
 
-    public static final RegistryObject<Item> WitherRune = ITEMS.register("wither_rune",
+    public static final RegistryObject<Item> WITHER_RUNE = ITEMS.register("wither_rune",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.WitherBold), true, true, List.of(
                     Te.s("经下界能量浇筑的凋零残骨。", CustomStyle.styleOfNether),
                     Te.s("凋零与下界能量在这个物体中互相交融，散发出阵阵能量光。", CustomStyle.styleOfNether)
             )));
-    public static final RegistryObject<Item> PiglinRune = ITEMS.register("piglin_rune",
+    public static final RegistryObject<Item> PIGLIN_RUNE = ITEMS.register("piglin_rune",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.PiglinBold), true, true, List.of(
                     Te.s("猪灵最喜爱的物件。", CustomStyle.styleOfGold)
             )));
-    public static final RegistryObject<Item> NetherSkeletonRune = ITEMS.register("nether_rune",
+    public static final RegistryObject<Item> NETHER_SKELETON_RUNE = ITEMS.register("nether_rune",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.WitherBold), true, true, List.of(
                     Te.s("下界遗骸的精细粉末。", CustomStyle.styleOfNether),
                     Te.s("将下界遗骸粉末融入下界能量进一步研磨而成。", CustomStyle.styleOfNether)
@@ -1012,14 +1031,29 @@ public class ModItems {
 
     public static final RegistryObject<Item> netherSkeletonSoul = ITEMS.register("netherbonemeal",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.Wither)));
-    public static final RegistryObject<Item> WitherBonePower = ITEMS.register("witherbonepower",
+    public static final RegistryObject<Item> WITHER_POWER = ITEMS.register("witherbonepower",
             () -> new WitherBonePower(new Item.Properties().rarity(CustomStyle.EvokerItalic)));
-    public static final RegistryObject<Item> PigLinPower = ITEMS.register("piglinpower",
+
+    public static final RegistryObject<Item> WITHER_ENHANCE_POWER = ITEMS.register("wither_enhance_power",
+            () -> new WitherEnhancePower(new Item.Properties().rarity(CustomStyle.WitherBold)));
+
+    public static final RegistryObject<Item> PIGLIN_POWER = ITEMS.register("piglinpower",
             () -> new PiglinPower(new Item.Properties().rarity(CustomStyle.EvokerItalic)));
-    public static final RegistryObject<Item> WitherBoneMealPower = ITEMS.register("witherbonemealpower",
+
+    public static final RegistryObject<Item> WITHER_BONE_MEAL_POWER = ITEMS.register("witherbonemealpower",
             () -> new WitherBoneMealPower(new Item.Properties().rarity(CustomStyle.EvokerItalic)));
-    public static final RegistryObject<Item> MagmaPower = ITEMS.register("magmapower",
+
+    public static final RegistryObject<Item> WITHER_SKELETON_ENHANCE_POWER = ITEMS.register("wither_skeleton_enhance_power",
+            () -> new WitherSkeletonEnhancePower(new Item.Properties().rarity(CustomStyle.WitherBold)));
+
+    public static final RegistryObject<Item> MAGMA_POWER = ITEMS.register("magmapower",
             () -> new MagmaPower(new Item.Properties().rarity(CustomStyle.MagmaItalic), 0));
+    public static final RegistryObject<Item> MAGMA_POWER_1 = ITEMS.register("magmapower1",
+            () -> new MagmaPower(new Item.Properties().rarity(CustomStyle.MagmaItalic), 1));
+    public static final RegistryObject<Item> MAGMA_POWER_2 = ITEMS.register("magmapower2",
+            () -> new MagmaPower(new Item.Properties().rarity(CustomStyle.MagmaItalic), 2));
+    public static final RegistryObject<Item> MAGMA_POWER_3 = ITEMS.register("magmapower3",
+            () -> new MagmaPower(new Item.Properties().rarity(CustomStyle.MagmaItalic), 3));
     public static final RegistryObject<Item> NetherPower = ITEMS.register("netherpower",
             () -> new NetherPower(new Item.Properties().rarity(CustomStyle.NetherItalic)));
     public static final RegistryObject<Item> NetherBow = ITEMS.register("netherbow",
@@ -1030,7 +1064,7 @@ public class ModItems {
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.Quartz)));
     public static final RegistryObject<Item> QuartzRune = ITEMS.register("quartzrune",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.QuartzBold)));
-    public static final RegistryObject<Item> PowerModel = ITEMS.register("powermodel",
+    public static final RegistryObject<Item> NETHER_POWER_MODEL = ITEMS.register("powermodel",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.Evoker)));
     public static final RegistryObject<Item> QuartzSabre = ITEMS.register("quartzsabre",
             () -> new QuartzSabre(new Item.Properties().rarity(CustomStyle.QuartzItalic)));
@@ -1489,6 +1523,9 @@ public class ModItems {
     public static final RegistryObject<Item> SakuraDemonSword = ITEMS.register("sakura_demon_sword",
             () -> new SakuraSword(new Item.Properties().rarity(CustomStyle.SakuraItalic)));
 
+    public static final RegistryObject<Item> SAKURA_POWER = ITEMS.register("sakura_power",
+            () -> new SakuraPower(new Item.Properties().rarity(CustomStyle.SakuraBold)));
+
     public static final RegistryObject<Item> SakuraArmorHelmet = ITEMS.register("sakura_armor_helmet",
             () -> new SakuraArmorHelmet(ItemMaterial.Lake, ArmorItem.Type.HELMET));
 
@@ -1932,6 +1969,9 @@ public class ModItems {
     public static final RegistryObject<Item> IceSceptre = ITEMS.register("ice_sceptre",
             () -> new IceSceptre(new Item.Properties().rarity(CustomStyle.IceItalic)));
 
+    public static final RegistryObject<Item> ICE_POWER = ITEMS.register("ice_power",
+            () -> new IcePower(new Item.Properties().rarity(CustomStyle.IceBold)));
+
     public static final RegistryObject<Item> IceBook = ITEMS.register("ice_book",
             () -> new IceBook(new Item.Properties().rarity(CustomStyle.IceItalic)));
 
@@ -2244,6 +2284,12 @@ public class ModItems {
     public static final RegistryObject<Item> BloodManaArmorBoots = ITEMS.register("blood_mana_boots",
             () -> new BloodManaArmor(ItemMaterial.BloodMana, ArmorItem.Type.BOOTS, new Item.Properties().rarity(CustomStyle.BloodManaItalic)));
 
+    public static final RegistryObject<Item> BLOOD_MANA_POWER = ITEMS.register("blood_mana_power",
+            () -> new BloodManaPower(new Item.Properties().rarity(CustomStyle.BloodManaBold)));
+
+    public static final RegistryObject<Item> BloodManaCurios = ITEMS.register("blood_mana_curios",
+            () -> new BloodManaCurios(new Item.Properties().rarity(CustomStyle.BloodManaBold).stacksTo(1), 0));
+
     public static final RegistryObject<Item> EarthManaArmorHelmet = ITEMS.register("earth_mana_helmet",
             () -> new EarthManaArmor(ItemMaterial.BloodMana, ArmorItem.Type.HELMET, new Item.Properties().rarity(CustomStyle.BloodManaItalic)));
 
@@ -2258,9 +2304,6 @@ public class ModItems {
 
     public static final RegistryObject<Item> EarthManaCurios = ITEMS.register("earth_mana_curios",
             () -> new EarthManaCurios(new Item.Properties().rarity(CustomStyle.BloodManaBold).stacksTo(1), 0));
-
-    public static final RegistryObject<Item> BloodManaCurios = ITEMS.register("blood_mana_curios",
-            () -> new BloodManaCurios(new Item.Properties().rarity(CustomStyle.BloodManaBold).stacksTo(1), 0));
 
     public static final RegistryObject<Item> ManaShield = ITEMS.register("mana_shield",
             () -> new ManaShield(new Item.Properties().rarity(CustomStyle.BloodManaItalic).stacksTo(1)));

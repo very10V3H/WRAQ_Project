@@ -87,7 +87,7 @@ public class CastleBow extends WraqBow implements ForgeItem, ActiveItem {
 
     @Override
     public void active(Player player) {
-        Compute.PlayerHealthDecrease(player, player.getHealth() * 0.15,
+        Compute.decreasePlayerHealth(player, player.getHealth() * 0.15,
                 Component.literal(" 被暗黑魔能吞噬了。").withStyle(CustomStyle.styleOfCastle));
         Compute.playerItemCoolDown(player, this, 15);
         StableAttributesModifier.addM(player, StableAttributesModifier.playerCommonDamageEnhance,

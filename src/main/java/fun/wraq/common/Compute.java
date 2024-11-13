@@ -862,7 +862,7 @@ public class Compute {
 
     public static void playerHeal(Player player, double Num) {
         if (Num < 0) return;
-        double healNum = Num * (PlayerAttributes.healEffectUp(player));
+        double healNum = Num * (PlayerAttributes.getHealEffect(player));
         healNum = Math.min(healNum, player.getMaxHealth() - player.getHealth());
         LifeElementSword.StoreToList(player, healNum);
         player.heal((float) healNum);
@@ -1607,7 +1607,7 @@ public class Compute {
                 append(Component.literal("" + Level).withStyle(Utils.levelStyleList.get(Level / 25))));
     }
 
-    public static void PlayerHealthDecrease(Player player, double value, Component component) {
+    public static void decreasePlayerHealth(Player player, double value, Component component) {
         if (player.getHealth() <= value) {
             formatBroad(player.level(), Component.literal("孽").withStyle(ChatFormatting.RED),
                     Component.literal("").withStyle(ChatFormatting.WHITE).
@@ -1620,7 +1620,7 @@ public class Compute {
         }
     }
 
-    public static void PlayerHealthDecrease(Player player, double value, double threshold) {
+    public static void decreasePlayerHealth(Player player, double value, double threshold) {
         if ((player.getHealth() - value) / player.getMaxHealth() < threshold) {
             player.setHealth((float) (player.getMaxHealth() * threshold));
         } else player.setHealth((float) (player.getHealth() - value));

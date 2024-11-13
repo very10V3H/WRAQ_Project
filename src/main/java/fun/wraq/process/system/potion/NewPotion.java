@@ -1,9 +1,9 @@
 package fun.wraq.process.system.potion;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -135,9 +135,8 @@ public class NewPotion extends Item implements ActiveItem {
         if (type == 2) tick = 9600;
         player.addEffect(new MobEffectInstance(ForgeRegistries.MOB_EFFECTS.
                 getValue(new ResourceLocation(Utils.MOD_ID, potionName)), tick, type == 1 ? 1 : 0));
-        Compute.playerItemUseWithRecord(player);
-        Item item = player.getMainHandItem().getItem();
-        player.getCooldowns().addCooldown(item, 20);
+        InventoryOperation.removeItem(player.getInventory(), this, 1);
+        player.getCooldowns().addCooldown(this, 20);
     }
 
     @Override

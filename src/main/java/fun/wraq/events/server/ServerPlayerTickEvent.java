@@ -164,7 +164,7 @@ public class ServerPlayerTickEvent {
             }
 
             if (player.tickCount % 20 == 0 && TowerMob.playerIsChallenging3FloorAndInFire(player)) {
-                Compute.PlayerHealthDecrease(player, player.getMaxHealth() * 0.1, Component.literal("被烈焰吞噬了").withStyle(CustomStyle.styleOfFire));
+                Compute.decreasePlayerHealth(player, player.getMaxHealth() * 0.1, Component.literal("被烈焰吞噬了").withStyle(CustomStyle.styleOfFire));
             }
 
             if (player.level().equals(player.getServer().getLevel(Level.END))) {

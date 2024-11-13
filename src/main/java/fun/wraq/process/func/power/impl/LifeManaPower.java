@@ -38,9 +38,9 @@ public class LifeManaPower extends WraqPower {
         List<Component> components = new ArrayList<>();
         WraqPower.basicCauseManaDamageDescription(components, damageRate[tier]);
         WraqPower.elementAdditionDescription(components, Element.Description.LifeElement("1 + 100%"));
-        components.add(Te.s(" 提升", ChatFormatting.GREEN, "自身周围所有玩家",
+        components.add(Te.s(" 提升", ChatFormatting.GREEN, "自身周围所有", "玩家", ChatFormatting.GREEN,
                 ComponentUtils.AttributeDescription.healAmplification("25%")));
-        components.add(Te.s(" 降低", ChatFormatting.RED, "指针周围所有怪物",
+        components.add(Te.s(" 降低", ChatFormatting.RED, "指针周围所有", "怪物", ChatFormatting.RED,
                 ComponentUtils.AttributeDescription.healAmplification("40%")));
         components.add(Te.s(" 以上效果均持续", "3s", CustomStyle.styleOfSky));
         return components;
@@ -66,14 +66,14 @@ public class LifeManaPower extends WraqPower {
         getDefaultTargetPlayerList(player).forEach(eachPlayer -> {
             StableAttributesModifier.addM(eachPlayer,
                     StableAttributesModifier.playerHealAmplifierModifier,
-                    "LifeManaPowerAmplifierModifier", 0.25, Tick.get() + 60, this);
+                    "LifeManaPowerAmplifierModifier", 0.25, Tick.get() + 60, "item/life_mana_power");
             produceDefaultPlayerEnhanceEffectParticle(eachPlayer);
             ParticleProvider.createBreakBlockParticle(eachPlayer, Blocks.MOSS_BLOCK);
         });
         getDefaultTargetMobList(player).forEach(eachMob -> {
             StableAttributesModifier.addM(eachMob,
                     StableAttributesModifier.mobHealAmplifierModifier,
-                    "LifeManaPowerAmplifierModifier", -0.4, Tick.get() + 60, this);
+                    "LifeManaPowerAmplifierModifier", -0.4, Tick.get() + 60, "item/life_mana_power");
             produceDefaultMobDeBuffParticle(eachMob);
             Damage.causeManaDamageToMonster_RateApDamage_ElementAddition(player, eachMob, damageRate[tier], true,
                     Element.life, 1 + ElementValue.getPlayerLifeElementValue(player));

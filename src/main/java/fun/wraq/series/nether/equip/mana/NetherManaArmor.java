@@ -77,14 +77,14 @@ public class NetherManaArmor extends WraqArmor implements OnHitEffectEquip, OnPo
     public List<ItemStack> forgeRecipe() {
         if (type.equals(Type.HELMET)) {
             return List.of(
-                    new ItemStack(ModItems.WitherRune.get(), 8),
+                    new ItemStack(ModItems.WITHER_RUNE.get(), 8),
                     new ItemStack(ModItems.NetherRune.get(), 2),
                     new ItemStack(ModItems.QuartzRune.get(), 1)
             );
         }
         if (type.equals(Type.CHESTPLATE)) {
             return List.of(
-                    new ItemStack(ModItems.NetherSkeletonRune.get(), 8),
+                    new ItemStack(ModItems.NETHER_SKELETON_RUNE.get(), 8),
                     new ItemStack(ModItems.NetherRune.get(), 2),
                     new ItemStack(ModItems.QuartzRune.get(), 1)
             );
@@ -98,7 +98,7 @@ public class NetherManaArmor extends WraqArmor implements OnHitEffectEquip, OnPo
         }
         if (type.equals(Type.BOOTS)) {
             return List.of(
-                    new ItemStack(ModItems.PiglinRune.get(), 8),
+                    new ItemStack(ModItems.PIGLIN_RUNE.get(), 8),
                     new ItemStack(ModItems.NetherRune.get(), 2),
                     new ItemStack(ModItems.QuartzRune.get(), 1)
             );

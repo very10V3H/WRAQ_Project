@@ -41,8 +41,8 @@ public class IcePower extends WraqPower {
         components.add(Te.s(" 在", "指针区域", ChatFormatting.AQUA, "制造一个持续3s的",
                 "凛冰领域", CustomStyle.styleOfIce));
         components.add(Te.s(" 领域", CustomStyle.styleOfIce, "每秒对区域内"));
-        components.add(Te.s(" 玩家提供持续1s的", "能力 - 智力 * 10护盾值", ChatFormatting.GRAY));
-        components.add(Te.s(" 怪物造成", ComponentUtils.AttributeDescription.manaDamageValue("100%")));
+        components.add(Te.s(" 1.玩家", ChatFormatting.GREEN, "提供持续1s的", "能力 - 智力 * 10护盾值", ChatFormatting.GRAY));
+        components.add(Te.s(" 2.怪物", ChatFormatting.RED, "造成", ComponentUtils.AttributeDescription.manaDamageValue("100%")));
         WraqPower.elementAdditionDescription(components, Element.Description.IceElement("1 + 100%"));
         components.add(Te.s(" 并且会", "短暂减速", ChatFormatting.GRAY, "怪物"));
         return components;

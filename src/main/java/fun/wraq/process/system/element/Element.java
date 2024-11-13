@@ -517,7 +517,7 @@ public class Element {
         if (active instanceof Player player) {
             if (waterAndIceTimesMap.getOrDefault(passive, 0) > 0) {
                 waterAndIceTimesMap.put(passive, waterAndIceTimesMap.getOrDefault(passive, 0) - 1);
-                Compute.PlayerHealthDecrease(player,
+                Compute.decreasePlayerHealth(player,
                         PlayerAttributes.getMainDamage(player) * waterAndIceEffectMap.getOrDefault(passive, 0d),
                         Te.m("被自己造成的元素反应击杀了"));
             }

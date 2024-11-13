@@ -27,17 +27,17 @@ public class ObsiManaPower extends WraqPower {
 
     @Override
     public Component getActiveName() {
-        return null;
+        return Te.s("黑曜裹身", CustomStyle.styleOfMana);
     }
 
     @Override
     public List<Component> getAdditionalComponents() {
         List<Component> components = new ArrayList<>();
         WraqPower.basicCauseManaDamageDescription(components, damageRate[tier]);
-        components.add(Te.s(" 提升", ChatFormatting.GREEN, "自身周围所有玩家",
+        components.add(Te.s(" 提升", ChatFormatting.GREEN, "自身周围所有", "玩家", ChatFormatting.GREEN,
                 ComponentUtils.AttributeDescription.defence("20%"), " 与" ,
                 ComponentUtils.AttributeDescription.manaDefence("20%")));
-        components.add(Te.s(" 降低", ChatFormatting.RED, "指针周围所有怪物",
+        components.add(Te.s(" 降低", ChatFormatting.RED, "指针周围所有", "怪物", ChatFormatting.RED,
                 ComponentUtils.AttributeDescription.defence("20%"), " 与 ",
                 ComponentUtils.AttributeDescription.manaDefence("20%")));
         components.add(Te.s(" 以上效果均持续", "3s", CustomStyle.styleOfSky));
@@ -51,7 +51,7 @@ public class ObsiManaPower extends WraqPower {
 
     @Override
     public double getManaCost() {
-        return 0;
+        return new double[]{200, 230, 260, 300}[tier];
     }
 
     @Override
@@ -64,19 +64,19 @@ public class ObsiManaPower extends WraqPower {
         getDefaultTargetPlayerList(player).forEach(eachPlayer -> {
             StableAttributesModifier.addM(eachPlayer,
                     StableAttributesModifier.playerPercentDefenceModifier,
-                    "ObsiManaPercentDefenceModifier", 0.2, Tick.get() + 60, this);
+                    "ObsiManaPercentDefenceModifier", 0.2, Tick.get() + 60);
             StableAttributesModifier.addM(eachPlayer,
                     StableAttributesModifier.playerPercentManaDefenceModifier,
-                    "ObsiManaPercentDefenceModifier", 0.2, Tick.get() + 60, this);
+                    "ObsiManaPercentDefenceModifier", 0.2, Tick.get() + 60, "item/obsi_mana_power");
             ParticleProvider.createBreakBlockParticle(eachPlayer, Blocks.OBSIDIAN);
         });
         getDefaultTargetMobList(player).forEach(eachMob -> {
             StableAttributesModifier.addM(eachMob,
                     StableAttributesModifier.mobPercentManaDefenceModifier,
-                    "ObsiManaPercentManaDefenceModifier", -0.2, Tick.get() + 60, this);
+                    "ObsiManaPercentManaDefenceModifier", -0.2, Tick.get() + 60);
             StableAttributesModifier.addM(eachMob,
                     StableAttributesModifier.mobPercentManaDefenceModifier,
-                    "ObsiManaPercentManaDefenceModifier", -0.2, Tick.get() + 60, this);
+                    "ObsiManaPercentManaDefenceModifier", -0.2, Tick.get() + 60, "item/obsi_mana_power");
             ParticleProvider.createBreakBlockParticle(eachMob, Blocks.OBSIDIAN);
         });
         produceDefaultDustParticle(player, CustomStyle.styleOfMana);

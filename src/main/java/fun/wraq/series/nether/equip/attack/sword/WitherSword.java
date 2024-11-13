@@ -90,7 +90,7 @@ public class WitherSword extends WraqSword implements ActiveItem, ForgeItem {
     @Override
     public List<ItemStack> forgeRecipe() {
         return new ArrayList<>() {{
-            add(new ItemStack(ModItems.WitherRune.get(), 4));
+            add(new ItemStack(ModItems.WITHER_RUNE.get(), 4));
             add(new ItemStack(ModItems.Ruby.get(), 128));
             add(new ItemStack(ModItems.NetherQuartz.get(), 32));
             add(new ItemStack(Items.COAL, 192));

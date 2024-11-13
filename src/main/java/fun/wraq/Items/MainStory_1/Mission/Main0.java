@@ -1,9 +1,7 @@
 package fun.wraq.Items.MainStory_1.Mission;
 
 import fun.wraq.common.util.ComponentUtils;
-import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.bonuschest.BonusChestPlayerData;
-import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -14,8 +12,12 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import net.p3pp3rf1y.sophisticatedbackpacks.backpack.BackpackItem;
+import net.p3pp3rf1y.sophisticatedbackpacks.backpack.wrapper.BackpackWrapper;
+import net.p3pp3rf1y.sophisticatedbackpacks.init.ModItems;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -57,8 +59,22 @@ public class Main0 extends Item {
             CompoundTag data = player.getPersistentData();
             ServerPlayer serverPlayer = (ServerPlayer) player;
 
-            ParticleProvider.createLineEffectParticle(level, 100, player.getEyePosition(),
-                    player.pick(10, 0, false).getLocation(), CustomStyle.styleOfWither);
+            for (int i = 0 ; i < player.getInventory().getMaxStackSize() ; i ++) {
+                ItemStack stack = player.getInventory().getItem(i);
+                if (stack.getItem() instanceof BackpackItem) {
+                    BackpackWrapper backpackWrapper = new BackpackWrapper(stack);
+                    backpackWrapper.getInventoryHandler().setStackInSlot(0, Items.IRON_INGOT.getDefaultInstance());
+                    backpackWrapper.refreshInventoryForInputOutput();
+
+                    ItemStack newBackPack = new ItemStack(ModItems.NETHERITE_BACKPACK.get());
+                    BackpackWrapper newBackpackWrapper = new BackpackWrapper(newBackPack);
+                    backpackWrapper.getUpgradeHandler().copyTo(newBackpackWrapper.getUpgradeHandler());
+                    for (int j = 0 ; j < backpackWrapper.getInventoryHandler().getSlots() ; j ++) {
+                        newBackpackWrapper.getInventoryHandler().setSlotStack(j, new ItemStack(Items.IRON_INGOT, 128));
+                    }
+                    player.getInventory().setItem(i, newBackPack);
+                }
+            }
         }
 
         if (!level.isClientSide && player.isShiftKeyDown()) {

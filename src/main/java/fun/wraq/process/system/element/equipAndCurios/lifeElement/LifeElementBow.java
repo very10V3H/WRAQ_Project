@@ -116,7 +116,7 @@ public class LifeElementBow extends WraqBow implements ActiveItem {
         if (Compute.PlayerUseWithHud(player, LifeElementSword.lifeElementActiveCoolDown, this, LifeElementSword.lifeElementActiveLastTick, 100, 0, 25)) {
             Compute.playerItemCoolDown(player, this, 25);
             LifeElementSword.lifeElementActiveHealth.put(player, player.getHealth() * 0.8);
-            Compute.PlayerHealthDecrease(player, player.getHealth() * 0.8, Component.literal(" 被生机元素吞噬了。").withStyle(CustomStyle.styleOfLife));
+            Compute.decreasePlayerHealth(player, player.getHealth() * 0.8, Component.literal(" 被生机元素吞噬了。").withStyle(CustomStyle.styleOfLife));
         }
     }
 

@@ -23,7 +23,7 @@ public class WitherEnhancePower extends WraqPower {
 
     @Override
     public Component getActiveName() {
-        return null;
+        return Te.s("凋落利刃", CustomStyle.styleOfWither);
     }
 
     @Override

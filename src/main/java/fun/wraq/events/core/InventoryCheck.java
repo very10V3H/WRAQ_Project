@@ -116,7 +116,8 @@ public class InventoryCheck {
                 ModItems.SwordLottery.get(),
                 ModItems.BowLottery.get(),
                 ModItems.SceptreLottery.get(),
-                UniformItems.uniformPiece.get()
+                UniformItems.uniformPiece.get(),
+                ModItems.ID_Card.get()
         ));
         for (Object o : SpecialEventItems.ITEMS.getEntries().toArray()) {
             RegistryObject<Item> item = (RegistryObject<Item>) o;

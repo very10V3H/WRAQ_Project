@@ -25,7 +25,7 @@ public class WitherSkeletonEnhancePower extends WraqPower {
 
     @Override
     public Component getActiveName() {
-        return null;
+        return Te.s("凋零之息", CustomStyle.styleOfWither);
     }
 
     @Override
@@ -36,7 +36,7 @@ public class WitherSkeletonEnhancePower extends WraqPower {
         components.add(Te.s(" 对其造成", ComponentUtils.AttributeDescription.manaDamageValue("360%")));
         components.add(Te.s(" 若其与你的距离", "小于6格", CustomStyle.styleOfStone,
                 "则造成削减其", ComponentUtils.AttributeDescription.manaDefence("20%")));
-        components.add(Te.s(" 魔抗削减持续5s"));
+        components.add(Te.s(" 持续", "3s", CustomStyle.styleOfWorld));
         return components;
     }
 
@@ -77,7 +77,7 @@ public class WitherSkeletonEnhancePower extends WraqPower {
                 player.getEyePosition(), mob.getEyePosition(), CustomStyle.styleOfWither);
         if (mob.distanceTo(player) < 6) {
             StableAttributesModifier.addM(mob, StableAttributesModifier.mobPercentManaDefenceModifier,
-                    "WitherSkeletonEnhancePowerManaDefenceDecrease", 0.2, Tick.get() + 60);
+                    "WitherSkeletonEnhancePowerManaDefenceDecrease", -0.2, Tick.get() + 60, this);
         }
     }
 }

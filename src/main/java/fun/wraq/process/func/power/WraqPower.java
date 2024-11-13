@@ -80,7 +80,7 @@ public abstract class WraqPower extends Item implements ActiveItem {
     }
 
     protected static void basicCauseManaDamageDescription(List<Component> components, double value) {
-        components.add(Te.s(" 对", "指针周围", ChatFormatting.AQUA, "所有怪物造成",
+        components.add(Te.s(" 对", "准星周围", ChatFormatting.AQUA, "所有怪物造成",
                 ComponentUtils.AttributeDescription.manaDamageValue(String.format("%.0f%%", value * 100))));
     }
 

@@ -124,7 +124,7 @@ public class LifeElementSceptre extends WraqSceptre implements ActiveItem {
         if (Compute.PlayerUseWithHud(player, fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSword.lifeElementActiveCoolDown, this, fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSword.lifeElementActiveLastTick, 100, 0, 25)) {
             Compute.playerItemCoolDown(player, this, 25);
             LifeElementSword.lifeElementActiveHealth.put(player, player.getHealth() * 0.8);
-            Compute.PlayerHealthDecrease(player, player.getHealth() * 0.8, Component.literal(" 被生机元素吞噬了。").withStyle(CustomStyle.styleOfLife));
+            Compute.decreasePlayerHealth(player, player.getHealth() * 0.8, Component.literal(" 被生机元素吞噬了。").withStyle(CustomStyle.styleOfLife));
         }
     }
 

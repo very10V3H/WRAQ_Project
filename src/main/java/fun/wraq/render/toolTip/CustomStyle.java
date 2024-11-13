@@ -45,7 +45,7 @@ public class CustomStyle {
     public static Style styleOfDemon = Style.EMPTY.withColor(TextColor.parseColor("#ff00d7"));
     public static Style styleOfMine = Style.EMPTY.withColor(TextColor.parseColor("#d0c7cc"));
     public static Style styleOfStone = Style.EMPTY.withColor(TextColor.parseColor("#d0c7cc"));
-    public static Style styleOfWither = Style.EMPTY.withColor(TextColor.parseColor("#363633"));
+    public static Style styleOfWither = Style.EMPTY.withColor(TextColor.parseColor("#535353"));
     public static Style styleOfWorld = Style.EMPTY.withColor(TextColor.parseColor("#9ef7ff"));
     public static Style styleOfInject = Style.EMPTY.withColor(TextColor.parseColor("#be9bcf"));
     public static Style styleOfPlain = Style.EMPTY.withColor(TextColor.parseColor("#02ff00"));
@@ -75,7 +75,7 @@ public class CustomStyle {
     public static Style styleOfYSR = Style.EMPTY.withColor(TextColor.parseColor("#48d1cc"));
     public static Style styleOfYSR1 = Style.EMPTY.withColor(TextColor.parseColor("#dc143c"));
     public static Style styleOfBlack = Style.EMPTY.withColor(TextColor.parseColor("#000000"));
-    public static Style styleOfCastle = Style.EMPTY.withColor(TextColor.parseColor("#535353"));
+    public static Style styleOfCastle = Style.EMPTY.withColor(TextColor.parseColor("#444375"));
     public static Style styleOfCastleCrystal = Style.EMPTY.withColor(TextColor.parseColor("#444375"));
     public static Style styleOfCopper = Style.EMPTY.withColor(TextColor.parseColor("#ff8e68"));
     public static Style styleOfMoontain = Style.EMPTY.withColor(TextColor.parseColor("#51dea9"));

@@ -837,9 +837,9 @@ public class PlayerAttributes {
         return value;
     }
 
-    public static double healEffectUp(Player player) {
-        int TickCount = player.getServer().getTickCount();
-        double HealEffectUp = 1;
+    public static double getHealEffect(Player player) {
+        int tick = Tick.get();
+        double healEffectUp = 1;
         CompoundTag data = player.getPersistentData();
         Item boots = player.getItemBySlot(EquipmentSlot.FEET).getItem();
         Item leggings = player.getItemBySlot(EquipmentSlot.LEGS).getItem();
@@ -856,31 +856,39 @@ public class PlayerAttributes {
             stackmainhandtag = player.getItemInHand(InteractionHand.MAIN_HAND).getOrCreateTagElement(Utils.MOD_ID);
         }
         if (Utils.mainHandTag.containsKey(mainhand) && stackmainhandtag.contains("healeffectup"))
-            HealEffectUp += stackmainhandtag.getDouble("healeffectup");
-        if (Utils.healEffectUp.containsKey(boots)) HealEffectUp += Utils.healEffectUp.get(boots);
-        if (Utils.healEffectUp.containsKey(leggings)) HealEffectUp += Utils.healEffectUp.get(leggings);
-        if (Utils.healEffectUp.containsKey(chest)) HealEffectUp += Utils.healEffectUp.get(chest);
-        if (Utils.healEffectUp.containsKey(helmet)) HealEffectUp += Utils.healEffectUp.get(helmet);
+            healEffectUp += stackmainhandtag.getDouble("healeffectup");
+        if (Utils.healEffectUp.containsKey(boots)) healEffectUp += Utils.healEffectUp.get(boots);
+        if (Utils.healEffectUp.containsKey(leggings)) healEffectUp += Utils.healEffectUp.get(leggings);
+        if (Utils.healEffectUp.containsKey(chest)) healEffectUp += Utils.healEffectUp.get(chest);
+        if (Utils.healEffectUp.containsKey(helmet)) healEffectUp += Utils.healEffectUp.get(helmet);
         if (Utils.mainHandTag.containsKey(mainhand) && Utils.healEffectUp.containsKey(mainhand))
-            HealEffectUp += Utils.healEffectUp.get(mainhand);
+            healEffectUp += Utils.healEffectUp.get(mainhand);
         if (Utils.offHandTag.containsKey(offhand) && Utils.healEffectUp.containsKey(offhand))
-            HealEffectUp += Utils.healEffectUp.get(offhand);
-        if (SuitCount.getForestSuitCount(player) >= 4) HealEffectUp += 0.5f;
+            healEffectUp += Utils.healEffectUp.get(offhand);
+        if (SuitCount.getForestSuitCount(player) >= 4) healEffectUp += 0.5f;
         int vitalityAbilityPoint = data.getInt(StringUtils.Ability.Vitality);
         if (data.contains(StringUtils.Ability.Vitality) && data.getInt(StringUtils.Ability.Vitality) > 0) {
-            HealEffectUp += vitalityAbilityPoint * 0.01;
+            healEffectUp += vitalityAbilityPoint * 0.01;
         }
-        if (data.getInt(StringUtils.MineMonsterEffect) >= TickCount) HealEffectUp -= 0.8;
+        if (data.getInt(StringUtils.MineMonsterEffect) >= tick) healEffectUp -= 0.8;
 
-        if (helmetTag.contains("newGems1")) HealEffectUp += GemAttributes.gemsHealEffectUp(helmetTag);
-        if (chestTag.contains("newGems1")) HealEffectUp += GemAttributes.gemsHealEffectUp(chestTag);
-        if (leggingsTag.contains("newGems1")) HealEffectUp += GemAttributes.gemsHealEffectUp(leggingsTag);
-        if (bootsTag.contains("newGems1")) HealEffectUp += GemAttributes.gemsHealEffectUp(bootsTag);
+        if (helmetTag.contains("newGems1")) healEffectUp += GemAttributes.gemsHealEffectUp(helmetTag);
+        if (chestTag.contains("newGems1")) healEffectUp += GemAttributes.gemsHealEffectUp(chestTag);
+        if (leggingsTag.contains("newGems1")) healEffectUp += GemAttributes.gemsHealEffectUp(leggingsTag);
+        if (bootsTag.contains("newGems1")) healEffectUp += GemAttributes.gemsHealEffectUp(bootsTag);
         if (stackmainhandtag.contains("newGems1") && Utils.mainHandTag.containsKey(mainhand))
-            HealEffectUp += GemAttributes.gemsHealEffectUp(stackmainhandtag);
+            healEffectUp += GemAttributes.gemsHealEffectUp(stackmainhandtag);
 
-        HealEffectUp += Compute.CuriosAttribute.attributeValue(player, Utils.healEffectUp, StringUtils.CuriosAttribute.healEffectUp); // 新版饰品属性加成
-        return HealEffectUp;
+        healEffectUp += Compute.CuriosAttribute.attributeValue(player, Utils.healEffectUp, StringUtils.CuriosAttribute.healEffectUp); // 新版饰品属性加成
+        healEffectUp += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerHealAmplifierModifier);
+
+        return healEffectUp * (1 - healEffectDecrease(player));
+    }
+
+    public static double healEffectDecrease(Player player) {
+        double rate = 0;
+        rate += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerHealAmplifierDecreaseModifier);
+        return rate;
     }
 
     public static double extraSwiftness(Player player) {
