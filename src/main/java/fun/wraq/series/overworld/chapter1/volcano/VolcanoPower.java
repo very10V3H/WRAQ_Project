@@ -112,7 +112,7 @@ public class VolcanoPower extends WraqPower {
             }
         });
         MySound.soundToNearPlayer(player, SoundEvents.DRAGON_FIREBALL_EXPLODE);
-        ParticleProvider.SpaceRangeParticle((ServerLevel) dimension, targetPos, 6, 10,
+        ParticleProvider.createSpaceRangeParticle((ServerLevel) dimension, targetPos, 6, 10,
                 ParticleTypes.EXPLOSION);
     }
 

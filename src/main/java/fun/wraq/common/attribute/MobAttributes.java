@@ -69,9 +69,6 @@ public class MobAttributes {
         if (Utils.MobSpringManaTick.containsKey(monster) && Utils.MobSpringManaTick.get(monster) > tick)
             rate *= (1 - Utils.SpringEffect[Utils.MobSpringManaEffect.get(monster) - 1]);
 
-        if (Utils.NetherBoneMealPowerEffectMap.containsKey(monster) && Utils.NetherBoneMealPowerEffectMap.get(monster) > tick)
-            rate *= 0.5;
-
         rate *= (1 + StableAttributesModifier.getModifierValue(monster, StableAttributesModifier.mobPercentManaDefenceModifier));
         rate *= (1 + StableTierAttributeModifier.getModifierValue(monster, StableTierAttributeModifier.percentManaDefence));
 
@@ -148,4 +145,9 @@ public class MobAttributes {
         return attributesMap;
     }
 
+    public static double getMobHealAmplifier(Mob mob) {
+        double value = 0;
+        StableAttributesModifier.getModifierValue(mob, StableAttributesModifier.mobHealAmplifierModifier);
+        return value;
+    }
 }

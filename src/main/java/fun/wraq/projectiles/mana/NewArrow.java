@@ -1,6 +1,5 @@
 package fun.wraq.projectiles.mana;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.registry.ModEntityType;
@@ -167,10 +166,6 @@ public class NewArrow extends AbstractArrow {
                         monster.hurt(monster.damageSources().playerAttack(player), (float) damage);
                     }
                 }
-                if (data.contains("MagmaPower") && data.getBoolean("MagmaPower")) {
-                    Compute.MagmaPower(monster, level(), player);
-                    data.putBoolean("MagmaPower", false);
-                }
             }
             if (entity instanceof Player) {
                 double damage;
@@ -186,10 +181,6 @@ public class NewArrow extends AbstractArrow {
                     if (Range >= 0)
                         CodeSceptre.hitPlayer(level(), hurter, Range, (ServerPlayer) player, damage, Kaze, Effect, Snow, Lightning, Gather);
                     hurter.hurt(hurter.damageSources().playerAttack(player), (float) damage * 0.1f);
-                }
-                if (data.contains("MagmaPower") && data.getBoolean("MagmaPower")) {
-                    Compute.MagmaPower(hurter, level(), player);
-                    data.putBoolean("MagmaPower", false);
                 }
             }
         }

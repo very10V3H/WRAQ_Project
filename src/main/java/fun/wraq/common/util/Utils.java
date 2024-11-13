@@ -868,8 +868,6 @@ public class Utils {
 
     public static WeakHashMap<Player, PosAndLastTime> EndRune2Pos = new WeakHashMap<>();
 
-    public static WeakHashMap<Mob, Integer> NetherBoneMealPowerEffectMap = new WeakHashMap<>();
-
     public static WeakHashMap<Player, Boolean> playerRecycleMap = new WeakHashMap<>();
 
     public static List<String> GiantPlayerList = new ArrayList<>();

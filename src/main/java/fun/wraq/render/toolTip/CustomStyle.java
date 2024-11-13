@@ -79,6 +79,7 @@ public class CustomStyle {
     public static Style styleOfCastleCrystal = Style.EMPTY.withColor(TextColor.parseColor("#444375"));
     public static Style styleOfCopper = Style.EMPTY.withColor(TextColor.parseColor("#ff8e68"));
     public static Style styleOfMoontain = Style.EMPTY.withColor(TextColor.parseColor("#51dea9"));
+    public static Style styleOfSunIsland = Style.EMPTY.withColor(TextColor.parseColor("#ffdc4a"));
 
     public static Rarity GrayItalic = Rarity.create("gray_italic", style -> {
         return style.applyFormat(ChatFormatting.GRAY).withItalic(true).withBold(true);
@@ -703,5 +704,17 @@ public class CustomStyle {
 
     public static final Rarity MOONTAIN_ITALIC = Rarity.create("moontain_italic", style -> {
         return style.applyTo(CustomStyle.styleOfMoontain).withBold(true).withItalic(true);
+    });
+
+    public static final Rarity SUN_ISLAND = Rarity.create("sun_island", style -> {
+        return style.applyTo(CustomStyle.styleOfSunIsland);
+    });
+
+    public static final Rarity SUN_ISLAND_BOLD = Rarity.create("sun_island_bold", style -> {
+        return style.applyTo(CustomStyle.styleOfSunIsland).withBold(true);
+    });
+
+    public static final Rarity SUN_ISLAND_ITALIC = Rarity.create("sun_island_italic", style -> {
+        return style.applyTo(CustomStyle.styleOfSunIsland).withBold(true).withItalic(true);
     });
 }

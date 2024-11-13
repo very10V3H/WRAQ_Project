@@ -54,6 +54,7 @@ import fun.wraq.networking.unSorted.*;
 import fun.wraq.process.func.guide.networking.GuideFinishC2SPacket;
 import fun.wraq.process.func.guide.networking.GuideStageS2CPacket;
 import fun.wraq.process.func.particle.packets.DisperseBallParticleS2CPacket;
+import fun.wraq.process.func.particle.packets.LineEffectParticleS2CPacket;
 import fun.wraq.process.func.plan.networking.DailySupplyC2SPacket;
 import fun.wraq.process.func.plan.networking.DailySupplyS2CPacket;
 import fun.wraq.process.func.plan.networking.PlanDateAndTierS2CPacket;
@@ -1353,6 +1354,11 @@ public class ModNetworking {
                 .decoder(MacC2SPacket::new)
                 .encoder(MacC2SPacket::toBytes)
                 .consumerMainThread(MacC2SPacket::handle)
+                .add();
+        net.messageBuilder(LineEffectParticleS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(LineEffectParticleS2CPacket::new)
+                .encoder(LineEffectParticleS2CPacket::toBytes)
+                .consumerMainThread(LineEffectParticleS2CPacket::handle)
                 .add();
     }
 

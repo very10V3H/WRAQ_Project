@@ -130,7 +130,7 @@ public class SnowPower extends WraqPower {
         });
         ParticleProvider.dustParticle(player, player.getEyePosition(), 6, 36, CustomStyle.styleOfSnow.getColor().getValue());
 
-        ParticleProvider.SpaceRangeParticle((ServerLevel) player.level(), targetPos, 6, 100, ParticleTypes.SNOWFLAKE);
+        ParticleProvider.createSpaceRangeParticle((ServerLevel) player.level(), targetPos, 6, 100, ParticleTypes.SNOWFLAKE);
         MySound.soundToNearPlayer(player, ModSounds.Mana.get());
     }
 

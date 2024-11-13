@@ -1019,7 +1019,7 @@ public class ModItems {
     public static final RegistryObject<Item> WitherBoneMealPower = ITEMS.register("witherbonemealpower",
             () -> new WitherBoneMealPower(new Item.Properties().rarity(CustomStyle.EvokerItalic)));
     public static final RegistryObject<Item> MagmaPower = ITEMS.register("magmapower",
-            () -> new MagmaPower(new Item.Properties().rarity(CustomStyle.MagmaItalic)));
+            () -> new MagmaPower(new Item.Properties().rarity(CustomStyle.MagmaItalic), 0));
     public static final RegistryObject<Item> NetherPower = ITEMS.register("netherpower",
             () -> new NetherPower(new Item.Properties().rarity(CustomStyle.NetherItalic)));
     public static final RegistryObject<Item> NetherBow = ITEMS.register("netherbow",

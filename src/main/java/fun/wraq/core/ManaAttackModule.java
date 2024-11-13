@@ -155,7 +155,6 @@ public class ManaAttackModule {
             ManaSkill12Attack(data, player); // 盈能攻击（移动、攻击以及受到攻击将会获得充能，当充能满时，下一次攻击将造成额外200%伤害，并在以目标为中心的范围内造成100%伤害）
             ManaSkill13Attack(data, player); // 法术收集（移动、攻击以及受到攻击将会获得充能，当充能满时，下一次攻击将基于目标周围实体数量提供至多1000%的范围伤害，并回复自身50%的法力值）
             SakuraCore(player); // 樱妖魔核
-            MagmaPower(data, player, level, monster, arrow);
 
             if (!(arrow instanceof NewArrowMagma)) {
                 List<Mob> mobList = level.getEntitiesOfClass(Mob.class, AABB.ofSize(monster.getPosition(1), 5, 5, 5));
@@ -218,18 +217,6 @@ public class ManaAttackModule {
         }
         return false;
     }
-
-    public static void MagmaPower(CompoundTag data, Player player, Level level, LivingEntity hurter, Entity Arrow) {
-        if (Arrow instanceof NewArrowMagma) {
-            Compute.MagmaPower(hurter, level, player);
-        } else {
-            if (data.contains("MagmaPower") && data.getBoolean("MagmaPower")) {
-                Compute.MagmaPower(hurter, level, player);
-                data.putBoolean("MagmaPower", false);
-            }
-        }
-    }
-
 
     public static void ManaSkill3Attack(CompoundTag data, Player player, Entity entity) {
         int TickCount = Objects.requireNonNull(player.getServer()).getTickCount();

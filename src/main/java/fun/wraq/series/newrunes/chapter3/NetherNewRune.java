@@ -69,7 +69,7 @@ public class NetherNewRune extends WraqCurios implements RuneItem, UsageOrGetWay
         if (!WraqCurios.isOn(NetherNewRune.class, player)) return;
         List<Mob> mobList = mob.level().getEntitiesOfClass(Mob.class, AABB.ofSize(mob.position(), 6, 6, 6));
         List<Player> players = mob.level().getEntitiesOfClass(Player.class, AABB.ofSize(mob.position(), 16, 16, 16));
-        ParticleProvider.SpaceRangeParticle((ServerLevel) player.level(), mob.position(), 3, 10, ParticleTypes.FLAME);
+        ParticleProvider.createSpaceRangeParticle((ServerLevel) player.level(), mob.position(), 3, 10, ParticleTypes.FLAME);
 
         players.forEach(player1 -> {
             MySound.soundToPlayer(player1, SoundEvents.BLAZE_SHOOT, mob.getEyePosition());

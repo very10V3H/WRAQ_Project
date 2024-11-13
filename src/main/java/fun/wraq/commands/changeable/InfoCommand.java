@@ -48,19 +48,19 @@ public class InfoCommand implements Command<CommandSourceStack> {
 
         player.sendSystemMessage(Component.literal(" - 你的归一化元素强度如下:"));
         player.sendSystemMessage(Component.literal("·归一化生机元素强度: ").withStyle(CustomStyle.styleOfLife).
-                append(Component.literal(String.format("%.0f%%", ElementValue.PlayerLifeElementValue(player) * 100)).withStyle(ChatFormatting.WHITE)));
+                append(Component.literal(String.format("%.0f%%", ElementValue.getPlayerLifeElementValue(player) * 100)).withStyle(ChatFormatting.WHITE)));
         player.sendSystemMessage(Component.literal("·归一化碧水元素强度: ").withStyle(CustomStyle.styleOfWater).
-                append(Component.literal(String.format("%.0f%%", ElementValue.PlayerWaterElementValue(player) * 100)).withStyle(ChatFormatting.WHITE)));
+                append(Component.literal(String.format("%.0f%%", ElementValue.getPlayerWaterElementValue(player) * 100)).withStyle(ChatFormatting.WHITE)));
         player.sendSystemMessage(Component.literal("·归一化炽焰元素强度: ").withStyle(CustomStyle.styleOfFire).
-                append(Component.literal(String.format("%.0f%%", ElementValue.PlayerFireElementValue(player) * 100)).withStyle(ChatFormatting.WHITE)));
+                append(Component.literal(String.format("%.0f%%", ElementValue.getPlayerFireElementValue(player) * 100)).withStyle(ChatFormatting.WHITE)));
         player.sendSystemMessage(Component.literal("·归一化层岩元素强度: ").withStyle(CustomStyle.styleOfStone).
-                append(Component.literal(String.format("%.0f%%", ElementValue.PlayerStoneElementValue(player) * 100)).withStyle(ChatFormatting.WHITE)));
+                append(Component.literal(String.format("%.0f%%", ElementValue.getPlayerStoneElementValue(player) * 100)).withStyle(ChatFormatting.WHITE)));
         player.sendSystemMessage(Component.literal("·归一化凛冰元素强度: ").withStyle(CustomStyle.styleOfIce).
-                append(Component.literal(String.format("%.0f%%", ElementValue.PlayerIceElementValue(player) * 100)).withStyle(ChatFormatting.WHITE)));
+                append(Component.literal(String.format("%.0f%%", ElementValue.getPlayerIceElementValue(player) * 100)).withStyle(ChatFormatting.WHITE)));
         player.sendSystemMessage(Component.literal("·归一化怒雷元素强度: ").withStyle(CustomStyle.styleOfLightning).
-                append(Component.literal(String.format("%.0f%%", ElementValue.PlayerLightningElementValue(player) * 100)).withStyle(ChatFormatting.WHITE)));
+                append(Component.literal(String.format("%.0f%%", ElementValue.getPlayerLightningElementValue(player) * 100)).withStyle(ChatFormatting.WHITE)));
         player.sendSystemMessage(Component.literal("·归一化澄风元素强度: ").withStyle(CustomStyle.styleOfWind).
-                append(Component.literal(String.format("%.0f%%", ElementValue.PlayerWindElementValue(player) * 100)).withStyle(ChatFormatting.WHITE)));
+                append(Component.literal(String.format("%.0f%%", ElementValue.getPlayerWindElementValue(player) * 100)).withStyle(ChatFormatting.WHITE)));
 
         return 0;
     }

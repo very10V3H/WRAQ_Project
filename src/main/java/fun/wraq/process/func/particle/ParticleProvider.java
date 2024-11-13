@@ -5,10 +5,12 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.ParticlePackets.NewParticlePackets.*;
 import fun.wraq.process.func.particle.packets.DisperseBallParticleS2CPacket;
+import fun.wraq.process.func.particle.packets.LineEffectParticleS2CPacket;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Style;
 import net.minecraft.network.protocol.game.ClientboundLevelParticlesPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -28,6 +30,19 @@ import java.util.Random;
 import static java.lang.Math.*;
 
 public class ParticleProvider {
+    public static void createSingleParticleToNearPlayer(Player player, Level level, Vec3 pos, ParticleOptions particleOptions) {
+        player.getServer().getPlayerList().getPlayers().forEach(serverPlayer -> {
+            if (serverPlayer.position().distanceTo(pos) <= 30 && serverPlayer.level().dimension().equals(player.level().dimension())) {
+                int ignoreLevel = Math.max(1, serverPlayer.getPersistentData().getInt(StringUtils.IgnoreParticleLevel));
+                if (ignoreLevel < 10) {
+                    ClientboundLevelParticlesPacket clientboundLevelParticlesPacket = new ClientboundLevelParticlesPacket(
+                            ParticleTypes.EXPLOSION_EMITTER, true, pos.x, pos.y, pos.z, 0, 0, 0, 0, 1);
+                    serverPlayer.connection.send(clientboundLevelParticlesPacket);
+                }
+            }
+        });
+    }
+
     public static void dustParticle(Player player, Vec3 pos, double r, int num, int color) {
         player.getServer().getPlayerList().getPlayers().forEach(serverPlayer -> {
             if (serverPlayer.position().distanceTo(pos) <= 30 && serverPlayer.level().dimension().equals(player.level().dimension())) {
@@ -40,7 +55,7 @@ public class ParticleProvider {
         });
     }
 
-    public static void SpaceRangeParticle(ServerLevel serverLevel, Vec3 des, double r, int num, ParticleOptions particleOptions) {
+    public static void createSpaceRangeParticle(ServerLevel serverLevel, Vec3 des, double r, int num, ParticleOptions particleOptions) {
         List<ServerPlayer> serverPlayerList = serverLevel.getServer().getPlayerList().getPlayers();
         serverPlayerList.forEach(serverPlayer1 -> {
             if (serverPlayer1.level().equals(serverLevel) && serverPlayer1.position().distanceTo(des) < 40) {
@@ -295,6 +310,20 @@ public class ParticleProvider {
                 if (ignoreLevel < 10) {
                     ModNetworking.sendToClient(new LineParticleS2CPacket(
                             endVec.toVector3f(), startVec.toVector3f(), 0, 0, num / ignoreLevel, Utils.ParticleToParticleStringMap.get(particleOptions)
+                    ), serverPlayer);
+                }
+            }
+        });
+    }
+
+    public static void createLineEffectParticle(Level level, int num, Vec3 startVec, Vec3 endVec, Style style) {
+        List<ServerPlayer> list = level.getServer().getPlayerList().getPlayers();
+        list.forEach(serverPlayer -> {
+            if (serverPlayer.level().equals(level) && serverPlayer.position().distanceTo(startVec) < 80) {
+                int ignoreLevel = Math.max(1, serverPlayer.getPersistentData().getInt(StringUtils.IgnoreParticleLevel));
+                if (ignoreLevel < 10) {
+                    ModNetworking.sendToClient(new LineEffectParticleS2CPacket(
+                            endVec.toVector3f(), startVec.toVector3f(), num / ignoreLevel, style.getColor().getValue()
                     ), serverPlayer);
                 }
             }

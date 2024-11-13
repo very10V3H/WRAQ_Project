@@ -28,11 +28,16 @@ public record StableAttributesModifier(String tag, double value, int stopTick) {
     public static Map<LivingEntity, List<StableAttributesModifier>> playerAttackDamageModifier = new WeakHashMap<>();
     public static Map<LivingEntity, List<StableAttributesModifier>> playerCommonDamageEnhance = new WeakHashMap<>();
     public static Map<LivingEntity, List<StableAttributesModifier>> playerDefenceModifier = new WeakHashMap<>();
+    public static Map<LivingEntity, List<StableAttributesModifier>> playerPercentDefenceModifier = new WeakHashMap<>();
     public static Map<LivingEntity, List<StableAttributesModifier>> playerManaDefenceModifier = new WeakHashMap<>();
+    public static Map<LivingEntity, List<StableAttributesModifier>> playerPercentManaDefenceModifier = new WeakHashMap<>();
+    public static Map<LivingEntity, List<StableAttributesModifier>> playerHealAmplifierModifier = new WeakHashMap<>();
 
     public static Map<LivingEntity, List<StableAttributesModifier>> mobDefenceModifier = new WeakHashMap<>();
     public static Map<LivingEntity, List<StableAttributesModifier>> mobPercentDefenceModifier = new WeakHashMap<>();
     public static Map<LivingEntity, List<StableAttributesModifier>> mobPercentManaDefenceModifier = new WeakHashMap<>();
+    public static Map<LivingEntity, List<StableAttributesModifier>> mobHealAmplifierModifier = new WeakHashMap<>();
+
 
     public static List<StableAttributesModifier> getAttributeModifierList(LivingEntity entity, Map<LivingEntity, List<StableAttributesModifier>> modifierMap) {
         if (!modifierMap.containsKey(entity)) {

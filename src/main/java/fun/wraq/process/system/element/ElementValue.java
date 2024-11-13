@@ -3,7 +3,6 @@ package fun.wraq.process.system.element;
 import fun.wraq.common.Compute;
 import fun.wraq.common.util.Utils;
 import fun.wraq.customized.uniform.element.*;
-import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.element.equipAndCurios.fireElement.FireElementSword;
 import fun.wraq.process.system.element.equipAndCurios.waterElement.WaterElementSword;
 import fun.wraq.process.system.season.MySeason;
@@ -25,13 +24,13 @@ public class ElementValue {
     public static String WindElementValue = "WindElementValue";
 
     public static double ElementValueJudgeByType(Player player, String type) {
-        if (type.equals(fun.wraq.process.system.element.Element.life)) return PlayerLifeElementValue(player);
-        if (type.equals(fun.wraq.process.system.element.Element.water)) return PlayerWaterElementValue(player);
-        if (type.equals(fun.wraq.process.system.element.Element.fire)) return PlayerFireElementValue(player);
-        if (type.equals(fun.wraq.process.system.element.Element.stone)) return PlayerStoneElementValue(player);
-        if (type.equals(fun.wraq.process.system.element.Element.ice)) return PlayerIceElementValue(player);
-        if (type.equals(fun.wraq.process.system.element.Element.lightning)) return PlayerLightningElementValue(player);
-        if (type.equals(fun.wraq.process.system.element.Element.wind)) return PlayerWindElementValue(player);
+        if (type.equals(fun.wraq.process.system.element.Element.life)) return getPlayerLifeElementValue(player);
+        if (type.equals(fun.wraq.process.system.element.Element.water)) return getPlayerWaterElementValue(player);
+        if (type.equals(fun.wraq.process.system.element.Element.fire)) return getPlayerFireElementValue(player);
+        if (type.equals(fun.wraq.process.system.element.Element.stone)) return getPlayerStoneElementValue(player);
+        if (type.equals(fun.wraq.process.system.element.Element.ice)) return getPlayerIceElementValue(player);
+        if (type.equals(fun.wraq.process.system.element.Element.lightning)) return getPlayerLightningElementValue(player);
+        if (type.equals(fun.wraq.process.system.element.Element.wind)) return getPlayerWindElementValue(player);
         return 0;
     }
 
@@ -52,7 +51,7 @@ public class ElementValue {
         return 0;
     }
 
-    public static double PlayerLifeElementValue(Player player) {
+    public static double getPlayerLifeElementValue(Player player) {
         double value = 0;
 
         value += QiLingJudge(player, fun.wraq.process.system.element.Element.LifeElementValue);
@@ -67,7 +66,7 @@ public class ElementValue {
         return value;
     }
 
-    public static double PlayerWaterElementValue(Player player) {
+    public static double getPlayerWaterElementValue(Player player) {
         double value = 0;
 
         value += QiLingJudge(player, fun.wraq.process.system.element.Element.WaterElementValue);
@@ -83,7 +82,7 @@ public class ElementValue {
         return value;
     }
 
-    public static double PlayerFireElementValue(Player player) {
+    public static double getPlayerFireElementValue(Player player) {
         double value = 0;
 
         value += QiLingJudge(player, fun.wraq.process.system.element.Element.FireElementValue);
@@ -100,7 +99,7 @@ public class ElementValue {
         return value;
     }
 
-    public static double PlayerStoneElementValue(Player player) {
+    public static double getPlayerStoneElementValue(Player player) {
         double value = 0;
 
         value += QiLingJudge(player, fun.wraq.process.system.element.Element.StoneElementValue);
@@ -115,7 +114,7 @@ public class ElementValue {
         return value;
     }
 
-    public static double PlayerIceElementValue(Player player) {
+    public static double getPlayerIceElementValue(Player player) {
         double value = 0;
 
         value += QiLingJudge(player, fun.wraq.process.system.element.Element.IceElementValue);
@@ -130,7 +129,7 @@ public class ElementValue {
         return value;
     }
 
-    public static double PlayerLightningElementValue(Player player) {
+    public static double getPlayerLightningElementValue(Player player) {
         double value = 0;
 
         value += QiLingJudge(player, fun.wraq.process.system.element.Element.LightningElementValue);
@@ -145,7 +144,7 @@ public class ElementValue {
         return value;
     }
 
-    public static double PlayerWindElementValue(Player player) {
+    public static double getPlayerWindElementValue(Player player) {
         double value = 0;
 
         value += QiLingJudge(player, fun.wraq.process.system.element.Element.WindElementValue);

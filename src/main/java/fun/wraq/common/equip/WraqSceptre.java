@@ -2,15 +2,14 @@ package fun.wraq.common.equip;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
-import fun.wraq.common.registry.ModSounds;
+import fun.wraq.common.impl.onshoot.OnShootManaArrowCurios;
+import fun.wraq.common.impl.onshoot.OnShootManaArrowPassiveEquip;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.entities.entities.Civil.Civil;
 import fun.wraq.process.func.particle.ParticleProvider;
-import fun.wraq.common.impl.onshoot.OnShootManaArrowCurios;
-import fun.wraq.common.impl.onshoot.OnShootManaArrowPassiveEquip;
 import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.projectiles.mana.NewArrow;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -61,7 +60,7 @@ public abstract class WraqSceptre extends WraqMainHandEquip {
                 OnShootManaArrowCurios.shoot(player);
                 OnShootManaArrowPassiveEquip.shoot(player);
             }
-            MySound.soundToNearPlayer(player, SoundEvents.EVOKER_CAST_SPELL);
+            MySound.soundToNearPlayer(player, SoundEvents.PARROT_IMITATE_EVOKER);
         }
     }
 
@@ -79,7 +78,6 @@ public abstract class WraqSceptre extends WraqMainHandEquip {
             level.addFreshEntity(newArrow);
             ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1, 0.75, 20, ParticleTypes.WITCH);
             ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1.5, 0.5, 16, ParticleTypes.WITCH);
-            MySound.soundToNearPlayer(player, ModSounds.Mana.get());
             return newArrow;
         }
         return null;

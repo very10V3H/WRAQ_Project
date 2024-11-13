@@ -50,7 +50,6 @@ import fun.wraq.process.func.power.PowerLogic;
 import fun.wraq.process.func.suit.SuitCount;
 import fun.wraq.process.system.element.Color;
 import fun.wraq.process.system.element.Element;
-import fun.wraq.process.system.element.ElementValue;
 import fun.wraq.process.system.element.equipAndCurios.fireElement.FireEquip;
 import fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSword;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
@@ -61,8 +60,8 @@ import fun.wraq.render.hud.Mana;
 import fun.wraq.render.hud.networking.ExpGetS2CPacket;
 import fun.wraq.render.particles.ModParticles;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.instance.series.castle.RandomCuriosAttributesUtil;
 import fun.wraq.series.instance.series.castle.CastleSceptre;
+import fun.wraq.series.instance.series.castle.RandomCuriosAttributesUtil;
 import fun.wraq.series.overworld.chapter1.forest.ForestPower;
 import fun.wraq.series.overworld.chapter1.forest.bossItems.ForestBossSword;
 import fun.wraq.series.overworld.chapter1.plain.PlainPower;
@@ -76,7 +75,6 @@ import fun.wraq.series.specialevents.labourDay.LabourDayIronHoe;
 import fun.wraq.series.specialevents.labourDay.LabourDayIronPickaxe;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -90,8 +88,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.players.PlayerList;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -632,32 +628,6 @@ public class Compute {
         List<ServerPlayer> list = player.getServer().getPlayerList().getPlayers();
         for (ServerPlayer serverPlayer1 : list) {
             serverPlayer1.connection.send(clientboundLevelParticlesPacket);
-        }
-    }
-
-    public static void MagmaPower(Entity entity, Level level, Player player) {
-        List<ServerPlayer> playerList0 = entity.getServer().getPlayerList().getPlayers();
-        for (ServerPlayer serverPlayer : playerList0) {
-            ClientboundLevelParticlesPacket clientboundLevelParticlesPacket = new ClientboundLevelParticlesPacket(
-                    ParticleTypes.EXPLOSION_EMITTER, true, entity.getX(), entity.getY(), entity.getZ(), 0, 0, 0, 0, 1);
-            serverPlayer.connection.send(clientboundLevelParticlesPacket);
-            ClientboundSoundPacket clientboundSoundPacket = new ClientboundSoundPacket(Holder.direct(SoundEvents.GENERIC_EXPLODE), SoundSource.PLAYERS, entity.getX(), entity.getY(), entity.getZ(), 1f, 1f, 0);
-            serverPlayer.connection.send(clientboundSoundPacket);
-        }
-        ParticleProvider.RandomMoveParticle(entity, 1, 1, 24, ParticleTypes.ASH);
-        ParticleProvider.RandomMoveParticle(entity, 1, 1, 24, ParticleTypes.LAVA);
-        List<Mob> list = level.getEntitiesOfClass(Mob.class, AABB.ofSize(entity.position(), 10, 10, 10));
-        for (Mob mob : list) {
-            Damage.causeManaDamageToMonster_RateApDamage_ElementAddition(player, mob, 3, true,
-                    Element.fire, ElementValue.ElementValueJudgeByType(player, Element.fire) + 1);
-            ParticleProvider.EntityEffectVerticleCircleParticle(mob, 1, 0.4, 8, ParticleTypes.WITCH, 0);
-            ParticleProvider.EntityEffectVerticleCircleParticle(mob, 0.75, 0.4, 8, ParticleTypes.WITCH, 0);
-            ParticleProvider.EntityEffectVerticleCircleParticle(mob, 0.5, 0.4, 8, ParticleTypes.WITCH, 0);
-            ParticleProvider.EntityEffectVerticleCircleParticle(mob, 0.25, 0.4, 8, ParticleTypes.WITCH, 0);
-            ParticleProvider.EntityEffectVerticleCircleParticle(mob, 0, 0.4, 8, ParticleTypes.WITCH, 0);
-            player.getServer().getPlayerList().getPlayers().forEach(serverPlayer ->
-                    ModNetworking.sendToClient(new SlowDownParticleS2CPacket(mob.getId(), 60), serverPlayer));
-
         }
     }
 

@@ -274,6 +274,10 @@ public class ComponentUtils {
         return Component.literal("新维地-本源名作").withStyle(CustomStyle.styleOfWorld).withStyle(ChatFormatting.ITALIC);
     }
 
+    public static Component getSuffixOfSunIsland() {
+        return Component.literal("旭升岛-超凡秘藏").withStyle(CustomStyle.styleOfSunIsland).withStyle(ChatFormatting.ITALIC);
+    }
+
     public static Component getSuffixOfDemon() {
         return Component.literal("妖魔邪力").withStyle(CustomStyle.styleOfDemon).withStyle(ChatFormatting.ITALIC);
     }

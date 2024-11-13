@@ -12,6 +12,7 @@ import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
 import fun.wraq.process.func.EffectOnMob;
 import fun.wraq.process.func.MobEffectAndDamageMethods;
+import fun.wraq.process.func.PersistentRangeEffect;
 import fun.wraq.process.func.multiblockactive.rightclick.RightClickActiveHandler;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.season.MySeason;
@@ -91,6 +92,10 @@ public class LevelEvents {
         EffectOnMob.levelTick(event);
         RightClickActiveHandler.detectNearPlayer(event);
         clearFire(event); // 清理火焰
+
+        if (event.side.isServer() && event.phase.equals(TickEvent.Phase.START)) {
+            PersistentRangeEffect.levelTick(event.level);
+        }
 
         if (event.side.isServer() && event.phase.equals(TickEvent.Phase.START) && Tick.get() % 18000 == 0) {
             ServerLevel serverLevel = (ServerLevel) event.level;

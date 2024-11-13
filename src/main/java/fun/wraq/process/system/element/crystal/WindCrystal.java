@@ -92,7 +92,7 @@ public class WindCrystal extends SwordItem implements ActiveItem {
     public void active(Player player) {
         if (player.experienceLevel < Utils.levelRequire.get(this)) return;
         if (!player.getCooldowns().isOnCooldown(this)) {
-            int coolDownTick = (int) (200 - Math.min(140, 60 * ElementValue.PlayerWindElementValue(player)));
+            int coolDownTick = (int) (200 - Math.min(140, 60 * ElementValue.getPlayerWindElementValue(player)));
             List<Item> itemList = new ArrayList<>() {{
                 add(ModItems.WindCrystal0.get());
                 add(ModItems.WindCrystal1.get());
@@ -101,7 +101,7 @@ public class WindCrystal extends SwordItem implements ActiveItem {
             }};
             itemList.forEach(item1 -> player.getCooldowns().addCooldown(item1, coolDownTick));
             boolean isAd = PlayerAttributes.attackDamage(player) * 4 > PlayerAttributes.manaDamage(player);
-            Element.RangeElementProvider(player, Element.wind, ElementValue.PlayerWindElementValue(player),
+            Element.RangeElementProvider(player, Element.wind, ElementValue.getPlayerWindElementValue(player),
                     isAd, isAd ? PlayerAttributes.attackDamage(player) * 4 : PlayerAttributes.manaDamage(player), 6);
         }
     }

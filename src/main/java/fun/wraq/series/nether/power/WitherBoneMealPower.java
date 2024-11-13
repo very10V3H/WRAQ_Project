@@ -5,7 +5,7 @@ import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModSounds;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
-import fun.wraq.common.util.Utils;
+import fun.wraq.process.func.StableAttributesModifier;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.func.power.PowerLogic;
@@ -48,7 +48,7 @@ public class WitherBoneMealPower extends WraqPower {
                 append(ComponentUtils.AttributeDescription.manaDamageValue("800%")));
         components.add(Component.literal(" 并").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("移除范围内敌人").withStyle(ChatFormatting.WHITE)).
-                append(ComponentUtils.AttributeDescription.manaDefence("50%")).
+                append(ComponentUtils.AttributeDescription.manaDefence("20%")).
                 append(Component.literal(" 持续5s").withStyle(ChatFormatting.WHITE)));
         components.add(Component.literal(" - 这个伤害会附带").withStyle(ChatFormatting.WHITE).
                 append(Element.Description.FireElement("1 + 100%")));
@@ -75,7 +75,6 @@ public class WitherBoneMealPower extends WraqPower {
     @Override
     public void release(Player player) {
         if (!Compute.playerManaCost(player, Mana.getPlayerMaxManaNum(player) * 0.33, true)) return;
-        int tick = Tick.get();
         Compute.PlayerPowerParticle(player);
         playerItemCoolDown(player, this, 10);
         Level level = player.level();
@@ -86,13 +85,14 @@ public class WitherBoneMealPower extends WraqPower {
             if (mob.getPosition(0).distanceTo(TargetPos) < 6) {
                 Damage.causeManaDamageToMonster_RateApDamage_ElementAddition(player, mob, 8, true,
                         Element.fire, ElementValue.ElementValueJudgeByType(player, Element.fire) + 1);
+                StableAttributesModifier.addM(player, StableAttributesModifier.mobPercentManaDefenceModifier,
+                        "WitherBoneMealPowerMobManaDefenceDecrease", 0.2, Tick.get() + 100);
                 PowerLogic.PlayerPowerEffectToMob(player, mob);
                 ParticleProvider.EntityEffectVerticleCircleParticle(mob, 1, 0.4, 8, ParticleTypes.WITCH, 0);
                 ParticleProvider.EntityEffectVerticleCircleParticle(mob, 0.75, 0.4, 8, ParticleTypes.WITCH, 0);
                 ParticleProvider.EntityEffectVerticleCircleParticle(mob, 0.5, 0.4, 8, ParticleTypes.WITCH, 0);
                 ParticleProvider.EntityEffectVerticleCircleParticle(mob, 0.25, 0.4, 8, ParticleTypes.WITCH, 0);
                 ParticleProvider.EntityEffectVerticleCircleParticle(mob, 0, 0.4, 8, ParticleTypes.WITCH, 0);
-                Utils.NetherBoneMealPowerEffectMap.put(mob, tick + 100);
                 addManaDefenceDecreaseEffectParticle(mob, 100);
             }
         }

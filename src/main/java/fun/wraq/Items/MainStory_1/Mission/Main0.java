@@ -1,7 +1,9 @@
 package fun.wraq.Items.MainStory_1.Mission;
 
 import fun.wraq.common.util.ComponentUtils;
+import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.bonuschest.BonusChestPlayerData;
+import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -55,6 +57,8 @@ public class Main0 extends Item {
             CompoundTag data = player.getPersistentData();
             ServerPlayer serverPlayer = (ServerPlayer) player;
 
+            ParticleProvider.createLineEffectParticle(level, 100, player.getEyePosition(),
+                    player.pick(10, 0, false).getLocation(), CustomStyle.styleOfWither);
         }
 
         if (!level.isClientSide && player.isShiftKeyDown()) {
@@ -62,7 +66,6 @@ public class Main0 extends Item {
         }
 
         if (level.isClientSide && !player.isShiftKeyDown()) {
-
         }
 
         if (level.isClientSide && player.isShiftKeyDown()) {

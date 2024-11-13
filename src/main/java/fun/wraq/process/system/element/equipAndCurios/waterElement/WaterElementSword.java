@@ -116,7 +116,7 @@ public class WaterElementSword extends WraqSword implements ActiveItem {
             List<Mob> mobList = player.level().getEntitiesOfClass(Mob.class, AABB.ofSize(pos, 15, 15, 15));
             mobList.removeIf(mob -> mob.position().distanceTo(pos) > 6);
             mobList.forEach(mob -> {
-                Element.ElementEffectAddToEntity(player, mob, Element.water, ElementValue.PlayerWaterElementValue(player), true, PlayerAttributes.attackDamage(player) * 4);
+                Element.ElementEffectAddToEntity(player, mob, Element.water, ElementValue.getPlayerWaterElementValue(player), true, PlayerAttributes.attackDamage(player) * 4);
                 mobDefenceDecreaseTickMap.put(mob, player.getServer().getTickCount() + 140);
             });
             ParticleProvider.DisperseParticle(pos, (ServerLevel) player.level(), 1, 1, 120, ModParticles.WaterElementParticle.get(), 1);

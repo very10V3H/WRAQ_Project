@@ -818,6 +818,7 @@ public class PlayerAttributes {
         totalDefence *= (1 + GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.percentDefenceEnhance) +
                 Compute.CuriosAttribute.attributeValue(player, Utils.percentDefenceEnhance,
                 StringUtils.CuriosAttribute.percentDefenceEnhance));
+        totalDefence *= (1 + StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerPercentDefenceModifier));
         if (data.contains("ManaRune") && data.getInt("ManaRune") == 3) return (baseDefence + exDefence) * 0.5f;
 
         if (totalDefence < 0) return 0;
@@ -1694,6 +1695,7 @@ public class PlayerAttributes {
         totalDefence *= (1 + GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.percentManaDefenceEnhance) +
                 Compute.CuriosAttribute.attributeValue(player, Utils.percentManaDefenceEnhance,
                 StringUtils.CuriosAttribute.percentManaDefenceEnhance));
+        totalDefence *= (1 + StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerPercentManaDefenceModifier));
         if (totalDefence < 0) return 0;
         return totalDefence;
     }
@@ -1971,6 +1973,8 @@ public class PlayerAttributes {
         maxMana += Compute.PassiveEquip.getAttribute(player, Utils.maxMana); // 器灵属性加成
 
         maxMana += handleAllEquipRandomAttribute(player, StringUtils.RandomAttribute.maxMana);
+
+        maxMana += Compute.CuriosAttribute.attributeValue(player, Utils.maxMana, StringUtils.CuriosAttribute.maxMana); // 新版饰品属性加成
         // 请在上方添加
 
         maxMana *= Compute.playerFantasyAttributeEnhance(player);

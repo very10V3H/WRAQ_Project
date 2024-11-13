@@ -133,7 +133,7 @@ public class LakePower extends WraqPower {
         });
 
         MySound.soundToNearPlayer(player, SoundEvents.WATER_AMBIENT);
-        ParticleProvider.SpaceRangeParticle((ServerLevel) dimension, targetPos, 6, 150,
+        ParticleProvider.createSpaceRangeParticle((ServerLevel) dimension, targetPos, 6, 150,
                 ParticleTypes.BUBBLE_POP);
     }
 
