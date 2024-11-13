@@ -51,7 +51,7 @@ public class MoonInstance extends NoTeamInstance {
 
     public static MoonInstance getInstance() {
         if (instance == null) {
-            instance = new MoonInstance(new Vec3(1761, 130, -463), 50, 200, new Vec3(1761, 130, -463),
+            instance = new MoonInstance(new Vec3(1761, 130, -463), 50, 60, new Vec3(1761, 130, -463),
                     Component.literal(mobName).withStyle(CustomStyle.styleOfMoon));
         }
         return instance;

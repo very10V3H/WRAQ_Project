@@ -12,6 +12,7 @@ import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.customized.UniformItems;
 import fun.wraq.customized.WraqUniformCurios;
+import fun.wraq.events.core.InventoryCheck;
 import fun.wraq.events.mob.loot.RandomLootEquip;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.render.gui.blocks.ForgingBlockMenu;
@@ -789,7 +790,15 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider {
             return true;
         }
         if (equip.getItem() instanceof WraqUniformCurios) {
-            this.itemStackHandler.setStackInSlot(2, new ItemStack(UniformItems.uniformPiece.get()));
+            ItemStack stack = new ItemStack(UniformItems.uniformPiece.get());
+
+            String playerName = Utils.whoIsUsingBlock.get(this.getBlockPos());
+            Player player = this.level.getServer().getPlayerList().getPlayerByName(playerName);
+            if (player != null) {
+                InventoryCheck.addOwnerTagToItemStack(player, stack);
+            }
+
+            this.itemStackHandler.setStackInSlot(2, stack);
             return true;
         }
         if (equip.getItem() instanceof RuneItem) {

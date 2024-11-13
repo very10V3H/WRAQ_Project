@@ -54,7 +54,7 @@ public class IceInstance extends NoTeamInstance {
 
     public static IceInstance getInstance() {
         if (instance == null) {
-            instance = new IceInstance(new Vec3(1565, 63, -2924), 50, 200, new Vec3(1565, 63, -2924),
+            instance = new IceInstance(new Vec3(1565, 63, -2924), 50, 60, new Vec3(1565, 63, -2924),
                     Component.literal(mobName).withStyle(CustomStyle.styleOfIce));
         }
         return instance;

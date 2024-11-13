@@ -109,7 +109,6 @@ public class VariousEvents {
             Player player = event.getOriginal();
             ServerPlayer serverPlayer = (ServerPlayer) player;
             if (event.isWasDeath()) {
-                Compute.broad(event.getEntity().level(), Component.literal("[").withStyle(ChatFormatting.GRAY).append(Component.literal("维瑞阿契").withStyle(ChatFormatting.AQUA)).append("]").withStyle(ChatFormatting.GRAY).append(Component.literal(event.getEntity().getName().getString() + "在探索过程中身负重伤，经过救治恢复了活力。").withStyle(ChatFormatting.WHITE)));
                 serverPlayer.teleportTo(serverPlayer.getServer().getLevel(Level.OVERWORLD), 437.5, 69, 916.6, 0, 0);
                 Utils.instanceList.forEach(instance -> {
                     if (instance.getCurrentChallengePlayerTeam() != null && instance.getCurrentChallengePlayerTeam().getPlayerList().contains(player)) {

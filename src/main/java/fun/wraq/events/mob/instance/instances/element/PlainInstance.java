@@ -39,7 +39,7 @@ public class PlainInstance extends NoTeamInstance {
 
     public static PlainInstance getInstance() {
         if (instance == null) {
-            instance = new PlainInstance(new Vec3(1167, 111, 24), 30, 200, new Vec3(1167, 111, 24),
+            instance = new PlainInstance(new Vec3(1167, 111, 24), 30, 60, new Vec3(1167, 111, 24),
                     Component.literal("普莱尼").withStyle(ChatFormatting.GREEN));
         }
         return instance;

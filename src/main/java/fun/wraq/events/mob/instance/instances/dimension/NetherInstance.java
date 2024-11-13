@@ -30,7 +30,7 @@ public class NetherInstance extends NoTeamInstance {
 
     public static NetherInstance getInstance() {
         if (instance == null) {
-            instance = new NetherInstance(new Vec3(529, 64, -540), 50, 200, new Vec3(529, 64, -540),
+            instance = new NetherInstance(new Vec3(529, 64, -540), 50, 60, new Vec3(529, 64, -540),
                     Component.literal("燃魂").withStyle(CustomStyle.styleOfPower));
         }
         return instance;

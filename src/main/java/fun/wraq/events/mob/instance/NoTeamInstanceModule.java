@@ -125,7 +125,7 @@ public class NoTeamInstanceModule {
             if (player.level().dimension().equals(Level.OVERWORLD)) {
                 noTeamInstancesOverworld.forEach(instance -> {
                     if (instance.getSummonAndRewardNeedItem().equals(item)
-                            && player.position().distanceTo(instance.pos) < 4 && Tick.get() > instance.summonTick) {
+                            && player.position().distanceTo(instance.pos) < 12 && Tick.get() > instance.summonTick) {
                         instance.ready = true;
                     }
                 });
@@ -133,7 +133,7 @@ public class NoTeamInstanceModule {
             if (player.level().dimension().equals(Level.NETHER)) {
                 noTeamInstancesNether.forEach(instance -> {
                     if (instance.getSummonAndRewardNeedItem().equals(item)
-                            && player.position().distanceTo(instance.pos) < 4 && Tick.get() > instance.summonTick) {
+                            && player.position().distanceTo(instance.pos) < 12 && Tick.get() > instance.summonTick) {
                         instance.ready = true;
                     }
                 });

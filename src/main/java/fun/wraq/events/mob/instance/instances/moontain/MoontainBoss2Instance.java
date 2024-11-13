@@ -35,7 +35,7 @@ public class MoontainBoss2Instance extends NoTeamInstance {
 
     public static MoontainBoss2Instance getInstance() {
         if (instance == null) {
-            instance = new MoontainBoss2Instance(new Vec3(1978, 215, -881), 15, 200, new Vec3(1978, 215, -881),
+            instance = new MoontainBoss2Instance(new Vec3(1978, 215, -881), 15, 60, new Vec3(1978, 215, -881),
                     Component.literal(mobName).withStyle(style));
         }
         return instance;
