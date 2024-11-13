@@ -128,12 +128,22 @@ public class ItemAndRate {
     }
 
     public static void summonItemEntity(ItemStack itemStack, Vec3 pos, Level level, int pickUpDelay) {
+        summonItemEntity(itemStack, pos, level, pickUpDelay, true);
+    }
+
+    public static void summonItemEntity(ItemStack itemStack, Vec3 pos, Level level, boolean delta) {
+        summonItemEntity(itemStack, pos, level, 8, delta);
+    }
+
+    public static void summonItemEntity(ItemStack itemStack, Vec3 pos, Level level, int pickUpDelay, boolean delta) {
         ItemEntity itemEntity = new ItemEntity(EntityType.ITEM, level);
         itemEntity.setItem(itemStack);
         itemEntity.setPos(pos.add(0, 0.5, 0));
         itemEntity.setPickUpDelay(pickUpDelay);
         Random rand = new Random();
-        itemEntity.setDeltaMovement(rand.nextDouble(0.2) - 0.1, 0.2, rand.nextDouble(0.2) - 0.1);
+        if (delta) {
+            itemEntity.setDeltaMovement(rand.nextDouble(0.2) - 0.1, 0.2, rand.nextDouble(0.2) - 0.1);
+        }
         level.addFreshEntity(itemEntity);
     }
 

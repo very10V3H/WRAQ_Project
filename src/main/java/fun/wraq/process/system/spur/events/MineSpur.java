@@ -1,7 +1,6 @@
 package fun.wraq.process.system.spur.events;
 
 import fun.wraq.common.Compute;
-import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModBlocks;
 import fun.wraq.common.util.ItemAndRate;
 import fun.wraq.common.util.StringUtils;
@@ -37,17 +36,6 @@ public class MineSpur {
 
     public record NextOreItemDrop(ItemStack stack, Vec3 pos, Level level, int trigTick) {}
 
-    public static Queue<NextOreItemDrop> nextOreItemDropQueue = new ArrayDeque<>();
-
-    public static void levelTick(Level level) {
-        while (MineSpur.nextOreItemDropQueue.peek() != null) {
-            MineSpur.NextOreItemDrop nextOreItemDrop = MineSpur.nextOreItemDropQueue.poll();
-            if (level.equals(nextOreItemDrop.level())) {
-                ItemAndRate.summonItemEntity(nextOreItemDrop.stack(), nextOreItemDrop.pos(), nextOreItemDrop.level());
-            }
-        }
-    }
-
     public static void mineEvent(net.minecraftforge.event.level.BlockEvent.BreakEvent event) {
         Player player = event.getPlayer();
         BlockPos blockPos = event.getPos();
@@ -70,20 +58,14 @@ public class MineSpur {
                                 Utils.posEvenBeenDigOrPlace.add(blockPos);
                             }
                             level.destroyBlock(blockPos, false);
-                            // 延迟生成物品，防止挤压消失
-                            nextOreItemDropQueue.add(new NextOreItemDrop(mineRewardMap.get(block).item().getDefaultInstance(),
-                                    blockPos.getCenter(), level, Tick.get() + 4));
-
+                            InventoryOperation.itemStackGive(player, mineRewardMap.get(block).item().getDefaultInstance());
                             mineReward(player, blockState, blockPos);
 
                             Random random = new Random();
                             if (random.nextDouble() < Compute.playerExHarvest(player)) {
                                 Compute.sendFormatMSG(player, Component.literal("额外产出").withStyle(ChatFormatting.GOLD),
                                         Component.literal("为你提供了额外产物！").withStyle(ChatFormatting.WHITE));
-                                // 延迟生成物品，防止挤压消失
-                                nextOreItemDropQueue.add(new NextOreItemDrop(mineRewardMap.get(block).item().getDefaultInstance(),
-                                        blockPos.getCenter(), level, Tick.get() + 4));
-
+                                InventoryOperation.itemStackGive(player, mineRewardMap.get(block).item().getDefaultInstance());
                                 mineReward(player, blockState, blockPos);
                             }
                         } else {
