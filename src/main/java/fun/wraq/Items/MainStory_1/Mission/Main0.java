@@ -1,13 +1,12 @@
 package fun.wraq.Items.MainStory_1.Mission;
 
-import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
+import fun.wraq.process.func.SpecialEffectOnPlayer;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
@@ -72,12 +71,11 @@ public class Main0 extends Item {
                     player.getInventory().setItem(i, newBackPack);
                 }
             }*/
-
-            MySound.soundToPlayer(player, SoundEvents.WITHER_AMBIENT);
+            SpecialEffectOnPlayer.addImprisonEffect(player, 60);
         }
 
         if (!level.isClientSide && player.isShiftKeyDown()) {
-
+            SpecialEffectOnPlayer.cleanse(player);
         }
 
         if (level.isClientSide && !player.isShiftKeyDown()) {

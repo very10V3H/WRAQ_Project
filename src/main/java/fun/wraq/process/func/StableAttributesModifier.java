@@ -32,7 +32,7 @@ public record StableAttributesModifier(String tag, double value, int stopTick) {
     public static Map<LivingEntity, List<StableAttributesModifier>> playerManaDefenceModifier = new WeakHashMap<>();
     public static Map<LivingEntity, List<StableAttributesModifier>> playerPercentManaDefenceModifier = new WeakHashMap<>();
     public static Map<LivingEntity, List<StableAttributesModifier>> playerHealAmplifierModifier = new WeakHashMap<>();
-    public static Map<LivingEntity, List<StableAttributesModifier>> playerHealAmplifierDecreaseModifier = new WeakHashMap<>();
+    public static Map<LivingEntity, List<StableAttributesModifier>> playerHealAmplifierReductionModifier = new WeakHashMap<>();
     public static Map<LivingEntity, List<StableAttributesModifier>> playerMonsterControlDamageEffect = new WeakHashMap<>();
 
     public static Map<LivingEntity, List<StableAttributesModifier>> mobDefenceModifier = new WeakHashMap<>();

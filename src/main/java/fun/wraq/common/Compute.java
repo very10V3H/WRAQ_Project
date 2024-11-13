@@ -29,6 +29,7 @@ import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.hud.CoolDownTimeS2CPacket;
 import fun.wraq.networking.hud.DebuffTimeS2CPacket;
 import fun.wraq.networking.hud.EffectLastTimeS2CPacket;
+import fun.wraq.networking.hud.RemoveDebuffTimeS2CPacket;
 import fun.wraq.networking.misc.EntropyPackets.EntropyS2CPacket;
 import fun.wraq.networking.misc.ParticlePackets.SlowDownParticleS2CPacket;
 import fun.wraq.networking.misc.PsValueS2CPacket;
@@ -1200,6 +1201,18 @@ public class Compute {
 
     public static void sendDebuffTime(Player player, Item item, int tickCount, int level) {
         sendDebuffTime(player, "item/" + item, tickCount, level, false);
+    }
+
+    public static void sendDebuffTime(Player player, String url, int tickCount) {
+        sendDebuffTime(player, url, tickCount, 0, false);
+    }
+
+    public static void removeDebuffTime(Player player, String url) {
+        ModNetworking.sendToClient(new RemoveDebuffTimeS2CPacket(url), (ServerPlayer) player);
+    }
+
+    public static void removeDebuffTime(Player player, Item item) {
+        ModNetworking.sendToClient(new RemoveDebuffTimeS2CPacket("item/" + item), (ServerPlayer) player);
     }
 
     public static void createIceParticle(Entity entity) {

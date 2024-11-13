@@ -65,7 +65,7 @@ public class BloodManaPower extends WraqPower {
                 });
         getDefaultTargetPlayerList(player)
                 .forEach(eachPlayer -> {
-                    StableAttributesModifier.addM(player, StableAttributesModifier.playerHealAmplifierDecreaseModifier,
+                    StableAttributesModifier.addM(player, StableAttributesModifier.playerHealAmplifierReductionModifier,
                             "BloodManaPowerPlayerHealAmplifierDecrease", 0.8, Tick.get() + 60);
                     double damageEnhanceRate = (player.getMaxHealth() - player.getHealth()) / player.getMaxHealth();
                     StableAttributesModifier.addM(player, StableAttributesModifier.playerCommonDamageEnhance,

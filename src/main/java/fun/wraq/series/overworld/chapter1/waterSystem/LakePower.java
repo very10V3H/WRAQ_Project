@@ -1,12 +1,13 @@
 package fun.wraq.series.overworld.chapter1.waterSystem;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
-import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.EffectOnMob;
+import fun.wraq.process.func.SpecialEffectOnPlayer;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.func.power.PowerLogic;
@@ -59,10 +60,7 @@ public class LakePower extends WraqPower {
         components.add(Component.literal(" 对").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("指针").withStyle(ChatFormatting.AQUA)).
                 append(Component.literal("周围敌人造成").withStyle(ChatFormatting.WHITE)).
-                append(Component.literal("25%减速").withStyle(ChatFormatting.GRAY)).
-                append(Component.literal("，并削减其").withStyle(ChatFormatting.WHITE)).
-                append(ComponentUtils.AttributeDescription.manaDefence(String.format("%.0f", effect[tier] * 10) + "%")).
-                append(Component.literal("持续2s。").withStyle(ChatFormatting.WHITE)));
+                append(Component.literal("25%减速").withStyle(ChatFormatting.GRAY)));
         components.add(Component.literal(" 同时对其造成").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.AttributeDescription.manaDamageValue(String.format("%.0f", effect[tier] * 100) + "%")));
         components.add(Component.literal(" - 这个伤害会附带").withStyle(ChatFormatting.WHITE).
@@ -72,6 +70,8 @@ public class LakePower extends WraqPower {
                 append(Component.literal("周围玩家提供持续4s的").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal((tier + 1) * 5 + "%").withStyle(CustomStyle.styleOfWater)).
                 append(Component.literal("伤害削减。").withStyle(ChatFormatting.GREEN)));
+        components.add(Te.s(" 并", "移除", CustomStyle.styleOfWater, "重伤", CustomStyle.styleOfMoontain, "/",
+                "禁锢", CustomStyle.styleOfMine, "/", "眩晕", CustomStyle.styleOfIce, "效果"));
         return components;
     }
 
@@ -110,7 +110,8 @@ public class LakePower extends WraqPower {
         playerList.forEach(player1 -> {
             LakePower.playerDefendRateMap.put(player1, tier + 1);
             LakePower.playerDefendTickMap.put(player1, tick + 80);
-            Compute.sendEffectLastTime(player, ModItems.LakePower.get().getDefaultInstance(), 80);
+            Compute.sendEffectLastTime(player1, ModItems.LakePower.get().getDefaultInstance(), 80);
+            SpecialEffectOnPlayer.cleanse(player1);
         });
         ParticleProvider.dustParticle(player, player.getEyePosition(), 6, 36, CustomStyle.styleOfLake.getColor().getValue());
 
@@ -121,12 +122,9 @@ public class LakePower extends WraqPower {
                 Compute.IgniteMob(player, mob, 0);
                 EffectOnMob.addSlowDownEffect(mob, 40, 0.25);
                 addManaDefenceDecreaseEffectParticle(mob, 40);
-                Utils.LakePowerEffectMobMap.put(mob, new LakePowerEffect(tick + 40, (tier + 1)));
                 PowerLogic.PlayerPowerEffectToMob(player, mob);
                 Damage.causeManaDamageToMonster_RateApDamage_ElementAddition(player, mob, effect, true,
                         Element.water, ElementValue.ElementValueJudgeByType(player, Element.water) + 1);
-                Compute.sendMobEffectHudToNearPlayer(mob, ModItems.LakePower.get(), "lakePowerManaDefenceDecrease",
-                        40, 0, false);
                 ParticleProvider.dustParticle(player, mob.getEyePosition(), 0.8, 20,
                         ChatFormatting.BLUE.getColor().intValue());
             }

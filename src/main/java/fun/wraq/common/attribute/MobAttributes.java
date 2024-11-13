@@ -62,10 +62,6 @@ public class MobAttributes {
         exDefence += TowerMob.mobManaDefenceUp(monster);
         exDefence += StableTierAttributeModifier.getModifierValue(monster, StableTierAttributeModifier.manaDefence);
 
-        // 百分比
-        if (Utils.LakePowerEffectMobMap.containsKey(monster) && Utils.LakePowerEffectMobMap.get(monster).getTick() > tick)
-            rate *= (1 - Utils.LakePowerEffectMobMap.get(monster).getEffect() * 0.05);
-
         if (Utils.MobSpringManaTick.containsKey(monster) && Utils.MobSpringManaTick.get(monster) > tick)
             rate *= (1 - Utils.SpringEffect[Utils.MobSpringManaEffect.get(monster) - 1]);
 

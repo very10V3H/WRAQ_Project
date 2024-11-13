@@ -578,8 +578,6 @@ public class Utils {
 
     public static List<ForestPowerEffectMob> ForestPowerEffectMobList = new ArrayList<>();
 
-    public static WeakHashMap<Mob, LakePowerEffect> LakePowerEffectMobMap = new WeakHashMap<>();
-
     public static Map<Item, String> SoulBagsMap = new HashMap<>();
 
     public static void SoulBagsInit() {

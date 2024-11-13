@@ -14,6 +14,7 @@ import fun.wraq.networking.dailyMission.DailyMissionRequestC2SPacket;
 import fun.wraq.networking.hud.CoolDownTimeS2CPacket;
 import fun.wraq.networking.hud.DebuffTimeS2CPacket;
 import fun.wraq.networking.hud.EffectLastTimeS2CPacket;
+import fun.wraq.networking.hud.RemoveDebuffTimeS2CPacket;
 import fun.wraq.networking.misc.AnimationPackets.*;
 import fun.wraq.networking.misc.AttackPackets.AttackC2SPacket;
 import fun.wraq.networking.misc.AttributePackets.*;
@@ -1360,6 +1361,11 @@ public class ModNetworking {
                 .decoder(LineEffectParticleS2CPacket::new)
                 .encoder(LineEffectParticleS2CPacket::toBytes)
                 .consumerMainThread(LineEffectParticleS2CPacket::handle)
+                .add();
+        net.messageBuilder(RemoveDebuffTimeS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(RemoveDebuffTimeS2CPacket::new)
+                .encoder(RemoveDebuffTimeS2CPacket::toBytes)
+                .consumerMainThread(RemoveDebuffTimeS2CPacket::handle)
                 .add();
     }
 

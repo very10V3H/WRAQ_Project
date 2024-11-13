@@ -2,8 +2,12 @@ package fun.wraq.process.func;
 
 import com.mojang.datafixers.util.Pair;
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
+import fun.wraq.common.registry.MySound;
+import fun.wraq.render.toolTip.CustomStyle;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 
@@ -42,7 +46,7 @@ public class SpecialEffectOnPlayer {
     public static void addVertigoEffect(Player player, int tick) {
         String name = player.getName().getString();
         vertigoTickMap.put(name, Tick.get() + tick);
-        Compute.sendDebuffTime(player, ModItems.OreRune.get(), tick, 0);
+        Compute.sendDebuffTime(player, "hud/vertigo", tick);
         imprisonPosMap.put(name, player.position());
         imprisonRotMap.put(name, Pair.of(player.getXRot(), player.getYRot()));
     }
@@ -61,7 +65,7 @@ public class SpecialEffectOnPlayer {
     public static void addImprisonEffect(Player player, int tick) {
         String name = player.getName().getString();
         imprisonTickMap.put(name, Tick.get() + tick);
-        Compute.sendDebuffTime(player, ModItems.SnowRune.get(), tick, 0);
+        Compute.sendDebuffTime(player, "hud/imprison", tick);
         imprisonPosMap.put(name, player.position());
         imprisonRotMap.put(name, Pair.of(player.getXRot(), player.getYRot()));
     }
@@ -78,9 +82,35 @@ public class SpecialEffectOnPlayer {
 
     public static void addHealingReduction(Player player, String tag, double value, int tick) {
         StableAttributesModifier.addM(player,
-                StableAttributesModifier.playerHealAmplifierDecreaseModifier,
+                StableAttributesModifier.playerHealAmplifierReductionModifier,
                 tag, value, Tick.get() + tick);
         Compute.sendDebuffTime(player, "hud/healing_reduction",
                 tick, (int) (value * 100), false);
+    }
+
+    public static void cleanse(Player player) {
+        String name = player.getName().getString();
+        boolean effective = false;
+        if (vertigoTickMap.containsKey(name)) {
+            effective = true;
+            vertigoTickMap.remove(name);
+            Compute.removeDebuffTime(player, "hud/vertigo");
+        }
+        if (imprisonTickMap.containsKey(name)) {
+            effective = true;
+            imprisonTickMap.remove(name);
+            Compute.removeDebuffTime(player, "hud/imprison");
+        }
+        if (StableAttributesModifier
+                .getModifierValue(player, StableAttributesModifier.playerHealAmplifierReductionModifier) - 0 > 1e-6) {
+            effective = true;
+            StableAttributesModifier.playerHealAmplifierReductionModifier.remove(player);
+            Compute.removeDebuffTime(player, "hud/healing_reduction");
+        }
+        if (effective) {
+            MySound.soundToPlayer(player, SoundEvents.DOLPHIN_JUMP);
+            Compute.sendFormatMSG(player, Te.s("净化", CustomStyle.styleOfWater),
+                    Te.s("你已被净化!", CustomStyle.styleOfWater));
+        }
     }
 }

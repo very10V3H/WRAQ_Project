@@ -887,7 +887,7 @@ public class PlayerAttributes {
 
     public static double healEffectDecrease(Player player) {
         double rate = 0;
-        rate += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerHealAmplifierDecreaseModifier);
+        rate += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerHealAmplifierReductionModifier);
         return rate;
     }
 
