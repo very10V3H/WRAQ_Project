@@ -12,6 +12,7 @@ import fun.wraq.networking.dailyMission.DailyMissionFinishedRequestC2SPacket;
 import fun.wraq.networking.dailyMission.DailyMissionFinishedTimeS2CPacket;
 import fun.wraq.networking.dailyMission.DailyMissionRequestC2SPacket;
 import fun.wraq.networking.hud.CoolDownTimeS2CPacket;
+import fun.wraq.networking.hud.DebuffTimeS2CPacket;
 import fun.wraq.networking.hud.EffectLastTimeS2CPacket;
 import fun.wraq.networking.misc.AnimationPackets.*;
 import fun.wraq.networking.misc.AttackPackets.AttackC2SPacket;

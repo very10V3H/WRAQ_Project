@@ -27,6 +27,7 @@ import fun.wraq.events.core.InventoryCheck;
 import fun.wraq.events.mob.moontain.MoontainEntities;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.hud.CoolDownTimeS2CPacket;
+import fun.wraq.networking.hud.DebuffTimeS2CPacket;
 import fun.wraq.networking.hud.EffectLastTimeS2CPacket;
 import fun.wraq.networking.misc.EntropyPackets.EntropyS2CPacket;
 import fun.wraq.networking.misc.ParticlePackets.SlowDownParticleS2CPacket;
@@ -40,7 +41,6 @@ import fun.wraq.networking.misc.SkillPackets.Charging.SwordSkill12S2CPacket;
 import fun.wraq.networking.misc.TeamPackets.ScreenSetS2CPacket;
 import fun.wraq.networking.misc.USE.MobEffectHudS2CPacket;
 import fun.wraq.networking.reputation.ReputationValueS2CPacket;
-import fun.wraq.networking.unSorted.DebuffTimeS2CPacket;
 import fun.wraq.process.func.SpecialEffectOnPlayer;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.item.InventoryOperation;
@@ -1194,12 +1194,12 @@ public class Compute {
         ModNetworking.sendToClient(new CoolDownTimeS2CPacket(url, tickCount), (ServerPlayer) player);
     }
 
-    public static void debuffTimeSend(Player player, ItemStack itemStack, int tickCount, int level) {
-        ModNetworking.sendToClient(new DebuffTimeS2CPacket(itemStack, tickCount, level), (ServerPlayer) player);
+    public static void sendDebuffTime(Player player, String url, int tickCount, int level, boolean forever) {
+        ModNetworking.sendToClient(new DebuffTimeS2CPacket(url, tickCount, level, forever), (ServerPlayer) player);
     }
 
-    public static void debuffTimeSend(Player player, Item item, int tickCount, int level) {
-        ModNetworking.sendToClient(new DebuffTimeS2CPacket(item.getDefaultInstance(), tickCount, level), (ServerPlayer) player);
+    public static void sendDebuffTime(Player player, Item item, int tickCount, int level) {
+        sendDebuffTime(player, "item/" + item, tickCount, level, false);
     }
 
     public static void createIceParticle(Entity entity) {

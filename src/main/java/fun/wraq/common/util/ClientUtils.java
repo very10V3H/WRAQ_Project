@@ -564,7 +564,7 @@ public class ClientUtils {
 
     public static List<HudIcon> effectTimeLasts = new ArrayList<>();
     public static List<HudIcon> coolDownTimes = new ArrayList<>();
-    public static List<EffectTimeLast> debuffTimes = new ArrayList<>();
+    public static List<HudIcon> debuffTimes = new ArrayList<>();
 
     public record Effect(String url, String tag, int startTick, int lastTick, int level, boolean forever) {}
 

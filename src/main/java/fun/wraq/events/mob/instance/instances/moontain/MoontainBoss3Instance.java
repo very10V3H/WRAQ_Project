@@ -3,33 +3,45 @@ package fun.wraq.events.mob.instance.instances.moontain;
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
+import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ItemAndRate;
 import fun.wraq.events.core.InventoryCheck;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstance;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
+import fun.wraq.process.func.SpecialEffectOnPlayer;
+import fun.wraq.process.func.StableAttributesModifier;
+import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.item.InventoryOperation;
+import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.moontain.MoontainItems;
 import fun.wraq.series.moontain.equip.weapon.MoontainUtils;
 import net.mcreator.borninchaosv.entity.LordTheHeadlessEntity;
 import net.mcreator.borninchaosv.init.BornInChaosV1ModEntities;
+import net.mcreator.borninchaosv.init.BornInChaosV1ModMobEffects;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.BossEvent;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
 
 import java.security.SecureRandom;
+import java.util.Comparator;
 import java.util.List;
 
 public class MoontainBoss3Instance extends NoTeamInstance {
@@ -41,7 +53,7 @@ public class MoontainBoss3Instance extends NoTeamInstance {
 
     public static MoontainBoss3Instance getInstance() {
         if (instance == null) {
-            instance = new MoontainBoss3Instance(new Vec3(1983, 239, -881), 15, 200, new Vec3(1983, 239, -881),
+            instance = new MoontainBoss3Instance(new Vec3(1983, 239, -881), 20, 200, new Vec3(1983, 239, -881),
                     Component.literal(mobName).withStyle(style));
         }
         return instance;
@@ -51,9 +63,104 @@ public class MoontainBoss3Instance extends NoTeamInstance {
         super(pos, range, delayTick, armorStandPos, name);
     }
 
+    public static int leftLifeTimes = 0;
+    public static int recoverFlag = 0;
+    public static int stage = 0;
+
+    public double getRate() {
+        return 1 + stage * 0.25;
+    }
+
+    public static boolean beforeKill(Mob mob) {
+        if (MobSpawn.getMobOriginName(mob).equals(mobName) && leftLifeTimes > 0) {
+            leftLifeTimes --;
+            recoverFlag = 1;
+            stage ++;
+            mob.setHealth(mob.getMaxHealth());
+            return false;
+        }
+        return true;
+    }
+
     @Override
     public void tickModule() {
         if (mobList.isEmpty()) return;
+        Mob boss = mobList.get(0);
+        if (recoverFlag == 1) {
+            recoverFlag = 0;
+            MobSpawn.MobBaseAttributes.attackDamage.put(MobSpawn.getMobOriginName(boss), 3800 * getRate());
+            Level level = boss.level();
+            getPlayerList(level)
+                    .forEach(player -> {
+                        Damage.AttackDamageToPlayer(boss, player, 5000 * getRate());
+                        Damage.manaDamageToPlayer(boss, player, 2500 * getRate(), 0, 100);
+                        ParticleProvider.createLineEffectParticle(level, (int) boss.distanceTo(player) * 5,
+                                boss.getEyePosition(), player.getEyePosition(), CustomStyle.styleOfMoontain);
+                        SpecialEffectOnPlayer.addHealingReduction(player, "MoontainBoss3HealingReduction",
+                                0.6, 100);
+                        Compute.sendFormatMSG(player, Te.s("望山武士", CustomStyle.styleOfMoontain),
+                                Te.s(" - 回火 - " + leftLifeTimes, CustomStyle.styleOfMoontain));
+                    });
+            MySound.soundToNearPlayer(level, boss.getEyePosition(), SoundEvents.WITHER_AMBIENT);
+        }
+        skill0(boss);
+        skill1(boss);
+        skill2(boss);
+    }
+
+
+    /**
+     * 每2秒对周围玩家造成5k物理伤害与3.5k魔法伤害，并施加炼狱之火
+     */
+    public void skill0(Mob boss) {
+        if (Tick.get() % 40 == 0) {
+            Level level = boss.level();
+            getPlayerList(level)
+                    .forEach(player -> {
+                        Damage.AttackDamageToPlayer(boss, player, 5000 * getRate());
+                        Damage.manaDamageToPlayer(boss, player, 2500 * getRate(), 0, 100);
+                        ParticleProvider.createLineEffectParticle(level, (int) boss.distanceTo(player) * 5,
+                                boss.getEyePosition(), player.getEyePosition(), CustomStyle.styleOfMoontain);
+                        player.addEffect(new MobEffectInstance(BornInChaosV1ModMobEffects.INFERNAL_FLAME.get(), 50));
+                    });
+        }
+    }
+
+    /**
+     * 每5s对距离最近的玩家施加5s的40%重伤效果，并降低40%造成伤害
+     */
+    public void skill1(Mob boss) {
+        if (Tick.get() % 100 == 0) {
+            getPlayerList(boss.level()).stream().min(new Comparator<Player>() {
+                @Override
+                public int compare(Player o1, Player o2) {
+                    return (int) (o1.distanceTo(boss) - o2.distanceTo(boss));
+                }
+            }).ifPresent(player -> {
+                SpecialEffectOnPlayer.addHealingReduction(player, "MoontainBoss3HealingReduction", 0.4, 100);
+                StableAttributesModifier.addM(player, StableAttributesModifier.playerMonsterControlDamageEffect,
+                        "MoontainBoss3DamageControl", -0.4, Tick.get() + 100);
+                Compute.sendDebuffTime(player, "hud/damage_reduction", 100, 50, false);
+                ParticleProvider.createBreakBlockParticle(player, Blocks.DARK_PRISMARINE);
+            });
+        }
+    }
+
+
+    /**
+     * 每过一个阶段，削减附近玩家100护甲，40魔抗
+     */
+    public void skill2(Mob boss) {
+        if (stage > 0 && Tick.get() % 20 == 0) {
+            getPlayerList(boss.level())
+                    .forEach(player -> {
+                        StableAttributesModifier.addM(player, StableAttributesModifier.playerDefenceModifier,
+                                "MoontainBoss3DefenceReduction", -100 * stage, Tick.get() + 100);
+                        StableAttributesModifier.addM(player, StableAttributesModifier.playerManaDefenceModifier,
+                                "MoontainBoss3ManaDefenceReduction", -40 * stage, Tick.get() + 100);
+                        Compute.sendDebuffTime(player, "hud/defence_reduction", 100, stage, false);
+                    });
+        }
     }
 
     @Override
@@ -80,6 +187,10 @@ public class MoontainBoss3Instance extends NoTeamInstance {
         });
         bossInfoList.add(serverBossEvent);
         mobList.add(entity);
+
+        leftLifeTimes = 4;
+        recoverFlag = 0;
+        stage = 0;
     }
 
     @Override

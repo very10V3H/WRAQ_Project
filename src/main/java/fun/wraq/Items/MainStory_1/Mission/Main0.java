@@ -1,23 +1,20 @@
 package fun.wraq.Items.MainStory_1.Mission;
 
+import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
-import fun.wraq.process.system.bonuschest.BonusChestPlayerData;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.p3pp3rf1y.sophisticatedbackpacks.backpack.BackpackItem;
-import net.p3pp3rf1y.sophisticatedbackpacks.backpack.wrapper.BackpackWrapper;
-import net.p3pp3rf1y.sophisticatedbackpacks.init.ModItems;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -59,7 +56,7 @@ public class Main0 extends Item {
             CompoundTag data = player.getPersistentData();
             ServerPlayer serverPlayer = (ServerPlayer) player;
 
-            for (int i = 0 ; i < player.getInventory().getMaxStackSize() ; i ++) {
+/*            for (int i = 0 ; i < player.getInventory().getMaxStackSize() ; i ++) {
                 ItemStack stack = player.getInventory().getItem(i);
                 if (stack.getItem() instanceof BackpackItem) {
                     BackpackWrapper backpackWrapper = new BackpackWrapper(stack);
@@ -74,14 +71,17 @@ public class Main0 extends Item {
                     }
                     player.getInventory().setItem(i, newBackPack);
                 }
-            }
+            }*/
+
+            MySound.soundToPlayer(player, SoundEvents.WITHER_AMBIENT);
         }
 
         if (!level.isClientSide && player.isShiftKeyDown()) {
-            BonusChestPlayerData.resetAllZoneInfo(player);
+
         }
 
         if (level.isClientSide && !player.isShiftKeyDown()) {
+
         }
 
         if (level.isClientSide && player.isShiftKeyDown()) {

@@ -1,6 +1,5 @@
 package fun.wraq.process.func;
 
-import fun.wraq.common.Compute;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
 import net.minecraft.core.particles.ParticleOptions;
@@ -113,7 +112,6 @@ public class MobEffectAndDamageMethods {
         if (!playerDamageDecreaseMap.containsKey(player)) playerDamageDecreaseMap.put(player, new ArrayList<>());
         List<PlayerDamageDecrease> list = playerDamageDecreaseMap.get(player);
         list.add(new PlayerDamageDecrease(mob, rate, player.getServer().getTickCount() + lastTick));
-        Compute.debuffTimeSend(player, displayItem, lastTick, 0);
     }
 
     public static double PlayerDamageDecreaseRate(Player player, Mob mob) {

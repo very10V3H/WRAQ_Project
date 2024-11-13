@@ -133,6 +133,7 @@ public class DamageInfluence {
         if (Tower.mobIsTowerMob(mob) != -1 && Tower.playerIsChallengingTower(player) != Tower.mobIsTowerMob(mob))
             return 0;
         if (MobSpawn.getMobOriginName(mob).contains("本源") && player.distanceTo(mob) >= 16) rate += -0.6;
+        rate += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerMonsterControlDamageEffect);
         return rate;
     }
 

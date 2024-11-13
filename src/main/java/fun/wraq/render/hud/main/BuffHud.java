@@ -201,6 +201,17 @@ public class BuffHud {
 
         count++;
 
+        for (HudIcon hudIcon : ClientUtils.debuffTimes) {
+            guiGraphics.blit(new ResourceLocation(Utils.MOD_ID, "textures/" + hudIcon.url + ".png"), x + XXOffset + count * 15, y - 60, 0, 0, 16, 16, 16, 16);
+            int Time = (int) (12 - hudIcon.lastTick * 12.0f / hudIcon.maxTick);
+            guiGraphics.blit(ClientUtils.dCdResourceLocation[Time], x + XXOffset + count * 15, y - 60, 0, 0, 16, 16, 16, 16);
+            if (hudIcon.lastTick > 0) guiGraphics.drawCenteredString(fontRenderer,
+                    Component.literal(hudIcon.lastTick >= 20 ? String.format("%.0f", hudIcon.lastTick / 20d) : String.format("%.1f", hudIcon.lastTick / 20d)).withStyle(ChatFormatting.WHITE), x + XXOffset + count * 15 + 11, y - 52, 10);
+            count++;
+        }
+
+        count++;
+
         if (DailyEndlessInstance.clientKillCount > 0 && DailyEndlessInstance.clientLastTick > 0) {
             List<Style> styleList = List.of(CustomStyle.styleOfPlain, CustomStyle.styleOfForest,
                     CustomStyle.styleOfLake, CustomStyle.styleOfVolcano, CustomStyle.styleOfPower);

@@ -21,6 +21,7 @@ import fun.wraq.events.mob.MobDeadModule;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.instances.element.IceInstance;
 import fun.wraq.events.mob.instance.instances.element.MoonInstance;
+import fun.wraq.events.mob.instance.instances.moontain.MoontainBoss3Instance;
 import fun.wraq.events.modules.HurtEventModule;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.element.equipAndCurios.fireElement.FireEquip;
@@ -489,6 +490,7 @@ public class Damage {
             entity.hurt(entity.damageSources().playerAttack(player), 0);
             MySound.soundOnMob(mob, SoundEvents.PLAYER_HURT);
             double finalDamage = mob.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.WoodenStake5.get()) ? 0 : (float) damage;
+            if (mob.getHealth() <= finalDamage && !MoontainBoss3Instance.beforeKill(mob)) return;
             if (mob.getHealth() <= finalDamage && mob.isAlive()) {
                 // 怪物死亡技艺
                 MobDeadModule.deadModule(mob);
