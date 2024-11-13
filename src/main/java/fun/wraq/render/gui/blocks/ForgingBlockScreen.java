@@ -2,6 +2,8 @@ package fun.wraq.render.gui.blocks;
 
 import com.google.common.collect.ImmutableMap;
 import com.mojang.blaze3d.systems.RenderSystem;
+import fun.wraq.common.equip.WraqArmor;
+import fun.wraq.common.equip.WraqMainHandEquip;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.Utils;
 import fun.wraq.networking.ModNetworking;
@@ -171,7 +173,7 @@ public class ForgingBlockScreen extends AbstractContainerScreen<fun.wraq.render.
         ItemStack enhancePaper = this.getMenu().blockEntity.getItemStackHandler().getStackInSlot(3);
 
         if ((stone.getItem() instanceof ForgingMaterial || stone.is(ModItems.WORLD_FORGE_STONE.get()))
-                && Utils.mainHandTag.containsKey(equip.getItem())) {
+                && (equip.getItem() instanceof WraqMainHandEquip || equip.getItem() instanceof WraqArmor)) {
             CompoundTag data = equip.getTagElement(Utils.MOD_ID);
             if (data != null) {
                 int forgelevel = 0;

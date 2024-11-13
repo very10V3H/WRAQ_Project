@@ -1,6 +1,8 @@
 package fun.wraq.process.system.spur.events;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Te;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModBlocks;
 import fun.wraq.common.util.ItemAndRate;
 import fun.wraq.common.util.StringUtils;
@@ -10,6 +12,7 @@ import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.system.missions.series.labourDay.LabourDayMission;
 import fun.wraq.process.system.ore.OreItems;
 import fun.wraq.process.system.spur.Items.SpurItems;
+import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -120,7 +123,7 @@ public class MineSpur {
             tag.putInt(minePieceGetTimes, tag.getInt(minePieceGetTimes) + 1);
             InventoryOperation.itemStackGive(player, new ItemStack(SpurItems.minePiece.get()));
         }
-        if (Compute.exHarvestItemGive(player, new ItemStack(SpurItems.minePiece.get()), 0.08))  {
+        if (Compute.exHarvestItemGive(player, new ItemStack(SpurItems.minePiece.get()), 0.08)) {
             CompoundTag tag = player.getPersistentData();
             tag.putInt(minePieceGetTimes, tag.getInt(minePieceGetTimes) + 1);
         }
@@ -137,18 +140,30 @@ public class MineSpur {
         return 0;
     }
 
+    public static Map<Player, Integer> lastMineTickMap = new WeakHashMap<>();
+
     public static void addPlayerMineExp(Player player, int Num) {
         CompoundTag data = player.getPersistentData();
         data.putInt(StringUtils.Mine.Exp, data.getInt(StringUtils.Mine.Exp) + Num);
-        ClientboundSetActionBarTextPacket clientboundSetActionBarTextPacket = new ClientboundSetActionBarTextPacket(Component.literal("采矿经验").withStyle(ChatFormatting.LIGHT_PURPLE).
-                append(Component.literal(" + ").withStyle(ChatFormatting.DARK_GREEN)).
-                append(Component.literal("" + Num).withStyle(ChatFormatting.GREEN)).
-                append(Component.literal(" (" + data.getInt(StringUtils.Mine.Exp) + ")").withStyle(ChatFormatting.GRAY)));
+        ClientboundSetActionBarTextPacket clientboundSetActionBarTextPacket =
+                new ClientboundSetActionBarTextPacket(Component.literal("采矿经验").withStyle(ChatFormatting.LIGHT_PURPLE).
+                        append(Component.literal(" + ").withStyle(ChatFormatting.DARK_GREEN)).
+                        append(Component.literal("" + Num).withStyle(ChatFormatting.GREEN)).
+                        append(Component.literal(" (" + data.getInt(StringUtils.Mine.Exp) + ")").withStyle(ChatFormatting.GRAY)));
         ServerPlayer serverPlayer = (ServerPlayer) player;
         serverPlayer.connection.send(clientboundSetActionBarTextPacket);
+
+        if (getPlayerMineLevel(player) > 0
+                && (!lastMineTickMap.containsKey(player) || lastMineTickMap.get(player) + 12000 < Tick.get())) {
+            Compute.sendFormatMSG(player, Te.s("采矿", CustomStyle.styleOfStone),
+                    Te.s("你丰富的采矿经验为你额外提供了",
+                            getPlayerMineLevel(player) * 100 + "%挖掘速度", CustomStyle.styleOfStone));
+            lastMineTickMap.put(player, Tick.get());
+        }
     }
 
-    public record DropAndExp(Item item, double exp) {}
+    public record DropAndExp(Item item, double exp) {
+    }
 
     public static Map<Block, DropAndExp> mineRewardMap = new HashMap<>() {{
         put(Blocks.COAL_ORE, new DropAndExp(Items.COAL, 0.01));

@@ -20,7 +20,9 @@ import fun.wraq.networking.unSorted.PlayerCallBack;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.system.bonuschest.BonusChestInfo;
 import fun.wraq.process.system.bonuschest.BonusChestPlayerData;
+import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.process.system.forge.ForgeHammer;
+import fun.wraq.process.system.smelt.Smelt;
 import fun.wraq.process.system.spur.events.CropSpur;
 import fun.wraq.process.system.spur.events.MineSpur;
 import fun.wraq.process.system.spur.events.WoodSpur;
@@ -167,11 +169,18 @@ public class BlockEvent {
                 event.setCanceled(true);
             } else {
                 boolean flag = false;
+                if (blockState.getBlock().equals(ModBlocks.FURNACE.get())) {
+                    ModNetworking.sendToClient(new ScreenSetS2CPacket(5), (ServerPlayer) player);
+                    Smelt.sendDataToClient((ServerPlayer) player);
+                    event.setCanceled(true);
+                }
                 if (blockState.getBlock().equals(ModBlocks.FORGING_BLOCK.get())) {
                     if (player.getMainHandItem().getItem() instanceof ForgeHammer) {
-                        ModNetworking.sendToClient(new ScreenSetS2CPacket(4), (ServerPlayer) player);
-                        MySound.soundToPlayer(player, SoundEvents.ANVIL_LAND);
-                        event.setCanceled(true);
+                        if (!ForgeEquipUtils.getPlayerInZoneItemList(player).isEmpty()) {
+                            ModNetworking.sendToClient(new ScreenSetS2CPacket(4), (ServerPlayer) player);
+                            MySound.soundToPlayer(player, SoundEvents.ANVIL_LAND);
+                            event.setCanceled(true);
+                        }
                     } else {
                         ForgingBlockEntity forgingBlockEntity = (ForgingBlockEntity) player.level().getBlockEntity(blockPos);
                         forgingBlockEntity.clear();
@@ -188,7 +197,7 @@ public class BlockEvent {
                     injectBlockEntity.clear();
                     flag = true;
                 }
-                if (blockState.getBlock().equals(ModBlocks.Furnace.get())) {
+                if (blockState.getBlock().equals(ModBlocks.FURNACE.get())) {
                     FurnaceEntity furnaceEntity = (FurnaceEntity) player.level().getBlockEntity(blockPos);
                     furnaceEntity.clear();
                     flag = true;

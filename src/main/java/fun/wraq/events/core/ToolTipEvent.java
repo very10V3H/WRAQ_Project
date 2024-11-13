@@ -75,11 +75,11 @@ public class ToolTipEvent {
             else {
                 InjectingRecipe injectingRecipe;
                 Item sourceItem = event.getItemStack().getItem();
-                if (InjectRecipe.injectingRecipeMap.containsKey(event.getItemStack().getItem())) {
-                    injectingRecipe = InjectRecipe.injectingRecipeMap.get(event.getItemStack().getItem());
-                } else {
+                if (InjectRecipe.injectedGetItemSourceItemMap.containsKey(event.getItemStack().getItem())) {
                     sourceItem = InjectRecipe.injectedGetItemSourceItemMap.get(event.getItemStack().getItem());
                     injectingRecipe = InjectRecipe.injectingRecipeMap.get(sourceItem);
+                } else {
+                    injectingRecipe = InjectRecipe.injectingRecipeMap.get(event.getItemStack().getItem());
                 }
                 tooltip.add(Te.s("->", ChatFormatting.GOLD, "在", "灌注台", CustomStyle.styleOfPurpleIron,
                         "->", ChatFormatting.GOLD));

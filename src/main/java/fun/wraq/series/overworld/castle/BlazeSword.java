@@ -18,7 +18,7 @@ public class BlazeSword extends WraqPassiveEquip {
     };
 
     private static final double[] Defence = {
-            2, 3, 5, 6
+            4, 6, 8, 10
     };
 
     private static final double[] MaxHealth = {

@@ -41,7 +41,7 @@ public class ModBlocks {
             () -> new InjectBlock(BlockBehaviour.Properties.copy(Blocks.STONE)
                     .strength(6f).requiresCorrectToolForDrops().noOcclusion()), CreativeModeTabs.getDefaultTab());
 
-    public static final RegistryObject<Block> Furnace = registerBlock("furnace",
+    public static final RegistryObject<Block> FURNACE = registerBlock("furnace",
             () -> new Furnace(BlockBehaviour.Properties.copy(Blocks.STONE)
                     .strength(6f).requiresCorrectToolForDrops().noOcclusion()), CreativeModeTabs.getDefaultTab());
 

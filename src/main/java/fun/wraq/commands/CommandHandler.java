@@ -520,5 +520,14 @@ public class CommandHandler {
                                 .requires(commandSourceStack -> commandSourceStack.hasPermission(2))
                 )
         );
+
+        CommandDispatcher<CommandSourceStack> dispatcher56 = event.getDispatcher();
+        LiteralCommandNode<CommandSourceStack> cmd56 = dispatcher56.register(
+                Commands.literal(Utils.MOD_ID).then(
+                        Commands.literal("fixBackpack")
+                                .requires(commandSourceStack -> commandSourceStack.hasPermission(0))
+                                .executes(FixBackpackCommand.instance)
+                )
+        );
     }
 }

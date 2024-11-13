@@ -27,6 +27,7 @@ import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.endlessinstance.DailyEndlessInstance;
 import fun.wraq.process.system.forge.ForgeScreen;
 import fun.wraq.process.system.missions.MissionScreen;
+import fun.wraq.process.system.smelt.SmeltRecipeScreen;
 import fun.wraq.process.system.wayPoints.MyWayPoint;
 import fun.wraq.render.gui.market.MarketScreen;
 import fun.wraq.render.gui.skills.IdCardGui;
@@ -274,7 +275,7 @@ public class ClientPlayerTickEvent {
                     case 2 -> mc.setScreen(new PlayerRequestScreen(true));
                     case 3 -> mc.setScreen(new IdCardGui(true));
                     case 4 -> mc.setScreen(new ForgeScreen());
-
+                    case 5 -> mc.setScreen(new SmeltRecipeScreen());
                 }
                 ClientUtils.clientScreenSetFlag = -1;
             }

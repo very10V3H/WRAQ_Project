@@ -52,6 +52,7 @@ public class ItemAndRate {
         int num = (int) Math.floor(rate);
         if (random.nextDouble() < rate) num ++;
         newStack.setCount(itemStack.getCount() * num);
+        newStack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
         InventoryOperation.itemStackGive(player, newStack);
     }
 
@@ -129,6 +130,7 @@ public class ItemAndRate {
 
     public static void summonItemEntity(ItemStack itemStack, Vec3 pos, Level level, int pickUpDelay) {
         ItemEntity itemEntity = new ItemEntity(EntityType.ITEM, level);
+        itemStack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
         itemEntity.setItem(itemStack);
         itemEntity.setPos(pos.add(0, 0.5, 0));
         itemEntity.setPickUpDelay(pickUpDelay);
@@ -189,6 +191,7 @@ public class ItemAndRate {
     public static void summonBoundingItemEntity(Mob mob, ItemStack itemStack, Player player) {
         Random rand = new Random();
         ItemEntity itemEntity = new ItemEntity(EntityType.ITEM, mob.level());
+        itemStack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
         itemEntity.setItem(itemStack);
         itemEntity.setPos(mob.position().add(0, 0.5, 0));
         itemEntity.setPickUpDelay(8);

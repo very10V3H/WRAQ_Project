@@ -1,9 +1,5 @@
 package fun.wraq.blocks.entity;
 
-import fun.wraq.blocks.entity.ForgingBlockEntity;
-import fun.wraq.blocks.entity.FurnaceEntity;
-import fun.wraq.blocks.entity.HBrewingEntity;
-import fun.wraq.blocks.entity.InjectBlockEntity;
 import fun.wraq.common.registry.ModBlocks;
 import fun.wraq.common.util.Utils;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -34,7 +30,7 @@ public class ModBlockEntities {
     public static final RegistryObject<BlockEntityType<fun.wraq.blocks.entity.FurnaceEntity>> Furnace =
             BLOCK_ENTITIES.register("furnace", () ->
                     BlockEntityType.Builder.of(FurnaceEntity::new,
-                            ModBlocks.Furnace.get()).build(null));
+                            ModBlocks.FURNACE.get()).build(null));
 
     public static void Register(IEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);

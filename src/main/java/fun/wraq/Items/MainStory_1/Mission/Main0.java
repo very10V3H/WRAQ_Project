@@ -1,7 +1,6 @@
 package fun.wraq.Items.MainStory_1.Mission;
 
 import fun.wraq.common.util.ComponentUtils;
-import fun.wraq.process.func.SpecialEffectOnPlayer;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -71,11 +70,10 @@ public class Main0 extends Item {
                     player.getInventory().setItem(i, newBackPack);
                 }
             }*/
-            SpecialEffectOnPlayer.addImprisonEffect(player, 60);
         }
 
         if (!level.isClientSide && player.isShiftKeyDown()) {
-            SpecialEffectOnPlayer.cleanse(player);
+
         }
 
         if (level.isClientSide && !player.isShiftKeyDown()) {
