@@ -9,6 +9,7 @@ import fun.wraq.common.equip.impl.RandomCurios;
 import fun.wraq.common.equip.impl.RepeatableCurios;
 import fun.wraq.common.equip.impl.WraqMainHandOrPassiveEquip;
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.oncostmana.OnCostManaEquip;
 import fun.wraq.common.registry.ModEntityType;
 import fun.wraq.common.registry.ModItems;
@@ -1370,26 +1371,33 @@ public class Compute {
 
     public static class CuriosAttribute {
 
+        public static Map<Player, Integer> curiosListLastGetTickMap = new WeakHashMap<>();
+        public static Map<Player, List<ItemStack>> curiosListCache = new WeakHashMap<>();
         /**
          * 获取玩家去重饰品列表
          */
         public static List<ItemStack> getDistinctCuriosList(Player player) {
-            List<ItemStack> curiosList = new ArrayList<>();
-            CuriosApi.getCuriosInventory(player).ifPresent(iCuriosItemHandler -> {
-                int size = iCuriosItemHandler.getEquippedCurios().getSlots();
-                Set<Item> curiosItemSet = new HashSet<>();
-                for (int i = 0 ; i < size ; i ++) {
-                    ItemStack stack = iCuriosItemHandler.getEquippedCurios().getStackInSlot(i);
-                    if (stack.is(Items.AIR)) continue;
-                    if (!curiosItemSet.contains(stack.getItem())) {
-                        if (!(stack.getItem() instanceof RepeatableCurios)) {
-                            curiosItemSet.add(stack.getItem());
+            if (!curiosListCache.containsKey(player)
+                    || curiosListLastGetTickMap.getOrDefault(player, 0) + 20 < Tick.get()) {
+                List<ItemStack> curiosList = new ArrayList<>();
+                CuriosApi.getCuriosInventory(player).ifPresent(iCuriosItemHandler -> {
+                    int size = iCuriosItemHandler.getEquippedCurios().getSlots();
+                    Set<Item> curiosItemSet = new HashSet<>();
+                    for (int i = 0 ; i < size ; i ++) {
+                        ItemStack stack = iCuriosItemHandler.getEquippedCurios().getStackInSlot(i);
+                        if (stack.is(Items.AIR)) continue;
+                        if (!curiosItemSet.contains(stack.getItem())) {
+                            if (!(stack.getItem() instanceof RepeatableCurios)) {
+                                curiosItemSet.add(stack.getItem());
+                            }
+                            curiosList.add(stack);
                         }
-                        curiosList.add(stack);
                     }
-                }
-            });
-            return curiosList;
+                });
+                curiosListCache.put(player, curiosList);
+                curiosListLastGetTickMap.put(player, Tick.get());
+            }
+            return curiosListCache.get(player);
         }
 
         public static double attributeValue(Player player, Map<Item, Double> attributeMap, String attributeName) {
