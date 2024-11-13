@@ -27,6 +27,7 @@ import fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSce
 import fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSword;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.process.system.potion.NewPotionEffects;
+import fun.wraq.process.system.spur.events.MineSpur;
 import fun.wraq.process.system.tower.TowerMob;
 import fun.wraq.render.mobEffects.ModEffects;
 import fun.wraq.series.gems.GemAttributes;
@@ -1990,8 +1991,11 @@ public class PlayerAttributes {
         return 250 + maxMana;
     }
 
-    public static double getMineSpeed(Player player) {
-        return computeAllEquipSlotBaseAttributeValue(player, WraqPickaxe.mineSpeed, false);
+    public static double getMineSpeedEnhanceRate(Player player) {
+        double rate = 0;
+        rate += computeAllEquipSlotBaseAttributeValue(player, WraqPickaxe.mineSpeed, false);
+        rate += MineSpur.getPlayerMineLevel(player);
+        return rate;
     }
 
     public static double handleArmorRandomAttribute(Player player, String attributeType) {

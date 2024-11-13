@@ -511,8 +511,6 @@ public class VMD {
             event.accept(ModItems.MOVEMENT_SPEED_UP_POTION_BAG.get().getDefaultInstance());
             event.accept(ModItems.GoldCoinBag.get().getDefaultInstance());
             event.accept(ModItems.BackPackTickets.get().getDefaultInstance());
-            event.accept(ModItems.SakuraPocket.get().getDefaultInstance());
-            event.accept(ModItems.WheatPocket.get().getDefaultInstance());
             event.accept(ModItems.completeGem.get().getDefaultInstance());
             event.accept(ModItems.ReputationMedal.get().getDefaultInstance());
             event.accept(ModItems.commonLotteries.get().getDefaultInstance());

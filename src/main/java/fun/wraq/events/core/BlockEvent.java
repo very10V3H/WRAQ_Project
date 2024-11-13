@@ -59,7 +59,7 @@ public class BlockEvent {
     @SubscribeEvent
     public static void setMineSpeed(PlayerEvent.BreakSpeed event) {
         Player player = event.getEntity();
-        double mineSpeed = PlayerAttributes.getMineSpeed(player);
+        double mineSpeed = PlayerAttributes.getMineSpeedEnhanceRate(player);
         event.setNewSpeed((float) (1 + mineSpeed));
     }
 

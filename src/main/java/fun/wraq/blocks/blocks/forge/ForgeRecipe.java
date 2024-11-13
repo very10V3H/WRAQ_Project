@@ -227,7 +227,6 @@ public class ForgeRecipe {
         forgeDrawRecipe.put(ModItems.VolcanoBow0.get(), new ArrayList<>() {{
             add(new ItemStack(ModItems.VolcanoRune.get(), 3));
             add(new ItemStack(ModItems.FireElementPiece0.get(), 14));
-            add(new ItemStack(Items.IRON_INGOT, 16));
         }});
 
         forgeDrawRecipe.put(ModItems.MineArmorHelmet.get(), new ArrayList<>() {{

@@ -80,7 +80,7 @@ public class MineSpur {
                             if ((blockState.is(Blocks.STONE) || blockState.is(Blocks.COBBLESTONE))) {
                                 player.addItem(Items.COBBLESTONE.getDefaultInstance());
                             }
-                            if ((blockState.is(Blocks.DEEPSLATE) || blockState.is(Blocks.COBBLED_DEEPSLATE)) && InventoryOperation.itemStackCount(player.getInventory(), Items.COBBLED_DEEPSLATE) < 32) {
+                            if ((blockState.is(Blocks.DEEPSLATE) || blockState.is(Blocks.COBBLED_DEEPSLATE))) {
                                 player.addItem(Items.COBBLED_DEEPSLATE.getDefaultInstance());
                             }
                             if (blockState.is(Blocks.ANDESITE)) player.addItem(Items.ANDESITE.getDefaultInstance());
@@ -130,10 +130,10 @@ public class MineSpur {
         CompoundTag data = player.getPersistentData();
         int MineXp = data.getInt(StringUtils.Mine.Exp);
         if (MineXp <= 100) return 1;
-        else if (MineXp <= 1000) return 2;
-        else if (MineXp <= 5000) return 3;
-        else if (MineXp <= 20000) return 4;
-        else if (MineXp <= 100000) return 5;
+        else if (MineXp <= 500) return 2;
+        else if (MineXp <= 2000) return 3;
+        else if (MineXp <= 5000) return 4;
+        else if (MineXp <= 10000) return 5;
         return 0;
     }
 
