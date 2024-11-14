@@ -1,6 +1,7 @@
 package fun.wraq.Items.MainStory_1.Mission;
 
 import fun.wraq.common.util.ComponentUtils;
+import fun.wraq.events.mob.instance.instances.moontain.MoontainBoss3Instance;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -15,6 +16,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,6 +72,7 @@ public class Main0 extends Item {
                     player.getInventory().setItem(i, newBackPack);
                 }
             }*/
+            MoontainBoss3Instance.getInstance().giveEquip(player, new SecureRandom());
         }
 
         if (!level.isClientSide && player.isShiftKeyDown()) {

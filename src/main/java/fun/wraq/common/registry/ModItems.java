@@ -271,7 +271,6 @@ import fun.wraq.series.overworld.sakuraSeries.MineWorker.PurplePickaxe;
 import fun.wraq.series.overworld.sakuraSeries.SakuraMob.*;
 import fun.wraq.series.overworld.sakuraSeries.Scarecrow.Wheat;
 import fun.wraq.series.overworld.sakuraSeries.Scarecrow.WheatArmorChest;
-import fun.wraq.series.overworld.sakuraSeries.Scarecrow.WheatPocket;
 import fun.wraq.series.overworld.sakuraSeries.Scarecrow.WheatReForge;
 import fun.wraq.series.overworld.sakuraSeries.Ship.ShipBow;
 import fun.wraq.series.overworld.sakuraSeries.Ship.ShipSceptre;
@@ -1064,6 +1063,13 @@ public class ModItems {
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.Quartz)));
     public static final RegistryObject<Item> QuartzRune = ITEMS.register("quartzrune",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.QuartzBold)));
+
+    public static final RegistryObject<Item> NETHER_IMPRINT = ITEMS.register("nether_imprint",
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.NetherBold)));
+
+    public static final RegistryObject<Item> FOILED_NETHER_IMPRINT = ITEMS.register("foiled_nether_imprint",
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.NetherBold), false, true));
+
     public static final RegistryObject<Item> NETHER_POWER_MODEL = ITEMS.register("powermodel",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.Evoker)));
     public static final RegistryObject<Item> QuartzSabre = ITEMS.register("quartzsabre",
@@ -1706,6 +1712,9 @@ public class ModItems {
 
     public static final RegistryObject<Item> Boss2Piece = ITEMS.register("boss_2_piece",
             () -> new WraqItem(new Item.Properties().rarity(Rarity.EPIC)));
+
+    public static final RegistryObject<Item> GOLDEN_SHEET = ITEMS.register("golden_sheet",
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.GoldBold)));
 
     public static final RegistryObject<Item> WorldSoul1 = ITEMS.register("worldsoul1",
             () -> new Item(new Item.Properties().rarity(CustomStyle.WorldBold)));
@@ -3677,7 +3686,7 @@ public class ModItems {
             () -> new SupplyBox(new Item.Properties().rarity(CustomStyle.Green), new ArrayList<>() {{
                 add(new ItemStack(MopUpPaperLoot.get(), 4));
                 add(new ItemStack(KillPaperLoot.get(), 8));
-                add(new ItemStack(notePaper.get(), 32));
+                add(new ItemStack(notePaper.get(), 80));
                 add(new ItemStack(RevelationBook.get(), 8));
             }}));
 
@@ -3685,7 +3694,7 @@ public class ModItems {
             () -> new SupplyBox(new Item.Properties().rarity(Rarity.RARE), new ArrayList<>() {{
                 add(new ItemStack(MopUpPaperLoot.get(), 8));
                 add(new ItemStack(KillPaperLoot.get(), 16));
-                add(new ItemStack(notePaper.get(), 64));
+                add(new ItemStack(notePaper.get(), 96));
                 add(new ItemStack(RevelationBook.get(), 16));
                 add(new ItemStack(worldSoul5.get(), 80));
             }}));
@@ -3897,15 +3906,6 @@ public class ModItems {
 
     public static final RegistryObject<Item> GOLDEN_APPLE = ITEMS.register("golden_apple",
             () -> new SimpleFoiledItem(new Item.Properties().rarity(Rarity.UNCOMMON)));
-
-    public static final RegistryObject<Item> NETHER_IMPRINT = ITEMS.register("nether_imprint",
-            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.NetherBold)));
-
-    public static final RegistryObject<Item> FOILED_NETHER_IMPRINT = ITEMS.register("foiled_nether_imprint",
-            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.NetherBold), false, true));
-
-    public static final RegistryObject<Item> GOLDEN_SHEET = ITEMS.register("golden_sheet",
-            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.GoldBold)));
 
     public static final RegistryObject<Item> REFINED_PIECE = ITEMS.register("refined_piece",
             () -> new WraqItem(new Item.Properties().rarity(Rarity.RARE).stacksTo(16)));

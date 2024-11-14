@@ -67,6 +67,7 @@ public class ForNew extends Item {
                 new ItemStack(ModItems.BackSpawn.get()),
                 new ItemStack(Items.GOLDEN_CARROT, 64),
                 new ItemStack(ModItems.windBottle.get()),
+                new ItemStack(ModItems.notePaper.get(), 256),
                 elyTra);
     }
 

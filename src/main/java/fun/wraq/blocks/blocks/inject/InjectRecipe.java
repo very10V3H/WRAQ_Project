@@ -992,7 +992,7 @@ public class InjectRecipe {
         injectingRecipeMap.put(ModItems.SKY_KANATA.get(),
                 new InjectingRecipe(ModItems.NetherRune.get(), 2, ModItems.NETHER_KANATA.get()));
         injectingRecipeMap.put(ModItems.NETHER_KANATA.get(),
-                new InjectingRecipe(ModItems.Boss2Piece.get(), 16, ModItems.SAKURA_KANATA.get()));
+                new InjectingRecipe(ModItems.GOLDEN_SHEET.get(), 1, ModItems.SAKURA_KANATA.get()));
 
         injectingRecipeMap.put(ModItems.MAGMA_POWER.get(),
                 new InjectingRecipe(ModItems.MagmaRune.get(), 1, ModItems.MAGMA_POWER_1.get()));

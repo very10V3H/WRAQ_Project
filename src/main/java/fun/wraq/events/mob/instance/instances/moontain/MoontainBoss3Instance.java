@@ -207,7 +207,7 @@ public class MoontainBoss3Instance extends NoTeamInstance {
         boolean getReward = false;
         SecureRandom secureRandom = new SecureRandom();
         if (secureRandom.nextDouble() < 0.05) {
-            giveWeapon(player, secureRandom);
+            giveEquip(player, secureRandom);
             getReward = true;
         }
 
@@ -223,7 +223,7 @@ public class MoontainBoss3Instance extends NoTeamInstance {
             data.putInt(PLAYER_LAST_GET_REWARD_TIMES_KEY, data.getInt(PLAYER_LAST_GET_REWARD_TIMES_KEY) + 1);
             int times = data.getInt(PLAYER_LAST_GET_REWARD_TIMES_KEY);
             if (times < 8) {
-                Compute.sendFormatMSG(player, Te.s("望山武士", CustomStyle.styleOfMoontain),
+                Compute.sendFormatMSG(player, Te.s("望山武魂", CustomStyle.styleOfMoontain),
                         Te.s("再完成", String.valueOf(8 - times), CustomStyle.styleOfMoontain,
                                 "次挑战就能直接获得", "望山装备/望山饰品", CustomStyle.styleOfMoontain, "了!"));
             } else {
@@ -231,16 +231,16 @@ public class MoontainBoss3Instance extends NoTeamInstance {
                 if (secureRandom.nextBoolean()) {
                     giveCurios(player, secureRandom);
                 } else {
-                    giveWeapon(player, secureRandom);
+                    giveEquip(player, secureRandom);
                 }
-                Compute.sendFormatMSG(player, Te.s("望山武士", CustomStyle.styleOfMoontain),
+                Compute.sendFormatMSG(player, Te.s("望山武魂", CustomStyle.styleOfMoontain),
                         Te.s("", player.getDisplayName(), "经过了重重磨难，终于获得了梦寐以求的", "望山装备",
                                 CustomStyle.styleOfMoontain));
             }
         }
     }
 
-    private void giveWeapon(Player player, SecureRandom secureRandom) {
+    public void giveEquip(Player player, SecureRandom secureRandom) {
         ItemStack stack;
         if (secureRandom.nextBoolean()) {
             List<Item> weapons = MoontainUtils.getMoontainWeapons();
@@ -262,7 +262,7 @@ public class MoontainBoss3Instance extends NoTeamInstance {
         InventoryOperation.itemStackGive(player, stack);
     }
 
-    private void giveCurios(Player player, SecureRandom secureRandom) {
+    public void giveCurios(Player player, SecureRandom secureRandom) {
         List<Item> curiosList = MoontainUtils.getMoontainCurios();
         ItemStack stack = new ItemStack(curiosList.get(secureRandom.nextInt(curiosList.size())));
         if (stack.getItem() instanceof MoontainCurios moontainCurios) {

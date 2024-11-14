@@ -61,14 +61,15 @@ public class MineSpur {
                                 Utils.posEvenBeenDigOrPlace.add(blockPos);
                             }
                             level.destroyBlock(blockPos, false);
-                            InventoryOperation.itemStackGive(player, mineRewardMap.get(block).item().getDefaultInstance());
+                            ItemStack stack = mineRewardMap.get(block).itemStack;
+                            InventoryOperation.itemStackGive(player, new ItemStack(stack.getItem(), stack.getCount()));
                             mineReward(player, blockState, blockPos);
 
                             Random random = new Random();
                             if (random.nextDouble() < Compute.playerExHarvest(player)) {
                                 Compute.sendFormatMSG(player, Component.literal("额外产出").withStyle(ChatFormatting.GOLD),
                                         Component.literal("为你提供了额外产物！").withStyle(ChatFormatting.WHITE));
-                                InventoryOperation.itemStackGive(player, mineRewardMap.get(block).item().getDefaultInstance());
+                                InventoryOperation.itemStackGive(player, new ItemStack(stack.getItem(), stack.getCount()));
                                 mineReward(player, blockState, blockPos);
                             }
                         } else {
@@ -162,34 +163,34 @@ public class MineSpur {
         }
     }
 
-    public record DropAndExp(Item item, double exp) {
+    public record DropAndExp(ItemStack itemStack, double exp) {
     }
 
     public static Map<Block, DropAndExp> mineRewardMap = new HashMap<>() {{
-        put(Blocks.COAL_ORE, new DropAndExp(Items.COAL, 0.01));
-        put(Blocks.DEEPSLATE_COAL_ORE, new DropAndExp(Items.COAL, 0.01));
-        put(Blocks.COPPER_ORE, new DropAndExp(Items.RAW_COPPER, 0.02));
-        put(Blocks.DEEPSLATE_COPPER_ORE, new DropAndExp(Items.RAW_COPPER, 0.02));
-        put(Blocks.RAW_COPPER_BLOCK, new DropAndExp(Items.RAW_COPPER, 0.02));
-        put(Blocks.IRON_ORE, new DropAndExp(Items.RAW_IRON, 0.03));
-        put(Blocks.DEEPSLATE_IRON_ORE, new DropAndExp(Items.RAW_IRON, 0.03));
-        put(Blocks.RAW_IRON_BLOCK, new DropAndExp(Items.RAW_IRON, 0.03));
-        put(Blocks.LAPIS_ORE, new DropAndExp(Items.LAPIS_LAZULI, 0.03));
-        put(Blocks.DEEPSLATE_LAPIS_ORE, new DropAndExp(Items.LAPIS_LAZULI, 0.03));
-        put(Blocks.REDSTONE_ORE, new DropAndExp(Items.REDSTONE, 0.03));
-        put(Blocks.DEEPSLATE_REDSTONE_ORE, new DropAndExp(Items.REDSTONE, 0.03));
-        put(Blocks.GOLD_ORE, new DropAndExp(Items.RAW_GOLD, 0.04));
-        put(Blocks.DEEPSLATE_GOLD_ORE, new DropAndExp(Items.RAW_GOLD, 0.04));
-        put(Blocks.RAW_GOLD_BLOCK, new DropAndExp(Items.RAW_GOLD, 0.04));
-        put(Blocks.DIAMOND_ORE, new DropAndExp(Items.DIAMOND, 0.05));
-        put(Blocks.DEEPSLATE_DIAMOND_ORE, new DropAndExp(Items.DIAMOND, 0.05));
-        put(Blocks.EMERALD_ORE, new DropAndExp(Items.EMERALD, 0.05));
-        put(Blocks.DEEPSLATE_EMERALD_ORE, new DropAndExp(Items.EMERALD, 0.05));
+        put(Blocks.COAL_ORE, new DropAndExp(new ItemStack(Items.COAL, 4), 0.01));
+        put(Blocks.DEEPSLATE_COAL_ORE, new DropAndExp(new ItemStack(Items.COAL, 8), 0.01));
+        put(Blocks.COPPER_ORE, new DropAndExp(new ItemStack(Items.RAW_COPPER), 0.02));
+        put(Blocks.DEEPSLATE_COPPER_ORE, new DropAndExp(new ItemStack(Items.RAW_COPPER, 2), 0.02));
+        put(Blocks.RAW_COPPER_BLOCK, new DropAndExp(new ItemStack(Items.RAW_COPPER), 0.02));
+        put(Blocks.IRON_ORE, new DropAndExp(new ItemStack(Items.RAW_IRON), 0.03));
+        put(Blocks.DEEPSLATE_IRON_ORE, new DropAndExp(new ItemStack(Items.RAW_IRON, 2), 0.03));
+        put(Blocks.RAW_IRON_BLOCK, new DropAndExp(new ItemStack(Items.RAW_IRON), 0.03));
+        put(Blocks.LAPIS_ORE, new DropAndExp(new ItemStack(Items.LAPIS_LAZULI, 4), 0.03));
+        put(Blocks.DEEPSLATE_LAPIS_ORE, new DropAndExp(new ItemStack(Items.LAPIS_LAZULI, 8), 0.03));
+        put(Blocks.REDSTONE_ORE, new DropAndExp(new ItemStack(Items.REDSTONE, 4), 0.03));
+        put(Blocks.DEEPSLATE_REDSTONE_ORE, new DropAndExp(new ItemStack(Items.REDSTONE, 4), 0.03));
+        put(Blocks.GOLD_ORE, new DropAndExp(new ItemStack(Items.RAW_GOLD), 0.04));
+        put(Blocks.DEEPSLATE_GOLD_ORE, new DropAndExp(new ItemStack(Items.RAW_GOLD, 2), 0.04));
+        put(Blocks.RAW_GOLD_BLOCK, new DropAndExp(new ItemStack(Items.RAW_GOLD), 0.04));
+        put(Blocks.DIAMOND_ORE, new DropAndExp(new ItemStack(Items.DIAMOND), 0.05));
+        put(Blocks.DEEPSLATE_DIAMOND_ORE, new DropAndExp(new ItemStack(Items.DIAMOND, 2), 0.05));
+        put(Blocks.EMERALD_ORE, new DropAndExp(new ItemStack(Items.EMERALD), 0.05));
+        put(Blocks.DEEPSLATE_EMERALD_ORE, new DropAndExp(new ItemStack(Items.EMERALD, 2), 0.05));
 
-        put(ModBlocks.WRAQ_ORE_1.get(), new DropAndExp(OreItems.WRAQ_ORE_1_ITEM.get(), 0.05));
-        put(ModBlocks.WRAQ_ORE_2.get(), new DropAndExp(OreItems.WRAQ_ORE_2_ITEM.get(), 0.05));
-        put(ModBlocks.WRAQ_ORE_3.get(), new DropAndExp(OreItems.WRAQ_ORE_3_ITEM.get(), 0.05));
-        put(ModBlocks.WRAQ_ORE_4.get(), new DropAndExp(OreItems.WRAQ_ORE_4_ITEM.get(), 0.05));
+        put(ModBlocks.WRAQ_ORE_1.get(), new DropAndExp(new ItemStack(OreItems.WRAQ_ORE_1_ITEM.get()), 0.05));
+        put(ModBlocks.WRAQ_ORE_2.get(), new DropAndExp(new ItemStack(OreItems.WRAQ_ORE_2_ITEM.get()), 0.05));
+        put(ModBlocks.WRAQ_ORE_3.get(), new DropAndExp(new ItemStack(OreItems.WRAQ_ORE_3_ITEM.get()), 0.05));
+        put(ModBlocks.WRAQ_ORE_4.get(), new DropAndExp(new ItemStack(OreItems.WRAQ_ORE_4_ITEM.get()), 0.05));
     }};
 
     public static List<Item> getVanillaIngotItems() {

@@ -4,7 +4,6 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.func.item.InventoryOperation;
-import fun.wraq.process.func.plan.PlanPlayer;
 import fun.wraq.process.func.plan.networking.DailySupplyS2CPacket;
 import fun.wraq.process.func.plan.networking.PlanDateAndTierS2CPacket;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
@@ -74,7 +73,7 @@ public class DailySupply {
 
     public static Int2ObjectMap<ItemStack> getRewardItemMap() {
         if (rewardItemMap.isEmpty()) {
-            rewardItemMap.put(0, new ItemStack(ModItems.notePaper.get(), 32));
+            rewardItemMap.put(0, new ItemStack(ModItems.notePaper.get(), 64));
             rewardItemMap.put(1, new ItemStack(ModItems.supplyBoxTier1.get()));
             rewardItemMap.put(2, new ItemStack(ModItems.supplyBoxTier2.get()));
             rewardItemMap.put(3, new ItemStack(ModItems.supplyBoxTier3.get()));

@@ -126,10 +126,10 @@ public enum SmeltRecipe {
             60),
 
     GOLDEN_SHEET(Te.m("大金板", CustomStyle.styleOfGold),
-            List.of(new ItemStack(ModItems.Boss2Piece.get(), 32),
-                    new ItemStack(ModItems.goldCoin.get(), 32)),
+            List.of(new ItemStack(ModItems.Boss2Piece.get(), 16),
+                    new ItemStack(ModItems.goldCoin.get(), 16)),
             List.of(new ItemStack(ModItems.GOLDEN_SHEET.get(), 1)),
-            List.of(new ItemAndRate(new ItemStack(ModItems.goldCoin.get(), 96), 0.5)),
+            List.of(new ItemAndRate(new ItemStack(ModItems.goldCoin.get(), 48), 0.5)),
             75),
 
     DEVIL_BLOOD(Te.m("魔王之血", CustomStyle.styleOfDemon),

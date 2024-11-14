@@ -1590,67 +1590,67 @@ public class TradeList {
             switch (i) {
                 case 0 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.PlainAttackRing3.get(), 1));
-                    add(new ItemStack(ModItems.Boss2Piece.get(), 16));
+                    add(new ItemStack(ModItems.GOLDEN_SHEET.get(), 1));
                 }});
                 case 1 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.Boss2AttackRing0.get(), 1));
-                    add(new ItemStack(ModItems.Boss2Piece.get(), 32));
+                    add(new ItemStack(ModItems.GOLDEN_SHEET.get(), 2));
                 }});
                 case 2 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.Boss2AttackRing1.get(), 1));
-                    add(new ItemStack(ModItems.Boss2Piece.get(), 48));
+                    add(new ItemStack(ModItems.GOLDEN_SHEET.get(), 3));
                 }});
                 case 3 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.Boss2AttackRing2.get(), 1));
-                    add(new ItemStack(ModItems.Boss2Piece.get(), 64));
+                    add(new ItemStack(ModItems.GOLDEN_SHEET.get(), 4));
                 }});
                 case 4 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.PlainManaAttackRing3.get(), 1));
-                    add(new ItemStack(ModItems.Boss2Piece.get(), 16));
+                    add(new ItemStack(ModItems.GOLDEN_SHEET.get(), 1));
                 }});
                 case 5 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.Boss2ManaAttackRing0.get(), 1));
-                    add(new ItemStack(ModItems.Boss2Piece.get(), 32));
+                    add(new ItemStack(ModItems.GOLDEN_SHEET.get(), 2));
                 }});
                 case 6 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.Boss2ManaAttackRing1.get(), 1));
-                    add(new ItemStack(ModItems.Boss2Piece.get(), 48));
+                    add(new ItemStack(ModItems.GOLDEN_SHEET.get(), 3));
                 }});
                 case 7 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.Boss2ManaAttackRing2.get(), 1));
-                    add(new ItemStack(ModItems.Boss2Piece.get(), 64));
+                    add(new ItemStack(ModItems.GOLDEN_SHEET.get(), 4));
                 }});
                 case 8 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.PlainDefenceRing3.get(), 1));
-                    add(new ItemStack(ModItems.Boss2Piece.get(), 16));
+                    add(new ItemStack(ModItems.GOLDEN_SHEET.get(), 1));
                 }});
                 case 9 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.Boss2DefenceRing0.get(), 1));
-                    add(new ItemStack(ModItems.Boss2Piece.get(), 32));
+                    add(new ItemStack(ModItems.GOLDEN_SHEET.get(), 2));
                 }});
                 case 10 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.Boss2DefenceRing1.get(), 1));
-                    add(new ItemStack(ModItems.Boss2Piece.get(), 48));
+                    add(new ItemStack(ModItems.GOLDEN_SHEET.get(), 3));
                 }});
                 case 11 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.Boss2DefenceRing2.get(), 1));
-                    add(new ItemStack(ModItems.Boss2Piece.get(), 64));
+                    add(new ItemStack(ModItems.GOLDEN_SHEET.get(), 4));
                 }});
                 case 12 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.PlainHealthRing3.get(), 1));
-                    add(new ItemStack(ModItems.Boss2Piece.get(), 16));
+                    add(new ItemStack(ModItems.GOLDEN_SHEET.get(), 1));
                 }});
                 case 13 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.Boss2HealthRing0.get(), 1));
-                    add(new ItemStack(ModItems.Boss2Piece.get(), 32));
+                    add(new ItemStack(ModItems.GOLDEN_SHEET.get(), 2));
                 }});
                 case 14 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.Boss2HealthRing1.get(), 1));
-                    add(new ItemStack(ModItems.Boss2Piece.get(), 48));
+                    add(new ItemStack(ModItems.GOLDEN_SHEET.get(), 3));
                 }});
                 case 15 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.Boss2HealthRing2.get(), 1));
-                    add(new ItemStack(ModItems.Boss2Piece.get(), 64));
+                    add(new ItemStack(ModItems.GOLDEN_SHEET.get(), 4));
                 }});
             }
         }
@@ -1790,15 +1790,15 @@ public class TradeList {
                     add(new ItemStack(ModItems.GoldenBook.get(), 1));
                 }});
                 case 8 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.Boss2Piece.get(), 64));
+                    add(new ItemStack(ModItems.GOLDEN_SHEET.get(), 4));
                     add(new ItemStack(ModItems.WitherBook.get(), 1));
                 }});
                 case 9 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.Boss2Piece.get(), 16));
+                    add(new ItemStack(ModItems.GOLDEN_SHEET.get(), 1));
                     add(new ItemStack(ModItems.EarthBook.get(), 1));
                 }});
                 case 10 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.Boss2Piece.get(), 16));
+                    add(new ItemStack(ModItems.GOLDEN_SHEET.get(), 1));
                     add(new ItemStack(ModItems.IceBook.get(), 1));
                 }});
             }
