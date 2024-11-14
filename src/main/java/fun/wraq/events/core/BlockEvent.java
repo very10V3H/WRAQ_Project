@@ -2,10 +2,7 @@ package fun.wraq.events.core;
 
 import com.mojang.logging.LogUtils;
 import fun.wraq.blocks.blocks.WorldSoulBlock;
-import fun.wraq.blocks.entity.ForgingBlockEntity;
-import fun.wraq.blocks.entity.FurnaceEntity;
-import fun.wraq.blocks.entity.HBrewingEntity;
-import fun.wraq.blocks.entity.InjectBlockEntity;
+import fun.wraq.blocks.entity.Droppable;
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.registry.ModBlocks;
@@ -16,7 +13,7 @@ import fun.wraq.common.util.struct.BlockAndResetTime;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.Limit.CheckBlockLimitS2CPacket;
 import fun.wraq.networking.misc.TeamPackets.ScreenSetS2CPacket;
-import fun.wraq.networking.unSorted.PlayerCallBack;
+import fun.wraq.networking.unSorted.BlockLimit;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.system.bonuschest.BonusChestInfo;
 import fun.wraq.process.system.bonuschest.BonusChestPlayerData;
@@ -41,6 +38,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
@@ -73,7 +71,7 @@ public class BlockEvent {
         Block block = level.getBlockState(blockPos).getBlock();
         if (!player.isCreative() &&
                 (block.toString().contains("lamp")
-                || block.toString().contains("sign"))) {
+                        || block.toString().contains("sign"))) {
             event.setCanceled(true);
         }
     }
@@ -139,22 +137,56 @@ public class BlockEvent {
         }
     }
 
-    public static boolean BlockLimitContainBlockPos(BlockPos blockPos) {
+    public static boolean checkBlockLimit(BlockPos blockPos, Player player) {
         boolean contains = false;
-        PlayerCallBack removing = null;
-        for (PlayerCallBack playerCallBack : Utils.playerCallBackList) {
-            if (playerCallBack.getBlockPos().equals(blockPos)) {
-                if (playerCallBack.getPlayer() == null || playerCallBack.getPlayer().position().distanceTo(playerCallBack.getBlockPos().getCenter()) > 8) {
+        BlockLimit removing = null;
+        for (BlockLimit blockLimit : Utils.blockLimitList) {
+            if (blockLimit.getBlockPos().equals(blockPos)) {
+                if (blockLimit.getPlayer().equals(player)) {
+                    return false;
+                }
+                if (blockLimit.getPlayer() == null
+                        || blockLimit.getPlayer().position().distanceTo(blockLimit.getBlockPos().getCenter()) > 8) {
                     contains = false;
-                    removing = playerCallBack;
+                    removing = blockLimit;
                 } else {
-                    ModNetworking.sendToClient(new CheckBlockLimitS2CPacket(), (ServerPlayer) playerCallBack.getPlayer());
+                    ModNetworking.sendToClient(new CheckBlockLimitS2CPacket(), (ServerPlayer) blockLimit.getPlayer());
                     contains = true;
                 }
             }
         }
-        Utils.playerCallBackList.remove(removing);
+        beforeRemoveBlockLimit(removing);
+        Utils.blockLimitList.remove(removing);
         return contains;
+    }
+
+    public static boolean checkBlockLimitIsThisPlayer(BlockPos blockPos, Player player) {
+        return Utils.blockLimitList.stream().anyMatch(blockLimit ->
+                blockLimit.getBlockPos().equals(blockPos) && blockLimit.getPlayer().equals(player));
+    }
+
+    public static void beforeRemoveBlockLimit(BlockLimit removingBlockLimit) {
+        if (removingBlockLimit != null && removingBlockLimit.getPlayer() != null) {
+            Player player = removingBlockLimit.getPlayer();
+            BlockEntity blockEntity = removingBlockLimit.getPlayer().level()
+                    .getBlockEntity(removingBlockLimit.getBlockPos());
+            if (blockEntity instanceof Droppable droppable) {
+                droppable.drops(player);
+            }
+        }
+    }
+
+    public static void removePlayerLimit(Player player) {
+        for (BlockLimit blockLimit : Utils.blockLimitList) {
+            if (blockLimit.getPlayer().getName().getString().equals(player.getName().getString())) {
+                BlockEntity blockEntity = player.level().getBlockEntity(blockLimit.getBlockPos());
+                if (blockEntity instanceof Droppable droppable) {
+                    droppable.drops(player);
+                }
+                Utils.blockLimitList.remove(blockLimit);
+                break;
+            }
+        }
     }
 
     @SubscribeEvent
@@ -163,49 +195,32 @@ public class BlockEvent {
             Player player = event.getEntity();
             BlockPos blockPos = event.getHitVec().getBlockPos();
             BlockState blockState = player.level().getBlockState(blockPos);
-            if (BlockLimitContainBlockPos(blockPos) && !player.isCreative()) {
-                Compute.sendFormatMSG(player, Component.literal("方块").withStyle(ChatFormatting.GREEN),
-                        Component.literal("这个方块正在被使用。"));
-                event.setCanceled(true);
-            } else {
-                boolean flag = false;
-                if (blockState.getBlock().equals(ModBlocks.FURNACE.get())) {
-                    ModNetworking.sendToClient(new ScreenSetS2CPacket(5), (ServerPlayer) player);
-                    Smelt.sendDataToClient((ServerPlayer) player);
+            BlockEntity blockEntity = player.level().getBlockEntity(blockPos);
+            if (!checkBlockLimitIsThisPlayer(blockPos, player)) {
+                if (checkBlockLimit(blockPos, player) && !player.isCreative()) {
+                    Compute.sendFormatMSG(player, Component.literal("方块").withStyle(ChatFormatting.GREEN),
+                            Component.literal("这个方块正在被使用。"));
                     event.setCanceled(true);
-                }
-                if (blockState.getBlock().equals(ModBlocks.FORGING_BLOCK.get())) {
-                    if (player.getMainHandItem().getItem() instanceof ForgeHammer) {
-                        if (!ForgeEquipUtils.getPlayerInZoneItemList(player).isEmpty()) {
+                } else {
+                    if (blockState.getBlock().equals(ModBlocks.FURNACE.get())) {
+                        ModNetworking.sendToClient(new ScreenSetS2CPacket(5), (ServerPlayer) player);
+                        Smelt.sendDataToClient((ServerPlayer) player);
+                        event.setCanceled(true);
+                    } else {
+                        if (blockState.getBlock().equals(ModBlocks.FORGING_BLOCK.get())
+                                && player.getMainHandItem().getItem() instanceof ForgeHammer
+                                && !ForgeEquipUtils.getPlayerInZoneItemList(player).isEmpty()) {
                             ModNetworking.sendToClient(new ScreenSetS2CPacket(4), (ServerPlayer) player);
                             MySound.soundToPlayer(player, SoundEvents.ANVIL_LAND);
                             event.setCanceled(true);
+                        } else {
+                            if (blockEntity instanceof Droppable) {
+                                BlockLimit blockLimit = new BlockLimit(blockPos, player, 3);
+                                Utils.blockLimitList.add(blockLimit);
+                                Utils.whoIsUsingBlock.put(blockPos, player);
+                            }
                         }
-                    } else {
-                        ForgingBlockEntity forgingBlockEntity = (ForgingBlockEntity) player.level().getBlockEntity(blockPos);
-                        forgingBlockEntity.clear();
-                        flag = true;
                     }
-                }
-                if (blockState.getBlock().equals(ModBlocks.BREWING_BLOCK.get())) {
-                    HBrewingEntity hBrewingEntity = (HBrewingEntity) player.level().getBlockEntity(blockPos);
-                    hBrewingEntity.clear();
-                    flag = true;
-                }
-                if (blockState.getBlock().equals(ModBlocks.INJECT_BLOCK.get())) {
-                    InjectBlockEntity injectBlockEntity = (InjectBlockEntity) player.level().getBlockEntity(blockPos);
-                    injectBlockEntity.clear();
-                    flag = true;
-                }
-                if (blockState.getBlock().equals(ModBlocks.FURNACE.get())) {
-                    FurnaceEntity furnaceEntity = (FurnaceEntity) player.level().getBlockEntity(blockPos);
-                    furnaceEntity.clear();
-                    flag = true;
-                }
-                if (flag) {
-                    PlayerCallBack playerCallBack = new PlayerCallBack(blockPos, player, 3);
-                    Utils.playerCallBackList.add(playerCallBack);
-                    Utils.whoIsUsingBlock.put(blockPos, player.getName().getString());
                 }
             }
         }

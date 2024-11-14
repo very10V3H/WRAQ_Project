@@ -1,8 +1,6 @@
 package fun.wraq.blocks.entity;
 
 import fun.wraq.blocks.blocks.furnace.FurnaceRecipe;
-import fun.wraq.blocks.entity.ModBlockEntities;
-import fun.wraq.common.util.Utils;
 import fun.wraq.render.gui.blocks.FurnaceMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -30,7 +28,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 
-public class FurnaceEntity extends BlockEntity implements MenuProvider {
+public class FurnaceEntity extends BlockEntity implements MenuProvider, Droppable {
     private final ItemStackHandler itemStackHandler = new ItemStackHandler(9) {
         @Override
         protected void onContentsChanged(int slot) {
@@ -122,6 +120,7 @@ public class FurnaceEntity extends BlockEntity implements MenuProvider {
         Containers.dropContents(this.level, this.worldPosition, inventory);
     }
 
+    @Override
     public void drops(Player player) {
         for (int i = 0; i < itemStackHandler.getSlots(); i++) {
             player.addItem(itemStackHandler.getStackInSlot(i));
@@ -162,12 +161,6 @@ public class FurnaceEntity extends BlockEntity implements MenuProvider {
     }
 
     protected static void craftItem(FurnaceEntity blockEntity) {
-
-        String PlayerName = Utils.whoIsUsingBlock.get(blockEntity.getBlockPos());
-        Player player = null;
-        if (blockEntity.level.getServer().getPlayerList().getPlayerByName(PlayerName) != null)
-            player = blockEntity.level.getServer().getPlayerList().getPlayerByName(PlayerName);
-
         if (hasFurnaceRecipe(blockEntity)) {
             FurnaceRecipe.Cost(blockEntity.itemStackHandler);
         }

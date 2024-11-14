@@ -11,13 +11,12 @@ import fun.wraq.common.util.struct.SwordSkillStruct.SwordSkill3;
 import fun.wraq.common.util.struct.SwordSkillStruct.SwordSkill6;
 import fun.wraq.entities.entities.Boss2.Boss2;
 import fun.wraq.files.MarketItemInfo;
-import fun.wraq.networking.unSorted.PlayerCallBack;
+import fun.wraq.networking.unSorted.BlockLimit;
 import fun.wraq.render.mobEffects.ModEffects;
 import fun.wraq.render.particles.ModParticles;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.end.Recall;
 import fun.wraq.series.overworld.chapter1.forest.ForestPowerEffectMob;
-import fun.wraq.series.overworld.chapter1.waterSystem.LakePowerEffect;
 import fun.wraq.series.overworld.chapter7.C7Items;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -103,7 +102,7 @@ public class Utils {
     public static int AttributeDataTick = 0;
     public static Entity EntityCopy;
 
-    public static List<PlayerCallBack> playerCallBackList = new ArrayList<>();
+    public static List<BlockLimit> blockLimitList = new ArrayList<>();
 
     public static int tick = 0;
     public static Player Vplayer;
@@ -753,7 +752,7 @@ public class Utils {
         ReputationStorePrice.put(ModItems.UnCommonLotteries.get(), 64);
     }
 
-    public static Map<BlockPos, String> whoIsUsingBlock = new HashMap<>();
+    public static Map<BlockPos, Player> whoIsUsingBlock = new HashMap<>();
 
     public static Map<String, Queue<BlockAndResetTime>> noMineDigMap = new HashMap<>();
     public static Map<String, Queue<BlockAndResetTime>> blockPlaceMap = new HashMap<>();

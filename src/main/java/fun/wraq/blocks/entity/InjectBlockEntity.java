@@ -39,7 +39,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 
-public class InjectBlockEntity extends BlockEntity implements MenuProvider {
+public class InjectBlockEntity extends BlockEntity implements MenuProvider, Droppable {
     private final ItemStackHandler itemStackHandler = new ItemStackHandler(3) {
         @Override
         protected void onContentsChanged(int slot) {
@@ -131,6 +131,7 @@ public class InjectBlockEntity extends BlockEntity implements MenuProvider {
         Containers.dropContents(this.level, this.worldPosition, inventory);
     }
 
+    @Override
     public void drops(Player player) {
         for (int i = 0; i < itemStackHandler.getSlots(); i++) {
             player.addItem(itemStackHandler.getStackInSlot(i));
@@ -161,10 +162,7 @@ public class InjectBlockEntity extends BlockEntity implements MenuProvider {
             setChanged(level, pos, blockState);
             if (blockEntity.progress >= blockEntity.maxProgress) {
                 craftItem(blockEntity);
-                String PlayerName = Utils.whoIsUsingBlock.get(blockEntity.getBlockPos());
-                Player player = null;
-                if (blockEntity.level.getServer().getPlayerList().getPlayerByName(PlayerName) != null)
-                    player = blockEntity.level.getServer().getPlayerList().getPlayerByName(PlayerName);
+                Player player = Utils.whoIsUsingBlock.getOrDefault(blockEntity.getBlockPos(), null);
                 Guide.trig(player, 5);
                 blockEntity.resetProgress();
             }
@@ -184,10 +182,7 @@ public class InjectBlockEntity extends BlockEntity implements MenuProvider {
 
     protected static void craftItem(InjectBlockEntity blockEntity) {
 
-        String PlayerName = Utils.whoIsUsingBlock.get(blockEntity.getBlockPos());
-        Player player = null;
-        if (blockEntity.level.getServer().getPlayerList().getPlayerByName(PlayerName) != null)
-            player = blockEntity.level.getServer().getPlayerList().getPlayerByName(PlayerName);
+        Player player = Utils.whoIsUsingBlock.getOrDefault(blockEntity.getBlockPos(), null);
 
         if (hasInjectRecipe(blockEntity)) {
 

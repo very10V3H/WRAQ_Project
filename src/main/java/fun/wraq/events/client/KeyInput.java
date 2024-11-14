@@ -7,7 +7,6 @@ import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.AnimationPackets.RollingAnimationRequestC2SPacket;
-import fun.wraq.networking.misc.Limit.LimitC2SPacket;
 import fun.wraq.networking.misc.USE.UseC2SPacket;
 import fun.wraq.networking.unSorted.PlayerClickSpaceC2SPacket;
 import fun.wraq.process.func.guide.GuideHud;
@@ -50,110 +49,108 @@ public class KeyInput {
             Minecraft mc = Minecraft.getInstance();
             LocalPlayer player = mc.player;
             if (player == null) return;
-            if (isModScreen(mc) && event.getKey() == 69 && event.getAction() == 1) mc.popGuiLayer();
-            if (ClientUtils.PacketsLimit <= 0) {
-                ModNetworking.sendToServer(new LimitC2SPacket());
-            } else {
-                if (KeyBoradInput.USE1.consumeClick()) {
-                    if (ClientUtils.IsAdjustingPower) {
-                        if (ClientUtils.PowerQueue.size() >= 4) {
-                            ClientUtils.PowerQueue.poll();
-                            ClientUtils.PowerQueue.add(1);
-                        } else ClientUtils.PowerQueue.add(1);
-                    } else {
-                        ModNetworking.sendToServer(new UseC2SPacket(3));
-                    }
+            if (isModScreen(mc) && event.getKey() == 69 && event.getAction() == 1) {
+                mc.popGuiLayer();
+            }
+            if (KeyBoradInput.USE1.consumeClick()) {
+                if (ClientUtils.IsAdjustingPower) {
+                    if (ClientUtils.PowerQueue.size() >= 4) {
+                        ClientUtils.PowerQueue.poll();
+                        ClientUtils.PowerQueue.add(1);
+                    } else ClientUtils.PowerQueue.add(1);
+                } else {
+                    ModNetworking.sendToServer(new UseC2SPacket(3));
                 }
-                if (KeyBoradInput.USE2.consumeClick()) {
-                    if (ClientUtils.IsAdjustingPower) {
-                        if (ClientUtils.PowerQueue.size() >= 4) {
-                            ClientUtils.PowerQueue.poll();
-                            ClientUtils.PowerQueue.add(2);
-                        } else ClientUtils.PowerQueue.add(2);
-                    } else {
-                        ModNetworking.sendToServer(new UseC2SPacket(4));
-                    }
+            }
+            if (KeyBoradInput.USE2.consumeClick()) {
+                if (ClientUtils.IsAdjustingPower) {
+                    if (ClientUtils.PowerQueue.size() >= 4) {
+                        ClientUtils.PowerQueue.poll();
+                        ClientUtils.PowerQueue.add(2);
+                    } else ClientUtils.PowerQueue.add(2);
+                } else {
+                    ModNetworking.sendToServer(new UseC2SPacket(4));
                 }
-                if (KeyBoradInput.USE3.consumeClick()) {
-                    if (ClientUtils.IsAdjustingPower) {
-                        if (ClientUtils.PowerQueue.size() >= 4) {
-                            ClientUtils.PowerQueue.poll();
-                            ClientUtils.PowerQueue.add(3);
-                        } else ClientUtils.PowerQueue.add(3);
-                    } else {
-                        ModNetworking.sendToServer(new UseC2SPacket(5));
-                    }
+            }
+            if (KeyBoradInput.USE3.consumeClick()) {
+                if (ClientUtils.IsAdjustingPower) {
+                    if (ClientUtils.PowerQueue.size() >= 4) {
+                        ClientUtils.PowerQueue.poll();
+                        ClientUtils.PowerQueue.add(3);
+                    } else ClientUtils.PowerQueue.add(3);
+                } else {
+                    ModNetworking.sendToServer(new UseC2SPacket(5));
                 }
-                if (KeyBoradInput.USE4.consumeClick()) {
-                    if (ClientUtils.IsAdjustingPower) {
-                        if (ClientUtils.PowerQueue.size() >= 4) {
-                            ClientUtils.PowerQueue.poll();
-                            ClientUtils.PowerQueue.add(4);
-                        } else ClientUtils.PowerQueue.add(4);
-                    } else {
-                        ModNetworking.sendToServer(new UseC2SPacket(6));
-                    }
+            }
+            if (KeyBoradInput.USE4.consumeClick()) {
+                if (ClientUtils.IsAdjustingPower) {
+                    if (ClientUtils.PowerQueue.size() >= 4) {
+                        ClientUtils.PowerQueue.poll();
+                        ClientUtils.PowerQueue.add(4);
+                    } else ClientUtils.PowerQueue.add(4);
+                } else {
+                    ModNetworking.sendToServer(new UseC2SPacket(6));
                 }
-                if (KeyBoradInput.USE5.consumeClick()) {
-                    ModNetworking.sendToServer(new UseC2SPacket(7));
-                }
-                if (KeyBoradInput.USE6.consumeClick()) {
-                    ModNetworking.sendToServer(new UseC2SPacket(8));
-                }
-                if (KeyBoradInput.Rolling.consumeClick()) {
-                    if (!ClientUtils.PlayerIsManaAttacking(player) && !ClientUtils.PlayerIsUsing(player)
-                            && !ClientUtils.PlayerIsBowAttacking(player) && !ClientUtils.PlayerIsAttacking(player))
-                        ModNetworking.sendToServer(new RollingAnimationRequestC2SPacket(0));
-                }
+            }
+            if (KeyBoradInput.USE5.consumeClick()) {
+                ModNetworking.sendToServer(new UseC2SPacket(7));
+            }
+            if (KeyBoradInput.USE6.consumeClick()) {
+                ModNetworking.sendToServer(new UseC2SPacket(8));
+            }
+            if (KeyBoradInput.Rolling.consumeClick()) {
+                if (!ClientUtils.PlayerIsManaAttacking(player) && !ClientUtils.PlayerIsUsing(player)
+                        && !ClientUtils.PlayerIsBowAttacking(player) && !ClientUtils.PlayerIsAttacking(player))
+                    ModNetworking.sendToServer(new RollingAnimationRequestC2SPacket(0));
+            }
 
-                if (KeyBoradInput.Mission.consumeClick()) {
-                    ModNetworking.sendToServer(new MissionScreenOpenC2SPacket(2));
-                }
+            if (KeyBoradInput.Mission.consumeClick()) {
+                ModNetworking.sendToServer(new MissionScreenOpenC2SPacket(2));
+            }
 
-                if (KeyBoradInput.NavigateSet.consumeClick()) {
-                    if (ClientUtils.Mission) {
-                        if (ClientUtils.NavigateIndex == -1) {
-                            ClientUtils.NavigateIndex = ClientUtils.ListIndex;
-                            player.sendSystemMessage(Component.literal("[系统]").withStyle(ChatFormatting.GRAY).
-                                    append(Component.literal("已启用目的地准星定点，请尝试移动准星直到无法看见红色粒子，位置即为目的地方向。[默认左Alt开启或关闭]").withStyle(ChatFormatting.WHITE)));
-                        } else {
-                            ClientUtils.NavigateIndex = -1;
-                            player.sendSystemMessage(Component.literal("[系统]").withStyle(ChatFormatting.GRAY).
-                                    append(Component.literal("已关闭目的地准星定点。[默认左Alt开启或关闭]").withStyle(ChatFormatting.WHITE)));
-
-                        }
-                    } else {
+            if (KeyBoradInput.NavigateSet.consumeClick()) {
+                if (ClientUtils.Mission) {
+                    if (ClientUtils.NavigateIndex == -1) {
+                        ClientUtils.NavigateIndex = ClientUtils.ListIndex;
                         player.sendSystemMessage(Component.literal("[系统]").withStyle(ChatFormatting.GRAY).
-                                append(Component.literal("似乎没有任务坐标用于准星定点。").withStyle(ChatFormatting.WHITE)));
+                                append(Component.literal("已启用目的地准星定点，请尝试移动准星直到无法看见红色粒子，位置即为目的地方向。[默认左Alt开启或关闭]").withStyle(ChatFormatting.WHITE)));
+                    } else {
+                        ClientUtils.NavigateIndex = -1;
+                        player.sendSystemMessage(Component.literal("[系统]").withStyle(ChatFormatting.GRAY).
+                                append(Component.literal("已关闭目的地准星定点。[默认左Alt开启或关闭]").withStyle(ChatFormatting.WHITE)));
 
                     }
-                }
+                } else {
+                    player.sendSystemMessage(Component.literal("[系统]").withStyle(ChatFormatting.GRAY).
+                            append(Component.literal("似乎没有任务坐标用于准星定点。").withStyle(ChatFormatting.WHITE)));
 
-                if (KeyBoradInput.GUIDE.consumeClick()) {
-                    if (Calendar.getInstance().getTimeInMillis() - ClientUtils.tabSwitchLastTime > 250) {
-                        GuideHud.display = !GuideHud.display;
-                        if (GuideHud.display) {
-                            Compute.sendFormatMSG(player, Te.s("系统", ChatFormatting.AQUA),
-                                    Te.s("已开启", ChatFormatting.GREEN, "指引界面"));
-                        } else {
-                            Compute.sendFormatMSG(player, Te.s("系统", ChatFormatting.AQUA),
-                                    Te.s("已关闭", ChatFormatting.RED, "指引界面"));
-                        }
+                }
+            }
+
+            if (KeyBoradInput.GUIDE.consumeClick()) {
+                if (Calendar.getInstance().getTimeInMillis() - ClientUtils.tabSwitchLastTime > 250) {
+                    GuideHud.display = !GuideHud.display;
+                    if (GuideHud.display) {
+                        Compute.sendFormatMSG(player, Te.s("系统", ChatFormatting.AQUA),
+                                Te.s("已开启", ChatFormatting.GREEN, "指引界面"));
+                    } else {
+                        Compute.sendFormatMSG(player, Te.s("系统", ChatFormatting.AQUA),
+                                Te.s("已关闭", ChatFormatting.RED, "指引界面"));
                     }
-                    ClientUtils.tabSwitchLastTime = Calendar.getInstance().getTimeInMillis();
                 }
+                ClientUtils.tabSwitchLastTime = Calendar.getInstance().getTimeInMillis();
+            }
 
-                if (KeyBoradInput.ElementRoulette.consumeClick()) {
-                    ModNetworking.sendToServer(new CurrentSeasonC2SPacket());
-                    Minecraft.getInstance().setScreen(new ElementRoulette());
-                    ModNetworking.sendToServer(new GuideFinishC2SPacket(6));
-                }
+            if (KeyBoradInput.ElementRoulette.consumeClick()) {
+                ModNetworking.sendToServer(new CurrentSeasonC2SPacket());
+                Minecraft.getInstance().setScreen(new ElementRoulette());
+                ModNetworking.sendToServer(new GuideFinishC2SPacket(6));
+            }
 
-                if (KeyBoradInput.SPACE.consumeClick()) {
-                    // 适用于低重力环境跳跃
-                    if (Compute.inLowGravityEnvironment(player)) {
-                        ModNetworking.sendToServer(new PlayerClickSpaceC2SPacket());
-                    }
+            if (KeyBoradInput.SPACE.consumeClick()) {
+                // 适用于低重力环境跳跃
+                if (Compute.inLowGravityEnvironment(player)) {
+                    ModNetworking.sendToServer(new PlayerClickSpaceC2SPacket());
                 }
             }
         }

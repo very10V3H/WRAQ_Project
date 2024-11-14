@@ -1,10 +1,13 @@
 package fun.wraq.networking.misc.Limit;
 
 import fun.wraq.common.util.Utils;
+import fun.wraq.events.core.BlockEvent;
+import fun.wraq.networking.unSorted.BlockLimit;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkEvent;
 
+import java.util.List;
 import java.util.function.Supplier;
 
 public class RemoveBlockLimitC2SPacket {
@@ -24,7 +27,10 @@ public class RemoveBlockLimitC2SPacket {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
             ServerPlayer player = context.getSender();
-            Utils.playerCallBackList.removeIf(playerCallBack -> playerCallBack.getPlayer().equals(player));
+            List<BlockLimit> removeList = Utils.blockLimitList
+                    .stream().filter(blockLimit -> blockLimit.getPlayer().equals(player)).toList();
+            removeList.forEach(BlockEvent::beforeRemoveBlockLimit);
+            Utils.blockLimitList.removeAll(removeList);
         });
         return true;
     }

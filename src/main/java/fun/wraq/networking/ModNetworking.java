@@ -27,7 +27,6 @@ import fun.wraq.networking.misc.EarthPower.EarthPowerC2SPacket;
 import fun.wraq.networking.misc.EarthPower.EarthPowerS2CPacket;
 import fun.wraq.networking.misc.EntropyPackets.EntropyS2CPacket;
 import fun.wraq.networking.misc.Limit.CheckBlockLimitS2CPacket;
-import fun.wraq.networking.misc.Limit.LimitC2SPacket;
 import fun.wraq.networking.misc.Limit.RemoveBlockLimitC2SPacket;
 import fun.wraq.networking.misc.Limit.ScreenCloseC2SPacket;
 import fun.wraq.networking.misc.MusicPlayerPackets.MusicIdolS2CPacket;
@@ -180,11 +179,6 @@ public class ModNetworking {
                 .decoder(SkyBowShootS2CPacket::new)
                 .encoder(SkyBowShootS2CPacket::toBytes)
                 .consumerMainThread(SkyBowShootS2CPacket::handle)
-                .add();
-        net.messageBuilder(LimitC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
-                .decoder(LimitC2SPacket::new)
-                .encoder(LimitC2SPacket::toBytes)
-                .consumerMainThread(LimitC2SPacket::handle)
                 .add();
         net.messageBuilder(QuartzSwordPlayerS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
                 .decoder(QuartzSwordPlayerS2CPacket::new)
@@ -921,21 +915,6 @@ public class ModNetworking {
                 .decoder(PacketLimitS2CPacket::new)
                 .encoder(PacketLimitS2CPacket::toBytes)
                 .consumerMainThread(PacketLimitS2CPacket::handle)
-                .add();
-        net.messageBuilder(ClientLimitCheckS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
-                .decoder(ClientLimitCheckS2CPacket::new)
-                .encoder(ClientLimitCheckS2CPacket::toBytes)
-                .consumerMainThread(ClientLimitCheckS2CPacket::handle)
-                .add();
-        net.messageBuilder(ClientLimitSetS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
-                .decoder(ClientLimitSetS2CPacket::new)
-                .encoder(ClientLimitSetS2CPacket::toBytes)
-                .consumerMainThread(ClientLimitSetS2CPacket::handle)
-                .add();
-        net.messageBuilder(ClientLimitWrongC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
-                .decoder(ClientLimitWrongC2SPacket::new)
-                .encoder(ClientLimitWrongC2SPacket::toBytes)
-                .consumerMainThread(ClientLimitWrongC2SPacket::handle)
                 .add();
         net.messageBuilder(SpaceRangeParticleS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
                 .decoder(SpaceRangeParticleS2CPacket::new)

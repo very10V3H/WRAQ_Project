@@ -3,7 +3,6 @@ package fun.wraq.blocks.entity;
 
 import fun.wraq.blocks.blocks.brew.BrewingNote;
 import fun.wraq.blocks.blocks.brew.BrewingRecipe;
-import fun.wraq.blocks.entity.ModBlockEntities;
 import fun.wraq.common.Compute;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.Utils;
@@ -42,7 +41,7 @@ import java.util.List;
 import java.util.Random;
 
 
-public class HBrewingEntity extends BlockEntity implements MenuProvider {
+public class HBrewingEntity extends BlockEntity implements MenuProvider, Droppable {
     private final ItemStackHandler itemStackHandler = new ItemStackHandler(11) {
         @Override
         protected void onContentsChanged(int slot) {
@@ -134,6 +133,7 @@ public class HBrewingEntity extends BlockEntity implements MenuProvider {
         Containers.dropContents(this.level, this.worldPosition, inventory);
     }
 
+    @Override
     public void drops(Player player) {
         for (int i = 0; i < itemStackHandler.getSlots(); i++) {
             player.addItem(itemStackHandler.getStackInSlot(i));
@@ -181,10 +181,7 @@ public class HBrewingEntity extends BlockEntity implements MenuProvider {
 
     protected static void craftItem(HBrewingEntity blockEntity) {
 
-        String PlayerName = Utils.whoIsUsingBlock.get(blockEntity.getBlockPos());
-        Player player = null;
-        if (blockEntity.level.getServer().getPlayerList().getPlayerByName(PlayerName) != null)
-            player = blockEntity.level.getServer().getPlayerList().getPlayerByName(PlayerName);
+        Player player = Utils.whoIsUsingBlock.getOrDefault(blockEntity.getBlockPos(), null);
 
         if (hasRecipe(blockEntity)) { //基础酿造
             ItemStack material1 = blockEntity.itemStackHandler.getStackInSlot(0);

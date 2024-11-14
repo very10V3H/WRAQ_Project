@@ -1,9 +1,5 @@
 package fun.wraq.events.server;
 
-import fun.wraq.blocks.entity.ForgingBlockEntity;
-import fun.wraq.blocks.entity.FurnaceEntity;
-import fun.wraq.blocks.entity.HBrewingEntity;
-import fun.wraq.blocks.entity.InjectBlockEntity;
 import fun.wraq.commands.changeable.CompensateCommand;
 import fun.wraq.commands.changeable.PrefixCommand;
 import fun.wraq.common.Compute;
@@ -27,8 +23,6 @@ import fun.wraq.networking.reputation.ReputationValueS2CPacket;
 import fun.wraq.networking.reputationMission.ReputationMissionAllowRequestTimeS2CPacket;
 import fun.wraq.networking.reputationMission.ReputationMissionContentS2CPacket;
 import fun.wraq.networking.reputationMission.ReputationMissionStartTimeS2CPacket;
-import fun.wraq.networking.unSorted.ClientLimitSetS2CPacket;
-import fun.wraq.networking.unSorted.PlayerCallBack;
 import fun.wraq.networking.unSorted.SwiftSyncS2CPacket;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.plan.DailySupply;
@@ -54,7 +48,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.scores.Scoreboard;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -79,7 +72,6 @@ public class LoginInEvent {
             Scoreboard scoreboard = player.getServer().getScoreboard();
             scoreboard.entityRemoved(player);
 
-            ModNetworking.sendToClient(new ClientLimitSetS2CPacket(serverPlayer.getName().getString()), serverPlayer);
             player.sendSystemMessage(Component.literal("[").withStyle(ChatFormatting.GRAY).append(Component.literal("维瑞阿契").withStyle(ChatFormatting.AQUA)).append("]").withStyle(ChatFormatting.GRAY).append(Component.literal("欢迎来到 ").withStyle(ChatFormatting.WHITE).append(Component.literal("维瑞阿契").withStyle(ChatFormatting.AQUA))));
             CompoundTag data = player.getPersistentData();
 
@@ -391,17 +383,8 @@ public class LoginInEvent {
         Player player = event.getEntity();
         if (!player.level().isClientSide) {
             ServerPlayer serverPlayer = (ServerPlayer) player;
-            for (PlayerCallBack playerCallBack : Utils.playerCallBackList) {
-                if (playerCallBack.getPlayer().getName().getString().equals(player.getName().getString())) {
-                    BlockEntity blockEntity = player.level().getBlockEntity(playerCallBack.getBlockPos());
-                    if (blockEntity instanceof ForgingBlockEntity forgingBlockEntity) forgingBlockEntity.drops(player);
-                    if (blockEntity instanceof HBrewingEntity hBrewingEntity) hBrewingEntity.drops(player);
-                    if (blockEntity instanceof InjectBlockEntity injectBlockEntity) injectBlockEntity.drops(player);
-                    if (blockEntity instanceof FurnaceEntity furnaceEntity) furnaceEntity.drops(player);
-                    Utils.playerCallBackList.remove(playerCallBack);
-                    break;
-                }
-            } // 方块内容返还
+            BlockEvent.removePlayerLimit(player);
+            // 方块内容返还
             BlockEvent.PlayerLogOut(player); // 挖掘 放置方块重置
 
             Utils.recallList.forEach(recall -> {

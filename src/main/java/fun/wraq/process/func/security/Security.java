@@ -1,51 +1,14 @@
 package fun.wraq.process.func.security;
 
 import com.mojang.logging.LogUtils;
-import fun.wraq.networking.ModNetworking;
-import fun.wraq.networking.unSorted.ClientLimitWrongC2SPacket;
 import net.minecraft.world.item.ItemStack;
 
-import java.io.*;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 
 public class Security {
 
     public static final String SYSTEM = "system";
-
-    public static void ClientPropertiesSet(String string) throws IOException {
-        WriteName(string);
-    }
-
-    public static void ClientPropertiesCheck(String string) throws IOException {
-        if (!ReadName().equals(string) && ReadName() != null)
-            ModNetworking.sendToServer(new ClientLimitWrongC2SPacket(ReadName()));
-    }
-
-    public static File file;
-
-    public static void Init() throws IOException {
-        String dir = System.getProperty("user.home") + "\\McLog.txt";
-        file = new File(dir);
-        if (file.exists()) file.delete();
-        file.createNewFile();
-    }
-
-    public static void WriteName(String name) throws IOException {
-        Init();
-        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, true));
-        bufferedWriter.write(name);
-        bufferedWriter.newLine();
-        bufferedWriter.flush();
-        bufferedWriter.close();
-    }
-
-    public static String ReadName() throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
-        String strLine = bufferedReader.readLine();
-        bufferedReader.close();
-        return strLine;
-    }
 
     public static String getMACAddress(InetAddress ia) throws Exception {
         // 获得网络接口对象（即网卡），并得到mac地址，mac地址存在于一个byte数组中。

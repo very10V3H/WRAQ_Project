@@ -26,7 +26,6 @@ import fun.wraq.networking.misc.ParticlePackets.SlowDownParticleS2CPacket;
 import fun.wraq.networking.misc.SmartPhonePackets.SmartPhoneS2CPacket;
 import fun.wraq.networking.misc.SoundsPackets.SoundsS2CPacket;
 import fun.wraq.networking.misc.TeamPackets.TeamInfoRequestC2SPacket;
-import fun.wraq.networking.unSorted.ClientLimitCheckS2CPacket;
 import fun.wraq.networking.unSorted.PacketLimitS2CPacket;
 import fun.wraq.networking.unSorted.TimeS2CPacket;
 import fun.wraq.process.func.damage.Damage;
@@ -188,9 +187,6 @@ public class ServerPlayerTickEvent {
             }
 
             ModNetworking.sendToClient(new PacketLimitS2CPacket(150), serverPlayer);
-            if (player.tickCount % 1200 == 0)
-                ModNetworking.sendToClient(new ClientLimitCheckS2CPacket(player.getName().getString()), serverPlayer);
-
 
             if (player.tickCount % 100 == 27) {
 /*                List<Chicken> chickenList = player.level().getEntitiesOfClass(Chicken.class,AABB.ofSize(player.position(),30,30,30));

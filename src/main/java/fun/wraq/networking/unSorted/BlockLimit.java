@@ -3,12 +3,12 @@ package fun.wraq.networking.unSorted;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 
-public class PlayerCallBack {
+public class BlockLimit {
     private BlockPos blockPos;
     private Player player;
     private Integer time;
 
-    public PlayerCallBack(BlockPos blockPos, Player player, Integer time) {
+    public BlockLimit(BlockPos blockPos, Player player, Integer time) {
         this.blockPos = blockPos;
         this.player = player;
         this.time = time;

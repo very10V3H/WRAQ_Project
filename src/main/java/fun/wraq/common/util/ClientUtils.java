@@ -32,7 +32,6 @@ public class ClientUtils {
     public static boolean UseOfSnowSwordParticle = false;
     public static boolean UseOfBow = false;
     public static boolean UseOfSkyBow = false;
-    public static int PacketsLimit = 10;
     public static Map<UUID, Integer> QuartzSabreClientPlayerUUIDINDEX = new HashMap<>();
     public static Map<UUID, Integer> QuartzSabreClientMonsterUUIDINDEX = new HashMap<>();
     public static boolean GetQuartzSabreMonster = false;
