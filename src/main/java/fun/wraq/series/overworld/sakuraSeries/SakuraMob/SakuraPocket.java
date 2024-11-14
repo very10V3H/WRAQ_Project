@@ -1,8 +1,8 @@
 package fun.wraq.series.overworld.sakuraSeries.SakuraMob;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
-import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -58,7 +58,9 @@ public class SakuraPocket extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
         if (!level.isClientSide && interactionHand.equals(InteractionHand.MAIN_HAND)) {
-            Item[] Rewards = {
+            Compute.sendFormatMSG(player, Te.s("版本调整", CustomStyle.styleOfWorld),
+                    Te.s("这件物品即将被移除"));
+/*            Item[] Rewards = {
                     ModItems.SakuraPetal.get(), ModItems.ForgingStone2.get(),
                     ModItems.goldCoin.get(),
                     ModItems.SakuraPetal.get(), ModItems.SakuraPetal.get(),
@@ -75,7 +77,7 @@ public class SakuraPocket extends Item {
                 InventoryOperation.giveItemStackByRate(Rewards[i].getDefaultInstance(), RewardsRate[i], player);
             }
 
-            Compute.playerItemUseWithRecord(player);
+            Compute.playerItemUseWithRecord(player);*/
         }
         return super.use(level, player, interactionHand);
     }

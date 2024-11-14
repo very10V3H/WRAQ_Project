@@ -73,7 +73,7 @@ public abstract class DailyEndlessInstance {
             stop();
         }
 
-        if (isChallenging()) {
+        if (isChallenging() && leftTick % 5 == 0) {
             mobList.removeIf(LivingEntity::isDeadOrDying);
             Random random = new Random();
             while (mobList.size() < maxMobNum) {

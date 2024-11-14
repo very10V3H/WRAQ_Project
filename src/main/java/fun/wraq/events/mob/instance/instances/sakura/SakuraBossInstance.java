@@ -32,7 +32,7 @@ public class SakuraBossInstance extends NoTeamInstance {
 
     public static SakuraBossInstance getInstance() {
         if (instance == null) {
-            instance = new SakuraBossInstance(new Vec3(2257, 140, 1694), 30, 200, new Vec3(2257, 140, 1694),
+            instance = new SakuraBossInstance(new Vec3(2257, 140, 1694), 30, 60, new Vec3(2257, 140, 1694),
                     Component.literal("突见忍").withStyle(CustomStyle.styleOfSakura));
         }
         return instance;

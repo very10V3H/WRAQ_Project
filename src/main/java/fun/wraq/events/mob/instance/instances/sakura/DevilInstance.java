@@ -47,7 +47,7 @@ public class DevilInstance extends NoTeamInstance {
 
     public static DevilInstance getInstance() {
         if (instance == null) {
-            instance = new DevilInstance(new Vec3(2624, 192, 1724), 50, 200, new Vec3(2624, 192, 1724),
+            instance = new DevilInstance(new Vec3(2624, 192, 1724), 50, 60, new Vec3(2624, 192, 1724),
                     Component.literal(mobName).withStyle(CustomStyle.styleOfBloodMana));
         }
         return instance;

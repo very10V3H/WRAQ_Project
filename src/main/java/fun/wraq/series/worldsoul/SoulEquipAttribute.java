@@ -52,15 +52,15 @@ public class SoulEquipAttribute {
     public static class ForgingAddition {
         public static double AttackDamage = 16;
         public static double CritRate = 0.02;
-        public static double CritDamage = 0.16;
-        public static double DefencePenetration = 0.04;
-        public static double DefencePenetration0 = 64;
+        public static double CritDamage = 0.04;
+        public static double DefencePenetration = 0.02;
+        public static double DefencePenetration0 = 2;
         public static double HealthSteal = 0.01;
         public static double MovementSpeed = 0.04;
         public static double ManaAttackDamage = 64;
         public static double ManaRecover = 4;
-        public static double ManaPenetration = 0.04;
-        public static double ManaPenetration0 = 16;
+        public static double ManaPenetration = 0.02;
+        public static double ManaPenetration0 = 2;
         public static double ManaCost = 1;
         public static double MaxMana = 4;
     }

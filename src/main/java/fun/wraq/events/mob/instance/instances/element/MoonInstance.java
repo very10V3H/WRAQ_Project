@@ -51,7 +51,7 @@ public class MoonInstance extends NoTeamInstance {
 
     public static MoonInstance getInstance() {
         if (instance == null) {
-            instance = new MoonInstance(new Vec3(1761, 130, -463), 50, 200, new Vec3(1761, 130, -463),
+            instance = new MoonInstance(new Vec3(1761, 130, -463), 50, 60, new Vec3(1761, 130, -463),
                     Component.literal(mobName).withStyle(CustomStyle.styleOfMoon));
         }
         return instance;
@@ -87,7 +87,7 @@ public class MoonInstance extends NoTeamInstance {
 
         MobSpawn.setMobCustomName(attackMob, Component.literal("阿尔忒弥斯 - 明镜").withStyle(style), 160);
 
-        MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(attackMob), 120);
+        MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(attackMob), 160);
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(attackMob, 2000, 130, 130,
                 0.4, 4, 0.25, 55, 0, 700 * Math.pow(10, 4), 0.3);
 
@@ -112,9 +112,9 @@ public class MoonInstance extends NoTeamInstance {
         Stray manaMob = new Stray(EntityType.STRAY, level);
         MobSpawn.setMobCustomName(manaMob, Component.literal("阿尔忒弥斯 - 天镜").withStyle(style), 160);
 
-        MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(manaMob), 120);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(manaMob, 2000, 2500, 2500,
-                0.4, 4, 0.4, 55, 0, 700 * Math.pow(10, 4), 0.3);
+        MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(manaMob), 160);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(manaMob, 2000, 130, 130,
+                0.4, 4, 0.25, 55, 0, 700 * Math.pow(10, 4), 0.3);
 
         manaMob.setHealth(manaMob.getMaxHealth());
         manaMob.setItemSlot(EquipmentSlot.HEAD, ModItems.MobArmorMoonMana.get().getDefaultInstance());

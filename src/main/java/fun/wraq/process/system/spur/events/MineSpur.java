@@ -31,10 +31,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.*;
 
 public class MineSpur {
+
+    public record NextOreItemDrop(ItemStack stack, Vec3 pos, Level level, int trigTick) {}
 
     public static void mineEvent(net.minecraftforge.event.level.BlockEvent.BreakEvent event) {
         Player player = event.getPlayer();
@@ -58,17 +61,14 @@ public class MineSpur {
                                 Utils.posEvenBeenDigOrPlace.add(blockPos);
                             }
                             level.destroyBlock(blockPos, false);
-                            ItemAndRate.summonItemEntity(mineRewardMap.get(block).item().getDefaultInstance(),
-                                    blockPos.getCenter(), level);
-
+                            InventoryOperation.itemStackGive(player, mineRewardMap.get(block).item().getDefaultInstance());
                             mineReward(player, blockState, blockPos);
 
                             Random random = new Random();
                             if (random.nextDouble() < Compute.playerExHarvest(player)) {
                                 Compute.sendFormatMSG(player, Component.literal("额外产出").withStyle(ChatFormatting.GOLD),
                                         Component.literal("为你提供了额外产物！").withStyle(ChatFormatting.WHITE));
-                                ItemAndRate.summonItemEntity(mineRewardMap.get(block).item().getDefaultInstance(),
-                                        blockPos.getCenter(), level);
+                                InventoryOperation.itemStackGive(player, mineRewardMap.get(block).item().getDefaultInstance());
                                 mineReward(player, blockState, blockPos);
                             }
                         } else {

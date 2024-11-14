@@ -86,7 +86,7 @@ public class GateWay {
             // 天空城传送至传送中枢
             if (player.position().distanceTo(new Vec3(957.5, 224.5, 14.5)) < 1) {
                 player.teleportTo(player.getServer().getLevel(Level.OVERWORLD), skyTpCenterPos.x,
-                        skyTpCenterPos.y, skyTpCenterPos.z, 180, 0);
+                        skyTpCenterPos.y + 0.5, skyTpCenterPos.z, 180, 0);
                 // 防止玩家前往传送中枢后直接被传送回天空城经典重生点
                 playerTPCooldownMap.put(name, tick + 2);
             }
@@ -108,7 +108,9 @@ public class GateWay {
                     if (InventoryOperation.itemStackCount(player, ModItems.WorldSoul2.get()) == 0) {
                         playerTPDelayCount.put(name, -1);
                         Compute.setPlayerTitleAndSubTitle(player, Component.literal("位移进程中断").withStyle(ChatFormatting.RED),
-                                Component.literal("背包中的所需资源不足").withStyle(ChatFormatting.AQUA), 0, 20, 10);
+                                Component.literal("需要一个 ").withStyle(ChatFormatting.AQUA)
+                                        .append(ModItems.WorldSoul2.get().getDefaultInstance().getDisplayName()),
+                                0, 20, 10);
                     } else {
                         int tpDelayCount = playerTPDelayCount.getOrDefault(name, -1);
                         playerTPDelayCount.put(name, tpDelayCount - 1);
