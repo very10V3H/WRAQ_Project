@@ -1,11 +1,13 @@
 package fun.wraq.series.moontain.equip.armor;
 
+import fun.wraq.blocks.entity.Decomposable;
 import fun.wraq.common.equip.WraqArmor;
 import fun.wraq.common.equip.impl.ExBaseAttributeValueEquip;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.moontain.MoontainItems;
 import fun.wraq.series.moontain.equip.weapon.MoontainUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -17,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class MoontainArmor extends WraqArmor implements ExBaseAttributeValueEquip {
+public class MoontainArmor extends WraqArmor implements ExBaseAttributeValueEquip, Decomposable {
 
     public MoontainArmor(ArmorMaterial armorMaterial, Type type, Properties properties) {
         super(armorMaterial, type, properties);
@@ -28,7 +30,7 @@ public class MoontainArmor extends WraqArmor implements ExBaseAttributeValueEqui
         if (type.equals(Type.CHESTPLATE)) Utils.defence.put(this, 125d);
         if (type.equals(Type.LEGGINGS)) Utils.maxHealth.put(this, 15000d);
         if (type.equals(Type.BOOTS)) Utils.movementSpeedCommon.put(this, 0.5);
-        Utils.levelRequire.put(this, 240);
+        Utils.levelRequire.put(this, 210);
     }
 
     @Override
@@ -65,5 +67,10 @@ public class MoontainArmor extends WraqArmor implements ExBaseAttributeValueEqui
     @Override
     public Component getSuffix() {
         return ComponentUtils.getSuffixOfMoontain();
+    }
+
+    @Override
+    public ItemStack getProduct() {
+        return new ItemStack(MoontainItems.HEART.get(), 4);
     }
 }

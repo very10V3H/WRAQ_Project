@@ -3,6 +3,7 @@ package fun.wraq.events.core;
 import fun.wraq.blocks.blocks.brew.BrewingNote;
 import fun.wraq.blocks.blocks.forge.ForgeRecipe;
 import fun.wraq.blocks.blocks.inject.InjectRecipe;
+import fun.wraq.blocks.entity.Decomposable;
 import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqArmor;
 import fun.wraq.common.equip.WraqMainHandEquip;
@@ -33,14 +34,16 @@ import java.util.List;
 public class ToolTipEvent {
     @SubscribeEvent
     public static void ToolTipChange(ItemTooltipEvent event) {
+        ItemStack stack = event.getItemStack();
+        Item item = stack.getItem();
         List<Component> tooltip = event.getToolTip();
-        event.getItemStack().hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
-        if (event.getItemStack().is(ModItems.notePaper.get())) {
+        stack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
+        if (stack.is(ModItems.notePaper.get())) {
             event.getToolTip().add(Component.literal(" 置于背包以获取").withStyle(ChatFormatting.WHITE).
                     append(Component.literal("副本奖励").withStyle(ChatFormatting.AQUA)));
         }
 
-        if (event.getItemStack().getItem() instanceof SimpleTierPaper simpleTierPaper) {
+        if (stack.getItem() instanceof SimpleTierPaper simpleTierPaper) {
             event.getToolTip().addAll(simpleTierPaper.getTierDescription());
         }
 
@@ -53,7 +56,7 @@ public class ToolTipEvent {
             add(ModItems.LightningElementPiece2.get());
             add(ModItems.WindElementPiece2.get());
         }};
-        if (items.contains(event.getItemStack().getItem())) {
+        if (items.contains(stack.getItem())) {
             event.getToolTip().add(
                     Component.literal(" - 可置于主手武器物品栏上方").
                             withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
@@ -67,19 +70,19 @@ public class ToolTipEvent {
                             withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
         }
         if (InjectRecipe.injectingRecipeMap.isEmpty()) InjectRecipe.setInjectingRecipeMap();
-        if ((InjectRecipe.injectingRecipeMap.containsKey(event.getItemStack().getItem())
-                || InjectRecipe.injectedGetItemSourceItemMap.containsKey(event.getItemStack().getItem()))) {
+        if ((InjectRecipe.injectingRecipeMap.containsKey(stack.getItem())
+                || InjectRecipe.injectedGetItemSourceItemMap.containsKey(stack.getItem()))) {
             if (!Screen.hasShiftDown())
                 event.getToolTip().add(Component.literal("[在灌注配方中，按下Shift查看配方]")
                         .withStyle(ChatFormatting.BOLD).withStyle(CustomStyle.styleOfInject));
             else {
                 InjectingRecipe injectingRecipe;
-                Item sourceItem = event.getItemStack().getItem();
-                if (InjectRecipe.injectedGetItemSourceItemMap.containsKey(event.getItemStack().getItem())) {
-                    sourceItem = InjectRecipe.injectedGetItemSourceItemMap.get(event.getItemStack().getItem());
+                Item sourceItem = stack.getItem();
+                if (InjectRecipe.injectedGetItemSourceItemMap.containsKey(stack.getItem())) {
+                    sourceItem = InjectRecipe.injectedGetItemSourceItemMap.get(stack.getItem());
                     injectingRecipe = InjectRecipe.injectingRecipeMap.get(sourceItem);
                 } else {
-                    injectingRecipe = InjectRecipe.injectingRecipeMap.get(event.getItemStack().getItem());
+                    injectingRecipe = InjectRecipe.injectingRecipeMap.get(stack.getItem());
                 }
                 tooltip.add(Te.s("->", ChatFormatting.GOLD, "在", "灌注台", CustomStyle.styleOfPurpleIron,
                         "->", ChatFormatting.GOLD));
@@ -96,27 +99,25 @@ public class ToolTipEvent {
                         append(injectingRecipe.getForgingGetItem().getDefaultInstance().getDisplayName()));
             }
         }
-        if (event.getItemStack().is(ModItems.WORLD_FORGE_STONE.get())) {
+        if (stack.is(ModItems.WORLD_FORGE_STONE.get())) {
             event.getToolTip().add(Component.literal(" 用于装备的24+增幅").withStyle(CustomStyle.styleOfWorld));
         }
-        if (event.getItemStack().getTagElement(Utils.MOD_ID) != null) {
-            ItemStack equip = event.getItemStack();
-            Item item = equip.getItem();
+        if (stack.getTagElement(Utils.MOD_ID) != null) {
             if (item instanceof SwordItem || item instanceof BowItem || item instanceof ArmorItem || item instanceof PickaxeItem)
-                equip.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
-            CompoundTag data = event.getItemStack().getOrCreateTagElement(Utils.MOD_ID);
+                stack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
+            CompoundTag data = stack.getOrCreateTagElement(Utils.MOD_ID);
             if (data.contains("attackdamage"))
-                event.getToolTip().add(Component.literal("·基础攻击 ").withStyle(ChatFormatting.AQUA).withStyle(ChatFormatting.BOLD).append(Component.literal(String.format("%.1f", event.getItemStack().getTagElement(Utils.MOD_ID).getDouble("attackdamage"))).withStyle(ChatFormatting.WHITE)));
+                event.getToolTip().add(Component.literal("·基础攻击 ").withStyle(ChatFormatting.AQUA).withStyle(ChatFormatting.BOLD).append(Component.literal(String.format("%.1f", stack.getTagElement(Utils.MOD_ID).getDouble("attackdamage"))).withStyle(ChatFormatting.WHITE)));
             if (data.contains("breakDefence"))
-                event.getToolTip().add(Component.literal("·护甲穿透+").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.BOLD).append(Component.literal(String.format("%.1f", event.getItemStack().getTagElement(Utils.MOD_ID).getDouble("breakDefence") * 100)).withStyle(ChatFormatting.WHITE).append(Component.literal("%"))));
+                event.getToolTip().add(Component.literal("·护甲穿透+").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.BOLD).append(Component.literal(String.format("%.1f", stack.getTagElement(Utils.MOD_ID).getDouble("breakDefence") * 100)).withStyle(ChatFormatting.WHITE).append(Component.literal("%"))));
             if (data.contains("criticalrate"))
-                event.getToolTip().add(Component.literal("·暴击几率+").withStyle(ChatFormatting.LIGHT_PURPLE).withStyle(ChatFormatting.BOLD).append(Component.literal(String.format("%.1f", event.getItemStack().getTagElement(Utils.MOD_ID).getDouble("criticalrate") * 100)).withStyle(ChatFormatting.WHITE).append(Component.literal("%"))));
+                event.getToolTip().add(Component.literal("·暴击几率+").withStyle(ChatFormatting.LIGHT_PURPLE).withStyle(ChatFormatting.BOLD).append(Component.literal(String.format("%.1f", stack.getTagElement(Utils.MOD_ID).getDouble("criticalrate") * 100)).withStyle(ChatFormatting.WHITE).append(Component.literal("%"))));
             if (data.contains("criticaldamage"))
-                event.getToolTip().add(Component.literal("·暴击伤害+").withStyle(ChatFormatting.BLUE).withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.BOLD).append(Component.literal(String.format("%.1f", event.getItemStack().getTagElement(Utils.MOD_ID).getDouble("criticaldamage") * 100)).withStyle(ChatFormatting.WHITE).append(Component.literal("%"))));
+                event.getToolTip().add(Component.literal("·暴击伤害+").withStyle(ChatFormatting.BLUE).withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.BOLD).append(Component.literal(String.format("%.1f", stack.getTagElement(Utils.MOD_ID).getDouble("criticaldamage") * 100)).withStyle(ChatFormatting.WHITE).append(Component.literal("%"))));
             if (data.contains("healsteal"))
-                event.getToolTip().add(Component.literal("·生命偷取+").withStyle(ChatFormatting.RED).withStyle(ChatFormatting.UNDERLINE).withStyle(ChatFormatting.BOLD).append(Component.literal(String.format("%.1f", event.getItemStack().getTagElement(Utils.MOD_ID).getDouble("healsteal") * 100)).withStyle(ChatFormatting.WHITE).append(Component.literal("%"))));
+                event.getToolTip().add(Component.literal("·生命偷取+").withStyle(ChatFormatting.RED).withStyle(ChatFormatting.UNDERLINE).withStyle(ChatFormatting.BOLD).append(Component.literal(String.format("%.1f", stack.getTagElement(Utils.MOD_ID).getDouble("healsteal") * 100)).withStyle(ChatFormatting.WHITE).append(Component.literal("%"))));
             if (data.contains("speedup"))
-                event.getToolTip().add(Component.literal("·移动速度+").withStyle(ChatFormatting.GREEN).withStyle(ChatFormatting.UNDERLINE).withStyle(ChatFormatting.BOLD).append(Component.literal(String.format("%.1f", event.getItemStack().getTagElement(Utils.MOD_ID).getDouble("speedup") * 100)).withStyle(ChatFormatting.WHITE).append(Component.literal("%"))));
+                event.getToolTip().add(Component.literal("·移动速度+").withStyle(ChatFormatting.GREEN).withStyle(ChatFormatting.UNDERLINE).withStyle(ChatFormatting.BOLD).append(Component.literal(String.format("%.1f", stack.getTagElement(Utils.MOD_ID).getDouble("speedup") * 100)).withStyle(ChatFormatting.WHITE).append(Component.literal("%"))));
             if (data.contains("randomsword")) {
                 event.getToolTip().add(Component.literal("··········································").withStyle(ChatFormatting.DARK_GRAY).withStyle(ChatFormatting.OBFUSCATED).withStyle(ChatFormatting.BOLD));
                 event.getToolTip().add(Component.literal(" "));
@@ -146,7 +147,7 @@ public class ToolTipEvent {
                     }
                 }
             }
-            if (event.getItemStack().is(ModItems.DailyMission.get())) {
+            if (stack.is(ModItems.DailyMission.get())) {
                 int index = 1;
                 Component[] Name = {Component.literal(""), Component.literal("平原僵尸").withStyle(ChatFormatting.GREEN),
                         Component.literal("森林骷髅").withStyle(ChatFormatting.DARK_GREEN),
@@ -207,7 +208,7 @@ public class ToolTipEvent {
                     }
                 }
             }
-            if (event.getItemStack().is(ModItems.BrewingNote.get())) {
+            if (stack.is(ModItems.BrewingNote.get())) {
                 Component[] Name = {
                         Component.literal("平原根源").withStyle(ChatFormatting.GREEN),
                         Component.literal("森林根源").withStyle(ChatFormatting.DARK_GREEN),
@@ -242,10 +243,10 @@ public class ToolTipEvent {
                         BrewingNote.ExpName.pear5,
                         BrewingNote.ExpName.pear6,
                 };
-                CompoundTag BrewingData = event.getItemStack().getOrCreateTagElement(Utils.MOD_ID);
+                CompoundTag BrewingData = stack.getOrCreateTagElement(Utils.MOD_ID);
                 event.getToolTip().add(Component.literal(" "));
                 event.getToolTip().add(Component.literal("~当前酿造等阶: ").withStyle(ChatFormatting.WHITE).
-                        append(Utils.BrewingLevelName[Compute.BrewingLevel(event.getItemStack())]));
+                        append(Utils.BrewingLevelName[Compute.BrewingLevel(stack)]));
                 ComponentUtils.descriptionDash(event.getToolTip(), ChatFormatting.WHITE, CustomStyle.styleOfBrew, ChatFormatting.WHITE);
                 event.getToolTip().add(Component.literal(" 酿造经验明细:").withStyle(CustomStyle.styleOfBrew));
                 for (int i = 0; i < Name.length; i++) {
@@ -269,78 +270,78 @@ public class ToolTipEvent {
                     event.getToolTip().add(Component.literal("∫维瑞阿契第").withStyle(ChatFormatting.AQUA).withStyle(ChatFormatting.BOLD).
                             append(Component.literal("" + Number).withStyle(ChatFormatting.RED)).
                             append(Component.literal("件").withStyle(ChatFormatting.AQUA)).withStyle(ChatFormatting.BOLD).
-                            append(equip.getDisplayName()));
+                            append(stack.getDisplayName()));
                 } else if (Number < 100) {
                     event.getToolTip().add(Component.literal("∫维瑞阿契第").withStyle(ChatFormatting.AQUA).withStyle(ChatFormatting.BOLD).
                             append(Component.literal("" + Number).withStyle(ChatFormatting.GOLD)).
                             append(Component.literal("件").withStyle(ChatFormatting.AQUA)).withStyle(ChatFormatting.BOLD).
-                            append(equip.getDisplayName()));
+                            append(stack.getDisplayName()));
                 } else if (Number < 1000) {
                     event.getToolTip().add(Component.literal("∫维瑞阿契第").withStyle(ChatFormatting.AQUA).withStyle(ChatFormatting.BOLD).
                             append(Component.literal("" + Number).withStyle(ChatFormatting.AQUA)).
                             append(Component.literal("件").withStyle(ChatFormatting.AQUA)).withStyle(ChatFormatting.BOLD).
-                            append(equip.getDisplayName()));
+                            append(stack.getDisplayName()));
                 } else {
                     event.getToolTip().add(Component.literal("∫维瑞阿契第").withStyle(ChatFormatting.AQUA).withStyle(ChatFormatting.BOLD).
                             append(Component.literal("" + Number).withStyle(ChatFormatting.GREEN)).
                             append(Component.literal("件").withStyle(ChatFormatting.AQUA)).withStyle(ChatFormatting.BOLD).
-                            append(equip.getDisplayName()));
+                            append(stack.getDisplayName()));
                 }
             }
-            if (equip.is(ModItems.ForestBossSword.get())) {
+            if (stack.is(ModItems.ForestBossSword.get())) {
                 List<Component> components = event.getToolTip();
                 components.add(Component.literal("∰当前").withStyle(ChatFormatting.WHITE).
                         append(Component.literal("森林次元熵").withStyle(CustomStyle.styleOfHealth)).
                         append(Component.literal("为:").withStyle(ChatFormatting.WHITE)).
                         append(Component.literal(" " + ClientUtils.Entropy.Forest).withStyle(CustomStyle.styleOfHealth)));
             }
-            if (equip.is(ModItems.VolcanoBossSword.get())) {
+            if (stack.is(ModItems.VolcanoBossSword.get())) {
                 List<Component> components = event.getToolTip();
                 components.add(Component.literal("∰当前").withStyle(ChatFormatting.WHITE).
                         append(Component.literal("熔岩次元熵").withStyle(CustomStyle.styleOfVolcano)).
                         append(Component.literal("为:").withStyle(ChatFormatting.WHITE)).
                         append(Component.literal(" " + ClientUtils.Entropy.Volcano).withStyle(CustomStyle.styleOfVolcano)));
             }
-            if (equip.is(ModItems.LakeBossSword.get())) {
+            if (stack.is(ModItems.LakeBossSword.get())) {
                 List<Component> components = event.getToolTip();
                 components.add(Component.literal("∰当前").withStyle(ChatFormatting.WHITE).
                         append(Component.literal("湖泊次元熵").withStyle(ChatFormatting.BLUE)).
                         append(Component.literal("为:").withStyle(ChatFormatting.WHITE)).
                         append(Component.literal(" " + ClientUtils.Entropy.Lake).withStyle(ChatFormatting.BLUE)));
             }
-            if (equip.is(ModItems.SkyBossBow.get())) {
+            if (stack.is(ModItems.SkyBossBow.get())) {
                 List<Component> components = event.getToolTip();
                 components.add(Component.literal("∰当前").withStyle(ChatFormatting.WHITE).
                         append(Component.literal("天空次元熵").withStyle(CustomStyle.styleOfSky)).
                         append(Component.literal("为:").withStyle(ChatFormatting.WHITE)).
                         append(Component.literal(" " + ClientUtils.Entropy.Sky).withStyle(CustomStyle.styleOfSky)));
             }
-            if (equip.is(ModItems.SnowBossArmorChest.get())) {
+            if (stack.is(ModItems.SnowBossArmorChest.get())) {
                 List<Component> components = event.getToolTip();
                 components.add(Component.literal("∰当前").withStyle(ChatFormatting.WHITE).
                         append(Component.literal("冰川次元熵").withStyle(CustomStyle.styleOfSnow)).
                         append(Component.literal("为:").withStyle(ChatFormatting.WHITE)).
                         append(Component.literal(" " + ClientUtils.Entropy.Snow).withStyle(CustomStyle.styleOfSnow)));
             }
-            if (equip.is(ModItems.SBoots.get()) || equip.is(ModItems.SLeggings.get())
-                    || equip.is(ModItems.SChest.get()) || equip.is(ModItems.SHelmet.get())
-                    || equip.is(ModItems.ISArmorBoots.get()) || equip.is(ModItems.ISArmorLeggings.get())
-                    || equip.is(ModItems.ISArmorChest.get()) || equip.is(ModItems.ISArmorHelmet.get())) {
+            if (stack.is(ModItems.SBoots.get()) || stack.is(ModItems.SLeggings.get())
+                    || stack.is(ModItems.SChest.get()) || stack.is(ModItems.SHelmet.get())
+                    || stack.is(ModItems.ISArmorBoots.get()) || stack.is(ModItems.ISArmorLeggings.get())
+                    || stack.is(ModItems.ISArmorChest.get()) || stack.is(ModItems.ISArmorHelmet.get())) {
                 List<Component> components = event.getToolTip();
-                if (equip.is(ModItems.SBoots.get()) || equip.is(ModItems.ISArmorBoots.get())) {
+                if (stack.is(ModItems.SBoots.get()) || stack.is(ModItems.ISArmorBoots.get())) {
                     components.add(Component.literal("防具                   ").withStyle(ChatFormatting.GRAY).append(Component.literal("靴子").withStyle(CustomStyle.styleOfSpider)));
-                } else if (equip.is(ModItems.SLeggings.get()) || equip.is(ModItems.ISArmorLeggings.get())) {
+                } else if (stack.is(ModItems.SLeggings.get()) || stack.is(ModItems.ISArmorLeggings.get())) {
                     components.add(Component.literal("防具                   ").withStyle(ChatFormatting.GRAY).append(Component.literal("护腿").withStyle(CustomStyle.styleOfSpider)));
-                } else if (equip.is(ModItems.SChest.get()) || equip.is(ModItems.ISArmorChest.get())) {
+                } else if (stack.is(ModItems.SChest.get()) || stack.is(ModItems.ISArmorChest.get())) {
                     components.add(Component.literal("防具                   ").withStyle(ChatFormatting.GRAY).append(Component.literal("胸甲").withStyle(CustomStyle.styleOfSpider)));
-                } else if (equip.is(ModItems.SHelmet.get()) || equip.is(ModItems.ISArmorHelmet.get())) {
+                } else if (stack.is(ModItems.SHelmet.get()) || stack.is(ModItems.ISArmorHelmet.get())) {
                     components.add(Component.literal("防具                   ").withStyle(ChatFormatting.GRAY).append(Component.literal("头盔").withStyle(CustomStyle.styleOfSpider)));
                 }
                 ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfSpider, ChatFormatting.WHITE);
                 ComponentUtils.descriptionOfBasic(components);
                 int SIndex = data.getInt("SIndex");
-                int Rate = (equip.is(ModItems.ISArmorBoots.get()) || equip.is(ModItems.ISArmorLeggings.get())
-                        || equip.is(ModItems.ISArmorChest.get()) || equip.is(ModItems.ISArmorHelmet.get())) ? 2 : 1;
+                int Rate = (stack.is(ModItems.ISArmorBoots.get()) || stack.is(ModItems.ISArmorLeggings.get())
+                        || stack.is(ModItems.ISArmorChest.get()) || stack.is(ModItems.ISArmorHelmet.get())) ? 2 : 1;
                 for (int i = 1; i <= 5; i++) {
                     String IsSunPower = "#Slot#" + i + "#SunPower";
                     String IsLakePower = "#Slot#" + i + "#LakePower";
@@ -442,7 +443,6 @@ public class ToolTipEvent {
         }
         ForgeRecipe.toolTip(event);
         boolean hasUsage = false;
-        Item item = event.getItemStack().getItem();
         List<Component> usage = new ArrayList<>();
         if (item instanceof ForgeHammer) {
             hasUsage = true;
@@ -521,15 +521,23 @@ public class ToolTipEvent {
         }
         if (hasUsage) {
             if (Screen.hasShiftDown()) {
+                tooltip.add(Te.s(""));
                 tooltip.add(Te.s("->", ChatFormatting.GOLD, "来源/用途", CustomStyle.styleOfWorld, "->", ChatFormatting.GOLD));
                 event.getToolTip().addAll(usage);
             } else {
+                tooltip.add(Te.s(""));
                 event.getToolTip().add(Component.literal("[按住shift查看来源/用途]").withStyle(ChatFormatting.GRAY));
             }
         }
         if (item instanceof RandomCurios) {
+            tooltip.add(Te.s(""));
             event.getToolTip().add(Component.literal("需要注意的是，除了纹章以外的大多数饰品").withStyle(ChatFormatting.GRAY));
             event.getToolTip().add(Component.literal("同一类物品仅会生效最后装备的一个的效果").withStyle(ChatFormatting.GRAY));
+        }
+        if (item instanceof Decomposable decomposable) {
+            tooltip.add(Te.s(""));
+            tooltip.add(Te.s(" 可在锻造台分解为", CustomStyle.styleOfStone, decomposable.getProduct().getDisplayName(),
+                    " * " + decomposable.getProduct().getCount(), CustomStyle.styleOfWorld));
         }
     }
 }

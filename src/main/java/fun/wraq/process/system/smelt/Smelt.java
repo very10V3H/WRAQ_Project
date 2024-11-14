@@ -8,6 +8,7 @@ import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.ItemAndRate;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.func.item.InventoryOperation;
+import fun.wraq.process.func.security.Security;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -28,17 +29,22 @@ public class Smelt {
     public static CompoundTag clientData = new CompoundTag();
 
     private static final String smeltTagKey = "smeltTagKey";
+
     public static CompoundTag getPlayerSmeltTag(Player player) {
         CompoundTag data = player.getPersistentData();
         if (!data.contains(smeltTagKey)) {
             data.put(smeltTagKey, new CompoundTag());
-            data.getCompound(smeltTagKey).putInt(maxSmeltSlotKey, 5);
+            data.getCompound(smeltTagKey).putInt(maxSmeltSlotKey, 8);
         }
         return data.getCompound(smeltTagKey);
     }
 
     private static final String maxSmeltSlotKey = "maxSmeltSlotKey";
+
     private static int getMaxSmeltSlot(Player player) {
+        if (getPlayerSmeltTag(player).getInt(maxSmeltSlotKey) < 8) {
+            setMaxSmeltSlot(player, 8);
+        }
         return getPlayerSmeltTag(player).getInt(maxSmeltSlotKey);
     }
 
@@ -51,6 +57,7 @@ public class Smelt {
     }
 
     private static final String smeltSlotKeyPrefix = "smeltSlotKey_";
+
     private static String getSlotInfo(Player player, int slotIndex) {
         int maxSlot = getMaxSmeltSlot(player);
         if (slotIndex > maxSlot) return null;
@@ -58,8 +65,7 @@ public class Smelt {
             CompoundTag data = getPlayerSmeltTag(player);
             if (!data.contains(smeltSlotKeyPrefix + slotIndex)) {
                 return smeltSlotEmpty;
-            }
-            else {
+            } else {
                 return getPlayerSmeltTag(player).getString(smeltSlotKeyPrefix + slotIndex);
             }
         }
@@ -78,8 +84,7 @@ public class Smelt {
         else {
             if (!clientData.contains(smeltSlotKeyPrefix + slotIndex)) {
                 return smeltSlotEmpty;
-            }
-            else {
+            } else {
                 return clientData.getString(smeltSlotKeyPrefix + slotIndex);
             }
         }
@@ -87,9 +92,10 @@ public class Smelt {
 
     // smeltSlotInfo 形如: 1$calendar 包含了配方下标与完成时间
     private static final String smeltSlotEmpty = "smeltSlotEmpty";
+
     private static boolean putSlotInfoToEmptySlot(Player player, String smeltSlotInfo) {
         int maxSlot = getMaxSmeltSlot(player);
-        for (int i = 1 ; i <= maxSlot ; i ++) {
+        for (int i = 1; i <= maxSlot; i++) {
             if (Objects.equals(getSlotInfo(player, i), smeltSlotEmpty)) {
                 getPlayerSmeltTag(player).putString(smeltSlotKeyPrefix + i, smeltSlotInfo);
                 return true;
@@ -149,6 +155,25 @@ public class Smelt {
             return List.of();
         }
         return getExProductListBySlotInfo(info);
+    }
+
+    private static List<ItemStack> getMaterialListBySlotInfo(String smeltSlotInfo) {
+        if (!smeltSlotInfo.contains("$")) {
+            return List.of();
+        }
+        String[] s = smeltSlotInfo.split("\\$");
+        return SmeltRecipe.getRecipeByIndex(Integer.parseInt(s[0])).needMaterialList;
+    }
+
+    public static List<ItemStack> getMaterialListBySlotIndex(Player player, int slotIndex) {
+        if (slotIndex > getMaxSmeltSlot(player)) {
+            return List.of();
+        }
+        String info = getSlotInfo(player, slotIndex);
+        if (Objects.equals(info, smeltSlotEmpty) || info == null) {
+            return List.of();
+        }
+        return getMaterialListBySlotInfo(info);
     }
 
     public static List<ItemStack> getItemForClientSide(int slotIndex) throws CommandSyntaxException {
@@ -211,12 +236,25 @@ public class Smelt {
             MySound.soundToPlayer(player, SoundEvents.ITEM_PICKUP);
         } else {
             // 还未到时间
-
+            if (finishTime != null) {
+                sendFormatMSG(player, Te.s("还需要 ", Compute.getDifferenceFormatText(finishTime, current),
+                        ChatFormatting.AQUA, " 此进程才能完成"));
+            }
         }
     }
 
+    public static void cancelProgress(Player player, int slotIndex) {
+        if (slotIndex > getMaxSmeltSlot(player)) return;
+        getMaterialListBySlotIndex(player, slotIndex).forEach(stack -> {
+            Security.recordItemStream(player.getName().getString(), stack, Security.RecordType.SMELT_CANCEL);
+            InventoryOperation.itemStackGive(player, new ItemStack(stack.getItem(), stack.getCount()));
+        });
+        setSlotInfo(player, slotIndex, smeltSlotEmpty);
+        MySound.soundToPlayer(player, SoundEvents.ITEM_PICKUP);
+    }
+
     public static void checkFinishAndGiveItemForAllSlot(Player player) throws ParseException, CommandSyntaxException {
-        for (int i = 1 ; i <= getMaxSmeltSlot(player) ; i ++) {
+        for (int i = 1; i <= getMaxSmeltSlot(player); i++) {
             checkFinishAndGiveItem(player, i);
         }
     }
@@ -224,7 +262,7 @@ public class Smelt {
     public static List<SmeltRecipe> getRecipeByTag(CompoundTag data) {
         List<SmeltRecipe> recipes = new ArrayList<>();
         int maxSlot = data.getInt(maxSmeltSlotKey);
-        for (int i = 1 ; i <= maxSlot ; i ++) {
+        for (int i = 1; i <= maxSlot; i++) {
             if (getRecipeBySlotInfo(data.getString(smeltSlotKeyPrefix + i)) != null) {
                 recipes.add(SmeltRecipe.getRecipeByIndex(Integer.parseInt(data.getString(smeltSlotKeyPrefix + i).split("\\$")[0])));
             } else {
@@ -237,7 +275,7 @@ public class Smelt {
     public static List<Calendar> getProgressFinishTimeByTag(CompoundTag data) throws ParseException {
         List<Calendar> times = new ArrayList<>();
         int maxSlot = data.getInt(maxSmeltSlotKey);
-        for (int i = 1 ; i <= maxSlot ; i ++) {
+        for (int i = 1; i <= maxSlot; i++) {
             if (getFinishTimeBySlotInfo(data.getString(smeltSlotKeyPrefix + i)) != null) {
                 times.add(getFinishTimeBySlotInfo(data.getString(smeltSlotKeyPrefix + i)));
             } else {
@@ -258,7 +296,7 @@ public class Smelt {
     }
 
     public static void fastenAllSmeltProgress(Player player, int minutes) throws ParseException {
-        for (int i = 1 ; i <= getMaxSmeltSlot(player) ; i ++) {
+        for (int i = 1; i <= getMaxSmeltSlot(player); i++) {
             fastenSmeltProgressBySlotIndex(player, i, minutes);
         }
         checkIfAnyProgressFinished(player);
@@ -276,12 +314,12 @@ public class Smelt {
 
     public static void checkIfAnyProgressFinished(Player player) throws ParseException {
         int finishedCount = 0;
-        for (int i = 1 ; i <= getMaxSmeltSlot(player) ; i ++) {
+        for (int i = 1; i <= getMaxSmeltSlot(player); i++) {
             String slotInfo = getSlotInfo(player, i);
             if (slotInfo != null && !slotInfo.equals(smeltSlotEmpty)) {
                 Calendar finishTime = getFinishTimeBySlotInfo(slotInfo);
                 Calendar calendar = Calendar.getInstance();
-                if (calendar.after(finishTime)) finishedCount ++;
+                if (calendar.after(finishTime)) finishedCount++;
             }
         }
         if (finishedCount > 0 && finishedCount != getLastTimeFinishedNum(player)) {
@@ -294,13 +332,13 @@ public class Smelt {
 
     public static int getInProgressSlotCountForClient() throws ParseException {
         int inProgressSlotCount = 0;
-        for (int i = 1 ; i <= getMaxSmeltSlotForClientSide() ; i ++) {
+        for (int i = 1; i <= getMaxSmeltSlotForClientSide(); i++) {
             String slotInfo = getSlotInfoForClientSide(i);
             if (slotInfo != null && !slotInfo.equals(smeltSlotEmpty)) {
                 Calendar finishTime = getFinishTimeBySlotInfo(slotInfo);
                 Calendar calendar = Compute.StringToCalendar(ClientUtils.serverTime);
                 if (calendar.before(finishTime)) {
-                    inProgressSlotCount ++;
+                    inProgressSlotCount++;
                 }
             }
         }
@@ -309,13 +347,13 @@ public class Smelt {
 
     public static int getFinishedSlotCountForClient() throws ParseException {
         int finishedSlotCount = 0;
-        for (int i = 1 ; i <= getMaxSmeltSlotForClientSide() ; i ++) {
+        for (int i = 1; i <= getMaxSmeltSlotForClientSide(); i++) {
             String slotInfo = getSlotInfoForClientSide(i);
             if (slotInfo != null && !slotInfo.equals(smeltSlotEmpty)) {
                 Calendar finishTime = getFinishTimeBySlotInfo(slotInfo);
                 Calendar calendar = Compute.StringToCalendar(ClientUtils.serverTime);
                 if (calendar.after(finishTime)) {
-                    finishedSlotCount ++;
+                    finishedSlotCount++;
                 }
             }
         }

@@ -65,5 +65,6 @@ public class Security {
         public static final String VP_PAY = "vp商店vp支付";
         public static final String TOSS_PICK = "拾取地上物品";
         public static final String BONUS_CHEST_REWARD = "奖励箱获取";
+        public static final String SMELT_CANCEL = "取消炼造进程";
     }
 }

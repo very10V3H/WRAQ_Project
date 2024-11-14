@@ -1,9 +1,11 @@
 package fun.wraq.events.mob.instance.item;
 
+import fun.wraq.blocks.entity.Decomposable;
 import fun.wraq.common.attribute.BasicAttributeDescription;
 import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.equip.impl.RandomCurios;
 import fun.wraq.common.impl.display.UsageOrGetWayDescriptionItem;
+import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -16,7 +18,7 @@ import net.minecraft.world.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlainNecklace extends WraqCurios implements RandomCurios, UsageOrGetWayDescriptionItem {
+public class PlainNecklace extends WraqCurios implements RandomCurios, UsageOrGetWayDescriptionItem, Decomposable {
 
     public PlainNecklace(Properties properties) {
         super(properties);
@@ -66,5 +68,10 @@ public class PlainNecklace extends WraqCurios implements RandomCurios, UsageOrGe
     @Override
     public double fullRate() {
         return 0.4;
+    }
+
+    @Override
+    public ItemStack getProduct() {
+        return new ItemStack(ModItems.PlainSoul.get(), 3);
     }
 }

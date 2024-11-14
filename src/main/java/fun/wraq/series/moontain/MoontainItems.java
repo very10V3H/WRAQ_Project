@@ -22,31 +22,6 @@ import java.util.List;
 public class MoontainItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Utils.MOD_ID);
 
-    public static final RegistryObject<Item> SWORD = ITEMS.register("moontain_sword",
-            () -> new MoontainSword(new Item.Properties().rarity(CustomStyle.MOONTAIN_ITALIC)));
-
-    public static final RegistryObject<Item> BOW = ITEMS.register("moontain_bow",
-            () -> new MoontainBow(new Item.Properties().rarity(CustomStyle.MOONTAIN_ITALIC)));
-
-    public static final RegistryObject<Item> SCEPTRE = ITEMS.register("moontain_sceptre",
-            () -> new MoontainSceptre(new Item.Properties().rarity(CustomStyle.MOONTAIN_ITALIC)));
-
-    public static final RegistryObject<Item> HELMET = ITEMS.register("moontain_helmet",
-            () -> new MoontainArmor(ItemMaterial.MOONTAIN, ArmorItem.Type.HELMET,
-                    new Item.Properties().rarity(CustomStyle.MOONTAIN_ITALIC)));
-
-    public static final RegistryObject<Item> CHEST = ITEMS.register("moontain_chest",
-            () -> new MoontainArmor(ItemMaterial.MOONTAIN, ArmorItem.Type.CHESTPLATE,
-                    new Item.Properties().rarity(CustomStyle.MOONTAIN_ITALIC)));
-
-    public static final RegistryObject<Item> LEGGINGS = ITEMS.register("moontain_leggings",
-            () -> new MoontainArmor(ItemMaterial.MOONTAIN, ArmorItem.Type.LEGGINGS,
-                    new Item.Properties().rarity(CustomStyle.MOONTAIN_ITALIC)));
-
-    public static final RegistryObject<Item> BOOTS = ITEMS.register("moontain_boots",
-            () -> new MoontainArmor(ItemMaterial.MOONTAIN, ArmorItem.Type.BOOTS,
-                    new Item.Properties().rarity(CustomStyle.MOONTAIN_ITALIC)));
-
     // 望山孤魂残躯
     public static final RegistryObject<Item> SOUL_FRAGMENT = ITEMS.register("moontain_soul_fragment",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.MOONTAIN), true, true));
@@ -119,4 +94,29 @@ public class MoontainItems {
                             "数值上限", ChatFormatting.RED)
 
             )));
+
+    public static final RegistryObject<Item> SWORD = ITEMS.register("moontain_sword",
+            () -> new MoontainSword(new Item.Properties().rarity(CustomStyle.MOONTAIN_ITALIC)));
+
+    public static final RegistryObject<Item> BOW = ITEMS.register("moontain_bow",
+            () -> new MoontainBow(new Item.Properties().rarity(CustomStyle.MOONTAIN_ITALIC)));
+
+    public static final RegistryObject<Item> SCEPTRE = ITEMS.register("moontain_sceptre",
+            () -> new MoontainSceptre(new Item.Properties().rarity(CustomStyle.MOONTAIN_ITALIC)));
+
+    public static final RegistryObject<Item> HELMET = ITEMS.register("moontain_helmet",
+            () -> new MoontainArmor(ItemMaterial.MOONTAIN, ArmorItem.Type.HELMET,
+                    new Item.Properties().rarity(CustomStyle.MOONTAIN_ITALIC)));
+
+    public static final RegistryObject<Item> CHEST = ITEMS.register("moontain_chest",
+            () -> new MoontainArmor(ItemMaterial.MOONTAIN, ArmorItem.Type.CHESTPLATE,
+                    new Item.Properties().rarity(CustomStyle.MOONTAIN_ITALIC)));
+
+    public static final RegistryObject<Item> LEGGINGS = ITEMS.register("moontain_leggings",
+            () -> new MoontainArmor(ItemMaterial.MOONTAIN, ArmorItem.Type.LEGGINGS,
+                    new Item.Properties().rarity(CustomStyle.MOONTAIN_ITALIC)));
+
+    public static final RegistryObject<Item> BOOTS = ITEMS.register("moontain_boots",
+            () -> new MoontainArmor(ItemMaterial.MOONTAIN, ArmorItem.Type.BOOTS,
+                    new Item.Properties().rarity(CustomStyle.MOONTAIN_ITALIC)));
 }

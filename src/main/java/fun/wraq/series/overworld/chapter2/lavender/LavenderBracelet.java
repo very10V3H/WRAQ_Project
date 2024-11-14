@@ -1,6 +1,8 @@
 package fun.wraq.series.overworld.chapter2.lavender;
 
+import fun.wraq.blocks.entity.Decomposable;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.struct.Shield;
@@ -22,7 +24,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LavenderBracelet extends WraqCurios implements RandomCurios, UsageOrGetWayDescriptionItem {
+public class LavenderBracelet extends WraqCurios implements RandomCurios, UsageOrGetWayDescriptionItem, Decomposable {
 
     public LavenderBracelet(Properties properties) {
         super(properties);
@@ -93,5 +95,10 @@ public class LavenderBracelet extends WraqCurios implements RandomCurios, UsageO
     @Override
     public double fullRate() {
         return 0.5;
+    }
+
+    @Override
+    public ItemStack getProduct() {
+        return new ItemStack(ModItems.PurpleIronPiece.get(), 8);
     }
 }

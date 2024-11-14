@@ -1,5 +1,6 @@
 package fun.wraq.customized;
 
+import fun.wraq.blocks.entity.Decomposable;
 import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.ComponentUtils;
@@ -19,8 +20,7 @@ import top.theillusivec4.curios.api.type.capability.ICurioItem;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public abstract class
-WraqUniformCurios extends Item implements ICurioItem {
+public abstract class WraqUniformCurios extends Item implements ICurioItem, Decomposable {
 
     public WraqUniformCurios(Properties properties) {
         super(properties.stacksTo(1));
@@ -75,5 +75,10 @@ WraqUniformCurios extends Item implements ICurioItem {
 
     public static boolean isOn(Class<? extends Item> clazz, Player player) {
         return WraqCurios.isOn(clazz, player);
+    }
+
+    @Override
+    public ItemStack getProduct() {
+        return new ItemStack(UniformItems.uniformPiece.get());
     }
 }

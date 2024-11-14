@@ -60,17 +60,29 @@ public class SmeltProgressScreen extends Screen {
         }).pos(this.width / 2 + 136, this.height / 2 - 98).size(12, 12).build());
 
         for (int i = 0; i < 5; i++) {
-            int finalI = i;
-            this.addRenderableWidget(Button.builder(Component.translatable("收取"), (p_280814_) -> {
-                ModNetworking.sendToServer(new SmeltHarvestC2SPacket(finalI + page * 10));
-            }).pos(this.width / 2 - 35, this.height / 2 - 83 + 32 * i).size(32, 16).build());
+            int index = i + page * 10;
+            if (!slotIsNull(index)) {
+                this.addRenderableWidget(Button.builder(getButtonDisplay(index), (p_280814_) -> {
+                    if (slotIsFinished(index)) {
+                        ModNetworking.sendToServer(new SmeltHarvestC2SPacket(index));
+                    } else {
+                        ModNetworking.sendToServer(new SmeltProgressCancelC2SPacket(index));
+                    }
+                }).pos(this.width / 2 - 35, this.height / 2 - 83 + 32 * i).size(32, 16).build());
+            }
         }
 
         for (int i = 0; i < 5; i++) {
-            int finalI = i;
-            this.addRenderableWidget(Button.builder(Component.translatable("收取"), (p_280814_) -> {
-                ModNetworking.sendToServer(new SmeltHarvestC2SPacket(finalI + 5 + page * 10));
-            }).pos(this.width / 2 - 35 + 140, this.height / 2 - 83 + 32 * i).size(32, 16).build());
+            int index = i + 5 + page * 10;
+            if (!slotIsNull(index)) {
+                this.addRenderableWidget(Button.builder(getButtonDisplay(index), (p_280814_) -> {
+                    if (slotIsFinished(index)) {
+                        ModNetworking.sendToServer(new SmeltHarvestC2SPacket(index));
+                    } else {
+                        ModNetworking.sendToServer(new SmeltProgressCancelC2SPacket(index));
+                    }
+                }).pos(this.width / 2 - 35 + 140, this.height / 2 - 83 + 32 * i).size(32, 16).build());
+            }
         }
 
         this.addRenderableWidget(Button.builder(Component.translatable("配方"), (p_280814_) -> {
@@ -79,6 +91,9 @@ public class SmeltProgressScreen extends Screen {
     }
 
     public void tick() {
+        if (ClientUtils.clientPlayerTick % 20 == 0) {
+            Minecraft.getInstance().setScreen(new SmeltProgressScreen());
+        }
         super.tick();
     }
 
@@ -145,7 +160,6 @@ public class SmeltProgressScreen extends Screen {
         Calendar finishedTime = timeList.get(index);
         index %= 5;
         if (smeltRecipe == null || finishedTime == null) {
-
             return;
         }
         int currentProductDisplayIndex = tick / 30 % smeltRecipe.productList.size();
@@ -188,5 +202,41 @@ public class SmeltProgressScreen extends Screen {
     @Override
     public boolean isPauseScreen() {
         return false;
+    }
+
+    private boolean slotIsNull(int index) {
+        if (index > list.size() - 1) return true;
+        List<Calendar> timeList = null;
+        try {
+            timeList = Smelt.getProgressFinishTimeByTag(Smelt.clientData);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        SmeltRecipe smeltRecipe = list.get(index);
+        Calendar finishedTime = timeList.get(index);
+        return smeltRecipe == null || finishedTime == null;
+    }
+
+    private boolean slotIsFinished(int index) {
+        List<Calendar> timeList = null;
+        try {
+            timeList = Smelt.getProgressFinishTimeByTag(Smelt.clientData);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        SmeltRecipe smeltRecipe = list.get(index);
+        Calendar finishedTime = timeList.get(index);
+        if (smeltRecipe == null || finishedTime == null) {
+            return false;
+        }
+        String differenceFormatText = Compute.getDifferenceFormatText(finishedTime, Calendar.getInstance());
+        return differenceFormatText.equals("00:00:00");
+    }
+
+    private Component getButtonDisplay(int index) {
+        if (slotIsFinished(index)) {
+            return Te.s("可收取", ChatFormatting.AQUA);
+        }
+        return Te.s("取消", ChatFormatting.RED);
     }
 }

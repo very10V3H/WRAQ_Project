@@ -1,9 +1,11 @@
 package fun.wraq.events.mob.instance.item;
 
+import fun.wraq.blocks.entity.Decomposable;
 import fun.wraq.common.attribute.BasicAttributeDescription;
 import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.equip.impl.RandomCurios;
 import fun.wraq.common.impl.display.UsageOrGetWayDescriptionItem;
+import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -16,7 +18,7 @@ import net.minecraft.world.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NetherHand extends WraqCurios implements RandomCurios, UsageOrGetWayDescriptionItem {
+public class NetherHand extends WraqCurios implements RandomCurios, UsageOrGetWayDescriptionItem, Decomposable {
 
     public NetherHand(Properties properties) {
         super(properties);
@@ -66,5 +68,10 @@ public class NetherHand extends WraqCurios implements RandomCurios, UsageOrGetWa
     @Override
     public double fullRate() {
         return 0.6;
+    }
+
+    @Override
+    public ItemStack getProduct() {
+        return new ItemStack(ModItems.NetherQuartz.get(), 12);
     }
 }

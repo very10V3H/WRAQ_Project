@@ -95,7 +95,8 @@ public class MarketScreen extends Screen {
         for (int i = 0; i < 5; i++) {
             if (ClientUtils.marketInfo.size() > pageNum * 5 + i) {
                 MarketItemInfo marketItemInfo = ClientUtils.marketInfo.get(pageNum * 5 + i);
-                if (marketItemInfo != null && (marketItemInfo.getPlayer().equals(mc.player.getName().getString()) || mc.player.isCreative())) {
+                if (marketItemInfo != null && (marketItemInfo.getPlayer().equals(mc.player.getName().getString())
+                        || mc.player.isCreative())) {
                     this.addRenderableWidget(Button.builder(Component.translatable("下架"), (p_280814_) -> {
                         ModNetworking.sendToServer(new OffShellC2SPacket(marketItemInfo.getPlayer(),
                                 marketItemInfo.getItemStack(), marketItemInfo.getPrice()));
@@ -105,13 +106,14 @@ public class MarketScreen extends Screen {
                 }
             }
         }
-
-
     }
 
     public void tick() {
         super.tick();
         String targetValue = this.nameSearchBox.getValue();
+        if (targetValue.isEmpty()) {
+            mc.setScreen(new MarketScreen(true, pageNum, sortByPrice));
+        }
         if (!targetValue.isEmpty() && !targetValue.equals(lastTimeString)) {
             lastTimeString = targetValue;
             List<MarketItemInfo> matchedListPriority0 = new ArrayList<>();

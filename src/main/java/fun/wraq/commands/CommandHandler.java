@@ -520,13 +520,29 @@ public class CommandHandler {
                                 .requires(commandSourceStack -> commandSourceStack.hasPermission(2))
                 )
         );
-
         CommandDispatcher<CommandSourceStack> dispatcher56 = event.getDispatcher();
         LiteralCommandNode<CommandSourceStack> cmd56 = dispatcher56.register(
                 Commands.literal(Utils.MOD_ID).then(
                         Commands.literal("fixBackpack")
                                 .requires(commandSourceStack -> commandSourceStack.hasPermission(0))
                                 .executes(FixBackpackCommand.instance)
+                )
+        );
+        CommandDispatcher<CommandSourceStack> dispatcher57 = event.getDispatcher();
+        LiteralCommandNode<CommandSourceStack> cmd57 = dispatcher57.register(
+                Commands.literal(Utils.MOD_ID).then(
+                        Commands.literal("idCard")
+                                .requires(commandSourceStack -> commandSourceStack.hasPermission(0))
+                                .executes(IdCardCommand.instance)
+                )
+        );
+        CommandDispatcher<CommandSourceStack> dispatcher58 = event.getDispatcher();
+        LiteralCommandNode<CommandSourceStack> cmd58 = dispatcher58.register(
+                Commands.literal(Utils.MOD_ID).then(
+                        Commands.literal("progressUnlock").then(
+                                Commands.argument("name", GameProfileArgument.gameProfile())
+                                        .executes(ProgressUnlockCommand.instance)
+                        ).requires(commandSourceStack -> commandSourceStack.hasPermission(2))
                 )
         );
     }

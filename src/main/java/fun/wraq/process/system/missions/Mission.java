@@ -547,7 +547,7 @@ public class Mission {
         for (int i = 19; i <= 38; i++) {
             rewardContent.put(i, List.of(new ItemStack(ModItems.worldSoul5.get(), 4),
                     new ItemStack(ModItems.goldCoin.get(), 2),
-                    new ItemStack(ModItems.RevelationBook.get(), 1)));
+                    new ItemStack(ModItems.RevelationBook.get(), 10)));
         }
     }
 

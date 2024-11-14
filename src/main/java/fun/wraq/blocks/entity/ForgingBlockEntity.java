@@ -10,8 +10,6 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.customized.UniformItems;
-import fun.wraq.customized.WraqUniformCurios;
 import fun.wraq.events.mob.loot.RandomLootEquip;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.render.gui.blocks.ForgingBlockMenu;
@@ -21,8 +19,6 @@ import fun.wraq.series.gems.WraqGem;
 import fun.wraq.series.instance.series.castle.CastleAttackArmor;
 import fun.wraq.series.instance.series.castle.CastleManaArmor;
 import fun.wraq.series.instance.series.castle.CastleSwiftArmor;
-import fun.wraq.series.newrunes.NewRuneItems;
-import fun.wraq.series.newrunes.RuneItem;
 import fun.wraq.series.overworld.forging.ForgingStone0;
 import fun.wraq.series.overworld.forging.ForgingStone1;
 import fun.wraq.series.overworld.forging.ForgingStone2;
@@ -766,34 +762,11 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider, Dro
             return true;
         }
 
-        if (equip.is(ModItems.plainNecklace.get())) {
-            this.itemStackHandler.setStackInSlot(2, new ItemStack(ModItems.PlainBossSoul.get()));
+        if (equip.getItem() instanceof Decomposable decomposable) {
+            this.itemStackHandler.setStackInSlot(2, decomposable.getProduct());
             return true;
         }
-        if (equip.is(ModItems.lavenderBracelet.get())) {
-            this.itemStackHandler.setStackInSlot(2, new ItemStack(ModItems.PurpleIronPiece.get(), 8));
-            return true;
-        }
-        if (equip.is(ModItems.netherHand.get())) {
-            this.itemStackHandler.setStackInSlot(2, new ItemStack(ModItems.NetherQuartz.get(), 8));
-            return true;
-        }
-        if (equip.is(ModItems.iceBelt.get())) {
-            this.itemStackHandler.setStackInSlot(2, new ItemStack(ModItems.IceSoul.get()));
-            return true;
-        }
-        if (equip.is(ModItems.CastleNecklace.get())) {
-            this.itemStackHandler.setStackInSlot(2, new ItemStack(ModItems.CastlePiece.get()));
-            return true;
-        }
-        if (equip.getItem() instanceof WraqUniformCurios) {
-            this.itemStackHandler.setStackInSlot(2, new ItemStack(UniformItems.uniformPiece.get()));
-            return true;
-        }
-        if (equip.getItem() instanceof RuneItem) {
-            this.itemStackHandler.setStackInSlot(2, new ItemStack(NewRuneItems.emptyRune.get()));
-            return true;
-        }
+
         return false;
     }
 

@@ -182,11 +182,13 @@ public class ServerPlayerTickEvent {
                                     append(Component.literal("" + Mission.inProgressMission(player))).
                                     append(Component.literal("尚未完成的任务，使用身份卡或快捷按键打开任务列表").withStyle(ChatFormatting.WHITE)));
                 }
-                Guide.sendStageToClient(player);
                 ModNetworking.sendToClient(new CurrentSeasonAndResonanceTypeS2CPacket(MySeason.currentSeason, Element.PlayerResonanceType.getOrDefault(player, "")), serverPlayer);
             }
+            Guide.sendStageToClient(player);
 
-            ModNetworking.sendToClient(new PacketLimitS2CPacket(150), serverPlayer);
+            if (player.tickCount % 40 == 0) {
+                ModNetworking.sendToClient(new PacketLimitS2CPacket(200), serverPlayer);
+            }
 
             if (player.tickCount % 100 == 27) {
 /*                List<Chicken> chickenList = player.level().getEntitiesOfClass(Chicken.class,AABB.ofSize(player.position(),30,30,30));

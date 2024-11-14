@@ -1,5 +1,6 @@
 package fun.wraq.series.moontain.equip.weapon;
 
+import fun.wraq.blocks.entity.Decomposable;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
@@ -7,6 +8,7 @@ import fun.wraq.common.equip.impl.ExBaseAttributeValueEquip;
 import fun.wraq.common.equip.WraqBow;
 import fun.wraq.common.equip.impl.WraqMainHandOrPassiveEquip;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.moontain.MoontainItems;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.item.Item;
@@ -17,7 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MoontainBow extends WraqBow implements ExBaseAttributeValueEquip, WraqMainHandOrPassiveEquip {
+public class MoontainBow extends WraqBow implements ExBaseAttributeValueEquip, WraqMainHandOrPassiveEquip, Decomposable {
 
     public MoontainBow(Properties properties) {
         super(properties);
@@ -25,7 +27,7 @@ public class MoontainBow extends WraqBow implements ExBaseAttributeValueEquip, W
         Utils.defencePenetration0.put(this, 40d);
         Utils.critRate.put(this, 0.25);
         Utils.critDamage.put(this, 1.55);
-        Utils.levelRequire.put(this, 240);
+        Utils.levelRequire.put(this, 210);
     }
 
     @Override
@@ -57,5 +59,10 @@ public class MoontainBow extends WraqBow implements ExBaseAttributeValueEquip, W
         return new HashMap<>() {{
             put(Utils.attackDamage, new TagAndEachTierValue(MoontainUtils.MOONTAIN_ATTACK_TAG_KEY, 100));
         }};
+    }
+
+    @Override
+    public ItemStack getProduct() {
+        return new ItemStack(MoontainItems.HEART.get(), 4);
     }
 }

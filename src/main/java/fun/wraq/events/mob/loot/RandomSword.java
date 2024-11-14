@@ -1,14 +1,16 @@
 package fun.wraq.events.mob.loot;
 
 import fun.wraq.common.equip.WraqSword;
-import fun.wraq.events.mob.loot.RandomAttributeValue;
+import fun.wraq.common.fast.Te;
+import fun.wraq.common.impl.display.UsageOrGetWayDescriptionItem;
+import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
 
-public class RandomSword extends WraqSword implements RandomLootEquip {
+public class RandomSword extends WraqSword implements RandomLootEquip, UsageOrGetWayDescriptionItem {
 
     private final Style style;
     private final Component suffix;
@@ -46,5 +48,12 @@ public class RandomSword extends WraqSword implements RandomLootEquip {
     @Override
     public int levelRequire() {
         return levelRequire;
+    }
+
+    @Override
+    public List<Component> getWayDescription() {
+        return List.of(
+                Te.s(" 可在锻造台分解为相应品质锻造碎片", CustomStyle.styleOfStone)
+        );
     }
 }

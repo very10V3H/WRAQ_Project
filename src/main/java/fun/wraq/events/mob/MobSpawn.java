@@ -108,6 +108,7 @@ public class MobSpawn {
         overWolrdList.add(MineSkeletonSpawnController.getInstance(overWorld));
 
         overWolrdList.add(SkyVexSpawnController.getInstance(overWorld));
+        overWolrdList.add(SkySkeletonSpawnController.getInstance(overWorld));
         overWolrdList.add(FireLightSpawnController.getInstance(overWorld));
         overWolrdList.add(SearedSpiritSpawnController.getInstance(overWorld));
         overWolrdList.add(SearedSpirit2SpawnController.getInstance(overWorld));

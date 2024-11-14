@@ -1,9 +1,11 @@
 package fun.wraq.process.system.teamInstance.instances.blackCastle;
 
+import fun.wraq.blocks.entity.Decomposable;
 import fun.wraq.common.attribute.BasicAttributeDescription;
 import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.equip.impl.RandomCurios;
 import fun.wraq.common.impl.display.UsageOrGetWayDescriptionItem;
+import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -16,7 +18,7 @@ import net.minecraft.world.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CastleNecklace extends WraqCurios implements RandomCurios, UsageOrGetWayDescriptionItem {
+public class CastleNecklace extends WraqCurios implements RandomCurios, UsageOrGetWayDescriptionItem, Decomposable {
     public CastleNecklace(Properties properties) {
         super(properties);
         Utils.levelRequire.put(this, 180);
@@ -64,5 +66,10 @@ public class CastleNecklace extends WraqCurios implements RandomCurios, UsageOrG
                 append(Component.literal("全能型").withStyle(CustomStyle.styleOfSakura)).
                 append(Component.literal("属性").withStyle(ChatFormatting.WHITE)));
         return components;
+    }
+
+    @Override
+    public ItemStack getProduct() {
+        return new ItemStack(ModItems.CastlePiece.get());
     }
 }

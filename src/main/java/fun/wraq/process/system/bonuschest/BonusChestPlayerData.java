@@ -5,9 +5,7 @@ import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.core.InventoryCheck;
 import fun.wraq.process.func.security.Security;
-import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.point.Point;
-import fun.wraq.process.system.potion.PotionBag;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -138,8 +136,7 @@ public class BonusChestPlayerData {
                 chestBlockEntity.clearContent();
                 BonusChestContent.getBonusContent(bonusChestInfo.tier).forEach(pair -> {
                     ItemStack itemStack = pair.getFirst();
-                    if (!(itemStack.getItem() instanceof PotionBag)
-                            && !(Element.getPiece0Items().contains(itemStack.getItem()))) {
+                    if (InventoryCheck.containOwnerTag(itemStack)) {
                         InventoryCheck.addOwnerTagToItemStack(player, itemStack);
                     }
                     Security.recordItemStream(player.getName().getString(), itemStack,

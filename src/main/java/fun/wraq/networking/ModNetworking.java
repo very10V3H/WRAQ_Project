@@ -76,10 +76,7 @@ import fun.wraq.process.system.missions.series.labourDay.netWorking.LabourDayMis
 import fun.wraq.process.system.point.network.PointDataS2CPacket;
 import fun.wraq.process.system.randomStore.networking.TradeListClearS2CPacket;
 import fun.wraq.process.system.randomStore.networking.TradeListS2CPacket;
-import fun.wraq.process.system.smelt.SmeltDataRequestC2SPacket;
-import fun.wraq.process.system.smelt.SmeltDataS2CPacket;
-import fun.wraq.process.system.smelt.SmeltHarvestC2SPacket;
-import fun.wraq.process.system.smelt.SmeltRequestC2SPacket;
+import fun.wraq.process.system.smelt.*;
 import fun.wraq.process.system.teamInstance.networking.NewTeamInstanceClearS2CPacket;
 import fun.wraq.process.system.teamInstance.networking.NewTeamInstanceJoinedPlayerInfoS2CPacket;
 import fun.wraq.process.system.teamInstance.networking.NewTeamInstancePrepareInfoS2CPacket;
@@ -1346,6 +1343,11 @@ public class ModNetworking {
                 .encoder(LotteryRewardTimeS2CPacket::toBytes)
                 .consumerMainThread(LotteryRewardTimeS2CPacket::handle)
                 .add();
+        net.messageBuilder(SmeltProgressCancelC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(SmeltProgressCancelC2SPacket::new)
+                .encoder(SmeltProgressCancelC2SPacket::toBytes)
+                .consumerMainThread(SmeltProgressCancelC2SPacket::handle)
+                .add();
     }
 
     public static <MSG> void sendToServer(MSG message) {
@@ -1354,7 +1356,7 @@ public class ModNetworking {
         else {
             if (ClientUtils.clientPlayer != null) {
                 Compute.sendFormatMSG(ClientUtils.clientPlayer, Component.literal("安全").withStyle(ChatFormatting.GREEN),
-                        Component.literal("请减少操作频率或降低连点器/脚本每秒操作频率！当前频率已超过150/s，当你看到此信息时，请联系管理员。").withStyle(ChatFormatting.RED));
+                        Component.literal("请减少操作频率或降低连点器/脚本每秒操作频率！当前频率已超过100/s").withStyle(ChatFormatting.RED));
             }
         }
     }

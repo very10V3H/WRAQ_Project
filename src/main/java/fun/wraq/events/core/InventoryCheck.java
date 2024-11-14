@@ -117,7 +117,18 @@ public class InventoryCheck {
                 ModItems.BowLottery.get(),
                 ModItems.SceptreLottery.get(),
                 UniformItems.uniformPiece.get(),
-                ModItems.ID_Card.get()
+                ModItems.ID_Card.get(),
+                ModItems.MopUpPaperLoot.get(),
+                ModItems.CastleMopUpPaper.get(),
+                ModItems.DevilMopUpPaper.get(),
+                ModItems.IceKnightMopUpPaper.get(),
+                ModItems.MoonMopUpPaper.get(),
+                ModItems.PlainMopUpPaper.get(),
+                ModItems.PurpleIronKnightMopUpPaper.get(),
+                ModItems.SakuraBossMopUpPaper.get(),
+                ModItems.KillPaperLoot.get(),
+                ModItems.killPaper.get(),
+                ModItems.RevelationBook.get()
         ));
         for (Object o : SpecialEventItems.ITEMS.getEntries().toArray()) {
             RegistryObject<Item> item = (RegistryObject<Item>) o;

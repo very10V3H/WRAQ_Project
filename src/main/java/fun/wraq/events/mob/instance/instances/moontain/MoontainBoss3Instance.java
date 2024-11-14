@@ -19,11 +19,13 @@ import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.moontain.MoontainItems;
+import fun.wraq.series.moontain.equip.curios.MoontainCurios;
 import fun.wraq.series.moontain.equip.weapon.MoontainUtils;
 import net.mcreator.borninchaosv.entity.LordTheHeadlessEntity;
 import net.mcreator.borninchaosv.init.BornInChaosV1ModEntities;
 import net.mcreator.borninchaosv.init.BornInChaosV1ModMobEffects;
 import net.minecraft.ChatFormatting;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
@@ -99,7 +101,7 @@ public class MoontainBoss3Instance extends NoTeamInstance {
                         SpecialEffectOnPlayer.addHealingReduction(player, "MoontainBoss3HealingReduction",
                                 0.6, 100);
                         Compute.sendFormatMSG(player, Te.s("望山武士", CustomStyle.styleOfMoontain),
-                                Te.s(" - 回火 - " + leftLifeTimes, CustomStyle.styleOfMoontain));
+                                Te.s(" - 回火 - " + (leftLifeTimes + 1), CustomStyle.styleOfMoontain));
                     });
             MySound.soundToNearPlayer(level, boss.getEyePosition(), SoundEvents.WITHER_AMBIENT);
         }
@@ -193,6 +195,8 @@ public class MoontainBoss3Instance extends NoTeamInstance {
         stage = 0;
     }
 
+    private final String PLAYER_LAST_GET_REWARD_TIMES_KEY = "PlayerLastGetMoontainBoss3RewardTimes";
+
     @Override
     public void rewardModule(Player player) {
         List<ItemAndRate> rewardList = getRewardList();
@@ -200,38 +204,75 @@ public class MoontainBoss3Instance extends NoTeamInstance {
         MobSpawn.killCountIncrement(player, mobName);
         Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player), 240);
 
+        boolean getReward = false;
         SecureRandom secureRandom = new SecureRandom();
         if (secureRandom.nextDouble() < 0.05) {
-            ItemStack stack;
-            if (secureRandom.nextBoolean()) {
-                List<Item> weapons = MoontainUtils.getMoontainWeapons();
-                stack = new ItemStack(weapons.get(secureRandom.nextInt(weapons.size())));
-            } else {
-                List<Item> armors = MoontainUtils.getMoontainArmors();
-                stack = new ItemStack(armors.get(secureRandom.nextInt(armors.size())));
-            }
-            double randomDouble = secureRandom.nextDouble();
-            if (randomDouble < 0.05) {
-                ForgeEquipUtils.setForgeQualityOnEquip(stack, secureRandom.nextInt(7, 10));
-            } else {
-                ForgeEquipUtils.setForgeQualityOnEquip(stack, secureRandom.nextInt(2, 7));
-            }
-            InventoryCheck.addOwnerTagToItemStack(player, stack);
-            Compute.forgingHoverName(stack);
-            MoontainUtils.formatBroad(player.level(), Te.s(player.getDisplayName(),
-                    " 击杀 ", mobName, style, " 获得了 ", stack.getDisplayName()));
-            InventoryOperation.itemStackGive(player, stack);
+            giveWeapon(player, secureRandom);
+            getReward = true;
         }
 
         if (secureRandom.nextDouble() < 0.1) {
-            List<Item> curiosList = MoontainUtils.getMoontainCurios();
-            ItemStack stack = new ItemStack(curiosList.get(secureRandom.nextInt(curiosList.size())));
-            InventoryCheck.addOwnerTagToItemStack(player, stack);
-            Compute.forgingHoverName(stack);
-            MoontainUtils.formatBroad(player.level(), Te.s(player.getDisplayName(),
-                    " 击杀 ", mobName, style, " 获得了 ", stack.getDisplayName()));
-            InventoryOperation.itemStackGive(player, stack);
+            giveCurios(player, secureRandom);
+            getReward = true;
         }
+
+        CompoundTag data = player.getPersistentData();
+        if (getReward) {
+            data.putInt(PLAYER_LAST_GET_REWARD_TIMES_KEY, 0);
+        } else {
+            data.putInt(PLAYER_LAST_GET_REWARD_TIMES_KEY, data.getInt(PLAYER_LAST_GET_REWARD_TIMES_KEY) + 1);
+            int times = data.getInt(PLAYER_LAST_GET_REWARD_TIMES_KEY);
+            if (times < 8) {
+                Compute.sendFormatMSG(player, Te.s("望山武士", CustomStyle.styleOfMoontain),
+                        Te.s("再完成", String.valueOf(8 - times), CustomStyle.styleOfMoontain,
+                                "次挑战就能直接获得", "望山装备/望山饰品", CustomStyle.styleOfMoontain, "了!"));
+            } else {
+                data.putInt(PLAYER_LAST_GET_REWARD_TIMES_KEY, 0);
+                if (secureRandom.nextBoolean()) {
+                    giveCurios(player, secureRandom);
+                } else {
+                    giveWeapon(player, secureRandom);
+                }
+                Compute.sendFormatMSG(player, Te.s("望山武士", CustomStyle.styleOfMoontain),
+                        Te.s("", player.getDisplayName(), "经过了重重磨难，终于获得了梦寐以求的", "望山装备",
+                                CustomStyle.styleOfMoontain));
+            }
+        }
+    }
+
+    private void giveWeapon(Player player, SecureRandom secureRandom) {
+        ItemStack stack;
+        if (secureRandom.nextBoolean()) {
+            List<Item> weapons = MoontainUtils.getMoontainWeapons();
+            stack = new ItemStack(weapons.get(secureRandom.nextInt(weapons.size())));
+        } else {
+            List<Item> armors = MoontainUtils.getMoontainArmors();
+            stack = new ItemStack(armors.get(secureRandom.nextInt(armors.size())));
+        }
+        double randomDouble = secureRandom.nextDouble();
+        if (randomDouble < 0.05) {
+            ForgeEquipUtils.setForgeQualityOnEquip(stack, secureRandom.nextInt(7, 10));
+        } else {
+            ForgeEquipUtils.setForgeQualityOnEquip(stack, secureRandom.nextInt(2, 7));
+        }
+        InventoryCheck.addOwnerTagToItemStack(player, stack);
+        Compute.forgingHoverName(stack);
+        MoontainUtils.formatBroad(player.level(), Te.s(player.getDisplayName(),
+                " 击杀 ", mobName, style, " 获得了 ", stack.getDisplayName()));
+        InventoryOperation.itemStackGive(player, stack);
+    }
+
+    private void giveCurios(Player player, SecureRandom secureRandom) {
+        List<Item> curiosList = MoontainUtils.getMoontainCurios();
+        ItemStack stack = new ItemStack(curiosList.get(secureRandom.nextInt(curiosList.size())));
+        if (stack.getItem() instanceof MoontainCurios moontainCurios) {
+            moontainCurios.setAttribute(stack);
+        }
+        InventoryCheck.addOwnerTagToItemStack(player, stack);
+        Compute.forgingHoverName(stack);
+        MoontainUtils.formatBroad(player.level(), Te.s(player.getDisplayName(),
+                " 击杀 ", mobName, style, " 获得了 ", stack.getDisplayName()));
+        InventoryOperation.itemStackGive(player, stack);
     }
 
     @Override

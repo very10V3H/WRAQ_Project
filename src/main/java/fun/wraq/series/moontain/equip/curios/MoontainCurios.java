@@ -1,5 +1,6 @@
 package fun.wraq.series.moontain.equip.curios;
 
+import fun.wraq.blocks.entity.Decomposable;
 import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.equip.impl.RandomCurios;
 import fun.wraq.common.fast.Te;
@@ -7,6 +8,7 @@ import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.castle.RandomCuriosAttributesUtil;
+import fun.wraq.series.moontain.MoontainItems;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -16,7 +18,7 @@ import org.apache.commons.lang3.RandomUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MoontainCurios extends WraqCurios implements RandomCurios {
+public class MoontainCurios extends WraqCurios implements RandomCurios, Decomposable {
     public MoontainCurios(Properties properties) {
         super(properties);
     }
@@ -99,5 +101,10 @@ public class MoontainCurios extends WraqCurios implements RandomCurios {
             CompoundTag tag = stack.getOrCreateTagElement(Utils.MOD_ID);
             tag.putInt(ENHANCE_FULL_RATE_TIMES_KEY, tag.getInt(ENHANCE_FULL_RATE_TIMES_KEY) + 1);
         }
+    }
+
+    @Override
+    public ItemStack getProduct() {
+        return new ItemStack(MoontainItems.HEART.get(), 4);
     }
 }

@@ -254,10 +254,10 @@ public enum SmeltRecipe {
             } else {
                 // 失败
                 // 发包至客户端 在screen显示信息
-
             }
         } else {
             // 背包中所需材料不足
+            Smelt.sendFormatMSG(player, Te.s("所需材料不足"));
         }
     }
 

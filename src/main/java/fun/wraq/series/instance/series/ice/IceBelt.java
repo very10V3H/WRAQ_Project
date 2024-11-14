@@ -1,9 +1,11 @@
 package fun.wraq.series.instance.series.ice;
 
+import fun.wraq.blocks.entity.Decomposable;
 import fun.wraq.common.attribute.BasicAttributeDescription;
 import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.equip.impl.RandomCurios;
 import fun.wraq.common.impl.display.UsageOrGetWayDescriptionItem;
+import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.system.element.Element;
@@ -17,7 +19,7 @@ import net.minecraft.world.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IceBelt extends WraqCurios implements RandomCurios, UsageOrGetWayDescriptionItem {
+public class IceBelt extends WraqCurios implements RandomCurios, UsageOrGetWayDescriptionItem, Decomposable {
 
     public IceBelt(Properties properties) {
         super(properties);
@@ -69,5 +71,10 @@ public class IceBelt extends WraqCurios implements RandomCurios, UsageOrGetWayDe
     @Override
     public double fullRate() {
         return 0.7;
+    }
+
+    @Override
+    public ItemStack getProduct() {
+        return new ItemStack(ModItems.IceSoul.get(), 3);
     }
 }

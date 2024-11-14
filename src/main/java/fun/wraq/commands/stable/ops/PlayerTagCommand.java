@@ -53,6 +53,11 @@ public class PlayerTagCommand implements Command<CommandSourceStack> {
                 player.sendSystemMessage(Component.literal("已添加:(" + key + "," + valueString + ")至").withStyle(ChatFormatting.WHITE).
                         append(target.getDisplayName()));
             }
+            case "boolean" -> {
+                data.putBoolean(key, valueString.equals("true"));
+                player.sendSystemMessage(Component.literal("已添加:(" + key + "," + valueString.equals("true") + ")至")
+                        .withStyle(ChatFormatting.WHITE).append(target.getDisplayName()));
+            }
             case "remove" -> {
                 data.remove(key);
                 player.sendSystemMessage(Component.literal("已移除:(" + key + ")于").withStyle(ChatFormatting.WHITE).

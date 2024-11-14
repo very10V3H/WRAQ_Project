@@ -1,60 +1,42 @@
 package fun.wraq.series.instance.series.sakura;
 
+import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
-import net.minecraft.ChatFormatting;
+import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
+import net.minecraft.network.chat.Style;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
-import top.theillusivec4.curios.api.SlotContext;
-import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
-import javax.annotation.Nullable;
 import java.util.List;
 
-public class Boss2HealthRing extends Item implements ICurioItem {
+public class Boss2HealthRing extends WraqCurios {
 
-    private final int level;
-
-    public Boss2HealthRing(Properties p_41383_, int level) {
-        super(p_41383_);
-        this.level = level;
-        Utils.maxHealth.put(this, (double) Attributes[level]);
-        Utils.curiosList.add(this);
-    }
-
-    private final int[] Attributes = {
-            900, 1300, 1400, 2100
-    };
-
-    @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
-        stack.getOrCreateTagElement(Utils.MOD_ID);
-        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, ChatFormatting.GOLD, ChatFormatting.WHITE);
-        ComponentUtils.descriptionOfBasic(components);
-        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, ChatFormatting.GOLD, ChatFormatting.WHITE);
-        super.appendHoverText(stack, level, components, flag);
+    public Boss2HealthRing(Properties properties, int tier) {
+        super(properties);
+        Utils.maxHealth.put(this, new double[]{900, 1300, 1400, 2100}[tier]);
+        Utils.percentMaxHealthEnhance.put(this, new double[]{0.01, 0.015, 0.02, 0.025}[tier]);
+        Utils.levelRequire.put(this, 150);
     }
 
     @Override
-    public void onEquip(SlotContext slotContext, ItemStack prevStack, ItemStack stack) {
-        Player player = (Player) slotContext.entity();
-        Utils.playerHealthRingMap.put(player.getName().getString(), Attributes[this.level]);
-        ICurioItem.super.onEquip(slotContext, prevStack, stack);
+    public Component getTypeDescription() {
+        return ComponentUtils.getFuncTypeDescriptionOfCurios();
     }
 
     @Override
-    public void onUnequip(SlotContext slotContext, ItemStack newStack, ItemStack stack) {
-        Player player = (Player) slotContext.entity();
-        Utils.playerHealthRingMap.remove(player.getName().getString());
-        ICurioItem.super.onUnequip(slotContext, newStack, stack);
+    public List<Component> additionHoverText(ItemStack stack) {
+        return List.of();
     }
 
     @Override
-    public boolean canEquipFromUse(SlotContext slotContext, ItemStack stack) {
-        return true;
+    public Style hoverMainStyle() {
+        return CustomStyle.styleOfGold;
     }
+
+    @Override
+    public Component suffix() {
+        return ComponentUtils.getSuffixOfSakura();
+    }
+
 }
