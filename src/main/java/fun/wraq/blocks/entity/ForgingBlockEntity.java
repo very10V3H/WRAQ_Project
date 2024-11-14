@@ -10,6 +10,7 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.events.core.InventoryCheck;
 import fun.wraq.events.mob.loot.RandomLootEquip;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.render.gui.blocks.ForgingBlockMenu;
@@ -763,10 +764,19 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider, Dro
         }
 
         if (equip.getItem() instanceof Decomposable decomposable) {
-            this.itemStackHandler.setStackInSlot(2, decomposable.getProduct());
+            ItemStack stack = decomposable.getProduct();
+            if (InventoryCheck.getBoundingList().contains(stack.getItem())) {
+                Player player = Utils.whoIsUsingBlock.getOrDefault(this.worldPosition, null);
+                if (player != null) {
+                    InventoryCheck.addOwnerTagToItemStack(player, stack);
+                }
+                else {
+                    stack = new ItemStack(Items.AIR);
+                }
+            }
+            this.itemStackHandler.setStackInSlot(2, stack);
             return true;
         }
-
         return false;
     }
 
