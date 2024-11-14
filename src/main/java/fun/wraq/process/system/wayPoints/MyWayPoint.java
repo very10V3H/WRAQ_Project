@@ -171,6 +171,8 @@ public class MyWayPoint {
 
         add(new MyWayPoint(new Vec3(1808, 74, 339), "旭升岛", colorMap.get(yellow), 0));
 
+        add(new MyWayPoint(new Vec3(1168, -36, -69), "玛瑙矿区", colorMap.get(green), 0));
+        add(new MyWayPoint(new Vec3(1883, 147, -461), "月影坡", colorMap.get(yellow), 0));
     }};
 
     public static List<MyWayPoint> netherPointList = new ArrayList<>() {{

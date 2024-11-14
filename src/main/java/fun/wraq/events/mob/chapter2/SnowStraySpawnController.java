@@ -67,7 +67,8 @@ public class SnowStraySpawnController extends MobSpawnController {
 
         // 需要验证
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(stray), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(stray, 500, 60, 60, 0.35, 3, 0.2, 5, 15, 30000, 0.3);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(stray, 500, 60, 60, 0.35,
+                3, 0.2, 5, 15, 30000, 0.3);
 
         // 设置物品
         ItemStack[] itemStacks = {new ItemStack(Items.LEATHER_HELMET), new ItemStack(Items.LEATHER_CHESTPLATE),

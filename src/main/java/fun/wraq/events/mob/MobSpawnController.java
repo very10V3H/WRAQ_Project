@@ -27,6 +27,7 @@ public abstract class MobSpawnController {
     public final int detectionRange;
     public final double summonOffset;
     public List<Boundary> multiBoundaryList = new ArrayList<>();
+    public int preventRefreshDistance = 4;
 
     public record Boundary(Vec3 upPos, Vec3 downPos) {
     }
@@ -74,6 +75,16 @@ public abstract class MobSpawnController {
         this(canSpawnPos, canSpawnPos.size() * 4, boundaryUpX, boundaryUpY, boundaryUpZ,
                 boundaryDownX, boundaryDownY, boundaryDownZ, 1, 16,
                 level, 1, averageLevel);
+    }
+
+    public MobSpawnController(List<Vec3> canSpawnPos,
+                              int boundaryUpX, int boundaryUpY, int boundaryUpZ,
+                              int boundaryDownX, int boundaryDownY, int boundaryDownZ,
+                              int preventRefreshDistance, Level level, int averageLevel) {
+        this(canSpawnPos, canSpawnPos.size() * 4, boundaryUpX, boundaryUpY, boundaryUpZ,
+                boundaryDownX, boundaryDownY, boundaryDownZ, 1, 16,
+                level, 1, averageLevel);
+        this.preventRefreshDistance = preventRefreshDistance;
     }
 
     public MobSpawnController(List<Vec3> canSpawnPos, int oneZoneMaxMobNum,
@@ -126,7 +137,7 @@ public abstract class MobSpawnController {
                         .toList();
 
                 // 玩家距离此刷新点距离小于4格则不生成怪物
-                if (playerList.stream().anyMatch(player -> player.position().distanceTo(pos) < 4)) return;
+                if (playerList.stream().anyMatch(player -> player.position().distanceTo(pos) < preventRefreshDistance)) return;
 
                 // 若该点附近怪物与玩家比较小且怪物数量不超过上限 则生成
                 if (mobList.size() * 1.0 / Math.max(1, playerList.size()) < mobPlayerRate
