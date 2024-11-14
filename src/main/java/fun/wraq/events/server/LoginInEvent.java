@@ -31,6 +31,7 @@ import fun.wraq.process.func.security.mac.network.MacRequestS2CPacket;
 import fun.wraq.process.system.bonuschest.BonusChestPlayerData;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.endlessinstance.item.EndlessInstanceItems;
+import fun.wraq.process.system.lottery.NewLotteries;
 import fun.wraq.process.system.missions.series.dailyMission.DailyMission;
 import fun.wraq.process.system.parkour.Parkour;
 import fun.wraq.process.system.teamInstance.NewTeamInstanceEvent;
@@ -336,6 +337,8 @@ public class LoginInEvent {
             if (!serverPlayer.getName().getString().equals("very_H")) {
                 ModNetworking.sendToClient(new MacRequestS2CPacket(),serverPlayer);
             }
+
+            NewLotteries.sendLotteryRewardTimes(player);
         }
     }
 

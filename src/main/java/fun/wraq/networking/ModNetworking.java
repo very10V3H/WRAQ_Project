@@ -69,7 +69,7 @@ import fun.wraq.process.system.element.networking.CurrentSeasonC2SPacket;
 import fun.wraq.process.system.element.networking.ResonanceC2SPacket;
 import fun.wraq.process.system.endlessinstance.network.EndlessInstanceKillCountS2CPacket;
 import fun.wraq.process.system.forge.networking.*;
-import fun.wraq.process.system.lottery.networking.LotteryRewardS2CPacket;
+import fun.wraq.process.system.lottery.networking.LotteryRewardTimeS2CPacket;
 import fun.wraq.process.system.missions.netWorking.*;
 import fun.wraq.process.system.missions.series.dailyMission.netWorking.DailyMissionStatusS2CPacket;
 import fun.wraq.process.system.missions.series.labourDay.netWorking.LabourDayMissionStatusS2CPacket;
@@ -1066,11 +1066,6 @@ public class ModNetworking {
                 .encoder(ClientWayPointS2CPacket::toBytes)
                 .consumerMainThread(ClientWayPointS2CPacket::handle)
                 .add();
-        net.messageBuilder(LotteryRewardS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
-                .decoder(LotteryRewardS2CPacket::new)
-                .encoder(LotteryRewardS2CPacket::toBytes)
-                .consumerMainThread(LotteryRewardS2CPacket::handle)
-                .add();
         net.messageBuilder(DecomposeC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
                 .decoder(DecomposeC2SPacket::new)
                 .encoder(DecomposeC2SPacket::toBytes)
@@ -1345,6 +1340,11 @@ public class ModNetworking {
                 .decoder(RemoveDebuffTimeS2CPacket::new)
                 .encoder(RemoveDebuffTimeS2CPacket::toBytes)
                 .consumerMainThread(RemoveDebuffTimeS2CPacket::handle)
+                .add();
+        net.messageBuilder(LotteryRewardTimeS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(LotteryRewardTimeS2CPacket::new)
+                .encoder(LotteryRewardTimeS2CPacket::toBytes)
+                .consumerMainThread(LotteryRewardTimeS2CPacket::handle)
                 .add();
     }
 

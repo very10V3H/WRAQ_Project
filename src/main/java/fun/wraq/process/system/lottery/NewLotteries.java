@@ -1,12 +1,17 @@
 package fun.wraq.process.system.lottery;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.events.core.InventoryCheck;
 import fun.wraq.files.dataBases.DataBase;
+import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.func.item.InventoryOperation;
+import fun.wraq.process.system.lottery.networking.LotteryRewardTimeS2CPacket;
+import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
@@ -20,11 +25,15 @@ import java.security.SecureRandom;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class NewLotteries extends Item {
+
+    public static List<Item> lotteryItems = new ArrayList<>();
+    public static Map<String, Integer> clientRewardTimes = new HashMap<>();
 
     public static Map<Item, Integer> getRewardSerial = new HashMap<>();
 
@@ -68,6 +77,8 @@ public class NewLotteries extends Item {
         double frontRate = 0;
         for (int i = 0; i < loots.size() - 1; i++) frontRate += loots.get(i).rate;
         loots.set(loots.size() - 1, new Loot(loots.get(loots.size() - 1).itemStack, 1 - frontRate));
+
+        lotteryItems.add(this);
     }
 
     private int lootSerialNum(double range) {
@@ -101,6 +112,11 @@ public class NewLotteries extends Item {
         if (guaranteeTimes.containsKey(item)) {
             components.add(Component.literal(""));
             components.add(Component.literal(" 第" + guaranteeTimes.get(item) + "次必定抽取极品奖励").withStyle(ChatFormatting.GOLD));
+        }
+        if (guaranteeTimes.containsKey(item) && clientRewardTimes.containsKey(this.toString())) {
+            components.add(Te.s(" 距离上次获得极品，你已经开启了 ", CustomStyle.styleOfStone,
+                    String.valueOf(clientRewardTimes.get(this.toString())), CustomStyle.styleOfWorld,
+                    " 次", CustomStyle.styleOfStone));
         }
         super.appendHoverText(itemStack, p_41422_, components, flag);
     }
@@ -198,6 +214,7 @@ public class NewLotteries extends Item {
         Map<String, Integer> rewards = playerLotteryData.get(playerName);
         int times = getPlayerRewardTimes(player, item);
         rewards.put(item.toString(), times + 1);
+        sendLotteryRewardTimes(player);
         return times + 1;
     }
 
@@ -336,5 +353,18 @@ public class NewLotteries extends Item {
                 }
             }
         }).start();
+    }
+
+    public static void sendLotteryRewardTimes(Player player) {
+        Map<String, Integer> rewardTimes = new HashMap<>();
+        lotteryItems.forEach(item -> {
+            try {
+                rewardTimes.put(item.toString(), getPlayerRewardTimes(player, item));
+                getPlayerRewardTimes(player, item);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        ModNetworking.sendToClient(new LotteryRewardTimeS2CPacket(rewardTimes), (ServerPlayer) player);
     }
 }
