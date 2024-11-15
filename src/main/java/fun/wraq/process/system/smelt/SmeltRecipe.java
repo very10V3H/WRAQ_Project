@@ -149,7 +149,7 @@ public enum SmeltRecipe {
             List.of(new ItemAndRate(new ItemStack(ModItems.MoonCompleteGem.get(), 1), 0.25)),
             105),
 
-    MOONTAIN_JADEITE(Te.m("望山翡翠", CustomStyle.styleOfMoontain),
+    MOONTAIN_JADEITE(Te.m("望山翠玉", CustomStyle.styleOfMoontain),
             List.of(new ItemStack(MoontainItems.FRAGMENT.get(), 8),
                     new ItemStack(MoontainItems.SOUL_FRAGMENT.get(), 128),
                     new ItemStack(OreItems.WRAQ_ORE_1_ITEM.get(), 16),

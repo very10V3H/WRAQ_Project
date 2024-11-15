@@ -1,7 +1,5 @@
 package fun.wraq.networking;
 
-import fun.wraq.networking.ModNetworking;
-import fun.wraq.networking.VersionC2SPacket;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent;
 
@@ -24,7 +22,7 @@ public class VersionCheckS2CPacket {
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
-            ModNetworking.sendToServer(new VersionC2SPacket("2.0.37"));
+            ModNetworking.sendToServer(new VersionC2SPacket("2.0.38"));
         });
         return true;
     }

@@ -54,9 +54,10 @@ public class FixBackpackCommand implements Command<CommandSourceStack> {
                     Te.s("请看聊天窗提示信息!", ChatFormatting.RED));
             player.sendSystemMessage(Te.s("使用前须知:"));
             player.sendSystemMessage(Te.s("1.使用后，", "禁止", ChatFormatting.RED, "马上点击右上整理"));
-            player.sendSystemMessage(Te.s("2.收到新背包，", "必须", ChatFormatting.RED, "先装上收到的几个升级"));
-            player.sendSystemMessage(Te.s("3.收到新背包后，装上升级后点击整理，理论上可以修复新旧版堆叠"));
-            player.sendSystemMessage(Te.s("3.详细阅读以上须知后，再次按下指令以修复背包物品堆叠"));
+            player.sendSystemMessage(Te.s("2.背包内", "不可嵌套其他背包", ChatFormatting.RED));
+            player.sendSystemMessage(Te.s("3.收到新背包，", "必须", ChatFormatting.RED, "先装上收到的几个升级"));
+            player.sendSystemMessage(Te.s("4.收到新背包后，装上升级后点击整理，理论上可以修复新旧版堆叠"));
+            player.sendSystemMessage(Te.s("5.详细阅读以上须知后，再次按下指令以修复背包物品堆叠"));
             return 0;
         }
         if (player.getMainHandItem().is(ModItems.NETHERITE_BACKPACK.get())) {
