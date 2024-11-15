@@ -4,10 +4,9 @@ import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import fun.wraq.common.Compute;
+import fun.wraq.common.registry.ModItems;
 import fun.wraq.process.func.item.InventoryOperation;
-import fun.wraq.process.system.tower.Tower;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.specialevents.SpecialEventItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.nbt.CompoundTag;
@@ -15,37 +14,33 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-import java.sql.SQLException;
-import java.util.List;
-
 public class CompensateCommand implements Command<CommandSourceStack> {
     public static CompensateCommand instance = new CompensateCommand();
 
-    public static String singleReward = "singleReward13";
+    public static int rewardNum = 14;
+    public static String singleReward = "singleReward" + rewardNum;
 
     @Override
     public int run(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         Player player = context.getSource().getPlayer();
         CompoundTag data = player.getPersistentData();
-
-/*        if (!data.contains(singleReward)) {
+        if (!data.contains(singleReward)) {
             data.putBoolean(singleReward, true);
-            if (player.experienceLevel >= 60) {
-                try {
-                    Tower.givePlayerStar(player, 400, "服务提供中断补偿");
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-                List<ItemStack> itemStackList = List.of(new ItemStack(SpecialEventItems.SUMMER_VOUCHER.get(), 20));
-                for (ItemStack itemStack : itemStackList) {
-                    InventoryOperation.itemStackGive(player, itemStack);
-                }
-
-                Compute.sendFormatMSG(player, Component.literal("更新补偿").withStyle(ChatFormatting.LIGHT_PURPLE),
-                        Component.literal("你收到了来自铁头的补偿!").withStyle(ChatFormatting.WHITE));
+            if (player.experienceLevel > 0) {
+                InventoryOperation.itemStackGiveWithMSG(player, new ItemStack(ModItems.RevelationBook.get(), 16));
+                InventoryOperation.itemStackGiveWithMSG(player, new ItemStack(ModItems.gemPiece.get(), 16));
             }
+            if (player.experienceLevel > 40 && player.experienceLevel < 120) {
+                InventoryOperation.itemStackGiveWithMSG(player, new ItemStack(ModItems.supplyBoxTier1.get()));
+            } else if (player.experienceLevel >= 120 && player.experienceLevel < 200) {
+                InventoryOperation.itemStackGiveWithMSG(player, new ItemStack(ModItems.supplyBoxTier2.get()));
+            } else if (player.experienceLevel >= 200) {
+                InventoryOperation.itemStackGiveWithMSG(player, new ItemStack(ModItems.supplyBoxTier3.get()));
+            }
+            Compute.sendFormatMSG(player, Component.literal("补偿").withStyle(CustomStyle.styleOfSakura),
+                    Component.literal("你成功领取了补偿！").withStyle(ChatFormatting.AQUA));
             return 0;
-        }*/
+        }
         Compute.sendFormatMSG(player, Component.literal("补偿").withStyle(CustomStyle.styleOfSakura),
                 Component.literal("似乎已经领取过/没有资格领取补偿呢").withStyle(ChatFormatting.AQUA));
 

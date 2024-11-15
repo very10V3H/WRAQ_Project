@@ -75,10 +75,12 @@ public interface PurpleIronCommon {
     }
 
     static void handleServerTick() {
+        List<BlockInfo> removeList = new ArrayList<>();
         blockInfoList.forEach(info -> {
             // 应当摧毁
             if (info.lifeEndTick < Tick.get()) {
                 info.level.destroyBlock(info.blockPos, false);
+                removeList.add(info);
             } else {
                 // 对怪物造成伤害
                 Compute.getNearEntity(info.level, info.blockPos.getCenter(), Mob.class, 6)
@@ -102,6 +104,7 @@ public interface PurpleIronCommon {
                         (ServerLevel) info.level, info.blockPos.getCenter(), 0.5, 20);
             }
         });
+        blockInfoList.removeAll(removeList);
     }
 
     static void destroyOnServerStop() {

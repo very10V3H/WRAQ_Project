@@ -128,7 +128,10 @@ public class InventoryCheck {
                 ModItems.SakuraBossMopUpPaper.get(),
                 ModItems.KillPaperLoot.get(),
                 ModItems.killPaper.get(),
-                ModItems.RevelationBook.get()
+                ModItems.RevelationBook.get(),
+                ModItems.supplyBoxTier1.get(),
+                ModItems.supplyBoxTier2.get(),
+                ModItems.supplyBoxTier3.get()
         ));
         for (Object o : SpecialEventItems.ITEMS.getEntries().toArray()) {
             RegistryObject<Item> item = (RegistryObject<Item>) o;
