@@ -54,6 +54,7 @@ public class WitherEnhancePower extends WraqPower {
 
     @Override
     public void release(Player player) {
+        Compute.playerItemCoolDown(player,this, getCoolDownSecond());;
         Mob mob = Compute.detectPlayerPickMob(player);
         if (mob == null) {
             List<Mob> mobList = Compute.getNearEntity(player, Mob.class, 6)

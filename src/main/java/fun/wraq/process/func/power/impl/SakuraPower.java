@@ -59,6 +59,7 @@ public class SakuraPower extends WraqPower {
 
     @Override
     public void release(Player player) {
+        Compute.playerItemCoolDown(player,this, getCoolDownSecond());;
         Vec3 targetPos = getDefaultTargetPos(player);
         getDefaultTargetMobList(player)
                 .forEach(mob -> {

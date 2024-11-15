@@ -58,6 +58,7 @@ public class BloodManaPower extends WraqPower {
 
     @Override
     public void release(Player player) {
+        Compute.playerItemCoolDown(player,this, getCoolDownSecond());;
         getDefaultTargetMobList(player)
                 .forEach(mob -> {
                     Damage.causeManaDamageToMonster_RateApDamage(player, mob, 4, true);

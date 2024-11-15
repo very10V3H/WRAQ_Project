@@ -1,7 +1,9 @@
 package fun.wraq.process.func.power.impl;
 
+import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
+import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.process.func.StableAttributesModifier;
 import fun.wraq.process.func.particle.ParticleProvider;
@@ -61,6 +63,9 @@ public class ObsiManaPower extends WraqPower {
 
     @Override
     public void release(Player player) {
+        List.of(ModItems.OBSI_MANA_POWER_0.get(), ModItems.OBSI_MANA_POWER_1.get(),
+                        ModItems.OBSI_MANA_POWER_2.get(), ModItems.OBSI_MANA_POWER_3.get())
+                .forEach(item -> Compute.playerItemCoolDown(player,item, getCoolDownSecond()));
         getDefaultTargetPlayerList(player).forEach(eachPlayer -> {
             StableAttributesModifier.addM(eachPlayer,
                     StableAttributesModifier.playerPercentDefenceModifier,
