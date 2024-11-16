@@ -1,6 +1,5 @@
 package fun.wraq.events.server;
 
-import com.github.alexthe666.alexsmobs.entity.EntityLeafcutterAnt;
 import fun.wraq.Items.Forging.WraqForge;
 import fun.wraq.Items.MainStory_1.BackSpawn;
 import fun.wraq.commands.stable.ops.RoadCommand;
@@ -147,11 +146,6 @@ public class ServerPlayerTickEvent {
             if (Tick.get() % 20 == 0) {
                 Point.sendDataToClient(player);
             }
-
-            if (player.tickCount % 20 == 4) {
-                List<EntityLeafcutterAnt> ants = serverPlayer.level().getEntitiesOfClass(EntityLeafcutterAnt.class, AABB.ofSize(serverPlayer.position(), 100, 100, 100));
-                ants.forEach(ant -> ant.remove(Entity.RemovalReason.KILLED));
-            } // 清理切叶蚁
 
             if (player.tickCount % 5 == 3) {
                 CompoundTag data = player.getPersistentData();

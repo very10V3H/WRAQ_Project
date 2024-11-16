@@ -3,6 +3,7 @@ package fun.wraq.series.nether.equip.mana;
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.equip.WraqSceptre;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.ModSounds;
@@ -66,8 +67,9 @@ public class MagmaSceptre extends WraqSceptre implements ForgeItem {
         List<Component> components = new ArrayList<>();
         Style style = getMainStyle();
         Compute.DescriptionPassive(components, Component.literal("爆裂").withStyle(style));
-        components.add(Component.literal("法球在命中目标时会施加:").withStyle(ChatFormatting.WHITE).
-                append(Component.literal("法术-熔岩能量附着").withStyle(CustomStyle.styleOfMana)));
+        components.add(Component.literal(" 法球在命中目标时会施加:").withStyle(ChatFormatting.WHITE).
+                append(Component.literal("法术-熔岩能量附着").withStyle(CustomStyle.styleOfPower)));
+        components.add(Te.s(" 附加的法术数值为", "300%", CustomStyle.styleOfMana));
         return components;
     }
 

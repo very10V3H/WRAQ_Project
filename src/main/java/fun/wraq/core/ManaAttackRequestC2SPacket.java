@@ -28,7 +28,8 @@ public class ManaAttackRequestC2SPacket {
             ServerPlayer serverPlayer = context.getSender();
             Player player = (Player) serverPlayer;
             int tick = serverPlayer.getServer().getTickCount();
-            if (Utils.PlayerManaAttackTime.containsKey(serverPlayer) && tick - Utils.PlayerManaAttackTime.get(serverPlayer) < 9) {
+            if (Utils.PlayerManaAttackTime.containsKey(serverPlayer)
+                    && tick - Utils.PlayerManaAttackTime.get(serverPlayer) < 5) {
                 return;
             }
 

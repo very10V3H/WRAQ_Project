@@ -190,7 +190,6 @@ dependencies {
     implementation fg.deobf("curse.maven:neat-238372:4580940")
     implementation fg.deobf("curse.maven:xaeros-world-map-317780:5073804")
     implementation fg.deobf("curse.maven:xaeros-minimap-263420:5060708")
-    implementation fg.deobf("curse.maven:alexs-mobs-426558:5160697")
     implementation fg.deobf("curse.maven:citadel-331936:5143956")
     implementation fg.deobf("curse.maven:lionfish-api-1001614:5274401")
     implementation fg.deobf("curse.maven:lendercataclysm-551586:5306430")

@@ -1333,14 +1333,15 @@ public class Compute {
     public static void TargetLocationLaser(Player player, Vec3 location, ParticleOptions particleOptions, double rate, int tickCoolDown) {
         Level level = player.level();
         int TickCount = player.getServer().getTickCount();
-        Vec3 TargetPos = location;
-        Vec3 StartPos = player.pick(0.5, 0, false).getLocation();
-        Vec3 PosVec = TargetPos.subtract(StartPos).normalize();
-        double Distance = TargetPos.distanceTo(StartPos);
-        ParticleProvider.LineParticle(level, (int) Distance * 5, StartPos, TargetPos, particleOptions);
+        Vec3 targetPos = location;
+        Vec3 startPos = player.pick(0.5, 0, false).getLocation();
+        Vec3 PosVec = targetPos.subtract(startPos).normalize();
+        double Distance = targetPos.distanceTo(startPos);
+        ParticleProvider.LineParticle(level, (int) Distance * 5, startPos, targetPos, particleOptions);
         List<Mob> mobList = new ArrayList<>();
         for (double i = 0; i < Distance; i += 0.5) {
-            List<Mob> mobList1 = level.getEntitiesOfClass(Mob.class, AABB.ofSize(StartPos.add(PosVec.scale(i)), 0.5, 0.5, 0.5));
+            List<Mob> mobList1 = level.getEntitiesOfClass(Mob.class, AABB.ofSize(startPos.add(PosVec.scale(i)),
+                    0.5, 0.5, 0.5));
             for (Mob mob : mobList1) {
                 if (!mobList.contains(mob)) mobList.add(mob);
             }

@@ -27,7 +27,8 @@ public class BowRequestC2SPacket {
         context.enqueueWork(() -> {
             ServerPlayer serverPlayer = context.getSender();
             int tick = serverPlayer.getServer().getTickCount();
-            if (Utils.PlayerArrowAttackTime.containsKey(serverPlayer) && tick - Utils.PlayerArrowAttackTime.get(serverPlayer) < 9)
+            if (Utils.PlayerArrowAttackTime.containsKey(serverPlayer)
+                    && tick - Utils.PlayerArrowAttackTime.get(serverPlayer) < 5)
                 return;
             CastleSwiftArmor.NormalAttack(serverPlayer);
             Utils.PlayerArrowAttackTime.put(serverPlayer, tick);

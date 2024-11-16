@@ -70,22 +70,26 @@ public class MagmaPower extends WraqPower {
         Compute.sendEffectLastTime(player, this, 0, true);
         EnhanceNormalAttackModifier.addModifier(player,
                 new EnhanceNormalAttackModifier("MagmaPowerAttack", 2, ((player1, mob) -> {
-                    MySound.soundToNearPlayer(mob.level(), mob.position(), SoundEvents.GENERIC_EXPLODE);
-                    ParticleProvider.createSingleParticleToNearPlayer(player, player.level(),
-                            mob.position(), ParticleTypes.EXPLOSION_EMITTER);
-                    ParticleProvider.RandomMoveParticle(mob, 1, 1, 24, ParticleTypes.ASH);
-                    ParticleProvider.RandomMoveParticle(mob, 1, 1, 24, ParticleTypes.LAVA);
-                    mob.level().getEntitiesOfClass(Mob.class, AABB.ofSize(mob.position(), 10, 10, 10))
-                            .forEach(eachMob -> {
-                                Damage.causeManaDamageToMonster_RateApDamage_ElementAddition(player, mob, damageRate[tier], true,
-                                        Element.fire, ElementValue.ElementValueJudgeByType(player, Element.fire) + 1);
-                                ParticleProvider.EntityEffectVerticleCircleParticle(mob, 1, 0.4, 8, ParticleTypes.WITCH, 0);
-                                ParticleProvider.EntityEffectVerticleCircleParticle(mob, 0.75, 0.4, 8, ParticleTypes.WITCH, 0);
-                                ParticleProvider.EntityEffectVerticleCircleParticle(mob, 0.5, 0.4, 8, ParticleTypes.WITCH, 0);
-                                ParticleProvider.EntityEffectVerticleCircleParticle(mob, 0.25, 0.4, 8, ParticleTypes.WITCH, 0);
-                                ParticleProvider.EntityEffectVerticleCircleParticle(mob, 0, 0.4, 8, ParticleTypes.WITCH, 0);
-                            });
+                    onHit(player, mob, damageRate[tier]);
                     Compute.removeEffectLastTime(player, this);
                 })));
+    }
+
+    public static void onHit(Player player, Mob mob, double rate) {
+        MySound.soundToNearPlayer(mob.level(), mob.position(), SoundEvents.GENERIC_EXPLODE);
+        ParticleProvider.createSingleParticleToNearPlayer(player, player.level(),
+                mob.position(), ParticleTypes.EXPLOSION_EMITTER);
+        ParticleProvider.RandomMoveParticle(mob, 1, 1, 24, ParticleTypes.ASH);
+        ParticleProvider.RandomMoveParticle(mob, 1, 1, 24, ParticleTypes.LAVA);
+        mob.level().getEntitiesOfClass(Mob.class, AABB.ofSize(mob.position(), 10, 10, 10))
+                .forEach(eachMob -> {
+                    Damage.causeManaDamageToMonster_RateApDamage_ElementAddition(player, mob, rate, true,
+                            Element.fire, ElementValue.ElementValueJudgeByType(player, Element.fire) + 1);
+                    ParticleProvider.EntityEffectVerticleCircleParticle(mob, 1, 0.4, 8, ParticleTypes.WITCH, 0);
+                    ParticleProvider.EntityEffectVerticleCircleParticle(mob, 0.75, 0.4, 8, ParticleTypes.WITCH, 0);
+                    ParticleProvider.EntityEffectVerticleCircleParticle(mob, 0.5, 0.4, 8, ParticleTypes.WITCH, 0);
+                    ParticleProvider.EntityEffectVerticleCircleParticle(mob, 0.25, 0.4, 8, ParticleTypes.WITCH, 0);
+                    ParticleProvider.EntityEffectVerticleCircleParticle(mob, 0, 0.4, 8, ParticleTypes.WITCH, 0);
+                });
     }
 }

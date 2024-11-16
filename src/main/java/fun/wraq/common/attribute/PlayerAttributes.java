@@ -1959,11 +1959,12 @@ public class PlayerAttributes {
 
         if (DecreaseRate > 0) defenceRate *= (1 - DecreaseRate);
 
-        defenceRate *= (1 - Compute.CuriosAttribute.attributeValue(player, Utils.manaPenetration, StringUtils.CuriosAttribute.manaPenetration)); // 新版饰品属性加成
+        defenceRate *= (1 - Compute.CuriosAttribute.attributeValue(player, Utils.manaPenetration,
+                StringUtils.CuriosAttribute.manaPenetration)); // 新版饰品属性加成
         // 请在上方添加
         defenceRate *= (2 - Compute.playerFantasyAttributeEnhance(player));
 
-        writeToCache(player, Utils.manaPenetration, 1 - DecreaseRate);
+        writeToCache(player, Utils.manaPenetration, 1 - defenceRate);
         return 1 - defenceRate;
     }
 

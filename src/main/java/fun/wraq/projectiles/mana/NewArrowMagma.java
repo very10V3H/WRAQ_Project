@@ -2,10 +2,12 @@ package fun.wraq.projectiles.mana;
 
 import fun.wraq.common.registry.ModEntityType;
 import fun.wraq.core.ManaAttackModule;
+import fun.wraq.series.nether.power.MagmaPower;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
@@ -51,10 +53,6 @@ public class NewArrowMagma extends AbstractArrow {
         super.onHitBlock(p_36755_);
         if (this.player != null && !this.level().isClientSide) {
             CompoundTag data = player.getPersistentData();
-            if (data.contains("snowRune") && data.getInt("snowRune") == 0) {
-                data.putInt("snowRune0", 0);
-                data.putInt("snowRune0Time", 0);
-            }
             ManaAttackModule.ManaSkill6Attack(data, player, false);
         }
         this.remove(RemovalReason.KILLED);
@@ -66,6 +64,9 @@ public class NewArrowMagma extends AbstractArrow {
         if (this.player != null && !level().isClientSide) {
             Entity entity = result.getEntity();
             ManaAttackModule.BasicAttack(player, entity, 1, BreakDefence, BreakDefence0, level(), this, true);
+            if (entity instanceof Mob mob) {
+                MagmaPower.onHit(player, mob, 3);
+            }
         }
     }
 

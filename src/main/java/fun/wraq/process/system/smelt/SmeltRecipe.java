@@ -163,7 +163,7 @@ public enum SmeltRecipe {
     MOONTAIN_WEAPON_ENHANCER(Te.m("望山剑翎", CustomStyle.styleOfMoontain),
             List.of(new ItemStack(MoontainItems.JADEITE.get(), 8),
                     new ItemStack(MoontainItems.SOUL_FRAGMENT.get(), 128),
-                    new ItemStack(MoontainItems.FEATHER.get(), 256),
+                    new ItemStack(MoontainItems.FEATHER.get(), 128),
                     new ItemStack(ModItems.goldCoin.get(), 128),
                     new ItemStack(MoontainItems.STONE_FRAGMENT.get(), 256)
             ),

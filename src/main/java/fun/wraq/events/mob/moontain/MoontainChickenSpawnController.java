@@ -94,7 +94,7 @@ public class MoontainChickenSpawnController extends MobSpawnController {
     @Override
     public List<ItemAndRate> getDropList() {
         return new ArrayList<>() {{
-            add(new ItemAndRate(MoontainItems.LEATHER.get(), 0.1));
+            add(new ItemAndRate(MoontainItems.FEATHER.get(), 0.1));
             add(new ItemAndRate(MoontainItems.STONE_FRAGMENT.get(), 0.4));
             add(new ItemAndRate(ModItems.silverCoin.get(), 1));
             add(new ItemAndRate(ModItems.gemPiece.get(), 0.06));

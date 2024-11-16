@@ -1864,10 +1864,9 @@ public class TradeList {
                 }});
                 case 3 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.PurpleIron.get(), 8));
-                    add(new ItemStack(ModItems.completeGem.get(), 16));
+                    add(new ItemStack(ModItems.completeGem.get(), 8));
                 }});
                 case 4 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.TabooPiece.get(), 64));
                     add(new ItemStack(ModItems.TabooPiece.get(), 64));
                     add(new ItemStack(ModItems.PurpleIronConstraintStone.get(), 1));
                 }});
