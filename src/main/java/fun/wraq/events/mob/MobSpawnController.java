@@ -1,5 +1,7 @@
 package fun.wraq.events.mob;
 
+import fun.wraq.common.util.ItemAndRate;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
@@ -12,6 +14,7 @@ import java.util.List;
 import java.util.Random;
 
 public abstract class MobSpawnController {
+    public final Component mobName;
     public List<Mob> mobList = new ArrayList<>();
     public List<Vec3> canSpawnPos;
     public final int oneZoneMaxMobNum;
@@ -29,10 +32,9 @@ public abstract class MobSpawnController {
     public List<Boundary> multiBoundaryList = new ArrayList<>();
     public int preventRefreshDistance = 4;
 
-    public record Boundary(Vec3 upPos, Vec3 downPos) {
-    }
+    public record Boundary(Vec3 upPos, Vec3 downPos) {}
 
-    public MobSpawnController(List<Vec3> canSpawnPos, int oneZoneMaxMobNum,
+    public MobSpawnController(Component mobName, List<Vec3> canSpawnPos, int oneZoneMaxMobNum,
                               int boundaryUpX, int boundaryUpY, int boundaryUpZ,
                               int boundaryDownX, int boundaryDownY, int boundaryDownZ,
                               double summonOffset, int detectionRange, Level level, int mobPlayerRate, int averageLevel) {
@@ -49,48 +51,49 @@ public abstract class MobSpawnController {
         this.level = level;
         this.mobPlayerRate = mobPlayerRate;
         this.averageLevel = averageLevel;
+        this.mobName = mobName;
     }
 
-    public MobSpawnController(List<Vec3> canSpawnPos, int oneZoneMaxMobNum,
+    public MobSpawnController(Component mobName, List<Vec3> canSpawnPos, int oneZoneMaxMobNum,
                               int boundaryUpX, int boundaryUpZ, int boundaryDownX, int boundaryDownZ,
                               int detectionRange, Level level, int mobPlayerRate, int averageLevel) {
-        this(canSpawnPos, oneZoneMaxMobNum, boundaryUpX, Integer.MAX_VALUE, boundaryUpZ,
+        this(mobName, canSpawnPos, oneZoneMaxMobNum, boundaryUpX, Integer.MAX_VALUE, boundaryUpZ,
                 boundaryDownX, -Integer.MAX_VALUE, boundaryDownZ, 1, detectionRange,
                 level, mobPlayerRate, averageLevel);
     }
 
-    public MobSpawnController(List<Vec3> canSpawnPos,
+    public MobSpawnController(Component mobName, List<Vec3> canSpawnPos,
                               int boundaryUpX, int boundaryUpZ,
                               int boundaryDownX, int boundaryDownZ,
                               Level level, int averageLevel) {
-        this(canSpawnPos, canSpawnPos.size() * 4, boundaryUpX, Integer.MAX_VALUE, boundaryUpZ,
+        this(mobName, canSpawnPos, canSpawnPos.size() * 4, boundaryUpX, Integer.MAX_VALUE, boundaryUpZ,
                 boundaryDownX, -Integer.MAX_VALUE, boundaryDownZ, 1, 16,
                 level, 1, averageLevel);
     }
 
-    public MobSpawnController(List<Vec3> canSpawnPos,
+    public MobSpawnController(Component mobName, List<Vec3> canSpawnPos,
                               int boundaryUpX, int boundaryUpY, int boundaryUpZ,
                               int boundaryDownX, int boundaryDownY, int boundaryDownZ,
                               Level level, int averageLevel) {
-        this(canSpawnPos, canSpawnPos.size() * 4, boundaryUpX, boundaryUpY, boundaryUpZ,
+        this(mobName, canSpawnPos, canSpawnPos.size() * 4, boundaryUpX, boundaryUpY, boundaryUpZ,
                 boundaryDownX, boundaryDownY, boundaryDownZ, 1, 16,
                 level, 1, averageLevel);
     }
 
-    public MobSpawnController(List<Vec3> canSpawnPos,
+    public MobSpawnController(Component mobName, List<Vec3> canSpawnPos,
                               int boundaryUpX, int boundaryUpY, int boundaryUpZ,
                               int boundaryDownX, int boundaryDownY, int boundaryDownZ,
                               int preventRefreshDistance, Level level, int averageLevel) {
-        this(canSpawnPos, canSpawnPos.size() * 4, boundaryUpX, boundaryUpY, boundaryUpZ,
+        this(mobName, canSpawnPos, canSpawnPos.size() * 4, boundaryUpX, boundaryUpY, boundaryUpZ,
                 boundaryDownX, boundaryDownY, boundaryDownZ, 1, 16,
                 level, 1, averageLevel);
         this.preventRefreshDistance = preventRefreshDistance;
     }
 
-    public MobSpawnController(List<Vec3> canSpawnPos, int oneZoneMaxMobNum,
+    public MobSpawnController(Component mobName, List<Vec3> canSpawnPos, int oneZoneMaxMobNum,
                               int detectionRange, Level level, int mobPlayerRate, int averageLevel,
                               List<Boundary> multiBoundaryList) {
-        this(canSpawnPos, oneZoneMaxMobNum, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE,
+        this(mobName, canSpawnPos, oneZoneMaxMobNum, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE,
                 -Integer.MAX_VALUE, -Integer.MAX_VALUE, -Integer.MAX_VALUE, 1, detectionRange,
                 level, mobPlayerRate, averageLevel);
         this.multiBoundaryList = multiBoundaryList;
@@ -182,4 +185,6 @@ public abstract class MobSpawnController {
 
     // 怪物tick
     public abstract void tick();
+
+    public abstract List<ItemAndRate> getDropList();
 }

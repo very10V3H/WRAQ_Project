@@ -2,6 +2,7 @@ package fun.wraq.process.system.teamInstance;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.registry.MySound;
+import fun.wraq.common.util.ItemAndRate;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.networking.ModNetworking;
@@ -229,6 +230,8 @@ public abstract class NewTeamInstance {
     public abstract boolean allowReward(Player player);
 
     public abstract Component allowRewardCondition();
+
+    public abstract List<ItemAndRate> getRewardList();
 
     public boolean allMobIsClear() {
         for (ConditionSummonMob conditionSummonMob : mobList) {

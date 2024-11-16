@@ -1,5 +1,6 @@
 package fun.wraq.events.mob.chapter2;
 
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
@@ -55,7 +56,7 @@ public class SpiderSpawnController extends MobSpawnController {
 
     public SpiderSpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpZ,
                                  int boundaryDownX, int boundaryDownZ, Level level, int averageLevel) {
-        super(canSpawnPos, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, level, averageLevel);
+        super(Te.s("雨林蜘蛛", CustomStyle.styleOfForest), canSpawnPos, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, level, averageLevel);
     }
 
     @Override
@@ -100,7 +101,8 @@ public class SpiderSpawnController extends MobSpawnController {
         });
     }
 
-    public static List<ItemAndRate> getDropList() {
+    @Override
+    public List<ItemAndRate> getDropList() {
         return new ArrayList<>() {{
             add(new ItemAndRate(ModItems.ForestSoul.get(), 0.8));
             add(new ItemAndRate(ModItems.SpiderSoul.get(), 0.1));

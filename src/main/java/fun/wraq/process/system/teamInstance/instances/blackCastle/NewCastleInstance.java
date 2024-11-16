@@ -40,7 +40,8 @@ public class NewCastleInstance extends NewTeamInstance {
 
     public static NewTeamInstance getInstance() {
         if (instance == null)
-            instance = new NewCastleInstance(false, new Vec3(2417, 152, -1372), Component.literal("暗黑城堡").withStyle(CustomStyle.styleOfCastle), 5, 180);
+            instance = new NewCastleInstance(false, new Vec3(2417, 152, -1372),
+                    Component.literal("暗黑城堡").withStyle(CustomStyle.styleOfCastle), 5, 180);
         return instance;
     }
 
@@ -236,7 +237,7 @@ public class NewCastleInstance extends NewTeamInstance {
                 append(Component.literal("，方能获取奖励。").withStyle(ChatFormatting.WHITE));
     }
 
-    public static List<ItemAndRate> getRewardList() {
+    public List<ItemAndRate> getRewardList() {
         return List.of(new ItemAndRate(ModItems.CastleLoot.get(), 1),
                 new ItemAndRate(ModItems.WorldSoul2.get(), 0.25),
                 new ItemAndRate(ModItems.GoldCoinBag.get(), 0.1),

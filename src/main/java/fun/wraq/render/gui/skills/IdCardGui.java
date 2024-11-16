@@ -208,7 +208,7 @@ public class IdCardGui extends Screen {
             this.minecraft.setScreen(new VpStoreScreen());
         }).pos(this.width / 2 - 18, this.height / 2 + 113 - 40 + 18).size(48, 16).build());
 
-        this.addRenderableWidget(Button.builder(Component.literal("物品图鉴").withStyle(ChatFormatting.LIGHT_PURPLE), (p_280814_) -> {
+        this.addRenderableWidget(Button.builder(Component.literal("图鉴").withStyle(CustomStyle.styleOfSunIsland), (p_280814_) -> {
             this.minecraft.setScreen(new Illustrate(true, 0));
             ModNetworking.sendToServer(new GuideFinishC2SPacket(2));
         }).pos(this.width / 2 - 72, this.height / 2 + 113 - 40).size(48, 16).build());

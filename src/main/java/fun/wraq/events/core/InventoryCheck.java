@@ -54,6 +54,7 @@ public class InventoryCheck {
                         }
                     }
                 }
+                itemStack.hideTooltipPart(ItemStack.TooltipPart.ADDITIONAL);
             }
             ItemStack helmet = player.getItemBySlot(EquipmentSlot.HEAD);
             ItemStack chest = player.getItemBySlot(EquipmentSlot.CHEST);

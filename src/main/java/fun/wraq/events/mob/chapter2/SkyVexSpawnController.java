@@ -1,5 +1,6 @@
 package fun.wraq.events.mob.chapter2;
 
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
@@ -44,7 +45,7 @@ public class SkyVexSpawnController extends MobSpawnController {
 
     public SkyVexSpawnController(List<Vec3> canSpawnPos, int oneZoneMaxMobNum, int boundaryUpX, int boundaryUpY, int boundaryUpZ,
                                  int boundaryDownX, int boundaryDownY, int boundaryDownZ, double summonOffset, int detectionRange, Level level, int mobPlayerRate, int averageLevel) {
-        super(canSpawnPos, oneZoneMaxMobNum, boundaryUpX, boundaryUpY, boundaryUpZ, boundaryDownX, boundaryDownY, boundaryDownZ, summonOffset, detectionRange, level, mobPlayerRate, averageLevel);
+        super(Te.s("天空城的不速之客", CustomStyle.styleOfSky), canSpawnPos, oneZoneMaxMobNum, boundaryUpX, boundaryUpY, boundaryUpZ, boundaryDownX, boundaryDownY, boundaryDownZ, summonOffset, detectionRange, level, mobPlayerRate, averageLevel);
     }
 
     @Override
@@ -94,7 +95,8 @@ public class SkyVexSpawnController extends MobSpawnController {
         });
     }
 
-    public static List<ItemAndRate> getDropList() {
+    @Override
+    public List<ItemAndRate> getDropList() {
         return new ArrayList<>() {{
             add(new ItemAndRate(ModItems.SkySoul.get(), 0.8));
             add(new ItemAndRate(ModItems.silverCoin.get(), 0.375));

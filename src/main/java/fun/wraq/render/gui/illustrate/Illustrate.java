@@ -5,6 +5,7 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
+import fun.wraq.render.gui.illustrate.mobinfo.MobInfoGui;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -58,6 +59,10 @@ public class Illustrate extends Screen {
             this.minecraft.setScreen((Screen) null);
             this.minecraft.mouseHandler.grabMouse();
         }).pos(X + 136, Y - 98).size(12, 12).build());
+
+        this.addRenderableWidget(Button.builder(Component.literal("怪物及其掉落"), (p_280814_) -> {
+            this.minecraft.setScreen(new MobInfoGui());
+        }).pos(X + 150 - 88, Y - 98 - 20).size(28 * 3, 16).build());
 
         this.addRenderableWidget(Button.builder(Component.literal("武器"), (p_280814_) -> {
             this.type = 0;

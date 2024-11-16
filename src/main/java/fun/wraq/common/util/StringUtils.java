@@ -70,20 +70,10 @@ public class StringUtils {
         public static String Mana = "SkillData_Mana";
     }
 
-    public static String VolcanoBowSkill = "volcanobow";
-    public static String PlainBowSkill = "plainbow";
-    public static String LakeSwordSkill = "lakesword";
-    public static String ForestSwordSkill0 = "BreakDefence";
-    public static String ForestSwordSkill1 = "BreakDefenceX";
-
     public static class ForestRune {
         public static String ForestRune = "DGreen";
         public static String ForestRune1 = "DGreen1";
         public static String ForestRune2 = "DGreen2";
-    }
-
-    public static class NetherRune {
-        public static String NetherRune2 = "NetherRune2";
     }
 
     public static class SwordSkillNum {

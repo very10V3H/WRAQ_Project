@@ -1,15 +1,15 @@
 package fun.wraq.series.instance.series.castle;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqSword;
+import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.fast.Tick;
+import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.StableAttributesModifier;
 import fun.wraq.process.func.damage.Damage;
-import fun.wraq.common.equip.impl.ActiveItem;
-import fun.wraq.common.impl.display.ForgeItem;
-import fun.wraq.common.equip.WraqSword;
 import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -22,7 +22,6 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.WeakHashMap;
 
 public class CastleSword extends WraqSword implements ForgeItem, ActiveItem {
 
@@ -79,21 +78,6 @@ public class CastleSword extends WraqSword implements ForgeItem, ActiveItem {
         }
     }
 
-    public static WeakHashMap<Player, Integer> CastleWeaponActiveLastTick = new WeakHashMap<>();
-    public static WeakHashMap<Player, Integer> CastleWeaponActiveCoolDown = new WeakHashMap<>();
-
-    public static double DamageEnhance(Player player) {
-        if (CastleWeaponActiveLastTick.containsKey(player) && CastleWeaponActiveLastTick.get(player) > player.getServer().getTickCount())
-            return 0.8;
-        return 0;
-    }
-
-    public static double ExPenetration0(Player player) {
-        if (CastleWeaponActiveLastTick.containsKey(player) && CastleWeaponActiveLastTick.get(player) > player.getServer().getTickCount())
-            return 15;
-        return 0;
-    }
-
     @Override
     public List<ItemStack> forgeRecipe() {
         return new ArrayList<>() {{
@@ -114,6 +98,10 @@ public class CastleSword extends WraqSword implements ForgeItem, ActiveItem {
         Compute.playerItemCoolDown(player, this, 15);
         StableAttributesModifier.addM(player, StableAttributesModifier.playerCommonDamageEnhance,
                 "castle weapon active", 0.2, Tick.get() + 120);
+        StableAttributesModifier.addM(player, StableAttributesModifier.playerDefencePenetration0Modifier,
+                "CastleWeaponActiveDefencePenetration0", 15, Tick.get() + 120);
+        StableAttributesModifier.addM(player, StableAttributesModifier.playerManaPenetration0Modifier,
+                "CastleWeaponActiveManaPenetration0", 15, Tick.get() + 120, this);
     }
 
     @Override

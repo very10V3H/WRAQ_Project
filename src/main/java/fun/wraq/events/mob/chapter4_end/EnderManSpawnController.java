@@ -1,5 +1,6 @@
 package fun.wraq.events.mob.chapter4_end;
 
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
@@ -53,7 +54,7 @@ public class EnderManSpawnController extends MobSpawnController {
 
     public EnderManSpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpZ,
                                    int boundaryDownX, int boundaryDownZ, Level level, int averageLevel) {
-        super(canSpawnPos, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, level, averageLevel);
+        super(Te.s("终界使者", CustomStyle.styleOfEnd), canSpawnPos, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, level, averageLevel);
     }
 
     @Override
@@ -98,7 +99,8 @@ public class EnderManSpawnController extends MobSpawnController {
         });
     }
 
-    public static List<ItemAndRate> getDropList() {
+    @Override
+    public List<ItemAndRate> getDropList() {
         return new ArrayList<>() {{
             add(new ItemAndRate(ModItems.RecallPiece.get(), 0.8));
             add(new ItemAndRate(ModItems.silverCoin.get(), 0.625));

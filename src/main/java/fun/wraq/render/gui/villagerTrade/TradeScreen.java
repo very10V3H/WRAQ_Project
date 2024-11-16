@@ -8,7 +8,6 @@ import fun.wraq.networking.misc.SmartPhonePackets.Currency.*;
 import fun.wraq.networking.misc.SmartPhonePackets.MarketScreenC2SPacket;
 import fun.wraq.networking.unSorted.TradeBuyRequestC2SPacket;
 import fun.wraq.process.system.randomStore.RandomStore;
-import fun.wraq.render.gui.villagerTrade.TradeList;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -86,27 +85,27 @@ public class TradeScreen extends Screen {
 
         this.addRenderableWidget(Button.builder(Component.translatable("VB兑1金币"), (p_280814_) -> {
             ModNetworking.sendToServer(new GoldCoinC2SPacket(1));
-        }).pos(this.width / 2 + 288, this.height / 2 - 78).size(48, 16).build());
+        }).pos(this.width / 2 - 146, this.height / 2 - 116).size(48, 16).build());
 
         this.addRenderableWidget(Button.builder(Component.translatable("x10"), (p_280814_) -> {
             ModNetworking.sendToServer(new GoldCoinC2SPacket(2));
-        }).pos(this.width / 2 + 342, this.height / 2 - 78).size(24, 16).build());
+        }).pos(this.width / 2 - 146 + 50, this.height / 2 - 116).size(24, 16).build());
 
         this.addRenderableWidget(Button.builder(Component.translatable("VB兑10银币"), (p_280814_) -> {
             ModNetworking.sendToServer(new SilverCoinC2SPacket(1));
-        }).pos(this.width / 2 + 288, this.height / 2 - 78 + 24).size(48, 16).build());
+        }).pos(this.width / 2 - 146 + 50 + 26, this.height / 2 - 116).size(48, 16).build());
 
         this.addRenderableWidget(Button.builder(Component.translatable("x64"), (p_280814_) -> {
             ModNetworking.sendToServer(new SilverCoinC2SPacket(2));
-        }).pos(this.width / 2 + 342, this.height / 2 - 78 + 24).size(24, 16).build());
+        }).pos(this.width / 2 - 146 + 50 + 26 + 50, this.height / 2 - 116).size(24, 16).build());
 
         this.addRenderableWidget(Button.builder(Component.translatable("VB兑10铜币"), (p_280814_) -> {
             ModNetworking.sendToServer(new CopperCoinC2SPacket(1));
-        }).pos(this.width / 2 + 288, this.height / 2 - 78 + 48).size(48, 16).build());
+        }).pos(this.width / 2 - 146 + 50 + 26 + 50 + 26, this.height / 2 - 116).size(48, 16).build());
 
         this.addRenderableWidget(Button.builder(Component.translatable("x64"), (p_280814_) -> {
             ModNetworking.sendToServer(new CopperCoinC2SPacket(2));
-        }).pos(this.width / 2 + 342, this.height / 2 - 78 + 48).size(24, 16).build());
+        }).pos(this.width / 2 - 146 + 50 + 26 + 50 + 26 + 50, this.height / 2 - 116).size(24, 16).build());
 
         for (int i = 0; i < 5; i++) {
             int finalI = i;

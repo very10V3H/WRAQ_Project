@@ -64,7 +64,7 @@ public class IceArmor extends WraqArmor implements ForgeItem {
     @Override
     public List<ItemStack> forgeRecipe() {
         return List.of(
-                new ItemStack(ModItems.IceCompleteGem.get(), 4),
+                new ItemStack(ModItems.IceCompleteGem.get(), 3),
                 new ItemStack(PickaxeItems.TINKER_DIAMOND.get(), 1)
         );
     }

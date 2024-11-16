@@ -405,7 +405,7 @@ public class ForgeRecipe {
         forgeDrawRecipe.put(ModItems.IceSword.get(), new ArrayList<>() {{
             add(new ItemStack(ModItems.IceCompleteGem.get(), 8));
             add(new ItemStack(ModItems.goldCoin.get(), 256));
-            add(new ItemStack(ModItems.completeGem.get(), 12));
+            add(new ItemStack(ModItems.completeGem.get(), 6));
             add(new ItemStack(ModItems.ReputationMedal.get(), 48));
             add(new ItemStack(PickaxeItems.TINKER_GOLD.get(), 8));
             add(new ItemStack(ModItems.WorldSoul3.get(), 2));
@@ -414,7 +414,7 @@ public class ForgeRecipe {
         forgeDrawRecipe.put(ModItems.IceBow.get(), new ArrayList<>() {{
             add(new ItemStack(ModItems.IceCompleteGem.get(), 8));
             add(new ItemStack(ModItems.goldCoin.get(), 256));
-            add(new ItemStack(ModItems.completeGem.get(), 12));
+            add(new ItemStack(ModItems.completeGem.get(), 6));
             add(new ItemStack(ModItems.ReputationMedal.get(), 48));
             add(new ItemStack(PickaxeItems.TINKER_GOLD.get(), 8));
             add(new ItemStack(ModItems.WorldSoul3.get(), 2));
@@ -423,7 +423,7 @@ public class ForgeRecipe {
         forgeDrawRecipe.put(ModItems.IceSceptre.get(), new ArrayList<>() {{
             add(new ItemStack(ModItems.IceCompleteGem.get(), 8));
             add(new ItemStack(ModItems.goldCoin.get(), 256));
-            add(new ItemStack(ModItems.completeGem.get(), 12));
+            add(new ItemStack(ModItems.completeGem.get(), 6));
             add(new ItemStack(ModItems.ReputationMedal.get(), 48));
             add(new ItemStack(PickaxeItems.TINKER_GOLD.get(), 8));
             add(new ItemStack(ModItems.WorldSoul3.get(), 2));

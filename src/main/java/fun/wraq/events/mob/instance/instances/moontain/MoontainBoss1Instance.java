@@ -42,7 +42,7 @@ public class MoontainBoss1Instance extends NoTeamInstance {
     }
 
     public MoontainBoss1Instance(Vec3 pos, double range, int delayTick, Vec3 armorStandPos, MutableComponent name) {
-        super(pos, range, delayTick, armorStandPos, name);
+        super(pos, range, delayTick, armorStandPos, name, 200);
     }
 
     @Override
@@ -102,7 +102,7 @@ public class MoontainBoss1Instance extends NoTeamInstance {
                 append(Component.literal("，方能获取奖励。").withStyle(ChatFormatting.WHITE));
     }
 
-    public static List<ItemAndRate> getRewardList() {
+    public List<ItemAndRate> getRewardList() {
         return List.of(new ItemAndRate(MoontainItems.FRAGMENT.get(), 1),
                 new ItemAndRate(MoontainItems.STONE_FRAGMENT.get(), 6),
                 new ItemAndRate(ModItems.WorldSoul2.get(), 0.25),

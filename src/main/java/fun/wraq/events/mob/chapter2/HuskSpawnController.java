@@ -1,5 +1,6 @@
 package fun.wraq.events.mob.chapter2;
 
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
@@ -68,7 +69,7 @@ public class HuskSpawnController extends MobSpawnController {
     }
 
     public HuskSpawnController(List<Vec3> canSpawnPos, int oneZoneMaxMobNum, Level level, int mobPlayerRate, int averageLevel) {
-        super(canSpawnPos, oneZoneMaxMobNum, 16, level, mobPlayerRate, averageLevel,
+        super(Te.s("脆弱的岩灵", CustomStyle.styleOfHusk), canSpawnPos, oneZoneMaxMobNum, 16, level, mobPlayerRate, averageLevel,
                 List.of(new Boundary(new Vec3(933, 1000, 415), new Vec3(760, -100, 289)),
                         new Boundary(new Vec3(1230, 1000, 453), new Vec3(1034, -100, 270))));
     }
@@ -116,7 +117,8 @@ public class HuskSpawnController extends MobSpawnController {
         });
     }
 
-    public static List<ItemAndRate> getDropList() {
+    @Override
+    public List<ItemAndRate> getDropList() {
         return new ArrayList<>() {{
             add(new ItemAndRate(ModItems.huskSoul.get(), 1));
             add(new ItemAndRate(ModItems.silverCoin.get(), 0.4375));

@@ -1,5 +1,6 @@
 package fun.wraq.events.mob.chapter5;
 
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModEntityType;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ItemAndRate;
@@ -50,7 +51,7 @@ public class SakuraMob2SpawnController extends MobSpawnController {
 
     public SakuraMob2SpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpZ,
                                    int boundaryDownX, int boundaryDownZ, Level level, int averageLevel) {
-        super(canSpawnPos, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, level, averageLevel);
+        super(Te.s("樱灵", CustomStyle.styleOfSakura), canSpawnPos, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, level, averageLevel);
     }
 
     @Override
@@ -95,7 +96,8 @@ public class SakuraMob2SpawnController extends MobSpawnController {
         });
     }
 
-    public static List<ItemAndRate> getDropList() {
+    @Override
+    public List<ItemAndRate> getDropList() {
         return new ArrayList<>() {{
             add(new ItemAndRate(ModItems.SakuraPetal.get(), 0.8));
             add(new ItemAndRate(ModItems.silverCoin.get(), 0.615));

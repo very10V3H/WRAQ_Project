@@ -54,7 +54,7 @@ public class DevilInstance extends NoTeamInstance {
     }
 
     public DevilInstance(Vec3 pos, double range, int delayTick, Vec3 armorStandPos, MutableComponent name) {
-        super(pos, range, delayTick, armorStandPos, name);
+        super(pos, range, delayTick, armorStandPos, name, 150);
     }
 
     @Override
@@ -136,7 +136,7 @@ public class DevilInstance extends NoTeamInstance {
                 append(Component.literal("，方能获取奖励。").withStyle(ChatFormatting.WHITE));
     }
 
-    public static List<ItemAndRate> getRewardList() {
+    public List<ItemAndRate> getRewardList() {
         return List.of(new ItemAndRate(ModItems.DevilLoot.get(), 1),
                 new ItemAndRate(ModItems.TabooPiece.get(), 1),
                 new ItemAndRate(ModItems.WorldSoul2.get(), 0.25),

@@ -51,7 +51,6 @@ public class DamageInfluence {
         rate += AttackEventModule.SwordSkill5DamageEnhance(player); // 双刃剑
         rate += AttackEventModule.ManaSkill5DamageEnhance(player); // 法术专注
         rate += ColdData.PlayerColdEffect(player); // 寒冷
-        rate += CastleSword.DamageEnhance(player);
         rate += FireEquip.DamageEnhance(player); // 炽焰元素武器
         rate += NewPotionEffects.damageEnhance(player);
         rate += MineNewRune.damageEnhance(player);

@@ -52,7 +52,8 @@ public class MarketScreen extends Screen {
     protected void init() {
         if (this.showPauseMenu) {
             this.createPauseMenu();
-            this.nameSearchBox = new EditBox(this.font, this.width / 2 - 100, this.height / 2 - 124, 200, 20, Component.translatable("teamsearch.search"));
+            this.nameSearchBox = new EditBox(this.font, this.width / 2 - 100, this.height / 2 - 124, 200, 20,
+                    Component.translatable("teamsearch.search"));
             this.addWidget(this.nameSearchBox);
         }
     }

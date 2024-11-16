@@ -746,39 +746,39 @@ public class InjectRecipe {
                         ModItems.PurpleIronBud3.get()));
 
         injectingRecipeMap.put(ModItems.PurpleIronSword.get(),
-                new InjectingRecipe(ModItems.PurpleIronBud3.get(), 2,
+                new InjectingRecipe(ModItems.PurpleIronBud3.get(), 1,
                         ModItems.PurpleIronSword1.get()));
 
         injectingRecipeMap.put(ModItems.PurpleIronSword1.get(),
-                new InjectingRecipe(ModItems.PurpleIronBud3.get(), 4,
+                new InjectingRecipe(ModItems.PurpleIronBud3.get(), 1,
                         ModItems.PurpleIronSword2.get()));
 
         injectingRecipeMap.put(ModItems.PurpleIronSword2.get(),
-                new InjectingRecipe(ModItems.PurpleIronBud3.get(), 8,
+                new InjectingRecipe(ModItems.PurpleIronBud3.get(), 1,
                         ModItems.PurpleIronSword3.get()));
 
         injectingRecipeMap.put(ModItems.PurpleIronBow.get(),
-                new InjectingRecipe(ModItems.PurpleIronBud3.get(), 2,
+                new InjectingRecipe(ModItems.PurpleIronBud3.get(), 1,
                         ModItems.PurpleIronBow1.get()));
 
         injectingRecipeMap.put(ModItems.PurpleIronBow1.get(),
-                new InjectingRecipe(ModItems.PurpleIronBud3.get(), 4,
+                new InjectingRecipe(ModItems.PurpleIronBud3.get(), 1,
                         ModItems.PurpleIronBow2.get()));
 
         injectingRecipeMap.put(ModItems.PurpleIronBow2.get(),
-                new InjectingRecipe(ModItems.PurpleIronBud3.get(), 8,
+                new InjectingRecipe(ModItems.PurpleIronBud3.get(), 1,
                         ModItems.PurpleIronBow3.get()));
 
         injectingRecipeMap.put(ModItems.PurpleIronSceptre.get(),
-                new InjectingRecipe(ModItems.PurpleIronBud3.get(), 2,
+                new InjectingRecipe(ModItems.PurpleIronBud3.get(), 1,
                         ModItems.PurpleIronSceptre1.get()));
 
         injectingRecipeMap.put(ModItems.PurpleIronSceptre1.get(),
-                new InjectingRecipe(ModItems.PurpleIronBud3.get(), 4,
+                new InjectingRecipe(ModItems.PurpleIronBud3.get(), 1,
                         ModItems.PurpleIronSceptre2.get()));
 
         injectingRecipeMap.put(ModItems.PurpleIronSceptre2.get(),
-                new InjectingRecipe(ModItems.PurpleIronBud3.get(), 8,
+                new InjectingRecipe(ModItems.PurpleIronBud3.get(), 1,
                         ModItems.PurpleIronSceptre3.get()));
 
         injectingRecipeMap.put(ModItems.StarRune.get(),

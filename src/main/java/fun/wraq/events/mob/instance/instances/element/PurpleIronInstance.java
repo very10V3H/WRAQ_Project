@@ -45,7 +45,7 @@ public class PurpleIronInstance extends NoTeamInstance {
     }
 
     public PurpleIronInstance(Vec3 pos, double range, int delayTick, Vec3 armorStandPos, MutableComponent name) {
-        super(pos, range, delayTick, armorStandPos, name);
+        super(pos, range, delayTick, armorStandPos, name, 120);
     }
 
     @Override
@@ -119,7 +119,7 @@ public class PurpleIronInstance extends NoTeamInstance {
                 append(Component.literal("，方能获取奖励").withStyle(ChatFormatting.WHITE));
     }
 
-    public static List<ItemAndRate> getRewardList() {
+    public List<ItemAndRate> getRewardList() {
         return List.of(new ItemAndRate(ModItems.PurpleIronBud1.get(), 1),
                 new ItemAndRate(new ItemStack(ModItems.gemPiece.get(), 8), 0.1),
                 new ItemAndRate(ModItems.PurpleIronBud2.get(), 0.1),

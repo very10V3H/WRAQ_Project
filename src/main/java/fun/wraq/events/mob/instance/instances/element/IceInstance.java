@@ -61,7 +61,7 @@ public class IceInstance extends NoTeamInstance {
     }
 
     public IceInstance(Vec3 pos, double range, int delayTick, Vec3 armorStandPos, MutableComponent name) {
-        super(pos, range, delayTick, armorStandPos, name);
+        super(pos, range, delayTick, armorStandPos, name, 135);
     }
 
     @Override
@@ -169,7 +169,7 @@ public class IceInstance extends NoTeamInstance {
                 append(Component.literal("，方能获取奖励。").withStyle(ChatFormatting.WHITE));
     }
 
-    public static List<ItemAndRate> getRewardList() {
+    public List<ItemAndRate> getRewardList() {
         return List.of(new ItemAndRate(ModItems.IceLoot.get(), 1),
                 new ItemAndRate(ModItems.IceHeart.get(), 0.05),
                 new ItemAndRate(ModItems.WorldSoul2.get(), 0.25),

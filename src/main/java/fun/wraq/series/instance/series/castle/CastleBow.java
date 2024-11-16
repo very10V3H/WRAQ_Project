@@ -92,6 +92,10 @@ public class CastleBow extends WraqBow implements ForgeItem, ActiveItem {
         Compute.playerItemCoolDown(player, this, 15);
         StableAttributesModifier.addM(player, StableAttributesModifier.playerCommonDamageEnhance,
                 "castle weapon active", 0.2, Tick.get() + 120);
+        StableAttributesModifier.addM(player, StableAttributesModifier.playerDefencePenetration0Modifier,
+                "CastleWeaponActiveDefencePenetration0", 15, Tick.get() + 120);
+        StableAttributesModifier.addM(player, StableAttributesModifier.playerManaPenetration0Modifier,
+                "CastleWeaponActiveManaPenetration0", 15, Tick.get() + 120, this);
     }
 
     @Override

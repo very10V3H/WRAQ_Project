@@ -1,5 +1,6 @@
 package fun.wraq.events.mob.ore;
 
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ItemAndRate;
@@ -56,7 +57,7 @@ public class Ore2SpawnController extends MobSpawnController {
     public Ore2SpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpY, int boundaryUpZ,
                                int boundaryDownX, int boundaryDownY, int boundaryDownZ,
                                Level level, int averageLevel) {
-        super(canSpawnPos, boundaryUpX, boundaryUpY, boundaryUpZ, boundaryDownX, boundaryDownY, boundaryDownZ,
+        super(Te.s("被遗忘的晶钻矿工", CustomStyle.styleOfIce), canSpawnPos, boundaryUpX, boundaryUpY, boundaryUpZ, boundaryDownX, boundaryDownY, boundaryDownZ,
                 15, level, averageLevel);
     }
 
@@ -104,7 +105,8 @@ public class Ore2SpawnController extends MobSpawnController {
         });
     }
 
-    public static List<ItemAndRate> getDropList() {
+    @Override
+    public List<ItemAndRate> getDropList() {
         return List.of(
                 new ItemAndRate(ModItems.StoneElementPiece0.get(), 0.03),
                 new ItemAndRate(ModItems.WaterElementPiece0.get(), 0.03),

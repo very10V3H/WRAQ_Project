@@ -212,6 +212,7 @@ public class InjectBlockEntity extends BlockEntity implements MenuProvider, Drop
             }
 
             productItemStack.setCount(slot2Item.getCount() + 1);
+            productItemStack.hideTooltipPart(ItemStack.TooltipPart.ADDITIONAL);
             blockEntity.itemStackHandler.extractItem(0, InjectRecipe.injectingRecipeMap.get(injectedItem.getItem()).getMaterialCount(), false);
             blockEntity.itemStackHandler.extractItem(1, InjectRecipe.injectingRecipeMap.get(injectedItem.getItem()).getOriginalMaterialNeedCount(), false);
             blockEntity.itemStackHandler.setStackInSlot(2, productItemStack);

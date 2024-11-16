@@ -84,13 +84,13 @@ public class MopUpPaper extends Item {
         if (!level.isClientSide && interactionHand.equals(InteractionHand.MAIN_HAND)) {
             List<ItemAndRate> rewardList = new ArrayList<>();
             switch (instanceSerialNumMap.get(instanceName)) {
-                case 0 -> rewardList = NewCastleInstance.getRewardList();
-                case 2 -> rewardList = DevilInstance.getRewardList();
-                case 3 -> rewardList = IceInstance.getRewardList();
-                case 6 -> rewardList = MoonInstance.getRewardList();
-                case 8 -> rewardList = PlainInstance.getRewardList();
-                case 9 -> rewardList = PurpleIronInstance.getRewardList();
-                case 10 -> rewardList = SakuraBossInstance.getRewardList();
+                case 0 -> rewardList = NewCastleInstance.getInstance().getRewardList();
+                case 2 -> rewardList = DevilInstance.getInstance().getRewardList();
+                case 3 -> rewardList = IceInstance.getInstance().getRewardList();
+                case 6 -> rewardList = MoonInstance.getInstance().getRewardList();
+                case 8 -> rewardList = PlainInstance.getInstance().getRewardList();
+                case 9 -> rewardList = PurpleIronInstance.getInstance().getRewardList();
+                case 10 -> rewardList = SakuraBossInstance.getInstance().getRewardList();
             }
 
             rewardList.forEach(itemAndRate -> {

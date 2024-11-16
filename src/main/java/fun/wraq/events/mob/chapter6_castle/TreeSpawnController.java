@@ -1,5 +1,6 @@
 package fun.wraq.events.mob.chapter6_castle;
 
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
@@ -49,7 +50,7 @@ public class TreeSpawnController extends MobSpawnController {
 
     public TreeSpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpZ,
                                int boundaryDownX, int boundaryDownZ, Level level, int averageLevel) {
-        super(canSpawnPos, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, level, averageLevel);
+        super(Te.s("古树魔能研究者", CustomStyle.styleOfMana), canSpawnPos, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, level, averageLevel);
     }
 
     @Override
@@ -95,7 +96,8 @@ public class TreeSpawnController extends MobSpawnController {
         });
     }
 
-    public static List<ItemAndRate> getDropList() {
+    @Override
+    public List<ItemAndRate> getDropList() {
         return new ArrayList<>() {{
             add(new ItemAndRate(ModItems.TreeSoul.get(), 0.8));
             add(new ItemAndRate(ModItems.silverCoin.get(), 0.58));

@@ -58,7 +58,7 @@ public class MoonInstance extends NoTeamInstance {
     }
 
     public MoonInstance(Vec3 pos, double range, int delayTick, Vec3 armorStandPos, MutableComponent name) {
-        super(pos, range, delayTick, armorStandPos, name);
+        super(pos, range, delayTick, armorStandPos, name, 160);
     }
 
     @Override
@@ -164,7 +164,7 @@ public class MoonInstance extends NoTeamInstance {
                 append(Component.literal("，方能获取奖励。").withStyle(ChatFormatting.WHITE));
     }
 
-    public static List<ItemAndRate> getRewardList() {
+    public List<ItemAndRate> getRewardList() {
         return List.of(new ItemAndRate(ModItems.MoonLoot.get(), 1),
                 new ItemAndRate(GemItems.moonAttackGem.get(), 0.01),
                 new ItemAndRate(GemItems.moonManaGem.get(), 0.01),

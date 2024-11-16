@@ -1,5 +1,6 @@
 package fun.wraq.events.mob.chapter3_nether;
 
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
@@ -49,7 +50,7 @@ public class WitherSkeletonSpawnController extends MobSpawnController {
 
     public WitherSkeletonSpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpZ,
                                          int boundaryDownX, int boundaryDownZ, Level level, int averageLevel) {
-        super(canSpawnPos, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, level, averageLevel);
+        super(Te.s("森林僵尸", CustomStyle.styleOfWither), canSpawnPos, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, level, averageLevel);
     }
 
     @Override
@@ -60,7 +61,7 @@ public class WitherSkeletonSpawnController extends MobSpawnController {
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
 
         // 设置颜色与名称
-        Style style = CustomStyle.styleOfNether;
+        Style style = CustomStyle.styleOfWither;
         MobSpawn.setMobCustomName(witherSkeleton, Component.literal(mobName).withStyle(style), xpLevel);
 
         // 需要验证
@@ -85,7 +86,8 @@ public class WitherSkeletonSpawnController extends MobSpawnController {
         });
     }
 
-    public static List<ItemAndRate> getDropList() {
+    @Override
+    public List<ItemAndRate> getDropList() {
         return new ArrayList<>() {{
             add(new ItemAndRate(ModItems.Ruby.get(), 1));
             add(new ItemAndRate(ModItems.NetherQuartz.get(), 0.33));
