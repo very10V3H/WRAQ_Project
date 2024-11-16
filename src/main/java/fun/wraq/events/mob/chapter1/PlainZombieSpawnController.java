@@ -1,5 +1,6 @@
 package fun.wraq.events.mob.chapter1;
 
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
@@ -51,7 +52,7 @@ public class PlainZombieSpawnController extends MobSpawnController {
 
     public PlainZombieSpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpZ,
                                       int boundaryDownX, int boundaryDownZ, Level level, int averageLevel) {
-        super(canSpawnPos, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, level, averageLevel);
+        super(Te.s("平原僵尸", CustomStyle.styleOfPlain), canSpawnPos, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, level, averageLevel);
     }
 
     @Override
@@ -66,7 +67,8 @@ public class PlainZombieSpawnController extends MobSpawnController {
 
         // 需要验证
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(zombie), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombie, 20, 0, 0, 0.2, 1, 0, 0, 0, 100, 0.2);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombie, 20, 0, 0, 0.2,
+                1, 0, 0, 0, 100, 0.2);
 
         // 设置物品
         ItemStack[] itemStacks = {new ItemStack(Items.LEATHER_HELMET), new ItemStack(Items.LEATHER_CHESTPLATE),
@@ -95,7 +97,8 @@ public class PlainZombieSpawnController extends MobSpawnController {
         });
     }
 
-    public static List<ItemAndRate> getDropList() {
+    @Override
+    public List<ItemAndRate> getDropList() {
         return new ArrayList<>() {{
             add(new ItemAndRate(ModItems.PlainSoul.get(), 0.8));
             add(new ItemAndRate(ModItems.copperCoin.get(), 1.5));

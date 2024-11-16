@@ -1,5 +1,6 @@
 package fun.wraq.events.mob.chapter7;
 
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
@@ -50,7 +51,7 @@ public class BoneImpSpawnController extends MobSpawnController {
 
     public BoneImpSpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpZ,
                                    int boundaryDownX, int boundaryDownZ, Level level, int averageLevel) {
-        super(canSpawnPos, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, level, averageLevel);;
+        super(Te.s("炽鬼", CustomStyle.styleOfVolcano), canSpawnPos, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, level, averageLevel);;
     }
 
     @Override
@@ -97,7 +98,8 @@ public class BoneImpSpawnController extends MobSpawnController {
         });
     }
 
-    public static List<ItemAndRate> getDropList() {
+    @Override
+    public List<ItemAndRate> getDropList() {
         return new ArrayList<>() {{
             add(new ItemAndRate(C7Items.boneImpSoul.get(), 0.8));
             add(new ItemAndRate(ModItems.silverCoin.get(), 0.87));

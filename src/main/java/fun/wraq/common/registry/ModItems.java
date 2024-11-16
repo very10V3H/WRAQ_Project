@@ -171,7 +171,7 @@ import fun.wraq.series.overworld.chapter1.forest.rune.ForestRune0;
 import fun.wraq.series.overworld.chapter1.forest.rune.ForestRune1;
 import fun.wraq.series.overworld.chapter1.forest.rune.ForestRune2;
 import fun.wraq.series.overworld.chapter1.forest.rune.ForestRune3;
-import fun.wraq.series.overworld.chapter1.forest.sword.ForestSword;
+import fun.wraq.series.overworld.chapter1.forest.ForestSword;
 import fun.wraq.series.overworld.chapter1.plain.PlainBow;
 import fun.wraq.series.overworld.chapter1.plain.PlainPower;
 import fun.wraq.series.overworld.chapter1.plain.PlainRing;

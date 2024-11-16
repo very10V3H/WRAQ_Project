@@ -37,7 +37,7 @@ public class NetherInstance extends NoTeamInstance {
     }
 
     public NetherInstance(Vec3 pos, double range, int delayTick, Vec3 armorStandPos, MutableComponent name) {
-        super(pos, range, delayTick, armorStandPos, name);
+        super(pos, range, delayTick, armorStandPos, name, 90);
     }
 
     @Override
@@ -94,7 +94,7 @@ public class NetherInstance extends NoTeamInstance {
                 append(Component.literal("，方能获取奖励").withStyle(ChatFormatting.WHITE));
     }
 
-    public static List<ItemAndRate> getRewardList() {
+    public List<ItemAndRate> getRewardList() {
         return List.of(new ItemAndRate(ModItems.NetherQuartz.get(), 8),
                 new ItemAndRate(ModItems.NETHER_IMPRINT.get(), 0.25),
                 new ItemAndRate(ModItems.Ruby.get(), 8),

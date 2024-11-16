@@ -2,6 +2,7 @@ package fun.wraq.events.mob.chapter7;
 
 import com.obscuria.aquamirae.common.entities.TorturedSoul;
 import com.obscuria.aquamirae.registry.AquamiraeEntities;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
@@ -47,7 +48,7 @@ public class TorturedSoulSpawnController extends MobSpawnController {
 
     public TorturedSoulSpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpZ,
                                        int boundaryDownX, int boundaryDownZ, Level level, int averageLevel) {
-        super(canSpawnPos, boundaryUpX, 210, boundaryUpZ, boundaryDownX, 188, boundaryDownZ, level, averageLevel);
+        super(Te.s("被折磨的灵魂", CustomStyle.styleOfWorld), canSpawnPos, boundaryUpX, 210, boundaryUpZ, boundaryDownX, 188, boundaryDownZ, level, averageLevel);
     }
 
     @Override
@@ -82,7 +83,8 @@ public class TorturedSoulSpawnController extends MobSpawnController {
 
     }
 
-    public static List<ItemAndRate> getDropList() {
+    @Override
+    public List<ItemAndRate> getDropList() {
         return new ArrayList<>() {{
             add(new ItemAndRate(C7Items.vdSoul.get(), 0.1));
             add(new ItemAndRate(ModItems.silverCoin.get(), 1));

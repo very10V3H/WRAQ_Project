@@ -62,8 +62,8 @@ public class ManaKnife extends WraqOffHandItem implements ForgeItem {
     @Override
     public List<ItemStack> forgeRecipe() {
         return new ArrayList<>() {{
-            add(new ItemStack(ModItems.BloodManaRune.get(), 16));
-            add(new ItemStack(ModItems.EarthManaRune.get(), 16));
+            add(new ItemStack(ModItems.BloodManaRune.get(), 8));
+            add(new ItemStack(ModItems.EarthManaRune.get(), 8));
             add(new ItemStack(Items.IRON_INGOT, 64));
             add(new ItemStack(ModItems.goldCoin.get(), 64));
         }};

@@ -17,7 +17,7 @@ import net.minecraft.world.item.ItemStack;
 public class CompensateCommand implements Command<CommandSourceStack> {
     public static CompensateCommand instance = new CompensateCommand();
 
-    public static int rewardNum = 14;
+    public static int rewardNum = 15;
     public static String singleReward = "singleReward" + rewardNum;
 
     @Override
@@ -26,16 +26,11 @@ public class CompensateCommand implements Command<CommandSourceStack> {
         CompoundTag data = player.getPersistentData();
         if (!data.contains(singleReward)) {
             data.putBoolean(singleReward, true);
-            if (player.experienceLevel > 0) {
-                InventoryOperation.itemStackGiveWithMSG(player, new ItemStack(ModItems.RevelationBook.get(), 16));
-                InventoryOperation.itemStackGiveWithMSG(player, new ItemStack(ModItems.gemPiece.get(), 16));
-            }
-            if (player.experienceLevel > 40 && player.experienceLevel < 120) {
-                InventoryOperation.itemStackGiveWithMSG(player, new ItemStack(ModItems.supplyBoxTier1.get()));
-            } else if (player.experienceLevel >= 120 && player.experienceLevel < 200) {
-                InventoryOperation.itemStackGiveWithMSG(player, new ItemStack(ModItems.supplyBoxTier2.get()));
-            } else if (player.experienceLevel >= 200) {
-                InventoryOperation.itemStackGiveWithMSG(player, new ItemStack(ModItems.supplyBoxTier3.get()));
+            if (player.experienceLevel > 40) {
+                InventoryOperation.itemStackGiveWithMSG(player, new ItemStack(ModItems.completeGem.get(), 2));
+                InventoryOperation.itemStackGiveWithMSG(player, new ItemStack(ModItems.notePaper.get(), 64));
+            } else {
+                InventoryOperation.itemStackGiveWithMSG(player, new ItemStack(ModItems.RevelationBook.get(), 10));
             }
             Compute.sendFormatMSG(player, Component.literal("补偿").withStyle(CustomStyle.styleOfSakura),
                     Component.literal("你成功领取了补偿！").withStyle(ChatFormatting.AQUA));

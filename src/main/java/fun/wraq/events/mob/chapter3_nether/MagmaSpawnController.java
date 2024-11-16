@@ -1,5 +1,6 @@
 package fun.wraq.events.mob.chapter3_nether;
 
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
@@ -45,7 +46,7 @@ public class MagmaSpawnController extends MobSpawnController {
 
     public MagmaSpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpZ,
                                 int boundaryDownX, int boundaryDownZ, Level level, int averageLevel) {
-        super(canSpawnPos, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, level, averageLevel);
+        super(Te.s("熔岩聚合物", CustomStyle.styleOfMagma), canSpawnPos, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, level, averageLevel);
     }
 
     @Override
@@ -56,7 +57,7 @@ public class MagmaSpawnController extends MobSpawnController {
         int xpLevel = Math.max(1, averageLevel + 5 - random.nextInt(11));
 
         // 设置颜色与名称
-        Style style = CustomStyle.styleOfNether;
+        Style style = CustomStyle.styleOfMagma;
         MobSpawn.setMobCustomName(magmaCube, Component.literal(mobName).withStyle(style), xpLevel);
         magmaCube.setSize(2, true);
 
@@ -81,7 +82,8 @@ public class MagmaSpawnController extends MobSpawnController {
         });
     }
 
-    public static List<ItemAndRate> getDropList() {
+    @Override
+    public List<ItemAndRate> getDropList() {
         return new ArrayList<>() {{
             add(new ItemAndRate(ModItems.Ruby.get(), 0.5));
             add(new ItemAndRate(ModItems.NetherQuartz.get(), 0.15));

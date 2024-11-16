@@ -1,5 +1,6 @@
 package fun.wraq.events.mob.moontain;
 
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ItemAndRate;
@@ -59,7 +60,7 @@ public class MoontainCommon1SpawnController extends MobSpawnController {
 
     public MoontainCommon1SpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpY, int boundaryUpZ,
                                           int boundaryDownX, int boundaryDownY, int boundaryDownZ, Level level, int averageLevel) {
-        super(canSpawnPos, boundaryUpX, boundaryUpY, boundaryUpZ, boundaryDownX, boundaryDownY, boundaryDownZ, level, averageLevel);
+        super(Te.s("望山孤魂", CustomStyle.styleOfMoontain), canSpawnPos, boundaryUpX, boundaryUpY, boundaryUpZ, boundaryDownX, boundaryDownY, boundaryDownZ, level, averageLevel);
     }
 
     @Override
@@ -97,7 +98,8 @@ public class MoontainCommon1SpawnController extends MobSpawnController {
         }
     }
 
-    public static List<ItemAndRate> getDropList() {
+    @Override
+    public List<ItemAndRate> getDropList() {
         return new ArrayList<>() {{
             add(new ItemAndRate(MoontainItems.SOUL_FRAGMENT.get(), 0.1));
             add(new ItemAndRate(MoontainItems.STONE_FRAGMENT.get(), 0.25));

@@ -35,22 +35,22 @@ public class GateWay {
 
     public static List<GateWay> getConnections() {
         return List.of(new GateWay(
-                        new Des(new Vec3(962, 207, -1), 0, 0, Component.literal("天空城").withStyle(CustomStyle.styleOfSky)),
+                        new Des(new Vec3(962, 207.5, -1), 0, 0, Component.literal("天空城").withStyle(CustomStyle.styleOfSky)),
                         new Des(new Vec3(1553, 64, -2935), 90, 0, Component.literal("冰霜骑士驻地").withStyle(CustomStyle.styleOfIce))),
                 new GateWay(
-                        new Des(new Vec3(962, 207, 27), 180, 0, Component.literal("天空城").withStyle(CustomStyle.styleOfSky)),
+                        new Des(new Vec3(962, 207.5, 27), 180, 0, Component.literal("天空城").withStyle(CustomStyle.styleOfSky)),
                         new Des(new Vec3(1043, 227, 620), 180, 0, Component.literal("尘月之梦").withStyle(CustomStyle.styleOfMoon1))),
                 new GateWay(
-                        new Des(new Vec3(970, 207, 27), 180, 0, Component.literal("天空城").withStyle(CustomStyle.styleOfSky)),
+                        new Des(new Vec3(970, 207.5, 27), 180, 0, Component.literal("天空城").withStyle(CustomStyle.styleOfSky)),
                         new Des(new Vec3(1744, 71, 1215), 180, 0, Component.literal("雷光灯塔").withStyle(CustomStyle.styleOfLightning))),
                 new GateWay(
-                        new Des(new Vec3(973, 207, 13), 90, 0, Component.literal("天空城").withStyle(CustomStyle.styleOfSky)),
+                        new Des(new Vec3(973, 207.5, 13), 90, 0, Component.literal("天空城").withStyle(CustomStyle.styleOfSky)),
                         new Des(new Vec3(2352, 130, 30), 90, 0, Component.literal("东洋塔").withStyle(CustomStyle.styleOfHusk))),
                 new GateWay(
-                        new Des(new Vec3(973, 207, 15), 90, 0, Component.literal("天空城").withStyle(CustomStyle.styleOfSky)),
+                        new Des(new Vec3(973, 207.5, 15), 90, 0, Component.literal("天空城").withStyle(CustomStyle.styleOfSky)),
                         new Des(new Vec3(1760, 79, 58), 180, 0, Component.literal("原始森林").withStyle(CustomStyle.styleOfForest))),
                 new GateWay(
-                        new Des(new Vec3(970, 207, -1), 0, 0, Component.literal("天空城").withStyle(CustomStyle.styleOfSky)),
+                        new Des(new Vec3(970, 207.5, -1), 0, 0, Component.literal("天空城").withStyle(CustomStyle.styleOfSky)),
                         new Des(new Vec3(1914, 151, -936), -90, 0, Component.literal("望山据点").withStyle(CustomStyle.styleOfForest)))
         );
     }
@@ -82,7 +82,7 @@ public class GateWay {
             ServerPlayer player = (ServerPlayer) event.player;
             String name = player.getName().getString();
             int tick = Tick.get();
-            Vec3 skyTpCenterPos = new Vec3(962, 207, 13);
+            Vec3 skyTpCenterPos = new Vec3(962, 207.5, 13);
             // 天空城传送至传送中枢
             if (player.position().distanceTo(new Vec3(957.5, 224.5, 14.5)) < 1) {
                 player.teleportTo(player.getServer().getLevel(Level.OVERWORLD), skyTpCenterPos.x,

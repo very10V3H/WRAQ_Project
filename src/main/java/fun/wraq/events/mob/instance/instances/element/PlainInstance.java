@@ -46,7 +46,7 @@ public class PlainInstance extends NoTeamInstance {
     }
 
     public PlainInstance(Vec3 pos, double range, int delayTick, Vec3 armorStandPos, MutableComponent name) {
-        super(pos, range, delayTick, armorStandPos, name);
+        super(pos, range, delayTick, armorStandPos, name, 50);
     }
 
     @Override
@@ -141,7 +141,7 @@ public class PlainInstance extends NoTeamInstance {
         return null;
     }
 
-    public static List<ItemAndRate> getRewardList() {
+    public List<ItemAndRate> getRewardList() {
         return List.of(new ItemAndRate(ModItems.PlainBossSoul.get(), 1),
                 new ItemAndRate(ModItems.PlainAttackRing0.get(), 0.0125),
                 new ItemAndRate(ModItems.PlainManaAttackRing0.get(), 0.0125),

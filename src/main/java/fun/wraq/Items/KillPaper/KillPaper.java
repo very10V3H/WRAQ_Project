@@ -4,22 +4,7 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ItemAndRate;
 import fun.wraq.common.util.Utils;
-import fun.wraq.events.mob.chapter1.*;
-import fun.wraq.events.mob.chapter2.*;
-import fun.wraq.events.mob.chapter3_nether.MagmaSpawnController;
-import fun.wraq.events.mob.chapter3_nether.NetherSkeletonSpawnController;
-import fun.wraq.events.mob.chapter3_nether.PiglinSpawnController;
-import fun.wraq.events.mob.chapter3_nether.WitherSkeletonSpawnController;
-import fun.wraq.events.mob.chapter4_end.EnderManSpawnController;
-import fun.wraq.events.mob.chapter4_end.EndermiteSpawnController;
-import fun.wraq.events.mob.chapter4_end.ShulkerSpawnController;
-import fun.wraq.events.mob.chapter5.BloodManaSpawnController;
-import fun.wraq.events.mob.chapter5.EarthManaSpawnController;
-import fun.wraq.events.mob.chapter5.PillagerSpawnController;
-import fun.wraq.events.mob.chapter5.SakuraMobSpawnController;
-import fun.wraq.events.mob.chapter6_castle.BeaconSpawnController;
-import fun.wraq.events.mob.chapter6_castle.BlazeSpawnController;
-import fun.wraq.events.mob.chapter6_castle.TreeSpawnController;
+import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.loot.RandomLootEquip;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -52,7 +37,7 @@ public class KillPaper extends Item {
             if (!list.isEmpty()) {
                 list.forEach(itemAndRate -> {
                     RandomLootEquip.handleItemAndRate(itemAndRate);
-                    itemAndRate.send(player, 64);
+                    itemAndRate.send(player, 32);
                 });
             }
             Compute.playerItemUseWithRecord(player);
@@ -66,7 +51,7 @@ public class KillPaper extends Item {
         if (tag != null) {
             if (tag.contains(killPaperType)) {
                 String type = tag.getString(killPaperType);
-                components.add(Component.literal("使用以征讨64只 ").withStyle(ChatFormatting.WHITE).
+                components.add(Component.literal("使用以征讨32只 ").withStyle(ChatFormatting.WHITE).
                         append(Component.literal(type).withStyle(ChatFormatting.RED)));
             }
         }
@@ -90,37 +75,22 @@ public class KillPaper extends Item {
     }
 
     public static Map<String, List<ItemAndRate>> getDropListMap() {
-        return new HashMap<>() {{
-            put("焰芒虫", FireLightSpawnController.getDropList());
-            put("森林僵尸", ForestZombieSpawnController.getDropList());
-            put("河流故灵", LakeDrownSpawnController.getDropList());
-            put("被遗忘的矿工", MineSkeletonSpawnController.getDropList());
-            put("平原僵尸", PlainZombieSpawnController.getDropList());
-            put("骇狼", DreadHoundSpawnController.getDropList());
-            put("唤魔者", EvokerSpawnController.getDropList());
-            put("神殿守卫", GuardianSpawnController.getDropList());
-            put("脆弱的岩灵", HuskSpawnController.getDropList());
-            put("雷光灯塔驻卫", LightningZombieController.getDropList());
-            put("伐木工", LumberJackSpawnController.getDropList());
-            put("炽魂", SearedSpiritSpawnController.getDropList());
-            put("天空城的不速之客", SkyVexSpawnController.getDropList());
-            put("雨林蜘蛛", SpiderSpawnController.getDropList());
-            put("怀德风骨", WindSkeletonSpawnController.getDropList());
-            put("腥月血灵", BloodManaSpawnController.getDropList());
-            put("地蕴蓝灵", EarthManaSpawnController.getDropList());
-            put("海盗", PillagerSpawnController.getDropList());
-            put("樱灵", SakuraMobSpawnController.getDropList());
-            put("熔岩聚合物", MagmaSpawnController.getDropList());
-            put("下界骷髅", NetherSkeletonSpawnController.getDropList());
-            put("猪灵", PiglinSpawnController.getDropList());
-            put("凋零骷髅", WitherSkeletonSpawnController.getDropList());
-            put("史莱姆", SlimeSpawnController.getDropList());
-            put("终界使者", EnderManSpawnController.getDropList());
-            put("寂域灵螨", EndermiteSpawnController.getDropList());
-            put("寂域遗骸", ShulkerSpawnController.getDropList());
-            put(BeaconSpawnController.mobName, BeaconSpawnController.getDropList());
-            put(BlazeSpawnController.mobName, BlazeSpawnController.getDropList());
-            put(TreeSpawnController.mobName, TreeSpawnController.getDropList());
-        }};
+        if (!MobSpawn.overWolrdList.isEmpty() && !MobSpawn.netherList.isEmpty() && !MobSpawn.endList.isEmpty()) {
+            if (!dropListMap.isEmpty()) {
+                return dropListMap;
+            }
+            Map<String, List<ItemAndRate>> map = new HashMap<>();
+            MobSpawn.overWolrdList.forEach(mobSpawnController -> map.put(mobSpawnController.mobName.getString(),
+                    mobSpawnController.getDropList()));
+            MobSpawn.netherList.forEach(mobSpawnController -> map.put(mobSpawnController.mobName.getString(),
+                    mobSpawnController.getDropList()));
+            MobSpawn.endList.forEach(mobSpawnController -> map.put(mobSpawnController.mobName.getString(),
+                    mobSpawnController.getDropList()));
+            dropListMap = map;
+            return dropListMap;
+        }
+        return new HashMap<>();
     }
+
+    public static Map<String, List<ItemAndRate>> dropListMap = new HashMap<>();
 }

@@ -1,5 +1,6 @@
 package fun.wraq.events.mob.chapter6_castle;
 
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
@@ -49,7 +50,7 @@ public class BlazeSpawnController extends MobSpawnController {
 
     public BlazeSpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpZ,
                                 int boundaryDownX, int boundaryDownZ, Level level, int averageLevel) {
-        super(canSpawnPos, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, level, averageLevel);
+        super(Te.s("熔岩湖溢出物", CustomStyle.styleOfPower), canSpawnPos, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, level, averageLevel);
     }
 
     @Override
@@ -95,7 +96,8 @@ public class BlazeSpawnController extends MobSpawnController {
         });
     }
 
-    public static List<ItemAndRate> getDropList() {
+    @Override
+    public List<ItemAndRate> getDropList() {
         return new ArrayList<>() {{
             add(new ItemAndRate(ModItems.BlazeSoul.get(), 0.8));
             add(new ItemAndRate(ModItems.silverCoin.get(), 0.58));

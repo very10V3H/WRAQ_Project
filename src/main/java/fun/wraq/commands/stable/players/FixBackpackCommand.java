@@ -30,24 +30,8 @@ public class FixBackpackCommand implements Command<CommandSourceStack> {
     @Override
     public int run(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         Player player = context.getSource().getPlayer();
-
-        /*            for (int i = 0 ; i < player.getInventory().getMaxStackSize() ; i ++) {
-                ItemStack stack = player.getInventory().getItem(i);
-                if (stack.getItem() instanceof BackpackItem) {
-                    BackpackWrapper backpackWrapper = new BackpackWrapper(stack);
-                    backpackWrapper.getInventoryHandler().setStackInSlot(0, Items.IRON_INGOT.getDefaultInstance());
-                    backpackWrapper.refreshInventoryForInputOutput();
-
-                    ItemStack newBackPack = new ItemStack(ModItems.NETHERITE_BACKPACK.get());
-                    BackpackWrapper newBackpackWrapper = new BackpackWrapper(newBackPack);
-                    backpackWrapper.getUpgradeHandler().copyTo(newBackpackWrapper.getUpgradeHandler());
-                    for (int j = 0 ; j < backpackWrapper.getInventoryHandler().getSlots() ; j ++) {
-                        newBackpackWrapper.getInventoryHandler().setSlotStack(j, new ItemStack(Items.IRON_INGOT, 128));
-                    }
-                    player.getInventory().setItem(i, newBackPack);
-                }
-            }*/
         if (!attentionInfoMap.containsKey(player)) {
+            attentionInfoMap.put(player, true);
             MySound.soundToPlayer(player, SoundEvents.EXPERIENCE_ORB_PICKUP);
             Compute.setPlayerTitleAndSubTitle((ServerPlayer) player,
                     Te.s("请看聊天窗提示信息!", ChatFormatting.RED),
@@ -77,6 +61,7 @@ public class FixBackpackCommand implements Command<CommandSourceStack> {
                 newInventoryHandler.setSlotStack(i, stack);
             }
             player.setItemInHand(InteractionHand.MAIN_HAND, newBackPack);
+            attentionInfoMap.remove(player);
         } else {
             player.sendSystemMessage(Te.s("仅接受下界合金背包"));
         }

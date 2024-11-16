@@ -24,6 +24,7 @@ public class ForgeHammer extends Item {
         List<Double> rateList = ForgeEquipUtils.successForgeRate.get(tier);
         components.add(Component.literal("锻造品质几率:").withStyle(ChatFormatting.GOLD));
         for (int i = 0; i < rateList.size(); i++) {
+            if (ForgeEquipUtils.successForgeRate.get(tier).get(i) - 0 < 1e-6) continue;
             components.add(Component.literal("").withStyle(ChatFormatting.WHITE).
                     append(ForgeEquipUtils.getDescription(i)).
                     append(Component.literal(" - ").withStyle(ChatFormatting.GRAY)).

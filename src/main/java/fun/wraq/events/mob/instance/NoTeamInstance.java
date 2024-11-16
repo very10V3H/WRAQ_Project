@@ -4,6 +4,7 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
+import fun.wraq.common.util.ItemAndRate;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.core.InventoryCheck;
 import fun.wraq.events.mob.MobSpawn;
@@ -44,9 +45,10 @@ public abstract class NoTeamInstance {
     public final Vec3 armorStandPos;
     public final MutableComponent name;
     public boolean ready;
+    public final int level;
 
     public NoTeamInstance(final Vec3 pos, final double range, final int delayTick,
-                          final Vec3 armorStandPos, final MutableComponent name) {
+                          final Vec3 armorStandPos, final MutableComponent name, int level) {
         this.pos = pos;
         this.range = range;
         this.delayTick = delayTick;
@@ -54,6 +56,7 @@ public abstract class NoTeamInstance {
         this.armorStandPos = armorStandPos;
         this.name = name;
         this.ready = false;
+        this.level = level;
     }
 
     public void detectAndSummon(Level level) {
@@ -251,4 +254,6 @@ public abstract class NoTeamInstance {
         mobList.clear();
         ready = false;
     }
+
+    public abstract List<ItemAndRate> getRewardList();
 }
