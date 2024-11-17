@@ -45,7 +45,8 @@ public class FixBackpackCommand implements Command<CommandSourceStack> {
             return 0;
         }
         if (player.getMainHandItem().is(ModItems.NETHERITE_BACKPACK.get())) {
-            ItemStack oldBackpack = player.getMainHandItem();
+            ItemStack oldBackpack = player.getMainHandItem();;
+
             BackpackWrapper wrapper = new BackpackWrapper(oldBackpack);
             InventoryHandler inventoryHandler = wrapper.getInventoryHandler();
             UpgradeHandler upgradeHandler = wrapper.getUpgradeHandler();
@@ -57,7 +58,7 @@ public class FixBackpackCommand implements Command<CommandSourceStack> {
             InventoryHandler newInventoryHandler = newBackpackWrapper.getInventoryHandler();
             for (int i = 0 ; i < inventoryHandler.getSlots() ; i ++) {
                 ItemStack stack = inventoryHandler.getStackInSlot(i);
-                stack.hideTooltipPart(ItemStack.TooltipPart.ADDITIONAL);
+                stack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
                 newInventoryHandler.setSlotStack(i, stack);
             }
             player.setItemInHand(InteractionHand.MAIN_HAND, newBackPack);

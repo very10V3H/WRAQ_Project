@@ -5,6 +5,7 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import fun.wraq.common.Compute;
 import fun.wraq.common.registry.ModItems;
+import fun.wraq.events.core.InventoryCheck;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -14,10 +15,12 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
+import java.util.List;
+
 public class CompensateCommand implements Command<CommandSourceStack> {
     public static CompensateCommand instance = new CompensateCommand();
 
-    public static int rewardNum = 15;
+    public static int rewardNum = 16;
     public static String singleReward = "singleReward" + rewardNum;
 
     @Override
@@ -27,10 +30,18 @@ public class CompensateCommand implements Command<CommandSourceStack> {
         if (!data.contains(singleReward)) {
             data.putBoolean(singleReward, true);
             if (player.experienceLevel > 40) {
-                InventoryOperation.itemStackGiveWithMSG(player, new ItemStack(ModItems.completeGem.get(), 2));
-                InventoryOperation.itemStackGiveWithMSG(player, new ItemStack(ModItems.notePaper.get(), 64));
+                ItemStack itemStack = new ItemStack(ModItems.supplyBoxTier3.get(), 2);
+                InventoryCheck.addOwnerTagToItemStack(player, itemStack);
+                InventoryOperation.itemStackGiveWithMSG(player, itemStack);
             } else {
-                InventoryOperation.itemStackGiveWithMSG(player, new ItemStack(ModItems.RevelationBook.get(), 10));
+                List.of(
+                        new ItemStack(ModItems.completeGem.get(), 2),
+                        new ItemStack(ModItems.goldCoin.get(), 16),
+                        new ItemStack(ModItems.RevelationBook.get(), 20)
+                ).forEach(stack -> {
+                    InventoryCheck.addOwnerTagToItemStack(player, stack);
+                    InventoryOperation.itemStackGiveWithMSG(player, stack);
+                });
             }
             Compute.sendFormatMSG(player, Component.literal("补偿").withStyle(CustomStyle.styleOfSakura),
                     Component.literal("你成功领取了补偿！").withStyle(ChatFormatting.AQUA));
