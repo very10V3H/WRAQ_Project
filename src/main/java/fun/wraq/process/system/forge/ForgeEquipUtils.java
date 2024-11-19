@@ -318,6 +318,17 @@ public class ForgeEquipUtils {
         put(13, new TierValueAndDescription(3d, "巅峰之作", CustomStyle.styleOfSky));
     }};
 
+    public static List<Component> getTierAndValueDescription() {
+        List<Component> description = new ArrayList<>();
+        description.add(Te.s("锻造品质与对应属性:", CustomStyle.styleOfGold));
+        for (int i = 0 ; i < ForgeEquipUtils.tierValueAndDescriptionMap.size() ; i ++) {
+            ForgeEquipUtils.TierValueAndDescription obj = ForgeEquipUtils.tierValueAndDescriptionMap.get(i);
+            description.add(Te.s(obj.description(), obj.style(), " - ", obj.style(),
+                    String.valueOf(obj.value()), obj.style()));
+        }
+        return description;
+    }
+
     public static double getTierValueEffect(int tier) {
         return tierValueAndDescriptionMap.getOrDefault(tier, new TierValueAndDescription(1, "无名", CustomStyle.styleOfMoontain)).value;
     }

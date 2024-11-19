@@ -31,7 +31,6 @@ import fun.wraq.series.instance.series.castle.CastleAttackArmor;
 import fun.wraq.series.instance.series.castle.CastleSword;
 import fun.wraq.series.instance.series.moon.MoonCurios;
 import fun.wraq.series.nether.equip.attack.sword.ManaSword;
-import fun.wraq.series.overworld.castle.BlazeBracelet;
 import fun.wraq.series.overworld.chapter7.BoneImpKnife;
 import fun.wraq.series.overworld.sakuraSeries.SakuraMob.SakuraSword;
 import net.minecraft.ChatFormatting;
@@ -266,7 +265,6 @@ public class AttackEvent {
         SpringAttackArmor(player, monster);
         Compute.ChargingModule(data, player);
         CastleSword.NormalAttack(player, monster, damage);
-        BlazeBracelet.Passive(player, monster); // 熔岩手镯
         Compute.AdditionEffects(player, monster, damage + damageIgnoreDefence, 0);
 
         if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false)) {

@@ -21,7 +21,7 @@ public class LakeArmorBoots extends ArmorItem {
     public LakeArmorBoots(ItemMaterial material, Type Slots) {
         super(material, Slots, new Properties().rarity(CustomStyle.WaterItalic));
         Utils.coolDownDecrease.put(this, 0.08);
-        Utils.movementSpeedCommon.put(this, 0.25);
+        Utils.movementSpeedCommon.put(this, 0.05);
         Utils.armorTag.put(this, 1d);
         Utils.armorList.add(this);
     }

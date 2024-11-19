@@ -18,7 +18,7 @@ public class KazeArmorBoots extends WraqArmor implements ForgeItem {
 
     public KazeArmorBoots(ItemMaterial Material, Type Slots) {
         super(Material, Slots, new Properties().rarity(CustomStyle.KazeItalic));
-        Utils.movementSpeedCommon.put(this, 0.5);
+        Utils.movementSpeedCommon.put(this, 0.18);
         Utils.attackDamage.put(this, 250d);
         Utils.manaDamage.put(this, 500d);
         Utils.swiftnessUp.put(this, 1d);

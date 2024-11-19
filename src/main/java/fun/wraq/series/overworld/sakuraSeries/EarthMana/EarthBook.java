@@ -3,22 +3,19 @@ package fun.wraq.series.overworld.sakuraSeries.EarthMana;
 import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqOffHandItem;
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.render.hud.Mana;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.phys.Vec3;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 public class EarthBook extends WraqOffHandItem {
 
@@ -40,42 +37,49 @@ public class EarthBook extends WraqOffHandItem {
     public List<Component> getAdditionalComponents(ItemStack stack) {
         List<Component> components = new ArrayList<>();
         Style style = getMainStyle();
-        Compute.DescriptionPassive(components, Component.literal("大地之力").withStyle(style));
-        components.add(Component.literal(" 当你持续5s").withStyle(ChatFormatting.WHITE).
-                append(Component.literal("移动幅度").withStyle(ChatFormatting.GREEN)).
-                append(Component.literal("较小时，").withStyle(ChatFormatting.WHITE)));
-        components.add(Component.literal(" 充满魔力的土地会吸收你的").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.maxHealth("50%")));
-        components.add(Te.m(" ").
-                append(Component.literal("并将之以15%效率转化为").withStyle(ChatFormatting.WHITE)).
-                append(ComponentUtils.AttributeDescription.maxMana("")).
-                append(Component.literal("，加成持续20s。").withStyle(ChatFormatting.WHITE)));
-        components.add(Component.literal(" -大地之力仅在你的生命值大于75%时会触发").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
+        Compute.DescriptionPassive(components, Te.s("传世禁咒", style));
+        components.add(Te.s(" 当你拥有高于", ComponentUtils.AttributeDescription.health("75%"), "时，",
+                "若", ComponentUtils.AttributeDescription.manaValue(""), "未达100%"));
+        components.add(Te.s(" 则回复的", ComponentUtils.AttributeDescription.health("5%"), "转化为回复的",
+                ComponentUtils.AttributeDescription.manaValue("")));
+        components.add(Te.s(" buff栏会显示其最近5s为你回复的法力值总额", ChatFormatting.GRAY, ChatFormatting.ITALIC));
         return components;
+    }
+
+    public record EarthBookRecoverData(double value, int expiredTick) {}
+    public static Map<Player, Queue<EarthBookRecoverData>> near5secondsRecoverValue = new WeakHashMap<>();
+
+    public static boolean onHealthRecover(Player player, double value) {
+        if (player.getOffhandItem().getItem() instanceof EarthBook
+                && player.getHealth() > player.getMaxHealth() * 0.75) {
+            double recoverValue = Math.min(
+                    Mana.getPlayerMaxManaNum(player) - Mana.getPlayerCurrentManaNum(player), value * 0.05);
+            Mana.addOrCostPlayerMana(player, recoverValue);
+            if (!near5secondsRecoverValue.containsKey(player)) {
+                near5secondsRecoverValue.put(player, new ArrayDeque<>());
+            }
+            Queue<EarthBookRecoverData> queue = near5secondsRecoverValue.get(player);
+            while (queue.peek() != null && queue.peek().expiredTick < Tick.get()) {
+                queue.poll();
+            }
+            queue.add(new EarthBookRecoverData(recoverValue, Tick.get() + 100));
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void tick(Player player) {
+        if (near5secondsRecoverValue.containsKey(player)) {
+            Queue<EarthBookRecoverData> queue = near5secondsRecoverValue.get(player);
+            double sum = queue.stream().mapToDouble(data -> data.value).sum();
+            Compute.sendEffectLastTime(player, ModItems.EarthBook.get(), (int) sum, true);
+        }
+        super.tick(player);
     }
 
     @Override
     public Component getSuffix() {
         return ComponentUtils.getDemonAndElementStorySuffix1Sakura();
-    }
-
-    public static void earthBookPlayerEffect(Player player) {
-        if (player.getItemInHand(InteractionHand.OFF_HAND).is(ModItems.EarthBook.get())) {
-            int TickCount = player.getServer().getTickCount();
-            if (!Utils.EarthBookPlayerPosMap.containsKey(player))
-                Utils.EarthBookPlayerPosMap.put(player, new ArrayDeque<>());
-            Queue<Vec3> vec3s = Utils.EarthBookPlayerPosMap.get(player);
-            vec3s.add(player.position());
-            if (vec3s.size() > 5) {
-                if (vec3s.peek().distanceTo(player.position()) < 2) {
-                    if (player.getHealth() / player.getMaxHealth() > 0.75) {
-                        Utils.EarthBookPlayerEffectMap.put(player, TickCount + 400);
-                        player.setHealth(player.getHealth() - player.getMaxHealth() * 0.5f);
-                        Compute.sendEffectLastTime(player, ModItems.EarthBook.get().getDefaultInstance(), 400);
-                    }
-                }
-                vec3s.poll();
-            }
-        }
     }
 }

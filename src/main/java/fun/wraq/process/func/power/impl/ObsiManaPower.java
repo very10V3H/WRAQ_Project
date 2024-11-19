@@ -6,6 +6,7 @@ import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.process.func.StableAttributesModifier;
+import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.func.power.WraqPower;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -83,6 +84,7 @@ public class ObsiManaPower extends WraqPower {
                     StableAttributesModifier.mobPercentManaDefenceModifier,
                     "ObsiManaPercentManaDefenceModifier", -0.2, Tick.get() + 60, "item/obsi_mana_power");
             ParticleProvider.createBreakBlockParticle(eachMob, Blocks.OBSIDIAN);
+            Damage.causeManaDamageToMonster_RateApDamage(player, eachMob, damageRate[tier], true);
         });
         produceDefaultDustParticle(player, CustomStyle.styleOfMana);
     }

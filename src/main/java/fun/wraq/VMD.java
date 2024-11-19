@@ -22,6 +22,7 @@ import fun.wraq.events.core.BlockEvent;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
 import fun.wraq.events.mob.loot.*;
+import fun.wraq.events.server.ThreadPools;
 import fun.wraq.files.dataBases.DBConnection;
 import fun.wraq.files.dataBases.DataBase;
 import fun.wraq.networking.ModNetworking;
@@ -97,6 +98,7 @@ public class VMD {
         UniformItems.ITEMS.register(modEvenBus);
         PickaxeItems.ITEMS.register(modEvenBus);
         OreItems.ITEMS.register(modEvenBus);
+        EndlessInstanceItems.ITEMS.register(modEvenBus);
         ModItems.ITEMS.register(modEvenBus);
         C1LootItems.ITEMS.register(modEvenBus);
         C2LootItems.ITEMS.register(modEvenBus);
@@ -111,7 +113,6 @@ public class VMD {
         NewRuneItems.ITEMS.register(modEvenBus);
         GemItems.ITEMS.register(modEvenBus);
         SpecialEventItems.ITEMS.register(modEvenBus);
-        EndlessInstanceItems.ITEMS.register(modEvenBus);
         QuiverItems.ITEMS.register(modEvenBus);
         BladeItems.ITEMS.register(modEvenBus);
         MixtureItems.ITEMS.register(modEvenBus);
@@ -178,6 +179,10 @@ public class VMD {
         DBConnection.connection.close();
         DBConnection.connection = null;
         LogUtils.getLogger().info("Database connection closed");
+
+        ThreadPools.attributeExecutor.shutdown();
+        ThreadPools.clearFireExecutor.shutdown();
+        ThreadPools.dataExecutor.shutdown();
     }
 
     private void commonStart(FMLCommonSetupEvent event) {
@@ -536,6 +541,7 @@ public class VMD {
 
             event.accept(ModItems.notePaper.get().getDefaultInstance());
             Item[] items = {
+                    ModItems.supplyBoxTier0.get(),
                     ModItems.supplyBoxTier1.get(), ModItems.supplyBoxTier2.get(), ModItems.supplyBoxTier3.get(),
                     ModItems.simpleTier1Paper.get(), ModItems.simpleTier2Paper.get(), ModItems.simpleTier3Paper.get(),
                     ModItems.goldCoinLottery.get()

@@ -30,7 +30,6 @@ import fun.wraq.render.hud.Mana;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.castle.CastleManaArmor;
 import fun.wraq.series.instance.series.moon.MoonCurios;
-import fun.wraq.series.overworld.castle.TreeBracelet;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -173,7 +172,6 @@ public class ManaAttackModule {
             SameTypeModule.onNormalAttackHitMob(player, monster, 1, damage + trueDamage);
 
             ManaCurios1.ManaDamageExTrueDamage(player, monster, damage);
-            TreeBracelet.Passive(player, monster); // 古树手镯
             Compute.AdditionEffects(player, monster, damage + trueDamage, 1);
             OnHitEffectEquip.hit(player, monster);
             if (mainShoot) {

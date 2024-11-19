@@ -25,7 +25,6 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
-import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffect;
@@ -868,19 +867,9 @@ public class Utils {
     public static WeakHashMap<Player, Boolean> playerRecycleMap = new WeakHashMap<>();
 
     public static List<String> GiantPlayerList = new ArrayList<>();
-    public static int GiantHour = -1;
     public static Giant giant;
     public static List<Boss2Damage> GiantDamageList = new ArrayList<>();
     public static List<ItemStack> GiantCommonReward = new ArrayList<>();
-    public static boolean GiantFlag = false;
-
-    public static void setGiantCommonReward() {
-        GiantCommonReward.add(new ItemStack(ModItems.CrudeCoal.get(), 64));
-        GiantCommonReward.add(new ItemStack(ModItems.gemPiece.get(), 32));
-        GiantCommonReward.add(new ItemStack(ModItems.goldCoin.get(), 10));
-        GiantCommonReward.add(new ItemStack(ModItems.Ps_Bottle1.get(), 2));
-        GiantCommonReward.add(new ItemStack(ModItems.CropBag.get(), 2));
-    }
 
     public static WeakHashMap<Player, Boolean> SoulSwordMap = new WeakHashMap<>();
 
@@ -905,13 +894,6 @@ public class Utils {
     public static WeakHashMap<Player, Double> SnowShieldPlayerEffectMap = new WeakHashMap<>();
     public static WeakHashMap<Player, Integer> SnowShieldPlayerEffectTickMap = new WeakHashMap<>();
 
-    public static WeakHashMap<Player, Queue<Vec3>> EarthBookPlayerPosMap = new WeakHashMap<>();
-    public static WeakHashMap<Player, Integer> EarthBookPlayerEffectMap = new WeakHashMap<>();
-
-    public static WeakHashMap<Player, Integer> IceBookCoolDownMap = new WeakHashMap<>();
-    public static WeakHashMap<Mob, Integer> IceBookMobEffectTickMap = new WeakHashMap<>();
-    public static WeakHashMap<Mob, Player> IceBookMobEffectPlayerMap = new WeakHashMap<>();
-
     public static List<Item> weaponList = new ArrayList<>();
     public static List<Item> armorList = new ArrayList<>();
     public static List<Item> curiosList = new ArrayList<>();
@@ -922,8 +904,6 @@ public class Utils {
     public static WeakHashMap<Player, Integer> SeaSwordActiveMap = new WeakHashMap<>();
 
     public static WeakHashMap<Player, Map<Mob, Integer>> playerLaserCoolDown = new WeakHashMap<>();
-
-    public static ServerBossEvent GiantBossInfo = null;
 
     public static WeakHashMap<Player, Integer> LastTimeInstance = new WeakHashMap<>();
     public static WeakHashMap<Player, Integer> LastTimeDifficulty = new WeakHashMap<>();

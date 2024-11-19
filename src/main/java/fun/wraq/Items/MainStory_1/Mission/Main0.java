@@ -1,6 +1,5 @@
 package fun.wraq.Items.MainStory_1.Mission;
 
-import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.ComponentUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -71,7 +70,6 @@ public class Main0 extends Item {
                     player.getInventory().setItem(i, newBackPack);
                 }
             }*/
-            player.sendSystemMessage(Te.s(Component.translatable("item.vmd." + player.getMainHandItem().getItem()).getString()));
         }
 
         if (!level.isClientSide && player.isShiftKeyDown()) {

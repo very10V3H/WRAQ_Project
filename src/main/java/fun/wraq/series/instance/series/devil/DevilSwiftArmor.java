@@ -25,7 +25,7 @@ public class DevilSwiftArmor extends WraqArmor implements OnKillEffectEquip, InC
 
     public DevilSwiftArmor(ItemMaterial Material, Type Slots, Properties itemProperties) {
         super(Material, Slots, itemProperties);
-        Utils.movementSpeedCommon.put(this, 0.45);
+        Utils.movementSpeedCommon.put(this, 0.12);
     }
 
     @Override

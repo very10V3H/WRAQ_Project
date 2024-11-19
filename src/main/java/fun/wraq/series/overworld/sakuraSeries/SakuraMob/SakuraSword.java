@@ -63,7 +63,7 @@ public class SakuraSword extends WraqSword implements ActiveItem {
                 append(Component.literal("真实伤害").withStyle(CustomStyle.styleOfSea)));
         components.add(Component.literal(" 3.").withStyle(CustomStyle.styleOfDemon).
                 append(Component.literal("获得").withStyle(ChatFormatting.WHITE)).
-                append(ComponentUtils.AttributeDescription.movementSpeed("60%")));
+                append(ComponentUtils.AttributeDescription.movementSpeed("20%")));
         ComponentUtils.manaCostDescription(components, 60);
         return components;
     }
@@ -88,7 +88,8 @@ public class SakuraSword extends WraqSword implements ActiveItem {
             ModNetworking.sendToClient(new SkillImageS2CPacket(1, 10, 10, 0, 3), (ServerPlayer) player);
             Utils.SakuraDemonSword.put(name, false);
             data.putInt(StringUtils.SakuraDemonSword, tickCount + 200);
-            player.getCooldowns().addCooldown(ModItems.SakuraDemonSword.get(), (int) (300 - 300 * PlayerAttributes.coolDownDecrease(player)));
+            player.getCooldowns().addCooldown(ModItems.SakuraDemonSword.get(),
+                    (int) (300 - 300 * PlayerAttributes.coolDownDecrease(player)));
         } else {
             Compute.sendFormatMSG(player, Component.literal("妖刀").withStyle(CustomStyle.styleOfDemon),
                     Component.literal("妖刀能量尚未充盈完毕。").withStyle(ChatFormatting.WHITE));

@@ -27,7 +27,6 @@ import fun.wraq.series.instance.series.castle.CastleSwiftArmor;
 import fun.wraq.series.instance.series.moon.Equip.MoonKnife;
 import fun.wraq.series.instance.series.moon.MoonCurios;
 import fun.wraq.series.instance.series.taboo.TabooSwiftArmor;
-import fun.wraq.series.overworld.castle.BeaconBracelet;
 import fun.wraq.series.overworld.chapter7.BoneImpKnife;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleOptions;
@@ -314,7 +313,6 @@ public class MyArrow extends AbstractArrow {
             AttackEventModule.ManaKnifeHealthRecover(player); // 猎魔者小刀
             AttackEvent.SpringSwiftArmor(player, monster);
             Compute.ChargingModule(data, player);
-            BeaconBracelet.Passive(player, monster); // 烽火手镯
             if (shootByPlayer) {
                 MoonKnife.MoonKnife(player, monster);
                 CastleBow.NormalAttack(player, monster, damage);

@@ -42,12 +42,12 @@ public class CastleManaArmor extends WraqArmor implements ForgeItem {
     public CastleManaArmor(ItemMaterial Material, Type Slots, Properties itemProperties) {
         super(Material, Slots, itemProperties);
         if (type.equals(Type.HELMET)) {
-            Utils.percentHealthRecover.put(this, 0.02);
+            Utils.percentHealthRecover.put(this, 0.012);
             Utils.healthRecover.put(this, 100d);
         }
         if (type.equals(Type.CHESTPLATE)) Utils.defence.put(this, 125d);
         if (type.equals(Type.LEGGINGS)) Utils.maxHealth.put(this, 15000d);
-        if (type.equals(Type.BOOTS)) Utils.movementSpeedCommon.put(this, 0.5);
+        if (type.equals(Type.BOOTS)) Utils.movementSpeedCommon.put(this, 0.12);
     }
 
     @Override
@@ -175,7 +175,7 @@ public class CastleManaArmor extends WraqArmor implements ForgeItem {
                 append(Component.literal("" + String.format("%.2f%%", data.getDouble(attributeRate) * 100))));
 
         components.add(Component.literal(" 目前已注能的次数为:").withStyle(ChatFormatting.WHITE).
-                append(Component.literal("" + data.getInt(attributeTimes)).withStyle(CustomStyle.styleOfCastleCrystal))); // forge times
+                append(Component.literal("" + data.getInt(attributeTimes)).withStyle(CustomStyle.styleOfCastleCrystal))); // forge limitTimes
 
     }
 

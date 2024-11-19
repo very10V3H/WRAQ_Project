@@ -20,7 +20,7 @@ import java.util.List;
 public class VolcanoArmorBoots extends ArmorItem {
     public VolcanoArmorBoots(ItemMaterial Materrial, Type Slots) {
         super(Materrial, Slots, new Properties().rarity(CustomStyle.VolcanoItalic));
-        Utils.movementSpeedCommon.put(this, 0.25);
+        Utils.movementSpeedCommon.put(this, 0.05);
         Utils.attackDamage.put(this, 8d);
         Utils.manaDamage.put(this, 16d);
         Utils.armorTag.put(this, 1d);

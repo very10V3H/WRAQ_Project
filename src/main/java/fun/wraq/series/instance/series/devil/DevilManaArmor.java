@@ -21,7 +21,7 @@ public class DevilManaArmor extends WraqArmor implements ForgeItem {
 
     public DevilManaArmor(ItemMaterial Material, Type Slots, Properties itemProperties) {
         super(Material, Slots, itemProperties);
-        Utils.percentHealthRecover.put(this, 0.01);
+        Utils.percentHealthRecover.put(this, 0.005);
         Utils.healthRecover.put(this, 45d);
     }
 

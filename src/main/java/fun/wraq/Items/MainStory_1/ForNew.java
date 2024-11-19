@@ -68,7 +68,8 @@ public class ForNew extends Item {
                 new ItemStack(Items.GOLDEN_CARROT, 64),
                 new ItemStack(ModItems.windBottle.get()),
                 new ItemStack(ModItems.notePaper.get(), 256),
-                elyTra);
+                elyTra,
+                new ItemStack(ModItems.TP_TICKET.get(), 64));
     }
 
     @Override

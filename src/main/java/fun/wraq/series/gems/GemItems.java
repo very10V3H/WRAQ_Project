@@ -74,7 +74,7 @@ public class GemItems {
 
     public static final RegistryObject<Item> plainGem = ITEMS.register("plain_gem",
             () -> new WraqGem(new Item.Properties().rarity(CustomStyle.PlainBold), new ArrayList<>() {{
-                add(new WraqGem.AttributeMapValue(Utils.movementSpeedCommon, 0.04));
+                add(new WraqGem.AttributeMapValue(Utils.movementSpeedCommon, 0.01));
                 add(new WraqGem.AttributeMapValue(Utils.healthRecover, 5));
             }}, CustomStyle.styleOfPlain, Component.literal("平原意志的具象，凝聚于此石。").withStyle(CustomStyle.styleOfPlain),
                     ComponentUtils.getSuffixOfChapterI()));
@@ -154,7 +154,7 @@ public class GemItems {
     public static final RegistryObject<Item> skyGem = ITEMS.register("sky_gem",
             () -> new WraqGem(new Item.Properties().rarity(CustomStyle.SkyBold), new ArrayList<>() {{
                 add(new WraqGem.AttributeMapValue(Utils.percentAttackDamageEnhance, 0.01));
-                add(new WraqGem.AttributeMapValue(Utils.movementSpeedCommon, 0.1));
+                add(new WraqGem.AttributeMapValue(Utils.movementSpeedCommon, 0.03));
             }}, CustomStyle.styleOfSky, Component.literal("天空意志的具象，凝聚于此石。").withStyle(CustomStyle.styleOfSky),
                     ComponentUtils.getSuffixOfChapterII()));
 

@@ -2,10 +2,12 @@ package fun.wraq.render.gui.illustrate;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.render.gui.illustrate.mobinfo.MobInfoGui;
+import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -103,6 +105,51 @@ public class Illustrate extends Screen {
             this.type = 5;
             this.page = 0;
         }).pos(X + 150, Y - 98 + 20 * 7).size(28, 16).build());
+
+        this.addRenderableWidget(Button.builder(Te.s("近战", CustomStyle.styleOfPower), (p_280814_) -> {
+            this.type = 8;
+            this.page = 0;
+        }).pos(X - 178, Y - 98).size(28, 16).build());
+
+        this.addRenderableWidget(Button.builder(Te.s("弓", CustomStyle.styleOfFlexible), (p_280814_) -> {
+            this.type = 9;
+            this.page = 0;
+        }).pos(X - 178, Y - 98 + 20).size(28, 16).build());
+
+        this.addRenderableWidget(Button.builder(Te.s("法杖", CustomStyle.styleOfMana), (p_280814_) -> {
+            this.type = 10;
+            this.page = 0;
+        }).pos(X - 178, Y - 98 + 20 * 2).size(28, 16).build());
+
+        this.addRenderableWidget(Button.builder(Te.s("法术", CustomStyle.styleOfMana), (p_280814_) -> {
+            this.type = 16;
+            this.page = 0;
+        }).pos(X - 178, Y - 98 + 20 * 3).size(28, 16).build());
+
+        this.addRenderableWidget(Button.builder(Te.s("副手", CustomStyle.styleOfGold), (p_280814_) -> {
+            this.type = 11;
+            this.page = 0;
+        }).pos(X - 178, Y - 98 + 20 * 4).size(28, 16).build());
+
+        this.addRenderableWidget(Button.builder(Te.s("头盔", CustomStyle.styleOfStone), (p_280814_) -> {
+            this.type = 12;
+            this.page = 0;
+        }).pos(X - 178, Y - 98 + 20 * 5).size(28, 16).build());
+
+        this.addRenderableWidget(Button.builder(Te.s("胸甲", CustomStyle.styleOfStone), (p_280814_) -> {
+            this.type = 13;
+            this.page = 0;
+        }).pos(X - 178, Y - 98 + 20 * 6).size(28, 16).build());
+
+        this.addRenderableWidget(Button.builder(Te.s("护腿", CustomStyle.styleOfStone), (p_280814_) -> {
+            this.type = 14;
+            this.page = 0;
+        }).pos(X - 178, Y - 98 + 20 * 7).size(28, 16).build());
+
+        this.addRenderableWidget(Button.builder(Te.s("靴子", CustomStyle.styleOfStone), (p_280814_) -> {
+            this.type = 15;
+            this.page = 0;
+        }).pos(X - 178, Y - 98 + 20 * 8).size(28, 16).build());
     }
 
     public void tick() {
@@ -125,6 +172,15 @@ public class Illustrate extends Screen {
             case 5 -> sameModule(Display.materialList, guiGraphics, x, y, xOffset);
             case 6 -> sameModule(Display.gemList, guiGraphics, x, y, xOffset);
             case 7 -> sameModule(Display.runeList, guiGraphics, x, y, xOffset);
+            case 8 -> sameModule(Display.swordList, guiGraphics, x, y, xOffset);
+            case 9 -> sameModule(Display.bowList, guiGraphics, x, y, xOffset);
+            case 10 -> sameModule(Display.sceptreList, guiGraphics, x, y, xOffset);
+            case 11 -> sameModule(Display.offHandList, guiGraphics, x, y, xOffset);
+            case 12 -> sameModule(Display.helmetList, guiGraphics, x, y, xOffset);
+            case 13 -> sameModule(Display.chestList, guiGraphics, x, y, xOffset);
+            case 14 -> sameModule(Display.leggingsList, guiGraphics, x, y, xOffset);
+            case 15 -> sameModule(Display.bootsList, guiGraphics, x, y, xOffset);
+            case 16 -> sameModule(Display.powerList, guiGraphics, x, y, xOffset);
         }
         guiGraphics.drawCenteredString(fontRenderer, Component.literal("" + (page + 1)).withStyle(ChatFormatting.WHITE), this.width / 2 + 5, this.height / 2 - 22 + 105, 0);
 

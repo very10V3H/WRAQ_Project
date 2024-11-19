@@ -35,7 +35,7 @@ public class SakuraArmorHelmet extends ArmorItem implements GeoItem {
 
     public SakuraArmorHelmet(ItemMaterial Material, Type Slots) {
         super(Material, Slots, new Properties().rarity(CustomStyle.SakuraItalic));
-        Utils.movementSpeedCommon.put(this, 0.25);
+        Utils.movementSpeedCommon.put(this, 0.04);
         Utils.attackDamage.put(this, 150d);
         Utils.manaDamage.put(this, 300d);
         Utils.swiftnessUp.put(this, 0.6);

@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GuideHud {
-    public static boolean display = false;
+    public static boolean display = true;
     public static final Minecraft mc = Minecraft.getInstance();
     private static final Font fontRenderer = mc.font;
     public static final IGuiOverlay GUIDE_HUD = ((gui, poseStack, partialTick, width, height) -> {

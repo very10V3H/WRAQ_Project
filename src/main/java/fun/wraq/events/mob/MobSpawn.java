@@ -67,7 +67,7 @@ public class MobSpawn {
             if (event.level.dimension().equals(Level.OVERWORLD)) {
                 if (overWolrdList.isEmpty()) setOverWorldList(event.level);
                 overWolrdList.forEach(mobSpawnController -> {
-                    if (tick % 100 == overWolrdList.indexOf(mobSpawnController)) {
+                    if (tick % 160 == overWolrdList.indexOf(mobSpawnController)) {
                         mobSpawnController.detectAndSpawn();
                     }
                     mobSpawnController.tick();
@@ -77,7 +77,7 @@ public class MobSpawn {
             if (event.level.dimension().equals(Level.NETHER)) {
                 if (netherList.isEmpty()) setNetherList(event.level);
                 netherList.forEach(mobSpawnController -> {
-                    if (tick % 100 == netherList.indexOf(mobSpawnController) + 50) {
+                    if (tick % 160 == netherList.indexOf(mobSpawnController) + 50) {
                         mobSpawnController.detectAndSpawn();
                     }
                     mobSpawnController.tick();
@@ -87,7 +87,7 @@ public class MobSpawn {
             if (event.level.dimension().equals(Level.END)) {
                 if (endList.isEmpty()) setEndList(event.level);
                 endList.forEach(mobSpawnController -> {
-                    if (tick % 100 == endList.indexOf(mobSpawnController) + 25) {
+                    if (tick % 160 == endList.indexOf(mobSpawnController) + 25) {
                         mobSpawnController.detectAndSpawn();
                     }
                     mobSpawnController.tick();

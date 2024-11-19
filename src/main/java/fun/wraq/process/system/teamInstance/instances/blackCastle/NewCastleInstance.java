@@ -2,6 +2,7 @@ package fun.wraq.process.system.teamInstance.instances.blackCastle;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModEntityType;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ItemAndRate;
@@ -207,17 +208,16 @@ public class NewCastleInstance extends NewTeamInstance {
 
     @Override
     public void reward(Player player) {
-        if (InventoryOperation.checkItemRemoveIfHas(player, List.of(new ItemStack(ModItems.notePaper.get())))) {
-
+        if (InventoryOperation.checkItemRemoveIfHas(player, List.of(new ItemStack(ModItems.notePaper.get(), 2)))) {
             getRewardList().forEach(itemAndRate -> {
-                itemAndRate.sendWithMSG(player, (1 + Compute.playerExHarvest(player)));
+                itemAndRate.sendWithMSG(player, 2);
             });
-            Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player), 180);
-
+            Compute.givePercentExpToPlayer(player, 0.04, PlayerAttributes.expUp(player), 180);
         } else {
             Compute.sendFormatMSG(player, Component.literal("副本").withStyle(ChatFormatting.RED),
                     Component.literal("你的背包中没有 ").withStyle(ChatFormatting.WHITE).
                             append(ModItems.notePaper.get().getDefaultInstance().getDisplayName()).
+                            append(Te.s(" * 2", ChatFormatting.AQUA)).
                             append(Component.literal(" 因此你无法获得奖励").withStyle(ChatFormatting.WHITE)));
         }
     }

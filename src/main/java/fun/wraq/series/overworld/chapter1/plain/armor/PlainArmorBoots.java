@@ -21,7 +21,7 @@ import java.util.List;
 public class PlainArmorBoots extends ArmorItem {
     public PlainArmorBoots(ItemMaterial Material, Type Slots) {
         super(Material, Slots, new Properties().rarity(CustomStyle.PlainItalic));
-        Utils.movementSpeedCommon.put(this, 0.25);
+        Utils.movementSpeedCommon.put(this, 0.08);
         Utils.maxHealth.put(this, 40d);
         Utils.armorTag.put(this, 1d);
         Utils.armorList.add(this);

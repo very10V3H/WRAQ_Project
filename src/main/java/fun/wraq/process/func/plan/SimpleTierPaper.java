@@ -2,7 +2,6 @@ package fun.wraq.process.func.plan;
 
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
-import fun.wraq.process.func.plan.SupplyBox;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -54,7 +53,11 @@ public class SimpleTierPaper extends SimpleFoiledItem {
                 append(Component.literal("2").withStyle(ChatFormatting.AQUA)));
         add(Component.literal("7. ").withStyle(CustomStyle.styleOfWorld).
                 append(Component.literal("你将始终保持满饱食度").withStyle(CustomStyle.styleOfLife)));
-        add(Component.literal("8. 持续31天").withStyle(CustomStyle.styleOfWorld));
+        add(Component.literal("8. ").withStyle(CustomStyle.styleOfWorld).
+                append(Component.literal("每日额外获得").withStyle(CustomStyle.styleOfGold)).
+                append(ModItems.TP_TICKET.get().getDefaultInstance().getDisplayName()).
+                append(Component.literal("*16").withStyle(ChatFormatting.AQUA)));
+        add(Component.literal("9. 持续31天").withStyle(CustomStyle.styleOfWorld));
     }};
     public static List<Component> tier2Description = new ArrayList<>() {{
         add(Component.literal("1. ").withStyle(CustomStyle.styleOfWorld).
@@ -89,7 +92,9 @@ public class SimpleTierPaper extends SimpleFoiledItem {
                 append(Component.literal("6").withStyle(ChatFormatting.AQUA)));
         add(Component.literal("7. ").withStyle(CustomStyle.styleOfWorld).
                 append(Component.literal("你将始终保持满饱食度").withStyle(CustomStyle.styleOfLife)));
-        add(Component.literal("8. 持续31天").withStyle(CustomStyle.styleOfWorld));
+        add(Component.literal("8. ").withStyle(CustomStyle.styleOfWorld).
+                append(Component.literal("使用天空城传送中枢将不消耗资源").withStyle(CustomStyle.styleOfGold)));
+        add(Component.literal("9. 持续31天").withStyle(CustomStyle.styleOfWorld));
     }};
     public static List<Component> tier3Description = new ArrayList<>() {{
         add(Component.literal("1. ").withStyle(CustomStyle.styleOfWorld).
@@ -123,7 +128,9 @@ public class SimpleTierPaper extends SimpleFoiledItem {
                 append(Component.literal("自定义称号").withStyle(ChatFormatting.GRAY)));
         add(Component.literal("7. ").withStyle(CustomStyle.styleOfWorld).
                 append(Component.literal("你将始终保持满饱食度").withStyle(CustomStyle.styleOfLife)));
-        add(Component.literal("8. 持续31天").withStyle(CustomStyle.styleOfWorld));
+        add(Component.literal("8. ").withStyle(CustomStyle.styleOfWorld).
+                append(Component.literal("使用天空城传送中枢将不消耗资源").withStyle(CustomStyle.styleOfGold)));
+        add(Component.literal("9. 持续31天").withStyle(CustomStyle.styleOfWorld));
     }};
 
     public List<Component> getTierDescription() {

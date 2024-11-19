@@ -13,7 +13,18 @@ import java.util.List;
 
 @Mod.EventBusSubscriber(Dist.CLIENT)
 public class Display {
-    public static String DisplayString = "Display";
+
+    public static List<Item> swordList = new ArrayList<>();
+    public static List<Item> bowList = new ArrayList<>();
+    public static List<Item> sceptreList = new ArrayList<>();
+    public static List<Item> powerList = new ArrayList<>();
+    public static List<Item> offHandList = new ArrayList<>();
+    public static List<Item> passiveEquipList = new ArrayList<>();
+
+    public static List<Item> helmetList = new ArrayList<>();
+    public static List<Item> chestList = new ArrayList<>();
+    public static List<Item> leggingsList = new ArrayList<>();
+    public static List<Item> bootsList = new ArrayList<>();
 
     public static List<Item> gemList = new ArrayList<>();
 

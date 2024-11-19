@@ -1,7 +1,9 @@
 package fun.wraq.series.instance.series.purple;
 
+import fun.wraq.blocks.entity.Decomposable;
 import fun.wraq.common.equip.WraqPassiveEquip;
 import fun.wraq.common.impl.onhit.OnHitEffectPassiveEquip;
+import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -14,28 +16,16 @@ import net.minecraft.world.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PurpleIronBow extends WraqPassiveEquip implements PurpleIronCommon, OnHitEffectPassiveEquip {
-
-    private static final double[] ExAttackDamage = {
-            100, 150, 200, 250
-    };
-
-    private static final double[] CritDamage = {
-            0.05, 0.08, 0.1, 0.15
-    };
-
-    private static final double[] Swiftness = {
-            0.4, 0.55, 0.7, 0.9
-    };
+public class PurpleIronBow extends WraqPassiveEquip implements PurpleIronCommon, OnHitEffectPassiveEquip, Decomposable {
 
     private final int tier;
 
     public PurpleIronBow(Properties p_40524_, int tier) {
         super(p_40524_);
         this.tier = tier;
-        Utils.attackDamage.put(this, ExAttackDamage[tier]);
-        Utils.critDamage.put(this, CritDamage[tier]);
-        Utils.swiftnessUp.put(this, Swiftness[tier]);
+        Utils.attackDamage.put(this, new double[]{100, 150, 200, 250}[tier]);
+        Utils.critDamage.put(this, new double[]{0.05, 0.08, 0.1, 0.15}[tier]);
+        Utils.swiftnessUp.put(this, new double[]{0.4, 0.55, 0.7, 0.9}[tier]);
         Utils.levelRequire.put(this, 120);
     }
 
@@ -74,5 +64,10 @@ public class PurpleIronBow extends WraqPassiveEquip implements PurpleIronCommon,
     @Override
     public void onHit(Player player, Mob mob) {
         PurpleIronCommon.onHit(player, mob, this);
+    }
+
+    @Override
+    public ItemStack getProduct() {
+        return new ItemStack(ModItems.PurpleIronBud2.get(), 2);
     }
 }

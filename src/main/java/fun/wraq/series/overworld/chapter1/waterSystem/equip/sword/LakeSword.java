@@ -50,7 +50,7 @@ public class LakeSword extends WraqSword implements ActiveItem, OnHitEffectEquip
     public List<Component> getAdditionalComponents(ItemStack stack) {
         List<Component> components = new ArrayList<>();
         Compute.DescriptionPassive(components, Component.literal("潜泳").withStyle(ChatFormatting.BLUE));
-        components.add(Te.s("攻击后获得持续2秒的", ComponentUtils.AttributeDescription.movementSpeed("35%")));
+        components.add(Te.s("攻击后获得持续2秒的", ComponentUtils.AttributeDescription.movementSpeed("10%")));
         Compute.DescriptionActive(components, Component.literal("出水").withStyle(ChatFormatting.BLUE));
         components.add(Component.literal(" 右键向前冲刺"));
         ComponentUtils.coolDownTimeDescription(components, coolDownSeconds[tier]);
@@ -66,7 +66,7 @@ public class LakeSword extends WraqSword implements ActiveItem, OnHitEffectEquip
     @Override
     public void onHit(Player player, Mob mob) {
         StableAttributesModifier.addM(player, StableAttributesModifier.playerMovementSpeedModifier,
-                "lakeSwordPassiveExMovementSpeed", 0.35, player.getServer().getTickCount() + 20, this);
+                "lakeSwordPassiveExMovementSpeed", 0.1, player.getServer().getTickCount() + 20, this);
     }
 
     @Override

@@ -233,11 +233,13 @@ public class MoontainBoss3Instance extends NoTeamInstance {
                 } else {
                     giveEquip(player, secureRandom);
                 }
-                Compute.sendFormatMSG(player, Te.s("望山武魂", CustomStyle.styleOfMoontain),
+                Compute.formatBroad(player.level(), Te.s("望山武魂", CustomStyle.styleOfMoontain),
                         Te.s("", player.getDisplayName(), "经过了重重磨难，终于获得了梦寐以求的", "望山装备",
                                 CustomStyle.styleOfMoontain));
             }
         }
+
+        stage = 0;
     }
 
     public void giveEquip(Player player, SecureRandom secureRandom) {

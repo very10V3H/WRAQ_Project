@@ -1,7 +1,9 @@
 package fun.wraq.series.instance.series.purple;
 
+import fun.wraq.blocks.entity.Decomposable;
 import fun.wraq.common.equip.WraqPassiveEquip;
 import fun.wraq.common.impl.onhit.OnHitEffectPassiveEquip;
+import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -15,28 +17,16 @@ import net.minecraft.world.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PurpleIronSceptre extends WraqPassiveEquip implements PurpleIronCommon, OnHitEffectPassiveEquip {
-
-    private static final double[] ManaDamage = {
-            200, 300, 400, 500
-    };
-
-    private static final double[] MaxMana = {
-            25, 50, 75, 100
-    };
-
-    private static final double[] ManaPenetration0 = {
-            2, 3, 3, 4
-    };
+public class PurpleIronSceptre extends WraqPassiveEquip implements PurpleIronCommon, OnHitEffectPassiveEquip, Decomposable {
 
     private final int tier;
 
     public PurpleIronSceptre(Properties properties, int tier) {
         super(properties);
         this.tier = tier;
-        Utils.manaDamage.put(this, ManaDamage[tier]);
-        Utils.maxMana.put(this, MaxMana[tier]);
-        Utils.manaPenetration0.put(this, ManaPenetration0[tier]);
+        Utils.manaDamage.put(this, new double[]{200, 300, 400, 500}[tier]);
+        Utils.maxMana.put(this, new double[]{25, 50, 75, 100}[tier]);
+        Utils.manaPenetration0.put(this, new double[]{2, 3, 3, 4}[tier]);
         Utils.levelRequire.put(this, 120);
     }
 
@@ -75,5 +65,10 @@ public class PurpleIronSceptre extends WraqPassiveEquip implements PurpleIronCom
     @Override
     public void onHit(Player player, Mob mob) {
         PurpleIronCommon.onHit(player, mob, this);
+    }
+
+    @Override
+    public ItemStack getProduct() {
+        return new ItemStack(ModItems.PurpleIronBud2.get(), 2);
     }
 }

@@ -44,7 +44,7 @@ public class SkyBow extends WraqBow implements OnHitEffectEquip {
         components.add(Te.m(" 箭矢", CustomStyle.styleOfFlexible).
                 append(Te.m("命中目标后，为你提供持续3s的")));
         components.add(Te.m(" ").
-                append(ComponentUtils.AttributeDescription.movementSpeed("30%")));
+                append(ComponentUtils.AttributeDescription.movementSpeed("12%")));
         components.add(Te.m(" ").
                 append(ComponentUtils.AttributeDescription.critDamage("30%")));
         return components;
@@ -60,7 +60,7 @@ public class SkyBow extends WraqBow implements OnHitEffectEquip {
         StableAttributesModifier.addM(player, StableAttributesModifier.playerCritDamageModifier,
                 "SkyBow passive critDamage", 0.35, Tick.get() + 60);
         StableAttributesModifier.addM(player, StableAttributesModifier.playerMovementSpeedModifier,
-                "SkyBow passive movementSpeed", 0.35, Tick.get() + 60);
+                "SkyBow passive movementSpeed", 0.12, Tick.get() + 60);
         Compute.sendEffectLastTime(player, ModItems.SkyBow.get(), 60);
     }
 }

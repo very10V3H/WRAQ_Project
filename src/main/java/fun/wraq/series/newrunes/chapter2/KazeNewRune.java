@@ -23,7 +23,7 @@ public class KazeNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDe
 
     public KazeNewRune(Properties properties) {
         super(properties);
-        Utils.movementSpeedCommon.put(this, 0.1);
+        Utils.movementSpeedCommon.put(this, 0.04);
     }
 
     @Override
@@ -53,7 +53,7 @@ public class KazeNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDe
         components.add(Component.literal(" 为你提供在").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("2s内逐渐衰减").withStyle(CustomStyle.styleOfWorld)).
                 append(Component.literal("的").withStyle(ChatFormatting.WHITE)).
-                append(ComponentUtils.AttributeDescription.movementSpeed("40%")));
+                append(ComponentUtils.AttributeDescription.movementSpeed("20%")));
         return components;
     }
 
@@ -70,7 +70,7 @@ public class KazeNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDe
     public static void onHit(Player player) {
         if (WraqCurios.isOn(KazeNewRune.class, player)) {
             ChangedAttributesModifier.addAttributeModifier(player, ChangedAttributesModifier.movementSpeedUp,
-                    "kazeNewRuneMovementSpeed", 0.4, 40, true);
+                    "kazeNewRuneMovementSpeed", 0.2, 40, true);
             Compute.sendEffectLastTime(player, NewRuneItems.kazeNewRune.get(), 40);
         }
     }

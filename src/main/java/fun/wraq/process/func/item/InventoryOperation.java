@@ -80,6 +80,10 @@ public class InventoryOperation {
         removeItem(player.getInventory(), itemStack.getItem(), itemStack.getCount());
     }
 
+    public static boolean removeItem(Player player, Item item, int removeNum) {
+        return removeItem(player.getInventory(), item, removeNum);
+    }
+
     public static boolean removeItem(Inventory inventory, Item item, int removeNum) {
         int num = removeNum;
         if (!checkPlayerHasItem(inventory, item, removeNum)) return false;

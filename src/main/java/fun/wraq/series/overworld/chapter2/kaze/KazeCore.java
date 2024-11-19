@@ -52,7 +52,7 @@ public class KazeCore extends Item {
         Compute.ManaCoreDescription(components);
         Compute.DescriptionPassive(components, Component.literal("狂风晶核").withStyle(CustomStyle.styleOfSea));
         components.add(Component.literal("-获得").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.movementSpeed("30%")));
+                append(ComponentUtils.AttributeDescription.movementSpeed("8%")));
         components.add(Component.literal("-基于你的").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.AttributeDescription.movementSpeedWithoutBattle("")).
                 append(Component.literal("提供").withStyle(ChatFormatting.WHITE)).

@@ -21,7 +21,7 @@ public class ForestArmorBoots extends ArmorItem {
     public ForestArmorBoots(ItemMaterial Materrial, Type Slots) {
         super(Materrial, Slots, new Properties().rarity(CustomStyle.ForestItalic));
         Utils.defence.put(this, 2d);
-        Utils.movementSpeedCommon.put(this, 0.25);
+        Utils.movementSpeedCommon.put(this, 0.05);
         Utils.armorTag.put(this, 1d);
         Utils.armorList.add(this);
     }

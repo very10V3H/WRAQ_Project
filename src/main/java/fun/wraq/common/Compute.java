@@ -73,6 +73,7 @@ import fun.wraq.series.overworld.chapter1.waterSystem.LakePower;
 import fun.wraq.series.overworld.chapter1.waterSystem.bossItems.LakeBoss;
 import fun.wraq.series.overworld.chapter7.star.StarBottle;
 import fun.wraq.series.overworld.chapter7.vd.VdWeaponCommon;
+import fun.wraq.series.overworld.sakuraSeries.EarthMana.EarthBook;
 import fun.wraq.series.specialevents.labourDay.LabourDayIronHoe;
 import fun.wraq.series.specialevents.labourDay.LabourDayIronPickaxe;
 import net.minecraft.ChatFormatting;
@@ -866,6 +867,7 @@ public class Compute {
         if (Num < 0) return;
         double healNum = Num * (PlayerAttributes.getHealEffect(player));
         healNum = Math.min(healNum, player.getMaxHealth() - player.getHealth());
+        if (EarthBook.onHealthRecover(player, healNum)) return;
         LifeElementSword.StoreToList(player, healNum);
         player.heal((float) healNum);
     }
@@ -1610,7 +1612,10 @@ public class Compute {
                             double baseValue = 0;
                             baseValue += ForgeEquipUtils.getTraditionalEquipBaseValue(equip, map);
                             computeValue += baseValue;
-                            computeValue += Compute.forgingValue(equip, baseValue);
+                            // 只有能被强化的属性才能用这个公式去计算数值
+                            if (map.equals(Utils.attackDamage) || map.equals(Utils.manaDamage)) {
+                                computeValue += Compute.forgingValue(equip, baseValue);
+                            }
                             computeValue *= wraqMainHandOrPassiveEquip.rate();
                             value += computeValue;
                         }

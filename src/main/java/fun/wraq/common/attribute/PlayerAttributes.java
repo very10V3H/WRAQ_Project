@@ -65,24 +65,24 @@ import net.minecraft.world.phys.AABB;
 
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class PlayerAttributes {
 
-    public static Map<Player, Map<Map<Item, Double>, Double>> playerAttributeCache = new HashMap<>();
-    public static Map<Player, Map<Map<Item, Double>, Integer>> computeAttributeTick = new HashMap<>();
+    public static Map<Player, Map<Map<Item, Double>, Double>> playerAttributeCache = new ConcurrentHashMap<>();
+    public static Map<Player, Map<Map<Item, Double>, Integer>> computeAttributeTick = new ConcurrentHashMap<>();
 
     public static boolean canGetFromCache(Player player, Map<Item, Double> attribute) {
         // 初始化
         int tick = Tick.get();
         if (!playerAttributeCache.containsKey(player)) {
-            playerAttributeCache.put(player, new HashMap<>());
+            playerAttributeCache.put(player, new ConcurrentHashMap<>());
         }
         if (!computeAttributeTick.containsKey(player)) {
-            computeAttributeTick.put(player, new HashMap<>());
+            computeAttributeTick.put(player, new ConcurrentHashMap<>());
         }
         if (!computeAttributeTick.get(player).containsKey(attribute)) {
             computeAttributeTick.get(player).put(attribute, 0);
@@ -551,48 +551,48 @@ public class PlayerAttributes {
         movementSpeedUp += ChangedAttributesModifier.getModifierValue(player, ChangedAttributesModifier.movementSpeedUp);
 
         if (data.contains(StringUtils.SakuraDemonSword) && data.getInt(StringUtils.SakuraDemonSword) > tick)
-            movementSpeedUp += 0.6;
+            movementSpeedUp += 0.2;
         // 妖刀-樱
 
-        if (SuitCount.getLakeSuitCount(player) >= 4) movementSpeedUp += 0.35;
-        if (SuitCount.getMineSuitCount(player) >= 4) movementSpeedUp -= 0.5;
+        if (SuitCount.getLakeSuitCount(player) >= 4) movementSpeedUp += 0.1;
+        if (SuitCount.getMineSuitCount(player) >= 4) movementSpeedUp -= 0.2;
 
         if (player.getEffect(ModEffects.SPEEDUP.get()) != null && player.getEffect(ModEffects.SPEEDUP.get()).getAmplifier() == 0)
-            movementSpeedUp += 0.3;
+            movementSpeedUp += 0.1;
         if (player.getEffect(ModEffects.SPEEDUP.get()) != null && player.getEffect(ModEffects.SPEEDUP.get()).getAmplifier() == 1)
-            movementSpeedUp += 0.6;
+            movementSpeedUp += 0.2;
 
         if (SuitCount.getSkySuitCount(player) > 0 && player.getHealth() / player.getMaxHealth() > 0.8)
             movementSpeedUp += 0.2 * Compute.SkySuitEffectRate(player);
 
         int flexibilityAbilityPoint = data.getInt(StringUtils.Ability.Flexibility);
         if (data.contains(StringUtils.Ability.Flexibility) && data.getInt(StringUtils.Ability.Flexibility) > 0) {
-            movementSpeedUp += flexibilityAbilityPoint * 0.003;
+            movementSpeedUp += flexibilityAbilityPoint * 0.001;
         } // 能力
 
         if (Compute.getSwordSkillLevel(data, 9) > 0 && Utils.swordTag.containsKey(mainHandItem)) {
-            movementSpeedUp += Compute.getSwordSkillLevel(data, 9) * 0.05;
-        } // 剑舞（手持近战武器时，获得5%额外移动速度）
+            movementSpeedUp += Compute.getSwordSkillLevel(data, 9) * 0.01;
+        } // 剑舞（手持近战武器时，获得1%额外移动速度）
 
         if (Compute.getBowSkillLevel(data, 1) > 0 && Utils.bowTag.containsKey(mainHandItem)) {
-            movementSpeedUp += Compute.getBowSkillLevel(data, 1) * 0.02;
-        } // 原野护符（持有弓时，获得2%的额外移动速度）
+            movementSpeedUp += Compute.getBowSkillLevel(data, 1) * 0.01;
+        } // 原野护符（持有弓时，获得1%的额外移动速度）
 
         if (Compute.getBowSkillLevel(data, 9) > 0 && Utils.bowTag.containsKey(mainHandItem)) {
-            movementSpeedUp += Compute.getBowSkillLevel(data, 9) * 0.03;
-        } // 猎手本能（手持弓时，获得3%额外移动速度）
+            movementSpeedUp += Compute.getBowSkillLevel(data, 9) * 0.01;
+        } // 猎手本能（手持弓时，获得1%额外移动速度）
 
         if (Compute.getManaSkillLevel(data, 9) > 0 && Utils.sceptreTag.containsKey(mainHandItem)) {
-            movementSpeedUp += Compute.getManaSkillLevel(data, 9) * 0.05;
-        } // 法师（手持法杖时，获得5%额外移动速度）
+            movementSpeedUp += Compute.getManaSkillLevel(data, 9) * 0.01;
+        } // 法师（手持法杖时，获得1%额外移动速度）
 
         if (mainHandTag != null && mainHandTag.contains(StringUtils.ManaCore.ManaCore)
                 && mainHandTag.getString(StringUtils.ManaCore.ManaCore).
                 equals(StringUtils.ManaCore.KazeCore)) {
-            movementSpeedUp += 0.3;
+            movementSpeedUp += 0.08;
         }
 
-        if (WraqCurios.isOn(SkyNewRune.class, player)) movementSpeedUp += 0.4;
+        if (WraqCurios.isOn(SkyNewRune.class, player)) movementSpeedUp += 0.2;
 
         movementSpeedUp += Compute.CuriosAttribute.attributeValue(player, Utils.movementSpeedCommon,
                 StringUtils.CuriosAttribute.commonMovementSpeed); // 新版饰品属性加成
@@ -889,7 +889,7 @@ public class PlayerAttributes {
 
         int powerAbilityPoint = data.getInt(StringUtils.Ability.Power);
         if (data.contains(StringUtils.Ability.Power) && data.getInt(StringUtils.Ability.Power) > 0) {
-            value += powerAbilityPoint;
+            value += powerAbilityPoint * 5;
         } // 能力
 
         return value;
@@ -2053,7 +2053,6 @@ public class PlayerAttributes {
         if (canGetFromCache(player, Utils.maxMana)) {
             return getFromCache(player, Utils.maxMana);
         }
-        int TickCount = player.getServer().getTickCount();
         CompoundTag data = player.getPersistentData();
         double maxMana = player.experienceLevel;
         Item boots = player.getItemBySlot(EquipmentSlot.FEET).getItem();
@@ -2089,10 +2088,6 @@ public class PlayerAttributes {
             maxMana += Utils.PlayerSpringBraceletMaxManaAttribute.get(player);
         }
 
-        if (Utils.EarthBookPlayerEffectMap.containsKey(player) && Utils.EarthBookPlayerEffectMap.get(player) > TickCount) {
-            maxMana += player.getMaxHealth() * 0.075;
-        } // 地蕴传世秘典
-
         maxMana += Compute.CuriosAttribute.attributeValue(player, Utils.maxMana, StringUtils.CuriosAttribute.maxMana); // 新版饰品属性加成
 
         maxMana += Compute.PassiveEquip.getAttribute(player, Utils.maxMana); // 器灵属性加成
@@ -2100,6 +2095,7 @@ public class PlayerAttributes {
         maxMana += handleAllEquipRandomAttribute(player, StringUtils.RandomAttribute.maxMana);
 
         maxMana += Compute.CuriosAttribute.attributeValue(player, Utils.maxMana, StringUtils.CuriosAttribute.maxMana); // 新版饰品属性加成
+        maxMana += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.maxMana);
         // 请在上方添加
 
         maxMana *= Compute.playerFantasyAttributeEnhance(player);

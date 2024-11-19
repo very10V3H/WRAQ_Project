@@ -34,6 +34,8 @@ public class IceWeaponPassiveHelper {
                     maxTier == 5 ? StableAttributesModifier.mobPercentDefenceModifier : StableAttributesModifier.mobPercentManaDefenceModifier,
                     tag + "Defence decrease", -0.3, Tick.get() + 100, ModItems.IceHeart.get());
             Compute.createIceParticle(mob);
+            StableAttributesModifier.addM(player, StableAttributesModifier.playerCritRateModifier,
+                    "Ice equip passive crit rate up", 0.3, Tick.get() + 100);
         }
         StableTierAttributeModifier.addM(mob, StableTierAttributeModifier.onlyDisplay, tag, 0, Tick.get() + 100, maxTier, icon);
     }
@@ -58,5 +60,7 @@ public class IceWeaponPassiveHelper {
         components.add(Te.m(" 并击碎目标").
                 append(ComponentUtils.AttributeDescription.defence("25%")).
                 append(Te.m("，持续5s")));
+        components.add(Te.s(" 自身获得", ComponentUtils.AttributeDescription.critRate("30%")
+                , "，持续5s"));
     }
 }

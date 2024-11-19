@@ -6,6 +6,9 @@ import fun.wraq.commands.stable.ops.RoadCommand;
 import fun.wraq.commands.stable.players.DpsCommand;
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.equip.WraqArmor;
+import fun.wraq.common.equip.WraqMainHandEquip;
+import fun.wraq.common.equip.WraqOffHandItem;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
@@ -24,7 +27,6 @@ import fun.wraq.networking.misc.ParticlePackets.EffectParticle.DefencePenetratio
 import fun.wraq.networking.misc.ParticlePackets.SlowDownParticleS2CPacket;
 import fun.wraq.networking.misc.SmartPhonePackets.SmartPhoneS2CPacket;
 import fun.wraq.networking.misc.SoundsPackets.SoundsS2CPacket;
-import fun.wraq.networking.misc.TeamPackets.TeamInfoRequestC2SPacket;
 import fun.wraq.networking.unSorted.PacketLimitS2CPacket;
 import fun.wraq.networking.unSorted.TimeS2CPacket;
 import fun.wraq.process.func.damage.Damage;
@@ -59,7 +61,6 @@ import fun.wraq.series.instance.series.castle.CastleSwiftArmor;
 import fun.wraq.series.moontain.equip.weapon.MoontainUtils;
 import fun.wraq.series.overworld.sakuraSeries.Boss2.GoldenAttackOffhand;
 import fun.wraq.series.overworld.sakuraSeries.Boss2.GoldenBook;
-import fun.wraq.series.overworld.sakuraSeries.EarthMana.EarthBook;
 import fun.wraq.series.overworld.sakuraSeries.Slime.SlimeBoots;
 import fun.wraq.series.specialevents.labourDay.LabourDayIronHoe;
 import fun.wraq.series.specialevents.labourDay.LabourDayIronPickaxe;
@@ -134,6 +135,10 @@ public class ServerPlayerTickEvent {
             GoldenBook.handleTick(player);
             MoontainUtils.buffTick(player);
 
+            WraqMainHandEquip.serverTick(player);
+            WraqOffHandItem.serverTick(player);
+            WraqArmor.serverTick(player);
+
             if (player.tickCount % 20 == 0) {
                 ModNetworking.sendToClient(new PlayerIsInBattleS2CPacket(Compute.playerIsInBattle(player)), serverPlayer);
             }
@@ -152,9 +157,11 @@ public class ServerPlayerTickEvent {
                 ModNetworking.sendToClient(new SmartPhoneS2CPacket(data.getDouble("VB"), data.getDouble("security0"),
                         data.getDouble("security1"), data.getDouble("security2"), data.getDouble("security3"), data.getDouble("securityGet")), serverPlayer);
             }
-            if (player.tickCount % 5 == 1) {
+
+            // 旧版队伍机制
+/*            if (player.tickCount % 5 == 1) {
                 TeamInfoRequestC2SPacket.module(serverPlayer);
-            }
+            }*/
 
             if (player.tickCount % 20 == 0 && TowerMob.playerIsChallenging3FloorAndInFire(player)) {
                 Compute.decreasePlayerHealth(player, player.getMaxHealth() * 0.1, Component.literal("被烈焰吞噬了").withStyle(CustomStyle.styleOfFire));
@@ -200,8 +207,6 @@ public class ServerPlayerTickEvent {
                 List<MyArrow> arrowList = player.level().getEntitiesOfClass(MyArrow.class, AABB.ofSize(player.position(), 100, 100, 100));
                 arrowList.removeIf(arrow -> arrow.tickCount > 100);
             }
-
-            if (player.tickCount % 20 == 0) EarthBook.earthBookPlayerEffect(player);
 
             if (player.tickCount % 20 == 0) {
                 List<ItemEntity> list = player.level().getEntitiesOfClass(ItemEntity.class, AABB.ofSize(player.position(), 15, 15, 15));
@@ -486,27 +491,32 @@ public class ServerPlayerTickEvent {
             }
 
             if (player.tickCount % 5 == 0) {
-                // 属性赋予
-                ModNetworking.sendToClient(new Attribute0S2CPacket(PlayerAttributes.attackDamage(player),
-                        PlayerAttributes.defencePenetration(player),
-                        PlayerAttributes.critRate(player),
-                        PlayerAttributes.critDamage(player)), (ServerPlayer) player);
-                ModNetworking.sendToClient(new Attribute1S2CPacket(PlayerAttributes.manaDamage(player),
-                        PlayerAttributes.manaPenetration(player),
-                        PlayerAttributes.manaRecover(player),
-                        PlayerAttributes.powerReleaseSpeed(player)), (ServerPlayer) player);
-                ModNetworking.sendToClient(new Attribute2S2CPacket(PlayerAttributes.healthSteal(player),
-                        PlayerAttributes.defence(player),
-                        PlayerAttributes.manaDefence(player),
-                        PlayerAttributes.movementSpeedCurrent(player)), (ServerPlayer) player);
-                ModNetworking.sendToClient(new Attribute3S2CPacket(PlayerAttributes.defencePenetration0(player),
-                        PlayerAttributes.manaPenetration0(player),
-                        PlayerAttributes.attackRangeUp(player),
-                        PlayerAttributes.expUp(player)), (ServerPlayer) player);
-                ModNetworking.sendToClient(new Attribute4S2CPacket(PlayerAttributes.healthRecover(player),
-                        PlayerAttributes.extraSwiftness(player),
-                        PlayerAttributes.manaHealthSteal(player),
-                        PlayerAttributes.dodgeRate(player)), (ServerPlayer) player);
+                ThreadPools.attributeExecutor.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        // 属性赋予
+                        ModNetworking.sendToClient(new Attribute0S2CPacket(PlayerAttributes.attackDamage(player),
+                                PlayerAttributes.defencePenetration(player),
+                                PlayerAttributes.critRate(player),
+                                PlayerAttributes.critDamage(player)), (ServerPlayer) player);
+                        ModNetworking.sendToClient(new Attribute1S2CPacket(PlayerAttributes.manaDamage(player),
+                                PlayerAttributes.manaPenetration(player),
+                                PlayerAttributes.manaRecover(player),
+                                PlayerAttributes.powerReleaseSpeed(player)), (ServerPlayer) player);
+                        ModNetworking.sendToClient(new Attribute2S2CPacket(PlayerAttributes.healthSteal(player),
+                                PlayerAttributes.defence(player),
+                                PlayerAttributes.manaDefence(player),
+                                PlayerAttributes.movementSpeedCurrent(player)), (ServerPlayer) player);
+                        ModNetworking.sendToClient(new Attribute3S2CPacket(PlayerAttributes.defencePenetration0(player),
+                                PlayerAttributes.manaPenetration0(player),
+                                PlayerAttributes.attackRangeUp(player),
+                                PlayerAttributes.expUp(player)), (ServerPlayer) player);
+                        ModNetworking.sendToClient(new Attribute4S2CPacket(PlayerAttributes.healthRecover(player),
+                                PlayerAttributes.extraSwiftness(player),
+                                PlayerAttributes.manaHealthSteal(player),
+                                PlayerAttributes.dodgeRate(player)), (ServerPlayer) player);
+                    }
+                });
             }
 
             List<Shield> shieldQueue = Utils.playerShieldQueue.get(player.getName().getString());
