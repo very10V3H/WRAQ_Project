@@ -69,6 +69,6 @@ public class LakeSuitDescription {
         ComponentUtils.suitQuadraDescription(components, count);
         Compute.DescriptionPassive(components, Component.literal("循环").withStyle(CustomStyle.styleOfWater));
         components.add(Component.literal("获得").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.movementSpeed("35%")));
+                append(ComponentUtils.AttributeDescription.movementSpeed("10%")));
     }
 }

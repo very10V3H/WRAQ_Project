@@ -58,7 +58,7 @@ public class PiglinPower extends WraqPower {
                 append(Component.literal("基于").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("自身").withStyle(ChatFormatting.GREEN)).
                 append(Component.literal("周围玩家数量，提升每个玩家:").withStyle(ChatFormatting.WHITE)).
-                append(ComponentUtils.AttributeDescription.movementSpeed("10%*玩家数量")).
+                append(ComponentUtils.AttributeDescription.movementSpeed("4%*玩家数量")).
                 append(Component.literal("以及").withStyle(ChatFormatting.WHITE)).
                 append(ComponentUtils.AttributeDescription.manaDamage("3%")).
                 append(Component.literal("额外攻击力").withStyle(ChatFormatting.YELLOW)).
@@ -120,7 +120,7 @@ public class PiglinPower extends WraqPower {
                 Compute.sendEffectLastTime(player1, ModItems.PIGLIN_POWER.get(), 100);
 
                 StableAttributesModifier.addAttributeModifier(player1, StableAttributesModifier.playerMovementSpeedModifier,
-                        new StableAttributesModifier("piglinPowerMovementSpeedUp", 0.1 * playerList.size(), player.getServer().getTickCount() + 100));
+                        new StableAttributesModifier("piglinPowerMovementSpeedUp", 0.04 * playerList.size(), player.getServer().getTickCount() + 100));
 
                 StableAttributesModifier.addAttributeModifier(player1, StableAttributesModifier.playerAttackDamageModifier,
                         new StableAttributesModifier("piglinPowerAttackDamageUp", manaDamageUpValue, player.getServer().getTickCount() + 100));

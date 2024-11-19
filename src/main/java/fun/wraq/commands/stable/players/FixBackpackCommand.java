@@ -3,66 +3,42 @@ package fun.wraq.commands.stable.players;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
-import fun.wraq.common.registry.MySound;
-import net.minecraft.ChatFormatting;
+import fun.wraq.events.core.InventoryCheck;
 import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.p3pp3rf1y.sophisticatedbackpacks.backpack.wrapper.BackpackWrapper;
 import net.p3pp3rf1y.sophisticatedbackpacks.init.ModItems;
 import net.p3pp3rf1y.sophisticatedcore.inventory.InventoryHandler;
-import net.p3pp3rf1y.sophisticatedcore.upgrades.UpgradeHandler;
 import net.p3pp3rf1y.sophisticatedcore.util.InventoryHelper;
 
-import java.util.Map;
-import java.util.WeakHashMap;
+import java.util.UUID;
 
 public class FixBackpackCommand implements Command<CommandSourceStack> {
     public static FixBackpackCommand instance = new FixBackpackCommand();
 
-    public static Map<Player, Boolean> attentionInfoMap = new WeakHashMap<>();
-
     @Override
     public int run(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         Player player = context.getSource().getPlayer();
-        if (!attentionInfoMap.containsKey(player)) {
-            attentionInfoMap.put(player, true);
-            MySound.soundToPlayer(player, SoundEvents.EXPERIENCE_ORB_PICKUP);
-            Compute.setPlayerTitleAndSubTitle((ServerPlayer) player,
-                    Te.s("请看聊天窗提示信息!", ChatFormatting.RED),
-                    Te.s("请看聊天窗提示信息!", ChatFormatting.RED));
-            player.sendSystemMessage(Te.s("使用前须知:"));
-            player.sendSystemMessage(Te.s("1.使用后，", "禁止", ChatFormatting.RED, "马上点击右上整理"));
-            player.sendSystemMessage(Te.s("2.背包内", "不可嵌套其他背包", ChatFormatting.RED));
-            player.sendSystemMessage(Te.s("3.收到新背包，", "必须", ChatFormatting.RED, "先装上收到的几个升级"));
-            player.sendSystemMessage(Te.s("4.收到新背包后，装上升级后点击整理，理论上可以修复新旧版堆叠"));
-            player.sendSystemMessage(Te.s("5.详细阅读以上须知后，再次按下指令以修复背包物品堆叠"));
-            return 0;
-        }
         if (player.getMainHandItem().is(ModItems.NETHERITE_BACKPACK.get())) {
-            ItemStack oldBackpack = player.getMainHandItem();;
-
+            ItemStack oldBackpack = player.getMainHandItem();
             BackpackWrapper wrapper = new BackpackWrapper(oldBackpack);
+
+            UUID uuid = wrapper.getContentsUuid().get();
             InventoryHandler inventoryHandler = wrapper.getInventoryHandler();
-            UpgradeHandler upgradeHandler = wrapper.getUpgradeHandler();
-            InventoryHelper.iterate(upgradeHandler, ((integer, itemStack) -> {
-                player.addItem(itemStack);
+            InventoryHelper.iterate(inventoryHandler, ((integer, itemStack) -> {
+                itemStack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
+                if (!InventoryCheck.getBoundingList().contains(itemStack.getItem())) {
+                    InventoryCheck.removeOwnerTagDirect(itemStack);
+                }
             }));
-            ItemStack newBackPack = new ItemStack(ModItems.NETHERITE_BACKPACK.get());
-            BackpackWrapper newBackpackWrapper = new BackpackWrapper(newBackPack);
-            InventoryHandler newInventoryHandler = newBackpackWrapper.getInventoryHandler();
-            for (int i = 0 ; i < inventoryHandler.getSlots() ; i ++) {
-                ItemStack stack = inventoryHandler.getStackInSlot(i);
-                stack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
-                newInventoryHandler.setSlotStack(i, stack);
-            }
-            player.setItemInHand(InteractionHand.MAIN_HAND, newBackPack);
-            attentionInfoMap.remove(player);
+            wrapper.setContentsUuid(uuid);
+
+            player.setItemInHand(InteractionHand.MAIN_HAND, wrapper.getBackpack());
+
+            player.sendSystemMessage(Te.s("已重置背包"));
         } else {
             player.sendSystemMessage(Te.s("仅接受下界合金背包"));
         }

@@ -12,6 +12,7 @@ import fun.wraq.entities.entities.Civil.Civil;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.projectiles.mana.NewArrow;
+import fun.wraq.render.gui.illustrate.Display;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.overworld.chapter2.evoker.EvokerSceptre;
 import net.minecraft.ChatFormatting;
@@ -38,6 +39,7 @@ public abstract class WraqSceptre extends WraqMainHandEquip {
     public WraqSceptre(Properties properties) {
         super(properties);
         Utils.sceptreTag.put(this, 1d);
+        Display.sceptreList.add(this);
     }
 
     @Override

@@ -5,6 +5,7 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
@@ -46,6 +47,9 @@ public class TextCommand implements Command<CommandSourceStack> {
                         Component.literal("前往:").withStyle(CustomStyle.styleOfEnd),
                         Component.literal("冰霜骑士驻地").withStyle(CustomStyle.styleOfIce),
                         Component.literal("消耗 ").withStyle(ChatFormatting.RED).
+                                append(ModItems.TP_TICKET.get().getDefaultInstance().getDisplayName()).
+                                append(Component.literal(" * 1").withStyle(ChatFormatting.AQUA)).
+                                append(Te.s(" 或 ", ChatFormatting.AQUA)).
                                 append(ModItems.WorldSoul2.get().getDefaultInstance().getDisplayName()).
                                 append(Component.literal(" * 1").withStyle(ChatFormatting.AQUA))
                 ));
@@ -53,6 +57,9 @@ public class TextCommand implements Command<CommandSourceStack> {
                         Component.literal("前往:").withStyle(CustomStyle.styleOfEnd),
                         Component.literal("尘月之梦").withStyle(CustomStyle.styleOfMoon),
                         Component.literal("消耗 ").withStyle(ChatFormatting.RED).
+                                append(ModItems.TP_TICKET.get().getDefaultInstance().getDisplayName()).
+                                append(Component.literal(" * 1").withStyle(ChatFormatting.AQUA)).
+                                append(Te.s(" 或 ", ChatFormatting.AQUA)).
                                 append(ModItems.WorldSoul2.get().getDefaultInstance().getDisplayName()).
                                 append(Component.literal(" * 1").withStyle(ChatFormatting.AQUA))
                 ));
@@ -60,6 +67,9 @@ public class TextCommand implements Command<CommandSourceStack> {
                         Component.literal("前往:").withStyle(CustomStyle.styleOfEnd),
                         Component.literal("雷光灯塔").withStyle(CustomStyle.styleOfLightning),
                         Component.literal("消耗 ").withStyle(ChatFormatting.RED).
+                                append(ModItems.TP_TICKET.get().getDefaultInstance().getDisplayName()).
+                                append(Component.literal(" * 1").withStyle(ChatFormatting.AQUA)).
+                                append(Te.s(" 或 ", ChatFormatting.AQUA)).
                                 append(ModItems.WorldSoul2.get().getDefaultInstance().getDisplayName()).
                                 append(Component.literal(" * 1").withStyle(ChatFormatting.AQUA))
                 ));
@@ -67,6 +77,9 @@ public class TextCommand implements Command<CommandSourceStack> {
                         Component.literal("前往:").withStyle(CustomStyle.styleOfEnd),
                         Component.literal("东洋塔").withStyle(CustomStyle.styleOfHusk),
                         Component.literal("消耗 ").withStyle(ChatFormatting.RED).
+                                append(ModItems.TP_TICKET.get().getDefaultInstance().getDisplayName()).
+                                append(Component.literal(" * 1").withStyle(ChatFormatting.AQUA)).
+                                append(Te.s(" 或 ", ChatFormatting.AQUA)).
                                 append(ModItems.WorldSoul2.get().getDefaultInstance().getDisplayName()).
                                 append(Component.literal(" * 1").withStyle(ChatFormatting.AQUA))
                 ));
@@ -74,6 +87,9 @@ public class TextCommand implements Command<CommandSourceStack> {
                         Component.literal("前往:").withStyle(CustomStyle.styleOfEnd),
                         Component.literal("原始森林").withStyle(CustomStyle.styleOfForest),
                         Component.literal("消耗 ").withStyle(ChatFormatting.RED).
+                                append(ModItems.TP_TICKET.get().getDefaultInstance().getDisplayName()).
+                                append(Component.literal(" * 1").withStyle(ChatFormatting.AQUA)).
+                                append(Te.s(" 或 ", ChatFormatting.AQUA)).
                                 append(ModItems.WorldSoul2.get().getDefaultInstance().getDisplayName()).
                                 append(Component.literal(" * 1").withStyle(ChatFormatting.AQUA))
                 ));
@@ -81,12 +97,11 @@ public class TextCommand implements Command<CommandSourceStack> {
                         Component.literal("前往:").withStyle(CustomStyle.styleOfEnd),
                         Component.literal("望山据点").withStyle(CustomStyle.styleOfMoontain),
                         Component.literal("消耗 ").withStyle(ChatFormatting.RED).
+                                append(ModItems.TP_TICKET.get().getDefaultInstance().getDisplayName()).
+                                append(Component.literal(" * 1").withStyle(ChatFormatting.AQUA)).
+                                append(Te.s(" 或 ", ChatFormatting.AQUA)).
                                 append(ModItems.WorldSoul2.get().getDefaultInstance().getDisplayName()).
                                 append(Component.literal(" * 1").withStyle(ChatFormatting.AQUA))
-                ));
-                put("toSkyCitySpawnPoint", List.of(
-                        Component.literal("在此区域跳跃").withStyle(CustomStyle.styleOfMoon),
-                        Component.literal("可以回到天空城").withStyle(CustomStyle.styleOfMoon)
                 ));
             }};
             if (nameToTextMap.containsKey(name)) {

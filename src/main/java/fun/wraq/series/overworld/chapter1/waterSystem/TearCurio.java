@@ -21,9 +21,15 @@ import java.util.WeakHashMap;
 
 public class TearCurio extends WraqCurios implements OnPowerReleaseCurios, InCuriosOrEquipSlotAttributesModify {
 
-    public TearCurio(Properties properties) {
+    private final int tier;
+
+    public TearCurio(Properties properties, int tier) {
         super(properties);
+        this.tier = tier;
+        Utils.maxMana.put(this, 250d);
     }
+
+    private final int[] upperLimit = new int[]{360, 540, 720, 900};
 
     @Override
     public Component getTypeDescription() {
@@ -36,8 +42,9 @@ public class TearCurio extends WraqCurios implements OnPowerReleaseCurios, InCur
         ComponentUtils.descriptionPassive(components, Te.s("法力积攒", hoverMainStyle()));
         components.add(Te.s(" 战斗状态下", ChatFormatting.RED, "，释放一次法术可以为你积攒",
                 ComponentUtils.AttributeDescription.manaValue("20")));
-        components.add(Te.s(" 至多叠加至", ComponentUtils.AttributeDescription.manaValue("720")));
-        components.add(Te.s(" 在脱离战斗后", "30s", ChatFormatting.AQUA, "，失去积攒的法力值"));
+        components.add(Te.s(" 至多叠加至",
+                ComponentUtils.AttributeDescription.manaValue(String.valueOf(upperLimit[tier]))));
+        components.add(Te.s(" 在脱离战斗后", "60s", ChatFormatting.AQUA, "，失去积攒的法力值"));
         return components;
     }
 
@@ -56,8 +63,8 @@ public class TearCurio extends WraqCurios implements OnPowerReleaseCurios, InCur
     @Override
     public void onRelease(Player player) {
         if (Compute.playerIsInBattle(player)) {
-            countMap.compute(player, (k, v) -> v == null ? 20 : v + 20);
-            Compute.sendEffectLastTime(player, this, 30, countMap.get(player), false);
+            countMap.compute(player, (k, v) -> v == null ? 20 : Math.min(upperLimit[tier], v + 20));
+            Compute.sendEffectLastTime(player, "item/tear_curio", 1200, countMap.get(player), false);
         }
     }
 
@@ -70,7 +77,7 @@ public class TearCurio extends WraqCurios implements OnPowerReleaseCurios, InCur
 
     @Override
     public void tick(Player player) {
-        if (Compute.playerIsInBattle(player, 600)) {
+        if (!Compute.playerIsInBattle(player, 1200)) {
             countMap.put(player, 0);
             Compute.removeEffectLastTime(player, this);
         }

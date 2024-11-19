@@ -62,6 +62,7 @@ import fun.wraq.process.system.element.equipAndCurios.waterElement.WaterElementB
 import fun.wraq.process.system.element.equipAndCurios.waterElement.WaterElementSceptre;
 import fun.wraq.process.system.element.equipAndCurios.waterElement.WaterElementSword;
 import fun.wraq.process.system.element.holyStone.*;
+import fun.wraq.process.system.endlessinstance.item.EndlessInstanceItems;
 import fun.wraq.process.system.enhanceForge.Pearl;
 import fun.wraq.process.system.forge.ForgeHammer;
 import fun.wraq.process.system.instance.MopUpPaper;
@@ -200,6 +201,7 @@ import fun.wraq.series.overworld.chapter1.volcano.rune.VolcanoRune2;
 import fun.wraq.series.overworld.chapter1.volcano.rune.VolcanoRune3;
 import fun.wraq.series.overworld.chapter1.waterSystem.LakePower;
 import fun.wraq.series.overworld.chapter1.waterSystem.LakeRing;
+import fun.wraq.series.overworld.chapter1.waterSystem.TearCurio;
 import fun.wraq.series.overworld.chapter1.waterSystem.bossItems.LakeBoss;
 import fun.wraq.series.overworld.chapter1.waterSystem.crest.LakeCrest;
 import fun.wraq.series.overworld.chapter1.waterSystem.equip.LakeBow;
@@ -3682,32 +3684,6 @@ public class ModItems {
     public static final RegistryObject<Item> killPaper = ITEMS.register("kill_paper",
             () -> new KillPaper(new Item.Properties().rarity(Rarity.UNCOMMON)));
 
-    public static final RegistryObject<Item> supplyBoxTier1 = ITEMS.register("supply_box_tier_1",
-            () -> new SupplyBox(new Item.Properties().rarity(CustomStyle.Green), new ArrayList<>() {{
-                add(new ItemStack(MopUpPaperLoot.get(), 4));
-                add(new ItemStack(KillPaperLoot.get(), 8));
-                add(new ItemStack(notePaper.get(), 80));
-                add(new ItemStack(RevelationBook.get(), 8));
-            }}));
-
-    public static final RegistryObject<Item> supplyBoxTier2 = ITEMS.register("supply_box_tier_2",
-            () -> new SupplyBox(new Item.Properties().rarity(Rarity.RARE), new ArrayList<>() {{
-                add(new ItemStack(MopUpPaperLoot.get(), 8));
-                add(new ItemStack(KillPaperLoot.get(), 16));
-                add(new ItemStack(notePaper.get(), 96));
-                add(new ItemStack(RevelationBook.get(), 16));
-                add(new ItemStack(worldSoul5.get(), 80));
-            }}));
-
-    public static final RegistryObject<Item> supplyBoxTier3 = ITEMS.register("supply_box_tier_3",
-            () -> new SupplyBox(new Item.Properties().rarity(Rarity.EPIC), new ArrayList<>() {{
-                add(new ItemStack(MopUpPaperLoot.get(), 16));
-                add(new ItemStack(KillPaperLoot.get(), 32));
-                add(new ItemStack(notePaper.get(), 128));
-                add(new ItemStack(RevelationBook.get(), 32));
-                add(new ItemStack(worldSoul5.get(), 200));
-            }}));
-
     public static final RegistryObject<Item> lavenderBracelet = ITEMS.register("lavender_bracelet",
             () -> new LavenderBracelet(new Item.Properties().rarity(CustomStyle.JacarandaBold).stacksTo(1)));
 
@@ -3722,15 +3698,6 @@ public class ModItems {
 
     public static final RegistryObject<Item> iceBelt = ITEMS.register("ice_belt",
             () -> new IceBelt(new Item.Properties().rarity(CustomStyle.IceBold)));
-
-    public static final RegistryObject<Item> simpleTier1Paper = ITEMS.register("simple_tier_1_paper",
-            () -> new SimpleTierPaper(new Item.Properties().rarity(CustomStyle.Green), 1));
-
-    public static final RegistryObject<Item> simpleTier2Paper = ITEMS.register("simple_tier_2_paper",
-            () -> new SimpleTierPaper(new Item.Properties().rarity(Rarity.RARE), 2));
-
-    public static final RegistryObject<Item> simpleTier3Paper = ITEMS.register("simple_tier_3_paper",
-            () -> new SimpleTierPaper(new Item.Properties().rarity(Rarity.EPIC), 3));
 
     public static final RegistryObject<Item> CastleSoul = ITEMS.register("castle_soul",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.Castle)));
@@ -3747,9 +3714,6 @@ public class ModItems {
     public static final RegistryObject<Item> BeaconBow3 = ITEMS.register("beacon_bow3",
             () -> new BeaconBow(new Item.Properties().rarity(CustomStyle.MagmaItalic), 3));
 
-    public static final RegistryObject<Item> BeaconBracelet = ITEMS.register("beacon_bracelet",
-            () -> new BeaconBracelet(new Item.Properties().rarity(CustomStyle.MagmaBold)));
-
     public static final RegistryObject<Item> BlazeSword = ITEMS.register("blaze_sword",
             () -> new BlazeSword(new Item.Properties().rarity(CustomStyle.MagmaItalic), 0));
 
@@ -3761,12 +3725,6 @@ public class ModItems {
 
     public static final RegistryObject<Item> BlazeSword3 = ITEMS.register("blaze_sword3",
             () -> new BlazeSword(new Item.Properties().rarity(CustomStyle.MagmaItalic), 3));
-
-    public static final RegistryObject<Item> BlazeBracelet = ITEMS.register("blaze_bracelet",
-            () -> new BlazeBracelet(new Item.Properties().rarity(CustomStyle.MagmaBold)));
-
-    public static final RegistryObject<Item> TreeBracelet = ITEMS.register("tree_bracelet",
-            () -> new TreeBracelet(new Item.Properties().rarity(CustomStyle.LifeBold)));
 
     public static final RegistryObject<Item> TreeSceptre = ITEMS.register("tree_sceptre",
             () -> new TreeSceptre(new Item.Properties().rarity(CustomStyle.LifeItalic), 0));
@@ -3909,4 +3867,64 @@ public class ModItems {
 
     public static final RegistryObject<Item> REFINED_PIECE = ITEMS.register("refined_piece",
             () -> new WraqItem(new Item.Properties().rarity(Rarity.RARE).stacksTo(16)));
+
+    public static final RegistryObject<Item> TEAR_CURIO_0 = ITEMS.register("tear_curio_0",
+            () -> new TearCurio(new Item.Properties().rarity(CustomStyle.WaterBold), 0));
+    public static final RegistryObject<Item> TEAR_CURIO_1 = ITEMS.register("tear_curio_1",
+            () -> new TearCurio(new Item.Properties().rarity(CustomStyle.WaterBold), 1));
+    public static final RegistryObject<Item> TEAR_CURIO_2 = ITEMS.register("tear_curio_2",
+            () -> new TearCurio(new Item.Properties().rarity(CustomStyle.WaterBold), 2));
+    public static final RegistryObject<Item> TEAR_CURIO_3 = ITEMS.register("tear_curio_3",
+            () -> new TearCurio(new Item.Properties().rarity(CustomStyle.WaterBold), 3));
+
+    public static final RegistryObject<Item> TP_TICKET = ITEMS.register("tp_ticket",
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.EndBold), false, true, List.of(
+                    Te.s(" 使用传送中枢的消耗品", CustomStyle.styleOfEnd)
+            )));
+
+    public static final RegistryObject<Item> supplyBoxTier0 = ITEMS.register("supply_box_tier_0",
+            () -> new SupplyBox(new Item.Properties().rarity(CustomStyle.Green), new ArrayList<>() {{
+                add(new ItemStack(notePaper.get(), 64));
+                add(new ItemStack(EndlessInstanceItems.EASTERN_TOWER_PAPER.get(), 1));
+                add(new ItemStack(TP_TICKET.get(), 16));
+            }}));
+
+    public static final RegistryObject<Item> supplyBoxTier1 = ITEMS.register("supply_box_tier_1",
+            () -> new SupplyBox(new Item.Properties().rarity(Rarity.UNCOMMON), new ArrayList<>() {{
+                add(new ItemStack(MopUpPaperLoot.get(), 4));
+                add(new ItemStack(KillPaperLoot.get(), 8));
+                add(new ItemStack(notePaper.get(), 80));
+                add(new ItemStack(EndlessInstanceItems.EASTERN_TOWER_PAPER.get(), 2));
+                add(new ItemStack(TP_TICKET.get(), 32));
+                add(new ItemStack(RevelationBook.get(), 8));
+            }}));
+
+    public static final RegistryObject<Item> supplyBoxTier2 = ITEMS.register("supply_box_tier_2",
+            () -> new SupplyBox(new Item.Properties().rarity(Rarity.RARE), new ArrayList<>() {{
+                add(new ItemStack(MopUpPaperLoot.get(), 8));
+                add(new ItemStack(KillPaperLoot.get(), 16));
+                add(new ItemStack(notePaper.get(), 96));
+                add(new ItemStack(EndlessInstanceItems.EASTERN_TOWER_PAPER.get(), 3));
+                add(new ItemStack(RevelationBook.get(), 16));
+                add(new ItemStack(worldSoul5.get(), 80));
+            }}));
+
+    public static final RegistryObject<Item> supplyBoxTier3 = ITEMS.register("supply_box_tier_3",
+            () -> new SupplyBox(new Item.Properties().rarity(Rarity.EPIC), new ArrayList<>() {{
+                add(new ItemStack(MopUpPaperLoot.get(), 16));
+                add(new ItemStack(KillPaperLoot.get(), 32));
+                add(new ItemStack(notePaper.get(), 128));
+                add(new ItemStack(EndlessInstanceItems.EASTERN_TOWER_PAPER.get(), 4));
+                add(new ItemStack(RevelationBook.get(), 32));
+                add(new ItemStack(worldSoul5.get(), 200));
+            }}));
+
+    public static final RegistryObject<Item> simpleTier1Paper = ITEMS.register("simple_tier_1_paper",
+            () -> new SimpleTierPaper(new Item.Properties().rarity(CustomStyle.Green), 1));
+
+    public static final RegistryObject<Item> simpleTier2Paper = ITEMS.register("simple_tier_2_paper",
+            () -> new SimpleTierPaper(new Item.Properties().rarity(Rarity.RARE), 2));
+
+    public static final RegistryObject<Item> simpleTier3Paper = ITEMS.register("simple_tier_3_paper",
+            () -> new SimpleTierPaper(new Item.Properties().rarity(Rarity.EPIC), 3));
 }

@@ -9,6 +9,7 @@ import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.particle.ParticleProvider;
+import fun.wraq.render.gui.illustrate.Display;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
@@ -32,6 +33,7 @@ public abstract class WraqPower extends Item implements ActiveItem {
         super(properties);
         Utils.powerTag.put(this, 1d);
         Utils.weaponList.add(this);
+        Display.powerList.add(this);
     }
 
     @Override

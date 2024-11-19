@@ -63,7 +63,7 @@ public class MoonSword extends WraqSword implements ActiveItem, OnHitEffectEquip
                 append(ComponentUtils.AttributeDescription.attackDamage("")));
         components.add(Component.literal("，提供在10s内持续衰减的等额").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.AttributeDescription.exAttackDamage(String.format("%.0f%%", activeRate * 100))));
-        components.add(Component.literal(" 并为你提供持续20s的").withStyle(ChatFormatting.WHITE).
+        components.add(Component.literal(" 并为你提供持续8s的").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.AttributeDescription.attackDamage("200%")).
                 append(Component.literal("的").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("护盾").withStyle(ChatFormatting.GRAY)));
@@ -87,7 +87,7 @@ public class MoonSword extends WraqSword implements ActiveItem, OnHitEffectEquip
         EnhanceNormalAttackModifier.addModifier(player, new EnhanceNormalAttackModifier("moonSwordActive", 0, new EnhanceNormalAttack() {
             @Override
             public void hit(Player player, Mob mob) {
-                Shield.providePlayerShield(player, 400, PlayerAttributes.attackDamage(player) * 2);
+                Shield.providePlayerShield(player, 160, PlayerAttributes.attackDamage(player) * 2);
                 Compute.sendEffectLastTime(player, ModItems.MoonSword.get().getDefaultInstance(), 200);
                 List<Mob> mobList = mob.level().getEntitiesOfClass(Mob.class, AABB.ofSize(mob.position(), 15, 15, 15));
                 mobList.removeIf(mob1 -> mob1.distanceTo(mob) > 6);

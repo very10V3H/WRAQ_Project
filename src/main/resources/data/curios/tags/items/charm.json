@@ -27,6 +27,10 @@
     "vmd:log_charm3",
     "vmd:log_charm4",
     "vmd:log_charm5",
-    "vmd:log_charm6"
+    "vmd:log_charm6",
+    "vmd:tear_curio_0",
+    "vmd:tear_curio_1",
+    "vmd:tear_curio_2",
+    "vmd:tear_curio_3"
   ]
 }

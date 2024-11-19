@@ -114,9 +114,16 @@ public class NewLotteries extends Item {
             components.add(Component.literal(" 第" + guaranteeTimes.get(item) + "次必定抽取极品奖励").withStyle(ChatFormatting.GOLD));
         }
         if (guaranteeTimes.containsKey(item) && clientRewardTimes.containsKey(this.toString())) {
+            int times = clientRewardTimes.get(this.toString());
             components.add(Te.s(" 距离上次获得极品，你已经开启了 ", CustomStyle.styleOfStone,
                     String.valueOf(clientRewardTimes.get(this.toString())), CustomStyle.styleOfWorld,
                     " 次", CustomStyle.styleOfStone));
+            double rate = 0.01 / (1 - times * 0.005);
+            if (times + 1 == guaranteeTimes.get(this)) {
+                rate = 1;
+            }
+            components.add(Te.s(" 下一次抽取极品的概率估计: ", CustomStyle.styleOfStone,
+                    String.format("%.2f%%", rate * 100), CustomStyle.styleOfGold));
         }
         super.appendHoverText(itemStack, p_41422_, components, flag);
     }
@@ -124,81 +131,85 @@ public class NewLotteries extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
         if (!level.isClientSide && interactionHand == InteractionHand.MAIN_HAND) {
-            ItemStack mainHandStack = player.getItemInHand(interactionHand);
-            Item lottery = mainHandStack.getItem();
-
-            if (getRewardSerial.isEmpty()) setGetRewardSerial();
-            if (guaranteeTimes.isEmpty()) setGuaranteeTimes();
-            if (guaranteeRange.isEmpty()) setGuaranteeRange();
-
-            boolean recordFlag = guaranteeTimes.containsKey(lottery);
-
-            // 记录总开箱数
-
-            try {
-                if (recordFlag) addPlayerOpenLotteryTimes(player, lottery);
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-
-            int times = 0;
-            try {
-                if (recordFlag) {
-                    times = addPlayerRewardTimes(player, mainHandStack.getItem());
-                    Compute.sendFormatMSG(player, Component.literal("礼盒").withStyle(ChatFormatting.LIGHT_PURPLE),
-                            Component.literal("这是第").withStyle(ChatFormatting.WHITE).
-                                    append(Component.literal("" + times).withStyle(ChatFormatting.LIGHT_PURPLE)).
-                                    append(Component.literal("次抽取该礼盒").withStyle(ChatFormatting.WHITE)));
-                }
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-
-            Compute.playerItemUseWithRecord(player);
-
-            double range = 1;
-
-            // 概率递增与保底
-            if (getRewardSerial.containsKey(lottery)) {
-                range -= times * 0.005;
-                if (times + 1 == guaranteeTimes.get(lottery)) range = guaranteeRange.get(lottery);
-            }
-
-            int serialNum = lootSerialNum(range);
-
-            // 中签次数清零
-            if (recordFlag && getRewardSerial.containsKey(lottery)) {
-                if (serialNum < getRewardSerial.get(lottery)) {
-                    setPlayerRewardTimes(player, lottery, 0);
-                    try {
-                        addPlayerLotteryWinTimes(player, lottery);
-                    } catch (SQLException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            }
-
-            // 提供奖励
-            Loot loot = loots.get(serialNum);
-            ItemStack itemStack = loot.itemStack;
-            if (loot.rate <= 0.05) {
-                Compute.formatBroad(level, Component.literal("礼盒").withStyle(ChatFormatting.LIGHT_PURPLE),
-                        Component.literal("").withStyle(ChatFormatting.WHITE).
-                                append(player.getDisplayName()).
-                                append(Component.literal(" 通过 ").withStyle(ChatFormatting.WHITE)).
-                                append(this.getDefaultInstance().getDisplayName()).
-                                append(Component.literal(" 获得了 ").withStyle(ChatFormatting.WHITE)).
-                                append(itemStack.getDisplayName()).
-                                append(Component.literal(" *" + itemStack.getCount()).withStyle(ChatFormatting.AQUA)).
-                                append(Component.literal(guaranteeRange.containsKey(lottery) ? " (" + times + ")" : "").withStyle(ChatFormatting.GRAY)));
-            }
-
-            ItemStack reward = new ItemStack(itemStack.getItem(), itemStack.getCount());
-            if (InventoryCheck.boundingList.contains(reward.getItem()))
-                InventoryCheck.addOwnerTagToItemStack(player, reward); // 为部分物品添加绑定tag
-            InventoryOperation.itemStackGive(player, reward);
+            singleUse(player);
         }
         return super.use(level, player, interactionHand);
+    }
+
+    public void singleUse(Player player) {
+        ItemStack mainHandStack = player.getMainHandItem();
+        Item lottery = mainHandStack.getItem();
+
+        if (getRewardSerial.isEmpty()) setGetRewardSerial();
+        if (guaranteeTimes.isEmpty()) setGuaranteeTimes();
+        if (guaranteeRange.isEmpty()) setGuaranteeRange();
+
+        boolean recordFlag = guaranteeTimes.containsKey(lottery);
+
+        // 记录总开箱数
+
+        try {
+            if (recordFlag) addPlayerOpenLotteryTimes(player, lottery);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        int times = 0;
+        try {
+            if (recordFlag) {
+                times = addPlayerRewardTimes(player, mainHandStack.getItem());
+                Compute.sendFormatMSG(player, Component.literal("礼盒").withStyle(ChatFormatting.LIGHT_PURPLE),
+                        Component.literal("这是第").withStyle(ChatFormatting.WHITE).
+                                append(Component.literal("" + times).withStyle(ChatFormatting.LIGHT_PURPLE)).
+                                append(Component.literal("次抽取该礼盒").withStyle(ChatFormatting.WHITE)));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        Compute.playerItemUseWithRecord(player);
+
+        double range = 1;
+
+        // 概率递增与保底
+        if (getRewardSerial.containsKey(lottery)) {
+            range -= times * 0.005;
+            if (times == guaranteeTimes.get(lottery)) range = guaranteeRange.get(lottery);
+        }
+
+        int serialNum = lootSerialNum(range);
+
+        // 中签次数清零
+        if (recordFlag && getRewardSerial.containsKey(lottery)) {
+            if (serialNum < getRewardSerial.get(lottery)) {
+                setPlayerRewardTimes(player, lottery, 0);
+                try {
+                    addPlayerLotteryWinTimes(player, lottery);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+
+        // 提供奖励
+        Loot loot = loots.get(serialNum);
+        ItemStack itemStack = loot.itemStack;
+        if (loot.rate <= 0.05) {
+            Compute.formatBroad(player.level(), Component.literal("礼盒").withStyle(ChatFormatting.LIGHT_PURPLE),
+                    Component.literal("").withStyle(ChatFormatting.WHITE).
+                            append(player.getDisplayName()).
+                            append(Component.literal(" 通过 ").withStyle(ChatFormatting.WHITE)).
+                            append(this.getDefaultInstance().getDisplayName()).
+                            append(Component.literal(" 获得了 ").withStyle(ChatFormatting.WHITE)).
+                            append(itemStack.getDisplayName()).
+                            append(Component.literal(" *" + itemStack.getCount()).withStyle(ChatFormatting.AQUA)).
+                            append(Component.literal(guaranteeRange.containsKey(lottery) ? " (" + times + ")" : "").withStyle(ChatFormatting.GRAY)));
+        }
+
+        ItemStack reward = new ItemStack(itemStack.getItem(), itemStack.getCount());
+        if (InventoryCheck.boundingList.contains(reward.getItem()))
+            InventoryCheck.addOwnerTagToItemStack(player, reward); // 为部分物品添加绑定tag
+        InventoryOperation.itemStackGive(player, reward);
     }
 
     public static Map<String, Map<String, Integer>> playerLotteryData = new HashMap<>();
@@ -223,6 +234,7 @@ public class NewLotteries extends Item {
         if (!playerLotteryData.containsKey(playerName)) playerLotteryData.put(playerName, new HashMap<>());
         Map<String, Integer> rewards = playerLotteryData.get(playerName);
         rewards.put(item.toString(), times);
+        sendLotteryRewardTimes(player);
     }
 
     public static int getPlayerRewardTimes(Player player, Item item) throws SQLException {

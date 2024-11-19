@@ -1,9 +1,11 @@
 package fun.wraq.process.system.tp;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.process.func.item.InventoryOperation;
+import fun.wraq.process.func.plan.PlanPlayer;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -14,6 +16,7 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -48,10 +51,10 @@ public class GateWay {
                         new Des(new Vec3(2352, 130, 30), 90, 0, Component.literal("东洋塔").withStyle(CustomStyle.styleOfHusk))),
                 new GateWay(
                         new Des(new Vec3(973, 207.5, 15), 90, 0, Component.literal("天空城").withStyle(CustomStyle.styleOfSky)),
-                        new Des(new Vec3(1760, 79, 58), 180, 0, Component.literal("原始森林").withStyle(CustomStyle.styleOfForest))),
+                        new Des(new Vec3(1760, 80, 58), 180, 0, Component.literal("原始森林").withStyle(CustomStyle.styleOfForest))),
                 new GateWay(
                         new Des(new Vec3(970, 207.5, -1), 0, 0, Component.literal("天空城").withStyle(CustomStyle.styleOfSky)),
-                        new Des(new Vec3(1914, 151, -936), -90, 0, Component.literal("望山据点").withStyle(CustomStyle.styleOfForest)))
+                        new Des(new Vec3(1914, 152, -936), -90, 0, Component.literal("望山据点").withStyle(CustomStyle.styleOfForest)))
         );
     }
 
@@ -77,16 +80,16 @@ public class GateWay {
     public static Map<String, Integer> playerTPCooldownMap = new HashMap<>();
 
     @SubscribeEvent
-    public static void tick(TickEvent.PlayerTickEvent event) {
-        if (event.side.isServer() && event.phase.equals(TickEvent.Phase.START)) {
+    public static void tick(TickEvent.PlayerTickEvent event) throws ParseException {
+        if (event.side.isServer() && event.phase.equals(TickEvent.Phase.START)
+                && event.player.level().dimension().equals(Level.OVERWORLD)) {
             ServerPlayer player = (ServerPlayer) event.player;
             String name = player.getName().getString();
             int tick = Tick.get();
             Vec3 skyTpCenterPos = new Vec3(962, 207.5, 13);
             // 天空城传送至传送中枢
             if (player.position().distanceTo(new Vec3(957.5, 224.5, 14.5)) < 1) {
-                player.teleportTo(player.getServer().getLevel(Level.OVERWORLD), skyTpCenterPos.x,
-                        skyTpCenterPos.y + 0.5, skyTpCenterPos.z, 180, 0);
+                player.teleportTo(skyTpCenterPos.x, skyTpCenterPos.y + 0.5, skyTpCenterPos.z);
                 // 防止玩家前往传送中枢后直接被传送回天空城经典重生点
                 playerTPCooldownMap.put(name, tick + 2);
             }
@@ -105,11 +108,14 @@ public class GateWay {
                     }
                 }
                 if (nearGateway) {
-                    if (InventoryOperation.itemStackCount(player, ModItems.WorldSoul2.get()) == 0) {
+                    if (InventoryOperation.itemStackCount(player, ModItems.WorldSoul2.get()) == 0
+                            && InventoryOperation.itemStackCount(player, ModItems.TP_TICKET.get()) == 0
+                            && PlanPlayer.getPlayerTier(player) < 2) {
                         playerTPDelayCount.put(name, -1);
                         Compute.setPlayerTitleAndSubTitle(player, Component.literal("位移进程中断").withStyle(ChatFormatting.RED),
-                                Component.literal("需要一个 ").withStyle(ChatFormatting.AQUA)
-                                        .append(ModItems.WorldSoul2.get().getDefaultInstance().getDisplayName()),
+                                Te.s("需要一个",
+                                        ModItems.TP_TICKET.get().getDefaultInstance().getDisplayName(), "或",
+                                        ModItems.WorldSoul2.get().getDefaultInstance().getDisplayName()),
                                 0, 20, 10);
                     } else {
                         int tpDelayCount = playerTPDelayCount.getOrDefault(name, -1);
@@ -133,7 +139,11 @@ public class GateWay {
                             if (destination.pos.distanceTo(skyTpCenterPos) < 30)
                                 playerTPCooldownMap.put(name, tick + 2);
                             else playerTPCooldownMap.put(name, tick + 60);
-                            InventoryOperation.removeItem(player.getInventory(), ModItems.WorldSoul2.get(), 1);
+                            if (PlanPlayer.getPlayerTier(player) < 2) {
+                                if (!InventoryOperation.removeItem(player.getInventory(), ModItems.TP_TICKET.get(), 1)) {
+                                    InventoryOperation.removeItem(player.getInventory(), ModItems.WorldSoul2.get(), 1);
+                                }
+                            }
                         }
                     }
                 } else {

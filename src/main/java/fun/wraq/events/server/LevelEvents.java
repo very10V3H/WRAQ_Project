@@ -386,17 +386,20 @@ public class LevelEvents {
     }
 
     public static void clearFireModule(Level level, BlockPos posStart, BlockPos posEnd) {
-        new Thread(() -> {
-            for (int x = posStart.getX(); x <= posEnd.getX(); x ++) {
-                for (int y = posStart.getY(); y <= posEnd.getY(); y ++) {
-                    for (int z = posStart.getZ(); z <= posEnd.getZ(); z++) {
-                        BlockPos blockPos = new BlockPos(x, y, z);
-                        if (level.getBlockState(blockPos).getBlock().equals(Blocks.FIRE)) {
-                            level.setBlockAndUpdate(blockPos, Blocks.AIR.defaultBlockState());
+        ThreadPools.clearFireExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                for (int x = posStart.getX(); x <= posEnd.getX(); x ++) {
+                    for (int y = posStart.getY(); y <= posEnd.getY(); y ++) {
+                        for (int z = posStart.getZ(); z <= posEnd.getZ(); z++) {
+                            BlockPos blockPos = new BlockPos(x, y, z);
+                            if (level.getBlockState(blockPos).getBlock().equals(Blocks.FIRE)) {
+                                level.setBlockAndUpdate(blockPos, Blocks.AIR.defaultBlockState());
+                            }
                         }
                     }
                 }
             }
-        }).start();
+        });
     }
 }

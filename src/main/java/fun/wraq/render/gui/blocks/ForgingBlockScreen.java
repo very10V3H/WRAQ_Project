@@ -4,10 +4,12 @@ import com.google.common.collect.ImmutableMap;
 import com.mojang.blaze3d.systems.RenderSystem;
 import fun.wraq.common.equip.WraqArmor;
 import fun.wraq.common.equip.WraqMainHandEquip;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.Utils;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.Limit.ScreenCloseC2SPacket;
+import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.process.system.forge.networking.CraftC2SPacket;
 import fun.wraq.process.system.forge.networking.DecomposeC2SPacket;
 import fun.wraq.series.gems.GemItems;
@@ -166,6 +168,12 @@ public class ForgingBlockScreen extends AbstractContainerScreen<fun.wraq.render.
                     guiGraphics.renderComponentTooltip(fontRenderer, components, mouseX, mouseY);
                 }
             }
+        }
+
+        guiGraphics.drawString(fontRenderer, Te.s("?锻造品质", ChatFormatting.GREEN),
+                X + offsetX + 135, Y + offsetY, 0);
+        if (mouseX > X + offsetX + 135 && mouseX < X + offsetX + 200 + 28 && mouseY > Y + offsetY - 6 && mouseY < Y + offsetY + 12) {
+            guiGraphics.renderComponentTooltip(fontRenderer, ForgeEquipUtils.getTierAndValueDescription(), mouseX, mouseY);
         }
 
         ItemStack stone = this.getMenu().blockEntity.getItemStackHandler().getStackInSlot(0);

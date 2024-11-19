@@ -5,6 +5,7 @@ import fun.wraq.common.attribute.BasicAttributeDescription;
 import fun.wraq.common.registry.ItemTier;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.render.gui.illustrate.Display;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -12,7 +13,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.item.TooltipFlag;
@@ -28,6 +28,7 @@ public abstract class WraqPassiveEquip extends PickaxeItem {
         super(ItemTier.VMaterial, 2, 0, p_40524_);
         Utils.passiveEquipTag.put(this, 1d);
         Utils.weaponList.add(this);
+        Display.passiveEquipList.add(this);
     }
 
     public abstract Style getMainStyle();

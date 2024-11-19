@@ -36,7 +36,7 @@ public class ServerTick {
             WraqMixture.tick();
             int tickCount = event.getServer().getTickCount();
             if (tickCount % 6000 == 3288) {
-                new Thread(new Runnable() {
+                ThreadPools.dataExecutor.execute(new Runnable() {
                     @Override
                     public void run() {
                         MarketInfo.marketItemInfoWrite(event.getServer().overworld());
@@ -47,7 +47,7 @@ public class ServerTick {
                             throw new RuntimeException(e);
                         }
                     }
-                }).start();
+                });
             }
             if (tickCount % 100 == 0) VpDataHandler.reviseDataMSGSend(event.getServer());
             if (tickCount % 80 == 0) {

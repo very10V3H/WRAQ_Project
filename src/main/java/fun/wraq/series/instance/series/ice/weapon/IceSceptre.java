@@ -91,6 +91,8 @@ public class IceSceptre extends WraqSceptre implements OnHitEffectEquip, OnPower
         components.add(Te.m(" 并击碎目标").
                 append(ComponentUtils.AttributeDescription.manaDefence("25%")).
                 append(Te.m("，持续5s")));
+        components.add(Te.s(" 自身获得", ComponentUtils.AttributeDescription.critRate("30%")
+                , "，持续5s"));
         return components;
     }
 

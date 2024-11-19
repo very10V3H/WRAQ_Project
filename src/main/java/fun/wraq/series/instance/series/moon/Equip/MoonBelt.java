@@ -59,7 +59,7 @@ public class MoonBelt extends WraqCurios implements OnCauseFinalDamageCurios, On
                 append(Component.literal("苍月能量1%").withStyle(CustomStyle.styleOfMoon1)).
                 append(Component.literal("的").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("护盾值").withStyle(ChatFormatting.GRAY)));
-        components.add(Component.literal(" -护盾值不会超过最大生命值的200%").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
+        components.add(Component.literal(" -护盾值不会超过最大生命值的200%，持续5s").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
         ComponentUtils.coolDownTimeDescription(components, 10);
         return components;
     }
@@ -91,7 +91,7 @@ public class MoonBelt extends WraqCurios implements OnCauseFinalDamageCurios, On
                     Damage.causeTrueDamageToMonster(player, mob, storedDamage.get(player));
                 }
             });
-            Shield.providePlayerShield(player, 200, Math.min(player.getMaxHealth() * 2, storedDamage.get(player) * 0.01));
+            Shield.providePlayerShield(player, 100, Math.min(player.getMaxHealth() * 2, storedDamage.get(player) * 0.01));
             statusType.put(player, 0);
             storedDamage.put(player, 0d);
             coolDown.put(player, tick + 200);

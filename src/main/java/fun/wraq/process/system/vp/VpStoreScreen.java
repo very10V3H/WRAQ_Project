@@ -57,17 +57,18 @@ public class VpStoreScreen extends Screen {
         for (int i = 0; i < 5; i++) {
             int finalI = i;
             this.addRenderableWidget(Button.builder(Component.translatable("购买"), (p_280814_) -> {
-                ModNetworking.sendToServer(new VpStoreBuyC2SPacket(VpStore.getGoodsList().get(page * 10 + finalI).getDefaultInstance()));
+                if (page * 10 + finalI < VpStore.priceMap.size()) {
+                    ModNetworking.sendToServer(new VpStoreBuyC2SPacket(VpStore.getGoodsList().get(page * 10 + finalI).getDefaultInstance()));
+                }
             }).pos(this.width / 2 - 35, this.height / 2 - 83 + 32 * i).size(32, 16).build());
         }
 
         for (int i = 0; i < 5; i++) {
             int finalI = i;
             this.addRenderableWidget(Button.builder(Component.translatable("购买"), (p_280814_) -> {
-                if (page * 10 + 5 + finalI < VpStore.priceMap.size() - 1)
+                if (page * 10 + 5 + finalI < VpStore.priceMap.size())
                     ModNetworking.sendToServer(new VpStoreBuyC2SPacket(VpStore.getGoodsList().get(page * 10 + 5 + finalI).getDefaultInstance()));
             }).pos(this.width / 2 - 35 + 140, this.height / 2 - 83 + 32 * i).size(32, 16).build());
-
         }
     }
 

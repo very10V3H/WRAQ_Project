@@ -238,7 +238,7 @@ public class NewCastleInstance extends NewTeamInstance {
     }
 
     public List<ItemAndRate> getRewardList() {
-        return List.of(new ItemAndRate(ModItems.CastleLoot.get(), 1),
+        return List.of(new ItemAndRate(ModItems.CastleLoot.get(), 2),
                 new ItemAndRate(ModItems.WorldSoul2.get(), 0.25),
                 new ItemAndRate(ModItems.GoldCoinBag.get(), 0.1),
                 new ItemAndRate(ModItems.CastleNecklace.get(), 0.08),

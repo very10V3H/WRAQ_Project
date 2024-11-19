@@ -290,7 +290,7 @@ public class BasicAttributeDescription {
 
         index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.healthRecover, Utils.percentHealthRecover,
                 StringUtils.CuriosAttribute.percentHealthRecover, "生命回复",
-                Style.EMPTY.applyFormat(ChatFormatting.GREEN), 1, true, itemStack, true, CustomStyle.styleOfLife, event.getTooltipElements());
+                Style.EMPTY.applyFormat(ChatFormatting.GREEN), 2, true, itemStack, true, CustomStyle.styleOfLife, event.getTooltipElements());
 
         if (Utils.defencePenetration.containsKey(item) || data.contains(StringUtils.CuriosAttribute.defencePenetration)) {
 

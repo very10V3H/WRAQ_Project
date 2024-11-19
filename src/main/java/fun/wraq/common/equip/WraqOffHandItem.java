@@ -8,6 +8,7 @@ import fun.wraq.common.registry.ItemTier;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.loot.RandomLootEquip;
+import fun.wraq.render.gui.illustrate.Display;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -36,6 +37,7 @@ public abstract class WraqOffHandItem extends SwordItem {
         if (this instanceof ForgeItem forgeItem) {
             ForgeRecipe.forgeDrawRecipe.put(this, forgeItem.forgeRecipe());
         }
+        Display.offHandList.add(this);
     }
 
     public abstract Style getMainStyle();
@@ -91,11 +93,9 @@ public abstract class WraqOffHandItem extends SwordItem {
 
     public void tick(Player player) {}
 
-    @Override
-    public void onInventoryTick(ItemStack stack, Level level, Player player, int slotIndex, int selectedIndex) {
-        if (!level.isClientSide) {
-            if (slotIndex == 40) tick(player);
+    public static void serverTick(Player player) {
+        if (player.getOffhandItem().getItem() instanceof WraqOffHandItem wraqOffHandItem) {
+            wraqOffHandItem.tick(player);
         }
-        super.onInventoryTick(stack, level, player, slotIndex, selectedIndex);
     }
 }

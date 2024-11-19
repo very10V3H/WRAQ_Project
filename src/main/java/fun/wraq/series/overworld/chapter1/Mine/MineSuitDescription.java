@@ -63,7 +63,7 @@ public class MineSuitDescription {
         Compute.DescriptionPassive(components, Component.literal("沉重").withStyle(MainStyle));
         components.add(Component.literal("1.").withStyle(MainStyle).
                 append(Component.literal("降低").withStyle(ChatFormatting.RED)).
-                append(ComponentUtils.AttributeDescription.movementSpeedDecrease("50%")));
+                append(ComponentUtils.AttributeDescription.movementSpeedDecrease("20%")));
         components.add(Component.literal("2.").withStyle(MainStyle).
                 append(Component.literal("获得").withStyle(ChatFormatting.GREEN)).
                 append(ComponentUtils.AttributeDescription.defence("60")));

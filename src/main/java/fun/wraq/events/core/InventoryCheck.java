@@ -7,6 +7,7 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.Utils;
 import fun.wraq.customized.UniformItems;
 import fun.wraq.events.mob.loot.RandomLootEquip;
+import fun.wraq.process.system.endlessinstance.item.EndlessInstanceItems;
 import fun.wraq.series.specialevents.SpecialEventItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -132,7 +133,9 @@ public class InventoryCheck {
                 ModItems.RevelationBook.get(),
                 ModItems.supplyBoxTier1.get(),
                 ModItems.supplyBoxTier2.get(),
-                ModItems.supplyBoxTier3.get()
+                ModItems.supplyBoxTier3.get(),
+                EndlessInstanceItems.EASTERN_TOWER_PAPER.get(),
+                ModItems.TP_TICKET.get()
         ));
         for (Object o : SpecialEventItems.ITEMS.getEntries().toArray()) {
             RegistryObject<Item> item = (RegistryObject<Item>) o;

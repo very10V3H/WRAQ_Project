@@ -64,7 +64,7 @@ public class NewPotion extends Item implements ActiveItem {
         put(PotionName.ManaDamageUp, ComponentUtils.AttributeDescription.manaDamage("25 + 25%"));
         put(PotionName.ManaDefenceUp, ComponentUtils.AttributeDescription.manaDefence("75 + 25%"));
 
-        put(PotionName.MovementSpeedUp, ComponentUtils.AttributeDescription.movementSpeed("30%"));
+        put(PotionName.MovementSpeedUp, ComponentUtils.AttributeDescription.movementSpeed("10%"));
         put(PotionName.HealthRecoverUp, ComponentUtils.AttributeDescription.healthRecover("2.5%"));
         put(PotionName.ManaRecoverUp, ComponentUtils.AttributeDescription.manaRecover("10"));
 
@@ -90,7 +90,7 @@ public class NewPotion extends Item implements ActiveItem {
         put(PotionName.ManaDamageUp, ComponentUtils.AttributeDescription.manaDamage("40 + 40%"));
         put(PotionName.ManaDefenceUp, ComponentUtils.AttributeDescription.manaDefence("125 + 40%"));
 
-        put(PotionName.MovementSpeedUp, ComponentUtils.AttributeDescription.movementSpeed("60%"));
+        put(PotionName.MovementSpeedUp, ComponentUtils.AttributeDescription.movementSpeed("20%"));
         put(PotionName.HealthRecoverUp, ComponentUtils.AttributeDescription.healthRecover("5%"));
         put(PotionName.ManaRecoverUp, ComponentUtils.AttributeDescription.manaRecover("25"));
 

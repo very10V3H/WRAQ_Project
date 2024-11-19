@@ -38,7 +38,7 @@ public class PlainBow extends WraqBow implements OnHitEffectEquip {
         List<Component> components = new ArrayList<>();
         Compute.DescriptionPassive(components, Component.literal("平原祝福").withStyle(ChatFormatting.GREEN));
         components.add(Component.literal("箭矢命中目标后提供持续2s的").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.movementSpeed("40%")));
+                append(ComponentUtils.AttributeDescription.movementSpeed("10%")));
         return components;
     }
 
@@ -50,6 +50,6 @@ public class PlainBow extends WraqBow implements OnHitEffectEquip {
     @Override
     public void onHit(Player player, Mob mob) {
         StableAttributesModifier.addM(player, StableAttributesModifier.playerMovementSpeedModifier,
-                "plainBowPassiveExMovementSpeed", 0.4, player.getServer().getTickCount() + 40, this);
+                "plainBowPassiveExMovementSpeed", 0.1, player.getServer().getTickCount() + 40, this);
     }
 }

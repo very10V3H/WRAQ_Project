@@ -8,6 +8,7 @@ import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.loot.RandomLootEquip;
 import fun.wraq.process.func.item.InventoryOperation;
+import fun.wraq.render.gui.illustrate.Display;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -34,9 +35,13 @@ public abstract class WraqArmor extends ArmorItem {
         super(armorMaterial, type, properties);
         Utils.armorTag.put(this, 1d);
         Utils.armorList.add(this);
-    if (this instanceof ForgeItem forgeItem && !forgeItem.forgeRecipe().isEmpty()) {
+        if (this instanceof ForgeItem forgeItem && !forgeItem.forgeRecipe().isEmpty()) {
             ForgeRecipe.forgeDrawRecipe.put(this, forgeItem.forgeRecipe());
         }
+        if (type.equals(Type.HELMET)) Display.helmetList.add(this);
+        if (type.equals(Type.CHESTPLATE)) Display.chestList.add(this);
+        if (type.equals(Type.LEGGINGS)) Display.leggingsList.add(this);
+        if (type.equals(Type.BOOTS)) Display.bootsList.add(this);
     }
 
     public abstract Style getMainStyle();
@@ -99,16 +104,13 @@ public abstract class WraqArmor extends ArmorItem {
                 .stream().filter(itemStack -> itemStack.getItem().getClass().equals(clazz)).count();
     }
 
-    public void tick(Player player) {}
+    public void tick(Player player) {
+    }
 
-    @Override
-    public void onInventoryTick(ItemStack stack, Level level, Player player, int slotIndex, int selectedIndex) {
-        if (!level.isClientSide) {
-            if (this.type.equals(Type.HELMET) && slotIndex == 39) tick(player);
-            if (this.type.equals(Type.CHESTPLATE) && slotIndex == 38) tick(player);
-            if (this.type.equals(Type.LEGGINGS) && slotIndex == 37) tick(player);
-            if (this.type.equals(Type.BOOTS) && slotIndex == 36) tick(player);
-        }
-        super.onInventoryTick(stack, level, player, slotIndex, selectedIndex);
+    public static void serverTick(Player player) {
+        InventoryOperation.getArmors(player)
+                .stream().filter(itemStack -> itemStack.getItem() instanceof WraqArmor)
+                .map(stack -> (WraqArmor) stack.getItem())
+                .forEach(armor -> armor.tick(player));
     }
 }

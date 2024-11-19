@@ -1,15 +1,12 @@
 package fun.wraq.series.overworld.castle;
 
 import fun.wraq.common.Compute;
-import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -54,12 +51,4 @@ public class BeaconBracelet extends Item implements ICurioItem {
     public boolean canEquipFromUse(SlotContext slotContext, ItemStack stack) {
         return true;
     }
-
-    public static void Passive(Player player, Mob mob) {
-        if (Compute.hasCurios(player, ModItems.BeaconBracelet.get())) {
-            /*Damage.LastXpStrengthDamageToMob(player, mob, 1, 40, 10, true);*/
-            Compute.IgniteMob(player, mob, 40);
-        }
-    }
-
 }

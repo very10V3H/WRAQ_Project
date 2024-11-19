@@ -1,8 +1,9 @@
 package fun.wraq.Items.MainStory_1.Mission;
 
-import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.ComponentUtils;
+import fun.wraq.process.system.endlessinstance.EndlessCoreScreen;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -71,7 +72,6 @@ public class Main0 extends Item {
                     player.getInventory().setItem(i, newBackPack);
                 }
             }*/
-            player.sendSystemMessage(Te.s(Component.translatable("item.vmd." + player.getMainHandItem().getItem()).getString()));
         }
 
         if (!level.isClientSide && player.isShiftKeyDown()) {
@@ -79,7 +79,7 @@ public class Main0 extends Item {
         }
 
         if (level.isClientSide && !player.isShiftKeyDown()) {
-
+            Minecraft.getInstance().setScreen(new EndlessCoreScreen());
         }
 
         if (level.isClientSide && player.isShiftKeyDown()) {

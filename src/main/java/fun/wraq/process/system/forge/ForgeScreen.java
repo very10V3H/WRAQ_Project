@@ -3,6 +3,7 @@ package fun.wraq.process.system.forge;
 import com.mojang.blaze3d.systems.RenderSystem;
 import fun.wraq.blocks.blocks.forge.ForgeRecipe;
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.networking.ModNetworking;
@@ -66,7 +67,9 @@ public class ForgeScreen extends Screen {
             int yOffset = -36;
             int finalI = i;
             this.addRenderableWidget(Button.builder(Component.translatable("\uD83D\uDEE0尝试锻造\uD83D\uDEE0"), (p_280814_) -> {
-                ModNetworking.sendToServer(new ForgeC2SPacket(ForgeEquipUtils.getPlayerInZoneItemList(mc.player).get(page * 3 + finalI)));
+                if (page * 3 + finalI < ForgeEquipUtils.getPlayerInZoneItemList(mc.player).size()) {
+                    ModNetworking.sendToServer(new ForgeC2SPacket(ForgeEquipUtils.getPlayerInZoneItemList(mc.player).get(page * 3 + finalI)));
+                }
             }).pos(X + xOffset - 24, Y + yOffset + 50).size(64, 16).build());
         }
     }
@@ -83,6 +86,14 @@ public class ForgeScreen extends Screen {
         RenderSystem.setShaderTexture(0, GUI_TEXTURE);
 
         int size = ForgeEquipUtils.getPlayerInZoneItemList(mc.player).size();
+        int X = this.width / 2;
+        int Y = this.height / 2;
+
+        guiGraphics.drawString(fontRenderer, Te.s("?锻造品质", ChatFormatting.GREEN),
+                X + 112, Y - 108, 0);
+        if (x > X + 112 && x < X + 112 + 28 && y > Y - 105 - 6 && y < Y - 108 + 12) {
+            guiGraphics.renderComponentTooltip(fontRenderer, ForgeEquipUtils.getTierAndValueDescription(), x, y);
+        }
 
         for (int i = 0; i < 3; i++) {
             if (page * 3 + i < size) {

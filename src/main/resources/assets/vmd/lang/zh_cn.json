@@ -1470,9 +1470,10 @@
 
   "item.vmd.wolf_leather": "森林狼皮",
 
-  "item.vmd.supply_box_tier_1": "补给包",
-  "item.vmd.supply_box_tier_2": "补给包",
-  "item.vmd.supply_box_tier_3": "补给包",
+  "item.vmd.supply_box_tier_0": "补给包",
+  "item.vmd.supply_box_tier_1": "非凡补给包",
+  "item.vmd.supply_box_tier_2": "丰饶补给包",
+  "item.vmd.supply_box_tier_3": "富饶补给包",
 
   "item.vmd.lake_sceptre0": "澈源之杖",
   "item.vmd.lake_sceptre1": "澈源之杖¹",
@@ -1829,6 +1830,13 @@
   "item.vmd.sakura_power": "法术 - 开春之樱",
   "item.vmd.wither_enhance_power": "法术 - 凋落利刃",
   "item.vmd.wither_skeleton_enhance_power": "法术 - 凋零之息",
+
+  "item.vmd.tear_curio_0": "澄澈泪滴",
+  "item.vmd.tear_curio_1": "澄澈泪滴¹",
+  "item.vmd.tear_curio_2": "澄澈泪滴²",
+  "item.vmd.tear_curio_3": "澄澈泪滴³",
+
+  "item.vmd.tp_ticket": "传送中枢传送券",
 
   "curios.identifier.rune": "符石",
   "curios.identifier.crest": "纹章",

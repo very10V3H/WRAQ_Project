@@ -129,13 +129,9 @@ public abstract class WraqMainHandEquip extends SwordItem {
 
     public void tick(Player player) {}
 
-    @Override
-    public void onInventoryTick(ItemStack stack, Level level, Player player, int slotIndex, int selectedIndex) {
-        if (!level.isClientSide) {
-            if (selectedIndex == slotIndex) {
-                tick(player);
-            }
+    public static void serverTick(Player player) {
+        if (player.getMainHandItem().getItem() instanceof WraqMainHandEquip wraqMainHandEquip) {
+            wraqMainHandEquip.tick(player);
         }
-        super.onInventoryTick(stack, level, player, slotIndex, selectedIndex);
     }
 }

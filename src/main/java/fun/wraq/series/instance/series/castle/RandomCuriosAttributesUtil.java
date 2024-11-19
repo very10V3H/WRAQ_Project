@@ -13,10 +13,10 @@ public class RandomCuriosAttributesUtil {
         put(StringUtils.CuriosAttribute.attackDamage, 200d);
         put(StringUtils.CuriosAttribute.manaDamage, 400d);
         put(StringUtils.CuriosAttribute.maxHealth, 800d);
-        put(StringUtils.CuriosAttribute.defence, 8d);
-        put(StringUtils.CuriosAttribute.manaDefence, 8d);
-        put(StringUtils.CuriosAttribute.defencePenetration0, 4d);
-        put(StringUtils.CuriosAttribute.manaPenetration0, 4d);
+        put(StringUtils.CuriosAttribute.defence, 18d);
+        put(StringUtils.CuriosAttribute.manaDefence, 18d);
+        put(StringUtils.CuriosAttribute.defencePenetration0, 9d);
+        put(StringUtils.CuriosAttribute.manaPenetration0, 9d);
         put(StringUtils.CuriosAttribute.coolDown, 0.15);
         put(StringUtils.CuriosAttribute.manaRecover, 15d);
         put(StringUtils.CuriosAttribute.maxMana, 50d);
@@ -26,11 +26,11 @@ public class RandomCuriosAttributesUtil {
         put(StringUtils.CuriosAttribute.critRate, 0.1);
         put(StringUtils.CuriosAttribute.healthSteal, 0.1);
         put(StringUtils.CuriosAttribute.defencePenetration, 0.15);
-        put(StringUtils.CuriosAttribute.movementSpeed, 0.5);
+        put(StringUtils.CuriosAttribute.movementSpeed, 0.1);
         put(StringUtils.CuriosAttribute.commonMovementSpeed, 0.25);
         put(StringUtils.CuriosAttribute.healthRecover, 50d);
         put(StringUtils.CuriosAttribute.percentHealthRecover, 0.05d);
-        put(StringUtils.CuriosAttribute.healEffectUp, 0.5);
+        put(StringUtils.CuriosAttribute.healEffectUp, 0.15);
         put(StringUtils.CuriosAttribute.manaPenetration, 0.15);
         put(StringUtils.CuriosAttribute.manaHealthSteal, 0.1);
     }};

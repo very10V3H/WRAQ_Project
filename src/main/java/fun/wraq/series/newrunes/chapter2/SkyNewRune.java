@@ -46,7 +46,7 @@ public class SkyNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDes
         components.add(Component.literal(" 损失").withStyle(ChatFormatting.RED).
                 append(ComponentUtils.AttributeDescription.critDamage("10%总")).
                 append(Component.literal("，获得").withStyle(ChatFormatting.WHITE)).
-                append(ComponentUtils.AttributeDescription.movementSpeed("40%")));
+                append(ComponentUtils.AttributeDescription.movementSpeed("20%")));
         return components;
     }
 
