@@ -24,7 +24,7 @@ import java.util.Random;
 
 public class MoontainCommon3ExSpawnController extends MobSpawnController {
 
-    public static String mobName = "望山阁灵";
+    public static String mobName = "望山阁灵E";
     private static MoontainCommon3ExSpawnController instance;
 
     public static MoontainCommon3ExSpawnController getInstance(Level world) {
