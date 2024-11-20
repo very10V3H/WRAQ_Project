@@ -1,6 +1,7 @@
 package fun.wraq.render.hud.main;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -120,7 +121,9 @@ public class PlayerSelfAttributesHud {
 
         RenderSystem.setShaderTexture(0, SPEED);
         guiGraphics.blit(SPEED, x - 160 + xOffset, y - 11, 0, 0, 12, 12, 12, 12);
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%.0f%%", ClientUtils.SpeedC * 100)), x - 135 + xOffset, y - 8, 5635925);
+        guiGraphics.drawCenteredString(fontRenderer, Te.s(String.format("%.0f%%", ClientUtils.SpeedC * 100),
+                        ClientUtils.SpeedC >= 0 ? ChatFormatting.GREEN : ChatFormatting.RED)
+                , x - 135 + xOffset, y - 8, 5635925);
 
         if (mc.player.isShiftKeyDown()) {
 

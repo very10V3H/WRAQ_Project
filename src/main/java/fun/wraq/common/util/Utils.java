@@ -666,7 +666,7 @@ public class Utils {
         add(CustomStyle.styleOfMoon1);
         add(CustomStyle.styleOfPurpleIron);
         add(CustomStyle.styleOfMoon);
-        add(CustomStyle.styleOfLife);
+        add(CustomStyle.styleOfMoontain);
         add(CustomStyle.styleOfLightning);
     }};
 

@@ -22,37 +22,32 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class MoontainCommon1SpawnController extends MobSpawnController {
+public class MoontainCommon1ExSpawnController extends MobSpawnController {
 
-    public static String mobName = "望山孤魂";
-    private static MoontainCommon1SpawnController instance;
+    public static String mobName = "*望山孤魂*";
+    private static MoontainCommon1ExSpawnController instance;
 
-    public static MoontainCommon1SpawnController getInstance(Level world) {
+    public static MoontainCommon1ExSpawnController getInstance(Level world) {
         if (instance == null) {
             List<Vec3> spawnPos = List.of(
-                    new Vec3(1971, 151, -891),
-                    new Vec3(1969, 151, -881),
-                    new Vec3(1969, 155, -869),
-                    new Vec3(1983, 151, -892),
-                    new Vec3(1980, 151, -881),
-                    new Vec3(1983, 151, -868),
-                    new Vec3(1985, 160, -869),
-                    new Vec3(1996, 159, -893),
-                    new Vec3(1996, 159, -882),
-                    new Vec3(1995, 151, -880),
-                    new Vec3(1993, 151, -869),
-                    new Vec3(1996, 159, -867)
+                    new Vec3(1975, 207, -892),
+                    new Vec3(1971, 207, -881),
+                    new Vec3(1988, 207, -894),
+                    new Vec3(1981, 207, -881),
+                    new Vec3(1984, 207, -872),
+                    new Vec3(1995, 207, -881),
+                    new Vec3(1996, 207, -870)
             );
-            instance = new MoontainCommon1SpawnController(spawnPos,
+            instance = new MoontainCommon1ExSpawnController(spawnPos,
                     (int) MoontainEntities.commonUpPos.x, (int) MoontainEntities.commonUpPos.y, (int) MoontainEntities.commonUpPos.z,
                     (int) MoontainEntities.commonDownPos.x, (int) MoontainEntities.commonDownPos.y, (int) MoontainEntities.commonDownPos.z,
-                    world, 160);
+                    world, 170);
         }
         return instance;
     }
 
-    public MoontainCommon1SpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpY, int boundaryUpZ,
-                                          int boundaryDownX, int boundaryDownY, int boundaryDownZ, Level level, int averageLevel) {
+    public MoontainCommon1ExSpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpY, int boundaryUpZ,
+                                            int boundaryDownX, int boundaryDownY, int boundaryDownZ, Level level, int averageLevel) {
         super(Te.s("望山孤魂", CustomStyle.styleOfMoontain), canSpawnPos, boundaryUpX, boundaryUpY, boundaryUpZ,
                 boundaryDownX, boundaryDownY, boundaryDownZ, 8, level, averageLevel);
     }
@@ -69,9 +64,9 @@ public class MoontainCommon1SpawnController extends MobSpawnController {
         MobSpawn.setMobCustomName(mrPumpkin, Component.literal(mobName).withStyle(style), xpLevel);
 
         // 需要验证
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(mrPumpkin, xpLevel, 1600, 130,
-                130, 0.4, 4, 0.3, 45, 20,
-                250 * Math.pow(10, 4), 0.35);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(mrPumpkin, xpLevel, 1800, 140,
+                140, 0.4, 4, 0.3, 55, 20,
+                300 * Math.pow(10, 4), 0.35);
 
         // 设置物品
 
@@ -95,10 +90,10 @@ public class MoontainCommon1SpawnController extends MobSpawnController {
     @Override
     public List<ItemAndRate> getDropList() {
         return new ArrayList<>() {{
-            add(new ItemAndRate(MoontainItems.SOUL_FRAGMENT.get(), 0.1));
-            add(new ItemAndRate(MoontainItems.STONE_FRAGMENT.get(), 0.25));
-            add(new ItemAndRate(ModItems.silverCoin.get(), 0.8));
-            add(new ItemAndRate(ModItems.gemPiece.get(), 0.06));
+            add(new ItemAndRate(MoontainItems.SOUL_FRAGMENT.get(), 0.12));
+            add(new ItemAndRate(MoontainItems.STONE_FRAGMENT.get(), 0.3));
+            add(new ItemAndRate(ModItems.silverCoin.get(), 0.96));
+            add(new ItemAndRate(ModItems.gemPiece.get(), 0.065));
         }};
     }
 }

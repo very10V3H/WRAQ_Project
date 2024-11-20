@@ -87,7 +87,9 @@ import fun.wraq.process.system.vp.networking.VpValueS2CPacket;
 import fun.wraq.process.system.wayPoints.networking.ClientWayPointS2CPacket;
 import fun.wraq.process.system.wayPoints.networking.SpecificWayPointAddS2CPacket;
 import fun.wraq.process.system.wayPoints.networking.SpecificWayPointRemoveS2CPacket;
-import fun.wraq.render.gui.SingleItemChangeC2SPacket;
+import fun.wraq.render.gui.trade.SingleItemChangeC2SPacket;
+import fun.wraq.render.gui.trade.SingleItemChangeFullDataS2CPacket;
+import fun.wraq.render.gui.trade.SingleItemChangeSingleRecipeTimeS2CPacket;
 import fun.wraq.render.hud.networking.*;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -1353,6 +1355,16 @@ public class ModNetworking {
                 .decoder(SingleItemChangeC2SPacket::new)
                 .encoder(SingleItemChangeC2SPacket::toBytes)
                 .consumerMainThread(SingleItemChangeC2SPacket::handle)
+                .add();
+        net.messageBuilder(SingleItemChangeFullDataS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(SingleItemChangeFullDataS2CPacket::new)
+                .encoder(SingleItemChangeFullDataS2CPacket::toBytes)
+                .consumerMainThread(SingleItemChangeFullDataS2CPacket::handle)
+                .add();
+        net.messageBuilder(SingleItemChangeSingleRecipeTimeS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(SingleItemChangeSingleRecipeTimeS2CPacket::new)
+                .encoder(SingleItemChangeSingleRecipeTimeS2CPacket::toBytes)
+                .consumerMainThread(SingleItemChangeSingleRecipeTimeS2CPacket::handle)
                 .add();
     }
 

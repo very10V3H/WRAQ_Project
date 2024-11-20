@@ -24,33 +24,34 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class HuskSpawnController extends MobSpawnController {
+public class HuskEx2SpawnController extends MobSpawnController {
 
     public static String mobName = "脆弱的岩灵";
-    private static HuskSpawnController instance;
+    private static HuskEx2SpawnController instance;
 
-    public static HuskSpawnController getInstance(Level world) {
+    public static HuskEx2SpawnController getInstance(Level world) {
         if (instance == null) {
             List<Vec3> spawnPos = List.of(
-                    new Vec3(783, 67, 407),
-                    new Vec3(786, 67, 390),
-                    new Vec3(795, 67, 381),
-                    new Vec3(782, 67, 380),
-                    new Vec3(789, 68, 371),
-                    new Vec3(805, 67, 374),
-                    new Vec3(814, 67, 367),
-                    new Vec3(799, 69, 360),
-                    new Vec3(822, 66, 361),
-                    new Vec3(811, 68, 352),
-                    new Vec3(829, 67, 351),
-                    new Vec3(855, 69, 330)
+                    new Vec3(1162, 67, 356),
+                    new Vec3(1185, 67, 350),
+                    new Vec3(1181, 65, 365),
+                    new Vec3(1198, 65, 371),
+                    new Vec3(1189, 65, 381),
+                    new Vec3(1198, 65, 371),
+                    new Vec3(1211, 66, 379),
+                    new Vec3(1203, 67, 390),
+                    new Vec3(1223, 68, 391),
+                    new Vec3(1215, 68, 403),
+                    new Vec3(1233, 67, 402),
+                    new Vec3(1240, 65, 418),
+                    new Vec3(1257, 63, 427)
             );
-            instance = new HuskSpawnController(spawnPos, spawnPos.size() * 2, world, 1, 84);
+            instance = new HuskEx2SpawnController(spawnPos, spawnPos.size() * 2, world, 1, 84);
         }
         return instance;
     }
 
-    public HuskSpawnController(List<Vec3> canSpawnPos, int oneZoneMaxMobNum, Level level, int mobPlayerRate, int averageLevel) {
+    public HuskEx2SpawnController(List<Vec3> canSpawnPos, int oneZoneMaxMobNum, Level level, int mobPlayerRate, int averageLevel) {
         super(Te.s("脆弱的岩灵", CustomStyle.styleOfHusk), canSpawnPos, oneZoneMaxMobNum, 16, level, mobPlayerRate, averageLevel,
                 List.of(new Boundary(new Vec3(933, 1000, 415), new Vec3(760, -100, 289)),
                         new Boundary(new Vec3(1230, 1000, 453), new Vec3(1034, -100, 270))));

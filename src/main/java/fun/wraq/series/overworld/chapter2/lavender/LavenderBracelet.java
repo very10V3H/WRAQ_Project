@@ -4,6 +4,7 @@ import fun.wraq.blocks.entity.Decomposable;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
+import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.struct.Shield;
 import fun.wraq.common.equip.impl.RandomCurios;
@@ -12,11 +13,13 @@ import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.castle.RandomCuriosAttributesUtil;
 import net.minecraft.ChatFormatting;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
@@ -100,5 +103,31 @@ public class LavenderBracelet extends WraqCurios implements RandomCurios, UsageO
     @Override
     public ItemStack getProduct() {
         return new ItemStack(ModItems.PurpleIronPiece.get(), 8);
+    }
+
+    public static boolean resetBugAttributes(ItemStack itemStack) {
+        Item item = itemStack.getItem();
+        CompoundTag data = itemStack.getOrCreateTagElement(Utils.MOD_ID);
+        if (item instanceof LavenderBracelet) {
+            List<String> tag = List.of(
+                    StringUtils.CuriosAttribute.maxHealth,
+                    StringUtils.CuriosAttribute.defence,
+                    StringUtils.CuriosAttribute.manaDefence,
+                    StringUtils.CuriosAttribute.healthRecover,
+                    StringUtils.CuriosAttribute.healEffectUp);
+            int count = 0;
+            for (String s : tag) {
+                if (data.contains(s)) {
+                    count ++;
+                }
+            }
+            if (count > 3) {
+                tag.forEach(data::remove);
+                RandomCurios randomCurios = (RandomCurios) item;
+                randomCurios.setAttribute(itemStack);
+                return true;
+            }
+        }
+        return false;
     }
 }

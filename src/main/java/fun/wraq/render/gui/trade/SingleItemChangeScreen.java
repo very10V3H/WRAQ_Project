@@ -1,10 +1,11 @@
-package fun.wraq.render.gui;
+package fun.wraq.render.gui.trade;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.networking.ModNetworking;
+import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -93,11 +94,24 @@ public class SingleItemChangeScreen extends Screen {
                 guiGraphics.drawCenteredString(font, Component.literal("" + goods.getCount()).withStyle(ChatFormatting.WHITE),
                         this.width / 2 - 100 - 17 + xOffset + 20, this.height / 2 - 83 + 32 * i + 8, 0);
                 guiGraphics.drawCenteredString(font, goods.getDisplayName(), this.width / 2 - 74, this.height / 2 - 86 + 32 * i, 0);
-                Component component = Te.s("", needStack.getDisplayName());
+                Component component = Te.s(needStack.getDisplayName(), " * " + needStack.getCount(), ChatFormatting.AQUA);
                 guiGraphics.drawCenteredString(font, component, this.width / 2 - 74, this.height / 2 - 71 + 32 * i, 0);
                 if (x > this.width / 2 - 100 - 17 + xOffset && x < this.width / 2 - 100 - 17 + 16 + xOffset
                         && y > this.height / 2 - 83 + 32 * i && y < this.height / 2 - 83 + 32 * i + 16) {
                     guiGraphics.renderTooltip(font, goods, x, y);
+                }
+
+                if (x > this.width / 2 - 35 && x < this.width / 2
+                        && y > this.height / 2 - 83 + 32 * i && y < this.height / 2 - 83 + 32 * i + 16) {
+                    if (recipe.limitType().equals(SingleItemChangePurchaseLimit.Type.NULL)) {
+                        guiGraphics.renderTooltip(font, Te.s("不限制购买次数", CustomStyle.styleOfStone), x, y);
+                    } else {
+                        guiGraphics.renderTooltip(font, Te.s("限购: ", CustomStyle.styleOfGold,
+                                "" + SingleItemChangePurchaseLimit.clientDataMap.getOrDefault(recipe.getDataKey(), 0),
+                                CustomStyle.styleOfWorld, " / ", CustomStyle.styleOfStone,
+                                "" + recipe.limitTimes(),
+                                " - ", SingleItemChangePurchaseLimit.TYPE_DESCRIPTION_MAP.get(recipe.limitType())), x, y);
+                    }
                 }
             }
         }
@@ -113,11 +127,24 @@ public class SingleItemChangeScreen extends Screen {
                         this.width / 2 - 100 - 17 + xOffset + 20 + 144, this.height / 2 - 83 + 32 * i + 8, 0);
                 guiGraphics.drawCenteredString(font, goods.getDisplayName(),
                         this.width / 2 - 74 + 140, this.height / 2 - 86 + 32 * i, 0);
-                Component component = Te.s(needStack.getDisplayName());
+                Component component = Te.s(needStack.getDisplayName(), " * " + needStack.getCount(), ChatFormatting.AQUA);
                 guiGraphics.drawCenteredString(font, component, this.width / 2 - 74 + 144, this.height / 2 - 71 + 32 * i, 0);
                 if (x > this.width / 2 - 100 - 13 + 140 + xOffset && x < this.width / 2 - 100 - 13 + 16 + 140 + xOffset
                         && y > this.height / 2 - 83 + 32 * i && y < this.height / 2 - 83 + 32 * i + 16) {
                     guiGraphics.renderTooltip(font, goods, x, y);
+                }
+
+                if (x > this.width / 2 - 35 + 140 && x < this.width / 2 + 140
+                        && y > this.height / 2 - 83 + 32 * i && y < this.height / 2 - 83 + 32 * i + 16) {
+                    if (recipe.limitType().equals(SingleItemChangePurchaseLimit.Type.NULL)) {
+                        guiGraphics.renderTooltip(font, Te.s("不限制购买次数", CustomStyle.styleOfStone), x, y);
+                    } else {
+                        guiGraphics.renderTooltip(font, Te.s("限购: ", CustomStyle.styleOfGold,
+                                "" + SingleItemChangePurchaseLimit.clientDataMap.getOrDefault(recipe.getDataKey(), 0),
+                                CustomStyle.styleOfWorld, " / ", CustomStyle.styleOfStone,
+                                "" + recipe.limitTimes(),
+                                " - ", SingleItemChangePurchaseLimit.TYPE_DESCRIPTION_MAP.get(recipe.limitType())), x, y);
+                    }
                 }
             }
         }

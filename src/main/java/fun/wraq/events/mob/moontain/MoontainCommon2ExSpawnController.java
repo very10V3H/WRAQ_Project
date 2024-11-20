@@ -22,33 +22,29 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class MoontainCommon2SpawnController extends MobSpawnController {
+public class MoontainCommon2ExSpawnController extends MobSpawnController {
 
-    public static String mobName = "望山魂驹";
-    private static MoontainCommon2SpawnController instance;
+    public static String mobName = "*望山魂驹*";
+    private static MoontainCommon2ExSpawnController instance;
 
-    public static MoontainCommon2SpawnController getInstance(Level world) {
+    public static MoontainCommon2ExSpawnController getInstance(Level world) {
         if (instance == null) {
             List<Vec3> spawnPos = List.of(
-                    new Vec3(1970, 167, -895),
-                    new Vec3(1970, 167, -882),
-                    new Vec3(1970, 167, -869),
-                    new Vec3(1981, 167, -890),
-                    new Vec3(1985, 176, -872),
-                    new Vec3(1996, 175, -893),
-                    new Vec3(1996, 175, -882),
-                    new Vec3(1996, 175, -867)
+                    new Vec3(1985, 223, -872),
+                    new Vec3(1995, 223, -893),
+                    new Vec3(1996, 223, -883),
+                    new Vec3(1997, 223, -872)
             );
-            instance = new MoontainCommon2SpawnController(spawnPos,
+            instance = new MoontainCommon2ExSpawnController(spawnPos,
                     (int) MoontainEntities.commonUpPos.x, (int) MoontainEntities.commonUpPos.y, (int) MoontainEntities.commonUpPos.z,
                     (int) MoontainEntities.commonDownPos.x, (int) MoontainEntities.commonDownPos.y, (int) MoontainEntities.commonDownPos.z,
-                    world, 170);
+                    world, 180);
         }
         return instance;
     }
 
-    public MoontainCommon2SpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpY, int boundaryUpZ,
-                                          int boundaryDownX, int boundaryDownY, int boundaryDownZ, Level level, int averageLevel) {
+    public MoontainCommon2ExSpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpY, int boundaryUpZ,
+                                            int boundaryDownX, int boundaryDownY, int boundaryDownZ, Level level, int averageLevel) {
         super(Te.s("望山魂驹", CustomStyle.styleOfMoontain), canSpawnPos, boundaryUpX, boundaryUpY, boundaryUpZ,
                 boundaryDownX, boundaryDownY, boundaryDownZ, 8, level, averageLevel);
     }
@@ -65,9 +61,9 @@ public class MoontainCommon2SpawnController extends MobSpawnController {
         MobSpawn.setMobCustomName(felsteedEntity, Component.literal(mobName).withStyle(style), xpLevel);
 
         // 需要验证
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(felsteedEntity, xpLevel, 2000, 145,
-                145, 0.4, 4, 0.3, 55, 20,
-                300 * Math.pow(10, 4), 0.4);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(felsteedEntity, xpLevel, 2200, 155,
+                155, 0.4, 4, 0.3, 60, 20,
+                350 * Math.pow(10, 4), 0.4);
 
         // 设置物品
 
@@ -91,10 +87,10 @@ public class MoontainCommon2SpawnController extends MobSpawnController {
     @Override
     public List<ItemAndRate> getDropList() {
         return new ArrayList<>() {{
-            add(new ItemAndRate(MoontainItems.LEATHER.get(), 0.1));
-            add(new ItemAndRate(MoontainItems.STONE_FRAGMENT.get(), 0.3));
-            add(new ItemAndRate(ModItems.silverCoin.get(), 0.9));
-            add(new ItemAndRate(ModItems.gemPiece.get(), 0.06));
+            add(new ItemAndRate(MoontainItems.LEATHER.get(), 0.12));
+            add(new ItemAndRate(MoontainItems.STONE_FRAGMENT.get(), 0.36));
+            add(new ItemAndRate(ModItems.silverCoin.get(), 1.1));
+            add(new ItemAndRate(ModItems.gemPiece.get(), 0.065));
         }};
     }
 }

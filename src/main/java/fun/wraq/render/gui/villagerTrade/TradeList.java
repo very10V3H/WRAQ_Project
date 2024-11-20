@@ -2457,7 +2457,7 @@ public class TradeList {
                 List.of(new ItemStack(ModItems.goldCoin.get(), 4)));
         tradeRecipeMap.put(forestGem,
                 List.of(new ItemStack(ModItems.ForestRune.get(), 10),
-                        new ItemStack(ModItems.completeGem.get(), 16)));
+                        new ItemStack(ModItems.completeGem.get(), 10)));
     }
 
     public static void forestTool() {
@@ -2545,7 +2545,7 @@ public class TradeList {
                         new ItemStack(ModItems.goldCoin.get(), 8)));
         tradeRecipeMap.put(lakeGem,
                 List.of(new ItemStack(ModItems.LakeRune.get(), 10),
-                        new ItemStack(ModItems.completeGem.get(), 16)));
+                        new ItemStack(ModItems.completeGem.get(), 10)));
         tradeRecipeMap.put(silverCoin,
                 List.of(new ItemStack(ModItems.LakeSoul.get(), 64)));
     }
@@ -2584,7 +2584,7 @@ public class TradeList {
                         new ItemStack(ModItems.goldCoin.get(), 10)));
         tradeRecipeMap.put(mineGem,
                 List.of(new ItemStack(ModItems.MineRune.get(), 10),
-                        new ItemStack(ModItems.completeGem.get(), 16)));
+                        new ItemStack(ModItems.completeGem.get(), 10)));
         tradeRecipeMap.put(silverCoin,
                 List.of(new ItemStack(ModItems.MineSoul.get(), 64)));
     }
@@ -2612,7 +2612,7 @@ public class TradeList {
                 List.of(new ItemStack(ModItems.goldCoin.get(), 96)));
         tradeRecipeMap.put(volcanoGem,
                 List.of(new ItemStack(ModItems.VolcanoRune.get(), 10),
-                        new ItemStack(ModItems.completeGem.get(), 16)));
+                        new ItemStack(ModItems.completeGem.get(), 10)));
     }
 
     public static void volcanoTool() {
@@ -2677,7 +2677,7 @@ public class TradeList {
                 List.of(new ItemStack(ModItems.goldCoin.get(), 96)));
         tradeRecipeMap.put(snowGem,
                 List.of(new ItemStack(ModItems.SnowRune.get(), 10),
-                        new ItemStack(ModItems.completeGem.get(), 16)));
+                        new ItemStack(ModItems.completeGem.get(), 10)));
     }
 
     public static void snowTool() {
@@ -2733,7 +2733,7 @@ public class TradeList {
                         new ItemStack(ModItems.gemPiece.get(), 1)));
         tradeRecipeMap.put(skyGem,
                 List.of(new ItemStack(ModItems.SkyRune.get(), 10),
-                        new ItemStack(ModItems.completeGem.get(), 16)));
+                        new ItemStack(ModItems.completeGem.get(), 10)));
         tradeRecipeMap.put(silverCoin,
                 List.of(new ItemStack(ModItems.SkySoul.get(), 64)));
     }

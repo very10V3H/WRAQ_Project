@@ -38,6 +38,7 @@ import fun.wraq.process.system.teamInstance.NewTeamInstanceEvent;
 import fun.wraq.process.system.tower.Tower;
 import fun.wraq.process.system.tower.TowerStatusS2CPacket;
 import fun.wraq.process.system.vp.VpDataHandler;
+import fun.wraq.render.gui.trade.SingleItemChangePurchaseLimit;
 import fun.wraq.render.hud.main.QuickUseHud;
 import fun.wraq.render.hud.networking.QuickUseDisplayS2CPacket;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -339,6 +340,7 @@ public class LoginInEvent {
             }
 
             NewLotteries.sendLotteryRewardTimes(player);
+            SingleItemChangePurchaseLimit.sendAllRecipeTimes(player);
         }
     }
 

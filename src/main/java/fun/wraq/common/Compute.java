@@ -1948,4 +1948,10 @@ public class Compute {
                 && entity.getY() < MoontainEntities.commonUpPos.y
                 && entity.getZ() < MoontainEntities.commonUpPos.z;
     }
+
+    public static void sendMotionPacketToPlayer(Player player, Vec3 vec3) {
+        ClientboundSetEntityMotionPacket clientboundSetEntityMotionPacket =
+                new ClientboundSetEntityMotionPacket(player.getId(), vec3);
+        ((ServerPlayer) player).connection.send(clientboundSetEntityMotionPacket);
+    }
 }

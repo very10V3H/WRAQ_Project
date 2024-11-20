@@ -5,6 +5,7 @@ import fun.wraq.common.equip.impl.ExBaseAttributeValueEquip;
 import fun.wraq.common.equip.impl.RandomCurios;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.Utils;
+import fun.wraq.events.mob.moontain.MoontainEntities;
 import fun.wraq.process.func.multiblockactive.rightclick.drive.EnhanceCondition;
 import fun.wraq.process.func.multiblockactive.rightclick.drive.EnhanceOperation;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -19,6 +20,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 
 import java.security.SecureRandom;
 import java.util.List;
@@ -131,11 +133,25 @@ public class MoontainUtils {
         MoontainCurios.enhanceAttributesFullRate(stack, 0.1);
     });
 
-    public static void buffTick(Player player) {
+    public static final List<Vec3> jumpPos = List.of(
+            new Vec3(1992, 159, -890),
+            new Vec3(1974, 167, -872),
+            new Vec3(1992, 175, -890),
+            new Vec3(1974, 199, -872),
+            new Vec3(1992, 223, -890)
+    );
+
+    public static void tick(Player player) {
         if (player.tickCount % 20 == 0) {
             if (player.hasEffect(BornInChaosV1ModMobEffects.INFERNAL_FLAME.get())) {
                 Compute.decreasePlayerHealth(player, player.getMaxHealth() * 0.08,
                         Te.s("被", "望山黯魂", CustomStyle.styleOfMoontain, "吞噬了", ChatFormatting.RED));
+            }
+        }
+        if (player.tickCount % 10 == 0
+                && Compute.isEntityInTwoPoint(player, MoontainEntities.commonDownPos, MoontainEntities.commonUpPos)) {
+            if (jumpPos.stream().anyMatch(pos -> player.position().distanceTo(pos) < 1.5)) {
+                Compute.sendMotionPacketToPlayer(player, new Vec3(0, 1.35, 0));
             }
         }
     }

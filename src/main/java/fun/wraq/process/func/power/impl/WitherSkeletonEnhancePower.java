@@ -33,7 +33,7 @@ public class WitherSkeletonEnhancePower extends WraqPower {
         List<Component> components = new ArrayList<>();
         components.add(Te.s(" 选定", "准星", ChatFormatting.AQUA, "或", "自身半径6格内", CustomStyle.styleOfStone,
                 "的一个目标"));
-        components.add(Te.s(" 对其造成", ComponentUtils.AttributeDescription.manaDamageValue("360%")));
+        components.add(Te.s(" 对其造成", ComponentUtils.AttributeDescription.manaDamageValue("540%")));
         components.add(Te.s(" 若其与你的距离", "小于6格", CustomStyle.styleOfStone,
                 "则造成削减其", ComponentUtils.AttributeDescription.manaDefence("20%")));
         components.add(Te.s(" 持续", "3s", CustomStyle.styleOfWorld));
@@ -42,7 +42,7 @@ public class WitherSkeletonEnhancePower extends WraqPower {
 
     @Override
     public int getCoolDownSecond() {
-        return 5;
+        return 3;
     }
 
     @Override
@@ -73,7 +73,7 @@ public class WitherSkeletonEnhancePower extends WraqPower {
             }
         }
         if (mob == null) return;
-        Damage.causeManaDamageToMonster_RateApDamage(player, mob, 3.6, true);
+        Damage.causeManaDamageToMonster_RateApDamage(player, mob, 5.4, true);
         ParticleProvider.createLineEffectParticle(player.level(), (int) mob.distanceTo(player) * 5,
                 player.getEyePosition(), mob.getEyePosition(), CustomStyle.styleOfWither);
         if (mob.distanceTo(player) < 6) {

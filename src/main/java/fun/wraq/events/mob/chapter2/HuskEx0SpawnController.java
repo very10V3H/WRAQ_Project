@@ -24,33 +24,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class HuskSpawnController extends MobSpawnController {
+public class HuskEx0SpawnController extends MobSpawnController {
 
     public static String mobName = "脆弱的岩灵";
-    private static HuskSpawnController instance;
+    private static HuskEx0SpawnController instance;
 
-    public static HuskSpawnController getInstance(Level world) {
+    public static HuskEx0SpawnController getInstance(Level world) {
         if (instance == null) {
             List<Vec3> spawnPos = List.of(
-                    new Vec3(783, 67, 407),
-                    new Vec3(786, 67, 390),
-                    new Vec3(795, 67, 381),
-                    new Vec3(782, 67, 380),
-                    new Vec3(789, 68, 371),
-                    new Vec3(805, 67, 374),
-                    new Vec3(814, 67, 367),
-                    new Vec3(799, 69, 360),
-                    new Vec3(822, 66, 361),
-                    new Vec3(811, 68, 352),
-                    new Vec3(829, 67, 351),
-                    new Vec3(855, 69, 330)
+                    new Vec3(894, 69, 325),
+                    new Vec3(905, 69, 323),
+                    new Vec3(902, 68, 333)
             );
-            instance = new HuskSpawnController(spawnPos, spawnPos.size() * 2, world, 1, 84);
+            instance = new HuskEx0SpawnController(spawnPos, spawnPos.size() * 2, world, 1, 84);
         }
         return instance;
     }
 
-    public HuskSpawnController(List<Vec3> canSpawnPos, int oneZoneMaxMobNum, Level level, int mobPlayerRate, int averageLevel) {
+    public HuskEx0SpawnController(List<Vec3> canSpawnPos, int oneZoneMaxMobNum, Level level, int mobPlayerRate, int averageLevel) {
         super(Te.s("脆弱的岩灵", CustomStyle.styleOfHusk), canSpawnPos, oneZoneMaxMobNum, 16, level, mobPlayerRate, averageLevel,
                 List.of(new Boundary(new Vec3(933, 1000, 415), new Vec3(760, -100, 289)),
                         new Boundary(new Vec3(1230, 1000, 453), new Vec3(1034, -100, 270))));

@@ -1,4 +1,4 @@
-package fun.wraq.render.gui;
+package fun.wraq.render.gui.trade;
 
 import fun.wraq.process.system.endlessinstance.EndlessCoreScreen;
 import net.minecraft.world.item.ItemStack;

@@ -56,7 +56,7 @@ public class MagmaPower extends WraqPower {
 
     @Override
     public double getManaCost() {
-        return 300;
+        return new double[]{300, 400, 500, 600}[tier];
     }
 
     @Override

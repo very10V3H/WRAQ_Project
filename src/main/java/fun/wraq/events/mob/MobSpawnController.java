@@ -2,6 +2,7 @@ package fun.wraq.events.mob;
 
 import fun.wraq.common.util.ItemAndRate;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -159,6 +160,12 @@ public abstract class MobSpawnController {
                     }
                 });
             }
+        }
+        else {
+            mobList.forEach(mob -> {
+                mob.remove(Entity.RemovalReason.KILLED);
+            });
+            mobList.clear();
         }
     }
 

@@ -80,14 +80,19 @@ public class ItemAndRate {
         summonItemEntity(dropItemStack, mob.position(), mob.level());
     }
 
-    public boolean send(Player player, double num) {
-        ItemStack dropItemStack;
-        if (itemStack.getItem() instanceof RandomCurios randomCurios) {
+    public void handleRandomAttributeBeforeDrop(ItemStack itemStack) {
+        Item item = itemStack.getItem();
+        if (item instanceof RandomCurios randomCurios) {
             randomCurios.setAttribute(itemStack);
         }
-        if (itemStack.getItem() instanceof RandomCurios || itemStack.getItem() instanceof RandomLootEquip)
-            dropItemStack = itemStack;
-        else dropItemStack = new ItemStack(itemStack.getItem());
+        if (item instanceof RandomLootEquip) {
+            RandomLootEquip.setRandomAttribute(itemStack);
+        }
+    }
+
+    public boolean send(Player player, double num) {
+        ItemStack dropItemStack = new ItemStack(itemStack.getItem());
+        handleRandomAttributeBeforeDrop(dropItemStack);
         dropItemStack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
         Random rand = new Random();
         double finalRate = rate * num;
@@ -103,13 +108,8 @@ public class ItemAndRate {
     }
 
     public boolean sendWithMSG(Player player, double num) {
-        ItemStack dropItemStack;
-        if (itemStack.getItem() instanceof RandomCurios randomCurios) {
-            randomCurios.setAttribute(itemStack);
-        }
-        if (itemStack.getItem() instanceof RandomCurios || itemStack.getItem() instanceof RandomLootEquip)
-            dropItemStack = itemStack;
-        else dropItemStack = new ItemStack(itemStack.getItem());
+        ItemStack dropItemStack = new ItemStack(itemStack.getItem());
+        handleRandomAttributeBeforeDrop(dropItemStack);
         dropItemStack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
         Random rand = new Random();
         double finalRate = rate * num;
@@ -154,14 +154,8 @@ public class ItemAndRate {
     }
 
     public boolean dropWithBounding(Mob mob, double num, Player player) {
-        ItemStack dropItemStack;
-        if (itemStack.getItem() instanceof RandomCurios randomCurios) {
-            randomCurios.setAttribute(itemStack);
-        }
-
-        if (itemStack.getItem() instanceof RandomCurios
-                || itemStack.getItem() instanceof RandomLootEquip) dropItemStack = itemStack;
-        else dropItemStack = new ItemStack(itemStack.getItem(), itemStack.getCount());
+        ItemStack dropItemStack = new ItemStack(itemStack.getItem());
+        handleRandomAttributeBeforeDrop(dropItemStack);
         dropItemStack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
         Random rand = new Random();
         double finalRate = rate * num;
@@ -178,13 +172,8 @@ public class ItemAndRate {
     }
 
     public void dropWithoutBounding(Mob mob, double num, Player player) {
-        ItemStack dropItemStack;
-        if (itemStack.getItem() instanceof RandomCurios randomCurios) {
-            randomCurios.setAttribute(itemStack);
-        }
-        if (itemStack.getItem() instanceof RandomCurios
-                || itemStack.getItem() instanceof RandomLootEquip) dropItemStack = itemStack;
-        else dropItemStack = new ItemStack(itemStack.getItem(), itemStack.getCount());
+        ItemStack dropItemStack = new ItemStack(itemStack.getItem());
+        handleRandomAttributeBeforeDrop(dropItemStack);
         dropItemStack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
         Random rand = new Random();
         double finalRate = rate * num;

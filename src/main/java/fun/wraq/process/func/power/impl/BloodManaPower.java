@@ -37,7 +37,7 @@ public class BloodManaPower extends WraqPower {
                 ComponentUtils.AttributeDescription.healAmplification(""), "-80%", ChatFormatting.RED));
         components.add(Te.s(" 获得等同于其当前", "已损失生命值百分比", ChatFormatting.RED,
                 "40%的", ComponentUtils.getCommonDamageEnhance("")));
-        components.add(Te.s(" 持续", "3s", ChatFormatting.AQUA));
+        components.add(Te.s(" 持续", "5s", ChatFormatting.AQUA));
         return components;
     }
 
@@ -70,8 +70,8 @@ public class BloodManaPower extends WraqPower {
                             "BloodManaPowerPlayerHealAmplifierDecrease", 0.8, Tick.get() + 60);
                     double damageEnhanceRate = (player.getMaxHealth() - player.getHealth()) / player.getMaxHealth();
                     StableAttributesModifier.addM(player, StableAttributesModifier.playerCommonDamageEnhance,
-                            "BloodManaPowerPlayerCommonDamageEnhance", damageEnhanceRate, Tick.get() + 60);
-                    Compute.sendEffectLastTime(player, this, 60, (int) (damageEnhanceRate * 100), false);
+                            "BloodManaPowerPlayerCommonDamageEnhance", damageEnhanceRate, Tick.get() + 100);
+                    Compute.sendEffectLastTime(player, this, 100, (int) (damageEnhanceRate * 100), false);
                     ParticleProvider.createBreakBlockParticle(player, Blocks.NETHERRACK);
                 });
         produceDefaultDustParticle(player, CustomStyle.styleOfBloodMana);

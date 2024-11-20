@@ -133,7 +133,7 @@ public class ServerPlayerTickEvent {
             MoontainFloorTitle.tick(player);
             GoldenAttackOffhand.handleTick(player);
             GoldenBook.handleTick(player);
-            MoontainUtils.buffTick(player);
+            MoontainUtils.tick(player);
 
             WraqMainHandEquip.serverTick(player);
             WraqOffHandItem.serverTick(player);

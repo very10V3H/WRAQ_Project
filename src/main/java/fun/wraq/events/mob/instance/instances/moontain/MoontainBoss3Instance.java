@@ -142,7 +142,10 @@ public class MoontainBoss3Instance extends NoTeamInstance {
                 SpecialEffectOnPlayer.addHealingReduction(player, "MoontainBoss3HealingReduction", 0.4, 100);
                 StableAttributesModifier.addM(player, StableAttributesModifier.playerMonsterControlDamageEffect,
                         "MoontainBoss3DamageControl", -0.4, Tick.get() + 100);
-                Compute.sendDebuffTime(player, "hud/damage_reduction", 100, 50, false);
+                StableAttributesModifier.addM(player, StableAttributesModifier.playerMovementSpeedModifier,
+                        "MoontainBoss3SpeedReduction", -0.6, Tick.get() + 100);
+                Compute.sendDebuffTime(player, "hud/damage_reduction", 100, 40, false);
+                Compute.sendDebuffTime(player, "hud/speed_reduction", 100, 60, false);
                 ParticleProvider.createBreakBlockParticle(player, Blocks.DARK_PRISMARINE);
             });
         }
@@ -156,10 +159,10 @@ public class MoontainBoss3Instance extends NoTeamInstance {
         if (stage > 0 && Tick.get() % 20 == 0) {
             getPlayerList(boss.level())
                     .forEach(player -> {
-                        StableAttributesModifier.addM(player, StableAttributesModifier.playerDefenceModifier,
-                                "MoontainBoss3DefenceReduction", -100 * stage, Tick.get() + 100);
-                        StableAttributesModifier.addM(player, StableAttributesModifier.playerManaDefenceModifier,
-                                "MoontainBoss3ManaDefenceReduction", -40 * stage, Tick.get() + 100);
+                        StableAttributesModifier.addM(player, StableAttributesModifier.playerDefenceDecreaseModifier,
+                                "MoontainBoss3DefenceReduction", 100 * stage, Tick.get() + 100);
+                        StableAttributesModifier.addM(player, StableAttributesModifier.playerManaDefenceDecreaseModifier,
+                                "MoontainBoss3ManaDefenceReduction", 40 * stage, Tick.get() + 100);
                         Compute.sendDebuffTime(player, "hud/defence_reduction", 100, stage, false);
                     });
         }

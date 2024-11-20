@@ -6,6 +6,7 @@ import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.func.power.WraqPower;
+import fun.wraq.render.hud.Mana;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -33,13 +34,14 @@ public class WitherEnhancePower extends WraqPower {
                 "的一个目标"));
         components.add(Te.s(" 对其造成", ComponentUtils.AttributeDescription.manaDamageValue("500%")));
         components.add(Te.s(" 若其与你的距离", "小于6格", CustomStyle.styleOfStone,
-                "则造成", ComponentUtils.AttributeDescription.manaDamageValue("750%")));
+                "则造成", ComponentUtils.AttributeDescription.manaDamageValue("900%")));
+        components.add(Te.s(" 并且返还", ComponentUtils.AttributeDescription.manaValue("200")));
         return components;
     }
 
     @Override
     public int getCoolDownSecond() {
-        return 5;
+        return 3;
     }
 
     @Override
@@ -70,7 +72,10 @@ public class WitherEnhancePower extends WraqPower {
             }
         }
         if (mob == null) return;
-        Damage.causeManaDamageToMonster_RateApDamage(player, mob, mob.distanceTo(player) > 6 ? 5 : 7.5, true);
+        Damage.causeManaDamageToMonster_RateApDamage(player, mob, mob.distanceTo(player) > 6 ? 5 : 9, true);
+        if (mob.distanceTo(player) < 6) {
+            Mana.addOrCostPlayerMana(player, 200);
+        }
         ParticleProvider.createLineEffectParticle(player.level(), (int) mob.distanceTo(player) * 5,
                 player.getEyePosition(), mob.getEyePosition(), CustomStyle.styleOfWither);
     }

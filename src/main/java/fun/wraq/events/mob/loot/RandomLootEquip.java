@@ -2,7 +2,6 @@ package fun.wraq.events.mob.loot;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.equip.impl.RandomEquip;
-import fun.wraq.common.util.ItemAndRate;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
@@ -25,17 +24,6 @@ public interface RandomLootEquip extends RandomEquip {
 
     int levelRequire();
 
-    static void handleItemAndRate(ItemAndRate itemAndRate) {
-        Random random = new Random();
-        if (itemAndRate.getItemStack().getItem() instanceof RandomLootEquip randomLootEquip) {
-            ItemStack itemStack = new ItemStack(itemAndRate.getItemStack().getItem());
-            itemStack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
-            setRandomAttribute(itemStack);
-            ForgeEquipUtils.setForgeQualityOnEquip(itemStack, random.nextInt(0, 5));
-            itemAndRate.setItemStack(itemStack);
-        }
-    }
-
     String NEW_VERSION_CHANGE_TAG = "version 2.0.37 random equip attribute change";
 
     static void setRandomAttribute(ItemStack itemStack) {
@@ -48,6 +36,7 @@ public interface RandomLootEquip extends RandomEquip {
                 data.putDouble(randomAttributeValue.type(),
                         random.nextDouble(randomAttributeValue.downBoundary(), randomAttributeValue.upBoundary()));
             }
+            ForgeEquipUtils.setForgeQualityOnEquip(itemStack, random.nextInt(0, 5));
         }
     }
 

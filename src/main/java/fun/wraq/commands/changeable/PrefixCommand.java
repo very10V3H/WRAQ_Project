@@ -8,7 +8,10 @@ import fun.wraq.blocks.blocks.brew.BrewingNote;
 import fun.wraq.common.Compute;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.events.mob.MobSpawn;
-import fun.wraq.events.mob.chapter1.*;
+import fun.wraq.events.mob.chapter1.ForestZombieSpawnController;
+import fun.wraq.events.mob.chapter1.LakeDrownSpawnController;
+import fun.wraq.events.mob.chapter1.MineSkeletonSpawnController;
+import fun.wraq.events.mob.chapter1.PlainZombieSpawnController;
 import fun.wraq.events.mob.chapter2.*;
 import fun.wraq.events.mob.chapter3_nether.MagmaSpawnController;
 import fun.wraq.events.mob.chapter3_nether.NetherSkeletonSpawnController;
@@ -32,10 +35,10 @@ import fun.wraq.events.mob.instance.instances.element.IceInstance;
 import fun.wraq.events.mob.instance.instances.element.MoonInstance;
 import fun.wraq.events.mob.instance.instances.element.PlainInstance;
 import fun.wraq.events.mob.instance.instances.element.PurpleIronInstance;
-import fun.wraq.events.mob.instance.instances.sakura.DevilInstance;
 import fun.wraq.events.mob.instance.instances.moontain.MoontainBoss1Instance;
+import fun.wraq.events.mob.instance.instances.sakura.DevilInstance;
 import fun.wraq.events.mob.instance.instances.sakura.SakuraBossInstance;
-import fun.wraq.events.mob.moontain.MoontainCommon1SpawnController;
+import fun.wraq.events.mob.moontain.*;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.PrefixPackets.PrefixS2CPacket;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -216,8 +219,11 @@ public class PrefixCommand implements Command<CommandSourceStack> {
                     new SimplePrefixType(TorturedSoulSpawnController.mobName, 1000, "解脱者", CustomStyle.styleOfWorld),
 
                     new SimplePrefixType(MoontainCommon1SpawnController.mobName, 1000, "御魂者", CustomStyle.styleOfMoontain),
-                    new SimplePrefixType(MoontainCommon1SpawnController.mobName, 1000, "御魂师", CustomStyle.styleOfMoontain),
-                    new SimplePrefixType(MoontainCommon1SpawnController.mobName, 1000, "典狱长", CustomStyle.styleOfMoontain),
+                    new SimplePrefixType(MoontainCommon1ExSpawnController.mobName, 1000, "*御魂者*", CustomStyle.styleOfMoontain),
+                    new SimplePrefixType(MoontainCommon2SpawnController.mobName, 1000, "御魂师", CustomStyle.styleOfMoontain),
+                    new SimplePrefixType(MoontainCommon2ExSpawnController.mobName, 1000, "*御魂师*", CustomStyle.styleOfMoontain),
+                    new SimplePrefixType(MoontainCommon3SpawnController.mobName, 1000, "典狱长", CustomStyle.styleOfMoontain),
+                    new SimplePrefixType(MoontainCommon3ExSpawnController.mobName, 1000, "*典狱长*", CustomStyle.styleOfMoontain),
 
                     new SimplePrefixType(MoontainBoss1Instance.mobName, 320, "望山阁之顶", CustomStyle.styleOfMoontain),
                     new SimplePrefixType(MoontainBoss1Instance.mobName, 320, "望山阁之峰", CustomStyle.styleOfMoontain),

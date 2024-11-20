@@ -24,7 +24,7 @@ public class RandomCuriosAttributesUtil {
         put(StringUtils.CuriosAttribute.critDamage, 0.2);
         put(StringUtils.CuriosAttribute.expUp, 0.5);
         put(StringUtils.CuriosAttribute.critRate, 0.1);
-        put(StringUtils.CuriosAttribute.healthSteal, 0.1);
+        put(StringUtils.CuriosAttribute.healthSteal, 0.05);
         put(StringUtils.CuriosAttribute.defencePenetration, 0.15);
         put(StringUtils.CuriosAttribute.movementSpeed, 0.1);
         put(StringUtils.CuriosAttribute.commonMovementSpeed, 0.25);

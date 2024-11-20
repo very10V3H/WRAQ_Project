@@ -878,6 +878,8 @@ public class PlayerAttributes {
         totalDefence *= (1 + StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerPercentDefenceModifier));
         if (data.contains("ManaRune") && data.getInt("ManaRune") == 3) return (baseDefence + exDefence) * 0.5f;
 
+        totalDefence -= StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerDefenceDecreaseModifier);
+
         totalDefence = Math.max(0, totalDefence);
         writeToCache(player, Utils.defence, totalDefence);
         return totalDefence;
@@ -1806,8 +1808,9 @@ public class PlayerAttributes {
                 Compute.CuriosAttribute.attributeValue(player, Utils.percentManaDefenceEnhance,
                 StringUtils.CuriosAttribute.percentManaDefenceEnhance));
         totalDefence *= (1 + StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerPercentManaDefenceModifier));
-        totalDefence = Math.max(0, totalDefence);
 
+        totalDefence -= StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerManaDefenceDecreaseModifier);
+        totalDefence = Math.max(0, totalDefence);
         writeToCache(player, Utils.manaDefence, totalDefence);
         return totalDefence;
     }

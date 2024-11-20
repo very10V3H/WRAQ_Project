@@ -113,7 +113,12 @@ public class MobSpawn {
         overWolrdList.add(SearedSpiritSpawnController.getInstance(overWorld));
         overWolrdList.add(SearedSpirit2SpawnController.getInstance(overWorld));
         overWolrdList.add(EvokerSpawnController.getInstance(overWorld));
+
         overWolrdList.add(HuskSpawnController.getInstance(overWorld));
+        overWolrdList.add(HuskEx0SpawnController.getInstance(overWorld));
+        overWolrdList.add(HuskEx1SpawnController.getInstance(overWorld));
+        overWolrdList.add(HuskEx2SpawnController.getInstance(overWorld));
+
         overWolrdList.add(LumberJackSpawnController.getInstance(overWorld));
         overWolrdList.add(DreadHoundSpawnController.getInstance(overWorld));
         overWolrdList.add(GuardianSpawnController.getInstance(overWorld));
@@ -142,6 +147,9 @@ public class MobSpawn {
         overWolrdList.add(MoontainCommon1SpawnController.getInstance(overWorld));
         overWolrdList.add(MoontainCommon2SpawnController.getInstance(overWorld));
         overWolrdList.add(MoontainCommon3SpawnController.getInstance(overWorld));
+        overWolrdList.add(MoontainCommon1ExSpawnController.getInstance(overWorld));
+        overWolrdList.add(MoontainCommon2ExSpawnController.getInstance(overWorld));
+        overWolrdList.add(MoontainCommon3ExSpawnController.getInstance(overWorld));
 
         overWolrdList.add(MoontainChickenSpawnController.getInstance(overWorld));
         overWolrdList.add(MoontainMinerSpawnController.getInstance(overWorld));
@@ -307,7 +315,6 @@ public class MobSpawn {
                 || WraqCurios.isOn(EndRune.class, player)) {
             Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player), xpLevel);
             list.forEach(itemAndRate -> {
-                RandomLootEquip.handleItemAndRate(itemAndRate);
                 itemAndRate.send(player, num);
             });
         } else {
@@ -315,7 +322,6 @@ public class MobSpawn {
                     || MobSpawn.getMobOriginName(mob).equals(SlimeSpawnController.mobName) ? 0.003 : 0.01;
             ItemAndRate.dropOrbs(xpLevel, rate, mob.level(), mob.position(), fromMobSpawnTag);
             list.forEach(itemAndRate -> {
-                RandomLootEquip.handleItemAndRate(itemAndRate);
                 itemAndRate.dropWithoutBounding(mob, num, player);
             });
         }

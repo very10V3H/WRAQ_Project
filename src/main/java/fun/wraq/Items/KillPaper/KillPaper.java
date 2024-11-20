@@ -5,7 +5,6 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ItemAndRate;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.MobSpawn;
-import fun.wraq.events.mob.loot.RandomLootEquip;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -36,7 +35,6 @@ public class KillPaper extends Item {
             List<ItemAndRate> list = getDropList(itemStack);
             if (!list.isEmpty()) {
                 list.forEach(itemAndRate -> {
-                    RandomLootEquip.handleItemAndRate(itemAndRate);
                     itemAndRate.send(player, 32);
                 });
             }

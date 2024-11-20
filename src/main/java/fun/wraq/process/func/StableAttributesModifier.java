@@ -28,8 +28,10 @@ public record StableAttributesModifier(String tag, double value, int stopTick) {
     public static Map<LivingEntity, List<StableAttributesModifier>> playerAttackDamageModifier = new WeakHashMap<>();
     public static Map<LivingEntity, List<StableAttributesModifier>> playerCommonDamageEnhance = new WeakHashMap<>();
     public static Map<LivingEntity, List<StableAttributesModifier>> playerDefenceModifier = new WeakHashMap<>();
+    public static Map<LivingEntity, List<StableAttributesModifier>> playerDefenceDecreaseModifier = new WeakHashMap<>();
     public static Map<LivingEntity, List<StableAttributesModifier>> playerPercentDefenceModifier = new WeakHashMap<>();
     public static Map<LivingEntity, List<StableAttributesModifier>> playerManaDefenceModifier = new WeakHashMap<>();
+    public static Map<LivingEntity, List<StableAttributesModifier>> playerManaDefenceDecreaseModifier = new WeakHashMap<>();
     public static Map<LivingEntity, List<StableAttributesModifier>> playerPercentManaDefenceModifier = new WeakHashMap<>();
     public static Map<LivingEntity, List<StableAttributesModifier>> playerHealAmplifierModifier = new WeakHashMap<>();
     public static Map<LivingEntity, List<StableAttributesModifier>> playerHealAmplifierReductionModifier = new WeakHashMap<>();

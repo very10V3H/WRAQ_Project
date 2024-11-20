@@ -1,4 +1,4 @@
-package fun.wraq.render.gui;
+package fun.wraq.render.gui.trade;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
@@ -38,9 +38,11 @@ public class SingleItemChangeC2SPacket {
             ServerPlayer serverPlayer = context.getSender();
             List<SingleItemChangeRecipe> recipeList = SingleItemChangeRecipe.getRecipeList();
             SingleItemChangeRecipe recipe = null;
+            boolean containRecipe = false;
             for (SingleItemChangeRecipe singleItemChangeRecipe : recipeList) {
                 if (singleItemChangeRecipe.needStack().equals(this.needStack, false)
                         && singleItemChangeRecipe.goods().equals(this.goods, false)) {
+                    containRecipe = true;
                     if (SingleItemChangePurchaseLimit.check(serverPlayer, singleItemChangeRecipe)) {
                         recipe = singleItemChangeRecipe;
                     }
@@ -52,15 +54,21 @@ public class SingleItemChangeC2SPacket {
                 }
             }
             if (recipe != null) {
-                InventoryOperation.removeItem(serverPlayer, needStack.getItem(), needStack.getCount());
-                InventoryOperation.itemStackGive(serverPlayer, new ItemStack(goods.getItem(), goods.getCount()));
-                Compute.sendFormatMSG(serverPlayer, Te.s("交易", CustomStyle.styleOfGold),
-                        Te.s("完成了一笔交易!"));
-                SingleItemChangePurchaseLimit.addTimes(serverPlayer, recipe);
+                if (InventoryOperation.checkItemRemoveIfHas(serverPlayer, List.of(needStack))) {
+                    InventoryOperation.itemStackGive(serverPlayer, new ItemStack(goods.getItem(), goods.getCount()));
+                    Compute.sendFormatMSG(serverPlayer, Te.s("交易", CustomStyle.styleOfGold),
+                            Te.s("完成了一笔交易!"));
+                    SingleItemChangePurchaseLimit.addTimes(serverPlayer, recipe);
+                } else {
+                    Compute.sendFormatMSG(serverPlayer, Te.s("交易", CustomStyle.styleOfGold),
+                            Te.s("所需的物品不足。"));
+                }
             } else {
-                // 配方不存在
-                Compute.sendFormatMSG(serverPlayer, Te.s("交易", CustomStyle.styleOfGold),
-                        Te.s("配方不存在，请联系铁头!"));
+                if (!containRecipe) {
+                    // 配方不存在
+                    Compute.sendFormatMSG(serverPlayer, Te.s("交易", CustomStyle.styleOfGold),
+                            Te.s("配方不存在，请联系铁头!"));
+                }
             }
         });
         return true;

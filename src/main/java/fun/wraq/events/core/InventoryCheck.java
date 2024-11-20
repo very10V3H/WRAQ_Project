@@ -8,6 +8,7 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.customized.UniformItems;
 import fun.wraq.events.mob.loot.RandomLootEquip;
 import fun.wraq.process.system.endlessinstance.item.EndlessInstanceItems;
+import fun.wraq.series.overworld.chapter2.lavender.LavenderBracelet;
 import fun.wraq.series.specialevents.SpecialEventItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -54,9 +55,20 @@ public class InventoryCheck {
                             inventory.removeItem(itemStack);
                         }
                     }
+                    if (LavenderBracelet.resetBugAttributes(itemStack)) {
+                        Compute.sendFormatMSG(player, Te.s("bug修复", ChatFormatting.RED),
+                                Te.s("以下物品属性已修复:", itemStack.getDisplayName()));
+                    }
                 }
                 itemStack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
             }
+            Compute.CuriosAttribute.getDistinctCuriosList(player).forEach(stack -> {
+                if (LavenderBracelet.resetBugAttributes(stack)) {
+                    Compute.sendFormatMSG(player, Te.s("bug修复", ChatFormatting.RED),
+                            Te.s("以下物品属性已修复:", stack.getDisplayName()));
+                }
+            });
+
             ItemStack helmet = player.getItemBySlot(EquipmentSlot.HEAD);
             ItemStack chest = player.getItemBySlot(EquipmentSlot.CHEST);
             ItemStack leggings = player.getItemBySlot(EquipmentSlot.LEGS);
@@ -135,6 +147,7 @@ public class InventoryCheck {
                 ModItems.supplyBoxTier2.get(),
                 ModItems.supplyBoxTier3.get(),
                 EndlessInstanceItems.EASTERN_TOWER_PAPER.get(),
+                EndlessInstanceItems.ENDLESS_INSTANCE_CORE.get(),
                 ModItems.TP_TICKET.get()
         ));
         for (Object o : SpecialEventItems.ITEMS.getEntries().toArray()) {
