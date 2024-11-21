@@ -88,7 +88,7 @@ public class StarBottle extends WraqCurios implements DamageInfluenceCurios {
             playerStatusMap.put(player, false);
         }
         if (playerStatusMap.get(player) && playerCountsMap.get(player) > 0 && player.tickCount % 20 == 0) {
-            attackRange(player);
+
         }
     }
 
