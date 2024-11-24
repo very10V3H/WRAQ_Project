@@ -64,6 +64,7 @@ import fun.wraq.render.hud.networking.ExpGetS2CPacket;
 import fun.wraq.render.mobEffects.ModEffects;
 import fun.wraq.render.particles.ModParticles;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.instance.blade.WraqBlade;
 import fun.wraq.series.instance.series.castle.CastleSceptre;
 import fun.wraq.series.instance.series.castle.RandomCuriosAttributesUtil;
 import fun.wraq.series.overworld.chapter1.forest.ForestPower;
@@ -367,14 +368,21 @@ public class Compute {
 
     public static void playerItemCoolDown(Player player, Item item, double Seconds) {
         double coolDownDecrease = PlayerAttributes.coolDownDecrease(player);
-        player.getCooldowns().addCooldown(item, (int) (Seconds * 20 * (1 - coolDownDecrease)));
+        int cooldownTick = (int) (Seconds * 20 * (1 - coolDownDecrease));
+        player.getCooldowns().addCooldown(item, cooldownTick);
         if (Utils.powerTag.containsKey(item)) {
             if (!PowerLogic.playerPowerCoolDownRecord.containsKey(player))
                 PowerLogic.playerPowerCoolDownRecord.put(player, new HashMap<>());
             Map<Item, Integer> map = PowerLogic.playerPowerCoolDownRecord.get(player);
-            map.put(item, (int) (Seconds * 20 * (1 - coolDownDecrease)));
-
-            PowerLogic.playerLastTimeReleasePowerCoolDownTime.put(player, (int) (Seconds * 20 * (1 - coolDownDecrease)));
+            map.put(item, cooldownTick);
+            PowerLogic.playerLastTimeReleasePowerCoolDownTime.put(player, cooldownTick);
+        }
+        if (item instanceof WraqBlade) {
+            if (!WraqBlade.itemBladeCooldownRecord.containsKey(player)) {
+                WraqBlade.itemBladeCooldownRecord.put(player, new HashMap<>());
+            }
+            Map<Item, Integer> map = WraqBlade.itemBladeCooldownRecord.get(player);
+            map.put(item, cooldownTick);
         }
     }
 
@@ -1898,6 +1906,16 @@ public class Compute {
             player.getCooldowns().addCooldown(power, leftTick);
             playerEachItemCoolDownMap.put(power, leftTick);
         });
+    }
+
+    public static void decreaseCooldownLeftTick(Player player, Item item, Map<Player, Integer> itemCooldownMap, int decreaseTick) {
+        if (itemCooldownMap.containsKey(player)) {
+            double percent = player.getCooldowns().getCooldownPercent(item, 0);
+            int leftTick = (int) (percent * itemCooldownMap.get(player));
+            leftTick = Math.max(0, leftTick - decreaseTick);
+            player.getCooldowns().addCooldown(item, leftTick);
+            itemCooldownMap.put(player, leftTick);
+        }
     }
 
     public record LowGravityZone(ResourceKey<Level> dimension, Pair<Vec3, Vec3> space) {

@@ -558,8 +558,6 @@ public class TradeList {
                 ModItems.SoulSceptre.get().getDefaultInstance(),
                 ModItems.SkillReset.get().getDefaultInstance(),
                 GemItems.DISMANTLE.get().getDefaultInstance(),
-                GemItems.DISMANTLE.get().getDefaultInstance(),
-                GemItems.DISMANTLE.get().getDefaultInstance(),
                 ModItems.SwordLottery.get().getDefaultInstance(),
                 ModItems.BowLottery.get().getDefaultInstance(),
                 ModItems.SceptreLottery.get().getDefaultInstance()
@@ -584,10 +582,10 @@ public class TradeList {
                 case 1, 2, 3 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.WorldSoul3.get(), 16));
                 }});
-                case 4, 5, 6, 7 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.WorldSoul3.get(), 4));
+                case 4, 5 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
+                    add(new ItemStack(ModItems.WorldSoul2.get(), 16));
                 }});
-                case 8, 9, 10 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
+                case 6, 7, 8 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.worldSoul5.get(), 40));
                 }});
             }

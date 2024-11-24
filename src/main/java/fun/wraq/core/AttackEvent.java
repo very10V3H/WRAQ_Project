@@ -30,6 +30,7 @@ import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.suit.SuitCount;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.instance.blade.WraqBlade;
 import fun.wraq.series.instance.series.castle.CastleAttackArmor;
 import fun.wraq.series.instance.series.castle.CastleSword;
 import fun.wraq.series.instance.series.moon.MoonCurios;
@@ -276,6 +277,7 @@ public class AttackEvent {
         Compute.ChargingModule(data, player);
         CastleSword.NormalAttack(player, monster, damage);
         Compute.AdditionEffects(player, monster, damage + trueDamage, 0);
+        WraqBlade.onAttackHitEachTarget(player);
 
         if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false)) {
             player.sendSystemMessage(Component.literal("NormalAttackDamageEnhance : " + NormalAttackDamageEnhance));

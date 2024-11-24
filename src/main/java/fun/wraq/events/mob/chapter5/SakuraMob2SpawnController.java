@@ -67,7 +67,8 @@ public class SakuraMob2SpawnController extends MobSpawnController {
 
         // 需要验证
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(sakuraMob), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(sakuraMob, 0, 85, 85, 0.4, 4, 0.25, 10, 20, 240000, 0.35);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(sakuraMob, 0, 85, 85, 0.4,
+                4, 0.25, 10, 20, 300000, 0.1);
 
         // 设置物品
         ItemStack[] itemStacks = {new ItemStack(Items.LEATHER_HELMET), new ItemStack(Items.LEATHER_CHESTPLATE),
