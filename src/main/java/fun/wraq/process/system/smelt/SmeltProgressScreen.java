@@ -103,7 +103,10 @@ public class SmeltProgressScreen extends Screen {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1, 1, 1, 1);
         RenderSystem.setShaderTexture(0, GUI_TEXTURE);
-
+        int textureWidth = 300;
+        int textureHeight = 200;
+        guiGraphics.blit(GUI_TEXTURE, this.width / 2 - 150, this.height / 2 - 100,
+                0, 0, 300, 200, textureWidth, textureHeight);
         int yOffset = 0;
         int xOffset = -16;
         int tick = ClientUtils.clientPlayerTick;
@@ -147,11 +150,6 @@ public class SmeltProgressScreen extends Screen {
 
         guiGraphics.drawCenteredString(fontRenderer, Component.literal("" + (page + 1)).withStyle(ChatFormatting.WHITE)
                 , this.width / 2, this.height / 2 - 20 + 105, 0);
-
-        int textureWidth = 300;
-        int textureHeight = 200;
-
-        guiGraphics.blit(GUI_TEXTURE, this.width / 2 - 150, this.height / 2 - 100, 0, 0, 300, 200, textureWidth, textureHeight);
         super.render(graphics, x, y, v);
     }
 

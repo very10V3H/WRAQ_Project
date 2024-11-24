@@ -7,7 +7,7 @@ import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.impl.onhit.OnHitEffectEquip;
 import fun.wraq.common.impl.onhit.OnPowerCauseDamageEquip;
-import fun.wraq.common.registry.ItemMaterial;
+import fun.wraq.common.registry.ModArmorMaterials;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
@@ -26,7 +26,7 @@ import java.util.List;
 
 public class NetherManaArmor extends WraqArmor implements OnHitEffectEquip, OnPowerCauseDamageEquip, ForgeItem {
 
-    public NetherManaArmor(ItemMaterial Material, Type Slots, Properties itemProperties) {
+    public NetherManaArmor(ModArmorMaterials Material, Type Slots, Properties itemProperties) {
         super(Material, Slots, itemProperties);
         if (type.equals(Type.HELMET)) Utils.healthRecover.put(this, 30d);
         if (type.equals(Type.CHESTPLATE)) Utils.defence.put(this, 50d);

@@ -1,7 +1,7 @@
 package fun.wraq.series.overworld.sakuraSeries.Slime;
 
 import fun.wraq.common.Compute;
-import fun.wraq.common.registry.ItemMaterial;
+import fun.wraq.common.registry.ModArmorMaterials;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
@@ -20,8 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SlimeBoots extends WraqArmor implements ForgeItem {
-    public SlimeBoots(ItemMaterial itemMaterial, Type Slots) {
-        super(itemMaterial, Slots, new Properties().rarity(CustomStyle.LifeItalic));
+    public SlimeBoots(ModArmorMaterials modArmorMaterials, Type Slots) {
+        super(modArmorMaterials, Slots, new Properties().rarity(CustomStyle.LifeItalic));
         Utils.attackDamage.put(this, 45d);
         Utils.manaDamage.put(this, 125d);
         if (type.equals(Type.BOOTS)) Utils.movementSpeedCommon.put(this, 0.1);

@@ -2,7 +2,7 @@ package fun.wraq.series.instance.series.taboo;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.impl.display.ForgeItem;
-import fun.wraq.common.registry.ItemMaterial;
+import fun.wraq.common.registry.ModArmorMaterials;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
@@ -22,7 +22,7 @@ import java.util.List;
 
 public class TabooAttackArmor extends WraqArmor implements ForgeItem {
 
-    public TabooAttackArmor(ItemMaterial Material, Type Slots, Properties itemProperties) {
+    public TabooAttackArmor(ModArmorMaterials Material, Type Slots, Properties itemProperties) {
         super(Material, Slots, itemProperties);
         Utils.maxHealth.put(this, 8000d);
     }

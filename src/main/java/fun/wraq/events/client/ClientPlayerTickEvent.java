@@ -22,9 +22,11 @@ import fun.wraq.networking.misc.WaterBlockCountsC2SPacket;
 import fun.wraq.networking.unSorted.MineHatConfirmC2SPacket;
 import fun.wraq.networking.unSorted.PlayerIsNearbyCampfireC2SPacket;
 import fun.wraq.networking.unSorted.UdiskWorldSoulC2SPacket;
+import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.endlessinstance.DailyEndlessInstance;
+import fun.wraq.process.system.endlessinstance.EndlessCoreScreen;
 import fun.wraq.process.system.forge.ForgeScreen;
 import fun.wraq.process.system.missions.MissionScreen;
 import fun.wraq.process.system.smelt.SmeltRecipeScreen;
@@ -48,7 +50,6 @@ import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.client.gui.screens.multiplayer.JoinMultiplayerScreen;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.multiplayer.resolver.ServerAddress;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -79,8 +80,10 @@ public class ClientPlayerTickEvent {
         MyWayPoint.clientTick(event);
         if (event.side.isClient() && event.phase.equals(TickEvent.Phase.START)) {
             Main0.clientTick(event.player);
-            Compute.setDownDeltaInLowGravityEnvironment((LocalPlayer) event.player);
+            Compute.setDownDeltaInLowGravityEnvironment(event.player);
             ItemAndExpGetHud.clientTick();
+            if (SpecialEffectOnPlayer.clientSilentTick > 0) --SpecialEffectOnPlayer.clientSilentTick;
+            if (SpecialEffectOnPlayer.clientBlindTick > 0) --SpecialEffectOnPlayer.clientBlindTick;
         }
         if (event.side.isClient() && event.phase == TickEvent.Phase.END) {
             Minecraft mc = Minecraft.getInstance();
@@ -222,7 +225,7 @@ public class ClientPlayerTickEvent {
                 Inventory inventory = event.player.getInventory();
                 if (!(Minecraft.getInstance().screen instanceof TradeScreen) && InventoryOperation.checkPlayerHasItem(inventory, ModItems.U_Disk.get(), 1)) {
                     if (InventoryOperation.checkPlayerHasItem(inventory, ModItems.copperCoin.get(), 1)
-                            || InventoryOperation.checkPlayerHasItem(inventory, ModItems.goldCoin.get(), 1)
+                            || InventoryOperation.checkPlayerHasItem(inventory, ModItems.GOLD_COIN.get(), 1)
                             || InventoryOperation.checkPlayerHasItem(inventory, ModItems.silverCoin.get(), 1)) {
                         ModNetworking.sendToServer(new AllCurrencyC2SPacket(false));
                     }
@@ -276,6 +279,7 @@ public class ClientPlayerTickEvent {
                     case 3 -> mc.setScreen(new IdCardGui(true));
                     case 4 -> mc.setScreen(new ForgeScreen());
                     case 5 -> mc.setScreen(new SmeltRecipeScreen());
+                    case 6 -> mc.setScreen(new EndlessCoreScreen());
                 }
                 ClientUtils.clientScreenSetFlag = -1;
             }

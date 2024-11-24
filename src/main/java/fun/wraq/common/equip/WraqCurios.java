@@ -17,6 +17,7 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import top.theillusivec4.curios.api.SlotContext;
@@ -92,6 +93,14 @@ public abstract class WraqCurios extends Item implements ICurioItem {
     public static boolean isOn(Class<? extends Item> clazz, Player player) {
         List<ItemStack> curiosList = Compute.CuriosAttribute.getDistinctCuriosList(player);
         return curiosList.stream().anyMatch(itemStack -> itemStack.getItem().getClass() == clazz);
+    }
+
+    public static ItemStack isOnWithStack(Class<? extends Item> clazz, Player player) {
+        List<ItemStack> curiosList = Compute.CuriosAttribute.getDistinctCuriosList(player);
+        return curiosList.stream()
+                .filter(itemStack -> itemStack.getItem().getClass() == clazz)
+                .findFirst()
+                .orElse(new ItemStack(Items.AIR));
     }
 
     public static boolean coolDownOver(Map<String, Integer> map, Player player) {

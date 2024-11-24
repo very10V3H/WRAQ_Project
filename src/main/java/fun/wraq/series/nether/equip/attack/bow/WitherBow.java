@@ -36,7 +36,7 @@ public class WitherBow extends WraqBow implements OnHitEffectEquip {
             add(new ItemStack(ModItems.Ruby.get(), 128));
             add(new ItemStack(ModItems.NetherQuartz.get(), 32));
             add(new ItemStack(Items.COAL, 192));
-            add(new ItemStack(ModItems.goldCoin.get(), 64));
+            add(new ItemStack(ModItems.GOLD_COIN.get(), 64));
         }});
     }
 

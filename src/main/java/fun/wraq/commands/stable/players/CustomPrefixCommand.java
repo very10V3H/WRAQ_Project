@@ -17,12 +17,17 @@ import net.minecraft.server.level.ServerPlayer;
 
 import java.text.ParseException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class CustomPrefixCommand implements Command<CommandSourceStack> {
     public static CustomPrefixCommand instance = new CustomPrefixCommand();
 
     public static String customPrefixTimes = "customPrefixTimes";
+
+    public static List<Character> banedCharacters = List.of(
+            '<', '>', '[', ']', '|', '∮'
+    );
 
     @Override
     public int run(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
@@ -38,21 +43,27 @@ public class CustomPrefixCommand implements Command<CommandSourceStack> {
             throw new RuntimeException(e);
         }
         if (tier == 0) {
-            Compute.sendFormatMSG(serverPlayer, Component.literal("自定义称号").withStyle(ChatFormatting.GRAY),
+            Compute.sendFormatMSG(serverPlayer, Component.literal("自定义称号").withStyle(ChatFormatting.AQUA),
                     Component.literal("当前无法使用自定义称号").withStyle(ChatFormatting.WHITE));
             return 0;
         } else if (tier != 3) {
             int times = data.getInt(customPrefixTimes);
             if (times <= 0) {
-                Compute.sendFormatMSG(serverPlayer, Component.literal("自定义称号").withStyle(ChatFormatting.GRAY),
+                Compute.sendFormatMSG(serverPlayer, Component.literal("自定义称号").withStyle(ChatFormatting.AQUA),
                         Component.literal("自定义称号的次数已经使用完了").withStyle(ChatFormatting.WHITE));
                 return 0;
             }
         }
 
         if (prefixString.length() > 8) {
-            Compute.sendFormatMSG(serverPlayer, Component.literal("自定义称号").withStyle(ChatFormatting.GRAY),
+            Compute.sendFormatMSG(serverPlayer, Component.literal("自定义称号").withStyle(ChatFormatting.AQUA),
                     Component.literal("称号名称的最大长度为8").withStyle(ChatFormatting.WHITE));
+            return 0;
+        }
+
+        if (banedCharacters.stream().anyMatch(character -> prefixString.contains(character.toString()))) {
+            Compute.sendFormatMSG(serverPlayer, Component.literal("自定义称号").withStyle(ChatFormatting.AQUA),
+                    Component.literal("称号中不能带有<>[]|∮").withStyle(ChatFormatting.WHITE));
             return 0;
         }
 

@@ -2,7 +2,7 @@ package fun.wraq.series.overworld.chapter1.forest.armor;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.BasicAttributeDescription;
-import fun.wraq.common.registry.ItemMaterial;
+import fun.wraq.common.registry.ModArmorMaterials;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.suit.SuitCount;
@@ -20,7 +20,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class ForestArmorHelmet extends ArmorItem {
-    public ForestArmorHelmet(ItemMaterial Materrial, Type Slots) {
+    public ForestArmorHelmet(ModArmorMaterials Materrial, Type Slots) {
         super(Materrial, Slots, new Properties().rarity(CustomStyle.ForestItalic));
         Utils.defence.put(this, 2.5d);
         Utils.armorTag.put(this, 1d);

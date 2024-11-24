@@ -699,7 +699,7 @@
   "item.vmd.common_lotteries": "普通彩券",
   "item.vmd.uncommon_lotteries": "不普通彩券",
   "item.vmd.revelation_book": "启示之书",
-  "item.vmd.new_revelation_book": "新启示之书",
+  "item.vmd.revelation_heart": "启示之心",
   "item.vmd.leather_armor_helmet": "冰原猎手头盔",
   "item.vmd.leather_armor_chest": "冰原猎手胸甲",
   "item.vmd.leather_armor_leggings": "冰原猎手护腿",
@@ -1027,6 +1027,7 @@
   "item.vmd.moon_helmet": "尘月顶",
   "item.vmd.moon_helmet_forge_draw": "尘月顶锻造图",
   "item.vmd.kill_paper_loot": "随机征讨券-获取券",
+  "item.vmd.kill_paper_loot_l": "大型随机征讨券-获取券",
   "item.vmd.parkour_gloves": "跑者手套",
   "item.vmd.sora_curios": "黑桃A",
   "item.vmd.sora_curios_paper": "黑桃A获取券",
@@ -1441,6 +1442,10 @@
   "item.vmd.iron_hammer": "铁制锻造锤",
   "item.vmd.gold_hammer": "金制锻造锤",
   "item.vmd.diamond_hammer": "钻石锻造锤",
+  "item.vmd.emerald_hammer": "绿宝石锻造锤",
+  "item.vmd.nether_hammer": "下界合金锻造锤",
+  "item.vmd.end_hammer": "终界锻造锤",
+
 
   "item.vmd.to_nether": "下界珍珠",
 
@@ -1467,6 +1472,7 @@
   "item.vmd.note_paper": "地质学家的笔记书页",
 
   "item.vmd.kill_paper": "征讨券",
+  "item.vmd.kill_paper_l": "征讨券 - 大",
 
   "item.vmd.wolf_leather": "森林狼皮",
 
@@ -1831,12 +1837,45 @@
   "item.vmd.wither_enhance_power": "法术 - 凋落利刃",
   "item.vmd.wither_skeleton_enhance_power": "法术 - 凋零之息",
 
-  "item.vmd.tear_curio_0": "澄澈泪滴",
-  "item.vmd.tear_curio_1": "澄澈泪滴¹",
-  "item.vmd.tear_curio_2": "澄澈泪滴²",
-  "item.vmd.tear_curio_3": "澄澈泪滴³",
+  "item.vmd.tear_curio_0": "樱的澄澈泪滴",
+  "item.vmd.tear_curio_1": "樱的澄澈泪滴¹",
+  "item.vmd.tear_curio_2": "樱的澄澈泪滴²",
+  "item.vmd.tear_curio_3": "樱的澄澈泪滴³",
 
   "item.vmd.tp_ticket": "传送中枢传送券",
+
+  "item.vmd.citadel_curio_0": "影珀护符",
+  "item.vmd.citadel_curio_1": "影珀护符¹",
+  "item.vmd.citadel_curio_2": "影珀护符²",
+  "item.vmd.citadel_curio_3": "影珀护符³",
+
+  "item.vmd.citadel_armor_enhancer": "影珀宝石",
+  "item.vmd.citadel_piece": "影珀晶石",
+
+  "item.vmd.citadel_helmet": "影珀头盔",
+  "item.vmd.citadel_chest": "影珀胸甲",
+  "item.vmd.citadel_leggings": "影珀护腿",
+  "item.vmd.citadel_boots": "影珀靴子",
+
+  "item.vmd.hours_ex_harvest_potion": "长时额外产出药水",
+
+  "item.vmd.senior_potion_supply": "特级药水包",
+  "item.vmd.ore_supply": "矿物补给包",
+  "item.vmd.junior_supply": "启航补给包",
+  "item.vmd.senior_supply": "远洋补给包",
+
+  "item.vmd.broken_blade_0": "维恩的黄金断刃",
+  "item.vmd.broken_blade_1": "维恩的黄金断刃¹",
+  "item.vmd.broken_blade_2": "维恩的黄金断刃²",
+  "item.vmd.broken_blade_3": "维恩的黄金断刃³",
+
+  "item.vmd.frame_arrow_0": "鲁恩的红莲箭矢",
+  "item.vmd.frame_arrow_1": "鲁恩的红莲箭矢¹",
+  "item.vmd.frame_arrow_2": "鲁恩的红莲箭矢²",
+  "item.vmd.frame_arrow_3": "鲁恩的红莲箭矢³",
+
+  "item.vmd.devil_power_curio": "未知术法核心",
+
 
   "curios.identifier.rune": "符石",
   "curios.identifier.crest": "纹章",

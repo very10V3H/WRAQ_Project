@@ -2,7 +2,7 @@ package fun.wraq.series.overworld.IceSeries;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.BasicAttributeDescription;
-import fun.wraq.common.registry.ItemMaterial;
+import fun.wraq.common.registry.ModArmorMaterials;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -24,7 +24,7 @@ public class LeatherArmor extends ArmorItem {
             "头盔", "胸甲", "护腿", "靴子"
     };
 
-    public LeatherArmor(ItemMaterial Material, Type Slots, int Num) {
+    public LeatherArmor(ModArmorMaterials Material, Type Slots, int Num) {
         super(Material, Slots, new Properties().rarity(CustomStyle.SnowItalic));
         this.Num = Num;
         Utils.defence.put(this, 1d);

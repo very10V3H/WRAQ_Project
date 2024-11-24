@@ -2,7 +2,7 @@ package fun.wraq.series.overworld.chapter2.kaze;
 
 import fun.wraq.common.equip.WraqArmor;
 import fun.wraq.common.impl.display.ForgeItem;
-import fun.wraq.common.registry.ItemMaterial;
+import fun.wraq.common.registry.ModArmorMaterials;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
@@ -16,7 +16,7 @@ import java.util.List;
 
 public class KazeArmorBoots extends WraqArmor implements ForgeItem {
 
-    public KazeArmorBoots(ItemMaterial Material, Type Slots) {
+    public KazeArmorBoots(ModArmorMaterials Material, Type Slots) {
         super(Material, Slots, new Properties().rarity(CustomStyle.KazeItalic));
         Utils.movementSpeedCommon.put(this, 0.18);
         Utils.attackDamage.put(this, 250d);

@@ -92,7 +92,7 @@ public class CopperCoinC2SPacket {
                 // 从背包中使用1枚金币兑换256枚铜币
                 case 4 -> {
                     try {
-                        InventoryOperation.itemTrade(player, new ItemStack(ModItems.goldCoin.get(), 1), new ItemStack(ModItems.copperCoin.get(), 144));
+                        InventoryOperation.itemTrade(player, new ItemStack(ModItems.GOLD_COIN.get(), 1), new ItemStack(ModItems.copperCoin.get(), 144));
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }

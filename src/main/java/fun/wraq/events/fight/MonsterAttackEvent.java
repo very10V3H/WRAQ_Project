@@ -11,13 +11,13 @@ import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.struct.Shield;
 import fun.wraq.entities.entities.Civil.Civil;
+import fun.wraq.events.mob.instance.instances.dimension.CitadelGuardianInstance;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.ParticlePackets.EffectParticle.DamageDecreaseParticleS2CPacket;
 import fun.wraq.networking.misc.ParticlePackets.SlowDownParticleS2CPacket;
 import fun.wraq.networking.misc.SoundsPackets.SoundsS2CPacket;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.suit.SuitCount;
-import fun.wraq.process.system.potion.NewPotionEffects;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.devil.DevilAttackArmor;
 import fun.wraq.series.instance.series.taboo.TabooAttackArmor;
@@ -70,7 +70,6 @@ public class MonsterAttackEvent {
 
         damage *= (1 - damageDecreaseRate);
         damage *= TabooAttackArmor.Passive(player);
-        damage *= (1 - NewPotionEffects.resistanceEnhance(player));
 
         damage *= DamageInfluence.getPlayerWithstandDamageInfluence(player, monster);
 
@@ -143,6 +142,7 @@ public class MonsterAttackEvent {
             DevilAttackArmor.DevilAttackArmorPassive(player, monster); // 封魔者圣铠
             StarBottle.playerBattleTickMapRefresh(player);
         }
+        CitadelGuardianInstance.playerWithstandDamage(player, monster);
     }
 
     @SubscribeEvent

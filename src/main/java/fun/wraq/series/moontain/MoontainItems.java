@@ -1,7 +1,7 @@
 package fun.wraq.series.moontain;
 
 import fun.wraq.common.fast.Te;
-import fun.wraq.common.registry.ItemMaterial;
+import fun.wraq.common.registry.ModArmorMaterials;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.WraqItem;
@@ -105,18 +105,18 @@ public class MoontainItems {
             () -> new MoontainSceptre(new Item.Properties().rarity(CustomStyle.MOONTAIN_ITALIC)));
 
     public static final RegistryObject<Item> HELMET = ITEMS.register("moontain_helmet",
-            () -> new MoontainArmor(ItemMaterial.MOONTAIN, ArmorItem.Type.HELMET,
+            () -> new MoontainArmor(ModArmorMaterials.MOONTAIN, ArmorItem.Type.HELMET,
                     new Item.Properties().rarity(CustomStyle.MOONTAIN_ITALIC)));
 
     public static final RegistryObject<Item> CHEST = ITEMS.register("moontain_chest",
-            () -> new MoontainArmor(ItemMaterial.MOONTAIN, ArmorItem.Type.CHESTPLATE,
+            () -> new MoontainArmor(ModArmorMaterials.MOONTAIN, ArmorItem.Type.CHESTPLATE,
                     new Item.Properties().rarity(CustomStyle.MOONTAIN_ITALIC)));
 
     public static final RegistryObject<Item> LEGGINGS = ITEMS.register("moontain_leggings",
-            () -> new MoontainArmor(ItemMaterial.MOONTAIN, ArmorItem.Type.LEGGINGS,
+            () -> new MoontainArmor(ModArmorMaterials.MOONTAIN, ArmorItem.Type.LEGGINGS,
                     new Item.Properties().rarity(CustomStyle.MOONTAIN_ITALIC)));
 
     public static final RegistryObject<Item> BOOTS = ITEMS.register("moontain_boots",
-            () -> new MoontainArmor(ItemMaterial.MOONTAIN, ArmorItem.Type.BOOTS,
+            () -> new MoontainArmor(ModArmorMaterials.MOONTAIN, ArmorItem.Type.BOOTS,
                     new Item.Properties().rarity(CustomStyle.MOONTAIN_ITALIC)));
 }

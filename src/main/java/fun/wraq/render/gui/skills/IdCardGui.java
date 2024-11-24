@@ -410,15 +410,19 @@ public class IdCardGui extends Screen {
             double tier = ClientUtils.AbilityChangeCache.Power;
             ComponentUtils.emojiDescriptionExAttackDamage(components, tier * 2);
             ComponentUtils.emojiDescriptionDamageDirectDecrease(components, tier * 5);
+            ComponentUtils.emojiDescriptionToughness(components, tier * 0.4);
             ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
             components.add(Component.literal(Ability).withStyle(style).
                     append(Component.literal("能力与属性点数关系:").withStyle(ChatFormatting.WHITE)));
             components.add(Component.literal("每一点能力获得:"));
             ComponentUtils.emojiDescriptionExAttackDamage(components, 2);
             ComponentUtils.emojiDescriptionDamageDirectDecrease(components, 5);
+            ComponentUtils.emojiDescriptionToughness(components, 0.4);
             ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
             components.add(Te.s("", ComponentUtils.AttributeDescription.damageDirectDecrease(""),
                     "将会直接", "减少", CustomStyle.styleOfStone, "你受到的", "最终伤害", ChatFormatting.RED));
+            components.add(Te.s("", ComponentUtils.AttributeDescription.toughness(""), "将降低",
+                    "负面效果", ChatFormatting.RED, "的持续时间", "，至多可减少", "50%", CustomStyle.styleOfEnd));
             guiGraphics.renderComponentTooltip(fontRenderer, components, x, y);
         }
 

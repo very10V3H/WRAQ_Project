@@ -5,7 +5,7 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.common.registry.ItemMaterial;
+import fun.wraq.common.registry.ModArmorMaterials;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -21,7 +21,7 @@ public class SpringManaArmor extends ArmorItem {
     private static final Style style = CustomStyle.styleOfSpring;
     private String type = "";
 
-    public SpringManaArmor(ItemMaterial Material, Type Slots, Properties itemProperties, int type) {
+    public SpringManaArmor(ModArmorMaterials Material, Type Slots, Properties itemProperties, int type) {
         super(Material, Slots, itemProperties);
         Utils.maxHealth.put(this, 1024d);
         Utils.manaDamage.put(this, 512d);

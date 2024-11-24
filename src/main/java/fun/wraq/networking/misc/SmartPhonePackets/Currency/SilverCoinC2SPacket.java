@@ -92,7 +92,7 @@ public class SilverCoinC2SPacket {
                 // 从背包中使用1枚金币兑换16枚银币
                 case 4 -> {
                     try {
-                        InventoryOperation.itemTrade(player, new ItemStack(ModItems.goldCoin.get()), new ItemStack(ModItems.silverCoin.get(), 12));
+                        InventoryOperation.itemTrade(player, new ItemStack(ModItems.GOLD_COIN.get()), new ItemStack(ModItems.silverCoin.get(), 12));
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }

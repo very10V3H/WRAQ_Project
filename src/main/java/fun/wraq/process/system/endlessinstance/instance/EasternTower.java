@@ -49,7 +49,7 @@ public class EasternTower extends DailyEndlessInstance {
 
     @Override
     protected void reward(Player player) {
-        List.of(new ItemStack(ModItems.goldCoin.get(), getKillCount() / 10),
+        List.of(new ItemStack(ModItems.GOLD_COIN.get(), getKillCount() / 10),
                 new ItemStack(EndlessInstanceItems.ENDLESS_INSTANCE_CORE.get(), Math.min(16, getKillCount() / 20)))
                 .forEach(itemStack -> InventoryOperation.itemStackGive(player, itemStack));
     }

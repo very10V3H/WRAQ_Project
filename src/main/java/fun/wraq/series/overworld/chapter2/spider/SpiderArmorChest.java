@@ -1,7 +1,7 @@
 package fun.wraq.series.overworld.chapter2.spider;
 
 import fun.wraq.common.Compute;
-import fun.wraq.common.registry.ItemMaterial;
+import fun.wraq.common.registry.ModArmorMaterials;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.network.chat.Component;
@@ -15,7 +15,7 @@ import java.util.List;
 
 public class SpiderArmorChest extends ArmorItem {
 
-    public SpiderArmorChest(ItemMaterial Materrial, Type Slots) {
+    public SpiderArmorChest(ModArmorMaterials Materrial, Type Slots) {
         super(Materrial, Slots, new Properties().rarity(CustomStyle.SpiderItalic));
         Utils.armorTag.put(this, 1d);
     }

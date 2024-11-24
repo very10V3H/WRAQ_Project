@@ -2,20 +2,21 @@ package fun.wraq.events.mob.instance;
 
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
+import fun.wraq.events.mob.instance.instances.dimension.CitadelGuardianInstance;
 import fun.wraq.events.mob.instance.instances.dimension.NetherInstance;
 import fun.wraq.events.mob.instance.instances.element.IceInstance;
 import fun.wraq.events.mob.instance.instances.element.MoonInstance;
 import fun.wraq.events.mob.instance.instances.element.PlainInstance;
 import fun.wraq.events.mob.instance.instances.element.PurpleIronInstance;
-import fun.wraq.events.mob.instance.instances.moontain.*;
+import fun.wraq.events.mob.instance.instances.moontain.MoontainBoss1Instance;
+import fun.wraq.events.mob.instance.instances.moontain.MoontainBoss2Instance;
+import fun.wraq.events.mob.instance.instances.moontain.MoontainBoss3Instance;
 import fun.wraq.events.mob.instance.instances.sakura.DevilInstance;
 import fun.wraq.events.mob.instance.instances.sakura.SakuraBossInstance;
 import fun.wraq.series.moontain.MoontainItems;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
@@ -36,6 +37,7 @@ public class NoTeamInstanceModule {
         public static String moon = "allowRewardMoon";
         public static String blackCastle = "allowRewardBlackCastle";
         public static String moontainBoss = "allowRewardMoontainBoss";
+        public static String enderGuardian = "allowRewardEnderGuardian";
     }
 
     public static boolean getPlayerAllowReward(Player player, String tag) {
@@ -68,6 +70,10 @@ public class NoTeamInstanceModule {
         add(NetherInstance.getInstance());
     }};
 
+    public static List<fun.wraq.events.mob.instance.NoTeamInstance> noTeamInstancesEnd = new ArrayList<>() {{
+        add(CitadelGuardianInstance.getInstance());
+    }};
+
     public static void tick(TickEvent.LevelTickEvent event) {
         if (event.side.isServer() && event.phase.equals(TickEvent.Phase.START)) {
             ServerLevel level = (ServerLevel) event.level;
@@ -97,15 +103,31 @@ public class NoTeamInstanceModule {
                     noTeamInstance.bossInfoSet(level);
                 }
             }
+            if (level.dimension().equals(Level.END)) {
+                for (NoTeamInstance noTeamInstance : noTeamInstancesEnd) {
+                    if (hasPlayerNearInstance(level, noTeamInstance)) {
+                        noTeamInstance.detectAndSummon(level);
+                        noTeamInstance.tickModule();
+                        if (tick % 20 == 0) noTeamInstance.summonLeftSecondsArmorStand(level);
+                    } else {
+                        noTeamInstance.reset(tick, true);
+                    }
+                    noTeamInstance.bossInfoSet(level);
+                }
+            }
         }
     }
 
-    public static void clearMob() {
-        for (fun.wraq.events.mob.instance.NoTeamInstance noTeamInstance : noTeamInstancesOverworld) {
-            for (Mob mob : noTeamInstance.mobList) {
-                mob.remove(Entity.RemovalReason.KILLED);
-            }
-        }
+    public static void reset() {
+        noTeamInstancesOverworld.forEach(instance -> {
+            instance.reset(0, true);
+        });
+        noTeamInstancesNether.forEach(instance -> {
+            instance.reset(0, true);
+        });
+        noTeamInstancesEnd.forEach(instance -> {
+            instance.reset(0, true);
+        });
     }
 
     public static boolean hasPlayerNearInstance(ServerLevel serverLevel, NoTeamInstance noTeamInstance) {
@@ -132,6 +154,14 @@ public class NoTeamInstanceModule {
             }
             if (player.level().dimension().equals(Level.NETHER)) {
                 noTeamInstancesNether.forEach(instance -> {
+                    if (instance.getSummonAndRewardNeedItem().equals(item)
+                            && player.position().distanceTo(instance.pos) < 12 && Tick.get() > instance.summonTick) {
+                        instance.ready = true;
+                    }
+                });
+            }
+            if (player.level().dimension().equals(Level.END)) {
+                noTeamInstancesEnd.forEach(instance -> {
                     if (instance.getSummonAndRewardNeedItem().equals(item)
                             && player.position().distanceTo(instance.pos) < 12 && Tick.get() > instance.summonTick) {
                         instance.ready = true;

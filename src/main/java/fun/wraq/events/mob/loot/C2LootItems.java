@@ -1,6 +1,6 @@
 package fun.wraq.events.mob.loot;
 
-import fun.wraq.common.registry.ItemMaterial;
+import fun.wraq.common.registry.ModArmorMaterials;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
@@ -40,7 +40,7 @@ public class C2LootItems {
                     new RandomAttributeValue(StringUtils.RandomAttribute.attackDamage, 80, 100)), 60));
 
     public static final RegistryObject<Item> forestWolfChest = ITEMS.register("forest_wolf_chest", () ->
-            new RandomArmor(ItemMaterial.Forest, ArmorItem.Type.CHESTPLATE,
+            new RandomArmor(ModArmorMaterials.Forest, ArmorItem.Type.CHESTPLATE,
                     new Item.Properties().rarity(CustomStyle.ForestBold), CustomStyle.styleOfForest,
                     ComponentUtils.getSuffixOfChapterII(), List.of(
                     new RandomAttributeValue(StringUtils.RandomAttribute.maxHealth, 180, 220),
@@ -54,13 +54,13 @@ public class C2LootItems {
                     new RandomAttributeValue(StringUtils.RandomAttribute.movementSpeedWithoutBattle, 0.5, 0.7)), 72));
 
     public static final RegistryObject<Item> slimeChest = ITEMS.register("slime_chest", () ->
-            new RandomArmor(ItemMaterial.LifeElement, ArmorItem.Type.CHESTPLATE, new Item.Properties().rarity(CustomStyle.LifeBold), CustomStyle.styleOfLife,
+            new RandomArmor(ModArmorMaterials.LifeElement, ArmorItem.Type.CHESTPLATE, new Item.Properties().rarity(CustomStyle.LifeBold), CustomStyle.styleOfLife,
                     ComponentUtils.getSuffixOfChapterII(), List.of(
                     new RandomAttributeValue(StringUtils.RandomAttribute.maxHealth, 300, 400),
                     new RandomAttributeValue(StringUtils.RandomAttribute.movementSpeedWithoutBattle, 0.4, 0.6)), 76));
 
     public static final RegistryObject<Item> jorogumoLeggings = ITEMS.register("jorogumo_leggings", () ->
-            new RandomArmor(ItemMaterial.PurpleIron, ArmorItem.Type.LEGGINGS, new Item.Properties().rarity(CustomStyle.PurpleIronBold), CustomStyle.styleOfPurpleIron,
+            new RandomArmor(ModArmorMaterials.PurpleIron, ArmorItem.Type.LEGGINGS, new Item.Properties().rarity(CustomStyle.PurpleIronBold), CustomStyle.styleOfPurpleIron,
                     ComponentUtils.getSuffixOfChapterII(), List.of(
                     new RandomAttributeValue(StringUtils.RandomAttribute.maxHealth, 600, 800),
                     new RandomAttributeValue(StringUtils.RandomAttribute.defence, 18, 22)), 92));
@@ -78,7 +78,7 @@ public class C2LootItems {
                     new RandomAttributeValue(StringUtils.RandomAttribute.attackDamage, 90, 110)), 84));
 
     public static final RegistryObject<Item> lightningZombieHelmet = ITEMS.register("lightning_zombie_helmet", () ->
-            new RandomArmor(ItemMaterial.IslandMaterial, ArmorItem.Type.HELMET, new Item.Properties().rarity(CustomStyle.LightningBold), CustomStyle.styleOfLightning,
+            new RandomArmor(ModArmorMaterials.IslandMaterial, ArmorItem.Type.HELMET, new Item.Properties().rarity(CustomStyle.LightningBold), CustomStyle.styleOfLightning,
                     ComponentUtils.getSuffixOfChapterII(), List.of(
                     new RandomAttributeValue(StringUtils.RandomAttribute.manaPenetration0, 2.5, 5.5),
                     new RandomAttributeValue(StringUtils.RandomAttribute.attackDamage, 75, 95)), 92));

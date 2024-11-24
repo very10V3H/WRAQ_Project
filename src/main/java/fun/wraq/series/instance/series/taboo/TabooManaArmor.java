@@ -6,7 +6,7 @@ import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.impl.inslot.InCuriosOrEquipSlotAttributesModify;
 import fun.wraq.common.impl.oncostmana.OnCostManaEquip;
-import fun.wraq.common.registry.ItemMaterial;
+import fun.wraq.common.registry.ModArmorMaterials;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
@@ -24,7 +24,7 @@ import java.util.WeakHashMap;
 
 public class TabooManaArmor extends WraqArmor implements OnCostManaEquip, InCuriosOrEquipSlotAttributesModify, ForgeItem {
 
-    public TabooManaArmor(ItemMaterial Material, Type type, Properties itemProperties) {
+    public TabooManaArmor(ModArmorMaterials Material, Type type, Properties itemProperties) {
         super(Material, type, itemProperties);
         Utils.movementSpeedCommon.put(this, 0.15);
     }

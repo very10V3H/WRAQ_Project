@@ -48,8 +48,8 @@ public class ParticleProvider {
             if (serverPlayer.position().distanceTo(pos) <= 30 && serverPlayer.level().dimension().equals(player.level().dimension())) {
                 int ignoreLevel = Math.max(1, serverPlayer.getPersistentData().getInt(StringUtils.IgnoreParticleLevel));
                 if (ignoreLevel < 10) {
-                    ModNetworking.sendToClient(new DustParticleS2CPacket(pos.toVector3f(), r, num,
-                            String.valueOf(color), new Vector3f(0, 0, 0)), serverPlayer);
+                    ModNetworking.sendToClient(new DustParticleS2CPacket(pos.toVector3f(), r, num, color,
+                            new Vector3f(0, 0, 0)), serverPlayer);
                 }
             }
         });

@@ -1,7 +1,7 @@
 package fun.wraq.series.overworld.chapter7.star;
 
 import fun.wraq.common.Compute;
-import fun.wraq.common.registry.ItemMaterial;
+import fun.wraq.common.registry.ModArmorMaterials;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
@@ -23,7 +23,7 @@ import java.util.List;
 
 public class StarArmor extends WraqArmor {
 
-    public StarArmor(ItemMaterial Material, Type Slots, Properties itemProperties) {
+    public StarArmor(ModArmorMaterials Material, Type Slots, Properties itemProperties) {
         super(Material, Slots, itemProperties);
         if (type.equals(Type.LEGGINGS)) Utils.maxHealth.put(this, 12000d);
         if (type.equals(Type.HELMET)) {

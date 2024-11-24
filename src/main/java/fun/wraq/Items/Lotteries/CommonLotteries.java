@@ -36,7 +36,7 @@ public class CommonLotteries extends Item {
         itemAndWeightList.add(new ItemAndWeight(ModItems.KillPaperLoot.get(), 5));
         itemAndWeightList.add(new ItemAndWeight(ModItems.MopUpPaperLoot.get(), 10));
         itemAndWeightList.add(new ItemAndWeight(ModItems.ForgeEnhance2.get(), 10));
-        itemAndWeightList.add(new ItemAndWeight(ModItems.goldCoin.get(), 30));
+        itemAndWeightList.add(new ItemAndWeight(ModItems.GOLD_COIN.get(), 30));
         itemAndWeightList.add(new ItemAndWeight(ModItems.WorldSoul2.get(), 30));
         itemAndWeightList.add(new ItemAndWeight(ModItems.RevelationBook.get(), 30));
 

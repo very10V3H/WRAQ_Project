@@ -1,7 +1,6 @@
 package fun.wraq.process.system.vp;
 
 import fun.wraq.common.registry.ModItems;
-import fun.wraq.customized.UniformItems;
 import net.minecraft.world.item.Item;
 
 import java.util.ArrayList;
@@ -21,7 +20,8 @@ public class VpStore {
             Item[] items = new Item[]{
                     ModItems.SwordLottery.get(), ModItems.BowLottery.get(), ModItems.SceptreLottery.get(),
                     ModItems.simpleTier1Paper.get(), ModItems.simpleTier2Paper.get(), ModItems.simpleTier3Paper.get(),
-                    UniformItems.ATTACK_CURIOS_YXWG.get(), UniformItems.BOW_CURIOS_YXWG.get(), UniformItems.MANA_CURIOS_YXWG.get()
+                    ModItems.SENIOR_POTION_SUPPLY.get(), ModItems.ORE_SUPPLY.get(),
+                    ModItems.JUNIOR_SUPPLY.get(), ModItems.SENIOR_SUPPLY.get()
             };
             goodsList.addAll(List.of(items));
         }
@@ -36,11 +36,10 @@ public class VpStore {
             priceMap.put(ModItems.simpleTier1Paper.get(), 68);
             priceMap.put(ModItems.simpleTier2Paper.get(), 168);
             priceMap.put(ModItems.simpleTier3Paper.get(), 298);
-            priceMap.put(ModItems.gemPiece.get(), 5);
-            priceMap.put(UniformItems.ATTACK_CURIOS_YXWG.get(), 300);
-            priceMap.put(UniformItems.BOW_CURIOS_YXWG.get(), 300);
-            priceMap.put(UniformItems.MANA_CURIOS_YXWG.get(), 300);
-
+            priceMap.put(ModItems.ORE_SUPPLY.get(), 25);
+            priceMap.put(ModItems.SENIOR_POTION_SUPPLY.get(), 15);
+            priceMap.put(ModItems.JUNIOR_SUPPLY.get(), 15);
+            priceMap.put(ModItems.SENIOR_SUPPLY.get(), 45);
         }
         return priceMap;
     }
@@ -63,7 +62,10 @@ public class VpStore {
             countMap.put(ModItems.simpleTier1Paper.get(), 1);
             countMap.put(ModItems.simpleTier2Paper.get(), 1);
             countMap.put(ModItems.simpleTier3Paper.get(), 1);
-            countMap.put(ModItems.gemPiece.get(), 64);
+            countMap.put(ModItems.ORE_SUPPLY.get(), 1);
+            countMap.put(ModItems.SENIOR_POTION_SUPPLY.get(), 1);
+            countMap.put(ModItems.JUNIOR_SUPPLY.get(), 1);
+            countMap.put(ModItems.SENIOR_SUPPLY.get(), 1);
         }
         return countMap;
     }

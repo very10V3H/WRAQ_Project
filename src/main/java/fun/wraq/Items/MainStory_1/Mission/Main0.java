@@ -70,7 +70,6 @@ public class Main0 extends Item {
                     player.getInventory().setItem(i, newBackPack);
                 }
             }*/
-
         }
 
         if (!level.isClientSide && player.isShiftKeyDown()) {

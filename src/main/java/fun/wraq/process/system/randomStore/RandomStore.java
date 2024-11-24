@@ -15,8 +15,8 @@ public class RandomStore {
     public static Map<String, Map<ItemStack, List<ItemStack>>> playerTradeList = new HashMap<>();
     public static Map<ItemStack, List<ItemStack>> clientTradeList = new HashMap<>();
     public static Map<ItemStack, List<ItemStack>> defaultTradeList = new HashMap<>() {{
-        put(new ItemStack(ModItems.RoseGoldCoin.get(), 2),
-                List.of(new ItemStack(ModItems.goldCoin.get(), 32),
+        put(new ItemStack(ModItems.ROSE_GOLD_COIN.get(), 2),
+                List.of(new ItemStack(ModItems.GOLD_COIN.get(), 32),
                         new ItemStack(ModItems.silverCoin.get(), 32),
                         new ItemStack(ModItems.copperCoin.get(), 32)));
     }};

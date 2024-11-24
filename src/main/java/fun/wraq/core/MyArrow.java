@@ -6,16 +6,16 @@ import fun.wraq.common.attribute.DamageInfluence;
 import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.attribute.SameTypeModule;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
-import fun.wraq.common.impl.onhit.OnCritHitEffectMainHandWeapon;
-import fun.wraq.common.impl.onhit.OnHitEffectEquip;
-import fun.wraq.common.impl.onhit.OnHitEffectPassiveEquip;
+import fun.wraq.common.impl.onhit.*;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.customized.uniform.bow.BowCurios0;
 import fun.wraq.entities.entities.Civil.Civil;
 import fun.wraq.events.modules.AttackEventModule;
 import fun.wraq.process.func.EnhanceNormalAttackModifier;
+import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
 import fun.wraq.process.func.StableTierAttributeModifier;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
@@ -51,7 +51,6 @@ import org.apache.commons.lang3.RandomUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
-import java.util.Objects;
 
 public class MyArrow extends AbstractArrow {
 
@@ -201,8 +200,12 @@ public class MyArrow extends AbstractArrow {
         double critDamage = PlayerAttributes.critDamage(player);
         ItemStack mainHandItem = player.getItemInHand(InteractionHand.MAIN_HAND);
         if (entity instanceof Mob monster && !level.isClientSide) {
+            if (SpecialEffectOnPlayer.inBlind(player)) {
+                Compute.summonValueItemEntity(monster.level(), player, monster,
+                        Te.s("未命中", CustomStyle.styleOfEnd), 0);
+                return;
+            }
             Utils.PlayerFireWorkFightCoolDown.put(player, Tick.get() + 200);
-            int tickCount = Objects.requireNonNull(player.getServer()).getTickCount();
             double defence = MobAttributes.defence(monster);
 
             if (shootByPlayer) {
@@ -216,7 +219,7 @@ public class MyArrow extends AbstractArrow {
             double baseDamage = PlayerAttributes.attackDamage(player) * rate;
             double damage;
             double exDamage = 0;
-            double damageIgnoreDefence = 0;
+            double trueDamage = 0;
             double damageEnhance = 0;
 
             AttackEventModule.BowSkill6Attack(data, player, true); // 连续命中目标的箭矢，将会提供至多30%攻击力加成
@@ -226,10 +229,10 @@ public class MyArrow extends AbstractArrow {
             exDamage += AttackEventModule.BlackForest(player, monster); // 灵魂收割者主动
             exDamage += TabooSwiftArmor.ExDamage(player);
 
-            damageIgnoreDefence += AttackEventModule.BowSkill0(data, baseDamage); // 弓术热诚（你的箭矢额外造成攻击力1%的真实伤害）
-            damageIgnoreDefence += AttackEventModule.SeaSword(player, monster); //灵魂救赎者主动
-            damageIgnoreDefence += MoonCurios.Passive(player, monster); // 朔望馈赠
-            damageIgnoreDefence += CastleSwiftArmor.ExIgnoreDefenceDamage(player);
+            trueDamage += AttackEventModule.BowSkill0(data, baseDamage); // 弓术热诚（你的箭矢额外造成攻击力1%的真实伤害）
+            trueDamage += AttackEventModule.SeaSword(player, monster); //灵魂救赎者主动
+            trueDamage += MoonCurios.Passive(player, monster); // 朔望馈赠
+            trueDamage += CastleSwiftArmor.ExIgnoreDefenceDamage(player);
 
             damageEnhance += AttackEventModule.BowSkill3(data, player, monster); // 习惯获取（对一名目标的持续攻击，可以使你对该目标的伤害至多提升至2%，在3次攻击后达到最大值）
             damageEnhance += AttackEventModule.NetherBow(player, monster); // 夸塔兹长弓
@@ -253,27 +256,27 @@ public class MyArrow extends AbstractArrow {
                 player.sendSystemMessage(Component.literal("---NormalBowAttack---"));
                 player.sendSystemMessage(Component.literal("baseDamage : " + baseDamage));
                 player.sendSystemMessage(Component.literal("ExDamage : " + exDamage));
-                player.sendSystemMessage(Component.literal("DamageIgnoreDefence : " + damageIgnoreDefence));
+                player.sendSystemMessage(Component.literal("DamageIgnoreDefence : " + trueDamage));
             }
 
             //
             exDamage *= (1 + damageEnhance);
-            damageIgnoreDefence *= (1 + damageEnhance);
+            trueDamage *= (1 + damageEnhance);
             damage *= (1 + damageEnhance) * (1 + NormalAttackDamageEnhance);
             damage += exDamage;
             //
             damage *= (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, monster));
-            damageIgnoreDefence *= (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, monster));
+            trueDamage *= (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, monster));
             //
             damage *= Damage.defenceDamageDecreaseRate(defence, defencePenetration, defencePenetration0);
             // total damage
             damage *= DamageInfluence.getPlayerTotalDamageRate(player);
-            damageIgnoreDefence *= DamageInfluence.getPlayerTotalDamageRate(player);
+            trueDamage *= DamageInfluence.getPlayerTotalDamageRate(player);
             // mob control
             damage *= DamageInfluence.getMonsterControlDamageEffect(player, monster);
-            damageIgnoreDefence *= DamageInfluence.getMonsterControlDamageEffect(player, monster);
+            trueDamage *= DamageInfluence.getMonsterControlDamageEffect(player, monster);
             // 至此 关于基本的计算已结束 下方是最终乘区的计算
-            damageIgnoreDefence += BoneImpKnife.exTrueDamage(player, monster) * damage;
+            trueDamage += BoneImpKnife.exTrueDamage(player, monster) * damage;
 
             // 元素
             double ElementDamageEnhance = 0;
@@ -284,26 +287,27 @@ public class MyArrow extends AbstractArrow {
                 Element.Unit playerUnit = Element.entityElementUnit.getOrDefault(player, new Element.Unit(Element.life, 0));
                 elementType = playerUnit.type();
                 if (playerUnit.value() > 0) {
-                    ElementDamageEffect = Element.ElementEffectAddToEntity(player, monster, playerUnit.type(), playerUnit.value(), false, damage + damageIgnoreDefence);
+                    ElementDamageEffect = Element.ElementEffectAddToEntity(player, monster, playerUnit.type(), playerUnit.value(), false, damage + trueDamage);
                     Element.entityElementUnit.put(player, new Element.Unit(Element.life, 0));
                 }
                 EnhanceNormalAttackModifier.onHitEffect(player, monster, 1);
             }
 
-            double elementDamage = (damage + damageIgnoreDefence) * ((1 + ElementDamageEnhance) * ElementDamageEffect - 1);
+            double elementDamage = (damage + trueDamage) * ((1 + ElementDamageEnhance) * ElementDamageEffect - 1);
 
             damage *= (1 + ElementDamageEnhance) * ElementDamageEffect;
-            damageIgnoreDefence *= (1 + ElementDamageEnhance) * ElementDamageEffect;
+            trueDamage *= (1 + ElementDamageEnhance) * ElementDamageEffect;
 
-            Damage.DirectDamageToMob(player, entity, damage + damageIgnoreDefence);
+            Damage.beforeCauseDamage(player, monster, damage + trueDamage);
+            Damage.causeDirectDamageToMob(player, entity, damage + trueDamage);
 
             if (critFlag)
-                Compute.summonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", damage + damageIgnoreDefence)).withStyle(CustomStyle.styleOfPower), 0);
+                Compute.summonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", damage + trueDamage)).withStyle(CustomStyle.styleOfPower), 0);
             else
-                Compute.summonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", damage + damageIgnoreDefence)).withStyle(ChatFormatting.YELLOW), 0);
+                Compute.summonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", damage + trueDamage)).withStyle(ChatFormatting.YELLOW), 0);
             if (elementDamage != 0 && !elementType.isEmpty())
-                Compute.damageActionBarPacketSend(player, damage, damageIgnoreDefence, false, critFlag, elementType, elementDamage);
-            else Compute.damageActionBarPacketSend(player, damage, damageIgnoreDefence, false, critFlag);
+                Compute.damageActionBarPacketSend(player, damage, trueDamage, false, critFlag, elementType, elementDamage);
+            else Compute.damageActionBarPacketSend(player, damage, trueDamage, false, critFlag);
 
             // Health steal
             Compute.healByHealthSteal(player, damage * PlayerAttributes.healthSteal(player));
@@ -316,9 +320,11 @@ public class MyArrow extends AbstractArrow {
             if (shootByPlayer) {
                 MoonKnife.MoonKnife(player, monster);
                 CastleBow.NormalAttack(player, monster, damage);
-                Compute.AdditionEffects(player, monster, damage + damageIgnoreDefence, 0);
+                Compute.AdditionEffects(player, monster, damage + trueDamage, 0);
                 OnHitEffectEquip.hit(player, monster);
-                SameTypeModule.onNormalAttackHitMob(player, monster, 0, damage + damageIgnoreDefence);
+                OnHitEffectCurios.hit(player, monster);
+                OnArrowHitEffectCurios.hit(player, monster);
+                SameTypeModule.onNormalAttackHitMob(player, monster, 0, damage + trueDamage);
                 BowSkillTree.skillIndex13(player);
             }
             if (myArrow.mainShoot) {
@@ -331,7 +337,7 @@ public class MyArrow extends AbstractArrow {
                 player.sendSystemMessage(Component.literal("Damage.defenceDamageDecreaseRate(Defence, DefencePenetration, DefencePenetration0) : " + Damage.defenceDamageDecreaseRate(defence, defencePenetration, defencePenetration0)));
                 player.sendSystemMessage(Component.literal("ElementDamageEffect : " + ElementDamageEffect));
                 player.sendSystemMessage(Component.literal("ElementDamageEnhance : " + ElementDamageEnhance));
-                player.sendSystemMessage(Component.literal("Damage + DamageIgnoreDefence : " + (damage + damageIgnoreDefence)));
+                player.sendSystemMessage(Component.literal("Damage + DamageIgnoreDefence : " + (damage + trueDamage)));
                 player.sendSystemMessage(Component.literal("——————————————————————————————————————————"));
             }
         }

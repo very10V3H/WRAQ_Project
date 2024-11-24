@@ -2,7 +2,7 @@ package fun.wraq.series.specialevents.springFes;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.BasicAttributeDescription;
-import fun.wraq.common.registry.ItemMaterial;
+import fun.wraq.common.registry.ModArmorMaterials;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -21,7 +21,7 @@ public class SpringSwiftArmor extends ArmorItem {
     private static final Style style = CustomStyle.styleOfSpring;
     private String type = "";
 
-    public SpringSwiftArmor(ItemMaterial Material, Type Slots, Properties itemProperties, int type) {
+    public SpringSwiftArmor(ModArmorMaterials Material, Type Slots, Properties itemProperties, int type) {
         super(Material, Slots, itemProperties);
         Utils.maxHealth.put(this, 1024d);
         Utils.attackDamage.put(this, 224d);

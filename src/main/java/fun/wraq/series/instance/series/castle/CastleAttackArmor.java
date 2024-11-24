@@ -2,7 +2,7 @@ package fun.wraq.series.instance.series.castle;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
-import fun.wraq.common.registry.ItemMaterial;
+import fun.wraq.common.registry.ModArmorMaterials;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
@@ -32,7 +32,7 @@ public class CastleAttackArmor extends WraqArmor implements ForgeItem {
         put(4, 0.55);
     }};
 
-    public CastleAttackArmor(ItemMaterial Material, Type Slots, Properties itemProperties) {
+    public CastleAttackArmor(ModArmorMaterials Material, Type Slots, Properties itemProperties) {
         super(Material, Slots, itemProperties);
         if (type.equals(Type.HELMET)) {
             Utils.percentHealthRecover.put(this, 0.012);

@@ -88,7 +88,7 @@ public class SeaBow extends WraqBow implements OnHitEffectEquip {
             if (random.nextDouble() < PlayerAttributes.critRate(player)) damage *= (1 + PlayerAttributes.critDamage(player));
             if (mob1.distanceTo(mob) <= 3) {
                 if (mob1.getHealth() < damage) Shield.providePlayerShield(player, 200, damage);
-                Damage.DirectDamageToMob(player, mob1, damage);
+                Damage.causeTrueDamageToMonster(player, mob1, damage);
             }
         });
     }

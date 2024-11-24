@@ -67,7 +67,6 @@ public class CodeSceptre extends PickaxeItem {
                 append(Component.literal("来强化下一次").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("魔法攻击").withStyle(ChatFormatting.LIGHT_PURPLE)));
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, ChatFormatting.LIGHT_PURPLE, ChatFormatting.WHITE);
-        WraqSceptre.getManaCoreAddition(stack, components);
         components.add(Component.literal("Evoker-Sceptre-X").withStyle(ChatFormatting.LIGHT_PURPLE).withStyle(ChatFormatting.ITALIC));
         components.add(Component.literal("MainStoryII-I.").withStyle(ChatFormatting.AQUA).withStyle(ChatFormatting.ITALIC));
         super.appendHoverText(stack, level, components, flag);

@@ -99,7 +99,10 @@ public class OldMissionScreen extends Screen {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1, 1, 1, 1);
         RenderSystem.setShaderTexture(0, GUI_TEXTURE);
-
+        int textureWidth = 300;
+        int textureHeight = 200;
+        guiGraphics.blit(GUI_TEXTURE, this.width / 2 - 150, this.height / 2 - 100,
+                0, 0, 300, 200, textureWidth, textureHeight);
         // 每日任务
         guiGraphics.renderItem(ModItems.DailyMission.get().getDefaultInstance(), this.width / 2 - 110, this.height / 2 - 80);
         guiGraphics.drawCenteredString(font, Component.literal("每日任务").withStyle(ChatFormatting.AQUA), this.width / 2 - 100, this.height / 2 - 60, 0);
@@ -346,11 +349,6 @@ public class OldMissionScreen extends Screen {
                         this.width / 2 - 100 + 98 * xOffsetRate, this.height / 2 + 24, 0);
             }
         }
-
-        int textureWidth = 300;
-        int textureHeight = 200;
-
-        guiGraphics.blit(GUI_TEXTURE, this.width / 2 - 150, this.height / 2 - 100, 0, 0, 300, 200, textureWidth, textureHeight);
         super.render(p_96310_, x, y, v);
     }
 

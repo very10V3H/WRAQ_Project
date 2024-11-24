@@ -26,6 +26,7 @@ import fun.wraq.networking.reputationMission.ReputationMissionStartTimeS2CPacket
 import fun.wraq.networking.unSorted.SwiftSyncS2CPacket;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.plan.DailySupply;
+import fun.wraq.process.func.rank.RankData;
 import fun.wraq.process.func.security.mac.MacServer;
 import fun.wraq.process.func.security.mac.network.MacRequestS2CPacket;
 import fun.wraq.process.system.bonuschest.BonusChestPlayerData;
@@ -38,6 +39,7 @@ import fun.wraq.process.system.teamInstance.NewTeamInstanceEvent;
 import fun.wraq.process.system.tower.Tower;
 import fun.wraq.process.system.tower.TowerStatusS2CPacket;
 import fun.wraq.process.system.vp.VpDataHandler;
+import fun.wraq.render.gui.trade.SingleItemChangePurchaseLimit;
 import fun.wraq.render.hud.main.QuickUseHud;
 import fun.wraq.render.hud.networking.QuickUseDisplayS2CPacket;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -339,6 +341,9 @@ public class LoginInEvent {
             }
 
             NewLotteries.sendLotteryRewardTimes(player);
+
+            SingleItemChangePurchaseLimit.sendAllRecipeTimes(player);
+            RankData.onPlayerLogin(player);
         }
     }
 

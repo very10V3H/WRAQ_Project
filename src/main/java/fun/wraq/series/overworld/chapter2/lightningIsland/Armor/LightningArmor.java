@@ -7,7 +7,7 @@ import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.impl.onhit.OnHitEffectEquip;
-import fun.wraq.common.registry.ItemMaterial;
+import fun.wraq.common.registry.ModArmorMaterials;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
@@ -31,7 +31,7 @@ import java.util.*;
 public class LightningArmor extends WraqArmor implements OnHitEffectEquip, ForgeItem {
 
     private final int tier;
-    public LightningArmor(ItemMaterial material, Type type, Properties properties, int tier) {
+    public LightningArmor(ModArmorMaterials material, Type type, Properties properties, int tier) {
         super(material, type, properties);
         this.tier = tier;
         if (type.equals(Type.HELMET)) Utils.healthRecover.put(this, 30d * (tier + 1));

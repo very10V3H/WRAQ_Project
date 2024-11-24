@@ -7,7 +7,7 @@ import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.customized.uniform.bow.BowCurios0;
 import fun.wraq.networking.ModNetworking;
-import fun.wraq.process.func.SpecialEffectOnPlayer;
+import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
 import fun.wraq.process.func.guide.Guide;
 import fun.wraq.render.hud.SwiftData;
 import net.minecraft.nbt.CompoundTag;

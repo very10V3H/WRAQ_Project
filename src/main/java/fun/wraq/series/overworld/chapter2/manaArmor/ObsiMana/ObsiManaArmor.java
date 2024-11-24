@@ -1,7 +1,7 @@
 package fun.wraq.series.overworld.chapter2.manaArmor.ObsiMana;
 
 import fun.wraq.common.equip.WraqArmor;
-import fun.wraq.common.registry.ItemMaterial;
+import fun.wraq.common.registry.ModArmorMaterials;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -16,7 +16,7 @@ import java.util.List;
 
 public class ObsiManaArmor extends WraqArmor {
 
-    public ObsiManaArmor(ItemMaterial material, Type type) {
+    public ObsiManaArmor(ModArmorMaterials material, Type type) {
         super(material, type, new Properties().rarity(CustomStyle.EvokerItalic));
         if (type.equals(Type.HELMET)) Utils.healthRecover.put(this, 5d);
         if (type.equals(Type.CHESTPLATE)) Utils.defence.put(this, 20d);

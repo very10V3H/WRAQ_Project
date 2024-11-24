@@ -36,7 +36,7 @@ public class AllCurrencyC2SPacket {
             ServerPlayer player = context.getSender();
             int copper = collect(player, ModItems.copperCoin.get(), 1);
             int silver = collect(player, ModItems.silverCoin.get(), 12);
-            int gold = collect(player, ModItems.goldCoin.get(), 144);
+            int gold = collect(player, ModItems.GOLD_COIN.get(), 144);
 
             if (sendMSG) {
                 Compute.sendFormatMSG(player, Component.literal("货币").withStyle(ChatFormatting.GOLD),
@@ -48,7 +48,7 @@ public class AllCurrencyC2SPacket {
                         append(ModItems.silverCoin.get().getDefaultInstance().getDisplayName()).
                         append(Component.literal(" " + silver + "枚" + " (" + silver * 12 + ")").withStyle(ChatFormatting.WHITE)));
                 player.sendSystemMessage(Component.literal(" ").withStyle(ChatFormatting.WHITE).
-                        append(ModItems.goldCoin.get().getDefaultInstance().getDisplayName()).
+                        append(ModItems.GOLD_COIN.get().getDefaultInstance().getDisplayName()).
                         append(Component.literal(" " + gold + "枚" + " (" + gold * 144 + ")").withStyle(ChatFormatting.WHITE)));
             }
 

@@ -6,8 +6,10 @@ import fun.wraq.common.attribute.DamageInfluence;
 import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.attribute.SameTypeModule;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.onhit.OnCritHitEffectMainHandWeapon;
+import fun.wraq.common.impl.onhit.OnHitEffectCurios;
 import fun.wraq.common.impl.onhit.OnHitEffectEquip;
 import fun.wraq.common.impl.onhit.OnHitEffectPassiveEquip;
 import fun.wraq.common.registry.ModItems;
@@ -23,6 +25,7 @@ import fun.wraq.events.modules.HurtEventModule;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.ParticlePackets.EffectParticle.CritHitParticleS2CPacket;
 import fun.wraq.process.func.EnhanceNormalAttackModifier;
+import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.suit.SuitCount;
 import fun.wraq.process.system.element.Element;
@@ -119,6 +122,11 @@ public class AttackEvent {
     }
 
     public static void attackToMonster(Mob monster, Player player, double rate, boolean mainAttack, boolean crit) {
+        if (SpecialEffectOnPlayer.inBlind(player)) {
+            Compute.summonValueItemEntity(monster.level(), player, monster,
+                    Te.s("未命中", CustomStyle.styleOfEnd), 0);
+            return;
+        }
         Item equip = player.getMainHandItem().getItem();
         CompoundTag data = player.getPersistentData();
         Utils.PlayerFireWorkFightCoolDown.put(player, Tick.get() + 200);
@@ -143,7 +151,7 @@ public class AttackEvent {
 
         double damage;
         double exDamage = 0;
-        double damageIgnoreDefence = 0;
+        double trueDamage = 0;
         double damageEnhance = 0;
         double damageBeforeDefence;
 
@@ -156,12 +164,12 @@ public class AttackEvent {
         exDamage += AttackEventModule.SwordSkill12(data, player, baseDamage); // 刀光剑影（移动、攻击以及受到攻击将会获得充能，当充能满时，下一次攻击将造成额外200%伤害，并在以自身为中心范围内造成100%伤害）
         exDamage += AttackEventModule.SoulSwordActive(player); // 本源具象
 
-        damageIgnoreDefence += AttackEventModule.SeaSword(player, monster); //灵魂救赎者主动
-        damageIgnoreDefence += AttackEventModule.SwordSkill0(data, baseDamage); //剑术热诚（获得1%额外真实伤害）
-        damageIgnoreDefence += AttackEventModule.SwordSkill13(data, player, baseDamage); // 战争热诚（攻击将会提供1层充能，暴击提供2层充能，每层充能将会提升1%的额外真实伤害，并获得等量治疗效果 持续6秒）
-        damageIgnoreDefence += AttackEventModule.SwordSkill14(data, player, baseDamage, monster); // 恃强凌弱（对生命值百分比低于你的目标造成至多20%额外真实伤害 在百分比差值达66%时达到最大值 当受到生命值百分比高于你的目标的伤害使伤害额外提升同样的数值）
-        damageIgnoreDefence += MoonCurios.Passive(player, monster); // 朔望馈赠
-        damageIgnoreDefence += CastleAttackArmor.ExIgnoreDefenceDamage(player);
+        trueDamage += AttackEventModule.SeaSword(player, monster); //灵魂救赎者主动
+        trueDamage += AttackEventModule.SwordSkill0(data, baseDamage); //剑术热诚（获得1%额外真实伤害）
+        trueDamage += AttackEventModule.SwordSkill13(data, player, baseDamage); // 战争热诚（攻击将会提供1层充能，暴击提供2层充能，每层充能将会提升1%的额外真实伤害，并获得等量治疗效果 持续6秒）
+        trueDamage += AttackEventModule.SwordSkill14(data, player, baseDamage, monster); // 恃强凌弱（对生命值百分比低于你的目标造成至多20%额外真实伤害 在百分比差值达66%时达到最大值 当受到生命值百分比高于你的目标的伤害使伤害额外提升同样的数值）
+        trueDamage += MoonCurios.Passive(player, monster); // 朔望馈赠
+        trueDamage += CastleAttackArmor.ExIgnoreDefenceDamage(player);
         damageEnhance += AttackEventModule.SwordSkill3(data, player, monster); // 破绽观察（对一名目标的持续攻击，可以使你对该目标的伤害至多提升至2%，在10次攻击后达到最大值）
         damageEnhance += DamageInfluence.getPlayerCommonDamageUpOrDown(player, monster);
         damageEnhance += DamageInfluence.getPlayerAttackDamageEnhance(player, monster);
@@ -198,31 +206,31 @@ public class AttackEvent {
             player.sendSystemMessage(Component.literal("---NormalAttack---"));
             player.sendSystemMessage(Component.literal("DamageBeforeDefence : " + damageBeforeDefence));
             player.sendSystemMessage(Component.literal("ExDamage : " + exDamage));
-            player.sendSystemMessage(Component.literal("DamageIgnoreDefence : " + damageIgnoreDefence));
+            player.sendSystemMessage(Component.literal("DamageIgnoreDefence : " + trueDamage));
         }
 
         // Normal attack enhance
         damageBeforeDefence *= (1 + damageEnhance) * (1 + NormalAttackDamageEnhance);
         // Damage enhance
         exDamage *= (1 + damageEnhance);
-        damageIgnoreDefence *= (1 + damageEnhance);
+        trueDamage *= (1 + damageEnhance);
         // ExDamage
         damageBeforeDefence += exDamage;
         // 妖刀伤害影响
-        damageIgnoreDefence += SakuraSword.SakuraDemonSword(player, damageBeforeDefence);
+        trueDamage += SakuraSword.SakuraDemonSword(player, damageBeforeDefence);
         // Final damage decrease
         damageBeforeDefence *= (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, monster));
-        damageIgnoreDefence *= (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, monster));
+        trueDamage *= (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, monster));
         // Defence compute
         damage = damageBeforeDefence * Damage.defenceDamageDecreaseRate(defence, defencePenetration, defencePenetration0);
         // total damage
         damage *= DamageInfluence.getPlayerTotalDamageRate(player);
-        damageIgnoreDefence *= DamageInfluence.getPlayerTotalDamageRate(player);
+        trueDamage *= DamageInfluence.getPlayerTotalDamageRate(player);
         // mob control
         damage *= DamageInfluence.getMonsterControlDamageEffect(player, monster);
-        damageIgnoreDefence *= DamageInfluence.getMonsterControlDamageEffect(player, monster);
+        trueDamage *= DamageInfluence.getMonsterControlDamageEffect(player, monster);
         // 至此 关于基本的计算已结束 下方是最终乘区的计算
-        damageIgnoreDefence += BoneImpKnife.exTrueDamage(player, monster) * damage;
+        trueDamage += BoneImpKnife.exTrueDamage(player, monster) * damage;
 
         // 元素
         double ElementDamageEnhance = 0;
@@ -233,30 +241,32 @@ public class AttackEvent {
         Element.Unit playerUnit = Element.entityElementUnit.getOrDefault(player, new Element.Unit(Element.life, 0));
         elementType = playerUnit.type();
         if (playerUnit.value() > 0) {
-            ElementDamageEffect = Element.ElementEffectAddToEntity(player, monster, playerUnit.type(), playerUnit.value(), true, damage + damageIgnoreDefence);
+            ElementDamageEffect = Element.ElementEffectAddToEntity(player, monster, playerUnit.type(), playerUnit.value(), true, damage + trueDamage);
             Element.entityElementUnit.put(player, new Element.Unit(Element.life, 0));
         }
 
-        double elementDamage = (damage + damageIgnoreDefence) * ((1 + ElementDamageEnhance) * ElementDamageEffect - 1);
+        double elementDamage = (damage + trueDamage) * ((1 + ElementDamageEnhance) * ElementDamageEffect - 1);
 
         damage *= ((1 + ElementDamageEnhance) * ElementDamageEffect);
-        damageIgnoreDefence *= ((1 + ElementDamageEnhance) * ElementDamageEffect);
+        trueDamage *= ((1 + ElementDamageEnhance) * ElementDamageEffect);
         // Final damage cause
-        Damage.DirectDamageToMob(player, monster, damage + damageIgnoreDefence);
+        Damage.beforeCauseDamage(player, monster, damage + trueDamage);
+        Damage.causeDirectDamageToMob(player, monster, damage + trueDamage);
         // Health steal
         Compute.healByHealthSteal(player, damage * PlayerAttributes.healthSteal(player));
         // Display
         if (crit)
-            Compute.summonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", damage + damageIgnoreDefence)).withStyle(CustomStyle.styleOfPower), 0);
+            Compute.summonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", damage + trueDamage)).withStyle(CustomStyle.styleOfPower), 0);
         else
-            Compute.summonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", damage + damageIgnoreDefence)).withStyle(ChatFormatting.YELLOW), 0);
+            Compute.summonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", damage + trueDamage)).withStyle(ChatFormatting.YELLOW), 0);
 
         if (mainAttack) {
             if (elementDamage != 0 && !elementType.isEmpty())
-                Compute.damageActionBarPacketSend(player, damage, damageIgnoreDefence, false, crit, elementType, elementDamage);
-            else Compute.damageActionBarPacketSend(player, damage, damageIgnoreDefence, false, crit);
-            SameTypeModule.onNormalAttackHitMob(player, monster, 0, damage + damageIgnoreDefence);
+                Compute.damageActionBarPacketSend(player, damage, trueDamage, false, crit, elementType, elementDamage);
+            else Compute.damageActionBarPacketSend(player, damage, trueDamage, false, crit);
+            SameTypeModule.onNormalAttackHitMob(player, monster, 0, damage + trueDamage);
             OnHitEffectEquip.hit(player, monster);
+            OnHitEffectCurios.hit(player, monster);
             OnHitEffectPassiveEquip.hit(player, monster);
             EnhanceNormalAttackModifier.onHitEffect(player, monster, 0);
         }
@@ -265,7 +275,7 @@ public class AttackEvent {
         SpringAttackArmor(player, monster);
         Compute.ChargingModule(data, player);
         CastleSword.NormalAttack(player, monster, damage);
-        Compute.AdditionEffects(player, monster, damage + damageIgnoreDefence, 0);
+        Compute.AdditionEffects(player, monster, damage + trueDamage, 0);
 
         if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false)) {
             player.sendSystemMessage(Component.literal("NormalAttackDamageEnhance : " + NormalAttackDamageEnhance));
@@ -275,7 +285,7 @@ public class AttackEvent {
             player.sendSystemMessage(Component.literal("ElementDamageEffect : " + ElementDamageEffect));
             player.sendSystemMessage(Component.literal("ElementDamageEnhance : " + ElementDamageEnhance));
             player.sendSystemMessage(Component.literal("MonsterControl : " + DamageInfluence.getMonsterControlDamageEffect(player, monster)));
-            player.sendSystemMessage(Component.literal("Damage + DamageIgnoreDefence : " + (damage + damageIgnoreDefence)));
+            player.sendSystemMessage(Component.literal("Damage + DamageIgnoreDefence : " + (damage + trueDamage)));
             player.sendSystemMessage(Component.literal("——————————————————————————————————————————"));
         }
     }

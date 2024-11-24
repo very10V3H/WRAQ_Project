@@ -8,6 +8,7 @@ import fun.wraq.common.attribute.DamageInfluence;
 import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.impl.damage.BeforeCauseFinalDamageCurios;
 import fun.wraq.common.impl.damage.OnCauseFinalDamageCurios;
 import fun.wraq.common.impl.onhit.OnPowerCauseDamageEquip;
 import fun.wraq.common.impl.onkill.OnKillEffectCurios;
@@ -19,6 +20,7 @@ import fun.wraq.customized.uniform.mana.ManaCurios1;
 import fun.wraq.events.fight.MonsterAttackEvent;
 import fun.wraq.events.mob.MobDeadModule;
 import fun.wraq.events.mob.MobSpawn;
+import fun.wraq.events.mob.instance.instances.dimension.CitadelGuardianInstance;
 import fun.wraq.events.mob.instance.instances.element.IceInstance;
 import fun.wraq.events.mob.instance.instances.element.MoonInstance;
 import fun.wraq.events.mob.instance.instances.moontain.MoontainBoss3Instance;
@@ -97,7 +99,8 @@ public class Damage {
     public static double causeTrueDamageToMonster(Player player, Mob monster, double damage) {
         Compute.summonValueItemEntity(monster.level(), player, monster,
                 Component.literal(String.format("%.0f", damage)).withStyle(CustomStyle.styleOfSea), 2);
-        DirectDamageToMob(player, monster, damage);
+        beforeCauseDamage(player, monster, damage);
+        causeDirectDamageToMob(player, monster, damage);
         return damage;
     }
 
@@ -115,8 +118,8 @@ public class Damage {
 
         Compute.summonValueItemEntity(monster.level(), player, monster,
                 Component.literal(String.format("%.0f", baseDamage * num)).withStyle(ChatFormatting.YELLOW), 0);
-
-        DirectDamageToMob(player, monster, baseDamage * num);
+        beforeCauseDamage(player, monster, baseDamage * num);
+        causeDirectDamageToMob(player, monster, baseDamage * num);
         return baseDamage * num;
     }
 
@@ -147,8 +150,8 @@ public class Damage {
                 PlayerAttributes.defencePenetration0(player));
 
         Compute.summonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", damage)).withStyle(ChatFormatting.YELLOW), 0);
-
-        DirectDamageToMob(player, monster, damage);
+        beforeCauseDamage(player, monster, damage);
+        causeDirectDamageToMob(player, monster, damage);
         return damage;
     }
 
@@ -158,14 +161,16 @@ public class Damage {
             damage *= (1 + DamageInfluence.getPlayerAttackDamageEnhance(player, monster));
         }
         Compute.summonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", damage)).withStyle(ChatFormatting.YELLOW), 0);
-        DirectDamageToMob(player, monster, damage);
+        beforeCauseDamage(player, monster, damage);
+        causeDirectDamageToMob(player, monster, damage);
         return damage;
     }
 
     public static double causeAttackDamageToMonsterOnlyComputeDefence(Player player, Mob mob, double damage) {
         damage *= defenceDamageDecreaseRate(MobAttributes.defence(mob), PlayerAttributes.defencePenetration(player), PlayerAttributes.defencePenetration0(player));
         Compute.summonValueItemEntity(mob.level(), player, mob, Component.literal(String.format("%.0f", damage)).withStyle(ChatFormatting.YELLOW), 0);
-        DirectDamageToMob(player, mob, damage);
+        beforeCauseDamage(player, mob, damage);
+        causeDirectDamageToMob(player, mob, damage);
         return damage;
     }
 
@@ -175,7 +180,8 @@ public class Damage {
             damage *= (1 + DamageInfluence.getPlayerManaDamageEnhance(player));
         }
         Compute.summonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", damage)).withStyle(ChatFormatting.LIGHT_PURPLE), 1);
-        DirectDamageToMob(player, monster, damage);
+        Damage.beforeCauseDamage(player, monster, damage);
+        causeDirectDamageToMob(player, monster, damage);
         return damage;
     }
 
@@ -232,8 +238,8 @@ public class Damage {
         totalDamage *= (1 + ElementDamageEnhance) * ElementDamageEffect;
         Compute.summonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", totalDamage)).withStyle(ChatFormatting.LIGHT_PURPLE), 1);
         if (isPower) Compute.damageActionBarPacketSend(player, totalDamage, 0, true, false);
-
-        DirectDamageToMob(player, monster, totalDamage);
+        beforeCauseDamage(player, monster, totalDamage);
+        causeDirectDamageToMob(player, monster, totalDamage);
         Compute.manaDamageExEffect(player, monster, totalDamage);
         ManaCurios1.ManaDamageExTrueDamage(player, monster, totalDamage);
         if (isPower) {
@@ -298,8 +304,8 @@ public class Damage {
                 Compute.damageActionBarPacketSend(player, totalDamage, 0, true, false);
             }
         }
-
-        DirectDamageToMob(player, monster, totalDamage);
+        beforeCauseDamage(player, monster, totalDamage);
+        causeDirectDamageToMob(player, monster, totalDamage);
         Compute.manaDamageExEffect(player, monster, totalDamage);
         ManaCurios1.ManaDamageExTrueDamage(player, monster, totalDamage);
         if (isPower) {
@@ -337,7 +343,8 @@ public class Damage {
         double totalDamage = damage * (1 + DamageEnhance) * (1 + DamageInfluence.getPlayerFinalDamageEnhance(player, monster));
         totalDamage *= DamageInfluence.getMonsterControlDamageEffect(player, monster);
         Compute.summonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", totalDamage)).withStyle(ChatFormatting.LIGHT_PURPLE), 1);
-        DirectDamageToMob(player, monster, totalDamage);
+        beforeCauseDamage(player, monster, totalDamage);
+        causeDirectDamageToMob(player, monster, totalDamage);
         Compute.manaDamageExEffect(player, monster, totalDamage);
         ManaCurios1.ManaDamageExTrueDamage(player, monster, totalDamage);
     }
@@ -378,7 +385,8 @@ public class Damage {
         totalDamage *= DamageInfluence.getMonsterControlDamageEffect(player, monster);
         totalDamage *= (1 + ElementDamageEnhance) * ElementDamageEffect;
         Compute.summonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", totalDamage)).withStyle(ChatFormatting.LIGHT_PURPLE), 1);
-        DirectDamageToMob(player, monster, totalDamage);
+        beforeCauseDamage(player, monster, totalDamage);
+        causeDirectDamageToMob(player, monster, totalDamage);
         Compute.manaDamageExEffect(player, monster, totalDamage);
         ManaCurios1.ManaDamageExTrueDamage(player, monster, totalDamage);
         if (isPower) {
@@ -474,7 +482,7 @@ public class Damage {
         MonsterAttackEvent.monsterAttack(monster, player, Damage);
     }
 
-    public static void DirectDamageToMob(Player player, Entity entity, double damage) {
+    public static void causeDirectDamageToMob(Player player, Entity entity, double damage) {
         if (entity instanceof Mob mob && !(entity instanceof Allay)
                 && !(entity instanceof Animal && !entity.hasCustomName())) {
             if (entity instanceof Villager) return;
@@ -515,6 +523,7 @@ public class Damage {
             } else mob.setHealth((float) (mob.getHealth() - finalDamage));
 
             // ---- //
+            CitadelGuardianInstance.mobWithstandDamage(mob, finalDamage);
             FireEquip.IgniteEffect(player, mob);
             DpsCommand.CalculateDamage(player, finalDamage);
             entity.invulnerableTime = 0;
@@ -542,5 +551,9 @@ public class Damage {
     public static double defenceDamageDecreaseRate(double defence, double defencePenetration, double defencePenetration0) {
         double defenceAfterCompute = Math.max(0, defence * (1 - defencePenetration) - defencePenetration0);
         return (100 / (100 + defenceAfterCompute));
+    }
+
+    public static void beforeCauseDamage(Player player, Mob mob, double value) {
+        BeforeCauseFinalDamageCurios.beforeCauseFinalDamage(player, mob, value);
     }
 }

@@ -85,7 +85,7 @@ public class MagmaSceptre extends WraqSceptre implements ForgeItem {
                 new ItemStack(ModItems.Ruby.get(), 128),
                 new ItemStack(ModItems.NetherQuartz.get(), 32),
                 new ItemStack(Items.RAW_GOLD, 32),
-                new ItemStack(ModItems.goldCoin.get(), 64)
+                new ItemStack(ModItems.GOLD_COIN.get(), 64)
         );
     }
 }

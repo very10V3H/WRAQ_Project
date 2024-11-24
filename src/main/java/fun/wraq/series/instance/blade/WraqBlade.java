@@ -10,6 +10,7 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.core.AttackEvent;
 import fun.wraq.process.func.DelayOperationWithAnimation;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.overworld.sun.BrokenBlade;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -79,6 +80,7 @@ public class WraqBlade extends WraqPassiveEquip implements ActiveItem {
                     AttackEvent.getPlayerNormalAttackRangeMobList(player).forEach(mob -> {
                         AttackEvent.attackToMonster(mob, player, rate, true, true);
                     });
+                    BrokenBlade.onPlayerReleaseBlade(player);
                 }
             }
         });

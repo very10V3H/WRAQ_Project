@@ -499,14 +499,14 @@ public class ToolTipEvent {
                     append(Component.literal("的怪物概率掉落").withStyle(ChatFormatting.WHITE)));
             usage.add(Component.literal("每名玩家每日最多可获取36个").withStyle(ChatFormatting.WHITE));
         }
-        if (item.equals(ModItems.LakeCore.get())) {
+        if (item.equals(ModItems.LAKE_CORE.get())) {
             hasUsage = true;
             usage.add(Component.literal("击杀带有").withStyle(ChatFormatting.WHITE).
                     append(Component.literal("碧水元素").withStyle(CustomStyle.styleOfWater)).
                     append(Component.literal("的怪物概率掉落").withStyle(ChatFormatting.WHITE)));
             usage.add(Component.literal("每名玩家每日最多可获取36个").withStyle(ChatFormatting.WHITE));
         }
-        if (item.equals(ModItems.VolcanoCore.get())) {
+        if (item.equals(ModItems.VOLCANO_CORE.get())) {
             hasUsage = true;
             usage.add(Component.literal("击杀带有").withStyle(ChatFormatting.WHITE).
                     append(Component.literal("炽焰元素").withStyle(CustomStyle.styleOfVolcano)).

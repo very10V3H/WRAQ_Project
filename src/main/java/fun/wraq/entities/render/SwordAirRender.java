@@ -3,7 +3,7 @@ package fun.wraq.entities.render;
 import com.mojang.blaze3d.vertex.PoseStack;
 import fun.wraq.common.util.Utils;
 import fun.wraq.entities.model.SwordAirModel;
-import fun.wraq.projectiles.mana.SwordAir;
+import fun.wraq.projectiles.mana.swordair.SwordAir;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
@@ -33,12 +33,6 @@ public class SwordAirRender extends GeoEntityRenderer<SwordAir> {
 
             angle = Math.atan(vec3.y / Math.abs(Math.sqrt(vec3.x * vec3.x + vec3.z * vec3.z)));
             geoBone.setRotX((float) -angle);
-
-            if (entity.getSmall()) {
-                geoBone.setScaleX(0.5f);
-                geoBone.setScaleY(0.5f);
-                geoBone.setScaleZ(0.5f);
-            }
         });
         super.render(entity, entityYaw, partialTick, poseStack, bufferSource, packedLight);
     }

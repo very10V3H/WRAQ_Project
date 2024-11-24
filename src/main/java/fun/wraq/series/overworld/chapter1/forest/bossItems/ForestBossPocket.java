@@ -32,7 +32,7 @@ public class ForestBossPocket extends Item {
         components.add(Component.literal("·将手伸入次元口袋，你将得到:").withStyle(ChatFormatting.GOLD));
         Item[] Rewards = {
                 ModItems.ForestRune.get(), ModItems.ForgingStone0.get(),
-                ModItems.goldCoin.get(), ModItems.ForestBossGem.get(),
+                ModItems.GOLD_COIN.get(), ModItems.ForestBossGem.get(),
                 ModItems.ForestBossCore.get(), ModItems.ForestBossCore.get(),
                 ModItems.ForestBossSwordForgeDraw.get(), ModItems.ForestBossCentral.get()
         };
@@ -59,7 +59,7 @@ public class ForestBossPocket extends Item {
             Random random = new Random();
             Item[] Rewards = {
                     ModItems.ForestRune.get(), ModItems.ForgingStone0.get(),
-                    ModItems.goldCoin.get(), ModItems.ForestBossGem.get(),
+                    ModItems.GOLD_COIN.get(), ModItems.ForestBossGem.get(),
                     ModItems.ForestBossCore.get(), ModItems.ForestBossCore.get(),
                     ModItems.ForestBossSwordForgeDraw.get(), ModItems.ForestBossCentral.get()
             };

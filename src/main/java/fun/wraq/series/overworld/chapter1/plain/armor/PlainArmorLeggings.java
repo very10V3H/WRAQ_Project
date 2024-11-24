@@ -2,7 +2,7 @@ package fun.wraq.series.overworld.chapter1.plain.armor;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.BasicAttributeDescription;
-import fun.wraq.common.registry.ItemMaterial;
+import fun.wraq.common.registry.ModArmorMaterials;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -18,7 +18,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class PlainArmorLeggings extends ArmorItem {
-    public PlainArmorLeggings(ItemMaterial Material, Type Slots) {
+    public PlainArmorLeggings(ModArmorMaterials Material, Type Slots) {
         super(Material, Slots, new Properties().rarity(CustomStyle.PlainItalic));
         Utils.maxHealth.put(this, 70d);
         Utils.armorTag.put(this, 1d);

@@ -1,7 +1,7 @@
 package fun.wraq.series.end.eventController.SpiderRecall;
 
 import fun.wraq.common.Compute;
-import fun.wraq.common.registry.ItemMaterial;
+import fun.wraq.common.registry.ModArmorMaterials;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.network.chat.Component;
@@ -15,7 +15,7 @@ import java.util.List;
 
 public class SpiderRecallArmorLeggings extends ArmorItem {
 
-    public SpiderRecallArmorLeggings(ItemMaterial Materrial, Type Slots) {
+    public SpiderRecallArmorLeggings(ModArmorMaterials Materrial, Type Slots) {
         super(Materrial, Slots, new Properties().rarity(CustomStyle.MagmaItalic));
         Utils.armorTag.put(this, 1d);
     }

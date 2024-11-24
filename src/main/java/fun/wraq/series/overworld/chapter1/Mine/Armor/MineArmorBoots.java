@@ -2,7 +2,7 @@ package fun.wraq.series.overworld.chapter1.Mine.Armor;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.BasicAttributeDescription;
-import fun.wraq.common.registry.ItemMaterial;
+import fun.wraq.common.registry.ModArmorMaterials;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -21,7 +21,7 @@ import java.util.List;
 public class MineArmorBoots extends ArmorItem {
     private static final Style style = CustomStyle.styleOfMine;
 
-    public MineArmorBoots(ItemMaterial Material, Type Slots) {
+    public MineArmorBoots(ModArmorMaterials Material, Type Slots) {
         super(Material, Slots, new Properties().rarity(CustomStyle.MineItalic));
         Utils.defence.put(this, 5d);
         Utils.movementSpeedWithoutBattle.put(this, -0.2);

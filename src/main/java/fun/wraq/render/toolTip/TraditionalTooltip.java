@@ -68,5 +68,5 @@ public class TraditionalTooltip implements ClientTooltipComponent {
     public static ResourceLocation lightningElement = new ResourceLocation(Utils.MOD_ID, "textures/hud/lightning_element.png");
     public static ResourceLocation windElement = new ResourceLocation(Utils.MOD_ID, "textures/hud/wind_element.png");
     public static ResourceLocation forge = new ResourceLocation(Utils.MOD_ID, "textures/hud/forge.png");
-
+    public static ResourceLocation toughness = new ResourceLocation(Utils.MOD_ID, "textures/hud/toughness.png");
 }

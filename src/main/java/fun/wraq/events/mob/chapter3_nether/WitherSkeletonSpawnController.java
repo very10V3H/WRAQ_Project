@@ -50,7 +50,7 @@ public class WitherSkeletonSpawnController extends MobSpawnController {
 
     public WitherSkeletonSpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpZ,
                                          int boundaryDownX, int boundaryDownZ, Level level, int averageLevel) {
-        super(Te.s("森林僵尸", CustomStyle.styleOfWither), canSpawnPos, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, level, averageLevel);
+        super(Te.s("凋零骷髅", CustomStyle.styleOfWither), canSpawnPos, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, level, averageLevel);
     }
 
     @Override

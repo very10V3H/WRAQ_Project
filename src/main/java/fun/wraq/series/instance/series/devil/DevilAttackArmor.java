@@ -2,7 +2,7 @@ package fun.wraq.series.instance.series.devil;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.impl.display.ForgeItem;
-import fun.wraq.common.registry.ItemMaterial;
+import fun.wraq.common.registry.ModArmorMaterials;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
@@ -24,7 +24,7 @@ import java.util.WeakHashMap;
 
 public class DevilAttackArmor extends WraqArmor implements ForgeItem {
 
-    public DevilAttackArmor(ItemMaterial Material, Type Slots, Properties itemProperties) {
+    public DevilAttackArmor(ModArmorMaterials Material, Type Slots, Properties itemProperties) {
         super(Material, Slots, itemProperties);
         Utils.defence.put(this, 100d);
     }

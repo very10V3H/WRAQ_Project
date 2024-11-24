@@ -34,7 +34,7 @@ public class WheatPocket extends Item {
         components.add(Component.literal("·礼盒中可能含有:").withStyle(ChatFormatting.GOLD));
         Item[] Rewards = {
                 ModItems.Wheat.get(), ModItems.ForgingStone2.get(),
-                ModItems.goldCoin.get(), ModItems.WheatReForge.get(),
+                ModItems.GOLD_COIN.get(), ModItems.WheatReForge.get(),
                 ModItems.Wheat.get(), ModItems.Wheat.get(),
                 ModItems.MinePantsForgingDraw.get(), ModItems.WheatArmorChest.get()
         };
@@ -60,7 +60,7 @@ public class WheatPocket extends Item {
         if (!level.isClientSide && interactionHand.equals(InteractionHand.MAIN_HAND)) {
             Item[] Rewards = {
                     ModItems.Wheat.get(), ModItems.ForgingStone2.get(),
-                    ModItems.goldCoin.get(), ModItems.WheatReForge.get(),
+                    ModItems.GOLD_COIN.get(), ModItems.WheatReForge.get(),
                     ModItems.Wheat.get(), ModItems.Wheat.get(),
                     ModItems.MinePantsForgingDraw.get(), ModItems.WheatArmorChest.get()
             };

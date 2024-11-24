@@ -4,7 +4,7 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqArmor;
 import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.impl.inslot.InCuriosOrEquipSlotAttributesModify;
-import fun.wraq.common.registry.ItemMaterial;
+import fun.wraq.common.registry.ModArmorMaterials;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
@@ -23,7 +23,7 @@ import java.util.List;
 public class PiglinHelmet extends WraqArmor implements ForgeItem, InCuriosOrEquipSlotAttributesModify {
 
     public final int tier;
-    public PiglinHelmet(ItemMaterial Material, Type Slots, int tier) {
+    public PiglinHelmet(ModArmorMaterials Material, Type Slots, int tier) {
         super(Material, Slots, new Properties().rarity(CustomStyle.PiglinItalic));
         this.tier = tier;
         Utils.healthRecover.put(this, new double[]{20, 30, 40, 50}[tier]);
@@ -65,7 +65,7 @@ public class PiglinHelmet extends WraqArmor implements ForgeItem, InCuriosOrEqui
             add(new ItemStack(ModItems.Ruby.get(), 128));
             add(new ItemStack(ModItems.NetherQuartz.get(), 32));
             add(new ItemStack(Items.RAW_GOLD, 6));
-            add(new ItemStack(ModItems.goldCoin.get(), 64));
+            add(new ItemStack(ModItems.GOLD_COIN.get(), 64));
         }};
     }
 

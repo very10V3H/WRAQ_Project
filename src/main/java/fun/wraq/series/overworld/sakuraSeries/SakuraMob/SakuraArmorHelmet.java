@@ -2,7 +2,7 @@ package fun.wraq.series.overworld.sakuraSeries.SakuraMob;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.BasicAttributeDescription;
-import fun.wraq.common.registry.ItemMaterial;
+import fun.wraq.common.registry.ModArmorMaterials;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.entities.armor.SakuraArmorRenderer;
@@ -33,7 +33,7 @@ public class SakuraArmorHelmet extends ArmorItem implements GeoItem {
 
     private final AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
 
-    public SakuraArmorHelmet(ItemMaterial Material, Type Slots) {
+    public SakuraArmorHelmet(ModArmorMaterials Material, Type Slots) {
         super(Material, Slots, new Properties().rarity(CustomStyle.SakuraItalic));
         Utils.movementSpeedCommon.put(this, 0.04);
         Utils.attackDamage.put(this, 150d);

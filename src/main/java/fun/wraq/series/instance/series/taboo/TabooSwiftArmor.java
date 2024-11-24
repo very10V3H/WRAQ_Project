@@ -4,7 +4,7 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.equip.WraqArmor;
 import fun.wraq.common.impl.display.ForgeItem;
-import fun.wraq.common.registry.ItemMaterial;
+import fun.wraq.common.registry.ModArmorMaterials;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
@@ -23,7 +23,7 @@ import java.util.List;
 
 public class TabooSwiftArmor extends WraqArmor implements ForgeItem {
 
-    public TabooSwiftArmor(ItemMaterial Material, Type Slots, Properties itemProperties) {
+    public TabooSwiftArmor(ModArmorMaterials Material, Type Slots, Properties itemProperties) {
         super(Material, Slots, itemProperties);
         Utils.percentHealthRecover.put(this, 0.01);
         Utils.healthRecover.put(this, 50d);

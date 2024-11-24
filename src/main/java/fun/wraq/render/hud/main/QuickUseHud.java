@@ -6,6 +6,7 @@ import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.KeyBoradInput;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
@@ -25,7 +26,8 @@ public class QuickUseHud {
 
     public static final String DISPLAY_KEY = "QUICK_USE_HUD_DISPLAY";
 
-    public static final ResourceLocation cross = new ResourceLocation(Utils.MOD_ID, "textures/hud/mainhand_active.png");
+    public static final ResourceLocation CROSS = new ResourceLocation(Utils.MOD_ID, "textures/hud/mainhand_active.png");
+    public static final ResourceLocation RED_CROSS = new ResourceLocation(Utils.MOD_ID, "textures/hud/red_cross.png");
 
     public static final IGuiOverlay QUICK_USE_HUD = ((gui, poseStack, partialTick, width, height) -> {
         Minecraft mc = Minecraft.getInstance();
@@ -42,7 +44,7 @@ public class QuickUseHud {
             Item item = stack.getItem();
             if (item instanceof ActiveItem) {
                 if (!player.getCooldowns().isOnCooldown(item)) {
-                    if (i > 2) {
+                    if (i > 2 && SpecialEffectOnPlayer.clientSilentTick == 0) {
                         guiGraphics.drawCenteredString(font, Te.s(getKeyName(i - 3), ChatFormatting.AQUA),
                                 x - 88 + 20 * i, y - 23, 0);
                     }
@@ -58,11 +60,17 @@ public class QuickUseHud {
             }
         }
 
+        if (SpecialEffectOnPlayer.clientBlindTick > 0) {
+            guiGraphics.blit(RED_CROSS, x - 5 + (width % 2 != 0 ? 1 : 0), y / 2 - 5 + (height % 2 != 0 ? 1 : 0),
+                    0, 0,
+                    16, 16, 16, 16);
+        }
+
         if (mode != -1 && ClientUtils.isInBattle) {
             Item mainHandItem = player.getMainHandItem().getItem();
             if (mainHandItem instanceof ActiveItem) {
                 if (!player.getCooldowns().isOnCooldown(mainHandItem)) {
-                    guiGraphics.blit(cross, x - 5 + (width % 2 != 0 ? 1 : 0), y / 2 - 5 + (height % 2 != 0 ? 1 : 0),
+                    guiGraphics.blit(CROSS, x - 5 + (width % 2 != 0 ? 1 : 0), y / 2 - 5 + (height % 2 != 0 ? 1 : 0),
                             0, 0,
                             16, 16, 16, 16);
                 }
@@ -81,8 +89,10 @@ public class QuickUseHud {
                 Item item = stack.getItem();
                 if (item instanceof ActiveItem) {
                     if (!player.getCooldowns().isOnCooldown(item)) {
-                        guiGraphics.drawCenteredString(font, Te.s(getKeyName(i), ChatFormatting.AQUA),
-                                x + xOffset, y / 2 + yOffset + 40 * i, 0);
+                        if (SpecialEffectOnPlayer.clientSilentTick == 0) {
+                            guiGraphics.drawCenteredString(font, Te.s(getKeyName(i), ChatFormatting.AQUA),
+                                    x + xOffset, y / 2 + yOffset + 40 * i, 0);
+                        }
                         guiGraphics.renderItem(stack, x + xOffset, y / 2 + yOffset + 40 * i);
                     }
                 }
@@ -93,8 +103,10 @@ public class QuickUseHud {
                 Item item = stack.getItem();
                 if (item instanceof ActiveItem) {
                     if (!player.getCooldowns().isOnCooldown(item)) {
-                        guiGraphics.drawCenteredString(font, Te.s(getKeyName(i + 3), ChatFormatting.AQUA),
-                                x + xOffset + 128, y / 2 + yOffset + 40 * i, 0);
+                        if (SpecialEffectOnPlayer.clientSilentTick == 0) {
+                            guiGraphics.drawCenteredString(font, Te.s(getKeyName(i + 3), ChatFormatting.AQUA),
+                                    x + xOffset + 128, y / 2 + yOffset + 40 * i, 0);
+                        }
                         guiGraphics.renderItem(stack, x + xOffset + 128, y / 2 + yOffset + 40 * i);
                     }
                 }
@@ -109,8 +121,10 @@ public class QuickUseHud {
                 Item item = stack.getItem();
                 if (item instanceof ActiveItem) {
                     if (!player.getCooldowns().isOnCooldown(item)) {
-                        guiGraphics.drawCenteredString(font, Te.s(getKeyName(i), ChatFormatting.AQUA),
-                                x + xOffset + 24 * i, y / 2 + yOffset, 0);
+                        if (SpecialEffectOnPlayer.clientSilentTick == 0) {
+                            guiGraphics.drawCenteredString(font, Te.s(getKeyName(i), ChatFormatting.AQUA),
+                                    x + xOffset + 24 * i, y / 2 + yOffset, 0);
+                        }
                         guiGraphics.renderItem(stack, x + xOffset + 24 * i, y / 2 + yOffset);
                     }
                 }

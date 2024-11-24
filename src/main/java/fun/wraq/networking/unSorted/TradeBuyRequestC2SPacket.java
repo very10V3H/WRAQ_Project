@@ -140,7 +140,7 @@ public class TradeBuyRequestC2SPacket {
     public static int playerInventoryCurrencyVBCount(Player player) {
         return InventoryOperation.itemStackCount(player, ModItems.copperCoin.get()) +
                 InventoryOperation.itemStackCount(player, ModItems.silverCoin.get()) * 12 +
-                InventoryOperation.itemStackCount(player, ModItems.goldCoin.get()) * 144;
+                InventoryOperation.itemStackCount(player, ModItems.GOLD_COIN.get()) * 144;
     }
 
     public static int requireItemListVBCount(List<ItemStack> requireItemList) {
@@ -148,7 +148,7 @@ public class TradeBuyRequestC2SPacket {
         for (ItemStack itemStack : requireItemList) {
             if (itemStack.is(ModItems.copperCoin.get())) count += itemStack.getCount();
             if (itemStack.is(ModItems.silverCoin.get())) count += itemStack.getCount() * 12;
-            if (itemStack.is(ModItems.goldCoin.get())) count += itemStack.getCount() * 144;
+            if (itemStack.is(ModItems.GOLD_COIN.get())) count += itemStack.getCount() * 144;
         }
         return count;
     }
@@ -166,7 +166,7 @@ public class TradeBuyRequestC2SPacket {
                 income += itemStack.getCount() * 12;
                 itemStack.setCount(0);
             }
-            if (itemStack.is(ModItems.goldCoin.get())) {
+            if (itemStack.is(ModItems.GOLD_COIN.get())) {
                 income += itemStack.getCount() * 144;
                 itemStack.setCount(0);
             }
@@ -177,6 +177,6 @@ public class TradeBuyRequestC2SPacket {
 
     public static boolean itemStackIsCurrency(ItemStack itemStack) {
         return itemStack.is(ModItems.copperCoin.get()) || itemStack.is(ModItems.silverCoin.get())
-                || itemStack.is(ModItems.goldCoin.get());
+                || itemStack.is(ModItems.GOLD_COIN.get());
     }
 }

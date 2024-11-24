@@ -2,7 +2,7 @@ package fun.wraq.series.overworld.chapter1.snow;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.BasicAttributeDescription;
-import fun.wraq.common.registry.ItemMaterial;
+import fun.wraq.common.registry.ModArmorMaterials;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.StringUtils;
@@ -32,7 +32,7 @@ public class SnowBoss {
     public static String Name = "冰川";
     public static Item[] Rewards = {
             ModItems.SnowRune.get(), ModItems.ForgingStone0.get(),
-            ModItems.goldCoin.get(), ModItems.SnowBossGem.get(),
+            ModItems.GOLD_COIN.get(), ModItems.SnowBossGem.get(),
             ModItems.SnowBossCore.get(), ModItems.SnowBossCore.get(),
             ModItems.SnowBossChestForgeDraw.get(), ModItems.SnowBossCentral.get()
     };
@@ -176,7 +176,7 @@ public class SnowBoss {
     public static class SnowBossArmorChest extends ArmorItem {
         private static final Style style = CustomStyle.styleOfSnow;
 
-        public SnowBossArmorChest(ItemMaterial Material, Type Slots) {
+        public SnowBossArmorChest(ModArmorMaterials Material, Type Slots) {
             super(Material, Slots, new Properties().rarity(CustomStyle.EntropyItalic));
             Utils.maxHealth.put(this, 300d);
             Utils.defence.put(this, 1d);

@@ -2,7 +2,7 @@ package fun.wraq.series.overworld.sakuraSeries.BloodMana;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
-import fun.wraq.common.registry.ItemMaterial;
+import fun.wraq.common.registry.ModArmorMaterials;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
@@ -24,7 +24,7 @@ import java.util.List;
 
 public class BloodManaArmor extends WraqArmor implements ForgeItem {
 
-    public BloodManaArmor(ItemMaterial Material, Type Slots, Properties itemProperties) {
+    public BloodManaArmor(ModArmorMaterials Material, Type Slots, Properties itemProperties) {
         super(Material, Slots, itemProperties);
         if (type.equals(Type.HELMET)) Utils.healthRecover.put(this, 25d);
         if (type.equals(Type.CHESTPLATE)) Utils.defence.put(this, 40d);
@@ -76,7 +76,7 @@ public class BloodManaArmor extends WraqArmor implements ForgeItem {
             add(new ItemStack(ModItems.BloodManaRune.get(), 8));
             add(new ItemStack(ModItems.wolfLeather.get(), 320));
             add(new ItemStack(Items.LEATHER, 192));
-            add(new ItemStack(ModItems.goldCoin.get(), 64));
+            add(new ItemStack(ModItems.GOLD_COIN.get(), 64));
         }};
     }
 

@@ -6,6 +6,7 @@ import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
 import fun.wraq.networking.ModNetworking;
+import fun.wraq.networking.misc.TeamPackets.ScreenSetS2CPacket;
 import fun.wraq.networking.unSorted.VillagerTradeScreenS2CPacket;
 import fun.wraq.process.func.multiblockactive.rightclick.RightClickActiveHandler;
 import fun.wraq.render.gui.villagerTrade.MyVillagerData;
@@ -70,6 +71,9 @@ public class RightClickEvent {
     @SubscribeEvent
     public static void Trade(PlayerInteractEvent.EntityInteract event) {
         if (event.getSide().isServer() && event.getTarget() instanceof Villager villager) {
+            if (villager.getName().getString().equals("逆熵学者")) {
+                ModNetworking.sendToClient(new ScreenSetS2CPacket(6), (ServerPlayer) event.getEntity());
+            }
             if (TradeList.tradeContent.isEmpty() || TradeList.tradeRecipeMap.isEmpty()) TradeList.setTradeContent();
             boolean flag = false;
             for (MutableComponent value : StringUtils.VillagerNameMap.values()) {

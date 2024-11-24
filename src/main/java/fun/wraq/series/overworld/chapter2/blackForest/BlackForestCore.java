@@ -44,7 +44,6 @@ public class BlackForestCore extends Item {
 
     public BlackForestCore(Properties p_41383_) {
         super(p_41383_);
-        Utils.weaponList.add(this);
     }
 
     @Override

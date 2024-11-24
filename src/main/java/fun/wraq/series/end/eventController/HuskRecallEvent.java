@@ -159,7 +159,7 @@ public class HuskRecallEvent {
                                                 append(Component.literal("尝试回想起在").withStyle(ChatFormatting.WHITE)).
                                                 append(Component.literal(ZoneName).withStyle(style)).
                                                 append(Component.literal("的记忆。").withStyle(ChatFormatting.WHITE)));
-                                ItemStack itemStack = ModItems.huskRune.get().getDefaultInstance();
+                                ItemStack itemStack = ModItems.HUSK_RUNE.get().getDefaultInstance();
                                 itemStack.setCount(1);
                                 InventoryOperation.itemStackGive(Utils.huskRecall.recallPlayer, itemStack);
                             }

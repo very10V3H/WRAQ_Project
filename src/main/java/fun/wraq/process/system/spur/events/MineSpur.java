@@ -31,13 +31,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.Vec3;
 
 import java.util.*;
 
 public class MineSpur {
-
-    public record NextOreItemDrop(ItemStack stack, Vec3 pos, Level level, int trigTick) {}
 
     public static void mineEvent(net.minecraftforge.event.level.BlockEvent.BreakEvent event) {
         Player player = event.getPlayer();
@@ -82,10 +79,10 @@ public class MineSpur {
                                 Utils.posEvenBeenDigOrPlace.add(blockPos);
                             }
                             if ((blockState.is(Blocks.STONE) || blockState.is(Blocks.COBBLESTONE))) {
-                                player.addItem(Items.COBBLESTONE.getDefaultInstance());
+                                InventoryOperation.itemStackGiveWithMSG(player, Items.COBBLESTONE.getDefaultInstance());
                             }
                             if ((blockState.is(Blocks.DEEPSLATE) || blockState.is(Blocks.COBBLED_DEEPSLATE))) {
-                                player.addItem(Items.COBBLED_DEEPSLATE.getDefaultInstance());
+                                InventoryOperation.itemStackGiveWithMSG(player, Items.COBBLED_DEEPSLATE.getDefaultInstance());
                             }
                             if (blockState.is(Blocks.ANDESITE)) player.addItem(Items.ANDESITE.getDefaultInstance());
                             if (blockState.is(Blocks.DIORITE)) player.addItem(Items.DIORITE.getDefaultInstance());

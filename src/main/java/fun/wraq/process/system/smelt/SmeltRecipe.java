@@ -5,6 +5,7 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ItemAndRate;
 import fun.wraq.process.func.item.InventoryOperation;
+import fun.wraq.process.func.rank.RankData;
 import fun.wraq.process.system.ore.OreItems;
 import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -25,7 +26,7 @@ public enum SmeltRecipe {
     COPPER(Te.m("冶炼粗铜", CustomStyle.styleOfCopper),
             List.of(new ItemStack(Items.RAW_COPPER, 8),
                     new ItemStack(Items.COAL, 1),
-                    new ItemStack(ModItems.goldCoin.get(), 1)),
+                    new ItemStack(ModItems.GOLD_COIN.get(), 1)),
             List.of(new ItemStack(Items.COPPER_INGOT, 8)),
             List.of(new ItemAndRate(new ItemStack(Items.COPPER_INGOT, 2), 0.5)),
             0),
@@ -33,7 +34,7 @@ public enum SmeltRecipe {
     IRON(Te.m("冶炼粗铁", CustomStyle.styleOfMine),
             List.of(new ItemStack(Items.RAW_IRON, 8),
                     new ItemStack(Items.COAL, 1),
-                    new ItemStack(ModItems.goldCoin.get(), 1)),
+                    new ItemStack(ModItems.GOLD_COIN.get(), 1)),
             List.of(new ItemStack(Items.IRON_INGOT, 8)),
             List.of(new ItemAndRate(new ItemStack(Items.IRON_INGOT, 2), 0.5)),
             0),
@@ -41,7 +42,7 @@ public enum SmeltRecipe {
     GOLD(Te.m("冶炼粗金", CustomStyle.styleOfGold),
             List.of(new ItemStack(Items.RAW_GOLD, 8),
                     new ItemStack(Items.COAL, 1),
-                    new ItemStack(ModItems.goldCoin.get(), 1)),
+                    new ItemStack(ModItems.GOLD_COIN.get(), 1)),
             List.of(new ItemStack(Items.GOLD_INGOT, 8)),
             List.of(new ItemAndRate(new ItemStack(Items.GOLD_INGOT, 2), 0.5)),
             0),
@@ -49,7 +50,7 @@ public enum SmeltRecipe {
     TINKER_STONE(Te.m("工匠石", CustomStyle.styleOfMine),
             List.of(new ItemStack(Items.COBBLESTONE, 32),
                     new ItemStack(Items.COAL, 1),
-                    new ItemStack(ModItems.goldCoin.get(), 1)),
+                    new ItemStack(ModItems.GOLD_COIN.get(), 1)),
             List.of(new ItemStack(PickaxeItems.TINKER_STONE.get(), 1)),
             List.of(new ItemAndRate(new ItemStack(Items.COBBLESTONE, 8), 0.25)),
             5),
@@ -57,7 +58,7 @@ public enum SmeltRecipe {
     TINKER_COPPER(Te.m("工匠铜锭", CustomStyle.styleOfMine),
             List.of(new ItemStack(Items.COPPER_INGOT, 32),
                     new ItemStack(Items.COAL, 2),
-                    new ItemStack(ModItems.goldCoin.get(), 2)),
+                    new ItemStack(ModItems.GOLD_COIN.get(), 2)),
             List.of(new ItemStack(PickaxeItems.TINKER_COPPER.get(), 1)),
             List.of(new ItemAndRate(new ItemStack(Items.COPPER_INGOT, 8), 0.25)),
             8),
@@ -65,7 +66,7 @@ public enum SmeltRecipe {
     TINKER_IRON(Te.m("工匠铁锭", CustomStyle.styleOfMine),
             List.of(new ItemStack(Items.IRON_INGOT, 32),
                     new ItemStack(Items.COAL, 2),
-                    new ItemStack(ModItems.goldCoin.get(), 4)),
+                    new ItemStack(ModItems.GOLD_COIN.get(), 4)),
             List.of(new ItemStack(PickaxeItems.TINKER_IRON.get(), 1)),
             List.of(new ItemAndRate(new ItemStack(Items.IRON_INGOT, 8), 0.25)),
             10),
@@ -73,7 +74,7 @@ public enum SmeltRecipe {
     TINKER_GOLD(Te.m("工匠金锭", CustomStyle.styleOfGold),
             List.of(new ItemStack(Items.GOLD_INGOT, 32),
                     new ItemStack(Items.COAL, 4),
-                    new ItemStack(ModItems.goldCoin.get(), 8)),
+                    new ItemStack(ModItems.GOLD_COIN.get(), 8)),
             List.of(new ItemStack(PickaxeItems.TINKER_GOLD.get(), 1)),
             List.of(new ItemAndRate(new ItemStack(Items.GOLD_INGOT, 8), 0.25)),
             20),
@@ -81,7 +82,7 @@ public enum SmeltRecipe {
     TINKER_DIAMOND(Te.m("工匠钻石", CustomStyle.styleOfWorld),
             List.of(new ItemStack(Items.DIAMOND, 32),
                     new ItemStack(Items.COAL, 8),
-                    new ItemStack(ModItems.goldCoin.get(), 16)),
+                    new ItemStack(ModItems.GOLD_COIN.get(), 16)),
             List.of(new ItemStack(PickaxeItems.TINKER_DIAMOND.get(), 1)),
             List.of(new ItemAndRate(new ItemStack(Items.DIAMOND, 8), 0.25)),
             35),
@@ -89,7 +90,7 @@ public enum SmeltRecipe {
     TINKER_NETHERITE(Te.m("工匠合金", CustomStyle.styleOfRed),
             List.of(new ItemStack(Items.NETHERITE_INGOT, 32),
                     new ItemStack(Items.COAL, 16),
-                    new ItemStack(ModItems.goldCoin.get(), 32)),
+                    new ItemStack(ModItems.GOLD_COIN.get(), 32)),
             List.of(new ItemStack(PickaxeItems.TINKER_NETHERITE.get(), 1)),
             List.of(new ItemAndRate(new ItemStack(Items.NETHERITE_INGOT, 8), 0.25)),
             60),
@@ -97,7 +98,7 @@ public enum SmeltRecipe {
     PLAIN_COMPLETE_GEM(Te.m("普莱尼水晶", CustomStyle.styleOfPlain),
             List.of(new ItemStack(ModItems.PlainBossSoul.get(), 64),
                     new ItemStack(ModItems.completeGem.get(), 1),
-                    new ItemStack(ModItems.goldCoin.get(), 1)),
+                    new ItemStack(ModItems.GOLD_COIN.get(), 1)),
             List.of(new ItemStack(ModItems.PlainCompleteGem.get(), 4)),
             List.of(new ItemAndRate(new ItemStack(ModItems.PlainCompleteGem.get(), 1), 0.25)),
             15),
@@ -105,14 +106,14 @@ public enum SmeltRecipe {
     FOILED_NETHER_IMPRINT(Te.m("注魔燃魂印记", CustomStyle.styleOfNether),
             List.of(new ItemStack(ModItems.NETHER_IMPRINT.get(), 16),
                     new ItemStack(ModItems.EvokerSoul.get(), 64),
-                    new ItemStack(ModItems.goldCoin.get(), 1)),
+                    new ItemStack(ModItems.GOLD_COIN.get(), 1)),
             List.of(new ItemStack(ModItems.FOILED_NETHER_IMPRINT.get(), 4)),
             List.of(new ItemAndRate(new ItemStack(ModItems.Ruby.get(), 16), 1)),
             30),
 
     PURPLE_IRON_BUD2(Te.m("紫晶矿簇", CustomStyle.styleOfPurpleIron),
             List.of(new ItemStack(ModItems.PurpleIronBud1.get(), 48),
-                    new ItemStack(ModItems.goldCoin.get(), 1)),
+                    new ItemStack(ModItems.GOLD_COIN.get(), 1)),
             List.of(new ItemStack(ModItems.PurpleIronBud2.get(), 4)),
             List.of(new ItemAndRate(new ItemStack(ModItems.PurpleIronBud2.get(), 1), 0.5)),
             45),
@@ -120,23 +121,23 @@ public enum SmeltRecipe {
     ICE_COMPLETE_GEM(Te.m("冰霜水晶", CustomStyle.styleOfIce),
             List.of(new ItemStack(ModItems.IceSoul.get(), 64),
                     new ItemStack(ModItems.completeGem.get(), 1),
-                    new ItemStack(ModItems.goldCoin.get(), 1)),
+                    new ItemStack(ModItems.GOLD_COIN.get(), 1)),
             List.of(new ItemStack(ModItems.IceCompleteGem.get(), 4)),
             List.of(new ItemAndRate(new ItemStack(ModItems.IceCompleteGem.get(), 1), 0.25)),
             60),
 
     GOLDEN_SHEET(Te.m("大金板", CustomStyle.styleOfGold),
             List.of(new ItemStack(ModItems.Boss2Piece.get(), 16),
-                    new ItemStack(ModItems.goldCoin.get(), 16)),
+                    new ItemStack(ModItems.GOLD_COIN.get(), 16)),
             List.of(new ItemStack(ModItems.GOLDEN_SHEET.get(), 1)),
-            List.of(new ItemAndRate(new ItemStack(ModItems.goldCoin.get(), 48), 0.5)),
+            List.of(new ItemAndRate(new ItemStack(ModItems.GOLD_COIN.get(), 48), 0.5)),
             75),
 
     DEVIL_BLOOD(Te.m("魔王之血", CustomStyle.styleOfDemon),
             List.of(new ItemStack(ModItems.DevilAttackSoul.get(), 8),
                     new ItemStack(ModItems.DevilSwiftSoul.get(), 8),
                     new ItemStack(ModItems.DevilManaSoul.get(), 8),
-                    new ItemStack(ModItems.goldCoin.get(), 16)),
+                    new ItemStack(ModItems.GOLD_COIN.get(), 16)),
             List.of(new ItemStack(ModItems.DevilBlood.get(), 1)),
             List.of(new ItemAndRate(new ItemStack(ModItems.DevilBlood.get(), 1), 0.25)),
             90),
@@ -144,7 +145,7 @@ public enum SmeltRecipe {
     MOON_COMPLETE_GEM(Te.m("尘月水晶", CustomStyle.styleOfMoon),
             List.of(new ItemStack(ModItems.MoonSoul.get(), 64),
                     new ItemStack(ModItems.completeGem.get(), 2),
-                    new ItemStack(ModItems.goldCoin.get(), 16)),
+                    new ItemStack(ModItems.GOLD_COIN.get(), 16)),
             List.of(new ItemStack(ModItems.MoonCompleteGem.get(), 4)),
             List.of(new ItemAndRate(new ItemStack(ModItems.MoonCompleteGem.get(), 1), 0.25)),
             105),
@@ -153,7 +154,7 @@ public enum SmeltRecipe {
             List.of(new ItemStack(MoontainItems.FRAGMENT.get(), 8),
                     new ItemStack(MoontainItems.SOUL_FRAGMENT.get(), 128),
                     new ItemStack(OreItems.WRAQ_ORE_1_ITEM.get(), 16),
-                    new ItemStack(ModItems.goldCoin.get(), 32),
+                    new ItemStack(ModItems.GOLD_COIN.get(), 32),
                     new ItemStack(MoontainItems.STONE_FRAGMENT.get(), 256)
             ),
             List.of(new ItemStack(MoontainItems.JADEITE.get(), 1)),
@@ -164,7 +165,7 @@ public enum SmeltRecipe {
             List.of(new ItemStack(MoontainItems.JADEITE.get(), 8),
                     new ItemStack(MoontainItems.SOUL_FRAGMENT.get(), 128),
                     new ItemStack(MoontainItems.FEATHER.get(), 128),
-                    new ItemStack(ModItems.goldCoin.get(), 128),
+                    new ItemStack(ModItems.GOLD_COIN.get(), 128),
                     new ItemStack(MoontainItems.STONE_FRAGMENT.get(), 256)
             ),
             List.of(new ItemStack(MoontainItems.WEAPON_ENHANCER.get(), 1)),
@@ -175,7 +176,7 @@ public enum SmeltRecipe {
             List.of(new ItemStack(MoontainItems.NUGGET.get(), 8),
                     new ItemStack(MoontainItems.LEATHER.get(), 128),
                     new ItemStack(OreItems.WRAQ_ORE_1_ITEM.get(), 16),
-                    new ItemStack(ModItems.goldCoin.get(), 32),
+                    new ItemStack(ModItems.GOLD_COIN.get(), 32),
                     new ItemStack(MoontainItems.STONE_FRAGMENT.get(), 256)
             ),
             List.of(new ItemStack(MoontainItems.EMERALD.get(), 1)),
@@ -186,7 +187,7 @@ public enum SmeltRecipe {
             List.of(new ItemStack(MoontainItems.EMERALD.get(), 8),
                     new ItemStack(MoontainItems.SOUL_FRAGMENT.get(), 128),
                     new ItemStack(OreItems.MOONTAIN_ORE_ITEM.get(), 256),
-                    new ItemStack(ModItems.goldCoin.get(), 128),
+                    new ItemStack(ModItems.GOLD_COIN.get(), 128),
                     new ItemStack(MoontainItems.STONE_FRAGMENT.get(), 256)
             ),
             List.of(new ItemStack(MoontainItems.ARMOR_ENHANCER.get(), 1)),
@@ -196,7 +197,7 @@ public enum SmeltRecipe {
     MOONTAIN_CURIOS_RATE_ENHANCER(Te.m("望山母岩团", CustomStyle.styleOfMoontain),
             List.of(new ItemStack(MoontainItems.CURIOS_PIECE.get(), 4),
                     new ItemStack(MoontainItems.FALLING_SOUL.get(), 128),
-                    new ItemStack(ModItems.goldCoin.get(), 128),
+                    new ItemStack(ModItems.GOLD_COIN.get(), 128),
                     new ItemStack(ModItems.completeGem.get(), 4),
                     new ItemStack(MoontainItems.STONE_FRAGMENT.get(), 128)
             ),
@@ -207,7 +208,7 @@ public enum SmeltRecipe {
     MOONTAIN_CURIOS_FULL_RATE_ENHANCER(Te.m("望山母岩簇", CustomStyle.styleOfMoontain),
             List.of(new ItemStack(MoontainItems.CURIOS_PIECE.get(), 8),
                     new ItemStack(MoontainItems.FALLING_SOUL.get(), 256),
-                    new ItemStack(ModItems.goldCoin.get(), 256),
+                    new ItemStack(ModItems.GOLD_COIN.get(), 256),
                     new ItemStack(ModItems.completeGem.get(), 8),
                     new ItemStack(MoontainItems.STONE_FRAGMENT.get(), 256)
             ),
@@ -218,7 +219,7 @@ public enum SmeltRecipe {
     MOONTAIN_HEART(Te.m("衡望山之心", CustomStyle.styleOfMoontain),
             List.of(new ItemStack(MoontainItems.JADEITE.get(), 1),
                     new ItemStack(MoontainItems.EMERALD.get(), 1),
-                    new ItemStack(ModItems.goldCoin.get(), 64),
+                    new ItemStack(ModItems.GOLD_COIN.get(), 64),
                     new ItemStack(MoontainItems.STONE_FRAGMENT.get(), 128)),
             List.of(new ItemStack(MoontainItems.HEART.get(), 2)),
             List.of(new ItemAndRate(new ItemStack(MoontainItems.JADEITE.get(), 1), 0.25),
@@ -247,7 +248,13 @@ public enum SmeltRecipe {
     public static void createSmeltProcess(Player player, int recipeIndex) {
         SmeltRecipe smeltRecipe = getRecipeByIndex(recipeIndex);
         if (InventoryOperation.checkPlayerHasItem(player, smeltRecipe.needMaterialList)) {
-            if (Smelt.putSlotInfoToEmptySlot(player, recipeIndex, getMinutesLaterCalendar(smeltRecipe.needMinutes))) {
+            if (Smelt.putSlotInfoToEmptySlot(player, recipeIndex,
+                    getMinutesLaterCalendar(smeltRecipe.needMinutes
+                            - RankData.smeltNeedTimeReduction(player)))) {
+                if (RankData.smeltNeedTimeReduction(player) > 0) {
+                    RankData.sendFormatMSG(player, Te.s("你的", "职级", ChatFormatting.AQUA,
+                            "为你减少了", RankData.smeltNeedTimeReduction(player) + "min", ChatFormatting.AQUA, "的炼造时间"));
+                }
                 // 成功
                 InventoryOperation.removeItemWithoutCheck(player, smeltRecipe.needMaterialList);
                 MySound.soundToPlayer(player, SoundEvents.ITEM_FRAME_ADD_ITEM);

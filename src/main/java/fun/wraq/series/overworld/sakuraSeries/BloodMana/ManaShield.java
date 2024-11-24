@@ -72,7 +72,7 @@ public class ManaShield extends WraqOffHandItem implements ForgeItem {
             add(new ItemStack(ModItems.BloodManaRune.get(), 16));
             add(new ItemStack(ModItems.EarthManaRune.get(), 16));
             add(new ItemStack(Items.IRON_INGOT, 64));
-            add(new ItemStack(ModItems.goldCoin.get(), 64));
+            add(new ItemStack(ModItems.GOLD_COIN.get(), 64));
         }};
     }
 }

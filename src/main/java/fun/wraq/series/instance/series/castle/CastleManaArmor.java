@@ -5,7 +5,7 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.equip.WraqArmor;
 import fun.wraq.common.impl.display.ForgeItem;
-import fun.wraq.common.registry.ItemMaterial;
+import fun.wraq.common.registry.ModArmorMaterials;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.ModSounds;
 import fun.wraq.common.registry.MySound;
@@ -39,7 +39,7 @@ public class CastleManaArmor extends WraqArmor implements ForgeItem {
         put(4, 0.5);
     }};
 
-    public CastleManaArmor(ItemMaterial Material, Type Slots, Properties itemProperties) {
+    public CastleManaArmor(ModArmorMaterials Material, Type Slots, Properties itemProperties) {
         super(Material, Slots, itemProperties);
         if (type.equals(Type.HELMET)) {
             Utils.percentHealthRecover.put(this, 0.012);

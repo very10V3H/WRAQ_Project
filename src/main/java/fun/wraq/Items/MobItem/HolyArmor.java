@@ -1,7 +1,6 @@
 package fun.wraq.Items.MobItem;
 
-import fun.wraq.Items.MobItem.MobArmor;
-import fun.wraq.common.registry.ItemMaterial;
+import fun.wraq.common.registry.ModArmorMaterials;
 import fun.wraq.entities.armor.HolyArmorRenderer;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -21,7 +20,7 @@ public class HolyArmor extends MobArmor implements GeoItem {
 
     private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
 
-    public HolyArmor(ItemMaterial Material, Type Slots, double AttackDamage, double Defence, double ManaDefence, double MobLevel, double BreakDefence, double BreakDefence0, double CritRate, double CritDamage, double HealSteal) {
+    public HolyArmor(ModArmorMaterials Material, Type Slots, double AttackDamage, double Defence, double ManaDefence, double MobLevel, double BreakDefence, double BreakDefence0, double CritRate, double CritDamage, double HealSteal) {
         super(Material, Slots, AttackDamage, Defence, ManaDefence, MobLevel, BreakDefence, BreakDefence0, CritRate, CritDamage, HealSteal);
     }
 
@@ -29,11 +28,11 @@ public class HolyArmor extends MobArmor implements GeoItem {
         super(Defence, ManaDefence, MobLevel);
     }
 
-    public HolyArmor(ItemMaterial Material, Type Slots, double Defence, double ManaDefence, double MobLevel) {
+    public HolyArmor(ModArmorMaterials Material, Type Slots, double Defence, double ManaDefence, double MobLevel) {
         super(Material, Slots, Defence, ManaDefence, MobLevel);
     }
 
-    public HolyArmor(ItemMaterial Material, Type Slots, String MobName) {
+    public HolyArmor(ModArmorMaterials Material, Type Slots, String MobName) {
         super(Material, Slots, MobName);
     }
 

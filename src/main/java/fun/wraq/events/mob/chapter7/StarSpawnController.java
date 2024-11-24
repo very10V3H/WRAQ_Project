@@ -36,7 +36,7 @@ public class StarSpawnController extends MobSpawnController {
             List<Vec3> spawnPos = List.of(
                     new Vec3(1048, 236, 598)
             );
-            instance = new StarSpawnController(spawnPos, spawnPos.size() * 10, 1089, 250, 637, 1018, 215, 574, 20, 60, world, 10, 200);
+            instance = new StarSpawnController(spawnPos, spawnPos.size() * 10, 1089, 275, 637, 1018, 215, 574, 20, 60, world, 10, 200);
         }
         return instance;
     }

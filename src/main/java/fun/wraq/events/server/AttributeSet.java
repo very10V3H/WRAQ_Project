@@ -4,7 +4,7 @@ import com.mojang.datafixers.util.Pair;
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.util.StringUtils;
-import fun.wraq.process.func.SpecialEffectOnPlayer;
+import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
 import fun.wraq.render.hud.Mana;
 import fun.wraq.render.hud.SwiftData;
 import fun.wraq.series.newrunes.chapter1.LakeNewRune;

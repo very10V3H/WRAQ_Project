@@ -60,7 +60,7 @@ public class PlainPower extends WraqPower {
         components.add(Component.literal(" 为").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("自身").withStyle(ChatFormatting.GREEN)).
                 append(Component.literal("周围所有玩家提供持续5s的").withStyle(ChatFormatting.WHITE)).
-                append(ComponentUtils.AttributeDescription.movementSpeed("10%")));
+                append(ComponentUtils.AttributeDescription.movementSpeed("20%")));
         return components;
     }
 
@@ -112,7 +112,7 @@ public class PlainPower extends WraqPower {
         playerList.forEach(player1 -> {
             if (player1.distanceTo(player) <= 6) {
                 StableAttributesModifier.addAttributeModifier(player1, StableAttributesModifier.playerMovementSpeedModifier,
-                        new StableAttributesModifier("plainPowerMovementSpeed", 0.1, player.getServer().getTickCount() + 100));
+                        new StableAttributesModifier("plainPowerMovementSpeed", 0.2, player.getServer().getTickCount() + 100));
                 Compute.sendEffectLastTime(player1, ModItems.PlainPower.get(), 100);
 
                 ParticleProvider.EntityEffectVerticleCircleParticle(player1, 1.25, 0.4, 8, ParticleTypes.COMPOSTER, 0);

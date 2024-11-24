@@ -38,7 +38,7 @@ public class Boss1 extends Item {
             ItemStack RewardPack0 = ModItems.bossaward1.get().getDefaultInstance();
             RewardPack0.setCount(num - 1);
             player.setItemInHand(InteractionHand.MAIN_HAND, RewardPack0);
-            ItemStack goldcoin = ModItems.goldCoin.get().getDefaultInstance();
+            ItemStack goldcoin = ModItems.GOLD_COIN.get().getDefaultInstance();
             ItemStack silvercoin = ModItems.silverCoin.get().getDefaultInstance();
             ItemStack gemspiece = ModItems.gemPiece.get().getDefaultInstance();
             ItemStack plainsoul = ModItems.PlainSoul.get().getDefaultInstance();

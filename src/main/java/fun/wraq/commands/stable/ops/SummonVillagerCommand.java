@@ -122,7 +122,7 @@ public class SummonVillagerCommand implements Command<CommandSourceStack> {
         if (BrewingRecipe.basicPotionList.isEmpty()) BrewingRecipe.setBasicPotionList();
         for (Item item : BrewingRecipe.basicPotionList) {
             if (random.nextBoolean()) {
-                offers.add(new MerchantOffer(new ItemStack(ModItems.goldCoin.get(), random.nextInt(origin, bound)),
+                offers.add(new MerchantOffer(new ItemStack(ModItems.GOLD_COIN.get(), random.nextInt(origin, bound)),
                         new ItemStack(item, 1),
                         Integer.MAX_VALUE, 0, 0));
             }
@@ -137,7 +137,7 @@ public class SummonVillagerCommand implements Command<CommandSourceStack> {
         fishRod.enchant(Enchantments.FISHING_SPEED, random.nextInt(1, 4));
         fishRod.enchant(Enchantments.UNBREAKING, random.nextInt(1, 5));
         List<MerchantOffer> merchantOffers = List.of(
-                new MerchantOffer(new ItemStack(ModItems.goldCoin.get(), random.nextInt(origin * 4, bound * 4)),
+                new MerchantOffer(new ItemStack(ModItems.GOLD_COIN.get(), random.nextInt(origin * 4, bound * 4)),
                         fishRod,
                         Integer.MAX_VALUE, 0, 0),
                 new MerchantOffer(new ItemStack(ModItems.silverCoin.get(), random.nextInt(origin, bound)),

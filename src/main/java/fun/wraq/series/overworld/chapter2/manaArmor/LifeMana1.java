@@ -1,7 +1,7 @@
 package fun.wraq.series.overworld.chapter2.manaArmor;
 
 import fun.wraq.common.Compute;
-import fun.wraq.common.registry.ItemMaterial;
+import fun.wraq.common.registry.ModArmorMaterials;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
@@ -17,7 +17,7 @@ import java.util.List;
 
 public class LifeMana1 extends WraqArmor {
 
-    public LifeMana1(ItemMaterial Material, Type Slots, Properties itemProperties) {
+    public LifeMana1(ModArmorMaterials Material, Type Slots, Properties itemProperties) {
         super(Material, Slots, itemProperties);
         if (type.equals(Type.HELMET)) Utils.healthRecover.put(this, 15d);
         if (type.equals(Type.CHESTPLATE)) Utils.defence.put(this, 20d);

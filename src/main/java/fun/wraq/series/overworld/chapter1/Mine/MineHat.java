@@ -2,7 +2,7 @@ package fun.wraq.series.overworld.chapter1.Mine;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.BasicAttributeDescription;
-import fun.wraq.common.registry.ItemMaterial;
+import fun.wraq.common.registry.ModArmorMaterials;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.entities.armor.MineHatRenderer;
@@ -33,7 +33,7 @@ public class MineHat extends ArmorItem implements GeoItem {
 
     private final AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
 
-    public MineHat(ItemMaterial Material, Type Slots) {
+    public MineHat(ModArmorMaterials Material, Type Slots) {
         super(Material, Slots, new Properties().rarity(CustomStyle.MineItalic));
         Utils.defence.put(this, 1d);
         Utils.maxHealth.put(this, 100d);

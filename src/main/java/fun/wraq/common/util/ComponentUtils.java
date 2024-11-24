@@ -1,6 +1,7 @@
 package fun.wraq.common.util;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.attribute.BasicAttributeDescription;
 import fun.wraq.common.fast.Te;
 import fun.wraq.process.system.element.Color;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -37,6 +38,10 @@ public class ComponentUtils {
 
         public static Component movementSpeed(String content) {
             return Component.literal(Utils.Emoji.Speed + " " + content + "移动速度").withStyle(ChatFormatting.GREEN);
+        }
+
+        public static Component toughness(String content) {
+            return Component.literal(Utils.Emoji.Speed + " " + content + "韧性").withStyle(CustomStyle.styleOfEnd);
         }
 
         public static Component movementSpeedWithoutBattle(String content) {
@@ -136,7 +141,7 @@ public class ComponentUtils {
         }
 
         public static Component maxMana(String content) {
-            return Component.literal(Utils.Emoji.MaxMana + " " + content + "法力值").withStyle(CustomStyle.styleOfMana);
+            return Component.literal(Utils.Emoji.MaxMana + " " + content + "最大法力值").withStyle(CustomStyle.styleOfMana);
         }
 
         public static Component manaValue(String content) {
@@ -288,6 +293,10 @@ public class ComponentUtils {
 
     public static Component getSuffixOfChapterStar() {
         return Component.literal("尘月之梦").withStyle(CustomStyle.styleOfMoon1).withStyle(ChatFormatting.ITALIC);
+    }
+
+    public static Component getSuffixOfBoneImp() {
+        return Component.literal("炽热逸魂").withStyle(CustomStyle.styleOfWither).withStyle(ChatFormatting.ITALIC);
     }
 
     public static Component getSuffixOfMoontain() {
@@ -747,8 +756,6 @@ public class ComponentUtils {
                 append(Component.literal("+" + String.format("%.0f", value)).withStyle(ChatFormatting.WHITE)));
     }
 
-
-
     public static void emojiDescriptionHealthRecover(List<Component> components, double healthReplay) {
         components.add(Component.literal(Utils.Emoji.HealthRecover + " 生命回复").withStyle(ChatFormatting.GREEN).
                 append(Component.literal("+" + String.format(healthReplay == 0 ? "%.0f" : "%.1f", healthReplay)).withStyle(ChatFormatting.WHITE)));
@@ -779,6 +786,11 @@ public class ComponentUtils {
     public static void emojiDescriptionSwiftness(List<Component> components, double swiftness) {
         components.add(Component.literal(Utils.Emoji.Swiftness + " 迅捷").withStyle(ChatFormatting.GREEN).
                 append(Component.literal("+" + String.format(swiftness == 0 ? "%.0f" : "%.2f", swiftness)).withStyle(ChatFormatting.WHITE)));
+    }
+
+    public static void emojiDescriptionToughness(List<Component> components, double toughness) {
+        components.add(Te.s(Utils.Emoji.Speed + " " + "韧性", CustomStyle.styleOfEnd, Te.s("+",
+                BasicAttributeDescription.getDecimal(toughness, 1))));
     }
 
     public static void descriptionDash(List<Component> components, ChatFormatting chatFormatting0, ChatFormatting chatFormatting1, ChatFormatting chatFormatting2) {

@@ -16,6 +16,7 @@ import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.AnimationPackets.AnimationTickResetS2CPacket;
 import fun.wraq.process.func.item.InventoryOperation;
+import fun.wraq.process.func.rank.RankData;
 import fun.wraq.process.func.security.Security;
 import fun.wraq.process.system.spur.events.MineSpur;
 import fun.wraq.render.hud.networking.ExpGetResetS2CPacket;
@@ -24,6 +25,7 @@ import fun.wraq.series.WraqItem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.server.level.ServerLevel;
@@ -204,14 +206,24 @@ public class VariousEvents {
             int xp = Integer.parseInt(Name.substring(FirstLvIndex + 4, SecondLvIndex));
             if (SecondPrefixIndex == 0) return;
             String NewName = Name.substring(SecondLvIndex + 1);
-            String Prefix = Name.substring(1, SecondPrefixIndex);
             UUID uuid = event.getSender();
-            Component component = Component.literal("初来乍到").withStyle(CustomStyle.styleOfMine);
+            MutableComponent component = Te.s("");
             if (PrefixCommand.clientPrefixInfo.containsKey(uuid)) {
                 PrefixInfo prefixInfo = PrefixCommand.clientPrefixInfo.get(uuid);
-                component = Component.literal(prefixInfo.getPrefix()).withStyle(Style.EMPTY.withColor(TextColor.parseColor(prefixInfo.getColor())));
+                component.append(Component.literal(prefixInfo.getPrefix())
+                        .withStyle(Style.EMPTY.withColor(TextColor.parseColor(prefixInfo.getColor()))));
+            } else {
+                component.append(Component.literal("初来乍到").withStyle(CustomStyle.styleOfMine));
+            }
+            MutableComponent rankComponent = Te.s("");
+            if (RankData.clientPlayerCurrentRankMap.containsKey(uuid)) {
+                String rank = RankData.clientPlayerCurrentRankMap.get(uuid);
+                if (!rank.equals("null")) {
+                    rankComponent.append(Te.s("∮" + rank + "∮", RankData.rankStyleMap.get(rank)));
+                }
             }
             event.setMessage(Component.literal("[" + showTime + "]").withStyle(ChatFormatting.GRAY).
+                    append(rankComponent).
                     append(Component.literal("|").withStyle(ChatFormatting.GOLD).withStyle(ChatFormatting.BOLD)).
                     append(component).
                     append(Component.literal("|").withStyle(ChatFormatting.GOLD).withStyle(ChatFormatting.BOLD)).
@@ -268,32 +280,44 @@ public class VariousEvents {
         event.setPhase(EventPriority.LOWEST);
         Player player = event.getEntity();
         if (!player.level().isClientSide) {
+            MutableComponent component = Te.s("");
             CompoundTag data = player.getPersistentData();
             String prefix = "初来乍到";
             String color = String.valueOf(CustomStyle.styleOfMine.getColor());
+            String rank = RankData.getCurrentRank(player);
+            if (!rank.equals("null")) {
+                component.append(Te.s("∮" + rank + "∮", RankData.rankStyleMap.get(rank)));
+            }
             if (data.contains(PrefixCommand.prefix)) prefix = data.getString(PrefixCommand.prefix);
             if (data.contains(PrefixCommand.prefixColor)) color = data.getString(PrefixCommand.prefixColor);
-            event.setDisplayname(Component.literal("|").withStyle(ChatFormatting.GOLD).
-                    append(Component.literal(prefix).withStyle(Style.EMPTY.withColor(TextColor.parseColor(color)))).
-                    append(Component.literal("|").withStyle(ChatFormatting.GOLD)).
-                    append(Component.literal("[Lv." + player.experienceLevel + "]").withStyle(Utils.levelStyleList.get(Math.min(Utils.levelStyleList.size() - 1, player.experienceLevel / 25)))).
-                    append(Component.literal(event.getDisplayname().getString()).withStyle(CustomStyle.styleOfBloodMana)));
+            component.append(Te.s("|", ChatFormatting.GOLD,
+                    prefix, Style.EMPTY.withColor(TextColor.parseColor(color)), "|", ChatFormatting.GOLD,
+                    "[Lv." + player.experienceLevel + "]", Utils.getLevelStyle(player.experienceLevel),
+                    event.getDisplayname().getString(), CustomStyle.styleOfBloodMana));
+            event.setDisplayname(component);
         }
         if (player.level().isClientSide) {
+            MutableComponent component = Te.s("");
             String prefix = "初来乍到";
             String color = String.valueOf(CustomStyle.styleOfMine.getColor());
             int level = 0;
+            if (RankData.clientPlayerCurrentRankMap.containsKey(player.getUUID())) {
+                String rank = RankData.clientPlayerCurrentRankMap.get(player.getUUID());
+                if (!rank.equals("null")) {
+                    component.append(Te.s("∮" + rank + "∮", RankData.rankStyleMap.get(rank)));
+                }
+            }
             if (PrefixCommand.clientPrefixInfo.containsKey(player.getUUID())) {
                 PrefixInfo prefixInfo = PrefixCommand.clientPrefixInfo.get(player.getUUID());
                 prefix = prefixInfo.getPrefix();
                 color = prefixInfo.getColor();
                 level = prefixInfo.getLevel();
             }
-            event.setDisplayname(Component.literal("|").withStyle(ChatFormatting.GOLD).
-                    append(Component.literal(prefix).withStyle(Style.EMPTY.withColor(TextColor.parseColor(color)))).
-                    append(Component.literal("|").withStyle(ChatFormatting.GOLD)).
-                    append(Component.literal("[Lv." + level + "]").withStyle(Utils.levelStyleList.get(Math.min(Utils.levelStyleList.size() - 1, level / 25)))).
-                    append(Component.literal(event.getDisplayname().getString()).withStyle(CustomStyle.styleOfBloodMana)));
+            component.append(Te.s("|", ChatFormatting.GOLD,
+                    prefix, Style.EMPTY.withColor(TextColor.parseColor(color)), "|", ChatFormatting.GOLD,
+                    "[Lv." + level + "]", Utils.getLevelStyle(level),
+                    event.getDisplayname().getString(), CustomStyle.styleOfBloodMana));
+            event.setDisplayname(component);
         }
     }
 

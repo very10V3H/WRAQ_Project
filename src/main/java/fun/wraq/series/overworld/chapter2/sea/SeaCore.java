@@ -44,7 +44,6 @@ public class SeaCore extends Item {
 
     public SeaCore(Properties p_41383_) {
         super(p_41383_);
-        Utils.weaponList.add(this);
     }
 
     @Override

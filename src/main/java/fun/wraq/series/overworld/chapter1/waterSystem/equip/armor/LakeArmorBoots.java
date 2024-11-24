@@ -2,7 +2,7 @@ package fun.wraq.series.overworld.chapter1.waterSystem.equip.armor;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.BasicAttributeDescription;
-import fun.wraq.common.registry.ItemMaterial;
+import fun.wraq.common.registry.ModArmorMaterials;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -18,7 +18,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class LakeArmorBoots extends ArmorItem {
-    public LakeArmorBoots(ItemMaterial material, Type Slots) {
+    public LakeArmorBoots(ModArmorMaterials material, Type Slots) {
         super(material, Slots, new Properties().rarity(CustomStyle.WaterItalic));
         Utils.coolDownDecrease.put(this, 0.08);
         Utils.movementSpeedCommon.put(this, 0.05);

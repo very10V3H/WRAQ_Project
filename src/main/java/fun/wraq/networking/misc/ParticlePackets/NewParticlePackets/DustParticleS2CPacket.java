@@ -15,10 +15,10 @@ public class DustParticleS2CPacket {
     private final Vector3f position;
     private final double r;
     private final int num;
-    private final String color;
+    private final int color;
     private final Vector3f delta;
 
-    public DustParticleS2CPacket(Vector3f position, double r, int num, String color, Vector3f delta) {
+    public DustParticleS2CPacket(Vector3f position, double r, int num, int color, Vector3f delta) {
         this.position = position;
         this.r = r;
         this.num = num;
@@ -30,7 +30,7 @@ public class DustParticleS2CPacket {
         this.position = buf.readVector3f();
         this.r = buf.readDouble();
         this.num = buf.readInt();
-        this.color = buf.readUtf();
+        this.color = buf.readInt();
         this.delta = buf.readVector3f();
     }
 
@@ -38,14 +38,14 @@ public class DustParticleS2CPacket {
         buf.writeVector3f(position);
         buf.writeDouble(r);
         buf.writeInt(num);
-        buf.writeUtf(color);
+        buf.writeInt(color);
         buf.writeVector3f(delta);
     }
 
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
-            ParticleOptions particleOptions = new DustParticleOptions(Vec3.fromRGB24(Integer.parseInt(color)).toVector3f(), 1);
+            ParticleOptions particleOptions = new DustParticleOptions(Vec3.fromRGB24(color).toVector3f(), 1);
             Random random = new Random();
             for (int i = 0; i < num; i++) {
                 Vec3 pos = new Vec3(position.x + r * Math.cos(2 * Math.PI * random.nextDouble()),

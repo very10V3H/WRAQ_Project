@@ -32,7 +32,7 @@ public class SkyBoss {
     public static String Name = "天空";
     public static Item[] Rewards = {
             ModItems.SkyRune.get(), ModItems.ForgingStone0.get(),
-            ModItems.goldCoin.get(), ModItems.SkyBossGem.get(),
+            ModItems.GOLD_COIN.get(), ModItems.SkyBossGem.get(),
             ModItems.SkyBossCore.get(), ModItems.SkyBossCore.get(),
             ModItems.SkyBossBowForgeDraw.get(), ModItems.SkyBossCentral.get()
     };

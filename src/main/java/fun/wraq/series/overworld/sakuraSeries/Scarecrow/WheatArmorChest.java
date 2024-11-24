@@ -2,7 +2,7 @@ package fun.wraq.series.overworld.sakuraSeries.Scarecrow;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.BasicAttributeDescription;
-import fun.wraq.common.registry.ItemMaterial;
+import fun.wraq.common.registry.ModArmorMaterials;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.entities.armor.WheatArmorRenderer;
@@ -33,7 +33,7 @@ import java.util.function.Consumer;
 public class WheatArmorChest extends ArmorItem implements GeoItem {
     private final AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
 
-    public WheatArmorChest(ItemMaterial Material, Type Slots) {
+    public WheatArmorChest(ModArmorMaterials Material, Type Slots) {
         super(Material, Slots, new Properties().rarity(Rarity.UNCOMMON));
         Utils.maxHealth.put(this, 500d);
         Utils.armorTag.put(this, 1d);

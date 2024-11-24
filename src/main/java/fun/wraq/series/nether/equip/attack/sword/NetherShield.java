@@ -72,7 +72,7 @@ public class NetherShield extends WraqOffHandItem implements ForgeItem, OnHitEff
             add(new ItemStack(ModItems.Ruby.get(), 128));
             add(new ItemStack(ModItems.NetherQuartz.get(), 32));
             add(new ItemStack(Items.IRON_INGOT, 64));
-            add(new ItemStack(ModItems.goldCoin.get(), 64));
+            add(new ItemStack(ModItems.GOLD_COIN.get(), 64));
         }};
     }
 

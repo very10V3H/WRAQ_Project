@@ -95,9 +95,6 @@ public abstract class WraqMainHandEquip extends SwordItem {
                     append(Te.m("的")).
                     append(Te.m("基础属性", ChatFormatting.AQUA)));
         }
-        if (this instanceof fun.wraq.common.equip.WraqSceptre) {
-            WraqSceptre.getManaCoreAddition(stack, components);
-        }
 
         if (shouldRenderAddition) {
             ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
@@ -105,7 +102,9 @@ public abstract class WraqMainHandEquip extends SwordItem {
         if (oneLineDescription() != null) {
             components.add(oneLineDescription());
         }
-        components.add(getSuffix());
+        if (getSuffix() != null) {
+            components.add(getSuffix());
+        }
         super.appendHoverText(stack, level, components, flag);
     }
 

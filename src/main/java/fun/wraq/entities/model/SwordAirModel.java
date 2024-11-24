@@ -1,7 +1,7 @@
 package fun.wraq.entities.model;
 
 import fun.wraq.common.util.Utils;
-import fun.wraq.projectiles.mana.SwordAir;
+import fun.wraq.projectiles.mana.swordair.SwordAir;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;

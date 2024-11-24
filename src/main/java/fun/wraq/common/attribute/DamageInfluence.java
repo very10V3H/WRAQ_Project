@@ -12,12 +12,11 @@ import fun.wraq.process.func.EnhanceNormalAttackModifier;
 import fun.wraq.process.func.MobEffectAndDamageMethods;
 import fun.wraq.process.func.StableAttributesModifier;
 import fun.wraq.process.system.element.equipAndCurios.fireElement.FireEquip;
-import fun.wraq.process.system.potion.NewPotionEffects;
 import fun.wraq.process.system.season.MySeason;
 import fun.wraq.process.system.tower.Tower;
 import fun.wraq.process.system.tower.TowerMob;
 import fun.wraq.render.hud.ColdData;
-import fun.wraq.series.instance.series.castle.CastleSword;
+import fun.wraq.render.mobEffects.ModEffects;
 import fun.wraq.series.instance.series.moon.Equip.MoonArmor;
 import fun.wraq.series.newrunes.chapter1.MineNewRune;
 import fun.wraq.series.newrunes.chapter1.VolcanoNewRune;
@@ -25,6 +24,7 @@ import fun.wraq.series.newrunes.chapter2.HuskNewRune;
 import fun.wraq.series.newrunes.chapter6.MoonNewRune;
 import fun.wraq.series.overworld.chapter7.star.StarArmor;
 import fun.wraq.series.overworld.chapter7.vd.VdWeaponCommon;
+import fun.wraq.series.overworld.sun.DevilPowerCurio;
 import fun.wraq.series.specialevents.labourDay.LabourDayIronHoe;
 import fun.wraq.series.specialevents.labourDay.LabourDayIronPickaxe;
 import net.minecraft.world.entity.Mob;
@@ -41,7 +41,6 @@ public class DamageInfluence {
         rate += VdWeaponCommon.damageEnhance(player, monster); // vd weapon
         rate += OnHitDamageInfluenceCurios.damageInfluence(player, monster);
         rate += ManaAttackModule.getManaSkill3DamageEnhance(player, monster); // 机体解构（对一名目标的持续法术攻击，可以使你对该目标的伤害至多提升至2%，在5次攻击后达到最大值）
-
         rate += getPlayerCommonDamageUpOrDown(player);
         return rate;
     }
@@ -52,12 +51,12 @@ public class DamageInfluence {
         rate += AttackEventModule.ManaSkill5DamageEnhance(player); // 法术专注
         rate += ColdData.PlayerColdEffect(player); // 寒冷
         rate += FireEquip.DamageEnhance(player); // 炽焰元素武器
-        rate += NewPotionEffects.damageEnhance(player);
         rate += MineNewRune.damageEnhance(player);
         rate += HuskNewRune.damageEnhance(player);
         rate += MoonNewRune.damageEnhance(player);
         rate += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerCommonDamageEnhance);
         rate += DamageInfluenceCurios.getRate(player);
+        rate += Compute.getPlayerPotionEffectRate(player, ModEffects.DAMAGE_ENHANCE.get(), 0.35, 0.5);
         return rate;
     }
 
@@ -73,7 +72,8 @@ public class DamageInfluence {
         rate += AttackEventModule.SwordSKillEnhance(player); // 多余技能点
         rate += AttackEventModule.BowSKillEnhance(player); // 多余技能点
         rate += LabourDayIronPickaxe.playerAttackDamageEnhance(player);
-        rate += NewPotionEffects.attackDamageEnhance(player);
+        rate += Compute.getPlayerPotionEffectRate(player,
+                ModEffects.ATTACK_DAMAGE_ENHANCE.get(), 0.35, 0.5);
         return rate;
     }
 
@@ -88,7 +88,9 @@ public class DamageInfluence {
         double rate = 0;
         rate += AttackEventModule.ManaSKillEnhance(player);
         rate += LabourDayIronHoe.playerManaDamageEnhance(player);
-        rate += NewPotionEffects.manaDamageEnhance(player);
+        rate += Compute.getPlayerPotionEffectRate(player,
+                ModEffects.MANA_DAMAGE_ENHANCE.get(), 0.35, 0.5);
+
         return rate;
     }
 
@@ -112,10 +114,10 @@ public class DamageInfluence {
 
     public static double getPlayerFinalDamageEnhance(Player player) {
         double rate = 0;
-
         rate += 0.5 * Compute.CuriosAttribute.getDistinctCuriosList(player)
                 .stream().filter(curios -> curios.getItem() instanceof WraqUniformCurios)
                 .count();
+        rate += DevilPowerCurio.finalDamageEnhanceRate(player);
         return rate;
     }
 
@@ -139,6 +141,7 @@ public class DamageInfluence {
     public static double getPlayerWithstandDamageInfluence(Player player, Mob mob) {
         double rate = 1;
         rate += MineNewRune.withstandDamageInfluence(player);
+        rate += Compute.getPlayerPotionEffectRate(player, ModEffects.STONE.get(), -0.15, -0.25);
         return rate;
     }
 

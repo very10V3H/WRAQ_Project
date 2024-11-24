@@ -1,60 +1,39 @@
 package fun.wraq.series.instance.series.plain;
 
+import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
-import net.minecraft.ChatFormatting;
+import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
+import net.minecraft.network.chat.Style;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
-import top.theillusivec4.curios.api.SlotContext;
-import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
-import javax.annotation.Nullable;
 import java.util.List;
 
-public class PlainAttackRing extends Item implements ICurioItem {
-
-    private final int level;
+public class PlainAttackRing extends WraqCurios {
 
     public PlainAttackRing(Properties p_41383_, int level) {
         super(p_41383_);
-        this.level = level;
-        Utils.attackDamage.put(this, (double) Attributes[level]);
-        Utils.curiosList.add(this);
-    }
-
-    private final int[] Attributes = {
-            30, 60, 90, 120
-    };
-
-    @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
-        stack.getOrCreateTagElement(Utils.MOD_ID);
-        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, ChatFormatting.GREEN, ChatFormatting.WHITE);
-        ComponentUtils.descriptionOfBasic(components);
-        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, ChatFormatting.GREEN, ChatFormatting.WHITE);
-        super.appendHoverText(stack, level, components, flag);
+        Utils.attackDamage.put(this, new double[]{30, 60, 90, 120}[level]);
     }
 
     @Override
-    public void onEquip(SlotContext slotContext, ItemStack prevStack, ItemStack stack) {
-        Player player = (Player) slotContext.entity();
-        Utils.playerAttackRingMap.put(player.getName().getString(), Attributes[this.level]);
-        ICurioItem.super.onEquip(slotContext, prevStack, stack);
+    public Component getTypeDescription() {
+        return ComponentUtils.getAttackTypeDescriptionOfCurios();
     }
 
     @Override
-    public void onUnequip(SlotContext slotContext, ItemStack newStack, ItemStack stack) {
-        Player player = (Player) slotContext.entity();
-        Utils.playerAttackRingMap.remove(player.getName().getString());
-        ICurioItem.super.onUnequip(slotContext, newStack, stack);
+    public List<Component> additionHoverText(ItemStack stack) {
+        return List.of();
     }
 
     @Override
-    public boolean canEquipFromUse(SlotContext slotContext, ItemStack stack) {
-        return true;
+    public Style hoverMainStyle() {
+        return CustomStyle.styleOfPlain;
+    }
+
+    @Override
+    public Component suffix() {
+        return ComponentUtils.getSuffixOfPlainBoss();
     }
 }

@@ -411,8 +411,8 @@ public class HBrewingEntity extends BlockEntity implements MenuProvider, Droppab
                     }
                 }
             }
-            if (Material1.is(ModItems.LakeCore.get()) || Material2.is(ModItems.LakeCore.get())) {
-                if (Material1.is(ModItems.LakeCore.get())) {
+            if (Material1.is(ModItems.LAKE_CORE.get()) || Material2.is(ModItems.LAKE_CORE.get())) {
+                if (Material1.is(ModItems.LAKE_CORE.get())) {
                     blockEntity.itemStackHandler.extractItem(0, 6, false);
                     blockEntity.itemStackHandler.extractItem(1, 1, false);
                 } else {
@@ -438,8 +438,8 @@ public class HBrewingEntity extends BlockEntity implements MenuProvider, Droppab
                     }
                 }
             }
-            if (Material1.is(ModItems.VolcanoCore.get()) || Material2.is(ModItems.VolcanoCore.get())) {
-                if (Material1.is(ModItems.VolcanoCore.get())) {
+            if (Material1.is(ModItems.VOLCANO_CORE.get()) || Material2.is(ModItems.VOLCANO_CORE.get())) {
+                if (Material1.is(ModItems.VOLCANO_CORE.get())) {
                     blockEntity.itemStackHandler.extractItem(0, 6, false);
                     blockEntity.itemStackHandler.extractItem(1, 1, false);
                 } else {
@@ -780,11 +780,11 @@ public class HBrewingEntity extends BlockEntity implements MenuProvider, Droppab
         boolean MaterialCorrect = ((Material1.is(ModItems.SunPower.get()) && Material1.getCount() >= 6 && Material2.is(ModItems.Concentrater.get()))
                 || (Material2.is(ModItems.SunPower.get()) && Material2.getCount() >= 6 && Material1.is(ModItems.Concentrater.get()))
 
-                || (Material1.is(ModItems.LakeCore.get()) && Material1.getCount() >= 6 && Material2.is(ModItems.Concentrater.get()))
-                || (Material2.is(ModItems.LakeCore.get()) && Material2.getCount() >= 6 && Material1.is(ModItems.Concentrater.get()))
+                || (Material1.is(ModItems.LAKE_CORE.get()) && Material1.getCount() >= 6 && Material2.is(ModItems.Concentrater.get()))
+                || (Material2.is(ModItems.LAKE_CORE.get()) && Material2.getCount() >= 6 && Material1.is(ModItems.Concentrater.get()))
 
-                || (Material1.is(ModItems.VolcanoCore.get()) && Material1.getCount() >= 6 && Material2.is(ModItems.Concentrater.get()))
-                || (Material2.is(ModItems.VolcanoCore.get()) && Material2.getCount() >= 6 && Material1.is(ModItems.Concentrater.get()))
+                || (Material1.is(ModItems.VOLCANO_CORE.get()) && Material1.getCount() >= 6 && Material2.is(ModItems.Concentrater.get()))
+                || (Material2.is(ModItems.VOLCANO_CORE.get()) && Material2.getCount() >= 6 && Material1.is(ModItems.Concentrater.get()))
 
                 || (Material1.is(ModItems.SnowRune.get()) && Material1.getCount() >= 2 && Material2.is(ModItems.Concentrater.get()))
                 || (Material2.is(ModItems.SnowRune.get()) && Material2.getCount() >= 2 && Material1.is(ModItems.Concentrater.get()))

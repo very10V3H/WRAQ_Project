@@ -142,8 +142,8 @@ public class MobAttributes {
     }
 
     public static double getMobHealAmplifier(Mob mob) {
-        double value = 0;
-        StableAttributesModifier.getModifierValue(mob, StableAttributesModifier.mobHealAmplifierModifier);
+        double value = 1;
+        value += StableAttributesModifier.getModifierValue(mob, StableAttributesModifier.mobHealAmplifierModifier);
         return value;
     }
 }

@@ -12,6 +12,7 @@ import fun.wraq.process.system.spur.Items.SpurItems;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.gems.GemItems;
 import fun.wraq.series.newrunes.NewRuneItems;
+import fun.wraq.series.overworld.sun.SunIslandItems;
 import fun.wraq.series.specialevents.SpecialEventItems;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.npc.VillagerProfession;
@@ -52,6 +53,9 @@ public class TradeList {
         runeMaster();
 
         summerEvent();
+        endlessCoreStore();
+        forgeHammer();
+        sunCurio();
 
         /* 1.0 */
 
@@ -136,7 +140,7 @@ public class TradeList {
             switch (i) {
                 case 0 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.SnowSoul.get(), 64));
-                    add(new ItemStack(ModItems.goldCoin.get(), 5));
+                    add(new ItemStack(ModItems.GOLD_COIN.get(), 5));
                 }});
                 case 1, 2, 3, 4, 5, 6 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.SnowRune.get()));
@@ -184,7 +188,7 @@ public class TradeList {
                     add(new ItemStack(ModItems.EvokerSoul.get(), 4));
                 }});
                 case 1 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.goldCoin.get(), 2));
+                    add(new ItemStack(ModItems.GOLD_COIN.get(), 2));
                     add(new ItemStack(ModItems.gemPiece.get(), 4));
                 }});
                 case 2 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
@@ -493,7 +497,7 @@ public class TradeList {
                     add(new ItemStack(ModItems.MineSoul1.get(), 16));
                 }});
                 case 2 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.goldCoin.get(), 16));
+                    add(new ItemStack(ModItems.GOLD_COIN.get(), 16));
                 }});
                 case 3 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.REFINED_PIECE.get(), 16));
@@ -503,44 +507,44 @@ public class TradeList {
                 }});
                 case 5 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.MineSoul.get(), 16));
-                    add(new ItemStack(ModItems.goldCoin.get(), 1));
+                    add(new ItemStack(ModItems.GOLD_COIN.get(), 1));
                 }});
                 case 6 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.goldCoin.get(), 2));
+                    add(new ItemStack(ModItems.GOLD_COIN.get(), 2));
                 }});
                 case 7 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(Items.DIAMOND, 4));
-                    add(new ItemStack(ModItems.goldCoin.get(), 4));
+                    add(new ItemStack(ModItems.GOLD_COIN.get(), 4));
                     add(new ItemStack(ModItems.ForgingStone0.get(), 1));
                 }});
                 case 8 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(Items.EMERALD, 4));
-                    add(new ItemStack(ModItems.goldCoin.get(), 4));
+                    add(new ItemStack(ModItems.GOLD_COIN.get(), 4));
                     add(new ItemStack(ModItems.ForgingStone0.get(), 1));
                 }});
                 case 9 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(Items.REDSTONE, 16));
-                    add(new ItemStack(ModItems.goldCoin.get(), 4));
+                    add(new ItemStack(ModItems.GOLD_COIN.get(), 4));
                     add(new ItemStack(ModItems.ForgingStone0.get(), 1));
                 }});
                 case 10 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(Items.LAPIS_LAZULI, 16));
-                    add(new ItemStack(ModItems.goldCoin.get(), 4));
+                    add(new ItemStack(ModItems.GOLD_COIN.get(), 4));
                     add(new ItemStack(ModItems.ForgingStone0.get(), 1));
                 }});
                 case 11 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.NetherQuartz.get(), 32));
-                    add(new ItemStack(ModItems.goldCoin.get(), 8));
+                    add(new ItemStack(ModItems.GOLD_COIN.get(), 8));
                     add(new ItemStack(ModItems.ForgingStone1.get(), 1));
                 }});
                 case 12 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.goldCoin.get(), 8));
+                    add(new ItemStack(ModItems.GOLD_COIN.get(), 8));
                 }});
                 case 13 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.goldCoin.get(), 1));
+                    add(new ItemStack(ModItems.GOLD_COIN.get(), 1));
                 }});
                 case 14 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.goldCoin.get(), 4));
+                    add(new ItemStack(ModItems.GOLD_COIN.get(), 4));
                 }});
             }
         }
@@ -598,7 +602,7 @@ public class TradeList {
         ItemStack[] itemStacks = {
                 ModItems.PurpleIron.get().getDefaultInstance(),
                 ModItems.PurpleIron.get().getDefaultInstance(),
-                ModItems.goldCoin.get().getDefaultInstance(),
+                ModItems.GOLD_COIN.get().getDefaultInstance(),
         };
         List<ItemStack> contentList = new ArrayList<>();
         Collections.addAll(contentList, itemStacks);
@@ -607,7 +611,7 @@ public class TradeList {
         for (int i = 0; i < itemStacks.length; i++) {
             switch (i) {
                 case 0 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.goldCoin.get(), 16));
+                    add(new ItemStack(ModItems.GOLD_COIN.get(), 16));
                 }});
                 case 1 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.PurpleIronPiece.get(), 64));
@@ -637,7 +641,7 @@ public class TradeList {
             switch (i) {
                 case 0 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.LeatherSoul.get(), 64));
-                    add(new ItemStack(ModItems.goldCoin.get(), 10));
+                    add(new ItemStack(ModItems.GOLD_COIN.get(), 10));
                 }});
                 case 1 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.LeatherRune.get(), 5));
@@ -657,10 +661,10 @@ public class TradeList {
 
     public static void Currency() {
         ItemStack[] itemStacks = {
-                ModItems.goldCoin.get().getDefaultInstance(),
-                ModItems.goldCoin.get().getDefaultInstance(),
-                ModItems.goldCoin.get().getDefaultInstance(),
-                ModItems.goldCoin.get().getDefaultInstance(),
+                ModItems.GOLD_COIN.get().getDefaultInstance(),
+                ModItems.GOLD_COIN.get().getDefaultInstance(),
+                ModItems.GOLD_COIN.get().getDefaultInstance(),
+                ModItems.GOLD_COIN.get().getDefaultInstance(),
                 ModItems.completeGem.get().getDefaultInstance(),
         };
         List<ItemStack> contentList = new ArrayList<>();
@@ -690,12 +694,12 @@ public class TradeList {
 
     public static void SoulToGoldCoin() {
         ItemStack[] itemStacks = {
-                ModItems.goldCoin.get().getDefaultInstance(),
-                ModItems.goldCoin.get().getDefaultInstance(),
-                ModItems.goldCoin.get().getDefaultInstance(),
-                ModItems.goldCoin.get().getDefaultInstance(),
-                ModItems.goldCoin.get().getDefaultInstance(),
-                ModItems.goldCoin.get().getDefaultInstance(),
+                ModItems.GOLD_COIN.get().getDefaultInstance(),
+                ModItems.GOLD_COIN.get().getDefaultInstance(),
+                ModItems.GOLD_COIN.get().getDefaultInstance(),
+                ModItems.GOLD_COIN.get().getDefaultInstance(),
+                ModItems.GOLD_COIN.get().getDefaultInstance(),
+                ModItems.GOLD_COIN.get().getDefaultInstance(),
         };
         List<ItemStack> contentList = new ArrayList<>();
         Collections.addAll(contentList, itemStacks);
@@ -851,7 +855,7 @@ public class TradeList {
         for (int i = 0; i < itemStacks.length; i++) {
             switch (i) {
                 case 0 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.goldCoin.get(), 1));
+                    add(new ItemStack(ModItems.GOLD_COIN.get(), 1));
                     add(new ItemStack(ModItems.PlainSoul.get(), 64));
                 }});
                 case 1, 2, 3, 4 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
@@ -877,7 +881,7 @@ public class TradeList {
         for (int i = 0; i < itemStacks.length; i++) {
             switch (i) {
                 case 0 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.goldCoin.get(), 3));
+                    add(new ItemStack(ModItems.GOLD_COIN.get(), 3));
                     add(new ItemStack(ModItems.ForestSoul.get(), 64));
                 }});
                 case 1, 2, 3, 4 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
@@ -903,7 +907,7 @@ public class TradeList {
         for (int i = 0; i < itemStacks.length; i++) {
             switch (i) {
                 case 0 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.goldCoin.get(), 5));
+                    add(new ItemStack(ModItems.GOLD_COIN.get(), 5));
                     add(new ItemStack(ModItems.VolcanoSoul.get(), 64));
                 }});
                 case 1, 2, 3, 4 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
@@ -950,7 +954,7 @@ public class TradeList {
         for (int i = 0; i < itemStacks.length; i++) {
             switch (i) {
                 case 0 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.goldCoin.get(), 5));
+                    add(new ItemStack(ModItems.GOLD_COIN.get(), 5));
                     add(new ItemStack(ModItems.SnowSoul.get(), 64));
                 }});
                 case 1, 2, 3, 4 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
@@ -1056,7 +1060,7 @@ public class TradeList {
         for (int i = 0; i < itemStacks.length; i++) {
             switch (i) {
                 case 0, 1 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.goldCoin.get(), 10));
+                    add(new ItemStack(ModItems.GOLD_COIN.get(), 10));
                     add(new ItemStack(ModItems.Ruby.get(), 64));
                 }});
             }
@@ -1121,15 +1125,15 @@ public class TradeList {
         for (int i = 0; i < itemStacks.length; i++) {
             switch (i) {
                 case 0 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.goldCoin.get(), 10));
+                    add(new ItemStack(ModItems.GOLD_COIN.get(), 10));
                     add(new ItemStack(ModItems.Ruby.get(), 64));
                 }});
                 case 1 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.goldCoin.get(), 25));
+                    add(new ItemStack(ModItems.GOLD_COIN.get(), 25));
                     add(new ItemStack(ModItems.NetherQuartz.get(), 64));
                 }});
                 case 2, 3 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.goldCoin.get(), 4));
+                    add(new ItemStack(ModItems.GOLD_COIN.get(), 4));
                 }});
             }
         }
@@ -1305,7 +1309,7 @@ public class TradeList {
         for (int i = 0; i < itemStacks.length; i++) {
             switch (i) {
                 case 0 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.goldCoin.get(), 3));
+                    add(new ItemStack(ModItems.GOLD_COIN.get(), 3));
                 }});
                 case 1 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(Items.ANDESITE, 64));
@@ -1314,14 +1318,14 @@ public class TradeList {
                     add(new ItemStack(Items.DIORITE, 64));
                 }});
                 case 3, 4, 7, 8, 9, 10 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.goldCoin.get(), 1));
+                    add(new ItemStack(ModItems.GOLD_COIN.get(), 1));
                 }});
                 case 5 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.goldCoin.get(), 1));
+                    add(new ItemStack(ModItems.GOLD_COIN.get(), 1));
                     add(new ItemStack(Items.ANDESITE, 64));
                 }});
                 case 6 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.goldCoin.get(), 1));
+                    add(new ItemStack(ModItems.GOLD_COIN.get(), 1));
                     add(new ItemStack(Items.DIORITE, 64));
                 }});
             }
@@ -1343,7 +1347,7 @@ public class TradeList {
         for (int i = 0; i < itemStacks.length; i++) {
             switch (i) {
                 case 0 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.goldCoin.get(), 8));
+                    add(new ItemStack(ModItems.GOLD_COIN.get(), 8));
                     add(new ItemStack(ModItems.SpiderSoul.get(), 64));
                 }});
                 case 1 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
@@ -1377,7 +1381,7 @@ public class TradeList {
                 case 0 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.SakuraPetal.get(), 256));
                     add(new ItemStack(ModItems.EarthManaSoul.get(), 256));
-                    add(new ItemStack(ModItems.goldCoin.get(), 48));
+                    add(new ItemStack(ModItems.GOLD_COIN.get(), 48));
                 }});
                 case 1 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.completeGem.get(), 10));
@@ -1410,19 +1414,19 @@ public class TradeList {
         for (int i = 0; i < itemStacks.length; i++) {
             switch (i) {
                 case 0 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.goldCoin.get(), 8));
+                    add(new ItemStack(ModItems.GOLD_COIN.get(), 8));
                 }});
                 case 1 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.goldCoin.get(), 16));
+                    add(new ItemStack(ModItems.GOLD_COIN.get(), 16));
                 }});
                 case 2 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.goldCoin.get(), 32));
+                    add(new ItemStack(ModItems.GOLD_COIN.get(), 32));
                 }});
                 case 3 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.goldCoin.get(), 64));
+                    add(new ItemStack(ModItems.GOLD_COIN.get(), 64));
                 }});
                 case 4 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.goldCoin.get(), 8));
+                    add(new ItemStack(ModItems.GOLD_COIN.get(), 8));
                 }});
                 case 5 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.skinTemplatePaper.get()));
@@ -1482,7 +1486,7 @@ public class TradeList {
             switch (i) {
                 case 0 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.FieldSoul.get(), 64));
-                    add(new ItemStack(ModItems.goldCoin.get(), 5));
+                    add(new ItemStack(ModItems.GOLD_COIN.get(), 5));
                 }});
                 case 1 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.FieldRune.get(), 1));
@@ -1675,7 +1679,7 @@ public class TradeList {
         for (int i = 0; i < itemStacks.length; i++) {
             switch (i) {
                 default -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.goldCoin.get(), 5));
+                    add(new ItemStack(ModItems.GOLD_COIN.get(), 5));
                 }});
             }
         }
@@ -1696,7 +1700,7 @@ public class TradeList {
             switch (i) {
                 case 0 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.gemPiece.get(), 4));
-                    add(new ItemStack(ModItems.goldCoin.get(), 2));
+                    add(new ItemStack(ModItems.GOLD_COIN.get(), 2));
                 }});
                 case 1 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.ManaBalance_Empty.get(), 5));
@@ -1728,7 +1732,7 @@ public class TradeList {
             switch (i) {
                 case 0 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.gemPiece.get(), 4));
-                    add(new ItemStack(ModItems.goldCoin.get(), 2));
+                    add(new ItemStack(ModItems.GOLD_COIN.get(), 2));
                 }});
                 case 1 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.ManaBalance_Empty.get(), 5));
@@ -1825,7 +1829,7 @@ public class TradeList {
         for (int i = 0; i < itemStacks.length; i++) {
             switch (i) {
                 case 0 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.goldCoin.get(), 10));
+                    add(new ItemStack(ModItems.GOLD_COIN.get(), 10));
                     add(new ItemStack(ModItems.SlimeBall.get(), 64));
                 }});
                 case 1 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
@@ -1859,7 +1863,7 @@ public class TradeList {
                     add(new ItemStack(ModItems.DevilBlood.get(), 1));
                 }});
                 case 2 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.VolcanoCore.get(), 8));
+                    add(new ItemStack(ModItems.VOLCANO_CORE.get(), 8));
                     add(new ItemStack(ModItems.DevilBlood.get(), 1));
                 }});
                 case 3 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
@@ -2034,11 +2038,11 @@ public class TradeList {
                     add(new ItemStack(ModItems.LakeRune.get(), 4));
                 }});
                 case 4 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.VolcanoCore.get(), 64));
+                    add(new ItemStack(ModItems.VOLCANO_CORE.get(), 64));
                     add(new ItemStack(ModItems.gemPiece.get(), 128));
                 }});
                 case 5 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.LakeCore.get(), 64));
+                    add(new ItemStack(ModItems.LAKE_CORE.get(), 64));
                     add(new ItemStack(ModItems.gemPiece.get(), 128));
                 }});
                 case 6 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
@@ -2163,7 +2167,7 @@ public class TradeList {
                     add(new ItemStack(ModItems.RecallPiece.get(), 32));
                 }});
                 case 1 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.huskRune.get(), 2));
+                    add(new ItemStack(ModItems.HUSK_RUNE.get(), 2));
                     add(new ItemStack(ModItems.RecallPiece.get(), 32));
                 }});
                 case 2 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
@@ -2196,7 +2200,7 @@ public class TradeList {
 
     public static void RoseGoldStore() {
         ItemStack[] itemStacks = {
-                new ItemStack(ModItems.RoseGoldCoin.get(), 1),
+                new ItemStack(ModItems.ROSE_GOLD_COIN.get(), 1),
 
         };
         List<ItemStack> contentList = new ArrayList<>();
@@ -2206,7 +2210,7 @@ public class TradeList {
         for (int i = 0; i < itemStacks.length; i++) {
             switch (i) {
                 case 0 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.goldCoin.get(), 64));
+                    add(new ItemStack(ModItems.GOLD_COIN.get(), 64));
                 }});
 
             }
@@ -2289,19 +2293,19 @@ public class TradeList {
                 }});
 
                 case 1 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.goldCoin.get(), 12));
+                    add(new ItemStack(ModItems.GOLD_COIN.get(), 12));
                 }});
 
                 case 2 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.goldCoin.get(), 16));
+                    add(new ItemStack(ModItems.GOLD_COIN.get(), 16));
                 }});
 
                 case 3 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.goldCoin.get(), 20));
+                    add(new ItemStack(ModItems.GOLD_COIN.get(), 20));
                 }});
 
                 case 4 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.goldCoin.get(), 28));
+                    add(new ItemStack(ModItems.GOLD_COIN.get(), 28));
                 }});
             }
         }
@@ -2454,7 +2458,7 @@ public class TradeList {
         tradeRecipeMap.put(ironHammer,
                 List.of(new ItemStack(ModItems.silverCoin.get(), 16)));
         tradeRecipeMap.put(copperHammer,
-                List.of(new ItemStack(ModItems.goldCoin.get(), 4)));
+                List.of(new ItemStack(ModItems.GOLD_COIN.get(), 4)));
         tradeRecipeMap.put(forestGem,
                 List.of(new ItemStack(ModItems.ForestRune.get(), 10),
                         new ItemStack(ModItems.completeGem.get(), 10)));
@@ -2501,7 +2505,7 @@ public class TradeList {
                 List.of(new ItemStack(ModItems.ORIGIN_KNIFE_PLAIN.get(), 1),
                         new ItemStack(ModItems.ForestRune.get(), 4),
                         new ItemStack(ModItems.LifeElementPiece0.get(), 14),
-                        new ItemStack(ModItems.goldCoin.get(), 5)));
+                        new ItemStack(ModItems.GOLD_COIN.get(), 5)));
         tradeRecipeMap.put(silverCoin,
                 List.of(new ItemStack(ModItems.ForestSoul.get(), 64)));
     }
@@ -2542,7 +2546,7 @@ public class TradeList {
                 List.of(new ItemStack(ModItems.ORIGIN_KNIFE_FOREST.get()),
                         new ItemStack(ModItems.LakeRune.get(), 4),
                         new ItemStack(ModItems.WaterElementPiece0.get(), 14),
-                        new ItemStack(ModItems.goldCoin.get(), 8)));
+                        new ItemStack(ModItems.GOLD_COIN.get(), 8)));
         tradeRecipeMap.put(lakeGem,
                 List.of(new ItemStack(ModItems.LakeRune.get(), 10),
                         new ItemStack(ModItems.completeGem.get(), 10)));
@@ -2581,7 +2585,7 @@ public class TradeList {
                 List.of(new ItemStack(ModItems.ORIGIN_KNIFE_LAKE.get()),
                         new ItemStack(ModItems.MineRune.get(), 8),
                         new ItemStack(ModItems.StoneElementPiece0.get(), 14),
-                        new ItemStack(ModItems.goldCoin.get(), 10)));
+                        new ItemStack(ModItems.GOLD_COIN.get(), 10)));
         tradeRecipeMap.put(mineGem,
                 List.of(new ItemStack(ModItems.MineRune.get(), 10),
                         new ItemStack(ModItems.completeGem.get(), 10)));
@@ -2605,11 +2609,11 @@ public class TradeList {
         tradeRecipeMap.put(ironHammer,
                 List.of(new ItemStack(ModItems.silverCoin.get(), 16)));
         tradeRecipeMap.put(copperHammer,
-                List.of(new ItemStack(ModItems.goldCoin.get(), 4)));
+                List.of(new ItemStack(ModItems.GOLD_COIN.get(), 4)));
         tradeRecipeMap.put(goldHammer,
-                List.of(new ItemStack(ModItems.goldCoin.get(), 32)));
+                List.of(new ItemStack(ModItems.GOLD_COIN.get(), 32)));
         tradeRecipeMap.put(diamondHammer,
-                List.of(new ItemStack(ModItems.goldCoin.get(), 96)));
+                List.of(new ItemStack(ModItems.GOLD_COIN.get(), 96)));
         tradeRecipeMap.put(volcanoGem,
                 List.of(new ItemStack(ModItems.VolcanoRune.get(), 10),
                         new ItemStack(ModItems.completeGem.get(), 10)));
@@ -2631,7 +2635,7 @@ public class TradeList {
                 VillagerProfession.TOOLSMITH, contentList);
         tradeRecipeMap.put(volcanoRune,
                 List.of(new ItemStack(ModItems.VolcanoSoul.get(), 64),
-                        new ItemStack(ModItems.goldCoin.get(), 2),
+                        new ItemStack(ModItems.GOLD_COIN.get(), 2),
                         new ItemStack(ModItems.gemPiece.get(), 1)));
         tradeRecipeMap.put(volcanoPower,
                 List.of(new ItemStack(ModItems.VolcanoRune.get(), 4),
@@ -2647,7 +2651,7 @@ public class TradeList {
                 List.of(new ItemStack(ModItems.ORIGIN_KNIFE_MINE.get(), 1),
                         new ItemStack(ModItems.VolcanoRune.get(), 4),
                         new ItemStack(ModItems.FireElementPiece0.get(), 14),
-                        new ItemStack(ModItems.goldCoin.get(), 16)));
+                        new ItemStack(ModItems.GOLD_COIN.get(), 16)));
         tradeRecipeMap.put(coal,
                 List.of(new ItemStack(ModItems.VolcanoSoul.get(), 8)));
         tradeRecipeMap.put(silverCoin,
@@ -2670,11 +2674,11 @@ public class TradeList {
         tradeRecipeMap.put(ironHammer,
                 List.of(new ItemStack(ModItems.silverCoin.get(), 16)));
         tradeRecipeMap.put(copperHammer,
-                List.of(new ItemStack(ModItems.goldCoin.get(), 4)));
+                List.of(new ItemStack(ModItems.GOLD_COIN.get(), 4)));
         tradeRecipeMap.put(goldHammer,
-                List.of(new ItemStack(ModItems.goldCoin.get(), 32)));
+                List.of(new ItemStack(ModItems.GOLD_COIN.get(), 32)));
         tradeRecipeMap.put(diamondHammer,
-                List.of(new ItemStack(ModItems.goldCoin.get(), 96)));
+                List.of(new ItemStack(ModItems.GOLD_COIN.get(), 96)));
         tradeRecipeMap.put(snowGem,
                 List.of(new ItemStack(ModItems.SnowRune.get(), 10),
                         new ItemStack(ModItems.completeGem.get(), 10)));
@@ -2694,7 +2698,7 @@ public class TradeList {
                 VillagerProfession.TOOLSMITH, contentList);
         tradeRecipeMap.put(snowRune,
                 List.of(new ItemStack(ModItems.SnowSoul.get(), 64),
-                        new ItemStack(ModItems.goldCoin.get(), 3),
+                        new ItemStack(ModItems.GOLD_COIN.get(), 3),
                         new ItemStack(ModItems.gemPiece.get(), 1)));
         tradeRecipeMap.put(snowPower,
                 List.of(new ItemStack(ModItems.SnowRune.get(), 4),
@@ -2726,10 +2730,10 @@ public class TradeList {
         tradeRecipeMap.put(originKnifeSky,
                 List.of(new ItemStack(ModItems.ORIGIN_KNIFE_VOLCANO.get(), 1),
                         new ItemStack(ModItems.SkyRune.get(), 5),
-                        new ItemStack(ModItems.goldCoin.get(), 20)));
+                        new ItemStack(ModItems.GOLD_COIN.get(), 20)));
         tradeRecipeMap.put(skyRune,
                 List.of(new ItemStack(ModItems.SkySoul.get(), 64),
-                        new ItemStack(ModItems.goldCoin.get(), 4),
+                        new ItemStack(ModItems.GOLD_COIN.get(), 4),
                         new ItemStack(ModItems.gemPiece.get(), 1)));
         tradeRecipeMap.put(skyGem,
                 List.of(new ItemStack(ModItems.SkyRune.get(), 10),
@@ -2762,7 +2766,7 @@ public class TradeList {
         MyVillagerData.setMyVillagerData("采矿大师", "mineCharm", CustomStyle.styleOfMine, VillagerType.PLAINS,
                 VillagerProfession.WEAPONSMITH, contentList);
 
-        tradeRecipeMap.put(stonePickaxe, List.of(new ItemStack(ModItems.goldCoin.get(), 1)));
+        tradeRecipeMap.put(stonePickaxe, List.of(new ItemStack(ModItems.GOLD_COIN.get(), 1)));
         tradeRecipeMap.put(potion, List.of(new ItemStack(ModItems.silverCoin.get(), 1)));
         tradeRecipeMap.put(oreRune, List.of(new ItemStack(Items.EMERALD, 2), new ItemStack(Items.DIAMOND, 2),
                 new ItemStack(Items.REDSTONE, 8), new ItemStack(Items.LAPIS_LAZULI, 8)));
@@ -2809,7 +2813,7 @@ public class TradeList {
         MyVillagerData.setMyVillagerData("钓鱼大师", "seaCharm", CustomStyle.styleOfSea, VillagerType.SWAMP,
                 VillagerProfession.FISHERMAN, contentList);
 
-        tradeRecipeMap.put(fishingRod, List.of(new ItemStack(ModItems.goldCoin.get(), 1)));
+        tradeRecipeMap.put(fishingRod, List.of(new ItemStack(ModItems.GOLD_COIN.get(), 1)));
 
         tradeRecipeMap.put(seaPiece1, List.of(new ItemStack(SpurItems.seaPiece.get(), 64)));
 
@@ -2904,9 +2908,9 @@ public class TradeList {
         MyVillagerData.setMyVillagerData("伐木大师", "logCharm", CustomStyle.styleOfHusk, VillagerType.JUNGLE,
                 VillagerProfession.LEATHERWORKER, contentList);
 
-        tradeRecipeMap.put(ironAxe, List.of(new ItemStack(ModItems.goldCoin.get(), 1)));
-        tradeRecipeMap.put(diamondAxe, List.of(new ItemStack(ModItems.goldCoin.get(), 3)));
-        tradeRecipeMap.put(netheriteAxe, List.of(new ItemStack(ModItems.goldCoin.get(), 8)));
+        tradeRecipeMap.put(ironAxe, List.of(new ItemStack(ModItems.GOLD_COIN.get(), 1)));
+        tradeRecipeMap.put(diamondAxe, List.of(new ItemStack(ModItems.GOLD_COIN.get(), 3)));
+        tradeRecipeMap.put(netheriteAxe, List.of(new ItemStack(ModItems.GOLD_COIN.get(), 8)));
 
         tradeRecipeMap.put(logPiece1, List.of(new ItemStack(SpurItems.logPiece.get(), 64)));
 
@@ -3089,7 +3093,7 @@ public class TradeList {
                 new ItemStack(ModItems.EvokerRune.get(), 2),
 
                 new ItemStack(ModItems.MineRune.get(), 8),
-                new ItemStack(ModItems.huskRune.get(), 6),
+                new ItemStack(ModItems.HUSK_RUNE.get(), 6),
                 new ItemStack(ModItems.LightningRune.get(), 6),
                 new ItemStack(ModItems.NetherRune.get(), 2)
         };
@@ -3104,8 +3108,8 @@ public class TradeList {
     }
 
     public static void summerEvent() {
-        ItemStack goldenCoin = new ItemStack(ModItems.goldCoin.get());
-        ItemStack goldenCoin_4 = new ItemStack(ModItems.goldCoin.get(), 4);
+        ItemStack goldenCoin = new ItemStack(ModItems.GOLD_COIN.get());
+        ItemStack goldenCoin_4 = new ItemStack(ModItems.GOLD_COIN.get(), 4);
         ItemStack summerCurios0 = new ItemStack(SpecialEventItems.SUMMER_CURIOS0.get());
         ItemStack summerCurios1 = new ItemStack(SpecialEventItems.SUMMER_CURIOS1.get());
         ItemStack summerCurios2 = new ItemStack(SpecialEventItems.SUMMER_CURIOS2.get());
@@ -3145,5 +3149,92 @@ public class TradeList {
         tradeRecipeMap.put(summerCurios5, List.of(new ItemStack(SpecialEventItems.SUMMER_CURIOS4.get()),
                 new ItemStack(SpecialEventItems.SUMMER_VOUCHER.get(), 40),
                 new ItemStack(SpecialEventItems.SUMMER_VOUCHER.get(), 64)));
+    }
+
+    public static void endlessCoreStore() {
+        List<ItemStack> contentList = new ArrayList<>();
+        MyVillagerData.setMyVillagerData("逆熵学者", "endlessStore", CustomStyle.styleOfWorld,
+                VillagerType.SAVANNA, VillagerProfession.LIBRARIAN, contentList);
+    }
+
+    public static void forgeHammer() {
+        ItemStack woodenHammer = new ItemStack(ModItems.WoodHammer.get());
+        ItemStack stoneHammer = new ItemStack(ModItems.StoneHammer.get());
+        ItemStack ironHammer = new ItemStack(ModItems.IronHammer.get());
+        ItemStack copperHammer = new ItemStack(ModItems.CopperHammer.get());
+        ItemStack goldHammer = new ItemStack(ModItems.GoldHammer.get());
+        ItemStack diamondHammer = new ItemStack(ModItems.DiamondHammer.get());
+        ItemStack emeraldHammer = new ItemStack(ModItems.EMERALD_HAMMER.get());
+        ItemStack netherHammer = new ItemStack(ModItems.NETHER_HAMMER.get());
+        ItemStack endHammer = new ItemStack(ModItems.END_HAMMER.get());
+
+        ItemStack[] itemStacks = {
+                woodenHammer, stoneHammer, ironHammer,
+                copperHammer, goldHammer, diamondHammer,
+                emeraldHammer, netherHammer, endHammer
+        };
+        List<ItemStack> contentList = new ArrayList<>();
+        Collections.addAll(contentList, itemStacks);
+        MyVillagerData.setMyVillagerData("锻造锤商人", "forgeHammer", CustomStyle.styleOfStone,
+                VillagerType.SAVANNA, VillagerProfession.TOOLSMITH, contentList);
+
+        tradeRecipeMap.put(woodenHammer,
+                List.of(new ItemStack(ModItems.silverCoin.get(), 4)));
+        tradeRecipeMap.put(stoneHammer,
+                List.of(new ItemStack(ModItems.silverCoin.get(), 8)));
+        tradeRecipeMap.put(ironHammer,
+                List.of(new ItemStack(ModItems.silverCoin.get(), 16)));
+        tradeRecipeMap.put(copperHammer,
+                List.of(new ItemStack(ModItems.GOLD_COIN.get(), 4)));
+        tradeRecipeMap.put(goldHammer,
+                List.of(new ItemStack(ModItems.GOLD_COIN.get(), 32)));
+        tradeRecipeMap.put(diamondHammer,
+                List.of(new ItemStack(ModItems.GOLD_COIN.get(), 96)));
+
+        tradeRecipeMap.put(emeraldHammer,
+                List.of(new ItemStack(ModItems.ROSE_GOLD_COIN.get(), 8),
+                        new ItemStack(Items.EMERALD, 64)));
+        tradeRecipeMap.put(netherHammer,
+                List.of(new ItemStack(ModItems.ROSE_GOLD_COIN.get(), 16),
+                        new ItemStack(ModItems.QuartzRune.get(), 8),
+                        new ItemStack(ModItems.NetherRune.get(), 8)));
+        tradeRecipeMap.put(endHammer,
+                List.of(new ItemStack(ModItems.ROSE_GOLD_COIN.get(), 32),
+                        new ItemStack(ModItems.EndCrystal.get(), 32)));
+    }
+
+    public static void sunCurio() {
+        ItemStack roseGoldCoin = new ItemStack(ModItems.ROSE_GOLD_COIN.get());
+        ItemStack tearCurio = new ItemStack(SunIslandItems.TEAR_CURIO_0.get());
+        ItemStack brokenBlade = new ItemStack(SunIslandItems.BROKEN_BLADE_0.get());
+        ItemStack frameArrow = new ItemStack(SunIslandItems.FRAME_ARROW_0.get());
+        ItemStack devilPowerCurio = new ItemStack(SunIslandItems.DEVIL_POWER_CURIO.get());
+        ItemStack[] itemStacks = {
+                roseGoldCoin, tearCurio, brokenBlade, frameArrow, devilPowerCurio
+        };
+        List<ItemStack> contentList = new ArrayList<>();
+        Collections.addAll(contentList, itemStacks);
+        MyVillagerData.setMyVillagerData("旭升岛饰品商人", "sunCurio", CustomStyle.styleOfSunIsland,
+                VillagerType.PLAINS, VillagerProfession.CARTOGRAPHER, contentList);
+
+        tradeRecipeMap.put(roseGoldCoin,
+                List.of(new ItemStack(ModItems.REFINED_PIECE.get(), 16),
+                        new ItemStack(ModItems.GOLD_COIN.get(), 64)));
+
+        tradeRecipeMap.put(brokenBlade,
+                List.of(new ItemStack(ModItems.ROSE_GOLD_COIN.get(), 16),
+                        new ItemStack(ModItems.GOLDEN_SHEET.get(), 8)));
+
+        tradeRecipeMap.put(frameArrow,
+                List.of(new ItemStack(ModItems.ROSE_GOLD_COIN.get(), 16),
+                        new ItemStack(ModItems.VOLCANO_CORE.get(), 128)));
+
+        tradeRecipeMap.put(tearCurio,
+                List.of(new ItemStack(ModItems.ROSE_GOLD_COIN.get(), 16),
+                        new ItemStack(ModItems.LAKE_CORE.get(), 128)));
+
+        tradeRecipeMap.put(devilPowerCurio,
+                List.of(new ItemStack(ModItems.ROSE_GOLD_COIN.get(), 16),
+                        new ItemStack(ModItems.HUSK_RUNE.get(), 24)));
     }
 }

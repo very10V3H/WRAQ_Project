@@ -58,7 +58,7 @@ public class BoneImpKnife extends WraqOffHandItem implements ForgeItem {
 
     @Override
     public Component getSuffix() {
-        return ComponentUtils.getSuffixOfChapterStar();
+        return ComponentUtils.getSuffixOfBoneImp();
     }
 
     public static boolean passive(Player player, Mob mob) {
@@ -82,7 +82,7 @@ public class BoneImpKnife extends WraqOffHandItem implements ForgeItem {
         return new ArrayList<>() {{
             add(new ItemStack(ModItems.manaKnife.get(), 1));
             add(new ItemStack(C7Items.boneImpSoul.get(), 576));
-            add(new ItemStack(ModItems.goldCoin.get(), 288));
+            add(new ItemStack(ModItems.GOLD_COIN.get(), 288));
             add(new ItemStack(ModItems.completeGem.get(), 16));
             add(new ItemStack(ModItems.ReputationMedal.get(), 64));
             add(new ItemStack(PickaxeItems.TINKER_GOLD.get(), 12));

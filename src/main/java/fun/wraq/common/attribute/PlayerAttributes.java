@@ -1,5 +1,7 @@
 package fun.wraq.common.attribute;
 
+import fun.wraq.Items.DevelopmentTools.equip.ManageEquip;
+import fun.wraq.Items.DevelopmentTools.equip.OpsAttributes;
 import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.equip.WraqPickaxe;
@@ -26,7 +28,6 @@ import fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementBow
 import fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSceptre;
 import fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSword;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
-import fun.wraq.process.system.potion.NewPotionEffects;
 import fun.wraq.process.system.spur.events.MineSpur;
 import fun.wraq.process.system.tower.TowerMob;
 import fun.wraq.render.mobEffects.ModEffects;
@@ -76,6 +77,7 @@ public class PlayerAttributes {
     public static Map<Player, Map<Map<Item, Double>, Integer>> computeAttributeTick = new ConcurrentHashMap<>();
 
     public static boolean canGetFromCache(Player player, Map<Item, Double> attribute) {
+        if (player.getMainHandItem().getItem() instanceof ManageEquip) return true;
         // 初始化
         int tick = Tick.get();
         if (!playerAttributeCache.containsKey(player)) {
@@ -93,6 +95,9 @@ public class PlayerAttributes {
     }
 
     public static double getFromCache(Player player, Map<Item, Double> attribute) {
+        if (player.getMainHandItem().getItem() instanceof ManageEquip) {
+            return OpsAttributes.getValue(attribute, player);
+        }
         Map<Map<Item, Double>, Double> attributeMap = playerAttributeCache.get(player);
         return attributeMap.get(attribute);
     }
@@ -242,8 +247,6 @@ public class PlayerAttributes {
         if (data.contains("GemSAttack")) exDamage += data.getDouble("GemSAttack");
 
         exDamage += SArmorAttribute.value(player, SArmorAttribute.volcanoPower);
-        if (Utils.playerAttackRingMap.containsKey(name))
-            exDamage += Utils.playerAttackRingMap.get(name);
 
         if (Utils.PlayerSpringRingAttackAttribute.containsKey(player) && Utils.PlayerSpringRingLevelRequire.get(player) <= player.experienceLevel) {
             exDamage += Utils.PlayerSpringRingAttackAttribute.get(player);
@@ -835,10 +838,6 @@ public class PlayerAttributes {
 
         if (data.getInt(StringUtils.PlainSwordActive.PlainSceptre) > TickCount) exDefence += 1;
 
-        String name = player.getName().getString();
-        if (Utils.playerDefenceRingMap.containsKey(name))
-            exDefence += Utils.playerDefenceRingMap.get(name);
-
         if (Utils.MineShieldEffect.containsKey(player) && Utils.MineShieldEffect.get(player) > TickCount) {
             exDefence += player.experienceLevel;
         }
@@ -898,8 +897,8 @@ public class PlayerAttributes {
     }
 
     public static double getHealEffect(Player player) {
-        if (canGetFromCache(player, Utils.healEffectUp)) {
-            return getFromCache(player, Utils.healEffectUp);
+        if (canGetFromCache(player, Utils.healingAmplification)) {
+            return getFromCache(player, Utils.healingAmplification);
         }
         int tick = Tick.get();
         double healEffectUp = 1;
@@ -920,14 +919,14 @@ public class PlayerAttributes {
         }
         if (Utils.mainHandTag.containsKey(mainhand) && stackmainhandtag.contains("healeffectup"))
             healEffectUp += stackmainhandtag.getDouble("healeffectup");
-        if (Utils.healEffectUp.containsKey(boots)) healEffectUp += Utils.healEffectUp.get(boots);
-        if (Utils.healEffectUp.containsKey(leggings)) healEffectUp += Utils.healEffectUp.get(leggings);
-        if (Utils.healEffectUp.containsKey(chest)) healEffectUp += Utils.healEffectUp.get(chest);
-        if (Utils.healEffectUp.containsKey(helmet)) healEffectUp += Utils.healEffectUp.get(helmet);
-        if (Utils.mainHandTag.containsKey(mainhand) && Utils.healEffectUp.containsKey(mainhand))
-            healEffectUp += Utils.healEffectUp.get(mainhand);
-        if (Utils.offHandTag.containsKey(offhand) && Utils.healEffectUp.containsKey(offhand))
-            healEffectUp += Utils.healEffectUp.get(offhand);
+        if (Utils.healingAmplification.containsKey(boots)) healEffectUp += Utils.healingAmplification.get(boots);
+        if (Utils.healingAmplification.containsKey(leggings)) healEffectUp += Utils.healingAmplification.get(leggings);
+        if (Utils.healingAmplification.containsKey(chest)) healEffectUp += Utils.healingAmplification.get(chest);
+        if (Utils.healingAmplification.containsKey(helmet)) healEffectUp += Utils.healingAmplification.get(helmet);
+        if (Utils.mainHandTag.containsKey(mainhand) && Utils.healingAmplification.containsKey(mainhand))
+            healEffectUp += Utils.healingAmplification.get(mainhand);
+        if (Utils.offHandTag.containsKey(offhand) && Utils.healingAmplification.containsKey(offhand))
+            healEffectUp += Utils.healingAmplification.get(offhand);
         if (SuitCount.getForestSuitCount(player) >= 4) healEffectUp += 0.5f;
         int vitalityAbilityPoint = data.getInt(StringUtils.Ability.Vitality);
         if (data.contains(StringUtils.Ability.Vitality) && data.getInt(StringUtils.Ability.Vitality) > 0) {
@@ -942,10 +941,10 @@ public class PlayerAttributes {
         if (stackmainhandtag.contains("newGems1") && Utils.mainHandTag.containsKey(mainhand))
             healEffectUp += GemAttributes.gemsHealEffectUp(stackmainhandtag);
 
-        healEffectUp += Compute.CuriosAttribute.attributeValue(player, Utils.healEffectUp, StringUtils.CuriosAttribute.healEffectUp); // 新版饰品属性加成
+        healEffectUp += Compute.CuriosAttribute.attributeValue(player, Utils.healingAmplification, StringUtils.CuriosAttribute.healEffectUp); // 新版饰品属性加成
         healEffectUp += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerHealAmplifierModifier);
 
-        writeToCache(player, Utils.healEffectUp, healEffectUp * (1 - healEffectDecrease(player)));
+        writeToCache(player, Utils.healingAmplification, healEffectUp * (1 - healEffectDecrease(player)));
         return healEffectUp * (1 - healEffectDecrease(player));
     }
 
@@ -1400,10 +1399,6 @@ public class PlayerAttributes {
             maxHealth += vitalityAbilityPoint * 10;
         }
 
-        String name = player.getName().getString();
-        if (Utils.playerHealthRingMap.containsKey(name))
-            maxHealth += Utils.playerHealthRingMap.get(name);
-
         if (Utils.PlayerSpringHandMaxHealthAttribute.containsKey(player) && Utils.PlayerSpringHandLevelRequire.get(player) <= player.experienceLevel) {
             maxHealth += Utils.PlayerSpringHandMaxHealthAttribute.get(player);
         }
@@ -1417,10 +1412,13 @@ public class PlayerAttributes {
         maxHealth += PlainArmorHelmet.exMaxHealth(player);
         // 请在上方添加
         maxHealth *= Compute.playerFantasyAttributeEnhance(player);
-        maxHealth *= (1 + NewPotionEffects.maxHealthEnhance(player));
+        maxHealth *= (1 + Compute.CuriosAttribute.attributeValue(player, Utils.percentMaxHealthEnhance,
+                StringUtils.CuriosAttribute.percentMaxHealthEnhance)); // 新版饰品属性加成
         maxHealth *= (1 + GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.percentMaxHealthEnhance) +
                 Compute.CuriosAttribute.attributeValue(player, Utils.percentMaxHealthEnhance,
                 StringUtils.CuriosAttribute.percentMaxHealthEnhance));
+        maxHealth *= (1 +
+                Compute.getPlayerPotionEffectRate(player, ModEffects.GIANT.get(), 0.15, 0.25));
 
         writeToCache(player, Utils.maxHealth, maxHealth);
         return maxHealth;
@@ -1529,9 +1527,6 @@ public class PlayerAttributes {
         if (mainHandItemTag.contains(StringUtils.SoulEquipForge) && Utils.sceptreTag.containsKey(mainhand))
             exDamage +=
                     mainHandItemTag.getInt(StringUtils.SoulEquipForge) * SoulEquipAttribute.ForgingAddition.ManaAttackDamage;
-
-        if (Utils.playerManaAttackRingMap.containsKey(name))
-            exDamage += Utils.playerManaAttackRingMap.get(name);
 
         if (Utils.PlayerSpringRingManaAttackAttribute.containsKey(player) && Utils.PlayerSpringRingLevelRequire.get(player) <= player.experienceLevel) {
             exDamage += Utils.PlayerSpringRingManaAttackAttribute.get(player);
@@ -2114,6 +2109,17 @@ public class PlayerAttributes {
         return rate;
     }
 
+    public static double playerToughness(Player player) {
+        double value = 0;
+        CompoundTag data = player.getPersistentData();
+        value += computeAllEquipSlotBaseAttributeValue(player, Utils.toughness, false);
+        int powerAbilityPoint = data.getInt(StringUtils.Ability.Power);
+        if (data.contains(StringUtils.Ability.Power) && data.getInt(StringUtils.Ability.Power) > 0) {
+            value += powerAbilityPoint * 0.004;
+        } // 能力
+        return Math.min(0.5, value);
+    }
+
     public static double handleArmorRandomAttribute(Player player, String attributeType) {
         double value = 0;
         CompoundTag helmetTag = player.getItemBySlot(EquipmentSlot.HEAD).getOrCreateTagElement(Utils.MOD_ID);
@@ -2171,12 +2177,6 @@ public class PlayerAttributes {
         double value = 0;
         value += handleMainHandRandomAttribute(player, attributeType);
         value += handleArmorRandomAttribute(player, attributeType);
-        return value;
-    }
-
-    public static double playerToughness(Player player) {
-        double value = 0;
-
         return value;
     }
 

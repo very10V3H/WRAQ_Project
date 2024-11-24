@@ -3,6 +3,7 @@ package fun.wraq.common;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.logging.LogUtils;
+import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.equip.impl.RandomCurios;
@@ -43,7 +44,7 @@ import fun.wraq.networking.misc.SkillPackets.Charging.SwordSkill12S2CPacket;
 import fun.wraq.networking.misc.TeamPackets.ScreenSetS2CPacket;
 import fun.wraq.networking.misc.USE.MobEffectHudS2CPacket;
 import fun.wraq.networking.reputation.ReputationValueS2CPacket;
-import fun.wraq.process.func.SpecialEffectOnPlayer;
+import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.particle.ParticleProvider;
@@ -54,12 +55,13 @@ import fun.wraq.process.system.element.Color;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.element.equipAndCurios.fireElement.FireEquip;
 import fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSword;
+import fun.wraq.process.system.endlessinstance.item.special.HoursExHarvestPotion;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
-import fun.wraq.process.system.potion.NewPotionEffects;
 import fun.wraq.process.system.tower.Tower;
 import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.render.hud.Mana;
 import fun.wraq.render.hud.networking.ExpGetS2CPacket;
+import fun.wraq.render.mobEffects.ModEffects;
 import fun.wraq.render.particles.ModParticles;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.castle.CastleSceptre;
@@ -92,6 +94,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.players.PlayerList;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
@@ -259,7 +262,7 @@ public class Compute {
     }
 
     public static void use(Player player, Item tool) {
-        if (SpecialEffectOnPlayer.inVertigo(player)) return;
+        if (SpecialEffectOnPlayer.inSilent(player)) return;
 
         CompoundTag data = player.getPersistentData();
         if (player.getCooldowns().isOnCooldown(tool)) return;
@@ -863,13 +866,20 @@ public class Compute {
         }
     }
 
-    public static void playerHeal(Player player, double Num) {
-        if (Num < 0) return;
-        double healNum = Num * (PlayerAttributes.getHealEffect(player));
+    public static void playerHeal(Player player, double num) {
+        if (num < 0) return;
+        double healNum = num * (PlayerAttributes.getHealEffect(player));
         healNum = Math.min(healNum, player.getMaxHealth() - player.getHealth());
         if (EarthBook.onHealthRecover(player, healNum)) return;
         LifeElementSword.StoreToList(player, healNum);
         player.heal((float) healNum);
+    }
+
+    public static void mobHeal(Mob mob, double num) {
+        if (num < 0) return;
+        double healNum = num * (MobAttributes.getMobHealAmplifier(mob));
+        healNum = Math.min(healNum, mob.getMaxHealth() - mob.getHealth());
+        mob.heal((float) healNum);
     }
 
     public static void healByHealthSteal(Player player, double num) {
@@ -1757,7 +1767,6 @@ public class Compute {
         double rate = 0;
         rate += LabourDayIronHoe.playerExHarvest(player);
         rate += LabourDayIronPickaxe.playerExHarvest(player);
-        rate += NewPotionEffects.exHarvestEnhance(player);
         int tier;
         try {
             tier = PlanPlayer.getPlayerTier(player);
@@ -1765,6 +1774,8 @@ public class Compute {
             throw new RuntimeException(e);
         }
         rate += new double[]{0, 0.15, 0.3, 0.5}[tier];
+        rate += Compute.getPlayerPotionEffectRate(player, ModEffects.EX_HARVEST.get(), 0.15, 0.25);
+        rate += HoursExHarvestPotion.getHoursExHarvestPotionEnhanceRate(player);
         /*eachTierValue += SummerEvent.exHarvest(player);*/
         return rate;
     }
@@ -1868,10 +1879,14 @@ public class Compute {
     }
 
     public static void removeMobEffectHudToNearPlayer(Mob mob, Item icon, String tag) {
+        removeMobEffectHudToNearPlayer(mob, "item" + icon, tag);
+    }
+
+    public static void removeMobEffectHudToNearPlayer(Mob mob, String url, String tag) {
         List<? extends Entity> list = getNearEntity(mob, Player.class, 16);
         list.stream().filter(e -> e instanceof Player).forEach(p -> {
             ServerPlayer serverPlayer = (ServerPlayer) p;
-            ModNetworking.sendToClient(new MobEffectHudS2CPacket(mob.getId(), "item/" + icon, tag, 0, 0, false), serverPlayer);
+            ModNetworking.sendToClient(new MobEffectHudS2CPacket(mob.getId(), url, tag, 0, 0, false), serverPlayer);
         });
     }
 
@@ -1953,5 +1968,17 @@ public class Compute {
         ClientboundSetEntityMotionPacket clientboundSetEntityMotionPacket =
                 new ClientboundSetEntityMotionPacket(player.getId(), vec3);
         ((ServerPlayer) player).connection.send(clientboundSetEntityMotionPacket);
+    }
+
+    public static double getPlayerPotionEffectRate(Player player, MobEffect effect, double tier1Rate, double tier2Rate) {
+        if (player.hasEffect(effect)) {
+            int amplifier = player.getEffect(effect).getAmplifier();
+            if (amplifier == 0) {
+                return tier1Rate;
+            } else {
+                return tier2Rate;
+            }
+        }
+        return 0;
     }
 }

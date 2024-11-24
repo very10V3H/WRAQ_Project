@@ -52,6 +52,7 @@ import fun.wraq.render.gui.villagerTrade.TradeList;
 import fun.wraq.render.mobEffects.ModEffects;
 import fun.wraq.render.mobEffects.ModPotions;
 import fun.wraq.render.particles.ModParticles;
+import fun.wraq.series.end.citadel.CitadelItems;
 import fun.wraq.series.gems.GemItems;
 import fun.wraq.series.instance.blade.BladeItems;
 import fun.wraq.series.instance.mixture.MixtureItems;
@@ -60,6 +61,7 @@ import fun.wraq.series.instance.series.purple.PurpleIronCommon;
 import fun.wraq.series.moontain.MoontainItems;
 import fun.wraq.series.newrunes.NewRuneItems;
 import fun.wraq.series.overworld.chapter7.C7Items;
+import fun.wraq.series.overworld.sun.SunIslandItems;
 import fun.wraq.series.specialevents.SpecialEventItems;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.player.AbstractClientPlayer;
@@ -118,6 +120,8 @@ public class VMD {
         MixtureItems.ITEMS.register(modEvenBus);
         MoontainItems.ITEMS.register(modEvenBus);
         PointItems.ITEMS.register(modEvenBus);
+        CitadelItems.ITEMS.register(modEvenBus);
+        SunIslandItems.ITEMS.register(modEvenBus);
 
         ModBlocks.BLOCKS.register(modEvenBus);
         ModEntityType.ENTITY_TYPES.register(modEvenBus);
@@ -172,7 +176,7 @@ public class VMD {
         DataBase.writeWorldInfo(statement);
         statement.close();
 
-        NoTeamInstanceModule.clearMob();
+        NoTeamInstanceModule.reset();
         NewTeamInstanceEvent.getOverworldInstances().forEach(NewTeamInstance::clear);
         VpDataHandler.write();
 
@@ -467,6 +471,8 @@ public class VMD {
                     ModItems.WoodHammer.get(), ModItems.StoneHammer.get(),
                     ModItems.CopperHammer.get(), ModItems.IronHammer.get(),
                     ModItems.GoldHammer.get(), ModItems.DiamondHammer.get(),
+                    ModItems.EMERALD_HAMMER.get(), ModItems.NETHER_HAMMER.get(),
+                    ModItems.END_HAMMER.get(),
                     ModItems.equipPiece0.get(), ModItems.equipPiece1.get(),
                     ModItems.equipPiece2.get(), ModItems.equipPiece3.get(),
                     ModItems.equipPiece4.get(), ModItems.equipPiece5.get(),
@@ -495,8 +501,8 @@ public class VMD {
             event.accept(ModItems.stackUpgradePaper.get().getDefaultInstance());
 
             event.accept(ModItems.gemPiece.get().getDefaultInstance());
-            event.accept(ModItems.RoseGoldCoin.get().getDefaultInstance());
-            event.accept(ModItems.goldCoin.get().getDefaultInstance());
+            event.accept(ModItems.ROSE_GOLD_COIN.get().getDefaultInstance());
+            event.accept(ModItems.GOLD_COIN.get().getDefaultInstance());
             event.accept(ModItems.silverCoin.get().getDefaultInstance());
             event.accept(ModItems.copperCoin.get().getDefaultInstance());
             event.accept(ModItems.SignInReward.get().getDefaultInstance());
@@ -521,7 +527,7 @@ public class VMD {
             event.accept(ModItems.commonLotteries.get().getDefaultInstance());
             event.accept(ModItems.UnCommonLotteries.get().getDefaultInstance());
             event.accept(ModItems.RevelationBook.get().getDefaultInstance());
-            event.accept(ModItems.RevelationBook.get().getDefaultInstance());
+            event.accept(ModItems.REVELATION_HEART.get().getDefaultInstance());
             event.accept(ModItems.U_Disk.get().getDefaultInstance());
             event.accept(ModItems.IceLoot.get().getDefaultInstance());
             event.accept(ModItems.FireWorkGun.get().getDefaultInstance());
@@ -543,6 +549,8 @@ public class VMD {
             Item[] items = {
                     ModItems.supplyBoxTier0.get(),
                     ModItems.supplyBoxTier1.get(), ModItems.supplyBoxTier2.get(), ModItems.supplyBoxTier3.get(),
+                    ModItems.ORE_SUPPLY.get(), ModItems.SENIOR_POTION_SUPPLY.get(),
+                    ModItems.JUNIOR_SUPPLY.get(), ModItems.SENIOR_SUPPLY.get(),
                     ModItems.simpleTier1Paper.get(), ModItems.simpleTier2Paper.get(), ModItems.simpleTier3Paper.get(),
                     ModItems.goldCoinLottery.get()
             };
@@ -612,7 +620,7 @@ public class VMD {
         }
         if (event.getTabKey().equals(ModCreativeModeTab.KILL_PAPER.getKey())) {
             Item[] items = {
-                    ModItems.killPaper.get()
+                    ModItems.killPaper.get(), ModItems.killPaperL.get()
             };
             for (Item item : items) event.accept(item.getDefaultInstance());
         }
@@ -657,6 +665,12 @@ public class VMD {
         }
         if (event.getTabKey().equals(ModCreativeModeTab.MOONTAIN.getKey())) {
             MoontainItems.ITEMS.getEntries()
+                    .stream()
+                    .map(entry -> entry.get().asItem())
+                    .forEach(event::accept);
+        }
+        if (event.getTabKey().equals(ModCreativeModeTab.SUN_ISLAND.getKey())) {
+            SunIslandItems.ITEMS.getEntries()
                     .stream()
                     .map(entry -> entry.get().asItem())
                     .forEach(event::accept);

@@ -26,7 +26,6 @@ import fun.wraq.events.mob.chapter6_castle.TreeSpawnController;
 import fun.wraq.events.mob.chapter7.BoneImpSpawnController;
 import fun.wraq.events.mob.chapter7.StarSpawnController;
 import fun.wraq.events.mob.chapter7.TorturedSoulSpawnController;
-import fun.wraq.events.mob.loot.RandomLootEquip;
 import fun.wraq.events.mob.moontain.*;
 import fun.wraq.events.mob.ore.Ore2SpawnController;
 import fun.wraq.events.mob.ore.Ore3SpawnController;
@@ -98,6 +97,7 @@ public class MobSpawn {
 
     public static Map<String, Map<String, Integer>> tempKillCount = new HashMap<>();
     public static Map<String, Map<String, Integer>> totalKillCount = new HashMap<>();
+    public static Map<String, Long> totalKillCountCache = new HashMap<>();
 
     public static List<MobSpawnController> overWolrdList = new ArrayList<>();
 
@@ -478,7 +478,7 @@ public class MobSpawn {
         Element.Unit unit = Element.entityElementUnit.getOrDefault(mob, new Element.Unit(Element.life, 0));
         if (unit.value() > 0) {
             String[] elementType = {Element.life, Element.water, Element.fire};
-            Item[] items = {ModItems.SunPower.get(), ModItems.LakeCore.get(), ModItems.VolcanoCore.get()};
+            Item[] items = {ModItems.SunPower.get(), ModItems.LAKE_CORE.get(), ModItems.VOLCANO_CORE.get()};
             List<Map<String, Integer>> maps = new ArrayList<>() {{
                 add(LoginInEvent.sunPowerGetCount);
                 add(LoginInEvent.lakeCoreGetCount);

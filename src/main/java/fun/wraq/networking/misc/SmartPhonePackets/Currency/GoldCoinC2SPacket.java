@@ -40,9 +40,9 @@ public class GoldCoinC2SPacket {
 
                 // 将背包内所有金币存入账户
                 case 0 -> {
-                    int GoldCoinNum = InventoryOperation.itemStackCount(inventory, ModItems.goldCoin.get());
+                    int GoldCoinNum = InventoryOperation.itemStackCount(inventory, ModItems.GOLD_COIN.get());
                     if (GoldCoinNum > 0) {
-                        InventoryOperation.itemStackRemoveIgnoreVB(inventory, ModItems.goldCoin.get(), GoldCoinNum);
+                        InventoryOperation.itemStackRemoveIgnoreVB(inventory, ModItems.GOLD_COIN.get(), GoldCoinNum);
                         Compute.VBIncomeAndMSGSend(player, GoldCoinNum * 144);
                     } else {
                         Compute.sendFormatMSG(player, Component.literal("VB").withStyle(ChatFormatting.GOLD),
@@ -56,7 +56,7 @@ public class GoldCoinC2SPacket {
                     int count = 1;
                     if (data.contains("VB") && data.getDouble("VB") >= vbValue * count) {
                         Compute.VBExpenseAndMSGSend(player, vbValue * count);
-                        ItemStack itemStack = ModItems.goldCoin.get().getDefaultInstance();
+                        ItemStack itemStack = ModItems.GOLD_COIN.get().getDefaultInstance();
                         itemStack.setCount(count);
                         InventoryOperation.itemStackGive(player, itemStack);
                     } else {
@@ -71,7 +71,7 @@ public class GoldCoinC2SPacket {
                     int count = 10;
                     if (data.contains("VB") && data.getDouble("VB") >= vbValue * count) {
                         Compute.VBExpenseAndMSGSend(player, vbValue * count);
-                        ItemStack itemStack = ModItems.goldCoin.get().getDefaultInstance();
+                        ItemStack itemStack = ModItems.GOLD_COIN.get().getDefaultInstance();
                         itemStack.setCount(count);
                         InventoryOperation.itemStackGive(player, itemStack);
                     } else {
@@ -83,7 +83,7 @@ public class GoldCoinC2SPacket {
                 // 使用64枚铜币兑换1枚金币
                 case 3 -> {
                     try {
-                        InventoryOperation.itemTrade(player, new ItemStack(ModItems.copperCoin.get(), 144), new ItemStack(ModItems.goldCoin.get()));
+                        InventoryOperation.itemTrade(player, new ItemStack(ModItems.copperCoin.get(), 144), new ItemStack(ModItems.GOLD_COIN.get()));
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -92,7 +92,7 @@ public class GoldCoinC2SPacket {
                 // 使用8枚银币兑换一枚金币
                 case 4 -> {
                     try {
-                        InventoryOperation.itemTrade(player, new ItemStack(ModItems.silverCoin.get(), 12), new ItemStack(ModItems.goldCoin.get()));
+                        InventoryOperation.itemTrade(player, new ItemStack(ModItems.silverCoin.get(), 12), new ItemStack(ModItems.GOLD_COIN.get()));
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }

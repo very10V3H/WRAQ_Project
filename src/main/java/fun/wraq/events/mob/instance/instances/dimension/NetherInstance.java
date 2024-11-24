@@ -59,7 +59,8 @@ public class NetherInstance extends NoTeamInstance {
         entity.moveTo(pos);
         level.addFreshEntity(entity);
 
-        ServerBossEvent serverBossEvent = (ServerBossEvent) (new ServerBossEvent(entity.getDisplayName(), BossEvent.BossBarColor.RED, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
+        ServerBossEvent serverBossEvent = (ServerBossEvent) (new ServerBossEvent(entity.getDisplayName(),
+                BossEvent.BossBarColor.RED, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
         getPlayerList(level).forEach(player -> {
             serverBossEvent.addPlayer((ServerPlayer) player);
         });

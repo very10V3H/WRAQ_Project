@@ -70,7 +70,6 @@ public class ForgeEquipUtils {
                 ModItems.PlainArmorLeggings.get(),
                 ModItems.PlainArmorBoots.get(),
                 ModItems.KazeSword0.get(),
-                ModItems.KazeManaCore.get(),
                 ModItems.KazeBoots.get()
         );
 
@@ -156,8 +155,6 @@ public class ForgeEquipUtils {
         List<Item> birch = List.of(
                 ModItems.SeaSword0.get(),
                 ModItems.huskSword0.get(),
-                ModItems.SeaManaCore.get(),
-                ModItems.BlackForestManaCore.get(),
                 ModItems.SeaBow.get(),
                 ModItems.ShipSword.get(),
                 ModItems.ShipBow.get(),
@@ -174,7 +171,6 @@ public class ForgeEquipUtils {
         List<Item> sakura = List.of(
                 ModItems.SakuraDemonSword.get(),
                 ModItems.SakuraBow.get(),
-                ModItems.SakuraCore.get(),
                 ModItems.SakuraArmorHelmet.get(),
                 ModItems.goldenShield.get(),
                 ModItems.goldenKnife.get(),
@@ -354,6 +350,9 @@ public class ForgeEquipUtils {
         put(3, List.of(0.05, 0.15, 0.20, 0.35, 0.20, 0.05));
         put(4, List.of(0.00, 0.00, 0.20, 0.45, 0.25, 0.05, 0.03, 0.02));
         put(5, List.of(0.00, 0.00, 0.00, 0.35, 0.45, 0.10, 0.05, 0.03, 0.02));
+        put(6, List.of(0.00, 0.00, 0.00, 0.00, 0.15, 0.45, 0.3, 0.05, 0.03, 0.02));
+        put(7, List.of(0.00, 0.00, 0.00, 0.00, 0.00, 0.3, 0.45, 0.1, 0.1, 0.03, 0.02));
+        put(8, List.of(0.00, 0.00, 0.00, 0.00, 0.00, 0.0, 0.6, 0.2, 0.1, 0.05, 0.03, 0.02));
     }};
 
     public static int getOneTimeForgeTier(int hammerTier) {

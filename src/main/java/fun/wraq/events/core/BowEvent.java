@@ -8,7 +8,7 @@ import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.ParticlePackets.ManaAttackParticleS2CPacket;
 import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.projectiles.mana.NewArrow;
-import fun.wraq.projectiles.mana.SwordAir;
+import fun.wraq.projectiles.mana.swordair.SwordAir;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Mob;
@@ -22,14 +22,20 @@ import net.minecraftforge.event.entity.player.ArrowLooseEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.WeakHashMap;
+import java.util.*;
 
 @Mod.EventBusSubscriber
 public class BowEvent {
 
-    public static WeakHashMap<Entity, List<Integer>> causeDamageList = new WeakHashMap<>();
+    public static Map<Entity, Set<Integer>> causeDamageList = new HashMap<>();
+
+    public static void handleServerTick() {
+        List<Entity> removeList = new ArrayList<>();
+        causeDamageList.forEach((k, v) -> {
+            if (k.isRemoved()) removeList.add(k);
+        });
+        removeList.forEach(e -> causeDamageList.remove(e));
+    }
 
     @SubscribeEvent
     public static void Projectile(ProjectileImpactEvent event) {
@@ -54,8 +60,8 @@ public class BowEvent {
                         }
                         mobList.forEach(mob -> {
                             if (!causeDamageList.containsKey(myArrow))
-                                causeDamageList.put(myArrow, new ArrayList<>());
-                            List<Integer> causedList = causeDamageList.get(myArrow);
+                                causeDamageList.put(myArrow, new HashSet<>());
+                            Set<Integer> causedList = causeDamageList.get(myArrow);
                             if (!causedList.contains(mob.getId())) {
                                 MyArrow.causeDamage(myArrow, mob, 1 + causedList.size() * 0.33);
                                 causedList.add(mob.getId());
@@ -104,8 +110,8 @@ public class BowEvent {
                         }
                         mobList.forEach(mob -> {
                             if (!causeDamageList.containsKey(manaArrow))
-                                causeDamageList.put(manaArrow, new ArrayList<>());
-                            List<Integer> causedList = causeDamageList.get(manaArrow);
+                                causeDamageList.put(manaArrow, new HashSet<>());
+                            Set<Integer> causedList = causeDamageList.get(manaArrow);
                             if (!causedList.contains(mob.getId())) {
                                 ManaAttackModule.BasicAttack(manaArrow.player, mob, (1 + causedList.size() * 0.33),
                                         manaArrow.BreakDefence, manaArrow.BreakDefence0, manaArrow.level(), manaArrow, manaArrow.mainShoot);
@@ -157,8 +163,8 @@ public class BowEvent {
                         }
                         mobList.forEach(mob -> {
                             if (!causeDamageList.containsKey(newArrow))
-                                causeDamageList.put(newArrow, new ArrayList<>());
-                            List<Integer> causedList = causeDamageList.get(newArrow);
+                                causeDamageList.put(newArrow, new HashSet<>());
+                            Set<Integer> causedList = causeDamageList.get(newArrow);
                             if (!causedList.contains(mob.getId())) {
                                 ManaAttackModule.BasicAttack(newArrow.player, mob, (1 + causedList.size() * 0.33),
                                         newArrow.BreakDefence, newArrow.BreakDefence0, newArrow.level(), newArrow, newArrow.mainShoot);
@@ -195,8 +201,22 @@ public class BowEvent {
 
         if (!list.isEmpty() && list.get(0) instanceof ArmorStand)
             event.setImpactResult(ProjectileImpactEvent.ImpactResult.SKIP_ENTITY);
-        if (entity instanceof SwordAir) {
-            entity.setDeltaMovement(0, 0, 0);
+        if (entity instanceof SwordAir swordAir) {
+            if (swordAir.player != null) {
+                if (!causeDamageList.containsKey(entity)) {
+                    causeDamageList.put(entity, new HashSet<>());
+                }
+                Set<Integer> causedEntitySet = causeDamageList.get(entity);
+                list.stream()
+                        .filter(e -> e instanceof Mob)
+                        .map(e -> (Mob) e)
+                        .forEach(mob -> {
+                            if (!causedEntitySet.contains(mob.getId())) {
+                                causedEntitySet.add(mob.getId());
+                                swordAir.onHitEntity(mob);
+                            }
+                        });
+            }
             event.setImpactResult(ProjectileImpactEvent.ImpactResult.SKIP_ENTITY);
         }
     }

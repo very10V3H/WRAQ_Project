@@ -1,6 +1,6 @@
 package fun.wraq.events.mob.loot;
 
-import fun.wraq.common.registry.ItemMaterial;
+import fun.wraq.common.registry.ModArmorMaterials;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
@@ -21,6 +21,6 @@ public class C7LootItems {
                     ComponentUtils.getSuffixOfChapterStar(), List.of(new RandomAttributeValue(StringUtils.RandomAttribute.critDamage, 1, 1.5)), 200));
 
     public static final RegistryObject<Item> boneImpHelmet = ITEMS.register("bone_imp_helmet", () ->
-            new RandomArmor(ItemMaterial.NetherAll, ArmorItem.Type.HELMET, new Item.Properties().rarity(CustomStyle.WitherBold), CustomStyle.styleOfWither,
-                    ComponentUtils.getSuffixOfChapterStar(), List.of(new RandomAttributeValue(StringUtils.RandomAttribute.critRate, 0.5, 0.6)), 210));
+            new RandomArmor(ModArmorMaterials.NetherAll, ArmorItem.Type.HELMET, new Item.Properties().rarity(CustomStyle.WitherBold), CustomStyle.styleOfWither,
+                    ComponentUtils.getSuffixOfBoneImp(), List.of(new RandomAttributeValue(StringUtils.RandomAttribute.critRate, 0.5, 0.6)), 210));
 }

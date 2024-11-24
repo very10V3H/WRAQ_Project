@@ -6,6 +6,8 @@ import fun.wraq.common.attribute.DamageInfluence;
 import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.attribute.SameTypeModule;
+import fun.wraq.common.fast.Te;
+import fun.wraq.common.impl.onhit.OnHitEffectCurios;
 import fun.wraq.common.impl.onhit.OnHitEffectEquip;
 import fun.wraq.common.impl.onhit.OnHitEffectPassiveEquip;
 import fun.wraq.common.registry.ModSounds;
@@ -21,6 +23,7 @@ import fun.wraq.networking.misc.ParticlePackets.EffectParticle.ManaDefencePenetr
 import fun.wraq.networking.misc.SkillPackets.Charging.ChargedClearS2CPacket;
 import fun.wraq.networking.misc.SkillPackets.SkillImageS2CPacket;
 import fun.wraq.process.func.EnhanceNormalAttackModifier;
+import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.func.suit.SuitCount;
@@ -54,7 +57,11 @@ public class ManaAttackModule {
         CompoundTag data = player.getPersistentData();
 
         if (entity instanceof Mob monster && !(entity instanceof Villager)) {
-
+            if (SpecialEffectOnPlayer.inBlind(player)) {
+                Compute.summonValueItemEntity(monster.level(), player, monster,
+                        Te.s("未命中", CustomStyle.styleOfEnd), 1);
+                return;
+            }
             Utils.PlayerFireWorkFightCoolDown.put(player, player.getServer().getTickCount() + 200);
 
             rate += DamageInfluence.getPlayerNormalAttackBaseDamageEnhance(player, 2);
@@ -134,7 +141,8 @@ public class ManaAttackModule {
             damage *= (1 + ElementDamageEnhance) * ElementDamageEffect;
             trueDamage *= (1 + ElementDamageEnhance) * ElementDamageEffect;
             // final damage
-            Damage.DirectDamageToMob(player, monster, damage + trueDamage);
+            Damage.beforeCauseDamage(player, monster, damage + trueDamage);
+            Damage.causeDirectDamageToMob(player, monster, damage + trueDamage);
             // health steal
             Compute.healByHealthSteal(player, damage * healthSteal);
 
@@ -173,8 +181,10 @@ public class ManaAttackModule {
 
             ManaCurios1.ManaDamageExTrueDamage(player, monster, damage);
             Compute.AdditionEffects(player, monster, damage + trueDamage, 1);
-            OnHitEffectEquip.hit(player, monster);
+
             if (mainShoot) {
+                OnHitEffectEquip.hit(player, monster);
+                OnHitEffectCurios.hit(player, monster);
                 OnHitEffectPassiveEquip.hit(player, monster);
                 EnhanceNormalAttackModifier.onHitEffect(player, monster, 2);
             }

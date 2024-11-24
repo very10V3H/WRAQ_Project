@@ -9,6 +9,7 @@ import fun.wraq.entities.entities.Scarecrow.Scarecrow;
 import fun.wraq.entities.entities.SoraSword.SoraSwordAir;
 import fun.wraq.projectiles.firework.Firework;
 import fun.wraq.projectiles.mana.*;
+import fun.wraq.projectiles.mana.swordair.SwordAir;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;

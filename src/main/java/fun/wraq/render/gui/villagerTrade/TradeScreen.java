@@ -133,17 +133,20 @@ public class TradeScreen extends Screen {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1, 1, 1, 1);
         RenderSystem.setShaderTexture(0, GUI_TEXTURE);
+        int textureWidth = 300;
+        int textureHeight = 200;
+        guiGraphics.blit(GUI_TEXTURE, this.width / 2 - 150, this.height / 2 - 100, 0, 0, 300, 200, textureWidth, textureHeight);
 
         int X = this.width / 2;
         int Y = this.height / 2;
         guiGraphics.blit(COIN_TEXTURE, X + 150, Y - 81, 0, 0, 200, 200, 200, 200);
 
         List<ItemStack> coinList = List.of(
-                new ItemStack(ModItems.goldCoin.get(), 1), new ItemStack(ModItems.silverCoin.get(), 12),
-                new ItemStack(ModItems.goldCoin.get()), new ItemStack(ModItems.copperCoin.get(), 144),
-                new ItemStack(ModItems.silverCoin.get(), 12), new ItemStack(ModItems.goldCoin.get()),
+                new ItemStack(ModItems.GOLD_COIN.get(), 1), new ItemStack(ModItems.silverCoin.get(), 12),
+                new ItemStack(ModItems.GOLD_COIN.get()), new ItemStack(ModItems.copperCoin.get(), 144),
+                new ItemStack(ModItems.silverCoin.get(), 12), new ItemStack(ModItems.GOLD_COIN.get()),
                 new ItemStack(ModItems.silverCoin.get()), new ItemStack(ModItems.copperCoin.get(), 12),
-                new ItemStack(ModItems.copperCoin.get(), 144), new ItemStack(ModItems.goldCoin.get()),
+                new ItemStack(ModItems.copperCoin.get(), 144), new ItemStack(ModItems.GOLD_COIN.get()),
                 new ItemStack(ModItems.copperCoin.get(), 12), new ItemStack(ModItems.silverCoin.get()),
                 new ItemStack(ModItems.gemPiece.get(), 64), new ItemStack(ModItems.completeGem.get()));
 
@@ -217,11 +220,6 @@ public class TradeScreen extends Screen {
 
         guiGraphics.drawCenteredString(fontRenderer, Component.literal("共" + ((size - 1) / 5 + 1) + "页 " + (size) + "件物品").withStyle(ChatFormatting.WHITE),
                 this.width / 2 + 80, this.height / 2 - 22 + 105, 0);
-
-        int textureWidth = 300;
-        int textureHeight = 200;
-
-        guiGraphics.blit(GUI_TEXTURE, this.width / 2 - 150, this.height / 2 - 100, 0, 0, 300, 200, textureWidth, textureHeight);
         super.render(p_96310_, x, y, v);
     }
 

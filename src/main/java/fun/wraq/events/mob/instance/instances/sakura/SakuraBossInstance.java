@@ -94,7 +94,7 @@ public class SakuraBossInstance extends NoTeamInstance {
                 append(Component.literal("锻造").withStyle(ChatFormatting.GRAY)).
                 append(Component.literal("过").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("1件").withStyle(ChatFormatting.AQUA)).
-                append(Component.literal("冰霜骑士装备").withStyle(CustomStyle.styleOfIce)).
+                append(Component.literal("冰霜骑士武器").withStyle(CustomStyle.styleOfIce)).
                 append(Component.literal("，方能获取奖励。").withStyle(ChatFormatting.WHITE));
     }
 

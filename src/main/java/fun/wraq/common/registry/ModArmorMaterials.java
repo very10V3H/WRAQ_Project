@@ -6,7 +6,7 @@ import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.crafting.Ingredient;
 
-public enum ItemMaterial implements ArmorMaterial {
+public enum ModArmorMaterials implements ArmorMaterial {
     BasicArmor1("vmaterial", 0, 0, 0, 0.0f, 0.0f, SoundEvents.ARMOR_EQUIP_IRON),
     BasicArmor2("vmaterial", 0, 0, 0, 1.0f, 1.0f, SoundEvents.ARMOR_EQUIP_IRON),
     MaterialForBoss("bossmaterial", 0, 0, 0, 1.0f, 1.0f, SoundEvents.ARMOR_EQUIP_IRON),
@@ -68,7 +68,7 @@ public enum ItemMaterial implements ArmorMaterial {
     private final String name;
     private final SoundEvent sound;
 
-    private ItemMaterial(String name, int IMnum1, int IMnum2, int IMnum3, float IMnum4, float IMnum5, SoundEvent sound) {
+    private ModArmorMaterials(String name, int IMnum1, int IMnum2, int IMnum3, float IMnum4, float IMnum5, SoundEvent sound) {
         this.Durability = IMnum1;
         this.Defense = IMnum2;
         this.EnchantmenValue = IMnum3;

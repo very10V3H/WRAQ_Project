@@ -44,7 +44,6 @@ public class KazeCore extends Item {
 
     public KazeCore(Properties p_41383_) {
         super(p_41383_);
-        Utils.weaponList.add(this);
     }
 
     @Override

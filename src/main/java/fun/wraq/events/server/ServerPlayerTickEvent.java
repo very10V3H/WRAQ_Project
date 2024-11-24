@@ -19,6 +19,7 @@ import fun.wraq.common.util.struct.Shield;
 import fun.wraq.core.MyArrow;
 import fun.wraq.customized.Customize;
 import fun.wraq.entities.entities.Civil.Civil;
+import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.moontain.MoontainFloorTitle;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.VersionCheckS2CPacket;
@@ -42,19 +43,22 @@ import fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementBow
 import fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSceptre;
 import fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSword;
 import fun.wraq.process.system.element.networking.CurrentSeasonAndResonanceTypeS2CPacket;
+import fun.wraq.process.system.endlessinstance.item.special.HoursExHarvestPotion;
 import fun.wraq.process.system.missions.Mission;
 import fun.wraq.process.system.missions.series.dailyMission.DailyMission;
 import fun.wraq.process.system.point.Point;
 import fun.wraq.process.system.respawn.MyRespawnRule;
+import fun.wraq.process.system.restzone.RestZone;
 import fun.wraq.process.system.season.MySeason;
 import fun.wraq.process.system.smelt.Smelt;
 import fun.wraq.process.system.tower.TowerMob;
 import fun.wraq.projectiles.mana.BlazeSword;
-import fun.wraq.projectiles.mana.SwordAir;
+import fun.wraq.projectiles.mana.swordair.SwordAir;
 import fun.wraq.render.hud.ColdData;
 import fun.wraq.render.hud.networking.PlayerIsInBattleS2CPacket;
 import fun.wraq.render.mobEffects.ModEffects;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.end.curios.EndCrystal;
 import fun.wraq.series.instance.series.castle.CastleAttackArmor;
 import fun.wraq.series.instance.series.castle.CastleManaArmor;
 import fun.wraq.series.instance.series.castle.CastleSwiftArmor;
@@ -62,6 +66,7 @@ import fun.wraq.series.moontain.equip.weapon.MoontainUtils;
 import fun.wraq.series.overworld.sakuraSeries.Boss2.GoldenAttackOffhand;
 import fun.wraq.series.overworld.sakuraSeries.Boss2.GoldenBook;
 import fun.wraq.series.overworld.sakuraSeries.Slime.SlimeBoots;
+import fun.wraq.series.overworld.sun.network.TotalKillCountS2CPacket;
 import fun.wraq.series.specialevents.labourDay.LabourDayIronHoe;
 import fun.wraq.series.specialevents.labourDay.LabourDayIronPickaxe;
 import net.minecraft.ChatFormatting;
@@ -138,6 +143,20 @@ public class ServerPlayerTickEvent {
             WraqMainHandEquip.serverTick(player);
             WraqOffHandItem.serverTick(player);
             WraqArmor.serverTick(player);
+
+            EndCrystal.tick(player);
+
+            HoursExHarvestPotion.tick(player);
+
+            RestZone.tick(serverPlayer);
+
+            if (player.tickCount % 100 == 0) {
+                int totalCount = MobSpawn.totalKillCount.get(player.getName().getString())
+                        .values()
+                        .stream().mapToInt(Integer::intValue).sum();
+                MobSpawn.totalKillCountCache.put(player.getName().getString(), (long) totalCount);
+                ModNetworking.sendToClient(new TotalKillCountS2CPacket(totalCount), serverPlayer);
+            }
 
             if (player.tickCount % 20 == 0) {
                 ModNetworking.sendToClient(new PlayerIsInBattleS2CPacket(Compute.playerIsInBattle(player)), serverPlayer);

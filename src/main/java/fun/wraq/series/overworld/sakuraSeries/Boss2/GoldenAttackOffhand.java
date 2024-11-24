@@ -67,7 +67,7 @@ public class GoldenAttackOffhand extends WraqOffHandItem implements OnKillEffect
                 append(Component.literal("持有该物品时，").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("主手").withStyle(ChatFormatting.AQUA)).
                 append(Component.literal("手持").withStyle(ChatFormatting.WHITE)).
-                append(ModItems.goldCoin.get().getDefaultInstance().getDisplayName()).
+                append(ModItems.GOLD_COIN.get().getDefaultInstance().getDisplayName()).
                 append(Component.literal("右键消耗，获得:").withStyle(ChatFormatting.WHITE)));
         components.add(Component.literal(" 1.").withStyle(style).
                 append(ComponentUtils.AttributeDescription.critRate("15%")));
@@ -80,7 +80,7 @@ public class GoldenAttackOffhand extends WraqOffHandItem implements OnKillEffect
                 append(Component.literal("任意怪物，将有").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("4.5%").withStyle(style)).
                 append(Component.literal("的概率为你提供1枚").withStyle(ChatFormatting.WHITE)).
-                append(ModItems.goldCoin.get().getDefaultInstance().getDisplayName()));
+                append(ModItems.GOLD_COIN.get().getDefaultInstance().getDisplayName()));
         components.add(Component.literal(" 当副手不再是此物品时，华贵金属的全部效果会即刻失效").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
         return components;
     }
@@ -106,7 +106,7 @@ public class GoldenAttackOffhand extends WraqOffHandItem implements OnKillEffect
         if (!level.isClientSide && interactionHand.equals(InteractionHand.OFF_HAND)) {
             ItemStack targetGoldCoin = player.getMainHandItem();
             int tick = player.getServer().getTickCount();
-            if (targetGoldCoin.is(ModItems.goldCoin.get())) {
+            if (targetGoldCoin.is(ModItems.GOLD_COIN.get())) {
                 targetGoldCoin.shrink(1);
                 passiveLastTimeMap.put(player.getName().getString(), tick + 6000);
                 StableAttributesModifier.addAttributeModifier(player, StableAttributesModifier.playerCritRateModifier,
@@ -115,7 +115,7 @@ public class GoldenAttackOffhand extends WraqOffHandItem implements OnKillEffect
                         new StableAttributesModifier(critDamageTag, 0.65, tick + 6000));
                 StableAttributesModifier.addAttributeModifier(player, StableAttributesModifier.playerDefencePenetration0Modifier,
                         new StableAttributesModifier(defencePenetrationTag, 30, tick + 6000));
-                Compute.sendEffectLastTime(player, ModItems.goldCoin.get(), 6000);
+                Compute.sendEffectLastTime(player, ModItems.GOLD_COIN.get(), 6000);
             }
         }
         return super.use(level, player, interactionHand);
@@ -130,7 +130,7 @@ public class GoldenAttackOffhand extends WraqOffHandItem implements OnKillEffect
             Random random = new Random();
             boolean isSlime = MobSpawn.getMobOriginName(mob).equals(SlimeSpawnController.mobName) || MobSpawn.getMobOriginName(mob).equals(MagmaSpawnController.mobName);
             if (random.nextDouble() < (isSlime ? 0.015 : 0.045)) {
-                ItemStack goldCoin = ModItems.goldCoin.get().getDefaultInstance();
+                ItemStack goldCoin = ModItems.GOLD_COIN.get().getDefaultInstance();
                 Compute.sendFormatMSG(player, Component.literal("华贵金属").withStyle(CustomStyle.styleOfGold),
                         Component.literal("额外获得了1枚").withStyle(ChatFormatting.AQUA).
                                 append(goldCoin.getDisplayName()));
@@ -144,7 +144,7 @@ public class GoldenAttackOffhand extends WraqOffHandItem implements OnKillEffect
     public List<ItemStack> forgeRecipe() {
         return new ArrayList<>() {{
             add(new ItemStack(ModItems.GOLDEN_SHEET.get(), 8));
-            add(new ItemStack(ModItems.goldCoin.get(), 128));
+            add(new ItemStack(ModItems.GOLD_COIN.get(), 128));
             add(new ItemStack(ModItems.completeGem.get(), 4));
             add(new ItemStack(ModItems.ReputationMedal.get(), 16));
             add(new ItemStack(PickaxeItems.TINKER_GOLD.get(), 4));
@@ -160,7 +160,7 @@ public class GoldenAttackOffhand extends WraqOffHandItem implements OnKillEffect
             StableAttributesModifier.removeAttributeModifierByTag(player, StableAttributesModifier.playerCritRateModifier, critRateTag);
             StableAttributesModifier.removeAttributeModifierByTag(player, StableAttributesModifier.playerCritDamageModifier, critDamageTag);
             StableAttributesModifier.removeAttributeModifierByTag(player, StableAttributesModifier.playerDefencePenetrationModifier, defencePenetrationTag);
-            Compute.removeEffectLastTime(player, ModItems.goldCoin.get());
+            Compute.removeEffectLastTime(player, ModItems.GOLD_COIN.get());
         }
     }
 }

@@ -2,7 +2,7 @@ package fun.wraq.series.instance.series.moon.Equip;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.impl.display.ForgeItem;
-import fun.wraq.common.registry.ItemMaterial;
+import fun.wraq.common.registry.ModArmorMaterials;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
@@ -25,7 +25,7 @@ import java.util.List;
 
 public class MoonArmor extends WraqArmor implements ForgeItem {
 
-    public MoonArmor(ItemMaterial material, Type type, Properties properties) {
+    public MoonArmor(ModArmorMaterials material, Type type, Properties properties) {
         super(material, type, properties);
         if (type.equals(Type.LEGGINGS)) Utils.maxHealth.put(this, 8000d);
         if (type.equals(Type.HELMET)) {

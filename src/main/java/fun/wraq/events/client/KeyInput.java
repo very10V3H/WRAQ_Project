@@ -28,6 +28,7 @@ import fun.wraq.render.gui.mission.ReputationStore;
 import fun.wraq.render.gui.skills.IdCardGui;
 import fun.wraq.render.gui.skills.SkillTreeGui;
 import fun.wraq.render.gui.team.*;
+import fun.wraq.render.gui.trade.SingleItemChangeScreen;
 import fun.wraq.render.gui.villagerTrade.TradeScreen;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -170,7 +171,8 @@ public class KeyInput {
                 || screen instanceof TradeScreen || screen instanceof MissionScreen
                 || screen instanceof ForgeScreen || screen instanceof TowerScreen
                 || screen instanceof ElementRoulette || screen instanceof VpStoreScreen
-                || screen instanceof SmeltRecipeScreen || screen instanceof SmeltProgressScreen;
+                || screen instanceof SmeltRecipeScreen || screen instanceof SmeltProgressScreen
+                || screen instanceof SingleItemChangeScreen;
     }
 
     @Mod.EventBusSubscriber(modid = Utils.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)

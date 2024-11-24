@@ -79,7 +79,10 @@ public class ReputationStore extends Screen {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1, 1, 1, 1);
         RenderSystem.setShaderTexture(0, GUI_TEXTURE);
-
+        int textureWidth = 300;
+        int textureHeight = 200;
+        guiGraphics.blit(GUI_TEXTURE, this.width / 2 - 150, this.height / 2 - 100, 0, 0,
+                300, 200, textureWidth, textureHeight);
         if (Utils.ReputationStoreItemList.isEmpty()) Utils.setReputationStoreItemList();
         if (Utils.ReputationStorePrice.isEmpty()) Utils.setReputationStorePrice();
         for (int i = 0; i < 5; i++) {
@@ -123,14 +126,7 @@ public class ReputationStore extends Screen {
         }
         guiGraphics.drawCenteredString(fontRenderer, Component.literal("当前声望: ").withStyle(ChatFormatting.LIGHT_PURPLE), this.width / 2 + 80, this.height / 2 + 83, 0);
         guiGraphics.drawCenteredString(fontRenderer, Component.literal("" + ClientUtils.ReputationNum).withStyle(ChatFormatting.YELLOW), this.width / 2 + 128, this.height / 2 + 83, 0);
-
-
         guiGraphics.drawCenteredString(fontRenderer, Component.literal("" + (page + 1)).withStyle(ChatFormatting.YELLOW), this.width / 2 + 5, this.height / 2 - 22 + 105, 0);
-
-        int textureWidth = 300;
-        int textureHeight = 200;
-
-        guiGraphics.blit(GUI_TEXTURE, this.width / 2 - 150, this.height / 2 - 100, 0, 0, 300, 200, textureWidth, textureHeight);
         super.render(p_96310_, x, y, v);
     }
 

@@ -3,8 +3,6 @@ package fun.wraq.process.system.missions;
 import com.mojang.blaze3d.systems.RenderSystem;
 import fun.wraq.common.util.Utils;
 import fun.wraq.networking.ModNetworking;
-import fun.wraq.process.system.missions.Mission;
-import fun.wraq.process.system.missions.MissionClient;
 import fun.wraq.process.system.missions.netWorking.MissionAcceptC2SPacket;
 import fun.wraq.process.system.missions.netWorking.MissionCancelC2SPacket;
 import fun.wraq.process.system.missions.netWorking.MissionSubmitC2SPacket;
@@ -120,10 +118,12 @@ public class MissionScreen extends Screen {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1, 1, 1, 1);
         RenderSystem.setShaderTexture(0, GUI_TEXTURE);
-
+        int textureWidth = 300;
+        int textureHeight = 200;
         int X = this.width / 2;
         int Y = this.height / 2;
-
+        guiGraphics.blit(GUI_TEXTURE, X - 150, Y - 100, 0, 0,
+                300, 200, textureWidth, textureHeight);
         guiGraphics.drawCenteredString(fontRenderer, Component.literal("「任务列表」").withStyle(ChatFormatting.LIGHT_PURPLE), X + 5, Y - 96, 0);
         guiGraphics.drawCenteredString(fontRenderer, Component.literal("" + (page + 1)).withStyle(ChatFormatting.WHITE), X + 5, Y - 22 + 105, 0);
         guiGraphics.drawString(fontRenderer, Component.literal("光标移动至任务名可查看需求").withStyle(ChatFormatting.WHITE), X - 144, Y - 108, 0);
@@ -188,11 +188,6 @@ public class MissionScreen extends Screen {
                 }
             }
         }
-
-        int textureWidth = 300;
-        int textureHeight = 200;
-
-        guiGraphics.blit(GUI_TEXTURE, X - 150, Y - 100, 0, 0, 300, 200, textureWidth, textureHeight);
         super.render(graphics, x, y, v);
     }
 

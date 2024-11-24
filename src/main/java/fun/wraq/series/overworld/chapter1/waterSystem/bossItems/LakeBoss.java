@@ -32,7 +32,7 @@ public class LakeBoss {
     public static String Name = "湖泊";
     public static Item[] Rewards = {
             ModItems.LakeRune.get(), ModItems.ForgingStone0.get(),
-            ModItems.goldCoin.get(), ModItems.LakeBossGem.get(),
+            ModItems.GOLD_COIN.get(), ModItems.LakeBossGem.get(),
             ModItems.LakeBossCore.get(), ModItems.LakeBossCore.get(),
             ModItems.LakeBossSwordForgeDraw.get(), ModItems.LakeBossCentral.get()
     };

@@ -32,7 +32,7 @@ public class SpringLoot extends Item {
     private void setItemAndWeightList() {
         itemAndWeightList.add(new ItemAndWeight(ModItems.SpringHeart.get(), 1));
         itemAndWeightList.add(new ItemAndWeight(ModItems.RevelationBook.get(), 30));
-        itemAndWeightList.add(new ItemAndWeight(ModItems.goldCoin.get(), 30));
+        itemAndWeightList.add(new ItemAndWeight(ModItems.GOLD_COIN.get(), 30));
         itemAndWeightList.add(new ItemAndWeight(ModItems.WorldSoul2.get(), 30));
         itemAndWeightList.add(new ItemAndWeight(ModItems.Ps_Bottle0.get(), 60));
         itemAndWeightList.add(new ItemAndWeight(ModItems.RedEnvelope.get(), 300));

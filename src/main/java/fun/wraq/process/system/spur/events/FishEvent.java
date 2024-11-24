@@ -42,7 +42,7 @@ public class FishEvent {
         if (!data.contains("FishCount")) data.putInt("FishCount", 1);
         else data.putInt("FishCount", data.getInt("FishCount") + 1);
         int RodLevel = data.getInt("FishCount");
-        ItemStack GoldCoin = ModItems.goldCoin.get().getDefaultInstance();
+        ItemStack GoldCoin = ModItems.GOLD_COIN.get().getDefaultInstance();
         ItemStack SilverCoin = ModItems.silverCoin.get().getDefaultInstance();
         ItemStack SeaSoul = ModItems.SeaSoul.get().getDefaultInstance();
         Utils.dayFishCount.put(player.getName().getString(), Utils.dayFishCount.getOrDefault(player.getName().getString(), 0) + 1);

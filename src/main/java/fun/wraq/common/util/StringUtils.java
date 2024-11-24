@@ -1085,6 +1085,7 @@ public class StringUtils {
         public static String manaDefence = "CuriosManaDefence";
 
         public static String commonMovementSpeed = "commonMovementSpeed";
+        public static String toughness = "CuriosToughness";
 
         public static String percentAttackDamage = "percentAttackDamage";
         public static String percentDefenceEnhance = "percentDefenceEnhance";

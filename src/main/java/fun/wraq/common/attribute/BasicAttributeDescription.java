@@ -57,7 +57,6 @@ public class BasicAttributeDescription {
         if (event.getTooltipElements().size() < 5) return;
         CompoundTag data = itemStack.getOrCreateTagElement(Utils.MOD_ID);
         Item item = itemStack.getItem();
-        if (itemStack.is(ModItems.ManageSword.get())) return;
 
         if (data.contains(StringUtils.ForgeLevel)) {
             int forgeLevel = data.getInt(StringUtils.ForgeLevel);
@@ -762,9 +761,9 @@ public class BasicAttributeDescription {
             index++;
             event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.manaHealthSteal)));
         }
-        if (Utils.healEffectUp.containsKey(item) || data.contains(StringUtils.CuriosAttribute.healEffectUp)) {
+        if (Utils.healingAmplification.containsKey(item) || data.contains(StringUtils.CuriosAttribute.healEffectUp)) {
             double HealEffectUp;
-            if (Utils.healEffectUp.containsKey(item)) HealEffectUp = Utils.healEffectUp.get(item);
+            if (Utils.healingAmplification.containsKey(item)) HealEffectUp = Utils.healingAmplification.get(item);
             else if (item instanceof RandomCurios)
                 HealEffectUp = data.getDouble(StringUtils.CuriosAttribute.healEffectUp) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.CuriosAttribute.healEffectUp);
             else HealEffectUp = data.getInt(StringUtils.CuriosAttribute.healEffectUp);
@@ -857,6 +856,10 @@ public class BasicAttributeDescription {
                 "EmptyTypeAttribute", "挖掘速度",
                 Style.EMPTY.applyFormat(ChatFormatting.GRAY), 0, true, itemStack, false, null, event.getTooltipElements());
 
+        index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.toughness, Utils.toughness,
+                StringUtils.CuriosAttribute.toughness, "韧性",
+                CustomStyle.styleOfEnd, 1, true, itemStack, false, null, event.getTooltipElements());
+
         // 以下为新版宝石内容提示
         List<WraqGem> gemList = WraqGem.getEquipContainGemList(itemStack);
         if (!gemList.isEmpty() || data.getInt("newSlot") > 0) {
@@ -936,7 +939,7 @@ public class BasicAttributeDescription {
                 Style.EMPTY.applyFormat(ChatFormatting.BLUE), "%.0f%%", true, TraditionalTooltip.critDamage));
         put(System.identityHashCode(Utils.critRate), new ToolTipParameter("暴击几率",
                 Style.EMPTY.applyFormat(ChatFormatting.LIGHT_PURPLE), "%.0f%%", true, TraditionalTooltip.critRate));
-        put(System.identityHashCode(Utils.healEffectUp), new ToolTipParameter("治疗强度",
+        put(System.identityHashCode(Utils.healingAmplification), new ToolTipParameter("治疗强度",
                 CustomStyle.styleOfLife, "%.0f%%", true, TraditionalTooltip.healthStrength));
         put(System.identityHashCode(Utils.manaHealthSteal), new ToolTipParameter("法术吸血",
                 CustomStyle.styleOfBloodMana, "%.0f%%", true, TraditionalTooltip.manaHealthSteal));

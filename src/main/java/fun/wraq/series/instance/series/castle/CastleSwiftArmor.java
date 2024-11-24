@@ -2,7 +2,7 @@ package fun.wraq.series.instance.series.castle;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
-import fun.wraq.common.registry.ItemMaterial;
+import fun.wraq.common.registry.ModArmorMaterials;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
@@ -38,7 +38,7 @@ public class CastleSwiftArmor extends WraqArmor implements ForgeItem {
         put(4, 4d);
     }};
 
-    public CastleSwiftArmor(ItemMaterial Material, Type Slots, Properties itemProperties) {
+    public CastleSwiftArmor(ModArmorMaterials Material, Type Slots, Properties itemProperties) {
         super(Material, Slots, itemProperties);
         if (type.equals(Type.HELMET)) {
             Utils.percentHealthRecover.put(this, 0.012);

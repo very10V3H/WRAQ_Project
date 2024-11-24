@@ -11,7 +11,7 @@ import fun.wraq.events.core.InventoryCheck;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstance;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
-import fun.wraq.process.func.SpecialEffectOnPlayer;
+import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
 import fun.wraq.process.func.StableAttributesModifier;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.item.InventoryOperation;
@@ -142,11 +142,9 @@ public class MoontainBoss3Instance extends NoTeamInstance {
                 SpecialEffectOnPlayer.addHealingReduction(player, "MoontainBoss3HealingReduction", 0.4, 100);
                 StableAttributesModifier.addM(player, StableAttributesModifier.playerMonsterControlDamageEffect,
                         "MoontainBoss3DamageControl", -0.4, Tick.get() + 100);
-                StableAttributesModifier.addM(player, StableAttributesModifier.playerMovementSpeedModifier,
-                        "MoontainBoss3SpeedReduction", -0.6, Tick.get() + 100);
                 Compute.sendDebuffTime(player, "hud/damage_reduction", 100, 40, false);
-                Compute.sendDebuffTime(player, "hud/speed_reduction", 100, 60, false);
                 ParticleProvider.createBreakBlockParticle(player, Blocks.DARK_PRISMARINE);
+                SpecialEffectOnPlayer.addSlowdownEffect(player, 0.6, 100, "MoontainBoss3SlowdownEffect");
             });
         }
     }
@@ -265,6 +263,7 @@ public class MoontainBoss3Instance extends NoTeamInstance {
         MoontainUtils.formatBroad(player.level(), Te.s(player.getDisplayName(),
                 " 击杀 ", mobName, style, " 获得了 ", stack.getDisplayName()));
         InventoryOperation.itemStackGive(player, stack);
+        NoTeamInstanceModule.putPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.enderGuardian, true);
     }
 
     public void giveCurios(Player player, SecureRandom secureRandom) {

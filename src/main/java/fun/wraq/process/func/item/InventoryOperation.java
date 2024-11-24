@@ -137,7 +137,7 @@ public class InventoryOperation {
 
     public static void itemStackGiveWithMSG(Player player, ItemStack itemStack) {
         Compute.sendFormatMSG(player, Te.s("物品", ChatFormatting.GREEN),
-                Te.s("你收到了", itemStack.getDisplayName(), " * " + itemStack.getCount(), ChatFormatting.AQUA));
+                Te.s("你获得了", itemStack.getDisplayName(), " * " + itemStack.getCount(), ChatFormatting.AQUA));
         itemStackGive(player, itemStack);
     }
 

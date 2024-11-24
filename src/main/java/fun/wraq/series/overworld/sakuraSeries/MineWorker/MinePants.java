@@ -2,7 +2,7 @@ package fun.wraq.series.overworld.sakuraSeries.MineWorker;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.BasicAttributeDescription;
-import fun.wraq.common.registry.ItemMaterial;
+import fun.wraq.common.registry.ModArmorMaterials;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.entities.armor.MinePantsRenderer;
@@ -32,7 +32,7 @@ import java.util.function.Consumer;
 public class MinePants extends ArmorItem implements GeoItem {
     private final AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
 
-    public MinePants(ItemMaterial Material, Type Slots) {
+    public MinePants(ModArmorMaterials Material, Type Slots) {
         super(Material, Slots, new Properties().rarity(CustomStyle.MineItalic));
         Utils.maxHealth.put(this, 750d);
         Utils.armorTag.put(this, 1d);

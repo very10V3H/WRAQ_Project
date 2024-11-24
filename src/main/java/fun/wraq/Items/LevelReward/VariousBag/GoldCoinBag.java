@@ -27,7 +27,7 @@ public class GoldCoinBag extends Item {
         components.add(Component.literal("右键使用").withStyle(ChatFormatting.UNDERLINE).withStyle(ChatFormatting.GOLD));
         components.add(Component.literal("包含:").withStyle(ChatFormatting.GREEN));
         components.add(Component.literal(" 1.").withStyle(ChatFormatting.WHITE).
-                append(ModItems.goldCoin.get().getDefaultInstance().getDisplayName()).
+                append(ModItems.GOLD_COIN.get().getDefaultInstance().getDisplayName()).
                 append(Component.literal("*(2~5)")));
         super.appendHoverText(itemStack, level, components, flag);
     }
@@ -35,7 +35,7 @@ public class GoldCoinBag extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
         if (!level.isClientSide && interactionHand.equals(InteractionHand.MAIN_HAND)) {
-            ItemStack itemStack = ModItems.goldCoin.get().getDefaultInstance();
+            ItemStack itemStack = ModItems.GOLD_COIN.get().getDefaultInstance();
             Random random = new Random();
             itemStack.setCount(random.nextInt(2, 6));
             player.addItem(itemStack);

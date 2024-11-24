@@ -1,9 +1,7 @@
 package fun.wraq.networking.misc.AnimationPackets;
 
 import fun.wraq.networking.ModNetworking;
-import fun.wraq.networking.misc.AnimationPackets.AnimationTickResetS2CPacket;
-import fun.wraq.networking.misc.AnimationPackets.ManaAttackAnimationS2CPacket;
-import fun.wraq.process.func.SpecialEffectOnPlayer;
+import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkEvent;

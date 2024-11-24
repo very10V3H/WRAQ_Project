@@ -36,7 +36,7 @@ public class CompensateCommand implements Command<CommandSourceStack> {
             } else {
                 List.of(
                         new ItemStack(ModItems.completeGem.get(), 2),
-                        new ItemStack(ModItems.goldCoin.get(), 16),
+                        new ItemStack(ModItems.GOLD_COIN.get(), 16),
                         new ItemStack(ModItems.RevelationBook.get(), 20)
                 ).forEach(stack -> {
                     InventoryCheck.addOwnerTagToItemStack(player, stack);

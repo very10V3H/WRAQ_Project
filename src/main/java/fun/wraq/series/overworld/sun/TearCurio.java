@@ -1,4 +1,4 @@
-package fun.wraq.series.overworld.chapter1.waterSystem;
+package fun.wraq.series.overworld.sun;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqCurios;
@@ -7,6 +7,7 @@ import fun.wraq.common.impl.inslot.InCuriosOrEquipSlotAttributesModify;
 import fun.wraq.common.impl.onshoot.OnPowerReleaseCurios;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.render.hud.Mana;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -33,7 +34,7 @@ public class TearCurio extends WraqCurios implements OnPowerReleaseCurios, InCur
 
     @Override
     public Component getTypeDescription() {
-        return null;
+        return ComponentUtils.getFuncTypeDescriptionOfCurios();
     }
 
     @Override
@@ -41,7 +42,7 @@ public class TearCurio extends WraqCurios implements OnPowerReleaseCurios, InCur
         List<Component> components = new ArrayList<>();
         ComponentUtils.descriptionPassive(components, Te.s("法力积攒", hoverMainStyle()));
         components.add(Te.s(" 战斗状态下", ChatFormatting.RED, "，释放一次法术可以为你积攒",
-                ComponentUtils.AttributeDescription.manaValue("20")));
+                ComponentUtils.AttributeDescription.maxMana("20")));
         components.add(Te.s(" 至多叠加至",
                 ComponentUtils.AttributeDescription.manaValue(String.valueOf(upperLimit[tier]))));
         components.add(Te.s(" 在脱离战斗后", "60s", ChatFormatting.AQUA, "，失去积攒的法力值"));
@@ -63,6 +64,9 @@ public class TearCurio extends WraqCurios implements OnPowerReleaseCurios, InCur
     @Override
     public void onRelease(Player player) {
         if (Compute.playerIsInBattle(player)) {
+            if (countMap.getOrDefault(player, 0) < upperLimit[tier]) {
+                Mana.addOrCostPlayerMana(player, 20);
+            }
             countMap.compute(player, (k, v) -> v == null ? 20 : Math.min(upperLimit[tier], v + 20));
             Compute.sendEffectLastTime(player, "item/tear_curio", 1200, countMap.get(player), false);
         }

@@ -1,7 +1,7 @@
 package fun.wraq.series.overworld.chapter1.snow;
 
 import fun.wraq.common.equip.WraqArmor;
-import fun.wraq.common.registry.ItemMaterial;
+import fun.wraq.common.registry.ModArmorMaterials;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -14,7 +14,7 @@ import java.util.List;
 
 public class SnowArmor extends WraqArmor {
 
-    public SnowArmor(ItemMaterial material, Type Slots) {
+    public SnowArmor(ModArmorMaterials material, Type Slots) {
         super(material, Slots, new Properties().rarity(CustomStyle.SnowItalic));
         if (type.equals(Type.HELMET)) Utils.healthRecover.put(this, 30d);
         if (type.equals(Type.CHESTPLATE)) Utils.defence.put(this, 50d);

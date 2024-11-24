@@ -6,7 +6,7 @@ import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.impl.onhit.OnHitEffectEquip;
-import fun.wraq.common.registry.ItemMaterial;
+import fun.wraq.common.registry.ModArmorMaterials;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
@@ -25,7 +25,7 @@ import java.util.List;
 
 public class NetherArmor extends WraqArmor implements OnHitEffectEquip, ForgeItem {
 
-    public NetherArmor(ItemMaterial material, Type type, Properties properties) {
+    public NetherArmor(ModArmorMaterials material, Type type, Properties properties) {
         super(material, type, properties);
         if (type.equals(Type.HELMET)) Utils.healthRecover.put(this, 30d);
         if (type.equals(Type.CHESTPLATE)) Utils.defence.put(this, 50d);

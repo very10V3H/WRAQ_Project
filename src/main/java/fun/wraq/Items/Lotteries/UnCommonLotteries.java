@@ -36,7 +36,7 @@ public class UnCommonLotteries extends Item {
         itemAndWeightList.add(new ItemAndWeight(ModItems.ForgeEnhance2.get(), 20));
         itemAndWeightList.add(new ItemAndWeight(ModItems.KillPaperLoot.get(), 10));
         itemAndWeightList.add(new ItemAndWeight(ModItems.MopUpPaperLoot.get(), 20));
-        itemAndWeightList.add(new ItemAndWeight(ModItems.goldCoin.get(), 30));
+        itemAndWeightList.add(new ItemAndWeight(ModItems.GOLD_COIN.get(), 30));
         itemAndWeightList.add(new ItemAndWeight(ModItems.WorldSoul2.get(), 30));
         itemAndWeightList.add(new ItemAndWeight(ModItems.RevelationBook.get(), 30));
     }

@@ -21,7 +21,7 @@ public class BonusChestContent {
 
     private final static List<ItemAndMaxNum> tier0Loot = List.of(
             new ItemAndMaxNum(ModItems.RevelationBook.get(), 3),
-            new ItemAndMaxNum(ModItems.goldCoin.get(), 1),
+            new ItemAndMaxNum(ModItems.GOLD_COIN.get(), 1),
             new ItemAndMaxNum(Items.IRON_INGOT, 2),
             new ItemAndMaxNum(ModItems.worldSoul5.get(), 1),
             new ItemAndMaxNum(ModItems.gemPiece.get(), 4),

@@ -7,6 +7,7 @@ import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.SoundsPackets.SoundsS2CPacket;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.plan.PlanPlayer;
+import fun.wraq.process.func.rank.RankData;
 import fun.wraq.process.system.missions.netWorking.MissionScreenOpenS2CPacket;
 import fun.wraq.process.system.missions.netWorking.MissionStatusS2CPacket;
 import fun.wraq.process.system.missions.series.dailyMission.DailyMission;
@@ -491,7 +492,7 @@ public class Mission {
             add(new ItemStack(ModItems.SkySoul.get(), 16));
         }});
         rewardContent.put(nameToSerailNumMap.get(MissionName.ExploreMap6), new ArrayList<>() {{
-            add(new ItemStack(ModItems.goldCoin.get(), 1));
+            add(new ItemStack(ModItems.GOLD_COIN.get(), 1));
         }});
         rewardContent.put(nameToSerailNumMap.get(MissionName.ExploreMap7), new ArrayList<>() {{
             add(new ItemStack(ModItems.SnowRune.get(), 1));
@@ -546,7 +547,7 @@ public class Mission {
 
         for (int i = 19; i <= 38; i++) {
             rewardContent.put(i, List.of(new ItemStack(ModItems.worldSoul5.get(), 4),
-                    new ItemStack(ModItems.goldCoin.get(), 2),
+                    new ItemStack(ModItems.GOLD_COIN.get(), 2),
                     new ItemStack(ModItems.RevelationBook.get(), 10)));
         }
     }
@@ -575,6 +576,7 @@ public class Mission {
                                         append(Component.literal(itemStack.getCount() + "*").withStyle(CustomStyle.styleOfWorld)).
                                         append(ModItems.worldSoul5.get().getDefaultInstance().getDisplayName()));
                     }
+                    RankData.onPlayerFishedNewDailyMission(player);
                 } catch (SQLException | ParseException e) {
                     throw new RuntimeException(e);
                 }

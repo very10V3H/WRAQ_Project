@@ -7,7 +7,7 @@ import fun.wraq.common.fast.Te;
 import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.impl.inslot.InCuriosOrEquipSlotAttributesModify;
 import fun.wraq.common.impl.onkill.OnKillEffectEquip;
-import fun.wraq.common.registry.ItemMaterial;
+import fun.wraq.common.registry.ModArmorMaterials;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
@@ -23,7 +23,7 @@ import java.util.*;
 
 public class DevilSwiftArmor extends WraqArmor implements OnKillEffectEquip, InCuriosOrEquipSlotAttributesModify, ForgeItem {
 
-    public DevilSwiftArmor(ItemMaterial Material, Type Slots, Properties itemProperties) {
+    public DevilSwiftArmor(ModArmorMaterials Material, Type Slots, Properties itemProperties) {
         super(Material, Slots, itemProperties);
         Utils.movementSpeedCommon.put(this, 0.12);
     }

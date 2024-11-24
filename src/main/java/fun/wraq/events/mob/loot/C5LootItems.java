@@ -1,6 +1,6 @@
 package fun.wraq.events.mob.loot;
 
-import fun.wraq.common.registry.ItemMaterial;
+import fun.wraq.common.registry.ModArmorMaterials;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
@@ -24,7 +24,7 @@ public class C5LootItems {
                     new RandomAttributeValue(StringUtils.RandomAttribute.defencePenetration0, 2, 3)), 108));
 
     public static final RegistryObject<Item> bloodManaBoots = ITEMS.register("blood_mana_loot_boots", () ->
-            new RandomArmor(ItemMaterial.BloodMana, ArmorItem.Type.BOOTS, new Item.Properties().rarity(CustomStyle.BloodManaBold), CustomStyle.styleOfBloodMana,
+            new RandomArmor(ModArmorMaterials.BloodMana, ArmorItem.Type.BOOTS, new Item.Properties().rarity(CustomStyle.BloodManaBold), CustomStyle.styleOfBloodMana,
                     ComponentUtils.getSuffixOfSakura(), List.of(
                     new RandomAttributeValue(StringUtils.RandomAttribute.manaDamage, 300, 400),
                     new RandomAttributeValue(StringUtils.RandomAttribute.attackDamage, 200, 300),
@@ -37,7 +37,7 @@ public class C5LootItems {
                     new RandomAttributeValue(StringUtils.RandomAttribute.healthRecover, 25, 45)), 124));
 
     public static final RegistryObject<Item> sakuraChest = ITEMS.register("sakura_chest", () ->
-            new RandomArmor(ItemMaterial.BloodMana, ArmorItem.Type.CHESTPLATE, new Item.Properties().rarity(CustomStyle.SakuraBold), CustomStyle.styleOfSakura,
+            new RandomArmor(ModArmorMaterials.BloodMana, ArmorItem.Type.CHESTPLATE, new Item.Properties().rarity(CustomStyle.SakuraBold), CustomStyle.styleOfSakura,
                     ComponentUtils.getSuffixOfSakura(), List.of(
                     new RandomAttributeValue(StringUtils.RandomAttribute.manaDamage, 350, 450),
                     new RandomAttributeValue(StringUtils.RandomAttribute.manaRecover, 30, 50),

@@ -96,7 +96,7 @@ public class NetherSceptre extends WraqSceptre implements Laser, ForgeItem {
         return List.of(
                 new ItemStack(ModItems.NetherRune.get(), 2),
                 new ItemStack(ModItems.QuartzRune.get(), 1),
-                new ItemStack(ModItems.goldCoin.get(), 192),
+                new ItemStack(ModItems.GOLD_COIN.get(), 192),
                 new ItemStack(ModItems.completeGem.get(), 8),
                 new ItemStack(ModItems.ReputationMedal.get(), 8),
                 new ItemStack(PickaxeItems.TINKER_GOLD.get(), 4)

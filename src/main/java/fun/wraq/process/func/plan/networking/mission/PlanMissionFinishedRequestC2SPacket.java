@@ -1,10 +1,12 @@
 package fun.wraq.process.func.plan.networking.mission;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.reputationMission.PlanMissionInfoS2CPacket;
 import fun.wraq.process.func.item.InventoryOperation;
+import fun.wraq.process.func.rank.RankData;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -65,9 +67,15 @@ public class PlanMissionFinishedRequestC2SPacket {
                 if (minuteDelta >= 75) minuteDelta = 75;
                 int tier = 5 - (int) (minuteDelta / 15);
                 Compute.givePercentExpToPlayer(serverPlayer, 0.04 * tier, 0, serverPlayer.experienceLevel);
-                Compute.playerReputationAddOrCost(serverPlayer, tier * (serverPlayer.experienceLevel / 20));
+                Compute.playerReputationAddOrCost(serverPlayer, (int) Math.ceil(tier * ((double) serverPlayer.experienceLevel / 20)
+                        * RankData.reputationMissionRewardRate(serverPlayer)));
+                if (RankData.reputationMissionRewardRate(serverPlayer) > 1) {
+                    RankData.sendFormatMSG(serverPlayer, Te.s("你的", "职级", ChatFormatting.AQUA, "为你额外提供了 ",
+                            (int) Math.ceil(tier * ((double) serverPlayer.experienceLevel / 20)
+                                    * (RankData.reputationMissionRewardRate(serverPlayer) - 1)) + "声望值",
+                            ChatFormatting.YELLOW));
+                }
                 if (serverPlayer.experienceLevel == 220) Compute.playerReputationAddOrCost(serverPlayer, tier);
-
                 fun.wraq.process.func.plan.networking.mission.PlanMission.planMissionContentMap.remove(name);
                 ModNetworking.sendToClient(new PlanMissionInfoS2CPacket(Items.AIR.getDefaultInstance(), 0,
                         fun.wraq.process.func.plan.networking.mission.PlanMission.planMissionStartTimeMap.getOrDefault(name, ""),

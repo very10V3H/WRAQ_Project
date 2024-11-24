@@ -1,7 +1,6 @@
 package fun.wraq.Items.KillPaper;
 
 import fun.wraq.common.Compute;
-import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ItemAndRate;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.MobSpawn;
@@ -24,8 +23,10 @@ import java.util.Map;
 
 public class KillPaper extends Item {
 
-    public KillPaper(Properties properties) {
+    private final int num;
+    public KillPaper(Properties properties, int num) {
         super(properties);
+        this.num = num;
     }
 
     @Override
@@ -35,7 +36,7 @@ public class KillPaper extends Item {
             List<ItemAndRate> list = getDropList(itemStack);
             if (!list.isEmpty()) {
                 list.forEach(itemAndRate -> {
-                    itemAndRate.send(player, 32);
+                    itemAndRate.send(player, num);
                 });
             }
             Compute.playerItemUseWithRecord(player);
@@ -49,7 +50,7 @@ public class KillPaper extends Item {
         if (tag != null) {
             if (tag.contains(killPaperType)) {
                 String type = tag.getString(killPaperType);
-                components.add(Component.literal("使用以征讨32只 ").withStyle(ChatFormatting.WHITE).
+                components.add(Component.literal("使用以征讨" + num + "只 ").withStyle(ChatFormatting.WHITE).
                         append(Component.literal(type).withStyle(ChatFormatting.RED)));
             }
         }
@@ -58,8 +59,8 @@ public class KillPaper extends Item {
 
     public static String killPaperType = "killPaperType";
 
-    public static List<ItemAndRate> getDropList(ItemStack itemStack) {
-        if (itemStack.is(ModItems.killPaper.get())) {
+    public List<ItemAndRate> getDropList(ItemStack itemStack) {
+        if (itemStack.getItem() instanceof KillPaper) {
             CompoundTag tag = itemStack.getTagElement(Utils.MOD_ID);
             if (tag != null) {
                 if (tag.contains(killPaperType)) {

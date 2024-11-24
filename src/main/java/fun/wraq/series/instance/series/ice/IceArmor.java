@@ -3,7 +3,7 @@ package fun.wraq.series.instance.series.ice;
 import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqArmor;
 import fun.wraq.common.impl.display.ForgeItem;
-import fun.wraq.common.registry.ItemMaterial;
+import fun.wraq.common.registry.ModArmorMaterials;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
@@ -19,7 +19,7 @@ import java.util.List;
 
 public class IceArmor extends WraqArmor implements ForgeItem {
 
-    public IceArmor(ItemMaterial Material, Type Slots, Properties itemProperties) {
+    public IceArmor(ModArmorMaterials Material, Type Slots, Properties itemProperties) {
         super(Material, Slots, itemProperties);
         if (type.equals(Type.HELMET)) Utils.healthRecover.put(this, 40d);
         if (type.equals(Type.CHESTPLATE)) Utils.defence.put(this, 75d);

@@ -23,7 +23,7 @@ public class HuskNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDe
 
     public HuskNewRune(Properties properties) {
         super(properties);
-        Utils.healEffectUp.put(this, 0.1);
+        Utils.healingAmplification.put(this, 0.1);
     }
 
     @Override

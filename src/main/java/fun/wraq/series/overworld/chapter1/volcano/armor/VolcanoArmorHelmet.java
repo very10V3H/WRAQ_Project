@@ -2,7 +2,7 @@ package fun.wraq.series.overworld.chapter1.volcano.armor;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.BasicAttributeDescription;
-import fun.wraq.common.registry.ItemMaterial;
+import fun.wraq.common.registry.ModArmorMaterials;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.suit.SuitCount;
@@ -20,7 +20,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class VolcanoArmorHelmet extends ArmorItem {
-    public VolcanoArmorHelmet(ItemMaterial Materrial, Type Slots) {
+    public VolcanoArmorHelmet(ModArmorMaterials Materrial, Type Slots) {
         super(Materrial, Slots, new Properties().rarity(CustomStyle.VolcanoItalic));
         Utils.attackDamage.put(this, 10d);
         Utils.manaDamage.put(this, 20d);

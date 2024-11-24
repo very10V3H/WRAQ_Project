@@ -33,7 +33,7 @@ public class SupplyBox extends Item {
         components.add(Component.literal("内含:").withStyle(ChatFormatting.AQUA));
         for (int i = 0; i < supplyItems.size(); i++) {
             ItemStack supplyItem = supplyItems.get(i);
-            components.add(Component.literal(" " + i + " ").withStyle(ChatFormatting.AQUA).
+            components.add(Component.literal(" " + (i + 1) + " ").withStyle(ChatFormatting.AQUA).
                     append(supplyItem.getDisplayName()).
                     append(Component.literal(" * ").withStyle(ChatFormatting.AQUA)).
                     append(Component.literal("" + supplyItem.getCount()).withStyle(ChatFormatting.AQUA)));

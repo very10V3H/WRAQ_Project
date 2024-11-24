@@ -1,10 +1,12 @@
 package fun.wraq.networking.reputationMission;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.Utils;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.func.item.InventoryOperation;
+import fun.wraq.process.func.rank.RankData;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.FriendlyByteBuf;
@@ -62,9 +64,15 @@ public class ReputationMissionFinishedRequestC2SPacket {
                 if (minuteDelta >= 75) minuteDelta = 75;
                 int tier = 5 - (int) (minuteDelta / 15);
                 Compute.givePercentExpToPlayer(serverPlayer, 0.02 * tier, 0, serverPlayer.experienceLevel);
-                Compute.playerReputationAddOrCost(serverPlayer, tier * (serverPlayer.experienceLevel / 20));
+                Compute.playerReputationAddOrCost(serverPlayer, (int) Math.ceil(tier * ((double) serverPlayer.experienceLevel / 20)
+                        * RankData.reputationMissionRewardRate(serverPlayer)));
+                if (RankData.reputationMissionRewardRate(serverPlayer) > 1) {
+                    RankData.sendFormatMSG(serverPlayer, Te.s("你的", "职级", ChatFormatting.AQUA, "为你额外提供了 ",
+                            (int) Math.ceil(tier * ((double) serverPlayer.experienceLevel / 20)
+                                    * (RankData.reputationMissionRewardRate(serverPlayer) - 1)) + "声望值",
+                            ChatFormatting.YELLOW));
+                }
                 if (serverPlayer.experienceLevel == Compute.levelUpperLimit) Compute.playerReputationAddOrCost(serverPlayer, tier);
-
                 Utils.playerReputationMissionContent.remove(serverPlayer.getName().getString());
                 ModNetworking.sendToClient(new ReputationMissionContentS2CPacket(Items.AIR.getDefaultInstance(), 0), serverPlayer);
                 Utils.playerReputationMissionStartTime.remove(serverPlayer.getName().getString());

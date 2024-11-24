@@ -142,9 +142,9 @@ public class MoontainUtils {
     );
 
     public static void tick(Player player) {
-        if (player.tickCount % 20 == 0) {
+        if (player.tickCount % 20 == 0 && player.isAlive()) {
             if (player.hasEffect(BornInChaosV1ModMobEffects.INFERNAL_FLAME.get())) {
-                Compute.decreasePlayerHealth(player, player.getMaxHealth() * 0.08,
+                Compute.decreasePlayerHealth(player, player.getMaxHealth() * 0.06,
                         Te.s("被", "望山黯魂", CustomStyle.styleOfMoontain, "吞噬了", ChatFormatting.RED));
             }
         }

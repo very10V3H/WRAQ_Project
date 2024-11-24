@@ -1,150 +1,75 @@
 package fun.wraq.series.end.curios;
 
 import fun.wraq.common.Compute;
-import fun.wraq.common.registry.ModItems;
-import fun.wraq.common.util.ComponentUtils;
-import fun.wraq.common.util.StringUtils;
-import fun.wraq.common.util.struct.Drops;
-import fun.wraq.events.mob.MobSpawn;
-import fun.wraq.process.func.item.InventoryOperation;
+import fun.wraq.common.fast.Te;
+import fun.wraq.common.fast.Tick;
+import fun.wraq.common.registry.MySound;
+import fun.wraq.events.mob.instance.instances.dimension.CitadelGuardianInstance;
+import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.WraqItem;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LightningBolt;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.monster.Stray;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
-import java.io.IOException;
 import java.util.List;
-import java.util.Random;
+import java.util.Map;
+import java.util.Set;
+import java.util.WeakHashMap;
 
-public class EndCrystal extends Item {
+public class EndCrystal extends WraqItem {
 
-    public EndCrystal(Properties p_41383_) {
-        super(p_41383_);
+    public EndCrystal(Properties properties) {
+        super(properties, false, true);
     }
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
         components.add(Component.literal(" 凝聚终界能量的水晶，具有扭曲时间与空间的强大能量").withStyle(CustomStyle.styleOfEnd));
-/*        components.add(Component.literal(" - 于终界寂域中心使用，召唤").withStyle(ChatFormatting.WHITE).
-                append(Component.literal(" 终界征讨者遗骸").withStyle(CustomStyle.styleOfEnd)));*/
-        ComponentUtils.suffixOfEnd(components);
+        components.add(Component.literal(" - 于终界寂域中心使用，前往").withStyle(ChatFormatting.WHITE).
+                append(Component.literal(" 影珀遗迹").withStyle(CustomStyle.styleOfEnd)));
         super.appendHoverText(stack, level, components, flag);
     }
 
+    public static Map<Player, Integer> teleportTick = new WeakHashMap<>();
+
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
-/*        if (!level.isClientSide) {
-            ServerLevel end = level.getServer().getLevel(Level.END);
+        if (!level.isClientSide && interactionHand.equals(InteractionHand.MAIN_HAND)) {
             ServerPlayer serverPlayer = (ServerPlayer) player;
-            if (serverPlayer.level().equals(end) && serverPlayer.position().distanceTo(new Vec3(24, 87, -205)) < 6) {
+            if (serverPlayer.position().distanceTo(new Vec3(24, 87, -205)) < 6 && level.dimension().equals(Level.END)) {
                 Compute.playerItemUseWithRecord(player);
-                Vec3 centerPos = new Vec3(24.5, 88, -204.5);
-                Summon(level, centerPos);
-                List<Player> playerList = level.getEntitiesOfClass(Player.class, AABB.ofSize(centerPos, 50, 50, 50));
-                playerList.forEach(player1 -> {
-                    ServerPlayer serverPlayer1 = (ServerPlayer) player1;
-                    ModNetworking.sendToClient(new SoundsS2CPacket(8), serverPlayer1);
-                    Compute.formatMSGSend(player, Component.literal("终界").withStyle(CustomStyle.styleOfEnd),
-                            Component.literal("").withStyle(ChatFormatting.WHITE).
-                                    append(serverPlayer.getDisplayName()).
-                                    append(Component.literal(" 召唤了 ").withStyle(ChatFormatting.WHITE)).
-                                    append(stray != null ? stray.getDisplayName() : Component.literal("终界征讨者遗骸").withStyle(CustomStyle.styleOfEnd)));
-                });
-                ParticleProvider.SpaceRangeParticle(end, centerPos, 6, 100, ParticleTypes.EXPLOSION_EMITTER);
-
+                Compute.playerItemCoolDown(player, this, 5);
+                teleportTick.put(player, Tick.get() + 30);
+                ParticleProvider.createBallDisperseParticle(ParticleTypes.END_ROD, (ServerLevel) level,
+                        player.getEyePosition(), 0.5, 20);
+                MySound.soundToNearPlayer(player, SoundEvents.END_PORTAL_FRAME_FILL);
             } else {
-                Compute.formatMSGSend(player, Component.literal("终界").withStyle(CustomStyle.styleOfEnd),
-                        Component.literal("此处似乎不能进行召唤").withStyle(ChatFormatting.WHITE));
+                Compute.sendFormatMSG(player, Te.s("终界", CustomStyle.styleOfEnd), Te.s("这里的",
+                        "终界能量", CustomStyle.styleOfEnd, "不足以将你折跃至", "影珀遗迹", CustomStyle.styleOfEnd));
             }
-        }*/
+        }
         return super.use(level, player, interactionHand);
     }
 
-    public static Stray stray;
-
-    public static void Summon(Level level, Vec3 pos) {
-        stray = new Stray(EntityType.STRAY, level);
-
-        MobSpawn.setMobCustomName(stray, ModItems.MobArmorEndStrayHelmet.get(),
-                Component.literal("终界征讨者遗骸").withStyle(CustomStyle.styleOfEnd));
-
-        stray.setItemInHand(InteractionHand.MAIN_HAND, ModItems.PurpleIronSceptre.get().getDefaultInstance());
-        stray.setItemInHand(InteractionHand.OFF_HAND, ModItems.MoonShield.get().getDefaultInstance());
-        stray.getAttribute(Attributes.MAX_HEALTH).setBaseValue(1 * Math.pow(10, 7));
-        stray.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(8000);
-        stray.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.5);
-        stray.setItemSlot(EquipmentSlot.HEAD, ModItems.MobArmorEndStrayHelmet.get().getDefaultInstance());
-        stray.setItemSlot(EquipmentSlot.CHEST, ModItems.MobArmorPurpleIronKnightChest.get().getDefaultInstance());
-        stray.setItemSlot(EquipmentSlot.LEGS, ModItems.MobArmorPurpleIronKnightLeggings.get().getDefaultInstance());
-        stray.setItemSlot(EquipmentSlot.FEET, ModItems.MobArmorPurpleIronKnightBoots.get().getDefaultInstance());
-
-        stray.setHealth(stray.getMaxHealth());
-        stray.moveTo(pos);
-        level.addFreshEntity(stray);
-
-        SummonLighting(level, new Vec3(18.5, 88, -198.5));
-        SummonLighting(level, new Vec3(30.5, 88, -198.5));
-        SummonLighting(level, new Vec3(30.5, 88, -210.5));
-        SummonLighting(level, new Vec3(18.5, 88, -210.5));
-    }
-
-    @Override
-    public boolean isFoil(ItemStack p_41453_) {
-        return true;
-    }
-
-    public static void Drop(Player player, Mob monster) throws IOException {
-        Random r = new Random();
-        List<Player> playerList = monster.level().getEntitiesOfClass(Player.class, AABB.ofSize(monster.position(), 50, 50, 50));
-        ItemStack itemStack = null;
-
-        if (r.nextDouble() < 0.12) {
-            if (r.nextDouble() < 0.5) itemStack = ModItems.EndCuriosForgeDraw.get().getDefaultInstance();
-            else itemStack = ModItems.EndCurios1ForgeDraw.get().getDefaultInstance();
+    public static void tick(Player player) {
+        if (teleportTick.containsKey(player) && teleportTick.get(player) < Tick.get()) {
+            teleportTick.remove(player);
+            if (player.level().dimension().equals(Level.END)) {
+                Vec3 pos = CitadelGuardianInstance.getInstance().pos;
+                player.teleportTo((ServerLevel) player.level(), pos.x, pos.y, pos.z, Set.of(), 0, 0);
+            }
         }
-
-        playerList.forEach(player1 -> {
-            Compute.sendFormatMSG(player1, Component.literal("终界").withStyle(CustomStyle.styleOfEnd),
-                    Component.literal("").withStyle(ChatFormatting.WHITE).
-                            append(player.getDisplayName()).
-                            append(Component.literal(" 击杀了 ").withStyle(ChatFormatting.WHITE)).
-                            append(monster.getDisplayName()));
-        });
-        if (itemStack != null) {
-            Compute.formatBroad(player.level(), Component.literal("终界").withStyle(CustomStyle.styleOfEnd),
-                    Component.literal("").withStyle(ChatFormatting.WHITE).
-                            append(player.getDisplayName()).
-                            append(Component.literal(" 通过击杀 ").withStyle(ChatFormatting.WHITE)).
-                            append(monster.getDisplayName()).
-                            append(Component.literal(" 获得了 ").withStyle(ChatFormatting.WHITE)).
-                            append(itemStack.getDisplayName()));
-            InventoryOperation.itemStackGive(player, itemStack);
-        }
-        InventoryOperation.itemStackGive(player, new ItemStack(ModItems.ShulkerSoul.get(), 16));
-        InventoryOperation.itemStackGive(player, new ItemStack(ModItems.EnderMiteSoul.get(), 16));
-        Drops.KillCount(player.getPersistentData(), StringUtils.MobName.EndStray);
     }
-
-    public static void SummonLighting(Level level, Vec3 vec3) {
-        LightningBolt lightningBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, level);
-        lightningBolt.setVisualOnly(true);
-        lightningBolt.moveTo(vec3);
-        level.addFreshEntity(lightningBolt);
-    }
-
 }

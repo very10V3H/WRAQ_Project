@@ -1,5 +1,6 @@
 package fun.wraq.events.server;
 
+import fun.wraq.events.core.BowEvent;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.files.dataBases.DataBase;
 import fun.wraq.process.func.DelayOperationWithAnimation;
@@ -52,6 +53,9 @@ public class ServerTick {
             if (tickCount % 100 == 0) VpDataHandler.reviseDataMSGSend(event.getServer());
             if (tickCount % 80 == 0) {
                 PurpleIronCommon.handleServerTick();
+            }
+            if (tickCount % 20 == 1) {
+                BowEvent.handleServerTick();
             }
         }
     }

@@ -28,9 +28,9 @@
     "vmd:log_charm4",
     "vmd:log_charm5",
     "vmd:log_charm6",
-    "vmd:tear_curio_0",
-    "vmd:tear_curio_1",
-    "vmd:tear_curio_2",
-    "vmd:tear_curio_3"
+    "vmd:citadel_curio_0",
+    "vmd:citadel_curio_1",
+    "vmd:citadel_curio_2",
+    "vmd:citadel_curio_3"
   ]
 }

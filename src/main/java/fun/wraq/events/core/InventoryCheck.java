@@ -59,6 +59,9 @@ public class InventoryCheck {
                         Compute.sendFormatMSG(player, Te.s("bug修复", ChatFormatting.RED),
                                 Te.s("以下物品属性已修复:", itemStack.getDisplayName()));
                     }
+                    if (boundingList.contains(item) && !data.contains(owner)) {
+                        addOwnerTagToItemStack(player, itemStack);
+                    }
                 }
                 itemStack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
             }

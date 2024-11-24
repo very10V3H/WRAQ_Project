@@ -6,6 +6,7 @@ import fun.wraq.events.mob.loot.C1LootItems;
 import fun.wraq.process.system.point.PointItems;
 import fun.wraq.process.system.spur.Items.SpurItems;
 import fun.wraq.series.moontain.MoontainItems;
+import fun.wraq.series.overworld.sun.SunIslandItems;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -30,7 +31,7 @@ public class ModCreativeModeTab {
     public static RegistryObject<CreativeModeTab> CODEMANA_TAB = CREATIVE_MODE_TAB.register("codemana", () ->
             CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.CodeSceptre.get())).title(Component.literal("魔符")).build());
     public static RegistryObject<CreativeModeTab> MONEYANDMISSION_TAB = CREATIVE_MODE_TAB.register("moneyandmission", () ->
-            CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.goldCoin.get())).title(Component.literal("金钱/任务")).build());
+            CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.GOLD_COIN.get())).title(Component.literal("金钱/任务")).build());
     public static RegistryObject<CreativeModeTab> DROPSANDMATERIAL_TAB = CREATIVE_MODE_TAB.register("dropsandmaterial", () ->
             CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.PlainSoul.get())).title(Component.literal("掉落物与材料")).build());
     public static RegistryObject<CreativeModeTab> CURIOS_AND_GEMS = CREATIVE_MODE_TAB.register("runesandcuiros", () ->
@@ -61,6 +62,8 @@ public class ModCreativeModeTab {
             CreativeModeTab.builder().icon(() -> new ItemStack(PointItems.EXPT.get().asItem())).title(Component.literal("点数物品")).build());
     public static RegistryObject<CreativeModeTab> MOONTAIN = CREATIVE_MODE_TAB.register("moontain", () ->
             CreativeModeTab.builder().icon(() -> new ItemStack(MoontainItems.SWORD.get().asItem())).title(Component.literal("望山物品")).build());
+    public static RegistryObject<CreativeModeTab> SUN_ISLAND = CREATIVE_MODE_TAB.register("sun_island", () ->
+            CreativeModeTab.builder().icon(() -> new ItemStack(SunIslandItems.TEAR_CURIO_0.get().asItem())).title(Component.literal("旭升岛")).build());
 
     public static void register(IEventBus eventBus) {
         CREATIVE_MODE_TAB.register(eventBus);

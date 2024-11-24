@@ -52,6 +52,8 @@ import fun.wraq.networking.reputation.ReputationBuyRequestC2SPacket;
 import fun.wraq.networking.reputation.ReputationValueS2CPacket;
 import fun.wraq.networking.reputationMission.*;
 import fun.wraq.networking.unSorted.*;
+import fun.wraq.process.func.effect.BlindTickS2CPacket;
+import fun.wraq.process.func.effect.SilentTickS2CPacket;
 import fun.wraq.process.func.guide.networking.GuideFinishC2SPacket;
 import fun.wraq.process.func.guide.networking.GuideStageS2CPacket;
 import fun.wraq.process.func.particle.packets.DisperseBallParticleS2CPacket;
@@ -62,6 +64,8 @@ import fun.wraq.process.func.plan.networking.PlanDateAndTierS2CPacket;
 import fun.wraq.process.func.plan.networking.mission.PlanMissionCancelRequestC2SPacket;
 import fun.wraq.process.func.plan.networking.mission.PlanMissionFinishedRequestC2SPacket;
 import fun.wraq.process.func.plan.networking.mission.PlanMissionRequestC2SPacket;
+import fun.wraq.process.func.rank.network.RankChangeS2CPacket;
+import fun.wraq.process.func.rank.network.RankDataS2CPacket;
 import fun.wraq.process.func.security.mac.network.MacC2SPacket;
 import fun.wraq.process.func.security.mac.network.MacRequestS2CPacket;
 import fun.wraq.process.system.element.networking.CurrentSeasonAndResonanceTypeS2CPacket;
@@ -91,6 +95,7 @@ import fun.wraq.render.gui.trade.SingleItemChangeC2SPacket;
 import fun.wraq.render.gui.trade.SingleItemChangeFullDataS2CPacket;
 import fun.wraq.render.gui.trade.SingleItemChangeSingleRecipeTimeS2CPacket;
 import fun.wraq.render.hud.networking.*;
+import fun.wraq.series.overworld.sun.network.TotalKillCountS2CPacket;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -1365,6 +1370,31 @@ public class ModNetworking {
                 .decoder(SingleItemChangeSingleRecipeTimeS2CPacket::new)
                 .encoder(SingleItemChangeSingleRecipeTimeS2CPacket::toBytes)
                 .consumerMainThread(SingleItemChangeSingleRecipeTimeS2CPacket::handle)
+                .add();
+        net.messageBuilder(SilentTickS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(SilentTickS2CPacket::new)
+                .encoder(SilentTickS2CPacket::toBytes)
+                .consumerMainThread(SilentTickS2CPacket::handle)
+                .add();
+        net.messageBuilder(BlindTickS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(BlindTickS2CPacket::new)
+                .encoder(BlindTickS2CPacket::toBytes)
+                .consumerMainThread(BlindTickS2CPacket::handle)
+                .add();
+        net.messageBuilder(RankDataS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(RankDataS2CPacket::new)
+                .encoder(RankDataS2CPacket::toBytes)
+                .consumerMainThread(RankDataS2CPacket::handle)
+                .add();
+        net.messageBuilder(RankChangeS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(RankChangeS2CPacket::new)
+                .encoder(RankChangeS2CPacket::toBytes)
+                .consumerMainThread(RankChangeS2CPacket::handle)
+                .add();
+        net.messageBuilder(TotalKillCountS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(TotalKillCountS2CPacket::new)
+                .encoder(TotalKillCountS2CPacket::toBytes)
+                .consumerMainThread(TotalKillCountS2CPacket::handle)
                 .add();
     }
 

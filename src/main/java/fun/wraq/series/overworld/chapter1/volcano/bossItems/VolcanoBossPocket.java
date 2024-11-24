@@ -32,7 +32,7 @@ public class VolcanoBossPocket extends Item {
         components.add(Component.literal("·将手伸入次元口袋，你将得到:").withStyle(ChatFormatting.GOLD));
         Item[] Rewards = {
                 ModItems.VolcanoRune.get(), ModItems.ForgingStone0.get(),
-                ModItems.goldCoin.get(), ModItems.VolcanoBossGem.get(),
+                ModItems.GOLD_COIN.get(), ModItems.VolcanoBossGem.get(),
                 ModItems.VolcanoBossCore.get(), ModItems.VolcanoBossCore.get(),
                 ModItems.VolcanoBossSwordForgeDraw.get(), ModItems.VolcanoBossCentral.get()
         };
@@ -59,7 +59,7 @@ public class VolcanoBossPocket extends Item {
         if (!level.isClientSide && interactionHand.equals(InteractionHand.MAIN_HAND)) {
             Item[] Rewards = {
                     ModItems.VolcanoRune.get(), ModItems.ForgingStone0.get(),
-                    ModItems.goldCoin.get(), ModItems.VolcanoBossGem.get(),
+                    ModItems.GOLD_COIN.get(), ModItems.VolcanoBossGem.get(),
                     ModItems.VolcanoBossCore.get(), ModItems.VolcanoBossCore.get(),
                     ModItems.VolcanoBossSwordForgeDraw.get(), ModItems.VolcanoBossCentral.get()
             };

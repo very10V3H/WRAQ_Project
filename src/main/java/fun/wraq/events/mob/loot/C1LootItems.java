@@ -1,6 +1,6 @@
 package fun.wraq.events.mob.loot;
 
-import fun.wraq.common.registry.ItemMaterial;
+import fun.wraq.common.registry.ModArmorMaterials;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
@@ -27,7 +27,7 @@ public class C1LootItems {
                     StringUtils.RandomAttribute.attackDamage, 20, 60)), 12));
 
     public static final RegistryObject<Item> lakeDrownHelmet = ITEMS.register("lake_drown_helmet", () ->
-            new RandomArmor(ItemMaterial.Lake, ArmorItem.Type.HELMET,
+            new RandomArmor(ModArmorMaterials.Lake, ArmorItem.Type.HELMET,
                     new Item.Properties().rarity(CustomStyle.WaterBold), CustomStyle.styleOfWater,
                     ComponentUtils.getSuffixOfChapterI(), List.of(new RandomAttributeValue(
                     StringUtils.RandomAttribute.coolDown, 0.1, 0.25)), 18));
@@ -38,7 +38,7 @@ public class C1LootItems {
                     StringUtils.RandomAttribute.attackDamage, 40, 100)), 24));
 
     public static final RegistryObject<Item> spiderBoots = ITEMS.register("spider_boots", () ->
-            new RandomArmor(ItemMaterial.ArmorS, ArmorItem.Type.BOOTS,
+            new RandomArmor(ModArmorMaterials.ArmorS, ArmorItem.Type.BOOTS,
                     new Item.Properties().rarity(CustomStyle.SpiderBold), CustomStyle.styleOfSpider,
                     ComponentUtils.getSuffixOfChapterI(), List.of(new RandomAttributeValue(
                     StringUtils.RandomAttribute.movementSpeedWithoutBattle, 0.2, 0.6)), 32));

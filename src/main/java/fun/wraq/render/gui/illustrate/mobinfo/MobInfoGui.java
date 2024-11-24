@@ -80,7 +80,10 @@ public class MobInfoGui extends Screen {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1, 1, 1, 1);
         RenderSystem.setShaderTexture(0, GUI_TEXTURE);
-
+        int textureWidth = 300;
+        int textureHeight = 200;
+        guiGraphics.blit(GUI_TEXTURE, this.width / 2 - 150, this.height / 2 - 100,
+                0, 0, 300, 200, textureWidth, textureHeight);
         String searchValue = this.nameSearchBox.getValue();
         List<MobInfo> mobInfoList = new ArrayList<>(getMobInfoList());
         if (!searchValue.isEmpty()) {
@@ -138,12 +141,8 @@ public class MobInfoGui extends Screen {
             guiGraphics.renderComponentTooltip(fontRenderer, components, x, y);
         }
 
-        int textureWidth = 300;
-        int textureHeight = 200;
         guiGraphics.drawCenteredString(fontRenderer, Component.literal("" + (page + 1))
                 .withStyle(ChatFormatting.WHITE), this.width / 2 + 5, this.height / 2 - 22 + 105, 0);
-        guiGraphics.blit(GUI_TEXTURE, this.width / 2 - 150, this.height / 2 - 100,
-                0, 0, 300, 200, textureWidth, textureHeight);
         this.nameSearchBox.render(guiGraphics, x, y, v);
         super.render(p_96310_, x, y, v);
     }

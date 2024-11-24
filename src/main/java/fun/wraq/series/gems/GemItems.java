@@ -24,7 +24,7 @@ public class GemItems {
 
     public static final RegistryObject<Item> fieldGem = ITEMS.register("field_gem",
             () -> new WraqGem(new Item.Properties().rarity(CustomStyle.FieldBold), new ArrayList<>() {{
-                add(new WraqGem.AttributeMapValue(Utils.healEffectUp, 0.1));
+                add(new WraqGem.AttributeMapValue(Utils.healingAmplification, 0.1));
                 add(new WraqGem.AttributeMapValue(Utils.percentMaxHealthEnhance, 0.05));
             }}, CustomStyle.styleOfField, Component.literal("原野意志的具象，凝聚成此石。").withStyle(CustomStyle.styleOfField),
                     ComponentUtils.getSuffixOfChapterI()));

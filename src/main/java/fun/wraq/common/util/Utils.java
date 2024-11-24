@@ -63,7 +63,7 @@ public class Utils {
     public static Map<Item, Double> maxHealth = new HashMap<>();
     public static Map<Item, Double> percentMaxHealthEnhance = new HashMap<>();
     public static Map<Item, Double> healthRecover = new HashMap<>();
-    public static Map<Item, Double> healEffectUp = new HashMap<>();
+    public static Map<Item, Double> healingAmplification = new HashMap<>();
     public static Map<Item, Double> coolDownDecrease = new HashMap<>();
     public static Map<Item, Double> manaDamage = new HashMap<>();
     public static Map<Item, Double> xpLevelManaDamage = new HashMap<>();
@@ -670,12 +670,11 @@ public class Utils {
         add(CustomStyle.styleOfLightning);
     }};
 
-    public static int[] instanceKillCount = new int[instanceList.size()];
+    public static Style getLevelStyle(int level) {
+        return Utils.levelStyleList.get(Math.min(Utils.levelStyleList.size() - 1, level / 25));
+    }
 
-    public static Map<String, Integer> playerAttackRingMap = new HashMap<>();
-    public static Map<String, Integer> playerManaAttackRingMap = new HashMap<>();
-    public static Map<String, Integer> playerHealthRingMap = new HashMap<>();
-    public static Map<String, Integer> playerDefenceRingMap = new HashMap<>();
+    public static int[] instanceKillCount = new int[instanceList.size()];
 
     public static Map<String, Item> ManaCoreMap = new HashMap<>();
 

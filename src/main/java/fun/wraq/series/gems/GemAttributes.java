@@ -104,7 +104,7 @@ public class GemAttributes {
     }
 
     public static double gemsHealEffectUp(CompoundTag data) {
-        return getGemsAttributeModifier(data, Utils.healEffectUp);
+        return getGemsAttributeModifier(data, Utils.healingAmplification);
     }
 
     public static double gemsManaHealthSteal(CompoundTag data) {

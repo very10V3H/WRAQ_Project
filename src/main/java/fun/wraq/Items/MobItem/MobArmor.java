@@ -1,6 +1,6 @@
 package fun.wraq.Items.MobItem;
 
-import fun.wraq.common.registry.ItemMaterial;
+import fun.wraq.common.registry.ModArmorMaterials;
 import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.struct.MobArmorNum;
 import net.minecraft.world.item.ArmorItem;
@@ -16,7 +16,7 @@ public class MobArmor extends ArmorItem {
     public final double CritDamage;
     public final double HealthSteal;
 
-    public MobArmor(ItemMaterial Material, Type Slots, double AttackDamage,
+    public MobArmor(ModArmorMaterials Material, Type Slots, double AttackDamage,
                     double Defence, double ManaDefence, double MobLevel, double BreakDefence,
                     double BreakDefence0, double CritRate, double CritDamage, double HealSteal) {
         super(Material, Slots, new Properties());
@@ -40,7 +40,7 @@ public class MobArmor extends ArmorItem {
     }
 
     public MobArmor(double Defence, double ManaDefence, double MobLevel) {
-        super(ItemMaterial.BasicArmor2, Type.HELMET, new Properties());
+        super(ModArmorMaterials.BasicArmor2, Type.HELMET, new Properties());
         Utils.defence.put(this, Defence);
         Utils.manaDefence.put(this, ManaDefence);
         Utils.mobLevel.put(this, MobLevel);
@@ -60,7 +60,7 @@ public class MobArmor extends ArmorItem {
         this.HealthSteal = 0;
     }
 
-    public MobArmor(ItemMaterial Material, Type Slots, double Defence, double ManaDefence, double MobLevel) {
+    public MobArmor(ModArmorMaterials Material, Type Slots, double Defence, double ManaDefence, double MobLevel) {
         super(Material, Slots, new Properties());
         Utils.defence.put(this, Defence);
         Utils.manaDefence.put(this, ManaDefence);
@@ -81,7 +81,7 @@ public class MobArmor extends ArmorItem {
         this.HealthSteal = 0;
     }
 
-    public MobArmor(ItemMaterial Material, Type Slots, String MobName) {
+    public MobArmor(ModArmorMaterials Material, Type Slots, String MobName) {
         super(Material, Slots, new Properties());
         MobArmorNum mobArmorNum = MobArmorNum.mobArmorNumHashMap.get(MobName);
         Utils.defence.put(this, mobArmorNum.Defence);
@@ -104,7 +104,7 @@ public class MobArmor extends ArmorItem {
     }
 
     public MobArmor(String MobName) {
-        super(ItemMaterial.BasicArmor2, Type.HELMET, new Properties());
+        super(ModArmorMaterials.BasicArmor2, Type.HELMET, new Properties());
         MobArmorNum mobArmorNum = MobArmorNum.mobArmorNumHashMap.get(MobName);
         Utils.defence.put(this, mobArmorNum.Defence);
         Utils.manaDefence.put(this, mobArmorNum.ManaDefence);

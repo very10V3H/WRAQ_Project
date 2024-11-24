@@ -2,7 +2,7 @@ package fun.wraq.series.overworld.chapter1.waterSystem.equip.armor;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.BasicAttributeDescription;
-import fun.wraq.common.registry.ItemMaterial;
+import fun.wraq.common.registry.ModArmorMaterials;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.suit.SuitCount;
@@ -20,8 +20,8 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class LakeArmorHelmet extends ArmorItem {
-    public LakeArmorHelmet(ItemMaterial itemMaterial, Type Slots) {
-        super(itemMaterial, Slots, new Properties().rarity(CustomStyle.WaterItalic));
+    public LakeArmorHelmet(ModArmorMaterials modArmorMaterials, Type Slots) {
+        super(modArmorMaterials, Slots, new Properties().rarity(CustomStyle.WaterItalic));
         Utils.coolDownDecrease.put(this, 0.1);
         Utils.armorTag.put(this, 1d);
         Utils.armorList.add(this);

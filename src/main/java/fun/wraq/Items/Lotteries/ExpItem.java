@@ -1,6 +1,7 @@
 package fun.wraq.Items.Lotteries;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Te;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -15,15 +16,21 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.Random;
 
-public class RevelationBook extends Item {
+public class ExpItem extends Item {
 
-    public RevelationBook(Properties p_41383_) {
-        super(p_41383_);
+    private final double rateOrigin;
+    private final double rateBound;
+    public ExpItem(Properties properties, double rateOrigin, double rateBound) {
+        super(properties);
+        this.rateOrigin = rateOrigin;
+        this.rateBound = rateBound;
     }
 
     @Override
     public void appendHoverText(ItemStack itemStack, @Nullable Level p_41422_, List<Component> components, TooltipFlag flag) {
-        components.add(Component.literal(" 使用以获得当前等级下的5 ~ 10%经验值（达125级后可能与实际值有差异）").withStyle(CustomStyle.styleOfFantasy));
+        components.add(Te.s(" 使用以获得当前等级下的", String.format("%.0f%%", rateOrigin * 100),
+                " ~ ", String.format("%.0f%%", rateBound * 100), "经验值", CustomStyle.styleOfFantasy,
+                "(达125级后可能与实际值有差异)"));
         super.appendHoverText(itemStack, p_41422_, components, flag);
     }
 
@@ -32,7 +39,8 @@ public class RevelationBook extends Item {
         if (!level.isClientSide && interactionHand.equals(InteractionHand.MAIN_HAND)) {
             Compute.playerItemUseWithRecord(player);
             Random random = new Random();
-            Compute.givePercentExpToPlayer(player, random.nextDouble(0.05, 0.1), 0, player.experienceLevel);
+            Compute.givePercentExpToPlayer(player, random.nextDouble(rateOrigin, rateBound),
+                    0, player.experienceLevel);
         }
         return super.use(level, player, interactionHand);
     }

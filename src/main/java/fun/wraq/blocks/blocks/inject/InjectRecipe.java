@@ -3,6 +3,7 @@ package fun.wraq.blocks.blocks.inject;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.struct.InjectingRecipe;
 import fun.wraq.process.system.ore.PickaxeItems;
+import fun.wraq.series.end.citadel.CitadelItems;
 import fun.wraq.series.gems.GemItems;
 import fun.wraq.series.instance.blade.BladeItems;
 import fun.wraq.series.instance.mixture.MixtureItems;
@@ -167,23 +168,23 @@ public class InjectRecipe {
                         ModItems.SeaSword3.get()));
 
         injectingRecipeMap.put(ModItems.huskSword0.get(),
-                new InjectingRecipe(ModItems.huskRune.get(), 1,
+                new InjectingRecipe(ModItems.HUSK_RUNE.get(), 1,
                         ModItems.huskSword1.get()));
         injectingRecipeMap.put(ModItems.huskSword1.get(),
-                new InjectingRecipe(ModItems.huskRune.get(), 2,
+                new InjectingRecipe(ModItems.HUSK_RUNE.get(), 2,
                         ModItems.huskSword2.get()));
         injectingRecipeMap.put(ModItems.huskSword2.get(),
-                new InjectingRecipe(ModItems.huskRune.get(), 3,
+                new InjectingRecipe(ModItems.HUSK_RUNE.get(), 3,
                         ModItems.huskSword3.get()));
 
         injectingRecipeMap.put(ModItems.KazeSword0.get(),
-                new InjectingRecipe(ModItems.VolcanoCore.get(), 1,
+                new InjectingRecipe(ModItems.VOLCANO_CORE.get(), 1,
                         ModItems.KazeSword1.get()));
         injectingRecipeMap.put(ModItems.KazeSword1.get(),
-                new InjectingRecipe(ModItems.VolcanoCore.get(), 2,
+                new InjectingRecipe(ModItems.VOLCANO_CORE.get(), 2,
                         ModItems.KazeSword2.get()));
         injectingRecipeMap.put(ModItems.KazeSword2.get(),
-                new InjectingRecipe(ModItems.VolcanoCore.get(), 3,
+                new InjectingRecipe(ModItems.VOLCANO_CORE.get(), 3,
                         ModItems.KazeSword3.get()));
 
         injectingRecipeMap.put(ModItems.WitherSword0.get(),
@@ -227,44 +228,44 @@ public class InjectRecipe {
                         ModItems.PiglinHelmet3.get()));
 
         injectingRecipeMap.put(ModItems.LightningRune.get(),
-                new InjectingRecipe(10, ModItems.VolcanoCore.get(), 64,
+                new InjectingRecipe(10, ModItems.VOLCANO_CORE.get(), 64,
                         ModItems.LightningPower.get()));
 
         injectingRecipeMap.put(ModItems.KazeRecallSoul.get(),
-                new InjectingRecipe(4, ModItems.VolcanoCore.get(), 64,
+                new InjectingRecipe(4, ModItems.VOLCANO_CORE.get(), 64,
                         ModItems.IntensifiedKazeSoul.get()));
 
         injectingRecipeMap.put(ModItems.SpiderRecallSoul.get(),
-                new InjectingRecipe(4, ModItems.VolcanoCore.get(), 64,
+                new InjectingRecipe(4, ModItems.VOLCANO_CORE.get(), 64,
                         ModItems.IntensifiedSpiderSoul.get()));
 
         injectingRecipeMap.put(ModItems.BlackForestRecallSoul.get(),
-                new InjectingRecipe(4, ModItems.VolcanoCore.get(), 64,
+                new InjectingRecipe(4, ModItems.VOLCANO_CORE.get(), 64,
                         ModItems.IntensifiedBlackForestSoul.get()));
 
 
         injectingRecipeMap.put(ModItems.SeaRecallSoul.get(),
-                new InjectingRecipe(4, ModItems.VolcanoCore.get(), 64,
+                new InjectingRecipe(4, ModItems.VOLCANO_CORE.get(), 64,
                         ModItems.IntensifiedSeaSoul.get()));
 
         injectingRecipeMap.put(ModItems.LightningRecallSoul.get(),
-                new InjectingRecipe(4, ModItems.VolcanoCore.get(), 64,
+                new InjectingRecipe(4, ModItems.VOLCANO_CORE.get(), 64,
                         ModItems.IntensifiedLightningSoul.get()));
 
         injectingRecipeMap.put(ModItems.NetherRecallSoul.get(),
-                new InjectingRecipe(4, ModItems.VolcanoCore.get(), 64,
+                new InjectingRecipe(4, ModItems.VOLCANO_CORE.get(), 64,
                         ModItems.IntensifiedNetherSoul.get()));
 
         injectingRecipeMap.put(ModItems.SnowRecallSoul.get(),
-                new InjectingRecipe(4, ModItems.VolcanoCore.get(), 64,
+                new InjectingRecipe(4, ModItems.VOLCANO_CORE.get(), 64,
                         ModItems.IntensifiedSnowSoul.get()));
 
         injectingRecipeMap.put(ModItems.LightningRecallSoul.get(),
-                new InjectingRecipe(4, ModItems.VolcanoCore.get(), 64,
+                new InjectingRecipe(4, ModItems.VOLCANO_CORE.get(), 64,
                         ModItems.IntensifiedLightningSoul.get()));
 
         injectingRecipeMap.put(ModItems.KazeSoul.get(),
-                new InjectingRecipe(64, ModItems.LakeCore.get(), 6,
+                new InjectingRecipe(64, ModItems.LAKE_CORE.get(), 6,
                         ModItems.KazeRune.get()));
 
         injectingRecipeMap.put(ModItems.SeaSoul.get(),
@@ -273,7 +274,7 @@ public class InjectRecipe {
 
         injectingRecipeMap.put(ModItems.huskSoul.get(),
                 new InjectingRecipe(64, ModItems.SunPower.get(), 6,
-                        ModItems.huskRune.get()));
+                        ModItems.HUSK_RUNE.get()));
 
         injectingRecipeMap.put(ModItems.LightningSoul.get(),
                 new InjectingRecipe(64, ModItems.SpeIron.get(), 1,
@@ -1023,6 +1024,25 @@ public class InjectRecipe {
 
         injectingRecipeMap.put(ModItems.SnowPower3.get(),
                 new InjectingRecipe(ModItems.IceHeart.get(), 3, ModItems.ICE_POWER.get()));
+
+        injectingRecipeMap.put(CitadelItems.CITADEL_CURIO_0.get(),
+                new InjectingRecipe(CitadelItems.CITADEL_EQUIP_ENHANCER.get(), 1, CitadelItems.CITADEL_CURIO_1.get()));
+        injectingRecipeMap.put(CitadelItems.CITADEL_CURIO_1.get(),
+                new InjectingRecipe(CitadelItems.CITADEL_EQUIP_ENHANCER.get(), 2, CitadelItems.CITADEL_CURIO_2.get()));
+        injectingRecipeMap.put(CitadelItems.CITADEL_CURIO_2.get(),
+                new InjectingRecipe(CitadelItems.CITADEL_EQUIP_ENHANCER.get(), 4, CitadelItems.CITADEL_CURIO_3.get()));
+
+        injectingRecipeMap.put(ModItems.IceArmorHelmet.get(),
+                new InjectingRecipe(CitadelItems.CITADEL_EQUIP_ENHANCER.get(), 8, CitadelItems.CITADEL_HELMET.get()));
+        injectingRecipeMap.put(ModItems.IceArmorChest.get(),
+                new InjectingRecipe(CitadelItems.CITADEL_EQUIP_ENHANCER.get(), 8, CitadelItems.CITADEL_CHEST.get()));
+        injectingRecipeMap.put(ModItems.IceArmorLeggings.get(),
+                new InjectingRecipe(CitadelItems.CITADEL_EQUIP_ENHANCER.get(), 8, CitadelItems.CITADEL_LEGGINGS.get()));
+        injectingRecipeMap.put(ModItems.IceArmorBoots.get(),
+                new InjectingRecipe(CitadelItems.CITADEL_EQUIP_ENHANCER.get(), 8, CitadelItems.CITADEL_BOOTS.get()));
+
+        injectingRecipeMap.put(CitadelItems.CITADEL_PIECE.get(),
+                new InjectingRecipe(16, ModItems.completeGem.get(), 4, CitadelItems.CITADEL_EQUIP_ENHANCER.get()));
 
         for (Map.Entry<Item, InjectingRecipe> itemInjectingRecipeEntry : injectingRecipeMap.entrySet()) {
             injectedGetItemSourceItemMap.put(itemInjectingRecipeEntry.getValue().getForgingGetItem(), itemInjectingRecipeEntry.getKey());
