@@ -524,7 +524,7 @@ public class CommandHandler {
         LiteralCommandNode<CommandSourceStack> cmd56 = dispatcher56.register(
                 Commands.literal(Utils.MOD_ID).then(
                         Commands.literal("fixBackpack")
-                                .requires(commandSourceStack -> commandSourceStack.hasPermission(0))
+                                .requires(commandSourceStack -> commandSourceStack.hasPermission(2))
                                 .executes(FixBackpackCommand.instance)
                 )
         );
@@ -567,6 +567,15 @@ public class CommandHandler {
                                         )
                                 )
                         ).requires(commandSourceStack -> commandSourceStack.hasPermission(2))
+                )
+        );
+        CommandDispatcher<CommandSourceStack> dispatcher61 = event.getDispatcher();
+        LiteralCommandNode<CommandSourceStack> cmd61 = dispatcher61.register(
+                Commands.literal(Utils.MOD_ID).then(
+                        Commands.literal("rankQuery").then(
+                                Commands.argument("player", GameProfileArgument.gameProfile())
+                                        .executes(RankQueryCommand.instance)
+                        ).requires(commandSourceStack -> commandSourceStack.hasPermission(0))
                 )
         );
     }

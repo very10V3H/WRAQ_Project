@@ -70,11 +70,8 @@ public class LoginInEvent {
         Player player = event.getEntity();
         if (!player.level().isClientSide) {
             ServerPlayer serverPlayer = (ServerPlayer) player;
-            ModNetworking.sendToClient(new TeamInfoResetS2CPacket(), serverPlayer);
-
             Scoreboard scoreboard = player.getServer().getScoreboard();
             scoreboard.entityRemoved(player);
-
             player.sendSystemMessage(Component.literal("[").withStyle(ChatFormatting.GRAY).append(Component.literal("维瑞阿契").withStyle(ChatFormatting.AQUA)).append("]").withStyle(ChatFormatting.GRAY).append(Component.literal("欢迎来到 ").withStyle(ChatFormatting.WHITE).append(Component.literal("维瑞阿契").withStyle(ChatFormatting.AQUA))));
             CompoundTag data = player.getPersistentData();
 
@@ -146,19 +143,6 @@ public class LoginInEvent {
 
             List<ServerPlayer> list = event.getEntity().getServer().getPlayerList().getPlayers();
             PrefixCommand.handlePrefix(list);
-
-/*            if (Utils.IpArrayList.contains(serverPlayer.getIpAddress())) {
-                serverPlayer.connection.disconnect(Component.literal("同一个IP已经有账户在线了。").withStyle(ChatFormatting.RED));
-            }
-            else {
-                Utils.IpArrayList.add(serverPlayer.getIpAddress());
-            }*/
-
-/*            if (Utils.IpLoginMap.containsKey(serverPlayer.getName().getString()) && Utils.IpLoginMap.get(serverPlayer.getName().getString()).equals(serverPlayer.getIpAddress())) {
-                data.putString(StringUtils.Login.Status,StringUtils.Login.Online);
-                Compute.FormatMSGSend(player,Component.literal("维瑞阿契").withStyle(ChatFormatting.AQUA),
-                        Component.literal("欢迎回到维瑞阿契！已为您自动登录。").withStyle(ChatFormatting.WHITE));
-            }*/
 
             data.putDouble("DX", player.getX());
             data.putDouble("DY", player.getY());
@@ -282,20 +266,6 @@ public class LoginInEvent {
                 Compute.respawnPlayer(player);
             }
             data.putBoolean("FirstReward", true);
-
-/*            if(!player.getTags().contains("player")) player.addTag("player");
-            if (data.getString(StringUtils.Login.Status).equals(StringUtils.Login.Offline)) {
-                if (data.contains(StringUtils.Login.Password)) {
-                    player.sendSystemMessage(Component.literal("[").withStyle(ChatFormatting.GRAY).append(Component.literal("维瑞阿契").withStyle(ChatFormatting.AQUA)).append("]").withStyle(ChatFormatting.GRAY).append(Component.literal("使用/vmd login (密码)来登录").withStyle(ChatFormatting.WHITE)));
-                }
-                else {
-                    if(!data.contains("FirstReward")) {
-                        InventoryOperation.itemStackGive(player,ModItems.ForNew.get().getDefaultInstance());
-                    }
-                    data.putBoolean("FirstReward",true);
-                    player.sendSystemMessage(Component.literal("[").withStyle(ChatFormatting.GRAY).append(Component.literal("维瑞阿契").withStyle(ChatFormatting.AQUA)).append("]").withStyle(ChatFormatting.GRAY).append(Component.literal("使用/vmd register (密码)来注册").withStyle(ChatFormatting.WHITE)));
-                }
-            } //一共四处 出售 交互 丢弃 销毁*/
             ModNetworking.sendToClient(new AnimationTickResetS2CPacket(), serverPlayer);
             ModNetworking.sendToClient(new VersionCheckS2CPacket(), serverPlayer);
 
@@ -507,10 +477,11 @@ public class LoginInEvent {
         volcanoCoreGetCount.put(player.getName().getString(), 0);
         /*SummerEvent.resetDailyData(player);*/
         InventoryOperation.itemStackGive(player, new ItemStack(EndlessInstanceItems.EASTERN_TOWER_PAPER.get(), 2));
+        SingleItemChangePurchaseLimit.refreshDaily(player);
     }
 
     public static void WeeklyRefreshContent(Player player) {
-
+        SingleItemChangePurchaseLimit.refreshWeekly(player);
     }
 
     public static void monthlyRefreshContent(Player player) {

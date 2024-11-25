@@ -145,6 +145,7 @@ public class RankData {
     }};
 
     public static Map<String, String> rankNameMap = new HashMap<>() {{
+        put("null", "勘探学徒");
         put("13C", "助理勘探师");
         put("13B", "助理勘探师");
         put("13A", "助理勘探师");

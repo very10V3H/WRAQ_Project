@@ -5,10 +5,12 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import fun.wraq.common.Compute;
+import fun.wraq.process.func.rank.RankData;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.player.Player;
 
 public class PrefixChooseCommand implements Command<CommandSourceStack> {
@@ -44,6 +46,19 @@ public class PrefixChooseCommand implements Command<CommandSourceStack> {
                     flag = false;
                 }
             }
+        }
+
+        count++;
+        if (chooseCount == count) {
+            String rank = RankData.getCurrentRank(player);
+            String rankName = RankData.rankNameMap.get(rank);
+            Style rankStyle = RankData.rankStyleMap.get(rank);
+            data.putString(PrefixCommand.prefix, rankName);
+            data.putString(PrefixCommand.prefixColor, String.valueOf(rankStyle.getColor()));
+            Compute.sendFormatMSG(player, Component.literal("称号").withStyle(ChatFormatting.GOLD),
+                    Component.literal("已激活称号").withStyle(ChatFormatting.WHITE).
+                            append(Component.literal(rankName).withStyle(rankStyle)));
+            flag = false;
         }
 
 /*        if (data.contains(StringUtils.DragonPrefix)) {

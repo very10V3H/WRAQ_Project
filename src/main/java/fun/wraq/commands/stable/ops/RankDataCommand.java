@@ -39,6 +39,8 @@ public class RankDataCommand implements Command<CommandSourceStack> {
                 return 0;
             }
             RankData.addNewRank(player, rank, description);
+            RankData.sendFormatMSG(player, Te.s("已为", player.getDisplayName(), "添加了职称", rank,
+                    RankData.rankStyleMap.get(rank)));
         }
         return 0;
     }

@@ -6,6 +6,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import fun.wraq.Items.Prefix.PrefixInfo;
 import fun.wraq.blocks.blocks.brew.BrewingNote;
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.chapter1.ForestZombieSpawnController;
@@ -41,6 +42,7 @@ import fun.wraq.events.mob.instance.instances.sakura.SakuraBossInstance;
 import fun.wraq.events.mob.moontain.*;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.PrefixPackets.PrefixS2CPacket;
+import fun.wraq.process.func.rank.RankData;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
@@ -287,6 +289,11 @@ public class PrefixCommand implements Command<CommandSourceStack> {
                         append(Component.literal(prefixCondition.getPrefixDescription()).withStyle(prefixCondition.getStyle())));
             }
         }
+
+        count ++;
+        player.sendSystemMessage(Component.literal(count + ".").withStyle(ChatFormatting.WHITE).
+                append(Te.s(RankData.rankNameMap.get(RankData.getCurrentRank(player)),
+                        RankData.rankStyleMap.get(RankData.getCurrentRank(player)))));
 
 /*        if (data.contains(StringUtils.DragonPrefix)) {
             count++;
