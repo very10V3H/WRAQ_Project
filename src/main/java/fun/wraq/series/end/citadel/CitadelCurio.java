@@ -1,5 +1,6 @@
 package fun.wraq.series.end.citadel;
 
+import fun.wraq.blocks.entity.Decomposable;
 import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.fast.Te;
@@ -22,7 +23,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 
-public class CitadelCurio extends WraqCurios implements OnHitEffectCurios, BeforeCauseFinalDamageCurios {
+public class CitadelCurio extends WraqCurios implements OnHitEffectCurios, BeforeCauseFinalDamageCurios, Decomposable {
 
     private final int tier;
     public CitadelCurio(Properties properties, int tier) {
@@ -100,5 +101,10 @@ public class CitadelCurio extends WraqCurios implements OnHitEffectCurios, Befor
                         }
                     });
         }
+    }
+
+    @Override
+    public ItemStack getProduct() {
+        return new ItemStack(CitadelItems.CITADEL_PIECE.get(), 10);
     }
 }

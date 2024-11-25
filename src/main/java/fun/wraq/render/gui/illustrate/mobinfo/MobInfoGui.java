@@ -168,6 +168,11 @@ public class MobInfoGui extends Screen {
                         Te.s("Lv." + noTeamInstance.level + " ", Utils.levelStyleList.get(noTeamInstance.level / 25)),
                         noTeamInstance.name), noTeamInstance.level, noTeamInstance.getRewardList()));
             });
+            NoTeamInstanceModule.noTeamInstancesEnd.forEach(noTeamInstance -> {
+                mobInfoList.add(new MobInfo(Te.s("领主级 - ", ChatFormatting.RED,
+                        Te.s("Lv." + noTeamInstance.level + " ", Utils.levelStyleList.get(noTeamInstance.level / 25)),
+                        noTeamInstance.name), noTeamInstance.level, noTeamInstance.getRewardList()));
+            });
             if (MobSpawn.overWolrdList.isEmpty()) MobSpawn.setOverWorldList(Minecraft.getInstance().level);
             MobSpawn.overWolrdList.forEach(mobSpawnController -> {
                 mobInfoList.add(new MobInfo(Te.s("Lv." + mobSpawnController.averageLevel + " ",

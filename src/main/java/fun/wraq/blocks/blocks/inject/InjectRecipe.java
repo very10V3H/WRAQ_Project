@@ -1042,7 +1042,7 @@ public class InjectRecipe {
                 new InjectingRecipe(CitadelItems.CITADEL_EQUIP_ENHANCER.get(), 8, CitadelItems.CITADEL_BOOTS.get()));
 
         injectingRecipeMap.put(CitadelItems.CITADEL_PIECE.get(),
-                new InjectingRecipe(16, ModItems.completeGem.get(), 4, CitadelItems.CITADEL_EQUIP_ENHANCER.get()));
+                new InjectingRecipe(16, ModItems.completeGem.get(), 1, CitadelItems.CITADEL_EQUIP_ENHANCER.get()));
 
         for (Map.Entry<Item, InjectingRecipe> itemInjectingRecipeEntry : injectingRecipeMap.entrySet()) {
             injectedGetItemSourceItemMap.put(itemInjectingRecipeEntry.getValue().getForgingGetItem(), itemInjectingRecipeEntry.getKey());
