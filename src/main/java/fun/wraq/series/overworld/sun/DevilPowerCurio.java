@@ -52,7 +52,8 @@ public class DevilPowerCurio extends WraqCurios {
     }
 
     public static double finalDamageEnhanceRate(Player player) {
-        if (WraqCurios.isOn(DevilPowerCurio.class, player)) {
+        if (WraqCurios.isOn(DevilPowerCurio.class, player)
+                && MobSpawn.totalKillCountCache.containsKey(player.getName().getString())) {
             return Math.min(0.5, MobSpawn.totalKillCountCache.get(player.getName().getString()) / 10000d * 0.005);
         }
         return 0;

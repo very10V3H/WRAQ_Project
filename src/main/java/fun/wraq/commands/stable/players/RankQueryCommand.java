@@ -31,7 +31,7 @@ public class RankQueryCommand implements Command<CommandSourceStack> {
             }
 
             // target -> player
-            RankData.getProfiler(player).forEach(player::sendSystemMessage);
+            RankData.getProfiler(target).forEach(player::sendSystemMessage);
         }
         return 0;
     }
