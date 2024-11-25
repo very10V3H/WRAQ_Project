@@ -30,16 +30,12 @@ public class RankDataCommand implements Command<CommandSourceStack> {
                 return 0;
             }
             // target -> player
-            if (rank.equals("query")) {
-                RankData.getProfiler(player).forEach(player::sendSystemMessage);
-                return 0;
-            }
             if (!RankData.rankStyleMap.containsKey(rank)) {
                 RankData.sendFormatMSG(player, Te.s("该职级不存在"));
                 return 0;
             }
-            RankData.addNewRank(player, rank, description);
-            RankData.sendFormatMSG(player, Te.s("已为", player.getDisplayName(), "添加了职称", rank,
+            RankData.addNewRank(target, rank, description);
+            RankData.sendFormatMSG(player, Te.s("已为", target.getDisplayName(), "添加了职称", rank,
                     RankData.rankStyleMap.get(rank)));
         }
         return 0;
