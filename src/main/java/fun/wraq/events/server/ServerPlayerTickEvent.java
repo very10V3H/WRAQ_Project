@@ -150,7 +150,7 @@ public class ServerPlayerTickEvent {
 
             RestZone.tick(serverPlayer);
 
-            if (player.tickCount % 100 == 0) {
+            if (player.tickCount % 100 == 0 && MobSpawn.totalKillCount.containsKey(player.getName().getString())) {
                 int totalCount = MobSpawn.totalKillCount.get(player.getName().getString())
                         .values()
                         .stream().mapToInt(Integer::intValue).sum();
