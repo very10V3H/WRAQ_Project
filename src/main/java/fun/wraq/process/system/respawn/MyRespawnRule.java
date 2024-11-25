@@ -56,11 +56,13 @@ public class MyRespawnRule {
         Level overworld = serverPlayer.getServer().getLevel(Level.OVERWORLD);
         if (level.equals(overworld)) {
             SpawnPoint spawnPoint = findNearestSpawnPoint(player);
-            serverPlayer.setRespawnPosition(Level.OVERWORLD, new BlockPos((int) spawnPoint.vec3.x, (int) spawnPoint.vec3.y, (int) spawnPoint.vec3.z), spawnPoint.rotX, true, false);
+            serverPlayer.setRespawnPosition(Level.OVERWORLD,
+                    new BlockPos((int) spawnPoint.vec3.x, (int) spawnPoint.vec3.y, (int) spawnPoint.vec3.z), spawnPoint.rotX, true, false);
             playerLastOverWorldPos.put(name, new SpawnPos(player.position(), player.getXRot()));
-        } else {
-            SpawnPos spawnPos = playerLastOverWorldPos.getOrDefault(name, overworldSpawnPos.get(0).toSpawnPos());
-            serverPlayer.setRespawnPosition(overworld.dimension(), new BlockPos((int) spawnPos.vec3.x, (int) spawnPos.vec3.y, (int) spawnPos.vec3.z), spawnPos.rotX, true, false);
+        } else if (level.dimension().equals(Level.END)) {
+            serverPlayer.setRespawnPosition(Level.END, new BlockPos(137, 50, 0), 90, true, false);
+        } else if (level.dimension().equals(Level.NETHER)) {
+            serverPlayer.setRespawnPosition(Level.NETHER, new BlockPos(591, 78, -619), 90, true, false);
         }
     }
 

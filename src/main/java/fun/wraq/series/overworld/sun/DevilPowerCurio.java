@@ -36,7 +36,7 @@ public class DevilPowerCurio extends WraqCurios {
                 "50%最终伤害加成", hoverMainStyle()));
         components.add(Te.s(" 每", "10000总击杀数", hoverMainStyle(), "提供", "0.5%最终伤害加成", hoverMainStyle()));
         components.add(Te.s(" 当前提供的", "最终伤害加成", hoverMainStyle(), ": ",
-                String.format("%.2f%%", clientTotalKillCount / 20000d), hoverMainStyle()));
+                String.format("%.2f%%", Math.min(0.5, clientTotalKillCount / 20000d)), hoverMainStyle()));
         components.add(Te.s(" 总击杀数: ", String.valueOf(clientTotalKillCount), hoverMainStyle()));
         return components;
     }
@@ -53,7 +53,7 @@ public class DevilPowerCurio extends WraqCurios {
 
     public static double finalDamageEnhanceRate(Player player) {
         if (WraqCurios.isOn(DevilPowerCurio.class, player)) {
-            return MobSpawn.totalKillCountCache.get(player.getName().getString()) / 10000d * 0.005;
+            return Math.min(0.5, MobSpawn.totalKillCountCache.get(player.getName().getString()) / 10000d * 0.005);
         }
         return 0;
     }

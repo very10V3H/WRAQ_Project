@@ -55,8 +55,9 @@ public class SingleItemChangeScreen extends Screen {
 
         for (int i = 0; i < 5; i++) {
             if (i + page * 10 < recipeList.size()) {
-                SingleItemChangeRecipe recipe = recipeList.get(i + page * 10);
+                int finalI = i;
                 this.addRenderableWidget(Button.builder(Component.translatable("购买"), (p_280814_) -> {
+                    SingleItemChangeRecipe recipe = recipeList.get(finalI + page * 10);
                     ModNetworking.sendToServer(new SingleItemChangeC2SPacket(recipe.needStack(), recipe.goods()));
                 }).pos(this.width / 2 - 35, this.height / 2 - 83 + 32 * i).size(32, 16).build());
             }
@@ -64,8 +65,9 @@ public class SingleItemChangeScreen extends Screen {
 
         for (int i = 0; i < 5; i++) {
             if (i + page * 10 + 5 < recipeList.size()) {
-                SingleItemChangeRecipe recipe = recipeList.get(i + page * 10 + 5);
+                int finalI = i;
                 this.addRenderableWidget(Button.builder(Component.translatable("购买"), (p_280814_) -> {
+                    SingleItemChangeRecipe recipe = recipeList.get(finalI + page * 10 + 5);
                     ModNetworking.sendToServer(new SingleItemChangeC2SPacket(recipe.needStack(), recipe.goods()));
                 }).pos(this.width / 2 - 35 + 140, this.height / 2 - 83 + 32 * i).size(32, 16).build());
             }

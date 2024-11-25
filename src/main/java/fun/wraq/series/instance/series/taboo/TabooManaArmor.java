@@ -19,8 +19,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.WeakHashMap;
+import java.util.Map;
 
 public class TabooManaArmor extends WraqArmor implements OnCostManaEquip, InCuriosOrEquipSlotAttributesModify, ForgeItem {
 
@@ -67,7 +68,7 @@ public class TabooManaArmor extends WraqArmor implements OnCostManaEquip, InCuri
 
     public record NearCostMana(int tick, double value) {}
 
-    public static WeakHashMap<Player, List<NearCostMana>> nearCostListMap = new WeakHashMap<>();
+    public static Map<Player, List<NearCostMana>> nearCostListMap = new HashMap<>();
 
     @Override
     public void onCostMana(Player player, double costManaValue) {
@@ -87,7 +88,7 @@ public class TabooManaArmor extends WraqArmor implements OnCostManaEquip, InCuri
     private double getStoredTotalValue(Player player) {
         if (!nearCostListMap.containsKey(player)) return 0;
         List<NearCostMana> list = nearCostListMap.get(player);
-        list.removeIf(nearCostMana -> nearCostMana.tick < Tick.get());
+        list.removeIf(nearCostMana -> nearCostMana == null || nearCostMana.tick < Tick.get());
         return list.stream().mapToDouble(cost -> cost.value).sum();
     }
 }
