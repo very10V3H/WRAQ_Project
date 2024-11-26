@@ -91,7 +91,7 @@ public class CitadelCurio extends WraqCurios implements OnHitEffectCurios, Befor
             Compute.getNearEntity(mob, Mob.class, 10)
                     .stream().map(entity -> (Mob) entity)
                     .forEach(eachMob -> {
-                        if (!eachMob.equals(mob)) {
+                        if (!eachMob.equals(mob) && eachMob.isAlive()) {
                             Damage.causeDirectDamageToMob(player, eachMob, damageValue * damageRate);
                             Compute.summonValueItemEntity(mob.level(), player, eachMob,
                                     Te.s(String.format("%.0f", damageValue * damageRate), CustomStyle.styleOfSea), 2);

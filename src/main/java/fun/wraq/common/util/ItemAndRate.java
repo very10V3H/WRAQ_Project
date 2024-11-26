@@ -1,6 +1,5 @@
 package fun.wraq.common.util;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.equip.impl.RandomCurios;
 import fun.wraq.events.core.InventoryCheck;
 import fun.wraq.events.mob.loot.RandomLootEquip;
@@ -8,7 +7,6 @@ import fun.wraq.process.func.item.InventoryOperation;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.Mob;
@@ -139,14 +137,6 @@ public class ItemAndRate {
     }
 
     public static void summonItemEntity(ItemStack itemStack, Vec3 pos, Level level, int pickUpDelay, boolean delta) {
-        List<ItemEntity> list = new ArrayList<>(Compute.getNearEntity(level, pos, ItemEntity.class, 16)
-                .stream().filter(entity -> entity instanceof ItemEntity).map(entity -> (ItemEntity) entity).toList());
-        if (list.size() > 100) {
-            for (int i = 0 ; i < 50 ; i ++) {
-                list.get(i).remove(Entity.RemovalReason.KILLED);
-            }
-        }
-
         ItemEntity itemEntity = new ItemEntity(EntityType.ITEM, level);
         itemStack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
         itemEntity.setItem(itemStack);
