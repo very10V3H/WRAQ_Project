@@ -36,6 +36,7 @@ import fun.wraq.process.system.market.MarketInfo;
 import fun.wraq.process.system.ore.OreItems;
 import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.process.system.point.PointItems;
+import fun.wraq.process.system.randomevent.RandomEventsHandler;
 import fun.wraq.process.system.spur.Items.SpurItems;
 import fun.wraq.process.system.teamInstance.NewTeamInstance;
 import fun.wraq.process.system.teamInstance.NewTeamInstanceEvent;
@@ -143,6 +144,7 @@ public class VMD {
     @SubscribeEvent
     public static void serverStartEvent(ServerStartingEvent event) throws SQLException, CommandSyntaxException, ParseException {
         Tick.server = event.getServer();
+        RandomEventsHandler.server = event.getServer();
         PlanPlayer.read();
 
         MarketInfo.marketItemInfoRead(event.getServer().overworld());

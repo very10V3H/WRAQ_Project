@@ -1,6 +1,9 @@
 package fun.wraq.Items.MainStory_1.Mission;
 
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.ComponentUtils;
+import fun.wraq.events.mob.MobSpawn;
+import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -8,6 +11,8 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -70,6 +75,15 @@ public class Main0 extends Item {
                     player.getInventory().setItem(i, newBackPack);
                 }
             }*/
+
+            int xpLevel = 10;
+            Zombie zombie = new Zombie(EntityType.ZOMBIE, level);
+            MobSpawn.setMobCustomName(zombie, Te.s("测试怪物", CustomStyle.styleOfPlain), xpLevel);
+            MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(zombie), xpLevel);
+            MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombie, 20, 0, 0, 0.2,
+                    1, 0, 0, 0, 100, 0.2);
+            zombie.moveTo(1534, 81, 305);
+            level.addFreshEntity(zombie);
         }
 
         if (!level.isClientSide && player.isShiftKeyDown()) {

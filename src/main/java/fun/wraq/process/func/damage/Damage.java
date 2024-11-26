@@ -28,6 +28,7 @@ import fun.wraq.events.modules.HurtEventModule;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.element.equipAndCurios.fireElement.FireEquip;
 import fun.wraq.process.system.endlessinstance.DailyEndlessInstance;
+import fun.wraq.process.system.randomevent.RandomEventsHandler;
 import fun.wraq.process.system.teamInstance.NewTeamInstanceEvent;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.newrunes.chapter2.HuskNewRune;
@@ -520,6 +521,7 @@ public class Damage {
                 OnKillEffectEquip.kill(player, mob);
                 OnKillEffectCurios.kill(player, mob);
 
+                RandomEventsHandler.onKillMob(player, mob);
             } else mob.setHealth((float) (mob.getHealth() - finalDamage));
 
             // ---- //

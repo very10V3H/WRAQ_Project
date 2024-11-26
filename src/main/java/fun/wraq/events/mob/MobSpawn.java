@@ -191,6 +191,10 @@ public class MobSpawn {
         });
     }
 
+    public static void setMobDropList(Mob mob, List<ItemAndRate> list) {
+        dropList.put(getMobOriginName(mob), list);
+    }
+
     public static Map<String, List<ItemAndRate>> dropList = new HashMap<>();
     public static Map<String, Boolean> dropsDirectToInventory = new HashMap<>();
 
