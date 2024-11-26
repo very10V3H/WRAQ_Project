@@ -233,7 +233,7 @@ public class NewCastleInstance extends NewTeamInstance {
                 append(Component.literal("锻造").withStyle(ChatFormatting.GRAY)).
                 append(Component.literal("过").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("1件").withStyle(ChatFormatting.AQUA)).
-                append(Component.literal("尘月宫装备").withStyle(CustomStyle.styleOfMoon)).
+                append(Component.literal("尘月宫武器").withStyle(CustomStyle.styleOfMoon)).
                 append(Component.literal("，方能获取奖励。").withStyle(ChatFormatting.WHITE));
     }
 

@@ -40,8 +40,8 @@ public class SingleItemChangeC2SPacket {
             SingleItemChangeRecipe recipe = null;
             boolean containRecipe = false;
             for (SingleItemChangeRecipe singleItemChangeRecipe : recipeList) {
-                if (singleItemChangeRecipe.needStack().equals(this.needStack, false)
-                        && singleItemChangeRecipe.goods().equals(this.goods, false)) {
+                if (stackEquals(singleItemChangeRecipe.needStack(), needStack)
+                        && stackEquals(singleItemChangeRecipe.goods(), goods)) {
                     containRecipe = true;
                     if (SingleItemChangePurchaseLimit.check(serverPlayer, singleItemChangeRecipe)) {
                         recipe = singleItemChangeRecipe;
@@ -72,5 +72,9 @@ public class SingleItemChangeC2SPacket {
             }
         });
         return true;
+    }
+
+    public boolean stackEquals(ItemStack stack1, ItemStack stack2) {
+        return stack1.getItem().equals(stack2.getItem()) && stack1.getCount() == stack2.getCount();
     }
 }
