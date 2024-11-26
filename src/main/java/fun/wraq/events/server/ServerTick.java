@@ -8,6 +8,7 @@ import fun.wraq.process.func.damage.Dot;
 import fun.wraq.process.func.plan.PlanPlayer;
 import fun.wraq.process.system.lottery.NewLotteries;
 import fun.wraq.process.system.market.MarketInfo;
+import fun.wraq.process.system.randomevent.RandomEventsHandler;
 import fun.wraq.process.system.tower.Tower;
 import fun.wraq.process.system.vp.VpDataHandler;
 import fun.wraq.series.instance.mixture.WraqMixture;
@@ -57,6 +58,7 @@ public class ServerTick {
             if (tickCount % 20 == 1) {
                 BowEvent.handleServerTick();
             }
+            RandomEventsHandler.tick();
         }
     }
 

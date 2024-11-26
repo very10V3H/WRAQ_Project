@@ -24,7 +24,7 @@ public abstract class RandomEvent {
     // 第六类事件 - 使用雪球击中空中目标事件
 
     protected final ResourceKey<Level> dimension;
-    protected final Vec3 pos; // 事件发生地点
+    protected final Vec3 pos;
     protected final List<Component> beginAnnouncement; // 事件开始的通知
     protected boolean isCarryingOut = false;
     protected final MinecraftServer server;
@@ -56,9 +56,9 @@ public abstract class RandomEvent {
     public void handleTick() {
         if (isCarryingOut) {
             tick();
-        }
-        if (endCondition()) {
-            endAction();
+            if (endCondition()) {
+                endAction();
+            }
         }
     }
 
