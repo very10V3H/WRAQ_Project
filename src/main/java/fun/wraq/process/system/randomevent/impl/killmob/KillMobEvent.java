@@ -17,7 +17,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public abstract class KillMobEvent extends RandomEvent {
 
@@ -30,13 +32,14 @@ public abstract class KillMobEvent extends RandomEvent {
     // 纽维庙洞穴蜘蛛大量刷怪事件 - 洞穴蜘蛛（前期）√
     // 旭升岛海盗事件 - 掠夺者（前期）√
     // 海岸村遇袭事件 - 掠夺者（前期）√
-    // 史莱姆王事件 - 大史莱姆（前期）
+    // 史莱姆王事件 - 大史莱姆（前期）√
 
-    protected List<Mob> mobList;
-    protected List<Player> players = new ArrayList<>();
+    protected List<Mob> mobList = new ArrayList<>();
+    protected Set<Player> players = new HashSet<>();
 
-    public KillMobEvent(ResourceKey<Level> dimension, Vec3 pos, List<Component> beginAnnouncement, MinecraftServer server) {
-        super(dimension, pos, beginAnnouncement, server);
+    public KillMobEvent(ResourceKey<Level> dimension, Vec3 pos, List<Component> beginAnnouncement,
+                        List<Component> endAnnouncement, List<Component> overTimeAnnouncement, MinecraftServer server) {
+        super(dimension, pos, beginAnnouncement, endAnnouncement, overTimeAnnouncement, server);
     }
 
     protected abstract void summonAndSetMobList();
@@ -71,8 +74,6 @@ public abstract class KillMobEvent extends RandomEvent {
 
     @Override
     protected void endAction() {
-        mobList.forEach(mob -> mob.remove(Entity.RemovalReason.KILLED));
-        mobList.clear();
         List<ItemStack> rewardList = getRewardList();
         players.forEach(player -> {
             rewardList.forEach(stack -> {
@@ -80,6 +81,13 @@ public abstract class KillMobEvent extends RandomEvent {
             });
             additionReward(player);
         });
+        reset();
+    }
+
+    @Override
+    protected void reset() {
+        mobList.forEach(mob -> mob.remove(Entity.RemovalReason.KILLED));
+        mobList.clear();
         players.clear();
     }
 

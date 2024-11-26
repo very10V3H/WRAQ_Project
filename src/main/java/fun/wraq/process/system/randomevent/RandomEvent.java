@@ -26,15 +26,20 @@ public abstract class RandomEvent {
     protected final ResourceKey<Level> dimension;
     protected final Vec3 pos;
     protected final List<Component> beginAnnouncement; // 事件开始的通知
+    protected final List<Component> endAnnouncement; // 事件结束的通知
+    protected final List<Component> overTimeAnnouncement; // 事件超时，强制结束的通知
     protected boolean isCarryingOut = false;
     protected final MinecraftServer server;
     protected final Level level;
     protected int beginTick;
 
-    public RandomEvent(ResourceKey<Level> dimension, Vec3 pos, List<Component> beginAnnouncement, MinecraftServer server) {
+    public RandomEvent(ResourceKey<Level> dimension, Vec3 pos, List<Component> beginAnnouncement,
+                       List<Component> endAnnouncement, List<Component> overTimeAnnouncement, MinecraftServer server) {
         this.dimension = dimension;
         this.pos = pos;
         this.beginAnnouncement = beginAnnouncement;
+        this.endAnnouncement = endAnnouncement;
+        this.overTimeAnnouncement = overTimeAnnouncement;
         this.server = server;
         this.level = server.getLevel(dimension);
     }
@@ -43,6 +48,7 @@ public abstract class RandomEvent {
     protected abstract void tick(); // 事件进行中的操作
     protected abstract boolean endCondition(); // 事件结束的条件
     protected abstract void endAction(); // 事件结束的行动
+    protected abstract void reset(); // 事件重置为初始状态
 
     public void begin() {
         isCarryingOut = true;
@@ -56,8 +62,10 @@ public abstract class RandomEvent {
     public void handleTick() {
         if (isCarryingOut) {
             tick();
-            if (endCondition()) {
-                endAction();
+            if (beginTick + 6000 < Tick.get()) {
+                reset();
+            } else if (endCondition()) {
+                end();
             }
         }
     }

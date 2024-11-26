@@ -20,8 +20,9 @@ public abstract class MultiMobEvent extends KillMobEvent {
     private final Random random = new Random();
 
     public MultiMobEvent(ResourceKey<Level> dimension, Vec3 pos, List<Component> beginAnnouncement,
-                         MinecraftServer server, List<Vec3> summonPosList) {
-        super(dimension, pos, beginAnnouncement, server);
+                         List<Component> endAnnouncement, List<Component> overTimeAnnouncement, MinecraftServer server,
+                         List<Vec3> summonPosList) {
+        super(dimension, pos, beginAnnouncement, endAnnouncement, overTimeAnnouncement, server);
         this.summonPosList = summonPosList;
     }
 
@@ -29,8 +30,9 @@ public abstract class MultiMobEvent extends KillMobEvent {
     protected void summonAndSetMobList() {
         for (int i = 0 ; i < 10 ; i ++) {
             Mob mob = setMobAttributesAndEquip();
-            mob.moveTo(summonPosList.get(random.nextInt(summonPosList.size())));
             mobList.add(mob);
+            mob.moveTo(summonPosList.get(random.nextInt(summonPosList.size())));
+            level.addFreshEntity(mob);
         }
     }
 
@@ -39,8 +41,9 @@ public abstract class MultiMobEvent extends KillMobEvent {
         while (leftMobCount > 0 && mobList.stream().filter(LivingEntity::isAlive).count() < 5) {
             --leftMobCount;
             Mob mob = setMobAttributesAndEquip();
-            mob.moveTo(summonPosList.get(random.nextInt(summonPosList.size())));
             mobList.add(mob);
+            mob.moveTo(summonPosList.get(random.nextInt(summonPosList.size())));
+            level.addFreshEntity(mob);
         }
         super.tick();
     }
@@ -58,5 +61,11 @@ public abstract class MultiMobEvent extends KillMobEvent {
     protected void beginAction() {
         leftMobCount = getTotalMobCount();
         super.beginAction();
+    }
+
+    @Override
+    protected void reset() {
+        leftMobCount = 0;
+        super.reset();
     }
 }

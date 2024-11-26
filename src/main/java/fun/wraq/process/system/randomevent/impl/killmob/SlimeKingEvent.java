@@ -1,8 +1,8 @@
-package fun.wraq.process.system.randomevent.impl.killmob.multi;
+package fun.wraq.process.system.randomevent.impl.killmob;
 
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.events.mob.MobSpawn;
-import fun.wraq.process.system.randomevent.impl.killmob.KillMobEvent;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
@@ -15,6 +15,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -23,9 +24,11 @@ public class SlimeKingEvent extends KillMobEvent {
     // 莱姆king免疫一切直接伤害 每过5s会在其周围生成小史莱姆，击杀小史莱姆将扣除其1点生命值。
 
     private Slime slimeKing;
+    private List<Mob> smallSlimeList = new ArrayList<>();
 
-    public SlimeKingEvent(ResourceKey<Level> dimension, Vec3 pos, List<Component> beginAnnouncement, MinecraftServer server) {
-        super(dimension, pos, beginAnnouncement, server);
+    public SlimeKingEvent(ResourceKey<Level> dimension, Vec3 pos, List<Component> beginAnnouncement,
+                          List<Component> endAnnouncement, List<Component> overTimeAnnouncement, MinecraftServer server) {
+        super(dimension, pos, beginAnnouncement, endAnnouncement, overTimeAnnouncement, server);
     }
 
     @Override
@@ -35,6 +38,7 @@ public class SlimeKingEvent extends KillMobEvent {
         MobSpawn.setMobCustomName(slime, Te.s("莱姆king", CustomStyle.styleOfLife), 40);
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(slime, 40, 100, 20, 20,
                 0, 0, 0, 0, 0, 100, 0.2);
+
         slimeKing = slime;
         mobList.add(slime);
         slime.moveTo(pos);
@@ -44,11 +48,14 @@ public class SlimeKingEvent extends KillMobEvent {
     @Override
     protected void tick() {
         if (slimeKing != null && slimeKing.isAlive()) {
-            Random random = new Random();
-            for (int i = 0 ; i < 8 ; i ++) {
-                Slime smallSlime = setSmallSlimeAttributes();
-                smallSlime.moveTo(slimeKing.position().add(4 - random.nextDouble(2), 1, 4 - random.nextDouble(2)));
-                level.addFreshEntity(smallSlime);
+            if (Tick.get() % 20 == 0 && smallSlimeList.size() < 2) {
+                Random random = new Random();
+                for (int i = 0 ; i < 8 ; i ++) {
+                    Slime smallSlime = setSmallSlimeAttributes();
+                    smallSlimeList.add(smallSlime);
+                    smallSlime.moveTo(slimeKing.position().add(4 - random.nextDouble(2), 1, 4 - random.nextDouble(2)));
+                    level.addFreshEntity(smallSlime);
+                }
             }
         }
         super.tick();
@@ -72,7 +79,7 @@ public class SlimeKingEvent extends KillMobEvent {
     }
 
     public static boolean isSlimeKing(Mob mob) {
-        return MobSpawn.getMobOriginName(mob).equals("莱姆king");
+        return MobSpawn.getMobOriginName(mob).equals("莱姆king") && ((Slime) mob).getSize() == 6;
     }
 
     @Override
@@ -85,5 +92,11 @@ public class SlimeKingEvent extends KillMobEvent {
     @Override
     protected void additionReward(Player player) {
 
+    }
+
+    @Override
+    protected void endAction() {
+        smallSlimeList.clear();
+        super.endAction();
     }
 }

@@ -454,6 +454,13 @@ public class Compute {
                 append(content));
     }
 
+    public static MutableComponent getFormatMSG(Component type, Component content) {
+        return Component.literal("[").withStyle(ChatFormatting.GRAY)
+                .append(type).append("] ").withStyle(ChatFormatting.GRAY)
+                .append(content);
+    }
+
+
     public static void broad(Level level, Component component) {
         PlayerList list = level.getServer().getPlayerList();
         List<ServerPlayer> list1 = list.getPlayers();

@@ -29,7 +29,7 @@ import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.element.equipAndCurios.fireElement.FireEquip;
 import fun.wraq.process.system.endlessinstance.DailyEndlessInstance;
 import fun.wraq.process.system.randomevent.RandomEventsHandler;
-import fun.wraq.process.system.randomevent.impl.killmob.multi.SlimeKingEvent;
+import fun.wraq.process.system.randomevent.impl.killmob.SlimeKingEvent;
 import fun.wraq.process.system.teamInstance.NewTeamInstanceEvent;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.newrunes.chapter2.HuskNewRune;

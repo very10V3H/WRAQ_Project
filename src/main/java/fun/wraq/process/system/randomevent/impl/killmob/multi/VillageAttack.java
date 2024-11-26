@@ -1,11 +1,10 @@
-package fun.wraq.process.system.randomevent.impl.killmob.village;
+package fun.wraq.process.system.randomevent.impl.killmob.multi;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
-import fun.wraq.process.system.randomevent.impl.killmob.KillMobEvent;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
@@ -14,7 +13,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.Pillager;
 import net.minecraft.world.entity.monster.Vindicator;
@@ -27,9 +25,7 @@ import net.minecraft.world.phys.Vec3;
 import java.util.List;
 import java.util.Random;
 
-public class VillageAttack extends KillMobEvent {
-
-    private int leftMobCount;
+public class VillageAttack extends MultiMobEvent {
 
     private final Random random = new Random();
 
@@ -39,19 +35,14 @@ public class VillageAttack extends KillMobEvent {
     private final List<Vec3> summonPosList;
 
     public VillageAttack(ResourceKey<Level> dimension, Vec3 pos, List<Component> beginAnnouncement,
-                         MinecraftServer server, String mobName1, String mobName2, List<ItemAndRate> eachMobDropList,
+                         List<Component> endAnnouncement, List<Component> overTimeAnnouncement, MinecraftServer server, String mobName1,
+                         String mobName2, List<ItemAndRate> eachMobDropList,
                          List<Vec3> summonPosList) {
-        super(dimension, pos, beginAnnouncement, server);
+        super(dimension, pos, beginAnnouncement, endAnnouncement, overTimeAnnouncement, server, summonPosList);
         this.mobName1 = mobName1;
         this.mobName2 = mobName2;
         this.eachMobDropList = eachMobDropList;
         this.summonPosList = summonPosList;
-    }
-
-    @Override
-    protected void beginAction() {
-        leftMobCount = 20;
-        super.beginAction();
     }
 
     @Override
@@ -72,20 +63,10 @@ public class VillageAttack extends KillMobEvent {
     protected void summonAndSetMobList() {
         for (int i = 0 ; i < 10 ; i ++) {
             Mob mob = setMobAttributesAndEquip();
-            mob.moveTo(summonPosList.get(random.nextInt(summonPosList.size())));
             mobList.add(mob);
-        }
-    }
-
-    @Override
-    protected void tick() {
-        while (leftMobCount > 0 && mobList.stream().filter(LivingEntity::isAlive).count() < 5) {
-            --leftMobCount;
-            Mob mob = setMobAttributesAndEquip();
             mob.moveTo(summonPosList.get(random.nextInt(summonPosList.size())));
-            mobList.add(mob);
+            level.addFreshEntity(mob);
         }
-        super.tick();
     }
 
     protected Mob setMobAttributesAndEquip() {
@@ -107,13 +88,12 @@ public class VillageAttack extends KillMobEvent {
             mob.setItemInHand(InteractionHand.MAIN_HAND, Items.IRON_AXE.getDefaultInstance());
             MobSpawn.setMobDropList(mob, eachMobDropList);
         }
-        mob.addEffect(new MobEffectInstance(MobEffects.GLOWING));
+        mob.addEffect(new MobEffectInstance(MobEffects.GLOWING, 8888));
         return mob;
     }
 
     @Override
-    protected boolean endCondition() {
-        if (leftMobCount > 0) return false;
-        return super.endCondition();
+    protected int getTotalMobCount() {
+        return 20;
     }
 }

@@ -17,8 +17,9 @@ import net.minecraft.world.phys.Vec3;
 import java.util.List;
 
 public class CaveSpiderMultiMobEvent extends MultiMobEvent {
-    public CaveSpiderMultiMobEvent(ResourceKey<Level> dimension, Vec3 pos, List<Component> beginAnnouncement, MinecraftServer server, List<Vec3> summonPosList) {
-        super(dimension, pos, beginAnnouncement, server, summonPosList);
+    public CaveSpiderMultiMobEvent(ResourceKey<Level> dimension, Vec3 pos, List<Component> beginAnnouncement,
+                                   List<Component> endAnnouncement, MinecraftServer server, List<Vec3> summonPosList) {
+        super(dimension, pos, beginAnnouncement, endAnnouncement, server, summonPosList);
     }
 
     @Override
