@@ -30,9 +30,10 @@ public class SingleItemChangeScreen extends Screen {
 
     private final List<SingleItemChangeRecipe> recipeList;
 
-    public SingleItemChangeScreen(List<SingleItemChangeRecipe> recipeList) {
+    public SingleItemChangeScreen(List<SingleItemChangeRecipe> recipeList, int page) {
         super(Component.translatable("menu.single_item_change"));
         this.recipeList = recipeList;
+        this.page = page;
     }
 
     protected void init() {
@@ -41,11 +42,17 @@ public class SingleItemChangeScreen extends Screen {
 
     private void createMenu() {
         this.addRenderableWidget(Button.builder(Component.translatable("←"), (p_280814_) -> {
-            if (page > 0) page--;
+            if (page > 0) {
+                page--;
+                mc.setScreen(new SingleItemChangeScreen(recipeList, page));
+            }
         }).pos(this.width / 2 - 39 + 5, this.height / 2 - 20 + 97).size(20, 20).build());
 
         this.addRenderableWidget(Button.builder(Component.translatable("→"), (p_280814_) -> {
-            if (page < (recipeList.size() - 1) / 10) page++;
+            if (page < (recipeList.size() - 1) / 10) {
+                page++;
+                mc.setScreen(new SingleItemChangeScreen(recipeList, page));
+            }
         }).pos(this.width / 2 + 20 - 4, this.height / 2 - 20 + 97).size(20, 20).build());
 
         this.addRenderableWidget(Button.builder(Component.translatable("x"), (p_280814_) -> {

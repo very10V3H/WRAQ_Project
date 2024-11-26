@@ -6,6 +6,6 @@ import fun.wraq.render.gui.trade.SingleItemChangeScreen;
 public class EndlessCoreScreen extends SingleItemChangeScreen {
 
     public EndlessCoreScreen() {
-        super(SingleItemChangeRecipe.endlessCoreStoreRecipe);
+        super(SingleItemChangeRecipe.endlessCoreStoreRecipe, 0);
     }
 }
