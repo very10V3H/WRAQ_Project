@@ -1098,6 +1098,14 @@ public class Compute {
     }
 
     public static void summonValueItemEntity(Level level, Player player, Mob mob, Component component, int type) {
+        if (Utils.valueItemEntity.size() > 100) {
+            for (int i = 0 ; i < 50 ; i ++) {
+                ItemEntityAndResetTime itemEntityAndResetTime = Utils.valueItemEntity.poll();
+                if (itemEntityAndResetTime != null) {
+                    itemEntityAndResetTime.getItemEntity().remove(Entity.RemovalReason.KILLED);
+                }
+            }
+        }
         Vec3 delta = player.position().subtract(mob.position());
         Vec3 delta0 = new Vec3(delta.x, 0, delta.z);
         ItemEntity itemEntity = new ItemEntity(EntityType.ITEM, level);

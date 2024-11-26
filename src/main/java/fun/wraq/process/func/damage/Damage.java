@@ -508,6 +508,7 @@ public class Damage {
                 LogUtils.getLogger().info("{} {} {}", player.getName().getString(), Utils.LogTypes.killed, mob.getName().getString());
 
                 mob.kill();
+                mob.setHealth((float) (mob.getHealth() - finalDamage));
                 CompoundTag data = player.getPersistentData();
 
                 MobSpawn.drop(mob, player);
