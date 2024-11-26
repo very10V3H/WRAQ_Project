@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class TabooManaArmor extends WraqArmor implements OnCostManaEquip, InCuriosOrEquipSlotAttributesModify, ForgeItem {
 
@@ -72,7 +73,7 @@ public class TabooManaArmor extends WraqArmor implements OnCostManaEquip, InCuri
 
     @Override
     public void onCostMana(Player player, double costManaValue) {
-        if (!nearCostListMap.containsKey(player)) nearCostListMap.put(player, new ArrayList<>());
+        if (!nearCostListMap.containsKey(player)) nearCostListMap.put(player, new CopyOnWriteArrayList<>());
         List<NearCostMana> list = nearCostListMap.get(player);
         list.add(new NearCostMana(Tick.get() + 100, costManaValue));
         if (getStoredTotalValue(player) * 0.04 >= 1) {
