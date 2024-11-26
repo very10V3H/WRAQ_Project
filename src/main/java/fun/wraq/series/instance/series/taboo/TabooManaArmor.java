@@ -19,9 +19,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class TabooManaArmor extends WraqArmor implements OnCostManaEquip, InCuriosOrEquipSlotAttributesModify, ForgeItem {
 
@@ -68,7 +68,7 @@ public class TabooManaArmor extends WraqArmor implements OnCostManaEquip, InCuri
 
     public record NearCostMana(int tick, double value) {}
 
-    public static Map<Player, List<NearCostMana>> nearCostListMap = new HashMap<>();
+    public static Map<Player, List<NearCostMana>> nearCostListMap = new ConcurrentHashMap<>();
 
     @Override
     public void onCostMana(Player player, double costManaValue) {
@@ -76,7 +76,7 @@ public class TabooManaArmor extends WraqArmor implements OnCostManaEquip, InCuri
         List<NearCostMana> list = nearCostListMap.get(player);
         list.add(new NearCostMana(Tick.get() + 100, costManaValue));
         if (getStoredTotalValue(player) * 0.04 >= 1) {
-            Compute.sendEffectLastTime(player, this, (int) (getStoredTotalValue(player) * 0.04), true);
+            Compute.sendEffectLastTime(player, this, 100, (int) (getStoredTotalValue(player) * 0.04), false);
         }
     }
 
