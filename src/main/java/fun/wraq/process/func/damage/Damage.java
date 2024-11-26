@@ -29,6 +29,7 @@ import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.element.equipAndCurios.fireElement.FireEquip;
 import fun.wraq.process.system.endlessinstance.DailyEndlessInstance;
 import fun.wraq.process.system.randomevent.RandomEventsHandler;
+import fun.wraq.process.system.randomevent.impl.killmob.multi.SlimeKingEvent;
 import fun.wraq.process.system.teamInstance.NewTeamInstanceEvent;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.newrunes.chapter2.HuskNewRune;
@@ -489,6 +490,7 @@ public class Damage {
             if (entity instanceof Villager) return;
             if (mob.isDeadOrDying()) return;
             if (DailyEndlessInstance.prohibitPlayerCauseDamage(player, mob)) return;
+            if (SlimeKingEvent.isSlimeKing(mob)) return;
             /*Castle.CauseDamageRecord(player, mob); */
             if (MoonInstance.isMoonAttackImmune(player, (Mob) entity)) damage *= 0.5;
             if (MoonInstance.isMoonManaImmune(player, (Mob) entity)) damage *= 0.5;

@@ -1,11 +1,11 @@
-package fun.wraq.process.system.randomevent.impl.killmob;
+package fun.wraq.process.system.randomevent.impl.killmob.village;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
-import fun.wraq.process.system.randomevent.KillMobEvent;
+import fun.wraq.process.system.randomevent.impl.killmob.KillMobEvent;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
@@ -14,6 +14,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.Pillager;
 import net.minecraft.world.entity.monster.Vindicator;
@@ -78,12 +79,13 @@ public class VillageAttack extends KillMobEvent {
 
     @Override
     protected void tick() {
-        while (leftMobCount > 0 && mobList.stream().filter(mob -> !mob.isAlive()).count() > 5) {
-            leftMobCount--;
+        while (leftMobCount > 0 && mobList.stream().filter(LivingEntity::isAlive).count() < 5) {
+            --leftMobCount;
             Mob mob = setMobAttributesAndEquip();
             mob.moveTo(summonPosList.get(random.nextInt(summonPosList.size())));
             mobList.add(mob);
         }
+        super.tick();
     }
 
     protected Mob setMobAttributesAndEquip() {
@@ -107,5 +109,11 @@ public class VillageAttack extends KillMobEvent {
         }
         mob.addEffect(new MobEffectInstance(MobEffects.GLOWING));
         return mob;
+    }
+
+    @Override
+    protected boolean endCondition() {
+        if (leftMobCount > 0) return false;
+        return super.endCondition();
     }
 }

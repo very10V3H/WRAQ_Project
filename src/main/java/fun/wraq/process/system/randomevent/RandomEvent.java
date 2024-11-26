@@ -2,6 +2,7 @@ package fun.wraq.process.system.randomevent;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
@@ -28,6 +29,7 @@ public abstract class RandomEvent {
     protected boolean isCarryingOut = false;
     protected final MinecraftServer server;
     protected final Level level;
+    protected int beginTick;
 
     public RandomEvent(ResourceKey<Level> dimension, Vec3 pos, List<Component> beginAnnouncement, MinecraftServer server) {
         this.dimension = dimension;
@@ -44,6 +46,7 @@ public abstract class RandomEvent {
 
     public void begin() {
         isCarryingOut = true;
+        beginTick = Tick.get();
         server.getPlayerList().getPlayers().forEach(serverPlayer -> {
             beginAnnouncement.forEach(serverPlayer::sendSystemMessage);
         });

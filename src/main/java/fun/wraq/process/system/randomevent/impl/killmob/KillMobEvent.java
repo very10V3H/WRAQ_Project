@@ -1,11 +1,15 @@
-package fun.wraq.process.system.randomevent;
+package fun.wraq.process.system.randomevent.impl.killmob;
 
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.process.func.item.InventoryOperation;
+import fun.wraq.process.system.randomevent.RandomEvent;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -23,8 +27,7 @@ public abstract class KillMobEvent extends RandomEvent {
     // 前期的事件主要掉落水晶碎片、金币、声望、启示之书等物品
 
     // 雨林村遇袭事件 - 掠夺者（前期）√
-    // 炼魔平原大量刷怪事件 - 炽魂（前期）
-    // 纽维庙洞穴蜘蛛大量刷怪事件 - 洞穴蜘蛛（前期）
+    // 纽维庙洞穴蜘蛛大量刷怪事件 - 洞穴蜘蛛（前期）√
     // 旭升岛海盗事件 - 掠夺者（前期）√
     // 海岸村遇袭事件 - 掠夺者（前期）√
     // 史莱姆王事件 - 大史莱姆（前期）
@@ -46,6 +49,17 @@ public abstract class KillMobEvent extends RandomEvent {
             return;
         }
         summonAndSetMobList();
+    }
+
+    @Override
+    protected void tick() {
+        if (beginTick + 1200 * 5 < Tick.get()) {
+            List<Mob> leftAliveMobList = mobList.stream().filter(LivingEntity::isAlive).toList();
+            broad(Te.s("还有", leftAliveMobList.size() + "只", ChatFormatting.RED, "怪物存活，分别位于:"));
+            leftAliveMobList.forEach(mob -> {
+                broad(Te.s("" + mob.position()));
+            });
+        }
     }
 
     @Override
