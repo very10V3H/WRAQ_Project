@@ -1,13 +1,13 @@
 package fun.wraq.series.newrunes.chapter3;
 
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.equip.WraqCurios;
+import fun.wraq.common.impl.display.UsageOrGetWayDescriptionItem;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
-import fun.wraq.common.impl.display.UsageOrGetWayDescriptionItem;
-import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.newrunes.RuneItem;
 import net.minecraft.ChatFormatting;
@@ -21,8 +21,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class NetherNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDescriptionItem {
 
@@ -65,8 +64,12 @@ public class NetherNewRune extends WraqCurios implements RuneItem, UsageOrGetWay
         return ComponentUtils.getSuffixOfNether();
     }
 
+    public static WeakHashMap<Mob, Boolean> trigMob = new WeakHashMap<>();
+
     public static void onKill(Player player, Mob mob) {
         if (!WraqCurios.isOn(NetherNewRune.class, player)) return;
+        if (trigMob.containsKey(mob)) return;
+        trigMob.put(mob, true);
         List<Mob> mobList = mob.level().getEntitiesOfClass(Mob.class, AABB.ofSize(mob.position(), 6, 6, 6));
         List<Player> players = mob.level().getEntitiesOfClass(Player.class, AABB.ofSize(mob.position(), 16, 16, 16));
         ParticleProvider.createSpaceRangeParticle((ServerLevel) player.level(), mob.position(), 3, 10, ParticleTypes.FLAME);
