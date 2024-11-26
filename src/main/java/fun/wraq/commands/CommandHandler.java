@@ -578,5 +578,20 @@ public class CommandHandler {
                         ).requires(commandSourceStack -> commandSourceStack.hasPermission(0))
                 )
         );
+        CommandDispatcher<CommandSourceStack> dispatcher62 = event.getDispatcher();
+        LiteralCommandNode<CommandSourceStack> cmd62 = dispatcher62.register(
+                Commands.literal(Utils.MOD_ID).then(
+                        Commands.literal("rankItem").then(
+                                Commands.argument("player", GameProfileArgument.gameProfile()).then(
+                                        Commands.argument("rankOrigin", StringArgumentType.string()).then(
+                                                Commands.argument("rankBound", StringArgumentType.string()).then(
+                                                        Commands.argument("itemType", IntegerArgumentType.integer(0, 2))
+                                                                .executes(RankItemCommand.instance)
+                                                )
+                                        )
+                                )
+                        ).requires(commandSourceStack -> commandSourceStack.hasPermission(2))
+                )
+        );
     }
 }

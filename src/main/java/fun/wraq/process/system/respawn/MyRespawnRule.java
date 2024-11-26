@@ -47,6 +47,7 @@ public class MyRespawnRule {
         add(new SpawnPoint(2417, 152, -1372, 0, Component.literal("暗黑城堡").withStyle(CustomStyle.styleOfCastle)));
         add(new SpawnPoint(1883, 147, -461, 0, Component.literal("月影坡").withStyle(CustomStyle.styleOfMoon)));
         add(new SpawnPoint(1921, 151, -936, 0, Component.literal("望山据点").withStyle(CustomStyle.styleOfMoontain)));
+        add(new SpawnPoint(1808, 74, 339, 90, Component.literal("旭升岛").withStyle(CustomStyle.styleOfSunIsland)));
     }};
 
     public static void setPlayerSpawnPoint(Player player) {

@@ -1412,8 +1412,6 @@ public class PlayerAttributes {
         maxHealth += PlainArmorHelmet.exMaxHealth(player);
         // 请在上方添加
         maxHealth *= Compute.playerFantasyAttributeEnhance(player);
-        maxHealth *= (1 + Compute.CuriosAttribute.attributeValue(player, Utils.percentMaxHealthEnhance,
-                StringUtils.CuriosAttribute.percentMaxHealthEnhance)); // 新版饰品属性加成
         maxHealth *= (1 + GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.percentMaxHealthEnhance) +
                 Compute.CuriosAttribute.attributeValue(player, Utils.percentMaxHealthEnhance,
                 StringUtils.CuriosAttribute.percentMaxHealthEnhance));

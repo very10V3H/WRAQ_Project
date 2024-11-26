@@ -323,7 +323,7 @@ public class GemItems {
 
     public static final RegistryObject<Item> DISMANTLE = ITEMS.register("dismantle",
             () -> new WraqItem(new Item.Properties().rarity(Rarity.UNCOMMON), false, false, List.of(
-                    Te.s("用于", "武器宝石孔 - 1 + 防具宝石孔 - 1", ChatFormatting.LIGHT_PURPLE, "的宝石拆卸")
+                    Te.s("用于", "任意孔位宝石拆卸", ChatFormatting.LIGHT_PURPLE)
             )));
 
     public static final RegistryObject<Item> DISMANTLE_GOLDEN = ITEMS.register("dismantle_golden",

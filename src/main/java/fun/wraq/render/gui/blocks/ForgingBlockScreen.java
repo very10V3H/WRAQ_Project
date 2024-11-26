@@ -170,12 +170,6 @@ public class ForgingBlockScreen extends AbstractContainerScreen<fun.wraq.render.
             }
         }
 
-        guiGraphics.drawString(fontRenderer, Te.s("?锻造品质", ChatFormatting.GREEN),
-                X + offsetX + 135, Y + offsetY, 0);
-        if (mouseX > X + offsetX + 135 && mouseX < X + offsetX + 200 + 28 && mouseY > Y + offsetY - 6 && mouseY < Y + offsetY + 12) {
-            guiGraphics.renderComponentTooltip(fontRenderer, ForgeEquipUtils.getTierAndValueDescription(), mouseX, mouseY);
-        }
-
         ItemStack stone = this.getMenu().blockEntity.getItemStackHandler().getStackInSlot(0);
         ItemStack equip = this.getMenu().blockEntity.getItemStackHandler().getStackInSlot(1);
         ItemStack enhancePaper = this.getMenu().blockEntity.getItemStackHandler().getStackInSlot(3);
@@ -223,6 +217,12 @@ public class ForgingBlockScreen extends AbstractContainerScreen<fun.wraq.render.
                 guiGraphics.drawString(fontRenderer, Component.literal("成功率:").withStyle(ChatFormatting.WHITE).
                                 append(Component.literal(String.format("%.2f%%", successRate * 100)).withStyle(ChatFormatting.AQUA))
                         , X + offsetX + 135, Y + offsetY, 0);
+            }
+        } else {
+            guiGraphics.drawString(fontRenderer, Te.s("?锻造品质", ChatFormatting.GREEN),
+                    X + offsetX + 135, Y + offsetY, 0);
+            if (mouseX > X + offsetX + 135 && mouseX < X + offsetX + 200 + 28 && mouseY > Y + offsetY - 6 && mouseY < Y + offsetY + 12) {
+                guiGraphics.renderComponentTooltip(fontRenderer, ForgeEquipUtils.getTierAndValueDescription(), mouseX, mouseY);
             }
         }
     }

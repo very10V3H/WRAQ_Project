@@ -36,7 +36,7 @@ public class DevilPowerCurio extends WraqCurios {
                 "50%最终伤害加成", hoverMainStyle()));
         components.add(Te.s(" 每", "10000总击杀数", hoverMainStyle(), "提供", "0.5%最终伤害加成", hoverMainStyle()));
         components.add(Te.s(" 当前提供的", "最终伤害加成", hoverMainStyle(), ": ",
-                String.format("%.2f%%", Math.min(0.5, clientTotalKillCount / 20000d)), hoverMainStyle()));
+                String.format("%.2f%%", Math.min(50, clientTotalKillCount / 20000d)), hoverMainStyle()));
         components.add(Te.s(" 总击杀数: ", String.valueOf(clientTotalKillCount), hoverMainStyle()));
         return components;
     }

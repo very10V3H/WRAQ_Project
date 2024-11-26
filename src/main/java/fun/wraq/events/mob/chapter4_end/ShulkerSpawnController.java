@@ -43,7 +43,8 @@ public class ShulkerSpawnController extends MobSpawnController {
 
     public ShulkerSpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpZ,
                                    int boundaryDownX, int boundaryDownZ, Level level, int averageLevel) {
-        super(Te.s("寂域遗骸", CustomStyle.styleOfEnd), canSpawnPos, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, level, averageLevel);
+        super(Te.s("寂域遗骸", CustomStyle.styleOfEnd), canSpawnPos, boundaryUpX, boundaryUpZ,
+                boundaryDownX, boundaryDownZ, level, averageLevel);
     }
 
     @Override

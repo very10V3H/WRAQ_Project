@@ -15,7 +15,6 @@ import net.minecraft.world.entity.player.Player;
 public class IgnoreMSGCommand implements Command<CommandSourceStack> {
     public static IgnoreMSGCommand instance = new IgnoreMSGCommand();
 
-
     @Override
     public int run(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         Player player = context.getSource().getPlayer();

@@ -129,16 +129,29 @@ public class InventoryOperation {
                 itemEntity.setItem(itemStack);
                 itemEntity.moveTo(player.position());
                 player.level().addFreshEntity(itemEntity);
-                Compute.sendFormatMSG(player, Component.literal("物品").withStyle(ChatFormatting.GREEN),
-                        Te.s("背包已无空位，请注意。无法放入背包的物品将掉落在地上"));
+                if (!Compute.PlayerIgnore.ignoreItemGet(player)) {
+                    Compute.sendFormatMSG(player, Component.literal("物品").withStyle(ChatFormatting.GREEN),
+                            Te.s("背包已无空位，请注意。无法放入背包的物品将掉落在地上"));
+                }
             }
         }
     }
 
     public static void itemStackGiveWithMSG(Player player, ItemStack itemStack) {
-        Compute.sendFormatMSG(player, Te.s("物品", ChatFormatting.GREEN),
-                Te.s("你获得了", itemStack.getDisplayName(), " * " + itemStack.getCount(), ChatFormatting.AQUA));
+        if (!Compute.PlayerIgnore.ignoreItemGet(player)) {
+            Compute.sendFormatMSG(player, Te.s("物品", ChatFormatting.GREEN),
+                    Te.s("你获得了", itemStack.getDisplayName(), " * " + itemStack.getCount(), ChatFormatting.AQUA));
+        }
         itemStackGive(player, itemStack);
+    }
+
+    public static void itemStackGiveWithMSGByBatch(Player player, ItemStack itemStack) {
+        Item item = itemStack.getItem();
+        int count = itemStack.getCount();
+        for (int i = 0 ; i < count / 64 ; i ++) {
+            itemStackGiveWithMSG(player, new ItemStack(item, 64));
+        }
+        itemStackGiveWithMSG(player, new ItemStack(item, count % 64));
     }
 
     public static void itemStackGiveWithMSG(Player player, Item item) {

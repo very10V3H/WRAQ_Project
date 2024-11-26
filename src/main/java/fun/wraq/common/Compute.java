@@ -565,7 +565,7 @@ public class Compute {
     }
 
     public static class PlayerIgnore {
-        public static boolean IgnoreItemGet(Player player) {
+        public static boolean ignoreItemGet(Player player) {
             return player.getPersistentData().contains(StringUtils.IgnoreType.ItemGet)
                     && player.getPersistentData().getBoolean(StringUtils.IgnoreType.ItemGet);
         }
