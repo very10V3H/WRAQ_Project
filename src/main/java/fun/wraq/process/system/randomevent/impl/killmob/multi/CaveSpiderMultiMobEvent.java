@@ -18,8 +18,8 @@ import java.util.List;
 
 public class CaveSpiderMultiMobEvent extends MultiMobEvent {
     public CaveSpiderMultiMobEvent(ResourceKey<Level> dimension, Vec3 pos, List<Component> beginAnnouncement,
-                                   List<Component> endAnnouncement, MinecraftServer server, List<Vec3> summonPosList) {
-        super(dimension, pos, beginAnnouncement, endAnnouncement, server, summonPosList);
+                                   List<Component> endAnnouncement, List<Component> overTimeAnnouncement, MinecraftServer server, List<Vec3> summonPosList) {
+        super(dimension, pos, beginAnnouncement, endAnnouncement, overTimeAnnouncement, server, summonPosList);
     }
 
     @Override

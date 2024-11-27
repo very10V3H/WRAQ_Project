@@ -5,6 +5,7 @@ import fun.wraq.blocks.blocks.WorldSoulBlock;
 import fun.wraq.blocks.entity.Droppable;
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModBlocks;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
@@ -19,6 +20,7 @@ import fun.wraq.process.system.bonuschest.BonusChestInfo;
 import fun.wraq.process.system.bonuschest.BonusChestPlayerData;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.process.system.forge.ForgeHammer;
+import fun.wraq.process.system.randomevent.RandomEventsHandler;
 import fun.wraq.process.system.smelt.Smelt;
 import fun.wraq.process.system.spur.events.CropSpur;
 import fun.wraq.process.system.spur.events.MineSpur;
@@ -43,6 +45,7 @@ import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.PlayerContainerEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -73,6 +76,9 @@ public class BlockEvent {
                 (block.toString().contains("lamp")
                         || block.toString().contains("sign"))) {
             event.setCanceled(true);
+        }
+        if (block instanceof BonemealableBlock || block instanceof IPlantable) {
+            player.sendSystemMessage(Te.s("1"));
         }
     }
 
@@ -301,6 +307,7 @@ public class BlockEvent {
     @SubscribeEvent
     public static void Dig(net.minecraftforge.event.level.BlockEvent.BreakEvent event) {
         if (!event.getPlayer().isCreative() && !event.getState().is(Blocks.FIRE)) event.setCanceled(true);
+        RandomEventsHandler.onBreakBlock(event.getPlayer(), event.getPos());
         MineSpur.mineEvent(event);
         WoodSpur.woodEvent(event);
         CropSpur.cropsInteract(event);

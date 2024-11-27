@@ -31,7 +31,8 @@ public abstract class MultiMobEvent extends KillMobEvent {
         for (int i = 0 ; i < 10 ; i ++) {
             Mob mob = setMobAttributesAndEquip();
             mobList.add(mob);
-            mob.moveTo(summonPosList.get(random.nextInt(summonPosList.size())));
+            mob.moveTo(summonPosList.get(random.nextInt(summonPosList.size()))
+                    .add(3 - random.nextDouble(6), 0, 3 - random.nextDouble(6)));
             level.addFreshEntity(mob);
         }
     }
@@ -42,16 +43,17 @@ public abstract class MultiMobEvent extends KillMobEvent {
             --leftMobCount;
             Mob mob = setMobAttributesAndEquip();
             mobList.add(mob);
-            mob.moveTo(summonPosList.get(random.nextInt(summonPosList.size())));
+            mob.moveTo(summonPosList.get(random.nextInt(summonPosList.size()))
+                    .add(3 - random.nextDouble(6), 0, 3 - random.nextDouble(6)));
             level.addFreshEntity(mob);
         }
         super.tick();
     }
 
     @Override
-    protected boolean endCondition() {
+    protected boolean finishCondition() {
         if (leftMobCount > 0) return false;
-        return super.endCondition();
+        return super.finishCondition();
     }
 
     protected abstract Mob setMobAttributesAndEquip();
@@ -64,7 +66,7 @@ public abstract class MultiMobEvent extends KillMobEvent {
     }
 
     @Override
-    protected void reset() {
+    public void reset() {
         leftMobCount = 0;
         super.reset();
     }

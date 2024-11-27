@@ -1,23 +1,45 @@
 package fun.wraq.process.system.randomevent;
 
+import biomesoplenty.api.block.BOPBlocks;
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.fast.Tick;
+import fun.wraq.process.system.randomevent.impl.dig.DigBlockEvent;
 import fun.wraq.process.system.randomevent.impl.killmob.KillMobEvent;
 import fun.wraq.process.system.randomevent.impl.killmob.SlimeKingEvent;
 import fun.wraq.process.system.randomevent.impl.killmob.multi.CaveSpiderMultiMobEvent;
 import fun.wraq.process.system.randomevent.impl.killmob.multi.VillageAttack;
+import fun.wraq.process.system.randomevent.impl.urgent.UrgentEvent;
 import fun.wraq.render.toolTip.CustomStyle;
+import net.minecraft.core.BlockPos;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class RandomEventsHandler {
 
     public static MinecraftServer server;
+
+    public static List<RandomEvent> randomEvents = new ArrayList<>();
+
+    public static void initRandomEvents() {
+        randomEvents.addAll(getKillMobEvents());
+        randomEvents.addAll(getUrgentEvents());
+        randomEvents.addAll(getDigBlockEvents());
+    }
+
+    public static List<RandomEvent> getRandomEvents() {
+        if (randomEvents.isEmpty()) {
+            initRandomEvents();
+        }
+        return randomEvents;
+    }
 
     public static List<KillMobEvent> killMobEvents = new ArrayList<>();
 
@@ -35,7 +57,11 @@ public class RandomEventsHandler {
         ), server, "雨林村掠夺者弩手", "雨林村掠夺者斧卫", List.of(
 
         ), List.of(
-                new Vec3(1144, 79, 40)
+                new Vec3(1119, 82, 40),
+                new Vec3(1131, 80, 45),
+                new Vec3(1141, 79, 46),
+                new Vec3(1144, 79, 40),
+                new Vec3(1137, 80, 35)
         )));
 
         killMobEvents.add(new VillageAttack(Level.OVERWORLD, new Vec3(846, 63, -423), List.of(
@@ -51,7 +77,12 @@ public class RandomEventsHandler {
         ), server, "海岸村掠夺者弩手", "海岸村掠夺者斧卫", List.of(
 
         ), List.of(
-                new Vec3(846, 63, -423)
+                new Vec3(846, 63, -423),
+                new Vec3(849, 64, -429),
+                new Vec3(854, 63, -423),
+                new Vec3(853, 63, -414),
+                new Vec3(865, 64, -429),
+                new Vec3(874, 62, -422)
         )));
 
         killMobEvents.add(new VillageAttack(Level.OVERWORLD, new Vec3(1814, 67, 400), List.of(
@@ -67,7 +98,12 @@ public class RandomEventsHandler {
         ), server, "旭升岛海盗弩手", "旭升岛海盗斧卫", List.of(
 
         ), List.of(
-                new Vec3(1814, 67, 400)
+                new Vec3(1814, 67, 400),
+                new Vec3(1798, 66, 388),
+                new Vec3(1816, 67, 390),
+                new Vec3(1808, 67, 392),
+                new Vec3(1801, 66, 398),
+                new Vec3(1809, 67, 399)
         )));
 
         killMobEvents.add(new CaveSpiderMultiMobEvent(Level.OVERWORLD, new Vec3(1280, 82, 208), List.of(
@@ -75,7 +111,11 @@ public class RandomEventsHandler {
                         "附近"),
                 Te.s("击杀它们可以获取大量的奖励!")
         ), List.of(
-                Te.s("纽维庙", CustomStyle.styleOfLife, "里的", "洞穴蜘蛛", CustomStyle.styleOfLife, "")
+                Te.s("纽维庙", CustomStyle.styleOfLife, "里的泛滥的",
+                        "洞穴蜘蛛", CustomStyle.styleOfLife, "被清理干净了!")
+        ), List.of(
+                Te.s("纽维庙", CustomStyle.styleOfLife, "里的", "洞穴蜘蛛", CustomStyle.styleOfLife, "泛滥成灾"),
+                Te.s("不知道今晚睡觉会不会跑去找你呢？")
         ), server, List.of(
                 new Vec3(1280, 82, 208)
         )));
@@ -97,11 +137,98 @@ public class RandomEventsHandler {
         return killMobEvents;
     }
 
+    public static List<UrgentEvent> urgentEvents = new ArrayList<>();
+
+    public static void initUrgentEvents() {
+        urgentEvents.add(new UrgentEvent(Level.OVERWORLD, new Vec3(1460, 74, -900), List.of(
+                Te.s("有物资被投放至", "炼雨湖心", CustomStyle.styleOfWater, "附近了，赶快去领取吧!")
+        ), List.of(
+                Te.s("炼雨湖心", CustomStyle.styleOfWater, "的物资已被领取完毕")
+        ), server));
+
+        urgentEvents.add(new UrgentEvent(Level.OVERWORLD, new Vec3(2132, 304, -228), List.of(
+                Te.s("有物资被投放至", "朔山", CustomStyle.styleOfMoon1, "附近了，赶快去领取吧!")
+        ), List.of(
+                Te.s("朔山", CustomStyle.styleOfMoon1, "的物资已被领取完毕")
+        ), server));
+
+        urgentEvents.add(new UrgentEvent(Level.OVERWORLD, new Vec3(1390, 81, -262), List.of(
+                Te.s("有物资被投放至", "唤魔庙", CustomStyle.styleOfMana, "附近了，赶快去领取吧!")
+        ), List.of(
+                Te.s("唤魔庙", CustomStyle.styleOfMana, "的物资已被领取完毕")
+        ), server));
+
+        urgentEvents.add(new UrgentEvent(Level.OVERWORLD, new Vec3(754, 181, -86), List.of(
+                Te.s("有物资被投放至", "德朗斯蒂克高原", CustomStyle.styleOfPlain, "附近了，赶快去领取吧!")
+        ), List.of(
+                Te.s("德朗斯蒂克高原", CustomStyle.styleOfPlain, "的物资已被领取完毕")
+        ), server));
+    }
+
+    public static List<UrgentEvent> getUrgentEvents() {
+        if (urgentEvents.isEmpty()) {
+            initUrgentEvents();
+        }
+        return urgentEvents;
+    }
+
+    public static List<DigBlockEvent> digBlockEvents = new ArrayList<>();
+
+    public static void initDigBlockEvents() {
+        digBlockEvents.add(new DigBlockEvent(Level.OVERWORLD, new Vec3(1534, 81, 305), List.of(
+                Te.s("炼魔平原", CustomStyle.styleOfMana, "附近地面", "析出", CustomStyle.styleOfMana,
+                        "了一大片", "魔源晶石", CustomStyle.styleOfMana),
+                Te.s("速速前往清理它们吧！")
+        ), List.of(
+                Te.s("你们成功清理了", "炼魔平原", CustomStyle.styleOfMana, "的", "析出魔晶", CustomStyle.styleOfMana),
+                Te.s("天空城", CustomStyle.styleOfSky, "给予了你们丰厚的奖赏!")
+        ), List.of(
+                Te.s("炼魔平原", CustomStyle.styleOfMana, "的", "析出魔晶", CustomStyle.styleOfMana, "再次溶解进了地下")
+        ), server, List.of(
+                Blocks.AMETHYST_BLOCK
+        )));
+
+        digBlockEvents.add(new DigBlockEvent(Level.OVERWORLD, new Vec3(1074, 77, -1260), List.of(
+                Te.s("薰曦村", CustomStyle.styleOfJacaranda, "东南侧的",
+                        "薰衣草", CustomStyle.styleOfJacaranda, "长得太多了，居民们正在为之苦恼"),
+                Te.s("热心的你还不快去帮他们清理吗？")
+        ), List.of(
+                Te.s("你们成功清理了", "薰曦村", CustomStyle.styleOfJacaranda, "东南侧泛滥的",
+                        "薰衣草", CustomStyle.styleOfJacaranda),
+                Te.s("居民们给予了你们丰厚的奖赏!")
+        ), List.of(
+                Te.s("薰曦村", CustomStyle.styleOfJacaranda, "东南侧的",
+                        "薰衣草", CustomStyle.styleOfJacaranda, "泛滥成灾了")
+        ), server, List.of(
+                BOPBlocks.LAVENDER.get()
+        )));
+    }
+
+    public static List<DigBlockEvent> getDigBlockEvents() {
+        if (digBlockEvents.isEmpty()) {
+            initDigBlockEvents();
+        }
+        return digBlockEvents;
+    }
+
     public static void tick() {
-        getKillMobEvents().forEach(RandomEvent::handleTick);
+        getRandomEvents().stream().filter(event -> event.isCarryingOut).forEach(RandomEvent::handleTick);
+        if (Tick.get() != 0 && Tick.get() % 9600 == 0) {
+            Random random = new Random();
+            RandomEvent randomEvent = getRandomEvents().get(random.nextInt(getRandomEvents().size()));
+            randomEvent.setWorldSoul5Reward(random.nextDouble() < 0.2);
+            randomEvent.begin();
+        }
     }
 
     public static void onKillMob(Player player, Mob mob) {
-        getKillMobEvents().forEach(event -> event.onKillMob(player, mob));
+        getKillMobEvents().stream().filter(event -> event.isCarryingOut).forEach(event -> event.onKillMob(player, mob));
+    }
+
+    public static void onBreakBlock(Player player, BlockPos blockPos) {
+        if (getDigBlockEvents().stream().anyMatch(event -> event.blockPosSet.contains(blockPos))) {
+            getDigBlockEvents().stream().filter(event -> event.isCarryingOut)
+                    .forEach(event -> event.onBreakBlock(player, blockPos));
+        }
     }
 }

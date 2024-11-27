@@ -54,34 +54,10 @@ public class FireWorkGun extends Item implements ActiveItem {
     }
 
     public static void RandomSummonFireworkRocket(Level level, Player player) {
+        Random random = new Random();
         for (int i = 0; i < 2; i++) {
-            CompoundTag compoundTag = new CompoundTag();
-            byte a = 1;
-            byte[] bytes = {0, 1, 2, 3, 4};
-            String[] strings = {
-                    "SMALL_BALL",
-                    "LARGE_BALL",
-                    "CREEPER",
-                    "STAR",
-                    "BURST"
-            };
-            Random random = new Random();
-            compoundTag.putByte("Type", a);
-            compoundTag.putByte("Trail", a);
-            compoundTag.putIntArray("Colors", new int[]{14602026, 15790320});
-            compoundTag.putByte("Flicker", a);
-            compoundTag.putIntArray("FadeColors", new int[]{random.nextInt(20000000)});
-            compoundTag.putString("forge:shape_type", strings[random.nextInt(5)]);
-            ItemStack itemStack = new ItemStack(Items.FIREWORK_ROCKET);
-            itemStack.getOrCreateTagElement("Fireworks").putByte("Flight", bytes[random.nextInt(1, 3)]);
-            ListTag listTag = new ListTag();
-            listTag.add(compoundTag);
-            itemStack.getOrCreateTagElement("Fireworks").put("Explosions", listTag);
-
-            FireworkRocketEntity fireworkRocketEntity = new FireworkRocketEntity(level,
-                    player, player.getX() + random.nextInt(10) - 5, player.getY() + 5,
-                    player.getZ() + random.nextInt(10) - 5, itemStack);
-            level.addFreshEntity(fireworkRocketEntity);
+            summonFireWork(level, new Vec3(player.getX() + random.nextInt(10) - 5, player.getY() + 5,
+                    player.getZ() + random.nextInt(10) - 5));
         }
     }
 
@@ -89,35 +65,38 @@ public class FireWorkGun extends Item implements ActiveItem {
     public void active(Player player) {
         Utils.PlayerFireWorkGunEffect.put(player, player.getServer().getTickCount() + 200);
         Compute.sendEffectLastTime(player, ModItems.FireWorkGun.get().getDefaultInstance(), 200);
-        for (int i = 0; i < 2; i++) {
-            CompoundTag compoundTag = new CompoundTag();
-            byte a = 1;
-            byte[] bytes = {0, 1, 2, 3, 4};
-            String[] strings = {
-                    "SMALL_BALL",
-                    "LARGE_BALL",
-                    "CREEPER",
-                    "STAR",
-                    "BURST"
-            };
-            Random random = new Random();
-            compoundTag.putByte("Type", a);
-            compoundTag.putByte("Trail", a);
-            compoundTag.putIntArray("Colors", new int[]{14602026, 15790320});
-            compoundTag.putByte("Flicker", a);
-            compoundTag.putIntArray("FadeColors", new int[]{random.nextInt(20000000)});
-            compoundTag.putString("forge:shape_type", strings[random.nextInt(5)]);
-            ItemStack itemStack = new ItemStack(Items.FIREWORK_ROCKET);
-            itemStack.getOrCreateTagElement("Fireworks").putByte("Flight", bytes[random.nextInt(1, 3)]);
-            ListTag listTag = new ListTag();
-            listTag.add(compoundTag);
-            itemStack.getOrCreateTagElement("Fireworks").put("Explosions", listTag);
-
-            Vec3 vec3 = player.pick(5, 0, false).getLocation();
-            FireworkRocketEntity fireworkRocketEntity = new FireworkRocketEntity(player.level(), player, vec3.x, vec3.y, vec3.z, itemStack);
-            player.level().addFreshEntity(fireworkRocketEntity);
-        }
+        Vec3 vec3 = player.pick(5, 0, false).getLocation();
+        summonFireWork(player.level(), vec3);
         player.getCooldowns().addCooldown(this, 20);
+    }
+
+    public static void summonFireWork(Level level, Vec3 pos) {
+        CompoundTag compoundTag = new CompoundTag();
+        byte a = 1;
+        byte[] bytes = {0, 1, 2, 3, 4};
+        String[] strings = {
+                "SMALL_BALL",
+                "LARGE_BALL",
+                "CREEPER",
+                "STAR",
+                "BURST"
+        };
+        Random random = new Random();
+        compoundTag.putByte("Type", a);
+        compoundTag.putByte("Trail", a);
+        compoundTag.putIntArray("Colors", new int[]{14602026, 15790320});
+        compoundTag.putByte("Flicker", a);
+        compoundTag.putIntArray("FadeColors", new int[]{random.nextInt(20000000)});
+        compoundTag.putString("forge:shape_type", strings[random.nextInt(5)]);
+        ItemStack itemStack = new ItemStack(Items.FIREWORK_ROCKET);
+        itemStack.getOrCreateTagElement("Fireworks").putByte("Flight", bytes[random.nextInt(1, 3)]);
+        ListTag listTag = new ListTag();
+        listTag.add(compoundTag);
+        itemStack.getOrCreateTagElement("Fireworks").put("Explosions", listTag);
+
+        FireworkRocketEntity fireworkRocketEntity = new FireworkRocketEntity(level, itemStack, pos.x, pos.y, pos.z, true);
+        fireworkRocketEntity.setDeltaMovement(0, 0.75, 0);
+        level.addFreshEntity(fireworkRocketEntity);
     }
 
     @Override

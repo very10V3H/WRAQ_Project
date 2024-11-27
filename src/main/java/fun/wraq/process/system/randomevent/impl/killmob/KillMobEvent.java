@@ -17,9 +17,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public abstract class KillMobEvent extends RandomEvent {
 
@@ -35,11 +33,10 @@ public abstract class KillMobEvent extends RandomEvent {
     // 史莱姆王事件 - 大史莱姆（前期）√
 
     protected List<Mob> mobList = new ArrayList<>();
-    protected Set<Player> players = new HashSet<>();
 
     public KillMobEvent(ResourceKey<Level> dimension, Vec3 pos, List<Component> beginAnnouncement,
-                        List<Component> endAnnouncement, List<Component> overTimeAnnouncement, MinecraftServer server) {
-        super(dimension, pos, beginAnnouncement, endAnnouncement, overTimeAnnouncement, server);
+                        List<Component> finishAnnouncement, List<Component> overTimeAnnouncement, MinecraftServer server) {
+        super(dimension, pos, beginAnnouncement, finishAnnouncement, overTimeAnnouncement, server);
     }
 
     protected abstract void summonAndSetMobList();
@@ -56,24 +53,31 @@ public abstract class KillMobEvent extends RandomEvent {
 
     @Override
     protected void tick() {
-        if (beginTick + 1200 * 5 < Tick.get()) {
+        if (isCarryingOut && Tick.get() % 200 == 0) {
             List<Mob> leftAliveMobList = mobList.stream().filter(LivingEntity::isAlive).toList();
-            broad(Te.s("还有", leftAliveMobList.size() + "只", ChatFormatting.RED, "怪物存活，分别位于:"));
-            leftAliveMobList.forEach(mob -> {
-                broad(Te.s("" + mob.position()));
+            players.forEach(player -> {
+                sendFormatMSG(player, Te.s("还有", leftAliveMobList.size() + "只", ChatFormatting.RED, "怪物存活，位于:"));
+                for (int i = 0; i < Math.min(5, leftAliveMobList.size()); i++) {
+                    Mob mob = leftAliveMobList.get(i);
+                    Vec3 pos = mob.position();
+                    sendFormatMSG(player, Te.s("(" + (int) pos.x + "," + (int) pos.y + "," + (int) pos.z + ")"));
+                }
+                if (leftAliveMobList.size() > 5) {
+                    sendFormatMSG(player, Te.s("..."));
+                }
             });
         }
     }
 
     @Override
-    protected boolean endCondition() {
+    protected boolean finishCondition() {
         return mobList.stream().allMatch(mob -> {
             return !mob.isAlive();
         });
     }
 
     @Override
-    protected void endAction() {
+    protected void finishAction() {
         List<ItemStack> rewardList = getRewardList();
         players.forEach(player -> {
             rewardList.forEach(stack -> {
@@ -81,14 +85,12 @@ public abstract class KillMobEvent extends RandomEvent {
             });
             additionReward(player);
         });
-        reset();
     }
 
     @Override
-    protected void reset() {
+    public void reset() {
         mobList.forEach(mob -> mob.remove(Entity.RemovalReason.KILLED));
         mobList.clear();
-        players.clear();
     }
 
     protected abstract List<ItemStack> getRewardList();
@@ -98,5 +100,10 @@ public abstract class KillMobEvent extends RandomEvent {
         if (mobList.contains(mob)) {
             players.add(player);
         }
+    }
+
+    @Override
+    protected String getDataKey() {
+        return "KILL_MOB_EVENT";
     }
 }

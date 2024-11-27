@@ -36,6 +36,7 @@ import fun.wraq.process.system.market.MarketInfo;
 import fun.wraq.process.system.ore.OreItems;
 import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.process.system.point.PointItems;
+import fun.wraq.process.system.randomevent.RandomEvent;
 import fun.wraq.process.system.randomevent.RandomEventsHandler;
 import fun.wraq.process.system.spur.Items.SpurItems;
 import fun.wraq.process.system.teamInstance.NewTeamInstance;
@@ -160,6 +161,7 @@ public class VMD {
     public static void serverStopEvent(ServerStoppingEvent event) throws SQLException {
         BlockEvent.mineAndWoodReset(event.getServer().getLevel(Level.OVERWORLD));
         MobSpawn.removeAllMob();
+        RandomEventsHandler.getRandomEvents().forEach(RandomEvent::reset);
 
         MarketInfo.marketItemInfoWrite(event.getServer().overworld());
         MarketInfo.marketProfitInfoWrite(event.getServer().overworld());

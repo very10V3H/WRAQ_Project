@@ -8,6 +8,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.entity.player.Player;
@@ -48,12 +49,14 @@ public class SlimeKingEvent extends KillMobEvent {
     @Override
     protected void tick() {
         if (slimeKing != null && slimeKing.isAlive()) {
+            smallSlimeList.removeIf(LivingEntity::isDeadOrDying);
             if (Tick.get() % 20 == 0 && smallSlimeList.size() < 2) {
                 Random random = new Random();
                 for (int i = 0 ; i < 8 ; i ++) {
                     Slime smallSlime = setSmallSlimeAttributes();
                     smallSlimeList.add(smallSlime);
-                    smallSlime.moveTo(slimeKing.position().add(4 - random.nextDouble(2), 1, 4 - random.nextDouble(2)));
+                    smallSlime.moveTo(slimeKing.position()
+                            .add(3 - random.nextDouble(6), 1, 3 - random.nextDouble(6)));
                     level.addFreshEntity(smallSlime);
                 }
             }
@@ -95,8 +98,8 @@ public class SlimeKingEvent extends KillMobEvent {
     }
 
     @Override
-    protected void endAction() {
+    protected void finishAction() {
         smallSlimeList.clear();
-        super.endAction();
+        super.finishAction();
     }
 }
