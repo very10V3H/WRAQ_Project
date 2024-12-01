@@ -86,7 +86,7 @@ public class Meteorite extends AbstractArrow implements GeoEntity {
                     case 0 -> {
                         mobList.forEach(mob -> {
                             if (mob.distanceTo(this) < 5) {
-/*                                LastDamage lastDamage = new LastDamage(player, mob, false, 80, 20, 0.3);
+/*                                LastDamage lastDamage = new LastDamage(player, livingEntity, false, 80, 20, 0.3);
                                 Utils.PlayerLastDamageToMonster.add(lastDamage);*/
                             }
                         });
@@ -101,7 +101,7 @@ public class Meteorite extends AbstractArrow implements GeoEntity {
                     case 2 -> {
                         mobList.forEach(mob -> {
                             if (mob.distanceTo(this) < 5) {
-/*                                LastDamage lastDamage = new LastDamage(player, mob, false, 80, 20, 0.35);
+/*                                LastDamage lastDamage = new LastDamage(player, livingEntity, false, 80, 20, 0.35);
                                 Utils.PlayerLastDamageToMonster.add(lastDamage);*/
                                 mob.setSecondsOnFire(4);
                             }
@@ -195,7 +195,7 @@ public class Meteorite extends AbstractArrow implements GeoEntity {
                     case 0 -> {
                         mobList.forEach(mob -> {
                             if (mob.distanceTo(this) < 5) {
-/*                                LastDamage lastDamage = new LastDamage(player, mob, false, 80, 20, 0.3);
+/*                                LastDamage lastDamage = new LastDamage(player, livingEntity, false, 80, 20, 0.3);
                                 Utils.PlayerLastDamageToMonster.add(lastDamage);*/
                             }
                         });
@@ -210,7 +210,7 @@ public class Meteorite extends AbstractArrow implements GeoEntity {
                     case 2 -> {
                         mobList.forEach(mob -> {
                             if (mob.distanceTo(this) < 5) {
-/*                                LastDamage lastDamage = new LastDamage(player, mob, false, 80, 20, 0.35);
+/*                                LastDamage lastDamage = new LastDamage(player, livingEntity, false, 80, 20, 0.35);
                                 Utils.PlayerLastDamageToMonster.add(lastDamage);*/
                                 mob.setSecondsOnFire(4);
                             }

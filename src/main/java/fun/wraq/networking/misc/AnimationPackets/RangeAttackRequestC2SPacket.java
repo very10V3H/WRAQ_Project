@@ -90,7 +90,7 @@ public class RangeAttackRequestC2SPacket {
                         data.putBoolean("Crit", true);
                         data.putDouble("DamageAmount",damage);
                         data.putDouble("DamageIgnoreDefenceAmount",ExDamageIgnoreDefence);
-                        mob.hurt(mob.damageSources().playerAttack(player),damage + ExDamageIgnoreDefence);
+                        livingEntity.hurt(livingEntity.damageSources().playerAttack(player),damage + ExDamageIgnoreDefence);
 
                     } else {
                         if (BreakDefence0 >= Defence) {
@@ -106,7 +106,7 @@ public class RangeAttackRequestC2SPacket {
                         data.putBoolean("Crit", false);
                         data.putDouble("DamageAmount",damage);
                         data.putDouble("DamageIgnoreDefenceAmount",ExDamageIgnoreDefence);
-                        mob.hurt(mob.damageSources().playerAttack(player),damage + ExDamageIgnoreDefence);
+                        livingEntity.hurt(livingEntity.damageSources().playerAttack(player),damage + ExDamageIgnoreDefence);
                     }*/
                 }
             }

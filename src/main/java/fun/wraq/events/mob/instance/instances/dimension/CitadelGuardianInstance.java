@@ -67,8 +67,8 @@ public class CitadelGuardianInstance extends NoTeamInstance {
                 .filter(mob -> mob instanceof Monster)
                 .map(mob -> (Monster) mob)
                 .forEach(mob -> {
-                    if (dimension != null && !getPlayerList(dimension).isEmpty()) {
-                        mob.setTarget(getPlayerList(dimension).get(0));
+                    if (dimension != null && !getNearPlayers(dimension).isEmpty()) {
+                        mob.setTarget(getNearPlayers(dimension).get(0));
                     }
                 });
         if (Tick.get() % 100 == 0) {
@@ -99,7 +99,7 @@ public class CitadelGuardianInstance extends NoTeamInstance {
 
         ServerBossEvent serverBossEvent = (ServerBossEvent) (new ServerBossEvent(entity.getDisplayName(),
                 BossEvent.BossBarColor.PURPLE, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
-        getPlayerList(level).forEach(player -> {
+        getNearPlayers(level).forEach(player -> {
             serverBossEvent.addPlayer((ServerPlayer) player);
         });
         bossInfoList.add(serverBossEvent);
@@ -142,7 +142,7 @@ public class CitadelGuardianInstance extends NoTeamInstance {
     public void reset(int tick, boolean removeMob) {
         if (dimension != null) {
             resetBlock(dimension);
-            getPlayerList(dimension).forEach(player -> {
+            getNearPlayers(dimension).forEach(player -> {
                 player.teleportTo((ServerLevel) dimension, pos.x, pos.y, pos.z, Set.of(), 0, 0);
             });
             summonMobList.forEach(mob -> mob.remove(Entity.RemovalReason.KILLED));
@@ -250,7 +250,7 @@ public class CitadelGuardianInstance extends NoTeamInstance {
                 SpecialEffectOnPlayer.addVertigoEffect(player, 40);
             }
             if (mob.getHealth() / mob.getMaxHealth() < 0.25 && player.getHealth() / mob.getMaxHealth() < 0.25) {
-                Damage.DirectDamageToPlayer(mob, player, player.getMaxHealth() * 4);
+                Damage.causeDirectDamageToPlayer(mob, player, player.getMaxHealth() * 4);
             }
         }
     }

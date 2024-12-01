@@ -214,6 +214,7 @@ public class BuffHud {
             guiGraphics.blit(new ResourceLocation(Utils.MOD_ID, "textures/" + hudIcon.url + ".png"),
                     x + XXOffset + count * 15, y - 60 + yOffset, 0, 0, 16, 16, 16, 16);
             int Time = (int) (12 - hudIcon.lastTick * 12.0f / hudIcon.maxTick);
+            if (hudIcon.forever) Time = 12;
             guiGraphics.blit(ClientUtils.dCdResourceLocation[Time],
                     x + XXOffset + count * 15, y - 60 + yOffset, 0, 0, 16, 16, 16, 16);
             if (hudIcon.lastTick > 0) guiGraphics.drawCenteredString(fontRenderer,

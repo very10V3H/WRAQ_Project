@@ -113,7 +113,7 @@ public class LevelEvents {
             int TickCount = event.level.getServer().getTickCount();
             if (TickCount % 100 == 0) tryToRemoveMobInMap();
             if (TickCount % 20 == 0) Element.Tick(event.level);
-            Compute.Gather(TickCount); // 聚集
+            Compute.gather(TickCount); // 聚集
         }
 
         if (event.side.isServer() && event.phase.equals(TickEvent.Phase.START)) {

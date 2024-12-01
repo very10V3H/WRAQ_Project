@@ -64,7 +64,7 @@ public class SakuraBossInstance extends NoTeamInstance {
         level.addFreshEntity(sakuraBoss);
 
         ServerBossEvent serverBossEvent = (ServerBossEvent) (new ServerBossEvent(sakuraBoss.getDisplayName(), BossEvent.BossBarColor.PURPLE, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
-        getPlayerList(level).forEach(player -> {
+        getNearPlayers(level).forEach(player -> {
             serverBossEvent.addPlayer((ServerPlayer) player);
         });
         bossInfoList.add(serverBossEvent);

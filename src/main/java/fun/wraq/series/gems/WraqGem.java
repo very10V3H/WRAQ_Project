@@ -4,21 +4,20 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import fun.wraq.common.Compute;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.render.gui.illustrate.Display;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class WraqGem extends Item {
 
@@ -159,5 +158,17 @@ public class WraqGem extends Item {
             }
         }
         return gemList;
+    }
+
+    public static Set<WraqGem> getPlayerAllEquipGems(Player player) {
+        Set<WraqGem> gems = new HashSet<>();
+        InventoryOperation.getAllEquipSlotItems(player).forEach(stack -> {
+            try {
+                gems.addAll(getEquipContainGemList(stack));
+            } catch (CommandSyntaxException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        return gems;
     }
 }

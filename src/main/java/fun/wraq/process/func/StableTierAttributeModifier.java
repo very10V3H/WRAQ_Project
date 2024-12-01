@@ -9,7 +9,24 @@ import net.minecraft.world.item.Item;
 
 import java.util.*;
 
-public record StableTierAttributeModifier(String tag, double eachTierValue, int stopTick, int tier, int maxTier) {
+public class StableTierAttributeModifier {
+
+    public String tag;
+    public double eachTierValue;
+    public int stopTick;
+    public int tier;
+    public int maxTier;
+    public StableTierAttributeModifier(String tag, double eachTierValue, int stopTick, int tier, int maxTier) {
+        this.tag = tag;
+        this.eachTierValue = eachTierValue;
+        this.stopTick = stopTick;
+        this.tier = tier;
+        this.maxTier = maxTier;
+    }
+
+    public void setTier(int tier) {
+        this.tier = tier;
+    }
 
     public static Map<LivingEntity, List<StableTierAttributeModifier>> defence = new WeakHashMap<>();
     public static Map<LivingEntity, List<StableTierAttributeModifier>> manaDefence = new WeakHashMap<>();
@@ -17,12 +34,40 @@ public record StableTierAttributeModifier(String tag, double eachTierValue, int 
     public static Map<LivingEntity, List<StableTierAttributeModifier>> percentManaDefence = new WeakHashMap<>();
     public static Map<LivingEntity, List<StableTierAttributeModifier>> onlyDisplay = new WeakHashMap<>();
     public static Map<LivingEntity, List<StableTierAttributeModifier>> baseArrowDamageEnhanceRate = new WeakHashMap<>();
+    public static Map<LivingEntity, List<StableTierAttributeModifier>> playerCommonDamageEnhance = new WeakHashMap<>();
+    public static Map<LivingEntity, List<StableTierAttributeModifier>> playerWithstandDamageReduce = new WeakHashMap<>();
 
     public static List<StableTierAttributeModifier> getAttributeModifierList(LivingEntity entity, Map<LivingEntity, List<StableTierAttributeModifier>> modifierMap) {
         if (!modifierMap.containsKey(entity)) {
             modifierMap.put(entity, new ArrayList<>());
         }
         return modifierMap.get(entity);
+    }
+
+    public static void setAttributeModifierTier(Player player,
+                                                Map<LivingEntity, List<StableTierAttributeModifier>> modifierMap,
+                                                String tag, int tier) {
+        getAttributeModifierList(player, modifierMap)
+                .stream().filter(modifier -> modifier.tag.equals(tag))
+                .forEach(modifier -> {
+                    modifier.setTier(tier);
+        });
+        getAttributeModifierList(player, modifierMap).removeIf(modifier -> modifier.tier == 0);
+    }
+
+    public static void relativeSetAttributeModifierTier(Player player,
+                                                Map<LivingEntity, List<StableTierAttributeModifier>> modifierMap,
+                                                String tag, int relativeTier, String url) {
+        getAttributeModifierList(player, modifierMap)
+                .stream().filter(modifier -> modifier.tag.equals(tag))
+                .forEach(modifier -> {
+                    modifier.setTier(modifier.tier + relativeTier);
+                    if (!url.isEmpty()) {
+                        Compute.sendEffectLastTime(player, url, modifier.stopTick - Tick.get(),
+                                modifier.tier + relativeTier, false);
+                    }
+                });
+        getAttributeModifierList(player, modifierMap).removeIf(modifier -> modifier.tier == 0);
     }
 
     public static void addAttributeModifier(LivingEntity entity, Map<LivingEntity, List<StableTierAttributeModifier>> modifierMap,
@@ -43,11 +88,13 @@ public record StableTierAttributeModifier(String tag, double eachTierValue, int 
         int finalTier = Math.min(highestTier + 1, modifier.maxTier);
         modifierList.add(new StableTierAttributeModifier(modifier.tag, modifier.eachTierValue,
                 modifier.stopTick, finalTier, modifier.maxTier));
-        if (entity instanceof Mob mob) {
-            Compute.sendMobEffectHudToNearPlayer(mob, url, modifier.tag, modifier.stopTick - Tick.get(), finalTier, false);
-        }
-        if (entity instanceof Player player) {
-            Compute.sendEffectLastTime(player, url, modifier.stopTick - Tick.get(), finalTier, false);
+        if (!url.isEmpty()) {
+            if (entity instanceof Mob mob) {
+                Compute.sendMobEffectHudToNearPlayer(mob, url, modifier.tag, modifier.stopTick - Tick.get(), finalTier, false);
+            }
+            if (entity instanceof Player player) {
+                Compute.sendEffectLastTime(player, url, modifier.stopTick - Tick.get(), finalTier, false);
+            }
         }
     }
 

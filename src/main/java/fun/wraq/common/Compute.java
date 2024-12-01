@@ -26,6 +26,7 @@ import fun.wraq.core.ManaAttackModule;
 import fun.wraq.core.MyArrow;
 import fun.wraq.entities.entities.Civil.Civil;
 import fun.wraq.events.core.InventoryCheck;
+import fun.wraq.events.mob.instance.NoTeamInstanceModule;
 import fun.wraq.events.mob.moontain.MoontainEntities;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.hud.CoolDownTimeS2CPacket;
@@ -338,31 +339,31 @@ public class Compute {
     }
 
     public static void addManaDefenceDecreaseEffectParticle(Mob mob, int Tick) {
-/*        List<ServerPlayer> playerList = mob.level().getServer().getPlayerList().getPlayers();
+/*        List<ServerPlayer> playerList = livingEntity.level().getServer().getPlayerList().getPlayers();
         playerList.forEach(serverPlayer -> {
-            ModNetworking.sendToClient(new ManaDefencePenetrationParticleS2CPacket(mob.getId(), Tick), serverPlayer);
+            ModNetworking.sendToClient(new ManaDefencePenetrationParticleS2CPacket(livingEntity.getId(), Tick), serverPlayer);
         });*/
     }
 
     public static void addDefenceDecreaseEffectParticle(Mob mob, int Tick) {
-/*        List<ServerPlayer> playerList = mob.level().getServer().getPlayerList().getPlayers();
+/*        List<ServerPlayer> playerList = livingEntity.level().getServer().getPlayerList().getPlayers();
         playerList.forEach(serverPlayer -> {
-            ModNetworking.sendToClient(new DefencePenetrationParticleS2CPacket(mob.getId(), Tick), serverPlayer);
+            ModNetworking.sendToClient(new DefencePenetrationParticleS2CPacket(livingEntity.getId(), Tick), serverPlayer);
         });*/
     }
 
     public static void addDamageDecreaseEffectParticle(Mob mob, int Tick) {
-/*        List<ServerPlayer> playerList = mob.level().getServer().getPlayerList().getPlayers();
+/*        List<ServerPlayer> playerList = livingEntity.level().getServer().getPlayerList().getPlayers();
         playerList.forEach(serverPlayer -> {
-            ModNetworking.sendToClient(new DamageDecreaseParticleS2CPacket(mob.getId(), Tick), serverPlayer);
+            ModNetworking.sendToClient(new DamageDecreaseParticleS2CPacket(livingEntity.getId(), Tick), serverPlayer);
         });*/
     }
 
     public static void addSlowDownEffect(Mob mob, int Tick, int Tier) {
         mob.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, Tick, Tier, false, false, false));
-/*        List<ServerPlayer> playerList = mob.level().getServer().getPlayerList().getPlayers();
+/*        List<ServerPlayer> playerList = livingEntity.level().getServer().getPlayerList().getPlayers();
         playerList.forEach(serverPlayer -> {
-            ModNetworking.sendToClient(new SlowDownParticleS2CPacket(mob.getId(), Tick), serverPlayer);
+            ModNetworking.sendToClient(new SlowDownParticleS2CPacket(livingEntity.getId(), Tick), serverPlayer);
         });*/
     }
 
@@ -1570,22 +1571,28 @@ public class Compute {
         return false;
     }
 
-    public record GatherMob(Mob mob, int tick, Vec3 pos) {
+    public record GatherEntity(LivingEntity livingEntity, int tick, Vec3 pos) {
     }
 
-    public static List<GatherMob> gatherMobList = new ArrayList<>();
+    public static List<GatherEntity> gatherEntityList = new ArrayList<>();
 
-    public static void Gather(int TickCount) {
-        gatherMobList.removeIf(gatherMob -> gatherMob.tick < TickCount);
-        gatherMobList.forEach(gatherMob -> {
-            if (!MonsterCantBeMove(gatherMob.mob))
-                gatherMob.mob.setDeltaMovement(gatherMob.pos.subtract(gatherMob.mob.position()).scale(0.2));
+    public static void gather(int TickCount) {
+        gatherEntityList.removeIf(gatherEntity -> gatherEntity.tick < TickCount);
+        gatherEntityList.forEach(gatherEntity -> {
+            if (gatherEntity.livingEntity instanceof Mob mob) {
+                if (!MonsterCantBeMove(mob)) {
+                    gatherEntity.livingEntity.setDeltaMovement(
+                            gatherEntity.pos.subtract(gatherEntity.livingEntity.position()).scale(0.2));
+                }
+            } else if (gatherEntity.livingEntity instanceof Player player) {
+                sendMotionPacketToPlayer(player,
+                        gatherEntity.pos.subtract(gatherEntity.livingEntity.position()).scale(0.2));
+            }
         });
     }
 
-    public static void MonsterGatherProvider(Mob mob, int lastTick, Vec3 gatherPos) {
-        int TickCount = mob.getServer().getTickCount();
-        gatherMobList.add(new GatherMob(mob, TickCount + lastTick, gatherPos));
+    public static void causeGatherEffect(LivingEntity livingEntity, int lastTick, Vec3 gatherPos) {
+        gatherEntityList.add(new GatherEntity(livingEntity, Tick.get() + lastTick, gatherPos));
     }
 
     public static void EntitySmoothlyMoveToPos(Entity entity, Vec3 pos) {
@@ -1603,6 +1610,8 @@ public class Compute {
             entity.setDeltaMovement(0, 0, 0);
         }
     }
+
+
 
     public static Vec3 GetPlayerBackPos(Player player, int type) {
         Vec3 vec3 = player.pick(-1, 0, false).getLocation();
@@ -1816,7 +1825,8 @@ public class Compute {
 
     public static void playerDeadModule(Player player) {
         Tower.playerInChallengingDeadOrLogout(player);
-        Utils.PlayerDeadTimeMap.put(player.getName().getString(), player.getServer().getTickCount() + 6000);
+        Utils.PlayerDeadTimeMap.put(player.getName().getString(), Tick.get() + 6000);
+        NoTeamInstanceModule.onDead(player);
     }
 
     public static void manaDamageExEffect(Player player, Mob mob, double damage) {
@@ -1824,11 +1834,11 @@ public class Compute {
     }
 
     public static boolean playerIsInBattle(Player player) {
-        return StarBottle.playerLastBattleTick.containsKey(player) && StarBottle.playerLastBattleTick.get(player) + 100 > player.getServer().getTickCount();
+        return StarBottle.playerLastBattleTick.containsKey(player) && StarBottle.playerLastBattleTick.get(player) + 100 > Tick.get();
     }
 
     public static boolean playerIsInBattle(Player player, int tick) {
-        return StarBottle.playerLastBattleTick.containsKey(player) && StarBottle.playerLastBattleTick.get(player) + tick > player.getServer().getTickCount();
+        return StarBottle.playerLastBattleTick.containsKey(player) && StarBottle.playerLastBattleTick.get(player) + tick > Tick.get();
     }
 
 /*    public static String getItemStackString(ItemStack itemStack) {
@@ -2013,5 +2023,10 @@ public class Compute {
             }
         }
         return 0;
+    }
+
+    private final String notePaperExpiredTime = "notePaperExpiredTime";
+    public static boolean notePaperExpired(ItemStack stack) {
+        return true;
     }
 }

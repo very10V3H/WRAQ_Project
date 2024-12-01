@@ -12,6 +12,7 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.struct.Shield;
 import fun.wraq.entities.entities.Civil.Civil;
 import fun.wraq.events.mob.instance.instances.dimension.CitadelGuardianInstance;
+import fun.wraq.events.mob.instance.instances.element.WardenInstance;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.ParticlePackets.EffectParticle.DamageDecreaseParticleS2CPacket;
 import fun.wraq.networking.misc.ParticlePackets.SlowDownParticleS2CPacket;
@@ -19,6 +20,8 @@ import fun.wraq.networking.misc.SoundsPackets.SoundsS2CPacket;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.suit.SuitCount;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.gems.passive.impl.GemOnWithstandDamage;
+import fun.wraq.series.gems.passive.impl.GemWithstandDamageRateModifier;
 import fun.wraq.series.instance.series.devil.DevilAttackArmor;
 import fun.wraq.series.instance.series.taboo.TabooAttackArmor;
 import fun.wraq.series.newrunes.chapter1.ForestNewRune;
@@ -113,6 +116,8 @@ public class MonsterAttackEvent {
             damage -= damageDecreaseValue;
         }
 
+        damage *= WardenInstance.onPlayerWithstandDamageRate(player, monster);
+        damage *= GemWithstandDamageRateModifier.onWithstandDamageRate(player, monster, damage);
 
         double healthSteal = MobAttributes.healthSteal(monster);
 
@@ -126,7 +131,7 @@ public class MonsterAttackEvent {
                 player.sendSystemMessage(Component.literal("" + finalDamage));
             } else {
                 if (finalDamage > 0 && player.isAlive()) {
-                    Damage.DirectDamageToPlayer(monster, player, finalDamage);
+                    Damage.causeDirectDamageToPlayer(monster, player, finalDamage);
                     player.hurtTime = 10;
                     monster.heal((float) (finalDamage * healthSteal));
                     OnWithStandDamageCurios.withStandDamage(player, monster, finalDamage);
@@ -141,6 +146,7 @@ public class MonsterAttackEvent {
             mineShield(player);
             DevilAttackArmor.DevilAttackArmorPassive(player, monster); // 封魔者圣铠
             StarBottle.playerBattleTickMapRefresh(player);
+            GemOnWithstandDamage.withStandDamage(player, monster, finalDamage);
         }
         CitadelGuardianInstance.playerWithstandDamage(player, monster);
     }

@@ -1876,6 +1876,15 @@
 
   "item.vmd.devil_power_curio": "未知术法核心",
 
+  "item.vmd.warden_matrix": "远古矩阵",
+
+  "item.vmd.ancient_darkness_gem": "远古暗黑宝石",
+  "item.vmd.ancient_echo_gem": "远古回响宝石",
+  "item.vmd.ancient_silent_gem": "远古寂静宝石",
+
+  "item.vmd.warden_shield": "远古手盾",
+  "item.vmd.warden_knife": "远古匕首",
+  "item.vmd.warden_book": "远古魔导书",
 
   "curios.identifier.rune": "符石",
   "curios.identifier.crest": "纹章",

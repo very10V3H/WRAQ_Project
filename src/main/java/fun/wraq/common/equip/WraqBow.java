@@ -6,6 +6,7 @@ import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.Utils;
 import fun.wraq.core.MyArrow;
 import fun.wraq.entities.entities.Civil.Civil;
+import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.skill.BowSkillTree;
 import fun.wraq.render.gui.illustrate.Display;
@@ -53,6 +54,7 @@ public abstract class WraqBow extends WraqMainHandEquip {
         if (mainShoot) {
             OnShootArrowCurios.shoot(serverPlayer);
             OnShootArrowEquip.shoot(serverPlayer);
+            Damage.onPlayerReleaseNormalAttack(serverPlayer);
         }
     }
 

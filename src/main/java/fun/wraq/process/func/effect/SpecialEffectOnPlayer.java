@@ -180,4 +180,22 @@ public class SpecialEffectOnPlayer {
                     Te.s("你已被净化!", CustomStyle.styleOfWater));
         }
     }
+
+    public static void causeDefenceReductionToPlayer(Player player, String tag, int lastTick, double value) {
+        StableAttributesModifier.addM(player, StableAttributesModifier.playerDefenceDecreaseModifier,
+                tag, value, Tick.get() + lastTick);
+        Compute.sendDebuffTime(player, "hud/defence_reduction", lastTick, 0, false);
+    }
+
+    public static void causeManaDefenceReductionToPlayer(Player player, String tag, int lastTick, double value) {
+        StableAttributesModifier.addM(player, StableAttributesModifier.playerManaDefenceDecreaseModifier,
+                tag, value, Tick.get() + lastTick);
+        Compute.sendDebuffTime(player, "hud/defence_reduction", lastTick, 0, false);
+    }
+
+    public static void causeBothDefenceReductionToPlayer(Player player, String defenceTag, int defenceLastTick, double defenceValue,
+                                                         String manaDefenceTag, int manaDefenceLastTick, double manaDefenceValue) {
+        causeDefenceReductionToPlayer(player, defenceTag, defenceLastTick, defenceValue);
+        causeManaDefenceReductionToPlayer(player, manaDefenceTag, manaDefenceLastTick, manaDefenceValue);
+    }
 }

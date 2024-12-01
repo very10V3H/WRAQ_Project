@@ -227,7 +227,7 @@ public class AttackEvent {
         // total damage
         damage *= DamageInfluence.getPlayerTotalDamageRate(player);
         trueDamage *= DamageInfluence.getPlayerTotalDamageRate(player);
-        // mob control
+        // livingEntity control
         damage *= DamageInfluence.getMonsterControlDamageEffect(player, monster);
         trueDamage *= DamageInfluence.getMonsterControlDamageEffect(player, monster);
         // 至此 关于基本的计算已结束 下方是最终乘区的计算
@@ -344,7 +344,7 @@ public class AttackEvent {
 
         damage = DamageBeforeDefence * Damage.defenceDamageDecreaseRate(Defence, BreakDefence, BreakDefence0);
         data.putDouble(StringUtils.DamageTypes.ToPlayerDamage, (damage + ExDamageIgnoreDefence) * 0.1f);
-        Damage.DirectDamageToPlayer(player, hurter, (damage + ExDamageIgnoreDefence) * 0.1f);
+        Damage.causeDirectDamageToPlayer(player, hurter, (damage + ExDamageIgnoreDefence) * 0.1f);
     }
 
     public static void Boss2DamageCount(Player player, Mob monster, double ExDamageIgnoreDefence, double Damage) {

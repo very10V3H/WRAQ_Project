@@ -130,6 +130,6 @@ public class MoonSceptre extends WraqSceptre implements ActiveItem, OnHitEffectE
     public void onHit(Player player, Mob mob) {
         mob.level().getEntitiesOfClass(Mob.class, AABB.ofSize(mob.position(), 15, 15, 15))
                 .stream().filter(mob1 -> mob1.distanceTo(mob) <= 6 && !mob1.equals(mob))
-                .forEach(mob1 -> Compute.MonsterGatherProvider(mob1, 2, mob.position()));
+                .forEach(mob1 -> Compute.causeGatherEffect(mob1, 2, mob.position()));
     }
 }

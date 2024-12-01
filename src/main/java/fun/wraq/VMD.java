@@ -60,6 +60,7 @@ import fun.wraq.series.instance.blade.BladeItems;
 import fun.wraq.series.instance.mixture.MixtureItems;
 import fun.wraq.series.instance.quiver.QuiverItems;
 import fun.wraq.series.instance.series.purple.PurpleIronCommon;
+import fun.wraq.series.instance.series.warden.WardenItems;
 import fun.wraq.series.moontain.MoontainItems;
 import fun.wraq.series.newrunes.NewRuneItems;
 import fun.wraq.series.overworld.chapter7.C7Items;
@@ -124,6 +125,7 @@ public class VMD {
         PointItems.ITEMS.register(modEvenBus);
         CitadelItems.ITEMS.register(modEvenBus);
         SunIslandItems.ITEMS.register(modEvenBus);
+        WardenItems.ITEMS.register(modEvenBus);
 
         ModBlocks.BLOCKS.register(modEvenBus);
         ModEntityType.ENTITY_TYPES.register(modEvenBus);

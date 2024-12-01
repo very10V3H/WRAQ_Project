@@ -4,10 +4,7 @@ import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.events.mob.instance.instances.dimension.CitadelGuardianInstance;
 import fun.wraq.events.mob.instance.instances.dimension.NetherInstance;
-import fun.wraq.events.mob.instance.instances.element.IceInstance;
-import fun.wraq.events.mob.instance.instances.element.MoonInstance;
-import fun.wraq.events.mob.instance.instances.element.PlainInstance;
-import fun.wraq.events.mob.instance.instances.element.PurpleIronInstance;
+import fun.wraq.events.mob.instance.instances.element.*;
 import fun.wraq.events.mob.instance.instances.moontain.MoontainBoss1Instance;
 import fun.wraq.events.mob.instance.instances.moontain.MoontainBoss2Instance;
 import fun.wraq.events.mob.instance.instances.moontain.MoontainBoss3Instance;
@@ -17,6 +14,7 @@ import fun.wraq.series.moontain.MoontainItems;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
@@ -38,6 +36,7 @@ public class NoTeamInstanceModule {
         public static String blackCastle = "allowRewardBlackCastle";
         public static String moontainBoss = "allowRewardMoontainBoss";
         public static String enderGuardian = "allowRewardEnderGuardian";
+        public static String warden = "allowRewardWarden";
     }
 
     public static boolean getPlayerAllowReward(Player player, String tag) {
@@ -64,6 +63,7 @@ public class NoTeamInstanceModule {
         add(MoontainBoss1Instance.getInstance());
         add(MoontainBoss2Instance.getInstance());
         add(MoontainBoss3Instance.getInstance());
+        add(WardenInstance.getInstance());
     }};
 
     public static List<fun.wraq.events.mob.instance.NoTeamInstance> noTeamInstancesNether = new ArrayList<>() {{
@@ -82,8 +82,7 @@ public class NoTeamInstanceModule {
             if (level.equals(overworld)) {
                 for (NoTeamInstance noTeamInstance : noTeamInstancesOverworld) {
                     if (hasPlayerNearInstance(level, noTeamInstance)) {
-                        noTeamInstance.detectAndSummon(level);
-                        noTeamInstance.tickModule();
+                        noTeamInstance.detectAndSummonThenHandleTick(level);
                         if (tick % 20 == 0) noTeamInstance.summonLeftSecondsArmorStand(level);
                     } else {
                         noTeamInstance.reset(tick, true);
@@ -94,8 +93,7 @@ public class NoTeamInstanceModule {
             if (level.dimension().equals(Level.NETHER)) {
                 for (NoTeamInstance noTeamInstance : noTeamInstancesNether) {
                     if (hasPlayerNearInstance(level, noTeamInstance)) {
-                        noTeamInstance.detectAndSummon(level);
-                        noTeamInstance.tickModule();
+                        noTeamInstance.detectAndSummonThenHandleTick(level);
                         if (tick % 20 == 0) noTeamInstance.summonLeftSecondsArmorStand(level);
                     } else {
                         noTeamInstance.reset(tick, true);
@@ -106,8 +104,7 @@ public class NoTeamInstanceModule {
             if (level.dimension().equals(Level.END)) {
                 for (NoTeamInstance noTeamInstance : noTeamInstancesEnd) {
                     if (hasPlayerNearInstance(level, noTeamInstance)) {
-                        noTeamInstance.detectAndSummon(level);
-                        noTeamInstance.tickModule();
+                        noTeamInstance.detectAndSummonThenHandleTick(level);
                         if (tick % 20 == 0) noTeamInstance.summonLeftSecondsArmorStand(level);
                     } else {
                         noTeamInstance.reset(tick, true);
@@ -169,6 +166,24 @@ public class NoTeamInstanceModule {
                 });
             }
         }
+    }
+
+    public static void onMobWithstandDamage(Player player, Mob mob) {
+        noTeamInstancesOverworld.forEach(instance -> instance.onMobWithStandDamage(player, mob));
+        noTeamInstancesNether.forEach(instance -> instance.onMobWithStandDamage(player, mob));
+        noTeamInstancesEnd.forEach(instance -> instance.onMobWithStandDamage(player, mob));
+    }
+
+    public static void onDead(Player player) {
+        noTeamInstancesOverworld.forEach(instance -> instance.players.removeIf(eachPlayer -> {
+            return eachPlayer.getName().getString().equals(player.getName().getString());
+        }));
+        noTeamInstancesNether.forEach(instance -> instance.players.removeIf(eachPlayer -> {
+            return eachPlayer.getName().getString().equals(player.getName().getString());
+        }));
+        noTeamInstancesEnd.forEach(instance -> instance.players.removeIf(eachPlayer -> {
+            return eachPlayer.getName().getString().equals(player.getName().getString());
+        }));
     }
 }
 

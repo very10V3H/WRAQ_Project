@@ -59,6 +59,7 @@ import fun.wraq.render.hud.networking.PlayerIsInBattleS2CPacket;
 import fun.wraq.render.mobEffects.ModEffects;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.end.curios.EndCrystal;
+import fun.wraq.series.gems.passive.impl.GemTickHandler;
 import fun.wraq.series.instance.series.castle.CastleAttackArmor;
 import fun.wraq.series.instance.series.castle.CastleManaArmor;
 import fun.wraq.series.instance.series.castle.CastleSwiftArmor;
@@ -149,6 +150,8 @@ public class ServerPlayerTickEvent {
             HoursExHarvestPotion.tick(player);
 
             RestZone.tick(serverPlayer);
+
+            GemTickHandler.handleTick(player);
 
             if (player.tickCount % 100 == 0 && MobSpawn.totalKillCount.containsKey(player.getName().getString())) {
                 int totalCount = MobSpawn.totalKillCount.get(player.getName().getString())

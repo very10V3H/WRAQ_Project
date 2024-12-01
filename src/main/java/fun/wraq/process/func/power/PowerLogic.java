@@ -1,5 +1,6 @@
 package fun.wraq.process.func.power;
 
+import fun.wraq.events.mob.instance.instances.element.WardenInstance;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
@@ -40,5 +41,6 @@ public class PowerLogic {
         ChargingModule(data, player);
         ManaSkill12Attack(data, player); // 盈能攻击（移动、攻击以及受到攻击将会获得充能，当充能满时，下一次攻击将造成额外200%伤害，并在以目标为中心的范围内造成100%伤害）
         ManaSkill13Attack(data, player); // 法术收集（移动、攻击以及受到攻击将会获得充能，当充能满时，下一次攻击将基于目标周围实体数量提供至多1000%的范围伤害，并回复自身50%的法力值）
+        WardenInstance.onPlayerNormalAttackOrReleasePower(player);
     }
 }

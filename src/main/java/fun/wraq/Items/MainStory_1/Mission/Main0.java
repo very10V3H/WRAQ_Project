@@ -1,14 +1,6 @@
 package fun.wraq.Items.MainStory_1.Mission;
 
-import fun.wraq.common.Compute;
-import fun.wraq.common.fast.Te;
-import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
-import fun.wraq.process.system.randomevent.RandomEvent;
-import fun.wraq.process.system.randomevent.RandomEventData;
-import fun.wraq.process.system.randomevent.RandomEventsHandler;
-import fun.wraq.process.system.tower.Tower;
-import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -16,17 +8,20 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.ambient.Bat;
+import net.minecraft.world.entity.monster.Skeleton;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class Main0 extends Item {
 
@@ -81,29 +76,25 @@ public class Main0 extends Item {
                 }
             }*/
 
-            Random random = new Random();
+/*            Random random = new Random();
             List<RandomEvent> list = RandomEventsHandler.getRandomEvents();
             list.forEach(RandomEvent::reset);
-            list.get(random.nextInt(list.size())).begin();
+            list.get(random.nextInt(list.size())).begin();*/
+
+            Bat bat = new Bat(EntityType.BAT, level);
+            bat.moveTo(player.getEyePosition());
+            level.addFreshEntity(bat);
+
+            Skeleton skeleton = new Skeleton(EntityType.SKELETON, level);
+            skeleton.moveTo(player.getEyePosition());
+            skeleton.setItemSlot(EquipmentSlot.HEAD, Items.DIAMOND_HELMET.getDefaultInstance());
+            skeleton.setItemInHand(InteractionHand.MAIN_HAND, Items.BOW.getDefaultInstance());
+            level.addFreshEntity(skeleton);
+            skeleton.startRiding(bat);
         }
 
         if (!level.isClientSide && player.isShiftKeyDown()) {
-            int times = RandomEventData.getWorldSoul5DailyGetTimes(player);
-            Component component = ModItems.worldSoul5.get().getDefaultInstance().getDisplayName();
-            if (RandomEventData.getWorldSoul5DailyGetTimes(player) < 8) {
-                try {
-                    Tower.givePlayerStar(player, 3, "随机事件");
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-                RandomEventData.incrementWorldSoul5DailyGetTimes(player);
-                ++times;
-                Compute.sendFormatMSG(player, Te.s("测试"), Te.s("今天还能从", "随机事件", CustomStyle.styleOfFlexible,
-                        "中，获取", 8 - times + "次", CustomStyle.styleOfWorld, component, "奖励!"));
-            } else {
-                Compute.sendFormatMSG(player, Te.s("测试"), Te.s("今天从", "随机事件", CustomStyle.styleOfFlexible, "获取",
-                        component, "的次数已经用完了，记得明天还要来参与哦!"));
-            }
+
         }
 
         if (level.isClientSide && !player.isShiftKeyDown()) {

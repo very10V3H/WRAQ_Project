@@ -46,6 +46,9 @@ public abstract class NoTeamInstance {
     public final MutableComponent name;
     public boolean ready;
     public final int level;
+    public Set<Player> players = new HashSet<>();
+    public int spawnTick = 0;
+    public int clearTick = 0;
 
     public NoTeamInstance(final Vec3 pos, final double range, final int delayTick,
                           final Vec3 armorStandPos, final MutableComponent name, int level) {
@@ -59,9 +62,9 @@ public abstract class NoTeamInstance {
         this.level = level;
     }
 
-    public void detectAndSummon(Level level) {
-        List<Player> playerList = getPlayerList(level);
-        int tick = level.getServer().getTickCount();
+    public void detectAndSummonThenHandleTick(Level level) {
+        Set<Player> playerSet = getAllPlayers(level);
+        int tick = Tick.get();
         boolean allMobIsNull = true;
         for (Mob mob : mobList) {
             if (mob != null) {
@@ -77,33 +80,29 @@ public abstract class NoTeamInstance {
             }
         }
         if (!inChallenge && tick > summonTick && (allMobIsNull || allMobIsNotAlive)
-                && !playerList.isEmpty() && ready) {
+                && !playerSet.isEmpty() && ready) {
             mobList.clear();
             bossInfoList.clear();
             summonModule(level);
             inChallenge = true;
+            spawnTick = Tick.get();
         }
-        if (playerList.isEmpty() || playerList.stream().allMatch(LivingEntity::isDeadOrDying)) {
+        if (playerSet.isEmpty() || playerSet.stream().allMatch(LivingEntity::isDeadOrDying)) {
             reset(tick, true);
         }
-        if (inChallenge && !allMobIsNull) {
-            boolean allMobIsDead = true;
-            for (Mob mob : mobList) {
-                if (mob != null && !mob.isDeadOrDying()) {
-                    allMobIsDead = false;
-                    break;
-                }
-            }
-            if (allMobIsDead) rewardNearPlayer(level);
-
-            if (allMobIsNotAlive) {
+        if (inChallenge && spawnTick != Tick.get()) {
+            tickModule();
+            if (clearTick == Tick.get()) {
+                rewardPlayers();
                 reset(tick, false);
+                return;
+            }
+            if (allMobIsNotAlive && clearTick < Tick.get()) {
+                clearTick = Tick.get() + 60;
             } else {
-                if (playerList.size() >= 4) summonTick -= (playerList.size() / 4 - 1);
-                tickModule();
                 for (Mob mob : mobList) {
                     if (mob != null && mob.isAlive()) {
-                        if (mob.position().distanceTo(pos) > 30) {
+                        if (mob.position().distanceTo(pos) > range) {
                             mob.moveTo(pos);
                         }
                         lastMob = mob;
@@ -121,10 +120,9 @@ public abstract class NoTeamInstance {
         return ModItems.notePaper.get();
     }
 
-    public void rewardNearPlayer(Level level) {
-        List<Player> playerList = getPlayerList(level);
-        playerList.forEach(player -> {
-            if (!this.mobList.isEmpty() && this.mobList.get(0) != null) {
+    public void rewardPlayers() {
+        players.forEach(player -> {
+            if (player != null && !this.mobList.isEmpty() && this.mobList.get(0) != null) {
                 Mob mob = this.mobList.get(0);
                 int needLevel = (int) (MobSpawn.MobBaseAttributes.xpLevel.get(MobSpawn.getMobOriginName(mob)) * 0.8);
                 if (!allowReward(player) && allowRewardCondition() != null) {
@@ -162,7 +160,7 @@ public abstract class NoTeamInstance {
     }
 
     public void summonLeftSecondsArmorStand(Level level) {
-        if (!getPlayerList(level).isEmpty() && !inChallenge) {
+        if (!getNearPlayers(level).isEmpty() && !inChallenge) {
             List<ArmorStand> armorStandList = level.getEntitiesOfClass(ArmorStand.class, AABB.ofSize(armorStandPos,
                     8, 8, 8));
             armorStandList.forEach(armorStand -> armorStand.remove(Entity.RemovalReason.KILLED));
@@ -197,8 +195,9 @@ public abstract class NoTeamInstance {
 
     public abstract void rewardModule(Player player);
 
-    public List<Player> getPlayerList(Level level) {
-        List<Player> playerList = level.getEntitiesOfClass(Player.class, AABB.ofSize(pos, range * 2, range * 2, range * 2));
+    public List<Player> getNearPlayers(Level level) {
+        List<Player> playerList = level.getEntitiesOfClass(Player.class,
+                AABB.ofSize(pos, range * 2, range * 2, range * 2));
         playerList.removeIf(player -> player.position().distanceTo(pos) > range);
         Set<Player> players = new HashSet<>(playerList);
         if (!mobList.isEmpty()) {
@@ -209,6 +208,12 @@ public abstract class NoTeamInstance {
             }
         }
         return players.stream().toList();
+    }
+
+    public Set<Player> getAllPlayers(Level level) {
+        Set<Player> playerSet = new HashSet<>(players);
+        playerSet.addAll(getNearPlayers(level));
+        return playerSet;
     }
 
     public static void givePlayerNotePaper(Player player) throws IOException {
@@ -223,7 +228,7 @@ public abstract class NoTeamInstance {
             if (!mobList.isEmpty()) {
                 Mob mob = mobList.get(i);
                 if (serverBossEvent != null) {
-                    List<Player> playerList = getPlayerList(level);
+                    List<Player> playerList = getNearPlayers(level);
                     for (Player player : playerList) {
                         if (!serverBossEvent.getPlayers().contains((ServerPlayer) player))
                             serverBossEvent.addPlayer((ServerPlayer) player);
@@ -253,7 +258,17 @@ public abstract class NoTeamInstance {
         mobList.forEach(mob -> mob.remove(Entity.RemovalReason.KILLED));
         mobList.clear();
         ready = false;
+        players.clear();
+        spawnTick = 0;
     }
 
     public abstract List<ItemAndRate> getRewardList();
+
+    public void onMobWithStandDamage(Player player, Mob mob) {
+        if (mobList.contains(mob)) {
+            players.add(player);
+        }
+    }
+
+
 }

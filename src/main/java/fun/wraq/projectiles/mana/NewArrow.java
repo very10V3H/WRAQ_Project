@@ -198,10 +198,10 @@ public class NewArrow extends AbstractArrow {
                 for (int i = 0 ; i < 20 ; i ++) {
                     Vec3 pos = this.position().add(vec.scale(0.25 * i));
                     List<Mob> mobList = this.level().getEntitiesOfClass(Mob.class, AABB.ofSize(pos,1.5,1.5,1.5));
-                    for (Mob mob : mobList) {
-                        if (mob.getEyePosition().distanceTo(pos) < distance) {
-                            distance = mob.getEyePosition().distanceTo(pos);
-                            nearestMob = mob;
+                    for (Mob livingEntity : mobList) {
+                        if (livingEntity.getEyePosition().distanceTo(pos) < distance) {
+                            distance = livingEntity.getEyePosition().distanceTo(pos);
+                            nearestMob = livingEntity;
                         }
                     }
                 }
@@ -216,16 +216,16 @@ public class NewArrow extends AbstractArrow {
             if (AdjustOneTimes) {
                 List<Mob> mobList = this.level().getEntitiesOfClass(Mob.class, AABB.ofSize(this.getPosition(1),20,20,20));
                 if (mobList.size() > 0) {
-                    Mob mob = null;
+                    Mob livingEntity = null;
                     double length = 30;
                     for (Mob mob1 : mobList) {
                         if (mob1.isAlive() && mob1.position().distanceTo(this.position()) < length) {
-                            mob = mob1;
+                            livingEntity = mob1;
                             length = mob1.position().distanceTo(this.position());
                         }
                     }
-                    if (mob != null) {
-                        Vec3 Delta = mob.getPosition(1).add(0,1,0).subtract(this.getPosition(1));
+                    if (livingEntity != null) {
+                        Vec3 Delta = livingEntity.getPosition(1).add(0,1,0).subtract(this.getPosition(1));
                         Delta.normalize();
                         if (Delta.length() > 0.1) {
                             this.setDeltaMovement(Delta.scale(0.2));

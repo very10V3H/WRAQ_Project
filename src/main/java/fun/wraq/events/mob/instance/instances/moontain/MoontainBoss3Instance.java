@@ -92,7 +92,7 @@ public class MoontainBoss3Instance extends NoTeamInstance {
             recoverFlag = 0;
             MobSpawn.MobBaseAttributes.attackDamage.put(MobSpawn.getMobOriginName(boss), 3800 * getRate());
             Level level = boss.level();
-            getPlayerList(level)
+            getNearPlayers(level)
                     .forEach(player -> {
                         Damage.AttackDamageToPlayer(boss, player, 5000 * getRate());
                         Damage.manaDamageToPlayer(boss, player, 2500 * getRate(), 0, 100);
@@ -117,7 +117,7 @@ public class MoontainBoss3Instance extends NoTeamInstance {
     public void skill0(Mob boss) {
         if (Tick.get() % 40 == 0) {
             Level level = boss.level();
-            getPlayerList(level)
+            getNearPlayers(level)
                     .forEach(player -> {
                         Damage.AttackDamageToPlayer(boss, player, 5000 * getRate());
                         Damage.manaDamageToPlayer(boss, player, 2500 * getRate(), 0, 100);
@@ -133,7 +133,7 @@ public class MoontainBoss3Instance extends NoTeamInstance {
      */
     public void skill1(Mob boss) {
         if (Tick.get() % 100 == 0) {
-            getPlayerList(boss.level()).stream().min(new Comparator<Player>() {
+            getNearPlayers(boss.level()).stream().min(new Comparator<Player>() {
                 @Override
                 public int compare(Player o1, Player o2) {
                     return (int) (o1.distanceTo(boss) - o2.distanceTo(boss));
@@ -155,7 +155,7 @@ public class MoontainBoss3Instance extends NoTeamInstance {
      */
     public void skill2(Mob boss) {
         if (stage > 0 && Tick.get() % 20 == 0) {
-            getPlayerList(boss.level())
+            getNearPlayers(boss.level())
                     .forEach(player -> {
                         StableAttributesModifier.addM(player, StableAttributesModifier.playerDefenceDecreaseModifier,
                                 "MoontainBoss3DefenceReduction", 100 * stage, Tick.get() + 100);
@@ -185,7 +185,7 @@ public class MoontainBoss3Instance extends NoTeamInstance {
 
         ServerBossEvent serverBossEvent = (ServerBossEvent) (new ServerBossEvent(entity.getDisplayName(),
                 BossEvent.BossBarColor.PURPLE, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
-        getPlayerList(level).forEach(player -> {
+        getNearPlayers(level).forEach(player -> {
             serverBossEvent.addPlayer((ServerPlayer) player);
         });
         bossInfoList.add(serverBossEvent);

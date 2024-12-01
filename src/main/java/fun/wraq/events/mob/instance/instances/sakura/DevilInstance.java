@@ -62,7 +62,7 @@ public class DevilInstance extends NoTeamInstance {
         if (mobList.isEmpty()) return;
         Mob mob = mobList.get(0);
         if (mob == null || !mob.isAlive()) return;
-        List<Player> players = getPlayerList(mob.level());
+        List<Player> players = getNearPlayers(mob.level());
         int frequency = 160;
         if (mob.tickCount % frequency == 0) {
             Random random = new Random();
@@ -100,7 +100,7 @@ public class DevilInstance extends NoTeamInstance {
         level.addFreshEntity(zombie);
 
         ServerBossEvent serverBossEvent = (ServerBossEvent) (new ServerBossEvent(zombie.getDisplayName(), BossEvent.BossBarColor.PURPLE, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
-        getPlayerList(level).forEach(player -> {
+        getNearPlayers(level).forEach(player -> {
             serverBossEvent.addPlayer((ServerPlayer) player);
         });
         bossInfoList.add(serverBossEvent);

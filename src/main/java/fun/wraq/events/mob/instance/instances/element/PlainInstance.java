@@ -55,7 +55,7 @@ public class PlainInstance extends NoTeamInstance {
         Mob mob = this.mobList.get(0);
         if (mob == null || !mob.isAlive()) return;
         Level level = mob.level();
-        List<Player> players = getPlayerList(level);
+        List<Player> players = getNearPlayers(level);
         if (mob.tickCount % 100 == 0) {
             players.forEach(player -> {
                 if (player.position().distanceTo(mob.position()) <= 6) {
@@ -109,7 +109,7 @@ public class PlainInstance extends NoTeamInstance {
         mobList.add(stray);
 
         ServerBossEvent serverBossEvent = (ServerBossEvent) (new ServerBossEvent(stray.getDisplayName(), BossEvent.BossBarColor.GREEN, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
-        getPlayerList(level).forEach(player -> {
+        getNearPlayers(level).forEach(player -> {
             serverBossEvent.addPlayer((ServerPlayer) player);
         });
         bossInfoList.add(serverBossEvent);

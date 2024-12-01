@@ -11,6 +11,7 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.struct.BlockAndResetTime;
+import fun.wraq.events.mob.instance.instances.element.WardenInstance;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.Limit.CheckBlockLimitS2CPacket;
 import fun.wraq.networking.misc.TeamPackets.ScreenSetS2CPacket;
@@ -311,6 +312,7 @@ public class BlockEvent {
         MineSpur.mineEvent(event);
         WoodSpur.woodEvent(event);
         CropSpur.cropsInteract(event);
+        WardenInstance.onBreakBlockEvent(event);
     }
 
     @SubscribeEvent

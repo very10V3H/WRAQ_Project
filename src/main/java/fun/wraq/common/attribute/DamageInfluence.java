@@ -11,6 +11,7 @@ import fun.wraq.events.modules.AttackEventModule;
 import fun.wraq.process.func.EnhanceNormalAttackModifier;
 import fun.wraq.process.func.MobEffectAndDamageMethods;
 import fun.wraq.process.func.StableAttributesModifier;
+import fun.wraq.process.func.StableTierAttributeModifier;
 import fun.wraq.process.system.element.equipAndCurios.fireElement.FireEquip;
 import fun.wraq.process.system.season.MySeason;
 import fun.wraq.process.system.tower.Tower;
@@ -57,6 +58,8 @@ public class DamageInfluence {
         rate += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerCommonDamageEnhance);
         rate += DamageInfluenceCurios.getRate(player);
         rate += Compute.getPlayerPotionEffectRate(player, ModEffects.DAMAGE_ENHANCE.get(), 0.35, 0.5);
+        rate += StableTierAttributeModifier
+                .getModifierValue(player, StableTierAttributeModifier.playerCommonDamageEnhance);
         return rate;
     }
 
@@ -142,6 +145,8 @@ public class DamageInfluence {
         double rate = 1;
         rate += MineNewRune.withstandDamageInfluence(player);
         rate += Compute.getPlayerPotionEffectRate(player, ModEffects.STONE.get(), -0.15, -0.25);
+        rate -= StableTierAttributeModifier
+                .getModifierValue(player, StableTierAttributeModifier.playerWithstandDamageReduce);
         return rate;
     }
 

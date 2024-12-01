@@ -10,6 +10,7 @@ import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.impl.damage.BeforeCauseFinalDamageCurios;
 import fun.wraq.common.impl.damage.OnCauseFinalDamageCurios;
+import fun.wraq.common.impl.damage.OnCauseFinalDamageEquip;
 import fun.wraq.common.impl.onhit.OnPowerCauseDamageEquip;
 import fun.wraq.common.impl.onkill.OnKillEffectCurios;
 import fun.wraq.common.impl.onkill.OnKillEffectEquip;
@@ -20,9 +21,11 @@ import fun.wraq.customized.uniform.mana.ManaCurios1;
 import fun.wraq.events.fight.MonsterAttackEvent;
 import fun.wraq.events.mob.MobDeadModule;
 import fun.wraq.events.mob.MobSpawn;
+import fun.wraq.events.mob.instance.NoTeamInstanceModule;
 import fun.wraq.events.mob.instance.instances.dimension.CitadelGuardianInstance;
 import fun.wraq.events.mob.instance.instances.element.IceInstance;
 import fun.wraq.events.mob.instance.instances.element.MoonInstance;
+import fun.wraq.events.mob.instance.instances.element.WardenInstance;
 import fun.wraq.events.mob.instance.instances.moontain.MoontainBoss3Instance;
 import fun.wraq.events.modules.HurtEventModule;
 import fun.wraq.process.system.element.Element;
@@ -32,6 +35,8 @@ import fun.wraq.process.system.randomevent.RandomEventsHandler;
 import fun.wraq.process.system.randomevent.impl.killmob.SlimeKingEvent;
 import fun.wraq.process.system.teamInstance.NewTeamInstanceEvent;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.gems.passive.impl.GemOnCauseDamage;
+import fun.wraq.series.gems.passive.impl.GemOnKillMob;
 import fun.wraq.series.newrunes.chapter2.HuskNewRune;
 import fun.wraq.series.newrunes.chapter3.NetherNewRune;
 import fun.wraq.series.overworld.chapter7.star.StarBottle;
@@ -200,7 +205,7 @@ public class Damage {
 
         attackDamage *= (1 + damageEnhance) + (1 + DamageInfluence.getPlayerFinalDamageEnhance(player));
 
-        DirectDamageToPlayer(player, hurter, attackDamage * num * 0.1f);
+        causeDirectDamageToPlayer(player, hurter, attackDamage * num * 0.1f);
         return attackDamage * num * (1 + damageEnhance);
     }
 
@@ -417,7 +422,7 @@ public class Damage {
 
         DamageEnhance -= (1 - defenceDamageDecreaseRate(Defence, BreakDefence, BreakDefence0));
 
-        DirectDamageToPlayer(player, hurter, BaseDamage * num * 0.1f * (1 + DamageEnhance));
+        causeDirectDamageToPlayer(player, hurter, BaseDamage * num * 0.1f * (1 + DamageEnhance));
     }
 
     public static void manaDamageToPlayer(Mob monster, Player player, double damage) {
@@ -448,7 +453,7 @@ public class Damage {
         MonsterAttackEvent.monsterAttack(mob, player, Damage);
     }
 
-    public static void DirectDamageToPlayer(Mob mob, Player player, double damage) {
+    public static void causeDirectDamageToPlayer(Mob mob, Player player, double damage) {
         if (damage >= player.getHealth()) {
             Compute.playerDeadModule(player);
             Compute.formatBroad(player.level(), Component.literal("维瑞阿契").withStyle(ChatFormatting.AQUA),
@@ -491,7 +496,7 @@ public class Damage {
             if (mob.isDeadOrDying()) return;
             if (DailyEndlessInstance.prohibitPlayerCauseDamage(player, mob)) return;
             if (SlimeKingEvent.isSlimeKing(mob)) return;
-            /*Castle.CauseDamageRecord(player, mob); */
+            /*Castle.CauseDamageRecord(player, livingEntity); */
             if (MoonInstance.isMoonAttackImmune(player, (Mob) entity)) damage *= 0.5;
             if (MoonInstance.isMoonManaImmune(player, (Mob) entity)) damage *= 0.5;
             /*AttackEvent.DamageCount(player, (Mob) entity, 0, damage);*/
@@ -500,6 +505,11 @@ public class Damage {
             // ---- // 测试新模式
             entity.hurt(entity.damageSources().playerAttack(player), 0);
             MySound.soundOnMob(mob, SoundEvents.PLAYER_HURT);
+
+            OnCauseFinalDamageCurios.causeFinalDamage(player, mob, damage);
+            OnCauseFinalDamageEquip.causeFinalDamage(player, mob, damage);
+
+            damage *= WardenInstance.mobWithstandDamageRate(mob);
             double finalDamage = mob.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.WoodenStake5.get()) ? 0 : (float) damage;
             if (mob.getHealth() <= finalDamage && !MoontainBoss3Instance.beforeKill(mob)) return;
             if (mob.getHealth() <= finalDamage && mob.isAlive()) {
@@ -525,20 +535,24 @@ public class Damage {
                 OnKillEffectCurios.kill(player, mob);
 
                 RandomEventsHandler.onKillMob(player, mob);
+
+                GemOnKillMob.kill(player, mob);
             } else mob.setHealth((float) (mob.getHealth() - finalDamage));
 
             // ---- //
+            NoTeamInstanceModule.onMobWithstandDamage(player, mob);
             CitadelGuardianInstance.mobWithstandDamage(mob, finalDamage);
             FireEquip.IgniteEffect(player, mob);
             DpsCommand.CalculateDamage(player, finalDamage);
             entity.invulnerableTime = 0;
             StarBottle.playerBattleTickMapRefresh(player);
             Element.ElementParticleProvider(mob);
-            OnCauseFinalDamageCurios.causeFinalDamage(player, mob, finalDamage);
+
+            GemOnCauseDamage.causeDamage(player, mob, damage);
         }
     }
 
-    public static void DirectDamageToPlayer(Player player, Player hurter, double Damage) {
+    public static void causeDirectDamageToPlayer(Player player, Player hurter, double Damage) {
         if (player.isCreative()) {
             player.sendSystemMessage(Component.literal("" + Damage));
             // 对 怪物对玩家的伤害 或 玩家受到怪物伤害，只需在MonsterAttack修改
@@ -560,5 +574,9 @@ public class Damage {
 
     public static void beforeCauseDamage(Player player, Mob mob, double value) {
         BeforeCauseFinalDamageCurios.beforeCauseFinalDamage(player, mob, value);
+    }
+
+    public static void onPlayerReleaseNormalAttack(Player player) {
+        WardenInstance.onPlayerNormalAttackOrReleasePower(player);
     }
 }

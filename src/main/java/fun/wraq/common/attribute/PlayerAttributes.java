@@ -77,7 +77,7 @@ public class PlayerAttributes {
     public static Map<Player, Map<Map<Item, Double>, Integer>> computeAttributeTick = new ConcurrentHashMap<>();
 
     public static boolean canGetFromCache(Player player, Map<Item, Double> attribute) {
-        if (player.getMainHandItem().getItem() instanceof ManageEquip) return true;
+        if (player.getOffhandItem().getItem() instanceof ManageEquip) return true;
         // 初始化
         int tick = Tick.get();
         if (!playerAttributeCache.containsKey(player)) {
@@ -95,7 +95,7 @@ public class PlayerAttributes {
     }
 
     public static double getFromCache(Player player, Map<Item, Double> attribute) {
-        if (player.getMainHandItem().getItem() instanceof ManageEquip) {
+        if (player.getOffhandItem().getItem() instanceof ManageEquip) {
             return OpsAttributes.getValue(attribute, player);
         }
         Map<Map<Item, Double>, Double> attributeMap = playerAttributeCache.get(player);

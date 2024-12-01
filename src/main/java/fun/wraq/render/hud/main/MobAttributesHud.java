@@ -31,7 +31,7 @@ public class MobAttributesHud {
         GuiGraphics guiGraphics = new GuiGraphics(mc, mc.renderBuffers().bufferSource());
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
-        // mob attribute
+        // livingEntity attribute
         if (ClientUtils.mobAttribute != null) {
             int count = 0;
             int offsetX = 0;

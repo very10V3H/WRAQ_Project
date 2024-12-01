@@ -83,7 +83,7 @@ public class OpsAttributes {
     }
 
     public static double getValue(Map<Item, Double> attribute, Player player) {
-        if (player.getMainHandItem().getItem() instanceof ManageEquip) {
+        if (player.getOffhandItem().getItem() instanceof ManageEquip) {
             Map<Map<Item, Double>, Double> map1 = ImmutableMap.of(
                     Utils.attackDamage, attackDamage,
                     Utils.defence, defence,

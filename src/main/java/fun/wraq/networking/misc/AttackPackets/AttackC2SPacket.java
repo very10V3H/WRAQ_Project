@@ -1,8 +1,10 @@
 package fun.wraq.networking.misc.AttackPackets;
 
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.Utils;
 import fun.wraq.core.AttackEvent;
+import fun.wraq.process.func.damage.Damage;
 import fun.wraq.series.instance.series.castle.CastleAttackArmor;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
@@ -31,11 +33,12 @@ public class AttackC2SPacket {
         context.enqueueWork(() -> {
             ServerPlayer player = context.getSender();
             ServerPlayer serverPlayer = context.getSender();
-            int tick = serverPlayer.getServer().getTickCount();
+            int tick = Tick.get();
             if (Utils.PlayerAttackTime.containsKey(serverPlayer) && tick - Utils.PlayerAttackTime.get(serverPlayer) < 9)
                 return;
             Utils.PlayerAttackTime.put(serverPlayer, tick);
             CastleAttackArmor.NormalAttack(player); //
+            Damage.onPlayerReleaseNormalAttack(player);
             switch (count) {
                 case 0 -> {
                     AttackEvent.module(player, 0.8);

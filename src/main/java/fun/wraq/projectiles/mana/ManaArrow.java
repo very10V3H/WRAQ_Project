@@ -134,10 +134,10 @@ public class ManaArrow extends AbstractArrow implements GeoEntity {
                 for (int i = 0 ; i < 20 ; i ++) {
                     Vec3 pos = this.position().add(vec.scale(0.25 * i));
                     List<Mob> mobList = this.level().getEntitiesOfClass(Mob.class, AABB.ofSize(pos,1.5,1.5,1.5));
-                    for (Mob mob : mobList) {
-                        if (mob.getEyePosition().distanceTo(pos) < distance) {
-                            distance = mob.getEyePosition().distanceTo(pos);
-                            nearestMob = mob;
+                    for (Mob livingEntity : mobList) {
+                        if (livingEntity.getEyePosition().distanceTo(pos) < distance) {
+                            distance = livingEntity.getEyePosition().distanceTo(pos);
+                            nearestMob = livingEntity;
                         }
                     }
                 }

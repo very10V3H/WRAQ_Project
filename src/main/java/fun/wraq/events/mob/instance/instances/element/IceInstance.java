@@ -70,7 +70,7 @@ public class IceInstance extends NoTeamInstance {
         Mob mob = this.mobList.get(0);
         int tick = mob.tickCount;
         Level level = mob.level();
-        List<Player> players = getPlayerList(level);
+        List<Player> players = getNearPlayers(level);
         if (tick % 100 == 0) {
             skill(mob, tick, players); // 技能
             AtomicReference<Player> NearestPlayer = new AtomicReference<>();
@@ -133,7 +133,7 @@ public class IceInstance extends NoTeamInstance {
         mobList.add(stray);
 
         ServerBossEvent serverBossEvent = (ServerBossEvent) (new ServerBossEvent(stray.getDisplayName(), BossEvent.BossBarColor.BLUE, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
-        getPlayerList(level).forEach(player -> {
+        getNearPlayers(level).forEach(player -> {
             serverBossEvent.addPlayer((ServerPlayer) player);
         });
         bossInfoList.add(serverBossEvent);

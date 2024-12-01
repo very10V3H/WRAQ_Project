@@ -303,6 +303,10 @@ public class ComponentUtils {
         return Component.literal("望山楼阁").withStyle(CustomStyle.styleOfMoontain).withStyle(ChatFormatting.ITALIC);
     }
 
+    public static Component getSuffixOfAncient() {
+        return Component.literal("远古沉都").withStyle(CustomStyle.styleOfWarden).withStyle(ChatFormatting.ITALIC);
+    }
+
     public static void runeAttributeDescription(List<Component> components) {
         components.add(Component.literal(" - ").withStyle(ChatFormatting.GRAY).
                 append("符石属性:").withStyle(ChatFormatting.WHITE));
@@ -317,7 +321,7 @@ public class ComponentUtils {
 
     public static void solePassiveDescription(List<Component> components, Component name) {
         components.add(Component.literal(" - ").withStyle(ChatFormatting.GRAY).
-                append(Component.literal("唯一被动 ").withStyle(ChatFormatting.GREEN)).
+                append(Component.literal("唯一被动 ").withStyle(CustomStyle.styleOfMoontain)).
                 append(name));
     }
 

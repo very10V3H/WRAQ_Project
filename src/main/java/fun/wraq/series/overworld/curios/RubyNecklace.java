@@ -1,4 +1,4 @@
-package fun.wraq.series.gems.Curios;
+package fun.wraq.series.overworld.curios;
 
 import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.util.ComponentUtils;
@@ -10,17 +10,16 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
 
-public class FancySapphireNecklace extends WraqCurios {
+public class RubyNecklace extends WraqCurios {
 
-    public FancySapphireNecklace(Properties p_41383_, int num) {
+    public RubyNecklace(Properties p_41383_, int num) {
         super(p_41383_);
-        Utils.maxHealth.put(this, new double[]{3000, 4000, 5000, 6000}[num]);
-        Utils.coolDownDecrease.put(this, new double[]{0.12, 0.14, 0.16, 0.2}[num]);
+        Utils.maxHealth.put(this, new double[]{500, 1000, 1500, 2000}[num]);
     }
 
     @Override
     public Component getTypeDescription() {
-        return ComponentUtils.getComprehensiveTypeDescriptionOfCurios();
+        return ComponentUtils.getDefenceTypeDescriptionOfCurios();
     }
 
     @Override
@@ -30,11 +29,11 @@ public class FancySapphireNecklace extends WraqCurios {
 
     @Override
     public Style hoverMainStyle() {
-        return CustomStyle.styleOfSakura;
+        return CustomStyle.styleOfRed;
     }
 
     @Override
     public Component suffix() {
-        return ComponentUtils.getSuffixOfSakura();
+        return ComponentUtils.getSuffixOfChapterI();
     }
 }

@@ -121,7 +121,7 @@ public class ManaAttackModule {
             // total damage
             damage *= DamageInfluence.getPlayerTotalDamageRate(player);
             trueDamage *= DamageInfluence.getPlayerTotalDamageRate(player);
-            // mob control
+            // livingEntity control
             damage *= DamageInfluence.getMonsterControlDamageEffect(player, monster);
             trueDamage *= DamageInfluence.getMonsterControlDamageEffect(player, monster);
             // 元素

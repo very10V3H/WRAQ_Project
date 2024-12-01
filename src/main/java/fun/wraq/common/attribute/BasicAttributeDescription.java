@@ -20,6 +20,7 @@ import fun.wraq.render.toolTip.NewTooltip;
 import fun.wraq.render.toolTip.TraditionalTooltip;
 import fun.wraq.series.gems.GemAttributes;
 import fun.wraq.series.gems.WraqGem;
+import fun.wraq.series.gems.passive.WraqPassiveGem;
 import fun.wraq.series.instance.series.castle.RandomCuriosAttributesUtil;
 import fun.wraq.series.worldsoul.SoulEquipAttribute;
 import net.minecraft.ChatFormatting;
@@ -874,14 +875,22 @@ public class BasicAttributeDescription {
                             append(Component.literal("◈").withStyle(wraqGem.getHoverStyle())).
                             append(Component.literal("」").withStyle(ChatFormatting.AQUA)).
                             append(wraqGem.getDefaultInstance().getDisplayName()), -1)));
-                    List<WraqGem.AttributeMapValue> list = wraqGem.getAttributeMapValues();
-                    for (WraqGem.AttributeMapValue attributeMapValue : list) {
-                        ToolTipParameter toolTipParameter = toolTipParameterMap.get(System.identityHashCode(attributeMapValue.attributeMap()));
-                        Component component = Component.literal(" " + toolTipParameter.attributeName).withStyle(toolTipParameter.style).
-                                append(Component.literal((attributeMapValue.value() > 0 ? "+" : "") + String.format(toolTipParameter.valueFormat,
-                                        attributeMapValue.value() * (toolTipParameter.isPercent ? 100 : 1))).
-                                        withStyle(attributeMapValue.value() > 0 ? ChatFormatting.WHITE : ChatFormatting.RED));
-                        event.getTooltipElements().add(index++, Either.right(new NewTooltip.MyNewTooltip(component, toolTipParameter.resourceLocation)));
+                    if (!wraqGem.getAttributeMapValues().isEmpty()) {
+                        List<WraqGem.AttributeMapValue> list = wraqGem.getAttributeMapValues();
+                        for (WraqGem.AttributeMapValue attributeMapValue : list) {
+                            ToolTipParameter toolTipParameter = toolTipParameterMap.get(System.identityHashCode(attributeMapValue.attributeMap()));
+                            Component component = Component.literal(" " + toolTipParameter.attributeName).withStyle(toolTipParameter.style).
+                                    append(Component.literal((attributeMapValue.value() > 0 ? "+" : "") + String.format(toolTipParameter.valueFormat,
+                                                    attributeMapValue.value() * (toolTipParameter.isPercent ? 100 : 1))).
+                                            withStyle(attributeMapValue.value() > 0 ? ChatFormatting.WHITE : ChatFormatting.RED));
+                            event.getTooltipElements().add(index++, Either.right(new NewTooltip.MyNewTooltip(component, toolTipParameter.resourceLocation)));
+                        }
+                    }
+                    if (wraqGem instanceof WraqPassiveGem wraqPassiveGem) {
+                        for (int i = 0; i < wraqPassiveGem.getAdditionDescription().size(); i++) {
+                            event.getTooltipElements().add(index + i, Either.left(wraqPassiveGem.getAdditionDescription().get(i)));
+                        }
+                        index += wraqPassiveGem.getAdditionDescription().size();
                     }
                 }
                 for (int i = 0 ; i < data.getInt("newSlot") ; i ++) {

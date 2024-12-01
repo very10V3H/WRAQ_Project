@@ -92,7 +92,15 @@ public class MoonBow extends WraqBow implements OnHitEffectEquip {
         targetList.sort(new Comparator<Mob>() {
             @Override
             public int compare(Mob o1, Mob o2) {
-                return (int) (distance.get(o1) - distance.get(o2));
+                if (distance.get(o1) < distance.get(o2)) {
+                    return -1;
+                }
+                else {
+                    if (distance.get(o1) > distance.get(o2)) {
+                        return 1;
+                    }
+                    return 0;
+                }
             }
         });
         if (targetList.size() > 1) {
@@ -129,6 +137,6 @@ public class MoonBow extends WraqBow implements OnHitEffectEquip {
     public void onHit(Player player, Mob mob) {
         mob.level().getEntitiesOfClass(Mob.class, AABB.ofSize(mob.position(), 15, 15, 15))
                 .stream().filter(mob1 -> mob1.distanceTo(mob) <= 6 && !mob1.equals(mob))
-                .forEach(mob1 -> Compute.MonsterGatherProvider(mob1, 2, mob.position()));
+                .forEach(mob1 -> Compute.causeGatherEffect(mob1, 2, mob.position()));
     }
 }

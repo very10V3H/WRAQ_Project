@@ -95,7 +95,7 @@ public class BackSpawn extends Item {
                         append(MyRespawnRule.overworldSpawnPos.get(index).zoneName()));
                 components.add(Component.literal(" "));
                 components.add(Component.literal("[shift + 右键]").withStyle(ChatFormatting.WHITE).
-                        append(Component.literal("将此卷轴的锚定点标记至临近村庄").withStyle(ChatFormatting.AQUA)));
+                        append(Component.literal("将此卷轴的锚定点标记至临近村庄/城镇").withStyle(ChatFormatting.AQUA)));
             } else {
                 components.add(Component.literal("右键").withStyle(ChatFormatting.WHITE).
                         append(Component.literal("引导").withStyle(ChatFormatting.AQUA)).

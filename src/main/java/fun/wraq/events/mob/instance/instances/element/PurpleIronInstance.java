@@ -73,7 +73,7 @@ public class PurpleIronInstance extends NoTeamInstance {
         mobList.add(amethystCrabEntity);
 
         ServerBossEvent serverBossEvent = (ServerBossEvent) (new ServerBossEvent(amethystCrabEntity.getDisplayName(), BossEvent.BossBarColor.BLUE, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
-        getPlayerList(level).forEach(player -> {
+        getNearPlayers(level).forEach(player -> {
             serverBossEvent.addPlayer((ServerPlayer) player);
         });
         bossInfoList.add(serverBossEvent);

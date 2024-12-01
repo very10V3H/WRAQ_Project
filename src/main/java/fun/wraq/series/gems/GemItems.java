@@ -5,6 +5,9 @@ import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.WraqItem;
+import fun.wraq.series.instance.series.warden.gem.AncientDarknessGem;
+import fun.wraq.series.instance.series.warden.gem.AncientEchoGem;
+import fun.wraq.series.instance.series.warden.gem.AncientSilentGem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
@@ -305,6 +308,24 @@ public class GemItems {
 
     public static final RegistryObject<Item> moonManaGemO = ITEMS.register("moon_mana_gem_o",
             () -> new WraqGem.WraqGemO((WraqGem) moonManaGem.get(), 3));
+
+    public static final RegistryObject<Item> ANCIENT_DARKNESS_GEM = ITEMS.register("ancient_darkness_gem",
+            () -> new AncientDarknessGem(new Item.Properties().rarity(CustomStyle.WARDEN_BOLD), List.of(),
+                    CustomStyle.styleOfWarden,
+                    Te.s("无止境的远古暗黑深渊", CustomStyle.styleOfWarden),
+                    ComponentUtils.getSuffixOfAncient()));
+
+    public static final RegistryObject<Item> ANCIENT_ECHO_GEM = ITEMS.register("ancient_echo_gem",
+            () -> new AncientEchoGem(new Item.Properties().rarity(CustomStyle.WARDEN_BOLD), List.of(),
+                    CustomStyle.styleOfWarden,
+                    Te.s("无边界的远古暗黑回响", CustomStyle.styleOfWarden),
+                    ComponentUtils.getSuffixOfAncient()));
+
+    public static final RegistryObject<Item> ANCIENT_SILENT_GEM = ITEMS.register("ancient_silent_gem",
+            () -> new AncientSilentGem(new Item.Properties().rarity(CustomStyle.WARDEN_BOLD), List.of(),
+                    CustomStyle.styleOfWarden,
+                    Te.s("无作声的寂静暗黑封印", CustomStyle.styleOfWarden),
+                    ComponentUtils.getSuffixOfAncient()));
 
     public static final RegistryObject<Item> OPEN_SLOT = ITEMS.register("open_slot",
             () -> new WraqItem(new Item.Properties().rarity(Rarity.UNCOMMON), false, false, List.of(

@@ -68,7 +68,7 @@ public class MoonInstance extends NoTeamInstance {
         Mob manaMob = mobList.get(1);
         if (attackMob == null || manaMob == null) return;
         int tickCount = attackMob.getServer().getTickCount();
-        List<Player> players = getPlayerList(attackMob.level());
+        List<Player> players = getNearPlayers(attackMob.level());
         if (tickCount % 280 == 0) {
             Skill1(attackMob, manaMob, players);
         }
@@ -104,7 +104,7 @@ public class MoonInstance extends NoTeamInstance {
         mobList.add(attackMob);
 
         ServerBossEvent serverBossEvent = (ServerBossEvent) (new ServerBossEvent(attackMob.getDisplayName(), BossEvent.BossBarColor.YELLOW, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
-        getPlayerList(level).forEach(player -> {
+        getNearPlayers(level).forEach(player -> {
             serverBossEvent.addPlayer((ServerPlayer) player);
         });
         bossInfoList.add(serverBossEvent);
@@ -128,7 +128,7 @@ public class MoonInstance extends NoTeamInstance {
         mobList.add(manaMob);
 
         ServerBossEvent serverBossEvent1 = (ServerBossEvent) (new ServerBossEvent(manaMob.getDisplayName(), BossEvent.BossBarColor.YELLOW, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
-        getPlayerList(level).forEach(player -> {
+        getNearPlayers(level).forEach(player -> {
             serverBossEvent1.addPlayer((ServerPlayer) player);
         });
         bossInfoList.add(serverBossEvent1);

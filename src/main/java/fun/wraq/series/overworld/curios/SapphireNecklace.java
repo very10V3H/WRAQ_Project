@@ -1,4 +1,4 @@
-package fun.wraq.series.gems.Curios;
+package fun.wraq.series.overworld.curios;
 
 import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.util.ComponentUtils;
