@@ -92,7 +92,15 @@ public class MoonBow extends WraqBow implements OnHitEffectEquip {
         targetList.sort(new Comparator<Mob>() {
             @Override
             public int compare(Mob o1, Mob o2) {
-                return (int) (distance.get(o1) - distance.get(o2));
+                if (distance.get(o1) < distance.get(o2)) {
+                    return -1;
+                }
+                else {
+                    if (distance.get(o1) > distance.get(o2)) {
+                        return 1;
+                    }
+                    return 0;
+                }
             }
         });
         if (targetList.size() > 1) {
