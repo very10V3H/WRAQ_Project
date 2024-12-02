@@ -36,11 +36,12 @@ public class ProgressUnlockCommand implements Command<CommandSourceStack> {
                     NoTeamInstanceModule.AllowRewardKey.iceKnight, NoTeamInstanceModule.AllowRewardKey.purpleIron,
                     NoTeamInstanceModule.AllowRewardKey.devil, NoTeamInstanceModule.AllowRewardKey.moon,
                     NoTeamInstanceModule.AllowRewardKey.sakuraBoss, NoTeamInstanceModule.AllowRewardKey.blackCastle,
-                    NoTeamInstanceModule.AllowRewardKey.moontainBoss, NoTeamInstanceModule.AllowRewardKey.enderGuardian);
+                    NoTeamInstanceModule.AllowRewardKey.moontainBoss, NoTeamInstanceModule.AllowRewardKey.enderGuardian,
+                    NoTeamInstanceModule.AllowRewardKey.warden);
             tags.forEach(s -> {
                 NoTeamInstanceModule.putPlayerAllowReward(target, s, true);
             });
-            Compute.sendFormatMSG(player, Component.literal("副本").withStyle(ChatFormatting.RED),
+            Compute.sendFormatMSG(target, Component.literal("副本").withStyle(ChatFormatting.RED),
                     Component.literal("所有副本的前置条件已解锁").withStyle(ChatFormatting.WHITE));
         }
         return 0;

@@ -10,7 +10,9 @@ import fun.wraq.process.system.enhanceForge.ForgeMaterials;
 import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.process.system.spur.Items.SpurItems;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.end.citadel.CitadelItems;
 import fun.wraq.series.gems.GemItems;
+import fun.wraq.series.instance.series.warden.WardenItems;
 import fun.wraq.series.newrunes.NewRuneItems;
 import fun.wraq.series.overworld.sun.SunIslandItems;
 import fun.wraq.series.specialevents.SpecialEventItems;
@@ -1114,7 +1116,8 @@ public class TradeList {
                 ModItems.NetherSoul.get().getDefaultInstance(),
                 ModItems.QuartzSoul.get().getDefaultInstance(),
                 ModItems.toNether.get().getDefaultInstance(),
-                ModItems.toEnd.get().getDefaultInstance()
+                ModItems.toEnd.get().getDefaultInstance(),
+                WardenItems.WARDEN_MATRIX.get().getDefaultInstance()
         };
         List<ItemStack> contentList = new ArrayList<>();
         Collections.addAll(contentList, itemStacks);
@@ -1132,6 +1135,10 @@ public class TradeList {
                 }});
                 case 2, 3 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.GOLD_COIN.get(), 4));
+                }});
+                case 4 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
+                    add(new ItemStack(ModItems.CastlePiece.get(), 1));
+                    add(new ItemStack(CitadelItems.CITADEL_PIECE.get(), 1));
                 }});
             }
         }

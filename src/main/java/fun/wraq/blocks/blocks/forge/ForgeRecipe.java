@@ -33,10 +33,12 @@ public class ForgeRecipe {
         Item item = itemStack.getItem();
         List<Component> tooltip = event.getToolTip();
         if (forgeDrawRecipe.containsKey(item)
-                && ForgeEquipUtils.itemForgePlaceMap.containsKey(item)) {
-            if (!Screen.hasAltDown()) {
-                tooltip.add(Component.literal("[按下Alt查看锻造方式]").withStyle(CustomStyle.styleOfStone));
+                && ForgeEquipUtils.itemForgePlaceMap.containsKey(item) && !Screen.hasAltDown() && !Screen.hasShiftDown()) {
+            if (!Screen.hasControlDown()) {
+                event.getToolTip().add(Te.s(""));
+                tooltip.add(Component.literal("[按下CTRL查看锻造方式]").withStyle(ChatFormatting.ITALIC).withStyle(CustomStyle.styleOfStone));
             } else {
+                event.getToolTip().add(Te.s(""));
                 tooltip.add(Te.s("->", ChatFormatting.GOLD, "锻造方式", CustomStyle.styleOfStone, "->", ChatFormatting.GOLD));
                 List<Component> components = ForgeEquipUtils.itemForgePlaceMap.get(item);
                 MutableComponent description = Te.s("于 ");

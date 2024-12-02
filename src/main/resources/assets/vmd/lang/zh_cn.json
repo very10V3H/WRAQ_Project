@@ -1877,10 +1877,22 @@
   "item.vmd.devil_power_curio": "未知术法核心",
 
   "item.vmd.warden_matrix": "远古矩阵",
+  "item.vmd.warden_soul_ingot": "坚守者魂锭",
 
-  "item.vmd.ancient_darkness_gem": "远古暗黑宝石",
-  "item.vmd.ancient_echo_gem": "远古回响宝石",
-  "item.vmd.ancient_silent_gem": "远古寂静宝石",
+  "item.vmd.ancient_darkness_gem_0": "远古暗黑宝石",
+  "item.vmd.ancient_darkness_gem_1": "远古暗黑宝石¹",
+  "item.vmd.ancient_darkness_gem_2": "远古暗黑宝石²",
+  "item.vmd.ancient_darkness_gem_3": "远古暗黑宝石³",
+
+  "item.vmd.ancient_echo_gem_0": "远古回响宝石",
+  "item.vmd.ancient_echo_gem_1": "远古回响宝石¹",
+  "item.vmd.ancient_echo_gem_2": "远古回响宝石²",
+  "item.vmd.ancient_echo_gem_3": "远古回响宝石³",
+
+  "item.vmd.ancient_silent_gem_0": "远古寂静宝石",
+  "item.vmd.ancient_silent_gem_1": "远古寂静宝石¹",
+  "item.vmd.ancient_silent_gem_2": "远古寂静宝石²",
+  "item.vmd.ancient_silent_gem_3": "远古寂静宝石³",
 
   "item.vmd.warden_shield": "远古手盾",
   "item.vmd.warden_knife": "远古匕首",

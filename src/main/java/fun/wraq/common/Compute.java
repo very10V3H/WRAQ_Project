@@ -2029,4 +2029,8 @@ public class Compute {
     public static boolean notePaperExpired(ItemStack stack) {
         return true;
     }
+
+    public static String getPercent(double value) {
+        return String.format("%.0f%%", value * 100);
+    }
 }

@@ -37,7 +37,9 @@ public class WardenMatrix extends WraqItem {
             components.add(Component.literal("右键").withStyle(ChatFormatting.WHITE).
                     append(Component.literal("碾碎").withStyle(ChatFormatting.GRAY)).
                     append(Component.literal("此物，前往").withStyle(ChatFormatting.WHITE)).
-                    append(Component.literal("远古城市").withStyle(CustomStyle.styleOfWarden)));
+                    append(Component.literal("远古之城").withStyle(CustomStyle.styleOfWarden)));
+            components.add(Te.s(" 为应对", "黑暗", CustomStyle.styleOfWarden,
+                    "你最好带几瓶", "夜视药水", CustomStyle.styleOfFlexible));
         }
         super.appendHoverText(stack, level, components, p_41424_);
     }

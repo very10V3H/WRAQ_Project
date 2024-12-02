@@ -509,7 +509,7 @@ public class Damage {
             OnCauseFinalDamageCurios.causeFinalDamage(player, mob, damage);
             OnCauseFinalDamageEquip.causeFinalDamage(player, mob, damage);
 
-            damage *= WardenInstance.mobWithstandDamageRate(mob);
+            damage *= WardenInstance.mobWithstandDamageRate(mob, player);
             double finalDamage = mob.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.WoodenStake5.get()) ? 0 : (float) damage;
             if (mob.getHealth() <= finalDamage && !MoontainBoss3Instance.beforeKill(mob)) return;
             if (mob.getHealth() <= finalDamage && mob.isAlive()) {

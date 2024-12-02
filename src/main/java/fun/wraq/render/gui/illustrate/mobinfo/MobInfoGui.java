@@ -1,6 +1,7 @@
 package fun.wraq.render.gui.illustrate.mobinfo;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import fun.wraq.common.attribute.BasicAttributeDescription;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.ItemAndRate;
 import fun.wraq.common.util.Utils;
@@ -101,6 +102,9 @@ public class MobInfoGui extends Screen {
         mobInfoList.sort(new Comparator<MobInfo>() {
             @Override
             public int compare(MobInfo o1, MobInfo o2) {
+                if (Math.abs(o1.mobLevel - mc.player.experienceLevel) == Math.abs(o2.mobLevel - mc.player.experienceLevel)) {
+                    return o2.mobLevel - o1.mobLevel;
+                }
                 return Math.abs(o1.mobLevel - mc.player.experienceLevel) - Math.abs(o2.mobLevel - mc.player.experienceLevel);
             }
         });
@@ -120,7 +124,7 @@ public class MobInfoGui extends Screen {
                         description.add(Te.m("  ").append(itemAndRate.getItemStack().getDisplayName())
                                 .append(Te.m(" * " + itemAndRate.getItemStack().getCount(), ChatFormatting.AQUA))
                                 .append(Te.m(" [", ChatFormatting.AQUA))
-                                .append(Te.m(String.format("%.0f%%", itemAndRate.getRate() * 100)))
+                                .append(Te.m(BasicAttributeDescription.getDecimal(itemAndRate.getRate() * 100, 2) + "%"))
                                 .append(Te.m("]", ChatFormatting.AQUA)));
                     });
                     guiGraphics.renderComponentTooltip(fontRenderer, description, x, y);

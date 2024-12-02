@@ -13,7 +13,12 @@ import fun.wraq.events.mob.instance.NoTeamInstanceModule;
 import fun.wraq.events.mob.instance.instances.dimension.CitadelGuardianInstance;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
+import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.gems.GemItems;
+import fun.wraq.series.instance.series.warden.WardenItems;
+import fun.wraq.series.moontain.MoontainItems;
+import fun.wraq.series.moontain.equip.armor.MoontainArmor;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -39,6 +44,7 @@ import net.minecraft.world.entity.monster.Skeleton;
 import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.entity.monster.warden.WardenAi;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -122,7 +128,11 @@ public class WardenInstance extends NoTeamInstance {
     public void rewardModule(Player player) {
         List<ItemAndRate> rewardList = getRewardList();
         rewardList.forEach(itemAndRate -> {
-            itemAndRate.sendWithMSG(player, 1);
+            boolean reward = itemAndRate.sendWithMSG(player, 1);
+            if (itemAndRate.getRate() < 0.01 && reward) {
+                sendFormatMSG(player, Te.s(player.getDisplayName(), "击败", "坚守者", CustomStyle.styleOfWarden,
+                        "获得了", itemAndRate.getItemStack().getDisplayName()));
+            }
         });
 
         String name = player.getName().getString();
@@ -143,6 +153,11 @@ public class WardenInstance extends NoTeamInstance {
     }
 
     @Override
+    public int getRewardNeedItemCount() {
+        return 4;
+    }
+
+    @Override
     public Component allowRewardCondition() {
         return Te.s("必须击杀", CitadelGuardianInstance.mobName, CustomStyle.styleOfEnd, "至少",
                 "50次", ChatFormatting.RED, "才能获取奖励。");
@@ -150,19 +165,28 @@ public class WardenInstance extends NoTeamInstance {
 
     public List<ItemAndRate> getRewardList() {
         return List.of(
+                new ItemAndRate(WardenItems.WARDEN_SOUL_INGOT.get(), 1),
+                new ItemAndRate(GemItems.ANCIENT_DARKNESS_GEM_0.get(), 0.0033),
+                new ItemAndRate(GemItems.ANCIENT_SILENT_GEM_0.get(), 0.0033),
+                new ItemAndRate(GemItems.ANCIENT_ECHO_GEM_0.get(), 0.0033),
                 new ItemAndRate(ModItems.WorldSoul2.get(), 0.25),
                 new ItemAndRate(ModItems.GoldCoinBag.get(), 0.1)
         );
     }
 
     // 灾变神力：减少91%受到的伤害
-    public static double mobWithstandDamageRate(Mob mob) {
+    public static double mobWithstandDamageRate(Mob mob, Player player) {
         if (MobSpawn.getMobOriginName(mob).equals(mobName)) {
             WardenInstance instance = getInstance();
             if (instance.boss != null && instance.spawnTick + 100 > Tick.get()) {
                 return 0;
             }
-            return 0.09;
+            if (instance.summonTick > 0) {
+                return 0;
+            }
+            List<Item> moontainWeaponList =
+                    List.of(MoontainItems.SWORD.get(), MoontainItems.BOW.get(), MoontainItems.SCEPTRE.get());
+            return 0.09 * (moontainWeaponList.contains(player.getMainHandItem().getItem()) ? 1.5 : 1);
         }
         return 1;
     }
@@ -243,7 +267,7 @@ public class WardenInstance extends NoTeamInstance {
                 });
             }
             if (summonTick + 400 < Tick.get()) {
-                boss.heal(boss.getMaxHealth() * 0.25f);
+                boss.heal(boss.getMaxHealth());
                 getAllPlayers(boss.level()).forEach(player -> {
                     Compute.setPlayerTitleAndSubTitle((ServerPlayer) player, Te.s("幽匿尖啸体", style, "未及时被摧毁"),
                             Te.s(mobName, style, "从幽匿中汲取了力量"));
@@ -331,10 +355,18 @@ public class WardenInstance extends NoTeamInstance {
         }
     }
 
-    // 对处于潜行状态的玩家，将免疫其50%伤害。
+    // 对处于潜行状态的玩家，将免疫其50%伤害。对于穿戴有望山防具的玩家，将减少50%伤害。
     public static double onPlayerWithstandDamageRate(Player player, Mob mob) {
-        if (player.isShiftKeyDown() && mob.equals(instance.boss)) {
-            return 0.5;
+        if (mob.equals(instance.boss)) {
+            double rate = 1;
+            if (player.isShiftKeyDown()) {
+                rate *= 0.5;
+            }
+            if (InventoryOperation.getArmors(player)
+                    .stream().anyMatch(stack -> stack.getItem() instanceof MoontainArmor)) {
+                rate *= 0.5;
+            }
+            return rate;
         }
         return 1;
     }
@@ -353,6 +385,7 @@ public class WardenInstance extends NoTeamInstance {
                     if (random.nextDouble() < 0.2) {
                         SpecialEffectOnPlayer.addSilentEffect(player, 60);
                         SpecialEffectOnPlayer.addBlindEffect(player, 60);
+                        player.addEffect(new MobEffectInstance(MobEffects.DARKNESS, 150));
                     }
                 });
             });
@@ -363,17 +396,23 @@ public class WardenInstance extends NoTeamInstance {
     public void tips() {
         if (spawnTick == Tick.get()) {
             getAllPlayers(boss.level()).forEach(player -> {
-                player.addEffect(new MobEffectInstance(MobEffects.DARKNESS, 40));
+                player.addEffect(new MobEffectInstance(MobEffects.DARKNESS, 100));
                 MySound.soundToPlayer(player, SoundEvents.WARDEN_AGITATED);
             });
         }
-        if (spawnTick + 100 == Tick.get()) {
+        if (spawnTick + 80 == Tick.get()) {
+            getAllPlayers(boss.level()).forEach(player -> {
+                sendFormatMSG(player, Te.s("穿戴/使用", "望山装备/武器", CustomStyle.styleOfMoontain, "对付",
+                        "坚守者", style, "似乎非常有效!"));
+            });
+        }
+        if (spawnTick + 160 == Tick.get()) {
             getAllPlayers(boss.level()).forEach(player -> {
                 sendFormatMSG(player, Te.s("坚守者", style, "对处于",
                         "潜行状态", CustomStyle.styleOfEnd, "的玩家造成的伤害", "降低50%", ChatFormatting.GREEN));
             });
         }
-        if (spawnTick + 200 == Tick.get()) {
+        if (spawnTick + 240 == Tick.get()) {
             getAllPlayers(boss.level()).forEach(player -> {
                 sendFormatMSG(player, Te.s("玩家之间需要保持一定距离，因为", "坚守者", style, "的普通技能是",
                         "范围伤害", CustomStyle.styleOfStone));

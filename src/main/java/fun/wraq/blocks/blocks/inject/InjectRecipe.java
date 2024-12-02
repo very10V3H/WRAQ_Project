@@ -8,6 +8,7 @@ import fun.wraq.series.gems.GemItems;
 import fun.wraq.series.instance.blade.BladeItems;
 import fun.wraq.series.instance.mixture.MixtureItems;
 import fun.wraq.series.instance.quiver.QuiverItems;
+import fun.wraq.series.instance.series.warden.WardenItems;
 import net.minecraft.world.item.Item;
 
 import java.util.HashMap;
@@ -1043,6 +1044,27 @@ public class InjectRecipe {
 
         injectingRecipeMap.put(CitadelItems.CITADEL_PIECE.get(),
                 new InjectingRecipe(16, ModItems.completeGem.get(), 1, CitadelItems.CITADEL_EQUIP_ENHANCER.get()));
+
+        injectingRecipeMap.put(GemItems.ANCIENT_DARKNESS_GEM_0.get(),
+                new InjectingRecipe(WardenItems.WARDEN_SOUL_INGOT.get(), 64, GemItems.ANCIENT_DARKNESS_GEM_1.get()));
+        injectingRecipeMap.put(GemItems.ANCIENT_DARKNESS_GEM_1.get(),
+                new InjectingRecipe(WardenItems.WARDEN_SOUL_INGOT.get(), 128, GemItems.ANCIENT_DARKNESS_GEM_2.get()));
+        injectingRecipeMap.put(GemItems.ANCIENT_DARKNESS_GEM_2.get(),
+                new InjectingRecipe(WardenItems.WARDEN_SOUL_INGOT.get(), 192, GemItems.ANCIENT_DARKNESS_GEM_3.get()));
+
+        injectingRecipeMap.put(GemItems.ANCIENT_SILENT_GEM_0.get(),
+                new InjectingRecipe(WardenItems.WARDEN_SOUL_INGOT.get(), 64, GemItems.ANCIENT_SILENT_GEM_1.get()));
+        injectingRecipeMap.put(GemItems.ANCIENT_SILENT_GEM_1.get(),
+                new InjectingRecipe(WardenItems.WARDEN_SOUL_INGOT.get(), 128, GemItems.ANCIENT_SILENT_GEM_2.get()));
+        injectingRecipeMap.put(GemItems.ANCIENT_SILENT_GEM_2.get(),
+                new InjectingRecipe(WardenItems.WARDEN_SOUL_INGOT.get(), 192, GemItems.ANCIENT_SILENT_GEM_3.get()));
+
+        injectingRecipeMap.put(GemItems.ANCIENT_ECHO_GEM_0.get(),
+                new InjectingRecipe(WardenItems.WARDEN_SOUL_INGOT.get(), 64, GemItems.ANCIENT_ECHO_GEM_1.get()));
+        injectingRecipeMap.put(GemItems.ANCIENT_ECHO_GEM_1.get(),
+                new InjectingRecipe(WardenItems.WARDEN_SOUL_INGOT.get(), 128, GemItems.ANCIENT_ECHO_GEM_2.get()));
+        injectingRecipeMap.put(GemItems.ANCIENT_ECHO_GEM_2.get(),
+                new InjectingRecipe(WardenItems.WARDEN_SOUL_INGOT.get(), 192, GemItems.ANCIENT_ECHO_GEM_3.get()));
 
         for (Map.Entry<Item, InjectingRecipe> itemInjectingRecipeEntry : injectingRecipeMap.entrySet()) {
             injectedGetItemSourceItemMap.put(itemInjectingRecipeEntry.getValue().getForgingGetItem(), itemInjectingRecipeEntry.getKey());

@@ -309,23 +309,77 @@ public class GemItems {
     public static final RegistryObject<Item> moonManaGemO = ITEMS.register("moon_mana_gem_o",
             () -> new WraqGem.WraqGemO((WraqGem) moonManaGem.get(), 3));
 
-    public static final RegistryObject<Item> ANCIENT_DARKNESS_GEM = ITEMS.register("ancient_darkness_gem",
+    public static final RegistryObject<Item> ANCIENT_DARKNESS_GEM_0 = ITEMS.register("ancient_darkness_gem_0",
             () -> new AncientDarknessGem(new Item.Properties().rarity(CustomStyle.WARDEN_BOLD), List.of(),
                     CustomStyle.styleOfWarden,
                     Te.s("无止境的远古暗黑深渊", CustomStyle.styleOfWarden),
-                    ComponentUtils.getSuffixOfAncient()));
+                    ComponentUtils.getSuffixOfAncient(), 0));
 
-    public static final RegistryObject<Item> ANCIENT_ECHO_GEM = ITEMS.register("ancient_echo_gem",
+    public static final RegistryObject<Item> ANCIENT_DARKNESS_GEM_1 = ITEMS.register("ancient_darkness_gem_1",
+            () -> new AncientDarknessGem(new Item.Properties().rarity(CustomStyle.WARDEN_BOLD), List.of(),
+                    CustomStyle.styleOfWarden,
+                    Te.s("无止境的远古暗黑深渊", CustomStyle.styleOfWarden),
+                    ComponentUtils.getSuffixOfAncient(), 1));
+
+    public static final RegistryObject<Item> ANCIENT_DARKNESS_GEM_2 = ITEMS.register("ancient_darkness_gem_2",
+            () -> new AncientDarknessGem(new Item.Properties().rarity(CustomStyle.WARDEN_BOLD), List.of(),
+                    CustomStyle.styleOfWarden,
+                    Te.s("无止境的远古暗黑深渊", CustomStyle.styleOfWarden),
+                    ComponentUtils.getSuffixOfAncient(), 2));
+
+    public static final RegistryObject<Item> ANCIENT_DARKNESS_GEM_3 = ITEMS.register("ancient_darkness_gem_3",
+            () -> new AncientDarknessGem(new Item.Properties().rarity(CustomStyle.WARDEN_BOLD), List.of(),
+                    CustomStyle.styleOfWarden,
+                    Te.s("无止境的远古暗黑深渊", CustomStyle.styleOfWarden),
+                    ComponentUtils.getSuffixOfAncient(), 3));
+
+    public static final RegistryObject<Item> ANCIENT_ECHO_GEM_0 = ITEMS.register("ancient_echo_gem_0",
             () -> new AncientEchoGem(new Item.Properties().rarity(CustomStyle.WARDEN_BOLD), List.of(),
                     CustomStyle.styleOfWarden,
-                    Te.s("无边界的远古暗黑回响", CustomStyle.styleOfWarden),
-                    ComponentUtils.getSuffixOfAncient()));
+                    Te.s("无界限的远古暗黑回响", CustomStyle.styleOfWarden),
+                    ComponentUtils.getSuffixOfAncient(), 0));
 
-    public static final RegistryObject<Item> ANCIENT_SILENT_GEM = ITEMS.register("ancient_silent_gem",
+    public static final RegistryObject<Item> ANCIENT_ECHO_GEM_1 = ITEMS.register("ancient_echo_gem_1",
+            () -> new AncientEchoGem(new Item.Properties().rarity(CustomStyle.WARDEN_BOLD), List.of(),
+                    CustomStyle.styleOfWarden,
+                    Te.s("无界限的远古暗黑回响", CustomStyle.styleOfWarden),
+                    ComponentUtils.getSuffixOfAncient(), 1));
+
+    public static final RegistryObject<Item> ANCIENT_ECHO_GEM_2 = ITEMS.register("ancient_echo_gem_2",
+            () -> new AncientEchoGem(new Item.Properties().rarity(CustomStyle.WARDEN_BOLD), List.of(),
+                    CustomStyle.styleOfWarden,
+                    Te.s("无界限的远古暗黑回响", CustomStyle.styleOfWarden),
+                    ComponentUtils.getSuffixOfAncient(), 2));
+
+    public static final RegistryObject<Item> ANCIENT_ECHO_GEM_3 = ITEMS.register("ancient_echo_gem_3",
+            () -> new AncientEchoGem(new Item.Properties().rarity(CustomStyle.WARDEN_BOLD), List.of(),
+                    CustomStyle.styleOfWarden,
+                    Te.s("无界限的远古暗黑回响", CustomStyle.styleOfWarden),
+                    ComponentUtils.getSuffixOfAncient(), 3));
+
+    public static final RegistryObject<Item> ANCIENT_SILENT_GEM_0 = ITEMS.register("ancient_silent_gem_0",
             () -> new AncientSilentGem(new Item.Properties().rarity(CustomStyle.WARDEN_BOLD), List.of(),
                     CustomStyle.styleOfWarden,
                     Te.s("无作声的寂静暗黑封印", CustomStyle.styleOfWarden),
-                    ComponentUtils.getSuffixOfAncient()));
+                    ComponentUtils.getSuffixOfAncient(), 0));
+
+    public static final RegistryObject<Item> ANCIENT_SILENT_GEM_1 = ITEMS.register("ancient_silent_gem_1",
+            () -> new AncientSilentGem(new Item.Properties().rarity(CustomStyle.WARDEN_BOLD), List.of(),
+                    CustomStyle.styleOfWarden,
+                    Te.s("无作声的寂静暗黑封印", CustomStyle.styleOfWarden),
+                    ComponentUtils.getSuffixOfAncient(), 1));
+
+    public static final RegistryObject<Item> ANCIENT_SILENT_GEM_2 = ITEMS.register("ancient_silent_gem_2",
+            () -> new AncientSilentGem(new Item.Properties().rarity(CustomStyle.WARDEN_BOLD), List.of(),
+                    CustomStyle.styleOfWarden,
+                    Te.s("无作声的寂静暗黑封印", CustomStyle.styleOfWarden),
+                    ComponentUtils.getSuffixOfAncient(), 2));
+
+    public static final RegistryObject<Item> ANCIENT_SILENT_GEM_3 = ITEMS.register("ancient_silent_gem_3",
+            () -> new AncientSilentGem(new Item.Properties().rarity(CustomStyle.WARDEN_BOLD), List.of(),
+                    CustomStyle.styleOfWarden,
+                    Te.s("无作声的寂静暗黑封印", CustomStyle.styleOfWarden),
+                    ComponentUtils.getSuffixOfAncient(), 3));
 
     public static final RegistryObject<Item> OPEN_SLOT = ITEMS.register("open_slot",
             () -> new WraqItem(new Item.Properties().rarity(Rarity.UNCOMMON), false, false, List.of(
@@ -345,15 +399,5 @@ public class GemItems {
     public static final RegistryObject<Item> DISMANTLE = ITEMS.register("dismantle",
             () -> new WraqItem(new Item.Properties().rarity(Rarity.UNCOMMON), false, false, List.of(
                     Te.s("用于", "任意孔位宝石拆卸", ChatFormatting.LIGHT_PURPLE)
-            )));
-
-    public static final RegistryObject<Item> DISMANTLE_GOLDEN = ITEMS.register("dismantle_golden",
-            () -> new WraqItem(new Item.Properties().rarity(Rarity.RARE), false, false, List.of(
-                    Te.s("用于", "武器宝石孔 - 2", ChatFormatting.LIGHT_PURPLE, "的宝石拆卸")
-            )));
-
-    public static final RegistryObject<Item> DISMANTLE_DIAMOND = ITEMS.register("dismantle_diamond",
-            () -> new WraqItem(new Item.Properties().rarity(Rarity.EPIC), false, false, List.of(
-                    Te.s("用于", "武器宝石孔 - 3 + 防具宝石孔 - 2", ChatFormatting.LIGHT_PURPLE, "的宝石拆卸")
             )));
 }

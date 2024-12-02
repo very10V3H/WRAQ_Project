@@ -906,6 +906,11 @@ public class BasicAttributeDescription {
                             append(Component.literal("◈").withStyle(wraqGem.getHoverStyle())).
                             append(Component.literal("」").withStyle(ChatFormatting.AQUA)));
                 }
+                for (int i = 0 ; i < data.getInt("newSlot") ; i ++) {
+                    component.append(Component.literal("「").withStyle(ChatFormatting.AQUA).
+                            append(Component.literal(" ")).
+                            append(Component.literal("」").withStyle(ChatFormatting.AQUA)));
+                }
                 event.getTooltipElements().add(index++, Either.right(new TraditionalTooltip.MyTooltip(component, -1)));
                 event.getTooltipElements().add(index++, Either.right(new TraditionalTooltip.MyTooltip(Component.literal(" [按住ALT查看宝石属性]").withStyle(ChatFormatting.LIGHT_PURPLE), -1)));
             }

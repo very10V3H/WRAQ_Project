@@ -71,11 +71,15 @@ public class ToolTipEvent {
         }
         if (InjectRecipe.injectingRecipeMap.isEmpty()) InjectRecipe.setInjectingRecipeMap();
         if ((InjectRecipe.injectingRecipeMap.containsKey(stack.getItem())
-                || InjectRecipe.injectedGetItemSourceItemMap.containsKey(stack.getItem()))) {
-            if (!Screen.hasShiftDown())
+                || InjectRecipe.injectedGetItemSourceItemMap.containsKey(stack.getItem())) && !Screen.hasAltDown()
+                && !Screen.hasControlDown()) {
+            if (!Screen.hasShiftDown()) {
+                event.getToolTip().add(Te.s(""));
                 event.getToolTip().add(Component.literal("[在灌注配方中，按下Shift查看配方]")
-                        .withStyle(ChatFormatting.BOLD).withStyle(CustomStyle.styleOfInject));
+                        .withStyle(ChatFormatting.ITALIC).withStyle(CustomStyle.styleOfInject));
+            }
             else {
+                event.getToolTip().add(Te.s(""));
                 InjectingRecipe injectingRecipe;
                 Item sourceItem = stack.getItem();
                 if (InjectRecipe.injectedGetItemSourceItemMap.containsKey(stack.getItem())) {

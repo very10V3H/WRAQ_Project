@@ -120,6 +120,10 @@ public abstract class NoTeamInstance {
         return ModItems.notePaper.get();
     }
 
+    public int getRewardNeedItemCount() {
+        return 1;
+    }
+
     public void rewardPlayers() {
         players.forEach(player -> {
             if (player != null && !this.mobList.isEmpty() && this.mobList.get(0) != null) {
@@ -136,13 +140,14 @@ public abstract class NoTeamInstance {
                                     append(Component.literal("Lv." + needLevel).withStyle(Utils.levelStyleList.get(needLevel / 25))).
                                     append(Component.literal(" 因此你无法获得奖励").withStyle(ChatFormatting.WHITE)));
                 } else {
-                    if (playerHasItem(player)) {
+                    if (InventoryOperation.checkItemRemoveIfHas(player,
+                            List.of(new ItemStack(getSummonAndRewardNeedItem(), getRewardNeedItemCount())))) {
                         rewardModule(player);
-                        InventoryOperation.removeItem(player.getInventory(), getSummonAndRewardNeedItem(), 1);
                     } else {
                         Compute.sendFormatMSG(player, Component.literal("副本").withStyle(ChatFormatting.RED),
                                 Component.literal("你的背包中没有 ").withStyle(ChatFormatting.WHITE).
                                         append(getSummonAndRewardNeedItem().getDefaultInstance().getDisplayName()).
+                                        append(Te.s(" * " + getRewardNeedItemCount(), ChatFormatting.AQUA)).
                                         append(Component.literal(" 因此你无法获得奖励").withStyle(ChatFormatting.WHITE)));
                     }
                 }

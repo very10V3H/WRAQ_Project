@@ -1,10 +1,17 @@
 package fun.wraq.series.instance.series.warden.offhand;
 
+import fun.wraq.common.impl.display.ForgeItem;
+import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.Utils;
+import fun.wraq.process.system.ore.PickaxeItems;
+import fun.wraq.series.instance.series.warden.WardenItems;
 import fun.wraq.series.instance.series.warden.WardenOffhandItem;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.ItemStack;
 
-public class WardenKnife extends WardenOffhandItem {
+import java.util.List;
+
+public class WardenKnife extends WardenOffhandItem implements ForgeItem {
     public WardenKnife(Properties properties, Component type) {
         super(properties, type);
         Utils.attackDamage.put(this, 377d);
@@ -12,5 +19,19 @@ public class WardenKnife extends WardenOffhandItem {
         Utils.critRate.put(this, 0.17);
         Utils.critDamage.put(this, 0.7);
         Utils.expUp.put(this, 0.88);
+    }
+
+    @Override
+    public List<ItemStack> forgeRecipe() {
+        return List.of(
+                new ItemStack(ModItems.MoonKnife.get(), 1),
+                new ItemStack(WardenItems.WARDEN_SOUL_INGOT.get(), 256),
+                new ItemStack(ModItems.GOLD_COIN.get(), 288),
+                new ItemStack(ModItems.completeGem.get(), 12),
+                new ItemStack(ModItems.ReputationMedal.get(), 48),
+                new ItemStack(PickaxeItems.TINKER_IRON.get(), 12),
+                new ItemStack(PickaxeItems.TINKER_COPPER.get(), 12),
+                new ItemStack(ModItems.WorldSoul3.get(), 4)
+        );
     }
 }
