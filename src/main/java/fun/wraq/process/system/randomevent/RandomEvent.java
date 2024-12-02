@@ -38,7 +38,6 @@ public abstract class RandomEvent {
     protected final List<Component> overTimeAnnouncement; // 事件超时，强制结束的通知
     protected boolean isCarryingOut = false;
     protected final MinecraftServer server;
-    protected final Level level;
     protected int beginTick;
     protected Set<Player> players = new HashSet<>(); // 参与者们
     public boolean hasWorldSoul5Reward = false;
@@ -51,7 +50,6 @@ public abstract class RandomEvent {
         this.finishAnnouncement = finishAnnouncement;
         this.overTimeAnnouncement = overTimeAnnouncement;
         this.server = server;
-        this.level = server.getLevel(dimension);
     }
 
     protected abstract void beginAction();// 事件开始的行动
@@ -138,5 +136,9 @@ public abstract class RandomEvent {
             sendFormatMSG(player, Te.s("今天从", "随机事件", CustomStyle.styleOfFlexible, "获取",
                     component, "的次数已经用完了，记得明天还要来参与哦!"));
         }
+    }
+
+    public Level level() {
+        return server.getLevel(dimension);
     }
 }

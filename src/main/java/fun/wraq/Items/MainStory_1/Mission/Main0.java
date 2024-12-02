@@ -1,6 +1,8 @@
 package fun.wraq.Items.MainStory_1.Mission;
 
 import fun.wraq.common.util.ComponentUtils;
+import fun.wraq.process.system.randomevent.RandomEvent;
+import fun.wraq.process.system.randomevent.RandomEventsHandler;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -8,20 +10,16 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.ambient.Bat;
-import net.minecraft.world.entity.monster.Skeleton;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Main0 extends Item {
 
@@ -76,21 +74,10 @@ public class Main0 extends Item {
                 }
             }*/
 
-/*            Random random = new Random();
+            Random random = new Random();
             List<RandomEvent> list = RandomEventsHandler.getRandomEvents();
             list.forEach(RandomEvent::reset);
-            list.get(random.nextInt(list.size())).begin();*/
-
-            Bat bat = new Bat(EntityType.BAT, level);
-            bat.moveTo(player.getEyePosition());
-            level.addFreshEntity(bat);
-
-            Skeleton skeleton = new Skeleton(EntityType.SKELETON, level);
-            skeleton.moveTo(player.getEyePosition());
-            skeleton.setItemSlot(EquipmentSlot.HEAD, Items.DIAMOND_HELMET.getDefaultInstance());
-            skeleton.setItemInHand(InteractionHand.MAIN_HAND, Items.BOW.getDefaultInstance());
-            level.addFreshEntity(skeleton);
-            skeleton.startRiding(bat);
+            list.get(random.nextInt(list.size())).begin();
         }
 
         if (!level.isClientSide && player.isShiftKeyDown()) {

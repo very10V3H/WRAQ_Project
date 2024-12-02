@@ -388,7 +388,7 @@ public class GemItems {
 
     public static final RegistryObject<Item> OPEN_SLOT_GOLDEN = ITEMS.register("open_slot_golden",
             () -> new WraqItem(new Item.Properties().rarity(Rarity.RARE), false, false, List.of(
-                    Te.s("用于", "武器宝石孔 - 2", ChatFormatting.LIGHT_PURPLE, "的开孔")
+                    Te.s("用于", "武器宝石孔 - 2 与 副手宝石孔 - 1", ChatFormatting.LIGHT_PURPLE, "的开孔")
             )));
 
     public static final RegistryObject<Item> OPEN_SLOT_DIAMOND = ITEMS.register("open_slot_diamond",

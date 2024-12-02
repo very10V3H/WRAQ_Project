@@ -33,7 +33,7 @@ public class UrgentEvent extends RandomEvent {
 
     @Override
     protected void beginAction() {
-        level.setBlockAndUpdate(new BlockPos((int) pos.x, (int) pos.y, (int) pos.z), Blocks.CHEST.defaultBlockState());
+        level().setBlockAndUpdate(new BlockPos((int) pos.x, (int) pos.y, (int) pos.z), Blocks.CHEST.defaultBlockState());
     }
 
     private Style getRankStyle(int rank) {
@@ -50,11 +50,11 @@ public class UrgentEvent extends RandomEvent {
     @Override
     protected void tick() {
         if (Tick.get() % 40 == 0) {
-            if (!Compute.getNearEntity(level, pos, Player.class, 64).isEmpty()) {
-                FireWorkGun.summonFireWork(level, pos.add(0, 2, 0));
+            if (!Compute.getNearEntity(level(), pos, Player.class, 64).isEmpty()) {
+                FireWorkGun.summonFireWork(level(), pos.add(0, 2, 0));
             }
         }
-        Compute.getNearEntity(level, pos, Player.class, 6).forEach(p -> {
+        Compute.getNearEntity(level(), pos, Player.class, 6).forEach(p -> {
             Player player = (Player) p;
             if (!players.contains(player)) {
                 players.add((Player) p);
@@ -100,7 +100,7 @@ public class UrgentEvent extends RandomEvent {
     @Override
     public void reset() {
         rankQueue.clear();
-        level.destroyBlock(new BlockPos((int) pos.x, (int) pos.y, (int) pos.z), false);
+        level().destroyBlock(new BlockPos((int) pos.x, (int) pos.y, (int) pos.z), false);
     }
 
     @Override

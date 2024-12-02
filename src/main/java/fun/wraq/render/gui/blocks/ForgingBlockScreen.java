@@ -112,19 +112,12 @@ public class ForgingBlockScreen extends AbstractContainerScreen<fun.wraq.render.
         add(Component.literal(" 将要强化的").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("装备").withStyle(ChatFormatting.AQUA)).
                 append(Component.literal("放置于右下").withStyle(ChatFormatting.WHITE)));
-/*        add(Component.literal("5.重铸饰品").withStyle(ChatFormatting.AQUA));
-        add(Component.literal("").withStyle(ChatFormatting.AQUA).
-                append(Component.literal(" 将").withStyle(ChatFormatting.WHITE)).
-                append(Component.literal("四元饰品").withStyle(ChatFormatting.LIGHT_PURPLE)).
-                append(Component.literal("或").withStyle(ChatFormatting.WHITE)).
-                append(ModItems.NetherGem.get().getDefaultInstance().getDisplayName()).
-                append(Component.literal("放置于左上").withStyle(ChatFormatting.WHITE)));*/
-        add(Component.literal("6.分解锻造简易装备/随机饰品").withStyle(ChatFormatting.AQUA));
+        add(Component.literal("5.分解锻造简易装备/随机饰品").withStyle(ChatFormatting.AQUA));
         add(Component.literal("").withStyle(ChatFormatting.AQUA).
                 append(Component.literal(" 将").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("锻造装备/随机饰品").withStyle(ChatFormatting.GOLD)).
                 append(Component.literal("放置于中间槽位后，双击分解按钮").withStyle(ChatFormatting.WHITE)));
-        add(Component.literal("7.合成高阶锻造碎片").withStyle(ChatFormatting.AQUA));
+        add(Component.literal("6.合成高阶锻造碎片").withStyle(ChatFormatting.AQUA));
         add(Component.literal("").withStyle(ChatFormatting.AQUA).
                 append(Component.literal(" 将").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("任意锻造碎片 * 4").withStyle(ChatFormatting.GOLD)).
@@ -133,10 +126,10 @@ public class ForgingBlockScreen extends AbstractContainerScreen<fun.wraq.render.
                 append(Component.literal(" 将").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("粗糙锻造碎片 * 1").withStyle(ChatFormatting.GRAY)).
                 append(Component.literal("放置于左下").withStyle(ChatFormatting.WHITE)));
-        add(Component.literal("8.使用锻造碎片提高锻造品质").withStyle(ChatFormatting.AQUA));
+        add(Component.literal("7.使用锻造碎片提高锻造品质").withStyle(ChatFormatting.AQUA));
         add(Component.literal("").withStyle(ChatFormatting.AQUA).
                 append(Component.literal(" 将").withStyle(ChatFormatting.WHITE)).
-                append(Component.literal("下一阶锻造碎片 * 4").withStyle(ChatFormatting.GOLD)).
+                append(Component.literal("下一阶锻造碎片 * 2").withStyle(ChatFormatting.GOLD)).
                 append(Component.literal("放置于左上").withStyle(ChatFormatting.WHITE)));
         add(Component.literal("").withStyle(ChatFormatting.AQUA).
                 append(Component.literal(" 将").withStyle(ChatFormatting.WHITE)).

@@ -34,7 +34,7 @@ public class SlimeKingEvent extends KillMobEvent {
 
     @Override
     protected void summonAndSetMobList() {
-        Slime slime = new Slime(EntityType.SLIME, level);
+        Slime slime = new Slime(EntityType.SLIME, level());
         slime.setSize(6, false);
         MobSpawn.setMobCustomName(slime, Te.s("莱姆king", CustomStyle.styleOfLife), 40);
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(slime, 40, 100, 20, 20,
@@ -43,7 +43,7 @@ public class SlimeKingEvent extends KillMobEvent {
         slimeKing = slime;
         mobList.add(slime);
         slime.moveTo(pos);
-        level.addFreshEntity(slime);
+        level().addFreshEntity(slime);
     }
 
     @Override
@@ -57,7 +57,7 @@ public class SlimeKingEvent extends KillMobEvent {
                     smallSlimeList.add(smallSlime);
                     smallSlime.moveTo(slimeKing.position()
                             .add(3 - random.nextDouble(6), 1, 3 - random.nextDouble(6)));
-                    level.addFreshEntity(smallSlime);
+                    level().addFreshEntity(smallSlime);
                 }
             }
         }
@@ -65,7 +65,7 @@ public class SlimeKingEvent extends KillMobEvent {
     }
 
     private Slime setSmallSlimeAttributes() {
-        Slime smallSlime = new Slime(EntityType.SLIME, level);
+        Slime smallSlime = new Slime(EntityType.SLIME, level());
         smallSlime.setSize(1, false);
         MobSpawn.setMobCustomName(smallSlime, Te.s("小史莱姆", CustomStyle.styleOfLife), 40);
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(smallSlime, 40, 100, 20, 20,

@@ -41,10 +41,10 @@ public class DigBlockEvent extends RandomEvent {
             for (int y = (int) pos.y - 3 ; y < (int) pos.y + 3 ; y ++) {
                 for (int z = (int) pos.z - 16 ; z < (int) pos.z + 16 ; z ++) {
                     BlockPos blockPos = new BlockPos(x, y, z);
-                    BlockState blockState = level.getBlockState(blockPos);
+                    BlockState blockState = level().getBlockState(blockPos);
                     Block block = blockState.getBlock();
-                    Block belowBlock = level.getBlockState(blockPos.below()).getBlock();
-                    Block aboveBlock = level.getBlockState(blockPos.above()).getBlock();
+                    Block belowBlock = level().getBlockState(blockPos.below()).getBlock();
+                    Block aboveBlock = level().getBlockState(blockPos.above()).getBlock();
                     if (aboveBlock.equals(Blocks.AIR) && block.equals(Blocks.AIR) && !belowBlock.equals(Blocks.AIR)
                             && !(belowBlock instanceof BonemealableBlock || belowBlock instanceof IPlantable)) {
                         if (random.nextDouble() < density) {
@@ -56,7 +56,7 @@ public class DigBlockEvent extends RandomEvent {
         }
         blockPosSet.forEach(pos -> {
             BlockState blockState = blockList.get(random.nextInt(blockList.size())).defaultBlockState();
-            level.setBlockAndUpdate(pos, blockState);
+            level().setBlockAndUpdate(pos, blockState);
         });
     }
 
@@ -106,7 +106,7 @@ public class DigBlockEvent extends RandomEvent {
         scoreMap.clear();
         brokenPosSet.clear();
         blockPosSet.forEach(pos -> {
-            level.destroyBlock(pos, false);
+            level().destroyBlock(pos, false);
         });
         blockPosSet.clear();
     }
@@ -117,13 +117,13 @@ public class DigBlockEvent extends RandomEvent {
     }
 
     public void onBreakBlock(Player player, BlockPos pos) {
-        if (player.level().equals(this.level) && blockPosSet.contains(pos)) {
+        if (player.level().equals(this.level()) && blockPosSet.contains(pos)) {
             players.add(player);
             brokenPosSet.add(pos);
             int score = scoreMap.getOrDefault(player, 0) + 1;
             scoreMap.put(player, score);
             Compute.sendActionBarMSG(player, Te.s("目前拥有", score + "分", CustomStyle.styleOfFlexible));
-            level.destroyBlock(pos, false);
+            level().destroyBlock(pos, false);
         }
     }
 }

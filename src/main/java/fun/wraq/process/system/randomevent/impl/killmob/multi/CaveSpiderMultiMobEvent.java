@@ -24,7 +24,7 @@ public class CaveSpiderMultiMobEvent extends MultiMobEvent {
 
     @Override
     protected Mob setMobAttributesAndEquip() {
-        CaveSpider caveSpider = new CaveSpider(EntityType.CAVE_SPIDER, level);
+        CaveSpider caveSpider = new CaveSpider(EntityType.CAVE_SPIDER, level());
         MobSpawn.setMobCustomName(caveSpider, Te.s("洞穴蜘蛛", CustomStyle.styleOfStone), 20);
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(caveSpider, 20, 50, 10,
                 10, 0, 0, 5, 5, 0,

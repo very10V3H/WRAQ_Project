@@ -33,7 +33,7 @@ public abstract class MultiMobEvent extends KillMobEvent {
             mobList.add(mob);
             mob.moveTo(summonPosList.get(random.nextInt(summonPosList.size()))
                     .add(3 - random.nextDouble(6), 0, 3 - random.nextDouble(6)));
-            level.addFreshEntity(mob);
+            level().addFreshEntity(mob);
         }
     }
 
@@ -45,7 +45,7 @@ public abstract class MultiMobEvent extends KillMobEvent {
             mobList.add(mob);
             mob.moveTo(summonPosList.get(random.nextInt(summonPosList.size()))
                     .add(3 - random.nextDouble(6), 0, 3 - random.nextDouble(6)));
-            level.addFreshEntity(mob);
+            level().addFreshEntity(mob);
         }
         super.tick();
     }

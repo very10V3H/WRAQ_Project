@@ -65,14 +65,14 @@ public class VillageAttack extends MultiMobEvent {
             Mob mob = setMobAttributesAndEquip();
             mobList.add(mob);
             mob.moveTo(summonPosList.get(random.nextInt(summonPosList.size())));
-            level.addFreshEntity(mob);
+            level().addFreshEntity(mob);
         }
     }
 
     protected Mob setMobAttributesAndEquip() {
         Mob mob;
         if (random.nextBoolean()) {
-            mob = new Pillager(EntityType.PILLAGER, level);
+            mob = new Pillager(EntityType.PILLAGER, level());
             MobSpawn.setMobCustomName(mob, Te.s(mobName1, CustomStyle.styleOfStone), 20);
             MobSpawn.MobBaseAttributes.setMobBaseAttributes(mob, 20, 50, 10,
                     10, 0, 0, 5, 5, 0,
@@ -80,7 +80,7 @@ public class VillageAttack extends MultiMobEvent {
             mob.setItemInHand(InteractionHand.MAIN_HAND, Items.CROSSBOW.getDefaultInstance());
             MobSpawn.setMobDropList(mob, eachMobDropList);
         } else {
-            mob = new Vindicator(EntityType.VINDICATOR, level);
+            mob = new Vindicator(EntityType.VINDICATOR, level());
             MobSpawn.setMobCustomName(mob, Te.s(mobName2, CustomStyle.styleOfStone), 20);
             MobSpawn.MobBaseAttributes.setMobBaseAttributes(mob, 20, 75, 15,
                     15, 0.5, 1, 10, 10, 0,

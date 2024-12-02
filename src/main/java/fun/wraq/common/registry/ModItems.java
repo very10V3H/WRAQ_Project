@@ -67,6 +67,7 @@ import fun.wraq.process.system.element.equipAndCurios.waterElement.WaterElementS
 import fun.wraq.process.system.element.holyStone.*;
 import fun.wraq.process.system.endlessinstance.item.EndlessInstanceItems;
 import fun.wraq.process.system.enhanceForge.Pearl;
+import fun.wraq.process.system.forge.EquipPiece;
 import fun.wraq.process.system.forge.ForgeHammer;
 import fun.wraq.process.system.instance.MopUpPaper;
 import fun.wraq.process.system.instance.MopUpPaperLoot;
@@ -3661,46 +3662,46 @@ public class ModItems {
             () -> new ToNether(new Item.Properties().rarity(CustomStyle.NetherBold)));
 
     public static final RegistryObject<Item> equipPiece0 = ITEMS.register("equip_piece0",
-            () -> new Item(new Item.Properties().rarity(CustomStyle.Gray)));
+            () -> new EquipPiece(new Item.Properties().rarity(CustomStyle.Gray), 0));
 
     public static final RegistryObject<Item> equipPiece1 = ITEMS.register("equip_piece1",
-            () -> new Item(new Item.Properties().rarity(CustomStyle.Green)));
+            () -> new EquipPiece(new Item.Properties().rarity(CustomStyle.Green), 1));
 
     public static final RegistryObject<Item> equipPiece2 = ITEMS.register("equip_piece2",
-            () -> new Item(new Item.Properties().rarity(CustomStyle.Aqua)));
+            () -> new EquipPiece(new Item.Properties().rarity(CustomStyle.Aqua), 2));
 
     public static final RegistryObject<Item> equipPiece3 = ITEMS.register("equip_piece3",
-            () -> new SimpleFoiledItem(new Item.Properties().rarity(CustomStyle.LightPurple)));
+            () -> new EquipPiece(new Item.Properties().rarity(CustomStyle.LightPurple), 3));
 
     public static final RegistryObject<Item> equipPiece4 = ITEMS.register("equip_piece4",
-            () -> new SimpleFoiledItem(new Item.Properties().rarity(CustomStyle.Gold)));
+            () -> new EquipPiece(new Item.Properties().rarity(CustomStyle.Gold), 4));
 
     public static final RegistryObject<Item> equipPiece5 = ITEMS.register("equip_piece5",
-            () -> new SimpleFoiledItem(new Item.Properties().rarity(CustomStyle.Red)));
+            () -> new EquipPiece(new Item.Properties().rarity(CustomStyle.Red), 5));
 
     public static final RegistryObject<Item> equipPiece6 = ITEMS.register("equip_piece6",
-            () -> new SimpleFoiledItem(new Item.Properties().rarity(CustomStyle.End)));
+            () -> new EquipPiece(new Item.Properties().rarity(CustomStyle.End), 6));
 
     public static final RegistryObject<Item> equipPiece7 = ITEMS.register("equip_piece7",
-            () -> new SimpleFoiledItem(new Item.Properties().rarity(CustomStyle.Moon)));
+            () -> new EquipPiece(new Item.Properties().rarity(CustomStyle.Moon), 7));
 
     public static final RegistryObject<Item> equipPiece8 = ITEMS.register("equip_piece8",
-            () -> new SimpleFoiledItem(new Item.Properties().rarity(CustomStyle.Moon1)));
+            () -> new EquipPiece(new Item.Properties().rarity(CustomStyle.Moon1), 8));
 
     public static final RegistryObject<Item> equipPiece9 = ITEMS.register("equip_piece9",
-            () -> new SimpleFoiledItem(new Item.Properties().rarity(CustomStyle.Magma)));
+            () -> new EquipPiece(new Item.Properties().rarity(CustomStyle.Magma), 9));
 
     public static final RegistryObject<Item> equipPiece10 = ITEMS.register("equip_piece10",
-            () -> new SimpleFoiledItem(new Item.Properties().rarity(CustomStyle.CastleCrystal)));
+            () -> new EquipPiece(new Item.Properties().rarity(CustomStyle.CastleCrystal), 10));
 
     public static final RegistryObject<Item> equipPiece11 = ITEMS.register("equip_piece11",
-            () -> new SimpleFoiledItem(new Item.Properties().rarity(CustomStyle.Sakura)));
+            () -> new EquipPiece(new Item.Properties().rarity(CustomStyle.Sakura), 11));
 
     public static final RegistryObject<Item> equipPiece12 = ITEMS.register("equip_piece12",
-            () -> new SimpleFoiledItem(new Item.Properties().rarity(CustomStyle.YSR)));
+            () -> new EquipPiece(new Item.Properties().rarity(CustomStyle.YSR), 12));
 
     public static final RegistryObject<Item> equipPiece13 = ITEMS.register("equip_piece13",
-            () -> new SimpleFoiledItem(new Item.Properties().rarity(CustomStyle.Sky)));
+            () -> new EquipPiece(new Item.Properties().rarity(CustomStyle.Sky), 13));
 
     public static final RegistryObject<Item> notePaper = ITEMS.register("note_paper",
             () -> new SimpleFoiledItem(new Item.Properties().rarity(Rarity.UNCOMMON)));

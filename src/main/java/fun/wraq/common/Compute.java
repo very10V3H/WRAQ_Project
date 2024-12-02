@@ -427,7 +427,15 @@ public class Compute {
     }
 
     public static void formatBroad(Level level, Component type, Component content) {
-        List<ServerPlayer> playerList = level.getServer().getPlayerList().getPlayers();
+        formatBroad(type, content);
+    }
+
+    public static void formatBroad(Component content) {
+        formatBroad(Te.s("维瑞阿契", ChatFormatting.AQUA), content);
+    }
+
+    public static void formatBroad(Component type, Component content) {
+        List<ServerPlayer> playerList = Tick.server.getPlayerList().getPlayers();
         for (ServerPlayer player : playerList) {
             CompoundTag data = player.getPersistentData();
             if (type.getString().equals("副本") || type.getString().equals("黄金屋")) {

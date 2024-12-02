@@ -584,8 +584,8 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider, Dro
         ItemStack gem = blockEntity.itemStackHandler.getStackInSlot(0);
         ItemStack equip = blockEntity.itemStackHandler.getStackInSlot(1);
         boolean hasGemInFirstSlot = Utils.gemsTag.containsKey(gem.getItem());
-        boolean hasSwordBowSceptreInSecondSlot = (Utils.mainHandTag.containsKey(equip.getItem()) ||
-                Utils.armorTag.containsKey(equip.getItem()));
+        boolean hasSwordBowSceptreInSecondSlot = Utils.mainHandTag.containsKey(equip.getItem()) ||
+                Utils.armorTag.containsKey(equip.getItem()) || Utils.offHandTag.containsKey(equip.getItem());
 
         if (equip.getTagElement(Utils.MOD_ID) != null) {
             CompoundTag data = equip.getOrCreateTagElement(Utils.MOD_ID);
@@ -611,12 +611,14 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider, Dro
             data = equip.getOrCreateTagElement(Utils.MOD_ID);
         }
         boolean isOpenSlotApplied = openSlot.is(GemItems.OPEN_SLOT.get())
-                && (Utils.mainHandTag.containsKey(equip.getItem()) || Utils.armorTag.containsKey(equip.getItem()))
+                && (Utils.mainHandTag.containsKey(equip.getItem())
+                || Utils.armorTag.containsKey(equip.getItem()))
                 && data.getInt(WraqGem.NEW_MAX_SLOT_DATA_KEY) < 1;
 
         boolean isOpenSlotGoldenApplied = openSlot.is(GemItems.OPEN_SLOT_GOLDEN.get())
-                && Utils.mainHandTag.containsKey(equip.getItem())
-                && data.getInt(WraqGem.NEW_MAX_SLOT_DATA_KEY) == 1;
+                && ((Utils.mainHandTag.containsKey(equip.getItem())
+                && data.getInt(WraqGem.NEW_MAX_SLOT_DATA_KEY) == 1) || (Utils.offHandTag.containsKey(equip.getItem())
+                && data.getInt(WraqGem.NEW_MAX_SLOT_DATA_KEY) < 1));
 
         boolean isOpenSlotDiamondApplied = openSlot.is(GemItems.OPEN_SLOT_DIAMOND.get())
                 && ((Utils.mainHandTag.containsKey(equip.getItem()) && data.getInt(WraqGem.NEW_MAX_SLOT_DATA_KEY) == 2)
@@ -765,6 +767,10 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider, Dro
 
         if (equip.getItem() instanceof Decomposable decomposable) {
             ItemStack stack = decomposable.getProduct();
+            if (decomposable.getProduct().getCount() * equip.getCount() > 64) {
+                return false;
+            }
+            stack.setCount(decomposable.getProduct().getCount() * equip.getCount());
             if (InventoryCheck.getBoundingList().contains(stack.getItem())) {
                 Player player = Utils.whoIsUsingBlock.getOrDefault(this.worldPosition, null);
                 if (player != null) {

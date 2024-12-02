@@ -153,6 +153,11 @@ public class ServerPlayerTickEvent {
 
             GemTickHandler.handleTick(player);
 
+            if (player.tickCount % 10 == 0 && player.isOnFire()) {
+                Compute.decreasePlayerHealth(player, player.getHealth() * 0.075,
+                        Te.s("被火焰吞没了", CustomStyle.styleOfPower));
+            }
+
             if (player.tickCount % 100 == 0 && MobSpawn.totalKillCount.containsKey(player.getName().getString())) {
                 int totalCount = MobSpawn.totalKillCount.get(player.getName().getString())
                         .values()

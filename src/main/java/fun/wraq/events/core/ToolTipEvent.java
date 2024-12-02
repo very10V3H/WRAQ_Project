@@ -539,9 +539,11 @@ public class ToolTipEvent {
             event.getToolTip().add(Component.literal("同一类物品仅会生效最后装备的一个的效果").withStyle(ChatFormatting.GRAY));
         }
         if (item instanceof Decomposable decomposable) {
-            tooltip.add(Te.s(""));
-            tooltip.add(Te.s(" 可在锻造台分解为", CustomStyle.styleOfStone, decomposable.getProduct().getDisplayName(),
-                    " * " + decomposable.getProduct().getCount(), CustomStyle.styleOfWorld));
+            if (!decomposable.getProduct().is(Items.AIR)) {
+                tooltip.add(Te.s(""));
+                tooltip.add(Te.s(" 可在锻造台分解为", CustomStyle.styleOfStone, decomposable.getProduct().getDisplayName(),
+                        " * " + decomposable.getProduct().getCount(), CustomStyle.styleOfWorld));
+            }
         }
     }
 }

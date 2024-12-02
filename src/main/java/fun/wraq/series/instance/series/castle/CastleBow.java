@@ -3,6 +3,7 @@ package fun.wraq.series.instance.series.castle;
 import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqBow;
 import fun.wraq.common.equip.impl.ActiveItem;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.registry.ModItems;
@@ -50,12 +51,10 @@ public class CastleBow extends WraqBow implements ForgeItem, ActiveItem {
         Compute.DescriptionActive(components, Component.literal("噬魔注能").withStyle(style));
         components.add(Component.literal(" 扣除自身").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.AttributeDescription.health("15%当前")).
-                append(Component.literal("，获得持续6s的").withStyle(ChatFormatting.WHITE)).
-                append(ComponentUtils.getCommonDamageEnhance("25%")).
-                append(Component.literal("以及").withStyle(ChatFormatting.WHITE)).
-                append(ComponentUtils.AttributeDescription.defencePenetration("15")).
-                append(Component.literal("与").withStyle(ChatFormatting.WHITE)).
-                append(ComponentUtils.AttributeDescription.manaPenetration("15")));
+                append(Component.literal("，获得持续6s的:").withStyle(ChatFormatting.WHITE)));
+        components.add(Te.s(" 1. ", ComponentUtils.getCommonDamageEnhance("25%")));
+        components.add(Te.s(" 2. ", ComponentUtils.AttributeDescription.defencePenetration("25%")));
+        components.add(Te.s(" 3. ", ComponentUtils.AttributeDescription.manaPenetration("25%")));
         ComponentUtils.coolDownTimeDescription(components, 15);
         components.add(Component.literal(" 多件暗黑武器的主动将会刷新持续时间，但效果将不会叠加，且共享冷却时间").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
         return components;
@@ -91,11 +90,11 @@ public class CastleBow extends WraqBow implements ForgeItem, ActiveItem {
                 Component.literal(" 被暗黑魔能吞噬了。").withStyle(CustomStyle.styleOfCastle));
         Compute.playerItemCoolDown(player, this, 15);
         StableAttributesModifier.addM(player, StableAttributesModifier.playerCommonDamageEnhance,
-                "castle weapon active", 0.2, Tick.get() + 120);
-        StableAttributesModifier.addM(player, StableAttributesModifier.playerDefencePenetration0Modifier,
-                "CastleWeaponActiveDefencePenetration0", 15, Tick.get() + 120);
-        StableAttributesModifier.addM(player, StableAttributesModifier.playerManaPenetration0Modifier,
-                "CastleWeaponActiveManaPenetration0", 15, Tick.get() + 120, this);
+                "castle weapon active", 0.25, Tick.get() + 120);
+        StableAttributesModifier.addM(player, StableAttributesModifier.playerDefencePenetrationModifier,
+                "CastleWeaponActiveDefencePenetration", 0.25, Tick.get() + 120);
+        StableAttributesModifier.addM(player, StableAttributesModifier.playerManaPenetrationModifier,
+                "CastleWeaponActiveManaPenetration", 0.25, Tick.get() + 120, this);
     }
 
     @Override

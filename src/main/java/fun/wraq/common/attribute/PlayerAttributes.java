@@ -1957,6 +1957,8 @@ public class PlayerAttributes {
 
         defenceRate *= (1 - Compute.CuriosAttribute.attributeValue(player, Utils.manaPenetration,
                 StringUtils.CuriosAttribute.manaPenetration)); // 新版饰品属性加成
+        defenceRate *= (1 - StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerManaPenetrationModifier));
+
         // 请在上方添加
         defenceRate *= (2 - Compute.playerFantasyAttributeEnhance(player));
 
