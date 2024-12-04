@@ -78,7 +78,7 @@ public class NoTeamInstanceModule {
         if (event.side.isServer() && event.phase.equals(TickEvent.Phase.START)) {
             ServerLevel level = (ServerLevel) event.level;
             Level overworld = event.level.getServer().getLevel(Level.OVERWORLD);
-            int tick = level.getServer().getTickCount();
+            int tick = Tick.get();
             if (level.equals(overworld)) {
                 for (NoTeamInstance noTeamInstance : noTeamInstancesOverworld) {
                     if (hasPlayerNearInstance(level, noTeamInstance)) {

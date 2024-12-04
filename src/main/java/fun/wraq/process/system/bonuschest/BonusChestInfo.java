@@ -779,13 +779,57 @@ public enum BonusChestInfo {
     MOONTAIN_68(new BlockPos(2173, 147, -791), 2, Util.MOONTAIN_NUM),
     MOONTAIN_69(new BlockPos(2184, 143, -783), 3, Util.MOONTAIN_NUM),
 
+    ANCIENT_CITY_0(new BlockPos(2284, -49, -705), 1, Util.ANCIENT_CITY_ZONE_NUM),
+    ANCIENT_CITY_1(new BlockPos(2284, -37, -720), 2, Util.ANCIENT_CITY_ZONE_NUM),
+    ANCIENT_CITY_2(new BlockPos(2250, -43, -734), 1, Util.ANCIENT_CITY_ZONE_NUM),
+    ANCIENT_CITY_3(new BlockPos(2295, -35, -751), 1, Util.ANCIENT_CITY_ZONE_NUM),
+    ANCIENT_CITY_4(new BlockPos(2302, -50, -769), 1, Util.ANCIENT_CITY_ZONE_NUM),
+    ANCIENT_CITY_5(new BlockPos(2290, -44, -788), 1, Util.ANCIENT_CITY_ZONE_NUM),
+    ANCIENT_CITY_6(new BlockPos(2322, -50, -704), 2, Util.ANCIENT_CITY_ZONE_NUM),
+    ANCIENT_CITY_7(new BlockPos(2313, -50, -740), 3, Util.ANCIENT_CITY_ZONE_NUM),
+    ANCIENT_CITY_8(new BlockPos(2257, -51, -676), 1, Util.ANCIENT_CITY_ZONE_NUM),
+    ANCIENT_CITY_9(new BlockPos(2251, -58, -663), 1, Util.ANCIENT_CITY_ZONE_NUM),
+    ANCIENT_CITY_10(new BlockPos(2261, -37, -639), 2, Util.ANCIENT_CITY_ZONE_NUM),
+    ANCIENT_CITY_11(new BlockPos(2276, -50, -615), 2, Util.ANCIENT_CITY_ZONE_NUM),
+    ANCIENT_CITY_12(new BlockPos(2290, -44, -658), 1, Util.ANCIENT_CITY_ZONE_NUM),
+    ANCIENT_CITY_13(new BlockPos(2293, -32, -678), 3, Util.ANCIENT_CITY_ZONE_NUM),
+    ANCIENT_CITY_14(new BlockPos(2294, -37, -678), 1, Util.ANCIENT_CITY_ZONE_NUM),
+    ANCIENT_CITY_15(new BlockPos(2298, -46, -642), 1, Util.ANCIENT_CITY_ZONE_NUM),
+    ANCIENT_CITY_16(new BlockPos(2330, -51, -637), 1, Util.ANCIENT_CITY_ZONE_NUM),
+    ANCIENT_CITY_17(new BlockPos(2314, -37, -687), 1, Util.ANCIENT_CITY_ZONE_NUM),
+    ANCIENT_CITY_18(new BlockPos(2338, -51, -704), 1, Util.ANCIENT_CITY_ZONE_NUM),
+    ANCIENT_CITY_19(new BlockPos(2357, -51, -729), 1, Util.ANCIENT_CITY_ZONE_NUM),
+    ANCIENT_CITY_20(new BlockPos(2366, -50, -674), 1, Util.ANCIENT_CITY_ZONE_NUM),
+    ANCIENT_CITY_21(new BlockPos(2350, -42, -692), 2, Util.ANCIENT_CITY_ZONE_NUM),
+    ANCIENT_CITY_22(new BlockPos(2352, -22, -705), 3, Util.ANCIENT_CITY_ZONE_NUM),
+    ANCIENT_CITY_23(new BlockPos(2348, -42, -805), 1, Util.ANCIENT_CITY_ZONE_NUM),
+    ANCIENT_CITY_24(new BlockPos(2363, -50, -807), 1, Util.ANCIENT_CITY_ZONE_NUM),
+    ANCIENT_CITY_25(new BlockPos(2387, -51, -798), 1, Util.ANCIENT_CITY_ZONE_NUM),
+    ANCIENT_CITY_26(new BlockPos(2390, -46, -784), 1, Util.ANCIENT_CITY_ZONE_NUM),
+    ANCIENT_CITY_27(new BlockPos(2367, -46, -758), 1, Util.ANCIENT_CITY_ZONE_NUM),
+    ANCIENT_CITY_28(new BlockPos(2383, -76, -723), 1, Util.ANCIENT_CITY_ZONE_NUM),
+    ANCIENT_CITY_29(new BlockPos(2397, -51, -718), 1, Util.ANCIENT_CITY_ZONE_NUM),
+    ANCIENT_CITY_30(new BlockPos(2416, -48, -734), 2, Util.ANCIENT_CITY_ZONE_NUM),
+    ANCIENT_CITY_31(new BlockPos(2379, -50, -693), 1, Util.ANCIENT_CITY_ZONE_NUM),
+    ANCIENT_CITY_32(new BlockPos(2432, -37, -685), 1, Util.ANCIENT_CITY_ZONE_NUM),
+    ANCIENT_CITY_33(new BlockPos(2450, -50, -689), 1, Util.ANCIENT_CITY_ZONE_NUM),
+    ANCIENT_CITY_34(new BlockPos(2450, -50, -723), 2, Util.ANCIENT_CITY_ZONE_NUM),
+    ANCIENT_CITY_35(new BlockPos(2399, -48, -681), 1, Util.ANCIENT_CITY_ZONE_NUM),
+    ANCIENT_CITY_36(new BlockPos(2404, -49, -661), 1, Util.ANCIENT_CITY_ZONE_NUM),
+    ANCIENT_CITY_37(new BlockPos(2402, -51, -628), 1, Util.ANCIENT_CITY_ZONE_NUM),
+    ANCIENT_CITY_38(new BlockPos(2384, -48, -612), 2, Util.ANCIENT_CITY_ZONE_NUM),
+    ANCIENT_CITY_39(new BlockPos(2368, -50, -624), 1, Util.ANCIENT_CITY_ZONE_NUM),
+    ANCIENT_CITY_40(new BlockPos(2331, -37, -601), 1, Util.ANCIENT_CITY_ZONE_NUM),
+    ANCIENT_CITY_41(new BlockPos(2348, -50, -618), 1, Util.ANCIENT_CITY_ZONE_NUM),
+    ANCIENT_CITY_42(new BlockPos(2410, -45, -640), 2, Util.ANCIENT_CITY_ZONE_NUM),
+    ANCIENT_CITY_43(new BlockPos(2424, -29, -663), 3, Util.ANCIENT_CITY_ZONE_NUM),
+
 
     // 测试箱
     TEST_0(new BlockPos(962, 233, 13), 0, Util.DRUMSTICK_ZONE_NUM),
     TEST_1(new BlockPos(962, 233, 15), 1, Util.DRUMSTICK_ZONE_NUM),
     TEST_2(new BlockPos(962, 233, 17), 2, Util.DRUMSTICK_ZONE_NUM),
     TEST_3(new BlockPos(962, 233, 19), 3, Util.DRUMSTICK_ZONE_NUM);
-
 
     public final BlockPos chestPos;
     public final int tier;
@@ -813,19 +857,21 @@ public enum BonusChestInfo {
         public static final int NETHER_ZONE_NUM = 6;
         public static final int END_ZONE_NUM = 7;
         public static final int MOONTAIN_NUM = 8;
+        public static final int ANCIENT_CITY_ZONE_NUM = 9;
 
-        public static final int MAX_ZONE_NUM = 8;
+        public static final int MAX_ZONE_NUM = 9;
 
         public static final Map<Integer, Component> ZONE_NAME_MAP = new HashMap<>() {{
-            put(0, Te.s("德朗斯蒂克", CustomStyle.styleOfWorld));
-            put(1, Te.s("艾里蒙特大陆中部", CustomStyle.styleOfLucky));
-            put(2, Te.s("艾里蒙特大陆北部", CustomStyle.styleOfIce));
-            put(3, Te.s("艾里蒙特大陆东部", CustomStyle.styleOfVolcano));
-            put(4, Te.s("艾里蒙特大陆南部", CustomStyle.styleOfPower));
-            put(5, Te.s("绯樱岛", CustomStyle.styleOfSakura));
-            put(6, Te.s("下界", CustomStyle.styleOfNether));
-            put(7, Te.s("终界", CustomStyle.styleOfEnd));
-            put(8, Te.s("望山", CustomStyle.styleOfMoontain));
+            put(DRUMSTICK_ZONE_NUM, Te.s("德朗斯蒂克", CustomStyle.styleOfWorld));
+            put(ELEMENT_CONTINENT_CENTER_ZONE_NUM, Te.s("艾里蒙特大陆中部", CustomStyle.styleOfLucky));
+            put(ELEMENT_CONTINENT_NORTH_ZONE_NUM, Te.s("艾里蒙特大陆北部", CustomStyle.styleOfIce));
+            put(ELEMENT_CONTINENT_EAST_ZONE_NUM, Te.s("艾里蒙特大陆东部", CustomStyle.styleOfVolcano));
+            put(ELEMENT_CONTINENT_SOUTH_ZONE_NUM, Te.s("艾里蒙特大陆南部", CustomStyle.styleOfPower));
+            put(SAKURA_ZONE_NUM, Te.s("绯樱岛", CustomStyle.styleOfSakura));
+            put(NETHER_ZONE_NUM, Te.s("下界", CustomStyle.styleOfNether));
+            put(END_ZONE_NUM, Te.s("终界", CustomStyle.styleOfEnd));
+            put(MOONTAIN_NUM, Te.s("望山", CustomStyle.styleOfMoontain));
+            put(ANCIENT_CITY_ZONE_NUM, Te.s("远古之城", CustomStyle.styleOfWarden));
         }};
 
         public static final Map<Integer, Component> TIER_NAME_MAP = new HashMap<>() {{
@@ -836,8 +882,8 @@ public enum BonusChestInfo {
         }};
 
         public static final Map<Integer, Integer> ZONE_LEVEL_REQUIREMENT = new HashMap<>() {{
-            put(5, 100);
-            put(8, 160);
+            put(SAKURA_ZONE_NUM, 100);
+            put(MOONTAIN_NUM, 160);
         }};
     }
 

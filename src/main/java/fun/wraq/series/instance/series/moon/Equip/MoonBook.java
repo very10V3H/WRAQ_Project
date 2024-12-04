@@ -1,6 +1,7 @@
 package fun.wraq.series.instance.series.moon.Equip;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.onhit.OnHitEffectEquip;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
@@ -37,6 +38,7 @@ public class MoonBook extends Item implements OnHitEffectEquip {
         Utils.expUp.put(this, 0.77);
         Utils.offHandTag.put(this, 1d);
         Utils.weaponList.add(this);
+        Utils.levelRequire.put(this, 160);
     }
 
     private final Style style = CustomStyle.styleOfGold;
@@ -67,7 +69,7 @@ public class MoonBook extends Item implements OnHitEffectEquip {
     public static WeakHashMap<Player, Integer> playerDamageEnhanceTickMap = new WeakHashMap<>();
 
     public static double damageEnhance(Player player) {
-        int TickCount = player.getServer().getTickCount();
+        int TickCount = Tick.get();
         if (playerDamageEnhanceTickMap.containsKey(player) && playerDamageEnhanceTickMap.get(player) > TickCount) {
             return 0.12;
         }
@@ -76,7 +78,7 @@ public class MoonBook extends Item implements OnHitEffectEquip {
 
     @Override
     public void onHit(Player player, Mob mob) {
-        int TickCount = player.getServer().getTickCount();
+        int TickCount = Tick.get();
         if (PlayerMoonBookMap.containsKey(player) && !PlayerMoonBookMap.get(player).equals(mob)) {
             Mob oldMob = PlayerMoonBookMap.get(player);
             oldMob.removeEffect(MobEffects.GLOWING);

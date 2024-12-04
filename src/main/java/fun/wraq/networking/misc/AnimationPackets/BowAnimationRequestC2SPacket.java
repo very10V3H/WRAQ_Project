@@ -1,5 +1,6 @@
 package fun.wraq.networking.misc.AnimationPackets;
 
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
@@ -36,7 +37,7 @@ public class BowAnimationRequestC2SPacket {
                 ModNetworking.sendToClient(new AnimationTickResetS2CPacket(), serverPlayer);
             } else {
                 CompoundTag data = serverPlayer.getPersistentData();
-                int TickCount = serverPlayer.getServer().getTickCount();
+                int TickCount = Tick.get();
                 data.putInt(StringUtils.BowAttackSlowDown, TickCount + 5);
                 if (!data.contains(StringUtils.BowSlowDown) || data.getBoolean(StringUtils.BowSlowDown))
                     serverPlayer.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 5, 3, false, false));

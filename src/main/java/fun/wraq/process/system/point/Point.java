@@ -53,6 +53,10 @@ public class Point {
      */
     public static final String MTPT = "MTPT";
     /**
+     * 远古之城探索点数
+     */
+    public static final String ACPT = "ACPT";
+    /**
      * 海洋探索点数
      */
     public static final String OCPT = "OCPT";
@@ -74,6 +78,7 @@ public class Point {
         put(EDPT, Te.m("终界征讨点数", CustomStyle.styleOfEnd));
         put(BCPT, Te.m("暗黑城堡征讨点数", CustomStyle.styleOfCastleCrystal));
         put(MTPT, Te.m("望山探索点数", CustomStyle.styleOfMoontain));
+        put(ACPT, Te.m("远古之城探索点数", CustomStyle.styleOfWarden));
         put(OCPT, Te.m("海洋探索点数", CustomStyle.styleOfSea));
         put(NOPT, Te.m("北洋探索点", CustomStyle.styleOfIce));
         put(ATPT, Te.m("考勤点数", CustomStyle.styleOfGold));
@@ -88,6 +93,7 @@ public class Point {
         put(EDPT, Te.m("EDPT", CustomStyle.styleOfEnd));
         put(BCPT, Te.m("BCPT", CustomStyle.styleOfCastleCrystal));
         put(MTPT, Te.m("MTPT", CustomStyle.styleOfMoontain));
+        put(ACPT, Te.m("ACPT", CustomStyle.styleOfWarden));
         put(OCPT, Te.m("OCPT", CustomStyle.styleOfSea));
         put(NOPT, Te.m("NOPT", CustomStyle.styleOfIce));
         put(ATPT, Te.m("ATPT", CustomStyle.styleOfGold));
@@ -102,6 +108,7 @@ public class Point {
         put(EDPT, CustomStyle.styleOfEnd);
         put(BCPT, CustomStyle.styleOfCastleCrystal);
         put(MTPT, CustomStyle.styleOfMoontain);
+        put(ACPT, CustomStyle.styleOfWarden);
         put(OCPT, CustomStyle.styleOfSea);
         put(NOPT, CustomStyle.styleOfIce);
         put(ATPT, CustomStyle.styleOfGold);

@@ -38,6 +38,7 @@ public class SeaBow extends WraqBow implements OnHitEffectEquip {
         Utils.critRate.put(this, 0.25);
         Utils.critDamage.put(this, 0.35);
         Element.WaterElementValue.put(this, 1d);
+        Utils.levelRequire.put(this, 100);
     }
 
     @Override

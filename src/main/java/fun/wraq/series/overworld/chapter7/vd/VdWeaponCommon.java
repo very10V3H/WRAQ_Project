@@ -2,6 +2,7 @@ package fun.wraq.series.overworld.chapter7.vd;
 
 import com.mojang.logging.LogUtils;
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
@@ -78,7 +79,7 @@ public interface VdWeaponCommon {
     static void countAdd(Player player) {
         if (!(player.getMainHandItem().getItem() instanceof VdWeaponCommon)) return;
         String name = player.getName().getString();
-        int tick = player.getServer().getTickCount();
+        int tick = Tick.get();
         if (!countMap.containsKey(name)) countMap.put(name, new ArrayList<>());
         List<CountOnMob> list = countMap.get(name);
         if (list.size() > 100) {

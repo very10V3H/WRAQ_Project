@@ -2,6 +2,10 @@ package fun.wraq.series.nether.equip.attack.sword;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.equip.WraqSword;
+import fun.wraq.common.equip.impl.ActiveItem;
+import fun.wraq.common.fast.Tick;
+import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.ModSounds;
 import fun.wraq.common.registry.MySound;
@@ -9,9 +13,6 @@ import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.StableAttributesModifier;
 import fun.wraq.process.system.element.Element;
-import fun.wraq.common.equip.impl.ActiveItem;
-import fun.wraq.common.impl.display.ForgeItem;
-import fun.wraq.common.equip.WraqSword;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -36,6 +37,7 @@ public class WitherSword extends WraqSword implements ActiveItem, ForgeItem {
         Utils.critRate.put(this, new double[]{0.2, 0.22, 0.24, 0.3}[tier]);
         Utils.critDamage.put(this, new double[]{0.35, 0.4, 0.45, 0.55}[tier]);
         Element.FireElementValue.put(this, new double[]{0.2, 0.4, 0.6, 0.8}[tier]);
+        Utils.levelRequire.put(this, 80);
     }
 
     @Override
@@ -65,7 +67,7 @@ public class WitherSword extends WraqSword implements ActiveItem, ForgeItem {
 
     @Override
     public void active(Player player) {
-        int tickCount = player.getServer().getTickCount();
+        int tickCount = Tick.get();
         player.getCooldowns().addCooldown(ModItems.WitherSword0.get(), (int) (240 - 240 * PlayerAttributes.coolDownDecrease(player)));
         player.getCooldowns().addCooldown(ModItems.WitherSword1.get(), (int) (240 - 240 * PlayerAttributes.coolDownDecrease(player)));
         player.getCooldowns().addCooldown(ModItems.WitherSword2.get(), (int) (240 - 240 * PlayerAttributes.coolDownDecrease(player)));

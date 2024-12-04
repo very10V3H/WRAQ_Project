@@ -49,7 +49,7 @@ public enum SmeltRecipe {
 
     TINKER_STONE(Te.m("工匠石", CustomStyle.styleOfMine),
             List.of(new ItemStack(Items.COBBLESTONE, 32),
-                    new ItemStack(Items.COAL, 1),
+                    new ItemStack(Items.COAL, 2),
                     new ItemStack(ModItems.GOLD_COIN.get(), 1)),
             List.of(new ItemStack(PickaxeItems.TINKER_STONE.get(), 1)),
             List.of(new ItemAndRate(new ItemStack(Items.COBBLESTONE, 8), 0.25)),
@@ -57,7 +57,7 @@ public enum SmeltRecipe {
 
     TINKER_COPPER(Te.m("工匠铜锭", CustomStyle.styleOfMine),
             List.of(new ItemStack(Items.COPPER_INGOT, 32),
-                    new ItemStack(Items.COAL, 2),
+                    new ItemStack(Items.COAL, 4),
                     new ItemStack(ModItems.GOLD_COIN.get(), 2)),
             List.of(new ItemStack(PickaxeItems.TINKER_COPPER.get(), 1)),
             List.of(new ItemAndRate(new ItemStack(Items.COPPER_INGOT, 8), 0.25)),
@@ -65,7 +65,7 @@ public enum SmeltRecipe {
 
     TINKER_IRON(Te.m("工匠铁锭", CustomStyle.styleOfMine),
             List.of(new ItemStack(Items.IRON_INGOT, 32),
-                    new ItemStack(Items.COAL, 2),
+                    new ItemStack(Items.COAL, 8),
                     new ItemStack(ModItems.GOLD_COIN.get(), 4)),
             List.of(new ItemStack(PickaxeItems.TINKER_IRON.get(), 1)),
             List.of(new ItemAndRate(new ItemStack(Items.IRON_INGOT, 8), 0.25)),
@@ -73,15 +73,23 @@ public enum SmeltRecipe {
 
     TINKER_GOLD(Te.m("工匠金锭", CustomStyle.styleOfGold),
             List.of(new ItemStack(Items.GOLD_INGOT, 32),
-                    new ItemStack(Items.COAL, 4),
+                    new ItemStack(Items.COAL, 16),
                     new ItemStack(ModItems.GOLD_COIN.get(), 8)),
+            List.of(new ItemStack(PickaxeItems.TINKER_GOLD.get(), 1)),
+            List.of(new ItemAndRate(new ItemStack(Items.GOLD_INGOT, 8), 0.25)),
+            20),
+
+    TINKER_GOLD_EX(Te.m("工匠金锭-EX", CustomStyle.styleOfGold),
+            List.of(new ItemStack(Items.GOLD_NUGGET, 288),
+                    new ItemStack(Items.COAL, 8),
+                    new ItemStack(ModItems.GOLD_COIN.get(), 288)),
             List.of(new ItemStack(PickaxeItems.TINKER_GOLD.get(), 1)),
             List.of(new ItemAndRate(new ItemStack(Items.GOLD_INGOT, 8), 0.25)),
             20),
 
     TINKER_DIAMOND(Te.m("工匠钻石", CustomStyle.styleOfWorld),
             List.of(new ItemStack(Items.DIAMOND, 32),
-                    new ItemStack(Items.COAL, 8),
+                    new ItemStack(Items.COAL, 64),
                     new ItemStack(ModItems.GOLD_COIN.get(), 16)),
             List.of(new ItemStack(PickaxeItems.TINKER_DIAMOND.get(), 1)),
             List.of(new ItemAndRate(new ItemStack(Items.DIAMOND, 8), 0.25)),
@@ -89,7 +97,7 @@ public enum SmeltRecipe {
 
     TINKER_NETHERITE(Te.m("工匠合金", CustomStyle.styleOfRed),
             List.of(new ItemStack(Items.NETHERITE_INGOT, 32),
-                    new ItemStack(Items.COAL, 16),
+                    new ItemStack(Items.QUARTZ, 128),
                     new ItemStack(ModItems.GOLD_COIN.get(), 32)),
             List.of(new ItemStack(PickaxeItems.TINKER_NETHERITE.get(), 1)),
             List.of(new ItemAndRate(new ItemStack(Items.NETHERITE_INGOT, 8), 0.25)),

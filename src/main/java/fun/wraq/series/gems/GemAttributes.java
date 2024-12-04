@@ -3,22 +3,19 @@ package fun.wraq.series.gems;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import fun.wraq.common.Compute;
 import fun.wraq.common.util.Utils;
+import fun.wraq.process.func.item.InventoryOperation;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 public class GemAttributes {
 
     public static double getPlayerCurrentAllEquipGemsValue(Player player, Map<Item, Double> map) {
         double value = 0;
-        List<ItemStack> equipList = new ArrayList<>(player.getInventory().armor.stream().toList());
-        if (Utils.mainHandTag.containsKey(player.getMainHandItem().getItem())) equipList.add(player.getMainHandItem());
-        for (ItemStack stack : equipList) {
+        for (ItemStack stack : InventoryOperation.getAllEquipSlotItems(player)) {
             value += getGemsAttributeModifier(stack.getOrCreateTagElement(Utils.MOD_ID), map);
         }
         return value;

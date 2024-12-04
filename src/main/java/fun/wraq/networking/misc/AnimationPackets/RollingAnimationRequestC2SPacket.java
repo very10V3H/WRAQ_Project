@@ -1,6 +1,7 @@
 package fun.wraq.networking.misc.AnimationPackets;
 
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModSounds;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.StringUtils;
@@ -51,7 +52,7 @@ public class RollingAnimationRequestC2SPacket {
 
                     ModNetworking.sendToClient(new RollingS2CPacket(PlayerAttributes.extraSwiftness(serverPlayer) / 10.0), serverPlayer);
                     if (!serverPlayer.isCreative()) SwiftData.changePlayerSwift(serverPlayer, -100.0 / 3);
-                    Utils.rollingTickMap.put(serverPlayer.getName().getString(), serverPlayer.getServer().getTickCount() + 10);
+                    Utils.rollingTickMap.put(serverPlayer.getName().getString(), Tick.get() + 10);
 
                     MySound.soundToNearPlayer(serverPlayer, ModSounds.Rolling.get());
 

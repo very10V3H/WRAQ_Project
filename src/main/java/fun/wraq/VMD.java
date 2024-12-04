@@ -162,6 +162,7 @@ public class VMD {
     @SubscribeEvent
     public static void serverStopEvent(ServerStoppingEvent event) throws SQLException {
         BlockEvent.mineAndWoodReset(event.getServer().getLevel(Level.OVERWORLD));
+        BlockEvent.netherMineReset(event.getServer().getLevel(Level.NETHER));
         MobSpawn.removeAllMob();
         RandomEventsHandler.getRandomEvents().forEach(RandomEvent::reset);
 

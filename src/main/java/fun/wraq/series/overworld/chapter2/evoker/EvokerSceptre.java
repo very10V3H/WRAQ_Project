@@ -30,6 +30,7 @@ public class EvokerSceptre extends WraqSceptre {
         Utils.manaPenetration0.put(this, new double[]{4, 5, 6, 7}[tier]);
         Utils.coolDownDecrease.put(this, new double[]{0.2, 0.2, 0.2, 0.2}[tier]);
         Element.LightningElementValue.put(this, new double[]{0.8, 0.9, 1, 1.2}[tier]);
+        Utils.levelRequire.put(this, 56);
     }
 
     public static final int ManaCost = 60;

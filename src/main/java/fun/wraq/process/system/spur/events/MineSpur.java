@@ -40,15 +40,22 @@ public class MineSpur {
         Player player = event.getPlayer();
         BlockPos blockPos = event.getPos();
         BlockState blockState = event.getState();
+        Block block = blockState.getBlock();
         Level level = player.level();
-        Level OverWorld = player.getServer().getLevel(Level.OVERWORLD);
         if (!player.isCreative() && blockState.getBlock().toString().length() > 12
                 && blockState.getBlock().toString().startsWith("create", 6)) event.setCanceled(true);
 
-        if (!player.isCreative()) {
-            if (!level.isClientSide && level.equals(OverWorld)) {
-                int tickCount = level.getServer().getTickCount();
-                Block block = blockState.getBlock();
+        if (!player.isCreative() && !level.isClientSide) {
+            if (level.dimension().equals(Level.NETHER)) {
+                if (mineRewardMap.containsKey(block)) {
+                    BlockAndResetTime blockAndResetTime = new BlockAndResetTime(blockState, blockPos, Tick.get() + 36000);
+                    Utils.netherMineList.add(blockAndResetTime);
+                    destroyLevelBlockAndRewardPlayer(player, blockPos, blockState, block, level);
+                }
+            }
+
+            if (level.dimension().equals(Level.OVERWORLD)) {
+                int tickCount = Tick.get();
                 if (blockPos.getY() <= 11 || mineRewardMap.containsKey(block)) {
                     if (canBeDigBlockList.contains(block)) {
                         if (mineRewardMap.containsKey(block)) {
@@ -57,18 +64,7 @@ public class MineSpur {
                                 Utils.worldMineList.add(blockAndResetTime);
                                 Utils.posEvenBeenDigOrPlace.add(blockPos);
                             }
-                            level.destroyBlock(blockPos, false);
-                            ItemStack stack = mineRewardMap.get(block).itemStack;
-                            InventoryOperation.itemStackGive(player, new ItemStack(stack.getItem(), stack.getCount()));
-                            mineReward(player, blockState, blockPos);
-
-                            Random random = new Random();
-                            if (random.nextDouble() < Compute.playerExHarvest(player)) {
-                                Compute.sendFormatMSG(player, Component.literal("额外产出").withStyle(ChatFormatting.GOLD),
-                                        Component.literal("为你提供了额外产物！").withStyle(ChatFormatting.WHITE));
-                                InventoryOperation.itemStackGive(player, new ItemStack(stack.getItem(), stack.getCount()));
-                                mineReward(player, blockState, blockPos);
-                            }
+                            destroyLevelBlockAndRewardPlayer(player, blockPos, blockState, block, level);
                         } else {
                             BlockAndResetTime blockAndResetTime = new BlockAndResetTime(blockState, blockPos, tickCount + 1200);
                             String name = player.getName().getString();
@@ -96,6 +92,25 @@ public class MineSpur {
                     }
                 }
             }
+        }
+    }
+
+    private static void destroyLevelBlockAndRewardPlayer(Player player, BlockPos blockPos, BlockState blockState, Block block, Level level) {
+        level.destroyBlock(blockPos, false);
+        ItemStack stack = mineRewardMap.get(block).itemStack;
+        InventoryOperation.itemStackGive(player, new ItemStack(stack.getItem(), stack.getCount()));
+        if (extraDropMap.containsKey(block)) {
+            extraDropMap.get(block).forEach(itemAndRate -> {
+                itemAndRate.send(player, 1 + Compute.playerExHarvest(player));
+            });
+        }
+        mineReward(player, blockState, blockPos);
+        Random random = new Random();
+        if (random.nextDouble() < Compute.playerExHarvest(player)) {
+            Compute.sendFormatMSG(player, Component.literal("额外产出").withStyle(ChatFormatting.GOLD),
+                    Component.literal("为你提供了额外产物！").withStyle(ChatFormatting.WHITE));
+            InventoryOperation.itemStackGive(player, new ItemStack(stack.getItem(), stack.getCount()));
+            mineReward(player, blockState, blockPos);
         }
     }
 
@@ -166,6 +181,8 @@ public class MineSpur {
     public static Map<Block, DropAndExp> mineRewardMap = new HashMap<>() {{
         put(Blocks.COAL_ORE, new DropAndExp(new ItemStack(Items.COAL, 4), 0.01));
         put(Blocks.DEEPSLATE_COAL_ORE, new DropAndExp(new ItemStack(Items.COAL, 8), 0.01));
+        put(Blocks.NETHER_QUARTZ_ORE, new DropAndExp(new ItemStack(Items.QUARTZ, 2), 0.02));
+        put(Blocks.NETHER_GOLD_ORE, new DropAndExp(new ItemStack(Items.GOLD_NUGGET, 4), 0.02));
         put(Blocks.COPPER_ORE, new DropAndExp(new ItemStack(Items.RAW_COPPER), 0.02));
         put(Blocks.DEEPSLATE_COPPER_ORE, new DropAndExp(new ItemStack(Items.RAW_COPPER, 2), 0.02));
         put(Blocks.RAW_COPPER_BLOCK, new DropAndExp(new ItemStack(Items.RAW_COPPER), 0.02));
@@ -188,6 +205,11 @@ public class MineSpur {
         put(ModBlocks.WRAQ_ORE_2.get(), new DropAndExp(new ItemStack(OreItems.WRAQ_ORE_2_ITEM.get()), 0.05));
         put(ModBlocks.WRAQ_ORE_3.get(), new DropAndExp(new ItemStack(OreItems.WRAQ_ORE_3_ITEM.get()), 0.05));
         put(ModBlocks.WRAQ_ORE_4.get(), new DropAndExp(new ItemStack(OreItems.WRAQ_ORE_4_ITEM.get()), 0.05));
+    }};
+
+    public static Map<Block, List<ItemAndRate>> extraDropMap = new HashMap<>() {{
+        put(Blocks.NETHER_QUARTZ_ORE, List.of(new ItemAndRate(Items.NETHERITE_SCRAP, 0.2)));
+        put(Blocks.NETHER_GOLD_ORE, List.of(new ItemAndRate(Items.NETHERITE_SCRAP, 0.3)));
     }};
 
     public static List<Item> getVanillaIngotItems() {
@@ -237,7 +259,8 @@ public class MineSpur {
                 Blocks.DEEPSLATE_EMERALD_ORE,
                 Blocks.POINTED_DRIPSTONE,
                 ModBlocks.WRAQ_ORE_1.get(), ModBlocks.WRAQ_ORE_2.get(),
-                ModBlocks.WRAQ_ORE_3.get(), ModBlocks.WRAQ_ORE_4.get()
+                ModBlocks.WRAQ_ORE_3.get(), ModBlocks.WRAQ_ORE_4.get(),
+                Blocks.NETHER_QUARTZ_ORE, Blocks.NETHER_GOLD_ORE
         };
         this.addAll(Arrays.asList(blocks));
         this.addAll(mineRewardMap.keySet());

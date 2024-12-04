@@ -11,5 +11,6 @@ public class DevilSceptre extends IceSceptre {
         Utils.manaRecover.put(this, 22d);
         Utils.manaPenetration0.put(this, 25d);
         Utils.coolDownDecrease.put(this, 0.3);
+        Utils.levelRequire.put(this, 150);
     }
 }

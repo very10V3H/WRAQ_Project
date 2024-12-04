@@ -38,6 +38,7 @@ public class ShipSword extends WraqSword implements ActiveItem {
         Utils.critRate.put(this, 0.3);
         Utils.critDamage.put(this, 0.65);
         Element.WaterElementValue.put(this, 1d);
+        Utils.levelRequire.put(this, 140);
     }
 
     @Override

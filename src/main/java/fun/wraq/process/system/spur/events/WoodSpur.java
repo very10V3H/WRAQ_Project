@@ -1,6 +1,7 @@
 package fun.wraq.process.system.spur.events;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
@@ -64,7 +65,7 @@ public class WoodSpur {
 
                         logReward(player);
                         InventoryOperation.itemStackGive(player, new ItemStack(blockState.getBlock().asItem(), 2));
-                        Utils.worldWoodList.add(new BlockAndResetTime(blockState, blockPos1, level.getServer().getTickCount() + 36000));
+                        Utils.worldWoodList.add(new BlockAndResetTime(blockState, blockPos1, Tick.get() + 36000));
 
                         level.setBlockAndUpdate(blockPos1, getStrippedLog(level.getBlockState(blockPos1).getBlock()).defaultBlockState());
 

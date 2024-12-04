@@ -1,5 +1,6 @@
 package fun.wraq.process.system.miles;
 
+import fun.wraq.common.fast.Tick;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -26,7 +27,7 @@ public class Miles {
 
     public static void count(Player player) {
         String name = player.getName().getString();
-        int tick = player.getServer().getTickCount();
+        int tick = Tick.get();
         int nextTick = nextComputeTime.getOrDefault(name, 0);
         Vec3 pos = player.position();
         Random random = new Random();

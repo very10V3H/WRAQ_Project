@@ -214,7 +214,7 @@ public class Compute {
                 .append(defaultName));
     }
 
-    public static int levelUpperLimit = 250;
+    public static int levelUpperLimit = 260;
     public static int expGetUpperLimit = 125;
 
     public static double getCurrentXpLevelUpNeedXpPoint(int xpLevel) {
@@ -268,6 +268,7 @@ public class Compute {
 
         CompoundTag data = player.getPersistentData();
         if (player.getCooldowns().isOnCooldown(tool)) return;
+        if (Utils.levelRequire.getOrDefault(tool, 0) > player.experienceLevel) return;
 
         if (tool instanceof ActiveItem activeItem) {
             if (tool instanceof PlainPower || tool instanceof ForestPower
@@ -1138,7 +1139,7 @@ public class Compute {
         itemEntity.moveTo(pos.add(r.nextDouble(0.5) - 0.25, r.nextDouble(0.5) - 0.25, r.nextDouble(0.5) - 0.25));
         itemEntity.setPickUpDelay(200);
         itemEntity.setDeltaMovement(new Vec3(delta0.normalize().scale(0.1).x, 0.1, delta0.normalize().scale(0.1).z));
-        Utils.valueItemEntity.add(new ItemEntityAndResetTime(itemEntity, level.getServer().getTickCount() + 12));
+        Utils.valueItemEntity.add(new ItemEntityAndResetTime(itemEntity, Tick.get() + 12));
         level.addFreshEntity(itemEntity);
     }
 
@@ -1338,7 +1339,7 @@ public class Compute {
 
     public static void Laser(Player player, ParticleOptions particleOptions, double rate, int TickCoolDown, boolean isPower) {
         Level level = player.level();
-        int TickCount = player.getServer().getTickCount();
+        int TickCount = Tick.get();
         Vec3 TargetPos = player.pick(25, 0, false).getLocation();
         Vec3 StartPos = player.pick(0.5, 0, false).getLocation();
         Vec3 PosVec = TargetPos.subtract(StartPos).normalize();
@@ -1376,7 +1377,7 @@ public class Compute {
 
     public static void TargetLocationLaser(Player player, Vec3 location, ParticleOptions particleOptions, double rate, int tickCoolDown) {
         Level level = player.level();
-        int TickCount = player.getServer().getTickCount();
+        int TickCount = Tick.get();
         Vec3 targetPos = location;
         Vec3 startPos = player.pick(0.5, 0, false).getLocation();
         Vec3 PosVec = targetPos.subtract(startPos).normalize();
@@ -1660,7 +1661,7 @@ public class Compute {
                         if (!(player.getMainHandItem().is(item) && player.getInventory().selected >= 3)) {
                             double computeValue = 0;
                             double baseValue = 0;
-                            baseValue += ForgeEquipUtils.getTraditionalEquipBaseValue(equip, map);
+                            baseValue += ForgeEquipUtils.getTraditionalEquipBaseValue(equip, map, player);
                             computeValue += baseValue;
                             // 只有能被强化的属性才能用这个公式去计算数值
                             if (map.equals(Utils.attackDamage) || map.equals(Utils.manaDamage)) {
@@ -1704,7 +1705,7 @@ public class Compute {
     }
 
     public static boolean PlayerUseWithHud(Player player, WeakHashMap<Player, Integer> coolDownMap, Item item, WeakHashMap<Player, Integer> lastTickMap, int lastTick, int manaCost, int coolDownSeconds) {
-        int tickCount = player.getServer().getTickCount();
+        int tickCount = Tick.get();
         if (!coolDownMap.containsKey(player) || coolDownMap.get(player) < tickCount) {
             Compute.playerManaCost(player, manaCost);
             coolDownMap.put(player, tickCount + (int) (coolDownSeconds * 15 * (1 - PlayerAttributes.coolDownDecrease(player))));
@@ -1717,7 +1718,7 @@ public class Compute {
     }
 
     public static boolean PlayerUseWithHud(Player player, WeakHashMap<Player, Integer> coolDownMap, Item item, int manaCost, int coolDownSeconds) {
-        int tickCount = player.getServer().getTickCount();
+        int tickCount = Tick.get();
         if (!coolDownMap.containsKey(player) || coolDownMap.get(player) < tickCount) {
             Compute.playerManaCost(player, manaCost);
             coolDownMap.put(player, tickCount + (int) (coolDownSeconds * 15 * (1 - PlayerAttributes.coolDownDecrease(player))));

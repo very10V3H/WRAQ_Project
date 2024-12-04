@@ -14,6 +14,7 @@ import fun.wraq.events.mob.instance.instances.dimension.CitadelGuardianInstance;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
 import fun.wraq.process.func.item.InventoryOperation;
+import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.gems.GemItems;
 import fun.wraq.series.instance.series.warden.WardenItems;
@@ -388,6 +389,8 @@ public class WardenInstance extends NoTeamInstance {
                         player.addEffect(new MobEffectInstance(MobEffects.DARKNESS, 150));
                     }
                 });
+                ParticleProvider.createLineEffectParticle(boss.level(), (int) player.distanceTo(boss) * 5,
+                        boss.getEyePosition(), player.getEyePosition(), style);
             });
         }
     }

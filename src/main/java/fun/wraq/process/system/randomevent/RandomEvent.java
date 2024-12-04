@@ -5,6 +5,7 @@ import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.process.system.tower.Tower;
+import fun.wraq.process.system.wayPoints.MyWayPoint;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
@@ -69,6 +70,10 @@ public abstract class RandomEvent {
                     "参与即可获得", component));
         }
         beginAction();
+        server.getPlayerList().getPlayers().forEach(player -> {
+            MyWayPoint.sendAddPacketToClient(player, new MyWayPoint(pos, "随机事件发生地",
+                    MyWayPoint.colorMap.get(MyWayPoint.green), 1));
+        });
     }
 
     public void handleTick() {
@@ -101,6 +106,9 @@ public abstract class RandomEvent {
         isCarryingOut = false;
         players.clear();
         reset();
+        server.getPlayerList().getPlayers().forEach(player -> {
+            MyWayPoint.sendRemovePacketToClient(player, "随机事件发生地");
+        });
     }
 
     public void broad(Component content) {

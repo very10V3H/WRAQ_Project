@@ -1,5 +1,6 @@
 package fun.wraq.process.func;
 
+import fun.wraq.common.fast.Tick;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.ParticlePackets.SlowDownParticleS2CPacket;
@@ -17,7 +18,7 @@ public class EffectOnMob {
     public static Map<Mob, Double> mobSlowDownEffectRate = new HashMap<>();
 
     public static void addSlowDownEffect(Mob mob, int lastTick, double rate) {
-        int tick = mob.getServer().getTickCount();
+        int tick = Tick.get();
         mobSlowDownEffectTick.put(mob, tick + lastTick);
         mobSlowDownEffectRate.put(mob, rate);
 
@@ -32,7 +33,7 @@ public class EffectOnMob {
         mobSlowDownEffectRate.entrySet().removeIf(entry -> !entry.getKey().isAlive());
 
         mobSlowDownEffectTick.forEach((mob, tick) -> {
-            int tickCount = mob.getServer().getTickCount();
+            int tickCount = Tick.get();
             if (mobSlowDownEffectRate.containsKey(mob)) {
                 if (tick > tickCount) {
                     mob.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(

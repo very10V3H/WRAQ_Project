@@ -15,6 +15,7 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
@@ -365,14 +366,20 @@ public class ForgeEquipUtils {
         return 5;
     }
 
-    public static double getTraditionalEquipBaseValue(ItemStack equip, Map<Item, Double> map) {
+    public static double getTraditionalEquipBaseValue(ItemStack equip, Map<Item, Double> map, @Nullable Player player) {
         double exValue = 0;
+        if (player != null
+                && Utils.levelRequire.getOrDefault(equip.getItem(), 0) > player.experienceLevel) return 0;
         if (equip.getItem() instanceof ExBaseAttributeValueEquip exBaseAttributeValueEquip
                 && exBaseAttributeValueEquip.getTagAndRateMap().containsKey(map)) {
             CompoundTag data = ExBaseAttributeValueEquip.getStackExBaseAttributeData(equip);
             exValue += exBaseAttributeValueEquip.getTagAndRateMap().get(map).getValueByData(data);
         }
         return (map.getOrDefault(equip.getItem(), 0d) + exValue) * getTierValueEffect(equip);
+    }
+
+    public static double getTraditionalEquipBaseValue(ItemStack equip, Map<Item, Double> map) {
+        return getTraditionalEquipBaseValue(equip, map, null);
     }
 
     public static double getRandomEquipBaseValue(ItemStack equip, String type) {

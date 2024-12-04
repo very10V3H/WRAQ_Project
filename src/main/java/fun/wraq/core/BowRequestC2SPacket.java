@@ -1,8 +1,9 @@
 package fun.wraq.core;
 
+import fun.wraq.common.equip.WraqBow;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.util.Utils;
 import fun.wraq.customized.uniform.bow.BowCurios1;
-import fun.wraq.common.equip.WraqBow;
 import fun.wraq.series.instance.series.castle.CastleSwiftArmor;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
@@ -26,7 +27,7 @@ public class BowRequestC2SPacket {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
             ServerPlayer serverPlayer = context.getSender();
-            int tick = serverPlayer.getServer().getTickCount();
+            int tick = Tick.get();
             if (Utils.PlayerArrowAttackTime.containsKey(serverPlayer)
                     && tick - Utils.PlayerArrowAttackTime.get(serverPlayer) < 5)
                 return;

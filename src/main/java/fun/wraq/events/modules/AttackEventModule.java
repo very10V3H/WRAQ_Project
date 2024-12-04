@@ -2,6 +2,7 @@ package fun.wraq.events.modules;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
@@ -147,7 +148,7 @@ public class AttackEventModule {
     }
 
     public static void SwordSkill3Attack(CompoundTag data, Player player, Entity entity) {
-        int TickCount = player.getServer().getTickCount();
+        int TickCount = Tick.get();
         String name = player.getName().getString();
         if (Compute.getSwordSkillLevel(data, 3) > 0) {
             if (Utils.SwordSkill3Map.containsKey(name)) {
@@ -171,7 +172,7 @@ public class AttackEventModule {
 
     public static double SwordSkill3(CompoundTag data, Player player, LivingEntity monster) {
         double DamageEnhance = 0;
-        int TickCount = player.getServer().getTickCount();
+        int TickCount = Tick.get();
         String name = player.getName().getString();
         if (Compute.getSwordSkillLevel(data, 3) > 0 && Utils.SwordSkill3Map.containsKey(name)) {
             SwordSkill3 swordSkill3 = Utils.SwordSkill3Map.get(name);
@@ -183,7 +184,7 @@ public class AttackEventModule {
     }
 
     public static void SwordSkill5Attack(CompoundTag data, Player player) {
-        int TickCount = player.getServer().getTickCount();
+        int TickCount = Tick.get();
         if (Compute.getSwordSkillLevel(data, 5) > 0) {
             data.putInt(StringUtils.SwordSkillNum.Skill5, TickCount + 60);
             ModNetworking.sendToClient(new SkillImageS2CPacket(6, 3, 3, 0, 0), (ServerPlayer) player);
@@ -191,7 +192,7 @@ public class AttackEventModule {
     }
 
     public static void SwordSkill6Attack(CompoundTag data, Player player) {
-        int TickCount = player.getServer().getTickCount();
+        int TickCount = Tick.get();
         String name = player.getName().getString();
         if (Compute.getSwordSkillLevel(data, 6) > 0) {
             if (data.getBoolean("Crit")) {
@@ -225,7 +226,7 @@ public class AttackEventModule {
     }
 
     public static void SwordSkill13Attack(CompoundTag data, Player player) {
-        int TickCount = player.getServer().getTickCount();
+        int TickCount = Tick.get();
         String name = player.getName().getString();
         if (Compute.getSwordSkillLevel(data, 13) > 0) {
             if (!Utils.SwordSkill13Map.containsKey(name)) {
@@ -266,7 +267,7 @@ public class AttackEventModule {
 
     public static double SwordSkill13(CompoundTag data, Player player, double BaseDamage) {
         double ExDamageIgnoreDefence = 0;
-        int TickCount = player.getServer().getTickCount();
+        int TickCount = Tick.get();
         String name = player.getName().getString();
         if (Compute.getSwordSkillLevel(data, 13) > 0) {
             if (Utils.SwordSkill13Map.containsKey(name)) {
@@ -301,7 +302,7 @@ public class AttackEventModule {
     }
 
     public static void BowSkill3Attack(CompoundTag data, Player player, Entity entity) {
-        int TickCount = player.getServer().getTickCount();
+        int TickCount = Tick.get();
         String name = player.getName().getString();
         if (Compute.getBowSkillLevel(data, 3) > 0) {
             if (Utils.BowSkill3Map.containsKey(name)) {
@@ -325,7 +326,7 @@ public class AttackEventModule {
 
     public static double BowSkill3(CompoundTag data, Player player, LivingEntity monster) {
         double DamageEnhance = 0;
-        int TickCount = player.getServer().getTickCount();
+        int TickCount = Tick.get();
         String name = player.getName().getString();
         if (Compute.getBowSkillLevel(data, 3) > 0 && Utils.BowSkill3Map.containsKey(name)) {
             BowSkill3 bowSkill3 = Utils.BowSkill3Map.get(name);
@@ -357,7 +358,7 @@ public class AttackEventModule {
     }
 
     public static void BowSkill6Attack(CompoundTag data, Player player, boolean flag) {
-        int TickCount = player.getServer().getTickCount();
+        int TickCount = Tick.get();
         String name = player.getName().getString();
         if (Compute.getBowSkillLevel(data, 6) > 0) {
             if (flag) {
@@ -505,7 +506,7 @@ public class AttackEventModule {
 
     public static void snowShieldEffect(Player player, Mob mob) {
         if (player.getItemInHand(InteractionHand.OFF_HAND).is(ModItems.SnowShield.get())) {
-            int TickCount = player.getServer().getTickCount();
+            int TickCount = Tick.get();
             Utils.SnowShieldPlayerEffectTickMap.put(player, TickCount + 40);
             Utils.SnowShieldPlayerEffectMap.put(player, (MobSpawn.MobBaseAttributes.getMobBaseAttribute(mob, MobSpawn.MobBaseAttributes.defence) / 4));
             Utils.SnowShieldMobEffectMap.put(mob, TickCount + 40);

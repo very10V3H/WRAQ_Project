@@ -1,5 +1,6 @@
 package fun.wraq.common.attribute;
 
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.MobSpawn;
@@ -18,7 +19,7 @@ import java.util.Map;
 
 public class MobAttributes {
     public static double defence(Mob monster) {
-        int tickCount = monster.getServer().getTickCount();
+        int tickCount = Tick.get();
         double defence = MobSpawn.MobBaseAttributes.defence.getOrDefault(MobSpawn.getMobOriginName(monster), 0d);
         double exDefence = 0;
         double rate = 1;
@@ -53,7 +54,7 @@ public class MobAttributes {
     }
 
     public static double manaDefence(Mob monster) {
-        int tick = monster.getServer().getTickCount();
+        int tick = Tick.get();
         double defence = MobSpawn.MobBaseAttributes.manaDefence.getOrDefault(MobSpawn.getMobOriginName(monster), 0d);
         double exDefence = 0;
         double rate = 1;

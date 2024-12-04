@@ -148,7 +148,7 @@ public class LakePower extends WraqPower {
     };
 
     public static double PlayerDefend(Player player) {
-        if (playerDefendTickMap.containsKey(player) && playerDefendTickMap.get(player) > player.getServer().getTickCount()) {
+        if (playerDefendTickMap.containsKey(player) && playerDefendTickMap.get(player) > Tick.get()) {
             return 0.05 * playerDefendRateMap.get(player);
         }
         return 0;

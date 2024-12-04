@@ -108,7 +108,7 @@ public record StableAttributesModifier(String tag, double value, int stopTick) {
 
     public static double getModifierValue(LivingEntity entity, Map<LivingEntity, List<StableAttributesModifier>> modifierMap) {
         if (!modifierMap.containsKey(entity)) return 0;
-        int tick = entity.getServer().getTickCount();
+        int tick = Tick.get();
         List<StableAttributesModifier> modifiers = modifierMap.get(entity);
         List<StableAttributesModifier> removeList = new ArrayList<>();
         AtomicReference<Double> value = new AtomicReference<>((double) 0);

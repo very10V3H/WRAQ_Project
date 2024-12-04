@@ -1,11 +1,12 @@
 package fun.wraq.series.newrunes.chapter1;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqCurios;
+import fun.wraq.common.fast.Tick;
+import fun.wraq.common.impl.display.UsageOrGetWayDescriptionItem;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.chapter1.ForestZombieSpawnController;
-import fun.wraq.common.impl.display.UsageOrGetWayDescriptionItem;
-import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.newrunes.NewRuneItems;
 import fun.wraq.series.newrunes.RuneItem;
@@ -66,7 +67,7 @@ public class ForestNewRune extends WraqCurios implements RuneItem, UsageOrGetWay
     public static boolean protectPlayerFromDamage(Player player, double damage) {
         if (!isOn(player)) return false;
         String name = player.getName().getString();
-        int tick = player.getServer().getTickCount();
+        int tick = Tick.get();
         if (WraqCurios.coolDownOver(passiveNextActiveTime, player)) {
             if ((player.getHealth() - damage) / (player.getMaxHealth() - damage) <= 0.2) {
                 passiveNextActiveTime.put(name, tick + 1200);

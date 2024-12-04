@@ -30,6 +30,7 @@ public class IceBook extends WraqOffHandItem implements OnHitEffectEquip, OnHitD
         Utils.manaPenetration0.put(this, 8d);
         Utils.maxMana.put(this, 400d);
         Utils.expUp.put(this, 0.7);
+        Utils.levelRequire.put(this, 135);
     }
 
     private final Style style = CustomStyle.styleOfIce;

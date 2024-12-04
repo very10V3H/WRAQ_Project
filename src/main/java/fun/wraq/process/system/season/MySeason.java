@@ -1,6 +1,7 @@
 package fun.wraq.process.system.season;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -202,14 +203,14 @@ public class MySeason {
                 SeasonTime time = new SeasonTime(seasonData.seasonCycleTicks);
                 MySeason.currentSeason = time.getSubSeason().name();
             }
-            if (MySeason.currentElementEffectBroadDelay == event.level.getServer().getTickCount()) {
+            if (MySeason.currentElementEffectBroadDelay == Tick.get()) {
                 List<Component> components = MySeason.getElementEffectContent(currentSeason);
                 if (components != null) {
                     List<ServerPlayer> playerList = event.level.getServer().getPlayerList().getPlayers();
                     playerList.forEach(MySeason::sendElementEffectInfoToPlayer);
                 }
             }
-            int tick = event.level.getServer().getTickCount();
+            int tick = Tick.get();
             if (tick % 20 == 0) {
                 playerInfoSendDelay.forEach((key, value) -> {
                     if (value < tick) {
@@ -235,7 +236,7 @@ public class MySeason {
             components.forEach(component -> {
                 Compute.msgSendToPlayer(player, component, 2);
             });
-            playerInfoSendDelay.put(player, player.getServer().getTickCount() + 200);
+            playerInfoSendDelay.put(player, Tick.get() + 200);
             MySound.soundToPlayer(player, SoundEvents.EXPERIENCE_ORB_PICKUP);
         }
     }

@@ -14,21 +14,13 @@ import java.util.Map;
 public class StringUtils {
 
     public static String[] TickStringArray = {
-            "Critical0", "Critical1", "Critical2",
-            "Critical3", "Critical4", "volcanobow",
-            "plainbow", "lakesword", "BreakDefence",
-            "BreakDefenceX", "DGreen1", "NetherRune2",
             SwordSkillNum.Skill2, SwordSkillNum.Skill5,
             BowSkillNum.Skill2, BowSkillNum.Skill13,
             BowSkillNum.Skill14, BowSkillNum.Skill5,
             ManaSkillNum.Skill2, ManaSkillNum.Skill14,
             "SakuraDemonSword", "MineMonsterEffect",
-            WitherSword.Effect0, WitherSword.Effect1,
-            WitherSword.Effect2, WitherSword.Effect3,
-            WitherBow.Effect0, WitherBow.Effect1,
-            WitherBow.Effect2, WitherBow.Effect3,
             PlainSwordActive.PlainSceptre,
-            "BowAttackSlowDownCount", ForestRune.ForestRune1
+            "BowAttackSlowDownCount",
     };
 
     public static String SkillPoint_Total = "SkillPoint_Total";
@@ -72,8 +64,6 @@ public class StringUtils {
 
     public static class ForestRune {
         public static String ForestRune = "DGreen";
-        public static String ForestRune1 = "DGreen1";
-        public static String ForestRune2 = "DGreen2";
     }
 
     public static class SwordSkillNum {
@@ -153,28 +143,6 @@ public class StringUtils {
 
     public static class KillCount {
         public static String NEW_KILL_COUNT = "newKillCount";
-        public static String KillCountOf = "KillCountOf";
-        public static String KillCount = "KillCount";
-        public static String Total = "KillCountTotal";
-        public static String ForestBoss = KillCountOf + "ForestBoss";
-        public static String VolcanoBoss = KillCountOf + "VolcanoBoss";
-        public static String SkyBoss = KillCountOf + "SkyBoss";
-        public static String LakeBoss = KillCountOf + "LakeBoss";
-        public static String SakuraMob = KillCountOf + "SakuraMob";
-        public static String Scarecrow = KillCountOf + "Scarecrow";
-        public static String RandomSlime = KillCount + "RandomSlime";
-        public static String SnowBoss = KillCountOf + "SnowBoss";
-        public static String MineWorker = KillCountOf + "MineWorker";
-        public static String IceHunter = KillCountOf + "IceHunter";
-        public static String ShipWorker = KillCountOf + "ShipWorker";
-        public static String EarthMana = KillCountOf + "EarthMana";
-        public static String BloodMana = KillCountOf + "BloodMana";
-        public static String Slime = KillCountOf + "Slime";
-        public static String Beacon = KillCountOf + "Beacon";
-        public static String Blaze = KillCountOf + "Blaze";
-        public static String Tree = KillCountOf + "Tree";
-        public static String Star = KillCountOf + "Star";
-        public static String Star1 = KillCountOf + "Star1";
     }
 
     public static class Login {
@@ -259,14 +227,6 @@ public class StringUtils {
         public static String Effect1 = "WitherSwordEffect1";
         public static String Effect2 = "WitherSwordEffect2";
         public static String Effect3 = "WitherSwordEffect3";
-    }
-
-    public static class WitherBow {
-        public static String Effect = "WitherBowEffect";
-        public static String Effect0 = "WitherBowEffect0";
-        public static String Effect1 = "WitherBowEffect1";
-        public static String Effect2 = "WitherBowEffect2";
-        public static String Effect3 = "WitherBowEffect3";
     }
 
     public static class Crest {

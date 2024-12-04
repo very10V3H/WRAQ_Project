@@ -3,6 +3,7 @@ package fun.wraq.series.nether.equip.attack.sword;
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.equip.WraqOffHandItem;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.impl.onhit.OnHitEffectEquip;
 import fun.wraq.common.registry.ModItems;
@@ -34,6 +35,7 @@ public class NetherShield extends WraqOffHandItem implements ForgeItem, OnHitEff
         Utils.critDamage.put(this, 0.15);
         Utils.expUp.put(this, 0.6);
         Utils.shieldTag.put(this, 1d);
+        Utils.levelRequire.put(this, 80);
     }
 
     @Override
@@ -80,7 +82,7 @@ public class NetherShield extends WraqOffHandItem implements ForgeItem, OnHitEff
     public void onHit(Player player, Mob mob) {
         double defenceValue = PlayerAttributes.defence(player) + MobSpawn.MobBaseAttributes.getMobBaseAttribute(mob, MobSpawn.MobBaseAttributes.defence);
         double rate = 2 - Damage.defenceDamageDecreaseRate(defenceValue, 0, 0);
-        int tick = player.getServer().getTickCount();
+        int tick = Tick.get();
         Dot.addDotOnMob(mob, new Dot(1, PlayerAttributes.attackDamage(player) * 0.2 * rate, 3, tick + 20, player.getName().getString(), true));
         Compute.sendMobEffectHudToNearPlayer(mob, ModItems.Ruby.get(), "NetherShieldDot", 20, 0, false);
     }

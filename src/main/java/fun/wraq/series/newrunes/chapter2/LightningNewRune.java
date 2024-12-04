@@ -2,12 +2,13 @@ package fun.wraq.series.newrunes.chapter2;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.equip.WraqCurios;
+import fun.wraq.common.fast.Tick;
+import fun.wraq.common.impl.display.UsageOrGetWayDescriptionItem;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.chapter2.LightningZombieController;
 import fun.wraq.process.func.damage.Damage;
-import fun.wraq.common.impl.display.UsageOrGetWayDescriptionItem;
-import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.newrunes.NewRuneItems;
 import fun.wraq.series.newrunes.RuneItem;
@@ -82,7 +83,7 @@ public class LightningNewRune extends WraqCurios implements RuneItem, UsageOrGet
             Compute.removeEffectLastTime(player, NewRuneItems.lightningNewRune.get());
             return;
         }
-        int tick = player.getServer().getTickCount();
+        int tick = Tick.get();
         String name = player.getName().getString();
         if (!cooldownMap.containsKey(name) || cooldownMap.get(name) == tick) {
             cooldownMap.put(name, tick);
@@ -92,7 +93,7 @@ public class LightningNewRune extends WraqCurios implements RuneItem, UsageOrGet
 
     public static void onHit(Player player, Mob mob) {
         if (!isOn(player)) return;
-        int tick = player.getServer().getTickCount();
+        int tick = Tick.get();
         String name = player.getName().getString();
         Random random = new Random();
         if (!cooldownMap.containsKey(name) || cooldownMap.get(name) < tick) {

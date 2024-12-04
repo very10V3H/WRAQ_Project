@@ -44,6 +44,7 @@ public class MoonSceptre extends WraqSceptre implements ActiveItem, OnHitEffectE
         Utils.coolDownDecrease.put(this, 0.3);
         Utils.manaPenetration0.put(this, 29d);
         this.activeRate = activeRate;
+        Utils.levelRequire.put(this, 160);
     }
 
     @Override

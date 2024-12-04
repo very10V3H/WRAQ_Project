@@ -35,6 +35,7 @@ public class MoonBow extends WraqBow implements OnHitEffectEquip {
         Utils.critRate.put(this, 0.25);
         Utils.critDamage.put(this, 1.35);
         this.exTargetCount = exTargetCount;
+        Utils.levelRequire.put(this, 160);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package fun.wraq.series.end.eventController.VolcanoRecall;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
@@ -180,7 +181,7 @@ public class VolcanoRecallEvent {
                 }
 
                 if (Utils.VolcanoRecallBlaze != null && Utils.VolcanoRecallBlaze.isAlive()) { // AI
-                    if (level1.getServer().getTickCount() % 20 == 0) {
+                    if (Tick.get() % 20 == 0) {
                         List<Player> playerList = level1.getEntitiesOfClass(Player.class, AABB.ofSize(Utils.VolcanoRecallBlaze.position(), 20, 20, 20));
                         for (Player player : playerList) {
                             if (player.position().distanceTo(Utils.VolcanoRecallBlaze.position()) <= 10) {

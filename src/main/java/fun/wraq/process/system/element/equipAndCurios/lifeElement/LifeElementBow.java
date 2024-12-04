@@ -1,6 +1,9 @@
 package fun.wraq.process.system.element.equipAndCurios.lifeElement;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqBow;
+import fun.wraq.common.equip.impl.ActiveItem;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
@@ -8,8 +11,6 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.core.MyArrow;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.element.Element;
-import fun.wraq.common.equip.impl.ActiveItem;
-import fun.wraq.common.equip.WraqBow;
 import fun.wraq.render.particles.ModParticles;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -80,20 +81,20 @@ public class LifeElementBow extends WraqBow implements ActiveItem {
     }
 
     public static void Tick(Player player) {
-        if (LifeElementSword.lifeElementActiveLastTick.containsKey(player) && LifeElementSword.lifeElementActiveLastTick.get(player) >= player.getServer().getTickCount()) {
-            int tickCount = LifeElementSword.lifeElementActiveLastTick.get(player) - player.getServer().getTickCount();
+        if (LifeElementSword.lifeElementActiveLastTick.containsKey(player) && LifeElementSword.lifeElementActiveLastTick.get(player) >= Tick.get()) {
+            int tickCount = LifeElementSword.lifeElementActiveLastTick.get(player) - Tick.get();
             Compute.sendEffectLastTime(player, ModItems.LifeElementSword.get().getDefaultInstance(), tickCount, tickCount, true);
             Compute.playerHeal(player, LifeElementSword.lifeElementActiveHealth.get(player) * 0.01);
         }
     }
 
     public static void StoreToList(Player player, double num) {
-        if (LifeElementSword.lifeElementActiveLastTick.containsKey(player) && LifeElementSword.lifeElementActiveLastTick.get(player) > player.getServer().getTickCount()) {
+        if (LifeElementSword.lifeElementActiveLastTick.containsKey(player) && LifeElementSword.lifeElementActiveLastTick.get(player) > Tick.get()) {
             if (!LifeElementSword.playerShortTimeStoreHealthMap.containsKey(player))
                 LifeElementSword.playerShortTimeStoreHealthMap.put(player, new ArrayList<>());
             List<LifeElementSword.ShortTimeStoreHealth> list = LifeElementSword.playerShortTimeStoreHealthMap.get(player);
-            list.removeIf(shortTimeStoreHealth -> shortTimeStoreHealth.tickCount() < player.getServer().getTickCount());
-            list.add(new LifeElementSword.ShortTimeStoreHealth(player.getServer().getTickCount() + 100, num));
+            list.removeIf(shortTimeStoreHealth -> shortTimeStoreHealth.tickCount() < Tick.get());
+            list.add(new LifeElementSword.ShortTimeStoreHealth(Tick.get() + 100, num));
         }
     }
 
@@ -101,7 +102,7 @@ public class LifeElementBow extends WraqBow implements ActiveItem {
         if (!LifeElementSword.playerShortTimeStoreHealthMap.containsKey(player)) return 0;
         List<LifeElementSword.ShortTimeStoreHealth> list = LifeElementSword.playerShortTimeStoreHealthMap.get(player);
         double sum = 0;
-        list.removeIf(shortTimeStoreHealth -> shortTimeStoreHealth.tickCount() < player.getServer().getTickCount());
+        list.removeIf(shortTimeStoreHealth -> shortTimeStoreHealth.tickCount() < Tick.get());
         for (LifeElementSword.ShortTimeStoreHealth shortTimeStoreHealth : list) sum += shortTimeStoreHealth.num();
         return sum;
     }

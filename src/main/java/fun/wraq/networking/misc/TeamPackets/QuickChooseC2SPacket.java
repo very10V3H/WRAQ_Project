@@ -1,6 +1,7 @@
 package fun.wraq.networking.misc.TeamPackets;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.struct.PlayerTeam;
 import net.minecraft.ChatFormatting;
@@ -56,7 +57,7 @@ public class QuickChooseC2SPacket {
                 List<Player> playerListGetByName = new ArrayList<>();
                 List<Player> PlayerDeadTime = new ArrayList<>();
                 List<Player> PlayerInstanceProgress = new ArrayList<>();
-                int TickCount = serverPlayer.getServer().getTickCount();
+                int TickCount = Tick.get();
                 playerTeam.getPlayerList().forEach(player -> {
                     playerListGetByName.add(serverPlayer.getServer().getPlayerList().getPlayerByName(player.getName().getString()));
                 });

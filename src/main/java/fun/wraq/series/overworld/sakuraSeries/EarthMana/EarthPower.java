@@ -129,7 +129,7 @@ public class EarthPower extends WraqPower {
     public static WeakHashMap<Player, Integer> Volcano_PlayerDamageEnhance = new WeakHashMap<>();
 
     public static double MobDamageDecrease(Mob mob) {
-        int TickCount = mob.getServer().getTickCount();
+        int TickCount = Tick.get();
         if (Plain_MobDamageDecrease.containsKey(mob) && Plain_MobDamageDecrease.get(mob) > TickCount) {
             return -0.25;
         }
@@ -137,15 +137,14 @@ public class EarthPower extends WraqPower {
     }
 
     public static double PlayerDefenceEnhance(Player player) {
-        int TickCount = player.getServer().getTickCount();
-        if (Forest_PlayerDefenceEnhance.containsKey(player) && Forest_PlayerDefenceEnhance.get(player) > TickCount) {
+        if (Forest_PlayerDefenceEnhance.containsKey(player) && Forest_PlayerDefenceEnhance.get(player) > Tick.get()) {
             return 0.25;
         }
         return 0;
     }
 
     public static double MobManaDefenceDecrease(Mob mob) {
-        int TickCount = mob.getServer().getTickCount();
+        int TickCount = Tick.get();
         if (Lake_MobManaDefenceDecrease.containsKey(mob) && Lake_MobManaDefenceDecrease.get(mob) > TickCount) {
             return -0.4;
         }
@@ -153,7 +152,7 @@ public class EarthPower extends WraqPower {
     }
 
     public static double PlayerCoolDownEnhance(Player player) {
-        int TickCount = player.getServer().getTickCount();
+        int TickCount = Tick.get();
         if (Lake_PlayerCoolDownEnhance.containsKey(player) && Lake_PlayerCoolDownEnhance.get(player) > TickCount) {
             return 0.3;
         }
@@ -161,7 +160,7 @@ public class EarthPower extends WraqPower {
     }
 
     public static double PlayerDamageEnhance(Player player) {
-        int TickCount = player.getServer().getTickCount();
+        int TickCount = Tick.get();
         if (Volcano_PlayerDamageEnhance.containsKey(player) && Volcano_PlayerDamageEnhance.get(player) > TickCount) {
             return 0.25;
         }

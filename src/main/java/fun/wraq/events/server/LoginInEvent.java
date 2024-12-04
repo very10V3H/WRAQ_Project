@@ -4,6 +4,7 @@ import fun.wraq.commands.changeable.CompensateCommand;
 import fun.wraq.commands.changeable.PrefixCommand;
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.StringUtils;
@@ -262,7 +263,7 @@ public class LoginInEvent {
                         Component.literal("欢迎新地质学家").withStyle(ChatFormatting.GOLD).
                                 append(player.getDisplayName()).
                                 append(Component.literal("的到来！").withStyle(ChatFormatting.GOLD)));
-                newPlayerMSGDelay2.put(player, player.getServer().getTickCount() + 100);
+                newPlayerMSGDelay2.put(player, Tick.get() + 100);
                 Compute.respawnPlayer(player);
             }
             data.putBoolean("FirstReward", true);
@@ -323,7 +324,7 @@ public class LoginInEvent {
 
     public static void newMSGSend(TickEvent.ServerTickEvent event) {
         if (event.phase == TickEvent.Phase.START && event.side.isServer()) {
-            int tick = event.getServer().getTickCount();
+            int tick = Tick.get();
             newPlayerMSGDelay1.forEach(((player, integer) -> {
                 if (integer < tick) {
                     Compute.sendFormatMSG(player, Component.literal("欢迎").withStyle(ChatFormatting.AQUA),

@@ -1,5 +1,6 @@
 package fun.wraq.process.system.randomStore;
 
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.system.randomStore.networking.TradeListS2CPacket;
@@ -23,7 +24,7 @@ public class RandomStore {
 
     public static void createRandomTradeList(Player player) {
         String name = player.getName().getString();
-        if (!playerNextRefreshTick.containsKey(name) || playerNextRefreshTick.get(name) < player.getServer().getTickCount()) {
+        if (!playerNextRefreshTick.containsKey(name) || playerNextRefreshTick.get(name) < Tick.get()) {
             Map<ItemStack, List<ItemStack>> tradeList = new HashMap<>();
             Random rand = new Random();
             defaultTradeList.forEach((targetItem, needItemList) -> {

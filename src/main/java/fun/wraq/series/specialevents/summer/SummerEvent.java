@@ -1,6 +1,7 @@
 package fun.wraq.series.specialevents.summer;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.process.func.item.InventoryOperation;
@@ -32,14 +33,14 @@ public class SummerEvent {
 
     public static double exHarvest(Player player) {
         String name = player.getName().getString();
-        int tick = player.getServer().getTickCount();
+        int tick = Tick.get();
         if (playerExHarvestEndTick.getOrDefault(name, 0) > tick) return 0.15;
         return 0;
     }
 
     public static void tick(Player player) throws SQLException {
         String name = player.getName().getString();
-        int tick = player.getServer().getTickCount();
+        int tick = Tick.get();
         if (player.isSwimming() && player.tickCount % 20 == 17) {
             playerLastTimeInWaterTick.put(name, tick);
             incrementIntData(player, dailySwimmingSecondsKey);

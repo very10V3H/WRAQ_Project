@@ -29,6 +29,7 @@ public class SoulSword extends WraqSword implements ActiveItem {
         Utils.critDamage.put(this, SoulEquipAttribute.BaseAttribute.SoulSword.CritDamage);
         Utils.defencePenetration0.put(this, SoulEquipAttribute.BaseAttribute.SoulSword.DefencePenetration0);
         Utils.healthSteal.put(this, SoulEquipAttribute.BaseAttribute.SoulSword.HealthSteal);
+        Utils.levelRequire.put(this, 260);
     }
 
     @Override

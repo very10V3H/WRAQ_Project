@@ -18,7 +18,6 @@ import fun.wraq.render.gui.illustrate.Illustrate;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.render.toolTip.NewTooltip;
 import fun.wraq.render.toolTip.TraditionalTooltip;
-import fun.wraq.series.gems.GemAttributes;
 import fun.wraq.series.gems.WraqGem;
 import fun.wraq.series.gems.passive.WraqPassiveGem;
 import fun.wraq.series.instance.series.castle.RandomCuriosAttributesUtil;
@@ -971,6 +970,8 @@ public class BasicAttributeDescription {
                 Style.EMPTY.applyFormat(ChatFormatting.RED), "%.0f%%", true, TraditionalTooltip.healthSteal));
         put(System.identityHashCode(Utils.manaDefence), new ToolTipParameter("魔法抗性",
                 Style.EMPTY.applyFormat(ChatFormatting.BLUE), "%.0f", false, TraditionalTooltip.manaDefence));
+        put(System.identityHashCode(WraqPickaxe.mineSpeed), new ToolTipParameter("挖掘速度",
+                Style.EMPTY.applyFormat(ChatFormatting.GRAY), "%.0f%%", true, TraditionalTooltip.stoneElement));
     }};
 
     // 新的属性描述模板，仅需按照参数进行配置即可，但是需要注意的是，仅接受不能被强化增幅的属性。
@@ -996,12 +997,6 @@ public class BasicAttributeDescription {
             mutableComponent.append(Component.literal(" " + attributeName).withStyle(style).
                     append(Component.literal((value > 0 ? "+" : "") + getDecimal(value * (isPercent ? 100 : 1), decimalScale) + percent)
                             .withStyle(value > 0 ? ChatFormatting.WHITE : ChatFormatting.RED)));
-
-            double gemsValue = GemAttributes.getGemsAttributeModifier(data, map);
-
-            if (gemsValue != 0) {
-                mutableComponent.append(Component.literal(" + " + getDecimal(gemsValue * (isPercent ? 100 : 1), decimalScale) + percent).withStyle(style));
-            }
 
             handleExBaseAttributeValue(itemStack, mutableComponent, map, decimalScale, isPercent);
 

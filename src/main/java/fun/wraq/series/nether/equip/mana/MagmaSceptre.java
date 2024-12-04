@@ -38,6 +38,7 @@ public class MagmaSceptre extends WraqSceptre implements ForgeItem {
         Utils.manaPenetration0.put(this, new double[]{4, 5, 5, 6}[tier]);
         Utils.manaCost.put(this, new double[]{150, 150, 150, 150}[tier]);
         Element.FireElementValue.put(this, new double[]{0.2, 0.4, 0.6, 0.8}[tier]);
+        Utils.levelRequire.put(this, 80);
     }
 
     @Override

@@ -39,6 +39,7 @@ public class NetherSceptre extends WraqSceptre implements Laser, ForgeItem {
         Utils.coolDownDecrease.put(this, 0.35);
         Utils.manaPenetration0.put(this, 24d);
         Element.FireElementValue.put(this, 1d);
+        Utils.levelRequire.put(this, 80);
     }
 
     @Override

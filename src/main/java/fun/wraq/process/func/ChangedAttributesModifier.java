@@ -1,5 +1,6 @@
 package fun.wraq.process.func;
 
+import fun.wraq.common.fast.Tick;
 import net.minecraft.world.entity.player.Player;
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public record ChangedAttributesModifier(String tag, double value, int startTick,
     }
 
     public static void addAttributeModifier(Player player, Map<String, List<ChangedAttributesModifier>> modifierMap, String tag, double value, int lastTick, boolean attenuation) {
-        int tick = player.getServer().getTickCount();
+        int tick = Tick.get();
         addAttributeModifier(player, modifierMap, new ChangedAttributesModifier(tag, value, tick, tick + lastTick, attenuation));
     }
 
@@ -53,7 +54,7 @@ public record ChangedAttributesModifier(String tag, double value, int startTick,
     public static double getModifierValue(Player player, Map<String, List<ChangedAttributesModifier>> modifierMap) {
         String name = player.getName().getString();
         if (!modifierMap.containsKey(name)) return 0;
-        int tick = player.getServer().getTickCount();
+        int tick = Tick.get();
         List<ChangedAttributesModifier> modifiers = modifierMap.get(name);
         List<ChangedAttributesModifier> removeList = new ArrayList<>();
         AtomicReference<Double> value = new AtomicReference<>((double) 0);

@@ -1,5 +1,6 @@
 package fun.wraq.process.func.damage;
 
+import fun.wraq.common.fast.Tick;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.AABB;
@@ -31,7 +32,7 @@ public class SputteringDamage {
 
     public void sputter() {
         if (originPlayer != null) {
-            int tick = originPlayer.getServer().getTickCount();
+            int tick = Tick.get();
             if ((tick - this.originTick) % 5 == 0 && tick - this.originTick != 0) {
                 if (this.generation == 3) {
                     nextCauseMob.forEach(mob -> {

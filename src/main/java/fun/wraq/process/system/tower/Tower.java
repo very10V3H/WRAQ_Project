@@ -3,6 +3,7 @@ package fun.wraq.process.system.tower;
 import com.mojang.logging.LogUtils;
 import fun.wraq.Items.MainStory_1.BackSpawn;
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.core.InventoryCheck;
@@ -122,7 +123,7 @@ public class Tower {
     public static void tick(TickEvent.LevelTickEvent event) throws SQLException, IOException, ParseException {
         if (event.side.isServer() && event.phase.equals(TickEvent.Phase.START) && event.level.equals(event.level.getServer().getLevel(Level.OVERWORLD))) {
             Level level = event.level;
-            int tickCount = level.getServer().getTickCount();
+            int tickCount = Tick.get();
             for (Tower tower : instanceList) {
                 if (!tower.isChallenging) continue;
                 int serialNum = instanceList.indexOf(tower);
@@ -218,7 +219,7 @@ public class Tower {
 
     private void reward() throws IOException, SQLException, ParseException {
         // 30s为一阶段
-        int stage = 4 - Math.min(3, (this.currentPlayer.getServer().getTickCount() - this.startTime) / 1200);
+        int stage = 4 - Math.min(3, (Tick.get() - this.startTime) / 1200);
         int index = instanceList.indexOf(this);
         int minus = stage - getPlayerStatus(currentPlayer, index);
         if (minus > 0) {
@@ -242,7 +243,7 @@ public class Tower {
                         append(Component.literal(" 的 ").withStyle(ChatFormatting.WHITE)).
                         append(Component.literal(stage + "★").withStyle(CustomStyle.styleOfWorld)).
                         append(Component.literal("挑战").withStyle(ChatFormatting.RED)));
-        TowerTimeRecord.refreshRecord(instanceList.indexOf(this) + 1, this.currentPlayer, this.currentPlayer.getServer().getTickCount() - this.startTime);
+        TowerTimeRecord.refreshRecord(instanceList.indexOf(this) + 1, this.currentPlayer, Tick.get() - this.startTime);
     }
 
     public static void playerTryToChallenging(ServerPlayer serverPlayer, int index) throws SQLException {
@@ -277,8 +278,8 @@ public class Tower {
         tower.isChallenging = true;
         tower.mobSummonTimes = 2;
         tower.currentPlayer = serverPlayer;
-        tower.summonDelay = serverPlayer.getServer().getTickCount() + 100;
-        tower.startTime = serverPlayer.getServer().getTickCount();
+        tower.summonDelay = Tick.get() + 100;
+        tower.startTime = Tick.get();
 
         towerTypeFormatBroad(serverPlayer.level(), Component.literal("").withStyle(ChatFormatting.WHITE).
                 append(serverPlayer.getDisplayName()).

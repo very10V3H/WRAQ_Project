@@ -27,6 +27,7 @@ public class PiglinHelmet extends WraqArmor implements ForgeItem, InCuriosOrEqui
         super(Material, Slots, new Properties().rarity(CustomStyle.PiglinItalic));
         this.tier = tier;
         Utils.healthRecover.put(this, new double[]{20, 30, 40, 50}[tier]);
+        Utils.levelRequire.put(this, 80);
     }
 
     @Override

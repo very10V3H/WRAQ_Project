@@ -29,6 +29,7 @@ public class BoneImpKnife extends WraqOffHandItem implements ForgeItem {
         Utils.critRate.put(this, 0.17);
         Utils.critDamage.put(this, 0.62);
         Utils.expUp.put(this, 0.77);
+        Utils.levelRequire.put(this, 210);
     }
 
     @Override

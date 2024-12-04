@@ -4,6 +4,7 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.DamageInfluence;
 import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.damage.OnWithStandDamageCurios;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
@@ -78,7 +79,7 @@ public class MonsterAttackEvent {
 
         if (Utils.witherBonePowerCCMonster.contains(monster)) damage *= 0.8;
         if (data.contains(StringUtils.SakuraDemonSword)
-                && data.getInt(StringUtils.SakuraDemonSword) > player.getServer().getTickCount()) damage = 0;
+                && data.getInt(StringUtils.SakuraDemonSword) > Tick.get()) damage = 0;
 
         // 闪避几率
         Random random = new Random();
@@ -92,7 +93,7 @@ public class MonsterAttackEvent {
         }
 
         String name = player.getName().getString();
-        if (Utils.rollingTickMap.containsKey(name) && player.getServer().getTickCount() < Utils.rollingTickMap.get(name)) {
+        if (Utils.rollingTickMap.containsKey(name) && Tick.get() < Utils.rollingTickMap.get(name)) {
             damage = 0;
         }
         if (ForestNewRune.protectPlayerFromDamage(player, damage)) {
@@ -225,7 +226,7 @@ public class MonsterAttackEvent {
 
     public static void SnowArmorEffect(Player player, Mob monster) {
         if (SuitCount.getSnowSuitCount(player) >= 4) {
-            int TickCount = player.getServer().getTickCount();
+            int TickCount = Tick.get();
             monster.setDeltaMovement(0, 0, 0);
             monster.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 5, 100, false, false));
             player.getServer().getPlayerList().getPlayers().forEach(serverPlayer ->
@@ -242,8 +243,7 @@ public class MonsterAttackEvent {
     public static double SnowArmorEffectDamageDecrease(Mob monster) {
         double DamageDecrease = 0;
         CompoundTag data = monster.getPersistentData();
-        int TickCount = monster.getServer().getTickCount();
-        if (data.getInt(StringUtils.SnowArmorEffect) > TickCount) DamageDecrease += 0.25;
+        if (data.getInt(StringUtils.SnowArmorEffect) > Tick.get()) DamageDecrease += 0.25;
         return DamageDecrease;
     }
 
@@ -261,7 +261,7 @@ public class MonsterAttackEvent {
 
     public static void mineMonsterAttack(Mob monster, Player player) {
         if (monster.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.ArmorMine.get())) {
-            int TickCount = player.getServer().getTickCount();
+            int TickCount = Tick.get();
             CompoundTag data = player.getPersistentData();
             data.putInt(StringUtils.MineMonsterEffect, TickCount + 60);
         }
@@ -269,7 +269,7 @@ public class MonsterAttackEvent {
 
     public static void mineShield(Player player) {
         if (player.getItemInHand(InteractionHand.OFF_HAND).is(ModItems.MineShield.get())) {
-            Utils.MineShieldEffect.put(player, player.getServer().getTickCount() + 100);
+            Utils.MineShieldEffect.put(player, Tick.get() + 100);
             Compute.sendEffectLastTime(player, ModItems.OreRune.get().getDefaultInstance(), 100);
         }
     }

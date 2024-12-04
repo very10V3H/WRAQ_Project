@@ -2,6 +2,9 @@ package fun.wraq.series.overworld.chapter1.Mine;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.equip.WraqBow;
+import fun.wraq.common.fast.Tick;
+import fun.wraq.common.impl.onhit.OnHitEffectEquip;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
@@ -9,8 +12,6 @@ import fun.wraq.core.MyArrow;
 import fun.wraq.process.func.damage.Dot;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.element.Element;
-import fun.wraq.common.impl.onhit.OnHitEffectEquip;
-import fun.wraq.common.equip.WraqBow;
 import fun.wraq.render.particles.ModParticles;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -82,7 +83,7 @@ public class MineBow extends WraqBow implements OnHitEffectEquip {
         mobList.forEach(mob1 -> {
             if (mob1.distanceTo(mob) <= 4) {
                 Dot.addDotOnMob(mob1, new Dot(1, PlayerAttributes.attackDamage(player) * new double[]{0.1, 0.15, 0.2, 0.25}[tier],
-                        2, player.getServer().getTickCount() + 40, player.getName().getString(), true));
+                        2, Tick.get() + 40, player.getName().getString(), true));
             }
         });
     }

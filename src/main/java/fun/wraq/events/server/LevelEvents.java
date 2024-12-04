@@ -110,7 +110,7 @@ public class LevelEvents {
         if (event.side.isServer() && event.phase.equals(TickEvent.Phase.START)
                 && event.level.equals(event.level.getServer().getLevel(Level.OVERWORLD))) {
             MobEffectAndDamageMethods.Tick(event.level);
-            int TickCount = event.level.getServer().getTickCount();
+            int TickCount = Tick.get();
             if (TickCount % 100 == 0) tryToRemoveMobInMap();
             if (TickCount % 20 == 0) Element.Tick(event.level);
             Compute.gather(TickCount); // 聚集
@@ -119,13 +119,13 @@ public class LevelEvents {
         if (event.side.isServer() && event.phase.equals(TickEvent.Phase.START)) {
 
             while (Utils.valueItemEntity.peek() != null) {
-                if (Utils.valueItemEntity.peek().getResetTick() < event.level.getServer().getTickCount())
+                if (Utils.valueItemEntity.peek().getResetTick() < Tick.get())
                     Utils.valueItemEntity.poll().getItemEntity().remove(Entity.RemovalReason.KILLED);
                 else break;
             }
 
             if (event.level.equals(event.level.getServer().getLevel(Level.OVERWORLD))
-                    && event.level.getServer().getTickCount() % 100 == 0) {
+                    && Tick.get() % 100 == 0) {
                 List<ServerPlayer> playerList = event.level.getServer().getPlayerList().getPlayers();
                 PrefixCommand.handlePrefix(playerList);
 
@@ -133,8 +133,8 @@ public class LevelEvents {
                 playerList.forEach(ServerPlayer::refreshTabListName);
             }
 
-            if (event.level.getServer().getTickCount() != Utils.GatherTickCount) {
-                Utils.GatherTickCount = event.level.getServer().getTickCount();
+            if (Tick.get() != Utils.GatherTickCount) {
+                Utils.GatherTickCount = Tick.get();
                 List<ServerPlayer> playerList = event.level.getServer().getPlayerList().getPlayers();
                 boolean flag = false;
                 Gather RemoveGater = null;
@@ -174,7 +174,7 @@ public class LevelEvents {
                 if (flag) Utils.GatherPlayerMap.remove(RemoveGater);
             }
 
-            if (event.level.equals(event.level.getServer().getLevel(Level.OVERWORLD)) && event.level.getServer().getTickCount() % 20 == 0) {
+            if (event.level.equals(event.level.getServer().getLevel(Level.OVERWORLD)) && Tick.get() % 20 == 0) {
                 List<Player> playerList = event.level.getEntitiesOfClass(Player.class, AABB.ofSize(new Vec3(1352, 80, 502), 150, 60, 100));
                 if (!playerList.isEmpty()) {
                     Random r = new Random();
@@ -185,8 +185,8 @@ public class LevelEvents {
                     event.level.addFreshEntity(lightningBolt);
                 }
             }
-            if (!Utils.MonsterAttributeDataProvider.isEmpty() && Utils.AttributeDataTick != event.level.getServer().getTickCount()) {
-                Utils.AttributeDataTick = event.level.getServer().getTickCount();
+            if (!Utils.MonsterAttributeDataProvider.isEmpty() && Utils.AttributeDataTick != Tick.get()) {
+                Utils.AttributeDataTick = Tick.get();
                 Utils.MonsterAttributeDataProvider.forEach(monster -> {
                     CompoundTag data = monster.getPersistentData();
                     if (data.getInt("ManaRune2") > 0)
@@ -198,8 +198,8 @@ public class LevelEvents {
                 });
             }
 
-            if (!Utils.SnowRune2MobController.isEmpty() && Utils.SnowRune2Tick != event.level.getServer().getTickCount()) {
-                Utils.SnowRune2Tick = event.level.getServer().getTickCount();
+            if (!Utils.SnowRune2MobController.isEmpty() && Utils.SnowRune2Tick != Tick.get()) {
+                Utils.SnowRune2Tick = Tick.get();
                 Utils.SnowRune2MobController.forEach(monster -> {
                     CompoundTag data = monster.getPersistentData();
                     if (data.getInt("snowRune2Defence") > 0)
@@ -210,8 +210,8 @@ public class LevelEvents {
                     return data.getInt("snowRune2Defence") == 0 || monster.isDeadOrDying();
                 });
             }
-            if (!Utils.witherBonePowerCCMonster.isEmpty() && Utils.witherBonePowerCount != event.level.getServer().getTickCount()) {
-                Utils.witherBonePowerCount = event.level.getServer().getTickCount();
+            if (!Utils.witherBonePowerCCMonster.isEmpty() && Utils.witherBonePowerCount != Tick.get()) {
+                Utils.witherBonePowerCount = Tick.get();
                 Utils.witherBonePowerCCMonster.forEach(monster -> {
                     CompoundTag data = monster.getPersistentData();
                     if (data.getInt("witherBonePower") > 0)
@@ -240,7 +240,7 @@ public class LevelEvents {
             Calendar calendar = Calendar.getInstance();
             Level level = event.level;
             List<ServerPlayer> playerList = event.level.getServer().getPlayerList().getPlayers();
-            if (event.level.getServer().getTickCount() % 200 == 0) {
+            if (Tick.get() % 200 == 0) {
                 if (calendar.get(Calendar.HOUR_OF_DAY) == 9 && Utils.TimeEventFlag != 9) {
                     Compute.formatBroad(level, Component.literal("时间").withStyle(ChatFormatting.AQUA),
                             Component.literal("早上好！新的一天有新的开始！").withStyle(ChatFormatting.WHITE));
@@ -333,7 +333,7 @@ public class LevelEvents {
                     "有关游戏内容的任何想法，欢迎私聊铁头！qq:2016187250",
                     "当你达到180级后，这类提示信息将不再出现在你的聊天窗中"
             };
-            int tick = level.getServer().getTickCount();
+            int tick = Tick.get();
 
             if (tick % 6000 == 0) {
                 Random random = new Random();

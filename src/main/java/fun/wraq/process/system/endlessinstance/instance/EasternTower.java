@@ -65,7 +65,7 @@ public class EasternTower extends DailyEndlessInstance {
         } else if (getPlayerLevel() < 210) {
             return (100 + 900 * rate) * num_10k;
         } else {
-            return (1000 + 9000 * rate) * num_10k;
+            return (1000 + 2700 * rate) * num_10k;
         }
     }
 }

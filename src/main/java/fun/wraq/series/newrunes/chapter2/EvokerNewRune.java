@@ -2,6 +2,7 @@ package fun.wraq.series.newrunes.chapter2;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqCurios;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.display.UsageOrGetWayDescriptionItem;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
@@ -62,7 +63,7 @@ public class EvokerNewRune extends WraqCurios implements RuneItem, UsageOrGetWay
     @Override
     public void tick(Player player) {
         if (WraqCurios.isOn(EvokerNewRune.class, player)) {
-            int tick = player.getServer().getTickCount();
+            int tick = Tick.get();
             if (tick % 80 == 0) {
                 List<Mob> mobList = player.level().getEntitiesOfClass(Mob.class, AABB.ofSize(player.position(),
                         16, 16, 16));

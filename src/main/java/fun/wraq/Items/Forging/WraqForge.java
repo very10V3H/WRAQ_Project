@@ -2,6 +2,7 @@ package fun.wraq.Items.Forging;
 
 import fun.wraq.blocks.blocks.forge.ForgeRecipe;
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.StringUtils;
@@ -141,7 +142,7 @@ public class WraqForge extends Item {
             Guide.trig(player, 4);
             if (!StringUtils.FlagInTag.getPlayerFlag(player, firstTimeForge)) {
                 StringUtils.FlagInTag.setPlayerString(player, firstTimeForge, true);
-                playerMSGSendDelayMap.put(player.getName().getString(), player.getServer().getTickCount() + 100);
+                playerMSGSendDelayMap.put(player.getName().getString(), Tick.get() + 100);
             }
         } else {
             Compute.sendFormatMSG(player, Component.literal("锻造").withStyle(ChatFormatting.GRAY), Component.literal("背包里似乎没有足够的物品用于锻造。"));
@@ -157,7 +158,7 @@ public class WraqForge extends Item {
     public static void tick(TickEvent.PlayerTickEvent event) throws IOException {
         ServerPlayer serverPlayer = (ServerPlayer) event.player;
         String name = serverPlayer.getName().getString();
-        int tick = serverPlayer.getServer().getTickCount();
+        int tick = Tick.get();
         if (playerMSGSendDelayMap.containsKey(name)) {
             if (playerMSGSendDelayMap.get(name) < tick) {
                 playerMSGSendDelayMap.remove(name);

@@ -1,5 +1,6 @@
 package fun.wraq.process.func;
 
+import fun.wraq.common.fast.Tick;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
 import net.minecraft.core.particles.ParticleOptions;
@@ -31,12 +32,12 @@ public class MobEffectAndDamageMethods {
     }
 
     public static void DelayLineParticleAttack(Mob mob, Vec3 startPos, Vec3 endPos, double range, int releaseTick, double damage, int damageType, ParticleOptions particleOptions, ParticleOptions particleOptions1) {
-        DelayParticleAttack delayParticleAttack = new DelayParticleAttack(mob, startPos, endPos, range, mob.getServer().getTickCount() + releaseTick, damage, damageType, particleOptions, particleOptions1);
+        DelayParticleAttack delayParticleAttack = new DelayParticleAttack(mob, startPos, endPos, range, Tick.get() + releaseTick, damage, damageType, particleOptions, particleOptions1);
         delayParticleAttackList.add(delayParticleAttack);
     }
 
     public static void DelayLineParticleAttackTick(Level level) {
-        int tickCount = level.getServer().getTickCount();
+        int tickCount = Tick.get();
         delayParticleAttackList.forEach(d -> {
             if (d.releaseTick == tickCount) {
                 double distance = d.endPos.distanceTo(d.startPos);
@@ -74,12 +75,12 @@ public class MobEffectAndDamageMethods {
     public static List<DelayParticleAttack> delayCircleAttackList = new ArrayList<>();
 
     public static void DelayCircleParticleAttack(Mob mob, Vec3 startPos, double range, int releaseTick, double damage, int damageType, ParticleOptions particleOptions, ParticleOptions particleOptions1) {
-        DelayParticleAttack delayParticleAttack = new DelayParticleAttack(mob, startPos, startPos, range, mob.getServer().getTickCount() + releaseTick, damage, damageType, particleOptions, particleOptions1);
+        DelayParticleAttack delayParticleAttack = new DelayParticleAttack(mob, startPos, startPos, range, Tick.get() + releaseTick, damage, damageType, particleOptions, particleOptions1);
         delayCircleAttackList.add(delayParticleAttack);
     }
 
     public static void DelayCircleParticleAttackTick(Level level) {
-        int TickCount = level.getServer().getTickCount();
+        int TickCount = Tick.get();
         delayCircleAttackList.forEach(d -> {
             if (d.releaseTick == TickCount) {
                 List<Player> playerList = level.getEntitiesOfClass(Player.class, AABB.ofSize(d.startPos, 50, 50, 50));
@@ -111,13 +112,13 @@ public class MobEffectAndDamageMethods {
     public static void PlayerDamageDecreaseProvide(Mob mob, Player player, double rate, int lastTick, ItemStack displayItem) {
         if (!playerDamageDecreaseMap.containsKey(player)) playerDamageDecreaseMap.put(player, new ArrayList<>());
         List<PlayerDamageDecrease> list = playerDamageDecreaseMap.get(player);
-        list.add(new PlayerDamageDecrease(mob, rate, player.getServer().getTickCount() + lastTick));
+        list.add(new PlayerDamageDecrease(mob, rate, Tick.get() + lastTick));
     }
 
     public static double PlayerDamageDecreaseRate(Player player, Mob mob) {
         if (!playerDamageDecreaseMap.containsKey(player)) return 0;
         List<PlayerDamageDecrease> list = playerDamageDecreaseMap.get(player);
-        list.removeIf(p -> p.lastTick <= player.getServer().getTickCount());
+        list.removeIf(p -> p.lastTick <= Tick.get());
         double rate = 1;
         for (PlayerDamageDecrease playerDamageDecrease : list) {
             rate *= (1 - playerDamageDecrease.rate);

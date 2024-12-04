@@ -2,6 +2,9 @@ package fun.wraq.series.overworld.sakuraSeries.SakuraMob;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.equip.WraqSword;
+import fun.wraq.common.equip.impl.ActiveItem;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.StringUtils;
@@ -10,8 +13,6 @@ import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.SkillPackets.Charging.ChargedClearS2CPacket;
 import fun.wraq.networking.misc.SkillPackets.SkillImageS2CPacket;
 import fun.wraq.process.system.element.Element;
-import fun.wraq.common.equip.impl.ActiveItem;
-import fun.wraq.common.equip.WraqSword;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -34,6 +35,7 @@ public class SakuraSword extends WraqSword implements ActiveItem {
         Utils.critRate.put(this, 0.30d);
         Utils.critDamage.put(this, 0.8);
         Element.LifeElementValue.put(this, 1.25);
+        Utils.levelRequire.put(this, 132);
     }
 
     @Override
@@ -81,7 +83,7 @@ public class SakuraSword extends WraqSword implements ActiveItem {
     @Override
     public void active(Player player) {
         CompoundTag data = player.getPersistentData();
-        int tickCount = player.getServer().getTickCount();
+        int tickCount = Tick.get();
         String name = player.getName().getString();
         if (Utils.SakuraDemonSword.containsKey(name) && Utils.SakuraDemonSword.get(name)) {
             ModNetworking.sendToClient(new ChargedClearS2CPacket(4), (ServerPlayer) player);
@@ -103,7 +105,7 @@ public class SakuraSword extends WraqSword implements ActiveItem {
 
     public static double SakuraDemonSword(Player player, double DamageBeforeDefence) {
         double DamageInfluence = 0;
-        int TickCount = player.getServer().getTickCount();
+        int TickCount = Tick.get();
         CompoundTag data = player.getPersistentData();
         if (data.contains(StringUtils.SakuraDemonSword) && data.getInt(StringUtils.SakuraDemonSword) > TickCount) {
             DamageInfluence += DamageBeforeDefence * 0.5f;

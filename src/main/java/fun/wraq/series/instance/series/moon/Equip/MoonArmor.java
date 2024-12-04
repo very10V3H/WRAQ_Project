@@ -32,6 +32,7 @@ public class MoonArmor extends WraqArmor implements ForgeItem {
             Utils.percentHealthRecover.put(this, 0.01);
             Utils.healthRecover.put(this, 50d);
         }
+        Utils.levelRequire.put(this, 160);
     }
 
     @Override

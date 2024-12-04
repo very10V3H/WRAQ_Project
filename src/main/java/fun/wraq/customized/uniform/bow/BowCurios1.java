@@ -1,11 +1,12 @@
 package fun.wraq.customized.uniform.bow;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqBow;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.core.MyArrow;
 import fun.wraq.customized.WraqUniformCurios;
 import fun.wraq.process.func.particle.ParticleProvider;
-import fun.wraq.common.equip.WraqBow;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
@@ -58,13 +59,13 @@ public class BowCurios1 extends WraqBowUniformCurios {
 
     public static void playerShoot(Player player) {
         if (!isOn(player)) return;
-        playerShootTick.put(player, player.getServer().getTickCount() + 4);
+        playerShootTick.put(player, Tick.get() + 4);
     }
 
     public static void tick(TickEvent.LevelTickEvent event) {
         if (event.side.isServer() && event.phase.equals(TickEvent.Phase.START) && event.level.equals(event.level.getServer().getLevel(Level.OVERWORLD))) {
             playerShootTick.forEach((player, integer) -> {
-                if (player != null && integer == player.getServer().getTickCount()) {
+                if (player != null && integer == Tick.get()) {
                     arrowShoot(player);
                 }
             });

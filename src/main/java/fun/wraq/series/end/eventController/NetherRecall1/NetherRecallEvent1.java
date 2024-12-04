@@ -1,6 +1,7 @@
 package fun.wraq.series.end.eventController.NetherRecall1;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
@@ -181,10 +182,10 @@ public class NetherRecallEvent1 {
                     }
                 }
                 if (Utils.NetherRecallWither != null && Utils.NetherRecallWither.isAlive()) {
-                    if (level1.getServer().getTickCount() % 200 == 0) {
+                    if (Tick.get() % 200 == 0) {
                         ModNetworking.sendToClient(new NetherRecallParticleS2CPacket(true), Utils.netherRecall.recallPlayer);
                     }
-                    if (level1.getServer().getTickCount() % 200 == 20) {
+                    if (Tick.get() % 200 == 20) {
                         List<Player> playerList = level1.getEntitiesOfClass(Player.class, AABB.ofSize(Utils.NetherRecallWither.position(), 20, 20, 20));
                         for (Player player : playerList) {
                             player.addEffect(new MobEffectInstance(MobEffects.WITHER, 60, 10));

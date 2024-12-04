@@ -67,7 +67,7 @@ public class MoonInstance extends NoTeamInstance {
         Mob attackMob = mobList.get(0);
         Mob manaMob = mobList.get(1);
         if (attackMob == null || manaMob == null) return;
-        int tickCount = attackMob.getServer().getTickCount();
+        int tickCount = Tick.get();
         List<Player> players = getNearPlayers(attackMob.level());
         if (tickCount % 280 == 0) {
             Skill1(attackMob, manaMob, players);

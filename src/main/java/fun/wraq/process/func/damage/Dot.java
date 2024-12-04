@@ -1,6 +1,7 @@
 package fun.wraq.process.func.damage;
 
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.fast.Tick;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Mob;
 import net.minecraftforge.event.TickEvent;
@@ -20,7 +21,7 @@ public record Dot(int type, double value, int frequency, int stopTick, String na
 
     public static void tick(TickEvent.ServerTickEvent event) {
         if (event.phase.equals(TickEvent.Phase.END)) return;
-        int tick = event.getServer().getTickCount();
+        int tick = Tick.get();
         Random random = new Random();
         List<Mob> removeMobList = new ArrayList<>();
         List<Dot> removeDotList = new ArrayList<>();

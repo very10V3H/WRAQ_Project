@@ -1,6 +1,7 @@
 package fun.wraq.series.specialevents.labourDay;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.process.func.item.InventoryOperation;
@@ -158,8 +159,8 @@ public class LabourDayMobSummon {
     public static void levelTick(TickEvent.LevelTickEvent event) {
         if (event.side.isServer() && event.level.equals(event.level.getServer().getLevel(Level.OVERWORLD)) && event.phase.equals(TickEvent.Phase.START)) {
             Level level = event.level;
-            if (event.level.getServer().getTickCount() % 36000 == 17000) getSummonPos(level);
-            if (event.level.getServer().getTickCount() % 6000 == 1700) remainMob(level);
+            if (Tick.get() % 36000 == 17000) getSummonPos(level);
+            if (Tick.get() % 6000 == 1700) remainMob(level);
         }
     }
 

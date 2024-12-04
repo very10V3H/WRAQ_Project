@@ -19,6 +19,7 @@ public class WardenBook extends WardenOffhandItem implements ForgeItem {
         Utils.maxMana.put(this, 87d);
         Utils.coolDownDecrease.put(this, 0.23);
         Utils.expUp.put(this, 0.88);
+        Utils.levelRequire.put(this, 225);
     }
 
     @Override

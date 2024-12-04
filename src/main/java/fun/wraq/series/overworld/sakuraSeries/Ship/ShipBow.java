@@ -32,6 +32,7 @@ public class ShipBow extends WraqBow implements InCuriosOrEquipSlotAttributesMod
         Utils.critRate.put(this, 0.25);
         Utils.critDamage.put(this, 1.2);
         Element.WaterElementValue.put(this, 1d);
+        Utils.levelRequire.put(this, 140);
     }
 
     @Override

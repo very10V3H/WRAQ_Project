@@ -28,6 +28,7 @@ import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public abstract class WraqArmor extends ArmorItem {
 
@@ -111,6 +112,8 @@ public abstract class WraqArmor extends ArmorItem {
         InventoryOperation.getArmors(player)
                 .stream().filter(itemStack -> itemStack.getItem() instanceof WraqArmor)
                 .map(stack -> (WraqArmor) stack.getItem())
-                .forEach(armor -> armor.tick(player));
+                .collect(Collectors.toSet()).forEach(wraqArmor -> {
+                    wraqArmor.tick(player);
+                });
     }
 }

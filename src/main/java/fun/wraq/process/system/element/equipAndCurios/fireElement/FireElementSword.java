@@ -1,13 +1,14 @@
 package fun.wraq.process.system.element.equipAndCurios.fireElement;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqSword;
+import fun.wraq.common.equip.impl.ActiveItem;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.system.element.Element;
-import fun.wraq.common.equip.impl.ActiveItem;
-import fun.wraq.common.equip.WraqSword;
 import fun.wraq.render.particles.ModParticles;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -86,12 +87,12 @@ public class FireElementSword extends WraqSword implements ActiveItem {
 
     public static void IgniteEffect(Player player, Mob mob) {
         if (mob.getRemainingFireTicks() > 0 && player.getMainHandItem().is(ModItems.FireElementSword.get())) {
-            FireElementSword.playerFireElementValueEnhanceTickMap.put(player, player.getServer().getTickCount() + 40);
+            FireElementSword.playerFireElementValueEnhanceTickMap.put(player, Tick.get() + 40);
         }
     }
 
     public static double FireElementValueEnhance(Player player) {
-        if (playerFireElementValueEnhanceTickMap.containsKey(player) && playerFireElementValueEnhanceTickMap.get(player) > player.getServer().getTickCount())
+        if (playerFireElementValueEnhanceTickMap.containsKey(player) && playerFireElementValueEnhanceTickMap.get(player) > Tick.get())
             return 1;
         return 0;
     }
@@ -120,7 +121,7 @@ public class FireElementSword extends WraqSword implements ActiveItem {
         if (!FireElementSword.playerIgniteMobMap.containsKey(player))
             FireElementSword.playerIgniteMobMap.put(player, new ArrayList<>());
         List<IgniteMob> list = FireElementSword.playerIgniteMobMap.get(player);
-        list.removeIf(igniteMob -> igniteMob.tick() < player.getServer().getTickCount());
+        list.removeIf(igniteMob -> igniteMob.tick() < Tick.get());
         if (list.size() > 0)
             Compute.sendEffectLastTime(player, ModItems.FireElementSword.get().getDefaultInstance(), 8888, Math.min(3, list.size()), true);
         else
@@ -132,10 +133,10 @@ public class FireElementSword extends WraqSword implements ActiveItem {
         if (!FireElementSword.playerIgniteMobMap.containsKey(player))
             FireElementSword.playerIgniteMobMap.put(player, new ArrayList<>());
         List<IgniteMob> list = FireElementSword.playerIgniteMobMap.get(player);
-        list.removeIf(igniteMob -> igniteMob.tick() < player.getServer().getTickCount());
+        list.removeIf(igniteMob -> igniteMob.tick() < Tick.get());
 
         if (!mob.wasOnFire) {
-            list.add(new IgniteMob(mob.getId(), player.getServer().getTickCount() + 60));
+            list.add(new IgniteMob(mob.getId(), Tick.get() + 60));
         }
     }
 
@@ -143,7 +144,7 @@ public class FireElementSword extends WraqSword implements ActiveItem {
         if (!FireElementSword.playerIgniteMobMap.containsKey(player))
             FireElementSword.playerIgniteMobMap.put(player, new ArrayList<>());
         List<IgniteMob> list = FireElementSword.playerIgniteMobMap.get(player);
-        list.removeIf(igniteMob -> igniteMob.tick() < player.getServer().getTickCount());
+        list.removeIf(igniteMob -> igniteMob.tick() < Tick.get());
         return Math.min(3, list.size()) * 0.2;
     }
 }

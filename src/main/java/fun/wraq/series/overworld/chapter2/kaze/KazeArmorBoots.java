@@ -22,8 +22,7 @@ public class KazeArmorBoots extends WraqArmor implements ForgeItem {
         Utils.attackDamage.put(this, 250d);
         Utils.manaDamage.put(this, 500d);
         Utils.swiftnessUp.put(this, 1d);
-        Utils.armorTag.put(this, 1d);
-        Utils.armorList.add(this);
+        Utils.levelRequire.put(this, 80);
     }
 
     @Override

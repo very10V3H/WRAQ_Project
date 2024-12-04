@@ -1,12 +1,13 @@
 package fun.wraq.process.system.element.equipAndCurios.lifeElement;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqSword;
+import fun.wraq.common.equip.impl.ActiveItem;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.system.element.Element;
-import fun.wraq.common.equip.impl.ActiveItem;
-import fun.wraq.common.equip.WraqSword;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -91,20 +92,20 @@ public class LifeElementSword extends WraqSword implements ActiveItem {
     }
 
     public static void Tick(Player player) {
-        if (lifeElementActiveLastTick.containsKey(player) && lifeElementActiveLastTick.get(player) >= player.getServer().getTickCount()) {
-            int tickCount = lifeElementActiveLastTick.get(player) - player.getServer().getTickCount();
+        if (lifeElementActiveLastTick.containsKey(player) && lifeElementActiveLastTick.get(player) >= Tick.get()) {
+            int tickCount = lifeElementActiveLastTick.get(player) - Tick.get();
             Compute.sendEffectLastTime(player, ModItems.LifeElementSword.get().getDefaultInstance(), tickCount, tickCount, true);
             Compute.playerHeal(player, lifeElementActiveHealth.get(player) * 0.01);
         }
     }
 
     public static void StoreToList(Player player, double num) {
-        if (lifeElementActiveLastTick.containsKey(player) && lifeElementActiveLastTick.get(player) > player.getServer().getTickCount()) {
+        if (lifeElementActiveLastTick.containsKey(player) && lifeElementActiveLastTick.get(player) > Tick.get()) {
             if (!playerShortTimeStoreHealthMap.containsKey(player))
                 playerShortTimeStoreHealthMap.put(player, new ArrayList<>());
             List<ShortTimeStoreHealth> list = playerShortTimeStoreHealthMap.get(player);
-            list.removeIf(shortTimeStoreHealth -> shortTimeStoreHealth.tickCount < player.getServer().getTickCount());
-            list.add(new ShortTimeStoreHealth(player.getServer().getTickCount() + 100, num));
+            list.removeIf(shortTimeStoreHealth -> shortTimeStoreHealth.tickCount < Tick.get());
+            list.add(new ShortTimeStoreHealth(Tick.get() + 100, num));
         }
     }
 
@@ -112,7 +113,7 @@ public class LifeElementSword extends WraqSword implements ActiveItem {
         if (!playerShortTimeStoreHealthMap.containsKey(player)) return 0;
         List<ShortTimeStoreHealth> list = playerShortTimeStoreHealthMap.get(player);
         double sum = 0;
-        list.removeIf(shortTimeStoreHealth -> shortTimeStoreHealth.tickCount < player.getServer().getTickCount());
+        list.removeIf(shortTimeStoreHealth -> shortTimeStoreHealth.tickCount < Tick.get());
         for (ShortTimeStoreHealth shortTimeStoreHealth : list) sum += shortTimeStoreHealth.num;
         return sum;
     }

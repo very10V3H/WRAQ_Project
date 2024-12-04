@@ -2,10 +2,10 @@ package fun.wraq.process.system.forge.networking;
 
 import fun.wraq.blocks.entity.ForgingBlockEntity;
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModBlocks;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.networking.ModNetworking;
-import fun.wraq.process.system.forge.networking.DecomposeDoubleClickTickS2CPacket;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
@@ -42,7 +42,7 @@ public class DecomposeC2SPacket {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
             ServerPlayer serverPlayer = context.getSender();
-            int tick = serverPlayer.getServer().getTickCount();
+            int tick = Tick.get();
             String name = serverPlayer.getName().getString();
             if (!doubleClickTick.containsKey(name) || doubleClickTick.get(name) < tick) {
                 doubleClickTick.put(name, tick + 20);

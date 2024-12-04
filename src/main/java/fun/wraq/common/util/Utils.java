@@ -759,6 +759,8 @@ public class Utils {
 
     public static Queue<BlockAndResetTime> worldMineList = new LinkedList<>();
 
+    public static Queue<BlockAndResetTime> netherMineList = new LinkedList<>();
+
     public static Queue<ItemEntityAndResetTime> valueItemEntity = new LinkedList<>();
 
     public static Queue<BlockAndResetTime> worldWoodList = new LinkedList<>();
@@ -793,43 +795,8 @@ public class Utils {
 
     public static WeakHashMap<Player, Integer> MineShieldEffect = new WeakHashMap<>();
 
-    public static WeakHashMap<Player, Integer> IceSwordEffectMap = new WeakHashMap<>();
-    public static WeakHashMap<Player, Double> IceSwordEffectNumMap = new WeakHashMap<>();
-    public static WeakHashMap<Player, Integer> IceBowEffectMap = new WeakHashMap<>();
-    public static WeakHashMap<Player, Double> IceBowEffectNumMap = new WeakHashMap<>();
-    public static WeakHashMap<Player, Integer> IceSceptreEffectMap = new WeakHashMap<>();
-    public static WeakHashMap<Player, Double> IceSceptreEffectNumMap = new WeakHashMap<>();
-
     public static WeakHashMap<Player, Integer> DingCoolDown = new WeakHashMap<>();
     public static WeakHashMap<Player, Integer> DingDingCoolDown = new WeakHashMap<>();
-
-    public static WeakHashMap<Player, Double> PlayerSpringRingAttackAttribute = new WeakHashMap<>();
-    public static WeakHashMap<Player, Double> PlayerSpringRingManaAttackAttribute = new WeakHashMap<>();
-    public static WeakHashMap<Player, Double> PlayerSpringRingDefencePenetration0Attribute = new WeakHashMap<>();
-    public static WeakHashMap<Player, Double> PlayerSpringRingManaPenetration0Attribute = new WeakHashMap<>();
-    public static WeakHashMap<Player, Double> PlayerSpringRingExpUpAttribute = new WeakHashMap<>();
-    public static WeakHashMap<Player, Integer> PlayerSpringRingLevelRequire = new WeakHashMap<>();
-
-    public static WeakHashMap<Player, Double> PlayerSpringHandAttackAttribute = new WeakHashMap<>();
-    public static WeakHashMap<Player, Double> PlayerSpringHandDefenceAttribute = new WeakHashMap<>();
-    public static WeakHashMap<Player, Double> PlayerSpringHandMaxHealthAttribute = new WeakHashMap<>();
-    public static WeakHashMap<Player, Double> PlayerSpringHandDefencePenetraionAttribute = new WeakHashMap<>();
-    public static WeakHashMap<Player, Double> PlayerSpringHandExpUpAttribute = new WeakHashMap<>();
-    public static WeakHashMap<Player, Integer> PlayerSpringHandLevelRequire = new WeakHashMap<>();
-
-    public static WeakHashMap<Player, Double> PlayerSpringBeltAttackAttribute = new WeakHashMap<>();
-    public static WeakHashMap<Player, Double> PlayerSpringBeltDefencePenetration0Attribute = new WeakHashMap<>();
-    public static WeakHashMap<Player, Double> PlayerSpringBeltSwiftAttribute = new WeakHashMap<>();
-    public static WeakHashMap<Player, Double> PlayerSpringBeltMovementAttribute = new WeakHashMap<>();
-    public static WeakHashMap<Player, Double> PlayerSpringBeltExpUpAttribute = new WeakHashMap<>();
-    public static WeakHashMap<Player, Integer> PlayerSpringBeltLevelRequire = new WeakHashMap<>();
-
-    public static WeakHashMap<Player, Double> PlayerSpringBraceletAttackAttribute = new WeakHashMap<>();
-    public static WeakHashMap<Player, Double> PlayerSpringBraceletManaPenetration0Attribute = new WeakHashMap<>();
-    public static WeakHashMap<Player, Double> PlayerSpringBraceletManaRecoverAttribute = new WeakHashMap<>();
-    public static WeakHashMap<Player, Double> PlayerSpringBraceletMaxManaAttribute = new WeakHashMap<>();
-    public static WeakHashMap<Player, Double> PlayerSpringBraceletExpUpAttribute = new WeakHashMap<>();
-    public static WeakHashMap<Player, Integer> PlayerSpringBraceletLevelRequire = new WeakHashMap<>();
 
     public static WeakHashMap<Player, Integer> PlayerAttackTime = new WeakHashMap<>();
     public static WeakHashMap<Player, Integer> PlayerArrowAttackTime = new WeakHashMap<>();

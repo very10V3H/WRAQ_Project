@@ -1,12 +1,13 @@
 package fun.wraq.series.newrunes.chapter2;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqCurios;
+import fun.wraq.common.fast.Tick;
+import fun.wraq.common.impl.display.UsageOrGetWayDescriptionItem;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.chapter2.HuskSpawnController;
 import fun.wraq.process.func.particle.ParticleProvider;
-import fun.wraq.common.impl.display.UsageOrGetWayDescriptionItem;
-import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.newrunes.NewRuneItems;
 import fun.wraq.series.newrunes.RuneItem;
@@ -72,7 +73,7 @@ public class HuskNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDe
 
     public static void onKill(Player player, Mob mob) {
         if (!isOn(player)) return;
-        handleQueue(player).add(player.getServer().getTickCount());
+        handleQueue(player).add(Tick.get());
         ParticleProvider.dustParticle(player, mob.getEyePosition().add(0, 0, 0), 0.3, 8, CustomStyle.styleOfHusk.getColor().getValue());
     }
 
@@ -92,7 +93,7 @@ public class HuskNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDe
     }
 
     public static Queue<Integer> handleQueue(Player player) {
-        int tick = player.getServer().getTickCount();
+        int tick = Tick.get();
         String name = player.getName().getString();
         if (!soulCollectionMap.containsKey(name)) soulCollectionMap.put(name, new ArrayDeque<>());
         Queue<Integer> queue = soulCollectionMap.get(name);

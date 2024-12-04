@@ -110,108 +110,6 @@ public class ToolTipEvent {
             if (item instanceof SwordItem || item instanceof BowItem || item instanceof ArmorItem || item instanceof PickaxeItem)
                 stack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
             CompoundTag data = stack.getOrCreateTagElement(Utils.MOD_ID);
-            if (data.contains("attackdamage"))
-                event.getToolTip().add(Component.literal("·基础攻击 ").withStyle(ChatFormatting.AQUA).withStyle(ChatFormatting.BOLD).append(Component.literal(String.format("%.1f", stack.getTagElement(Utils.MOD_ID).getDouble("attackdamage"))).withStyle(ChatFormatting.WHITE)));
-            if (data.contains("breakDefence"))
-                event.getToolTip().add(Component.literal("·护甲穿透+").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.BOLD).append(Component.literal(String.format("%.1f", stack.getTagElement(Utils.MOD_ID).getDouble("breakDefence") * 100)).withStyle(ChatFormatting.WHITE).append(Component.literal("%"))));
-            if (data.contains("criticalrate"))
-                event.getToolTip().add(Component.literal("·暴击几率+").withStyle(ChatFormatting.LIGHT_PURPLE).withStyle(ChatFormatting.BOLD).append(Component.literal(String.format("%.1f", stack.getTagElement(Utils.MOD_ID).getDouble("criticalrate") * 100)).withStyle(ChatFormatting.WHITE).append(Component.literal("%"))));
-            if (data.contains("criticaldamage"))
-                event.getToolTip().add(Component.literal("·暴击伤害+").withStyle(ChatFormatting.BLUE).withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.BOLD).append(Component.literal(String.format("%.1f", stack.getTagElement(Utils.MOD_ID).getDouble("criticaldamage") * 100)).withStyle(ChatFormatting.WHITE).append(Component.literal("%"))));
-            if (data.contains("healsteal"))
-                event.getToolTip().add(Component.literal("·生命偷取+").withStyle(ChatFormatting.RED).withStyle(ChatFormatting.UNDERLINE).withStyle(ChatFormatting.BOLD).append(Component.literal(String.format("%.1f", stack.getTagElement(Utils.MOD_ID).getDouble("healsteal") * 100)).withStyle(ChatFormatting.WHITE).append(Component.literal("%"))));
-            if (data.contains("speedup"))
-                event.getToolTip().add(Component.literal("·移动速度+").withStyle(ChatFormatting.GREEN).withStyle(ChatFormatting.UNDERLINE).withStyle(ChatFormatting.BOLD).append(Component.literal(String.format("%.1f", stack.getTagElement(Utils.MOD_ID).getDouble("speedup") * 100)).withStyle(ChatFormatting.WHITE).append(Component.literal("%"))));
-            if (data.contains("randomsword")) {
-                event.getToolTip().add(Component.literal("··········································").withStyle(ChatFormatting.DARK_GRAY).withStyle(ChatFormatting.OBFUSCATED).withStyle(ChatFormatting.BOLD));
-                event.getToolTip().add(Component.literal(" "));
-                event.getToolTip().add(Component.literal("Forging-Sword-I").withStyle(ChatFormatting.GRAY));
-                event.getToolTip().add(Component.literal("MainStoryI").withStyle(ChatFormatting.AQUA).withStyle(ChatFormatting.ITALIC));
-            }
-            if (data.contains("Quest")) {
-                if (data.getInt("Quest") == 0) {
-                    event.getToolTip().add(Component.literal("当前任务:64*平原根源"));
-                } else {
-                    if (data.getInt("Quest") == 1) {
-                        event.getToolTip().add(Component.literal("当前任务:64*森林根源"));
-                    } else {
-                        if (data.getInt("Quest") == 2) {
-                            event.getToolTip().add(Component.literal("当前任务:64*湖泊根源"));
-                        } else {
-                            if (data.getInt("Quest") == 3) {
-                                event.getToolTip().add(Component.literal("当前任务:64*火山根源"));
-                            } else {
-                                event.getToolTip().remove(Component.literal("当前任务:64*平原根源"));
-                                event.getToolTip().remove(Component.literal("当前任务:64*森林根源"));
-                                event.getToolTip().remove(Component.literal("当前任务:64*湖泊根源"));
-                                event.getToolTip().remove(Component.literal("当前任务:64*火山根源"));
-                                event.getToolTip().add(Component.literal("目前没有任务，右键以接取一个任务！"));
-                            }
-                        }
-                    }
-                }
-            }
-            if (stack.is(ModItems.DailyMission.get())) {
-                int index = 1;
-                Component[] Name = {Component.literal(""), Component.literal("平原僵尸").withStyle(ChatFormatting.GREEN),
-                        Component.literal("森林骷髅").withStyle(ChatFormatting.DARK_GREEN),
-                        Component.literal("森林僵尸").withStyle(ChatFormatting.DARK_GREEN),
-                        Component.literal("湖泊守卫者").withStyle(ChatFormatting.BLUE),
-                        Component.literal("火山烈焰").withStyle(ChatFormatting.YELLOW),
-                        Component.literal("矿洞僵尸").withStyle(ChatFormatting.GRAY),
-                        Component.literal("矿洞骷髅").withStyle(ChatFormatting.GRAY),
-                        Component.literal("冰川流浪者").withStyle(ChatFormatting.AQUA),
-                        Component.literal("天空城的不速之客").withStyle(ChatFormatting.AQUA),
-                        Component.literal("森林唤魔者").withStyle(CustomStyle.styleOfMana),
-                        Component.literal("脆弱的灵魂").withStyle(CustomStyle.styleOfHusk),
-                        Component.literal("神殿守卫").withStyle(CustomStyle.styleOfSea),
-                        Component.literal("唤雷守卫").withStyle(CustomStyle.styleOfLightingIsland),
-                        Component.literal("下界凋零骷髅").withStyle(CustomStyle.styleOfNether),
-                        Component.literal("下界猪灵").withStyle(CustomStyle.styleOfNether),
-                        Component.literal("下界遗骸").withStyle(CustomStyle.styleOfNether),
-                        Component.literal("下界熔岩能量聚合物").withStyle(CustomStyle.styleOfNether),
-                };
-                Component[] NameStrike = {Component.literal(""), Component.literal("平原僵尸").withStyle(ChatFormatting.GREEN).withStyle(ChatFormatting.STRIKETHROUGH),
-                        Component.literal("森林骷髅").withStyle(ChatFormatting.DARK_GREEN).withStyle(ChatFormatting.STRIKETHROUGH),
-                        Component.literal("森林僵尸").withStyle(ChatFormatting.DARK_GREEN).withStyle(ChatFormatting.STRIKETHROUGH),
-                        Component.literal("湖泊守卫者").withStyle(ChatFormatting.BLUE).withStyle(ChatFormatting.STRIKETHROUGH),
-                        Component.literal("火山烈焰").withStyle(ChatFormatting.YELLOW).withStyle(ChatFormatting.STRIKETHROUGH),
-                        Component.literal("矿洞僵尸").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.STRIKETHROUGH),
-                        Component.literal("矿洞骷髅").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.STRIKETHROUGH),
-                        Component.literal("冰川流浪者").withStyle(ChatFormatting.AQUA).withStyle(ChatFormatting.STRIKETHROUGH),
-                        Component.literal("天空城的不速之客").withStyle(ChatFormatting.AQUA).withStyle(ChatFormatting.STRIKETHROUGH),
-                        Component.literal("森林唤魔者").withStyle(CustomStyle.styleOfMana).withStyle(ChatFormatting.STRIKETHROUGH),
-                        Component.literal("脆弱的灵魂").withStyle(CustomStyle.styleOfHusk).withStyle(ChatFormatting.STRIKETHROUGH),
-                        Component.literal("神殿守卫").withStyle(CustomStyle.styleOfSea).withStyle(ChatFormatting.STRIKETHROUGH),
-                        Component.literal("唤雷守卫").withStyle(CustomStyle.styleOfLightingIsland).withStyle(ChatFormatting.STRIKETHROUGH),
-                        Component.literal("下界凋零骷髅").withStyle(CustomStyle.styleOfNether).withStyle(ChatFormatting.STRIKETHROUGH),
-                        Component.literal("下界猪灵").withStyle(CustomStyle.styleOfNether).withStyle(ChatFormatting.STRIKETHROUGH),
-                        Component.literal("下界遗骸").withStyle(CustomStyle.styleOfNether).withStyle(ChatFormatting.STRIKETHROUGH),
-                        Component.literal("下界熔岩能量聚合物").withStyle(CustomStyle.styleOfNether).withStyle(ChatFormatting.STRIKETHROUGH),
-
-                };
-                for (int i = 1; i <= 17; i++) {
-                    String string = "DailyMission" + i;
-                    if (data.contains(string) && data.getInt(string) > 0) {
-                        if (data.getInt(string) <= ClientUtils.DailyMission[i]) {
-                            event.getToolTip().add(Component.literal(" " + index + ".").withStyle(ChatFormatting.WHITE).
-                                    append(Component.literal("击杀").withStyle(ChatFormatting.WHITE).withStyle(ChatFormatting.STRIKETHROUGH)).
-                                    append(NameStrike[i]).
-                                    append(Component.literal(" (").withStyle(ChatFormatting.WHITE)).
-                                    append(Component.literal(data.getInt(string) + "/" + data.getInt(string) + ")")).
-                                    append(Component.literal("√").withStyle(ChatFormatting.GREEN)));
-                        } else {
-                            event.getToolTip().add(Component.literal(" " + index + ".").withStyle(ChatFormatting.WHITE).
-                                    append(Component.literal("击杀").withStyle(ChatFormatting.WHITE)).
-                                    append(Name[i]).
-                                    append(Component.literal(" (").withStyle(ChatFormatting.WHITE)).
-                                    append(Component.literal(ClientUtils.DailyMission[i] + "/" + data.getInt(string) + ")")).
-                                    append(Component.literal("?").withStyle(ChatFormatting.GOLD)));
-                        }
-                        index++;
-                    }
-                }
-            }
             if (stack.is(ModItems.BrewingNote.get())) {
                 Component[] Name = {
                         Component.literal("平原根源").withStyle(ChatFormatting.GREEN),
@@ -268,30 +166,6 @@ public class ToolTipEvent {
                 ComponentUtils.descriptionDash(event.getToolTip(), ChatFormatting.WHITE, CustomStyle.styleOfBrew, ChatFormatting.WHITE);
             }
 
-            if (data.contains("Number")) {
-                int Number = data.getInt("Number");
-                if (Number < 10) {
-                    event.getToolTip().add(Component.literal("∫维瑞阿契第").withStyle(ChatFormatting.AQUA).withStyle(ChatFormatting.BOLD).
-                            append(Component.literal("" + Number).withStyle(ChatFormatting.RED)).
-                            append(Component.literal("件").withStyle(ChatFormatting.AQUA)).withStyle(ChatFormatting.BOLD).
-                            append(stack.getDisplayName()));
-                } else if (Number < 100) {
-                    event.getToolTip().add(Component.literal("∫维瑞阿契第").withStyle(ChatFormatting.AQUA).withStyle(ChatFormatting.BOLD).
-                            append(Component.literal("" + Number).withStyle(ChatFormatting.GOLD)).
-                            append(Component.literal("件").withStyle(ChatFormatting.AQUA)).withStyle(ChatFormatting.BOLD).
-                            append(stack.getDisplayName()));
-                } else if (Number < 1000) {
-                    event.getToolTip().add(Component.literal("∫维瑞阿契第").withStyle(ChatFormatting.AQUA).withStyle(ChatFormatting.BOLD).
-                            append(Component.literal("" + Number).withStyle(ChatFormatting.AQUA)).
-                            append(Component.literal("件").withStyle(ChatFormatting.AQUA)).withStyle(ChatFormatting.BOLD).
-                            append(stack.getDisplayName()));
-                } else {
-                    event.getToolTip().add(Component.literal("∫维瑞阿契第").withStyle(ChatFormatting.AQUA).withStyle(ChatFormatting.BOLD).
-                            append(Component.literal("" + Number).withStyle(ChatFormatting.GREEN)).
-                            append(Component.literal("件").withStyle(ChatFormatting.AQUA)).withStyle(ChatFormatting.BOLD).
-                            append(stack.getDisplayName()));
-                }
-            }
             if (stack.is(ModItems.ForestBossSword.get())) {
                 List<Component> components = event.getToolTip();
                 components.add(Component.literal("∰当前").withStyle(ChatFormatting.WHITE).

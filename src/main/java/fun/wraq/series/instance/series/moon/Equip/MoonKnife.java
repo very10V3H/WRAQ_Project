@@ -1,6 +1,7 @@
 package fun.wraq.series.instance.series.moon.Equip;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
@@ -38,6 +39,7 @@ public class MoonKnife extends Item {
         Utils.expUp.put(this, 0.77);
         Utils.offHandTag.put(this, 1d);
         Utils.weaponList.add(this);
+        Utils.levelRequire.put(this, 160);
     }
 
     @Override
@@ -73,7 +75,7 @@ public class MoonKnife extends Item {
 
     public static void MoonKnife(Player player, Mob mob) {
         if (player.getItemBySlot(EquipmentSlot.OFFHAND).is(ModItems.MoonKnife.get())) {
-            int TickCount = player.getServer().getTickCount();
+            int TickCount = Tick.get();
             if (PlayerMoonKnifeMap.containsKey(player) && !PlayerMoonKnifeMap.get(player).equals(mob)) {
                 Mob oldMob = PlayerMoonKnifeMap.get(player);
                 oldMob.removeEffect(MobEffects.GLOWING);
@@ -102,7 +104,7 @@ public class MoonKnife extends Item {
     }
 
     public static double damageEnhance(Player player) {
-        int TickCount = player.getServer().getTickCount();
+        int TickCount = Tick.get();
         if (playerDamageEnhanceTickMap.containsKey(player) && playerDamageEnhanceTickMap.get(player) > TickCount) {
             return 0.12;
         }

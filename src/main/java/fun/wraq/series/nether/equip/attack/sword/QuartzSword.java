@@ -40,6 +40,7 @@ public class QuartzSword extends WraqSword implements ActiveItem {
         Utils.critRate.put(this, 0.45);
         Utils.critDamage.put(this, 0.35);
         Element.FireElementValue.put(this, 0.8);
+        Utils.levelRequire.put(this, 80);
     }
 
     @Override

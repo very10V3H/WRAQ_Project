@@ -7,6 +7,7 @@ import fun.wraq.common.attribute.MobAttributes;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.attribute.SameTypeModule;
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.onhit.OnHitEffectCurios;
 import fun.wraq.common.impl.onhit.OnHitEffectEquip;
 import fun.wraq.common.impl.onhit.OnHitEffectPassiveEquip;
@@ -23,8 +24,8 @@ import fun.wraq.networking.misc.ParticlePackets.EffectParticle.ManaDefencePenetr
 import fun.wraq.networking.misc.SkillPackets.Charging.ChargedClearS2CPacket;
 import fun.wraq.networking.misc.SkillPackets.SkillImageS2CPacket;
 import fun.wraq.process.func.EnhanceNormalAttackModifier;
-import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
 import fun.wraq.process.func.damage.Damage;
+import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.func.suit.SuitCount;
 import fun.wraq.process.system.element.Element;
@@ -62,7 +63,7 @@ public class ManaAttackModule {
                         Te.s("未命中", CustomStyle.styleOfEnd), 1);
                 return;
             }
-            Utils.PlayerFireWorkFightCoolDown.put(player, player.getServer().getTickCount() + 200);
+            Utils.PlayerFireWorkFightCoolDown.put(player, Tick.get() + 200);
 
             rate += DamageInfluence.getPlayerNormalAttackBaseDamageEnhance(player, 2);
             double damage = PlayerAttributes.manaDamage(player) * rate;

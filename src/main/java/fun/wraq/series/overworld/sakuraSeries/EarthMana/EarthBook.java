@@ -26,6 +26,7 @@ public class EarthBook extends WraqOffHandItem {
         Utils.maxMana.put(this, 350d);
         Utils.expUp.put(this, 0.65);
         Utils.manaHealthSteal.put(this, 0.04);
+        Utils.levelRequire.put(this, 125);
     }
 
     @Override

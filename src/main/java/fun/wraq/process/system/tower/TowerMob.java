@@ -1,6 +1,7 @@
 package fun.wraq.process.system.tower;
 
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.process.func.damage.Damage;
@@ -240,7 +241,7 @@ public class TowerMob {
         fun.wraq.process.system.tower.Tower tower = fun.wraq.process.system.tower.Tower.instanceList.get(4);
         if (tower != null && tower.getCurrentPlayer() != null) {
             if (player.equals(tower.getCurrentPlayer()))
-                return (double) (player.getServer().getTickCount() - tower.getStartTime()) / 4800;
+                return (double) (Tick.get() - tower.getStartTime()) / 4800;
         }
         return 0;
     }

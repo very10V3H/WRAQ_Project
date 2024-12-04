@@ -3,6 +3,7 @@ package fun.wraq.process.system.teamInstance.instances.blackCastle;
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModEntityType;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ItemAndRate;
@@ -117,7 +118,7 @@ public class NewCastleInstance extends NewTeamInstance {
             if (mob.isDeadOrDying()) hasKilledMobs.add(mob);
         });
 
-        int tickCount = level.getServer().getTickCount();
+        int tickCount = Tick.get();
         if (tickCount % 200 == 8) {
             players.forEach(player -> {
                 Compute.sendFormatMSG(player, Component.literal("团队副本").withStyle(ChatFormatting.RED),

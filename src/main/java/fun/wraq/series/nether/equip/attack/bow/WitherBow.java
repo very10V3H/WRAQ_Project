@@ -2,12 +2,13 @@ package fun.wraq.series.nether.equip.attack.bow;
 
 import fun.wraq.blocks.blocks.forge.ForgeRecipe;
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqBow;
+import fun.wraq.common.fast.Tick;
+import fun.wraq.common.impl.onhit.OnHitEffectEquip;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.StableAttributesModifier;
-import fun.wraq.common.impl.onhit.OnHitEffectEquip;
-import fun.wraq.common.equip.WraqBow;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -30,6 +31,7 @@ public class WitherBow extends WraqBow implements OnHitEffectEquip {
         Utils.defencePenetration0.put(this, new double[]{9, 10, 11, 12}[tier]);
         Utils.critRate.put(this, new double[]{0.2, 0.25, 0.25, 0.25}[tier]);
         Utils.critDamage.put(this, new double[]{0.35, 0.4, 0.45, 0.55}[tier]);
+        Utils.levelRequire.put(this, 80);
 
         ForgeRecipe.forgeDrawRecipe.put(this, new ArrayList<>() {{
             add(new ItemStack(ModItems.NetherRune.get(), 4));
@@ -75,7 +77,7 @@ public class WitherBow extends WraqBow implements OnHitEffectEquip {
 
         StableAttributesModifier.addAttributeModifier(player, StableAttributesModifier.playerDefencePenetration0Modifier,
                 new StableAttributesModifier("witherBowActiveDefencePenetration0",
-                        new int[]{4, 6, 8, 12}[tier], player.getServer().getTickCount() + 100));
+                        new int[]{4, 6, 8, 12}[tier], Tick.get() + 100));
 
         Compute.sendEffectLastTime(player, ModItems.WitherBow0.get().getDefaultInstance(), 100);
     }

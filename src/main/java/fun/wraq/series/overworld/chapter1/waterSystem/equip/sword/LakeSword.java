@@ -5,6 +5,7 @@ import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.equip.WraqSword;
 import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.onhit.OnHitEffectEquip;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
@@ -66,7 +67,7 @@ public class LakeSword extends WraqSword implements ActiveItem, OnHitEffectEquip
     @Override
     public void onHit(Player player, Mob mob) {
         StableAttributesModifier.addM(player, StableAttributesModifier.playerMovementSpeedModifier,
-                "lakeSwordPassiveExMovementSpeed", 0.1, player.getServer().getTickCount() + 20, this);
+                "lakeSwordPassiveExMovementSpeed", 0.1, Tick.get() + 20, this);
     }
 
     @Override

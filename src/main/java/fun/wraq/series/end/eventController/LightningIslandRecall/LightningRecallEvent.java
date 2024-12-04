@@ -1,6 +1,7 @@
 package fun.wraq.series.end.eventController.LightningIslandRecall;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.MobSpawn;
@@ -179,7 +180,7 @@ public class LightningRecallEvent {
                     }
                 }
                 if (Utils.LightingRecallZombie != null && Utils.LightingRecallZombie.isAlive()) {
-                    if (level.getServer().getTickCount() % 20 == 0) {
+                    if (Tick.get() % 20 == 0) {
                         List<Player> playerList = level.getEntitiesOfClass(Player.class, AABB.ofSize(Utils.LightingRecallZombie.position(), 20, 20, 20));
                         for (Player player : playerList) {
                             if (player.position().distanceTo(Utils.LightingRecallZombie.position()) <= 2.5f) {
@@ -190,7 +191,7 @@ public class LightningRecallEvent {
                             }
                         }
                     }
-                    if (level.getServer().getTickCount() % 20 < random.nextInt(5)) {
+                    if (Tick.get() % 20 < random.nextInt(5)) {
                         LightningBolt lightningBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, level1);
                         lightningBolt.setDamage(400);
                         lightningBolt.moveTo(PlatformX - 9 + random.nextInt(18), PlatformY, PlatformZ - 9 + random.nextInt(18));

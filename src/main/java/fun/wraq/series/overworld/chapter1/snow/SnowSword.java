@@ -31,6 +31,7 @@ public class SnowSword extends WraqSword implements ActiveItem {
         Utils.critRate.put(this, new double[]{0.3, 0.33, 0.36, 0.45, 0.45}[tier]);
         Utils.critDamage.put(this, new double[]{0.4, 0.45, 0.5, 0.6, 0.8}[tier]);
         Element.IceElementValue.put(this, new double[]{0.2, 0.4, 0.6, 0.8, 1d}[tier]);
+        Utils.levelRequire.put(this, 100);
     }
 
     @Override

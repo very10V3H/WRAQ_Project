@@ -1,6 +1,7 @@
 package fun.wraq.projectiles.mana;
 
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModEntityType;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.core.ManaAttackModule;
@@ -65,7 +66,6 @@ public class ShangMengLiSwordAir extends AbstractArrow implements GeoEntity {
         super.onHitEntity(result);
         if (!player.level().isClientSide) {
             if (!isPower) {
-                int TickCount = player.getServer().getTickCount();
                 Entity entity = result.getEntity();
                 fun.wraq.projectiles.mana.ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW.get(), player, player.level(),
                         PlayerAttributes.manaDamage(player),

@@ -1,6 +1,9 @@
 package fun.wraq.process.system.element.equipAndCurios.fireElement;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqBow;
+import fun.wraq.common.equip.impl.ActiveItem;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
@@ -9,8 +12,6 @@ import fun.wraq.core.MyArrow;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.element.Element;
-import fun.wraq.common.equip.impl.ActiveItem;
-import fun.wraq.common.equip.WraqBow;
 import fun.wraq.render.particles.ModParticles;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -39,7 +40,7 @@ public class FireElementBow extends WraqBow implements ActiveItem {
 
     public static void IgniteEffect(Player player, Mob mob) {
         if (mob.getRemainingFireTicks() > 0 && player.getMainHandItem().is(ModItems.FireElementBow.get())) {
-            FireElementSword.playerFireElementValueEnhanceTickMap.put(player, player.getServer().getTickCount() + 40);
+            FireElementSword.playerFireElementValueEnhanceTickMap.put(player, Tick.get() + 40);
         }
     }
 
@@ -48,7 +49,7 @@ public class FireElementBow extends WraqBow implements ActiveItem {
         if (!FireElementSword.playerIgniteMobMap.containsKey(player))
             FireElementSword.playerIgniteMobMap.put(player, new ArrayList<>());
         List<FireElementSword.IgniteMob> list = FireElementSword.playerIgniteMobMap.get(player);
-        list.removeIf(igniteMob -> igniteMob.tick() < player.getServer().getTickCount());
+        list.removeIf(igniteMob -> igniteMob.tick() < Tick.get());
         if (list.size() > 0)
             Compute.sendEffectLastTime(player, ModItems.FireElementBow.get().getDefaultInstance(), 8888, Math.min(3, list.size()), true);
         else
@@ -60,9 +61,9 @@ public class FireElementBow extends WraqBow implements ActiveItem {
         if (!FireElementSword.playerIgniteMobMap.containsKey(player))
             FireElementSword.playerIgniteMobMap.put(player, new ArrayList<>());
         List<FireElementSword.IgniteMob> list = FireElementSword.playerIgniteMobMap.get(player);
-        list.removeIf(igniteMob -> igniteMob.tick() < player.getServer().getTickCount());
+        list.removeIf(igniteMob -> igniteMob.tick() < Tick.get());
         if (mob.getRemainingFireTicks() == 0) {
-            list.add(new FireElementSword.IgniteMob(mob.getId(), player.getServer().getTickCount() + 60));
+            list.add(new FireElementSword.IgniteMob(mob.getId(), Tick.get() + 60));
         }
     }
 

@@ -1,4 +1,4 @@
-package fun.wraq.series.overworld.chapter1.plain.sceptre;
+package fun.wraq.series.overworld.chapter1.plain;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;

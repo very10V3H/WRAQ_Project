@@ -1,12 +1,13 @@
 package fun.wraq.series.overworld.chapter1.plain;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqBow;
+import fun.wraq.common.fast.Tick;
+import fun.wraq.common.impl.onhit.OnHitEffectEquip;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.StableAttributesModifier;
 import fun.wraq.process.system.element.Element;
-import fun.wraq.common.impl.onhit.OnHitEffectEquip;
-import fun.wraq.common.equip.WraqBow;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -50,6 +51,6 @@ public class PlainBow extends WraqBow implements OnHitEffectEquip {
     @Override
     public void onHit(Player player, Mob mob) {
         StableAttributesModifier.addM(player, StableAttributesModifier.playerMovementSpeedModifier,
-                "plainBowPassiveExMovementSpeed", 0.1, player.getServer().getTickCount() + 40, this);
+                "plainBowPassiveExMovementSpeed", 0.1, Tick.get() + 40, this);
     }
 }

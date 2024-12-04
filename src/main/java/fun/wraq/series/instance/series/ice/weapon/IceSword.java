@@ -26,6 +26,7 @@ public class IceSword extends WraqSword implements OnHitEffectEquip, OnCritHitEf
         Utils.critRate.put(this, 0.3);
         Utils.critDamage.put(this, 0.8);
         Element.IceElementValue.put(this, 1.25);
+        Utils.levelRequire.put(this, 135);
     }
 
     @Override

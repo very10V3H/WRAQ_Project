@@ -140,6 +140,7 @@ public class BonusChestContent {
             put(6, Point.ELPT);
             put(7, Point.EDPT);
             put(8, Point.MTPT);
+            put(9, Point.MTPT);
         }};
         return itemMap.getOrDefault(zoneId, Point.EXPT);
     }

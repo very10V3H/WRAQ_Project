@@ -7,6 +7,7 @@ import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.equip.impl.RepeatableCurios;
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ClientUtils;
@@ -117,7 +118,7 @@ public class VariousEvents {
                         instance.addDeadTimes();
                     }
                 });
-                Utils.PlayerDeadTimeMap.put(player.getName().getString(), player.getServer().getTickCount() + 6000);
+                Utils.PlayerDeadTimeMap.put(player.getName().getString(), Tick.get() + 6000);
             }
             ModNetworking.sendToClient(new ExpGetResetS2CPacket(), serverPlayer);
             event.getEntity().getPersistentData().merge(event.getOriginal().getPersistentData());

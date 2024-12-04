@@ -1,6 +1,7 @@
 package fun.wraq.process.system.teamInstance;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ItemAndRate;
 import fun.wraq.common.util.Utils;
@@ -60,7 +61,7 @@ public abstract class NewTeamInstance {
     }
 
     public void tick(Level level) {
-        int tickCount = level.getServer().getTickCount();
+        int tickCount = Tick.get();
         // 未在挑战中 进行开始检测
 
         if (!inChallenging) {
@@ -272,7 +273,7 @@ public abstract class NewTeamInstance {
         armorStandList.forEach(ArmorStand::kill);
         if (inChallenging) {
             summonArmorStand(level, new Vec3(0, 0.25, 0), description);
-            summonArmorStand(level, new Vec3(0, 0, 0), Component.literal("挑战中" + ".".repeat(level.getServer().getTickCount() % 4)).withStyle(ChatFormatting.RED));
+            summonArmorStand(level, new Vec3(0, 0, 0), Component.literal("挑战中" + ".".repeat(Tick.get() % 4)).withStyle(ChatFormatting.RED));
             summonArmorStand(level, new Vec3(0, -0.25, 0), Component.literal("已进行" + lastTick / 20 + "秒").withStyle(ChatFormatting.AQUA));
         } else {
             if (!players.isEmpty()) {

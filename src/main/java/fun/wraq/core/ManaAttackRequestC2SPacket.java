@@ -1,6 +1,7 @@
 package fun.wraq.core;
 
 import fun.wraq.common.equip.WraqSceptre;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.util.Utils;
 import fun.wraq.series.instance.series.castle.CastleManaArmor;
 import net.minecraft.network.FriendlyByteBuf;
@@ -27,7 +28,7 @@ public class ManaAttackRequestC2SPacket {
         context.enqueueWork(() -> {
             ServerPlayer serverPlayer = context.getSender();
             Player player = (Player) serverPlayer;
-            int tick = serverPlayer.getServer().getTickCount();
+            int tick = Tick.get();
             if (Utils.PlayerManaAttackTime.containsKey(serverPlayer)
                     && tick - Utils.PlayerManaAttackTime.get(serverPlayer) < 5) {
                 return;

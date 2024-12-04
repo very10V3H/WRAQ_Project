@@ -1,13 +1,14 @@
 package fun.wraq.series.instance.series.devil;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqArmor;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.registry.ModArmorMaterials;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.MobSpawn;
-import fun.wraq.common.equip.WraqArmor;
 import fun.wraq.process.system.ore.OreItems;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -27,6 +28,7 @@ public class DevilAttackArmor extends WraqArmor implements ForgeItem {
     public DevilAttackArmor(ModArmorMaterials Material, Type Slots, Properties itemProperties) {
         super(Material, Slots, itemProperties);
         Utils.defence.put(this, 100d);
+        Utils.levelRequire.put(this, 150);
     }
 
     @Override
@@ -62,7 +64,7 @@ public class DevilAttackArmor extends WraqArmor implements ForgeItem {
 
     public static void DevilAttackArmorPassive(Player player, Mob mob) {
         if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.DevilAttackChest.get())) {
-            int TickCount = player.getServer().getTickCount();
+            int TickCount = Tick.get();
             DevilAttackArmorPassiveNumMap.put(player, MobSpawn.MobBaseAttributes.getMobBaseAttribute(mob, MobSpawn.MobBaseAttributes.attackDamage) * 0.5);
             DevilAttackArmorPassiveTickMap.put(player, TickCount + 40);
             Compute.sendEffectLastTime(player, ModItems.DevilBlood.get().getDefaultInstance(), 40);
@@ -70,7 +72,7 @@ public class DevilAttackArmor extends WraqArmor implements ForgeItem {
     }
 
     public static double DevilAttackArmorPassiveExDamage(Player player) {
-        int TickCount = player.getServer().getTickCount();
+        int TickCount = Tick.get();
         if (DevilAttackArmorPassiveTickMap.containsKey(player) && DevilAttackArmorPassiveTickMap.get(player) > TickCount)
             return DevilAttackArmorPassiveNumMap.get(player);
         return 0;

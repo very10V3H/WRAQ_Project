@@ -33,6 +33,7 @@ public class IceBow extends WraqBow implements OnHitEffectEquip, OnCritHitEffect
         Utils.critRate.put(this, 0.25);
         Utils.critDamage.put(this, 1.35);
         Element.IceElementValue.put(this, 1.25);
+        Utils.levelRequire.put(this, 135);
     }
 
     @Override

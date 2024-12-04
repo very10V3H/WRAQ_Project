@@ -1,10 +1,11 @@
 package fun.wraq.series.specialevents.springFes;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.impl.ActiveItem;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -63,7 +64,7 @@ public class FireWorkGun extends Item implements ActiveItem {
 
     @Override
     public void active(Player player) {
-        Utils.PlayerFireWorkGunEffect.put(player, player.getServer().getTickCount() + 200);
+        Utils.PlayerFireWorkGunEffect.put(player, Tick.get() + 200);
         Compute.sendEffectLastTime(player, ModItems.FireWorkGun.get().getDefaultInstance(), 200);
         Vec3 vec3 = player.pick(5, 0, false).getLocation();
         summonFireWork(player.level(), vec3);

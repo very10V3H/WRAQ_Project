@@ -2,6 +2,7 @@ package fun.wraq.projectiles.mana;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.damage.Damage;
@@ -74,7 +75,7 @@ public class Meteorite extends AbstractArrow implements GeoEntity {
                     Damage.causeManaDamageToMonster_RateApDamage(player, mob, 15, false);
                 });
             } else {
-                int TickCount = player.getServer().getTickCount();
+                int TickCount = Tick.get();
                 List<Mob> mobList = this.player.level().getEntitiesOfClass(Mob.class, AABB.ofSize(this.position(), 15, 15, 15));
                 List<Player> playerList = this.player.level().getEntitiesOfClass(Player.class, AABB.ofSize(this.position(), 15, 15, 15));
                 List<ServerPlayer> serverPlayerList = player.getServer().getPlayerList().getPlayers();
@@ -169,7 +170,7 @@ public class Meteorite extends AbstractArrow implements GeoEntity {
     protected void onHitEntity(EntityHitResult result) {
         super.onHitEntity(result);
         if (this.player != null && !level().isClientSide) {
-            int TickCount = this.player.getServer().getTickCount();
+            int TickCount = Tick.get();
             if (this.IsVeryNew) {
                 List<ServerPlayer> playerList = player.getServer().getPlayerList().getPlayers();
                 ClientboundLevelParticlesPacket clientboundLevelParticlesPacket =

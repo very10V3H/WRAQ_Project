@@ -27,6 +27,7 @@ public class TabooSwiftArmor extends WraqArmor implements ForgeItem {
         super(Material, Slots, itemProperties);
         Utils.percentHealthRecover.put(this, 0.01);
         Utils.healthRecover.put(this, 50d);
+        Utils.levelRequire.put(this, 150);
     }
 
     @Override

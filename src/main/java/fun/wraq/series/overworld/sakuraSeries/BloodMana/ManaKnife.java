@@ -26,6 +26,7 @@ public class ManaKnife extends WraqOffHandItem implements ForgeItem {
         Utils.critDamage.put(this, 0.5);
         Utils.healthSteal.put(this, 0.04);
         Utils.expUp.put(this, 0.65);
+        Utils.levelRequire.put(this, 125);
     }
 
     @Override

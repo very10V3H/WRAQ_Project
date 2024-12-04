@@ -20,6 +20,7 @@ public class WardenShield extends WardenOffhandItem implements ForgeItem {
         Utils.critDamage.put(this, 0.37);
         Utils.expUp.put(this, 0.88);
         Utils.shieldTag.put(this, 1d);
+        Utils.levelRequire.put(this, 225);
     }
 
     @Override

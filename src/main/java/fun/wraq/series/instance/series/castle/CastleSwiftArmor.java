@@ -2,6 +2,9 @@ package fun.wraq.series.instance.series.castle;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.equip.WraqArmor;
+import fun.wraq.common.fast.Tick;
+import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.registry.ModArmorMaterials;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
@@ -10,8 +13,6 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.core.MyArrow;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.func.suit.SuitCount;
-import fun.wraq.common.impl.display.ForgeItem;
-import fun.wraq.common.equip.WraqArmor;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
@@ -47,6 +48,7 @@ public class CastleSwiftArmor extends WraqArmor implements ForgeItem {
         if (type.equals(Type.CHESTPLATE)) Utils.defence.put(this, 125d);
         if (type.equals(Type.LEGGINGS)) Utils.maxHealth.put(this, 15000d);
         if (type.equals(Type.BOOTS)) Utils.movementSpeedCommon.put(this, 0.12);
+        Utils.levelRequire.put(this, 180);
     }
 
     @Override
@@ -84,7 +86,7 @@ public class CastleSwiftArmor extends WraqArmor implements ForgeItem {
     public static void Tick(Player player) {
         int ArmorCount = SuitCount.getCastleSwiftSuitCount(player);
         if (ArmorCount == 0) return;
-        int TickCount = player.getServer().getTickCount();
+        int TickCount = Tick.get();
         if (playerDoubleAttackTick.containsKey(player) && playerDoubleAttackTick.get(player) == TickCount) {
             ExAttack(player, ArmorCount * 0.15);
         }
@@ -93,7 +95,7 @@ public class CastleSwiftArmor extends WraqArmor implements ForgeItem {
     public static void NormalAttack(Player player) {
         int ArmorCount = SuitCount.getCastleSwiftSuitCount(player);
         if (ArmorCount == 0) return;
-        int TickCount = player.getServer().getTickCount();
+        int TickCount = Tick.get();
         playerDoubleAttackTick.put(player, TickCount + 4);
     }
 

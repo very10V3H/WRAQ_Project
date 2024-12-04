@@ -3,6 +3,7 @@ package fun.wraq.series.nether.power;
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.equip.WraqCurios;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.ModSounds;
 import fun.wraq.common.registry.MySound;
@@ -114,9 +115,9 @@ public class PiglinPower extends WraqPower {
             if (player1.distanceTo(player) < 6) {
                 Compute.sendEffectLastTime(player1, ModItems.PIGLIN_POWER.get(), 100);
                 StableAttributesModifier.addAttributeModifier(player1, StableAttributesModifier.playerMovementSpeedModifier,
-                        new StableAttributesModifier("piglinPowerMovementSpeedUp", 0.04 * playerList.size(), player.getServer().getTickCount() + 100));
+                        new StableAttributesModifier("piglinPowerMovementSpeedUp", 0.04 * playerList.size(), Tick.get() + 100));
                 StableAttributesModifier.addAttributeModifier(player1, StableAttributesModifier.playerAttackDamageModifier,
-                        new StableAttributesModifier("piglinPowerAttackDamageUp", manaDamageUpValue, player.getServer().getTickCount() + 100));
+                        new StableAttributesModifier("piglinPowerAttackDamageUp", manaDamageUpValue, Tick.get() + 100));
                 ParticleProvider.EntityEffectVerticleCircleParticle(player1, 1, 0.4, 8, ParticleTypes.COMPOSTER, 0);
                 ParticleProvider.EntityEffectVerticleCircleParticle(player1, 0.75, 0.4, 8, ParticleTypes.COMPOSTER, 0);
                 ParticleProvider.EntityEffectVerticleCircleParticle(player1, 0.5, 0.4, 8, ParticleTypes.COMPOSTER, 0);

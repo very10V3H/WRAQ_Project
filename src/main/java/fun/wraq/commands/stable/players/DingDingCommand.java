@@ -5,6 +5,7 @@ import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.util.Utils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
@@ -30,7 +31,7 @@ public class DingDingCommand implements Command<CommandSourceStack> {
                         Component.literal("玩家似乎不在线。。。").withStyle(ChatFormatting.WHITE));
                 return 0;
             }
-            if (Utils.DingDingCoolDown.containsKey(player) && Utils.DingDingCoolDown.get(player) > player.getServer().getTickCount()) {
+            if (Utils.DingDingCoolDown.containsKey(player) && Utils.DingDingCoolDown.get(player) > Tick.get()) {
                 Compute.sendFormatMSG(player, Component.literal("增强叮!").withStyle(ChatFormatting.AQUA),
                         Component.literal("一分钟内只能发送一次增强叮叮叮喔！").withStyle(ChatFormatting.WHITE));
             } else {
@@ -38,7 +39,7 @@ public class DingDingCommand implements Command<CommandSourceStack> {
                 Utils.PlayerAFKMap.put(target, true);
                 data.putDouble("XRot", player.getXRot());
                 data.putDouble("YRot", player.getYRot());
-                if (!player.isCreative()) Utils.DingDingCoolDown.put(player, player.getServer().getTickCount() + 1200);
+                if (!player.isCreative()) Utils.DingDingCoolDown.put(player, Tick.get() + 1200);
                 Compute.sendFormatMSG(player, Component.literal("增强叮!").withStyle(ChatFormatting.AQUA),
                         Component.literal("你向 ").withStyle(ChatFormatting.WHITE).
                                 append(target.getDisplayName()).

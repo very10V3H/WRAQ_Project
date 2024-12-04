@@ -29,6 +29,7 @@ public class TabooManaArmor extends WraqArmor implements OnCostManaEquip, InCuri
     public TabooManaArmor(ModArmorMaterials Material, Type type, Properties itemProperties) {
         super(Material, type, itemProperties);
         Utils.movementSpeedCommon.put(this, 0.15);
+        Utils.levelRequire.put(this, 150);
     }
 
     @Override

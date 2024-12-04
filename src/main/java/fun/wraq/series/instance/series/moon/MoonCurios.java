@@ -1,6 +1,7 @@
 package fun.wraq.series.instance.series.moon;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.StringUtils;
@@ -61,7 +62,7 @@ public class MoonCurios extends Item implements ICurioItem {
     public static double Passive(Player player, Mob mob) {
         List<ItemStack> curiosList = Compute.CuriosAttribute.getDistinctCuriosList(player);
         if (curiosList.stream().anyMatch(itemStack -> itemStack.is(ModItems.MoonCurios.get()))) {
-            int TickCount = player.getServer().getTickCount();
+            int TickCount = Tick.get();
             if (!passiveCoolDownMap.containsKey(player) || TickCount > passiveCoolDownMap.get(player)) {
                 passiveCoolDownMap.put(player, TickCount + 200);
                 Compute.sendCoolDownTime(player, ModItems.MoonCurios.get().getDefaultInstance(), 200);

@@ -1,6 +1,7 @@
 package fun.wraq.events.modules;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.SkillPackets.SkillImageS2CPacket;
@@ -46,7 +47,7 @@ public class HurtEventModule {
     }
 
     public static void SwordSkill2(CompoundTag data, Player player) {
-        int TickCount = player.getServer().getTickCount();
+        int TickCount = Tick.get();
         if (Compute.getSwordSkillLevel(data, 2) > 0) {
             data.putInt(StringUtils.SwordSkillNum.Skill2, TickCount + 200);
             ModNetworking.sendToClient(new SkillImageS2CPacket(3, 10, 10, 0, 0), (ServerPlayer) player);
@@ -54,7 +55,7 @@ public class HurtEventModule {
     }
 
     public static void BowSkill2(CompoundTag data, Player player) {
-        int TickCount = player.getServer().getTickCount();
+        int TickCount = Tick.get();
         if (Compute.getBowSkillLevel(data, 2) > 0) {
             data.putInt(StringUtils.BowSkillNum.Skill2, TickCount + 200);
             ModNetworking.sendToClient(new SkillImageS2CPacket(3, 10, 10, 0, 1), (ServerPlayer) player);
@@ -63,7 +64,7 @@ public class HurtEventModule {
     }
 
     public static void ManaSkill2(CompoundTag data, Player player) {
-        int TickCount = player.getServer().getTickCount();
+        int TickCount = Tick.get();
         if (Compute.getManaSkillLevel(data, 2) > 0) {
             data.putInt(StringUtils.ManaSkillNum.Skill2, TickCount + 200);
             ModNetworking.sendToClient(new SkillImageS2CPacket(3, 10, 10, 0, 2), (ServerPlayer) player);

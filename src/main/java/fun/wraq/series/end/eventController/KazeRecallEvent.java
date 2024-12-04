@@ -1,6 +1,7 @@
 package fun.wraq.series.end.eventController;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.MobSpawn;
@@ -176,19 +177,19 @@ public class KazeRecallEvent {
                     }
                 }
                 if (Utils.KazeRecallSkeleton != null && Utils.KazeRecallSkeleton.isAlive()) {
-                    if (level1.getServer().getTickCount() % 200 == 0) {
+                    if (Tick.get() % 200 == 0) {
                         ClientboundSetTitleTextPacket clientboundSetTitleTextPacket =
                                 new ClientboundSetTitleTextPacket(Component.literal("狂风即将袭来！").withStyle(style));
                         Utils.kazeRecall.recallPlayer.connection.send(clientboundSetTitleTextPacket);
                     }
-                    if (level1.getServer().getTickCount() % 200 == 40) {
+                    if (Tick.get() % 200 == 40) {
                         if (Utils.kazeRecall.recallPlayer.onGround()) {
                             ClientboundSetEntityMotionPacket clientboundSetEntityMotionPacket =
                                     new ClientboundSetEntityMotionPacket(Utils.kazeRecall.recallPlayer.getId(), new Vec3(0, 2, 0));
                             Utils.kazeRecall.recallPlayer.connection.send(clientboundSetEntityMotionPacket);
                         }
                     }
-                    if (level1.getServer().getTickCount() % 200 == 60) {
+                    if (Tick.get() % 200 == 60) {
                         if (!Utils.kazeRecall.recallPlayer.onGround()) {
                             ClientboundSetEntityMotionPacket clientboundSetEntityMotionPacket =
                                     new ClientboundSetEntityMotionPacket(Utils.kazeRecall.recallPlayer.getId(), new Vec3(0, -2, 0));

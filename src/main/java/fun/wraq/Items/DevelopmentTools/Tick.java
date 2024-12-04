@@ -17,7 +17,7 @@ public class Tick extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
         if (!level.isClientSide)
-            player.sendSystemMessage(Component.literal(String.valueOf(level.getServer().getTickCount())));
+            player.sendSystemMessage(Component.literal(String.valueOf(fun.wraq.common.fast.Tick.get())));
         return super.use(level, player, interactionHand);
     }
 }

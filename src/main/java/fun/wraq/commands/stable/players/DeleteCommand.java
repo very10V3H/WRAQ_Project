@@ -4,6 +4,7 @@ import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.util.Utils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
@@ -19,7 +20,7 @@ public class DeleteCommand implements Command<CommandSourceStack> {
     @Override
     public int run(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         Player player = context.getSource().getPlayer();
-        int TickCount = player.getServer().getTickCount();
+        int TickCount = Tick.get();
         String name = player.getName().getString();
         if (Utils.deleteCommandSecurity.containsKey(name) && Utils.deleteCommandSecurity.get(name) > TickCount) {
             ItemStack handItem = player.getMainHandItem();

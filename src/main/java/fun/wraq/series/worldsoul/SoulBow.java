@@ -30,8 +30,8 @@ public class SoulBow extends WraqBow {
         Utils.critRate.put(this, SoulEquipAttribute.BaseAttribute.SoulBow.CritRate);
         Utils.critDamage.put(this, SoulEquipAttribute.BaseAttribute.SoulBow.CritDamage);
         Utils.defencePenetration0.put(this, SoulEquipAttribute.BaseAttribute.SoulBow.DefencePenetration0);
+        Utils.levelRequire.put(this, 260);
     }
-
 
     @Override
     public Style getMainStyle() {

@@ -79,7 +79,7 @@ public abstract class WraqMainHandEquip extends SwordItem {
         }
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         boolean shouldRenderAddition = !getAdditionalComponents(stack).isEmpty() || this instanceof fun.wraq.common.equip.WraqSceptre;
-        if (shouldRenderAddition) {
+        if (shouldRenderAddition && !getAdditionalComponents(stack).isEmpty()) {
             ComponentUtils.descriptionOfAddition(components);
         }
 

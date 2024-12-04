@@ -35,6 +35,7 @@ public class GoldenBook extends WraqOffHandItem implements OnKillEffectEquip {
         Utils.manaPenetration0.put(this, 6d);
         Utils.maxMana.put(this, 50d);
         Utils.expUp.put(this, 0.75);
+        Utils.levelRequire.put(this, 150);
     }
 
     private final Style style = CustomStyle.styleOfGold;
@@ -84,7 +85,7 @@ public class GoldenBook extends WraqOffHandItem implements OnKillEffectEquip {
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
         if (!level.isClientSide && interactionHand.equals(InteractionHand.OFF_HAND)) {
             ItemStack targetGoldCoin = player.getMainHandItem();
-            int tick = player.getServer().getTickCount();
+            int tick = Tick.get();
             if (targetGoldCoin.is(ModItems.GOLD_COIN.get())) {
                 targetGoldCoin.shrink(1);
                 passiveLastTimeMap.put(player.getName().getString(), tick + 6000);
@@ -103,7 +104,7 @@ public class GoldenBook extends WraqOffHandItem implements OnKillEffectEquip {
 
     @Override
     public void onKill(Player player, Mob mob) {
-        int tick = player.getServer().getTickCount();
+        int tick = Tick.get();
         String name = player.getName().getString();
         if (passiveLastTimeMap.getOrDefault(name, 0) > tick) {
             Random random = new Random();

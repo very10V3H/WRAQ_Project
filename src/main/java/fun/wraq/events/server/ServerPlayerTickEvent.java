@@ -111,7 +111,7 @@ public class ServerPlayerTickEvent {
             Player player = event.player;
             ServerPlayer serverPlayer = (ServerPlayer) player;
             serverPlayer.setPortalCooldown(100);
-            int TickCount = player.getServer().getTickCount();
+            int TickCount = Tick.get();
             Customize.CustomizeTickEvent(player);
             /*Parkour.Tick(player);*/ // 跑酷
             CastleAttackArmor.Tick(player);

@@ -2,14 +2,15 @@ package fun.wraq.process.system.element.equipAndCurios.waterElement;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.equip.WraqSword;
+import fun.wraq.common.equip.impl.ActiveItem;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.element.ElementValue;
-import fun.wraq.common.equip.impl.ActiveItem;
-import fun.wraq.common.equip.WraqSword;
 import fun.wraq.render.particles.ModParticles;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -87,7 +88,7 @@ public class WaterElementSword extends WraqSword implements ActiveItem {
     public static WeakHashMap<Player, Integer> playerActiveCoolDownMap = new WeakHashMap<>();
 
     public static double MobDefenceDecrease(Mob mob) {
-        if (mobDefenceDecreaseTickMap.containsKey(mob) && mobDefenceDecreaseTickMap.get(mob) > mob.getServer().getTickCount()) {
+        if (mobDefenceDecreaseTickMap.containsKey(mob) && mobDefenceDecreaseTickMap.get(mob) > Tick.get()) {
             return 0.5;
         }
         return 1;
@@ -95,13 +96,13 @@ public class WaterElementSword extends WraqSword implements ActiveItem {
 
     public static void Passive(LivingEntity livingEntity) {
         if (livingEntity instanceof Player player && player.getMainHandItem().is(ModItems.WaterElementSword.get())) {
-            playerElementEnhanceTickMap.put(player, player.getServer().getTickCount() + 140);
+            playerElementEnhanceTickMap.put(player, Tick.get() + 140);
             Compute.sendEffectLastTime(player, ModItems.WaterElementSword.get().getDefaultInstance(), 140);
         }
     }
 
     public static double PlayerWaterElementValueEnhance(Player player) {
-        if (playerElementEnhanceTickMap.containsKey(player) && playerElementEnhanceTickMap.get(player) > player.getServer().getTickCount()) {
+        if (playerElementEnhanceTickMap.containsKey(player) && playerElementEnhanceTickMap.get(player) > Tick.get()) {
             return 2;
         }
         return 1;
@@ -117,7 +118,7 @@ public class WaterElementSword extends WraqSword implements ActiveItem {
             mobList.removeIf(mob -> mob.position().distanceTo(pos) > 6);
             mobList.forEach(mob -> {
                 Element.ElementEffectAddToEntity(player, mob, Element.water, ElementValue.getPlayerWaterElementValue(player), true, PlayerAttributes.attackDamage(player) * 4);
-                mobDefenceDecreaseTickMap.put(mob, player.getServer().getTickCount() + 140);
+                mobDefenceDecreaseTickMap.put(mob, Tick.get() + 140);
             });
             ParticleProvider.DisperseParticle(pos, (ServerLevel) player.level(), 1, 1, 120, ModParticles.WaterElementParticle.get(), 1);
             ParticleProvider.DisperseParticle(pos, (ServerLevel) player.level(), 1.5, 1, 120, ModParticles.WaterElementParticle.get(), 1);

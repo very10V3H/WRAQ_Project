@@ -27,6 +27,9 @@ public class ManaNote extends Item {
         this.num = num;
         Utils.offHandTag.put(this, 1d);
         Utils.weaponList.add(this);
+        if (num > 4) {
+            Utils.levelRequire.put(this, 56);
+        }
     }
 
     public static final String[] Name = {

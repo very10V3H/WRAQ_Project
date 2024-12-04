@@ -307,6 +307,11 @@ public class ComponentUtils {
         return Component.literal("远古沉都").withStyle(CustomStyle.styleOfWarden).withStyle(ChatFormatting.ITALIC);
     }
 
+    public static Component getSuffixOfSpring2024() {
+        return Component.literal("SpringFestival~2024")
+                .withStyle(ChatFormatting.ITALIC).withStyle(CustomStyle.styleOfSpring);
+    }
+
     public static void runeAttributeDescription(List<Component> components) {
         components.add(Component.literal(" - ").withStyle(ChatFormatting.GRAY).
                 append("符石属性:").withStyle(ChatFormatting.WHITE));

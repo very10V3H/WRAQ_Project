@@ -1,5 +1,6 @@
 package fun.wraq.events.server;
 
+import fun.wraq.common.fast.Tick;
 import fun.wraq.events.core.BowEvent;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.files.dataBases.DataBase;
@@ -36,7 +37,7 @@ public class ServerTick {
             DelayOperationWithAnimation.serverTick(event);
             WraqQuiver.tick();
             WraqMixture.tick();
-            int tickCount = event.getServer().getTickCount();
+            int tickCount = Tick.get();
             if (tickCount % 6000 == 3288) {
                 ThreadPools.dataExecutor.execute(new Runnable() {
                     @Override

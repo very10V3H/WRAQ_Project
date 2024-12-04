@@ -6,6 +6,7 @@ import fun.wraq.blocks.entity.Droppable;
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModBlocks;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
@@ -323,7 +324,7 @@ public class BlockEvent {
             BlockState blockState = event.getPlacedBlock();
             BlockPos blockPos = event.getBlockSnapshot().getPos();
             BlockState targetState = event.getBlockSnapshot().getReplacedBlock();
-            int tickCount = level.getServer().getTickCount();
+            int tickCount = Tick.get();
             String name = player.getName().getString();
             if (level.equals(overWorld) && blockPos.getY() <= 11
                     && (blockState.is(Blocks.COBBLESTONE) || blockState.is(Blocks.COBBLED_DEEPSLATE))
@@ -351,7 +352,7 @@ public class BlockEvent {
     @SubscribeEvent
     public static void BlockResetEvent(TickEvent.PlayerTickEvent event) {
         if (event.side.isServer() && event.phase.equals(TickEvent.Phase.START)) {
-            int tick = event.player.getServer().getTickCount();
+            int tick = Tick.get();
             Player player = event.player;
             Level overWorld = event.player.getServer().getLevel(Level.OVERWORLD);
             String name = player.getName().getString();
@@ -398,6 +399,17 @@ public class BlockEvent {
                 if (blockAndResetTime.getBlockState().is(Blocks.DEEPSLATE))
                     player.addItem(Items.COBBLED_DEEPSLATE.getDefaultInstance());
                 overWorld.destroyBlock(blockAndResetTime.getBlockPos(), false);
+                Utils.posEvenBeenDigOrPlace.remove(blockAndResetTime.getBlockPos());
+            }
+        }
+    }
+
+    public static void netherMineReset(Level level) {
+        if (Utils.netherMineList.peek() != null) {
+            Queue<BlockAndResetTime> queue = Utils.netherMineList;
+            while (queue.peek() != null) {
+                BlockAndResetTime blockAndResetTime = queue.poll();
+                level.setBlockAndUpdate(blockAndResetTime.getBlockPos(), blockAndResetTime.getBlockState());
                 Utils.posEvenBeenDigOrPlace.remove(blockAndResetTime.getBlockPos());
             }
         }
@@ -450,7 +462,7 @@ public class BlockEvent {
     @SubscribeEvent
     public static void mineResetEvent(TickEvent.LevelTickEvent event) {
         if (event.side.isServer() && event.phase.equals(TickEvent.Phase.START)) {
-            int tick = event.level.getServer().getTickCount();
+            int tick = Tick.get();
             Level overWorld = event.level.getServer().getLevel(Level.OVERWORLD);
             if (event.level.equals(overWorld) && tick % 400 == 15 && Utils.worldMineList.peek() != null) {
                 Queue<BlockAndResetTime> queue = Utils.worldMineList;
@@ -467,7 +479,7 @@ public class BlockEvent {
     @SubscribeEvent
     public static void WoodReset(TickEvent.LevelTickEvent event) {
         if (event.side.isServer() && event.phase.equals(TickEvent.Phase.START)) {
-            int tick = event.level.getServer().getTickCount();
+            int tick = Tick.get();
             Level overWorld = event.level.getServer().getLevel(Level.OVERWORLD);
             if (event.level.equals(overWorld) && tick % 400 == 5) {
                 if (Utils.worldWoodList.peek() != null) {

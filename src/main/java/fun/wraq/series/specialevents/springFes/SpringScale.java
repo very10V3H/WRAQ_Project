@@ -1,10 +1,11 @@
 package fun.wraq.series.specialevents.springFes;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.impl.ActiveItem;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -59,7 +60,7 @@ public class SpringScale extends Item implements ActiveItem {
 
     @Override
     public void active(Player player) {
-        int tickCount = player.getServer().getTickCount();
+        int tickCount = Tick.get();
         Utils.SpringScaleTime.put(player, tickCount + 1200);
         Utils.SpringScaleEffect.put(player, tier);
         Compute.sendEffectLastTime(player, ModItems.SpringScale0.get().getDefaultInstance(), 1200);

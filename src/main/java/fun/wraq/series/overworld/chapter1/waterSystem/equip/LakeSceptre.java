@@ -2,6 +2,9 @@ package fun.wraq.series.overworld.chapter1.waterSystem.equip;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.equip.WraqSceptre;
+import fun.wraq.common.fast.Tick;
+import fun.wraq.common.impl.onhit.OnHitEffectEquip;
 import fun.wraq.common.registry.ModEntityType;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.ModSounds;
@@ -12,8 +15,6 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.StableAttributesModifier;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.element.Element;
-import fun.wraq.common.impl.onhit.OnHitEffectEquip;
-import fun.wraq.common.equip.WraqSceptre;
 import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -90,9 +91,9 @@ public class LakeSceptre extends WraqSceptre implements OnHitEffectEquip {
     @Override
     public void onHit(Player player, Mob mob) {
         StableAttributesModifier.addAttributeModifier(player, StableAttributesModifier.playerCooldownModifier,
-                new StableAttributesModifier("lakeSceptrePassiveCooldown", (this.num + 1) * 0.1, player.getServer().getTickCount() + 80));
+                new StableAttributesModifier("lakeSceptrePassiveCooldown", (this.num + 1) * 0.1, Tick.get() + 80));
         StableAttributesModifier.addAttributeModifier(player, StableAttributesModifier.playerMovementSpeedModifier,
-                new StableAttributesModifier("lakeSceptrePassiveMovementSpeed", (this.num + 1) * 0.03, player.getServer().getTickCount() + 80));
+                new StableAttributesModifier("lakeSceptrePassiveMovementSpeed", (this.num + 1) * 0.03, Tick.get() + 80));
         Compute.sendEffectLastTime(player, ModItems.lakeSceptre0.get(), 40);
     }
 }

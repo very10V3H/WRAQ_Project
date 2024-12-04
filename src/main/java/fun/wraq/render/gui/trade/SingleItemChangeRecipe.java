@@ -38,7 +38,13 @@ public record SingleItemChangeRecipe(ItemStack needStack, ItemStack goods, Strin
                     new ItemStack(ModItems.Pearl6.get(), 1), SingleItemChangePurchaseLimit.Type.DAILY, 2),
 
             new SingleItemChangeRecipe(new ItemStack(EndlessInstanceItems.ENDLESS_INSTANCE_CORE.get(), 16),
-                    new ItemStack(MoontainItems.HEART.get(), 2), SingleItemChangePurchaseLimit.Type.WEEKLY, 4)
+                    new ItemStack(MoontainItems.HEART.get(), 2), SingleItemChangePurchaseLimit.Type.WEEKLY, 4),
+
+            new SingleItemChangeRecipe(new ItemStack(EndlessInstanceItems.ENDLESS_INSTANCE_CORE.get(), 2),
+                    new ItemStack(ModItems.equipPiece4.get(), 2), SingleItemChangePurchaseLimit.Type.DAILY, 8),
+
+            new SingleItemChangeRecipe(new ItemStack(EndlessInstanceItems.ENDLESS_INSTANCE_CORE.get(), 16),
+                    new ItemStack(ModItems.equipPiece5.get(), 4), SingleItemChangePurchaseLimit.Type.WEEKLY, 4)
     );
 
     public static List<SingleItemChangeRecipe> getRecipeList() {

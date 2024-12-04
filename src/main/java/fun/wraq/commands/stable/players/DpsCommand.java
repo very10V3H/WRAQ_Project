@@ -5,6 +5,7 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.SoundsPackets.SoundsS2CPacket;
 import net.minecraft.ChatFormatting;
@@ -25,7 +26,7 @@ public class DpsCommand implements Command<CommandSourceStack> {
     public static WeakHashMap<Player, Double> playerDamageCount = new WeakHashMap<>();
 
     public static void Tick(Player player) {
-        int TickCount = player.getServer().getTickCount();
+        int TickCount = Tick.get();
         if (playerDpsStartTickMap.containsKey(player) && playerDpsStartTickMap.get(player) >= TickCount) {
             if ((playerDpsStartTickMap.get(player) - TickCount) % 20 == 0) {
                 ClientboundSetTitleTextPacket clientboundSetTitleTextPacket =
@@ -64,7 +65,7 @@ public class DpsCommand implements Command<CommandSourceStack> {
     }
 
     public static void CalculateDamage(Player player, double damage) {
-        int TickCount = player.getServer().getTickCount();
+        int TickCount = Tick.get();
         if (playerDpsStartTickMap.containsKey(player) && playerDpsStartTickMap.get(player) < TickCount
                 && playerDpsTickMap.containsKey(player) && playerDpsTickMap.get(player) > TickCount) {
             playerDamageCount.put(player, playerDamageCount.getOrDefault(player, 0d) + damage);
@@ -74,7 +75,7 @@ public class DpsCommand implements Command<CommandSourceStack> {
     @Override
     public int run(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         Player player = context.getSource().getPlayer();
-        int TickCount = player.getServer().getTickCount();
+        int TickCount = Tick.get();
         String second = StringArgumentType.getString(context, "second");
         int Second = Integer.parseInt(second);
         playerDpsStartTickMap.put(player, TickCount + 60);

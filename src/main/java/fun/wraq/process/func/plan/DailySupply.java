@@ -1,6 +1,7 @@
 package fun.wraq.process.func.plan;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.func.item.InventoryOperation;
@@ -43,7 +44,7 @@ public class DailySupply {
 
     public static void tryToReward(Player player) throws SQLException, ParseException, IOException {
         String name = player.getName().getString();
-        int tick = player.getServer().getTickCount();
+        int tick = Tick.get();
         if (tryCooldown.containsKey(name)) {
             if (tryCooldown.get(name) > tick) {
                 Compute.sendFormatMSG(player, Component.literal("每日补给").withStyle(ChatFormatting.AQUA),

@@ -174,7 +174,7 @@ import fun.wraq.series.overworld.chapter1.forest.armor.ForestArmorChest;
 import fun.wraq.series.overworld.chapter1.forest.armor.ForestArmorHelmet;
 import fun.wraq.series.overworld.chapter1.forest.armor.ForestArmorLeggings;
 import fun.wraq.series.overworld.chapter1.forest.bossItems.*;
-import fun.wraq.series.overworld.chapter1.forest.bow.ForestBow;
+import fun.wraq.series.overworld.chapter1.forest.ForestBow;
 import fun.wraq.series.overworld.chapter1.forest.crest.ForestCrest;
 import fun.wraq.series.overworld.chapter1.forest.rune.ForestRune0;
 import fun.wraq.series.overworld.chapter1.forest.rune.ForestRune1;
@@ -189,8 +189,8 @@ import fun.wraq.series.overworld.chapter1.plain.armor.PlainArmorHelmet;
 import fun.wraq.series.overworld.chapter1.plain.armor.PlainArmorLeggings;
 import fun.wraq.series.overworld.chapter1.plain.crest.PlainCrest;
 import fun.wraq.series.overworld.chapter1.plain.runes.*;
-import fun.wraq.series.overworld.chapter1.plain.sceptre.PlainSceptre;
-import fun.wraq.series.overworld.chapter1.plain.sword.PlainSword;
+import fun.wraq.series.overworld.chapter1.plain.PlainSceptre;
+import fun.wraq.series.overworld.chapter1.plain.PlainSword;
 import fun.wraq.series.overworld.chapter1.snow.Runes.SnowRune0;
 import fun.wraq.series.overworld.chapter1.snow.Runes.SnowRune1;
 import fun.wraq.series.overworld.chapter1.snow.Runes.SnowRune2;
@@ -225,7 +225,7 @@ import fun.wraq.series.overworld.chapter2.blackForest.BlackForestCore;
 import fun.wraq.series.overworld.chapter2.blackForest.HuskSword;
 import fun.wraq.series.overworld.chapter2.codeMana.*;
 import fun.wraq.series.overworld.chapter2.dimension.ToEnd;
-import fun.wraq.series.overworld.chapter2.evoker.Crest.ManaCrest;
+import fun.wraq.series.overworld.chapter2.evoker.ManaCrest;
 import fun.wraq.series.overworld.chapter2.evoker.EvokerSceptre;
 import fun.wraq.series.overworld.chapter2.evoker.ManaBalance_Empty;
 import fun.wraq.series.overworld.chapter2.evoker.ManaBalance_Filled;
@@ -3215,8 +3215,8 @@ public class ModItems {
 /*                        new NewLotteries.Loot(new ItemStack(ModItems.AttackCurios0.get()), 0.005),
                         new NewLotteries.Loot(new ItemStack(ModItems.AttackCurios1.get()), 0.005),*/
                         /*new NewLotteries.Loot(new ItemStack(ModItems.AttackCurios0.get()), 0.005),*/
-                        new NewLotteries.Loot(new ItemStack(UniformItems.AttackCurios0.get()), 0.005),
-                        new NewLotteries.Loot(new ItemStack(UniformItems.IceCurios0.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(UniformItems.AttackCurios1.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(UniformItems.LightningCurios0.get()), 0.005),
                         /*new NewLotteries.Loot(new ItemStack(ModItems.LifeCrystal0.get()), 0.005),*/
 /*                        new NewLotteries.Loot(new ItemStack(ModItems.WaterCurios0.get()), 0.005),
                         new NewLotteries.Loot(new ItemStack(ModItems.FireCurios0.get()), 0.005),
@@ -3228,7 +3228,7 @@ public class ModItems {
                         new NewLotteries.Loot(new ItemStack(ModItems.MopUpPaperLoot.get(), 4), 0.2),
                         new NewLotteries.Loot(new ItemStack(ModItems.completeGem.get()), 0.1),
                         new NewLotteries.Loot(new ItemStack(ModItems.ReputationMedal.get()), 0.1),
-                        new NewLotteries.Loot(new ItemStack(ModItems.GOLD_COIN.get(), 4), 0.1)
+                        new NewLotteries.Loot(new ItemStack(ModItems.GoldCoinBag.get(), 4), 0.1)
                 );
                 addAll(loots);
             }}));
@@ -3236,8 +3236,8 @@ public class ModItems {
     public static final RegistryObject<Item> BowLottery = ITEMS.register("bow_lottery",
             () -> new NewLotteries(new Item.Properties().rarity(CustomStyle.KazeBold), new ArrayList<>() {{
                 List<NewLotteries.Loot> loots = List.of(
-                        new NewLotteries.Loot(new ItemStack(UniformItems.BowCurios0.get()), 0.005),
-                        new NewLotteries.Loot(new ItemStack(UniformItems.IceCurios0.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(UniformItems.BowCurios1.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(UniformItems.LightningCurios0.get()), 0.005),
                         /*new NewLotteries.Loot(new ItemStack(ModItems.LifeCrystal0.get()), 0.005),*/
 /*                        new NewLotteries.Loot(new ItemStack(ModItems.WaterCurios0.get()), 0.005),
                         new NewLotteries.Loot(new ItemStack(ModItems.FireCurios0.get()), 0.005),
@@ -3249,7 +3249,7 @@ public class ModItems {
                         new NewLotteries.Loot(new ItemStack(ModItems.MopUpPaperLoot.get(), 4), 0.2),
                         new NewLotteries.Loot(new ItemStack(ModItems.completeGem.get()), 0.1),
                         new NewLotteries.Loot(new ItemStack(ModItems.ReputationMedal.get()), 0.1),
-                        new NewLotteries.Loot(new ItemStack(ModItems.GOLD_COIN.get(), 4), 0.1)
+                        new NewLotteries.Loot(new ItemStack(ModItems.GoldCoinBag.get(), 4), 0.1)
                 );
                 addAll(loots);
             }}));
@@ -3257,8 +3257,8 @@ public class ModItems {
     public static final RegistryObject<Item> SceptreLottery = ITEMS.register("sceptre_lottery",
             () -> new NewLotteries(new Item.Properties().rarity(CustomStyle.EvokerBold), new ArrayList<>() {{
                 List<NewLotteries.Loot> loots = List.of(
-                        new NewLotteries.Loot(new ItemStack(UniformItems.ManaCurios0.get()), 0.005),
-                        new NewLotteries.Loot(new ItemStack(UniformItems.IceCurios0.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(UniformItems.ManaCurios1.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(UniformItems.LightningCurios0.get()), 0.005),
                         /*new NewLotteries.Loot(new ItemStack(ModItems.LifeCrystal0.get()), 0.005),*/
 /*                        new NewLotteries.Loot(new ItemStack(ModItems.WaterCurios0.get()), 0.005),
                         new NewLotteries.Loot(new ItemStack(ModItems.FireCurios0.get()), 0.005),
@@ -3270,7 +3270,7 @@ public class ModItems {
                         new NewLotteries.Loot(new ItemStack(ModItems.MopUpPaperLoot.get(), 4), 0.2),
                         new NewLotteries.Loot(new ItemStack(ModItems.completeGem.get()), 0.1),
                         new NewLotteries.Loot(new ItemStack(ModItems.ReputationMedal.get()), 0.1),
-                        new NewLotteries.Loot(new ItemStack(ModItems.GOLD_COIN.get(), 4), 0.1)
+                        new NewLotteries.Loot(new ItemStack(ModItems.GoldCoinBag.get(), 4), 0.1)
                 );
                 addAll(loots);
             }}));

@@ -4,6 +4,7 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.equip.WraqSceptre;
 import fun.wraq.common.equip.impl.ActiveItem;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModEntityType;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
@@ -45,7 +46,7 @@ public class WaterElementSceptre extends WraqSceptre implements ActiveItem {
 
     public static void Passive(LivingEntity livingEntity) {
         if (livingEntity instanceof Player player && player.getMainHandItem().is(ModItems.WaterElementSceptre.get())) {
-            fun.wraq.process.system.element.equipAndCurios.waterElement.WaterElementSword.playerElementEnhanceTickMap.put(player, player.getServer().getTickCount() + 140);
+            fun.wraq.process.system.element.equipAndCurios.waterElement.WaterElementSword.playerElementEnhanceTickMap.put(player, Tick.get() + 140);
             Compute.sendEffectLastTime(player, ModItems.WaterElementSceptre.get().getDefaultInstance(), 140);
         }
     }
@@ -116,7 +117,7 @@ public class WaterElementSceptre extends WraqSceptre implements ActiveItem {
             mobList.removeIf(mob -> mob.position().distanceTo(pos) > 6);
             mobList.forEach(mob -> {
                 Element.ElementEffectAddToEntity(player, mob, Element.water, ElementValue.getPlayerWaterElementValue(player), false, PlayerAttributes.manaDamage(player));
-                WaterElementSword.mobDefenceDecreaseTickMap.put(mob, player.getServer().getTickCount() + 140);
+                WaterElementSword.mobDefenceDecreaseTickMap.put(mob, Tick.get() + 140);
             });
         }
     }

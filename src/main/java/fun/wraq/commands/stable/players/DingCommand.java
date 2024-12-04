@@ -5,6 +5,7 @@ import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.util.Utils;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.DingS2CPacket;
@@ -32,7 +33,7 @@ public class DingCommand implements Command<CommandSourceStack> {
                         Component.literal("玩家似乎不在线。。。").withStyle(ChatFormatting.WHITE));
                 return 0;
             }
-            if (Utils.DingCoolDown.containsKey(player) && Utils.DingCoolDown.get(player) > player.getServer().getTickCount()) {
+            if (Utils.DingCoolDown.containsKey(player) && Utils.DingCoolDown.get(player) > Tick.get()) {
                 Compute.sendFormatMSG(player, Component.literal("叮!").withStyle(ChatFormatting.AQUA),
                         Component.literal("一分钟内只能发送一次叮叮叮喔！").withStyle(ChatFormatting.WHITE));
             } else {
@@ -54,7 +55,7 @@ public class DingCommand implements Command<CommandSourceStack> {
                 ClientboundSetTitleTextPacket clientboundSetTitleTextPacket =
                         new ClientboundSetTitleTextPacket(Component.literal("叮叮叮!").withStyle(ChatFormatting.AQUA));
                 target.connection.send(clientboundSetTitleTextPacket);
-                if (!player.isCreative()) Utils.DingCoolDown.put(player, player.getServer().getTickCount() + 1200);
+                if (!player.isCreative()) Utils.DingCoolDown.put(player, Tick.get() + 1200);
             }
         }
         return 0;

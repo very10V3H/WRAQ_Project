@@ -31,6 +31,7 @@ public class NetherBow extends WraqBow {
         Utils.critRate.put(this, 0.25);
         Utils.critDamage.put(this, 0.6);
         Element.FireElementValue.put(this, 1d);
+        Utils.levelRequire.put(this, 80);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package fun.wraq.series.overworld.chapter1.forest.bow;
+package fun.wraq.series.overworld.chapter1.forest;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.impl.onhit.OnHitEffectEquip;
@@ -21,11 +21,11 @@ public class ForestBow extends WraqBow implements OnHitEffectEquip {
 
     public ForestBow(Properties p_40524_, int tier) {
         super(p_40524_);
-        Utils.attackDamage.put(this, ForestBowAttributes.BaseDamage[tier]);
-        Utils.defencePenetration0.put(this, ForestBowAttributes.DefencePenetration0[tier]);
-        Utils.critRate.put(this, ForestBowAttributes.CriticalRate[tier]);
-        Utils.critDamage.put(this, ForestBowAttributes.CriticalDamage[tier]);
-        Element.LifeElementValue.put(this, ForestBowAttributes.LifeElementValue[tier]);
+        Utils.attackDamage.put(this, new double[]{50, 55, 60, 70}[tier]);
+        Utils.defencePenetration0.put(this, new double[]{1, 1, 2, 2}[tier]);
+        Utils.critRate.put(this, new double[]{0.2f, 0.2f, 0.2f, 0.25f}[tier]);
+        Utils.critDamage.put(this, new double[]{0.35, 0.35, 0.35, 0.35}[tier]);
+        Element.LifeElementValue.put(this, new double[]{0.2, 0.4, 0.6, 0.8}[tier]);
     }
 
     @Override

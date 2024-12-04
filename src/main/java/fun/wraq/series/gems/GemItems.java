@@ -1,5 +1,6 @@
 package fun.wraq.series.gems;
 
+import fun.wraq.common.equip.WraqPickaxe;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
@@ -66,6 +67,7 @@ public class GemItems {
     public static final RegistryObject<Item> mineGem = ITEMS.register("mine_gem",
             () -> new WraqGem(new Item.Properties().rarity(CustomStyle.MineBold), new ArrayList<>() {{
                 add(new WraqGem.AttributeMapValue(Utils.percentDefenceEnhance, 0.05));
+                add(new WraqGem.AttributeMapValue(WraqPickaxe.mineSpeed, 0.33));
             }}, CustomStyle.styleOfMine, Component.literal("劳动意志的精华，凝聚成此石。").withStyle(CustomStyle.styleOfMine),
                     ComponentUtils.getSuffixOfChapterI()));
 

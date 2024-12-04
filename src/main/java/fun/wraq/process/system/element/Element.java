@@ -733,7 +733,7 @@ public class Element {
         itemEntity.setNoGravity(true);
         itemEntity.setPickUpDelay(200);
         itemEntity.setDeltaMovement(new Vec3(0, 0.1, 0));
-        Utils.valueItemEntity.add(new ItemEntityAndResetTime(itemEntity, level.getServer().getTickCount() + 12));
+        Utils.valueItemEntity.add(new ItemEntityAndResetTime(itemEntity, Tick.get() + 12));
         level.addFreshEntity(itemEntity);
     }
 
@@ -891,10 +891,10 @@ public class Element {
     }
 
     public static void ResonanceEffectGive(Player player) {
-        if (PowerResonanceElementCoverTickMap.containsKey(player) && PowerResonanceElementCoverTickMap.get(player) > player.getServer().getTickCount()) {
+        if (PowerResonanceElementCoverTickMap.containsKey(player) && PowerResonanceElementCoverTickMap.get(player) > Tick.get()) {
             ElementProvider(player, PowerResonanceElementCoverTypeMap.get(player),
                     ElementValue.ElementValueJudgeByType(player, PowerResonanceElementCoverTypeMap.get(player)),
-                    player.getServer().getTickCount() - PowerResonanceElementCoverTickMap.get(player));
+                    Tick.get() - PowerResonanceElementCoverTickMap.get(player));
         } else if (PlayerResonanceType.containsKey(player)) {
             ElementProvider(player, PlayerResonanceType.get(player), ElementValue.ElementValueJudgeByType(player, PlayerResonanceType.get(player)));
         }
@@ -995,7 +995,7 @@ public class Element {
 
     public static void PowerResonanceElement(Player player, String type, int lastTick) {
         PowerResonanceElementCoverTypeMap.put(player, type);
-        PowerResonanceElementCoverTickMap.put(player, player.getServer().getTickCount() + lastTick);
+        PowerResonanceElementCoverTickMap.put(player, Tick.get() + lastTick);
     }
 
     public static void ElementEffectTimeSend(Player player, ItemStack itemStack, int tickCount, int level, boolean NoTime) {

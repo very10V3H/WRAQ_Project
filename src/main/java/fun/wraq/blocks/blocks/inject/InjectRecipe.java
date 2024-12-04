@@ -10,6 +10,7 @@ import fun.wraq.series.instance.mixture.MixtureItems;
 import fun.wraq.series.instance.quiver.QuiverItems;
 import fun.wraq.series.instance.series.warden.WardenItems;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -1065,6 +1066,9 @@ public class InjectRecipe {
                 new InjectingRecipe(WardenItems.WARDEN_SOUL_INGOT.get(), 128, GemItems.ANCIENT_ECHO_GEM_2.get()));
         injectingRecipeMap.put(GemItems.ANCIENT_ECHO_GEM_2.get(),
                 new InjectingRecipe(WardenItems.WARDEN_SOUL_INGOT.get(), 192, GemItems.ANCIENT_ECHO_GEM_3.get()));
+
+        injectingRecipeMap.put(Items.GOLD_INGOT,
+                new InjectingRecipe(4, Items.NETHERITE_SCRAP, 4, Items.NETHERITE_INGOT));
 
         for (Map.Entry<Item, InjectingRecipe> itemInjectingRecipeEntry : injectingRecipeMap.entrySet()) {
             injectedGetItemSourceItemMap.put(itemInjectingRecipeEntry.getValue().getForgingGetItem(), itemInjectingRecipeEntry.getKey());

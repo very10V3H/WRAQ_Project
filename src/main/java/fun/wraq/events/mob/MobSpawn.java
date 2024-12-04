@@ -3,6 +3,7 @@ package fun.wraq.events.mob;
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.equip.WraqCurios;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ItemAndRate;
 import fun.wraq.common.util.StringUtils;
@@ -60,8 +61,7 @@ public class MobSpawn {
 
     public static void tick(TickEvent.LevelTickEvent event) {
         if (event.side.isServer() && event.phase.equals(TickEvent.Phase.START)) {
-            Level level = event.level;
-            int tick = level.getServer().getTickCount();
+            int tick = Tick.get();
 
             if (event.level.dimension().equals(Level.OVERWORLD)) {
                 if (overWolrdList.isEmpty()) setOverWorldList(event.level);
@@ -594,7 +594,7 @@ public class MobSpawn {
                 CustomStyle.styleOfPurpleIron, // 200
                 CustomStyle.styleOfMoon1, // 225
                 CustomStyle.styleOfWorld, // 250
-                CustomStyle.styleOfSakura // 275
+                CustomStyle.styleOfMoontain // 275
         };
         mob.setCustomName(Component.literal("Lv." + level + " ").withStyle(styles[level / 25])
                 .append(component));

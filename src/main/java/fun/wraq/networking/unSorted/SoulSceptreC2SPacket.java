@@ -2,6 +2,7 @@ package fun.wraq.networking.unSorted;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModEntityType;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.Utils;
@@ -30,7 +31,7 @@ public class SoulSceptreC2SPacket {
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
         NetworkEvent.Context context = supplier.get();
         ServerPlayer serverPlayer = context.getSender();
-        int TickCount = serverPlayer.getServer().getTickCount();
+        int TickCount = Tick.get();
         context.enqueueWork(() -> {
             if ((!Utils.PlayerSoulSceptreCoolDown.containsKey(serverPlayer) ||
                     (Utils.PlayerSoulSceptreCoolDown.containsKey(serverPlayer) && Utils.PlayerSoulSceptreCoolDown.get(serverPlayer) < TickCount))

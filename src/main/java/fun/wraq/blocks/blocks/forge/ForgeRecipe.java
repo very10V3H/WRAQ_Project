@@ -1,5 +1,6 @@
 package fun.wraq.blocks.blocks.forge;
 
+import fun.wraq.common.equip.WraqPickaxe;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.Utils;
@@ -75,7 +76,7 @@ public class ForgeRecipe {
                                 append(Component.literal(")").withStyle(ChatFormatting.WHITE)).
                                 append(Component.literal(" -").withStyle(ChatFormatting.WHITE)));
                     }
-                    if (Utils.weaponList.contains(stack.getItem())) {
+                    if (Utils.weaponList.contains(stack.getItem()) || item instanceof WraqPickaxe) {
                         tooltip.add(Te.s("▲将保留强化等级/品质/宝石等信息", CustomStyle.styleOfGold));
                     }
                 }

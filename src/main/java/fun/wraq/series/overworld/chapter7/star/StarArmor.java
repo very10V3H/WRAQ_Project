@@ -30,6 +30,7 @@ public class StarArmor extends WraqArmor {
             Utils.percentHealthRecover.put(this, 0.012);
             Utils.healthRecover.put(this, 100d);
         }
+        Utils.levelRequire.put(this, 200);
     }
 
     @Override

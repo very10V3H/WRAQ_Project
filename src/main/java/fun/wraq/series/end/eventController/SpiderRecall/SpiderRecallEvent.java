@@ -1,6 +1,7 @@
 package fun.wraq.series.end.eventController.SpiderRecall;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.MobSpawn;
@@ -191,11 +192,11 @@ public class SpiderRecallEvent {
                     for (Player player : list) {
                         if (player.position().distanceTo(Utils.SpiderRecallSpider.position()) <= 2.5) {
                             player.addEffect(new MobEffectInstance(MobEffects.POISON, 100, 32));
-                            if (level1.getServer().getTickCount() % 20 == 0)
+                            if (Tick.get() % 20 == 0)
                                 player.setHealth(player.getHealth() - player.getHealth() * 0.1f);
                         }
                     }
-                    if (level1.getServer().getTickCount() % 200 == 0) {
+                    if (Tick.get() % 200 == 0) {
                         for (int i = 0; i < 9; i++) {
                             if (Utils.SpiderNetBlockPos[i] != null) {
                                 if (level1.getBlockState(Utils.SpiderNetBlockPos[i]).getBlock().equals(Blocks.COBWEB))

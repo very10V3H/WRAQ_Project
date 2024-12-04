@@ -4,6 +4,7 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.equip.WraqSceptre;
 import fun.wraq.common.equip.impl.ActiveItem;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModEntityType;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
@@ -39,20 +40,20 @@ public class LifeElementSceptre extends WraqSceptre implements ActiveItem {
     }
 
     public static void Tick(Player player) {
-        if (fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSword.lifeElementActiveLastTick.containsKey(player) && fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSword.lifeElementActiveLastTick.get(player) >= player.getServer().getTickCount()) {
-            int tickCount = fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSword.lifeElementActiveLastTick.get(player) - player.getServer().getTickCount();
+        if (fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSword.lifeElementActiveLastTick.containsKey(player) && fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSword.lifeElementActiveLastTick.get(player) >= Tick.get()) {
+            int tickCount = fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSword.lifeElementActiveLastTick.get(player) - Tick.get();
             Compute.sendEffectLastTime(player, ModItems.LifeElementSword.get().getDefaultInstance(), tickCount, tickCount, true);
             Compute.playerHeal(player, fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSword.lifeElementActiveHealth.get(player) * 0.01);
         }
     }
 
     public static void StoreToList(Player player, double num) {
-        if (fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSword.lifeElementActiveLastTick.containsKey(player) && fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSword.lifeElementActiveLastTick.get(player) > player.getServer().getTickCount()) {
+        if (fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSword.lifeElementActiveLastTick.containsKey(player) && fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSword.lifeElementActiveLastTick.get(player) > Tick.get()) {
             if (!fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSword.playerShortTimeStoreHealthMap.containsKey(player))
                 fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSword.playerShortTimeStoreHealthMap.put(player, new ArrayList<>());
             List<fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSword.ShortTimeStoreHealth> list = fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSword.playerShortTimeStoreHealthMap.get(player);
-            list.removeIf(shortTimeStoreHealth -> shortTimeStoreHealth.tickCount() < player.getServer().getTickCount());
-            list.add(new fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSword.ShortTimeStoreHealth(player.getServer().getTickCount() + 100, num));
+            list.removeIf(shortTimeStoreHealth -> shortTimeStoreHealth.tickCount() < Tick.get());
+            list.add(new fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSword.ShortTimeStoreHealth(Tick.get() + 100, num));
         }
     }
 
@@ -60,7 +61,7 @@ public class LifeElementSceptre extends WraqSceptre implements ActiveItem {
         if (!fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSword.playerShortTimeStoreHealthMap.containsKey(player)) return 0;
         List<fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSword.ShortTimeStoreHealth> list = fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSword.playerShortTimeStoreHealthMap.get(player);
         double sum = 0;
-        list.removeIf(shortTimeStoreHealth -> shortTimeStoreHealth.tickCount() < player.getServer().getTickCount());
+        list.removeIf(shortTimeStoreHealth -> shortTimeStoreHealth.tickCount() < Tick.get());
         for (fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSword.ShortTimeStoreHealth shortTimeStoreHealth : list) sum += shortTimeStoreHealth.num();
         return sum;
     }

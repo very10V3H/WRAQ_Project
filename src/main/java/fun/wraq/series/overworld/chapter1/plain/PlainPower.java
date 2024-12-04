@@ -1,6 +1,7 @@
 package fun.wraq.series.overworld.chapter1.plain;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.ModSounds;
 import fun.wraq.common.registry.MySound;
@@ -112,7 +113,7 @@ public class PlainPower extends WraqPower {
         playerList.forEach(player1 -> {
             if (player1.distanceTo(player) <= 6) {
                 StableAttributesModifier.addAttributeModifier(player1, StableAttributesModifier.playerMovementSpeedModifier,
-                        new StableAttributesModifier("plainPowerMovementSpeed", 0.2, player.getServer().getTickCount() + 100));
+                        new StableAttributesModifier("plainPowerMovementSpeed", 0.2, Tick.get() + 100));
                 Compute.sendEffectLastTime(player1, ModItems.PlainPower.get(), 100);
 
                 ParticleProvider.EntityEffectVerticleCircleParticle(player1, 1.25, 0.4, 8, ParticleTypes.COMPOSTER, 0);

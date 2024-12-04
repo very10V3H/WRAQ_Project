@@ -25,6 +25,7 @@ public class IceArmor extends WraqArmor implements ForgeItem {
         if (type.equals(Type.CHESTPLATE)) Utils.defence.put(this, 75d);
         if (type.equals(Type.LEGGINGS)) Utils.maxHealth.put(this, 5000d);
         if (type.equals(Type.BOOTS)) Utils.movementSpeedCommon.put(this, 0.1);
+        Utils.levelRequire.put(this, 135);
     }
 
     @Override

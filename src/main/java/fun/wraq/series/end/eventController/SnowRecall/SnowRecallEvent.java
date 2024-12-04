@@ -1,6 +1,7 @@
 package fun.wraq.series.end.eventController.SnowRecall;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
@@ -206,7 +207,7 @@ public class SnowRecallEvent {
                         }
                         Utils.SnowRecallStray.getPersistentData().putBoolean("Create", false);
                     }
-                    if (level1.getServer().getTickCount() % 200 == 0) {
+                    if (Tick.get() % 200 == 0) {
                         Utils.snowRecall.recallPlayer.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 4));
                         int X = Utils.snowRecall.recallPlayer.getBlockX();
                         int Y = Utils.snowRecall.recallPlayer.getBlockY() + 1;

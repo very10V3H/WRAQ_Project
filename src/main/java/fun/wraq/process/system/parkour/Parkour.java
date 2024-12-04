@@ -1,6 +1,7 @@
 package fun.wraq.process.system.parkour;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.networking.ModNetworking;
@@ -127,7 +128,7 @@ public class Parkour {
     };
 
     public static void Tick(Player player) throws IOException {
-        int TickCount = player.getServer().getTickCount();
+        int TickCount = Tick.get();
         if (TickCount % 5 == 2) {
             int point = FindParkourPointNum(player);
             int currentPoint = GetPlayerCurrentParkourPoint(player);

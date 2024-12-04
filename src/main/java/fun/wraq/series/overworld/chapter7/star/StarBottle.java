@@ -2,6 +2,7 @@ package fun.wraq.series.overworld.chapter7.star;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqCurios;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.damage.DamageInfluenceCurios;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
@@ -93,7 +94,7 @@ public class StarBottle extends WraqCurios implements DamageInfluenceCurios {
     }
 
     public static void playerBattleTickMapRefresh(Player player) {
-        playerLastBattleTick.put(player, player.getServer().getTickCount());
+        playerLastBattleTick.put(player, Tick.get());
     }
 
     public static boolean PlayerIsInCollectMode(Player player) {
@@ -101,7 +102,7 @@ public class StarBottle extends WraqCurios implements DamageInfluenceCurios {
     }
 
     private static void countAdd(Player player) {
-        if (PlayerIsInCollectMode(player) && playerLastBattleTick.containsKey(player) && playerLastBattleTick.get(player) + 100 > player.getServer().getTickCount()) {
+        if (PlayerIsInCollectMode(player) && playerLastBattleTick.containsKey(player) && playerLastBattleTick.get(player) + 100 > Tick.get()) {
             playerCountsMap.put(player, Math.min(70, playerCountsMap.getOrDefault(player, 0) + 1));
             Compute.sendEffectLastTime(player, ModItems.StarBottle.get().getDefaultInstance(), 8888, playerCountsMap.get(player), true);
         }
