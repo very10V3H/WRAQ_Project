@@ -82,11 +82,21 @@ public class ToolTipEvent {
                 event.getToolTip().add(Te.s(""));
                 InjectingRecipe injectingRecipe;
                 Item sourceItem = stack.getItem();
-                if (InjectRecipe.injectedGetItemSourceItemMap.containsKey(stack.getItem())) {
-                    sourceItem = InjectRecipe.injectedGetItemSourceItemMap.get(stack.getItem());
-                    injectingRecipe = InjectRecipe.injectingRecipeMap.get(sourceItem);
+                if (InjectRecipe.injectedGetItemSourceItemMap.containsKey(stack.getItem())
+                        && InjectRecipe.injectingRecipeMap.containsKey(stack.getItem())) {
+                    if (ClientUtils.clientPlayerTick % 40 < 20) {
+                        sourceItem = InjectRecipe.injectedGetItemSourceItemMap.get(stack.getItem());
+                        injectingRecipe = InjectRecipe.injectingRecipeMap.get(sourceItem);
+                    } else {
+                        injectingRecipe = InjectRecipe.injectingRecipeMap.get(stack.getItem());
+                    }
                 } else {
-                    injectingRecipe = InjectRecipe.injectingRecipeMap.get(stack.getItem());
+                    if (InjectRecipe.injectedGetItemSourceItemMap.containsKey(stack.getItem())) {
+                        sourceItem = InjectRecipe.injectedGetItemSourceItemMap.get(stack.getItem());
+                        injectingRecipe = InjectRecipe.injectingRecipeMap.get(sourceItem);
+                    } else {
+                        injectingRecipe = InjectRecipe.injectingRecipeMap.get(stack.getItem());
+                    }
                 }
                 tooltip.add(Te.s("->", ChatFormatting.GOLD, "在", "灌注台", CustomStyle.styleOfPurpleIron,
                         "->", ChatFormatting.GOLD));

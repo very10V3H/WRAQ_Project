@@ -237,7 +237,8 @@ public class VariousEvents {
             ClientUtils.Sounds = 12;
         }
         if (event.isSystem()) {
-            if (event.getMessage().getString().contains("chasing")) {
+            String msg = event.getMessage().getString();
+            if (msg.contains("chasing") || msg.contains("退出")) {
                 event.setCanceled(true);
             }
         }

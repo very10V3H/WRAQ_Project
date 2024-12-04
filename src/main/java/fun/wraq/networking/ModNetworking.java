@@ -21,7 +21,6 @@ import fun.wraq.networking.misc.AttributePackets.*;
 import fun.wraq.networking.misc.BowSoundParticle.BowShootS2CPacket;
 import fun.wraq.networking.misc.BowSoundParticle.SkyBowShootS2CPacket;
 import fun.wraq.networking.misc.CodeSceptrePackets.CodeC2SPacket;
-import fun.wraq.networking.misc.CrestPackets.CrestStatusS2CPacket;
 import fun.wraq.networking.misc.*;
 import fun.wraq.networking.misc.EarthPower.EarthPowerC2SPacket;
 import fun.wraq.networking.misc.EarthPower.EarthPowerS2CPacket;
@@ -454,11 +453,6 @@ public class ModNetworking {
                 .decoder(DamageDecreaseParticleS2CPacket::new)
                 .encoder(DamageDecreaseParticleS2CPacket::toBytes)
                 .consumerMainThread(DamageDecreaseParticleS2CPacket::handle)
-                .add();
-        net.messageBuilder(CrestStatusS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
-                .decoder(CrestStatusS2CPacket::new)
-                .encoder(CrestStatusS2CPacket::toBytes)
-                .consumerMainThread(CrestStatusS2CPacket::handle)
                 .add();
         net.messageBuilder(VerticleCircleParticleS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
                 .decoder(VerticleCircleParticleS2CPacket::new)

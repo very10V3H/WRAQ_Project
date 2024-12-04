@@ -20,6 +20,7 @@ public class Display {
     public static List<Item> powerList = new ArrayList<>();
     public static List<Item> offHandList = new ArrayList<>();
     public static List<Item> passiveEquipList = new ArrayList<>();
+    public static List<Item> pickAxeList = new ArrayList<>();
 
     public static List<Item> helmetList = new ArrayList<>();
     public static List<Item> chestList = new ArrayList<>();

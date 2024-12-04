@@ -1,12 +1,12 @@
 package fun.wraq.process.system.forge;
 
-import com.google.common.collect.ImmutableMap;
+import fun.wraq.common.equip.impl.ExBaseAttributeValueEquip;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.loot.RandomLootEquip;
-import fun.wraq.common.equip.impl.ExBaseAttributeValueEquip;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.instance.series.warden.WardenItems;
 import fun.wraq.series.overworld.chapter7.C7Items;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -47,19 +47,21 @@ public class ForgeEquipUtils {
     public static final Component XUNNAN_VILLAGE_NAME = Te.s("薰楠村", CustomStyle.styleOfJacaranda);
     public static final Zone XUNXI_VILLAGE = new Zone(1093, -1241, 970, -1358);
     public static final Component XUNXI_VILLAGE_NAME = Te.s("薰曦村", CustomStyle.styleOfJacaranda);
+    public static final Zone MOONTAIN_STRONG_HOLD = new Zone(1937, -898, 1889, -962);
+    public static final Component MOONTAIN_STRONG_HOLD_NAME = Te.s("望山据点", CustomStyle.styleOfMoontain);
 
-    public static final Map<Zone, Component> zoneNameMap = ImmutableMap.of(
-            PLAIN_VILLAGE, PLAIN_VILLAGE_NAME,
-            FOREST_VILLAGE, FOREST_VILLAGE_NAME,
-            LAKE_VILLAGE, LAKE_VILLAGE_NAME,
-            VOLCANO_VILLAGE, VOLCANO_VILLAGE_NAME,
-            SNOW_VILLAGE, SNOW_VILLAGE_NAME,
-            BIRCH_VILLAGE, BIRCH_VILLAGE_NAME,
-            SAKURA_VILLAGE, SAKURA_VILLAGE_NAME,
-            SKY_CITY, SKY_CITY_NAME,
-            XUNNAN_VILLAGE, XUNNAN_VILLAGE_NAME,
-            XUNXI_VILLAGE, XUNXI_VILLAGE_NAME
-    );
+    public static final Map<Zone, Component> zoneNameMap = new HashMap<>() {{
+        put(FOREST_VILLAGE, FOREST_VILLAGE_NAME);
+        put(LAKE_VILLAGE, LAKE_VILLAGE_NAME);
+        put(VOLCANO_VILLAGE, VOLCANO_VILLAGE_NAME);
+        put(SNOW_VILLAGE, SNOW_VILLAGE_NAME);
+        put(BIRCH_VILLAGE, BIRCH_VILLAGE_NAME);
+        put(SAKURA_VILLAGE, SAKURA_VILLAGE_NAME);
+        put(SKY_CITY, SKY_CITY_NAME);
+        put(XUNNAN_VILLAGE, XUNNAN_VILLAGE_NAME);
+        put(XUNXI_VILLAGE, XUNXI_VILLAGE_NAME);
+        put(MOONTAIN_STRONG_HOLD, MOONTAIN_STRONG_HOLD_NAME);
+    }};
 
     public static void setZoneForgeItemListMap() {
         List<Item> plain = List.of(
@@ -259,6 +261,16 @@ public class ForgeEquipUtils {
             xunXi.forEach(item -> add(item.getDefaultInstance()));
         }});
 
+        List<Item> moontain_strong_hold = List.of(
+                WardenItems.WARDEN_SHIELD.get(),
+                WardenItems.WARDEN_KNIFE.get(),
+                WardenItems.WARDEN_BOOK.get()
+        );
+
+        zoneForgeItemListMap.put(MOONTAIN_STRONG_HOLD, new ArrayList<>() {{
+            moontain_strong_hold.forEach(item -> add(item.getDefaultInstance()));
+        }});
+
         zoneForgeItemListMap.forEach((zone, itemList) -> {
             Component zoneName = zoneNameMap.get(zone);
             itemList.forEach(stack -> {
@@ -296,7 +308,8 @@ public class ForgeEquipUtils {
         return -1;
     }
 
-    public record TierValueAndDescription(double value, String description, Style style) {}
+    public record TierValueAndDescription(double value, String description, Style style) {
+    }
 
     public static Map<Integer, TierValueAndDescription> tierValueAndDescriptionMap = new HashMap<>() {{
         put(0, new TierValueAndDescription(0.8, "粗糙", Style.EMPTY.applyFormat(ChatFormatting.GRAY)));
@@ -318,7 +331,7 @@ public class ForgeEquipUtils {
     public static List<Component> getTierAndValueDescription() {
         List<Component> description = new ArrayList<>();
         description.add(Te.s("锻造品质与对应属性:", CustomStyle.styleOfGold));
-        for (int i = 0 ; i < ForgeEquipUtils.tierValueAndDescriptionMap.size() ; i ++) {
+        for (int i = 0; i < ForgeEquipUtils.tierValueAndDescriptionMap.size(); i++) {
             ForgeEquipUtils.TierValueAndDescription obj = ForgeEquipUtils.tierValueAndDescriptionMap.get(i);
             description.add(Te.s(obj.description(), obj.style(), " - ", obj.style(),
                     String.valueOf(obj.value()), obj.style()));

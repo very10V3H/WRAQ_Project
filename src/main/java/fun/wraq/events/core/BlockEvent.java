@@ -5,7 +5,6 @@ import fun.wraq.blocks.blocks.WorldSoulBlock;
 import fun.wraq.blocks.entity.Droppable;
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
-import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModBlocks;
 import fun.wraq.common.registry.ModItems;
@@ -47,7 +46,6 @@ import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.PlayerContainerEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -78,9 +76,6 @@ public class BlockEvent {
                 (block.toString().contains("lamp")
                         || block.toString().contains("sign"))) {
             event.setCanceled(true);
-        }
-        if (block instanceof BonemealableBlock || block instanceof IPlantable) {
-            player.sendSystemMessage(Te.s("1"));
         }
     }
 

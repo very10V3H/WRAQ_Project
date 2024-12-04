@@ -27,7 +27,7 @@ public class WardenShield extends WardenOffhandItem implements ForgeItem {
     public List<ItemStack> forgeRecipe() {
         return List.of(
                 new ItemStack(ModItems.MoonShield.get(), 1),
-                new ItemStack(WardenItems.WARDEN_SOUL_INGOT.get(), 256),
+                new ItemStack(WardenItems.WARDEN_HEART.get(), 4),
                 new ItemStack(ModItems.GOLD_COIN.get(), 288),
                 new ItemStack(ModItems.completeGem.get(), 12),
                 new ItemStack(ModItems.ReputationMedal.get(), 48),

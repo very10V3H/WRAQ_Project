@@ -553,7 +553,7 @@ public class ForgingBlockEntity extends BlockEntity implements MenuProvider, Dro
                                 append(Component.literal(" 品质").withStyle(ChatFormatting.AQUA)));
             }
             blockEntity.itemStackHandler.setStackInSlot(2, equip);
-            blockEntity.itemStackHandler.extractItem(0, 4, false);
+            blockEntity.itemStackHandler.extractItem(0, 2, false);
             blockEntity.itemStackHandler.extractItem(1, 1, false);
             if (player != null) MySound.soundToPlayer(player, SoundEvents.ANVIL_USE, blockEntity.getBlockPos().getCenter());
         }

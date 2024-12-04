@@ -2,10 +2,9 @@ package fun.wraq.series.overworld.chapter2.manaArmor.ObsiMana;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.registry.ModItems;
-import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.ComponentUtils;
-import fun.wraq.common.util.StringUtils;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.overworld.chapter2.evoker.ManaCrest;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
@@ -71,9 +70,9 @@ public class ObsiManaSuitDescription {
         } else
             components.add(Component.literal(OffHands.get(0).getDefaultInstance().getDisplayName().getString()).withStyle(ChatFormatting.GRAY));
 
-        String CrestString = StringUtils.Crest.Mana.Crest;
         String CrestName = "[唤魔纹章]";
-        if (ClientUtils.CrestMap.containsKey(CrestString) && ClientUtils.CrestMap.get(CrestString)) {
+        if (Compute.CuriosAttribute.getDistinctCuriosList(player).stream()
+                .anyMatch(stack -> stack.getItem() instanceof ManaCrest)) {
             components.add(Component.literal(CrestName).withStyle(MainStyle));
             Count++;
         } else components.add(Component.literal(CrestName).withStyle(ChatFormatting.GRAY));

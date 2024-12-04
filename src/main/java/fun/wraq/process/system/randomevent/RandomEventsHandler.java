@@ -200,7 +200,7 @@ public class RandomEventsHandler {
                 Te.s("薰曦村", CustomStyle.styleOfJacaranda, "东南侧的",
                         "薰衣草", CustomStyle.styleOfJacaranda, "泛滥成灾了")
         ), server, List.of(
-                BOPBlocks.LAVENDER.get()
+                BOPBlocks.TALL_LAVENDER.get()
         )));
     }
 

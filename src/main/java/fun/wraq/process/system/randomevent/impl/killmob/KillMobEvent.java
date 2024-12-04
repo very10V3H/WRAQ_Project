@@ -1,5 +1,6 @@
 package fun.wraq.process.system.randomevent.impl.killmob;
 
+import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.process.func.item.InventoryOperation;
@@ -32,6 +33,8 @@ public abstract class KillMobEvent extends RandomEvent {
     // 海岸村遇袭事件 - 掠夺者（前期）√
     // 史莱姆王事件 - 大史莱姆（前期）√
 
+    protected boolean allowBeginSpawnFlag = false;
+
     protected List<Mob> mobList = new ArrayList<>();
 
     public KillMobEvent(ResourceKey<Level> dimension, Vec3 pos, List<Component> beginAnnouncement,
@@ -48,11 +51,17 @@ public abstract class KillMobEvent extends RandomEvent {
             broad(Te.s("随机事件异常，请联系铁头"));
             return;
         }
-        summonAndSetMobList();
+        allowBeginSpawnFlag = true;
     }
 
     @Override
     protected void tick() {
+        if (isCarryingOut && allowBeginSpawnFlag) {
+            if (!Compute.getNearEntity(level(), pos, Player.class, 32).isEmpty()) {
+                summonAndSetMobList();
+                allowBeginSpawnFlag = false;
+            }
+        }
         if (isCarryingOut && Tick.get() % 200 == 0) {
             List<Mob> leftAliveMobList = mobList.stream().filter(LivingEntity::isAlive).toList();
             players.forEach(player -> {
@@ -71,7 +80,7 @@ public abstract class KillMobEvent extends RandomEvent {
 
     @Override
     protected boolean finishCondition() {
-        return mobList.stream().allMatch(mob -> {
+        return !allowBeginSpawnFlag && mobList.stream().allMatch(mob -> {
             return !mob.isAlive();
         });
     }
@@ -91,6 +100,7 @@ public abstract class KillMobEvent extends RandomEvent {
     public void reset() {
         mobList.forEach(mob -> mob.remove(Entity.RemovalReason.KILLED));
         mobList.clear();
+        allowBeginSpawnFlag = false;
     }
 
     protected abstract List<ItemStack> getRewardList();

@@ -106,6 +106,11 @@ public class Illustrate extends Screen {
             this.page = 0;
         }).pos(X + 150, Y - 98 + 20 * 7).size(28, 16).build());
 
+        this.addRenderableWidget(Button.builder(Component.literal("镐子"), (p_280814_) -> {
+            this.type = 17;
+            this.page = 0;
+        }).pos(X + 150, Y - 98 + 20 * 8).size(28, 16).build());
+
         this.addRenderableWidget(Button.builder(Te.s("近战", CustomStyle.styleOfPower), (p_280814_) -> {
             this.type = 8;
             this.page = 0;
@@ -181,6 +186,7 @@ public class Illustrate extends Screen {
             case 14 -> sameModule(Display.leggingsList, guiGraphics, x, y, xOffset);
             case 15 -> sameModule(Display.bootsList, guiGraphics, x, y, xOffset);
             case 16 -> sameModule(Display.powerList, guiGraphics, x, y, xOffset);
+            case 17 -> sameModule(Display.pickAxeList, guiGraphics, x, y, xOffset);
         }
         guiGraphics.drawCenteredString(fontRenderer, Component.literal("" + (page + 1)).withStyle(ChatFormatting.WHITE), this.width / 2 + 5, this.height / 2 - 22 + 105, 0);
 

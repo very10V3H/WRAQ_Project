@@ -26,7 +26,8 @@ public class RestZone {
     public static List<BlockPos> restBlockPosList = List.of(
             new BlockPos(1808, 73, 337),
             new BlockPos(1785, 75, 329),
-            new BlockPos(1115, 81, 36)
+            new BlockPos(1115, 81, 36),
+            new BlockPos(1909, 150, -922)
     );
 
     public static Map<Player, Boolean> inZoneMap = new WeakHashMap<>();

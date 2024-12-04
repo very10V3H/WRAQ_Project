@@ -19,6 +19,9 @@ public class WardenItems {
     public static final RegistryObject<Item> WARDEN_MATRIX = ITEMS.register("warden_matrix",
             () -> new WardenMatrix(new Item.Properties().rarity(CustomStyle.WARDEN_BOLD)));
 
+    public static final RegistryObject<Item> WARDEN_HEART = ITEMS.register("warden_heart",
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.WARDEN), true, true));
+
     public static final RegistryObject<Item> WARDEN_SOUL_INGOT = ITEMS.register("warden_soul_ingot",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.WARDEN_BOLD), true, true));
 

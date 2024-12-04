@@ -88,10 +88,6 @@ public class LoginInEvent {
                 data.remove(dataKey);
             }
 
-            for (String string : StringUtils.Crest.CrestList) {
-                data.remove(string);
-            }
-
             boolean isNewPlayer = !data.contains("FirstReward");
             String frontConditionForOldPlayer = "frontConditionForOldPlayer";
             if (isNewPlayer) data.putBoolean(frontConditionForOldPlayer, true);

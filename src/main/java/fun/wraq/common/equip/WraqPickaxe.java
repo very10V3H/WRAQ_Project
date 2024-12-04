@@ -6,6 +6,7 @@ import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ItemTier;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.render.gui.illustrate.Display;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -33,6 +34,7 @@ public abstract class WraqPickaxe extends PickaxeItem {
         super(ItemTier.VMaterial, 2, 0, properties);
         PICKAXE_ITEM_LIST.add(this);
         Utils.mainHandTag.put(this, 1d);
+        Display.pickAxeList.add(this);
     }
 
     public abstract Style getMainStyle();
