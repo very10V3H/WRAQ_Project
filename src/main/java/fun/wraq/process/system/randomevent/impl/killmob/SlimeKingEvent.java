@@ -75,7 +75,7 @@ public class SlimeKingEvent extends KillMobEvent {
 
     @Override
     public void onKillMob(Player player, Mob mob) {
-        if (slimeKing.isAlive() && MobSpawn.getMobOriginName(mob).equals("小史莱姆")) {
+        if (slimeKing != null && slimeKing.isAlive() && MobSpawn.getMobOriginName(mob).equals("小史莱姆")) {
             slimeKing.setHealth(slimeKing.getHealth() - 1);
         }
         super.onKillMob(player, mob);
