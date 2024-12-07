@@ -28,6 +28,7 @@ import fun.wraq.networking.misc.ParticlePackets.EffectParticle.DefencePenetratio
 import fun.wraq.networking.misc.ParticlePackets.SlowDownParticleS2CPacket;
 import fun.wraq.networking.misc.SmartPhonePackets.SmartPhoneS2CPacket;
 import fun.wraq.networking.misc.SoundsPackets.SoundsS2CPacket;
+import fun.wraq.networking.misc.TeamPackets.TeamInfoRequestC2SPacket;
 import fun.wraq.networking.unSorted.PacketLimitS2CPacket;
 import fun.wraq.networking.unSorted.TimeS2CPacket;
 import fun.wraq.process.func.damage.Damage;
@@ -185,10 +186,9 @@ public class ServerPlayerTickEvent {
                         data.getDouble("security1"), data.getDouble("security2"), data.getDouble("security3"), data.getDouble("securityGet")), serverPlayer);
             }
 
-            // 旧版队伍机制
-/*            if (player.tickCount % 5 == 1) {
+            if (player.tickCount % 5 == 1) {
                 TeamInfoRequestC2SPacket.module(serverPlayer);
-            }*/
+            }
 
             if (player.tickCount % 20 == 0 && TowerMob.playerIsChallenging3FloorAndInFire(player)) {
                 Compute.decreasePlayerHealth(player, player.getMaxHealth() * 0.1, Component.literal("被烈焰吞噬了").withStyle(CustomStyle.styleOfFire));

@@ -1,7 +1,6 @@
 package fun.wraq.process.system.teamInstance;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import fun.wraq.process.system.teamInstance.NewTeamInstance;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -33,7 +32,7 @@ public class NewTeamInstanceHud {
         Component instanceName = null;
         int minNum = 0;
         int maxNum = 0;
-        for (NewTeamInstance overworldInstance : NewTeamInstanceEvent.getOverworldInstances()) {
+        for (NewTeamInstance overworldInstance : NewTeamInstanceHandler.getInstances()) {
             if (mc.level.dimension().equals(Level.OVERWORLD) && mc.player.position().distanceTo(overworldInstance.prepareCenterPos) < overworldInstance.prepareDetectRange) {
                 display = true;
                 instanceName = overworldInstance.description;

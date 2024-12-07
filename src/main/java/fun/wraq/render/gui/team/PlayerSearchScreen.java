@@ -5,7 +5,7 @@ import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.TeamPackets.TeamInviteC2SPacket;
-import fun.wraq.render.gui.team.TeamManageScreen;
+import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -23,7 +23,7 @@ import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
 public class PlayerSearchScreen extends Screen {
-    ResourceLocation GUI_TEXTURE = new ResourceLocation(Utils.MOD_ID, "textures/gui/teamscreen.png");
+    ResourceLocation GUI_TEXTURE = new ResourceLocation(Utils.MOD_ID, "textures/gui/team_screen.png");
     private final boolean showPauseMenu;
     public static final Minecraft mc = Minecraft.getInstance();
     private static final Font fontRenderer = mc.font;
@@ -32,7 +32,8 @@ public class PlayerSearchScreen extends Screen {
     private List<String> playerList;
 
     public PlayerSearchScreen(boolean p_96308_) {
-        super(p_96308_ ? Component.translatable("menu.teamscreen") : Component.translatable("menu.teamscreen4"));
+        super(p_96308_ ? Component.translatable("menu.teamscreen") :
+                Component.translatable("menu.teamscreen4"));
         this.showPauseMenu = p_96308_;
     }
 
@@ -80,31 +81,31 @@ public class PlayerSearchScreen extends Screen {
 
     public void render(GuiGraphics p_96310_, int x, int y, float v) {
         List<String> playerList = ClientUtils.clientPlayerList.keySet().stream().toList();
-
         GuiGraphics guiGraphics = new GuiGraphics(mc, mc.renderBuffers().bufferSource());
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1, 1, 1, 1);
         RenderSystem.setShaderTexture(0, GUI_TEXTURE);
+        int textureWidth = 300;
+        int textureHeight = 200;
+        guiGraphics.blit(GUI_TEXTURE, this.width / 2 - 150, this.height / 2 - 100,
+                0, 0, 300, 200, textureWidth, textureHeight);
 
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal("搜索玩家:").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.BLACK),
+        guiGraphics.drawCenteredString(fontRenderer, Component.literal("搜索玩家:")
+                        .withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.AQUA),
                 this.width / 2 - 128, this.height / 2 - 88, 0);
 
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.valueOf(this.page + 1)).withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.BLACK),
+        guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.valueOf(this.page + 1))
+                        .withStyle(ChatFormatting.BOLD).withStyle(CustomStyle.styleOfWorld),
                 this.width / 2 + 10, this.height / 2 + 74, 0);
 
         for (int i = 0; i < 4; i++) {
             if (page * 4 + i < playerList.size()) {
-                guiGraphics.drawCenteredString(fontRenderer, Component.literal("玩家: ").withStyle(ChatFormatting.BLACK).
+                guiGraphics.drawCenteredString(fontRenderer, Component.literal("玩家: ")
+                                .withStyle(ChatFormatting.AQUA).
                                 append(ClientUtils.clientPlayerList.get(playerList.get(page * 4 + i))),
                         this.width / 2 - 28, this.height / 2 - 64 + i * 32, 0);
             }
         }
-
-        int textureWidth = 300;
-        int textureHeight = 200;
-
-        guiGraphics.blit(GUI_TEXTURE, this.width / 2 - 150, this.height / 2 - 100, 0, 0, 300, 200, textureWidth, textureHeight);
-
         this.nameSearchBox.render(guiGraphics, x, y, v);
         super.render(p_96310_, x, y, v);
     }

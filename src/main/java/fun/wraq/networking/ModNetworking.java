@@ -900,11 +900,6 @@ public class ModNetworking {
                 .encoder(NULLAnimationS2CPacket::toBytes)
                 .consumerMainThread(NULLAnimationS2CPacket::handle)
                 .add();
-        net.messageBuilder(QuickChooseC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
-                .decoder(QuickChooseC2SPacket::new)
-                .encoder(QuickChooseC2SPacket::toBytes)
-                .consumerMainThread(QuickChooseC2SPacket::handle)
-                .add();
         net.messageBuilder(DebuffTimeS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
                 .decoder(DebuffTimeS2CPacket::new)
                 .encoder(DebuffTimeS2CPacket::toBytes)

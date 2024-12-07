@@ -25,7 +25,6 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.Entity;
@@ -591,71 +590,6 @@ public class Utils {
 
     public static WeakHashMap<Player, List<PlayerTeam>> PlayerRequestTeamMap = new WeakHashMap<>();
 
-    public static int[] ps = {1, 1, 1};
-
-    public static List<Instance> instanceList = new ArrayList<>() {{
-        add(new Instance(Component.literal("普莱尼").withStyle(CustomStyle.styleOfPlain),
-                Component.literal("普莱尼岛").withStyle(CustomStyle.styleOfPlain),
-                25, ps, 1, null, false, null,
-                0, 0, new Vec3(347, 70, 1198), ServerLevel.OVERWORLD, 0));
-
-        add(new Instance(Component.literal("唤雷塔").withStyle(CustomStyle.styleOfLightingIsland),
-                Component.literal("唤雷岛").withStyle(CustomStyle.styleOfLightingIsland),
-                30, ps, 1, null, false, null,
-                0, 0, new Vec3(1430, 84, 566), ServerLevel.OVERWORLD, 0));
-
-        add(new Instance(Component.literal("Main1Boss").withStyle(CustomStyle.styleOfSnow),
-                Component.literal("玉山中心祭坛").withStyle(CustomStyle.styleOfSnow),
-                30, ps, 1, null, false, null,
-                0, 0, new Vec3(-171, 115.5, 1424), ServerLevel.OVERWORLD, 0));
-
-        add(new Instance(Component.literal("下界征讨").withStyle(CustomStyle.styleOfNether),
-                Component.literal("下界").withStyle(CustomStyle.styleOfNether),
-                50, ps, 1, null, false, null,
-                0, 0, new Vec3(2, 80.5, 249), ServerLevel.NETHER, 0));
-
-        add(new Instance(Component.literal("突见忍").withStyle(CustomStyle.styleOfSakura),
-                Component.literal("绯樱岛").withStyle(CustomStyle.styleOfSakura),
-                80, ps, 1, null, false, null,
-                0, 0, new Vec3(1934, 167.5, 1047), ServerLevel.OVERWORLD, 0));
-
-        add(new Instance(Component.literal("冰霜骑士").withStyle(CustomStyle.styleOfIce),
-                Component.literal("极寒之地").withStyle(CustomStyle.styleOfIce),
-                80, ps, 1, null, false, null,
-                0, 0, new Vec3(332, 63, 2325), ServerLevel.OVERWORLD, 0));
-
-        add(new Instance(Component.literal("旧世复生魔王").withStyle(CustomStyle.styleOfBloodMana),
-                Component.literal("封魔庭院").withStyle(CustomStyle.styleOfSakura),
-                110, ps, 1, null, false, null,
-                0, 0, new Vec3(1906, 112, 1242), ServerLevel.OVERWORLD, 0));
-
-        add(new Instance(Component.literal("阿尔忒弥斯").withStyle(CustomStyle.styleOfMoon1),
-                Component.literal("尘月宫").withStyle(CustomStyle.styleOfMoon1),
-                120, ps, 1, null, false, null,
-                0, 0, new Vec3(167, 186, 1622), ServerLevel.OVERWORLD, 0));
-
-        add(new Instance(Component.literal("新世禁法魔物").withStyle(CustomStyle.styleOfBloodMana),
-                Component.literal("绯樱岛").withStyle(CustomStyle.styleOfSakura),
-                120, ps, 1, null, false, null,
-                0, 0, new Vec3(1431, 72, 1161), ServerLevel.OVERWORLD, 0));
-
-        add(new Instance(Component.literal("暗黑城堡 - 1层").withStyle(CustomStyle.styleOfCastle),
-                Component.literal("暗黑城堡").withStyle(CustomStyle.styleOfCastle),
-                140, ps, 1, null, false, null,
-                0, 0, new Vec3(898, 70, 1033), ServerLevel.OVERWORLD, 0));
-
-        add(new Instance(Component.literal("暗黑城堡 - 2层").withStyle(CustomStyle.styleOfCastle),
-                Component.literal("暗黑城堡").withStyle(CustomStyle.styleOfCastle),
-                160, ps, 1, null, false, null,
-                0, 0, new Vec3(787.5, 84, 1028.5), ServerLevel.OVERWORLD, 0));
-
-        add(new Instance(Component.literal("紫晶骑士").withStyle(CustomStyle.styleOfPurpleIron),
-                Component.literal("决战之巅 - 紫晶骑士").withStyle(CustomStyle.styleOfPurpleIron),
-                180, ps, 1, null, false, null,
-                0, 0, new Vec3(2174.5, 84, 1196.5), ServerLevel.OVERWORLD, 0));
-
-    }};
-
     public static List<Style> levelStyleList = new ArrayList<>() {{
         add(CustomStyle.styleOfPlain);
         add(CustomStyle.styleOfMana);
@@ -673,8 +607,6 @@ public class Utils {
     public static Style getLevelStyle(int level) {
         return Utils.levelStyleList.get(Math.min(Utils.levelStyleList.size() - 1, level / 25));
     }
-
-    public static int[] instanceKillCount = new int[instanceList.size()];
 
     public static Map<String, Item> ManaCoreMap = new HashMap<>();
 

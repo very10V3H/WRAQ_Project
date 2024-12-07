@@ -401,26 +401,6 @@ public class AttackEvent {
         }
     }
 
-    public static void DevilDamageCount(Player player, Mob monster, double ExDamageIgnoreDefence, double Damage) {
-        if (monster.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.MobArmorDevilHelmet.get()) && monster.isAlive()
-                && Utils.instanceList.get(6).getMobList() != null && Utils.instanceList.get(6).getMobList().get(0) != null
-                && Utils.instanceList.get(6).getMobList().get(0).equals(monster)) {
-            AtomicBoolean flag = new AtomicBoolean(false);
-            double finalExDamageIgnoreDefence = ExDamageIgnoreDefence;
-            Utils.DevilDamageList.forEach(boss2Damage -> {
-                if (boss2Damage.getPlayer() == player) {
-                    double damage = boss2Damage.getDamage();
-                    boss2Damage.setDamage(damage + Damage + finalExDamageIgnoreDefence);
-                    flag.set(true);
-                }
-            });
-            if (!flag.get()) {
-                Boss2Damage boss2Damage = new Boss2Damage(player, Damage + ExDamageIgnoreDefence);
-                Utils.DevilDamageList.add(boss2Damage);
-            }
-        }
-    }
-
     public static void MoonDamageCount(Player player, Mob monster, double ExDamageIgnoreDefence, double Damage) {
         if ((monster.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.MobArmorMoonAttack.get())
                 || (monster.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.MobArmorMoonMana.get()))) && monster.isAlive()) {
@@ -545,7 +525,6 @@ public class AttackEvent {
         Boss2DamageCount(player, monster, ExDamageIgnoreDefence, Damage);
         SpringDamageCount(player, monster, ExDamageIgnoreDefence, Damage);
         GiantDamageCount(player, monster, ExDamageIgnoreDefence, Damage);
-        DevilDamageCount(player, monster, ExDamageIgnoreDefence, Damage);
         MoonDamageCount(player, monster, ExDamageIgnoreDefence, Damage);
         TabooDevilDamageCount(player, monster, ExDamageIgnoreDefence, Damage);
         PurpleIronKnightDamageCount(player, monster, ExDamageIgnoreDefence, Damage);

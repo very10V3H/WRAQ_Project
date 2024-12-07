@@ -33,7 +33,7 @@ import fun.wraq.process.system.element.equipAndCurios.fireElement.FireEquip;
 import fun.wraq.process.system.endlessinstance.DailyEndlessInstance;
 import fun.wraq.process.system.randomevent.RandomEventsHandler;
 import fun.wraq.process.system.randomevent.impl.killmob.SlimeKingEvent;
-import fun.wraq.process.system.teamInstance.NewTeamInstanceEvent;
+import fun.wraq.process.system.teamInstance.NewTeamInstanceHandler;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.gems.passive.impl.GemOnCauseDamage;
 import fun.wraq.series.gems.passive.impl.GemOnKillMob;
@@ -462,7 +462,7 @@ public class Damage {
                             append(Te.m("在与")).
                             append(mob.getDisplayName()).
                             append(Component.literal("的战斗中不幸重伤。").withStyle(ChatFormatting.WHITE)));
-            NewTeamInstanceEvent.getOverworldInstances().forEach(newTeamInstance -> {
+            NewTeamInstanceHandler.getInstances().forEach(newTeamInstance -> {
                 if (!newTeamInstance.players.isEmpty()) {
                     if (newTeamInstance.players.contains(player)) newTeamInstance.deadTimes++;
                 }

@@ -2235,6 +2235,8 @@
   "key.vmd.mission": "打开任务列表",
   "key.vmd.guide": "打开/关闭指引",
   "key.vmd.element_roulette": "打开元素轮盘",
+  "key.vmd.team_gui_open": "打开队伍界面",
+
 
   "effect.vmd.forestsword": "破甲",
   "effect.vmd.forestarmor": "森林加护",

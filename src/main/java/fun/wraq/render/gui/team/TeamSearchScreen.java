@@ -7,8 +7,7 @@ import fun.wraq.common.util.struct.ClientPlayerTeam;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.TeamPackets.PlayerRequestC2SPacket;
 import fun.wraq.networking.misc.TeamPackets.TeamCreateC2SPacket;
-import fun.wraq.render.gui.team.TeamInviteScreen;
-import fun.wraq.render.gui.team.TeamManageScreen;
+import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -26,7 +25,7 @@ import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
 public class TeamSearchScreen extends Screen {
-    ResourceLocation GUI_TEXTURE = new ResourceLocation(Utils.MOD_ID, "textures/gui/teamscreen.png");
+    ResourceLocation GUI_TEXTURE = new ResourceLocation(Utils.MOD_ID, "textures/gui/team_screen.png");
     private final boolean showPauseMenu;
     public static final Minecraft mc = Minecraft.getInstance();
     private static final Font fontRenderer = mc.font;
@@ -35,7 +34,8 @@ public class TeamSearchScreen extends Screen {
     private List<ClientPlayerTeam> clientPlayerTeamList;
 
     public TeamSearchScreen(boolean p_96308_) {
-        super(p_96308_ ? Component.translatable("menu.teamscreen") : Component.translatable("menu.teamscreen1"));
+        super(p_96308_ ? Component.translatable("menu.teamscreen") :
+                Component.translatable("menu.teamscreen1"));
         this.showPauseMenu = p_96308_;
     }
 
@@ -96,36 +96,38 @@ public class TeamSearchScreen extends Screen {
     }
 
     public void render(GuiGraphics p_96310_, int x, int y, float v) {
-
         GuiGraphics guiGraphics = new GuiGraphics(mc, mc.renderBuffers().bufferSource());
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1, 1, 1, 1);
         RenderSystem.setShaderTexture(0, GUI_TEXTURE);
+        int textureWidth = 300;
+        int textureHeight = 200;
+        guiGraphics.blit(GUI_TEXTURE, this.width / 2 - 150, this.height / 2 - 100,
+                0, 0, 300, 200, textureWidth, textureHeight);
 
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal("搜索队伍:").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.BLACK),
+        guiGraphics.drawCenteredString(fontRenderer, Component.literal("搜索队伍:")
+                        .withStyle(ChatFormatting.BOLD).withStyle(CustomStyle.styleOfWorld),
                 this.width / 2 - 128, this.height / 2 - 88, 0);
 
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.valueOf(this.page + 1)).withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.BLACK),
+        guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.valueOf(this.page + 1))
+                        .withStyle(ChatFormatting.BOLD).withStyle(CustomStyle.styleOfWorld),
                 this.width / 2 + 10, this.height / 2 + 74, 0);
 
         for (int i = 0; i < 4; i++) {
             if (page * 4 + i < ClientUtils.clientPlayerTeamList.size()) {
-                guiGraphics.drawCenteredString(fontRenderer, Component.literal("队伍名: ").withStyle(ChatFormatting.BLACK).
-                                append(Component.literal(ClientUtils.clientPlayerTeamList.get(page * 4 + i).getTeamName()).withStyle(ChatFormatting.BLACK)),
+                guiGraphics.drawCenteredString(fontRenderer, Component.literal("队伍名: ")
+                                .withStyle(CustomStyle.styleOfWorld).
+                                append(Component.literal(ClientUtils.clientPlayerTeamList.get(page * 4 + i)
+                                        .getTeamName()).withStyle(ChatFormatting.BLACK)),
                         this.width / 2 - 28, this.height / 2 - 64 + i * 32, 0);
 
-                guiGraphics.drawCenteredString(fontRenderer, Component.literal("队长: ").withStyle(ChatFormatting.BLACK).
+                guiGraphics.drawCenteredString(fontRenderer, Component.literal("队长: ")
+                                .withStyle(CustomStyle.styleOfSky).
                                 append(ClientUtils.clientPlayerTeamList.get(page * 4 + i).getLeaderDisplayName()),
                         this.width / 2 - 28, this.height / 2 - 48 + i * 32, 0);
 
             }
         }
-
-        int textureWidth = 300;
-        int textureHeight = 200;
-
-        guiGraphics.blit(GUI_TEXTURE, this.width / 2 - 150, this.height / 2 - 100, 0, 0, 300, 200, textureWidth, textureHeight);
-
         this.nameSearchBox.render(guiGraphics, x, y, v);
         super.render(p_96310_, x, y, v);
     }

@@ -7,7 +7,7 @@ import fun.wraq.common.util.ItemAndRate;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
-import fun.wraq.process.system.teamInstance.NewTeamInstanceEvent;
+import fun.wraq.process.system.teamInstance.NewTeamInstanceHandler;
 import fun.wraq.render.gui.illustrate.Illustrate;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -195,7 +195,7 @@ public class MobInfoGui extends Screen {
                         Utils.levelStyleList.get(mobSpawnController.averageLevel / 25), mobSpawnController.mobName), mobSpawnController.averageLevel,
                         mobSpawnController.getDropList()));
             });
-            NewTeamInstanceEvent.overworldInstances.forEach(newTeamInstance -> {
+            NewTeamInstanceHandler.instances.forEach(newTeamInstance -> {
                 mobInfoList.add(new MobInfo(newTeamInstance.description, newTeamInstance.levelRequire,
                         newTeamInstance.getRewardList()));
             });

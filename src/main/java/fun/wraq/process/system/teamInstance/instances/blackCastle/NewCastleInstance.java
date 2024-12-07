@@ -29,6 +29,7 @@ import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
@@ -43,12 +44,16 @@ public class NewCastleInstance extends NewTeamInstance {
     public static NewTeamInstance getInstance() {
         if (instance == null)
             instance = new NewCastleInstance(false, new Vec3(2417, 152, -1372),
-                    Component.literal("暗黑城堡").withStyle(CustomStyle.styleOfCastle), 5, 180);
+                    Te.s("暗黑城堡", CustomStyle.styleOfCastle),
+                    Te.s("暗黑城堡", CustomStyle.styleOfCastle), 5, 180);
         return instance;
     }
 
-    public NewCastleInstance(boolean inChallenging, Vec3 prepareCenterPos, MutableComponent mutableComponent, double detectRange, int levelRequire) {
-        super(inChallenging, prepareCenterPos, mutableComponent, detectRange, levelRequire, 1, 8, 300);
+    public NewCastleInstance(boolean inChallenging, Vec3 prepareCenterPos,
+                             MutableComponent mutableComponent, MutableComponent regionDescription,
+                             double detectRange, int levelRequire) {
+        super(inChallenging, prepareCenterPos, mutableComponent, regionDescription, detectRange, levelRequire,
+                1, 8, 300, Level.OVERWORLD, new Vec2(90, -10));
     }
 
     public static String mobNameOf1StageMana = "暗黑城堡遗魂 - 术士";
@@ -144,7 +149,7 @@ public class NewCastleInstance extends NewTeamInstance {
                     }
                 }
             }
-            if (mob.isAlive()) {
+            if (mob.isAlive() && hasSummonedMobs.contains(mob)) {
                 if (MobSpawn.getMobOriginName(mob).equals(mobNameOf1StageMana)) {
                     if (tickCount % 30 == 0) shootManaArrow(mob);
                 }

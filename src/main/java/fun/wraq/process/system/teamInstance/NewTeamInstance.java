@@ -5,6 +5,7 @@ import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ItemAndRate;
 import fun.wraq.common.util.Utils;
+import fun.wraq.common.util.struct.PlayerTeam;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.system.teamInstance.networking.NewTeamInstanceClearS2CPacket;
@@ -15,6 +16,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.protocol.game.ClientboundSetSubtitleTextPacket;
 import net.minecraft.network.protocol.game.ClientboundSetTitleTextPacket;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
@@ -23,6 +25,7 @@ import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.*;
@@ -44,20 +47,29 @@ public abstract class NewTeamInstance {
     public final Vec3 prepareCenterPos;
     public final double prepareDetectRange;
     public final MutableComponent description;
+    public final MutableComponent regionDescription;
     public final int levelRequire;
     public int startCount = 0;
     public int lastTick = 0;
+    public final ResourceKey<Level> dimension;
+    public final Vec2 rot;
+    public PlayerTeam team = null;
 
-    public NewTeamInstance(boolean inChallenging, Vec3 prepareCenterPos, MutableComponent mutableComponent,
-                           double prepareDetectRange, int levelRequire, int minPlayerNum, int maxPlayerNum, int maxChallengeTime) {
+    public NewTeamInstance(boolean inChallenging, Vec3 prepareCenterPos, MutableComponent description,
+                           MutableComponent regionDescription, double prepareDetectRange, int levelRequire,
+                           int minPlayerNum, int maxPlayerNum, int maxChallengeTime,
+                           ResourceKey<Level> dimension, Vec2 rot) {
         this.inChallenging = inChallenging;
         this.prepareCenterPos = prepareCenterPos;
         this.prepareDetectRange = prepareDetectRange;
         this.levelRequire = levelRequire;
-        this.description = mutableComponent;
+        this.description = description;
+        this.regionDescription = regionDescription;
         this.minPlayerNum = minPlayerNum;
         this.maxPlayerNum = maxPlayerNum;
         this.maxChallengeTime = maxChallengeTime;
+        this.dimension = dimension;
+        this.rot = rot;
     }
 
     public void tick(Level level) {
@@ -65,7 +77,8 @@ public abstract class NewTeamInstance {
         // 未在挑战中 进行开始检测
 
         if (!inChallenging) {
-            List<Player> playerList = level.getEntitiesOfClass(Player.class, AABB.ofSize(prepareCenterPos, prepareDetectRange * 2, prepareDetectRange * 2, prepareDetectRange * 2));
+            List<Player> playerList = level.getEntitiesOfClass(Player.class, AABB.ofSize(prepareCenterPos,
+                    prepareDetectRange * 2, prepareDetectRange * 2, prepareDetectRange * 2));
             // 1.判断等级需求
             if (tickCount % 100 == 0) {
                 playerList.forEach(player -> {
@@ -266,6 +279,9 @@ public abstract class NewTeamInstance {
         lastTick = 0;
         hasSummonedMobs.clear();
         deadTimes = 0;
+        if (team != null) {
+            Utils.ChallengingPlayerTeam.remove(team);
+        }
     }
 
     public void armorStandForDisplay(Level level) {
@@ -299,5 +315,11 @@ public abstract class NewTeamInstance {
         armorStand.setBoundingBox(AABB.ofSize(new Vec3(0, 0, 0), 0.1, 0.1, 0.1));
         armorStand.moveTo(prepareCenterPos.add(offset).add(0.5, 0, 0.5));
         level.addFreshEntity(armorStand);
+    }
+
+    public void startByTeam(PlayerTeam playerTeam) {
+        players.addAll(playerTeam.getPlayerList());
+        startCount = 5;
+        team = playerTeam;
     }
 }

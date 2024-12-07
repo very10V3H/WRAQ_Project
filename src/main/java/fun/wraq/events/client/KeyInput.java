@@ -7,6 +7,7 @@ import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.AnimationPackets.RollingAnimationRequestC2SPacket;
+import fun.wraq.networking.misc.TeamPackets.TeamScreenOpenRequestC2SPacket;
 import fun.wraq.networking.misc.USE.UseC2SPacket;
 import fun.wraq.networking.unSorted.PlayerClickSpaceC2SPacket;
 import fun.wraq.process.func.guide.Guide;
@@ -156,6 +157,10 @@ public class KeyInput {
                     ModNetworking.sendToServer(new PlayerClickSpaceC2SPacket());
                 }
             }
+
+            if (KeyBoradInput.TEAM.consumeClick()) {
+                ModNetworking.sendToServer(new TeamScreenOpenRequestC2SPacket());
+            }
         }
     }
 
@@ -190,6 +195,7 @@ public class KeyInput {
             event.register(KeyBoradInput.NavigateSet);
             event.register(KeyBoradInput.GUIDE);
             event.register(KeyBoradInput.ElementRoulette);
+            event.register(KeyBoradInput.TEAM);
         }
     }
 }

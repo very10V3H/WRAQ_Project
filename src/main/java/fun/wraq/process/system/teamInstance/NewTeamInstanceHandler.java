@@ -1,6 +1,5 @@
 package fun.wraq.process.system.teamInstance;
 
-import fun.wraq.process.system.teamInstance.NewTeamInstance;
 import fun.wraq.process.system.teamInstance.instances.blackCastle.NewCastleInstance;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
@@ -12,15 +11,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Mod.EventBusSubscriber
-public class NewTeamInstanceEvent {
+public class NewTeamInstanceHandler {
 
-    public static List<fun.wraq.process.system.teamInstance.NewTeamInstance> overworldInstances = new ArrayList<>();
+    public static List<NewTeamInstance> instances = new ArrayList<>();
 
-    public static List<NewTeamInstance> getOverworldInstances() {
-        if (overworldInstances.isEmpty()) {
-            overworldInstances.add(NewCastleInstance.getInstance());
+    public static List<NewTeamInstance> getInstances() {
+        if (instances.isEmpty()) {
+            instances.add(NewCastleInstance.getInstance());
         }
-        return overworldInstances;
+        return instances;
     }
 
     @SubscribeEvent
@@ -29,7 +28,7 @@ public class NewTeamInstanceEvent {
             Level level = event.level;
             List<ServerPlayer> serverPlayerList = level.getServer().getPlayerList().getPlayers();
             if (level.dimension().equals(Level.OVERWORLD)) {
-                getOverworldInstances().forEach(newTeamInstance -> {
+                getInstances().forEach(newTeamInstance -> {
                     boolean hasPlayerNearby = false;
                     for (ServerPlayer serverPlayer : serverPlayerList) {
                         if (serverPlayer.position().distanceTo(newTeamInstance.prepareCenterPos) < 20) {

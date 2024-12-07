@@ -52,7 +52,9 @@ public class ServerTick {
                     }
                 });
             }
-            if (tickCount % 100 == 0) VpDataHandler.reviseDataMSGSend(event.getServer());
+            if (tickCount % 100 == 0) {
+                VpDataHandler.reviseDataMSGSend(event.getServer());
+            }
             if (tickCount % 80 == 0) {
                 PurpleIronCommon.handleServerTick();
             }

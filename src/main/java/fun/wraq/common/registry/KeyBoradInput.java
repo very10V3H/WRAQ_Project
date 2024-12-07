@@ -39,8 +39,8 @@ public class KeyBoradInput {
     public static final KeyMapping NavigateSet = new KeyMapping("key.vmd.navigate_set", KeyConflictContext.IN_GAME,
             InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_G, KEY_CATEGORY);
 
-/*    public static final KeyMapping TeamGuiOpen = new KeyMapping("key.vmd.team_gui_open", KeyConflictContext.IN_GAME,
-            InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_U, KEY_CATEGORY);*/
+    public static final KeyMapping TEAM = new KeyMapping("key.vmd.team_gui_open", KeyConflictContext.IN_GAME,
+            InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_I, KEY_CATEGORY);
 
     public static final KeyMapping GUIDE = new KeyMapping("key.vmd.guide", KeyConflictContext.IN_GAME,
             InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_TAB, KEY_CATEGORY);

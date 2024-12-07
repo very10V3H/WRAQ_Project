@@ -36,7 +36,7 @@ import fun.wraq.process.system.endlessinstance.item.EndlessInstanceItems;
 import fun.wraq.process.system.lottery.NewLotteries;
 import fun.wraq.process.system.missions.series.dailyMission.DailyMission;
 import fun.wraq.process.system.parkour.Parkour;
-import fun.wraq.process.system.teamInstance.NewTeamInstanceEvent;
+import fun.wraq.process.system.teamInstance.NewTeamInstanceHandler;
 import fun.wraq.process.system.tower.Tower;
 import fun.wraq.process.system.tower.TowerStatusS2CPacket;
 import fun.wraq.process.system.vp.VpDataHandler;
@@ -435,15 +435,15 @@ public class LoginInEvent {
             player.getServer().getPlayerList().getPlayers().forEach(player1 -> {
                 ModNetworking.sendToClient(new TeamInfoResetS2CPacket(), player1);
             });
-            Utils.instanceList.forEach(instance -> {
-                if (instance.getCurrentChallengePlayerTeam() != null && instance.getCurrentChallengePlayerTeam().getPlayerList().contains(player)) {
-                    instance.addDeadTimes();
+            NewTeamInstanceHandler.getInstances().forEach(instance -> {
+                if (instance.players.contains(player)) {
+                    ++instance.deadTimes;
                 }
             });
             Utils.playerNameMap.put(player.getName().getString(), player.getDisplayName());
             Tower.playerInChallengingDeadOrLogout(player);
 
-            NewTeamInstanceEvent.getOverworldInstances().forEach(newTeamInstance -> {
+            NewTeamInstanceHandler.getInstances().forEach(newTeamInstance -> {
                 newTeamInstance.players.remove(player);
                 if (newTeamInstance.players.isEmpty()) newTeamInstance.clear();
             });

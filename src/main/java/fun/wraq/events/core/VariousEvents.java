@@ -20,6 +20,7 @@ import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.rank.RankData;
 import fun.wraq.process.func.security.Security;
 import fun.wraq.process.system.spur.events.MineSpur;
+import fun.wraq.process.system.teamInstance.NewTeamInstanceHandler;
 import fun.wraq.render.hud.networking.ExpGetResetS2CPacket;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.WraqItem;
@@ -112,10 +113,11 @@ public class VariousEvents {
             Player player = event.getOriginal();
             ServerPlayer serverPlayer = (ServerPlayer) player;
             if (event.isWasDeath()) {
-                serverPlayer.teleportTo(serverPlayer.getServer().getLevel(Level.OVERWORLD), 437.5, 69, 916.6, 0, 0);
-                Utils.instanceList.forEach(instance -> {
-                    if (instance.getCurrentChallengePlayerTeam() != null && instance.getCurrentChallengePlayerTeam().getPlayerList().contains(player)) {
-                        instance.addDeadTimes();
+                serverPlayer.teleportTo(serverPlayer.getServer().getLevel(Level.OVERWORLD),
+                        437.5, 69, 916.6, 0, 0);
+                NewTeamInstanceHandler.getInstances().forEach(instance -> {
+                    if (instance.players.contains(player)) {
+                        ++instance.deadTimes;
                     }
                 });
                 Utils.PlayerDeadTimeMap.put(player.getName().getString(), Tick.get() + 6000);

@@ -40,7 +40,7 @@ import fun.wraq.process.system.randomevent.RandomEvent;
 import fun.wraq.process.system.randomevent.RandomEventsHandler;
 import fun.wraq.process.system.spur.Items.SpurItems;
 import fun.wraq.process.system.teamInstance.NewTeamInstance;
-import fun.wraq.process.system.teamInstance.NewTeamInstanceEvent;
+import fun.wraq.process.system.teamInstance.NewTeamInstanceHandler;
 import fun.wraq.process.system.tower.Tower;
 import fun.wraq.process.system.tower.TowerTimeRecord;
 import fun.wraq.process.system.vp.VpDataHandler;
@@ -184,7 +184,7 @@ public class VMD {
         statement.close();
 
         NoTeamInstanceModule.reset();
-        NewTeamInstanceEvent.getOverworldInstances().forEach(NewTeamInstance::clear);
+        NewTeamInstanceHandler.getInstances().forEach(NewTeamInstance::clear);
         VpDataHandler.write();
 
         DBConnection.connection.close();

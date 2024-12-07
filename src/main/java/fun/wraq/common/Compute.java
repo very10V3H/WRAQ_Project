@@ -1287,12 +1287,6 @@ public class Compute {
     }
 
     public static boolean MonsterCantBeMove(Mob mob) {
-        for (int i = 0; i < Utils.instanceKillCount.length; i++) {
-            if (mob instanceof Civil) return true;
-            if (Utils.instanceList.get(i).getMobList() != null && Utils.instanceList.get(i).getMobList().contains(mob))
-                return true;
-        }
-        if (mob.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.MobArmorGiant.get())) return true;
         return false;
     }
 
