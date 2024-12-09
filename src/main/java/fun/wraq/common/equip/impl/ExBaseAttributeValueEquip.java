@@ -2,6 +2,7 @@ package fun.wraq.common.equip.impl;
 
 import fun.wraq.common.util.Utils;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Style;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
@@ -13,6 +14,9 @@ public interface ExBaseAttributeValueEquip {
             return data.getDouble(tag) * eachTierValue;
         }
     }
+
+    Style getQuoteStyle();
+    Style getExValueStyle();
 
     /**
      * 注意，必须使用此接口的getStackExBaseAttributeData方法来获取nbt放入对应key

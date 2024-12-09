@@ -59,6 +59,7 @@ import fun.wraq.series.gems.GemItems;
 import fun.wraq.series.instance.blade.BladeItems;
 import fun.wraq.series.instance.mixture.MixtureItems;
 import fun.wraq.series.instance.quiver.QuiverItems;
+import fun.wraq.series.instance.series.harbinger.HarbingerItems;
 import fun.wraq.series.instance.series.purple.PurpleIronCommon;
 import fun.wraq.series.instance.series.warden.WardenItems;
 import fun.wraq.series.moontain.MoontainItems;
@@ -126,6 +127,7 @@ public class VMD {
         CitadelItems.ITEMS.register(modEvenBus);
         SunIslandItems.ITEMS.register(modEvenBus);
         WardenItems.ITEMS.register(modEvenBus);
+        HarbingerItems.ITEMS.register(modEvenBus);
 
         ModBlocks.BLOCKS.register(modEvenBus);
         ModEntityType.ENTITY_TYPES.register(modEvenBus);
@@ -678,6 +680,12 @@ public class VMD {
         }
         if (event.getTabKey().equals(ModCreativeModeTab.SUN_ISLAND.getKey())) {
             SunIslandItems.ITEMS.getEntries()
+                    .stream()
+                    .map(entry -> entry.get().asItem())
+                    .forEach(event::accept);
+        }
+        if (event.getTabKey().equals(ModCreativeModeTab.HARBINGER.getKey())) {
+            HarbingerItems.ITEMS.getEntries()
                     .stream()
                     .map(entry -> entry.get().asItem())
                     .forEach(event::accept);

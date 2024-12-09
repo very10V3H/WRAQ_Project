@@ -12,6 +12,8 @@ import fun.wraq.process.func.multiblockactive.rightclick.top.RightClickActivatio
 import fun.wraq.process.system.ore.OreItems;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.gems.WraqGem;
+import fun.wraq.series.instance.series.harbinger.HarbingerItems;
+import fun.wraq.series.instance.series.harbinger.weapon.HarbingerMainHand;
 import fun.wraq.series.moontain.MoontainItems;
 import fun.wraq.series.moontain.equip.weapon.MoontainUtils;
 import net.minecraft.ChatFormatting;
@@ -108,7 +110,14 @@ public class RightClickActiveHandler {
                             Te.s("船厂宝石", CustomStyle.styleOfShip),
                             Te.s("绯樱岛宝石", CustomStyle.styleOfShip),
                             Te.s("尘月宫宝石", CustomStyle.styleOfMoon)
-                    ))
+                    )),
+
+            new ItemEnhancer(Te.s("强化鹰眼武器", CustomStyle.styleOfHarbinger), new Vec3(1941, 92, 1698),
+                    List.of(new ItemStack(HarbingerItems.HARBINGER_INGOT.get())),
+                    HarbingerMainHand.enhanceCondition, HarbingerMainHand.enhanceOperation,
+                    List.of(Te.s("至多可以将", "鹰眼武器被动层数", CustomStyle.styleOfHarbinger,
+                                    "提升到", "20", CustomStyle.styleOfRed),
+                            Te.s("每次提升", "1层", CustomStyle.styleOfHarbinger)))
     );
 
     public static void detectNearPlayer(TickEvent.LevelTickEvent event) {

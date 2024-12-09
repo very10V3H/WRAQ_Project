@@ -9,6 +9,7 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.moontain.MoontainItems;
 import fun.wraq.series.moontain.equip.weapon.MoontainUtils;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.item.ArmorMaterial;
@@ -31,6 +32,16 @@ public class MoontainArmor extends WraqArmor implements ExBaseAttributeValueEqui
         if (type.equals(Type.LEGGINGS)) Utils.maxHealth.put(this, 15000d);
         if (type.equals(Type.BOOTS)) Utils.movementSpeedCommon.put(this, 0.1);
         Utils.levelRequire.put(this, 210);
+    }
+
+    @Override
+    public Style getQuoteStyle() {
+        return CustomStyle.styleOfMoontain;
+    }
+
+    @Override
+    public Style getExValueStyle() {
+        return Style.EMPTY.applyFormat(ChatFormatting.GREEN);
     }
 
     @Override

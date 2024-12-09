@@ -21,7 +21,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.RegistryObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -133,7 +132,6 @@ public class InventoryCheck {
                 ModItems.SwordLottery.get(),
                 ModItems.BowLottery.get(),
                 ModItems.SceptreLottery.get(),
-                UniformItems.uniformPiece.get(),
                 ModItems.ID_Card.get(),
                 ModItems.MopUpPaperLoot.get(),
                 ModItems.CastleMopUpPaper.get(),
@@ -153,15 +151,18 @@ public class InventoryCheck {
                 EndlessInstanceItems.ENDLESS_INSTANCE_CORE.get(),
                 ModItems.TP_TICKET.get()
         ));
-        for (Object o : SpecialEventItems.ITEMS.getEntries().toArray()) {
-            RegistryObject<Item> item = (RegistryObject<Item>) o;
-            boundingList.add(item.get());
-        }
+        SpecialEventItems.ITEMS.getEntries()
+                .stream()
+                .map(entry -> entry.get().asItem())
+                .forEach(item -> boundingList.add(item));
+        UniformItems.ITEMS.getEntries()
+                .stream()
+                .map(entry -> entry.get().asItem())
+                .forEach(item -> boundingList.add(item));
     }
 
     public static List<Item> getBoundingList() {
         if (boundingList.isEmpty()) setBoundingList();
         return boundingList;
     }
-
 }

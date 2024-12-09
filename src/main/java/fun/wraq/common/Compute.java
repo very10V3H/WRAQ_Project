@@ -1091,7 +1091,7 @@ public class Compute {
     }
 
     public static double playerFantasyAttributeEnhance(Player player) {
-        double enhance = 1;
+        double enhance = 0;
         CompoundTag data = player.getPersistentData();
         if (data.getBoolean(StringUtils.FantasyMedal)) enhance += 0.03;
         if (data.getBoolean(StringUtils.FantasyBracelet)) enhance += 0.03;
@@ -1655,7 +1655,7 @@ public class Compute {
                         if (!(player.getMainHandItem().is(item) && player.getInventory().selected >= 3)) {
                             double computeValue = 0;
                             double baseValue = 0;
-                            baseValue += ForgeEquipUtils.getTraditionalEquipBaseValue(equip, map, player);
+                            baseValue += ForgeEquipUtils.getTraditionalEquipBaseValue(equip, map, player, false);
                             computeValue += baseValue;
                             // 只有能被强化的属性才能用这个公式去计算数值
                             if (map.equals(Utils.attackDamage) || map.equals(Utils.manaDamage)) {

@@ -438,9 +438,11 @@ public class BasicAttributeDescription {
                 }
             } else {
                 double critDamage;
-                if (Utils.critDamage.containsKey(item)) critDamage = Utils.critDamage.get(item);
+                if (Utils.critDamage.containsKey(item)) critDamage =
+                        ForgeEquipUtils.getTraditionalEquipBaseValue(itemStack, Utils.critDamage, null, false);
                 else if (item instanceof RandomCurios)
-                    critDamage = data.getDouble(StringUtils.CuriosAttribute.critDamage) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.CuriosAttribute.critDamage);
+                    critDamage = data.getDouble(StringUtils.CuriosAttribute.critDamage)
+                            * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.CuriosAttribute.critDamage);
                 else critDamage = data.getInt(StringUtils.CuriosAttribute.critDamage);
                 if (data.contains(StringUtils.RandomAttribute.critDamage))
                     critDamage += data.getDouble(StringUtils.RandomAttribute.critDamage);
@@ -448,6 +450,7 @@ public class BasicAttributeDescription {
                 mutableComponent.append(Component.literal(" 暴击伤害").withStyle(ChatFormatting.BLUE).
                         append(Component.literal("+" + String.format("%.0f%%", critDamage * 100)).withStyle(ChatFormatting.WHITE)));
 
+                handleExBaseAttributeValue(itemStack, mutableComponent, Utils.critDamage, 0, true);
                 handleRandomAttributeRate(itemStack, StringUtils.CuriosAttribute.critDamage, mutableComponent);
 
                 index++;
@@ -731,20 +734,9 @@ public class BasicAttributeDescription {
             index++;
             event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.expUp)));
         }
-        if (Utils.swiftnessUp.containsKey(item) || data.contains(StringUtils.CuriosAttribute.swiftnessUp)) {
-            double SwiftnessUp;
-            if (item instanceof RandomCurios)
-                SwiftnessUp = data.getDouble(StringUtils.CuriosAttribute.swiftnessUp) * RandomCuriosAttributesUtil.attributeValueMap.get(StringUtils.CuriosAttribute.swiftnessUp);
-            else SwiftnessUp = Utils.swiftnessUp.get(item);
-            MutableComponent mutableComponent = Component.literal("");
-            mutableComponent.append(Component.literal(" 迅捷加成").withStyle(CustomStyle.styleOfFlexible).
-                    append(Component.literal("+" + String.format("%.1f", SwiftnessUp)).withStyle(ChatFormatting.WHITE)));
-
-            handleRandomAttributeRate(itemStack, StringUtils.CuriosAttribute.swiftnessUp, mutableComponent);
-
-            index++;
-            event.getTooltipElements().add(index, Either.right(new NewTooltip.MyNewTooltip(mutableComponent, TraditionalTooltip.swiftnessUp)));
-        }
+        index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.swiftnessUp,
+                Utils.swiftnessUp, StringUtils.CuriosAttribute.swiftnessUp, "迅捷加成",
+                CustomStyle.styleOfFlexible, 1, false, itemStack, false, null, event.getTooltipElements());
         if (Utils.manaHealthSteal.containsKey(item) || data.contains(StringUtils.CuriosAttribute.manaHealthSteal)) {
             double ManaHealSteal;
             if (Utils.manaHealthSteal.containsKey(item)) ManaHealSteal = Utils.manaHealthSteal.get(item);
@@ -983,11 +975,16 @@ public class BasicAttributeDescription {
                                                             List<Either<FormattedText, TooltipComponent>> components) {
         Item item = itemStack.getItem();
         CompoundTag data = itemStack.getOrCreateTagElement(Utils.MOD_ID);
-        if (map.containsKey(item) || data.contains(curiosAttributeTag)) {
+        double traditionalEquipBaseValue
+                = ForgeEquipUtils.getTraditionalEquipBaseValue(itemStack, map, null, computeForge);
+
+        if (map.containsKey(item) || data.contains(curiosAttributeTag)
+                || traditionalEquipBaseValue != 0) {
             double value;
 
-            if (map.containsKey(item))
-                value = ForgeEquipUtils.getTraditionalEquipBaseValue(itemStack, map);
+            if (map.containsKey(item) || traditionalEquipBaseValue != 0) {
+                value = traditionalEquipBaseValue;
+            }
             else if (item instanceof RandomCurios)
                 value = data.getDouble(curiosAttributeTag) * RandomCuriosAttributesUtil.attributeValueMap.get(curiosAttributeTag);
             else value = data.getInt(curiosAttributeTag);
@@ -1099,10 +1096,10 @@ public class BasicAttributeDescription {
     private static void handleExBaseAttributeValue(ItemStack itemStack, MutableComponent mutableComponent,
                                                    Map<Item, Double> map, int decimalScale, boolean isPercent) {
         double exBaseAttributeValue = ExBaseAttributeValueEquip.getExBaseAttributeValue(itemStack, map);
-        if (exBaseAttributeValue != 0) {
-            mutableComponent.append(Te.s("(", CustomStyle.styleOfMoontain,
-                    getDecimal(exBaseAttributeValue * (isPercent ? 100 : 1), decimalScale) + (isPercent ? "%" : ""), ChatFormatting.GREEN,
-                    ")", CustomStyle.styleOfMoontain));
+        if (exBaseAttributeValue != 0 && itemStack.getItem() instanceof ExBaseAttributeValueEquip equip) {
+            mutableComponent.append(Te.s("(", equip.getQuoteStyle(),
+                    getDecimal(exBaseAttributeValue * (isPercent ? 100 : 1), decimalScale)
+                            + (isPercent ? "%" : ""), equip.getExValueStyle(), ")", equip.getQuoteStyle()));
         }
     }
 

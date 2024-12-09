@@ -42,7 +42,7 @@ public class ManaCurios0 extends WraqManaUniformCurios {
     }
 
     public static double PlayerFinalManaDamageEnhance(Player player) {
-        if (!IsOn(player)) return 1;
-        return 1.35;
+        if (!IsOn(player)) return 0;
+        return 0.35;
     }
 }

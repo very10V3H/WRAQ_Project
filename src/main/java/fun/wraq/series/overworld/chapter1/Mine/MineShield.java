@@ -73,8 +73,8 @@ public class MineShield extends Item {
 
     public static double defenceEnhance(Player player) {
         if (Utils.shieldTag.containsKey(player.getOffhandItem().getItem())) {
-            return 1.25;
+            return 0.25;
         }
-        return 1;
+        return 0;
     }
 }

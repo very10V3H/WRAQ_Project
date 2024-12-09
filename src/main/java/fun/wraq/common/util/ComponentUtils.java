@@ -307,6 +307,14 @@ public class ComponentUtils {
         return Component.literal("远古沉都").withStyle(CustomStyle.styleOfWarden).withStyle(ChatFormatting.ITALIC);
     }
 
+    public static Component getSuffixOfHarbinger() {
+        return Component.literal("鹰眼工业杰作").withStyle(CustomStyle.styleOfHarbinger).withStyle(ChatFormatting.ITALIC);
+    }
+
+    public static Component getSuffixOfSakuraIslandIndustry() {
+        return Component.literal("樱岛隐秘工业").withStyle(CustomStyle.styleOfSakura).withStyle(ChatFormatting.ITALIC);
+    }
+
     public static Component getSuffixOfSpring2024() {
         return Component.literal("SpringFestival~2024")
                 .withStyle(ChatFormatting.ITALIC).withStyle(CustomStyle.styleOfSpring);

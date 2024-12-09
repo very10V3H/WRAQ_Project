@@ -6,6 +6,7 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.loot.RandomLootEquip;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.instance.series.harbinger.HarbingerItems;
 import fun.wraq.series.instance.series.warden.WardenItems;
 import fun.wraq.series.overworld.chapter7.C7Items;
 import net.minecraft.ChatFormatting;
@@ -165,7 +166,10 @@ public class ForgeEquipUtils {
                 ModItems.LIGHTNING_HELMET.get(),
                 ModItems.LIGHTNING_CHEST.get(),
                 ModItems.LIGHTNING_LEGGINGS.get(),
-                ModItems.LIGHTNING_BOOTS.get()
+                ModItems.LIGHTNING_BOOTS.get(),
+                HarbingerItems.HARBINGER_SWORD.get(),
+                HarbingerItems.HARBINGER_BOW.get(),
+                HarbingerItems.HARBINGER_SCEPTRE.get()
         );
         zoneForgeItemListMap.put(BIRCH_VILLAGE, new ArrayList<>() {{
             birch.forEach(item -> add(item.getDefaultInstance()));
@@ -379,7 +383,7 @@ public class ForgeEquipUtils {
         return 5;
     }
 
-    public static double getTraditionalEquipBaseValue(ItemStack equip, Map<Item, Double> map, @Nullable Player player) {
+    public static double getTraditionalEquipBaseValue(ItemStack equip, Map<Item, Double> map, @Nullable Player player, boolean computeForge) {
         double exValue = 0;
         if (player != null
                 && Utils.levelRequire.getOrDefault(equip.getItem(), 0) > player.experienceLevel) return 0;
@@ -388,11 +392,15 @@ public class ForgeEquipUtils {
             CompoundTag data = ExBaseAttributeValueEquip.getStackExBaseAttributeData(equip);
             exValue += exBaseAttributeValueEquip.getTagAndRateMap().get(map).getValueByData(data);
         }
-        return (map.getOrDefault(equip.getItem(), 0d) + exValue) * getTierValueEffect(equip);
+        return (map.getOrDefault(equip.getItem(), 0d) + exValue) * (computeForge ? getTierValueEffect(equip) : 1);
+    }
+
+    public static double getTraditionalEquipBaseValue(ItemStack equip, Map<Item, Double> map, @Nullable Player player) {
+        return getTraditionalEquipBaseValue(equip, map, player, false);
     }
 
     public static double getTraditionalEquipBaseValue(ItemStack equip, Map<Item, Double> map) {
-        return getTraditionalEquipBaseValue(equip, map, null);
+        return getTraditionalEquipBaseValue(equip, map, null, true);
     }
 
     public static double getRandomEquipBaseValue(ItemStack equip, String type) {

@@ -9,6 +9,7 @@ import fun.wraq.common.equip.impl.WraqMainHandOrPassiveEquip;
 import fun.wraq.common.equip.WraqSceptre;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.moontain.MoontainItems;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.item.Item;
@@ -28,6 +29,16 @@ public class MoontainSceptre extends WraqSceptre implements ExBaseAttributeValue
         Utils.manaPenetration0.put(this, 40d);
         Utils.coolDownDecrease.put(this, 0.2);
         Utils.levelRequire.put(this, 210);
+    }
+
+    @Override
+    public Style getQuoteStyle() {
+        return CustomStyle.styleOfMoontain;
+    }
+
+    @Override
+    public Style getExValueStyle() {
+        return Style.EMPTY.applyFormat(ChatFormatting.GREEN);
     }
 
     @Override

@@ -52,8 +52,8 @@ public class ManaCurios2 extends WraqManaUniformCurios {
     }
 
     public static double playerFinalManaDamageEnhance(Player player) {
-        if (!isOn(player) || !playerNearbyHasNoOthers(player)) return 1;
-        return 1.5;
+        if (!isOn(player) || !playerNearbyHasNoOthers(player)) return 0;
+        return 0.5;
     }
 
     public static void tick(Player player) {

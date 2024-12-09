@@ -74,10 +74,10 @@ public class AttackCurios1 extends WraqAttackUniformCurios {
     }
 
     public static double playerAttackDamageEnhance(Player player) {
-        if (!isOn(player)) return 1;
+        if (!isOn(player)) return 0;
         if (playerLastTickMap.getOrDefault(player, 0) > Tick.get()) {
-            return 1 + 0.05 * playerCountsMap.getOrDefault(player, 0);
+            return 0.05 * playerCountsMap.getOrDefault(player, 0);
         }
-        return 1;
+        return 0;
     }
 }

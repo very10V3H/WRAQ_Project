@@ -1,8 +1,7 @@
 package fun.wraq.Items.MainStory_1.Mission;
 
 import fun.wraq.common.util.ComponentUtils;
-import fun.wraq.process.system.randomevent.RandomEvent;
-import fun.wraq.process.system.randomevent.RandomEventsHandler;
+import fun.wraq.process.system.channel.SakuraIslandChannel;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -19,7 +18,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class Main0 extends Item {
 
@@ -74,10 +72,21 @@ public class Main0 extends Item {
                 }
             }*/
 
-            Random random = new Random();
-            List<RandomEvent> list = RandomEventsHandler.getRandomEvents();
-            list.forEach(RandomEvent::reset);
-            list.get(random.nextInt(list.size())).begin();
+/*            ItemStack rod = HarbingerItems.HARBINGER_ROD.get().getDefaultInstance();
+            ItemStack core = HarbingerItems.HARBINGER_WEAPON_CORE.get().getDefaultInstance();
+            ItemStack swordBlade = HarbingerItems.HARBINGER_SWORD_BLADE.get().getDefaultInstance();
+            ItemStack string = HarbingerItems.HARBINGER_STRING.get().getDefaultInstance();
+            ItemStack mirror = HarbingerItems.HARBINGER_MIRROR.get().getDefaultInstance();
+
+            HarbingerWeaponMaterial.setQualityTier(rod, 5);
+            HarbingerWeaponMaterial.setQualityTier(core, 5);
+            HarbingerWeaponMaterial.setQualityTier(swordBlade, 5);
+            HarbingerWeaponMaterial.setQualityTier(string, 5);
+            HarbingerWeaponMaterial.setQualityTier(mirror, 5);
+
+            List.of(rod, core, swordBlade, string, mirror).forEach(player::addItem);*/
+
+            SakuraIslandChannel.onPlayerUse(player);
         }
 
         if (!level.isClientSide && player.isShiftKeyDown()) {

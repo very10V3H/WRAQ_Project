@@ -8,4 +8,12 @@ public class Tick {
         if (server != null) return server.getTickCount();
         return 0;
     }
+
+    public static int s(int s) {
+        return 20 * s;
+    }
+
+    public static int min(int min) {
+        return 1200 * min;
+    }
 }

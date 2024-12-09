@@ -64,6 +64,7 @@ import fun.wraq.series.gems.passive.impl.GemTickHandler;
 import fun.wraq.series.instance.series.castle.CastleAttackArmor;
 import fun.wraq.series.instance.series.castle.CastleManaArmor;
 import fun.wraq.series.instance.series.castle.CastleSwiftArmor;
+import fun.wraq.series.instance.series.harbinger.weapon.HarbingerMainHand;
 import fun.wraq.series.moontain.equip.weapon.MoontainUtils;
 import fun.wraq.series.overworld.sakuraSeries.Boss2.GoldenAttackOffhand;
 import fun.wraq.series.overworld.sakuraSeries.Boss2.GoldenBook;
@@ -153,6 +154,8 @@ public class ServerPlayerTickEvent {
             RestZone.tick(serverPlayer);
 
             GemTickHandler.handleTick(player);
+
+            HarbingerMainHand.tick(player);
 
             if (player.tickCount % 10 == 0 && player.isOnFire()) {
                 Compute.decreasePlayerHealth(player, player.getHealth() * 0.075,

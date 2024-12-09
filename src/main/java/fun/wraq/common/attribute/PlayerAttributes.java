@@ -36,6 +36,7 @@ import fun.wraq.series.instance.series.castle.CastleAttackArmor;
 import fun.wraq.series.instance.series.castle.CastleManaArmor;
 import fun.wraq.series.instance.series.castle.CastleSwiftArmor;
 import fun.wraq.series.instance.series.devil.DevilAttackArmor;
+import fun.wraq.series.instance.series.harbinger.weapon.HarbingerMainHand;
 import fun.wraq.series.instance.series.moon.Equip.MoonBook;
 import fun.wraq.series.instance.series.moon.Equip.MoonKnife;
 import fun.wraq.series.instance.series.moon.Equip.MoonShield;
@@ -120,69 +121,16 @@ public class PlayerAttributes {
         int TickCount = Tick.get();
         double baseAttackDamage = player.experienceLevel;
         double exDamage = 0;
-        Item boots = player.getItemBySlot(EquipmentSlot.FEET).getItem();
         Item leggings = player.getItemBySlot(EquipmentSlot.LEGS).getItem();
-        Item chest = player.getItemBySlot(EquipmentSlot.CHEST).getItem();
-        Item helmet = player.getItemBySlot(EquipmentSlot.HEAD).getItem();
         Item mainhand = player.getItemInHand(InteractionHand.MAIN_HAND).getItem();
-        Item offhand = player.getItemInHand(InteractionHand.OFF_HAND).getItem();
         CompoundTag data = player.getPersistentData();
-        CompoundTag mainHandItemTag = new CompoundTag();
-        if (player.getItemInHand(InteractionHand.MAIN_HAND).getTagElement(Utils.MOD_ID) != null) {
-            mainHandItemTag = player.getItemInHand(InteractionHand.MAIN_HAND).getOrCreateTagElement(Utils.MOD_ID);
-        }
-        CompoundTag helmetTag = player.getItemBySlot(EquipmentSlot.HEAD).getOrCreateTagElement(Utils.MOD_ID);
-        CompoundTag chestTag = player.getItemBySlot(EquipmentSlot.CHEST).getOrCreateTagElement(Utils.MOD_ID);
-        CompoundTag leggingsTag = player.getItemBySlot(EquipmentSlot.LEGS).getOrCreateTagElement(Utils.MOD_ID);
-        CompoundTag bootsTag = player.getItemBySlot(EquipmentSlot.FEET).getOrCreateTagElement(Utils.MOD_ID);
         CompoundTag stackmainhandtag = new CompoundTag();
         if (player.getItemInHand(InteractionHand.MAIN_HAND).getTagElement(Utils.MOD_ID) != null) {
             stackmainhandtag = player.getItemInHand(InteractionHand.MAIN_HAND).getOrCreateTagElement(Utils.MOD_ID);
         }
 
-        // 基础数值
-        if (Utils.attackDamage.containsKey(boots))
-            baseAttackDamage += ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.FEET),
-                    Utils.attackDamage, player);
-        if (Utils.attackDamage.containsKey(leggings))
-            baseAttackDamage += ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.LEGS),
-                    Utils.attackDamage, player);
-        if (Utils.attackDamage.containsKey(chest))
-            baseAttackDamage += ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.CHEST),
-                    Utils.attackDamage, player);
-        if (Utils.attackDamage.containsKey(helmet))
-            baseAttackDamage += ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.HEAD),
-                    Utils.attackDamage, player);
-
+        baseAttackDamage += computeAllEquipSlotBaseAttributeValue(player, Utils.attackDamage, true);
         baseAttackDamage += handleAllEquipRandomAttribute(player, StringUtils.RandomAttribute.attackDamage);
-
-        if (Utils.mainHandTag.containsKey(mainhand) && Utils.attackDamage.containsKey(mainhand))
-            baseAttackDamage += ForgeEquipUtils.getTraditionalEquipBaseValue(player.getMainHandItem(),
-                    Utils.attackDamage, player);
-        if (Utils.offHandTag.containsKey(offhand) && Utils.attackDamage.containsKey(offhand))
-            baseAttackDamage += ForgeEquipUtils.getTraditionalEquipBaseValue(player.getOffhandItem(),
-                    Utils.attackDamage, player);
-        if (Utils.mainHandTag.containsKey(mainhand) && Utils.attackDamage.containsKey(mainhand) && mainHandItemTag.contains("Forging"))
-            baseAttackDamage += Compute.forgingValue(mainHandItemTag,
-                    ForgeEquipUtils.getTraditionalEquipBaseValue(player.getMainHandItem(), Utils.attackDamage, player));
-
-        // Fixed:防具攻击强化失效
-        if (Utils.armorTag.containsKey(helmet) && Utils.attackDamage.containsKey(helmet) && helmetTag.contains("Forging"))
-            baseAttackDamage += Compute.forgingValue(helmetTag,
-                    ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.HEAD),
-                            Utils.attackDamage, player));
-        if (Utils.armorTag.containsKey(chest) && Utils.attackDamage.containsKey(chest) && chestTag.contains("Forging"))
-            baseAttackDamage += Compute.forgingValue(chestTag,
-                    ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.CHEST),
-                            Utils.attackDamage, player));
-        if (Utils.armorTag.containsKey(leggings) && Utils.attackDamage.containsKey(leggings) && leggingsTag.contains("Forging"))
-            baseAttackDamage += Compute.forgingValue(leggingsTag,
-                    ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.LEGS),
-                            Utils.attackDamage, player));
-        if (Utils.armorTag.containsKey(boots) && Utils.attackDamage.containsKey(boots) && bootsTag.contains("Forging"))
-            baseAttackDamage += Compute.forgingValue(bootsTag,
-                    ForgeEquipUtils.getTraditionalEquipBaseValue(player.getItemBySlot(EquipmentSlot.FEET),
-                            Utils.attackDamage, player));
 
         // 计算线性等级强度属性数值
         baseAttackDamage += computeAllEquipSlotXpLevelAttributeValue(player, Utils.xpLevelAttackDamage, true);
@@ -299,14 +247,18 @@ public class PlayerAttributes {
         // 请在上方添加
 
         double totalAttackDamage = baseAttackDamage + exDamage;
-
-        totalAttackDamage *= (1 + MoonShield.damageEnhance(player));
-        totalAttackDamage *= (1 + MoonKnife.damageEnhance(player));
-        totalAttackDamage *= Compute.playerFantasyAttributeEnhance(player);
-        totalAttackDamage *= AttackCurios1.playerAttackDamageEnhance(player);
-        totalAttackDamage *= (1 + GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.percentAttackDamageEnhance)
+        double exRate = 0;
+        exRate += MoonShield.damageEnhance(player);
+        exRate += MoonKnife.damageEnhance(player);
+        exRate += Compute.playerFantasyAttributeEnhance(player);
+        exRate += AttackCurios1.playerAttackDamageEnhance(player);
+        exRate += HarbingerMainHand.getAttackDamageRate(player);
+        exRate += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.percentAttackDamageEnhance)
                 + Compute.CuriosAttribute.attributeValue(player, Utils.percentAttackDamageEnhance,
-                StringUtils.CuriosAttribute.percentAttackDamage));
+                StringUtils.CuriosAttribute.percentAttackDamage);
+        exRate += computeAllEquipSlotBaseAttributeValue(player, Utils.percentAttackDamageEnhance, false);
+        totalAttackDamage *= (1 + exRate);
+
         if (data.contains("NetherRecallBuff") && data.getInt("NetherRecallBuff") > 0) {
             totalAttackDamage *= 0.5;
         }
@@ -363,7 +315,9 @@ public class PlayerAttributes {
         critRate += BowCurios2.playerCritRateUp(player);
         critRate += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerCritRateModifier);
         // 请在上方添加
-        critRate *= Compute.playerFantasyAttributeEnhance(player);
+        double exRate = 0;
+        exRate += Compute.playerFantasyAttributeEnhance(player);
+        critRate *= (1 + exRate);
         writeToCache(player, Utils.critRate, critRate);
         return critRate;
     }
@@ -422,12 +376,13 @@ public class PlayerAttributes {
         critDamage += AttackCurios1.playerCritDamageUp(player);
         critDamage += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerCritDamageModifier);
         // 请在上方添加
-
-        critDamage *= Compute.playerFantasyAttributeEnhance(player);
-        critDamage *= AttackCurios0.PlayerFinalCritDamageEnhance(player);
-        critDamage *= AttackCurios2.playerCritDamageEnhance(player);
-        critDamage *= BowCurios2.playerCritDamageEnhance(player);
-        critDamage *= SkyNewRune.critDamageInfluence(player);
+        double exRate = 0;
+        exRate += Compute.playerFantasyAttributeEnhance(player);
+        exRate += AttackCurios0.PlayerFinalCritDamageEnhance(player);
+        exRate += AttackCurios2.playerCritDamageEnhance(player);
+        exRate += BowCurios2.playerCritDamageEnhance(player);
+        exRate += SkyNewRune.critDamageInfluence(player);
+        critDamage *= (1 + exRate);
 
         if (player.getItemInHand(InteractionHand.OFF_HAND).is(ModItems.ManaShield.get())) {
             if (player.getHealth() / player.getMaxHealth() < 0.5) {
@@ -512,8 +467,9 @@ public class PlayerAttributes {
         movementSpeedUp += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.movementSpeedCommon);
 
         // 上方添加
-
-        movementSpeedUp *= Compute.playerFantasyAttributeEnhance(player);
+        double exRate = 0;
+        exRate += Compute.playerFantasyAttributeEnhance(player);
+        movementSpeedUp *= (1 + exRate);
 
         writeToCache(player, Utils.movementSpeedCommon, movementSpeedUp);
         return movementSpeedUp;
@@ -558,7 +514,10 @@ public class PlayerAttributes {
         speedUp += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerMovementSpeedWithoutBattleModifier);
 
         // 请在上方添加
-        speedUp *= Compute.playerFantasyAttributeEnhance(player);
+        double exRate = 0;
+        exRate += Compute.playerFantasyAttributeEnhance(player);
+        speedUp *= (1 + exRate);
+
         writeToCache(player, Utils.movementSpeedWithoutBattle, speedUp);
         return speedUp;
     }
@@ -590,7 +549,9 @@ public class PlayerAttributes {
         expUp += new double[]{0, 1, 2, 3}[tier];
 
         // 请在上方添加
-        expUp *= Compute.playerFantasyAttributeEnhance(player);
+        double exRate = 0;
+        exRate += Compute.playerFantasyAttributeEnhance(player);
+        expUp *= (1 + exRate);
         writeToCache(player, Utils.expUp, expUp);
         return expUp;
     }
@@ -657,19 +618,17 @@ public class PlayerAttributes {
         exDefence += StableTierAttributeModifier.getModifierValue(player, StableTierAttributeModifier.defence);
         exDefence += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerDefenceModifier);
         // 请在上方添加
-        double totalDefence = 0;
-        totalDefence = baseDefence + exDefence;
-        totalDefence *= (1 + EarthPower.PlayerDefenceEnhance(player));
-        totalDefence *= Compute.playerFantasyAttributeEnhance(player);
-        totalDefence *= MineShield.defenceEnhance(player);
-        totalDefence *= (1 + GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.percentDefenceEnhance) +
+        double totalDefence = baseDefence + exDefence;
+        double exRate = 0;
+        exRate += EarthPower.PlayerDefenceEnhance(player);
+        exRate += Compute.playerFantasyAttributeEnhance(player);
+        exRate += MineShield.defenceEnhance(player);
+        exRate += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.percentDefenceEnhance) +
                 Compute.CuriosAttribute.attributeValue(player, Utils.percentDefenceEnhance,
-                StringUtils.CuriosAttribute.percentDefenceEnhance));
-        totalDefence *= (1 + StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerPercentDefenceModifier));
-        if (data.contains("ManaRune") && data.getInt("ManaRune") == 3) return (baseDefence + exDefence) * 0.5f;
-
+                        StringUtils.CuriosAttribute.percentDefenceEnhance);
+        exRate += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerPercentDefenceModifier);
+        totalDefence *= (1 + exRate);
         totalDefence -= StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerDefenceDecreaseModifier);
-
         totalDefence = Math.max(0, totalDefence);
         writeToCache(player, Utils.defence, totalDefence);
         return totalDefence;
@@ -743,8 +702,10 @@ public class PlayerAttributes {
         swiftnessUp += Compute.PassiveEquip.getAttribute(player, Utils.swiftnessUp); // 器灵属性加成
         swiftnessUp += CastleSwiftArmor.ExAttributeValue(player, CastleSwiftArmor.ExSwiftnessUp);
         // 请在上方添加
-        swiftnessUp *= Compute.playerFantasyAttributeEnhance(player);
-        swiftnessUp *= BowCurios0.SwiftnessUp(player);
+        double exRate = 0;
+        exRate += Compute.playerFantasyAttributeEnhance(player);
+        exRate += BowCurios0.SwiftnessUp(player);
+        swiftnessUp *= (1 + exRate);
 
         writeToCache(player, Utils.swiftnessUp, swiftnessUp);
         return swiftnessUp;
@@ -761,7 +722,9 @@ public class PlayerAttributes {
             rangeUp += Compute.getSwordSkillLevel(data, 11) * 0.2;
 
         // 请在上方添加
-        rangeUp *= Compute.playerFantasyAttributeEnhance(player);
+        double exRate = 0;
+        exRate += Compute.playerFantasyAttributeEnhance(player);
+        rangeUp *= (1 + exRate);
         writeToCache(player, Utils.attackRangeUp, rangeUp);
         return rangeUp;
     }
@@ -811,7 +774,9 @@ public class PlayerAttributes {
         }
 
         // 请在上方添加
-        releaseSpeed *= Compute.playerFantasyAttributeEnhance(player);
+        double exRate = 0;
+        exRate += Compute.playerFantasyAttributeEnhance(player);
+        releaseSpeed *= (1 + exRate);
 
         writeToCache(player, Utils.coolDownDecrease, releaseSpeed);
         return releaseSpeed;
@@ -846,7 +811,7 @@ public class PlayerAttributes {
         defenceRate *= (1 - Compute.CuriosAttribute.attributeValue(player, Utils.defencePenetration, StringUtils.CuriosAttribute.defencePenetration)); // 新版饰品属性加成
 
         // 请在上方添加
-        defenceRate *= (2 - Compute.playerFantasyAttributeEnhance(player));
+        defenceRate *= (1 - Compute.playerFantasyAttributeEnhance(player));
 
         writeToCache(player, Utils.defencePenetration, 1 - defenceRate);
         return 1 - defenceRate;
@@ -898,7 +863,9 @@ public class PlayerAttributes {
         defencePenetration0 += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerDefencePenetration0Modifier);
         defencePenetration0 += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.defencePenetration0);
         // 请在上方添加
-        defencePenetration0 *= Compute.playerFantasyAttributeEnhance(player);
+        double exRate = 0;
+        exRate += Compute.playerFantasyAttributeEnhance(player);
+        defencePenetration0 *= (1 + exRate);
 
         writeToCache(player, Utils.defencePenetration0, defencePenetration0);
         return defencePenetration0;
@@ -945,7 +912,9 @@ public class PlayerAttributes {
         healthRecover += computeAllEquipSlotBaseAttributeValue(player, Utils.percentHealthRecover, true) * player.getMaxHealth();
 
         // 请在上方添加
-        healthRecover *= Compute.playerFantasyAttributeEnhance(player);
+        double exRate = 0;
+        exRate += Compute.playerFantasyAttributeEnhance(player);
+        healthRecover *= (1 + exRate);
 
         writeToCache(player, Utils.healthRecover, healthRecover);
         return healthRecover;
@@ -976,12 +945,13 @@ public class PlayerAttributes {
         maxHealth += CastleSwiftArmor.ExAttributeValue(player, CastleSwiftArmor.ExMaxHealth);
         maxHealth += PlainArmorHelmet.exMaxHealth(player);
         // 请在上方添加
-        maxHealth *= Compute.playerFantasyAttributeEnhance(player);
-        maxHealth *= (1 + GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.percentMaxHealthEnhance) +
+        double exRate = 0;
+        exRate += Compute.playerFantasyAttributeEnhance(player);
+        exRate += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.percentMaxHealthEnhance) +
                 Compute.CuriosAttribute.attributeValue(player, Utils.percentMaxHealthEnhance,
-                StringUtils.CuriosAttribute.percentMaxHealthEnhance));
-        maxHealth *= (1 +
-                Compute.getPlayerPotionEffectRate(player, ModEffects.GIANT.get(), 0.15, 0.25));
+                        StringUtils.CuriosAttribute.percentMaxHealthEnhance);
+        exRate += Compute.getPlayerPotionEffectRate(player, ModEffects.GIANT.get(), 0.15, 0.25);
+        maxHealth *= (1 + exRate);
 
         writeToCache(player, Utils.maxHealth, maxHealth);
         return maxHealth;
@@ -1070,14 +1040,18 @@ public class PlayerAttributes {
         exDamage += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.manaDamage);
         // 请在上方添加
         double totalDamage = baseDamage + exDamage;
-        totalDamage *= (1 + MoonBook.damageEnhance(player));
-        totalDamage *= Compute.playerFantasyAttributeEnhance(player);
-        totalDamage *= ManaCurios0.PlayerFinalManaDamageEnhance(player);
-        totalDamage *= ManaCurios2.playerFinalManaDamageEnhance(player);
-        totalDamage *= (1 + GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.percentManaDamageEnhance) +
+        double exRate = 0;
+        exRate += MoonBook.damageEnhance(player);
+        exRate += Compute.playerFantasyAttributeEnhance(player);
+        exRate += ManaCurios0.PlayerFinalManaDamageEnhance(player);
+        exRate += ManaCurios2.playerFinalManaDamageEnhance(player);
+        exRate += HarbingerMainHand.getManaDamageRate(player);
+        exRate += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.percentManaDamageEnhance) +
                 Compute.CuriosAttribute.attributeValue(player, Utils.percentManaDamageEnhance,
-                StringUtils.CuriosAttribute.percentManaDamageEnhance));
+                        StringUtils.CuriosAttribute.percentManaDamageEnhance);
+        exRate += computeAllEquipSlotBaseAttributeValue(player, Utils.percentManaDamageEnhance, false);
 
+        totalDamage *= (1 + exRate);
         Utils.playerManaDamageBeforeTransform.put(player, totalDamage);
 
         if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.DevilManaHelmet.get())) {
@@ -1103,7 +1077,9 @@ public class PlayerAttributes {
 
         manaHealSteal += Compute.CuriosAttribute.attributeValue(player, Utils.manaHealthSteal, StringUtils.CuriosAttribute.manaHealthSteal); // 新版饰品属性加成
         //请在上方添加
-        manaHealSteal *= Compute.playerFantasyAttributeEnhance(player);
+        double exRate = 0;
+        exRate += Compute.playerFantasyAttributeEnhance(player);
+        manaHealSteal *= (1 + exRate);
 
         writeToCache(player, Utils.manaHealthSteal, manaHealSteal);
         return manaHealSteal;
@@ -1146,7 +1122,9 @@ public class PlayerAttributes {
         manaRecover += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerManaRecoverModifier);
         manaRecover += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.manaRecover);
         // 请在上方添加
-        manaRecover *= Compute.playerFantasyAttributeEnhance(player);
+        double exRate = 0;
+        exRate += Compute.playerFantasyAttributeEnhance(player);
+        manaRecover *= (1 + exRate);
 
         writeToCache(player, Utils.manaRecover, manaRecover);
         return manaRecover;
@@ -1199,13 +1177,15 @@ public class PlayerAttributes {
         // 请在上方添加
 
         double totalDefence = baseDefence + exDefence;
-        totalDefence *= (1 + EarthPower.PlayerDefenceEnhance(player));
-        totalDefence *= Compute.playerFantasyAttributeEnhance(player);
-        totalDefence *= MineShield.defenceEnhance(player);
-        totalDefence *= (1 + GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.percentManaDefenceEnhance) +
+        double exRate = 0;
+        exRate += EarthPower.PlayerDefenceEnhance(player);
+        exRate += Compute.playerFantasyAttributeEnhance(player);
+        exRate += MineShield.defenceEnhance(player);
+        exRate += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.percentManaDefenceEnhance) +
                 Compute.CuriosAttribute.attributeValue(player, Utils.percentManaDefenceEnhance,
-                StringUtils.CuriosAttribute.percentManaDefenceEnhance));
-        totalDefence *= (1 + StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerPercentManaDefenceModifier));
+                        StringUtils.CuriosAttribute.percentManaDefenceEnhance);
+        exRate += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerPercentManaDefenceModifier);
+        totalDefence *= (1 + exRate);
 
         totalDefence -= StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerManaDefenceDecreaseModifier);
         totalDefence = Math.max(0, totalDefence);
@@ -1257,8 +1237,10 @@ public class PlayerAttributes {
 
         // 请在上方添加
 
-        healthSteal *= Compute.playerFantasyAttributeEnhance(player);
-        healthSteal *= (1 + SuitCount.getBloodManaSuitCount(player) * 0.08);
+        double exRate = 0;
+        exRate += Compute.playerFantasyAttributeEnhance(player);
+        exRate += SuitCount.getBloodManaSuitCount(player) * 0.08;
+        healthSteal *= (1 + exRate);
 
         if (player.getItemInHand(InteractionHand.OFF_HAND).is(ModItems.manaKnife.get())) {
             data.putDouble("HealthStealAfterCompute", healthSteal);
@@ -1307,7 +1289,7 @@ public class PlayerAttributes {
         defenceRate *= (1 - StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerManaPenetrationModifier));
 
         // 请在上方添加
-        defenceRate *= (2 - Compute.playerFantasyAttributeEnhance(player));
+        defenceRate *= (1 - Compute.playerFantasyAttributeEnhance(player));
 
         writeToCache(player, Utils.manaPenetration, 1 - defenceRate);
         return 1 - defenceRate;
@@ -1353,7 +1335,9 @@ public class PlayerAttributes {
         manaPenetration0 += StableAttributesModifier.getModifierValue(player,
                 StableAttributesModifier.playerManaPenetration0Modifier);
         // 请在上方添加
-        manaPenetration0 *= Compute.playerFantasyAttributeEnhance(player);
+        double exRate = 0;
+        exRate += Compute.playerFantasyAttributeEnhance(player);
+        manaPenetration0 *= (1 + exRate);
 
         writeToCache(player, Utils.manaPenetration0, manaPenetration0);
         return manaPenetration0;
@@ -1390,8 +1374,9 @@ public class PlayerAttributes {
         maxMana += Compute.CuriosAttribute.attributeValue(player, Utils.maxMana, StringUtils.CuriosAttribute.maxMana); // 新版饰品属性加成
         maxMana += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.maxMana);
         // 请在上方添加
-
-        maxMana *= Compute.playerFantasyAttributeEnhance(player);
+        double exRate = 0;
+        exRate += Compute.playerFantasyAttributeEnhance(player);
+        maxMana *= (1 + exRate);
 
         writeToCache(player, Utils.maxMana, 250 + maxMana);
         return 250 + maxMana;
@@ -1525,13 +1510,13 @@ public class PlayerAttributes {
         double totalValue = 0;
         for (ItemStack equip : getAllEquipSlotItems(player)) {
             Item item = equip.getItem();
-            if (attributeMap.containsKey(item) && player.experienceLevel >= Utils.levelRequire.getOrDefault(item, 0)) {
+            double traditionalValue = ForgeEquipUtils.getTraditionalEquipBaseValue(equip, attributeMap, player, computeForge);
+            if ((attributeMap.containsKey(item) || traditionalValue != 0) && player.experienceLevel >= Utils.levelRequire.getOrDefault(item, 0)) {
                 double value = 0;
-                double baseValue = ForgeEquipUtils.getTraditionalEquipBaseValue(equip, attributeMap, player);
                 if (computeForge && equip.getTagElement(Utils.MOD_ID) != null) {
-                    value += Compute.forgingValue(equip, baseValue);
+                    value += Compute.forgingValue(equip, traditionalValue);
                 }
-                totalValue += baseValue + value;
+                totalValue += traditionalValue + value;
             }
         }
         return totalValue;

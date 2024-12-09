@@ -9,6 +9,7 @@ import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.moontain.MoontainItems;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.item.Item;
@@ -29,6 +30,16 @@ public class MoontainSword extends WraqSword implements ExBaseAttributeValueEqui
         Utils.critRate.put(this, 0.30d);
         Utils.critDamage.put(this, 1d);
         Utils.levelRequire.put(this, 210);
+    }
+
+    @Override
+    public Style getQuoteStyle() {
+        return CustomStyle.styleOfMoontain;
+    }
+
+    @Override
+    public Style getExValueStyle() {
+        return Style.EMPTY.applyFormat(ChatFormatting.GREEN);
     }
 
     @Override

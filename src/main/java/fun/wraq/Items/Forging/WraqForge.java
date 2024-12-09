@@ -3,6 +3,7 @@ package fun.wraq.Items.Forging;
 import fun.wraq.blocks.blocks.forge.ForgeRecipe;
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Tick;
+import fun.wraq.common.impl.display.BeforeRemoveMaterialOnForge;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.StringUtils;
@@ -26,6 +27,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.TickEvent;
@@ -59,18 +61,19 @@ public class WraqForge extends Item {
             return;
         }
 
-        List<ItemStack> MaterialList = ForgeRecipe.forgeDrawRecipe.get(forgedItem);
+        List<ItemStack> materialList = ForgeRecipe.forgeDrawRecipe.get(forgedItem);
         Inventory inventory = player.getInventory();
-        boolean ContainMaterial = true;
-        for (int i = 0; i < MaterialList.size(); i++) {
-            if (!InventoryOperation.checkPlayerHasItem(inventory, MaterialList.get(i).getItem(), MaterialList.get(i).getCount()))
-                ContainMaterial = false;
+        boolean containMaterial = true;
+        for (ItemStack value : materialList) {
+            if (!InventoryOperation.checkPlayerHasItem(inventory, value.getItem(), value.getCount()))
+                containMaterial = false;
         }
 
-        if (ContainMaterial) {
-
+        if (containMaterial) {
+            ItemStack productItemStack = forgedItem.getDefaultInstance();
             CompoundTag data = null;
-            for (ItemStack stack : MaterialList) {
+            for (ItemStack stack : materialList) {
+                // 复制必要的Tag
                 if (Utils.weaponList.contains(stack.getItem())) {
                     for (int i = 0 ; i < inventory.getContainerSize() ; i ++) {
                         if (inventory.getItem(i).is(stack.getItem())) {
@@ -78,14 +81,23 @@ public class WraqForge extends Item {
                         }
                     }
                 }
+                // 在移除前作一些操作，例如耗材的品质判断
+                if (forgedItem instanceof BeforeRemoveMaterialOnForge beforeRemoveMaterialOnForge) {
+                    ItemStack removingStack = Items.AIR.getDefaultInstance();
+                    for (int i = 0 ; i < inventory.getContainerSize() ; i ++) {
+                        if (inventory.getItem(i).is(stack.getItem())) {
+                            removingStack = inventory.getItem(i);
+                        }
+                    }
+                    beforeRemoveMaterialOnForge.beforeRemoveMaterialOnForge(productItemStack, removingStack);
+                }
+                // 移除物品
                 InventoryOperation.removeItem(inventory, stack.getItem(), stack.getCount());
             }
 
             Compute.sendFormatMSG(player, Component.literal("锻造").withStyle(ChatFormatting.GRAY),
                     Component.literal("锻造成功！").withStyle(ChatFormatting.GOLD));
             MySound.soundToPlayer(player, SoundEvents.ANVIL_USE);
-
-            ItemStack productItemStack = forgedItem.getDefaultInstance();
 
             // 锻造品质
             if (Utils.mainHandTag.containsKey(forgedItem) || Utils.armorTag.containsKey(forgedItem)) {
@@ -146,7 +158,7 @@ public class WraqForge extends Item {
             }
         } else {
             Compute.sendFormatMSG(player, Component.literal("锻造").withStyle(ChatFormatting.GRAY), Component.literal("背包里似乎没有足够的物品用于锻造。"));
-            for (ItemStack itemStack : MaterialList) {
+            for (ItemStack itemStack : materialList) {
                 if (InventoryOperation.itemStackCount(inventory, itemStack.getItem()) < itemStack.getCount()) {
                     Compute.sendFormatMSG(player, Component.literal("锻造").withStyle(ChatFormatting.GRAY), Component.literal("缺少:").withStyle(ChatFormatting.WHITE).append(itemStack.getItem().getDefaultInstance().getDisplayName()).append(Component.literal("*" + (itemStack.getCount() - InventoryOperation.itemStackCount(inventory, itemStack.getItem())))));
                 }

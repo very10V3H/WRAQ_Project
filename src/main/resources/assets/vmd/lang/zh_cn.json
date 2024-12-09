@@ -1899,8 +1899,37 @@
   "item.vmd.warden_knife": "远古匕首",
   "item.vmd.warden_book": "远古魔导书",
 
+  "item.vmd.harbinger_ingot": "鹰眼钢材",
+  "item.vmd.harbinger_heart": "先驱者之心",
+  "item.vmd.harbinger_rod": "鹰眼武器握把",
+  "item.vmd.harbinger_weapon_core": "鹰眼武器核心",
+  "item.vmd.harbinger_sword_blade": "鹰眼切割之刃",
+  "item.vmd.harbinger_string": "鹰眼联结钢索",
+  "item.vmd.harbinger_mirror": "鹰眼窥物之镜",
+  "item.vmd.raw_iron_ingot": "生铁锭",
+  "item.vmd.raw_iron_nugget": "生铁粒",
+  "item.vmd.sakura_industry_ingot": "樱岛隐秘工业材料",
+  "item.vmd.harbinger_sword": "鹰眼长剑",
+  "item.vmd.harbinger_bow": "鹰眼长弓",
+  "item.vmd.harbinger_sceptre": "鹰眼手镜",
+
+  "item.vmd.sakura_industry_sceptre": "隐秘经纬法杖",
+
+
   "curios.identifier.rune": "符石",
   "curios.identifier.crest": "纹章",
+
+  "item.vmd.water_bottle": "天然水",
+
+  "item.vmd.pearl1": "本源珍珠 - I",
+  "item.vmd.pearl2": "本源珍珠 - II",
+  "item.vmd.pearl3": "本源珍珠 - III",
+  "item.vmd.pearl4": "本源珍珠 - IV",
+  "item.vmd.pearl5": "本源珍珠 - V",
+  "item.vmd.pearl6": "本源珍珠 - VI",
+  "item.vmd.world_forge_stone": "本源宝石",
+
+  "item.vmd.splasher": "膨热剂",
 
   "item.vmd.attackup_potion": "攻击提升药水",
   "item.vmd.attackup_con_potion": "浓缩攻击提升药水",
@@ -2206,21 +2235,6 @@
   "item.vmd.splash_ex_harvest_potion.effect.ex_harvest_potion": "喷溅型贪婪药水",
   "item.vmd.splash_ex_harvest_con_potion.effect.con_ex_harvest_potion": "喷溅型浓缩贪婪药水",
   "item.vmd.splash_ex_harvest_long_potion.effect.long_ex_harvest_potion": "喷溅型延时贪婪药水",
-
-  "item.vmd.eliaoi_curios3": "灾厄",
-  "item.vmd.eliaoi_curios3_paper": "灾厄",
-
-  "item.vmd.water_bottle": "天然水",
-
-  "item.vmd.pearl1": "本源珍珠 - I",
-  "item.vmd.pearl2": "本源珍珠 - II",
-  "item.vmd.pearl3": "本源珍珠 - III",
-  "item.vmd.pearl4": "本源珍珠 - IV",
-  "item.vmd.pearl5": "本源珍珠 - V",
-  "item.vmd.pearl6": "本源珍珠 - VI",
-  "item.vmd.world_forge_stone": "本源宝石",
-
-  "item.vmd.splasher": "膨热剂",
 
   "key.category.vmd.vmd": "维瑞阿契键位",
   "key.vmd.ues_drugs": "使用回复物品",

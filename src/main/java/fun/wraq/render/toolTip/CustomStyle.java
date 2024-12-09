@@ -81,6 +81,7 @@ public class CustomStyle {
     public static Style styleOfMoontain = Style.EMPTY.withColor(TextColor.parseColor("#51dea9"));
     public static Style styleOfSunIsland = Style.EMPTY.withColor(TextColor.parseColor("#ffdc4a"));
     public static Style styleOfWarden = Style.EMPTY.withColor(TextColor.parseColor("#2ba7a7"));
+    public static Style styleOfHarbinger = Style.EMPTY.withColor(TextColor.parseColor("#ff4e00"));
 
     public static Rarity GrayItalic = Rarity.create("gray_italic", style -> {
         return style.applyFormat(ChatFormatting.GRAY).withItalic(true).withBold(true);
@@ -729,5 +730,17 @@ public class CustomStyle {
 
     public static final Rarity WARDEN_ITALIC = Rarity.create("warden_italic", style -> {
         return style.applyTo(CustomStyle.styleOfWarden).withBold(true).withItalic(true);
+    });
+
+    public static final Rarity HARBINGER = Rarity.create("harbinger", style -> {
+        return style.applyTo(CustomStyle.styleOfHarbinger);
+    });
+
+    public static final Rarity HARBINGER_BOLD = Rarity.create("harbinger_bold", style -> {
+        return style.applyTo(CustomStyle.styleOfHarbinger).withBold(true);
+    });
+
+    public static final Rarity HARBINGER_ITALIC = Rarity.create("harbinger_italic", style -> {
+        return style.applyTo(CustomStyle.styleOfHarbinger).withBold(true).withItalic(true);
     });
 }
