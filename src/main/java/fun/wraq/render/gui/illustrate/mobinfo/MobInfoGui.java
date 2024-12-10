@@ -3,7 +3,7 @@ package fun.wraq.render.gui.illustrate.mobinfo;
 import com.mojang.blaze3d.systems.RenderSystem;
 import fun.wraq.common.attribute.BasicAttributeDescription;
 import fun.wraq.common.fast.Te;
-import fun.wraq.common.util.ItemAndRate;
+import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;

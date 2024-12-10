@@ -3,7 +3,6 @@ package fun.wraq.process.system.channel;
 import fun.wraq.common.equip.WraqMainHandEquip;
 import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.fast.Te;
-import fun.wraq.common.fast.Tick;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.network.chat.Component;
@@ -48,7 +47,7 @@ public class SakuraIndustrySceptre extends WraqMainHandEquip implements ActiveIt
     @Override
     public void active(Player player) {
         SakuraIslandChannel.onPlayerUse(player);
-        player.getCooldowns().addCooldown(this, Tick.s(50));
+        player.getCooldowns().addCooldown(this, 50);
     }
 
     @Override

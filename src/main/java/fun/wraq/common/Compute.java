@@ -978,36 +978,6 @@ public class Compute {
                 Component.literal("你的大脑对于技艺的理解回归了数个时段。。。").withStyle(ChatFormatting.WHITE));
     }
 
-    public static int getPlayerPsValue(Player player) {
-        return player.getPersistentData().getInt(StringUtils.PsValue);
-    }
-
-    public static boolean addOrCostPlayerPsValue(Player player, int value) {
-        CompoundTag data = player.getPersistentData();
-        int CurrentPsValue = data.getInt(StringUtils.PsValue);
-        if (CurrentPsValue > 100 && value > 0) return false;
-        if (CurrentPsValue + value < 0) return false;
-        CurrentPsValue += value;
-        if (value < 0) {
-            data.putInt(StringUtils.PsValue, CurrentPsValue);
-            ModNetworking.sendToClient(new PsValueS2CPacket(CurrentPsValue), (ServerPlayer) player);
-        } else {
-            data.putInt(StringUtils.PsValue, Math.min(CurrentPsValue, 100));
-            ModNetworking.sendToClient(new PsValueS2CPacket(Math.min(CurrentPsValue, 100)), (ServerPlayer) player);
-        }
-        return true;
-    }
-
-    public static boolean addOrCostPlayerPsValueIgnoreLimit(Player player, int value) {
-        CompoundTag data = player.getPersistentData();
-        int CurrentPsValue = data.getInt(StringUtils.PsValue);
-        if (CurrentPsValue + value < 0) return false;
-        CurrentPsValue += value;
-        data.putInt(StringUtils.PsValue, CurrentPsValue);
-        ModNetworking.sendToClient(new PsValueS2CPacket(CurrentPsValue), (ServerPlayer) player);
-        return true;
-    }
-
     public static void respawnPlayer(Player player) {
         player.heal(player.getMaxHealth());
         ServerLevel overWorld = player.level().getServer().getLevel(Level.OVERWORLD);

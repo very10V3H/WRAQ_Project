@@ -3,7 +3,7 @@ package fun.wraq.process.system.randomevent.impl.killmob.multi;
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
-import fun.wraq.common.util.ItemAndRate;
+import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.network.chat.Component;

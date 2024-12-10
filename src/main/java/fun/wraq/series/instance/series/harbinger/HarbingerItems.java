@@ -56,5 +56,5 @@ public class HarbingerItems {
             () -> new HarbingerSceptre(new Item.Properties().rarity(CustomStyle.HARBINGER_ITALIC)));
 
     public static final RegistryObject<Item> SAKURA_INDUSTRY_SCEPTRE = ITEMS.register("sakura_industry_sceptre",
-            () -> new SakuraIndustrySceptre(new Item.Properties().rarity(CustomStyle.HARBINGER_ITALIC)));
+            () -> new SakuraIndustrySceptre(new Item.Properties().rarity(CustomStyle.SakuraItalic)));
 }

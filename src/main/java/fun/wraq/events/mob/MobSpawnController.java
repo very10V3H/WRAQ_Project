@@ -1,6 +1,6 @@
 package fun.wraq.events.mob;
 
-import fun.wraq.common.util.ItemAndRate;
+import fun.wraq.common.util.items.ItemAndRate;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Mob;

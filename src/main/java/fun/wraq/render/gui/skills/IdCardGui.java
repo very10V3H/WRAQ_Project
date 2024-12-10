@@ -14,6 +14,7 @@ import fun.wraq.process.func.plan.DailySupply;
 import fun.wraq.process.func.plan.networking.DailySupplyC2SPacket;
 import fun.wraq.process.system.missions.netWorking.MissionScreenOpenC2SPacket;
 import fun.wraq.process.system.point.Point;
+import fun.wraq.process.system.reason.Reason;
 import fun.wraq.process.system.tower.TowerScreen;
 import fun.wraq.process.system.vp.VpStoreScreen;
 import fun.wraq.render.gui.illustrate.Illustrate;
@@ -279,6 +280,12 @@ public class IdCardGui extends Screen {
                 }
             }
         }
+
+        guiGraphics.drawCenteredString(fontRenderer, Te.s("理智", CustomStyle.styleOfLife),
+                this.width / 2 + 8, this.height / 2 - 20, 0);
+        guiGraphics.drawCenteredString(fontRenderer, Te.s(String.valueOf(Reason.clientReasonValue)),
+                this.width / 2 + 37, this.height / 2 - 20, 0);
+
 
 /*        guiGraphics.drawCenteredString(fontRenderer, Component.literal("基础攻击").withStyle(ChatFormatting.AQUA),
                 this.width / 2 - 116, this.height / 2 - 71, 0);

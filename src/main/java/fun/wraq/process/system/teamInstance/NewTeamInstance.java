@@ -1,16 +1,19 @@
 package fun.wraq.process.system.teamInstance;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.MySound;
-import fun.wraq.common.util.ItemAndRate;
+import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.struct.PlayerTeam;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.networking.ModNetworking;
+import fun.wraq.process.system.reason.Reason;
 import fun.wraq.process.system.teamInstance.networking.NewTeamInstanceClearS2CPacket;
 import fun.wraq.process.system.teamInstance.networking.NewTeamInstanceJoinedPlayerInfoS2CPacket;
 import fun.wraq.process.system.teamInstance.networking.NewTeamInstancePrepareInfoS2CPacket;
+import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -53,12 +56,13 @@ public abstract class NewTeamInstance {
     public int lastTick = 0;
     public final ResourceKey<Level> dimension;
     public final Vec2 rot;
+    public final int reasonCost;
     public PlayerTeam team = null;
 
     public NewTeamInstance(boolean inChallenging, Vec3 prepareCenterPos, MutableComponent description,
                            MutableComponent regionDescription, double prepareDetectRange, int levelRequire,
                            int minPlayerNum, int maxPlayerNum, int maxChallengeTime,
-                           ResourceKey<Level> dimension, Vec2 rot) {
+                           ResourceKey<Level> dimension, Vec2 rot, int reasonCost) {
         this.inChallenging = inChallenging;
         this.prepareCenterPos = prepareCenterPos;
         this.prepareDetectRange = prepareDetectRange;
@@ -70,6 +74,15 @@ public abstract class NewTeamInstance {
         this.maxChallengeTime = maxChallengeTime;
         this.dimension = dimension;
         this.rot = rot;
+        this.reasonCost = reasonCost;
+    }
+
+    public NewTeamInstance(boolean inChallenging, Vec3 prepareCenterPos, MutableComponent description,
+                           MutableComponent regionDescription, double prepareDetectRange, int levelRequire,
+                           int minPlayerNum, int maxPlayerNum, int maxChallengeTime,
+                           ResourceKey<Level> dimension, Vec2 rot) {
+        this(inChallenging, prepareCenterPos, description, regionDescription, prepareDetectRange, levelRequire,
+                minPlayerNum, maxPlayerNum, maxChallengeTime, dimension, rot, 0);
     }
 
     public void tick(Level level) {
@@ -200,7 +213,26 @@ public abstract class NewTeamInstance {
                 clear();
                 return;
             }
+            hasSummonedMobs.forEach(mob -> {
+                if (mob.isDeadOrDying()) hasKilledMobs.add(mob);
+            });
+            if (tickCount % 200 == 8) {
+                players.forEach(player -> {
+                    Compute.sendFormatMSG(player, Component.literal("团队副本").withStyle(ChatFormatting.RED),
+                            Component.literal("还剩").withStyle(ChatFormatting.WHITE).
+                                    append(Component.literal(String.valueOf(mobList.size() - hasKilledMobs.size())).withStyle(ChatFormatting.RED)).
+                                    append(Component.literal("只怪物未清理。").withStyle(ChatFormatting.WHITE)));
+                });
+            }
             handleTick(level);
+            if (mobList.size() - hasKilledMobs.size() == 0 && !allMobIsClear()) {
+                players.forEach(player -> {
+                    Compute.sendFormatMSG(player, Component.literal("团队副本").withStyle(ChatFormatting.RED),
+                            Component.literal("挑战异常，已终止").withStyle(ChatFormatting.WHITE));
+                });
+                clear();
+                return;
+            }
             lastTick++;
             if (lastTick / 20 > maxChallengeTime) {
                 players.forEach(player -> {
@@ -218,6 +250,12 @@ public abstract class NewTeamInstance {
                                 append(Component.literal(" 通关了").withStyle(ChatFormatting.WHITE)).
                                 append(description));
                 players.forEach(player -> {
+                    if (Reason.getPlayerReasonValue(player) < reasonCost) {
+                        Compute.sendFormatMSG(player, Component.literal("团队副本").withStyle(ChatFormatting.RED),
+                                Te.s("获取奖励所需的", "理智", CustomStyle.styleOfFlexible, "不足。需要",
+                                        reasonCost + "理智", CustomStyle.styleOfFlexible));
+                        return;
+                    }
                     if (!allowReward(player)) {
                         Compute.sendFormatMSG(player, Component.literal("团队副本").withStyle(ChatFormatting.RED),
                                 allowRewardCondition());
@@ -236,16 +274,12 @@ public abstract class NewTeamInstance {
     }
 
     public abstract void initMobList(Level level);
-
     public abstract void handleTick(Level level);
-
     public abstract void reward(Player player);
-
     public abstract boolean allowReward(Player player);
-
     public abstract Component allowRewardCondition();
-
     public abstract List<ItemAndRate> getRewardList();
+    public abstract double judgeDamage(Player player, Mob mob, double originDamage);
 
     public boolean allMobIsClear() {
         for (ConditionSummonMob conditionSummonMob : mobList) {

@@ -146,15 +146,10 @@ public class ServerPlayerTickEvent {
             WraqMainHandEquip.serverTick(player);
             WraqOffHandItem.serverTick(player);
             WraqArmor.serverTick(player);
-
             EndCrystal.tick(player);
-
             HoursExHarvestPotion.tick(player);
-
             RestZone.tick(serverPlayer);
-
             GemTickHandler.handleTick(player);
-
             HarbingerMainHand.tick(player);
 
             if (player.tickCount % 10 == 0 && player.isOnFire()) {

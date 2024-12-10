@@ -1,7 +1,7 @@
 package fun.wraq.Items.MainStory_1.Mission;
 
 import fun.wraq.common.util.ComponentUtils;
-import fun.wraq.process.system.channel.SakuraIslandChannel;
+import fun.wraq.process.system.reason.Reason;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -86,7 +86,7 @@ public class Main0 extends Item {
 
             List.of(rod, core, swordBlade, string, mirror).forEach(player::addItem);*/
 
-            SakuraIslandChannel.onPlayerUse(player);
+            Reason.addOrCostPlayerReasonValue(player, 5);
         }
 
         if (!level.isClientSide && player.isShiftKeyDown()) {

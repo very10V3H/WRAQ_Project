@@ -1,6 +1,7 @@
 package fun.wraq.Items.Ps;
 
 import fun.wraq.common.Compute;
+import fun.wraq.process.system.reason.Reason;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -25,7 +26,7 @@ public class PsBottle extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
         if (!level.isClientSide && interactionHand.equals(InteractionHand.MAIN_HAND)) {
-            Compute.addOrCostPlayerPsValueIgnoreLimit(player, Num);
+            Reason.addOrCostPlayerReasonValueIgnoreLimit(player, Num);
             Compute.playerItemUseWithRecord(player);
         }
         return InteractionResultHolder.pass(player.getItemInHand(interactionHand));

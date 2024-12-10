@@ -36,6 +36,7 @@ import fun.wraq.process.system.endlessinstance.item.EndlessInstanceItems;
 import fun.wraq.process.system.lottery.NewLotteries;
 import fun.wraq.process.system.missions.series.dailyMission.DailyMission;
 import fun.wraq.process.system.parkour.Parkour;
+import fun.wraq.process.system.reason.Reason;
 import fun.wraq.process.system.teamInstance.NewTeamInstanceHandler;
 import fun.wraq.process.system.tower.Tower;
 import fun.wraq.process.system.tower.TowerStatusS2CPacket;
@@ -311,6 +312,7 @@ public class LoginInEvent {
 
             SingleItemChangePurchaseLimit.sendAllRecipeTimes(player);
             RankData.onPlayerLogin(player);
+            Reason.sendReasonValuePacketToClient(player);
         }
     }
 
@@ -454,7 +456,7 @@ public class LoginInEvent {
 
     public static void DailyRefreshContent(Player player) throws IOException {
         CompoundTag data = player.getPersistentData();
-        Compute.addOrCostPlayerPsValue(player, 100);
+        Reason.setPlayerReasonValue(player, 100);
         Utils.playerReputationMissionPunishLevel.remove(player.getName().getString());
         Parkour.ParkourReset(player);
         Utils.playerDailyMissionContent.remove(player.getName().getString());

@@ -448,8 +448,6 @@ public class StringUtils {
 
     public static String VolcanoSoulCount = "VolcanoSoulCount";
 
-    public static String PsValue = "PsValue";
-
     public static class ManaCore {
         public static String ManaCore = "ManaCore";
         public static String SeaCore = "Sea" + ManaCore;

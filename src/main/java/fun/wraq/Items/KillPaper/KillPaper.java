@@ -1,7 +1,7 @@
 package fun.wraq.Items.KillPaper;
 
 import fun.wraq.common.Compute;
-import fun.wraq.common.util.ItemAndRate;
+import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.MobSpawn;
 import net.minecraft.ChatFormatting;

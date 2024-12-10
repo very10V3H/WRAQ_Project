@@ -55,7 +55,7 @@ public class InstanceChooseC2SPacket {
                         xpUnReachPlayers.add(player);
                 });
                 if (xpUnReachPlayers.isEmpty()
-                        && playerListGetByName.size() >= instance.minPlayerNum
+
                         && !Compute.thisTeamIsChallenging(playerTeam)) {
                     instance.startByTeam(playerTeam);
                     Utils.ChallengingPlayerTeam.add(playerTeam);

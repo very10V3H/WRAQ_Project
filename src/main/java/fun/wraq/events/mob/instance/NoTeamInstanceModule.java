@@ -37,6 +37,7 @@ public class NoTeamInstanceModule {
         public static String moontainBoss = "allowRewardMoontainBoss";
         public static String enderGuardian = "allowRewardEnderGuardian";
         public static String warden = "allowRewardWarden";
+        public static String harbinger = "allowRewardHarbinger";
     }
 
     public static boolean getPlayerAllowReward(Player player, String tag) {

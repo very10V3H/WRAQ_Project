@@ -1,7 +1,7 @@
 package fun.wraq.process.system.instance;
 
 import fun.wraq.common.Compute;
-import fun.wraq.common.util.ItemAndRate;
+import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.instance.instances.element.IceInstance;
 import fun.wraq.events.mob.instance.instances.element.MoonInstance;
 import fun.wraq.events.mob.instance.instances.element.PlainInstance;

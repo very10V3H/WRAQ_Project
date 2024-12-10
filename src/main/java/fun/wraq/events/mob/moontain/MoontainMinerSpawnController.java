@@ -2,7 +2,7 @@ package fun.wraq.events.mob.moontain;
 
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
-import fun.wraq.common.util.ItemAndRate;
+import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.MobSpawnController;
 import fun.wraq.process.system.ore.OreItems;

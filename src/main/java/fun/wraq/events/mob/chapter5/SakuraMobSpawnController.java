@@ -3,7 +3,7 @@ package fun.wraq.events.mob.chapter5;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModEntityType;
 import fun.wraq.common.registry.ModItems;
-import fun.wraq.common.util.ItemAndRate;
+import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.entities.entities.SakuraMob.SakuraMob;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.MobSpawnController;

@@ -1,4 +1,4 @@
-package fun.wraq.common.util;
+package fun.wraq.common.util.items;
 
 import fun.wraq.common.equip.impl.RandomCurios;
 import fun.wraq.events.core.InventoryCheck;
@@ -91,6 +91,10 @@ public class ItemAndRate {
     }
 
     public boolean send(Player player, double num) {
+        return send(player, num, null);
+    }
+
+    public boolean send(Player player, double num, AdjustStackBeforeGive adjustStackBeforeGive) {
         ItemStack dropItemStack = new ItemStack(itemStack.getItem());
         handleRandomAttributeBeforeDrop(dropItemStack);
         dropItemStack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
@@ -103,11 +107,18 @@ public class ItemAndRate {
                 dropItemStack.setCount(dropItemStack.getCount() + 1);
             }
         }
+        if (adjustStackBeforeGive != null) {
+            adjustStackBeforeGive.adjust(dropItemStack);
+        }
         InventoryOperation.itemStackGive(player, dropItemStack);
         return true;
     }
 
     public boolean sendWithMSG(Player player, double num) {
+        return sendWithMSG(player, num, null);
+    }
+
+    public boolean sendWithMSG(Player player, double num, AdjustStackBeforeGive adjustStackBeforeGive) {
         ItemStack dropItemStack = new ItemStack(itemStack.getItem());
         handleRandomAttributeBeforeDrop(dropItemStack);
         dropItemStack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
@@ -119,6 +130,9 @@ public class ItemAndRate {
             if (rand.nextDouble() < finalRate % 1) {
                 dropItemStack.setCount(dropItemStack.getCount() + 1);
             }
+        }
+        if (adjustStackBeforeGive != null) {
+            adjustStackBeforeGive.adjust(dropItemStack);
         }
         InventoryOperation.itemStackGiveWithMSG(player, dropItemStack);
         return true;

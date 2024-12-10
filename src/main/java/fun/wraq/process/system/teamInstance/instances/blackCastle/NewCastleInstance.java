@@ -6,7 +6,7 @@ import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModEntityType;
 import fun.wraq.common.registry.ModItems;
-import fun.wraq.common.util.ItemAndRate;
+import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
 import fun.wraq.process.func.item.InventoryOperation;
@@ -119,19 +119,7 @@ public class NewCastleInstance extends NewTeamInstance {
 
     @Override
     public void handleTick(Level level) {
-        hasSummonedMobs.forEach(mob -> {
-            if (mob.isDeadOrDying()) hasKilledMobs.add(mob);
-        });
-
         int tickCount = Tick.get();
-        if (tickCount % 200 == 8) {
-            players.forEach(player -> {
-                Compute.sendFormatMSG(player, Component.literal("团队副本").withStyle(ChatFormatting.RED),
-                        Component.literal("还剩").withStyle(ChatFormatting.WHITE).
-                                append(Component.literal(String.valueOf(mobList.size() - hasKilledMobs.size())).withStyle(ChatFormatting.RED)).
-                                append(Component.literal("只怪物未清理。").withStyle(ChatFormatting.WHITE)));
-            });
-        }
         mobList.forEach(conditionSummonMob -> {
             Mob mob = conditionSummonMob.mob();
             if (!hasSummonedMobs.contains(mob)) {
@@ -203,13 +191,6 @@ public class NewCastleInstance extends NewTeamInstance {
                 mobList.add(new ConditionSummonMob(0, zombie, new Vec3(2372, 159, -1372), 10));
             }
         }
-        if (mobList.size() - hasKilledMobs.size() == 0 && !allMobIsClear()) {
-            players.forEach(player -> {
-                Compute.sendFormatMSG(player, Component.literal("团队副本").withStyle(ChatFormatting.RED),
-                        Component.literal("挑战异常，已终止").withStyle(ChatFormatting.WHITE));
-            });
-            clear();
-        }
     }
 
     @Override
@@ -249,6 +230,11 @@ public class NewCastleInstance extends NewTeamInstance {
                 new ItemAndRate(ModItems.GoldCoinBag.get(), 0.1),
                 new ItemAndRate(ModItems.CastleNecklace.get(), 0.08),
                 new ItemAndRate(NewRuneItems.castleNewRune.get(), 0.015));
+    }
+
+    @Override
+    public double judgeDamage(Player player, Mob mob, double originDamage) {
+        return originDamage;
     }
 
     @Override
