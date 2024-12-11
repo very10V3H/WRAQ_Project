@@ -82,7 +82,7 @@ public enum SmeltRecipe {
     TINKER_GOLD_EX(Te.m("工匠金锭-EX", CustomStyle.styleOfGold),
             List.of(new ItemStack(Items.GOLD_NUGGET, 288),
                     new ItemStack(Items.COAL, 8),
-                    new ItemStack(ModItems.GOLD_COIN.get(), 288)),
+                    new ItemStack(ModItems.GOLD_COIN.get(), 8)),
             List.of(new ItemStack(PickaxeItems.TINKER_GOLD.get(), 1)),
             List.of(new ItemAndRate(new ItemStack(Items.GOLD_INGOT, 8), 0.25)),
             20),

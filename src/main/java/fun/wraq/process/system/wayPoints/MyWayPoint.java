@@ -1,9 +1,13 @@
 package fun.wraq.process.system.wayPoints;
 
+import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Te;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.system.wayPoints.networking.SpecificWayPointAddS2CPacket;
 import fun.wraq.process.system.wayPoints.networking.SpecificWayPointRemoveS2CPacket;
+import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -66,6 +70,136 @@ public class MyWayPoint {
 
     public static String wayPointSet = "wayPointSet";
 
+    public static class ZonePoint {
+        public final Vec3 pos;
+        public final Component zone;
+        public final Component description;
+        public final int range;
+        public ZonePoint(Vec3 pos, Component zone, Component description, int range) {
+            this.pos = pos;
+            this.zone = zone;
+            this.description = description;
+            this.range = range;
+        }
+
+        public ZonePoint(Vec3 pos, Component zone, Component description) {
+            this(pos, zone, description, 64);
+        }
+    }
+
+    public static List<ZonePoint> overWorldZonePointList = new ArrayList<>() {{
+        add(new ZonePoint(new Vec3(756, 84, 207),
+                Te.s("平原村", CustomStyle.styleOfPlain),
+                Te.s("田园诗意，物阜民丰", CustomStyle.styleOfPlain)));
+        add(new ZonePoint(new Vec3(956, 232, 17),
+                Te.s("天空城", CustomStyle.styleOfSky),
+                Te.s("与浮云共眠之城", CustomStyle.styleOfSky)));
+        add(new ZonePoint(new Vec3(1091, 80, 40),
+                Te.s("雨林村", CustomStyle.styleOfForest),
+                Te.s("雨林葱郁，鸟语花香", CustomStyle.styleOfForest)));
+        add(new ZonePoint(new Vec3(889, 62, -422),
+                Te.s("海岸村", CustomStyle.styleOfWater),
+                Te.s("碧海蓝天，金沙碧水", CustomStyle.styleOfWater)));
+        add(new ZonePoint(new Vec3(2573, 120, -492),
+                Te.s("火山村", CustomStyle.styleOfVolcano),
+                Te.s("红光映天，地质奇观", CustomStyle.styleOfVolcano)));
+        add(new ZonePoint(new Vec3(1157, 76, -1077),
+                Te.s("薰楠村", CustomStyle.styleOfJacaranda),
+                Te.s("浓荫蔽日，香气四溢", CustomStyle.styleOfJacaranda)));
+        add(new ZonePoint(new Vec3(1036, 76, -1288),
+                Te.s("薰曦村", CustomStyle.styleOfJacaranda),
+                Te.s("紫色海洋，芳香四溢")));
+        add(new ZonePoint(new Vec3(1329, 71, -1612),
+                Te.s("北洋村", CustomStyle.styleOfIce),
+                Te.s("北风呼啸，寒气逼人", CustomStyle.styleOfIce)));
+        add(new ZonePoint(new Vec3(1911, 86, 1688),
+                Te.s("沙岸村", CustomStyle.styleOfSunIsland),
+                Te.s("碧海蓝天，白沙绵延", CustomStyle.styleOfSunIsland)));
+        add(new ZonePoint(new Vec3(2381, 182, 1752),
+                Te.s("绯樱村", CustomStyle.styleOfSakura),
+                Te.s("春樱散华", CustomStyle.styleOfSakura)));
+        add(new ZonePoint(new Vec3(2335, 148, 17),
+                Te.s("东洋塔", CustomStyle.styleOfHusk),
+                Te.s("高耸入云，镇守东洋", CustomStyle.styleOfHusk)));
+        add(new ZonePoint(new Vec3(1954, 153, -881),
+                Te.s("望山阁", CustomStyle.styleOfMoontain),
+                Te.s("坐定望山，接天攘地", CustomStyle.styleOfMoontain)));
+        add(new ZonePoint(new Vec3(1364, 79, 44),
+                Te.s("炼魔平原", CustomStyle.styleOfMana),
+                Te.s("旧时战争遗地", CustomStyle.styleOfMana), 100));
+        add(new ZonePoint(new Vec3(1101, 76, 260),
+                Te.s("纽维雨林", CustomStyle.styleOfForest),
+                Te.s("生机与危机共存", CustomStyle.styleOfForest), 100));
+        add(new ZonePoint(new Vec3(1054, 226, 626),
+                Te.s("尘月之梦", CustomStyle.styleOfMoon1),
+                Te.s("月影朦胧，星光璀璨", CustomStyle.styleOfMoon1)));
+        add(new ZonePoint(new Vec3(1484, 63, -240),
+                Te.s("唤魔湖", CustomStyle.styleOfMana),
+                Te.s("鬼魅出没，邪气森森", CustomStyle.styleOfMana)));
+        add(new ZonePoint(new Vec3(2243, 72, 1418),
+                Te.s("腥月岛", CustomStyle.styleOfBloodMana),
+                Te.s("血腥与海雾弥漫", CustomStyle.styleOfBloodMana)));
+        add(new ZonePoint(new Vec3(2310, 140, 1586),
+                Te.s("绯樱林", CustomStyle.styleOfSakura),
+                Te.s("粉黛如霞，花落如雨", CustomStyle.styleOfSakura)));
+        add(new ZonePoint(new Vec3(2435, 163, 1569),
+                Te.s("蓝花林", CustomStyle.styleOfJacaranda),
+                Te.s("紫雾迷蒙，蝶舞花丛", CustomStyle.styleOfJacaranda)));
+        add(new ZonePoint(new Vec3(1743, 68, 1285),
+                Te.s("雷光岛", CustomStyle.styleOfLightning),
+                Te.s("唤起万千响雷", CustomStyle.styleOfLightning)));
+        add(new ZonePoint(new Vec3(2459, 170, 1753),
+                Te.s("粉钻矿区", CustomStyle.styleOfSakura),
+                Te.s("璀璨夺目，光华流转", CustomStyle.styleOfSakura)));
+        add(new ZonePoint(new Vec3(1408, 12, -2853),
+                Te.s("北境晶钻矿区", CustomStyle.styleOfIce),
+                Te.s("冷艳高贵，华美绝伦", CustomStyle.styleOfIce)));
+        add(new ZonePoint(new Vec3(1808, 74, 339),
+                Te.s("旭升岛", CustomStyle.styleOfSunIsland),
+                Te.s("旭日东升", CustomStyle.styleOfSunIsland)));
+        add(new ZonePoint(new Vec3(1883, 147, -461),
+                Te.s("月影坡", CustomStyle.styleOfMoon),
+                Te.s("西望皎月，东临朔望", CustomStyle.styleOfMoon)));
+        add(new ZonePoint(new Vec3(1761, 130, -463),
+                Te.s("尘月宫", CustomStyle.styleOfMoon),
+                Te.s("满月皎洁，苍穹如洗", CustomStyle.styleOfMoon)));
+        add(new ZonePoint(new Vec3(2352, -34, -704),
+                Te.s("远古之城", CustomStyle.styleOfWarden),
+                Te.s("神秘遗迹，石墙巍峨", CustomStyle.styleOfWarden)));
+        add(new ZonePoint(new Vec3(2417, 152, -1372),
+                Te.s("暗黑城堡", CustomStyle.styleOfCastle),
+                Te.s("危险的暗黑魔法遗址", CustomStyle.styleOfCastle)));
+        add(new ZonePoint(new Vec3(1088, 23, 892),
+                Te.s("海底神殿", CustomStyle.styleOfSea),
+                Te.s("波光粼粼，深邃神秘", CustomStyle.styleOfSea)));
+    }};
+
+    public static Map<Player, String> playerLastZoneMap = new WeakHashMap<>();
+
+    public static void zoneTick(Player player) {
+        if (player.tickCount % 20 == 0) {
+            if (player.level().dimension().equals(Level.OVERWORLD)) {
+                Vec3 pos = player.position();
+                double distance = Double.MAX_VALUE;
+                ZonePoint nearestZonePoint = null;
+                for (ZonePoint zonePoint : overWorldZonePointList) {
+                    if (zonePoint.pos.distanceTo(pos) < distance) {
+                        distance = zonePoint.pos.distanceTo(pos);
+                        nearestZonePoint= zonePoint;
+                    }
+                }
+                if (nearestZonePoint == null) return;
+
+                if (!nearestZonePoint.zone.getString().equals(playerLastZoneMap.getOrDefault(player, ""))
+                        && distance < nearestZonePoint.range) {
+                    playerLastZoneMap.put(player, nearestZonePoint.zone.getString());
+                    Compute.setPlayerTitleAndSubTitle((ServerPlayer) player,
+                            nearestZonePoint.zone, Te.s(""));
+                }
+            }
+        }
+    }
+
     public static List<MyWayPoint> overworldPointList = new ArrayList<>() {{
         add(new MyWayPoint(new Vec3(756, 84, 207), "平原村", colorMap.get(green), 0));
         add(new MyWayPoint(new Vec3(956, 232, 17), "天空城", colorMap.get(aqua), 0));
@@ -77,7 +211,6 @@ public class MyWayPoint {
         add(new MyWayPoint(new Vec3(1036, 76, -1288), "薰曦村", colorMap.get(purple), 0));
         add(new MyWayPoint(new Vec3(1329, 71, -1612), "北洋村", colorMap.get(aqua), 0));
         add(new MyWayPoint(new Vec3(1911, 86, 1688), "沙岸村", colorMap.get(yellow), 0));
-        add(new MyWayPoint(new Vec3(2381, 182, 1752), "绯樱村", colorMap.get(purple), 0));
         add(new MyWayPoint(new Vec3(2381, 182, 1752), "绯樱村", colorMap.get(purple), 0));
         add(new MyWayPoint(new Vec3(2122, 152, -1138), "艾里蒙特大陆", colorMap.get(purple), 0));
 
@@ -177,7 +310,7 @@ public class MyWayPoint {
         add(new MyWayPoint(new Vec3(962, 207, 13), "天空城传送中枢", colorMap.get(darkPurple), 0));
 
         add(new MyWayPoint(new Vec3(2352, -34, -704), "远古之城", colorMap.get(darkBlue), 0));
-
+        add(new MyWayPoint(new Vec3(1731, 137, 1875), "北望村", colorMap.get(green), 0));
     }};
 
     public static List<MyWayPoint> netherPointList = new ArrayList<>() {{

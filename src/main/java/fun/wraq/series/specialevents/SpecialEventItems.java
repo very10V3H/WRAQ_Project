@@ -57,7 +57,7 @@ public class SpecialEventItems {
             new MidAutumnSword(new Item.Properties().rarity(CustomStyle.MoonBold), 0.6));
 
     public static final RegistryObject<Item> MID_AUTUMN_BOW = ITEMS.register("mid_autumn_bow", () ->
-            new MidAutumnBow(new Item.Properties().rarity(CustomStyle.MoonBold), 3));
+            new MidAutumnBow(new Item.Properties().rarity(CustomStyle.MoonBold), 0.6));
 
     public static final RegistryObject<Item> MID_AUTUMN_SCEPTRE = ITEMS.register("mid_autumn_sceptre", () ->
             new MidAutumnSceptre(new Item.Properties().rarity(CustomStyle.MoonBold), 1.2));

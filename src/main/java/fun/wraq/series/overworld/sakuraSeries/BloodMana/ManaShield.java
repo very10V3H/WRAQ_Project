@@ -1,13 +1,12 @@
 package fun.wraq.series.overworld.sakuraSeries.BloodMana;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqOffHandItem;
+import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.common.impl.display.ForgeItem;
-import fun.wraq.common.equip.WraqOffHandItem;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.overworld.chapter1.Mine.MineShield;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -40,7 +39,6 @@ public class ManaShield extends WraqOffHandItem implements ForgeItem {
     @Override
     public List<Component> getAdditionalComponents(ItemStack stack) {
         List<Component> components = new ArrayList<>();
-        MineShield.shieldAdditionDescription(components);
         Compute.DescriptionPassive(components, Component.literal("旧世封魔遗志").withStyle(getMainStyle()));
         components.add(Component.literal(" 当拥有高于").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.AttributeDescription.health("50%")).

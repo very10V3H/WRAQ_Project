@@ -7,8 +7,8 @@ import net.minecraft.network.chat.Style;
 
 public class MidAutumnBow extends MoonBow {
 
-    public MidAutumnBow(Properties properties, int exTargetCount) {
-        super(properties, exTargetCount);
+    public MidAutumnBow(Properties properties, double activeRate) {
+        super(properties, activeRate);
         Utils.attackDamage.put(this, 0d);
         Utils.xpLevelAttackDamage.put(this, 8d);
         Utils.defencePenetration0.put(this, 0d);

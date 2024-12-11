@@ -43,7 +43,7 @@ public class ForgeEquipUtils {
     public static final Zone SAKURA_VILLAGE = new Zone(2445, 1799, 2353, 1719);
     public static final Component SAKURA_VILLAGE_NAME = Te.s("绯樱村", CustomStyle.styleOfSakura);
     public static final Zone SKY_CITY = new Zone(1013, 64, 900, -42);
-    public static final Component SKY_CITY_NAME = Te.s("天空城", CustomStyle.styleOfSakura);
+    public static final Component SKY_CITY_NAME = Te.s("天空城", CustomStyle.styleOfSky);
     public static final Zone XUNNAN_VILLAGE = new Zone(1268, -1024, 1066, -1132);
     public static final Component XUNNAN_VILLAGE_NAME = Te.s("薰楠村", CustomStyle.styleOfJacaranda);
     public static final Zone XUNXI_VILLAGE = new Zone(1093, -1241, 970, -1358);
@@ -52,6 +52,7 @@ public class ForgeEquipUtils {
     public static final Component MOONTAIN_STRONG_HOLD_NAME = Te.s("望山据点", CustomStyle.styleOfMoontain);
 
     public static final Map<Zone, Component> zoneNameMap = new HashMap<>() {{
+        put(PLAIN_VILLAGE, PLAIN_VILLAGE_NAME);
         put(FOREST_VILLAGE, FOREST_VILLAGE_NAME);
         put(LAKE_VILLAGE, LAKE_VILLAGE_NAME);
         put(VOLCANO_VILLAGE, VOLCANO_VILLAGE_NAME);

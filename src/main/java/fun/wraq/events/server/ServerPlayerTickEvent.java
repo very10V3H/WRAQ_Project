@@ -51,8 +51,10 @@ import fun.wraq.process.system.point.Point;
 import fun.wraq.process.system.respawn.MyRespawnRule;
 import fun.wraq.process.system.restzone.RestZone;
 import fun.wraq.process.system.season.MySeason;
+import fun.wraq.process.system.skill.ManaSkillTree;
 import fun.wraq.process.system.smelt.Smelt;
 import fun.wraq.process.system.tower.TowerMob;
+import fun.wraq.process.system.wayPoints.MyWayPoint;
 import fun.wraq.projectiles.mana.BlazeSword;
 import fun.wraq.projectiles.mana.swordair.SwordAir;
 import fun.wraq.render.hud.ColdData;
@@ -151,8 +153,12 @@ public class ServerPlayerTickEvent {
             RestZone.tick(serverPlayer);
             GemTickHandler.handleTick(player);
             HarbingerMainHand.tick(player);
+            MyWayPoint.zoneTick(player);
+            ManaSkillTree.manaSkill13Tick(player);
 
-            if (player.tickCount % 10 == 0 && player.isOnFire()) {
+            if (player.tickCount % 10 == 0
+                    && (player.isOnFire()
+                    || (player.getBlockStateOn().is(Blocks.MAGMA_BLOCK) && !player.isShiftKeyDown()))) {
                 Compute.decreasePlayerHealth(player, player.getHealth() * 0.075,
                         Te.s("被火焰吞没了", CustomStyle.styleOfPower));
             }

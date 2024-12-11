@@ -11,6 +11,7 @@ import fun.wraq.projectiles.mana.NewArrow;
 import fun.wraq.projectiles.mana.swordair.SwordAir;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.player.Player;
@@ -42,9 +43,11 @@ public class BowEvent {
         Entity entity = event.getProjectile();
         Level level = event.getEntity().level();
         List<Entity> list = level.getEntitiesOfClass(Entity.class, entity.getBoundingBox().expandTowards(entity.getDeltaMovement()).inflate(1.0D));
-
+        List<LivingEntity> list0 = entity.level().getEntitiesOfClass(LivingEntity.class,
+                        entity.getBoundingBox().expandTowards(entity.getDeltaMovement()).inflate(1.0D))
+                .stream().filter(LivingEntity::isAlive).toList();
+        
         if (!entity.level().isClientSide && entity instanceof MyArrow myArrow) {
-            List<Entity> list0 = myArrow.level().getEntitiesOfClass(Entity.class, myArrow.getBoundingBox().expandTowards(myArrow.getDeltaMovement()).inflate(1.0D));
             if (!list0.isEmpty()) {
                 if (myArrow.player != null) {
                     Player player = myArrow.player;
@@ -53,7 +56,8 @@ public class BowEvent {
                         Vec3 vec = myArrow.getDeltaMovement().normalize();
                         for (int i = 0; i < 20; i++) {
                             Vec3 pos = myArrow.position().add(vec.scale(0.25 * i));
-                            List<Mob> list1 = myArrow.level().getEntitiesOfClass(Mob.class, AABB.ofSize(pos, 0.75, 0.75, 0.75));
+                            List<Mob> list1 = myArrow.level().getEntitiesOfClass(Mob.class,
+                                    AABB.ofSize(pos, 0.75, 0.75, 0.75));
                             list1.forEach(mob -> {
                                 if (!mobList.contains(mob)) mobList.add(mob);
                             });
@@ -74,7 +78,8 @@ public class BowEvent {
                         Mob nearestMob = null;
                         for (int i = 0; i < 20; i++) {
                             Vec3 pos = myArrow.position().add(vec.scale(0.25 * i));
-                            List<Mob> mobList = myArrow.level().getEntitiesOfClass(Mob.class, AABB.ofSize(pos, 0.75, 0.75, 0.75));
+                            List<Mob> mobList = myArrow.level().getEntitiesOfClass(Mob.class,
+                                    AABB.ofSize(pos, 0.75, 0.75, 0.75));
                             for (Mob mob : mobList) {
                                 if (mob.getEyePosition().distanceTo(pos) < distance) {
                                     distance = mob.getEyePosition().distanceTo(pos);
@@ -94,7 +99,6 @@ public class BowEvent {
         }
 
         if (!entity.level().isClientSide && entity instanceof ManaArrow manaArrow && !manaArrow.shootFromMob()) {
-            List<Entity> list0 = manaArrow.level().getEntitiesOfClass(Entity.class, manaArrow.getBoundingBox().expandTowards(manaArrow.getDeltaMovement()).inflate(1.0D));
             if (!list0.isEmpty()) {
                 if (manaArrow.player != null) {
                     Player player = manaArrow.player;
@@ -147,7 +151,6 @@ public class BowEvent {
         }
 
         if (!entity.level().isClientSide && entity instanceof NewArrow newArrow) {
-            List<Entity> list0 = newArrow.level().getEntitiesOfClass(Entity.class, newArrow.getBoundingBox().expandTowards(newArrow.getDeltaMovement()).inflate(1.0D));
             if (!list0.isEmpty()) {
                 if (newArrow.player != null) {
                     Player player = newArrow.player;

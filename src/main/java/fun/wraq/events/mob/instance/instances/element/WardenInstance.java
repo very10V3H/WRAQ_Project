@@ -15,6 +15,7 @@ import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.particle.ParticleProvider;
+import fun.wraq.process.system.wayPoints.MyWayPoint;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.gems.GemItems;
 import fun.wraq.series.instance.series.warden.WardenItems;
@@ -251,11 +252,17 @@ public class WardenInstance extends NoTeamInstance {
                 SpecialEffectOnPlayer.addSilentEffect(player, 100);
                 SpecialEffectOnPlayer.addBlindEffect(player, 100);
                 player.addEffect(new MobEffectInstance(MobEffects.DARKNESS, 200));
+                for (int i = 0; i < blockPosList.size(); i++) {
+                    MyWayPoint.sendAddPacketToClient(player,
+                            new MyWayPoint(blockPosList.get(i).getCenter(), "幽匿尖啸体" + (i + 1),
+                                    MyWayPoint.colorMap.get(MyWayPoint.darkBlue), 1));
+                }
             });
         }
     }
 
     public void detectBlock() {
+        resetBlockWayPoint();
         boolean existing = blockPosList.stream().anyMatch(pos -> {
             return boss.level().getBlockState(pos).getBlock().equals(Blocks.SCULK_SHRIEKER);
         });
@@ -301,6 +308,19 @@ public class WardenInstance extends NoTeamInstance {
             blockPosList.forEach(pos -> {
                 boss.level().destroyBlock(pos, false);
             });
+            resetBlockWayPoint();
+        }
+    }
+
+    public void resetBlockWayPoint() {
+        for (int i = 0; i < blockPosList.size(); i++) {
+            BlockPos blockPos = blockPosList.get(i);
+            if (boss.level().getBlockState(blockPos).is(Blocks.AIR)) {
+                int finalI = i;
+                players.forEach(player -> {
+                    MyWayPoint.sendRemovePacketToClient(player, "幽匿尖啸体" + (finalI + 1));
+                });
+            }
         }
     }
 
@@ -323,7 +343,7 @@ public class WardenInstance extends NoTeamInstance {
                 Skeleton skeleton = new Skeleton(EntityType.SKELETON, boss.level());
                 MobSpawn.setMobCustomName(skeleton, Component.literal("循声骷髅").withStyle(style), XP_LEVEL);
                 MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(skeleton), XP_LEVEL);
-                MobSpawn.MobBaseAttributes.setMobBaseAttributes(skeleton, 5000, 400, 400,
+                MobSpawn.MobBaseAttributes.setMobBaseAttributes(skeleton, 2000, 400, 400,
                         0.4, 5, 0.6, 300, 25,
                         5000 * Math.pow(10, 4), 0.35);
                 ItemStack[] itemStacks = {new ItemStack(Items.DIAMOND_HELMET), new ItemStack(Items.CHAINMAIL_CHESTPLATE),

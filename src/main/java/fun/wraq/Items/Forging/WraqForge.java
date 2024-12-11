@@ -2,6 +2,7 @@ package fun.wraq.Items.Forging;
 
 import fun.wraq.blocks.blocks.forge.ForgeRecipe;
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.display.BeforeRemoveMaterialOnForge;
 import fun.wraq.common.registry.ModItems;
@@ -69,15 +70,25 @@ public class WraqForge extends Item {
                 containMaterial = false;
         }
 
+        if (player.isCreative()) {
+            containMaterial = true;
+        }
         if (containMaterial) {
             ItemStack productItemStack = forgedItem.getDefaultInstance();
             CompoundTag data = null;
+            int oldTier = 0;
             for (ItemStack stack : materialList) {
+                Item item = stack.getItem();
                 // 复制必要的Tag
-                if (Utils.weaponList.contains(stack.getItem())) {
+                if (Utils.weaponList.contains(item)) {
                     for (int i = 0 ; i < inventory.getContainerSize() ; i ++) {
-                        if (inventory.getItem(i).is(stack.getItem())) {
+                        ItemStack itemStack = inventory.getItem(i);
+                        if (itemStack.is(item)) {
                             data = inventory.getItem(i).getOrCreateTagElement(Utils.MOD_ID).copy();
+                            if (Utils.mainHandTag.containsKey(item) || Utils.armorTag.containsKey(item)) {
+                                oldTier = ForgeEquipUtils.getForgeQualityOnEquip(itemStack);
+                            }
+                            break;
                         }
                     }
                 }
@@ -92,12 +103,17 @@ public class WraqForge extends Item {
                     beforeRemoveMaterialOnForge.beforeRemoveMaterialOnForge(productItemStack, removingStack);
                 }
                 // 移除物品
-                InventoryOperation.removeItem(inventory, stack.getItem(), stack.getCount());
+                if (!player.isCreative()) {
+                    InventoryOperation.removeItem(inventory, stack.getItem(), stack.getCount());
+                }
             }
 
             Compute.sendFormatMSG(player, Component.literal("锻造").withStyle(ChatFormatting.GRAY),
                     Component.literal("锻造成功！").withStyle(ChatFormatting.GOLD));
             MySound.soundToPlayer(player, SoundEvents.ANVIL_USE);
+
+            if (data != null) productItemStack.getOrCreateTagElement(Utils.MOD_ID).merge(data);
+            Compute.forgingHoverName(productItemStack);
 
             // 锻造品质
             if (Utils.mainHandTag.containsKey(forgedItem) || Utils.armorTag.containsKey(forgedItem)) {
@@ -106,8 +122,12 @@ public class WraqForge extends Item {
                     tier = ForgeEquipUtils.getOneTimeForgeTier(forgeHammer1.getTier());
                     Compute.playerItemUseWithRecord(player);
                 }
+                if (tier < oldTier) {
+                    tier = oldTier;
+                    sendFormatMSG(player, Te.s("新的锻造品质低于装备原有锻造品质，已继承原有锻造品质!"));
+                }
                 ForgeEquipUtils.setForgeQualityOnEquip(productItemStack, tier);
-
+                Compute.forgingHoverName(productItemStack);
                 Compute.formatBroad(player.level(), Component.literal("锻造").withStyle(ChatFormatting.GRAY),
                         Component.literal("").withStyle(ChatFormatting.WHITE).append(player.getDisplayName()).
                                 append(Component.literal(" 成功锻造了 ").withStyle(ChatFormatting.WHITE)).
@@ -119,9 +139,6 @@ public class WraqForge extends Item {
                                 append(Component.literal(" 成功锻造了 ").withStyle(ChatFormatting.WHITE)).
                                 append(productItemStack.getDisplayName()));
             }
-
-            if (data != null) productItemStack.getOrCreateTagElement(Utils.MOD_ID).merge(data);
-            Compute.forgingHoverName(productItemStack);
 
             // 提示信息与音效
             ModNetworking.sendToClient(new ScreenSetS2CPacket(0), (ServerPlayer) player);
@@ -219,5 +236,9 @@ public class WraqForge extends Item {
         return Component.literal(" " + index + ".").withStyle(ChatFormatting.GRAY).
                 append(materialType).
                 append(Component.literal("*" + num).withStyle(ChatFormatting.WHITE));
+    }
+
+    public static void sendFormatMSG(Player player, Component content) {
+        Compute.sendFormatMSG(player, Te.s("锻造", CustomStyle.styleOfStone), content);
     }
 }

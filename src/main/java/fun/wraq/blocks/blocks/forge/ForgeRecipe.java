@@ -7,6 +7,7 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.process.system.ore.PickaxeItems;
+import fun.wraq.render.gui.illustrate.Illustrate;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -33,11 +34,13 @@ public class ForgeRecipe {
         ItemStack itemStack = event.getItemStack();
         Item item = itemStack.getItem();
         List<Component> tooltip = event.getToolTip();
-        if (forgeDrawRecipe.containsKey(item)
-                && ForgeEquipUtils.itemForgePlaceMap.containsKey(item) && !Screen.hasAltDown() && !Screen.hasShiftDown()) {
-            if (!Screen.hasControlDown()) {
+        if (itemStack.getTagElement(Utils.MOD_ID) != null
+                && itemStack.getTagElement(Utils.MOD_ID).contains(Illustrate.DISPLAY_FLAG)
+                && forgeDrawRecipe.containsKey(item) && ForgeEquipUtils.itemForgePlaceMap.containsKey(item)
+                && !Screen.hasControlDown() && !Screen.hasShiftDown()) {
+            if (!Screen.hasAltDown()) {
                 event.getToolTip().add(Te.s(""));
-                tooltip.add(Component.literal("[按下CTRL查看锻造方式]").withStyle(ChatFormatting.ITALIC).withStyle(CustomStyle.styleOfStone));
+                tooltip.add(Component.literal("[按下ALT查看锻造方式]").withStyle(ChatFormatting.ITALIC).withStyle(CustomStyle.styleOfStone));
             } else {
                 event.getToolTip().add(Te.s(""));
                 tooltip.add(Te.s("->", ChatFormatting.GOLD, "锻造方式", CustomStyle.styleOfStone, "->", ChatFormatting.GOLD));

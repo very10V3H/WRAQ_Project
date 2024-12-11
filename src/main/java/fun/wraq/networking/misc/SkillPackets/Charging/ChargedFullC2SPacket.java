@@ -31,7 +31,6 @@ public class ChargedFullC2SPacket {
                 case 0 -> Utils.SwordSkill12.put(name, true);
                 case 1 -> Utils.BowSkill12.put(name, true);
                 case 2 -> Utils.ManaSkill12.put(name, true);
-                case 3 -> Utils.ManaSkill13.put(name, true);
                 case 4 -> Utils.SakuraDemonSword.put(name, true);
                 case 5 -> Utils.ZeusSword.put(name, true);
             }

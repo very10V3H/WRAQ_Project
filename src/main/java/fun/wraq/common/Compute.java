@@ -35,18 +35,16 @@ import fun.wraq.networking.hud.EffectLastTimeS2CPacket;
 import fun.wraq.networking.hud.RemoveDebuffTimeS2CPacket;
 import fun.wraq.networking.misc.EntropyPackets.EntropyS2CPacket;
 import fun.wraq.networking.misc.ParticlePackets.SlowDownParticleS2CPacket;
-import fun.wraq.networking.misc.PsValueS2CPacket;
 import fun.wraq.networking.misc.RemoveEffectLastTimeByItemIdS2CPacket;
 import fun.wraq.networking.misc.RemoveEffectLastTimeS2CPacket;
 import fun.wraq.networking.misc.SkillPackets.Charging.BowSkill12S2CPacket;
 import fun.wraq.networking.misc.SkillPackets.Charging.ManaSkill12S2CPacket;
-import fun.wraq.networking.misc.SkillPackets.Charging.ManaSkill13S2CPacket;
 import fun.wraq.networking.misc.SkillPackets.Charging.SwordSkill12S2CPacket;
 import fun.wraq.networking.misc.TeamPackets.ScreenSetS2CPacket;
 import fun.wraq.networking.misc.USE.MobEffectHudS2CPacket;
 import fun.wraq.networking.reputation.ReputationValueS2CPacket;
-import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
 import fun.wraq.process.func.damage.Damage;
+import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.func.plan.PlanPlayer;
@@ -58,6 +56,7 @@ import fun.wraq.process.system.element.equipAndCurios.fireElement.FireEquip;
 import fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSword;
 import fun.wraq.process.system.endlessinstance.item.special.HoursExHarvestPotion;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
+import fun.wraq.process.system.skill.ManaSkillTree;
 import fun.wraq.process.system.tower.Tower;
 import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.render.hud.Mana;
@@ -77,7 +76,6 @@ import fun.wraq.series.overworld.chapter1.waterSystem.LakePower;
 import fun.wraq.series.overworld.chapter1.waterSystem.bossItems.LakeBoss;
 import fun.wraq.series.overworld.chapter7.star.StarBottle;
 import fun.wraq.series.overworld.chapter7.vd.VdWeaponCommon;
-import fun.wraq.series.overworld.sakuraSeries.EarthMana.EarthBook;
 import fun.wraq.series.specialevents.labourDay.LabourDayIronHoe;
 import fun.wraq.series.specialevents.labourDay.LabourDayIronPickaxe;
 import net.minecraft.ChatFormatting;
@@ -694,14 +692,14 @@ public class Compute {
     }
 
     public static int getManaSkillLevel(CompoundTag data, int index) {
-        int Level = 0;
+        int tier = 0;
         String SkillData = data.getString(StringUtils.SkillData.Mana);
         if (SkillData.length() != 15) return 0;
         else {
-            if (SkillData.charAt(index) == 'X') Level = 10;
-            else Level = SkillData.charAt(index) - 48;
+            if (SkillData.charAt(index) == 'X') tier = 10;
+            else tier = SkillData.charAt(index) - 48;
         }
-        return Level;
+        return tier;
     }
 
     public static void ChargingModule(CompoundTag data, Player player) {
@@ -709,8 +707,6 @@ public class Compute {
             ModNetworking.sendToClient(new SwordSkill12S2CPacket(8), (ServerPlayer) player);
         if (Compute.getManaSkillLevel(data, 12) > 0)
             ModNetworking.sendToClient(new ManaSkill12S2CPacket(8), (ServerPlayer) player);
-        if (Compute.getManaSkillLevel(data, 13) > 0)
-            ModNetworking.sendToClient(new ManaSkill13S2CPacket(8), (ServerPlayer) player);
         if (Compute.getBowSkillLevel(data, 12) > 0)
             ModNetworking.sendToClient(new BowSkill12S2CPacket(8), (ServerPlayer) player);
     }
@@ -894,8 +890,8 @@ public class Compute {
     public static void playerHeal(Player player, double num) {
         if (num < 0) return;
         double healNum = num * (PlayerAttributes.getHealEffect(player));
+        if (ManaSkillTree.onHealthRecover(player, healNum)) return;
         healNum = Math.min(healNum, player.getMaxHealth() - player.getHealth());
-        if (EarthBook.onHealthRecover(player, healNum)) return;
         LifeElementSword.StoreToList(player, healNum);
         player.heal((float) healNum);
     }
@@ -1154,7 +1150,11 @@ public class Compute {
     }
 
     public static void removeEffectLastTime(Player player, Item item) {
-        ModNetworking.sendToClient(new RemoveEffectLastTimeS2CPacket(item.getDefaultInstance()), (ServerPlayer) player);
+        ModNetworking.sendToClient(new RemoveEffectLastTimeS2CPacket("item/" + item), (ServerPlayer) player);
+    }
+
+    public static void removeEffectLastTime(Player player, String url) {
+        ModNetworking.sendToClient(new RemoveEffectLastTimeS2CPacket(url), (ServerPlayer) player);
     }
 
     public static void removeEffectLastTimeByItemId(Player player, String itemId) {
@@ -1193,6 +1193,10 @@ public class Compute {
 
     public static void sendEffectLastTime(Player player, Item item, int tickCount, int level, boolean forever) {
         sendEffectLastTime(player, "item/" + item, tickCount, level, forever);
+    }
+
+    public static void sendEffectLastTime(Player player, String url, int level, boolean forever) {
+        sendEffectLastTime(player, url, 25565, level, forever);
     }
 
     public static void sendEffectLastTime(Player player, String url, int tickCount, int level, boolean forever) {

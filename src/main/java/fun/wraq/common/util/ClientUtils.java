@@ -357,14 +357,12 @@ public class ClientUtils {
     public static double ChargedCountsSwordSkill12 = 0;
     public static double ChargedCountsBowSkill12 = 0;
     public static double ChargedCountsManaSkill12 = 0;
-    public static double ChargedCountsManaSkill13 = 0;
     public static double ChargedCountsSakuraDemonSword = 0;
     public static double ChargedCountsZeusSword = 0;
 
     public static boolean ChargedFlagSwordSkill12 = true;
     public static boolean ChargedFlagBowSkill12 = true;
     public static boolean ChargedFlagManaSkill12 = true;
-    public static boolean ChargedFlagManaSkill13 = true;
     public static boolean ChargedFlagSakuraDemonSword = true;
     public static boolean ChargedFlagZeusSword = true;
 

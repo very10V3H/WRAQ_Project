@@ -30,7 +30,6 @@ import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.func.suit.SuitCount;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.projectiles.mana.NewArrowMagma;
-import fun.wraq.render.hud.Mana;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.castle.CastleManaArmor;
 import fun.wraq.series.instance.series.moon.MoonCurios;
@@ -48,7 +47,6 @@ import net.minecraft.world.phys.AABB;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class ManaAttackModule {
 
@@ -161,7 +159,6 @@ public class ManaAttackModule {
             ManaSkill3Attack(data, player, monster); // 机体解构（对一名目标的持续法术攻击，可以使你对该目标的伤害至多提升至2%，在5次攻击后达到最大值）
             ManaSkill6Attack(data, player, true); // 完美（持续命中目标，将至多造成50%额外真实伤害）
             ManaSkill12Attack(data, player); // 盈能攻击（移动、攻击以及受到攻击将会获得充能，当充能满时，下一次攻击将造成额外200%伤害，并在以目标为中心的范围内造成100%伤害）
-            ManaSkill13Attack(data, player); // 法术收集（移动、攻击以及受到攻击将会获得充能，当充能满时，下一次攻击将基于目标周围实体数量提供至多1000%的范围伤害，并回复自身50%的法力值）
             SakuraCore(player); // 樱妖魔核
 
             if (!(arrow instanceof NewArrowMagma)) {
@@ -331,37 +328,6 @@ public class ManaAttackModule {
 
             MySound.soundToNearPlayer(player, ModSounds.Nether_Power.get());
 
-        }
-    }
-
-    public static void ManaSkill13Attack(CompoundTag data, Player player) {
-        String name = player.getName().getString();
-        if (Compute.getManaSkillLevel(data, 13) > 0 && Utils.ManaSkill13.containsKey(name)
-                && Utils.ManaSkill13.get(name)) {
-            Level level = player.level();
-            List<Mob> mobList = level.getEntitiesOfClass(Mob.class, AABB.ofSize(player.position(), 20, 20, 20));
-            List<Player> playerList = level.getEntitiesOfClass(Player.class, AABB.ofSize(player.position(), 20, 20, 20));
-            AtomicInteger Count = new AtomicInteger();
-
-            mobList.forEach(mob -> {
-                if (mob.position().distanceTo(player.position()) < 6) Count.getAndIncrement();
-            });
-
-            if (Count.get() > 10) Count.set(10);
-            for (Mob mob : mobList) {
-                Damage.causeManaDamageToMonster_RateApDamage(player, mob, 0.2 * Compute.getManaSkillLevel(data, 13) * Count.get(), false);
-            }
-
-            double recoverManaValue = (Mana.getPlayerMaxManaNum(player) - Mana.getPlayerCurrentManaNum(player)) * 0.05 * Compute.getManaSkillLevel(data, 13);
-            Mana.addOrCostPlayerMana(player, recoverManaValue);
-            Utils.ManaSkill13.put(name, false);
-            ModNetworking.sendToClient(new ChargedClearS2CPacket(3), (ServerPlayer) player);
-
-            ServerPlayer serverPlayer = (ServerPlayer) player;
-            ParticleProvider.VerticleCircleParticle(serverPlayer, 1, 6, 100, ParticleTypes.WITCH);
-            ParticleProvider.VerticleCircleParticle(serverPlayer, 1.5, 6, 100, ParticleTypes.WITCH);
-
-            MySound.soundToNearPlayer(player, ModSounds.Nether_Power.get());
         }
     }
 

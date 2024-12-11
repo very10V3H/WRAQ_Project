@@ -1,6 +1,7 @@
 package fun.wraq.series.overworld.chapter1.Mine;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqOffHandItem;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
@@ -9,42 +10,38 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
 
-import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.List;
 
-public class MineShield extends Item {
+public class MineShield extends WraqOffHandItem {
 
     public MineShield() {
-        super(new Properties().rarity(CustomStyle.VolcanoItalic));
+        super(new Properties().rarity(CustomStyle.VolcanoItalic), Te.s("手盾", CustomStyle.styleOfMine));
         Utils.maxHealth.put(this, 200d);
         Utils.expUp.put(this, 0.3);
         Utils.defence.put(this, 1d);
-        Utils.offHandTag.put(this, 1d);
-        Utils.weaponList.add(this);
         Utils.shieldTag.put(this, 1d);
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
-        Style MainStyle = CustomStyle.styleOfMine;
-        stack.setHoverName(Component.literal("精钢圆盾").withStyle(MainStyle).withStyle(ChatFormatting.BOLD));
-        components.add(Component.literal("副手                   ").withStyle(ChatFormatting.GOLD).
-                append(Component.literal("手盾").withStyle(ChatFormatting.GRAY)));
-        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
-        ComponentUtils.descriptionOfBasic(components);
-        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, MainStyle, ChatFormatting.WHITE);
-        ComponentUtils.descriptionOfAddition(components);
-        shieldAdditionDescription(components);
+    public Style getMainStyle() {
+        return CustomStyle.styleOfMine;
+    }
+
+    @Override
+    public List<Component> getAdditionalComponents(ItemStack stack) {
+        List<Component> components = new ArrayList<>();
         Compute.DescriptionPassive(components, Component.literal("沉重之铁").withStyle(ChatFormatting.GRAY));
         components.add(Component.literal("受到来自怪物的伤害时，会为你提供").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.AttributeDescription.defence("等级*0.4")));
-        ComponentUtils.suffixOfChapterI(components);
-        super.appendHoverText(stack, level, components, flag);
+        return components;
+    }
+
+    @Override
+    public Component getSuffix() {
+        return ComponentUtils.getSuffixOfChapterI();
     }
 
     @Override
@@ -52,27 +49,9 @@ public class MineShield extends Item {
         return true;
     }
 
-    public static void shieldAdditionDescription(List<Component> components) {
-        ComponentUtils.descriptionPassive(components, Component.literal("坚盾").withStyle(ChatFormatting.GRAY));
-        components.add(Component.literal(" 提升").withStyle(ChatFormatting.AQUA).
-                append(ComponentUtils.AttributeDescription.defence("25%")).
-                append(Component.literal("与").withStyle(ChatFormatting.WHITE)).
-                append(ComponentUtils.AttributeDescription.manaDefence("25%")));
-        components.add(Te.m(" 并基于").
-                append(ComponentUtils.AttributeDescription.defence("100%")).
-                append(Te.m("与")).
-                append(ComponentUtils.AttributeDescription.manaDefence("100%")).
-                append(Te.m("之和，在受击时提供等额")).
-                append(Te.m("直接伤害减免", ChatFormatting.GRAY)));
-        Compute.DescriptionPassive(components, Component.literal("盾击").withStyle(ChatFormatting.GRAY));
-        components.add(Component.literal(" 基于").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.defence("")).
-                append(Component.literal("为你至多提供").withStyle(ChatFormatting.WHITE)).
-                append(Component.literal("75%近战攻击增幅").withStyle(CustomStyle.styleOfPower)));
-    }
-
     public static double defenceEnhance(Player player) {
-        if (Utils.shieldTag.containsKey(player.getOffhandItem().getItem())) {
+        if (Utils.shieldTag.containsKey(player.getOffhandItem().getItem())
+                && Utils.swordTag.containsKey(player.getMainHandItem().getItem())) {
             return 0.25;
         }
         return 0;

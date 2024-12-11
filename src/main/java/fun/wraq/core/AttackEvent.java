@@ -45,6 +45,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Animal;
@@ -87,7 +88,8 @@ public class AttackEvent {
     }
 
     public static List<Mob> getPlayerNormalAttackRangeMobList(Player player) {
-        return Compute.getPlayerRayMobList(player, 0.25, 1.25, 4 + PlayerAttributes.attackRangeUp(player));
+        return Compute.getPlayerRayMobList(player, 0.25, 1.25, 4 + PlayerAttributes.attackRangeUp(player))
+                .stream().filter(LivingEntity::isAlive).toList();
     }
 
     public static void module(Player player, double rate) {

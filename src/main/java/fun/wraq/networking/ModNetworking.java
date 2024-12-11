@@ -399,11 +399,6 @@ public class ModNetworking {
                 .encoder(ManaSkill12S2CPacket::toBytes)
                 .consumerMainThread(ManaSkill12S2CPacket::handle)
                 .add();
-        net.messageBuilder(ManaSkill13S2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
-                .decoder(ManaSkill13S2CPacket::new)
-                .encoder(ManaSkill13S2CPacket::toBytes)
-                .consumerMainThread(ManaSkill13S2CPacket::handle)
-                .add();
         net.messageBuilder(ChargedClearS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
                 .decoder(ChargedClearS2CPacket::new)
                 .encoder(ChargedClearS2CPacket::toBytes)

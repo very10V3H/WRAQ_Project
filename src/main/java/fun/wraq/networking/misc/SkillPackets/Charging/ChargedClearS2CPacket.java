@@ -37,10 +37,6 @@ public class ChargedClearS2CPacket {
                     ClientUtils.ChargedCountsManaSkill12 = 0;
                     ClientUtils.ChargedFlagManaSkill12 = true;
                 }
-                case 3 -> {
-                    ClientUtils.ChargedCountsManaSkill13 = 0;
-                    ClientUtils.ChargedFlagManaSkill13 = true;
-                }
                 case 4 -> {
                     ClientUtils.ChargedCountsSakuraDemonSword = 0;
                     ClientUtils.ChargedFlagSakuraDemonSword = true;

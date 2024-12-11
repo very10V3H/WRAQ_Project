@@ -21,23 +21,26 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import top.theillusivec4.curios.api.CuriosApi;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Mod.EventBusSubscriber
 public class InventoryCheck {
 
     @SubscribeEvent
     public static void InventoryCheckEvent(TickEvent.PlayerTickEvent event) {
-        if (!event.player.isCreative() && event.player.tickCount % 20 == 0 && event.side.isServer() && event.phase == TickEvent.Phase.START) {
+        if (!event.player.isCreative() && event.player.tickCount % 20 == 0
+                && event.side.isServer() && event.phase == TickEvent.Phase.START) {
             Player player = event.player;
             Inventory inventory = player.getInventory();
             for (int i = 0; i < inventory.getMaxStackSize(); i++) {
                 ItemStack itemStack = inventory.getItem(i);
                 Item item = itemStack.getItem();
-                if (inventory.getItem(i).getTagElement(Utils.MOD_ID) != null) {
-                    CompoundTag data = inventory.getItem(i).getOrCreateTagElement(Utils.MOD_ID);
+                if (itemStack.getTagElement(Utils.MOD_ID) != null) {
+                    CompoundTag data = itemStack.getOrCreateTagElement(Utils.MOD_ID);
                     if (item instanceof RandomLootEquip && !data.contains(RandomLootEquip.NEW_VERSION_CHANGE_TAG)) {
                         Compute.sendFormatMSG(player, Te.s("调整", ChatFormatting.AQUA),
                                 Te.s(itemStack.getDisplayName(), "在版本改动后数值有所调整，其数值已被重置"));
@@ -58,7 +61,7 @@ public class InventoryCheck {
                         Compute.sendFormatMSG(player, Te.s("bug修复", ChatFormatting.RED),
                                 Te.s("以下物品属性已修复:", itemStack.getDisplayName()));
                     }
-                    if (boundingList.contains(item) && !data.contains(owner)) {
+                    if (getBoundingList().contains(item) && !data.contains(owner)) {
                         addOwnerTagToItemStack(player, itemStack);
                     }
                 }
@@ -122,7 +125,7 @@ public class InventoryCheck {
         return true;
     }
 
-    public static List<Item> boundingList = new ArrayList<>();
+    public static Set<Item> boundingList = new HashSet<>();
 
     public static void setBoundingList() {
         boundingList.addAll(List.of(
@@ -161,7 +164,7 @@ public class InventoryCheck {
                 .forEach(item -> boundingList.add(item));
     }
 
-    public static List<Item> getBoundingList() {
+    public static Set<Item> getBoundingList() {
         if (boundingList.isEmpty()) setBoundingList();
         return boundingList;
     }

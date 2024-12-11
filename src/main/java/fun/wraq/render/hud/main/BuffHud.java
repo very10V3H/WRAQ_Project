@@ -94,16 +94,6 @@ public class BuffHud {
 
         if (ClientUtils.ManaSkillPoint.PointCache != null) {
             if (ClientUtils.ManaSkillsResource.resourceLocations == null) ClientUtils.ManaSkillsResource.init();
-            if (ClientUtils.ManaSkillPoint.Point[14] != 0) {
-                guiGraphics.blit(ClientUtils.ManaSkillsResource.resourceLocations[14], x + XXOffset + count * 15, y - 60, 0, 0, 16, 16, 16, 16);
-                guiGraphics.drawCenteredString(fontRenderer, Component.literal("" + (int) ClientUtils.ChargedCountsManaSkill13).withStyle(ChatFormatting.WHITE), x + XXOffset + count * 15 + 10, y - 52, 0);
-                guiGraphics.blit(ClientUtils.CdResourceLocation[12], x + XXOffset + count * 15, y - 60, 0, 0, 16, 16, 16, 16);
-                count++;
-            }
-        }
-
-        if (ClientUtils.ManaSkillPoint.PointCache != null) {
-            if (ClientUtils.ManaSkillsResource.resourceLocations == null) ClientUtils.ManaSkillsResource.init();
             if (ClientUtils.ManaSkillPoint.Point[13] != 0) {
                 guiGraphics.blit(ClientUtils.ManaSkillsResource.resourceLocations[13], x + XXOffset + count * 15, y - 60, 0, 0, 16, 16, 16, 16);
                 guiGraphics.drawCenteredString(fontRenderer, Component.literal("" + (int) ClientUtils.ChargedCountsManaSkill12).withStyle(ChatFormatting.WHITE), x + XXOffset + count * 15 + 10, y - 52, 0);

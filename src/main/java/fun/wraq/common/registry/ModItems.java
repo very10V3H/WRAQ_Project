@@ -2335,7 +2335,7 @@ public class ModItems {
             () -> new EarthPower(new Item.Properties().rarity(CustomStyle.BloodManaItalic)));
 
     public static final RegistryObject<Item> EarthBook = ITEMS.register("earth_book",
-            () -> new EarthBook(new Item.Properties().rarity(CustomStyle.BloodManaItalic)));
+            () -> new EarthBook(new Item.Properties().rarity(CustomStyle.JacarandaItalic)));
 
     public static final RegistryObject<Item> goldenShield = ITEMS.register("golden_shield",
             () -> new GoldenAttackOffhand(new Item.Properties().rarity(CustomStyle.GoldItalic).stacksTo(1),
@@ -2448,7 +2448,7 @@ public class ModItems {
             () -> new MoonSword(new Item.Properties().rarity(CustomStyle.Moon1Italic), 0.4));
 
     public static final RegistryObject<Item> MoonBow = ITEMS.register("moon_bow",
-            () -> new MoonBow(new Item.Properties().stacksTo(1).rarity(CustomStyle.Moon1Italic), 2));
+            () -> new MoonBow(new Item.Properties().stacksTo(1).rarity(CustomStyle.Moon1Italic), 0.4));
 
     public static final RegistryObject<Item> MoonSceptre = ITEMS.register("moon_sceptre",
             () -> new MoonSceptre(new Item.Properties().rarity(CustomStyle.Moon1Italic), 0.8));

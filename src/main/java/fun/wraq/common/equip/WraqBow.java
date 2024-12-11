@@ -11,6 +11,7 @@ import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.skill.BowSkillTree;
 import fun.wraq.render.gui.illustrate.Display;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.instance.quiver.WraqQuiver;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
@@ -55,6 +56,7 @@ public abstract class WraqBow extends WraqMainHandEquip {
             OnShootArrowCurios.shoot(serverPlayer);
             OnShootArrowEquip.shoot(serverPlayer);
             Damage.onPlayerReleaseNormalAttack(serverPlayer);
+            WraqQuiver.shootQuiverExArrow(serverPlayer);
         }
     }
 

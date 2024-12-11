@@ -13,7 +13,6 @@ import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.damage.Dot;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.overworld.chapter1.Mine.MineShield;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -47,7 +46,6 @@ public class NetherShield extends WraqOffHandItem implements ForgeItem, OnHitEff
     public List<Component> getAdditionalComponents(ItemStack stack) {
         List<Component> components = new ArrayList<>();
         Style style = getMainStyle();
-        MineShield.shieldAdditionDescription(components);
         Compute.DescriptionPassive(components, Component.literal("碎骨化灰").withStyle(style));
         components.add(Component.literal(" 近战攻击").withStyle(CustomStyle.styleOfPower).
                 append(Component.literal("将使").withStyle(ChatFormatting.WHITE)).

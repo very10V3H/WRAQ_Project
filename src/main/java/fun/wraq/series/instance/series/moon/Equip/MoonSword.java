@@ -28,7 +28,6 @@ import java.util.List;
 public class MoonSword extends WraqSword implements ActiveItem, OnHitEffectEquip {
 
     private final double activeRate;
-
     public MoonSword(Properties properties, double activeRate) {
         super(properties);
         Utils.attackDamage.put(this, 1200d);

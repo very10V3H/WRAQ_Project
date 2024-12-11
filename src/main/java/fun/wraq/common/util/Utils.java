@@ -228,7 +228,6 @@ public class Utils {
     public static Map<String, Boolean> SwordSkill12 = new HashMap<>();
     public static Map<String, Boolean> BowSkill12 = new HashMap<>();
     public static Map<String, Boolean> ManaSkill12 = new HashMap<>();
-    public static Map<String, Boolean> ManaSkill13 = new HashMap<>();
     public static Map<String, BowSkill3> BowSkill3Map = new HashMap<>();
     public static Map<String, BowSkill6> BowSkill6Map = new HashMap<>();
     public static Map<String, ManaSkill3> ManaSkill3Map = new HashMap<>();

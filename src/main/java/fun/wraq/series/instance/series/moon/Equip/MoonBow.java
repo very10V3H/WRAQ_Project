@@ -1,12 +1,20 @@
 package fun.wraq.series.instance.series.moon.Equip;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.equip.WraqBow;
+import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.impl.onhit.OnHitEffectEquip;
+import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.common.util.struct.Shield;
 import fun.wraq.core.MyArrow;
+import fun.wraq.events.mob.MobSpawn;
+import fun.wraq.process.func.ChangedAttributesModifier;
+import fun.wraq.process.func.EnhanceNormalAttack;
+import fun.wraq.process.func.EnhanceNormalAttackModifier;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -18,23 +26,22 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec3;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-public class MoonBow extends WraqBow implements OnHitEffectEquip {
+public class MoonBow extends WraqBow implements ActiveItem, OnHitEffectEquip {
 
-    private final int exTargetCount;
-    public MoonBow(Properties properties, int exTargetCount) {
+    private final double activeRate;
+    public MoonBow(Properties properties, double activeRate) {
         super(properties);
         Utils.attackDamage.put(this, 1200d);
         Utils.defencePenetration0.put(this, 29d);
         Utils.critRate.put(this, 0.25);
         Utils.critDamage.put(this, 1.35);
-        this.exTargetCount = exTargetCount;
+        this.activeRate = activeRate;
         Utils.levelRequire.put(this, 160);
     }
 
@@ -53,16 +60,20 @@ public class MoonBow extends WraqBow implements OnHitEffectEquip {
                 append(Component.literal("会将目标周围半径6内的其他敌人").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("小幅牵引").withStyle(style)).
                 append(Component.literal("至目标位置").withStyle(ChatFormatting.WHITE)));
-        Compute.DescriptionPassive(components, Component.literal("尘月之风").withStyle(style));
-        components.add(Component.literal(" 你的").withStyle(ChatFormatting.WHITE).
-                append(Component.literal("箭矢攻击").withStyle(CustomStyle.styleOfFlexible)).
-                append(Component.literal("将额外释放").withStyle(ChatFormatting.WHITE)).
-                append(Component.literal(exTargetCount + "支箭矢").withStyle(CustomStyle.styleOfFlexible)));
-        components.add(Component.literal(" 额外箭矢").withStyle(CustomStyle.styleOfFlexible).
-                append(Component.literal("造成").withStyle(ChatFormatting.WHITE)).
-                append(Component.literal("25%伤害").withStyle(CustomStyle.styleOfMoon)));
-        components.add(Component.literal(" 额外箭矢").withStyle(CustomStyle.styleOfFlexible).
-                append(Component.literal("会自动锁定前方锥形范围内的目标").withStyle(ChatFormatting.WHITE)));
+        Compute.DescriptionActive(components, Component.literal("永升之星").withStyle(style));
+        components.add(Component.literal(" 你的下一次").withStyle(ChatFormatting.WHITE).
+                append(Component.literal("普通箭矢攻击").withStyle(CustomStyle.styleOfFlexible)).
+                append(Component.literal("将").withStyle(ChatFormatting.WHITE)).
+                append(Component.literal("吸收").withStyle(style)).
+                append(Component.literal("目标周围半径6内所有敌方单位的").withStyle(ChatFormatting.WHITE)).
+                append(ComponentUtils.AttributeDescription.attackDamage("")));
+        components.add(Component.literal("，提供在10s内持续衰减的等额").withStyle(ChatFormatting.WHITE).
+                append(ComponentUtils.AttributeDescription.exAttackDamage(String.format("%.0f%%", activeRate * 100))));
+        components.add(Component.literal(" 并为你提供持续8s的").withStyle(ChatFormatting.WHITE).
+                append(ComponentUtils.AttributeDescription.attackDamage("200%")).
+                append(Component.literal("的").withStyle(ChatFormatting.WHITE)).
+                append(Component.literal("护盾").withStyle(ChatFormatting.GRAY)));
+        ComponentUtils.coolDownTimeDescription(components, 27);
         return components;
     }
 
@@ -71,60 +82,10 @@ public class MoonBow extends WraqBow implements OnHitEffectEquip {
         return ComponentUtils.getSuffixOfMoon();
     }
 
-    private void shootExArrow(Player player) {
-        List<Mob> targetList = new ArrayList<>();
-        Map<Mob, Double> distance = new HashMap<>();
-        for (int i = 0 ; i < 30 ; i ++) {
-            Vec3 pickPos = player.pick(i, 0, false).getLocation();
-            int finalI = i;
-            player.level().getEntitiesOfClass(Mob.class, AABB.ofSize(pickPos, i * 2, i * 2, i * 2))
-                    .stream().filter(mob -> mob.position().distanceTo(pickPos) < finalI)
-                    .forEach(mob -> {
-                        if (distance.containsKey(mob)) {
-                            if (distance.get(mob) > mob.position().distanceTo(pickPos)) {
-                                distance.put(mob, mob.position().distanceTo(pickPos));
-                            }
-                        } else {
-                            distance.put(mob, mob.position().distanceTo(pickPos));
-                        }
-                        if (!targetList.contains(mob)) targetList.add(mob);
-                    });
-        }
-        targetList.sort(new Comparator<Mob>() {
-            @Override
-            public int compare(Mob o1, Mob o2) {
-                if (distance.get(o1) < distance.get(o2)) {
-                    return -1;
-                }
-                else {
-                    if (distance.get(o1) > distance.get(o2)) {
-                        return 1;
-                    }
-                    return 0;
-                }
-            }
-        });
-        if (targetList.size() > 1) {
-            targetList.subList(1, Math.min(3, targetList.size())).forEach(mob -> {
-                MyArrow myArrow = new MyArrow(EntityType.ARROW, player.level(), player, true, 0.25);
-                myArrow.setDeltaMovement(mob.position().add(0, 1, 0).subtract(player.position().add(0, 1.5, 0)).normalize().scale(4.5));
-                myArrow.moveTo(player.pick(0.5, 0, false).getLocation());
-                myArrow.setCritArrow(true);
-                myArrow.setNoGravity(true);
-                ProjectileUtil.rotateTowardsMovement(myArrow, 1);
-                player.level().addFreshEntity(myArrow);
-                ParticleProvider.LineParticle(player.level(), (int) mob.distanceTo(player),
-                        player.pick(0.5, 0, false).getLocation(),
-                        mob.position().add(0, 1, 0), ParticleTypes.FIREWORK);
-            });
-        }
-    }
-
     @Override
     protected MyArrow summonArrow(ServerPlayer serverPlayer, double rate) {
         MyArrow arrow = new MyArrow(EntityType.ARROW, serverPlayer.level(), serverPlayer, true, rate);
         arrow.shootFromRotation(serverPlayer, serverPlayer.getXRot(), serverPlayer.getYRot(), 0.0f, 4.5F, 1.0f);
-        shootExArrow(serverPlayer);
         arrow.setCritArrow(true);
         WraqBow.adjustArrow(arrow, serverPlayer);
         serverPlayer.level().addFreshEntity(arrow);
@@ -139,5 +100,31 @@ public class MoonBow extends WraqBow implements OnHitEffectEquip {
         mob.level().getEntitiesOfClass(Mob.class, AABB.ofSize(mob.position(), 15, 15, 15))
                 .stream().filter(mob1 -> mob1.distanceTo(mob) <= 6 && !mob1.equals(mob))
                 .forEach(mob1 -> Compute.causeGatherEffect(mob1, 2, mob.position()));
+    }
+
+    @Override
+    public void active(Player player) {
+        Compute.playerItemCoolDown(player, ModItems.MoonBow.get(), 27);
+        EnhanceNormalAttackModifier.addModifier(player, new EnhanceNormalAttackModifier("moonBowActive", 0, new EnhanceNormalAttack() {
+            @Override
+            public void hit(Player player, Mob mob) {
+                Shield.providePlayerShield(player, 160, PlayerAttributes.attackDamage(player) * 2);
+                Compute.sendEffectLastTime(player, ModItems.MoonBow.get().getDefaultInstance(), 200);
+                List<Mob> mobList = mob.level().getEntitiesOfClass(Mob.class, AABB.ofSize(mob.position(), 15, 15, 15));
+                mobList.removeIf(mob1 -> mob1.distanceTo(mob) > 6);
+                double attackDamage = 0;
+                for (Mob mob1 : mobList) {
+                    attackDamage += MobSpawn.MobBaseAttributes.getMobBaseAttribute(mob1, MobSpawn.MobBaseAttributes.attackDamage);
+                }
+                ChangedAttributesModifier.addAttributeModifier(player, ChangedAttributesModifier.exAttackDamage,
+                        "moonBowActive", attackDamage * activeRate, 200, true);
+            }
+        }));
+        Compute.sendEffectLastTime(player, ModItems.MoonBow.get().getDefaultInstance(), 8888, 0, true);
+    }
+
+    @Override
+    public double manaCost(Player player) {
+        return 60;
     }
 }

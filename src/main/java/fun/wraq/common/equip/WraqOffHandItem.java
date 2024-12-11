@@ -3,12 +3,14 @@ package fun.wraq.common.equip;
 import fun.wraq.blocks.blocks.forge.ForgeRecipe;
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.BasicAttributeDescription;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.registry.ItemTier;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.loot.RandomLootEquip;
 import fun.wraq.render.gui.illustrate.Display;
+import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -16,6 +18,7 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.TooltipFlag;
@@ -30,7 +33,7 @@ public abstract class WraqOffHandItem extends SwordItem {
     private final Component type;
 
     public WraqOffHandItem(Properties properties, Component type) {
-        super(ItemTier.VMaterial, 2, 0, properties);
+        super(ItemTier.VMaterial, 2, 0, properties.stacksTo(1));
         Utils.offHandTag.put(this, 1d);
         Utils.weaponList.add(this);
         this.type = type;
@@ -72,6 +75,7 @@ public abstract class WraqOffHandItem extends SwordItem {
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         if (!getAdditionalComponents(stack).isEmpty()) {
             ComponentUtils.descriptionOfAddition(components);
+            shieldDescription(stack.getItem(), components);
             components.addAll(getAdditionalComponents(stack));
             ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         }
@@ -102,6 +106,26 @@ public abstract class WraqOffHandItem extends SwordItem {
     public static void serverTick(Player player) {
         if (player.getOffhandItem().getItem() instanceof WraqOffHandItem wraqOffHandItem) {
             wraqOffHandItem.tick(player);
+        }
+    }
+
+    private void shieldDescription(Item item, List<Component> components) {
+        if (Utils.shieldTag.containsKey(item)) {
+            ComponentUtils.descriptionPassive(components, Component.literal("坚盾").withStyle(CustomStyle.styleOfStone));
+            components.add(Te.s(" 手持近战武器", CustomStyle.styleOfPower, "时，", "提升", ChatFormatting.AQUA,
+                    ComponentUtils.AttributeDescription.defence("25%"),
+                    "与", ComponentUtils.AttributeDescription.manaDefence("25%")));
+            components.add(Te.m(" 并基于").
+                    append(ComponentUtils.AttributeDescription.defence("100%")).
+                    append(Te.m("与")).
+                    append(ComponentUtils.AttributeDescription.manaDefence("100%")).
+                    append(Te.m("之和，在受击时提供等额")).
+                    append(Te.m("直接伤害减免", CustomStyle.styleOfStone)));
+            Compute.DescriptionPassive(components, Component.literal("盾击").withStyle(CustomStyle.styleOfStone));
+            components.add(Component.literal(" 基于").withStyle(ChatFormatting.WHITE).
+                    append(ComponentUtils.AttributeDescription.defence("")).
+                    append(Component.literal("为你至多提供").withStyle(ChatFormatting.WHITE)).
+                    append(Component.literal("75%近战攻击增幅").withStyle(CustomStyle.styleOfPower)));
         }
     }
 }

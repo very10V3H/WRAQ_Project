@@ -3,6 +3,7 @@ package fun.wraq.render.hud;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.ManaSyncS2CPacket;
 import fun.wraq.process.system.skill.ManaSkillTree;
+import fun.wraq.series.overworld.sakuraSeries.EarthMana.EarthBook;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
@@ -43,6 +44,9 @@ public class Mana {
             ManaSkillTree.skill14OnPlayerManaRecover(player, Math.min(getPlayerMaxManaNum(player) - currentValue, value));
         }
         else {
+            double manaCostRate = 1;
+            manaCostRate += EarthBook.getManaCostRate(player);
+            value *= manaCostRate;
             data.putDouble("MANA", Math.max(currentValue + value, 0));
         }
         updateManaStatus(player);

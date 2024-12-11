@@ -6,6 +6,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.Utils;
+import fun.wraq.render.gui.illustrate.Illustrate;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.world.InteractionHand;
@@ -21,10 +22,15 @@ public class ZsCommand implements Command<CommandSourceStack> {
         Player player = context.getSource().getPlayer();
         ItemStack itemStack = player.getItemInHand(InteractionHand.MAIN_HAND);
         if (Utils.mainHandTag.containsKey(itemStack.getItem()) || Utils.armorTag.containsKey(itemStack.getItem())) {
+            itemStack.getOrCreateTagElement(Utils.MOD_ID).putBoolean(Illustrate.DISPLAY_FLAG, true);
             Compute.forgingHoverName(itemStack);
         }
-        Compute.formatBroad(Te.s("分解", CustomStyle.styleOfStone),
+        Compute.formatBroad(Te.s("展示", CustomStyle.styleOfStone),
                 Te.s(player.getDisplayName(), " 展示了 ", itemStack.getDisplayName()));
+        if (Utils.mainHandTag.containsKey(itemStack.getItem()) || Utils.armorTag.containsKey(itemStack.getItem())) {
+            itemStack.getOrCreateTagElement(Utils.MOD_ID).remove(Illustrate.DISPLAY_FLAG);
+            Compute.forgingHoverName(itemStack);
+        }
         return 0;
     }
 }

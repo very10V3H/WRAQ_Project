@@ -1,7 +1,10 @@
 package fun.wraq.series.overworld.sakuraSeries.Boss2;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqOffHandItem;
 import fun.wraq.common.fast.Tick;
+import fun.wraq.common.impl.display.ForgeItem;
+import fun.wraq.common.impl.onkill.OnKillEffectEquip;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
@@ -11,12 +14,8 @@ import fun.wraq.events.mob.chapter2.SlimeSpawnController;
 import fun.wraq.events.mob.chapter3_nether.MagmaSpawnController;
 import fun.wraq.process.func.StableAttributesModifier;
 import fun.wraq.process.func.item.InventoryOperation;
-import fun.wraq.common.impl.display.ForgeItem;
-import fun.wraq.common.impl.onkill.OnKillEffectEquip;
-import fun.wraq.common.equip.WraqOffHandItem;
 import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.overworld.chapter1.Mine.MineShield;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -62,7 +61,6 @@ public class GoldenAttackOffhand extends WraqOffHandItem implements OnKillEffect
     public List<Component> getAdditionalComponents(ItemStack stack) {
         List<Component> components = new ArrayList<>();
         Style style = getMainStyle();
-        if (type == 0) MineShield.shieldAdditionDescription(components);
         Compute.DescriptionPassive(components, Component.literal("华贵金属").withStyle(style));
         components.add(Component.literal(" 副手").withStyle(ChatFormatting.GOLD).
                 append(Component.literal("持有该物品时，").withStyle(ChatFormatting.WHITE)).

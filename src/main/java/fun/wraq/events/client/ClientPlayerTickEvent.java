@@ -352,8 +352,6 @@ public class ClientPlayerTickEvent {
                 ClientUtils.ChargedCountsBowSkill12 += Speed;
             if (ClientUtils.ChargedCountsManaSkill12 < 100 && player.getDeltaMovement().length() > 0.1 && ClientUtils.ManaSkillPoint.Point[13] > 0)
                 ClientUtils.ChargedCountsManaSkill12 += Speed;
-            if (ClientUtils.ChargedCountsManaSkill13 < 100 && player.getDeltaMovement().length() > 0.1 && ClientUtils.ManaSkillPoint.Point[14] > 0)
-                ClientUtils.ChargedCountsManaSkill13 += Speed;
             if (ClientUtils.ChargedCountsSakuraDemonSword < 100 && MainHand.equals(ModItems.SakuraDemonSword.get())
                     && ClientUtils.Demon_Image[1] != null && ClientUtils.Demon_Image[1].getTickTime() == 0) {
                 if (player.getDeltaMovement().length() > 0.1) ClientUtils.ChargedCountsSakuraDemonSword += Speed;
@@ -372,10 +370,6 @@ public class ClientPlayerTickEvent {
                 ModNetworking.sendToServer(new ChargedFullC2SPacket(2));
                 ClientUtils.ChargedFlagManaSkill12 = false;
             }
-            if (ClientUtils.ChargedCountsManaSkill13 >= 100 && ClientUtils.ChargedFlagManaSkill13) {
-                ModNetworking.sendToServer(new ChargedFullC2SPacket(3));
-                ClientUtils.ChargedFlagManaSkill13 = false;
-            }
             if (ClientUtils.ChargedCountsSakuraDemonSword >= 100 && ClientUtils.ChargedFlagSakuraDemonSword) {
                 ModNetworking.sendToServer(new ChargedFullC2SPacket(4));
                 ClientUtils.ChargedFlagSakuraDemonSword = false;
@@ -388,7 +382,6 @@ public class ClientPlayerTickEvent {
                 ClientUtils.ChargedFlagSwordSkill12 = true;
                 ClientUtils.ChargedFlagBowSkill12 = true;
                 ClientUtils.ChargedFlagManaSkill12 = true;
-                ClientUtils.ChargedFlagManaSkill13 = true;
                 ClientUtils.ChargedFlagSakuraDemonSword = true;
                 ClientUtils.ChargedFlagZeusSword = true;
             }

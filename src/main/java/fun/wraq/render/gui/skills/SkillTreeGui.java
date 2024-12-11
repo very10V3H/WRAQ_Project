@@ -1256,14 +1256,14 @@ public class SkillTreeGui extends Screen {
         if (x > this.width / 2 - 150 + OffsetX[index] - 1 + 172 && x < this.width / 2 - 150 + OffsetX[index] + 19 + 172
                 && y > this.height / 2 - 100 + OffsetY[index] - 1 && y < this.height / 2 - 100 + OffsetY[index] + 19) {
             List<Component> components = new ArrayList<>();
-            components.add(Component.literal("▲法术专精 - 法术收集").withStyle(CustomStyle.styleOfMana));
+            components.add(Component.literal("▲法术专精 - 传世禁咒").withStyle(CustomStyle.styleOfMana));
             ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
-            components.add(Component.literal("移动、攻击将会获得充能，当充能满时").withStyle(ChatFormatting.WHITE));
-            components.add(Component.literal("下一次攻击将基于目标周围实体数量提供至多").withStyle(ChatFormatting.WHITE).
-                    append(ComponentUtils.AttributeDescription.manaDamage(ClientUtils.ManaSkillPoint.PointCache[index] * 200 + "%")).
-                    append(Component.literal("的范围伤害").withStyle(ChatFormatting.WHITE)));
-            components.add(Component.literal("并回复自身").withStyle(ChatFormatting.WHITE).
-                    append(ComponentUtils.AttributeDescription.manaValue(ClientUtils.ManaSkillPoint.PointCache[index] * 5 + "%已损失")));
+            components.add(Te.s(" 当你拥有高于", ComponentUtils.AttributeDescription.health("75%"), "时，",
+                    "若", ComponentUtils.AttributeDescription.manaValue(""), "未达100%"));
+            components.add(Te.s(" 则回复的", ComponentUtils.AttributeDescription
+                            .health(ClientUtils.ManaSkillPoint.PointCache[index] + "%"), "转化为回复的",
+                    ComponentUtils.AttributeDescription.manaValue("")));
+            components.add(Te.s(" buff栏会显示其最近5s为你回复的法力值总额", ChatFormatting.GRAY, ChatFormatting.ITALIC));
             ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
             components.add(Component.literal("▶专精等级:").withStyle(CustomStyle.styleOfMana));
             components.add(Component.literal(ClientUtils.ManaSkillPoint.PointCache[index] + " / " + 5).withStyle(CustomStyle.styleOfMana));

@@ -130,32 +130,32 @@ public class VariousEvents {
 
     @SubscribeEvent
     public static void TossCheck(ItemTossEvent event) throws IOException {
-        ItemStack itemStack = event.getEntity().getItem();
+        ItemStack stack = event.getEntity().getItem();
         Player player = event.getPlayer();
-        CompoundTag data = itemStack.getTagElement(Utils.MOD_ID);
+        CompoundTag data = stack.getTagElement(Utils.MOD_ID);
         boolean dropped = true;
+        Item item = stack.getItem();
         if (!player.isCreative() && !event.getPlayer().level().isClientSide) {
-            if (data != null && data.contains(InventoryCheck.owner)) {
-                ItemStack item = event.getEntity().getItem();
-                event.getPlayer().addItem(item);
+            if ((data != null && data.contains(InventoryCheck.owner))
+                    || InventoryCheck.getBoundingList().contains(item)) {
+                event.getPlayer().addItem(stack);
                 event.setCanceled(true);
                 dropped = false;
             }
-            if (Utils.mainHandTag.containsKey(itemStack.getItem()) || Utils.offHandTag.containsKey(itemStack.getItem())
-                    || Utils.armorTag.containsKey(itemStack.getItem()) || Utils.customizedList.contains(itemStack.getItem())) {
-                ItemStack item = event.getEntity().getItem();
-                event.getPlayer().addItem(item);
+            if (Utils.mainHandTag.containsKey(item) || Utils.offHandTag.containsKey(item)
+                    || Utils.armorTag.containsKey(item) || Utils.customizedList.contains(item)) {
+                event.getPlayer().addItem(stack);
                 event.setCanceled(true);
                 dropped = false;
             }
-            if (itemStack.getItem().toString().contains("backpack") && !player.isCreative()) {
-                event.getPlayer().addItem(itemStack);
+            if (item.toString().contains("backpack") && !player.isCreative()) {
+                event.getPlayer().addItem(stack);
                 event.setCanceled(true);
                 dropped = false;
             }
             if (dropped) {
-                Security.recordToss(player.getName().getString(), itemStack);
-                itemStack.getOrCreateTagElement(Utils.MOD_ID).putString("TossFrom", player.getName().getString());
+                Security.recordToss(player.getName().getString(), stack);
+                stack.getOrCreateTagElement(Utils.MOD_ID).putString("TossFrom", player.getName().getString());
             }
         }
     }

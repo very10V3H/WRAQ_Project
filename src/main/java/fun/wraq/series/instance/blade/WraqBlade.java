@@ -54,7 +54,7 @@ public class WraqBlade extends WraqPassiveEquip implements ActiveItem {
                 append(Component.literal("普通近战攻击").withStyle(CustomStyle.styleOfPower)));
         components.add(Te.s(" 普通攻击", CustomStyle.styleOfPower, "每命中一名敌人，将减少该物品", "0.25s剩余冷却时间", CustomStyle.styleOfIce));
         components.add(Component.literal(" 居合必定暴击").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
-        ComponentUtils.coolDownTimeDescription(components, 9);
+        ComponentUtils.coolDownTimeDescription(components, 6);
         return components;
     }
 
@@ -87,7 +87,7 @@ public class WraqBlade extends WraqPassiveEquip implements ActiveItem {
         });
         if (success) {
             BladeItems.ITEMS.getEntries().stream().map(RegistryObject::get).forEach(item -> {
-                Compute.playerItemCoolDown(player, item, 9);
+                Compute.playerItemCoolDown(player, item, 6);
             });
         }
     }
