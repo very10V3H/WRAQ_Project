@@ -12,6 +12,7 @@ import fun.wraq.process.system.spur.Items.SpurItems;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.end.citadel.CitadelItems;
 import fun.wraq.series.gems.GemItems;
+import fun.wraq.series.instance.series.harbinger.HarbingerItems;
 import fun.wraq.series.instance.series.warden.WardenItems;
 import fun.wraq.series.newrunes.NewRuneItems;
 import fun.wraq.series.overworld.sun.SunIslandItems;
@@ -3214,32 +3215,32 @@ public class TradeList {
         ItemStack brokenBlade = new ItemStack(SunIslandItems.BROKEN_BLADE_0.get());
         ItemStack frameArrow = new ItemStack(SunIslandItems.FRAME_ARROW_0.get());
         ItemStack devilPowerCurio = new ItemStack(SunIslandItems.DEVIL_POWER_CURIO.get());
+        ItemStack sakuraIndustrySceptre = new ItemStack(HarbingerItems.SAKURA_INDUSTRY_SCEPTRE.get());
         ItemStack[] itemStacks = {
-                roseGoldCoin, tearCurio, brokenBlade, frameArrow, devilPowerCurio
+                roseGoldCoin, tearCurio, brokenBlade, frameArrow, devilPowerCurio, sakuraIndustrySceptre
         };
         List<ItemStack> contentList = new ArrayList<>();
         Collections.addAll(contentList, itemStacks);
-        MyVillagerData.setMyVillagerData("旭升岛饰品商人", "sunCurio", CustomStyle.styleOfSunIsland,
+        MyVillagerData.setMyVillagerData("旭升岛秘藏商人", "sunCurio", CustomStyle.styleOfSunIsland,
                 VillagerType.PLAINS, VillagerProfession.CARTOGRAPHER, contentList);
 
         tradeRecipeMap.put(roseGoldCoin,
                 List.of(new ItemStack(ModItems.REFINED_PIECE.get(), 16),
                         new ItemStack(ModItems.GOLD_COIN.get(), 64)));
-
         tradeRecipeMap.put(brokenBlade,
                 List.of(new ItemStack(ModItems.ROSE_GOLD_COIN.get(), 16),
                         new ItemStack(ModItems.GOLDEN_SHEET.get(), 8)));
-
         tradeRecipeMap.put(frameArrow,
                 List.of(new ItemStack(ModItems.ROSE_GOLD_COIN.get(), 16),
                         new ItemStack(ModItems.VOLCANO_CORE.get(), 128)));
-
         tradeRecipeMap.put(tearCurio,
                 List.of(new ItemStack(ModItems.ROSE_GOLD_COIN.get(), 16),
                         new ItemStack(ModItems.LAKE_CORE.get(), 128)));
-
         tradeRecipeMap.put(devilPowerCurio,
                 List.of(new ItemStack(ModItems.ROSE_GOLD_COIN.get(), 16),
                         new ItemStack(ModItems.HUSK_RUNE.get(), 24)));
+        tradeRecipeMap.put(sakuraIndustrySceptre,
+                List.of(new ItemStack(ModItems.ROSE_GOLD_COIN.get(), 96),
+                        new ItemStack(ModItems.completeGem.get(), 16)));
     }
 }

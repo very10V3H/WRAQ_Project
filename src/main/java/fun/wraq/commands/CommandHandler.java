@@ -593,5 +593,14 @@ public class CommandHandler {
                         ).requires(commandSourceStack -> commandSourceStack.hasPermission(2))
                 )
         );
+        CommandDispatcher<CommandSourceStack> dispatcher63 = event.getDispatcher();
+        LiteralCommandNode<CommandSourceStack> cmd63 = dispatcher63.register(
+                Commands.literal(Utils.MOD_ID).then(
+                        Commands.literal("randomEvent").then(
+                                Commands.argument("operation", StringArgumentType.string())
+                                        .executes(RandomEventOperationCommand.instance)
+                        ).requires(commandSourceStack -> commandSourceStack.hasPermission(2))
+                )
+        );
     }
 }

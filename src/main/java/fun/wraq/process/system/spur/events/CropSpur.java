@@ -23,15 +23,18 @@ import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.SweetBerryBushBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+@Mod.EventBusSubscriber
 public class CropSpur {
 
-    public static void cropsInteract(net.minecraftforge.event.level.BlockEvent.BreakEvent event) {
+    public static void cropsInteract(BlockEvent.BreakEvent event) {
         if (!event.getPlayer().level().isClientSide && !event.getPlayer().isCreative()) {
             Player player = event.getPlayer();
             BlockPos blockPos = event.getPos();
@@ -40,10 +43,22 @@ public class CropSpur {
         }
     }
 
+    @SubscribeEvent
+    public static void cropsRightClick(PlayerInteractEvent.RightClickBlock event) {
+        Player player = event.getEntity();
+        Level level = player.level();
+        if (!level.isClientSide) {
+            BlockPos blockPos = event.getPos();
+            BlockState blockState = level.getBlockState(blockPos);
+            if (blockState.getBlock() instanceof CropBlock) {
+                event.setCanceled(true);
+                harvestCrops(player, blockPos, level);
+            }
+        }
+    }
+
     public static void harvestCrops(Player player, BlockPos blockPos, Level overWorld) {
         if (player.level().equals(overWorld)) {
-            if (blockPos.getX() > 1265 && blockPos.getX() < 1614
-                    && blockPos.getZ() > 1297 && blockPos.getZ() < 1545) return;
             BlockState blockState = overWorld.getBlockState(blockPos);
             if (blockState.getBlock() instanceof CropBlock cropBlock) {
                 if (cropBlock.getAge(blockState) == cropBlock.getMaxAge()) {

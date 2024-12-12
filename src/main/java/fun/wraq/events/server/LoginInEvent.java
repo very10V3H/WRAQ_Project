@@ -36,6 +36,7 @@ import fun.wraq.process.system.endlessinstance.item.EndlessInstanceItems;
 import fun.wraq.process.system.lottery.NewLotteries;
 import fun.wraq.process.system.missions.series.dailyMission.DailyMission;
 import fun.wraq.process.system.parkour.Parkour;
+import fun.wraq.process.system.randomevent.RandomEventData;
 import fun.wraq.process.system.reason.Reason;
 import fun.wraq.process.system.teamInstance.NewTeamInstanceHandler;
 import fun.wraq.process.system.tower.Tower;
@@ -477,6 +478,7 @@ public class LoginInEvent {
         /*SummerEvent.resetDailyData(player);*/
         InventoryOperation.itemStackGive(player, new ItemStack(EndlessInstanceItems.EASTERN_TOWER_PAPER.get(), 2));
         SingleItemChangePurchaseLimit.refreshDaily(player);
+        RandomEventData.resetWorldSoul5DailyGetTimes(player);
     }
 
     public static void WeeklyRefreshContent(Player player) {

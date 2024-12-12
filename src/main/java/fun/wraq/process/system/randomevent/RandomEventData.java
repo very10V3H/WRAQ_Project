@@ -28,7 +28,15 @@ public class RandomEventData {
         return getPlayerData(player).getInt(DAILY_WORLD_SOUL_5_TIMES);
     }
 
+    public static void setWorldSoul5DailyGetTimes(Player player, int times) {
+        getPlayerData(player).putInt(DAILY_WORLD_SOUL_5_TIMES, times);
+    }
+
     public static void incrementWorldSoul5DailyGetTimes(Player player) {
         incrementTimes(player, DAILY_WORLD_SOUL_5_TIMES);
+    }
+
+    public static void resetWorldSoul5DailyGetTimes(Player player) {
+        setWorldSoul5DailyGetTimes(player, 0);
     }
 }

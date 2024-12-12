@@ -857,7 +857,7 @@
   "item.vmd.boss2_health_ring2": "镶金普莱尼恩惠之戒²",
   "item.vmd.boss2_health_ring3": "镶金普莱尼恩惠之戒³",
   "item.vmd.giant_ticket": "巨人僵尸入场券",
-  "item.vmd.giant_medal": "巨人僵尸勋章",
+  "item.vmd.random_event_medal": "功勋奖章",
   "item.vmd.crop_bag": "农作物奖励包",
   "item.vmd.log_bag": "大量原木",
   "item.vmd.zeus_sword": "宙斯圣剑",
@@ -1913,7 +1913,7 @@
   "item.vmd.harbinger_bow": "鹰眼长弓",
   "item.vmd.harbinger_sceptre": "鹰眼手镜",
 
-  "item.vmd.sakura_industry_sceptre": "隐秘经纬法杖",
+  "item.vmd.sakura_industry_sceptre": "隐秘经纬仪器",
 
 
   "curios.identifier.rune": "符石",

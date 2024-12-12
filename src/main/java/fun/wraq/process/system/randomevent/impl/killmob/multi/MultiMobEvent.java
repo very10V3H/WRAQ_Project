@@ -1,5 +1,7 @@
 package fun.wraq.process.system.randomevent.impl.killmob.multi;
 
+import fun.wraq.common.util.items.ItemAndRate;
+import fun.wraq.process.system.randomevent.RandomAdditionalRewardEvent;
 import fun.wraq.process.system.randomevent.impl.killmob.KillMobEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
@@ -19,10 +21,13 @@ public abstract class MultiMobEvent extends KillMobEvent {
 
     private final Random random = new Random();
 
-    public MultiMobEvent(ResourceKey<Level> dimension, Vec3 pos, List<Component> beginAnnouncement,
-                         List<Component> endAnnouncement, List<Component> overTimeAnnouncement, MinecraftServer server,
-                         List<Vec3> summonPosList) {
-        super(dimension, pos, beginAnnouncement, endAnnouncement, overTimeAnnouncement, server);
+    public MultiMobEvent(ResourceKey<Level> dimension, Vec3 pos, List<Component> readyAnnouncement,
+                         List<Component> beginAnnouncement, List<Component> endAnnouncement,
+                         List<Component> overTimeAnnouncement, MinecraftServer server,
+                         List<Vec3> summonPosList, List<ItemAndRate> rewardList,
+                         RandomAdditionalRewardEvent randomAdditionalRewardEvent) {
+        super(dimension, pos, readyAnnouncement, beginAnnouncement, endAnnouncement, overTimeAnnouncement, server,
+                rewardList, randomAdditionalRewardEvent);
         this.summonPosList = summonPosList;
     }
 
@@ -69,5 +74,10 @@ public abstract class MultiMobEvent extends KillMobEvent {
     public void reset() {
         leftMobCount = 0;
         super.reset();
+    }
+
+    @Override
+    protected void finishAction() {
+
     }
 }

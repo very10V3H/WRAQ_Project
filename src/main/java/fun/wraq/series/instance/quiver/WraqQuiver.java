@@ -145,7 +145,8 @@ public class WraqQuiver extends WraqPassiveEquip implements ActiveItem {
         for (int i = 0 ; i < 30 ; i ++) {
             Vec3 pickPos = player.pick(i, 0, false).getLocation();
             int finalI = i;
-            player.level().getEntitiesOfClass(Mob.class, AABB.ofSize(pickPos, i * 2, i * 2, i * 2))
+            player.level().getEntitiesOfClass(Mob.class,
+                            AABB.ofSize(pickPos, i * 2, i * 2, i * 2))
                     .stream().filter(mob -> mob.position().distanceTo(pickPos) < finalI)
                     .forEach(mob -> {
                         if (distance.containsKey(mob)) {
@@ -175,7 +176,8 @@ public class WraqQuiver extends WraqPassiveEquip implements ActiveItem {
         if (targetList.size() > 1) {
             targetList.subList(1, Math.min(3, targetList.size())).forEach(mob -> {
                 MyArrow myArrow = new MyArrow(EntityType.ARROW, player.level(), player, true, 0.25);
-                myArrow.setDeltaMovement(mob.position().add(0, 1, 0).subtract(player.position().add(0, 1.5, 0)).normalize().scale(4.5));
+                myArrow.setDeltaMovement(mob.position().add(0, 1, 0)
+                        .subtract(player.position().add(0, 1.5, 0)).normalize().scale(4.5));
                 myArrow.moveTo(player.pick(0.5, 0, false).getLocation());
                 myArrow.setCritArrow(true);
                 myArrow.setNoGravity(true);
@@ -183,7 +185,7 @@ public class WraqQuiver extends WraqPassiveEquip implements ActiveItem {
                 player.level().addFreshEntity(myArrow);
                 ParticleProvider.LineParticle(player.level(), (int) mob.distanceTo(player),
                         player.pick(0.5, 0, false).getLocation(),
-                        mob.position().add(0, 1, 0), ParticleTypes.END_ROD);
+                        mob.position().add(0, 1, 0), ParticleTypes.CRIT);
             });
         }
     }

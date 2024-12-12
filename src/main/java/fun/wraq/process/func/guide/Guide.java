@@ -73,6 +73,7 @@ public class Guide {
             add(Component.literal("引导 - 打开元素轮盘").withStyle(ChatFormatting.AQUA));
             add(Component.literal("按下[左ALT]打开元素轮盘").withStyle(ChatFormatting.WHITE));
         }});
+
     }};
 
     public static void trig(Player player, int stage) {

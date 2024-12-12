@@ -2,7 +2,9 @@ package fun.wraq.process.system.randomevent.impl.killmob;
 
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
+import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
+import fun.wraq.process.system.randomevent.RandomAdditionalRewardEvent;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
@@ -12,7 +14,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
@@ -26,10 +27,12 @@ public class SlimeKingEvent extends KillMobEvent {
 
     private Slime slimeKing;
     private List<Mob> smallSlimeList = new ArrayList<>();
-
-    public SlimeKingEvent(ResourceKey<Level> dimension, Vec3 pos, List<Component> beginAnnouncement,
-                          List<Component> endAnnouncement, List<Component> overTimeAnnouncement, MinecraftServer server) {
-        super(dimension, pos, beginAnnouncement, endAnnouncement, overTimeAnnouncement, server);
+    public SlimeKingEvent(ResourceKey<Level> dimension, Vec3 pos, List<Component> readyAnnouncement,
+                          List<Component> beginAnnouncement, List<Component> endAnnouncement,
+                          List<Component> overTimeAnnouncement, MinecraftServer server, List<ItemAndRate> rewardList,
+                          RandomAdditionalRewardEvent randomAdditionalRewardEvent) {
+        super(dimension, pos, readyAnnouncement, beginAnnouncement, endAnnouncement, overTimeAnnouncement,
+                server, rewardList, randomAdditionalRewardEvent);
     }
 
     @Override
@@ -86,20 +89,7 @@ public class SlimeKingEvent extends KillMobEvent {
     }
 
     @Override
-    protected List<ItemStack> getRewardList() {
-        return List.of(
-
-        );
-    }
-
-    @Override
-    protected void additionReward(Player player) {
-
-    }
-
-    @Override
     protected void finishAction() {
         smallSlimeList.clear();
-        super.finishAction();
     }
 }

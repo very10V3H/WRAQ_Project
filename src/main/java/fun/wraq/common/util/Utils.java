@@ -418,6 +418,7 @@ public class Utils {
         put(StringUtils.ParticleTypes.BUBBLE, ParticleTypes.BUBBLE);
         put(StringUtils.ParticleTypes.BUBBLE_POP, ParticleTypes.BUBBLE_POP);
         put(StringUtils.ParticleTypes.BUBBLE_COLUMN_UP, ParticleTypes.BUBBLE_COLUMN_UP);
+        put(StringUtils.ParticleTypes.CRIT, ParticleTypes.CRIT);
     }};
     public static HashMap<ParticleOptions, String> ParticleToParticleStringMap = new HashMap<>() {{
         put(ParticleTypes.WITCH, StringUtils.ParticleTypes.Witch);
@@ -498,6 +499,7 @@ public class Utils {
         put(ParticleTypes.BUBBLE, StringUtils.ParticleTypes.BUBBLE);
         put(ParticleTypes.BUBBLE_POP, StringUtils.ParticleTypes.BUBBLE_POP);
         put(ParticleTypes.BUBBLE_COLUMN_UP, StringUtils.ParticleTypes.BUBBLE_COLUMN_UP);
+        put(ParticleTypes.CRIT, StringUtils.ParticleTypes.CRIT);
     }};
 
     public static List<Boss2Damage> boss2DamageList = new ArrayList<>();

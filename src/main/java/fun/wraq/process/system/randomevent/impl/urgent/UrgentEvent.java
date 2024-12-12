@@ -4,7 +4,9 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
+import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.process.func.item.InventoryOperation;
+import fun.wraq.process.system.randomevent.RandomAdditionalRewardEvent;
 import fun.wraq.process.system.randomevent.RandomEvent;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.specialevents.springFes.FireWorkGun;
@@ -26,9 +28,12 @@ import java.util.Queue;
 public class UrgentEvent extends RandomEvent {
 
     private Queue<Player> rankQueue = new ArrayDeque<>();
-    public UrgentEvent(ResourceKey<Level> dimension, Vec3 pos, List<Component> beginAnnouncement,
-                       List<Component> finishAnnouncement, MinecraftServer server) {
-        super(dimension, pos, beginAnnouncement, finishAnnouncement, finishAnnouncement, server);
+    public UrgentEvent(ResourceKey<Level> dimension, Vec3 pos,
+                       List<Component> beginAnnouncement, List<Component> finishAnnouncement,
+                       MinecraftServer server, List<ItemAndRate> rewardList,
+                       RandomAdditionalRewardEvent randomAdditionalRewardEvent) {
+        super(dimension, pos, List.of(), beginAnnouncement, finishAnnouncement, finishAnnouncement, server, rewardList,
+                randomAdditionalRewardEvent);
     }
 
     @Override

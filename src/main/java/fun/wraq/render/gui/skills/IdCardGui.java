@@ -9,6 +9,7 @@ import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.SkillPackets.AbilityDataC2SPacket;
 import fun.wraq.networking.misc.SkillPackets.SkillDataC2SPacket;
 import fun.wraq.networking.misc.SkillPackets.SkillRequestC2SPacket;
+import fun.wraq.networking.misc.TeamPackets.TeamScreenOpenRequestC2SPacket;
 import fun.wraq.process.func.guide.networking.GuideFinishC2SPacket;
 import fun.wraq.process.func.plan.DailySupply;
 import fun.wraq.process.func.plan.networking.DailySupplyC2SPacket;
@@ -184,10 +185,6 @@ public class IdCardGui extends Screen {
             DistExecutor.safeCallWhenOn(Dist.CLIENT, () -> OpenSkillTreeGui::new);
         }).pos(this.width / 2 + 2, this.height / 2 + 113 - 68).size(30, 12).build());
 
-/*        this.addRenderableWidget(Button.builder(Component.literal("组队/副本").withStyle(ChatFormatting.AQUA), (p_280814_) -> {
-            ModNetworking.sendToServer(new TeamScreenOpenRequestC2SPacket());
-        }).pos(this.width / 2 + 36, this.height / 2 + 113 - 40).size(48,16).build());*/
-
         this.addRenderableWidget(Button.builder(Component.literal("领取补给").withStyle(ChatFormatting.GOLD), (p_280814_) -> {
             ModNetworking.sendToServer(new DailySupplyC2SPacket());
         }).pos(this.width / 2 + 90, this.height / 2 + 113 - 68).size(48, 16).build());
@@ -217,6 +214,10 @@ public class IdCardGui extends Screen {
         this.addRenderableWidget(Button.builder(Component.literal("本源回廊").withStyle(CustomStyle.styleOfWorld), (p_280814_) -> {
             this.minecraft.setScreen(new TowerScreen(0));
         }).pos(this.width / 2 - 126, this.height / 2 + 113 - 40).size(48, 16).build());
+
+        this.addRenderableWidget(Button.builder(Component.literal("组队/副本").withStyle(ChatFormatting.AQUA), (p_280814_) -> {
+            ModNetworking.sendToServer(new TeamScreenOpenRequestC2SPacket());
+        }).pos(this.width / 2 - 126, this.height / 2 + 113 - 40 + 18).size(48,16).build());
     }
 
     public void tick() {
@@ -239,7 +240,17 @@ public class IdCardGui extends Screen {
                     } else {
                         guiGraphics.drawString(fontRenderer, Component.literal("「商店列表」").withStyle(ChatFormatting.WHITE), this.width / 2 - 18, this.height / 2 + 113 - 40 + 3, 0);
                     }
-                } else renderable.render(graphics, x, y, v);
+                } else if (button.getMessage().getString().contains("本源回廊") || button.getMessage().getString().contains("组队/副本")) {
+                    if (x > this.width / 2 - 126 && x < this.width / 2 - 126 + 48 && y > this.height / 2 + 113 - 40
+                            && y < this.height / 2 + 113 - 40 + 18 + 16) {
+                        renderable.render(graphics, x, y, v);
+                    } else {
+                        guiGraphics.drawString(fontRenderer, Component.literal("「特殊挑战」").withStyle(ChatFormatting.RED),
+                                this.width / 2 - 126, this.height / 2 + 113 - 40 + 3, 0);
+                    }
+                }
+                else renderable.render(graphics, x, y, v);
+
             } else renderable.render(graphics, x, y, v);
         });
 

@@ -309,7 +309,8 @@ public class ParticleProvider {
                 int ignoreLevel = Math.max(1, serverPlayer.getPersistentData().getInt(StringUtils.IgnoreParticleLevel));
                 if (ignoreLevel < 10) {
                     ModNetworking.sendToClient(new LineParticleS2CPacket(
-                            endVec.toVector3f(), startVec.toVector3f(), 0, 0, num / ignoreLevel, Utils.ParticleToParticleStringMap.get(particleOptions)
+                            endVec.toVector3f(), startVec.toVector3f(), 0, 0, num / ignoreLevel,
+                            Utils.ParticleToParticleStringMap.get(particleOptions)
                     ), serverPlayer);
                 }
             }

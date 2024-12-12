@@ -14,6 +14,7 @@ import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.gems.WraqGem;
 import fun.wraq.series.instance.series.harbinger.HarbingerItems;
 import fun.wraq.series.instance.series.harbinger.weapon.HarbingerMainHand;
+import fun.wraq.series.instance.series.harbinger.weapon.HarbingerWeaponMaterial;
 import fun.wraq.series.moontain.MoontainItems;
 import fun.wraq.series.moontain.equip.weapon.MoontainUtils;
 import net.minecraft.ChatFormatting;
@@ -112,12 +113,23 @@ public class RightClickActiveHandler {
                             Te.s("尘月宫宝石", CustomStyle.styleOfMoon)
                     )),
 
-            new ItemEnhancer(Te.s("强化鹰眼武器", CustomStyle.styleOfHarbinger), new Vec3(1941, 92, 1698),
-                    List.of(new ItemStack(HarbingerItems.HARBINGER_INGOT.get())),
+            new ItemEnhancer(Te.s("强化鹰眼武器", CustomStyle.styleOfHarbinger), new Vec3(1938, 86, 1686),
+                    List.of(new ItemStack(HarbingerItems.HARBINGER_INGOT.get(), 20)),
                     HarbingerMainHand.enhanceCondition, HarbingerMainHand.enhanceOperation,
                     List.of(Te.s("至多可以将", "鹰眼武器被动层数", CustomStyle.styleOfHarbinger,
                                     "提升到", "20", CustomStyle.styleOfRed),
-                            Te.s("每次提升", "1层", CustomStyle.styleOfHarbinger)))
+                            Te.s("每次提升", "1层", CustomStyle.styleOfHarbinger))),
+
+            new ItemEnhancer(Te.s("强化鹰眼武器部件", CustomStyle.styleOfHarbinger), new Vec3(1867, 81, 1696),
+                    List.of(
+                            new ItemStack(HarbingerItems.HARBINGER_INGOT.get(), 32),
+                            new ItemStack(HarbingerItems.RAW_IRON_NUGGET.get(), 128),
+                            new ItemStack(HarbingerItems.RAW_IRON_INGOT.get(), 32)
+                    ),
+                    HarbingerWeaponMaterial.enhanceCondition, HarbingerWeaponMaterial.enhanceOperation,
+                    List.of(Te.s("至多可以将", "鹰眼武器部件", CustomStyle.styleOfHarbinger,
+                                    "提升到", "不可思议", CustomStyle.styleOfPower, "等阶"),
+                            Te.s("每次提升", "1阶", CustomStyle.styleOfHarbinger)))
     );
 
     public static void detectNearPlayer(TickEvent.LevelTickEvent event) {

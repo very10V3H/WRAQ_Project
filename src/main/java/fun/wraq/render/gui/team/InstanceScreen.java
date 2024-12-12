@@ -1,6 +1,7 @@
 package fun.wraq.render.gui.team;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.Utils;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.TeamPackets.InstanceChooseC2SPacket;
@@ -109,6 +110,9 @@ public class InstanceScreen extends Screen {
                                 append(Component.literal(String.valueOf(instance.levelRequire)).
                                         withStyle(Utils.levelStyleList.get(instance.levelRequire / 25))),
                         this.width / 2 - 20, this.height / 2 - 48 + i * 32, 0);
+                guiGraphics.drawCenteredString(fontRenderer, Te.s("消耗理智: " + instance.reasonCost,
+                                CustomStyle.styleOfFlexible),
+                        this.width / 2 + 60, this.height / 2 - 64 + i * 32, 0);
             }
         }
 

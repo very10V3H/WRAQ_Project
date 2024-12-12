@@ -3,6 +3,8 @@ package fun.wraq.process.system.randomevent.impl.dig;
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
+import fun.wraq.common.util.items.ItemAndRate;
+import fun.wraq.process.system.randomevent.RandomAdditionalRewardEvent;
 import fun.wraq.process.system.randomevent.RandomEvent;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.core.BlockPos;
@@ -28,8 +30,10 @@ public class DigBlockEvent extends RandomEvent {
     private Set<BlockPos> brokenPosSet = new HashSet<>();
     public DigBlockEvent(ResourceKey<Level> dimension, Vec3 pos, List<Component> beginAnnouncement,
                          List<Component> finishAnnouncement, List<Component> overTimeAnnouncement,
-                         MinecraftServer server, List<Block> blockList) {
-        super(dimension, pos, beginAnnouncement, finishAnnouncement, overTimeAnnouncement, server);
+                         MinecraftServer server, List<Block> blockList, List<ItemAndRate> rewardList,
+                         RandomAdditionalRewardEvent randomAdditionalRewardEvent) {
+        super(dimension, pos, List.of(), beginAnnouncement, finishAnnouncement, overTimeAnnouncement, server,
+                rewardList, randomAdditionalRewardEvent);
         this.blockList = blockList;
     }
 
@@ -86,7 +90,6 @@ public class DigBlockEvent extends RandomEvent {
 
     @Override
     protected void finishAction() {
-        broad(Te.s("天外来物", CustomStyle.styleOfSunIsland, "已被清理完毕!"));
         List<Map.Entry<Player, Integer>> rankList = new ArrayList<>(scoreMap.entrySet().stream().toList());
         rankList.sort(new Comparator<Map.Entry<Player, Integer>>() {
             @Override

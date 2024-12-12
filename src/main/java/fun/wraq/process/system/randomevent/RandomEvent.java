@@ -4,6 +4,8 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
+import fun.wraq.common.util.items.ItemAndRate;
+import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.system.tower.Tower;
 import fun.wraq.process.system.wayPoints.MyWayPoint;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -11,13 +13,12 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 import java.sql.SQLException;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public abstract class RandomEvent {
 
@@ -34,6 +35,7 @@ public abstract class RandomEvent {
 
     protected final ResourceKey<Level> dimension;
     protected final Vec3 pos;
+    protected final List<Component> readyAnnouncement; // 准备开始的通知
     protected final List<Component> beginAnnouncement; // 事件开始的通知
     protected final List<Component> finishAnnouncement; // 事件结束的通知
     protected final List<Component> overTimeAnnouncement; // 事件超时，强制结束的通知
@@ -42,15 +44,24 @@ public abstract class RandomEvent {
     protected int beginTick;
     protected Set<Player> players = new HashSet<>(); // 参与者们
     public boolean hasWorldSoul5Reward = false;
+    protected final List<ItemAndRate> rewardList;
+    protected final RandomAdditionalRewardEvent randomAdditionalRewardEvent;
+    protected boolean forcedFinish = false;
 
-    public RandomEvent(ResourceKey<Level> dimension, Vec3 pos, List<Component> beginAnnouncement,
-                       List<Component> finishAnnouncement, List<Component> overTimeAnnouncement, MinecraftServer server) {
+    public RandomEvent(ResourceKey<Level> dimension, Vec3 pos,
+                       List<Component> readyAnnouncement, List<Component> beginAnnouncement,
+                       List<Component> finishAnnouncement, List<Component> overTimeAnnouncement,
+                       MinecraftServer server, List<ItemAndRate> rewardList,
+                       RandomAdditionalRewardEvent randomAdditionalRewardEvent) {
         this.dimension = dimension;
         this.pos = pos;
         this.beginAnnouncement = beginAnnouncement;
+        this.readyAnnouncement = readyAnnouncement;
         this.finishAnnouncement = finishAnnouncement;
         this.overTimeAnnouncement = overTimeAnnouncement;
         this.server = server;
+        this.rewardList = rewardList;
+        this.randomAdditionalRewardEvent = randomAdditionalRewardEvent;
     }
 
     protected abstract void beginAction();// 事件开始的行动
@@ -64,11 +75,6 @@ public abstract class RandomEvent {
         isCarryingOut = true;
         beginTick = Tick.get();
         beginAnnouncement.forEach(this::broad);
-        if (hasWorldSoul5Reward) {
-            Component component = ModItems.worldSoul5.get().getDefaultInstance().getDisplayName();
-            broad(Te.s("这是一个带有", component, "奖励的", "随机事件!", CustomStyle.styleOfLife,
-                    "参与即可获得", component));
-        }
         beginAction();
         server.getPlayerList().getPlayers().forEach(player -> {
             MyWayPoint.sendAddPacketToClient(player, new MyWayPoint(pos, "随机事件发生地",
@@ -79,10 +85,11 @@ public abstract class RandomEvent {
     public void handleTick() {
         if (isCarryingOut) {
             tick();
-            if (beginTick + 6000 < Tick.get()) {
+            if (beginTick + Tick.min(5) < Tick.get()) {
                 overTimeAnnouncement.forEach(this::broad);
                 end();
-            } else if (finishCondition()) {
+            } else if (finishCondition() || forcedFinish) {
+                forcedFinish = false;
                 finishAnnouncement.forEach(this::broad);
                 players.forEach(player -> {
                     RandomEventData.incrementTimes(player, getDataKey());
@@ -96,10 +103,24 @@ public abstract class RandomEvent {
                         }
                     });
                 }
+                Random random = new Random();
+                players.forEach(player -> {
+                    if (random.nextDouble() < 0.5) {
+                        InventoryOperation.itemStackGive(player, new ItemStack(ModItems.RANDOM_EVENT_MEDAL.get()));
+                    }
+                    rewardList.forEach(itemAndRate -> itemAndRate.sendWithMSG(player, 1));
+                    if (randomAdditionalRewardEvent != null) {
+                        randomAdditionalRewardEvent.reward(player);
+                    }
+                });
                 finishAction();
                 end();
             }
         }
+    }
+
+    public void setForcedFinish() {
+        forcedFinish = true;
     }
 
     public void end() {
@@ -129,13 +150,13 @@ public abstract class RandomEvent {
     private void rewardWorldSoul5(Player player) throws SQLException {
         int times = RandomEventData.getWorldSoul5DailyGetTimes(player);
         Component component = ModItems.worldSoul5.get().getDefaultInstance().getDisplayName();
-        if (RandomEventData.getWorldSoul5DailyGetTimes(player) < 8) {
-            Tower.givePlayerStar(player, 3, "随机事件");
+        if (RandomEventData.getWorldSoul5DailyGetTimes(player) < 4) {
+            Tower.givePlayerStar(player, 6, "随机事件");
             RandomEventData.incrementWorldSoul5DailyGetTimes(player);
             ++times;
             if (times > 0) {
                 sendFormatMSG(player, Te.s("今天还能从", "随机事件", CustomStyle.styleOfFlexible,
-                        "中，获取", 8 - times + "次", CustomStyle.styleOfWorld, component, "奖励!"));
+                        "中，获取", 4 - times + "次", CustomStyle.styleOfWorld, component, "奖励!"));
             } else {
                 sendFormatMSG(player, Te.s("今天从", "随机事件", CustomStyle.styleOfFlexible, "获取",
                         component, "的次数已经用完了，记得明天还要来参与哦!"));
@@ -148,5 +169,13 @@ public abstract class RandomEvent {
 
     public Level level() {
         return server.getLevel(dimension);
+    }
+
+    public static List<ItemAndRate> getDefaultRewardList() {
+        return new ArrayList<>(List.of(
+                new ItemAndRate(ModItems.GoldCoinBag.get(), 4),
+                new ItemAndRate(ModItems.gemPiece.get(), 20),
+                new ItemAndRate(ModItems.REVELATION_HEART.get(), 1)
+        ));
     }
 }

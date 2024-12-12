@@ -4,8 +4,10 @@ import fun.wraq.common.equip.WraqSword;
 import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.equip.impl.ExBaseAttributeValueEquip;
 import fun.wraq.common.impl.display.ForgeItem;
+import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.harbinger.HarbingerItems;
 import net.minecraft.network.chat.Component;
@@ -76,30 +78,37 @@ public class HarbingerSword extends WraqSword implements HarbingerMainHand, Acti
 
     @Override
     public void beforeRemoveMaterialOnForge(ItemStack product, ItemStack removingStack) {
-        if (removingStack.is(HarbingerItems.HARBINGER_ROD.get())) {
-            ExBaseAttributeValueEquip.getStackExBaseAttributeData(product)
-                    .putInt(HarbingerMainHand.ATTACK_DAMAGE, HarbingerWeaponMaterial.getQualityTier(removingStack));
-            HarbingerMainHand.addMaterial(product, removingStack);
+        if (product.getItem() instanceof HarbingerMainHand) {
+            if (removingStack.is(HarbingerItems.HARBINGER_ROD.get())) {
+                ExBaseAttributeValueEquip.getStackExBaseAttributeData(product)
+                        .putInt(HarbingerMainHand.ATTACK_DAMAGE, HarbingerWeaponMaterial.getQualityTier(removingStack));
+                HarbingerMainHand.addMaterial(product, removingStack);
+            }
+            if (removingStack.is(HarbingerItems.HARBINGER_WEAPON_CORE.get())) {
+                ExBaseAttributeValueEquip.getStackExBaseAttributeData(product)
+                        .putInt(HarbingerMainHand.PERCENT_ATTACK_DAMAGE, HarbingerWeaponMaterial.getQualityTier(removingStack));
+                HarbingerMainHand.addMaterial(product, removingStack);
+            }
+            if (removingStack.is(HarbingerItems.HARBINGER_SWORD_BLADE.get())) {
+                ExBaseAttributeValueEquip.getStackExBaseAttributeData(product)
+                        .putInt(HarbingerMainHand.CRIT_DAMAGE, HarbingerWeaponMaterial.getQualityTier(removingStack));
+                HarbingerMainHand.addMaterial(product, removingStack);
+            }
+            HarbingerMainHand.setMaxCount(product, 20);
         }
-        if (removingStack.is(HarbingerItems.HARBINGER_WEAPON_CORE.get())) {
-            ExBaseAttributeValueEquip.getStackExBaseAttributeData(product)
-                    .putInt(HarbingerMainHand.PERCENT_ATTACK_DAMAGE, HarbingerWeaponMaterial.getQualityTier(removingStack));
-            HarbingerMainHand.addMaterial(product, removingStack);
-        }
-        if (removingStack.is(HarbingerItems.HARBINGER_SWORD_BLADE.get())) {
-            ExBaseAttributeValueEquip.getStackExBaseAttributeData(product)
-                    .putInt(HarbingerMainHand.CRIT_DAMAGE, HarbingerWeaponMaterial.getQualityTier(removingStack));
-            HarbingerMainHand.addMaterial(product, removingStack);
-        }
-        HarbingerMainHand.setMaxCount(product, 20);
     }
 
     @Override
     public List<ItemStack> forgeRecipe() {
         return List.of(
+                new ItemStack(ModItems.CastleSword.get()),
                 new ItemStack(HarbingerItems.HARBINGER_ROD.get()),
                 new ItemStack(HarbingerItems.HARBINGER_WEAPON_CORE.get()),
-                new ItemStack(HarbingerItems.HARBINGER_SWORD_BLADE.get())
+                new ItemStack(HarbingerItems.HARBINGER_SWORD_BLADE.get()),
+                new ItemStack(ModItems.completeGem.get(), 22),
+                new ItemStack(ModItems.ReputationMedal.get(), 56),
+                new ItemStack(PickaxeItems.TINKER_GOLD.get(), 8),
+                new ItemStack(ModItems.WorldSoul3.get(), 6)
         );
     }
 }

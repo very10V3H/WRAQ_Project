@@ -53,7 +53,7 @@ public class HarbingerInstance extends NewTeamInstance {
                              int minPlayerNum, int maxPlayerNum, int maxChallengeTime,
                              ResourceKey<Level> dimension, Vec2 rot) {
         super(inChallenging, prepareCenterPos, description, regionDescription, prepareDetectRange, levelRequire,
-                minPlayerNum, maxPlayerNum, maxChallengeTime, dimension, rot);
+                minPlayerNum, maxPlayerNum, maxChallengeTime, dimension, rot, 5);
     }
 
     BlockPos wallUpPos = new BlockPos(1935, -17, 1824);
@@ -146,7 +146,7 @@ public class HarbingerInstance extends NewTeamInstance {
         if (stage == 4) {
             detectAndSpawn(level);
             if (blazes.isEmpty() && boss != null && boss.getHealth() / boss.getMaxHealth() < 0.5) {
-                stage4BladePos.forEach(pos -> {
+                stage4BlazePos.forEach(pos -> {
                     Mob blaze = setAttributesThenSpawnOfBlade(level, pos);
                     blazes.add(blaze);
                     level.addFreshEntity(blaze);
@@ -214,7 +214,7 @@ public class HarbingerInstance extends NewTeamInstance {
             new Vec3(1934, -26, 1883)
     );
 
-    List<Vec3> stage4BladePos = List.of(
+    List<Vec3> stage4BlazePos = List.of(
             new Vec3(1945, -28, 1849),
             new Vec3(1945, -28, 1863),
             new Vec3(1923, -28, 1863),
@@ -228,6 +228,9 @@ public class HarbingerInstance extends NewTeamInstance {
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(entity, 260, 5000, 360,
                 360, 0.4, 5, 0.6, 300, 25,
                 5000 * Math.pow(10, 4), 0.5);
+        MobSpawn.dropList.put(MobSpawn.getMobOriginName(entity), List.of(
+                new ItemAndRate(HarbingerItems.RAW_IRON_NUGGET.get(), 0.2)
+        ));
         entity.moveTo(pos);
         return entity;
     }
@@ -239,6 +242,9 @@ public class HarbingerInstance extends NewTeamInstance {
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(entity, 260, 7500, 480,
                 480, 0.4, 5, 0.6, 350, 25,
                 15000 * Math.pow(10, 4), 0.35);
+        MobSpawn.dropList.put(MobSpawn.getMobOriginName(entity), List.of(
+                new ItemAndRate(HarbingerItems.RAW_IRON_INGOT.get(), 0.2)
+        ));
         entity.moveTo(pos);
         return entity;
     }
@@ -261,6 +267,9 @@ public class HarbingerInstance extends NewTeamInstance {
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(entity, 260, 7500, 480,
                 480, 0.4, 5, 0.6, 350, 25,
                 15000 * Math.pow(10, 4), 0.35);
+        MobSpawn.dropList.put(MobSpawn.getMobOriginName(entity), List.of(
+                new ItemAndRate(HarbingerItems.RAW_IRON_INGOT.get(), 0.5)
+        ));
         entity.moveTo(pos);
         return entity;
     }

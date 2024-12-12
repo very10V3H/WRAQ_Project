@@ -3,6 +3,7 @@ package fun.wraq.process.system.randomevent;
 import biomesoplenty.api.block.BOPBlocks;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
+import fun.wraq.common.registry.ModItems;
 import fun.wraq.process.system.randomevent.impl.dig.DigBlockEvent;
 import fun.wraq.process.system.randomevent.impl.killmob.KillMobEvent;
 import fun.wraq.process.system.randomevent.impl.killmob.SlimeKingEvent;
@@ -11,6 +12,7 @@ import fun.wraq.process.system.randomevent.impl.killmob.multi.VillageAttack;
 import fun.wraq.process.system.randomevent.impl.urgent.UrgentEvent;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
@@ -45,6 +47,9 @@ public class RandomEventsHandler {
 
     public static void initKillMobEvents() {
         killMobEvents.add(new VillageAttack(Level.OVERWORLD, new Vec3(1144, 79, 40), List.of(
+                Te.s("雨林村", CustomStyle.styleOfForest, "似乎马上就要有", "掠夺者", CustomStyle.styleOfStone,
+                        "入侵了")
+        ), List.of(
                 Te.s("雨林村", CustomStyle.styleOfForest, "东侧突然出现了大量的",
                         "掠夺者", CustomStyle.styleOfStone),
                 Te.s("赶快去保护村庄吧!")
@@ -62,9 +67,12 @@ public class RandomEventsHandler {
                 new Vec3(1141, 79, 46),
                 new Vec3(1144, 79, 40),
                 new Vec3(1137, 80, 35)
-        )));
+        ), RandomEvent.getDefaultRewardList()));
 
         killMobEvents.add(new VillageAttack(Level.OVERWORLD, new Vec3(846, 63, -423), List.of(
+                Te.s("海岸村", CustomStyle.styleOfWater, "似乎马上就要有", "掠夺者", CustomStyle.styleOfStone,
+                        "入侵了")
+        ), List.of(
                 Te.s("海岸村", CustomStyle.styleOfWater, "西侧突然出现了大量的",
                         "掠夺者", CustomStyle.styleOfStone),
                 Te.s("赶快去保护村庄吧!")
@@ -83,9 +91,12 @@ public class RandomEventsHandler {
                 new Vec3(853, 63, -414),
                 new Vec3(865, 64, -429),
                 new Vec3(874, 62, -422)
-        )));
+        ), RandomEvent.getDefaultRewardList()));
 
         killMobEvents.add(new VillageAttack(Level.OVERWORLD, new Vec3(1814, 67, 400), List.of(
+                Te.s("旭升岛", CustomStyle.styleOfSunIsland, "似乎马上就要有", "海盗", CustomStyle.styleOfSea,
+                        "入侵了")
+        ), List.of(
                 Te.s("旭升岛", CustomStyle.styleOfSunIsland, "东南侧海岸突然出现了大量的",
                         "海盗", CustomStyle.styleOfSea),
                 Te.s("赶快去保护村庄吧!")
@@ -104,9 +115,11 @@ public class RandomEventsHandler {
                 new Vec3(1808, 67, 392),
                 new Vec3(1801, 66, 398),
                 new Vec3(1809, 67, 399)
-        )));
+        ), RandomEvent.getDefaultRewardList()));
 
         killMobEvents.add(new CaveSpiderMultiMobEvent(Level.OVERWORLD, new Vec3(1280, 82, 208), List.of(
+                Te.s("纽维庙", CustomStyle.styleOfForest, "似乎有些", "异动", CustomStyle.styleOfLife)
+        ), List.of(
                 Te.s("大量的", "洞穴蜘蛛", CustomStyle.styleOfLife, "出现在了", "纽维庙", CustomStyle.styleOfLife,
                         "附近"),
                 Te.s("击杀它们可以获取大量的奖励!")
@@ -118,16 +131,19 @@ public class RandomEventsHandler {
                 Te.s("不知道今晚睡觉会不会跑去找你呢？")
         ), server, List.of(
                 new Vec3(1280, 82, 208)
-        )));
+        ), RandomEvent.getDefaultRewardList(), null));
 
         killMobEvents.add(new SlimeKingEvent(Level.OVERWORLD, new Vec3(1055, 63, -648), List.of(
+                Te.s("莱姆king", CustomStyle.styleOfLife, "说:",
+                        "在座的各位除了我都是LJ", CustomStyle.styleOfFlexible)
+        ), List.of(
                 Te.s("莱姆king", CustomStyle.styleOfLife, "出现了!")
         ), List.of(
                 Te.s("莱姆king", CustomStyle.styleOfLife, "被击碎了!", "它并不甘心，马上就要二度降临!")
         ), List.of(
                 Te.s("莱姆king", CustomStyle.styleOfLife, "踩碎了你们的尊严，并吐着粘液溜走了"),
                 Te.s("这被羞辱的感觉可不好受呀")
-        ), server));
+        ), server, RandomEvent.getDefaultRewardList(), null));
     }
 
     public static List<KillMobEvent> getKillMobEvents() {
@@ -144,25 +160,25 @@ public class RandomEventsHandler {
                 Te.s("有物资被投放至", "炼雨湖心", CustomStyle.styleOfWater, "附近了，赶快去领取吧!")
         ), List.of(
                 Te.s("炼雨湖心", CustomStyle.styleOfWater, "的物资已被领取完毕")
-        ), server));
+        ), server, RandomEvent.getDefaultRewardList(), null));
 
         urgentEvents.add(new UrgentEvent(Level.OVERWORLD, new Vec3(2132, 304, -228), List.of(
                 Te.s("有物资被投放至", "朔山", CustomStyle.styleOfMoon1, "附近了，赶快去领取吧!")
         ), List.of(
                 Te.s("朔山", CustomStyle.styleOfMoon1, "的物资已被领取完毕")
-        ), server));
+        ), server, RandomEvent.getDefaultRewardList(), null));
 
         urgentEvents.add(new UrgentEvent(Level.OVERWORLD, new Vec3(1390, 81, -262), List.of(
                 Te.s("有物资被投放至", "唤魔庙", CustomStyle.styleOfMana, "附近了，赶快去领取吧!")
         ), List.of(
                 Te.s("唤魔庙", CustomStyle.styleOfMana, "的物资已被领取完毕")
-        ), server));
+        ), server, RandomEvent.getDefaultRewardList(), null));
 
         urgentEvents.add(new UrgentEvent(Level.OVERWORLD, new Vec3(754, 181, -86), List.of(
                 Te.s("有物资被投放至", "德朗斯蒂克高原", CustomStyle.styleOfPlain, "附近了，赶快去领取吧!")
         ), List.of(
                 Te.s("德朗斯蒂克高原", CustomStyle.styleOfPlain, "的物资已被领取完毕")
-        ), server));
+        ), server, RandomEvent.getDefaultRewardList(), null));
     }
 
     public static List<UrgentEvent> getUrgentEvents() {
@@ -186,7 +202,7 @@ public class RandomEventsHandler {
                 Te.s("炼魔平原", CustomStyle.styleOfMana, "的", "析出魔晶", CustomStyle.styleOfMana, "再次溶解进了地下")
         ), server, List.of(
                 Blocks.AMETHYST_BLOCK
-        )));
+        ), RandomEvent.getDefaultRewardList(), null));
 
         digBlockEvents.add(new DigBlockEvent(Level.OVERWORLD, new Vec3(1074, 77, -1260), List.of(
                 Te.s("薰曦村", CustomStyle.styleOfJacaranda, "东南侧的",
@@ -201,7 +217,7 @@ public class RandomEventsHandler {
                         "薰衣草", CustomStyle.styleOfJacaranda, "泛滥成灾了")
         ), server, List.of(
                 BOPBlocks.TALL_LAVENDER.get()
-        )));
+        ), RandomEvent.getDefaultRewardList(), null));
     }
 
     public static List<DigBlockEvent> getDigBlockEvents() {
@@ -211,13 +227,46 @@ public class RandomEventsHandler {
         return digBlockEvents;
     }
 
+    public static RandomEvent nextTimeEvent;
+
     public static void tick() {
         getRandomEvents().stream().filter(event -> event.isCarryingOut).forEach(RandomEvent::handleTick);
-        if (Tick.get() != 0 && Tick.get() % 9600 == 0) {
-            Random random = new Random();
-            RandomEvent randomEvent = getRandomEvents().get(random.nextInt(getRandomEvents().size()));
-            randomEvent.setWorldSoul5Reward(random.nextDouble() < 0.2);
-            randomEvent.begin();
+        if (Tick.get() % Tick.min(30) == Tick.min(28)) {
+            ready();
+        }
+        if (Tick.get() % Tick.min(30) == Tick.min(29)) {
+            begin();
+        }
+    }
+
+    public static void ready() {
+        Random random = new Random();
+        nextTimeEvent = getRandomEvents().get(random.nextInt(getRandomEvents().size()));
+        nextTimeEvent.setWorldSoul5Reward(random.nextDouble() < 0.5);
+        if (!nextTimeEvent.readyAnnouncement.isEmpty()) {
+            nextTimeEvent.readyAnnouncement.forEach(component -> {
+                nextTimeEvent.broad(component);
+            });
+            if (nextTimeEvent.hasWorldSoul5Reward) {
+                Component component = ModItems.worldSoul5.get().getDefaultInstance().getDisplayName();
+                nextTimeEvent.broad(Te.s("这是一个带有", component, "奖励的", "随机事件!", CustomStyle.styleOfLife,
+                        "参与即可获得", component));
+            }
+        }
+    }
+
+    public static void forcedFinish() {
+        nextTimeEvent.setForcedFinish();
+    }
+
+    public static void begin() {
+        nextTimeEvent.begin();
+        if (nextTimeEvent.readyAnnouncement.isEmpty()) {
+            if (nextTimeEvent.hasWorldSoul5Reward) {
+                Component component = ModItems.worldSoul5.get().getDefaultInstance().getDisplayName();
+                nextTimeEvent.broad(Te.s("这是一个带有", component, "奖励的", "随机事件!", CustomStyle.styleOfLife,
+                        "参与即可获得", component));
+            }
         }
     }
 

@@ -39,7 +39,7 @@ public class ForgeEquipUtils {
     public static final Zone SNOW_VILLAGE = new Zone(1395, -1509, 1251, -1702);
     public static final Component SNOW_VILLAGE_NAME = Te.s("北洋村", CustomStyle.styleOfSnow);
     public static final Zone BIRCH_VILLAGE = new Zone(2021, 1767, 1814, 1592);
-    public static final Component BIRCH_VILLAGE_NAME = Te.s("沙岸村", CustomStyle.styleOfHusk);
+    public static final Component BIRCH_VILLAGE_NAME = Te.s("沙岸村", CustomStyle.styleOfSunIsland);
     public static final Zone SAKURA_VILLAGE = new Zone(2445, 1799, 2353, 1719);
     public static final Component SAKURA_VILLAGE_NAME = Te.s("绯樱村", CustomStyle.styleOfSakura);
     public static final Zone SKY_CITY = new Zone(1013, 64, 900, -42);

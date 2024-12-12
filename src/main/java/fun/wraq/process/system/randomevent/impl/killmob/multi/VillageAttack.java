@@ -2,7 +2,6 @@ package fun.wraq.process.system.randomevent.impl.killmob.multi;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
-import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -16,8 +15,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.Pillager;
 import net.minecraft.world.entity.monster.Vindicator;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -34,29 +31,19 @@ public class VillageAttack extends MultiMobEvent {
     private final List<ItemAndRate> eachMobDropList;
     private final List<Vec3> summonPosList;
 
-    public VillageAttack(ResourceKey<Level> dimension, Vec3 pos, List<Component> beginAnnouncement,
-                         List<Component> endAnnouncement, List<Component> overTimeAnnouncement, MinecraftServer server, String mobName1,
-                         String mobName2, List<ItemAndRate> eachMobDropList,
-                         List<Vec3> summonPosList) {
-        super(dimension, pos, beginAnnouncement, endAnnouncement, overTimeAnnouncement, server, summonPosList);
+    public VillageAttack(ResourceKey<Level> dimension, Vec3 pos, List<Component> readyAnnouncement,
+                         List<Component> beginAnnouncement, List<Component> endAnnouncement,
+                         List<Component> overTimeAnnouncement, MinecraftServer server,
+                         String mobName1, String mobName2, List<ItemAndRate> eachMobDropList,
+                         List<Vec3> summonPosList, List<ItemAndRate> rewardList) {
+        super(dimension, pos, readyAnnouncement, beginAnnouncement, endAnnouncement, overTimeAnnouncement,
+                server, summonPosList, rewardList, (player -> {
+                    Compute.playerReputationAddOrCost(player, 20);
+                }));
         this.mobName1 = mobName1;
         this.mobName2 = mobName2;
         this.eachMobDropList = eachMobDropList;
         this.summonPosList = summonPosList;
-    }
-
-    @Override
-    protected List<ItemStack> getRewardList() {
-        return List.of(
-                new ItemStack(ModItems.GoldCoinBag.get(), 2),
-                new ItemStack(ModItems.gemPiece.get(), 12),
-                new ItemStack(ModItems.RevelationBook.get(), 5)
-        );
-    }
-
-    @Override
-    protected void additionReward(Player player) {
-        Compute.playerReputationAddOrCost(player, 20);
     }
 
     @Override

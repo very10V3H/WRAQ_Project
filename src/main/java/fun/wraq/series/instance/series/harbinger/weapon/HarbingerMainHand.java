@@ -35,7 +35,7 @@ public interface HarbingerMainHand extends BeforeRemoveMaterialOnForge {
     String MAX_COUNT_KEY = "MAX_COUNT_KEY";
     static int getMaxCount(ItemStack stack) {
         if (stack.getItem() instanceof HarbingerMainHand) {
-            return stack.getOrCreateTagElement(Utils.MOD_ID).getInt(MAX_COUNT_KEY);
+            return Math.max(20, stack.getOrCreateTagElement(Utils.MOD_ID).getInt(MAX_COUNT_KEY));
         }
         return 0;
     }

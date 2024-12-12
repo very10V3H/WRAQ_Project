@@ -3,7 +3,9 @@ package fun.wraq.process.system.channel;
 import fun.wraq.common.equip.WraqMainHandEquip;
 import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.impl.display.UsageOrGetWayDescriptionItem;
 import fun.wraq.common.util.ComponentUtils;
+import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -13,10 +15,11 @@ import net.minecraft.world.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SakuraIndustrySceptre extends WraqMainHandEquip implements ActiveItem {
+public class SakuraIndustrySceptre extends WraqMainHandEquip implements ActiveItem, UsageOrGetWayDescriptionItem {
 
     public SakuraIndustrySceptre(Properties properties) {
         super(properties);
+        Utils.expUp.put(this, 1d);
     }
 
     @Override
@@ -27,7 +30,7 @@ public class SakuraIndustrySceptre extends WraqMainHandEquip implements ActiveIt
     @Override
     public List<Component> getAdditionalComponents(ItemStack stack) {
         List<Component> components = new ArrayList<>();
-        ComponentUtils.descriptionActive(components, Te.s("??位移", getMainStyle()));
+        ComponentUtils.descriptionActive(components, Te.s("经纬位移", getMainStyle()));
         components.add(Te.s(" 在", "樱岛隐秘纬路", getMainStyle(), "中的", "节点方块", getMainStyle()));
         components.add(Te.s(" 上使用，可以", "穿行", getMainStyle(), "于节点之间"));
         ComponentUtils.coolDownTimeDescription(components, 2.5);
@@ -53,5 +56,12 @@ public class SakuraIndustrySceptre extends WraqMainHandEquip implements ActiveIt
     @Override
     public double manaCost(Player player) {
         return 0;
+    }
+
+    @Override
+    public List<Component> getWayDescription() {
+        return List.of(
+                Te.s("在", "旭升岛秘藏商人", CustomStyle.styleOfSunIsland, "处兑换")
+        );
     }
 }

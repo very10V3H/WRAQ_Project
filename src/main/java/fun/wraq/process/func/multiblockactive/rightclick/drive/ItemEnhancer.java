@@ -2,11 +2,13 @@ package fun.wraq.process.func.multiblockactive.rightclick.drive;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.registry.MySound;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.multiblockactive.rightclick.top.RightClickActivation;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
@@ -37,6 +39,8 @@ public class ItemEnhancer extends RightClickActivation {
         if (InventoryOperation.checkPlayerHasItem(player, needMaterial)) {
             if (enhanceCondition.check(mainHandStack)) {
                 enhanceOperation.enhance(mainHandStack);
+                sendFormatMSG(player,Te.s("成功锻造了 ", mainHandStack.getDisplayName()));
+                MySound.soundToPlayer(player, SoundEvents.ANVIL_USE);
                 InventoryOperation.removeItemWithoutCheck(player, needMaterial);
             } else {
                 sendFormatMSG(player, Te.s("锻造的物品不满足要求"));

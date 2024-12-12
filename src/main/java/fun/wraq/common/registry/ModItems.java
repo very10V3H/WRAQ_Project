@@ -2253,7 +2253,7 @@ public class ModItems {
     public static final RegistryObject<Item> GiantTicket = ITEMS.register("giant_ticket",
             () -> new GiantTicket(new Item.Properties().rarity(Rarity.EPIC)));
 
-    public static final RegistryObject<Item> GiantMedal = ITEMS.register("giant_medal",
+    public static final RegistryObject<Item> RANDOM_EVENT_MEDAL = ITEMS.register("random_event_medal",
             () -> new Item(new Item.Properties().rarity(Rarity.EPIC)));
 
     public static final RegistryObject<Item> CropBag = ITEMS.register("crop_bag",

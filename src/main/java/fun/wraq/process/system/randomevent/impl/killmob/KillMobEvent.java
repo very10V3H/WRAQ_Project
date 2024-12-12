@@ -3,7 +3,8 @@ package fun.wraq.process.system.randomevent.impl.killmob;
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
-import fun.wraq.process.func.item.InventoryOperation;
+import fun.wraq.common.util.items.ItemAndRate;
+import fun.wraq.process.system.randomevent.RandomAdditionalRewardEvent;
 import fun.wraq.process.system.randomevent.RandomEvent;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -13,7 +14,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
@@ -36,10 +36,12 @@ public abstract class KillMobEvent extends RandomEvent {
     protected boolean allowBeginSpawnFlag = false;
 
     protected List<Mob> mobList = new ArrayList<>();
-
-    public KillMobEvent(ResourceKey<Level> dimension, Vec3 pos, List<Component> beginAnnouncement,
-                        List<Component> finishAnnouncement, List<Component> overTimeAnnouncement, MinecraftServer server) {
-        super(dimension, pos, beginAnnouncement, finishAnnouncement, overTimeAnnouncement, server);
+    public KillMobEvent(ResourceKey<Level> dimension, Vec3 pos, List<Component> readyAnnouncement,
+                        List<Component> beginAnnouncement, List<Component> finishAnnouncement,
+                        List<Component> overTimeAnnouncement, MinecraftServer server, List<ItemAndRate> rewardList,
+                        RandomAdditionalRewardEvent randomAdditionalRewardEvent) {
+        super(dimension, pos, readyAnnouncement, beginAnnouncement, finishAnnouncement, overTimeAnnouncement, server,
+                rewardList, randomAdditionalRewardEvent);
     }
 
     protected abstract void summonAndSetMobList();
@@ -86,25 +88,11 @@ public abstract class KillMobEvent extends RandomEvent {
     }
 
     @Override
-    protected void finishAction() {
-        List<ItemStack> rewardList = getRewardList();
-        players.forEach(player -> {
-            rewardList.forEach(stack -> {
-                InventoryOperation.itemStackGiveWithMSG(player, new ItemStack(stack.getItem(), stack.getCount()));
-            });
-            additionReward(player);
-        });
-    }
-
-    @Override
     public void reset() {
         mobList.forEach(mob -> mob.remove(Entity.RemovalReason.KILLED));
         mobList.clear();
         allowBeginSpawnFlag = false;
     }
-
-    protected abstract List<ItemStack> getRewardList();
-    protected abstract void additionReward(Player player);
 
     public void onKillMob(Player player, Mob mob) {
         if (mobList.contains(mob)) {

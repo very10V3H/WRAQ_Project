@@ -300,6 +300,7 @@ public class StringUtils {
         public static String BUBBLE = "BUBBLE";
         public static String BUBBLE_POP = "BUBBLE_POP";
         public static String BUBBLE_COLUMN_UP = "BUBBLE_COLUMN_UP";
+        public static String CRIT = "CRIT";
     }
 
     public static class MobName {
