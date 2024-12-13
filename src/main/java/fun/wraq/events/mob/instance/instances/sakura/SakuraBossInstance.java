@@ -9,6 +9,7 @@ import fun.wraq.entities.entities.Boss2.Boss2;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstance;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
+import fun.wraq.process.func.guide.Guide;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -81,6 +82,7 @@ public class SakuraBossInstance extends NoTeamInstance {
         Map<String, Integer> map = MobSpawn.tempKillCount.get(name);
         map.put(mobName, map.getOrDefault(mobName, 0) + 1);
         Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player), 150);
+        Guide.trig(player, 19);
     }
 
     @Override

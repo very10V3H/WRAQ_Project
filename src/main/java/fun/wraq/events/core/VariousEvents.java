@@ -82,9 +82,8 @@ public class VariousEvents {
         else {
             if (itemStack.getTagElement(Utils.MOD_ID) != null) {
                 CompoundTag data = itemStack.getOrCreateTagElement(Utils.MOD_ID);
-                if (InventoryCheck.boundingList.isEmpty()) InventoryCheck.setBoundingList();
                 if (!Utils.mainHandTag.containsKey(item) && !Utils.offHandTag.containsKey(item)
-                        && !Utils.armorTag.containsKey(item) && !InventoryCheck.boundingList.contains(item)) {
+                        && !Utils.armorTag.containsKey(item) && !InventoryCheck.getBoundingList().contains(item)) {
                     if (data.isEmpty()) itemStack.removeTagKey(Utils.MOD_ID);
                 }
 

@@ -8,6 +8,9 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
 import fun.wraq.process.func.guide.Guide;
 import fun.wraq.render.gui.blocks.InjectBlockMenu;
+import fun.wraq.series.instance.blade.BladeItems;
+import fun.wraq.series.instance.mixture.MixtureItems;
+import fun.wraq.series.instance.quiver.QuiverItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -36,7 +39,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
+import java.util.Set;
 
 
 public class InjectBlockEntity extends BlockEntity implements MenuProvider, Droppable {
@@ -162,8 +165,6 @@ public class InjectBlockEntity extends BlockEntity implements MenuProvider, Drop
             setChanged(level, pos, blockState);
             if (blockEntity.progress >= blockEntity.maxProgress) {
                 craftItem(blockEntity);
-                Player player = Utils.whoIsUsingBlock.getOrDefault(blockEntity.getBlockPos(), null);
-                Guide.trig(player, 5);
                 blockEntity.resetProgress();
             }
         } else {
@@ -201,14 +202,25 @@ public class InjectBlockEntity extends BlockEntity implements MenuProvider, Drop
                 Guide.trig(player, 5);
             }
 
-            List<Item> plainBossTier3Rings = List.of(ModItems.PlainAttackRing3.get(), ModItems.PlainManaAttackRing3.get(),
+            Set<Item> plainBossTier3Rings = Set.of(ModItems.PlainAttackRing3.get(), ModItems.PlainManaAttackRing3.get(),
                     ModItems.PlainHealthRing3.get(), ModItems.PlainDefenceRing3.get());
             if (plainBossTier3Rings.contains(productItemStack.getItem())) NoTeamInstanceModule
                     .putPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.nether, true);
 
-            List<Item> devilWeapons = List.of(ModItems.DevilSword.get(), ModItems.DevilBow.get(), ModItems.DevilSceptre.get());
+            Set<Item> devilWeapons = Set.of(ModItems.DevilSword.get(), ModItems.DevilBow.get(), ModItems.DevilSceptre.get());
             if (devilWeapons.contains(productItemStack.getItem())) {
                 NoTeamInstanceModule.putPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.moon, true);
+            }
+
+            Set<Item> plainPassiveEquips = Set.of(BladeItems.BLADE_PLAIN.get(), QuiverItems.QUIVER_PLAIN.get(),
+                    MixtureItems.MIXTURE_PLAIN.get());
+            if (plainPassiveEquips.contains(productItemStack.getItem())) {
+                Guide.trig(player, 12);
+            }
+            Set<Item> netherPassiveEquips = Set.of(BladeItems.BLADE_NETHER.get(), QuiverItems.QUIVER_NETHER.get(),
+                    MixtureItems.MIXTURE_NETHER.get());
+            if (netherPassiveEquips.contains(productItemStack.getItem())) {
+                Guide.trig(player, 16);
             }
 
             productItemStack.setCount(slot2Item.getCount() + 1);

@@ -216,7 +216,10 @@ public class ServerPlayerTickEvent {
                 }
                 ModNetworking.sendToClient(new CurrentSeasonAndResonanceTypeS2CPacket(MySeason.currentSeason, Element.PlayerResonanceType.getOrDefault(player, "")), serverPlayer);
             }
-            Guide.sendStageToClient(player);
+
+            if (player.tickCount % 20 == 0) {
+                Guide.sendStageToClient(player);
+            }
 
             if (player.tickCount % 40 == 0) {
                 ModNetworking.sendToClient(new PacketLimitS2CPacket(200), serverPlayer);

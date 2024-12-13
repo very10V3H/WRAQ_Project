@@ -1,6 +1,7 @@
 package fun.wraq.networking.misc.TeamPackets;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.struct.PlayerTeam;
 import fun.wraq.process.system.teamInstance.NewTeamInstance;
@@ -44,6 +45,12 @@ public class InstanceChooseC2SPacket {
             if (instance.inChallenging)
                 serverPlayer.sendSystemMessage(Component.literal("有队伍正在挑战该副本。"));
             else {
+                if (instance.prepareCenterPos.distanceTo(serverPlayer.position()) > 6) {
+                    Compute.sendFormatMSG(serverPlayer, Te.s("组队副本", ChatFormatting.RED),
+                            Te.s("队长", ChatFormatting.AQUA, "需要在", "副本挑战点", ChatFormatting.RED,
+                                    "附近，才能召集队员"));
+                    return;
+                }
                 List<Player> playerListGetByName = new ArrayList<>();
                 List<Player> xpUnReachPlayers = new ArrayList<>();
                 playerTeam.getPlayerList().forEach(player -> {

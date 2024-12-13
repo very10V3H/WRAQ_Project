@@ -1,5 +1,6 @@
 package fun.wraq.common.util;
 
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.struct.*;
 import fun.wraq.common.util.struct.BowSkillStruct.BowSkill3;
@@ -607,6 +608,10 @@ public class Utils {
 
     public static Style getLevelStyle(int level) {
         return Utils.levelStyleList.get(Math.min(Utils.levelStyleList.size() - 1, level / 25));
+    }
+
+    public static Component getLevelDescription(int level) {
+        return Te.s("Lv." + level, getLevelStyle(level));
     }
 
     public static Map<String, Item> ManaCoreMap = new HashMap<>();

@@ -54,7 +54,7 @@ public class ForgeScreen extends Screen {
 
         this.addRenderableWidget(Button.builder(Component.translatable("→"), (p_280814_) -> {
             int size = ForgeEquipUtils.getPlayerInZoneItemList(mc.player).size();
-            if (page < size / 3) page++;
+            if (page < (size - 1) / 3) page++;
         }).pos(X + 20 + 2, Y - 20 + 97).size(20, 20).build());
 
         this.addRenderableWidget(Button.builder(Component.translatable("x"), (p_280814_) -> {
@@ -88,6 +88,12 @@ public class ForgeScreen extends Screen {
         int size = ForgeEquipUtils.getPlayerInZoneItemList(mc.player).size();
         int X = this.width / 2;
         int Y = this.height / 2;
+
+        int textureWidth = 300;
+        int textureHeight = 200;
+
+        guiGraphics.blit(GUI_TEXTURE, this.width / 2 - 150, this.height / 2 - 100,
+                0, 0, 300, 200, textureWidth, textureHeight);
 
         guiGraphics.drawString(fontRenderer, Te.s("?锻造品质", ChatFormatting.GREEN),
                 X + 112, Y - 108, 0);
@@ -150,13 +156,9 @@ public class ForgeScreen extends Screen {
         guiGraphics.drawCenteredString(fontRenderer, Component.literal("" + (page + 1)).withStyle(ChatFormatting.WHITE),
                 this.width / 2 + 2, this.height / 2 - 22 + 105, 0);
 
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal("共" + (size / 3 + 1) + "页 " + (size) + "件物品").withStyle(ChatFormatting.BLACK),
+        guiGraphics.drawCenteredString(fontRenderer, Component.literal("共" + ((size - 1) / 3 + 1) + "页 " + (size) + "件物品").withStyle(ChatFormatting.BLUE),
                 this.width / 2 + 80, this.height / 2 - 22 + 105, 0);
 
-        int textureWidth = 300;
-        int textureHeight = 200;
-
-        guiGraphics.blit(GUI_TEXTURE, this.width / 2 - 150, this.height / 2 - 100, 0, 0, 300, 200, textureWidth, textureHeight);
         super.render(p_96310_, x, y, v);
     }
 

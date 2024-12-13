@@ -1,6 +1,7 @@
 package fun.wraq.series.nether.material;
 
 import fun.wraq.common.Compute;
+import fun.wraq.process.func.guide.Guide;
 import fun.wraq.render.gui.illustrate.Display;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -41,6 +42,7 @@ public class ToNether extends Item {
                 ServerLevel nether = level.getServer().getLevel(Level.NETHER);
                 ServerPlayer serverPlayer = (ServerPlayer) player;
                 serverPlayer.teleportTo(nether, 591, 78, -619, 90, 0);
+                Guide.trig(player, 14);
             } else {
                 Compute.sendFormatMSG(player, Component.literal("下界").withStyle(ChatFormatting.RED),
                         Component.literal("需要达到75级才能前往").withStyle(ChatFormatting.WHITE));

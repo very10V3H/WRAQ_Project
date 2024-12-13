@@ -1,11 +1,10 @@
-package fun.wraq.series.overworld.chapter1.Mine.Crest;
+package fun.wraq.series.overworld.chapter1.mine;
 
 import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.equip.impl.RepeatableCurios;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.overworld.chapter1.Mine.MineSuitDescription;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;

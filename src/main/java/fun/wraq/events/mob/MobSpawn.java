@@ -5,9 +5,9 @@ import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
-import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.chapter1.ForestZombieSpawnController;
 import fun.wraq.events.mob.chapter1.LakeDrownSpawnController;
 import fun.wraq.events.mob.chapter1.MineSkeletonSpawnController;
@@ -300,7 +300,9 @@ public class MobSpawn {
         if (!MobSpawn.dropList.containsKey(MobSpawn.getMobOriginName(mob))) return;
         List<ItemAndRate> list = MobSpawn.dropList.get(MobSpawn.getMobOriginName(mob));
 
-        if (MobSpawn.getMobOriginName(mob).equals(PlainZombieSpawnController.mobName)) Guide.trig(player, 3);
+        if (MobSpawn.getMobOriginName(mob).equals(PlainZombieSpawnController.mobName)) {
+            Guide.trig(player, 3);
+        }
         if (MobSpawn.getMobOriginName(mob).equals(PlainZombieSpawnController.mobName))
             DailyMission.addCount(player, DailyMission.plainZombieKillCountMap);
         if (MobSpawn.getMobOriginName(mob).equals(DreadHoundSpawnController.mobName))

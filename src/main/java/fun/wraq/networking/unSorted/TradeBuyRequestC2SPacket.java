@@ -126,7 +126,25 @@ public class TradeBuyRequestC2SPacket {
                 if (NewLotteries.getRewardSerial.isEmpty()) NewLotteries.setGetRewardSerial();
                 if (NewLotteries.getRewardSerial.containsKey(giveItemStack.getItem()))
                     InventoryCheck.addOwnerTagToItemStack(serverPlayer, giveItemStack);
-                if (giveItemStack.is(TradeList.netheriteBackPack)) Guide.trig(serverPlayer, 0);
+                if (giveItemStack.is(TradeList.netheriteBackPack)) {
+                    Guide.trig(serverPlayer, 0);
+                }
+                if (giveItemStack.is(ModItems.ForestPower.get())) {
+                    Guide.trig(serverPlayer, 7);
+                }
+                if (giveItemStack.is(ModItems.LakePower.get())) {
+                    Guide.trig(serverPlayer, 8);
+                }
+                if (giveItemStack.is(ModItems.MINE_POWER.get())) {
+                    Guide.trig(serverPlayer, 9);
+                }
+                if (giveItemStack.is(ModItems.VolcanoPower.get())) {
+                    Guide.trig(serverPlayer, 10);
+                }
+                if (giveItemStack.is(ModItems.EvokerSword.get())) {
+                    Guide.trig(serverPlayer, 13);
+                }
+
                 InventoryOperation.itemStackGive(serverPlayer, giveItemStack);
                 MySound.soundToPlayer(serverPlayer, SoundEvents.ARROW_HIT_PLAYER);
             } else {

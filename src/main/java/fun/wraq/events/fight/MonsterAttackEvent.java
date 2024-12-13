@@ -26,6 +26,7 @@ import fun.wraq.series.gems.passive.impl.GemWithstandDamageRateModifier;
 import fun.wraq.series.instance.series.devil.DevilAttackArmor;
 import fun.wraq.series.instance.series.taboo.TabooAttackArmor;
 import fun.wraq.series.newrunes.chapter1.ForestNewRune;
+import fun.wraq.series.overworld.chapter1.mine.MinePower;
 import fun.wraq.series.overworld.chapter1.waterSystem.LakePower;
 import fun.wraq.series.overworld.chapter7.star.StarBottle;
 import fun.wraq.series.overworld.sakuraSeries.EarthMana.EarthPower;
@@ -120,6 +121,7 @@ public class MonsterAttackEvent {
 
         damage *= WardenInstance.onPlayerWithstandDamageRate(player, monster);
         damage *= GemWithstandDamageRateModifier.onWithstandDamageRate(player, monster, damage);
+        damage *= MinePower.onPlayerWithstand(player);
 
         double healthSteal = MobAttributes.healthSteal(monster);
 

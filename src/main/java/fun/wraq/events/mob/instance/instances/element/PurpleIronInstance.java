@@ -10,6 +10,7 @@ import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstance;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
 import fun.wraq.events.mob.instance.instances.dimension.NetherInstance;
+import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.missions.series.dailyMission.DailyMission;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -100,6 +101,7 @@ public class PurpleIronInstance extends NoTeamInstance {
         Map<String, Integer> map = MobSpawn.tempKillCount.get(name);
         map.put(mobName, map.getOrDefault(mobName, 0) + 1);
         Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player), 120);
+        Guide.trig(player, 17);
     }
 
     @Override

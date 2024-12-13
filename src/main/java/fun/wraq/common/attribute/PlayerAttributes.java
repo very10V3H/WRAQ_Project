@@ -44,7 +44,7 @@ import fun.wraq.series.newrunes.chapter1.ForestNewRune;
 import fun.wraq.series.newrunes.chapter1.PlainNewRune;
 import fun.wraq.series.newrunes.chapter2.SkyNewRune;
 import fun.wraq.series.newrunes.chapter6.CastleNewRune;
-import fun.wraq.series.overworld.chapter1.Mine.MineShield;
+import fun.wraq.series.overworld.chapter1.mine.MineShield;
 import fun.wraq.series.overworld.chapter1.forest.armor.ForestArmorBoots;
 import fun.wraq.series.overworld.chapter1.forest.armor.ForestArmorChest;
 import fun.wraq.series.overworld.chapter1.forest.armor.ForestArmorHelmet;

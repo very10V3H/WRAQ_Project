@@ -10,6 +10,7 @@ import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstance;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
 import fun.wraq.process.func.damage.Damage;
+import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.missions.series.dailyMission.DailyMission;
 import fun.wraq.render.hud.Mana;
@@ -119,6 +120,7 @@ public class DevilInstance extends NoTeamInstance {
         map.put(mobName, map.getOrDefault(mobName, 0) + 1);
 
         Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player), 150);
+        Guide.trig(player, 20);
     }
 
     @Override

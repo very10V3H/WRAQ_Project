@@ -105,7 +105,7 @@ public class MoonBow extends WraqBow implements ActiveItem, OnHitEffectEquip {
     @Override
     public void active(Player player) {
         Compute.playerItemCoolDown(player, ModItems.MoonBow.get(), 27);
-        EnhanceNormalAttackModifier.addModifier(player, new EnhanceNormalAttackModifier("moonBowActive", 0, new EnhanceNormalAttack() {
+        EnhanceNormalAttackModifier.addModifier(player, new EnhanceNormalAttackModifier("moonBowActive", 1, new EnhanceNormalAttack() {
             @Override
             public void hit(Player player, Mob mob) {
                 Shield.providePlayerShield(player, 160, PlayerAttributes.attackDamage(player) * 2);

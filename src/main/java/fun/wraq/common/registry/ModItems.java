@@ -98,6 +98,7 @@ import fun.wraq.series.end.eventController.SpiderRecall.SpiderRecallArmorChest;
 import fun.wraq.series.end.eventController.SpiderRecall.SpiderRecallArmorHelmet;
 import fun.wraq.series.end.eventController.SpiderRecall.SpiderRecallArmorLeggings;
 import fun.wraq.series.end.recallBooks.*;
+import fun.wraq.series.overworld.chapter1.mine.*;
 import fun.wraq.series.overworld.curios.FancySapphireNecklace;
 import fun.wraq.series.overworld.curios.RubyNecklace;
 import fun.wraq.series.overworld.curios.SapphireNecklace;
@@ -157,15 +158,10 @@ import fun.wraq.series.overworld.castle.TreeSceptre;
 import fun.wraq.series.overworld.chapter1.Field.FieldSword;
 import fun.wraq.series.overworld.chapter1.Main1Boss.main1crystal;
 import fun.wraq.series.overworld.chapter1.ManaBook.ManaNote;
-import fun.wraq.series.overworld.chapter1.Mine.Armor.MineArmorBoots;
-import fun.wraq.series.overworld.chapter1.Mine.Armor.MineArmorChest;
-import fun.wraq.series.overworld.chapter1.Mine.Armor.MineArmorHelmet;
-import fun.wraq.series.overworld.chapter1.Mine.Armor.MineArmorLeggings;
-import fun.wraq.series.overworld.chapter1.Mine.Crest.MineCrest;
-import fun.wraq.series.overworld.chapter1.Mine.MineBow;
-import fun.wraq.series.overworld.chapter1.Mine.MineHat;
-import fun.wraq.series.overworld.chapter1.Mine.MineShield;
-import fun.wraq.series.overworld.chapter1.Mine.Sword.MineSword;
+import fun.wraq.series.overworld.chapter1.mine.armor.MineArmorBoots;
+import fun.wraq.series.overworld.chapter1.mine.armor.MineArmorChest;
+import fun.wraq.series.overworld.chapter1.mine.armor.MineArmorHelmet;
+import fun.wraq.series.overworld.chapter1.mine.armor.MineArmorLeggings;
 import fun.wraq.series.overworld.chapter1.forest.ForestPower;
 import fun.wraq.series.overworld.chapter1.forest.ForestRing;
 import fun.wraq.series.overworld.chapter1.forest.ForestSword;
@@ -677,6 +673,15 @@ public class ModItems {
     public static final RegistryObject<Item> MineBow3 = ITEMS.register("minebow3",
             () -> new MineBow(new Item.Properties().stacksTo(1).rarity(CustomStyle.MineItalic), 3));
 
+    public static final RegistryObject<Item> MINE_POWER = ITEMS.register("mine_power",
+            () -> new MinePower(new Item.Properties().rarity(CustomStyle.MineItalic), 0));
+    public static final RegistryObject<Item> MINE_POWER_1 = ITEMS.register("mine_power_1",
+            () -> new MinePower(new Item.Properties().rarity(CustomStyle.MineItalic), 1));
+    public static final RegistryObject<Item> MINE_POWER_2 = ITEMS.register("mine_power_2",
+            () -> new MinePower(new Item.Properties().rarity(CustomStyle.MineItalic), 2));
+    public static final RegistryObject<Item> MINE_POWER_3 = ITEMS.register("mine_power_3",
+            () -> new MinePower(new Item.Properties().rarity(CustomStyle.MineItalic), 3));
+
     public static final RegistryObject<Item> MineShield = ITEMS.register("mine_shield",
             () -> new MineShield());
 
@@ -1076,7 +1081,7 @@ public class ModItems {
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.NetherBold)));
 
     public static final RegistryObject<Item> FOILED_NETHER_IMPRINT = ITEMS.register("foiled_nether_imprint",
-            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.NetherBold), false, true));
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.NetherBold), true, true));
 
     public static final RegistryObject<Item> NETHER_POWER_MODEL = ITEMS.register("powermodel",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.Evoker)));

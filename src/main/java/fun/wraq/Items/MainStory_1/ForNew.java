@@ -54,6 +54,7 @@ public class ForNew extends Item {
                 sword, blade,
                 bow, quiver,
                 sceptre, mixture,
+                new ItemStack(ModItems.PlainPower.get()),
                 new ItemStack(ModItems.BAMBOO_KANATA.get()),
                 new ItemStack(ModItems.ORIGIN_KNIFE_PLAIN.get()),
                 new ItemStack(ModItems.PlainManaBook.get()),

@@ -1,10 +1,9 @@
-package fun.wraq.series.overworld.chapter1.Mine;
+package fun.wraq.series.overworld.chapter1.mine;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.overworld.chapter1.Mine.Crest.MineCrest;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;

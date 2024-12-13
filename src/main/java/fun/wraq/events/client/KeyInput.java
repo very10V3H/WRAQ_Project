@@ -131,7 +131,7 @@ public class KeyInput {
             }
 
             if (KeyBoradInput.GUIDE.consumeClick()) {
-                if (Guide.clientStage == -1 || Guide.clientStage >= Guide.descriptionMap.size()) return;
+                if (Guide.clientStage == -1 || Guide.clientStage >= Guide.getGuides().size()) return;
                 if (Calendar.getInstance().getTimeInMillis() - ClientUtils.tabSwitchLastTime > 250) {
                     GuideHud.display = !GuideHud.display;
                     if (GuideHud.display) {

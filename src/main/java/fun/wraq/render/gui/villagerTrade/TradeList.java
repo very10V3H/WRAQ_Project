@@ -2563,12 +2563,13 @@ public class TradeList {
     public static void mineTool() {
         ItemStack mineRune = new ItemStack(ModItems.MineRune.get());
         ItemStack mineRune1 = new ItemStack(ModItems.MineRune.get());
+        ItemStack minePower = new ItemStack(ModItems.MINE_POWER.get());
         ItemStack mineShield = new ItemStack(ModItems.MineShield.get());
         ItemStack originKnifeMine = new ItemStack(ModItems.ORIGIN_KNIFE_MINE.get());
         ItemStack mineGem = new ItemStack(GemItems.mineGem.get());
         ItemStack silverCoin = new ItemStack(ModItems.silverCoin.get(), 10);
         ItemStack[] itemStacks = {
-                mineRune, mineRune1, mineShield, originKnifeMine, mineGem, silverCoin
+                mineRune, mineRune1, minePower, mineShield, originKnifeMine, mineGem, silverCoin
         };
 
         List<ItemStack> contentList = new ArrayList<>();
@@ -2583,6 +2584,11 @@ public class TradeList {
                 List.of(new ItemStack(ModItems.MineSoul1.get(), 8),
                         new ItemStack(ModItems.silverCoin.get(), 8),
                         new ItemStack(ModItems.gemPiece.get(), 2)));
+        tradeRecipeMap.put(minePower,
+                List.of(new ItemStack(ModItems.MineRune.get(), 4),
+                        new ItemStack(ModItems.StoneElementPiece0.get(), 14),
+                        new ItemStack(Items.IRON_INGOT, 12),
+                        new ItemStack(ModItems.gemPiece.get(), 8)));
         tradeRecipeMap.put(mineShield,
                 List.of(new ItemStack(ModItems.MineRune.get(), 8),
                         new ItemStack(ModItems.StoneElementPiece0.get(), 14),

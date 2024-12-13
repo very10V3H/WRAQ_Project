@@ -21,7 +21,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import top.theillusivec4.curios.api.CuriosApi;
 
 import java.util.HashSet;
 import java.util.List;
@@ -125,9 +124,9 @@ public class InventoryCheck {
         return true;
     }
 
-    public static Set<Item> boundingList = new HashSet<>();
+    private static Set<Item> boundingList = new HashSet<>();
 
-    public static void setBoundingList() {
+    private static void setBoundingList() {
         boundingList.addAll(List.of(
                 ModItems.worldSoul5.get(),
                 ModItems.notePaper.get(),
@@ -152,7 +151,11 @@ public class InventoryCheck {
                 ModItems.supplyBoxTier3.get(),
                 EndlessInstanceItems.EASTERN_TOWER_PAPER.get(),
                 EndlessInstanceItems.ENDLESS_INSTANCE_CORE.get(),
-                ModItems.TP_TICKET.get()
+                ModItems.TP_TICKET.get(),
+                ModItems.SENIOR_POTION_SUPPLY.get(),
+                ModItems.ORE_SUPPLY.get(),
+                ModItems.JUNIOR_SUPPLY.get(),
+                ModItems.SENIOR_SUPPLY.get()
         ));
         SpecialEventItems.ITEMS.getEntries()
                 .stream()

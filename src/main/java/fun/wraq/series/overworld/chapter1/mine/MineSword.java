@@ -1,4 +1,4 @@
-package fun.wraq.series.overworld.chapter1.Mine.Sword;
+package fun.wraq.series.overworld.chapter1.mine;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.util.ComponentUtils;

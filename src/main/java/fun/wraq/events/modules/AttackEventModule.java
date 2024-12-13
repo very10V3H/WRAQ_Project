@@ -20,7 +20,7 @@ import fun.wraq.networking.misc.SkillPackets.SkillImageS2CPacket;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.suit.SuitCount;
 import fun.wraq.render.particles.ModParticles;
-import fun.wraq.series.overworld.chapter1.Mine.Sword.MineSword;
+import fun.wraq.series.overworld.chapter1.mine.MineSword;
 import fun.wraq.series.overworld.chapter1.snow.SnowSword;
 import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;

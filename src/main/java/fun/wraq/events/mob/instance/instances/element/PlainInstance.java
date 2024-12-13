@@ -7,6 +7,7 @@ import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstance;
 import fun.wraq.process.func.damage.Damage;
+import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.missions.series.dailyMission.DailyMission;
@@ -129,6 +130,7 @@ public class PlainInstance extends NoTeamInstance {
         map.put(mobName, map.getOrDefault(mobName, 0) + 1);
 
         Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player), 50);
+        Guide.trig(player, 11);
     }
 
     @Override

@@ -165,7 +165,7 @@ public class MyWayPoint {
                 Te.s("满月皎洁，苍穹如洗", CustomStyle.styleOfMoon)));
         add(new ZonePoint(new Vec3(2352, -34, -704),
                 Te.s("远古之城", CustomStyle.styleOfWarden),
-                Te.s("神秘遗迹，石墙巍峨", CustomStyle.styleOfWarden)));
+                Te.s("神秘遗迹，石墙巍峨", CustomStyle.styleOfWarden), 100));
         add(new ZonePoint(new Vec3(2417, 152, -1372),
                 Te.s("暗黑城堡", CustomStyle.styleOfCastle),
                 Te.s("危险的暗黑魔法遗址", CustomStyle.styleOfCastle)));

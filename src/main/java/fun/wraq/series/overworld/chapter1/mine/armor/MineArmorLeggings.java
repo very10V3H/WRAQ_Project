@@ -1,4 +1,4 @@
-package fun.wraq.series.overworld.chapter1.Mine.Armor;
+package fun.wraq.series.overworld.chapter1.mine.armor;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.BasicAttributeDescription;
@@ -6,7 +6,7 @@ import fun.wraq.common.registry.ModArmorMaterials;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.overworld.chapter1.Mine.MineSuitDescription;
+import fun.wraq.series.overworld.chapter1.mine.MineSuitDescription;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;

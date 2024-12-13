@@ -38,6 +38,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class WraqForge extends Item {
 
@@ -81,7 +82,7 @@ public class WraqForge extends Item {
                 Item item = stack.getItem();
                 // 复制必要的Tag
                 if (Utils.weaponList.contains(item)) {
-                    for (int i = 0 ; i < inventory.getContainerSize() ; i ++) {
+                    for (int i = 0; i < inventory.getContainerSize(); i++) {
                         ItemStack itemStack = inventory.getItem(i);
                         if (itemStack.is(item)) {
                             data = inventory.getItem(i).getOrCreateTagElement(Utils.MOD_ID).copy();
@@ -95,7 +96,7 @@ public class WraqForge extends Item {
                 // 在移除前作一些操作，例如耗材的品质判断
                 if (forgedItem instanceof BeforeRemoveMaterialOnForge beforeRemoveMaterialOnForge) {
                     ItemStack removingStack = Items.AIR.getDefaultInstance();
-                    for (int i = 0 ; i < inventory.getContainerSize() ; i ++) {
+                    for (int i = 0; i < inventory.getContainerSize(); i++) {
                         if (inventory.getItem(i).is(stack.getItem())) {
                             removingStack = inventory.getItem(i);
                         }
@@ -152,9 +153,9 @@ public class WraqForge extends Item {
 
             // 前置条件判定
             Item item = productItemStack.getItem();
-            List<Item> iceKnightEquips = List.of(ModItems.IceSword.get(), ModItems.IceBow.get(), ModItems.IceSceptre.get());
-            List<Item> moonEquips = List.of(ModItems.MoonSword.get(), ModItems.MoonBow.get(), ModItems.MoonSceptre.get());
-            List<Item> castleEquips = List.of(ModItems.CastleSword.get(), ModItems.CastleBow.get(), ModItems.CastleSceptre.get());
+            Set<Item> iceKnightEquips = Set.of(ModItems.IceSword.get(), ModItems.IceBow.get(), ModItems.IceSceptre.get());
+            Set<Item> moonEquips = Set.of(ModItems.MoonSword.get(), ModItems.MoonBow.get(), ModItems.MoonSceptre.get());
+            Set<Item> castleEquips = Set.of(ModItems.CastleSword.get(), ModItems.CastleBow.get(), ModItems.CastleSceptre.get());
             if (iceKnightEquips.contains(item)) {
                 NoTeamInstanceModule.putPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.sakuraBoss, true);
                 NoTeamInstanceModule.putPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.devil, true);
@@ -166,6 +167,36 @@ public class WraqForge extends Item {
                 NoTeamInstanceModule.putPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.moontainBoss, true);
             }
 
+            // 引导触发
+            Set<Item> forestEquips = Set.of(ModItems.ForestArmorHelmet.get(), ModItems.ForestArmorChest.get(),
+                    ModItems.ForestArmorLeggings.get(), ModItems.ForestArmorBoots.get(),
+                    ModItems.ForestSword0.get(), ModItems.ForestBow0.get());
+            if (forestEquips.contains(item)) {
+                Guide.trig(player, 7);
+            }
+            Set<Item> lakeEquips = Set.of(ModItems.LakeArmorHelmet.get(), ModItems.LakeArmorChest.get(),
+                    ModItems.LakeArmorLeggings.get(), ModItems.LakeArmorBoots.get(),
+                    ModItems.LakeSword0.get(), ModItems.lakeBow0.get(), ModItems.lakeSceptre0.get());
+            if (lakeEquips.contains(item)) {
+                Guide.trig(player, 8);
+            }
+            Set<Item> mineEquips = Set.of(ModItems.MineArmorHelmet.get(), ModItems.MineArmorChest.get(),
+                    ModItems.MineArmorLeggings.get(), ModItems.MineArmorBoots.get(),
+                    ModItems.MineSword0.get(), ModItems.MineBow0.get());
+            if (mineEquips.contains(item)) {
+                Guide.trig(player, 9);
+            }
+            Set<Item> volcanoEquips = Set.of(ModItems.VolcanoArmorHelmet.get(), ModItems.VolcanoArmorChest.get(),
+                    ModItems.VolcanoArmorLeggings.get(), ModItems.VolcanoArmorBoots.get(), ModItems.VolcanoBow0.get());
+            if (volcanoEquips.contains(item)) {
+                Guide.trig(player, 10);
+            }
+            Set<Item> enhanceEquips = Set.of(ModItems.SKY_ARMOR_HELMET.get(),
+                    ModItems.SKY_ARMOR_CHEST.get(), ModItems.SKY_ARMOR_LEGGINGS.get(), ModItems.SKY_ARMOR_BOOTS.get(),
+                    ModItems.SkyBow.get());
+            if (enhanceEquips.contains(item)) {
+                Guide.trig(player, 13);
+            }
 
             InventoryOperation.itemStackGive(player, productItemStack);
             Guide.trig(player, 4);

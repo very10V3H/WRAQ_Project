@@ -602,5 +602,14 @@ public class CommandHandler {
                         ).requires(commandSourceStack -> commandSourceStack.hasPermission(2))
                 )
         );
+        CommandDispatcher<CommandSourceStack> dispatcher64 = event.getDispatcher();
+        LiteralCommandNode<CommandSourceStack> cmd64 = dispatcher64.register(
+                Commands.literal(Utils.MOD_ID).then(
+                        Commands.literal("guide").then(
+                                Commands.argument("stage", IntegerArgumentType.integer(0, 20))
+                                        .executes(GuideStageSetCommand.instance)
+                        ).requires(commandSourceStack -> commandSourceStack.hasPermission(2))
+                )
+        );
     }
 }
