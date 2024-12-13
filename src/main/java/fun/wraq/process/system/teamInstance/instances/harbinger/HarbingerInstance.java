@@ -9,6 +9,7 @@ import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
+import fun.wraq.events.mob.instance.instances.element.WardenInstance;
 import fun.wraq.process.system.reason.Reason;
 import fun.wraq.process.system.teamInstance.NewTeamInstance;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -32,6 +33,7 @@ import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -296,14 +298,17 @@ public class HarbingerInstance extends NewTeamInstance {
 
     @Override
     public boolean allowReward(Player player) {
+        if (MobSpawn.totalKillCount.getOrDefault(player.getName().getString(), new HashMap<>())
+                .getOrDefault(WardenInstance.mobName, 0) >= 20) {
+            NoTeamInstanceModule.putPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.harbinger, true);
+        }
         return NoTeamInstanceModule.getPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.harbinger)
                 && Reason.getPlayerReasonValue(player) > 5;
     }
 
     @Override
     public Component allowRewardCondition() {
-        return Te.s("需要锻造过",
-                HarbingerItems.SAKURA_INDUSTRY_SCEPTRE.get().getDefaultInstance().getDisplayName(), "才能获取奖励!");
+        return Te.s("需要击败过20次", WardenInstance.mobName, CustomStyle.styleOfWarden, "才能获得奖励");
     }
 
     @Override
