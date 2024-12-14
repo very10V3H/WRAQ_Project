@@ -308,7 +308,7 @@ public class HarbingerInstance extends NewTeamInstance {
             NoTeamInstanceModule.putPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.harbinger, true);
         }
         return NoTeamInstanceModule.getPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.harbinger)
-                && Reason.getPlayerReasonValue(player) > 5;
+                && Reason.getPlayerReasonValue(player) >= 5;
     }
 
     @Override

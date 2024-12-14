@@ -75,8 +75,8 @@ public class Reason {
 
     public static int serverLastReasonRecoverHour = -1;
     public static void serverTick() {
-        if (serverLastReasonRecoverHour != Calendar.HOUR_OF_DAY) {
-            serverLastReasonRecoverHour = Calendar.HOUR_OF_DAY;
+        if (serverLastReasonRecoverHour != Calendar.getInstance().get(Calendar.HOUR_OF_DAY)) {
+            serverLastReasonRecoverHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
             Tick.server.getPlayerList().getPlayers().forEach(serverPlayer -> {
                 addOrCostPlayerReasonValue(serverPlayer, 5);
             });

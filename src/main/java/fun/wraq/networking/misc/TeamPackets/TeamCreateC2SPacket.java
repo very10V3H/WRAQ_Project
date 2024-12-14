@@ -8,6 +8,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.network.NetworkEvent;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -28,13 +29,11 @@ public class TeamCreateC2SPacket {
         NetworkEvent.Context context = supplier.get();
         Player player = context.getSender();
         context.enqueueWork(() -> {
-
-            PlayerTeam playerTeam = new PlayerTeam(List.of(player.getName().getString()), player.getName().getString() + "的队伍");
-
+            List<String> playerNameList = new ArrayList<>();
+            playerNameList.add(player.getName().getString());
+            PlayerTeam playerTeam = new PlayerTeam(playerNameList, player.getName().getString() + "的队伍");
             Utils.playerTeamMap.put(player, playerTeam);
-
             player.sendSystemMessage(Component.literal("队伍已创建"));
-
             player.getServer().getPlayerList().getPlayers().forEach(serverPlayer -> ModNetworking.sendToClient(
                     new TeamInfoResetS2CPacket(), serverPlayer));
         });

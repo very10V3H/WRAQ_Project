@@ -586,11 +586,11 @@ public class Utils {
         SoulBagsMap.put(ModItems.VolcanoSoul.get(), StringUtils.VolcanoSoulCount);
     }
 
-    public static WeakHashMap<Player, PlayerTeam> playerTeamMap = new WeakHashMap<>();
+    public static Map<Player, PlayerTeam> playerTeamMap = new WeakHashMap<>();
 
-    public static WeakHashMap<Player, List<PlayerTeam>> TeamInvitePlayerMap = new WeakHashMap<>();
+    public static Map<Player, List<PlayerTeam>> TeamInvitePlayerMap = new WeakHashMap<>();
 
-    public static WeakHashMap<Player, List<PlayerTeam>> PlayerRequestTeamMap = new WeakHashMap<>();
+    public static Map<Player, List<PlayerTeam>> PlayerRequestTeamMap = new WeakHashMap<>();
 
     public static List<Style> levelStyleList = new ArrayList<>() {{
         add(CustomStyle.styleOfPlain);

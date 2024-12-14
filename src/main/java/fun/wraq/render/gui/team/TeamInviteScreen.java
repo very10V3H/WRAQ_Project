@@ -47,19 +47,15 @@ public class TeamInviteScreen extends Screen {
     }
 
     private void createMenu() {
-
         this.addRenderableWidget(Button.builder(Component.translatable("→"), (p_280814_) -> {
             if (this.page < playerList.size() / 4) this.page++;
         }).pos(this.width / 2 + 30, this.height / 2 + 70).size(20, 20).build());
-
         this.addRenderableWidget(Button.builder(Component.translatable("←"), (p_280814_) -> {
             if (this.page > 0) this.page--;
         }).pos(this.width / 2 - 30, this.height / 2 + 70).size(20, 20).build());
-
         this.addRenderableWidget(Button.builder(Component.translatable("返回"), (p_280814_) -> {
             this.minecraft.setScreen(new TeamSearchScreen(true));
         }).pos(this.width / 2 + 108, this.height / 2 - 92).size(32, 16).build());
-
         for (int i = 0; i < 4; i++) {
             int finalI = i;
             this.addRenderableWidget(Button.builder(Component.translatable("同意"), (p_280814_) -> {
@@ -68,7 +64,6 @@ public class TeamInviteScreen extends Screen {
                 }
             }).pos(this.width / 2 + 108, this.height / 2 - 62 + 32 * i).size(32, 20).build());
         }
-
     }
 
     public void tick() {

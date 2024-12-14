@@ -1,10 +1,8 @@
 package fun.wraq.Items.MainStory_1.Mission;
 
 import fun.wraq.common.fast.Te;
-import fun.wraq.common.registry.ModEntityType;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.util.ComponentUtils;
-import fun.wraq.entities.entities.Civil.Civil;
-import fun.wraq.events.mob.MobSpawn;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -89,12 +87,9 @@ public class Main0 extends Item {
 
             List.of(rod, core, swordBlade, string, mirror).forEach(player::addItem);*/
 
-            Civil civil = new Civil(ModEntityType.CIVIL.get(), level);
-            MobSpawn.setMobCustomName(civil, Te.s("铁头", ChatFormatting.AQUA), 100);
-            MobSpawn.MobBaseAttributes.setMobBaseAttributes(civil, 20, 1000, 0, 0.2,
-                    1, 0, 0, 0, 100, 0.2);
-            civil.moveTo(player.position());
-            level.addFreshEntity(civil);
+            Tick.server.getPlayerList().getPlayers().forEach(eachPlayer -> {
+                player.sendSystemMessage(Te.s(eachPlayer.getDisplayName()));
+            });
         }
 
         if (!level.isClientSide && player.isShiftKeyDown()) {

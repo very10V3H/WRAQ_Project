@@ -62,21 +62,17 @@ public class InstanceChooseC2SPacket {
                         xpUnReachPlayers.add(player);
                 });
                 if (xpUnReachPlayers.isEmpty()
-
                         && !Compute.thisTeamIsChallenging(playerTeam)) {
                     instance.startByTeam(playerTeam);
                     Utils.ChallengingPlayerTeam.add(playerTeam);
-
                     ServerLevel serverLevel = serverPlayer.getServer().getLevel(instance.dimension);
                     Vec3 teleportPos = instance.prepareCenterPos;
-
                     playerListGetByName
                             .stream().map(player -> (ServerPlayer) player)
                             .forEach(player -> {
                                 player.teleportTo(serverLevel, teleportPos.x, teleportPos.y, teleportPos.z,
                                 instance.rot.x, instance.rot.y);
                     });
-
                     Compute.formatBroad(serverLevel, Component.literal("副本").withStyle(ChatFormatting.RED),
                             Component.literal("队伍:").withStyle(ChatFormatting.WHITE).
                                     append(Component.literal(playerTeam.getTeamName() + " 正在挑战  ")).

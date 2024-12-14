@@ -5,7 +5,6 @@ import fun.wraq.networking.ModNetworking;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent;
 
-import java.util.HashMap;
 import java.util.function.Supplier;
 
 public class TeamInfoResetS2CPacket {
@@ -24,10 +23,10 @@ public class TeamInfoResetS2CPacket {
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
-            ClientUtils.clientPlayerTeamMap = new HashMap<>();
-            ClientUtils.clientPlayerList = new HashMap<>();
-            ClientUtils.TeamPlayerRequestList = new HashMap<>();
-            ClientUtils.TeamInviteRequestList = new HashMap<>();
+            ClientUtils.clientPlayerTeamMap.clear();
+            ClientUtils.clientPlayerList.clear();
+            ClientUtils.TeamPlayerRequestList.clear();
+            ClientUtils.TeamInviteRequestList.clear();
             ModNetworking.sendToServer(new TeamInfoRequestC2SPacket());
         });
         return true;

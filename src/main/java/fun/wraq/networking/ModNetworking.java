@@ -685,11 +685,6 @@ public class ModNetworking {
                 .encoder(PlayerInfoS2CPacket::toBytes)
                 .consumerMainThread(PlayerInfoS2CPacket::handle)
                 .add();
-        net.messageBuilder(TeamInfoClearS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
-                .decoder(TeamInfoClearS2CPacket::new)
-                .encoder(TeamInfoClearS2CPacket::toBytes)
-                .consumerMainThread(TeamInfoClearS2CPacket::handle)
-                .add();
         net.messageBuilder(PsValueS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
                 .decoder(PsValueS2CPacket::new)
                 .encoder(PsValueS2CPacket::toBytes)

@@ -502,7 +502,6 @@ public class ClientUtils {
     }
 
     public static Map<String, Component> TeamPlayerRequestList = new HashMap<>();
-
     public static Map<String, Component> TeamInviteRequestList = new HashMap<>();
 
     public static Level clientLevel;
