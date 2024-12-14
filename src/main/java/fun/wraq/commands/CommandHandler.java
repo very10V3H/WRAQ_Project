@@ -611,5 +611,23 @@ public class CommandHandler {
                         ).requires(commandSourceStack -> commandSourceStack.hasPermission(2))
                 )
         );
+        CommandDispatcher<CommandSourceStack> dispatcher65 = event.getDispatcher();
+        LiteralCommandNode<CommandSourceStack> cmd65 = dispatcher65.register(
+                Commands.literal(Utils.MOD_ID).then(
+                        Commands.literal("tietou")
+                                .executes(TietouCommand.instance)
+                )
+        );
+        CommandDispatcher<CommandSourceStack> dispatcher66 = event.getDispatcher();
+        LiteralCommandNode<CommandSourceStack> cmd66 = dispatcher66.register(
+                Commands.literal(Utils.MOD_ID).then(
+                        Commands.literal("setTietou").then(
+                                Commands.argument("key", StringArgumentType.string()).then(
+                                        Commands.argument("num", DoubleArgumentType.doubleArg())
+                                                .executes(SetTietouCommand.instance)
+                                )
+                        )
+                )
+        );
     }
 }

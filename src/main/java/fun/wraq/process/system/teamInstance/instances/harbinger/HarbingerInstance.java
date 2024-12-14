@@ -10,6 +10,7 @@ import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
 import fun.wraq.events.mob.instance.instances.element.WardenInstance;
+import fun.wraq.events.server.LevelEvents;
 import fun.wraq.process.system.reason.Reason;
 import fun.wraq.process.system.teamInstance.NewTeamInstance;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -45,7 +46,7 @@ public class HarbingerInstance extends NewTeamInstance {
         if (instance == null) {
             instance = new HarbingerInstance(false, new Vec3(1913, -25, 1798),
                     Te.s("鹰眼工厂", CustomStyle.styleOfHarbinger),
-                    Te.s("鹰眼工厂", CustomStyle.styleOfHarbinger), 6, 230, 2, 4, 500,
+                    Te.s("鹰眼工厂", CustomStyle.styleOfHarbinger), 6, 230, 1, 8, 500,
                     Level.OVERWORLD, new Vec2(-90, 0));
         }
         return instance;
@@ -87,6 +88,8 @@ public class HarbingerInstance extends NewTeamInstance {
             }
         });
         setWallBlock(level, Blocks.BLACK_STAINED_GLASS);
+        // 清理鹰眼工厂火焰
+        LevelEvents.clearFireModule(level, new BlockPos(1897, -36, 1775), new BlockPos(1965, -3, 1889));
     }
 
     public List<Mob> blazes = new ArrayList<>();
@@ -291,6 +294,8 @@ public class HarbingerInstance extends NewTeamInstance {
                         tier = random.nextInt(0, 6);
                     }
                     HarbingerWeaponMaterial.setQualityTier(stack, tier);
+                    Compute.formatBroad(Te.s("鹰眼工厂", CustomStyle.styleOfHarbinger),
+                            Te.s(player.getDisplayName(), "获得了", stack));
                 }
             }));
         });

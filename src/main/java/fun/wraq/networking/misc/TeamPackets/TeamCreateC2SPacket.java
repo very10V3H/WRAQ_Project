@@ -3,13 +3,11 @@ package fun.wraq.networking.misc.TeamPackets;
 import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.struct.PlayerTeam;
 import fun.wraq.networking.ModNetworking;
-import fun.wraq.networking.misc.TeamPackets.TeamInfoResetS2CPacket;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.network.NetworkEvent;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -31,11 +29,7 @@ public class TeamCreateC2SPacket {
         Player player = context.getSender();
         context.enqueueWork(() -> {
 
-            List<Player> playerList = new ArrayList<>() {{
-                add(player);
-            }};
-
-            PlayerTeam playerTeam = new PlayerTeam(playerList, player.getName().getString() + "的队伍");
+            PlayerTeam playerTeam = new PlayerTeam(List.of(player.getName().getString()), player.getName().getString() + "的队伍");
 
             Utils.playerTeamMap.put(player, playerTeam);
 

@@ -2,6 +2,7 @@ package fun.wraq.series.instance.series.harbinger.weapon;
 
 import fun.wraq.blocks.entity.Decomposable;
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.multiblockactive.rightclick.drive.EnhanceCondition;
 import fun.wraq.process.func.multiblockactive.rightclick.drive.EnhanceOperation;
@@ -26,6 +27,25 @@ public class HarbingerWeaponMaterial extends WraqItem implements Decomposable {
     @Override
     public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> components, TooltipFlag tooltipFlag) {
         components.add(Te.s(" 铸造品质 - ", CustomStyle.styleOfHarbinger, getQualityDescription(itemStack)));
+        int tier = getQualityTier(itemStack);
+        if (itemStack.is(HarbingerItems.HARBINGER_ROD.get())) {
+            components.add(Te.s(" 为成品额外提供",
+                    ComponentUtils.AttributeDescription.attackDamage(String.valueOf(tier * 100)), "或",
+                    ComponentUtils.AttributeDescription.manaDamage(String.valueOf(tier * 200))));
+        } else if (itemStack.is(HarbingerItems.HARBINGER_WEAPON_CORE.get())) {
+            components.add(Te.s(" 为成品额外提供",
+                    ComponentUtils.AttributeDescription.attackDamage(tier + "%"), "或",
+                    ComponentUtils.AttributeDescription.manaDamage(tier + "%")));
+        } else if (itemStack.is(HarbingerItems.HARBINGER_SWORD_BLADE.get())) {
+            components.add(Te.s(" 为", "长剑", CustomStyle.styleOfPower, "额外提供",
+                    ComponentUtils.AttributeDescription.critDamage(tier * 20 + "%")));
+        } else if (itemStack.is(HarbingerItems.HARBINGER_STRING.get())) {
+            components.add(Te.s(" 为", "长弓", CustomStyle.styleOfFlexible, "额外提供",
+                    ComponentUtils.AttributeDescription.swiftness(String.valueOf(tier))));
+        } else if (itemStack.is(HarbingerItems.HARBINGER_MIRROR.get())) {
+            components.add(Te.s(" 为", "法杖", CustomStyle.styleOfMana, "额外提供",
+                    ComponentUtils.AttributeDescription.manaRecover(String.valueOf(tier * 10))));
+        }
         components.add(Te.s(" 可以在", "沙岸村", CustomStyle.styleOfSunIsland, "将品阶至多强化至",
                 "不可思议", CustomStyle.styleOfPower));
         components.add(Te.s(" 强化坐标:", "(1867, 81, 1969)", CustomStyle.styleOfHarbinger));

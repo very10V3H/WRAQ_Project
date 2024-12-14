@@ -55,8 +55,10 @@ public class TeamInfoRequestC2SPacket {
             List<PlayerTeam> playerTeamList = Utils.TeamInvitePlayerMap.get(serverPlayer);
             Map<String, Component> invitedList = new HashMap<>();
             playerTeamList.forEach(playerTeam -> {
-                invitedList.put(playerTeam.getTeamLeader().getName().getString(),
-                        playerTeam.getTeamLeader().getDisplayName());
+                if (playerTeam != null) {
+                    invitedList.put(playerTeam.getTeamLeader().getName().getString(),
+                            playerTeam.getTeamLeader().getDisplayName());
+                }
             });
             ModNetworking.sendToClient(new TeamInviteListS2CPacket(invitedList), serverPlayer);
         }

@@ -10,6 +10,7 @@ import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.struct.PlayerTeam;
+import fun.wraq.entities.entities.Civil.Civil;
 import fun.wraq.events.core.BlockEvent;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
 import fun.wraq.networking.ModNetworking;
@@ -32,7 +33,6 @@ import fun.wraq.process.func.security.mac.MacServer;
 import fun.wraq.process.func.security.mac.network.MacRequestS2CPacket;
 import fun.wraq.process.system.bonuschest.BonusChestPlayerData;
 import fun.wraq.process.system.element.Element;
-import fun.wraq.process.system.endlessinstance.item.EndlessInstanceItems;
 import fun.wraq.process.system.lottery.NewLotteries;
 import fun.wraq.process.system.missions.series.dailyMission.DailyMission;
 import fun.wraq.process.system.parkour.Parkour;
@@ -452,6 +452,7 @@ public class LoginInEvent {
             });
 
             MacServer.onLogOut(serverPlayer);
+            Civil.onPlayerLogOut(serverPlayer);
         }
     }
 
@@ -476,7 +477,6 @@ public class LoginInEvent {
         lakeCoreGetCount.put(player.getName().getString(), 0);
         volcanoCoreGetCount.put(player.getName().getString(), 0);
         /*SummerEvent.resetDailyData(player);*/
-        InventoryOperation.itemStackGive(player, new ItemStack(EndlessInstanceItems.EASTERN_TOWER_PAPER.get(), 2));
         SingleItemChangePurchaseLimit.refreshDaily(player);
         RandomEventData.resetWorldSoul5DailyGetTimes(player);
     }
@@ -488,7 +488,6 @@ public class LoginInEvent {
     public static void monthlyRefreshContent(Player player) {
         BonusChestPlayerData.resetAllZoneInfo(player);
     }
-
 
     public static boolean playerDailyInstanceReward(Player player, int instanceIndex) {
         CompoundTag data = player.getPersistentData();

@@ -4,8 +4,8 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.MySound;
-import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.common.util.Utils;
+import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.common.util.struct.PlayerTeam;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.networking.ModNetworking;
@@ -214,7 +214,7 @@ public abstract class NewTeamInstance {
                 return;
             }
             hasSummonedMobs.forEach(mob -> {
-                if (mob.isDeadOrDying()) hasKilledMobs.add(mob);
+                if (!mob.isAlive()) hasKilledMobs.add(mob);
             });
             if (tickCount % 200 == 8) {
                 players.forEach(player -> {
@@ -274,11 +274,17 @@ public abstract class NewTeamInstance {
     }
 
     public abstract void initMobList(Level level);
+
     public abstract void handleTick(Level level);
+
     public abstract void reward(Player player);
+
     public abstract boolean allowReward(Player player);
+
     public abstract Component allowRewardCondition();
+
     public abstract List<ItemAndRate> getRewardList();
+
     public abstract double judgeDamage(Player player, Mob mob, double originDamage);
 
     public boolean allMobIsClear() {

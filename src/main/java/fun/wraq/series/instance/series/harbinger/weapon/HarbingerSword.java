@@ -72,7 +72,7 @@ public class HarbingerSword extends WraqSword implements HarbingerMainHand, Acti
         return Map.of(
                 Utils.attackDamage, new TagAndEachTierValue(HarbingerMainHand.ATTACK_DAMAGE, 100),
                 Utils.percentAttackDamageEnhance, new TagAndEachTierValue(HarbingerMainHand.PERCENT_ATTACK_DAMAGE, 0.01),
-                Utils.critDamage, new TagAndEachTierValue(HarbingerMainHand.CRIT_DAMAGE, 1)
+                Utils.critDamage, new TagAndEachTierValue(HarbingerMainHand.CRIT_DAMAGE, 0.2)
         );
     }
 

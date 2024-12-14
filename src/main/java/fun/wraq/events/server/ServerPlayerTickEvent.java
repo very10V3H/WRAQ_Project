@@ -55,7 +55,6 @@ import fun.wraq.process.system.skill.ManaSkillTree;
 import fun.wraq.process.system.smelt.Smelt;
 import fun.wraq.process.system.tower.TowerMob;
 import fun.wraq.process.system.wayPoints.MyWayPoint;
-import fun.wraq.projectiles.mana.BlazeSword;
 import fun.wraq.projectiles.mana.swordair.SwordAir;
 import fun.wraq.render.hud.ColdData;
 import fun.wraq.render.hud.networking.PlayerIsInBattleS2CPacket;
@@ -155,11 +154,12 @@ public class ServerPlayerTickEvent {
             HarbingerMainHand.tick(player);
             MyWayPoint.zoneTick(player);
             ManaSkillTree.manaSkill13Tick(player);
+            Civil.handleTick(player);
 
             if (player.tickCount % 10 == 0
                     && (player.isOnFire()
                     || (player.getBlockStateOn().is(Blocks.MAGMA_BLOCK) && !player.isShiftKeyDown()))) {
-                Compute.decreasePlayerHealth(player, player.getHealth() * 0.075,
+                Compute.decreasePlayerHealth(player, player.getHealth() * 0.03,
                         Te.s("被火焰吞没了", CustomStyle.styleOfPower));
             }
 
@@ -226,16 +226,6 @@ public class ServerPlayerTickEvent {
             }
 
             if (player.tickCount % 100 == 27) {
-/*                List<Chicken> chickenList = player.level().getEntitiesOfClass(Chicken.class,AABB.ofSize(player.position(),30,30,30));
-                List<Cow> cowList = player.level().getEntitiesOfClass(Cow.class,AABB.ofSize(player.position(),30,30,30));
-                List<Sheep> sheepList = player.level().getEntitiesOfClass(Sheep.class,AABB.ofSize(player.position(),30,30,30));
-                List<Pig> pigList = player.level().getEntitiesOfClass(Pig.class,AABB.ofSize(player.position(),30,30,30));*/
-                List<BlazeSword> blazeSwordList = player.level().getEntitiesOfClass(BlazeSword.class, AABB.ofSize(player.position(), 100, 100, 100));
-                List<Civil> civilList = player.level().getEntitiesOfClass(Civil.class, AABB.ofSize(player.position(), 100, 100, 100));
-/*                chickenList.forEach(chicken -> chicken.remove(Entity.RemovalReason.KILLED));
-                cowList.forEach(cow -> cow.remove(Entity.RemovalReason.KILLED));
-                sheepList.forEach(sheep -> sheep.remove(Entity.RemovalReason.KILLED));
-                pigList.forEach(pig -> pig.remove(Entity.RemovalReason.KILLED));*/
                 if (SlimeBoots.IsOn(player))
                     player.addEffect(new MobEffectInstance(MobEffects.JUMP, 200, 2, false, false, false));
                 List<MyArrow> arrowList = player.level().getEntitiesOfClass(MyArrow.class, AABB.ofSize(player.position(), 100, 100, 100));

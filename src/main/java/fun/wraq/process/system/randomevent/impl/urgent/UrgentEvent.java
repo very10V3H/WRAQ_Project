@@ -92,13 +92,15 @@ public class UrgentEvent extends RandomEvent {
             });
             Compute.playerReputationAddOrCost(player, 20);
         });
-        broad(Te.s("比拼谁跑得更快活动结束了，下面宣布前几名的成绩单!"));
-        int rankCount = 1;
-        while (rankQueue.peek() != null && rankCount <= 5) {
-            Player player = rankQueue.poll();
-            broad(Te.s("第", String.valueOf(rankCount), getRankStyle(rankCount), "名:",
-                    player.getDisplayName()));
-            ++rankCount;
+        if (!rankQueue.isEmpty()) {
+            broad(Te.s("比拼谁跑得更快活动结束了，下面宣布前几名的成绩单!"));
+            int rankCount = 1;
+            while (rankQueue.peek() != null && rankCount <= 5) {
+                Player player = rankQueue.poll();
+                broad(Te.s("第", String.valueOf(rankCount), getRankStyle(rankCount), "名:",
+                        player.getDisplayName()));
+                ++rankCount;
+            }
         }
     }
 

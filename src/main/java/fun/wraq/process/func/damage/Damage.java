@@ -18,6 +18,7 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.Utils;
 import fun.wraq.customized.uniform.mana.ManaCurios1;
+import fun.wraq.entities.entities.Civil.Civil;
 import fun.wraq.events.fight.MonsterAttackEvent;
 import fun.wraq.events.mob.MobDeadModule;
 import fun.wraq.events.mob.MobSpawn;
@@ -513,32 +514,37 @@ public class Damage {
             damage = NewTeamInstanceHandler.judgeDamage(player, mob, damage);
             double finalDamage = mob.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.WoodenStake5.get()) ? 0 : (float) damage;
             if (mob.getHealth() <= finalDamage && !MoontainBoss3Instance.beforeKill(mob)) return;
-            if (mob.getHealth() <= finalDamage && mob.isAlive()) {
-                // 怪物死亡技艺
-                MobDeadModule.deadModule(mob);
-                LogUtils.getLogger().info("{} {} {}", player.getName().getString(), Utils.LogTypes.killed, mob.getName().getString());
+            if (!(mob instanceof Civil)) {
+                if (mob.getHealth() <= finalDamage && mob.isAlive()) {
+                    // 怪物死亡技艺
+                    MobDeadModule.deadModule(mob);
+                    LogUtils.getLogger().info("{} {} {}", player.getName().getString(),
+                            Utils.LogTypes.killed, mob.getName().getString());
 
-                mob.kill();
-                mob.setHealth((float) (mob.getHealth() - finalDamage));
-                CompoundTag data = player.getPersistentData();
+                    mob.kill();
+                    mob.setHealth((float) (mob.getHealth() - finalDamage));
+                    CompoundTag data = player.getPersistentData();
 
-                MobSpawn.drop(mob, player);
+                    MobSpawn.drop(mob, player);
 
-                HurtEventModule.SwordSkill2(data, player); // 战斗渴望（击杀一个单位时，提升2%攻击力，持续10s）
-                HurtEventModule.BowSkill2(data, player); // 狩猎渴望（击杀一个单位时，提升2%攻击力，持续10s）
-                HurtEventModule.ManaSkill2(data, player); // 魔力汲取（击杀一个单位时，提升2%法术攻击，持续10s）
+                    HurtEventModule.SwordSkill2(data, player); // 战斗渴望（击杀一个单位时，提升2%攻击力，持续10s）
+                    HurtEventModule.BowSkill2(data, player); // 狩猎渴望（击杀一个单位时，提升2%攻击力，持续10s）
+                    HurtEventModule.ManaSkill2(data, player); // 魔力汲取（击杀一个单位时，提升2%法术攻击，持续10s）
 
-                NetherNewRune.onKill(player, mob);
-                HuskNewRune.onKill(player, mob);
-                DailyEndlessInstance.onKillMob(player, mob);
+                    NetherNewRune.onKill(player, mob);
+                    HuskNewRune.onKill(player, mob);
+                    DailyEndlessInstance.onKillMob(player, mob);
 
-                OnKillEffectEquip.kill(player, mob);
-                OnKillEffectCurios.kill(player, mob);
+                    OnKillEffectEquip.kill(player, mob);
+                    OnKillEffectCurios.kill(player, mob);
 
-                RandomEventsHandler.onKillMob(player, mob);
+                    RandomEventsHandler.onKillMob(player, mob);
 
-                GemOnKillMob.kill(player, mob);
-            } else mob.setHealth((float) (mob.getHealth() - finalDamage));
+                    GemOnKillMob.kill(player, mob);
+                } else {
+                    mob.setHealth((float) (mob.getHealth() - finalDamage));
+                }
+            }
 
             // ---- //
             NoTeamInstanceModule.onMobWithstandDamage(player, mob);

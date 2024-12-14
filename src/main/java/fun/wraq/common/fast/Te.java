@@ -4,7 +4,9 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 
 public class Te {
     public static MutableComponent m(String v) {
@@ -48,8 +50,16 @@ public class Te {
         MutableComponent mutableComponent = Component.literal("").withStyle(ChatFormatting.WHITE);
         for (int i = 0; i < textAndStyle.length; i++) {
             T componentOrStyle = textAndStyle[i];
+            if (componentOrStyle instanceof Entity entity) {
+                mutableComponent.append(entity.getDisplayName());
+                continue;
+            }
             if (componentOrStyle instanceof Item item) {
                 mutableComponent.append(item.getDefaultInstance().getDisplayName());
+                continue;
+            }
+            if (componentOrStyle instanceof ItemStack stack) {
+                mutableComponent.append(stack.getDisplayName());
                 continue;
             }
             if (componentOrStyle instanceof Component component) {

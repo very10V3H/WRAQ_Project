@@ -1,37 +1,43 @@
 package fun.wraq.common.util.struct;
 
+import fun.wraq.common.fast.Tick;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PlayerTeam {
 
-    private List<Player> playerList;
+    private List<String> playerList;
     private String TeamName;
 
-    public PlayerTeam(List<Player> playerList, String teamName) {
+    public PlayerTeam(List<String> playerList, String teamName) {
         this.playerList = playerList;
         this.TeamName = teamName;
     }
 
     public List<Player> getPlayerList() {
-        return playerList;
+        List<Player> players = new ArrayList<>();
+        playerList.forEach(name -> {
+            ServerPlayer serverPlayer = Tick.server.getPlayerList().getPlayerByName(name);
+            if (serverPlayer != null) {
+                players.add(serverPlayer);
+            }
+        });
+        return players;
     }
 
     public Player getTeamLeader() {
-        return playerList.get(0);
+        return getPlayerList().get(0);
     }
 
     public void removePlayer(Player player) {
-        playerList.remove(player);
+        playerList.removeIf(name -> name.equals(player.getName().getString()));
     }
 
     public void addPlayer(Player player) {
-        playerList.add(player);
-    }
-
-    public void setTeamLeader(Player player) {
-        playerList.set(0, player);
+        playerList.add(player.getName().getString());
     }
 
     public int teamPlayerNum() {
@@ -47,6 +53,6 @@ public class PlayerTeam {
     }
 
     public boolean containPlayer(Player player) {
-        return playerList.contains(player);
+        return playerList.contains(player.getName().getString());
     }
 }

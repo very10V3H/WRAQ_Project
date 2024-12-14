@@ -381,8 +381,6 @@ public class LevelEvents {
             clearFireModule(level, new BlockPos(2189, 135, -1626), new BlockPos(2577, 217, -1271));
             // 清理焰芒虫火焰
             clearFireModule(level, new BlockPos(1219, 57, -21), new BlockPos(1338, 85, 147));
-            // 清理鹰眼工厂火焰
-            clearFireModule(level, new BlockPos(1897, -36, 1775), new BlockPos(1965, -3, 1889));
         }
     }
 
