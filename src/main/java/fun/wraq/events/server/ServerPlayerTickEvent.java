@@ -48,6 +48,7 @@ import fun.wraq.process.system.endlessinstance.item.special.HoursExHarvestPotion
 import fun.wraq.process.system.missions.Mission;
 import fun.wraq.process.system.missions.series.dailyMission.DailyMission;
 import fun.wraq.process.system.point.Point;
+import fun.wraq.process.system.reason.Reason;
 import fun.wraq.process.system.respawn.MyRespawnRule;
 import fun.wraq.process.system.restzone.RestZone;
 import fun.wraq.process.system.season.MySeason;
@@ -155,6 +156,7 @@ public class ServerPlayerTickEvent {
             MyWayPoint.zoneTick(player);
             ManaSkillTree.manaSkill13Tick(player);
             Civil.handleTick(player);
+            Reason.tip(player);
 
             if (player.tickCount % 10 == 0
                     && (player.isOnFire()

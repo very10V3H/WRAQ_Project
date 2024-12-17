@@ -292,7 +292,7 @@ public class MobSpawn {
     public static void drop(Mob mob, Player player) {
         int xpLevel = getMobXpLevel(mob);
 
-        if (RandomUtils.nextInt(0, 10000) < xpLevel) {
+        if (RandomUtils.nextInt(0, 10000) < 100) {
             InventoryOperation.itemStackGive(player, ModItems.REFINED_PIECE.get().getDefaultInstance());
         }
 

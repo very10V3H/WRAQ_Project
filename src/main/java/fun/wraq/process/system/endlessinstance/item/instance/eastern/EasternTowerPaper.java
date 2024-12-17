@@ -1,4 +1,4 @@
-package fun.wraq.process.system.endlessinstance.item;
+package fun.wraq.process.system.endlessinstance.item.instance.eastern;
 
 import fun.wraq.common.Compute;
 import fun.wraq.process.system.endlessinstance.DailyEndlessInstance;

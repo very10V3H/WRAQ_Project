@@ -256,6 +256,11 @@ public abstract class NewTeamInstance {
                                         reasonCost + "理智", CustomStyle.styleOfFlexible));
                         return;
                     }
+                    if (Reason.getPlayerReasonValue(player) < reasonCost) {
+                        Compute.sendFormatMSG(player, Component.literal("团队副本").withStyle(ChatFormatting.RED),
+                                Te.s("需要至少", reasonCost + "理智", CustomStyle.styleOfFlexible, "才能获得奖励"));
+                        return;
+                    }
                     if (!allowReward(player)) {
                         Compute.sendFormatMSG(player, Component.literal("团队副本").withStyle(ChatFormatting.RED),
                                 allowRewardCondition());

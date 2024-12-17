@@ -426,6 +426,11 @@ public class ComponentUtils {
                 append(Component.literal(seconds + "s").withStyle(ChatFormatting.AQUA)));
     }
 
+    public static Component getCooldownTimeDescription(int seconds) {
+        return Component.literal(" 冷却时间:").withStyle(ChatFormatting.WHITE).
+                append(Component.literal(seconds + "s").withStyle(ChatFormatting.AQUA));
+    }
+
     public static void coolDownTimeDescription(List<Component> components, double seconds) {
         components.add(Component.literal(" 冷却时间:").withStyle(ChatFormatting.WHITE).
                 append(Component.literal(String.format("%.1f", seconds) + "s").withStyle(ChatFormatting.AQUA)));

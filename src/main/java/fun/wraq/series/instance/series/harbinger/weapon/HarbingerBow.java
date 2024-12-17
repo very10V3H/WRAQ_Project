@@ -101,6 +101,8 @@ public class HarbingerBow extends WraqBow implements HarbingerMainHand, ActiveIt
     public List<ItemStack> forgeRecipe() {
         return List.of(
                 new ItemStack(ModItems.CastleBow.get()),
+                new ItemStack(HarbingerItems.HARBINGER_INGOT.get(), 156),
+                new ItemStack(HarbingerItems.HARBINGER_HEART.get(), 16),
                 new ItemStack(HarbingerItems.HARBINGER_ROD.get()),
                 new ItemStack(HarbingerItems.HARBINGER_WEAPON_CORE.get()),
                 new ItemStack(HarbingerItems.HARBINGER_STRING.get()),

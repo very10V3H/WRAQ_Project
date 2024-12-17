@@ -208,7 +208,7 @@ public class WardenInstance extends NoTeamInstance {
             nextAllowTrigTick = Tick.get() + 100;
             getAllPlayers(boss.level()).forEach(player -> {
                 sendFormatMSG(player, Te.s(mobName, style, "附近没有玩家，其释放了", "回响", style));
-                Compute.causeGatherEffect(player, 20, boss.position());
+                /*Compute.causeGatherEffect(player, 20, boss.position());*/
                 SpecialEffectOnPlayer.causeBothDefenceReductionToPlayer(player,
                         "WardenDefenceReduction", 200,200,
                         "WardenManaDefenceReduction", 200, 80);
@@ -288,7 +288,7 @@ public class WardenInstance extends NoTeamInstance {
             }
         } else {
             if (summonTick > 0) {
-                summonTick = 0;
+                summonTick = -1;
                 getAllPlayers(boss.level()).forEach(player -> {
                     Compute.setPlayerTitleAndSubTitle((ServerPlayer) player, Te.s("幽匿尖啸体", style, "已全部摧毁"),
                             Te.s("回去击杀boss!"));
@@ -403,7 +403,7 @@ public class WardenInstance extends NoTeamInstance {
                 playerSet.forEach(eachPlayer -> {
                     Damage.AttackDamageToPlayer(boss, player, 5000);
                     Damage.manaDamageToPlayer(boss, player, 5000, 0.5, 100);
-                    if (random.nextDouble() < 0.2) {
+                    if (Tick.get() % 100 == 0) {
                         SpecialEffectOnPlayer.addSilentEffect(player, 60);
                         SpecialEffectOnPlayer.addBlindEffect(player, 60);
                         player.addEffect(new MobEffectInstance(MobEffects.DARKNESS, 150));

@@ -30,7 +30,7 @@ public class AncientCityWardenSpawn {
     public static void onWardenSpawn(EntityJoinLevelEvent event) {
         Entity entity = event.getEntity();
         if (entity instanceof Warden warden && !event.getLevel().isClientSide) {
-            if (!warden.hasCustomName() || MobSpawn.getMobOriginName(warden).equals("古城守卫")) {
+            if (!set.contains(warden) && (!warden.hasCustomName() || MobSpawn.getMobOriginName(warden).equals("古城守卫"))) {
                 MobSpawn.setMobCustomName(warden, Te.s("古城守卫", CustomStyle.styleOfWarden), 260);
                 MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(warden), 260);
                 MobSpawn.MobBaseAttributes.setMobBaseAttributes(warden, 5000, 360, 360, 0.4,

@@ -29,6 +29,7 @@ import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.func.plan.PlanPlayer;
 import fun.wraq.process.system.WorldRecordInfo;
 import fun.wraq.process.system.element.ElementItems;
+import fun.wraq.process.system.endlessinstance.DailyEndlessInstanceEvent;
 import fun.wraq.process.system.endlessinstance.item.EndlessInstanceItems;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.process.system.lottery.NewLotteries;
@@ -167,6 +168,7 @@ public class VMD {
         BlockEvent.netherMineReset(event.getServer().getLevel(Level.NETHER));
         MobSpawn.removeAllMob();
         RandomEventsHandler.getRandomEvents().forEach(RandomEvent::reset);
+        DailyEndlessInstanceEvent.onServerStop();
 
         MarketInfo.marketItemInfoWrite(event.getServer().overworld());
         MarketInfo.marketProfitInfoWrite(event.getServer().overworld());
@@ -686,6 +688,12 @@ public class VMD {
         }
         if (event.getTabKey().equals(ModCreativeModeTab.HARBINGER.getKey())) {
             HarbingerItems.ITEMS.getEntries()
+                    .stream()
+                    .map(entry -> entry.get().asItem())
+                    .forEach(event::accept);
+        }
+        if (event.getTabKey().equals(ModCreativeModeTab.ENDLESS_INSTANCE.getKey())) {
+            EndlessInstanceItems.ITEMS.getEntries()
                     .stream()
                     .map(entry -> entry.get().asItem())
                     .forEach(event::accept);

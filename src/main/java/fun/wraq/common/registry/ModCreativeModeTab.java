@@ -3,6 +3,7 @@ package fun.wraq.common.registry;
 import fun.wraq.common.util.Utils;
 import fun.wraq.customized.UniformItems;
 import fun.wraq.events.mob.loot.C1LootItems;
+import fun.wraq.process.system.endlessinstance.item.EndlessInstanceItems;
 import fun.wraq.process.system.point.PointItems;
 import fun.wraq.process.system.spur.Items.SpurItems;
 import fun.wraq.series.instance.series.harbinger.HarbingerItems;
@@ -67,6 +68,8 @@ public class ModCreativeModeTab {
             CreativeModeTab.builder().icon(() -> new ItemStack(SunIslandItems.TEAR_CURIO_0.get().asItem())).title(Component.literal("旭升岛")).build());
     public static RegistryObject<CreativeModeTab> HARBINGER = CREATIVE_MODE_TAB.register("harbinger", () ->
             CreativeModeTab.builder().icon(() -> new ItemStack(HarbingerItems.HARBINGER_INGOT.get().asItem())).title(Component.literal("鹰眼工厂")).build());
+    public static RegistryObject<CreativeModeTab> ENDLESS_INSTANCE = CREATIVE_MODE_TAB.register("endless_instance", () ->
+            CreativeModeTab.builder().icon(() -> new ItemStack(EndlessInstanceItems.ENDLESS_INSTANCE_CORE.get().asItem())).title(Component.literal("无尽熵增")).build());
 
 
     public static void register(IEventBus eventBus) {

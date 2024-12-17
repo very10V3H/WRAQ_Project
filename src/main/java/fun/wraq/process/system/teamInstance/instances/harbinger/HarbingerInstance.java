@@ -307,8 +307,7 @@ public class HarbingerInstance extends NewTeamInstance {
                 .getOrDefault(WardenInstance.mobName, 0) >= 20) {
             NoTeamInstanceModule.putPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.harbinger, true);
         }
-        return NoTeamInstanceModule.getPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.harbinger)
-                && Reason.getPlayerReasonValue(player) >= 5;
+        return NoTeamInstanceModule.getPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.harbinger);
     }
 
     @Override
@@ -334,7 +333,7 @@ public class HarbingerInstance extends NewTeamInstance {
     public double judgeDamage(Player player, Mob mob, double originDamage) {
         if (MobSpawn.getMobOriginName(mob).equals(THE_HARBINGER_NAME)) {
             originDamage *= (1 - 0.91);
-            if (!blazes.isEmpty() && blazes.stream().allMatch(LivingEntity::isAlive)) return 0;
+            if (!blazes.isEmpty() && blazes.stream().anyMatch(LivingEntity::isAlive)) return 0;
             return Math.min(originDamage, mob.getMaxHealth() * 0.01);
         }
         return originDamage;

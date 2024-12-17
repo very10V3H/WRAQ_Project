@@ -629,5 +629,16 @@ public class CommandHandler {
                         )
                 )
         );
+        CommandDispatcher<CommandSourceStack> dispatcher67 = event.getDispatcher();
+        LiteralCommandNode<CommandSourceStack> cmd67 = dispatcher67.register(
+                Commands.literal(Utils.MOD_ID).then(
+                        Commands.literal("reason").then(
+                                Commands.argument("player", GameProfileArgument.gameProfile()).then(
+                                        Commands.argument("num", IntegerArgumentType.integer())
+                                                .executes(ReasonCommand.instance)
+                                )
+                        ).requires(commandSourceStack -> commandSourceStack.hasPermission(2))
+                )
+        );
     }
 }

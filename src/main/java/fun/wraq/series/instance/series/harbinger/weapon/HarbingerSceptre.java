@@ -101,6 +101,8 @@ public class HarbingerSceptre extends WraqSceptre implements HarbingerMainHand, 
     public List<ItemStack> forgeRecipe() {
         return List.of(
                 new ItemStack(ModItems.CastleSceptre.get()),
+                new ItemStack(HarbingerItems.HARBINGER_INGOT.get(), 156),
+                new ItemStack(HarbingerItems.HARBINGER_HEART.get(), 16),
                 new ItemStack(HarbingerItems.HARBINGER_ROD.get()),
                 new ItemStack(HarbingerItems.HARBINGER_WEAPON_CORE.get()),
                 new ItemStack(HarbingerItems.HARBINGER_MIRROR.get()),

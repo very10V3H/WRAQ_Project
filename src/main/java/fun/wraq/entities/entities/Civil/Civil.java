@@ -86,7 +86,9 @@ public class Civil extends PathfinderMob implements GeoEntity {
     public static void spawnToTestDps(Player player) {
         Vec3 pos = player.pick(4, 0, false).getLocation();
         if (pos.x < 1758 || pos.x > 1790 || pos.z < 326 || pos.z > 352 || pos.y < 82 || pos.y > 85) {
-            sendFormatMSG(player, Te.s("只有在指定区域才能生成木桩"));
+            sendFormatMSG(player, Te.s("只有在指定区域才能生成木桩:"));
+            sendFormatMSG(player, Te.s("旭升岛", CustomStyle.styleOfSunIsland,
+                    "本源解析装置", CustomStyle.styleOfWorld, "二楼"));
             return;
         }
         sendFormatMSG(player, Te.s("使用/vmd setTietou [参数] [数值]来制定木桩属性"));

@@ -1,6 +1,7 @@
 package fun.wraq.process.system.endlessinstance;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.system.endlessinstance.data.EndlessInstanceRecordData;
@@ -11,15 +12,19 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Random;
+import java.util.Set;
 
 public abstract class DailyEndlessInstance {
     public static int clientKillCount = 0;
@@ -27,7 +32,7 @@ public abstract class DailyEndlessInstance {
 
     private final Vec3 pos;
     private final int lastTick;
-    private final Component name;
+    public final Component name;
     private String challengingPlayerName;
     private int playerLevel;
     private int leftTick;
@@ -35,12 +40,10 @@ public abstract class DailyEndlessInstance {
     private int maxMobNum;
     private List<Mob> mobList;
 
-    public DailyEndlessInstance(final Component name, final Vec3 pos, final int lastTick, int leftTick, int killCount, int maxMobNum) {
+    public DailyEndlessInstance(final Component name, final Vec3 pos, final int lastTick, int maxMobNum) {
         this.name = name;
         this.pos = pos;
         this.lastTick = lastTick;
-        this.leftTick = leftTick;
-        this.killCount = killCount;
         this.maxMobNum = maxMobNum;
         this.mobList = new ArrayList<>();
     }
@@ -75,11 +78,8 @@ public abstract class DailyEndlessInstance {
 
         if (isChallenging() && leftTick % 5 == 0) {
             mobList.removeIf(LivingEntity::isDeadOrDying);
-            Random random = new Random();
             while (mobList.size() < maxMobNum) {
                 Mob mob = summonMob(level);
-                mob.moveTo(getPos().add(0.5 - random.nextDouble(), 0.5 - random.nextDouble(), 0.5 - random.nextDouble()));
-                level.addFreshEntity(mob);
                 mobList.add(mob);
             } // 击杀后立即刷新
         }
@@ -104,8 +104,7 @@ public abstract class DailyEndlessInstance {
     }
 
     public boolean active(Player player) {
-        if (player.position().distanceTo(pos) > 10) {
-            sendFormatMSG(player, Component.literal("离挑战点太远了。").withStyle(ChatFormatting.WHITE));
+        if (!onRightClickTrig(player)) {
             return false;
         }
         if (isChallenging()) {
@@ -120,6 +119,50 @@ public abstract class DailyEndlessInstance {
         sendFormatMSG(player, Component.literal("尽可能多低清理怪物！").withStyle(ChatFormatting.WHITE));
         start(player);
         return true;
+    }
+
+    public void spawnTitleArmorStand(Level level) {
+        List<ArmorStand> armorStandList = level.getEntitiesOfClass(ArmorStand.class, AABB.ofSize(pos,
+                8, 8, 8));
+        armorStandList.forEach(armorStand -> armorStand.remove(Entity.RemovalReason.KILLED));
+        if (!getNearPlayers(level).isEmpty() && !isChallenging()) {
+            int size = getTrigConditionDescription().size();
+            summonArmorStand(level, new Vec3(0, (size - 1) * 0.25, 0), Te.s("无尽熵增 - ", CustomStyle.styleOfWorld,
+                    name));
+            for (int i = 0 ; i < size ; i ++) {
+                Component content = getTrigConditionDescription().get(i);
+                summonArmorStand(level, new Vec3(0, (size - 2 - i) * 0.25, 0), content);
+            }
+        }
+    }
+
+    public List<Player> getNearPlayers(Level level) {
+        double range = 16;
+        List<Player> playerList = level.getEntitiesOfClass(Player.class,
+                AABB.ofSize(pos, range * 2, range * 2, range * 2));
+        playerList.removeIf(player -> player.position().distanceTo(pos) > range);
+        Set<Player> players = new HashSet<>(playerList);
+        if (!mobList.isEmpty()) {
+            for (Mob mob : mobList) {
+                players.addAll(level.getEntitiesOfClass(Player.class, AABB.ofSize(mob.position(),
+                                range * 2, range * 2, range * 2))
+                        .stream().filter(player -> player.distanceTo(mob) < range).toList());
+            }
+        }
+        return players.stream().toList();
+    }
+
+    public void summonArmorStand(Level level, Vec3 offset, Component name) {
+        ArmorStand armorStand = new ArmorStand(EntityType.ARMOR_STAND, level);
+        armorStand.setNoGravity(true);
+        armorStand.setCustomNameVisible(true);
+        armorStand.setCustomName(name);
+        armorStand.setInvulnerable(true);
+        armorStand.setInvisible(true);
+        armorStand.noPhysics = true;
+        armorStand.setBoundingBox(AABB.ofSize(new Vec3(0, 0, 0), 0.1, 0.1, 0.1));
+        armorStand.moveTo(pos.add(offset).add(0.5, 0, 0.5));
+        level.addFreshEntity(armorStand);
     }
 
     public static boolean prohibitPlayerCauseDamage(Player player, Mob mob) {
@@ -146,8 +189,9 @@ public abstract class DailyEndlessInstance {
     }
 
     protected abstract Mob summonMob(Level level);
-
     protected abstract void reward(Player player);
+    protected abstract boolean onRightClickTrig(Player player);
+    protected abstract List<Component> getTrigConditionDescription();
 
     public static void onKillMob(Player player, Mob mob) {
         String name = player.getName().getString();
@@ -174,7 +218,7 @@ public abstract class DailyEndlessInstance {
         return challengingPlayerName;
     }
 
-    public int getPlayerLevel() {
+    public int getPlayerXpLevel() {
         return playerLevel;
     }
 

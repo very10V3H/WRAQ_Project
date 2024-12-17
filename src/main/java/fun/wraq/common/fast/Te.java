@@ -7,6 +7,7 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.registries.RegistryObject;
 
 public class Te {
     public static MutableComponent m(String v) {
@@ -53,6 +54,12 @@ public class Te {
             if (componentOrStyle instanceof Entity entity) {
                 mutableComponent.append(entity.getDisplayName());
                 continue;
+            }
+            if (componentOrStyle instanceof RegistryObject<?> registryObject) {
+                if (registryObject.get() instanceof Item item) {
+                    mutableComponent.append(item.getDefaultInstance().getDisplayName());
+                    continue;
+                }
             }
             if (componentOrStyle instanceof Item item) {
                 mutableComponent.append(item.getDefaultInstance().getDisplayName());

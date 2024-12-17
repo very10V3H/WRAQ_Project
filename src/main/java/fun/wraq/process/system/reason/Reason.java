@@ -5,6 +5,7 @@ import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.PsValueS2CPacket;
+import fun.wraq.process.system.endlessinstance.instance.ManaPlainTemple;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -80,6 +81,16 @@ public class Reason {
             Tick.server.getPlayerList().getPlayers().forEach(serverPlayer -> {
                 addOrCostPlayerReasonValue(serverPlayer, 5);
             });
+        }
+    }
+
+    public static void tip(Player player) {
+        if (player.tickCount != 0 && player.tickCount % Tick.min(60) == 0 && getPlayerReasonValue(player) == 100) {
+            sendFormatMSG(player, Te.s("今天的", "理智", CustomStyle.styleOfFlexible, "似乎还没有使用呢。"));
+            if (player.experienceLevel < 230) {
+                sendFormatMSG(player, Te.s("考虑一下前往", "无尽熵增 - ", ManaPlainTemple.getInstance().name,
+                        "完成挑战获取", "大量经验值", ChatFormatting.LIGHT_PURPLE, "吧!"));
+            }
         }
     }
 }

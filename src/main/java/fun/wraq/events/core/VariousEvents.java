@@ -239,7 +239,7 @@ public class VariousEvents {
         }
         if (event.isSystem()) {
             String msg = event.getMessage().getString();
-            if (msg.contains("chasing") || msg.contains("退出")) {
+            if (msg.contains("chasing") || msg.contains("退出") || msg.contains("very_H") && msg.contains("游戏")) {
                 event.setCanceled(true);
             }
         }

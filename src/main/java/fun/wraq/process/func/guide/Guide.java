@@ -8,6 +8,7 @@ import fun.wraq.events.mob.chapter2.JorogumoSpawnController;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.func.guide.networking.GuideStageS2CPacket;
 import fun.wraq.process.func.item.InventoryOperation;
+import fun.wraq.process.system.endlessinstance.instance.ManaPlainTemple;
 import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.process.system.wayPoints.MyWayPoint;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -175,7 +176,10 @@ public class Guide {
             })));
             // 11
             guides.add(new Guide(List.of(
-                    Te.s("击败", "普莱尼", CustomStyle.styleOfPlain)
+                    Te.s("击败", "普莱尼", CustomStyle.styleOfPlain),
+                    Te.s("提示:", ChatFormatting.AQUA, "需要", "大量经验", ChatFormatting.LIGHT_PURPLE, "?"),
+                    Te.s("前往", "炼魔庙", CustomStyle.styleOfMana, "，挑战",
+                            "无尽熵增 - ", CustomStyle.styleOfWorld, ManaPlainTemple.getInstance().name)
             ), null, (player -> {
                 InventoryOperation.itemStackGiveWithMSG(player, new ItemStack(ModItems.PlainBossSoul.get(), 8));
             }), 40));
