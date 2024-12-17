@@ -84,7 +84,7 @@ public class HarbingerInstance extends NewTeamInstance {
         stage1summonPos.forEach(pos -> {
             for (int i = 0 ; i < 4 ; i ++) {
                 mobList.add(new ConditionSummonMob(0, setAttributesThenSpawnOfWatcher(level,
-                        pos.add(spawnOffsetVec3.get(i))), pos.add(spawnOffsetVec3.get(i)), 32));
+                        pos.add(spawnOffsetVec3.get(i))), pos.add(spawnOffsetVec3.get(i)), 24));
             }
         });
         setWallBlock(level, Blocks.BLACK_STAINED_GLASS);
@@ -101,7 +101,7 @@ public class HarbingerInstance extends NewTeamInstance {
             if (allMobIsClear()) {
                 stage = 2;
                 stage2SummonPos.forEach(pos -> {
-                    mobList.add(new ConditionSummonMob(0, setAttributesThenSpawnOfProwler(level, pos), pos, 32));
+                    mobList.add(new ConditionSummonMob(0, setAttributesThenSpawnOfProwler(level, pos), pos, 24));
                 });
                 setWallBlock(level, Blocks.AIR);
                 players.forEach(player -> {
@@ -116,16 +116,16 @@ public class HarbingerInstance extends NewTeamInstance {
             if (allMobIsClear()) {
                 stage = 3;
                 stage3SummonPos.forEach(pos -> {
-                    mobList.add(new ConditionSummonMob(0, setAttributesThenSpawnOfProwler(level, pos), pos, 32));
+                    mobList.add(new ConditionSummonMob(0, setAttributesThenSpawnOfProwler(level, pos), pos, 24));
                     for (int i = 0 ; i < 4 ; i ++) {
                         mobList.add(new ConditionSummonMob(0, setAttributesThenSpawnOfWatcher(level,
-                                pos.add(spawnOffsetVec3.get(i))), pos.add(spawnOffsetVec3.get(i)), 32));
+                                pos.add(spawnOffsetVec3.get(i))), pos.add(spawnOffsetVec3.get(i)), 24));
                     }
                 });
                 stage3NormalSummonPos.forEach(pos -> {
                     for (int i = 0 ; i < 4 ; i ++) {
                         mobList.add(new ConditionSummonMob(0, setAttributesThenSpawnOfWatcher(level,
-                                pos.add(spawnOffsetVec3.get(i))), pos.add(spawnOffsetVec3.get(i)), 32));
+                                pos.add(spawnOffsetVec3.get(i))), pos.add(spawnOffsetVec3.get(i)), 24));
                     }
                 });
                 players.forEach(player -> {
@@ -140,7 +140,7 @@ public class HarbingerInstance extends NewTeamInstance {
             if (allMobIsClear()) {
                 stage = 4;
                 stage4SummonPos.forEach(pos -> {
-                    mobList.add(new ConditionSummonMob(0, setAttributesThenSpawnOfHarbinger(level, pos), pos, 96));
+                    mobList.add(new ConditionSummonMob(0, setAttributesThenSpawnOfHarbinger(level, pos), pos, 48));
                 });
                 players.forEach(player -> {
                     Compute.setPlayerTitleAndSubTitle((ServerPlayer) player,

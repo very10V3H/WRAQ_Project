@@ -67,6 +67,7 @@ import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.blade.WraqBlade;
 import fun.wraq.series.instance.series.castle.CastleSceptre;
 import fun.wraq.series.instance.series.castle.RandomCuriosAttributesUtil;
+import fun.wraq.series.instance.series.warden.gem.AncientEchoGem;
 import fun.wraq.series.overworld.chapter1.forest.ForestPower;
 import fun.wraq.series.overworld.chapter1.forest.bossItems.ForestBossSword;
 import fun.wraq.series.overworld.chapter1.plain.PlainPower;
@@ -1804,6 +1805,8 @@ public class Compute {
         Tower.playerInChallengingDeadOrLogout(player);
         Utils.PlayerDeadTimeMap.put(player.getName().getString(), Tick.get() + 6000);
         NoTeamInstanceModule.onDead(player);
+        AncientEchoGem.lastRecordSumMap.remove(player);
+        AncientEchoGem.withstandDamageSumMap.remove(player);
     }
 
     public static void manaDamageExEffect(Player player, Mob mob, double damage) {

@@ -4,11 +4,13 @@ import fun.wraq.common.equip.WraqMainHandEquip;
 import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.impl.display.UsageOrGetWayDescriptionItem;
+import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
@@ -51,6 +53,7 @@ public class SakuraIndustrySceptre extends WraqMainHandEquip implements ActiveIt
     public void active(Player player) {
         SakuraIslandChannel.onPlayerUse(player);
         player.getCooldowns().addCooldown(this, 50);
+        MySound.soundToPlayer(player, SoundEvents.PORTAL_TRIGGER);
     }
 
     @Override

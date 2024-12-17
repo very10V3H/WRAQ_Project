@@ -71,7 +71,7 @@ public class AncientSilentGem extends WraqPassiveGem implements GemTickHandler, 
             if (tier > 0) {
                 Compute.sendEffectLastTime(player, "item/warden_matrix", 88, tier, true);
             } else {
-                Compute.sendEffectLastTime(player, "item/warden_matrix", 0, tier, false);
+                Compute.removeEffectLastTime(player, "item/warden_matrix");
             }
         }
     }
