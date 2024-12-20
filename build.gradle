@@ -153,6 +153,10 @@ repositories {
             includeGroup "curse.maven"
         }
     }
+
+    maven {
+        url 'https://maven.tterrag.com'
+    }
 }
 
 dependencies {
@@ -184,7 +188,7 @@ dependencies {
 
     implementation fg.deobf("curse.maven:serene-seasons-291874:4761603")
     implementation fg.deobf("curse.maven:sophisticated-backpacks-422301:4637294")
-    implementation fg.deobf("curse.maven:create-328085:4835191")
+    implementation fg.deobf("curse.maven:create-328085:5838779")
     implementation fg.deobf("curse.maven:armourers-workshop-229523:5243770")
     implementation fg.deobf("curse.maven:sophisticated-core-618298:4643717")
     implementation fg.deobf("curse.maven:neat-238372:4580940")
@@ -214,6 +218,7 @@ dependencies {
     implementation fg.deobf("curse.maven:zeta-968868:5254672")
     implementation fg.deobf("curse.maven:additional-lights-384991:4596807")
     implementation fg.deobf("curse.maven:macaws-lights-and-lamps-502372:4618183")
+    implementation fg.deobf("curse.maven:create-steam-n-rails-688231:5840017")
     // client :
     implementation fg.deobf("curse.maven:iceberg-520110:4953572")
     implementation fg.deobf("curse.maven:prism-lib-638111:4650325")
@@ -227,6 +232,18 @@ dependencies {
     implementation fg.deobf("curse.maven:modernfix-790626:5288164")
     implementation fg.deobf("curse.maven:bendy-lib-623373:4550371")
 }
+
+dependencies {
+    jarJar(group: 'com.tterrag.registrate', name: 'Registrate', version: "[MC1.20-1.3.11,MC1.20-1.3.11]")
+}
+
+jarJar.enable()
+reobf {
+    jarJar { }
+}
+
+tasks.jarJar.finalizedBy('reobfJarJar')
+
 
 // Example for how to get properties into the manifest for reading at runtime.
 jar {

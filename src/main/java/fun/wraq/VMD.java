@@ -601,6 +601,7 @@ public class VMD {
             event.accept(ModItems.MopUpPaperLoot.get().getDefaultInstance());
         }
         if (event.getTabKey().equals(ModCreativeModeTab.DEVELOPMENT_TAB.getKey())) {
+            event.accept(ModItems.RAILWAY_PILLAR_SET_TOOL.get().getDefaultInstance());
             event.accept(ModItems.SignInReset.get().getDefaultInstance());
             event.accept(ModItems.SignInGet.get().getDefaultInstance());
             event.accept(ModItems.GetTime.get().getDefaultInstance());

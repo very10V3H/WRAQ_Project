@@ -4,6 +4,7 @@ import fun.wraq.Items.DevelopmentTools.*;
 import fun.wraq.Items.DevelopmentTools.equip.ManageBow;
 import fun.wraq.Items.DevelopmentTools.equip.ManageSceptre;
 import fun.wraq.Items.DevelopmentTools.equip.ManageSword;
+import fun.wraq.Items.DevelopmentTools.rail.RailwayPillarSetTool;
 import fun.wraq.Items.Explore.*;
 import fun.wraq.Items.Forging.ForgeEnhancePaper;
 import fun.wraq.Items.Forging.ForgeProtect;
@@ -1723,6 +1724,8 @@ public class ModItems {
             () -> new SpongeClear(new Item.Properties().rarity(Rarity.EPIC)));
     public static final RegistryObject<Item> PillarsSet = ITEMS.register("pillars_set",
             () -> new PillarsSet(new Item.Properties().rarity(Rarity.EPIC)));
+    public static final RegistryObject<Item> RAILWAY_PILLAR_SET_TOOL = ITEMS.register("railway_pillar_set_tool",
+            () -> new RailwayPillarSetTool(new Item.Properties().rarity(Rarity.EPIC)));
 
     public static final RegistryObject<Item> ArmorBoss2 = ITEMS.register("armor_boss2",
             () -> new MobArmor(StringUtils.MobName.Boss2));

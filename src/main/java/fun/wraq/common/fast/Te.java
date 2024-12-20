@@ -86,6 +86,20 @@ public class Te {
                 }
                 mutableComponent.append(soleComponent);
             }
+            if (componentOrStyle instanceof Integer integer) {
+                MutableComponent soleComponent = Component.literal(String.valueOf(integer));
+                int index = i + 1;
+                if (index < textAndStyle.length && !(textAndStyle[index] instanceof Style || textAndStyle[index] instanceof ChatFormatting)) {
+                    soleComponent.withStyle(ChatFormatting.WHITE);
+                }
+                while (index < textAndStyle.length && (textAndStyle[index] instanceof Style || textAndStyle[index] instanceof ChatFormatting)) {
+                    if (textAndStyle[index] instanceof Style style) soleComponent.withStyle(style);
+                    if (textAndStyle[index] instanceof ChatFormatting chatFormatting) soleComponent.withStyle(chatFormatting);
+                    index ++;
+                }
+                mutableComponent.append(soleComponent);
+            }
+
         }
         return mutableComponent;
     }

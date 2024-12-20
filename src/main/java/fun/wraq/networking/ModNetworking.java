@@ -1,5 +1,6 @@
 package fun.wraq.networking;
 
+import fun.wraq.Items.DevelopmentTools.rail.RailwayPillarSetToolModeC2SPacket;
 import fun.wraq.blocks.blocks.inject.InjectC2SPacket;
 import fun.wraq.common.Compute;
 import fun.wraq.common.util.ClientUtils;
@@ -1374,6 +1375,11 @@ public class ModNetworking {
                 .decoder(TotalKillCountS2CPacket::new)
                 .encoder(TotalKillCountS2CPacket::toBytes)
                 .consumerMainThread(TotalKillCountS2CPacket::handle)
+                .add();
+        net.messageBuilder(RailwayPillarSetToolModeC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(RailwayPillarSetToolModeC2SPacket::new)
+                .encoder(RailwayPillarSetToolModeC2SPacket::toBytes)
+                .consumerMainThread(RailwayPillarSetToolModeC2SPacket::handle)
                 .add();
     }
 

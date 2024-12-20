@@ -144,7 +144,9 @@ public class ClientPlayerTickEvent {
                     Item item = itemStack.getItem();
                     if (!(Utils.mainHandTag.containsKey(item) || Utils.armorTag.containsKey(item)
                             || Utils.curiosList.contains(item) || Utils.passiveEquipTag.containsKey(item))) {
-                        itemStack.resetHoverName();
+                        if (!itemStack.is(ModItems.RAILWAY_PILLAR_SET_TOOL.get())) {
+                            itemStack.resetHoverName();
+                        }
                     }
                     BackSpawn.setName(itemStack);
                 }
