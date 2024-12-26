@@ -238,8 +238,6 @@ public class ForgeEquipUtils {
         }});
 
         List<Item> xunNan = List.of(
-                ModItems.PurpleIronArmorHelmet.get(),
-                ModItems.PurpleIronArmorHelmet.get(),
                 ModItems.MoonSword.get(),
                 ModItems.MoonBow.get(),
                 ModItems.MoonSceptre.get(),

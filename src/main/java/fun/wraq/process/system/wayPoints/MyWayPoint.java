@@ -93,25 +93,25 @@ public class MyWayPoint {
                 Te.s("田园诗意，物阜民丰", CustomStyle.styleOfPlain)));
         add(new ZonePoint(new Vec3(956, 232, 17),
                 Te.s("天空城", CustomStyle.styleOfSky),
-                Te.s("与浮云共眠之城", CustomStyle.styleOfSky)));
+                Te.s("与浮云共眠之城", CustomStyle.styleOfSky), 80));
         add(new ZonePoint(new Vec3(1091, 80, 40),
                 Te.s("雨林村", CustomStyle.styleOfForest),
-                Te.s("雨林葱郁，鸟语花香", CustomStyle.styleOfForest)));
+                Te.s("雨林葱郁，鸟语花香", CustomStyle.styleOfForest), 130));
         add(new ZonePoint(new Vec3(889, 62, -422),
                 Te.s("海岸村", CustomStyle.styleOfWater),
-                Te.s("碧海蓝天，金沙碧水", CustomStyle.styleOfWater)));
+                Te.s("碧海蓝天，金沙碧水", CustomStyle.styleOfWater), 90));
         add(new ZonePoint(new Vec3(2573, 120, -492),
                 Te.s("火山村", CustomStyle.styleOfVolcano),
-                Te.s("红光映天，地质奇观", CustomStyle.styleOfVolcano)));
+                Te.s("红光映天，地质奇观", CustomStyle.styleOfVolcano), 110));
         add(new ZonePoint(new Vec3(1157, 76, -1077),
                 Te.s("薰楠村", CustomStyle.styleOfJacaranda),
                 Te.s("浓荫蔽日，香气四溢", CustomStyle.styleOfJacaranda)));
         add(new ZonePoint(new Vec3(1036, 76, -1288),
                 Te.s("薰曦村", CustomStyle.styleOfJacaranda),
-                Te.s("紫色海洋，芳香四溢")));
+                Te.s("紫色海洋，芳香四溢"), 80));
         add(new ZonePoint(new Vec3(1329, 71, -1612),
                 Te.s("北洋村", CustomStyle.styleOfIce),
-                Te.s("北风呼啸，寒气逼人", CustomStyle.styleOfIce)));
+                Te.s("北风呼啸，寒气逼人", CustomStyle.styleOfIce), 90));
         add(new ZonePoint(new Vec3(1911, 86, 1688),
                 Te.s("沙岸村", CustomStyle.styleOfSunIsland),
                 Te.s("碧海蓝天，白沙绵延", CustomStyle.styleOfSunIsland)));
@@ -156,7 +156,7 @@ public class MyWayPoint {
                 Te.s("冷艳高贵，华美绝伦", CustomStyle.styleOfIce)));
         add(new ZonePoint(new Vec3(1808, 74, 339),
                 Te.s("旭升岛", CustomStyle.styleOfSunIsland),
-                Te.s("旭日东升", CustomStyle.styleOfSunIsland)));
+                Te.s("旭日东升", CustomStyle.styleOfSunIsland), 100));
         add(new ZonePoint(new Vec3(1883, 147, -461),
                 Te.s("月影坡", CustomStyle.styleOfMoon),
                 Te.s("西望皎月，东临朔望", CustomStyle.styleOfMoon)));
@@ -168,10 +168,13 @@ public class MyWayPoint {
                 Te.s("神秘遗迹，石墙巍峨", CustomStyle.styleOfWarden), 100));
         add(new ZonePoint(new Vec3(2417, 152, -1372),
                 Te.s("暗黑城堡", CustomStyle.styleOfCastle),
-                Te.s("危险的暗黑魔法遗址", CustomStyle.styleOfCastle)));
+                Te.s("危险的暗黑魔法遗址", CustomStyle.styleOfCastle), 90));
         add(new ZonePoint(new Vec3(1088, 23, 892),
                 Te.s("海底神殿", CustomStyle.styleOfSea),
                 Te.s("波光粼粼，深邃神秘", CustomStyle.styleOfSea)));
+        add(new ZonePoint(new Vec3(2454, 130, -171),
+                Te.s("蒙特轻轨基地", CustomStyle.styleOfField),
+                Te.s("", CustomStyle.styleOfSea)));
     }};
 
     public static Map<Player, String> playerLastZoneMap = new WeakHashMap<>();
@@ -313,6 +316,19 @@ public class MyWayPoint {
         add(new MyWayPoint(new Vec3(1731, 137, 1875), "北望村", colorMap.get(green), 0));
 
         add(new MyWayPoint(new Vec3(1573, 54, 149), "炼魔涌溢", colorMap.get(darkPurple), 0));
+
+        // 轻轨
+        add(new MyWayPoint(new Vec3(2454, 130, -171), "蒙特轻轨检修基地", colorMap.get(yellow), 0));
+        add(new MyWayPoint(new Vec3(2343, 130, 31), "轻轨东洋塔站", colorMap.get(yellow), 0));
+        add(new MyWayPoint(new Vec3(2343, 130, 31), "轻轨东洋塔站", colorMap.get(yellow), 0));
+        add(new MyWayPoint(new Vec3(1800, 72, 274), "轻轨旭升岛站", colorMap.get(yellow), 0));
+        add(new MyWayPoint(new Vec3(1213, 85, 54), "轻轨雨林村站", colorMap.get(yellow), 0));
+        add(new MyWayPoint(new Vec3(1003, 226, 0), "轻轨天空城站", colorMap.get(yellow), 0));
+        add(new MyWayPoint(new Vec3(948, 79, -423), "轻轨海岸村站", colorMap.get(yellow), 0));
+        add(new MyWayPoint(new Vec3(1071, 80, -1328), "轻轨薰曦村站", colorMap.get(yellow), 0));
+        add(new MyWayPoint(new Vec3(1270, 72, -1622), "轻轨北洋村站", colorMap.get(yellow), 0));
+        add(new MyWayPoint(new Vec3(2472, 170, -1374), "轻轨暗黑城堡站", colorMap.get(yellow), 0));
+        add(new MyWayPoint(new Vec3(2496, 149, -486), "轻轨火山村站", colorMap.get(yellow), 0));
     }};
 
     public static List<MyWayPoint> netherPointList = new ArrayList<>() {{

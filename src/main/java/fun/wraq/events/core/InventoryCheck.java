@@ -13,6 +13,9 @@ import fun.wraq.series.specialevents.SpecialEventItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.players.UserBanList;
+import net.minecraft.server.players.UserBanListEntry;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -34,10 +37,21 @@ public class InventoryCheck {
         if (!event.player.isCreative() && event.player.tickCount % 20 == 0
                 && event.side.isServer() && event.phase == TickEvent.Phase.START) {
             Player player = event.player;
+            ServerPlayer serverPlayer = (ServerPlayer) player;
             Inventory inventory = player.getInventory();
             for (int i = 0; i < inventory.getMaxStackSize(); i++) {
                 ItemStack itemStack = inventory.getItem(i);
                 Item item = itemStack.getItem();
+                if (item.toString().contains("schedule")) {
+                    if (!serverPlayer.getName().getString().equals("Dev")
+                            && !serverPlayer.getName().getString().equals("very_H")) {
+                        UserBanList banList = serverPlayer.getServer().getPlayerList().getBans();
+                        UserBanListEntry entry = new UserBanListEntry(serverPlayer.getGameProfile());
+                        banList.add(entry);
+                        serverPlayer.connection.disconnect(Te.s("因干扰列车运行而被封禁，请联系管理员"));
+                        return;
+                    }
+                }
                 if (itemStack.getTagElement(Utils.MOD_ID) != null) {
                     CompoundTag data = itemStack.getOrCreateTagElement(Utils.MOD_ID);
                     if (item instanceof RandomLootEquip && !data.contains(RandomLootEquip.NEW_VERSION_CHANGE_TAG)) {
@@ -155,7 +169,8 @@ public class InventoryCheck {
                 ModItems.SENIOR_POTION_SUPPLY.get(),
                 ModItems.ORE_SUPPLY.get(),
                 ModItems.JUNIOR_SUPPLY.get(),
-                ModItems.SENIOR_SUPPLY.get()
+                ModItems.SENIOR_SUPPLY.get(),
+                SpecialEventItems.TRAIN_SOUVENIRS.get()
         ));
         SpecialEventItems.ITEMS.getEntries()
                 .stream()

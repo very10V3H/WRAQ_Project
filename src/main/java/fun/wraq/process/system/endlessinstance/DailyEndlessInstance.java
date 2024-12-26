@@ -105,7 +105,6 @@ public abstract class DailyEndlessInstance {
 
     public boolean active(Player player) {
         if (isChallenging()) {
-            sendFormatMSG(player, Component.literal("有玩家正在进行这项挑战。").withStyle(ChatFormatting.WHITE));
             return false;
         }
         if (!onRightClickTrig(player)) {

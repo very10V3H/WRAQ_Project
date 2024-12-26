@@ -1,6 +1,5 @@
 package fun.wraq.process.system.randomevent;
 
-import biomesoplenty.api.block.BOPBlocks;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
@@ -204,7 +203,7 @@ public class RandomEventsHandler {
                 Blocks.AMETHYST_BLOCK
         ), RandomEvent.getDefaultRewardList(), null));
 
-        digBlockEvents.add(new DigBlockEvent(Level.OVERWORLD, new Vec3(1074, 77, -1260), List.of(
+/*        digBlockEvents.add(new DigBlockEvent(Level.OVERWORLD, new Vec3(1074, 77, -1260), List.of(
                 Te.s("薰曦村", CustomStyle.styleOfJacaranda, "东南侧的",
                         "薰衣草", CustomStyle.styleOfJacaranda, "长得太多了，居民们正在为之苦恼"),
                 Te.s("热心的你还不快去帮他们清理吗？")
@@ -217,7 +216,7 @@ public class RandomEventsHandler {
                         "薰衣草", CustomStyle.styleOfJacaranda, "泛滥成灾了")
         ), server, List.of(
                 BOPBlocks.TALL_LAVENDER.get()
-        ), RandomEvent.getDefaultRewardList(), null));
+        ), RandomEvent.getDefaultRewardList(), null));*/
     }
 
     public static List<DigBlockEvent> getDigBlockEvents() {

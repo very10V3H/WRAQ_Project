@@ -85,7 +85,7 @@ public class ManaPlainTemple extends DailyEndlessInstance {
     public static List<ItemAndRate> getDropList() {
         if (dropList.isEmpty()) {
             dropList.addAll(List.of(
-                    new ItemAndRate(EndlessInstanceItems.MANA_PLAIN_PLANT.get(), 0.1)
+                    new ItemAndRate(EndlessInstanceItems.MANA_PLAIN_PLANT.get(), 0.06)
             ));
         }
         return dropList;

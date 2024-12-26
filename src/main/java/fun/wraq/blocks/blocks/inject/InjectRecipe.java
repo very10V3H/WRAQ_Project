@@ -386,9 +386,21 @@ public class InjectRecipe {
                 new InjectingRecipe(ModItems.LakeRune.get(), 1,
                         ModItems.LakePower3.get()));
 
-        injectingRecipeMap.put(ModItems.VolcanoPower.get(),
-                new InjectingRecipe(ModItems.VolcanoRune.get(), 1,
-                        ModItems.VolcanoPower1.get()));
+        injectingRecipeMap.put(ModItems.LakePower.get(),
+                new InjectingRecipe(ModItems.LakeRune.get(), 1,
+                        ModItems.LakePower1.get()));
+
+        injectingRecipeMap.put(ModItems.MINE_POWER.get(),
+                new InjectingRecipe(ModItems.MineRune.get(), 1,
+                        ModItems.MINE_POWER_1.get()));
+
+        injectingRecipeMap.put(ModItems.MINE_POWER_1.get(),
+                new InjectingRecipe(ModItems.MineRune.get(), 1,
+                        ModItems.MINE_POWER_2.get()));
+
+        injectingRecipeMap.put(ModItems.MINE_POWER_2.get(),
+                new InjectingRecipe(ModItems.MineRune.get(), 1,
+                        ModItems.MINE_POWER_3.get()));
 
         injectingRecipeMap.put(ModItems.VolcanoPower1.get(),
                 new InjectingRecipe(ModItems.VolcanoRune.get(), 1,

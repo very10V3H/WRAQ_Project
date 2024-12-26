@@ -9,6 +9,7 @@ import fun.wraq.series.specialevents.midautumn.MidAutumnSceptre;
 import fun.wraq.series.specialevents.midautumn.MidAutumnSword;
 import fun.wraq.series.specialevents.midautumn.MoonFeather;
 import fun.wraq.series.specialevents.summer.SummerCuriosOrEquip2024;
+import fun.wraq.series.specialevents.train.TrainSouvenirs;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -65,4 +66,7 @@ public class SpecialEventItems {
     public static final RegistryObject<Item> MID_AUTUMN_PREFIX = ITEMS.register("mid_autumn_prefix", () ->
             new PrefixPaperItem(new Item.Properties().rarity(CustomStyle.MoonBold),
                     "midAutumnPrefix", "月荧风清", CustomStyle.styleOfMoon));
+
+    public static final RegistryObject<Item> TRAIN_SOUVENIRS = ITEMS.register("train_souvenirs", () ->
+            new TrainSouvenirs(new Item.Properties().rarity(CustomStyle.FieldBold)));
 }

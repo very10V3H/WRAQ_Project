@@ -38,6 +38,6 @@ public class VolcanoRing extends WraqCurios {
 
     @Override
     public Component suffix() {
-        return ComponentUtils.getAttackTypeDescriptionOfCurios();
+        return ComponentUtils.getSuffixOfChapterI();
     }
 }

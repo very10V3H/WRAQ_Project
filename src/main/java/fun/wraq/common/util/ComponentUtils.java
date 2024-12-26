@@ -4,6 +4,7 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.BasicAttributeDescription;
 import fun.wraq.common.fast.Te;
 import fun.wraq.process.system.element.Color;
+import fun.wraq.process.system.element.RainbowCrystal;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.worldsoul.SoulEquipAttribute;
 import net.minecraft.ChatFormatting;
@@ -494,6 +495,24 @@ public class ComponentUtils {
 
     public static Component getNormalPickaxeSuffix() {
         return Component.literal("史蒂夫圣剑").withStyle(ChatFormatting.AQUA);
+    }
+
+    public static Component getSuffixOfSouvenirs() {
+        return Te.s(rainBowNameFiveChar("✧纪念品✧"));
+    }
+
+    public static Component rainBowNameFiveChar(String s) {
+        for (int i = 0; i < RainbowCrystal.colorList.size(); i++) {
+            fun.wraq.process.system.element.Color color = RainbowCrystal.colorList.get(i);
+            if (color.Add()) {
+                RainbowCrystal.colorList.set(i, new Color(color.targetRGB, RainbowCrystal.colorMap.get(color.targetRGB), 100));
+            }
+        }
+        return Component.literal(s.substring(0, 1)).withStyle(Style.EMPTY.withColor(TextColor.parseColor(RainbowCrystal.colorList.get(0).getRGB()))).withStyle(ChatFormatting.BOLD)
+                .append(Component.literal(s.substring(1, 2)).withStyle(Style.EMPTY.withColor(TextColor.parseColor(RainbowCrystal.colorList.get(1).getRGB()))).withStyle(ChatFormatting.BOLD))
+                .append(Component.literal(s.substring(2, 3)).withStyle(Style.EMPTY.withColor(TextColor.parseColor(RainbowCrystal.colorList.get(2).getRGB()))).withStyle(ChatFormatting.BOLD))
+                .append(Component.literal(s.substring(3, 4)).withStyle(Style.EMPTY.withColor(TextColor.parseColor(RainbowCrystal.colorList.get(3).getRGB()))).withStyle(ChatFormatting.BOLD))
+                .append(Component.literal(s.substring(4, 5)).withStyle(Style.EMPTY.withColor(TextColor.parseColor(RainbowCrystal.colorList.get(0).getRGB()))).withStyle(ChatFormatting.BOLD));
     }
 
     public static Component getAttackDamageDotDescription(int lastSeconds, int times, String rate) {
