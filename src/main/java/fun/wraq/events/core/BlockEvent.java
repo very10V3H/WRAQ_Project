@@ -5,7 +5,6 @@ import fun.wraq.blocks.blocks.WorldSoulBlock;
 import fun.wraq.blocks.entity.Droppable;
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
-import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModBlocks;
 import fun.wraq.common.registry.ModItems;
@@ -86,7 +85,6 @@ public class BlockEvent {
             Player player = event.getEntity();
             BlockPos blockPos = event.getHitVec().getBlockPos();
             BlockState blockState = player.level().getBlockState(blockPos);
-            player.sendSystemMessage(Te.s(blockState.toString()));
 
             ItemStack itemStack = player.getItemInHand(InteractionHand.MAIN_HAND);
             AtomicReference<Double> mediumNum = new AtomicReference<>(0.125);
