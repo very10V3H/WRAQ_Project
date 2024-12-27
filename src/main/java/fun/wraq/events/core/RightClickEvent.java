@@ -9,6 +9,7 @@ import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.TeamPackets.ScreenSetS2CPacket;
 import fun.wraq.networking.unSorted.VillagerTradeScreenS2CPacket;
 import fun.wraq.process.func.multiblockactive.rightclick.RightClickActiveHandler;
+import fun.wraq.process.system.entrustment.MobEntrustmentInfo.MobKillEntrustment;
 import fun.wraq.render.gui.villagerTrade.MyVillagerData;
 import fun.wraq.render.gui.villagerTrade.TradeList;
 import net.minecraft.nbt.CompoundTag;
@@ -29,6 +30,7 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import java.sql.SQLException;
 import java.util.Set;
 
 @Mod.EventBusSubscriber
@@ -69,8 +71,12 @@ public class RightClickEvent {
     }
 
     @SubscribeEvent
-    public static void Trade(PlayerInteractEvent.EntityInteract event) {
+    public static void Trade(PlayerInteractEvent.EntityInteract event) throws SQLException {
         if (event.getSide().isServer() && event.getTarget() instanceof Villager villager) {
+            if (villager.getName().getString().equals(MobKillEntrustment.VILLAGER_NAME)) {
+                MobKillEntrustment.onPlayerInteractWithVillager(event.getEntity());
+                event.setCanceled(true);
+            }
             if (villager.getName().getString().equals("逆熵学者")) {
                 ModNetworking.sendToClient(new ScreenSetS2CPacket(6), (ServerPlayer) event.getEntity());
             }

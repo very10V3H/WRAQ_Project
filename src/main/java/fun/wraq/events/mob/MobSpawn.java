@@ -176,6 +176,23 @@ public class MobSpawn {
         endList.add(ShulkerSpawnController.getInstance(end));
     }
 
+    public static List<MobSpawnController> getAllControllers() {
+        if (overWolrdList.isEmpty()) {
+            setOverWorldList(Tick.server.getLevel(Level.OVERWORLD));
+        }
+        if (netherList.isEmpty()) {
+            setNetherList(Tick.server.getLevel(Level.NETHER));
+        }
+        if (endList.isEmpty()) {
+            setEndList(Tick.server.getLevel(Level.END));
+        }
+        List<MobSpawnController> controllers = new ArrayList<>();
+        controllers.addAll(overWolrdList);
+        controllers.addAll(netherList);
+        controllers.addAll(endList);
+        return controllers;
+    }
+
     public static void removeAllMob() {
         overWolrdList.forEach(mobSpawnController -> {
             mobSpawnController.mobList.forEach(mob -> mob.remove(Entity.RemovalReason.KILLED));

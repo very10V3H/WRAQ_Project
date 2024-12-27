@@ -563,7 +563,7 @@ public class VMD {
                     ModItems.ORE_SUPPLY.get(), ModItems.SENIOR_POTION_SUPPLY.get(),
                     ModItems.JUNIOR_SUPPLY.get(), ModItems.SENIOR_SUPPLY.get(),
                     ModItems.simpleTier1Paper.get(), ModItems.simpleTier2Paper.get(), ModItems.simpleTier3Paper.get(),
-                    ModItems.goldCoinLottery.get()
+                    ModItems.goldCoinLottery.get(), ModItems.BOND.get(), ModItems.SPECIAL_BOND.get()
             };
             for (Item item : items) event.accept(item.getDefaultInstance());
         }

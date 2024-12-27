@@ -30,6 +30,7 @@ import fun.wraq.networking.misc.SmartPhonePackets.SmartPhoneS2CPacket;
 import fun.wraq.networking.misc.SoundsPackets.SoundsS2CPacket;
 import fun.wraq.networking.misc.TeamPackets.TeamInfoRequestC2SPacket;
 import fun.wraq.networking.unSorted.PacketLimitS2CPacket;
+import fun.wraq.networking.unSorted.ServerTickS2CPacket;
 import fun.wraq.networking.unSorted.TimeS2CPacket;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.guide.Guide;
@@ -45,6 +46,7 @@ import fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSce
 import fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSword;
 import fun.wraq.process.system.element.networking.CurrentSeasonAndResonanceTypeS2CPacket;
 import fun.wraq.process.system.endlessinstance.item.special.HoursExHarvestPotion;
+import fun.wraq.process.system.entrustment.MobEntrustmentInfo.MobKillEntrustment;
 import fun.wraq.process.system.missions.Mission;
 import fun.wraq.process.system.missions.series.dailyMission.DailyMission;
 import fun.wraq.process.system.point.Point;
@@ -157,6 +159,8 @@ public class ServerPlayerTickEvent {
             ManaSkillTree.manaSkill13Tick(player);
             Civil.handleTick(player);
             Reason.tip(player);
+            ModNetworking.sendToClient(new ServerTickS2CPacket(Tick.get()), serverPlayer);
+            MobKillEntrustment.handleTick(player);
 
             if (player.tickCount % 10 == 0
                     && (player.isOnFire()

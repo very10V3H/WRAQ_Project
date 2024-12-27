@@ -9,6 +9,7 @@ import fun.wraq.entities.entities.SoraSword.SoraRedSwordAirRender;
 import fun.wraq.entities.entities.SoraSword.SoraSwordAirRender;
 import fun.wraq.entities.render.*;
 import fun.wraq.process.func.guide.GuideHud;
+import fun.wraq.process.system.entrustment.MobEntrustmentInfo.MobKillEntrustmentHud;
 import fun.wraq.process.system.teamInstance.NewTeamInstanceHud;
 import fun.wraq.render.hud.main.*;
 import fun.wraq.render.hud.ShieldHud;
@@ -172,6 +173,7 @@ public class ClientModEventSubscriber {
         event.registerAboveAll("item_exp_get_hud", ItemAndExpGetHud.ITEM_EXP_GET_HUD);
 
         event.registerAboveAll("guide_hud", GuideHud.GUIDE_HUD);
+        event.registerAboveAll("mob_kill_entrustment_hud", MobKillEntrustmentHud.ENTRUSTMENT_HUD);
         event.registerAboveAll("new_team_instance_hud", NewTeamInstanceHud.NEW_TEAM_INSTANCE_HUD);
 
         event.registerAboveAll("quick_use_hud", QuickUseHud.QUICK_USE_HUD);

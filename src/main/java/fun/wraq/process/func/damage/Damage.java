@@ -32,6 +32,7 @@ import fun.wraq.events.modules.HurtEventModule;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.element.equipAndCurios.fireElement.FireEquip;
 import fun.wraq.process.system.endlessinstance.DailyEndlessInstance;
+import fun.wraq.process.system.entrustment.MobEntrustmentInfo.MobKillEntrustment;
 import fun.wraq.process.system.randomevent.RandomEventsHandler;
 import fun.wraq.process.system.randomevent.impl.killmob.SlimeKingEvent;
 import fun.wraq.process.system.teamInstance.NewTeamInstanceHandler;
@@ -541,6 +542,8 @@ public class Damage {
                     RandomEventsHandler.onKillMob(player, mob);
 
                     GemOnKillMob.kill(player, mob);
+
+                    MobKillEntrustment.onKill(player, mob);
                 } else {
                     mob.setHealth((float) (mob.getHealth() - finalDamage));
                 }

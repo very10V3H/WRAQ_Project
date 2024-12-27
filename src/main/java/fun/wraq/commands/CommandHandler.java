@@ -10,6 +10,7 @@ import fun.wraq.commands.stable.ops.*;
 import fun.wraq.commands.stable.players.*;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.system.bonuschest.BonusInfoCommand;
+import fun.wraq.process.system.entrustment.MobEntrustmentInfo.MobKillEntrustmentOperationCommand;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.GameProfileArgument;
@@ -638,6 +639,15 @@ public class CommandHandler {
                                                 .executes(ReasonCommand.instance)
                                 )
                         ).requires(commandSourceStack -> commandSourceStack.hasPermission(2))
+                )
+        );
+        CommandDispatcher<CommandSourceStack> dispatcher68 = event.getDispatcher();
+        LiteralCommandNode<CommandSourceStack> cmd68 = dispatcher68.register(
+                Commands.literal(Utils.MOD_ID).then(
+                        Commands.literal("entrustment").then(
+                                Commands.argument("operation", StringArgumentType.string())
+                                        .executes(MobKillEntrustmentOperationCommand.instance)
+                        ).requires(commandSourceStack -> commandSourceStack.hasPermission(0))
                 )
         );
     }

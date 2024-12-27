@@ -170,7 +170,9 @@ public class InventoryCheck {
                 ModItems.ORE_SUPPLY.get(),
                 ModItems.JUNIOR_SUPPLY.get(),
                 ModItems.SENIOR_SUPPLY.get(),
-                SpecialEventItems.TRAIN_SOUVENIRS.get()
+                SpecialEventItems.TRAIN_SOUVENIRS.get(),
+                ModItems.BOND.get(),
+                ModItems.SPECIAL_BOND.get()
         ));
         SpecialEventItems.ITEMS.getEntries()
                 .stream()

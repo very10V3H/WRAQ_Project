@@ -1921,8 +1921,11 @@
   "item.vmd.mana_plain_plant": "白花蛇兰草",
 
   "item.vmd.railway_pillar_set_tool": "铁路支撑柱工具",
-
   "item.vmd.train_souvenirs": "铁道纪念品 - 时刻表",
+
+  "item.vmd.bond": "联合研院信用债券",
+  "item.vmd.special_bond": "联合研院特别发行债券",
+
 
   "curios.identifier.rune": "符石",
   "curios.identifier.crest": "纹章",

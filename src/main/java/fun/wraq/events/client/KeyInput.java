@@ -10,7 +10,6 @@ import fun.wraq.networking.misc.AnimationPackets.RollingAnimationRequestC2SPacke
 import fun.wraq.networking.misc.TeamPackets.TeamScreenOpenRequestC2SPacket;
 import fun.wraq.networking.misc.USE.UseC2SPacket;
 import fun.wraq.networking.unSorted.PlayerClickSpaceC2SPacket;
-import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.func.guide.GuideHud;
 import fun.wraq.process.func.guide.networking.GuideFinishC2SPacket;
 import fun.wraq.process.system.element.ElementRoulette;
@@ -131,15 +130,14 @@ public class KeyInput {
             }
 
             if (KeyBoradInput.GUIDE.consumeClick()) {
-                if (Guide.clientStage == -1 || Guide.clientStage >= Guide.getGuides().size()) return;
                 if (Calendar.getInstance().getTimeInMillis() - ClientUtils.tabSwitchLastTime > 250) {
                     GuideHud.display = !GuideHud.display;
                     if (GuideHud.display) {
                         Compute.sendFormatMSG(player, Te.s("系统", ChatFormatting.AQUA),
-                                Te.s("已开启", ChatFormatting.GREEN, "指引界面"));
+                                Te.s("已开启", ChatFormatting.GREEN, "附加界面"));
                     } else {
                         Compute.sendFormatMSG(player, Te.s("系统", ChatFormatting.AQUA),
-                                Te.s("已关闭", ChatFormatting.RED, "指引界面"));
+                                Te.s("已关闭", ChatFormatting.RED, "附加界面"));
                     }
                 }
                 ClientUtils.tabSwitchLastTime = Calendar.getInstance().getTimeInMillis();

@@ -72,6 +72,7 @@ import fun.wraq.process.system.element.networking.CurrentSeasonAndResonanceTypeS
 import fun.wraq.process.system.element.networking.CurrentSeasonC2SPacket;
 import fun.wraq.process.system.element.networking.ResonanceC2SPacket;
 import fun.wraq.process.system.endlessinstance.network.EndlessInstanceKillCountS2CPacket;
+import fun.wraq.process.system.entrustment.MobEntrustmentInfo.MobKillEntrustmentInfoS2CPacket;
 import fun.wraq.process.system.forge.networking.*;
 import fun.wraq.process.system.lottery.networking.LotteryRewardTimeS2CPacket;
 import fun.wraq.process.system.missions.netWorking.*;
@@ -1380,6 +1381,16 @@ public class ModNetworking {
                 .decoder(RailwayPillarSetToolModeC2SPacket::new)
                 .encoder(RailwayPillarSetToolModeC2SPacket::toBytes)
                 .consumerMainThread(RailwayPillarSetToolModeC2SPacket::handle)
+                .add();
+        net.messageBuilder(ServerTickS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(ServerTickS2CPacket::new)
+                .encoder(ServerTickS2CPacket::toBytes)
+                .consumerMainThread(ServerTickS2CPacket::handle)
+                .add();
+        net.messageBuilder(MobKillEntrustmentInfoS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(MobKillEntrustmentInfoS2CPacket::new)
+                .encoder(MobKillEntrustmentInfoS2CPacket::toBytes)
+                .consumerMainThread(MobKillEntrustmentInfoS2CPacket::handle)
                 .add();
     }
 

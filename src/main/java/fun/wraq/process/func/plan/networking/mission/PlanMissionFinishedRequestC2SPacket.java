@@ -64,8 +64,8 @@ public class PlanMissionFinishedRequestC2SPacket {
                 }
                 long timeDelta = currentTime.getTimeInMillis() - missionStartTime.getTimeInMillis();
                 long minuteDelta = timeDelta / (1000 * 60);
-                if (minuteDelta >= 75) minuteDelta = 75;
-                int tier = 5 - (int) (minuteDelta / 15);
+                if (minuteDelta >= 25) minuteDelta = 25;
+                int tier = 5 - (int) (minuteDelta / 5);
                 Compute.givePercentExpToPlayer(serverPlayer, 0.04 * tier, 0, serverPlayer.experienceLevel);
                 Compute.playerReputationAddOrCost(serverPlayer, (int) Math.ceil(tier * ((double) serverPlayer.experienceLevel / 20)
                         * RankData.reputationMissionRewardRate(serverPlayer)));
@@ -75,7 +75,7 @@ public class PlanMissionFinishedRequestC2SPacket {
                                     * (RankData.reputationMissionRewardRate(serverPlayer) - 1)) + "声望值",
                             ChatFormatting.YELLOW));
                 }
-                if (serverPlayer.experienceLevel == 220) Compute.playerReputationAddOrCost(serverPlayer, tier);
+                if (serverPlayer.experienceLevel == Compute.expGetUpperLimit) Compute.playerReputationAddOrCost(serverPlayer, tier);
                 fun.wraq.process.func.plan.networking.mission.PlanMission.planMissionContentMap.remove(name);
                 ModNetworking.sendToClient(new PlanMissionInfoS2CPacket(Items.AIR.getDefaultInstance(), 0,
                         fun.wraq.process.func.plan.networking.mission.PlanMission.planMissionStartTimeMap.getOrDefault(name, ""),

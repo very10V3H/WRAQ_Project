@@ -61,8 +61,8 @@ public class ReputationMissionFinishedRequestC2SPacket {
                 }
                 long timeDelta = currentTime.getTimeInMillis() - missionStartTime.getTimeInMillis();
                 long minuteDelta = timeDelta / (1000 * 60);
-                if (minuteDelta >= 75) minuteDelta = 75;
-                int tier = 5 - (int) (minuteDelta / 15);
+                if (minuteDelta >= 25) minuteDelta = 25;
+                int tier = 5 - (int) (minuteDelta / 5);
                 Compute.givePercentExpToPlayer(serverPlayer, 0.02 * tier, 0, serverPlayer.experienceLevel);
                 Compute.playerReputationAddOrCost(serverPlayer, (int) Math.ceil(tier * ((double) serverPlayer.experienceLevel / 20)
                         * RankData.reputationMissionRewardRate(serverPlayer)));

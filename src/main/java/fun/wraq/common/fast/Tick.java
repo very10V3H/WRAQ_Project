@@ -16,4 +16,12 @@ public class Tick {
     public static int min(int min) {
         return 1200 * min;
     }
+
+    public static int toSeconds(int tick) {
+        return tick / 20;
+    }
+
+    public static int toMinutes(int tick) {
+        return tick / 1200;
+    }
 }

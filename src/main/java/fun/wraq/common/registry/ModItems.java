@@ -3991,4 +3991,10 @@ public class ModItems {
 
     public static final RegistryObject<Item> simpleTier3Paper = ITEMS.register("simple_tier_3_paper",
             () -> new SimpleTierPaper(new Item.Properties().rarity(Rarity.EPIC), 3));
+
+    public static final RegistryObject<Item> BOND = ITEMS.register("bond",
+            () -> new WraqItem(new Item.Properties().rarity(Rarity.RARE), false, true));
+
+    public static final RegistryObject<Item> SPECIAL_BOND = ITEMS.register("special_bond",
+            () -> new WraqItem(new Item.Properties().rarity(Rarity.EPIC), false, true));
 }

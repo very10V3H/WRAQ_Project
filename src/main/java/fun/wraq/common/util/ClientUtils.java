@@ -521,6 +521,8 @@ public class ClientUtils {
     public static String serverTime;
     public static String lastDailyMissionFinishedTime;
 
+    public static int serverTick;
+
     public static ItemStack DailyMissionItem;
     public static int DailyMissionItemCount;
 
