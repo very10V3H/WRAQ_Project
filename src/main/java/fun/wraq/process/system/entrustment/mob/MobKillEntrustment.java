@@ -340,8 +340,8 @@ public class MobKillEntrustment {
             return;
         }
         if (playerNextAllowAcceptTickMap.getOrDefault(name, 0) > Tick.get()) {
-            sendMSG(player, Te.s("还需要等待", MobKillEntrustmentHud
-                    .getDeltaTimeFormatString(playerNextAllowAcceptTickMap.getOrDefault(name, 0),
+            sendMSG(player, Te.s("还需要等待",
+                    getDeltaTimeFormatString(playerNextAllowAcceptTickMap.getOrDefault(name, 0),
                             Tick.get()), "才能接取委托任务"));
             return;
         }
@@ -420,11 +420,11 @@ public class MobKillEntrustment {
                     player.sendSystemMessage(Component.literal(""));
                     if (timeAndTier != null) {
                         sendMSG(player, Te.s("在",
-                                MobKillEntrustmentHud.getDeltaTimeFormatString(Tick.get(), entrustment.startServerTick),
+                                getDeltaTimeFormatString(Tick.get(), entrustment.startServerTick),
                                 "内完成了", "委托任务", CustomStyle.styleOfWorld, "，获得了", timeAndTier.component, "评级"));
                     } else {
                         sendMSG(player, Te.s("在",
-                                MobKillEntrustmentHud.getDeltaTimeFormatString(Tick.get(), entrustment.startServerTick),
+                                getDeltaTimeFormatString(Tick.get(), entrustment.startServerTick),
                                 "内完成了", "委托任务", CustomStyle.styleOfWorld, "，获得了", "B+", ChatFormatting.LIGHT_PURPLE, "评级"));
 
                     }
@@ -441,7 +441,7 @@ public class MobKillEntrustment {
                     }
                     if (timeAndTier != null) {
                         sendMSG(player, Te.s("在",
-                                MobKillEntrustmentHud.getDeltaTimeFormatString(Tick.get(), entrustment.startServerTick),
+                                getDeltaTimeFormatString(Tick.get(), entrustment.startServerTick),
                                 "内完成了", "委托任务", CustomStyle.styleOfWorld, "，获得了", timeAndTier.component, "评级"));
                         if (timeAndTier.minutes <= 6) {
                             setExpiredLeftMin(player, 10);
@@ -450,7 +450,7 @@ public class MobKillEntrustment {
                         }
                     } else {
                         sendMSG(player, Te.s("在",
-                                MobKillEntrustmentHud.getDeltaTimeFormatString(Tick.get(), entrustment.startServerTick),
+                                getDeltaTimeFormatString(Tick.get(), entrustment.startServerTick),
                                 "内完成了", "委托任务", CustomStyle.styleOfWorld));
                     }
                 }
@@ -539,8 +539,8 @@ public class MobKillEntrustment {
             return;
         }
         if (playerNextAllowAcceptTickMap.getOrDefault(name, 0) > Tick.get()) {
-            sendMSG(player, Te.s("还需要等待", MobKillEntrustmentHud
-                    .getDeltaTimeFormatString(playerNextAllowAcceptTickMap.getOrDefault(name, 0),
+            sendMSG(player, Te.s("还需要等待",
+                    getDeltaTimeFormatString(playerNextAllowAcceptTickMap.getOrDefault(name, 0),
                             Tick.get()), "才能接取委托任务"));
             MySound.soundToPlayer(player, SoundEvents.VILLAGER_NO);
             for (int i = 0 ; i < 4 ; i ++) {
@@ -568,5 +568,9 @@ public class MobKillEntrustment {
             player.sendSystemMessage(Component.literal(""));
         }
         MySound.soundToNearPlayer(player, SoundEvents.VILLAGER_AMBIENT);
+    }
+
+    public static String getDeltaTimeFormatString(int tick1, int tick2) {
+        return (tick1 - tick2) / 1200 + "min" + Tick.toSeconds((tick1 - tick2) % 1200) + "s";
     }
 }

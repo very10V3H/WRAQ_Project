@@ -56,7 +56,7 @@ public class MobKillEntrustmentHud {
                 components.add(Te.s("今日已完成次数: ", dailyFinishedTimes, CustomStyle.styleOfWorld));
                 components.add(Te.s("本周已完成次数: ", weeklyFinishedTimes, CustomStyle.styleOfMoon1));
                 components.add(Te.s("总完成次数: ", totalFinishedTimes, ChatFormatting.YELLOW));
-                components.add(Te.s("平均用时: ", getDeltaTimeFormatString(averageTick, 0), CustomStyle.styleOfSky));
+                components.add(Te.s("平均用时: ", MobKillEntrustment.getDeltaTimeFormatString(averageTick, 0), CustomStyle.styleOfSky));
             } else {
                 components.add(Te.s("委托任务", CustomStyle.styleOfWorld));
                 components.add(Te.s("击杀 ", mobName));
@@ -89,7 +89,7 @@ public class MobKillEntrustmentHud {
                     }
                 }
                 components.add(Te.s("已进行 ",
-                        getDeltaTimeFormatString(ClientUtils.serverTick, startServerTick), ChatFormatting.AQUA));
+                        MobKillEntrustment.getDeltaTimeFormatString(ClientUtils.serverTick, startServerTick), ChatFormatting.AQUA));
                 components.add(Te.s("当前", "委托声望: ", CustomStyle.styleOfWorld, reputation,
                         String.format(" (+%.0f%%)", MobKillEntrustment.getExRateOfReputation(reputation) * 100), getTierStyle(reputation)));
                 components.add(Component.literal("").withStyle(ChatFormatting.WHITE));
@@ -101,10 +101,6 @@ public class MobKillEntrustmentHud {
             guiGraphics.renderComponentTooltip(fontRenderer, components, x * 2, (int) (y / 1.2));
         }
     });
-
-    public static String getDeltaTimeFormatString(int tick1, int tick2) {
-        return (tick1 - tick2) / 1200 + "min" + Tick.toSeconds((tick1 - tick2) % 1200) + "s";
-    }
 
     public static ChatFormatting getTierStyle(int reputation) {
         if (reputation <= 5) {
