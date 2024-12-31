@@ -2,13 +2,11 @@ package fun.wraq.Items.MainStory_1;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
-import fun.wraq.common.util.Utils;
+import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.process.system.respawn.MyRespawnRule;
 import fun.wraq.render.toolTip.CustomStyle;
-import net.minecraft.ChatFormatting;
-import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket;
 import net.minecraft.server.level.ServerPlayer;
@@ -37,7 +35,9 @@ public class BackSpawn extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
         if (interactionHand.equals(InteractionHand.MAIN_HAND) && !level.isClientSide) {
-            CompoundTag data = player.getMainHandItem().getOrCreateTagElement(Utils.MOD_ID);
+            Compute.respawnPlayer(player);
+            player.getCooldowns().addCooldown(this, Tick.s(10));
+/*            CompoundTag data = player.getMainHandItem().getOrCreateTagElement(Utils.MOD_ID);
             if (!player.isShiftKeyDown()) {
                 String name = player.getName().getString();
                 if (isCallingMap.containsKey(name)) {
@@ -69,23 +69,24 @@ public class BackSpawn extends Item {
                         setName(player.getMainHandItem());
                     }
                 }
-            }
+            }*/
         }
         return super.use(level, player, interactionHand);
     }
 
     public static void setName(ItemStack itemStack) {
         if (itemStack.is(ModItems.BackSpawn.get())) {
-            CompoundTag data = itemStack.getOrCreateTagElement(Utils.MOD_ID);
+/*            CompoundTag data = itemStack.getOrCreateTagElement(Utils.MOD_ID);
             int index = data.getInt(BackSpawn.spawnPointIndex);
             itemStack.setHoverName(Component.literal("回城卷轴 - ").withStyle(ChatFormatting.BLUE).
-                    append(MyRespawnRule.overworldSpawnPos.get(index).zoneName()));
+                    append(MyRespawnRule.overworldSpawnPos.get(index).zoneName()));*/
+            itemStack.resetHoverName();
         }
     }
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag p_41424_) {
-        if (level != null) {
+/*        if (level != null) {
             CompoundTag data = stack.getOrCreateTagElement(Utils.MOD_ID);
             int index = data.getInt(spawnPointIndex);
             if (level.dimension().equals(ClientLevel.OVERWORLD)) {
@@ -102,7 +103,9 @@ public class BackSpawn extends Item {
                         append(Component.literal("返回").withStyle(ChatFormatting.WHITE)).
                         append(Component.literal("主世界").withStyle(ChatFormatting.GREEN)));
             }
-        }
+        }*/
+        components.add(Te.s("右键回到", "最近重生点", CustomStyle.styleOfSunIsland));
+        ComponentUtils.coolDownTimeDescription(components, 10);
         super.appendHoverText(stack, level, components, p_41424_);
     }
 

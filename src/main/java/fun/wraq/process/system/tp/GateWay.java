@@ -54,7 +54,10 @@ public class GateWay {
                         new Des(new Vec3(1760, 80, 58), 180, 0, Component.literal("原始森林").withStyle(CustomStyle.styleOfForest))),
                 new GateWay(
                         new Des(new Vec3(970, 207.5, -1), 0, 0, Component.literal("天空城").withStyle(CustomStyle.styleOfSky)),
-                        new Des(new Vec3(1914, 152, -936), -90, 0, Component.literal("望山据点").withStyle(CustomStyle.styleOfForest)))
+                        new Des(new Vec3(1914, 152, -936), -90, 0, Component.literal("望山据点").withStyle(CustomStyle.styleOfForest))),
+                new GateWay(
+                        new Des(new Vec3(973, 207.5, 23), 0, 0, Component.literal("天空城").withStyle(CustomStyle.styleOfSky)),
+                        new Des(new Vec3(2354, 168, 1752), -90, 0, Component.literal("绯樱村").withStyle(CustomStyle.styleOfSakura)))
         );
     }
 

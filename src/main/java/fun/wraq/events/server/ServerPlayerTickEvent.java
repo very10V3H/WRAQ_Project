@@ -1,7 +1,6 @@
 package fun.wraq.events.server;
 
 import fun.wraq.Items.Forging.WraqForge;
-import fun.wraq.Items.MainStory_1.BackSpawn;
 import fun.wraq.commands.stable.ops.RoadCommand;
 import fun.wraq.commands.stable.players.DpsCommand;
 import fun.wraq.common.Compute;
@@ -137,7 +136,7 @@ public class ServerPlayerTickEvent {
             /*LabourDayMission.sendPacketsToPlayer(player);*/
             DailyMission.statusPacketSend(player);
             RoadCommand.tick(player);
-            BackSpawn.tick(player);
+            /*BackSpawn.tick(player);*/
             MyRespawnRule.setPlayerSpawnPoint(player);
             WraqForge.tick(event);
             PlanPlayer.setFoodData(serverPlayer);

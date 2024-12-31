@@ -103,6 +103,16 @@ public class TextCommand implements Command<CommandSourceStack> {
                                 append(ModItems.WORLD_SOUL_2.get().getDefaultInstance().getDisplayName()).
                                 append(Component.literal(" * 1").withStyle(ChatFormatting.AQUA))
                 ));
+                put("toSakura", List.of(
+                        Component.literal("前往:").withStyle(CustomStyle.styleOfEnd),
+                        Component.literal("绯樱村").withStyle(CustomStyle.styleOfSakura),
+                        Component.literal("消耗 ").withStyle(ChatFormatting.RED).
+                                append(ModItems.TP_TICKET.get().getDefaultInstance().getDisplayName()).
+                                append(Component.literal(" * 1").withStyle(ChatFormatting.AQUA)).
+                                append(Te.s(" 或 ", ChatFormatting.AQUA)).
+                                append(ModItems.WORLD_SOUL_2.get().getDefaultInstance().getDisplayName()).
+                                append(Component.literal(" * 1").withStyle(ChatFormatting.AQUA))
+                ));
             }};
             if (nameToTextMap.containsKey(name)) {
                 components = nameToTextMap.get(name);
