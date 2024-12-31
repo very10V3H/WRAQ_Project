@@ -23,8 +23,8 @@ public class BonusChestContent {
             new ItemAndMaxNum(ModItems.RevelationBook.get(), 3),
             new ItemAndMaxNum(ModItems.GOLD_COIN.get(), 1),
             new ItemAndMaxNum(Items.IRON_INGOT, 2),
-            new ItemAndMaxNum(ModItems.worldSoul5.get(), 1),
-            new ItemAndMaxNum(ModItems.gemPiece.get(), 4),
+            new ItemAndMaxNum(ModItems.WORLD_SOUL_5.get(), 1),
+            new ItemAndMaxNum(ModItems.GEM_PIECE.get(), 4),
             new ItemAndMaxNum(ModItems.LifeElementPiece0.get(), 4),
             new ItemAndMaxNum(ModItems.ATTACK_UP_POTION_BAG.get(), 2),
             new ItemAndMaxNum(ModItems.ForgingStone0.get(), 2)
@@ -35,8 +35,8 @@ public class BonusChestContent {
             new ItemAndMaxNum(SpurItems.minePiece.get(), 2),
             new ItemAndMaxNum(ModItems.ForgingStone1.get(), 2),
             new ItemAndMaxNum(ModItems.equipPiece0.get(), 2),
-            new ItemAndMaxNum(ModItems.worldSoul5.get(), 2),
-            new ItemAndMaxNum(ModItems.WorldSoul2.get(), 2),
+            new ItemAndMaxNum(ModItems.WORLD_SOUL_5.get(), 2),
+            new ItemAndMaxNum(ModItems.WORLD_SOUL_2.get(), 2),
             new ItemAndMaxNum(ModItems.REFINED_PIECE.get(), 1)
     );
 
@@ -48,13 +48,13 @@ public class BonusChestContent {
             new ItemAndMaxNum(ModItems.ForgeEnhance3.get(), 1),
             new ItemAndMaxNum(ModItems.ForgingStone2.get(), 1),
             new ItemAndMaxNum(ModItems.Pearl1.get(), 1),
-            new ItemAndMaxNum(ModItems.worldSoul5.get(), 3),
+            new ItemAndMaxNum(ModItems.WORLD_SOUL_5.get(), 3),
             new ItemAndMaxNum(ModItems.REFINED_PIECE.get(), 2)
     );
 
     private final static List<ItemAndMaxNum> tier3Loot = List.of(
             new ItemAndMaxNum(ModItems.WORLD_FORGE_STONE.get(), 1),
-            new ItemAndMaxNum(ModItems.worldSoul5.get(), 4),
+            new ItemAndMaxNum(ModItems.WORLD_SOUL_5.get(), 4),
             new ItemAndMaxNum(ModItems.REFINED_PIECE.get(), 4),
             new ItemAndMaxNum(ModItems.ForgeEnhance3.get(), 1),
             new ItemAndMaxNum(ModItems.ForgingStone2.get(), 1),

@@ -61,10 +61,10 @@ public class EndCuriosBow extends WraqCurios implements ForgeItem {
         return List.of(
                 new ItemStack(ModItems.EndCrystal.get(), 12),
                 new ItemStack(ModItems.GOLD_COIN.get(), 320),
-                new ItemStack(ModItems.completeGem.get(), 8),
+                new ItemStack(ModItems.COMPLETE_GEM.get(), 8),
                 new ItemStack(ModItems.ReputationMedal.get(), 32),
                 new ItemStack(PickaxeItems.TINKER_GOLD.get(), 6),
-                new ItemStack(ModItems.WorldSoul3.get(), 3)
+                new ItemStack(ModItems.WORLD_SOUL_3.get(), 3)
         );
     }
 }

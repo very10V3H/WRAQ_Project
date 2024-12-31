@@ -148,7 +148,7 @@ public class TradeScreen extends Screen {
                 new ItemStack(ModItems.silverCoin.get()), new ItemStack(ModItems.copperCoin.get(), 12),
                 new ItemStack(ModItems.copperCoin.get(), 144), new ItemStack(ModItems.GOLD_COIN.get()),
                 new ItemStack(ModItems.copperCoin.get(), 12), new ItemStack(ModItems.silverCoin.get()),
-                new ItemStack(ModItems.gemPiece.get(), 64), new ItemStack(ModItems.completeGem.get()));
+                new ItemStack(ModItems.GEM_PIECE.get(), 64), new ItemStack(ModItems.COMPLETE_GEM.get()));
 
         for (int i = 0; i < coinList.size(); i++) {
             ItemStack coin = coinList.get(i);

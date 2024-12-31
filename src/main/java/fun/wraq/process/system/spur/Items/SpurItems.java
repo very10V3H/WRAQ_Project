@@ -1,16 +1,16 @@
 package fun.wraq.process.system.spur.Items;
 
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.Utils;
-import fun.wraq.process.system.spur.Items.CropCharm;
-import fun.wraq.process.system.spur.Items.LogCharm;
-import fun.wraq.process.system.spur.Items.MineCharm;
-import fun.wraq.process.system.spur.Items.SeaCharm;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.WraqItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SimpleFoiledItem;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+
+import java.util.List;
 
 public class SpurItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Utils.MOD_ID);
@@ -100,25 +100,33 @@ public class SpurItems {
             () -> new LogCharm(new Item.Properties().rarity(CustomStyle.HuskBold), 6));
 
     public static final RegistryObject<Item> minePiece = ITEMS.register("mine_piece",
-            () -> new Item(new Item.Properties().rarity(CustomStyle.Mine)));
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.Mine), false, false, List.of(
+                    Te.s("通过", "挖掘矿石", CustomStyle.styleOfStone, "概率获取")
+            )));
 
     public static final RegistryObject<Item> minePiece1 = ITEMS.register("mine_piece1",
             () -> new SimpleFoiledItem(new Item.Properties().rarity(CustomStyle.MineBold)));
 
     public static final RegistryObject<Item> seaPiece = ITEMS.register("sea_piece",
-            () -> new Item(new Item.Properties().rarity(CustomStyle.Sea)));
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.Sea), false, false, List.of(
+                    Te.s("通过", "钓鱼", CustomStyle.styleOfSea, "概率获取")
+            )));
 
     public static final RegistryObject<Item> seaPiece1 = ITEMS.register("sea_piece1",
             () -> new SimpleFoiledItem(new Item.Properties().rarity(CustomStyle.SeaBold)));
 
     public static final RegistryObject<Item> cropPiece = ITEMS.register("crop_piece",
-            () -> new Item(new Item.Properties().rarity(CustomStyle.Gold)));
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.Gold), false, false, List.of(
+                    Te.s("通过", "采集农作物", CustomStyle.styleOfField, "概率获取")
+            )));
 
     public static final RegistryObject<Item> cropPiece1 = ITEMS.register("crop_piece1",
             () -> new SimpleFoiledItem(new Item.Properties().rarity(CustomStyle.GoldBold)));
 
     public static final RegistryObject<Item> logPiece = ITEMS.register("log_piece",
-            () -> new Item(new Item.Properties().rarity(CustomStyle.Husk)));
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.Husk), false, false, List.of(
+                    Te.s("通过", "砍伐树木", CustomStyle.styleOfHusk, "概率获取")
+            )));
 
     public static final RegistryObject<Item> logPiece1 = ITEMS.register("log_piece1",
             () -> new SimpleFoiledItem(new Item.Properties().rarity(CustomStyle.HuskBold)));

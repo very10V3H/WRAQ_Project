@@ -211,7 +211,8 @@ public class Illustrate extends Screen {
                     Item item = itemStack.getItem();
                     itemStack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
                     if (!Screen.hasControlDown()
-                            && (Utils.mainHandTag.containsKey(item) || Utils.armorTag.containsKey(item))) {
+                            && (Utils.mainHandTag.containsKey(item) || Utils.armorTag.containsKey(item)
+                            || Utils.offHandTag.containsKey(item))) {
                         itemStack.getOrCreateTagElement(Utils.MOD_ID).putBoolean(DISPLAY_FLAG, true);
                         ForgeEquipUtils.setForgeQualityOnEquip(itemStack, ClientUtils.clientPlayerTick / 20 % 13);
                         Compute.forgingHoverName(itemStack);

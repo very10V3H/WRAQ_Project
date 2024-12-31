@@ -9,7 +9,9 @@ import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.TeamPackets.ScreenSetS2CPacket;
 import fun.wraq.networking.unSorted.VillagerTradeScreenS2CPacket;
 import fun.wraq.process.func.multiblockactive.rightclick.RightClickActiveHandler;
-import fun.wraq.process.system.entrustment.MobEntrustmentInfo.MobKillEntrustment;
+import fun.wraq.process.system.entrustment.mob.MobKillEntrustment;
+import fun.wraq.process.system.pet.allay.AllayPet;
+import fun.wraq.process.system.pet.allay.AllayPetPlayerData;
 import fun.wraq.render.gui.villagerTrade.MyVillagerData;
 import fun.wraq.render.gui.villagerTrade.TradeList;
 import net.minecraft.nbt.CompoundTag;
@@ -31,6 +33,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.Set;
 
 @Mod.EventBusSubscriber
@@ -71,7 +74,25 @@ public class RightClickEvent {
     }
 
     @SubscribeEvent
-    public static void Trade(PlayerInteractEvent.EntityInteract event) throws SQLException {
+    public static void rightClickAllay(PlayerInteractEvent.EntityInteract event) {
+        if (event.getSide().isServer() && event.getTarget() instanceof Allay allay
+                && event.getHand().equals(InteractionHand.MAIN_HAND)) {
+            AllayPet.allayPets
+                    .stream().filter(allayPet -> allayPet.allay.equals(allay))
+                    .findAny().ifPresent(allayPet -> {
+                        ServerPlayer serverPlayer = Compute.getPlayerByName(allayPet.ownerName);
+                        if (serverPlayer != null) {
+                            AllayPetPlayerData.queryAllayInfo(serverPlayer);
+                        }
+                    });
+        }
+        if (event.getTarget() instanceof Allay) {
+            event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
+    public static void Trade(PlayerInteractEvent.EntityInteract event) throws SQLException, ParseException {
         if (event.getSide().isServer() && event.getTarget() instanceof Villager villager) {
             if (villager.getName().getString().equals(MobKillEntrustment.VILLAGER_NAME)) {
                 MobKillEntrustment.onPlayerInteractWithVillager(event.getEntity());
@@ -103,8 +124,7 @@ public class RightClickEvent {
 
         if (event.getSide().isServer() && (event.getTarget() instanceof MinecartChest
                 || event.getTarget() instanceof ChestBoat)
-                || event.getTarget() instanceof MinecartHopper
-                || event.getTarget() instanceof Allay) event.setCanceled(true);
+                || event.getTarget() instanceof MinecartHopper) event.setCanceled(true);
     }
 
     public static Set<Item> disallowToRightClickItems = Set.of(

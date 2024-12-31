@@ -104,7 +104,7 @@ public class EnderManSpawnController extends MobSpawnController {
         return new ArrayList<>() {{
             add(new ItemAndRate(ModItems.RecallPiece.get(), 0.8));
             add(new ItemAndRate(ModItems.silverCoin.get(), 0.625));
-            add(new ItemAndRate(ModItems.gemPiece.get(), 0.05));
+            add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.05));
             add(new ItemAndRate(ModItems.toEnd.get(), 0.01));
             add(new ItemAndRate(NewRuneItems.endNewRune.get(), 0.001));
             add(new ItemAndRate(C4LootItems.enderManSword.get(), 0.005));

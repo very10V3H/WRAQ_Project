@@ -457,6 +457,12 @@ public class Compute {
                     append(content));
     }
 
+    public static void sendBlankLine(Player player, int lines) {
+        for (int i = 0 ; i < lines ; i ++) {
+            player.sendSystemMessage(Component.literal(""));
+        }
+    }
+
     public static void msgSendToPlayer(Player player, Component content, int blank) {
         String blankString = " ".repeat(blank);
         player.sendSystemMessage(Component.literal(blankString).
@@ -1313,7 +1319,7 @@ public class Compute {
         Vec3 StartPos = player.pick(0.5, 0, false).getLocation();
         Vec3 PosVec = TargetPos.subtract(StartPos).normalize();
         double Distance = TargetPos.distanceTo(StartPos);
-        ParticleProvider.LineParticle(level, (int) Distance * 5, StartPos, TargetPos, particleOptions);
+        ParticleProvider.createLineParticle(level, (int) Distance * 5, StartPos, TargetPos, particleOptions);
         List<Mob> mobList = new ArrayList<>();
         for (double i = 0; i < Distance; i += 0.5) {
             List<Mob> mobList1 = level.getEntitiesOfClass(Mob.class, AABB.ofSize(StartPos.add(PosVec.scale(i)), 0.5, 0.5, 0.5));
@@ -1351,7 +1357,7 @@ public class Compute {
         Vec3 startPos = player.pick(0.5, 0, false).getLocation();
         Vec3 PosVec = targetPos.subtract(startPos).normalize();
         double Distance = targetPos.distanceTo(startPos);
-        ParticleProvider.LineParticle(level, (int) Distance * 5, startPos, targetPos, particleOptions);
+        ParticleProvider.createLineParticle(level, (int) Distance * 5, startPos, targetPos, particleOptions);
         List<Mob> mobList = new ArrayList<>();
         for (double i = 0; i < Distance; i += 0.5) {
             List<Mob> mobList1 = level.getEntitiesOfClass(Mob.class, AABB.ofSize(startPos.add(PosVec.scale(i)),
@@ -1589,7 +1595,15 @@ public class Compute {
         }
     }
 
+    public static Vec3 getLivingEntityBackOffsetPos(LivingEntity livingEntity) {
+        Vec3 vec3 = livingEntity.pick(-1, 0, false).getLocation();
+        return vec3.add(livingEntity.getHandHoldingItemAngle(ModItems.PlainSword0.get()).scale(Math.sqrt(4)));
+    }
 
+    public static Vec3 getLivingEntityFrontOffsetPos(LivingEntity livingEntity) {
+        Vec3 vec3 = livingEntity.pick(1, 0, false).getLocation();
+        return vec3.add(livingEntity.getHandHoldingItemAngle(ModItems.PlainSword0.get()).scale(Math.sqrt(4)));
+    }
 
     public static Vec3 GetPlayerBackPos(Player player, int type) {
         Vec3 vec3 = player.pick(-1, 0, false).getLocation();
@@ -1740,7 +1754,7 @@ public class Compute {
         myArrow.setNoGravity(true);
         ProjectileUtil.rotateTowardsMovement(myArrow, 1);
         player.level().addFreshEntity(myArrow);
-        ParticleProvider.LineParticle(player.level(), (int) NearestMob.distanceTo(player),
+        ParticleProvider.createLineParticle(player.level(), (int) NearestMob.distanceTo(player),
                 player.pick(0.5, 0, false).getLocation(), NearestMob.position().add(0, 1, 0), particleOptions);
     }
 
@@ -1755,7 +1769,7 @@ public class Compute {
         Vec3 StartPos = player.pick(0.5, 0, false).getLocation();
         Vec3 PosVec = TargetPos.subtract(StartPos).normalize();
         double Distance = TargetPos.distanceTo(StartPos);
-        ParticleProvider.LineParticle(level, (int) Distance * 5, StartPos, TargetPos, particleOptions);
+        ParticleProvider.createLineParticle(level, (int) Distance * 5, StartPos, TargetPos, particleOptions);
         List<Mob> mobList = new ArrayList<>();
         for (double i = 0; i < Distance; i += 0.5) {
             List<Mob> mobList1 = level.getEntitiesOfClass(Mob.class, AABB.ofSize(StartPos.add(PosVec.scale(i)), 0.5, 0.5, 0.5));
@@ -1850,8 +1864,8 @@ public class Compute {
     }
 
     @Nullable
-    public static ServerPlayer getPlayerByName(Level level, String name) {
-        return level.getServer().getPlayerList().getPlayerByName(name);
+    public static ServerPlayer getPlayerByName(String name) {
+        return Tick.server.getPlayerList().getPlayerByName(name);
     }
 
     public static void setPlayerTitleAndSubTitle(ServerPlayer serverPlayer, Component title, Component subTitle,
@@ -2012,5 +2026,26 @@ public class Compute {
 
     public static String getPercent(double value) {
         return String.format("%.0f%%", value * 100);
+    }
+
+    public static CompoundTag getPlayerSpecificKeyCompoundTagData(Player player, String dataKey) {
+        CompoundTag tag = player.getPersistentData();
+        if (!tag.contains(dataKey)) {
+            tag.put(dataKey, new CompoundTag());
+        }
+        return tag.getCompound(dataKey);
+    }
+
+    public static int getSpecificKeyDataIntValue(Player player, String dataKey, String valueKey) {
+        return getPlayerSpecificKeyCompoundTagData(player, dataKey).getInt(valueKey);
+    }
+
+    public static void setSpecificKeyDataIntValue(Player player, String dataKey, String valueKey, int value) {
+        getPlayerSpecificKeyCompoundTagData(player, dataKey).putInt(valueKey, value);
+    }
+
+    public static void incrementSpecificKeyDataIntValue(Player player, String dataKey, String valueKey, int increment) {
+        CompoundTag data = getPlayerSpecificKeyCompoundTagData(player, dataKey);
+        data.putInt(valueKey, data.getInt(valueKey) + increment);
     }
 }

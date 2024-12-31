@@ -101,7 +101,7 @@ public class NetherSkeletonSpawnController extends MobSpawnController {
             add(new ItemAndRate(ModItems.NetherQuartz.get(), 0.33));
             add(new ItemAndRate(ModItems.netherSkeletonSoul.get(), 0.8));
             add(new ItemAndRate(ModItems.silverCoin.get(), 0.5));
-            add(new ItemAndRate(ModItems.gemPiece.get(), 0.04));
+            add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.04));
             add(new ItemAndRate(ModItems.FireElementPiece0.get(), 0.4));
             add(new ItemAndRate(ModItems.toNether.get(), 0.01));
             add(new ItemAndRate(C3LootItems.netherSkeletonLootBow.get(), 0.005));

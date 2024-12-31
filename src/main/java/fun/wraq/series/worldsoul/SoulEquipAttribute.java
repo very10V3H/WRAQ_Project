@@ -77,7 +77,7 @@ public class SoulEquipAttribute {
             CompoundTag data = itemStack.getOrCreateTagElement(Utils.MOD_ID);
             int CurrentLevel = 0;
             Inventory inventory = player.getInventory();
-            Item item = ModItems.WorldSoul3.get();
+            Item item = ModItems.WORLD_SOUL_3.get();
             if (data.contains(StringUtils.SoulEquipForge)) {
                 CurrentLevel = data.getInt(StringUtils.SoulEquipForge);
             }

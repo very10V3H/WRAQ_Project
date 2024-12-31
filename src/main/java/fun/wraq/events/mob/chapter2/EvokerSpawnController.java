@@ -105,7 +105,7 @@ public class EvokerSpawnController extends MobSpawnController {
         return new ArrayList<>() {{
             add(new ItemAndRate(ModItems.EvokerSoul.get(), 1));
             add(new ItemAndRate(ModItems.silverCoin.get(), 0.375));
-            add(new ItemAndRate(ModItems.gemPiece.get(), 0.02));
+            add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.02));
             add(new ItemAndRate(ModItems.ManaCrest0.get(), 0.02));
             add(new ItemAndRate(ModItems.ManaCrest1.get(), 0.005));
             add(new ItemAndRate(ModItems.ManaCrest2.get(), 0.001));

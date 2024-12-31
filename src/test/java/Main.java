@@ -1,12 +1,15 @@
-import fun.wraq.process.func.security.Security;
-
-import java.net.InetAddress;
-
 public class Main {
 
     public static void main(String[] args) throws Exception {
 
-        System.out.println(Security.getMACAddress(InetAddress.getLocalHost()));
+        double sum = 0;
+        for (int i = 0 ; i < 20 ; i ++) {
+            double rate = (20 - i) / 20d;
+            sum += 1 / rate;
+        }
+        System.out.println(sum);
+
+        /*System.out.println(Security.getMACAddress(InetAddress.getLocalHost()));*/
 
 /*        CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpGet httpGet = new HttpGet("https://littleskin.cn/api/yggdrasil/sessionserver/session/minecraft/profile" +

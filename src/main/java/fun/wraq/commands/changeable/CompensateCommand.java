@@ -4,9 +4,9 @@ import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import fun.wraq.common.Compute;
+import fun.wraq.common.registry.ModItems;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.specialevents.SpecialEventItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.nbt.CompoundTag;
@@ -17,7 +17,7 @@ import net.minecraft.world.item.ItemStack;
 public class CompensateCommand implements Command<CommandSourceStack> {
     public static CompensateCommand instance = new CompensateCommand();
 
-    public static int rewardNum = 21;
+    public static int rewardNum = 22;
     public static String singleReward = "singleReward" + rewardNum;
 
     @Override
@@ -27,7 +27,7 @@ public class CompensateCommand implements Command<CommandSourceStack> {
         if (!data.contains(singleReward)) {
             data.putBoolean(singleReward, true);
             if (player.experienceLevel > 40) {
-                ItemStack itemStack = new ItemStack(SpecialEventItems.TRAIN_SOUVENIRS.get(), 1);
+                ItemStack itemStack = new ItemStack(ModItems.supplyBoxTier3.get(), 4);
                 InventoryOperation.itemStackGiveWithMSG(player, itemStack);
             }
             Compute.sendFormatMSG(player, Component.literal("补偿").withStyle(CustomStyle.styleOfSakura),

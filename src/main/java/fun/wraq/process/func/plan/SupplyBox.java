@@ -46,7 +46,7 @@ public class SupplyBox extends Item {
         if (!level.isClientSide() && interactionHand.equals(InteractionHand.MAIN_HAND)) {
             supplyItems.forEach(supply -> {
                 ItemStack itemStack = new ItemStack(supply.getItem(), supply.getCount());
-                if (itemStack.is(ModItems.worldSoul5.get())) {
+                if (itemStack.is(ModItems.WORLD_SOUL_5.get())) {
                     try {
                         Tower.givePlayerStar(player, itemStack.getCount(), "月卡/计划补给箱");
                     } catch (SQLException e) {

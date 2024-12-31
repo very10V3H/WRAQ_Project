@@ -230,7 +230,8 @@ public class IdCardGui extends Screen {
         int textureWidth = 300;
         int textureHeight = 200;
 
-        guiGraphics.blit(GUI_TEXTURE, this.width / 2 - 150, this.height / 2 - 100, 0, 0, 300, 200, textureWidth, textureHeight);
+        guiGraphics.blit(GUI_TEXTURE, this.width / 2 - 150, this.height / 2 - 100,
+                0, 0, 300, 200, textureWidth, textureHeight);
         this.renderables.forEach(renderable -> {
             if (renderable instanceof Button button) {
                 if (button.getMessage().getString().contains("vp商店") || button.getMessage().getString().contains("声望商店")) {

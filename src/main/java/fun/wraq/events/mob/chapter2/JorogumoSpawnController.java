@@ -89,7 +89,7 @@ public class JorogumoSpawnController extends MobSpawnController {
         return new ArrayList<>() {{
             add(new ItemAndRate(ModItems.PurpleIronPiece.get(), 1));
             add(new ItemAndRate(ModItems.silverCoin.get(), 0.375));
-            add(new ItemAndRate(ModItems.gemPiece.get(), 0.02));
+            add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.02));
             add(new ItemAndRate(ModItems.StoneElementPiece0.get(), 0.2));
             add(new ItemAndRate(ModItems.lavenderBracelet.get(), 0.005));
             add(new ItemAndRate(C2LootItems.jorogumoLeggings.get(), 0.005));

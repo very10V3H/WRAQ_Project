@@ -123,12 +123,12 @@ public class PurpleIronInstance extends NoTeamInstance {
 
     public List<ItemAndRate> getRewardList() {
         return List.of(new ItemAndRate(ModItems.PurpleIronBud1.get(), 1),
-                new ItemAndRate(new ItemStack(ModItems.gemPiece.get(), 8), 0.1),
+                new ItemAndRate(new ItemStack(ModItems.GEM_PIECE.get(), 8), 0.1),
                 new ItemAndRate(ModItems.PurpleIronBud2.get(), 0.1),
                 new ItemAndRate(ModItems.PurpleIronSword.get(), 0.01),
                 new ItemAndRate(ModItems.PurpleIronBow.get(), 0.01),
                 new ItemAndRate(ModItems.PurpleIronSceptre.get(), 0.01),
-                new ItemAndRate(ModItems.WorldSoul2.get(), 0.25),
+                new ItemAndRate(ModItems.WORLD_SOUL_2.get(), 0.25),
                 new ItemAndRate(ModItems.GoldCoinBag.get(), 0.1));
     }
 }

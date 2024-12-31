@@ -23,9 +23,9 @@ public class U_Disk extends Item {
         components.add(Component.literal(" 将U盾放置在背包内，会将背包内的所有金币、银币、铜币直接存入银行账户。"));
         components.add(Component.literal(" 如果不想存入，将U盾放进你的下界合金背包就可以了，不是吗？"));
         components.add(Component.literal(" 维瑞阿契银行与本源研究所达成合作，如果你背包内有一组").withStyle(ChatFormatting.WHITE).
-                append(ModItems.WorldSoul1.get().getDefaultInstance().getDisplayName()).
+                append(ModItems.WORLD_SOUL_1.get().getDefaultInstance().getDisplayName()).
                 append(Component.literal("那么它们将会被自动转化为").withStyle(ChatFormatting.WHITE)).
-                append(ModItems.WorldSoul2.get().getDefaultInstance().getDisplayName()));
+                append(ModItems.WORLD_SOUL_2.get().getDefaultInstance().getDisplayName()));
         super.appendHoverText(p_41421_, p_41422_, components, p_41424_);
     }
 }

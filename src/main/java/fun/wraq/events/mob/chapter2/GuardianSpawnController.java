@@ -101,7 +101,7 @@ public class GuardianSpawnController extends MobSpawnController {
         return new ArrayList<>() {{
             add(new ItemAndRate(ModItems.SeaSoul.get(), 1.5));
             add(new ItemAndRate(ModItems.silverCoin.get(), 0.4375));
-            add(new ItemAndRate(ModItems.gemPiece.get(), 0.02));
+            add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.02));
             add(new ItemAndRate(ModItems.WaterElementPiece0.get(), 0.2));
             add(new ItemAndRate(C2LootItems.guardianSceptre.get(), 0.005));
         }};

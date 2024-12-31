@@ -183,7 +183,7 @@ public class WraqQuiver extends WraqPassiveEquip implements ActiveItem {
                 myArrow.setNoGravity(true);
                 ProjectileUtil.rotateTowardsMovement(myArrow, 1);
                 player.level().addFreshEntity(myArrow);
-                ParticleProvider.LineParticle(player.level(), (int) mob.distanceTo(player),
+                ParticleProvider.createLineParticle(player.level(), (int) mob.distanceTo(player),
                         player.pick(0.5, 0, false).getLocation(),
                         mob.position().add(0, 1, 0), ParticleTypes.CRIT);
             });

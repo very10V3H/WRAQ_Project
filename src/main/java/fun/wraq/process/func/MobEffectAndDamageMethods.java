@@ -63,10 +63,10 @@ public class MobEffectAndDamageMethods {
                     }
                     BaseEffectProvide(d.mob, player);
                 });
-                ParticleProvider.LineParticle(level, (int) (d.startPos.subtract(d.endPos).length() * 2), d.startPos.add(0, 1, 0), d.endPos.add(0, 1, 0), d.particleOptions1); // big size particle ? or else particle to display range of attack
+                ParticleProvider.createLineParticle(level, (int) (d.startPos.subtract(d.endPos).length() * 2), d.startPos.add(0, 1, 0), d.endPos.add(0, 1, 0), d.particleOptions1); // big size particle ? or else particle to display range of attack
                 AdditionEffectProvide(d.mob);
             } else {
-                ParticleProvider.LineParticle(level, (int) (d.startPos.subtract(d.endPos).length() * 2), d.startPos.add(0, 1, 0), d.endPos.add(0, 1, 0), d.particleOptions);
+                ParticleProvider.createLineParticle(level, (int) (d.startPos.subtract(d.endPos).length() * 2), d.startPos.add(0, 1, 0), d.endPos.add(0, 1, 0), d.particleOptions);
             }
         });
         delayParticleAttackList.removeIf(d -> d.releaseTick <= tickCount);

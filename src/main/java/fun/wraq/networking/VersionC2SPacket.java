@@ -27,7 +27,7 @@ public class VersionC2SPacket {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
             ServerPlayer serverPlayer = context.getSender();
-            if (!Version.equals("2.0.41c")) {
+            if (!Version.equals("2.0.42")) {
                 serverPlayer.connection.disconnect(Component.literal("请使用更新程序更新mod，或在群文件中获取最新版本mod用于替换。"));
             }
         });

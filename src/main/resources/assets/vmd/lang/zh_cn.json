@@ -1925,7 +1925,15 @@
 
   "item.vmd.bond": "联合研院信用债券",
   "item.vmd.special_bond": "联合研院特别发行债券",
+  "item.vmd.golden_beans": "金豆",
 
+  "item.vmd.allay_spawner": "一只悦灵",
+  "item.vmd.allay_crystal": "悦灵水晶",
+  "item.vmd.allay_attack_skill_book": "悦灵技艺书 - 欢悦气息",
+  "item.vmd.allay_healing_skill_book": "悦灵技艺书 - 陪伴馨声",
+  "item.vmd.allay_gem_piece_skill_book": "悦灵技艺书 - 紫晶亲和",
+
+  "item.vmd.souvenirs_2024": "维瑞阿契2024纪念票",
 
   "curios.identifier.rune": "符石",
   "curios.identifier.crest": "纹章",

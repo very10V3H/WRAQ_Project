@@ -137,6 +137,10 @@ public class InventoryOperation {
         }
     }
 
+    public static void itemStackGive(Player player, Item item) {
+        itemStackGive(player, new ItemStack(item));
+    }
+
     public static void itemStackGiveWithMSG(Player player, ItemStack itemStack) {
         if (!Compute.PlayerIgnore.ignoreItemGet(player)) {
             Compute.sendFormatMSG(player, Te.s("物品", ChatFormatting.GREEN),

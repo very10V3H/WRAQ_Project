@@ -96,7 +96,7 @@ public class StarSpawnController extends MobSpawnController {
             add(new ItemAndRate(ModItems.StarSoul.get(), 0.8));
             add(new ItemAndRate(ModItems.StarRune.get(), 0.1));
             add(new ItemAndRate(ModItems.silverCoin.get(), 0.87));
-            add(new ItemAndRate(ModItems.gemPiece.get(), 0.06));
+            add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.06));
             add(new ItemAndRate(C7LootItems.starSword.get(), 0.005));
         }};
     }

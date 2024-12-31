@@ -105,7 +105,7 @@ public class BloodManaSpawnController extends MobSpawnController {
         return new ArrayList<>() {{
             add(new ItemAndRate(ModItems.BloodManaSoul.get(), 0.8));
             add(new ItemAndRate(ModItems.silverCoin.get(), 0.615));
-            add(new ItemAndRate(ModItems.gemPiece.get(), 0.03));
+            add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.03));
             add(new ItemAndRate(ModItems.FireElementPiece0.get(), 0.3));
             add(new ItemAndRate(C5LootItems.bloodManaBoots.get(), 0.005));
         }};

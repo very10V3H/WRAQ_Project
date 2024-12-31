@@ -102,7 +102,7 @@ public class NetherInstance extends NoTeamInstance {
                 new ItemAndRate(ModItems.NETHER_IMPRINT.get(), 0.25),
                 new ItemAndRate(ModItems.Ruby.get(), 8),
                 new ItemAndRate(ModItems.netherHand.get(), 0.08),
-                new ItemAndRate(ModItems.WorldSoul2.get(), 0.25),
+                new ItemAndRate(ModItems.WORLD_SOUL_2.get(), 0.25),
                 new ItemAndRate(ModItems.GoldCoinBag.get(), 0.1));
     }
 

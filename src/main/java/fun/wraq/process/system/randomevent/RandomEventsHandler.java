@@ -247,7 +247,7 @@ public class RandomEventsHandler {
                 nextTimeEvent.broad(component);
             });
             if (nextTimeEvent.hasWorldSoul5Reward) {
-                Component component = ModItems.worldSoul5.get().getDefaultInstance().getDisplayName();
+                Component component = ModItems.WORLD_SOUL_5.get().getDefaultInstance().getDisplayName();
                 nextTimeEvent.broad(Te.s("这是一个带有", component, "奖励的", "随机事件!", CustomStyle.styleOfLife,
                         "参与即可获得", component));
             }
@@ -262,7 +262,7 @@ public class RandomEventsHandler {
         nextTimeEvent.begin();
         if (nextTimeEvent.readyAnnouncement.isEmpty()) {
             if (nextTimeEvent.hasWorldSoul5Reward) {
-                Component component = ModItems.worldSoul5.get().getDefaultInstance().getDisplayName();
+                Component component = ModItems.WORLD_SOUL_5.get().getDefaultInstance().getDisplayName();
                 nextTimeEvent.broad(Te.s("这是一个带有", component, "奖励的", "随机事件!", CustomStyle.styleOfLife,
                         "参与即可获得", component));
             }

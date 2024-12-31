@@ -45,7 +45,7 @@ public class PlanPlayer {
     public static List<ItemStack> tier1DailyRewardList = new ArrayList<>();
 
     public static void setTier1DailyRewardList() {
-        tier1DailyRewardList.add(new ItemStack(ModItems.completeGem.get()));
+        tier1DailyRewardList.add(new ItemStack(ModItems.COMPLETE_GEM.get()));
     }
 
     public boolean canReward() throws ParseException {

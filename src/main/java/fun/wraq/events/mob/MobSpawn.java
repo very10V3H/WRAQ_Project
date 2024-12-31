@@ -3,6 +3,7 @@ package fun.wraq.events.mob;
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.equip.WraqCurios;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.StringUtils;
@@ -36,6 +37,9 @@ import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.missions.series.dailyMission.DailyMission;
+import fun.wraq.process.system.pet.allay.AllayPet;
+import fun.wraq.process.system.pet.allay.AllayPetPlayerData;
+import fun.wraq.process.system.pet.allay.skill.AllaySkills;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.end.Recall;
 import fun.wraq.series.end.runes.EndRune;
@@ -43,6 +47,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.Mob;
@@ -312,6 +317,11 @@ public class MobSpawn {
         if (RandomUtils.nextInt(0, 10000) < 100) {
             InventoryOperation.itemStackGive(player, ModItems.REFINED_PIECE.get().getDefaultInstance());
         }
+        if (RandomUtils.nextDouble(0, 1) < AllaySkills.getExGemPieceRate((ServerPlayer) player)) {
+            InventoryOperation.itemStackGive(player, ModItems.GEM_PIECE.get());
+            AllayPet.sendMSG(player,
+                    Te.s(AllayPetPlayerData.getAllayName(player), "给你带来了一个", ModItems.GEM_PIECE));
+        }
 
         recall(mob, player);
         if (!MobSpawn.dropList.containsKey(MobSpawn.getMobOriginName(mob))) return;
@@ -360,8 +370,8 @@ public class MobSpawn {
         Random rand = new Random();
         if (rand.nextDouble() < 0.1 * num) {
             if (WraqCurios.isOn(EndRune.class, player)) {
-                InventoryOperation.itemStackGive(player, new ItemStack(ModItems.WorldSoul1.get()));
-            } else ItemAndRate.summonBoundingItemEntity(mob, new ItemStack(ModItems.WorldSoul1.get()), player);
+                InventoryOperation.itemStackGive(player, new ItemStack(ModItems.WORLD_SOUL_1.get()));
+            } else ItemAndRate.summonBoundingItemEntity(mob, new ItemStack(ModItems.WORLD_SOUL_1.get()), player);
         }
     }
 

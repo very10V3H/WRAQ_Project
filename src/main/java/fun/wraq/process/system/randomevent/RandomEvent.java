@@ -149,7 +149,7 @@ public abstract class RandomEvent {
 
     private void rewardWorldSoul5(Player player) throws SQLException {
         int times = RandomEventData.getWorldSoul5DailyGetTimes(player);
-        Component component = ModItems.worldSoul5.get().getDefaultInstance().getDisplayName();
+        Component component = ModItems.WORLD_SOUL_5.get().getDefaultInstance().getDisplayName();
         if (RandomEventData.getWorldSoul5DailyGetTimes(player) < 4) {
             Tower.givePlayerStar(player, 6, "随机事件");
             RandomEventData.incrementWorldSoul5DailyGetTimes(player);
@@ -174,7 +174,7 @@ public abstract class RandomEvent {
     public static List<ItemAndRate> getDefaultRewardList() {
         return new ArrayList<>(List.of(
                 new ItemAndRate(ModItems.GoldCoinBag.get(), 4),
-                new ItemAndRate(ModItems.gemPiece.get(), 20),
+                new ItemAndRate(ModItems.GEM_PIECE.get(), 20),
                 new ItemAndRate(ModItems.REVELATION_HEART.get(), 1)
         ));
     }

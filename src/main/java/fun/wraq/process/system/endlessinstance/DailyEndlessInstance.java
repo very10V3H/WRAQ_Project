@@ -51,7 +51,7 @@ public abstract class DailyEndlessInstance {
     public void commonTick(Level level) {
         if (leftTick > 0) leftTick--;
         else if (isChallenging()) {
-            ServerPlayer serverPlayer = Compute.getPlayerByName(level, challengingPlayerName);
+            ServerPlayer serverPlayer = Compute.getPlayerByName(challengingPlayerName);
             if (serverPlayer != null) {
                 reward(serverPlayer);
                 sendFormatBroad(level, Component.literal("").withStyle(ChatFormatting.WHITE).

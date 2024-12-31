@@ -72,7 +72,7 @@ import fun.wraq.process.system.element.networking.CurrentSeasonAndResonanceTypeS
 import fun.wraq.process.system.element.networking.CurrentSeasonC2SPacket;
 import fun.wraq.process.system.element.networking.ResonanceC2SPacket;
 import fun.wraq.process.system.endlessinstance.network.EndlessInstanceKillCountS2CPacket;
-import fun.wraq.process.system.entrustment.MobEntrustmentInfo.MobKillEntrustmentInfoS2CPacket;
+import fun.wraq.process.system.entrustment.mob.MobKillEntrustmentInfoS2CPacket;
 import fun.wraq.process.system.forge.networking.*;
 import fun.wraq.process.system.lottery.networking.LotteryRewardTimeS2CPacket;
 import fun.wraq.process.system.missions.netWorking.*;

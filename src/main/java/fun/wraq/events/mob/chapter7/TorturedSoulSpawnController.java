@@ -88,7 +88,7 @@ public class TorturedSoulSpawnController extends MobSpawnController {
         return new ArrayList<>() {{
             add(new ItemAndRate(C7Items.vdSoul.get(), 0.1));
             add(new ItemAndRate(ModItems.silverCoin.get(), 1));
-            add(new ItemAndRate(ModItems.gemPiece.get(), 0.06));
+            add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.06));
         }};
     }
 

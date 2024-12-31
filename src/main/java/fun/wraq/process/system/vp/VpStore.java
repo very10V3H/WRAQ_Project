@@ -49,7 +49,7 @@ public class VpStore {
             worldSoul5PriceMap.put(ModItems.SwordLottery.get(), 40);
             worldSoul5PriceMap.put(ModItems.BowLottery.get(), 40);
             worldSoul5PriceMap.put(ModItems.SceptreLottery.get(), 40);
-            worldSoul5PriceMap.put(ModItems.gemPiece.get(), 40);
+            worldSoul5PriceMap.put(ModItems.GEM_PIECE.get(), 40);
         }
         return worldSoul5PriceMap;
     }

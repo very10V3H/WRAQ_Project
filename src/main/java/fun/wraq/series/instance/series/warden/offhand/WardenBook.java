@@ -28,11 +28,11 @@ public class WardenBook extends WardenOffhandItem implements ForgeItem {
                 new ItemStack(ModItems.MoonBook.get(), 1),
                 new ItemStack(WardenItems.WARDEN_HEART.get(), 4),
                 new ItemStack(ModItems.GOLD_COIN.get(), 288),
-                new ItemStack(ModItems.completeGem.get(), 12),
+                new ItemStack(ModItems.COMPLETE_GEM.get(), 12),
                 new ItemStack(ModItems.ReputationMedal.get(), 48),
                 new ItemStack(PickaxeItems.TINKER_IRON.get(), 12),
                 new ItemStack(PickaxeItems.TINKER_COPPER.get(), 12),
-                new ItemStack(ModItems.WorldSoul3.get(), 4)
+                new ItemStack(ModItems.WORLD_SOUL_3.get(), 4)
         );
     }
 }

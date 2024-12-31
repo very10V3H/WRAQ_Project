@@ -32,7 +32,8 @@ import fun.wraq.events.modules.HurtEventModule;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.element.equipAndCurios.fireElement.FireEquip;
 import fun.wraq.process.system.endlessinstance.DailyEndlessInstance;
-import fun.wraq.process.system.entrustment.MobEntrustmentInfo.MobKillEntrustment;
+import fun.wraq.process.system.entrustment.mob.MobKillEntrustment;
+import fun.wraq.process.system.pet.allay.AllayPet;
 import fun.wraq.process.system.randomevent.RandomEventsHandler;
 import fun.wraq.process.system.randomevent.impl.killmob.SlimeKingEvent;
 import fun.wraq.process.system.teamInstance.NewTeamInstanceHandler;
@@ -521,29 +522,22 @@ public class Damage {
                     MobDeadModule.deadModule(mob);
                     LogUtils.getLogger().info("{} {} {}", player.getName().getString(),
                             Utils.LogTypes.killed, mob.getName().getString());
-
                     mob.kill();
                     mob.setHealth((float) (mob.getHealth() - finalDamage));
                     CompoundTag data = player.getPersistentData();
-
                     MobSpawn.drop(mob, player);
-
                     HurtEventModule.SwordSkill2(data, player); // 战斗渴望（击杀一个单位时，提升2%攻击力，持续10s）
                     HurtEventModule.BowSkill2(data, player); // 狩猎渴望（击杀一个单位时，提升2%攻击力，持续10s）
                     HurtEventModule.ManaSkill2(data, player); // 魔力汲取（击杀一个单位时，提升2%法术攻击，持续10s）
-
                     NetherNewRune.onKill(player, mob);
                     HuskNewRune.onKill(player, mob);
                     DailyEndlessInstance.onKillMob(player, mob);
-
                     OnKillEffectEquip.kill(player, mob);
                     OnKillEffectCurios.kill(player, mob);
-
                     RandomEventsHandler.onKillMob(player, mob);
-
                     GemOnKillMob.kill(player, mob);
-
                     MobKillEntrustment.onKill(player, mob);
+                    AllayPet.onKillMob(player, mob);
                 } else {
                     mob.setHealth((float) (mob.getHealth() - finalDamage));
                 }
@@ -557,8 +551,8 @@ public class Damage {
             entity.invulnerableTime = 0;
             StarBottle.playerBattleTickMapRefresh(player);
             Element.ElementParticleProvider(mob);
-
             GemOnCauseDamage.causeDamage(player, mob, damage);
+            AllayPet.playerIsAttackingMobMap.put(player.getName().getString(), mob);
         }
     }
 

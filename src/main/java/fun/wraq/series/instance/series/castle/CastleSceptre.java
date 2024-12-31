@@ -107,10 +107,10 @@ public class CastleSceptre extends WraqSceptre implements ForgeItem, ActiveItem 
             add(new ItemStack(ModItems.CastleSceptrePiece.get(), 12));
             add(new ItemStack(ModItems.CastlePiece.get(), 192));
             add(new ItemStack(ModItems.TreeRune.get(), 8));
-            add(new ItemStack(ModItems.completeGem.get(), 26));
+            add(new ItemStack(ModItems.COMPLETE_GEM.get(), 26));
             add(new ItemStack(ModItems.ReputationMedal.get(), 104));
             add(new ItemStack(PickaxeItems.TINKER_GOLD.get(), 12));
-            add(new ItemStack(ModItems.WorldSoul3.get(), 6));
+            add(new ItemStack(ModItems.WORLD_SOUL_3.get(), 6));
         }};
     }
 

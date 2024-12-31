@@ -35,7 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class ForgingBlockScreen extends AbstractContainerScreen<fun.wraq.render.gui.blocks.ForgingBlockMenu> {
+public class ForgingBlockScreen extends AbstractContainerScreen<ForgingBlockMenu> {
 
     private static final ResourceLocation TEXTURE =
             new ResourceLocation(Utils.MOD_ID, "textures/gui/gem_infusing_station_gui3.png");

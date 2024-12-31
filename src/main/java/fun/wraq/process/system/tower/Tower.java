@@ -228,7 +228,7 @@ public class Tower {
                 Compute.sendFormatMSG(this.currentPlayer, Component.literal("本源").withStyle(CustomStyle.styleOfWorld),
                         Component.literal("计划为你额外提供了 ").withStyle(ChatFormatting.WHITE).
                                 append(Component.literal(minus + "*").withStyle(CustomStyle.styleOfWorld)).
-                                append(ModItems.worldSoul5.get().getDefaultInstance().getDisplayName()));
+                                append(ModItems.WORLD_SOUL_5.get().getDefaultInstance().getDisplayName()));
             }
             StringBuilder stringBuilder = new StringBuilder(getPlayerStatus(this.currentPlayer));
             stringBuilder.setCharAt(index, String.valueOf(stage).charAt(0));
@@ -387,7 +387,7 @@ public class Tower {
         }
 
         // 给予
-        ItemStack starStack = new ItemStack(ModItems.worldSoul5.get(), count);
+        ItemStack starStack = new ItemStack(ModItems.WORLD_SOUL_5.get(), count);
         InventoryCheck.addOwnerTagToItemStack(player, starStack);
         InventoryOperation.itemStackGive(player, starStack);
         LogUtils.getLogger().info("{} {} by {}", playerName, Utils.LogTypes.worldSoul5, type);

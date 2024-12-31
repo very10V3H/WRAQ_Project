@@ -297,7 +297,7 @@ public class MoontainBoss3Instance extends NoTeamInstance {
     public List<ItemAndRate> getRewardList() {
         return List.of(
                 new ItemAndRate(MoontainItems.STONE_FRAGMENT.get(), 16),
-                new ItemAndRate(ModItems.WorldSoul2.get(), 0.25),
+                new ItemAndRate(ModItems.WORLD_SOUL_2.get(), 0.25),
                 new ItemAndRate(ModItems.GoldCoinBag.get(), 0.1));
     }
 

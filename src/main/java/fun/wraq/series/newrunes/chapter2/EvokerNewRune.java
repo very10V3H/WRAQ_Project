@@ -71,7 +71,7 @@ public class EvokerNewRune extends WraqCurios implements RuneItem, UsageOrGetWay
                 if (!mobList.isEmpty()) {
                     mobList.forEach(mob -> {
                         Damage.causeManaDamageToMonster_RateApDamage(player, mob, 1, false);
-                        ParticleProvider.LineParticle(player.level(), (int) (mob.distanceTo(player) * 5),
+                        ParticleProvider.createLineParticle(player.level(), (int) (mob.distanceTo(player) * 5),
                                 player.position().add(0, 1, 0), mob.getEyePosition(), ParticleTypes.WITCH);
                     });
                     Mana.addOrCostPlayerMana(player, Mana.getPlayerMaxManaNum(player) * Math.min(5, mobList.size()) * 0.02);

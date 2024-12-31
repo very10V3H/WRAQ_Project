@@ -9,6 +9,7 @@ import fun.wraq.process.func.damage.Dot;
 import fun.wraq.process.func.plan.PlanPlayer;
 import fun.wraq.process.system.lottery.NewLotteries;
 import fun.wraq.process.system.market.MarketInfo;
+import fun.wraq.process.system.pet.allay.AllayPet;
 import fun.wraq.process.system.randomevent.RandomEventsHandler;
 import fun.wraq.process.system.reason.Reason;
 import fun.wraq.process.system.tower.Tower;
@@ -64,6 +65,7 @@ public class ServerTick {
             }
             RandomEventsHandler.tick();
             Reason.serverTick();
+            AllayPet.handleServerTick();
         }
     }
 

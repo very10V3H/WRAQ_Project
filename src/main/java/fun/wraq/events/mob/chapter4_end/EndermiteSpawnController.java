@@ -84,7 +84,7 @@ public class EndermiteSpawnController extends MobSpawnController {
         return new ArrayList<>() {{
             add(new ItemAndRate(ModItems.EnderMiteSoul.get(), 0.8));
             add(new ItemAndRate(ModItems.silverCoin.get(), 0.75));
-            add(new ItemAndRate(ModItems.gemPiece.get(), 0.05));
+            add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.05));
             add(new ItemAndRate(C4LootItems.endermiteSceptre.get(), 0.005));
         }};
     }

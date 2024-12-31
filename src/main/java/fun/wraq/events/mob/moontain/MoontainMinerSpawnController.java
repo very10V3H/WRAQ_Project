@@ -114,7 +114,7 @@ public class MoontainMinerSpawnController extends MobSpawnController {
             add(new ItemAndRate(OreItems.MOONTAIN_ORE_ITEM.get(), 0.1));
             add(new ItemAndRate(MoontainItems.STONE_FRAGMENT.get(), 0.4));
             add(new ItemAndRate(ModItems.silverCoin.get(), 1));
-            add(new ItemAndRate(ModItems.gemPiece.get(), 0.06));
+            add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.06));
         }};
     }
 }

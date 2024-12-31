@@ -89,7 +89,7 @@ public class MagmaSpawnController extends MobSpawnController {
             add(new ItemAndRate(ModItems.NetherQuartz.get(), 0.15));
             add(new ItemAndRate(ModItems.magmaSoul.get(), 0.4));
             add(new ItemAndRate(ModItems.copperCoin.get(), 3));
-            add(new ItemAndRate(ModItems.gemPiece.get(), 0.02));
+            add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.02));
             add(new ItemAndRate(ModItems.FireElementPiece0.get(), 0.2));
             add(new ItemAndRate(ModItems.toNether.get(), 0.005));
             add(new ItemAndRate(C3LootItems.magmaLootSceptre.get(), 0.005));

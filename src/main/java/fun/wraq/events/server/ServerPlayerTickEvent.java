@@ -46,9 +46,10 @@ import fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSce
 import fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSword;
 import fun.wraq.process.system.element.networking.CurrentSeasonAndResonanceTypeS2CPacket;
 import fun.wraq.process.system.endlessinstance.item.special.HoursExHarvestPotion;
-import fun.wraq.process.system.entrustment.MobEntrustmentInfo.MobKillEntrustment;
+import fun.wraq.process.system.entrustment.mob.MobKillEntrustment;
 import fun.wraq.process.system.missions.Mission;
 import fun.wraq.process.system.missions.series.dailyMission.DailyMission;
+import fun.wraq.process.system.pet.allay.AllayPet;
 import fun.wraq.process.system.point.Point;
 import fun.wraq.process.system.reason.Reason;
 import fun.wraq.process.system.respawn.MyRespawnRule;
@@ -161,6 +162,7 @@ public class ServerPlayerTickEvent {
             Reason.tip(player);
             ModNetworking.sendToClient(new ServerTickS2CPacket(Tick.get()), serverPlayer);
             MobKillEntrustment.handleTick(player);
+            AllayPet.handleServerPlayerTick(serverPlayer);
 
             if (player.tickCount % 10 == 0
                     && (player.isOnFire()

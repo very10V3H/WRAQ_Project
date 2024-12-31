@@ -28,9 +28,9 @@ public class UdiskWorldSoulC2SPacket {
         context.enqueueWork(() -> {
             ServerPlayer serverPlayer = context.getSender();
             Inventory inventory = serverPlayer.getInventory();
-            while (InventoryOperation.checkPlayerHasItem(inventory, ModItems.WorldSoul1.get(), 64)) {
-                InventoryOperation.removeItem(inventory, ModItems.WorldSoul1.get(), 64);
-                InventoryOperation.itemStackGive(serverPlayer, new ItemStack(ModItems.WorldSoul2.get(), 1));
+            while (InventoryOperation.checkPlayerHasItem(inventory, ModItems.WORLD_SOUL_1.get(), 64)) {
+                InventoryOperation.removeItem(inventory, ModItems.WORLD_SOUL_1.get(), 64);
+                InventoryOperation.itemStackGive(serverPlayer, new ItemStack(ModItems.WORLD_SOUL_2.get(), 1));
             }
         });
         return true;

@@ -112,7 +112,7 @@ public class TowerScreen extends Screen {
                     if (fun.wraq.process.system.tower.Tower.clientTowerStatus != null) {
                         int stage = Integer.parseInt(fun.wraq.process.system.tower.Tower.clientTowerStatus.substring(index, index + 1));
                         if (j < stage)
-                            guiGraphics.renderItem(ModItems.worldSoul5.get().getDefaultInstance(), X - 80 + j * 20, Y - 68 + i * 32);
+                            guiGraphics.renderItem(ModItems.WORLD_SOUL_5.get().getDefaultInstance(), X - 80 + j * 20, Y - 68 + i * 32);
                         else
                             guiGraphics.renderItem(ModItems.WorldSoulHollow.get().getDefaultInstance(), X - 80 + j * 20, Y - 68 + i * 32);
                     }

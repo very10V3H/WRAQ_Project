@@ -27,6 +27,7 @@ import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.endlessinstance.DailyEndlessInstance;
 import fun.wraq.process.system.endlessinstance.EndlessCoreScreen;
+import fun.wraq.process.system.entrustment.bond.BondStoreScreen;
 import fun.wraq.process.system.forge.ForgeScreen;
 import fun.wraq.process.system.missions.MissionScreen;
 import fun.wraq.process.system.smelt.SmeltRecipeScreen;
@@ -231,7 +232,7 @@ public class ClientPlayerTickEvent {
                             || InventoryOperation.checkPlayerHasItem(inventory, ModItems.silverCoin.get(), 1)) {
                         ModNetworking.sendToServer(new AllCurrencyC2SPacket(false));
                     }
-                    if (InventoryOperation.checkPlayerHasItem(inventory, ModItems.WorldSoul1.get(), 64))
+                    if (InventoryOperation.checkPlayerHasItem(inventory, ModItems.WORLD_SOUL_1.get(), 64))
                         ModNetworking.sendToServer(new UdiskWorldSoulC2SPacket());
                 }
             }
@@ -282,6 +283,7 @@ public class ClientPlayerTickEvent {
                     case 4 -> mc.setScreen(new ForgeScreen());
                     case 5 -> mc.setScreen(new SmeltRecipeScreen());
                     case 6 -> mc.setScreen(new EndlessCoreScreen());
+                    case 7 -> mc.setScreen(new BondStoreScreen());
                 }
                 ClientUtils.clientScreenSetFlag = -1;
             }

@@ -302,7 +302,7 @@ public class ParticleProvider {
         });
     }
 
-    public static void LineParticle(Level level, int num, Vec3 startVec, Vec3 endVec, ParticleOptions particleOptions) {
+    public static void createLineParticle(Level level, int num, Vec3 startVec, Vec3 endVec, ParticleOptions particleOptions) {
         List<ServerPlayer> list = level.getServer().getPlayerList().getPlayers();
         list.forEach(serverPlayer -> {
             if (serverPlayer.level().equals(level) && serverPlayer.position().distanceTo(startVec) < 80) {

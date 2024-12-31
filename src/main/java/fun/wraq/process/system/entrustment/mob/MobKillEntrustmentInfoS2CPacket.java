@@ -1,4 +1,4 @@
-package fun.wraq.process.system.entrustment.MobEntrustmentInfo;
+package fun.wraq.process.system.entrustment.mob;
 
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -15,10 +15,13 @@ public class MobKillEntrustmentInfoS2CPacket {
     private final int reputationExpiredMin;
     private final int reputation;
     private final int dailyFinishedTime;
+    private final int weeklyFinishedTime;
     private final int totalFinishedTime;
+    private final int averageTick;
     public MobKillEntrustmentInfoS2CPacket(Component mobName, int targetCount, int currentCount, int startServerTick, 
                                            int reputationExpiredMin, int reputation,
-                                           int dailyFinishedTime, int totalFinishedTime) {
+                                           int dailyFinishedTime, int weeklyFinishedTime, int totalFinishedTime,
+                                           int averageTick) {
         this.mobName = mobName;
         this.targetCount = targetCount;
         this.currentCount = currentCount;
@@ -26,7 +29,9 @@ public class MobKillEntrustmentInfoS2CPacket {
         this.reputationExpiredMin = reputationExpiredMin;
         this.reputation = reputation;
         this.dailyFinishedTime = dailyFinishedTime;
+        this.weeklyFinishedTime = weeklyFinishedTime;
         this.totalFinishedTime = totalFinishedTime;
+        this.averageTick = averageTick;
     }
 
     public MobKillEntrustmentInfoS2CPacket(FriendlyByteBuf buf) {
@@ -37,7 +42,9 @@ public class MobKillEntrustmentInfoS2CPacket {
         this.reputationExpiredMin = buf.readInt();
         this.reputation = buf.readInt();
         this.dailyFinishedTime = buf.readInt();
+        this.weeklyFinishedTime = buf.readInt();
         this.totalFinishedTime = buf.readInt();
+        this.averageTick = buf.readInt();
     }
 
     public void toBytes(FriendlyByteBuf buf) {
@@ -48,7 +55,9 @@ public class MobKillEntrustmentInfoS2CPacket {
         buf.writeInt(reputationExpiredMin);
         buf.writeInt(reputation);
         buf.writeInt(dailyFinishedTime);
+        buf.writeInt(weeklyFinishedTime);
         buf.writeInt(totalFinishedTime);
+        buf.writeInt(averageTick);
     }
 
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
@@ -61,7 +70,9 @@ public class MobKillEntrustmentInfoS2CPacket {
             MobKillEntrustmentHud.reputationExpiredMin = reputationExpiredMin;
             MobKillEntrustmentHud.reputation = reputation;
             MobKillEntrustmentHud.dailyFinishedTimes = dailyFinishedTime;
+            MobKillEntrustmentHud.weeklyFinishedTimes = weeklyFinishedTime;
             MobKillEntrustmentHud.totalFinishedTimes = totalFinishedTime;
+            MobKillEntrustmentHud.averageTick = averageTick;
         });
         return true;
     }

@@ -103,7 +103,7 @@ public class SnowStraySpawnController extends MobSpawnController {
         return new ArrayList<>() {{
             add(new ItemAndRate(ModItems.SnowSoul.get(), 0.8));
             add(new ItemAndRate(ModItems.silverCoin.get(), 0.5));
-            add(new ItemAndRate(ModItems.gemPiece.get(), 0.02));
+            add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.02));
             add(new ItemAndRate(ModItems.SnowCrest0.get(), 0.02));
             add(new ItemAndRate(ModItems.SnowCrest1.get(), 0.005));
             add(new ItemAndRate(ModItems.SnowCrest2.get(), 0.001));

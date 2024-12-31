@@ -1,8 +1,7 @@
 package fun.wraq.Items.MainStory_1.Mission;
 
-import fun.wraq.common.fast.Te;
-import fun.wraq.common.fast.Tick;
 import fun.wraq.common.util.ComponentUtils;
+import fun.wraq.process.system.pet.allay.AllayPet;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -87,9 +86,7 @@ public class Main0 extends Item {
 
             List.of(rod, core, swordBlade, string, mirror).forEach(player::addItem);*/
 
-            Tick.server.getPlayerList().getPlayers().forEach(eachPlayer -> {
-                player.sendSystemMessage(Te.s(eachPlayer.getDisplayName()));
-            });
+            AllayPet.playerSpawnAllay(serverPlayer);
         }
 
         if (!level.isClientSide && player.isShiftKeyDown()) {

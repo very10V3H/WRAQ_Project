@@ -69,7 +69,7 @@ public class Daily extends Item {
                     Compute.sendFormatMSG(player, Component.literal("维瑞阿契").withStyle(ChatFormatting.AQUA),
                             Component.literal("任务还未完成。"));
                 } else {
-                    ItemStack GemPiece = ModItems.gemPiece.get().getDefaultInstance();
+                    ItemStack GemPiece = ModItems.GEM_PIECE.get().getDefaultInstance();
                     GemPiece.setCount(player.experienceLevel / 2);
                     InventoryOperation.itemStackGive(player, GemPiece);
                     Compute.RandomPotionBagProvider(player, 6, 0.75);

@@ -33,7 +33,7 @@ import fun.wraq.process.func.security.mac.MacServer;
 import fun.wraq.process.func.security.mac.network.MacRequestS2CPacket;
 import fun.wraq.process.system.bonuschest.BonusChestPlayerData;
 import fun.wraq.process.system.element.Element;
-import fun.wraq.process.system.entrustment.MobEntrustmentInfo.MobKillEntrustment;
+import fun.wraq.process.system.entrustment.mob.MobKillEntrustment;
 import fun.wraq.process.system.lottery.NewLotteries;
 import fun.wraq.process.system.missions.series.dailyMission.DailyMission;
 import fun.wraq.process.system.parkour.Parkour;
@@ -485,11 +485,12 @@ public class LoginInEvent {
         /*SummerEvent.resetDailyData(player);*/
         SingleItemChangePurchaseLimit.refreshDaily(player);
         RandomEventData.resetWorldSoul5DailyGetTimes(player);
-        MobKillEntrustment.setDailyFinishedTime(player, 0);
+        MobKillEntrustment.setDailyFinishedTimes(player, 0);
     }
 
     public static void WeeklyRefreshContent(Player player) {
         SingleItemChangePurchaseLimit.refreshWeekly(player);
+        MobKillEntrustment.setWeeklyFinishedTimes(player, 0);
     }
 
     public static void monthlyRefreshContent(Player player) {

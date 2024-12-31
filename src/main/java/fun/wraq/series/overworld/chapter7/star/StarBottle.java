@@ -115,7 +115,7 @@ public class StarBottle extends WraqCurios implements DamageInfluenceCurios {
             if (playerCountsMap.get(player) > 0) {
                 playerCountsMap.put(player, playerCountsMap.get(player) - 1);
                 Damage.causeAutoAdaptionRateDamageToMob(player, mob, (double) playerCountsMap.get(player) / 10, true);
-                ParticleProvider.LineParticle(player.level(), (int) mob.distanceTo(player) * 2, player.position(), mob.position(), ParticleTypes.FIREWORK);
+                ParticleProvider.createLineParticle(player.level(), (int) mob.distanceTo(player) * 2, player.position(), mob.position(), ParticleTypes.FIREWORK);
             }
         });
         Compute.sendEffectLastTime(player, ModItems.StarBottle.get().getDefaultInstance(), 8888, playerCountsMap.get(player), true);

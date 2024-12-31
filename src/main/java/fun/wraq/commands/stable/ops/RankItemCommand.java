@@ -66,7 +66,7 @@ public class RankItemCommand implements Command<CommandSourceStack> {
                 }
             }
             switch (itemType) {
-                case 0 -> item = ModItems.worldSoul5.get();
+                case 0 -> item = ModItems.WORLD_SOUL_5.get();
                 case 1 -> item = ModItems.REVELATION_HEART.get();
                 case 2 -> item = ModItems.KillPaperLootL.get();
                 default -> item = Items.AIR;

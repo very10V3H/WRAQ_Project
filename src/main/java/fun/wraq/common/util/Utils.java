@@ -553,10 +553,10 @@ public class Utils {
     public static Map<Item, Item> WorldSoulMap = new HashMap<>();
 
     public static void WorldSoulMapInit() {
-        WorldSoulMap.put(ModItems.WorldSoul1.get(), ModItems.WorldSoul2.get());
-        WorldSoulMap.put(ModItems.WorldSoul2.get(), ModItems.WorldSoul3.get());
-        WorldSoulMap.put(ModItems.WorldSoul3.get(), ModItems.WorldSoul4.get());
-        WorldSoulMap.put(ModItems.WorldSoul4.get(), ModItems.worldSoul5.get());
+        WorldSoulMap.put(ModItems.WORLD_SOUL_1.get(), ModItems.WORLD_SOUL_2.get());
+        WorldSoulMap.put(ModItems.WORLD_SOUL_2.get(), ModItems.WORLD_SOUL_3.get());
+        WorldSoulMap.put(ModItems.WORLD_SOUL_3.get(), ModItems.WORLD_SOUL_4.get());
+        WorldSoulMap.put(ModItems.WORLD_SOUL_4.get(), ModItems.WORLD_SOUL_5.get());
     }
 
     public static List<ParticleOptions> particleOptionsList = new ArrayList<>();

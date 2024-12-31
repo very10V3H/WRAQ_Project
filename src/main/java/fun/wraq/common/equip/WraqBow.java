@@ -107,7 +107,7 @@ public abstract class WraqBow extends WraqMainHandEquip {
             myArrow.setNoGravity(true);
             ProjectileUtil.rotateTowardsMovement(myArrow, 1);
 
-            ParticleProvider.LineParticle(player.level(), (int) NearestMob.distanceTo(player),
+            ParticleProvider.createLineParticle(player.level(), (int) NearestMob.distanceTo(player),
                     player.pick(0.5, 0, false).getLocation(), NearestMob.position().add(0, 1, 0), ParticleTypes.SNOWFLAKE);
         }
     }

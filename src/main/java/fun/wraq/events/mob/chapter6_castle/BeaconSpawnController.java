@@ -102,7 +102,7 @@ public class BeaconSpawnController extends MobSpawnController {
         return new ArrayList<>() {{
             add(new ItemAndRate(ModItems.BeaconSoul.get(), 0.8));
             add(new ItemAndRate(ModItems.silverCoin.get(), 0.58));
-            add(new ItemAndRate(ModItems.gemPiece.get(), 0.06));
+            add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.06));
             add(new ItemAndRate(ModItems.FireElementPiece0.get(), 0.4));
             add(new ItemAndRate(C6LootItems.beaconBow.get(), 0.005));
         }};

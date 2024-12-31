@@ -104,7 +104,7 @@ public class DreadHoundSpawnController extends MobSpawnController {
             add(new ItemAndRate(ModItems.ForestSoul.get(), 1));
             add(new ItemAndRate(ModItems.wolfLeather.get(), 1));
             add(new ItemAndRate(ModItems.silverCoin.get(), 0.375));
-            add(new ItemAndRate(ModItems.gemPiece.get(), 0.02));
+            add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.02));
             add(new ItemAndRate(ModItems.ForestCrest0.get(), 0.02));
             add(new ItemAndRate(ModItems.ForestCrest1.get(), 0.005));
             add(new ItemAndRate(ModItems.ForestCrest2.get(), 0.001));

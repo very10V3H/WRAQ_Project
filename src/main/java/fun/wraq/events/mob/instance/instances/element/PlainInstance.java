@@ -149,7 +149,7 @@ public class PlainInstance extends NoTeamInstance {
                 new ItemAndRate(ModItems.PlainManaAttackRing0.get(), 0.0125),
                 new ItemAndRate(ModItems.PlainHealthRing0.get(), 0.0125),
                 new ItemAndRate(ModItems.PlainDefenceRing0.get(), 0.0125),
-                new ItemAndRate(ModItems.WorldSoul2.get(), 0.25),
+                new ItemAndRate(ModItems.WORLD_SOUL_2.get(), 0.25),
                 new ItemAndRate(ModItems.GoldCoinBag.get(), 0.1),
                 new ItemAndRate(ModItems.plainNecklace.get(), 0.08));
     }

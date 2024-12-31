@@ -123,7 +123,7 @@ public class MyWayPoint {
                 Te.s("高耸入云，镇守东洋", CustomStyle.styleOfHusk)));
         add(new ZonePoint(new Vec3(1954, 153, -881),
                 Te.s("望山阁", CustomStyle.styleOfMoontain),
-                Te.s("坐定望山，接天攘地", CustomStyle.styleOfMoontain)));
+                Te.s("坐定望山，接天攘地", CustomStyle.styleOfMoontain), 100));
         add(new ZonePoint(new Vec3(1364, 79, 44),
                 Te.s("炼魔平原", CustomStyle.styleOfMana),
                 Te.s("旧时战争遗地", CustomStyle.styleOfMana), 100));
@@ -175,6 +175,9 @@ public class MyWayPoint {
         add(new ZonePoint(new Vec3(2454, 130, -171),
                 Te.s("蒙特轻轨基地", CustomStyle.styleOfField),
                 Te.s("", CustomStyle.styleOfSea)));
+        add(new ZonePoint(new Vec3(1908, 165, -1596),
+                Te.s("北部高地", CustomStyle.styleOfPlain),
+                Te.s("", CustomStyle.styleOfPlain), 70));
     }};
 
     public static Map<Player, String> playerLastZoneMap = new WeakHashMap<>();
@@ -329,6 +332,15 @@ public class MyWayPoint {
         add(new MyWayPoint(new Vec3(1270, 72, -1622), "轻轨北洋村站", colorMap.get(yellow), 0));
         add(new MyWayPoint(new Vec3(2472, 170, -1374), "轻轨暗黑城堡站", colorMap.get(yellow), 0));
         add(new MyWayPoint(new Vec3(2496, 149, -486), "轻轨火山村站", colorMap.get(yellow), 0));
+        add(new MyWayPoint(new Vec3(1908, 162, -1655), "轻轨北部高地站", colorMap.get(yellow), 0));
+        // 地铁
+        add(new MyWayPoint(new Vec3(2054, 60, 1705), "艾樱地铁检修基地", colorMap.get(purple), 0));
+        add(new MyWayPoint(new Vec3(1898, 78, 1664), "地铁沙岸村站", colorMap.get(purple), 0));
+        add(new MyWayPoint(new Vec3(1759, 68, 1232), "地铁雷光岛站", colorMap.get(purple), 0));
+        add(new MyWayPoint(new Vec3(1797, 74, 318), "地铁旭升岛站", colorMap.get(purple), 0));
+        add(new MyWayPoint(new Vec3(1880, 147, -451), "地铁月影坡站", colorMap.get(purple), 0));
+        add(new MyWayPoint(new Vec3(1916, 151, -943), "地铁望山据点站", colorMap.get(purple), 0));
+        add(new MyWayPoint(new Vec3(1900, 158, -1648), "地铁北部高地站", colorMap.get(purple), 0));
     }};
 
     public static List<MyWayPoint> netherPointList = new ArrayList<>() {{

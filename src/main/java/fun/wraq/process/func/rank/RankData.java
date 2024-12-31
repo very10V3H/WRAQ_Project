@@ -194,12 +194,12 @@ public class RankData {
         if (getRankSerial(player) >= rankSerialList.indexOf("13B")) {
             Tower.givePlayerStar(player, 2, "职权");
             sendFormatMSG(player, Te.s("你的", "职权", ChatFormatting.AQUA, "为你额外提供了",
-                    ModItems.worldSoul5.get().getDefaultInstance().getDisplayName(), " * 2", CustomStyle.styleOfWorld));
+                    ModItems.WORLD_SOUL_5.get().getDefaultInstance().getDisplayName(), " * 2", CustomStyle.styleOfWorld));
         } else {
             if (getRankSerial(player) >= rankSerialList.indexOf("13C")) {
                 Tower.givePlayerStar(player, 1, "职权");
                 sendFormatMSG(player, Te.s("你的", "职权", ChatFormatting.AQUA, "为你额外提供了",
-                        ModItems.worldSoul5.get().getDefaultInstance().getDisplayName(), " * 1", CustomStyle.styleOfWorld));
+                        ModItems.WORLD_SOUL_5.get().getDefaultInstance().getDisplayName(), " * 1", CustomStyle.styleOfWorld));
             }
         }
     }

@@ -170,7 +170,7 @@ public class MoonInstance extends NoTeamInstance {
         return List.of(new ItemAndRate(ModItems.MoonLoot.get(), 1),
                 new ItemAndRate(GemItems.moonAttackGem.get(), 0.01),
                 new ItemAndRate(GemItems.moonManaGem.get(), 0.01),
-                new ItemAndRate(ModItems.WorldSoul2.get(), 0.25),
+                new ItemAndRate(ModItems.WORLD_SOUL_2.get(), 0.25),
                 new ItemAndRate(ModItems.GoldCoinBag.get(), 0.1),
                 new ItemAndRate(NewRuneItems.moonNewRune.get(), 0.015));
     }

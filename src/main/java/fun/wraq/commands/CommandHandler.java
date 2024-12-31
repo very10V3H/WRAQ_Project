@@ -10,7 +10,7 @@ import fun.wraq.commands.stable.ops.*;
 import fun.wraq.commands.stable.players.*;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.system.bonuschest.BonusInfoCommand;
-import fun.wraq.process.system.entrustment.MobEntrustmentInfo.MobKillEntrustmentOperationCommand;
+import fun.wraq.process.system.entrustment.mob.MobKillEntrustmentOperationCommand;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.GameProfileArgument;
@@ -647,6 +647,15 @@ public class CommandHandler {
                         Commands.literal("entrustment").then(
                                 Commands.argument("operation", StringArgumentType.string())
                                         .executes(MobKillEntrustmentOperationCommand.instance)
+                        ).requires(commandSourceStack -> commandSourceStack.hasPermission(0))
+                )
+        );
+        CommandDispatcher<CommandSourceStack> dispatcher69 = event.getDispatcher();
+        LiteralCommandNode<CommandSourceStack> cmd69 = dispatcher69.register(
+                Commands.literal(Utils.MOD_ID).then(
+                        Commands.literal("openScreen").then(
+                                Commands.argument("type", IntegerArgumentType.integer())
+                                        .executes(OpenScreenOperationCommand.instance)
                         ).requires(commandSourceStack -> commandSourceStack.hasPermission(0))
                 )
         );

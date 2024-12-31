@@ -13,6 +13,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.animal.allay.Allay;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -43,10 +44,16 @@ public class BowEvent {
         Entity entity = event.getProjectile();
         Level level = event.getEntity().level();
         List<Entity> list = level.getEntitiesOfClass(Entity.class, entity.getBoundingBox().expandTowards(entity.getDeltaMovement()).inflate(1.0D));
-        List<LivingEntity> list0 = entity.level().getEntitiesOfClass(LivingEntity.class,
-                        entity.getBoundingBox().expandTowards(entity.getDeltaMovement()).inflate(1.0D))
-                .stream().filter(LivingEntity::isAlive).toList();
-        
+        List<LivingEntity> list0 = list.stream()
+                .filter(entity1 -> entity1 instanceof LivingEntity livingEntity && livingEntity.isAlive())
+                .map(entity1 -> (LivingEntity) entity1)
+                .toList();
+
+        if (!list.isEmpty() && (list.get(0) instanceof ArmorStand || list.get(0) instanceof Allay)) {
+            event.setImpactResult(ProjectileImpactEvent.ImpactResult.SKIP_ENTITY);
+            return;
+        }
+
         if (!entity.level().isClientSide && entity instanceof MyArrow myArrow) {
             if (!list0.isEmpty()) {
                 if (myArrow.player != null) {
@@ -202,8 +209,6 @@ public class BowEvent {
             }
         }
 
-        if (!list.isEmpty() && list.get(0) instanceof ArmorStand)
-            event.setImpactResult(ProjectileImpactEvent.ImpactResult.SKIP_ENTITY);
         if (entity instanceof SwordAir swordAir) {
             if (swordAir.player != null) {
                 if (!causeDamageList.containsKey(entity)) {

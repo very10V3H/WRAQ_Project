@@ -50,7 +50,7 @@ public class TextCommand implements Command<CommandSourceStack> {
                                 append(ModItems.TP_TICKET.get().getDefaultInstance().getDisplayName()).
                                 append(Component.literal(" * 1").withStyle(ChatFormatting.AQUA)).
                                 append(Te.s(" 或 ", ChatFormatting.AQUA)).
-                                append(ModItems.WorldSoul2.get().getDefaultInstance().getDisplayName()).
+                                append(ModItems.WORLD_SOUL_2.get().getDefaultInstance().getDisplayName()).
                                 append(Component.literal(" * 1").withStyle(ChatFormatting.AQUA))
                 ));
                 put("toStarDream", List.of(
@@ -60,7 +60,7 @@ public class TextCommand implements Command<CommandSourceStack> {
                                 append(ModItems.TP_TICKET.get().getDefaultInstance().getDisplayName()).
                                 append(Component.literal(" * 1").withStyle(ChatFormatting.AQUA)).
                                 append(Te.s(" 或 ", ChatFormatting.AQUA)).
-                                append(ModItems.WorldSoul2.get().getDefaultInstance().getDisplayName()).
+                                append(ModItems.WORLD_SOUL_2.get().getDefaultInstance().getDisplayName()).
                                 append(Component.literal(" * 1").withStyle(ChatFormatting.AQUA))
                 ));
                 put("toLightningIsland", List.of(
@@ -70,7 +70,7 @@ public class TextCommand implements Command<CommandSourceStack> {
                                 append(ModItems.TP_TICKET.get().getDefaultInstance().getDisplayName()).
                                 append(Component.literal(" * 1").withStyle(ChatFormatting.AQUA)).
                                 append(Te.s(" 或 ", ChatFormatting.AQUA)).
-                                append(ModItems.WorldSoul2.get().getDefaultInstance().getDisplayName()).
+                                append(ModItems.WORLD_SOUL_2.get().getDefaultInstance().getDisplayName()).
                                 append(Component.literal(" * 1").withStyle(ChatFormatting.AQUA))
                 ));
                 put("toEasternTower", List.of(
@@ -80,7 +80,7 @@ public class TextCommand implements Command<CommandSourceStack> {
                                 append(ModItems.TP_TICKET.get().getDefaultInstance().getDisplayName()).
                                 append(Component.literal(" * 1").withStyle(ChatFormatting.AQUA)).
                                 append(Te.s(" 或 ", ChatFormatting.AQUA)).
-                                append(ModItems.WorldSoul2.get().getDefaultInstance().getDisplayName()).
+                                append(ModItems.WORLD_SOUL_2.get().getDefaultInstance().getDisplayName()).
                                 append(Component.literal(" * 1").withStyle(ChatFormatting.AQUA))
                 ));
                 put("toOriginalForest", List.of(
@@ -90,7 +90,7 @@ public class TextCommand implements Command<CommandSourceStack> {
                                 append(ModItems.TP_TICKET.get().getDefaultInstance().getDisplayName()).
                                 append(Component.literal(" * 1").withStyle(ChatFormatting.AQUA)).
                                 append(Te.s(" 或 ", ChatFormatting.AQUA)).
-                                append(ModItems.WorldSoul2.get().getDefaultInstance().getDisplayName()).
+                                append(ModItems.WORLD_SOUL_2.get().getDefaultInstance().getDisplayName()).
                                 append(Component.literal(" * 1").withStyle(ChatFormatting.AQUA))
                 ));
                 put("toMoontain", List.of(
@@ -100,7 +100,7 @@ public class TextCommand implements Command<CommandSourceStack> {
                                 append(ModItems.TP_TICKET.get().getDefaultInstance().getDisplayName()).
                                 append(Component.literal(" * 1").withStyle(ChatFormatting.AQUA)).
                                 append(Te.s(" 或 ", ChatFormatting.AQUA)).
-                                append(ModItems.WorldSoul2.get().getDefaultInstance().getDisplayName()).
+                                append(ModItems.WORLD_SOUL_2.get().getDefaultInstance().getDisplayName()).
                                 append(Component.literal(" * 1").withStyle(ChatFormatting.AQUA))
                 ));
             }};

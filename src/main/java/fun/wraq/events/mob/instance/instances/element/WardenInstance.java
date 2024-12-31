@@ -171,7 +171,7 @@ public class WardenInstance extends NoTeamInstance {
                 new ItemAndRate(GemItems.ANCIENT_DARKNESS_GEM_0.get(), 0.0033),
                 new ItemAndRate(GemItems.ANCIENT_SILENT_GEM_0.get(), 0.0033),
                 new ItemAndRate(GemItems.ANCIENT_ECHO_GEM_0.get(), 0.0033),
-                new ItemAndRate(ModItems.WorldSoul2.get(), 0.25),
+                new ItemAndRate(ModItems.WORLD_SOUL_2.get(), 0.25),
                 new ItemAndRate(ModItems.GoldCoinBag.get(), 0.1)
         );
     }

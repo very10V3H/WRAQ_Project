@@ -6,10 +6,12 @@ import fun.wraq.common.fast.Tick;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
+import fun.wraq.process.system.pet.allay.AllayPet;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.animal.allay.Allay;
 import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -38,6 +40,9 @@ public class AncientCityWardenSpawn {
                         5000 * Math.pow(10, 4), 0.35);
                 set.add(warden);
             }
+        }
+        if (entity instanceof Allay allay && !event.getLevel().isClientSide) {
+            AllayPet.onJoinLevel(allay);
         }
     }
 

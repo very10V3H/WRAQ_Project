@@ -36,6 +36,9 @@ import fun.wraq.process.system.lottery.NewLotteries;
 import fun.wraq.process.system.market.MarketInfo;
 import fun.wraq.process.system.ore.OreItems;
 import fun.wraq.process.system.ore.PickaxeItems;
+import fun.wraq.process.system.pet.PetScreen;
+import fun.wraq.process.system.pet.allay.AllayPet;
+import fun.wraq.process.system.pet.allay.item.AllayItems;
 import fun.wraq.process.system.point.PointItems;
 import fun.wraq.process.system.randomevent.RandomEvent;
 import fun.wraq.process.system.randomevent.RandomEventsHandler;
@@ -129,6 +132,7 @@ public class VMD {
         SunIslandItems.ITEMS.register(modEvenBus);
         WardenItems.ITEMS.register(modEvenBus);
         HarbingerItems.ITEMS.register(modEvenBus);
+        AllayItems.ITEMS.register(modEvenBus);
 
         ModBlocks.BLOCKS.register(modEvenBus);
         ModEntityType.ENTITY_TYPES.register(modEvenBus);
@@ -169,6 +173,7 @@ public class VMD {
         MobSpawn.removeAllMob();
         RandomEventsHandler.getRandomEvents().forEach(RandomEvent::reset);
         DailyEndlessInstanceEvent.onServerStop();
+        AllayPet.onServerStop();
 
         MarketInfo.marketItemInfoWrite(event.getServer().overworld());
         MarketInfo.marketProfitInfoWrite(event.getServer().overworld());
@@ -217,6 +222,7 @@ public class VMD {
         MenuScreens.register(ModMenuTypes.BREWING_MENU.get(), BrewingScreen::new);
         MenuScreens.register(ModMenuTypes.INJECT_BLOCK_MENU.get(), InjectBlockScreen::new);
         MenuScreens.register(ModMenuTypes.Furnace_Menu.get(), FurnaceScreen::new);
+        MenuScreens.register(ModMenuTypes.PET_MENU.get(), PetScreen::new);
 
         PlayerAnimationFactory.ANIMATION_DATA_FACTORY.registerFactory(
                 new ResourceLocation(Utils.MOD_ID, "animation"),
@@ -502,6 +508,7 @@ public class VMD {
             event.accept(ModItems.ForgeEnhance0.get().getDefaultInstance());
             event.accept(ModItems.ForgeEnhance1.get().getDefaultInstance());
             event.accept(ModItems.ForgeEnhance2.get().getDefaultInstance());
+            event.accept(ModItems.ForgeEnhance3.get().getDefaultInstance());
             event.accept(ModItems.ForgeProtect.get().getDefaultInstance());
 
             event.accept(GemItems.DISMANTLE.get().getDefaultInstance());
@@ -511,7 +518,7 @@ public class VMD {
             event.accept(ModItems.skinTemplatePaper.get().getDefaultInstance());
             event.accept(ModItems.stackUpgradePaper.get().getDefaultInstance());
 
-            event.accept(ModItems.gemPiece.get().getDefaultInstance());
+            event.accept(ModItems.GEM_PIECE.get().getDefaultInstance());
             event.accept(ModItems.ROSE_GOLD_COIN.get().getDefaultInstance());
             event.accept(ModItems.GOLD_COIN.get().getDefaultInstance());
             event.accept(ModItems.silverCoin.get().getDefaultInstance());
@@ -533,7 +540,7 @@ public class VMD {
             event.accept(ModItems.MOVEMENT_SPEED_UP_POTION_BAG.get().getDefaultInstance());
             event.accept(ModItems.GoldCoinBag.get().getDefaultInstance());
             event.accept(ModItems.BackPackTickets.get().getDefaultInstance());
-            event.accept(ModItems.completeGem.get().getDefaultInstance());
+            event.accept(ModItems.COMPLETE_GEM.get().getDefaultInstance());
             event.accept(ModItems.ReputationMedal.get().getDefaultInstance());
             event.accept(ModItems.commonLotteries.get().getDefaultInstance());
             event.accept(ModItems.UnCommonLotteries.get().getDefaultInstance());
@@ -563,7 +570,8 @@ public class VMD {
                     ModItems.ORE_SUPPLY.get(), ModItems.SENIOR_POTION_SUPPLY.get(),
                     ModItems.JUNIOR_SUPPLY.get(), ModItems.SENIOR_SUPPLY.get(),
                     ModItems.simpleTier1Paper.get(), ModItems.simpleTier2Paper.get(), ModItems.simpleTier3Paper.get(),
-                    ModItems.goldCoinLottery.get(), ModItems.BOND.get(), ModItems.SPECIAL_BOND.get()
+                    ModItems.goldCoinLottery.get(), ModItems.GOLDEN_BEANS.get(),
+                    ModItems.BOND.get(), ModItems.SPECIAL_BOND.get()
             };
             for (Item item : items) event.accept(item.getDefaultInstance());
         }
@@ -620,11 +628,11 @@ public class VMD {
             event.accept(ModItems.WaterSet.get().getDefaultInstance());
         }
         if (event.getTabKey().equals(ModCreativeModeTab.WORLD_SOUL.getKey())) {
-            event.accept(ModItems.WorldSoul1.get().getDefaultInstance());
-            event.accept(ModItems.WorldSoul2.get().getDefaultInstance());
-            event.accept(ModItems.WorldSoul3.get().getDefaultInstance());
-            event.accept(ModItems.WorldSoul4.get().getDefaultInstance());
-            event.accept(ModItems.worldSoul5.get().getDefaultInstance());
+            event.accept(ModItems.WORLD_SOUL_1.get().getDefaultInstance());
+            event.accept(ModItems.WORLD_SOUL_2.get().getDefaultInstance());
+            event.accept(ModItems.WORLD_SOUL_3.get().getDefaultInstance());
+            event.accept(ModItems.WORLD_SOUL_4.get().getDefaultInstance());
+            event.accept(ModItems.WORLD_SOUL_5.get().getDefaultInstance());
             event.accept(ModItems.SoulSword.get().getDefaultInstance());
             event.accept(ModItems.SoulBow.get().getDefaultInstance());
             event.accept(ModItems.SoulSceptre.get().getDefaultInstance());
@@ -695,6 +703,12 @@ public class VMD {
         }
         if (event.getTabKey().equals(ModCreativeModeTab.ENDLESS_INSTANCE.getKey())) {
             EndlessInstanceItems.ITEMS.getEntries()
+                    .stream()
+                    .map(entry -> entry.get().asItem())
+                    .forEach(event::accept);
+        }
+        if (event.getTabKey().equals(ModCreativeModeTab.ALLAY.getKey())) {
+            AllayItems.ITEMS.getEntries()
                     .stream()
                     .map(entry -> entry.get().asItem())
                     .forEach(event::accept);

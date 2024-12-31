@@ -10,6 +10,7 @@ import fun.wraq.series.specialevents.midautumn.MidAutumnSword;
 import fun.wraq.series.specialevents.midautumn.MoonFeather;
 import fun.wraq.series.specialevents.summer.SummerCuriosOrEquip2024;
 import fun.wraq.series.specialevents.train.TrainSouvenirs;
+import fun.wraq.series.specialevents.year2024.Souvenirs2024;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -69,4 +70,7 @@ public class SpecialEventItems {
 
     public static final RegistryObject<Item> TRAIN_SOUVENIRS = ITEMS.register("train_souvenirs", () ->
             new TrainSouvenirs(new Item.Properties().rarity(CustomStyle.FieldBold)));
+
+    public static final RegistryObject<Item> SOUVENIRS_2024 = ITEMS.register("souvenirs_2024", () ->
+            new Souvenirs2024(new Item.Properties().rarity(CustomStyle.GoldBold)));
 }

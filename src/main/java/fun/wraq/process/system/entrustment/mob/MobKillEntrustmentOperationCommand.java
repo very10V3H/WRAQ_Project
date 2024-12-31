@@ -1,4 +1,4 @@
-package fun.wraq.process.system.entrustment.MobEntrustmentInfo;
+package fun.wraq.process.system.entrustment.mob;
 
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.arguments.StringArgumentType;
@@ -51,6 +51,12 @@ public class MobKillEntrustmentOperationCommand implements Command<CommandSource
                 } else {
                     MobKillEntrustment.sendMSG(player, Te.s("仅op使用"));
                 }
+            }
+            case "queryDaily" -> {
+                MobKillEntrustment.queryDailyTimes(player);
+            }
+            case "queryWeekly" -> {
+                MobKillEntrustment.queryWeeklyTimes(player);
             }
         }
         return 0;

@@ -120,7 +120,7 @@ public class Parkour {
 
     public static Item[] rewardItems = {
             ModItems.Ps_Bottle1.get(),
-            ModItems.completeGem.get(),
+            ModItems.COMPLETE_GEM.get(),
             ModItems.ReputationMedal.get(),
             ModItems.ParkourMedal.get(),
             ModItems.ParkourMedal.get(),

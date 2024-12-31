@@ -186,7 +186,7 @@ public class VolcanoRecallEvent {
                         for (Player player : playerList) {
                             if (player.position().distanceTo(Utils.VolcanoRecallBlaze.position()) <= 10) {
                                 player.setHealth(player.getHealth() - 100);
-                                ParticleProvider.LineParticle(level1, 20, Utils.VolcanoRecallBlaze.position(), player.position(), ModParticles.LONG_VOLCANO.get());
+                                ParticleProvider.createLineParticle(level1, 20, Utils.VolcanoRecallBlaze.position(), player.position(), ModParticles.LONG_VOLCANO.get());
                             }
                         }
                     }

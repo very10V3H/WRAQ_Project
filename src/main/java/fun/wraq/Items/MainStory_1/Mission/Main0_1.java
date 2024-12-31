@@ -1,19 +1,27 @@
 package fun.wraq.Items.MainStory_1.Mission;
 
+import com.simibubi.create.foundation.utility.IInteractionChecker;
+import fun.wraq.common.fast.Te;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
+import org.violetmoon.quark.addons.oddities.inventory.BackpackMenu;
 
 import java.util.List;
 
-public class Main0_1 extends Item {
+public class Main0_1 extends Item implements MenuProvider, IInteractionChecker {
     public Main0_1(Properties p_41383_) {
         super(p_41383_);
     }
@@ -41,8 +49,24 @@ public class Main0_1 extends Item {
 
         }
         if (!level.isClientSide) {
-
+            NetworkHooks.openScreen((ServerPlayer) player, this);
         }
         return super.use(level, player, interactionHand);
+    }
+
+    @Override
+    public Component getDisplayName() {
+        return Te.s("测试宠物菜单");
+    }
+
+    @Nullable
+    @Override
+    public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
+        return new BackpackMenu(id, player);
+    }
+
+    @Override
+    public boolean canPlayerUse(Player player) {
+        return true;
     }
 }

@@ -463,11 +463,11 @@ public class InjectRecipe {
                         ModItems.PlainDefenceRing3.get()));
 
         injectingRecipeMap.put(ModItems.PlainBossSoul.get(),
-                new InjectingRecipe(16, ModItems.completeGem.get(), 1,
+                new InjectingRecipe(16, ModItems.COMPLETE_GEM.get(), 1,
                         ModItems.PlainCompleteGem.get()));
 
         injectingRecipeMap.put(ModItems.IceSoul.get(),
-                new InjectingRecipe(16, ModItems.completeGem.get(), 1,
+                new InjectingRecipe(16, ModItems.COMPLETE_GEM.get(), 1,
                         ModItems.IceCompleteGem.get()));
 
         injectingRecipeMap.put(ModItems.VolcanoBow3.get(),
@@ -573,7 +573,7 @@ public class InjectRecipe {
                         ModItems.DevilEarthManaCurios.get()));
 
         injectingRecipeMap.put(ModItems.MoonSoul.get(),
-                new InjectingRecipe(16, ModItems.completeGem.get(), 2,
+                new InjectingRecipe(16, ModItems.COMPLETE_GEM.get(), 2,
                         ModItems.MoonCompleteGem.get()));
 
         injectingRecipeMap.put(ModItems.IceSword.get(),
@@ -1056,7 +1056,7 @@ public class InjectRecipe {
                 new InjectingRecipe(CitadelItems.CITADEL_EQUIP_ENHANCER.get(), 8, CitadelItems.CITADEL_BOOTS.get()));
 
         injectingRecipeMap.put(CitadelItems.CITADEL_PIECE.get(),
-                new InjectingRecipe(16, ModItems.completeGem.get(), 1, CitadelItems.CITADEL_EQUIP_ENHANCER.get()));
+                new InjectingRecipe(16, ModItems.COMPLETE_GEM.get(), 1, CitadelItems.CITADEL_EQUIP_ENHANCER.get()));
 
         injectingRecipeMap.put(GemItems.ANCIENT_DARKNESS_GEM_0.get(),
                 new InjectingRecipe(WardenItems.WARDEN_HEART.get(), 1, GemItems.ANCIENT_DARKNESS_GEM_1.get()));

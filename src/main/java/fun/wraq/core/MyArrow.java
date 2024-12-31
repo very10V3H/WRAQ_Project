@@ -161,7 +161,7 @@ public class MyArrow extends AbstractArrow {
                         Vec3 Delta = mob.getPosition(1).add(0, 1, 0).subtract(this.getPosition(1));
                         if (Delta.length() > 0.1) {
                             if (particleOptions != null)
-                                ParticleProvider.LineParticle(level(), 20, this.position(), mob.position().add(0, 1, 0), particleOptions);
+                                ParticleProvider.createLineParticle(level(), 20, this.position(), mob.position().add(0, 1, 0), particleOptions);
                             this.setDeltaMovement(Delta.normalize().scale(3));
                             ProjectileUtil.rotateTowardsMovement(this, 1);
                             AdjustOneTime = false;

@@ -52,6 +52,12 @@ public class InventoryCheck {
                         return;
                     }
                 }
+                if (getBoundingList().contains(item)) {
+                    CompoundTag data = itemStack.getOrCreateTagElement(Utils.MOD_ID);
+                    if (!data.contains(owner)) {
+                        addOwnerTagToItemStack(player, itemStack);
+                    }
+                }
                 if (itemStack.getTagElement(Utils.MOD_ID) != null) {
                     CompoundTag data = itemStack.getOrCreateTagElement(Utils.MOD_ID);
                     if (item instanceof RandomLootEquip && !data.contains(RandomLootEquip.NEW_VERSION_CHANGE_TAG)) {
@@ -73,9 +79,6 @@ public class InventoryCheck {
                     if (LavenderBracelet.resetBugAttributes(itemStack)) {
                         Compute.sendFormatMSG(player, Te.s("bug修复", ChatFormatting.RED),
                                 Te.s("以下物品属性已修复:", itemStack.getDisplayName()));
-                    }
-                    if (getBoundingList().contains(item) && !data.contains(owner)) {
-                        addOwnerTagToItemStack(player, itemStack);
                     }
                 }
                 itemStack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
@@ -142,7 +145,7 @@ public class InventoryCheck {
 
     private static void setBoundingList() {
         boundingList.addAll(List.of(
-                ModItems.worldSoul5.get(),
+                ModItems.WORLD_SOUL_5.get(),
                 ModItems.notePaper.get(),
                 ModItems.BrewingNote.get(),
                 ModItems.SwordLottery.get(),
@@ -172,7 +175,8 @@ public class InventoryCheck {
                 ModItems.SENIOR_SUPPLY.get(),
                 SpecialEventItems.TRAIN_SOUVENIRS.get(),
                 ModItems.BOND.get(),
-                ModItems.SPECIAL_BOND.get()
+                ModItems.SPECIAL_BOND.get(),
+                SpecialEventItems.SOUVENIRS_2024.get()
         ));
         SpecialEventItems.ITEMS.getEntries()
                 .stream()

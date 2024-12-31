@@ -174,7 +174,7 @@ public class IceInstance extends NoTeamInstance {
     public List<ItemAndRate> getRewardList() {
         return List.of(new ItemAndRate(ModItems.IceLoot.get(), 1),
                 new ItemAndRate(ModItems.IceHeart.get(), 0.05),
-                new ItemAndRate(ModItems.WorldSoul2.get(), 0.25),
+                new ItemAndRate(ModItems.WORLD_SOUL_2.get(), 0.25),
                 new ItemAndRate(ModItems.GoldCoinBag.get(), 0.1),
                 new ItemAndRate(ModItems.iceBelt.get(), 0.08));
     }

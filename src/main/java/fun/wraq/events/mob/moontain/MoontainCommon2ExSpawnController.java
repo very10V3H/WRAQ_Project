@@ -90,7 +90,7 @@ public class MoontainCommon2ExSpawnController extends MobSpawnController {
             add(new ItemAndRate(MoontainItems.LEATHER.get(), 0.12));
             add(new ItemAndRate(MoontainItems.STONE_FRAGMENT.get(), 0.36));
             add(new ItemAndRate(ModItems.silverCoin.get(), 1.1));
-            add(new ItemAndRate(ModItems.gemPiece.get(), 0.065));
+            add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.065));
         }};
     }
 }

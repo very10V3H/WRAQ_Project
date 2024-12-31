@@ -102,7 +102,7 @@ public class BlockEvent {
                     });
                     if (flag.get()) return;
 
-                    ItemStack worldSoul1 = ModItems.WorldSoul1.get().getDefaultInstance();
+                    ItemStack worldSoul1 = ModItems.WORLD_SOUL_1.get().getDefaultInstance();
                     int TransformSuccessNum = 0;
                     int OriginalItemNum = itemStack.getCount();
                     for (int i = 0; i < itemStack.getCount(); i++) {

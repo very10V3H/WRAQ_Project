@@ -84,10 +84,10 @@ public class BoneImpKnife extends WraqOffHandItem implements ForgeItem {
             add(new ItemStack(ModItems.manaKnife.get(), 1));
             add(new ItemStack(C7Items.boneImpSoul.get(), 576));
             add(new ItemStack(ModItems.GOLD_COIN.get(), 288));
-            add(new ItemStack(ModItems.completeGem.get(), 16));
+            add(new ItemStack(ModItems.COMPLETE_GEM.get(), 16));
             add(new ItemStack(ModItems.ReputationMedal.get(), 64));
             add(new ItemStack(PickaxeItems.TINKER_GOLD.get(), 12));
-            add(new ItemStack(ModItems.WorldSoul3.get(), 4));
+            add(new ItemStack(ModItems.WORLD_SOUL_3.get(), 4));
         }};
     }
 }

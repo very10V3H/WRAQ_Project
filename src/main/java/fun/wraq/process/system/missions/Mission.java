@@ -546,7 +546,7 @@ public class Mission {
         }});
 
         for (int i = 19; i <= 38; i++) {
-            rewardContent.put(i, List.of(new ItemStack(ModItems.worldSoul5.get(), 4),
+            rewardContent.put(i, List.of(new ItemStack(ModItems.WORLD_SOUL_5.get(), 4),
                     new ItemStack(ModItems.GOLD_COIN.get(), 2),
                     new ItemStack(ModItems.RevelationBook.get(), 10)));
         }
@@ -567,14 +567,14 @@ public class Mission {
         if (rewardContent.isEmpty()) setRewardContent();
         rewardContent.get(serialNum).forEach(itemStack -> {
             ItemStack rewardItem = new ItemStack(itemStack.getItem(), itemStack.getCount());
-            if (rewardItem.is(ModItems.worldSoul5.get())) {
+            if (rewardItem.is(ModItems.WORLD_SOUL_5.get())) {
                 try {
                     Tower.givePlayerStar(player, itemStack.getCount() * (PlanPlayer.getPlayerTier(player) > 0 ? 2 : 1), "每日任务");
                     if (PlanPlayer.getPlayerTier(player) > 0) {
                         Compute.sendFormatMSG(player, Component.literal("本源").withStyle(CustomStyle.styleOfWorld),
                                 Component.literal("计划为你额外提供了 ").withStyle(ChatFormatting.WHITE).
                                         append(Component.literal(itemStack.getCount() + "*").withStyle(CustomStyle.styleOfWorld)).
-                                        append(ModItems.worldSoul5.get().getDefaultInstance().getDisplayName()));
+                                        append(ModItems.WORLD_SOUL_5.get().getDefaultInstance().getDisplayName()));
                     }
                     RankData.onPlayerFishedNewDailyMission(player);
                 } catch (SQLException | ParseException e) {

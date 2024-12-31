@@ -106,10 +106,10 @@ public class HarbingerSceptre extends WraqSceptre implements HarbingerMainHand, 
                 new ItemStack(HarbingerItems.HARBINGER_ROD.get()),
                 new ItemStack(HarbingerItems.HARBINGER_WEAPON_CORE.get()),
                 new ItemStack(HarbingerItems.HARBINGER_MIRROR.get()),
-                new ItemStack(ModItems.completeGem.get(), 22),
+                new ItemStack(ModItems.COMPLETE_GEM.get(), 22),
                 new ItemStack(ModItems.ReputationMedal.get(), 56),
                 new ItemStack(PickaxeItems.TINKER_GOLD.get(), 8),
-                new ItemStack(ModItems.WorldSoul3.get(), 6)
+                new ItemStack(ModItems.WORLD_SOUL_3.get(), 6)
         );
     }
 }

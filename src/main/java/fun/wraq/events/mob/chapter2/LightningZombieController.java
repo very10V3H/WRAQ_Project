@@ -101,7 +101,7 @@ public class LightningZombieController extends MobSpawnController {
         return new ArrayList<>() {{
             add(new ItemAndRate(ModItems.LightningSoul.get(), 1));
             add(new ItemAndRate(ModItems.silverCoin.get(), 0.4375));
-            add(new ItemAndRate(ModItems.gemPiece.get(), 0.02));
+            add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.02));
             add(new ItemAndRate(ModItems.LightningElementPiece0.get(), 0.2));
             add(new ItemAndRate(C2LootItems.lightningZombieHelmet.get(), 0.005));
             add(new ItemAndRate(NewRuneItems.lightningNewRune.get(), 0.001));

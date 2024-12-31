@@ -103,7 +103,7 @@ public class BoneImpSpawnController extends MobSpawnController {
         return new ArrayList<>() {{
             add(new ItemAndRate(C7Items.boneImpSoul.get(), 0.8));
             add(new ItemAndRate(ModItems.silverCoin.get(), 0.87));
-            add(new ItemAndRate(ModItems.gemPiece.get(), 0.06));
+            add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.06));
             add(new ItemAndRate(ModItems.FireElementPiece0.get(), 0.5));
             add(new ItemAndRate(C7LootItems.boneImpHelmet.get(), 0.005));
         }};

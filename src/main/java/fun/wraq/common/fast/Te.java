@@ -1,9 +1,7 @@
 package fun.wraq.common.fast;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.*;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -47,7 +45,7 @@ public class Te {
     }
 
     @SafeVarargs
-    public static<T> MutableComponent s(T... textAndStyle) {
+    public static <T> MutableComponent s(T... textAndStyle) {
         MutableComponent mutableComponent = Component.literal("").withStyle(ChatFormatting.WHITE);
         for (int i = 0; i < textAndStyle.length; i++) {
             T componentOrStyle = textAndStyle[i];
@@ -102,5 +100,12 @@ public class Te {
 
         }
         return mutableComponent;
+    }
+
+    public static Component c(Component content, String command, Component hoverContent) {
+        return Te.s(content).withStyle((s) -> {
+            return s.withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, command))
+                    .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, hoverContent));
+        });
     }
 }

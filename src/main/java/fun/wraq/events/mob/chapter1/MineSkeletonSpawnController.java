@@ -97,7 +97,7 @@ public class MineSkeletonSpawnController extends MobSpawnController {
                 new ItemAndRate(ModItems.MineSoul.get(), 0.8),
                 new ItemAndRate(ModItems.MineSoul1.get(), 0.1),
                 new ItemAndRate(ModItems.copperCoin.get(), 3),
-                new ItemAndRate(ModItems.gemPiece.get(), 0.01),
+                new ItemAndRate(ModItems.GEM_PIECE.get(), 0.01),
                 new ItemAndRate(ModItems.MineCrest0.get(), 0.02),
                 new ItemAndRate(ModItems.MineCrest1.get(), 0.005),
                 new ItemAndRate(ModItems.MineCrest2.get(), 0.001),

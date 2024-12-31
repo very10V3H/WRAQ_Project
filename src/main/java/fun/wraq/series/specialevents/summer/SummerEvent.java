@@ -168,7 +168,7 @@ public class SummerEvent {
                 Tower.givePlayerStar(player, 5, "summer event");
                 sendFormatMSG(player, Component.literal("今日还能获得").withStyle(ChatFormatting.WHITE).
                         append(Component.literal(String.valueOf(8 - dailyWorldSoul5GetTimes + 1) + "次").withStyle(CustomStyle.styleOfWater)).
-                        append(ModItems.worldSoul5.get().getDefaultInstance().getDisplayName()));
+                        append(ModItems.WORLD_SOUL_5.get().getDefaultInstance().getDisplayName()));
             } else index += 0.08;
         }
 

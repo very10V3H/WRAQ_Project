@@ -1,6 +1,7 @@
 package fun.wraq.render.gui.testAndHelper;
 
 import fun.wraq.common.util.Utils;
+import fun.wraq.process.system.pet.PetMenu;
 import fun.wraq.render.gui.blocks.BrewingMenu;
 import fun.wraq.render.gui.blocks.ForgingBlockMenu;
 import fun.wraq.render.gui.blocks.FurnaceMenu;
@@ -29,6 +30,9 @@ public class ModMenuTypes {
 
     public static final RegistryObject<MenuType<FurnaceMenu>> Furnace_Menu =
             registerMenuType(FurnaceMenu::new, "furnace_menu");
+
+    public static final RegistryObject<MenuType<PetMenu>> PET_MENU =
+            registerMenuType(PetMenu::new, "pet_menu");
 
     private static <T extends AbstractContainerMenu> RegistryObject<MenuType<T>> registerMenuType(IContainerFactory<T> factory,
                                                                                                   String name) {

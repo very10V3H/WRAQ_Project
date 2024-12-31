@@ -108,14 +108,14 @@ public class GateWay {
                     }
                 }
                 if (nearGateway) {
-                    if (InventoryOperation.itemStackCount(player, ModItems.WorldSoul2.get()) == 0
+                    if (InventoryOperation.itemStackCount(player, ModItems.WORLD_SOUL_2.get()) == 0
                             && InventoryOperation.itemStackCount(player, ModItems.TP_TICKET.get()) == 0
                             && PlanPlayer.getPlayerTier(player) < 2) {
                         playerTPDelayCount.put(name, -1);
                         Compute.setPlayerTitleAndSubTitle(player, Component.literal("位移进程中断").withStyle(ChatFormatting.RED),
                                 Te.s("需要一个",
                                         ModItems.TP_TICKET.get().getDefaultInstance().getDisplayName(), "或",
-                                        ModItems.WorldSoul2.get().getDefaultInstance().getDisplayName()),
+                                        ModItems.WORLD_SOUL_2.get().getDefaultInstance().getDisplayName()),
                                 0, 20, 10);
                     } else {
                         int tpDelayCount = playerTPDelayCount.getOrDefault(name, -1);
@@ -141,7 +141,7 @@ public class GateWay {
                             else playerTPCooldownMap.put(name, tick + 60);
                             if (PlanPlayer.getPlayerTier(player) < 2) {
                                 if (!InventoryOperation.removeItem(player.getInventory(), ModItems.TP_TICKET.get(), 1)) {
-                                    InventoryOperation.removeItem(player.getInventory(), ModItems.WorldSoul2.get(), 1);
+                                    InventoryOperation.removeItem(player.getInventory(), ModItems.WORLD_SOUL_2.get(), 1);
                                 }
                             }
                         }

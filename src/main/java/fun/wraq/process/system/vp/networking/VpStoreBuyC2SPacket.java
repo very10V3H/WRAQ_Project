@@ -52,11 +52,11 @@ public class VpStoreBuyC2SPacket {
             if (VpStore.getWorldSoul5Price().containsKey(goods.getItem())) {
                 int needCount = VpStore.getWorldSoul5Price().get(goods.getItem());
                 Inventory inventory = serverPlayer.getInventory();
-                if (InventoryOperation.checkPlayerHasItem(inventory, ModItems.worldSoul5.get(), needCount)) {
+                if (InventoryOperation.checkPlayerHasItem(inventory, ModItems.WORLD_SOUL_5.get(), needCount)) {
 
                     Security.recordItemStream(name, Security.SYSTEM,
-                            new ItemStack(ModItems.worldSoul5.get(), needCount), Security.RecordType.WORLD_SOUL_5_VP_PAY);
-                    InventoryOperation.removeItem(inventory, ModItems.worldSoul5.get(), needCount);
+                            new ItemStack(ModItems.WORLD_SOUL_5.get(), needCount), Security.RecordType.WORLD_SOUL_5_VP_PAY);
+                    InventoryOperation.removeItem(inventory, ModItems.WORLD_SOUL_5.get(), needCount);
 
                     ItemStack itemStack = new ItemStack(goods.getItem(), count);
 
@@ -123,7 +123,7 @@ public class VpStoreBuyC2SPacket {
                 Component component = null;
                 if (worldSoul5CostNum > 0) {
                     component = Component.literal("本次购买花费了 ").withStyle(ChatFormatting.WHITE).
-                            append(ModItems.worldSoul5.get().getDefaultInstance().getDisplayName()).
+                            append(ModItems.WORLD_SOUL_5.get().getDefaultInstance().getDisplayName()).
                             append(Component.literal(" * " + worldSoul5CostNum).withStyle(ChatFormatting.AQUA));
                 } else {
                     component = Component.literal("本次购买花费了 ").withStyle(ChatFormatting.WHITE).

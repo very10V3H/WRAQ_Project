@@ -9,7 +9,7 @@ import fun.wraq.entities.entities.SoraSword.SoraRedSwordAirRender;
 import fun.wraq.entities.entities.SoraSword.SoraSwordAirRender;
 import fun.wraq.entities.render.*;
 import fun.wraq.process.func.guide.GuideHud;
-import fun.wraq.process.system.entrustment.MobEntrustmentInfo.MobKillEntrustmentHud;
+import fun.wraq.process.system.entrustment.mob.MobKillEntrustmentHud;
 import fun.wraq.process.system.teamInstance.NewTeamInstanceHud;
 import fun.wraq.render.hud.main.*;
 import fun.wraq.render.hud.ShieldHud;

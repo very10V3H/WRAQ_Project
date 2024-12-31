@@ -105,7 +105,7 @@ public enum SmeltRecipe {
 
     PLAIN_COMPLETE_GEM(Te.m("普莱尼水晶", CustomStyle.styleOfPlain),
             List.of(new ItemStack(ModItems.PlainBossSoul.get(), 64),
-                    new ItemStack(ModItems.completeGem.get(), 1),
+                    new ItemStack(ModItems.COMPLETE_GEM.get(), 1),
                     new ItemStack(ModItems.GOLD_COIN.get(), 1)),
             List.of(new ItemStack(ModItems.PlainCompleteGem.get(), 4)),
             List.of(new ItemAndRate(new ItemStack(ModItems.PlainCompleteGem.get(), 1), 0.25)),
@@ -128,7 +128,7 @@ public enum SmeltRecipe {
 
     ICE_COMPLETE_GEM(Te.m("冰霜水晶", CustomStyle.styleOfIce),
             List.of(new ItemStack(ModItems.IceSoul.get(), 64),
-                    new ItemStack(ModItems.completeGem.get(), 1),
+                    new ItemStack(ModItems.COMPLETE_GEM.get(), 1),
                     new ItemStack(ModItems.GOLD_COIN.get(), 1)),
             List.of(new ItemStack(ModItems.IceCompleteGem.get(), 4)),
             List.of(new ItemAndRate(new ItemStack(ModItems.IceCompleteGem.get(), 1), 0.25)),
@@ -152,7 +152,7 @@ public enum SmeltRecipe {
 
     MOON_COMPLETE_GEM(Te.m("尘月水晶", CustomStyle.styleOfMoon),
             List.of(new ItemStack(ModItems.MoonSoul.get(), 64),
-                    new ItemStack(ModItems.completeGem.get(), 2),
+                    new ItemStack(ModItems.COMPLETE_GEM.get(), 2),
                     new ItemStack(ModItems.GOLD_COIN.get(), 16)),
             List.of(new ItemStack(ModItems.MoonCompleteGem.get(), 4)),
             List.of(new ItemAndRate(new ItemStack(ModItems.MoonCompleteGem.get(), 1), 0.25)),
@@ -206,7 +206,7 @@ public enum SmeltRecipe {
             List.of(new ItemStack(MoontainItems.CURIOS_PIECE.get(), 4),
                     new ItemStack(MoontainItems.FALLING_SOUL.get(), 128),
                     new ItemStack(ModItems.GOLD_COIN.get(), 128),
-                    new ItemStack(ModItems.completeGem.get(), 4),
+                    new ItemStack(ModItems.COMPLETE_GEM.get(), 4),
                     new ItemStack(MoontainItems.STONE_FRAGMENT.get(), 128)
             ),
             List.of(new ItemStack(MoontainItems.CURIOS_RATE_ENHANCER.get(), 1)),
@@ -217,7 +217,7 @@ public enum SmeltRecipe {
             List.of(new ItemStack(MoontainItems.CURIOS_PIECE.get(), 8),
                     new ItemStack(MoontainItems.FALLING_SOUL.get(), 256),
                     new ItemStack(ModItems.GOLD_COIN.get(), 256),
-                    new ItemStack(ModItems.completeGem.get(), 8),
+                    new ItemStack(ModItems.COMPLETE_GEM.get(), 8),
                     new ItemStack(MoontainItems.STONE_FRAGMENT.get(), 256)
             ),
             List.of(new ItemStack(MoontainItems.CURIOS_FULL_RATE_ENHANCER.get(), 1)),

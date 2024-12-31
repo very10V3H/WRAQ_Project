@@ -99,6 +99,7 @@ import fun.wraq.series.end.eventController.SpiderRecall.SpiderRecallArmorChest;
 import fun.wraq.series.end.eventController.SpiderRecall.SpiderRecallArmorHelmet;
 import fun.wraq.series.end.eventController.SpiderRecall.SpiderRecallArmorLeggings;
 import fun.wraq.series.end.recallBooks.*;
+import fun.wraq.series.instance.series.moon.MoonSoul;
 import fun.wraq.series.overworld.chapter1.mine.*;
 import fun.wraq.series.overworld.curios.FancySapphireNecklace;
 import fun.wraq.series.overworld.curios.RubyNecklace;
@@ -521,12 +522,19 @@ public class ModItems {
     public static final RegistryObject<Item> ForestArmorBoots = ITEMS.register("forestarmorboots",
             () -> new ForestArmorBoots(ModArmorMaterials.Forest, ArmorItem.Type.BOOTS));
 
-    public static final RegistryObject<Item> gemPiece = ITEMS.register("gemspiece",
-            () -> new WraqItem(new Item.Properties().rarity(Rarity.RARE), false, false));
-    public static final RegistryObject<Item> completeGem = ITEMS.register("complete_gem",
-            () -> new Item(new Item.Properties().rarity(Rarity.EPIC)));
+    public static final RegistryObject<Item> COMPLETE_GEM = ITEMS.register("complete_gem",
+            () -> new WraqItem(new Item.Properties().rarity(Rarity.EPIC), false, false, List.of(
+                    Te.s("主要用于", "装备锻造", CustomStyle.styleOfGold, "与", "宝石制作")
+            )));
+    public static final RegistryObject<Item> GEM_PIECE = ITEMS.register("gemspiece",
+            () -> new WraqItem(new Item.Properties().rarity(Rarity.RARE), false, false, List.of(
+                    Te.s("完整水晶", ChatFormatting.LIGHT_PURPLE, "的一块碎片"),
+                    Te.s("可以在", "任意村民", CustomStyle.styleOfSunIsland, "处兑换", COMPLETE_GEM.get())
+            )));
     public static final RegistryObject<Item> ReputationMedal = ITEMS.register("reputation_medal",
-            () -> new Item(new Item.Properties().rarity(Rarity.UNCOMMON)));
+            () -> new WraqItem(new Item.Properties().rarity(Rarity.UNCOMMON), false, false, List.of(
+                    Te.s("主要用于", "装备锻造", CustomStyle.styleOfGold)
+            )));
     public static final RegistryObject<Item> CrudeCoal = ITEMS.register("crude_coal",
             () -> new Item(new Item.Properties().rarity(CustomStyle.Plain)));
 
@@ -1736,20 +1744,33 @@ public class ModItems {
     public static final RegistryObject<Item> GOLDEN_SHEET = ITEMS.register("golden_sheet",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.GoldBold)));
 
-    public static final RegistryObject<Item> WorldSoul1 = ITEMS.register("worldsoul1",
-            () -> new Item(new Item.Properties().rarity(CustomStyle.WorldBold)));
+    public static final RegistryObject<Item> WORLD_SOUL_5 = ITEMS.register("worldsoul5",
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.WorldBold), false, false, List.of(
+                    Te.s("世界本源", CustomStyle.styleOfWorld, "具象的凝聚物"),
+                    Te.s("可以在", "本源商人或vp商店", CustomStyle.styleOfWorld),
+                    Te.s("兑换一些", "特殊补给包", ChatFormatting.LIGHT_PURPLE)
+            )));
 
-    public static final RegistryObject<Item> WorldSoul2 = ITEMS.register("worldsoul2",
-            () -> new Item(new Item.Properties().rarity(CustomStyle.WorldBold)));
+    public static final RegistryObject<Item> WORLD_SOUL_4 = ITEMS.register("worldsoul4",
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.WorldBold)));
 
-    public static final RegistryObject<Item> WorldSoul3 = ITEMS.register("worldsoul3",
-            () -> new Item(new Item.Properties().rarity(CustomStyle.WorldBold)));
+    public static final RegistryObject<Item> WORLD_SOUL_3 = ITEMS.register("worldsoul3",
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.WorldBold), false, false, List.of(
+                    Te.s("世界本源", CustomStyle.styleOfWorld, "具象的一整块物质"),
+                    Te.s("可用在", "大多数装备", CustomStyle.styleOfWorld, "的锻造中")
+            )));
 
-    public static final RegistryObject<Item> WorldSoul4 = ITEMS.register("worldsoul4",
-            () -> new Item(new Item.Properties().rarity(CustomStyle.WorldBold)));
+    public static final RegistryObject<Item> WORLD_SOUL_2 = ITEMS.register("worldsoul2",
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.WorldBold), false, false, List.of(
+                    Te.s("世界本源", CustomStyle.styleOfWorld, "具象的一团物质"),
+                    Te.s("可以在", "本源收集装置", CustomStyle.styleOfWorld, "用64个合成", WORLD_SOUL_3)
+            )));
 
-    public static final RegistryObject<Item> worldSoul5 = ITEMS.register("worldsoul5",
-            () -> new Item(new Item.Properties().rarity(CustomStyle.WorldBold)));
+    public static final RegistryObject<Item> WORLD_SOUL_1 = ITEMS.register("worldsoul1",
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.WorldBold), false, false, List.of(
+                    Te.s("世界本源", CustomStyle.styleOfWorld, "具象的一小搓物质"),
+                    Te.s("可以在", "本源收集装置", CustomStyle.styleOfWorld, "用64个合成", WORLD_SOUL_2)
+            )));
 
     public static final RegistryObject<Item> SoulBow = ITEMS.register("soulbow",
             () -> new SoulBow(new Item.Properties().stacksTo(1).rarity(CustomStyle.WorldBold)));
@@ -2411,7 +2432,7 @@ public class ModItems {
             () -> new MobArmor(ModArmorMaterials.Moon, ArmorItem.Type.BOOTS, StringUtils.MobName.NoAttribute));
 
     public static final RegistryObject<Item> MoonSoul = ITEMS.register("moon_soul",
-            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.MoonBold)));
+            () -> new MoonSoul(new Item.Properties().rarity(CustomStyle.MoonBold)));
 
     public static final RegistryObject<Item> MoonCompleteGem = ITEMS.register("moon_complete_gem",
             () -> new Item(new Item.Properties().rarity(CustomStyle.MoonBold)));
@@ -3117,7 +3138,10 @@ public class ModItems {
             () -> new MobArmor(ModArmorMaterials.PurpleIron, ArmorItem.Type.HELMET, StringUtils.MobName.EndStray));
 
     public static final RegistryObject<Item> ROSE_GOLD_COIN = ITEMS.register("rose_gold_coin",
-            () -> new Item(new Item.Properties().rarity(CustomStyle.PurpleIronBold)));
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.PurpleIronBold), false, false, List.of(
+                    Te.s("于", "旭升岛秘藏商人", CustomStyle.styleOfSunIsland, "处兑换"),
+                    Te.s("有一些", "特殊的用途", CustomStyle.styleOfSakura)
+            )));
 
     public static final RegistryObject<Item> MobArmorLabourDay1 = ITEMS.register("mob_armor_labour_day1",
             () -> new MobArmor(ModArmorMaterials.BasicArmor1, ArmorItem.Type.HELMET, StringUtils.MobName.LabourDay1));
@@ -3234,7 +3258,7 @@ public class ModItems {
                         new NewLotteries.Loot(new ItemStack(ModItems.WindCurios0.get()), 0.005),*/
                         new NewLotteries.Loot(new ItemStack(ModItems.KillPaperLoot.get(), 4), 0.2),
                         new NewLotteries.Loot(new ItemStack(ModItems.MopUpPaperLoot.get(), 4), 0.2),
-                        new NewLotteries.Loot(new ItemStack(ModItems.completeGem.get()), 0.1),
+                        new NewLotteries.Loot(new ItemStack(ModItems.COMPLETE_GEM.get()), 0.1),
                         new NewLotteries.Loot(new ItemStack(ModItems.ReputationMedal.get()), 0.1),
                         new NewLotteries.Loot(new ItemStack(ModItems.GoldCoinBag.get(), 4), 0.1)
                 );
@@ -3255,7 +3279,7 @@ public class ModItems {
                         new NewLotteries.Loot(new ItemStack(ModItems.WindCurios0.get()), 0.005),*/
                         new NewLotteries.Loot(new ItemStack(ModItems.KillPaperLoot.get(), 4), 0.2),
                         new NewLotteries.Loot(new ItemStack(ModItems.MopUpPaperLoot.get(), 4), 0.2),
-                        new NewLotteries.Loot(new ItemStack(ModItems.completeGem.get()), 0.1),
+                        new NewLotteries.Loot(new ItemStack(ModItems.COMPLETE_GEM.get()), 0.1),
                         new NewLotteries.Loot(new ItemStack(ModItems.ReputationMedal.get()), 0.1),
                         new NewLotteries.Loot(new ItemStack(ModItems.GoldCoinBag.get(), 4), 0.1)
                 );
@@ -3276,7 +3300,7 @@ public class ModItems {
                         new NewLotteries.Loot(new ItemStack(ModItems.WindCurios0.get()), 0.005),*/
                         new NewLotteries.Loot(new ItemStack(ModItems.KillPaperLoot.get(), 4), 0.2),
                         new NewLotteries.Loot(new ItemStack(ModItems.MopUpPaperLoot.get(), 4), 0.2),
-                        new NewLotteries.Loot(new ItemStack(ModItems.completeGem.get()), 0.1),
+                        new NewLotteries.Loot(new ItemStack(ModItems.COMPLETE_GEM.get()), 0.1),
                         new NewLotteries.Loot(new ItemStack(ModItems.ReputationMedal.get()), 0.1),
                         new NewLotteries.Loot(new ItemStack(ModItems.GoldCoinBag.get(), 4), 0.1)
                 );
@@ -3933,7 +3957,7 @@ public class ModItems {
                 add(new ItemStack(notePaper.get(), 96));
                 add(new ItemStack(EndlessInstanceItems.EASTERN_TOWER_PAPER.get(), 3));
                 add(new ItemStack(RevelationBook.get(), 16));
-                add(new ItemStack(worldSoul5.get(), 80));
+                add(new ItemStack(WORLD_SOUL_5.get(), 80));
             }}));
 
     public static final RegistryObject<Item> supplyBoxTier3 = ITEMS.register("supply_box_tier_3",
@@ -3943,7 +3967,7 @@ public class ModItems {
                 add(new ItemStack(notePaper.get(), 128));
                 add(new ItemStack(EndlessInstanceItems.EASTERN_TOWER_PAPER.get(), 4));
                 add(new ItemStack(RevelationBook.get(), 32));
-                add(new ItemStack(worldSoul5.get(), 200));
+                add(new ItemStack(WORLD_SOUL_5.get(), 200));
             }}));
 
     public static final RegistryObject<Item> SENIOR_POTION_SUPPLY = ITEMS.register("senior_potion_supply",
@@ -3970,17 +3994,19 @@ public class ModItems {
     public static final RegistryObject<Item> JUNIOR_SUPPLY = ITEMS.register("junior_supply",
             () -> new SupplyBox(new Item.Properties().rarity(Rarity.UNCOMMON), new ArrayList<>() {{
                 add(new ItemStack(ReputationMedal.get(), 1));
-                add(new ItemStack(gemPiece.get(), 16));
+                add(new ItemStack(GEM_PIECE.get(), 16));
                 add(new ItemStack(GOLD_COIN.get(), 8));
                 add(new ItemStack(RevelationBook.get(), 32));
+                add(new ItemStack(TP_TICKET.get(), 6));
             }}));
 
     public static final RegistryObject<Item> SENIOR_SUPPLY = ITEMS.register("senior_supply",
             () -> new SupplyBox(new Item.Properties().rarity(Rarity.RARE), new ArrayList<>() {{
                 add(new ItemStack(ReputationMedal.get(), 4));
-                add(new ItemStack(completeGem.get(), 1));
+                add(new ItemStack(COMPLETE_GEM.get(), 1));
                 add(new ItemStack(GOLD_COIN.get(), 32));
                 add(new ItemStack(REVELATION_HEART.get(), 6));
+                add(new ItemStack(TP_TICKET.get(), 24));
             }}));
 
     public static final RegistryObject<Item> simpleTier1Paper = ITEMS.register("simple_tier_1_paper",
@@ -3993,8 +4019,21 @@ public class ModItems {
             () -> new SimpleTierPaper(new Item.Properties().rarity(Rarity.EPIC), 3));
 
     public static final RegistryObject<Item> BOND = ITEMS.register("bond",
-            () -> new WraqItem(new Item.Properties().rarity(Rarity.RARE), false, true));
+            () -> new WraqItem(new Item.Properties().rarity(Rarity.RARE), false, true, List.of(
+                    Te.s("联合研院", CustomStyle.styleOfWorld, "发行的一种信用债券"),
+                    Te.s("可以用于", "交换物品", CustomStyle.styleOfGold),
+                    Te.s("也可以用于获取", "定期分红", CustomStyle.styleOfGold)
+            )));
 
     public static final RegistryObject<Item> SPECIAL_BOND = ITEMS.register("special_bond",
-            () -> new WraqItem(new Item.Properties().rarity(Rarity.EPIC), false, true));
+            () -> new WraqItem(new Item.Properties().rarity(Rarity.EPIC), false, true, List.of(
+                    Te.s("联合研院", CustomStyle.styleOfWorld, "特别发行的债券"),
+                    Te.s("可以用于", "提升Rank", ChatFormatting.RED)
+            )));
+
+    public static final RegistryObject<Item> GOLDEN_BEANS = ITEMS.register("golden_beans",
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.GoldBold), false, true, List.of(
+                    Te.s("联合研院", CustomStyle.styleOfWorld, "发行的一种等价物"),
+                    Te.s("主要通过完成", "委托任务", CustomStyle.styleOfWorld, "获得")
+            )));
 }

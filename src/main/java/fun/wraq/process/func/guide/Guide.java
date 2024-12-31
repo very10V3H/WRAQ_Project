@@ -187,7 +187,7 @@ public class Guide {
             guides.add(new Guide(List.of(
                     Te.s("升级", BladeItems.BLADE.get(), "/", QuiverItems.QUIVER.get(), "/", MixtureItems.MIXTURE.get()),
                     Te.s("使用", ModItems.PlainBossSoul.get(), "将其灌注为", CustomStyle.styleOfInject, "普莱尼等阶", CustomStyle.styleOfPlain),
-                    Te.s("为节约", ModItems.completeGem.get(), "你可以使用", "冶炼炉", CustomStyle.styleOfPower, "来炼造", ModItems.PlainCompleteGem.get())
+                    Te.s("为节约", ModItems.COMPLETE_GEM.get(), "你可以使用", "冶炼炉", CustomStyle.styleOfPower, "来炼造", ModItems.PlainCompleteGem.get())
             ), null, (player -> {
                 InventoryOperation.itemStackGiveWithMSG(player, new ItemStack(ModItems.JUNIOR_SUPPLY.get(), 1));
             }), 40));

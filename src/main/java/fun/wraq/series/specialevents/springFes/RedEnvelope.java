@@ -34,7 +34,7 @@ public class RedEnvelope extends Item {
         itemAndWeightList.add(new ItemAndWeight(ModItems.RevelationBook.get(), 30));
         itemAndWeightList.add(new ItemAndWeight(ModItems.Ps_Bottle0.get(), 30));
         itemAndWeightList.add(new ItemAndWeight(ModItems.GOLD_COIN.get(), 30));
-        itemAndWeightList.add(new ItemAndWeight(ModItems.WorldSoul2.get(), 30));
+        itemAndWeightList.add(new ItemAndWeight(ModItems.WORLD_SOUL_2.get(), 30));
         itemAndWeightList.add(new ItemAndWeight(ModItems.SpringMoney.get(), 300));
     }
 
