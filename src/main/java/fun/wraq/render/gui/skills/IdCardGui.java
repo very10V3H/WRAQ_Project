@@ -243,7 +243,7 @@ public class IdCardGui extends Screen {
                         || button.getMessage().getString().contains("声望商店")
                         || button.getMessage().getString().contains("全球市场")) {
                     if (x > this.width / 2 - 18 && x < this.width / 2 - 18 + 48 && y > this.height / 2 + 113 - 40
-                            && y < this.height / 2 + 113 - 40 + 18 + 16) {
+                            && y < this.height / 2 + 113 - 40 + 18 * 2 + 16) {
                         renderable.render(graphics, x, y, v);
                     } else {
                         guiGraphics.drawString(fontRenderer, Component.literal("「市场/商店」")
