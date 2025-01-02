@@ -1,7 +1,9 @@
 package fun.wraq.Items.MainStory_1.Mission;
 
+import com.simibubi.create.content.trains.entity.CarriageContraptionEntity;
+import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.ComponentUtils;
-import fun.wraq.process.system.pet.allay.AllayPet;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -9,6 +11,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -86,9 +89,13 @@ public class Main0 extends Item {
 
             List.of(rod, core, swordBlade, string, mirror).forEach(player::addItem);*/
 
-            AllayPet.playerSpawnAllay(serverPlayer);
+            Compute.getNearEntity(player, Entity.class, 16)
+                    .stream().filter(entity -> entity instanceof CarriageContraptionEntity)
+                    .forEach(entity -> {
+                        player.sendSystemMessage(Te.s(entity));
+                    });
         }
-
+        
         if (!level.isClientSide && player.isShiftKeyDown()) {
 
         }

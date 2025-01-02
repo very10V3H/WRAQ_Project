@@ -13,23 +13,11 @@ import java.util.List;
 
 public class BlazeSword extends WraqPassiveEquip {
 
-    private static final double[] ExAttackDamage = {
-            200, 300, 400, 500
-    };
-
-    private static final double[] Defence = {
-            4, 6, 8, 10
-    };
-
-    private static final double[] MaxHealth = {
-            400, 600, 800, 1000
-    };
-
     public BlazeSword(Properties properties, int tier) {
         super(properties);
-        Utils.attackDamage.put(this, ExAttackDamage[tier]);
-        Utils.defence.put(this, Defence[tier]);
-        Utils.maxHealth.put(this, MaxHealth[tier]);
+        Utils.attackDamage.put(this, new double[]{200, 300, 400, 500}[tier]);
+        Utils.defence.put(this, new double[]{4, 6, 8, 10}[tier]);
+        Utils.maxHealth.put(this, new double[]{1600, 2400, 3200, 4000}[tier]);
         Utils.levelRequire.put(this, 180);
     }
 

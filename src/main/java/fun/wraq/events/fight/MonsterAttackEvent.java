@@ -123,6 +123,8 @@ public class MonsterAttackEvent {
         damage *= GemWithstandDamageRateModifier.onWithstandDamageRate(player, monster, damage);
         damage *= MinePower.onPlayerWithstand(player);
 
+        damage *= 2;
+
         double healthSteal = MobAttributes.healthSteal(monster);
 
         if (damage > 0) {

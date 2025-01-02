@@ -43,7 +43,7 @@ public class PlainSuitDescription {
 
         int count = 0;
         Player player = Minecraft.getInstance().player;
-        ChatFormatting MainStyle = ChatFormatting.GREEN;
+        ChatFormatting mainStyle = ChatFormatting.GREEN;
         Item[] items = {
                 ModItems.PlainArmorHelmet.get(),
                 ModItems.PlainArmorChest.get(),
@@ -57,12 +57,13 @@ public class PlainSuitDescription {
                 EquipmentSlot.FEET
         };
         for (int i = 0; i < items.length; i++) {
-            count += Compute.SuitItemVision(player, items[i], equipmentSlot[i], components, MainStyle);
+            count += Compute.SuitItemVision(player, items[i], equipmentSlot[i], components, mainStyle);
         }
 
         String crestName = "[平原纹章]";
-        if (Compute.CuriosAttribute.getDistinctCuriosList(player).stream().anyMatch(stack -> stack.getItem() instanceof PlainCrest)) {
-            components.add(Component.literal(crestName).withStyle(MainStyle));
+        if (Compute.CuriosAttribute.getDistinctCuriosList(player)
+                .stream().anyMatch(stack -> stack.getItem() instanceof PlainCrest)) {
+            components.add(Component.literal(crestName).withStyle(mainStyle));
             count++;
         } else components.add(Component.literal(crestName).withStyle(ChatFormatting.GRAY));
 
@@ -72,6 +73,6 @@ public class PlainSuitDescription {
         ComponentUtils.suitQuadraDescription(components, count);
         Compute.DescriptionPassive(components, Component.literal("平原生机:").withStyle(ChatFormatting.GREEN));
         components.add(Component.literal("获得").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.maxHealth("200")));
+                append(ComponentUtils.AttributeDescription.maxHealth("800")));
     }
 }

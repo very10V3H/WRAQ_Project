@@ -32,7 +32,7 @@ public class MoonShield extends WraqOffHandItem implements OnHitEffectEquip {
         super(new Properties().rarity(CustomStyle.MoonItalic),
                 Te.s("手盾", CustomStyle.styleOfMine));
         Utils.defence.put(this, 7d);
-        Utils.maxHealth.put(this, 777d);
+        Utils.maxHealth.put(this, 4777d);
         Utils.attackDamage.put(this, 177d);
         Utils.critDamage.put(this, 0.27);
         Utils.expUp.put(this, 0.77);

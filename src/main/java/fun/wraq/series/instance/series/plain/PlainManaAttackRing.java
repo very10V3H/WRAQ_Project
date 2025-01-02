@@ -1,6 +1,8 @@
 package fun.wraq.series.instance.series.plain;
 
+import fun.wraq.blocks.entity.Decomposable;
 import fun.wraq.common.equip.WraqCurios;
+import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -10,7 +12,7 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
 
-public class PlainManaAttackRing extends WraqCurios {
+public class PlainManaAttackRing extends WraqCurios implements Decomposable {
 
     public PlainManaAttackRing(Properties p_41383_, int level) {
         super(p_41383_);
@@ -35,5 +37,10 @@ public class PlainManaAttackRing extends WraqCurios {
     @Override
     public Component suffix() {
         return ComponentUtils.getSuffixOfPlainBoss();
+    }
+
+    @Override
+    public ItemStack getProduct() {
+        return new ItemStack(ModItems.PlainBossSoul.get(), 2);
     }
 }

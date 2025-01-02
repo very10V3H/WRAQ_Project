@@ -36,7 +36,7 @@ public class LightningArmor extends WraqArmor implements OnHitEffectEquip, Forge
         this.tier = tier;
         if (type.equals(Type.HELMET)) Utils.healthRecover.put(this, 30d * (tier + 1));
         if (type.equals(Type.CHESTPLATE)) Utils.defence.put(this, 50d * (tier + 1));
-        if (type.equals(Type.LEGGINGS)) Utils.maxHealth.put(this, 3000d * (tier + 1));
+        if (type.equals(Type.LEGGINGS)) Utils.maxHealth.put(this, 12000d * (tier + 1));
         if (type.equals(Type.BOOTS)) Utils.movementSpeedCommon.put(this, 0.1);
         Utils.levelRequire.put(this, 92);
     }
@@ -118,7 +118,7 @@ public class LightningArmor extends WraqArmor implements OnHitEffectEquip, Forge
     public List<ItemStack> forgeRecipe() {
         if (this.tier == 0) {
             return List.of(
-                    new ItemStack(ModItems.LightningRune.get(), 10),
+                    new ItemStack(ModItems.LightningRune.get(), 5),
                     new ItemStack(PickaxeItems.TINKER_IRON.get(), 2)
             );
         }

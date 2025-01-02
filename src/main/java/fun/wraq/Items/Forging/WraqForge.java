@@ -187,7 +187,8 @@ public class WraqForge extends Item {
                 Guide.trig(player, 9);
             }
             Set<Item> volcanoEquips = Set.of(ModItems.VolcanoArmorHelmet.get(), ModItems.VolcanoArmorChest.get(),
-                    ModItems.VolcanoArmorLeggings.get(), ModItems.VolcanoArmorBoots.get(), ModItems.VolcanoBow0.get());
+                    ModItems.VolcanoArmorLeggings.get(), ModItems.VolcanoArmorBoots.get(),
+                    ModItems.VolcanoSword0.get(), ModItems.VolcanoBow0.get());
             if (volcanoEquips.contains(item)) {
                 Guide.trig(player, 10);
             }

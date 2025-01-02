@@ -72,6 +72,6 @@ public class PlainNecklace extends WraqCurios implements RandomCurios, UsageOrGe
 
     @Override
     public ItemStack getProduct() {
-        return new ItemStack(ModItems.PlainSoul.get(), 3);
+        return new ItemStack(ModItems.PlainBossSoul.get(), 4);
     }
 }

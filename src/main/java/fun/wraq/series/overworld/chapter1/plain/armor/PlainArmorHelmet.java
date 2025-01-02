@@ -22,7 +22,7 @@ import java.util.List;
 public class PlainArmorHelmet extends ArmorItem {
     public PlainArmorHelmet(ModArmorMaterials Material, Type Slots) {
         super(Material, Slots, new Properties().rarity(CustomStyle.PlainItalic));
-        Utils.maxHealth.put(this, 50d);
+        Utils.maxHealth.put(this, 200d);
         Utils.armorTag.put(this, 1d);
         Utils.armorList.add(this);
     }

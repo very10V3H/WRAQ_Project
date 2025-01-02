@@ -38,7 +38,8 @@ public class SkyVexSpawnController extends MobSpawnController {
             List<Vec3> spawnPos = List.of(
                     new Vec3(941, 292, -34)
             );
-            instance = new SkyVexSpawnController(spawnPos, spawnPos.size() * 10, 967, 320, -2, 909, 265, -53, 20, 60, world, 10, 72);
+            instance = new SkyVexSpawnController(spawnPos, spawnPos.size() * 10, 967, 320, -2, 909, 265, -53, 20, 60,
+                    world, 10, 60);
         }
         return instance;
     }
@@ -61,8 +62,8 @@ public class SkyVexSpawnController extends MobSpawnController {
 
         // 需要验证
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(vex), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(vex, 200, 50, 50, 0.35,
-                3, 0.2, 5, 15, 7500, 0.3);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(vex, 200, 45, 45, 0.3,
+                3, 0.1, 3, 10, 6000, 0.3);
 
         // 设置物品
         ItemStack[] itemStacks = {new ItemStack(Items.LEATHER_HELMET), new ItemStack(Items.LEATHER_CHESTPLATE),

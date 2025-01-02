@@ -29,7 +29,7 @@ public class NetherShield extends WraqOffHandItem implements ForgeItem, OnHitEff
     public NetherShield(Properties properties) {
         super(properties, Component.literal("手盾").withStyle(CustomStyle.styleOfMine));
         Utils.defence.put(this, 3d);
-        Utils.maxHealth.put(this, 250d);
+        Utils.maxHealth.put(this, 1000d);
         Utils.attackDamage.put(this, 20d);
         Utils.critDamage.put(this, 0.15);
         Utils.expUp.put(this, 0.6);

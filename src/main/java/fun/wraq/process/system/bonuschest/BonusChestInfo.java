@@ -44,7 +44,7 @@ public enum BonusChestInfo {
     SKY_CITY_25(new BlockPos(997, 260, 36), 1, Util.DRUMSTICK_ZONE_NUM),
     SKY_CITY_26(new BlockPos(1013, 231, 81), 2, Util.DRUMSTICK_ZONE_NUM),
     SKY_CITY_27(new BlockPos(1012, 231, 99), 2, Util.DRUMSTICK_ZONE_NUM),
-    SKY_CITY_28(new BlockPos(942, 283, -17), 3, Util.DRUMSTICK_ZONE_NUM),
+    SKY_CITY_28(new BlockPos(941, 283, -17), 3, Util.DRUMSTICK_ZONE_NUM),
     SKY_CITY_29(new BlockPos(941, 282, -4), 0, Util.DRUMSTICK_ZONE_NUM),
 
     // 天空城负层位置奖励箱

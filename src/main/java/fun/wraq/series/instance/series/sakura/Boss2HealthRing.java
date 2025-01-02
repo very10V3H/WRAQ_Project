@@ -14,7 +14,7 @@ public class Boss2HealthRing extends WraqCurios {
 
     public Boss2HealthRing(Properties properties, int tier) {
         super(properties);
-        Utils.maxHealth.put(this, new double[]{900, 1300, 1400, 2100}[tier]);
+        Utils.maxHealth.put(this, new double[]{3600, 5200, 6800, 8400}[tier]);
         Utils.percentMaxHealthEnhance.put(this, new double[]{0.01, 0.015, 0.02, 0.025}[tier]);
         Utils.levelRequire.put(this, 150);
     }

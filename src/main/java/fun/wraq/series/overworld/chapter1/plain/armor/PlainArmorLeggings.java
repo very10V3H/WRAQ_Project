@@ -20,7 +20,7 @@ import java.util.List;
 public class PlainArmorLeggings extends ArmorItem {
     public PlainArmorLeggings(ModArmorMaterials Material, Type Slots) {
         super(Material, Slots, new Properties().rarity(CustomStyle.PlainItalic));
-        Utils.maxHealth.put(this, 70d);
+        Utils.maxHealth.put(this, 280d);
         Utils.armorTag.put(this, 1d);
         Utils.armorList.add(this);
     }

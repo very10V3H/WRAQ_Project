@@ -12,6 +12,7 @@ import fun.wraq.networking.misc.Limit.ScreenCloseC2SPacket;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.process.system.forge.networking.CraftC2SPacket;
 import fun.wraq.process.system.forge.networking.DecomposeC2SPacket;
+import fun.wraq.process.system.forge.networking.QuickDecomposeC2SPacket;
 import fun.wraq.series.gems.GemItems;
 import fun.wraq.series.overworld.forging.ForgingMaterial;
 import fun.wraq.series.overworld.forging.ForgingStone0;
@@ -57,6 +58,10 @@ public class ForgingBlockScreen extends AbstractContainerScreen<ForgingBlockMenu
         this.addRenderableWidget(Button.builder(Component.translatable("锻造"), (p_280814_) -> {
             ModNetworking.sendToServer(new CraftC2SPacket(menu.blockEntity.getBlockPos()));
         }).pos(this.width / 2 - 13, this.height / 2 - 64).size(32, 16).build());
+
+        this.addRenderableWidget(Button.builder(Component.translatable("快速分解"), (p_280814_) -> {
+            ModNetworking.sendToServer(new QuickDecomposeC2SPacket());
+        }).pos(this.width / 2 - 50, this.height / 2 - 16).size(36, 16).build());
     }
 
     @Override

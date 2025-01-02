@@ -20,7 +20,7 @@ public class ObsiManaArmor extends WraqArmor {
         super(material, type, new Properties().rarity(CustomStyle.EvokerItalic));
         if (type.equals(Type.HELMET)) Utils.healthRecover.put(this, 5d);
         if (type.equals(Type.CHESTPLATE)) Utils.defence.put(this, 20d);
-        if (type.equals(Type.LEGGINGS)) Utils.maxHealth.put(this, 300d);
+        if (type.equals(Type.LEGGINGS)) Utils.maxHealth.put(this, 1200d);
         if (type.equals(Type.BOOTS)) Utils.movementSpeedCommon.put(this, 0.1);
         Utils.manaDamage.put(this, 75d);
         Utils.maxMana.put(this, 10d);

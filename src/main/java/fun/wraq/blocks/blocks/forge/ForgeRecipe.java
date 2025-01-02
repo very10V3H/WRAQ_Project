@@ -302,7 +302,7 @@ public class ForgeRecipe {
         }});
 
         forgeDrawRecipe.put(ModItems.SkyBow.get(), new ArrayList<>() {{
-            add(new ItemStack(ModItems.SkyRune.get(), 10));
+            add(new ItemStack(ModItems.SkyRune.get(), 8));
             add(new ItemStack(ModItems.WindElementPiece0.get(), 14));
             add(new ItemStack(Items.DIAMOND, 10));
         }});

@@ -1,12 +1,13 @@
 package fun.wraq.Items.MainStory_1;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.process.system.respawn.MyRespawnRule;
 import fun.wraq.render.toolTip.CustomStyle;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket;
 import net.minecraft.server.level.ServerPlayer;
@@ -26,7 +27,7 @@ import java.util.Map;
 
 public class BackSpawn extends Item {
 
-    public static String spawnPointIndex = "spawnPointIndex";
+    public static Component clientNearestSpawnPoint = Te.s("");
 
     public BackSpawn(Properties properties) {
         super(properties);
@@ -35,7 +36,26 @@ public class BackSpawn extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
         if (interactionHand.equals(InteractionHand.MAIN_HAND) && !level.isClientSide) {
-            Compute.respawnPlayer(player);
+            ServerPlayer serverPlayer = (ServerPlayer) player;
+            MyRespawnRule.SpawnPoint spawnPoint = MyRespawnRule.findNearestSpawnPoint(serverPlayer);
+            if (serverPlayer.level().dimension().equals(Level.OVERWORLD)) {
+                spawnPoint.teleport(serverPlayer);
+                ClientboundSetActionBarTextPacket clientboundSetActionBarTextPacket =
+                        new ClientboundSetActionBarTextPacket(Component.literal("回到了").withStyle(CustomStyle.styleOfSky).
+                                append(spawnPoint.zoneName()));
+                serverPlayer.connection.send(clientboundSetActionBarTextPacket);
+            } else {
+                String name = serverPlayer.getName().getString();
+                if (MyRespawnRule.playerLastOverWorldPos.containsKey(name)) {
+                    MyRespawnRule.SpawnPos spawnPos = MyRespawnRule.playerLastOverWorldPos.get(name);
+                    serverPlayer.teleportTo(serverPlayer.getServer().getLevel(Level.OVERWORLD),
+                            spawnPos.vec3().x, spawnPos.vec3().y, spawnPos.vec3().z, spawnPos.rotX(), 0);
+                } else spawnPoint.teleport(serverPlayer);
+
+                ClientboundSetActionBarTextPacket clientboundSetActionBarTextPacket =
+                        new ClientboundSetActionBarTextPacket(Component.literal("回到了主世界").withStyle(CustomStyle.styleOfSky));
+                serverPlayer.connection.send(clientboundSetActionBarTextPacket);
+            }
             player.getCooldowns().addCooldown(this, Tick.s(10));
 /*            CompoundTag data = player.getMainHandItem().getOrCreateTagElement(Utils.MOD_ID);
             if (!player.isShiftKeyDown()) {
@@ -74,13 +94,14 @@ public class BackSpawn extends Item {
         return super.use(level, player, interactionHand);
     }
 
-    public static void setName(ItemStack itemStack) {
+    public static void setName(Player player) {
+        ItemStack itemStack = player.getMainHandItem();
         if (itemStack.is(ModItems.BackSpawn.get())) {
-/*            CompoundTag data = itemStack.getOrCreateTagElement(Utils.MOD_ID);
-            int index = data.getInt(BackSpawn.spawnPointIndex);
-            itemStack.setHoverName(Component.literal("回城卷轴 - ").withStyle(ChatFormatting.BLUE).
-                    append(MyRespawnRule.overworldSpawnPos.get(index).zoneName()));*/
-            itemStack.resetHoverName();
+            if (player.level().dimension().equals(Level.OVERWORLD)) {
+                itemStack.setHoverName(Te.s("回城卷轴 - ", ChatFormatting.BLUE, clientNearestSpawnPoint));
+            } else {
+                itemStack.setHoverName(Te.s("回城卷轴 - ", ChatFormatting.BLUE, "主世界", ChatFormatting.GREEN));
+            }
         }
     }
 
@@ -104,7 +125,14 @@ public class BackSpawn extends Item {
                         append(Component.literal("主世界").withStyle(ChatFormatting.GREEN)));
             }
         }*/
-        components.add(Te.s("右键回到", "最近重生点", CustomStyle.styleOfSunIsland));
+        if (level != null) {
+            if (level.dimension().equals(ClientLevel.OVERWORLD)) {
+                components.add(Te.s(" 右键回到", "最近重生点", CustomStyle.styleOfSunIsland));
+                components.add(Te.s(" 最近的重生点为: ", clientNearestSpawnPoint));
+            } else {
+                components.add(Te.s(" 右键回到", "主世界", ChatFormatting.GREEN));
+            }
+        }
         ComponentUtils.coolDownTimeDescription(components, 10);
         super.appendHoverText(stack, level, components, p_41424_);
     }

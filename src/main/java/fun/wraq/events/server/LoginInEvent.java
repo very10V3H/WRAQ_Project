@@ -26,6 +26,7 @@ import fun.wraq.networking.reputationMission.ReputationMissionAllowRequestTimeS2
 import fun.wraq.networking.reputationMission.ReputationMissionContentS2CPacket;
 import fun.wraq.networking.reputationMission.ReputationMissionStartTimeS2CPacket;
 import fun.wraq.networking.unSorted.SwiftSyncS2CPacket;
+import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.plan.DailySupply;
 import fun.wraq.process.func.rank.RankData;
@@ -50,7 +51,6 @@ import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Player;
@@ -60,7 +60,6 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import vazkii.patchouli.api.PatchouliAPI;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -137,12 +136,6 @@ public class LoginInEvent {
                 Compute.resetSkillAndAbility(player);
                 Compute.sendFormatMSG(player, Component.literal("经验改动").withStyle(ChatFormatting.LIGHT_PURPLE),
                         Component.literal("因经验改动你的能力与专精点数已被重置").withStyle(ChatFormatting.WHITE));
-            }
-
-            if (!data.contains(StringUtils.PatchouliBook)) {
-                ItemStack PatchouliBook = PatchouliAPI.get().getBookStack(new ResourceLocation(Utils.MOD_ID, "guide"));
-                InventoryOperation.itemStackGive(player, PatchouliBook);
-                data.putBoolean(StringUtils.PatchouliBook, true);
             }
 
             List<ServerPlayer> list = event.getEntity().getServer().getPlayerList().getPlayers();
@@ -266,7 +259,6 @@ public class LoginInEvent {
                         Component.literal("欢迎新地质学家").withStyle(ChatFormatting.GOLD).
                                 append(player.getDisplayName()).
                                 append(Component.literal("的到来！").withStyle(ChatFormatting.GOLD)));
-                newPlayerMSGDelay2.put(player, Tick.get() + 100);
                 Compute.respawnPlayer(player);
             }
             data.putBoolean("FirstReward", true);
@@ -320,12 +312,12 @@ public class LoginInEvent {
             RankData.onPlayerLogin(player);
             Reason.sendReasonValuePacketToClient(player);
             MobKillEntrustment.sendPacketToClient(player);
+            Guide.sendGuideCloseStatusToClient(player);
         }
     }
 
     public static WeakHashMap<Player, Integer> newPlayerMSGDelay1 = new WeakHashMap<>();
-    public static WeakHashMap<Player, Integer> newPlayerMSGDelay2 = new WeakHashMap<>();
-    public static WeakHashMap<Player, Integer> newPlayerMSGDelay3 = new WeakHashMap<>();
+
 
     public static void newMSGSend(TickEvent.ServerTickEvent event) {
         if (event.phase == TickEvent.Phase.START && event.side.isServer()) {
@@ -333,32 +325,11 @@ public class LoginInEvent {
             newPlayerMSGDelay1.forEach(((player, integer) -> {
                 if (integer < tick) {
                     Compute.sendFormatMSG(player, Component.literal("欢迎").withStyle(ChatFormatting.AQUA),
-                            Component.literal("欢迎新人！新手教程请查看群文件内玩家编写的教程或查阅游戏内的帕秋莉手册(维瑞阿契wiki),游玩过程有任何建议或问题欢迎在群里@群主或管理员！").withStyle(ChatFormatting.WHITE));
+                            Component.literal("欢迎新人！可以参考群文件内玩家编写的教程, 游玩过程有任何建议或问题欢迎在群里@群主或管理员！").withStyle(ChatFormatting.WHITE));
                     MySound.soundToPlayer(player, SoundEvents.EXPERIENCE_ORB_PICKUP);
-                    newPlayerMSGDelay2.put(player, tick + 100);
                 }
             }));
             newPlayerMSGDelay1.entrySet().removeIf(entry -> entry.getValue() < tick);
-
-            newPlayerMSGDelay2.forEach(((player, integer) -> {
-                if (integer < tick) {
-                    Compute.sendFormatMSG(player, Component.literal("欢迎").withStyle(ChatFormatting.AQUA),
-                            Component.literal("您可以先打开身份卡，点击物品图鉴，浏览由制作者编写的各种装备，找到心仪的装备制作吧！").withStyle(ChatFormatting.GOLD));
-                    MySound.soundToPlayer(player, SoundEvents.EXPERIENCE_ORB_PICKUP);
-                    newPlayerMSGDelay3.put(player, tick + 100);
-                }
-            }));
-            newPlayerMSGDelay2.entrySet().removeIf(entry -> entry.getValue() < tick);
-
-            newPlayerMSGDelay3.forEach(((player, integer) -> {
-                if (integer < tick) {
-                    Compute.sendFormatMSG(player, Component.literal("欢迎").withStyle(ChatFormatting.AQUA),
-                            Component.literal("推荐您打开任务界面，完成游览地图任务，默认按P键，若按键冲突，请前往按键绑定，找到维瑞阿契按键修改。").withStyle(ChatFormatting.GOLD));
-                    MySound.soundToPlayer(player, SoundEvents.EXPERIENCE_ORB_PICKUP);
-                }
-            }));
-            newPlayerMSGDelay3.entrySet().removeIf(entry -> entry.getValue() < tick);
-
         }
     }
 

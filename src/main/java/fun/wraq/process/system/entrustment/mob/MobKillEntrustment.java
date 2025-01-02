@@ -386,6 +386,33 @@ public class MobKillEntrustment {
     public record TimeAndTier(int minutes, Component component, double rate) {
     }
 
+    public static final String TIER_FINISHED_TIMES_DATA_KEY = "EachTierFinishedTimes";
+    public static CompoundTag getEachTierFinishedTimesData(Player player) {
+        CompoundTag data = getPlayerData(player);
+        if (!data.contains(TIER_FINISHED_TIMES_DATA_KEY)) {
+            data.put(TIER_FINISHED_TIMES_DATA_KEY, new CompoundTag());
+        }
+        return data.getCompound(TIER_FINISHED_TIMES_DATA_KEY);
+    }
+
+    public static void incrementEachTierFinishedTimes(Player player, String tier) {
+        CompoundTag data = getEachTierFinishedTimesData(player);
+        data.putInt(tier, data.getInt(tier) + 1);
+    }
+
+    public static int getEachTierFinishedTimes(Player player, String tier) {
+        return getEachTierFinishedTimesData(player).getInt(tier);
+    }
+
+    public static void queryEachTierFinishedTimes(Player player) {
+        sendMSG(player, Te.s("完成情况明细如下:"));
+        timeAndTiers.forEach(timeAndTier -> {
+            player.sendSystemMessage(Te.s(timeAndTier.component, " ",
+                    getEachTierFinishedTimes(player, timeAndTier.component.getString()) + "次", CustomStyle.styleOfWorld));
+        });
+        player.sendSystemMessage(Te.s(" 平均用时:", getDeltaTimeFormatString(getAverageFinishedTick(player), 0)));
+    }
+
     public static final List<TimeAndTier> timeAndTiers = List.of(
             new TimeAndTier(4, Te.s("A+", ChatFormatting.RED), 2),
             new TimeAndTier(5, Te.s("A", ChatFormatting.GOLD), 1.8),
@@ -422,11 +449,15 @@ public class MobKillEntrustment {
                         sendMSG(player, Te.s("在",
                                 getDeltaTimeFormatString(Tick.get(), entrustment.startServerTick),
                                 "内完成了", "委托任务", CustomStyle.styleOfWorld, "，获得了", timeAndTier.component, "评级"));
+                        broad(Te.s(player, "在 ",
+                                getDeltaTimeFormatString(Tick.get(), entrustment.startServerTick), CustomStyle.styleOfWorld,
+                                " 内完成了", "委托任务", CustomStyle.styleOfWorld, "，获得了", timeAndTier.component, "评级"));
+                        incrementEachTierFinishedTimes(player, timeAndTier.component.getString());
                     } else {
                         sendMSG(player, Te.s("在",
                                 getDeltaTimeFormatString(Tick.get(), entrustment.startServerTick),
                                 "内完成了", "委托任务", CustomStyle.styleOfWorld, "，获得了", "B+", ChatFormatting.LIGHT_PURPLE, "评级"));
-
+                        incrementEachTierFinishedTimes(player, "B+");
                     }
                     setExpiredLeftMin(player, 10);
                     setPlayerReputation(player, Math.min(getPlayerReputation(player) + 1, 15));
@@ -444,14 +475,19 @@ public class MobKillEntrustment {
                                 getDeltaTimeFormatString(Tick.get(), entrustment.startServerTick),
                                 "内完成了", "委托任务", CustomStyle.styleOfWorld, "，获得了", timeAndTier.component, "评级"));
                         if (timeAndTier.minutes <= 6) {
+                            broad(Te.s(player, "在 ",
+                                    getDeltaTimeFormatString(Tick.get(), entrustment.startServerTick), CustomStyle.styleOfWorld,
+                                    " 内完成了", "委托任务", CustomStyle.styleOfWorld, "，获得了", timeAndTier.component, "评级"));
                             setExpiredLeftMin(player, 10);
                             setPlayerReputation(player, Math.min(getPlayerReputation(player) + 1, 15));
                             InventoryOperation.itemStackGiveWithMSG(player, ModItems.GOLDEN_BEANS.get());
                         }
+                        incrementEachTierFinishedTimes(player, timeAndTier.component.getString());
                     } else {
                         sendMSG(player, Te.s("在",
                                 getDeltaTimeFormatString(Tick.get(), entrustment.startServerTick),
                                 "内完成了", "委托任务", CustomStyle.styleOfWorld));
+                        incrementEachTierFinishedTimes(player, "D");
                     }
                 }
                 Compute.playerReputationAddOrCost(player,
@@ -485,6 +521,10 @@ public class MobKillEntrustment {
     }
 
     public static void formatMSG(Component content) {
+        Compute.formatBroad(Te.s("委托任务", CustomStyle.styleOfWorld), content);
+    }
+
+    public static void broad(Component content) {
         Compute.formatBroad(Te.s("委托任务", CustomStyle.styleOfWorld), content);
     }
 

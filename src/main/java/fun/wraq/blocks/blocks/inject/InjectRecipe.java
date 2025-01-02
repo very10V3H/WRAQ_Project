@@ -426,40 +426,40 @@ public class InjectRecipe {
                 new InjectingRecipe(ModItems.PlainCompleteGem.get(), 1,
                         ModItems.PlainAttackRing1.get()));
         injectingRecipeMap.put(ModItems.PlainAttackRing1.get(),
-                new InjectingRecipe(ModItems.PlainCompleteGem.get(), 2,
+                new InjectingRecipe(ModItems.PlainCompleteGem.get(), 1,
                         ModItems.PlainAttackRing2.get()));
         injectingRecipeMap.put(ModItems.PlainAttackRing2.get(),
-                new InjectingRecipe(ModItems.PlainCompleteGem.get(), 4,
+                new InjectingRecipe(ModItems.PlainCompleteGem.get(), 1,
                         ModItems.PlainAttackRing3.get()));
 
         injectingRecipeMap.put(ModItems.PlainManaAttackRing0.get(),
                 new InjectingRecipe(ModItems.PlainCompleteGem.get(), 1,
                         ModItems.PlainManaAttackRing1.get()));
         injectingRecipeMap.put(ModItems.PlainManaAttackRing1.get(),
-                new InjectingRecipe(ModItems.PlainCompleteGem.get(), 2,
+                new InjectingRecipe(ModItems.PlainCompleteGem.get(), 1,
                         ModItems.PlainManaAttackRing2.get()));
         injectingRecipeMap.put(ModItems.PlainManaAttackRing2.get(),
-                new InjectingRecipe(ModItems.PlainCompleteGem.get(), 4,
+                new InjectingRecipe(ModItems.PlainCompleteGem.get(), 1,
                         ModItems.PlainManaAttackRing3.get()));
 
         injectingRecipeMap.put(ModItems.PlainHealthRing0.get(),
                 new InjectingRecipe(ModItems.PlainCompleteGem.get(), 1,
                         ModItems.PlainHealthRing1.get()));
         injectingRecipeMap.put(ModItems.PlainHealthRing1.get(),
-                new InjectingRecipe(ModItems.PlainCompleteGem.get(), 2,
+                new InjectingRecipe(ModItems.PlainCompleteGem.get(), 1,
                         ModItems.PlainHealthRing2.get()));
         injectingRecipeMap.put(ModItems.PlainHealthRing2.get(),
-                new InjectingRecipe(ModItems.PlainCompleteGem.get(), 4,
+                new InjectingRecipe(ModItems.PlainCompleteGem.get(), 1,
                         ModItems.PlainHealthRing3.get()));
 
         injectingRecipeMap.put(ModItems.PlainDefenceRing0.get(),
                 new InjectingRecipe(ModItems.PlainCompleteGem.get(), 1,
                         ModItems.PlainDefenceRing1.get()));
         injectingRecipeMap.put(ModItems.PlainDefenceRing1.get(),
-                new InjectingRecipe(ModItems.PlainCompleteGem.get(), 2,
+                new InjectingRecipe(ModItems.PlainCompleteGem.get(), 1,
                         ModItems.PlainDefenceRing2.get()));
         injectingRecipeMap.put(ModItems.PlainDefenceRing2.get(),
-                new InjectingRecipe(ModItems.PlainCompleteGem.get(), 4,
+                new InjectingRecipe(ModItems.PlainCompleteGem.get(), 1,
                         ModItems.PlainDefenceRing3.get()));
 
         injectingRecipeMap.put(ModItems.PlainBossSoul.get(),
@@ -905,7 +905,7 @@ public class InjectRecipe {
                         ModItems.EvokerSword3.get()));
 
         injectingRecipeMap.put(BladeItems.BLADE.get(),
-                new InjectingRecipe(ModItems.PlainCompleteGem.get(), 4, BladeItems.BLADE_PLAIN.get()));
+                new InjectingRecipe(ModItems.PlainCompleteGem.get(), 2, BladeItems.BLADE_PLAIN.get()));
         injectingRecipeMap.put(BladeItems.BLADE_PLAIN.get(),
                 new InjectingRecipe(ModItems.FOILED_NETHER_IMPRINT.get(), 4, BladeItems.BLADE_NETHER.get()));
         injectingRecipeMap.put(BladeItems.BLADE_NETHER.get(),
@@ -920,7 +920,7 @@ public class InjectRecipe {
                 new InjectingRecipe(ModItems.MoonCompleteGem.get(), 4, BladeItems.BLADE_MOON.get()));
 
         injectingRecipeMap.put(QuiverItems.QUIVER.get(),
-                new InjectingRecipe(ModItems.PlainCompleteGem.get(), 4, QuiverItems.QUIVER_PLAIN.get()));
+                new InjectingRecipe(ModItems.PlainCompleteGem.get(), 2, QuiverItems.QUIVER_PLAIN.get()));
         injectingRecipeMap.put(QuiverItems.QUIVER_PLAIN.get(),
                 new InjectingRecipe(ModItems.FOILED_NETHER_IMPRINT.get(), 4, QuiverItems.QUIVER_NETHER.get()));
         injectingRecipeMap.put(QuiverItems.QUIVER_NETHER.get(),
@@ -935,7 +935,7 @@ public class InjectRecipe {
                 new InjectingRecipe(ModItems.MoonCompleteGem.get(), 4, QuiverItems.QUIVER_MOON.get()));
 
         injectingRecipeMap.put(MixtureItems.MIXTURE.get(),
-                new InjectingRecipe(ModItems.PlainCompleteGem.get(), 4, MixtureItems.MIXTURE_PLAIN.get()));
+                new InjectingRecipe(ModItems.PlainCompleteGem.get(), 2, MixtureItems.MIXTURE_PLAIN.get()));
         injectingRecipeMap.put(MixtureItems.MIXTURE_PLAIN.get(),
                 new InjectingRecipe(ModItems.FOILED_NETHER_IMPRINT.get(), 4, MixtureItems.MIXTURE_NETHER.get()));
         injectingRecipeMap.put(MixtureItems.MIXTURE_NETHER.get(),

@@ -105,7 +105,7 @@ public class LevelEvents {
             });
             if (projectileList.size() > 1000)
                 projectileList.forEach(entity -> entity.remove(Entity.RemovalReason.KILLED));
-        }// 尝试清理
+        } // 尝试清理
 
         if (event.side.isServer() && event.phase.equals(TickEvent.Phase.START)
                 && event.level.equals(event.level.getServer().getLevel(Level.OVERWORLD))) {

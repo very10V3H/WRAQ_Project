@@ -1,7 +1,9 @@
 package fun.wraq.render.gui.villagerTrade;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
+import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.SmartPhonePackets.Currency.*;
@@ -211,10 +213,15 @@ public class TradeScreen extends Screen {
             }
         }
 
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal("" + (page + 1)).withStyle(ChatFormatting.WHITE), this.width / 2 + 5, this.height / 2 - 22 + 105, 0);
+        guiGraphics.drawCenteredString(fontRenderer, Component.literal("当前VB余额:").withStyle(ChatFormatting.WHITE),
+                this.width / 2 - 110, this.height / 2 + 83, 0);
+        guiGraphics.drawCenteredString(fontRenderer, Te.s(String.format("%.2f", ClientUtils.VBNUM)),
+                this.width / 2 - 60, this.height / 2 + 83, 0);
 
+        guiGraphics.drawCenteredString(fontRenderer, Component.literal("" + (page + 1)).withStyle(ChatFormatting.WHITE),
+                this.width / 2 + 5, this.height / 2 + 83, 0);
         guiGraphics.drawCenteredString(fontRenderer, Component.literal("共" + ((size - 1) / 5 + 1) + "页 " + (size) + "件物品").withStyle(ChatFormatting.WHITE),
-                this.width / 2 + 80, this.height / 2 - 22 + 105, 0);
+                this.width / 2 + 80, this.height / 2 + 83, 0);
         super.render(p_96310_, x, y, v);
     }
 

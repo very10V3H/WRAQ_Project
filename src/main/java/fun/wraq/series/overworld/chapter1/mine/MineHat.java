@@ -36,7 +36,7 @@ public class MineHat extends ArmorItem implements GeoItem {
     public MineHat(ModArmorMaterials Material, Type Slots) {
         super(Material, Slots, new Properties().rarity(CustomStyle.MineItalic));
         Utils.defence.put(this, 1d);
-        Utils.maxHealth.put(this, 100d);
+        Utils.maxHealth.put(this, 400d);
         Utils.armorTag.put(this, 1d);
     }
 

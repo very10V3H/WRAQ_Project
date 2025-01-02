@@ -81,7 +81,7 @@ public class MobAttributes {
     public static double attackDamage(Mob mob) {
         double baseValue = MobSpawn.MobBaseAttributes.attackDamage.getOrDefault(MobSpawn.getMobOriginName(mob), 0d);
         double exValue = 0;
-        return baseValue + exValue;
+        return (baseValue + exValue) * 2;
     }
 
     public static double critRate(Mob mob) {

@@ -41,7 +41,7 @@ public class WraqKanata extends WraqMainHandEquip implements ActiveItem {
         ComponentUtils.descriptionActive(components, Te.s("急行军", CustomStyle.styleOfKaze));
         components.add(Te.s(" 为附近所有玩家提供", ComponentUtils.AttributeDescription
                 .movementSpeedWithoutBattle(String.format("%.0f%%", movementSpeedWithoutBattle * 100)), "，持续30s"));
-        ComponentUtils.coolDownTimeDescription(components, 120);
+        ComponentUtils.coolDownTimeDescription(components, 45);
         return components;
     }
 
@@ -57,6 +57,7 @@ public class WraqKanata extends WraqMainHandEquip implements ActiveItem {
 
     @Override
     public void active(Player player) {
+        Compute.playerItemCoolDown(player, this, 45);
         Compute.getNearEntity(player, Player.class, 8)
                 .stream().map(entity -> (Player) entity)
                 .forEach(eachPlayer -> {

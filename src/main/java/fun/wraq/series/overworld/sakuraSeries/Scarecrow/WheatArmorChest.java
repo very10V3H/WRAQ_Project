@@ -35,7 +35,7 @@ public class WheatArmorChest extends ArmorItem implements GeoItem {
 
     public WheatArmorChest(ModArmorMaterials Material, Type Slots) {
         super(Material, Slots, new Properties().rarity(Rarity.UNCOMMON));
-        Utils.maxHealth.put(this, 500d);
+        Utils.maxHealth.put(this, 2000d);
         Utils.armorTag.put(this, 1d);
     }
 

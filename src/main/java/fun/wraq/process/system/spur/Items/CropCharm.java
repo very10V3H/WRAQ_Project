@@ -15,7 +15,7 @@ public class CropCharm extends WraqCurios {
     public CropCharm(Properties properties, int serial) {
         super(properties);
         int[] levelRequires = {40, 60, 80, 100, 120, 140, 160};
-        double[] maxHealth = {200, 400, 700, 1100, 1600, 2200, 2900};
+        double[] maxHealth = {800, 3200, 2800, 4400, 6400, 8800, 11500};
         double[] healthRecover = {5, 10, 20, 35, 55, 80, 110};
         Utils.levelRequire.put(this, levelRequires[serial]);
         Utils.maxHealth.put(this, maxHealth[serial]);

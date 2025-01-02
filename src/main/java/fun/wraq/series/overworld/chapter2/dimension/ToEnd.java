@@ -67,6 +67,7 @@ public class ToEnd extends Item {
                 Compute.sendFormatMSG(player, Component.literal("终界").withStyle(CustomStyle.styleOfEnd),
                         Component.literal("需要达到75级才能前往").withStyle(ChatFormatting.WHITE));
             }
+            player.getCooldowns().addCooldown(this, 40);
         }
         return super.use(level, player, interactionHand);
     }

@@ -6,6 +6,7 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.events.mob.chapter2.JorogumoSpawnController;
 import fun.wraq.networking.ModNetworking;
+import fun.wraq.process.func.guide.networking.GuideHudCloseStatusS2CPacket;
 import fun.wraq.process.func.guide.networking.GuideStageS2CPacket;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.system.endlessinstance.instance.ManaPlainTemple;
@@ -16,6 +17,7 @@ import fun.wraq.series.instance.blade.BladeItems;
 import fun.wraq.series.instance.mixture.MixtureItems;
 import fun.wraq.series.instance.quiver.QuiverItems;
 import net.minecraft.ChatFormatting;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -33,6 +35,8 @@ public class Guide {
     public final MyWayPoint myWayPoint;
     public final RewardPlayer rewardPlayer;
     public final int trigXpLevel;
+    public static final String GUIDE_HUD_CLOSE_DATA_KEY = "GuideHudClose";
+    public static boolean clientGuideHudCloseStatus = false;
 
     public Guide(List<Component> description, MyWayPoint myWayPoint, RewardPlayer rewardPlayer, int trigXpLevel) {
         this.description = description;
@@ -63,16 +67,16 @@ public class Guide {
             // 0
             guides.add(new Guide(List.of(
                     Component.literal("引导 - 兑换背包").withStyle(ChatFormatting.GOLD),
-                    Component.literal("根据路径点，找到背包商人，兑换背包。").withStyle(ChatFormatting.WHITE)
+                    Te.s("根据路径点，找到", "背包商人", CustomStyle.styleOfGold, "，兑换背包")
             ), new MyWayPoint(new Vec3(949, 236, -7), "背包商人", MyWayPoint.colorMap.get(MyWayPoint.gold), 1), null));
             // 1
             guides.add(new Guide(List.of(
                     Component.literal("引导 - 使用翻滚").withStyle(ChatFormatting.GOLD),
-                    Component.literal("按下z键，使用翻滚").withStyle(ChatFormatting.WHITE)), null, null));
+                    Te.s("按下z键，使用", "翻滚", CustomStyle.styleOfFlexible)), null, null));
             // 2
             guides.add(new Guide(List.of(
                     Component.literal("引导 - 打开图鉴").withStyle(ChatFormatting.GOLD),
-                    Component.literal("右键身份卡，点击图鉴").withStyle(ChatFormatting.WHITE)), null, null));
+                    Te.s("右键", ModItems.ID_Card, "打开", "图鉴", CustomStyle.styleOfGold)), null, null));
             // 3
             guides.add(new Guide(new ArrayList<>() {{
                 add(Component.literal("引导 - 击杀第一只怪物").withStyle(ChatFormatting.GOLD));
@@ -296,7 +300,15 @@ public class Guide {
         }
     }
 
-    private static void sendFormatMSG(Player player, Component content) {
+    public static void sendFormatMSG(Player player, Component content) {
         Compute.sendFormatMSG(player, Te.s("引导", ChatFormatting.AQUA), content);
+    }
+
+    public static void sendGuideCloseStatusToClient(Player player) {
+        CompoundTag data = player.getPersistentData();
+        if (data.contains(GUIDE_HUD_CLOSE_DATA_KEY)) {
+            ModNetworking.sendToClient(
+                    new GuideHudCloseStatusS2CPacket(data.getBoolean(GUIDE_HUD_CLOSE_DATA_KEY)), (ServerPlayer) player);
+        }
     }
 }

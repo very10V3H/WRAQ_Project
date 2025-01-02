@@ -28,7 +28,7 @@ public class LeatherArmor extends ArmorItem {
         super(Material, Slots, new Properties().rarity(CustomStyle.SnowItalic));
         this.Num = Num;
         Utils.defence.put(this, 1d);
-        if (Num != 3) Utils.maxHealth.put(this, 333d);
+        if (Num != 3) Utils.maxHealth.put(this, 1333d);
         if (Num == 3) Utils.movementSpeedCommon.put(this, 0.1);
         Utils.armorTag.put(this, 1d);
         Utils.armorList.add(this);

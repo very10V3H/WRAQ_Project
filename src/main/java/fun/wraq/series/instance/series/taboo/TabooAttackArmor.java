@@ -24,7 +24,7 @@ public class TabooAttackArmor extends WraqArmor implements ForgeItem {
 
     public TabooAttackArmor(ModArmorMaterials Material, Type Slots, Properties itemProperties) {
         super(Material, Slots, itemProperties);
-        Utils.maxHealth.put(this, 8000d);
+        Utils.maxHealth.put(this, 32000d);
         Utils.levelRequire.put(this, 150);
     }
 

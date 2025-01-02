@@ -58,6 +58,9 @@ public class MobKillEntrustmentOperationCommand implements Command<CommandSource
             case "queryWeekly" -> {
                 MobKillEntrustment.queryWeeklyTimes(player);
             }
+            case "queryEachTierFinishedTimes" -> {
+                MobKillEntrustment.queryEachTierFinishedTimes(player);
+            }
         }
         return 0;
     }

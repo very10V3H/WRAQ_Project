@@ -67,15 +67,15 @@ public class ForgeEquipUtils {
 
     public static void setZoneForgeItemListMap() {
         List<Item> plain = List.of(
-                ModItems.PlainSword0.get(),
-                ModItems.PlainBow0.get(),
-                ModItems.PlainSceptre0.get(),
                 ModItems.PlainArmorHelmet.get(),
                 ModItems.PlainArmorChest.get(),
                 ModItems.PlainArmorLeggings.get(),
                 ModItems.PlainArmorBoots.get(),
                 ModItems.KazeSword0.get(),
-                ModItems.KazeBoots.get()
+                ModItems.KazeBoots.get(),
+                ModItems.PlainSword0.get(),
+                ModItems.PlainBow0.get(),
+                ModItems.PlainSceptre0.get()
         );
 
         zoneForgeItemListMap.put(PLAIN_VILLAGE, new ArrayList<>() {{

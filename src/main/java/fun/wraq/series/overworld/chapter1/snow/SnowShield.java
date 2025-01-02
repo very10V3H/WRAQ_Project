@@ -19,7 +19,7 @@ public class SnowShield extends WraqOffHandItem {
         super(new Properties().rarity(CustomStyle.SnowItalic).stacksTo(1),
                 Te.s("手盾", CustomStyle.styleOfMine));
         Utils.defence.put(this, 2d);
-        Utils.maxHealth.put(this, 350d);
+        Utils.maxHealth.put(this, 1400d);
         Utils.attackDamage.put(this, 10d);
         Utils.critRate.put(this, 0.05);
         Utils.expUp.put(this, 0.4);

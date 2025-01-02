@@ -25,7 +25,7 @@ public class SkyArmor extends WraqArmor implements ForgeItem {
         super(armorMaterial, type, properties);
         if (type.equals(Type.HELMET)) Utils.healthRecover.put(this, 20d);
         if (type.equals(Type.CHESTPLATE)) Utils.defence.put(this, 40d);
-        if (type.equals(Type.LEGGINGS)) Utils.maxHealth.put(this, 2000d);
+        if (type.equals(Type.LEGGINGS)) Utils.maxHealth.put(this, 8000d);
         if (type.equals(Type.BOOTS)) Utils.movementSpeedCommon.put(this, 0.15);
         Utils.levelRequire.put(this, 72);
     }
@@ -68,7 +68,7 @@ public class SkyArmor extends WraqArmor implements ForgeItem {
     @Override
     public List<ItemStack> forgeRecipe() {
         return List.of(
-                new ItemStack(ModItems.SkyRune.get(), 10),
+                new ItemStack(ModItems.SkyRune.get(), 5),
                 new ItemStack(Items.DIAMOND, 16)
         );
     }

@@ -765,7 +765,8 @@ public class Element {
 
     public static void ElementParticleCreate(Player player) {
         if (player.tickCount % 50 == 0) {
-            List<Mob> mobList = player.level().getEntitiesOfClass(Mob.class, AABB.ofSize(player.position(), 50, 50, 50));
+            List<Mob> mobList = player.level().getEntitiesOfClass(Mob.class,
+                    AABB.ofSize(player.position(), 32, 32, 32));
             mobList.forEach(Element::ElementParticleProvider);
         }
     }

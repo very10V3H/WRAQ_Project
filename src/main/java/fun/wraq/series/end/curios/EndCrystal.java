@@ -59,6 +59,7 @@ public class EndCrystal extends WraqItem {
                 Compute.sendFormatMSG(player, Te.s("终界", CustomStyle.styleOfEnd), Te.s("这里的",
                         "终界能量", CustomStyle.styleOfEnd, "不足以将你折跃至", "影珀遗迹", CustomStyle.styleOfEnd));
             }
+            player.getCooldowns().addCooldown(this, 40);
         }
         return super.use(level, player, interactionHand);
     }

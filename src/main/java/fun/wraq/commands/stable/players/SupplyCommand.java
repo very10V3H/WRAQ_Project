@@ -21,7 +21,6 @@ public class SupplyCommand implements Command<CommandSourceStack> {
     public int run(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         Player player = context.getSource().getPlayer();
         List<ItemStack> supply = List.of(
-                new ItemStack(ModItems.windBottle.get()),
                 new ItemStack(ModItems.ID_Card.get()),
                 PatchouliAPI.get().getBookStack(new ResourceLocation(Utils.MOD_ID, "guide"))
         );

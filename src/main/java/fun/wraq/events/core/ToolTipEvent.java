@@ -351,21 +351,6 @@ public class ToolTipEvent {
                     append(Component.literal("，根源通常作为基础材料，用于合成意志").withStyle(ChatFormatting.WHITE)));
             usage.add(Component.literal("而意志通常作为合成各类装备的材料").withStyle(ChatFormatting.WHITE));
         }
-        if (item.equals(ModItems.BackSpawn.get())) {
-            hasUsage = true;
-            usage.add(Component.literal("右键这个物品，会进行").withStyle(ChatFormatting.WHITE).
-                    append(Component.literal("引导").withStyle(ChatFormatting.AQUA)).
-                    append(Component.literal("，引导的").withStyle(ChatFormatting.WHITE)).
-                    append(Component.literal("时间").withStyle(ChatFormatting.AQUA)).
-                    append(Component.literal("取决于距离最近重生点的").withStyle(ChatFormatting.WHITE)).
-                    append(Component.literal("距离").withStyle(ChatFormatting.GREEN)));
-            usage.add(Component.literal("这个距离仅会计算水平距离（想要回到天空城，于天空城下方使用即可）").withStyle(ChatFormatting.AQUA));
-            usage.add(Component.literal("若位于非").withStyle(ChatFormatting.WHITE).
-                    append(Component.literal("主世界").withStyle(ChatFormatting.GREEN)).
-                    append(Component.literal("的维度").withStyle(ChatFormatting.WHITE)).
-                    append(Component.literal("，则会引导至上次处于的主世界重生点").withStyle(ChatFormatting.WHITE)));
-
-        }
         if (item.equals(ModItems.BackPackTickets.get())) {
             hasUsage = true;
             usage.add(Component.literal("可以在天空城找到").withStyle(ChatFormatting.WHITE).

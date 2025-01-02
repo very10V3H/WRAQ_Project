@@ -23,7 +23,7 @@ public class EarthManaArmor extends WraqArmor implements ForgeItem {
         super(Material, Slots, itemProperties);
         if (type.equals(Type.HELMET)) Utils.healthRecover.put(this, 25d);
         if (type.equals(Type.CHESTPLATE)) Utils.defence.put(this, 40d);
-        if (type.equals(Type.LEGGINGS)) Utils.maxHealth.put(this, 2000d);
+        if (type.equals(Type.LEGGINGS)) Utils.maxHealth.put(this, 8000d);
         if (type.equals(Type.BOOTS)) Utils.movementSpeedCommon.put(this, 0.1);
         Utils.levelRequire.put(this, 124);
     }

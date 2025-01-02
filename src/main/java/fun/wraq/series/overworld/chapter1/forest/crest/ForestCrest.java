@@ -19,7 +19,7 @@ public class ForestCrest extends WraqCurios implements RepeatableCurios {
 
     public ForestCrest(Properties p_41383_, int tier) {
         super(p_41383_, 16);
-        Utils.maxHealth.put(this, new double[]{100, 200, 300, 400, 1600}[tier]);
+        Utils.maxHealth.put(this, new double[]{400, 800, 1200, 1600, 6400}[tier]);
     }
 
     @Override

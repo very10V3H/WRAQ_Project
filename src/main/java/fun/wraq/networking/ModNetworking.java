@@ -1,6 +1,7 @@
 package fun.wraq.networking;
 
 import fun.wraq.Items.DevelopmentTools.rail.RailwayPillarSetToolModeC2SPacket;
+import fun.wraq.Items.MainStory_1.NearestSpawnPointS2CPacket;
 import fun.wraq.blocks.blocks.inject.InjectC2SPacket;
 import fun.wraq.common.Compute;
 import fun.wraq.common.util.ClientUtils;
@@ -55,6 +56,7 @@ import fun.wraq.networking.unSorted.*;
 import fun.wraq.process.func.effect.BlindTickS2CPacket;
 import fun.wraq.process.func.effect.SilentTickS2CPacket;
 import fun.wraq.process.func.guide.networking.GuideFinishC2SPacket;
+import fun.wraq.process.func.guide.networking.GuideHudCloseStatusS2CPacket;
 import fun.wraq.process.func.guide.networking.GuideStageS2CPacket;
 import fun.wraq.process.func.particle.packets.DisperseBallParticleS2CPacket;
 import fun.wraq.process.func.particle.packets.LineEffectParticleS2CPacket;
@@ -1391,6 +1393,21 @@ public class ModNetworking {
                 .decoder(MobKillEntrustmentInfoS2CPacket::new)
                 .encoder(MobKillEntrustmentInfoS2CPacket::toBytes)
                 .consumerMainThread(MobKillEntrustmentInfoS2CPacket::handle)
+                .add();
+        net.messageBuilder(GuideHudCloseStatusS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(GuideHudCloseStatusS2CPacket::new)
+                .encoder(GuideHudCloseStatusS2CPacket::toBytes)
+                .consumerMainThread(GuideHudCloseStatusS2CPacket::handle)
+                .add();
+        net.messageBuilder(NearestSpawnPointS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(NearestSpawnPointS2CPacket::new)
+                .encoder(NearestSpawnPointS2CPacket::toBytes)
+                .consumerMainThread(NearestSpawnPointS2CPacket::handle)
+                .add();
+        net.messageBuilder(QuickDecomposeC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(QuickDecomposeC2SPacket::new)
+                .encoder(QuickDecomposeC2SPacket::toBytes)
+                .consumerMainThread(QuickDecomposeC2SPacket::handle)
                 .add();
     }
 

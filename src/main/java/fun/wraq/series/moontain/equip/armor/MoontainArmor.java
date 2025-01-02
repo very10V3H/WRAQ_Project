@@ -29,7 +29,7 @@ public class MoontainArmor extends WraqArmor implements ExBaseAttributeValueEqui
             Utils.healthRecover.put(this, 100d);
         }
         if (type.equals(Type.CHESTPLATE)) Utils.defence.put(this, 125d);
-        if (type.equals(Type.LEGGINGS)) Utils.maxHealth.put(this, 15000d);
+        if (type.equals(Type.LEGGINGS)) Utils.maxHealth.put(this, 60000d);
         if (type.equals(Type.BOOTS)) Utils.movementSpeedCommon.put(this, 0.1);
         Utils.levelRequire.put(this, 210);
     }
@@ -53,7 +53,7 @@ public class MoontainArmor extends WraqArmor implements ExBaseAttributeValueEqui
             return Map.of(Utils.defence, new TagAndEachTierValue(MoontainUtils.MOONTAIN_DEFENCE_TAG_KEY, 5));
         }
         if (type.equals(Type.LEGGINGS)) {
-            return Map.of(Utils.maxHealth, new TagAndEachTierValue(MoontainUtils.MOONTAIN_MAX_HEALTH_TAG_KEY, 500d));
+            return Map.of(Utils.maxHealth, new TagAndEachTierValue(MoontainUtils.MOONTAIN_MAX_HEALTH_TAG_KEY, 2000d));
         }
         if (type.equals(Type.BOOTS)) {
             return Map.of(Utils.movementSpeedCommon, new TagAndEachTierValue(MoontainUtils.MOONTAIN_MOVEMENT_SPEED_TAG_KEY, 0.01));

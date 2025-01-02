@@ -21,7 +21,7 @@ public class ObsiMana1 extends WraqArmor {
         super(Material, Slots, itemProperties);
         if (type.equals(Type.HELMET)) Utils.healthRecover.put(this, 10d);
         if (type.equals(Type.CHESTPLATE)) Utils.defence.put(this, 25d);
-        if (type.equals(Type.LEGGINGS)) Utils.maxHealth.put(this, 500d);
+        if (type.equals(Type.LEGGINGS)) Utils.maxHealth.put(this, 2000d);
         if (type.equals(Type.BOOTS)) Utils.movementSpeedCommon.put(this, 0.1);
         Utils.manaDamage.put(this, 150d);
         Utils.maxMana.put(this, 20d);

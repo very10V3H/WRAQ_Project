@@ -37,7 +37,7 @@ public class GoldenAttackOffhand extends WraqOffHandItem implements OnKillEffect
         this.type = type;
         if (type == 0) {
             Utils.defence.put(this, 5d);
-            Utils.maxHealth.put(this, 500d);
+            Utils.maxHealth.put(this, 2000d);
             Utils.attackDamage.put(this, 125d);
             Utils.critDamage.put(this, 0.15);
         } else {

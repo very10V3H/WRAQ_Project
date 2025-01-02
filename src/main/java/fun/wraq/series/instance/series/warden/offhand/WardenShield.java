@@ -15,7 +15,7 @@ public class WardenShield extends WardenOffhandItem implements ForgeItem {
     public WardenShield(Properties properties, Component type) {
         super(properties, type);
         Utils.defence.put(this, 17d);
-        Utils.maxHealth.put(this, 1377d);
+        Utils.maxHealth.put(this, 5777d);
         Utils.attackDamage.put(this, 377d);
         Utils.critDamage.put(this, 0.37);
         Utils.expUp.put(this, 0.88);

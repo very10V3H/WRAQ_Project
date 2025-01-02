@@ -14,7 +14,7 @@ public class RubyNecklace extends WraqCurios {
 
     public RubyNecklace(Properties p_41383_, int num) {
         super(p_41383_);
-        Utils.maxHealth.put(this, new double[]{500, 1000, 1500, 2000}[num]);
+        Utils.maxHealth.put(this, new double[]{2000, 4000, 6000, 8000}[num]);
     }
 
     @Override

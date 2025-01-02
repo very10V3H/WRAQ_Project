@@ -209,7 +209,7 @@ public class MyWayPoint {
     public static List<MyWayPoint> overworldPointList = new ArrayList<>() {{
         add(new MyWayPoint(new Vec3(756, 84, 207), "平原村", colorMap.get(green), 0));
         add(new MyWayPoint(new Vec3(956, 232, 17), "天空城", colorMap.get(aqua), 0));
-        add(new MyWayPoint(new Vec3(754, 181, -86), "德朗斯蒂克", colorMap.get(green), 1));
+        add(new MyWayPoint(new Vec3(754, 181, -86), "德朗斯蒂克", colorMap.get(green), 0));
         add(new MyWayPoint(new Vec3(1091, 80, 40), "雨林村", colorMap.get(darkGreen), 0));
         add(new MyWayPoint(new Vec3(889, 62, -422), "海岸村", colorMap.get(blue), 0));
         add(new MyWayPoint(new Vec3(2573, 120, -492), "火山村", colorMap.get(yellow), 0));

@@ -64,11 +64,10 @@ public class ForNew extends Item {
                 new ItemStack(NewRuneItems.volcanoNewRune.get()),
                 new ItemStack(NewRuneItems.endNewRune.get()),
                 new ItemStack(ModItems.BackPackTickets.get()),
-                new ItemStack(ModItems.WoodHammer.get()),
+                new ItemStack(ModItems.CopperHammer.get()),
                 new ItemStack(ModItems.BackSpawn.get()),
                 new ItemStack(Items.GOLDEN_CARROT, 64),
-                new ItemStack(ModItems.windBottle.get()),
-                new ItemStack(ModItems.notePaper.get(), 256),
+                new ItemStack(ModItems.notePaper.get(), 128),
                 elyTra,
                 new ItemStack(ModItems.TP_TICKET.get(), 64));
     }

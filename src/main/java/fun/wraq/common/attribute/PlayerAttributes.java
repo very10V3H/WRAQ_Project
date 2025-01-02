@@ -924,17 +924,17 @@ public class PlayerAttributes {
         if (canGetFromCache(player, Utils.maxHealth)) {
             return getFromCache(player, Utils.maxHealth);
         }
-        double maxHealth = 200 + player.experienceLevel * 10;
+        double maxHealth = 200 + player.experienceLevel * 40;
         CompoundTag data = player.getPersistentData();
         maxHealth += computeAllEquipSlotBaseAttributeValue(player, Utils.maxHealth, true);
         maxHealth += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.maxHealth);
         maxHealth += handleAllEquipRandomAttribute(player, StringUtils.RandomAttribute.maxHealth);
-        if (SuitCount.getPlainSuitCount(player) >= 4) maxHealth += 200;
+        if (SuitCount.getPlainSuitCount(player) >= 4) maxHealth += 800;
         maxHealth += SArmorAttribute.value(player, SArmorAttribute.sumPower);
 
         int vitalityAbilityPoint = data.getInt(StringUtils.Ability.Vitality);
         if (data.contains(StringUtils.Ability.Vitality) && data.getInt(StringUtils.Ability.Vitality) > 0) {
-            maxHealth += vitalityAbilityPoint * 10;
+            maxHealth += vitalityAbilityPoint * 40;
         }
 
         maxHealth += Compute.CuriosAttribute.attributeValue(player, Utils.maxHealth, StringUtils.CuriosAttribute.maxHealth); // 新版饰品属性加成

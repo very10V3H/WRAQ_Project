@@ -20,7 +20,7 @@ import java.util.List;
 public class PlainArmorChest extends ArmorItem {
     public PlainArmorChest(ModArmorMaterials Material, Type Slots) {
         super(Material, Slots, new Properties().rarity(CustomStyle.PlainItalic));
-        Utils.maxHealth.put(this, 80d);
+        Utils.maxHealth.put(this, 320d);
         Utils.armorTag.put(this, 1d);
         Utils.armorList.add(this);
     }

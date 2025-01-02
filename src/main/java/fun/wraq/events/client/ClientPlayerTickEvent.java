@@ -146,8 +146,11 @@ public class ClientPlayerTickEvent {
                             itemStack.resetHoverName();
                         }
                     }
-                    BackSpawn.setName(itemStack);
                 }
+            }
+
+            if (event.player.tickCount % 20 == 0) {
+                BackSpawn.setName(event.player);
             }
 
             Item mainhandItem = event.player.getMainHandItem().getItem();

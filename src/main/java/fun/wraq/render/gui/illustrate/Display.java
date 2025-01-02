@@ -3,6 +3,7 @@ package fun.wraq.render.gui.illustrate;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.process.system.potion.NewPotion;
 import fun.wraq.process.system.potion.NewThrowablePotion;
+import fun.wraq.series.specialevents.SpecialEventItems;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.common.Mod;
@@ -21,17 +22,31 @@ public class Display {
     public static List<Item> offHandList = new ArrayList<>();
     public static List<Item> passiveEquipList = new ArrayList<>();
     public static List<Item> pickAxeList = new ArrayList<>();
-
     public static List<Item> helmetList = new ArrayList<>();
     public static List<Item> chestList = new ArrayList<>();
     public static List<Item> leggingsList = new ArrayList<>();
     public static List<Item> bootsList = new ArrayList<>();
-
     public static List<Item> gemList = new ArrayList<>();
-
     public static List<Item> BrewingList = new ArrayList<>();
-
     public static List<Item> runeList = new ArrayList<>();
+
+    public static List<Item> materialList = new ArrayList<>();
+    public static List<Item> souvenirsList = new ArrayList<>();
+
+    public static List<Item> getSouvenirsList() {
+        if (souvenirsList.isEmpty()) {
+            souvenirsList.addAll(List.of(
+                    ModItems.SpringScale0.get(),
+                    ModItems.LabourDayIronPickaxe.get(),
+                    ModItems.QingMingGem.get(),
+                    SpecialEventItems.SUMMER_CURIOS5.get(),
+                    SpecialEventItems.MOON_FEATHER_0.get(),
+                    SpecialEventItems.TRAIN_SOUVENIRS.get(),
+                    SpecialEventItems.SOUVENIRS_2024.get()
+            ));
+        }
+        return souvenirsList;
+    }
 
     public static List<Item> getBrewingList() {
         if (BrewingList.isEmpty()) setBrewingList();
@@ -62,6 +77,4 @@ public class Display {
             if (item instanceof NewPotion || item instanceof NewThrowablePotion) BrewingList.add(item);
         }
     }
-
-    public static List<Item> materialList = new ArrayList<>();
 }

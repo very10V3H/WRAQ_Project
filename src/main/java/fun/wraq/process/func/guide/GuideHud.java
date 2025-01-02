@@ -26,7 +26,7 @@ public class GuideHud {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
 
-        if (display && mc.screen == null) {
+        if (!Guide.clientGuideHudCloseStatus && display && mc.screen == null) {
             if (Guide.clientStage == -1 || Guide.clientStage >= Guide.getGuides().size()) return;
             Guide guide = Guide.getGuides().get(Guide.clientStage);
             List<Component> components = new ArrayList<>(guide.description);
@@ -36,6 +36,7 @@ public class GuideHud {
             components.add(Component.literal("").withStyle(ChatFormatting.WHITE));
             components.add(Te.s("按下", "[Tab]", ChatFormatting.AQUA, "以打开/关闭此栏"));
             components.add(Te.s("你也可以前往", "按键绑定", CustomStyle.styleOfStone, "修改此开关按键"));
+            components.add(Te.s("使用/vmd guide，来", "永久关闭", ChatFormatting.RED, "此栏"));
             guiGraphics.renderComponentTooltip(fontRenderer, components, 0, (int) (y / 1.5));
         }
     });

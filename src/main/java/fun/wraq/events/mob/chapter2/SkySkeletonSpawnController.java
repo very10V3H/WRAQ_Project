@@ -43,7 +43,8 @@ public class SkySkeletonSpawnController extends MobSpawnController {
                     new Vec3(941, 286, -4),
                     new Vec3(941, 289, 9)
             );
-            instance = new SkySkeletonSpawnController(spawnPos, spawnPos.size(), 954, 293, 18, 925, 279, -29, 0, 40, world, 2, 72);
+            instance = new SkySkeletonSpawnController(spawnPos, spawnPos.size(), 954, 293, 18, 925, 279, -29, 0, 40,
+                    world, 2, 60);
         }
         return instance;
     }
@@ -66,8 +67,8 @@ public class SkySkeletonSpawnController extends MobSpawnController {
 
         // 需要验证
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(skeleton), xpLevel);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(skeleton, 200, 60, 60, 0.35,
-                3, 0.2, 5, 15, 10000, 0.3);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(skeleton, 200, 45, 45, 0.3,
+                3, 0.1, 3, 10, 8000, 0.3);
 
         // 设置物品
         ItemStack[] itemStacks = {new ItemStack(Items.CHAINMAIL_HELMET), new ItemStack(Items.CHAINMAIL_CHESTPLATE),

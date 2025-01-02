@@ -27,7 +27,7 @@ public class SummerCuriosOrEquip2024 extends WraqCurios implements InCuriosOrEqu
     public SummerCuriosOrEquip2024(Properties properties, int tier) {
         super(properties);
         this.tier = tier;
-        Utils.maxHealth.put(this, new double[]{150, 200, 250, 300, 350, 400}[tier]);
+        Utils.maxHealth.put(this, new double[]{600, 800, 1000, 1200, 1400, 1600}[tier]);
         Utils.expUp.put(this, new double[]{0.2, 0.25, 0.3, 0.35, 0.4, 0.5}[tier]);
         Utils.levelRequire.put(this, new int[]{60, 90, 120, 150, 180, 210}[tier]);
     }

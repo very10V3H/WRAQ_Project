@@ -3747,9 +3747,6 @@ public class ModItems {
     public static final RegistryObject<Item> lavenderBracelet = ITEMS.register("lavender_bracelet",
             () -> new LavenderBracelet(new Item.Properties().rarity(CustomStyle.JacarandaBold).stacksTo(1)));
 
-    public static final RegistryObject<Item> windBottle = ITEMS.register("wind_bottle",
-            () -> new WindBottle(new Item.Properties().rarity(CustomStyle.WindBold)));
-
     public static final RegistryObject<Item> plainNecklace = ITEMS.register("plain_necklace",
             () -> new PlainNecklace(new Item.Properties().rarity(CustomStyle.PlainBold)));
 
@@ -3935,6 +3932,7 @@ public class ModItems {
 
     public static final RegistryObject<Item> supplyBoxTier0 = ITEMS.register("supply_box_tier_0",
             () -> new SupplyBox(new Item.Properties().rarity(CustomStyle.Green), new ArrayList<>() {{
+                add(new ItemStack(REVELATION_HEART.get(), 1));
                 add(new ItemStack(notePaper.get(), 64));
                 add(new ItemStack(EndlessInstanceItems.EASTERN_TOWER_PAPER.get(), 1));
                 add(new ItemStack(TP_TICKET.get(), 16));
@@ -3942,6 +3940,7 @@ public class ModItems {
 
     public static final RegistryObject<Item> supplyBoxTier1 = ITEMS.register("supply_box_tier_1",
             () -> new SupplyBox(new Item.Properties().rarity(Rarity.UNCOMMON), new ArrayList<>() {{
+                add(new ItemStack(REVELATION_HEART.get(), 2));
                 add(new ItemStack(MopUpPaperLoot.get(), 4));
                 add(new ItemStack(KillPaperLoot.get(), 8));
                 add(new ItemStack(notePaper.get(), 80));
@@ -3952,6 +3951,7 @@ public class ModItems {
 
     public static final RegistryObject<Item> supplyBoxTier2 = ITEMS.register("supply_box_tier_2",
             () -> new SupplyBox(new Item.Properties().rarity(Rarity.RARE), new ArrayList<>() {{
+                add(new ItemStack(REVELATION_HEART.get(), 4));
                 add(new ItemStack(MopUpPaperLoot.get(), 8));
                 add(new ItemStack(KillPaperLoot.get(), 16));
                 add(new ItemStack(notePaper.get(), 96));
@@ -3962,6 +3962,7 @@ public class ModItems {
 
     public static final RegistryObject<Item> supplyBoxTier3 = ITEMS.register("supply_box_tier_3",
             () -> new SupplyBox(new Item.Properties().rarity(Rarity.EPIC), new ArrayList<>() {{
+                add(new ItemStack(REVELATION_HEART.get(), 6));
                 add(new ItemStack(MopUpPaperLoot.get(), 16));
                 add(new ItemStack(KillPaperLoot.get(), 32));
                 add(new ItemStack(notePaper.get(), 128));

@@ -1,5 +1,7 @@
 package fun.wraq.process.system.respawn;
 
+import fun.wraq.Items.MainStory_1.NearestSpawnPointS2CPacket;
+import fun.wraq.networking.ModNetworking;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -52,14 +54,14 @@ public class MyRespawnRule {
 
     public static void setPlayerSpawnPoint(Player player) {
         ServerPlayer serverPlayer = (ServerPlayer) player;
-        String name = serverPlayer.getGameProfile().getName();
+        String name = serverPlayer.getName().getString();
         Level level = serverPlayer.level();
-        Level overworld = serverPlayer.getServer().getLevel(Level.OVERWORLD);
-        if (level.equals(overworld)) {
+        if (level.dimension().equals(Level.OVERWORLD)) {
             SpawnPoint spawnPoint = findNearestSpawnPoint(player);
             serverPlayer.setRespawnPosition(Level.OVERWORLD,
                     new BlockPos((int) spawnPoint.vec3.x, (int) spawnPoint.vec3.y, (int) spawnPoint.vec3.z), spawnPoint.rotX, true, false);
             playerLastOverWorldPos.put(name, new SpawnPos(player.position(), player.getXRot()));
+            ModNetworking.sendToClient(new NearestSpawnPointS2CPacket(spawnPoint.zoneName), serverPlayer);
         } else if (level.dimension().equals(Level.END)) {
             serverPlayer.setRespawnPosition(Level.END, new BlockPos(137, 50, 0), 90, true, false);
         } else if (level.dimension().equals(Level.NETHER)) {

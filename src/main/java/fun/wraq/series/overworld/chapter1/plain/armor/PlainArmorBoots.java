@@ -22,7 +22,7 @@ public class PlainArmorBoots extends ArmorItem {
     public PlainArmorBoots(ModArmorMaterials Material, Type Slots) {
         super(Material, Slots, new Properties().rarity(CustomStyle.PlainItalic));
         Utils.movementSpeedCommon.put(this, 0.08);
-        Utils.maxHealth.put(this, 40d);
+        Utils.maxHealth.put(this, 80d);
         Utils.armorTag.put(this, 1d);
         Utils.armorList.add(this);
     }

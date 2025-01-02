@@ -54,6 +54,7 @@ public class ClientAttackEvent {
             Player player = event.getEntity();
             if (!(player.getItemInHand(InteractionHand.MAIN_HAND).getItem() instanceof WraqPickaxe)) {
                 leftClick(player);
+                event.setCanceled(true);
             }
         }
     }

@@ -17,7 +17,7 @@ import java.util.List;
 public class ManaCrest extends WraqCurios implements RepeatableCurios {
 
     public ManaCrest(Properties p_41383_, int tier) {
-        super(p_41383_);
+        super(p_41383_, 16);
         Utils.manaDamage.put(this, new double[]{50, 100, 150, 200, 500}[tier]);
     }
 

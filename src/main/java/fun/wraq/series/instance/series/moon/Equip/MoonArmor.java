@@ -27,7 +27,7 @@ public class MoonArmor extends WraqArmor implements ForgeItem {
 
     public MoonArmor(ModArmorMaterials material, Type type, Properties properties) {
         super(material, type, properties);
-        if (type.equals(Type.LEGGINGS)) Utils.maxHealth.put(this, 8000d);
+        if (type.equals(Type.LEGGINGS)) Utils.maxHealth.put(this, 32000d);
         if (type.equals(Type.HELMET)) {
             Utils.percentHealthRecover.put(this, 0.01);
             Utils.healthRecover.put(this, 50d);

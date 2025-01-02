@@ -178,7 +178,7 @@ public class SnowBoss {
 
         public SnowBossArmorChest(ModArmorMaterials Material, Type Slots) {
             super(Material, Slots, new Properties().rarity(CustomStyle.EntropyItalic));
-            Utils.maxHealth.put(this, 300d);
+            Utils.maxHealth.put(this, 1200d);
             Utils.defence.put(this, 1d);
             Utils.armorTag.put(this, 1d);
             Utils.armorList.add(this);

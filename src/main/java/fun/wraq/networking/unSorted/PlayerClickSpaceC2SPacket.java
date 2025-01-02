@@ -3,7 +3,6 @@ package fun.wraq.networking.unSorted;
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
-import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -44,7 +43,7 @@ public class PlayerClickSpaceC2SPacket {
             ServerPlayer player = context.getSender();
             if (nextAllowJumpTickMap.getOrDefault(player, 0) < Tick.get()) {
                 nextAllowJumpTickMap.put(player, Tick.get() + 50);
-                Compute.sendCoolDownTime(player, ModItems.windBottle.get(), 50);
+                Compute.sendCoolDownTime(player, "item/wind_bottle", 50);
 
                 ClientboundSetEntityMotionPacket clientboundSetEntityMotionPacket =
                         new ClientboundSetEntityMotionPacket(player.getId(), player.getDeltaMovement().add(0, 1, 0));

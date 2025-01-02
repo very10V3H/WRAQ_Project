@@ -34,7 +34,7 @@ public class StoneCrystal extends SwordItem implements ActiveItem {
 
     public StoneCrystal(Properties properties, int tier) {
         super(ItemTier.VMaterial, 2, 0, properties);
-        Utils.maxHealth.put(this, new double[]{400, 600, 800, 1000}[tier]);
+        Utils.maxHealth.put(this, new double[]{1600, 2400, 3200, 4000}[tier]);
         Utils.expUp.put(this, new double[]{0.2, 0.25, 0.3, 0.35}[tier]);
         Element.StoneElementValue.put(this, new double[]{0.4, 0.6, 0.8, 1}[tier]);
         Utils.passiveEquipTag.put(this, 1d);

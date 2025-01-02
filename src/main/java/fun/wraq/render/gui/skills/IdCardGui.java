@@ -559,7 +559,7 @@ public class IdCardGui extends Screen {
             double ExHealAmplitude = ClientUtils.AbilityChangeCache.Vitality;
 
             ComponentUtils.emojiDescriptionHealthRecover(components, ExHealReply);
-            ComponentUtils.emojiDescriptionMaxHealth(components, ExMaxHeal * 10);
+            ComponentUtils.emojiDescriptionMaxHealth(components, ExMaxHeal * 40);
             ComponentUtils.emojiDescriptionHealAmplification(components, ExHealAmplitude * 0.01);
 
             ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
@@ -568,7 +568,7 @@ public class IdCardGui extends Screen {
             components.add(Component.literal("每一点能力获得:"));
 
             ComponentUtils.emojiDescriptionHealthRecover(components, 1);
-            ComponentUtils.emojiDescriptionMaxHealth(components, 10);
+            ComponentUtils.emojiDescriptionMaxHealth(components, 40);
             ComponentUtils.emojiDescriptionHealAmplification(components, 0.01);
 
             ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);

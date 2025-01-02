@@ -34,7 +34,7 @@ public class MinePants extends ArmorItem implements GeoItem {
 
     public MinePants(ModArmorMaterials Material, Type Slots) {
         super(Material, Slots, new Properties().rarity(CustomStyle.MineItalic));
-        Utils.maxHealth.put(this, 750d);
+        Utils.maxHealth.put(this, 3000d);
         Utils.armorTag.put(this, 1d);
     }
 

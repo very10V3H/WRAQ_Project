@@ -54,6 +54,7 @@ public class LakeSword extends WraqSword implements ActiveItem, OnHitEffectEquip
         components.add(Te.s("攻击后获得持续2秒的", ComponentUtils.AttributeDescription.movementSpeed("10%")));
         Compute.DescriptionActive(components, Component.literal("出水").withStyle(ChatFormatting.BLUE));
         components.add(Component.literal(" 右键向前冲刺"));
+        components.add(Te.s(" 主动效果在鞘翅飞行状态的冷却时间将固定为12s", ChatFormatting.GRAY, ChatFormatting.ITALIC));
         ComponentUtils.coolDownTimeDescription(components, coolDownSeconds[tier]);
         ComponentUtils.manaCostDescription(components, 80);
         return components;
@@ -76,8 +77,12 @@ public class LakeSword extends WraqSword implements ActiveItem, OnHitEffectEquip
         List.of(ModItems.LakeSword0.get(), ModItems.LakeSword1.get(),
                         ModItems.LakeSword2.get(), ModItems.LakeSword3.get())
                 .forEach(item -> {
-                    player.getCooldowns().addCooldown(item,
-                            (int) (coolDownSeconds[tier] * 20 * (1.0 - PlayerAttributes.coolDownDecrease(player))));
+                    if (player.isFallFlying()) {
+                        player.getCooldowns().addCooldown(item, Tick.s(12));
+                    } else {
+                        player.getCooldowns().addCooldown(item,
+                                (int) (coolDownSeconds[tier] * 20 * (1.0 - PlayerAttributes.coolDownDecrease(player))));
+                    }
                 });
     }
 
