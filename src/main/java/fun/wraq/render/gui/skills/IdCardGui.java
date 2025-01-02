@@ -9,6 +9,7 @@ import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.SkillPackets.AbilityDataC2SPacket;
 import fun.wraq.networking.misc.SkillPackets.SkillDataC2SPacket;
 import fun.wraq.networking.misc.SkillPackets.SkillRequestC2SPacket;
+import fun.wraq.networking.misc.SmartPhonePackets.MarketScreenC2SPacket;
 import fun.wraq.networking.misc.TeamPackets.TeamScreenOpenRequestC2SPacket;
 import fun.wraq.process.func.guide.networking.GuideFinishC2SPacket;
 import fun.wraq.process.func.plan.DailySupply;
@@ -198,13 +199,17 @@ public class IdCardGui extends Screen {
             ModNetworking.sendToServer(new MissionScreenOpenC2SPacket(2));
         }).pos(this.width / 2 + 36, this.height / 2 + 113 - 40).size(48, 16).build());
 
+        this.addRenderableWidget(Button.builder(Component.literal("全球市场").withStyle(ChatFormatting.GOLD), (p_280814_) -> {
+            ModNetworking.sendToServer(new MarketScreenC2SPacket(0));
+        }).pos(this.width / 2 - 18, this.height / 2 + 113 - 40).size(48, 16).build());
+
         this.addRenderableWidget(Button.builder(Component.literal("声望商店").withStyle(ChatFormatting.YELLOW), (p_280814_) -> {
             this.minecraft.setScreen(new ReputationStore(true));
-        }).pos(this.width / 2 - 18, this.height / 2 + 113 - 40).size(48, 16).build());
+        }).pos(this.width / 2 - 18, this.height / 2 + 113 - 40 + 18).size(48, 16).build());
 
         this.addRenderableWidget(Button.builder(Component.literal("vp商店").withStyle(ChatFormatting.AQUA), (p_280814_) -> {
             this.minecraft.setScreen(new VpStoreScreen());
-        }).pos(this.width / 2 - 18, this.height / 2 + 113 - 40 + 18).size(48, 16).build());
+        }).pos(this.width / 2 - 18, this.height / 2 + 113 - 40 + 18 * 2).size(48, 16).build());
 
         this.addRenderableWidget(Button.builder(Component.literal("图鉴").withStyle(CustomStyle.styleOfSunIsland), (p_280814_) -> {
             this.minecraft.setScreen(new Illustrate(true, 0));
@@ -234,12 +239,15 @@ public class IdCardGui extends Screen {
                 0, 0, 300, 200, textureWidth, textureHeight);
         this.renderables.forEach(renderable -> {
             if (renderable instanceof Button button) {
-                if (button.getMessage().getString().contains("vp商店") || button.getMessage().getString().contains("声望商店")) {
+                if (button.getMessage().getString().contains("vp商店")
+                        || button.getMessage().getString().contains("声望商店")
+                        || button.getMessage().getString().contains("全球市场")) {
                     if (x > this.width / 2 - 18 && x < this.width / 2 - 18 + 48 && y > this.height / 2 + 113 - 40
                             && y < this.height / 2 + 113 - 40 + 18 + 16) {
                         renderable.render(graphics, x, y, v);
                     } else {
-                        guiGraphics.drawString(fontRenderer, Component.literal("「商店列表」").withStyle(ChatFormatting.WHITE), this.width / 2 - 18, this.height / 2 + 113 - 40 + 3, 0);
+                        guiGraphics.drawString(fontRenderer, Component.literal("「市场/商店」")
+                                .withStyle(ChatFormatting.WHITE), this.width / 2 - 18, this.height / 2 + 113 - 40 + 3, 0);
                     }
                 } else if (button.getMessage().getString().contains("本源回廊") || button.getMessage().getString().contains("组队/副本")) {
                     if (x > this.width / 2 - 126 && x < this.width / 2 - 126 + 48 && y > this.height / 2 + 113 - 40

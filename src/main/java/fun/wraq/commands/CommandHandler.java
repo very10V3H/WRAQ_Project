@@ -66,8 +66,10 @@ public class CommandHandler {
         LiteralCommandNode<CommandSourceStack> cmd5 = dispatcher5.register(
                 Commands.literal(Utils.MOD_ID).then(
                         Commands.literal("sell").then(
-                                Commands.argument("price", StringArgumentType.string())
-                                        .executes(SellCommand.instance)
+                                Commands.argument("price", IntegerArgumentType.integer()).then(
+                                        Commands.argument("type", IntegerArgumentType.integer())
+                                                .executes(SellCommand.instance)
+                                )
                         )
                 )
         );

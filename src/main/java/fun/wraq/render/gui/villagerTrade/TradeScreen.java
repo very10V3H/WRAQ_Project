@@ -5,7 +5,6 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.Utils;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.SmartPhonePackets.Currency.*;
-import fun.wraq.networking.misc.SmartPhonePackets.MarketScreenC2SPacket;
 import fun.wraq.networking.unSorted.TradeBuyRequestC2SPacket;
 import fun.wraq.process.system.randomStore.RandomStore;
 import net.minecraft.ChatFormatting;
@@ -107,20 +106,16 @@ public class TradeScreen extends Screen {
             ModNetworking.sendToServer(new CopperCoinC2SPacket(2));
         }).pos(this.width / 2 - 146 + 50 + 26 + 50 + 26 + 50, this.height / 2 - 116).size(24, 16).build());
 
+        this.addRenderableWidget(Button.builder(Component.translatable("兑换VB").withStyle(ChatFormatting.GOLD), (p_280814_) -> {
+            ModNetworking.sendToServer(new AllCurrencyC2SPacket(true));
+        }).pos(this.width / 2 - 146 + 50 + 26 + 50 + 26 + 50 + 26, this.height / 2 - 116).size(48, 16).build());
+
         for (int i = 0; i < 5; i++) {
             int finalI = i;
             this.addRenderableWidget(Button.builder(Component.translatable("购买"), (p_280814_) -> {
                 ModNetworking.sendToServer(new TradeBuyRequestC2SPacket(villagerName, page * 5 + finalI));
             }).pos(this.width / 2 - 35 + 144, this.height / 2 - 75 + 32 * i).size(32, 16).build());
         }
-
-        this.addRenderableWidget(Button.builder(Component.translatable("玩家市场").withStyle(ChatFormatting.GOLD), (p_280814_) -> {
-            ModNetworking.sendToServer(new MarketScreenC2SPacket(0));
-        }).pos(this.width / 2 + 150, this.height / 2 - 98).size(48, 16).build());
-
-        this.addRenderableWidget(Button.builder(Component.translatable("兑换VB").withStyle(ChatFormatting.GOLD), (p_280814_) -> {
-            ModNetworking.sendToServer(new AllCurrencyC2SPacket(true));
-        }).pos(this.width / 2 + 200, this.height / 2 - 98).size(48, 16).build());
     }
 
     public void tick() {

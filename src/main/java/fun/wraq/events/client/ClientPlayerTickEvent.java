@@ -102,10 +102,7 @@ public class ClientPlayerTickEvent {
 
             if (ClientUtils.receiveMarketInfo) {
                 ClientUtils.receiveMarketInfo = false;
-                if (MarketScreen.openFlag) {
-                    MarketScreen.openFlag = false;
-                    mc.setScreen(new MarketScreen(true, MarketScreen.tempPage, MarketScreen.tempSortByPrice));
-                }
+                mc.setScreen(new MarketScreen(true, MarketScreen.tempPage, MarketScreen.tempSortByPrice, MarketScreen.tempSortByType));
             }
 
             if (ClientUtils.ipFlag == 1) {

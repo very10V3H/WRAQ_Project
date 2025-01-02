@@ -91,7 +91,7 @@ public class SmartPhone extends Screen {
         }).pos(this.width / 2 + 74, this.height / 2 + 110 - 68).size(40, 20).build());
         //建设、
         this.addRenderableWidget(Button.builder(Component.translatable("打开市场"), (p_280814_) -> {
-            Minecraft.getInstance().setScreen(new MarketScreen(true, 0, -1));
+            Minecraft.getInstance().setScreen(new MarketScreen(true, 0, -1, -1));
         }).pos(this.width / 2 - 140, this.height / 2 + 135 - 68).size(40, 20).build());
     }
 

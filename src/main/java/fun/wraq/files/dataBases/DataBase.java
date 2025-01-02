@@ -1,10 +1,5 @@
 package fun.wraq.files.dataBases;
 
-import fun.wraq.common.Compute;
-import fun.wraq.common.util.Utils;
-import fun.wraq.files.MarketItemInfo;
-import fun.wraq.files.MarketPlayerInfo;
-import fun.wraq.files.dataBases.DBConnection;
 import fun.wraq.process.system.WorldRecordInfo;
 import net.minecraft.world.entity.player.Player;
 
@@ -319,70 +314,6 @@ public class DataBase {
                 put(statement, key, value);
             } catch (SQLException e) {
                 throw new RuntimeException(e);
-            }
-        });
-    }
-
-    public static List<String> getAllMarketItemInfo(Statement statement) throws SQLException {
-        List<String> list = new ArrayList<>();
-        String sql = "select * from market1;";
-        ResultSet resultSet = statement.executeQuery(sql);
-        Map<String, Boolean> map = new HashMap<>();
-        while (resultSet.next()) {
-            String name = resultSet.getString("name");
-            if (map.containsKey(name)) continue;
-            else map.put(name, true);
-            for (int i = 0; i < 15; i++) {
-                String s = resultSet.getString("market" + i);
-                if (s != null && !s.equals("null")) list.add(name + "#" + s);
-            }
-        }
-        return list;
-    }
-
-    public static List<MarketPlayerInfo> getAllMarketPlayerInfo(Statement statement) throws SQLException {
-        List<MarketPlayerInfo> list = new ArrayList<>();
-        String sql = "select * from market1;";
-        ResultSet resultSet = statement.executeQuery(sql);
-        while (resultSet.next()) {
-            String name = resultSet.getString("name");
-            String profit = resultSet.getString("profit");
-            if (profit != null && !profit.equals("null")) {
-                list.add(new MarketPlayerInfo(name, Double.parseDouble(profit)));
-            }
-        }
-        return list;
-    }
-
-    public static void putAllMarketPlayerInfo(Statement statement) {
-        Utils.marketPlayerInfos.forEach((key, value) -> {
-            try {
-                put(statement, key, "profit", value.toString(), "market1");
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        });
-    }
-
-    public static void putAllMarketItemInfo(Statement statement) throws SQLException {
-        String sql = "truncate table market1";
-        statement.executeUpdate(sql);
-        Map<String, List<MarketItemInfo>> map = new HashMap<>();
-
-        Utils.marketItemInfos.forEach(marketItemInfo -> {
-            if (!map.containsKey(marketItemInfo.getPlayer())) map.put(marketItemInfo.getPlayer(), new ArrayList<>());
-            List<MarketItemInfo> marketItemInfos = map.get(marketItemInfo.getPlayer());
-            marketItemInfos.add(marketItemInfo);
-        });
-
-        map.forEach((key, value) -> {
-            for (int i = 0; i < value.size(); i++) {
-                MarketItemInfo marketItemInfo = value.get(i);
-                try {
-                    put(statement, key, "market" + i, Compute.getItemStackString(marketItemInfo.getItemStack()) + "*" + marketItemInfo.getPrice(), "market1");
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
             }
         });
     }

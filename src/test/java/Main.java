@@ -2,12 +2,37 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
-        double sum = 0;
-        for (int i = 0 ; i < 20 ; i ++) {
-            double rate = (20 - i) / 20d;
-            sum += 1 / rate;
+        String string = "very_H#plain_soul*666^1";
+        String playerName = "";
+        String itemStackName = "";
+        String price = "";
+        String type = "";
+        int index1 = 0; // #
+        int index2 = 0; // *
+        int index3 = 0; // ^
+        for (int i = 0; i < string.length(); i++) {
+            if (string.charAt(i) == '#') {
+                playerName = string.substring(0, i);
+                index1 = i + 1;
+                break;
+            }
         }
-        System.out.println(sum);
+        for (int i = string.length() - 1; i >= 0; i--) {
+            if (string.charAt(i) == '^') {
+                type = string.substring(i + 1);
+                index3 = i + 1;
+                break;
+            }
+        }
+        for (int i = string.length() - 1; i >= 0; i--) {
+            if (string.charAt(i) == '*') {
+                itemStackName = string.substring(index1, i);
+                index2 = i + 1;
+                break;
+            }
+        }
+        price = string.substring(index2, index3 - 1);
+        System.out.println(playerName + " " + itemStackName + " " + price + " " + type);
 
         /*System.out.println(Security.getMACAddress(InetAddress.getLocalHost()));*/
 

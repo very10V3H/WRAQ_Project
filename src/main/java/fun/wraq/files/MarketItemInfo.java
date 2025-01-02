@@ -6,42 +6,17 @@ import fun.wraq.events.core.InventoryCheck;
 import net.minecraft.world.item.ItemStack;
 
 public class MarketItemInfo {
-    private String playerName;
-    private ItemStack itemStack;
-    private double price;
 
-    public MarketItemInfo(String player, ItemStack itemStack, double Price) {
+    public final String playerName;
+    public final ItemStack itemStack;
+    public final int price;
+    public final int type; // 0 = VB, 1 = GB
+
+    public MarketItemInfo(String player, ItemStack itemStack, int price, int type) {
         this.playerName = player;
         this.itemStack = itemStack;
-        this.price = Price;
-    }
-
-    public String getPlayer() {
-        return playerName;
-    }
-
-    public void setPlayer(String player) {
-        this.playerName = player;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
         this.price = price;
-    }
-
-    public String TransformInfoToString() {
-        String Info;
-        Info = playerName + "#";
-        Info += itemStack + "*";
-        Info += price + "$";
-        return Info;
-    }
-
-    public ItemStack getItemStack() {
-        return itemStack;
+        this.type = type;
     }
 
     public int getItemStackCount() {
@@ -51,6 +26,7 @@ public class MarketItemInfo {
     public static boolean itemCanBeSold(ItemStack itemStack) {
         if (itemStack.getItem().toString().contains("backpack")) return false;
         if (Utils.uniformList.contains(itemStack.getItem())) return false;
+        if (Compute.getItemStackString(itemStack).contains("*")) return false;
         return !InventoryCheck.getBoundingList().contains(itemStack.getItem());
     }
 
@@ -59,7 +35,7 @@ public class MarketItemInfo {
         if (obj instanceof MarketItemInfo anotherObj) {
             return this.playerName.equals(anotherObj.playerName)
                     && Compute.getItemStackString(this.itemStack).equals(Compute.getItemStackString(anotherObj.itemStack))
-                    && this.price == anotherObj.price;
+                    && this.price == anotherObj.price && this.type == anotherObj.type;
         }
         return super.equals(obj);
     }

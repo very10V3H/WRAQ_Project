@@ -25,9 +25,9 @@ public class MarketScreenS2CPacket {
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
-            MarketScreen.openFlag = true;
             MarketScreen.tempPage = 0;
             MarketScreen.tempSortByPrice = -1;
+            MarketScreen.tempSortByType = -1;
         });
         return true;
     }

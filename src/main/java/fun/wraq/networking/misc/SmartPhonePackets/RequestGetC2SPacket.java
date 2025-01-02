@@ -1,13 +1,16 @@
 package fun.wraq.networking.misc.SmartPhonePackets;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.Utils;
-import net.minecraft.ChatFormatting;
+import fun.wraq.files.MarketProfitInfo;
+import fun.wraq.process.func.item.InventoryOperation;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.network.NetworkEvent;
 
+import java.util.List;
 import java.util.function.Supplier;
 
 public class RequestGetC2SPacket {
@@ -27,23 +30,22 @@ public class RequestGetC2SPacket {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
             ServerPlayer player = context.getSender();
-/*            Iterator<MarketPlayerInfo> iterator = Utils.marketPlayerInfos.iterator();
-            while(iterator.hasNext()){
-                MarketPlayerInfo marketPlayerInfo = iterator.next();
-                if(marketPlayerInfo.getPlayer().equals(player.getName().getString()) && marketPlayerInfo.getProfit() > 0) {
-                    flag = false;
-                    Compute.VBgetAndMSGSend(player,(float) marketPlayerInfo.getProfit());
-                    marketPlayerInfo.setProfit(0);
+            if (player == null) return;
+            List<MarketProfitInfo> marketProfitInfos = Utils.marketProfitInfos
+                    .stream().filter(info -> info.playerName.equals(player.getName().getString()))
+                    .toList();
+            marketProfitInfos.forEach(info -> {
+                switch (info.type) {
+                    case 0 -> {
+                        Compute.VBIncomeAndMSGSend(player, info.profit);
+                    }
+                    case 1 -> {
+                        InventoryOperation
+                                .itemStackGiveWithMSG(player, new ItemStack(ModItems.GOLDEN_BEANS.get(), info.profit));
+                    }
                 }
-            }*/
-            double num = Utils.marketPlayerInfos.getOrDefault(player.getName().getString(), 0d);
-            if (num > 0) {
-                Compute.VBIncomeAndMSGSend(player, num);
-                Utils.marketPlayerInfos.put(player.getName().getString(), 0d);
-            } else {
-                Compute.sendFormatMSG(player, Component.literal("市场").withStyle(ChatFormatting.GOLD),
-                        Component.literal("似乎没有VB可以收取。"));
-            }
+            });
+            Utils.marketProfitInfos.removeAll(marketProfitInfos);
         });
         return true;
     }

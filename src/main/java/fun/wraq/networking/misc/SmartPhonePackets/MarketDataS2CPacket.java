@@ -21,19 +21,22 @@ public class MarketDataS2CPacket {
         this.itemInfos = buf.readList((friendlyByteBuf) -> {
             String player = buf.readUtf();
             ItemStack itemStack = buf.readItem();
-            double price = buf.readDouble();
-            return new MarketItemInfo(player, itemStack, price);
+            int price = buf.readInt();
+            int type = buf.readInt();
+            return new MarketItemInfo(player, itemStack, price, type);
         });
     }
 
     public void toBytes(FriendlyByteBuf buf) {
         buf.writeCollection(this.itemInfos, ((friendlyByteBuf, marketItemInfo) -> {
-            String player = marketItemInfo.getPlayer();
-            ItemStack itemStack = marketItemInfo.getItemStack();
-            double price = marketItemInfo.getPrice();
+            String player = marketItemInfo.playerName;
+            ItemStack itemStack = marketItemInfo.itemStack;
+            int price = marketItemInfo.price;
+            int type = marketItemInfo.type;
             buf.writeUtf(player);
             buf.writeItem(itemStack);
-            buf.writeDouble(price);
+            buf.writeInt(price);
+            buf.writeInt(type);
         }));
     }
 

@@ -12,6 +12,7 @@ import fun.wraq.common.util.struct.SwordSkillStruct.SwordSkill3;
 import fun.wraq.common.util.struct.SwordSkillStruct.SwordSkill6;
 import fun.wraq.entities.entities.Boss2.Boss2;
 import fun.wraq.files.MarketItemInfo;
+import fun.wraq.files.MarketProfitInfo;
 import fun.wraq.networking.unSorted.BlockLimit;
 import fun.wraq.render.mobEffects.ModEffects;
 import fun.wraq.render.particles.ModParticles;
@@ -185,7 +186,7 @@ public class Utils {
     public static List<Player> NSPlayerController = new ArrayList<>();
 
     public static List<MarketItemInfo> marketItemInfos = new ArrayList<>();
-    public static Map<String, Double> marketPlayerInfos = new HashMap<>();
+    public static List<MarketProfitInfo> marketProfitInfos = new ArrayList<>();
 
     public static Component[] BrewingLevelName = {
             Component.literal("酿造初识").withStyle(ChatFormatting.GRAY),
