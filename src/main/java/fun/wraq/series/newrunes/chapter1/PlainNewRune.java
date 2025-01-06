@@ -6,6 +6,7 @@ import fun.wraq.events.mob.chapter1.PlainZombieSpawnController;
 import fun.wraq.common.impl.display.UsageOrGetWayDescriptionItem;
 import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.instance.series.lava.rune.LifeRune;
 import fun.wraq.series.newrunes.RuneItem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -48,7 +49,7 @@ public class PlainNewRune extends WraqCurios implements RuneItem, UsageOrGetWayD
     }
 
     public static boolean isOn(Player player) {
-        return WraqCurios.isOn(PlainNewRune.class, player);
+        return WraqCurios.isOn(PlainNewRune.class, player) || WraqCurios.isOn(LifeRune.class, player);
     }
 
     public static double playerHealthRecover(Player player) {

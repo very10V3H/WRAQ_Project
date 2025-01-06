@@ -1,4 +1,4 @@
-package fun.wraq.process.system.pet.allay.skill;
+package fun.wraq.process.system.profession.pet.allay.skill;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
@@ -6,7 +6,7 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
-import fun.wraq.process.system.pet.allay.AllayPetPlayerData;
+import fun.wraq.process.system.profession.pet.allay.AllayPetPlayerData;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;

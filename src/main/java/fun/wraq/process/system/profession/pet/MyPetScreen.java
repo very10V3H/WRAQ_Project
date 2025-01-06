@@ -1,4 +1,4 @@
-package fun.wraq.process.system.pet;
+package fun.wraq.process.system.profession.pet;
 
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;

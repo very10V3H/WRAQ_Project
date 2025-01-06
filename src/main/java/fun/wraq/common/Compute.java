@@ -122,8 +122,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import static java.lang.Math.abs;
-import static java.lang.Math.acos;
+import static java.lang.Math.*;
 
 
 public class Compute {
@@ -896,7 +895,7 @@ public class Compute {
 
     public static void playerHeal(Player player, double num) {
         if (num < 0) return;
-        double healNum = num * (PlayerAttributes.getHealEffect(player));
+        double healNum = num * (PlayerAttributes.getHealingAmplification(player));
         if (ManaSkillTree.onHealthRecover(player, healNum)) return;
         healNum = Math.min(healNum, player.getMaxHealth() - player.getHealth());
         LifeElementSword.StoreToList(player, healNum);
@@ -2047,5 +2046,18 @@ public class Compute {
     public static void incrementSpecificKeyDataIntValue(Player player, String dataKey, String valueKey, int increment) {
         CompoundTag data = getPlayerSpecificKeyCompoundTagData(player, dataKey);
         data.putInt(valueKey, data.getInt(valueKey) + increment);
+    }
+
+    public static Set<Mob> getPlayerVisionConicalMobs(Player player, int maxDistance) {
+        Set<Mob> mobSet = new HashSet<>();
+        for (int i = 0 ; i < maxDistance ; i ++) {
+            Vec3 pickPos = player.pick(i, 0, false).getLocation();
+            int finalI = i;
+            player.level().getEntitiesOfClass(Mob.class,
+                            AABB.ofSize(pickPos, i * 2, i * 2, i * 2))
+                    .stream().filter(mob -> mob.position().distanceTo(pickPos) < finalI)
+                    .forEach(mobSet::add);
+        }
+        return mobSet;
     }
 }

@@ -316,6 +316,18 @@ public class ComponentUtils {
         return Component.literal("樱岛隐秘工业").withStyle(CustomStyle.styleOfSakura).withStyle(ChatFormatting.ITALIC);
     }
 
+    public static Component getSuffixOfMushroom() {
+        return Component.literal("分生之种").withStyle(CustomStyle.MUSHROOM_STYLE).withStyle(ChatFormatting.ITALIC);
+    }
+
+    public static Component getSuffixOfSmith() {
+        return Component.literal("匠人").withStyle(CustomStyle.styleOfGold).withStyle(ChatFormatting.ITALIC);
+    }
+
+    public static Component getSuffixOfAlchemy() {
+        return Component.literal("炼金").withStyle(CustomStyle.styleOfGold).withStyle(ChatFormatting.ITALIC);
+    }
+
     public static Component getSuffixOfSpring2024() {
         return Component.literal("SpringFestival~2024")
                 .withStyle(ChatFormatting.ITALIC).withStyle(CustomStyle.styleOfSpring);

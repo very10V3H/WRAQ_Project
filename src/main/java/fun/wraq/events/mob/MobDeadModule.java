@@ -27,7 +27,7 @@ public class MobDeadModule {
             }
 
             if (nearestPlayer != null) {
-                Damage.manaDamageToPlayer(mob, nearestPlayer, 2500);
+                Damage.causeManaDamageToPlayer(mob, nearestPlayer, 2500);
                 ParticleProvider.EntityEffectVerticleCircleParticle(nearestPlayer, 1, 0.4, 8, ParticleTypes.WITCH, 0);
                 ParticleProvider.EntityEffectVerticleCircleParticle(nearestPlayer, 0.75, 0.4, 8, ParticleTypes.WITCH, 0);
                 ParticleProvider.EntityEffectVerticleCircleParticle(nearestPlayer, 0.5, 0.4, 8, ParticleTypes.WITCH, 0);
@@ -49,7 +49,7 @@ public class MobDeadModule {
                 }
             }
             if (nearestPlayer != null) {
-                Damage.AttackDamageToPlayer(mob, nearestPlayer, 5000, 0.3, 750);
+                Damage.causeAttackDamageToPlayer(mob, nearestPlayer, 5000, 0.3, 750);
                 ParticleProvider.EntityEffectVerticleCircleParticle(nearestPlayer, 1, 0.4, 8, ParticleTypes.WITCH, 0);
                 ParticleProvider.EntityEffectVerticleCircleParticle(nearestPlayer, 0.75, 0.4, 8, ParticleTypes.WITCH, 0);
                 ParticleProvider.EntityEffectVerticleCircleParticle(nearestPlayer, 0.5, 0.4, 8, ParticleTypes.WITCH, 0);

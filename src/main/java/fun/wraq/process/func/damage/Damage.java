@@ -33,7 +33,7 @@ import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.element.equipAndCurios.fireElement.FireEquip;
 import fun.wraq.process.system.endlessinstance.DailyEndlessInstance;
 import fun.wraq.process.system.entrustment.mob.MobKillEntrustment;
-import fun.wraq.process.system.pet.allay.AllayPet;
+import fun.wraq.process.system.profession.pet.allay.AllayPet;
 import fun.wraq.process.system.randomevent.RandomEventsHandler;
 import fun.wraq.process.system.randomevent.impl.killmob.SlimeKingEvent;
 import fun.wraq.process.system.teamInstance.NewTeamInstanceHandler;
@@ -415,7 +415,7 @@ public class Damage {
         }
     }
 
-    public static void manaDamageToPlayer(Player player, Player hurter, double num) {
+    public static void causeManaDamageToPlayer(Player player, Player hurter, double num) {
 
         double BaseDamage = PlayerAttributes.manaDamage(player);
         double BreakDefence = PlayerAttributes.manaPenetration(player);
@@ -428,14 +428,14 @@ public class Damage {
         causeDirectDamageToPlayer(player, hurter, BaseDamage * num * 0.1f * (1 + DamageEnhance));
     }
 
-    public static void manaDamageToPlayer(Mob monster, Player player, double damage) {
+    public static void causeManaDamageToPlayer(Mob monster, Player player, double damage) {
         double manaDefence = PlayerAttributes.manaDefence(player);
         damage *= defenceDamageDecreaseRate(manaDefence, 0, 0);
         MonsterAttackEvent.monsterAttack(monster, player, damage);
         BloodManaCurios.passive(player);
     }
 
-    public static void manaDamageToPlayer(Mob monster, Player player, double damage, double penetration, double penetration0) {
+    public static void causeManaDamageToPlayer(Mob monster, Player player, double damage, double penetration, double penetration0) {
         double manaDefence = PlayerAttributes.manaDefence(player);
         damage *= defenceDamageDecreaseRate(manaDefence, penetration, penetration0);
         MonsterAttackEvent.monsterAttack(monster, player, damage);
@@ -474,21 +474,15 @@ public class Damage {
         player.setHealth((float) (player.getHealth() - damage));
     }
 
-    public static void AttackDamageToPlayer(Mob monster, Player player, double Damage) {
+    public static void causeAttackDamageToPlayer(Mob monster, Player player, double Damage) {
         double Defence = PlayerAttributes.defence(player);
         Damage *= defenceDamageDecreaseRate(Defence, MobAttributes.defencePenetration(monster), MobAttributes.defencePenetration0(monster));
         MonsterAttackEvent.monsterAttack(monster, player, Damage);
     }
 
-    public static void AttackDamageToPlayer(Mob monster, Player player, double Damage, double defencePenetration, double defencePenetration0) {
+    public static void causeAttackDamageToPlayer(Mob monster, Player player, double Damage, double defencePenetration, double defencePenetration0) {
         double Defence = PlayerAttributes.defence(player);
         Damage *= defenceDamageDecreaseRate(Defence, defencePenetration, defencePenetration0);
-        MonsterAttackEvent.monsterAttack(monster, player, Damage);
-    }
-
-    public static void AttackDamageToPlayer_NumDamage(Mob monster, Player player, double Damage, double BreakDefence, double BreakDefence0) {
-        double Defence = PlayerAttributes.defence(player);
-        Damage *= defenceDamageDecreaseRate(Defence, BreakDefence, BreakDefence0);
         MonsterAttackEvent.monsterAttack(monster, player, Damage);
     }
 

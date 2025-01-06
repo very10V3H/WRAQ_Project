@@ -61,7 +61,7 @@ public class HurtEvent {
     public static void BlazeReflectDamage(Mob monster, Player player) {
         if (monster.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.ArmorBlaze.get())
                 || monster.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.ArmorBlaze.get())) {
-            Damage.manaDamageToPlayer(monster, player, player.getMaxHealth() * 0.02f);
+            Damage.causeManaDamageToPlayer(monster, player, player.getMaxHealth() * 0.02f);
         }
     }
 }

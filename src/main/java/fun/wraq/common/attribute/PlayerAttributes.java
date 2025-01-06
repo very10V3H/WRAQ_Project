@@ -5,6 +5,7 @@ import fun.wraq.Items.DevelopmentTools.equip.OpsAttributes;
 import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.equip.WraqPickaxe;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.inslot.InCuriosOrEquipSlotAttributesModify;
 import fun.wraq.common.registry.ModItems;
@@ -28,9 +29,11 @@ import fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementBow
 import fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSceptre;
 import fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSword;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
+import fun.wraq.process.system.profession.alchemy.AlchemyPlayerData;
 import fun.wraq.process.system.spur.events.MineSpur;
 import fun.wraq.process.system.tower.TowerMob;
 import fun.wraq.render.mobEffects.ModEffects;
+import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.gems.GemAttributes;
 import fun.wraq.series.instance.series.castle.CastleAttackArmor;
 import fun.wraq.series.instance.series.castle.CastleManaArmor;
@@ -44,18 +47,20 @@ import fun.wraq.series.newrunes.chapter1.ForestNewRune;
 import fun.wraq.series.newrunes.chapter1.PlainNewRune;
 import fun.wraq.series.newrunes.chapter2.SkyNewRune;
 import fun.wraq.series.newrunes.chapter6.CastleNewRune;
-import fun.wraq.series.overworld.chapter1.mine.MineShield;
 import fun.wraq.series.overworld.chapter1.forest.armor.ForestArmorBoots;
 import fun.wraq.series.overworld.chapter1.forest.armor.ForestArmorChest;
 import fun.wraq.series.overworld.chapter1.forest.armor.ForestArmorHelmet;
 import fun.wraq.series.overworld.chapter1.forest.armor.ForestArmorLeggings;
+import fun.wraq.series.overworld.chapter1.mine.MineShield;
 import fun.wraq.series.overworld.chapter1.plain.armor.PlainArmorHelmet;
 import fun.wraq.series.overworld.chapter1.volcano.armor.VolcanoArmorHelmet;
 import fun.wraq.series.overworld.chapter1.waterSystem.equip.armor.LakeArmorHelmet;
 import fun.wraq.series.overworld.chapter2.manaArmor.LifeMana.LifeManaArmor;
 import fun.wraq.series.overworld.sakuraSeries.EarthMana.EarthPower;
 import fun.wraq.series.worldsoul.SoulEquipAttribute;
+import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
@@ -65,6 +70,7 @@ import net.minecraft.world.phys.AABB;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -257,6 +263,7 @@ public class PlayerAttributes {
                 + Compute.CuriosAttribute.attributeValue(player, Utils.percentAttackDamageEnhance,
                 StringUtils.CuriosAttribute.percentAttackDamage);
         exRate += computeAllEquipSlotBaseAttributeValue(player, Utils.percentAttackDamageEnhance, false);
+        exRate += AlchemyPlayerData.getEnhanceRate(player, Utils.attackDamage);
         totalAttackDamage *= (1 + exRate);
 
         if (data.contains("NetherRecallBuff") && data.getInt("NetherRecallBuff") > 0) {
@@ -317,6 +324,7 @@ public class PlayerAttributes {
         // 请在上方添加
         double exRate = 0;
         exRate += Compute.playerFantasyAttributeEnhance(player);
+        exRate += AlchemyPlayerData.getEnhanceRate(player, Utils.critRate);
         critRate *= (1 + exRate);
         writeToCache(player, Utils.critRate, critRate);
         return critRate;
@@ -326,7 +334,6 @@ public class PlayerAttributes {
         if (canGetFromCache(player, Utils.critDamage)) {
             return getFromCache(player, Utils.critDamage);
         }
-        int tickCount = Tick.get();
         CompoundTag data = player.getPersistentData();
         double critDamage = 1;
         Item mainhand = player.getItemInHand(InteractionHand.MAIN_HAND).getItem();
@@ -382,6 +389,7 @@ public class PlayerAttributes {
         exRate += AttackCurios2.playerCritDamageEnhance(player);
         exRate += BowCurios2.playerCritDamageEnhance(player);
         exRate += SkyNewRune.critDamageInfluence(player);
+        exRate += AlchemyPlayerData.getEnhanceRate(player, Utils.critDamage);
         critDamage *= (1 + exRate);
 
         if (player.getItemInHand(InteractionHand.OFF_HAND).is(ModItems.ManaShield.get())) {
@@ -469,6 +477,7 @@ public class PlayerAttributes {
         // 上方添加
         double exRate = 0;
         exRate += Compute.playerFantasyAttributeEnhance(player);
+        exRate += AlchemyPlayerData.getEnhanceRate(player, Utils.movementSpeedCommon)   ;
         movementSpeedUp *= (1 + exRate);
 
         writeToCache(player, Utils.movementSpeedCommon, movementSpeedUp);
@@ -551,6 +560,7 @@ public class PlayerAttributes {
         // 请在上方添加
         double exRate = 0;
         exRate += Compute.playerFantasyAttributeEnhance(player);
+        exRate += AlchemyPlayerData.getEnhanceRate(player, Utils.expUp);
         expUp *= (1 + exRate);
         writeToCache(player, Utils.expUp, expUp);
         return expUp;
@@ -627,6 +637,7 @@ public class PlayerAttributes {
                 Compute.CuriosAttribute.attributeValue(player, Utils.percentDefenceEnhance,
                         StringUtils.CuriosAttribute.percentDefenceEnhance);
         exRate += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerPercentDefenceModifier);
+        exRate += AlchemyPlayerData.getEnhanceRate(player, Utils.defence);
         totalDefence *= (1 + exRate);
         totalDefence -= StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerDefenceDecreaseModifier);
         totalDefence = Math.max(0, totalDefence);
@@ -646,7 +657,7 @@ public class PlayerAttributes {
         return value;
     }
 
-    public static double getHealEffect(Player player) {
+    public static double getHealingAmplification(Player player) {
         if (canGetFromCache(player, Utils.healingAmplification)) {
             return getFromCache(player, Utils.healingAmplification);
         }
@@ -776,6 +787,7 @@ public class PlayerAttributes {
         // 请在上方添加
         double exRate = 0;
         exRate += Compute.playerFantasyAttributeEnhance(player);
+        exRate += AlchemyPlayerData.getEnhanceRate(player, Utils.coolDownDecrease);
         releaseSpeed *= (1 + exRate);
 
         writeToCache(player, Utils.coolDownDecrease, releaseSpeed);
@@ -822,7 +834,6 @@ public class PlayerAttributes {
             return getFromCache(player, Utils.defencePenetration0);
         }
         CompoundTag data = player.getPersistentData();
-        int tick = Tick.get();
         double defencePenetration0 = 0;
         Item mainhand = player.getItemInHand(InteractionHand.MAIN_HAND).getItem();
         CompoundTag stackmainhandtag = new CompoundTag();
@@ -865,6 +876,7 @@ public class PlayerAttributes {
         // 请在上方添加
         double exRate = 0;
         exRate += Compute.playerFantasyAttributeEnhance(player);
+        exRate += AlchemyPlayerData.getEnhanceRate(player, Utils.defencePenetration0);
         defencePenetration0 *= (1 + exRate);
 
         writeToCache(player, Utils.defencePenetration0, defencePenetration0);
@@ -914,6 +926,7 @@ public class PlayerAttributes {
         // 请在上方添加
         double exRate = 0;
         exRate += Compute.playerFantasyAttributeEnhance(player);
+        exRate += AlchemyPlayerData.getEnhanceRate(player, Utils.healthRecover);
         healthRecover *= (1 + exRate);
 
         writeToCache(player, Utils.healthRecover, healthRecover);
@@ -944,6 +957,8 @@ public class PlayerAttributes {
         maxHealth += CastleManaArmor.ExAttributeValue(player, CastleManaArmor.ExMaxHealth);
         maxHealth += CastleSwiftArmor.ExAttributeValue(player, CastleSwiftArmor.ExMaxHealth);
         maxHealth += PlainArmorHelmet.exMaxHealth(player);
+        maxHealth += StableTierAttributeModifier.getModifierValue(player, StableTierAttributeModifier.playerMaxHealthExValue);
+
         // 请在上方添加
         double exRate = 0;
         exRate += Compute.playerFantasyAttributeEnhance(player);
@@ -951,6 +966,7 @@ public class PlayerAttributes {
                 Compute.CuriosAttribute.attributeValue(player, Utils.percentMaxHealthEnhance,
                         StringUtils.CuriosAttribute.percentMaxHealthEnhance);
         exRate += Compute.getPlayerPotionEffectRate(player, ModEffects.GIANT.get(), 0.15, 0.25);
+        exRate += AlchemyPlayerData.getEnhanceRate(player, Utils.maxHealth);
         maxHealth *= (1 + exRate);
 
         writeToCache(player, Utils.maxHealth, maxHealth);
@@ -1050,6 +1066,7 @@ public class PlayerAttributes {
                 Compute.CuriosAttribute.attributeValue(player, Utils.percentManaDamageEnhance,
                         StringUtils.CuriosAttribute.percentManaDamageEnhance);
         exRate += computeAllEquipSlotBaseAttributeValue(player, Utils.percentManaDamageEnhance, false);
+        exRate += AlchemyPlayerData.getEnhanceRate(player, Utils.manaDamage);
 
         totalDamage *= (1 + exRate);
         Utils.playerManaDamageBeforeTransform.put(player, totalDamage);
@@ -1124,6 +1141,7 @@ public class PlayerAttributes {
         // 请在上方添加
         double exRate = 0;
         exRate += Compute.playerFantasyAttributeEnhance(player);
+        exRate += AlchemyPlayerData.getEnhanceRate(player, Utils.manaRecover);
         manaRecover *= (1 + exRate);
 
         writeToCache(player, Utils.manaRecover, manaRecover);
@@ -1185,6 +1203,7 @@ public class PlayerAttributes {
                 Compute.CuriosAttribute.attributeValue(player, Utils.percentManaDefenceEnhance,
                         StringUtils.CuriosAttribute.percentManaDefenceEnhance);
         exRate += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerPercentManaDefenceModifier);
+        exRate += AlchemyPlayerData.getEnhanceRate(player, Utils.manaDefence);
         totalDefence *= (1 + exRate);
 
         totalDefence -= StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerManaDefenceDecreaseModifier);
@@ -1337,6 +1356,7 @@ public class PlayerAttributes {
         // 请在上方添加
         double exRate = 0;
         exRate += Compute.playerFantasyAttributeEnhance(player);
+        exRate += AlchemyPlayerData.getEnhanceRate(player, Utils.manaPenetration0);
         manaPenetration0 *= (1 + exRate);
 
         writeToCache(player, Utils.manaPenetration0, manaPenetration0);
@@ -1376,6 +1396,8 @@ public class PlayerAttributes {
         // 请在上方添加
         double exRate = 0;
         exRate += Compute.playerFantasyAttributeEnhance(player);
+        exRate += AlchemyPlayerData.getEnhanceRate(player, Utils.maxMana);
+
         maxMana *= (1 + exRate);
 
         writeToCache(player, Utils.maxMana, 250 + maxMana);
@@ -1520,5 +1542,82 @@ public class PlayerAttributes {
             }
         }
         return totalValue;
+    }
+
+    public static class AttributeNames {
+
+        public static final String ATTACK_DAMAGE = "attackDamage";
+        public static final String DEFENCE = "defence";
+        public static final String DEFENCE_PENETRATION0 = "defencePenetration0";
+        public static final String CRIT_RATE = "critRate";
+        public static final String CRIT_DAMAGE = "critDamage";
+        public static final String MANA_DAMAGE = "manaDamage";
+        public static final String MANA_DEFENCE = "manaDefence";
+        public static final String MANA_PENETRATION0 = "manaPenetration0";
+        public static final String MANA_RECOVER = "manaRecover";
+        public static final String MAX_MANA = "maxMana";
+        public static final String RELEASE_SPEED = "releaseSpeed";
+        public static final String MOVEMENT_SPEED_COMMON = "movementSpeedCommon";
+        public static final String MAX_HEALTH = "maxHealth";
+        public static final String HEALTH_RECOVER = "healthRecover";
+        public static final String EXP_UP = "expUp";
+
+        public static List<String> attributeNames = new ArrayList<>();
+        public static List<String> getAttributeNameList() {
+            if (attributeNames.isEmpty()) {
+                attributeNames.addAll(List.of(
+                        ATTACK_DAMAGE, DEFENCE, DEFENCE_PENETRATION0,
+                        CRIT_RATE, CRIT_DAMAGE,
+                        MANA_DAMAGE, MANA_DEFENCE, MANA_PENETRATION0,
+                        MANA_RECOVER, MAX_MANA, RELEASE_SPEED, MOVEMENT_SPEED_COMMON,
+                        MAX_HEALTH, HEALTH_RECOVER, EXP_UP
+                ));
+            }
+            return attributeNames;
+        }
+
+        public static Map<String, Component> descriptionMap = new HashMap<>();
+        public static Component getDescription(String attributeName) {
+            if (descriptionMap.isEmpty()) {
+                descriptionMap.put(ATTACK_DAMAGE, Te.s("物理攻击", ChatFormatting.YELLOW));
+                descriptionMap.put(DEFENCE, Te.s("护甲", ChatFormatting.GRAY));
+                descriptionMap.put(DEFENCE_PENETRATION0, Te.s("护甲穿透", ChatFormatting.GRAY));
+                descriptionMap.put(CRIT_RATE, Te.s("暴击几率", ChatFormatting.LIGHT_PURPLE));
+                descriptionMap.put(CRIT_DAMAGE, Te.s("暴击伤害", ChatFormatting.BLUE));
+                descriptionMap.put(MANA_DAMAGE, Te.s("魔法攻击", ChatFormatting.LIGHT_PURPLE));
+                descriptionMap.put(MANA_DEFENCE, Te.s("魔法抗性", ChatFormatting.BLUE));
+                descriptionMap.put(MANA_PENETRATION0, Te.s("魔法穿透", ChatFormatting.BLUE));
+                descriptionMap.put(MANA_RECOVER, Te.s("法力回复", ChatFormatting.LIGHT_PURPLE));
+                descriptionMap.put(MAX_MANA, Te.s("最大法力值", ChatFormatting.LIGHT_PURPLE));
+                descriptionMap.put(RELEASE_SPEED, Te.s("技能急速", ChatFormatting.AQUA));
+                descriptionMap.put(MOVEMENT_SPEED_COMMON, Te.s("移动速度", ChatFormatting.GREEN));
+                descriptionMap.put(MAX_HEALTH, Te.s("最大生命值", ChatFormatting.GREEN));
+                descriptionMap.put(HEALTH_RECOVER, Te.s("生命回复", ChatFormatting.GREEN));
+                descriptionMap.put(EXP_UP, Te.s("经验加成", CustomStyle.styleOfLucky));
+            }
+            return descriptionMap.get(attributeName);
+        }
+
+        public static Map<String, Map<Item, Double>> attributeMap = new HashMap<>();
+        public static Map<Item, Double> getAttributeMapByName(String attributeName) {
+            if (attributeMap.isEmpty()) {
+                attributeMap.put(AttributeNames.ATTACK_DAMAGE, Utils.attackDamage);
+                attributeMap.put(AttributeNames.DEFENCE, Utils.defence);
+                attributeMap.put(AttributeNames.DEFENCE_PENETRATION0, Utils.defencePenetration0);
+                attributeMap.put(AttributeNames.CRIT_RATE, Utils.critRate);
+                attributeMap.put(AttributeNames.CRIT_DAMAGE, Utils.critDamage);
+                attributeMap.put(AttributeNames.MANA_DAMAGE, Utils.manaDamage);
+                attributeMap.put(AttributeNames.MANA_DEFENCE, Utils.manaDefence);
+                attributeMap.put(AttributeNames.MANA_PENETRATION0, Utils.manaPenetration0);
+                attributeMap.put(AttributeNames.MANA_RECOVER, Utils.manaRecover);
+                attributeMap.put(AttributeNames.MAX_MANA, Utils.maxMana);
+                attributeMap.put(AttributeNames.RELEASE_SPEED, Utils.coolDownDecrease);
+                attributeMap.put(AttributeNames.MOVEMENT_SPEED_COMMON, Utils.movementSpeedCommon);
+                attributeMap.put(AttributeNames.MAX_HEALTH, Utils.maxHealth);
+                attributeMap.put(AttributeNames.HEALTH_RECOVER, Utils.healthRecover);
+                attributeMap.put(AttributeNames.EXP_UP, Utils.expUp);
+            }
+            return attributeMap.get(attributeName);
+        }
     }
 }

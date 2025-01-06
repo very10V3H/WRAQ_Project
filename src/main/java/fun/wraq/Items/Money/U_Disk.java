@@ -1,5 +1,6 @@
 package fun.wraq.Items.Money;
 
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -26,6 +27,8 @@ public class U_Disk extends Item {
                 append(ModItems.WORLD_SOUL_1.get().getDefaultInstance().getDisplayName()).
                 append(Component.literal("那么它们将会被自动转化为").withStyle(ChatFormatting.WHITE)).
                 append(ModItems.WORLD_SOUL_2.get().getDefaultInstance().getDisplayName()));
+        components.add(Te.s(" 与此同时，维瑞阿契银行科技部门还研发了", "元素量子化技术"));
+        components.add(Te.s(" 在背包内的", "微型元素碎片", "将被转化为", "量子化元素数据存储"));
         super.appendHoverText(p_41421_, p_41422_, components, p_41424_);
     }
 }

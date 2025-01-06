@@ -74,7 +74,7 @@ public class QuartzSword extends WraqSword implements ActiveItem {
         player.getCooldowns().addCooldown(ModItems.QuartzSword.get(), (int) (100 - 100 * PlayerAttributes.coolDownDecrease(player)));
         List<Player> playerList = level.getNearbyPlayers(TargetingConditions.DEFAULT, player, AABB.ofSize(player.position(), 10, 10, 10));
         for (Player player1 : playerList) {
-            Damage.manaDamageToPlayer(player, player1, 2.5f);
+            Damage.causeManaDamageToPlayer(player, player1, 2.5f);
             LightningBolt lightningBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, level);
             lightningBolt.setCause((ServerPlayer) player);
             lightningBolt.setSilent(true);

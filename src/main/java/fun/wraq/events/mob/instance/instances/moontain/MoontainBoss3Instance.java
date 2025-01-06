@@ -94,8 +94,8 @@ public class MoontainBoss3Instance extends NoTeamInstance {
             Level level = boss.level();
             getNearPlayers(level)
                     .forEach(player -> {
-                        Damage.AttackDamageToPlayer(boss, player, 5000 * getRate());
-                        Damage.manaDamageToPlayer(boss, player, 2500 * getRate(), 0, 100);
+                        Damage.causeAttackDamageToPlayer(boss, player, 5000 * getRate());
+                        Damage.causeManaDamageToPlayer(boss, player, 2500 * getRate(), 0, 100);
                         ParticleProvider.createLineEffectParticle(level, (int) boss.distanceTo(player) * 5,
                                 boss.getEyePosition(), player.getEyePosition(), CustomStyle.styleOfMoontain);
                         SpecialEffectOnPlayer.addHealingReduction(player, "MoontainBoss3HealingReduction",
@@ -119,8 +119,8 @@ public class MoontainBoss3Instance extends NoTeamInstance {
             Level level = boss.level();
             getNearPlayers(level)
                     .forEach(player -> {
-                        Damage.AttackDamageToPlayer(boss, player, 5000 * getRate());
-                        Damage.manaDamageToPlayer(boss, player, 2500 * getRate(), 0, 100);
+                        Damage.causeAttackDamageToPlayer(boss, player, 5000 * getRate());
+                        Damage.causeManaDamageToPlayer(boss, player, 2500 * getRate(), 0, 100);
                         ParticleProvider.createLineEffectParticle(level, (int) boss.distanceTo(player) * 5,
                                 boss.getEyePosition(), player.getEyePosition(), CustomStyle.styleOfMoontain);
                         player.addEffect(new MobEffectInstance(BornInChaosV1ModMobEffects.INFERNAL_FLAME.get(), 50));

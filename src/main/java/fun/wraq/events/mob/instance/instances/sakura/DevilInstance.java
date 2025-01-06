@@ -152,7 +152,7 @@ public class DevilInstance extends NoTeamInstance {
                 if (Mana.getPlayerCurrentManaNum(player) < manaDecrease) {
                     manaDecrease -= (int) Mana.getPlayerCurrentManaNum(player);
                     Mana.addOrCostPlayerMana(player, -Mana.getPlayerCurrentManaNum(player));
-                    Damage.manaDamageToPlayer(mob, player, 10 * manaDecrease);
+                    Damage.causeManaDamageToPlayer(mob, player, 10 * manaDecrease);
                 } else Mana.addOrCostPlayerMana(player, -manaDecrease);
 /*                Compute.setPlayerTitleAndSubTitle((ServerPlayer) player, Te.m("魔源奔流", CustomStyle.styleOfBloodMana),
                         Te.m("魔王吸取大量法力值!", ChatFormatting.RED), 0, 20, 10);*/
@@ -198,7 +198,7 @@ public class DevilInstance extends NoTeamInstance {
                 Compute.setPlayerTitleAndSubTitle((ServerPlayer) player, Te.m("魔能释溢", CustomStyle.styleOfBloodMana),
                         Te.m("魔王对所有玩家造成高额魔法伤害!", ChatFormatting.RED), 0, 20, 10);
                 if (player.distanceTo(mob) < 50) {
-                    Damage.manaDamageToPlayer(mob, player, player.getMaxHealth());
+                    Damage.causeManaDamageToPlayer(mob, player, player.getMaxHealth());
                 }
             });
             ParticleProvider.createBallDisperseParticle(ParticleTypes.WITCH, (ServerLevel) mob.level(), mob.position(), 0.75, 30);

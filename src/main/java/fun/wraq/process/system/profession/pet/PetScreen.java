@@ -1,4 +1,4 @@
-package fun.wraq.process.system.pet;
+package fun.wraq.process.system.profession.pet;
 
 import com.simibubi.create.foundation.gui.menu.AbstractSimiContainerScreen;
 import net.minecraft.client.gui.GuiGraphics;

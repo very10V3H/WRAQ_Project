@@ -48,7 +48,7 @@ import fun.wraq.process.system.endlessinstance.item.special.HoursExHarvestPotion
 import fun.wraq.process.system.entrustment.mob.MobKillEntrustment;
 import fun.wraq.process.system.missions.Mission;
 import fun.wraq.process.system.missions.series.dailyMission.DailyMission;
-import fun.wraq.process.system.pet.allay.AllayPet;
+import fun.wraq.process.system.profession.pet.allay.AllayPet;
 import fun.wraq.process.system.point.Point;
 import fun.wraq.process.system.reason.Reason;
 import fun.wraq.process.system.respawn.MyRespawnRule;

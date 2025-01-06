@@ -59,4 +59,16 @@ public class QuiverItems {
                     , CustomStyle.styleOfMoon
                     , ComponentUtils.getSuffixOfMoon()
                     , 0.75, 5, 1, 160));
+
+    public static final RegistryObject<Item> QUIVER_CASTLE = ITEMS.register("quiver_castle",
+            () -> new WraqQuiver(new Item.Properties().stacksTo(1).rarity(CustomStyle.CastleItalic)
+                    , CustomStyle.styleOfCastle
+                    , ComponentUtils.getSuffixOfCastle()
+                    , 0.8, 5, 1, 180));
+
+    public static final RegistryObject<Item> QUIVER_MOONTAIN = ITEMS.register("quiver_moontain",
+            () -> new WraqQuiver(new Item.Properties().stacksTo(1).rarity(CustomStyle.MOONTAIN_ITALIC)
+                    , CustomStyle.styleOfMoontain
+                    , ComponentUtils.getSuffixOfMoontain()
+                    , 0.75, 6, 1, 200));
 }

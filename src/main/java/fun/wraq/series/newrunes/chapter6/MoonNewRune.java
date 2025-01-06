@@ -7,6 +7,7 @@ import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.impl.display.UsageOrGetWayDescriptionItem;
 import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.instance.series.lava.rune.DarkRune;
 import fun.wraq.series.newrunes.NewRuneItems;
 import fun.wraq.series.newrunes.RuneItem;
 import net.minecraft.ChatFormatting;
@@ -64,7 +65,7 @@ public class MoonNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDe
     }
 
     public static int getPassiveCount(Player player) {
-        if (!WraqCurios.isOn(MoonNewRune.class, player)) return 0;
+        if (!WraqCurios.isOn(MoonNewRune.class, player) && !WraqCurios.isOn(DarkRune.class, player)) return 0;
         int count = 0;
         for (int i = 0; i < 6; i++) {
             ItemStack itemStack = player.getInventory().getItem(3 + i);

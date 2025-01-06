@@ -2,7 +2,7 @@ package fun.wraq.render.gui.trade;
 
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.process.system.endlessinstance.item.EndlessInstanceItems;
-import fun.wraq.process.system.pet.allay.item.AllayItems;
+import fun.wraq.process.system.profession.pet.allay.item.AllayItems;
 import fun.wraq.series.moontain.MoontainItems;
 import net.minecraft.world.item.ItemStack;
 

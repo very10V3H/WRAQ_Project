@@ -54,9 +54,9 @@ public class MobEffectAndDamageMethods {
 
                 playerList.forEach(player -> {
                     switch (d.damageType) {
-                        case 0 -> Damage.AttackDamageToPlayer(d.mob, player, d.damage);
+                        case 0 -> Damage.causeAttackDamageToPlayer(d.mob, player, d.damage);
 
-                        case 1 -> Damage.manaDamageToPlayer(d.mob, player, d.damage);
+                        case 1 -> Damage.causeManaDamageToPlayer(d.mob, player, d.damage);
 
                         case 2 -> Damage.causeTrueDamageToPlayer(d.mob, player, d.damage);
 
@@ -87,9 +87,9 @@ public class MobEffectAndDamageMethods {
                 playerList.removeIf(player -> player.position().distanceTo(d.startPos) > d.range);
                 playerList.forEach(player -> {
                     switch (d.damageType) {
-                        case 0 -> Damage.AttackDamageToPlayer(d.mob, player, d.damage);
+                        case 0 -> Damage.causeAttackDamageToPlayer(d.mob, player, d.damage);
 
-                        case 1 -> Damage.manaDamageToPlayer(d.mob, player, d.damage);
+                        case 1 -> Damage.causeManaDamageToPlayer(d.mob, player, d.damage);
 
                         case 2 -> Damage.causeTrueDamageToPlayer(d.mob, player, d.damage);
                     }

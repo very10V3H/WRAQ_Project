@@ -9,6 +9,7 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.instance.series.lava.rune.BlazeRune;
 import fun.wraq.series.newrunes.RuneItem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
@@ -67,7 +68,7 @@ public class NetherNewRune extends WraqCurios implements RuneItem, UsageOrGetWay
     public static WeakHashMap<Mob, Boolean> trigMob = new WeakHashMap<>();
 
     public static void onKill(Player player, Mob mob) {
-        if (!WraqCurios.isOn(NetherNewRune.class, player)) return;
+        if (!WraqCurios.isOn(NetherNewRune.class, player) && !WraqCurios.isOn(BlazeRune.class, player)) return;
         if (trigMob.containsKey(mob)) return;
         trigMob.put(mob, true);
         List<Mob> mobList = mob.level().getEntitiesOfClass(Mob.class, AABB.ofSize(mob.position(), 6, 6, 6));

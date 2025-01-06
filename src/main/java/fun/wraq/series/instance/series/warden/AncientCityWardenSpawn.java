@@ -6,7 +6,7 @@ import fun.wraq.common.fast.Tick;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
-import fun.wraq.process.system.pet.allay.AllayPet;
+import fun.wraq.process.system.profession.pet.allay.AllayPet;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -56,7 +56,7 @@ public class AncientCityWardenSpawn {
                 Compute.getNearEntity(warden, Player.class, 16)
                         .stream().map(e -> (Player) e)
                         .forEach(player -> {
-                            Damage.manaDamageToPlayer(warden, player, 3500, 0.6, 300);
+                            Damage.causeManaDamageToPlayer(warden, player, 3500, 0.6, 300);
                             player.addEffect(new MobEffectInstance(MobEffects.DARKNESS, 100));
                             player.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 100, 2));
                             ParticleProvider.createLineEffectParticle(warden.level(), (int) player.distanceTo(warden) * 5,

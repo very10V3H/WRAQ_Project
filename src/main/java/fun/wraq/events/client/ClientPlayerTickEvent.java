@@ -85,6 +85,7 @@ public class ClientPlayerTickEvent {
             ItemAndExpGetHud.clientTick();
             if (SpecialEffectOnPlayer.clientSilentTick > 0) --SpecialEffectOnPlayer.clientSilentTick;
             if (SpecialEffectOnPlayer.clientBlindTick > 0) --SpecialEffectOnPlayer.clientBlindTick;
+            ParticleProvider.spaceEffectParticleHandleClientTick();
         }
         if (event.side.isClient() && event.phase == TickEvent.Phase.END) {
             Minecraft mc = Minecraft.getInstance();
@@ -226,7 +227,8 @@ public class ClientPlayerTickEvent {
 
             if (event.player.tickCount % 20 == 0) {
                 Inventory inventory = event.player.getInventory();
-                if (!(Minecraft.getInstance().screen instanceof TradeScreen) && InventoryOperation.checkPlayerHasItem(inventory, ModItems.U_Disk.get(), 1)) {
+                if (!(Minecraft.getInstance().screen instanceof TradeScreen)
+                        && InventoryOperation.checkPlayerHasItem(inventory, ModItems.U_Disk.get(), 1)) {
                     if (InventoryOperation.checkPlayerHasItem(inventory, ModItems.copperCoin.get(), 1)
                             || InventoryOperation.checkPlayerHasItem(inventory, ModItems.GOLD_COIN.get(), 1)
                             || InventoryOperation.checkPlayerHasItem(inventory, ModItems.silverCoin.get(), 1)) {

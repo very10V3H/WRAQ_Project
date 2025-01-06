@@ -39,6 +39,7 @@ public abstract class WraqUniformCurios extends Item implements ICurioItem, Deco
             ComponentUtils.descriptionPassive(components, getFirstPassiveName());
             components.add(Component.literal(" 获得").withStyle(ChatFormatting.WHITE).
                     append(Component.literal("50%最终伤害提升").withStyle(ChatFormatting.RED)));
+
             components.addAll(additionHoverText(stack));
         }
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);

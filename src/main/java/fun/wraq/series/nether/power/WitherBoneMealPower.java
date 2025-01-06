@@ -101,7 +101,7 @@ public class WitherBoneMealPower extends WraqPower {
         for (Player player1 : playerList) {
             if (player1.getPosition(0).distanceTo(TargetPos) < 6) {
                 if (!player1.level().equals(player1.getServer().getLevel(Level.OVERWORLD)))
-                    Damage.manaDamageToPlayer(player, player1, 10);
+                    Damage.causeManaDamageToPlayer(player, player1, 10);
                 ParticleProvider.EntityEffectVerticleCircleParticle(player1, 1, 0.4, 8, ParticleTypes.WITCH, 0);
                 ParticleProvider.EntityEffectVerticleCircleParticle(player1, 0.75, 0.4, 8, ParticleTypes.WITCH, 0);
                 ParticleProvider.EntityEffectVerticleCircleParticle(player1, 0.5, 0.4, 8, ParticleTypes.WITCH, 0);

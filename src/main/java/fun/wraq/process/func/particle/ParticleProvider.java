@@ -6,6 +6,9 @@ import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.ParticlePackets.NewParticlePackets.*;
 import fun.wraq.process.func.particle.packets.DisperseBallParticleS2CPacket;
 import fun.wraq.process.func.particle.packets.LineEffectParticleS2CPacket;
+import fun.wraq.process.func.particle.packets.SpaceEffectParticle;
+import fun.wraq.process.func.particle.packets.SpaceEffectParticleS2CPacket;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
@@ -22,8 +25,10 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import org.apache.commons.lang3.RandomUtils;
 import org.joml.Vector3f;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -329,6 +334,51 @@ public class ParticleProvider {
                 }
             }
         });
+    }
+
+    public interface SendParticlePacketsOperation {
+        void operation(ServerPlayer serverPlayer);
+    }
+
+    public static void sendParticleModule(Level level, Vec3 pos, SendParticlePacketsOperation operation) {
+        List<ServerPlayer> list = level.getServer().getPlayerList().getPlayers();
+        list.forEach(serverPlayer -> {
+            if (serverPlayer.level().equals(level) && serverPlayer.position().distanceTo(pos) < 80) {
+                int ignoreLevel = Math.max(1, serverPlayer.getPersistentData().getInt(StringUtils.IgnoreParticleLevel));
+                if (ignoreLevel < 10) {
+                    operation.operation(serverPlayer);
+                }
+            }
+        });
+    }
+
+    public static void createSpaceEffectParticle(Level level, Vec3 pos, double radius, int num, Style style, int lastTick) {
+        sendParticleModule(level, pos, (serverPlayer) -> {
+            ModNetworking.sendToClient(new SpaceEffectParticleS2CPacket(pos.toVector3f(),
+                    radius, num, style.getColor().getValue(), lastTick), serverPlayer);
+        });
+    }
+
+    public static List<SpaceEffectParticle> spaceEffectParticles = new ArrayList<>();
+    public static void spaceEffectParticleHandleClientTick() {
+        for (SpaceEffectParticle spaceEffectParticle : spaceEffectParticles) {
+            Vector3f pos = spaceEffectParticle.pos;
+            int color = spaceEffectParticle.color;
+            double radius = spaceEffectParticle.radius;
+            int num = spaceEffectParticle.num;
+            double d0 = (double)(color >> 16 & 255) / 255.0;
+            double d1 = (double)(color >> 8 & 255) / 255.0;
+            double d2 = (double)(color >> 0 & 255) / 255.0;
+            for (int i = 0; i < num; i++) {
+                double angle = 2 * Math.PI * RandomUtils.nextDouble(0, 1);
+                double r = radius * RandomUtils.nextDouble(0, 1);
+                Vec3 clientPos = new Vec3(pos.x + r * cos(angle), pos.y, pos.z + r * sin(angle));
+                Minecraft.getInstance().level.addParticle(ParticleTypes.AMBIENT_ENTITY_EFFECT, clientPos.x, clientPos.y
+                        , clientPos.z, d0, d1, d2);
+            }
+            --spaceEffectParticle.lastTick;
+        }
+        spaceEffectParticles.removeIf(spaceEffectParticle -> spaceEffectParticle.lastTick <= 0);
     }
 
     public static void ParticleWITCH(double X, double Y, double Z, Level level, double r, ParticleOptions particleOptions) {

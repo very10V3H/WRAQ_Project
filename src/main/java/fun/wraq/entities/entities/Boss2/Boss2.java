@@ -221,7 +221,7 @@ public class Boss2 extends WitherSkeleton implements GeoEntity {
                 if (AttackTick % 10 == 0) {
                     List<Player> playerList = this.level().getEntitiesOfClass(Player.class, AABB.ofSize(this.getEyePosition(), 8, 8, 8));
                     playerList.forEach(player -> {
-                        Damage.AttackDamageToPlayer_NumDamage(this, player, 100 * (1 + Utils.Boss2DeadTimes), 0.5f, 100);
+                        Damage.causeAttackDamageToPlayer(this, player, 100 * (1 + Utils.Boss2DeadTimes), 0.5f, 100);
                     });
                 }
             }
@@ -231,7 +231,7 @@ public class Boss2 extends WitherSkeleton implements GeoEntity {
                         List<Player> playerList = this.level().getEntitiesOfClass(Player.class, AABB.ofSize(this.pick(3, 0, true).getLocation(), 10, 10, 10));
                         playerList.forEach(player -> {
                             if (player.getEyePosition().distanceTo(this.pick(3, 0, true).getLocation()) <= 3)
-                                Damage.AttackDamageToPlayer(this, player, 100 * (1 + Utils.Boss2DeadTimes));
+                                Damage.causeAttackDamageToPlayer(this, player, 100 * (1 + Utils.Boss2DeadTimes));
                         });
                     }
                     case 2 -> {
@@ -241,14 +241,14 @@ public class Boss2 extends WitherSkeleton implements GeoEntity {
                         List<Player> playerList = this.level().getEntitiesOfClass(Player.class, AABB.ofSize(this.pick(3, 0, true).getLocation(), 10, 10, 10));
                         playerList.forEach(player -> {
                             if (player.getEyePosition().distanceTo(this.pick(3, 0, true).getLocation()) <= 3)
-                                Damage.AttackDamageToPlayer_NumDamage(this, player, 100 * (1 + Utils.Boss2DeadTimes), 0.85f, 100);
+                                Damage.causeAttackDamageToPlayer(this, player, 100 * (1 + Utils.Boss2DeadTimes), 0.85f, 100);
                         });
                     }
                     case 3 -> {
                         List<Player> playerList = this.level().getEntitiesOfClass(Player.class, AABB.ofSize(this.pick(3, 0, true).getLocation(), 10, 10, 10));
                         playerList.forEach(player -> {
                             if (player.onGround())
-                                Damage.AttackDamageToPlayer(this, player, 200 * (1 + Utils.Boss2DeadTimes));
+                                Damage.causeAttackDamageToPlayer(this, player, 200 * (1 + Utils.Boss2DeadTimes));
                         });
                     }
                 }

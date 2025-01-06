@@ -1,7 +1,7 @@
 package fun.wraq.render.gui.testAndHelper;
 
 import fun.wraq.common.util.Utils;
-import fun.wraq.process.system.pet.PetMenu;
+import fun.wraq.process.system.profession.pet.PetMenu;
 import fun.wraq.render.gui.blocks.BrewingMenu;
 import fun.wraq.render.gui.blocks.ForgingBlockMenu;
 import fun.wraq.render.gui.blocks.FurnaceMenu;

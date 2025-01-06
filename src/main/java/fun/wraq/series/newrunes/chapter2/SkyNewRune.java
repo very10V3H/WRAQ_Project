@@ -68,7 +68,7 @@ public class SkyNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDes
     }
 
     public static double critDamageInfluence(Player player) {
-        if (WraqCurios.isOn(SkyNewRune.class, player)) {
+        if (WraqCurios.isOn(SkyNewRune.class, player) || WraqCurios.isOn(SkyNewRune.class, player)) {
             return -0.1;
         }
         return 0;

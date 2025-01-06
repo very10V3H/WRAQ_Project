@@ -1,14 +1,19 @@
-package fun.wraq.process.system.pet.allay;
+package fun.wraq.process.system.profession.pet.allay;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.MobSpawn;
+import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+
+import java.util.List;
 
 public class AllayPetPlayerData {
     public static final String ALLAY_PET_PLAYER_DATA_KEY = "AllayPetData";
@@ -18,6 +23,7 @@ public class AllayPetPlayerData {
 
     public static final String CUSTOM_NAME_KEY = "AllayCustomName";
 
+    public static final String TIER_KEY = "AllayTier";
     public static final String XP_LEVEL_KEY = "AllayXpLevel";
     public static final String XP_VALUE_KEY = "AllayXpValue";
 
@@ -60,11 +66,61 @@ public class AllayPetPlayerData {
         getAllayPetData(player).putInt(skillKey, getSkillLevel(player, skillKey) + num);
     }
 
+    public static int getAllayTier(Player player) {
+        return getAllayPetData(player).getInt(TIER_KEY);
+    }
+
+    public static Component getAllayTierDescription(int tier) {
+
+    }
+
+    public static int getMaxTier() {
+        return 4;
+    }
+
+    public static void tryToIncrementAllayTier(Player player) {
+        int currentTier = getAllayTier(player);
+        sendMSG(player, Te.s(getAllayName(player), "当前等阶为: ", getAllayTierDescription(currentTier)));
+        player.sendSystemMessage(Te.s("  升级到下一等阶需要:"));
+        List<ItemStack> incrementTierNeedMaterials = getIncrementTierNeedMaterial(currentTier);
+        for (int i = 0; i < incrementTierNeedMaterials.size(); i++) {
+            ItemStack stack = incrementTierNeedMaterials.get(i);
+            player.sendSystemMessage(Te.s("  " + (i + 1) + ". ", CustomStyle.styleOfWorld,
+                    stack, " * ", stack.getCount(), ChatFormatting.AQUA));
+        }
+    }
+
+    public static void incrementAllayTier(Player player) {
+        int tier = getAllayTier(player);
+        if (tier >= getMaxTier()) {
+            sendMSG(player, Te.s(getAllayName(player), "已达到了最高的等阶!"));
+            return;
+        }
+        if (InventoryOperation.checkPlayerHasItem(player, getIncrementTierNeedMaterial(tier))) {
+            InventoryOperation.removeItemWithoutCheck(player, getIncrementTierNeedMaterial(tier));
+            Compute.incrementSpecificKeyDataIntValue(player, ALLAY_PET_PLAYER_DATA_KEY, TIER_KEY, 1);
+            sendMSG(player, Te.s(getAllayName(player), "已达到新的等阶:", getAllayTierDescription(tier + 1)));
+        }
+    }
+
+    public static List<ItemStack> getIncrementTierNeedMaterial(int currentTier) {
+        return List.of(
+                new ItemStack(ModItems.BOND.get(), 3 + currentTier),
+                new ItemStack(ModItems.GOLDEN_BEANS.get(), 30 + currentTier * 15)
+        );
+    }
+
+    public static int getAllayXpLevelUpperLimit(Player player) {
+        return 25 * (1 + getAllayTier(player));
+    }
+
+    public static int getAllaySkillLevelUpperLimit(Player player) {
+        return 4 * (1 + getAllayTier(player));
+    }
+
     public static boolean giveAllayPercentExp(Player player, double num, int expLevel) {
         int currentXpLevel = getAllayXpLevel(player);
-        if (currentXpLevel >= player.experienceLevel) {
-            sendMSG(player, Te.s(getAllayName(player), CustomStyle.styleOfWorld,
-                    "的", "等级", ChatFormatting.LIGHT_PURPLE, "不能超过玩家的", "等级", ChatFormatting.LIGHT_PURPLE));
+        if (currentXpLevel >= player.experienceLevel || currentXpLevel >= getAllayXpLevelUpperLimit(player)) {
             return false;
         }
         if (expLevel >= Compute.expGetUpperLimit) {

@@ -3,7 +3,6 @@ package fun.wraq.entities.entities.MainBoss;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.ParticlePackets.UtilsParticleS2CPacket;
-import fun.wraq.projectiles.bow.FireBallTest;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -166,20 +165,7 @@ public class MainBoss extends WitherSkeleton implements GeoEntity {
             this.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 200, 1, true, true));
         }
         Random ran = new Random();
-        /*if(this.getHealth() <=20.0f)
-        {
-            for(int i=0;i<6;i++) this.heal(ran.nextDouble());
-        }*/
         this.BossInfo.setProgress(this.getHealth() / this.getMaxHealth());
-        if (this.tickCount % 100 == 0) {
-            for (int i = 0; i < 10; i++) {
-                FireBallTest fireBallTest = new FireBallTest(level, this, 0, 0, 0, 2);
-                Random r = new Random();
-                fireBallTest.moveTo(-176.5 + r.nextDouble(26), 145 + r.nextDouble(10), 1404.5 + r.nextDouble(26));
-                fireBallTest.setDeltaMovement(0, -2, 0);
-                level.addFreshEntity(fireBallTest);
-            }
-        }
         if (this.tickCount % 200 == 140) {
             Random r = new Random();
             random = r.nextInt(4);

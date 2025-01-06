@@ -16,6 +16,7 @@ import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.process.system.forge.ForgeHammer;
+import fun.wraq.process.system.profession.smith.SmithHammer;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -55,7 +56,8 @@ public class WraqForge extends Item {
 
     public static void tryToForge(Player player, Item forgedItem) throws IOException {
         ItemStack forgeHammer = player.getMainHandItem();
-        if (!(forgeHammer.getItem() instanceof ForgeHammer)) {
+        Item hammer = forgeHammer.getItem();
+        if (!(hammer instanceof ForgeHammer || hammer instanceof SmithHammer)) {
             Compute.sendFormatMSG(player, Component.literal("锻造").withStyle(ChatFormatting.GRAY),
                     Component.literal("请手持 ").withStyle(ChatFormatting.WHITE).
                             append(Component.literal("锻造锤").withStyle(ChatFormatting.GOLD)).
@@ -119,10 +121,14 @@ public class WraqForge extends Item {
             // 锻造品质
             if (Utils.mainHandTag.containsKey(forgedItem) || Utils.armorTag.containsKey(forgedItem)) {
                 int tier = 0;
-                if (forgeHammer.getItem() instanceof ForgeHammer forgeHammer1) {
+                if (hammer instanceof ForgeHammer forgeHammer1) {
                     tier = ForgeEquipUtils.getOneTimeForgeTier(forgeHammer1.getTier());
                     Compute.playerItemUseWithRecord(player);
+                } else {
+                    SmithHammer smithHammer = (SmithHammer) hammer;
+                    tier = smithHammer.getTier();
                 }
+
                 if (tier < oldTier) {
                     tier = oldTier;
                     sendFormatMSG(player, Te.s("新的锻造品质低于装备原有锻造品质，已继承原有锻造品质!"));

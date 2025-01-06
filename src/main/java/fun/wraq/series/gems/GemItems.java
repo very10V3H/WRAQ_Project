@@ -6,6 +6,9 @@ import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.WraqItem;
+import fun.wraq.series.instance.series.mushroom.gem.MushroomParasitismGem;
+import fun.wraq.series.instance.series.mushroom.gem.MushroomSplitGem;
+import fun.wraq.series.instance.series.mushroom.gem.MushroomSputterGem;
 import fun.wraq.series.instance.series.warden.gem.AncientDarknessGem;
 import fun.wraq.series.instance.series.warden.gem.AncientEchoGem;
 import fun.wraq.series.instance.series.warden.gem.AncientSilentGem;
@@ -382,6 +385,24 @@ public class GemItems {
                     CustomStyle.styleOfWarden,
                     Te.s("无作声的寂静暗黑封印", CustomStyle.styleOfWarden),
                     ComponentUtils.getSuffixOfAncient(), 3));
+
+    public static final RegistryObject<Item> MUSHROOM_SPUTTER_GEM = ITEMS.register("mushroom_sputter_gem",
+            () -> new MushroomSputterGem(new Item.Properties().rarity(CustomStyle.MUSHROOM_BOLD_RARITY), List.of(),
+                    CustomStyle.MUSHROOM_STYLE,
+                    Te.s("繁育与扩张的生命魔力", CustomStyle.MUSHROOM_STYLE),
+                    ComponentUtils.getSuffixOfMushroom()));
+
+    public static final RegistryObject<Item> MUSHROOM_PARASITISM_GEM = ITEMS.register("mushroom_parasitism_gem",
+            () -> new MushroomParasitismGem(new Item.Properties().rarity(CustomStyle.MUSHROOM_BOLD_RARITY), List.of(),
+                    CustomStyle.MUSHROOM_STYLE,
+                    Te.s("繁育与扩张的生命魔力", CustomStyle.MUSHROOM_STYLE),
+                    ComponentUtils.getSuffixOfMushroom()));
+
+    public static final RegistryObject<Item> MUSHROOM_SPLIT_GEM = ITEMS.register("mushroom_split_gem",
+            () -> new MushroomSplitGem(new Item.Properties().rarity(CustomStyle.MUSHROOM_BOLD_RARITY), List.of(),
+                    CustomStyle.MUSHROOM_STYLE,
+                    Te.s("繁育与扩张的生命魔力", CustomStyle.MUSHROOM_STYLE),
+                    ComponentUtils.getSuffixOfMushroom()));
 
     public static final RegistryObject<Item> OPEN_SLOT = ITEMS.register("open_slot",
             () -> new WraqItem(new Item.Properties().rarity(Rarity.UNCOMMON), false, false, List.of(

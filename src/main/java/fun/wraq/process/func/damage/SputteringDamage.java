@@ -10,6 +10,9 @@ import java.util.List;
 import java.util.Vector;
 
 public class SputteringDamage {
+
+    public static List<SputteringDamage> sputteringDamages = new ArrayList<>();
+
     private final List<Mob> causedDamageMob = new ArrayList<>();
     private final List<Mob> nextCauseMob = new Vector<>();
 
@@ -19,14 +22,17 @@ public class SputteringDamage {
     private final int originTick;
     private final double originDamage;
     private final int damageType;
+    private final int maxGeneration;
 
-    public SputteringDamage(Mob originMob, Player originPlayer, int originTick, double originDamage, int damageType) {
+    public SputteringDamage(Mob originMob, Player originPlayer, int originTick, double originDamage,
+                            int damageType, int maxGeneration) {
         this.originMob = originMob;
         this.originPlayer = originPlayer;
         this.originTick = originTick;
         this.originDamage = originDamage;
         this.damageType = damageType;
         this.generation = 0;
+        this.maxGeneration = maxGeneration;
         nextCauseMob.add(originMob);
     }
 
@@ -34,22 +40,25 @@ public class SputteringDamage {
         if (originPlayer != null) {
             int tick = Tick.get();
             if ((tick - this.originTick) % 5 == 0 && tick - this.originTick != 0) {
-                if (this.generation == 3) {
+                if (this.generation == maxGeneration) {
                     nextCauseMob.forEach(mob -> {
                         if (!causedDamageMob.contains(mob) && !mob.equals(this.originMob)) {
                             if (this.damageType == 0)
-                                fun.wraq.process.func.damage.Damage.causeAttackDamageToMonster_AdDamage_Direct(originPlayer, mob, this.originDamage / (2 * (this.generation + 1)), false);
+                                Damage.causeAttackDamageToMonster_AdDamage_Direct(originPlayer, mob,
+                                        this.originDamage / (2 * (this.generation + 1)), false);
                             if (this.damageType == 1)
-                                fun.wraq.process.func.damage.Damage.causeManaDamageToMonster_ApDamage_Direct(originPlayer, mob, this.originDamage / (2 * (this.generation + 1)), false);
+                                Damage.causeManaDamageToMonster_ApDamage_Direct(originPlayer, mob,
+                                        this.originDamage / (2 * (this.generation + 1)), false);
                             if (this.damageType == 2)
-                                fun.wraq.process.func.damage.Damage.causeTrueDamageToMonster(originPlayer, mob, this.originDamage / (2 * (this.generation + 1)));
+                                Damage.causeTrueDamageToMonster(originPlayer, mob,
+                                        this.originDamage / (2 * (this.generation + 1)));
                         }
                         causedDamageMob.add(mob);
                     });
                     ++this.generation;
                 }
 
-                if (this.generation < 3) {
+                if (this.generation < maxGeneration) {
                     List<Mob> addMobs = new ArrayList<>();
 
                     nextCauseMob.forEach(mob -> {
@@ -60,11 +69,14 @@ public class SputteringDamage {
                         addMobs.addAll(mobList);
                         if (this.generation > 0 && !mob.equals(this.originMob)) {
                             if (this.damageType == 0)
-                                fun.wraq.process.func.damage.Damage.causeAttackDamageToMonster_AdDamage_Direct(originPlayer, mob, this.originDamage / (2 * (this.generation + 1)), false);
+                                Damage.causeAttackDamageToMonster_AdDamage_Direct(originPlayer, mob,
+                                        this.originDamage / (2 * (this.generation + 1)), false);
                             if (this.damageType == 1)
-                                fun.wraq.process.func.damage.Damage.causeManaDamageToMonster_ApDamage_Direct(originPlayer, mob, this.originDamage / (2 * (this.generation + 1)), false);
+                                Damage.causeManaDamageToMonster_ApDamage_Direct(originPlayer, mob,
+                                        this.originDamage / (2 * (this.generation + 1)), false);
                             if (this.damageType == 2)
-                                Damage.causeTrueDamageToMonster(originPlayer, mob, this.originDamage / (2 * (this.generation + 1)));
+                                Damage.causeTrueDamageToMonster(originPlayer, mob,
+                                        this.originDamage / (2 * (this.generation + 1)));
                         }
                         causedDamageMob.add(mob);
                     });
@@ -76,8 +88,13 @@ public class SputteringDamage {
         }
     }
 
-    public int getOriginTick() {
-        return originTick;
+    public static void addSputteringDamageOnMob(Mob target, Player originPlayer, double originDamage,
+                                                int damageType, int maxGeneration) {
+        sputteringDamages.add(new SputteringDamage(target, originPlayer, Tick.get(), originDamage, damageType, maxGeneration));
     }
 
+    public static void handleServerTick() {
+        sputteringDamages.forEach(SputteringDamage::sputter);
+        sputteringDamages.removeIf(sputteringDamage -> sputteringDamage.generation == sputteringDamage.maxGeneration);
+    }
 }

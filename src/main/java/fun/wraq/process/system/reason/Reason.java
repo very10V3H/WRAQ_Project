@@ -5,6 +5,8 @@ import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.PsValueS2CPacket;
+import fun.wraq.process.func.plan.PlanPlayer;
+import fun.wraq.process.func.rank.RankData;
 import fun.wraq.process.system.endlessinstance.instance.ManaPlainTemple;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -13,6 +15,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 
+import java.text.ParseException;
 import java.util.Calendar;
 
 public class Reason {
@@ -29,10 +32,36 @@ public class Reason {
         sendReasonValuePacketToClient(player);
     }
 
+    public static int getPlayerReasonUpperLimit(Player player) {
+        int rankSerial = RankData.getRankSerial(player);
+        if (rankSerial == 0) {
+            return 100;
+        } else if (rankSerial <= 2) { // 13C 13B
+            return 105;
+        } else if (rankSerial <= 3) { // 13A
+            return 110;
+        } else if (rankSerial <= 5) { // 14C 14B
+            return 115;
+        } else if (rankSerial <= 6) { // 14A
+            return 120 + rankSerial - 6;
+        }
+        return 100;
+    }
+
+    public static int getPlayerReasonRecoverPerHour(Player player) throws ParseException {
+        int planTier = PlanPlayer.getPlayerTier(player);
+        if (planTier <= 0) return 5;
+        if (planTier == 1) return 10;
+        else if (planTier == 2) return 20;
+        else if (planTier == 3) return 30;
+        return 5;
+    }
+
     public static boolean addOrCostPlayerReasonValue(Player player, int value) {
         CompoundTag data = player.getPersistentData();
         int reasonValue = getPlayerReasonValue(player);
-        if (reasonValue > 100 && value > 0) return false;
+        int maxReasonValue = getPlayerReasonUpperLimit(player);
+        if (reasonValue > maxReasonValue && value > 0) return false;
         if (reasonValue + value < 0) return false;
         reasonValue += value;
         if (value < 0) {
@@ -41,7 +70,7 @@ public class Reason {
             sendFormatMSG(player, Te.s("失去了", ChatFormatting.RED, value + "理智", CustomStyle.styleOfFlexible,
                     "，当前拥有", getPlayerReasonValue(player) + "理智", CustomStyle.styleOfFlexible));
         } else {
-            data.putInt(REASON_KEY, Math.min(reasonValue, 100));
+            data.putInt(REASON_KEY, Math.min(reasonValue, maxReasonValue));
             sendReasonValuePacketToClient(player);
             sendFormatMSG(player, Te.s("恢复了", ChatFormatting.GREEN, value + "理智", CustomStyle.styleOfFlexible,
                     "，当前拥有", getPlayerReasonValue(player) + "理智", CustomStyle.styleOfFlexible));
@@ -79,7 +108,11 @@ public class Reason {
         if (serverLastReasonRecoverHour != Calendar.getInstance().get(Calendar.HOUR_OF_DAY)) {
             serverLastReasonRecoverHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
             Tick.server.getPlayerList().getPlayers().forEach(serverPlayer -> {
-                addOrCostPlayerReasonValue(serverPlayer, 5);
+                try {
+                    addOrCostPlayerReasonValue(serverPlayer, getPlayerReasonRecoverPerHour(serverPlayer));
+                } catch (ParseException e) {
+                    throw new RuntimeException(e);
+                }
             });
         }
     }

@@ -1,8 +1,8 @@
-package fun.wraq.process.system.pet.allay.item;
+package fun.wraq.process.system.profession.pet.allay.item;
 
 import fun.wraq.common.fast.Te;
-import fun.wraq.process.system.pet.allay.AllayPet;
-import fun.wraq.process.system.pet.allay.AllayPetPlayerData;
+import fun.wraq.process.system.profession.pet.allay.AllayPet;
+import fun.wraq.process.system.profession.pet.allay.AllayPetPlayerData;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.WraqItem;
 import net.minecraft.network.chat.Component;

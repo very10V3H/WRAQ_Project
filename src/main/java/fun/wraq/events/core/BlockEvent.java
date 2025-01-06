@@ -21,6 +21,7 @@ import fun.wraq.process.system.bonuschest.BonusChestInfo;
 import fun.wraq.process.system.bonuschest.BonusChestPlayerData;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.process.system.forge.ForgeHammer;
+import fun.wraq.process.system.profession.smith.SmithHammer;
 import fun.wraq.process.system.randomevent.RandomEventsHandler;
 import fun.wraq.process.system.smelt.Smelt;
 import fun.wraq.process.system.spur.events.CropSpur;
@@ -210,8 +211,9 @@ public class BlockEvent {
                         Smelt.sendDataToClient((ServerPlayer) player);
                         event.setCanceled(true);
                     } else {
+                        Item item = player.getMainHandItem().getItem();
                         if (blockState.getBlock().equals(ModBlocks.FORGING_BLOCK.get())
-                                && player.getMainHandItem().getItem() instanceof ForgeHammer
+                                && (item instanceof ForgeHammer || item instanceof SmithHammer)
                                 && !ForgeEquipUtils.getPlayerInZoneItemList(player).isEmpty()) {
                             ModNetworking.sendToClient(new ScreenSetS2CPacket(4), (ServerPlayer) player);
                             MySound.soundToPlayer(player, SoundEvents.ANVIL_LAND);

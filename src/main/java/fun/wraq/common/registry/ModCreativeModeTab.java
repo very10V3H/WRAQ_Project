@@ -4,7 +4,7 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.customized.UniformItems;
 import fun.wraq.events.mob.loot.C1LootItems;
 import fun.wraq.process.system.endlessinstance.item.EndlessInstanceItems;
-import fun.wraq.process.system.pet.allay.item.AllayItems;
+import fun.wraq.process.system.profession.pet.allay.item.AllayItems;
 import fun.wraq.process.system.point.PointItems;
 import fun.wraq.process.system.spur.Items.SpurItems;
 import fun.wraq.series.instance.series.harbinger.HarbingerItems;

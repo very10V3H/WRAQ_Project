@@ -1,10 +1,10 @@
-package fun.wraq.process.system.pet.allay;
+package fun.wraq.process.system.profession.pet.allay;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.events.mob.MobSpawn;
-import fun.wraq.process.system.pet.allay.skill.AllaySkills;
+import fun.wraq.process.system.profession.pet.allay.skill.AllaySkills;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;

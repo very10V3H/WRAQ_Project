@@ -65,7 +65,7 @@ public class IcePower extends WraqPower {
 
     @Override
     public void release(Player player) {
-        Compute.playerItemCoolDown(player,this, getCoolDownSecond());;
+        Compute.playerItemCoolDown(player,this, getCoolDownSecond());
         PersistentRangeEffect.addEffect(player, getDefaultTargetPos(player), 6, new PersistentRangeEffectOperation() {
             @Override
             public void operation(PersistentRangeEffect effect) {

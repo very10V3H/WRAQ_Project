@@ -668,5 +668,14 @@ public class CommandHandler {
                                 .executes(GuideHudCloseCommand.instance)
                 )
         );
+        CommandDispatcher<CommandSourceStack> dispatcher71 = event.getDispatcher();
+        LiteralCommandNode<CommandSourceStack> cmd71 = dispatcher71.register(
+                Commands.literal(Utils.MOD_ID).then(
+                        Commands.literal("profession").then(
+                                Commands.argument("operation", StringArgumentType.string())
+                                        .executes(MobKillEntrustmentOperationCommand.instance)
+                        ).requires(commandSourceStack -> commandSourceStack.hasPermission(0))
+                )
+        );
     }
 }

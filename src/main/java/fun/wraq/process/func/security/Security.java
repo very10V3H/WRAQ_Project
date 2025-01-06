@@ -47,6 +47,15 @@ public class Security {
         recordVBStream(SYSTEM, getPlayerName, value, type);
     }
 
+    public static void recordGBStream(String from, String to, double value, String type) {
+        LogUtils.getLogger().info("GBStream: " + from + " -> " + to + " " +
+                value + " by " + type);
+    }
+
+    public static void recordGBStream(String getPlayerName, double value, String type) {
+        recordGBStream(SYSTEM, getPlayerName, value, type);
+    }
+
     public static void recordVPStream(String from, String to, double value, String type) {
         LogUtils.getLogger().info("VPStream: " + from + " -> " + to + " " +
                 value + " by " + type);

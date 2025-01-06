@@ -6,10 +6,11 @@ import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.files.dataBases.DataBase;
 import fun.wraq.process.func.DelayOperationWithAnimation;
 import fun.wraq.process.func.damage.Dot;
+import fun.wraq.process.func.damage.SputteringDamage;
 import fun.wraq.process.func.plan.PlanPlayer;
 import fun.wraq.process.system.lottery.NewLotteries;
 import fun.wraq.process.system.market.MarketInfo;
-import fun.wraq.process.system.pet.allay.AllayPet;
+import fun.wraq.process.system.profession.pet.allay.AllayPet;
 import fun.wraq.process.system.randomevent.RandomEventsHandler;
 import fun.wraq.process.system.reason.Reason;
 import fun.wraq.process.system.tower.Tower;
@@ -66,6 +67,7 @@ public class ServerTick {
             RandomEventsHandler.tick();
             Reason.serverTick();
             AllayPet.handleServerTick();
+            SputteringDamage.handleServerTick();
         }
     }
 

@@ -58,5 +58,17 @@ public class BladeItems {
             () -> new WraqBlade(new Item.Properties().stacksTo(1).rarity(CustomStyle.MoonItalic)
                     , CustomStyle.styleOfMoon
                     , ComponentUtils.getSuffixOfMoon()
-                    , 3.25, 160));
+                    , 3.5, 160));
+
+    public static final RegistryObject<Item> BLADE_CASTLE = ITEMS.register("blade_castle",
+            () -> new WraqBlade(new Item.Properties().stacksTo(1).rarity(CustomStyle.CastleItalic)
+                    , CustomStyle.styleOfCastle
+                    , ComponentUtils.getSuffixOfCastle()
+                    , 4, 180));
+
+    public static final RegistryObject<Item> BLADE_MOONTAIN = ITEMS.register("blade_moontain",
+            () -> new WraqBlade(new Item.Properties().stacksTo(1).rarity(CustomStyle.MOONTAIN_ITALIC)
+                    , CustomStyle.styleOfMoontain
+                    , ComponentUtils.getSuffixOfMoontain()
+                    , 4.5, 200));
 }

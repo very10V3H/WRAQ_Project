@@ -9,6 +9,7 @@ import fun.wraq.series.instance.blade.BladeItems;
 import fun.wraq.series.instance.mixture.MixtureItems;
 import fun.wraq.series.instance.quiver.QuiverItems;
 import fun.wraq.series.instance.series.warden.WardenItems;
+import fun.wraq.series.moontain.MoontainItems;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
@@ -918,6 +919,10 @@ public class InjectRecipe {
                 new InjectingRecipe(ModItems.DevilBlood.get(), 4, BladeItems.BLADE_DEVIL.get()));
         injectingRecipeMap.put(BladeItems.BLADE_DEVIL.get(),
                 new InjectingRecipe(ModItems.MoonCompleteGem.get(), 4, BladeItems.BLADE_MOON.get()));
+        injectingRecipeMap.put(BladeItems.BLADE_MOON.get(),
+                new InjectingRecipe(ModItems.CastleSwordPiece.get(), 4, BladeItems.BLADE_CASTLE.get()));
+        injectingRecipeMap.put(BladeItems.BLADE_CASTLE.get(),
+                new InjectingRecipe(MoontainItems.WEAPON_ENHANCER.get(), 4, BladeItems.BLADE_MOONTAIN.get()));
 
         injectingRecipeMap.put(QuiverItems.QUIVER.get(),
                 new InjectingRecipe(ModItems.PlainCompleteGem.get(), 2, QuiverItems.QUIVER_PLAIN.get()));
@@ -933,6 +938,10 @@ public class InjectRecipe {
                 new InjectingRecipe(ModItems.DevilBlood.get(), 4, QuiverItems.QUIVER_DEVIL.get()));
         injectingRecipeMap.put(QuiverItems.QUIVER_DEVIL.get(),
                 new InjectingRecipe(ModItems.MoonCompleteGem.get(), 4, QuiverItems.QUIVER_MOON.get()));
+        injectingRecipeMap.put(QuiverItems.QUIVER_MOON.get(),
+                new InjectingRecipe(ModItems.CastleBowPiece.get(), 4, QuiverItems.QUIVER_CASTLE.get()));
+        injectingRecipeMap.put(QuiverItems.QUIVER_CASTLE.get(),
+                new InjectingRecipe(MoontainItems.WEAPON_ENHANCER.get(), 4, QuiverItems.QUIVER_MOONTAIN.get()));
 
         injectingRecipeMap.put(MixtureItems.MIXTURE.get(),
                 new InjectingRecipe(ModItems.PlainCompleteGem.get(), 2, MixtureItems.MIXTURE_PLAIN.get()));
@@ -948,6 +957,10 @@ public class InjectRecipe {
                 new InjectingRecipe(ModItems.DevilBlood.get(), 4, MixtureItems.MIXTURE_DEVIL.get()));
         injectingRecipeMap.put(MixtureItems.MIXTURE_DEVIL.get(),
                 new InjectingRecipe(ModItems.MoonCompleteGem.get(), 4, MixtureItems.MIXTURE_MOON.get()));
+        injectingRecipeMap.put(MixtureItems.MIXTURE_MOON.get(),
+                new InjectingRecipe(ModItems.CastleSceptrePiece.get(), 4, MixtureItems.MIXTURE_CASTLE.get()));
+        injectingRecipeMap.put(MixtureItems.MIXTURE_CASTLE.get(),
+                new InjectingRecipe(MoontainItems.WEAPON_ENHANCER.get(), 4, MixtureItems.MIXTURE_MOONTAIN.get()));
 
         injectingRecipeMap.put(PickaxeItems.STONE_PICKAXE_0.get(),
                 new InjectingRecipe(PickaxeItems.TINKER_STONE.get(), 1, PickaxeItems.STONE_PICKAXE_1.get()));

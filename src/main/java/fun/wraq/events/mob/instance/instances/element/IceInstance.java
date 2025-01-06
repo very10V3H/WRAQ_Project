@@ -85,7 +85,7 @@ public class IceInstance extends NoTeamInstance {
 
 
             if (NearestPlayer.get() != null) {
-                Damage.AttackDamageToPlayer(mob, NearestPlayer.get(), 1200);
+                Damage.causeAttackDamageToPlayer(mob, NearestPlayer.get(), 1200);
                 NearestPlayer.get().addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 3, false, false, false));
 
                 BlockPos blockPos = new BlockPos((int) NearestPlayer.get().getX(), (int) (NearestPlayer.get().getY() + 0.9), (int) NearestPlayer.get().getZ());
@@ -97,7 +97,7 @@ public class IceInstance extends NoTeamInstance {
 
             players.forEach(player -> {
                 if (player != null && player.distanceTo(mob) < 50) {
-                    Damage.manaDamageToPlayer(mob, player, 600);
+                    Damage.causeManaDamageToPlayer(mob, player, 600);
                     player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 1, false, false, false));
                     BlockPos blockPos = new BlockPos((int) player.getX(), (int) (player.getY() + 0.9), (int) player.getZ());
                     if (player.level().getBlockState(blockPos).getBlock() == Blocks.AIR) {
@@ -224,7 +224,7 @@ public class IceInstance extends NoTeamInstance {
                     playerList.forEach(player -> {
                         if (player.distanceTo(mob) < 50) {
                             if (ColdData.PlayerCurrentColdNum(player) >= 50) {
-                                Damage.AttackDamageToPlayer(mob, player, player.getMaxHealth() * 1.5);
+                                Damage.causeAttackDamageToPlayer(mob, player, player.getMaxHealth() * 1.5);
                             }
                             Compute.setPlayerTitleAndSubTitle((ServerPlayer) player, Te.m("迸晶裂玉", style),
                                     Te.m("对寒冷值低的玩家造成致命伤害", style), 0, 20, 10);

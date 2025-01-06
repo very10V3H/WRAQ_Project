@@ -218,7 +218,7 @@ public class MoonInstance extends NoTeamInstance {
             }
         }
         if (AttackMob.isAlive()) {
-            Damage.manaDamageToPlayer(AttackMob, HealthLowPlayer, HealthLowPlayer.getMaxHealth() * 0.5);
+            Damage.causeManaDamageToPlayer(AttackMob, HealthLowPlayer, HealthLowPlayer.getMaxHealth() * 0.5);
             ParticleProvider.EntityEffectVerticleCircleParticle(HealthLowPlayer, 1, 0.4, 8, ParticleTypes.WITCH, 0);
             ParticleProvider.EntityEffectVerticleCircleParticle(HealthLowPlayer, 0.75, 0.4, 8, ParticleTypes.WITCH, 0);
             ParticleProvider.EntityEffectVerticleCircleParticle(HealthLowPlayer, 0.5, 0.4, 8, ParticleTypes.WITCH, 0);
@@ -226,7 +226,7 @@ public class MoonInstance extends NoTeamInstance {
             ParticleProvider.EntityEffectVerticleCircleParticle(HealthLowPlayer, 0, 0.4, 8, ParticleTypes.WITCH, 0);
         }
         if (ManaMob.isAlive()) {
-            Damage.manaDamageToPlayer(ManaMob, HealthHighPlayer, HealthHighPlayer.getMaxHealth() * 0.5);
+            Damage.causeManaDamageToPlayer(ManaMob, HealthHighPlayer, HealthHighPlayer.getMaxHealth() * 0.5);
             ParticleProvider.EntityEffectVerticleCircleParticle(HealthHighPlayer, 1, 0.4, 8, ParticleTypes.WITCH, 0);
             ParticleProvider.EntityEffectVerticleCircleParticle(HealthHighPlayer, 0.75, 0.4, 8, ParticleTypes.WITCH, 0);
             ParticleProvider.EntityEffectVerticleCircleParticle(HealthHighPlayer, 0.5, 0.4, 8, ParticleTypes.WITCH, 0);
@@ -255,8 +255,8 @@ public class MoonInstance extends NoTeamInstance {
                 playerList.forEach(player -> {
                     Compute.setPlayerTitleAndSubTitle((ServerPlayer) player, Te.m("月食", CustomStyle.styleOfMoon),
                             Te.m("天镜与明镜的生命值差距过大"), 0, 20, 10);
-                    Damage.manaDamageToPlayer(ManaMob, player, player.getMaxHealth() * 0.25);
-                    Damage.manaDamageToPlayer(AttackMob, player, player.getMaxHealth() * 0.25);
+                    Damage.causeManaDamageToPlayer(ManaMob, player, player.getMaxHealth() * 0.25);
+                    Damage.causeManaDamageToPlayer(AttackMob, player, player.getMaxHealth() * 0.25);
                     ParticleProvider.EntityEffectVerticleCircleParticle(player, 1, 0.4, 8, ParticleTypes.WITCH, 0);
                     ParticleProvider.EntityEffectVerticleCircleParticle(player, 0.75, 0.4, 8, ParticleTypes.WITCH, 0);
                     ParticleProvider.EntityEffectVerticleCircleParticle(player, 0.5, 0.4, 8, ParticleTypes.WITCH, 0);
@@ -274,8 +274,8 @@ public class MoonInstance extends NoTeamInstance {
             if (player.position().distanceTo(pos) < 150 && player.getY() < yLimit) {
                 Compute.setPlayerTitleAndSubTitle((ServerPlayer) player, Te.m("月引", CustomStyle.styleOfMoon),
                         Te.m(""), 0, 20, 10);
-                Damage.manaDamageToPlayer(manaMob, player, player.getMaxHealth() * 0.25);
-                Damage.manaDamageToPlayer(attackMob, player, player.getMaxHealth() * 0.25);
+                Damage.causeManaDamageToPlayer(manaMob, player, player.getMaxHealth() * 0.25);
+                Damage.causeManaDamageToPlayer(attackMob, player, player.getMaxHealth() * 0.25);
                 ((ServerPlayer) player).teleportTo(player.getServer().getLevel(Level.OVERWORLD), pos.x, pos.y, pos.z, 179, 0);
                 ParticleProvider.EntityEffectVerticleCircleParticle(player, 1, 0.4, 8, ParticleTypes.WITCH, 0);
                 ParticleProvider.EntityEffectVerticleCircleParticle(player, 0.75, 0.4, 8, ParticleTypes.WITCH, 0);

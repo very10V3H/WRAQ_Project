@@ -1,9 +1,9 @@
-package fun.wraq.process.system.pet.allay.item;
+package fun.wraq.process.system.profession.pet.allay.item;
 
 import fun.wraq.common.util.Utils;
-import fun.wraq.process.system.pet.allay.AllayPetPlayerData;
-import fun.wraq.process.system.pet.allay.skill.AllaySkillBook;
-import fun.wraq.process.system.pet.allay.skill.AllaySkills;
+import fun.wraq.process.system.profession.pet.allay.AllayPetPlayerData;
+import fun.wraq.process.system.profession.pet.allay.skill.AllaySkillBook;
+import fun.wraq.process.system.profession.pet.allay.skill.AllaySkills;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.DeferredRegister;

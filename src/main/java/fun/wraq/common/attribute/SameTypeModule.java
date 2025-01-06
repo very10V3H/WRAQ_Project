@@ -1,5 +1,6 @@
 package fun.wraq.common.attribute;
 
+import fun.wraq.series.gems.passive.impl.GemOnNormalAttackHit;
 import fun.wraq.series.newrunes.chapter2.KazeNewRune;
 import fun.wraq.series.newrunes.chapter2.LightningNewRune;
 import fun.wraq.series.overworld.sakuraSeries.BloodMana.BloodManaArmor;
@@ -12,5 +13,6 @@ public class SameTypeModule {
         LightningNewRune.onHit(player, mob);
         if (type == 0) BloodManaArmor.onAttackOrArrowHit(player, mob);
         KazeNewRune.onHit(player);
+        GemOnNormalAttackHit.hit(player, mob, damage);
     }
 }

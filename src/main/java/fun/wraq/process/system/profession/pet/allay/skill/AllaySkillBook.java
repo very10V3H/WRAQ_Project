@@ -1,10 +1,10 @@
-package fun.wraq.process.system.pet.allay.skill;
+package fun.wraq.process.system.profession.pet.allay.skill;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.MySound;
-import fun.wraq.process.system.pet.allay.AllayPet;
-import fun.wraq.process.system.pet.allay.AllayPetPlayerData;
+import fun.wraq.process.system.profession.pet.allay.AllayPet;
+import fun.wraq.process.system.profession.pet.allay.AllayPetPlayerData;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.WraqItem;
 import net.minecraft.ChatFormatting;
@@ -48,27 +48,33 @@ public class AllaySkillBook extends WraqItem {
             if (AllayPetPlayerData.getAllayXpLevel(player) < 1) {
                 AllayPet.sendMSG(player, Te.s("似乎还未拥有一只属于你的", "悦灵", CustomStyle.styleOfWorld));
             } else {
+                int skillLevelUpperLimit = AllayPetPlayerData.getAllaySkillLevelUpperLimit(player);
                 int skillLevel = AllayPetPlayerData.getAllayPetData(player).getInt(skillLevelDataKey);
-                if (skillLevel < 20) {
-                    Compute.playerItemUseWithRecord(player);
-                    double rate = (20 - skillLevel) / 20d;
-                    Random random = new Random();
-                    if (random.nextDouble() < rate) {
-                        AllayPetPlayerData.incrementSkillLevel(player, skillLevelDataKey, 1);
-                        AllayPet.sendMSG(player, Te.s(AllayPetPlayerData.getAllayName(player), "的",
-                                skillDescription, "已提升至",
-                                "Lv." + AllayPetPlayerData.getSkillLevel(player, skillLevelDataKey), CustomStyle.styleOfWorld));
-                        MySound.soundToPlayer(player, SoundEvents.PLAYER_LEVELUP);
-                        MySound.soundToPlayer(player, SoundEvents.ALLAY_ITEM_TAKEN);
+                if (skillLevel >= skillLevelUpperLimit) {
+                    AllayPet.sendMSG(player, Te.s(AllayPetPlayerData.getAllayName(player),
+                            "目前的等阶还不足以继续学习这个技能。"));
+                } else {
+                    if (skillLevel < 20) {
+                        Compute.playerItemUseWithRecord(player);
+                        double rate = (20 - skillLevel) / 20d;
+                        Random random = new Random();
+                        if (random.nextDouble() < rate) {
+                            AllayPetPlayerData.incrementSkillLevel(player, skillLevelDataKey, 1);
+                            AllayPet.sendMSG(player, Te.s(AllayPetPlayerData.getAllayName(player), "的",
+                                    skillDescription, "已提升至",
+                                    "Lv." + AllayPetPlayerData.getSkillLevel(player, skillLevelDataKey), CustomStyle.styleOfWorld));
+                            MySound.soundToPlayer(player, SoundEvents.PLAYER_LEVELUP);
+                            MySound.soundToPlayer(player, SoundEvents.ALLAY_ITEM_TAKEN);
+                        } else {
+                            AllayPet.sendMSG(player, Te.s(AllayPetPlayerData.getAllayName(player),
+                                    "似乎还没有完全领悟到", skillDescription, "的精髓",
+                                    "(" + String.format("%.2f%%", rate * 100) + ")", CustomStyle.styleOfStone));
+                            MySound.soundToPlayer(player, SoundEvents.ALLAY_THROW);
+                        }
                     } else {
                         AllayPet.sendMSG(player, Te.s(AllayPetPlayerData.getAllayName(player),
-                                "似乎还没有完全领悟到", skillDescription, "的精髓",
-                                "(" + String.format("%.2f%%", rate * 100) + ")", CustomStyle.styleOfStone));
-                        MySound.soundToPlayer(player, SoundEvents.ALLAY_THROW);
+                                "已经完全掌握了", skillDescription, "，不需要再学习了。"));
                     }
-                } else {
-                    AllayPet.sendMSG(player, Te.s(AllayPetPlayerData.getAllayName(player),
-                            "已经完全掌握了", skillDescription, "，不需要再学习了。"));
                 }
             }
         }

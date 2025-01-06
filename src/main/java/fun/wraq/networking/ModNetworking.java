@@ -60,6 +60,7 @@ import fun.wraq.process.func.guide.networking.GuideHudCloseStatusS2CPacket;
 import fun.wraq.process.func.guide.networking.GuideStageS2CPacket;
 import fun.wraq.process.func.particle.packets.DisperseBallParticleS2CPacket;
 import fun.wraq.process.func.particle.packets.LineEffectParticleS2CPacket;
+import fun.wraq.process.func.particle.packets.SpaceEffectParticleS2CPacket;
 import fun.wraq.process.func.plan.networking.DailySupplyC2SPacket;
 import fun.wraq.process.func.plan.networking.DailySupplyS2CPacket;
 import fun.wraq.process.func.plan.networking.PlanDateAndTierS2CPacket;
@@ -1408,6 +1409,11 @@ public class ModNetworking {
                 .decoder(QuickDecomposeC2SPacket::new)
                 .encoder(QuickDecomposeC2SPacket::toBytes)
                 .consumerMainThread(QuickDecomposeC2SPacket::handle)
+                .add();
+        net.messageBuilder(SpaceEffectParticleS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(SpaceEffectParticleS2CPacket::new)
+                .encoder(SpaceEffectParticleS2CPacket::toBytes)
+                .consumerMainThread(SpaceEffectParticleS2CPacket::handle)
                 .add();
     }
 
