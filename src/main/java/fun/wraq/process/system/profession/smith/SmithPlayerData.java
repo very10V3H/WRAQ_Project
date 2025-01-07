@@ -56,7 +56,7 @@ public class SmithPlayerData {
     }
 
     public static Component getTierDescription(int tier) {
-
+        return Te.s("");
     }
 
     public static int getMaxTier() {

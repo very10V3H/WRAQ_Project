@@ -71,7 +71,7 @@ public class AllayPetPlayerData {
     }
 
     public static Component getAllayTierDescription(int tier) {
-
+        return Te.s("");
     }
 
     public static int getMaxTier() {

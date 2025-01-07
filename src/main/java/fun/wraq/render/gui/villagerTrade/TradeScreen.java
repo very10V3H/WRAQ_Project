@@ -19,6 +19,7 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -28,7 +29,7 @@ import java.util.Objects;
 
 @OnlyIn(Dist.CLIENT)
 public class TradeScreen extends Screen {
-    ResourceLocation GUI_TEXTURE = new ResourceLocation(Utils.MOD_ID, "textures/gui/trade.png");
+    ResourceLocation GUI_TEXTURE = new ResourceLocation(Utils.MOD_ID, "textures/gui/new_trade_screen.png");
     ResourceLocation COIN_TEXTURE = new ResourceLocation(Utils.MOD_ID, "textures/gui/coin.png");
     private final boolean showPauseMenu;
     public static final Minecraft mc = Minecraft.getInstance();
@@ -55,14 +56,15 @@ public class TradeScreen extends Screen {
         }).pos(this.width / 2 - 39 + 5, this.height / 2 - 20 + 97).size(20, 20).build());
 
         this.addRenderableWidget(Button.builder(Component.translatable("→"), (p_280814_) -> {
-            if (fun.wraq.render.gui.villagerTrade.TradeList.tradeRecipeMap.isEmpty() || fun.wraq.render.gui.villagerTrade.TradeList.tradeContent.isEmpty()) fun.wraq.render.gui.villagerTrade.TradeList.setTradeContent();
+            if (fun.wraq.render.gui.villagerTrade.TradeList.tradeRecipeMap.isEmpty() || fun.wraq.render.gui.villagerTrade.TradeList.tradeContent.isEmpty())
+                fun.wraq.render.gui.villagerTrade.TradeList.setTradeContent();
 
             List<ItemStack> targetItemList = new ArrayList<>();
             if (fun.wraq.render.gui.villagerTrade.TradeList.tradeContent.containsKey(villagerName))
                 targetItemList = fun.wraq.render.gui.villagerTrade.TradeList.tradeContent.get(villagerName);
             int size = targetItemList.size();
-            if (page < (size - 1) / 5) page++;
-        }).pos(this.width / 2 + 20 + 5, this.height / 2 - 20 + 97).size(20, 20).build());
+            if (page < (size - 1) / 10) page++;
+        }).pos(this.width / 2 + 14, this.height / 2 - 20 + 97).size(20, 20).build());
 
         this.addRenderableWidget(Button.builder(Component.translatable("x"), (p_280814_) -> {
             this.minecraft.setScreen((Screen) null);
@@ -115,8 +117,12 @@ public class TradeScreen extends Screen {
         for (int i = 0; i < 5; i++) {
             int finalI = i;
             this.addRenderableWidget(Button.builder(Component.translatable("购买"), (p_280814_) -> {
-                ModNetworking.sendToServer(new TradeBuyRequestC2SPacket(villagerName, page * 5 + finalI));
-            }).pos(this.width / 2 - 35 + 144, this.height / 2 - 75 + 32 * i).size(32, 16).build());
+                ModNetworking.sendToServer(new TradeBuyRequestC2SPacket(villagerName, page * 10 + finalI));
+            }).pos(this.width / 2 - 61, this.height / 2 - 75 + 32 * i).size(32, 16).build());
+
+            this.addRenderableWidget(Button.builder(Component.translatable("购买"), (p_280814_) -> {
+                ModNetworking.sendToServer(new TradeBuyRequestC2SPacket(villagerName, page * 10 + finalI + 5));
+            }).pos(this.width / 2 - 61 + 144, this.height / 2 - 75 + 32 * i).size(32, 16).build());
         }
     }
 
@@ -172,43 +178,21 @@ public class TradeScreen extends Screen {
 
         int size = 0;
         if (!Objects.equals(villagerName, RandomStore.villagerName)) {
-            if (fun.wraq.render.gui.villagerTrade.TradeList.tradeRecipeMap.isEmpty() || fun.wraq.render.gui.villagerTrade.TradeList.tradeContent.isEmpty()) fun.wraq.render.gui.villagerTrade.TradeList.setTradeContent();
+            if (TradeList.tradeRecipeMap.isEmpty() || TradeList.tradeContent.isEmpty()) TradeList.setTradeContent();
 
             List<ItemStack> targetItemList = new ArrayList<>();
-            if (fun.wraq.render.gui.villagerTrade.TradeList.tradeContent.containsKey(villagerName))
-                targetItemList = fun.wraq.render.gui.villagerTrade.TradeList.tradeContent.get(villagerName);
+            if (TradeList.tradeContent.containsKey(villagerName))
+                targetItemList = TradeList.tradeContent.get(villagerName);
             size = targetItemList.size();
-            for (int i = 0; i < 5; i++) {
-                if (page * 5 + i < targetItemList.size()) {
-                    ItemStack targetItemStack = targetItemList.get(page * 5 + i);
-                    targetItemStack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
-                    guiGraphics.renderItem(targetItemStack,
-                            this.width / 2 - 100 - 33 + 217, this.height / 2 - 73 + 32 * i);
-                    guiGraphics.drawCenteredString(font, Component.literal("" + targetItemStack.getCount()).withStyle(ChatFormatting.WHITE),
-                            this.width / 2 - 100 - 33 + 217 + 20, this.height / 2 - 73 + 32 * i + 8, 0);
 
-                    if (x > this.width / 2 - 100 - 33 + 217 && x < this.width / 2 - 100 - 33 + 16 + 217
-                            && y > this.height / 2 - 73 + 32 * i && y < this.height / 2 - 73 + 32 * i + 16) {
-                        guiGraphics.renderTooltip(font, targetItemStack, x, y);
+            for (int i = 0; i < 10; i++) {
+                if (page * 10 + i < targetItemList.size()) {
+                    ItemStack targetItemStack = targetItemList.get(page * 10 + i);
+                    if (i < 5) {
+                        renderTradeRecipe(targetItemStack, i, x, y, guiGraphics, -98);
+                    } else {
+                        renderTradeRecipe(targetItemStack, i % 5, x, y, guiGraphics, 47);
                     }
-                    List<ItemStack> recipeList = TradeList.tradeRecipeMap.get(targetItemStack);
-                    for (int j = 0; j < recipeList.size(); j++) {
-                        ItemStack material = recipeList.get(j);
-                        material.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
-                        guiGraphics.renderItem(material,
-                                this.width / 2 - 100 - 33 + 150 - j * 30, this.height / 2 - 73 + 32 * i);
-                        if (x > this.width / 2 - 100 - 33 + 150 - j * 30 && x < this.width / 2 - 100 - 33 + 16 + 150 - j * 30
-                                && y > this.height / 2 - 73 + 32 * i && y < this.height / 2 - 73 + 32 * i + 16) {
-                            guiGraphics.renderTooltip(font, material, x, y);
-                        }
-                        if (material.getCount() > 9)
-                            guiGraphics.drawCenteredString(font, Component.literal("" + material.getCount()).withStyle(ChatFormatting.WHITE),
-                                    this.width / 2 - 100 - 33 + 150 - j * 30 + 23, this.height / 2 - 73 + 32 * i + 8, 0);
-                        else
-                            guiGraphics.drawCenteredString(font, Component.literal("" + material.getCount()).withStyle(ChatFormatting.WHITE),
-                                    this.width / 2 - 100 - 33 + 150 - j * 30 + 20, this.height / 2 - 73 + 32 * i + 8, 0);
-                    }
-
                 }
             }
         }
@@ -219,10 +203,78 @@ public class TradeScreen extends Screen {
                 this.width / 2 - 60, this.height / 2 + 83, 0);
 
         guiGraphics.drawCenteredString(fontRenderer, Component.literal("" + (page + 1)).withStyle(ChatFormatting.WHITE),
-                this.width / 2 + 5, this.height / 2 + 83, 0);
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal("共" + ((size - 1) / 5 + 1) + "页 " + (size) + "件物品").withStyle(ChatFormatting.WHITE),
+                this.width / 2, this.height / 2 + 83, 0);
+        guiGraphics.drawCenteredString(fontRenderer, Component.literal("共" + ((size - 1) / 10 + 1) + "页 " + (size) + "件物品").withStyle(ChatFormatting.WHITE),
                 this.width / 2 + 80, this.height / 2 + 83, 0);
         super.render(p_96310_, x, y, v);
+    }
+
+    private void renderTradeRecipe(ItemStack targetItemStack, int i, int x, int y, GuiGraphics guiGraphics, int xOffset) {
+        targetItemStack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
+
+        guiGraphics.renderItem(targetItemStack,
+                this.width / 2 - 100 - 33 + 206 + xOffset, this.height / 2 - 75 + 32 * i);
+        guiGraphics.drawCenteredString(font, Component.literal("" + targetItemStack.getCount()).withStyle(ChatFormatting.WHITE),
+                this.width / 2 - 100 - 33 + 206 + 20 + xOffset, this.height / 2 - 75 + 32 * i + 14, 0);
+        if (x > this.width / 2 - 100 - 33 + 206 + xOffset && x < this.width / 2 - 100 - 33 + 16 + 206 + xOffset
+                && y > this.height / 2 - 75 + 32 * i && y < this.height / 2 - 75 + 32 * i + 16) {
+            guiGraphics.renderTooltip(font, targetItemStack, x, y);
+        }
+
+        List<ItemStack> recipeList = TradeList.tradeRecipeMap.get(targetItemStack);
+        if (recipeList.size() <= 3) {
+            for (int j = 0; j < recipeList.size(); j++) {
+                ItemStack material = recipeList.get(j);
+                material.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
+                guiGraphics.renderItem(material,
+                        this.width / 2 - 100 - 33 + 150 - j * 28 + xOffset, this.height / 2 - 75 + 32 * i);
+                if (x > this.width / 2 - 100 - 33 + 150 - j * 28 + xOffset && x < this.width / 2 - 100 - 33 + 16 + 150 - j * 28 + xOffset
+                        && y > this.height / 2 - 75 + 32 * i && y < this.height / 2 - 75 + 32 * i + 16) {
+                    guiGraphics.renderTooltip(font, material, x, y);
+                }
+                if (material.getCount() > 9) {
+                    guiGraphics.drawCenteredString(font, Component.literal("" + material.getCount()).withStyle(ChatFormatting.WHITE),
+                            this.width / 2 - 100 - 33 + 150 - j * 28 + 23 + xOffset, this.height / 2 - 75 + 32 * i + 14, 0);
+                } else {
+                    guiGraphics.drawCenteredString(font, Component.literal("" + material.getCount()).withStyle(ChatFormatting.WHITE),
+                            this.width / 2 - 100 - 33 + 150 - j * 28 + 20 + xOffset, this.height / 2 - 75 + 32 * i + 14, 0);
+                }
+            }
+        }
+        else {
+            ItemStack chestStack = new ItemStack(Items.CHEST);
+            guiGraphics.renderItem(chestStack,
+                    this.width / 2 - 100 - 33 + 150 + xOffset, this.height / 2 - 75 + 32 * i);
+            if (x > this.width / 2 - 100 - 33 + 150 + xOffset && x < this.width / 2 - 100 - 33 + 16 + 150 + xOffset
+                    && y > this.height / 2 - 75 + 32 * i && y < this.height / 2 - 75 + 32 * i + 16) {
+                List<Component> components = new ArrayList<>();
+                components.add(Te.s("需要材料", ChatFormatting.GOLD));
+                for (int i1 = 0; i1 < recipeList.size(); i1++) {
+                    ItemStack stack = recipeList.get(i1);
+                    components.add(Te.s(" " + (i1 + 1) + ".", ChatFormatting.AQUA, " ", stack,
+                            " * " + stack.getCount(), ChatFormatting.AQUA));
+                }
+                guiGraphics.renderComponentTooltip(font, components, x, y);
+            }
+
+            for (int j = 1; j < 3; j++) {
+                ItemStack material = recipeList.get((ClientUtils.clientPlayerTick / 30 + j) % recipeList.size());
+                material.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
+                guiGraphics.renderItem(material,
+                        this.width / 2 - 100 - 33 + 150 - j * 28 + xOffset, this.height / 2 - 75 + 32 * i);
+                if (x > this.width / 2 - 100 - 33 + 150 - j * 28 + xOffset && x < this.width / 2 - 100 - 33 + 16 + 150 - j * 28 + xOffset
+                        && y > this.height / 2 - 75 + 32 * i && y < this.height / 2 - 75 + 32 * i + 16) {
+                    guiGraphics.renderTooltip(font, material, x, y);
+                }
+                if (material.getCount() > 9) {
+                    guiGraphics.drawCenteredString(font, Component.literal("" + material.getCount()).withStyle(ChatFormatting.WHITE),
+                            this.width / 2 - 100 - 33 + 150 - j * 28 + 23 + xOffset, this.height / 2 - 75 + 32 * i + 14, 0);
+                } else {
+                    guiGraphics.drawCenteredString(font, Component.literal("" + material.getCount()).withStyle(ChatFormatting.WHITE),
+                            this.width / 2 - 100 - 33 + 150 - j * 28 + 20 + xOffset, this.height / 2 - 75 + 32 * i + 14, 0);
+                }
+            }
+        }
     }
 
     @Override
