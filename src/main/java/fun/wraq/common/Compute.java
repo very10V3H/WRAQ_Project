@@ -2060,4 +2060,16 @@ public class Compute {
         }
         return mobSet;
     }
+
+    public static ItemStack getSkullByName(String skullName) {
+        ItemStack stack = new ItemStack(Items.PLAYER_HEAD);
+        stack.getOrCreateTag().putString("SkullOwner", skullName);
+        return stack;
+    }
+
+    public static ItemStack getSimpleFoiledItemStack(Item item) {
+        ItemStack itemStack = new ItemStack(item);
+        itemStack.enchant(Enchantments.UNBREAKING, 1);
+        return itemStack;
+    }
 }

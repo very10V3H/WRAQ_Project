@@ -5,6 +5,7 @@ import fun.wraq.process.system.profession.pet.allay.AllayPetPlayerData;
 import fun.wraq.process.system.profession.pet.allay.skill.AllaySkillBook;
 import fun.wraq.process.system.profession.pet.allay.skill.AllaySkills;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.WraqItem;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -12,6 +13,9 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class AllayItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Utils.MOD_ID);
+
+    public static final RegistryObject<Item> ALLAY_NUGGET = ITEMS.register("allay_nugget",
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.World)));
 
     public static final RegistryObject<Item> ALLAY_SPAWNER = ITEMS.register("allay_spawner",
             () -> new AllaySpawner(new Item.Properties().rarity(CustomStyle.WorldBold)));

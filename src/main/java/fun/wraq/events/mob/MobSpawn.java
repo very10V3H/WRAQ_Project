@@ -26,6 +26,7 @@ import fun.wraq.events.mob.chapter6_castle.BeaconSpawnController;
 import fun.wraq.events.mob.chapter6_castle.BlazeSpawnController;
 import fun.wraq.events.mob.chapter6_castle.TreeSpawnController;
 import fun.wraq.events.mob.chapter7.BoneImpSpawnController;
+import fun.wraq.events.mob.chapter7.MushroomLinSpawnController;
 import fun.wraq.events.mob.chapter7.StarSpawnController;
 import fun.wraq.events.mob.chapter7.TorturedSoulSpawnController;
 import fun.wraq.events.mob.moontain.*;
@@ -162,6 +163,7 @@ public class MobSpawn {
         overWolrdList.add(Ore2SpawnController.getInstance(overWorld));
         overWolrdList.add(Ore3SpawnController.getInstance(overWorld));
 
+        overWolrdList.add(MushroomLinSpawnController.getInstance(overWorld));
     }
 
     public static List<MobSpawnController> netherList = new ArrayList<>();

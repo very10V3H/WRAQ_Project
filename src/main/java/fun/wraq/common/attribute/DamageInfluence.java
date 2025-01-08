@@ -7,6 +7,7 @@ import fun.wraq.core.ManaAttackModule;
 import fun.wraq.customized.WraqUniformCurios;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.instances.element.IceInstance;
+import fun.wraq.events.mob.instance.instances.element.MushroomInstance;
 import fun.wraq.events.modules.AttackEventModule;
 import fun.wraq.process.func.EnhanceNormalAttackModifier;
 import fun.wraq.process.func.MobEffectAndDamageMethods;
@@ -161,5 +162,17 @@ public class DamageInfluence {
     public static double levelSuppress(Player player, Mob monster) {
         int mobLevel = MobSpawn.MobBaseAttributes.xpLevel.getOrDefault(MobSpawn.getMobOriginName(monster), 0);
         return (player.experienceLevel - mobLevel) / 500d;
+    }
+
+    public static double getAdjustAttackDamageRate(Player player, Mob mob) {
+        double rate = 0;
+        rate += MushroomInstance.getAdjustDamageRate(mob);
+        return rate;
+    }
+
+    public static double getAdjustManaDamageRate(Player player, Mob mob) {
+        double rate = 0;
+        rate += MushroomInstance.getAdjustDamageRate(mob);
+        return rate;
     }
 }

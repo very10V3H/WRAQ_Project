@@ -32,7 +32,7 @@ public class WraqBlade extends WraqPassiveEquip implements ActiveItem {
         this.suffix = suffix;
         this.style = style;
         this.rate = rate;
-        Utils.xpLevelAttackDamage.put(this, 1d);
+        Utils.xpLevelAttackDamage.put(this, 2d);
         Utils.levelRequire.put(this, levelRequire);
     }
 

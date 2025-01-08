@@ -65,6 +65,7 @@ public class NoTeamInstanceModule {
         add(MoontainBoss2Instance.getInstance());
         add(MoontainBoss3Instance.getInstance());
         add(WardenInstance.getInstance());
+        add(MushroomInstance.getInstance());
     }};
 
     public static List<fun.wraq.events.mob.instance.NoTeamInstance> noTeamInstancesNether = new ArrayList<>() {{

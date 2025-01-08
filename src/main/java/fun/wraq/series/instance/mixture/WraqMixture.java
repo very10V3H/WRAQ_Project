@@ -39,7 +39,7 @@ public class WraqMixture extends WraqPassiveEquip implements ActiveItem, OnShoot
         this.eachArrowDecreaseCoolDownTick = eachArrowDecreaseCoolDownTick;
         this.coolDownSecond = coolDownSecond;
         this.lastSecond = lastSecond;
-        Utils.xpLevelManaDamage.put(this, 2d);
+        Utils.xpLevelManaDamage.put(this, 4d);
         Utils.levelRequire.put(this, levelRequire);
     }
 

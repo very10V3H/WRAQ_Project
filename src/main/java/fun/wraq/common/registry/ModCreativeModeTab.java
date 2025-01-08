@@ -71,8 +71,8 @@ public class ModCreativeModeTab {
             CreativeModeTab.builder().icon(() -> new ItemStack(HarbingerItems.HARBINGER_INGOT.get().asItem())).title(Component.literal("鹰眼工厂")).build());
     public static RegistryObject<CreativeModeTab> ENDLESS_INSTANCE = CREATIVE_MODE_TAB.register("endless_instance", () ->
             CreativeModeTab.builder().icon(() -> new ItemStack(EndlessInstanceItems.ENDLESS_INSTANCE_CORE.get().asItem())).title(Component.literal("无尽熵增")).build());
-    public static RegistryObject<CreativeModeTab> ALLAY = CREATIVE_MODE_TAB.register("allay", () ->
-            CreativeModeTab.builder().icon(() -> new ItemStack(AllayItems.ALLAY_SPAWNER.get().asItem())).title(Component.literal("悦灵物品")).build());
+    public static RegistryObject<CreativeModeTab> PROFESSION = CREATIVE_MODE_TAB.register("profession", () ->
+            CreativeModeTab.builder().icon(() -> new ItemStack(AllayItems.ALLAY_SPAWNER.get().asItem())).title(Component.literal("副职业")).build());
 
 
 

@@ -1,9 +1,11 @@
 package fun.wraq.series.instance.series.mushroom;
 
+import fun.wraq.blocks.entity.Decomposable;
 import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
+import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -14,10 +16,11 @@ import net.minecraft.world.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MushroomCurio extends WraqCurios {
+public class MushroomCurio extends WraqCurios implements Decomposable {
 
     public MushroomCurio(Properties properties) {
         super(properties);
+        Utils.percentHealthRecover.put(this, 0.005);
     }
 
     @Override
@@ -53,5 +56,10 @@ public class MushroomCurio extends WraqCurios {
             MySound.soundToPlayer(player, SoundEvents.GENERIC_EAT);
         }
         super.tick(player);
+    }
+
+    @Override
+    public ItemStack getProduct() {
+        return new ItemStack(MushroomItems.UNKNOWN_MUSHROOM.get(), 3);
     }
 }

@@ -2,6 +2,7 @@ package fun.wraq.process.system.profession.smith;
 
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.WraqItem;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -9,6 +10,9 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class SmithItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Utils.MOD_ID);
+
+    public static final RegistryObject<Item> SMITH_STONE = ITEMS.register("smith_stone",
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.Stone)));
 
     public static final RegistryObject<Item> STONE_HAMMER = ITEMS.register("smith_stone_hammer",
             () -> new SmithHammer(new Item.Properties().rarity(CustomStyle.MineBold), 1));

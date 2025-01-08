@@ -63,12 +63,12 @@ public class MixtureItems {
     public static final RegistryObject<Item> MIXTURE_CASTLE = ITEMS.register("mixture_castle",
             () -> new WraqMixture(new Item.Properties().stacksTo(1).rarity(CustomStyle.CastleItalic)
                     , CustomStyle.styleOfCastle
-                    , ComponentUtils.getSuffixOfMoon(), 2, 0.7,
+                    , ComponentUtils.getSuffixOfCastle(), 2, 0.7,
                     6, 13, 4.5, 180));
 
     public static final RegistryObject<Item> MIXTURE_MOONTAIN = ITEMS.register("mixture_moontain",
             () -> new WraqMixture(new Item.Properties().stacksTo(1).rarity(CustomStyle.MOONTAIN_ITALIC)
                     , CustomStyle.styleOfMoontain
-                    , ComponentUtils.getSuffixOfMoon(), 2, 0.75,
+                    , ComponentUtils.getSuffixOfMoontain(), 2, 0.75,
                     6, 13, 5, 200));
 }

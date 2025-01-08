@@ -40,6 +40,7 @@ import fun.wraq.process.system.profession.pet.PetScreen;
 import fun.wraq.process.system.profession.pet.allay.AllayPet;
 import fun.wraq.process.system.profession.pet.allay.item.AllayItems;
 import fun.wraq.process.system.point.PointItems;
+import fun.wraq.process.system.profession.smith.SmithItems;
 import fun.wraq.process.system.randomevent.RandomEvent;
 import fun.wraq.process.system.randomevent.RandomEventsHandler;
 import fun.wraq.process.system.spur.Items.SpurItems;
@@ -64,6 +65,7 @@ import fun.wraq.series.instance.blade.BladeItems;
 import fun.wraq.series.instance.mixture.MixtureItems;
 import fun.wraq.series.instance.quiver.QuiverItems;
 import fun.wraq.series.instance.series.harbinger.HarbingerItems;
+import fun.wraq.series.instance.series.mushroom.MushroomItems;
 import fun.wraq.series.instance.series.purple.PurpleIronCommon;
 import fun.wraq.series.instance.series.warden.WardenItems;
 import fun.wraq.series.moontain.MoontainItems;
@@ -133,6 +135,8 @@ public class VMD {
         WardenItems.ITEMS.register(modEvenBus);
         HarbingerItems.ITEMS.register(modEvenBus);
         AllayItems.ITEMS.register(modEvenBus);
+        MushroomItems.ITEMS.register(modEvenBus);
+        SmithItems.ITEMS.register(modEvenBus);
 
         ModBlocks.BLOCKS.register(modEvenBus);
         ModEntityType.ENTITY_TYPES.register(modEvenBus);
@@ -707,8 +711,12 @@ public class VMD {
                     .map(entry -> entry.get().asItem())
                     .forEach(event::accept);
         }
-        if (event.getTabKey().equals(ModCreativeModeTab.ALLAY.getKey())) {
+        if (event.getTabKey().equals(ModCreativeModeTab.PROFESSION.getKey())) {
             AllayItems.ITEMS.getEntries()
+                    .stream()
+                    .map(entry -> entry.get().asItem())
+                    .forEach(event::accept);
+            SmithItems.ITEMS.getEntries()
                     .stream()
                     .map(entry -> entry.get().asItem())
                     .forEach(event::accept);

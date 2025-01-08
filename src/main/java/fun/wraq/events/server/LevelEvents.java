@@ -18,6 +18,7 @@ import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.season.MySeason;
 import fun.wraq.process.system.tower.Tower;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.instance.series.mushroom.UnknownGem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -110,10 +111,11 @@ public class LevelEvents {
         if (event.side.isServer() && event.phase.equals(TickEvent.Phase.START)
                 && event.level.equals(event.level.getServer().getLevel(Level.OVERWORLD))) {
             MobEffectAndDamageMethods.Tick(event.level);
-            int TickCount = Tick.get();
-            if (TickCount % 100 == 0) tryToRemoveMobInMap();
-            if (TickCount % 20 == 0) Element.Tick(event.level);
-            Compute.gather(TickCount); // 聚集
+            int tick = Tick.get();
+            if (tick % 100 == 0) tryToRemoveMobInMap();
+            if (tick % 20 == 0) Element.Tick(event.level);
+            Compute.gather(tick); // 聚集
+            if (tick % 20 == 1) UnknownGem.handleLevelTick(event.level);
         }
 
         if (event.side.isServer() && event.phase.equals(TickEvent.Phase.START)) {

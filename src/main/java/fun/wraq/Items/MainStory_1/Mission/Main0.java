@@ -84,6 +84,7 @@ public class Main0 extends Item {
             HarbingerWeaponMaterial.setQualityTier(mirror, 5);
 
             List.of(rod, core, swordBlade, string, mirror).forEach(player::addItem);*/
+            serverPlayer.getFoodData().setFoodLevel(7);
         }
         
         if (!level.isClientSide && player.isShiftKeyDown()) {
