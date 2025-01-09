@@ -36,10 +36,10 @@ public class ProfessionOperationCommand implements Command<CommandSourceStack> {
                         "工匠学者", CustomStyle.styleOfStone);
             }
             case "smithTier" -> {
-                SmithPlayerData.tryToIncrementAllayTier(player);
+                SmithPlayerData.tryToIncrementTier(player);
             }
             case "incrementSmithTier" -> {
-                SmithPlayerData.incrementAllayTier(player);
+                SmithPlayerData.incrementTier(player);
             }
         }
         return 0;

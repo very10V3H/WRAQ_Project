@@ -29,6 +29,10 @@ public class SmithPlayerData {
         return getSmithData(player).getInt(TIER_KEY);
     }
 
+    public static void setTier(Player player, int tier) {
+        getSmithData(player).putInt(TIER_KEY, tier);
+    }
+
     public static final String DAILY_REWARD_KEY = "DailyReward";
     public static boolean allowDailyReward(Player player) {
         return getTier(player) > 0 && getSmithData(player).getBoolean(DAILY_REWARD_KEY);
@@ -79,7 +83,7 @@ public class SmithPlayerData {
         MySound.soundToNearPlayer(player, SoundEvents.VILLAGER_AMBIENT);
     }
 
-    public static void tryToIncrementAllayTier(Player player) {
+    public static void tryToIncrementTier(Player player) {
         int currentTier = getTier(player);
         if (currentTier == 0) {
             sendMSG(player, Te.s("你还不是一名", "工匠", CustomStyle.styleOfGold));
@@ -101,7 +105,7 @@ public class SmithPlayerData {
                 )));
     }
 
-    public static void incrementAllayTier(Player player) {
+    public static void incrementTier(Player player) {
         int tier = getTier(player);
         if (tier >= getMaxTier()) {
             sendMSG(player, Te.s("已达到了最高的等阶!"));

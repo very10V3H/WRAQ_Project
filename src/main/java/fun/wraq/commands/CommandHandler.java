@@ -10,6 +10,7 @@ import fun.wraq.commands.stable.ops.*;
 import fun.wraq.commands.stable.players.*;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.system.bank.BankOperationCommand;
+import fun.wraq.process.system.bank.GetGoldenBeansCommand;
 import fun.wraq.process.system.bonuschest.BonusInfoCommand;
 import fun.wraq.process.system.entrustment.mob.MobKillEntrustmentOperationCommand;
 import fun.wraq.process.system.profession.ProfessionOperationCommand;
@@ -685,6 +686,15 @@ public class CommandHandler {
                         Commands.literal("bank").then(
                                 Commands.argument("operation", StringArgumentType.string())
                                         .executes(BankOperationCommand.instance)
+                        ).requires(commandSourceStack -> commandSourceStack.hasPermission(0))
+                )
+        );
+        CommandDispatcher<CommandSourceStack> dispatcher73 = event.getDispatcher();
+        LiteralCommandNode<CommandSourceStack> cmd73 = dispatcher73.register(
+                Commands.literal(Utils.MOD_ID).then(
+                        Commands.literal("getGoldenBeans").then(
+                                Commands.argument("num", IntegerArgumentType.integer())
+                                        .executes(GetGoldenBeansCommand.instance)
                         ).requires(commandSourceStack -> commandSourceStack.hasPermission(0))
                 )
         );

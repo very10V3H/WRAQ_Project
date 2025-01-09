@@ -23,17 +23,6 @@ public class BondDividends {
         Bank.getBankData(player).putBoolean(DAILY_BOND_DIVIDENDS_KEY, !allow);
     }
 
-    public static void onPlayerInteractWithVillager(Player player) {
-        sendMSG(player, Te.s("请问您需要办理什么业务？", player));
-        Compute.sendBlankLine(player, 3);
-        player.sendSystemMessage(Te.s(" ".repeat(4),
-                Te.c(Te.s("「债券分红」", CustomStyle.styleOfGold),
-                        "/vmd bank tryToGetDividends",
-                        Te.s("点击以尝试收取每日债券分红"))));
-        Compute.sendBlankLine(player, 4);
-        MySound.soundToNearPlayer(player, SoundEvents.VILLAGER_AMBIENT);
-    }
-
     public static void tryToGetDividends(Player player) {
         if (!allowGetDividends(player)) {
             sendMSG(player, Te.s("今天已经收取过分红了! 明天再来试试吧。"));
