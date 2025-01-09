@@ -234,10 +234,10 @@ public class TradeScreen extends Screen {
                 }
                 if (material.getCount() > 9) {
                     guiGraphics.drawCenteredString(font, Component.literal("" + material.getCount()).withStyle(ChatFormatting.WHITE),
-                            this.width / 2 - 100 - 33 + 150 - j * 28 + 23 + xOffset, this.height / 2 - 75 + 32 * i + 14, 0);
+                            this.width / 2 - 100 - 33 + 150 - j * 28 + 22 + xOffset, this.height / 2 - 75 + 32 * i + 14, 0);
                 } else {
                     guiGraphics.drawCenteredString(font, Component.literal("" + material.getCount()).withStyle(ChatFormatting.WHITE),
-                            this.width / 2 - 100 - 33 + 150 - j * 28 + 20 + xOffset, this.height / 2 - 75 + 32 * i + 14, 0);
+                            this.width / 2 - 100 - 33 + 150 - j * 28 + 19 + xOffset, this.height / 2 - 75 + 32 * i + 14, 0);
                 }
             }
         }

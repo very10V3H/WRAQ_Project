@@ -61,6 +61,9 @@ public class MobKillEntrustmentOperationCommand implements Command<CommandSource
             case "queryEachTierFinishedTimes" -> {
                 MobKillEntrustment.queryEachTierFinishedTimes(player);
             }
+            case "openStore" -> {
+                MobKillEntrustment.openStore(player);
+            }
         }
         return 0;
     }

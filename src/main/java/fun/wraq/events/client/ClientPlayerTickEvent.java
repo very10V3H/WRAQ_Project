@@ -27,7 +27,6 @@ import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.endlessinstance.DailyEndlessInstance;
 import fun.wraq.process.system.endlessinstance.EndlessCoreScreen;
-import fun.wraq.process.system.entrustment.bond.BondStoreScreen;
 import fun.wraq.process.system.forge.ForgeScreen;
 import fun.wraq.process.system.missions.MissionScreen;
 import fun.wraq.process.system.smelt.SmeltRecipeScreen;
@@ -285,7 +284,6 @@ public class ClientPlayerTickEvent {
                     case 4 -> mc.setScreen(new ForgeScreen());
                     case 5 -> mc.setScreen(new SmeltRecipeScreen());
                     case 6 -> mc.setScreen(new EndlessCoreScreen());
-                    case 7 -> mc.setScreen(new BondStoreScreen());
                 }
                 ClientUtils.clientScreenSetFlag = -1;
             }
