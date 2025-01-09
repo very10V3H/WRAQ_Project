@@ -3265,10 +3265,10 @@ public class TradeList {
         MyVillagerData.setMyVillagerData("悦灵学者", "allay", CustomStyle.styleOfWorld,
                 VillagerType.PLAINS, VillagerProfession.CARTOGRAPHER, contentList);
         tradeRecipeMap.put(attackSkillBook,
-                List.of(new ItemStack(ModItems.GOLDEN_BEANS.get(), 16)));
+                List.of(new ItemStack(ModItems.GOLDEN_BEANS.get(), 2)));
         tradeRecipeMap.put(healingSkillBook,
-                List.of(new ItemStack(ModItems.GOLDEN_BEANS.get(), 16)));
+                List.of(new ItemStack(ModItems.GOLDEN_BEANS.get(), 2)));
         tradeRecipeMap.put(gemPieceSkillBook,
-                List.of(new ItemStack(ModItems.GOLDEN_BEANS.get(), 16)));
+                List.of(new ItemStack(ModItems.GOLDEN_BEANS.get(), 2)));
     }
 }

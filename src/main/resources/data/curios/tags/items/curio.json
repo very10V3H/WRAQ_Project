@@ -41,6 +41,14 @@
     "vmd:frame_arrow_2",
     "vmd:frame_arrow_3",
     "vmd:devil_power_curio",
-    "vmd:train_souvenirs"
+    "vmd:train_souvenirs",
+    "vmd:smith_stone_hammer",
+    "vmd:smith_iron_hammer",
+    "vmd:smith_copper_hammer",
+    "vmd:smith_golden_hammer",
+    "vmd:smith_diamond_hammer",
+    "vmd:smith_emerald_hammer",
+    "vmd:smith_nether_hammer",
+    "vmd:smith_end_hammer"
   ]
 }

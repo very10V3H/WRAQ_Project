@@ -12,6 +12,7 @@ import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.plan.PlanPlayer;
 import fun.wraq.process.func.rank.RankData;
+import fun.wraq.process.system.profession.smith.SmithPlayerData;
 import fun.wraq.process.system.tower.Tower;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -147,13 +148,15 @@ public class MobKillEntrustment {
     }
 
     private static void sendAcceptOrBondStoreMSG(Player player) {
-        sendMSG(player, Te.s(Te.s("「接取委托」").withStyle((s) -> {
+        player.sendSystemMessage(Te.s(" ".repeat(4),
+                Te.s("「接取委托」").withStyle((s) -> {
             return s.withColor(ChatFormatting.GREEN).withClickEvent(
                             new ClickEvent(ClickEvent.Action.RUN_COMMAND,
                                     "/vmd entrustment accept"))
                     .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
                             Te.s("点击以", "接取", ChatFormatting.AQUA, "一个新的委托任务")));
-        }), "    ", Te.s("「打开债券商店」").withStyle((s) -> {
+        }), " ".repeat(4),
+                        Te.s("「打开债券商店」").withStyle((s) -> {
             return s.withColor(CustomStyle.styleOfWorld.getColor()).withClickEvent(
                             new ClickEvent(ClickEvent.Action.RUN_COMMAND,
                                     "/vmd openScreen 7"))
@@ -462,6 +465,7 @@ public class MobKillEntrustment {
                     setExpiredLeftMin(player, 10);
                     setPlayerReputation(player, Math.min(getPlayerReputation(player) + 1, 15));
                     InventoryOperation.itemStackGiveWithMSG(player, ModItems.GOLDEN_BEANS.get());
+                    SmithPlayerData.onPlayerSubmitEntrustment(player);
                 } else {
                     for (TimeAndTier timeAndTier1 : timeAndTiers) {
                         if (costTick <= Tick.min(timeAndTier1.minutes)) {
@@ -481,6 +485,7 @@ public class MobKillEntrustment {
                             setExpiredLeftMin(player, 10);
                             setPlayerReputation(player, Math.min(getPlayerReputation(player) + 1, 15));
                             InventoryOperation.itemStackGiveWithMSG(player, ModItems.GOLDEN_BEANS.get());
+                            SmithPlayerData.onPlayerSubmitEntrustment(player);
                         }
                         incrementEachTierFinishedTimes(player, timeAndTier.component.getString());
                     } else {
@@ -599,7 +604,7 @@ public class MobKillEntrustment {
             return;
         }
         sendMSG(player, Te.s("近期如何？ ", player.getName().getString()));
-        for (int i = 0 ; i < 4 ; i ++) {
+        for (int i = 0 ; i < 3 ; i ++) {
             player.sendSystemMessage(Component.literal(""));
         }
         // 接取委托命令与债券商店

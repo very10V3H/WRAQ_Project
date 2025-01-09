@@ -161,11 +161,14 @@ public class SingleItemChangeScreen extends Screen {
             }
         }
 
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal("当前vb: ").withStyle(ChatFormatting.LIGHT_PURPLE),
+        guiGraphics.drawCenteredString(fontRenderer, Component.literal("当前vb: ")
+                        .withStyle(ChatFormatting.WHITE),
                 this.width / 2 + 80, this.height / 2 + 86, 0);
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal("" + ClientUtils.VBNUM).withStyle(ChatFormatting.GOLD),
+        guiGraphics.drawCenteredString(fontRenderer, Component.literal("" + ClientUtils.VBNUM)
+                        .withStyle(ChatFormatting.WHITE),
                 this.width / 2 + 128, this.height / 2 + 86, 0);
-        guiGraphics.drawCenteredString(fontRenderer, Component.literal("" + (page + 1)).withStyle(ChatFormatting.WHITE),
+        guiGraphics.drawCenteredString(fontRenderer, Component.literal("" + (page + 1))
+                        .withStyle(ChatFormatting.WHITE),
                 this.width / 2, this.height / 2 - 20 + 105, 0);
         super.render(graphics, x, y, v);
     }

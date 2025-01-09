@@ -2,10 +2,12 @@ package fun.wraq.process.system.profession.smith;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.registry.MySound;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.WraqItem;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
@@ -41,6 +43,7 @@ public class SmithBook extends WraqItem {
             SmithPlayerData.setTier(player, 1);
             InventoryOperation.itemStackGiveWithMSG(player, SmithItems.STONE_HAMMER.get());
             SmithPlayerData.sendMSG(player, Te.s("成功习得了", "「初等工匠学」", CustomStyle.styleOfStone));
+            MySound.soundToPlayer(player, SoundEvents.PLAYER_LEVELUP);
         }
         return super.use(level, player, interactionHand);
     }

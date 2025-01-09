@@ -55,14 +55,15 @@ public class Bank {
                         Te.s("点击以尝试收取每日债券分红")),
                 " ".repeat(4),
                 Te.c(Te.s("「取出金豆」", CustomStyle.styleOfGold),
-                        "vmd bank tryToGetGoldenBeans",
+                        "/vmd bank tryToGetGoldenBeans",
                         Te.s("点击以尝试取出金豆"))));
         Compute.sendBlankLine(player, 4);
         MySound.soundToNearPlayer(player, SoundEvents.VILLAGER_AMBIENT);
     }
 
     public static void tryToGetGoldenBeans(Player player) {
-        sendMSG(player, Te.s("您的账户当前拥有", String.format("%.1f", getGBValue(player))));
+        sendMSG(player, Te.s("您的账户当前拥有",
+                String.format("%.1fGB", getGBValue(player)), CustomStyle.styleOfGold));
         Compute.sendBlankLine(player, 3);
         player.sendSystemMessage(Te.s(" ".repeat(4), getGoldenBeansCommand(1),
                 " ".repeat(4), getGoldenBeansCommand(5),
@@ -86,6 +87,7 @@ public class Bank {
         sendMSG(player, Te.s("成功取出了", count + "个", CustomStyle.styleOfGold, ModItems.GOLDEN_BEANS));
         expenseGB(player, count);
         InventoryOperation.itemStackGiveWithMSG(player, new ItemStack(ModItems.GOLDEN_BEANS.get(), count));
+        MySound.soundToNearPlayer(player, SoundEvents.VILLAGER_TRADE);
     }
 
     public static void sendMSG(Player player, Component content) {

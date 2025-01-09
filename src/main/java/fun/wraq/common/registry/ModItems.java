@@ -3244,11 +3244,8 @@ public class ModItems {
     public static final RegistryObject<Item> SwordLottery = ITEMS.register("sword_lottery",
             () -> new NewLotteries(new Item.Properties().rarity(CustomStyle.MagmaBold), new ArrayList<>() {{
                 List<NewLotteries.Loot> loots = List.of(
-/*                        new NewLotteries.Loot(new ItemStack(ModItems.AttackCurios0.get()), 0.005),
-                        new NewLotteries.Loot(new ItemStack(ModItems.AttackCurios1.get()), 0.005),*/
-                        /*new NewLotteries.Loot(new ItemStack(ModItems.AttackCurios0.get()), 0.005),*/
-                        new NewLotteries.Loot(new ItemStack(UniformItems.AttackCurios2.get()), 0.005),
-                        new NewLotteries.Loot(new ItemStack(UniformItems.WindCurios0.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(UniformItems.ATTACK_CURIOS_YXWG.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(UniformItems.LifeCurios0.get()), 0.005),
                         /*new NewLotteries.Loot(new ItemStack(ModItems.LifeCrystal0.get()), 0.005),*/
 /*                        new NewLotteries.Loot(new ItemStack(ModItems.WaterCurios0.get()), 0.005),
                         new NewLotteries.Loot(new ItemStack(ModItems.FireCurios0.get()), 0.005),
@@ -3268,8 +3265,8 @@ public class ModItems {
     public static final RegistryObject<Item> BowLottery = ITEMS.register("bow_lottery",
             () -> new NewLotteries(new Item.Properties().rarity(CustomStyle.KazeBold), new ArrayList<>() {{
                 List<NewLotteries.Loot> loots = List.of(
-                        new NewLotteries.Loot(new ItemStack(UniformItems.BowCurios2.get()), 0.005),
-                        new NewLotteries.Loot(new ItemStack(UniformItems.WindCurios0.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(UniformItems.BOW_CURIOS_YXWG.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(UniformItems.LifeCurios0.get()), 0.005),
                         /*new NewLotteries.Loot(new ItemStack(ModItems.LifeCrystal0.get()), 0.005),*/
 /*                        new NewLotteries.Loot(new ItemStack(ModItems.WaterCurios0.get()), 0.005),
                         new NewLotteries.Loot(new ItemStack(ModItems.FireCurios0.get()), 0.005),
@@ -3289,8 +3286,8 @@ public class ModItems {
     public static final RegistryObject<Item> SceptreLottery = ITEMS.register("sceptre_lottery",
             () -> new NewLotteries(new Item.Properties().rarity(CustomStyle.EvokerBold), new ArrayList<>() {{
                 List<NewLotteries.Loot> loots = List.of(
-                        new NewLotteries.Loot(new ItemStack(UniformItems.ManaCurios2.get()), 0.005),
-                        new NewLotteries.Loot(new ItemStack(UniformItems.WindCurios0.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(UniformItems.MANA_CURIOS_YXWG.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(UniformItems.LifeCurios0.get()), 0.005),
                         /*new NewLotteries.Loot(new ItemStack(ModItems.LifeCrystal0.get()), 0.005),*/
 /*                        new NewLotteries.Loot(new ItemStack(ModItems.WaterCurios0.get()), 0.005),
                         new NewLotteries.Loot(new ItemStack(ModItems.FireCurios0.get()), 0.005),

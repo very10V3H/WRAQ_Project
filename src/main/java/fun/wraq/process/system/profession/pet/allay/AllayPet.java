@@ -124,7 +124,8 @@ public class AllayPet {
         Allay allay = new Allay(EntityType.ALLAY, level);
         allay.moveTo(Compute.getLivingEntityBackOffsetPos(serverPlayer));
         MobSpawn.setMobCustomName(allay,
-                Te.s(AllayPetPlayerData.getAllayName(serverPlayer), CustomStyle.styleOfWorld),
+                Te.s(AllayPetPlayerData.getAllayTierDescription(AllayPetPlayerData.getAllayTier(serverPlayer)),
+                        AllayPetPlayerData.getAllayName(serverPlayer), CustomStyle.styleOfWorld),
                 AllayPetPlayerData.getAllayXpLevel(serverPlayer));
 
         AllayPet allayPet = new AllayPet(allay, name, serverPlayer.experienceLevel);
