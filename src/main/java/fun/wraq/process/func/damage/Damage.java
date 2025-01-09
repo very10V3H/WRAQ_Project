@@ -36,6 +36,7 @@ import fun.wraq.process.system.entrustment.mob.MobKillEntrustment;
 import fun.wraq.process.system.profession.pet.allay.AllayPet;
 import fun.wraq.process.system.randomevent.RandomEventsHandler;
 import fun.wraq.process.system.randomevent.impl.killmob.SlimeKingEvent;
+import fun.wraq.process.system.randomevent.impl.special.SpringMobEvent;
 import fun.wraq.process.system.teamInstance.NewTeamInstanceHandler;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.gems.passive.impl.GemOnCauseDamage;
@@ -523,6 +524,7 @@ public class Damage {
             OnCauseFinalDamageEquip.causeFinalDamage(player, mob, damage);
 
             damage *= WardenInstance.mobWithstandDamageRate(mob, player);
+            damage *= SpringMobEvent.onMobWithStandDamage(mob);
             damage = NewTeamInstanceHandler.judgeDamage(player, mob, damage);
             double finalDamage = mob.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.WoodenStake5.get()) ? 0 : (float) damage;
             if (mob.getHealth() <= finalDamage && !MoontainBoss3Instance.beforeKill(mob)) return;
@@ -558,6 +560,7 @@ public class Damage {
             CitadelGuardianInstance.mobWithstandDamage(mob, finalDamage);
             FireEquip.IgniteEffect(player, mob);
             DpsCommand.CalculateDamage(player, finalDamage);
+            SpringMobEvent.onPlayerCauseDamage(player, mob, finalDamage);
             entity.invulnerableTime = 0;
             StarBottle.playerBattleTickMapRefresh(player);
             Element.ElementParticleProvider(mob);

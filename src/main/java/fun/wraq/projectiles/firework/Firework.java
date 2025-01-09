@@ -1,12 +1,16 @@
 package fun.wraq.projectiles.firework;
 
 import fun.wraq.common.Compute;
-import fun.wraq.common.registry.ModItems;
+import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.process.func.damage.Damage;
+import fun.wraq.process.system.randomevent.impl.special.SpringMobEvent;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.FireworkRocketEntity;
@@ -16,11 +20,11 @@ import net.minecraft.world.item.MinecartItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
+import org.apache.commons.lang3.RandomUtils;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animatable.instance.SingletonAnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.core.animation.*;
 import software.bernie.geckolib.core.object.PlayState;
 
@@ -96,10 +100,17 @@ public class Firework extends AbstractArrow implements GeoEntity {
         if (this.player != null && !level().isClientSide) {
             Entity entity = result.getEntity();
             if (entity instanceof LivingEntity livingEntity) {
-                if (livingEntity instanceof Mob mob
+/*                if (livingEntity instanceof Mob mob
                         && livingEntity.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.MobArmorSpringHelmet.get())) {
                     Damage.causeManaDamageToMonster_ApDamage(player, mob, 2024000);
                     Compute.addSlowDownEffect(mob, 100, 100);
+                }*/
+                if (livingEntity instanceof Mob mob) {
+                    if (MobSpawn.getMobOriginName(mob).equals(SpringMobEvent.mobName)) {
+                        Damage.causeTrueDamageToMonster(player, mob,
+                                RandomUtils.nextInt(100 * (int) Math.pow(10, 4), 1000 * (int) Math.pow(10, 4)));
+                    }
+                    Compute.addSlowDownEffect(mob, 20, 1);
                 }
                 CompoundTag compoundTag = new CompoundTag();
                 byte a = 1;

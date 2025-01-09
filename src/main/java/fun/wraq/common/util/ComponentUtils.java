@@ -333,6 +333,11 @@ public class ComponentUtils {
                 .withStyle(ChatFormatting.ITALIC).withStyle(CustomStyle.styleOfSpring);
     }
 
+    public static Component getSuffixOfSpring2025() {
+        return Component.literal("SpringFestival~2025")
+                .withStyle(ChatFormatting.ITALIC).withStyle(CustomStyle.styleOfSpring);
+    }
+
     public static void runeAttributeDescription(List<Component> components) {
         components.add(Component.literal(" - ").withStyle(ChatFormatting.GRAY).
                 append("符石属性:").withStyle(ChatFormatting.WHITE));
