@@ -30,7 +30,10 @@ import java.util.List;
 
 public abstract class WraqOffHandItem extends SwordItem {
 
-    private final Component type;
+    protected final Component type;
+    public static final String KNIFE = "匕首";
+    public static final String SHIELD = "盾牌";
+    public static final String BOOK = "魔导书";
 
     public WraqOffHandItem(Properties properties, Component type) {
         super(ItemTier.VMaterial, 2, 0, properties.stacksTo(1));

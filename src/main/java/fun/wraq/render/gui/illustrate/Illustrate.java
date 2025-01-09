@@ -160,6 +160,11 @@ public class Illustrate extends Screen {
             this.type = 18;
             this.page = 0;
         }).pos(X - 178, Y - 98 + 20 * 9).size(28, 16).build());
+
+        this.addRenderableWidget(Button.builder(Te.s("新品", CustomStyle.styleOfRed), (p_280814_) -> {
+            this.type = 19;
+            this.page = 0;
+        }).pos(X + 150, Y - 98 + 20 * 9).size(28, 16).build());
     }
 
     public void tick() {
@@ -193,6 +198,7 @@ public class Illustrate extends Screen {
             case 16 -> sameModule(Display.powerList, guiGraphics, x, y, xOffset);
             case 17 -> sameModule(Display.pickAxeList, guiGraphics, x, y, xOffset);
             case 18 -> sameModule(Display.getSouvenirsList(), guiGraphics, x, y, xOffset);
+            case 19 -> sameModule(Display.getNewItemList(), guiGraphics, x, y, xOffset);
         }
         guiGraphics.drawCenteredString(fontRenderer, Component.literal("" + (page + 1)).withStyle(ChatFormatting.WHITE), this.width / 2 + 5, this.height / 2 - 22 + 105, 0);
 
@@ -217,9 +223,12 @@ public class Illustrate extends Screen {
                     Item item = itemStack.getItem();
                     itemStack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
                     if (!Screen.hasControlDown()
-                            && (Utils.mainHandTag.containsKey(item) || Utils.armorTag.containsKey(item))) {
+                            && (Utils.mainHandTag.containsKey(item) || Utils.armorTag.containsKey(item)
+                            || Utils.offHandTag.containsKey(item))) {
                         itemStack.getOrCreateTagElement(Utils.MOD_ID).putBoolean(DISPLAY_FLAG, true);
-                        ForgeEquipUtils.setForgeQualityOnEquip(itemStack, ClientUtils.clientPlayerTick / 20 % 13);
+                        if (!Utils.offHandTag.containsKey(item)) {
+                            ForgeEquipUtils.setForgeQualityOnEquip(itemStack, ClientUtils.clientPlayerTick / 20 % 13);
+                        }
                         Compute.forgingHoverName(itemStack);
                     }
                     guiGraphics.renderItem(itemStack,
