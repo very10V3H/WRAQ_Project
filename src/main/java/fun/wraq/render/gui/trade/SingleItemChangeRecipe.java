@@ -2,8 +2,6 @@ package fun.wraq.render.gui.trade;
 
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.process.system.endlessinstance.item.EndlessInstanceItems;
-import fun.wraq.process.system.profession.pet.allay.item.AllayItems;
-import fun.wraq.process.system.profession.smith.SmithItems;
 import fun.wraq.series.moontain.MoontainItems;
 import net.minecraft.world.item.ItemStack;
 
@@ -51,22 +49,9 @@ public record SingleItemChangeRecipe(ItemStack needStack, ItemStack goods, Strin
                     new ItemStack(ModItems.equipPiece5.get(), 4), SingleItemChangePurchaseLimit.Type.WEEKLY, 4)
     );
 
-    public static List<SingleItemChangeRecipe> bondStoreRecipe = List.of(
-            new SingleItemChangeRecipe(new ItemStack(ModItems.BOND.get(), 3),
-                    new ItemStack(AllayItems.ALLAY_SPAWNER.get()), SingleItemChangePurchaseLimit.Type.NULL, 0),
-            new SingleItemChangeRecipe(new ItemStack(ModItems.BOND.get(), 1),
-                    new ItemStack(AllayItems.ALLAY_NUGGET.get()), SingleItemChangePurchaseLimit.Type.NULL, 0),
-            new SingleItemChangeRecipe(new ItemStack(ModItems.BOND.get(), 3),
-                    new ItemStack(SmithItems.SMITH_BOOK.get()), SingleItemChangePurchaseLimit.Type.NULL, 0),
-            new SingleItemChangeRecipe(new ItemStack(ModItems.BOND.get(), 1),
-                    new ItemStack(SmithItems.SMITH_STONE.get()), SingleItemChangePurchaseLimit.Type.NULL, 0)
-
-    );
-
     public static List<SingleItemChangeRecipe> getRecipeList() {
         if (recipeList.isEmpty()) {
             recipeList.addAll(endlessCoreStoreRecipe);
-            recipeList.addAll(bondStoreRecipe);
         }
         return recipeList;
     }

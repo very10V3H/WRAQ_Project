@@ -4019,8 +4019,8 @@ public class ModItems {
     public static final RegistryObject<Item> BOND = ITEMS.register("bond",
             () -> new WraqItem(new Item.Properties().rarity(Rarity.RARE), false, true, List.of(
                     Te.s("联合研院", CustomStyle.styleOfWorld, "发行的一种信用债券"),
-                    Te.s("可以用于", "交换物品", CustomStyle.styleOfGold),
-                    Te.s("也可以用于获取", "定期分红", CustomStyle.styleOfGold)
+                    Te.s("可以用于和贝尔", "交换物品", CustomStyle.styleOfGold),
+                    Te.s("也可以在联合银行获取", "每日分红", CustomStyle.styleOfGold)
             )));
 
     public static final RegistryObject<Item> SPECIAL_BOND = ITEMS.register("special_bond",

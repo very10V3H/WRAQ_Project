@@ -7,8 +7,10 @@ import fun.wraq.customized.UniformItems;
 import fun.wraq.customized.uniform.UnCommonUniform;
 import fun.wraq.process.system.element.ElementItems;
 import fun.wraq.process.system.enhanceForge.ForgeMaterials;
+import fun.wraq.process.system.entrustment.mob.MobKillEntrustment;
 import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.process.system.profession.pet.allay.item.AllayItems;
+import fun.wraq.process.system.profession.smith.SmithItems;
 import fun.wraq.process.system.spur.Items.SpurItems;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.end.citadel.CitadelItems;
@@ -62,6 +64,7 @@ public class TradeList {
         sunCurio();
 
         allay();
+        entrustmentStore();
 
         /* 1.0 */
 
@@ -3270,5 +3273,39 @@ public class TradeList {
                 List.of(new ItemStack(ModItems.GOLDEN_BEANS.get(), 2)));
         tradeRecipeMap.put(gemPieceSkillBook,
                 List.of(new ItemStack(ModItems.GOLDEN_BEANS.get(), 2)));
+    }
+
+    public static void entrustmentStore() {
+        ItemStack allaySpawner = new ItemStack(AllayItems.ALLAY_SPAWNER.get());
+        ItemStack allayNugget = new ItemStack(AllayItems.ALLAY_NUGGET.get());
+        ItemStack smithBook = new ItemStack(SmithItems.SMITH_BOOK.get());
+        ItemStack smithStone = new ItemStack(SmithItems.SMITH_STONE.get());
+        ItemStack revelationHeart = new ItemStack(ModItems.REVELATION_HEART.get());
+        ItemStack goldenCoinBag = new ItemStack(ModItems.GoldCoinBag.get(), 3);
+        ItemStack gemPiece = new ItemStack(ModItems.GEM_PIECE.get(), 12);
+        ItemStack[] itemStacks = {
+                allaySpawner, allayNugget, smithBook, smithStone,
+                revelationHeart, goldenCoinBag, gemPiece
+        };
+        List<ItemStack> contentList = new ArrayList<>();
+        Collections.addAll(contentList, itemStacks);
+        MyVillagerData.setMyVillagerData(MobKillEntrustment.VILLAGER_NAME, "entrustment",
+                CustomStyle.styleOfWorld, VillagerType.PLAINS, VillagerProfession.LIBRARIAN, contentList);
+
+        tradeRecipeMap.put(allaySpawner,
+                List.of(new ItemStack(ModItems.BOND.get(), 3)));
+        tradeRecipeMap.put(allayNugget,
+                List.of(new ItemStack(ModItems.BOND.get(), 1)));
+        tradeRecipeMap.put(smithBook,
+                List.of(new ItemStack(ModItems.BOND.get(), 3)));
+        tradeRecipeMap.put(smithStone,
+                List.of(new ItemStack(ModItems.BOND.get(), 1)));
+
+        tradeRecipeMap.put(revelationHeart,
+                List.of(new ItemStack(ModItems.GOLDEN_BEANS.get(), 1)));
+        tradeRecipeMap.put(goldenCoinBag,
+                List.of(new ItemStack(ModItems.GOLDEN_BEANS.get(), 1)));
+        tradeRecipeMap.put(gemPiece,
+                List.of(new ItemStack(ModItems.GOLDEN_BEANS.get(), 1)));
     }
 }

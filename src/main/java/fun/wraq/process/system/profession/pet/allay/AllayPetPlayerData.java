@@ -124,7 +124,6 @@ public class AllayPetPlayerData {
     public static void openAllayStore(Player player) {
         Compute.openTradeScreenByVillagerName(player, "悦灵学者");
         MySound.soundToPlayer(player, SoundEvents.VILLAGER_TRADE);
-
     }
 
     public static void tryToIncrementAllayTier(Player player) {

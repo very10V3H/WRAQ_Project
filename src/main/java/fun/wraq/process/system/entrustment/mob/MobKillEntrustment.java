@@ -156,12 +156,12 @@ public class MobKillEntrustment {
                     .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
                             Te.s("点击以", "接取", ChatFormatting.AQUA, "一个新的委托任务")));
         }), " ".repeat(4),
-                        Te.s("「打开债券商店」").withStyle((s) -> {
+                        Te.s("「打开委托商店」").withStyle((s) -> {
             return s.withColor(CustomStyle.styleOfWorld.getColor()).withClickEvent(
                             new ClickEvent(ClickEvent.Action.RUN_COMMAND,
-                                    "/vmd openScreen 7"))
+                                    "/vmd entrustment openStore"))
                     .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
-                            Te.s("点击以打开债券商店界面")));
+                            Te.s("点击以打开债委托商店界面")));
         })));
     }
 
@@ -591,12 +591,12 @@ public class MobKillEntrustment {
             for (int i = 0 ; i < 4 ; i ++) {
                 player.sendSystemMessage(Component.literal(""));
             }
-            sendMSG(player, Te.s("「打开债券商店」").withStyle((s) -> {
+            sendMSG(player, Te.s("「打开委托商店」").withStyle((s) -> {
                 return s.withColor(CustomStyle.styleOfWorld.getColor()).withClickEvent(
                                 new ClickEvent(ClickEvent.Action.RUN_COMMAND,
-                                        "/vmd openScreen 7"))
+                                        "/vmd entrustment openStore"))
                         .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
-                                Te.s("点击以打开债券商店界面")));
+                                Te.s("点击以打开债委托商店界面")));
             }));
             for (int i = 0 ; i < 4 ; i ++) {
                 player.sendSystemMessage(Component.literal(""));
@@ -613,6 +613,11 @@ public class MobKillEntrustment {
             player.sendSystemMessage(Component.literal(""));
         }
         MySound.soundToNearPlayer(player, SoundEvents.VILLAGER_AMBIENT);
+    }
+
+    public static void openStore(Player player) {
+        Compute.openTradeScreenByVillagerName(player, VILLAGER_NAME);
+        MySound.soundToPlayer(player, SoundEvents.VILLAGER_TRADE);
     }
 
     public static String getDeltaTimeFormatString(int tick1, int tick2) {
