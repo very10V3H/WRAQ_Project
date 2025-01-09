@@ -178,6 +178,9 @@ public class MyWayPoint {
         add(new ZonePoint(new Vec3(1908, 165, -1596),
                 Te.s("北部高地", CustomStyle.styleOfPlain),
                 Te.s("", CustomStyle.styleOfPlain), 70));
+        add(new ZonePoint(new Vec3(2006, 130, -1785),
+                Te.s("菌菇聚落", CustomStyle.MUSHROOM_STYLE),
+                Te.s("", CustomStyle.MUSHROOM_STYLE)));
     }};
 
     public static Map<Player, String> playerLastZoneMap = new WeakHashMap<>();
@@ -319,7 +322,7 @@ public class MyWayPoint {
         add(new MyWayPoint(new Vec3(1731, 137, 1875), "北望村", colorMap.get(green), 0));
 
         add(new MyWayPoint(new Vec3(1573, 54, 149), "炼魔涌溢", colorMap.get(darkPurple), 0));
-
+        add(new MyWayPoint(new Vec3(2006, 130, -1785), "菌菇聚落", colorMap.get(red), 0));
         // 轻轨
         add(new MyWayPoint(new Vec3(2454, 130, -171), "蒙特轻轨检修基地", colorMap.get(yellow), 0));
         add(new MyWayPoint(new Vec3(2343, 130, 31), "轻轨东洋塔站", colorMap.get(yellow), 0));

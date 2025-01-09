@@ -52,12 +52,15 @@ public record SingleItemChangeRecipe(ItemStack needStack, ItemStack goods, Strin
     );
 
     public static List<SingleItemChangeRecipe> bondStoreRecipe = List.of(
+            new SingleItemChangeRecipe(new ItemStack(ModItems.BOND.get(), 3),
+                    new ItemStack(AllayItems.ALLAY_SPAWNER.get()), SingleItemChangePurchaseLimit.Type.NULL, 0),
             new SingleItemChangeRecipe(new ItemStack(ModItems.BOND.get(), 1),
                     new ItemStack(AllayItems.ALLAY_NUGGET.get()), SingleItemChangePurchaseLimit.Type.NULL, 0),
             new SingleItemChangeRecipe(new ItemStack(ModItems.BOND.get(), 3),
-                    new ItemStack(SmithItems.STONE_HAMMER.get()), SingleItemChangePurchaseLimit.Type.NULL, 0),
+                    new ItemStack(SmithItems.SMITH_BOOK.get()), SingleItemChangePurchaseLimit.Type.NULL, 0),
             new SingleItemChangeRecipe(new ItemStack(ModItems.BOND.get(), 1),
                     new ItemStack(SmithItems.SMITH_STONE.get()), SingleItemChangePurchaseLimit.Type.NULL, 0)
+
     );
 
     public static List<SingleItemChangeRecipe> getRecipeList() {

@@ -30,6 +30,9 @@ public class BankOperationCommand implements Command<CommandSourceStack> {
             case "getDividends" -> {
                 BondDividends.getDividends(player);
             }
+            case "tryToGetGoldenBeans" -> {
+                Bank.tryToGetGoldenBeans(player);
+            }
         }
         return 0;
     }

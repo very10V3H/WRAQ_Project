@@ -9,7 +9,7 @@ import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.TeamPackets.ScreenSetS2CPacket;
 import fun.wraq.networking.unSorted.VillagerTradeScreenS2CPacket;
 import fun.wraq.process.func.multiblockactive.rightclick.RightClickActiveHandler;
-import fun.wraq.process.system.bank.BondDividends;
+import fun.wraq.process.system.bank.Bank;
 import fun.wraq.process.system.entrustment.mob.MobKillEntrustment;
 import fun.wraq.process.system.profession.pet.allay.AllayPet;
 import fun.wraq.process.system.profession.pet.allay.AllayPetPlayerData;
@@ -105,7 +105,7 @@ public class RightClickEvent {
                     return;
                 }
                 case "联合银行职员" -> {
-                    BondDividends.onPlayerInteractWithVillager(player);
+                    Bank.onPlayerInteractWithVillager(player);
                     event.setCanceled(true);
                     return;
                 }

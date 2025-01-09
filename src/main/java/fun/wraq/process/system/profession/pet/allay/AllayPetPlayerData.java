@@ -4,9 +4,11 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
+import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.process.func.item.InventoryOperation;
+import fun.wraq.process.system.profession.pet.allay.item.AllayItems;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -168,7 +170,7 @@ public class AllayPetPlayerData {
 
     public static List<ItemStack> getIncrementTierNeedMaterial(int currentTier) {
         return List.of(
-                new ItemStack(ModItems.BOND.get(), 3 + currentTier),
+                new ItemStack(AllayItems.ALLAY_NUGGET.get(), 3 + currentTier),
                 new ItemStack(ModItems.GOLDEN_BEANS.get(), 30 + currentTier * 15)
         );
     }
@@ -213,16 +215,30 @@ public class AllayPetPlayerData {
 
     public static void queryAllayInfo(Player player) {
         sendMSG(player, Te.s(" ", Utils.getLevelDescription(getAllayXpLevel(player)),
-                getAllayName(player), CustomStyle.styleOfWorld, "的基本信息如下"));
+                getAllayName(player), CustomStyle.styleOfWorld, " 的基本信息如下"));
+        player.sendSystemMessage(Te.s(" ".repeat(4), "等阶 ", ChatFormatting.GOLD,
+                getAllayTierDescription(getAllayTier(player))));
         player.sendSystemMessage(Te.s(" ".repeat(4), "经验值 ", ChatFormatting.LIGHT_PURPLE,
                 Compute.getSimplifiedNumberDescription(getAllayXpValue(player)), ChatFormatting.LIGHT_PURPLE, " / ",
-                Compute.getSimplifiedNumberDescription(Compute.getCurrentXpLevelUpNeedXpPoint(getAllayXpLevel(player))), CustomStyle.styleOfLucky));
-        player.sendSystemMessage(Te.s(" ".repeat(4),
-                ATTACK_SKILL_NAME, " Lv." + getSkillLevel(player, ATTACK_LEVEL_KEY), CustomStyle.styleOfWorld));
-        player.sendSystemMessage(Te.s(" ".repeat(4),
-                HEALING_SKILL_NAME, " Lv." + getSkillLevel(player, HEALING_LEVEL_KEY), CustomStyle.styleOfWorld));
-        player.sendSystemMessage(Te.s(" ".repeat(4),
-                GEM_PIECE_SKILL_NAME, " Lv." + getSkillLevel(player, GEM_PIECE_LEVEL_KEY), CustomStyle.styleOfWorld));
+                Compute.getSimplifiedNumberDescription(Compute.getCurrentXpLevelUpNeedXpPoint(getAllayXpLevel(player))),
+                CustomStyle.styleOfLucky));
+        int attackSkillLevel = getSkillLevel(player, ATTACK_LEVEL_KEY);
+        player.sendSystemMessage(Te.s(" ".repeat(4), "∮", CustomStyle.styleOfWorld,
+                ATTACK_SKILL_NAME, " Lv." + attackSkillLevel, CustomStyle.styleOfWorld));
+        player.sendSystemMessage(Te.s(" ".repeat(4), " - ", "每秒对最近的怪物造成",
+                ComponentUtils.getAutoAdaptDamageDescription(String.format("%.0f%%", 0.1 * attackSkillLevel * 100))));
+        int healingSkillLevel = getSkillLevel(player, HEALING_LEVEL_KEY);
+        player.sendSystemMessage(Te.s(" ".repeat(4), "∮", CustomStyle.styleOfWorld,
+                HEALING_SKILL_NAME, " Lv." + healingSkillLevel, CustomStyle.styleOfWorld));
+        player.sendSystemMessage(Te.s(" ".repeat(4), " - ", "每2s为主人回复",
+                ComponentUtils.AttributeDescription.health(
+                        String.valueOf(40 + 2 * healingSkillLevel * player.experienceLevel))));
+        int gemPieceSkillLevel = getSkillLevel(player, GEM_PIECE_LEVEL_KEY);
+        player.sendSystemMessage(Te.s(" ".repeat(4), "∮", CustomStyle.styleOfWorld,
+                GEM_PIECE_SKILL_NAME, " Lv." + gemPieceSkillLevel, CustomStyle.styleOfWorld));
+        player.sendSystemMessage(Te.s(" ".repeat(4), " - ", "击杀怪物", ChatFormatting.RED,
+                "额外提供", String.format(" %.2f%% ", (0.5 + 0.05 * gemPieceSkillLevel)), CustomStyle.styleOfPurpleIron,
+                ModItems.GEM_PIECE, "掉落概率"));
     }
 
     private static void sendMSG(Player player, Component content) {

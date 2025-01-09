@@ -15,7 +15,7 @@ public class SmithItems {
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.Stone)));
 
     public static final RegistryObject<Item> SMITH_BOOK = ITEMS.register("smith_book",
-            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.Stone)));
+            () -> new SmithBook(new Item.Properties().rarity(CustomStyle.StoneBold)));
 
     public static final RegistryObject<Item> STONE_HAMMER = ITEMS.register("smith_stone_hammer",
             () -> new SmithHammer(new Item.Properties().rarity(CustomStyle.MineBold), 1));
