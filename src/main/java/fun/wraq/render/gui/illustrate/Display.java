@@ -3,6 +3,13 @@ package fun.wraq.render.gui.illustrate;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.process.system.potion.NewPotion;
 import fun.wraq.process.system.potion.NewThrowablePotion;
+import fun.wraq.process.system.profession.pet.allay.item.AllayItems;
+import fun.wraq.process.system.profession.smith.SmithItems;
+import fun.wraq.series.instance.blade.BladeItems;
+import fun.wraq.series.instance.mixture.MixtureItems;
+import fun.wraq.series.instance.quiver.QuiverItems;
+import fun.wraq.series.instance.series.mushroom.MushroomItems;
+import fun.wraq.series.instance.series.warden.WardenItems;
 import fun.wraq.series.specialevents.SpecialEventItems;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
@@ -32,6 +39,8 @@ public class Display {
 
     public static List<Item> materialList = new ArrayList<>();
     public static List<Item> souvenirsList = new ArrayList<>();
+
+    public static List<Item> newItemList = new ArrayList<>();
 
     public static List<Item> getSouvenirsList() {
         if (souvenirsList.isEmpty()) {
@@ -76,5 +85,35 @@ public class Display {
             Item item = registryObject.get();
             if (item instanceof NewPotion || item instanceof NewThrowablePotion) BrewingList.add(item);
         }
+    }
+
+    public static List<Item> getNewItemList() {
+        if (newItemList.isEmpty()) {
+            Item[] items = {
+                    WardenItems.DARK_MOON_SHIELD.get(),
+                    WardenItems.DARK_MOON_KNIFE.get(),
+                    WardenItems.DARK_MOON_BOOK.get(),
+                    BladeItems.BLADE_CASTLE.get(),
+                    BladeItems.BLADE_MOONTAIN.get(),
+                    QuiverItems.QUIVER_CASTLE.get(),
+                    QuiverItems.QUIVER_MOONTAIN.get(),
+                    MixtureItems.MIXTURE_CASTLE.get(),
+                    MixtureItems.MIXTURE_MOONTAIN.get()
+            };
+            newItemList.addAll(List.of(items));
+            MushroomItems.ITEMS.getEntries()
+                    .stream()
+                    .map(entry -> entry.get().asItem())
+                    .forEach(item -> newItemList.add(item));
+            AllayItems.ITEMS.getEntries()
+                    .stream()
+                    .map(entry -> entry.get().asItem())
+                    .forEach(item -> newItemList.add(item));
+            SmithItems.ITEMS.getEntries()
+                    .stream()
+                    .map(entry -> entry.get().asItem())
+                    .forEach(item -> newItemList.add(item));
+        }
+        return newItemList;
     }
 }

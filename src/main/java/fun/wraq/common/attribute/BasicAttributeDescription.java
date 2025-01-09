@@ -1083,7 +1083,8 @@ public class BasicAttributeDescription {
                     append(Component.literal("θ-锻造品质: ").withStyle(CustomStyle.styleOfGold)).
                     append(ForgeEquipUtils.getDescription(forgeQuality)));
             if (itemStack.getTagElement(Utils.MOD_ID) != null
-                    && itemStack.getTagElement(Utils.MOD_ID).contains(Illustrate.DISPLAY_FLAG)) {
+                    && itemStack.getTagElement(Utils.MOD_ID).contains(Illustrate.DISPLAY_FLAG)
+                    && !Utils.offHandTag.containsKey(itemStack.getItem())) {
                 components.add(Te.m(" 按住左CTRL停止品质滚动", ChatFormatting.AQUA));
             }
         }

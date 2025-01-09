@@ -1,4 +1,4 @@
-package fun.wraq.series.instance.series.warden.offhand;
+package fun.wraq.series.instance.series.warden.offhand.warden;
 
 import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.registry.ModItems;
@@ -13,7 +13,7 @@ import java.util.List;
 
 public class WardenBook extends WardenOffhandItem implements ForgeItem {
     public WardenBook(Properties properties, Component type) {
-        super(properties, type);
+        super(properties, type, false);
         Utils.manaDamage.put(this, 577d);
         Utils.manaPenetration0.put(this, 17d);
         Utils.maxMana.put(this, 87d);

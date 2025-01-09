@@ -87,7 +87,11 @@ public class WraqForge extends Item {
                     for (int i = 0; i < inventory.getContainerSize(); i++) {
                         ItemStack itemStack = inventory.getItem(i);
                         if (itemStack.is(item)) {
-                            data = inventory.getItem(i).getOrCreateTagElement(Utils.MOD_ID).copy();
+                            if ((Utils.mainHandTag.containsKey(item) && Utils.mainHandTag.containsKey(forgedItem))
+                                    || (Utils.armorTag.containsKey(item) && Utils.armorTag.containsKey(forgedItem))
+                                    || (Utils.offHandTag.containsKey(item) && Utils.offHandTag.containsKey(forgedItem))) {
+                                data = inventory.getItem(i).getOrCreateTagElement(Utils.MOD_ID).copy();
+                            }
                             if (Utils.mainHandTag.containsKey(item) || Utils.armorTag.containsKey(item)) {
                                 oldTier = ForgeEquipUtils.getForgeQualityOnEquip(itemStack);
                             }
@@ -115,7 +119,9 @@ public class WraqForge extends Item {
                     Component.literal("锻造成功！").withStyle(ChatFormatting.GOLD));
             MySound.soundToPlayer(player, SoundEvents.ANVIL_USE);
 
-            if (data != null) productItemStack.getOrCreateTagElement(Utils.MOD_ID).merge(data);
+            if (data != null) {
+                productItemStack.getOrCreateTagElement(Utils.MOD_ID).merge(data);
+            }
             Compute.forgingHoverName(productItemStack);
 
             // 锻造品质

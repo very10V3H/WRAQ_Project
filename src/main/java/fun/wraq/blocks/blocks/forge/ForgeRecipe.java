@@ -60,27 +60,32 @@ public class ForgeRecipe {
                 tooltip.add(Component.literal(" 材料需求:").withStyle(CustomStyle.styleOfSky));
                 List<ItemStack> list = forgeDrawRecipe.get(itemStack.getItem());
                 for (int i = 0; i < list.size(); i++) {
-                    ItemStack stack = list.get(i);
-                    int playerInventoryHasNum = InventoryOperation.itemStackCount(Minecraft.getInstance().player, stack.getItem());
-                    if (playerInventoryHasNum >= stack.getCount()) {
-                        tooltip.add(Component.literal((i + 1) + ".").append(stack.getDisplayName()).
+                    ItemStack material = list.get(i);
+                    Item materialItem = material.getItem();
+                    int playerInventoryHasNum = InventoryOperation.itemStackCount(Minecraft.getInstance().player, material.getItem());
+                    if (playerInventoryHasNum >= material.getCount()) {
+                        tooltip.add(Component.literal((i + 1) + ".").append(material.getDisplayName()).
                                 append(Component.literal(" (")).withStyle(ChatFormatting.WHITE).
-                                append(Component.literal("" + stack.getCount()).withStyle(ChatFormatting.AQUA)).
+                                append(Component.literal("" + material.getCount()).withStyle(ChatFormatting.AQUA)).
                                 append(Component.literal("/").withStyle(ChatFormatting.WHITE)).
-                                append(Component.literal("" + stack.getCount()).withStyle(CustomStyle.styleOfMoon)).
+                                append(Component.literal("" + material.getCount()).withStyle(CustomStyle.styleOfMoon)).
                                 append(Component.literal(")").withStyle(ChatFormatting.WHITE)).
                                 append(Component.literal(" √").withStyle(ChatFormatting.GREEN)));
                     } else {
-                        tooltip.add(Component.literal((i + 1) + ".").append(stack.getDisplayName()).
+                        tooltip.add(Component.literal((i + 1) + ".").append(material.getDisplayName()).
                                 append(Component.literal(" (")).withStyle(ChatFormatting.WHITE).
                                 append(Component.literal("" + playerInventoryHasNum).withStyle(ChatFormatting.AQUA)).
                                 append(Component.literal("/").withStyle(ChatFormatting.WHITE)).
-                                append(Component.literal("" + stack.getCount()).withStyle(CustomStyle.styleOfMoon)).
+                                append(Component.literal("" + material.getCount()).withStyle(CustomStyle.styleOfMoon)).
                                 append(Component.literal(")").withStyle(ChatFormatting.WHITE)).
                                 append(Component.literal(" -").withStyle(ChatFormatting.WHITE)));
                     }
-                    if (Utils.weaponList.contains(stack.getItem()) || item instanceof WraqPickaxe) {
-                        tooltip.add(Te.s("▲将保留强化等级/品质/宝石等信息", CustomStyle.styleOfGold));
+                    if (Utils.weaponList.contains(material.getItem()) || item instanceof WraqPickaxe) {
+                        if ((Utils.mainHandTag.containsKey(materialItem) && Utils.mainHandTag.containsKey(item))
+                                || (Utils.offHandTag.containsKey(materialItem) && Utils.offHandTag.containsKey(item))
+                                || (Utils.armorTag.containsKey(materialItem) && Utils.armorTag.containsKey(item))) {
+                            tooltip.add(Te.s("▲将保留强化等级/品质/宝石等信息", CustomStyle.styleOfGold));
+                        }
                     }
                 }
             }

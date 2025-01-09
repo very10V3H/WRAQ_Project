@@ -1,4 +1,4 @@
-package fun.wraq.series.instance.series.warden.offhand;
+package fun.wraq.series.instance.series.warden.offhand.warden;
 
 import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.registry.ModItems;
@@ -11,21 +11,22 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
 
-public class WardenKnife extends WardenOffhandItem implements ForgeItem {
-    public WardenKnife(Properties properties, Component type) {
-        super(properties, type);
+public class WardenShield extends WardenOffhandItem implements ForgeItem {
+    public WardenShield(Properties properties, Component type) {
+        super(properties, type, false);
+        Utils.defence.put(this, 17d);
+        Utils.maxHealth.put(this, 5777d);
         Utils.attackDamage.put(this, 377d);
-        Utils.defencePenetration0.put(this, 17d);
-        Utils.critRate.put(this, 0.17);
-        Utils.critDamage.put(this, 0.7);
+        Utils.critDamage.put(this, 0.37);
         Utils.expUp.put(this, 0.88);
+        Utils.shieldTag.put(this, 1d);
         Utils.levelRequire.put(this, 225);
     }
 
     @Override
     public List<ItemStack> forgeRecipe() {
         return List.of(
-                new ItemStack(ModItems.MoonKnife.get(), 1),
+                new ItemStack(ModItems.MoonShield.get(), 1),
                 new ItemStack(WardenItems.WARDEN_HEART.get(), 4),
                 new ItemStack(ModItems.GOLD_COIN.get(), 288),
                 new ItemStack(ModItems.COMPLETE_GEM.get(), 12),

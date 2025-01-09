@@ -267,7 +267,10 @@ public class ForgeEquipUtils {
         List<Item> moontain_strong_hold = List.of(
                 WardenItems.WARDEN_SHIELD.get(),
                 WardenItems.WARDEN_KNIFE.get(),
-                WardenItems.WARDEN_BOOK.get()
+                WardenItems.WARDEN_BOOK.get(),
+                WardenItems.DARK_MOON_SHIELD.get(),
+                WardenItems.DARK_MOON_KNIFE.get(),
+                WardenItems.DARK_MOON_BOOK.get()
         );
 
         zoneForgeItemListMap.put(MOONTAIN_STRONG_HOLD, new ArrayList<>() {{
