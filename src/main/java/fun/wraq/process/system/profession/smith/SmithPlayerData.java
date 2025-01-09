@@ -3,11 +3,14 @@ package fun.wraq.process.system.profession.smith;
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
+import fun.wraq.common.registry.MySound;
 import fun.wraq.process.func.item.InventoryOperation;
+import fun.wraq.process.system.profession.pet.allay.AllayPetPlayerData;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -56,15 +59,32 @@ public class SmithPlayerData {
     }
 
     public static Component getTierDescription(int tier) {
-        return Te.s("");
+        return AllayPetPlayerData.getAllayTierDescription(tier - 1);
     }
 
     public static int getMaxTier() {
         return 4;
     }
 
+    public static void onPlayerInteractWithVillager(Player player) {
+        sendMSG(player, Te.s("近来可好？", player));
+        Compute.sendBlankLine(player, 3);
+        player.sendSystemMessage(Te.s(" ".repeat(4),
+                Te.c(
+                        Te.s("「提升工匠等阶」", CustomStyle.styleOfGold),
+                        "/vmd profession smithTier",
+                        Te.s("点击以尝试提升工匠等阶")
+                )));
+        Compute.sendBlankLine(player, 4);
+        MySound.soundToNearPlayer(player, SoundEvents.VILLAGER_AMBIENT);
+    }
+
     public static void tryToIncrementAllayTier(Player player) {
         int currentTier = getTier(player);
+        if (currentTier == 0) {
+            sendMSG(player, Te.s("你还不是一名", "工匠", CustomStyle.styleOfGold));
+            return;
+        }
         sendMSG(player, Te.s("当前等阶为: ", getTierDescription(currentTier)));
         player.sendSystemMessage(Te.s("  升级到下一等阶需要:"));
         List<ItemStack> incrementTierNeedMaterials = getIncrementTierNeedMaterial(currentTier);
@@ -73,6 +93,12 @@ public class SmithPlayerData {
             player.sendSystemMessage(Te.s("  " + (i + 1) + ". ", CustomStyle.styleOfWorld,
                     stack, " * ", stack.getCount(), ChatFormatting.AQUA));
         }
+        sendMSG(player, Te.s(
+                Te.c(
+                        Te.s("提升等阶"),
+                        "/vmd profession incrementSmithTier",
+                        Te.s("点击以提升工匠等阶")
+                )));
     }
 
     public static void incrementAllayTier(Player player) {
@@ -83,15 +109,19 @@ public class SmithPlayerData {
         }
         if (InventoryOperation.checkPlayerHasItem(player, getIncrementTierNeedMaterial(tier))) {
             InventoryOperation.removeItemWithoutCheck(player, getIncrementTierNeedMaterial(tier));
+            InventoryOperation.itemStackGiveWithMSG(player, SmithHammer.getHammerByTier(tier + 1));
             Compute.incrementSpecificKeyDataIntValue(player, SMITH_PLAYER_DATA_KEY, TIER_KEY, 1);
             sendMSG(player, Te.s("已达到新的等阶:", getTierDescription(tier + 1)));
+        } else {
+            sendMSG(player, Te.s("似乎没有足够的材料来提升等阶..."));
         }
     }
 
     public static List<ItemStack> getIncrementTierNeedMaterial(int currentTier) {
         return List.of(
                 new ItemStack(ModItems.BOND.get(), 3 + currentTier),
-                new ItemStack(ModItems.GOLDEN_BEANS.get(), (30 + currentTier * 15) * 2)
+                new ItemStack(ModItems.GOLDEN_BEANS.get(), (30 + currentTier * 15) * 2),
+                new ItemStack(SmithHammer.getHammerByTier(currentTier))
         );
     }
 }

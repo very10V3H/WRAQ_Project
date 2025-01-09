@@ -25,7 +25,7 @@ public class ResetDailyCommand implements Command<CommandSourceStack> {
         List<ServerPlayer> playerList = player.getServer().getPlayerList().getPlayers();
         playerList.forEach(serverPlayer -> {
             try {
-                LoginInEvent.DailyRefreshContent(serverPlayer);
+                LoginInEvent.refreshDailyContent(serverPlayer);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

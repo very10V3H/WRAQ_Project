@@ -36,7 +36,7 @@ import fun.wraq.process.system.lottery.NewLotteries;
 import fun.wraq.process.system.market.MarketInfo;
 import fun.wraq.process.system.ore.OreItems;
 import fun.wraq.process.system.ore.PickaxeItems;
-import fun.wraq.process.system.profession.pet.PetScreen;
+import fun.wraq.process.system.profession.pet.dev.PetScreen;
 import fun.wraq.process.system.profession.pet.allay.AllayPet;
 import fun.wraq.process.system.profession.pet.allay.item.AllayItems;
 import fun.wraq.process.system.point.PointItems;

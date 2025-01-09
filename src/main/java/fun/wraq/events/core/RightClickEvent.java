@@ -9,9 +9,11 @@ import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.TeamPackets.ScreenSetS2CPacket;
 import fun.wraq.networking.unSorted.VillagerTradeScreenS2CPacket;
 import fun.wraq.process.func.multiblockactive.rightclick.RightClickActiveHandler;
+import fun.wraq.process.system.bank.BondDividends;
 import fun.wraq.process.system.entrustment.mob.MobKillEntrustment;
 import fun.wraq.process.system.profession.pet.allay.AllayPet;
 import fun.wraq.process.system.profession.pet.allay.AllayPetPlayerData;
+import fun.wraq.process.system.profession.smith.SmithPlayerData;
 import fun.wraq.render.gui.villagerTrade.MyVillagerData;
 import fun.wraq.render.gui.villagerTrade.TradeList;
 import net.minecraft.nbt.CompoundTag;
@@ -94,14 +96,37 @@ public class RightClickEvent {
     @SubscribeEvent
     public static void Trade(PlayerInteractEvent.EntityInteract event) throws SQLException, ParseException {
         if (event.getSide().isServer() && event.getTarget() instanceof Villager villager) {
-            if (villager.getName().getString().equals(MobKillEntrustment.VILLAGER_NAME)) {
-                MobKillEntrustment.onPlayerInteractWithVillager(event.getEntity());
-                event.setCanceled(true);
+            String name = villager.getName().getString();
+            Player player = event.getEntity();
+            switch (name) {
+                case MobKillEntrustment.VILLAGER_NAME -> {
+                    MobKillEntrustment.onPlayerInteractWithVillager(player);
+                    event.setCanceled(true);
+                    return;
+                }
+                case "联合银行职员" -> {
+                    BondDividends.onPlayerInteractWithVillager(player);
+                    event.setCanceled(true);
+                    return;
+                }
+                case "悦灵学者" -> {
+                    AllayPetPlayerData.onPlayerInteractWithVillager(player);
+                    event.setCanceled(true);
+                    return;
+                }
+                case "工匠学者" -> {
+                    SmithPlayerData.onPlayerInteractWithVillager(player);
+                    event.setCanceled(true);
+                    return;
+                }
+                case "逆熵学者" -> {
+                    ModNetworking.sendToClient(new ScreenSetS2CPacket(6), (ServerPlayer) player);
+                    return;
+                }
             }
-            if (villager.getName().getString().equals("逆熵学者")) {
-                ModNetworking.sendToClient(new ScreenSetS2CPacket(6), (ServerPlayer) event.getEntity());
+            if (TradeList.tradeContent.isEmpty() || TradeList.tradeRecipeMap.isEmpty()) {
+                TradeList.setTradeContent();
             }
-            if (TradeList.tradeContent.isEmpty() || TradeList.tradeRecipeMap.isEmpty()) TradeList.setTradeContent();
             boolean flag = false;
             for (MutableComponent value : StringUtils.VillagerNameMap.values()) {
                 if (value.getString().equals(villager.getName().getString())) flag = true;

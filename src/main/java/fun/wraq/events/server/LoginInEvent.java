@@ -32,6 +32,7 @@ import fun.wraq.process.func.plan.DailySupply;
 import fun.wraq.process.func.rank.RankData;
 import fun.wraq.process.func.security.mac.MacServer;
 import fun.wraq.process.func.security.mac.network.MacRequestS2CPacket;
+import fun.wraq.process.system.bank.BondDividends;
 import fun.wraq.process.system.bonuschest.BonusChestPlayerData;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.entrustment.mob.MobKillEntrustment;
@@ -202,7 +203,7 @@ public class LoginInEvent {
             if (!data.contains(StringUtils.PsRefreshDate)) {
                 Calendar calendar = Calendar.getInstance();
                 data.putString(StringUtils.PsRefreshDate, Compute.CalendarToString(calendar));
-                DailyRefreshContent(player);
+                refreshDailyContent(player);
             } else {
                 Calendar currentDate = Calendar.getInstance();
                 Calendar lastRefreshDate = Compute.StringToCalendar(data.getString(StringUtils.PsRefreshDate));
@@ -219,7 +220,7 @@ public class LoginInEvent {
                 }
                 if (lastRefreshDate.before(refreshDate)) {
                     data.putString(StringUtils.PsRefreshDate, Compute.CalendarToString(currentDate));
-                    DailyRefreshContent(player);
+                    refreshDailyContent(player);
                 }
             }
 
@@ -228,14 +229,14 @@ public class LoginInEvent {
             if (!data.contains(StringUtils.WeeklyRefreshWeekNum)) {
                 data.putInt(StringUtils.WeeklyRefreshWeekNum, calendar.get(Calendar.WEEK_OF_YEAR));
                 data.putInt(StringUtils.WeeklyRefreshYearNum, calendar.get(Calendar.YEAR));
-                WeeklyRefreshContent(player);
+                refreshWeeklyContent(player);
             } else {
                 int weekOfYear = data.getInt(StringUtils.WeeklyRefreshWeekNum);
                 int year = data.getInt(StringUtils.WeeklyRefreshYearNum);
                 if (weekOfYear != calendar.get(Calendar.WEEK_OF_YEAR) || year != calendar.get(Calendar.YEAR)) {
                     data.putInt(StringUtils.WeeklyRefreshWeekNum, calendar.get(Calendar.WEEK_OF_YEAR));
                     data.putInt(StringUtils.WeeklyRefreshYearNum, calendar.get(Calendar.YEAR));
-                    WeeklyRefreshContent(player);
+                    refreshWeeklyContent(player);
                 }
             }
 
@@ -433,7 +434,7 @@ public class LoginInEvent {
         }
     }
 
-    public static void DailyRefreshContent(Player player) throws IOException {
+    public static void refreshDailyContent(Player player) throws IOException {
         CompoundTag data = player.getPersistentData();
         Reason.setPlayerReasonValue(player, 100);
         Utils.playerReputationMissionPunishLevel.remove(player.getName().getString());
@@ -457,9 +458,10 @@ public class LoginInEvent {
         SingleItemChangePurchaseLimit.refreshDaily(player);
         RandomEventData.resetWorldSoul5DailyGetTimes(player);
         MobKillEntrustment.setDailyFinishedTimes(player, 0);
+        BondDividends.setAllowGetDividends(player, true);
     }
 
-    public static void WeeklyRefreshContent(Player player) {
+    public static void refreshWeeklyContent(Player player) {
         SingleItemChangePurchaseLimit.refreshWeekly(player);
         MobKillEntrustment.setWeeklyFinishedTimes(player, 0);
     }

@@ -43,6 +43,7 @@ import fun.wraq.networking.misc.SkillPackets.Charging.SwordSkill12S2CPacket;
 import fun.wraq.networking.misc.TeamPackets.ScreenSetS2CPacket;
 import fun.wraq.networking.misc.USE.MobEffectHudS2CPacket;
 import fun.wraq.networking.reputation.ReputationValueS2CPacket;
+import fun.wraq.networking.unSorted.VillagerTradeScreenS2CPacket;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
 import fun.wraq.process.func.item.InventoryOperation;
@@ -2071,5 +2072,9 @@ public class Compute {
         ItemStack itemStack = new ItemStack(item);
         itemStack.enchant(Enchantments.UNBREAKING, 1);
         return itemStack;
+    }
+
+    public static void openTradeScreenByVillagerName(Player player, String villagerName) {
+        ModNetworking.sendToClient(new VillagerTradeScreenS2CPacket(villagerName), (ServerPlayer) player);
     }
 }

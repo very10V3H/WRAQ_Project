@@ -5,15 +5,20 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import fun.wraq.blocks.blocks.brew.BrewingRecipe;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
+import fun.wraq.process.system.entrustment.mob.MobKillEntrustment;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.VillagerData;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.VillagerType;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -21,6 +26,7 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.item.trading.MerchantOffers;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.HashMap;
 import java.util.List;
@@ -164,5 +170,24 @@ public class SummonVillagerCommand implements Command<CommandSourceStack> {
         );
         offers.addAll(merchantOffers);
         return offers;
+    }
+
+    public static void summonVillager(Player player, VillagerType villagerType, VillagerProfession villagerProfession,
+                                      String villagerName, Style style) {
+        if (player.isCreative()) {
+            Vec3 pos = player.pick(5, 0, true).getLocation();
+            Level level = player.level();
+            Villager villager = new Villager(EntityType.VILLAGER, level);
+            VillagerData villagerData = new VillagerData(villagerType, villagerProfession, 5);
+            villager.setVillagerData(villagerData);
+            villager.moveTo(pos.x, pos.y, pos.z);
+            villager.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0);
+            villager.setCustomName(Te.s(villagerName, style));
+            villager.setCustomNameVisible(true);
+            villager.setInvulnerable(true);
+            level.addFreshEntity(villager);
+        } else {
+            MobKillEntrustment.sendMSG(player, Te.s("仅op使用"));
+        }
     }
 }

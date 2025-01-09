@@ -7,6 +7,7 @@ import fun.wraq.process.system.forge.ForgeHammer;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
@@ -48,5 +49,18 @@ public class SmithHammer extends WraqCurios {
 
     public int getTier() {
         return tier;
+    }
+
+    public static Item getHammerByTier(int tier) {
+        return List.of(
+                SmithItems.STONE_HAMMER.get(),
+                SmithItems.IRON_HAMMER.get(),
+                SmithItems.COPPER_HAMMER.get(),
+                SmithItems.GOLDEN_HAMMER.get(),
+                SmithItems.DIAMOND_HAMMER.get(),
+                SmithItems.EMERALD_HAMMER.get(),
+                SmithItems.NETHER_HAMMER.get(),
+                SmithItems.END_HAMMER.get()
+        ).get(tier);
     }
 }

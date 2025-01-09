@@ -28,7 +28,7 @@ public class Bank {
         double afterIncomeGB = currentGB + incomeValue;
         setGBValue(player, afterIncomeGB);
         sendMSG(player, Te.s(" + ", ChatFormatting.GREEN,
-                String.format("%.1f", incomeValue), CustomStyle.styleOfGold,
+                String.format("%.1f", incomeValue) + " GB", CustomStyle.styleOfGold,
                 " (", String.format("%.1f", afterIncomeGB), CustomStyle.styleOfGold, ")"));
     }
 
@@ -37,7 +37,7 @@ public class Bank {
         double afterIncomeGB = currentGB - expenseValue;
         setGBValue(player, afterIncomeGB);
         sendMSG(player, Te.s(" - ", ChatFormatting.RED,
-                String.format("%.1f", expenseValue), CustomStyle.styleOfGold,
+                String.format("%.1f", expenseValue) + " GB", CustomStyle.styleOfGold,
                 " (", String.format("%.1f", afterIncomeGB), CustomStyle.styleOfGold, ")"));
     }
 

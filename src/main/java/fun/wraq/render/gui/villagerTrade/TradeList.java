@@ -8,6 +8,7 @@ import fun.wraq.customized.uniform.UnCommonUniform;
 import fun.wraq.process.system.element.ElementItems;
 import fun.wraq.process.system.enhanceForge.ForgeMaterials;
 import fun.wraq.process.system.ore.PickaxeItems;
+import fun.wraq.process.system.profession.pet.allay.item.AllayItems;
 import fun.wraq.process.system.spur.Items.SpurItems;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.end.citadel.CitadelItems;
@@ -59,6 +60,8 @@ public class TradeList {
         endlessCoreStore();
         forgeHammer();
         sunCurio();
+
+        allay();
 
         /* 1.0 */
 
@@ -3248,5 +3251,24 @@ public class TradeList {
         tradeRecipeMap.put(sakuraIndustrySceptre,
                 List.of(new ItemStack(ModItems.ROSE_GOLD_COIN.get(), 96),
                         new ItemStack(ModItems.COMPLETE_GEM.get(), 16)));
+    }
+
+    public static void allay() {
+        ItemStack attackSkillBook = new ItemStack(AllayItems.ATTACK_SKILL_BOOK.get());
+        ItemStack healingSkillBook = new ItemStack(AllayItems.HEALING_SKILL_BOOK.get());
+        ItemStack gemPieceSkillBook = new ItemStack(AllayItems.GEM_PIECE_SKILL_BOOK.get());
+        ItemStack[] itemStacks = {
+                attackSkillBook, healingSkillBook, gemPieceSkillBook
+        };
+        List<ItemStack> contentList = new ArrayList<>();
+        Collections.addAll(contentList, itemStacks);
+        MyVillagerData.setMyVillagerData("悦灵学者", "allay", CustomStyle.styleOfWorld,
+                VillagerType.PLAINS, VillagerProfession.CARTOGRAPHER, contentList);
+        tradeRecipeMap.put(attackSkillBook,
+                List.of(new ItemStack(ModItems.GOLDEN_BEANS.get(), 16)));
+        tradeRecipeMap.put(healingSkillBook,
+                List.of(new ItemStack(ModItems.GOLDEN_BEANS.get(), 16)));
+        tradeRecipeMap.put(gemPieceSkillBook,
+                List.of(new ItemStack(ModItems.GOLDEN_BEANS.get(), 16)));
     }
 }

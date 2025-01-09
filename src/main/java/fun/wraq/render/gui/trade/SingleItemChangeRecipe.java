@@ -3,6 +3,7 @@ package fun.wraq.render.gui.trade;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.process.system.endlessinstance.item.EndlessInstanceItems;
 import fun.wraq.process.system.profession.pet.allay.item.AllayItems;
+import fun.wraq.process.system.profession.smith.SmithItems;
 import fun.wraq.series.moontain.MoontainItems;
 import net.minecraft.world.item.ItemStack;
 
@@ -51,14 +52,12 @@ public record SingleItemChangeRecipe(ItemStack needStack, ItemStack goods, Strin
     );
 
     public static List<SingleItemChangeRecipe> bondStoreRecipe = List.of(
+            new SingleItemChangeRecipe(new ItemStack(ModItems.BOND.get(), 1),
+                    new ItemStack(AllayItems.ALLAY_NUGGET.get()), SingleItemChangePurchaseLimit.Type.NULL, 0),
             new SingleItemChangeRecipe(new ItemStack(ModItems.BOND.get(), 3),
-                    new ItemStack(AllayItems.ALLAY_SPAWNER.get()), SingleItemChangePurchaseLimit.Type.NULL, 0),
-            new SingleItemChangeRecipe(new ItemStack(ModItems.BOND.get()),
-                    new ItemStack(AllayItems.ATTACK_SKILL_BOOK.get()), SingleItemChangePurchaseLimit.Type.NULL, 0),
-            new SingleItemChangeRecipe(new ItemStack(ModItems.BOND.get()),
-                    new ItemStack(AllayItems.HEALING_SKILL_BOOK.get()), SingleItemChangePurchaseLimit.Type.NULL, 0),
-            new SingleItemChangeRecipe(new ItemStack(ModItems.BOND.get()),
-                    new ItemStack(AllayItems.GEM_PIECE_SKILL_BOOK.get()), SingleItemChangePurchaseLimit.Type.NULL, 0)
+                    new ItemStack(SmithItems.STONE_HAMMER.get()), SingleItemChangePurchaseLimit.Type.NULL, 0),
+            new SingleItemChangeRecipe(new ItemStack(ModItems.BOND.get(), 1),
+                    new ItemStack(SmithItems.SMITH_STONE.get()), SingleItemChangePurchaseLimit.Type.NULL, 0)
     );
 
     public static List<SingleItemChangeRecipe> getRecipeList() {

@@ -9,8 +9,10 @@ import fun.wraq.commands.changeable.*;
 import fun.wraq.commands.stable.ops.*;
 import fun.wraq.commands.stable.players.*;
 import fun.wraq.common.util.Utils;
+import fun.wraq.process.system.bank.BankOperationCommand;
 import fun.wraq.process.system.bonuschest.BonusInfoCommand;
 import fun.wraq.process.system.entrustment.mob.MobKillEntrustmentOperationCommand;
+import fun.wraq.process.system.profession.ProfessionOperationCommand;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.GameProfileArgument;
@@ -673,7 +675,16 @@ public class CommandHandler {
                 Commands.literal(Utils.MOD_ID).then(
                         Commands.literal("profession").then(
                                 Commands.argument("operation", StringArgumentType.string())
-                                        .executes(MobKillEntrustmentOperationCommand.instance)
+                                        .executes(ProfessionOperationCommand.instance)
+                        ).requires(commandSourceStack -> commandSourceStack.hasPermission(0))
+                )
+        );
+        CommandDispatcher<CommandSourceStack> dispatcher72 = event.getDispatcher();
+        LiteralCommandNode<CommandSourceStack> cmd72 = dispatcher72.register(
+                Commands.literal(Utils.MOD_ID).then(
+                        Commands.literal("bank").then(
+                                Commands.argument("operation", StringArgumentType.string())
+                                        .executes(BankOperationCommand.instance)
                         ).requires(commandSourceStack -> commandSourceStack.hasPermission(0))
                 )
         );
