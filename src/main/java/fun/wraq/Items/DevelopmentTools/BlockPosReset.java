@@ -1,7 +1,5 @@
 package fun.wraq.Items.DevelopmentTools;
 
-import fun.wraq.networking.ModNetworking;
-import fun.wraq.networking.misc.ResetC2SPacket;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -18,7 +16,6 @@ public class BlockPosReset extends Item {
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
-        ModNetworking.sendToServer(new ResetC2SPacket());
         if (!level.isClientSide) player.sendSystemMessage(Component.literal("Reset!"));
         return super.use(level, player, interactionHand);
     }

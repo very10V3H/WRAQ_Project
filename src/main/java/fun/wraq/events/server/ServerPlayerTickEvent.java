@@ -21,7 +21,6 @@ import fun.wraq.entities.entities.Civil.Civil;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.moontain.MoontainFloorTitle;
 import fun.wraq.networking.ModNetworking;
-import fun.wraq.networking.VersionCheckS2CPacket;
 import fun.wraq.networking.misc.AttributePackets.*;
 import fun.wraq.networking.misc.ParticlePackets.EffectParticle.DefencePenetrationParticleS2CPacket;
 import fun.wraq.networking.misc.ParticlePackets.SlowDownParticleS2CPacket;
@@ -48,8 +47,8 @@ import fun.wraq.process.system.endlessinstance.item.special.HoursExHarvestPotion
 import fun.wraq.process.system.entrustment.mob.MobKillEntrustment;
 import fun.wraq.process.system.missions.Mission;
 import fun.wraq.process.system.missions.series.dailyMission.DailyMission;
-import fun.wraq.process.system.profession.pet.allay.AllayPet;
 import fun.wraq.process.system.point.Point;
+import fun.wraq.process.system.profession.pet.allay.AllayPet;
 import fun.wraq.process.system.reason.Reason;
 import fun.wraq.process.system.respawn.MyRespawnRule;
 import fun.wraq.process.system.restzone.RestZone;
@@ -266,7 +265,7 @@ public class ServerPlayerTickEvent {
                 if (posAndLastTime.TickCount < 0) Utils.EndRune2Pos.remove(player);
             }
 
-            if (player.tickCount % 20 == 0) ModNetworking.sendToClient(new VersionCheckS2CPacket(), serverPlayer);
+            /*if (player.tickCount % 20 == 0) ModNetworking.sendToClient(new VersionCheckS2CPacket(), serverPlayer);*/
 
 /*            if (TickCount % 200 == 0 && player.level().equals(serverPlayer.getServer().getLevel(Level.OVERWORLD))
                     && (!Utils.PlayerFireWorkFightCoolDown.containsKey(player) || Utils.PlayerFireWorkFightCoolDown.get(player) < TickCount)) {

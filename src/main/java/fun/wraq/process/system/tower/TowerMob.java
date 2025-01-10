@@ -198,7 +198,7 @@ public class TowerMob {
 
                 List<Player> playerList = mob.level().getEntitiesOfClass(Player.class, AABB.ofSize(mob.position(), 30, 30, 30));
                 playerList.removeIf(player -> player.distanceTo(mob) > 9);
-                playerList.forEach(player -> Damage.causeManaDamageToPlayer(mob, player, 300));
+                playerList.forEach(player -> Damage.causeManaDamageToPlayer(mob, player, 600));
                 mob.heal(3000);
             }
         }

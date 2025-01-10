@@ -152,14 +152,14 @@ public class DevilInstance extends NoTeamInstance {
                 if (Mana.getPlayerCurrentManaNum(player) < manaDecrease) {
                     manaDecrease -= (int) Mana.getPlayerCurrentManaNum(player);
                     Mana.addOrCostPlayerMana(player, -Mana.getPlayerCurrentManaNum(player));
-                    Damage.causeManaDamageToPlayer(mob, player, 10 * manaDecrease);
+                    Damage.causeManaDamageToPlayer(mob, player, 20 * manaDecrease);
                 } else Mana.addOrCostPlayerMana(player, -manaDecrease);
 /*                Compute.setPlayerTitleAndSubTitle((ServerPlayer) player, Te.m("魔源奔流", CustomStyle.styleOfBloodMana),
                         Te.m("魔王吸取大量法力值!", ChatFormatting.RED), 0, 20, 10);*/
             }
         });
-        exDamage += 300;
-        MobSpawn.MobBaseAttributes.attackDamage.put(mobName, 1500 + exDamage);
+        exDamage += 600;
+        MobSpawn.MobBaseAttributes.attackDamage.put(mobName, 3000 + exDamage);
         ParticleProvider.GatherParticle(mob.position(), (ServerLevel) mob.level(), 1, 6, 120, ModParticles.LONG_ENTROPY.get(), 0.25);
         ParticleProvider.GatherParticle(mob.position(), (ServerLevel) mob.level(), 1.5, 6, 120, ModParticles.LONG_ENTROPY.get(), 0.25);
     }
@@ -167,7 +167,7 @@ public class DevilInstance extends NoTeamInstance {
     public static void skill2(Mob mob, List<Player> playerList) {
         playerList.forEach(player -> {
             if (player.distanceTo(mob) < 50) {
-                MonsterAttackEvent.monsterAttack(mob, player, 1000);
+                MonsterAttackEvent.monsterAttack(mob, player, 2000);
                 mob.heal(75000);
 /*                Compute.setPlayerTitleAndSubTitle((ServerPlayer) player, Te.m("腥月之子", CustomStyle.styleOfBloodMana),
                         Te.m("魔王吸取大量生命值!", ChatFormatting.RED), 0, 20, 10);*/

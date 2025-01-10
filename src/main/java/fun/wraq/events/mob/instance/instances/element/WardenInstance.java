@@ -197,7 +197,7 @@ public class WardenInstance extends NoTeamInstance {
     public static void onPlayerNormalAttackOrReleasePower(Player player) {
         WardenInstance wardenInstance = WardenInstance.getInstance();
         if (wardenInstance.players.contains(player)) {
-            Damage.causeManaDamageToPlayer(wardenInstance.boss, player, 1500, 0.5, 100);
+            Damage.causeManaDamageToPlayer(wardenInstance.boss, player, 3000, 0.5, 100);
         }
     }
 
@@ -401,8 +401,8 @@ public class WardenInstance extends NoTeamInstance {
                         new HashSet<>(Compute.getNearEntity(player, Player.class, 3)
                                 .stream().map(e -> (Player) e).toList());
                 playerSet.forEach(eachPlayer -> {
-                    Damage.causeAttackDamageToPlayer(boss, player, 5000);
-                    Damage.causeManaDamageToPlayer(boss, player, 5000, 0.5, 100);
+                    Damage.causeAttackDamageToPlayer(boss, player, 10000);
+                    Damage.causeManaDamageToPlayer(boss, player, 10000, 0.5, 100);
                     if (Tick.get() % 100 == 0) {
                         SpecialEffectOnPlayer.addSilentEffect(player, 60);
                         SpecialEffectOnPlayer.addBlindEffect(player, 60);

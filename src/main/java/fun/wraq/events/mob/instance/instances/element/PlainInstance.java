@@ -62,7 +62,7 @@ public class PlainInstance extends NoTeamInstance {
                 if (player.position().distanceTo(mob.position()) <= 6) {
                     player.heal(75);
                 } else {
-                    Damage.causeManaDamageToPlayer(mob, player, 125);
+                    Damage.causeManaDamageToPlayer(mob, player, 250);
                     mob.heal(125);
                 }
             });
@@ -75,7 +75,7 @@ public class PlainInstance extends NoTeamInstance {
         if (mob.tickCount % 100 == 50) {
             players.forEach(player -> {
                 if (player.position().distanceTo(mob.position()) <= 6) {
-                    Damage.causeManaDamageToPlayer(mob, player, 200);
+                    Damage.causeManaDamageToPlayer(mob, player, 400);
                     mob.heal(200);
                 } else {
                     player.heal(100);

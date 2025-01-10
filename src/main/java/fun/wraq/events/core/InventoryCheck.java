@@ -163,6 +163,7 @@ public class InventoryCheck {
                 ModItems.KillPaperLoot.get(),
                 ModItems.killPaper.get(),
                 ModItems.RevelationBook.get(),
+                ModItems.supplyBoxTier0.get(),
                 ModItems.supplyBoxTier1.get(),
                 ModItems.supplyBoxTier2.get(),
                 ModItems.supplyBoxTier3.get(),
