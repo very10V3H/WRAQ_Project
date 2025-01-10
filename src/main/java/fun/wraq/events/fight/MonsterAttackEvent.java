@@ -47,7 +47,6 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Stray;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -103,7 +102,7 @@ public class MonsterAttackEvent {
 
         // 史莱姆鞋子 伤害削减
         if (SlimeBoots.IsOn(player) && damage > 0) {
-            damage -= player.getMaxHealth() * 0.1;
+            damage -= player.getMaxHealth() * 0.025;
             ClientboundSoundPacket clientboundSoundPacket =
                     new ClientboundSoundPacket(Holder.direct(SoundEvents.SLIME_HURT), SoundSource.PLAYERS, player.getX(), player.getY(), player.getZ(), 0.4f, 0.4f, 0);
             ((ServerPlayer) player).connection.send(clientboundSoundPacket);
@@ -122,8 +121,6 @@ public class MonsterAttackEvent {
         damage *= WardenInstance.onPlayerWithstandDamageRate(player, monster);
         damage *= GemWithstandDamageRateModifier.onWithstandDamageRate(player, monster, damage);
         damage *= MinePower.onPlayerWithstand(player);
-
-        damage *= 2;
 
         double healthSteal = MobAttributes.healthSteal(monster);
 
@@ -147,7 +144,6 @@ public class MonsterAttackEvent {
 
             SnowArmorEffect(player, monster);
             SnowStrayAttackEffect(player, monster);
-            ForestZombieHealEffect(monster);
             mineMonsterAttack(monster, player);
             mineShield(player);
             DevilAttackArmor.DevilAttackArmorPassive(player, monster); // 封魔者圣铠
@@ -196,23 +192,12 @@ public class MonsterAttackEvent {
                 double playerDefence = PlayerAttributes.defence(player);
                 double CritDamageDecrease = PlayerAttributes.decreasePlayerCritDamage(player);
 
-                exDamage += MonsterExDamage(monster, player); // 各种怪物伤害增益
-
                 double finalDamage = ((baseDamage + exDamage) * CritDamage(critRate, critDamage, CritDamageDecrease) *
                         Damage.defenceDamageDecreaseRate(playerDefence, defencePenetration, defencePenetration0));
 
                 monsterAttack(monster, player, finalDamage);
             }
         }
-    }
-
-    public static double MonsterExDamage(Mob monster, Player player) {
-        double ExDamage = 0;
-        Item monsterHelmet = monster.getItemBySlot(EquipmentSlot.HEAD).getItem();
-        if (monsterHelmet.equals(ModItems.ArmorPlain.get())) {
-            ExDamage += player.getMaxHealth() * 0.05;
-        }
-        return ExDamage;
     }
 
     public static double CritDamage(double CritRate, double CritDamage, double CritDamageDecrease) {
@@ -255,12 +240,6 @@ public class MonsterAttackEvent {
     public static void SnowStrayAttackEffect(Player player, Mob monster) {
         if (monster instanceof Stray) {
             player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 5, 100, false, false));
-        }
-    }
-
-    public static void ForestZombieHealEffect(Mob monster) {
-        if (monster.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.ArmorForestZombie.get())) {
-            monster.heal(monster.getMaxHealth() * 0.1f);
         }
     }
 

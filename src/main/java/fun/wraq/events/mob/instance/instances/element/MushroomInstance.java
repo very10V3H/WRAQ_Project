@@ -188,13 +188,13 @@ public class MushroomInstance extends NoTeamInstance {
     }
 
     public void commonAttack() {
-        double commonAttackDamage = 5000;
+        double commonAttackDamage = 10000;
         Level level = boss.level();
         getAllPlayers(level).forEach(player -> {
             ParticleProvider.createLineEffectParticle(level, (int) player.distanceTo(boss) * 5,
                     boss.getEyePosition(), player.getEyePosition(), style);
             Damage.causeAttackDamageToPlayer(boss, player, commonAttackDamage);
-            Damage.causeManaDamageToPlayer(boss, player, commonAttackDamage, 0, 200);
+            Damage.causeManaDamageToPlayer(boss, player, commonAttackDamage, 0, 100);
         });
     }
 
@@ -209,7 +209,7 @@ public class MushroomInstance extends NoTeamInstance {
             Compute.getNearEntity(boss.level(), effect.center(), Player.class, 5)
                     .stream().filter(e -> e instanceof Player)
                     .map(e -> (Player) randomPlayer).forEach(eachPlayer -> {
-                        Damage.causeManaDamageToPlayer(boss, eachPlayer, 5000, 0, 200);
+                        Damage.causeManaDamageToPlayer(boss, eachPlayer, 10000, 0, 100);
                     });
         }), 5, 40);
 
@@ -228,7 +228,7 @@ public class MushroomInstance extends NoTeamInstance {
 
     public static double getAdjustDamageRate(Mob mob) {
         if (MobSpawn.getMobOriginName(mob).equals(mobName)) {
-            return -0.5;
+            return -0.9;
         }
         return 0;
     }

@@ -259,7 +259,7 @@ public class MobSpawn {
             String mobOriginName = getMobOriginName(mob);
 
             if (fromCSVAttributes.isEmpty()) {
-                MobBaseAttributes.attackDamage.put(mobOriginName, attackDamage);
+                MobBaseAttributes.attackDamage.put(mobOriginName, attackDamage * 2);
                 MobBaseAttributes.defence.put(mobOriginName, defence);
                 MobBaseAttributes.manaDefence.put(mobOriginName, manaDefence);
                 MobBaseAttributes.critRate.put(mobOriginName, critRate);
