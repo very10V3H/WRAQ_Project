@@ -478,7 +478,7 @@ public class MobKillEntrustment {
                         sendMSG(player, Te.s("在",
                                 getDeltaTimeFormatString(Tick.get(), entrustment.startServerTick),
                                 "内完成了", "委托任务", CustomStyle.styleOfWorld, "，获得了", timeAndTier.component, "评级"));
-                        if (timeAndTier.minutes <= 6) {
+                        if (timeAndTier.minutes <= 8) {
                             broad(Te.s(player, "在 ",
                                     getDeltaTimeFormatString(Tick.get(), entrustment.startServerTick), CustomStyle.styleOfWorld,
                                     " 内完成了", "委托任务", CustomStyle.styleOfWorld, "，获得了", timeAndTier.component, "评级"));
