@@ -30,6 +30,7 @@ import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.plan.DailySupply;
 import fun.wraq.process.func.rank.RankData;
+import fun.wraq.process.func.security.Security;
 import fun.wraq.process.func.security.mac.MacServer;
 import fun.wraq.process.func.security.mac.network.MacRequestS2CPacket;
 import fun.wraq.process.system.bank.BondDividends;
@@ -74,6 +75,10 @@ public class LoginInEvent {
         Player player = event.getEntity();
         if (!player.level().isClientSide) {
             ServerPlayer serverPlayer = (ServerPlayer) player;
+            if (!Security.checkModBladeList(serverPlayer)) {
+                return;
+            }
+
             Scoreboard scoreboard = player.getServer().getScoreboard();
             scoreboard.entityRemoved(player);
             player.sendSystemMessage(Component.literal("[").withStyle(ChatFormatting.GRAY)
@@ -264,7 +269,6 @@ public class LoginInEvent {
             }
             data.putBoolean("FirstReward", true);
             ModNetworking.sendToClient(new AnimationTickResetS2CPacket(), serverPlayer);
-            ModNetworking.sendToClient(new VersionCheckS2CPacket(), serverPlayer);
 
             if (Utils.playerReputationMissionContent.containsKey(player.getName().getString())
                     && Utils.playerReputationMissionContentNum.containsKey(player.getName().getString())
@@ -314,6 +318,7 @@ public class LoginInEvent {
             Reason.sendReasonValuePacketToClient(player);
             MobKillEntrustment.sendPacketToClient(player);
             Guide.sendGuideCloseStatusToClient(player);
+            ModNetworking.sendToClient(new VersionCheckS2CPacket(), serverPlayer);
         }
     }
 

@@ -1,10 +1,16 @@
 package fun.wraq.process.func.security;
 
 import com.mojang.logging.LogUtils;
+import fun.wraq.common.fast.Te;
+import net.minecraft.ChatFormatting;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.network.ConnectionData;
+import net.minecraftforge.network.NetworkHooks;
 
 import java.net.InetAddress;
 import java.net.NetworkInterface;
+import java.util.Set;
 
 public class Security {
 
@@ -67,6 +73,20 @@ public class Security {
 
     public static void recordToss(String playerName, ItemStack itemStack) {
         recordItemStream(playerName, "GROUND", itemStack, "丢弃物品");
+    }
+
+    public static boolean checkModBladeList(ServerPlayer serverPlayer) {
+        Set<String> blackModList = Set.of(
+                "baritoe"
+        );
+        ConnectionData connectionData = NetworkHooks.getConnectionData(serverPlayer.connection.connection);
+        if (connectionData != null) {
+            if (connectionData.getModList().stream().anyMatch(blackModList::contains)) {
+                serverPlayer.connection.disconnect(Te.s("请检查客户端是否有", "作弊mod", ChatFormatting.RED));
+                return false;
+            }
+        }
+        return true;
     }
 
     public static class RecordType {
