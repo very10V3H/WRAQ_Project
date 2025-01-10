@@ -121,12 +121,12 @@ public class UnknownGem extends WraqItem {
                 .stream().filter(itemEntity -> itemEntity.getItem().is(MushroomItems.BROWN_MUSHROOM.get()))
                 .mapToInt(itemEntity -> itemEntity.getItem().getCount())
                 .sum();
-        int lifeManaGem = itemEntities
-                .stream().filter(itemEntity -> itemEntity.getItem().is(GemItems.lifeManaGem.get()))
+        int completeGem = itemEntities
+                .stream().filter(itemEntity -> itemEntity.getItem().is(ModItems.COMPLETE_GEM.get()))
                 .mapToInt(itemEntity -> itemEntity.getItem().getCount())
                 .sum();
 
-        if (redMushroomCount >= 16 && brownMushroomCount >= 320 && lifeManaGem >= 1) {
+        if (redMushroomCount >= 16 && brownMushroomCount >= 320 && completeGem >= 5) {
             itemEntities.forEach(itemEntity -> itemEntity.remove(Entity.RemovalReason.KILLED));
             Compute.getNearEntity(level, pos, Player.class, 6)
                     .stream().map(entity -> (Player) entity)
@@ -157,7 +157,7 @@ public class UnknownGem extends WraqItem {
                         .forEach(player -> sendMSG(player, Te.s("一股烧焦的气味从中传来。。好难闻啊")));
             }
         } else {
-            if (Tick.get() % 200 == 1 && (redMushroomCount > 0 || brownMushroomCount > 0 || lifeManaGem > 0)) {
+            if (Tick.get() % 200 == 1 && (redMushroomCount > 0 || brownMushroomCount > 0 || completeGem > 0)) {
                 Compute.getNearEntity(level, pos, Player.class, 6)
                         .stream().map(entity -> (Player) entity)
                         .forEach(player -> sendMSG(player, Te.s("炼药锅似乎没有反应。。是缺少了什么物品么？")));
