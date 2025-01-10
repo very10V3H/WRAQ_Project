@@ -441,7 +441,7 @@ public class LoginInEvent {
 
     public static void refreshDailyContent(Player player) throws IOException {
         CompoundTag data = player.getPersistentData();
-        Reason.setPlayerReasonValue(player, 100);
+        Reason.setPlayerReasonValue(player, Reason.getPlayerReasonUpperLimit(player));
         Utils.playerReputationMissionPunishLevel.remove(player.getName().getString());
         Parkour.ParkourReset(player);
         Utils.playerDailyMissionContent.remove(player.getName().getString());

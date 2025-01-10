@@ -44,8 +44,9 @@ public class Reason {
             return 115;
         } else if (rankSerial <= 6) { // 14A
             return 120 + rankSerial - 6;
+        } else {
+            return 120 + (rankSerial - 6) * 5;
         }
-        return 100;
     }
 
     public static int getPlayerReasonRecoverPerHour(Player player) throws ParseException {
