@@ -31,18 +31,20 @@ import fun.wraq.events.mob.chapter6_castle.TreeSpawnController;
 import fun.wraq.events.mob.chapter7.BoneImpSpawnController;
 import fun.wraq.events.mob.chapter7.StarSpawnController;
 import fun.wraq.events.mob.chapter7.TorturedSoulSpawnController;
+import fun.wraq.events.mob.instance.instances.dimension.CitadelGuardianInstance;
 import fun.wraq.events.mob.instance.instances.dimension.NetherInstance;
-import fun.wraq.events.mob.instance.instances.element.IceInstance;
-import fun.wraq.events.mob.instance.instances.element.MoonInstance;
-import fun.wraq.events.mob.instance.instances.element.PlainInstance;
-import fun.wraq.events.mob.instance.instances.element.PurpleIronInstance;
+import fun.wraq.events.mob.instance.instances.element.*;
 import fun.wraq.events.mob.instance.instances.moontain.MoontainBoss1Instance;
+import fun.wraq.events.mob.instance.instances.moontain.MoontainBoss2Instance;
+import fun.wraq.events.mob.instance.instances.moontain.MoontainBoss3Instance;
 import fun.wraq.events.mob.instance.instances.sakura.DevilInstance;
 import fun.wraq.events.mob.instance.instances.sakura.SakuraBossInstance;
 import fun.wraq.events.mob.moontain.*;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.PrefixPackets.PrefixS2CPacket;
 import fun.wraq.process.func.rank.RankData;
+import fun.wraq.process.system.teamInstance.instances.blackCastle.NewCastleInstance;
+import fun.wraq.process.system.teamInstance.instances.harbinger.HarbingerInstance;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
@@ -215,6 +217,8 @@ public class PrefixCommand implements Command<CommandSourceStack> {
                     new SimplePrefixType(BeaconSpawnController.mobName, 1000, "哨戒烽火", CustomStyle.styleOfFire),
                     new SimplePrefixType(BlazeSpawnController.mobName, 1000, "熔岩涌动", CustomStyle.styleOfPower),
                     new SimplePrefixType(TreeSpawnController.mobName, 1000, "古树学者", CustomStyle.styleOfMana),
+                    new SimplePrefixType(NewCastleInstance.getInstance().description.toString(), 320,
+                            "旧世城主", CustomStyle.styleOfCastle),
 
                     new SimplePrefixType(StarSpawnController.mobName, 1000, "星梦之灵", CustomStyle.styleOfMoon1),
                     new SimplePrefixType(BoneImpSpawnController.mobName, 1000, "炽焰魂魄", CustomStyle.styleOfVolcano),
@@ -228,8 +232,12 @@ public class PrefixCommand implements Command<CommandSourceStack> {
                     new SimplePrefixType(MoontainCommon3ExSpawnController.mobName, 1000, "*典狱长*", CustomStyle.styleOfMoontain),
 
                     new SimplePrefixType(MoontainBoss1Instance.mobName, 320, "望山阁之顶", CustomStyle.styleOfMoontain),
-                    new SimplePrefixType(MoontainBoss1Instance.mobName, 320, "望山阁之峰", CustomStyle.styleOfMoontain),
-                    new SimplePrefixType(MoontainBoss1Instance.mobName, 64, "望山阁之巅", CustomStyle.styleOfMoontain),
+                    new SimplePrefixType(MoontainBoss2Instance.mobName, 320, "望山阁之峰", CustomStyle.styleOfMoontain),
+                    new SimplePrefixType(MoontainBoss3Instance.mobName, 64, "望山阁之巅", CustomStyle.styleOfMoontain),
+
+                    new SimplePrefixType(CitadelGuardianInstance.mobName, 320, "影珀毁灭者", CustomStyle.styleOfEnd),
+                    new SimplePrefixType(WardenInstance.mobName, 320, "远古毁灭者", CustomStyle.styleOfWarden),
+                    new SimplePrefixType(HarbingerInstance.THE_HARBINGER_NAME, 320, "机械先驱", CustomStyle.styleOfHarbinger),
 
                     new ProgressPrefixType(StringUtils.FishCount, 20, 50, "见习渔夫", Style.EMPTY.applyFormat(ChatFormatting.DARK_GRAY)),
                     new ProgressPrefixType(StringUtils.FishCount, 50, 100, "入门渔夫", Style.EMPTY.applyFormat(ChatFormatting.GRAY)),

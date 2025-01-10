@@ -60,6 +60,6 @@ public class MushroomCurio extends WraqCurios implements Decomposable {
 
     @Override
     public ItemStack getProduct() {
-        return new ItemStack(MushroomItems.UNKNOWN_MUSHROOM.get(), 3);
+        return new ItemStack(MushroomItems.UNKNOWN_MUSHROOM.get(), 6);
     }
 }

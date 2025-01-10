@@ -355,8 +355,7 @@ public class MobKillEntrustment {
         Random random = new Random();
         MobSpawnController controller = controllers.get(random.nextInt(controllers.size()));
         MobKillEntrustment entrustment =
-                new MobKillEntrustment(controller.mobName,
-                        random.nextInt(player.experienceLevel / 2, player.experienceLevel), Tick.get());
+                new MobKillEntrustment(controller.mobName, random.nextInt(96, 192), Tick.get());
         playerCurrentEntrustmentMap.put(name, entrustment);
         for (int i = 0 ; i < 5 ; i ++) {
             player.sendSystemMessage(Component.literal(""));

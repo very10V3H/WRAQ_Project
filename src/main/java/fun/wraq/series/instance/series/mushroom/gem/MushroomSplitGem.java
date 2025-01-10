@@ -47,6 +47,6 @@ public class MushroomSplitGem extends WraqPassiveGem implements GemOnCauseDamage
 
     @Override
     public ItemStack getProduct() {
-        return new ItemStack(MushroomItems.UNKNOWN_MUSHROOM.get());
+        return new ItemStack(MushroomItems.UNKNOWN_MUSHROOM.get(), 6);
     }
 }

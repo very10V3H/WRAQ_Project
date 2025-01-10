@@ -13,18 +13,24 @@ import fun.wraq.series.moontain.MoontainItems;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class InjectRecipe {
 
     public static Map<Item, InjectingRecipe> injectingRecipeMap = new HashMap<>();
 
-    public static Map<Item, Item> injectedGetItemSourceItemMap = new HashMap<>();
+    // 通过得到的物品获取源物品
+    public static Map<Item, Item> productSourceItemMap = new HashMap<>();
+
+    // 材料可以灌注何种物品的map
+    public static Map<Item, List<InjectingRecipe>> injectingWaysMap = new HashMap<>();
 
     public static boolean containItem(Item item) {
         for (InjectingRecipe injectingRecipe : injectingRecipeMap.values().stream().toList()) {
-            if (injectingRecipe.getForgingGetItem().equals(item)) return true;
+            if (injectingRecipe.getProduct().equals(item)) return true;
         }
         return false;
     }
@@ -1099,7 +1105,14 @@ public class InjectRecipe {
                 new InjectingRecipe(64, ModItems.REFINED_PIECE.get(), 16, WardenItems.WARDEN_HEART.get()));
 
         for (Map.Entry<Item, InjectingRecipe> itemInjectingRecipeEntry : injectingRecipeMap.entrySet()) {
-            injectedGetItemSourceItemMap.put(itemInjectingRecipeEntry.getValue().getForgingGetItem(), itemInjectingRecipeEntry.getKey());
+            Item material = itemInjectingRecipeEntry.getValue().material;
+            if (!injectingWaysMap.containsKey(material)) {
+                injectingWaysMap.put(material, new ArrayList<>());
+            }
+            injectingWaysMap.get(material).add(itemInjectingRecipeEntry.getValue());
+
+            productSourceItemMap.put(itemInjectingRecipeEntry.getValue().getProduct(),
+                    itemInjectingRecipeEntry.getKey());
         }
     }
 }

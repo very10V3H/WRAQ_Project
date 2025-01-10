@@ -80,7 +80,7 @@ public class InjectBlockScreen extends AbstractContainerScreen<fun.wraq.render.g
             if (InjectRecipe.injectingRecipeMap.containsKey(injectedItem.getItem())) {
                 InjectingRecipe recipe = InjectRecipe.injectingRecipeMap.get(injectedItem.getItem());
 
-                ItemStack neededMaterial = recipe.getForgingNeededMaterial().getDefaultInstance();
+                ItemStack neededMaterial = recipe.getMaterial().getDefaultInstance();
                 neededMaterial.setCount(recipe.getMaterialCount());
 
                 int X1 = 122;
@@ -93,7 +93,7 @@ public class InjectBlockScreen extends AbstractContainerScreen<fun.wraq.render.g
                 guiGraphics.drawCenteredString(mc.font, Component.literal("得到").withStyle(CustomStyle.styleOfInject),
                         x + 159, y + 36, 0);
 
-                ItemStack getItem = recipe.getForgingGetItem().getDefaultInstance();
+                ItemStack getItem = recipe.getProduct().getDefaultInstance();
                 getItem.getOrCreateTagElement(Utils.MOD_ID).merge(injectedItem.getOrCreateTagElement(Utils.MOD_ID));
                 getItem.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
                 Compute.forgingHoverName(getItem);
@@ -107,8 +107,8 @@ public class InjectBlockScreen extends AbstractContainerScreen<fun.wraq.render.g
                             x + X1 + 20, y + Y1 + 9, 0);
                 }
 
-                if (recipe.getOriginalMaterialNeedCount() > 1) {
-                    guiGraphics.drawCenteredString(mc.font, Component.literal("x" + String.valueOf(recipe.getOriginalMaterialNeedCount())).withStyle(ChatFormatting.WHITE),
+                if (recipe.getSourceItemCount() > 1) {
+                    guiGraphics.drawCenteredString(mc.font, Component.literal("x" + String.valueOf(recipe.getSourceItemCount())).withStyle(ChatFormatting.WHITE),
                             x + X1 + 20, y + Y2 + 9, 0);
                 }
 

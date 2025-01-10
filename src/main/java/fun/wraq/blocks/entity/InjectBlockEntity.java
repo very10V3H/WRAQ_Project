@@ -190,7 +190,7 @@ public class InjectBlockEntity extends BlockEntity implements MenuProvider, Drop
             ItemStack injectedItem = blockEntity.itemStackHandler.getStackInSlot(1);
             ItemStack slot2Item = blockEntity.itemStackHandler.getStackInSlot(2);
 
-            ItemStack productItemStack = InjectRecipe.injectingRecipeMap.get(injectedItem.getItem()).getForgingGetItem().getDefaultInstance();
+            ItemStack productItemStack = InjectRecipe.injectingRecipeMap.get(injectedItem.getItem()).getProduct().getDefaultInstance();
             if (injectedItem.getTagElement(Utils.MOD_ID) != null)
                 productItemStack.getOrCreateTagElement(Utils.MOD_ID).merge(injectedItem.getOrCreateTagElement(Utils.MOD_ID));
             if (player != null) {
@@ -226,7 +226,7 @@ public class InjectBlockEntity extends BlockEntity implements MenuProvider, Drop
             productItemStack.setCount(slot2Item.getCount() + 1);
             productItemStack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
             blockEntity.itemStackHandler.extractItem(0, InjectRecipe.injectingRecipeMap.get(injectedItem.getItem()).getMaterialCount(), false);
-            blockEntity.itemStackHandler.extractItem(1, InjectRecipe.injectingRecipeMap.get(injectedItem.getItem()).getOriginalMaterialNeedCount(), false);
+            blockEntity.itemStackHandler.extractItem(1, InjectRecipe.injectingRecipeMap.get(injectedItem.getItem()).getSourceItemCount(), false);
             blockEntity.itemStackHandler.setStackInSlot(2, productItemStack);
 
             MySound.soundToNearPlayer(player, SoundEvents.BREWING_STAND_BREW);
@@ -249,13 +249,13 @@ public class InjectBlockEntity extends BlockEntity implements MenuProvider, Drop
         boolean InjectedItemHasRecipe = InjectRecipe.injectingRecipeMap.containsKey(InjectedItem.getItem());
         if (!InjectedItemHasRecipe) return false;
 
-        boolean GetItemCanInsertIntoSlot2 = GetItem.is(Items.AIR) || (GetItem.is(InjectRecipe.injectingRecipeMap.get(InjectedItem.getItem()).getForgingGetItem())
+        boolean GetItemCanInsertIntoSlot2 = GetItem.is(Items.AIR) || (GetItem.is(InjectRecipe.injectingRecipeMap.get(InjectedItem.getItem()).getProduct())
                 && GetItem.getCount() < GetItem.getMaxStackSize());
         if (!GetItemCanInsertIntoSlot2) return false;
 
-        return InjectRecipe.injectingRecipeMap.get(InjectedItem.getItem()).getForgingNeededMaterial().
+        return InjectRecipe.injectingRecipeMap.get(InjectedItem.getItem()).getMaterial().
                 equals(Material.getItem()) && InjectRecipe.injectingRecipeMap.get(InjectedItem.getItem()).getMaterialCount() <= Material.getCount()
-                && InjectRecipe.injectingRecipeMap.get(InjectedItem.getItem()).getOriginalMaterialNeedCount() <= InjectedItem.getCount();
+                && InjectRecipe.injectingRecipeMap.get(InjectedItem.getItem()).getSourceItemCount() <= InjectedItem.getCount();
 
     }
 

@@ -2444,7 +2444,7 @@ public class TradeList {
                 }});
                 case 3 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.PlainRune.get(), 10));
-                    add(new ItemStack(ModItems.COMPLETE_GEM.get(), 10));
+                    add(new ItemStack(ModItems.COMPLETE_GEM.get(), 5));
                 }});
             }
         }
@@ -2473,7 +2473,7 @@ public class TradeList {
                 List.of(new ItemStack(ModItems.GOLD_COIN.get(), 4)));
         tradeRecipeMap.put(forestGem,
                 List.of(new ItemStack(ModItems.ForestRune.get(), 10),
-                        new ItemStack(ModItems.COMPLETE_GEM.get(), 10)));
+                        new ItemStack(ModItems.COMPLETE_GEM.get(), 5)));
     }
 
     public static void forestTool() {
