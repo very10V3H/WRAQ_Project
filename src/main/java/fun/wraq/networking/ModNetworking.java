@@ -133,12 +133,6 @@ public class ModNetworking {
                 .encoder(UseC2SPacket::toBytes)
                 .consumerMainThread(UseC2SPacket::handle)
                 .add();
-
-        net.messageBuilder(ResetC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
-                .decoder(ResetC2SPacket::new)
-                .encoder(ResetC2SPacket::toBytes)
-                .consumerMainThread(ResetC2SPacket::handle)
-                .add();
         net.messageBuilder(MoveToC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
                 .decoder(MoveToC2SPacket::new)
                 .encoder(MoveToC2SPacket::toBytes)
