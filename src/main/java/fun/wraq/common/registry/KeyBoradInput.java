@@ -12,16 +12,16 @@ import org.lwjgl.glfw.GLFW;
 public class KeyBoradInput {
     public static final String KEY_CATEGORY = "key.category.vmd.vmd";
 
-    public static final KeyMapping USE1 = new KeyMapping("key.vmd.ues_1", KeyConflictContext.IN_GAME,
+    public static final KeyMapping NEW_SKILL_1 = new KeyMapping("key.vmd.new_skill_1", KeyConflictContext.IN_GAME,
             InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_Q, KEY_CATEGORY);
 
-    public static final KeyMapping USE2 = new KeyMapping("key.vmd.ues_2", KeyConflictContext.IN_GAME,
+    public static final KeyMapping NEW_SKILL_2 = new KeyMapping("key.vmd.new_skill_2", KeyConflictContext.IN_GAME,
             InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_C, KEY_CATEGORY);
 
-    public static final KeyMapping USE3 = new KeyMapping("key.vmd.ues_3", KeyConflictContext.IN_GAME,
+    public static final KeyMapping NEW_SKILL_3 = new KeyMapping("key.vmd.new_skill_3", KeyConflictContext.IN_GAME,
             InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_V, KEY_CATEGORY);
 
-    public static final KeyMapping USE4 = new KeyMapping("key.vmd.ues_4", KeyConflictContext.IN_GAME,
+    public static final KeyMapping NEW_SKILL_4 = new KeyMapping("key.vmd.new_skill_4", KeyConflictContext.IN_GAME,
             InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_G, KEY_CATEGORY);
 
     public static final KeyMapping USE5 = new KeyMapping("key.vmd.ues_5", KeyConflictContext.IN_GAME,

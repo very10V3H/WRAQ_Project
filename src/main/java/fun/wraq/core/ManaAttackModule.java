@@ -20,7 +20,6 @@ import fun.wraq.common.util.struct.ManaSkillStruct.ManaSkill6;
 import fun.wraq.customized.uniform.mana.ManaCurios1;
 import fun.wraq.events.mob.instance.instances.element.IceInstance;
 import fun.wraq.networking.ModNetworking;
-import fun.wraq.networking.misc.ParticlePackets.EffectParticle.ManaDefencePenetrationParticleS2CPacket;
 import fun.wraq.networking.misc.SkillPackets.Charging.ChargedClearS2CPacket;
 import fun.wraq.networking.misc.SkillPackets.SkillImageS2CPacket;
 import fun.wraq.process.func.EnhanceNormalAttackModifier;
@@ -29,7 +28,9 @@ import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.func.suit.SuitCount;
 import fun.wraq.process.system.element.Element;
-import fun.wraq.projectiles.mana.NewArrowMagma;
+import fun.wraq.process.system.skill.skillv2.mana.ManaNewSkillFinal0;
+import fun.wraq.process.system.skill.skillv2.mana.ManaNewSkillPassive0;
+import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.castle.CastleManaArmor;
 import fun.wraq.series.instance.series.moon.MoonCurios;
@@ -38,7 +39,9 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -51,7 +54,7 @@ import java.util.Random;
 public class ManaAttackModule {
 
     public static void BasicAttack(Player player, Entity entity, double rate, double defencePenetration,
-                                   double defencePenetration0, Level level, Entity arrow, boolean mainShoot) {
+                                   double defencePenetration0, Level level, ManaArrow manaArrow, boolean mainShoot) {
         if (player == null) return;
         CompoundTag data = player.getPersistentData();
 
@@ -161,13 +164,11 @@ public class ManaAttackModule {
             ManaSkill12Attack(data, player); // 盈能攻击（移动、攻击以及受到攻击将会获得充能，当充能满时，下一次攻击将造成额外200%伤害，并在以目标为中心的范围内造成100%伤害）
             SakuraCore(player); // 樱妖魔核
 
-            if (!(arrow instanceof NewArrowMagma)) {
-                List<Mob> mobList = level.getEntitiesOfClass(Mob.class, AABB.ofSize(monster.getPosition(1), 5, 5, 5));
-                for (Mob mob : mobList) {
-                    if (mob != monster) {
-                        if (mob.getPosition(1).add(0, 1, 0).distanceTo(monster.getPosition(1).add(0, 1, 0)) <= 2) {
-                            Damage.causeManaDamageToMonster_RateApDamage(player, mob, 0.5f, true);
-                        }
+            List<Mob> mobList = level.getEntitiesOfClass(Mob.class, AABB.ofSize(monster.getPosition(1), 5, 5, 5));
+            for (Mob mob : mobList) {
+                if (mob != monster) {
+                    if (mob.getPosition(1).add(0, 1, 0).distanceTo(monster.getPosition(1).add(0, 1, 0)) <= 2) {
+                        Damage.causeManaDamageToMonster_RateApDamage(player, mob, 0.5f, true);
                     }
                 }
             }
@@ -185,6 +186,11 @@ public class ManaAttackModule {
                 OnHitEffectCurios.hit(player, monster);
                 OnHitEffectPassiveEquip.hit(player, monster);
                 EnhanceNormalAttackModifier.onHitEffect(player, monster, 2);
+                ManaNewSkillPassive0.onManaArrowHit(player, monster);
+                ManaNewSkillFinal0.onHit(player);
+                if (manaArrow.manaArrowHitEntity != null) {
+                    manaArrow.manaArrowHitEntity.onHit(manaArrow, entity);
+                }
             }
 
             if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false)) {
@@ -198,30 +204,6 @@ public class ManaAttackModule {
                 player.sendSystemMessage(Component.literal("——————————————————————————————————————————"));
             }
         }
-    }
-
-    public static boolean ManaRune2(CompoundTag data, Player player, LivingEntity monster, double damage) {
-        if (data.contains("ManaRune") && data.getInt("ManaRune") == 2 && data.contains("ManaRune2") && data.getInt("ManaRune2") == 0) {
-            Level level = player.level();
-            data.putInt("ManaRune2", 200);
-            ModNetworking.sendToClient(new SkillImageS2CPacket(3, 200, 200, 0, 4), (ServerPlayer) player);
-            monster.getPersistentData().putInt("ManaRune2", 60);
-            Utils.MonsterAttributeDataProvider.add(monster);
-            player.getServer().getPlayerList().getPlayers().forEach(serverPlayer ->
-                    ModNetworking.sendToClient(new ManaDefencePenetrationParticleS2CPacket(monster.getId(), 60), serverPlayer));
-
-            LightningBolt lightningBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, level);
-            lightningBolt.setCause((ServerPlayer) player);
-            lightningBolt.setDamage(0);
-            lightningBolt.setVisualOnly(true);
-            lightningBolt.moveTo(monster.position());
-            lightningBolt.setSilent(true);
-            level.addFreshEntity(lightningBolt);
-
-
-            return true;
-        }
-        return false;
     }
 
     public static void ManaSkill3Attack(CompoundTag data, Player player, Entity entity) {
@@ -316,7 +298,8 @@ public class ManaAttackModule {
                 if (mob.position().distanceTo(player.position()) < 6) {
                     if (random.nextDouble() < PlayerAttributes.critRate(player)) {
                         Damage.causeManaDamageToMonster_RateApDamage(player, mob, Compute.getManaSkillLevel(data, 12) * PlayerAttributes.critDamage(player), false);
-                    } else Damage.causeManaDamageToMonster_RateApDamage(player, mob, Compute.getManaSkillLevel(data, 12), false);
+                    } else
+                        Damage.causeManaDamageToMonster_RateApDamage(player, mob, Compute.getManaSkillLevel(data, 12), false);
                 }
             }
             Utils.ManaSkill12.put(name, false);

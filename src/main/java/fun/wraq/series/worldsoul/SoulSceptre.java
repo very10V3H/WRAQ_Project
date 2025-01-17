@@ -43,7 +43,7 @@ public class SoulSceptre extends WraqSceptre {
     public static final int ManaCost = 20;
 
     @Override
-    protected AbstractArrow summonManaArrow(Player player, double rate) {
+    protected ManaArrow summonManaArrow(Player player, double rate) {
         Level level = player.level();
         double ManaCost = SoulSceptre.getManaCost(player.getItemInHand(InteractionHand.MAIN_HAND).getOrCreateTagElement(Utils.MOD_ID));
         if (Compute.playerManaCost(player, (int) ManaCost)) {

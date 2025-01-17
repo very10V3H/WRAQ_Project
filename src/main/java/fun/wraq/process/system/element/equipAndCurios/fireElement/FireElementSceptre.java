@@ -70,7 +70,7 @@ public class FireElementSceptre extends WraqSceptre implements ActiveItem {
     }
 
     @Override
-    protected AbstractArrow summonManaArrow(Player player, double rate) {
+    protected ManaArrow summonManaArrow(Player player, double rate) {
         Level level = player.level();
         ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_MAGMA.get(), player, level,
                 PlayerAttributes.manaDamage(player) * rate,

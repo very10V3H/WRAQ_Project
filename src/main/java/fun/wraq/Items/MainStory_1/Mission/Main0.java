@@ -1,7 +1,11 @@
 package fun.wraq.Items.MainStory_1.Mission;
 
 import fun.wraq.common.util.ComponentUtils;
+import fun.wraq.networking.ModNetworking;
+import fun.wraq.process.system.skill.skillv2.SkillV2Screen;
+import fun.wraq.process.system.skill.skillv2.network.SkillV2CooldownS2CPacket;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -84,7 +88,7 @@ public class Main0 extends Item {
             HarbingerWeaponMaterial.setQualityTier(mirror, 5);
 
             List.of(rod, core, swordBlade, string, mirror).forEach(player::addItem);*/
-            serverPlayer.getFoodData().setFoodLevel(7);
+            ModNetworking.sendToClient(new SkillV2CooldownS2CPacket(1, 200, 200), player);
         }
         
         if (!level.isClientSide && player.isShiftKeyDown()) {
@@ -92,7 +96,7 @@ public class Main0 extends Item {
         }
 
         if (level.isClientSide && !player.isShiftKeyDown()) {
-
+            Minecraft.getInstance().setScreen(new SkillV2Screen(0));
         }
 
         if (level.isClientSide && player.isShiftKeyDown()) {

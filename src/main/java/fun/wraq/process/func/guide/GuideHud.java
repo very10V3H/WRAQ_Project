@@ -20,6 +20,7 @@ public class GuideHud {
     public static final Minecraft mc = Minecraft.getInstance();
     private static final Font fontRenderer = mc.font;
     public static final IGuiOverlay GUIDE_HUD = ((gui, poseStack, partialTick, width, height) -> {
+
         int x = width / 2;
         int y = height / 2;
         GuiGraphics guiGraphics = new GuiGraphics(mc, mc.renderBuffers().bufferSource());

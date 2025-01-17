@@ -7,12 +7,26 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.TickEvent;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.WeakHashMap;
 
 public abstract class DelayOperationWithAnimation {
 
     public static class Animation {
         public static String samurai = "samurai";
+        public static String stab = "stab";
+        public static String bursts = "bursts";
+        public static String swordNewSkillBase3_0 = "sword_new_skill_base3_0";
+        public static String bowNewSkillBase1_0 = "bow_new_skill_base1_0";
+        public static String manaNewSkillBase1_0 = "mana_new_skill_base1_0";
+        public static String manaNewSkillBase2_0 = "mana_new_skill_base2_0";
+        public static String swordAttack1 = "sword_attack_1";
+        public static String swordAttack2 = "sword_attack_2";
+        public static String bowAttack = "bow_attack";
+        public static String manaAttack = "mana_attack";
+        public static String skill = "skill";
     }
 
     private final String animationId;
@@ -44,13 +58,17 @@ public abstract class DelayOperationWithAnimation {
         });
     }
 
-    public static Queue<DelayOperationWithAnimation> queue = new ArrayDeque<>();
-    public static HashSet<Player> isPlayerAnimationPlayerSet = new HashSet<>();
+    public static Map<Player, DelayOperationWithAnimation> playerCurrentOperationMap = new WeakHashMap<>();
+
+    // 有动画的技能会打断当前普攻
+    public static void remove(Player player) {
+        playerCurrentOperationMap.remove(player);
+    }
+
     public static boolean addToQueue(DelayOperationWithAnimation delayOperationWithAnimation) {
-        if (isPlayerAnimationPlayerSet.contains(delayOperationWithAnimation.trigPlayer)) return false;
-        queue.add(delayOperationWithAnimation);
+        if (playerCurrentOperationMap.containsKey(delayOperationWithAnimation.trigPlayer)) return false;
+        playerCurrentOperationMap.put(delayOperationWithAnimation.trigPlayer, delayOperationWithAnimation);
         animationList.add(delayOperationWithAnimation);
-        isPlayerAnimationPlayerSet.add(delayOperationWithAnimation.trigPlayer);
         return true;
     }
 
@@ -61,13 +79,14 @@ public abstract class DelayOperationWithAnimation {
         // 发送动画
         animationList.forEach(animation -> animation.sendAnimation(server));
         animationList.clear();
+    }
 
-        // 触发效果
-        if (queue.peek() != null && queue.peek().trigTick <= Tick.get()) {
-            while (!queue.isEmpty() && queue.peek().trigTick <= Tick.get()) {
-                DelayOperationWithAnimation delayOperationWithAnimation = queue.remove();
-                isPlayerAnimationPlayerSet.remove(delayOperationWithAnimation.trigPlayer);
+    public static void playerTick(Player player) {
+        if (playerCurrentOperationMap.containsKey(player)) {
+            DelayOperationWithAnimation delayOperationWithAnimation = playerCurrentOperationMap.get(player);
+            if (delayOperationWithAnimation.trigTick <= Tick.get()) {
                 delayOperationWithAnimation.trig();
+                playerCurrentOperationMap.remove(player);
             }
         }
     }

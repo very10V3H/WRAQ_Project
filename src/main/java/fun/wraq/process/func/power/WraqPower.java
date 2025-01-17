@@ -90,9 +90,16 @@ public abstract class WraqPower extends Item implements ActiveItem {
         components.add(Component.literal(" - 这个伤害会附带").withStyle(CustomStyle.styleOfStone).append(component));
     }
 
-    protected static List<Mob> getDefaultTargetMobList(Player player) {
+    public static List<Mob> getDefaultTargetMobList(Player player, double range) {
+        Vec3 pos = getDefaultTargetPos(player);
         return player.level().getEntitiesOfClass(Mob.class,
-                AABB.ofSize(getDefaultTargetPos(player), 20, 20, 20));
+                AABB.ofSize(pos, 20, 20, 20))
+                .stream().filter(mob -> mob.position().distanceTo(pos) <= range)
+                .toList();
+    }
+
+    public static List<Mob> getDefaultTargetMobList(Player player) {
+        return getDefaultTargetMobList(player, 6);
     }
 
     protected static List<Player> getDefaultTargetPlayerList(Player player) {

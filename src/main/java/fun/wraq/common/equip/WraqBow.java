@@ -4,11 +4,13 @@ import fun.wraq.common.impl.onshoot.OnShootArrowCurios;
 import fun.wraq.common.impl.onshoot.OnShootArrowEquip;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.Utils;
-import fun.wraq.core.MyArrow;
+import fun.wraq.core.bow.MyArrow;
+import fun.wraq.core.bow.MyArrowHitBlock;
 import fun.wraq.entities.entities.Civil.Civil;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.skill.BowSkillTree;
+import fun.wraq.process.system.skill.skillv2.bow.BowNewSkillBase2_0;
 import fun.wraq.render.gui.illustrate.Display;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.quiver.WraqQuiver;
@@ -48,16 +50,46 @@ public abstract class WraqBow extends WraqMainHandEquip {
                 ? InteractionResultHolder.success(player.getMainHandItem()) : InteractionResultHolder.success(player.getOffhandItem());
     }
 
-    public void shoot(ServerPlayer serverPlayer, double rate, boolean mainShoot) {
-        rate += BowSkillTree.skillIndex14(serverPlayer);
-        MyArrow myArrow = summonArrow(serverPlayer, rate);
+    public void shoot(Player player, double rate, boolean mainShoot, boolean certainlyCritical, boolean noGravity,
+                      MyArrowHitBlock myArrowHitBlock, MyArrowHitBlock myArrowHitBlockEntity) {
+        rate += BowSkillTree.skillIndex14(player);
+        MyArrow myArrow = summonArrow(player, rate);
         myArrow.mainShoot = mainShoot;
-        if (mainShoot) {
-            OnShootArrowCurios.shoot(serverPlayer);
-            OnShootArrowEquip.shoot(serverPlayer);
-            Damage.onPlayerReleaseNormalAttack(serverPlayer);
-            WraqQuiver.shootQuiverExArrow(serverPlayer);
+        myArrow.certainlyCritical = certainlyCritical;
+        if (myArrowHitBlock != null) {
+            myArrow.myArrowHitBlock = myArrowHitBlock;
         }
+        if (myArrowHitBlockEntity != null) {
+            myArrow.myArrowHitBlockEntity = myArrowHitBlockEntity;
+        }
+        myArrow.setNoGravity(noGravity);
+        if (mainShoot) {
+            OnShootArrowCurios.shoot(player);
+            OnShootArrowEquip.shoot(player);
+            Damage.onPlayerReleaseNormalAttack(player);
+            WraqQuiver.shootQuiverExArrow(player);
+
+            MyArrowHitBlock myArrowHit = BowNewSkillBase2_0.nextHitEffectMap.getOrDefault(player, null);
+            if (myArrowHit != null) {
+                myArrow.myArrowHitBlock = myArrowHit;
+                myArrow.myArrowHitBlockEntity = myArrowHit;
+                BowNewSkillBase2_0.nextHitEffectMap.remove(player);
+            }
+        }
+    }
+
+    public void shoot(Player player, double rate, boolean mainShoot,
+                      boolean certainlyCritical, boolean noGravity) {
+        shoot(player, rate, mainShoot, certainlyCritical, noGravity, null, null);
+    }
+
+    public void shoot(Player player, double rate, boolean mainShoot) {
+        shoot(player, rate, mainShoot, false, false);
+    }
+
+    public void shoot(Player player, double rate, boolean mainShoot,
+                      MyArrowHitBlock myArrowHitBlock, MyArrowHitBlock myArrowHitBlockEntity) {
+        shoot(player, rate, mainShoot, false, false, myArrowHitBlock, myArrowHitBlockEntity);
     }
 
     public record ShootParticle(ParticleOptions options, int times) {}
@@ -69,20 +101,20 @@ public abstract class WraqBow extends WraqMainHandEquip {
         return 0;
     }
 
-    protected MyArrow summonArrow(ServerPlayer serverPlayer, double rate) {
-        MyArrow arrow = new MyArrow(EntityType.ARROW, serverPlayer.level(), serverPlayer, true, rate);
-        arrow.shootFromRotation(serverPlayer, serverPlayer.getXRot(), serverPlayer.getYRot(), 0.0f,
+    protected MyArrow summonArrow(Player player, double rate) {
+        MyArrow arrow = new MyArrow(EntityType.ARROW, player.level(), player, true, rate);
+        arrow.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0f,
                 getArrowSpeed() == 0 ? 3F : getArrowSpeed(), 1.0f);
         arrow.setCritArrow(true);
-        serverPlayer.level().addFreshEntity(arrow);
-        MySound.soundToNearPlayer(serverPlayer, SoundEvents.ARROW_SHOOT);
+        player.level().addFreshEntity(arrow);
+        MySound.soundToNearPlayer(player, SoundEvents.ARROW_SHOOT);
         if (getShootParticle() != null) {
             for (int i = 0 ; i < getShootParticle().times ; i ++) {
-                ParticleProvider.FaceCircleCreate(serverPlayer, 1 + 0.5 * i, 0.75 - 0.25 * i, 20 - 4 * i,
+                ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1 + 0.5 * i, 0.75 - 0.25 * i, 20 - 4 * i,
                         getShootParticle().options);
             }
         } else {
-            ParticleProvider.FaceCircleCreate(serverPlayer, 1, 0.75, 20, ParticleTypes.WAX_OFF);
+            ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1, 0.75, 20, ParticleTypes.WAX_OFF);
         }
         return arrow;
     }

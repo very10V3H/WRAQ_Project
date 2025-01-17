@@ -10,7 +10,7 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.core.MyArrow;
+import fun.wraq.core.bow.MyArrow;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.func.suit.SuitCount;
 import fun.wraq.render.toolTip.CustomStyle;

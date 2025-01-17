@@ -8,7 +8,8 @@ import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.core.MyArrow;
+import fun.wraq.core.bow.MyArrow;
+import fun.wraq.process.func.DelayOperationWithAnimation;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -126,6 +127,14 @@ public class WraqQuiver extends WraqPassiveEquip implements ActiveItem {
                     double rate = queue.remove();
                     if (player.getMainHandItem().getItem() instanceof WraqBow wraqBow) {
                         wraqBow.shoot((ServerPlayer) player, rate, false);
+                        DelayOperationWithAnimation.addToQueue(new DelayOperationWithAnimation(
+                                DelayOperationWithAnimation.Animation.bursts, Tick.get() + 5, player
+                        ) {
+                            @Override
+                            public void trig() {
+
+                            }
+                        });
                     }
                 }
             }

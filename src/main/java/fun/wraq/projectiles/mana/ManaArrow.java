@@ -29,9 +29,9 @@ public class ManaArrow extends AbstractArrow implements GeoEntity {
 
     private final AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
 
-    public double BaseDamage;
-    public double BreakDefence;
-    public double BreakDefence0;
+    public double baseDamage;
+    public double manaPenetration;
+    public double manaPenetration0;
     public Player player;
     private boolean AdjustOneTimes = false;
     private Vec3 InWaterVec3;
@@ -39,52 +39,32 @@ public class ManaArrow extends AbstractArrow implements GeoEntity {
     private Mob mob;
     private double rate = 1;
     public boolean mainShoot = true;
+    public ManaArrowHitEntity manaArrowHitEntity;
 
     public ManaArrow(EntityType<? extends AbstractArrow> entityType, Level level) {
         super(entityType, level);
     }
 
-    public ManaArrow(EntityType<? extends AbstractArrow> entityType, Player shooter, Level level) {
+    public ManaArrow(EntityType<? extends AbstractArrow> entityType, LivingEntity shooter, Level level,
+                     double baseDamage, double manaPenetration, double manaPenetration0, String type,
+                     ManaArrowHitEntity manaArrowHitEntity) {
         super(entityType, shooter, level);
-        this.setNoPhysics(true);
+        this.player = (Player) shooter;
+        this.baseDamage = baseDamage;
+        this.manaPenetration = manaPenetration;
+        this.manaPenetration0 = manaPenetration0;
+        this.type = type;
+        this.manaArrowHitEntity = manaArrowHitEntity;
     }
 
     public ManaArrow(EntityType<? extends AbstractArrow> entityType, LivingEntity shooter, Level level,
-                     double BaseDamage, double BreakDefence, double BreakDefence0, String type) {
-        super(entityType, shooter, level);
-        this.player = (Player) shooter;
-        this.BaseDamage = BaseDamage;
-        this.BreakDefence = BreakDefence;
-        this.BreakDefence0 = BreakDefence0;
-        this.type = type;
-    }
-
-    public ManaArrow(EntityType<? extends AbstractArrow> entityType, LivingEntity shooter, Level level,
-                     double BaseDamage, double BreakDefence, double BreakDefence0, String type, boolean mainShoot) {
-        super(entityType, shooter, level);
-        this.player = (Player) shooter;
-        this.BaseDamage = BaseDamage;
-        this.BreakDefence = BreakDefence;
-        this.BreakDefence0 = BreakDefence0;
-        this.type = type;
-        this.mainShoot = mainShoot;
-    }
-
-    public ManaArrow(EntityType<? extends AbstractArrow> entityType, LivingEntity mob, Level level) {
-        super(entityType, mob, level);
-        this.mob = (Mob) mob;
+                     double baseDamage, double manaPenetration, double manaPenetration0, String type) {
+        this(entityType, shooter, level, baseDamage, manaPenetration, manaPenetration0, type, null);
     }
 
     public ManaArrow(EntityType<? extends AbstractArrow> entityType, LivingEntity mob, Level level, double rate) {
         super(entityType, mob, level);
         this.mob = (Mob) mob;
-        this.rate = rate;
-    }
-
-    public ManaArrow(EntityType<? extends AbstractArrow> entityType, LivingEntity mob,
-                     Player player, Level level, double rate) {
-        super(entityType, mob, level);
-        this.player = player;
         this.rate = rate;
     }
 
@@ -98,18 +78,9 @@ public class ManaArrow extends AbstractArrow implements GeoEntity {
         super.onHitBlock(p_36755_);
         if (this.player != null && !this.level().isClientSide) {
             CompoundTag data = player.getPersistentData();
-            if (data.contains("snowRune") && data.getInt("snowRune") == 0) {
-                data.putInt("snowRune0", 0);
-                data.putInt("snowRune0Time", 0);
-            }
             ManaAttackModule.ManaSkill6Attack(data, player, false);
         }
         this.remove(RemovalReason.KILLED);
-    }
-
-    @Override
-    protected boolean canHitEntity(Entity p_36743_) {
-        return super.canHitEntity(p_36743_);
     }
 
     @Override
@@ -125,28 +96,6 @@ public class ManaArrow extends AbstractArrow implements GeoEntity {
 
     @Override
     public void tick() {
-/*        if (!this.level().isClientSide && player != null) {
-            List<Entity> list = this.level().getEntitiesOfClass(Entity.class,this.getBoundingBox().expandTowards(this.getDeltaMovement()).inflate(1.0D));
-            if (list.size() > 0 && list.get(0) instanceof Mob) {
-                Vec3 vec = this.getDeltaMovement().normalize();
-                double distance = 100;
-                Mob nearestMob = null;
-                for (int i = 0 ; i < 20 ; i ++) {
-                    Vec3 pos = this.position().add(vec.scale(0.25 * i));
-                    List<Mob> mobList = this.level().getEntitiesOfClass(Mob.class, AABB.ofSize(pos,1.5,1.5,1.5));
-                    for (Mob livingEntity : mobList) {
-                        if (livingEntity.getEyePosition().distanceTo(pos) < distance) {
-                            distance = livingEntity.getEyePosition().distanceTo(pos);
-                            nearestMob = livingEntity;
-                        }
-                    }
-                }
-                if (nearestMob != null) {
-                    ManaAttackModule.BasicAttack(player,nearestMob,BaseDamage,BreakDefence,BreakDefence0,level(),this);
-                    this.remove(RemovalReason.KILLED);
-                }
-            }
-        }*/
         super.tick();
         if (this.player != null && !this.level().isClientSide && this.tickCount > 8) {
             if (AdjustOneTimes) {

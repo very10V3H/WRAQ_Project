@@ -45,7 +45,7 @@ public class IceSceptre extends WraqSceptre implements OnHitEffectEquip, OnPower
     }
 
     @Override
-    protected AbstractArrow summonManaArrow(Player player, double rate) {
+    protected ManaArrow summonManaArrow(Player player, double rate) {
         Level level = player.level();
         ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_WORLD.get(), player,
                 level, PlayerAttributes.manaDamage(player) * rate,

@@ -4,10 +4,7 @@ import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.ParticlePackets.NewParticlePackets.*;
-import fun.wraq.process.func.particle.packets.DisperseBallParticleS2CPacket;
-import fun.wraq.process.func.particle.packets.LineEffectParticleS2CPacket;
-import fun.wraq.process.func.particle.packets.SpaceEffectParticle;
-import fun.wraq.process.func.particle.packets.SpaceEffectParticleS2CPacket;
+import fun.wraq.process.func.particle.packets.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
@@ -71,6 +68,10 @@ public class ParticleProvider {
                 }
             }
         });
+    }
+
+    public static void FaceCircleCreate(Player player, double pickDistance, double r, int num, ParticleOptions particleOptions) {
+        FaceCircleCreate((ServerPlayer) player, pickDistance, r, num, particleOptions);
     }
 
     public static void FaceCircleCreate(ServerPlayer serverPlayer, double pickDistance, double r, int num, ParticleOptions particleOptions) {
@@ -331,6 +332,36 @@ public class ParticleProvider {
                     ModNetworking.sendToClient(new LineEffectParticleS2CPacket(
                             endVec.toVector3f(), startVec.toVector3f(), num / ignoreLevel, style.getColor().getValue()
                     ), serverPlayer);
+                }
+            }
+        });
+    }
+
+    public static void createLineSpaceEffectParticle(Level level, int num, Vec3 startVec, Vec3 endVec,
+                                                     double spaceRange, Style style) {
+        List<ServerPlayer> list = level.getServer().getPlayerList().getPlayers();
+        list.forEach(serverPlayer -> {
+            if (serverPlayer.level().equals(level) && serverPlayer.position().distanceTo(startVec) < 80) {
+                int ignoreLevel = Math.max(1, serverPlayer.getPersistentData().getInt(StringUtils.IgnoreParticleLevel));
+                if (ignoreLevel < 10) {
+                    ModNetworking.sendToClient(new LineSpaceEffectParticleS2CPacket(
+                            endVec.toVector3f(), startVec.toVector3f(),
+                            num / ignoreLevel, style.getColor().getValue(), spaceRange), serverPlayer);
+                }
+            }
+        });
+    }
+
+    public static void createLineSpaceDustParticle(Level level, int num, Vec3 startVec, Vec3 endVec,
+                                                     double spaceRange, Style style) {
+        List<ServerPlayer> list = level.getServer().getPlayerList().getPlayers();
+        list.forEach(serverPlayer -> {
+            if (serverPlayer.level().equals(level) && serverPlayer.position().distanceTo(startVec) < 80) {
+                int ignoreLevel = Math.max(1, serverPlayer.getPersistentData().getInt(StringUtils.IgnoreParticleLevel));
+                if (ignoreLevel < 10) {
+                    ModNetworking.sendToClient(new LineSpaceDustParticleS2CPacket(
+                            endVec.toVector3f(), startVec.toVector3f(),
+                            num / ignoreLevel, style.getColor().getValue(), spaceRange), serverPlayer);
                 }
             }
         });

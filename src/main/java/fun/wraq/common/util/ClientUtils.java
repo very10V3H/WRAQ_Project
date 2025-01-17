@@ -2,7 +2,6 @@ package fun.wraq.common.util;
 
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.struct.*;
-import fun.wraq.events.client.ClientAttackEvent;
 import fun.wraq.files.MarketItemInfo;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -431,39 +430,9 @@ public class ClientUtils {
     public static HashMap<Integer, Integer> SlowDownParticle = new HashMap<>();
     public static HashMap<Integer, Integer> DamageDecreaseParticle = new HashMap<>();
 
-    public static HashMap<String, Boolean> CrestMap = new HashMap<>();
-
-    public static int ManaAttackTick = 0;
-    public static int BowAttackTick = 0;
-    public static int UseTick = 0;
     public static int RollingTick = 0;
 
-    public static boolean PlayerIsAttacking(Player player) {
-        return (player.tickCount - ClientAttackEvent.clientAttackTickCounts <= 10);
-    }
-
-    public static boolean PlayerIsUsing(Player player) {
-        return (player.tickCount - ClientUtils.UseTick <= 10);
-    }
-
-    public static boolean PlayerIsManaAttacking(Player player) {
-        return (player.tickCount - ClientUtils.ManaAttackTick <= 10);
-    }
-
-    public static boolean PlayerIsBowAttacking(Player player) {
-        return player.tickCount - ClientUtils.UseTick <= 10;
-    }
-
-    public static boolean PlayerIsRolling(Player player) {
-        return (player.tickCount - ClientUtils.RollingTick <= 10);
-    }
-
     public static void AnimationTickReset() {
-        ClientUtils.UseTick = 0;
-        ClientUtils.ManaAttackTick = 0;
-        ClientUtils.BowAttackTick = 0;
-        ClientAttackEvent.clientAttackTickCounts = 0;
-        ClientAttackEvent.clientAttackCounts = 0;
         ClientUtils.RollingTick = 0;
     }
 

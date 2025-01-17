@@ -37,6 +37,7 @@ public class StableTierAttributeModifier {
     public static Map<LivingEntity, List<StableTierAttributeModifier>> playerCommonDamageEnhance = new WeakHashMap<>();
     public static Map<LivingEntity, List<StableTierAttributeModifier>> playerWithstandDamageReduce = new WeakHashMap<>();
     public static Map<LivingEntity, List<StableTierAttributeModifier>> playerMaxHealthExValue = new WeakHashMap<>();
+    public static Map<LivingEntity, List<StableTierAttributeModifier>> monsterWithstandDamageEnhance = new WeakHashMap<>();
 
     public static List<StableTierAttributeModifier> getAttributeModifierList(LivingEntity entity, Map<LivingEntity, List<StableTierAttributeModifier>> modifierMap) {
         if (!modifierMap.containsKey(entity)) {

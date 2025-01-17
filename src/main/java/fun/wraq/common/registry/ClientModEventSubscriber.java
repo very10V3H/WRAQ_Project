@@ -10,6 +10,7 @@ import fun.wraq.entities.entities.SoraSword.SoraSwordAirRender;
 import fun.wraq.entities.render.*;
 import fun.wraq.process.func.guide.GuideHud;
 import fun.wraq.process.system.entrustment.mob.MobKillEntrustmentHud;
+import fun.wraq.process.system.skill.skillv2.SkillV2Hud;
 import fun.wraq.process.system.teamInstance.NewTeamInstanceHud;
 import fun.wraq.render.hud.main.*;
 import fun.wraq.render.hud.ShieldHud;
@@ -177,6 +178,7 @@ public class ClientModEventSubscriber {
         event.registerAboveAll("new_team_instance_hud", NewTeamInstanceHud.NEW_TEAM_INSTANCE_HUD);
 
         event.registerAboveAll("quick_use_hud", QuickUseHud.QUICK_USE_HUD);
+        event.registerAboveAll("skill_v2_hud", SkillV2Hud.SKILL_V2_HUD);
     }
 
     private static final List<ResourceLocation> overlays = List.of(VanillaGuiOverlay.ARMOR_LEVEL.id(),

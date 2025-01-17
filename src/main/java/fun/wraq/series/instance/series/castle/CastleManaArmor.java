@@ -6,15 +6,13 @@ import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.equip.WraqArmor;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.display.ForgeItem;
-import fun.wraq.common.registry.ModArmorMaterials;
-import fun.wraq.common.registry.ModItems;
-import fun.wraq.common.registry.ModSounds;
-import fun.wraq.common.registry.MySound;
+import fun.wraq.common.registry.*;
 import fun.wraq.common.util.ComponentUtils;
+import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.func.suit.SuitCount;
-import fun.wraq.projectiles.mana.NewArrow;
+import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
@@ -104,15 +102,15 @@ public class CastleManaArmor extends WraqArmor implements ForgeItem {
     }
 
     public static void ExAttack(Player player, double rate) {
-        NewArrow newArrow = new NewArrow(player, player.level(), PlayerAttributes.manaDamage(player) * rate,
-                PlayerAttributes.manaPenetration(player), PlayerAttributes.expUp(player),
-                false, PlayerAttributes.manaPenetration0(player));
-        newArrow.setSilent(true);
-        newArrow.setNoGravity(true);
+        ManaArrow manaArrow = new ManaArrow(ModEntityType.NEW_ARROW.get(), player, player.level(),
+                PlayerAttributes.manaDamage(player) * rate, PlayerAttributes.manaPenetration(player),
+                PlayerAttributes.manaPenetration0(player), StringUtils.ParticleTypes.DamageMana);
+        manaArrow.setSilent(true);
+        manaArrow.setNoGravity(true);
 
-        newArrow.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0f, 3, 1.0f);
-        ProjectileUtil.rotateTowardsMovement(newArrow, 0);
-        player.level().addFreshEntity(newArrow);
+        manaArrow.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0f, 3, 1.0f);
+        ProjectileUtil.rotateTowardsMovement(manaArrow, 0);
+        player.level().addFreshEntity(manaArrow);
         ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1, 0.75, 20, ParticleTypes.WITCH);
         ParticleProvider.FaceCircleCreate((ServerPlayer) player, 1.5, 0.5, 16, ParticleTypes.WITCH);
         MySound.soundToNearPlayer(player, ModSounds.Mana.get());

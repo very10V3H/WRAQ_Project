@@ -8,6 +8,7 @@ import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.customized.uniform.bow.BowCurios0;
 import fun.wraq.networking.ModNetworking;
+import fun.wraq.process.func.DelayOperationWithAnimation;
 import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
 import fun.wraq.process.func.guide.Guide;
 import fun.wraq.render.hud.SwiftData;
@@ -44,16 +45,14 @@ public class RollingAnimationRequestC2SPacket {
             } else {
                 CompoundTag data = serverPlayer.getPersistentData();
                 if (serverPlayer.onGround() && data.getDouble(StringUtils.Swift) >= 100.0 / 3) {
+                    DelayOperationWithAnimation.remove(serverPlayer);
                     List<ServerPlayer> playerList = serverPlayer.getServer().getPlayerList().getPlayers();
-
                     playerList.forEach(serverPlayer1 -> {
                         ModNetworking.sendToClient(new RollingAnimationS2CPacket(serverPlayer.getId(), count), serverPlayer1);
                     });
-
                     ModNetworking.sendToClient(new RollingS2CPacket(PlayerAttributes.extraSwiftness(serverPlayer) / 10.0), serverPlayer);
                     if (!serverPlayer.isCreative()) SwiftData.changePlayerSwift(serverPlayer, -100.0 / 3);
                     Utils.rollingTickMap.put(serverPlayer.getName().getString(), Tick.get() + 10);
-
                     MySound.soundToNearPlayer(serverPlayer, ModSounds.Rolling.get());
 
                     BowCurios0.Active(serverPlayer);

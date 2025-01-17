@@ -36,6 +36,7 @@ import fun.wraq.process.system.entrustment.mob.MobKillEntrustment;
 import fun.wraq.process.system.profession.pet.allay.AllayPet;
 import fun.wraq.process.system.randomevent.RandomEventsHandler;
 import fun.wraq.process.system.randomevent.impl.killmob.SlimeKingEvent;
+import fun.wraq.process.system.skill.skillv2.mana.ManaNewSkillPassive0;
 import fun.wraq.process.system.teamInstance.NewTeamInstanceHandler;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.gems.passive.impl.GemOnCauseDamage;
@@ -258,7 +259,9 @@ public class Damage {
 
         Compute.summonValueItemEntity(monster.level(), player, monster,
                 Component.literal(String.format("%.0f", totalDamage)).withStyle(ChatFormatting.LIGHT_PURPLE), 1);
-        if (isPower) Compute.damageActionBarPacketSend(player, totalDamage, 0, true, false);
+        if (isPower) {
+            Compute.damageActionBarPacketSend(player, totalDamage, 0, true, false);
+        }
         beforeCauseDamage(player, monster, totalDamage);
         causeDirectDamageToMob(player, monster, totalDamage);
         Compute.manaDamageExEffect(player, monster, totalDamage);
@@ -266,6 +269,7 @@ public class Damage {
         if (isPower) {
             Compute.AdditionEffects(player, monster, totalDamage, 1);
             OnPowerCauseDamageEquip.causeDamage(player, monster);
+            ManaNewSkillPassive0.onManaPowerHit(player, monster);
         }
 
         if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false) && isPower) {
@@ -333,6 +337,7 @@ public class Damage {
         if (isPower) {
             Compute.AdditionEffects(player, monster, totalDamage, 1);
             OnPowerCauseDamageEquip.causeDamage(player, monster);
+            ManaNewSkillPassive0.onManaPowerHit(player, monster);
         }
 
         if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false) && isPower) {
@@ -418,6 +423,7 @@ public class Damage {
         if (isPower) {
             Compute.AdditionEffects(player, monster, totalDamage, 1);
             OnPowerCauseDamageEquip.causeDamage(player, monster);
+            ManaNewSkillPassive0.onManaPowerHit(player, monster);
         }
 
         if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false) && isPower) {

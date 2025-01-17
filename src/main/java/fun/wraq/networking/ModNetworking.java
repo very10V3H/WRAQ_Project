@@ -6,8 +6,7 @@ import fun.wraq.blocks.blocks.inject.InjectC2SPacket;
 import fun.wraq.common.Compute;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.core.BowRequestC2SPacket;
-import fun.wraq.core.ManaAttackRequestC2SPacket;
+import fun.wraq.networking.misc.attack.BowAttackRequestC2SPacket;
 import fun.wraq.networking.bowAndSceptreActive.CommonActiveC2SPacket;
 import fun.wraq.networking.dailyMission.DailyMissionContentS2CPacket;
 import fun.wraq.networking.dailyMission.DailyMissionFinishedRequestC2SPacket;
@@ -18,10 +17,8 @@ import fun.wraq.networking.hud.DebuffTimeS2CPacket;
 import fun.wraq.networking.hud.EffectLastTimeS2CPacket;
 import fun.wraq.networking.hud.RemoveDebuffTimeS2CPacket;
 import fun.wraq.networking.misc.AnimationPackets.*;
-import fun.wraq.networking.misc.AttackPackets.AttackC2SPacket;
+import fun.wraq.networking.misc.attack.AttackRequestC2SPacket;
 import fun.wraq.networking.misc.AttributePackets.*;
-import fun.wraq.networking.misc.BowSoundParticle.BowShootS2CPacket;
-import fun.wraq.networking.misc.BowSoundParticle.SkyBowShootS2CPacket;
 import fun.wraq.networking.misc.CodeSceptrePackets.CodeC2SPacket;
 import fun.wraq.networking.misc.*;
 import fun.wraq.networking.misc.EarthPower.EarthPowerC2SPacket;
@@ -30,7 +27,6 @@ import fun.wraq.networking.misc.EntropyPackets.EntropyS2CPacket;
 import fun.wraq.networking.misc.Limit.CheckBlockLimitS2CPacket;
 import fun.wraq.networking.misc.Limit.RemoveBlockLimitC2SPacket;
 import fun.wraq.networking.misc.Limit.ScreenCloseC2SPacket;
-import fun.wraq.networking.misc.MusicPlayerPackets.MusicIdolS2CPacket;
 import fun.wraq.networking.misc.ParticlePackets.*;
 import fun.wraq.networking.misc.ParticlePackets.EffectParticle.CritHitParticleS2CPacket;
 import fun.wraq.networking.misc.ParticlePackets.EffectParticle.DamageDecreaseParticleS2CPacket;
@@ -39,8 +35,6 @@ import fun.wraq.networking.misc.ParticlePackets.EffectParticle.ManaDefencePenetr
 import fun.wraq.networking.misc.ParticlePackets.ElementParticle.*;
 import fun.wraq.networking.misc.ParticlePackets.NewParticlePackets.*;
 import fun.wraq.networking.misc.PrefixPackets.PrefixS2CPacket;
-import fun.wraq.networking.misc.QuartzSword.QuartzSwordParticleS2CPacket;
-import fun.wraq.networking.misc.QuartzSword.QuartzSwordPlayerS2CPacket;
 import fun.wraq.networking.misc.SkillPackets.*;
 import fun.wraq.networking.misc.SkillPackets.Charging.*;
 import fun.wraq.networking.misc.SmartPhonePackets.*;
@@ -49,6 +43,7 @@ import fun.wraq.networking.misc.SoundsPackets.SoundsS2CPacket;
 import fun.wraq.networking.misc.TeamPackets.*;
 import fun.wraq.networking.misc.ToolTipPackets.DailyMissionS2CPacket;
 import fun.wraq.networking.misc.USE.*;
+import fun.wraq.networking.misc.attack.ManaAttackRequestC2SPacket;
 import fun.wraq.networking.reputation.ReputationBuyRequestC2SPacket;
 import fun.wraq.networking.reputation.ReputationValueS2CPacket;
 import fun.wraq.networking.reputationMission.*;
@@ -58,9 +53,7 @@ import fun.wraq.process.func.effect.SilentTickS2CPacket;
 import fun.wraq.process.func.guide.networking.GuideFinishC2SPacket;
 import fun.wraq.process.func.guide.networking.GuideHudCloseStatusS2CPacket;
 import fun.wraq.process.func.guide.networking.GuideStageS2CPacket;
-import fun.wraq.process.func.particle.packets.DisperseBallParticleS2CPacket;
-import fun.wraq.process.func.particle.packets.LineEffectParticleS2CPacket;
-import fun.wraq.process.func.particle.packets.SpaceEffectParticleS2CPacket;
+import fun.wraq.process.func.particle.packets.*;
 import fun.wraq.process.func.plan.networking.DailySupplyC2SPacket;
 import fun.wraq.process.func.plan.networking.DailySupplyS2CPacket;
 import fun.wraq.process.func.plan.networking.PlanDateAndTierS2CPacket;
@@ -84,6 +77,7 @@ import fun.wraq.process.system.missions.series.labourDay.netWorking.LabourDayMis
 import fun.wraq.process.system.point.network.PointDataS2CPacket;
 import fun.wraq.process.system.randomStore.networking.TradeListClearS2CPacket;
 import fun.wraq.process.system.randomStore.networking.TradeListS2CPacket;
+import fun.wraq.process.system.skill.skillv2.network.*;
 import fun.wraq.process.system.smelt.*;
 import fun.wraq.process.system.teamInstance.networking.NewTeamInstanceClearS2CPacket;
 import fun.wraq.process.system.teamInstance.networking.NewTeamInstanceJoinedPlayerInfoS2CPacket;
@@ -153,11 +147,6 @@ public class ModNetworking {
                 .encoder(UtilsSnowSwordS2CPacket::toBytes)
                 .consumerMainThread(UtilsSnowSwordS2CPacket::handle)
                 .add();
-        net.messageBuilder(MusicIdolS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
-                .decoder(MusicIdolS2CPacket::new)
-                .encoder(MusicIdolS2CPacket::toBytes)
-                .consumerMainThread(MusicIdolS2CPacket::handle)
-                .add();
         net.messageBuilder(UtilsParticleS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
                 .decoder(UtilsParticleS2CPacket::new)
                 .encoder(UtilsParticleS2CPacket::toBytes)
@@ -172,26 +161,6 @@ public class ModNetworking {
                 .decoder(SnowSwordParticleS2CPacket::new)
                 .encoder(SnowSwordParticleS2CPacket::toBytes)
                 .consumerMainThread(SnowSwordParticleS2CPacket::handle)
-                .add();
-        net.messageBuilder(BowShootS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
-                .decoder(BowShootS2CPacket::new)
-                .encoder(BowShootS2CPacket::toBytes)
-                .consumerMainThread(BowShootS2CPacket::handle)
-                .add();
-        net.messageBuilder(SkyBowShootS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
-                .decoder(SkyBowShootS2CPacket::new)
-                .encoder(SkyBowShootS2CPacket::toBytes)
-                .consumerMainThread(SkyBowShootS2CPacket::handle)
-                .add();
-        net.messageBuilder(QuartzSwordPlayerS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
-                .decoder(QuartzSwordPlayerS2CPacket::new)
-                .encoder(QuartzSwordPlayerS2CPacket::toBytes)
-                .consumerMainThread(QuartzSwordPlayerS2CPacket::handle)
-                .add();
-        net.messageBuilder(QuartzSwordParticleS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
-                .decoder(QuartzSwordParticleS2CPacket::new)
-                .encoder(QuartzSwordParticleS2CPacket::toBytes)
-                .consumerMainThread(QuartzSwordParticleS2CPacket::handle)
                 .add();
         net.messageBuilder(SoundsS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
                 .decoder(SoundsS2CPacket::new)
@@ -258,16 +227,6 @@ public class ModNetworking {
                 .encoder(GoldCoinC2SPacket::toBytes)
                 .consumerMainThread(GoldCoinC2SPacket::handle)
                 .add();
-        net.messageBuilder(SecuritySellC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
-                .decoder(SecuritySellC2SPacket::new)
-                .encoder(SecuritySellC2SPacket::toBytes)
-                .consumerMainThread(SecuritySellC2SPacket::handle)
-                .add();
-        net.messageBuilder(SecurityBuyC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
-                .decoder(SecurityBuyC2SPacket::new)
-                .encoder(SecurityBuyC2SPacket::toBytes)
-                .consumerMainThread(SecurityBuyC2SPacket::handle)
-                .add();
         net.messageBuilder(MarketDataS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
                 .decoder(MarketDataS2CPacket::new)
                 .encoder(MarketDataS2CPacket::toBytes)
@@ -312,31 +271,6 @@ public class ModNetworking {
                 .decoder(ScreenCloseC2SPacket::new)
                 .encoder(ScreenCloseC2SPacket::toBytes)
                 .consumerMainThread(ScreenCloseC2SPacket::handle)
-                .add();
-        net.messageBuilder(SwordAttackAnimationS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
-                .decoder(SwordAttackAnimationS2CPacket::new)
-                .encoder(SwordAttackAnimationS2CPacket::toBytes)
-                .consumerMainThread(SwordAttackAnimationS2CPacket::handle)
-                .add();
-        net.messageBuilder(SwordAttackAnimationRequestC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
-                .decoder(SwordAttackAnimationRequestC2SPacket::new)
-                .encoder(SwordAttackAnimationRequestC2SPacket::toBytes)
-                .consumerMainThread(SwordAttackAnimationRequestC2SPacket::handle)
-                .add();
-        net.messageBuilder(RangeAttackRequestC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
-                .decoder(RangeAttackRequestC2SPacket::new)
-                .encoder(RangeAttackRequestC2SPacket::toBytes)
-                .consumerMainThread(RangeAttackRequestC2SPacket::handle)
-                .add();
-        net.messageBuilder(PickAxeAttackAnimationS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
-                .decoder(PickAxeAttackAnimationS2CPacket::new)
-                .encoder(PickAxeAttackAnimationS2CPacket::toBytes)
-                .consumerMainThread(PickAxeAttackAnimationS2CPacket::handle)
-                .add();
-        net.messageBuilder(PickAxeAttackAnimationRequestC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
-                .decoder(PickAxeAttackAnimationRequestC2SPacket::new)
-                .encoder(PickAxeAttackAnimationRequestC2SPacket::toBytes)
-                .consumerMainThread(PickAxeAttackAnimationRequestC2SPacket::handle)
                 .add();
         net.messageBuilder(SkillRequestC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
                 .decoder(SkillRequestC2SPacket::new)
@@ -423,11 +357,6 @@ public class ModNetworking {
                 .encoder(ManaAttackParticleS2CPacket::toBytes)
                 .consumerMainThread(ManaAttackParticleS2CPacket::handle)
                 .add();
-        net.messageBuilder(BufferChangeS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
-                .decoder(BufferChangeS2CPacket::new)
-                .encoder(BufferChangeS2CPacket::toBytes)
-                .consumerMainThread(BufferChangeS2CPacket::handle)
-                .add();
         net.messageBuilder(DefencePenetrationParticleS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
                 .decoder(DefencePenetrationParticleS2CPacket::new)
                 .encoder(DefencePenetrationParticleS2CPacket::toBytes)
@@ -483,71 +412,30 @@ public class ModNetworking {
                 .encoder(EntityFaceConnectCircleParticleS2CPacket::toBytes)
                 .consumerMainThread(EntityFaceConnectCircleParticleS2CPacket::handle)
                 .add();
-        net.messageBuilder(AttackC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
-                .decoder(AttackC2SPacket::new)
-                .encoder(AttackC2SPacket::toBytes)
-                .consumerMainThread(AttackC2SPacket::handle)
-                .add();
-        net.messageBuilder(AttackAnimationS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
-                .decoder(AttackAnimationS2CPacket::new)
-                .encoder(AttackAnimationS2CPacket::toBytes)
-                .consumerMainThread(AttackAnimationS2CPacket::handle)
-                .add();
-        net.messageBuilder(AttackAnimationRequestC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
-                .decoder(AttackAnimationRequestC2SPacket::new)
-                .encoder(AttackAnimationRequestC2SPacket::toBytes)
-                .consumerMainThread(AttackAnimationRequestC2SPacket::handle)
-                .add();
-        net.messageBuilder(ManaAttackAnimationRequestC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
-                .decoder(ManaAttackAnimationRequestC2SPacket::new)
-                .encoder(ManaAttackAnimationRequestC2SPacket::toBytes)
-                .consumerMainThread(ManaAttackAnimationRequestC2SPacket::handle)
-                .add();
-        net.messageBuilder(ManaAttackAnimationS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
-                .decoder(ManaAttackAnimationS2CPacket::new)
-                .encoder(ManaAttackAnimationS2CPacket::toBytes)
-                .consumerMainThread(ManaAttackAnimationS2CPacket::handle)
-                .add();
-        net.messageBuilder(ManaAttackRequestC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
-                .decoder(ManaAttackRequestC2SPacket::new)
-                .encoder(ManaAttackRequestC2SPacket::toBytes)
-                .consumerMainThread(ManaAttackRequestC2SPacket::handle)
-                .add();
-        net.messageBuilder(UseAnimationS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
-                .decoder(UseAnimationS2CPacket::new)
-                .encoder(UseAnimationS2CPacket::toBytes)
-                .consumerMainThread(UseAnimationS2CPacket::handle)
+        net.messageBuilder(AttackRequestC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(AttackRequestC2SPacket::new)
+                .encoder(AttackRequestC2SPacket::toBytes)
+                .consumerMainThread(AttackRequestC2SPacket::handle)
                 .add();
         net.messageBuilder(UseRequestC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
                 .decoder(UseRequestC2SPacket::new)
                 .encoder(UseRequestC2SPacket::toBytes)
                 .consumerMainThread(UseRequestC2SPacket::handle)
                 .add();
-        net.messageBuilder(UseAnimationRequestC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
-                .decoder(UseAnimationRequestC2SPacket::new)
-                .encoder(UseAnimationRequestC2SPacket::toBytes)
-                .consumerMainThread(UseAnimationRequestC2SPacket::handle)
-                .add();
         net.messageBuilder(AnimationTickResetS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
                 .decoder(AnimationTickResetS2CPacket::new)
                 .encoder(AnimationTickResetS2CPacket::toBytes)
                 .consumerMainThread(AnimationTickResetS2CPacket::handle)
                 .add();
-
-        net.messageBuilder(BowAnimationS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
-                .decoder(BowAnimationS2CPacket::new)
-                .encoder(BowAnimationS2CPacket::toBytes)
-                .consumerMainThread(BowAnimationS2CPacket::handle)
+        net.messageBuilder(BowAttackRequestC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(BowAttackRequestC2SPacket::new)
+                .encoder(BowAttackRequestC2SPacket::toBytes)
+                .consumerMainThread(BowAttackRequestC2SPacket::handle)
                 .add();
-        net.messageBuilder(BowRequestC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
-                .decoder(BowRequestC2SPacket::new)
-                .encoder(BowRequestC2SPacket::toBytes)
-                .consumerMainThread(BowRequestC2SPacket::handle)
-                .add();
-        net.messageBuilder(BowAnimationRequestC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
-                .decoder(BowAnimationRequestC2SPacket::new)
-                .encoder(BowAnimationRequestC2SPacket::toBytes)
-                .consumerMainThread(BowAnimationRequestC2SPacket::handle)
+        net.messageBuilder(ManaAttackRequestC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(ManaAttackRequestC2SPacket::new)
+                .encoder(ManaAttackRequestC2SPacket::toBytes)
+                .consumerMainThread(ManaAttackRequestC2SPacket::handle)
                 .add();
         net.messageBuilder(RollingAnimationRequestC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
                 .decoder(RollingAnimationRequestC2SPacket::new)
@@ -849,20 +737,10 @@ public class ModNetworking {
                 .encoder(CoolDownTimeS2CPacket::toBytes)
                 .consumerMainThread(CoolDownTimeS2CPacket::handle)
                 .add();
-        net.messageBuilder(DragonBreathParticleS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
-                .decoder(DragonBreathParticleS2CPacket::new)
-                .encoder(DragonBreathParticleS2CPacket::toBytes)
-                .consumerMainThread(DragonBreathParticleS2CPacket::handle)
-                .add();
         net.messageBuilder(EndRune3TypeS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
                 .decoder(EndRune3TypeS2CPacket::new)
                 .encoder(EndRune3TypeS2CPacket::toBytes)
                 .consumerMainThread(EndRune3TypeS2CPacket::handle)
-                .add();
-        net.messageBuilder(ZuesSwordS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
-                .decoder(ZuesSwordS2CPacket::new)
-                .encoder(ZuesSwordS2CPacket::toBytes)
-                .consumerMainThread(ZuesSwordS2CPacket::handle)
                 .add();
         net.messageBuilder(SoulSceptreC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
                 .decoder(SoulSceptreC2SPacket::new)
@@ -883,11 +761,6 @@ public class ModNetworking {
                 .decoder(CurveParticleS2CPacket::new)
                 .encoder(CurveParticleS2CPacket::toBytes)
                 .consumerMainThread(CurveParticleS2CPacket::handle)
-                .add();
-        net.messageBuilder(NULLAnimationS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
-                .decoder(NULLAnimationS2CPacket::new)
-                .encoder(NULLAnimationS2CPacket::toBytes)
-                .consumerMainThread(NULLAnimationS2CPacket::handle)
                 .add();
         net.messageBuilder(DebuffTimeS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
                 .decoder(DebuffTimeS2CPacket::new)
@@ -1319,6 +1192,16 @@ public class ModNetworking {
                 .encoder(LineEffectParticleS2CPacket::toBytes)
                 .consumerMainThread(LineEffectParticleS2CPacket::handle)
                 .add();
+        net.messageBuilder(LineSpaceEffectParticleS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(LineSpaceEffectParticleS2CPacket::new)
+                .encoder(LineSpaceEffectParticleS2CPacket::toBytes)
+                .consumerMainThread(LineSpaceEffectParticleS2CPacket::handle)
+                .add();
+        net.messageBuilder(LineSpaceDustParticleS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(LineSpaceDustParticleS2CPacket::new)
+                .encoder(LineSpaceDustParticleS2CPacket::toBytes)
+                .consumerMainThread(LineSpaceDustParticleS2CPacket::handle)
+                .add();
         net.messageBuilder(RemoveDebuffTimeS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
                 .decoder(RemoveDebuffTimeS2CPacket::new)
                 .encoder(RemoveDebuffTimeS2CPacket::toBytes)
@@ -1408,6 +1291,41 @@ public class ModNetworking {
                 .decoder(SpaceEffectParticleS2CPacket::new)
                 .encoder(SpaceEffectParticleS2CPacket::toBytes)
                 .consumerMainThread(SpaceEffectParticleS2CPacket::handle)
+                .add();
+        net.messageBuilder(SkillV2InfoS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(SkillV2InfoS2CPacket::new)
+                .encoder(SkillV2InfoS2CPacket::toBytes)
+                .consumerMainThread(SkillV2InfoS2CPacket::handle)
+                .add();
+        net.messageBuilder(SkillV2PlayerTryToUpgradeSkillC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(SkillV2PlayerTryToUpgradeSkillC2SPacket::new)
+                .encoder(SkillV2PlayerTryToUpgradeSkillC2SPacket::toBytes)
+                .consumerMainThread(SkillV2PlayerTryToUpgradeSkillC2SPacket::handle)
+                .add();
+        net.messageBuilder(SkillV2PlayerTryToReleaseSkillC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(SkillV2PlayerTryToReleaseSkillC2SPacket::new)
+                .encoder(SkillV2PlayerTryToReleaseSkillC2SPacket::toBytes)
+                .consumerMainThread(SkillV2PlayerTryToReleaseSkillC2SPacket::handle)
+                .add();
+        net.messageBuilder(SkillV2PlayerTryToEquipSkillC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(SkillV2PlayerTryToEquipSkillC2SPacket::new)
+                .encoder(SkillV2PlayerTryToEquipSkillC2SPacket::toBytes)
+                .consumerMainThread(SkillV2PlayerTryToEquipSkillC2SPacket::handle)
+                .add();
+        net.messageBuilder(SkillV2PlayerTryToChooseProfessionTypeC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(SkillV2PlayerTryToChooseProfessionTypeC2SPacket::new)
+                .encoder(SkillV2PlayerTryToChooseProfessionTypeC2SPacket::toBytes)
+                .consumerMainThread(SkillV2PlayerTryToChooseProfessionTypeC2SPacket::handle)
+                .add();
+        net.messageBuilder(SkillV2CooldownS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(SkillV2CooldownS2CPacket::new)
+                .encoder(SkillV2CooldownS2CPacket::toBytes)
+                .consumerMainThread(SkillV2CooldownS2CPacket::handle)
+                .add();
+        net.messageBuilder(SkillV2LeftCooldownS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(SkillV2LeftCooldownS2CPacket::new)
+                .encoder(SkillV2LeftCooldownS2CPacket::toBytes)
+                .consumerMainThread(SkillV2LeftCooldownS2CPacket::handle)
                 .add();
     }
 

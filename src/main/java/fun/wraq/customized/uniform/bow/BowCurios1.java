@@ -4,7 +4,7 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqBow;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.MySound;
-import fun.wraq.core.MyArrow;
+import fun.wraq.core.bow.MyArrow;
 import fun.wraq.customized.WraqUniformCurios;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.render.toolTip.CustomStyle;

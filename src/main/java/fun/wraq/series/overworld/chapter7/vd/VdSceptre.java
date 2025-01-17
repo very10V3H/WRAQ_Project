@@ -83,7 +83,7 @@ public class VdSceptre extends WraqSceptre implements ForgeItem, ActiveItem, VdW
     }
 
     @Override
-    protected AbstractArrow summonManaArrow(Player player, double rate) {
+    protected ManaArrow summonManaArrow(Player player, double rate) {
         Level level = player.level();
         ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_WORLD.get(), player, level,
                 PlayerAttributes.manaDamage(player) * rate, PlayerAttributes.manaPenetration(player),

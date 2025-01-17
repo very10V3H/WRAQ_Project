@@ -737,10 +737,6 @@ public class Utils {
     public static WeakHashMap<Player, Integer> DingCoolDown = new WeakHashMap<>();
     public static WeakHashMap<Player, Integer> DingDingCoolDown = new WeakHashMap<>();
 
-    public static WeakHashMap<Player, Integer> PlayerAttackTime = new WeakHashMap<>();
-    public static WeakHashMap<Player, Integer> PlayerArrowAttackTime = new WeakHashMap<>();
-    public static WeakHashMap<Player, Integer> PlayerManaAttackTime = new WeakHashMap<>();
-
     public static WeakHashMap<Player, Integer> PlayerFireWorkGunEffect = new WeakHashMap<>();
 
     public static List<PlayerTeam> ChallengingPlayerTeam = new ArrayList<>();

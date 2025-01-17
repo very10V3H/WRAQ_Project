@@ -23,7 +23,7 @@ import fun.wraq.common.util.struct.HudIcon;
 import fun.wraq.common.util.struct.ItemEntityAndResetTime;
 import fun.wraq.common.util.struct.PlayerTeam;
 import fun.wraq.core.ManaAttackModule;
-import fun.wraq.core.MyArrow;
+import fun.wraq.core.bow.MyArrow;
 import fun.wraq.entities.entities.Civil.Civil;
 import fun.wraq.events.core.InventoryCheck;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
@@ -1297,19 +1297,18 @@ public class Compute {
         });
     }
 
-    public static List<Mob> getPlayerRayMobList(Player player, double detectStep, double detectRange, double maxDistance) {
+    public static Set<Mob> getPlayerRayMobList(Player player, double detectStep, double detectRange, double maxDistance) {
         Level level = player.level();
         Vec3 targetPos = player.pick(25, 0, false).getLocation();
         Vec3 startPos = player.pick(0.5, 0, false).getLocation();
         Vec3 posVec = targetPos.subtract(startPos).normalize();
-        List<Mob> mobList = new ArrayList<>();
+        Set<Mob> mobs = new HashSet<>();
         for (double i = detectStep; i <= maxDistance; i += detectStep) {
-            List<Mob> mobList1 = level.getEntitiesOfClass(Mob.class, AABB.ofSize(startPos.add(posVec.scale(i)), detectRange, detectRange, detectRange));
-            for (Mob mob : mobList1) {
-                if (!mobList.contains(mob)) mobList.add(mob);
-            }
+            List<Mob> mobList1 = level.getEntitiesOfClass(Mob.class, AABB.ofSize(startPos.add(posVec.scale(i)),
+                    detectRange, detectRange, detectRange));
+            mobs.addAll(mobList1);
         }
-        return mobList;
+        return mobs;
     }
 
     public static void Laser(Player player, ParticleOptions particleOptions, double rate, int TickCoolDown, boolean isPower) {
@@ -2005,6 +2004,11 @@ public class Compute {
         ClientboundSetEntityMotionPacket clientboundSetEntityMotionPacket =
                 new ClientboundSetEntityMotionPacket(player.getId(), vec3);
         ((ServerPlayer) player).connection.send(clientboundSetEntityMotionPacket);
+    }
+
+    public static void sendForwardMotionPacketToPlayer(Player player, double scale) {
+        sendMotionPacketToPlayer(player, player.pick(1, 0, false)
+                .getLocation().subtract(player.getEyePosition()).normalize().scale(scale));
     }
 
     public static double getPlayerPotionEffectRate(Player player, MobEffect effect, double tier1Rate, double tier2Rate) {

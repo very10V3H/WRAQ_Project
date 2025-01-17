@@ -15,7 +15,7 @@ import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.struct.PosAndLastTime;
 import fun.wraq.common.util.struct.Shield;
-import fun.wraq.core.MyArrow;
+import fun.wraq.core.bow.MyArrow;
 import fun.wraq.customized.Customize;
 import fun.wraq.entities.entities.Civil.Civil;
 import fun.wraq.events.mob.MobSpawn;
@@ -30,6 +30,7 @@ import fun.wraq.networking.misc.TeamPackets.TeamInfoRequestC2SPacket;
 import fun.wraq.networking.unSorted.PacketLimitS2CPacket;
 import fun.wraq.networking.unSorted.ServerTickS2CPacket;
 import fun.wraq.networking.unSorted.TimeS2CPacket;
+import fun.wraq.process.func.DelayOperationWithAnimation;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.func.item.InventoryOperation;
@@ -161,6 +162,7 @@ public class ServerPlayerTickEvent {
             ModNetworking.sendToClient(new ServerTickS2CPacket(Tick.get()), serverPlayer);
             MobKillEntrustment.handleTick(player);
             AllayPet.handleServerPlayerTick(serverPlayer);
+            DelayOperationWithAnimation.playerTick(player);
 
             if (player.tickCount % 10 == 0
                     && (player.isOnFire()

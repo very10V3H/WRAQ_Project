@@ -6,7 +6,7 @@ import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.core.MyArrow;
+import fun.wraq.core.bow.MyArrow;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -14,9 +14,9 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
@@ -60,7 +60,7 @@ public class NetherBow extends WraqBow {
     }
 
     @Override
-    protected MyArrow summonArrow(ServerPlayer serverPlayer, double rate) {
+    protected MyArrow summonArrow(Player serverPlayer, double rate) {
         MyArrow arrow = new MyArrow(EntityType.ARROW, serverPlayer.level(), serverPlayer, true, rate);
         arrow.shootFromRotation(serverPlayer, serverPlayer.getXRot(), serverPlayer.getYRot(), 0.0f, 4.5F, 1.0f);
         arrow.setCritArrow(true);

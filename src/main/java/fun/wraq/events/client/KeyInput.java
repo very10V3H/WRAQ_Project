@@ -17,6 +17,7 @@ import fun.wraq.process.system.element.networking.CurrentSeasonC2SPacket;
 import fun.wraq.process.system.forge.ForgeScreen;
 import fun.wraq.process.system.missions.MissionScreen;
 import fun.wraq.process.system.missions.netWorking.MissionScreenOpenC2SPacket;
+import fun.wraq.process.system.skill.skillv2.network.SkillV2PlayerTryToReleaseSkillC2SPacket;
 import fun.wraq.process.system.smelt.SmeltProgressScreen;
 import fun.wraq.process.system.smelt.SmeltRecipeScreen;
 import fun.wraq.process.system.tower.TowerScreen;
@@ -54,44 +55,44 @@ public class KeyInput {
             if (isModScreen(mc) && event.getKey() == 69 && event.getAction() == 1) {
                 mc.popGuiLayer();
             }
-            if (KeyBoradInput.USE1.consumeClick()) {
+            if (KeyBoradInput.NEW_SKILL_1.consumeClick()) {
                 if (ClientUtils.IsAdjustingPower) {
                     if (ClientUtils.PowerQueue.size() >= 4) {
                         ClientUtils.PowerQueue.poll();
                         ClientUtils.PowerQueue.add(1);
                     } else ClientUtils.PowerQueue.add(1);
                 } else {
-                    ModNetworking.sendToServer(new UseC2SPacket(3));
+                    ModNetworking.sendToServer(new SkillV2PlayerTryToReleaseSkillC2SPacket(1));
                 }
             }
-            if (KeyBoradInput.USE2.consumeClick()) {
+            if (KeyBoradInput.NEW_SKILL_2.consumeClick()) {
                 if (ClientUtils.IsAdjustingPower) {
                     if (ClientUtils.PowerQueue.size() >= 4) {
                         ClientUtils.PowerQueue.poll();
                         ClientUtils.PowerQueue.add(2);
                     } else ClientUtils.PowerQueue.add(2);
                 } else {
-                    ModNetworking.sendToServer(new UseC2SPacket(4));
+                    ModNetworking.sendToServer(new SkillV2PlayerTryToReleaseSkillC2SPacket(2));
                 }
             }
-            if (KeyBoradInput.USE3.consumeClick()) {
+            if (KeyBoradInput.NEW_SKILL_3.consumeClick()) {
                 if (ClientUtils.IsAdjustingPower) {
                     if (ClientUtils.PowerQueue.size() >= 4) {
                         ClientUtils.PowerQueue.poll();
                         ClientUtils.PowerQueue.add(3);
                     } else ClientUtils.PowerQueue.add(3);
                 } else {
-                    ModNetworking.sendToServer(new UseC2SPacket(5));
+                    ModNetworking.sendToServer(new SkillV2PlayerTryToReleaseSkillC2SPacket(3));
                 }
             }
-            if (KeyBoradInput.USE4.consumeClick()) {
+            if (KeyBoradInput.NEW_SKILL_4.consumeClick()) {
                 if (ClientUtils.IsAdjustingPower) {
                     if (ClientUtils.PowerQueue.size() >= 4) {
                         ClientUtils.PowerQueue.poll();
                         ClientUtils.PowerQueue.add(4);
                     } else ClientUtils.PowerQueue.add(4);
                 } else {
-                    ModNetworking.sendToServer(new UseC2SPacket(6));
+                    ModNetworking.sendToServer(new SkillV2PlayerTryToReleaseSkillC2SPacket(4));
                 }
             }
             if (KeyBoradInput.USE5.consumeClick()) {
@@ -101,9 +102,7 @@ public class KeyInput {
                 ModNetworking.sendToServer(new UseC2SPacket(8));
             }
             if (KeyBoradInput.Rolling.consumeClick()) {
-                if (!ClientUtils.PlayerIsManaAttacking(player) && !ClientUtils.PlayerIsUsing(player)
-                        && !ClientUtils.PlayerIsBowAttacking(player) && !ClientUtils.PlayerIsAttacking(player))
-                    ModNetworking.sendToServer(new RollingAnimationRequestC2SPacket(0));
+                ModNetworking.sendToServer(new RollingAnimationRequestC2SPacket(0));
             }
 
             if (KeyBoradInput.Mission.consumeClick()) {
@@ -182,10 +181,10 @@ public class KeyInput {
     public static class ClientModBusEvents {
         @SubscribeEvent
         public static void KeyBinding(RegisterKeyMappingsEvent event) {
-            event.register(KeyBoradInput.USE1);
-            event.register(KeyBoradInput.USE2);
-            event.register(KeyBoradInput.USE3);
-            event.register(KeyBoradInput.USE4);
+            event.register(KeyBoradInput.NEW_SKILL_1);
+            event.register(KeyBoradInput.NEW_SKILL_2);
+            event.register(KeyBoradInput.NEW_SKILL_3);
+            event.register(KeyBoradInput.NEW_SKILL_4);
             event.register(KeyBoradInput.USE5);
             event.register(KeyBoradInput.USE6);
             event.register(KeyBoradInput.Rolling);

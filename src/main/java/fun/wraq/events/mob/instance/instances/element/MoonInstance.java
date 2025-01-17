@@ -187,7 +187,7 @@ public class MoonInstance extends NoTeamInstance {
         }
         if (ManaMob.isAlive()) {
             for (int i = 0; i < 16; i++) {
-                ManaArrow manaArrow = new ManaArrow(ModEntityType.NEW_ARROW.get(), ManaMob, ManaMob.level());
+                ManaArrow manaArrow = new ManaArrow(ModEntityType.NEW_ARROW.get(), ManaMob, ManaMob.level(), 1);
                 manaArrow.shootFromRotation(ManaMob, ManaMob.getXRot(), ManaMob.getYRot() + 360 * i / 16.0f, 1, 1.5f, 1);
                 ManaMob.level().addFreshEntity(manaArrow);
             }

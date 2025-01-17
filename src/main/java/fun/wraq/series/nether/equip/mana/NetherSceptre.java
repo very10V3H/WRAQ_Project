@@ -11,6 +11,7 @@ import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.ore.PickaxeItems;
+import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.render.hud.Mana;
 import fun.wraq.render.particles.ModParticles;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -20,7 +21,6 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
@@ -43,7 +43,7 @@ public class NetherSceptre extends WraqSceptre implements Laser, ForgeItem {
     }
 
     @Override
-    protected AbstractArrow summonManaArrow(Player player, double rate) {
+    protected ManaArrow summonManaArrow(Player player, double rate) {
         return null;
     }
 

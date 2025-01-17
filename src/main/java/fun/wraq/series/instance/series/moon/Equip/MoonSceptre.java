@@ -48,7 +48,7 @@ public class MoonSceptre extends WraqSceptre implements ActiveItem, OnHitEffectE
     }
 
     @Override
-    protected AbstractArrow summonManaArrow(Player player, double rate) {
+    protected ManaArrow summonManaArrow(Player player, double rate) {
         Level level = player.level();
         ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_SNOW.get(), player, level,
                 PlayerAttributes.manaDamage(player) * rate, PlayerAttributes.manaPenetration(player),
