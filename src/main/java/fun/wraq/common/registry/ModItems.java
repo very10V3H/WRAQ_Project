@@ -26,10 +26,6 @@ import fun.wraq.Items.Money.ResetSecurity;
 import fun.wraq.Items.Money.SmartPhoneitem;
 import fun.wraq.Items.Money.U_Disk;
 import fun.wraq.Items.Money.openSecurity;
-import fun.wraq.Items.ProfessionAndQuest.Profession_Barker;
-import fun.wraq.Items.ProfessionAndQuest.Profession_Bow;
-import fun.wraq.Items.ProfessionAndQuest.Profession_Sword;
-import fun.wraq.Items.ProfessionAndQuest.Quest;
 import fun.wraq.Items.Ps.PsBottle;
 import fun.wraq.Items.RewardPack.Boss1;
 import fun.wraq.Items.RewardPack.Boss2;
@@ -187,7 +183,7 @@ import fun.wraq.series.overworld.chapter1.plain.armor.PlainArmorHelmet;
 import fun.wraq.series.overworld.chapter1.plain.armor.PlainArmorLeggings;
 import fun.wraq.series.overworld.chapter1.plain.crest.PlainCrest;
 import fun.wraq.series.overworld.chapter1.plain.runes.*;
-import fun.wraq.series.overworld.chapter1.plain.PlainSceptre;
+import fun.wraq.series.overworld.chapter1.plain.LifeSceptre;
 import fun.wraq.series.overworld.chapter1.plain.PlainSword;
 import fun.wraq.series.overworld.chapter1.snow.Runes.SnowRune0;
 import fun.wraq.series.overworld.chapter1.snow.Runes.SnowRune1;
@@ -248,7 +244,6 @@ import fun.wraq.series.overworld.chapter2.sky.Armor.SkyArmor;
 import fun.wraq.series.overworld.chapter2.sky.BossItems.SkyBoss;
 import fun.wraq.series.overworld.chapter2.sky.Crest.SkyCrest;
 import fun.wraq.series.overworld.chapter2.sky.SkyBow;
-import fun.wraq.series.overworld.chapter2.sky.WindBottle;
 import fun.wraq.series.overworld.chapter2.spider.Ointment.*;
 import fun.wraq.series.overworld.chapter2.spider.SpiderArmorBoots;
 import fun.wraq.series.overworld.chapter2.spider.SpiderArmorChest;
@@ -305,22 +300,6 @@ public class ModItems {
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> Main0 = ITEMS.register("main0",
             () -> new Main0(new Item.Properties()));
-    public static final RegistryObject<Item> Main0_1 = ITEMS.register("main0_1",
-            () -> new Main0_1(new Item.Properties()));
-    public static final RegistryObject<Item> Main0_2 = ITEMS.register("main0_2",
-            () -> new Main0_2(new Item.Properties()));
-    public static final RegistryObject<Item> Main0_3 = ITEMS.register("main0_3",
-            () -> new Main0_3(new Item.Properties()));
-    public static final RegistryObject<Item> Main1_1 = ITEMS.register("main1_1",
-            () -> new Main1_1(new Item.Properties()));
-    public static final RegistryObject<Item> Main1_2 = ITEMS.register("main1_2",
-            () -> new Main1_2(new Item.Properties()));
-    public static final RegistryObject<Item> Main1_0 = ITEMS.register("main1_0",
-            () -> new Main1_0(new Item.Properties()));
-    public static final RegistryObject<Item> Main1_3 = ITEMS.register("main1_3",
-            () -> new Main1_3(new Item.Properties()));
-    public static final RegistryObject<Item> Main1_4 = ITEMS.register("main1_4",
-            () -> new Main1_4(new Item.Properties()));
     public static final RegistryObject<Item> GOLD_COIN = ITEMS.register("gold_coin",
             () -> new Item(new Item.Properties().rarity(Rarity.UNCOMMON)) {
                 @Override
@@ -345,10 +324,6 @@ public class ModItems {
                     super.appendHoverText(stack, level, components, flag);
                 }
             });
-    public static final RegistryObject<Item> SignInReset = ITEMS.register("signinreset",
-            () -> new SignInReset(new Item.Properties()));
-    public static final RegistryObject<Item> SignInGet = ITEMS.register("signinget",
-            () -> new SignInGet(new Item.Properties()));
     public static final RegistryObject<Item> GetTime = ITEMS.register("gettime",
             () -> new GetTime(new Item.Properties()));
     public static final RegistryObject<Item> ItemIDCheck = ITEMS.register("idcheck",
@@ -440,16 +415,16 @@ public class ModItems {
     public static final RegistryObject<Item> PlainBow3 = ITEMS.register("plainbow3",
             () -> new PlainBow(new Item.Properties().stacksTo(1).rarity(CustomStyle.PlainItalic), 3));
 
-    public static final RegistryObject<Item> PlainSceptre0 = ITEMS.register("plainsceptre0",
-            () -> new PlainSceptre(new Item.Properties().rarity(CustomStyle.PlainItalic), 0));
-    public static final RegistryObject<Item> PlainSceptre1 = ITEMS.register("plainsceptre1",
-            () -> new PlainSceptre(new Item.Properties().rarity(CustomStyle.PlainItalic), 1));
-    public static final RegistryObject<Item> PlainSceptre2 = ITEMS.register("plainsceptre2",
-            () -> new PlainSceptre(new Item.Properties().rarity(CustomStyle.PlainItalic), 2));
-    public static final RegistryObject<Item> PlainSceptre3 = ITEMS.register("plainsceptre3",
-            () -> new PlainSceptre(new Item.Properties().rarity(CustomStyle.PlainItalic), 3));
-    public static final RegistryObject<Item> PlainSceptre4 = ITEMS.register("plainsceptre4",
-            () -> new PlainSceptre(new Item.Properties().rarity(CustomStyle.LifeItalic), 4));
+    public static final RegistryObject<Item> LIFE_SCEPTRE_0 = ITEMS.register("plainsceptre0",
+            () -> new LifeSceptre(new Item.Properties().rarity(CustomStyle.PlainItalic), 0));
+    public static final RegistryObject<Item> LIFE_SCEPTRE_1 = ITEMS.register("plainsceptre1",
+            () -> new LifeSceptre(new Item.Properties().rarity(CustomStyle.PlainItalic), 1));
+    public static final RegistryObject<Item> LIFE_SCEPTRE_2 = ITEMS.register("plainsceptre2",
+            () -> new LifeSceptre(new Item.Properties().rarity(CustomStyle.PlainItalic), 2));
+    public static final RegistryObject<Item> LIFE_SCEPTRE_3 = ITEMS.register("plainsceptre3",
+            () -> new LifeSceptre(new Item.Properties().rarity(CustomStyle.PlainItalic), 3));
+    public static final RegistryObject<Item> LIFE_SCEPTRE_X = ITEMS.register("plainsceptre4",
+            () -> new LifeSceptre(new Item.Properties().rarity(CustomStyle.LifeItalic), 4));
 
     public static final RegistryObject<Item> PlainPower = ITEMS.register("plain_power",
             () -> new PlainPower(new Item.Properties().rarity(CustomStyle.PlainItalic), 0));
@@ -694,6 +669,10 @@ public class ModItems {
     public static final RegistryObject<Item> MineShield = ITEMS.register("mine_shield",
             () -> new MineShield());
 
+    public static final RegistryObject<Item> MINE_MANA_NOTE = ITEMS.register("mine_mana_note",
+            () -> new ManaNote(new Item.Properties().rarity(CustomStyle.MineItalic), 3,
+                    80, 0.17, 2, 175, 14, 0.2, 0.25));
+
     public static final RegistryObject<Item> MineArmorHelmet = ITEMS.register("minearmorhelmet",
             () -> new MineArmorHelmet(ModArmorMaterials.IslandMaterial, ArmorItem.Type.HELMET));
     public static final RegistryObject<Item> MineArmorChest = ITEMS.register("minearmorchest",
@@ -731,8 +710,8 @@ public class ModItems {
             () -> new VolcanoPower(new Item.Properties().rarity(CustomStyle.VolcanoItalic), 3));
 
     public static final RegistryObject<Item> VolcanoManaBook = ITEMS.register("mananote_volcano",
-            () -> new ManaNote(new Item.Properties().rarity(CustomStyle.VolcanoItalic), 3,
-                    80, 0.17, 2, 175, 14, 0.2, 0.25));
+            () -> new ManaNote(new Item.Properties().rarity(CustomStyle.VolcanoItalic), 4,
+                    100, 0.2, 2, 200, 16, 0.25, 0.3));
 
     public static final RegistryObject<Item> VolcanoArmorHelmet = ITEMS.register("volcanoarmorhelmet",
             () -> new VolcanoArmorHelmet(ModArmorMaterials.VolcanoMaterialHelmet, ArmorItem.Type.HELMET));
@@ -759,8 +738,6 @@ public class ModItems {
             () -> new VolcanoRing(new Item.Properties().stacksTo(1).rarity(CustomStyle.VolcanoItalic)));
     public static final RegistryObject<Item> tickettosky = ITEMS.register("tickettosky",
             () -> new TicketToSkyCity(new Item.Properties().rarity(Rarity.create("souvenirs", ChatFormatting.BLUE))));
-    public static final RegistryObject<Item> quest = ITEMS.register("quest",
-            () -> new Quest(new Item.Properties().rarity(Rarity.UNCOMMON)));
     public static final RegistryObject<Item> hovertest = ITEMS.register("hovertest",
             () -> new HoverTest(new Item.Properties().rarity(Rarity.UNCOMMON)));
     public static final RegistryObject<Item> ArrowItem = ITEMS.register("arrowitem",
@@ -768,12 +745,6 @@ public class ModItems {
 
     public static final RegistryObject<Item> ArmorMine = ITEMS.register("armormine",
             () -> new MobArmor(StringUtils.MobName.MineZombie));
-    public static final RegistryObject<Item> profession_bow = ITEMS.register("profession_bow",
-            () -> new Profession_Bow(new Item.Properties().rarity(Rarity.UNCOMMON)));
-    public static final RegistryObject<Item> profession_sword = ITEMS.register("profession_sword",
-            () -> new Profession_Sword(new Item.Properties().rarity(Rarity.UNCOMMON)));
-    public static final RegistryObject<Item> profession_barker = ITEMS.register("profession_barker",
-            () -> new Profession_Barker(new Item.Properties().rarity(Rarity.UNCOMMON)));
     public static final RegistryObject<Item> MineSoul = ITEMS.register("minesoul",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.Mine)));
     public static final RegistryObject<Item> MineSoul1 = ITEMS.register("minesoul1",
@@ -3065,15 +3036,6 @@ public class ModItems {
     public static final RegistryObject<Item> LifeElementSceptre = ITEMS.register("life_element_sceptre",
             () -> new LifeElementSceptre(new Item.Properties().rarity(CustomStyle.LifeItalic)));
 
-    public static final RegistryObject<Item> LifeElementSwordForgeDraw = ITEMS.register("life_element_sword_forge_draw",
-            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.LifeBold), ModItems.LifeElementSword.get()));
-
-    public static final RegistryObject<Item> LifeElementBowForgeDraw = ITEMS.register("life_element_bow_forge_draw",
-            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.LifeBold), ModItems.LifeElementBow.get()));
-
-    public static final RegistryObject<Item> LifeElementSceptreForgeDraw = ITEMS.register("life_element_sceptre_forge_draw",
-            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.LifeBold), ModItems.LifeElementSceptre.get()));
-
     public static final RegistryObject<Item> WaterElementSword = ITEMS.register("water_element_sword",
             () -> new WaterElementSword(new Item.Properties().stacksTo(1).rarity(CustomStyle.WaterItalic)));
 
@@ -3083,18 +3045,6 @@ public class ModItems {
     public static final RegistryObject<Item> WaterElementSceptre = ITEMS.register("water_element_sceptre",
             () -> new WaterElementSceptre(new Item.Properties().rarity(CustomStyle.WaterItalic)));
 
-    public static final RegistryObject<Item> WaterElementSwordForgeDraw = ITEMS.register("water_element_sword_forge_draw",
-            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.WaterBold), ModItems.WaterElementSword.get()));
-
-    public static final RegistryObject<Item> WaterElementBowForgeDraw = ITEMS.register("water_element_bow_forge_draw",
-            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.WaterBold), ModItems.WaterElementBow.get()));
-
-    public static final RegistryObject<Item> WaterElementSceptreForgeDraw = ITEMS.register("water_element_sceptre_forge_draw",
-            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.WaterBold), ModItems.WaterElementSceptre.get()));
-
-    public static final RegistryObject<Item> ChangeLog = ITEMS.register("change_log",
-            () -> new Item(new Item.Properties().rarity(Rarity.UNCOMMON)));
-
     public static final RegistryObject<Item> FireElementSword = ITEMS.register("fire_element_sword",
             () -> new FireElementSword(new Item.Properties().stacksTo(1).rarity(CustomStyle.FireItalic)));
 
@@ -3103,15 +3053,6 @@ public class ModItems {
 
     public static final RegistryObject<Item> FireElementSceptre = ITEMS.register("fire_element_sceptre",
             () -> new FireElementSceptre(new Item.Properties().rarity(CustomStyle.FireItalic)));
-
-    public static final RegistryObject<Item> FireElementSwordForgeDraw = ITEMS.register("fire_element_sword_forge_draw",
-            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.FireBold), ModItems.FireElementSword.get()));
-
-    public static final RegistryObject<Item> FireElementBowForgeDraw = ITEMS.register("fire_element_bow_forge_draw",
-            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.FireBold), ModItems.FireElementBow.get()));
-
-    public static final RegistryObject<Item> FireElementSceptreForgeDraw = ITEMS.register("fire_element_sceptre_forge_draw",
-            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.FireBold), ModItems.FireElementSceptre.get()));
 
     public static final RegistryObject<Item> ShulkerSoul = ITEMS.register("shulker_soul",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.EndBold), true, true));
@@ -3127,15 +3068,6 @@ public class ModItems {
 
     public static final RegistryObject<Item> END_CURIOS_MANA = ITEMS.register("end_curios1",
             () -> new EndCuriosMana(new Item.Properties().rarity(CustomStyle.EndBold)));
-
-    public static final RegistryObject<Item> EndCuriosForgeDraw = ITEMS.register("end_curios_forge_draw",
-            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.EndBold), ModItems.END_CURIOS_BOW.get()));
-
-    public static final RegistryObject<Item> EndCurios1ForgeDraw = ITEMS.register("end_curios1_forge_draw",
-            () -> new WraqForge(new Item.Properties().rarity(CustomStyle.EndBold), ModItems.END_CURIOS_MANA.get()));
-
-    public static final RegistryObject<Item> MobArmorEndStrayHelmet = ITEMS.register("mob_armor_end_stray_helmet",
-            () -> new MobArmor(ModArmorMaterials.PurpleIron, ArmorItem.Type.HELMET, StringUtils.MobName.EndStray));
 
     public static final RegistryObject<Item> ROSE_GOLD_COIN = ITEMS.register("rose_gold_coin",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.PurpleIronBold), false, false, List.of(

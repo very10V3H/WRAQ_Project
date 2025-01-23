@@ -2,11 +2,13 @@ package fun.wraq.process.system.skill.skillv2;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.util.ClientUtils;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.system.skill.skillv2.network.SkillV2PlayerTryToChooseProfessionTypeC2SPacket;
 import fun.wraq.process.system.skill.skillv2.network.SkillV2PlayerTryToEquipSkillC2SPacket;
 import fun.wraq.process.system.skill.skillv2.network.SkillV2PlayerTryToUpgradeSkillC2SPacket;
 import fun.wraq.render.toolTip.CustomStyle;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
@@ -36,7 +38,7 @@ public class SkillV2Screen extends Screen {
     int xDifference = 48;
     int yDifference = 48;
 
-    int xOffset = -150;
+    int xOffset = -120;
     int yOffset = -106;
 
     private void createMenu() {
@@ -46,6 +48,7 @@ public class SkillV2Screen extends Screen {
 
         List<SkillV2> skillV2List = SkillV2.getSkillV2ListByProfession(professionType);
         for (int i = 0 ; i < 5 ; i ++) {
+
             int skillType = i;
             List<SkillV2> typeSkillV2List = skillV2List
                     .stream().filter(skillV2 -> skillV2.skillType == skillType).toList();
@@ -64,19 +67,31 @@ public class SkillV2Screen extends Screen {
             }
         }
 
-        this.addRenderableWidget(Button.builder(Te.s("战士", CustomStyle.styleOfPower), (p_280814_) -> {
-            ModNetworking.sendToServer(
-                    new SkillV2PlayerTryToChooseProfessionTypeC2SPacket(0));
+        this.addRenderableWidget(Button.builder(Te.s("剑术", CustomStyle.styleOfPower), (p_280814_) -> {
+            if (!ClientUtils.isInBattle) {
+                ModNetworking.sendToServer(
+                        new SkillV2PlayerTryToChooseProfessionTypeC2SPacket(0));
+            } else {
+                SkillV2.sendMSG(getMinecraft().player, Te.s("请脱离", "战斗状态", ChatFormatting.RED, "5s后重试"));
+            }
         }).pos(X + xOffset, Y + yOffset - 16).size(24, 12).build());
 
-        this.addRenderableWidget(Button.builder(Te.s("游侠", CustomStyle.styleOfFlexible), (p_280814_) -> {
-            ModNetworking.sendToServer(
-                    new SkillV2PlayerTryToChooseProfessionTypeC2SPacket(1));
+        this.addRenderableWidget(Button.builder(Te.s("弓术", CustomStyle.styleOfFlexible), (p_280814_) -> {
+            if (!ClientUtils.isInBattle) {
+                ModNetworking.sendToServer(
+                        new SkillV2PlayerTryToChooseProfessionTypeC2SPacket(1));
+            } else {
+                SkillV2.sendMSG(getMinecraft().player, Te.s("请脱离", "战斗状态", ChatFormatting.RED, "5s后重试"));
+            }
         }).pos(X + xOffset + xDifference, Y + yOffset - 16).size(24, 12).build());
 
-        this.addRenderableWidget(Button.builder(Te.s("法师", CustomStyle.styleOfMana), (p_280814_) -> {
-            ModNetworking.sendToServer(
-                    new SkillV2PlayerTryToChooseProfessionTypeC2SPacket(2));
+        this.addRenderableWidget(Button.builder(Te.s("法术", CustomStyle.styleOfMana), (p_280814_) -> {
+            if (!ClientUtils.isInBattle) {
+                ModNetworking.sendToServer(
+                        new SkillV2PlayerTryToChooseProfessionTypeC2SPacket(2));
+            } else {
+                SkillV2.sendMSG(getMinecraft().player, Te.s("请脱离", "战斗状态", ChatFormatting.RED, "5s后重试"));
+            }
         }).pos(X + xOffset + xDifference * 2, Y + yOffset - 16).size(24, 12).build());
     }
 
@@ -100,6 +115,7 @@ public class SkillV2Screen extends Screen {
         List<SkillV2> skillV2List = SkillV2.getSkillV2ListByProfession(professionType);
         for (int i = 0 ; i < 5 ; i ++) {
             int skillType = i;
+
             List<SkillV2> typeSkillV2List = skillV2List
                     .stream().filter(skillV2 -> skillV2.skillType == skillType).toList();
             for (int j = 0 ; j < typeSkillV2List.size() ; j ++) {
@@ -123,14 +139,17 @@ public class SkillV2Screen extends Screen {
                 if (skillIndex < skillLevelList.size()) {
                     int skillLevel = skillLevelList.get(skillIndex);
 
-                    guiGraphics.drawCenteredString(font, Te.s(String.valueOf(skillLevel)),
+                    guiGraphics.drawCenteredString(font, skillLevel > -1 ? Te.s(String.valueOf(skillLevel))
+                                    : Te.s("未习得", CustomStyle.styleOfStone),
                             X + xOffset + j * xDifference + 28, Y + yOffset + i * yDifference + 24, 0);
                     if (x >= X + xOffset + j * xDifference && x <= X + xOffset + j * xDifference + 32
                             && y >= Y + yOffset + i * yDifference && y <= Y + yOffset + i * yDifference + 32) {
-                        guiGraphics.renderComponentTooltip(font, skillV2.getSkillDescription(skillLevel), x, y);
+                        guiGraphics.renderComponentTooltip(font, skillV2.getDescriptionComponents(skillLevel), x, y);
                     }
                 }
             }
+            guiGraphics.drawCenteredString(font, SkillV2.getTypeName(skillType),
+                    X + xOffset - 20, Y + yOffset + i * yDifference + 12, 0);
         }
 
         this.renderables.forEach(renderable -> {
@@ -142,6 +161,9 @@ public class SkillV2Screen extends Screen {
                 renderable.render(graphics, x, y, v);
             }
         });
+
+        guiGraphics.drawCenteredString(font, Te.s("选择技能组", CustomStyle.styleOfStone),
+                X + xOffset - 24, Y + yOffset - 14, 0);
     }
 
     @Override

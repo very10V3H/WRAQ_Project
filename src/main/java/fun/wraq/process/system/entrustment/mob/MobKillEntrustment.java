@@ -9,6 +9,7 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.MobSpawnController;
 import fun.wraq.networking.ModNetworking;
+import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.plan.PlanPlayer;
 import fun.wraq.process.func.rank.RankData;
@@ -516,6 +517,8 @@ public class MobKillEntrustment {
                 sendPacketToClient(player);
                 MySound.soundToPlayer(player, SoundEvents.VILLAGER_CELEBRATE);
                 MySound.soundToPlayer(player, SoundEvents.PLAYER_LEVELUP);
+
+                Guide.sendGuideDisplayStatusToClient(player, true);
             }
         }
     }

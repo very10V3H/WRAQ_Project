@@ -7,6 +7,7 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.events.core.InventoryCheck;
 import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.func.item.InventoryOperation;
+import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.process.system.lottery.NewLotteries;
 import fun.wraq.render.gui.villagerTrade.TradeList;
 import net.minecraft.ChatFormatting;
@@ -17,6 +18,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.network.NetworkEvent;
@@ -52,7 +54,7 @@ public class TradeBuyRequestC2SPacket {
             ServerPlayer serverPlayer = context.getSender();
             if (TradeList.tradeContent.isEmpty() || TradeList.tradeRecipeMap.isEmpty()) TradeList.setTradeContent();
             ItemStack targetItemStack = TradeList.tradeContent.get(this.name).get(index);
-            ItemStack giveItemStack = new ItemStack(targetItemStack.getItem(), targetItemStack.getCount());
+            ItemStack product = new ItemStack(targetItemStack.getItem(), targetItemStack.getCount());
             List<ItemStack> requireItemList = TradeList.tradeRecipeMap.get(targetItemStack);
             List<ItemStack> itemList = new ArrayList<>();
 
@@ -116,36 +118,40 @@ public class TradeBuyRequestC2SPacket {
                     Compute.VBExpenseAndMSGSend(serverPlayer, requireVBCount);
                 }
 
+                if (product.is(Items.POTION))
+                    product.getOrCreateTag().putString("Potion", "minecraft:long_night_vision");
 
-                if (giveItemStack.is(Items.POTION))
-                    giveItemStack.getOrCreateTag().putString("Potion", "minecraft:long_night_vision");
-
-                if (giveItemStack.is(PatchouliAPI.get().getBookStack(new ResourceLocation(Utils.MOD_ID, "guide")).getItem()))
-                    giveItemStack = PatchouliAPI.get().getBookStack(new ResourceLocation(Utils.MOD_ID, "guide"));
+                if (product.is(PatchouliAPI.get().getBookStack(new ResourceLocation(Utils.MOD_ID, "guide")).getItem()))
+                    product = PatchouliAPI.get().getBookStack(new ResourceLocation(Utils.MOD_ID, "guide"));
 
                 if (NewLotteries.getRewardSerial.isEmpty()) NewLotteries.setGetRewardSerial();
-                if (NewLotteries.getRewardSerial.containsKey(giveItemStack.getItem()))
-                    InventoryCheck.addOwnerTagToItemStack(serverPlayer, giveItemStack);
-                if (giveItemStack.is(TradeList.netheriteBackPack)) {
-                    Guide.trig(serverPlayer, 0);
+                if (NewLotteries.getRewardSerial.containsKey(product.getItem()))
+                    InventoryCheck.addOwnerTagToItemStack(serverPlayer, product);
+                if (product.is(TradeList.netheriteBackPack)) {
+                    Guide.trigV2(serverPlayer, Guide.StageV2.BACKPACK);
                 }
-                if (giveItemStack.is(ModItems.ForestPower.get())) {
-                    Guide.trig(serverPlayer, 7);
+                if (product.is(ModItems.ForestManaBook.get())) {
+                    Guide.trigV2(serverPlayer, Guide.StageV2.FOREST_EQUIP);
                 }
-                if (giveItemStack.is(ModItems.LakePower.get())) {
-                    Guide.trig(serverPlayer, 8);
+                if (product.is(ModItems.LakeManaBook.get())) {
+                    Guide.trigV2(serverPlayer, Guide.StageV2.LAKE_EQUIP);
                 }
-                if (giveItemStack.is(ModItems.MINE_POWER.get())) {
-                    Guide.trig(serverPlayer, 9);
+                if (product.is(ModItems.MINE_MANA_NOTE.get())) {
+                    Guide.trigV2(serverPlayer, Guide.StageV2.MINE_EQUIP);
                 }
-                if (giveItemStack.is(ModItems.VolcanoPower.get())) {
-                    Guide.trig(serverPlayer, 10);
+                if (product.is(ModItems.VolcanoManaBook.get())) {
+                    Guide.trigV2(serverPlayer, Guide.StageV2.VOLCANO_EQUIP);
                 }
-                if (giveItemStack.is(ModItems.EvokerSword.get())) {
-                    Guide.trig(serverPlayer, 13);
+                if (product.is(ModItems.EvokerSword.get())) {
+                    Guide.trigV2(serverPlayer, Guide.StageV2.ENHANCE_EQUIP);
                 }
 
-                InventoryOperation.itemStackGive(serverPlayer, giveItemStack);
+                Item productItem = product.getItem();
+                if (Utils.mainHandTag.containsKey(productItem) || Utils.armorTag.containsKey(productItem)) {
+                    ForgeEquipUtils.setForgeQualityOnEquip(product, 4);
+                }
+
+                InventoryOperation.itemStackGive(serverPlayer, product);
                 MySound.soundToPlayer(serverPlayer, SoundEvents.ARROW_HIT_PLAYER);
             } else {
                 Compute.sendFormatMSG(serverPlayer, Component.literal("交易").withStyle(ChatFormatting.GREEN),

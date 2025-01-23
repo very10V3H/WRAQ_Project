@@ -4,17 +4,26 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
+import fun.wraq.common.impl.onshoot.OnPowerReleaseCurios;
+import fun.wraq.common.impl.onshoot.OnPowerReleaseEquip;
+import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.networking.ModNetworking;
+import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
+import fun.wraq.process.func.guide.Guide;
+import fun.wraq.process.func.power.PowerLogic;
 import fun.wraq.process.system.skill.skillv2.bow.*;
 import fun.wraq.process.system.skill.skillv2.mana.*;
 import fun.wraq.process.system.skill.skillv2.network.SkillV2CooldownS2CPacket;
 import fun.wraq.process.system.skill.skillv2.network.SkillV2InfoS2CPacket;
+import fun.wraq.process.system.skill.skillv2.network.SkillV2LeftCooldownS2CPacket;
 import fun.wraq.process.system.skill.skillv2.sword.*;
 import fun.wraq.render.hud.Mana;
 import fun.wraq.render.toolTip.CustomStyle;
+import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import org.jetbrains.annotations.Nullable;
@@ -26,13 +35,15 @@ import java.util.Map;
 
 public abstract class SkillV2 {
 
-    protected final int cooldownTick;
+    public final Component name;
+    public final int cooldownTick;
     protected final int manaCost;
     protected final int professionType; // -1 - 未选择 0 - 战士 1 - 弓箭手 2 - 法师
     protected final int skillType; // 0 - 被动 1 - 基础技能1 2 - 基础技能2 3 - 基础技能3 4 - 终极技能
     protected final int serial; // 该技能的序号
 
-    protected SkillV2(int cooldownTick, int manaCost, int professionType, int skillType, int serial) {
+    protected SkillV2(Component name, int cooldownTick, int manaCost, int professionType, int skillType, int serial) {
+        this.name = name;
         this.cooldownTick = cooldownTick;
         this.manaCost = manaCost;
         this.professionType = professionType;
@@ -46,7 +57,7 @@ public abstract class SkillV2 {
 
     protected abstract boolean canUpgrade(Player player);
 
-    protected abstract List<Component> getUpgradeConditionDescription();
+    protected abstract List<Component> getUpgradeConditionDescription(int skillLevel);
 
     protected abstract void upgradeOperation(Player player);
 
@@ -58,6 +69,10 @@ public abstract class SkillV2 {
 
     protected abstract List<Component> getSkillDescription(int level);
 
+    protected int getCooldownDecrease(Player player) {
+        return 0;
+    }
+
     public static int clientProfessionType = 0;
     public static List<Integer> clientSwordSkillLevel = new ArrayList<>();
     public static List<Integer> clientBowSkillLevel = new ArrayList<>();
@@ -65,6 +80,7 @@ public abstract class SkillV2 {
     public static List<Integer> clientCurrentSkillSerial = new ArrayList<>();
     public static Map<Integer, Integer> clientLeftCooldownTick = new HashMap<>();
     public static Map<Integer, Integer> clientOriginCooldownTick = new HashMap<>();
+    public static int clientLastReleaseTick = 0;
     public static boolean screenRefreshFlag = false;
 
     public static List<SkillV2> swordSkillV2 = new ArrayList<>();
@@ -73,34 +89,51 @@ public abstract class SkillV2 {
 
     public static List<SkillV2> getSwordSkillV2() {
         if (swordSkillV2.isEmpty()) {
-            swordSkillV2.add(new SwordNewSkillPassive0(0, 0, 0, 0, 0));
-            swordSkillV2.add(new SwordNewSkillBase1_0(200, 50, 0, 1, 0));
-            swordSkillV2.add(new SwordNewSkillBase1_1(200, 50, 0, 1, 1));
-            swordSkillV2.add(new SwordNewSkillBase2_0(200, 50, 0, 2, 0));
-            swordSkillV2.add(new SwordNewSkillBase3_0(200, 50, 0, 3, 0));
-            swordSkillV2.add(new SwordNewSkillFinal0(200, 50, 0, 4, 0));
+            Style style = CustomStyle.styleOfPower;
+            swordSkillV2.add(new SwordNewSkillPassive0(Te.s("横扫", style),
+                    0, 0, 0, 0, 0));
+            swordSkillV2.add(new SwordNewSkillBase1_0(Te.s("居合", style),
+                    Tick.s(3), 0, 0, 1, 0));
+            swordSkillV2.add(new SwordNewSkillBase2_0(Te.s("践踏", style),
+                    Tick.s(12), 80, 0, 2, 0));
+            swordSkillV2.add(new SwordNewSkillBase3_0(Te.s("踏前斩", style),
+                    Tick.s(8), 40, 0, 3, 0));
+            swordSkillV2.add(new SwordNewSkillFinal0(Te.s("注魔之刃", style),
+                    Tick.s(30), 200, 0, 4, 0));
         }
         return swordSkillV2;
     }
 
     public static List<SkillV2> getBowSkillV2() {
         if (bowSkillV2.isEmpty()) {
-            bowSkillV2.add(new BowNewSkillPassive0(0, 0, 1, 0, 0));
-            bowSkillV2.add(new BowNewSkillBase1_0(200, 50, 1, 1, 0));
-            bowSkillV2.add(new BowNewSkillBase2_0(200, 50, 1, 2, 0));
-            bowSkillV2.add(new BowNewSkillBase3_0(200, 50, 1, 3, 0));
-            bowSkillV2.add(new BowNewSkillFinal0(200, 50, 1, 4, 0));
+            Style style = CustomStyle.styleOfFlexible;
+            bowSkillV2.add(new BowNewSkillPassive0(Te.s("破绽", style),
+                    0, 0, 1, 0, 0));
+            bowSkillV2.add(new BowNewSkillBase1_0(Te.s("重矢", style),
+                    Tick.s(3), 0, 1, 1, 0));
+            bowSkillV2.add(new BowNewSkillBase2_0(Te.s("烈矢", style),
+                    Tick.s(8), 80, 1, 2, 0));
+            bowSkillV2.add(new BowNewSkillBase3_0(Te.s("附风", style),
+                    Tick.s(20), 80, 1, 3, 0));
+            bowSkillV2.add(new BowNewSkillFinal0(Te.s("速射", style),
+                    Tick.s(30), 100, 1, 4, 0));
         }
         return bowSkillV2;
     }
 
     public static List<SkillV2> getManaSkillV2() {
         if (manaSkillV2.isEmpty()) {
-            manaSkillV2.add(new ManaNewSkillPassive0(0, 0, 2, 0, 0));
-            manaSkillV2.add(new ManaNewSkillBase1_0(200, 50, 2, 1, 0));
-            manaSkillV2.add(new ManaNewSkillBase2_0(200, 50, 2, 2, 0));
-            manaSkillV2.add(new ManaNewSkillBase3_0(200, 50, 2, 3, 0));
-            manaSkillV2.add(new ManaNewSkillFinal0(200, 50, 2, 4, 0));
+            Style style = CustomStyle.styleOfMana;
+            manaSkillV2.add(new ManaNewSkillPassive0(Te.s("解析", style),
+                    0, 0, 2, 0, 0));
+            manaSkillV2.add(new ManaNewSkillBase1_0(Te.s("崩碎", style),
+                    Tick.s(5), 60, 2, 1, 0));
+            manaSkillV2.add(new ManaNewSkillBase2_0(Te.s("引能", style),
+                    Tick.s(8), 100, 2, 2, 0));
+            manaSkillV2.add(new ManaNewSkillBase3_0(Te.s("爆弹", style),
+                    Tick.s(12), 80, 2, 3, 0));
+            manaSkillV2.add(new ManaNewSkillFinal0(Te.s("激化", style),
+                    Tick.s(30), 200, 2, 4, 0));
         }
         return manaSkillV2;
     }
@@ -217,10 +250,16 @@ public abstract class SkillV2 {
         data.putInt(getAllSkillSerialDataKey().get(skillType), serial);
     }
 
+    public static int maxSkillLevel = 10;
+
     public static int getProfessionSkillLevel(Player player, int profession, int skillType, int serial) {
         CompoundTag data = getProfessionSkillData(player, profession);
-        int dataLevel = data.getInt(getAllSkillLevelDataKey().get(skillType) + "_" + serial);
-        return serial == 0 ? Math.max(1, dataLevel) : dataLevel;
+        String dataKey = getAllSkillLevelDataKey().get(skillType) + "_" + serial;
+        int dataLevel = data.getInt(dataKey);
+        if (!data.contains(dataKey) && serial != 0) {
+            return -1;
+        }
+        return dataLevel;
     }
 
     public static void setProfessionSkillLevel(Player player, int profession, int skillType, int serial, int skillLevel) {
@@ -230,6 +269,26 @@ public abstract class SkillV2 {
 
     public static int getPlayerSkillLevelBySkillV2(Player player, SkillV2 skillV2) {
         return getProfessionSkillLevel(player, skillV2.professionType, skillV2.skillType, skillV2.serial);
+    }
+
+    private static final String UPDATE_COMPENSATE = "updateCompensate";
+    public static void afterVerUpdateLogin(Player player) {
+        CompoundTag data = getSkillV2Data(player);
+        if (!data.contains(UPDATE_COMPENSATE)) {
+            int skillLevel = Math.min(10, player.experienceLevel / 20 + 1);
+            data.putBoolean(UPDATE_COMPENSATE, true);
+            if (player.experienceLevel > 0) {
+                for (int i = 0 ; i < 3 ; i ++) {
+                    for (int j = 0 ; j < 5 ; j ++) {
+                        setProfessionSkillLevel(player, i, j, 0, skillLevel);
+                    }
+                }
+                sendMSG(player, Te.s("作为新增技能组的补偿，你的所有",
+                        "技能等级", CustomStyle.styleOfWorld, "被设置为了",
+                        " " + skillLevel + "级", CustomStyle.styleOfWorld));
+                sendInfoToClient(player);
+            }
+        }
     }
 
     private static final String PROFESSION_TYPE = "ProfessionType";
@@ -243,7 +302,8 @@ public abstract class SkillV2 {
 
     public static void setProfessionType(Player player, int type) {
         getSkillV2Data(player).putInt(PROFESSION_TYPE, type);
-        resetSkillV2Data(player);
+        syncSkillV2Data(player);
+        Guide.trigV2(player, Guide.StageV2.CHOOSE_SKILL_V2);
     }
 
     public static final String PASSIVE_SKILL_SERIAL = "PassiveSkillSerial";
@@ -285,7 +345,7 @@ public abstract class SkillV2 {
                 .findFirst().orElse(null);
     }
 
-    public static void resetSkillV2Data(Player player) {
+    public static void syncSkillV2Data(Player player) {
         String name = player.getName().getString();
         int profession = getProfessionType(player);
         if (profession == -1) {
@@ -331,7 +391,7 @@ public abstract class SkillV2 {
         sendInfoToClient(player);
     }
 
-    protected int getPlayerSkillLevel(Player player) {
+    public int getPlayerSkillLevel(Player player) {
         return getProfessionSkillLevel(player, professionType, skillType, serial);
     }
 
@@ -347,10 +407,14 @@ public abstract class SkillV2 {
             return;
         }
 
+        int skillLevel = getPlayerSkillLevel(player);
+        if (skillLevel < 0) {
+            sendMSG(player, Te.s("暂未习得该技能"));
+            return;
+        }
         String name = player.getName().getString();
         Map<String, SkillV2> skillV2Map = getSkillMapBySkillType(this.skillType);
         skillV2Map.put(name, this);
-        int skillLevel = getPlayerSkillLevel(player);
         getSkillLevelMapBySkillType(this.skillType).put(name, skillLevel);
         sendMSG(player, Te.s("已装备技能"));
         setProfessionSkillSerial(player, professionType, skillType, serial);
@@ -370,6 +434,10 @@ public abstract class SkillV2 {
     }
 
     protected void onPlayerTryToRelease(Player player) {
+        if (SpecialEffectOnPlayer.inSilent(player)) {
+            return;
+        }
+
         String name = player.getName().getString();
         if (!playerSkillV2AllowReleaseTickMap.containsKey(name)) {
             playerSkillV2AllowReleaseTickMap.put(name, new HashMap<>());
@@ -378,12 +446,31 @@ public abstract class SkillV2 {
         if (canRelease(player)
                 && skillV2AllowReleaseTickMap.getOrDefault(this, 0) <= Tick.get()
                 && Mana.getPlayerCurrentManaNum(player) >= manaCost) {
-            int afterDecreaseCooldownTick = (int) (cooldownTick * (1 - PlayerAttributes.coolDownDecrease(player)));
+            int afterDecreaseCooldownTick
+                    = (int) ((cooldownTick - getCooldownDecrease(player)) * (1 - PlayerAttributes.coolDownDecrease(player)));
+            afterDecreaseCooldownTick = Math.max(0, afterDecreaseCooldownTick);
             skillV2AllowReleaseTickMap.put(this, Tick.get() + afterDecreaseCooldownTick);
             ModNetworking.sendToClient(new SkillV2CooldownS2CPacket(skillType, afterDecreaseCooldownTick,
                     afterDecreaseCooldownTick), player);
             Mana.addOrCostPlayerMana(player, -manaCost);
             releaseOperation(player);
+            if (professionType == 2) {
+                PowerLogic.playerReleasePower(player);
+                OnPowerReleaseEquip.release(player);
+                OnPowerReleaseCurios.release(player);
+            }
+        }
+    }
+
+    public static void decreaseSkillCooldownTick(Player player, SkillV2 skillV2, int decreaseTick) {
+        String name = player.getName().getString();
+        Map<SkillV2, Integer> map = SkillV2.playerSkillV2AllowReleaseTickMap.getOrDefault(name, null);
+        if (map != null) {
+            int leftTick = map.getOrDefault(skillV2, 0) - Tick.get();
+            leftTick = Math.max(0, leftTick - decreaseTick);
+            map.put(skillV2, Tick.get() + leftTick);
+            ModNetworking.sendToClient(
+                    new SkillV2LeftCooldownS2CPacket(skillV2.getSkillType(), leftTick), player);
         }
     }
 
@@ -408,6 +495,64 @@ public abstract class SkillV2 {
     @Nullable
     public static SkillV2 getPlayerCurrentSkillByType(Player player, int type) {
         return getSkillMapBySkillType(type).getOrDefault(player.getName().getString(), null);
+    }
+
+    public List<Component> getDescriptionComponents(int skillLevel) {
+        List<Component> components = new ArrayList<>();
+        components.add(Te.s(name, " ".repeat(8),
+                skillLevel > -1 ? Te.s("等级" + skillLevel, ChatFormatting.AQUA)
+                        : Te.s("暂未习得", CustomStyle.styleOfStone)));
+        components.add(Te.s(getTypeName(skillType), " ".repeat(10),
+                cooldownTick == 0 ? Te.s("无冷却时间", CustomStyle.styleOfStone)
+                        : ComponentUtils.getCooldownTimeDescription(cooldownTick / 20),
+                " ".repeat(10), manaCost == 0 ? Te.s("无法力消耗", CustomStyle.styleOfStone)
+                        : Te.s("法力消耗:", manaCost, ChatFormatting.LIGHT_PURPLE)));
+        ComponentUtils.descriptionDash(components, CustomStyle.styleOfStone);
+        components.addAll(getSkillDescription(skillLevel));
+        ComponentUtils.descriptionDash(components, CustomStyle.styleOfStone);
+        if (skillLevel == maxSkillLevel) {
+            components.add(Te.s("技能已达最大等级"));
+        } else {
+            components.add(Te.s("提升至", "下一技能等级", CustomStyle.styleOfWorld, "，需要:"));
+            components.addAll(getUpgradeConditionDescription(skillLevel));
+        }
+        return components;
+    }
+
+    public Component getTypeName() {
+        return getTypeName(skillType);
+    }
+
+    public static Component getTypeName(int skillType) {
+        switch (skillType) {
+            case 0 -> {
+                return Te.s("被动技能", ChatFormatting.GREEN);
+            }
+            case 4 -> {
+                return Te.s("终极技能", ChatFormatting.LIGHT_PURPLE);
+            }
+            default -> {
+                return Te.s("基础技能", ChatFormatting.AQUA);
+            }
+        }
+    }
+
+    public static Component getProfessionName(int professionType) {
+        switch (professionType) {
+            case 1 -> {
+                return Te.s("弓术", CustomStyle.styleOfFlexible);
+            }
+            case 2 -> {
+                return Te.s("法术", CustomStyle.styleOfMana);
+            }
+            default -> {
+                return Te.s("剑术", CustomStyle.styleOfPower);
+            }
+        }
+    }
+
+    public static String getRateDescription(double baseRate, double eachLevelRate, int skillLevel) {
+        return String.format("%.0f%%", (baseRate + eachLevelRate * skillLevel) * 100);
     }
 
     public static void sendMSG(Player player, Component content) {

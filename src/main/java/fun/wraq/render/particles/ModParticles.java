@@ -58,7 +58,7 @@ public class ModParticles {
     public static final RegistryObject<SimpleParticleType> LONG_LIGHTNINGISLAND =
             PARTICLE_TYPES.register("long_lightningisland", () -> new SimpleParticleType(true));
 
-    public static final RegistryObject<SimpleParticleType> MANAFOREST =
+    public static final RegistryObject<SimpleParticleType> EVOKER =
             PARTICLE_TYPES.register("manaforest", () -> new SimpleParticleType(true));
     public static final RegistryObject<SimpleParticleType> LONG_MANAFOREST =
             PARTICLE_TYPES.register("long_manaforest", () -> new SimpleParticleType(true));

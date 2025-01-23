@@ -39,7 +39,7 @@ public class ForNew extends Item {
         ItemStack blade = new ItemStack(BladeItems.BLADE.get());
         ItemStack bow = new ItemStack(ModItems.PlainBow0.get());
         ItemStack quiver = new ItemStack(QuiverItems.QUIVER.get());
-        ItemStack sceptre = new ItemStack(ModItems.PlainSceptre0.get());
+        ItemStack sceptre = new ItemStack(ModItems.LIFE_SCEPTRE_0.get());
         ItemStack mixture = new ItemStack(MixtureItems.MIXTURE.get());
         ForgeEquipUtils.setForgeQualityOnEquip(sword, 6);
         ForgeEquipUtils.setForgeQualityOnEquip(bow, 6);
@@ -51,10 +51,7 @@ public class ForNew extends Item {
         EnchantmentHelper.setEnchantments(map, elyTra);
 
         return List.of(
-                sword, blade,
-                bow, quiver,
-                sceptre, mixture,
-                new ItemStack(ModItems.PlainPower.get()),
+                sword, bow, sceptre,
                 new ItemStack(ModItems.BAMBOO_KANATA.get()),
                 new ItemStack(ModItems.ORIGIN_KNIFE_PLAIN.get()),
                 new ItemStack(ModItems.PlainManaBook.get()),

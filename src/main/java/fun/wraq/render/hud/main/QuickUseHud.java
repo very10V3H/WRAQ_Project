@@ -2,12 +2,15 @@ package fun.wraq.render.hud.main;
 
 import com.google.common.collect.ImmutableMap;
 import fun.wraq.common.equip.impl.ActiveItem;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.KeyBoradInput;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.resources.ResourceLocation;
@@ -28,6 +31,7 @@ public class QuickUseHud {
 
     public static final IGuiOverlay QUICK_USE_HUD = ((gui, poseStack, partialTick, width, height) -> {
         Minecraft mc = Minecraft.getInstance();
+        Font font = mc.font;
         LocalPlayer player = mc.player;
         if (player == null) return;
         GuiGraphics guiGraphics = new GuiGraphics(mc, mc.renderBuffers().bufferSource());
@@ -40,8 +44,18 @@ public class QuickUseHud {
             Item item = stack.getItem();
             if (item instanceof ActiveItem) {
                 if (!player.getCooldowns().isOnCooldown(item)) {
+                    if (i > 6 && SpecialEffectOnPlayer.clientSilentTick == 0) {
+                        guiGraphics.drawCenteredString(font, Te.s(getKeyName(i - 3), ChatFormatting.AQUA),
+                                x - 88 + 20 * i, y - 23, 0);
+                    }
                     guiGraphics.blit(ClientUtils.CdResourceLocation[12], x - 88 + 20 * i, y - 19,
                             0, 0, 16, 16, 16, 16);
+                }
+            }
+            if (!(item instanceof ActiveItem)) {
+                if (i > 6) {
+                    guiGraphics.drawCenteredString(font, Te.s(getKeyName(i - 3), ChatFormatting.GRAY),
+                            x - 88 + 20 * i, y - 23, 0);
                 }
             }
         }
@@ -75,6 +89,7 @@ public class QuickUseHud {
             2, KeyBoradInput.NEW_SKILL_3,
             3, KeyBoradInput.NEW_SKILL_4,
             4, KeyBoradInput.USE5,
-            5, KeyBoradInput.USE6
+            5, KeyBoradInput.USE6,
+            6, KeyBoradInput.SKILL_SCREEN
     );
 }

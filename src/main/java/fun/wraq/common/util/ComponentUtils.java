@@ -543,6 +543,10 @@ public class ComponentUtils {
                 append(Component.literal("影响").withStyle(ChatFormatting.WHITE));
     }
 
+    public static Component getAttackEffectDescription() {
+        return Te.s("附带", "攻击特效", CustomStyle.styleOfSea);
+    }
+
     public static Component getSuffixOfSummerEvent() {
         return Component.literal(" 2024暑期活动").withStyle(ChatFormatting.BOLD).withStyle(CustomStyle.styleOfPower);
     }
@@ -856,6 +860,10 @@ public class ComponentUtils {
         components.add(Component.literal("─").withStyle(chatFormatting0).
                 append(Component.literal("───────────────────").withStyle(chatFormatting1).
                         append(Component.literal("─").withStyle(chatFormatting2))));
+    }
+
+    public static void descriptionDash(List<Component> components, Style style) {
+        components.add(Te.s("─", "─".repeat(19), style, "─"));
     }
 
     public static void descriptionOfBasic(List<Component> components) {

@@ -85,7 +85,7 @@ public class QuartzSword extends WraqSword implements ActiveItem {
         }
         List<Mob> monsterList = level.getNearbyEntities(Mob.class, TargetingConditions.DEFAULT, player, AABB.ofSize(player.position(), 10, 10, 10));
         for (Mob monster : monsterList) {
-            Damage.causeManaDamageToMonster_RateApDamage(player, monster, 2.5f, true);
+            Damage.causeRateApDamageToMonster(player, monster, 2.5f, true);
             LightningBolt lightningBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, level);
             lightningBolt.setCause((ServerPlayer) player);
             lightningBolt.setSilent(true);

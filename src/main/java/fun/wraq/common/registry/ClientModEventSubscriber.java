@@ -86,7 +86,7 @@ public class ClientModEventSubscriber {
         event.registerSpriteSet(ModParticles.LAKE.get(), OneTickParticle.Provider::new);
         event.registerSpriteSet(ModParticles.LIGHTNINGISLAND.get(), OneTickParticle.Provider::new);
         event.registerSpriteSet(ModParticles.LONG_LIGHTNINGISLAND.get(), FirstParticle.Provider::new);
-        event.registerSpriteSet(ModParticles.MANAFOREST.get(), OneTickParticle.Provider::new);
+        event.registerSpriteSet(ModParticles.EVOKER.get(), OneTickParticle.Provider::new);
         event.registerSpriteSet(ModParticles.NETHER.get(), OneTickParticle.Provider::new);
         event.registerSpriteSet(ModParticles.PLAIN.get(), OneTickParticle.Provider::new);
         event.registerSpriteSet(ModParticles.SEA.get(), OneTickParticle.Provider::new);

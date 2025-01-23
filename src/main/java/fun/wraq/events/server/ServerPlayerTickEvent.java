@@ -65,6 +65,8 @@ import fun.wraq.render.mobEffects.ModEffects;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.end.curios.EndCrystal;
 import fun.wraq.series.gems.passive.impl.GemTickHandler;
+import fun.wraq.series.instance.mixture.WraqMixture;
+import fun.wraq.series.instance.quiver.WraqQuiver;
 import fun.wraq.series.instance.series.castle.CastleAttackArmor;
 import fun.wraq.series.instance.series.castle.CastleManaArmor;
 import fun.wraq.series.instance.series.castle.CastleSwiftArmor;
@@ -164,6 +166,9 @@ public class ServerPlayerTickEvent {
             AllayPet.handleServerPlayerTick(serverPlayer);
             DelayOperationWithAnimation.playerTick(player);
 
+            WraqQuiver.handleServerPlayerTick(player);
+            WraqMixture.handleServerPlayerTick(player);
+
             if (player.tickCount % 10 == 0
                     && (player.isOnFire()
                     || (player.getBlockStateOn().is(Blocks.MAGMA_BLOCK) && !player.isShiftKeyDown()))) {
@@ -226,7 +231,7 @@ public class ServerPlayerTickEvent {
             }
 
             if (player.tickCount % 20 == 0) {
-                Guide.sendStageToClient(player);
+                Guide.sendStageToClientV2(player);
             }
 
             if (player.tickCount % 40 == 0) {
@@ -259,7 +264,7 @@ public class ServerPlayerTickEvent {
                         AABB.ofSize(posAndLastTime.vec3, 15, 15, 15));
                 mobList.forEach(mob -> {
                     if (mob.position().distanceTo(posAndLastTime.vec3) <= 5) {
-                        Damage.causeManaDamageToMonster_RateApDamage(player, mob, 0.5, false);
+                        Damage.causeRateApDamageToMonster(player, mob, 0.5, false);
                         Damage.causeAttackDamageToMonster_RateAdDamage(player, mob, 1);
                     }
                 });
@@ -288,7 +293,7 @@ public class ServerPlayerTickEvent {
                             level.destroyBlock(new BlockPos(mob.getBlockX(), mob.getBlockY() + 1, mob.getBlockZ()), false);
                         }
                         Damage.causeAttackDamageToMonster_RateAdDamage(player, mob, SuitCount.getIceSuitCount(player) * 0.5);
-                        Damage.causeManaDamageToMonster_RateApDamage(player, mob, SuitCount.getIceSuitCount(player) * 0.15, false);
+                        Damage.causeRateApDamageToMonster(player, mob, SuitCount.getIceSuitCount(player) * 0.15, false);
                         Compute.addSlowDownEffect(mob, 40, 2);
                     }
                 });

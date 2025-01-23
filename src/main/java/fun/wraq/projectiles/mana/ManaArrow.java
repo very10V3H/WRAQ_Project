@@ -35,7 +35,7 @@ public class ManaArrow extends AbstractArrow implements GeoEntity {
     public Player player;
     private boolean AdjustOneTimes = false;
     private Vec3 InWaterVec3;
-    public String type;
+    public String particleType;
     private Mob mob;
     private double rate = 1;
     public boolean mainShoot = true;
@@ -46,20 +46,20 @@ public class ManaArrow extends AbstractArrow implements GeoEntity {
     }
 
     public ManaArrow(EntityType<? extends AbstractArrow> entityType, LivingEntity shooter, Level level,
-                     double baseDamage, double manaPenetration, double manaPenetration0, String type,
+                     double baseDamage, double manaPenetration, double manaPenetration0, String particleType,
                      ManaArrowHitEntity manaArrowHitEntity) {
         super(entityType, shooter, level);
         this.player = (Player) shooter;
         this.baseDamage = baseDamage;
         this.manaPenetration = manaPenetration;
         this.manaPenetration0 = manaPenetration0;
-        this.type = type;
+        this.particleType = particleType;
         this.manaArrowHitEntity = manaArrowHitEntity;
     }
 
     public ManaArrow(EntityType<? extends AbstractArrow> entityType, LivingEntity shooter, Level level,
-                     double baseDamage, double manaPenetration, double manaPenetration0, String type) {
-        this(entityType, shooter, level, baseDamage, manaPenetration, manaPenetration0, type, null);
+                     double baseDamage, double manaPenetration, double manaPenetration0, String particleType) {
+        this(entityType, shooter, level, baseDamage, manaPenetration, manaPenetration0, particleType, null);
     }
 
     public ManaArrow(EntityType<? extends AbstractArrow> entityType, LivingEntity mob, Level level, double rate) {

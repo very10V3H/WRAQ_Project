@@ -72,7 +72,7 @@ public class WraqMixture extends WraqPassiveEquip implements ActiveItem {
 
     @Override
     public Component getSuffix() {
-        return suffix;
+        return ComponentUtils.getSuffixOfSouvenirs();
     }
 
     @Override
@@ -112,8 +112,9 @@ public class WraqMixture extends WraqPassiveEquip implements ActiveItem {
         }
     }
 
-    public static void tick() {
-        exShootRateQueueMap.forEach(((player, queue) -> {
+    public static void handleServerPlayerTick(Player player) {
+        if (exShootRateQueueMap.containsKey(player)) {
+            Queue<Double> queue = exShootRateQueueMap.get(player);
             if (!queue.isEmpty()) {
                 if (Tick.get() % 2 == 0) {
                     double rate = queue.remove();
@@ -122,7 +123,7 @@ public class WraqMixture extends WraqPassiveEquip implements ActiveItem {
                     }
                 }
             }
-        }));
+        }
     }
 }
 

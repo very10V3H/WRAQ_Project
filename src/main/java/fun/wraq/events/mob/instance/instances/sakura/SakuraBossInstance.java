@@ -82,7 +82,7 @@ public class SakuraBossInstance extends NoTeamInstance {
         Map<String, Integer> map = MobSpawn.tempKillCount.get(name);
         map.put(mobName, map.getOrDefault(mobName, 0) + 1);
         Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player), 150);
-        Guide.trig(player, 19);
+        Guide.trigV2(player, Guide.StageV2.SAKURA_BOSS);
     }
 
     @Override

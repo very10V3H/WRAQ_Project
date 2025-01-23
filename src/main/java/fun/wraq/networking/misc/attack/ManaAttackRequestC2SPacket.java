@@ -30,7 +30,7 @@ public class ManaAttackRequestC2SPacket {
             if (serverPlayer == null) return;
 
             DelayOperationWithAnimation.addToQueue(new DelayOperationWithAnimation(
-                    DelayOperationWithAnimation.Animation.manaAttack, Tick.get() + 8, serverPlayer
+                    DelayOperationWithAnimation.Animation.manaAttack, Tick.get() + 8, Tick.get() + 10, serverPlayer
             ) {
                 @Override
                 public void trig() {

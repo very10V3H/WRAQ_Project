@@ -73,7 +73,7 @@ public class WitherSkeletonEnhancePower extends WraqPower {
             }
         }
         if (mob == null) return;
-        Damage.causeManaDamageToMonster_RateApDamage(player, mob, 5.4, true);
+        Damage.causeRateApDamageToMonster(player, mob, 5.4, true);
         ParticleProvider.createLineEffectParticle(player.level(), (int) mob.distanceTo(player) * 5,
                 player.getEyePosition(), mob.getEyePosition(), CustomStyle.styleOfWither);
         if (mob.distanceTo(player) < 6) {

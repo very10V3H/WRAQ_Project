@@ -37,6 +37,7 @@ import fun.wraq.process.system.profession.pet.allay.AllayPet;
 import fun.wraq.process.system.randomevent.RandomEventsHandler;
 import fun.wraq.process.system.randomevent.impl.killmob.SlimeKingEvent;
 import fun.wraq.process.system.skill.skillv2.mana.ManaNewSkillPassive0;
+import fun.wraq.process.system.skill.skillv2.sword.SwordNewSkillBase3_0;
 import fun.wraq.process.system.teamInstance.NewTeamInstanceHandler;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.gems.passive.impl.GemOnCauseDamage;
@@ -89,7 +90,7 @@ public class Damage {
             if (trueDamage) {
                 causeTrueDamageToMonster(player, mob, PlayerAttributes.manaDamage(player));
             } else {
-                causeManaDamageToMonster_RateApDamage(player, mob, rate, false);
+                causeRateApDamageToMonster(player, mob, rate, false);
             }
         }
     }
@@ -218,7 +219,7 @@ public class Damage {
         return attackDamage * num * (1 + damageEnhance);
     }
 
-    public static void causeManaDamageToMonster_RateApDamage(Player player, Mob monster, double num, boolean isPower) {
+    public static void causeRateApDamageToMonster(Player player, Mob monster, double num, boolean isPower) {
         double baseDamage = PlayerAttributes.manaDamage(player) * num;
         double damageEnhance = 0;
         double exDamage = 0;
@@ -554,6 +555,7 @@ public class Damage {
                     GemOnKillMob.kill(player, mob);
                     MobKillEntrustment.onKill(player, mob);
                     AllayPet.onKillMob(player, mob);
+                    SwordNewSkillBase3_0.onKillMob(player);
                 } else {
                     mob.setHealth((float) (mob.getHealth() - finalDamage));
                 }

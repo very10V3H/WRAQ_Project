@@ -37,11 +37,11 @@ public class ManaNote extends Item {
     };
 
     public static final Style[] styles = {
-            CustomStyle.styleOfHealth,
-            CustomStyle.styleOfHealth,
-            CustomStyle.styleOfSea,
+            CustomStyle.styleOfPlain,
+            CustomStyle.styleOfForest,
+            CustomStyle.styleOfLake,
+            CustomStyle.styleOfMine,
             CustomStyle.styleOfVolcano,
-            CustomStyle.styleOfSnow,
             CustomStyle.styleOfIce
 
     };

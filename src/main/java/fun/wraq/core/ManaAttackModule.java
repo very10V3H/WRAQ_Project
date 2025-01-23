@@ -168,7 +168,7 @@ public class ManaAttackModule {
             for (Mob mob : mobList) {
                 if (mob != monster) {
                     if (mob.getPosition(1).add(0, 1, 0).distanceTo(monster.getPosition(1).add(0, 1, 0)) <= 2) {
-                        Damage.causeManaDamageToMonster_RateApDamage(player, mob, 0.5f, true);
+                        Damage.causeRateApDamageToMonster(player, mob, 0.5f, true);
                     }
                 }
             }
@@ -297,9 +297,9 @@ public class ManaAttackModule {
             for (Mob mob : mobList) {
                 if (mob.position().distanceTo(player.position()) < 6) {
                     if (random.nextDouble() < PlayerAttributes.critRate(player)) {
-                        Damage.causeManaDamageToMonster_RateApDamage(player, mob, Compute.getManaSkillLevel(data, 12) * PlayerAttributes.critDamage(player), false);
+                        Damage.causeRateApDamageToMonster(player, mob, Compute.getManaSkillLevel(data, 12) * PlayerAttributes.critDamage(player), false);
                     } else
-                        Damage.causeManaDamageToMonster_RateApDamage(player, mob, Compute.getManaSkillLevel(data, 12), false);
+                        Damage.causeRateApDamageToMonster(player, mob, Compute.getManaSkillLevel(data, 12), false);
                 }
             }
             Utils.ManaSkill12.put(name, false);

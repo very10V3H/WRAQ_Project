@@ -61,7 +61,7 @@ public class BloodManaPower extends WraqPower {
         Compute.playerItemCoolDown(player,this, getCoolDownSecond());;
         getDefaultTargetMobList(player)
                 .forEach(mob -> {
-                    Damage.causeManaDamageToMonster_RateApDamage(player, mob, 4, true);
+                    Damage.causeRateApDamageToMonster(player, mob, 4, true);
                     ParticleProvider.createBreakBlockParticle(player, Blocks.NETHERRACK);
                 });
         getDefaultTargetPlayerList(player)

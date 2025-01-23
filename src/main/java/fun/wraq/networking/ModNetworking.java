@@ -50,6 +50,7 @@ import fun.wraq.networking.reputationMission.*;
 import fun.wraq.networking.unSorted.*;
 import fun.wraq.process.func.effect.BlindTickS2CPacket;
 import fun.wraq.process.func.effect.SilentTickS2CPacket;
+import fun.wraq.process.func.guide.networking.GuideDisplayS2CPacket;
 import fun.wraq.process.func.guide.networking.GuideFinishC2SPacket;
 import fun.wraq.process.func.guide.networking.GuideHudCloseStatusS2CPacket;
 import fun.wraq.process.func.guide.networking.GuideStageS2CPacket;
@@ -437,15 +438,10 @@ public class ModNetworking {
                 .encoder(ManaAttackRequestC2SPacket::toBytes)
                 .consumerMainThread(ManaAttackRequestC2SPacket::handle)
                 .add();
-        net.messageBuilder(RollingAnimationRequestC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
-                .decoder(RollingAnimationRequestC2SPacket::new)
-                .encoder(RollingAnimationRequestC2SPacket::toBytes)
-                .consumerMainThread(RollingAnimationRequestC2SPacket::handle)
-                .add();
-        net.messageBuilder(RollingAnimationS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
-                .decoder(RollingAnimationS2CPacket::new)
-                .encoder(RollingAnimationS2CPacket::toBytes)
-                .consumerMainThread(RollingAnimationS2CPacket::handle)
+        net.messageBuilder(RollingRequestC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(RollingRequestC2SPacket::new)
+                .encoder(RollingRequestC2SPacket::toBytes)
+                .consumerMainThread(RollingRequestC2SPacket::handle)
                 .add();
         net.messageBuilder(RollingS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
                 .decoder(RollingS2CPacket::new)
@@ -1326,6 +1322,11 @@ public class ModNetworking {
                 .decoder(SkillV2LeftCooldownS2CPacket::new)
                 .encoder(SkillV2LeftCooldownS2CPacket::toBytes)
                 .consumerMainThread(SkillV2LeftCooldownS2CPacket::handle)
+                .add();
+        net.messageBuilder(GuideDisplayS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(GuideDisplayS2CPacket::new)
+                .encoder(GuideDisplayS2CPacket::toBytes)
+                .consumerMainThread(GuideDisplayS2CPacket::handle)
                 .add();
     }
 

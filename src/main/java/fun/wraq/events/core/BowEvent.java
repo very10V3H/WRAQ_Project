@@ -1,8 +1,6 @@
 package fun.wraq.events.core;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Tick;
-import fun.wraq.common.registry.ModItems;
 import fun.wraq.core.ManaAttackModule;
 import fun.wraq.core.bow.MyArrow;
 import fun.wraq.networking.ModNetworking;
@@ -49,6 +47,10 @@ public class BowEvent {
                 .filter(entity1 -> entity1 instanceof LivingEntity livingEntity && livingEntity.isAlive())
                 .map(entity1 -> (LivingEntity) entity1)
                 .toList();
+
+        if (entity.level().isClientSide) {
+            event.setImpactResult(ProjectileImpactEvent.ImpactResult.SKIP_ENTITY);
+        }
 
         if (!list.isEmpty() && (list.get(0) instanceof ArmorStand || list.get(0) instanceof Allay)) {
             event.setImpactResult(ProjectileImpactEvent.ImpactResult.SKIP_ENTITY);
@@ -109,50 +111,26 @@ public class BowEvent {
         if (!entity.level().isClientSide && entity instanceof ManaArrow manaArrow && !manaArrow.shootFromMob()) {
             if (!list0.isEmpty()) {
                 if (manaArrow.player != null) {
-                    Player player = manaArrow.player;
-                    if (Compute.hasCurios(player, ModItems.END_CURIOS_MANA.get())) {
-                        List<Mob> mobList = new ArrayList<>();
-                        Vec3 vec = manaArrow.getDeltaMovement().normalize();
-                        for (int i = 0; i < 20; i++) {
-                            Vec3 pos = manaArrow.position().add(vec.scale(0.25 * i));
-                            List<Mob> list1 = manaArrow.level().getEntitiesOfClass(Mob.class, AABB.ofSize(pos, 0.75, 0.75, 0.75));
-                            list1.forEach(mob -> {
-                                if (!mobList.contains(mob)) mobList.add(mob);
-                            });
-                        }
-                        mobList.forEach(mob -> {
-                            if (!causeDamageList.containsKey(manaArrow))
-                                causeDamageList.put(manaArrow, new HashSet<>());
-                            Set<Integer> causedList = causeDamageList.get(manaArrow);
-                            if (!causedList.contains(mob.getId())) {
-                                ManaAttackModule.BasicAttack(manaArrow.player, mob, (1 + causedList.size() * 0.33),
-                                        manaArrow.manaPenetration, manaArrow.manaPenetration0, manaArrow.level(), manaArrow, manaArrow.mainShoot);
-                                causedList.add(mob.getId());
+                    Vec3 vec = manaArrow.getDeltaMovement().normalize();
+                    double distance = 100;
+                    Mob nearestMob = null;
+                    for (int i = 0; i < 20; i++) {
+                        Vec3 pos = manaArrow.position().add(vec.scale(0.25 * i));
+                        List<Mob> mobList = manaArrow.level().getEntitiesOfClass(Mob.class, AABB.ofSize(pos, 0.75, 0.75, 0.75));
+                        for (Mob mob : mobList) {
+                            if (mob.getEyePosition().distanceTo(pos) < distance) {
+                                distance = mob.getEyePosition().distanceTo(pos);
+                                nearestMob = mob;
                             }
-                            event.setImpactResult(ProjectileImpactEvent.ImpactResult.SKIP_ENTITY);
-                        });
+                        }
+                    }
+                    if (nearestMob != null && manaArrow.player != null) {
+                        ManaAttackModule.BasicAttack(manaArrow.player, nearestMob, 1,
+                                manaArrow.manaPenetration, manaArrow.manaPenetration0, manaArrow.level(), manaArrow, manaArrow.mainShoot);
+                        ModNetworking.sendToClient(new ManaAttackParticleS2CPacket(nearestMob.getX(), nearestMob.getY(), nearestMob.getZ(), manaArrow.particleType), (ServerPlayer) manaArrow.player);
+                        manaArrow.remove(Entity.RemovalReason.KILLED);
                     } else {
-                        Vec3 vec = manaArrow.getDeltaMovement().normalize();
-                        double distance = 100;
-                        Mob nearestMob = null;
-                        for (int i = 0; i < 20; i++) {
-                            Vec3 pos = manaArrow.position().add(vec.scale(0.25 * i));
-                            List<Mob> mobList = manaArrow.level().getEntitiesOfClass(Mob.class, AABB.ofSize(pos, 0.75, 0.75, 0.75));
-                            for (Mob mob : mobList) {
-                                if (mob.getEyePosition().distanceTo(pos) < distance) {
-                                    distance = mob.getEyePosition().distanceTo(pos);
-                                    nearestMob = mob;
-                                }
-                            }
-                        }
-                        if (nearestMob != null && manaArrow.player != null) {
-                            ManaAttackModule.BasicAttack(manaArrow.player, nearestMob, 1,
-                                    manaArrow.manaPenetration, manaArrow.manaPenetration0, manaArrow.level(), manaArrow, manaArrow.mainShoot);
-                            ModNetworking.sendToClient(new ManaAttackParticleS2CPacket(nearestMob.getX(), nearestMob.getY(), nearestMob.getZ(), manaArrow.type), (ServerPlayer) manaArrow.player);
-                            manaArrow.remove(Entity.RemovalReason.KILLED);
-                        } else {
-                            event.setImpactResult(ProjectileImpactEvent.ImpactResult.SKIP_ENTITY);
-                        }
+                        event.setImpactResult(ProjectileImpactEvent.ImpactResult.SKIP_ENTITY);
                     }
                 }
             }

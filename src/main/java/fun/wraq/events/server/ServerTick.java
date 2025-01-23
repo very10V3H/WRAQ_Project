@@ -15,8 +15,6 @@ import fun.wraq.process.system.randomevent.RandomEventsHandler;
 import fun.wraq.process.system.reason.Reason;
 import fun.wraq.process.system.tower.Tower;
 import fun.wraq.process.system.vp.VpDataHandler;
-import fun.wraq.series.instance.mixture.WraqMixture;
-import fun.wraq.series.instance.quiver.WraqQuiver;
 import fun.wraq.series.instance.series.purple.PurpleIronCommon;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.TickEvent;
@@ -38,8 +36,6 @@ public class ServerTick {
         Dot.tick(event);
         if (event.side.isServer() && event.phase == TickEvent.Phase.START) {
             DelayOperationWithAnimation.serverTick(event);
-            WraqQuiver.tick();
-            WraqMixture.tick();
             int tickCount = Tick.get();
             if (tickCount % 6000 == 3288) {
                 ThreadPools.dataExecutor.execute(new Runnable() {

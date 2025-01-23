@@ -31,7 +31,7 @@ public class BowAttackRequestC2SPacket {
             if (serverPlayer == null) return;
 
             DelayOperationWithAnimation.addToQueue(new DelayOperationWithAnimation(
-                    DelayOperationWithAnimation.Animation.bowAttack, Tick.get() + 8, serverPlayer
+                    DelayOperationWithAnimation.Animation.bowAttack, Tick.get() + 8, Tick.get() + 10, serverPlayer
             ) {
                 @Override
                 public void trig() {

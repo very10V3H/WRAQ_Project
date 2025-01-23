@@ -3,9 +3,6 @@ package fun.wraq.process.func.power;
 import fun.wraq.common.Compute;
 import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.fast.Te;
-import fun.wraq.common.impl.onshoot.OnPowerReleaseCurios;
-import fun.wraq.common.impl.onshoot.OnPowerReleaseEquip;
-import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.particle.ParticleProvider;
@@ -15,7 +12,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -47,9 +43,9 @@ public abstract class WraqPower extends Item implements ActiveItem {
         ComponentUtils.coolDownTimeDescription(components, getCoolDownSecond());
         ComponentUtils.manaCostDescription(components, (int) getManaCost());
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
-        if (getSuffix() != null) {
-            components.add(getSuffix());
-        }
+        components.add(ComponentUtils.getSuffixOfSouvenirs());
+        components.add(Te.s("随着新版技能组的上线，这件物品成为了一件纪念品。", ChatFormatting.GOLD));
+        components.add(Te.s("Souvenirs-2025.1.23", CustomStyle.styleOfSakura, ChatFormatting.ITALIC));
         super.appendHoverText(itemStack, level, components, flag);
     }
 
@@ -67,13 +63,13 @@ public abstract class WraqPower extends Item implements ActiveItem {
 
     @Override
     public void active(Player player) {
-        release(player);
+/*        release(player);
         PowerLogic.playerReleasePower(player);
         PowerLogic.playerLastTimeReleasePower.put(player, this);
         PowerLogic.playerLastTimeReleasePowerManaCost.put(player, getManaCost());
         MySound.soundToNearPlayer(player.level(), getDefaultTargetPos(player), SoundEvents.EVOKER_CAST_SPELL);
         OnPowerReleaseEquip.release(player);
-        OnPowerReleaseCurios.release(player);
+        OnPowerReleaseCurios.release(player);*/
     }
 
     @Override
@@ -107,7 +103,7 @@ public abstract class WraqPower extends Item implements ActiveItem {
                 AABB.ofSize(player.position(), 20, 20, 20));
     }
 
-    protected static Vec3 getDefaultTargetPos(Player player) {
+    public static Vec3 getDefaultTargetPos(Player player) {
         Mob mob = Compute.detectPlayerPickMob(player);
         if (mob != null) {
             return mob.position();

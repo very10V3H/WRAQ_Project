@@ -8,9 +8,6 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
 import fun.wraq.process.func.guide.Guide;
 import fun.wraq.render.gui.blocks.InjectBlockMenu;
-import fun.wraq.series.instance.blade.BladeItems;
-import fun.wraq.series.instance.mixture.MixtureItems;
-import fun.wraq.series.instance.quiver.QuiverItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -199,7 +196,7 @@ public class InjectBlockEntity extends BlockEntity implements MenuProvider, Drop
                                 append(player.getDisplayName()).
                                 append(" 成功打造了 ").withStyle(ChatFormatting.WHITE).
                                 append(productItemStack.getDisplayName()));
-                Guide.trig(player, 5);
+                Guide.trigV2(player, Guide.StageV2.FIRST_INJECT);
             }
 
             Set<Item> plainBossTier3Rings = Set.of(ModItems.PlainAttackRing3.get(), ModItems.PlainManaAttackRing3.get(),
@@ -210,17 +207,6 @@ public class InjectBlockEntity extends BlockEntity implements MenuProvider, Drop
             Set<Item> devilWeapons = Set.of(ModItems.DevilSword.get(), ModItems.DevilBow.get(), ModItems.DevilSceptre.get());
             if (devilWeapons.contains(productItemStack.getItem())) {
                 NoTeamInstanceModule.putPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.moon, true);
-            }
-
-            Set<Item> plainPassiveEquips = Set.of(BladeItems.BLADE_PLAIN.get(), QuiverItems.QUIVER_PLAIN.get(),
-                    MixtureItems.MIXTURE_PLAIN.get());
-            if (plainPassiveEquips.contains(productItemStack.getItem())) {
-                Guide.trig(player, 12);
-            }
-            Set<Item> netherPassiveEquips = Set.of(BladeItems.BLADE_NETHER.get(), QuiverItems.QUIVER_NETHER.get(),
-                    MixtureItems.MIXTURE_NETHER.get());
-            if (netherPassiveEquips.contains(productItemStack.getItem())) {
-                Guide.trig(player, 16);
             }
 
             productItemStack.setCount(slot2Item.getCount() + 1);

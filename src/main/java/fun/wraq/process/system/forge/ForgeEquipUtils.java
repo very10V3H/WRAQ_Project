@@ -75,7 +75,7 @@ public class ForgeEquipUtils {
                 ModItems.KazeBoots.get(),
                 ModItems.PlainSword0.get(),
                 ModItems.PlainBow0.get(),
-                ModItems.PlainSceptre0.get()
+                ModItems.LIFE_SCEPTRE_0.get()
         );
 
         zoneForgeItemListMap.put(PLAIN_VILLAGE, new ArrayList<>() {{
@@ -225,8 +225,6 @@ public class ForgeEquipUtils {
                 ModItems.NetherManaArmorChest.get(),
                 ModItems.NetherManaArmorLeggings.get(),
                 ModItems.NetherManaArmorBoots.get(),
-                ModItems.END_CURIOS_BOW.get(),
-                ModItems.END_CURIOS_MANA.get(),
                 ModItems.StarBottle.get(),
                 C7Items.vdSword.get(),
                 C7Items.vdBow.get(),

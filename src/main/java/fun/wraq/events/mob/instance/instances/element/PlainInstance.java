@@ -130,7 +130,7 @@ public class PlainInstance extends NoTeamInstance {
         map.put(mobName, map.getOrDefault(mobName, 0) + 1);
 
         Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player), 50);
-        Guide.trig(player, 11);
+        Guide.trigV2(player, Guide.StageV2.PLAIN_BOSS);
     }
 
     @Override

@@ -22,7 +22,6 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -30,10 +29,10 @@ import net.minecraft.world.level.Level;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlainSceptre extends WraqSceptre implements OnHitEffectEquip, InCuriosOrEquipSlotAttributesModify {
+public class LifeSceptre extends WraqSceptre implements OnHitEffectEquip, InCuriosOrEquipSlotAttributesModify {
 
     private final int tier;
-    public PlainSceptre(Properties properties, int tier) {
+    public LifeSceptre(Properties properties, int tier) {
         super(properties);
         this.tier = tier;
         Utils.manaDamage.put(this, new double[]{20, 25, 35, 45, 60}[tier]);

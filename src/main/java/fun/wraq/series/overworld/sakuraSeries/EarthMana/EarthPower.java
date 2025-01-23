@@ -178,7 +178,7 @@ public class EarthPower extends WraqPower {
                 AABB.ofSize(targetPos, 20, 20, 20));
         playerList.removeIf(player1 -> player1.distanceTo(player1) > 6);
         mobList.forEach(mob -> {
-            Damage.causeManaDamageToMonster_RateApDamage(player, mob, 3, true);
+            Damage.causeRateApDamageToMonster(player, mob, 3, true);
             PowerLogic.PlayerPowerEffectToMob(player, mob);
         });
         switch (type) {
@@ -228,7 +228,7 @@ public class EarthPower extends WraqPower {
                     Volcano_PlayerDamageEnhance.put(player1, tick + 60);
                 });
                 mobList.forEach(mob1 -> {
-                    Damage.causeManaDamageToMonster_RateApDamage(player, mob1, 3, true);
+                    Damage.causeRateApDamageToMonster(player, mob1, 3, true);
                 });
             }
         }

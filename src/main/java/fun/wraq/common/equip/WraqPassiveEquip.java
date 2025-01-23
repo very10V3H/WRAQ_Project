@@ -2,11 +2,15 @@ package fun.wraq.common.equip;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.BasicAttributeDescription;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ItemTier;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.gui.illustrate.Display;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.instance.blade.WraqBlade;
+import fun.wraq.series.instance.mixture.WraqMixture;
+import fun.wraq.series.instance.quiver.WraqQuiver;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -55,6 +59,10 @@ public abstract class WraqPassiveEquip extends PickaxeItem {
         }
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         components.add(getSuffix());
+        if (this instanceof WraqBlade || this instanceof WraqQuiver || this instanceof WraqMixture) {
+            components.add(Te.s("随着新版技能组的上线，这件物品成为了一件纪念品。", ChatFormatting.GOLD));
+            components.add(Te.s("Souvenirs-2025.1.23", CustomStyle.styleOfSakura, ChatFormatting.ITALIC));
+        }
         super.appendHoverText(stack, level, components, flag);
     }
 

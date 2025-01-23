@@ -68,6 +68,8 @@ public class DamageInfluence {
         double rate = 0;
         rate -= MobEffectAndDamageMethods.PlayerDamageDecreaseRate(player, mob);
         rate += getPlayerFinalDamageEnhance(player);
+        rate += StableTierAttributeModifier
+                .getModifierValue(mob, StableTierAttributeModifier.monsterWithstandDamageEnhance);
         return rate;
     }
 

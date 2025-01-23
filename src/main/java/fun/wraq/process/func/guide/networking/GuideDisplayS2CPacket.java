@@ -2,32 +2,30 @@ package fun.wraq.process.func.guide.networking;
 
 import fun.wraq.process.func.guide.Guide;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-public class GuideFinishC2SPacket {
+public class GuideDisplayS2CPacket {
 
-    private final String stageTag;
+    private final boolean display;
 
-    public GuideFinishC2SPacket(String stageTag) {
-        this.stageTag = stageTag;
+    public GuideDisplayS2CPacket(boolean display) {
+        this.display = display;
     }
 
-    public GuideFinishC2SPacket(FriendlyByteBuf buf) {
-        this.stageTag = buf.readUtf();
+    public GuideDisplayS2CPacket(FriendlyByteBuf buf) {
+        this.display = buf.readBoolean();
     }
 
     public void toBytes(FriendlyByteBuf buf) {
-        buf.writeUtf(stageTag);
+        buf.writeBoolean(display);
     }
 
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
-            ServerPlayer player = supplier.get().getSender();
-            Guide.trigV2(player, stageTag);
+            Guide.clientDisplay = display;
         });
         return true;
     }

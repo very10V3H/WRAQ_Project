@@ -17,7 +17,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -42,7 +41,7 @@ public class EvokerSceptre extends WraqSceptre {
         Level level = player.level();
         ManaArrow manaArrow = new ManaArrow(ModEntityType.NEW_ARROW.get(), player, level,
                 PlayerAttributes.manaDamage(player) * rate, PlayerAttributes.manaPenetration(player),
-                PlayerAttributes.manaPenetration0(player), StringUtils.ParticleTypes.DamageMana);
+                PlayerAttributes.manaPenetration0(player), StringUtils.ParticleTypes.EVOKER);
         manaArrow.setSilent(true);
         manaArrow.setNoGravity(true);
         manaArrow.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0f, 3, 1.0f);

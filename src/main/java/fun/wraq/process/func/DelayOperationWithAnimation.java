@@ -7,10 +7,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.TickEvent;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.WeakHashMap;
+import java.util.*;
 
 public abstract class DelayOperationWithAnimation {
 
@@ -27,26 +24,26 @@ public abstract class DelayOperationWithAnimation {
         public static String bowAttack = "bow_attack";
         public static String manaAttack = "mana_attack";
         public static String skill = "skill";
+        public static String rolling = "rolling";
     }
 
     private final String animationId;
     private final int trigTick;
+    private final int endTick;
     private final Player trigPlayer;
-    public DelayOperationWithAnimation(String animationId, int trigTick, Player trigPlayer) {
+    private boolean trigFlag = true;
+    public DelayOperationWithAnimation(String animationId, int trigTick, int endTick, Player trigPlayer) {
         this.animationId = animationId;
         this.trigTick = trigTick;
+        this.endTick = endTick;
         this.trigPlayer = trigPlayer;
     }
 
+    public DelayOperationWithAnimation(String animationId, int trigTick, Player trigPlayer) {
+        this(animationId, trigTick, trigTick, trigPlayer);
+    }
+
     public abstract void trig();
-
-    public int getTrigTick() {
-        return trigTick;
-    }
-
-    public Player getTrigPlayer() {
-        return trigPlayer;
-    }
 
     public void sendAnimation(MinecraftServer server) {
         server.getPlayerList().getPlayers().stream()
@@ -59,6 +56,23 @@ public abstract class DelayOperationWithAnimation {
     }
 
     public static Map<Player, DelayOperationWithAnimation> playerCurrentOperationMap = new WeakHashMap<>();
+
+    public static Set<String> normalAttackAnimationIds = Set.of(Animation.swordAttack1, Animation.swordAttack2,
+            Animation.bowAttack, Animation.manaAttack);
+
+    // 技能释放前打断普攻
+    public static void beforeReleaseSkill(Player player) {
+        DelayOperationWithAnimation delayOperationWithAnimation = playerCurrentOperationMap.getOrDefault(player, null);
+        if (delayOperationWithAnimation != null
+                && normalAttackAnimationIds.contains(delayOperationWithAnimation.animationId)) {
+            playerCurrentOperationMap.remove(player);
+        }
+    }
+
+    public static boolean isNormalAttacking(Player player) {
+        return playerCurrentOperationMap.containsKey(player)
+                && normalAttackAnimationIds.contains(playerCurrentOperationMap.get(player).animationId);
+    }
 
     // 有动画的技能会打断当前普攻
     public static void remove(Player player) {
@@ -84,18 +98,17 @@ public abstract class DelayOperationWithAnimation {
     public static void playerTick(Player player) {
         if (playerCurrentOperationMap.containsKey(player)) {
             DelayOperationWithAnimation delayOperationWithAnimation = playerCurrentOperationMap.get(player);
-            if (delayOperationWithAnimation.trigTick <= Tick.get()) {
+            if (delayOperationWithAnimation.trigTick <= Tick.get() && delayOperationWithAnimation.trigFlag) {
                 delayOperationWithAnimation.trig();
+                delayOperationWithAnimation.trigFlag = false;
+            }
+            if (delayOperationWithAnimation.endTick <= Tick.get() && !delayOperationWithAnimation.trigFlag) {
                 playerCurrentOperationMap.remove(player);
             }
         }
     }
 
     public static int clientPlayerAnimationPlayingLeftTick = 0;
-
-    public static boolean clientPlayerIsPlayingAnimation() {
-        return clientPlayerAnimationPlayingLeftTick > 0;
-    }
 
     public static void clientTick(TickEvent.ClientTickEvent event) {
         clientPlayerAnimationPlayingLeftTick = Math.max(0, clientPlayerAnimationPlayingLeftTick - 1);

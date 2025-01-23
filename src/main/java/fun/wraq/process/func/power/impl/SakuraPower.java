@@ -63,7 +63,7 @@ public class SakuraPower extends WraqPower {
         Vec3 targetPos = getDefaultTargetPos(player);
         getDefaultTargetMobList(player)
                 .forEach(mob -> {
-                    Damage.causeManaDamageToMonster_RateApDamage(player, mob, 4, true);
+                    Damage.causeRateApDamageToMonster(player, mob, 4, true);
                     ParticleProvider.createBreakBlockParticle(mob, Blocks.CHERRY_LEAVES);
                 });
         getDefaultTargetPlayerList(player)

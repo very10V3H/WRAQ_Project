@@ -4,23 +4,19 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqPassiveEquip;
 import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.fast.Te;
-import fun.wraq.common.fast.Tick;
-import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.core.AttackEvent;
-import fun.wraq.process.func.DelayOperationWithAnimation;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.overworld.sun.BrokenBlade;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.registries.RegistryObject;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class WraqBlade extends WraqPassiveEquip implements ActiveItem {
 
@@ -60,7 +56,7 @@ public class WraqBlade extends WraqPassiveEquip implements ActiveItem {
 
     @Override
     public Component getSuffix() {
-        return suffix;
+        return ComponentUtils.getSuffixOfSouvenirs();
     }
 
     @Override
@@ -70,26 +66,7 @@ public class WraqBlade extends WraqPassiveEquip implements ActiveItem {
 
     @Override
     public void active(Player player) {
-        Item mainHandItem = player.getMainHandItem().getItem();
-        if (player.experienceLevel < Utils.levelRequire.get(this) || !(Utils.swordTag.containsKey(mainHandItem))) return;
-        boolean success = DelayOperationWithAnimation.addToQueue(new DelayOperationWithAnimation(
-                DelayOperationWithAnimation.Animation.samurai, Tick.get() + 10, player) {
-            @Override
-            public void trig() {
-                if (Utils.swordTag.containsKey(mainHandItem)) {
-                    MySound.soundToNearPlayer(player, SoundEvents.PLAYER_ATTACK_KNOCKBACK);
-                    AttackEvent.getPlayerNormalAttackRangeMobList(player).forEach(mob -> {
-                        AttackEvent.attackToMonster(mob, player, rate, true, true);
-                    });
-                    BrokenBlade.onPlayerReleaseBlade(player);
-                }
-            }
-        });
-        if (success) {
-            BladeItems.ITEMS.getEntries().stream().map(RegistryObject::get).forEach(item -> {
-                Compute.playerItemCoolDown(player, item, 6);
-            });
-        }
+
     }
 
     @Override

@@ -1,7 +1,6 @@
 package fun.wraq.projectiles.mana;
 
 import fun.wraq.common.attribute.PlayerAttributes;
-import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModEntityType;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.core.ManaAttackModule;
@@ -79,7 +78,7 @@ public class ShangMengLiSwordAir extends AbstractArrow implements GeoEntity {
             } else {
                 Entity entity = result.getEntity();
                 if (!(entity instanceof Mob)) return;
-                Damage.causeManaDamageToMonster_RateApDamage(player, (Mob) entity, 1 + 3 * PlayerAttributes.coolDownDecrease(player), isPower);
+                Damage.causeRateApDamageToMonster(player, (Mob) entity, 1 + 3 * PlayerAttributes.coolDownDecrease(player), isPower);
                 Mana.addOrCostPlayerMana(player, 20);
                 player.sendSystemMessage(Component.literal("true"));
             }

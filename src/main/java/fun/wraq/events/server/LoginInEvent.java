@@ -320,8 +320,10 @@ public class LoginInEvent {
             MobKillEntrustment.sendPacketToClient(player);
             Guide.sendGuideCloseStatusToClient(player);
             ModNetworking.sendToClient(new VersionCheckS2CPacket(), serverPlayer);
-            SkillV2.resetSkillV2Data(player);
+            SkillV2.syncSkillV2Data(player);
             SkillV2.sendInfoToClient(player);
+
+            SkillV2.afterVerUpdateLogin(player);
         }
     }
 

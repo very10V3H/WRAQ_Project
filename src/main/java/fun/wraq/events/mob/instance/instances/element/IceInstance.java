@@ -153,7 +153,7 @@ public class IceInstance extends NoTeamInstance {
         Map<String, Integer> map = MobSpawn.tempKillCount.get(name);
         map.put(mobName, map.getOrDefault(mobName, 0) + 1);
         Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player), 135);
-        Guide.trig(player, 18);
+        Guide.trigV2(player, Guide.StageV2.ICE_KNIGHT);
     }
 
     @Override

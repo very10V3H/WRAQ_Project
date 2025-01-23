@@ -84,7 +84,7 @@ public class ObsiManaPower extends WraqPower {
                     StableAttributesModifier.mobPercentManaDefenceModifier,
                     "ObsiManaPercentManaDefenceModifier", -0.2, Tick.get() + 60, "item/obsi_mana_power");
             ParticleProvider.createBreakBlockParticle(eachMob, Blocks.OBSIDIAN);
-            Damage.causeManaDamageToMonster_RateApDamage(player, eachMob, damageRate[tier], true);
+            Damage.causeRateApDamageToMonster(player, eachMob, damageRate[tier], true);
         });
         produceDefaultDustParticle(player, CustomStyle.styleOfMana);
     }

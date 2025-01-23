@@ -17,24 +17,16 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkEvent;
 
-import java.util.List;
 import java.util.function.Supplier;
 
-public class RollingAnimationRequestC2SPacket {
+public class RollingRequestC2SPacket {
 
-    private final int count;
 
-    public RollingAnimationRequestC2SPacket(int count) {
-        this.count = count;
-    }
+    public RollingRequestC2SPacket() {}
 
-    public RollingAnimationRequestC2SPacket(FriendlyByteBuf buf) {
-        this.count = buf.readInt();
-    }
+    public RollingRequestC2SPacket(FriendlyByteBuf buf) {}
 
-    public void toBytes(FriendlyByteBuf buf) {
-        buf.writeInt(this.count);
-    }
+    public void toBytes(FriendlyByteBuf buf) {}
 
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
         NetworkEvent.Context context = supplier.get();
@@ -46,17 +38,21 @@ public class RollingAnimationRequestC2SPacket {
                 CompoundTag data = serverPlayer.getPersistentData();
                 if (serverPlayer.onGround() && data.getDouble(StringUtils.Swift) >= 100.0 / 3) {
                     DelayOperationWithAnimation.remove(serverPlayer);
-                    List<ServerPlayer> playerList = serverPlayer.getServer().getPlayerList().getPlayers();
-                    playerList.forEach(serverPlayer1 -> {
-                        ModNetworking.sendToClient(new RollingAnimationS2CPacket(serverPlayer.getId(), count), serverPlayer1);
+
+                    DelayOperationWithAnimation.addToQueue(new DelayOperationWithAnimation(
+                            DelayOperationWithAnimation.Animation.rolling, Tick.get() + 8, serverPlayer
+                    ) {
+                        @Override
+                        public void trig() {}
                     });
+
                     ModNetworking.sendToClient(new RollingS2CPacket(PlayerAttributes.extraSwiftness(serverPlayer) / 10.0), serverPlayer);
                     if (!serverPlayer.isCreative()) SwiftData.changePlayerSwift(serverPlayer, -100.0 / 3);
                     Utils.rollingTickMap.put(serverPlayer.getName().getString(), Tick.get() + 10);
                     MySound.soundToNearPlayer(serverPlayer, ModSounds.Rolling.get());
 
                     BowCurios0.Active(serverPlayer);
-                    Guide.trig(serverPlayer, 1);
+                    Guide.trigV2(serverPlayer, Guide.StageV2.ROLLING);
                 }
             }
         });

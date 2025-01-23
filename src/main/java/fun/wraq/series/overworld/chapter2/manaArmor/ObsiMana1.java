@@ -37,22 +37,7 @@ public class ObsiMana1 extends WraqArmor {
 
     @Override
     public List<Component> getAdditionalComponents(ItemStack stack) {
-        List<Component> components = new ArrayList<>();
-        Compute.DescriptionPassive(components, Component.literal("黑曜能量迸发").withStyle(getMainStyle()));
-        components.add(Component.literal(" 每穿着一件黑耀矿涂魔力装备，都会使你的").withStyle(ChatFormatting.WHITE));
-        components.add(Component.literal(" ").withStyle(ChatFormatting.WHITE).
-                append(ModItems.LakePower.get().getDefaultInstance().getDisplayName()).
-                append(Component.literal(" ")).
-                append(ModItems.VolcanoPower.get().getDefaultInstance().getDisplayName()));
-        components.add(Component.literal(" ").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.coolDown("")).
-                append(Component.literal("减少").withStyle(ChatFormatting.WHITE)).
-                append(Component.literal("0.75s").withStyle(ChatFormatting.AQUA)));
-        components.add(Component.literal(" ").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.manaCost("")).
-                append(Component.literal("减少")).
-                append(Component.literal("10").withStyle(CustomStyle.styleOfMana)));
-        return components;
+        return List.of();
     }
 
     @Override

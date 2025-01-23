@@ -59,7 +59,7 @@ public class MoonInstance extends NoTeamInstance {
     }
 
     public MoonInstance(Vec3 pos, double range, int delayTick, Vec3 armorStandPos, MutableComponent name) {
-        super(pos, range, delayTick, armorStandPos, name, 160);
+        super(pos, range, delayTick, armorStandPos, name, 170);
     }
 
     @Override
@@ -148,7 +148,7 @@ public class MoonInstance extends NoTeamInstance {
         Map<String, Integer> map = MobSpawn.tempKillCount.get(name);
         map.put(mobName, map.getOrDefault(mobName, 0) + 1);
         Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player), 160);
-        Guide.trig(player, 21);
+        Guide.trigV2(player, Guide.StageV2.MOON_BOSS);
     }
 
     @Override

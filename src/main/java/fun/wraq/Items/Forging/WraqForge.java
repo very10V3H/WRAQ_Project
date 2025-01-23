@@ -184,35 +184,35 @@ public class WraqForge extends Item {
                     ModItems.ForestArmorLeggings.get(), ModItems.ForestArmorBoots.get(),
                     ModItems.ForestSword0.get(), ModItems.ForestBow0.get());
             if (forestEquips.contains(item)) {
-                Guide.trig(player, 7);
+                Guide.trigV2(player, Guide.StageV2.FOREST_EQUIP);
             }
             Set<Item> lakeEquips = Set.of(ModItems.LakeArmorHelmet.get(), ModItems.LakeArmorChest.get(),
                     ModItems.LakeArmorLeggings.get(), ModItems.LakeArmorBoots.get(),
                     ModItems.LakeSword0.get(), ModItems.lakeBow0.get(), ModItems.lakeSceptre0.get());
             if (lakeEquips.contains(item)) {
-                Guide.trig(player, 8);
+                Guide.trigV2(player, Guide.StageV2.LAKE_EQUIP);
             }
             Set<Item> mineEquips = Set.of(ModItems.MineArmorHelmet.get(), ModItems.MineArmorChest.get(),
                     ModItems.MineArmorLeggings.get(), ModItems.MineArmorBoots.get(),
                     ModItems.MineSword0.get(), ModItems.MineBow0.get());
             if (mineEquips.contains(item)) {
-                Guide.trig(player, 9);
+                Guide.trigV2(player, Guide.StageV2.MINE_EQUIP);
             }
             Set<Item> volcanoEquips = Set.of(ModItems.VolcanoArmorHelmet.get(), ModItems.VolcanoArmorChest.get(),
                     ModItems.VolcanoArmorLeggings.get(), ModItems.VolcanoArmorBoots.get(),
                     ModItems.VolcanoSword0.get(), ModItems.VolcanoBow0.get());
             if (volcanoEquips.contains(item)) {
-                Guide.trig(player, 10);
+                Guide.trigV2(player, Guide.StageV2.VOLCANO_EQUIP);
             }
             Set<Item> enhanceEquips = Set.of(ModItems.SKY_ARMOR_HELMET.get(),
                     ModItems.SKY_ARMOR_CHEST.get(), ModItems.SKY_ARMOR_LEGGINGS.get(), ModItems.SKY_ARMOR_BOOTS.get(),
                     ModItems.SkyBow.get());
             if (enhanceEquips.contains(item)) {
-                Guide.trig(player, 13);
+                Guide.trigV2(player, Guide.StageV2.ENHANCE_EQUIP);
             }
 
             InventoryOperation.itemStackGive(player, productItemStack);
-            Guide.trig(player, 4);
+            Guide.trigV2(player, Guide.StageV2.FIRST_FORGE);
             if (!StringUtils.FlagInTag.getPlayerFlag(player, firstTimeForge)) {
                 StringUtils.FlagInTag.setPlayerString(player, firstTimeForge, true);
                 playerMSGSendDelayMap.put(player.getName().getString(), Tick.get() + 100);

@@ -1,6 +1,5 @@
 package fun.wraq.series.instance.quiver;
 
-import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqBow;
 import fun.wraq.common.equip.WraqPassiveEquip;
 import fun.wraq.common.equip.impl.ActiveItem;
@@ -74,7 +73,7 @@ public class WraqQuiver extends WraqPassiveEquip implements ActiveItem {
 
     @Override
     public Component getSuffix() {
-        return suffix;
+        return ComponentUtils.getSuffixOfSouvenirs();
     }
 
     @Override
@@ -84,16 +83,7 @@ public class WraqQuiver extends WraqPassiveEquip implements ActiveItem {
 
     @Override
     public void active(Player player) {
-        if (player.experienceLevel < Utils.levelRequire.getOrDefault(this, 0)) return;
-        if (player.isShiftKeyDown()) {
-            passiveExpiredTickMap.put(player, Tick.get() + 60);
-            Compute.sendEffectLastTime(player, this, 60);
-        } else {
-            batchAddExShoot(player, rate, shootTimes);
-        }
-        getAllQuiver().forEach(item -> {
-            Compute.playerItemCoolDown(player, item, 9);
-        });
+
     }
 
     @Override
@@ -105,7 +95,7 @@ public class WraqQuiver extends WraqPassiveEquip implements ActiveItem {
         return QuiverItems.ITEMS.getEntries().stream().map(RegistryObject::get).toList();
     }
 
-    public static WeakHashMap<Player, Queue<Double>> exShootRateQueueMap = new WeakHashMap<>();
+    public static Map<Player, Queue<Double>> exShootRateQueueMap = new WeakHashMap<>();
 
     public static void addExShoot(Player player, double rate) {
         exShootRateQueueMap.entrySet().removeIf(entry -> !entry.getKey().isAlive());
@@ -120,8 +110,9 @@ public class WraqQuiver extends WraqPassiveEquip implements ActiveItem {
         }
     }
 
-    public static void tick() {
-        exShootRateQueueMap.forEach(((player, queue) -> {
+    public static void handleServerPlayerTick(Player player) {
+        if (exShootRateQueueMap.containsKey(player)) {
+            Queue<Double> queue = exShootRateQueueMap.get(player);
             if (!queue.isEmpty()) {
                 if (Tick.get() % 2 == 0) {
                     double rate = queue.remove();
@@ -138,7 +129,7 @@ public class WraqQuiver extends WraqPassiveEquip implements ActiveItem {
                     }
                 }
             }
-        }));
+        }
     }
 
     private static Map<Player, Integer> passiveExpiredTickMap = new WeakHashMap<>();
