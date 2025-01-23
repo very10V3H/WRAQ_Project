@@ -34,11 +34,10 @@ public class FrameArrow extends WraqCurios {
     @Override
     public List<Component> additionHoverText(ItemStack stack) {
         List<Component> components = new ArrayList<>();
-        Style style = hoverMainStyle();
         ComponentUtils.descriptionPassive(components, Te.s("红莲弓矢", hoverMainStyle()));
         components.add(Te.s("使", "弓术技能 - 烈矢", CustomStyle.styleOfFlexible));
-        components.add(Te.s(" - 1.", style, "伤害", "+100%", CustomStyle.styleOfPower));
-        components.add(Te.s(" - 2.", style, "冷却时间", "-1s", CustomStyle.styleOfWorld));
+        components.add(Te.s(" - 1.", CustomStyle.styleOfWorld, "伤害", "+100%", CustomStyle.styleOfPower));
+        components.add(Te.s(" - 2.", CustomStyle.styleOfWorld, "冷却时间", "-1s", CustomStyle.styleOfWorld));
         return components;
     }
 

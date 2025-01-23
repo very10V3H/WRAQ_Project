@@ -125,9 +125,10 @@ public class BowEvent {
                         }
                     }
                     if (nearestMob != null && manaArrow.player != null) {
-                        ManaAttackModule.BasicAttack(manaArrow.player, nearestMob, 1,
-                                manaArrow.manaPenetration, manaArrow.manaPenetration0, manaArrow.level(), manaArrow, manaArrow.mainShoot);
-                        ModNetworking.sendToClient(new ManaAttackParticleS2CPacket(nearestMob.getX(), nearestMob.getY(), nearestMob.getZ(), manaArrow.particleType), (ServerPlayer) manaArrow.player);
+                        ManaAttackModule.BasicAttack(manaArrow.player, nearestMob, manaArrow.manaPenetration,
+                                manaArrow.manaPenetration0, manaArrow.level(), manaArrow, manaArrow.mainShoot);
+                        ModNetworking.sendToClient(new ManaAttackParticleS2CPacket(nearestMob.getX(), nearestMob.getY(),
+                                nearestMob.getZ(), manaArrow.particleType), (ServerPlayer) manaArrow.player);
                         manaArrow.remove(Entity.RemovalReason.KILLED);
                     } else {
                         event.setImpactResult(ProjectileImpactEvent.ImpactResult.SKIP_ENTITY);

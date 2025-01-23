@@ -5,6 +5,7 @@ import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.equip.impl.Souvenirs;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.render.gui.illustrate.Display;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -22,6 +23,7 @@ public class EndCuriosBow extends WraqCurios implements Souvenirs {
         Utils.defencePenetration.put(this, 0.1);
         Utils.critDamage.put(this, 0.2);
         Utils.swiftnessUp.put(this, 1d);
+        Display.souvenirsList.add(this);
     }
 
     @Override

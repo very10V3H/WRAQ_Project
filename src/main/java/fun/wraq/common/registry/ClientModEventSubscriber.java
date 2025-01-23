@@ -48,7 +48,6 @@ public class ClientModEventSubscriber {
         EntityRenderers.register(fun.wraq.common.registry.ModEntityType.NEW_ARROW_SNOW.get(), NewArrowSnowRender::new);
         EntityRenderers.register(fun.wraq.common.registry.ModEntityType.METEORITE.get(), MeteoriteRender::new);
         EntityRenderers.register(fun.wraq.common.registry.ModEntityType.SWORD_AIR.get(), SwordAirRender::new);
-        EntityRenderers.register(fun.wraq.common.registry.ModEntityType.SHANGMENGLI_SWORD_AIR.get(), ShangMengLiSwordAirRender::new);
         EntityRenderers.register(fun.wraq.common.registry.ModEntityType.SORA_SWORD_AIR.get(), SoraSwordAirRender::new);
         EntityRenderers.register(fun.wraq.common.registry.ModEntityType.SORA_RED_SWORD_AIR.get(), SoraRedSwordAirRender::new);
         EntityRenderers.register(fun.wraq.common.registry.ModEntityType.BLAZE_SWORD.get(), BlazeSwordRender::new);

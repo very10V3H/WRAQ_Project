@@ -40,7 +40,7 @@ public class EvokerSceptre extends WraqSceptre {
     protected ManaArrow summonManaArrow(Player player, double rate) {
         Level level = player.level();
         ManaArrow manaArrow = new ManaArrow(ModEntityType.NEW_ARROW.get(), player, level,
-                PlayerAttributes.manaDamage(player) * rate, PlayerAttributes.manaPenetration(player),
+                rate, PlayerAttributes.manaPenetration(player),
                 PlayerAttributes.manaPenetration0(player), StringUtils.ParticleTypes.EVOKER);
         manaArrow.setSilent(true);
         manaArrow.setNoGravity(true);

@@ -47,16 +47,13 @@ import fun.wraq.series.newrunes.chapter1.ForestNewRune;
 import fun.wraq.series.newrunes.chapter1.PlainNewRune;
 import fun.wraq.series.newrunes.chapter2.SkyNewRune;
 import fun.wraq.series.newrunes.chapter6.CastleNewRune;
-import fun.wraq.series.overworld.chapter1.forest.armor.ForestArmorBoots;
-import fun.wraq.series.overworld.chapter1.forest.armor.ForestArmorChest;
-import fun.wraq.series.overworld.chapter1.forest.armor.ForestArmorHelmet;
-import fun.wraq.series.overworld.chapter1.forest.armor.ForestArmorLeggings;
+import fun.wraq.series.overworld.chapter1.forest.ForestArmor;
 import fun.wraq.series.overworld.chapter1.mine.MineShield;
-import fun.wraq.series.overworld.chapter1.plain.armor.PlainArmorHelmet;
-import fun.wraq.series.overworld.chapter1.volcano.armor.VolcanoArmorHelmet;
-import fun.wraq.series.overworld.chapter1.waterSystem.equip.armor.LakeArmorHelmet;
+import fun.wraq.series.overworld.chapter1.plain.PlainArmor;
+import fun.wraq.series.overworld.chapter1.volcano.VolcanoArmor;
+import fun.wraq.series.overworld.chapter1.waterSystem.equip.LakeArmor;
 import fun.wraq.series.overworld.chapter2.manaArmor.LifeMana.LifeManaArmor;
-import fun.wraq.series.overworld.sakuraSeries.EarthMana.EarthPower;
+import fun.wraq.series.overworld.sakura.EarthMana.EarthPower;
 import fun.wraq.series.worldsoul.SoulEquipAttribute;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -245,7 +242,7 @@ public class PlayerAttributes {
         exDamage += CastleSwiftArmor.ExAttributeValue(player, CastleSwiftArmor.ExAttackDamage);
         exDamage += LifeElementSword.ExAttackDamage(player);
         exDamage += LifeElementBow.ExAttackDamage(player);
-        exDamage += VolcanoArmorHelmet.exAttackDamage(player);
+        exDamage += VolcanoArmor.exAttackDamage(player);
         exDamage += CastleNewRune.attackDamage(player);
         exDamage += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerAttackDamageModifier);
         exDamage += ChangedAttributesModifier.getModifierValue(player, ChangedAttributesModifier.exAttackDamage);
@@ -623,7 +620,7 @@ public class PlayerAttributes {
         exDefence += CastleAttackArmor.ExAttributeValue(player, CastleAttackArmor.ExDefence);
         exDefence += CastleManaArmor.ExAttributeValue(player, CastleManaArmor.ExDefence);
         exDefence += CastleSwiftArmor.ExAttributeValue(player, CastleSwiftArmor.ExDefence);
-        exDefence += ForestArmorHelmet.exDefence(player);
+        exDefence += ForestArmor.exDefence(player);
         exDefence += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.defence);
         exDefence += StableTierAttributeModifier.getModifierValue(player, StableTierAttributeModifier.defence);
         exDefence += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerDefenceModifier);
@@ -771,7 +768,7 @@ public class PlayerAttributes {
 
         releaseSpeed += Compute.CuriosAttribute.attributeValue(player, Utils.coolDownDecrease, StringUtils.CuriosAttribute.coolDown); // 新版饰品属性加成
         releaseSpeed += CastleManaArmor.ExAttributeValue(player, CastleManaArmor.ExCoolDownDecrease);
-        releaseSpeed += LakeArmorHelmet.exCooldown(player);
+        releaseSpeed += LakeArmor.exCooldown(player);
 
         int luckyAbilityPoint = data.getInt(StringUtils.Ability.Lucky);
         if (data.contains(StringUtils.Ability.Lucky) && data.getInt(StringUtils.Ability.Lucky) > 0) {
@@ -956,7 +953,7 @@ public class PlayerAttributes {
         maxHealth += CastleAttackArmor.ExAttributeValue(player, CastleAttackArmor.ExMaxHealth);
         maxHealth += CastleManaArmor.ExAttributeValue(player, CastleManaArmor.ExMaxHealth);
         maxHealth += CastleSwiftArmor.ExAttributeValue(player, CastleSwiftArmor.ExMaxHealth);
-        maxHealth += PlainArmorHelmet.exMaxHealth(player);
+        maxHealth += PlainArmor.exMaxHealth(player);
         maxHealth += StableTierAttributeModifier.getModifierValue(player, StableTierAttributeModifier.playerMaxHealthExValue);
 
         // 请在上方添加
@@ -1049,7 +1046,7 @@ public class PlayerAttributes {
         exDamage += Compute.PassiveEquip.getAttribute(player, Utils.manaDamage); // 器灵属性加成
         exDamage += CastleManaArmor.ExAttributeValue(player, CastleManaArmor.ExManaDamage);
         exDamage += LifeElementSceptre.ExManaDamage(player);
-        exDamage += VolcanoArmorHelmet.exManaDamage(player);
+        exDamage += VolcanoArmor.exManaDamage(player);
         exDamage += CastleNewRune.manaDamage(player);
         exDamage += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.manaDamage);
         exDamage += ChangedAttributesModifier.getModifierValue(player, ChangedAttributesModifier.exManaDamage);
@@ -1168,9 +1165,9 @@ public class PlayerAttributes {
                 StringUtils.CuriosAttribute.xpLevelManaDefence) * player.experienceLevel;
 
         // 以下为额外魔法抗性
-        if (boots instanceof ForestArmorBoots && leggings instanceof ForestArmorLeggings
-                && chest instanceof ForestArmorChest && helmet instanceof ForestArmorHelmet)
+        if (SuitCount.getForestSuitCount(player) >= 4) {
             exDefence += baseDefence * 0.25;
+        }
         if (LifeManaArmor.getPlayerLifeManaArmorCount(player) == 4) exDefence += baseDefence * 0.25;
         if (player.getEffect(ModEffects.MANADefenceUP.get()) != null && player.getEffect(ModEffects.MANADefenceUP.get()).getAmplifier() == 0)
             exDefence += baseDefence * 0.25 + 3;

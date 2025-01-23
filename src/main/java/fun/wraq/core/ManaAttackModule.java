@@ -53,7 +53,7 @@ import java.util.Random;
 
 public class ManaAttackModule {
 
-    public static void BasicAttack(Player player, Entity entity, double rate, double defencePenetration,
+    public static void BasicAttack(Player player, Entity entity, double defencePenetration,
                                    double defencePenetration0, Level level, ManaArrow manaArrow, boolean mainShoot) {
         if (player == null) return;
         CompoundTag data = player.getPersistentData();
@@ -66,6 +66,7 @@ public class ManaAttackModule {
             }
             Utils.PlayerFireWorkFightCoolDown.put(player, Tick.get() + 200);
 
+            double rate = manaArrow.rate;
             rate += DamageInfluence.getPlayerNormalAttackBaseDamageEnhance(player, 2);
             double damage = PlayerAttributes.manaDamage(player) * rate;
             double defence = MobAttributes.manaDefence(monster);

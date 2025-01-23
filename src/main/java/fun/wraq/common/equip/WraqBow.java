@@ -1,5 +1,6 @@
 package fun.wraq.common.equip;
 
+import fun.wraq.Items.DevelopmentTools.equip.ManageEquip;
 import fun.wraq.common.impl.onshoot.OnShootArrowCurios;
 import fun.wraq.common.impl.onshoot.OnShootArrowEquip;
 import fun.wraq.common.registry.MySound;
@@ -36,7 +37,9 @@ public abstract class WraqBow extends WraqMainHandEquip {
     public WraqBow(Properties properties) {
         super(properties);
         Utils.bowTag.put(this, 1d);
-        Display.bowList.add(this);
+        if (!(this instanceof ManageEquip)) {
+            Display.bowList.add(this);
+        }
     }
 
     @Override

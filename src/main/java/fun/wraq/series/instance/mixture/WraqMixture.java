@@ -7,6 +7,7 @@ import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.render.gui.illustrate.Display;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -36,6 +37,7 @@ public class WraqMixture extends WraqPassiveEquip implements ActiveItem {
         this.lastSecond = lastSecond;
         Utils.xpLevelManaDamage.put(this, 4d);
         Utils.levelRequire.put(this, levelRequire);
+        Display.souvenirsList.add(this);
     }
 
     @Override

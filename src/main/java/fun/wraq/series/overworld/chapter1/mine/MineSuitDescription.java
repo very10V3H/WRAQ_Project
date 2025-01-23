@@ -19,11 +19,7 @@ import java.util.List;
 @OnlyIn(Dist.CLIENT)
 public class MineSuitDescription {
     public static void ArmorCommonDescription(List<Component> components) {
-        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMine, ChatFormatting.WHITE);
-        ComponentUtils.descriptionOfAddition(components);
         SuitDescription(components);
-        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMine, ChatFormatting.WHITE);
-        ComponentUtils.suffixOfChapterI(components);
     }
 
     public static void SuitDescription(List<Component> components) {
@@ -49,7 +45,8 @@ public class MineSuitDescription {
         }
 
         String crestName = "[矿山纹章]";
-        if (Compute.CuriosAttribute.getDistinctCuriosList(player).stream().anyMatch(stack -> stack.getItem() instanceof MineCrest)) {
+        if (Compute.CuriosAttribute.getClientCuriosSet(player)
+                .stream().anyMatch(item -> item instanceof MineCrest)) {
             components.add(Component.literal(crestName).withStyle(MainStyle));
             count++;
         } else components.add(Component.literal(crestName).withStyle(ChatFormatting.GRAY));

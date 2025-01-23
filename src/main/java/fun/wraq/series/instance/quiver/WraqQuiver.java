@@ -10,6 +10,7 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.core.bow.MyArrow;
 import fun.wraq.process.func.DelayOperationWithAnimation;
 import fun.wraq.process.func.particle.ParticleProvider;
+import fun.wraq.render.gui.illustrate.Display;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
@@ -43,6 +44,7 @@ public class WraqQuiver extends WraqPassiveEquip implements ActiveItem {
         Utils.swiftnessUp.put(this, swift);
         Utils.xpLevelAttackDamage.put(this, 1d);
         Utils.levelRequire.put(this, levelRequire);
+        Display.souvenirsList.add(this);
     }
 
     @Override

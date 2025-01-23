@@ -1,5 +1,6 @@
 package fun.wraq.common.equip;
 
+import fun.wraq.Items.DevelopmentTools.equip.ManageEquip;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.gui.illustrate.Display;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -10,7 +11,9 @@ public abstract class WraqSword extends WraqMainHandEquip {
     public WraqSword(Properties properties) {
         super(properties);
         Utils.swordTag.put(this, 1d);
-        Display.swordList.add(this);
+        if (!(this instanceof ManageEquip)) {
+            Display.swordList.add(this);
+        }
     }
 
     @Override

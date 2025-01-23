@@ -29,7 +29,6 @@ public class ManaArrow extends AbstractArrow implements GeoEntity {
 
     private final AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
 
-    public double baseDamage;
     public double manaPenetration;
     public double manaPenetration0;
     public Player player;
@@ -37,7 +36,7 @@ public class ManaArrow extends AbstractArrow implements GeoEntity {
     private Vec3 InWaterVec3;
     public String particleType;
     private Mob mob;
-    private double rate = 1;
+    public double rate = 1;
     public boolean mainShoot = true;
     public ManaArrowHitEntity manaArrowHitEntity;
 
@@ -46,11 +45,11 @@ public class ManaArrow extends AbstractArrow implements GeoEntity {
     }
 
     public ManaArrow(EntityType<? extends AbstractArrow> entityType, LivingEntity shooter, Level level,
-                     double baseDamage, double manaPenetration, double manaPenetration0, String particleType,
+                     double rate, double manaPenetration, double manaPenetration0, String particleType,
                      ManaArrowHitEntity manaArrowHitEntity) {
         super(entityType, shooter, level);
         this.player = (Player) shooter;
-        this.baseDamage = baseDamage;
+        this.rate = rate;
         this.manaPenetration = manaPenetration;
         this.manaPenetration0 = manaPenetration0;
         this.particleType = particleType;
@@ -58,8 +57,8 @@ public class ManaArrow extends AbstractArrow implements GeoEntity {
     }
 
     public ManaArrow(EntityType<? extends AbstractArrow> entityType, LivingEntity shooter, Level level,
-                     double baseDamage, double manaPenetration, double manaPenetration0, String particleType) {
-        this(entityType, shooter, level, baseDamage, manaPenetration, manaPenetration0, particleType, null);
+                     double rate, double manaPenetration, double manaPenetration0, String particleType) {
+        this(entityType, shooter, level, rate, manaPenetration, manaPenetration0, particleType, null);
     }
 
     public ManaArrow(EntityType<? extends AbstractArrow> entityType, LivingEntity mob, Level level, double rate) {

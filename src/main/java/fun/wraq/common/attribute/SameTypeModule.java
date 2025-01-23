@@ -3,7 +3,7 @@ package fun.wraq.common.attribute;
 import fun.wraq.series.gems.passive.impl.GemOnNormalAttackHit;
 import fun.wraq.series.newrunes.chapter2.KazeNewRune;
 import fun.wraq.series.newrunes.chapter2.LightningNewRune;
-import fun.wraq.series.overworld.sakuraSeries.BloodMana.BloodManaArmor;
+import fun.wraq.series.overworld.sakura.BloodMana.BloodManaArmor;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 

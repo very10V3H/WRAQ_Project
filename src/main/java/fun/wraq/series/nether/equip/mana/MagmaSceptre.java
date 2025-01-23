@@ -50,7 +50,7 @@ public class MagmaSceptre extends WraqSceptre implements ForgeItem {
     protected ManaArrow summonManaArrow(Player player, double rate) {
         Level level = player.level();
         ManaArrow manaArrow = new ManaArrow(ModEntityType.NEW_ARROW_MAGMA.get(), player, level,
-                PlayerAttributes.manaDamage(player) * rate, PlayerAttributes.manaPenetration(player),
+                rate, PlayerAttributes.manaPenetration(player),
                 PlayerAttributes.manaPenetration0(player), StringUtils.ParticleTypes.Entropy);
         manaArrow.manaArrowHitEntity = new ManaArrowHitEntity() {
             @Override

@@ -13,7 +13,7 @@ public class KeyBoradInput {
     public static final String KEY_CATEGORY = "key.category.vmd.vmd";
 
     public static final KeyMapping SKILL_SCREEN = new KeyMapping("key.vmd.skill_screen", KeyConflictContext.IN_GAME,
-            InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_O, KEY_CATEGORY);
+            InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_N, KEY_CATEGORY);
 
     public static final KeyMapping NEW_SKILL_1 = new KeyMapping("key.vmd.new_skill_1", KeyConflictContext.IN_GAME,
             InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_Q, KEY_CATEGORY);

@@ -1,7 +1,7 @@
 package fun.wraq.entities.armor;
 
 import fun.wraq.common.util.Utils;
-import fun.wraq.series.overworld.sakuraSeries.SakuraMob.SakuraArmorHelmet;
+import fun.wraq.series.overworld.sakura.SakuraMob.SakuraArmorHelmet;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.model.GeoModel;
 

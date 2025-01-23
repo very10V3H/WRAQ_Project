@@ -45,7 +45,7 @@ import fun.wraq.series.gems.passive.impl.GemOnKillMob;
 import fun.wraq.series.newrunes.chapter2.HuskNewRune;
 import fun.wraq.series.newrunes.chapter3.NetherNewRune;
 import fun.wraq.series.overworld.chapter7.star.StarBottle;
-import fun.wraq.series.overworld.sakuraSeries.BloodMana.BloodManaCurios;
+import fun.wraq.series.overworld.sakura.BloodMana.BloodManaCurios;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;

@@ -52,7 +52,8 @@ public class SnowSuitDescription {
         }
 
         String crestName = "[冰川纹章]";
-        if (Compute.CuriosAttribute.getDistinctCuriosList(player).stream().anyMatch(stack -> stack.getItem() instanceof SnowCrest)) {
+        if (Compute.CuriosAttribute.getClientCuriosSet(player)
+                .stream().anyMatch(item -> item instanceof SnowCrest)) {
             components.add(Component.literal(crestName).withStyle(MainStyle));
             count++;
         } else components.add(Component.literal(crestName).withStyle(ChatFormatting.GRAY));

@@ -17,8 +17,6 @@ import java.util.List;
 public class VolcanoSuitDescription {
     public static void VolcanoArmorCommonDescription(List<Component> components) {
         Style style = Style.EMPTY.applyFormat(ChatFormatting.YELLOW);
-        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, ChatFormatting.YELLOW, ChatFormatting.WHITE);
-        ComponentUtils.descriptionOfAddition(components);
         Compute.solePassiveDescription(components, Component.literal("").withStyle(style));
         int level = Math.min(100, Minecraft.getInstance().player.experienceLevel);
         components.add(Component.literal(" 获得").withStyle(ChatFormatting.WHITE).
@@ -33,8 +31,6 @@ public class VolcanoSuitDescription {
             ComponentUtils.suitDescription(components);
             components.add(Component.literal("[按住shift展开套装效果]").withStyle(ChatFormatting.GRAY));
         }
-        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, ChatFormatting.YELLOW, ChatFormatting.WHITE);
-        ComponentUtils.suffixOfChapterII(components);
     }
 
     public static void VolcanoSuitDescription(List<Component> components) {
@@ -60,7 +56,8 @@ public class VolcanoSuitDescription {
         }
 
         String crestName = "[火山纹章]";
-        if (Compute.CuriosAttribute.getDistinctCuriosList(player).stream().anyMatch(stack -> stack.getItem() instanceof VolcanoCrest)) {
+        if (Compute.CuriosAttribute.getClientCuriosSet(player)
+                .stream().anyMatch(item -> item instanceof VolcanoCrest)) {
             components.add(Component.literal(crestName).withStyle(MainStyle));
             count++;
         } else components.add(Component.literal(crestName).withStyle(ChatFormatting.GRAY));

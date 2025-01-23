@@ -37,7 +37,7 @@ import fun.wraq.series.instance.series.castle.CastleSword;
 import fun.wraq.series.instance.series.moon.MoonCurios;
 import fun.wraq.series.nether.equip.attack.sword.ManaSword;
 import fun.wraq.series.overworld.chapter7.BoneImpKnife;
-import fun.wraq.series.overworld.sakuraSeries.SakuraMob.SakuraSword;
+import fun.wraq.series.overworld.sakura.SakuraMob.SakuraSword;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;

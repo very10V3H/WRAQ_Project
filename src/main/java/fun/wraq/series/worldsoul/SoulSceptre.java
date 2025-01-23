@@ -1,18 +1,18 @@
 package fun.wraq.series.worldsoul;
 
-import fun.wraq.common.registry.MySound;
-import fun.wraq.process.func.particle.ParticleProvider;
-import fun.wraq.projectiles.mana.ManaArrow;
-import fun.wraq.common.equip.WraqSceptre;
-import fun.wraq.render.particles.ModParticles;
-import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.common.Compute;
+import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.equip.WraqSceptre;
 import fun.wraq.common.registry.ModEntityType;
+import fun.wraq.common.registry.ModSounds;
+import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.common.attribute.PlayerAttributes;
-import fun.wraq.common.registry.ModSounds;
+import fun.wraq.process.func.particle.ParticleProvider;
+import fun.wraq.projectiles.mana.ManaArrow;
+import fun.wraq.render.particles.ModParticles;
+import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -21,9 +21,9 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 
 import java.io.IOException;
@@ -48,7 +48,7 @@ public class SoulSceptre extends WraqSceptre {
         double ManaCost = SoulSceptre.getManaCost(player.getItemInHand(InteractionHand.MAIN_HAND).getOrCreateTagElement(Utils.MOD_ID));
         if (Compute.playerManaCost(player, (int) ManaCost)) {
             ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_WORLD.get(), player, level,
-                    PlayerAttributes.manaDamage(player) * rate, PlayerAttributes.manaPenetration(player),
+                    rate, PlayerAttributes.manaPenetration(player),
                     PlayerAttributes.manaPenetration0(player), StringUtils.ParticleTypes.Sky);
             newArrow.setSilent(true);
             newArrow.setNoGravity(true);

@@ -10,6 +10,7 @@ import fun.wraq.series.instance.mixture.MixtureItems;
 import fun.wraq.series.instance.quiver.QuiverItems;
 import fun.wraq.series.instance.series.mushroom.MushroomItems;
 import fun.wraq.series.instance.series.warden.WardenItems;
+import fun.wraq.series.overworld.sun.SunIslandItems;
 import fun.wraq.series.specialevents.SpecialEventItems;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
@@ -90,15 +91,10 @@ public class Display {
     public static List<Item> getNewItemList() {
         if (newItemList.isEmpty()) {
             Item[] items = {
-                    WardenItems.DARK_MOON_SHIELD.get(),
-                    WardenItems.DARK_MOON_KNIFE.get(),
-                    WardenItems.DARK_MOON_BOOK.get(),
-                    BladeItems.BLADE_CASTLE.get(),
-                    BladeItems.BLADE_MOONTAIN.get(),
-                    QuiverItems.QUIVER_CASTLE.get(),
-                    QuiverItems.QUIVER_MOONTAIN.get(),
-                    MixtureItems.MIXTURE_CASTLE.get(),
-                    MixtureItems.MIXTURE_MOONTAIN.get()
+                    ModItems.MINE_MANA_NOTE.get(),
+                    SunIslandItems.BROKEN_BLADE_0.get(),
+                    SunIslandItems.FRAME_ARROW_0.get(),
+                    WardenItems.DARK_MOON_BOOK.get()
             };
             newItemList.addAll(List.of(items));
             MushroomItems.ITEMS.getEntries()

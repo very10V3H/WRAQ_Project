@@ -54,8 +54,7 @@ public class WaterElementSceptre extends WraqSceptre implements ActiveItem {
     public ManaArrow summonManaArrow(Player player, double rate) {
         Level level = player.level();
         ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_SEA.get(), player, level,
-                PlayerAttributes.manaDamage(player) * rate,
-                PlayerAttributes.manaPenetration(player),
+                rate, PlayerAttributes.manaPenetration(player),
                 PlayerAttributes.manaPenetration0(player), StringUtils.ParticleTypes.WaterElement1TickParticle);
         newArrow.setSilent(true);
         newArrow.setNoGravity(true);

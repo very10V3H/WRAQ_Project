@@ -5,6 +5,7 @@ import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.equip.impl.Souvenirs;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.render.gui.illustrate.Display;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -22,6 +23,7 @@ public class EndCuriosMana extends WraqCurios implements Souvenirs {
         Utils.manaPenetration.put(this, 0.1);
         Utils.maxMana.put(this, 20d);
         Utils.manaRecover.put(this, 10d);
+        Display.souvenirsList.add(this);
     }
 
     @Override

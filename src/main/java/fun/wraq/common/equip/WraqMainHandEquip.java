@@ -1,5 +1,6 @@
 package fun.wraq.common.equip;
 
+import fun.wraq.Items.DevelopmentTools.equip.ManageEquip;
 import fun.wraq.blocks.blocks.forge.ForgeRecipe;
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.BasicAttributeDescription;
@@ -10,6 +11,7 @@ import fun.wraq.common.registry.ItemTier;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.loot.RandomLootEquip;
+import fun.wraq.render.gui.illustrate.Display;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -32,7 +34,9 @@ public abstract class WraqMainHandEquip extends SwordItem {
     public WraqMainHandEquip(Properties properties) {
         super(ItemTier.VMaterial, 2, 0, properties);
         Utils.mainHandTag.put(this, 1d);
-        Utils.weaponList.add(this);
+        if (!(this instanceof ManageEquip)) {
+            Utils.weaponList.add(this);
+        }
         if (this instanceof WraqMainHandOrPassiveEquip) {
             Utils.passiveEquipTag.put(this, 1d);
         }

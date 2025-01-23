@@ -16,8 +16,10 @@ import fun.wraq.Items.LevelReward.VariousBag.LogBag;
 import fun.wraq.Items.Lotteries.*;
 import fun.wraq.Items.MainStory_1.BackSpawn;
 import fun.wraq.Items.MainStory_1.ForNew;
-import fun.wraq.Items.MainStory_1.Mission.*;
-import fun.wraq.Items.MainStory_1.NewCurios;
+import fun.wraq.Items.MainStory_1.Mission.Main0;
+import fun.wraq.Items.MainStory_1.Mission.Main0_4;
+import fun.wraq.Items.MainStory_1.Mission.Main0_5;
+import fun.wraq.Items.MainStory_1.Mission.Main1_5;
 import fun.wraq.Items.Mission.Daily;
 import fun.wraq.Items.Mission.IronLove;
 import fun.wraq.Items.MobItem.HolyArmor;
@@ -95,11 +97,6 @@ import fun.wraq.series.end.eventController.SpiderRecall.SpiderRecallArmorChest;
 import fun.wraq.series.end.eventController.SpiderRecall.SpiderRecallArmorHelmet;
 import fun.wraq.series.end.eventController.SpiderRecall.SpiderRecallArmorLeggings;
 import fun.wraq.series.end.recallBooks.*;
-import fun.wraq.series.instance.series.moon.MoonSoul;
-import fun.wraq.series.overworld.chapter1.mine.*;
-import fun.wraq.series.overworld.curios.FancySapphireNecklace;
-import fun.wraq.series.overworld.curios.RubyNecklace;
-import fun.wraq.series.overworld.curios.SapphireNecklace;
 import fun.wraq.series.instance.series.castle.*;
 import fun.wraq.series.instance.series.devil.*;
 import fun.wraq.series.instance.series.ice.IceArmor;
@@ -112,6 +109,7 @@ import fun.wraq.series.instance.series.ice.weapon.IceSword;
 import fun.wraq.series.instance.series.moon.Equip.*;
 import fun.wraq.series.instance.series.moon.MoonCurios;
 import fun.wraq.series.instance.series.moon.MoonLoot;
+import fun.wraq.series.instance.series.moon.MoonSoul;
 import fun.wraq.series.instance.series.plain.PlainAttackRing;
 import fun.wraq.series.instance.series.plain.PlainDefenceRing;
 import fun.wraq.series.instance.series.plain.PlainHealthRing;
@@ -153,48 +151,28 @@ import fun.wraq.series.overworld.WorldBoss.GiantTicket;
 import fun.wraq.series.overworld.castle.BeaconBow;
 import fun.wraq.series.overworld.castle.BlazeSword;
 import fun.wraq.series.overworld.castle.TreeSceptre;
-import fun.wraq.series.overworld.chapter1.Field.FieldSword;
-import fun.wraq.series.overworld.chapter1.Main1Boss.main1crystal;
-import fun.wraq.series.overworld.chapter1.ManaBook.ManaNote;
-import fun.wraq.series.overworld.chapter1.mine.armor.MineArmorBoots;
-import fun.wraq.series.overworld.chapter1.mine.armor.MineArmorChest;
-import fun.wraq.series.overworld.chapter1.mine.armor.MineArmorHelmet;
-import fun.wraq.series.overworld.chapter1.mine.armor.MineArmorLeggings;
-import fun.wraq.series.overworld.chapter1.forest.ForestPower;
-import fun.wraq.series.overworld.chapter1.forest.ForestRing;
-import fun.wraq.series.overworld.chapter1.forest.ForestSword;
-import fun.wraq.series.overworld.chapter1.forest.armor.ForestArmorBoots;
-import fun.wraq.series.overworld.chapter1.forest.armor.ForestArmorChest;
-import fun.wraq.series.overworld.chapter1.forest.armor.ForestArmorHelmet;
-import fun.wraq.series.overworld.chapter1.forest.armor.ForestArmorLeggings;
+import fun.wraq.series.overworld.chapter1.field.FieldSword;
+import fun.wraq.series.overworld.chapter1.mana.ManaNote;
+import fun.wraq.series.overworld.chapter1.forest.*;
 import fun.wraq.series.overworld.chapter1.forest.bossItems.*;
-import fun.wraq.series.overworld.chapter1.forest.ForestBow;
-import fun.wraq.series.overworld.chapter1.forest.crest.ForestCrest;
+import fun.wraq.series.overworld.chapter1.forest.ForestCrest;
 import fun.wraq.series.overworld.chapter1.forest.rune.ForestRune0;
 import fun.wraq.series.overworld.chapter1.forest.rune.ForestRune1;
 import fun.wraq.series.overworld.chapter1.forest.rune.ForestRune2;
 import fun.wraq.series.overworld.chapter1.forest.rune.ForestRune3;
-import fun.wraq.series.overworld.chapter1.plain.PlainBow;
-import fun.wraq.series.overworld.chapter1.plain.PlainPower;
-import fun.wraq.series.overworld.chapter1.plain.PlainRing;
-import fun.wraq.series.overworld.chapter1.plain.armor.PlainArmorBoots;
-import fun.wraq.series.overworld.chapter1.plain.armor.PlainArmorChest;
-import fun.wraq.series.overworld.chapter1.plain.armor.PlainArmorHelmet;
-import fun.wraq.series.overworld.chapter1.plain.armor.PlainArmorLeggings;
-import fun.wraq.series.overworld.chapter1.plain.crest.PlainCrest;
+import fun.wraq.series.overworld.chapter1.mine.*;
+import fun.wraq.series.overworld.chapter1.mine.MineArmor;
+import fun.wraq.series.overworld.chapter1.plain.*;
+import fun.wraq.series.overworld.chapter1.plain.PlainArmor;
+import fun.wraq.series.overworld.chapter1.plain.PlainCrest;
 import fun.wraq.series.overworld.chapter1.plain.runes.*;
-import fun.wraq.series.overworld.chapter1.plain.LifeSceptre;
-import fun.wraq.series.overworld.chapter1.plain.PlainSword;
 import fun.wraq.series.overworld.chapter1.snow.Runes.SnowRune0;
 import fun.wraq.series.overworld.chapter1.snow.Runes.SnowRune1;
 import fun.wraq.series.overworld.chapter1.snow.Runes.SnowRune2;
 import fun.wraq.series.overworld.chapter1.snow.Runes.SnowRune3;
 import fun.wraq.series.overworld.chapter1.snow.*;
 import fun.wraq.series.overworld.chapter1.volcano.*;
-import fun.wraq.series.overworld.chapter1.volcano.armor.VolcanoArmorBoots;
-import fun.wraq.series.overworld.chapter1.volcano.armor.VolcanoArmorChest;
-import fun.wraq.series.overworld.chapter1.volcano.armor.VolcanoArmorHelmet;
-import fun.wraq.series.overworld.chapter1.volcano.armor.VolcanoArmorLeggings;
+import fun.wraq.series.overworld.chapter1.volcano.VolcanoArmor;
 import fun.wraq.series.overworld.chapter1.volcano.bossItems.*;
 import fun.wraq.series.overworld.chapter1.volcano.rune.VolcanoRune0;
 import fun.wraq.series.overworld.chapter1.volcano.rune.VolcanoRune1;
@@ -206,11 +184,8 @@ import fun.wraq.series.overworld.chapter1.waterSystem.bossItems.LakeBoss;
 import fun.wraq.series.overworld.chapter1.waterSystem.crest.LakeCrest;
 import fun.wraq.series.overworld.chapter1.waterSystem.equip.LakeBow;
 import fun.wraq.series.overworld.chapter1.waterSystem.equip.LakeSceptre;
-import fun.wraq.series.overworld.chapter1.waterSystem.equip.armor.LakeArmorBoots;
-import fun.wraq.series.overworld.chapter1.waterSystem.equip.armor.LakeArmorChest;
-import fun.wraq.series.overworld.chapter1.waterSystem.equip.armor.LakeArmorHelmet;
-import fun.wraq.series.overworld.chapter1.waterSystem.equip.armor.LakeArmorLeggings;
-import fun.wraq.series.overworld.chapter1.waterSystem.equip.sword.LakeSword;
+import fun.wraq.series.overworld.chapter1.waterSystem.equip.LakeArmor;
+import fun.wraq.series.overworld.chapter1.waterSystem.equip.LakeSword;
 import fun.wraq.series.overworld.chapter1.waterSystem.runes.LakeRune0;
 import fun.wraq.series.overworld.chapter1.waterSystem.runes.LakeRune1;
 import fun.wraq.series.overworld.chapter1.waterSystem.runes.LakeRune2;
@@ -219,10 +194,10 @@ import fun.wraq.series.overworld.chapter2.blackForest.BlackForestCore;
 import fun.wraq.series.overworld.chapter2.blackForest.HuskSword;
 import fun.wraq.series.overworld.chapter2.codeMana.*;
 import fun.wraq.series.overworld.chapter2.dimension.ToEnd;
-import fun.wraq.series.overworld.chapter2.evoker.ManaCrest;
 import fun.wraq.series.overworld.chapter2.evoker.EvokerSceptre;
 import fun.wraq.series.overworld.chapter2.evoker.ManaBalance_Empty;
 import fun.wraq.series.overworld.chapter2.evoker.ManaBalance_Filled;
+import fun.wraq.series.overworld.chapter2.evoker.ManaCrest;
 import fun.wraq.series.overworld.chapter2.evoker.Runes.ManaRune0;
 import fun.wraq.series.overworld.chapter2.evoker.Runes.ManaRune1;
 import fun.wraq.series.overworld.chapter2.evoker.Runes.ManaRune2;
@@ -251,32 +226,35 @@ import fun.wraq.series.overworld.chapter2.spider.SpiderArmorHelmet;
 import fun.wraq.series.overworld.chapter2.spider.SpiderArmorLeggings;
 import fun.wraq.series.overworld.chapter7.star.StarArmor;
 import fun.wraq.series.overworld.chapter7.star.StarBottle;
+import fun.wraq.series.overworld.curios.FancySapphireNecklace;
+import fun.wraq.series.overworld.curios.RubyNecklace;
+import fun.wraq.series.overworld.curios.SapphireNecklace;
 import fun.wraq.series.overworld.forging.ForgingStone0;
 import fun.wraq.series.overworld.forging.ForgingStone1;
 import fun.wraq.series.overworld.forging.ForgingStone2;
 import fun.wraq.series.overworld.kanata.WraqKanata;
 import fun.wraq.series.overworld.knife.OriginKnife;
-import fun.wraq.series.overworld.sakuraSeries.BloodMana.BloodManaArmor;
-import fun.wraq.series.overworld.sakuraSeries.BloodMana.BloodManaCurios;
-import fun.wraq.series.overworld.sakuraSeries.BloodMana.ManaKnife;
-import fun.wraq.series.overworld.sakuraSeries.BloodMana.ManaShield;
-import fun.wraq.series.overworld.sakuraSeries.Boss2.GoldenAttackOffhand;
-import fun.wraq.series.overworld.sakuraSeries.Boss2.GoldenBook;
-import fun.wraq.series.overworld.sakuraSeries.EarthMana.EarthBook;
-import fun.wraq.series.overworld.sakuraSeries.EarthMana.EarthManaArmor;
-import fun.wraq.series.overworld.sakuraSeries.EarthMana.EarthManaCurios;
-import fun.wraq.series.overworld.sakuraSeries.EarthMana.EarthPower;
-import fun.wraq.series.overworld.sakuraSeries.MineWorker.MinePants;
-import fun.wraq.series.overworld.sakuraSeries.MineWorker.PurpleIronArmor;
-import fun.wraq.series.overworld.sakuraSeries.MineWorker.PurplePickaxe;
-import fun.wraq.series.overworld.sakuraSeries.SakuraMob.*;
-import fun.wraq.series.overworld.sakuraSeries.Scarecrow.Wheat;
-import fun.wraq.series.overworld.sakuraSeries.Scarecrow.WheatArmorChest;
-import fun.wraq.series.overworld.sakuraSeries.Scarecrow.WheatReForge;
-import fun.wraq.series.overworld.sakuraSeries.Ship.ShipBow;
-import fun.wraq.series.overworld.sakuraSeries.Ship.ShipSceptre;
-import fun.wraq.series.overworld.sakuraSeries.Ship.ShipSword;
-import fun.wraq.series.overworld.sakuraSeries.Slime.SlimeBoots;
+import fun.wraq.series.overworld.sakura.BloodMana.BloodManaArmor;
+import fun.wraq.series.overworld.sakura.BloodMana.BloodManaCurios;
+import fun.wraq.series.overworld.sakura.BloodMana.ManaKnife;
+import fun.wraq.series.overworld.sakura.BloodMana.ManaShield;
+import fun.wraq.series.overworld.sakura.Boss2.GoldenAttackOffhand;
+import fun.wraq.series.overworld.sakura.Boss2.GoldenBook;
+import fun.wraq.series.overworld.sakura.EarthMana.EarthBook;
+import fun.wraq.series.overworld.sakura.EarthMana.EarthManaArmor;
+import fun.wraq.series.overworld.sakura.EarthMana.EarthManaCurios;
+import fun.wraq.series.overworld.sakura.EarthMana.EarthPower;
+import fun.wraq.series.overworld.sakura.MineWorker.MinePants;
+import fun.wraq.series.overworld.sakura.MineWorker.PurpleIronArmor;
+import fun.wraq.series.overworld.sakura.MineWorker.PurplePickaxe;
+import fun.wraq.series.overworld.sakura.SakuraMob.*;
+import fun.wraq.series.overworld.sakura.Scarecrow.Wheat;
+import fun.wraq.series.overworld.sakura.Scarecrow.WheatArmorChest;
+import fun.wraq.series.overworld.sakura.Scarecrow.WheatReForge;
+import fun.wraq.series.overworld.sakura.Ship.ShipBow;
+import fun.wraq.series.overworld.sakura.Ship.ShipSceptre;
+import fun.wraq.series.overworld.sakura.Ship.ShipSword;
+import fun.wraq.series.overworld.sakura.Slime.SlimeBoots;
 import fun.wraq.series.specialevents.labourDay.*;
 import fun.wraq.series.specialevents.qingMing.*;
 import fun.wraq.series.specialevents.springFes.*;
@@ -440,13 +418,13 @@ public class ModItems {
                     20, 0.1, 1, 100, 8, 0.05, 0.1));
 
     public static final RegistryObject<Item> PlainArmorHelmet = ITEMS.register("plainarmorhelmet",
-            () -> new PlainArmorHelmet(ModArmorMaterials.PlainMaterialHelmet, ArmorItem.Type.HELMET));
+            () -> new PlainArmor(ModArmorMaterials.PlainMaterialHelmet, ArmorItem.Type.HELMET));
     public static final RegistryObject<Item> PlainArmorChest = ITEMS.register("plainarmorchest",
-            () -> new PlainArmorChest(ModArmorMaterials.PlainMaterialChest, ArmorItem.Type.CHESTPLATE));
+            () -> new PlainArmor(ModArmorMaterials.PlainMaterialChest, ArmorItem.Type.CHESTPLATE));
     public static final RegistryObject<Item> PlainArmorLeggings = ITEMS.register("plainarmorleggings",
-            () -> new PlainArmorLeggings(ModArmorMaterials.PlainMaterialLeggings, ArmorItem.Type.LEGGINGS));
+            () -> new PlainArmor(ModArmorMaterials.PlainMaterialLeggings, ArmorItem.Type.LEGGINGS));
     public static final RegistryObject<Item> PlainArmorBoots = ITEMS.register("plainarmorboots",
-            () -> new PlainArmorBoots(ModArmorMaterials.PlainMaterialBoots, ArmorItem.Type.BOOTS));
+            () -> new PlainArmor(ModArmorMaterials.PlainMaterialBoots, ArmorItem.Type.BOOTS));
 
     public static final RegistryObject<Item> ArmorForestZombie = ITEMS.register("armorforest2",
             () -> new MobArmor(StringUtils.MobName.ForestZombie));
@@ -489,13 +467,13 @@ public class ModItems {
                     40, 0.12, 1, 125, 10, 0.1, 0.15));
 
     public static final RegistryObject<Item> ForestArmorHelmet = ITEMS.register("forestarmorhelmet",
-            () -> new ForestArmorHelmet(ModArmorMaterials.Forest, ArmorItem.Type.HELMET));
+            () -> new ForestArmor(ModArmorMaterials.Forest, ArmorItem.Type.HELMET));
     public static final RegistryObject<Item> ForestArmorChest = ITEMS.register("forestarmorchest",
-            () -> new ForestArmorChest(ModArmorMaterials.Forest, ArmorItem.Type.CHESTPLATE));
+            () -> new ForestArmor(ModArmorMaterials.Forest, ArmorItem.Type.CHESTPLATE));
     public static final RegistryObject<Item> ForestArmorLeggings = ITEMS.register("forestarmorleggings",
-            () -> new ForestArmorLeggings(ModArmorMaterials.Forest, ArmorItem.Type.LEGGINGS));
+            () -> new ForestArmor(ModArmorMaterials.Forest, ArmorItem.Type.LEGGINGS));
     public static final RegistryObject<Item> ForestArmorBoots = ITEMS.register("forestarmorboots",
-            () -> new ForestArmorBoots(ModArmorMaterials.Forest, ArmorItem.Type.BOOTS));
+            () -> new ForestArmor(ModArmorMaterials.Forest, ArmorItem.Type.BOOTS));
 
     public static final RegistryObject<Item> COMPLETE_GEM = ITEMS.register("complete_gem",
             () -> new WraqItem(new Item.Properties().rarity(Rarity.EPIC), false, false, List.of(
@@ -631,13 +609,13 @@ public class ModItems {
                     60, 0.14, 1, 150, 12, 0.15, 0.2));
 
     public static final RegistryObject<Item> LakeArmorHelmet = ITEMS.register("lakearmorhelmet",
-            () -> new LakeArmorHelmet(ModArmorMaterials.Lake, ArmorItem.Type.HELMET));
+            () -> new LakeArmor(ModArmorMaterials.Lake, ArmorItem.Type.HELMET));
     public static final RegistryObject<Item> LakeArmorChest = ITEMS.register("lakearmorchest",
-            () -> new LakeArmorChest(ModArmorMaterials.LakeMaterialChest, ArmorItem.Type.CHESTPLATE));
+            () -> new LakeArmor(ModArmorMaterials.LakeMaterialChest, ArmorItem.Type.CHESTPLATE));
     public static final RegistryObject<Item> LakeArmorLeggings = ITEMS.register("lakearmorleggings",
-            () -> new LakeArmorLeggings(ModArmorMaterials.LakeMaterialLeggings, ArmorItem.Type.LEGGINGS));
+            () -> new LakeArmor(ModArmorMaterials.LakeMaterialLeggings, ArmorItem.Type.LEGGINGS));
     public static final RegistryObject<Item> LakeArmorBoots = ITEMS.register("lakearmorboots",
-            () -> new LakeArmorBoots(ModArmorMaterials.LakeMaterialBoots, ArmorItem.Type.BOOTS));
+            () -> new LakeArmor(ModArmorMaterials.LakeMaterialBoots, ArmorItem.Type.BOOTS));
 
     public static final RegistryObject<Item> MineSword0 = ITEMS.register("minesword0",
             () -> new MineSword(new Item.Properties().rarity(CustomStyle.MineItalic), 0));
@@ -674,13 +652,13 @@ public class ModItems {
                     80, 0.17, 2, 175, 14, 0.2, 0.25));
 
     public static final RegistryObject<Item> MineArmorHelmet = ITEMS.register("minearmorhelmet",
-            () -> new MineArmorHelmet(ModArmorMaterials.IslandMaterial, ArmorItem.Type.HELMET));
+            () -> new MineArmor(ModArmorMaterials.IslandMaterial, ArmorItem.Type.HELMET));
     public static final RegistryObject<Item> MineArmorChest = ITEMS.register("minearmorchest",
-            () -> new MineArmorChest(ModArmorMaterials.IslandMaterial, ArmorItem.Type.CHESTPLATE));
+            () -> new MineArmor(ModArmorMaterials.IslandMaterial, ArmorItem.Type.CHESTPLATE));
     public static final RegistryObject<Item> MineArmorLeggings = ITEMS.register("minearmorleggings",
-            () -> new MineArmorLeggings(ModArmorMaterials.IslandMaterial, ArmorItem.Type.LEGGINGS));
+            () -> new MineArmor(ModArmorMaterials.IslandMaterial, ArmorItem.Type.LEGGINGS));
     public static final RegistryObject<Item> MineArmorBoots = ITEMS.register("minearmorboots",
-            () -> new MineArmorBoots(ModArmorMaterials.IslandMaterial, ArmorItem.Type.BOOTS));
+            () -> new MineArmor(ModArmorMaterials.IslandMaterial, ArmorItem.Type.BOOTS));
 
     public static final RegistryObject<Item> VolcanoSword0 = ITEMS.register("volcanosword0",
             () -> new VolcanoSword(new Item.Properties().rarity(CustomStyle.VolcanoItalic), 0));
@@ -714,13 +692,13 @@ public class ModItems {
                     100, 0.2, 2, 200, 16, 0.25, 0.3));
 
     public static final RegistryObject<Item> VolcanoArmorHelmet = ITEMS.register("volcanoarmorhelmet",
-            () -> new VolcanoArmorHelmet(ModArmorMaterials.VolcanoMaterialHelmet, ArmorItem.Type.HELMET));
+            () -> new VolcanoArmor(ModArmorMaterials.VolcanoMaterialHelmet, ArmorItem.Type.HELMET));
     public static final RegistryObject<Item> VolcanoArmorChest = ITEMS.register("volcanoarmorchest",
-            () -> new VolcanoArmorChest(ModArmorMaterials.VolcanoMaterialChest, ArmorItem.Type.CHESTPLATE));
+            () -> new VolcanoArmor(ModArmorMaterials.VolcanoMaterialChest, ArmorItem.Type.CHESTPLATE));
     public static final RegistryObject<Item> VolcanoArmorLeggings = ITEMS.register("volcanoarmorleggings",
-            () -> new VolcanoArmorLeggings(ModArmorMaterials.VolcanoMaterialLeggings, ArmorItem.Type.LEGGINGS));
+            () -> new VolcanoArmor(ModArmorMaterials.VolcanoMaterialLeggings, ArmorItem.Type.LEGGINGS));
     public static final RegistryObject<Item> VolcanoArmorBoots = ITEMS.register("volcanoarmorboots",
-            () -> new VolcanoArmorBoots(ModArmorMaterials.VolcanoMaterialBoots, ArmorItem.Type.BOOTS));
+            () -> new VolcanoArmor(ModArmorMaterials.VolcanoMaterialBoots, ArmorItem.Type.BOOTS));
 
     public static final RegistryObject<Item> attributecheck = ITEMS.register("attributecheck",
             () -> new AttributeCheck(new Item.Properties()));
@@ -786,10 +764,6 @@ public class ModItems {
     public static final RegistryObject<Item> SnowPower3 = ITEMS.register("snow_power3",
             () -> new SnowPower(new Item.Properties().rarity(CustomStyle.SnowItalic), 3));
 
-    public static final RegistryObject<Item> SnowManaBook = ITEMS.register("mananote_snow",
-            () -> new ManaNote(new Item.Properties().rarity(CustomStyle.SnowItalic), 4,
-                    100, 0.2, 2, 200, 16, 0.25, 0.3));
-
     public static final RegistryObject<Item> SnowShield = ITEMS.register("snow_shield",
             () -> new SnowShield());
 
@@ -806,10 +780,6 @@ public class ModItems {
             () -> new openSecurity(new Item.Properties().rarity(Rarity.UNCOMMON)));
     public static final RegistryObject<Item> ResetSecurity = ITEMS.register("resetsecurity",
             () -> new ResetSecurity(new Item.Properties().rarity(Rarity.UNCOMMON)));
-    public static final RegistryObject<Item> Main1Crystal = ITEMS.register("main1crystal",
-            () -> new main1crystal(new Item.Properties().rarity(Rarity.EPIC)));
-    public static final RegistryObject<Item> NewCurios = ITEMS.register("newcurios",
-            () -> new NewCurios(new Item.Properties().rarity(Rarity.RARE)));
     public static final RegistryObject<Item> SpeIron = ITEMS.register("speiron",
             () -> new SpeIronIngot(new Item.Properties().rarity(Rarity.UNCOMMON)));
     public static final RegistryObject<Item> tick = ITEMS.register("tick",

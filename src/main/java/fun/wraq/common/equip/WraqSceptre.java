@@ -1,5 +1,6 @@
 package fun.wraq.common.equip;
 
+import fun.wraq.Items.DevelopmentTools.equip.ManageEquip;
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.impl.onshoot.OnShootManaArrowCurios;
@@ -37,7 +38,9 @@ public abstract class WraqSceptre extends WraqMainHandEquip {
     public WraqSceptre(Properties properties) {
         super(properties);
         Utils.sceptreTag.put(this, 1d);
-        Display.sceptreList.add(this);
+        if (!(this instanceof ManageEquip)) {
+            Display.sceptreList.add(this);
+        }
     }
 
     @Override
@@ -72,7 +75,7 @@ public abstract class WraqSceptre extends WraqMainHandEquip {
         Level level = player.level();
         if (Compute.playerManaCost(player, EvokerSceptre.ManaCost)) {
             ManaArrow manaArrow = new ManaArrow(ModEntityType.NEW_ARROW.get(), player, level,
-                    PlayerAttributes.manaDamage(player) * rate, PlayerAttributes.manaPenetration(player),
+                    rate, PlayerAttributes.manaPenetration(player),
                     PlayerAttributes.manaPenetration0(player), StringUtils.ParticleTypes.DamageMana);
             manaArrow.setSilent(true);
             manaArrow.setNoGravity(true);

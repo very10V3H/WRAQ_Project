@@ -102,12 +102,6 @@ public class ModEntityType {
                             .sized(0.25f, 0.25f)
                             .build(new ResourceLocation(Utils.MOD_ID, "sword_air").toString()));
 
-    public static final RegistryObject<EntityType<ShangMengLiSwordAir>> SHANGMENGLI_SWORD_AIR =
-            ENTITY_TYPES.register("shangmengli_sword_air",
-                    () -> EntityType.Builder.<ShangMengLiSwordAir>of(ShangMengLiSwordAir::new, MobCategory.MISC)
-                            .sized(0.75f, 0.75f)
-                            .build(new ResourceLocation(Utils.MOD_ID, "shangmengli_sword_air").toString()));
-
     public static final RegistryObject<EntityType<SoraSwordAir>> SORA_SWORD_AIR =
             ENTITY_TYPES.register("sora_sword_air",
                     () -> EntityType.Builder.<SoraSwordAir>of(SoraSwordAir::new, MobCategory.MISC)

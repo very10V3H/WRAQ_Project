@@ -70,7 +70,7 @@ public class LifeSceptre extends WraqSceptre implements OnHitEffectEquip, InCuri
     protected ManaArrow summonManaArrow(Player player, double rate) {
         Level level = player.level();
         ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_PLAIN.get(), player, level,
-                PlayerAttributes.manaDamage(player) * rate, PlayerAttributes.manaPenetration(player),
+                rate, PlayerAttributes.manaPenetration(player),
                 PlayerAttributes.manaPenetration0(player), StringUtils.ParticleTypes.Plain);
         newArrow.setSilent(true);
         newArrow.setNoGravity(true);

@@ -8,11 +8,11 @@ import fun.wraq.common.equip.impl.Laser;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.networking.misc.attack.BowAttackRequestC2SPacket;
-import fun.wraq.networking.misc.attack.ManaAttackRequestC2SPacket;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.bowAndSceptreActive.CommonActiveC2SPacket;
 import fun.wraq.networking.misc.attack.AttackRequestC2SPacket;
+import fun.wraq.networking.misc.attack.BowAttackRequestC2SPacket;
+import fun.wraq.networking.misc.attack.ManaAttackRequestC2SPacket;
 import fun.wraq.networking.unSorted.SoulSceptreC2SPacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.InteractionHand;
@@ -50,6 +50,7 @@ public class ClientAttackEvent {
             Player player = event.getEntity();
             if (!(player.getItemInHand(InteractionHand.MAIN_HAND).getItem() instanceof WraqPickaxe)) {
                 leftClick(player);
+                activeBowAndSceptre(player);
                 if (!player.isCreative()) {
                     event.setCanceled(true);
                 }
@@ -62,6 +63,7 @@ public class ClientAttackEvent {
         if (event.getEntity().level().isClientSide && event.getEntity().equals(Minecraft.getInstance().player)) {
             Player player = event.getEntity();
             leftClick(player);
+            activeBowAndSceptre(player);
         }
     }
 
@@ -70,6 +72,7 @@ public class ClientAttackEvent {
         if (event.getEntity().level().isClientSide && event.getEntity().equals(Minecraft.getInstance().player)) {
             Player player = event.getEntity();
             leftClick(player);
+            activeBowAndSceptre(player);
         }
     }
 
@@ -85,6 +88,10 @@ public class ClientAttackEvent {
         if (Utils.sceptreTag.containsKey(item) && !(item instanceof Laser)) {
             ModNetworking.sendToServer(new ManaAttackRequestC2SPacket());
         }
+    }
+
+    public static void activeBowAndSceptre(Player player) {
+        Item item = player.getItemInHand(InteractionHand.MAIN_HAND).getItem();
         if ((item instanceof WraqSceptre || item instanceof WraqBow) && item instanceof ActiveItem) {
             ModNetworking.sendToServer(new CommonActiveC2SPacket(item.getDefaultInstance()));
         }

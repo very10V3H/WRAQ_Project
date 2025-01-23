@@ -104,6 +104,8 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 import top.theillusivec4.curios.api.CuriosApi;
@@ -1271,13 +1273,10 @@ public class Compute {
                     Damage.causeManaDamageToMonster_ApDamage(player, mob, rate, true);
                 } else {
                     ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_MAGMA.get(), player, level,
-                            PlayerAttributes.manaDamage(player),
-                            PlayerAttributes.manaPenetration(player),
-                            PlayerAttributes.manaPenetration0(player), StringUtils.ParticleTypes.Lava);
-                    ManaAttackModule.BasicAttack(player, mob, rate,
-                            PlayerAttributes.manaPenetration(player),
-                            PlayerAttributes.manaPenetration0(player),
-                            level, newArrow, true);
+                            rate, PlayerAttributes.manaPenetration(player), PlayerAttributes.manaPenetration0(player),
+                            StringUtils.ParticleTypes.Lava);
+                    ManaAttackModule.BasicAttack(player, mob, PlayerAttributes.manaPenetration(player),
+                            PlayerAttributes.manaPenetration0(player), level, newArrow, true);
                 }
             }
         });
@@ -1307,13 +1306,10 @@ public class Compute {
             if (!laserCoolDownMap.containsKey(mob) || laserCoolDownMap.get(mob) <= TickCount) {
                 laserCoolDownMap.put(mob, TickCount + tickCoolDown);
                 ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_MAGMA.get(), player, level,
-                        PlayerAttributes.manaDamage(player),
-                        PlayerAttributes.manaPenetration(player),
+                        rate, PlayerAttributes.manaPenetration(player),
                         PlayerAttributes.manaPenetration0(player), StringUtils.ParticleTypes.Lava);
-                ManaAttackModule.BasicAttack(player, mob, rate,
-                        PlayerAttributes.manaPenetration(player),
-                        PlayerAttributes.manaPenetration0(player),
-                        level, newArrow, true);
+                ManaAttackModule.BasicAttack(player, mob, PlayerAttributes.manaPenetration(player),
+                        PlayerAttributes.manaPenetration0(player), level, newArrow, true);
             }
         });
     }
@@ -1357,6 +1353,19 @@ public class Compute {
                 curiosListLastGetTickMap.put(player, Tick.get());
             }
             return curiosListCache.get(player);
+        }
+
+        @OnlyIn(Dist.CLIENT)
+        public static Set<Item> getClientCuriosSet(Player player) {
+            Set<Item> set = new HashSet<>();
+            CuriosApi.getCuriosInventory(player).ifPresent(iCuriosItemHandler -> {
+                int size = iCuriosItemHandler.getEquippedCurios().getSlots();
+                for (int i = 0 ; i < size ; i ++) {
+                    ItemStack stack = iCuriosItemHandler.getEquippedCurios().getStackInSlot(i);
+                    set.add(stack.getItem());
+                }
+            });
+            return set;
         }
 
         public static Map<Player, Integer> curiosSetLastGetTickMap = new WeakHashMap<>();
