@@ -36,6 +36,8 @@ import fun.wraq.process.system.entrustment.mob.MobKillEntrustment;
 import fun.wraq.process.system.profession.pet.allay.AllayPet;
 import fun.wraq.process.system.randomevent.RandomEventsHandler;
 import fun.wraq.process.system.randomevent.impl.killmob.SlimeKingEvent;
+import fun.wraq.process.system.skill.skillv2.mana.ManaNewSkillPassive0;
+import fun.wraq.process.system.skill.skillv2.sword.SwordNewSkillBase3_0;
 import fun.wraq.process.system.randomevent.impl.special.SpringMobEvent;
 import fun.wraq.process.system.teamInstance.NewTeamInstanceHandler;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -44,7 +46,7 @@ import fun.wraq.series.gems.passive.impl.GemOnKillMob;
 import fun.wraq.series.newrunes.chapter2.HuskNewRune;
 import fun.wraq.series.newrunes.chapter3.NetherNewRune;
 import fun.wraq.series.overworld.chapter7.star.StarBottle;
-import fun.wraq.series.overworld.sakuraSeries.BloodMana.BloodManaCurios;
+import fun.wraq.series.overworld.sakura.BloodMana.BloodManaCurios;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -89,7 +91,7 @@ public class Damage {
             if (trueDamage) {
                 causeTrueDamageToMonster(player, mob, PlayerAttributes.manaDamage(player));
             } else {
-                causeManaDamageToMonster_RateApDamage(player, mob, rate, false);
+                causeRateApDamageToMonster(player, mob, rate, false);
             }
         }
     }
@@ -218,7 +220,7 @@ public class Damage {
         return attackDamage * num * (1 + damageEnhance);
     }
 
-    public static void causeManaDamageToMonster_RateApDamage(Player player, Mob monster, double num, boolean isPower) {
+    public static void causeRateApDamageToMonster(Player player, Mob monster, double num, boolean isPower) {
         double baseDamage = PlayerAttributes.manaDamage(player) * num;
         double damageEnhance = 0;
         double exDamage = 0;
@@ -259,7 +261,9 @@ public class Damage {
 
         Compute.summonValueItemEntity(monster.level(), player, monster,
                 Component.literal(String.format("%.0f", totalDamage)).withStyle(ChatFormatting.LIGHT_PURPLE), 1);
-        if (isPower) Compute.damageActionBarPacketSend(player, totalDamage, 0, true, false);
+        if (isPower) {
+            Compute.damageActionBarPacketSend(player, totalDamage, 0, true, false);
+        }
         beforeCauseDamage(player, monster, totalDamage);
         causeDirectDamageToMob(player, monster, totalDamage);
         Compute.manaDamageExEffect(player, monster, totalDamage);
@@ -267,6 +271,7 @@ public class Damage {
         if (isPower) {
             Compute.AdditionEffects(player, monster, totalDamage, 1);
             OnPowerCauseDamageEquip.causeDamage(player, monster);
+            ManaNewSkillPassive0.onManaPowerHit(player, monster);
         }
 
         if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false) && isPower) {
@@ -334,6 +339,7 @@ public class Damage {
         if (isPower) {
             Compute.AdditionEffects(player, monster, totalDamage, 1);
             OnPowerCauseDamageEquip.causeDamage(player, monster);
+            ManaNewSkillPassive0.onManaPowerHit(player, monster);
         }
 
         if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false) && isPower) {
@@ -419,6 +425,7 @@ public class Damage {
         if (isPower) {
             Compute.AdditionEffects(player, monster, totalDamage, 1);
             OnPowerCauseDamageEquip.causeDamage(player, monster);
+            ManaNewSkillPassive0.onManaPowerHit(player, monster);
         }
 
         if (DebugCommand.playerFlagMap.getOrDefault(player.getName().getString(), false) && isPower) {
@@ -524,7 +531,6 @@ public class Damage {
             OnCauseFinalDamageEquip.causeFinalDamage(player, mob, damage);
 
             damage *= WardenInstance.mobWithstandDamageRate(mob, player);
-            damage *= SpringMobEvent.onMobWithStandDamage(mob);
             damage = NewTeamInstanceHandler.judgeDamage(player, mob, damage);
             double finalDamage = mob.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.WoodenStake5.get()) ? 0 : (float) damage;
             if (mob.getHealth() <= finalDamage && !MoontainBoss3Instance.beforeKill(mob)) return;
@@ -550,6 +556,7 @@ public class Damage {
                     GemOnKillMob.kill(player, mob);
                     MobKillEntrustment.onKill(player, mob);
                     AllayPet.onKillMob(player, mob);
+                    SwordNewSkillBase3_0.onKillMob(player);
                 } else {
                     mob.setHealth((float) (mob.getHealth() - finalDamage));
                 }

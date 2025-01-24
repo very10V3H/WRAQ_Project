@@ -9,6 +9,7 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.MobSpawnController;
 import fun.wraq.networking.ModNetworking;
+import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.plan.PlanPlayer;
 import fun.wraq.process.func.rank.RankData;
@@ -345,7 +346,7 @@ public class MobKillEntrustment {
         if (playerNextAllowAcceptTickMap.getOrDefault(name, 0) > Tick.get()) {
             sendMSG(player, Te.s("还需要等待",
                     getDeltaTimeFormatString(playerNextAllowAcceptTickMap.getOrDefault(name, 0),
-                            Tick.get()), "才能接取委托任务"));
+                            Tick.get()), CustomStyle.styleOfWorld, "才能接取委托任务"));
             return;
         }
         List<MobSpawnController> controllers = MobSpawn.getAllControllers()
@@ -355,8 +356,7 @@ public class MobKillEntrustment {
         Random random = new Random();
         MobSpawnController controller = controllers.get(random.nextInt(controllers.size()));
         MobKillEntrustment entrustment =
-                new MobKillEntrustment(controller.mobName,
-                        random.nextInt(player.experienceLevel / 2, player.experienceLevel), Tick.get());
+                new MobKillEntrustment(controller.mobName, random.nextInt(96, 192), Tick.get());
         playerCurrentEntrustmentMap.put(name, entrustment);
         for (int i = 0 ; i < 5 ; i ++) {
             player.sendSystemMessage(Component.literal(""));
@@ -368,6 +368,7 @@ public class MobKillEntrustment {
         }
         sendPacketToClient(player);
         MySound.soundToPlayer(player, SoundEvents.VILLAGER_TRADE);
+        Guide.sendGuideDisplayStatusToClient(player, true);
     }
 
     public static void playerTryToCancel(Player player) {
@@ -379,8 +380,8 @@ public class MobKillEntrustment {
         if (playerCurrentEntrustmentMap.containsKey(name)) {
             playerCurrentEntrustmentMap.remove(name);
             playerKillProcessMap.remove(name);
-            playerNextAllowAcceptTickMap.put(name, Tick.get() + Tick.min(10));
-            sendMSG(player, Te.s("已取消委托:", "需要在", "10min", ChatFormatting.AQUA, "后才能再次接取委托任务"));
+            playerNextAllowAcceptTickMap.put(name, Tick.get() + Tick.min(5));
+            sendMSG(player, Te.s("已取消委托:", "需要在", "5min", ChatFormatting.AQUA, "后才能再次接取委托任务"));
             sendPacketToClient(player);
             MySound.soundToPlayer(player, SoundEvents.VILLAGER_NO);
         }
@@ -517,6 +518,8 @@ public class MobKillEntrustment {
                 sendPacketToClient(player);
                 MySound.soundToPlayer(player, SoundEvents.VILLAGER_CELEBRATE);
                 MySound.soundToPlayer(player, SoundEvents.PLAYER_LEVELUP);
+
+                Guide.sendGuideDisplayStatusToClient(player, true);
             }
         }
     }
@@ -552,12 +555,14 @@ public class MobKillEntrustment {
                             playerKillProcessMap.getOrDefault(name, 0), entrustment.startServerTick,
                             getExpiredLeftMin(player), getPlayerReputation(player),
                             getDailyFinishedTimes(player), getWeeklyFinishedTimes(player),
-                            getTotalFinishedTimes(player), getAverageFinishedTick(player)), (ServerPlayer) player);
+                            getTotalFinishedTimes(player), getAverageFinishedTick(player),
+                    playerNextAllowAcceptTickMap.getOrDefault(name, 0)), (ServerPlayer) player);
         } else {
             ModNetworking.sendToClient(new MobKillEntrustmentInfoS2CPacket(Te.s(""), 0, 0, 0,
                             getExpiredLeftMin(player), getPlayerReputation(player),
                             getDailyFinishedTimes(player), getWeeklyFinishedTimes(player),
-                            getTotalFinishedTimes(player), getAverageFinishedTick(player)), (ServerPlayer) player);
+                            getTotalFinishedTimes(player), getAverageFinishedTick(player),
+                    playerNextAllowAcceptTickMap.getOrDefault(name, 0)), (ServerPlayer) player);
         }
     }
 
@@ -586,7 +591,7 @@ public class MobKillEntrustment {
         if (playerNextAllowAcceptTickMap.getOrDefault(name, 0) > Tick.get()) {
             sendMSG(player, Te.s("还需要等待",
                     getDeltaTimeFormatString(playerNextAllowAcceptTickMap.getOrDefault(name, 0),
-                            Tick.get()), "才能接取委托任务"));
+                            Tick.get()), CustomStyle.styleOfWorld, "才能接取委托任务"));
             MySound.soundToPlayer(player, SoundEvents.VILLAGER_NO);
             for (int i = 0 ; i < 4 ; i ++) {
                 player.sendSystemMessage(Component.literal(""));

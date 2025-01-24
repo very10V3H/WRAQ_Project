@@ -6,17 +6,20 @@ import fun.wraq.common.registry.KeyBoradInput;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.networking.ModNetworking;
-import fun.wraq.networking.misc.AnimationPackets.RollingAnimationRequestC2SPacket;
+import fun.wraq.networking.misc.AnimationPackets.RollingRequestC2SPacket;
 import fun.wraq.networking.misc.TeamPackets.TeamScreenOpenRequestC2SPacket;
 import fun.wraq.networking.misc.USE.UseC2SPacket;
 import fun.wraq.networking.unSorted.PlayerClickSpaceC2SPacket;
-import fun.wraq.process.func.guide.GuideHud;
+import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.func.guide.networking.GuideFinishC2SPacket;
 import fun.wraq.process.system.element.ElementRoulette;
 import fun.wraq.process.system.element.networking.CurrentSeasonC2SPacket;
 import fun.wraq.process.system.forge.ForgeScreen;
 import fun.wraq.process.system.missions.MissionScreen;
 import fun.wraq.process.system.missions.netWorking.MissionScreenOpenC2SPacket;
+import fun.wraq.process.system.skill.skillv2.SkillV2;
+import fun.wraq.process.system.skill.skillv2.SkillV2Screen;
+import fun.wraq.process.system.skill.skillv2.network.SkillV2PlayerTryToReleaseSkillC2SPacket;
 import fun.wraq.process.system.smelt.SmeltProgressScreen;
 import fun.wraq.process.system.smelt.SmeltRecipeScreen;
 import fun.wraq.process.system.tower.TowerScreen;
@@ -54,44 +57,51 @@ public class KeyInput {
             if (isModScreen(mc) && event.getKey() == 69 && event.getAction() == 1) {
                 mc.popGuiLayer();
             }
-            if (KeyBoradInput.USE1.consumeClick()) {
+            if (KeyBoradInput.SKILL_SCREEN.consumeClick()) {
+                Minecraft.getInstance().setScreen(new SkillV2Screen(SkillV2.clientProfessionType));
+            }
+            if (KeyBoradInput.NEW_SKILL_1.consumeClick()) {
                 if (ClientUtils.IsAdjustingPower) {
                     if (ClientUtils.PowerQueue.size() >= 4) {
                         ClientUtils.PowerQueue.poll();
                         ClientUtils.PowerQueue.add(1);
                     } else ClientUtils.PowerQueue.add(1);
                 } else {
-                    ModNetworking.sendToServer(new UseC2SPacket(3));
+                    ModNetworking.sendToServer(new SkillV2PlayerTryToReleaseSkillC2SPacket(1));
+                    SkillV2.clientLastReleaseTick = ClientUtils.serverTick;
                 }
             }
-            if (KeyBoradInput.USE2.consumeClick()) {
+            if (KeyBoradInput.NEW_SKILL_2.consumeClick()) {
                 if (ClientUtils.IsAdjustingPower) {
                     if (ClientUtils.PowerQueue.size() >= 4) {
                         ClientUtils.PowerQueue.poll();
                         ClientUtils.PowerQueue.add(2);
                     } else ClientUtils.PowerQueue.add(2);
                 } else {
-                    ModNetworking.sendToServer(new UseC2SPacket(4));
+                    ModNetworking.sendToServer(new SkillV2PlayerTryToReleaseSkillC2SPacket(2));
+                    SkillV2.clientLastReleaseTick = ClientUtils.serverTick;
                 }
             }
-            if (KeyBoradInput.USE3.consumeClick()) {
+            if (KeyBoradInput.NEW_SKILL_3.consumeClick()) {
                 if (ClientUtils.IsAdjustingPower) {
                     if (ClientUtils.PowerQueue.size() >= 4) {
                         ClientUtils.PowerQueue.poll();
                         ClientUtils.PowerQueue.add(3);
                     } else ClientUtils.PowerQueue.add(3);
                 } else {
-                    ModNetworking.sendToServer(new UseC2SPacket(5));
+                    ModNetworking.sendToServer(new SkillV2PlayerTryToReleaseSkillC2SPacket(3));
+                    SkillV2.clientLastReleaseTick = ClientUtils.serverTick;
                 }
             }
-            if (KeyBoradInput.USE4.consumeClick()) {
+            if (KeyBoradInput.NEW_SKILL_4.consumeClick()) {
                 if (ClientUtils.IsAdjustingPower) {
                     if (ClientUtils.PowerQueue.size() >= 4) {
                         ClientUtils.PowerQueue.poll();
                         ClientUtils.PowerQueue.add(4);
                     } else ClientUtils.PowerQueue.add(4);
                 } else {
-                    ModNetworking.sendToServer(new UseC2SPacket(6));
+                    ModNetworking.sendToServer(new SkillV2PlayerTryToReleaseSkillC2SPacket(4));
+                    SkillV2.clientLastReleaseTick = ClientUtils.serverTick;
                 }
             }
             if (KeyBoradInput.USE5.consumeClick()) {
@@ -101,9 +111,7 @@ public class KeyInput {
                 ModNetworking.sendToServer(new UseC2SPacket(8));
             }
             if (KeyBoradInput.Rolling.consumeClick()) {
-                if (!ClientUtils.PlayerIsManaAttacking(player) && !ClientUtils.PlayerIsUsing(player)
-                        && !ClientUtils.PlayerIsBowAttacking(player) && !ClientUtils.PlayerIsAttacking(player))
-                    ModNetworking.sendToServer(new RollingAnimationRequestC2SPacket(0));
+                ModNetworking.sendToServer(new RollingRequestC2SPacket());
             }
 
             if (KeyBoradInput.Mission.consumeClick()) {
@@ -131,8 +139,8 @@ public class KeyInput {
 
             if (KeyBoradInput.GUIDE.consumeClick()) {
                 if (Calendar.getInstance().getTimeInMillis() - ClientUtils.tabSwitchLastTime > 250) {
-                    GuideHud.display = !GuideHud.display;
-                    if (GuideHud.display) {
+                    Guide.clientDisplay = !Guide.clientDisplay;
+                    if (Guide.clientDisplay) {
                         Compute.sendFormatMSG(player, Te.s("系统", ChatFormatting.AQUA),
                                 Te.s("已开启", ChatFormatting.GREEN, "附加界面"));
                     } else {
@@ -146,7 +154,7 @@ public class KeyInput {
             if (KeyBoradInput.ElementRoulette.consumeClick()) {
                 ModNetworking.sendToServer(new CurrentSeasonC2SPacket());
                 Minecraft.getInstance().setScreen(new ElementRoulette());
-                ModNetworking.sendToServer(new GuideFinishC2SPacket(6));
+                ModNetworking.sendToServer(new GuideFinishC2SPacket(Guide.StageV2.ELEMENT_ROULETTE));
             }
 
             if (KeyBoradInput.SPACE.consumeClick()) {
@@ -175,17 +183,18 @@ public class KeyInput {
                 || screen instanceof ForgeScreen || screen instanceof TowerScreen
                 || screen instanceof ElementRoulette || screen instanceof VpStoreScreen
                 || screen instanceof SmeltRecipeScreen || screen instanceof SmeltProgressScreen
-                || screen instanceof SingleItemChangeScreen;
+                || screen instanceof SingleItemChangeScreen || screen instanceof SkillV2Screen;
     }
 
     @Mod.EventBusSubscriber(modid = Utils.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class ClientModBusEvents {
         @SubscribeEvent
         public static void KeyBinding(RegisterKeyMappingsEvent event) {
-            event.register(KeyBoradInput.USE1);
-            event.register(KeyBoradInput.USE2);
-            event.register(KeyBoradInput.USE3);
-            event.register(KeyBoradInput.USE4);
+            event.register(KeyBoradInput.SKILL_SCREEN);
+            event.register(KeyBoradInput.NEW_SKILL_1);
+            event.register(KeyBoradInput.NEW_SKILL_2);
+            event.register(KeyBoradInput.NEW_SKILL_3);
+            event.register(KeyBoradInput.NEW_SKILL_4);
             event.register(KeyBoradInput.USE5);
             event.register(KeyBoradInput.USE6);
             event.register(KeyBoradInput.Rolling);

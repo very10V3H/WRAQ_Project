@@ -1,11 +1,12 @@
 package fun.wraq.series.end;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.impl.ActiveItem;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.power.PowerLogic;
-import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -53,6 +54,9 @@ public class EndPower extends Item implements ActiveItem {
         ComponentUtils.coolDownTimeDescription(components, CoolDownTime[Level]);
         components.add(Component.literal(" - IDEA FROM : AzusaLin").withStyle(ChatFormatting.LIGHT_PURPLE));
         ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, CustomStyle.styleOfMana, ChatFormatting.WHITE);
+        components.add(ComponentUtils.getSuffixOfSouvenirs());
+        components.add(Te.s("随着新版技能组的上线，这件物品成为了一件纪念品。", ChatFormatting.GOLD));
+        components.add(Te.s("Souvenirs-2025.1.23", CustomStyle.styleOfSakura, ChatFormatting.ITALIC));
         super.appendHoverText(itemStack, level, components, flag);
     }
 
@@ -77,11 +81,11 @@ public class EndPower extends Item implements ActiveItem {
 
     @Override
     public void active(Player player) {
-        EndPower.Release(player);
+
     }
 
     @Override
     public double manaCost(Player player) {
-        return PowerLogic.playerLastTimeReleasePowerManaCost.getOrDefault(player, 45d) * 1.5;
+        return 0;
     }
 }

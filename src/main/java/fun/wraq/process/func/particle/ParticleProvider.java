@@ -4,10 +4,7 @@ import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.ParticlePackets.NewParticlePackets.*;
-import fun.wraq.process.func.particle.packets.DisperseBallParticleS2CPacket;
-import fun.wraq.process.func.particle.packets.LineEffectParticleS2CPacket;
-import fun.wraq.process.func.particle.packets.SpaceEffectParticle;
-import fun.wraq.process.func.particle.packets.SpaceEffectParticleS2CPacket;
+import fun.wraq.process.func.particle.packets.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
@@ -67,10 +64,14 @@ public class ParticleProvider {
                 int ignoreLevel = Math.max(1, serverPlayer1.getPersistentData().getInt(StringUtils.IgnoreParticleLevel));
                 if (ignoreLevel < 10) {
                     ModNetworking.sendToClient(new SpaceRangeParticleS2CPacket(
-                            des.toVector3f(), r, num / ignoreLevel, Utils.ParticleToParticleStringMap.get(particleOptions)), serverPlayer1);
+                            des.toVector3f(), r, num / ignoreLevel, Utils.getParticleToParticleStringMap().get(particleOptions)), serverPlayer1);
                 }
             }
         });
+    }
+
+    public static void FaceCircleCreate(Player player, double pickDistance, double r, int num, ParticleOptions particleOptions) {
+        FaceCircleCreate((ServerPlayer) player, pickDistance, r, num, particleOptions);
     }
 
     public static void FaceCircleCreate(ServerPlayer serverPlayer, double pickDistance, double r, int num, ParticleOptions particleOptions) {
@@ -83,7 +84,7 @@ public class ParticleProvider {
                 int ignoreLevel = Math.max(1, serverPlayer1.getPersistentData().getInt(StringUtils.IgnoreParticleLevel));
                 if (ignoreLevel < 10) {
                     ModNetworking.sendToClient(new FaceCircleParticleS2CPacket(
-                            PickVec.toVector3f(), FaceVec.toVector3f(), pickDistance, r, num / ignoreLevel, Utils.ParticleToParticleStringMap.get(particleOptions)
+                            PickVec.toVector3f(), FaceVec.toVector3f(), pickDistance, r, num / ignoreLevel, Utils.getParticleToParticleStringMap().get(particleOptions)
                     ), serverPlayer1);
                 }
             }
@@ -98,7 +99,7 @@ public class ParticleProvider {
                     int ignoreLevel = Math.max(1, serverPlayer.getPersistentData().getInt(StringUtils.IgnoreParticleLevel));
                     if (ignoreLevel < 10) {
                         ModNetworking.sendToClient(new EntityFaceCircleParticleS2CPacket(
-                                Position.toVector3f(), Location.toVector3f(), pickDistance, r, num / ignoreLevel, Utils.ParticleToParticleStringMap.get(particleOptions)
+                                Position.toVector3f(), Location.toVector3f(), pickDistance, r, num / ignoreLevel, Utils.getParticleToParticleStringMap().get(particleOptions)
                         ), serverPlayer);
                     }
                 }
@@ -134,7 +135,7 @@ public class ParticleProvider {
                 int ignoreLevel = Math.max(1, serverPlayer.getPersistentData().getInt(StringUtils.IgnoreParticleLevel));
                 if (ignoreLevel < 10) {
                     ModNetworking.sendToClient(new EntityFaceConnectCircleParticleS2CPacket(
-                            Position.toVector3f(), Location.toVector3f(), pickDistance, r, num / ignoreLevel, Utils.ParticleToParticleStringMap.get(particleOptions), DX, DY, DZ, Start
+                            Position.toVector3f(), Location.toVector3f(), pickDistance, r, num / ignoreLevel, Utils.getParticleToParticleStringMap().get(particleOptions), DX, DY, DZ, Start
                     ), serverPlayer);
                 }
             }
@@ -148,7 +149,7 @@ public class ParticleProvider {
                 int ignoreLevel = Math.max(1, serverPlayer1.getPersistentData().getInt(StringUtils.IgnoreParticleLevel));
                 if (ignoreLevel < 10) {
                     ModNetworking.sendToClient(new VerticleCircleParticleS2CPacket(
-                            bottomPos.toVector3f(), pickDistance, r, num / ignoreLevel, Utils.ParticleToParticleStringMap.get(particleOptions)), serverPlayer1);
+                            bottomPos.toVector3f(), pickDistance, r, num / ignoreLevel, Utils.getParticleToParticleStringMap().get(particleOptions)), serverPlayer1);
                 }
             }
         });
@@ -161,7 +162,7 @@ public class ParticleProvider {
                 int ignoreLevel = Math.max(1, serverPlayer1.getPersistentData().getInt(StringUtils.IgnoreParticleLevel));
                 if (ignoreLevel < 10) {
                     ModNetworking.sendToClient(new DisperseParticleS2CPacket(
-                            bottomPos.toVector3f(), pickDistance, r, num, Utils.ParticleToParticleStringMap.get(particleOptions), scale), serverPlayer1);
+                            bottomPos.toVector3f(), pickDistance, r, num, Utils.getParticleToParticleStringMap().get(particleOptions), scale), serverPlayer1);
                 }
             }
         });
@@ -174,7 +175,7 @@ public class ParticleProvider {
                 int ignoreLevel = Math.max(1, serverPlayer1.getPersistentData().getInt(StringUtils.IgnoreParticleLevel));
                 if (ignoreLevel < 10) {
                     ModNetworking.sendToClient(new GatherParticleS2CPacket(
-                            bottomPos.toVector3f(), pickDistance, r, num, Utils.ParticleToParticleStringMap.get(particleOptions), scale), serverPlayer1);
+                            bottomPos.toVector3f(), pickDistance, r, num, Utils.getParticleToParticleStringMap().get(particleOptions), scale), serverPlayer1);
                 }
             }
         });
@@ -189,7 +190,7 @@ public class ParticleProvider {
                 int ignoreLevel = Math.max(1, serverPlayer1.getPersistentData().getInt(StringUtils.IgnoreParticleLevel));
                 if (ignoreLevel < 10) {
                     ModNetworking.sendToClient(new VerticleCircleParticleS2CPacket(
-                            bottomPos.toVector3f(), pickDistance, r, num, Utils.ParticleToParticleStringMap.get(particleOptions)), serverPlayer1);
+                            bottomPos.toVector3f(), pickDistance, r, num, Utils.getParticleToParticleStringMap().get(particleOptions)), serverPlayer1);
                 }
             }
         });
@@ -202,7 +203,7 @@ public class ParticleProvider {
                 int ignoreLevel = Math.max(1, serverPlayer1.getPersistentData().getInt(StringUtils.IgnoreParticleLevel));
                 if (ignoreLevel < 10) {
                     ModNetworking.sendToClient(new VerticleCircleParticleS2CPacket(
-                            bottomPos.toVector3f(), pickDistance, r, num, Utils.ParticleToParticleStringMap.get(particleOptions)), serverPlayer1);
+                            bottomPos.toVector3f(), pickDistance, r, num, Utils.getParticleToParticleStringMap().get(particleOptions)), serverPlayer1);
                 }
             }
         });
@@ -224,7 +225,7 @@ public class ParticleProvider {
                 int ignoreLevel = Math.max(1, serverPlayer.getPersistentData().getInt(StringUtils.IgnoreParticleLevel));
                 if (ignoreLevel < 10) {
                     ModNetworking.sendToClient(new RandomMoveParticleS2CPacket(
-                            bottomPos.toVector3f(), pickDistance, r, num, Utils.ParticleToParticleStringMap.get(particleOptions)
+                            bottomPos.toVector3f(), pickDistance, r, num, Utils.getParticleToParticleStringMap().get(particleOptions)
                     ), serverPlayer);
                 }
             }
@@ -240,7 +241,7 @@ public class ParticleProvider {
                 int ignoreLevel = Math.max(1, serverPlayer.getPersistentData().getInt(StringUtils.IgnoreParticleLevel));
                 if (ignoreLevel < 10) {
                     ModNetworking.sendToClient(new EntityEffectVerticleCircleParticleS2CPacket(
-                            bottomPos.toVector3f(), pickDistance, r, num, Utils.ParticleToParticleStringMap.get(particleOptions)
+                            bottomPos.toVector3f(), pickDistance, r, num, Utils.getParticleToParticleStringMap().get(particleOptions)
                     ), serverPlayer);
                 }
             }
@@ -257,7 +258,7 @@ public class ParticleProvider {
                     int ignoreLevel = Math.max(1, serverPlayer.getPersistentData().getInt(StringUtils.IgnoreParticleLevel));
                     if (ignoreLevel < 10) {
                         ModNetworking.sendToClient(new EntityEffectVerticleCircleParticleS2CPacket(
-                                bottomPos.toVector3f(), pickDistance, r, num, Utils.ParticleToParticleStringMap.get(particleOptions)
+                                bottomPos.toVector3f(), pickDistance, r, num, Utils.getParticleToParticleStringMap().get(particleOptions)
                         ), serverPlayer);
                     }
                 }
@@ -300,7 +301,7 @@ public class ParticleProvider {
                 if (ignoreLevel < 10) {
                     ModNetworking.sendToClient(new CurveParticleS2CPacket(
                             endVec.toVector3f(), startVec.toVector3f(), delta.toVector3f(),
-                            0, 0, num, Utils.ParticleToParticleStringMap.get(particleOptions)
+                            0, 0, num, Utils.getParticleToParticleStringMap().get(particleOptions)
                     ), serverPlayer);
                 }
             }
@@ -315,7 +316,7 @@ public class ParticleProvider {
                 if (ignoreLevel < 10) {
                     ModNetworking.sendToClient(new LineParticleS2CPacket(
                             endVec.toVector3f(), startVec.toVector3f(), 0, 0, num / ignoreLevel,
-                            Utils.ParticleToParticleStringMap.get(particleOptions)
+                            Utils.getParticleToParticleStringMap().get(particleOptions)
                     ), serverPlayer);
                 }
             }
@@ -331,6 +332,36 @@ public class ParticleProvider {
                     ModNetworking.sendToClient(new LineEffectParticleS2CPacket(
                             endVec.toVector3f(), startVec.toVector3f(), num / ignoreLevel, style.getColor().getValue()
                     ), serverPlayer);
+                }
+            }
+        });
+    }
+
+    public static void createLineSpaceEffectParticle(Level level, int num, Vec3 startVec, Vec3 endVec,
+                                                     double spaceRange, Style style) {
+        List<ServerPlayer> list = level.getServer().getPlayerList().getPlayers();
+        list.forEach(serverPlayer -> {
+            if (serverPlayer.level().equals(level) && serverPlayer.position().distanceTo(startVec) < 80) {
+                int ignoreLevel = Math.max(1, serverPlayer.getPersistentData().getInt(StringUtils.IgnoreParticleLevel));
+                if (ignoreLevel < 10) {
+                    ModNetworking.sendToClient(new LineSpaceEffectParticleS2CPacket(
+                            endVec.toVector3f(), startVec.toVector3f(),
+                            num / ignoreLevel, style.getColor().getValue(), spaceRange), serverPlayer);
+                }
+            }
+        });
+    }
+
+    public static void createLineSpaceDustParticle(Level level, int num, Vec3 startVec, Vec3 endVec,
+                                                     double spaceRange, Style style) {
+        List<ServerPlayer> list = level.getServer().getPlayerList().getPlayers();
+        list.forEach(serverPlayer -> {
+            if (serverPlayer.level().equals(level) && serverPlayer.position().distanceTo(startVec) < 80) {
+                int ignoreLevel = Math.max(1, serverPlayer.getPersistentData().getInt(StringUtils.IgnoreParticleLevel));
+                if (ignoreLevel < 10) {
+                    ModNetworking.sendToClient(new LineSpaceDustParticleS2CPacket(
+                            endVec.toVector3f(), startVec.toVector3f(),
+                            num / ignoreLevel, style.getColor().getValue(), spaceRange), serverPlayer);
                 }
             }
         });
@@ -525,7 +556,7 @@ public class ParticleProvider {
                 .map(player -> (ServerPlayer) player)
                 .forEach(serverPlayer -> {
                     ModNetworking.sendToClient(
-                            new DisperseBallParticleS2CPacket(Utils.ParticleToParticleStringMap.get(particleOptions),
+                            new DisperseBallParticleS2CPacket(Utils.getParticleToParticleStringMap().get(particleOptions),
                                     pos.x, pos.y, pos.z, radius, num), serverPlayer);
                 });
     }

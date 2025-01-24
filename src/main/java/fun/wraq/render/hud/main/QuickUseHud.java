@@ -31,9 +31,9 @@ public class QuickUseHud {
 
     public static final IGuiOverlay QUICK_USE_HUD = ((gui, poseStack, partialTick, width, height) -> {
         Minecraft mc = Minecraft.getInstance();
+        Font font = mc.font;
         LocalPlayer player = mc.player;
         if (player == null) return;
-        Font font = mc.font;
         GuiGraphics guiGraphics = new GuiGraphics(mc, mc.renderBuffers().bufferSource());
 
         int x = width / 2;
@@ -44,7 +44,7 @@ public class QuickUseHud {
             Item item = stack.getItem();
             if (item instanceof ActiveItem) {
                 if (!player.getCooldowns().isOnCooldown(item)) {
-                    if (i > 2 && SpecialEffectOnPlayer.clientSilentTick == 0) {
+                    if (i > 6 && SpecialEffectOnPlayer.clientSilentTick == 0) {
                         guiGraphics.drawCenteredString(font, Te.s(getKeyName(i - 3), ChatFormatting.AQUA),
                                 x - 88 + 20 * i, y - 23, 0);
                     }
@@ -53,7 +53,7 @@ public class QuickUseHud {
                 }
             }
             if (!(item instanceof ActiveItem)) {
-                if (i > 2) {
+                if (i > 6) {
                     guiGraphics.drawCenteredString(font, Te.s(getKeyName(i - 3), ChatFormatting.GRAY),
                             x - 88 + 20 * i, y - 23, 0);
                 }
@@ -76,60 +76,6 @@ public class QuickUseHud {
                 }
             }
         }
-
-        int xOffset;
-        int yOffset;
-
-        if (mode == 0 && ClientUtils.isInBattle) {
-            xOffset = -72;
-            yOffset = -48;
-
-            for (int i = 0; i < 3; i++) {
-                ItemStack stack = player.getInventory().getItem(i + 3);
-                Item item = stack.getItem();
-                if (item instanceof ActiveItem) {
-                    if (!player.getCooldowns().isOnCooldown(item)) {
-                        if (SpecialEffectOnPlayer.clientSilentTick == 0) {
-                            guiGraphics.drawCenteredString(font, Te.s(getKeyName(i), ChatFormatting.AQUA),
-                                    x + xOffset, y / 2 + yOffset + 40 * i, 0);
-                        }
-                        guiGraphics.renderItem(stack, x + xOffset, y / 2 + yOffset + 40 * i);
-                    }
-                }
-            }
-
-            for (int i = 0; i < 3; i++) {
-                ItemStack stack = player.getInventory().getItem(i + 6);
-                Item item = stack.getItem();
-                if (item instanceof ActiveItem) {
-                    if (!player.getCooldowns().isOnCooldown(item)) {
-                        if (SpecialEffectOnPlayer.clientSilentTick == 0) {
-                            guiGraphics.drawCenteredString(font, Te.s(getKeyName(i + 3), ChatFormatting.AQUA),
-                                    x + xOffset + 128, y / 2 + yOffset + 40 * i, 0);
-                        }
-                        guiGraphics.renderItem(stack, x + xOffset + 128, y / 2 + yOffset + 40 * i);
-                    }
-                }
-            }
-        }
-
-        if (mode == 1 && ClientUtils.isInBattle) {
-            xOffset = -68;
-            yOffset = 8;
-            for (int i = 0; i < 6; i++) {
-                ItemStack stack = player.getInventory().getItem(i + 3);
-                Item item = stack.getItem();
-                if (item instanceof ActiveItem) {
-                    if (!player.getCooldowns().isOnCooldown(item)) {
-                        if (SpecialEffectOnPlayer.clientSilentTick == 0) {
-                            guiGraphics.drawCenteredString(font, Te.s(getKeyName(i), ChatFormatting.AQUA),
-                                    x + xOffset + 24 * i, y / 2 + yOffset, 0);
-                        }
-                        guiGraphics.renderItem(stack, x + xOffset + 24 * i, y / 2 + yOffset);
-                    }
-                }
-            }
-        }
     });
 
     public static String getKeyName(int keyIndex) {
@@ -138,11 +84,12 @@ public class QuickUseHud {
     }
 
     public static final Map<Integer, KeyMapping> keyMappings = ImmutableMap.of(
-            0, KeyBoradInput.USE1,
-            1, KeyBoradInput.USE2,
-            2, KeyBoradInput.USE3,
-            3, KeyBoradInput.USE4,
+            0, KeyBoradInput.NEW_SKILL_1,
+            1, KeyBoradInput.NEW_SKILL_2,
+            2, KeyBoradInput.NEW_SKILL_3,
+            3, KeyBoradInput.NEW_SKILL_4,
             4, KeyBoradInput.USE5,
-            5, KeyBoradInput.USE6
+            5, KeyBoradInput.USE6,
+            6, KeyBoradInput.SKILL_SCREEN
     );
 }

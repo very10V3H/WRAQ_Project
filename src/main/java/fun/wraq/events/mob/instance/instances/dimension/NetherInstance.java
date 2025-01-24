@@ -80,7 +80,7 @@ public class NetherInstance extends NoTeamInstance {
         if (!MobSpawn.tempKillCount.containsKey(name)) MobSpawn.tempKillCount.put(name, new HashMap<>());
         Map<String, Integer> map = MobSpawn.tempKillCount.get(name);
         map.put(mobName, map.getOrDefault(mobName, 0) + 1);
-        Guide.trig(player, 15);
+        Guide.trigV2(player, Guide.StageV2.NETHER_BOSS);
     }
 
     @Override

@@ -26,7 +26,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -45,10 +44,10 @@ public class CastleSceptre extends WraqSceptre implements ForgeItem, ActiveItem 
     }
 
     @Override
-    protected AbstractArrow summonManaArrow(Player player, double rate) {
+    protected ManaArrow summonManaArrow(Player player, double rate) {
         Level level = player.level();
         ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_SNOW.get(), player, level,
-                PlayerAttributes.manaDamage(player) * rate, PlayerAttributes.manaPenetration(player),
+                rate, PlayerAttributes.manaPenetration(player),
                 PlayerAttributes.manaPenetration0(player), StringUtils.ParticleTypes.Sea);
         newArrow.setSilent(true);
         newArrow.setNoGravity(true);

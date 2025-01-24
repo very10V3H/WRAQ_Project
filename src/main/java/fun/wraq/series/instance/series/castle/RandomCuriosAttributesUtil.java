@@ -13,26 +13,26 @@ public class RandomCuriosAttributesUtil {
         put(StringUtils.CuriosAttribute.attackDamage, 200d);
         put(StringUtils.CuriosAttribute.manaDamage, 400d);
         put(StringUtils.CuriosAttribute.maxHealth, 800d);
-        put(StringUtils.CuriosAttribute.defence, 18d);
-        put(StringUtils.CuriosAttribute.manaDefence, 18d);
-        put(StringUtils.CuriosAttribute.defencePenetration0, 9d);
-        put(StringUtils.CuriosAttribute.manaPenetration0, 9d);
+        put(StringUtils.CuriosAttribute.defence, 36d);
+        put(StringUtils.CuriosAttribute.manaDefence, 48d);
+        put(StringUtils.CuriosAttribute.defencePenetration0, 20d);
+        put(StringUtils.CuriosAttribute.manaPenetration0, 20d);
         put(StringUtils.CuriosAttribute.coolDown, 0.15);
         put(StringUtils.CuriosAttribute.manaRecover, 15d);
         put(StringUtils.CuriosAttribute.maxMana, 50d);
-        put(StringUtils.CuriosAttribute.swiftnessUp, 1.5);
-        put(StringUtils.CuriosAttribute.critDamage, 0.2);
-        put(StringUtils.CuriosAttribute.expUp, 0.5);
-        put(StringUtils.CuriosAttribute.critRate, 0.1);
+        put(StringUtils.CuriosAttribute.swiftnessUp, 0.8);
+        put(StringUtils.CuriosAttribute.critDamage, 0.06);
+        put(StringUtils.CuriosAttribute.expUp, 0.3);
+        put(StringUtils.CuriosAttribute.critRate, 0.04);
         put(StringUtils.CuriosAttribute.healthSteal, 0.05);
-        put(StringUtils.CuriosAttribute.defencePenetration, 0.15);
+        put(StringUtils.CuriosAttribute.defencePenetration, 0.05);
         put(StringUtils.CuriosAttribute.movementSpeed, 0.1);
         put(StringUtils.CuriosAttribute.commonMovementSpeed, 0.25);
         put(StringUtils.CuriosAttribute.healthRecover, 50d);
         put(StringUtils.CuriosAttribute.percentHealthRecover, 0.05d);
-        put(StringUtils.CuriosAttribute.healEffectUp, 0.15);
-        put(StringUtils.CuriosAttribute.manaPenetration, 0.15);
-        put(StringUtils.CuriosAttribute.manaHealthSteal, 0.1);
+        put(StringUtils.CuriosAttribute.healEffectUp, 0.1);
+        put(StringUtils.CuriosAttribute.manaPenetration, 0.05);
+        put(StringUtils.CuriosAttribute.manaHealthSteal, 0.05);
     }};
 
     public static void randomAttributeProvide(ItemStack itemStack, int attributeNum, double rate, boolean distinct) {

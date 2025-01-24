@@ -30,6 +30,7 @@ public class SwordAir extends AbstractArrow implements GeoEntity {
     public SwordAir(EntityType<? extends AbstractArrow> entityType, LivingEntity shooter, Level level) {
         super(entityType, shooter, level);
         this.player = (Player) shooter;
+        this.setSilent(true);
     }
 
     public void shootFromRotation(float speed) {

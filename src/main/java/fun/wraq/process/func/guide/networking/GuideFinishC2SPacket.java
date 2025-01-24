@@ -9,25 +9,25 @@ import java.util.function.Supplier;
 
 public class GuideFinishC2SPacket {
 
-    private final int stage;
+    private final String stageTag;
 
-    public GuideFinishC2SPacket(int stage) {
-        this.stage = stage;
+    public GuideFinishC2SPacket(String stageTag) {
+        this.stageTag = stageTag;
     }
 
     public GuideFinishC2SPacket(FriendlyByteBuf buf) {
-        this.stage = buf.readInt();
+        this.stageTag = buf.readUtf();
     }
 
     public void toBytes(FriendlyByteBuf buf) {
-        buf.writeInt(stage);
+        buf.writeUtf(stageTag);
     }
 
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
             ServerPlayer player = supplier.get().getSender();
-            Guide.trig(player, stage);
+            Guide.trigV2(player, stageTag);
         });
         return true;
     }

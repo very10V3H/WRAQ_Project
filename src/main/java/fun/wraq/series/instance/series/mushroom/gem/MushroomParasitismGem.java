@@ -58,6 +58,6 @@ public class MushroomParasitismGem extends WraqPassiveGem implements GemOnKillMo
 
     @Override
     public ItemStack getProduct() {
-        return new ItemStack(MushroomItems.UNKNOWN_MUSHROOM.get());
+        return new ItemStack(MushroomItems.UNKNOWN_MUSHROOM.get(), 6);
     }
 }

@@ -72,7 +72,7 @@ public class WitherEnhancePower extends WraqPower {
             }
         }
         if (mob == null) return;
-        Damage.causeManaDamageToMonster_RateApDamage(player, mob, mob.distanceTo(player) > 6 ? 5 : 9, true);
+        Damage.causeRateApDamageToMonster(player, mob, mob.distanceTo(player) > 6 ? 5 : 9, true);
         if (mob.distanceTo(player) < 6) {
             Mana.addOrCostPlayerMana(player, 200);
         }

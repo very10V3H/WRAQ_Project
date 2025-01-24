@@ -2,6 +2,9 @@ package fun.wraq.series.instance.series.moon.Equip;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.equip.WraqSceptre;
+import fun.wraq.common.equip.impl.ActiveItem;
+import fun.wraq.common.impl.onhit.OnHitEffectEquip;
 import fun.wraq.common.registry.ModEntityType;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
@@ -13,9 +16,6 @@ import fun.wraq.process.func.ChangedAttributesModifier;
 import fun.wraq.process.func.EnhanceNormalAttack;
 import fun.wraq.process.func.EnhanceNormalAttackModifier;
 import fun.wraq.process.func.particle.ParticleProvider;
-import fun.wraq.common.equip.impl.ActiveItem;
-import fun.wraq.common.impl.onhit.OnHitEffectEquip;
-import fun.wraq.common.equip.WraqSceptre;
 import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -25,7 +25,6 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -48,10 +47,10 @@ public class MoonSceptre extends WraqSceptre implements ActiveItem, OnHitEffectE
     }
 
     @Override
-    protected AbstractArrow summonManaArrow(Player player, double rate) {
+    protected ManaArrow summonManaArrow(Player player, double rate) {
         Level level = player.level();
         ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_SNOW.get(), player, level,
-                PlayerAttributes.manaDamage(player) * rate, PlayerAttributes.manaPenetration(player),
+                rate, PlayerAttributes.manaPenetration(player),
                 PlayerAttributes.manaPenetration0(player), StringUtils.ParticleTypes.Sea);
         newArrow.setSilent(true);
         newArrow.setNoGravity(true);

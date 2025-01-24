@@ -127,7 +127,7 @@ public class ForgeRecipe {
             add(new ItemStack(ModItems.LifeElementPiece0.get(), 7));
         }});
 
-        forgeDrawRecipe.put(ModItems.PlainSceptre0.get(), new ArrayList<>() {{
+        forgeDrawRecipe.put(ModItems.LIFE_SCEPTRE_0.get(), new ArrayList<>() {{
             add(new ItemStack(ModItems.PlainRune.get(), 2));
             add(new ItemStack(ModItems.LifeElementPiece0.get(), 7));
         }});

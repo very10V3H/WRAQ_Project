@@ -3,31 +3,31 @@ package fun.wraq.common.util.struct;
 import net.minecraft.world.item.Item;
 
 public class InjectingRecipe {
-    private Item forgingNeededMaterial;
-    private int materialCount;
-    private Item forgingGetItem;
-    private int originalMaterialNeedCount;
+    public Item material;
+    public int materialCount;
+    public Item product;
+    public int originalMaterialNeedCount;
 
-    public InjectingRecipe(Item forgingNeededMaterial, int materialCount, Item forgingGetItem) {
-        this.forgingNeededMaterial = forgingNeededMaterial;
+    public InjectingRecipe(Item material, int materialCount, Item product) {
+        this.material = material;
         this.materialCount = materialCount;
-        this.forgingGetItem = forgingGetItem;
+        this.product = product;
         this.originalMaterialNeedCount = 1;
     }
 
-    public InjectingRecipe(int originalMaterialNeedCount, Item forgingNeededMaterial, int materialCount, Item forgingGetItem) {
-        this.forgingNeededMaterial = forgingNeededMaterial;
+    public InjectingRecipe(int originalMaterialNeedCount, Item material, int materialCount, Item product) {
+        this.material = material;
         this.materialCount = materialCount;
-        this.forgingGetItem = forgingGetItem;
+        this.product = product;
         this.originalMaterialNeedCount = originalMaterialNeedCount;
     }
 
-    public Item getForgingGetItem() {
-        return forgingGetItem;
+    public Item getProduct() {
+        return product;
     }
 
-    public void setForgingGetItem(Item forgingGetItem) {
-        this.forgingGetItem = forgingGetItem;
+    public void setProduct(Item product) {
+        this.product = product;
     }
 
     public void setMaterialCount(int materialCount) {
@@ -38,15 +38,15 @@ public class InjectingRecipe {
         return materialCount;
     }
 
-    public Item getForgingNeededMaterial() {
-        return forgingNeededMaterial;
+    public Item getMaterial() {
+        return material;
     }
 
-    public void setForgingNeededMaterial(Item forgingNeededMaterial) {
-        this.forgingNeededMaterial = forgingNeededMaterial;
+    public void setMaterial(Item material) {
+        this.material = material;
     }
 
-    public int getOriginalMaterialNeedCount() {
+    public int getSourceItemCount() {
         return originalMaterialNeedCount;
     }
 

@@ -101,7 +101,7 @@ public class PurpleIronInstance extends NoTeamInstance {
         Map<String, Integer> map = MobSpawn.tempKillCount.get(name);
         map.put(mobName, map.getOrDefault(mobName, 0) + 1);
         Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player), 120);
-        Guide.trig(player, 17);
+        Guide.trigV2(player, Guide.StageV2.PURPLE_IRON_BOSS);
     }
 
     @Override

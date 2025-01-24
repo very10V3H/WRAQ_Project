@@ -7,7 +7,7 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.core.MyArrow;
+import fun.wraq.core.bow.MyArrow;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.render.particles.ModParticles;
@@ -79,7 +79,7 @@ public class VdBow extends WraqBow implements ForgeItem, ActiveItem, VdWeaponCom
     }
 
     @Override
-    protected MyArrow summonArrow(ServerPlayer serverPlayer, double rate) {
+    protected MyArrow summonArrow(Player serverPlayer, double rate) {
         MyArrow arrow = new MyArrow(EntityType.ARROW, serverPlayer.level(), serverPlayer, true, rate);
         arrow.shootFromRotation(serverPlayer, serverPlayer.getXRot(), serverPlayer.getYRot(), 0.0f, 4F, 1.0f);
         arrow.setCritArrow(true);

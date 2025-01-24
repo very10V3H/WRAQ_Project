@@ -59,7 +59,7 @@ public class MoonInstance extends NoTeamInstance {
     }
 
     public MoonInstance(Vec3 pos, double range, int delayTick, Vec3 armorStandPos, MutableComponent name) {
-        super(pos, range, delayTick, armorStandPos, name, 160);
+        super(pos, range, delayTick, armorStandPos, name, 170);
     }
 
     @Override
@@ -148,7 +148,7 @@ public class MoonInstance extends NoTeamInstance {
         Map<String, Integer> map = MobSpawn.tempKillCount.get(name);
         map.put(mobName, map.getOrDefault(mobName, 0) + 1);
         Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player), 160);
-        Guide.trig(player, 21);
+        Guide.trigV2(player, Guide.StageV2.MOON_BOSS);
     }
 
     @Override
@@ -187,7 +187,7 @@ public class MoonInstance extends NoTeamInstance {
         }
         if (ManaMob.isAlive()) {
             for (int i = 0; i < 16; i++) {
-                ManaArrow manaArrow = new ManaArrow(ModEntityType.NEW_ARROW.get(), ManaMob, ManaMob.level());
+                ManaArrow manaArrow = new ManaArrow(ModEntityType.NEW_ARROW.get(), ManaMob, ManaMob.level(), 1);
                 manaArrow.shootFromRotation(ManaMob, ManaMob.getXRot(), ManaMob.getYRot() + 360 * i / 16.0f, 1, 1.5f, 1);
                 ManaMob.level().addFreshEntity(manaArrow);
             }

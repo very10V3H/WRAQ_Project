@@ -9,7 +9,7 @@ import fun.wraq.process.func.StableTierAttributeModifier;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.element.equipAndCurios.waterElement.WaterElementSword;
 import fun.wraq.process.system.tower.TowerMob;
-import fun.wraq.series.overworld.sakuraSeries.EarthMana.EarthPower;
+import fun.wraq.series.overworld.sakura.EarthMana.EarthPower;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Mob;
 

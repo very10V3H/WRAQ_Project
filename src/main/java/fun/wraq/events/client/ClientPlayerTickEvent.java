@@ -29,6 +29,7 @@ import fun.wraq.process.system.endlessinstance.DailyEndlessInstance;
 import fun.wraq.process.system.endlessinstance.EndlessCoreScreen;
 import fun.wraq.process.system.forge.ForgeScreen;
 import fun.wraq.process.system.missions.MissionScreen;
+import fun.wraq.process.system.skill.skillv2.SkillV2;
 import fun.wraq.process.system.smelt.SmeltRecipeScreen;
 import fun.wraq.process.system.wayPoints.MyWayPoint;
 import fun.wraq.render.gui.market.MarketScreen;
@@ -41,7 +42,7 @@ import fun.wraq.render.gui.villagerTrade.TradeScreen;
 import fun.wraq.render.hud.main.ItemAndExpGetHud;
 import fun.wraq.render.hud.networking.AttributeDataC2SPacket;
 import fun.wraq.render.particles.ModParticles;
-import fun.wraq.series.overworld.sakuraSeries.EarthMana.EarthPower;
+import fun.wraq.series.overworld.sakura.EarthMana.EarthPower;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.ConnectScreen;
 import net.minecraft.client.gui.screens.GenericDirtMessageScreen;
@@ -85,6 +86,7 @@ public class ClientPlayerTickEvent {
             if (SpecialEffectOnPlayer.clientSilentTick > 0) --SpecialEffectOnPlayer.clientSilentTick;
             if (SpecialEffectOnPlayer.clientBlindTick > 0) --SpecialEffectOnPlayer.clientBlindTick;
             ParticleProvider.spaceEffectParticleHandleClientTick();
+            SkillV2.clientTick();
         }
         if (event.side.isClient() && event.phase == TickEvent.Phase.END) {
             Minecraft mc = Minecraft.getInstance();

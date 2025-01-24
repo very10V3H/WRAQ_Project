@@ -4,7 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.util.ClientUtils;
-import fun.wraq.process.func.guide.GuideHud;
+import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.func.plan.PlanPlayer;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -30,6 +30,7 @@ public class MobKillEntrustmentHud {
     public static int weeklyFinishedTimes;
     public static int totalFinishedTimes;
     public static int averageTick;
+    public static int nextAllowAcceptTick;
     public static final Minecraft mc = Minecraft.getInstance();
     private static final Font fontRenderer = mc.font;
     public static final IGuiOverlay ENTRUSTMENT_HUD = ((gui, poseStack, partialTick, width, height) -> {
@@ -40,7 +41,7 @@ public class MobKillEntrustmentHud {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
 
-        if (GuideHud.display && (mc.screen == null || mc.screen instanceof ChatScreen)) {
+        if (Guide.clientDisplay && (mc.screen == null || mc.screen instanceof ChatScreen)) {
             List<Component> components = new ArrayList<>();
             if (mobName.getString().isEmpty()) {
                 components.add(Te.s("委托任务概况", CustomStyle.styleOfWorld));
@@ -57,6 +58,11 @@ public class MobKillEntrustmentHud {
                 components.add(Te.s("本周已完成次数: ", weeklyFinishedTimes, CustomStyle.styleOfMoon1));
                 components.add(Te.s("总完成次数: ", totalFinishedTimes, ChatFormatting.YELLOW));
                 components.add(Te.s("平均用时: ", MobKillEntrustment.getDeltaTimeFormatString(averageTick, 0), CustomStyle.styleOfSky));
+                if (nextAllowAcceptTick > ClientUtils.serverTick) {
+                    components.add(Te.s("惩罚剩余: ",
+                            MobKillEntrustment.getDeltaTimeFormatString(nextAllowAcceptTick, ClientUtils.serverTick),
+                            ChatFormatting.RED));
+                }
             } else {
                 components.add(Te.s("委托任务", CustomStyle.styleOfWorld));
                 components.add(Te.s("击杀 ", mobName));

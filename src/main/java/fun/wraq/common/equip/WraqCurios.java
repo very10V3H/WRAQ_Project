@@ -3,12 +3,14 @@ package fun.wraq.common.equip;
 import fun.wraq.blocks.blocks.forge.ForgeRecipe;
 import fun.wraq.common.Compute;
 import fun.wraq.common.equip.impl.RandomCurios;
+import fun.wraq.common.equip.impl.Souvenirs;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.gui.illustrate.Display;
+import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.moontain.equip.curios.MoontainCurios;
 import fun.wraq.series.newrunes.RuneItem;
 import net.minecraft.ChatFormatting;
@@ -73,7 +75,14 @@ public abstract class WraqCurios extends Item implements ICurioItem {
             components.addAll(additionHoverText(stack));
             ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
         }
-        components.add(suffix());
+        if (this instanceof Souvenirs souvenirs) {
+            components.add(ComponentUtils.getSuffixOfSouvenirs());
+            components.add(Te.s("由于" + souvenirs.getReason(),
+                    "，这件物品成为了一件纪念品", CustomStyle.styleOfGold));
+            components.add(Te.s("Souvenirs-" + souvenirs.getDate(), CustomStyle.styleOfSakura));
+        } else {
+            components.add(suffix());
+        }
         super.appendHoverText(stack, level, components, flag);
     }
 

@@ -30,8 +30,6 @@ public class LakeSuitDescription {
             ComponentUtils.suitDescription(components);
             components.add(Component.literal("[按住shift展开套装效果]").withStyle(ChatFormatting.GRAY));
         }
-        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        ComponentUtils.suffixOfChapterI(components);
     }
 
     public static void LakeSuitDescription(List<Component> components) {
@@ -57,7 +55,8 @@ public class LakeSuitDescription {
         }
 
         String crestName = "[湖泊纹章]";
-        if (Compute.CuriosAttribute.getDistinctCuriosList(player).stream().anyMatch(stack -> stack.getItem() instanceof LakeCrest)) {
+        if (Compute.CuriosAttribute.getClientCuriosSet(player)
+                .stream().anyMatch(item -> item instanceof LakeCrest)) {
             components.add(Component.literal(crestName).withStyle(mainStyle));
             count++;
         } else components.add(Component.literal(crestName).withStyle(ChatFormatting.GRAY));

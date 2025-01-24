@@ -164,15 +164,6 @@ public class CommandHandler {
                 )
         );
 
-        CommandDispatcher<CommandSourceStack> dispatcher17 = event.getDispatcher();
-        LiteralCommandNode<CommandSourceStack> cmd17 = dispatcher17.register(
-                Commands.literal(Utils.MOD_ID).then(
-                        Commands.literal("bow")
-                                .requires(commandSourceStack -> commandSourceStack.hasPermission(0))
-                                .executes(BowCommand.instance)
-                )
-        );
-
         CommandDispatcher<CommandSourceStack> dispatcher18 = event.getDispatcher();
         LiteralCommandNode<CommandSourceStack> cmd18 = dispatcher18.register(
                 Commands.literal(Utils.MOD_ID).then(

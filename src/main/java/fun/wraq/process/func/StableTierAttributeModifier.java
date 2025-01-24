@@ -37,6 +37,7 @@ public class StableTierAttributeModifier {
     public static Map<LivingEntity, List<StableTierAttributeModifier>> playerCommonDamageEnhance = new WeakHashMap<>();
     public static Map<LivingEntity, List<StableTierAttributeModifier>> playerWithstandDamageReduce = new WeakHashMap<>();
     public static Map<LivingEntity, List<StableTierAttributeModifier>> playerMaxHealthExValue = new WeakHashMap<>();
+    public static Map<LivingEntity, List<StableTierAttributeModifier>> monsterWithstandDamageEnhance = new WeakHashMap<>();
 
     public static List<StableTierAttributeModifier> getAttributeModifierList(LivingEntity entity, Map<LivingEntity, List<StableTierAttributeModifier>> modifierMap) {
         if (!modifierMap.containsKey(entity)) {
@@ -76,19 +77,23 @@ public class StableTierAttributeModifier {
         List<StableTierAttributeModifier> modifierList = getAttributeModifierList(entity, modifierMap);
         List<StableTierAttributeModifier> removeList = new ArrayList<>();
         int highestTier = 0;
+        int highestMaxTier = 0;
+        double highestEachTierValue = 0;
         for (StableTierAttributeModifier stableTierAttributeModifier : modifierList) {
             if (stableTierAttributeModifier.tag.equals(modifier.tag)) {
                 removeList.add(stableTierAttributeModifier);
-                if (stableTierAttributeModifier.tier > highestTier
-                        && stableTierAttributeModifier.stopTick > Tick.get()) {
-                    highestTier = stableTierAttributeModifier.tier;
+                if (stableTierAttributeModifier.stopTick > Tick.get()) {
+                    highestTier = Math.max(highestTier, stableTierAttributeModifier.tier);
+                    highestMaxTier = Math.max(highestMaxTier, stableTierAttributeModifier.maxTier);
+                    highestEachTierValue = Math.max(highestEachTierValue, stableTierAttributeModifier.eachTierValue);
                 }
             }
         }
         modifierList.removeAll(removeList);
-        int finalTier = Math.min(highestTier + 1, modifier.maxTier);
-        modifierList.add(new StableTierAttributeModifier(modifier.tag, modifier.eachTierValue,
-                modifier.stopTick, finalTier, modifier.maxTier));
+        int maxTier = Math.max(highestMaxTier, modifier.maxTier);
+        int finalTier = Math.max(1, Math.min(highestTier + 1, maxTier));
+        modifierList.add(new StableTierAttributeModifier(modifier.tag, highestEachTierValue,
+                modifier.stopTick, finalTier, maxTier));
         if (!url.isEmpty()) {
             if (entity instanceof Mob mob) {
                 Compute.sendMobEffectHudToNearPlayer(mob, url, modifier.tag, modifier.stopTick - Tick.get(), finalTier, false);

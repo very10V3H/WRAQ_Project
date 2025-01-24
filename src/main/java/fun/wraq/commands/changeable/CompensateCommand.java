@@ -17,7 +17,7 @@ import net.minecraft.world.item.ItemStack;
 public class CompensateCommand implements Command<CommandSourceStack> {
     public static CompensateCommand instance = new CompensateCommand();
 
-    public static int rewardNum = 23;
+    public static int rewardNum = 24;
     public static String singleReward = "singleReward" + rewardNum;
 
     @Override
@@ -26,7 +26,7 @@ public class CompensateCommand implements Command<CommandSourceStack> {
         CompoundTag data = player.getPersistentData();
         if (!data.contains(singleReward)) {
             data.putBoolean(singleReward, true);
-            if (player.experienceLevel > 40) {
+            if (player.experienceLevel > 80) {
                 ItemStack itemStack = new ItemStack(ModItems.supplyBoxTier3.get(), 1);
                 InventoryOperation.itemStackGiveWithMSG(player, itemStack);
             }

@@ -55,7 +55,7 @@ public class DevilInstance extends NoTeamInstance {
     }
 
     public DevilInstance(Vec3 pos, double range, int delayTick, Vec3 armorStandPos, MutableComponent name) {
-        super(pos, range, delayTick, armorStandPos, name, 150);
+        super(pos, range, delayTick, armorStandPos, name, 160);
     }
 
     @Override
@@ -83,7 +83,7 @@ public class DevilInstance extends NoTeamInstance {
         MobSpawn.setMobCustomName(zombie, Component.literal(mobName).withStyle(CustomStyle.styleOfBloodMana), 150);
 
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(zombie), 150);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombie, 1500, 110, 110,
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombie, 1700, 120, 120,
                 0.4, 4, 0.25, 50, 0, 100 * Math.pow(10, 4), 0.35);
 
         zombie.setHealth(zombie.getMaxHealth());
@@ -120,7 +120,7 @@ public class DevilInstance extends NoTeamInstance {
         map.put(mobName, map.getOrDefault(mobName, 0) + 1);
 
         Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player), 150);
-        Guide.trig(player, 20);
+        Guide.trigV2(player, Guide.StageV2.DEVIL_BOSS);
     }
 
     @Override

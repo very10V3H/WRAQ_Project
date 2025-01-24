@@ -46,8 +46,8 @@ public class UnknownGem extends WraqItem {
         components.add(Te.s(" 可被", "吞噬", ChatFormatting.RED, "的物品有:"));
         components.add(Te.s("   必须品:", ChatFormatting.AQUA, GemItems.lifeManaGem, " 20%(1)"));
         components.add(Te.s("   1.", ChatFormatting.AQUA, ModItems.LifeElementPiece0, " 0.02% - 至多20%(1000)"));
-        components.add(Te.s("   2.", ChatFormatting.AQUA, ModItems.PlainRune, " 2% - 至多30%(15)"));
-        components.add(Te.s("   3.", ChatFormatting.AQUA, ModItems.ForestRune, " 2% - 至多30%(15)"));
+        components.add(Te.s("   2.", ChatFormatting.AQUA, ModItems.PlainRune, " 6% - 至多30%(5)"));
+        components.add(Te.s("   3.", ChatFormatting.AQUA, ModItems.ForestRune, " 6% - 至多30%(5)"));
         components.add(Te.s(" 吞噬失败将仅消耗", "生机元素物品", CustomStyle.styleOfLife, "，不会消耗此物"));
         super.appendHoverText(itemStack, level, components, tooltipFlag);
     }
@@ -89,9 +89,9 @@ public class UnknownGem extends WraqItem {
         int count0 = InventoryOperation.itemStackCount(player, ModItems.LifeElementPiece0.get());
         InventoryOperation.removeItem(player, ModItems.LifeElementPiece0.get(), Math.min(1000, count0));
         int count1 = InventoryOperation.itemStackCount(player, ModItems.PlainRune.get());
-        InventoryOperation.removeItem(player, ModItems.PlainRune.get(), Math.min(15, count1));
+        InventoryOperation.removeItem(player, ModItems.PlainRune.get(), Math.min(5, count1));
         int count2 = InventoryOperation.itemStackCount(player, ModItems.ForestRune.get());
-        InventoryOperation.removeItem(player, ModItems.ForestRune.get(), Math.min(15, count2));
+        InventoryOperation.removeItem(player, ModItems.ForestRune.get(), Math.min(5, count2));
     }
 
     private double getCurrentInventoryItemSuccessRate(Player player) {
@@ -100,8 +100,8 @@ public class UnknownGem extends WraqItem {
         }
         double rate = 0.2;
         rate += Math.min(0.2, 0.0002 * InventoryOperation.itemStackCount(player, ModItems.LifeElementPiece0.get()));
-        rate += Math.min(0.3, 0.02 * InventoryOperation.itemStackCount(player, ModItems.PlainRune.get()));
-        rate += Math.min(0.3, 0.02 * InventoryOperation.itemStackCount(player, ModItems.ForestRune.get()));
+        rate += Math.min(0.3, 0.06 * InventoryOperation.itemStackCount(player, ModItems.PlainRune.get()));
+        rate += Math.min(0.3, 0.06 * InventoryOperation.itemStackCount(player, ModItems.ForestRune.get()));
         return rate;
     }
 
@@ -121,12 +121,31 @@ public class UnknownGem extends WraqItem {
                 .stream().filter(itemEntity -> itemEntity.getItem().is(MushroomItems.BROWN_MUSHROOM.get()))
                 .mapToInt(itemEntity -> itemEntity.getItem().getCount())
                 .sum();
-        int lifeManaGem = itemEntities
-                .stream().filter(itemEntity -> itemEntity.getItem().is(GemItems.lifeManaGem.get()))
+        int unknownMushroomCount = itemEntities
+                .stream().filter(itemEntity -> itemEntity.getItem().is(MushroomItems.UNKNOWN_MUSHROOM.get()))
+                .mapToInt(itemEntity -> itemEntity.getItem().getCount())
+                .sum();
+        int completeGem = itemEntities
+                .stream().filter(itemEntity -> itemEntity.getItem().is(ModItems.COMPLETE_GEM.get()))
                 .mapToInt(itemEntity -> itemEntity.getItem().getCount())
                 .sum();
 
-        if (redMushroomCount >= 16 && brownMushroomCount >= 320 && lifeManaGem >= 1) {
+        if (redMushroomCount >= 1 && brownMushroomCount >= 64) {
+            itemEntities.forEach(itemEntity -> itemEntity.remove(Entity.RemovalReason.KILLED));
+            Compute.getNearEntity(level, pos, Player.class, 6)
+                    .stream().map(entity -> (Player) entity)
+                    .forEach(player -> sendMSG(player, Te.s("炼药锅传来了响动。。")));
+            ItemEntity itemEntity = new ItemEntity(EntityType.ITEM, level);
+            itemEntity.setItem(new ItemStack(MushroomItems.UNKNOWN_MUSHROOM.get(),
+                    Math.min(redMushroomCount, brownMushroomCount / 64)));
+            itemEntity.setPickUpDelay(0);
+            itemEntity.moveTo(pos);
+            level.addFreshEntity(itemEntity);
+            MySound.soundToNearPlayer(level, pos, SoundEvents.BREWING_STAND_BREW);
+            Compute.getNearEntity(level, pos, Player.class, 6)
+                    .stream().map(entity -> (Player) entity)
+                    .forEach(player -> sendMSG(player, Te.s("一股诡异的气味从中传来。。似乎这些菌合为一体了？")));
+        } else if (unknownMushroomCount >= 16 && completeGem >= 5) {
             itemEntities.forEach(itemEntity -> itemEntity.remove(Entity.RemovalReason.KILLED));
             Compute.getNearEntity(level, pos, Player.class, 6)
                     .stream().map(entity -> (Player) entity)
@@ -157,7 +176,7 @@ public class UnknownGem extends WraqItem {
                         .forEach(player -> sendMSG(player, Te.s("一股烧焦的气味从中传来。。好难闻啊")));
             }
         } else {
-            if (Tick.get() % 200 == 1 && (redMushroomCount > 0 || brownMushroomCount > 0 || lifeManaGem > 0)) {
+            if (Tick.get() % 200 == 1 && (redMushroomCount > 0 || brownMushroomCount > 0 || completeGem > 0)) {
                 Compute.getNearEntity(level, pos, Player.class, 6)
                         .stream().map(entity -> (Player) entity)
                         .forEach(player -> sendMSG(player, Te.s("炼药锅似乎没有反应。。是缺少了什么物品么？")));

@@ -38,7 +38,7 @@ public class TicketToSkyCity extends Item {
         components.add(Component.literal("前往天空城").withStyle(ChatFormatting.AQUA).withStyle(ChatFormatting.STRIKETHROUGH));
         components.add(Component.literal("冷却时间：60s").withStyle(ChatFormatting.STRIKETHROUGH));
         components.add(Component.literal(" "));
-        components.add(Component.literal("随着维瑞阿契铁路交通系统的完善，这件物品正式成为了一件纪念品。").withStyle(ChatFormatting.GOLD));
+        components.add(Component.literal("随着维瑞阿契铁路交通系统的完善，这件物品成为了一件纪念品。").withStyle(ChatFormatting.GOLD));
         components.add(Component.literal(" "));
         components.add(Component.literal("Souvenirs-2023.12.14").withStyle(CustomStyle.styleOfSakura).withStyle(ChatFormatting.ITALIC));
         super.appendHoverText(stack, p_41422_, components, p_41424_);

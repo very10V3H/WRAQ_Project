@@ -72,7 +72,7 @@ public class Meteorite extends AbstractArrow implements GeoEntity {
                 playerList.forEach(serverPlayer -> serverPlayer.connection.send(clientboundSoundPacket));
                 List<Mob> mobList = this.player.level().getEntitiesOfClass(Mob.class, AABB.ofSize(this.position(), 15, 15, 15));
                 mobList.forEach(mob -> {
-                    Damage.causeManaDamageToMonster_RateApDamage(player, mob, 15, false);
+                    Damage.causeRateApDamageToMonster(player, mob, 15, false);
                 });
             } else {
                 int TickCount = Tick.get();
@@ -183,7 +183,7 @@ public class Meteorite extends AbstractArrow implements GeoEntity {
                 playerList.forEach(serverPlayer -> serverPlayer.connection.send(clientboundSoundPacket));
                 List<Mob> mobList = this.player.level().getEntitiesOfClass(Mob.class, AABB.ofSize(this.position(), 15, 15, 15));
                 mobList.forEach(mob -> {
-                    Damage.causeManaDamageToMonster_RateApDamage(player, mob, 5, false);
+                    Damage.causeRateApDamageToMonster(player, mob, 5, false);
                 });
             } else {
                 List<Mob> mobList = this.player.level().getEntitiesOfClass(Mob.class, AABB.ofSize(this.position(), 15, 15, 15));

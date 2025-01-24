@@ -71,7 +71,9 @@ public class ToolTipEvent {
         }
         if (InjectRecipe.injectingRecipeMap.isEmpty()) InjectRecipe.setInjectingRecipeMap();
         if ((InjectRecipe.injectingRecipeMap.containsKey(stack.getItem())
-                || InjectRecipe.injectedGetItemSourceItemMap.containsKey(stack.getItem())) && !Screen.hasAltDown()
+                || InjectRecipe.productSourceItemMap.containsKey(stack.getItem())
+                || InjectRecipe.injectingWaysMap.containsKey(stack.getItem()))
+                && !Screen.hasAltDown()
                 && !Screen.hasControlDown()) {
             if (!Screen.hasShiftDown()) {
                 event.getToolTip().add(Te.s(""));
@@ -80,37 +82,43 @@ public class ToolTipEvent {
             }
             else {
                 event.getToolTip().add(Te.s(""));
-                InjectingRecipe injectingRecipe;
-                Item sourceItem = stack.getItem();
-                if (InjectRecipe.injectedGetItemSourceItemMap.containsKey(stack.getItem())
-                        && InjectRecipe.injectingRecipeMap.containsKey(stack.getItem())) {
-                    if (ClientUtils.clientPlayerTick % 40 < 20) {
-                        sourceItem = InjectRecipe.injectedGetItemSourceItemMap.get(stack.getItem());
-                        injectingRecipe = InjectRecipe.injectingRecipeMap.get(sourceItem);
-                    } else {
-                        injectingRecipe = InjectRecipe.injectingRecipeMap.get(stack.getItem());
-                    }
-                } else {
-                    if (InjectRecipe.injectedGetItemSourceItemMap.containsKey(stack.getItem())) {
-                        sourceItem = InjectRecipe.injectedGetItemSourceItemMap.get(stack.getItem());
-                        injectingRecipe = InjectRecipe.injectingRecipeMap.get(sourceItem);
-                    } else {
-                        injectingRecipe = InjectRecipe.injectingRecipeMap.get(stack.getItem());
-                    }
+                List<InjectingRecipe> recipeList = new ArrayList<>();
+                // 是SourceItem
+                if (InjectRecipe.injectingRecipeMap.containsKey(item)) {
+                    recipeList.add(InjectRecipe.injectingRecipeMap.get(item));
+                }
+                // 是Material
+                if (InjectRecipe.injectingWaysMap.containsKey(item)) {
+                    recipeList.addAll(InjectRecipe.injectingWaysMap.get(item));
+                }
+                // 是product
+                if (InjectRecipe.productSourceItemMap.containsKey(item)) {
+                    recipeList.add(InjectRecipe.injectingRecipeMap.get(InjectRecipe.productSourceItemMap.get(item)));
                 }
                 tooltip.add(Te.s("->", ChatFormatting.GOLD, "在", "灌注台", CustomStyle.styleOfPurpleIron,
                         "->", ChatFormatting.GOLD));
-                event.getToolTip().add(Component.literal("使用 ").withStyle(ChatFormatting.GREEN).
-                        append(injectingRecipe.getForgingNeededMaterial().getDefaultInstance().getDisplayName()).
-                        append(Component.literal(" * " + injectingRecipe.getMaterialCount()).withStyle(ChatFormatting.WHITE)));
-                event.getToolTip().add(Component.literal("灌注 ").withStyle(CustomStyle.styleOfInject).
-                        append(sourceItem.getDefaultInstance().getDisplayName()).
-                        append(Component.literal(" * " + injectingRecipe.getOriginalMaterialNeedCount()).withStyle(ChatFormatting.WHITE)));
-                if (sourceItem instanceof WraqArmor || sourceItem instanceof WraqMainHandEquip) {
-                    tooltip.add(Te.s("▲将保留强化等级/品质/宝石等信息", CustomStyle.styleOfGold));
+                for (int i = 0; i < recipeList.size(); i++) {
+                    InjectingRecipe injectingRecipe = recipeList.get(i);
+                    Item sourceItem = InjectRecipe.productSourceItemMap.get(injectingRecipe.product);
+                    if (sourceItem.equals(item)) {
+                        tooltip.add(Te.s("作为", "被灌注物", CustomStyle.styleOfInject));
+                    } else if (InjectRecipe.injectingWaysMap.containsKey(item)) {
+                        tooltip.add(Te.s("作为", "灌注耗材", ChatFormatting.GREEN));
+                    } else if (InjectRecipe.productSourceItemMap.containsKey(item)) {
+                        tooltip.add(Te.s("作为", "灌注产物", ChatFormatting.AQUA));
+                    }
+                    tooltip.add(Te.s(" 使用 ", injectingRecipe.material,
+                            " * " + injectingRecipe.getMaterialCount(), ChatFormatting.AQUA));
+                    tooltip.add(Te.s(" 灌注 ", CustomStyle.styleOfInject, sourceItem, " * "
+                            + injectingRecipe.getSourceItemCount(), ChatFormatting.AQUA));
+                    if (sourceItem instanceof WraqArmor || sourceItem instanceof WraqMainHandEquip) {
+                        tooltip.add(Te.s("▲将保留强化等级/品质/宝石等信息", CustomStyle.styleOfGold));
+                    }
+                    tooltip.add(Te.s(" 得到 ", ChatFormatting.AQUA, injectingRecipe.product));
+                    if (i != recipeList.size() - 1) {
+                        tooltip.add(Te.s(""));
+                    }
                 }
-                event.getToolTip().add(Component.literal("得到 ").withStyle(ChatFormatting.AQUA).
-                        append(injectingRecipe.getForgingGetItem().getDefaultInstance().getDisplayName()));
             }
         }
         if (stack.is(ModItems.WORLD_FORGE_STONE.get())) {

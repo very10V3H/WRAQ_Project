@@ -2,11 +2,10 @@ package fun.wraq.series.end.curios;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqCurios;
-import fun.wraq.common.impl.display.ForgeItem;
-import fun.wraq.common.registry.ModItems;
+import fun.wraq.common.equip.impl.Souvenirs;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.process.system.ore.PickaxeItems;
+import fun.wraq.render.gui.illustrate.Display;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -16,7 +15,7 @@ import net.minecraft.world.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EndCuriosMana extends WraqCurios implements ForgeItem {
+public class EndCuriosMana extends WraqCurios implements Souvenirs {
 
     public EndCuriosMana(Properties p_41383_) {
         super(p_41383_);
@@ -24,6 +23,7 @@ public class EndCuriosMana extends WraqCurios implements ForgeItem {
         Utils.manaPenetration.put(this, 0.1);
         Utils.maxMana.put(this, 20d);
         Utils.manaRecover.put(this, 10d);
+        Display.souvenirsList.add(this);
     }
 
     @Override
@@ -57,14 +57,12 @@ public class EndCuriosMana extends WraqCurios implements ForgeItem {
     }
 
     @Override
-    public List<ItemStack> forgeRecipe() {
-        return List.of(
-                new ItemStack(ModItems.EndCrystal.get(), 12),
-                new ItemStack(ModItems.GOLD_COIN.get(), 320),
-                new ItemStack(ModItems.COMPLETE_GEM.get(), 8),
-                new ItemStack(ModItems.ReputationMedal.get(), 32),
-                new ItemStack(PickaxeItems.TINKER_GOLD.get(), 6),
-                new ItemStack(ModItems.WORLD_SOUL_3.get(), 3)
-        );
+    public String getReason() {
+        return Souvenirs.SKILL_V2;
+    }
+
+    @Override
+    public String getDate() {
+        return Souvenirs.SKILL_V2_DATE;
     }
 }

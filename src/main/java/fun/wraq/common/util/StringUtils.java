@@ -301,6 +301,7 @@ public class StringUtils {
         public static String BUBBLE_POP = "BUBBLE_POP";
         public static String BUBBLE_COLUMN_UP = "BUBBLE_COLUMN_UP";
         public static String CRIT = "CRIT";
+        public static String EVOKER = "EVOKER";
     }
 
     public static class MobName {
@@ -392,41 +393,8 @@ public class StringUtils {
         public static String Tower6Floor = "Tower6Floor";
     }
 
-    public static String BowAttackSlowDown = "BowAttackSlowDownCount";
-
-    public static class PotionTypes {
-        public static String AttackUp = "attackup_potion";
-        public static String BreakDefenceUp = "breakdefenceup_potion";
-        public static String CoolDownDecreaseUp = "cooldownup_potion";
-        public static String CritDamageUp = "critdamageup_potion";
-        public static String CritRateUp = "critrateup_potion";
-        public static String DefenceUp = "defenceup_potion";
-        public static String HealStealUp = "healstealup_potion";
-        public static String HealthRecover = "healreply_potion";
-        public static String ManaBreakDefenceUp = "manabreakdefenceup_potion";
-        public static String ManaDamageUp = "manadamageup_potion";
-        public static String ManaDefenceUp = "manadefenceup_potion";
-        public static String ManaReplyUp = "manareplyup_potion";
-        public static String SpeedUp = "speedup_potion";
-    }
-
     public static String Swift = "Swift";
     public static String MaxSwift = "MaxSwift";
-
-    public static class Missions {
-        public static String Mission = "Mission";
-        public static String Plain = "Mission_Plain";
-        public static String Forest = "Mission_Forest";
-        public static String Lake = "Mission_Lake";
-        public static String Volcano = "Mission_Volcano";
-        public static String Mine = "Mission_Mine";
-        public static String Snow = "Mission_Snow";
-        public static String SkyCity = "Mission_SkyCity";
-        public static String SkyVex = "Mission_SkyVex";
-        public static String Boss1 = "Mission_Boss1";
-        public static String End = "Mission_End";
-        public static String SakuraIsland = "Mission_SakuraIsland";
-    }
 
     public static class IgnoreType {
         public static String Fight = "IgnoreFight";

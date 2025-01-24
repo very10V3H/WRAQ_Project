@@ -1,6 +1,6 @@
 package fun.wraq.networking.misc.EarthPower;
 
-import fun.wraq.series.overworld.sakuraSeries.EarthMana.EarthPower;
+import fun.wraq.series.overworld.sakura.EarthMana.EarthPower;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkEvent;

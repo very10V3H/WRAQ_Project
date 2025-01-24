@@ -5,7 +5,6 @@ import fun.wraq.common.attribute.BasicAttributeDescription;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.overworld.chapter1.forest.crest.ForestCrest;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
@@ -23,8 +22,6 @@ import java.util.List;
 public class ForestSuitDescription {
     public static void ArmorCommonDescription(List<Component> components) {
         Style style = CustomStyle.styleOfForest;
-        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        ComponentUtils.descriptionOfAddition(components);
         Compute.solePassiveDescription(components, Component.literal("").withStyle(style));
         int level = Math.min(100, Minecraft.getInstance().player.experienceLevel);
         components.add(Component.literal(" 获得").withStyle(ChatFormatting.WHITE).
@@ -37,8 +34,6 @@ public class ForestSuitDescription {
             ComponentUtils.suitDescription(components);
             components.add(Component.literal("[按住shift展开套装效果]").withStyle(ChatFormatting.GRAY));
         }
-        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        ComponentUtils.suffixOfChapterI(components);
     }
 
     public static void SuitDescription(List<Component> components) {
@@ -64,7 +59,8 @@ public class ForestSuitDescription {
         }
 
         String crestName = "[森林纹章]";
-        if (Compute.CuriosAttribute.getDistinctCuriosList(player).stream().anyMatch(stack -> stack.getItem() instanceof ForestCrest)) {
+        if (Compute.CuriosAttribute.getClientCuriosSet(player)
+                .stream().anyMatch(item -> item instanceof ForestCrest)) {
             components.add(Component.literal(crestName).withStyle(MainStyle));
             count++;
         } else components.add(Component.literal(crestName).withStyle(ChatFormatting.GRAY));

@@ -70,7 +70,7 @@ public class EvokerNewRune extends WraqCurios implements RuneItem, UsageOrGetWay
                 mobList.removeIf(mob -> mob.distanceTo(player) > 8);
                 if (!mobList.isEmpty()) {
                     mobList.forEach(mob -> {
-                        Damage.causeManaDamageToMonster_RateApDamage(player, mob, 1, false);
+                        Damage.causeRateApDamageToMonster(player, mob, 1, false);
                         ParticleProvider.createLineParticle(player.level(), (int) (mob.distanceTo(player) * 5),
                                 player.position().add(0, 1, 0), mob.getEyePosition(), ParticleTypes.WITCH);
                     });

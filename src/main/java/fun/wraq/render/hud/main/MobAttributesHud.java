@@ -34,8 +34,8 @@ public class MobAttributesHud {
         // livingEntity attribute
         if (ClientUtils.mobAttribute != null) {
             int count = 0;
-            int offsetX = 0;
-            int offsetY = 2;
+            int offsetX = 32;
+            int offsetY = -12;
             if (ClientUtils.clientMobEffectMap.containsKey(ClientUtils.mobAttribute)) {
                 List<ClientUtils.Effect> effectList = ClientUtils.clientMobEffectMap.get(ClientUtils.mobAttribute);
                 effectList.sort((Comparator.comparingInt(ClientUtils.Effect::startTick)));
@@ -45,7 +45,8 @@ public class MobAttributesHud {
                     guiGraphics.blit(new ResourceLocation(Utils.MOD_ID, "textures/" + effect.url() + ".png"),
                             count * 15 + offsetX, 60 + offsetY, 0, 0, 16, 16, 16, 16);
                     if (effect.forever()) time = 12;
-                    guiGraphics.blit(ClientUtils.CdResourceLocation[time], count * 15 + offsetX, 60 + offsetY, 0, 0, 16, 16, 16, 16);
+                    guiGraphics.blit(ClientUtils.CdResourceLocation[time],
+                            count * 15 + offsetX, 60 + offsetY, 0, 0, 16, 16, 16, 16);
                     if (effect.level() > 0) {
                         guiGraphics.drawCenteredString(fontRenderer, Component.literal("" + effect.level())
                                 .withStyle(ChatFormatting.WHITE), count * 15 + 11 + offsetX, 68 + offsetY, 10);

@@ -596,10 +596,6 @@ public class VMD {
             event.accept(ModItems.ForNew.get().getDefaultInstance());
             event.accept(ModItems.BackSpawn.get().getDefaultInstance());
             event.accept(ModItems.tickettosky.get().getDefaultInstance());
-            event.accept(ModItems.quest.get().getDefaultInstance());
-            event.accept(ModItems.profession_bow.get().getDefaultInstance());
-            event.accept(ModItems.profession_sword.get().getDefaultInstance());
-            event.accept(ModItems.profession_barker.get().getDefaultInstance());
             event.accept(ModItems.Note_1.get().getDefaultInstance());
             event.accept(ModItems.Note_2.get().getDefaultInstance());
             event.accept(ModItems.Note_3.get().getDefaultInstance());
@@ -614,8 +610,6 @@ public class VMD {
         }
         if (event.getTabKey().equals(ModCreativeModeTab.DEVELOPMENT_TAB.getKey())) {
             event.accept(ModItems.RAILWAY_PILLAR_SET_TOOL.get().getDefaultInstance());
-            event.accept(ModItems.SignInReset.get().getDefaultInstance());
-            event.accept(ModItems.SignInGet.get().getDefaultInstance());
             event.accept(ModItems.GetTime.get().getDefaultInstance());
             event.accept(ModItems.ItemIDCheck.get().getDefaultInstance());
             event.accept(ModItems.attributecheck.get().getDefaultInstance());

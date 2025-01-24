@@ -4,6 +4,7 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.util.StringUtils;
+import fun.wraq.common.util.Utils;
 import fun.wraq.render.hud.Mana;
 import fun.wraq.series.instance.mixture.WraqMixture;
 import net.minecraft.world.entity.player.Player;
@@ -27,6 +28,9 @@ public class ManaSkillTree {
      * 则回复的5%生命值转化为法力值 <br>
      */
     public static boolean onHealthRecover(Player player, double value) {
+        if (!Utils.sceptreTag.containsKey(player.getMainHandItem().getItem())) {
+            return false;
+        }
         int tier = getManaSkillTier(player, 13);
         if (tier > 0 && player.getHealth() > player.getMaxHealth() * 0.75
                 && Mana.getPlayerCurrentManaNum(player) < Mana.getPlayerMaxManaNum(player)) {
@@ -70,6 +74,9 @@ public class ManaSkillTree {
      * 法球的基础伤害 = 每100最大法力值提供5%基础伤害 <br>
      */
     public static void skill14OnPlayerManaRecover(Player player, double value) {
+        if (!Utils.sceptreTag.containsKey(player.getMainHandItem().getItem())) {
+            return;
+        }
         int tier = getManaSkillTier(player, 14);
         if (tier > 0 && Compute.playerIsInBattle(player)) {
             skill14Map.compute(player, (k, v) -> v == null ? value : v + value);

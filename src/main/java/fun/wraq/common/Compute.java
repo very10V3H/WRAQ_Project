@@ -14,8 +14,6 @@ import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.oncostmana.OnCostManaEquip;
 import fun.wraq.common.registry.ModEntityType;
 import fun.wraq.common.registry.ModItems;
-import fun.wraq.common.registry.ModSounds;
-import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
@@ -23,7 +21,7 @@ import fun.wraq.common.util.struct.HudIcon;
 import fun.wraq.common.util.struct.ItemEntityAndResetTime;
 import fun.wraq.common.util.struct.PlayerTeam;
 import fun.wraq.core.ManaAttackModule;
-import fun.wraq.core.MyArrow;
+import fun.wraq.core.bow.MyArrow;
 import fun.wraq.entities.entities.Civil.Civil;
 import fun.wraq.events.core.InventoryCheck;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
@@ -34,7 +32,6 @@ import fun.wraq.networking.hud.DebuffTimeS2CPacket;
 import fun.wraq.networking.hud.EffectLastTimeS2CPacket;
 import fun.wraq.networking.hud.RemoveDebuffTimeS2CPacket;
 import fun.wraq.networking.misc.EntropyPackets.EntropyS2CPacket;
-import fun.wraq.networking.misc.ParticlePackets.SlowDownParticleS2CPacket;
 import fun.wraq.networking.misc.RemoveEffectLastTimeByItemIdS2CPacket;
 import fun.wraq.networking.misc.RemoveEffectLastTimeS2CPacket;
 import fun.wraq.networking.misc.SkillPackets.Charging.BowSkill12S2CPacket;
@@ -63,19 +60,11 @@ import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.render.hud.Mana;
 import fun.wraq.render.hud.networking.ExpGetS2CPacket;
 import fun.wraq.render.mobEffects.ModEffects;
-import fun.wraq.render.particles.ModParticles;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.blade.WraqBlade;
 import fun.wraq.series.instance.series.castle.CastleSceptre;
 import fun.wraq.series.instance.series.castle.RandomCuriosAttributesUtil;
 import fun.wraq.series.instance.series.warden.gem.AncientEchoGem;
-import fun.wraq.series.overworld.chapter1.forest.ForestPower;
-import fun.wraq.series.overworld.chapter1.forest.bossItems.ForestBossSword;
-import fun.wraq.series.overworld.chapter1.plain.PlainPower;
-import fun.wraq.series.overworld.chapter1.volcano.VolcanoPower;
-import fun.wraq.series.overworld.chapter1.volcano.bossItems.VolcanoBossSword;
-import fun.wraq.series.overworld.chapter1.waterSystem.LakePower;
-import fun.wraq.series.overworld.chapter1.waterSystem.bossItems.LakeBoss;
 import fun.wraq.series.overworld.chapter7.star.StarBottle;
 import fun.wraq.series.overworld.chapter7.vd.VdWeaponCommon;
 import fun.wraq.series.specialevents.labourDay.LabourDayIronHoe;
@@ -115,6 +104,8 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 import top.theillusivec4.curios.api.CuriosApi;
@@ -123,7 +114,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import static java.lang.Math.*;
+import static java.lang.Math.abs;
+import static java.lang.Math.acos;
 
 
 public class Compute {
@@ -263,77 +255,21 @@ public class Compute {
     }
 
     public static void use(Player player, Item tool) {
-        if (SpecialEffectOnPlayer.inSilent(player)) return;
-
-        CompoundTag data = player.getPersistentData();
-        if (player.getCooldowns().isOnCooldown(tool)) return;
-        if (Utils.levelRequire.getOrDefault(tool, 0) > player.experienceLevel) return;
-
-        if (tool instanceof ActiveItem activeItem) {
-            if (tool instanceof PlainPower || tool instanceof ForestPower
-                    || tool instanceof LakePower || tool instanceof VolcanoPower) {
-                if (tool instanceof PlainPower || tool instanceof ForestPower) {
-                    if (playerManaCost(player, activeItem.manaCost(player) - SuitCount.getLifeManaESuitCount(player) * 10)) {
-                        activeItem.active(player);
-                        VdWeaponCommon.onReleaseActive(player, tool);
-                    }
-                } else {
-                    if (playerManaCost(player, activeItem.manaCost(player) - SuitCount.getObsiManaESuitCount(player) * 10)) {
-                        activeItem.active(player);
-                        VdWeaponCommon.onReleaseActive(player, tool);
-                    }
-                }
-            } else {
-                if (playerManaCost(player, activeItem.manaCost(player))) {
-                    activeItem.active(player);
-                    VdWeaponCommon.onReleaseActive(player, tool);
-                }
-            }
+        if (SpecialEffectOnPlayer.inSilent(player)) {
+            return;
         }
 
-        if (tool instanceof ForestBossSword && playerManaCost(player, 180)) {
-            if (data.getInt(StringUtils.Entropy.Forest) > 0) {
-                player.getCooldowns().addCooldown(ModItems.ForestBossSword.get(), (int) (200 - 200 * PlayerAttributes.coolDownDecrease(player)));
-                ParticleProvider.VerticleCircleParticle((ServerPlayer) player, 1, 6, 100, ModParticles.LONG_ENTROPY.get());
-                ParticleProvider.VerticleCircleParticle((ServerPlayer) player, 1.5, 6, 100, ModParticles.LONG_ENTROPY.get());
-                MySound.soundToNearPlayer(player, ModSounds.Nether_Power.get());
-            } else {
-                Compute.sendFormatMSG(player, Component.literal("次元能量").withStyle(CustomStyle.styleOfHealth),
-                        Component.literal("你的次元能量不足以召唤这个次元。").withStyle(ChatFormatting.WHITE));
-            }
-        } else if (tool instanceof VolcanoBossSword && playerManaCost(player, 180)) {
-            if (data.getInt(StringUtils.Entropy.Volcano) > 0) {
-                Level level = player.level();
-                player.getCooldowns().addCooldown(ModItems.VolcanoBossSword.get(), (int) (200 - 200 * PlayerAttributes.coolDownDecrease(player)));
+        if (player.getCooldowns().isOnCooldown(tool)) {
+            return;
+        }
+        if (Utils.levelRequire.getOrDefault(tool, 0) > player.experienceLevel) {
+            return;
+        }
 
-                List<Mob> mobList = level.getEntitiesOfClass(Mob.class, AABB.ofSize(player.position(), 10, 10, 10));
-                for (Mob mob : mobList) {
-                    if (mob.getPosition(0).distanceTo(player.getPosition(0)) < 6) {
-                        Damage.causeAttackDamageToMonster_RateAdDamage(player, mob, EntropyRate(data.getInt(StringUtils.Entropy.Volcano)));
-                        mob.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 2, false, false));
-                        player.getServer().getPlayerList().getPlayers().forEach(serverPlayer ->
-                                ModNetworking.sendToClient(new SlowDownParticleS2CPacket(mob.getId(), 100), serverPlayer));
-                    }
-                }
-                List<Player> playerList = level.getEntitiesOfClass(Player.class, AABB.ofSize(player.position(), 10, 10, 10));
-                for (Player player1 : playerList) {
-                    if (player1 != player && player1.getPosition(0).distanceTo(player.getPosition(0)) < 6) {
-                        Damage.causeAttackDamageToPlayer_RateAdDamage(player, player1, EntropyRate(data.getInt(StringUtils.Entropy.Volcano)));
-                        player1.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 2, false, false));
-                    }
-                }
-                ParticleProvider.VerticleCircleParticle((ServerPlayer) player, 1, 6, 100, ModParticles.LONG_ENTROPY.get());
-                ParticleProvider.VerticleCircleParticle((ServerPlayer) player, 1.5, 6, 100, ModParticles.LONG_ENTROPY.get());
-
-                MySound.soundToNearPlayer(player, ModSounds.Lava.get());
-            } else {
-                Compute.sendFormatMSG(player, Component.literal("次元能量").withStyle(CustomStyle.styleOfPower),
-                        Component.literal("你的次元能量不足以召唤这个次元。").withStyle(ChatFormatting.WHITE));
-            }
-        } else if (tool instanceof LakeBoss.LakeBossSword && playerManaCost(player, 180)) {
-            player.getCooldowns().addCooldown(ModItems.LakeBossSword.get(), (int) (600 - 20 * EntropyRate(data.getInt(StringUtils.Entropy.Lake))));
-            for (Item item : Utils.CoolDownItem) {
-                player.getCooldowns().removeCooldown(item);
+        if (tool instanceof ActiveItem activeItem) {
+            if (playerManaCost(player, activeItem.manaCost(player))) {
+                activeItem.active(player);
+                VdWeaponCommon.onReleaseActive(player, tool);
             }
         }
     }
@@ -1297,19 +1233,18 @@ public class Compute {
         });
     }
 
-    public static List<Mob> getPlayerRayMobList(Player player, double detectStep, double detectRange, double maxDistance) {
+    public static Set<Mob> getPlayerRayMobList(Player player, double detectStep, double detectRange, double maxDistance) {
         Level level = player.level();
         Vec3 targetPos = player.pick(25, 0, false).getLocation();
         Vec3 startPos = player.pick(0.5, 0, false).getLocation();
         Vec3 posVec = targetPos.subtract(startPos).normalize();
-        List<Mob> mobList = new ArrayList<>();
+        Set<Mob> mobs = new HashSet<>();
         for (double i = detectStep; i <= maxDistance; i += detectStep) {
-            List<Mob> mobList1 = level.getEntitiesOfClass(Mob.class, AABB.ofSize(startPos.add(posVec.scale(i)), detectRange, detectRange, detectRange));
-            for (Mob mob : mobList1) {
-                if (!mobList.contains(mob)) mobList.add(mob);
-            }
+            List<Mob> mobList1 = level.getEntitiesOfClass(Mob.class, AABB.ofSize(startPos.add(posVec.scale(i)),
+                    detectRange, detectRange, detectRange));
+            mobs.addAll(mobList1);
         }
-        return mobList;
+        return mobs;
     }
 
     public static void Laser(Player player, ParticleOptions particleOptions, double rate, int TickCoolDown, boolean isPower) {
@@ -1338,13 +1273,10 @@ public class Compute {
                     Damage.causeManaDamageToMonster_ApDamage(player, mob, rate, true);
                 } else {
                     ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_MAGMA.get(), player, level,
-                            PlayerAttributes.manaDamage(player),
-                            PlayerAttributes.manaPenetration(player),
-                            PlayerAttributes.manaPenetration0(player), StringUtils.ParticleTypes.Lava);
-                    ManaAttackModule.BasicAttack(player, mob, rate,
-                            PlayerAttributes.manaPenetration(player),
-                            PlayerAttributes.manaPenetration0(player),
-                            level, newArrow, true);
+                            rate, PlayerAttributes.manaPenetration(player), PlayerAttributes.manaPenetration0(player),
+                            StringUtils.ParticleTypes.Lava);
+                    ManaAttackModule.BasicAttack(player, mob, PlayerAttributes.manaPenetration(player),
+                            PlayerAttributes.manaPenetration0(player), level, newArrow, true);
                 }
             }
         });
@@ -1374,13 +1306,10 @@ public class Compute {
             if (!laserCoolDownMap.containsKey(mob) || laserCoolDownMap.get(mob) <= TickCount) {
                 laserCoolDownMap.put(mob, TickCount + tickCoolDown);
                 ManaArrow newArrow = new ManaArrow(ModEntityType.NEW_ARROW_MAGMA.get(), player, level,
-                        PlayerAttributes.manaDamage(player),
-                        PlayerAttributes.manaPenetration(player),
+                        rate, PlayerAttributes.manaPenetration(player),
                         PlayerAttributes.manaPenetration0(player), StringUtils.ParticleTypes.Lava);
-                ManaAttackModule.BasicAttack(player, mob, rate,
-                        PlayerAttributes.manaPenetration(player),
-                        PlayerAttributes.manaPenetration0(player),
-                        level, newArrow, true);
+                ManaAttackModule.BasicAttack(player, mob, PlayerAttributes.manaPenetration(player),
+                        PlayerAttributes.manaPenetration0(player), level, newArrow, true);
             }
         });
     }
@@ -1424,6 +1353,33 @@ public class Compute {
                 curiosListLastGetTickMap.put(player, Tick.get());
             }
             return curiosListCache.get(player);
+        }
+
+        @OnlyIn(Dist.CLIENT)
+        public static Set<Item> getClientCuriosSet(Player player) {
+            Set<Item> set = new HashSet<>();
+            CuriosApi.getCuriosInventory(player).ifPresent(iCuriosItemHandler -> {
+                int size = iCuriosItemHandler.getEquippedCurios().getSlots();
+                for (int i = 0 ; i < size ; i ++) {
+                    ItemStack stack = iCuriosItemHandler.getEquippedCurios().getStackInSlot(i);
+                    set.add(stack.getItem());
+                }
+            });
+            return set;
+        }
+
+        public static Map<Player, Integer> curiosSetLastGetTickMap = new WeakHashMap<>();
+        public static Map<Player, Set<Item>> curiosSetCache = new WeakHashMap<>();
+        public static Set<Item> getDistinctCuriosSet(Player player) {
+            if (!curiosSetCache.containsKey(player)
+                    || curiosSetLastGetTickMap.getOrDefault(player, 0) + 20 < Tick.get()) {
+                Set<Item> set = new HashSet<>(getDistinctCuriosList(player)
+                        .stream().map(itemStack -> (Item) itemStack.getItem())
+                        .toList());
+                curiosSetCache.put(player, set);
+                curiosSetLastGetTickMap.put(player, Tick.get());
+            }
+            return curiosSetCache.get(player);
         }
 
         public static double attributeValue(Player player, Map<Item, Double> attributeMap, String attributeName) {
@@ -2007,6 +1963,11 @@ public class Compute {
         ((ServerPlayer) player).connection.send(clientboundSetEntityMotionPacket);
     }
 
+    public static void sendForwardMotionPacketToPlayer(Player player, double scale) {
+        sendMotionPacketToPlayer(player, player.pick(1, 0, false)
+                .getLocation().subtract(player.getEyePosition()).normalize().scale(scale));
+    }
+
     public static double getPlayerPotionEffectRate(Player player, MobEffect effect, double tier1Rate, double tier2Rate) {
         if (player.hasEffect(effect)) {
             int amplifier = player.getEffect(effect).getAmplifier();
@@ -2076,5 +2037,9 @@ public class Compute {
 
     public static void openTradeScreenByVillagerName(Player player, String villagerName) {
         ModNetworking.sendToClient(new VillagerTradeScreenS2CPacket(villagerName), (ServerPlayer) player);
+    }
+
+    public static void sendErrorTips(Player player, Component content) {
+        sendFormatMSG(player, Te.s("错误", ChatFormatting.RED), content);
     }
 }

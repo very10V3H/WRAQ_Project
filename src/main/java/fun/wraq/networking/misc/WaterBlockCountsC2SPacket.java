@@ -1,6 +1,6 @@
 package fun.wraq.networking.misc;
 
-import fun.wraq.series.overworld.sakuraSeries.Ship.ShipSceptre;
+import fun.wraq.series.overworld.sakura.Ship.ShipSceptre;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkEvent;

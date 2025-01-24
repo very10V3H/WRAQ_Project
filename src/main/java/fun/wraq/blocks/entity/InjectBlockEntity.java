@@ -8,9 +8,6 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
 import fun.wraq.process.func.guide.Guide;
 import fun.wraq.render.gui.blocks.InjectBlockMenu;
-import fun.wraq.series.instance.blade.BladeItems;
-import fun.wraq.series.instance.mixture.MixtureItems;
-import fun.wraq.series.instance.quiver.QuiverItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -190,7 +187,7 @@ public class InjectBlockEntity extends BlockEntity implements MenuProvider, Drop
             ItemStack injectedItem = blockEntity.itemStackHandler.getStackInSlot(1);
             ItemStack slot2Item = blockEntity.itemStackHandler.getStackInSlot(2);
 
-            ItemStack productItemStack = InjectRecipe.injectingRecipeMap.get(injectedItem.getItem()).getForgingGetItem().getDefaultInstance();
+            ItemStack productItemStack = InjectRecipe.injectingRecipeMap.get(injectedItem.getItem()).getProduct().getDefaultInstance();
             if (injectedItem.getTagElement(Utils.MOD_ID) != null)
                 productItemStack.getOrCreateTagElement(Utils.MOD_ID).merge(injectedItem.getOrCreateTagElement(Utils.MOD_ID));
             if (player != null) {
@@ -199,7 +196,7 @@ public class InjectBlockEntity extends BlockEntity implements MenuProvider, Drop
                                 append(player.getDisplayName()).
                                 append(" 成功打造了 ").withStyle(ChatFormatting.WHITE).
                                 append(productItemStack.getDisplayName()));
-                Guide.trig(player, 5);
+                Guide.trigV2(player, Guide.StageV2.FIRST_INJECT);
             }
 
             Set<Item> plainBossTier3Rings = Set.of(ModItems.PlainAttackRing3.get(), ModItems.PlainManaAttackRing3.get(),
@@ -212,21 +209,10 @@ public class InjectBlockEntity extends BlockEntity implements MenuProvider, Drop
                 NoTeamInstanceModule.putPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.moon, true);
             }
 
-            Set<Item> plainPassiveEquips = Set.of(BladeItems.BLADE_PLAIN.get(), QuiverItems.QUIVER_PLAIN.get(),
-                    MixtureItems.MIXTURE_PLAIN.get());
-            if (plainPassiveEquips.contains(productItemStack.getItem())) {
-                Guide.trig(player, 12);
-            }
-            Set<Item> netherPassiveEquips = Set.of(BladeItems.BLADE_NETHER.get(), QuiverItems.QUIVER_NETHER.get(),
-                    MixtureItems.MIXTURE_NETHER.get());
-            if (netherPassiveEquips.contains(productItemStack.getItem())) {
-                Guide.trig(player, 16);
-            }
-
             productItemStack.setCount(slot2Item.getCount() + 1);
             productItemStack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
             blockEntity.itemStackHandler.extractItem(0, InjectRecipe.injectingRecipeMap.get(injectedItem.getItem()).getMaterialCount(), false);
-            blockEntity.itemStackHandler.extractItem(1, InjectRecipe.injectingRecipeMap.get(injectedItem.getItem()).getOriginalMaterialNeedCount(), false);
+            blockEntity.itemStackHandler.extractItem(1, InjectRecipe.injectingRecipeMap.get(injectedItem.getItem()).getSourceItemCount(), false);
             blockEntity.itemStackHandler.setStackInSlot(2, productItemStack);
 
             MySound.soundToNearPlayer(player, SoundEvents.BREWING_STAND_BREW);
@@ -249,13 +235,13 @@ public class InjectBlockEntity extends BlockEntity implements MenuProvider, Drop
         boolean InjectedItemHasRecipe = InjectRecipe.injectingRecipeMap.containsKey(InjectedItem.getItem());
         if (!InjectedItemHasRecipe) return false;
 
-        boolean GetItemCanInsertIntoSlot2 = GetItem.is(Items.AIR) || (GetItem.is(InjectRecipe.injectingRecipeMap.get(InjectedItem.getItem()).getForgingGetItem())
+        boolean GetItemCanInsertIntoSlot2 = GetItem.is(Items.AIR) || (GetItem.is(InjectRecipe.injectingRecipeMap.get(InjectedItem.getItem()).getProduct())
                 && GetItem.getCount() < GetItem.getMaxStackSize());
         if (!GetItemCanInsertIntoSlot2) return false;
 
-        return InjectRecipe.injectingRecipeMap.get(InjectedItem.getItem()).getForgingNeededMaterial().
+        return InjectRecipe.injectingRecipeMap.get(InjectedItem.getItem()).getMaterial().
                 equals(Material.getItem()) && InjectRecipe.injectingRecipeMap.get(InjectedItem.getItem()).getMaterialCount() <= Material.getCount()
-                && InjectRecipe.injectingRecipeMap.get(InjectedItem.getItem()).getOriginalMaterialNeedCount() <= InjectedItem.getCount();
+                && InjectRecipe.injectingRecipeMap.get(InjectedItem.getItem()).getSourceItemCount() <= InjectedItem.getCount();
 
     }
 

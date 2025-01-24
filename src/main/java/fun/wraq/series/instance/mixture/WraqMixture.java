@@ -5,22 +5,18 @@ import fun.wraq.common.equip.WraqPassiveEquip;
 import fun.wraq.common.equip.WraqSceptre;
 import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.fast.Tick;
-import fun.wraq.common.impl.onhit.OnHitEffectPassiveEquip;
-import fun.wraq.common.impl.onshoot.OnShootManaArrowPassiveEquip;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.process.func.power.PowerLogic;
+import fun.wraq.render.gui.illustrate.Display;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 
 import java.util.*;
 
-public class WraqMixture extends WraqPassiveEquip implements ActiveItem, OnShootManaArrowPassiveEquip, OnHitEffectPassiveEquip {
+public class WraqMixture extends WraqPassiveEquip implements ActiveItem {
 
     private final Component suffix;
     private final Style style;
@@ -41,6 +37,7 @@ public class WraqMixture extends WraqPassiveEquip implements ActiveItem, OnShoot
         this.lastSecond = lastSecond;
         Utils.xpLevelManaDamage.put(this, 4d);
         Utils.levelRequire.put(this, levelRequire);
+        Display.souvenirsList.add(this);
     }
 
     @Override
@@ -77,7 +74,7 @@ public class WraqMixture extends WraqPassiveEquip implements ActiveItem, OnShoot
 
     @Override
     public Component getSuffix() {
-        return suffix;
+        return ComponentUtils.getSuffixOfSouvenirs();
     }
 
     @Override
@@ -85,14 +82,12 @@ public class WraqMixture extends WraqPassiveEquip implements ActiveItem, OnShoot
         return Component.literal("合剂").withStyle(CustomStyle.styleOfBrew);
     }
 
-    public static WeakHashMap<Player, Integer> effectLastTickMap = new WeakHashMap<>();
-    public static WeakHashMap<Player, WraqMixture> activeItem = new WeakHashMap<>();
+    public static Map<Player, Integer> effectLastTickMap = new WeakHashMap<>();
 
     @Override
     public void active(Player player) {
         if (player.experienceLevel < Utils.levelRequire.get(this)) return;
         effectLastTickMap.put(player, (int) (Tick.get() + lastSecond * 20));
-        activeItem.put(player, this);
         Compute.sendEffectLastTime(player, this, (int) (lastSecond * 20));
         MixtureItems.ITEMS.getEntries().forEach(item -> {
             Compute.playerItemCoolDown(player, item.get(), coolDownSecond);
@@ -102,20 +97,6 @@ public class WraqMixture extends WraqPassiveEquip implements ActiveItem, OnShoot
     @Override
     public double manaCost(Player player) {
         return 0;
-    }
-
-    @Override
-    public void onShoot(Player player) {
-        if (effectLastTickMap.getOrDefault(player, 0) < Tick.get()) return;
-        batchAddExShoot(player, activeItem.get(player).rate, activeItem.get(player).exManaArrowCount);
-    }
-
-    @Override
-    public void onHit(Player player, Mob mob) {
-        if (effectLastTickMap.getOrDefault(player, 0) < Tick.get()) return;
-        Map<Item, Integer> powerCoolDownTick = PowerLogic.playerPowerCoolDownRecord.getOrDefault(player, new HashMap<>());
-        WraqMixture mixture = activeItem.get(player);
-        Compute.decreaseCoolDownLeftTick(player, powerCoolDownTick, mixture.eachArrowDecreaseCoolDownTick);
     }
 
     public static WeakHashMap<Player, Queue<Double>> exShootRateQueueMap = new WeakHashMap<>();
@@ -133,8 +114,9 @@ public class WraqMixture extends WraqPassiveEquip implements ActiveItem, OnShoot
         }
     }
 
-    public static void tick() {
-        exShootRateQueueMap.forEach(((player, queue) -> {
+    public static void handleServerPlayerTick(Player player) {
+        if (exShootRateQueueMap.containsKey(player)) {
+            Queue<Double> queue = exShootRateQueueMap.get(player);
             if (!queue.isEmpty()) {
                 if (Tick.get() % 2 == 0) {
                     double rate = queue.remove();
@@ -143,7 +125,7 @@ public class WraqMixture extends WraqPassiveEquip implements ActiveItem, OnShoot
                     }
                 }
             }
-        }));
+        }
     }
 }
 

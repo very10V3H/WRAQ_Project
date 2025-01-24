@@ -46,7 +46,6 @@ public class WraqForge extends Item {
     public static String firstTimeForge = "firstTimeForge";
     public static Map<String, Integer> playerMSGSendDelayMap = new HashMap<>();
     public static Map<String, Integer> playerMSGSendDelayMap1 = new HashMap<>();
-    public static Map<String, Integer> playerMSGSendDelayMap2 = new HashMap<>();
     private final Item forgedItem;
 
     public WraqForge(Properties p_41383_, Item item) {
@@ -184,35 +183,35 @@ public class WraqForge extends Item {
                     ModItems.ForestArmorLeggings.get(), ModItems.ForestArmorBoots.get(),
                     ModItems.ForestSword0.get(), ModItems.ForestBow0.get());
             if (forestEquips.contains(item)) {
-                Guide.trig(player, 7);
+                Guide.trigV2(player, Guide.StageV2.FOREST_EQUIP);
             }
             Set<Item> lakeEquips = Set.of(ModItems.LakeArmorHelmet.get(), ModItems.LakeArmorChest.get(),
                     ModItems.LakeArmorLeggings.get(), ModItems.LakeArmorBoots.get(),
                     ModItems.LakeSword0.get(), ModItems.lakeBow0.get(), ModItems.lakeSceptre0.get());
             if (lakeEquips.contains(item)) {
-                Guide.trig(player, 8);
+                Guide.trigV2(player, Guide.StageV2.LAKE_EQUIP);
             }
             Set<Item> mineEquips = Set.of(ModItems.MineArmorHelmet.get(), ModItems.MineArmorChest.get(),
                     ModItems.MineArmorLeggings.get(), ModItems.MineArmorBoots.get(),
                     ModItems.MineSword0.get(), ModItems.MineBow0.get());
             if (mineEquips.contains(item)) {
-                Guide.trig(player, 9);
+                Guide.trigV2(player, Guide.StageV2.MINE_EQUIP);
             }
             Set<Item> volcanoEquips = Set.of(ModItems.VolcanoArmorHelmet.get(), ModItems.VolcanoArmorChest.get(),
                     ModItems.VolcanoArmorLeggings.get(), ModItems.VolcanoArmorBoots.get(),
                     ModItems.VolcanoSword0.get(), ModItems.VolcanoBow0.get());
             if (volcanoEquips.contains(item)) {
-                Guide.trig(player, 10);
+                Guide.trigV2(player, Guide.StageV2.VOLCANO_EQUIP);
             }
             Set<Item> enhanceEquips = Set.of(ModItems.SKY_ARMOR_HELMET.get(),
                     ModItems.SKY_ARMOR_CHEST.get(), ModItems.SKY_ARMOR_LEGGINGS.get(), ModItems.SKY_ARMOR_BOOTS.get(),
                     ModItems.SkyBow.get());
             if (enhanceEquips.contains(item)) {
-                Guide.trig(player, 13);
+                Guide.trigV2(player, Guide.StageV2.ENHANCE_EQUIP);
             }
 
             InventoryOperation.itemStackGive(player, productItemStack);
-            Guide.trig(player, 4);
+            Guide.trigV2(player, Guide.StageV2.FIRST_FORGE);
             if (!StringUtils.FlagInTag.getPlayerFlag(player, firstTimeForge)) {
                 StringUtils.FlagInTag.setPlayerString(player, firstTimeForge, true);
                 playerMSGSendDelayMap.put(player.getName().getString(), Tick.get() + 100);
@@ -247,16 +246,6 @@ public class WraqForge extends Item {
                 ItemStack itemStack = new ItemStack(ModItems.PlainRune.get(), 2);
                 Compute.sendFormatMSG(serverPlayer, Component.literal("引导-灌注").withStyle(ChatFormatting.AQUA), Component.literal("现在，拿着给予你的").withStyle(ChatFormatting.WHITE).append(itemStack.getDisplayName()).append(Component.literal("找到灌注台(在村庄锻造区域均有分布)，尝试给平原系列武器进行灌注升级吧！").withStyle(ChatFormatting.WHITE)));
                 InventoryOperation.itemStackGive(serverPlayer, itemStack);
-                playerMSGSendDelayMap2.put(name, tick + 40);
-                MySound.soundToPlayer(serverPlayer, SoundEvents.EXPERIENCE_ORB_PICKUP);
-            }
-        }
-
-        if (playerMSGSendDelayMap2.containsKey(name)) {
-            if (playerMSGSendDelayMap2.get(name) < tick) {
-                playerMSGSendDelayMap2.remove(name);
-                Compute.sendFormatMSG(serverPlayer, Component.literal("引导-快捷使用").withStyle(ChatFormatting.AQUA), Component.literal("你知道吗，在按键绑定中可以绑定快捷使用按键。").withStyle(ChatFormatting.WHITE));
-                Compute.sendFormatMSG(serverPlayer, Component.literal("引导-快捷使用").withStyle(ChatFormatting.AQUA), Component.literal("使用快捷使用可以使你无前摇地施放主动，对于法师而言，").withStyle(ChatFormatting.WHITE).append(Component.literal("必须").withStyle(ChatFormatting.RED)).append(Component.literal("使用快捷使用来释放法术以获得主手武器提供的法术伤害加成").withStyle(ChatFormatting.WHITE)));
                 MySound.soundToPlayer(serverPlayer, SoundEvents.EXPERIENCE_ORB_PICKUP);
             }
         }

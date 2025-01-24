@@ -10,6 +10,7 @@ import fun.wraq.entities.entities.SoraSword.SoraSwordAirRender;
 import fun.wraq.entities.render.*;
 import fun.wraq.process.func.guide.GuideHud;
 import fun.wraq.process.system.entrustment.mob.MobKillEntrustmentHud;
+import fun.wraq.process.system.skill.skillv2.SkillV2Hud;
 import fun.wraq.process.system.teamInstance.NewTeamInstanceHud;
 import fun.wraq.render.hud.main.*;
 import fun.wraq.render.hud.ShieldHud;
@@ -47,7 +48,6 @@ public class ClientModEventSubscriber {
         EntityRenderers.register(fun.wraq.common.registry.ModEntityType.NEW_ARROW_SNOW.get(), NewArrowSnowRender::new);
         EntityRenderers.register(fun.wraq.common.registry.ModEntityType.METEORITE.get(), MeteoriteRender::new);
         EntityRenderers.register(fun.wraq.common.registry.ModEntityType.SWORD_AIR.get(), SwordAirRender::new);
-        EntityRenderers.register(fun.wraq.common.registry.ModEntityType.SHANGMENGLI_SWORD_AIR.get(), ShangMengLiSwordAirRender::new);
         EntityRenderers.register(fun.wraq.common.registry.ModEntityType.SORA_SWORD_AIR.get(), SoraSwordAirRender::new);
         EntityRenderers.register(fun.wraq.common.registry.ModEntityType.SORA_RED_SWORD_AIR.get(), SoraRedSwordAirRender::new);
         EntityRenderers.register(fun.wraq.common.registry.ModEntityType.BLAZE_SWORD.get(), BlazeSwordRender::new);
@@ -85,7 +85,7 @@ public class ClientModEventSubscriber {
         event.registerSpriteSet(ModParticles.LAKE.get(), OneTickParticle.Provider::new);
         event.registerSpriteSet(ModParticles.LIGHTNINGISLAND.get(), OneTickParticle.Provider::new);
         event.registerSpriteSet(ModParticles.LONG_LIGHTNINGISLAND.get(), FirstParticle.Provider::new);
-        event.registerSpriteSet(ModParticles.MANAFOREST.get(), OneTickParticle.Provider::new);
+        event.registerSpriteSet(ModParticles.EVOKER.get(), OneTickParticle.Provider::new);
         event.registerSpriteSet(ModParticles.NETHER.get(), OneTickParticle.Provider::new);
         event.registerSpriteSet(ModParticles.PLAIN.get(), OneTickParticle.Provider::new);
         event.registerSpriteSet(ModParticles.SEA.get(), OneTickParticle.Provider::new);
@@ -177,6 +177,7 @@ public class ClientModEventSubscriber {
         event.registerAboveAll("new_team_instance_hud", NewTeamInstanceHud.NEW_TEAM_INSTANCE_HUD);
 
         event.registerAboveAll("quick_use_hud", QuickUseHud.QUICK_USE_HUD);
+        event.registerAboveAll("skill_v2_hud", SkillV2Hud.SKILL_V2_HUD);
     }
 
     private static final List<ResourceLocation> overlays = List.of(VanillaGuiOverlay.ARMOR_LEVEL.id(),

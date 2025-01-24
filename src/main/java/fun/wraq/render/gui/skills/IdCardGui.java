@@ -11,6 +11,7 @@ import fun.wraq.networking.misc.SkillPackets.SkillDataC2SPacket;
 import fun.wraq.networking.misc.SkillPackets.SkillRequestC2SPacket;
 import fun.wraq.networking.misc.SmartPhonePackets.MarketScreenC2SPacket;
 import fun.wraq.networking.misc.TeamPackets.TeamScreenOpenRequestC2SPacket;
+import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.func.guide.networking.GuideFinishC2SPacket;
 import fun.wraq.process.func.plan.DailySupply;
 import fun.wraq.process.func.plan.networking.DailySupplyC2SPacket;
@@ -213,7 +214,7 @@ public class IdCardGui extends Screen {
 
         this.addRenderableWidget(Button.builder(Component.literal("图鉴").withStyle(CustomStyle.styleOfSunIsland), (p_280814_) -> {
             this.minecraft.setScreen(new Illustrate(true, 0));
-            ModNetworking.sendToServer(new GuideFinishC2SPacket(2));
+            ModNetworking.sendToServer(new GuideFinishC2SPacket(Guide.StageV2.ILLUSTRATE));
         }).pos(this.width / 2 - 72, this.height / 2 + 113 - 40).size(48, 16).build());
 
         this.addRenderableWidget(Button.builder(Component.literal("本源回廊").withStyle(CustomStyle.styleOfWorld), (p_280814_) -> {

@@ -15,7 +15,7 @@ import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.struct.PosAndLastTime;
 import fun.wraq.common.util.struct.Shield;
-import fun.wraq.core.MyArrow;
+import fun.wraq.core.bow.MyArrow;
 import fun.wraq.customized.Customize;
 import fun.wraq.entities.entities.Civil.Civil;
 import fun.wraq.events.mob.MobSpawn;
@@ -30,6 +30,7 @@ import fun.wraq.networking.misc.TeamPackets.TeamInfoRequestC2SPacket;
 import fun.wraq.networking.unSorted.PacketLimitS2CPacket;
 import fun.wraq.networking.unSorted.ServerTickS2CPacket;
 import fun.wraq.networking.unSorted.TimeS2CPacket;
+import fun.wraq.process.func.DelayOperationWithAnimation;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.func.item.InventoryOperation;
@@ -64,14 +65,16 @@ import fun.wraq.render.mobEffects.ModEffects;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.end.curios.EndCrystal;
 import fun.wraq.series.gems.passive.impl.GemTickHandler;
+import fun.wraq.series.instance.mixture.WraqMixture;
+import fun.wraq.series.instance.quiver.WraqQuiver;
 import fun.wraq.series.instance.series.castle.CastleAttackArmor;
 import fun.wraq.series.instance.series.castle.CastleManaArmor;
 import fun.wraq.series.instance.series.castle.CastleSwiftArmor;
 import fun.wraq.series.instance.series.harbinger.weapon.HarbingerMainHand;
 import fun.wraq.series.moontain.equip.weapon.MoontainUtils;
-import fun.wraq.series.overworld.sakuraSeries.Boss2.GoldenAttackOffhand;
-import fun.wraq.series.overworld.sakuraSeries.Boss2.GoldenBook;
-import fun.wraq.series.overworld.sakuraSeries.Slime.SlimeBoots;
+import fun.wraq.series.overworld.sakura.Boss2.GoldenAttackOffhand;
+import fun.wraq.series.overworld.sakura.Boss2.GoldenBook;
+import fun.wraq.series.overworld.sakura.Slime.SlimeBoots;
 import fun.wraq.series.overworld.sun.network.TotalKillCountS2CPacket;
 import fun.wraq.series.specialevents.labourDay.LabourDayIronHoe;
 import fun.wraq.series.specialevents.labourDay.LabourDayIronPickaxe;
@@ -161,6 +164,10 @@ public class ServerPlayerTickEvent {
             ModNetworking.sendToClient(new ServerTickS2CPacket(Tick.get()), serverPlayer);
             MobKillEntrustment.handleTick(player);
             AllayPet.handleServerPlayerTick(serverPlayer);
+            DelayOperationWithAnimation.playerTick(player);
+
+            WraqQuiver.handleServerPlayerTick(player);
+            WraqMixture.handleServerPlayerTick(player);
 
             if (player.tickCount % 10 == 0
                     && (player.isOnFire()
@@ -224,7 +231,7 @@ public class ServerPlayerTickEvent {
             }
 
             if (player.tickCount % 20 == 0) {
-                Guide.sendStageToClient(player);
+                Guide.sendStageToClientV2(player);
             }
 
             if (player.tickCount % 40 == 0) {
@@ -257,7 +264,7 @@ public class ServerPlayerTickEvent {
                         AABB.ofSize(posAndLastTime.vec3, 15, 15, 15));
                 mobList.forEach(mob -> {
                     if (mob.position().distanceTo(posAndLastTime.vec3) <= 5) {
-                        Damage.causeManaDamageToMonster_RateApDamage(player, mob, 0.5, false);
+                        Damage.causeRateApDamageToMonster(player, mob, 0.5, false);
                         Damage.causeAttackDamageToMonster_RateAdDamage(player, mob, 1);
                     }
                 });
@@ -286,7 +293,7 @@ public class ServerPlayerTickEvent {
                             level.destroyBlock(new BlockPos(mob.getBlockX(), mob.getBlockY() + 1, mob.getBlockZ()), false);
                         }
                         Damage.causeAttackDamageToMonster_RateAdDamage(player, mob, SuitCount.getIceSuitCount(player) * 0.5);
-                        Damage.causeManaDamageToMonster_RateApDamage(player, mob, SuitCount.getIceSuitCount(player) * 0.15, false);
+                        Damage.causeRateApDamageToMonster(player, mob, SuitCount.getIceSuitCount(player) * 0.15, false);
                         Compute.addSlowDownEffect(mob, 40, 2);
                     }
                 });

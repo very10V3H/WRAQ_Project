@@ -421,88 +421,20 @@ public class Utils {
         put(StringUtils.ParticleTypes.BUBBLE_POP, ParticleTypes.BUBBLE_POP);
         put(StringUtils.ParticleTypes.BUBBLE_COLUMN_UP, ParticleTypes.BUBBLE_COLUMN_UP);
         put(StringUtils.ParticleTypes.CRIT, ParticleTypes.CRIT);
+        put(StringUtils.ParticleTypes.EVOKER, ModParticles.EVOKER.get());
     }};
-    public static HashMap<ParticleOptions, String> ParticleToParticleStringMap = new HashMap<>() {{
-        put(ParticleTypes.WITCH, StringUtils.ParticleTypes.Witch);
-        put(ParticleTypes.COMPOSTER, StringUtils.ParticleTypes.Composter);
-        put(ModParticles.LONG_VOLCANO.get(), StringUtils.ParticleTypes.LongVolcano);
-        put(ParticleTypes.SCRAPE, StringUtils.ParticleTypes.Scrape);
-        put(ModParticles.EFFECT_MANA.get(), StringUtils.ParticleTypes.EffectMana);
-        put(ModParticles.RANGE_MANA.get(), StringUtils.ParticleTypes.RangeMana);
-        put(ModParticles.DAMAGE_MANA.get(), StringUtils.ParticleTypes.DamageMana);
-        put(ModParticles.BREAKDefence_MANA.get(), StringUtils.ParticleTypes.DefencePenetrationMana);
-        put(ModParticles.SNOW_MANA.get(), StringUtils.ParticleTypes.SnowMana);
-        put(ModParticles.KAZE_MANA.get(), StringUtils.ParticleTypes.KazeMana);
-        put(ModParticles.LIGHTNING_MANA.get(), StringUtils.ParticleTypes.LightningMana);
-        put(ModParticles.GATHER_MANA.get(), StringUtils.ParticleTypes.GatherMana);
-        put(ModParticles.LONG_VOLCANO.get(), StringUtils.ParticleTypes.LongVolcano);
-        put(ParticleTypes.HEART, StringUtils.ParticleTypes.Heart);
-        put(ParticleTypes.ANGRY_VILLAGER, StringUtils.ParticleTypes.AngryVillager);
-        put(ParticleTypes.ASH, StringUtils.ParticleTypes.Ash);
-        put(ParticleTypes.LAVA, StringUtils.ParticleTypes.Lava);
-        put(ParticleTypes.ENCHANTED_HIT, StringUtils.ParticleTypes.EnchantedHit);
-        put(ParticleTypes.TOTEM_OF_UNDYING, StringUtils.ParticleTypes.TotemOfUndying);
-        put(ParticleTypes.SNOWFLAKE, StringUtils.ParticleTypes.SnowFlake);
-        put(ParticleTypes.WAX_OFF, StringUtils.ParticleTypes.WAX_OFF);
-        put(ModParticles.WORLD.get(), StringUtils.ParticleTypes.World);
-        put(ModParticles.LONG_ENTROPY.get(), StringUtils.ParticleTypes.Long_Entropy);
-        put(ParticleTypes.CHERRY_LEAVES, StringUtils.ParticleTypes.Cherry_Leaves);
-        put(ModParticles.LONG_PLAIN.get(), StringUtils.ParticleTypes.Long_Plain);
-        put(ModParticles.LONG_FOREST.get(), StringUtils.ParticleTypes.Long_Forest);
-        put(ModParticles.LONG_LAKE.get(), StringUtils.ParticleTypes.Long_Lake);
-        put(ModParticles.LONG_SNOW.get(), StringUtils.ParticleTypes.Long_Snow);
-        put(ModParticles.LONG_SEA.get(), StringUtils.ParticleTypes.Long_Sea);
-        put(ModParticles.BLACKFOREST_RECALL.get(), StringUtils.ParticleTypes.Black_Forest);
-        put(ParticleTypes.FALLING_WATER, StringUtils.ParticleTypes.FallingWater);
-        put(ParticleTypes.DRIPPING_WATER, StringUtils.ParticleTypes.DrippedWater);
-        put(ModParticles.LONG_SKY.get(), StringUtils.ParticleTypes.LongSky);
-        put(ModParticles.LONG_SPRING.get(), StringUtils.ParticleTypes.LongSpring);
-        put(ModParticles.SPRING.get(), StringUtils.ParticleTypes.Spring);
-        put(ModParticles.LONG_LIGHTNINGISLAND.get(), StringUtils.ParticleTypes.LongLightning);
-        put(ParticleTypes.SMOKE, StringUtils.ParticleTypes.Smoke);
-        put(ModParticles.VOLCANO.get(), StringUtils.ParticleTypes.Volcano);
-        put(ModParticles.NETHER.get(), StringUtils.ParticleTypes.Nether);
-        put(ModParticles.RED_SPELL.get(), StringUtils.ParticleTypes.RedSpell);
-        put(ModParticles.LONG_RED_SPELL.get(), StringUtils.ParticleTypes.LongRedSpell);
-        put(ModParticles.SNOW.get(), StringUtils.ParticleTypes.Snow);
-        put(ParticleTypes.FIREWORK, StringUtils.ParticleTypes.FireWork);
-        put(ModParticles.WHITE_SPELL.get(), StringUtils.ParticleTypes.WhiteSpell);
-        put(ModParticles.ENTROPY.get(), StringUtils.ParticleTypes.Entropy);
-        put(ModParticles.YSR.get(), StringUtils.ParticleTypes.YSR);
-        put(ModParticles.YSR1.get(), StringUtils.ParticleTypes.YSR1);
-        put(ModParticles.LiuliSpell.get(), StringUtils.ParticleTypes.LiuliSpell);
-        put(ModParticles.BIG.get(), StringUtils.ParticleTypes.BIG);
-        put(ModParticles.PurpleIronOneTick.get(), StringUtils.ParticleTypes.PurpleIronOneTick);
-        put(ModParticles.PurpleIronBig.get(), StringUtils.ParticleTypes.PurpleIronBig);
-        put(ParticleTypes.SPORE_BLOSSOM_AIR, StringUtils.ParticleTypes.SporeBlossomAir);
-        put(ParticleTypes.EXPLOSION, StringUtils.ParticleTypes.EXPLOSION);
-        put(ParticleTypes.FLAME, StringUtils.ParticleTypes.FLAME);
 
-        put(ModParticles.LifeElementParticle.get(), StringUtils.ParticleTypes.LifeElementParticle);
-        put(ModParticles.WaterElementParticle.get(), StringUtils.ParticleTypes.WaterElementParticle);
-        put(ModParticles.FireElementParticle.get(), StringUtils.ParticleTypes.FireElementParticle);
-        put(ModParticles.StoneElementParticle.get(), StringUtils.ParticleTypes.StoneElementParticle);
-        put(ModParticles.IceElementParticle.get(), StringUtils.ParticleTypes.IceElementParticle);
-        put(ModParticles.LightningElementParticle.get(), StringUtils.ParticleTypes.LightningElementParticle);
-        put(ModParticles.WindElementParticle.get(), StringUtils.ParticleTypes.WindElementParticle);
+    public static HashMap<ParticleOptions, String> ParticleToParticleStringMap = new HashMap<>();
 
-        put(ModParticles.LifeElement1TickParticle.get(), StringUtils.ParticleTypes.LifeElement1TickParticle);
-        put(ModParticles.WaterElement1TickParticle.get(), StringUtils.ParticleTypes.WaterElement1TickParticle);
-        put(ModParticles.FireElement1TickParticle.get(), StringUtils.ParticleTypes.FireElement1TickParticle);
-        put(ModParticles.StoneElement1TickParticle.get(), StringUtils.ParticleTypes.StoneElement1TickParticle);
-        put(ModParticles.IceElement1TickParticle.get(), StringUtils.ParticleTypes.IceElement1TickParticle);
-        put(ModParticles.LightningElement1TickParticle.get(), StringUtils.ParticleTypes.LightningElement1TickParticle);
-        put(ModParticles.WindElement1TickParticle.get(), StringUtils.ParticleTypes.WindElement1TickParticle);
+    public static Map<ParticleOptions, String> getParticleToParticleStringMap() {
+        if (ParticleToParticleStringMap.isEmpty()) {
+            ParticleStringToParticleMap.forEach((k, v) -> {
+                ParticleToParticleStringMap.put(v, k);
+            });
+        }
+        return ParticleToParticleStringMap;
+    }
 
-        put(ModParticles.SoraSwordParticle.get(), StringUtils.ParticleTypes.SoraSwordParticle);
-
-        put(ParticleTypes.END_ROD, StringUtils.ParticleTypes.END_ROD);
-
-        put(ParticleTypes.BUBBLE, StringUtils.ParticleTypes.BUBBLE);
-        put(ParticleTypes.BUBBLE_POP, StringUtils.ParticleTypes.BUBBLE_POP);
-        put(ParticleTypes.BUBBLE_COLUMN_UP, StringUtils.ParticleTypes.BUBBLE_COLUMN_UP);
-        put(ParticleTypes.CRIT, StringUtils.ParticleTypes.CRIT);
-    }};
 
     public static List<Boss2Damage> boss2DamageList = new ArrayList<>();
 
@@ -736,10 +668,6 @@ public class Utils {
 
     public static WeakHashMap<Player, Integer> DingCoolDown = new WeakHashMap<>();
     public static WeakHashMap<Player, Integer> DingDingCoolDown = new WeakHashMap<>();
-
-    public static WeakHashMap<Player, Integer> PlayerAttackTime = new WeakHashMap<>();
-    public static WeakHashMap<Player, Integer> PlayerArrowAttackTime = new WeakHashMap<>();
-    public static WeakHashMap<Player, Integer> PlayerManaAttackTime = new WeakHashMap<>();
 
     public static WeakHashMap<Player, Integer> PlayerFireWorkGunEffect = new WeakHashMap<>();
 

@@ -330,7 +330,7 @@ public class MobSpawn {
         List<ItemAndRate> list = MobSpawn.dropList.get(MobSpawn.getMobOriginName(mob));
 
         if (MobSpawn.getMobOriginName(mob).equals(PlainZombieSpawnController.mobName)) {
-            Guide.trig(player, 3);
+            Guide.trigV2(player, Guide.StageV2.FIRST_KILL);
         }
         if (MobSpawn.getMobOriginName(mob).equals(PlainZombieSpawnController.mobName))
             DailyMission.addCount(player, DailyMission.plainZombieKillCountMap);

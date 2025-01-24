@@ -42,6 +42,7 @@ import fun.wraq.process.system.missions.series.dailyMission.DailyMission;
 import fun.wraq.process.system.parkour.Parkour;
 import fun.wraq.process.system.randomevent.RandomEventData;
 import fun.wraq.process.system.reason.Reason;
+import fun.wraq.process.system.skill.skillv2.SkillV2;
 import fun.wraq.process.system.teamInstance.NewTeamInstanceHandler;
 import fun.wraq.process.system.tower.Tower;
 import fun.wraq.process.system.tower.TowerStatusS2CPacket;
@@ -319,6 +320,10 @@ public class LoginInEvent {
             MobKillEntrustment.sendPacketToClient(player);
             Guide.sendGuideCloseStatusToClient(player);
             ModNetworking.sendToClient(new VersionCheckS2CPacket(), serverPlayer);
+            SkillV2.syncSkillV2Data(player);
+            SkillV2.sendInfoToClient(player);
+
+            SkillV2.afterVerUpdateLogin(player);
         }
     }
 

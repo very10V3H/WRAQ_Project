@@ -2,6 +2,7 @@ package fun.wraq.process.func.guide;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -16,17 +17,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GuideHud {
-    public static boolean display = true;
     public static final Minecraft mc = Minecraft.getInstance();
     private static final Font fontRenderer = mc.font;
     public static final IGuiOverlay GUIDE_HUD = ((gui, poseStack, partialTick, width, height) -> {
+
         int x = width / 2;
         int y = height / 2;
         GuiGraphics guiGraphics = new GuiGraphics(mc, mc.renderBuffers().bufferSource());
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
 
-        if (!Guide.clientGuideHudCloseStatus && display && mc.screen == null) {
+        if (!Guide.clientGuideHudCloseStatus && Guide.clientDisplay && mc.screen == null && !ClientUtils.isInBattle) {
             if (Guide.clientStage == -1 || Guide.clientStage >= Guide.getGuides().size()) return;
             Guide guide = Guide.getGuides().get(Guide.clientStage);
             List<Component> components = new ArrayList<>(guide.description);

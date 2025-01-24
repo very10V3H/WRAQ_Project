@@ -3,7 +3,6 @@ package fun.wraq.series.overworld.chapter1.plain;
 import fun.wraq.common.Compute;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
-import fun.wraq.series.overworld.chapter1.plain.crest.PlainCrest;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
@@ -21,8 +20,6 @@ import java.util.List;
 public class PlainSuitDescription {
     public static void ArmorCommonDescription(List<Component> components) {
         Style style = Style.EMPTY.applyFormat(ChatFormatting.GREEN);
-        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        ComponentUtils.descriptionOfAddition(components);
         Compute.solePassiveDescription(components, Component.literal("").withStyle(style));
         components.add(Component.literal(" 获得").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.AttributeDescription.maxHealth("等级 * 10")).
@@ -33,9 +30,6 @@ public class PlainSuitDescription {
             ComponentUtils.suitDescription(components);
             components.add(Component.literal("[按住shift展开套装效果]").withStyle(ChatFormatting.GRAY));
         }
-        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        ComponentUtils.suffixOfChapterI(components);
-
     }
 
     public static void SuitDescription(List<Component> components) {
@@ -61,8 +55,8 @@ public class PlainSuitDescription {
         }
 
         String crestName = "[平原纹章]";
-        if (Compute.CuriosAttribute.getDistinctCuriosList(player)
-                .stream().anyMatch(stack -> stack.getItem() instanceof PlainCrest)) {
+        if (Compute.CuriosAttribute.getClientCuriosSet(player)
+                .stream().anyMatch(item -> item instanceof PlainCrest)) {
             components.add(Component.literal(crestName).withStyle(mainStyle));
             count++;
         } else components.add(Component.literal(crestName).withStyle(ChatFormatting.GRAY));
