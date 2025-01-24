@@ -427,8 +427,11 @@ public abstract class SkillV2 {
             return;
         }
 
-        setProfessionSkillLevel(player, this.professionType, this.skillType, this.serial,
-                getPlayerSkillLevel(player) + 1);
+        int oldLevel = getPlayerSkillLevel(player);
+        setProfessionSkillLevel(player, this.professionType, this.skillType, this.serial, oldLevel + 1);
+        if (skillType == 0 && oldLevel == 3) {
+            Guide.trigV2(player, Guide.StageV2.PASSIVE_4_LEVEL);
+        }
         upgradeOperation(player);
         sendMSG(player, Te.s("升级成功!"));
     }

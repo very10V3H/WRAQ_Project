@@ -108,7 +108,10 @@ public class Guide {
             case 11 -> {
                 setPlayerCurrentStageV2(player, StageV2.PLAIN_BOSS);
             }
-            case 12, 13 -> {
+            case 12 -> {
+                setPlayerCurrentStageV2(player, StageV2.PASSIVE_4_LEVEL);
+            }
+            case 13 -> {
                 setPlayerCurrentStageV2(player, StageV2.ENHANCE_EQUIP);
             }
             case 14 -> {
@@ -163,6 +166,7 @@ public class Guide {
         public static final String MINE_EQUIP = "mineEquip";
         public static final String VOLCANO_EQUIP = "volcanoEquip";
         public static final String PLAIN_BOSS = "plainBoss";
+        public static final String PASSIVE_4_LEVEL = "passive4Level";
         public static final String ENHANCE_EQUIP = "enhanceEquip";
         public static final String TO_NETHER = "toNether";
         public static final String NETHER_BOSS = "netherBoss";
@@ -302,9 +306,17 @@ public class Guide {
                             "无尽熵增 - ", CustomStyle.styleOfWorld, ManaPlainTemple.getInstance().name)
             ), null, (player -> {
                 InventoryOperation.itemStackGiveWithMSG(player, new ItemStack(ModItems.PlainBossSoul.get(), 8));
-            }), 40, StageV2.ENHANCE_EQUIP));
+            }), 40, StageV2.PASSIVE_4_LEVEL));
             guides.add(new Guide(List.of(
-                    Te.s("锻造一件", "进阶装备", CustomStyle.styleOfSky),
+                    Te.s("将", "任意被动技能", ChatFormatting.GREEN, "提升至", "4级", ChatFormatting.LIGHT_PURPLE),
+                    Te.s("提示:", ChatFormatting.AQUA, "需要", "大量经验", ChatFormatting.LIGHT_PURPLE, "?"),
+                    Te.s("前往", "炼魔庙", CustomStyle.styleOfMana, "，挑战",
+                            "无尽熵增 - ", CustomStyle.styleOfWorld, ManaPlainTemple.getInstance().name)
+            ), null, (player -> {
+                InventoryOperation.itemStackGiveWithMSG(player, new ItemStack(ModItems.GEM_PIECE.get(), 16));
+            }), 60, StageV2.ENHANCE_EQUIP));
+            guides.add(new Guide(List.of(
+                    Te.s("锻造一件", "天空城进阶装备", CustomStyle.styleOfSky),
                     Te.s("法师", CustomStyle.styleOfMana, "可以选择", ModItems.EvokerSword.get()),
                     Te.s("物理职业", CustomStyle.styleOfAttack, "可以选择", "天空装备", CustomStyle.styleOfSky),
                     Te.s("注: 装备一般包含", "武器", ChatFormatting.AQUA, "与", "防具", CustomStyle.styleOfStone)

@@ -18,10 +18,11 @@ public class MobKillEntrustmentInfoS2CPacket {
     private final int weeklyFinishedTime;
     private final int totalFinishedTime;
     private final int averageTick;
+    private final int nextAllowAcceptTick;
     public MobKillEntrustmentInfoS2CPacket(Component mobName, int targetCount, int currentCount, int startServerTick, 
                                            int reputationExpiredMin, int reputation,
                                            int dailyFinishedTime, int weeklyFinishedTime, int totalFinishedTime,
-                                           int averageTick) {
+                                           int averageTick, int nextAllowAcceptTick) {
         this.mobName = mobName;
         this.targetCount = targetCount;
         this.currentCount = currentCount;
@@ -32,6 +33,7 @@ public class MobKillEntrustmentInfoS2CPacket {
         this.weeklyFinishedTime = weeklyFinishedTime;
         this.totalFinishedTime = totalFinishedTime;
         this.averageTick = averageTick;
+        this.nextAllowAcceptTick = nextAllowAcceptTick;
     }
 
     public MobKillEntrustmentInfoS2CPacket(FriendlyByteBuf buf) {
@@ -45,6 +47,7 @@ public class MobKillEntrustmentInfoS2CPacket {
         this.weeklyFinishedTime = buf.readInt();
         this.totalFinishedTime = buf.readInt();
         this.averageTick = buf.readInt();
+        this.nextAllowAcceptTick = buf.readInt();
     }
 
     public void toBytes(FriendlyByteBuf buf) {
@@ -58,6 +61,7 @@ public class MobKillEntrustmentInfoS2CPacket {
         buf.writeInt(weeklyFinishedTime);
         buf.writeInt(totalFinishedTime);
         buf.writeInt(averageTick);
+        buf.writeInt(nextAllowAcceptTick);
     }
 
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
@@ -73,6 +77,7 @@ public class MobKillEntrustmentInfoS2CPacket {
             MobKillEntrustmentHud.weeklyFinishedTimes = weeklyFinishedTime;
             MobKillEntrustmentHud.totalFinishedTimes = totalFinishedTime;
             MobKillEntrustmentHud.averageTick = averageTick;
+            MobKillEntrustmentHud.nextAllowAcceptTick = nextAllowAcceptTick;
         });
         return true;
     }

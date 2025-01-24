@@ -46,7 +46,6 @@ public class WraqForge extends Item {
     public static String firstTimeForge = "firstTimeForge";
     public static Map<String, Integer> playerMSGSendDelayMap = new HashMap<>();
     public static Map<String, Integer> playerMSGSendDelayMap1 = new HashMap<>();
-    public static Map<String, Integer> playerMSGSendDelayMap2 = new HashMap<>();
     private final Item forgedItem;
 
     public WraqForge(Properties p_41383_, Item item) {
@@ -247,16 +246,6 @@ public class WraqForge extends Item {
                 ItemStack itemStack = new ItemStack(ModItems.PlainRune.get(), 2);
                 Compute.sendFormatMSG(serverPlayer, Component.literal("引导-灌注").withStyle(ChatFormatting.AQUA), Component.literal("现在，拿着给予你的").withStyle(ChatFormatting.WHITE).append(itemStack.getDisplayName()).append(Component.literal("找到灌注台(在村庄锻造区域均有分布)，尝试给平原系列武器进行灌注升级吧！").withStyle(ChatFormatting.WHITE)));
                 InventoryOperation.itemStackGive(serverPlayer, itemStack);
-                playerMSGSendDelayMap2.put(name, tick + 40);
-                MySound.soundToPlayer(serverPlayer, SoundEvents.EXPERIENCE_ORB_PICKUP);
-            }
-        }
-
-        if (playerMSGSendDelayMap2.containsKey(name)) {
-            if (playerMSGSendDelayMap2.get(name) < tick) {
-                playerMSGSendDelayMap2.remove(name);
-                Compute.sendFormatMSG(serverPlayer, Component.literal("引导-快捷使用").withStyle(ChatFormatting.AQUA), Component.literal("你知道吗，在按键绑定中可以绑定快捷使用按键。").withStyle(ChatFormatting.WHITE));
-                Compute.sendFormatMSG(serverPlayer, Component.literal("引导-快捷使用").withStyle(ChatFormatting.AQUA), Component.literal("使用快捷使用可以使你无前摇地施放主动，对于法师而言，").withStyle(ChatFormatting.WHITE).append(Component.literal("必须").withStyle(ChatFormatting.RED)).append(Component.literal("使用快捷使用来释放法术以获得主手武器提供的法术伤害加成").withStyle(ChatFormatting.WHITE)));
                 MySound.soundToPlayer(serverPlayer, SoundEvents.EXPERIENCE_ORB_PICKUP);
             }
         }

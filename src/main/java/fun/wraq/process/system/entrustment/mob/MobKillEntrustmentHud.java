@@ -30,6 +30,7 @@ public class MobKillEntrustmentHud {
     public static int weeklyFinishedTimes;
     public static int totalFinishedTimes;
     public static int averageTick;
+    public static int nextAllowAcceptTick;
     public static final Minecraft mc = Minecraft.getInstance();
     private static final Font fontRenderer = mc.font;
     public static final IGuiOverlay ENTRUSTMENT_HUD = ((gui, poseStack, partialTick, width, height) -> {
@@ -57,6 +58,11 @@ public class MobKillEntrustmentHud {
                 components.add(Te.s("本周已完成次数: ", weeklyFinishedTimes, CustomStyle.styleOfMoon1));
                 components.add(Te.s("总完成次数: ", totalFinishedTimes, ChatFormatting.YELLOW));
                 components.add(Te.s("平均用时: ", MobKillEntrustment.getDeltaTimeFormatString(averageTick, 0), CustomStyle.styleOfSky));
+                if (nextAllowAcceptTick > ClientUtils.serverTick) {
+                    components.add(Te.s("惩罚剩余: ",
+                            MobKillEntrustment.getDeltaTimeFormatString(nextAllowAcceptTick, ClientUtils.serverTick),
+                            ChatFormatting.RED));
+                }
             } else {
                 components.add(Te.s("委托任务", CustomStyle.styleOfWorld));
                 components.add(Te.s("击杀 ", mobName));
