@@ -1328,6 +1328,16 @@ public class ModNetworking {
                 .encoder(GuideDisplayS2CPacket::toBytes)
                 .consumerMainThread(GuideDisplayS2CPacket::handle)
                 .add();
+        net.messageBuilder(LastVerticalCircleParticleS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(LastVerticalCircleParticleS2CPacket::new)
+                .encoder(LastVerticalCircleParticleS2CPacket::toBytes)
+                .consumerMainThread(LastVerticalCircleParticleS2CPacket::handle)
+                .add();
+        net.messageBuilder(SkillV2PlayerTryToSetSkillElementC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(SkillV2PlayerTryToSetSkillElementC2SPacket::new)
+                .encoder(SkillV2PlayerTryToSetSkillElementC2SPacket::toBytes)
+                .consumerMainThread(SkillV2PlayerTryToSetSkillElementC2SPacket::handle)
+                .add();
     }
 
     public static <MSG> void sendToServer(MSG message) {

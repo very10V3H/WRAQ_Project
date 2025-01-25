@@ -24,7 +24,7 @@ import java.util.List;
 public class SkillV2Screen extends Screen {
 
     public static final Minecraft mc = Minecraft.getInstance();
-    public static int professionType = 0;
+    public int professionType = 0;
 
     public SkillV2Screen(int professionType) {
         super(Te.s("menu.skill_v2_screen"));

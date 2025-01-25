@@ -55,6 +55,7 @@ import fun.wraq.process.system.respawn.MyRespawnRule;
 import fun.wraq.process.system.restzone.RestZone;
 import fun.wraq.process.system.season.MySeason;
 import fun.wraq.process.system.skill.ManaSkillTree;
+import fun.wraq.process.system.skill.skillv2.mana.ManaNewSkillFinal0;
 import fun.wraq.process.system.smelt.Smelt;
 import fun.wraq.process.system.tower.TowerMob;
 import fun.wraq.process.system.wayPoints.MyWayPoint;
@@ -165,9 +166,9 @@ public class ServerPlayerTickEvent {
             MobKillEntrustment.handleTick(player);
             AllayPet.handleServerPlayerTick(serverPlayer);
             DelayOperationWithAnimation.playerTick(player);
-
             WraqQuiver.handleServerPlayerTick(player);
             WraqMixture.handleServerPlayerTick(player);
+            ManaNewSkillFinal0.handleServerPlayerTickEvent(serverPlayer);
 
             if (player.tickCount % 10 == 0
                     && (player.isOnFire()

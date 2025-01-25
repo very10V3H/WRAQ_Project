@@ -8,7 +8,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class OneTickParticle extends TextureSheetParticle {
 
-
     protected OneTickParticle(ClientLevel level, double xCoord, double yCoord, double zCoord,
                               SpriteSet spriteSet, double xd, double yd, double zd) {
         super(level, xCoord, yCoord, zCoord, xd, yd, zd);
@@ -17,7 +16,7 @@ public class OneTickParticle extends TextureSheetParticle {
         this.xd = xd;
         this.yd = yd;
         this.zd = zd;
-        this.quadSize *= 0.85F;
+        this.quadSize = 0.2f;
         this.lifetime = 1;
         this.setSpriteFromAge(spriteSet);
 

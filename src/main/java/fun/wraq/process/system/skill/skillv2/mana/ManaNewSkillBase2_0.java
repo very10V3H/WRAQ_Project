@@ -3,22 +3,25 @@ package fun.wraq.process.system.skill.skillv2.mana;
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
-import fun.wraq.common.registry.MySound;
 import fun.wraq.process.func.DelayOperationWithAnimation;
+import fun.wraq.process.func.PersistentRangeEffect;
+import fun.wraq.process.func.PersistentRangeEffectOperation;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.func.power.WraqPower;
 import fun.wraq.process.system.skill.skillv2.SkillV2BaseSkill;
+import fun.wraq.process.system.skill.skillv2.SkillV2ElementEffect;
+import fun.wraq.render.particles.ModParticles;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.network.chat.Component;
-import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ManaNewSkillBase2_0 extends SkillV2BaseSkill {
+public class ManaNewSkillBase2_0 extends SkillV2BaseSkill implements SkillV2ElementEffect {
 
     public ManaNewSkillBase2_0(Component name, int cooldownTick, int manaCost, int professionType, int skillType, int serial) {
         super(name, cooldownTick, manaCost, professionType, skillType, serial);
@@ -34,13 +37,23 @@ public class ManaNewSkillBase2_0 extends SkillV2BaseSkill {
             @Override
             public void trig() {
                 Vec3 targetPos = WraqPower.getDefaultTargetPos(player);
-                MySound.soundToNearPlayer(player.level(), targetPos, SoundEvents.EVOKER_CAST_SPELL);
-                WraqPower.getDefaultTargetMobList(player).forEach(mob -> {
-                    Damage.causeRateApDamageToMonster(player, mob, 2 + skillLevel * 0.15, true);
-                    Compute.addSlowDownEffect(mob, 40, 2);
-                });
-                ParticleProvider.dustParticle(player, targetPos, 6, 120,
-                        CustomStyle.styleOfMana.getColor().getValue());
+                PersistentRangeEffect.addEffect(player, targetPos, 6, new PersistentRangeEffectOperation() {
+                    @Override
+                    public void operation(PersistentRangeEffect effect) {
+                        Compute.getNearEntity(effect.level(), effect.center(), Mob.class, 6)
+                                .stream().map(mob -> (Mob) mob)
+                                .forEach(mob -> {
+                                    Damage.causeRateApDamageToMonster(player, mob,
+                                            0.5 + 0.05 * skillLevel, true);
+                                    Compute.addSlowDownEffect(mob, Tick.s(1), 100);
+                                });
+                        ParticleProvider.dustParticle(player, effect.center(),
+                                6, 120, CustomStyle.styleOfMana.getColor().getValue());
+                    }
+                }, 10, Tick.s(3));
+                ParticleProvider.createLastVerticalCircleParticles(player,
+                        targetPos.add(0, 0.5, 0), 6, 100,
+                        ModParticles.EVOKER.get(), Tick.s(3));
             }
         });
     }
@@ -48,9 +61,10 @@ public class ManaNewSkillBase2_0 extends SkillV2BaseSkill {
     @Override
     protected List<Component> getSkillDescription(int level) {
         List<Component> components = new ArrayList<>();
-        components.add(Te.s("对准星区域周围的敌人造成",
-                getRateDescription(2, 0.15, level), CustomStyle.styleOfMana, "伤害"));
-        components.add(Te.s("并附带", "减速效果", CustomStyle.styleOfStone));
+        components.add(Te.s("撕裂", CustomStyle.styleOfMana, "准星附近的空间", "3s", CustomStyle.styleOfMana));
+        components.add(Te.s("在空间内的敌人", "每0.5s", CustomStyle.styleOfMana, "受到",
+                getRateDescription(0.5, 0.05,level), CustomStyle.styleOfMana, "伤害"));
+        components.add(Te.s("并对空间内的敌人施加", "减速效果", CustomStyle.styleOfStone));
         return components;
     }
 }

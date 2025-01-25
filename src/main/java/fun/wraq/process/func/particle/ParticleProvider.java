@@ -1,5 +1,6 @@
 package fun.wraq.process.func.particle;
 
+import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.networking.ModNetworking;
@@ -181,7 +182,8 @@ public class ParticleProvider {
         });
     }
 
-    public static void VerticleCircleParticle(ServerPlayer serverPlayer, double pickDistance, double r, int num, ParticleOptions particleOptions) {
+    public static void VerticleCircleParticle(ServerPlayer serverPlayer, double pickDistance, double r, int num,
+                                              ParticleOptions particleOptions) {
         Vec3 bottomPos = new Vec3(serverPlayer.getX(), serverPlayer.getY(), serverPlayer.getZ());
 
         List<ServerPlayer> list = serverPlayer.getServer().getPlayerList().getPlayers();
@@ -196,7 +198,8 @@ public class ParticleProvider {
         });
     }
 
-    public static void VerticleCircleParticle(Vec3 bottomPos, ServerPlayer serverPlayer, double pickDistance, double r, int num, ParticleOptions particleOptions) {
+    public static void VerticleCircleParticle(Vec3 bottomPos, ServerPlayer serverPlayer, double pickDistance, double r,
+                                              int num, ParticleOptions particleOptions) {
         List<ServerPlayer> list = serverPlayer.getServer().getPlayerList().getPlayers();
         list.forEach(serverPlayer1 -> {
             if (serverPlayer1.level().equals(serverPlayer.level()) && serverPlayer1.position().distanceTo(bottomPos) < 40) {
@@ -209,7 +212,8 @@ public class ParticleProvider {
         });
     }
 
-    public static void VerticleCircleParticle(Vec3 bottomPos, Level level, double pickDistance, double r, int num, ParticleOptions particleOptions) {
+    public static void VerticleCircleParticle(Vec3 bottomPos, Level level, double pickDistance, double r, int num,
+                                              ParticleOptions particleOptions) {
         for (int i = 0; i < num; i++) {
             double angle = (2 * Math.PI / num) * (i);
             Vec3 Point = new Vec3(bottomPos.x + r * cos(angle), bottomPos.y + pickDistance, bottomPos.z + r * sin(angle));
@@ -217,7 +221,8 @@ public class ParticleProvider {
         }
     }
 
-    public static void RandomMoveParticle(Entity entity, double pickDistance, double r, int num, ParticleOptions particleOptions) {
+    public static void createRandomMoveParticle(Entity entity, double pickDistance, double r, int num,
+                                                ParticleOptions particleOptions) {
         Vec3 bottomPos = new Vec3(entity.getX(), entity.getY(), entity.getZ());
         List<ServerPlayer> serverPlayerList = entity.getServer().getPlayerList().getPlayers();
         serverPlayerList.forEach(serverPlayer -> {
@@ -232,9 +237,59 @@ public class ParticleProvider {
         });
     }
 
-    public static void EntityEffectVerticleCircleParticle(Entity entity, double pickDistance, double r, int num, ParticleOptions particleOptions, int tick) {
-        Vec3 bottomPos = new Vec3(entity.getX(), entity.getY(), entity.getZ());
+    public static void createRandomMoveParticle(Entity entity, Vec3 pos, double pickDistance, double r, int num,
+                                                ParticleOptions particleOptions) {
+        List<ServerPlayer> serverPlayerList = entity.getServer().getPlayerList().getPlayers();
+        serverPlayerList.forEach(serverPlayer -> {
+            if (serverPlayer.level().equals(entity.level()) && serverPlayer.distanceTo(entity) < 40) {
+                int ignoreLevel = Math.max(1, serverPlayer.getPersistentData().getInt(StringUtils.IgnoreParticleLevel));
+                if (ignoreLevel < 10) {
+                    ModNetworking.sendToClient(new RandomMoveParticleS2CPacket(
+                            pos.toVector3f(), pickDistance, r, num, Utils.getParticleToParticleStringMap().get(particleOptions)
+                    ), serverPlayer);
+                }
+            }
+        });
+    }
 
+    public record ClientLastVerticalCircleParticle(Vec3 pos, double r, int num,
+                                                   ParticleOptions particleOptions, int expiredTick) {}
+
+    public static List<ClientLastVerticalCircleParticle> clientLastVerticalCircleParticles = new ArrayList<>();
+
+    public static void createLastVerticalCircleParticles(Entity entity, Vec3 pos, double r, int num,
+                                                         ParticleOptions particleOptions, int lastTick) {
+        entity.getServer().getPlayerList().getPlayers().forEach(serverPlayer -> {
+            if (serverPlayer.level().equals(entity.level()) && serverPlayer.distanceTo(entity) < 40) {
+                int ignoreLevel = Math.max(1, serverPlayer.getPersistentData().getInt(StringUtils.IgnoreParticleLevel));
+                if (ignoreLevel < 10) {
+                    ModNetworking.sendToClient(
+                            new LastVerticalCircleParticleS2CPacket(pos.toVector3f(), r, num,
+                                    Utils.getParticleToParticleStringMap().get(particleOptions), lastTick),
+                            serverPlayer);
+                }
+            }
+        });
+    }
+
+    public static void handleClientLevelTick(Level level) {
+        clientLastVerticalCircleParticles.removeIf(particle -> particle.expiredTick < ClientUtils.serverTick);
+        clientLastVerticalCircleParticles.forEach(particle -> {
+            int num = particle.num;
+            Vec3 pos = particle.pos;
+            double r = particle.r;
+            for (int i = 0; i < particle.num; i++) {
+                double angle = (2 * Math.PI / num) * (i);
+                Vec3 point = new Vec3(pos.x + r * cos(angle), pos.y, pos.z + r * sin(angle));
+                Minecraft.getInstance().level.addParticle(particle.particleOptions, point.x, point.y, point.z,
+                        0, 0, 0);
+            }
+        });
+    }
+
+    public static void EntityEffectVerticleCircleParticle(Entity entity, double pickDistance, double r, int num,
+                                                          ParticleOptions particleOptions, int tick) {
+        Vec3 bottomPos = new Vec3(entity.getX(), entity.getY(), entity.getZ());
         List<ServerPlayer> serverPlayerList = entity.getServer().getPlayerList().getPlayers();
         serverPlayerList.forEach(serverPlayer -> {
             if (serverPlayer.level().equals(entity.level()) && serverPlayer.distanceTo(entity) < 40) {

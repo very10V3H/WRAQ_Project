@@ -79,8 +79,8 @@ public class MagmaPower extends WraqPower {
         MySound.soundToNearPlayer(mob.level(), mob.position(), SoundEvents.GENERIC_EXPLODE);
         ParticleProvider.createSingleParticleToNearPlayer(player, player.level(),
                 mob.position(), ParticleTypes.EXPLOSION_EMITTER);
-        ParticleProvider.RandomMoveParticle(mob, 1, 1, 24, ParticleTypes.ASH);
-        ParticleProvider.RandomMoveParticle(mob, 1, 1, 24, ParticleTypes.LAVA);
+        ParticleProvider.createRandomMoveParticle(mob, 1, 1, 24, ParticleTypes.ASH);
+        ParticleProvider.createRandomMoveParticle(mob, 1, 1, 24, ParticleTypes.LAVA);
         mob.level().getEntitiesOfClass(Mob.class, AABB.ofSize(mob.position(), 10, 10, 10))
                 .forEach(eachMob -> {
                     Damage.causeManaDamageToMonster_RateApDamage_ElementAddition(player, mob, rate, true,

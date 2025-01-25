@@ -12,6 +12,7 @@ import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
 import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.func.power.PowerLogic;
+import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.skill.skillv2.bow.*;
 import fun.wraq.process.system.skill.skillv2.mana.*;
 import fun.wraq.process.system.skill.skillv2.network.SkillV2CooldownS2CPacket;
@@ -127,12 +128,12 @@ public abstract class SkillV2 {
             manaSkillV2.add(new ManaNewSkillPassive0(Te.s("解析", style),
                     0, 0, 2, 0, 0));
             manaSkillV2.add(new ManaNewSkillBase1_0(Te.s("崩碎", style),
-                    Tick.s(5), 60, 2, 1, 0));
-            manaSkillV2.add(new ManaNewSkillBase2_0(Te.s("引能", style),
+                    Tick.s(3), 60, 2, 1, 0));
+            manaSkillV2.add(new ManaNewSkillBase2_0(Te.s("撕裂", style),
                     Tick.s(8), 100, 2, 2, 0));
-            manaSkillV2.add(new ManaNewSkillBase3_0(Te.s("爆弹", style),
+            manaSkillV2.add(new ManaNewSkillBase3_0(Te.s("激化", style),
                     Tick.s(12), 80, 2, 3, 0));
-            manaSkillV2.add(new ManaNewSkillFinal0(Te.s("激化", style),
+            manaSkillV2.add(new ManaNewSkillFinal0(Te.s("爆裂", style),
                     Tick.s(30), 200, 2, 4, 0));
         }
         return manaSkillV2;
@@ -269,6 +270,41 @@ public abstract class SkillV2 {
 
     public static int getPlayerSkillLevelBySkillV2(Player player, SkillV2 skillV2) {
         return getProfessionSkillLevel(player, skillV2.professionType, skillV2.skillType, skillV2.serial);
+    }
+
+    public static String getProfessionSkillElementType(Player player, int professionType, int skillType, int serial) {
+        CompoundTag data = getProfessionSkillData(player, professionType);
+        SkillV2 skillV2 = getSkillV2(professionType, skillType, serial);
+        if (skillV2 instanceof SkillV2ElementEffect) {
+            String dataKey = getAllSkillLevelDataKey().get(skillType) + "_" + serial + "_element";
+            if (!data.contains(dataKey)) {
+                return Element.NULL;
+            }
+            return data.getString(dataKey);
+        }
+        return Element.NULL;
+    }
+
+    public static void setProfessionSkillElementType(Player player, int professionType, int skillType, int serial,
+                                                     String elementType) {
+        CompoundTag data = getProfessionSkillData(player, professionType);
+        SkillV2 skillV2 = getSkillV2(professionType, skillType, serial);
+        if (skillV2 instanceof SkillV2ElementEffect) {
+            String dataKey = getAllSkillLevelDataKey().get(skillType) + "_" + serial + "_element";
+            data.putString(dataKey, elementType);
+        } else {
+            sendMSG(player, Te.s("这个技能不能带有元素效果"));
+        }
+    }
+
+    public static void onPlayerTryToSetSkillElementType(Player player, int skillType, String elementType) {
+        SkillV2 skillV2 = getPlayerCurrentSkillByType(player, skillType);
+        if (skillV2 instanceof SkillV2ElementEffect) {
+            setProfessionSkillElementType(player,
+                    skillV2.professionType, skillV2.skillType, skillV2.serial, elementType);
+        } else {
+            sendMSG(player, Te.s("这个技能不能带有元素效果"));
+        }
     }
 
     private static final String UPDATE_COMPENSATE = "updateCompensate";
