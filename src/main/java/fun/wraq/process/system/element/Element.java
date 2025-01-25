@@ -60,6 +60,7 @@ public class Element {
     public static String ice = Prefix + "Ice";
     public static String lightning = Prefix + "Lightning";
     public static String wind = Prefix + "Wind";
+    public static String NULL = Prefix + "Null";
 
     public static List<String> elementList = new ArrayList<>() {{
         addAll(List.of(life, water, fire, stone, ice, lightning, wind));

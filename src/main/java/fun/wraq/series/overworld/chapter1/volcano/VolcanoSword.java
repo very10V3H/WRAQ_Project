@@ -68,7 +68,7 @@ public class VolcanoSword extends WraqSword implements ActiveItem {
     @Override
     public void active(Player player) {
         ParticleProvider.VerticleCircleParticle((ServerPlayer) player, 0.25, 1, 16, ParticleTypes.ANGRY_VILLAGER);
-        ParticleProvider.RandomMoveParticle((ServerPlayer) player, 0, 0.25, 32, ParticleTypes.ASH);
+        ParticleProvider.createRandomMoveParticle((ServerPlayer) player, 0, 0.25, 32, ParticleTypes.ASH);
         Compute.sendEffectLastTime(player, ModItems.VolcanoSword3.get().getDefaultInstance(), 200);
 
         StableAttributesModifier.addM(player, StableAttributesModifier.playerAttackDamageModifier,

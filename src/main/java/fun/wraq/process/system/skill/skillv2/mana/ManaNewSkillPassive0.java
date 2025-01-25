@@ -2,6 +2,7 @@ package fun.wraq.process.system.skill.skillv2.mana;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.system.skill.skillv2.SkillV2;
@@ -23,20 +24,29 @@ public class ManaNewSkillPassive0 extends SkillV2PassiveSkill {
         super(name, cooldownTick, manaCost, professionType, skillType, serial);
     }
 
-    public static Map<Mob, Boolean> mobFlagMap = new WeakHashMap<>();
+    public static Map<Mob, Integer> mobCountMap = new WeakHashMap<>();
     public static String ICON_TAG = "manaNewSkillPassive0Effect";
 
     public static void onManaArrowHit(Player player, Mob mob) {
         SkillV2 skillV2 = getPlayerCurrentSkillByType(player, 0);
         if (skillV2 instanceof ManaNewSkillPassive0) {
-            mobFlagMap.put(mob, true);
+            addCount(player, mob, 1);
+        }
+    }
+
+    public static void addCount(Player player, Mob mob, int addCount) {
+        SkillV2 skillV2 = getPlayerCurrentSkillByType(player, 0);
+        if (skillV2 instanceof ManaNewSkillPassive0) {
+            int count = mobCountMap.getOrDefault(mob, 0);
+            count = Math.min(5, count + addCount);
+            mobCountMap.put(mob, count);
             Compute.sendMobEffectHudToNearPlayer(mob, skillV2.getTexture1Url(),
-                    ICON_TAG, 8888, 0, true);
+                    ICON_TAG, 8888, count, true);
         }
     }
 
     public static void onManaPowerHit(Player player, Mob mob) {
-        if (mobFlagMap.getOrDefault(mob, false)) {
+        if (mobCountMap.getOrDefault(mob, 0) > 0) {
             SkillV2 skillV2 = getPlayerCurrentSkillByType(player, 0);
             if (skillV2 instanceof ManaNewSkillPassive0) {
                 MySound.soundToNearPlayer(player.level(), player.getEyePosition(), SoundEvents.CREEPER_DEATH);
@@ -46,8 +56,18 @@ public class ManaNewSkillPassive0 extends SkillV2PassiveSkill {
                         .forEach(eachMob -> {
                             Damage.causeRateApDamageToMonster(player, eachMob, 1 + skillLevel * 0.1, false);
                         });
-                mobFlagMap.put(mob, false);
-                Compute.removeMobEffectHudToNearPlayer(mob, skillV2.getTexture1Url(), ICON_TAG);
+                mobCountMap.compute(mob, (k, v) -> v == null ? 0 : v - 1);
+                int count = mobCountMap.get(mob);
+                if (count > 0) {
+                    Compute.sendMobEffectHudToNearPlayer(mob, skillV2.getTexture1Url(), ICON_TAG,
+                            8888, count, true);
+                } else {
+                    Compute.removeMobEffectHudToNearPlayer(mob, skillV2.getTexture1Url(), ICON_TAG);
+                }
+                SkillV2 manaFinalSkill = getPlayerCurrentSkillByType(player, 4);
+                if (manaFinalSkill instanceof ManaNewSkillFinal0) {
+                    decreaseSkillCooldownTick(player, manaFinalSkill, Tick.s(1));
+                }
             }
         }
     }
@@ -55,11 +75,11 @@ public class ManaNewSkillPassive0 extends SkillV2PassiveSkill {
     @Override
     protected List<Component> getSkillDescription(int level) {
         List<Component> components = new ArrayList<>();
-        components.add(Te.s("普攻命中的目标将被", "标记", CustomStyle.styleOfMana));
-        components.add(Te.s("任意其他", "法术技能", CustomStyle.styleOfMana,
-                "将", "引爆标记", CustomStyle.styleOfMana));
-        components.add(Te.s("对目标及其附近小范围的敌人造成",
-                getRateDescription(1, 0.1, level), CustomStyle.styleOfMana, "伤害"));
+        components.add(Te.s("普攻命中目标时，将施加一层 ", "渗", CustomStyle.styleOfMana));
+        components.add(Te.s("至多叠加至", "5", CustomStyle.styleOfMana, "层，法术技能命中时"));
+        components.add(Te.s("将引爆一层 ", "渗", CustomStyle.styleOfMana, "，对目标周围小范围敌人"));
+        components.add(Te.s("造成", getRateDescription(1, 0.1, level),
+                CustomStyle.styleOfMana, "伤害"));
         return components;
     }
 }

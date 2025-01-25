@@ -62,7 +62,7 @@ public class PlainSword extends WraqSword implements ActiveItem {
     public void active(Player player) {
         ServerPlayer serverPlayer = (ServerPlayer) player;
         ParticleProvider.VerticleCircleParticle(serverPlayer, 0.75 * 2, 1, 12, ParticleTypes.HEART);
-        ParticleProvider.RandomMoveParticle(serverPlayer, 0.75 * 2, 1, 8, ParticleTypes.COMPOSTER);
+        ParticleProvider.createRandomMoveParticle(serverPlayer, 0.75 * 2, 1, 8, ParticleTypes.COMPOSTER);
         Compute.playerHeal(player, player.getMaxHealth() * effectRate[tier]);
         player.getCooldowns().addCooldown(ModItems.PlainSword0.get(), (int) (400 - 400.0 * PlayerAttributes.coolDownDecrease(player)));
         player.getCooldowns().addCooldown(ModItems.PlainSword1.get(), (int) (400 - 400.0 * PlayerAttributes.coolDownDecrease(player)));

@@ -28,7 +28,6 @@ import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.func.suit.SuitCount;
 import fun.wraq.process.system.element.Element;
-import fun.wraq.process.system.skill.skillv2.mana.ManaNewSkillFinal0;
 import fun.wraq.process.system.skill.skillv2.mana.ManaNewSkillPassive0;
 import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -188,7 +187,6 @@ public class ManaAttackModule {
                 OnHitEffectPassiveEquip.hit(player, monster);
                 EnhanceNormalAttackModifier.onHitEffect(player, monster, 2);
                 ManaNewSkillPassive0.onManaArrowHit(player, monster);
-                ManaNewSkillFinal0.onHit(player);
                 if (manaArrow.manaArrowHitEntity != null) {
                     manaArrow.manaArrowHitEntity.onHit(manaArrow, entity);
                 }

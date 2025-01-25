@@ -11,7 +11,7 @@ import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.entities.entities.Civil.Civil;
 import fun.wraq.process.func.particle.ParticleProvider;
-import fun.wraq.process.system.skill.skillv2.mana.ManaNewSkillFinal0;
+import fun.wraq.process.system.skill.skillv2.mana.ManaNewSkillBase3_0;
 import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.projectiles.mana.ManaArrowHitEntity;
 import fun.wraq.render.gui.illustrate.Display;
@@ -61,7 +61,7 @@ public abstract class WraqSceptre extends WraqMainHandEquip {
             if (mainShoot) {
                 OnShootManaArrowCurios.shoot(player);
                 OnShootManaArrowPassiveEquip.shoot(player);
-                ManaNewSkillFinal0.onShoot(player);
+                ManaNewSkillBase3_0.onShoot(player);
             }
             MySound.soundToNearPlayer(player, SoundEvents.PARROT_IMITATE_EVOKER);
         }

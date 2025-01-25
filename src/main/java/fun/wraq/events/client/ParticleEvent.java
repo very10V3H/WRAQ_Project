@@ -32,10 +32,14 @@ public class ParticleEvent {
     @SubscribeEvent
     public static void Particle(TickEvent.PlayerTickEvent event) {
         MobParticle(event);
-        if (event.side.isClient() && event.phase.equals(TickEvent.Phase.START) && event.player.equals(Minecraft.getInstance().player)) {
+        if (event.side.isClient() && event.phase.equals(TickEvent.Phase.START)
+                && event.player.equals(Minecraft.getInstance().player)) {
             Level level = event.player.level();
             ClientLevel clientLevel = (ClientLevel) level;
             Player player = event.player;
+
+            ParticleProvider.handleClientLevelTick(clientLevel);
+
             Random random = new Random();
             boolean isInOverWorld = clientLevel.dimension().equals(Level.OVERWORLD);
             if (isInOverWorld && player.getX() > 2169 && player.getX() < 2333

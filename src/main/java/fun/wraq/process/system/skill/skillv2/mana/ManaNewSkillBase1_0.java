@@ -8,6 +8,7 @@ import fun.wraq.process.func.DelayOperationWithAnimation;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.skill.skillv2.SkillV2BaseSkill;
+import fun.wraq.process.system.skill.skillv2.SkillV2ElementEffect;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
@@ -17,7 +18,7 @@ import net.minecraft.world.phys.Vec3;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ManaNewSkillBase1_0 extends SkillV2BaseSkill {
+public class ManaNewSkillBase1_0 extends SkillV2BaseSkill implements SkillV2ElementEffect {
 
     public ManaNewSkillBase1_0(Component name, int cooldownTick, int manaCost, int professionType, int skillType, int serial) {
         super(name, cooldownTick, manaCost, professionType, skillType, serial);
@@ -40,6 +41,7 @@ public class ManaNewSkillBase1_0 extends SkillV2BaseSkill {
                         3, CustomStyle.styleOfMana);
                 Compute.getPlayerRayMobList(player, 1, 3, 20).forEach(mob -> {
                     Damage.causeRateApDamageToMonster(player, mob, 2 + skillLevel * 0.15, true);
+                    ManaNewSkillPassive0.addCount(player, mob, 1);
                 });
             }
         });
@@ -50,6 +52,7 @@ public class ManaNewSkillBase1_0 extends SkillV2BaseSkill {
         List<Component> components = new ArrayList<>();
         components.add(Te.s("对前方矩形范围的敌人造成",
                 getRateDescription(2, 0.15, level), CustomStyle.styleOfMana, "伤害"));
+        components.add(Te.s("并额外施加一层", " 渗", CustomStyle.styleOfMana));
         return components;
     }
 }

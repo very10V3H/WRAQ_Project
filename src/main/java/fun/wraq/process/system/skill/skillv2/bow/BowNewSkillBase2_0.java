@@ -42,8 +42,8 @@ public class BowNewSkillBase2_0 extends SkillV2BaseSkill {
                 MySound.soundToNearPlayer(myArrow.level(), myArrow.position(), SoundEvents.GENERIC_EXPLODE);
                 ParticleProvider.createSingleParticleToNearPlayer(player, player.level(),
                         myArrow.position(), ParticleTypes.EXPLOSION_EMITTER);
-                ParticleProvider.RandomMoveParticle(myArrow, 1, 1, 24, ParticleTypes.ASH);
-                ParticleProvider.RandomMoveParticle(myArrow, 1, 1, 24, ParticleTypes.LAVA);
+                ParticleProvider.createRandomMoveParticle(myArrow, 1, 1, 24, ParticleTypes.ASH);
+                ParticleProvider.createRandomMoveParticle(myArrow, 1, 1, 24, ParticleTypes.LAVA);
                 myArrow.level().getEntitiesOfClass(Mob.class, AABB.ofSize(myArrow.position(), 10, 10, 10))
                         .forEach(eachMob -> {
                             Damage.causeRateAdDamageToMonsterWithCritJudge(player, eachMob, 3 + skillLevel * 0.15
