@@ -53,4 +53,9 @@ public class SwordNewSkillBase1_0 extends SkillV2BaseSkill {
                 "且", ComponentUtils.getAttackEffectDescription()));
         return components;
     }
+
+    @Override
+    protected int getEachLevelExManaCost() {
+        return 5;
+    }
 }

@@ -55,7 +55,7 @@ public class SingleItemChangeC2SPacket {
             }
             if (recipe != null) {
                 if (InventoryOperation.checkItemRemoveIfHas(serverPlayer, List.of(needStack))) {
-                    InventoryOperation.itemStackGive(serverPlayer, new ItemStack(goods.getItem(), goods.getCount()));
+                    InventoryOperation.giveItemStack(serverPlayer, new ItemStack(goods.getItem(), goods.getCount()));
                     Compute.sendFormatMSG(serverPlayer, Te.s("交易", CustomStyle.styleOfGold),
                             Te.s("完成了一笔交易!"));
                     SingleItemChangePurchaseLimit.addTimes(serverPlayer, recipe);

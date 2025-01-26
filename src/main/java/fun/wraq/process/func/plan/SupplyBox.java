@@ -53,7 +53,7 @@ public class SupplyBox extends Item {
                         throw new RuntimeException(e);
                     }
                 } else {
-                    InventoryOperation.itemStackGive(player, itemStack);
+                    InventoryOperation.giveItemStack(player, itemStack);
                 }
             });
             Compute.playerItemUseWithRecord(player);

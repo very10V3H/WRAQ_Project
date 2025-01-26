@@ -77,7 +77,7 @@ public class UnCommonLotteries extends Item {
                             Compute.formatBroad(level, Component.literal("彩券").withStyle(CustomStyle.styleOfFantasy), Component.literal("").withStyle(ChatFormatting.WHITE).append(player.getDisplayName()).append(Component.literal(" 通过").withStyle(ChatFormatting.WHITE)).append(itemStack.getDisplayName()).append(Component.literal("获得了:").withStyle(ChatFormatting.WHITE)).append(itemAndWeight.getItem().getDefaultInstance().getDisplayName()));
 
 
-                        InventoryOperation.itemStackGive(player, itemAndWeight.getItem().getDefaultInstance());
+                        InventoryOperation.giveItemStack(player, itemAndWeight.getItem().getDefaultInstance());
 
                     }
                 }

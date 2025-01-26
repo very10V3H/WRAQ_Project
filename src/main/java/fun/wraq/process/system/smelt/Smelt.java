@@ -227,7 +227,7 @@ public class Smelt {
         Calendar current = Calendar.getInstance();
         if (current.after(finishTime)) {
             getProductListBySlotIndex(player, slotIndex).forEach(stack -> {
-                InventoryOperation.itemStackGive(player, new ItemStack(stack.getItem(), stack.getCount()));
+                InventoryOperation.giveItemStack(player, new ItemStack(stack.getItem(), stack.getCount()));
             });
             getExProductListBySlotIndex(player, slotIndex).forEach(itemAndRate -> {
                 itemAndRate.giveByNewObject(player);
@@ -247,7 +247,7 @@ public class Smelt {
         if (slotIndex > getMaxSmeltSlot(player)) return;
         getMaterialListBySlotIndex(player, slotIndex).forEach(stack -> {
             Security.recordItemStream(player.getName().getString(), stack, Security.RecordType.SMELT_CANCEL);
-            InventoryOperation.itemStackGive(player, new ItemStack(stack.getItem(), stack.getCount()));
+            InventoryOperation.giveItemStack(player, new ItemStack(stack.getItem(), stack.getCount()));
         });
         setSlotInfo(player, slotIndex, smeltSlotEmpty);
         MySound.soundToPlayer(player, SoundEvents.ITEM_PICKUP);

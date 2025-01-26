@@ -150,7 +150,7 @@ public class VolcanoRecallEvent {
                                                 append(Component.literal("的记忆。").withStyle(ChatFormatting.WHITE)));
                                 ItemStack itemStack = ModItems.IntensifiedVolcanoSoul.get().getDefaultInstance();
                                 itemStack.setCount(1);
-                                InventoryOperation.itemStackGive(Utils.volcanoRecall.recallPlayer, itemStack);
+                                InventoryOperation.giveItemStack(Utils.volcanoRecall.recallPlayer, itemStack);
                                 data.putInt(StringUtils.RecallEndRune3, 1);
                             } else {
                                 data.putInt(RecallTimes, data.getInt(RecallTimes) + 1);
@@ -167,7 +167,7 @@ public class VolcanoRecallEvent {
                                                 append(Component.literal("的记忆。").withStyle(ChatFormatting.WHITE)));
                                 ItemStack itemStack = ModItems.VolcanoRune.get().getDefaultInstance();
                                 itemStack.setCount(1);
-                                InventoryOperation.itemStackGive(Utils.volcanoRecall.recallPlayer, itemStack);
+                                InventoryOperation.giveItemStack(Utils.volcanoRecall.recallPlayer, itemStack);
                                 data.putInt(StringUtils.RecallEndRune3, 1);
                             }
                         }

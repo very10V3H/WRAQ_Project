@@ -79,6 +79,8 @@ import fun.wraq.series.overworld.sakura.Slime.SlimeBoots;
 import fun.wraq.series.overworld.sun.network.TotalKillCountS2CPacket;
 import fun.wraq.series.specialevents.labourDay.LabourDayIronHoe;
 import fun.wraq.series.specialevents.labourDay.LabourDayIronPickaxe;
+import fun.wraq.series.specialevents.spring2025.Spring2025BossBar;
+import fun.wraq.series.specialevents.spring2025.Spring2025ZoneFirework;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -169,6 +171,10 @@ public class ServerPlayerTickEvent {
             WraqQuiver.handleServerPlayerTick(player);
             WraqMixture.handleServerPlayerTick(player);
             ManaNewSkillFinal0.handleServerPlayerTickEvent(serverPlayer);
+            Spring2025BossBar.handleServerPlayerTick(serverPlayer);
+            if (player.tickCount % 20 == 15) {
+                Spring2025ZoneFirework.handleServerPlayerTick(player);
+            }
 
             if (player.tickCount % 10 == 0
                     && (player.isOnFire()
@@ -509,7 +515,7 @@ public class ServerPlayerTickEvent {
                                     Te.s(player.getName(), " 通过探索，达到了", String.valueOf(player.experienceLevel), ChatFormatting.LIGHT_PURPLE, "级"));
                         }
                         if (oldLevel == 99) {
-                            InventoryOperation.itemStackGive(player, ModItems.SkillReset.get().getDefaultInstance());
+                            InventoryOperation.giveItemStack(player, ModItems.SkillReset.get().getDefaultInstance());
                         }
                         ModNetworking.sendToClient(new SoundsS2CPacket(3), serverPlayer);
                     } else {

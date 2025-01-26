@@ -103,7 +103,7 @@ public class TradeList {
         Brewing();
         Spider();
         Sakura();
-        GoldCoinStore();
+        goldCoinStore();
         NewGive();
         Field();
         Spring();
@@ -1340,55 +1340,6 @@ public class TradeList {
                 case 1 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.COMPLETE_GEM.get(), 10));
                     add(new ItemStack(ModItems.ShipPiece.get(), 256));
-                }});
-            }
-        }
-    }
-
-    public static void GoldCoinStore() {
-        ItemStack[] itemStacks = {
-                new ItemStack(ModItems.BackSpawn.get(), 1),
-                new ItemStack(ModItems.WORLD_SOUL_2.get(), 2),
-                new ItemStack(ModItems.U_Disk.get(), 1),
-                new ItemStack(ModItems.BackPackTickets.get(), 1),
-                new ItemStack(ModItems.goldCoinLottery.get(), 1),
-                new ItemStack(moe.plushie.armourers_workshop.init.ModItems.SKIN_TEMPLATE.get(), 1),
-                new ItemStack(net.p3pp3rf1y.sophisticatedbackpacks.init.ModItems.STACK_UPGRADE_TIER_4.get(), 1),
-                new ItemStack(net.p3pp3rf1y.sophisticatedbackpacks.init.ModItems.PICKUP_UPGRADE.get(), 1),
-                new ItemStack(net.p3pp3rf1y.sophisticatedbackpacks.init.ModItems.INCEPTION_UPGRADE.get(), 1)
-        };
-        List<ItemStack> contentList = new ArrayList<>();
-        Collections.addAll(contentList, itemStacks);
-        tradeContent.put(StringUtils.VillagerName.GoldCoinStore, contentList);
-
-        for (int i = 0; i < itemStacks.length; i++) {
-            switch (i) {
-                case 0 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.GOLD_COIN.get(), 8));
-                }});
-                case 1 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.GOLD_COIN.get(), 16));
-                }});
-                case 2 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.GOLD_COIN.get(), 32));
-                }});
-                case 3 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.GOLD_COIN.get(), 64));
-                }});
-                case 4 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.GOLD_COIN.get(), 8));
-                }});
-                case 5 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.skinTemplatePaper.get()));
-                }});
-                case 6 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.stackUpgradePaper.get()));
-                }});
-                case 7 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.pickUpgradePaper.get()));
-                }});
-                case 8 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.INCEPTION_UPGRADE_PAPER.get()));
                 }});
             }
         }
@@ -3196,5 +3147,54 @@ public class TradeList {
                 List.of(new ItemStack(ModItems.GOLDEN_BEANS.get(), 1)));
         tradeRecipeMap.put(gemPiece,
                 List.of(new ItemStack(ModItems.GOLDEN_BEANS.get(), 1)));
+    }
+
+    public static void goldCoinStore() {
+        ItemStack roseGoldCoin = new ItemStack(ModItems.ROSE_GOLD_COIN.get());
+        ItemStack backSpawn = new ItemStack(ModItems.BackSpawn.get(), 1);
+        ItemStack uDisk = new ItemStack(ModItems.U_Disk.get(), 1);
+        ItemStack backpackTicket = new ItemStack(ModItems.BackPackTickets.get(), 1);
+        ItemStack goldCoinLottery = new ItemStack(ModItems.goldCoinLottery.get(), 1);
+        ItemStack skinTemplate = new ItemStack(moe.plushie.armourers_workshop.init.ModItems.SKIN_TEMPLATE.get(), 1);
+        ItemStack stackUpgradeTier4 =
+                new ItemStack(net.p3pp3rf1y.sophisticatedbackpacks.init.ModItems.STACK_UPGRADE_TIER_4.get(), 1);
+        ItemStack pickupUpgrade =
+                new ItemStack(net.p3pp3rf1y.sophisticatedbackpacks.init.ModItems.PICKUP_UPGRADE.get(), 1);
+        ItemStack inceptionUpgrade =
+                new ItemStack(net.p3pp3rf1y.sophisticatedbackpacks.init.ModItems.INCEPTION_UPGRADE.get(), 1);
+        ItemStack[] itemStacks = {
+                roseGoldCoin, backSpawn, uDisk, backpackTicket, goldCoinLottery,
+                skinTemplate, stackUpgradeTier4, pickupUpgrade, inceptionUpgrade
+        };
+        List<ItemStack> contentList = new ArrayList<>();
+        Collections.addAll(contentList, itemStacks);
+        tradeContent.put(StringUtils.VillagerName.GoldCoinStore, contentList);
+        tradeRecipeMap.put(roseGoldCoin,
+                List.of(new ItemStack(ModItems.REFINED_PIECE.get(), 16),
+                        new ItemStack(ModItems.GOLD_COIN.get(), 64)));
+        tradeRecipeMap.put(backSpawn, List.of(
+                new ItemStack(ModItems.GOLD_COIN.get(), 8)
+        ));
+        tradeRecipeMap.put(uDisk, List.of(
+                new ItemStack(ModItems.GOLD_COIN.get(), 32)
+        ));
+        tradeRecipeMap.put(backpackTicket, List.of(
+                new ItemStack(ModItems.GOLD_COIN.get(), 64)
+        ));
+        tradeRecipeMap.put(goldCoinLottery, List.of(
+                new ItemStack(ModItems.GOLD_COIN.get(), 64)
+        ));
+        tradeRecipeMap.put(skinTemplate, List.of(
+                new ItemStack(ModItems.skinTemplatePaper.get())
+        ));
+        tradeRecipeMap.put(stackUpgradeTier4, List.of(
+                new ItemStack(ModItems.stackUpgradePaper.get())
+        ));
+        tradeRecipeMap.put(pickupUpgrade, List.of(
+                new ItemStack(ModItems.pickUpgradePaper.get())
+        ));
+        tradeRecipeMap.put(inceptionUpgrade, List.of(
+                new ItemStack(ModItems.INCEPTION_UPGRADE_PAPER.get())
+        ));
     }
 }

@@ -210,7 +210,7 @@ public class WraqForge extends Item {
                 Guide.trigV2(player, Guide.StageV2.ENHANCE_EQUIP);
             }
 
-            InventoryOperation.itemStackGive(player, productItemStack);
+            InventoryOperation.giveItemStack(player, productItemStack);
             Guide.trigV2(player, Guide.StageV2.FIRST_FORGE);
             if (!StringUtils.FlagInTag.getPlayerFlag(player, firstTimeForge)) {
                 StringUtils.FlagInTag.setPlayerString(player, firstTimeForge, true);
@@ -245,7 +245,7 @@ public class WraqForge extends Item {
                 playerMSGSendDelayMap1.remove(name);
                 ItemStack itemStack = new ItemStack(ModItems.PlainRune.get(), 2);
                 Compute.sendFormatMSG(serverPlayer, Component.literal("引导-灌注").withStyle(ChatFormatting.AQUA), Component.literal("现在，拿着给予你的").withStyle(ChatFormatting.WHITE).append(itemStack.getDisplayName()).append(Component.literal("找到灌注台(在村庄锻造区域均有分布)，尝试给平原系列武器进行灌注升级吧！").withStyle(ChatFormatting.WHITE)));
-                InventoryOperation.itemStackGive(serverPlayer, itemStack);
+                InventoryOperation.giveItemStack(serverPlayer, itemStack);
                 MySound.soundToPlayer(serverPlayer, SoundEvents.EXPERIENCE_ORB_PICKUP);
             }
         }

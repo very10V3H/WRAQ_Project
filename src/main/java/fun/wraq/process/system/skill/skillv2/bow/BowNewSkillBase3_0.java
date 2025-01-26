@@ -53,4 +53,9 @@ public class BowNewSkillBase3_0 extends SkillV2BaseSkill {
             SkillV2.decreaseSkillCooldownTick(player, skillV2, Tick.s(1));
         }
     }
+
+    @Override
+    protected int getEachLevelExManaCost() {
+        return 5;
+    }
 }

@@ -86,7 +86,7 @@ public class Bank {
         }
         sendMSG(player, Te.s("成功取出了", count + "个", CustomStyle.styleOfGold, ModItems.GOLDEN_BEANS));
         expenseGB(player, count);
-        InventoryOperation.itemStackGiveWithMSG(player, new ItemStack(ModItems.GOLDEN_BEANS.get(), count));
+        InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.GOLDEN_BEANS.get(), count));
         MySound.soundToNearPlayer(player, SoundEvents.VILLAGER_TRADE);
     }
 

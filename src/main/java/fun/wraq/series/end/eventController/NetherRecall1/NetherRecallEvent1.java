@@ -152,7 +152,7 @@ public class NetherRecallEvent1 {
                                                 append(Component.literal("的记忆。").withStyle(ChatFormatting.WHITE)));
                                 ItemStack itemStack = ModItems.NetherRecallSoul.get().getDefaultInstance();
                                 itemStack.setCount(1);
-                                InventoryOperation.itemStackGive(Utils.netherRecall.recallPlayer, itemStack);
+                                InventoryOperation.giveItemStack(Utils.netherRecall.recallPlayer, itemStack);
                                 data.putInt(StringUtils.RecallEndRune3, 2);
                             } else {
                                 data.putInt(RecallTimes, data.getInt(RecallTimes) + 1);
@@ -169,7 +169,7 @@ public class NetherRecallEvent1 {
                                                 append(Component.literal("的记忆。").withStyle(ChatFormatting.WHITE)));
                                 ItemStack itemStack = ModItems.NetherSoul.get().getDefaultInstance();
                                 itemStack.setCount(1);
-                                InventoryOperation.itemStackGive(Utils.netherRecall.recallPlayer, itemStack);
+                                InventoryOperation.giveItemStack(Utils.netherRecall.recallPlayer, itemStack);
                                 data.putInt(StringUtils.RecallEndRune3, 2);
                             }
                         }

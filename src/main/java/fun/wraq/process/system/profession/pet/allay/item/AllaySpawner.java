@@ -38,7 +38,7 @@ public class AllaySpawner extends WraqItem {
             } else {
                 Compute.playerItemUseWithRecord(player);
                 AllayPetPlayerData.getAllayPetData(player).putInt(AllayPetPlayerData.XP_LEVEL_KEY, 1);
-                InventoryOperation.itemStackGiveWithMSG(player, AllayItems.ALLAY_CRYSTAL.get());
+                InventoryOperation.giveItemStackWithMSG(player, AllayItems.ALLAY_CRYSTAL.get());
                 AllayPet.sendMSG(player, Te.s("你获得了一只专属于你的", "悦灵", CustomStyle.styleOfWorld,
                         "! 快使用", AllayItems.ALLAY_CRYSTAL, "召唤它!"));
             }

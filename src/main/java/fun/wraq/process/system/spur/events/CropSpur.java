@@ -63,7 +63,7 @@ public class CropSpur {
             if (blockState.getBlock() instanceof CropBlock cropBlock) {
                 if (cropBlock.getAge(blockState) == cropBlock.getMaxAge()) {
                     if (cropsPickDrop.containsKey(blockState.getBlock())) {
-                        InventoryOperation.itemStackGive(player, cropsPickDrop.get(blockState.getBlock()).getDefaultInstance());
+                        InventoryOperation.giveItemStack(player, cropsPickDrop.get(blockState.getBlock()).getDefaultInstance());
                         cropsReward(player, blockState);
 
                         if (Compute.exHarvestItemGive(player, new ItemStack(cropsPickDrop.get(blockState.getBlock())), 1)) {
@@ -80,7 +80,7 @@ public class CropSpur {
                 BlockState blockState1 = Blocks.TORCHFLOWER_CROP.defaultBlockState();
                 overWorld.destroyBlock(blockPos, false);
                 overWorld.setBlockAndUpdate(blockPos, blockState1);
-                InventoryOperation.itemStackGive(player, Items.TORCHFLOWER.getDefaultInstance());
+                InventoryOperation.giveItemStack(player, Items.TORCHFLOWER.getDefaultInstance());
 
                 if (Compute.exHarvestItemGive(player, new ItemStack(Items.TORCHFLOWER), 1)) {
                     cropsReward(player, blockState);
@@ -126,7 +126,7 @@ public class CropSpur {
         Random random = new Random();
         if (random.nextDouble() < 0.035) {
             data.putInt(cropPieceGetTimes, data.getInt(cropPieceGetTimes) + 1);
-            InventoryOperation.itemStackGive(player, new ItemStack(SpurItems.cropPiece.get()));
+            InventoryOperation.giveItemStack(player, new ItemStack(SpurItems.cropPiece.get()));
         }
         if (Compute.exHarvestItemGive(player, new ItemStack(SpurItems.cropPiece.get()), 0.035)) {
             data.putInt(cropPieceGetTimes, data.getInt(cropPieceGetTimes) + 1);

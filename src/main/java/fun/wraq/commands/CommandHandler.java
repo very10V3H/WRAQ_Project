@@ -658,7 +658,7 @@ public class CommandHandler {
         CommandDispatcher<CommandSourceStack> dispatcher70 = event.getDispatcher();
         LiteralCommandNode<CommandSourceStack> cmd70 = dispatcher70.register(
                 Commands.literal(Utils.MOD_ID).then(
-                        Commands.literal("guide")
+                        Commands.literal("closeGuide")
                                 .executes(GuideHudCloseCommand.instance)
                 )
         );

@@ -153,7 +153,7 @@ public class SummerEvent {
             if (summerVoucherGetTimesKey < 8) {
                 quitJudge = true;
                 incrementIntData(player, dailySummerVoucherGetTimesKey);
-                InventoryOperation.itemStackGive(player, new ItemStack(SpecialEventItems.SUMMER_VOUCHER.get()));
+                InventoryOperation.giveItemStack(player, new ItemStack(SpecialEventItems.SUMMER_VOUCHER.get()));
                 sendFormatMSG(player, Component.literal("今日还能获得").withStyle(ChatFormatting.WHITE).
                         append(Component.literal(String.valueOf(8 - (summerVoucherGetTimesKey + 1)) + "次").withStyle(CustomStyle.styleOfWater)).
                         append(SpecialEventItems.SUMMER_VOUCHER.get().getDefaultInstance().getDisplayName()));
@@ -185,7 +185,7 @@ public class SummerEvent {
         }
 
         if (!quitJudge) {
-            InventoryOperation.itemStackGive(player, new ItemStack(ModItems.SeaSoul.get(), 3));
+            InventoryOperation.giveItemStack(player, new ItemStack(ModItems.SeaSoul.get(), 3));
         }
 
     }

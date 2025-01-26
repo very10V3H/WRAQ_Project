@@ -106,7 +106,7 @@ public abstract class RandomEvent {
                 Random random = new Random();
                 players.forEach(player -> {
                     if (random.nextDouble() < 0.5) {
-                        InventoryOperation.itemStackGive(player, new ItemStack(ModItems.RANDOM_EVENT_MEDAL.get()));
+                        InventoryOperation.giveItemStack(player, new ItemStack(ModItems.RANDOM_EVENT_MEDAL.get()));
                     }
                     rewardList.forEach(itemAndRate -> itemAndRate.sendWithMSG(player, 1));
                     if (randomAdditionalRewardEvent != null) {

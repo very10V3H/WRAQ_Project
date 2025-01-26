@@ -209,7 +209,7 @@ public class NewLotteries extends Item {
         ItemStack reward = new ItemStack(itemStack.getItem(), itemStack.getCount());
         if (InventoryCheck.getBoundingList().contains(reward.getItem()))
             InventoryCheck.addOwnerTagToItemStack(player, reward); // 为部分物品添加绑定tag
-        InventoryOperation.itemStackGive(player, reward);
+        InventoryOperation.giveItemStack(player, reward);
     }
 
     public static Map<String, Map<String, Integer>> playerLotteryData = new HashMap<>();

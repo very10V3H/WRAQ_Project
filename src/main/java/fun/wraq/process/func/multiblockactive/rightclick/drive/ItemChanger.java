@@ -34,7 +34,7 @@ public class ItemChanger extends RightClickActivation {
     @Override
     public void handleRightClick(Player player) {
         if (InventoryOperation.checkItemRemoveIfHas(player, materials)) {
-            products.forEach(stack -> InventoryOperation.itemStackGive(player, new ItemStack(stack.getItem(), stack.getCount())));
+            products.forEach(stack -> InventoryOperation.giveItemStack(player, new ItemStack(stack.getItem(), stack.getCount())));
         } else {
             sendFormatMSG(player, Te.s("所需物品不足"));
         }

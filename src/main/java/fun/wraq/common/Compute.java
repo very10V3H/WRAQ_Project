@@ -999,6 +999,20 @@ public class Compute {
         return true;
     }
 
+    public static void giveReputation(Player player, int reputation, Component type) {
+        CompoundTag data = player.getPersistentData();
+        data.putInt(StringUtils.Reputation, data.getInt(StringUtils.Reputation) + reputation);
+        data.putInt(StringUtils.ReputationCalculate, data.getInt(StringUtils.ReputationCalculate) + reputation);
+        sendFormatMSG(player, Te.s("声望", ChatFormatting.YELLOW),
+                Te.s(" + ", ChatFormatting.GREEN, String.valueOf(reputation), ChatFormatting.YELLOW, " ",
+                        "(" + data.getInt(StringUtils.Reputation) + ")", CustomStyle.styleOfStone,
+                        " <- ", ChatFormatting.AQUA, type));
+    }
+
+    public static void giveReputation(Player player, double reputation, Component type) {
+        giveReputation(player, (int) reputation, type);
+    }
+
     public static double playerFantasyAttributeEnhance(Player player) {
         double enhance = 0;
         CompoundTag data = player.getPersistentData();
@@ -1765,7 +1779,7 @@ public class Compute {
         if (random.nextDouble() < baseRate * Compute.playerExHarvest(player)) {
             Compute.sendFormatMSG(player, Component.literal("额外产出").withStyle(ChatFormatting.GOLD),
                     Component.literal("为你提供了额外产物！").withStyle(ChatFormatting.WHITE));
-            InventoryOperation.itemStackGive(player, itemStack);
+            InventoryOperation.giveItemStack(player, itemStack);
             return true;
         }
         return false;

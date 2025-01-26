@@ -61,7 +61,7 @@ public class VpStoreBuyC2SPacket {
                     ItemStack itemStack = new ItemStack(goods.getItem(), count);
 
                     Security.recordItemStream(name, itemStack, Security.RecordType.WORLD_SOUL_5_VP_PAY);
-                    InventoryOperation.itemStackGive(serverPlayer, itemStack);
+                    InventoryOperation.giveItemStack(serverPlayer, itemStack);
 
                     buySuccessfully = true;
                     worldSoul5CostNum = needCount;
@@ -72,29 +72,51 @@ public class VpStoreBuyC2SPacket {
                 if (goods.getItem() instanceof SimpleTierPaper simpleTierPaper) {
                     int tier = simpleTierPaper.getTier();
                     try {
-                        if (PlanPlayer.getPlayerTier(serverPlayer) >= tier) {
+                        if (PlanPlayer.getPlayerTier(serverPlayer) > tier) {
                             Compute.sendFormatMSG(serverPlayer, Component.literal("vp").withStyle(ChatFormatting.AQUA),
                                     Component.literal("无法购买阶位不高于当前阶位的计划.").withStyle(ChatFormatting.WHITE));
                             return;
                         } else {
-                            VpDataHandler.playerVpData.put(name.toLowerCase(), VpDataHandler.playerVpData.getOrDefault(name.toLowerCase(), 0d) - price);
-                            Calendar calendar = Calendar.getInstance();
-                            calendar.add(Calendar.DATE, 31);
-                            String overDate = Compute.CalendarToString(calendar);
-                            calendar = Calendar.getInstance();
-                            calendar.add(Calendar.DATE, -1);
-                            String lastRewardDate = Compute.CalendarToString(calendar);
-                            if (!PlanPlayer.map.containsKey(name))
-                                PlanPlayer.map.put(name, new PlanPlayer(name, tier, overDate, lastRewardDate, 0));
-                            else {
-                                PlanPlayer.map.get(name).tier = tier;
-                                PlanPlayer.map.get(name).overDate = overDate;
+                            VpDataHandler.playerVpData.put(name.toLowerCase(),
+                                    VpDataHandler.playerVpData.getOrDefault(name.toLowerCase(), 0d) - price);
+
+                            if (PlanPlayer.getPlayerTier(serverPlayer) == tier) {
+                                if (PlanPlayer.map.containsKey(name)) {
+                                    PlanPlayer planPlayer = PlanPlayer.map.get(name);
+                                    String oldOverDate = planPlayer.overDate;
+                                    Calendar oldOverDateCalendar = Compute.StringToCalendar(oldOverDate);
+                                    oldOverDateCalendar.add(Calendar.DATE, SimpleTierPaper.lastDay);
+                                    planPlayer.overDate = Compute.CalendarToString(oldOverDateCalendar);
+                                    Compute.sendFormatMSG(serverPlayer, Te.s("vp", ChatFormatting.AQUA),
+                                            Te.s("续约成功!"));
+                                } else {
+                                    Compute.sendFormatMSG(serverPlayer, Te.s("vp", ChatFormatting.AQUA),
+                                            Te.s("出现异常，速速联系铁头!"));
+                                }
+                            } else {
+                                Calendar calendar = Calendar.getInstance();
+                                calendar.add(Calendar.DATE, SimpleTierPaper.lastDay);
+                                String overDate = Compute.CalendarToString(calendar);
+                                calendar = Calendar.getInstance();
+                                calendar.add(Calendar.DATE, -1);
+                                String lastRewardDate = Compute.CalendarToString(calendar);
+                                if (!PlanPlayer.map.containsKey(name))
+                                    PlanPlayer.map.put(name, new PlanPlayer(name, tier, overDate, lastRewardDate, 0));
+                                else {
+                                    PlanPlayer.map.get(name).tier = tier;
+                                    PlanPlayer.map.get(name).overDate = overDate;
+                                }
                             }
+
                             CompoundTag data = serverPlayer.getPersistentData();
-                            if (tier == 1)
-                                data.putInt(CustomPrefixCommand.customPrefixTimes, data.getInt(CustomPrefixCommand.customPrefixTimes) + 2);
-                            if (tier == 2)
-                                data.putInt(CustomPrefixCommand.customPrefixTimes, data.getInt(CustomPrefixCommand.customPrefixTimes) + 6);
+                            if (tier == 1) {
+                                data.putInt(CustomPrefixCommand.customPrefixTimes,
+                                        data.getInt(CustomPrefixCommand.customPrefixTimes) + 2);
+                            }
+                            if (tier == 2) {
+                                data.putInt(CustomPrefixCommand.customPrefixTimes,
+                                        data.getInt(CustomPrefixCommand.customPrefixTimes) + 6);
+                            }
 
                             Security.recordVPStream(name, Security.SYSTEM, price, Security.RecordType.VP_PAY);
                             Security.recordItemStream(name, goods, Security.RecordType.VP_PAY);
@@ -113,7 +135,7 @@ public class VpStoreBuyC2SPacket {
                     Security.recordVPStream(name, Security.SYSTEM, price, Security.RecordType.VP_PAY);
                     Security.recordItemStream(name, goods, Security.RecordType.VP_PAY);
 
-                    InventoryOperation.itemStackGive(serverPlayer, itemStack);
+                    InventoryOperation.giveItemStack(serverPlayer, itemStack);
                 }
                 VpDataHandler.sendPlayerVpValue(serverPlayer);
                 buySuccessfully = true;

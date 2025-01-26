@@ -40,7 +40,7 @@ public class ItemAndRate {
         if (rate > 1) {
             int num = (int) Math.floor(rate);
             itemStack.setCount(num);
-            InventoryOperation.itemStackGive(player, itemStack);
+            InventoryOperation.giveItemStack(player, itemStack);
         } else {
             InventoryOperation.giveItemStackByRate(itemStack, rate, player);
         }
@@ -53,7 +53,7 @@ public class ItemAndRate {
         if (random.nextDouble() < rate) num ++;
         newStack.setCount(itemStack.getCount() * num);
         newStack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
-        InventoryOperation.itemStackGive(player, newStack);
+        InventoryOperation.giveItemStack(player, newStack);
     }
 
     public void drop(Mob mob) {
@@ -110,7 +110,7 @@ public class ItemAndRate {
         if (adjustStackBeforeGive != null) {
             adjustStackBeforeGive.adjust(dropItemStack);
         }
-        InventoryOperation.itemStackGive(player, dropItemStack);
+        InventoryOperation.giveItemStack(player, dropItemStack);
         return true;
     }
 
@@ -134,7 +134,7 @@ public class ItemAndRate {
         if (adjustStackBeforeGive != null) {
             adjustStackBeforeGive.adjust(dropItemStack);
         }
-        InventoryOperation.itemStackGiveWithMSG(player, dropItemStack);
+        InventoryOperation.giveItemStackWithMSG(player, dropItemStack);
         return true;
     }
 

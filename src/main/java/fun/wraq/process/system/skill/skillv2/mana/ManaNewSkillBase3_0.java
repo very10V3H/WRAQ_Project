@@ -41,8 +41,7 @@ public class ManaNewSkillBase3_0 extends SkillV2BaseSkill {
         }
         SkillV2 skillV2 = getPlayerCurrentSkillByType(player, 3);
         if (skillV2 instanceof ManaNewSkillBase3_0) {
-            int skillLevel = getPlayerSkillLevelBySkillV2(player, skillV2);
-            WraqMixture.batchAddExShoot(player, 1.5 + skillLevel * 0.15, 1);
+            WraqMixture.batchAddExShoot(player, 1, 1);
         }
     }
 
@@ -92,7 +91,11 @@ public class ManaNewSkillBase3_0 extends SkillV2BaseSkill {
         components.add(Te.s("按住shift将使后向位移失效", ChatFormatting.GRAY, ChatFormatting.ITALIC));
         components.add(Te.s("并获得持续3s的", "激化", CustomStyle.styleOfMana));
         components.add(Te.s("在持续时间内，普通攻击将会额外释放", "1枚", CustomStyle.styleOfMana, "法球"));
-        components.add(Te.s("额外法球的伤害与", "1枚居合法球", CustomStyle.styleOfMana, "同等"));
         return components;
+    }
+
+    @Override
+    protected int getEachLevelExManaCost() {
+        return 10;
     }
 }

@@ -25,7 +25,7 @@ public class SupplyCommand implements Command<CommandSourceStack> {
                 PatchouliAPI.get().getBookStack(new ResourceLocation(Utils.MOD_ID, "guide"))
         );
         supply.forEach(stack -> {
-            InventoryOperation.itemStackGive(player, stack);
+            InventoryOperation.giveItemStack(player, stack);
         });
         return 0;
     }

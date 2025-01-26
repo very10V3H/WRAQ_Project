@@ -62,7 +62,7 @@ public class DailySupply {
                     Component.literal("成功领取了每日补给").withStyle(ChatFormatting.WHITE));
             ItemStack mapItemStack = map.getOrDefault(fun.wraq.process.func.plan.PlanPlayer.getPlayerTier(player), new ItemStack(Items.AIR));
             ItemStack giveItemStack = new ItemStack(mapItemStack.getItem(), mapItemStack.getCount());
-            InventoryOperation.itemStackGive(player, giveItemStack);
+            InventoryOperation.giveItemStack(player, giveItemStack);
             sendStatusToClient(player);
         } else {
             Compute.sendFormatMSG(player, Component.literal("每日补给").withStyle(ChatFormatting.AQUA),

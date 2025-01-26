@@ -153,7 +153,7 @@ public class SpiderRecallEvent {
                                                 append(Component.literal("的记忆。").withStyle(ChatFormatting.WHITE)));
                                 ItemStack itemStack = ModItems.SpiderRecallSoul.get().getDefaultInstance();
                                 itemStack.setCount(1);
-                                InventoryOperation.itemStackGive(Utils.spiderRecall.recallPlayer, itemStack);
+                                InventoryOperation.giveItemStack(Utils.spiderRecall.recallPlayer, itemStack);
                             } else {
                                 data.putInt(RecallTimes, data.getInt(RecallTimes) + 1);
                                 ToEnd.toEndSpawnPos(Utils.spiderRecall.recallPlayer);
@@ -169,7 +169,7 @@ public class SpiderRecallEvent {
                                                 append(Component.literal("的记忆。").withStyle(ChatFormatting.WHITE)));
                                 ItemStack itemStack = ModItems.SpiderRune.get().getDefaultInstance();
                                 itemStack.setCount(1);
-                                InventoryOperation.itemStackGive(Utils.spiderRecall.recallPlayer, itemStack);
+                                InventoryOperation.giveItemStack(Utils.spiderRecall.recallPlayer, itemStack);
                             }
                         }
                     }

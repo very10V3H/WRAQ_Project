@@ -144,7 +144,7 @@ public class SeaRecallEvent {
                                                 append(Component.literal("的记忆。").withStyle(ChatFormatting.WHITE)));
                                 ItemStack itemStack = ModItems.SeaRecallSoul.get().getDefaultInstance();
                                 itemStack.setCount(1);
-                                InventoryOperation.itemStackGive(Utils.seaRecall.recallPlayer, itemStack);
+                                InventoryOperation.giveItemStack(Utils.seaRecall.recallPlayer, itemStack);
                             } else {
                                 data.putInt(RecallTimes, data.getInt(RecallTimes) + 1);
                                 ToEnd.toEndSpawnPos(Utils.seaRecall.recallPlayer);
@@ -160,7 +160,7 @@ public class SeaRecallEvent {
                                                 append(Component.literal("的记忆。").withStyle(ChatFormatting.WHITE)));
                                 ItemStack itemStack = ModItems.SeaRune.get().getDefaultInstance();
                                 itemStack.setCount(1);
-                                InventoryOperation.itemStackGive(Utils.seaRecall.recallPlayer, itemStack);
+                                InventoryOperation.giveItemStack(Utils.seaRecall.recallPlayer, itemStack);
                             }
                         }
                     }

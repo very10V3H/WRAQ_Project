@@ -24,7 +24,7 @@ public class LogCommand implements Command<CommandSourceStack> {
         Player player = context.getSource().getPlayer();
         CompoundTag data = player.getPersistentData();
         if (data.contains(StringUtils.Lop.Xp) && !data.contains(StringUtils.LogReward)) {
-            InventoryOperation.itemStackGive(player, new ItemStack(ModItems.LogBag.get(), data.getInt(StringUtils.Lop.Xp) / 256));
+            InventoryOperation.giveItemStack(player, new ItemStack(ModItems.LogBag.get(), data.getInt(StringUtils.Lop.Xp) / 256));
             data.putBoolean(StringUtils.LogReward, true);
         } else {
             Compute.sendFormatMSG(player, Component.literal("补偿").withStyle(CustomStyle.styleOfField),

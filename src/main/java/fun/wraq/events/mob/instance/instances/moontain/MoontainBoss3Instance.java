@@ -262,7 +262,7 @@ public class MoontainBoss3Instance extends NoTeamInstance {
         Compute.forgingHoverName(stack);
         MoontainUtils.formatBroad(player.level(), Te.s(player.getDisplayName(),
                 " 击杀 ", mobName, style, " 获得了 ", stack.getDisplayName()));
-        InventoryOperation.itemStackGive(player, stack);
+        InventoryOperation.giveItemStack(player, stack);
         NoTeamInstanceModule.putPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.enderGuardian, true);
     }
 
@@ -276,7 +276,7 @@ public class MoontainBoss3Instance extends NoTeamInstance {
         Compute.forgingHoverName(stack);
         MoontainUtils.formatBroad(player.level(), Te.s(player.getDisplayName(),
                 " 击杀 ", mobName, style, " 获得了 ", stack.getDisplayName()));
-        InventoryOperation.itemStackGive(player, stack);
+        InventoryOperation.giveItemStack(player, stack);
     }
 
     @Override

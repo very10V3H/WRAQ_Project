@@ -71,7 +71,7 @@ public class Daily extends Item {
                 } else {
                     ItemStack GemPiece = ModItems.GEM_PIECE.get().getDefaultInstance();
                     GemPiece.setCount(player.experienceLevel / 2);
-                    InventoryOperation.itemStackGive(player, GemPiece);
+                    InventoryOperation.giveItemStack(player, GemPiece);
                     Compute.RandomPotionBagProvider(player, 6, 0.75);
                     ItemStack itemStack = player.getItemInHand(InteractionHand.MAIN_HAND);
                     itemStack.setCount(itemStack.getCount() - 1);
@@ -83,7 +83,7 @@ public class Daily extends Item {
                     if (player.experienceLevel >= 60) {
                         ItemStack ironlove = ModItems.IronLove.get().getDefaultInstance();
                         ironlove.getOrCreateTagElement(Utils.MOD_ID).putString(InventoryCheck.owner, player.getName().getString());
-                        InventoryOperation.itemStackGive(player, ironlove);
+                        InventoryOperation.giveItemStack(player, ironlove);
                     }
                 }
             }

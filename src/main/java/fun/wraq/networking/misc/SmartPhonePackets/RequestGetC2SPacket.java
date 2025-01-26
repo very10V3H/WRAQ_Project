@@ -41,7 +41,7 @@ public class RequestGetC2SPacket {
                     }
                     case 1 -> {
                         InventoryOperation
-                                .itemStackGiveWithMSG(player, new ItemStack(ModItems.GOLDEN_BEANS.get(), info.profit));
+                                .giveItemStackWithMSG(player, new ItemStack(ModItems.GOLDEN_BEANS.get(), info.profit));
                     }
                 }
             });

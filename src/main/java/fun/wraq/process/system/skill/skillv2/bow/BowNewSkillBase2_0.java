@@ -68,4 +68,9 @@ public class BowNewSkillBase2_0 extends SkillV2BaseSkill {
     protected int getCooldownDecrease(Player player) {
         return FrameArrow.enhanceBowSkillV2_2(player) ? Tick.s(1) : 0;
     }
+
+    @Override
+    protected int getEachLevelExManaCost() {
+        return 10;
+    }
 }

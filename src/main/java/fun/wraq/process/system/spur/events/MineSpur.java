@@ -75,10 +75,10 @@ public class MineSpur {
                                 Utils.posEvenBeenDigOrPlace.add(blockPos);
                             }
                             if ((blockState.is(Blocks.STONE) || blockState.is(Blocks.COBBLESTONE))) {
-                                InventoryOperation.itemStackGiveWithMSG(player, Items.COBBLESTONE.getDefaultInstance());
+                                InventoryOperation.giveItemStackWithMSG(player, Items.COBBLESTONE.getDefaultInstance());
                             }
                             if ((blockState.is(Blocks.DEEPSLATE) || blockState.is(Blocks.COBBLED_DEEPSLATE))) {
-                                InventoryOperation.itemStackGiveWithMSG(player, Items.COBBLED_DEEPSLATE.getDefaultInstance());
+                                InventoryOperation.giveItemStackWithMSG(player, Items.COBBLED_DEEPSLATE.getDefaultInstance());
                             }
                             if (blockState.is(Blocks.ANDESITE)) player.addItem(Items.ANDESITE.getDefaultInstance());
                             if (blockState.is(Blocks.DIORITE)) player.addItem(Items.DIORITE.getDefaultInstance());
@@ -98,7 +98,7 @@ public class MineSpur {
     private static void destroyLevelBlockAndRewardPlayer(Player player, BlockPos blockPos, BlockState blockState, Block block, Level level) {
         level.destroyBlock(blockPos, false);
         ItemStack stack = mineRewardMap.get(block).itemStack;
-        InventoryOperation.itemStackGive(player, new ItemStack(stack.getItem(), stack.getCount()));
+        InventoryOperation.giveItemStack(player, new ItemStack(stack.getItem(), stack.getCount()));
         if (extraDropMap.containsKey(block)) {
             extraDropMap.get(block).forEach(itemAndRate -> {
                 itemAndRate.send(player, 1 + Compute.playerExHarvest(player));
@@ -109,7 +109,7 @@ public class MineSpur {
         if (random.nextDouble() < Compute.playerExHarvest(player)) {
             Compute.sendFormatMSG(player, Component.literal("额外产出").withStyle(ChatFormatting.GOLD),
                     Component.literal("为你提供了额外产物！").withStyle(ChatFormatting.WHITE));
-            InventoryOperation.itemStackGive(player, new ItemStack(stack.getItem(), stack.getCount()));
+            InventoryOperation.giveItemStack(player, new ItemStack(stack.getItem(), stack.getCount()));
             mineReward(player, blockState, blockPos);
         }
     }
@@ -134,7 +134,7 @@ public class MineSpur {
         if (random.nextDouble() < 0.08) {
             CompoundTag tag = player.getPersistentData();
             tag.putInt(minePieceGetTimes, tag.getInt(minePieceGetTimes) + 1);
-            InventoryOperation.itemStackGive(player, new ItemStack(SpurItems.minePiece.get()));
+            InventoryOperation.giveItemStack(player, new ItemStack(SpurItems.minePiece.get()));
         }
         if (Compute.exHarvestItemGive(player, new ItemStack(SpurItems.minePiece.get()), 0.08)) {
             CompoundTag tag = player.getPersistentData();

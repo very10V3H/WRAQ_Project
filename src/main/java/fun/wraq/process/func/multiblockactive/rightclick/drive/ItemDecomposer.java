@@ -38,7 +38,7 @@ public class ItemDecomposer extends RightClickActivation {
                     });
                     InventoryOperation.removeItemWithoutCheck(player, supportItems);
                     product.forEach(stack -> {
-                        InventoryOperation.itemStackGive(player, new ItemStack(stack.getItem(), stack.getCount()));
+                        InventoryOperation.giveItemStack(player, new ItemStack(stack.getItem(), stack.getCount()));
                     });
                 });
     }

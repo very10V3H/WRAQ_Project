@@ -75,7 +75,7 @@ public class VolcanoBossPocket extends Item {
                     Compute.sendFormatMSG(player, Component.literal("次元能量").withStyle(CustomStyle.styleOfEntropy),
                             Component.literal("你通过次元口袋获得了").withStyle(ChatFormatting.WHITE).
                                     append(Rewards[i].getDefaultInstance().getDisplayName()));
-                    InventoryOperation.itemStackGive(player, Rewards[i].getDefaultInstance());
+                    InventoryOperation.giveItemStack(player, Rewards[i].getDefaultInstance());
                     Compute.formatBroad(level, Component.literal("次元").withStyle(CustomStyle.styleOfEntropy),
                             Component.literal("玩家").withStyle(ChatFormatting.WHITE).
                                     append(player.getDisplayName()).

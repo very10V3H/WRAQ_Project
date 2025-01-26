@@ -208,7 +208,7 @@ public class RankData {
     public static void onPlayerFinishDailyReputationMission(Player player) {
         if (getRankSerial(player) >= rankSerialList.indexOf("13A")) {
             List.of(new ItemStack(ModItems.SENIOR_POTION_SUPPLY.get()), new ItemStack(ModItems.REVELATION_HEART.get()))
-                    .forEach(stack -> InventoryOperation.itemStackGiveWithMSG(player, stack));
+                    .forEach(stack -> InventoryOperation.giveItemStackWithMSG(player, stack));
             sendFormatMSG(player, Te.s("你的", "职权", ChatFormatting.AQUA, "为你额外提供了奖励!"));
         }
         if (getRankSerial(player) >= rankSerialList.indexOf("13C")) {
@@ -230,14 +230,14 @@ public class RankData {
     }
 
     // 额外悬赏值
-    public static double reputationMissionRewardRate(Player player) {
+    public static double getExReputationMissionRewardRate(Player player) {
         if (getRankSerial(player) >= rankSerialList.indexOf("14A")) {
-            return 1.3;
+            return 0.3;
         } else if (getRankSerial(player) >= rankSerialList.indexOf("14B")) {
-            return 1.2;
+            return 0.2;
         } else if (getRankSerial(player) >= rankSerialList.indexOf("14C")) {
-            return 1.1;
+            return 0.1;
         }
-        return 1;
+        return 0;
     }
 }

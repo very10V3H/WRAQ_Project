@@ -48,4 +48,9 @@ public class BowNewSkillFinal0 extends SkillV2FinalSkill {
                 String.format("%.0f%%", getRate(level) * 100), CustomStyle.styleOfFlexible, "伤害"));
         return components;
     }
+
+    @Override
+    protected int getEachLevelExManaCost() {
+        return 10;
+    }
 }

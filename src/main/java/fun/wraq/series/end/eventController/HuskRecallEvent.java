@@ -145,7 +145,7 @@ public class HuskRecallEvent {
                                                 append(Component.literal("的记忆。").withStyle(ChatFormatting.WHITE)));
                                 ItemStack itemStack = ModItems.BlackForestRecallSoul.get().getDefaultInstance();
                                 itemStack.setCount(1);
-                                InventoryOperation.itemStackGive(Utils.huskRecall.recallPlayer, itemStack);
+                                InventoryOperation.giveItemStack(Utils.huskRecall.recallPlayer, itemStack);
                             } else {
                                 data.putInt(RecallTimes, data.getInt(RecallTimes) + 1);
                                 ToEnd.toEndSpawnPos(Utils.huskRecall.recallPlayer);
@@ -161,7 +161,7 @@ public class HuskRecallEvent {
                                                 append(Component.literal("的记忆。").withStyle(ChatFormatting.WHITE)));
                                 ItemStack itemStack = ModItems.HUSK_RUNE.get().getDefaultInstance();
                                 itemStack.setCount(1);
-                                InventoryOperation.itemStackGive(Utils.huskRecall.recallPlayer, itemStack);
+                                InventoryOperation.giveItemStack(Utils.huskRecall.recallPlayer, itemStack);
                             }
                         }
                     }

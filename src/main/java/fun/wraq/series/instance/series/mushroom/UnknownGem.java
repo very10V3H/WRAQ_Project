@@ -74,7 +74,7 @@ public class UnknownGem extends WraqItem {
                     Compute.formatBroad(Te.s("吞噬", ChatFormatting.RED),
                             Te.s(player, "通过", " 吞噬", ChatFormatting.RED,
                                     "生机元素 ", CustomStyle.styleOfLife, "获得了 ", mushroomGem));
-                    InventoryOperation.itemStackGiveWithMSG(player, mushroomGem);
+                    InventoryOperation.giveItemStackWithMSG(player, mushroomGem);
                 } else {
                     sendMSG(player, Te.s("吞噬失败", ChatFormatting.RED,
                             "(" + String.format("%.2f%%", rate * 100) + ")", ChatFormatting.GRAY));

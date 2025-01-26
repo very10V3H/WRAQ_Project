@@ -123,7 +123,7 @@ public class BlockEvent {
 
                     worldSoul1.setCount(TransformSuccessNum);
                     Compute.playerItemUseWithRecord(player, itemStack.getCount());
-                    InventoryOperation.itemStackGive(player, worldSoul1);
+                    InventoryOperation.giveItemStack(player, worldSoul1);
                 } else {
                     if (Utils.WorldSoulMap.isEmpty()) Utils.WorldSoulMapInit();
                     if (itemStack.getCount() == 64 && Utils.WorldSoulMap.containsKey(itemStack.getItem())) {
@@ -134,7 +134,7 @@ public class BlockEvent {
                                         append(Component.literal("转换成为").withStyle(ChatFormatting.WHITE)).
                                         append(NextTireSoul.getDefaultInstance().getDisplayName()));
                         Compute.playerItemUseWithRecord(player, 64);
-                        InventoryOperation.itemStackGive(player, NextTireSoul.getDefaultInstance());
+                        InventoryOperation.giveItemStack(player, NextTireSoul.getDefaultInstance());
                     }
                 }
             }
@@ -296,7 +296,7 @@ public class BlockEvent {
         if (chestBlockEntity != null) {
             for (int i = 0; i < 27; i++) {
                 if (!chestBlockEntity.getItem(i).is(Items.AIR)) {
-                    InventoryOperation.itemStackGive(player, chestBlockEntity.getItem(i));
+                    InventoryOperation.giveItemStack(player, chestBlockEntity.getItem(i));
                 }
             }
             BonusChestPlayerData.openBonusChestMap.remove(player);

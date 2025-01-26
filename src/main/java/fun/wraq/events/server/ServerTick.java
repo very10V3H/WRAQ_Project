@@ -16,6 +16,7 @@ import fun.wraq.process.system.reason.Reason;
 import fun.wraq.process.system.tower.Tower;
 import fun.wraq.process.system.vp.VpDataHandler;
 import fun.wraq.series.instance.series.purple.PurpleIronCommon;
+import fun.wraq.series.specialevents.spring2025.Spring2025BossBar;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -64,6 +65,7 @@ public class ServerTick {
             Reason.serverTick();
             AllayPet.handleServerTick();
             SputteringDamage.handleServerTick();
+            Spring2025BossBar.handleServerTick();
         }
     }
 

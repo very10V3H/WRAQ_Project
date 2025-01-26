@@ -101,7 +101,7 @@ public class BuyCheckC2SPacket {
                         marketItemInfo.playerName, itemStack);
                 Compute.sendFormatMSG(serverPlayer, Component.literal("市场").withStyle(ChatFormatting.GOLD),
                         Component.literal("购买成功！").withStyle(ChatFormatting.WHITE));
-                InventoryOperation.itemStackGiveWithMSG(serverPlayer, itemStack);
+                InventoryOperation.giveItemStackWithMSG(serverPlayer, itemStack);
                 Utils.marketItemInfos.remove(removeInfo);
             } else {
                 if (hasEnoughCurrency) {

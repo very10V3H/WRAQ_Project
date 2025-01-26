@@ -48,7 +48,7 @@ public class ReputationBuyRequestC2SPacket {
                 ItemStack itemStack = item.getDefaultInstance();
                 if (item.equals(ModItems.notePaper.get()))
                     InventoryCheck.addOwnerTagToItemStack(serverPlayer, itemStack);
-                InventoryOperation.itemStackGive(serverPlayer, itemStack);
+                InventoryOperation.giveItemStack(serverPlayer, itemStack);
             }
         });
         return true;

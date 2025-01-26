@@ -21,6 +21,8 @@ public class SimpleTierPaper extends SimpleFoiledItem {
         this.tier = tier;
     }
 
+    public static int lastDay = 41;
+
     public static List<Component> tier1Description = new ArrayList<>() {{
         add(Component.literal("1. ").withStyle(CustomStyle.styleOfWorld).
                 append(Component.literal("本源回廊").withStyle(CustomStyle.styleOfWorld)).
@@ -61,7 +63,7 @@ public class SimpleTierPaper extends SimpleFoiledItem {
                 append(ModItems.TP_TICKET.get().getDefaultInstance().getDisplayName()).
                 append(Component.literal("*16").withStyle(ChatFormatting.AQUA)));
         add(Te.s("10. ", CustomStyle.styleOfWorld, "每小时额外恢复", "5理智", CustomStyle.styleOfFlexible));
-        add(Component.literal("11. 持续31天").withStyle(CustomStyle.styleOfWorld));
+        add(Component.literal("11. 持续" + lastDay + "天").withStyle(CustomStyle.styleOfWorld));
     }};
     public static List<Component> tier2Description = new ArrayList<>() {{
         add(Component.literal("1. ").withStyle(CustomStyle.styleOfWorld).
@@ -101,7 +103,7 @@ public class SimpleTierPaper extends SimpleFoiledItem {
         add(Component.literal("9. ").withStyle(CustomStyle.styleOfWorld).
                 append(Component.literal("使用天空城传送中枢将不消耗资源").withStyle(CustomStyle.styleOfGold)));
         add(Te.s("10. ", CustomStyle.styleOfWorld, "每小时额外恢复", "15理智", CustomStyle.styleOfFlexible));
-        add(Component.literal("11. 持续31天").withStyle(CustomStyle.styleOfWorld));
+        add(Component.literal("11. 持续" + lastDay + "天").withStyle(CustomStyle.styleOfWorld));
     }};
     public static List<Component> tier3Description = new ArrayList<>() {{
         add(Component.literal("1. ").withStyle(CustomStyle.styleOfWorld).
@@ -140,7 +142,7 @@ public class SimpleTierPaper extends SimpleFoiledItem {
         add(Component.literal("9. ").withStyle(CustomStyle.styleOfWorld).
                 append(Component.literal("使用天空城传送中枢将不消耗资源").withStyle(CustomStyle.styleOfGold)));
         add(Te.s("10. ", CustomStyle.styleOfWorld, "每小时额外恢复", "25理智", CustomStyle.styleOfFlexible));
-        add(Component.literal("11. 持续31天").withStyle(CustomStyle.styleOfWorld));
+        add(Component.literal("11. 持续" + lastDay + "天").withStyle(CustomStyle.styleOfWorld));
     }};
 
     public List<Component> getTierDescription() {

@@ -164,7 +164,7 @@ public class ForestRecallEvent {
                                                 append(Component.literal("的记忆。").withStyle(ChatFormatting.WHITE)));
                                 ItemStack itemStack = ModItems.IntensifiedForestRecallSoul.get().getDefaultInstance();
                                 itemStack.setCount(1);
-                                InventoryOperation.itemStackGive(Utils.forestRecall.recallPlayer, itemStack);
+                                InventoryOperation.giveItemStack(Utils.forestRecall.recallPlayer, itemStack);
                                 data.putInt(StringUtils.RecallEndRune3, 0);
                             } else {
                                 data.putInt(RecallTimes, data.getInt(RecallTimes) + 1);
@@ -181,7 +181,7 @@ public class ForestRecallEvent {
                                                 append(Component.literal("的记忆。").withStyle(ChatFormatting.WHITE)));
                                 ItemStack itemStack = ModItems.ForestRune.get().getDefaultInstance();
                                 itemStack.setCount(1);
-                                InventoryOperation.itemStackGive(Utils.forestRecall.recallPlayer, itemStack);
+                                InventoryOperation.giveItemStack(Utils.forestRecall.recallPlayer, itemStack);
                                 data.putInt(StringUtils.RecallEndRune3, 0);
                             }
                         }

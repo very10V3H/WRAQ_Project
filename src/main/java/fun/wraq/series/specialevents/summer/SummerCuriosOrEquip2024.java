@@ -86,7 +86,7 @@ public class SummerCuriosOrEquip2024 extends WraqCurios implements InCuriosOrEqu
         if (player.tickCount % 300 == 0 && player.level().dimension().equals(Level.OVERWORLD)
                 && MySeason.currentSeason.contains(MySeason.summer) && player.isInWater()
                 && player.level().isDay()) {
-            InventoryOperation.itemStackGive(player, new ItemStack(Items.TROPICAL_FISH));
+            InventoryOperation.giveItemStack(player, new ItemStack(Items.TROPICAL_FISH));
             Compute.sendFormatMSG(player, Component.literal("摸鱼!").withStyle(CustomStyle.styleOfWater),
                     Component.literal("你摸到了一条鱼！").withStyle(ChatFormatting.GOLD));
         }

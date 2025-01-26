@@ -110,4 +110,9 @@ public class SwordNewSkillFinal0 extends SkillV2FinalSkill {
             swordAir.shootFromRotation(3);
         }
     }
+
+    @Override
+    protected int getEachLevelExManaCost() {
+        return 10;
+    }
 }

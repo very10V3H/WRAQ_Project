@@ -40,7 +40,7 @@ public class CropPackets extends Item {
                     new ItemStack(Items.BEETROOT, 32)
             };
             for (ItemStack itemStack : itemStacks) {
-                InventoryOperation.itemStackGive(player, itemStack);
+                InventoryOperation.giveItemStack(player, itemStack);
             }
             Compute.playerItemUseWithRecord(player);
         }

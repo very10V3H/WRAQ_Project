@@ -44,7 +44,7 @@ public class MopUpPaperLoot extends Item {
             Random rand = new Random();
             ItemStack stack = new ItemStack(mopUpPaperList.get(rand.nextInt(mopUpPaperList.size())));
             Compute.playerItemUseWithRecord(player);
-            InventoryOperation.itemStackGive(player, stack);
+            InventoryOperation.giveItemStack(player, stack);
         }
         return InteractionResultHolder.pass(player.getItemInHand(interactionHand));
     }

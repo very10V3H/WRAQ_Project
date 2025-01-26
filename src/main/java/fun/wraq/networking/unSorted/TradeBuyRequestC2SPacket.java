@@ -151,7 +151,7 @@ public class TradeBuyRequestC2SPacket {
                     ForgeEquipUtils.setForgeQualityOnEquip(product, 4);
                 }
 
-                InventoryOperation.itemStackGive(serverPlayer, product);
+                InventoryOperation.giveItemStack(serverPlayer, product);
                 MySound.soundToPlayer(serverPlayer, SoundEvents.ARROW_HIT_PLAYER);
             } else {
                 Compute.sendFormatMSG(serverPlayer, Component.literal("交易").withStyle(ChatFormatting.GREEN),

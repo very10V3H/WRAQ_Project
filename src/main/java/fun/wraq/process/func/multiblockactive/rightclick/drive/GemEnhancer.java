@@ -37,7 +37,7 @@ public class GemEnhancer extends RightClickActivation {
         if (enhanceMap.containsKey(item) && InventoryOperation.checkPlayerHasItem(player, materials)) {
             InventoryOperation.removeItemWithoutCheck(player, materials);
             InventoryOperation.removeItemWithoutCheck(player, new ItemStack(item));
-            InventoryOperation.itemStackGiveWithMSG(player, enhanceMap.get(item));
+            InventoryOperation.giveItemStackWithMSG(player, enhanceMap.get(item));
         } else {
             if (!enhanceMap.containsKey(item)) {
                 if (!(item instanceof WraqGem)) {

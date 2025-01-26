@@ -83,7 +83,7 @@ public class SpringLoot extends Item {
                                             append(Component.literal("获得了:").withStyle(ChatFormatting.WHITE)).
                                             append(itemAndWeight.getItem().getDefaultInstance().getDisplayName()));
 
-                        InventoryOperation.itemStackGive(player, itemAndWeight.getItem().getDefaultInstance());
+                        InventoryOperation.giveItemStack(player, itemAndWeight.getItem().getDefaultInstance());
                     }
                 }
             });

@@ -181,9 +181,9 @@ public class LabourDayMobSummon {
                             append(Component.literal(" 的 ").withStyle(ChatFormatting.WHITE)).
                             append(Component.literal("工贼").withStyle(ChatFormatting.GRAY)));
             if (mobList.indexOf(skeleton) < 5) {
-                InventoryOperation.itemStackGive(player, new ItemStack(ModItems.OldGoldCoin.get()));
+                InventoryOperation.giveItemStack(player, new ItemStack(ModItems.OldGoldCoin.get()));
             } else {
-                InventoryOperation.itemStackGive(player, new ItemStack(ModItems.OldGoldCoin.get(), 2));
+                InventoryOperation.giveItemStack(player, new ItemStack(ModItems.OldGoldCoin.get(), 2));
             }
         }
     }

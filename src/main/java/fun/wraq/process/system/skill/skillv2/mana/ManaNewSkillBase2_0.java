@@ -67,4 +67,9 @@ public class ManaNewSkillBase2_0 extends SkillV2BaseSkill implements SkillV2Elem
         components.add(Te.s("并对空间内的敌人施加", "减速效果", CustomStyle.styleOfStone));
         return components;
     }
+
+    @Override
+    protected int getEachLevelExManaCost() {
+        return 10;
+    }
 }

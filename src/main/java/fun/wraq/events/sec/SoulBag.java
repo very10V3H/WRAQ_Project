@@ -46,7 +46,7 @@ public class SoulBag extends Item {
             CompoundTag data = itemStack.getOrCreateTagElement(Utils.MOD_ID);
             int Count = data.getInt(Utils.SoulBagsMap.get(item));
             if (Count == 0) Count = 64;
-            InventoryOperation.itemStackGive(player, new ItemStack(item, Count));
+            InventoryOperation.giveItemStack(player, new ItemStack(item, Count));
             Compute.playerItemUseWithRecord(player);
         }
         return super.use(level, player, interactionHand);

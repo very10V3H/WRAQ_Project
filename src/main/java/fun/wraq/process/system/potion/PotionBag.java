@@ -39,7 +39,7 @@ public class PotionBag extends Item {
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
         if (!level.isClientSide && interactionHand.equals(InteractionHand.MAIN_HAND)) {
             ItemStack itemStack = new ItemStack(potion, 5);
-            InventoryOperation.itemStackGive(player, itemStack);
+            InventoryOperation.giveItemStack(player, itemStack);
             Compute.playerItemUseWithRecord(player);
         }
         return super.use(level, player, interactionHand);

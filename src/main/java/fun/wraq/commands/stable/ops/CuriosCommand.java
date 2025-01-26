@@ -43,7 +43,7 @@ public class CuriosCommand implements Command<CommandSourceStack> {
                 for (int i = 0 ; i < num ; i ++) {
                     ItemStack curios = new ItemStack(item);
                     randomCurios.setAttribute(curios);
-                    InventoryOperation.itemStackGive(player, curios);
+                    InventoryOperation.giveItemStack(player, curios);
                 }
             }
         });

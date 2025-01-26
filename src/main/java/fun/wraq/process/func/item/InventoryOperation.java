@@ -115,7 +115,7 @@ public class InventoryOperation {
         return -1;
     }
 
-    public static void itemStackGive(Player player, ItemStack itemStack) {
+    public static void giveItemStack(Player player, ItemStack itemStack) {
         itemStack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
         if (itemStack.getCount() > 0) {
             if (InventoryCheck.getBoundingList().contains(itemStack.getItem()))
@@ -137,30 +137,34 @@ public class InventoryOperation {
         }
     }
 
-    public static void itemStackGive(Player player, Item item) {
-        itemStackGive(player, new ItemStack(item));
+    public static void giveItemStack(Player player, Item item) {
+        giveItemStack(player, new ItemStack(item));
     }
 
-    public static void itemStackGiveWithMSG(Player player, ItemStack itemStack) {
+    public static void giveItemStackWithMSG(Player player, Item item, int count) {
+        giveItemStackWithMSG(player, new ItemStack(item, count));
+    }
+
+    public static void giveItemStackWithMSG(Player player, ItemStack itemStack) {
         if (!Compute.PlayerIgnore.ignoreItemGet(player)) {
             Compute.sendFormatMSG(player, Te.s("物品", ChatFormatting.GREEN),
                     Te.s("你获得了", itemStack.getDisplayName(), " * " + itemStack.getCount(), ChatFormatting.AQUA));
         }
-        itemStackGive(player, itemStack);
+        giveItemStack(player, itemStack);
     }
 
-    public static void itemStackGiveWithMSGByBatch(Player player, ItemStack itemStack) {
+    public static void giveItemStackWithMSGByBatch(Player player, ItemStack itemStack) {
         Item item = itemStack.getItem();
         int count = itemStack.getCount();
         for (int i = 0 ; i < count / 64 ; i ++) {
-            itemStackGiveWithMSG(player, new ItemStack(item, 64));
+            giveItemStackWithMSG(player, new ItemStack(item, 64));
         }
-        itemStackGiveWithMSG(player, new ItemStack(item, count % 64));
+        giveItemStackWithMSG(player, new ItemStack(item, count % 64));
     }
 
-    public static void itemStackGiveWithMSG(Player player, Item item) {
+    public static void giveItemStackWithMSG(Player player, Item item) {
         ItemStack itemStack = item.getDefaultInstance();
-        itemStackGiveWithMSG(player, itemStack);
+        giveItemStackWithMSG(player, itemStack);
     }
 
     public static void giveItemStackByRate(ItemStack itemStack, double rate, Player player) {
@@ -168,7 +172,7 @@ public class InventoryOperation {
         if (rate > 1) {
             int Count = (int) rate;
             if (r.nextDouble() < rate % 1) Count++;
-            InventoryOperation.itemStackGive(player, new ItemStack(itemStack.getItem(), Count));
+            InventoryOperation.giveItemStack(player, new ItemStack(itemStack.getItem(), Count));
         } else {
             if (r.nextDouble(1.0d) < rate) {
                 if (rate <= 0.01) {
@@ -179,7 +183,7 @@ public class InventoryOperation {
                             Component.literal(player.getName().getString() + "获得了").withStyle(ChatFormatting.WHITE).
                                     append(itemStack.getDisplayName()));
                 }
-                InventoryOperation.itemStackGive(player, itemStack);
+                InventoryOperation.giveItemStack(player, itemStack);
             }
         }
     }
@@ -188,7 +192,7 @@ public class InventoryOperation {
         int playerInventoryNeedItemCount = InventoryOperation.itemStackCount(player, needItem.getItem());
         if (playerInventoryNeedItemCount >= needItem.getCount()) {
             InventoryOperation.itemStackRemoveIgnoreVB(player.getInventory(), needItem.getItem(), needItem.getCount());
-            InventoryOperation.itemStackGive(player, new ItemStack(targetItem.getItem(), targetItem.getCount()));
+            InventoryOperation.giveItemStack(player, new ItemStack(targetItem.getItem(), targetItem.getCount()));
         } else {
             Compute.sendFormatMSG(player, Component.literal("交易").withStyle(ChatFormatting.GOLD),
                     Component.literal("背包中似乎没有足够数量的 ").withStyle(ChatFormatting.WHITE).

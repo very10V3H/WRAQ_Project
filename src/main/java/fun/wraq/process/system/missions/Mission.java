@@ -588,10 +588,10 @@ public class Mission {
                 InventoryCheck.addOwnerTagToItemStack(player, rewardItem);
             } // 为奖励添加owner标签
 
-            InventoryOperation.itemStackGive(player, rewardItem);
+            InventoryOperation.giveItemStack(player, rewardItem);
         });
         if (player.experienceLevel < 160) {
-            InventoryOperation.itemStackGive(player, new ItemStack(ModItems.RevelationBook.get(), 10));
+            InventoryOperation.giveItemStack(player, new ItemStack(ModItems.RevelationBook.get(), 10));
         }
     }
 

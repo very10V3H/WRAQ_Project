@@ -58,7 +58,7 @@ public class SilverCoinC2SPacket {
                         Compute.VBExpenseAndMSGSend(player, count * vbValue);
                         ItemStack itemStack = ModItems.silverCoin.get().getDefaultInstance();
                         itemStack.setCount(count);
-                        InventoryOperation.itemStackGive(player, itemStack);
+                        InventoryOperation.giveItemStack(player, itemStack);
                     } else {
                         Compute.sendFormatMSG(player, Component.literal("VB").withStyle(ChatFormatting.GOLD),
                                 Component.literal("VB不足。").withStyle(ChatFormatting.WHITE));
@@ -73,7 +73,7 @@ public class SilverCoinC2SPacket {
                         Compute.VBExpenseAndMSGSend(player, vbValue * count);
                         ItemStack itemStack = ModItems.silverCoin.get().getDefaultInstance();
                         itemStack.setCount(count);
-                        InventoryOperation.itemStackGive(player, itemStack);
+                        InventoryOperation.giveItemStack(player, itemStack);
                     } else {
                         Compute.sendFormatMSG(player, Component.literal("VB").withStyle(ChatFormatting.GOLD),
                                 Component.literal("VB不足。").withStyle(ChatFormatting.WHITE));

@@ -141,7 +141,7 @@ public class Parkour {
 
                 if (point % 5 == 0 && lastRewardPoint != point) {
                     SetParkourLastRewardNum(player, GetPlayerCurrentParkourPoint(player));
-                    InventoryOperation.itemStackGive(player, rewardItems[GetPlayerCurrentParkourPoint(player) / 5 - 1].getDefaultInstance());
+                    InventoryOperation.giveItemStack(player, rewardItems[GetPlayerCurrentParkourPoint(player) / 5 - 1].getDefaultInstance());
                     Compute.formatBroad(player.level(), Component.literal("跑酷").withStyle(CustomStyle.styleOfFlexible),
                             Component.literal("").withStyle(ChatFormatting.WHITE).
                                     append(player.getDisplayName()).

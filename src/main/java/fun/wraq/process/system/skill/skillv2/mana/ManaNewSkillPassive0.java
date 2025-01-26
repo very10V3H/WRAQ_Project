@@ -2,7 +2,6 @@ package fun.wraq.process.system.skill.skillv2.mana;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
-import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.system.skill.skillv2.SkillV2;
@@ -66,7 +65,7 @@ public class ManaNewSkillPassive0 extends SkillV2PassiveSkill {
                 }
                 SkillV2 manaFinalSkill = getPlayerCurrentSkillByType(player, 4);
                 if (manaFinalSkill instanceof ManaNewSkillFinal0) {
-                    decreaseSkillCooldownTick(player, manaFinalSkill, Tick.s(1));
+                    decreaseSkillCooldownTick(player, manaFinalSkill, 15);
                 }
             }
         }

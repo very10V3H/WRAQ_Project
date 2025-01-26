@@ -224,7 +224,7 @@ public abstract class NoTeamInstance {
     public static void givePlayerNotePaper(Player player) throws IOException {
         ItemStack itemStack = new ItemStack(ModItems.notePaper.get(), 64);
         InventoryCheck.addOwnerTagToItemStack(player, itemStack);
-        InventoryOperation.itemStackGive(player, itemStack);
+        InventoryOperation.giveItemStack(player, itemStack);
     }
 
     public void bossInfoSet(Level level) {

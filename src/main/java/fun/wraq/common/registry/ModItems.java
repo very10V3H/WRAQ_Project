@@ -73,6 +73,7 @@ import fun.wraq.process.system.instance.MopUpPaperLoot;
 import fun.wraq.process.system.lottery.NewLotteries;
 import fun.wraq.process.system.lottery.items.LotteryPrefix;
 import fun.wraq.process.system.ore.OreItems;
+import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.process.system.parkour.KillPaperLoot;
 import fun.wraq.process.system.parkour.ParkourGloves;
 import fun.wraq.process.system.potion.NewPotion;
@@ -2029,7 +2030,7 @@ public class ModItems {
             () -> new SpringRing(new Item.Properties().rarity(CustomStyle.SpringBold), 3));
 
     public static final RegistryObject<Item> SpringMoney = ITEMS.register("spring_money",
-            () -> new Item(new Item.Properties().rarity(CustomStyle.SpringBold)));
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.SpringBold)));
 
     public static final RegistryObject<Item> RedEnvelope = ITEMS.register("red_envelope",
             () -> new RedEnvelope(new Item.Properties().rarity(CustomStyle.SpringBold)));
@@ -3810,9 +3811,9 @@ public class ModItems {
                 add(new NewLotteries.Loot(ModItems.INCEPTION_UPGRADE_PAPER.get().getDefaultInstance(), 0.01));
                 add(new NewLotteries.Loot(ModItems.skinTemplatePaper.get().getDefaultInstance(), 0.02));
                 add(new NewLotteries.Loot(ModItems.pickUpgradePaper.get().getDefaultInstance(), 0.02));
-                add(new NewLotteries.Loot(ModItems.RefiningGold.get().getDefaultInstance(), 0.02));
-                add(new NewLotteries.Loot(ModItems.RefiningCopper.get().getDefaultInstance(), 0.03));
-                add(new NewLotteries.Loot(ModItems.RefiningIron.get().getDefaultInstance(), 0.03));
+                add(new NewLotteries.Loot(PickaxeItems.TINKER_NETHERITE.get().getDefaultInstance(), 0.02));
+                add(new NewLotteries.Loot(PickaxeItems.TINKER_DIAMOND.get().getDefaultInstance(), 0.03));
+                add(new NewLotteries.Loot(PickaxeItems.TINKER_GOLD.get().getDefaultInstance(), 0.03));
                 add(new NewLotteries.Loot(ModItems.stackUpgradePaper.get().getDefaultInstance(), 0.1));
                 add(new NewLotteries.Loot(ModItems.commonLotteries.get().getDefaultInstance(), 0.1));
                 add(new NewLotteries.Loot(ModItems.GOLD_COIN.get().getDefaultInstance(), 0.1));

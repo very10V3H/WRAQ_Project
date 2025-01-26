@@ -88,7 +88,7 @@ public class UrgentEvent extends RandomEvent {
         );
         players.forEach(player -> {
             reward.forEach(stack -> {
-                InventoryOperation.itemStackGive(player, new ItemStack(stack.getItem(), stack.getCount()));
+                InventoryOperation.giveItemStack(player, new ItemStack(stack.getItem(), stack.getCount()));
             });
             Compute.playerReputationAddOrCost(player, 20);
         });

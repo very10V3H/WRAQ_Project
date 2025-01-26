@@ -209,18 +209,65 @@ public class MyWayPoint {
         }
     }
 
+    public static class VillageWayPoint {
+        public static final MyWayPoint PLAIN_VILLAGE
+                = new MyWayPoint(new Vec3(756, 84, 207), "平原村", colorMap.get(green), 0);
+        public static final MyWayPoint SKY_CITY
+                = new MyWayPoint(new Vec3(956, 232, 17), "天空城", colorMap.get(aqua), 0);
+        public static final MyWayPoint FOREST_VILLAGE
+                = new MyWayPoint(new Vec3(1091, 80, 40), "雨林村", colorMap.get(darkGreen), 0);
+        public static final MyWayPoint SEA_VILLAGE
+                = new MyWayPoint(new Vec3(889, 62, -422), "海岸村", colorMap.get(blue), 0);
+        public static final MyWayPoint VOLCANO_VILLAGE
+                = new MyWayPoint(new Vec3(2573, 120, -492), "火山村", colorMap.get(yellow), 0);
+        public static final MyWayPoint XUNNAN_VILLAGE
+                = new MyWayPoint(new Vec3(1157, 76, -1077), "薰楠村", colorMap.get(purple), 0);
+        public static final MyWayPoint XUNXI_VILLAGE
+                = new MyWayPoint(new Vec3(1036, 76, -1288), "薰曦村", colorMap.get(purple), 0);
+        public static final MyWayPoint SNOW_VILLAGE
+                = new MyWayPoint(new Vec3(1329, 71, -1612), "北洋村", colorMap.get(aqua), 0);
+        public static final MyWayPoint SAND_VILLAGE
+                = new MyWayPoint(new Vec3(1911, 86, 1688), "沙岸村", colorMap.get(yellow), 0);
+        public static final MyWayPoint SAKURA_VILLAGE
+                = new MyWayPoint(new Vec3(2381, 182, 1752), "绯樱村", colorMap.get(purple), 0);
+        public static final MyWayPoint MOONTAIN_BASE
+                = new MyWayPoint(new Vec3(1921, 151, -936), "望山据点", colorMap.get(darkGreen), 0);
+        public static final MyWayPoint SUN_RISE_ISLAND
+                = new MyWayPoint(new Vec3(1808, 74, 339), "旭升岛", colorMap.get(yellow), 0);
+        public static final MyWayPoint FOR_NORTH_VILLAGE
+                = new MyWayPoint(new Vec3(1731, 137, 1875), "北望村", colorMap.get(green), 0);
+
+        public static List<MyWayPoint> getAllVillageWayPoints() {
+            return List.of(
+                    PLAIN_VILLAGE,
+                    SKY_CITY,
+                    FOREST_VILLAGE,
+                    SEA_VILLAGE,
+                    VOLCANO_VILLAGE,
+                    XUNNAN_VILLAGE,
+                    XUNXI_VILLAGE,
+                    SNOW_VILLAGE,
+                    SAND_VILLAGE,
+                    SAKURA_VILLAGE,
+                    MOONTAIN_BASE,
+                    SUN_RISE_ISLAND,
+                    FOR_NORTH_VILLAGE
+            );
+        }
+    }
+
     public static List<MyWayPoint> overworldPointList = new ArrayList<>() {{
-        add(new MyWayPoint(new Vec3(756, 84, 207), "平原村", colorMap.get(green), 0));
-        add(new MyWayPoint(new Vec3(956, 232, 17), "天空城", colorMap.get(aqua), 0));
+        add(VillageWayPoint.PLAIN_VILLAGE);
+        add(VillageWayPoint.SKY_CITY);
         add(new MyWayPoint(new Vec3(754, 181, -86), "德朗斯蒂克", colorMap.get(green), 0));
-        add(new MyWayPoint(new Vec3(1091, 80, 40), "雨林村", colorMap.get(darkGreen), 0));
-        add(new MyWayPoint(new Vec3(889, 62, -422), "海岸村", colorMap.get(blue), 0));
-        add(new MyWayPoint(new Vec3(2573, 120, -492), "火山村", colorMap.get(yellow), 0));
-        add(new MyWayPoint(new Vec3(1157, 76, -1077), "薰楠村", colorMap.get(purple), 0));
-        add(new MyWayPoint(new Vec3(1036, 76, -1288), "薰曦村", colorMap.get(purple), 0));
-        add(new MyWayPoint(new Vec3(1329, 71, -1612), "北洋村", colorMap.get(aqua), 0));
-        add(new MyWayPoint(new Vec3(1911, 86, 1688), "沙岸村", colorMap.get(yellow), 0));
-        add(new MyWayPoint(new Vec3(2381, 182, 1752), "绯樱村", colorMap.get(purple), 0));
+        add(VillageWayPoint.FOREST_VILLAGE);
+        add(VillageWayPoint.SEA_VILLAGE);
+        add(VillageWayPoint.VOLCANO_VILLAGE);
+        add(VillageWayPoint.XUNNAN_VILLAGE);
+        add(VillageWayPoint.XUNXI_VILLAGE);
+        add(VillageWayPoint.SNOW_VILLAGE);
+        add(VillageWayPoint.SAND_VILLAGE);
+        add(VillageWayPoint.SAKURA_VILLAGE);
         add(new MyWayPoint(new Vec3(2122, 152, -1138), "艾里蒙特大陆", colorMap.get(purple), 0));
 
         add(new MyWayPoint(new Vec3(735, 79, 263), "平原僵尸刷怪点", colorMap.get(green), 0));
@@ -302,7 +349,7 @@ public class MyWayPoint {
         add(new MyWayPoint(new Vec3(416, 63, -3332), "北西海", colorMap.get(aqua), 0));
         add(new MyWayPoint(new Vec3(2964, 63, -3404), "北东海", colorMap.get(aqua), 0));
 
-        add(new MyWayPoint(new Vec3(1921, 151, -936), "望山据点", colorMap.get(darkGreen), 0));
+        add(VillageWayPoint.MOONTAIN_BASE);
         add(new MyWayPoint(new Vec3(2046, 172, -818), "望山矿道西口", colorMap.get(darkGreen), 0));
         add(new MyWayPoint(new Vec3(2342, 182, -790), "望山矿道东口", colorMap.get(darkRed), 0));
 
@@ -311,7 +358,7 @@ public class MyWayPoint {
         add(new MyWayPoint(new Vec3(2459, 170, 1753), "粉钻矿区", colorMap.get(purple), 0));
         add(new MyWayPoint(new Vec3(1408, 12, -2853), "北境晶钻矿区", colorMap.get(aqua), 0));
 
-        add(new MyWayPoint(new Vec3(1808, 74, 339), "旭升岛", colorMap.get(yellow), 0));
+        add(VillageWayPoint.SUN_RISE_ISLAND);
 
         add(new MyWayPoint(new Vec3(1168, -36, -69), "玛瑙矿区", colorMap.get(green), 0));
         add(new MyWayPoint(new Vec3(1883, 147, -461), "月影坡", colorMap.get(yellow), 0));
@@ -319,7 +366,7 @@ public class MyWayPoint {
         add(new MyWayPoint(new Vec3(962, 207, 13), "天空城传送中枢", colorMap.get(darkPurple), 0));
 
         add(new MyWayPoint(new Vec3(2352, -34, -704), "远古之城", colorMap.get(darkBlue), 0));
-        add(new MyWayPoint(new Vec3(1731, 137, 1875), "北望村", colorMap.get(green), 0));
+        add(VillageWayPoint.FOR_NORTH_VILLAGE);
 
         add(new MyWayPoint(new Vec3(1573, 54, 149), "炼魔涌溢", colorMap.get(darkPurple), 0));
         add(new MyWayPoint(new Vec3(2006, 130, -1785), "菌菇聚落", colorMap.get(red), 0));

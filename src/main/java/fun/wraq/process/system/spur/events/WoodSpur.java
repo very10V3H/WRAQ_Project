@@ -64,7 +64,7 @@ public class WoodSpur {
                         } while (level.getBlockState(blockPos1).getBlock().toString().contains("stripped"));
 
                         logReward(player);
-                        InventoryOperation.itemStackGive(player, new ItemStack(blockState.getBlock().asItem(), 2));
+                        InventoryOperation.giveItemStack(player, new ItemStack(blockState.getBlock().asItem(), 2));
                         Utils.worldWoodList.add(new BlockAndResetTime(blockState, blockPos1, Tick.get() + 36000));
 
                         level.setBlockAndUpdate(blockPos1, getStrippedLog(level.getBlockState(blockPos1).getBlock()).defaultBlockState());
@@ -74,7 +74,7 @@ public class WoodSpur {
                             Compute.sendFormatMSG(player, Component.literal("额外产出").withStyle(ChatFormatting.GOLD),
                                     Component.literal("为你提供了额外产物！").withStyle(ChatFormatting.WHITE));
                             logReward(player);
-                            InventoryOperation.itemStackGive(player, new ItemStack(blockState.getBlock().asItem(), 2));
+                            InventoryOperation.giveItemStack(player, new ItemStack(blockState.getBlock().asItem(), 2));
                         }
                     }
                 }
@@ -92,7 +92,7 @@ public class WoodSpur {
         Utils.dayLopCount.put(player.getName().getString(), Utils.dayLopCount.getOrDefault(player.getName().getString(), 0) + 1);
 
         if (data.contains(StringUtils.Lop.Xp) && !data.contains(StringUtils.LogReward)) {
-            InventoryOperation.itemStackGive(player, new ItemStack(ModItems.LogBag.get(), data.getInt(StringUtils.Lop.Xp) / 256));
+            InventoryOperation.giveItemStack(player, new ItemStack(ModItems.LogBag.get(), data.getInt(StringUtils.Lop.Xp) / 256));
             data.putBoolean(StringUtils.LogReward, true);
         }
 
@@ -101,7 +101,7 @@ public class WoodSpur {
         Random random = new Random();
         if (random.nextDouble() < 0.05) {
             data.putInt(logPieceGetTimes, data.getInt(logPieceGetTimes) + 1);
-            InventoryOperation.itemStackGive(player, new ItemStack(SpurItems.logPiece.get()));
+            InventoryOperation.giveItemStack(player, new ItemStack(SpurItems.logPiece.get()));
         }
         if (Compute.exHarvestItemGive(player, new ItemStack(SpurItems.logPiece.get()), 0.05)) {
             data.putInt(logPieceGetTimes, data.getInt(logPieceGetTimes) + 1);

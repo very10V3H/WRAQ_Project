@@ -117,7 +117,7 @@ public class LoginInEvent {
                     });
                     Compute.sendFormatMSG(player, Component.literal("副本").withStyle(ChatFormatting.RED),
                             Component.literal("所有副本的前置条件已解锁").withStyle(ChatFormatting.WHITE));
-                    InventoryOperation.itemStackGiveWithMSG(player, new ItemStack(ModItems.ForNew.get()));
+                    InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.ForNew.get()));
                 }
             }
 
@@ -261,7 +261,7 @@ public class LoginInEvent {
             }
 
             if (!data.contains("FirstReward")) {
-                InventoryOperation.itemStackGive(player, ModItems.ForNew.get().getDefaultInstance());
+                InventoryOperation.giveItemStack(player, ModItems.ForNew.get().getDefaultInstance());
                 Compute.formatBroad(player.level(), Component.literal("维瑞阿契").withStyle(ChatFormatting.WHITE),
                         Component.literal("欢迎新地质学家").withStyle(ChatFormatting.GOLD).
                                 append(player.getDisplayName()).

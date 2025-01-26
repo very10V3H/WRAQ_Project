@@ -74,7 +74,7 @@ public class RestZone {
                     }
                     Security.recordItemStream(serverPlayer.getName().getString(), itemStack,
                             Security.RecordType.REST);
-                    InventoryOperation.itemStackGiveWithMSG(serverPlayer, itemStack);
+                    InventoryOperation.giveItemStackWithMSG(serverPlayer, itemStack);
                 }
             }
         }

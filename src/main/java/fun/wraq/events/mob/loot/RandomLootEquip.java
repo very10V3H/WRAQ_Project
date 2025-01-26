@@ -58,7 +58,7 @@ public interface RandomLootEquip extends RandomEquip {
                 Item piece = ForgeEquipUtils.getEquipPiece(i);
                 ItemStack pieceStack = new ItemStack(piece, pieceMap.get(i));
                 count += pieceMap.get(i);
-                InventoryOperation.itemStackGive(player, pieceStack);
+                InventoryOperation.giveItemStack(player, pieceStack);
             }
         }
 

@@ -74,6 +74,10 @@ public abstract class SkillV2 {
         return 0;
     }
 
+    protected int getEachLevelExManaCost() {
+        return 0;
+    }
+
     public static int clientProfessionType = 0;
     public static List<Integer> clientSwordSkillLevel = new ArrayList<>();
     public static List<Integer> clientBowSkillLevel = new ArrayList<>();
@@ -308,14 +312,15 @@ public abstract class SkillV2 {
     }
 
     private static final String UPDATE_COMPENSATE = "updateCompensate";
+
     public static void afterVerUpdateLogin(Player player) {
         CompoundTag data = getSkillV2Data(player);
         if (!data.contains(UPDATE_COMPENSATE)) {
             int skillLevel = Math.min(10, player.experienceLevel / 20 + 1);
             data.putBoolean(UPDATE_COMPENSATE, true);
             if (player.experienceLevel > 0) {
-                for (int i = 0 ; i < 3 ; i ++) {
-                    for (int j = 0 ; j < 5 ; j ++) {
+                for (int i = 0; i < 3; i++) {
+                    for (int j = 0; j < 5; j++) {
                         setProfessionSkillLevel(player, i, j, 0, skillLevel);
                     }
                 }
@@ -482,16 +487,17 @@ public abstract class SkillV2 {
             playerSkillV2AllowReleaseTickMap.put(name, new HashMap<>());
         }
         Map<SkillV2, Integer> skillV2AllowReleaseTickMap = playerSkillV2AllowReleaseTickMap.get(name);
+        int skillLevel = getPlayerSkillLevel(player);
         if (canRelease(player)
                 && skillV2AllowReleaseTickMap.getOrDefault(this, 0) <= Tick.get()
-                && Mana.getPlayerCurrentManaNum(player) >= manaCost) {
+                && Mana.getPlayerCurrentManaNum(player) >= (manaCost + skillLevel * getEachLevelExManaCost())) {
             int afterDecreaseCooldownTick
                     = (int) ((cooldownTick - getCooldownDecrease(player)) * (1 - PlayerAttributes.coolDownDecrease(player)));
             afterDecreaseCooldownTick = Math.max(0, afterDecreaseCooldownTick);
             skillV2AllowReleaseTickMap.put(this, Tick.get() + afterDecreaseCooldownTick);
             ModNetworking.sendToClient(new SkillV2CooldownS2CPacket(skillType, afterDecreaseCooldownTick,
                     afterDecreaseCooldownTick), player);
-            Mana.addOrCostPlayerMana(player, -manaCost);
+            Mana.addOrCostPlayerMana(player, -(manaCost + skillLevel * getEachLevelExManaCost()));
             releaseOperation(player);
             if (professionType == 2) {
                 PowerLogic.playerReleasePower(player);
@@ -545,7 +551,8 @@ public abstract class SkillV2 {
                 cooldownTick == 0 ? Te.s("无冷却时间", CustomStyle.styleOfStone)
                         : ComponentUtils.getCooldownTimeDescription(cooldownTick / 20),
                 " ".repeat(10), manaCost == 0 ? Te.s("无法力消耗", CustomStyle.styleOfStone)
-                        : Te.s("法力消耗:", manaCost, ChatFormatting.LIGHT_PURPLE)));
+                        : Te.s("法力消耗:", manaCost + skillLevel * getEachLevelExManaCost(),
+                        ChatFormatting.LIGHT_PURPLE)));
         ComponentUtils.descriptionDash(components, CustomStyle.styleOfStone);
         components.addAll(getSkillDescription(skillLevel));
         ComponentUtils.descriptionDash(components, CustomStyle.styleOfStone);
@@ -608,7 +615,7 @@ public abstract class SkillV2 {
     }
 
     public static void clientTick() {
-        for (int i = 1 ; i <= 4 ; i ++) {
+        for (int i = 1; i <= 4; i++) {
             clientLeftCooldownTick.compute(i, (k, v) -> v == null ? 0 : Math.max(0, v - 1));
         }
     }

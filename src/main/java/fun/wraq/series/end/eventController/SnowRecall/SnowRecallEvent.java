@@ -152,7 +152,7 @@ public class SnowRecallEvent {
                                                 append(Component.literal("的记忆。").withStyle(ChatFormatting.WHITE)));
                                 ItemStack itemStack = ModItems.SnowRecallSoul.get().getDefaultInstance();
                                 itemStack.setCount(1);
-                                InventoryOperation.itemStackGive(Utils.snowRecall.recallPlayer, itemStack);
+                                InventoryOperation.giveItemStack(Utils.snowRecall.recallPlayer, itemStack);
                                 data.putInt(StringUtils.RecallEndRune3, 3);
                             } else {
                                 data.putInt(RecallTimes, data.getInt(RecallTimes) + 1);
@@ -169,7 +169,7 @@ public class SnowRecallEvent {
                                                 append(Component.literal("的记忆。").withStyle(ChatFormatting.WHITE)));
                                 ItemStack itemStack = ModItems.SnowRune.get().getDefaultInstance();
                                 itemStack.setCount(1);
-                                InventoryOperation.itemStackGive(Utils.snowRecall.recallPlayer, itemStack);
+                                InventoryOperation.giveItemStack(Utils.snowRecall.recallPlayer, itemStack);
                                 data.putInt(StringUtils.RecallEndRune3, 3);
                             }
                         }

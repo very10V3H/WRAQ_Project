@@ -71,7 +71,7 @@ public class RankItemCommand implements Command<CommandSourceStack> {
                 case 2 -> item = ModItems.KillPaperLootL.get();
                 default -> item = Items.AIR;
             }
-            InventoryOperation.itemStackGiveWithMSGByBatch(target, new ItemStack(item, itemNum));
+            InventoryOperation.giveItemStackWithMSGByBatch(target, new ItemStack(item, itemNum));
             RankData.sendFormatMSG(player, Te.s("已给予", target.getDisplayName(),
                     item.getDefaultInstance().getDisplayName(), " * " + itemNum, ChatFormatting.AQUA));
             RankData.sendFormatMSG(target, Te.s("已获得",

@@ -149,7 +149,7 @@ public class KazeRecallEvent {
                                                 append(Component.literal("的记忆。").withStyle(ChatFormatting.WHITE)));
                                 ItemStack itemStack = ModItems.KazeRecallSoul.get().getDefaultInstance();
                                 itemStack.setCount(1);
-                                InventoryOperation.itemStackGive(Utils.kazeRecall.recallPlayer, itemStack);
+                                InventoryOperation.giveItemStack(Utils.kazeRecall.recallPlayer, itemStack);
                             } else {
                                 data.putInt(RecallTimes, data.getInt(RecallTimes) + 1);
                                 ToEnd.toEndSpawnPos(Utils.kazeRecall.recallPlayer);
@@ -165,7 +165,7 @@ public class KazeRecallEvent {
                                                 append(Component.literal("的记忆。").withStyle(ChatFormatting.WHITE)));
                                 ItemStack itemStack = ModItems.KazeRune.get().getDefaultInstance();
                                 itemStack.setCount(1);
-                                InventoryOperation.itemStackGive(Utils.kazeRecall.recallPlayer, itemStack);
+                                InventoryOperation.giveItemStack(Utils.kazeRecall.recallPlayer, itemStack);
                             }
                         }
                     }

@@ -49,12 +49,12 @@ public class SmithPlayerData {
             } else {
                 stack = new ItemStack(equipPiece6, tier - 4);
             }
-            InventoryOperation.itemStackGive(player, stack);
+            InventoryOperation.giveItemStack(player, stack);
             sendMSG(player, Te.s("你的", "工匠等阶", CustomStyle.styleOfGold,
                     "为你额外提供了", stack, " * " + stack.getCount(), ChatFormatting.AQUA));
         }
         if (tier > 0 && RandomUtils.nextDouble(0, 1) < tier * 0.05) {
-            InventoryOperation.itemStackGive(player, new ItemStack(equipPiece5));
+            InventoryOperation.giveItemStack(player, new ItemStack(equipPiece5));
         }
     }
 
@@ -133,7 +133,7 @@ public class SmithPlayerData {
         }
         if (InventoryOperation.checkPlayerHasItem(player, getIncrementTierNeedMaterial(tier))) {
             InventoryOperation.removeItemWithoutCheck(player, getIncrementTierNeedMaterial(tier));
-            InventoryOperation.itemStackGiveWithMSG(player, SmithHammer.getHammerByTier(tier));
+            InventoryOperation.giveItemStackWithMSG(player, SmithHammer.getHammerByTier(tier));
             Compute.incrementSpecificKeyDataIntValue(player, SMITH_PLAYER_DATA_KEY, TIER_KEY, 1);
             sendMSG(player, Te.s("已达到新的等阶:", getTierDescription(tier + 1)));
             MySound.soundToPlayer(player, SoundEvents.PLAYER_LEVELUP);

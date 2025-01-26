@@ -152,7 +152,7 @@ public class LightningRecallEvent {
                                                 append(Component.literal("的记忆。").withStyle(ChatFormatting.WHITE)));
                                 ItemStack itemStack = ModItems.LightningRecallSoul.get().getDefaultInstance();
                                 itemStack.setCount(1);
-                                InventoryOperation.itemStackGive(Utils.lightningRecall.recallPlayer, itemStack);
+                                InventoryOperation.giveItemStack(Utils.lightningRecall.recallPlayer, itemStack);
                             } else {
                                 data.putInt(RecallTimes, data.getInt(RecallTimes) + 1);
                                 ToEnd.toEndSpawnPos(Utils.lightningRecall.recallPlayer);
@@ -168,7 +168,7 @@ public class LightningRecallEvent {
                                                 append(Component.literal("的记忆。").withStyle(ChatFormatting.WHITE)));
                                 ItemStack itemStack = ModItems.LightningRune.get().getDefaultInstance();
                                 itemStack.setCount(1);
-                                InventoryOperation.itemStackGive(Utils.lightningRecall.recallPlayer, itemStack);
+                                InventoryOperation.giveItemStack(Utils.lightningRecall.recallPlayer, itemStack);
                             }
                         }
                     }

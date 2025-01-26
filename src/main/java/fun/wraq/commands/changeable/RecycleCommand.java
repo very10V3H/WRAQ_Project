@@ -40,7 +40,7 @@ public class RecycleCommand implements Command<CommandSourceStack> {
             } else {
                 List<ItemStack> itemStackList = ForgeRecipe.forgeDrawRecipe.get(item);
                 itemStackList.forEach(itemStack1 -> {
-                    InventoryOperation.itemStackGive(player, new ItemStack(itemStack1.getItem(), (itemStack1.getCount() + 1) / 2));
+                    InventoryOperation.giveItemStack(player, new ItemStack(itemStack1.getItem(), (itemStack1.getCount() + 1) / 2));
                 });
                 Compute.formatBroad(player.level(), Component.literal("回收").withStyle(ChatFormatting.GOLD),
                         Component.literal("").withStyle(ChatFormatting.WHITE).
@@ -61,7 +61,7 @@ public class RecycleCommand implements Command<CommandSourceStack> {
                 Compute.sendFormatMSG(player, Component.literal("回收").withStyle(ChatFormatting.GOLD),
                         Component.literal(" 再次输入指令确定回收！").withStyle(ChatFormatting.WHITE));
             } else {
-                InventoryOperation.itemStackGive(player, new ItemStack(ModItems.PurpleIronBud2.get(), 1));
+                InventoryOperation.giveItemStack(player, new ItemStack(ModItems.PurpleIronBud2.get(), 1));
                 Compute.formatBroad(player.level(), Component.literal("回收").withStyle(ChatFormatting.GOLD),
                         Component.literal("").withStyle(ChatFormatting.WHITE).
                                 append(player.getDisplayName()).

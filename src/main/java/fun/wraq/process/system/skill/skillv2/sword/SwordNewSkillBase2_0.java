@@ -59,4 +59,9 @@ public class SwordNewSkillBase2_0 extends SkillV2BaseSkill {
         components.add(ComponentUtils.getCritDamageInfluenceDescription());
         return components;
     }
+
+    @Override
+    protected int getEachLevelExManaCost() {
+        return 8;
+    }
 }

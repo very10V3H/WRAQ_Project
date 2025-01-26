@@ -45,4 +45,9 @@ public class BowNewSkillBase1_0 extends SkillV2BaseSkill {
                 "且", "必定暴击", CustomStyle.styleOfPower));
         return components;
     }
+
+    @Override
+    protected int getEachLevelExManaCost() {
+        return 5;
+    }
 }

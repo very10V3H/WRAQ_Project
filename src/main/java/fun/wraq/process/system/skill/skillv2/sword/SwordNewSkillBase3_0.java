@@ -64,4 +64,9 @@ public class SwordNewSkillBase3_0 extends SkillV2BaseSkill {
                 "刷新", ChatFormatting.AQUA, "这个技能。"));
         return components;
     }
+
+    @Override
+    protected int getEachLevelExManaCost() {
+        return 8;
+    }
 }

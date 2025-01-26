@@ -193,7 +193,7 @@ public class ElementData {
             });
         }
         InventoryOperation.removeItem(player, ModItems.COMPLETE_GEM.get(), count * 7);
-        InventoryOperation.itemStackGiveWithMSG(player, new ItemStack(ModItems.RainbowCrystal.get(), count));
+        InventoryOperation.giveItemStackWithMSG(player, new ItemStack(ModItems.RainbowCrystal.get(), count));
     }
 
     public static void tryToConvertWeakPiece(Player player) {
@@ -262,7 +262,7 @@ public class ElementData {
     public static void getPiece1(Player player, String elementCountKey, int count) {
         incrementPieceCount(player, elementCountKey, count * -64);
         incrementPieceCount(player, RAINBOW_POWDER_COUNT_KEY, count * -1);
-        InventoryOperation.itemStackGive(player, new ItemStack(getPiece1ByCountKey(elementCountKey), count));
+        InventoryOperation.giveItemStack(player, new ItemStack(getPiece1ByCountKey(elementCountKey), count));
     }
 
     public static void sendMSG(Player player, Component content) {

@@ -133,7 +133,7 @@ public class GoldenAttackOffhand extends WraqOffHandItem implements OnKillEffect
                 Compute.sendFormatMSG(player, Component.literal("华贵金属").withStyle(CustomStyle.styleOfGold),
                         Component.literal("额外获得了1枚").withStyle(ChatFormatting.AQUA).
                                 append(goldCoin.getDisplayName()));
-                InventoryOperation.itemStackGive(player, goldCoin);
+                InventoryOperation.giveItemStack(player, goldCoin);
                 MySound.soundToPlayer(player, SoundEvents.ARMOR_EQUIP_GOLD);
             }
         }

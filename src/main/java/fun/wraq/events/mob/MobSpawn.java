@@ -44,6 +44,7 @@ import fun.wraq.process.system.profession.pet.allay.skill.AllaySkills;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.end.Recall;
 import fun.wraq.series.end.runes.EndRune;
+import fun.wraq.series.specialevents.springFes.FireWorkGun;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -316,11 +317,15 @@ public class MobSpawn {
     public static void drop(Mob mob, Player player) {
         int xpLevel = getMobXpLevel(mob);
 
+        if (RandomUtils.nextDouble(0, 1) < 0.01) {
+            InventoryOperation.giveItemStackWithMSG(player, ModItems.SpringMoney.get());
+            FireWorkGun.summonFireWork(mob.level(), mob.getEyePosition());
+        }
         if (RandomUtils.nextInt(0, 10000) < 100) {
-            InventoryOperation.itemStackGive(player, ModItems.REFINED_PIECE.get().getDefaultInstance());
+            InventoryOperation.giveItemStack(player, ModItems.REFINED_PIECE.get().getDefaultInstance());
         }
         if (RandomUtils.nextDouble(0, 1) < AllaySkills.getExGemPieceRate((ServerPlayer) player)) {
-            InventoryOperation.itemStackGive(player, ModItems.GEM_PIECE.get());
+            InventoryOperation.giveItemStack(player, ModItems.GEM_PIECE.get());
             AllayPet.sendMSG(player,
                     Te.s(AllayPetPlayerData.getAllayName(player), "给你带来了一个", ModItems.GEM_PIECE));
         }
@@ -372,7 +377,7 @@ public class MobSpawn {
         Random rand = new Random();
         if (rand.nextDouble() < 0.1 * num) {
             if (WraqCurios.isOn(EndRune.class, player)) {
-                InventoryOperation.itemStackGive(player, new ItemStack(ModItems.WORLD_SOUL_1.get()));
+                InventoryOperation.giveItemStack(player, new ItemStack(ModItems.WORLD_SOUL_1.get()));
             } else ItemAndRate.summonBoundingItemEntity(mob, new ItemStack(ModItems.WORLD_SOUL_1.get()), player);
         }
     }
@@ -530,7 +535,7 @@ public class MobSpawn {
                         if (!getMap.containsKey(name) || getMap.get(name) <= 36) {
                             getMap.put(name, getMap.getOrDefault(name, 0) + 1);
                             if (WraqCurios.isOn(EndRune.class, player)) {
-                                InventoryOperation.itemStackGive(player, item.getDefaultInstance());
+                                InventoryOperation.giveItemStack(player, item.getDefaultInstance());
                             } else ItemAndRate.summonBoundingItemEntity(mob, item.getDefaultInstance(), player);
                         }
                     }

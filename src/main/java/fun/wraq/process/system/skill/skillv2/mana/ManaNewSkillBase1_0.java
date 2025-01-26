@@ -41,7 +41,7 @@ public class ManaNewSkillBase1_0 extends SkillV2BaseSkill implements SkillV2Elem
                         3, CustomStyle.styleOfMana);
                 Compute.getPlayerRayMobList(player, 1, 3, 20).forEach(mob -> {
                     Damage.causeRateApDamageToMonster(player, mob, 2 + skillLevel * 0.15, true);
-                    ManaNewSkillPassive0.addCount(player, mob, 1);
+                    ManaNewSkillPassive0.addCount(player, mob, 2);
                 });
             }
         });
@@ -52,7 +52,12 @@ public class ManaNewSkillBase1_0 extends SkillV2BaseSkill implements SkillV2Elem
         List<Component> components = new ArrayList<>();
         components.add(Te.s("对前方矩形范围的敌人造成",
                 getRateDescription(2, 0.15, level), CustomStyle.styleOfMana, "伤害"));
-        components.add(Te.s("并额外施加一层", " 渗", CustomStyle.styleOfMana));
+        components.add(Te.s("并额外施加2层", " 渗", CustomStyle.styleOfMana));
         return components;
+    }
+
+    @Override
+    protected int getEachLevelExManaCost() {
+        return 5;
     }
 }

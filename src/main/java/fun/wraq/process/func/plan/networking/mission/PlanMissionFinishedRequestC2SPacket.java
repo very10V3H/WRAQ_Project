@@ -2,11 +2,13 @@ package fun.wraq.process.func.plan.networking.mission;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.reputationMission.PlanMissionInfoS2CPacket;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.rank.RankData;
+import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -66,15 +68,19 @@ public class PlanMissionFinishedRequestC2SPacket {
                 long minuteDelta = timeDelta / (1000 * 60);
                 if (minuteDelta >= 25) minuteDelta = 25;
                 int tier = 5 - (int) (minuteDelta / 5);
-                Compute.givePercentExpToPlayer(serverPlayer, 0.04 * tier, 0, serverPlayer.experienceLevel);
-                Compute.playerReputationAddOrCost(serverPlayer, (int) Math.ceil(tier * ((double) serverPlayer.experienceLevel / 20)
-                        * RankData.reputationMissionRewardRate(serverPlayer)));
-                if (RankData.reputationMissionRewardRate(serverPlayer) > 1) {
-                    RankData.sendFormatMSG(serverPlayer, Te.s("你的", "职级", ChatFormatting.AQUA, "为你额外提供了 ",
-                            (int) Math.ceil(tier * ((double) serverPlayer.experienceLevel / 20)
-                                    * (RankData.reputationMissionRewardRate(serverPlayer) - 1)) + "声望值",
-                            ChatFormatting.YELLOW));
+                Compute.givePercentExpToPlayer(serverPlayer, 0.04 * tier, 2, serverPlayer.experienceLevel);
+                double reputationReward = tier * ((double) serverPlayer.experienceLevel / 20);
+                Compute.giveReputation(serverPlayer, reputationReward,
+                        Te.s("月卡任务", ChatFormatting.LIGHT_PURPLE));
+                double rankExReputationRewardRate = RankData.getExReputationMissionRewardRate(serverPlayer);
+                if (rankExReputationRewardRate > 0) {
+                    Compute.giveReputation(serverPlayer, reputationReward * rankExReputationRewardRate,
+                            Te.s("职级奖励", CustomStyle.styleOfWorld));
                 }
+                Compute.giveReputation(serverPlayer, reputationReward * 0.5,
+                        Te.s("新春活动", CustomStyle.styleOfSpring));
+                InventoryOperation.giveItemStackWithMSG(serverPlayer, ModItems.SpringMoney.get(), 1);
+
                 if (serverPlayer.experienceLevel == Compute.expGetUpperLimit) Compute.playerReputationAddOrCost(serverPlayer, tier);
                 fun.wraq.process.func.plan.networking.mission.PlanMission.planMissionContentMap.remove(name);
                 ModNetworking.sendToClient(new PlanMissionInfoS2CPacket(Items.AIR.getDefaultInstance(), 0,
