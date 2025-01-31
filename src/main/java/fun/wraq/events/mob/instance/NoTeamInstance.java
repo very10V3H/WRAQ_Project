@@ -84,7 +84,8 @@ public abstract class NoTeamInstance {
             spawnTick = Tick.get();
             players.addAll(getNearPlayers(level));
         }
-        if (players.isEmpty() || players.stream().allMatch(LivingEntity::isDeadOrDying)) {
+        if (getNearPlayers (level).isEmpty()
+                && (players.isEmpty() || players.stream().allMatch(LivingEntity::isDeadOrDying))) {
             reset(tick, true);
         }
         if (inChallenge && spawnTick != Tick.get()) {

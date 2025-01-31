@@ -95,7 +95,7 @@ public abstract class NewTeamInstance {
             // 1.判断等级需求
             if (tickCount % 100 == 0) {
                 playerList.forEach(player -> {
-                    if (player.experienceLevel < levelRequire) {
+                    if (player.experienceLevel < levelRequire && player.isShiftKeyDown()) {
                         Compute.sendFormatMSG(player, Component.literal("组队副本").withStyle(ChatFormatting.RED),
                                 Component.literal("你似乎没有达到进入副本的等级需求: ").withStyle(ChatFormatting.WHITE).
                                         append(Component.literal("Lv." + levelRequire).withStyle(Utils.levelStyleList.get(levelRequire / 25))));

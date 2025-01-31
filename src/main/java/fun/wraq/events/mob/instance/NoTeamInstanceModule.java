@@ -93,7 +93,9 @@ public class NoTeamInstanceModule {
                 for (NoTeamInstance noTeamInstance : noTeamInstancesOverworld) {
                     if (hasPlayerNearInstance(level, noTeamInstance)) {
                         noTeamInstance.detectAndSummonThenHandleTick(level);
-                        if (tick % 20 == 0) noTeamInstance.summonLeftSecondsArmorStand(level);
+                        if (tick % 20 == 0) {
+                            noTeamInstance.summonLeftSecondsArmorStand(level);
+                        }
                     } else {
                         noTeamInstance.reset(tick, true);
                     }
@@ -104,7 +106,9 @@ public class NoTeamInstanceModule {
                 for (NoTeamInstance noTeamInstance : noTeamInstancesNether) {
                     if (hasPlayerNearInstance(level, noTeamInstance)) {
                         noTeamInstance.detectAndSummonThenHandleTick(level);
-                        if (tick % 20 == 0) noTeamInstance.summonLeftSecondsArmorStand(level);
+                        if (tick % 20 == 0) {
+                            noTeamInstance.summonLeftSecondsArmorStand(level);
+                        }
                     } else {
                         noTeamInstance.reset(tick, true);
                     }
@@ -115,7 +119,9 @@ public class NoTeamInstanceModule {
                 for (NoTeamInstance noTeamInstance : noTeamInstancesEnd) {
                     if (hasPlayerNearInstance(level, noTeamInstance)) {
                         noTeamInstance.detectAndSummonThenHandleTick(level);
-                        if (tick % 20 == 0) noTeamInstance.summonLeftSecondsArmorStand(level);
+                        if (tick % 20 == 0) {
+                            noTeamInstance.summonLeftSecondsArmorStand(level);
+                        }
                     } else {
                         noTeamInstance.reset(tick, true);
                     }
@@ -142,7 +148,9 @@ public class NoTeamInstanceModule {
         boolean hasPlayerNearby = false;
         for (ServerPlayer serverPlayer : playerList) {
             if (serverPlayer.isAlive()
-                    && serverPlayer.position().distanceTo(noTeamInstance.pos) < noTeamInstance.range) hasPlayerNearby = true;
+                    && serverPlayer.position().distanceTo(noTeamInstance.pos) < noTeamInstance.range) {
+                hasPlayerNearby = true;
+            }
         }
         return hasPlayerNearby;
     }
