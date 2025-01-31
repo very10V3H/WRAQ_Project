@@ -10,6 +10,7 @@ import fun.wraq.common.equip.WraqMainHandEquip;
 import fun.wraq.common.equip.impl.RandomCurios;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
+import fun.wraq.common.impl.display.EnhancedForgedItem;
 import fun.wraq.common.impl.display.UsageOrGetWayDescriptionItem;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ClientUtils;
@@ -133,7 +134,13 @@ public class ToolTipEvent {
                         tooltip.add(Te.s(""));
                     }
                 }
-
+            }
+        }
+        if (item instanceof EnhancedForgedItem enhancedForgedItem) {
+            if (enhancedForgedItem.getEnhanceTier() == 0) {
+                tooltip.add(Te.s(""));
+                tooltip.add(Te.s("「", ChatFormatting.AQUA, "可在锻造台中", "锐化", CustomStyle.styleOfWorld,
+                        "」", ChatFormatting.AQUA));
             }
         }
         if (stack.is(ModItems.WORLD_FORGE_STONE.get())) {

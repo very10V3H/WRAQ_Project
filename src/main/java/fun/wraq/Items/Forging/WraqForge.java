@@ -5,6 +5,7 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.display.BeforeRemoveMaterialOnForge;
+import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.StringUtils;
@@ -64,7 +65,12 @@ public class WraqForge extends Item {
             return;
         }
 
-        List<ItemStack> materialList = ForgeRecipe.forgeDrawRecipe.get(forgedItem);
+        List<ItemStack> materialList;
+        if (forgedItem instanceof ForgeItem forgeItem) {
+            materialList = forgeItem.forgeRecipe();
+        } else {
+            materialList = ForgeRecipe.forgeDrawRecipe.get(forgedItem);
+        }
         Inventory inventory = player.getInventory();
         boolean containMaterial = true;
         for (ItemStack value : materialList) {

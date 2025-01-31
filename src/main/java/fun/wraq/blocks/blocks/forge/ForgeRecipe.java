@@ -2,6 +2,7 @@ package fun.wraq.blocks.blocks.forge;
 
 import fun.wraq.common.equip.WraqPickaxe;
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.item.InventoryOperation;
@@ -56,9 +57,13 @@ public class ForgeRecipe {
                 }
                 description.append(Te.s(" 锻造"));
                 tooltip.add(description);
-
                 tooltip.add(Component.literal(" 材料需求:").withStyle(CustomStyle.styleOfSky));
-                List<ItemStack> list = forgeDrawRecipe.get(itemStack.getItem());
+                List<ItemStack> list;
+                if (item instanceof ForgeItem forgeItem) {
+                    list = forgeItem.forgeRecipe();
+                } else {
+                    list = forgeDrawRecipe.get(itemStack.getItem());
+                }
                 for (int i = 0; i < list.size(); i++) {
                     ItemStack material = list.get(i);
                     Item materialItem = material.getItem();

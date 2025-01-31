@@ -217,6 +217,7 @@ public class ForgeEquipUtils {
                 ModItems.NETHER_SWORD.get(),
                 ModItems.NetherSceptre.get(),
                 ModItems.NETHER_KNIFE.get(),
+                ModItems.NETHER_KNIFE_E.get(),
                 ModItems.NETHER_ARMOR_HELMET.get(),
                 ModItems.NETHER_ARMOR_CHEST.get(),
                 ModItems.NETHER_ARMOR_LEGGINGS.get(),

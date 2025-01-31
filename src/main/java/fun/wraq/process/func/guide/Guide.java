@@ -58,93 +58,6 @@ public class Guide {
     public static String key = "guide";
     public static String keyV2 = "newGuide";
 
-    public static int getPlayerCurrentStage(Player player) {
-        return player.getPersistentData().getInt(key);
-    }
-
-    public static void setPlayerCurrentStage(Player player, int stage) {
-        player.getPersistentData().putInt(key, stage);
-        sendStageToClientV2(player);
-    }
-
-    public static void transferToV2Key(Player player) {
-        int oldStage = getPlayerCurrentStage(player);
-        if (oldStage == -1) {
-            return;
-        }
-        switch (oldStage) {
-            case 0 -> {
-                setPlayerCurrentStageV2(player, StageV2.BACKPACK);
-            }
-            case 1 -> {
-                setPlayerCurrentStageV2(player, StageV2.ROLLING);
-            }
-            case 2 -> {
-                setPlayerCurrentStageV2(player, StageV2.ILLUSTRATE);
-            }
-            case 3 -> {
-                setPlayerCurrentStageV2(player, StageV2.FIRST_KILL);
-            }
-            case 4 -> {
-                setPlayerCurrentStageV2(player, StageV2.FIRST_FORGE);
-            }
-            case 5 -> {
-                setPlayerCurrentStageV2(player, StageV2.FIRST_INJECT);
-            }
-            case 6 -> {
-                setPlayerCurrentStageV2(player, StageV2.ELEMENT_ROULETTE);
-            }
-            case 7 -> {
-                setPlayerCurrentStageV2(player, StageV2.FOREST_EQUIP);
-            }
-            case 8 -> {
-                setPlayerCurrentStageV2(player, StageV2.LAKE_EQUIP);
-            }
-            case 9 -> {
-                setPlayerCurrentStageV2(player, StageV2.MINE_EQUIP);
-            }
-            case 10 -> {
-                setPlayerCurrentStageV2(player, StageV2.VOLCANO_EQUIP);
-            }
-            case 11 -> {
-                setPlayerCurrentStageV2(player, StageV2.PLAIN_BOSS);
-            }
-            case 12 -> {
-                setPlayerCurrentStageV2(player, StageV2.PASSIVE_4_LEVEL);
-            }
-            case 13 -> {
-                setPlayerCurrentStageV2(player, StageV2.ENHANCE_EQUIP);
-            }
-            case 14 -> {
-                setPlayerCurrentStageV2(player, StageV2.TO_NETHER);
-            }
-            case 15 -> {
-                setPlayerCurrentStageV2(player, StageV2.NETHER_BOSS);
-            }
-            case 16, 17 -> {
-                setPlayerCurrentStageV2(player, StageV2.PURPLE_IRON_BOSS);
-            }
-            case 18 -> {
-                setPlayerCurrentStageV2(player, StageV2.ICE_KNIGHT);
-            }
-            case 19 -> {
-                setPlayerCurrentStageV2(player, StageV2.SAKURA_BOSS);
-            }
-            case 20 -> {
-                setPlayerCurrentStageV2(player, StageV2.DEVIL_BOSS);
-            }
-            case 21 -> {
-                setPlayerCurrentStageV2(player, StageV2.MOON_BOSS);
-            }
-            case 22 -> {
-                setPlayerCurrentStageV2(player, StageV2.FINAL);
-            }
-            default -> {
-                setPlayerCurrentStageV2(player, StageV2.BACKPACK);
-            }
-        }
-    }
-
     public static String getPlayerCurrentStageV2(Player player) {
         return player.getPersistentData().getString(keyV2);
     }
@@ -411,19 +324,12 @@ public class Guide {
     }
 
     public static void sendStageToClientV2(Player player) {
-        int oldStage = getPlayerCurrentStage(player);
-        if (oldStage > 0) {
-            transferToV2Key(player);
-            setPlayerCurrentStage(player, -1);
-        }
-        if (oldStage == 0) {
+        if (!player.getPersistentData().contains(keyV2)) {
             setPlayerCurrentStageV2(player, StageV2.BACKPACK);
-            setPlayerCurrentStage(player, -1);
         }
         String currentStageTag = getPlayerCurrentStageV2(player);
         if (!getStageToIndexMap().containsKey(currentStageTag)) {
-            Compute.sendErrorTips(player, Te.s("引导任务出错了！速速联系铁头"));
-            return;
+            setPlayerCurrentStageV2(player, StageV2.BACKPACK);
         }
         int currentStageIndex = getStageToIndexMap().get(currentStageTag);
         ModNetworking.sendToClient(new GuideStageS2CPacket(currentStageIndex), (ServerPlayer) player);

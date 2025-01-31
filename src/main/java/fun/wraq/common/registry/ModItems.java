@@ -1047,7 +1047,12 @@ public class ModItems {
             () -> new NetherSceptre(new Item.Properties().rarity(CustomStyle.ShipItalic)));
 
     public static final RegistryObject<Item> NETHER_KNIFE = ITEMS.register("nether_knife",
-            () -> new NetherKnife(new Item.Properties().rarity(CustomStyle.NetherBold), Te.m("朱雀之翎", CustomStyle.styleOfRed)));
+            () -> new NetherKnife(new Item.Properties().rarity(CustomStyle.NetherBold),
+                    Te.m("朱雀之翎", CustomStyle.styleOfRed), 0));
+
+    public static final RegistryObject<Item> NETHER_KNIFE_E = ITEMS.register("nether_knife_e",
+            () -> new NetherKnife(new Item.Properties().rarity(CustomStyle.NetherBold),
+                    Te.m("朱雀之翎", CustomStyle.styleOfRed), 1));
 
     public static final RegistryObject<Item> PHOENIX_LEATHER = ITEMS.register("phoenix_leather",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.NetherBold), false, (player) -> {

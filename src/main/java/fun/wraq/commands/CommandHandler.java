@@ -603,7 +603,7 @@ public class CommandHandler {
         LiteralCommandNode<CommandSourceStack> cmd64 = dispatcher64.register(
                 Commands.literal(Utils.MOD_ID).then(
                         Commands.literal("guide").then(
-                                Commands.argument("stage", IntegerArgumentType.integer(0, 20))
+                                Commands.argument("stage", StringArgumentType.string())
                                         .executes(GuideStageSetCommand.instance)
                         ).requires(commandSourceStack -> commandSourceStack.hasPermission(2))
                 )

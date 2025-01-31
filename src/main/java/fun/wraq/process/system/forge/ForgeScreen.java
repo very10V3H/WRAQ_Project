@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import fun.wraq.blocks.blocks.forge.ForgeRecipe;
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.networking.ModNetworking;
@@ -19,6 +20,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -104,6 +106,7 @@ public class ForgeScreen extends Screen {
         for (int i = 0; i < 3; i++) {
             if (page * 3 + i < size) {
                 ItemStack itemStack = ForgeEquipUtils.getPlayerInZoneItemList(mc.player).get(page * 3 + i);
+                Item item = itemStack.getItem();
                 int xOffset = -102 + 95 * i;
                 int yOffset = -36;
                 guiGraphics.renderItem(itemStack, this.width / 2 + xOffset, this.height / 2 + yOffset);
@@ -113,42 +116,42 @@ public class ForgeScreen extends Screen {
                         && y > this.height / 2 + yOffset && y < this.height / 2 + 16 + yOffset) {
                     guiGraphics.renderTooltip(font, itemStack, x, y);
                 }
-
                 guiGraphics.drawCenteredString(fontRenderer, itemStack.getDisplayName(),
                         this.width / 2 + xOffset + 8, this.height / 2 + yOffset - 20, 0);
-
                 guiGraphics.drawCenteredString(fontRenderer, Component.literal("「材料清单」").withStyle(ChatFormatting.AQUA),
                         this.width / 2 + xOffset + 8, this.height / 2 + yOffset + 30, 0);
-
                 if (x > this.width / 2 + xOffset - 16 && x < this.width / 2 + xOffset + 32
                         && y > this.height / 2 + yOffset + 30 - 8 && y < this.height / 2 + 16 + yOffset + 30) {
-                    if (ForgeRecipe.forgeDrawRecipe.containsKey(itemStack.getItem())) {
-                        List<ItemStack> materialList = ForgeRecipe.forgeDrawRecipe.get(itemStack.getItem());
-                        List<Component> components = new ArrayList<>() {{
-                            add(Component.literal("「材料清单」").withStyle(ChatFormatting.AQUA));
-                            materialList.forEach(material -> {
-                                int playerInventoryHasNum = InventoryOperation.itemStackCount(mc.player, material.getItem());
-                                if (playerInventoryHasNum >= material.getCount()) {
-                                    add(Component.literal("").append(material.getDisplayName()).
-                                            append(Component.literal(" (")).withStyle(ChatFormatting.WHITE).
-                                            append(Component.literal("" + material.getCount()).withStyle(ChatFormatting.AQUA)).
-                                            append(Component.literal("/").withStyle(ChatFormatting.WHITE)).
-                                            append(Component.literal("" + material.getCount()).withStyle(CustomStyle.styleOfMoon)).
-                                            append(Component.literal(")").withStyle(ChatFormatting.WHITE)).
-                                            append(Component.literal(" √").withStyle(ChatFormatting.GREEN)));
-                                } else {
-                                    add(Component.literal("").append(material.getDisplayName()).
-                                            append(Component.literal(" (")).withStyle(ChatFormatting.WHITE).
-                                            append(Component.literal("" + playerInventoryHasNum).withStyle(ChatFormatting.AQUA)).
-                                            append(Component.literal("/").withStyle(ChatFormatting.WHITE)).
-                                            append(Component.literal("" + material.getCount()).withStyle(CustomStyle.styleOfMoon)).
-                                            append(Component.literal(")").withStyle(ChatFormatting.WHITE)).
-                                            append(Component.literal(" -").withStyle(ChatFormatting.WHITE)));
-                                }
-                            });
-                        }};
-                        guiGraphics.renderComponentTooltip(fontRenderer, components, x, y);
+                    List<ItemStack> materialList;
+                    if (item instanceof ForgeItem forgeItem) {
+                        materialList = forgeItem.forgeRecipe();
+                    } else {
+                        materialList = ForgeRecipe.forgeDrawRecipe.get(item);
                     }
+                    List<Component> components = new ArrayList<>() {{
+                        add(Component.literal("「材料清单」").withStyle(ChatFormatting.AQUA));
+                        materialList.forEach(material -> {
+                            int playerInventoryHasNum = InventoryOperation.itemStackCount(mc.player, material.getItem());
+                            if (playerInventoryHasNum >= material.getCount()) {
+                                add(Component.literal("").append(material.getDisplayName()).
+                                        append(Component.literal(" (")).withStyle(ChatFormatting.WHITE).
+                                        append(Component.literal("" + material.getCount()).withStyle(ChatFormatting.AQUA)).
+                                        append(Component.literal("/").withStyle(ChatFormatting.WHITE)).
+                                        append(Component.literal("" + material.getCount()).withStyle(CustomStyle.styleOfMoon)).
+                                        append(Component.literal(")").withStyle(ChatFormatting.WHITE)).
+                                        append(Component.literal(" √").withStyle(ChatFormatting.GREEN)));
+                            } else {
+                                add(Component.literal("").append(material.getDisplayName()).
+                                        append(Component.literal(" (")).withStyle(ChatFormatting.WHITE).
+                                        append(Component.literal("" + playerInventoryHasNum).withStyle(ChatFormatting.AQUA)).
+                                        append(Component.literal("/").withStyle(ChatFormatting.WHITE)).
+                                        append(Component.literal("" + material.getCount()).withStyle(CustomStyle.styleOfMoon)).
+                                        append(Component.literal(")").withStyle(ChatFormatting.WHITE)).
+                                        append(Component.literal(" -").withStyle(ChatFormatting.WHITE)));
+                            }
+                        });
+                    }};
+                    guiGraphics.renderComponentTooltip(fontRenderer, components, x, y);
                 }
             }
         }
