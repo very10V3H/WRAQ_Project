@@ -4,11 +4,11 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.series.end.eventController.LightningIslandRecall.IntensifiedLightningArmor;
+import fun.wraq.series.overworld.chapter1.forest.ForestCrest;
 import fun.wraq.series.overworld.chapter1.mana.ManaNote;
 import fun.wraq.series.overworld.chapter1.mine.MineCrest;
-import fun.wraq.series.overworld.chapter1.snow.SnowCrest;
-import fun.wraq.series.overworld.chapter1.forest.ForestCrest;
 import fun.wraq.series.overworld.chapter1.plain.PlainCrest;
+import fun.wraq.series.overworld.chapter1.snow.SnowCrest;
 import fun.wraq.series.overworld.chapter1.volcano.VolcanoCrest;
 import fun.wraq.series.overworld.chapter1.waterSystem.crest.LakeCrest;
 import fun.wraq.series.overworld.chapter2.evoker.ManaCrest;
@@ -233,33 +233,6 @@ public class SuitCount {
         if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.NetherManaArmorChest.get())) count++;
         if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.NetherManaArmorLeggings.get())) count++;
         if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.NetherManaArmorBoots.get())) count++;
-        return count;
-    }
-
-    public static int getSpringAttackSuitCount(Player player) {
-        int count = 0;
-        if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.SpringAttackArmorHelmet.get())) count++;
-        if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.SpringAttackArmorChest.get())) count++;
-        if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.SpringAttackArmorLeggings.get())) count++;
-        if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.SpringAttackArmorBoots.get())) count++;
-        return count;
-    }
-
-    public static int getSpringSwiftSuitCount(Player player) {
-        int count = 0;
-        if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.SpringSwiftArmorHelmet.get())) count++;
-        if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.SpringSwiftArmorChest.get())) count++;
-        if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.SpringSwiftArmorLeggings.get())) count++;
-        if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.SpringSwiftArmorBoots.get())) count++;
-        return count;
-    }
-
-    public static int getSpringManaSuitCount(Player player) {
-        int count = 0;
-        if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.SpringManaArmorHelmet.get())) count++;
-        if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.SpringManaArmorChest.get())) count++;
-        if (player.getItemBySlot(EquipmentSlot.LEGS).is(ModItems.SpringManaArmorLeggings.get())) count++;
-        if (player.getItemBySlot(EquipmentSlot.FEET).is(ModItems.SpringManaArmorBoots.get())) count++;
         return count;
     }
 

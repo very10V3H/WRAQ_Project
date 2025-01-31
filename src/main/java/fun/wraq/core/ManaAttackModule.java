@@ -173,7 +173,6 @@ public class ManaAttackModule {
                 }
             }
 
-            AttackEvent.SpringManaArmor(player, monster);
             Compute.ChargingModule(data, player);
             Compute.manaDamageExEffect(player, monster, damage);
             SameTypeModule.onNormalAttackHitMob(player, monster, 1, damage + trueDamage);

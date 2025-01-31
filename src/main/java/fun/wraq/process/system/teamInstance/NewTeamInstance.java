@@ -121,10 +121,13 @@ public abstract class NewTeamInstance {
                 unPreparedPlayers.forEach(player -> {
                     unPreparedPlayerNames.add(player.getDisplayName());
                 });
-                playerList.forEach(player -> {
-                    ServerPlayer serverPlayer = (ServerPlayer) player;
-                    ModNetworking.sendToClient(new NewTeamInstancePrepareInfoS2CPacket(preparedPlayerNames, unPreparedPlayerNames), serverPlayer);
-                });
+                if (!inChallenging) {
+                    playerList.forEach(player -> {
+                        ServerPlayer serverPlayer = (ServerPlayer) player;
+                        ModNetworking.sendToClient(new NewTeamInstancePrepareInfoS2CPacket(preparedPlayerNames,
+                                unPreparedPlayerNames), serverPlayer);
+                    });
+                }
             }
             // 4.判断是否可以开始挑战
             // 首先判断玩家列表是否为空
@@ -225,6 +228,16 @@ public abstract class NewTeamInstance {
                 });
             }
             handleTick(level);
+            mobList.forEach(conditionSummonMob -> {
+                Mob mob = conditionSummonMob.mob();
+                if (!hasSummonedMobs.contains(mob)) {
+                    if (conditionSummonMob.condition() == 0 && players.stream().anyMatch(player -> player.position()
+                            .distanceTo(conditionSummonMob.summonPos) < conditionSummonMob.detectRange)) {
+                        hasSummonedMobs.add(mob);
+                        level.addFreshEntity(mob);
+                    }
+                }
+            });
             if (mobList.size() - hasKilledMobs.size() == 0 && !allMobIsClear()) {
                 players.forEach(player -> {
                     Compute.sendFormatMSG(player, Component.literal("团队副本").withStyle(ChatFormatting.RED),
@@ -254,11 +267,6 @@ public abstract class NewTeamInstance {
                         Compute.sendFormatMSG(player, Component.literal("团队副本").withStyle(ChatFormatting.RED),
                                 Te.s("获取奖励所需的", "理智", CustomStyle.styleOfFlexible, "不足。需要",
                                         reasonCost + "理智", CustomStyle.styleOfFlexible));
-                        return;
-                    }
-                    if (Reason.getPlayerReasonValue(player) < reasonCost) {
-                        Compute.sendFormatMSG(player, Component.literal("团队副本").withStyle(ChatFormatting.RED),
-                                Te.s("需要至少", reasonCost + "理智", CustomStyle.styleOfFlexible, "才能获得奖励"));
                         return;
                     }
                     if (!allowReward(player)) {

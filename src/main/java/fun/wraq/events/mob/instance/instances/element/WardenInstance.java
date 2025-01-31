@@ -206,7 +206,7 @@ public class WardenInstance extends NoTeamInstance {
     public void detectNearPlayer() {
         if (Compute.getNearEntity(boss, Player.class, 8).isEmpty() && Tick.get() > nextAllowTrigTick) {
             nextAllowTrigTick = Tick.get() + 100;
-            getAllPlayers(boss.level()).forEach(player -> {
+            players.forEach(player -> {
                 sendFormatMSG(player, Te.s(mobName, style, "附近没有玩家，其释放了", "回响", style));
                 /*Compute.causeGatherEffect(player, 20, boss.position());*/
                 SpecialEffectOnPlayer.causeBothDefenceReductionToPlayer(player,
@@ -246,7 +246,7 @@ public class WardenInstance extends NoTeamInstance {
                 boss.level().setBlockAndUpdate(pos, Blocks.SCULK_SHRIEKER.defaultBlockState());
             });
             summonTick = Tick.get();
-            getAllPlayers(boss.level()).forEach(player -> {
+            players.forEach(player -> {
                 Compute.setPlayerTitleAndSubTitle((ServerPlayer) player, Te.s("幽匿尖啸体", style, "已生成在四周"),
                         Te.s("快去分头摧毁!"));
                 SpecialEffectOnPlayer.addSilentEffect(player, 100);
@@ -268,7 +268,7 @@ public class WardenInstance extends NoTeamInstance {
         });
         if (existing) {
             if ((Tick.get() - summonTick) % 100 == 99) {
-                getAllPlayers(boss.level()).forEach(player -> {
+                players.forEach(player -> {
                     SpecialEffectOnPlayer.addSilentEffect(player, 100);
                     SpecialEffectOnPlayer.addBlindEffect(player, 100);
                     player.addEffect(new MobEffectInstance(MobEffects.DARKNESS, 200));
@@ -276,7 +276,7 @@ public class WardenInstance extends NoTeamInstance {
             }
             if (summonTick + 400 < Tick.get()) {
                 boss.heal(boss.getMaxHealth());
-                getAllPlayers(boss.level()).forEach(player -> {
+                players.forEach(player -> {
                     Compute.setPlayerTitleAndSubTitle((ServerPlayer) player, Te.s("幽匿尖啸体", style, "未及时被摧毁"),
                             Te.s(mobName, style, "从幽匿中汲取了力量"));
                     SpecialEffectOnPlayer.addSilentEffect(player, 100);
@@ -289,7 +289,7 @@ public class WardenInstance extends NoTeamInstance {
         } else {
             if (summonTick > 0) {
                 summonTick = -1;
-                getAllPlayers(boss.level()).forEach(player -> {
+                players.forEach(player -> {
                     Compute.setPlayerTitleAndSubTitle((ServerPlayer) player, Te.s("幽匿尖啸体", style, "已全部摧毁"),
                             Te.s("回去击杀boss!"));
                     SpecialEffectOnPlayer.cleanse(player);
@@ -396,7 +396,7 @@ public class WardenInstance extends NoTeamInstance {
     public void commonAttack() {
         if (Tick.get() % 20 == 0) {
             Random random = new Random();
-            getAllPlayers(boss.level()).forEach(player -> {
+            players.forEach(player -> {
                 Set<Player> playerSet =
                         new HashSet<>(Compute.getNearEntity(player, Player.class, 3)
                                 .stream().map(e -> (Player) e).toList());
@@ -418,25 +418,25 @@ public class WardenInstance extends NoTeamInstance {
     // 提示
     public void tips() {
         if (spawnTick == Tick.get()) {
-            getAllPlayers(boss.level()).forEach(player -> {
+            players.forEach(player -> {
                 player.addEffect(new MobEffectInstance(MobEffects.DARKNESS, 100));
                 MySound.soundToPlayer(player, SoundEvents.WARDEN_AGITATED);
             });
         }
         if (spawnTick + 80 == Tick.get()) {
-            getAllPlayers(boss.level()).forEach(player -> {
+            players.forEach(player -> {
                 sendFormatMSG(player, Te.s("穿戴/使用", "望山装备/武器", CustomStyle.styleOfMoontain, "对付",
                         "坚守者", style, "似乎非常有效!"));
             });
         }
         if (spawnTick + 160 == Tick.get()) {
-            getAllPlayers(boss.level()).forEach(player -> {
+            players.forEach(player -> {
                 sendFormatMSG(player, Te.s("坚守者", style, "对处于",
                         "潜行状态", CustomStyle.styleOfEnd, "的玩家造成的伤害", "降低50%", ChatFormatting.GREEN));
             });
         }
         if (spawnTick + 240 == Tick.get()) {
-            getAllPlayers(boss.level()).forEach(player -> {
+            players.forEach(player -> {
                 sendFormatMSG(player, Te.s("玩家之间需要保持一定距离，因为", "坚守者", style, "的普通技能是",
                         "范围伤害", CustomStyle.styleOfStone));
             });

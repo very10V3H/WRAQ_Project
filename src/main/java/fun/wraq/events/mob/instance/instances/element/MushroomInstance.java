@@ -190,7 +190,7 @@ public class MushroomInstance extends NoTeamInstance {
     public void commonAttack() {
         double commonAttackDamage = 10000;
         Level level = boss.level();
-        getAllPlayers(level).forEach(player -> {
+        players.forEach(player -> {
             ParticleProvider.createLineEffectParticle(level, (int) player.distanceTo(boss) * 5,
                     boss.getEyePosition(), player.getEyePosition(), style);
             Damage.causeAttackDamageToPlayer(boss, player, commonAttackDamage);
@@ -200,7 +200,7 @@ public class MushroomInstance extends NoTeamInstance {
 
     public void skill1() {
         Level level = boss.level();
-        List<Player> playerList = getAllPlayers(level).stream().toList();
+        List<Player> playerList = players.stream().toList();
         if (playerList.isEmpty()) return;
         Player randomPlayer = playerList.get(RandomUtils.nextInt(0, playerList.size()));
 
@@ -220,7 +220,7 @@ public class MushroomInstance extends NoTeamInstance {
 
     public void skill2() {
         Level level = boss.level();
-        getAllPlayers(level).forEach(player -> {
+        players.forEach(player -> {
             ParticleProvider.createBreakBlockParticle(player, Blocks.BROWN_MUSHROOM);
             SpecialEffectOnPlayer.addImprisonEffect(player, 40);
         });

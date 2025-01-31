@@ -4,36 +4,23 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.struct.InjectingRecipe;
 import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.series.end.citadel.CitadelItems;
+import fun.wraq.series.events.SpecialEventItems;
 import fun.wraq.series.gems.GemItems;
-import fun.wraq.series.instance.blade.BladeItems;
-import fun.wraq.series.instance.mixture.MixtureItems;
-import fun.wraq.series.instance.quiver.QuiverItems;
 import fun.wraq.series.instance.series.warden.WardenItems;
-import fun.wraq.series.moontain.MoontainItems;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class InjectRecipe {
 
-    public static Map<Item, InjectingRecipe> injectingRecipeMap = new HashMap<>();
+    public static Map<Item, InjectingRecipe> injectingRecipeMap = new LinkedHashMap<>();
 
     // 通过得到的物品获取源物品
     public static Map<Item, Item> productSourceItemMap = new HashMap<>();
 
     // 材料可以灌注何种物品的map
     public static Map<Item, List<InjectingRecipe>> injectingWaysMap = new HashMap<>();
-
-    public static boolean containItem(Item item) {
-        for (InjectingRecipe injectingRecipe : injectingRecipeMap.values().stream().toList()) {
-            if (injectingRecipe.getProduct().equals(item)) return true;
-        }
-        return false;
-    }
 
     public static void setInjectingRecipeMap() {
         injectingRecipeMap.put(ModItems.PlainSword0.get(),
@@ -455,49 +442,61 @@ public class InjectRecipe {
                 new InjectingRecipe(ModItems.IceHeart.get(), 2,
                         ModItems.IceBook.get()));
 
-        injectingRecipeMap.put(ModItems.SpringRing0.get(),
-                new InjectingRecipe(ModItems.SpringGoldCoin.get(), 8,
-                        ModItems.SpringRing1.get()));
-        injectingRecipeMap.put(ModItems.SpringRing1.get(),
-                new InjectingRecipe(ModItems.SpringGoldCoin.get(), 16,
-                        ModItems.SpringRing2.get()));
-        injectingRecipeMap.put(ModItems.SpringRing2.get(),
-                new InjectingRecipe(ModItems.SpringGoldCoin.get(), 24,
-                        ModItems.SpringRing3.get()));
+        injectingRecipeMap.put(SpecialEventItems.RING.get(),
+                new InjectingRecipe(SpecialEventItems.SPRING_GOLD_INGOT.get(), 3,
+                        SpecialEventItems.RING_1.get()));
+        injectingRecipeMap.put(SpecialEventItems.RING_1.get(),
+                new InjectingRecipe(SpecialEventItems.SPRING_GOLD_INGOT.get(), 6,
+                        SpecialEventItems.RING_2.get()));
+        injectingRecipeMap.put(SpecialEventItems.RING_2.get(),
+                new InjectingRecipe(SpecialEventItems.SPRING_GOLD_INGOT.get(), 12,
+                        SpecialEventItems.RING_3.get()));
+        injectingRecipeMap.put(SpecialEventItems.RING_3.get(),
+                new InjectingRecipe(SpecialEventItems.SPRING_GOLD_INGOT.get(), 18,
+                        SpecialEventItems.RING_4.get()));
 
-        injectingRecipeMap.put(ModItems.SpringHand0.get(),
-                new InjectingRecipe(ModItems.SpringGoldCoin.get(), 8,
-                        ModItems.SpringHand1.get()));
-        injectingRecipeMap.put(ModItems.SpringHand1.get(),
-                new InjectingRecipe(ModItems.SpringGoldCoin.get(), 16,
-                        ModItems.SpringHand2.get()));
-        injectingRecipeMap.put(ModItems.SpringHand2.get(),
-                new InjectingRecipe(ModItems.SpringGoldCoin.get(), 24,
-                        ModItems.SpringHand3.get()));
+        injectingRecipeMap.put(SpecialEventItems.HAND.get(),
+                new InjectingRecipe(SpecialEventItems.SPRING_GOLD_INGOT.get(), 3,
+                        SpecialEventItems.HAND_1.get()));
+        injectingRecipeMap.put(SpecialEventItems.HAND_1.get(),
+                new InjectingRecipe(SpecialEventItems.SPRING_GOLD_INGOT.get(), 6,
+                        SpecialEventItems.HAND_2.get()));
+        injectingRecipeMap.put(SpecialEventItems.HAND_2.get(),
+                new InjectingRecipe(SpecialEventItems.SPRING_GOLD_INGOT.get(), 12,
+                        SpecialEventItems.HAND_3.get()));
+        injectingRecipeMap.put(SpecialEventItems.HAND_3.get(),
+                new InjectingRecipe(SpecialEventItems.SPRING_GOLD_INGOT.get(), 18,
+                        SpecialEventItems.HAND_4.get()));
 
-        injectingRecipeMap.put(ModItems.SpringNecklace0.get(),
-                new InjectingRecipe(ModItems.SpringGoldCoin.get(), 8,
-                        ModItems.SpringNecklace1.get()));
-        injectingRecipeMap.put(ModItems.SpringNecklace1.get(),
-                new InjectingRecipe(ModItems.SpringGoldCoin.get(), 16,
-                        ModItems.SpringNecklace2.get()));
-        injectingRecipeMap.put(ModItems.SpringNecklace2.get(),
-                new InjectingRecipe(ModItems.SpringGoldCoin.get(), 24,
-                        ModItems.SpringNecklace3.get()));
+        injectingRecipeMap.put(SpecialEventItems.NECKLACE.get(),
+                new InjectingRecipe(SpecialEventItems.SPRING_GOLD_INGOT.get(), 3,
+                        SpecialEventItems.NECKLACE_1.get()));
+        injectingRecipeMap.put(SpecialEventItems.NECKLACE_1.get(),
+                new InjectingRecipe(SpecialEventItems.SPRING_GOLD_INGOT.get(), 6,
+                        SpecialEventItems.NECKLACE_2.get()));
+        injectingRecipeMap.put(SpecialEventItems.NECKLACE_2.get(),
+                new InjectingRecipe(SpecialEventItems.SPRING_GOLD_INGOT.get(), 12,
+                        SpecialEventItems.NECKLACE_3.get()));
+        injectingRecipeMap.put(SpecialEventItems.NECKLACE_3.get(),
+                new InjectingRecipe(SpecialEventItems.SPRING_GOLD_INGOT.get(), 18,
+                        SpecialEventItems.NECKLACE_4.get()));
 
-        injectingRecipeMap.put(ModItems.SpringBelt0.get(),
-                new InjectingRecipe(ModItems.SpringGoldCoin.get(), 8,
-                        ModItems.SpringBelt1.get()));
-        injectingRecipeMap.put(ModItems.SpringBelt1.get(),
-                new InjectingRecipe(ModItems.SpringGoldCoin.get(), 16,
-                        ModItems.SpringBelt2.get()));
-        injectingRecipeMap.put(ModItems.SpringBelt2.get(),
-                new InjectingRecipe(ModItems.SpringGoldCoin.get(), 24,
-                        ModItems.SpringBelt3.get()));
+        injectingRecipeMap.put(SpecialEventItems.BELT.get(),
+                new InjectingRecipe(SpecialEventItems.SPRING_GOLD_INGOT.get(), 3,
+                        SpecialEventItems.BELT_1.get()));
+        injectingRecipeMap.put(SpecialEventItems.BELT_1.get(),
+                new InjectingRecipe(SpecialEventItems.SPRING_GOLD_INGOT.get(), 6,
+                        SpecialEventItems.BELT_2.get()));
+        injectingRecipeMap.put(SpecialEventItems.BELT_2.get(),
+                new InjectingRecipe(SpecialEventItems.SPRING_GOLD_INGOT.get(), 12,
+                        SpecialEventItems.BELT_3.get()));
+        injectingRecipeMap.put(SpecialEventItems.BELT_3.get(),
+                new InjectingRecipe(SpecialEventItems.SPRING_GOLD_INGOT.get(), 18,
+                        SpecialEventItems.BELT_4.get()));
 
-        injectingRecipeMap.put(ModItems.SpringSoul.get(),
-                new InjectingRecipe(24, ModItems.SpringGoldCoin.get(), 6,
-                        ModItems.SpringHeart.get()));
+        injectingRecipeMap.put(SpecialEventItems.SPRING_SOUL.get(),
+                new InjectingRecipe(24, SpecialEventItems.SPRING_GOLD_COIN.get(), 6,
+                        SpecialEventItems.SpringHeart.get()));
 
         injectingRecipeMap.put(ModItems.BloodManaCurios.get(),
                 new InjectingRecipe(ModItems.DevilBlood.get(), 6,
@@ -827,63 +826,6 @@ public class InjectRecipe {
                 new InjectingRecipe(ModItems.EvokerRune.get(), 8,
                         ModItems.EvokerSword3.get()));
 
-        injectingRecipeMap.put(BladeItems.BLADE.get(),
-                new InjectingRecipe(ModItems.PlainCompleteGem.get(), 2, BladeItems.BLADE_PLAIN.get()));
-        injectingRecipeMap.put(BladeItems.BLADE_PLAIN.get(),
-                new InjectingRecipe(ModItems.FOILED_NETHER_IMPRINT.get(), 4, BladeItems.BLADE_NETHER.get()));
-        injectingRecipeMap.put(BladeItems.BLADE_NETHER.get(),
-                new InjectingRecipe(ModItems.PurpleIronBud2.get(), 4, BladeItems.BLADE_PURPLE.get()));
-        injectingRecipeMap.put(BladeItems.BLADE_PURPLE.get(),
-                new InjectingRecipe(ModItems.IceCompleteGem.get(), 4, BladeItems.BLADE_ICE.get()));
-        injectingRecipeMap.put(BladeItems.BLADE_ICE.get(),
-                new InjectingRecipe(ModItems.GOLDEN_SHEET.get(), 4, BladeItems.BLADE_SAKURA.get()));
-        injectingRecipeMap.put(BladeItems.BLADE_SAKURA.get(),
-                new InjectingRecipe(ModItems.DevilBlood.get(), 4, BladeItems.BLADE_DEVIL.get()));
-        injectingRecipeMap.put(BladeItems.BLADE_DEVIL.get(),
-                new InjectingRecipe(ModItems.MoonCompleteGem.get(), 4, BladeItems.BLADE_MOON.get()));
-        injectingRecipeMap.put(BladeItems.BLADE_MOON.get(),
-                new InjectingRecipe(ModItems.CastleSwordPiece.get(), 4, BladeItems.BLADE_CASTLE.get()));
-        injectingRecipeMap.put(BladeItems.BLADE_CASTLE.get(),
-                new InjectingRecipe(MoontainItems.WEAPON_ENHANCER.get(), 4, BladeItems.BLADE_MOONTAIN.get()));
-
-        injectingRecipeMap.put(QuiverItems.QUIVER.get(),
-                new InjectingRecipe(ModItems.PlainCompleteGem.get(), 2, QuiverItems.QUIVER_PLAIN.get()));
-        injectingRecipeMap.put(QuiverItems.QUIVER_PLAIN.get(),
-                new InjectingRecipe(ModItems.FOILED_NETHER_IMPRINT.get(), 4, QuiverItems.QUIVER_NETHER.get()));
-        injectingRecipeMap.put(QuiverItems.QUIVER_NETHER.get(),
-                new InjectingRecipe(ModItems.PurpleIronBud2.get(), 4, QuiverItems.QUIVER_PURPLE.get()));
-        injectingRecipeMap.put(QuiverItems.QUIVER_PURPLE.get(),
-                new InjectingRecipe(ModItems.IceCompleteGem.get(), 4, QuiverItems.QUIVER_ICE.get()));
-        injectingRecipeMap.put(QuiverItems.QUIVER_ICE.get(),
-                new InjectingRecipe(ModItems.GOLDEN_SHEET.get(), 4, QuiverItems.QUIVER_SAKURA.get()));
-        injectingRecipeMap.put(QuiverItems.QUIVER_SAKURA.get(),
-                new InjectingRecipe(ModItems.DevilBlood.get(), 4, QuiverItems.QUIVER_DEVIL.get()));
-        injectingRecipeMap.put(QuiverItems.QUIVER_DEVIL.get(),
-                new InjectingRecipe(ModItems.MoonCompleteGem.get(), 4, QuiverItems.QUIVER_MOON.get()));
-        injectingRecipeMap.put(QuiverItems.QUIVER_MOON.get(),
-                new InjectingRecipe(ModItems.CastleBowPiece.get(), 4, QuiverItems.QUIVER_CASTLE.get()));
-        injectingRecipeMap.put(QuiverItems.QUIVER_CASTLE.get(),
-                new InjectingRecipe(MoontainItems.WEAPON_ENHANCER.get(), 4, QuiverItems.QUIVER_MOONTAIN.get()));
-
-        injectingRecipeMap.put(MixtureItems.MIXTURE.get(),
-                new InjectingRecipe(ModItems.PlainCompleteGem.get(), 2, MixtureItems.MIXTURE_PLAIN.get()));
-        injectingRecipeMap.put(MixtureItems.MIXTURE_PLAIN.get(),
-                new InjectingRecipe(ModItems.FOILED_NETHER_IMPRINT.get(), 4, MixtureItems.MIXTURE_NETHER.get()));
-        injectingRecipeMap.put(MixtureItems.MIXTURE_NETHER.get(),
-                new InjectingRecipe(ModItems.PurpleIronBud2.get(), 4, MixtureItems.MIXTURE_PURPLE.get()));
-        injectingRecipeMap.put(MixtureItems.MIXTURE_PURPLE.get(),
-                new InjectingRecipe(ModItems.IceCompleteGem.get(), 4, MixtureItems.MIXTURE_ICE.get()));
-        injectingRecipeMap.put(MixtureItems.MIXTURE_ICE.get(),
-                new InjectingRecipe(ModItems.GOLDEN_SHEET.get(), 4, MixtureItems.MIXTURE_SAKURA.get()));
-        injectingRecipeMap.put(MixtureItems.MIXTURE_SAKURA.get(),
-                new InjectingRecipe(ModItems.DevilBlood.get(), 4, MixtureItems.MIXTURE_DEVIL.get()));
-        injectingRecipeMap.put(MixtureItems.MIXTURE_DEVIL.get(),
-                new InjectingRecipe(ModItems.MoonCompleteGem.get(), 4, MixtureItems.MIXTURE_MOON.get()));
-        injectingRecipeMap.put(MixtureItems.MIXTURE_MOON.get(),
-                new InjectingRecipe(ModItems.CastleSceptrePiece.get(), 4, MixtureItems.MIXTURE_CASTLE.get()));
-        injectingRecipeMap.put(MixtureItems.MIXTURE_CASTLE.get(),
-                new InjectingRecipe(MoontainItems.WEAPON_ENHANCER.get(), 4, MixtureItems.MIXTURE_MOONTAIN.get()));
-
         injectingRecipeMap.put(PickaxeItems.STONE_PICKAXE_0.get(),
                 new InjectingRecipe(PickaxeItems.TINKER_STONE.get(), 1, PickaxeItems.STONE_PICKAXE_1.get()));
         injectingRecipeMap.put(PickaxeItems.STONE_PICKAXE_1.get(),
@@ -984,6 +926,13 @@ public class InjectRecipe {
         injectingRecipeMap.put(GemItems.ANCIENT_ECHO_GEM_2.get(),
                 new InjectingRecipe(WardenItems.WARDEN_HEART.get(), 3, GemItems.ANCIENT_ECHO_GEM_3.get()));
 
+        injectingRecipeMap.put(SpecialEventItems.SCALE_2025_0.get(),
+                new InjectingRecipe(SpecialEventItems.SCALE_PIECE.get(), 2, SpecialEventItems.SCALE_2025_1.get()));
+        injectingRecipeMap.put(SpecialEventItems.SCALE_2025_1.get(),
+                new InjectingRecipe(SpecialEventItems.SCALE_PIECE.get(), 4, SpecialEventItems.SCALE_2025_2.get()));
+        injectingRecipeMap.put(SpecialEventItems.SCALE_2025_2.get(),
+                new InjectingRecipe(SpecialEventItems.SCALE_PIECE.get(), 8, SpecialEventItems.SCALE_2025_3.get()));
+
         injectingRecipeMap.put(Items.GOLD_INGOT,
                 new InjectingRecipe(4, Items.NETHERITE_SCRAP, 4, Items.NETHERITE_INGOT));
 
@@ -996,7 +945,6 @@ public class InjectRecipe {
                 injectingWaysMap.put(material, new ArrayList<>());
             }
             injectingWaysMap.get(material).add(itemInjectingRecipeEntry.getValue());
-
             productSourceItemMap.put(itemInjectingRecipeEntry.getValue().getProduct(),
                     itemInjectingRecipeEntry.getKey());
         }

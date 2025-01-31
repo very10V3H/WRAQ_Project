@@ -61,14 +61,15 @@ import fun.wraq.render.hud.Mana;
 import fun.wraq.render.hud.networking.ExpGetS2CPacket;
 import fun.wraq.render.mobEffects.ModEffects;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.events.SpecialEventItems;
+import fun.wraq.series.events.labourDay.LabourDayIronHoe;
+import fun.wraq.series.events.labourDay.LabourDayIronPickaxe;
 import fun.wraq.series.instance.blade.WraqBlade;
 import fun.wraq.series.instance.series.castle.CastleSceptre;
 import fun.wraq.series.instance.series.castle.RandomCuriosAttributesUtil;
 import fun.wraq.series.instance.series.warden.gem.AncientEchoGem;
 import fun.wraq.series.overworld.chapter7.star.StarBottle;
 import fun.wraq.series.overworld.chapter7.vd.VdWeaponCommon;
-import fun.wraq.series.specialevents.labourDay.LabourDayIronHoe;
-import fun.wraq.series.specialevents.labourDay.LabourDayIronPickaxe;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
@@ -96,8 +97,6 @@ import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -654,13 +653,6 @@ public class Compute {
             ModNetworking.sendToClient(new BowSkill12S2CPacket(8), (ServerPlayer) player);
     }
 
-    public static ItemStack foilAddItemStack(ItemStack itemStack) {
-        Map<Enchantment, Integer> map = EnchantmentHelper.getEnchantments(itemStack);
-        map.put(Enchantments.UNBREAKING, 1);
-        EnchantmentHelper.setEnchantments(map, itemStack);
-        return itemStack;
-    }
-
     public static Boolean onSky(LivingEntity entity) {
         int X = entity.getBlockX();
         int Y = entity.getBlockY();
@@ -1018,6 +1010,18 @@ public class Compute {
         CompoundTag data = player.getPersistentData();
         if (data.getBoolean(StringUtils.FantasyMedal)) enhance += 0.03;
         if (data.getBoolean(StringUtils.FantasyBracelet)) enhance += 0.03;
+        if (Compute.CuriosAttribute.getDistinctCuriosSet(player).contains(SpecialEventItems.SCALE_2025_0.get())) {
+            enhance += 0.01;
+        } else if (Compute.CuriosAttribute.getDistinctCuriosSet(player)
+                .contains(SpecialEventItems.SCALE_2025_1.get())) {
+            enhance += 0.02;
+        } else if (Compute.CuriosAttribute.getDistinctCuriosSet(player)
+                .contains(SpecialEventItems.SCALE_2025_2.get())) {
+            enhance += 0.03;
+        } else if (Compute.CuriosAttribute.getDistinctCuriosSet(player)
+                .contains(SpecialEventItems.SCALE_2025_3.get())) {
+            enhance += 0.04;
+        }
         return enhance;
     }
 

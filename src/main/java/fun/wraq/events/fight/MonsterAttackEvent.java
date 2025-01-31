@@ -20,6 +20,7 @@ import fun.wraq.networking.misc.ParticlePackets.SlowDownParticleS2CPacket;
 import fun.wraq.networking.misc.SoundsPackets.SoundsS2CPacket;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.suit.SuitCount;
+import fun.wraq.process.system.teamInstance.instances.spring.SpringSnakeInstance;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.gems.passive.impl.GemOnWithstandDamage;
 import fun.wraq.series.gems.passive.impl.GemWithstandDamageRateModifier;
@@ -149,6 +150,7 @@ public class MonsterAttackEvent {
             DevilAttackArmor.DevilAttackArmorPassive(player, monster); // 封魔者圣铠
             StarBottle.playerBattleTickMapRefresh(player);
             GemOnWithstandDamage.withStandDamage(player, monster, finalDamage);
+            SpringSnakeInstance.onPlayerWithstandDamage(player, monster);
         }
         CitadelGuardianInstance.playerWithstandDamage(player, monster);
     }

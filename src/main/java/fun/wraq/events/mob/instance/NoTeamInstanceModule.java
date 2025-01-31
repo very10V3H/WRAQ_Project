@@ -1,5 +1,6 @@
 package fun.wraq.events.mob.instance;
 
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.events.mob.instance.instances.dimension.CitadelGuardianInstance;
@@ -10,8 +11,10 @@ import fun.wraq.events.mob.instance.instances.moontain.MoontainBoss2Instance;
 import fun.wraq.events.mob.instance.instances.moontain.MoontainBoss3Instance;
 import fun.wraq.events.mob.instance.instances.sakura.DevilInstance;
 import fun.wraq.events.mob.instance.instances.sakura.SakuraBossInstance;
+import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.moontain.MoontainItems;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Mob;
@@ -26,18 +29,23 @@ import java.util.List;
 public class NoTeamInstanceModule {
 
     public static class AllowRewardKey {
-        public static String allowRewardInstance = "allowRewardInstance";
-        public static String nether = "allowRewardNether";
-        public static String purpleIron = "allowRewardPurpleIron";
-        public static String iceKnight = "allowRewardIceKnight";
-        public static String sakuraBoss = "allowRewardSakuraBoss";
-        public static String devil = "allowRewardDevil";
-        public static String moon = "allowRewardMoon";
-        public static String blackCastle = "allowRewardBlackCastle";
-        public static String moontainBoss = "allowRewardMoontainBoss";
-        public static String enderGuardian = "allowRewardEnderGuardian";
-        public static String warden = "allowRewardWarden";
-        public static String harbinger = "allowRewardHarbinger";
+        public static final String allowRewardInstance = "allowRewardInstance";
+        public static final String nether = "allowRewardNether";
+        public static final String purpleIron = "allowRewardPurpleIron";
+        public static final String iceKnight = "allowRewardIceKnight";
+        public static final String sakuraBoss = "allowRewardSakuraBoss";
+        public static final String devil = "allowRewardDevil";
+        public static final String moon = "allowRewardMoon";
+        public static final String blackCastle = "allowRewardBlackCastle";
+        public static final String moontainBoss = "allowRewardMoontainBoss";
+        public static final String enderGuardian = "allowRewardEnderGuardian";
+        public static final String warden = "allowRewardWarden";
+        public static final String harbinger = "allowRewardHarbinger";
+    }
+
+    public static class AllowRewardCondition {
+        public static final MutableComponent devil = Te.s("需要至少", "锻造", CustomStyle.styleOfMine, "过",
+                "1件", "冰霜骑士武器", CustomStyle.styleOfIce, "，方能获取奖励。");
     }
 
     public static boolean getPlayerAllowReward(Player player, String tag) {
@@ -170,20 +178,24 @@ public class NoTeamInstanceModule {
         }
     }
 
-    public static void onMobWithstandDamage(Player player, Mob mob) {
-        noTeamInstancesOverworld.forEach(instance -> instance.onMobWithStandDamage(player, mob));
-        noTeamInstancesNether.forEach(instance -> instance.onMobWithStandDamage(player, mob));
-        noTeamInstancesEnd.forEach(instance -> instance.onMobWithStandDamage(player, mob));
+    public static List<NoTeamInstance> getAllInstance() {
+        List<NoTeamInstance> list = new ArrayList<>();
+        list.addAll(noTeamInstancesOverworld);
+        list.addAll(noTeamInstancesNether);
+        list.addAll(noTeamInstancesEnd);
+        return list;
+    }
+
+    public static double onMobWithstandDamageRate(Player player, Mob mob) {
+        NoTeamInstance instance = getAllInstance()
+                .stream().filter(noTeamInstance -> noTeamInstance.mobList.contains(mob))
+                .findFirst()
+                .orElse(null);
+        return instance == null ? 1 : instance.onMobWithStandDamageRate(player, mob);
     }
 
     public static void onDead(Player player) {
-        noTeamInstancesOverworld.forEach(instance -> instance.players.removeIf(eachPlayer -> {
-            return eachPlayer.getName().getString().equals(player.getName().getString());
-        }));
-        noTeamInstancesNether.forEach(instance -> instance.players.removeIf(eachPlayer -> {
-            return eachPlayer.getName().getString().equals(player.getName().getString());
-        }));
-        noTeamInstancesEnd.forEach(instance -> instance.players.removeIf(eachPlayer -> {
+        getAllInstance().forEach(instance -> instance.players.removeIf(eachPlayer -> {
             return eachPlayer.getName().getString().equals(player.getName().getString());
         }));
     }

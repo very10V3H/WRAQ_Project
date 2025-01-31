@@ -9,7 +9,7 @@ import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.system.randomevent.RandomAdditionalRewardEvent;
 import fun.wraq.process.system.randomevent.RandomEvent;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.specialevents.springFes.FireWorkGun;
+import fun.wraq.series.events.spring2024.FireworkGun;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -56,7 +56,7 @@ public class UrgentEvent extends RandomEvent {
     protected void tick() {
         if (Tick.get() % 40 == 0) {
             if (!Compute.getNearEntity(level(), pos, Player.class, 64).isEmpty()) {
-                FireWorkGun.summonFireWork(level(), pos.add(0, 2, 0));
+                FireworkGun.summonFireWork(level(), pos.add(0, 2, 0));
             }
         }
         Compute.getNearEntity(level(), pos, Player.class, 6).forEach(p -> {

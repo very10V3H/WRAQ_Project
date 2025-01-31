@@ -44,7 +44,8 @@ import fun.wraq.process.system.profession.pet.allay.skill.AllaySkills;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.end.Recall;
 import fun.wraq.series.end.runes.EndRune;
-import fun.wraq.series.specialevents.springFes.FireWorkGun;
+import fun.wraq.series.events.SpecialEventItems;
+import fun.wraq.series.events.spring2024.FireworkGun;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -57,6 +58,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.TickEvent;
 import org.apache.commons.lang3.RandomUtils;
@@ -223,6 +225,19 @@ public class MobSpawn {
     public static Map<String, List<ItemAndRate>> dropList = new HashMap<>();
     public static Map<String, Boolean> dropsDirectToInventory = new HashMap<>();
 
+    public static void setStainArmorOnMob(Mob mob, Style style) {
+        ItemStack[] itemStacks = {new ItemStack(Items.LEATHER_HELMET), new ItemStack(Items.LEATHER_CHESTPLATE),
+                new ItemStack(Items.LEATHER_LEGGINGS), new ItemStack(Items.LEATHER_BOOTS)};
+        EquipmentSlot[] equipmentSlots = {EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET};
+        for (int i = 0; i < itemStacks.length; i++) {
+            CompoundTag tag = itemStacks[i].getTag();
+            CompoundTag tag1 = new CompoundTag();
+            tag1.putInt("color", style.getColor().getValue());
+            tag.put("display", tag1);
+            mob.setItemSlot(equipmentSlots[i], itemStacks[i]);
+        }
+    }
+
     public static class MobBaseAttributes {
         public static Map<String, Integer> xpLevel = new HashMap<>();
         public static Map<String, Double> attackDamage = new HashMap<>();
@@ -239,19 +254,6 @@ public class MobSpawn {
 
         public static double getMobBaseAttribute(Mob mob, Map<String, Double> map) {
             return map.getOrDefault(getMobOriginName(mob), 0d);
-        }
-
-        public static void setMobBaseAttributes(Mob mob, int xpLevel, double attackDamage, double defence, double manaDefence,
-                                                double critRate, double critDamage, double defencePenetration,
-                                                double defencePenetration0, double healthSteal, double maxHealth, double movementSpeed) {
-            MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(mob), xpLevel);
-            setMobBaseAttributes(mob, attackDamage, defence, manaDefence, critRate, critDamage, defencePenetration,
-                    defencePenetration0, healthSteal, maxHealth, movementSpeed);
-        }
-
-        public static void setMobBaseAttributes(Mob mob, double attackDamage, double defence, double manaDefence,
-                                                double maxHealth, double movementSpeed) {
-            setMobBaseAttributes(mob, attackDamage, defence, manaDefence, 0, 0, 0, 0, 0, maxHealth, movementSpeed);
         }
 
         public static void setMobBaseAttributes(Mob mob, double attackDamage, double defence, double manaDefence,
@@ -292,6 +294,29 @@ public class MobSpawn {
                 }
             }
         }
+
+        public static void setMobBaseAttributes(Mob mob, int xpLevel, double attackDamage, double defence, double manaDefence,
+                                                double critRate, double critDamage, double defencePenetration,
+                                                double defencePenetration0, double healthSteal, double maxHealth, double movementSpeed) {
+            MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(mob), xpLevel);
+            setMobBaseAttributes(mob, attackDamage, defence, manaDefence, critRate, critDamage, defencePenetration,
+                    defencePenetration0, healthSteal, maxHealth, movementSpeed);
+        }
+
+        public static void setMobBaseAttributes(Mob mob, double attackDamage, double defence, double manaDefence,
+                                                double maxHealth, double movementSpeed) {
+            setMobBaseAttributes(mob, attackDamage, defence, manaDefence, 0, 0, 0, 0, 0, maxHealth, movementSpeed);
+        }
+
+        public static void setMobBaseAttributes(Mob mob, Component mobName, int xpLevel, double attackDamage,
+                                                double defence, double manaDefence, double critRate,
+                                                double critDamage, double defencePenetration,
+                                                double defencePenetration0, double healthSteal, double maxHealth,
+                                                double movementSpeed) {
+            setMobBaseAttributes(mob, xpLevel, attackDamage, defence, manaDefence, critRate, critDamage,
+                    defencePenetration, defencePenetration0, healthSteal, maxHealth, movementSpeed);
+            MobSpawn.setMobCustomName(mob, mobName, xpLevel);
+        }
     }
 
     public static double getNum(Player player) {
@@ -318,8 +343,8 @@ public class MobSpawn {
         int xpLevel = getMobXpLevel(mob);
 
         if (RandomUtils.nextDouble(0, 1) < 0.01) {
-            InventoryOperation.giveItemStackWithMSG(player, ModItems.SpringMoney.get());
-            FireWorkGun.summonFireWork(mob.level(), mob.getEyePosition());
+            InventoryOperation.giveItemStackWithMSG(player, SpecialEventItems.MONEY.get());
+            FireworkGun.summonFireWork(mob.level(), mob.getEyePosition());
         }
         if (RandomUtils.nextInt(0, 10000) < 100) {
             InventoryOperation.giveItemStack(player, ModItems.REFINED_PIECE.get().getDefaultInstance());
@@ -586,56 +611,36 @@ public class MobSpawn {
                 data.getInt(StringUtils.KillCount.NEW_KILL_COUNT) + num);
     }
 
-    public static void setMobCustomName(Mob mob, Item ArmorItem, Component component) {
-        int Level = Utils.mobLevel.get(ArmorItem).intValue();
-        if (Level < 25) {
-            mob.setCustomName(Component.literal("Lv." + Level + " ").withStyle(ChatFormatting.GREEN)
-                    .append(component));
-        } else if (Level < 50) {
-            mob.setCustomName(Component.literal("Lv." + Level + " ").withStyle(ChatFormatting.BLUE)
-                    .append(component));
-        } else if (Level < 75) {
-            mob.setCustomName(Component.literal("Lv." + Level + " ").withStyle(ChatFormatting.RED)
-                    .append(component));
-        } else if (Level < 100) {
-            mob.setCustomName(Component.literal("Lv." + Level + " ").withStyle(ChatFormatting.LIGHT_PURPLE)
-                    .append(component));
-        } else if (Level < 125) {
-            mob.setCustomName(Component.literal("Lv." + Level + " ").withStyle(CustomStyle.styleOfEntropy)
-                    .append(component));
-        } else if (Level < 175) {
-            mob.setCustomName(Component.literal("Lv." + Level + " ").withStyle(CustomStyle.styleOfCastle)
-                    .append(component));
-        } else if (Level < 200) {
-            mob.setCustomName(Component.literal("Lv." + Level + " ").withStyle(CustomStyle.styleOfPurpleIron)
-                    .append(component));
-        } else if (Level < 225) {
-            mob.setCustomName(Component.literal("Lv." + Level + " ").withStyle(CustomStyle.styleOfMoon1)
-                    .append(component));
-        }
+    public static void setMobCustomName(Mob mob, Item ArmorItem, Component mobName) {
+        int xpLevel = Utils.mobLevel.get(ArmorItem).intValue();
+        setMobCustomName(mob, mobName, xpLevel);
+    }
+
+    public static void setMobCustomName(Mob mob, Component mobName, int level) {
+        mob.setCustomName(Te.s("Lv." + level + " ", getMobLevelStyle(level), mobName));
         mob.setCustomNameVisible(true);
         mob.getAttribute(Attributes.ARMOR_TOUGHNESS).setBaseValue(0);
         mob.getAttribute(Attributes.ARMOR).setBaseValue(0);
     }
 
-    public static void setMobCustomName(Mob mob, Component component, int level) {
-        Style[] styles = {
-                Style.EMPTY.applyFormat(ChatFormatting.GREEN),
-                Style.EMPTY.applyFormat(ChatFormatting.BLUE), // 25 - 50
-                Style.EMPTY.applyFormat(ChatFormatting.RED), // 50 - 75
-                Style.EMPTY.applyFormat(ChatFormatting.LIGHT_PURPLE), // 75 - 100
-                CustomStyle.styleOfEntropy, // 125
-                CustomStyle.styleOfEntropy, // 150
-                CustomStyle.styleOfCastle, // 175
-                CustomStyle.styleOfPurpleIron, // 200
-                CustomStyle.styleOfMoon1, // 225
-                CustomStyle.styleOfWorld, // 250
-                CustomStyle.styleOfMoontain // 275
-        };
-        mob.setCustomName(Component.literal("Lv." + level + " ").withStyle(styles[level / 25])
-                .append(component));
-        mob.setCustomNameVisible(true);
-        mob.getAttribute(Attributes.ARMOR_TOUGHNESS).setBaseValue(0);
-        mob.getAttribute(Attributes.ARMOR).setBaseValue(0);
+    public static final Style[] styles = {
+            Style.EMPTY.applyFormat(ChatFormatting.GREEN),
+            Style.EMPTY.applyFormat(ChatFormatting.BLUE), // 25 - 50
+            Style.EMPTY.applyFormat(ChatFormatting.RED), // 50 - 75
+            Style.EMPTY.applyFormat(ChatFormatting.LIGHT_PURPLE), // 75 - 100
+            CustomStyle.styleOfEntropy, // 125
+            CustomStyle.styleOfEntropy, // 150
+            CustomStyle.styleOfCastle, // 175
+            CustomStyle.styleOfPurpleIron, // 200
+            CustomStyle.styleOfMoon1, // 225
+            CustomStyle.styleOfWorld, // 250
+            CustomStyle.styleOfMoontain // 275
+    };
+
+    public static Style getMobLevelStyle(int level) {
+        if (level / 25 < styles.length) {
+            return styles[level / 25];
+        }
+        return CustomStyle.styleOfSpring;
     }
 }

@@ -34,7 +34,6 @@ public class Firework extends AbstractArrow implements GeoEntity {
 
     private final AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
 
-
     private Player player;
 
     public Firework(EntityType<? extends AbstractArrow> entityType, Level level) {
@@ -100,11 +99,6 @@ public class Firework extends AbstractArrow implements GeoEntity {
         if (this.player != null && !level().isClientSide) {
             Entity entity = result.getEntity();
             if (entity instanceof LivingEntity livingEntity) {
-/*                if (livingEntity instanceof Mob mob
-                        && livingEntity.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.MobArmorSpringHelmet.get())) {
-                    Damage.causeManaDamageToMonster_ApDamage(player, mob, 2024000);
-                    Compute.addSlowDownEffect(mob, 100, 100);
-                }*/
                 if (livingEntity instanceof Mob mob) {
                     if (MobSpawn.getMobOriginName(mob).equals(SpringMobEvent.mobName)) {
                         Damage.causeTrueDamageToMonster(player, mob,

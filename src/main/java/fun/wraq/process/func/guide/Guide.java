@@ -13,6 +13,7 @@ import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.system.endlessinstance.instance.ManaPlainTemple;
 import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.process.system.wayPoints.MyWayPoint;
+import fun.wraq.render.hud.main.QuickUseHud;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -197,7 +198,8 @@ public class Guide {
                     StageV2.CHOOSE_SKILL_V2));
             guides.add(new Guide(List.of(
                     Component.literal("引导 - 选择技能组").withStyle(ChatFormatting.GOLD),
-                    Te.s("按下[O]键，打开", "技能配置页面", CustomStyle.styleOfWorld),
+                    Te.s("按下[" + QuickUseHud.getKeyName(6) + "]键，打开",
+                            "技能配置页面", CustomStyle.styleOfWorld),
                     Te.s("选择一个", "技能组", CustomStyle.styleOfWorld)), null, null,
                     StageV2.FIRST_KILL));
             guides.add(new Guide(new ArrayList<>() {{

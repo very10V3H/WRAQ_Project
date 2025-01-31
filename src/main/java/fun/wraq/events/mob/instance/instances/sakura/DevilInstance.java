@@ -100,7 +100,8 @@ public class DevilInstance extends NoTeamInstance {
         zombie.moveTo(pos);
         level.addFreshEntity(zombie);
 
-        ServerBossEvent serverBossEvent = (ServerBossEvent) (new ServerBossEvent(zombie.getDisplayName(), BossEvent.BossBarColor.PURPLE, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
+        ServerBossEvent serverBossEvent = (ServerBossEvent) (new ServerBossEvent(zombie.getDisplayName(),
+                BossEvent.BossBarColor.PURPLE, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
         getNearPlayers(level).forEach(player -> {
             serverBossEvent.addPlayer((ServerPlayer) player);
         });
@@ -130,12 +131,7 @@ public class DevilInstance extends NoTeamInstance {
 
     @Override
     public Component allowRewardCondition() {
-        return Component.literal("需要至少").withStyle(ChatFormatting.WHITE).
-                append(Component.literal("锻造").withStyle(ChatFormatting.GRAY)).
-                append(Component.literal("过").withStyle(ChatFormatting.WHITE)).
-                append(Component.literal("1件").withStyle(ChatFormatting.AQUA)).
-                append(Component.literal("冰霜骑士装备").withStyle(CustomStyle.styleOfIce)).
-                append(Component.literal("，方能获取奖励。").withStyle(ChatFormatting.WHITE));
+        return NoTeamInstanceModule.AllowRewardCondition.devil;
     }
 
     public List<ItemAndRate> getRewardList() {

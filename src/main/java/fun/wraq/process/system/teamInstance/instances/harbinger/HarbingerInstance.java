@@ -96,8 +96,12 @@ public class HarbingerInstance extends NewTeamInstance {
 
     @Override
     public void handleTick(Level level) {
+        for (ConditionSummonMob conditionSummonMob : mobList) {
+            if (MobSpawn.getMobOriginName(conditionSummonMob.mob()).equals(THE_HARBINGER_NAME)) {
+                boss = conditionSummonMob.mob();
+            }
+        }
         if (stage == 1) {
-            detectAndSpawn(level);
             if (allMobIsClear()) {
                 stage = 2;
                 stage2SummonPos.forEach(pos -> {
@@ -112,7 +116,6 @@ public class HarbingerInstance extends NewTeamInstance {
             }
         }
         if (stage == 2) {
-            detectAndSpawn(level);
             if (allMobIsClear()) {
                 stage = 3;
                 stage3SummonPos.forEach(pos -> {
@@ -136,7 +139,6 @@ public class HarbingerInstance extends NewTeamInstance {
             }
         }
         if (stage == 3) {
-            detectAndSpawn(level);
             if (allMobIsClear()) {
                 stage = 4;
                 stage4SummonPos.forEach(pos -> {
@@ -150,7 +152,6 @@ public class HarbingerInstance extends NewTeamInstance {
             }
         }
         if (stage == 4) {
-            detectAndSpawn(level);
             if (blazes.isEmpty() && boss != null && boss.getHealth() / boss.getMaxHealth() < 0.5) {
                 stage4BlazePos.forEach(pos -> {
                     Mob blaze = setAttributesThenSpawnOfBlade(level, pos);
@@ -167,19 +168,6 @@ public class HarbingerInstance extends NewTeamInstance {
     }
 
     Mob boss;
-    public void detectAndSpawn(Level level) {
-        mobList.forEach(conditionSummonMob -> {
-            Mob mob = conditionSummonMob.mob();
-            if (!hasSummonedMobs.contains(mob) && players.stream().anyMatch(player -> player.position()
-                    .distanceTo(conditionSummonMob.summonPos()) < conditionSummonMob.detectRange())) {
-                hasSummonedMobs.add(mob);
-                if (MobSpawn.getMobOriginName(mob).equals(THE_HARBINGER_NAME)) {
-                    boss = mob;
-                }
-                level.addFreshEntity(mob);
-            }
-        });
-    }
 
     List<Vec3> spawnOffsetVec3 = List.of(
             new Vec3(1, 0, 0),

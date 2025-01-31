@@ -45,7 +45,6 @@ public class FantasyBracelet extends Item implements ICurioItem {
         ICurioItem.super.onUnequip(slotContext, newStack, stack);
     }
 
-
     @Override
     public boolean canEquipFromUse(SlotContext slotContext, ItemStack stack) {
         return true;

@@ -1,6 +1,7 @@
 package fun.wraq.process.system.teamInstance;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import fun.wraq.common.util.ClientUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -18,6 +19,7 @@ public class NewTeamInstanceHud {
     public static List<Component> clientPreparedPlayerNames = new ArrayList<>();
     public static List<Component> clientUnpreparedPlayerNames = new ArrayList<>();
     public static List<Component> clientJoinedPlayerNames = new ArrayList<>();
+    public static int clientDisplayLastSeconds = 0;
 
     public static final Minecraft mc = Minecraft.getInstance();
     private static final Font fontRenderer = mc.font;
@@ -33,7 +35,8 @@ public class NewTeamInstanceHud {
         int minNum = 0;
         int maxNum = 0;
         for (NewTeamInstance overworldInstance : NewTeamInstanceHandler.getInstances()) {
-            if (mc.level.dimension().equals(Level.OVERWORLD) && mc.player.position().distanceTo(overworldInstance.prepareCenterPos) < overworldInstance.prepareDetectRange) {
+            if (mc.level.dimension().equals(Level.OVERWORLD)
+                    && mc.player.position().distanceTo(overworldInstance.prepareCenterPos) < overworldInstance.prepareDetectRange) {
                 display = true;
                 instanceName = overworldInstance.description;
                 minNum = overworldInstance.minPlayerNum;
@@ -41,7 +44,7 @@ public class NewTeamInstanceHud {
             }
         }
 
-        if (display && mc.screen == null) {
+        if (display && mc.screen == null && clientDisplayLastSeconds > ClientUtils.serverTick) {
             List<Component> components = new ArrayList<>();
             components.add(Component.literal("副本 - ").withStyle(ChatFormatting.RED).
                     append(instanceName));
@@ -63,8 +66,7 @@ public class NewTeamInstanceHud {
                         append(Component.literal("的玩家:").withStyle(ChatFormatting.WHITE)));
                 components.addAll(clientPreparedPlayerNames);
             }
-            guiGraphics.renderComponentTooltip(fontRenderer, components, 0, (int) (y * 1.5));
+            guiGraphics.renderComponentTooltip(fontRenderer, components, 0, (int) (y * 0.2));
         }
     });
-
 }

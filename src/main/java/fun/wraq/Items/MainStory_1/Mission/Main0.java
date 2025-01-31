@@ -1,10 +1,10 @@
 package fun.wraq.Items.MainStory_1.Mission;
 
 import fun.wraq.common.util.ComponentUtils;
+import fun.wraq.process.system.randomevent.impl.special.SpringMobEvent;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -48,12 +48,13 @@ public class Main0 extends Item {
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
+        String name = player.getName().getString();
+        CompoundTag data = player.getPersistentData();
 
         if (!level.isClientSide && !player.isShiftKeyDown()) {
-            String name = player.getName().getString();
-            CompoundTag data = player.getPersistentData();
-            ServerPlayer serverPlayer = (ServerPlayer) player;
-
+            for (int i = 0 ; i < 20 ; i ++) {
+                SpringMobEvent.givePlayerSpringCurios(player);
+            }
 /*            for (int i = 0 ; i < player.getInventory().getMaxStackSize() ; i ++) {
                 ItemStack stack = player.getInventory().getItem(i);
                 if (stack.getItem() instanceof BackpackItem) {
@@ -87,7 +88,7 @@ public class Main0 extends Item {
         }
         
         if (!level.isClientSide && player.isShiftKeyDown()) {
-
+            data.remove(SpringMobEvent.SPRING_CURIO_TAG);
         }
 
         if (level.isClientSide && !player.isShiftKeyDown()) {

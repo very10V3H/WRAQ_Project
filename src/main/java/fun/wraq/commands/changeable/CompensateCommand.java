@@ -5,7 +5,9 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import fun.wraq.common.Compute;
 import fun.wraq.common.registry.ModItems;
+import fun.wraq.customized.UniformItems;
 import fun.wraq.process.func.item.InventoryOperation;
+import fun.wraq.process.system.tower.Tower;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
@@ -14,21 +16,29 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
+import java.sql.SQLException;
+
 public class CompensateCommand implements Command<CommandSourceStack> {
     public static CompensateCommand instance = new CompensateCommand();
 
-    public static int rewardNum = 25;
+    public static int rewardNum = 26;
     public static String singleReward = "singleReward" + rewardNum;
 
     @Override
     public int run(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         Player player = context.getSource().getPlayer();
+        if (player == null) return 0;
         CompoundTag data = player.getPersistentData();
         if (!data.contains(singleReward)) {
             data.putBoolean(singleReward, true);
-            if (player.experienceLevel >= 80) {
+            if (player.experienceLevel >= 75) {
                 ItemStack itemStack = new ItemStack(ModItems.supplyBoxTier3.get(), 1);
                 InventoryOperation.giveItemStackWithMSG(player, itemStack);
+                try {
+                    rollReward(player);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
             }
             Compute.sendFormatMSG(player, Component.literal("补偿").withStyle(CustomStyle.styleOfSakura),
                     Component.literal("你成功领取了补偿!").withStyle(ChatFormatting.AQUA));
@@ -36,101 +46,36 @@ public class CompensateCommand implements Command<CommandSourceStack> {
         }
         Compute.sendFormatMSG(player, Component.literal("补偿").withStyle(CustomStyle.styleOfSakura),
                 Component.literal("似乎已经领取过/没有资格领取补偿呢").withStyle(ChatFormatting.AQUA));
-
-/*        String version = "version:1.0.3";
-        if (true) {
-            Compute.formatMSGSend(player, Component.literal("补偿").withStyle(CustomStyle.styleOfSakura),
-                    Component.literal("似乎已经领取过/没有资格领取补偿呢").withStyle(ChatFormatting.AQUA));
-            return 0;
-        }
-        if (!data.contains(version) && player.experienceLevel >= 200) {
-            switch (type) {
-                case "ice" -> {
-                    InventoryOperation.itemStackGive(player, new ItemStack(ModItems.IceLoot.get(), 64));
-                }
-                case "devil" -> {
-                    InventoryOperation.itemStackGive(player, new ItemStack(ModItems.DevilLoot.get(), 16));
-                }
-                case "taboo" -> {
-                    InventoryOperation.itemStackGive(player, new ItemStack(ModItems.TabooPiece.get(), 24));
-                }
-                case "moon" -> {
-                    InventoryOperation.itemStackGive(player, new ItemStack(ModItems.MoonLoot.get(), 64));
-                }
-                case "castle" -> {
-                    InventoryOperation.itemStackGive(player, new ItemStack(ModItems.CastleLoot.get(), 64));
-                }
-                case "purple" -> {
-                    InventoryOperation.itemStackGive(player, new ItemStack(ModItems.PurpleIronBud3.get(), 2));
-                }
-                case "life" -> {
-                    InventoryOperation.itemStackGive(player, new ItemStack(ModItems.LifeElementPiece1.get(), 21));
-                }
-                case "water" -> {
-                    InventoryOperation.itemStackGive(player, new ItemStack(ModItems.WaterElementPiece1.get(), 21));
-                }
-                case "fire" -> {
-                    InventoryOperation.itemStackGive(player, new ItemStack(ModItems.FireElementPiece1.get(), 21));
-                }
-                case "stone" -> {
-                    InventoryOperation.itemStackGive(player, new ItemStack(ModItems.StoneElementPiece1.get(), 21));
-                }
-                case "iceElement" -> {
-                    InventoryOperation.itemStackGive(player, new ItemStack(ModItems.IceElementPiece1.get(), 21));
-                }
-                case "wind" -> {
-                    InventoryOperation.itemStackGive(player, new ItemStack(ModItems.WindElementPiece1.get(), 21));
-                }
-                case "lightning" -> {
-                    InventoryOperation.itemStackGive(player, new ItemStack(ModItems.LightningElementPiece1.get(), 21));
-                }
-                default -> {
-                    Compute.formatMSGSend(player, Component.literal("补偿").withStyle(CustomStyle.styleOfSakura),
-                            Component.literal("拼写错误，请使用/vmd compensate [life/water/fire/stone/ice/lightning/wind]领取补偿！").withStyle(ChatFormatting.AQUA));
-                    return 0;
-                }
-            }
-
-            Compute.formatMSGSend(player, Component.literal("补偿").withStyle(CustomStyle.styleOfSakura),
-                    Component.literal("你成功领取了补偿！").withStyle(ChatFormatting.AQUA));
-
-            data.putBoolean(version, true);
-            return 0;
-        }
-        if (!data.contains(version) && player.experienceLevel >= 160) {
-            switch (type) {
-                case "ice" -> {
-                    InventoryOperation.itemStackGive(player, new ItemStack(ModItems.IceLoot.get(), 64));
-                }
-                case "devil" -> {
-                    InventoryOperation.itemStackGive(player, new ItemStack(ModItems.DevilLoot.get(), 16));
-                }
-                case "taboo" -> {
-                    InventoryOperation.itemStackGive(player, new ItemStack(ModItems.TabooPiece.get(), 24));
-                }
-                case "moon" -> {
-                    InventoryOperation.itemStackGive(player, new ItemStack(ModItems.MoonLoot.get(), 64));
-                }
-                case "castle" -> {
-                    InventoryOperation.itemStackGive(player, new ItemStack(ModItems.CastleLoot.get(), 64));
-                }
-                case "purple" -> {
-                    InventoryOperation.itemStackGive(player, new ItemStack(ModItems.PurpleIronBud3.get(), 2));
-                }
-                default -> {
-                    Compute.formatMSGSend(player, Component.literal("补偿").withStyle(CustomStyle.styleOfSakura),
-                            Component.literal("拼写错误，请使用/vmd compensate [ice/devil/taboo/moon/castle/purple]领取补偿！").withStyle(ChatFormatting.AQUA));
-                    return 0;
-                }
-            }
-
-            Compute.formatMSGSend(player, Component.literal("补偿").withStyle(CustomStyle.styleOfSakura),
-                    Component.literal("你成功领取了补偿！").withStyle(ChatFormatting.AQUA));
-
-            data.putBoolean(version, true);
-            return 0;
-        }
-        */
         return 0;
+    }
+
+    private void rollReward(Player player) throws SQLException {
+        String name = player.getName().getString();
+        switch (name.toLowerCase()) {
+            case "mlhchre" -> {
+                Tower.givePlayerStar(player, 800, "春节抽奖");
+                InventoryOperation.giveItemStackWithMSG(player, ModItems.supplyBoxTier2.get());
+            }
+            case "fhyxx" -> {
+                Tower.givePlayerStar(player, 600, "春节抽奖");
+                InventoryOperation.giveItemStackWithMSG(player, ModItems.supplyBoxTier2.get());
+            }
+            case "opamber" -> {
+                InventoryOperation.giveItemStackWithMSG(player, ModItems.supplyBoxTier3.get());
+            }
+            case "kiruo904" -> {
+                InventoryOperation.giveItemStackWithMSG(player, ModItems.supplyBoxTier3.get());
+                InventoryOperation.giveItemStackWithMSG(player, UniformItems.LifeCurios0.get());
+            }
+            case "wojile" -> {
+                Tower.givePlayerStar(player, 1000, "春节抽奖");
+            }
+            case "dy_wanshe" -> {
+                InventoryOperation.giveItemStackWithMSG(player, ModItems.supplyBoxTier2.get());
+            }
+            case "dev" -> {
+                Tower.givePlayerStar(player, 1000, "春节抽奖");
+            }
+        }
     }
 }

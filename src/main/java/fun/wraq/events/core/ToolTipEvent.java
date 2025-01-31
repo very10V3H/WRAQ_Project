@@ -9,6 +9,7 @@ import fun.wraq.common.equip.WraqArmor;
 import fun.wraq.common.equip.WraqMainHandEquip;
 import fun.wraq.common.equip.impl.RandomCurios;
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.display.UsageOrGetWayDescriptionItem;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ClientUtils;
@@ -95,19 +96,32 @@ public class ToolTipEvent {
                 if (InjectRecipe.productSourceItemMap.containsKey(item)) {
                     recipeList.add(InjectRecipe.injectingRecipeMap.get(InjectRecipe.productSourceItemMap.get(item)));
                 }
+
+                int stage = 0;
+                if (recipeList.size() > 4) {
+                    stage = (ClientUtils.serverTick / Tick.s(3))
+                            % (recipeList.size() / 4 + (recipeList.size() % 4 != 0 ? 1 : 0));
+                    tooltip.add(Te.s("第" + (stage + 1) + "页，"
+                            + "共" + (recipeList.size() / 4 + (recipeList.size() % 4 != 0 ? 1 : 0))
+                            + "页，共" + recipeList.size() + "个配方"));
+                }
                 tooltip.add(Te.s("->", ChatFormatting.GOLD, "在", "灌注台", CustomStyle.styleOfPurpleIron,
                         "->", ChatFormatting.GOLD));
-                for (int i = 0; i < recipeList.size(); i++) {
+
+                for (int i = stage * 4; i < Math.min(recipeList.size(), stage * 4 + 4); i++) {
                     InjectingRecipe injectingRecipe = recipeList.get(i);
                     Item sourceItem = InjectRecipe.productSourceItemMap.get(injectingRecipe.product);
                     if (sourceItem.equals(item)) {
-                        tooltip.add(Te.s("作为", "被灌注物", CustomStyle.styleOfInject));
+                        tooltip.add(Te.s((i + 1) + ".", CustomStyle.styleOfInject,
+                                "作为", "被灌注物", CustomStyle.styleOfInject));
                     } else if (InjectRecipe.injectingWaysMap.containsKey(item)) {
-                        tooltip.add(Te.s("作为", "灌注耗材", ChatFormatting.GREEN));
+                        tooltip.add(Te.s((i + 1) + ".", CustomStyle.styleOfInject,
+                                "作为", "灌注耗材", ChatFormatting.GREEN));
                     } else if (InjectRecipe.productSourceItemMap.containsKey(item)) {
-                        tooltip.add(Te.s("作为", "灌注产物", ChatFormatting.AQUA));
+                        tooltip.add(Te.s((i + 1) + ".", CustomStyle.styleOfInject,
+                                "作为", "灌注产物", ChatFormatting.AQUA));
                     }
-                    tooltip.add(Te.s(" 使用 ", injectingRecipe.material,
+                    tooltip.add(Te.s(" 使用 ", ChatFormatting.GREEN, injectingRecipe.material,
                             " * " + injectingRecipe.getMaterialCount(), ChatFormatting.AQUA));
                     tooltip.add(Te.s(" 灌注 ", CustomStyle.styleOfInject, sourceItem, " * "
                             + injectingRecipe.getSourceItemCount(), ChatFormatting.AQUA));
@@ -115,10 +129,11 @@ public class ToolTipEvent {
                         tooltip.add(Te.s("▲将保留强化等级/品质/宝石等信息", CustomStyle.styleOfGold));
                     }
                     tooltip.add(Te.s(" 得到 ", ChatFormatting.AQUA, injectingRecipe.product));
-                    if (i != recipeList.size() - 1) {
+                    if (i != recipeList.size() - 1 && recipeList.size() <= 4) {
                         tooltip.add(Te.s(""));
                     }
                 }
+
             }
         }
         if (stack.is(ModItems.WORLD_FORGE_STONE.get())) {

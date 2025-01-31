@@ -122,21 +122,6 @@ public class NewCastleInstance extends NewTeamInstance {
         int tickCount = Tick.get();
         mobList.forEach(conditionSummonMob -> {
             Mob mob = conditionSummonMob.mob();
-            if (!hasSummonedMobs.contains(mob)) {
-                if (conditionSummonMob.condition() == 0) {
-                    boolean hasPlayerNearby = false;
-                    for (Player player : players) {
-                        if (player.position().distanceTo(conditionSummonMob.summonPos()) < conditionSummonMob.detectRange()) {
-                            hasPlayerNearby = true;
-                        }
-                    }
-                    if (hasPlayerNearby) {
-                        hasSummonedMobs.add(mob);
-                        if (mob instanceof Zombie) summonLightning(mob);
-                        level.addFreshEntity(mob);
-                    }
-                }
-            }
             if (mob.isAlive() && hasSummonedMobs.contains(mob)) {
                 if (MobSpawn.getMobOriginName(mob).equals(mobNameOf1StageMana)) {
                     if (tickCount % 30 == 0) shootManaArrow(mob);

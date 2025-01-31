@@ -14,7 +14,6 @@ import fun.wraq.common.impl.damage.OnCauseFinalDamageEquip;
 import fun.wraq.common.impl.onhit.OnPowerCauseDamageEquip;
 import fun.wraq.common.impl.onkill.OnKillEffectCurios;
 import fun.wraq.common.impl.onkill.OnKillEffectEquip;
-import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.Utils;
 import fun.wraq.customized.uniform.mana.ManaCurios1;
@@ -52,7 +51,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.allay.Allay;
@@ -532,7 +530,10 @@ public class Damage {
 
             damage *= WardenInstance.mobWithstandDamageRate(mob, player);
             damage = NewTeamInstanceHandler.judgeDamage(player, mob, damage);
-            double finalDamage = mob.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.WoodenStake5.get()) ? 0 : (float) damage;
+            damage *= NoTeamInstanceModule.onMobWithstandDamageRate(player, mob);
+
+            double finalDamage = damage;
+            finalDamage *= SpringMobEvent.onMobWithStandDamage(mob);
             if (mob.getHealth() <= finalDamage && !MoontainBoss3Instance.beforeKill(mob)) return;
             if (!(mob instanceof Civil)) {
                 if (mob.getHealth() <= finalDamage && mob.isAlive()) {
@@ -563,11 +564,10 @@ public class Damage {
             }
 
             // ---- //
-            NoTeamInstanceModule.onMobWithstandDamage(player, mob);
-            CitadelGuardianInstance.mobWithstandDamage(mob, finalDamage);
+            CitadelGuardianInstance.mobWithstandDamage(mob, damage);
             FireEquip.IgniteEffect(player, mob);
-            DpsCommand.CalculateDamage(player, finalDamage);
-            SpringMobEvent.onPlayerCauseDamage(player, mob, finalDamage);
+            DpsCommand.CalculateDamage(player, damage);
+            SpringMobEvent.onPlayerCauseDamage(player, mob, damage);
             entity.invulnerableTime = 0;
             StarBottle.playerBattleTickMapRefresh(player);
             Element.ElementParticleProvider(mob);

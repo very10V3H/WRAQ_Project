@@ -1,5 +1,7 @@
 package fun.wraq.process.system.teamInstance.networking;
 
+import fun.wraq.common.fast.Tick;
+import fun.wraq.common.util.ClientUtils;
 import fun.wraq.process.system.teamInstance.NewTeamInstanceHud;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -13,7 +15,8 @@ public class NewTeamInstancePrepareInfoS2CPacket {
     private final List<Component> preparedPlayerNames;
     private final List<Component> unPreparedPlayerNames;
 
-    public NewTeamInstancePrepareInfoS2CPacket(List<Component> preparedPlayerNames, List<Component> unPreparedPlayerNames) {
+    public NewTeamInstancePrepareInfoS2CPacket(List<Component> preparedPlayerNames,
+                                               List<Component> unPreparedPlayerNames) {
         this.preparedPlayerNames = preparedPlayerNames;
         this.unPreparedPlayerNames = unPreparedPlayerNames;
     }
@@ -33,6 +36,7 @@ public class NewTeamInstancePrepareInfoS2CPacket {
         context.enqueueWork(() -> {
             NewTeamInstanceHud.clientPreparedPlayerNames = preparedPlayerNames;
             NewTeamInstanceHud.clientUnpreparedPlayerNames = unPreparedPlayerNames;
+            NewTeamInstanceHud.clientDisplayLastSeconds = ClientUtils.serverTick + Tick.s(1);
         });
         return true;
     }

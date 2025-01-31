@@ -329,12 +329,12 @@ public class ComponentUtils {
     }
 
     public static Component getSuffixOfSpring2024() {
-        return Component.literal("SpringFestival~2024")
+        return Component.literal("2024 - 甲辰春节")
                 .withStyle(ChatFormatting.ITALIC).withStyle(CustomStyle.styleOfSpring);
     }
 
     public static Component getSuffixOfSpring2025() {
-        return Component.literal("SpringFestival~2025")
+        return Component.literal("2025 - 乙巳春节")
                 .withStyle(ChatFormatting.ITALIC).withStyle(CustomStyle.styleOfSpring);
     }
 

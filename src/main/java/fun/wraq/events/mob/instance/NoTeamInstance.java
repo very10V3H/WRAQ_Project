@@ -28,10 +28,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public abstract class NoTeamInstance {
     public List<ServerBossEvent> bossInfoList = new ArrayList<>();
@@ -63,7 +60,6 @@ public abstract class NoTeamInstance {
     }
 
     public void detectAndSummonThenHandleTick(Level level) {
-        Set<Player> playerSet = getAllPlayers(level);
         int tick = Tick.get();
         boolean allMobIsNull = true;
         for (Mob mob : mobList) {
@@ -80,17 +76,19 @@ public abstract class NoTeamInstance {
             }
         }
         if (!inChallenge && tick > summonTick && (allMobIsNull || allMobIsNotAlive)
-                && !playerSet.isEmpty() && ready) {
+                && !getNearPlayers(level).isEmpty() && ready) {
             mobList.clear();
             bossInfoList.clear();
             summonModule(level);
             inChallenge = true;
             spawnTick = Tick.get();
+            players.addAll(getNearPlayers(level));
         }
-        if (playerSet.isEmpty() || playerSet.stream().allMatch(LivingEntity::isDeadOrDying)) {
+        if (players.isEmpty() || players.stream().allMatch(LivingEntity::isDeadOrDying)) {
             reset(tick, true);
         }
         if (inChallenge && spawnTick != Tick.get()) {
+            players.removeIf(Objects::isNull);
             tickModule();
             if (clearTick == Tick.get()) {
                 rewardPlayers();
@@ -215,12 +213,6 @@ public abstract class NoTeamInstance {
         return players.stream().toList();
     }
 
-    public Set<Player> getAllPlayers(Level level) {
-        Set<Player> playerSet = new HashSet<>(players);
-        playerSet.addAll(getNearPlayers(level));
-        return playerSet;
-    }
-
     public static void givePlayerNotePaper(Player player) throws IOException {
         ItemStack itemStack = new ItemStack(ModItems.notePaper.get(), 64);
         InventoryCheck.addOwnerTagToItemStack(player, itemStack);
@@ -269,11 +261,10 @@ public abstract class NoTeamInstance {
 
     public abstract List<ItemAndRate> getRewardList();
 
-    public void onMobWithStandDamage(Player player, Mob mob) {
-        if (mobList.contains(mob)) {
-            players.add(player);
+    public double onMobWithStandDamageRate(Player player, Mob mob) {
+        if (!players.contains(player)) {
+            return 0;
         }
+        return 1;
     }
-
-
 }

@@ -3,15 +3,7 @@ package fun.wraq.render.gui.illustrate;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.process.system.potion.NewPotion;
 import fun.wraq.process.system.potion.NewThrowablePotion;
-import fun.wraq.process.system.profession.pet.allay.item.AllayItems;
-import fun.wraq.process.system.profession.smith.SmithItems;
-import fun.wraq.series.instance.blade.BladeItems;
-import fun.wraq.series.instance.mixture.MixtureItems;
-import fun.wraq.series.instance.quiver.QuiverItems;
-import fun.wraq.series.instance.series.mushroom.MushroomItems;
-import fun.wraq.series.instance.series.warden.WardenItems;
-import fun.wraq.series.overworld.sun.SunIslandItems;
-import fun.wraq.series.specialevents.SpecialEventItems;
+import fun.wraq.series.events.SpecialEventItems;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.common.Mod;
@@ -46,7 +38,7 @@ public class Display {
     public static List<Item> getSouvenirsList() {
         if (souvenirsList.isEmpty()) {
             souvenirsList.addAll(List.of(
-                    ModItems.SpringScale0.get(),
+                    SpecialEventItems.SCALE_0.get(),
                     ModItems.LabourDayIronPickaxe.get(),
                     ModItems.QingMingGem.get(),
                     SpecialEventItems.SUMMER_CURIOS5.get(),
@@ -91,24 +83,21 @@ public class Display {
     public static List<Item> getNewItemList() {
         if (newItemList.isEmpty()) {
             Item[] items = {
-                    ModItems.MINE_MANA_NOTE.get(),
-                    SunIslandItems.BROKEN_BLADE_0.get(),
-                    SunIslandItems.FRAME_ARROW_0.get(),
-                    WardenItems.DARK_MOON_BOOK.get()
+                    SpecialEventItems.FIRE_CRACKER.get(),
+                    SpecialEventItems.MONEY.get(),
+                    SpecialEventItems.RED_ENVELOPE.get(),
+                    SpecialEventItems.SPRING_GOLD_COIN.get(),
+                    SpecialEventItems.SPRING_GOLD_INGOT.get(),
+                    SpecialEventItems.RING.get(),
+                    SpecialEventItems.HAND.get(),
+                    SpecialEventItems.NECKLACE.get(),
+                    SpecialEventItems.BELT.get(),
+                    SpecialEventItems.FIRE_WORK_GUN.get(),
+                    SpecialEventItems.SCALE_PIECE.get(),
+                    SpecialEventItems.BIG_RED_ENVELOPE.get(),
+                    SpecialEventItems.SCALE_2025_0.get()
             };
             newItemList.addAll(List.of(items));
-            MushroomItems.ITEMS.getEntries()
-                    .stream()
-                    .map(entry -> entry.get().asItem())
-                    .forEach(item -> newItemList.add(item));
-            AllayItems.ITEMS.getEntries()
-                    .stream()
-                    .map(entry -> entry.get().asItem())
-                    .forEach(item -> newItemList.add(item));
-            SmithItems.ITEMS.getEntries()
-                    .stream()
-                    .map(entry -> entry.get().asItem())
-                    .forEach(item -> newItemList.add(item));
         }
         return newItemList;
     }

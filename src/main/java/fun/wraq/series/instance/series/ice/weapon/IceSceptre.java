@@ -76,7 +76,7 @@ public class IceSceptre extends WraqSceptre implements OnHitEffectEquip, OnPower
                 append(Component.literal("将对目标造成持续1s的").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("减速").withStyle(CustomStyle.styleOfIce)));
         Compute.DescriptionPassive(components, Component.literal("凝结爆裂").withStyle(CustomStyle.styleOfIce));
-        components.add(Te.m(" 法球对处于").
+        components.add(Te.m(" 对处于").
                 append(Te.m("减速", CustomStyle.styleOfIce)).
                 append(Te.m("状态的目标造成")).
                 append(Te.m("伤害", ChatFormatting.BLUE)).
@@ -84,7 +84,7 @@ public class IceSceptre extends WraqSceptre implements OnHitEffectEquip, OnPower
                 append(Te.m("寒冰", CustomStyle.styleOfIce)));
         components.add(Te.m(" 当目标的").
                 append(Te.m("寒冰", CustomStyle.styleOfIce)).
-                append(Te.m("达到8层后，下次暴击会引爆所有层数")));
+                append(Te.m("达到8层后，下次攻击会引爆所有层数")));
         components.add(Te.m(" 对目标造成").
                 append(ComponentUtils.getAutoAdaptDamageDescription("200%")));
         components.add(Te.m(" 并击碎目标").

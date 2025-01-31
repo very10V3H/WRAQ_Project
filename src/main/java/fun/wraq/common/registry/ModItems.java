@@ -98,6 +98,10 @@ import fun.wraq.series.end.eventController.SpiderRecall.SpiderRecallArmorChest;
 import fun.wraq.series.end.eventController.SpiderRecall.SpiderRecallArmorHelmet;
 import fun.wraq.series.end.eventController.SpiderRecall.SpiderRecallArmorLeggings;
 import fun.wraq.series.end.recallBooks.*;
+import fun.wraq.series.events.spring2025.curios.Spring2025Hand;
+import fun.wraq.series.events.spring2025.curios.Spring2025Necklace;
+import fun.wraq.series.events.spring2025.curios.Spring2025Ring;
+import fun.wraq.series.events.spring2025.curios.Spring2025Belt;
 import fun.wraq.series.instance.series.castle.*;
 import fun.wraq.series.instance.series.devil.*;
 import fun.wraq.series.instance.series.ice.IceArmor;
@@ -256,9 +260,9 @@ import fun.wraq.series.overworld.sakura.Ship.ShipBow;
 import fun.wraq.series.overworld.sakura.Ship.ShipSceptre;
 import fun.wraq.series.overworld.sakura.Ship.ShipSword;
 import fun.wraq.series.overworld.sakura.Slime.SlimeBoots;
-import fun.wraq.series.specialevents.labourDay.*;
-import fun.wraq.series.specialevents.qingMing.*;
-import fun.wraq.series.specialevents.springFes.*;
+import fun.wraq.series.events.labourDay.*;
+import fun.wraq.series.events.qingMing.*;
+import fun.wraq.series.events.spring2024.*;
 import fun.wraq.series.worldsoul.*;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -2014,161 +2018,8 @@ public class ModItems {
     public static final RegistryObject<Item> NetherManaArmorBoots = ITEMS.register("nether_mana_boots",
             () -> new NetherManaArmor(ModArmorMaterials.NetherMana, ArmorItem.Type.BOOTS, new Item.Properties().rarity(CustomStyle.NetherItalic)));
 
-    public static final RegistryObject<Item> FireWorkGun = ITEMS.register("fire_work_gun",
-            () -> new FireWorkGun(new Item.Properties().rarity(Rarity.EPIC)));
-
-    public static final RegistryObject<Item> SpringRing0 = ITEMS.register("spring_ring0",
-            () -> new SpringRing(new Item.Properties().rarity(CustomStyle.SpringBold), 0));
-
-    public static final RegistryObject<Item> SpringRing1 = ITEMS.register("spring_ring1",
-            () -> new SpringRing(new Item.Properties().rarity(CustomStyle.SpringBold), 1));
-
-    public static final RegistryObject<Item> SpringRing2 = ITEMS.register("spring_ring2",
-            () -> new SpringRing(new Item.Properties().rarity(CustomStyle.SpringBold), 2));
-
-    public static final RegistryObject<Item> SpringRing3 = ITEMS.register("spring_ring3",
-            () -> new SpringRing(new Item.Properties().rarity(CustomStyle.SpringBold), 3));
-
-    public static final RegistryObject<Item> SpringMoney = ITEMS.register("spring_money",
-            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.SpringBold)));
-
-    public static final RegistryObject<Item> RedEnvelope = ITEMS.register("red_envelope",
-            () -> new RedEnvelope(new Item.Properties().rarity(CustomStyle.SpringBold)));
-
     public static final RegistryObject<Item> IceHeart = ITEMS.register("ice_heart",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.IceBold)));
-
-    public static final RegistryObject<Item> WoodenStake0 = ITEMS.register("wooden_stake0",
-            () -> new MobArmor(ModArmorMaterials.MaterialForBoss, ArmorItem.Type.HELMET, 100, 100, 20));
-
-    public static final RegistryObject<Item> WoodenStake1 = ITEMS.register("wooden_stake1",
-            () -> new MobArmor(ModArmorMaterials.MaterialForBoss, ArmorItem.Type.HELMET, 400, 400, 40));
-
-    public static final RegistryObject<Item> WoodenStake2 = ITEMS.register("wooden_stake2",
-            () -> new MobArmor(ModArmorMaterials.MaterialForBoss, ArmorItem.Type.HELMET, 600, 600, 60));
-
-    public static final RegistryObject<Item> WoodenStake3 = ITEMS.register("wooden_stake3",
-            () -> new MobArmor(ModArmorMaterials.MaterialForBoss, ArmorItem.Type.HELMET, 900, 900, 80));
-
-    public static final RegistryObject<Item> WoodenStake4 = ITEMS.register("wooden_stake4",
-            () -> new MobArmor(ModArmorMaterials.MaterialForBoss, ArmorItem.Type.HELMET, 1200, 1200, 100));
-
-    public static final RegistryObject<Item> WoodenStake5 = ITEMS.register("wooden_stake5",
-            () -> new MobArmor(ModArmorMaterials.MaterialForBoss, ArmorItem.Type.HELMET, 1600, 1600, 120));
-
-    public static final RegistryObject<Item> SpringHand0 = ITEMS.register("spring_hand0",
-            () -> new SpringHand(new Item.Properties().rarity(CustomStyle.SpringBold), 0));
-
-    public static final RegistryObject<Item> SpringHand1 = ITEMS.register("spring_hand1",
-            () -> new SpringHand(new Item.Properties().rarity(CustomStyle.SpringBold), 1));
-
-    public static final RegistryObject<Item> SpringHand2 = ITEMS.register("spring_hand2",
-            () -> new SpringHand(new Item.Properties().rarity(CustomStyle.SpringBold), 2));
-
-    public static final RegistryObject<Item> SpringHand3 = ITEMS.register("spring_hand3",
-            () -> new SpringHand(new Item.Properties().rarity(CustomStyle.SpringBold), 3));
-
-    public static final RegistryObject<Item> SpringBelt0 = ITEMS.register("spring_belt0",
-            () -> new SpringBelt(new Item.Properties().rarity(CustomStyle.SpringBold), 0));
-
-    public static final RegistryObject<Item> SpringBelt1 = ITEMS.register("spring_belt1",
-            () -> new SpringBelt(new Item.Properties().rarity(CustomStyle.SpringBold), 1));
-
-    public static final RegistryObject<Item> SpringBelt2 = ITEMS.register("spring_belt2",
-            () -> new SpringBelt(new Item.Properties().rarity(CustomStyle.SpringBold), 2));
-
-    public static final RegistryObject<Item> SpringBelt3 = ITEMS.register("spring_belt3",
-            () -> new SpringBelt(new Item.Properties().rarity(CustomStyle.SpringBold), 3));
-
-    public static final RegistryObject<Item> SpringNecklace0 = ITEMS.register("spring_necklace0",
-            () -> new SpringNecklace(new Item.Properties().rarity(CustomStyle.SpringBold), 0));
-
-    public static final RegistryObject<Item> SpringNecklace1 = ITEMS.register("spring_necklace1",
-            () -> new SpringNecklace(new Item.Properties().rarity(CustomStyle.SpringBold), 1));
-
-    public static final RegistryObject<Item> SpringNecklace2 = ITEMS.register("spring_necklace2",
-            () -> new SpringNecklace(new Item.Properties().rarity(CustomStyle.SpringBold), 2));
-
-    public static final RegistryObject<Item> SpringNecklace3 = ITEMS.register("spring_necklace3",
-            () -> new SpringNecklace(new Item.Properties().rarity(CustomStyle.SpringBold), 3));
-
-    public static final RegistryObject<Item> SpringGoldCoin = ITEMS.register("spring_gold_coin",
-            () -> new Item(new Item.Properties().rarity(CustomStyle.SpringBold)));
-
-    public static final RegistryObject<Item> MobArmorSpringHelmet = ITEMS.register("mob_armor_spring_helmet",
-            () -> new MobArmor(ModArmorMaterials.Spring, ArmorItem.Type.HELMET, StringUtils.MobName.SpringMob));
-
-    public static final RegistryObject<Item> MobArmorSpringChest = ITEMS.register("mob_armor_spring_chest",
-            () -> new MobArmor(ModArmorMaterials.Spring, ArmorItem.Type.CHESTPLATE, StringUtils.MobName.NoAttribute));
-
-    public static final RegistryObject<Item> MobArmorSpringLeggings = ITEMS.register("mob_armor_spring_leggings",
-            () -> new MobArmor(ModArmorMaterials.Spring, ArmorItem.Type.LEGGINGS, StringUtils.MobName.NoAttribute));
-
-    public static final RegistryObject<Item> MobArmorSpringBoots = ITEMS.register("mob_armor_spring_boots",
-            () -> new MobArmor(ModArmorMaterials.Spring, ArmorItem.Type.BOOTS, StringUtils.MobName.NoAttribute));
-
-    public static final RegistryObject<Item> SpringAttackArmorHelmet = ITEMS.register("spring_attack_helmet",
-            () -> new SpringAttackArmor(ModArmorMaterials.Spring, ArmorItem.Type.HELMET, new Item.Properties().rarity(CustomStyle.SpringItalic), 0));
-
-    public static final RegistryObject<Item> SpringAttackArmorChest = ITEMS.register("spring_attack_chest",
-            () -> new SpringAttackArmor(ModArmorMaterials.Spring, ArmorItem.Type.CHESTPLATE, new Item.Properties().rarity(CustomStyle.SpringItalic), 1));
-
-    public static final RegistryObject<Item> SpringAttackArmorLeggings = ITEMS.register("spring_attack_leggings",
-            () -> new SpringAttackArmor(ModArmorMaterials.Spring, ArmorItem.Type.LEGGINGS, new Item.Properties().rarity(CustomStyle.SpringItalic), 2));
-
-    public static final RegistryObject<Item> SpringAttackArmorBoots = ITEMS.register("spring_attack_boots",
-            () -> new SpringAttackArmor(ModArmorMaterials.Spring, ArmorItem.Type.BOOTS, new Item.Properties().rarity(CustomStyle.SpringItalic), 3));
-
-    public static final RegistryObject<Item> SpringSwiftArmorHelmet = ITEMS.register("spring_swift_helmet",
-            () -> new SpringSwiftArmor(ModArmorMaterials.Spring, ArmorItem.Type.HELMET, new Item.Properties().rarity(CustomStyle.SpringItalic), 0));
-
-    public static final RegistryObject<Item> SpringSwiftArmorChest = ITEMS.register("spring_swift_chest",
-            () -> new SpringSwiftArmor(ModArmorMaterials.Spring, ArmorItem.Type.CHESTPLATE, new Item.Properties().rarity(CustomStyle.SpringItalic), 1));
-
-    public static final RegistryObject<Item> SpringSwiftArmorLeggings = ITEMS.register("spring_swift_leggings",
-            () -> new SpringSwiftArmor(ModArmorMaterials.Spring, ArmorItem.Type.LEGGINGS, new Item.Properties().rarity(CustomStyle.SpringItalic), 2));
-
-    public static final RegistryObject<Item> SpringSwiftArmorBoots = ITEMS.register("spring_swift_boots",
-            () -> new SpringSwiftArmor(ModArmorMaterials.Spring, ArmorItem.Type.BOOTS, new Item.Properties().rarity(CustomStyle.SpringItalic), 3));
-
-    public static final RegistryObject<Item> SpringManaArmorHelmet = ITEMS.register("spring_mana_helmet",
-            () -> new SpringManaArmor(ModArmorMaterials.Spring, ArmorItem.Type.HELMET, new Item.Properties().rarity(CustomStyle.SpringItalic), 0));
-
-    public static final RegistryObject<Item> SpringManaArmorChest = ITEMS.register("spring_mana_chest",
-            () -> new SpringManaArmor(ModArmorMaterials.Spring, ArmorItem.Type.CHESTPLATE, new Item.Properties().rarity(CustomStyle.SpringItalic), 1));
-
-    public static final RegistryObject<Item> SpringManaArmorLeggings = ITEMS.register("spring_mana_leggings",
-            () -> new SpringManaArmor(ModArmorMaterials.Spring, ArmorItem.Type.LEGGINGS, new Item.Properties().rarity(CustomStyle.SpringItalic), 2));
-
-    public static final RegistryObject<Item> SpringManaArmorBoots = ITEMS.register("spring_mana_boots",
-            () -> new SpringManaArmor(ModArmorMaterials.Spring, ArmorItem.Type.BOOTS, new Item.Properties().rarity(CustomStyle.SpringItalic), 3));
-
-    public static final RegistryObject<Item> SpringHeart = ITEMS.register("spring_heart",
-            () -> new Item(new Item.Properties().rarity(CustomStyle.SpringBold)));
-
-    public static final RegistryObject<Item> SpringSoul = ITEMS.register("spring_soul",
-            () -> new Item(new Item.Properties().rarity(CustomStyle.SpringBold)));
-
-    public static final RegistryObject<Item> SpringLoot = ITEMS.register("spring_loot",
-            () -> new SpringLoot(new Item.Properties().rarity(CustomStyle.SpringBold)));
-
-    public static final RegistryObject<Item> FireCracker = ITEMS.register("fire_cracker",
-            () -> new FireCracker(new Item.Properties().rarity(CustomStyle.Spring)));
-
-    public static final RegistryObject<Item> SpringPiece = ITEMS.register("spring_piece",
-            () -> new Item(new Item.Properties().rarity(CustomStyle.Spring)));
-
-    public static final RegistryObject<Item> SpringScale0 = ITEMS.register("spring_scale0",
-            () -> new SpringScale(new Item.Properties().rarity(CustomStyle.SpringBold), 0));
-
-    public static final RegistryObject<Item> SpringScale1 = ITEMS.register("spring_scale1",
-            () -> new SpringScale(new Item.Properties().rarity(CustomStyle.SpringBold), 1));
-
-    public static final RegistryObject<Item> SpringScale2 = ITEMS.register("spring_scale2",
-            () -> new SpringScale(new Item.Properties().rarity(CustomStyle.SpringBold), 2));
-
-    public static final RegistryObject<Item> SpringScale3 = ITEMS.register("spring_scale3",
-            () -> new SpringScale(new Item.Properties().rarity(CustomStyle.SpringBold), 3));
 
     public static final RegistryObject<Item> Boss2AttackRing0 = ITEMS.register("boss2_attack_ring0",
             () -> new Boss2AttackRing(new Item.Properties().rarity(CustomStyle.GoldBold).stacksTo(1), 0));

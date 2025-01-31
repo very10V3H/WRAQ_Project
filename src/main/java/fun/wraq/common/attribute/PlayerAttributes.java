@@ -200,10 +200,6 @@ public class PlayerAttributes {
             exDamage +=
                     stackmainhandtag.getInt(StringUtils.SoulEquipForge) * SoulEquipAttribute.ForgingAddition.AttackDamage;
 
-        if (Utils.PlayerFireWorkGunEffect.containsKey(player) && Utils.PlayerFireWorkGunEffect.get(player) > TickCount) {
-            exDamage += baseAttackDamage * 0.1;
-        } //新春礼炮
-
         if (Utils.SpringScaleTime.containsKey(player) && Utils.SpringScaleTime.get(player) > TickCount) {
             int SwordSkill = data.getInt(StringUtils.SkillArray[0]);
             int BowSkill = data.getInt(StringUtils.SkillArray[1]);
@@ -261,6 +257,8 @@ public class PlayerAttributes {
                 StringUtils.CuriosAttribute.percentAttackDamage);
         exRate += computeAllEquipSlotBaseAttributeValue(player, Utils.percentAttackDamageEnhance, false);
         exRate += AlchemyPlayerData.getEnhanceRate(player, Utils.attackDamage);
+        exRate += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerPercentAttackDamageModifier);
+
         totalAttackDamage *= (1 + exRate);
 
         if (data.contains("NetherRecallBuff") && data.getInt("NetherRecallBuff") > 0) {
@@ -1021,10 +1019,6 @@ public class PlayerAttributes {
             exDamage +=
                     mainHandItemTag.getInt(StringUtils.SoulEquipForge) * SoulEquipAttribute.ForgingAddition.ManaAttackDamage;
 
-        if (Utils.PlayerFireWorkGunEffect.containsKey(player) && Utils.PlayerFireWorkGunEffect.get(player) > tickCount) {
-            exDamage += baseDamage * 0.1;
-        } //新春礼炮
-
         if (Utils.SpringScaleTime.containsKey(player) && Utils.SpringScaleTime.get(player) > tickCount) {
             int SwordSkill = data.getInt(StringUtils.SkillArray[0]);
             int BowSkill = data.getInt(StringUtils.SkillArray[1]);
@@ -1065,7 +1059,8 @@ public class PlayerAttributes {
                         StringUtils.CuriosAttribute.percentManaDamageEnhance);
         exRate += computeAllEquipSlotBaseAttributeValue(player, Utils.percentManaDamageEnhance, false);
         exRate += AlchemyPlayerData.getEnhanceRate(player, Utils.manaDamage);
-
+        exRate += StableAttributesModifier
+                .getModifierValue(player, StableAttributesModifier.playerPercentManaDamageModifier);
         totalDamage *= (1 + exRate);
         Utils.playerManaDamageBeforeTransform.put(player, totalDamage);
 

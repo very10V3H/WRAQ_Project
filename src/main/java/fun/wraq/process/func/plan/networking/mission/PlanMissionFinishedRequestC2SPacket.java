@@ -2,13 +2,13 @@ package fun.wraq.process.func.plan.networking.mission;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
-import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.reputationMission.PlanMissionInfoS2CPacket;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.rank.RankData;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.events.SpecialEventItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -79,7 +79,7 @@ public class PlanMissionFinishedRequestC2SPacket {
                 }
                 Compute.giveReputation(serverPlayer, reputationReward * 0.5,
                         Te.s("新春活动", CustomStyle.styleOfSpring));
-                InventoryOperation.giveItemStackWithMSG(serverPlayer, ModItems.SpringMoney.get(), 1);
+                InventoryOperation.giveItemStackWithMSG(serverPlayer, SpecialEventItems.MONEY.get(), 1);
 
                 if (serverPlayer.experienceLevel == Compute.expGetUpperLimit) Compute.playerReputationAddOrCost(serverPlayer, tier);
                 fun.wraq.process.func.plan.networking.mission.PlanMission.planMissionContentMap.remove(name);

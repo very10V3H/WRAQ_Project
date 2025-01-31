@@ -9,7 +9,7 @@ import fun.wraq.customized.UniformItems;
 import fun.wraq.events.mob.loot.RandomLootEquip;
 import fun.wraq.process.system.endlessinstance.item.EndlessInstanceItems;
 import fun.wraq.series.overworld.chapter2.lavender.LavenderBracelet;
-import fun.wraq.series.specialevents.SpecialEventItems;
+import fun.wraq.series.events.SpecialEventItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -177,7 +177,9 @@ public class InventoryCheck {
                 SpecialEventItems.TRAIN_SOUVENIRS.get(),
                 ModItems.BOND.get(),
                 ModItems.SPECIAL_BOND.get(),
-                SpecialEventItems.SOUVENIRS_2024.get()
+                SpecialEventItems.SOUVENIRS_2024.get(),
+                SpecialEventItems.RED_ENVELOPE.get(),
+                SpecialEventItems.BIG_RED_ENVELOPE.get()
         ));
         SpecialEventItems.ITEMS.getEntries()
                 .stream()

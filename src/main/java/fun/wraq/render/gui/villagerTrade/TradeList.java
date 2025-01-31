@@ -19,7 +19,7 @@ import fun.wraq.series.instance.series.harbinger.HarbingerItems;
 import fun.wraq.series.instance.series.warden.WardenItems;
 import fun.wraq.series.newrunes.NewRuneItems;
 import fun.wraq.series.overworld.sun.SunIslandItems;
-import fun.wraq.series.specialevents.SpecialEventItems;
+import fun.wraq.series.events.SpecialEventItems;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.VillagerType;
@@ -66,6 +66,8 @@ public class TradeList {
         allay();
         entrustmentStore();
 
+        springEvent();
+
         /* 1.0 */
 
         Snow();
@@ -106,7 +108,6 @@ public class TradeList {
         goldCoinStore();
         NewGive();
         Field();
-        Spring();
         EndRecall();
         EndPower();
         GoldSmith();
@@ -1395,82 +1396,6 @@ public class TradeList {
                 case 2 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.COMPLETE_GEM.get(), 10));
                     add(new ItemStack(ModItems.FieldRune.get(), 10));
-                }});
-            }
-        }
-    }
-
-    public static void Spring() {
-        ItemStack[] itemStacks = {
-                new ItemStack(ModItems.FireCracker.get(), 1),
-                new ItemStack(ModItems.SpringGoldCoin.get(), 1),
-                new ItemStack(ModItems.SpringHand0.get(), 1),
-                new ItemStack(ModItems.SpringBelt0.get(), 1),
-                new ItemStack(ModItems.SpringNecklace0.get(), 1),
-                new ItemStack(ModItems.SpringGoldCoin.get(), 4),
-                new ItemStack(ModItems.SpringScale0.get(), 1),
-                new ItemStack(ModItems.SpringScale1.get(), 1),
-                new ItemStack(ModItems.SpringScale2.get(), 1),
-                new ItemStack(ModItems.SpringScale3.get(), 1),
-                new ItemStack(ModItems.SpringGoldCoin.get(), 1),
-                new ItemStack(ModItems.SpringGoldCoin.get(), 1),
-                new ItemStack(ModItems.SpringGoldCoin.get(), 4),
-                new ItemStack(ModItems.DragonPrefix.get(), 1),
-        };
-        List<ItemStack> contentList = new ArrayList<>();
-        Collections.addAll(contentList, itemStacks);
-        tradeContent.put(StringUtils.VillagerName.Spring, contentList);
-
-        for (int i = 0; i < itemStacks.length; i++) {
-            switch (i) {
-                case 0 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.SpringMoney.get(), 1));
-                }});
-                case 1 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.SpringMoney.get(), 64));
-                }});
-                case 2, 3, 4 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.SpringGoldCoin.get(), 4));
-                }});
-                case 5 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.SpringRing0.get(), 1));
-                }});
-                case 6 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.SpringPiece.get(), 64));
-                }});
-                case 7 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.SpringScale0.get(), 1));
-                    add(new ItemStack(ModItems.SpringPiece.get(), 64));
-                    add(new ItemStack(ModItems.SpringPiece.get(), 64));
-                }});
-                case 8 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.SpringScale1.get(), 1));
-                    add(new ItemStack(ModItems.SpringPiece.get(), 64));
-                    add(new ItemStack(ModItems.SpringPiece.get(), 64));
-                    add(new ItemStack(ModItems.SpringPiece.get(), 64));
-                }});
-                case 9 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.SpringScale2.get(), 1));
-                    add(new ItemStack(ModItems.SpringPiece.get(), 64));
-                    add(new ItemStack(ModItems.SpringPiece.get(), 64));
-                    add(new ItemStack(ModItems.SpringPiece.get(), 64));
-                    add(new ItemStack(ModItems.SpringPiece.get(), 64));
-                }});
-                case 10 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.SpringPiece.get(), 32));
-                    add(new ItemStack(ModItems.SpringPiece.get(), 64));
-                    add(new ItemStack(ModItems.SpringPiece.get(), 64));
-                }});
-                case 11 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.SpringSoul.get(), 32));
-                    add(new ItemStack(ModItems.SpringSoul.get(), 64));
-                    add(new ItemStack(ModItems.SpringSoul.get(), 64));
-                }});
-                case 12 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.SpringHeart.get(), 1));
-                }});
-                case 13 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.SpringMoney.get(), 64));
                 }});
             }
         }
@@ -3196,5 +3121,27 @@ public class TradeList {
         tradeRecipeMap.put(inceptionUpgrade, List.of(
                 new ItemStack(ModItems.INCEPTION_UPGRADE_PAPER.get())
         ));
+    }
+
+    public static void springEvent() {
+        ItemStack fireCracker = new ItemStack(SpecialEventItems.FIRE_CRACKER.get(), 64);
+        ItemStack fireworkGun = new ItemStack(SpecialEventItems.FIRE_WORK_GUN.get());
+        ItemStack redEnvelope = new ItemStack(SpecialEventItems.RED_ENVELOPE.get());
+        ItemStack goldIngot = new ItemStack(SpecialEventItems.SPRING_GOLD_INGOT.get());
+        ItemStack[] itemStacks = {
+                fireCracker, fireworkGun, redEnvelope, goldIngot
+        };
+        List<ItemStack> contentList = new ArrayList<>();
+        Collections.addAll(contentList, itemStacks);
+        MyVillagerData.setMyVillagerData("新春活动兑换", "spring",
+                CustomStyle.styleOfSpring, VillagerType.PLAINS, VillagerProfession.LIBRARIAN, contentList);
+        tradeRecipeMap.put(fireCracker,
+                List.of(new ItemStack(SpecialEventItems.MONEY.get(), 1)));
+        tradeRecipeMap.put(fireworkGun,
+                List.of(new ItemStack(SpecialEventItems.MONEY.get(), 64)));
+        tradeRecipeMap.put(redEnvelope,
+                List.of(new ItemStack(SpecialEventItems.MONEY.get(), 10)));
+        tradeRecipeMap.put(goldIngot,
+                List.of(new ItemStack(SpecialEventItems.SPRING_GOLD_COIN.get(), 5)));
     }
 }

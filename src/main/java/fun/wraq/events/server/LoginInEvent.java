@@ -51,6 +51,7 @@ import fun.wraq.render.gui.trade.SingleItemChangePurchaseLimit;
 import fun.wraq.render.hud.main.QuickUseHud;
 import fun.wraq.render.hud.networking.QuickUseDisplayS2CPacket;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.events.spring2025.Spring2025;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -469,6 +470,7 @@ public class LoginInEvent {
         RandomEventData.resetWorldSoul5DailyGetTimes(player);
         MobKillEntrustment.setDailyFinishedTimes(player, 0);
         BondDividends.setAllowGetDividends(player, true);
+        Spring2025.dailyRedEnvelopeReward(player);
     }
 
     public static void refreshWeeklyContent(Player player) {

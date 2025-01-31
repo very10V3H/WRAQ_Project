@@ -9,15 +9,12 @@ import fun.wraq.events.mob.loot.C1LootItems;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.newrunes.NewRuneItems;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.Zombie;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -70,16 +67,7 @@ public class ForestZombieSpawnController extends MobSpawnController {
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombie, 60, 5, 5, 0.2, 1, 0, 0, 0, 300, 0.2);
 
         // 设置物品
-        ItemStack[] itemStacks = {new ItemStack(Items.LEATHER_HELMET), new ItemStack(Items.LEATHER_CHESTPLATE),
-                new ItemStack(Items.LEATHER_LEGGINGS), new ItemStack(Items.LEATHER_BOOTS)};
-        EquipmentSlot[] equipmentSlots = {EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET};
-        for (int i = 0; i < itemStacks.length; i++) {
-            CompoundTag tag = itemStacks[i].getTag();
-            CompoundTag tag1 = new CompoundTag();
-            tag1.putInt("color", style.getColor().getValue());
-            tag.put("display", tag1);
-            zombie.setItemSlot(equipmentSlots[i], itemStacks[i]);
-        }
+        MobSpawn.setStainArmorOnMob(zombie, style);
         zombie.setItemInHand(InteractionHand.MAIN_HAND, Items.WOODEN_AXE.getDefaultInstance());
 
         // 设置掉落

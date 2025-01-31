@@ -25,7 +25,9 @@ public record StableAttributesModifier(String tag, double value, int stopTick) {
     public static Map<LivingEntity, List<StableAttributesModifier>> playerDefencePenetrationModifier = new WeakHashMap<>();
     public static Map<LivingEntity, List<StableAttributesModifier>> playerDefencePenetration0Modifier = new WeakHashMap<>();
     public static Map<LivingEntity, List<StableAttributesModifier>> playerManaDamageModifier = new WeakHashMap<>();
+    public static Map<LivingEntity, List<StableAttributesModifier>> playerPercentManaDamageModifier = new WeakHashMap<>();
     public static Map<LivingEntity, List<StableAttributesModifier>> playerAttackDamageModifier = new WeakHashMap<>();
+    public static Map<LivingEntity, List<StableAttributesModifier>> playerPercentAttackDamageModifier = new WeakHashMap<>();
     public static Map<LivingEntity, List<StableAttributesModifier>> playerCommonDamageEnhance = new WeakHashMap<>();
     public static Map<LivingEntity, List<StableAttributesModifier>> playerDefenceModifier = new WeakHashMap<>();
     public static Map<LivingEntity, List<StableAttributesModifier>> playerDefenceDecreaseModifier = new WeakHashMap<>();

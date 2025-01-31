@@ -12,22 +12,18 @@ import fun.wraq.common.impl.onhit.OnCritHitEffectMainHandWeapon;
 import fun.wraq.common.impl.onhit.OnHitEffectCurios;
 import fun.wraq.common.impl.onhit.OnHitEffectEquip;
 import fun.wraq.common.impl.onhit.OnHitEffectPassiveEquip;
-import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.common.util.struct.Boss2Damage;
 import fun.wraq.customized.uniform.attack.AttackCurios1;
-import fun.wraq.entities.entities.Boss2.Boss2;
 import fun.wraq.events.fight.HurtEvent;
 import fun.wraq.events.modules.AttackEventModule;
 import fun.wraq.events.modules.HurtEventModule;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.ParticlePackets.EffectParticle.CritHitParticleS2CPacket;
 import fun.wraq.process.func.EnhanceNormalAttackModifier;
-import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
 import fun.wraq.process.func.damage.Damage;
-import fun.wraq.process.func.suit.SuitCount;
+import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.skill.skillv2.sword.SwordNewSkillPassive0;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -45,7 +41,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -64,7 +59,6 @@ import org.apache.commons.lang3.RandomUtils;
 
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
 @Mod.EventBusSubscriber
@@ -278,7 +272,6 @@ public class AttackEvent {
         }
 
         // effect
-        SpringAttackArmor(player, monster);
         Compute.ChargingModule(data, player);
         CastleSword.NormalAttack(player, monster, damage);
         Compute.AdditionEffects(player, monster, damage + trueDamage, 0);
@@ -350,188 +343,5 @@ public class AttackEvent {
         damage = DamageBeforeDefence * Damage.defenceDamageDecreaseRate(Defence, BreakDefence, BreakDefence0);
         data.putDouble(StringUtils.DamageTypes.ToPlayerDamage, (damage + ExDamageIgnoreDefence) * 0.1f);
         Damage.causeDirectDamageToPlayer(player, hurter, (damage + ExDamageIgnoreDefence) * 0.1f);
-    }
-
-    public static void Boss2DamageCount(Player player, Mob monster, double ExDamageIgnoreDefence, double Damage) {
-        if (monster instanceof Boss2 && monster.isAlive()) {
-            AtomicBoolean flag = new AtomicBoolean(false);
-            double finalExDamageIgnoreDefence = ExDamageIgnoreDefence;
-            Utils.boss2DamageList.forEach(boss2Damage -> {
-                if (boss2Damage.getPlayer() == player) {
-                    double damage = boss2Damage.getDamage();
-                    boss2Damage.setDamage(damage + Damage + finalExDamageIgnoreDefence);
-                    flag.set(true);
-                }
-            });
-            if (!flag.get()) {
-                Boss2Damage boss2Damage = new Boss2Damage(player, Damage + ExDamageIgnoreDefence);
-                Utils.boss2DamageList.add(boss2Damage);
-            }
-        }
-    }
-
-    public static void IceKnightDamageCount(Player player, Mob monster, double ExDamageIgnoreDefence, double Damage) {
-        if (monster.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.MobArmorIceHelmet.get()) && monster.isAlive()) {
-            AtomicBoolean flag = new AtomicBoolean(false);
-            double finalExDamageIgnoreDefence = ExDamageIgnoreDefence;
-            Utils.IceKnightDamageList.forEach(boss2Damage -> {
-                if (boss2Damage.getPlayer() == player) {
-                    double damage = boss2Damage.getDamage();
-                    boss2Damage.setDamage(damage + Damage + finalExDamageIgnoreDefence);
-                    flag.set(true);
-                }
-            });
-            if (!flag.get()) {
-                Boss2Damage boss2Damage = new Boss2Damage(player, Damage + ExDamageIgnoreDefence);
-                Utils.IceKnightDamageList.add(boss2Damage);
-            }
-        }
-    }
-
-    public static void SpringDamageCount(Player player, Mob monster, double ExDamageIgnoreDefence, double Damage) {
-        if (monster.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.MobArmorSpringHelmet.get()) && monster.isAlive()) {
-            AtomicBoolean flag = new AtomicBoolean(false);
-            double finalExDamageIgnoreDefence = ExDamageIgnoreDefence;
-            Utils.SpringDamageList.forEach(boss2Damage -> {
-                if (boss2Damage.getPlayer() == player) {
-                    double damage = boss2Damage.getDamage();
-                    boss2Damage.setDamage(damage + Damage + finalExDamageIgnoreDefence);
-                    flag.set(true);
-                }
-            });
-            if (!flag.get()) {
-                Boss2Damage boss2Damage = new Boss2Damage(player, Damage + ExDamageIgnoreDefence);
-                Utils.SpringDamageList.add(boss2Damage);
-            }
-        }
-    }
-
-    public static void MoonDamageCount(Player player, Mob monster, double ExDamageIgnoreDefence, double Damage) {
-        if ((monster.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.MobArmorMoonAttack.get())
-                || (monster.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.MobArmorMoonMana.get()))) && monster.isAlive()) {
-            AtomicBoolean flag = new AtomicBoolean(false);
-            double finalExDamageIgnoreDefence = ExDamageIgnoreDefence;
-            Utils.MoonDamageList.forEach(boss2Damage -> {
-                if (boss2Damage.getPlayer() == player) {
-                    double damage = boss2Damage.getDamage();
-                    boss2Damage.setDamage(damage + Damage + finalExDamageIgnoreDefence);
-                    flag.set(true);
-                }
-            });
-            if (!flag.get()) {
-                Boss2Damage boss2Damage = new Boss2Damage(player, Damage + ExDamageIgnoreDefence);
-                Utils.MoonDamageList.add(boss2Damage);
-            }
-        }
-    }
-
-    public static void TabooDevilDamageCount(Player player, Mob monster, double ExDamageIgnoreDefence, double Damage) {
-        if (monster.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.MobArmorTabooDevil.get()) && monster.isAlive()) {
-            AtomicBoolean flag = new AtomicBoolean(false);
-            double finalExDamageIgnoreDefence = ExDamageIgnoreDefence;
-            Utils.TabooDevilDamageList.forEach(boss2Damage -> {
-                if (boss2Damage.getPlayer() == player) {
-                    double damage = boss2Damage.getDamage();
-                    boss2Damage.setDamage(damage + Damage + finalExDamageIgnoreDefence);
-                    flag.set(true);
-                }
-            });
-            if (!flag.get()) {
-                Boss2Damage boss2Damage = new Boss2Damage(player, Damage + ExDamageIgnoreDefence);
-                Utils.TabooDevilDamageList.add(boss2Damage);
-            }
-        }
-    }
-
-    public static void PurpleIronKnightDamageCount(Player player, Mob monster, double ExDamageIgnoreDefence, double Damage) {
-        if (monster.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.MobArmorPurpleIronKnightHelmet.get()) && monster.isAlive()) {
-            AtomicBoolean flag = new AtomicBoolean(false);
-            double finalExDamageIgnoreDefence = ExDamageIgnoreDefence;
-            Utils.PurpleIronKnightDamageList.forEach(boss2Damage -> {
-                if (boss2Damage.getPlayer() == player) {
-                    double damage = boss2Damage.getDamage();
-                    boss2Damage.setDamage(damage + Damage + finalExDamageIgnoreDefence);
-                    flag.set(true);
-                }
-            });
-            if (!flag.get()) {
-                Boss2Damage boss2Damage = new Boss2Damage(player, Damage + ExDamageIgnoreDefence);
-                Utils.PurpleIronKnightDamageList.add(boss2Damage);
-            }
-        }
-    }
-
-    public static void GiantDamageCount(Player player, Mob monster, double ExDamageIgnoreDefence, double Damage) {
-        if (monster.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.MobArmorGiant.get()) && monster.isAlive()) {
-            AtomicBoolean flag = new AtomicBoolean(false);
-            double finalExDamageIgnoreDefence = ExDamageIgnoreDefence;
-            Utils.GiantDamageList.forEach(boss2Damage -> {
-                if (boss2Damage.getPlayer() == player) {
-                    double damage = boss2Damage.getDamage();
-                    boss2Damage.setDamage(damage + Damage + finalExDamageIgnoreDefence);
-                    flag.set(true);
-                }
-            });
-            if (!flag.get()) {
-                Boss2Damage boss2Damage = new Boss2Damage(player, Damage + ExDamageIgnoreDefence);
-                Utils.GiantDamageList.add(boss2Damage);
-            }
-        }
-    }
-
-    public static void SpringAttackArmor(Player player, Mob monster) {
-        if (!Utils.PlayerSpringAttackCoolDown.containsKey(player)
-                || Utils.PlayerSpringAttackCoolDown.get(player) < Tick.get()) {
-            if (SuitCount.getSpringAttackSuitCount(player) > 0) {
-                Compute.summonFireWork(player, monster);
-                Compute.addDefenceDecreaseEffectParticle(monster, 60);
-                Compute.sendCoolDownTime(player, ModItems.FireCracker.get().getDefaultInstance(), 100);
-                Utils.MobSpringAttackTick.put(monster, Tick.get() + 60);
-                Utils.MobSpringAttackEffect.put(monster, SuitCount.getSpringAttackSuitCount(player));
-                Compute.addSlowDownEffect(monster, 60, 99);
-                Utils.PlayerSpringAttackCoolDown.put(player, Tick.get() + 60);
-            }
-        }
-    }
-
-    public static void SpringSwiftArmor(Player player, Mob monster) {
-        if (!Utils.PlayerSpringSwiftCoolDown.containsKey(player)
-                || Utils.PlayerSpringSwiftCoolDown.get(player) < Tick.get()) {
-            if (SuitCount.getSpringSwiftSuitCount(player) > 0) {
-                Compute.summonFireWork(player, monster);
-                Compute.addDefenceDecreaseEffectParticle(monster, 60);
-                Compute.sendCoolDownTime(player, ModItems.FireCracker.get().getDefaultInstance(), 100);
-                Utils.MobSpringSwiftTick.put(monster, Tick.get() + 60);
-                Utils.MobSpringSwiftEffect.put(monster, SuitCount.getSpringSwiftSuitCount(player));
-                Compute.addSlowDownEffect(monster, 60, 99);
-                Utils.PlayerSpringSwiftCoolDown.put(player, Tick.get() + 60);
-
-            }
-        }
-    }
-
-    public static void SpringManaArmor(Player player, Mob monster) {
-        if (!Utils.PlayerSpringManaCoolDown.containsKey(player)
-                || Utils.PlayerSpringManaCoolDown.get(player) < Tick.get()) {
-            if (SuitCount.getSpringManaSuitCount(player) > 0) {
-                Compute.summonFireWork(player, monster);
-                Compute.addManaDefenceDecreaseEffectParticle(monster, 60);
-                Compute.sendCoolDownTime(player, ModItems.FireCracker.get().getDefaultInstance(), 100);
-                Utils.MobSpringManaTick.put(monster, Tick.get() + 60);
-                Utils.MobSpringManaEffect.put(monster, SuitCount.getSpringManaSuitCount(player));
-                Compute.addSlowDownEffect(monster, 60, 99);
-                Utils.PlayerSpringManaCoolDown.put(player, Tick.get() + 60);
-            }
-        }
-    }
-
-    public static void DamageCount(Player player, Mob monster, double ExDamageIgnoreDefence, double Damage) {
-        IceKnightDamageCount(player, monster, ExDamageIgnoreDefence, Damage);
-        Boss2DamageCount(player, monster, ExDamageIgnoreDefence, Damage);
-        SpringDamageCount(player, monster, ExDamageIgnoreDefence, Damage);
-        GiantDamageCount(player, monster, ExDamageIgnoreDefence, Damage);
-        MoonDamageCount(player, monster, ExDamageIgnoreDefence, Damage);
-        TabooDevilDamageCount(player, monster, ExDamageIgnoreDefence, Damage);
-        PurpleIronKnightDamageCount(player, monster, ExDamageIgnoreDefence, Damage);
     }
 }

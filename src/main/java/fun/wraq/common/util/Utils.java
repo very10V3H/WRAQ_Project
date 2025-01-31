@@ -56,7 +56,6 @@ public class Utils {
     public static Map<Item, Double> xpLevelDefencePenetration0 = new HashMap<>();
     public static Map<Item, Double> attackRangeUp = new HashMap<>();
     public static Map<Item, Double> swiftnessUp = new HashMap<>();
-    public static Map<Item, Double> attackSpeedUp = new HashMap<>();
     public static Map<Item, Double> movementSpeedWithoutBattle = new HashMap<>();
     public static Map<Item, Double> movementSpeedCommon = new HashMap<>();
     public static Map<Item, Double> healthSteal = new HashMap<>();
@@ -668,8 +667,6 @@ public class Utils {
 
     public static WeakHashMap<Player, Integer> DingCoolDown = new WeakHashMap<>();
     public static WeakHashMap<Player, Integer> DingDingCoolDown = new WeakHashMap<>();
-
-    public static WeakHashMap<Player, Integer> PlayerFireWorkGunEffect = new WeakHashMap<>();
 
     public static List<PlayerTeam> ChallengingPlayerTeam = new ArrayList<>();
 

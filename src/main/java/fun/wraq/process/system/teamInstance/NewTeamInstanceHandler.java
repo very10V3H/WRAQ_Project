@@ -2,6 +2,7 @@ package fun.wraq.process.system.teamInstance;
 
 import fun.wraq.process.system.teamInstance.instances.blackCastle.NewCastleInstance;
 import fun.wraq.process.system.teamInstance.instances.harbinger.HarbingerInstance;
+import fun.wraq.process.system.teamInstance.instances.spring.SpringSnakeInstance;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
@@ -22,6 +23,7 @@ public class NewTeamInstanceHandler {
         if (instances.isEmpty()) {
             instances.add(NewCastleInstance.getInstance());
             instances.add(HarbingerInstance.getInstance());
+            instances.add(SpringSnakeInstance.getInstance());
         }
         return instances;
     }
@@ -47,11 +49,17 @@ public class NewTeamInstanceHandler {
     }
 
     public static double judgeDamage(Player player, Mob mob, double originDamage) {
-        if (getInstances().stream().anyMatch(newTeamInstance -> newTeamInstance.hasSummonedMobs.contains(mob))) {
+        NewTeamInstance instance = getInstances()
+                .stream().filter(newTeamInstance -> newTeamInstance.hasSummonedMobs.contains(mob))
+                .findAny()
+                .orElse(null);
+        if (instance != null) {
+            if (!instance.players.contains(player)) return 0;
             return getInstances().stream()
                     .filter(newTeamInstance -> newTeamInstance.hasSummonedMobs.contains(mob))
                     .findAny()
-                    .get().judgeDamage(player, mob, originDamage);
+                    .get()
+                    .judgeDamage(player, mob, originDamage);
         }
         return originDamage;
     }
