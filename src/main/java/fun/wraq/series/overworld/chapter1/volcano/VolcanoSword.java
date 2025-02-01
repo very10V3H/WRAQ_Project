@@ -34,12 +34,11 @@ public class VolcanoSword extends WraqSword implements ActiveItem {
         Utils.attackDamage.put(this, new double[]{80, 85, 90, 100, 120}[tier]);
         Utils.defencePenetration0.put(this, new double[]{2, 2, 3, 3, 6}[tier]);
         Utils.critRate.put(this, new double[]{0.2, 0.2, 0.2, 0.2, 0.2}[tier]);
-        Utils.critDamage.put(this, new double[]{0.25, 0.3, 0.35, 0.45, 1}[tier]);
         Element.FireElementValue.put(this, new double[]{0.2, 0.4, 0.6, 0.8, 1}[tier]);
     }
 
-    private final double[] exCritDamage = new double[]{0.1, 0.2, 0.3, 0.4, 0.5};
-    private final double[] exAttackDamage = new double[]{10, 15, 20, 30, 60};
+    private final double[] exCritDamage = new double[]{0.04, 0.06, 0.08, 0.1, 0.15};
+    private final double[] exAttackDamage = new double[]{30, 45, 60, 90, 300};
 
     @Override
     public Style getMainStyle() {
@@ -70,18 +69,15 @@ public class VolcanoSword extends WraqSword implements ActiveItem {
         ParticleProvider.VerticleCircleParticle((ServerPlayer) player, 0.25, 1, 16, ParticleTypes.ANGRY_VILLAGER);
         ParticleProvider.createRandomMoveParticle((ServerPlayer) player, 0, 0.25, 32, ParticleTypes.ASH);
         Compute.sendEffectLastTime(player, ModItems.VolcanoSword3.get().getDefaultInstance(), 200);
-
         StableAttributesModifier.addM(player, StableAttributesModifier.playerAttackDamageModifier,
                 "Volcano Sword Active", exAttackDamage[tier], Tick.get() + 200);
         StableAttributesModifier.addM(player, StableAttributesModifier.playerCritDamageModifier,
                 "Volcano Sword Active", exCritDamage[tier], Tick.get() + 200);
-
         List.of(ModItems.VolcanoSword0.get(), ModItems.VolcanoSword1.get(),
                         ModItems.VolcanoSword2.get(), ModItems.VolcanoSword3.get(), ModItems.VolcanoSword4.get())
                 .forEach(item -> {
                     Compute.playerItemCoolDown(player, item, 18);
                 });
-
         MySound.soundToNearPlayer(player, ModSounds.Lava.get());
     }
 

@@ -17,7 +17,6 @@ public class BlazeRune extends WraqCurios implements RuneItem {
 
     public BlazeRune(Properties properties) {
         super(properties);
-        Utils.critDamage.put(this, 0.2);
         Utils.attackDamage.put(this, 30d);
         Utils.manaDamage.put(this, 60d);
     }

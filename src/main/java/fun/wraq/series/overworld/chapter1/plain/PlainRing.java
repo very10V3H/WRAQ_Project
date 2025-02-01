@@ -19,7 +19,7 @@ public class PlainRing extends WraqCurios {
 
     public PlainRing(Properties p_41383_) {
         super(p_41383_);
-        Utils.critDamage.put(this, 0.08);
+        Utils.critDamage.put(this, 0.02);
         Utils.manaPenetration0.put(this, 2d);
         Utils.expUp.put(this, 0.1);
     }

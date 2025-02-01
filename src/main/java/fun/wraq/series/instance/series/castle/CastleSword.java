@@ -35,7 +35,6 @@ public class CastleSword extends WraqSword implements ForgeItem, ActiveItem, Enh
         Utils.defencePenetration0.put(this, 36d);
         Utils.healthSteal.put(this, 0.08);
         Utils.critRate.put(this, 0.30d);
-        Utils.critDamage.put(this, 0.8);
         this.tier = tier;
     }
 
@@ -111,12 +110,14 @@ public class CastleSword extends WraqSword implements ForgeItem, ActiveItem, Enh
         Compute.decreasePlayerHealth(player, player.getHealth() * 0.15,
                 Component.literal(" 被暗黑魔能吞噬了。").withStyle(CustomStyle.styleOfCastle));
         Compute.playerItemCoolDown(player, ModItems.CASTLE_SWORD.get(), 15);
+        Compute.playerItemCoolDown(player, ModItems.CASTLE_SWORD_E.get(), 15);
         StableAttributesModifier.addM(player, StableAttributesModifier.playerCommonDamageEnhance,
                 "castle weapon active", 0.25, Tick.get() + 120);
         StableAttributesModifier.addM(player, StableAttributesModifier.playerDefencePenetrationModifier,
                 "CastleWeaponActiveDefencePenetration", 0.25, Tick.get() + 120);
         StableAttributesModifier.addM(player, StableAttributesModifier.playerManaPenetrationModifier,
-                "CastleWeaponActiveManaPenetration", 0.25, Tick.get() + 120, this);
+                "CastleWeaponActiveManaPenetration", 0.25, Tick.get() + 120,
+                ModItems.CASTLE_SWORD.get());
     }
 
     @Override

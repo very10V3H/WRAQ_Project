@@ -27,7 +27,7 @@ public class BoneImpKnife extends WraqOffHandItem implements ForgeItem {
         Utils.attackDamage.put(this, 277d);
         Utils.defencePenetration0.put(this, 6d);
         Utils.critRate.put(this, 0.17);
-        Utils.critDamage.put(this, 0.62);
+        Utils.critDamage.put(this, 0.1);
         Utils.expUp.put(this, 0.77);
         Utils.levelRequire.put(this, 210);
     }

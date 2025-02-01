@@ -14,7 +14,7 @@ public class ForestRing extends WraqCurios {
 
     public ForestRing(Properties p_41383_) {
         super(p_41383_);
-        Utils.critDamage.put(this, 0.08);
+        Utils.critDamage.put(this, 0.02);
         Utils.manaPenetration0.put(this, 2d);
         Utils.expUp.put(this, 0.1);
         Utils.percentDefenceEnhance.put(this, 0.1);

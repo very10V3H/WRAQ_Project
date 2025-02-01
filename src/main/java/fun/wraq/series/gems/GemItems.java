@@ -98,7 +98,7 @@ public class GemItems {
     public static final RegistryObject<Item> snowGem = ITEMS.register("snow_gem",
             () -> new WraqGem(new Item.Properties().rarity(CustomStyle.SnowBold), new ArrayList<>() {{
                 add(new WraqGem.AttributeMapValue(Utils.critRate, 0.02));
-                add(new WraqGem.AttributeMapValue(Utils.critDamage, 0.05));
+                add(new WraqGem.AttributeMapValue(Utils.critDamage, 0.03));
             }}, CustomStyle.styleOfSnow, Component.literal("冰川意志的具象，凝聚于此石。").withStyle(CustomStyle.styleOfSnow),
                     ComponentUtils.getSuffixOfChapterII()));
 
@@ -217,7 +217,7 @@ public class GemItems {
 
     public static final RegistryObject<Item> witherGem = ITEMS.register("wither_gem",
             () -> new WraqGem(new Item.Properties().rarity(CustomStyle.WitherBold), new ArrayList<>() {{
-                add(new WraqGem.AttributeMapValue(Utils.critDamage, 0.15));
+                add(new WraqGem.AttributeMapValue(Utils.critDamage, 0.08));
                 add(new WraqGem.AttributeMapValue(Utils.percentMaxHealthEnhance, -0.05));
             }}, CustomStyle.styleOfWither, Component.literal("用能量灌注凋零残骨所打造而成。").withStyle(CustomStyle.styleOfWither),
                     ComponentUtils.getSuffixOfNether()));

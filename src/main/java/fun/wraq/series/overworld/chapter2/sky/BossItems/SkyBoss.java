@@ -177,14 +177,12 @@ public class SkyBoss {
         private final double BaseDamage = 100.0d;
         private final double BreakDefence = 0.25F;
         private final double CriticalHitRate = 0.5F;
-        private final double CHitDamage = 0.85;
 
         public SkyBossBow(Properties properties) {
             super(properties);
             Utils.attackDamage.put(this, this.BaseDamage);
             Utils.defencePenetration.put(this, this.BreakDefence);
             Utils.critRate.put(this, this.CriticalHitRate);
-            Utils.critDamage.put(this, this.CHitDamage);
             Element.WindElementValue.put(this, 1.25);
         }
 

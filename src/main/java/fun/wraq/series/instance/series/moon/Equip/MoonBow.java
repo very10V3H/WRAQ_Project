@@ -44,7 +44,6 @@ public class MoonBow extends WraqBow implements ActiveItem, OnHitEffectEquip, Fo
         Utils.attackDamage.put(this, 1200d);
         Utils.defencePenetration0.put(this, 29d);
         Utils.critRate.put(this, 0.25);
-        Utils.critDamage.put(this, 1.35);
         this.activeRate = activeRate;
         Utils.levelRequire.put(this, 160);
         this.tier = tier;
@@ -113,7 +112,7 @@ public class MoonBow extends WraqBow implements ActiveItem, OnHitEffectEquip, Fo
 
     @Override
     public void active(Player player) {
-        Compute.playerItemCoolDown(player, ModItems.MOON_BOW.get(), 27);
+        Compute.playerItemCoolDown(player, this, 27);
         EnhanceNormalAttackModifier.addModifier(player, new EnhanceNormalAttackModifier("moonBowActive", 1, new EnhanceNormalAttack() {
             @Override
             public void hit(Player player, Mob mob) {

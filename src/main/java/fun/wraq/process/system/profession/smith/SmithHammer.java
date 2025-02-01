@@ -22,7 +22,7 @@ public class SmithHammer extends WraqCurios {
     public SmithHammer(Properties properties, int tier) {
         super(properties);
         this.tier = tier;
-        Utils.critDamage.put(this, tier * 0.1);
+        Utils.critDamage.put(this, tier * 0.01);
         Utils.manaPenetration0.put(this, tier * 10d);
     }
 

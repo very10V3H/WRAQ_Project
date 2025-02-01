@@ -39,12 +39,12 @@ public class GoldenAttackOffhand extends WraqOffHandItem implements OnKillEffect
             Utils.defence.put(this, 5d);
             Utils.maxHealth.put(this, 2000d);
             Utils.attackDamage.put(this, 125d);
-            Utils.critDamage.put(this, 0.15);
+            Utils.critDamage.put(this, 0.05);
         } else {
             Utils.critRate.put(this, 0.12);
             Utils.defencePenetration0.put(this, 6d);
             Utils.attackDamage.put(this, 125d);
-            Utils.critDamage.put(this, 0.15);
+            Utils.critDamage.put(this, 0.05);
         }
 
         Utils.expUp.put(this, 0.75);
@@ -71,7 +71,7 @@ public class GoldenAttackOffhand extends WraqOffHandItem implements OnKillEffect
         components.add(Component.literal(" 1.").withStyle(style).
                 append(ComponentUtils.AttributeDescription.critRate("15%")));
         components.add(Component.literal(" 2.").withStyle(style).
-                append(ComponentUtils.AttributeDescription.critDamage("65%")));
+                append(ComponentUtils.AttributeDescription.critDamage("15%")));
         components.add(Component.literal(" 3.").withStyle(style).
                 append(ComponentUtils.AttributeDescription.defencePenetration("30")));
         components.add(Component.literal(" 持续5min，在持续期间").withStyle(ChatFormatting.WHITE).
@@ -111,7 +111,7 @@ public class GoldenAttackOffhand extends WraqOffHandItem implements OnKillEffect
                 StableAttributesModifier.addAttributeModifier(player, StableAttributesModifier.playerCritRateModifier,
                         new StableAttributesModifier(critRateTag, 0.15, tick + 6000));
                 StableAttributesModifier.addAttributeModifier(player, StableAttributesModifier.playerCritDamageModifier,
-                        new StableAttributesModifier(critDamageTag, 0.65, tick + 6000));
+                        new StableAttributesModifier(critDamageTag, 0.15, tick + 6000));
                 StableAttributesModifier.addAttributeModifier(player, StableAttributesModifier.playerDefencePenetration0Modifier,
                         new StableAttributesModifier(defencePenetrationTag, 30, tick + 6000));
                 Compute.sendEffectLastTime(player, ModItems.GOLD_COIN.get(), 6000);

@@ -23,7 +23,7 @@ public class ManaKnife extends WraqOffHandItem implements ForgeItem {
         Utils.attackDamage.put(this, 40d);
         Utils.defencePenetration0.put(this, 4d);
         Utils.critRate.put(this, 0.12);
-        Utils.critDamage.put(this, 0.5);
+        Utils.critDamage.put(this, 0.05);
         Utils.healthSteal.put(this, 0.04);
         Utils.expUp.put(this, 0.65);
         Utils.levelRequire.put(this, 125);
@@ -45,7 +45,7 @@ public class ManaKnife extends WraqOffHandItem implements ForgeItem {
         Compute.DescriptionPassive(components, Component.literal("新世猎魔传技").withStyle(style));
         components.add(Component.literal(" 将你的").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.AttributeDescription.healthSteal("")).
-                append(Component.literal("以1:3全部转化为").withStyle(ChatFormatting.WHITE)).
+                append(Component.literal("以1:1全部转化为").withStyle(ChatFormatting.WHITE)).
                 append(ComponentUtils.AttributeDescription.critDamage("")));
         return components;
     }

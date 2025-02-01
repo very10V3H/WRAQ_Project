@@ -97,23 +97,25 @@ public class SpringMobEvent extends KillMobEvent {
 
     // 对周围所有玩家造成当前生命值10% + 最大生命值10%的真实伤害
     private void skill1() {
-        getAllPlayers().forEach(player -> {
-            FireworkGun.summonFireWork(level(), player.position());
-            Damage.causeTrueDamageToPlayer(boss, player,
-                    player.getHealth() * 0.1 + player.getMaxHealth() * 0.1);
-        });
+        getAllPlayers().stream().filter(player -> player.distanceTo(boss) < 64)
+                .forEach(player -> {
+                    FireworkGun.summonFireWork(level(), player.position());
+                    Damage.causeTrueDamageToPlayer(boss, player,
+                            player.getHealth() * 0.1 + player.getMaxHealth() * 0.1);
+                });
     }
 
     // 召唤下坠烟花，对爆炸命中的玩家造成50%最大生命值伤害
     private void skill2() {
-        getAllPlayers().forEach(player -> {
-            SpringMobFirework firework
-                    = new SpringMobFirework(boss, new Vec3(player.getX(), player.getY() + 20, player.getZ()));
-            firework.setDeltaMovement(new Vec3(0, -2, 0));
-            level().addFreshEntity(firework);
+        getAllPlayers().stream().filter(player -> player.distanceTo(boss) < 64)
+                .forEach(player -> {
+                    SpringMobFirework firework
+                            = new SpringMobFirework(boss, new Vec3(player.getX(), player.getY() + 20, player.getZ()));
+                    firework.setDeltaMovement(new Vec3(0, -2, 0));
+                    level().addFreshEntity(firework);
 
-            FireworkGun.summonFireWork(level(), player.position().add(0, 3, 0));
-        });
+                    FireworkGun.summonFireWork(level(), player.position().add(0, 3, 0));
+                });
     }
 
     @Override
@@ -234,7 +236,7 @@ public class SpringMobEvent extends KillMobEvent {
     }
 
     private Component getLuckyNumberDamageFormatString(double damage) {
-        String damageNumber = String.valueOf((int) damage);
+        String damageNumber = String.valueOf((long) damage);
         MutableComponent formatString = Te.s("");
         for (int i = 0; i < damageNumber.length(); i++) {
             if (damageNumber.charAt(i) == '0' + luckyNumber) {

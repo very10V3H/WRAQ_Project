@@ -2,6 +2,7 @@ package fun.wraq.events.mob.instance.instances.element;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
@@ -20,11 +21,15 @@ import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.BossEvent;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.monster.Stray;
+import net.minecraft.world.entity.monster.ZombieVillager;
+import net.minecraft.world.entity.npc.VillagerData;
+import net.minecraft.world.entity.npc.VillagerProfession;
+import net.minecraft.world.entity.npc.VillagerType;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
@@ -40,7 +45,7 @@ public class PlainInstance extends NoTeamInstance {
 
     public static PlainInstance getInstance() {
         if (instance == null) {
-            instance = new PlainInstance(new Vec3(1167, 111, 24), 30, 60, new Vec3(1167, 111, 24),
+            instance = new PlainInstance(new Vec3(1167, 112, 28), 30, 60, new Vec3(1167, 112, 28),
                     Component.literal("普莱尼").withStyle(ChatFormatting.GREEN));
         }
         return instance;
@@ -92,28 +97,47 @@ public class PlainInstance extends NoTeamInstance {
 
     @Override
     public void summonModule(Level level) {
-        Stray stray = new Stray(EntityType.STRAY, level);
-        MobSpawn.setMobCustomName(stray, Component.literal("普莱尼").withStyle(CustomStyle.styleOfPlain), 50);
-
-        MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(stray), 50);
-        MobSpawn.MobBaseAttributes.setMobBaseAttributes(stray, 400, 40, 40, 0.2,
-                1, 0, 0, 0, 20000, 0.2);
-
-        stray.setHealth(stray.getMaxHealth());
-        stray.setItemSlot(EquipmentSlot.HEAD, ModItems.ArmorPlainBossHelmet.get().getDefaultInstance());
-        stray.setItemSlot(EquipmentSlot.CHEST, ModItems.ArmorPlainBossChest.get().getDefaultInstance());
-        stray.setItemSlot(EquipmentSlot.LEGS, ModItems.ArmorPlainBossLeggings.get().getDefaultInstance());
-        stray.setItemSlot(EquipmentSlot.FEET, ModItems.ArmorPlainBossBoots.get().getDefaultInstance());
-
-        stray.moveTo(pos);
-        level.addFreshEntity(stray);
-        mobList.add(stray);
-
-        ServerBossEvent serverBossEvent = (ServerBossEvent) (new ServerBossEvent(stray.getDisplayName(), BossEvent.BossBarColor.GREEN, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
+        ZombieVillager zombie = new ZombieVillager(EntityType.ZOMBIE_VILLAGER, level);
+        MobSpawn.setMobCustomName(zombie, Component.literal("普莱尼").withStyle(CustomStyle.styleOfPlain), 50);
+        zombie.setVillagerData(new VillagerData(VillagerType.PLAINS, VillagerProfession.LIBRARIAN, 0));
+        MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(zombie), 50);
+        double maxHealth = 10000 * (1 + 0.75 * (players.size()) - 1);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombie, 400, 40, 40, 0.2,
+                1, 0, 0, 0, maxHealth, 0.2);
+        zombie.setHealth(zombie.getMaxHealth());
+        MobSpawn.setStainArmorOnMob(zombie, CustomStyle.styleOfLife);
+        zombie.setItemInHand(InteractionHand.MAIN_HAND, Compute.getSimpleFoiledItemStack(Items.GOLDEN_HOE));
+        zombie.moveTo(pos);
+        level.addFreshEntity(zombie);
+        mobList.add(zombie);
+        ServerBossEvent serverBossEvent = (ServerBossEvent) (new ServerBossEvent(zombie.getDisplayName(), BossEvent.BossBarColor.GREEN, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
         getNearPlayers(level).forEach(player -> {
             serverBossEvent.addPlayer((ServerPlayer) player);
         });
         bossInfoList.add(serverBossEvent);
+
+        List<Vec3> offset = List.of(
+                new Vec3(1, 0, 0),
+                new Vec3(-1, 0, 0),
+                new Vec3(0, 0, 1),
+                new Vec3(0, 0, -1)
+        );
+        for (int i = 0 ; i < 4 ; i ++) {
+            spawnBabyZombie(level, pos.add(offset.get(i)));
+        }
+    }
+
+    private void spawnBabyZombie(Level level, Vec3 pos) {
+        ZombieVillager babyZombie = new ZombieVillager(EntityType.ZOMBIE_VILLAGER, level);
+        MobSpawn.setMobCustomName(babyZombie, Te.s("普莱尼信徒"), 50);
+        babyZombie.setVillagerData(new VillagerData(VillagerType.PLAINS, VillagerProfession.LIBRARIAN, 0));
+        babyZombie.setBaby(true);
+        double maxHealth = 2000 * (1 + 0.75 * (players.size()) - 1);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(babyZombie, 100, 40, 40, 0.2,
+                1, 0, 0, 0, maxHealth, 0.2);
+        babyZombie.moveTo(pos);
+        level.addFreshEntity(babyZombie);
+        mobList.add(babyZombie);
     }
 
     @Override

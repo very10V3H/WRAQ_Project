@@ -17,7 +17,7 @@ public class DarkMoonKnife extends WardenOffhandItem implements ForgeItem {
         Utils.attackDamage.put(this, 477d);
         Utils.defencePenetration0.put(this, 27d);
         Utils.critRate.put(this, 0.17);
-        Utils.critDamage.put(this, 0.77);
+        Utils.critDamage.put(this, 0.1);
         Utils.expUp.put(this, 1.08);
         Utils.levelRequire.put(this, 225);
     }

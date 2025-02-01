@@ -59,6 +59,8 @@ public class FireworkGun extends Item implements ActiveItem {
         StableAttributesModifier.addM(player, StableAttributesModifier.playerPercentManaDamageModifier,
                 "fireworkGunActiveEffect", 0.1, Tick.get() + Tick.s(10),
                 SpecialEventItems.FIRE_WORK_GUN.get());
+        StableAttributesModifier.addM(player, StableAttributesModifier.playerPercentAttackDamageModifier,
+                "fireworkGunActiveEffect", 0.1, Tick.get() + Tick.s(10));
         Vec3 vec3 = player.pick(5, 0, false).getLocation();
         summonFireWork(player.level(), vec3);
         player.getCooldowns().addCooldown(this, Tick.s(1));

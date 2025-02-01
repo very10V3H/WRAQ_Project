@@ -22,7 +22,7 @@ public class QingMingAttackRing extends Item implements ICurioItem {
     public QingMingAttackRing(Properties p_41383_) {
         super(p_41383_);
         Utils.curiosList.add(this);
-        Utils.critDamage.put(this, 0.2);
+        Utils.critDamage.put(this, 0.05);
         Utils.attackDamage.put(this, 150d);
         Utils.expUp.put(this, 0.5);
     }

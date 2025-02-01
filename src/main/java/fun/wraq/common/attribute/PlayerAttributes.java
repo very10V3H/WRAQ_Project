@@ -346,9 +346,9 @@ public class PlayerAttributes {
                 StringUtils.CuriosAttribute.xpLevelCritDamage) * player.experienceLevel;
         critDamage += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.critDamage);
         if (player.getEffect(ModEffects.CRITDAMAGEUP.get()) != null && player.getEffect(ModEffects.CRITDAMAGEUP.get()).getAmplifier() == 0)
-            critDamage += 0.4;
+            critDamage += 0.1;
         if (player.getEffect(ModEffects.CRITDAMAGEUP.get()) != null && player.getEffect(ModEffects.CRITDAMAGEUP.get()).getAmplifier() == 1)
-            critDamage += 0.8;
+            critDamage += 0.2;
         critDamage += SArmorAttribute.value(player, SArmorAttribute.snowPower);
 
         if (Compute.getBowSkillLevel(data, 7) > 0 && Utils.bowTag.containsKey(mainhand)) {
@@ -363,12 +363,12 @@ public class PlayerAttributes {
 
         if (player.getItemInHand(InteractionHand.OFF_HAND).is(ModItems.ManaShield.get())) {
             if (player.getHealth() / player.getMaxHealth() > 0.5) {
-                critDamage += data.getDouble("HealthStealAfterCompute") * 5;
+                critDamage += data.getDouble("HealthStealAfterCompute");
             }
         } // 封魔者法盾
 
         if (player.getItemInHand(InteractionHand.OFF_HAND).is(ModItems.manaKnife.get())) {
-            critDamage += data.getDouble("HealthStealAfterCompute") * 3;
+            critDamage += data.getDouble("HealthStealAfterCompute") * 1;
         } // 猎魔者小刀
 
         critDamage += Compute.CuriosAttribute.attributeValue(player, Utils.critDamage, StringUtils.CuriosAttribute.critDamage); // 新版饰品属性加成
@@ -1237,7 +1237,7 @@ public class PlayerAttributes {
 
         if (player.getItemInHand(InteractionHand.OFF_HAND).is(ModItems.ManaShield.get())) {
             if (player.getHealth() / player.getMaxHealth() < 0.5) {
-                healthSteal += data.getDouble("CritDamageAfterCompute") / 5;
+                healthSteal += data.getDouble("CritDamageAfterCompute");
             }
         } // 封魔者法盾
 

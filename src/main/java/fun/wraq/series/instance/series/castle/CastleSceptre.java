@@ -132,12 +132,14 @@ public class CastleSceptre extends WraqSceptre implements ForgeItem, ActiveItem,
         Compute.decreasePlayerHealth(player, player.getHealth() * 0.15,
                 Component.literal(" 被暗黑魔能吞噬了。").withStyle(CustomStyle.styleOfCastle));
         Compute.playerItemCoolDown(player, ModItems.CASTLE_SCEPTRE.get(), 15);
+        Compute.playerItemCoolDown(player, ModItems.CASTLE_SCEPTRE_E.get(), 15);
         StableAttributesModifier.addM(player, StableAttributesModifier.playerCommonDamageEnhance,
                 "castle weapon active", 0.25, Tick.get() + 120);
         StableAttributesModifier.addM(player, StableAttributesModifier.playerDefencePenetrationModifier,
                 "CastleWeaponActiveDefencePenetration", 0.25, Tick.get() + 120);
         StableAttributesModifier.addM(player, StableAttributesModifier.playerManaPenetrationModifier,
-                "CastleWeaponActiveManaPenetration", 0.25, Tick.get() + 120, this);
+                "CastleWeaponActiveManaPenetration", 0.25, Tick.get() + 120,
+                ModItems.CASTLE_SCEPTRE.get());
     }
 
     @Override

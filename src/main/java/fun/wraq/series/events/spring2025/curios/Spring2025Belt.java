@@ -18,7 +18,7 @@ public class Spring2025Belt extends WraqCurios {
         Utils.healingAmplification.put(this, new double[]{0.03, 0.06, 0.09, 0.12, 0.15}[tier]);
         Utils.defence.put(this, new double[]{20, 40, 60, 80, 100}[tier]);
         Utils.manaDefence.put(this, new double[]{20, 40, 60, 80, 100}[tier]);
-        Utils.percentHealthRecover.put(this, new double[]{0.0025, 0.005, 0.0075, 0.01, 0.0125}[tier]);
+        Utils.percentHealthRecover.put(this, new double[]{0.0015, 0.0025, 0.0035, 0.0045, 0.006}[tier]);
         Utils.levelRequire.put(this, new int[]{50, 100, 150, 200, 250}[tier]);
     }
 

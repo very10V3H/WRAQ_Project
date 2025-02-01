@@ -28,7 +28,7 @@ public class NetherNewRune extends WraqCurios implements RuneItem, UsageOrGetWay
 
     public NetherNewRune(Properties properties) {
         super(properties);
-        Utils.critDamage.put(this, 0.2);
+        Utils.critDamage.put(this, 0.1);
     }
 
     @Override

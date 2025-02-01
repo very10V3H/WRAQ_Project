@@ -24,7 +24,7 @@ public class PurpleIronBow extends WraqPassiveEquip implements PurpleIronCommon,
         super(p_40524_);
         this.tier = tier;
         Utils.attackDamage.put(this, new double[]{100, 150, 200, 250}[tier]);
-        Utils.critDamage.put(this, new double[]{0.05, 0.08, 0.1, 0.15}[tier]);
+        Utils.critDamage.put(this, new double[]{0.01, 0.01, 0.02, 0.02}[tier]);
         Utils.swiftnessUp.put(this, new double[]{0.4, 0.55, 0.7, 0.9}[tier]);
         Utils.levelRequire.put(this, 120);
     }

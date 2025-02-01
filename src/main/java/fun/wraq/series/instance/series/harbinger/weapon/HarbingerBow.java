@@ -27,7 +27,6 @@ public class HarbingerBow extends WraqBow implements HarbingerMainHand, ActiveIt
         Utils.attackDamage.put(this, 2200d);
         Utils.defencePenetration0.put(this, 50d);
         Utils.critRate.put(this, 0.3);
-        Utils.critDamage.put(this, 1.8);
         Utils.levelRequire.put(this, 230);
     }
 

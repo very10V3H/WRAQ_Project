@@ -24,7 +24,6 @@ public class MineSword extends WraqSword {
         Utils.defencePenetration0.put(this, new double[]{3, 4, 5, 6}[tier]);
         Utils.healthSteal.put(this, 0.04);
         Utils.critRate.put(this, new double[]{0.55, 0.6, 0.65, 0.7}[tier]);
-        Utils.critDamage.put(this, new double[]{0.15, 0.2, 0.25, 0.3}[tier]);
         Element.StoneElementValue.put(this, 0.2);
     }
 

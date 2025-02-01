@@ -25,7 +25,7 @@ public class AttackCurios0 extends WraqAttackUniformCurios {
         Style style = CustomStyle.styleOfPower;
         Compute.DescriptionPassive(components, Component.literal("暴政").withStyle(style));
         components.add(Component.literal(" 获得").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.critDamage("15%总")));
+                append(ComponentUtils.AttributeDescription.critDamage("10%总")));
         components.add(Component.literal(" 残暴的君主，终将被民众推翻。").withStyle(style));
         return components;
     }
@@ -37,6 +37,6 @@ public class AttackCurios0 extends WraqAttackUniformCurios {
 
     public static double PlayerFinalCritDamageEnhance(Player player) {
         if (!WraqUniformCurios.isOn(AttackCurios0.class, player)) return 0;
-        return 0.15;
+        return 0.1;
     }
 }

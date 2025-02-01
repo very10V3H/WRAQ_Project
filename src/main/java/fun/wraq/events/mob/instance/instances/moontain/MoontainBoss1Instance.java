@@ -54,19 +54,15 @@ public class MoontainBoss1Instance extends NoTeamInstance {
     public void summonModule(Level level) {
         SirPumpkinheadWithoutHorseEntity entity =
                 new SirPumpkinheadWithoutHorseEntity(BornInChaosV1ModEntities.SIR_PUMPKINHEAD_WITHOUT_HORSE.get(), level);
-
         MobSpawn.setMobCustomName(entity, Component.literal(mobName).withStyle(style), 200);
-
+        double maxHealth = 750 * Math.pow(10, 4) * (1 + 0.75 * (players.size() - 1));
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(entity), 200);
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(entity, 2800, 240, 240,
                 0.4, 5, 0.4, 70, 0,
-                1500 * Math.pow(10, 4), 0.45);
-
+                maxHealth, 0.45);
         entity.setHealth(entity.getMaxHealth());
-
         entity.moveTo(pos);
         level.addFreshEntity(entity);
-
         ServerBossEvent serverBossEvent = (ServerBossEvent) (new ServerBossEvent(entity.getDisplayName(),
                 BossEvent.BossBarColor.PURPLE, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
         getNearPlayers(level).forEach(player -> {

@@ -35,7 +35,7 @@ public class MoonKnife extends Item {
         Utils.attackDamage.put(this, 177d);
         Utils.defencePenetration0.put(this, 6d);
         Utils.critRate.put(this, 0.17);
-        Utils.critDamage.put(this, 0.62);
+        Utils.critDamage.put(this, 0.07);
         Utils.expUp.put(this, 0.77);
         Utils.offHandTag.put(this, 1d);
         Utils.weaponList.add(this);

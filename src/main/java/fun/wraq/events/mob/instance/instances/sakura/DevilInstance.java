@@ -78,28 +78,24 @@ public class DevilInstance extends NoTeamInstance {
     @Override
     public void summonModule(Level level) {
         Zombie zombie = new Zombie(EntityType.ZOMBIE, level);
-
         zombie.setBaby(true);
         MobSpawn.setMobCustomName(zombie, Component.literal(mobName).withStyle(CustomStyle.styleOfBloodMana), 150);
-
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(zombie), 150);
+        double maxHealth = 50 * Math.pow(10, 4) * (1 + 0.75 * (players.size() - 1));
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombie, 1700, 120, 120,
-                0.4, 4, 0.25, 50, 0, 100 * Math.pow(10, 4), 0.35);
-
+                0.4, 4, 0.25, 50, 0,
+                maxHealth, 0.35);
         zombie.setHealth(zombie.getMaxHealth());
         zombie.setItemSlot(EquipmentSlot.HEAD, ModItems.MobArmorDevilHelmet.get().getDefaultInstance());
         zombie.setItemSlot(EquipmentSlot.CHEST, ModItems.MobArmorEarthManaChest.get().getDefaultInstance());
         zombie.setItemSlot(EquipmentSlot.LEGS, ModItems.MobArmorEarthManaLeggings.get().getDefaultInstance());
         zombie.setItemSlot(EquipmentSlot.FEET, ModItems.MobArmorEarthManaBoots.get().getDefaultInstance());
         zombie.setItemSlot(EquipmentSlot.MAINHAND, ModItems.manaKnife.get().getDefaultInstance());
-
         devilSkill3Flag = true;
         devilSkill4Flag = true;
         exDamage = 0;
-
         zombie.moveTo(pos);
         level.addFreshEntity(zombie);
-
         ServerBossEvent serverBossEvent = (ServerBossEvent) (new ServerBossEvent(zombie.getDisplayName(),
                 BossEvent.BossBarColor.PURPLE, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
         getNearPlayers(level).forEach(player -> {

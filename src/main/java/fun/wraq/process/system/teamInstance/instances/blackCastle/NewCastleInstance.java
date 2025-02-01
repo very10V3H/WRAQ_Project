@@ -78,10 +78,11 @@ public class NewCastleInstance extends NewTeamInstance {
         manaSummonPos.forEach(pos -> {
             for (int i = 0; i < 4; i++) {
                 WitherSkeleton witherSkeleton = new WitherSkeleton(EntityType.WITHER_SKELETON, level);
+                double maxHealth = 150 * Math.pow(10, 4) * (1 + 0.75 * (players.size() - 1));
                 MobSpawn.setMobCustomName(witherSkeleton, Component.literal(mobNameOf1StageMana).withStyle(CustomStyle.styleOfCastle), 180);
                 MobSpawn.MobBaseAttributes.setMobBaseAttributes(witherSkeleton, 180, 3000, 160,
                         80, 0.5, 5, 0.3, 55, 0,
-                        300 * Math.pow(10, 4), 0.3);
+                        maxHealth, 0.3);
                 witherSkeleton.setItemSlot(EquipmentSlot.HEAD, ModItems.MobArmorBlackCastleOneFloorManaHelmet.get().getDefaultInstance());
                 witherSkeleton.setItemSlot(EquipmentSlot.CHEST, ModItems.MobArmorBlackCastleOneFloorChest.get().getDefaultInstance());
                 witherSkeleton.setItemSlot(EquipmentSlot.LEGS, ModItems.MobArmorBlackCastleOneFloorLeggings.get().getDefaultInstance());
@@ -103,9 +104,10 @@ public class NewCastleInstance extends NewTeamInstance {
         attackSummonPos.forEach(pos -> {
             WitherSkeleton witherSkeleton = new WitherSkeleton(EntityType.WITHER_SKELETON, level);
             MobSpawn.setMobCustomName(witherSkeleton, Component.literal(mobNameOf1StageAttack).withStyle(CustomStyle.styleOfCastle), 180);
+            double maxHealth = 250 * Math.pow(10, 4) * (1 + 0.75 * (players.size() - 1));
             MobSpawn.MobBaseAttributes.setMobBaseAttributes(witherSkeleton, 180, 3000, 80,
                     160, 0.5, 5, 0.3, 55, 0,
-                    500 * Math.pow(10, 4), 0.3);
+                    maxHealth, 0.3);
             witherSkeleton.setItemSlot(EquipmentSlot.HEAD, ModItems.MobArmorBlackCastleOneFloorAttackHelmet.get().getDefaultInstance());
             witherSkeleton.setItemSlot(EquipmentSlot.CHEST, ModItems.MobArmorBlackCastleOneFloorChest.get().getDefaultInstance());
             witherSkeleton.setItemSlot(EquipmentSlot.LEGS, ModItems.MobArmorBlackCastleOneFloorLeggings.get().getDefaultInstance());
@@ -145,10 +147,10 @@ public class NewCastleInstance extends NewTeamInstance {
             for (int i = 0; i < 4; i++) {
                 Zombie zombie = new Zombie(EntityType.ZOMBIE, level);
                 MobSpawn.setMobCustomName(zombie, Component.literal("暗黑城堡禁军 - 护卫").withStyle(CustomStyle.styleOfCastle), 180);
-
+                double maxHealth = 400 * Math.pow(10, 4) * (1 + 0.75 * (players.size() - 1));
                 MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombie, 180, 3000, 170,
                         170, 0.5, 5, 0.3, 55, 0,
-                        800 * Math.pow(10, 4), 0.35);
+                        maxHealth, 0.35);
                 zombie.setBaby(true);
                 zombie.setItemSlot(EquipmentSlot.HEAD, ModItems.MobArmorBlackCastleOneFloorManaHelmet.get().getDefaultInstance());
                 zombie.setItemSlot(EquipmentSlot.CHEST, ModItems.MobArmorBlackCastleOneFloorChest.get().getDefaultInstance());
@@ -163,9 +165,10 @@ public class NewCastleInstance extends NewTeamInstance {
             for (int i = 0; i < 2; i++) {
                 Zombie zombie = new Zombie(EntityType.ZOMBIE, level);
                 MobSpawn.setMobCustomName(zombie, Component.literal("暗黑城堡禁军 - 统领").withStyle(CustomStyle.styleOfCastle), 180);
+                double maxHealth = 500 * Math.pow(10, 4) * (1 + 0.75 * (players.size() - 1));
                 MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombie, 180, 3500, 170,
                         170, 0.5, 5, 0.3, 55, 0,
-                        1000 * Math.pow(10, 4), 0.35);
+                        maxHealth, 0.35);
                 zombie.setItemSlot(EquipmentSlot.HEAD, ModItems.MobArmorBlackCastleOneFloorAttackHelmet.get().getDefaultInstance());
                 zombie.setItemSlot(EquipmentSlot.CHEST, ModItems.MobArmorBlackCastleOneFloorChest.get().getDefaultInstance());
                 zombie.setItemSlot(EquipmentSlot.LEGS, ModItems.MobArmorBlackCastleOneFloorLeggings.get().getDefaultInstance());

@@ -23,7 +23,7 @@ public class CitadelArmor extends WraqArmor implements InCuriosOrEquipSlotAttrib
     public CitadelArmor(ArmorMaterial armorMaterial, Type type, Properties properties) {
         super(armorMaterial, type, properties);
         if (type.equals(Type.HELMET)) {
-            Utils.percentHealthRecover.put(this, 0.015);
+            Utils.percentHealthRecover.put(this, 0.01);
             Utils.healthRecover.put(this, 100d);
         }
         if (type.equals(Type.CHESTPLATE)) Utils.defence.put(this, 125d);

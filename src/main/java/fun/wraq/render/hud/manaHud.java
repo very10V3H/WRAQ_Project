@@ -1,9 +1,8 @@
 package fun.wraq.render.hud;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.Utils;
-import fun.wraq.render.hud.Mana;
-import fun.wraq.render.hud.SwiftData;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -128,7 +127,8 @@ public class manaHud {
                 guiGraphics.blit(HALF_HEALTH, x - 94 + (healthRate / 2 * 8), y - 42, 0, 0, 16, 16, 16, 16);
             }
 
-            guiGraphics.drawCenteredString(fontRenderer, Component.literal(String.format("%.0f", currentHealth)), x - 103, y - 39, 5635925);
+            guiGraphics.drawCenteredString(fontRenderer,
+                    Te.s(String.format("%.0f", currentHealth), CustomStyle.styleOfNewHealth), x - 104, y - 39, 0);
 
 
 /*            if (ClientUtils.MissionIndex < 100) {

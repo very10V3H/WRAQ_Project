@@ -70,10 +70,11 @@ public class SpringSnakeInstance extends NewTeamInstance {
     public void initMobList(Level level) {
         for (int i = 0; i < 5; i++) {
             Zombie zombie = new Zombie(EntityType.ZOMBIE, level);
+            double maxHealth = 750 * Math.pow(10, 4) * (1 + 0.75 * (players.size() - 1));
             MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombie, Te.s(mobName, style),
                     200, 2800, 240, 240, 0.4, 5,
                     0.4, 70, 25,
-                    1500 * Math.pow(10, 4), 0.45);
+                    maxHealth, 0.45);
             MobSpawn.setStainArmorOnMob(zombie, CustomStyle.styleOfDemon);
             zombie.setItemSlot(EquipmentSlot.HEAD, Items.GOLDEN_HELMET.getDefaultInstance());
             zombie.setItemInHand(InteractionHand.MAIN_HAND, Compute.getSimpleFoiledItemStack(Items.GOLDEN_HOE));

@@ -40,6 +40,7 @@ import fun.wraq.process.system.entrustment.mob.MobKillEntrustment;
 import fun.wraq.process.system.lottery.NewLotteries;
 import fun.wraq.process.system.missions.series.dailyMission.DailyMission;
 import fun.wraq.process.system.parkour.Parkour;
+import fun.wraq.process.system.profession.smith.SmithPlayerData;
 import fun.wraq.process.system.randomevent.RandomEventData;
 import fun.wraq.process.system.reason.Reason;
 import fun.wraq.process.system.skill.skillv2.SkillV2;
@@ -509,6 +510,7 @@ public class LoginInEvent {
         MobKillEntrustment.setDailyFinishedTimes(player, 0);
         BondDividends.setAllowGetDividends(player, true);
         Spring2025.dailyRedEnvelopeReward(player);
+        SmithPlayerData.setDailyReward(player, true);
     }
 
     public static void refreshWeeklyContent(Player player) {

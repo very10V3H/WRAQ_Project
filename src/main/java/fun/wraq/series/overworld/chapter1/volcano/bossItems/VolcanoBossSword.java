@@ -27,7 +27,6 @@ public class VolcanoBossSword extends SwordItem {
     private final double BaseDamage = 160.0d;
     private final double BreakDefence = 0.350d;
     private final double CriticalHitRate = 0.30d;
-    private final double CHitDamage = 0.4;
     private final double HealSteal = 0.05F;
 
     public VolcanoBossSword(Tier tier, int num1, float num2) {
@@ -36,7 +35,6 @@ public class VolcanoBossSword extends SwordItem {
         Utils.defencePenetration.put(this, this.BreakDefence);
         Utils.healthSteal.put(this, this.HealSteal);
         Utils.critRate.put(this, this.CriticalHitRate);
-        Utils.critDamage.put(this, this.CHitDamage);
         Element.FireElementValue.put(this, 1.25);
         Utils.mainHandTag.put(this, 1d);
         Utils.weaponList.add(this);

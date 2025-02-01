@@ -28,7 +28,6 @@ public class HarbingerSword extends WraqSword implements HarbingerMainHand, Acti
         Utils.defencePenetration0.put(this, 50d);
         Utils.healthSteal.put(this, 0.08);
         Utils.critRate.put(this, 0.35);
-        Utils.critDamage.put(this, 1.2);
         Utils.levelRequire.put(this, 230);
     }
 
@@ -72,7 +71,7 @@ public class HarbingerSword extends WraqSword implements HarbingerMainHand, Acti
         return Map.of(
                 Utils.attackDamage, new TagAndEachTierValue(HarbingerMainHand.ATTACK_DAMAGE, 100),
                 Utils.percentAttackDamageEnhance, new TagAndEachTierValue(HarbingerMainHand.PERCENT_ATTACK_DAMAGE, 0.01),
-                Utils.critDamage, new TagAndEachTierValue(HarbingerMainHand.CRIT_DAMAGE, 0.2)
+                Utils.critDamage, new TagAndEachTierValue(HarbingerMainHand.CRIT_DAMAGE, 0.04)
         );
     }
 

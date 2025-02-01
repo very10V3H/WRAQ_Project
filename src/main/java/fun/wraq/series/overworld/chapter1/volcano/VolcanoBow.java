@@ -28,7 +28,6 @@ public class VolcanoBow extends WraqBow implements OnHitEffectEquip {
         Utils.attackDamage.put(this, new double[]{80, 85, 90, 100}[tier]);
         Utils.defencePenetration0.put(this, new double[]{2, 2, 3, 3}[tier]);
         Utils.critRate.put(this, new double[]{0.2, 0.2, 0.2, 0.25}[tier]);
-        Utils.critDamage.put(this, new double[]{0.25, 0.3, 0.35, 0.45, 1}[tier]);
         Element.FireElementValue.put(this, new double[]{0.2, 0.4, 0.6, 0.8}[tier]);
     }
 

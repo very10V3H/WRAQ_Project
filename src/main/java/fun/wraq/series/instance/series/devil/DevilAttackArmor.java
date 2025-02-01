@@ -83,7 +83,7 @@ public class DevilAttackArmor extends WraqArmor implements ForgeItem {
     @Override
     public List<ItemStack> forgeRecipe() {
         return List.of(
-                new ItemStack(ModItems.DevilAttackSoul.get(), 128),
+                new ItemStack(ModItems.DevilAttackSoul.get(), 48),
                 new ItemStack(OreItems.WRAQ_ORE_3_ITEM.get(), 32)
         );
     }

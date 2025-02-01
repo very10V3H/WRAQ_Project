@@ -1,16 +1,15 @@
 package fun.wraq.series.worldsoul;
 
+import fun.wraq.common.equip.WraqBow;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.core.bow.MyArrow;
 import fun.wraq.process.func.particle.ParticleProvider;
-import fun.wraq.common.equip.WraqBow;
 import fun.wraq.render.particles.ModParticles;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -28,7 +27,6 @@ public class SoulBow extends WraqBow {
         super(p_40524_);
         Utils.attackDamage.put(this, SoulEquipAttribute.BaseAttribute.SoulBow.AttackDamage);
         Utils.critRate.put(this, SoulEquipAttribute.BaseAttribute.SoulBow.CritRate);
-        Utils.critDamage.put(this, SoulEquipAttribute.BaseAttribute.SoulBow.CritDamage);
         Utils.defencePenetration0.put(this, SoulEquipAttribute.BaseAttribute.SoulBow.DefencePenetration0);
         Utils.levelRequire.put(this, 260);
     }

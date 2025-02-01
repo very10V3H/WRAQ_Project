@@ -30,7 +30,6 @@ public class WitherBow extends WraqBow implements OnHitEffectEquip {
         Utils.attackDamage.put(this, new double[]{80, 100, 120, 140}[tier]);
         Utils.defencePenetration0.put(this, new double[]{9, 10, 11, 12}[tier]);
         Utils.critRate.put(this, new double[]{0.2, 0.25, 0.25, 0.25}[tier]);
-        Utils.critDamage.put(this, new double[]{0.35, 0.4, 0.45, 0.55}[tier]);
         Utils.levelRequire.put(this, 80);
 
         ForgeRecipe.forgeDrawRecipe.put(this, new ArrayList<>() {{

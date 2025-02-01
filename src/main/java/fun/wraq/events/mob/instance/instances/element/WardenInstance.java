@@ -63,7 +63,6 @@ public class WardenInstance extends NoTeamInstance {
     public static String mobName = "坚守者";
     public Mob boss;
     public static Style style = CustomStyle.styleOfWarden;
-    public static final double MAX_HEALTH = 1.5 * Math.pow(10, 8);
     public static final int XP_LEVEL = 260;
 
     public static WardenInstance getInstance() {
@@ -81,7 +80,6 @@ public class WardenInstance extends NoTeamInstance {
     @Override
     public void tickModule() {
         if (mobList.isEmpty()) return;
-
         if (boss == null) return;
         tips();
         detectNearPlayer();
@@ -105,11 +103,10 @@ public class WardenInstance extends NoTeamInstance {
     public void summonModule(Level level) {
         Warden warden = new Warden(EntityType.WARDEN, level);
         MobSpawn.setMobCustomName(warden, Component.literal("坚守者").withStyle(style), XP_LEVEL);
-
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(warden), XP_LEVEL);
+        double maxHealth = 7500 * Math.pow(10, 4) * (1 + 0.75 * (players.size() - 1));
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(warden, 6500, 600, 600, 0.4,
-                5, 0.6, 300, 25, MAX_HEALTH, 0.35);
-
+                5, 0.6, 300, 25, maxHealth, 0.35);
         warden.setHealth(warden.getMaxHealth());
         warden.getBrain().setMemoryWithExpiry(MemoryModuleType.DIG_COOLDOWN, Unit.INSTANCE, 12000L);
         warden.getBrain().setMemoryWithExpiry(MemoryModuleType.IS_EMERGING, Unit.INSTANCE, WardenAi.EMERGE_DURATION);
@@ -117,7 +114,6 @@ public class WardenInstance extends NoTeamInstance {
         level.addFreshEntity(warden);
         mobList.add(warden);
         boss = warden;
-
         ServerBossEvent serverBossEvent = (ServerBossEvent) (new ServerBossEvent(warden.getDisplayName(),
                 BossEvent.BossBarColor.BLUE, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
         getNearPlayers(level).forEach(player -> {
@@ -136,12 +132,10 @@ public class WardenInstance extends NoTeamInstance {
                         "获得了", itemAndRate.getItemStack().getDisplayName()));
             }
         });
-
         String name = player.getName().getString();
         if (!MobSpawn.tempKillCount.containsKey(name)) MobSpawn.tempKillCount.put(name, new HashMap<>());
         Map<String, Integer> map = MobSpawn.tempKillCount.get(name);
         map.put(mobName, map.getOrDefault(mobName, 0) + 1);
-
         Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player), XP_LEVEL);
     }
 
@@ -204,6 +198,12 @@ public class WardenInstance extends NoTeamInstance {
     public int nextAllowTrigTick = 0;
     // 当坚守者附近没有玩家时，会牵引所有玩家至身边，并击碎玩家所有双抗持续较久。施加重伤。
     public void detectNearPlayer() {
+        boolean existing = blockPosList.stream().anyMatch(pos -> {
+            return boss.level().getBlockState(pos).getBlock().equals(Blocks.SCULK_SHRIEKER);
+        });
+        if (existing) {
+            return;
+        }
         if (Compute.getNearEntity(boss, Player.class, 8).isEmpty() && Tick.get() > nextAllowTrigTick) {
             nextAllowTrigTick = Tick.get() + 100;
             players.forEach(player -> {
@@ -242,9 +242,10 @@ public class WardenInstance extends NoTeamInstance {
     public int summonTick = 0;
     public void summonBlock() {
         if (summonTick == 0 && boss.getHealth() / boss.getMaxHealth() < 0.5) {
-            blockPosList.forEach(pos -> {
-                boss.level().setBlockAndUpdate(pos, Blocks.SCULK_SHRIEKER.defaultBlockState());
-            });
+            for (int i = 0; i < Math.min(4, players.size()); i++) {
+                BlockPos blockPos = blockPosList.get(i);
+                boss.level().setBlockAndUpdate(blockPos, Blocks.SCULK_SHRIEKER.defaultBlockState());
+            }
             summonTick = Tick.get();
             players.forEach(player -> {
                 Compute.setPlayerTitleAndSubTitle((ServerPlayer) player, Te.s("幽匿尖啸体", style, "已生成在四周"),
@@ -252,9 +253,10 @@ public class WardenInstance extends NoTeamInstance {
                 SpecialEffectOnPlayer.addSilentEffect(player, 100);
                 SpecialEffectOnPlayer.addBlindEffect(player, 100);
                 player.addEffect(new MobEffectInstance(MobEffects.DARKNESS, 200));
-                for (int i = 0; i < blockPosList.size(); i++) {
+                for (int i = 0; i < Math.min(4, players.size()); i++) {
+                    BlockPos blockPos = blockPosList.get(i);
                     MyWayPoint.sendAddPacketToClient(player,
-                            new MyWayPoint(blockPosList.get(i).getCenter(), "幽匿尖啸体" + (i + 1),
+                            new MyWayPoint(blockPos.getCenter(), "幽匿尖啸体" + (i + 1),
                                     MyWayPoint.colorMap.get(MyWayPoint.darkBlue), 1));
                 }
             });

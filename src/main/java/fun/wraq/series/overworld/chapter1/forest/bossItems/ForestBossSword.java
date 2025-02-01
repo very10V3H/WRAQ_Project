@@ -26,7 +26,6 @@ public class ForestBossSword extends SwordItem {
     private final double BaseDamage = 160.0d;
     private final double BreakDefence = 0.20d;
     private final double CriticalHitRate = 0.30d;
-    private final double CHitDamage = 0.35;
     private final double HealSteal = 0.03F;
 
     public ForestBossSword(Tier tier, int num1, float num2) {
@@ -35,7 +34,6 @@ public class ForestBossSword extends SwordItem {
         Utils.defencePenetration.put(this, this.BreakDefence);
         Utils.healthSteal.put(this, this.HealSteal);
         Utils.critRate.put(this, this.CriticalHitRate);
-        Utils.critDamage.put(this, this.CHitDamage);
         Element.LifeElementValue.put(this, 1d);
         Utils.mainHandTag.put(this, 1d);
         Utils.weaponList.add(this);
