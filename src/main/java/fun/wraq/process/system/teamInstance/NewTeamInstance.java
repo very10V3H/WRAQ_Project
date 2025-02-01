@@ -274,6 +274,7 @@ public abstract class NewTeamInstance {
                                 allowRewardCondition());
                         return;
                     }
+                    Reason.addOrCostPlayerReasonValue(player, -reasonCost);
                     reward(player);
                     if (!MobSpawn.tempKillCount.containsKey(player.getName().getString()))
                         MobSpawn.tempKillCount.put(player.getName().getString(), new HashMap<>());

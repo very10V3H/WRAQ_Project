@@ -1798,7 +1798,7 @@ public class Compute {
     }
 
     public static void manaDamageExEffect(Player player, Mob mob, double damage) {
-        CastleSceptre.ExDamage(player, mob, damage);
+        CastleSceptre.exDamage(player, mob, damage);
     }
 
     public static boolean playerIsInBattle(Player player) {

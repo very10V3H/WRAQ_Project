@@ -4,6 +4,9 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.equip.WraqSceptre;
 import fun.wraq.common.equip.impl.ActiveItem;
+import fun.wraq.common.fast.Te;
+import fun.wraq.common.impl.display.EnhancedForgedItem;
+import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.impl.onhit.OnHitEffectEquip;
 import fun.wraq.common.registry.ModEntityType;
 import fun.wraq.common.registry.ModItems;
@@ -16,6 +19,7 @@ import fun.wraq.process.func.ChangedAttributesModifier;
 import fun.wraq.process.func.EnhanceNormalAttack;
 import fun.wraq.process.func.EnhanceNormalAttackModifier;
 import fun.wraq.process.func.particle.ParticleProvider;
+import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -33,10 +37,11 @@ import net.minecraft.world.phys.AABB;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MoonSceptre extends WraqSceptre implements ActiveItem, OnHitEffectEquip {
+public class MoonSceptre extends WraqSceptre implements ActiveItem, OnHitEffectEquip, ForgeItem, EnhancedForgedItem {
 
     private final double activeRate;
-    public MoonSceptre(Properties properties, double activeRate) {
+    private final int tier;
+    public MoonSceptre(Properties properties, double activeRate, int tier) {
         super(properties);
         Utils.manaDamage.put(this, 2400d);
         Utils.manaRecover.put(this, 24d);
@@ -44,6 +49,7 @@ public class MoonSceptre extends WraqSceptre implements ActiveItem, OnHitEffectE
         Utils.manaPenetration0.put(this, 29d);
         this.activeRate = activeRate;
         Utils.levelRequire.put(this, 160);
+        this.tier = tier;
     }
 
     @Override
@@ -91,6 +97,10 @@ public class MoonSceptre extends WraqSceptre implements ActiveItem, OnHitEffectE
                 append(ComponentUtils.AttributeDescription.manaDamage("100%")).
                 append(Component.literal("的").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("护盾").withStyle(ChatFormatting.GRAY)));
+        if (tier == 0) {
+            components.add(Te.s(" 额外攻击", CustomStyle.styleOfMana, "与", "护盾倍率", CustomStyle.styleOfStone,
+                    "在", "锐化后", CustomStyle.styleOfWorld, "翻倍"));
+        }
         ComponentUtils.coolDownTimeDescription(components, 27);
         return components;
     }
@@ -102,12 +112,12 @@ public class MoonSceptre extends WraqSceptre implements ActiveItem, OnHitEffectE
 
     @Override
     public void active(Player player) {
-        Compute.playerItemCoolDown(player, ModItems.MoonSceptre.get(), 27);
+        Compute.playerItemCoolDown(player, ModItems.MOON_SCEPTRE.get(), 27);
         EnhanceNormalAttackModifier.addModifier(player, new EnhanceNormalAttackModifier("moonSceptreActive", 2, new EnhanceNormalAttack() {
             @Override
             public void hit(Player player, Mob mob) {
                 Shield.providePlayerShield(player, 160, PlayerAttributes.manaDamage(player));
-                Compute.sendEffectLastTime(player, ModItems.MoonSceptre.get().getDefaultInstance(), 200);
+                Compute.sendEffectLastTime(player, ModItems.MOON_SCEPTRE.get().getDefaultInstance(), 200);
                 List<Mob> mobList = mob.level().getEntitiesOfClass(Mob.class, AABB.ofSize(mob.position(), 15, 15, 15));
                 mobList.removeIf(mob1 -> mob1.distanceTo(mob) > 6);
                 double attackDamage = 0;
@@ -118,7 +128,7 @@ public class MoonSceptre extends WraqSceptre implements ActiveItem, OnHitEffectE
                         "moonSceptreActive", attackDamage * activeRate, 200, true);
             }
         }));
-        Compute.sendEffectLastTime(player, ModItems.MoonSceptre.get().getDefaultInstance(), 8888, 0, true);
+        Compute.sendEffectLastTime(player, ModItems.MOON_SCEPTRE.get().getDefaultInstance(), 8888, 0, true);
     }
 
     @Override
@@ -131,5 +141,28 @@ public class MoonSceptre extends WraqSceptre implements ActiveItem, OnHitEffectE
         mob.level().getEntitiesOfClass(Mob.class, AABB.ofSize(mob.position(), 15, 15, 15))
                 .stream().filter(mob1 -> mob1.distanceTo(mob) <= 6 && !mob1.equals(mob))
                 .forEach(mob1 -> Compute.causeGatherEffect(mob1, 2, mob.position()));
+    }
+
+    @Override
+    public int getEnhanceTier() {
+        return tier;
+    }
+
+    @Override
+    public List<ItemStack> forgeRecipe() {
+        if (tier == 0) {
+            return List.of(
+                    new ItemStack(ModItems.MoonCompleteGem.get(), 16),
+                    new ItemStack(ModItems.GOLD_COIN.get(), 384),
+                    new ItemStack(PickaxeItems.TINKER_IRON.get(), 16),
+                    new ItemStack(PickaxeItems.TINKER_COPPER.get(), 16)
+            );
+        }
+        return List.of(
+                new ItemStack(ModItems.MOON_SCEPTRE.get()),
+                new ItemStack(ModItems.COMPLETE_GEM.get(), 20),
+                new ItemStack(ModItems.ReputationMedal.get(), 80),
+                new ItemStack(ModItems.WORLD_SOUL_3.get(), 8)
+        );
     }
 }

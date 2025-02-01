@@ -27,7 +27,7 @@ public class DarkMoonShield extends WardenOffhandItem implements ForgeItem {
     public List<ItemStack> forgeRecipe() {
         return List.of(
                 new ItemStack(WardenItems.WARDEN_SHIELD.get(), 1),
-                new ItemStack(ModItems.MoonSword.get()),
+                new ItemStack(ModItems.MOON_SWORD_E.get()),
                 new ItemStack(WardenItems.WARDEN_HEART.get(), 4)
         );
     }

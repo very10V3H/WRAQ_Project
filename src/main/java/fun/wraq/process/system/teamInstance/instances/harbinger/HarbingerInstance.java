@@ -11,7 +11,6 @@ import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
 import fun.wraq.events.mob.instance.instances.element.WardenInstance;
 import fun.wraq.events.server.LevelEvents;
-import fun.wraq.process.system.reason.Reason;
 import fun.wraq.process.system.teamInstance.NewTeamInstance;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.harbinger.HarbingerItems;
@@ -270,7 +269,6 @@ public class HarbingerInstance extends NewTeamInstance {
 
     @Override
     public void reward(Player player) {
-        Reason.addOrCostPlayerReasonValue(player, -5);
         Random random = new Random();
         getRewardList().forEach(itemAndRate -> {
             itemAndRate.sendWithMSG(player, 1, (stack -> {

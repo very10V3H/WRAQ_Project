@@ -5,6 +5,7 @@ import fun.wraq.common.equip.WraqSceptre;
 import fun.wraq.common.equip.impl.Laser;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
+import fun.wraq.common.impl.display.EnhancedForgedItem;
 import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
@@ -29,17 +30,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 
-public class NetherSceptre extends WraqSceptre implements Laser, ForgeItem {
+public class NetherSceptre extends WraqSceptre implements Laser, ForgeItem, EnhancedForgedItem {
 
-    public NetherSceptre(Properties p_42964_) {
-        super(p_42964_.rarity(CustomStyle.NetherItalic));
-        Utils.critRate.put(this, 0.25);
+    private final int tier;
+    public NetherSceptre(Properties properties, int tier) {
+        super(properties.rarity(CustomStyle.NetherItalic));
+        if (tier > 0) {
+            Utils.critRate.put(this, 0.25);
+        }
         Utils.manaDamage.put(this, 480d);
         Utils.manaRecover.put(this, 20d);
         Utils.coolDownDecrease.put(this, 0.35);
         Utils.manaPenetration0.put(this, 24d);
         Element.FireElementValue.put(this, 1d);
         Utils.levelRequire.put(this, 80);
+        this.tier = tier;
     }
 
     @Override
@@ -94,13 +99,23 @@ public class NetherSceptre extends WraqSceptre implements Laser, ForgeItem {
 
     @Override
     public List<ItemStack> forgeRecipe() {
+        if (tier == 0) {
+            return List.of(
+                    new ItemStack(ModItems.NetherRune.get(), 2),
+                    new ItemStack(ModItems.QuartzRune.get(), 1),
+                    new ItemStack(ModItems.GOLD_COIN.get(), 192),
+                    new ItemStack(PickaxeItems.TINKER_GOLD.get(), 4)
+            );
+        }
         return List.of(
-                new ItemStack(ModItems.NetherRune.get(), 2),
-                new ItemStack(ModItems.QuartzRune.get(), 1),
-                new ItemStack(ModItems.GOLD_COIN.get(), 192),
+                new ItemStack(ModItems.NETHER_SCEPTRE.get()),
                 new ItemStack(ModItems.COMPLETE_GEM.get(), 8),
-                new ItemStack(ModItems.ReputationMedal.get(), 8),
-                new ItemStack(PickaxeItems.TINKER_GOLD.get(), 4)
+                new ItemStack(ModItems.ReputationMedal.get(), 8)
         );
+    }
+
+    @Override
+    public int getEnhanceTier() {
+        return tier;
     }
 }

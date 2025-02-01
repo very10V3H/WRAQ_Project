@@ -256,7 +256,7 @@ public class MyArrow extends AbstractArrow {
             Compute.ChargingModule(data, player);
             if (shootByPlayer) {
                 MoonKnife.MoonKnife(player, monster);
-                CastleBow.NormalAttack(player, monster, damage);
+                CastleBow.onNormalAttack(player, monster, damage);
                 Compute.AdditionEffects(player, monster, damage + trueDamage, 0);
                 OnHitEffectEquip.hit(player, monster);
                 OnHitEffectCurios.hit(player, monster);

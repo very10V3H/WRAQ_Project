@@ -4,6 +4,8 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.equip.WraqSceptre;
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.impl.display.EnhancedForgedItem;
+import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.impl.onhit.OnHitEffectEquip;
 import fun.wraq.common.impl.onhit.OnPowerCauseDamageEquip;
 import fun.wraq.common.registry.ModEntityType;
@@ -15,6 +17,7 @@ import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.element.Element;
+import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -31,16 +34,18 @@ import net.minecraft.world.level.Level;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IceSceptre extends WraqSceptre implements OnHitEffectEquip, OnPowerCauseDamageEquip {
+public class IceSceptre extends WraqSceptre implements OnHitEffectEquip, OnPowerCauseDamageEquip, ForgeItem, EnhancedForgedItem {
 
-    public IceSceptre(Properties p_42964_) {
-        super(p_42964_);
+    private final int tier;
+    public IceSceptre(Properties properties, int tier) {
+        super(properties);
         Utils.manaDamage.put(this, 1400d);
         Utils.manaRecover.put(this, 20d);
         Utils.coolDownDecrease.put(this, 0.25);
         Utils.manaPenetration0.put(this, 21d);
         Element.IceElementValue.put(this, 1.25);
         Utils.levelRequire.put(this, 135);
+        this.tier = tier;
     }
 
     @Override
@@ -51,7 +56,6 @@ public class IceSceptre extends WraqSceptre implements OnHitEffectEquip, OnPower
                 PlayerAttributes.manaPenetration0(player), StringUtils.ParticleTypes.Sky);
         newArrow.setSilent(true);
         newArrow.setNoGravity(true);
-
         newArrow.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0f, 3, 1.0f);
         ProjectileUtil.rotateTowardsMovement(newArrow, 0);
         WraqSceptre.adjustOrb(newArrow, player);
@@ -87,11 +91,16 @@ public class IceSceptre extends WraqSceptre implements OnHitEffectEquip, OnPower
                 append(Te.m("达到8层后，下次攻击会引爆所有层数")));
         components.add(Te.m(" 对目标造成").
                 append(ComponentUtils.getAutoAdaptDamageDescription("200%")));
-        components.add(Te.m(" 并击碎目标").
-                append(ComponentUtils.AttributeDescription.manaDefence("25%")).
-                append(Te.m("，持续5s")));
-        components.add(Te.s(" 自身获得", ComponentUtils.AttributeDescription.critRate("30%")
-                , "，持续5s"));
+        if (tier == 0) {
+            components.add(Te.s(" 锐化后", CustomStyle.styleOfWorld, "可激活",
+                    "穿透", CustomStyle.styleOfMana, "/", "暴击", CustomStyle.styleOfLucky, "效果"));
+        } else {
+            components.add(Te.m(" 并击碎目标").
+                    append(ComponentUtils.AttributeDescription.manaDefence("25%")).
+                    append(Te.m("，持续5s")));
+            components.add(Te.s(" 自身获得", ComponentUtils.AttributeDescription.critRate("30%")
+                    , "，持续5s"));
+        }
         return components;
     }
 
@@ -102,13 +111,35 @@ public class IceSceptre extends WraqSceptre implements OnHitEffectEquip, OnPower
 
     @Override
     public void onHit(Player player, Mob mob) {
-        IceWeaponPassiveHelper.onHit(player, mob);
-        IceWeaponPassiveHelper.onCritHit(player, mob, ModItems.IceSceptre.get(), 8);
+        IceWeaponHelper.onHit(player, mob);
+        IceWeaponHelper.onCritHit(player, mob, ModItems.ICE_SCEPTRE.get(), 8, tier);
     }
 
     @Override
     public void onCauseDamage(Player player, Mob mob) {
-        IceWeaponPassiveHelper.onHit(player, mob);
-        IceWeaponPassiveHelper.onCritHit(player, mob, ModItems.IceSceptre.get(), 8);
+        IceWeaponHelper.onHit(player, mob);
+        IceWeaponHelper.onCritHit(player, mob, ModItems.ICE_SCEPTRE.get(), 8, tier);
+    }
+
+    @Override
+    public int getEnhanceTier() {
+        return tier;
+    }
+
+    @Override
+    public List<ItemStack> forgeRecipe() {
+        if (tier == 0) {
+            return List.of(
+                    new ItemStack(ModItems.IceCompleteGem.get(), 8),
+                    new ItemStack(ModItems.GOLD_COIN.get(), 256),
+                    new ItemStack(PickaxeItems.TINKER_GOLD.get(), 8)
+            );
+        }
+        return List.of(
+                new ItemStack(ModItems.ICE_SCEPTRE_E.get()),
+                new ItemStack(ModItems.COMPLETE_GEM.get(), 6),
+                new ItemStack(ModItems.ReputationMedal.get(), 48),
+                new ItemStack(ModItems.WORLD_SOUL_3.get(), 2)
+        );
     }
 }

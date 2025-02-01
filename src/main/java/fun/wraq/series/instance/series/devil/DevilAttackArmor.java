@@ -65,7 +65,8 @@ public class DevilAttackArmor extends WraqArmor implements ForgeItem {
     public static void DevilAttackArmorPassive(Player player, Mob mob) {
         if (player.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.DevilAttackChest.get())) {
             int TickCount = Tick.get();
-            DevilAttackArmorPassiveNumMap.put(player, MobSpawn.MobBaseAttributes.getMobBaseAttribute(mob, MobSpawn.MobBaseAttributes.attackDamage) * 0.5);
+            DevilAttackArmorPassiveNumMap.put(player,
+                    MobSpawn.MobBaseAttributes.getMobBaseAttribute(mob, MobSpawn.MobBaseAttributes.attackDamage) * 0.5);
             DevilAttackArmorPassiveTickMap.put(player, TickCount + 40);
             Compute.sendEffectLastTime(player, ModItems.DevilBlood.get().getDefaultInstance(), 40);
         }
@@ -73,7 +74,8 @@ public class DevilAttackArmor extends WraqArmor implements ForgeItem {
 
     public static double DevilAttackArmorPassiveExDamage(Player player) {
         int TickCount = Tick.get();
-        if (DevilAttackArmorPassiveTickMap.containsKey(player) && DevilAttackArmorPassiveTickMap.get(player) > TickCount)
+        if (DevilAttackArmorPassiveTickMap.containsKey(player)
+                && DevilAttackArmorPassiveTickMap.get(player) > TickCount)
             return DevilAttackArmorPassiveNumMap.get(player);
         return 0;
     }
