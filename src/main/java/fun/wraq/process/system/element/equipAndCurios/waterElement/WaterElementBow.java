@@ -18,7 +18,6 @@ import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -38,7 +37,6 @@ public class WaterElementBow extends WraqBow implements ActiveItem {
         Utils.attackDamage.put(this, 600d);
         Utils.defencePenetration0.put(this, 40d);
         Utils.critRate.put(this, 0.25);
-        Utils.critDamage.put(this, 1.45);
         Element.WaterElementValue.put(this, 2d);
     }
 

@@ -37,12 +37,17 @@ public class SmithPlayerData {
         return getTier(player) > 0 && getSmithData(player).getBoolean(DAILY_REWARD_KEY);
     }
 
+    public static void setDailyReward(Player player, boolean allow) {
+        getSmithData(player).putBoolean(DAILY_REWARD_KEY, allow);
+    }
+
     public static void onPlayerSubmitEntrustment(Player player) {
         int tier = getTier(player);
         if (tier == 0) return;
         Item equipPiece5 = ModItems.equipPiece5.get();
         Item equipPiece6 = ModItems.equipPiece6.get();
         if (allowDailyReward(player)) {
+            setDailyReward(player, false);
             ItemStack stack;
             if (tier <= 4) {
                 stack = new ItemStack(equipPiece5, tier);
@@ -55,6 +60,8 @@ public class SmithPlayerData {
         }
         if (tier > 0 && RandomUtils.nextDouble(0, 1) < tier * 0.05) {
             InventoryOperation.giveItemStack(player, new ItemStack(equipPiece5));
+            sendMSG(player, Te.s("你的", "工匠等阶", CustomStyle.styleOfGold,
+                    "为你额外提供了", equipPiece5, " * 1", ChatFormatting.AQUA));
         }
     }
 

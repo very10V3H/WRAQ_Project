@@ -28,7 +28,6 @@ public class ManaSword extends WraqSword implements ActiveItem {
         super(properties);
         Utils.attackDamage.put(this, 130d);
         Utils.critRate.put(this, 0.3);
-        Utils.critDamage.put(this, 0.5);
         Element.FireElementValue.put(this, 0.8);
         Utils.levelRequire.put(this, 80);
     }

@@ -112,7 +112,7 @@ public class MoonSceptre extends WraqSceptre implements ActiveItem, OnHitEffectE
 
     @Override
     public void active(Player player) {
-        Compute.playerItemCoolDown(player, ModItems.MOON_SCEPTRE.get(), 27);
+        Compute.playerItemCoolDown(player, this, 27);
         EnhanceNormalAttackModifier.addModifier(player, new EnhanceNormalAttackModifier("moonSceptreActive", 2, new EnhanceNormalAttack() {
             @Override
             public void hit(Player player, Mob mob) {

@@ -1,6 +1,8 @@
 package fun.wraq.series.overworld.chapter1.waterSystem.equip;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqBow;
+import fun.wraq.common.impl.onhit.OnHitEffectEquip;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
@@ -8,14 +10,11 @@ import fun.wraq.core.bow.MyArrow;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.element.Element;
-import fun.wraq.common.impl.onhit.OnHitEffectEquip;
-import fun.wraq.common.equip.WraqBow;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -35,7 +34,6 @@ public class LakeBow extends WraqBow implements OnHitEffectEquip {
         Utils.attackDamage.put(this, new double[]{50, 60, 70, 80}[tier]);
         Utils.defencePenetration0.put(this, new double[]{2, 2, 3, 3}[tier]);
         Utils.critRate.put(this, new double[]{0.4, 0.4, 0.4, 0.4}[tier]);
-        Utils.critDamage.put(this, new double[]{0.3, 0.35, 0.4, 0.5}[tier]);
         Element.WaterElementValue.put(this, new double[]{0.2, 0.4, 0.6, 0.8}[tier]);
     }
 

@@ -6,6 +6,7 @@ import net.minecraft.network.chat.TextColor;
 import net.minecraft.world.item.Rarity;
 
 public class CustomStyle {
+    public static Style styleOfNewHealth = Style.EMPTY.withColor(TextColor.parseColor("#ff5a86"));
     public static Style styleOfMana = Style.EMPTY.withColor(TextColor.parseColor("#ba00df"));
     public static Style styleOfNether = Style.EMPTY.withColor(TextColor.parseColor("#a2001b"));
     public static Style styleOfQuartz = Style.EMPTY.withColor(TextColor.parseColor("#ea7552"));

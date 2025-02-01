@@ -170,19 +170,15 @@ public class MoontainBoss3Instance extends NoTeamInstance {
     public void summonModule(Level level) {
         LordTheHeadlessEntity entity =
                 new LordTheHeadlessEntity(BornInChaosV1ModEntities.LORD_THE_HEADLESS.get(), level);
-
         MobSpawn.setMobCustomName(entity, Component.literal(mobName).withStyle(style), 240);
-
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(entity), 240);
+        double maxHealth = 2500 * Math.pow(10, 4) * (1 + 0.75 * (players.size() - 1));
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(entity, 3800, 360, 360,
                 0.4, 5, 0.6, 175, 0,
-                5000 * Math.pow(10, 4), 0.45);
-
+                maxHealth, 0.45);
         entity.setHealth(entity.getMaxHealth());
-
         entity.moveTo(pos);
         level.addFreshEntity(entity);
-
         ServerBossEvent serverBossEvent = (ServerBossEvent) (new ServerBossEvent(entity.getDisplayName(),
                 BossEvent.BossBarColor.PURPLE, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
         getNearPlayers(level).forEach(player -> {
@@ -190,7 +186,6 @@ public class MoontainBoss3Instance extends NoTeamInstance {
         });
         bossInfoList.add(serverBossEvent);
         mobList.add(entity);
-
         leftLifeTimes = 4;
         recoverFlag = 0;
         stage = 0;

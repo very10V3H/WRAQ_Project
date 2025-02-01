@@ -26,7 +26,6 @@ public class VdSword extends WraqSword implements ForgeItem, ActiveItem, VdWeapo
         Utils.defencePenetration0.put(this, 40d);
         Utils.healthSteal.put(this, 0.08);
         Utils.critRate.put(this, 0.30d);
-        Utils.critDamage.put(this, 1d);
         Utils.levelRequire.put(this, 220);
     }
 

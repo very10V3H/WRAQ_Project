@@ -31,7 +31,7 @@ public class NetherShield extends WraqOffHandItem implements ForgeItem, OnHitEff
         Utils.defence.put(this, 3d);
         Utils.maxHealth.put(this, 1000d);
         Utils.attackDamage.put(this, 20d);
-        Utils.critDamage.put(this, 0.15);
+        Utils.critDamage.put(this, 0.03);
         Utils.expUp.put(this, 0.6);
         Utils.shieldTag.put(this, 1d);
         Utils.levelRequire.put(this, 80);

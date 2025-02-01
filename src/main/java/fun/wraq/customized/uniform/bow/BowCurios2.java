@@ -33,7 +33,7 @@ public class BowCurios2 extends WraqBowUniformCurios {
         components.add(Component.literal(" 1.").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.AttributeDescription.critRate("20%")));
         components.add(Component.literal(" 2.").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.critDamage("20%总")));
+                append(ComponentUtils.AttributeDescription.critDamage("15%总")));
         components.add(Component.literal(" 不仅是敏捷，力量、智慧对在恶劣环境中的猎手同样重要。").withStyle(style));
         return components;
     }
@@ -62,7 +62,7 @@ public class BowCurios2 extends WraqBowUniformCurios {
 
     public static double playerCritDamageEnhance(Player player) {
         if (!isOn(player) || !playerNearbyHasNoOthers(player)) return 0;
-        return 0.2;
+        return 0.15;
     }
 
     public static void tick(Player player) {

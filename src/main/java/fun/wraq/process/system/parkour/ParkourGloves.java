@@ -22,7 +22,7 @@ public class ParkourGloves extends Item implements ICurioItem {
         super(p_41383_);
         Utils.swiftnessUp.put(this, 1.5);
         Utils.coolDownDecrease.put(this, 0.15);
-        Utils.critDamage.put(this, 0.5);
+        Utils.critDamage.put(this, 0.05);
         Utils.expUp.put(this, 0.5);
         Utils.curiosList.add(this);
     }

@@ -60,19 +60,15 @@ public class PurpleIronInstance extends NoTeamInstance {
     @Override
     public void summonModule(Level level) {
         Amethyst_Crab_Entity amethystCrabEntity = new Amethyst_Crab_Entity(ModEntities.AMETHYST_CRAB.get(), level);
-
         MobSpawn.setMobCustomName(amethystCrabEntity, Component.literal("紫水晶巨蟹").withStyle(CustomStyle.styleOfPurpleIron), 120);
-
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(amethystCrabEntity), 120);
+        double maxHealth = 150000 * (1 + 0.75 * (players.size() - 1));
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(amethystCrabEntity, 1000, 120, 120,
-                0.35, 3, 0.2, 25, 0, 30 * Math.pow(10, 4), 0.3);
-
+                0.35, 3, 0.2, 25, 0, maxHealth, 0.3);
         amethystCrabEntity.setHealth(amethystCrabEntity.getMaxHealth());
-
         amethystCrabEntity.moveTo(pos);
         level.addFreshEntity(amethystCrabEntity);
         mobList.add(amethystCrabEntity);
-
         ServerBossEvent serverBossEvent = (ServerBossEvent) (new ServerBossEvent(amethystCrabEntity.getDisplayName(), BossEvent.BossBarColor.BLUE, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
         getNearPlayers(level).forEach(player -> {
             serverBossEvent.addPlayer((ServerPlayer) player);

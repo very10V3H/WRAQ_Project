@@ -79,10 +79,10 @@ public abstract class NoTeamInstance {
                 && !getNearPlayers(level).isEmpty() && ready) {
             mobList.clear();
             bossInfoList.clear();
-            summonModule(level);
             inChallenge = true;
             spawnTick = Tick.get();
             players.addAll(getNearPlayers(level));
+            summonModule(level);
         }
         if (getNearPlayers (level).isEmpty()
                 && (players.isEmpty() || players.stream().allMatch(LivingEntity::isDeadOrDying))) {

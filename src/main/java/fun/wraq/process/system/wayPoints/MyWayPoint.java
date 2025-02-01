@@ -181,6 +181,9 @@ public class MyWayPoint {
         add(new ZonePoint(new Vec3(2006, 130, -1785),
                 Te.s("菌菇聚落", CustomStyle.MUSHROOM_STYLE),
                 Te.s("", CustomStyle.MUSHROOM_STYLE)));
+        add(new ZonePoint(new Vec3(1364, 79, 44),
+                Te.s("年兽出没地", CustomStyle.styleOfSpring),
+                Te.s("", CustomStyle.styleOfSpring)));
     }};
 
     public static Map<Player, String> playerLastZoneMap = new WeakHashMap<>();

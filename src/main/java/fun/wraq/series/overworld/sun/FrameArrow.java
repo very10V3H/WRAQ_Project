@@ -20,7 +20,7 @@ public class FrameArrow extends WraqCurios {
     public FrameArrow(Properties properties, int tier) {
         super(properties);
         this.tier = tier;
-        Utils.critDamage.put(this, 0.1);
+        Utils.critDamage.put(this, 0.04);
         Utils.levelRequire.put(this, 150);
     }
 

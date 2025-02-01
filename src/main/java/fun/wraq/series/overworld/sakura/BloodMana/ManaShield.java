@@ -44,13 +44,13 @@ public class ManaShield extends WraqOffHandItem implements ForgeItem {
                 append(ComponentUtils.AttributeDescription.health("50%")).
                 append(Component.literal("时，将你的").withStyle(ChatFormatting.WHITE)).
                 append(ComponentUtils.AttributeDescription.healthSteal("")).
-                append(Component.literal("以1:5全部转化为").withStyle(ChatFormatting.WHITE)).
+                append(Component.literal("以1:1全部转化为").withStyle(ChatFormatting.WHITE)).
                 append(ComponentUtils.AttributeDescription.critDamage("")));
         components.add(Component.literal(" 当拥有低于").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.AttributeDescription.health("50%")).
                 append(Component.literal("时，将你的").withStyle(ChatFormatting.WHITE)).
                 append(ComponentUtils.AttributeDescription.critDamage("")).
-                append(Component.literal("以5:1全部转化为").withStyle(ChatFormatting.WHITE)).
+                append(Component.literal("以1:1全部转化为").withStyle(ChatFormatting.WHITE)).
                 append(ComponentUtils.AttributeDescription.healthSteal("")));
         return components;
     }

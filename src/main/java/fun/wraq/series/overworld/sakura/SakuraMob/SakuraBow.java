@@ -31,7 +31,6 @@ public class SakuraBow extends WraqBow implements OnHitEffectEquip {
         Utils.attackDamage.put(this, 400d);
         Utils.defencePenetration0.put(this, 18d);
         Utils.critRate.put(this, 0.25);
-        Utils.critDamage.put(this, 0.95);
         Element.LifeElementValue.put(this, 1d);
         Utils.levelRequire.put(this, 132);
     }

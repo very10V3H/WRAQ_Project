@@ -49,17 +49,14 @@ public class NetherInstance extends NoTeamInstance {
     @Override
     public void summonModule(Level level) {
         Ignited_Revenant_Entity entity = new Ignited_Revenant_Entity(ModEntities.IGNITED_REVENANT.get(), level);
-
         entity.setBaby(true);
         MobSpawn.setMobCustomName(entity, Component.literal("燃魂").withStyle(CustomStyle.styleOfPower), 90);
-
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(entity), 90);
+        double maxHealth = 125000 * (1 + 0.75 * (players.size() - 1));
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(entity, 400, 55, 55, 0.35,
-                3, 0.2, 20, 0, 250000, 0.3);
-
+                3, 0.2, 20, 0, maxHealth, 0.3);
         entity.moveTo(pos);
         level.addFreshEntity(entity);
-
         ServerBossEvent serverBossEvent = (ServerBossEvent) (new ServerBossEvent(entity.getDisplayName(),
                 BossEvent.BossBarColor.RED, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
         getNearPlayers(level).forEach(player -> {

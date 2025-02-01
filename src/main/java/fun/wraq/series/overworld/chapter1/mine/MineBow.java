@@ -17,7 +17,6 @@ import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -39,7 +38,6 @@ public class MineBow extends WraqBow implements OnHitEffectEquip {
         Utils.attackDamage.put(this, new double[]{50, 55, 60, 75}[tier]);
         Utils.defencePenetration0.put(this, new double[]{3, 4, 5, 6}[tier]);
         Utils.critRate.put(this, new double[]{0.2, 0.2, 0.2, 0.25}[tier]);
-        Utils.critDamage.put(this, new double[]{0.35, 0.4, 0.45, 0.55}[tier]);
         Element.StoneElementValue.put(this, new double[]{0.2, 0.4, 0.6, 0.8}[tier]);
     }
 

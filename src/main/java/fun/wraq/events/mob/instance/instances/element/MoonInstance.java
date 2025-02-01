@@ -85,13 +85,12 @@ public class MoonInstance extends NoTeamInstance {
     public void summonModule(Level level) {
         Stray attackMob = new Stray(EntityType.STRAY, level);
         Style style = CustomStyle.styleOfMoon;
-
         MobSpawn.setMobCustomName(attackMob, Component.literal("阿尔忒弥斯 - 明镜").withStyle(style), 160);
-
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(attackMob), 160);
+        double maxHealth = 350 * Math.pow(10, 4) * (1 + 0.75 * (players.size() - 1));
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(attackMob, 2000, 130, 130,
-                0.4, 4, 0.25, 55, 0, 700 * Math.pow(10, 4), 0.3);
-
+                0.4, 4, 0.25, 55, 0,
+                maxHealth, 0.3);
         attackMob.setHealth(attackMob.getMaxHealth());
         attackMob.setItemSlot(EquipmentSlot.HEAD, ModItems.MobArmorMoonAttack.get().getDefaultInstance());
         attackMob.setItemSlot(EquipmentSlot.CHEST, ModItems.MobArmorMoonChest.get().getDefaultInstance());
@@ -99,11 +98,9 @@ public class MoonInstance extends NoTeamInstance {
         attackMob.setItemSlot(EquipmentSlot.FEET, ModItems.MobArmorMoonBoots.get().getDefaultInstance());
         attackMob.setItemSlot(EquipmentSlot.OFFHAND, ModItems.MoonShield.get().getDefaultInstance());
         attackMob.setItemSlot(EquipmentSlot.MAINHAND, ModItems.MoonKnife.get().getDefaultInstance());
-
         attackMob.moveTo(1747.5, 127.5, -491.5);
         level.addFreshEntity(attackMob);
         mobList.add(attackMob);
-
         ServerBossEvent serverBossEvent = (ServerBossEvent) (new ServerBossEvent(attackMob.getDisplayName(), BossEvent.BossBarColor.YELLOW, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
         getNearPlayers(level).forEach(player -> {
             serverBossEvent.addPlayer((ServerPlayer) player);
@@ -112,22 +109,19 @@ public class MoonInstance extends NoTeamInstance {
 
         Stray manaMob = new Stray(EntityType.STRAY, level);
         MobSpawn.setMobCustomName(manaMob, Component.literal("阿尔忒弥斯 - 天镜").withStyle(style), 160);
-
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(manaMob), 160);
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(manaMob, 2000, 130, 130,
-                0.4, 4, 0.25, 55, 0, 700 * Math.pow(10, 4), 0.3);
-
+                0.4, 4, 0.25, 55, 0,
+                maxHealth, 0.3);
         manaMob.setHealth(manaMob.getMaxHealth());
         manaMob.setItemSlot(EquipmentSlot.HEAD, ModItems.MobArmorMoonMana.get().getDefaultInstance());
         manaMob.setItemSlot(EquipmentSlot.CHEST, ModItems.MobArmorMoonChest.get().getDefaultInstance());
         manaMob.setItemSlot(EquipmentSlot.LEGS, ModItems.MobArmorMoonLeggings.get().getDefaultInstance());
         manaMob.setItemSlot(EquipmentSlot.FEET, ModItems.MobArmorMoonBoots.get().getDefaultInstance());
         manaMob.setItemSlot(EquipmentSlot.MAINHAND, Items.BOW.getDefaultInstance());
-
         manaMob.moveTo(new Vec3(1773.5, 122.5, -498.5));
         level.addFreshEntity(manaMob);
         mobList.add(manaMob);
-
         ServerBossEvent serverBossEvent1 = (ServerBossEvent) (new ServerBossEvent(manaMob.getDisplayName(), BossEvent.BossBarColor.YELLOW, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
         getNearPlayers(level).forEach(player -> {
             serverBossEvent1.addPlayer((ServerPlayer) player);

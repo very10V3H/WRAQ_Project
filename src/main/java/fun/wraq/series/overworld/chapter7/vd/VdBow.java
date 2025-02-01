@@ -16,7 +16,6 @@ import fun.wraq.series.overworld.chapter7.C7Items;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
@@ -32,7 +31,6 @@ public class VdBow extends WraqBow implements ForgeItem, ActiveItem, VdWeaponCom
         Utils.attackDamage.put(this, 1800d);
         Utils.defencePenetration0.put(this, 40d);
         Utils.critRate.put(this, 0.25);
-        Utils.critDamage.put(this, 1.55);
         Utils.levelRequire.put(this, 220);
     }
 

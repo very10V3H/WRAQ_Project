@@ -180,7 +180,6 @@ public class LakeBoss {
             Utils.defencePenetration.put(this, this.BreakDefence);
             Utils.healthSteal.put(this, this.HealSteal);
             Utils.critRate.put(this, this.CriticalHitRate);
-            Utils.critDamage.put(this, this.CHitDamage);
             Element.WaterElementValue.put(this, 1.25);
             Utils.mainHandTag.put(this, 1d);
             Utils.weaponList.add(this);
@@ -190,7 +189,6 @@ public class LakeBoss {
         private final double BaseDamage = 160.0d;
         private final double BreakDefence = 0.3F;
         private final double CriticalHitRate = 0.3F;
-        private final double CHitDamage = 0.4;
         private final double HealSteal = 0.08F;
 
         @Override

@@ -82,8 +82,6 @@ public class IceInstance extends NoTeamInstance {
                     NearestPlayer.set(player);
                 }
             });
-
-
             if (NearestPlayer.get() != null) {
                 Damage.causeAttackDamageToPlayer(mob, NearestPlayer.get(), 2400);
                 NearestPlayer.get().addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 3, false, false, false));
@@ -94,7 +92,6 @@ public class IceInstance extends NoTeamInstance {
                     NearestPlayer.get().level().destroyBlock(blockPos, false);
                 }
             }
-
             players.forEach(player -> {
                 if (player != null && player.distanceTo(mob) < 50) {
                     Damage.causeManaDamageToPlayer(mob, player, 1200);
@@ -106,7 +103,6 @@ public class IceInstance extends NoTeamInstance {
                     }
                 }
             });
-
             ParticleProvider.createBallDisperseParticle(ParticleTypes.SNOWFLAKE, (ServerLevel) level, mob.position(), 0.75, 30);
         }
         Element.ElementProvider(mob, Element.ice, 4);
@@ -115,24 +111,20 @@ public class IceInstance extends NoTeamInstance {
     @Override
     public void summonModule(Level level) {
         Stray stray = new Stray(EntityType.STRAY, level);
-
         MobSpawn.setMobCustomName(stray, Component.literal(mobName).withStyle(CustomStyle.styleOfIce), 135);
-
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(stray), 135);
+        double maxHealth = 40 * Math.pow(10, 4) * (1 + 0.75 * (players.size() - 1));
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(stray, 1250, 90, 90, 0.35,
-                3, 0.2, 30, 0, 75 * Math.pow(10, 4), 0.35);
-
+                3, 0.2, 30, 0, maxHealth, 0.35);
         stray.setHealth(stray.getMaxHealth());
         stray.setItemSlot(EquipmentSlot.HEAD, ModItems.MobArmorIceHelmet.get().getDefaultInstance());
         stray.setItemSlot(EquipmentSlot.CHEST, ModItems.MobArmorIceChest.get().getDefaultInstance());
         stray.setItemSlot(EquipmentSlot.LEGS, ModItems.MobArmorIceLeggings.get().getDefaultInstance());
         stray.setItemSlot(EquipmentSlot.FEET, ModItems.MobArmorIceBoots.get().getDefaultInstance());
         stray.setItemSlot(EquipmentSlot.MAINHAND, ModItems.ICE_SWORD.get().getDefaultInstance());
-
         stray.moveTo(pos);
         level.addFreshEntity(stray);
         mobList.add(stray);
-
         ServerBossEvent serverBossEvent = (ServerBossEvent) (new ServerBossEvent(stray.getDisplayName(), BossEvent.BossBarColor.BLUE, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
         getNearPlayers(level).forEach(player -> {
             serverBossEvent.addPlayer((ServerPlayer) player);

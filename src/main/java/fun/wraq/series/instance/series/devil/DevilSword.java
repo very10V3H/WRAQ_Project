@@ -11,7 +11,6 @@ public class DevilSword extends IceSword {
         Utils.defencePenetration0.put(this, 25d);
         Utils.healthSteal.put(this, 0.08);
         Utils.critRate.put(this, 0.3);
-        Utils.critDamage.put(this, 0.8);
         Utils.levelRequire.put(this, 150);
     }
 }

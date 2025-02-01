@@ -58,7 +58,7 @@ public class AttackCurios2 extends WraqAttackUniformCurios {
 
     public static double playerCritDamageEnhance(Player player) {
         if (!isOn(player) || !playerNearbyHasNoOthers(player)) return 0;
-        return 0.2;
+        return 0.15;
     }
 
     public static void tick(Player player) {

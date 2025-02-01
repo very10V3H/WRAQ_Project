@@ -34,7 +34,7 @@ public class AttackCurios1 extends WraqAttackUniformCurios {
                 append(Component.literal("暴怒").withStyle(style)).
                 append(Component.literal("为你提供:").withStyle(ChatFormatting.WHITE)));
         components.add(Component.literal(" 1.").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.critDamage("20%")));
+                append(ComponentUtils.AttributeDescription.critDamage("5%")));
         components.add(Component.literal(" 2.").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.AttributeDescription.attackDamage("5%总")));
         components.add(Component.literal(" 只有近战攻击的暴击能够触发横行").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
@@ -68,7 +68,7 @@ public class AttackCurios1 extends WraqAttackUniformCurios {
     public static double playerCritDamageUp(Player player) {
         if (!isOn(player)) return 0;
         if (playerLastTickMap.getOrDefault(player, 0) > Tick.get()) {
-            return 0.2 * playerCountsMap.getOrDefault(player, 0);
+            return 0.05 * playerCountsMap.getOrDefault(player, 0);
         }
         return 0;
     }

@@ -33,7 +33,6 @@ public class CastleBow extends WraqBow implements ForgeItem, ActiveItem, Enhance
         Utils.attackDamage.put(this, 1500d);
         Utils.defencePenetration0.put(this, 36d);
         Utils.critRate.put(this, 0.25);
-        Utils.critDamage.put(this, 1.35);
         this.tier = tier;
     }
 
@@ -105,12 +104,14 @@ public class CastleBow extends WraqBow implements ForgeItem, ActiveItem, Enhance
         Compute.decreasePlayerHealth(player, player.getHealth() * 0.15,
                 Component.literal(" 被暗黑魔能吞噬了。").withStyle(CustomStyle.styleOfCastle));
         Compute.playerItemCoolDown(player, ModItems.CASTLE_BOW.get(), 15);
+        Compute.playerItemCoolDown(player, ModItems.CASTLE_BOW_E.get(), 15);
         StableAttributesModifier.addM(player, StableAttributesModifier.playerCommonDamageEnhance,
                 "castle weapon active", 0.25, Tick.get() + 120);
         StableAttributesModifier.addM(player, StableAttributesModifier.playerDefencePenetrationModifier,
                 "CastleWeaponActiveDefencePenetration", 0.25, Tick.get() + 120);
         StableAttributesModifier.addM(player, StableAttributesModifier.playerManaPenetrationModifier,
-                "CastleWeaponActiveManaPenetration", 0.25, Tick.get() + 120, this);
+                "CastleWeaponActiveManaPenetration", 0.25, Tick.get() + 120,
+                ModItems.CASTLE_BOW.get());
     }
 
     @Override

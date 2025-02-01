@@ -40,13 +40,9 @@ import java.util.*;
 public class CitadelGuardianInstance extends NoTeamInstance {
 
     private static CitadelGuardianInstance instance;
-
     public static String mobName = "影珀守卫";
     public static Style style = CustomStyle.styleOfEnd;
     public static Level dimension;
-
-    public static double maxHealth = 5000 * Math.pow(10, 4);
-
     public static CitadelGuardianInstance getInstance() {
         if (instance == null) {
             instance = new CitadelGuardianInstance(new Vec3(1075, 39, -704), 30, 100, new Vec3(1075, 39, -704),
@@ -84,14 +80,12 @@ public class CitadelGuardianInstance extends NoTeamInstance {
         dimension = level;
         Ender_Guardian_Entity entity =
                 new Ender_Guardian_Entity(ModEntities.ENDER_GUARDIAN.get(), level);
-
         MobSpawn.setMobCustomName(entity, Component.literal(mobName).withStyle(style), this.level);
-
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(entity), this.level);
+        double maxHealth = 2500 * Math.pow(10, 4) * (1 + 0.75 * (players.size() - 1));
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(entity, 5000, 480, 480,
                 0.4, 5, 0.6, 225, 25,
                 maxHealth, 0.35);
-
         entity.setHealth(entity.getMaxHealth());
 
         entity.moveTo(pos);
@@ -190,13 +184,13 @@ public class CitadelGuardianInstance extends NoTeamInstance {
 
     private static void withstandEnderMite(Player player, Mob mob) {
         if (MobSpawn.getMobOriginName(mob).equals(ENDER_MITE_NAME)) {
-            SpecialEffectOnPlayer.addBlindEffect(player, 40);
+            SpecialEffectOnPlayer.addBlindEffect(player, 20);
         }
     }
 
     private static void withstandShulker(Player player, Mob mob) {
         if (MobSpawn.getMobOriginName(mob).equals(SHULKER_NAME)) {
-            SpecialEffectOnPlayer.addSilentEffect(player, 40);
+            SpecialEffectOnPlayer.addSilentEffect(player, 20);
         }
     }
 
@@ -236,7 +230,7 @@ public class CitadelGuardianInstance extends NoTeamInstance {
         if (MobSpawn.getMobOriginName(mob).equals(mobName)) {
             healthReductionNum += damage;
         }
-        if (healthReductionNum >= maxHealth * 0.1) {
+        if (healthReductionNum >= mob.getMaxHealth() * 0.1) {
             Compute.mobHeal(mob, healthReductionNum * 0.9);
             healthReductionNum = 0;
         }

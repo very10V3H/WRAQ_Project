@@ -40,7 +40,6 @@ public class MoonSword extends WraqSword implements ActiveItem, OnHitEffectEquip
         Utils.defencePenetration0.put(this, 29d);
         Utils.healthSteal.put(this, 0.3);
         Utils.critRate.put(this, 0.3);
-        Utils.critDamage.put(this, 0.8);
         this.activeRate = activeRate;
         Utils.levelRequire.put(this, 160);
         this.tier = tier;
@@ -95,13 +94,14 @@ public class MoonSword extends WraqSword implements ActiveItem, OnHitEffectEquip
 
     @Override
     public void active(Player player) {
-        Compute.playerItemCoolDown(player, ModItems.MOON_SWORD.get(), 27);
+        Compute.playerItemCoolDown(player, this, 27);
         EnhanceNormalAttackModifier.addModifier(player, new EnhanceNormalAttackModifier("moonSwordActive", 0, new EnhanceNormalAttack() {
             @Override
             public void hit(Player player, Mob mob) {
                 Shield.providePlayerShield(player, 160, PlayerAttributes.attackDamage(player) * 2);
                 Compute.sendEffectLastTime(player, ModItems.MOON_SWORD.get().getDefaultInstance(), 200);
-                List<Mob> mobList = mob.level().getEntitiesOfClass(Mob.class, AABB.ofSize(mob.position(), 15, 15, 15));
+                List<Mob> mobList = mob.level().getEntitiesOfClass(Mob.class,
+                        AABB.ofSize(mob.position(), 15, 15, 15));
                 mobList.removeIf(mob1 -> mob1.distanceTo(mob) > 6);
                 double attackDamage = 0;
                 for (Mob mob1 : mobList) {

@@ -181,10 +181,6 @@ public class InventoryCheck {
                 SpecialEventItems.RED_ENVELOPE.get(),
                 SpecialEventItems.BIG_RED_ENVELOPE.get()
         ));
-        SpecialEventItems.ITEMS.getEntries()
-                .stream()
-                .map(entry -> entry.get().asItem())
-                .forEach(item -> boundingList.add(item));
         UniformItems.ITEMS.getEntries()
                 .stream()
                 .map(entry -> entry.get().asItem())

@@ -36,7 +36,6 @@ public class ForestSword extends WraqSword implements ActiveItem {
         Utils.defencePenetration0.put(this, new double[]{1, 1, 2, 2}[tier]);
         Utils.healthSteal.put(this, new double[]{0.02, 0.02, 0.02, 0.02}[tier]);
         Utils.critRate.put(this, new double[]{0.3, 0.3, 0.3, 0.3}[tier]);
-        Utils.critDamage.put(this, new double[]{0.35, 0.4, 0.45, 0.5}[tier]);
         Element.LifeElementValue.put(this, new double[]{0.2, 0.4, 0.6, 0.8}[tier]);
     }
 

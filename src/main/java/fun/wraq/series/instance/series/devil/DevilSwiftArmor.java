@@ -76,7 +76,7 @@ public class DevilSwiftArmor extends WraqArmor implements OnKillEffectEquip, InC
     @Override
     public List<ItemStack> forgeRecipe() {
         return List.of(
-                new ItemStack(ModItems.DevilSwiftSoul.get(), 128),
+                new ItemStack(ModItems.DevilSwiftSoul.get(), 48),
                 new ItemStack(OreItems.WRAQ_ORE_3_ITEM.get(), 32)
         );
     }

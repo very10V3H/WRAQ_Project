@@ -27,7 +27,7 @@ public class StarArmor extends WraqArmor {
         super(Material, Slots, itemProperties);
         if (type.equals(Type.LEGGINGS)) Utils.maxHealth.put(this, 48000d);
         if (type.equals(Type.HELMET)) {
-            Utils.percentHealthRecover.put(this, 0.012);
+            Utils.percentHealthRecover.put(this, 0.008);
             Utils.healthRecover.put(this, 100d);
         }
         Utils.levelRequire.put(this, 200);

@@ -33,7 +33,6 @@ public class NetherSword extends WraqSword implements ActiveItem, ForgeItem, Enh
         Utils.attackDamage.put(this, 240d);
         Utils.defencePenetration0.put(this, 12d);
         Utils.critRate.put(this, 0.25);
-        Utils.critDamage.put(this, 0.5);
         Element.FireElementValue.put(this, 1d);
         Utils.levelRequire.put(this, 80);
         this.tier = tier;

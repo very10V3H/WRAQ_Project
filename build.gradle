@@ -5,7 +5,7 @@ plugins {
     id 'net.minecraftforge.gradle' version '[6.0,6.2)'
 }
 
-version = '2.1.0b'
+version = '2.1.0c'
 group = 'com.very.vmd' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'vmd'
 
@@ -134,6 +134,14 @@ repositories {
     // flatDir {
     //     dir 'libs'
     // }
+
+    maven {
+        url "https://cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
+    }
+
     maven {
         url = "https://maven.theillusivec4.top/"
     }
@@ -146,13 +154,6 @@ repositories {
     }
 
     maven { url 'https://maven.blamejared.com' }
-
-    maven {
-        url "https://cursemaven.com"
-        content {
-            includeGroup "curse.maven"
-        }
-    }
 
     maven {
         url 'https://maven.tterrag.com'
