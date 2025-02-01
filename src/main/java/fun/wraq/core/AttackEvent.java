@@ -273,7 +273,7 @@ public class AttackEvent {
 
         // effect
         Compute.ChargingModule(data, player);
-        CastleSword.NormalAttack(player, monster, damage);
+        CastleSword.onNormalAttack(player, monster, damage);
         Compute.AdditionEffects(player, monster, damage + trueDamage, 0);
         WraqBlade.onAttackHitEachTarget(player);
 

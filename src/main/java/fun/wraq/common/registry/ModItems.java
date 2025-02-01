@@ -98,10 +98,6 @@ import fun.wraq.series.end.eventController.SpiderRecall.SpiderRecallArmorChest;
 import fun.wraq.series.end.eventController.SpiderRecall.SpiderRecallArmorHelmet;
 import fun.wraq.series.end.eventController.SpiderRecall.SpiderRecallArmorLeggings;
 import fun.wraq.series.end.recallBooks.*;
-import fun.wraq.series.events.spring2025.curios.Spring2025Hand;
-import fun.wraq.series.events.spring2025.curios.Spring2025Necklace;
-import fun.wraq.series.events.spring2025.curios.Spring2025Ring;
-import fun.wraq.series.events.spring2025.curios.Spring2025Belt;
 import fun.wraq.series.instance.series.castle.*;
 import fun.wraq.series.instance.series.devil.*;
 import fun.wraq.series.instance.series.ice.IceArmor;
@@ -1043,8 +1039,11 @@ public class ModItems {
     public static final RegistryObject<Item> QuartzSabre = ITEMS.register("quartzsabre",
             () -> new QuartzSabre(new Item.Properties().rarity(CustomStyle.QuartzItalic)));
 
-    public static final RegistryObject<Item> NetherSceptre = ITEMS.register("nether_sceptre",
-            () -> new NetherSceptre(new Item.Properties().rarity(CustomStyle.ShipItalic)));
+    public static final RegistryObject<Item> NETHER_SCEPTRE = ITEMS.register("nether_sceptre",
+            () -> new NetherSceptre(new Item.Properties().rarity(CustomStyle.ShipItalic), 0));
+
+    public static final RegistryObject<Item> NETHER_SCEPTRE_E = ITEMS.register("nether_sceptre_e",
+            () -> new NetherSceptre(new Item.Properties().rarity(CustomStyle.ShipItalic), 1));
 
     public static final RegistryObject<Item> NETHER_KNIFE = ITEMS.register("nether_knife",
             () -> new NetherKnife(new Item.Properties().rarity(CustomStyle.NetherBold),
@@ -1064,7 +1063,10 @@ public class ModItems {
             }));
 
     public static final RegistryObject<Item> NETHER_SWORD = ITEMS.register("nether_sword",
-            () -> new NetherSword(new Item.Properties().rarity(CustomStyle.NetherBold)));
+            () -> new NetherSword(new Item.Properties().rarity(CustomStyle.NetherBold), 0));
+
+    public static final RegistryObject<Item> NETHER_SWORD_E = ITEMS.register("nether_sword_e",
+            () -> new NetherSword(new Item.Properties().rarity(CustomStyle.NetherBold), 1));
 
     public static final RegistryObject<Item> BASALT_ROCK = ITEMS.register("basalt_rock",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.NetherBold), false, (player) -> {
@@ -1960,14 +1962,23 @@ public class ModItems {
     public static final RegistryObject<Item> Value = ITEMS.register("value",
             () -> new Item(new Item.Properties().stacksTo(1)));
 
-    public static final RegistryObject<Item> IceSword = ITEMS.register("ice_sword",
-            () -> new IceSword(new Item.Properties().rarity(CustomStyle.IceItalic)));
+    public static final RegistryObject<Item> ICE_SWORD = ITEMS.register("ice_sword",
+            () -> new IceSword(new Item.Properties().rarity(CustomStyle.IceItalic), 0));
 
-    public static final RegistryObject<Item> IceBow = ITEMS.register("ice_bow",
-            () -> new IceBow(new Item.Properties().stacksTo(1).rarity(CustomStyle.IceItalic)));
+    public static final RegistryObject<Item> ICE_SWORD_E = ITEMS.register("ice_sword_e",
+            () -> new IceSword(new Item.Properties().rarity(CustomStyle.IceItalic), 1));
 
-    public static final RegistryObject<Item> IceSceptre = ITEMS.register("ice_sceptre",
-            () -> new IceSceptre(new Item.Properties().rarity(CustomStyle.IceItalic)));
+    public static final RegistryObject<Item> ICE_BOW = ITEMS.register("ice_bow",
+            () -> new IceBow(new Item.Properties().stacksTo(1).rarity(CustomStyle.IceItalic), 0));
+
+    public static final RegistryObject<Item> ICE_BOW_E = ITEMS.register("ice_bow_e",
+            () -> new IceBow(new Item.Properties().stacksTo(1).rarity(CustomStyle.IceItalic), 1));
+
+    public static final RegistryObject<Item> ICE_SCEPTRE = ITEMS.register("ice_sceptre",
+            () -> new IceSceptre(new Item.Properties().rarity(CustomStyle.IceItalic), 0));
+
+    public static final RegistryObject<Item> ICE_SCEPTRE_E = ITEMS.register("ice_sceptre_e",
+            () -> new IceSceptre(new Item.Properties().rarity(CustomStyle.IceItalic), 1));
 
     public static final RegistryObject<Item> ICE_POWER = ITEMS.register("ice_power",
             () -> new IcePower(new Item.Properties().rarity(CustomStyle.IceBold)));
@@ -2271,14 +2282,23 @@ public class ModItems {
     public static final RegistryObject<Item> MoonHelmet = ITEMS.register("moon_helmet",
             () -> new MoonArmor(ModArmorMaterials.Moon, ArmorItem.Type.HELMET, new Item.Properties().rarity(CustomStyle.Moon1Italic)));
 
-    public static final RegistryObject<Item> MoonSword = ITEMS.register("moon_sword",
-            () -> new MoonSword(new Item.Properties().rarity(CustomStyle.Moon1Italic), 0.4));
+    public static final RegistryObject<Item> MOON_SWORD = ITEMS.register("moon_sword",
+            () -> new MoonSword(new Item.Properties().rarity(CustomStyle.Moon1Italic), 0.1, 0));
 
-    public static final RegistryObject<Item> MoonBow = ITEMS.register("moon_bow",
-            () -> new MoonBow(new Item.Properties().stacksTo(1).rarity(CustomStyle.Moon1Italic), 0.4));
+    public static final RegistryObject<Item> MOON_SWORD_E = ITEMS.register("moon_sword_e",
+            () -> new MoonSword(new Item.Properties().rarity(CustomStyle.Moon1Italic), 0.2, 1));
 
-    public static final RegistryObject<Item> MoonSceptre = ITEMS.register("moon_sceptre",
-            () -> new MoonSceptre(new Item.Properties().rarity(CustomStyle.Moon1Italic), 0.8));
+    public static final RegistryObject<Item> MOON_BOW = ITEMS.register("moon_bow",
+            () -> new MoonBow(new Item.Properties().stacksTo(1).rarity(CustomStyle.Moon1Italic), 0.1, 0));
+
+    public static final RegistryObject<Item> MOON_BOW_E = ITEMS.register("moon_bow_e",
+            () -> new MoonBow(new Item.Properties().stacksTo(1).rarity(CustomStyle.Moon1Italic), 0.2, 1));
+
+    public static final RegistryObject<Item> MOON_SCEPTRE = ITEMS.register("moon_sceptre",
+            () -> new MoonSceptre(new Item.Properties().rarity(CustomStyle.Moon1Italic), 0.2, 0));
+
+    public static final RegistryObject<Item> MOON_SCEPTRE_E = ITEMS.register("moon_sceptre_e",
+            () -> new MoonSceptre(new Item.Properties().rarity(CustomStyle.Moon1Italic), 0.4, 1));
 
     public static final RegistryObject<Item> ParkourMedal = ITEMS.register("parkour_medal",
             () -> new Item(new Item.Properties().rarity(CustomStyle.LifeBold)));
@@ -3605,14 +3625,23 @@ public class ModItems {
     public static final RegistryObject<Item> CastleLoot = ITEMS.register("castle_loot",
             () -> new CastleLoot(new Item.Properties().rarity(CustomStyle.CastleBold)));
 
-    public static final RegistryObject<Item> CastleSword = ITEMS.register("castle_sword",
-            () -> new CastleSword(new Item.Properties().stacksTo(1).rarity(CustomStyle.CastleItalic)));
+    public static final RegistryObject<Item> CASTLE_SWORD = ITEMS.register("castle_sword",
+            () -> new CastleSword(new Item.Properties().stacksTo(1).rarity(CustomStyle.CastleItalic), 0));
 
-    public static final RegistryObject<Item> CastleBow = ITEMS.register("castle_bow",
-            () -> new CastleBow(new Item.Properties().stacksTo(1).rarity(CustomStyle.CastleItalic)));
+    public static final RegistryObject<Item> CASTLE_SWORD_E = ITEMS.register("castle_sword_e",
+            () -> new CastleSword(new Item.Properties().stacksTo(1).rarity(CustomStyle.CastleItalic), 1));
 
-    public static final RegistryObject<Item> CastleSceptre = ITEMS.register("castle_sceptre",
-            () -> new CastleSceptre(new Item.Properties().rarity(CustomStyle.CastleItalic)));
+    public static final RegistryObject<Item> CASTLE_BOW = ITEMS.register("castle_bow",
+            () -> new CastleBow(new Item.Properties().stacksTo(1).rarity(CustomStyle.CastleItalic), 0));
+
+    public static final RegistryObject<Item> CASTLE_BOW_E = ITEMS.register("castle_bow_e",
+            () -> new CastleBow(new Item.Properties().stacksTo(1).rarity(CustomStyle.CastleItalic), 1));
+
+    public static final RegistryObject<Item> CASTLE_SCEPTRE = ITEMS.register("castle_sceptre",
+            () -> new CastleSceptre(new Item.Properties().rarity(CustomStyle.CastleItalic), 0));
+
+    public static final RegistryObject<Item> CASTLE_SCEPTRE_E = ITEMS.register("castle_sceptre_e",
+            () -> new CastleSceptre(new Item.Properties().rarity(CustomStyle.CastleItalic), 1));
 
     public static final RegistryObject<Item> CastleAttackHelmet = ITEMS.register("castle_attack_helmet",
             () -> new CastleAttackArmor(ModArmorMaterials.Castle, ArmorItem.Type.HELMET, new Item.Properties().rarity(CustomStyle.CastleItalic)));

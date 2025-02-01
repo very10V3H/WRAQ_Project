@@ -8,7 +8,7 @@ import net.minecraft.network.chat.Style;
 public class MidAutumnSceptre extends MoonSceptre {
 
     public MidAutumnSceptre(Properties properties, double activeRate) {
-        super(properties, activeRate);
+        super(properties, activeRate, 1);
         Utils.manaDamage.put(this, 0d);
         Utils.xpLevelManaDamage.put(this, 16d);
         Utils.manaPenetration0.put(this, 0d);

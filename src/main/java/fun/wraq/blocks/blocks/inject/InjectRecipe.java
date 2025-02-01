@@ -510,15 +510,15 @@ public class InjectRecipe {
                 new InjectingRecipe(16, ModItems.COMPLETE_GEM.get(), 2,
                         ModItems.MoonCompleteGem.get()));
 
-        injectingRecipeMap.put(ModItems.IceSword.get(),
+        injectingRecipeMap.put(ModItems.ICE_SWORD_E.get(),
                 new InjectingRecipe(ModItems.DevilBlood.get(), 8,
                         ModItems.DevilSword.get()));
 
-        injectingRecipeMap.put(ModItems.IceBow.get(),
+        injectingRecipeMap.put(ModItems.ICE_BOW_E.get(),
                 new InjectingRecipe(ModItems.DevilBlood.get(), 8,
                         ModItems.DevilBow.get()));
 
-        injectingRecipeMap.put(ModItems.IceSceptre.get(),
+        injectingRecipeMap.put(ModItems.ICE_SCEPTRE_E.get(),
                 new InjectingRecipe(ModItems.DevilBlood.get(), 8,
                         ModItems.DevilSceptre.get()));
 

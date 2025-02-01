@@ -116,16 +116,16 @@ public class WardenOffhandItem extends WraqOffHandItem implements OnCauseFinalDa
         if (isMoon && player.tickCount % 60 == 0) {
             boolean isAttackDamage = true;
             int enhanceNormalAttackType = 0;
-            Item icon = ModItems.MoonSword.get();
+            Item icon = ModItems.MOON_SWORD.get();
             if (type.getString().equals(WraqOffHandItem.SHIELD)) {
-                icon = ModItems.MoonSword.get();
+                icon = ModItems.MOON_SWORD.get();
             } else if (type.getString().equals(WraqOffHandItem.KNIFE)) {
                 enhanceNormalAttackType = 1;
-                icon = ModItems.MoonBow.get();
+                icon = ModItems.MOON_BOW.get();
             } else if (type.getString().equals(WraqOffHandItem.BOOK)) {
                 isAttackDamage = false;
                 enhanceNormalAttackType = 2;
-                icon = ModItems.MoonSceptre.get();
+                icon = ModItems.MOON_SCEPTRE.get();
             }
             Item finalIcon = icon;
             boolean finalIsAttackDamage = isAttackDamage;

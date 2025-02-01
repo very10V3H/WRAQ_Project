@@ -16,7 +16,6 @@ import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -31,8 +30,8 @@ import java.util.Random;
 
 public class SeaBow extends WraqBow implements OnHitEffectEquip {
 
-    public SeaBow(Properties p_40524_) {
-        super(p_40524_);
+    public SeaBow(Properties properties) {
+        super(properties);
         Utils.attackDamage.put(this, 400d);
         Utils.defencePenetration0.put(this, 18d);
         Utils.critRate.put(this, 0.25);

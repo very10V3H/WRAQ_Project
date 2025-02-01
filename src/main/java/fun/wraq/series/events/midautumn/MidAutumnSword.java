@@ -8,7 +8,7 @@ import net.minecraft.network.chat.Style;
 public class MidAutumnSword extends MoonSword {
 
     public MidAutumnSword(Properties properties, double activeRate) {
-        super(properties, activeRate);
+        super(properties, activeRate, 1);
         Utils.attackDamage.put(this, 0d);
         Utils.xpLevelAttackDamage.put(this, 8d);
         Utils.defencePenetration0.put(this, 0d);

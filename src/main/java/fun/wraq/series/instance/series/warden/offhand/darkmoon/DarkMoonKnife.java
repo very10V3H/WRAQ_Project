@@ -26,7 +26,7 @@ public class DarkMoonKnife extends WardenOffhandItem implements ForgeItem {
     public List<ItemStack> forgeRecipe() {
         return List.of(
                 new ItemStack(WardenItems.WARDEN_KNIFE.get(), 1),
-                new ItemStack(ModItems.MoonBow.get()),
+                new ItemStack(ModItems.MOON_BOW_E.get()),
                 new ItemStack(WardenItems.WARDEN_HEART.get(), 4)
         );
     }

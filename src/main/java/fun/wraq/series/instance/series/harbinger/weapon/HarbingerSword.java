@@ -101,7 +101,7 @@ public class HarbingerSword extends WraqSword implements HarbingerMainHand, Acti
     @Override
     public List<ItemStack> forgeRecipe() {
         return List.of(
-                new ItemStack(ModItems.CastleSword.get()),
+                new ItemStack(ModItems.CASTLE_SWORD_E.get()),
                 new ItemStack(HarbingerItems.HARBINGER_INGOT.get(), 156),
                 new ItemStack(HarbingerItems.HARBINGER_HEART.get(), 16),
                 new ItemStack(HarbingerItems.HARBINGER_ROD.get()),

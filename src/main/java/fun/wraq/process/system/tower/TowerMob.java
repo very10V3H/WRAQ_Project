@@ -148,7 +148,7 @@ public class TowerMob {
                 zombie.setItemSlot(EquipmentSlot.CHEST, ModItems.MobArmorIceElementChest.get().getDefaultInstance());
                 zombie.setItemSlot(EquipmentSlot.LEGS, ModItems.MobArmorIceElementLeggings.get().getDefaultInstance());
                 zombie.setItemSlot(EquipmentSlot.FEET, ModItems.MobArmorIceElementBoots.get().getDefaultInstance());
-                zombie.setItemSlot(EquipmentSlot.MAINHAND, ModItems.IceSword.get().getDefaultInstance());
+                zombie.setItemSlot(EquipmentSlot.MAINHAND, ModItems.ICE_SWORD.get().getDefaultInstance());
 
                 MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(zombie), 180);
                 MobSpawn.MobBaseAttributes.setMobBaseAttributes(zombie, 2500, 200, 200,

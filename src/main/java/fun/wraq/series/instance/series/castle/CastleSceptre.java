@@ -6,6 +6,7 @@ import fun.wraq.common.equip.WraqSceptre;
 import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
+import fun.wraq.common.impl.display.EnhancedForgedItem;
 import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.registry.ModEntityType;
 import fun.wraq.common.registry.ModItems;
@@ -23,24 +24,27 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CastleSceptre extends WraqSceptre implements ForgeItem, ActiveItem {
+public class CastleSceptre extends WraqSceptre implements ForgeItem, ActiveItem, EnhancedForgedItem {
 
-    public CastleSceptre(Properties p_42964_) {
-        super(p_42964_);
+    private final int tier;
+
+    public CastleSceptre(Properties properties, int tier) {
+        super(properties);
         Utils.manaDamage.put(this, 3000d);
         Utils.manaRecover.put(this, 26d);
         Utils.manaPenetration0.put(this, 36d);
         Utils.coolDownDecrease.put(this, 0.35);
+        this.tier = tier;
     }
 
     @Override
@@ -51,7 +55,6 @@ public class CastleSceptre extends WraqSceptre implements ForgeItem, ActiveItem 
                 PlayerAttributes.manaPenetration0(player), StringUtils.ParticleTypes.Sea);
         newArrow.setSilent(true);
         newArrow.setNoGravity(true);
-
         newArrow.shootFromRotation(player, player.getXRot(), player.getYRot(), 0, 3, 1);
         ProjectileUtil.rotateTowardsMovement(newArrow, 0);
         WraqSceptre.adjustOrb(newArrow, player);
@@ -74,8 +77,12 @@ public class CastleSceptre extends WraqSceptre implements ForgeItem, ActiveItem 
         components.add(Component.literal(" 你的法球攻击将使敌人被拖入暗影之中").withStyle(ChatFormatting.ITALIC).withStyle(style));
         components.add(Component.literal(" 你的").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("法术伤害").withStyle(CustomStyle.styleOfMana)).
-                append(Component.literal("将附带造成伤害100%的").withStyle(ChatFormatting.WHITE)).
+                append(Component.literal("将附带造成伤害" + (tier == 0 ? "25%" : "100%") + "的")
+                        .withStyle(ChatFormatting.WHITE)).
                 append(ComponentUtils.AttributeDescription.attackDamageValue("")));
+        if (tier == 0) {
+            components.add(Te.s(" 倍率可被", "锐化至", CustomStyle.styleOfWorld, "100%", style));
+        }
         Compute.DescriptionActive(components, Component.literal("噬魔注能").withStyle(style));
         components.add(Component.literal(" 扣除自身").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.AttributeDescription.health("15%当前")).
@@ -94,30 +101,37 @@ public class CastleSceptre extends WraqSceptre implements ForgeItem, ActiveItem 
         return ComponentUtils.getSuffixOfCastle();
     }
 
-    public static void ExDamage(Player player, Mob mob, double damage) {
-        if (player.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.CastleSceptre.get())) {
-            Damage.causeAttackDamageToMonster_AdDamage_Direct(player, mob, damage, true);
+    public static void exDamage(Player player, Mob mob, double damage) {
+        Item item = player.getMainHandItem().getItem();
+        if (item instanceof CastleSceptre castleSceptre) {
+            Damage.causeAttackDamageToMonster_AdDamage_Direct(player, mob,
+                    damage * (castleSceptre.tier == 0 ? 0.25 : 1), true);
         }
     }
 
     @Override
     public List<ItemStack> forgeRecipe() {
-        return new ArrayList<>() {{
-            add(new ItemStack(ModItems.CastleSceptrePiece.get(), 12));
-            add(new ItemStack(ModItems.CastlePiece.get(), 192));
-            add(new ItemStack(ModItems.TreeRune.get(), 8));
-            add(new ItemStack(ModItems.COMPLETE_GEM.get(), 26));
-            add(new ItemStack(ModItems.ReputationMedal.get(), 104));
-            add(new ItemStack(PickaxeItems.TINKER_GOLD.get(), 12));
-            add(new ItemStack(ModItems.WORLD_SOUL_3.get(), 6));
-        }};
+        if (tier == 0) {
+            return List.of(
+                    new ItemStack(ModItems.CastleSceptrePiece.get(), 12),
+                    new ItemStack(ModItems.CastlePiece.get(), 192),
+                    new ItemStack(ModItems.TreeRune.get(), 8),
+                    new ItemStack(PickaxeItems.TINKER_GOLD.get(), 12)
+            );
+        }
+        return List.of(
+                new ItemStack(ModItems.CASTLE_SCEPTRE.get()),
+                new ItemStack(ModItems.COMPLETE_GEM.get(), 26),
+                new ItemStack(ModItems.ReputationMedal.get(), 104),
+                new ItemStack(ModItems.WORLD_SOUL_3.get(), 6)
+        );
     }
 
     @Override
     public void active(Player player) {
         Compute.decreasePlayerHealth(player, player.getHealth() * 0.15,
                 Component.literal(" 被暗黑魔能吞噬了。").withStyle(CustomStyle.styleOfCastle));
-        Compute.playerItemCoolDown(player, this, 15);
+        Compute.playerItemCoolDown(player, ModItems.CASTLE_SCEPTRE.get(), 15);
         StableAttributesModifier.addM(player, StableAttributesModifier.playerCommonDamageEnhance,
                 "castle weapon active", 0.25, Tick.get() + 120);
         StableAttributesModifier.addM(player, StableAttributesModifier.playerDefencePenetrationModifier,
@@ -129,5 +143,10 @@ public class CastleSceptre extends WraqSceptre implements ForgeItem, ActiveItem 
     @Override
     public double manaCost(Player player) {
         return 0;
+    }
+
+    @Override
+    public int getEnhanceTier() {
+        return tier;
     }
 }

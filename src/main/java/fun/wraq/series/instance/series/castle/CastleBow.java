@@ -5,6 +5,7 @@ import fun.wraq.common.equip.WraqBow;
 import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
+import fun.wraq.common.impl.display.EnhancedForgedItem;
 import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
@@ -16,21 +17,24 @@ import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CastleBow extends WraqBow implements ForgeItem, ActiveItem {
-    public CastleBow(Properties p_40524_) {
-        super(p_40524_);
+public class CastleBow extends WraqBow implements ForgeItem, ActiveItem, EnhancedForgedItem {
+
+    private final int tier;
+    public CastleBow(Properties properties, int tier) {
+        super(properties);
         Utils.attackDamage.put(this, 1500d);
         Utils.defencePenetration0.put(this, 36d);
         Utils.critRate.put(this, 0.25);
         Utils.critDamage.put(this, 1.35);
+        this.tier = tier;
     }
 
     @Override
@@ -46,8 +50,12 @@ public class CastleBow extends WraqBow implements ForgeItem, ActiveItem {
         components.add(Component.literal(" 你的箭矢攻击将使敌人被拖入暗影之中").withStyle(ChatFormatting.ITALIC).withStyle(style));
         components.add(Component.literal(" 你的").withStyle(ChatFormatting.WHITE).
                 append(Component.literal("箭矢攻击").withStyle(CustomStyle.styleOfFlexible)).
-                append(Component.literal("将附带造成伤害100%的").withStyle(ChatFormatting.WHITE)).
+                append(Component.literal("将附带造成伤害" + (tier == 0 ? "25%" : "100%") + "的")
+                        .withStyle(ChatFormatting.WHITE)).
                 append(ComponentUtils.AttributeDescription.manaDamageValue("")));
+        if (tier == 0) {
+            components.add(Te.s(" 倍率可被", "锐化至", CustomStyle.styleOfWorld, "100%", style));
+        }
         Compute.DescriptionActive(components, Component.literal("噬魔注能").withStyle(style));
         components.add(Component.literal(" 扣除自身").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.AttributeDescription.health("15%当前")).
@@ -65,30 +73,38 @@ public class CastleBow extends WraqBow implements ForgeItem, ActiveItem {
         return ComponentUtils.getSuffixOfCastle();
     }
 
-    public static void NormalAttack(Player player, Mob mob, double damage) {
-        if (player.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.CastleBow.get())) {
-            Damage.causeManaDamageToMonster_ApDamage_Direct(player, mob, damage, true);
+    public static void onNormalAttack(Player player, Mob mob, double damage) {
+        Item item = player.getMainHandItem().getItem();
+        if (item instanceof CastleBow castleBow) {
+            Damage.causeManaDamageToMonster_ApDamage_Direct(player, mob,
+                    damage * (castleBow.tier == 0 ? 0.25 : 1), true);
+
         }
     }
 
     @Override
     public List<ItemStack> forgeRecipe() {
-        return new ArrayList<>() {{
-            add(new ItemStack(ModItems.CastleBowPiece.get(), 12));
-            add(new ItemStack(ModItems.CastlePiece.get(), 192));
-            add(new ItemStack(ModItems.BeaconRune.get(), 8));
-            add(new ItemStack(ModItems.COMPLETE_GEM.get(), 26));
-            add(new ItemStack(ModItems.ReputationMedal.get(), 104));
-            add(new ItemStack(PickaxeItems.TINKER_GOLD.get(), 12));
-            add(new ItemStack(ModItems.WORLD_SOUL_3.get(), 6));
-        }};
+        if (tier == 0) {
+            return List.of(
+                    new ItemStack(ModItems.CastleBowPiece.get(), 12),
+                    new ItemStack(ModItems.CastlePiece.get(), 192),
+                    new ItemStack(ModItems.BeaconRune.get(), 8),
+                    new ItemStack(PickaxeItems.TINKER_GOLD.get(), 12)
+            );
+        }
+        return List.of(
+                new ItemStack(ModItems.CASTLE_BOW.get()),
+                new ItemStack(ModItems.COMPLETE_GEM.get(), 26),
+                new ItemStack(ModItems.ReputationMedal.get(), 104),
+                new ItemStack(ModItems.WORLD_SOUL_3.get(), 6)
+        );
     }
 
     @Override
     public void active(Player player) {
         Compute.decreasePlayerHealth(player, player.getHealth() * 0.15,
                 Component.literal(" 被暗黑魔能吞噬了。").withStyle(CustomStyle.styleOfCastle));
-        Compute.playerItemCoolDown(player, this, 15);
+        Compute.playerItemCoolDown(player, ModItems.CASTLE_BOW.get(), 15);
         StableAttributesModifier.addM(player, StableAttributesModifier.playerCommonDamageEnhance,
                 "castle weapon active", 0.25, Tick.get() + 120);
         StableAttributesModifier.addM(player, StableAttributesModifier.playerDefencePenetrationModifier,
@@ -100,5 +116,10 @@ public class CastleBow extends WraqBow implements ForgeItem, ActiveItem {
     @Override
     public double manaCost(Player player) {
         return 0;
+    }
+
+    @Override
+    public int getEnhanceTier() {
+        return tier;
     }
 }

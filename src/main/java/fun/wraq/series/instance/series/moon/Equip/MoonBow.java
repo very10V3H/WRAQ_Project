@@ -4,6 +4,9 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.equip.WraqBow;
 import fun.wraq.common.equip.impl.ActiveItem;
+import fun.wraq.common.fast.Te;
+import fun.wraq.common.impl.display.EnhancedForgedItem;
+import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.impl.onhit.OnHitEffectEquip;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
@@ -16,12 +19,12 @@ import fun.wraq.process.func.ChangedAttributesModifier;
 import fun.wraq.process.func.EnhanceNormalAttack;
 import fun.wraq.process.func.EnhanceNormalAttackModifier;
 import fun.wraq.process.func.particle.ParticleProvider;
+import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -32,10 +35,11 @@ import net.minecraft.world.phys.AABB;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MoonBow extends WraqBow implements ActiveItem, OnHitEffectEquip {
+public class MoonBow extends WraqBow implements ActiveItem, OnHitEffectEquip, ForgeItem, EnhancedForgedItem {
 
     private final double activeRate;
-    public MoonBow(Properties properties, double activeRate) {
+    private final int tier;
+    public MoonBow(Properties properties, double activeRate, int tier) {
         super(properties);
         Utils.attackDamage.put(this, 1200d);
         Utils.defencePenetration0.put(this, 29d);
@@ -43,6 +47,7 @@ public class MoonBow extends WraqBow implements ActiveItem, OnHitEffectEquip {
         Utils.critDamage.put(this, 1.35);
         this.activeRate = activeRate;
         Utils.levelRequire.put(this, 160);
+        this.tier = tier;
     }
 
     @Override
@@ -73,6 +78,10 @@ public class MoonBow extends WraqBow implements ActiveItem, OnHitEffectEquip {
                 append(ComponentUtils.AttributeDescription.attackDamage("200%")).
                 append(Component.literal("的").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("护盾").withStyle(ChatFormatting.GRAY)));
+        if (tier == 0) {
+            components.add(Te.s(" 额外攻击", CustomStyle.styleOfAttack, "与", "护盾倍率", CustomStyle.styleOfStone,
+                    "在", "锐化后", CustomStyle.styleOfWorld, "翻倍"));
+        }
         ComponentUtils.coolDownTimeDescription(components, 27);
         return components;
     }
@@ -104,12 +113,12 @@ public class MoonBow extends WraqBow implements ActiveItem, OnHitEffectEquip {
 
     @Override
     public void active(Player player) {
-        Compute.playerItemCoolDown(player, ModItems.MoonBow.get(), 27);
+        Compute.playerItemCoolDown(player, ModItems.MOON_BOW.get(), 27);
         EnhanceNormalAttackModifier.addModifier(player, new EnhanceNormalAttackModifier("moonBowActive", 1, new EnhanceNormalAttack() {
             @Override
             public void hit(Player player, Mob mob) {
                 Shield.providePlayerShield(player, 160, PlayerAttributes.attackDamage(player) * 2);
-                Compute.sendEffectLastTime(player, ModItems.MoonBow.get().getDefaultInstance(), 200);
+                Compute.sendEffectLastTime(player, ModItems.MOON_BOW.get().getDefaultInstance(), 200);
                 List<Mob> mobList = mob.level().getEntitiesOfClass(Mob.class, AABB.ofSize(mob.position(), 15, 15, 15));
                 mobList.removeIf(mob1 -> mob1.distanceTo(mob) > 6);
                 double attackDamage = 0;
@@ -120,11 +129,34 @@ public class MoonBow extends WraqBow implements ActiveItem, OnHitEffectEquip {
                         "moonBowActive", attackDamage * activeRate, 200, true);
             }
         }));
-        Compute.sendEffectLastTime(player, ModItems.MoonBow.get().getDefaultInstance(), 8888, 0, true);
+        Compute.sendEffectLastTime(player, ModItems.MOON_BOW.get().getDefaultInstance(), 8888, 0, true);
     }
 
     @Override
     public double manaCost(Player player) {
         return 60;
+    }
+
+    @Override
+    public int getEnhanceTier() {
+        return tier;
+    }
+
+    @Override
+    public List<ItemStack> forgeRecipe() {
+        if (tier == 0) {
+            return List.of(
+                    new ItemStack(ModItems.MoonCompleteGem.get(), 16),
+                    new ItemStack(ModItems.GOLD_COIN.get(), 384),
+                    new ItemStack(PickaxeItems.TINKER_IRON.get(), 16),
+                    new ItemStack(PickaxeItems.TINKER_COPPER.get(), 16)
+            );
+        }
+        return List.of(
+                new ItemStack(ModItems.MOON_SCEPTRE.get()),
+                new ItemStack(ModItems.COMPLETE_GEM.get(), 20),
+                new ItemStack(ModItems.ReputationMedal.get(), 80),
+                new ItemStack(ModItems.WORLD_SOUL_3.get(), 8)
+        );
     }
 }

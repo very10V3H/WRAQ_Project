@@ -19,28 +19,30 @@ import net.minecraft.world.item.Item;
 
 import java.util.List;
 
-public class IceWeaponPassiveHelper {
+public class IceWeaponHelper {
     public static void onHit(Player player, Mob mob) {
         Compute.addSlowDownEffect(mob, 20, 1);
         MySound.soundToNearPlayer(player, SoundEvents.SNOW_BREAK);
     }
 
-    public static void onCritHit(Player player, Mob mob, Item icon, int maxTier) {
+    public static void onCritHit(Player player, Mob mob, Item icon, int maxTier, int tier) {
         String tag = "Ice equip passive" + icon;
         if (StableTierAttributeModifier.getAttributeModifierTier(mob, StableTierAttributeModifier.onlyDisplay, tag) == maxTier) {
             Damage.causeAutoAdaptionRateDamageToMob(player, mob, 2, false);
             StableTierAttributeModifier.removeAttributeModifier(mob, StableTierAttributeModifier.onlyDisplay, tag, icon);
-            StableAttributesModifier.addM(mob,
-                    maxTier == 5 ? StableAttributesModifier.mobPercentDefenceModifier : StableAttributesModifier.mobPercentManaDefenceModifier,
-                    tag + "Defence decrease", -0.3, Tick.get() + 100, ModItems.IceHeart.get());
             Compute.createIceParticle(mob);
-            StableAttributesModifier.addM(player, StableAttributesModifier.playerCritRateModifier,
-                    "Ice equip passive crit rate up", 0.3, Tick.get() + 100);
+            if (tier > 0) {
+                StableAttributesModifier.addM(mob,
+                        maxTier == 5 ? StableAttributesModifier.mobPercentDefenceModifier : StableAttributesModifier.mobPercentManaDefenceModifier,
+                        tag + "Defence decrease", -0.3, Tick.get() + 100, ModItems.IceHeart.get());
+                StableAttributesModifier.addM(player, StableAttributesModifier.playerCritRateModifier,
+                        "Ice equip passive crit rate up", 0.3, Tick.get() + 100);
+            }
         }
         StableTierAttributeModifier.addM(mob, StableTierAttributeModifier.onlyDisplay, tag, 0, Tick.get() + 100, maxTier, icon);
     }
 
-    public static void description(List<Component> components) {
+    public static void description(List<Component> components, int tier) {
         ComponentUtils.descriptionPassive(components, Component.literal("迸晶裂玉").withStyle(CustomStyle.styleOfIce));
         components.add(Component.literal(" 攻击").withStyle(CustomStyle.styleOfPower).
                 append(Component.literal("将对目标造成持续1s的").withStyle(ChatFormatting.WHITE)).
@@ -57,10 +59,15 @@ public class IceWeaponPassiveHelper {
                 append(Te.m("达到5层后，下次暴击会引爆所有层数")));
         components.add(Te.m(" 对目标造成").
                 append(ComponentUtils.getAutoAdaptDamageDescription("200%")));
-        components.add(Te.m(" 并击碎目标").
-                append(ComponentUtils.AttributeDescription.defence("25%")).
-                append(Te.m("，持续5s")));
-        components.add(Te.s(" 自身获得", ComponentUtils.AttributeDescription.critRate("30%")
-                , "，持续5s"));
+        if (tier == 0) {
+            components.add(Te.s(" 锐化后", CustomStyle.styleOfWorld, "可激活",
+                    "穿甲", CustomStyle.styleOfStone, "/", "暴击", CustomStyle.styleOfLucky, "效果"));
+        } else {
+            components.add(Te.m(" 并击碎目标").
+                    append(ComponentUtils.AttributeDescription.defence("25%")).
+                    append(Te.m("，持续5s")));
+            components.add(Te.s(" 自身获得", ComponentUtils.AttributeDescription.critRate("30%")
+                    , "，持续5s"));
+        }
     }
 }
