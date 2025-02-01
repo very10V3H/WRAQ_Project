@@ -58,6 +58,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.scores.Scoreboard;
 import net.minecraftforge.event.TickEvent;
@@ -325,7 +326,44 @@ public class LoginInEvent {
             SkillV2.sendInfoToClient(player);
 
             SkillV2.afterVerUpdateLogin(player);
+
+            String enhanceForge = "enhanceForgeEquipAdjust";
+            if (!data.contains(enhanceForge)) {
+                data.putBoolean(enhanceForge, true);
+                for (int i = 0 ; i < player.getInventory().getContainerSize() ; i ++) {
+                    ItemStack stack = player.getInventory().getItem(i);
+                    Item item = stack.getItem();
+                    if (getEnhanceForgeEquipMap().containsKey(item)) {
+                        Item itemE = getEnhanceForgeEquipMap().get(item);
+                        ItemStack stackE = new ItemStack(itemE);
+                        stackE.getOrCreateTagElement(Utils.MOD_ID).merge(stack.getOrCreateTagElement(Utils.MOD_ID));
+                        stackE.resetHoverName();
+                        Compute.sendFormatMSG(player, Te.s("更新", CustomStyle.styleOfFlexible),
+                                Te.s(stack, "已被替换为", stackE));
+                        player.getInventory().setItem(i, stackE);
+                    }
+                }
+            }
         }
+    }
+
+    public static Map<Item, Item> enhanceForgeEquipMap = new HashMap<>();
+    public static Map<Item, Item> getEnhanceForgeEquipMap() {
+        if (enhanceForgeEquipMap.isEmpty()) {
+            enhanceForgeEquipMap.put(ModItems.NETHER_SCEPTRE.get(), ModItems.NETHER_SCEPTRE_E.get());
+            enhanceForgeEquipMap.put(ModItems.NETHER_SWORD.get(), ModItems.NETHER_SWORD_E.get());
+            enhanceForgeEquipMap.put(ModItems.NETHER_KNIFE.get(), ModItems.NETHER_KNIFE_E.get());
+            enhanceForgeEquipMap.put(ModItems.MOON_SWORD.get(), ModItems.MOON_SWORD_E.get());
+            enhanceForgeEquipMap.put(ModItems.MOON_BOW.get(), ModItems.MOON_BOW_E.get());
+            enhanceForgeEquipMap.put(ModItems.MOON_SCEPTRE.get(), ModItems.MOON_SCEPTRE_E.get());
+            enhanceForgeEquipMap.put(ModItems.ICE_SWORD.get(), ModItems.ICE_SWORD_E.get());
+            enhanceForgeEquipMap.put(ModItems.ICE_BOW.get(), ModItems.ICE_BOW_E.get());
+            enhanceForgeEquipMap.put(ModItems.ICE_SCEPTRE.get(), ModItems.ICE_SCEPTRE_E.get());
+            enhanceForgeEquipMap.put(ModItems.CASTLE_SWORD.get(), ModItems.CASTLE_SWORD_E.get());
+            enhanceForgeEquipMap.put(ModItems.CASTLE_BOW.get(), ModItems.CASTLE_BOW_E.get());
+            enhanceForgeEquipMap.put(ModItems.CASTLE_SCEPTRE.get(), ModItems.CASTLE_SCEPTRE_E.get());
+        }
+        return enhanceForgeEquipMap;
     }
 
     public static WeakHashMap<Player, Integer> newPlayerMSGDelay1 = new WeakHashMap<>();
