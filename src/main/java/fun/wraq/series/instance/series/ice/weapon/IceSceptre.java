@@ -136,7 +136,7 @@ public class IceSceptre extends WraqSceptre implements OnHitEffectEquip, OnPower
             );
         }
         return List.of(
-                new ItemStack(ModItems.ICE_SCEPTRE_E.get()),
+                new ItemStack(ModItems.ICE_SCEPTRE.get()),
                 new ItemStack(ModItems.COMPLETE_GEM.get(), 6),
                 new ItemStack(ModItems.ReputationMedal.get(), 48),
                 new ItemStack(ModItems.WORLD_SOUL_3.get(), 2)

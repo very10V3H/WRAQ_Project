@@ -79,8 +79,8 @@ public class WraqGem extends Item {
                         new AttributeMapValue(Utils.healthRecover, 20)));
                 put(2, List.of(new AttributeMapValue(Utils.critDamage, 0.03),
                         new AttributeMapValue(Utils.coolDownDecrease, 0.05)));
-                put(3, List.of(new AttributeMapValue(Utils.defencePenetration, 0.05),
-                        new AttributeMapValue(Utils.manaPenetration, 0.05)));
+                put(3, List.of(new AttributeMapValue(Utils.defencePenetration, 0.02),
+                        new AttributeMapValue(Utils.manaPenetration, 0.02)));
                 put(4, List.of(new AttributeMapValue(Utils.percentAttackDamageEnhance, 0.03),
                         new AttributeMapValue(Utils.percentManaDamageEnhance, 0.03)));
             }};

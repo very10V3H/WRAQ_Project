@@ -176,7 +176,7 @@ public class GemItems {
 
     public static final RegistryObject<Item> magmaGem = ITEMS.register("magma_gem",
             () -> new WraqGem(new Item.Properties().rarity(CustomStyle.MagmaBold), new ArrayList<>() {{
-                add(new WraqGem.AttributeMapValue(Utils.manaPenetration, 0.05));
+                add(new WraqGem.AttributeMapValue(Utils.manaPenetration, 0.03));
                 add(new WraqGem.AttributeMapValue(Utils.manaPenetration0, 3));
                 add(new WraqGem.AttributeMapValue(Utils.percentMaxHealthEnhance, -0.05));
             }}, CustomStyle.styleOfMagma, Component.literal("用封装下界熔岩能量所打造而成。").withStyle(CustomStyle.styleOfMagma),
@@ -190,7 +190,7 @@ public class GemItems {
 
     public static final RegistryObject<Item> netherSkeletonGem = ITEMS.register("nether_skeleton_gem",
             () -> new WraqGem(new Item.Properties().rarity(CustomStyle.WitherBold), new ArrayList<>() {{
-                add(new WraqGem.AttributeMapValue(Utils.defencePenetration, 0.05));
+                add(new WraqGem.AttributeMapValue(Utils.defencePenetration, 0.03));
                 add(new WraqGem.AttributeMapValue(Utils.defencePenetration0, 3));
                 add(new WraqGem.AttributeMapValue(Utils.percentMaxHealthEnhance, -0.05));
             }}, CustomStyle.styleOfWither, Component.literal("用精细下界骷髅粉末打造而成。").withStyle(CustomStyle.styleOfWither),

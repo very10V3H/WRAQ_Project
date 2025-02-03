@@ -53,7 +53,7 @@ public class ManaNewSkillPassive0 extends SkillV2PassiveSkill {
                 Compute.getNearEntity(mob, Mob.class, 1)
                         .stream().map(entity -> (Mob) entity)
                         .forEach(eachMob -> {
-                            Damage.causeRateApDamageToMonster(player, eachMob, 1 + skillLevel * 0.1, false);
+                            Damage.causeRateApDamageToMonster(player, eachMob, 0.5 + skillLevel * 0.05, false);
                         });
                 mobCountMap.compute(mob, (k, v) -> v == null ? 0 : v - 1);
                 int count = mobCountMap.get(mob);
@@ -77,7 +77,7 @@ public class ManaNewSkillPassive0 extends SkillV2PassiveSkill {
         components.add(Te.s("普攻命中目标时，将施加一层 ", "渗", CustomStyle.styleOfMana));
         components.add(Te.s("至多叠加至", "5", CustomStyle.styleOfMana, "层，法术技能命中时"));
         components.add(Te.s("将引爆一层 ", "渗", CustomStyle.styleOfMana, "，对目标周围小范围敌人"));
-        components.add(Te.s("造成", getRateDescription(1, 0.1, level),
+        components.add(Te.s("造成", getRateDescription(0.5, 0.05, level),
                 CustomStyle.styleOfMana, "伤害"));
         return components;
     }

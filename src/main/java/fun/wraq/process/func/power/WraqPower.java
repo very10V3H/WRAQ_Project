@@ -28,7 +28,6 @@ public abstract class WraqPower extends Item implements ActiveItem {
     public WraqPower(Properties properties) {
         super(properties);
         Utils.powerTag.put(this, 1d);
-        Utils.weaponList.add(this);
         Display.powerList.add(this);
     }
 

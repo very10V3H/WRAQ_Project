@@ -20,7 +20,7 @@ public class EndCuriosBow extends WraqCurios implements Souvenirs {
     public EndCuriosBow(Properties p_41383_) {
         super(p_41383_);
         Utils.attackDamage.put(this, 88d);
-        Utils.defencePenetration.put(this, 0.1);
+        Utils.defencePenetration.put(this, 0.05);
         Utils.critDamage.put(this, 0.05);
         Utils.swiftnessUp.put(this, 1d);
         Display.souvenirsList.add(this);

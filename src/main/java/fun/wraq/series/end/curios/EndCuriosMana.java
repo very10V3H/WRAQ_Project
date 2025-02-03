@@ -20,7 +20,7 @@ public class EndCuriosMana extends WraqCurios implements Souvenirs {
     public EndCuriosMana(Properties p_41383_) {
         super(p_41383_);
         Utils.manaDamage.put(this, 194d);
-        Utils.manaPenetration.put(this, 0.1);
+        Utils.manaPenetration.put(this, 0.05);
         Utils.maxMana.put(this, 20d);
         Utils.manaRecover.put(this, 10d);
         Display.souvenirsList.add(this);

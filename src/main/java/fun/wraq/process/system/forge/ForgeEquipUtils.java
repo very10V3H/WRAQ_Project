@@ -188,7 +188,6 @@ public class ForgeEquipUtils {
         List<Item> sakura = List.of(
                 ModItems.SakuraDemonSword.get(),
                 ModItems.SakuraBow.get(),
-                ModItems.SakuraArmorHelmet.get(),
                 ModItems.goldenShield.get(),
                 ModItems.goldenKnife.get(),
                 ModItems.ManaShield.get(),

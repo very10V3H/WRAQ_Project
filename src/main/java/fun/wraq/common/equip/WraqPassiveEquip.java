@@ -31,7 +31,9 @@ public abstract class WraqPassiveEquip extends PickaxeItem {
     public WraqPassiveEquip(Properties p_40524_) {
         super(ItemTier.VMaterial, 2, 0, p_40524_);
         Utils.passiveEquipTag.put(this, 1d);
-        Utils.weaponList.add(this);
+        if (!(this instanceof WraqBlade || this instanceof WraqMixture || this instanceof WraqQuiver)) {
+            Utils.weaponList.add(this);
+        }
         Display.passiveEquipList.add(this);
     }
 
