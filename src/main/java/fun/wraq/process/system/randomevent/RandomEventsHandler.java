@@ -292,7 +292,7 @@ public class RandomEventsHandler {
 
     public static void ready() {
         Random random = new Random();
-        nextTimeEvent = getRandomEvents().get(random.nextInt(getRandomEvents().size()));
+        nextTimeEvent = getRandomEvents().get(random.nextInt(getRandomEvents().size() - 1));
         nextTimeEvent.setWorldSoul5Reward(random.nextDouble() < 0.5);
         if (!nextTimeEvent.readyAnnouncement.isEmpty()) {
             nextTimeEvent.readyAnnouncement.forEach(component -> {

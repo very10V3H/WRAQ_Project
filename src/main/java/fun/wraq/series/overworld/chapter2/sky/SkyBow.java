@@ -46,7 +46,7 @@ public class SkyBow extends WraqBow implements OnHitEffectEquip {
         components.add(Te.m(" ").
                 append(ComponentUtils.AttributeDescription.movementSpeed("12%")));
         components.add(Te.m(" ").
-                append(ComponentUtils.AttributeDescription.critDamage("30%")));
+                append(ComponentUtils.AttributeDescription.critDamage("20%")));
         return components;
     }
 
@@ -58,7 +58,7 @@ public class SkyBow extends WraqBow implements OnHitEffectEquip {
     @Override
     public void onHit(Player player, Mob mob) {
         StableAttributesModifier.addM(player, StableAttributesModifier.playerCritDamageModifier,
-                "SkyBow passive critDamage", 0.35, Tick.get() + 60);
+                "SkyBow passive critDamage", 0.2, Tick.get() + 60);
         StableAttributesModifier.addM(player, StableAttributesModifier.playerMovementSpeedModifier,
                 "SkyBow passive movementSpeed", 0.12, Tick.get() + 60);
         Compute.sendEffectLastTime(player, ModItems.SkyBow.get(), 60);

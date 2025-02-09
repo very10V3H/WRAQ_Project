@@ -1,14 +1,13 @@
 package fun.wraq.series.overworld.sakura.BloodMana;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.StableAttributesModifier;
-import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.overworld.sakura.EarthMana.EarthManaCurios;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -57,10 +56,11 @@ public class BloodManaCurios extends WraqCurios {
     }
 
     public static void passive(Player player) {
-        if (WraqCurios.isOn(BloodManaCurios.class, player) || WraqCurios.isOn(EarthManaCurios.class, player)) {
+        if (Compute.hasCurios(player, ModItems.BloodManaCurios.get())
+                || Compute.hasCurios(player, ModItems.EarthManaCurios.get())) {
             StableAttributesModifier.addAttributeModifier(player, StableAttributesModifier.playerHealthRecoverModifier,
                     new StableAttributesModifier("manaCuriosPassiveHealthRecover", player.getMaxHealth() * 0.05, Tick.get() + 60));
-            if (WraqCurios.isOn(BloodManaCurios.class, player))
+            if (Compute.hasCurios(player, ModItems.BloodManaCurios.get()))
                 Compute.sendEffectLastTime(player, ModItems.BloodManaCurios.get(), 60);
             else Compute.sendEffectLastTime(player, ModItems.EarthManaCurios.get(), 60);
         }

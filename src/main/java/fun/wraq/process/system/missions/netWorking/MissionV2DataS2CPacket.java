@@ -1,31 +1,32 @@
 package fun.wraq.process.system.missions.netWorking;
 
-import fun.wraq.process.system.missions.MissionClient;
+import fun.wraq.process.system.missions.mission2.MissionV2;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-public class MissionStatusS2CPacket {
+public class MissionV2DataS2CPacket {
 
-    private final String status;
+    private final CompoundTag data;
 
-    public MissionStatusS2CPacket(String status) {
-        this.status = status;
+    public MissionV2DataS2CPacket(CompoundTag data) {
+        this.data = data;
     }
 
-    public MissionStatusS2CPacket(FriendlyByteBuf buf) {
-        this.status = buf.readUtf();
+    public MissionV2DataS2CPacket(FriendlyByteBuf buf) {
+        this.data = buf.readNbt();
     }
 
     public void toBytes(FriendlyByteBuf buf) {
-        buf.writeUtf(status);
+        buf.writeNbt(data);
     }
 
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
-            MissionClient.missionStatus = status;
+            MissionV2.clientMissionData = data;
         });
         return true;
     }

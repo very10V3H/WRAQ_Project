@@ -12,7 +12,6 @@ import fun.wraq.events.mob.instance.NoTeamInstanceModule;
 import fun.wraq.events.mob.instance.instances.dimension.NetherInstance;
 import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.system.element.Element;
-import fun.wraq.process.system.missions.series.dailyMission.DailyMission;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -90,7 +89,6 @@ public class PurpleIronInstance extends NoTeamInstance {
                 }
             }
         });
-        DailyMission.addCount(player, DailyMission.purpleIronInstanceCountMap);
 
         String name = player.getName().getString();
         if (!MobSpawn.tempKillCount.containsKey(name)) MobSpawn.tempKillCount.put(name, new HashMap<>());

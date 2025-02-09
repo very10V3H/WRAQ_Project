@@ -60,8 +60,7 @@ public class MoonCurios extends Item implements ICurioItem {
     public static WeakHashMap<Player, Integer> passiveCoolDownMap = new WeakHashMap<>();
 
     public static double Passive(Player player, Mob mob) {
-        List<ItemStack> curiosList = Compute.CuriosAttribute.getDistinctCuriosList(player);
-        if (curiosList.stream().anyMatch(itemStack -> itemStack.is(ModItems.MoonCurios.get()))) {
+        if (Compute.CuriosAttribute.getDistinctCuriosSet(player).contains(ModItems.MoonCurios.get())) {
             int TickCount = Tick.get();
             if (!passiveCoolDownMap.containsKey(player) || TickCount > passiveCoolDownMap.get(player)) {
                 passiveCoolDownMap.put(player, TickCount + 200);

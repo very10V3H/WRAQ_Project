@@ -1,12 +1,13 @@
 package fun.wraq.series.newrunes.chapter6;
 
+import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.equip.WraqCurios;
+import fun.wraq.common.impl.display.UsageOrGetWayDescriptionItem;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
-import fun.wraq.common.impl.display.UsageOrGetWayDescriptionItem;
-import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.instance.series.lava.rune.DarkRune;
+import fun.wraq.series.newrunes.NewRuneItems;
 import fun.wraq.series.newrunes.RuneItem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -61,7 +62,7 @@ public class CastleNewRune extends WraqCurios implements RuneItem, UsageOrGetWay
     }
 
     public static boolean isOn(Player player) {
-        return WraqCurios.isOn(CastleNewRune.class, player) || WraqCurios.isOn(DarkRune.class, player);
+        return Compute.hasCurios(player, NewRuneItems.castleNewRune.get());
     }
 
     public static double attackDamage(Player player) {

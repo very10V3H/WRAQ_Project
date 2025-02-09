@@ -9,6 +9,7 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.events.core.InventoryCheck;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.process.func.item.InventoryOperation;
+import fun.wraq.process.system.missions.mission2.MissionV2Helper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -149,6 +150,7 @@ public abstract class NoTeamInstance {
                                         append(Te.s(" * " + getRewardNeedItemCount(), ChatFormatting.AQUA)).
                                         append(Component.literal(" 因此你无法获得奖励").withStyle(ChatFormatting.WHITE)));
                     }
+                    MissionV2Helper.onChallengeFinished(player, name.getString());
                 }
             }
         });

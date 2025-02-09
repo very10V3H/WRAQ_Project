@@ -9,7 +9,6 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.chapter2.HuskSpawnController;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.instance.series.lava.rune.TabooRune;
 import fun.wraq.series.newrunes.NewRuneItems;
 import fun.wraq.series.newrunes.RuneItem;
 import net.minecraft.ChatFormatting;
@@ -67,7 +66,7 @@ public class HuskNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDe
     }
 
     public static boolean isOn(Player player) {
-        return WraqCurios.isOn(HuskNewRune.class, player) || WraqCurios.isOn(TabooRune.class, player);
+        return Compute.hasCurios(player, NewRuneItems.huskNewRune.get());
     }
 
     public static Map<String, Queue<Integer>> soulCollectionMap = new HashMap<>();

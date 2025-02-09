@@ -74,7 +74,7 @@ public class LightningNewRune extends WraqCurios implements RuneItem, UsageOrGet
     public static Map<String, Integer> cooldownMap = new HashMap<>();
 
     public static boolean isOn(Player player) {
-        return WraqCurios.isOn(LightningNewRune.class, player);
+        return Compute.hasCurios(player, NewRuneItems.lightningNewRune.get());
     }
 
     @Override

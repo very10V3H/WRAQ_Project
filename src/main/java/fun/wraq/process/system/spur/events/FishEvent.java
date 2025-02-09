@@ -4,7 +4,6 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.Utils;
 import fun.wraq.process.func.item.InventoryOperation;
-import fun.wraq.process.system.missions.series.labourDay.LabourDayMission;
 import fun.wraq.process.system.spur.Items.SpurItems;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.nbt.CompoundTag;
@@ -46,7 +45,6 @@ public class FishEvent {
         ItemStack SilverCoin = ModItems.silverCoin.get().getDefaultInstance();
         ItemStack SeaSoul = ModItems.SeaSoul.get().getDefaultInstance();
         Utils.dayFishCount.put(player.getName().getString(), Utils.dayFishCount.getOrDefault(player.getName().getString(), 0) + 1);
-        LabourDayMission.count(player, LabourDayMission.fishCounts);
         double rateEnhance = Compute.playerExHarvest(player);
         if (RodLevel > 2000) {
             double rate = 0.07 * (1 + rateEnhance);

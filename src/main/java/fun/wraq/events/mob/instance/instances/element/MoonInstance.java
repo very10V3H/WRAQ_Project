@@ -13,7 +13,6 @@ import fun.wraq.events.mob.instance.NoTeamInstanceModule;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.func.particle.ParticleProvider;
-import fun.wraq.process.system.missions.series.dailyMission.DailyMission;
 import fun.wraq.projectiles.mana.ManaArrow;
 import fun.wraq.render.particles.ModParticles;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -135,7 +134,6 @@ public class MoonInstance extends NoTeamInstance {
         rewardList.forEach(itemAndRate -> {
             itemAndRate.sendWithMSG(player, 1);
         });
-        DailyMission.addCount(player, DailyMission.moonInstanceCountMap);
 
         String name = player.getName().getString();
         if (!MobSpawn.tempKillCount.containsKey(name)) MobSpawn.tempKillCount.put(name, new HashMap<>());

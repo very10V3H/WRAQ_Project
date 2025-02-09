@@ -4,12 +4,12 @@ import com.mojang.datafixers.util.Pair;
 import com.simibubi.create.content.trains.entity.CarriageContraptionEntity;
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
 import fun.wraq.render.hud.Mana;
 import fun.wraq.render.hud.SwiftData;
 import fun.wraq.series.newrunes.chapter1.LakeNewRune;
-import fun.wraq.series.overworld.chapter1.plain.PlainRing;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -81,8 +81,7 @@ public class AttributeSet {
                         player.getAttribute(ForgeMod.ENTITY_GRAVITY.get()).setBaseValue(0.08);
                     }
 
-                    if (Compute.CuriosAttribute.getDistinctCuriosList(player)
-                            .stream().anyMatch(stack -> stack.getItem() instanceof PlainRing)) {
+                    if (Compute.CuriosAttribute.getDistinctCuriosSet(player).contains(ModItems.PlainRing.get())) {
                         if (!Compute.getNearEntity(player, CarriageContraptionEntity.class, 16).isEmpty()) {
                             player.getAttribute(ForgeMod.STEP_HEIGHT_ADDITION.get()).setBaseValue(0);
                         } else {

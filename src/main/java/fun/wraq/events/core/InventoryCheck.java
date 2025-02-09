@@ -65,7 +65,8 @@ public class InventoryCheck {
                                 Te.s(itemStack.getDisplayName(), "在版本改动后数值有所调整，其数值已被重置"));
                         RandomLootEquip.setRandomAttribute(itemStack);
                     }
-                    if (data.contains(InventoryCheck.owner) && !data.getString(InventoryCheck.owner).equals(player.getName().getString())) {
+                    if (data.contains(InventoryCheck.owner)
+                            && !data.getString(InventoryCheck.owner).equalsIgnoreCase(player.getName().getString())) {
                         Player ItemOwner = player.getServer().getPlayerList().getPlayerByName(data.getString(InventoryCheck.owner));
                         if (ItemOwner == null) {
                             LogUtils.getLogger().info("ItemOwner is null!");

@@ -43,17 +43,14 @@ import fun.wraq.process.system.element.equipAndCurios.fireElement.FireEquip;
 import fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementBow;
 import fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSceptre;
 import fun.wraq.process.system.element.equipAndCurios.lifeElement.LifeElementSword;
-import fun.wraq.process.system.element.networking.CurrentSeasonAndResonanceTypeS2CPacket;
 import fun.wraq.process.system.endlessinstance.item.special.HoursExHarvestPotion;
 import fun.wraq.process.system.entrustment.mob.MobKillEntrustment;
-import fun.wraq.process.system.missions.Mission;
-import fun.wraq.process.system.missions.series.dailyMission.DailyMission;
+import fun.wraq.process.system.missions.mission2.MissionV2;
 import fun.wraq.process.system.point.Point;
 import fun.wraq.process.system.profession.pet.allay.AllayPet;
 import fun.wraq.process.system.reason.Reason;
 import fun.wraq.process.system.respawn.MyRespawnRule;
 import fun.wraq.process.system.restzone.RestZone;
-import fun.wraq.process.system.season.MySeason;
 import fun.wraq.process.system.skill.ManaSkillTree;
 import fun.wraq.process.system.skill.skillv2.mana.ManaNewSkillFinal0;
 import fun.wraq.process.system.smelt.Smelt;
@@ -65,6 +62,10 @@ import fun.wraq.render.hud.networking.PlayerIsInBattleS2CPacket;
 import fun.wraq.render.mobEffects.ModEffects;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.end.curios.EndCrystal;
+import fun.wraq.series.events.labourDay.LabourDayIronHoe;
+import fun.wraq.series.events.labourDay.LabourDayIronPickaxe;
+import fun.wraq.series.events.spring2025.Spring2025BossBar;
+import fun.wraq.series.events.spring2025.Spring2025ZoneFirework;
 import fun.wraq.series.gems.passive.impl.GemTickHandler;
 import fun.wraq.series.instance.mixture.WraqMixture;
 import fun.wraq.series.instance.quiver.WraqQuiver;
@@ -77,10 +78,6 @@ import fun.wraq.series.overworld.sakura.Boss2.GoldenAttackOffhand;
 import fun.wraq.series.overworld.sakura.Boss2.GoldenBook;
 import fun.wraq.series.overworld.sakura.Slime.SlimeBoots;
 import fun.wraq.series.overworld.sun.network.TotalKillCountS2CPacket;
-import fun.wraq.series.events.labourDay.LabourDayIronHoe;
-import fun.wraq.series.events.labourDay.LabourDayIronPickaxe;
-import fun.wraq.series.events.spring2025.Spring2025BossBar;
-import fun.wraq.series.events.spring2025.Spring2025ZoneFirework;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -135,13 +132,9 @@ public class ServerPlayerTickEvent {
             LifeElementSceptre.Tick(player);
             FireEquip.Tick(player);
             /*LabourDayMobSummon.playerTick(event);*/
-            Mission.autoSubmit(player); // 自动检测任务是否完成
             LabourDayIronHoe.tick(player);
             LabourDayIronPickaxe.tick(player);
-            /*LabourDayMission.sendPacketsToPlayer(player);*/
-            DailyMission.statusPacketSend(player);
             RoadCommand.tick(player);
-            /*BackSpawn.tick(player);*/
             MyRespawnRule.setPlayerSpawnPoint(player);
             WraqForge.tick(event);
             PlanPlayer.setFoodData(serverPlayer);
@@ -151,7 +144,6 @@ public class ServerPlayerTickEvent {
             GoldenAttackOffhand.handleTick(player);
             GoldenBook.handleTick(player);
             MoontainUtils.tick(player);
-
             WraqMainHandEquip.serverTick(player);
             WraqOffHandItem.serverTick(player);
             WraqArmor.serverTick(player);
@@ -172,6 +164,8 @@ public class ServerPlayerTickEvent {
             WraqMixture.handleServerPlayerTick(player);
             ManaNewSkillFinal0.handleServerPlayerTickEvent(serverPlayer);
             Spring2025BossBar.handleServerPlayerTick(serverPlayer);
+            MissionV2.handlePlayerTick(player);
+
             if (player.tickCount % 20 == 15) {
                 Spring2025ZoneFirework.handleServerPlayerTick(player);
             }
@@ -223,18 +217,6 @@ public class ServerPlayerTickEvent {
                 if (player.position().distanceTo(vec3) < 1) {
                     serverPlayer.teleportTo(player.getServer().getLevel(Level.END), 137.5, 50, 0.5, 90, -45);
                 }
-            }
-
-            if (player.tickCount % 250 == 0) Mission.autoAcceptMission(player);
-
-            if (player.tickCount == 300) {
-                if (Mission.inProgressMission(player) > 0) {
-                    Compute.sendFormatMSG(player, Component.literal("任务").withStyle(CustomStyle.styleOfFlexible),
-                            Component.literal("你有").withStyle(ChatFormatting.WHITE).
-                                    append(Component.literal("" + Mission.inProgressMission(player))).
-                                    append(Component.literal("尚未完成的任务，使用身份卡或快捷按键打开任务列表").withStyle(ChatFormatting.WHITE)));
-                }
-                ModNetworking.sendToClient(new CurrentSeasonAndResonanceTypeS2CPacket(MySeason.currentSeason, Element.PlayerResonanceType.getOrDefault(player, "")), serverPlayer);
             }
 
             if (player.tickCount % 20 == 0) {

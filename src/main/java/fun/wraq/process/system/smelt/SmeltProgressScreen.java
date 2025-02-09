@@ -118,10 +118,18 @@ public class SmeltProgressScreen extends Screen {
         }
         for (int i = 0; i < 5; i++) {
             if (page * 10 + i < list.size() && page * 10 + i < timeList.size()) {
-                displaySingleRecipe(list, timeList, graphics, page * 10 + i, tick, xOffset, x, y);
+                try {
+                    displaySingleRecipe(list, timeList, graphics, page * 10 + i, tick, xOffset, x, y);
+                } catch (ParseException e) {
+                    throw new RuntimeException(e);
+                }
             }
             if (page * 10 + 5 + i < list.size() && page * 10 + 5 + i < timeList.size()) {
-                displaySingleRecipe(list, timeList, graphics, page * 10 + 5 + i, tick, xOffset + 140, x, y);
+                try {
+                    displaySingleRecipe(list, timeList, graphics, page * 10 + 5 + i, tick, xOffset + 140, x, y);
+                } catch (ParseException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
 
@@ -153,7 +161,8 @@ public class SmeltProgressScreen extends Screen {
         super.render(graphics, x, y, v);
     }
 
-    private void displaySingleRecipe(List<SmeltRecipe> list, List<Calendar> timeList, GuiGraphics guiGraphics, int index, int tick , int xOffset, int x, int y) {
+    private void displaySingleRecipe(List<SmeltRecipe> list, List<Calendar> timeList, GuiGraphics guiGraphics,
+                                     int index, int tick , int xOffset, int x, int y) throws ParseException {
         SmeltRecipe smeltRecipe = list.get(index);
         Calendar finishedTime = timeList.get(index);
         index %= 5;
@@ -176,7 +185,13 @@ public class SmeltProgressScreen extends Screen {
         guiGraphics.drawCenteredString(font, smeltRecipe.name, this.width / 2 - 56 + xOffset, this.height / 2 - 86 + 32 * index, 0);
 
         // 需要材料 -> 剩余时间
-        String differenceFormatText = Compute.getDifferenceFormatText(finishedTime, Calendar.getInstance());
+        Calendar calendar;
+        if (ClientUtils.serverTime != null) {
+            calendar = Compute.StringToCalendar(ClientUtils.serverTime);
+        } else {
+            calendar = Calendar.getInstance();
+        }
+        String differenceFormatText = Compute.getDifferenceFormatText(finishedTime, calendar);
         if (differenceFormatText.equals("00:00:00")) {
             guiGraphics.drawCenteredString(font, Te.s("已完成", ChatFormatting.GREEN), this.width / 2 - 56 + xOffset, this.height / 2 - 71 + 32 * index, 0);
         } else {

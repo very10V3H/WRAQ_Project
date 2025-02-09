@@ -38,7 +38,7 @@ import fun.wraq.process.system.bonuschest.BonusChestPlayerData;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.entrustment.mob.MobKillEntrustment;
 import fun.wraq.process.system.lottery.NewLotteries;
-import fun.wraq.process.system.missions.series.dailyMission.DailyMission;
+import fun.wraq.process.system.missions.mission2.MissionV2Helper;
 import fun.wraq.process.system.parkour.Parkour;
 import fun.wraq.process.system.profession.smith.SmithPlayerData;
 import fun.wraq.process.system.randomevent.RandomEventData;
@@ -499,8 +499,6 @@ public class LoginInEvent {
         Compute.sendFormatMSG(player, Component.literal("日常").withStyle(CustomStyle.styleOfHealth),
                 Component.literal(" 你的日常活动已被刷新！").withStyle(ChatFormatting.WHITE));
         Tower.resetData(player);
-        DailyMission.resetData(player);
-
         sunPowerGetCount.put(player.getName().getString(), 0);
         lakeCoreGetCount.put(player.getName().getString(), 0);
         volcanoCoreGetCount.put(player.getName().getString(), 0);
@@ -511,6 +509,7 @@ public class LoginInEvent {
         BondDividends.setAllowGetDividends(player, true);
         Spring2025.dailyRedEnvelopeReward(player);
         SmithPlayerData.setDailyReward(player, true);
+        MissionV2Helper.onResetDailyContent(player);
     }
 
     public static void refreshWeeklyContent(Player player) {

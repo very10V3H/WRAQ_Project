@@ -112,6 +112,7 @@ import top.theillusivec4.curios.api.CuriosApi;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 import static java.lang.Math.abs;
 import static java.lang.Math.acos;
@@ -1344,14 +1345,12 @@ public class Compute {
 
     public static class CuriosAttribute {
 
-        public static Map<Player, Integer> curiosListLastGetTickMap = new WeakHashMap<>();
-        public static Map<Player, List<ItemStack>> curiosListCache = new WeakHashMap<>();
+        public static Map<Player, List<ItemStack>> curiosListCache = new ConcurrentHashMap<>();
         /**
          * 获取玩家去重饰品列表
          */
         public static List<ItemStack> getDistinctCuriosList(Player player) {
-            if (!curiosListCache.containsKey(player)
-                    || curiosListLastGetTickMap.getOrDefault(player, 0) + 20 < Tick.get()) {
+            if (!curiosListCache.containsKey(player)) {
                 List<ItemStack> curiosList = new ArrayList<>();
                 CuriosApi.getCuriosInventory(player).ifPresent(iCuriosItemHandler -> {
                     int size = iCuriosItemHandler.getEquippedCurios().getSlots();
@@ -1368,7 +1367,6 @@ public class Compute {
                     }
                 });
                 curiosListCache.put(player, curiosList);
-                curiosListLastGetTickMap.put(player, Tick.get());
             }
             return curiosListCache.get(player);
         }
@@ -1386,16 +1384,13 @@ public class Compute {
             return set;
         }
 
-        public static Map<Player, Integer> curiosSetLastGetTickMap = new WeakHashMap<>();
-        public static Map<Player, Set<Item>> curiosSetCache = new WeakHashMap<>();
+        public static Map<Player, Set<Item>> curiosSetCache = new ConcurrentHashMap<>();
         public static Set<Item> getDistinctCuriosSet(Player player) {
-            if (!curiosSetCache.containsKey(player)
-                    || curiosSetLastGetTickMap.getOrDefault(player, 0) + 20 < Tick.get()) {
+            if (!curiosSetCache.containsKey(player)) {
                 Set<Item> set = new HashSet<>(getDistinctCuriosList(player)
                         .stream().map(itemStack -> (Item) itemStack.getItem())
                         .toList());
                 curiosSetCache.put(player, set);
-                curiosSetLastGetTickMap.put(player, Tick.get());
             }
             return curiosSetCache.get(player);
         }
@@ -1464,8 +1459,7 @@ public class Compute {
     }
 
     public static boolean hasCurios(Player player, Item curios) {
-        return CuriosAttribute.getDistinctCuriosList(player).stream()
-                .anyMatch(itemStack -> itemStack.is(curios));
+        return CuriosAttribute.getDistinctCuriosSet(player).contains(curios);
     }
 
     public static void EndTp(List<Player> playerList, Vec3 pos) {

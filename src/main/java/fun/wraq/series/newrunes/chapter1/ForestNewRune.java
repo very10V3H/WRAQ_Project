@@ -8,7 +8,6 @@ import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.chapter1.ForestZombieSpawnController;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.instance.series.lava.rune.LifeRune;
 import fun.wraq.series.newrunes.NewRuneItems;
 import fun.wraq.series.newrunes.RuneItem;
 import net.minecraft.ChatFormatting;
@@ -59,7 +58,7 @@ public class ForestNewRune extends WraqCurios implements RuneItem, UsageOrGetWay
     }
 
     public static boolean isOn(Player player) {
-        return WraqCurios.isOn(ForestNewRune.class, player) || WraqCurios.isOn(LifeRune.class, player);
+        return Compute.hasCurios(player, NewRuneItems.forestNewRune.get());
     }
 
     public static Map<String, Integer> passiveNextActiveTime = new HashMap<>();

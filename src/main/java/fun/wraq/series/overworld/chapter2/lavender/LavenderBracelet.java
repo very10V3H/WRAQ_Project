@@ -1,15 +1,16 @@
 package fun.wraq.series.overworld.chapter2.lavender;
 
 import fun.wraq.blocks.entity.Decomposable;
+import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.equip.WraqCurios;
+import fun.wraq.common.equip.impl.RandomCurios;
+import fun.wraq.common.impl.display.UsageOrGetWayDescriptionItem;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.struct.Shield;
-import fun.wraq.common.equip.impl.RandomCurios;
-import fun.wraq.common.impl.display.UsageOrGetWayDescriptionItem;
-import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.castle.RandomCuriosAttributesUtil;
 import net.minecraft.ChatFormatting;
@@ -85,7 +86,7 @@ public class LavenderBracelet extends WraqCurios implements RandomCurios, UsageO
 
     @Override
     public void tick(Player player) {
-        if (player.tickCount % 20 == 0 && WraqCurios.isOn(LavenderBracelet.class, player)) {
+        if (player.tickCount % 20 == 0 && Compute.hasCurios(player, ModItems.lavenderBracelet.get())) {
             Shield.providePlayerShield(player, 30, PlayerAttributes.maxHealth(player) * 0.05);
         }
     }

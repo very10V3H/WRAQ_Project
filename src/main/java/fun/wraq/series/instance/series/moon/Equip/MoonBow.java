@@ -152,7 +152,7 @@ public class MoonBow extends WraqBow implements ActiveItem, OnHitEffectEquip, Fo
             );
         }
         return List.of(
-                new ItemStack(ModItems.MOON_SCEPTRE.get()),
+                new ItemStack(ModItems.MOON_BOW.get()),
                 new ItemStack(ModItems.COMPLETE_GEM.get(), 20),
                 new ItemStack(ModItems.ReputationMedal.get(), 80),
                 new ItemStack(ModItems.WORLD_SOUL_3.get(), 8)

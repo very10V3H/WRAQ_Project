@@ -62,7 +62,7 @@ public class EvokerNewRune extends WraqCurios implements RuneItem, UsageOrGetWay
 
     @Override
     public void tick(Player player) {
-        if (WraqCurios.isOn(EvokerNewRune.class, player)) {
+        if (Compute.hasCurios(player, NewRuneItems.evokerNewRune.get())) {
             int tick = Tick.get();
             if (tick % 80 == 0) {
                 List<Mob> mobList = player.level().getEntitiesOfClass(Mob.class, AABB.ofSize(player.position(),

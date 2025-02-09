@@ -4,12 +4,11 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModBlocks;
-import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.common.util.struct.BlockAndResetTime;
 import fun.wraq.process.func.item.InventoryOperation;
-import fun.wraq.process.system.missions.series.labourDay.LabourDayMission;
 import fun.wraq.process.system.ore.OreItems;
 import fun.wraq.process.system.spur.Items.SpurItems;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -128,7 +127,6 @@ public class MineSpur {
         ServerPlayer serverPlayer = (ServerPlayer) player;
         serverPlayer.connection.send(clientboundSoundPacket);
         Utils.dayMineCount.put(player.getName().getString(), Utils.dayMineCount.getOrDefault(player.getName().getString(), 0) + 1);
-        LabourDayMission.count(player, LabourDayMission.mineCounts);
 
         Random random = new Random();
         if (random.nextDouble() < 0.08) {

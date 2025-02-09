@@ -1,13 +1,12 @@
 package fun.wraq.series.newrunes.chapter6;
 
 import fun.wraq.common.Compute;
-import fun.wraq.common.util.ComponentUtils;
-import fun.wraq.common.util.Utils;
+import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.impl.display.UsageOrGetWayDescriptionItem;
-import fun.wraq.common.equip.WraqCurios;
+import fun.wraq.common.util.ComponentUtils;
+import fun.wraq.common.util.Utils;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.instance.series.lava.rune.DarkRune;
 import fun.wraq.series.newrunes.NewRuneItems;
 import fun.wraq.series.newrunes.RuneItem;
 import net.minecraft.ChatFormatting;
@@ -65,7 +64,7 @@ public class MoonNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDe
     }
 
     public static int getPassiveCount(Player player) {
-        if (!WraqCurios.isOn(MoonNewRune.class, player) && !WraqCurios.isOn(DarkRune.class, player)) return 0;
+        if (!Compute.hasCurios(player, NewRuneItems.moonNewRune.get())) return 0;
         int count = 0;
         for (int i = 0; i < 6; i++) {
             ItemStack itemStack = player.getInventory().getItem(3 + i);

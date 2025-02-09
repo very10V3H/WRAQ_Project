@@ -9,7 +9,6 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.chapter2.FireLightSpawnController;
 import fun.wraq.events.mob.chapter2.SearedSpiritSpawnController;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.instance.series.lava.rune.BlazeRune;
 import fun.wraq.series.newrunes.NewRuneItems;
 import fun.wraq.series.newrunes.RuneItem;
 import net.minecraft.ChatFormatting;
@@ -61,7 +60,7 @@ public class VolcanoNewRune extends WraqCurios implements RuneItem, UsageOrGetWa
     }
 
     public static boolean isOn(Player player) {
-        return WraqCurios.isOn(VolcanoNewRune.class, player) || WraqCurios.isOn(BlazeRune.class, player);
+        return Compute.hasCurios(player, NewRuneItems.volcanoNewRune.get());
     }
 
     public static Map<String, Integer> playerAttackCounts = new HashMap<>();

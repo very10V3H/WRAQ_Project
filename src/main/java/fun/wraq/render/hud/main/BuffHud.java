@@ -1,12 +1,14 @@
 package fun.wraq.render.hud.main;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.struct.HudIcon;
 import fun.wraq.common.util.struct.SkillImage;
 import fun.wraq.process.system.endlessinstance.DailyEndlessInstance;
+import fun.wraq.process.system.randomevent.impl.special.SpringMobEvent;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -221,6 +223,12 @@ public class BuffHud {
             guiGraphics.drawCenteredString(fontRenderer, Component.literal(DailyEndlessInstance.clientKillCount
                                     + "!".repeat(DailyEndlessInstance.clientKillCount % 10))
                             .withStyle(styleList.get(Math.min(4, DailyEndlessInstance.clientKillCount / 50))),
+                    width / 2 + 16, height / 2 - 16, 0);
+        }
+
+        if (SpringMobEvent.clientDamage > 0 && SpringMobEvent.clientDamageDisplayExpiredTick > ClientUtils.serverTick) {
+            guiGraphics.drawCenteredString(fontRenderer,
+                    Te.s(String.format("%.0f", SpringMobEvent.clientDamage), CustomStyle.styleOfSpring),
                     width / 2 + 16, height / 2 - 16, 0);
         }
     });

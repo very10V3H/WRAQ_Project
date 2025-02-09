@@ -56,7 +56,8 @@ public class MineNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDe
     }
 
     public static boolean passiveTrig(Player player) {
-        return WraqCurios.isOn(MineNewRune.class, player) && player.getHealth() / player.getMaxHealth() >= 0.6;
+        return Compute.hasCurios(player, NewRuneItems.mineNewRune.get())
+                && player.getHealth() / player.getMaxHealth() >= 0.6;
     }
 
     @Override

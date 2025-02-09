@@ -2,7 +2,6 @@ package fun.wraq.events.mob;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
-import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
@@ -37,15 +36,15 @@ import fun.wraq.files.dataBases.DataBase;
 import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.system.element.Element;
-import fun.wraq.process.system.missions.series.dailyMission.DailyMission;
+import fun.wraq.process.system.missions.mission2.MissionV2Helper;
 import fun.wraq.process.system.profession.pet.allay.AllayPet;
 import fun.wraq.process.system.profession.pet.allay.AllayPetPlayerData;
 import fun.wraq.process.system.profession.pet.allay.skill.AllaySkills;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.end.Recall;
-import fun.wraq.series.end.runes.EndRune;
 import fun.wraq.series.events.SpecialEventItems;
 import fun.wraq.series.events.spring2024.FireworkGun;
+import fun.wraq.series.newrunes.NewRuneItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -201,6 +200,16 @@ public class MobSpawn {
         controllers.addAll(netherList);
         controllers.addAll(endList);
         return controllers;
+    }
+
+    public static Map<String, Component> mobNameMap = new HashMap<>();
+    public static Map<String, Component> getMobNameMap() {
+        if (mobNameMap.isEmpty()) {
+            getAllControllers().forEach(mobSpawnController -> {
+                mobNameMap.put(mobSpawnController.mobName.getString(), mobSpawnController.mobName);
+            });
+        }
+        return mobNameMap;
     }
 
     public static void removeAllMob() {
@@ -362,22 +371,12 @@ public class MobSpawn {
         if (MobSpawn.getMobOriginName(mob).equals(PlainZombieSpawnController.mobName)) {
             Guide.trigV2(player, Guide.StageV2.FIRST_KILL);
         }
-        if (MobSpawn.getMobOriginName(mob).equals(PlainZombieSpawnController.mobName))
-            DailyMission.addCount(player, DailyMission.plainZombieKillCountMap);
-        if (MobSpawn.getMobOriginName(mob).equals(DreadHoundSpawnController.mobName))
-            DailyMission.addCount(player, DailyMission.dreadHoundKillCountMap);
-        if (MobSpawn.getMobOriginName(mob).equals(SakuraMobSpawnController.mobName))
-            DailyMission.addCount(player, DailyMission.sakuraMobKillCountMap);
-        if (MobSpawn.getMobOriginName(mob).equals(WindSkeletonSpawnController.mobName))
-            DailyMission.addCount(player, DailyMission.windSkeletonKillCountMap);
-        if (MobSpawn.getMobOriginName(mob).equals(EndermiteSpawnController.mobName))
-            DailyMission.addCount(player, DailyMission.endermiteKillCountMap);
 
         double num = getNum(player);
 
         // 直接送至背包或掉落
         if (dropsDirectToInventory.containsKey(MobSpawn.getMobOriginName(mob))
-                || WraqCurios.isOn(EndRune.class, player)) {
+                || Compute.CuriosAttribute.getDistinctCuriosSet(player).contains(NewRuneItems.endNewRune.get())) {
             Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player), xpLevel);
             list.forEach(itemAndRate -> {
                 itemAndRate.send(player, num);
@@ -397,13 +396,16 @@ public class MobSpawn {
             tempKillCount.put(player.getName().getString(), new HashMap<>());
         Map<String, Integer> map = tempKillCount.get(player.getName().getString());
         map.put(getMobOriginName(mob), map.getOrDefault(getMobOriginName(mob), 0) + 1);
+        MissionV2Helper.onKillMob(player, mob);
 
         oldVersionMaterial(mob, player);
         Random rand = new Random();
         if (rand.nextDouble() < 0.1 * num) {
-            if (WraqCurios.isOn(EndRune.class, player)) {
+            if (Compute.hasCurios(player, NewRuneItems.endNewRune.get())) {
                 InventoryOperation.giveItemStack(player, new ItemStack(ModItems.WORLD_SOUL_1.get()));
-            } else ItemAndRate.summonBoundingItemEntity(mob, new ItemStack(ModItems.WORLD_SOUL_1.get()), player);
+            } else {
+                ItemAndRate.summonBoundingItemEntity(mob, new ItemStack(ModItems.WORLD_SOUL_1.get()), player);
+            }
         }
     }
 
@@ -559,7 +561,7 @@ public class MobSpawn {
                         String name = player.getName().getString();
                         if (!getMap.containsKey(name) || getMap.get(name) <= 36) {
                             getMap.put(name, getMap.getOrDefault(name, 0) + 1);
-                            if (WraqCurios.isOn(EndRune.class, player)) {
+                            if (Compute.hasCurios(player, NewRuneItems.endNewRune.get())) {
                                 InventoryOperation.giveItemStack(player, item.getDefaultInstance());
                             } else ItemAndRate.summonBoundingItemEntity(mob, item.getDefaultInstance(), player);
                         }

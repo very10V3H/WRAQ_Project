@@ -110,7 +110,7 @@ public class ItemAndRate {
         if (adjustStackBeforeGive != null) {
             adjustStackBeforeGive.adjust(dropItemStack);
         }
-        InventoryOperation.giveItemStack(player, dropItemStack);
+        summonItemEntity(dropItemStack, player.getEyePosition(), player.level(), 0);
         return true;
     }
 

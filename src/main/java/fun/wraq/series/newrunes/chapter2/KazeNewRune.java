@@ -1,14 +1,13 @@
 package fun.wraq.series.newrunes.chapter2;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqCurios;
+import fun.wraq.common.impl.display.UsageOrGetWayDescriptionItem;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.chapter2.WindSkeletonSpawnController;
 import fun.wraq.process.func.ChangedAttributesModifier;
-import fun.wraq.common.impl.display.UsageOrGetWayDescriptionItem;
-import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.instance.series.lava.rune.WindRune;
 import fun.wraq.series.newrunes.NewRuneItems;
 import fun.wraq.series.newrunes.RuneItem;
 import net.minecraft.ChatFormatting;
@@ -69,7 +68,7 @@ public class KazeNewRune extends WraqCurios implements RuneItem, UsageOrGetWayDe
     }
 
     public static void onHit(Player player) {
-        if (WraqCurios.isOn(KazeNewRune.class, player) || WraqCurios.isOn(WindRune.class, player)) {
+        if (Compute.hasCurios(player, NewRuneItems.kazeNewRune.get())) {
             ChangedAttributesModifier.addAttributeModifier(player, ChangedAttributesModifier.movementSpeedUp,
                     "kazeNewRuneMovementSpeed", 0.2, 40, true);
             Compute.sendEffectLastTime(player, NewRuneItems.kazeNewRune.get(), 40);

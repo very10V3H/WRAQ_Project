@@ -11,7 +11,9 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
+import net.minecraft.world.item.ItemStack;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ComponentUtils {
@@ -907,5 +909,13 @@ public class ComponentUtils {
 
     public static Component exTrueDamage(String content) {
         return Component.literal(content + "额外真实伤害").withStyle(CustomStyle.styleOfSea);
+    }
+
+    public static List<Component> getItemStackDescriptionList(List<ItemStack> list) {
+        List<Component> components = new ArrayList<>();
+        for (ItemStack stack : list) {
+            components.add(Te.s(stack, " * " + stack.getCount(), CustomStyle.styleOfWorld));
+        }
+        return components;
     }
 }

@@ -7,7 +7,6 @@ import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.struct.BlockAndResetTime;
 import fun.wraq.process.func.item.InventoryOperation;
-import fun.wraq.process.system.missions.series.labourDay.LabourDayMission;
 import fun.wraq.process.system.spur.Items.SpurItems;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -95,8 +94,6 @@ public class WoodSpur {
             InventoryOperation.giveItemStack(player, new ItemStack(ModItems.LogBag.get(), data.getInt(StringUtils.Lop.Xp) / 256));
             data.putBoolean(StringUtils.LogReward, true);
         }
-
-        LabourDayMission.count(player, LabourDayMission.lopCounts);
 
         Random random = new Random();
         if (random.nextDouble() < 0.05) {

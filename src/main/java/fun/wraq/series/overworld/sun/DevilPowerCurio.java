@@ -1,5 +1,6 @@
 package fun.wraq.series.overworld.sun;
 
+import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.ComponentUtils;
@@ -52,7 +53,7 @@ public class DevilPowerCurio extends WraqCurios {
     }
 
     public static double finalDamageEnhanceRate(Player player) {
-        if (WraqCurios.isOn(DevilPowerCurio.class, player)
+        if (Compute.hasCurios(player, SunIslandItems.DEVIL_POWER_CURIO.get())
                 && MobSpawn.totalKillCountCache.containsKey(player.getName().getString())) {
             return Math.min(0.5, MobSpawn.totalKillCountCache.get(player.getName().getString()) / 10000d * 0.005);
         }

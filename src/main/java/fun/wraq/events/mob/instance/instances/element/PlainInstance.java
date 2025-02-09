@@ -11,7 +11,6 @@ import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.element.Element;
-import fun.wraq.process.system.missions.series.dailyMission.DailyMission;
 import fun.wraq.render.particles.ModParticles;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -146,7 +145,6 @@ public class PlainInstance extends NoTeamInstance {
         rewardList.forEach(itemAndRate -> {
             itemAndRate.sendWithMSG(player, 1);
         });
-        DailyMission.addCount(player, DailyMission.plainInstanceCountMap);
 
         String name = player.getName().getString();
         if (!MobSpawn.tempKillCount.containsKey(name)) MobSpawn.tempKillCount.put(name, new HashMap<>());

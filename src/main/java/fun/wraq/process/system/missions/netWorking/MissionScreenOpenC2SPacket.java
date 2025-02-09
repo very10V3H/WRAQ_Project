@@ -1,9 +1,9 @@
 package fun.wraq.process.system.missions.netWorking;
 
 import fun.wraq.networking.ModNetworking;
-import fun.wraq.process.system.missions.Mission;
-import fun.wraq.process.system.missions.netWorking.MissionStatusS2CPacket;
+import fun.wraq.process.system.missions.mission2.MissionV2;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
@@ -27,8 +27,19 @@ public class MissionScreenOpenC2SPacket {
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
-            ModNetworking.sendToClient(new MissionStatusS2CPacket(Mission.getPlayerMissionStatusString(context.getSender())), context.getSender());
-            ModNetworking.sendToClient(new MissionScreenOpenS2CPacket(type), context.getSender());
+            Player player = context.getSender();
+            MissionV2.sendDataToClient(player);
+            int inProgressCount = MissionV2.getInProgressMissionCount(player);
+            int notAcceptedCount = MissionV2.getNoAcceptedMissionCount(player);
+            if (inProgressCount == 0) {
+                if (notAcceptedCount == 0) {
+                    ModNetworking.sendToClient(new MissionScreenOpenS2CPacket(3), player);
+                } else {
+                    ModNetworking.sendToClient(new MissionScreenOpenS2CPacket(1), player);
+                }
+            } else {
+                ModNetworking.sendToClient(new MissionScreenOpenS2CPacket(2), player);
+            }
         });
         return true;
     }

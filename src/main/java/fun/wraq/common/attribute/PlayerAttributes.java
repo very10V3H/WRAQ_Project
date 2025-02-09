@@ -3,7 +3,6 @@ package fun.wraq.common.attribute;
 import fun.wraq.Items.DevelopmentTools.equip.ManageEquip;
 import fun.wraq.Items.DevelopmentTools.equip.OpsAttributes;
 import fun.wraq.common.Compute;
-import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.equip.WraqPickaxe;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
@@ -43,6 +42,7 @@ import fun.wraq.series.instance.series.harbinger.weapon.HarbingerMainHand;
 import fun.wraq.series.instance.series.moon.Equip.MoonBook;
 import fun.wraq.series.instance.series.moon.Equip.MoonKnife;
 import fun.wraq.series.instance.series.moon.Equip.MoonShield;
+import fun.wraq.series.newrunes.NewRuneItems;
 import fun.wraq.series.newrunes.chapter1.ForestNewRune;
 import fun.wraq.series.newrunes.chapter1.PlainNewRune;
 import fun.wraq.series.newrunes.chapter2.SkyNewRune;
@@ -462,7 +462,9 @@ public class PlayerAttributes {
             movementSpeedUp += 0.08;
         }
 
-        if (WraqCurios.isOn(SkyNewRune.class, player)) movementSpeedUp += 0.2;
+        if (Compute.hasCurios(player, NewRuneItems.skyNewRune.get())){
+            movementSpeedUp += 0.2;
+        }
 
         movementSpeedUp += Compute.CuriosAttribute.attributeValue(player, Utils.movementSpeedCommon,
                 StringUtils.CuriosAttribute.commonMovementSpeed); // 新版饰品属性加成

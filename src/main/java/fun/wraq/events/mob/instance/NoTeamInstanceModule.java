@@ -14,6 +14,7 @@ import fun.wraq.events.mob.instance.instances.sakura.SakuraBossInstance;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.moontain.MoontainItems;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -24,7 +25,9 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.event.TickEvent;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class NoTeamInstanceModule {
 
@@ -192,6 +195,16 @@ public class NoTeamInstanceModule {
         list.addAll(noTeamInstancesNether);
         list.addAll(noTeamInstancesEnd);
         return list;
+    }
+
+    public static Map<String, Component> nameMap = new HashMap<>();
+    public static Map<String, Component> getNameMap() {
+        if (nameMap.isEmpty()) {
+            getAllInstance().forEach(noTeamInstance -> {
+                nameMap.put(noTeamInstance.name.getString(),noTeamInstance.name);
+            });
+        }
+        return nameMap;
     }
 
     public static double onMobWithstandDamageRate(Player player, Mob mob) {

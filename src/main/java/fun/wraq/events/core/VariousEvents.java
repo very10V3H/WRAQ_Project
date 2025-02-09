@@ -11,8 +11,8 @@ import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.ClientUtils;
-import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.common.util.Utils;
+import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.AnimationPackets.AnimationTickResetS2CPacket;
@@ -41,6 +41,7 @@ import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
@@ -53,13 +54,13 @@ import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.event.CurioChangeEvent;
 import top.theillusivec4.curios.api.event.CurioEquipEvent;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.UUID;
+import java.util.*;
 
 @Mod.EventBusSubscriber
 public class VariousEvents {
@@ -347,7 +348,7 @@ public class VariousEvents {
     }
 
     @SubscribeEvent
-    public static void curiosTipEvent(CurioEquipEvent event) {
+    public static void onCurioEquip(CurioEquipEvent event) {
         if (event.getEntity() instanceof Player player && !player.level().isClientSide) {
             ItemStack itemStack = event.getStack();
             if (Compute.CuriosAttribute.getDistinctCuriosList(player)
@@ -356,6 +357,37 @@ public class VariousEvents {
                                     && stack.getItem() instanceof WraqCurios)) {
                 Compute.sendFormatMSG(player, Te.s("饰品", ChatFormatting.LIGHT_PURPLE),
                         Te.s("该饰品因重复而未生效:", itemStack.getDisplayName()));
+            }
+        }
+    }
+
+    public static Map<String, Integer> lastRefreshTickMap = new HashMap<>();
+
+    @SubscribeEvent
+    public static void onCuriosChange(CurioChangeEvent event) {
+        if (event.getEntity() instanceof Player player && !player.level().isClientSide) {
+            if (lastRefreshTickMap.getOrDefault(player.getName().getString(), -1) != Tick.get()) {
+                lastRefreshTickMap.put(player.getName().getString(), Tick.get());
+                List<ItemStack> curiosList = new ArrayList<>();
+                CuriosApi.getCuriosInventory(player).ifPresent(iCuriosItemHandler -> {
+                    int size = iCuriosItemHandler.getEquippedCurios().getSlots();
+                    Set<Item> curiosItemSet = new HashSet<>();
+                    for (int i = 0 ; i < size ; i ++) {
+                        ItemStack stack = iCuriosItemHandler.getEquippedCurios().getStackInSlot(i);
+                        if (stack.is(Items.AIR)) continue;
+                        if (!curiosItemSet.contains(stack.getItem())) {
+                            if (!(stack.getItem() instanceof RepeatableCurios)) {
+                                curiosItemSet.add(stack.getItem());
+                            }
+                            curiosList.add(stack);
+                        }
+                    }
+                });
+                Compute.CuriosAttribute.curiosListCache.put(player, curiosList);
+                Set<Item> set = new HashSet<>(Compute.CuriosAttribute.getDistinctCuriosList(player)
+                        .stream().map(ItemStack::getItem)
+                        .toList());
+                Compute.CuriosAttribute.curiosSetCache.put(player, set);
             }
         }
     }

@@ -48,6 +48,8 @@ public class SpringMobEvent extends KillMobEvent {
     public static final String mobName = "年兽";
     public static int luckyNumber = 0;
     public static final Style style = CustomStyle.styleOfSpring;
+    public static double clientDamage = 0;
+    public static int clientDamageDisplayExpiredTick = 0;
 
     private Mob boss;
 

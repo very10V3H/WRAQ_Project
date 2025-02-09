@@ -2,7 +2,6 @@ package fun.wraq.series.nether.power;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
-import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.ModSounds;
@@ -16,7 +15,7 @@ import fun.wraq.process.func.power.WraqPower;
 import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.element.ElementValue;
 import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.newrunes.chapter6.CastleNewRune;
+import fun.wraq.series.newrunes.NewRuneItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
@@ -106,7 +105,7 @@ public class PiglinPower extends WraqPower {
         double manaDamageUpValue = 0;
         if (StableAttributesModifier.getAttributeModifierList(player, StableAttributesModifier.playerAttackDamageModifier).
                 stream().anyMatch(attributesModifier -> attributesModifier.tag().equals("piglinPowerAttackDamageUp"))
-                && WraqCurios.isOn(CastleNewRune.class, player)) {
+                && Compute.hasCurios(player, NewRuneItems.castleNewRune.get())) {
             manaDamageUpValue = (PlayerAttributes.manaDamage(player) - StableAttributesModifier.getAttributeModifierList(player, StableAttributesModifier.playerAttackDamageModifier).
                     stream().filter(attributesModifier -> attributesModifier.tag().equals("piglinPowerAttackDamageUp")).findFirst().get().value() * 0.4) * 0.03;
         } else manaDamageUpValue = 0.03 * PlayerAttributes.manaDamage(player);
