@@ -103,7 +103,7 @@ public class SpringSnakeInstance extends NewTeamInstance {
     @Override
     public void reward(Player player) {
         getRewardList().forEach(itemAndRate -> {
-            if (itemAndRate.sendWithMSG(player, 1) && itemAndRate.getRate() <= 0.01) {
+            if (!itemAndRate.sendWithMSG(player, 1).is(Items.AIR) && itemAndRate.getRate() <= 0.01) {
                 Compute.formatBroad(Te.s("新春活动", style), Te.s(player, "击杀",
                         mobName, style, "获得了", SpecialEventItems.SCALE_2025_0.get()));
             }

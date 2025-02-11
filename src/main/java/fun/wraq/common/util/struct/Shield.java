@@ -6,8 +6,8 @@ import fun.wraq.networking.misc.ShieldSyncS2CPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 
+import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 
 import static java.lang.Math.ceil;
@@ -41,9 +41,7 @@ public class Shield {
         double TmpNum = value;
         List<Shield> shieldQueue = Utils.playerShieldQueue.get(player.getName().getString());
         if (shieldQueue != null && !shieldQueue.isEmpty()) {
-            Iterator<Shield> iterator1 = shieldQueue.iterator();
-            while (iterator1.hasNext()) {
-                Shield shield = iterator1.next();
+            for (Shield shield : shieldQueue) {
                 if (shield.getValue() > TmpNum) {
                     shield.setValue(shield.getValue() - TmpNum);
                     computePlayerShield(player);
@@ -64,7 +62,7 @@ public class Shield {
         Shield shield = new Shield(tick, value);
         List<Shield> shieldQueue = Utils.playerShieldQueue.get(player.getName().getString());
         if (shieldQueue == null) {
-            shieldQueue = new LinkedList<>();
+            shieldQueue = new ArrayList<>();
             shieldQueue.add(shield);
             Utils.playerShieldQueue.put(player.getName().getString(), shieldQueue);
         } else {
@@ -83,8 +81,9 @@ public class Shield {
                 if (shield.getTick() > 0) shieldValue += shield.getValue();
                 if (shield.getTick() == 0 || shield.getValue() == 0) iterator0.remove();
             }
-            double tmpShieldNum = 9.0 * (shieldValue * 1.0 / player.getMaxHealth());
-            ModNetworking.sendToClient(new ShieldSyncS2CPacket((int) ceil(tmpShieldNum), (int) ceil(shieldValue)), (ServerPlayer) player);
+            double tmpShieldNum = 9.0 * (shieldValue / player.getMaxHealth());
+            ModNetworking.sendToClient(new ShieldSyncS2CPacket((int) ceil(tmpShieldNum),
+                    (int) ceil(shieldValue)), (ServerPlayer) player);
             return shieldValue;
         }
         ModNetworking.sendToClient(new ShieldSyncS2CPacket(0, 0), (ServerPlayer) player);

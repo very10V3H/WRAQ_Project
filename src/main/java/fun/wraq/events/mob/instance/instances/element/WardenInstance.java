@@ -1,7 +1,6 @@
 package fun.wraq.events.mob.instance.instances.element;
 
 import fun.wraq.common.Compute;
-import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
@@ -104,7 +103,7 @@ public class WardenInstance extends NoTeamInstance {
         Warden warden = new Warden(EntityType.WARDEN, level);
         MobSpawn.setMobCustomName(warden, Component.literal("坚守者").withStyle(style), XP_LEVEL);
         MobSpawn.MobBaseAttributes.xpLevel.put(MobSpawn.getMobOriginName(warden), XP_LEVEL);
-        double maxHealth = 7500 * Math.pow(10, 4) * (1 + 0.75 * (players.size() - 1));
+        double maxHealth = 5000 * Math.pow(10, 4) * (1 + 0.75 * (players.size() - 1));
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(warden, 6500, 600, 600, 0.4,
                 5, 0.6, 300, 25, maxHealth, 0.35);
         warden.setHealth(warden.getMaxHealth());
@@ -120,23 +119,6 @@ public class WardenInstance extends NoTeamInstance {
             serverBossEvent.addPlayer((ServerPlayer) player);
         });
         bossInfoList.add(serverBossEvent);
-    }
-
-    @Override
-    public void rewardModule(Player player) {
-        List<ItemAndRate> rewardList = getRewardList();
-        rewardList.forEach(itemAndRate -> {
-            boolean reward = itemAndRate.sendWithMSG(player, 1);
-            if (itemAndRate.getRate() < 0.01 && reward) {
-                sendFormatMSG(player, Te.s(player.getDisplayName(), "击败", "坚守者", CustomStyle.styleOfWarden,
-                        "获得了", itemAndRate.getItemStack().getDisplayName()));
-            }
-        });
-        String name = player.getName().getString();
-        if (!MobSpawn.tempKillCount.containsKey(name)) MobSpawn.tempKillCount.put(name, new HashMap<>());
-        Map<String, Integer> map = MobSpawn.tempKillCount.get(name);
-        map.put(mobName, map.getOrDefault(mobName, 0) + 1);
-        Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player), XP_LEVEL);
     }
 
     @Override
@@ -397,7 +379,6 @@ public class WardenInstance extends NoTeamInstance {
     // 玩家之间应当保持距离，过近的距离将会使范围伤害叠加，容易暴毙。有20%几率造成持续3s的致盲与沉默
     public void commonAttack() {
         if (Tick.get() % 20 == 0) {
-            Random random = new Random();
             players.forEach(player -> {
                 Set<Player> playerSet =
                         new HashSet<>(Compute.getNearEntity(player, Player.class, 3)
@@ -406,8 +387,6 @@ public class WardenInstance extends NoTeamInstance {
                     Damage.causeAttackDamageToPlayer(boss, player, 10000);
                     Damage.causeManaDamageToPlayer(boss, player, 10000, 0.5, 100);
                     if (Tick.get() % 100 == 0) {
-                        SpecialEffectOnPlayer.addSilentEffect(player, 60);
-                        SpecialEffectOnPlayer.addBlindEffect(player, 60);
                         player.addEffect(new MobEffectInstance(MobEffects.DARKNESS, 150));
                     }
                 });

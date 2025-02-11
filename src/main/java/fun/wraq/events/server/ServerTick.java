@@ -15,8 +15,8 @@ import fun.wraq.process.system.randomevent.RandomEventsHandler;
 import fun.wraq.process.system.reason.Reason;
 import fun.wraq.process.system.tower.Tower;
 import fun.wraq.process.system.vp.VpDataHandler;
-import fun.wraq.series.instance.series.purple.PurpleIronCommon;
 import fun.wraq.series.events.spring2025.Spring2025BossBar;
+import fun.wraq.series.instance.series.purple.PurpleIronCommon;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -38,20 +38,6 @@ public class ServerTick {
         if (event.side.isServer() && event.phase == TickEvent.Phase.START) {
             DelayOperationWithAnimation.serverTick(event);
             int tickCount = Tick.get();
-            if (tickCount % 6000 == 3288) {
-                ThreadPools.dataExecutor.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        MarketInfo.marketItemInfoWrite(event.getServer().overworld());
-                        MarketInfo.marketProfitInfoWrite(event.getServer().overworld());
-                        try {
-                            dataIO();
-                        } catch (SQLException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                });
-            }
             if (tickCount % 100 == 0) {
                 VpDataHandler.reviseDataMSGSend(event.getServer());
             }
@@ -66,6 +52,21 @@ public class ServerTick {
             AllayPet.handleServerTick();
             SputteringDamage.handleServerTick();
             Spring2025BossBar.handleServerTick();
+
+            if (tickCount % 6000 == 3288) {
+                ThreadPools.dataExecutor.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        MarketInfo.marketItemInfoWrite(event.getServer().overworld());
+                        MarketInfo.marketProfitInfoWrite(event.getServer().overworld());
+                        try {
+                            dataIO();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                });
+            }
         }
     }
 

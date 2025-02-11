@@ -20,6 +20,7 @@ import fun.wraq.process.system.tower.TowerMob;
 import fun.wraq.render.hud.ColdData;
 import fun.wraq.render.mobEffects.ModEffects;
 import fun.wraq.series.instance.series.moon.Equip.MoonArmor;
+import fun.wraq.series.instance.series.purple.EnhancePurpleIronArmor;
 import fun.wraq.series.newrunes.chapter1.MineNewRune;
 import fun.wraq.series.newrunes.chapter1.VolcanoNewRune;
 import fun.wraq.series.newrunes.chapter2.HuskNewRune;
@@ -61,6 +62,7 @@ public class DamageInfluence {
         rate += Compute.getPlayerPotionEffectRate(player, ModEffects.DAMAGE_ENHANCE.get(), 0.35, 0.5);
         rate += StableTierAttributeModifier
                 .getModifierValue(player, StableTierAttributeModifier.playerCommonDamageEnhance);
+        rate += EnhancePurpleIronArmor.getCommonDamageEnhanceRate(player);
         return rate;
     }
 

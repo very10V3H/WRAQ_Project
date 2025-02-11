@@ -43,10 +43,12 @@ public class SkyBow extends WraqBow implements OnHitEffectEquip {
         Compute.DescriptionPassive(components, Component.literal("鹰隼之速").withStyle(style));
         components.add(Te.m(" 箭矢", CustomStyle.styleOfFlexible).
                 append(Te.m("命中目标后，为你提供持续3s的")));
-        components.add(Te.m(" ").
-                append(ComponentUtils.AttributeDescription.movementSpeed("12%")));
-        components.add(Te.m(" ").
-                append(ComponentUtils.AttributeDescription.critDamage("20%")));
+        components.add(Te.s(" 1.", getMainStyle(),
+                ComponentUtils.AttributeDescription.movementSpeed("12%")));
+        components.add(Te.s(" 2.", getMainStyle(),
+                ComponentUtils.AttributeDescription.critRate("10%")));
+        components.add(Te.s(" 3.", getMainStyle(),
+                ComponentUtils.AttributeDescription.critDamage("20%")));
         return components;
     }
 
@@ -57,10 +59,12 @@ public class SkyBow extends WraqBow implements OnHitEffectEquip {
 
     @Override
     public void onHit(Player player, Mob mob) {
-        StableAttributesModifier.addM(player, StableAttributesModifier.playerCritDamageModifier,
-                "SkyBow passive critDamage", 0.2, Tick.get() + 60);
         StableAttributesModifier.addM(player, StableAttributesModifier.playerMovementSpeedModifier,
                 "SkyBow passive movementSpeed", 0.12, Tick.get() + 60);
+        StableAttributesModifier.addM(player, StableAttributesModifier.playerCritRateModifier,
+                "SkyBow passive critDamage", 0.1, Tick.get() + 60);
+        StableAttributesModifier.addM(player, StableAttributesModifier.playerCritDamageModifier,
+                "SkyBow passive critDamage", 0.2, Tick.get() + 60);
         Compute.sendEffectLastTime(player, ModItems.SkyBow.get(), 60);
     }
 }

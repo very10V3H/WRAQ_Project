@@ -19,9 +19,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class NetherInstance extends NoTeamInstance {
 
@@ -67,16 +65,7 @@ public class NetherInstance extends NoTeamInstance {
     }
 
     @Override
-    public void rewardModule(Player player) {
-        List<ItemAndRate> rewardList = getRewardList();
-        rewardList.forEach(itemAndRate -> {
-            itemAndRate.sendWithMSG(player, 1);
-        });
-
-        String name = player.getName().getString();
-        if (!MobSpawn.tempKillCount.containsKey(name)) MobSpawn.tempKillCount.put(name, new HashMap<>());
-        Map<String, Integer> map = MobSpawn.tempKillCount.get(name);
-        map.put(mobName, map.getOrDefault(mobName, 0) + 1);
+    public void exReward(Player player) {
         Guide.trigV2(player, Guide.StageV2.NETHER_BOSS);
     }
 
@@ -98,6 +87,7 @@ public class NetherInstance extends NoTeamInstance {
         return List.of(new ItemAndRate(ModItems.NetherQuartz.get(), 8),
                 new ItemAndRate(ModItems.NETHER_IMPRINT.get(), 0.25),
                 new ItemAndRate(ModItems.Ruby.get(), 8),
+                new ItemAndRate(ModItems.REVENANT_GOLDEN_HELMET.get(), 0.01),
                 new ItemAndRate(ModItems.netherHand.get(), 0.08),
                 new ItemAndRate(ModItems.WORLD_SOUL_2.get(), 0.25),
                 new ItemAndRate(ModItems.GoldCoinBag.get(), 0.1));

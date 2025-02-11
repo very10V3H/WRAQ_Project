@@ -50,7 +50,6 @@ public class PurpleIronArmor extends WraqArmor implements ForgeItem {
         return ComponentUtils.getSuffixOfChapterII();
     }
 
-
     @Override
     public List<ItemStack> forgeRecipe() {
         return List.of(

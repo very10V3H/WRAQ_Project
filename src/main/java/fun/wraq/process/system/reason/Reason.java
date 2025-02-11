@@ -58,12 +58,15 @@ public class Reason {
         return 5;
     }
 
-    public static boolean addOrCostPlayerReasonValue(Player player, int value) {
+    public static void addOrCostPlayerReasonValue(Player player, int value) {
+        if (value == 0) {
+            return;
+        }
         CompoundTag data = player.getPersistentData();
         int reasonValue = getPlayerReasonValue(player);
         int maxReasonValue = getPlayerReasonUpperLimit(player);
-        if (reasonValue > maxReasonValue && value > 0) return false;
-        if (reasonValue + value < 0) return false;
+        if (reasonValue > maxReasonValue && value > 0) return;
+        if (reasonValue + value < 0) return;
         reasonValue += value;
         if (value < 0) {
             data.putInt(REASON_KEY, reasonValue);
@@ -76,13 +79,15 @@ public class Reason {
             sendFormatMSG(player, Te.s("恢复了", ChatFormatting.GREEN, value + "理智", CustomStyle.styleOfFlexible,
                     "，当前拥有", getPlayerReasonValue(player) + "理智", CustomStyle.styleOfFlexible));
         }
-        return true;
     }
 
-    public static boolean addOrCostPlayerReasonValueIgnoreLimit(Player player, int value) {
+    public static void addOrCostPlayerReasonValueIgnoreLimit(Player player, int value) {
+        if (value == 0) {
+            return;
+        }
         CompoundTag data = player.getPersistentData();
         int reasonValue = getPlayerReasonValue(player);
-        if (reasonValue + value < 0) return false;
+        if (reasonValue + value < 0) return;
         reasonValue += value;
         data.putInt(REASON_KEY, reasonValue);
         sendReasonValuePacketToClient(player);
@@ -93,7 +98,6 @@ public class Reason {
             sendFormatMSG(player, Te.s("恢复了", ChatFormatting.GREEN, value + "理智", CustomStyle.styleOfFlexible,
                     "，当前拥有", getPlayerReasonValue(player) + "理智", CustomStyle.styleOfFlexible));
         }
-        return true;
     }
 
     public static void sendReasonValuePacketToClient(Player player) {

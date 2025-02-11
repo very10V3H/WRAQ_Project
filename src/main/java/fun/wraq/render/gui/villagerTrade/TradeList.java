@@ -3017,7 +3017,7 @@ public class TradeList {
                 List.of(new ItemStack(ModItems.ROSE_GOLD_COIN.get(), 16),
                         new ItemStack(ModItems.HUSK_RUNE.get(), 24)));
         tradeRecipeMap.put(sakuraIndustrySceptre,
-                List.of(new ItemStack(ModItems.ROSE_GOLD_COIN.get(), 96),
+                List.of(new ItemStack(ModItems.ROSE_GOLD_COIN.get(), 32),
                         new ItemStack(ModItems.COMPLETE_GEM.get(), 16)));
     }
 
@@ -3084,7 +3084,7 @@ public class TradeList {
         ItemStack stackUpgradeTier4 =
                 new ItemStack(net.p3pp3rf1y.sophisticatedbackpacks.init.ModItems.STACK_UPGRADE_TIER_4.get(), 1);
         ItemStack pickupUpgrade =
-                new ItemStack(net.p3pp3rf1y.sophisticatedbackpacks.init.ModItems.PICKUP_UPGRADE.get(), 1);
+                new ItemStack(net.p3pp3rf1y.sophisticatedbackpacks.init.ModItems.ADVANCED_PICKUP_UPGRADE.get(), 1);
         ItemStack inceptionUpgrade =
                 new ItemStack(net.p3pp3rf1y.sophisticatedbackpacks.init.ModItems.INCEPTION_UPGRADE.get(), 1);
         ItemStack[] itemStacks = {

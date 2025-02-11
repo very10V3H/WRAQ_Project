@@ -213,6 +213,7 @@ public class ForgeEquipUtils {
 
         List<Item> sky = List.of(
                 ModItems.SkyBow.get(),
+                ModItems.SKY_SWORD.get(),
                 ModItems.SKY_ARMOR_HELMET.get(),
                 ModItems.SKY_ARMOR_CHEST.get(),
                 ModItems.SKY_ARMOR_LEGGINGS.get(),

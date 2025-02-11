@@ -912,14 +912,17 @@ public class PlayerAttributes {
             healthRecover += vitalityAbilityPoint;
         }
 
-        healthRecover += Compute.CuriosAttribute.attributeValue(player, Utils.healthRecover, StringUtils.CuriosAttribute.healthRecover); // 新版饰品属性加成
+        healthRecover += Compute.CuriosAttribute
+                .attributeValue(player, Utils.healthRecover, StringUtils.CuriosAttribute.healthRecover); // 新版饰品属性加成
         healthRecover += PlainNewRune.playerHealthRecover(player);
         healthRecover += ForestNewRune.playerHealthRecoverUp(player);
 
-        healthRecover += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerHealthRecoverModifier);
+        healthRecover += StableAttributesModifier.getModifierValue(player,
+                StableAttributesModifier.playerHealthRecoverModifier);
 
         // 最大生命值百分比生命回复
-        healthRecover += computeAllEquipSlotBaseAttributeValue(player, Utils.percentHealthRecover, true) * player.getMaxHealth();
+        healthRecover += computeAllEquipSlotBaseAttributeValue(player, Utils.percentHealthRecover, false)
+                * player.getMaxHealth();
 
         // 请在上方添加
         double exRate = 0;
@@ -1522,13 +1525,15 @@ public class PlayerAttributes {
      * @param computeForge 是否计算强化等级
      * @return 得到的基础数值
      */
-    private static double computeAllEquipSlotBaseAttributeValue(Player player, Map<Item, Double> attributeMap,
+    public static double computeAllEquipSlotBaseAttributeValue(Player player, Map<Item, Double> attributeMap,
                                                                 boolean computeForge) {
         double totalValue = 0;
         for (ItemStack equip : getAllEquipSlotItems(player)) {
             Item item = equip.getItem();
-            double traditionalValue = ForgeEquipUtils.getTraditionalEquipBaseValue(equip, attributeMap, player, computeForge);
-            if ((attributeMap.containsKey(item) || traditionalValue != 0) && player.experienceLevel >= Utils.levelRequire.getOrDefault(item, 0)) {
+            double traditionalValue = ForgeEquipUtils
+                    .getTraditionalEquipBaseValue(equip, attributeMap, player, computeForge);
+            if ((attributeMap.containsKey(item) || traditionalValue != 0)
+                    && player.experienceLevel >= Utils.levelRequire.getOrDefault(item, 0)) {
                 double value = 0;
                 if (computeForge && equip.getTagElement(Utils.MOD_ID) != null) {
                     value += Compute.forgingValue(equip, traditionalValue);

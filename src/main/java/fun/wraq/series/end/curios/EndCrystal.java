@@ -31,7 +31,7 @@ import java.util.WeakHashMap;
 public class EndCrystal extends WraqItem {
 
     public EndCrystal(Properties properties) {
-        super(properties, false, true);
+        super(properties, true, true);
     }
 
     @Override

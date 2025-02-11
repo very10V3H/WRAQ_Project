@@ -1,15 +1,20 @@
 package fun.wraq.events.mob.instance;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
+import fun.wraq.common.util.items.AdjustStackBeforeGive;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.core.InventoryCheck;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.process.func.item.InventoryOperation;
+import fun.wraq.process.system.forge.ForgeEquipUtils;
 import fun.wraq.process.system.missions.mission2.MissionV2Helper;
+import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.instance.series.purple.PurpleIronCommon;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -24,9 +29,11 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import org.apache.commons.lang3.RandomUtils;
 
 import java.io.IOException;
 import java.util.*;
@@ -142,7 +149,34 @@ public abstract class NoTeamInstance {
                 } else {
                     if (InventoryOperation.checkItemRemoveIfHas(player,
                             List.of(new ItemStack(getSummonAndRewardNeedItem(), getRewardNeedItemCount())))) {
-                        rewardModule(player);
+                        List<ItemAndRate> rewardList = getRewardList();
+                        rewardList.forEach(itemAndRate -> {
+                            ItemStack copyStack = itemAndRate.getItemStack().copy();
+                            Item copyItem = copyStack.getItem();
+                            AdjustStackBeforeGive adjustStackBeforeGive = stack -> {
+                                ForgeEquipUtils.setForgeQualityOnEquip(stack, RandomUtils.nextInt(2, 6));
+                            };
+                            boolean isEquip
+                                    = Utils.mainHandTag.containsKey(copyItem) || Utils.armorTag.containsKey(copyItem);
+                            ItemStack rewardStack = itemAndRate.sendWithMSG(player, 1,
+                                    isEquip ? adjustStackBeforeGive : null);
+                            boolean reward = !rewardStack.is(Items.AIR);
+                            if (itemAndRate.getRate() <= 0.01 && reward) {
+                                if (isEquip) {
+                                    Compute.forgingHoverName(rewardStack);
+                                }
+                                Compute.sendFormatMSG(player, Te.s("领主级怪物", CustomStyle.styleOfRed),
+                                        Te.s(player.getDisplayName(), "击败", name,
+                                        "获得了", rewardStack));
+                                if (copyItem instanceof PurpleIronCommon) {
+                                    NoTeamInstanceModule.putPlayerAllowReward(player,
+                                            NoTeamInstanceModule.AllowRewardKey.iceKnight, true);
+                                }
+                            }
+                        });
+                        MobSpawn.killCountIncrement(player, name.getString());
+                        Compute.givePercentExpToPlayer(player, 0.1, PlayerAttributes.expUp(player), this.level);
+                        exReward(player);
                     } else {
                         Compute.sendFormatMSG(player, Component.literal("副本").withStyle(ChatFormatting.RED),
                                 Component.literal("你的背包中没有 ").withStyle(ChatFormatting.WHITE).
@@ -199,7 +233,9 @@ public abstract class NoTeamInstance {
         level.addFreshEntity(armorStand);
     }
 
-    public abstract void rewardModule(Player player);
+    public void exReward(Player player) {
+
+    }
 
     public List<Player> getNearPlayers(Level level) {
         List<Player> playerList = level.getEntitiesOfClass(Player.class,

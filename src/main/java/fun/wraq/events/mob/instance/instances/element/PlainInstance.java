@@ -1,7 +1,6 @@
 package fun.wraq.events.mob.instance.instances.element;
 
 import fun.wraq.common.Compute;
-import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
@@ -32,9 +31,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class PlainInstance extends NoTeamInstance {
 
@@ -140,18 +137,7 @@ public class PlainInstance extends NoTeamInstance {
     }
 
     @Override
-    public void rewardModule(Player player) {
-        List<ItemAndRate> rewardList = getRewardList();
-        rewardList.forEach(itemAndRate -> {
-            itemAndRate.sendWithMSG(player, 1);
-        });
-
-        String name = player.getName().getString();
-        if (!MobSpawn.tempKillCount.containsKey(name)) MobSpawn.tempKillCount.put(name, new HashMap<>());
-        Map<String, Integer> map = MobSpawn.tempKillCount.get(name);
-        map.put(mobName, map.getOrDefault(mobName, 0) + 1);
-
-        Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player), 50);
+    public void exReward(Player player) {
         Guide.trigV2(player, Guide.StageV2.PLAIN_BOSS);
     }
 
@@ -167,12 +153,13 @@ public class PlainInstance extends NoTeamInstance {
 
     public List<ItemAndRate> getRewardList() {
         return List.of(new ItemAndRate(ModItems.PlainBossSoul.get(), 1),
+                new ItemAndRate(ModItems.PLAIN_BOSS_SCEPTRE.get(), 0.01),
+                new ItemAndRate(ModItems.plainNecklace.get(), 0.08),
                 new ItemAndRate(ModItems.PlainAttackRing0.get(), 0.05),
                 new ItemAndRate(ModItems.PlainManaAttackRing0.get(), 0.05),
                 new ItemAndRate(ModItems.PlainHealthRing0.get(), 0.05),
                 new ItemAndRate(ModItems.PlainDefenceRing0.get(), 0.05),
                 new ItemAndRate(ModItems.WORLD_SOUL_2.get(), 0.25),
-                new ItemAndRate(ModItems.GoldCoinBag.get(), 0.1),
-                new ItemAndRate(ModItems.plainNecklace.get(), 0.08));
+                new ItemAndRate(ModItems.GoldCoinBag.get(), 0.1));
     }
 }

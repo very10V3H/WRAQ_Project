@@ -1,7 +1,9 @@
 package fun.wraq.series.instance.series.moon.Equip;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.equip.WraqCurios;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.damage.OnCauseFinalDamageCurios;
 import fun.wraq.common.impl.damage.OnWithStandDamageCurios;
@@ -48,19 +50,18 @@ public class MoonBelt extends WraqCurios implements OnCauseFinalDamageCurios, On
         List<Component> components = new ArrayList<>();
         Compute.DescriptionPassive(components, Component.literal("苍白之瀑").withStyle(hoverMainStyle()));
         components.add(Component.literal(" 当你对一名敌人造成伤害或受到伤害，将会激活").withStyle(ChatFormatting.WHITE).
-                append(Component.literal(" 尘月玉缠 ").withStyle(hoverMainStyle())).
-                append(Component.literal("在接下来的10s，将你造成伤害的10%和受到伤害的1000%转化为").withStyle(ChatFormatting.WHITE)).
-                append(Component.literal("苍月能量").withStyle(CustomStyle.styleOfMoon1)).
-                append(Component.literal("，并存储于尘月玉缠之中。").withStyle(ChatFormatting.WHITE)));
-        components.add(Component.literal(" 10s后，对周围所有敌人造成等同于存储的").withStyle(ChatFormatting.WHITE).
-                append(Component.literal("苍月能量").withStyle(CustomStyle.styleOfMoon1)).
-                append(Component.literal("的").withStyle(ChatFormatting.WHITE)).
-                append(Component.literal("真实伤害").withStyle(CustomStyle.styleOfSea)).
-                append(Component.literal("并为你提供等同于").withStyle(ChatFormatting.WHITE)).
-                append(Component.literal("苍月能量1%").withStyle(CustomStyle.styleOfMoon1)).
-                append(Component.literal("的").withStyle(ChatFormatting.WHITE)).
-                append(Component.literal("护盾值").withStyle(ChatFormatting.GRAY)));
-        components.add(Component.literal(" -护盾值不会超过最大生命值的200%，持续5s").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
+                append(Component.literal(" 尘月玉缠 ").withStyle(hoverMainStyle())));
+        components.add(Te.s(" 在接下来的10s，将你造成伤害的10%"));
+        components.add(Te.s(" 和受到伤害的1000%转化为"));
+        components.add(Te.s(" 苍月能量", CustomStyle.styleOfMoon1, "存储于尘月玉缠之中"));
+        components.add(Te.s(" 10s后，对周围所有敌人造成"));
+        components.add(Te.s(" 等同于存储的", "苍月能量", CustomStyle.styleOfMoon1,
+                "的", "真实伤害", CustomStyle.styleOfSea));
+        components.add(Te.s(" 并为你提供等同于", "1%苍月能量", CustomStyle.styleOfMoon1,
+                "的", "护盾", CustomStyle.styleOfStone));
+        components.add(Te.s(" 苍月能量不会超过(2倍ad + ap) * 500", ChatFormatting.ITALIC, ChatFormatting.GRAY));
+        components.add(Component.literal(" 护盾值不会超过最大生命值的200%，持续10s")
+                .withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
         ComponentUtils.coolDownTimeDescription(components, 10);
         return components;
     }
@@ -86,19 +87,24 @@ public class MoonBelt extends WraqCurios implements OnCauseFinalDamageCurios, On
         if (statusType.containsKey(player) && statusType.get(player) == 1
                 && damageTick.containsKey(player) && damageTick.get(player) < tick
                 && storedDamage.containsKey(player)) {
-            List<Mob> mobList = player.level().getEntitiesOfClass(Mob.class, AABB.ofSize(player.position(), 15, 15, 15));
+            List<Mob> mobList = player.level().getEntitiesOfClass(Mob.class, AABB.ofSize(player.position(),
+                    15, 15, 15));
             mobList.forEach(mob -> {
                 if (mob.distanceTo(player) < 6) {
                     Damage.causeTrueDamageToMonster(player, mob, storedDamage.get(player));
                 }
             });
-            Shield.providePlayerShield(player, 100, Math.min(player.getMaxHealth() * 2, storedDamage.get(player) * 0.01));
+            Shield.providePlayerShield(player, Tick.s(10), Math.min(player.getMaxHealth() * 2,
+                    storedDamage.get(player) * 0.01));
             statusType.put(player, 0);
             storedDamage.put(player, 0d);
             coolDown.put(player, tick + 200);
             Compute.sendCoolDownTime(player, ModItems.MoonBelt.get().getDefaultInstance(), 200);
-            ParticleProvider.DisperseParticle(player.position(), (ServerLevel) player.level(), 1, 1, 120, ParticleTypes.FIREWORK, 1);
-            ParticleProvider.DisperseParticle(player.position(), (ServerLevel) player.level(), 1.5, 1, 120, ParticleTypes.FIREWORK, 1);
+            ParticleProvider.DisperseParticle(player.position(), (ServerLevel) player.level(),
+                    1, 1, 120, ParticleTypes.FIREWORK, 1);
+            ParticleProvider.DisperseParticle(player.position(), (ServerLevel) player.level(),
+                    1.5, 1, 120, ParticleTypes.FIREWORK, 1);
+            Compute.removeEffectLastTime(player, this);
         }
     }
 
@@ -106,18 +112,23 @@ public class MoonBelt extends WraqCurios implements OnCauseFinalDamageCurios, On
     public void onCauseFinalDamage(Player player, Mob mob, double damage) {
         int tick = Tick.get();
         if (!coolDown.containsKey(player) || coolDown.get(player) < tick) {
-            if (!statusType.containsKey(player)) statusType.put(player, 0);
+            if (!statusType.containsKey(player)) {
+                statusType.put(player, 0);
+            }
             switch (statusType.get(player)) {
                 case 0 -> {
                     statusType.put(player, 1);
-                    storedDamage.put(player, damage * 0.1);
+                    storedDamage.put(player, Math.min(getUpperLimit(player), damage * 0.1));
                     damageTick.put(player, tick + 200);
-                    Compute.sendEffectLastTime(player, ModItems.MoonBelt.get().getDefaultInstance(), 200);
                 }
                 case 1 -> {
-                    storedDamage.put(player, storedDamage.get(player) + damage * 0.1);
+                    double value = storedDamage.getOrDefault(player, 0d) + damage * 0.1;
+                    storedDamage.put(player, Math.min(getUpperLimit(player), value));
                 }
             }
+            Compute.sendEffectLastTime(player, ModItems.MoonBelt.get().getDefaultInstance(),
+                    damageTick.getOrDefault(player, 0) - Tick.get(),
+                    storedDamage.get(player).intValue(), false);
         }
     }
 
@@ -125,18 +136,27 @@ public class MoonBelt extends WraqCurios implements OnCauseFinalDamageCurios, On
     public void onWithStandDamage(Player player, Mob mob, double damage) {
         int tick = Tick.get();
         if (!coolDown.containsKey(player) || coolDown.get(player) < tick) {
-            if (!statusType.containsKey(player)) statusType.put(player, 0);
+            if (!statusType.containsKey(player)) {
+                statusType.put(player, 0);
+            }
             switch (statusType.get(player)) {
                 case 0 -> {
                     statusType.put(player, 1);
-                    storedDamage.put(player, damage * 10);
+                    storedDamage.put(player, Math.min(getUpperLimit(player), damage * 10));
                     damageTick.put(player, tick + 200);
-                    Compute.sendEffectLastTime(player, ModItems.MoonBelt.get().getDefaultInstance(), 200);
                 }
                 case 1 -> {
-                    storedDamage.put(player, storedDamage.get(player) + damage * 10);
+                    double value = storedDamage.getOrDefault(player, 0d) + damage * 10;
+                    storedDamage.put(player, Math.min(getUpperLimit(player), value));
                 }
             }
+            Compute.sendEffectLastTime(player, ModItems.MoonBelt.get().getDefaultInstance(),
+                    damageTick.getOrDefault(player, 0) - Tick.get(),
+                    storedDamage.get(player).intValue(), false);
         }
+    }
+
+    private double getUpperLimit(Player player) {
+        return (PlayerAttributes.attackDamage(player) * 2 + PlayerAttributes.manaDamage(player)) * 500;
     }
 }

@@ -47,7 +47,6 @@ public enum ModArmorMaterials implements ArmorMaterial {
     AIR("air", 0, 0, 15, 1, 1, SoundEvents.ARMOR_EQUIP_LEATHER),
     Devil("devil", 0, 0, 15, 1, 1, SoundEvents.ARMOR_EQUIP_GOLD),
     Moon("moon", 0, 0, 15, 1, 1, SoundEvents.ARMOR_EQUIP_DIAMOND),
-
     LifeElement("life_element", 0, 0, 15, 1, 1, SoundEvents.ARMOR_EQUIP_DIAMOND),
     WaterElement("water_element", 0, 0, 15, 1, 1, SoundEvents.ARMOR_EQUIP_DIAMOND),
     FireElement("fire_element", 0, 0, 15, 1, 1, SoundEvents.ARMOR_EQUIP_DIAMOND),
@@ -55,10 +54,10 @@ public enum ModArmorMaterials implements ArmorMaterial {
     IceElement("ice_element", 0, 0, 15, 1, 1, SoundEvents.ARMOR_EQUIP_DIAMOND),
     LightningElement("lightening_element", 0, 0, 15, 1, 1, SoundEvents.ARMOR_EQUIP_DIAMOND),
     WindElement("wind_element", 0, 0, 15, 1, 1, SoundEvents.ARMOR_EQUIP_DIAMOND),
-
     Castle("castle", 0, 0, 15, 1, 1, SoundEvents.ARMOR_EQUIP_NETHERITE),
-
-    MOONTAIN("moontain", 0, 0, 15, 1, 1, SoundEvents.ARMOR_EQUIP_DIAMOND);
+    FANVER_GOLDEN("fanver_golden", 0, 0, 15, 1, 1, SoundEvents.ARMOR_EQUIP_GOLD),
+    MOONTAIN("moontain", 0, 0, 15, 1, 1, SoundEvents.ARMOR_EQUIP_DIAMOND),
+    ENHANCE_PURPLE_IRON("enhance_purple_iron", 0, 0, 15, 1, 1, SoundEvents.ARMOR_EQUIP_IRON);
 
     private final int Durability;
     private final int Defense;
@@ -68,7 +67,7 @@ public enum ModArmorMaterials implements ArmorMaterial {
     private final String name;
     private final SoundEvent sound;
 
-    private ModArmorMaterials(String name, int IMnum1, int IMnum2, int IMnum3, float IMnum4, float IMnum5, SoundEvent sound) {
+    ModArmorMaterials(String name, int IMnum1, int IMnum2, int IMnum3, float IMnum4, float IMnum5, SoundEvent sound) {
         this.Durability = IMnum1;
         this.Defense = IMnum2;
         this.EnchantmenValue = IMnum3;

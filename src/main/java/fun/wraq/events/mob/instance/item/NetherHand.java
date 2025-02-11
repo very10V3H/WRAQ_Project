@@ -72,6 +72,6 @@ public class NetherHand extends WraqCurios implements RandomCurios, UsageOrGetWa
 
     @Override
     public ItemStack getProduct() {
-        return new ItemStack(ModItems.NetherQuartz.get(), 12);
+        return new ItemStack(ModItems.NETHER_IMPRINT.get(), 1);
     }
 }

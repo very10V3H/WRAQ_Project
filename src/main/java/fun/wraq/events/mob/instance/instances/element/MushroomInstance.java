@@ -1,7 +1,6 @@
 package fun.wraq.events.mob.instance.instances.element;
 
 import fun.wraq.common.Compute;
-import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
@@ -38,9 +37,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
 import org.apache.commons.lang3.RandomUtils;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class MushroomInstance extends NoTeamInstance {
 
@@ -133,25 +130,6 @@ public class MushroomInstance extends NoTeamInstance {
         bossInfoList.add(serverBossEvent);
 
         mob.startRiding(cow);
-    }
-
-    @Override
-    public void rewardModule(Player player) {
-        List<ItemAndRate> rewardList = getRewardList();
-        rewardList.forEach(itemAndRate -> {
-            boolean reward = itemAndRate.sendWithMSG(player, 1);
-            if (itemAndRate.getRate() < 0.01 && reward) {
-                sendFormatMSG(player, Te.s(player.getDisplayName(), "击败", mobName, style,
-                        "获得了", itemAndRate.getItemStack().getDisplayName()));
-            }
-        });
-
-        String name = player.getName().getString();
-        if (!MobSpawn.tempKillCount.containsKey(name)) MobSpawn.tempKillCount.put(name, new HashMap<>());
-        Map<String, Integer> map = MobSpawn.tempKillCount.get(name);
-        map.put(mobName, map.getOrDefault(mobName, 0) + 1);
-
-        Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player), XP_LEVEL);
     }
 
     @Override

@@ -211,7 +211,7 @@ public class WraqForge extends Item {
             }
             Set<Item> enhanceEquips = Set.of(ModItems.SKY_ARMOR_HELMET.get(),
                     ModItems.SKY_ARMOR_CHEST.get(), ModItems.SKY_ARMOR_LEGGINGS.get(), ModItems.SKY_ARMOR_BOOTS.get(),
-                    ModItems.SkyBow.get());
+                    ModItems.SkyBow.get(), ModItems.SKY_SWORD.get());
             if (enhanceEquips.contains(item)) {
                 Guide.trigV2(player, Guide.StageV2.ENHANCE_EQUIP);
             }

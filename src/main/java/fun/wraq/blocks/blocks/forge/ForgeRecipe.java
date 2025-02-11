@@ -317,6 +317,12 @@ public class ForgeRecipe {
             add(new ItemStack(Items.DIAMOND, 10));
         }});
 
+        forgeDrawRecipe.put(ModItems.SKY_SWORD.get(), new ArrayList<>() {{
+            add(new ItemStack(ModItems.SkyRune.get(), 8));
+            add(new ItemStack(ModItems.WindElementPiece0.get(), 14));
+            add(new ItemStack(Items.DIAMOND, 10));
+        }});
+
         forgeDrawRecipe.put(ModItems.SakuraDemonSword.get(), new ArrayList<>() {{
             add(new ItemStack(ModItems.SakuraPetal.get(), 576));
             add(new ItemStack(ModItems.GOLD_COIN.get(), 192));

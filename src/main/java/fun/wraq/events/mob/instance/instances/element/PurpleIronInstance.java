@@ -2,9 +2,9 @@ package fun.wraq.events.mob.instance.instances.element;
 
 import com.github.L_Ender.cataclysm.entity.AnimationMonster.BossMonsters.Amethyst_Crab_Entity;
 import com.github.L_Ender.cataclysm.init.ModEntities;
-import fun.wraq.common.Compute;
-import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
+import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstance;
@@ -19,16 +19,16 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.BossEvent;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.monster.Endermite;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class PurpleIronInstance extends NoTeamInstance {
 
@@ -73,28 +73,24 @@ public class PurpleIronInstance extends NoTeamInstance {
             serverBossEvent.addPlayer((ServerPlayer) player);
         });
         bossInfoList.add(serverBossEvent);
+
+        Utils.fourPosOffset.forEach(offset -> {
+            spawnEndermite(level, maxHealth * 0.25, pos.add(offset));
+        });
+    }
+
+    private void spawnEndermite(Level level, double maxHealth, Vec3 pos) {
+        Endermite endermite = new Endermite(EntityType.ENDERMITE, level);
+        MobSpawn.MobBaseAttributes.setMobBaseAttributes(endermite, Te.s("紫晶螨", CustomStyle.styleOfPurpleIron),
+                120, 500, 80, 80, 0.35, 3,
+                0.2, 25, 0, maxHealth, 0.3);
+        endermite.moveTo(pos);
+        level.addFreshEntity(endermite);
+        mobList.add(endermite);
     }
 
     @Override
-    public void rewardModule(Player player) {
-        List<ItemAndRate> rewardList = getRewardList();
-        List<Item> purpleIronQUWeapons = List.of(ModItems.PurpleIronSword.get(),
-                ModItems.PurpleIronBow.get(), ModItems.PurpleIronSceptre.get());
-        rewardList.forEach(itemAndRate -> {
-            Item item = itemAndRate.getItemStack().getItem();
-            if (itemAndRate.sendWithMSG(player, 1)) {
-                if (purpleIronQUWeapons.contains(item)) {
-                    NoTeamInstanceModule.putPlayerAllowReward(player,
-                            NoTeamInstanceModule.AllowRewardKey.iceKnight, true);
-                }
-            }
-        });
-
-        String name = player.getName().getString();
-        if (!MobSpawn.tempKillCount.containsKey(name)) MobSpawn.tempKillCount.put(name, new HashMap<>());
-        Map<String, Integer> map = MobSpawn.tempKillCount.get(name);
-        map.put(mobName, map.getOrDefault(mobName, 0) + 1);
-        Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player), 120);
+    public void exReward(Player player) {
         Guide.trigV2(player, Guide.StageV2.PURPLE_IRON_BOSS);
     }
 
@@ -119,6 +115,7 @@ public class PurpleIronInstance extends NoTeamInstance {
         return List.of(new ItemAndRate(ModItems.PurpleIronBud1.get(), 1),
                 new ItemAndRate(new ItemStack(ModItems.GEM_PIECE.get(), 8), 0.1),
                 new ItemAndRate(ModItems.PurpleIronBud2.get(), 0.1),
+                new ItemAndRate(ModItems.ENHANCE_PURPLE_IRON_CHEST.get(), 0.01),
                 new ItemAndRate(ModItems.PurpleIronSword.get(), 0.01),
                 new ItemAndRate(ModItems.PurpleIronBow.get(), 0.01),
                 new ItemAndRate(ModItems.PurpleIronSceptre.get(), 0.01),

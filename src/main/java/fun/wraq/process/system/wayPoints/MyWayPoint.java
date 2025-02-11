@@ -370,6 +370,7 @@ public class MyWayPoint {
 
         add(new MyWayPoint(new Vec3(2352, -34, -704), "远古之城", colorMap.get(darkBlue), 0));
         add(VillageWayPoint.FOR_NORTH_VILLAGE);
+        add(new MyWayPoint(new Vec3(1934, -25, 1798), "鹰眼工厂", colorMap.get(red), 0));
 
         add(new MyWayPoint(new Vec3(1573, 54, 149), "炼魔涌溢", colorMap.get(darkPurple), 0));
         add(new MyWayPoint(new Vec3(2006, 130, -1785), "菌菇聚落", colorMap.get(red), 0));

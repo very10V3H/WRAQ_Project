@@ -173,8 +173,10 @@ public class ServerPlayerTickEvent {
             if (player.tickCount % 10 == 0
                     && (player.isOnFire()
                     || (player.getBlockStateOn().is(Blocks.MAGMA_BLOCK) && !player.isShiftKeyDown()))) {
-                Compute.decreasePlayerHealth(player, player.getHealth() * 0.03,
-                        Te.s("被火焰吞没了", CustomStyle.styleOfPower));
+                if (!player.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.REVENANT_GOLDEN_HELMET.get())) {
+                    Compute.decreasePlayerHealth(player, player.getHealth() * 0.03,
+                            Te.s("被火焰吞没了", CustomStyle.styleOfPower));
+                }
             }
 
             if (player.tickCount % 100 == 0 && MobSpawn.totalKillCount.containsKey(player.getName().getString())) {

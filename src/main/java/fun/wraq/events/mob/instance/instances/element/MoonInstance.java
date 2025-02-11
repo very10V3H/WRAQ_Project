@@ -1,7 +1,6 @@
 package fun.wraq.events.mob.instance.instances.element;
 
 import fun.wraq.common.Compute;
-import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModEntityType;
@@ -38,17 +37,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.WeakHashMap;
 
 public class MoonInstance extends NoTeamInstance {
 
     private static MoonInstance instance;
-
     public static String mobName = "阿尔忒弥斯";
-
     public static MoonInstance getInstance() {
         if (instance == null) {
             instance = new MoonInstance(new Vec3(1761, 130, -463), 50, 60, new Vec3(1761, 130, -463),
@@ -129,17 +124,7 @@ public class MoonInstance extends NoTeamInstance {
     }
 
     @Override
-    public void rewardModule(Player player) {
-        List<ItemAndRate> rewardList = getRewardList();
-        rewardList.forEach(itemAndRate -> {
-            itemAndRate.sendWithMSG(player, 1);
-        });
-
-        String name = player.getName().getString();
-        if (!MobSpawn.tempKillCount.containsKey(name)) MobSpawn.tempKillCount.put(name, new HashMap<>());
-        Map<String, Integer> map = MobSpawn.tempKillCount.get(name);
-        map.put(mobName, map.getOrDefault(mobName, 0) + 1);
-        Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player), 160);
+    public void exReward(Player player) {
         Guide.trigV2(player, Guide.StageV2.MOON_BOSS);
     }
 

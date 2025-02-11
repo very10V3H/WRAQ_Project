@@ -1,7 +1,5 @@
 package fun.wraq.events.mob.instance.instances.moontain;
 
-import fun.wraq.common.Compute;
-import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
@@ -22,9 +20,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class MoontainBoss1Instance extends NoTeamInstance {
 
@@ -70,17 +66,6 @@ public class MoontainBoss1Instance extends NoTeamInstance {
         });
         bossInfoList.add(serverBossEvent);
         mobList.add(entity);
-    }
-
-    @Override
-    public void rewardModule(Player player) {
-        List<ItemAndRate> rewardList = getRewardList();
-        rewardList.forEach(itemAndRate -> itemAndRate.sendWithMSG(player, 1));
-        String name = player.getName().getString();
-        if (!MobSpawn.tempKillCount.containsKey(name)) MobSpawn.tempKillCount.put(name, new HashMap<>());
-        Map<String, Integer> map = MobSpawn.tempKillCount.get(name);
-        map.put(mobName, map.getOrDefault(mobName, 0) + 1);
-        Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player), 200);
     }
 
     @Override

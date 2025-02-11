@@ -104,7 +104,7 @@ public class CastleManaArmor extends WraqArmor implements ForgeItem {
     public static void ExAttack(Player player, double rate) {
         ManaArrow manaArrow = new ManaArrow(ModEntityType.NEW_ARROW.get(), player, player.level(),
                 rate, PlayerAttributes.manaPenetration(player),
-                PlayerAttributes.manaPenetration0(player), StringUtils.ParticleTypes.DamageMana);
+                PlayerAttributes.manaPenetration0(player), StringUtils.ParticleTypes.EVOKER);
         manaArrow.setSilent(true);
         manaArrow.setNoGravity(true);
 

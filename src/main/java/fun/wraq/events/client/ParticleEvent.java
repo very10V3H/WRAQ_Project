@@ -94,24 +94,6 @@ public class ParticleEvent {
                 ClientUtils.EndRune2Pos.removeIf(posAndLastTime -> posAndLastTime.TickCount < 0);
             } //下界符石 末影龙息
 
-            List<Mob> mobList = level.getEntitiesOfClass(Mob.class, AABB.ofSize(player.position(), 50, 50, 50));
-            mobList.forEach(mob -> {
-                if (mob.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.ArmorPlainBossHelmet.get())) {
-                    double r = 6;
-                    int num = 60;
-                    double pickDistance = 1;
-                    Vec3 bottomPos = new Vec3(mob.position().x, mob.position().y, mob.position().z);
-                    for (int i = 0; i < num; i++) {
-                        double angle = (2 * Math.PI / num) * (i);
-                        Vec3 Point = new Vec3(bottomPos.x + r * cos(angle), bottomPos.y + pickDistance, bottomPos.z + r * sin(angle));
-                        level.addParticle(ModParticles.PLAIN.get(), Point.x, Point.y, Point.z,
-                                0, 0, 0);
-                        level.addParticle(ModParticles.PLAIN.get(), Point.x, Point.y + 0.5, Point.z,
-                                0, 0, 0);
-                    }
-                }
-            });
-
             Utils.WorldEntropyPos.forEach(worldEntropy -> {
                 ParticleProvider.RandomToDesParticle(random.nextInt(20), worldEntropy.getVec3().add(0.5, 0, 0.5), level, 5);
             });

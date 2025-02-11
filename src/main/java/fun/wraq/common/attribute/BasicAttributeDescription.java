@@ -281,15 +281,18 @@ public class BasicAttributeDescription {
 
         index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.maxHealth, Utils.percentMaxHealthEnhance,
                 StringUtils.CuriosAttribute.percentMaxHealthEnhance, "最大生命值",
-                Style.EMPTY.applyFormat(ChatFormatting.GREEN), 1, true, itemStack, false, null, event.getTooltipElements());
+                Style.EMPTY.applyFormat(ChatFormatting.GREEN), 1, true, itemStack, false,
+                null, event.getTooltipElements());
 
         index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.healthRecover, Utils.healthRecover,
                 StringUtils.CuriosAttribute.healthRecover, "生命回复",
-                Style.EMPTY.applyFormat(ChatFormatting.GREEN), 1, false, itemStack, true, CustomStyle.styleOfLife, event.getTooltipElements());
+                Style.EMPTY.applyFormat(ChatFormatting.GREEN), 1, false, itemStack, true,
+                CustomStyle.styleOfLife, event.getTooltipElements());
 
         index = newAttributeCommonDescriptionTemplate(index, TraditionalTooltip.healthRecover, Utils.percentHealthRecover,
                 StringUtils.CuriosAttribute.percentHealthRecover, "生命回复",
-                Style.EMPTY.applyFormat(ChatFormatting.GREEN), 2, true, itemStack, true, CustomStyle.styleOfLife, event.getTooltipElements());
+                Style.EMPTY.applyFormat(ChatFormatting.GREEN), 2, true, itemStack, false,
+                CustomStyle.styleOfLife, event.getTooltipElements());
 
         if (Utils.defencePenetration.containsKey(item) || data.contains(StringUtils.CuriosAttribute.defencePenetration)) {
 

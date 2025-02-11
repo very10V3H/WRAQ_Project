@@ -85,11 +85,7 @@ public class LoginInEvent {
 
             Scoreboard scoreboard = player.getServer().getScoreboard();
             scoreboard.entityRemoved(player);
-            player.sendSystemMessage(Component.literal("[").withStyle(ChatFormatting.GRAY)
-                    .append(Component.literal("维瑞阿契").withStyle(ChatFormatting.AQUA))
-                    .append("]").withStyle(ChatFormatting.GRAY)
-                    .append(Component.literal("欢迎来到 ").withStyle(ChatFormatting.WHITE)
-                            .append(Component.literal("维瑞阿契").withStyle(ChatFormatting.AQUA))));
+
             CompoundTag data = player.getPersistentData();
 
             data.putString(StringUtils.Login.Status, StringUtils.Login.Offline);

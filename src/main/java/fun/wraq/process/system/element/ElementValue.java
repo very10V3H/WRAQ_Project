@@ -1,8 +1,10 @@
 package fun.wraq.process.system.element;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.util.Utils;
 import fun.wraq.customized.uniform.element.*;
+import fun.wraq.events.mob.instance.item.RevenantGoldenHelmet;
 import fun.wraq.process.system.element.equipAndCurios.fireElement.FireElementSword;
 import fun.wraq.process.system.element.equipAndCurios.waterElement.WaterElementSword;
 import fun.wraq.process.system.season.MySeason;
@@ -24,13 +26,13 @@ public class ElementValue {
     public static String WindElementValue = "WindElementValue";
 
     public static double ElementValueJudgeByType(Player player, String type) {
-        if (type.equals(fun.wraq.process.system.element.Element.life)) return getPlayerLifeElementValue(player);
-        if (type.equals(fun.wraq.process.system.element.Element.water)) return getPlayerWaterElementValue(player);
-        if (type.equals(fun.wraq.process.system.element.Element.fire)) return getPlayerFireElementValue(player);
-        if (type.equals(fun.wraq.process.system.element.Element.stone)) return getPlayerStoneElementValue(player);
-        if (type.equals(fun.wraq.process.system.element.Element.ice)) return getPlayerIceElementValue(player);
-        if (type.equals(fun.wraq.process.system.element.Element.lightning)) return getPlayerLightningElementValue(player);
-        if (type.equals(fun.wraq.process.system.element.Element.wind)) return getPlayerWindElementValue(player);
+        if (type.equals(Element.life)) return getPlayerLifeElementValue(player);
+        if (type.equals(Element.water)) return getPlayerWaterElementValue(player);
+        if (type.equals(Element.fire)) return getPlayerFireElementValue(player);
+        if (type.equals(Element.stone)) return getPlayerStoneElementValue(player);
+        if (type.equals(Element.ice)) return getPlayerIceElementValue(player);
+        if (type.equals(Element.lightning)) return getPlayerLightningElementValue(player);
+        if (type.equals(Element.wind)) return getPlayerWindElementValue(player);
         return 0;
     }
 
@@ -53,109 +55,94 @@ public class ElementValue {
 
     public static double getPlayerLifeElementValue(Player player) {
         double value = 0;
-
-        value += QiLingJudge(player, fun.wraq.process.system.element.Element.LifeElementValue);
-        value += Compute.CuriosAttribute.attributeValue(player, fun.wraq.process.system.element.Element.LifeElementValue, LifeElementValue);
-
-        value += mainHandEquipValue(player.getMainHandItem().getItem(), fun.wraq.process.system.element.Element.LifeElementValue);
-
+        value += PlayerAttributes.computeAllEquipSlotBaseAttributeValue(player, Element.LifeElementValue, false);
+        value += QiLingJudge(player, Element.LifeElementValue);
+        value += Compute.CuriosAttribute.attributeValue(player, Element.LifeElementValue, LifeElementValue);
+        value += mainHandEquipValue(player.getMainHandItem().getItem(), Element.LifeElementValue);
         // 百分比分割线
         value *= LifeCurios0.playerLifeElementValueEnhance(player);
-        value *= (1 + MySeason.getCurrentSeasonElementEffect(fun.wraq.process.system.element.Element.life));
+        value *= (1 + MySeason.getCurrentSeasonElementEffect(Element.life));
 
         return value;
     }
 
     public static double getPlayerWaterElementValue(Player player) {
         double value = 0;
-
-        value += QiLingJudge(player, fun.wraq.process.system.element.Element.WaterElementValue);
-        value += Compute.CuriosAttribute.attributeValue(player, fun.wraq.process.system.element.Element.WaterElementValue, WaterElementValue);
-
-        value += mainHandEquipValue(player.getMainHandItem().getItem(), fun.wraq.process.system.element.Element.WaterElementValue);
-
+        value += PlayerAttributes.computeAllEquipSlotBaseAttributeValue(player, Element.WaterElementValue, false);
+        value += QiLingJudge(player, Element.WaterElementValue);
+        value += Compute.CuriosAttribute.attributeValue(player, Element.WaterElementValue, WaterElementValue);
+        value += mainHandEquipValue(player.getMainHandItem().getItem(), Element.WaterElementValue);
         // 百分比分割线
         value *= WaterElementSword.PlayerWaterElementValueEnhance(player);
         value *= WaterCurios0.playerWaterElementValueEnhance(player);
-        value *= (1 + MySeason.getCurrentSeasonElementEffect(fun.wraq.process.system.element.Element.water));
-
+        value *= (1 + MySeason.getCurrentSeasonElementEffect(Element.water));
         return value;
     }
 
     public static double getPlayerFireElementValue(Player player) {
         double value = 0;
-
-        value += QiLingJudge(player, fun.wraq.process.system.element.Element.FireElementValue);
-        value += Compute.CuriosAttribute.attributeValue(player, fun.wraq.process.system.element.Element.FireElementValue, FireElementValue);
-
-        value += mainHandEquipValue(player.getMainHandItem().getItem(), fun.wraq.process.system.element.Element.FireElementValue);
-
+        value += PlayerAttributes.computeAllEquipSlotBaseAttributeValue(player, Element.FireElementValue, false);
+        value += QiLingJudge(player, Element.FireElementValue);
+        value += Compute.CuriosAttribute.attributeValue(player, Element.FireElementValue, FireElementValue);
+        value += mainHandEquipValue(player.getMainHandItem().getItem(), Element.FireElementValue);
         value += FireElementSword.FireElementValueEnhance(player);
-
         // 百分比分割线
-        value *= FireCurios0.playerFireElementValueEnhance(player);
-        value *= (1 + MySeason.getCurrentSeasonElementEffect(fun.wraq.process.system.element.Element.fire));
-
+        double enhanceRate = 0;
+        enhanceRate += RevenantGoldenHelmet.getFireElementValueEnhanceRate(player);
+        enhanceRate += FireCurios0.getFireElementValueEnhance(player);
+        value *= (1 + enhanceRate);
+        value *= (1 + MySeason.getCurrentSeasonElementEffect(Element.fire));
         return value;
     }
 
     public static double getPlayerStoneElementValue(Player player) {
         double value = 0;
-
-        value += QiLingJudge(player, fun.wraq.process.system.element.Element.StoneElementValue);
-        value += Compute.CuriosAttribute.attributeValue(player, fun.wraq.process.system.element.Element.StoneElementValue, StoneElementValue);
-
-        value += mainHandEquipValue(player.getMainHandItem().getItem(), fun.wraq.process.system.element.Element.StoneElementValue);
-
+        value += PlayerAttributes.computeAllEquipSlotBaseAttributeValue(player, Element.StoneElementValue, false);
+        value += QiLingJudge(player, Element.StoneElementValue);
+        value += Compute.CuriosAttribute.attributeValue(player, Element.StoneElementValue, StoneElementValue);
+        value += mainHandEquipValue(player.getMainHandItem().getItem(), Element.StoneElementValue);
         // 百分比分割线
         value *= StoneCurios0.playerStoneElementValueEnhance(player);
-        value *= (1 + MySeason.getCurrentSeasonElementEffect(fun.wraq.process.system.element.Element.stone));
+        value *= (1 + MySeason.getCurrentSeasonElementEffect(Element.stone));
 
         return value;
     }
 
     public static double getPlayerIceElementValue(Player player) {
         double value = 0;
-
-        value += QiLingJudge(player, fun.wraq.process.system.element.Element.IceElementValue);
-        value += Compute.CuriosAttribute.attributeValue(player, fun.wraq.process.system.element.Element.IceElementValue, IceElementValue);
-
-        value += mainHandEquipValue(player.getMainHandItem().getItem(), fun.wraq.process.system.element.Element.IceElementValue);
-
+        value += PlayerAttributes.computeAllEquipSlotBaseAttributeValue(player, Element.IceElementValue, false);
+        value += QiLingJudge(player, Element.IceElementValue);
+        value += Compute.CuriosAttribute.attributeValue(player, Element.IceElementValue, IceElementValue);
+        value += mainHandEquipValue(player.getMainHandItem().getItem(), Element.IceElementValue);
         // 百分比分割线
         value *= IceCurios0.playerIceElementValueEnhance(player);
-        value *= (1 + MySeason.getCurrentSeasonElementEffect(fun.wraq.process.system.element.Element.ice));
+        value *= (1 + MySeason.getCurrentSeasonElementEffect(Element.ice));
 
         return value;
     }
 
     public static double getPlayerLightningElementValue(Player player) {
         double value = 0;
-
-        value += QiLingJudge(player, fun.wraq.process.system.element.Element.LightningElementValue);
-        value += Compute.CuriosAttribute.attributeValue(player, fun.wraq.process.system.element.Element.LightningElementValue, LightningElementValue);
-
-        value += mainHandEquipValue(player.getMainHandItem().getItem(), fun.wraq.process.system.element.Element.LightningElementValue);
-
+        value += PlayerAttributes.computeAllEquipSlotBaseAttributeValue(player, Element.LifeElementValue, false);
+        value += QiLingJudge(player, Element.LightningElementValue);
+        value += Compute.CuriosAttribute.attributeValue(player, Element.LightningElementValue, LightningElementValue);
+        value += mainHandEquipValue(player.getMainHandItem().getItem(), Element.LightningElementValue);
         // 百分比分割线
         value *= LightningCurios0.playerLightningElementValueEnhance(player);
-        value *= (1 + MySeason.getCurrentSeasonElementEffect(fun.wraq.process.system.element.Element.lightning));
+        value *= (1 + MySeason.getCurrentSeasonElementEffect(Element.lightning));
 
         return value;
     }
 
     public static double getPlayerWindElementValue(Player player) {
         double value = 0;
-
-        value += QiLingJudge(player, fun.wraq.process.system.element.Element.WindElementValue);
-        value += Compute.CuriosAttribute.attributeValue(player, fun.wraq.process.system.element.Element.WindElementValue, WindElementValue);
-
-        value += mainHandEquipValue(player.getMainHandItem().getItem(), fun.wraq.process.system.element.Element.WindElementValue);
-
+        value += PlayerAttributes.computeAllEquipSlotBaseAttributeValue(player, Element.WindElementValue, false);
+        value += QiLingJudge(player, Element.WindElementValue);
+        value += Compute.CuriosAttribute.attributeValue(player, Element.WindElementValue, WindElementValue);
+        value += mainHandEquipValue(player.getMainHandItem().getItem(), Element.WindElementValue);
         // 百分比分割线
         value *= WindCurios0.playerWindElementValueEnhance(player);
         value *= (1 + MySeason.getCurrentSeasonElementEffect(Element.wind));
-
         return value;
     }
 }

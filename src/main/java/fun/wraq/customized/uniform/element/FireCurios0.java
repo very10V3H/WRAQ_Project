@@ -42,8 +42,8 @@ public class FireCurios0 extends WraqElementUniformCurios {
         return WraqUniformCurios.isOn(FireCurios0.class, player);
     }
 
-    public static double playerFireElementValueEnhance(Player player) {
-        if (!isOn(player)) return 1;
-        return 2;
+    public static double getFireElementValueEnhance(Player player) {
+        if (!isOn(player)) return 0;
+        return 1;
     }
 }

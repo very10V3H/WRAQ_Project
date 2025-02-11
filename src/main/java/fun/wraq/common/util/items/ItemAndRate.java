@@ -14,6 +14,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
@@ -114,17 +115,19 @@ public class ItemAndRate {
         return true;
     }
 
-    public boolean sendWithMSG(Player player, double num) {
+    public ItemStack sendWithMSG(Player player, double num) {
         return sendWithMSG(player, num, null);
     }
 
-    public boolean sendWithMSG(Player player, double num, AdjustStackBeforeGive adjustStackBeforeGive) {
+    public ItemStack sendWithMSG(Player player, double num, AdjustStackBeforeGive adjustStackBeforeGive) {
         ItemStack dropItemStack = new ItemStack(itemStack.getItem());
         handleRandomAttributeBeforeDrop(dropItemStack);
         dropItemStack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
         Random rand = new Random();
         double finalRate = rate * num;
-        if (finalRate < 1 && rand.nextDouble() >= finalRate) return false;
+        if (finalRate < 1 && rand.nextDouble() >= finalRate) {
+            return Items.AIR.getDefaultInstance();
+        }
         if (finalRate > 1) {
             dropItemStack.setCount((int) finalRate);
             if (rand.nextDouble() < finalRate % 1) {
@@ -134,8 +137,9 @@ public class ItemAndRate {
         if (adjustStackBeforeGive != null) {
             adjustStackBeforeGive.adjust(dropItemStack);
         }
+        ItemStack copyStack = dropItemStack.copy();
         InventoryOperation.giveItemStackWithMSG(player, dropItemStack);
-        return true;
+        return copyStack;
     }
 
     public static void summonItemEntity(ItemStack itemStack, Vec3 pos, Level level) {

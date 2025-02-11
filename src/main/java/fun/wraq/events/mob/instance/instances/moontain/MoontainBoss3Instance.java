@@ -1,7 +1,6 @@
 package fun.wraq.events.mob.instance.instances.moontain;
 
 import fun.wraq.common.Compute;
-import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
@@ -11,9 +10,9 @@ import fun.wraq.events.core.InventoryCheck;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstance;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
-import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
 import fun.wraq.process.func.StableAttributesModifier;
 import fun.wraq.process.func.damage.Damage;
+import fun.wraq.process.func.effect.SpecialEffectOnPlayer;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
@@ -194,12 +193,7 @@ public class MoontainBoss3Instance extends NoTeamInstance {
     private final String PLAYER_LAST_GET_REWARD_TIMES_KEY = "PlayerLastGetMoontainBoss3RewardTimes";
 
     @Override
-    public void rewardModule(Player player) {
-        List<ItemAndRate> rewardList = getRewardList();
-        rewardList.forEach(itemAndRate -> itemAndRate.sendWithMSG(player, 1));
-        MobSpawn.killCountIncrement(player, mobName);
-        Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player), 240);
-
+    public void exReward(Player player) {
         boolean getReward = false;
         SecureRandom secureRandom = new SecureRandom();
         if (secureRandom.nextDouble() < 0.05) {

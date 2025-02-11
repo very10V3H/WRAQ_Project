@@ -8,8 +8,8 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.customized.UniformItems;
 import fun.wraq.events.mob.loot.RandomLootEquip;
 import fun.wraq.process.system.endlessinstance.item.EndlessInstanceItems;
-import fun.wraq.series.overworld.chapter2.lavender.LavenderBracelet;
 import fun.wraq.series.events.SpecialEventItems;
+import fun.wraq.series.overworld.chapter2.lavender.LavenderBracelet;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -34,10 +34,14 @@ public class InventoryCheck {
 
     @SubscribeEvent
     public static void InventoryCheckEvent(TickEvent.PlayerTickEvent event) {
-        if (!event.player.isCreative() && event.player.tickCount % 20 == 0
+        if (!event.player.isCreative() && !event.player.isSpectator() && event.player.tickCount % 20 == 0
                 && event.side.isServer() && event.phase == TickEvent.Phase.START) {
             Player player = event.player;
             ServerPlayer serverPlayer = (ServerPlayer) player;
+            String name = serverPlayer.getName().getString();
+            if (name.equals("Dev")) {
+                return;
+            }
             Inventory inventory = player.getInventory();
             for (int i = 0; i < inventory.getMaxStackSize(); i++) {
                 ItemStack itemStack = inventory.getItem(i);

@@ -1,11 +1,10 @@
 package fun.wraq.events.mob.instance.instances.element;
 
 import fun.wraq.common.Compute;
-import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
-import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.common.util.Utils;
+import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstance;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
@@ -29,10 +28,9 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.animal.horse.Horse;
 import net.minecraft.world.entity.monster.Stray;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Items;
@@ -40,9 +38,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -68,6 +64,10 @@ public class IceInstance extends NoTeamInstance {
     public void tickModule() {
         if (mobList.isEmpty()) return;
         Mob mob = this.mobList.get(0);
+        if (mob.isDeadOrDying()) {
+            this.mobList.stream().filter(LivingEntity::isAlive)
+                    .forEach(eachMob -> eachMob.remove(Entity.RemovalReason.KILLED));
+        }
         int tick = mob.tickCount;
         Level level = mob.level();
         List<Player> players = getNearPlayers(level);
@@ -124,6 +124,16 @@ public class IceInstance extends NoTeamInstance {
         stray.moveTo(pos);
         level.addFreshEntity(stray);
         mobList.add(stray);
+
+        Horse horse = new Horse(EntityType.HORSE, level);
+        horse.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.35);
+        horse.setItemSlot(EquipmentSlot.CHEST, Items.DIAMOND_HORSE_ARMOR.getDefaultInstance());
+        horse.moveTo(pos);
+        level.addFreshEntity(horse);
+        mobList.add(horse);
+
+        stray.startRiding(horse);
+
         ServerBossEvent serverBossEvent = (ServerBossEvent) (new ServerBossEvent(stray.getDisplayName(), BossEvent.BossBarColor.BLUE, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
         getNearPlayers(level).forEach(player -> {
             serverBossEvent.addPlayer((ServerPlayer) player);
@@ -132,17 +142,7 @@ public class IceInstance extends NoTeamInstance {
     }
 
     @Override
-    public void rewardModule(Player player) {
-        List<ItemAndRate> rewardList = getRewardList();
-        rewardList.forEach(itemAndRate -> {
-            itemAndRate.sendWithMSG(player, 1);
-        });
-
-        String name = player.getName().getString();
-        if (!MobSpawn.tempKillCount.containsKey(name)) MobSpawn.tempKillCount.put(name, new HashMap<>());
-        Map<String, Integer> map = MobSpawn.tempKillCount.get(name);
-        map.put(mobName, map.getOrDefault(mobName, 0) + 1);
-        Compute.givePercentExpToPlayer(player, 0.02, PlayerAttributes.expUp(player), 135);
+    public void exReward(Player player) {
         Guide.trigV2(player, Guide.StageV2.ICE_KNIGHT);
     }
 

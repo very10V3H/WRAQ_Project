@@ -1934,8 +1934,8 @@ public class Compute {
      */
     public static String getSimplifiedNumberDescription(double value) {
         if (value < 1000) {
-            // 正常显示 999.9
-            return String.format("%.1f", value);
+            // 正常显示 999
+            return String.format("%.0f", value);
         }
         if (value < 10000) {
             // 显示99.99k

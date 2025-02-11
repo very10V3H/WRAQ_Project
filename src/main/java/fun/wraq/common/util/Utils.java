@@ -750,4 +750,9 @@ public class Utils {
         public static String killed = "killed";
         public static String speciousLogin = "speciousLogin";
     }
+
+    public static List<Vec3> fourPosOffset = List.of(
+            new Vec3(1, 0, 0), new Vec3(-1, 0, 0),
+            new Vec3(0, 0, 1), new Vec3(0, 0, -1)
+    );
 }

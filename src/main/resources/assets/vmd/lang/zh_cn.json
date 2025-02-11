@@ -138,6 +138,7 @@
   "item.vmd.newcurios": "新人的馈赠",
   "item.vmd.speiron": "匠人铁锭",
   "item.vmd.skybow": "天空之隼",
+  "item.vmd.sky_sword": "天空之锋",
   "item.vmd.skysoul": "天空碎片",
   "item.vmd.skyrune": "天空宝石",
   "item.vmd.sky_gem": "天空之心",
@@ -614,6 +615,7 @@
   "item.vmd.forest_soul_bag": "袋装森林根源",
   "item.vmd.lake_soul_bag": "袋装澈源根源",
   "item.vmd.volcano_soul_bag": "袋装火山根源",
+  "item.vmd.plain_boss_sceptre": "普莱尼生机权杖",
   "item.vmd.plain_attack_ring0": "普莱尼愤怒之戒",
   "item.vmd.plain_attack_ring1": "普莱尼愤怒之戒¹",
   "item.vmd.plain_attack_ring2": "普莱尼愤怒之戒²",
@@ -1186,6 +1188,8 @@
   "item.vmd.purple_iron_sceptre2": "紫晶骑士之镰²",
   "item.vmd.purple_iron_sceptre3": "紫晶骑士之镰³",
 
+  "item.vmd.enhance_purple_iron_chest": "紫晶能量胸甲",
+
   "item.vmd.purple_iron_bud1": "紫晶原簇-小",
   "item.vmd.purple_iron_bud2": "紫晶原簇-中",
   "item.vmd.purple_iron_bud3": "紫晶原簇-大",
@@ -1504,6 +1508,7 @@
   "item.vmd.wind_bottle": "捕风瓶",
 
   "item.vmd.plain_necklace": "生机项链",
+  "item.vmd.revenant_golden_helmet": "焰烬头盔",
   "item.vmd.nether_hand": "燃魂拳套",
 
   "item.vmd.end_rune": "末影符石",

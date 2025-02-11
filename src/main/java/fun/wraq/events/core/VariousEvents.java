@@ -58,7 +58,6 @@ import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.event.CurioChangeEvent;
 import top.theillusivec4.curios.api.event.CurioEquipEvent;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -125,11 +124,13 @@ public class VariousEvents {
             ModNetworking.sendToClient(new ExpGetResetS2CPacket(), serverPlayer);
             event.getEntity().getPersistentData().merge(event.getOriginal().getPersistentData());
             ModNetworking.sendToClient(new AnimationTickResetS2CPacket(), serverPlayer);
+        } else {
+            ClientUtils.debuffTimes.clear();
         }
     }
 
     @SubscribeEvent
-    public static void TossCheck(ItemTossEvent event) throws IOException {
+    public static void TossCheck(ItemTossEvent event) {
         ItemStack stack = event.getEntity().getItem();
         Player player = event.getPlayer();
         CompoundTag data = stack.getTagElement(Utils.MOD_ID);

@@ -92,13 +92,10 @@ public class MopUpPaper extends Item {
                 case 9 -> rewardList = PurpleIronInstance.getInstance().getRewardList();
                 case 10 -> rewardList = SakuraBossInstance.getInstance().getRewardList();
             }
-
             rewardList.forEach(itemAndRate -> {
                 itemAndRate.send(player, 1);
             });
-
             Compute.playerItemUseWithRecord(player);
-
         }
         return InteractionResultHolder.pass(player.getItemInHand(interactionHand));
     }
