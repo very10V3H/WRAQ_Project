@@ -468,7 +468,13 @@ public class BlockEvent {
                     overWorld.setBlockAndUpdate(blockAndResetTime.getBlockPos(), blockAndResetTime.getBlockState());
                     Utils.posEvenBeenDigOrPlace.remove(blockAndResetTime.getBlockPos());
                 }
-
+            }
+            if (event.level.dimension().equals(Level.NETHER) && tick % 400 == 16) {
+                Queue<BlockAndResetTime> queue = Utils.netherMineList;
+                while (queue.peek() != null && queue.peek().getResetTick() < tick) {
+                    BlockAndResetTime blockAndResetTime = queue.poll();
+                    event.level.setBlockAndUpdate(blockAndResetTime.getBlockPos(), blockAndResetTime.getBlockState());
+                }
             }
         }
     }
