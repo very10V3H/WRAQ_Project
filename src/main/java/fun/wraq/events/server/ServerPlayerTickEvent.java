@@ -48,6 +48,7 @@ import fun.wraq.process.system.entrustment.mob.MobKillEntrustment;
 import fun.wraq.process.system.missions.mission2.MissionV2;
 import fun.wraq.process.system.point.Point;
 import fun.wraq.process.system.profession.pet.allay.AllayPet;
+import fun.wraq.process.system.randomevent.impl.special.SpringMobEvent;
 import fun.wraq.process.system.reason.Reason;
 import fun.wraq.process.system.respawn.MyRespawnRule;
 import fun.wraq.process.system.restzone.RestZone;
@@ -165,6 +166,7 @@ public class ServerPlayerTickEvent {
             ManaNewSkillFinal0.handleServerPlayerTickEvent(serverPlayer);
             Spring2025BossBar.handleServerPlayerTick(serverPlayer);
             MissionV2.handlePlayerTick(player);
+            SpringMobEvent.handleServerPlayerTick(player);
 
             if (player.tickCount % 20 == 15) {
                 Spring2025ZoneFirework.handleServerPlayerTick(player);

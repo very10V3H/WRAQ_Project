@@ -125,6 +125,7 @@ public class MissionV2Helper {
         Random random = new Random();
         MobSpawnController controller = controllers.get(random.nextInt(controllers.size()));
         getDailyMissionData(player).putString(DAILY_KILL_MOB_NAME_DATA_KEY, controller.mobName.getString());
+        getDailyMissionData(player).putInt(DAILY_KILL_MOB_COUNT_DATA_KEY, 0);
     }
 
     public static void onKillMob(Player player, Mob mob) {
@@ -181,6 +182,15 @@ public class MissionV2Helper {
         });
     }
 
+    public static MissionV2.PlayerAction getDailyCollectionItemMissionRewardAction() {
+        return (player -> {
+            Item item = Compute.getItemFromString(
+                    getDailyMissionData(player).getString(DAILY_COLLECTION_ITEM_STRING_DATA_KEY)).getItem();
+            InventoryOperation.removeItemWithoutCheck(player, new ItemStack(item, 64));
+            getDailyMissionRewardAction().action(player);
+        });
+    }
+
     public static MissionV2.ClientComponentOperation getDailyCollectionMissionTitle() {
         return ((missionV2, data) -> {
             ItemStack itemStack = Compute.getItemFromString(data.getCompound(MISSION_V2_DAILY_MISSION_DATA_KEY)
@@ -205,6 +215,7 @@ public class MissionV2Helper {
             getDailyMissionData(player).putString(DAILY_CHALLENGE_NAME_DATA_KEY,
                     list.get(RandomUtils.nextInt(0, list.size())).name.getString());
         }
+        getDailyMissionData(player).putInt(DAILY_CHALLENGE_COUNT_DATA_KEY, 0);
     }
 
     public static void onChallengeFinished(Player player, String challengeName) {

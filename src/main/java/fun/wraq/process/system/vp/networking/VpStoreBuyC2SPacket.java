@@ -124,6 +124,7 @@ public class VpStoreBuyC2SPacket {
                             Compute.clearPlayerScreen(serverPlayer);
                             Compute.setPlayerTitleAndSubTitle(serverPlayer, Te.m(goods.getDisplayName()),
                                     Te.s("已成功激活!", CustomStyle.styleOfWorld));
+                            PlanPlayer.map.get(name).lastRewardTime = null;
                         }
                     } catch (ParseException e) {
                         throw new RuntimeException(e);

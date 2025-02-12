@@ -45,7 +45,7 @@ public enum MissionV2 {
             Te.s("每日任务"), false,
             null, null,
             MissionV2Helper.getDailyCollectionItemMissionSubmitCondition(),
-            MissionV2Helper.getDailyMissionRewardAction(),
+            MissionV2Helper.getDailyCollectionItemMissionRewardAction(),
             MissionV2Helper.getDailyRewardDescription(),
             MissionV2Helper.getDailyCollectionMissionTitle(),
             null),
@@ -65,7 +65,7 @@ public enum MissionV2 {
     }
 
     public interface PlayerAction {
-        void action(Player player) throws ParseException, SQLException;
+        void action(Player player) throws ParseException, SQLException, CommandSyntaxException;
     }
 
     public interface ClientComponentOperation {
@@ -178,7 +178,11 @@ public enum MissionV2 {
 
     private static void submit(Player player, MissionV2 missionV2) throws ParseException, SQLException {
         if (missionV2.submitAction != null) {
-            missionV2.submitAction.action(player);
+            try {
+                missionV2.submitAction.action(player);
+            } catch (CommandSyntaxException e) {
+                throw new RuntimeException(e);
+            }
         }
         MissionV2Helper.getMissionV2StatusData(player).putString(missionV2.name(), Status.FINISHED);
         sendMSG(player, Te.s(missionV2.title, " 已完成!"));

@@ -78,7 +78,7 @@ public class StableTierAttributeModifier {
         List<StableTierAttributeModifier> removeList = new ArrayList<>();
         int highestTier = 0;
         int highestMaxTier = 0;
-        double highestEachTierValue = 0;
+        double highestEachTierValue = modifier.eachTierValue;
         for (StableTierAttributeModifier stableTierAttributeModifier : modifierList) {
             if (stableTierAttributeModifier.tag.equals(modifier.tag)) {
                 removeList.add(stableTierAttributeModifier);

@@ -7,6 +7,7 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
+import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.system.randomevent.RandomAdditionalRewardEvent;
@@ -281,5 +282,13 @@ public class SpringMobEvent extends KillMobEvent {
         Set<ServerPlayer> players = new HashSet<>(getNearPlayers());
         players.addAll(getCausedPlayers());
         return players;
+    }
+
+    public static void handleServerPlayerTick(Player player) {
+        if (playerCausedDamageMap.containsKey(player.getName().getString())) {
+            ModNetworking.sendToClient(
+                    new SpringMobDamageS2CPacket(playerCausedDamageMap.get(player.getName().getString()),
+                            Tick.get() + Tick.s(5)), player);
+        }
     }
 }
