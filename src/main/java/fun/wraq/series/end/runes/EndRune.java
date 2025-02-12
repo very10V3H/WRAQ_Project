@@ -42,7 +42,7 @@ public class EndRune extends WraqCurios implements UsageOrGetWayDescriptionItem 
                 append(Component.literal("掉落物").withStyle(ChatFormatting.GREEN)).
                 append(Component.literal("与").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("经验值").withStyle(ChatFormatting.LIGHT_PURPLE)));
-        components.add(Component.literal(" 会直接送达，而不是作为掉落物形式掉落").withStyle(ChatFormatting.WHITE));
+        components.add(Component.literal(" 会直接送达你的位置").withStyle(ChatFormatting.WHITE));
         return components;
     }
 

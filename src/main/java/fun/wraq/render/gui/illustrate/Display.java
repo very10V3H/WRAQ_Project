@@ -95,7 +95,11 @@ public class Display {
                     SpecialEventItems.FIRE_WORK_GUN.get(),
                     SpecialEventItems.SCALE_PIECE.get(),
                     SpecialEventItems.BIG_RED_ENVELOPE.get(),
-                    SpecialEventItems.SCALE_2025_0.get()
+                    SpecialEventItems.SCALE_2025_0.get(),
+                    ModItems.SKY_SWORD.get(),
+                    ModItems.PLAIN_BOSS_SCEPTRE.get(),
+                    ModItems.REVENANT_GOLDEN_HELMET.get(),
+                    ModItems.ENHANCE_PURPLE_IRON_CHEST.get()
             };
             newItemList.addAll(List.of(items));
         }
