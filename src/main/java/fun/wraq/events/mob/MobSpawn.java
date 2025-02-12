@@ -5,6 +5,7 @@ import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
+import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.items.ItemAndRate;
@@ -185,15 +186,15 @@ public class MobSpawn {
         endList.add(ShulkerSpawnController.getInstance(end));
     }
 
-    public static List<MobSpawnController> getAllControllers() {
+    public static List<MobSpawnController> getAllControllers(boolean isServer) {
         if (overWolrdList.isEmpty()) {
-            setOverWorldList(Tick.server.getLevel(Level.OVERWORLD));
+            setOverWorldList(isServer ? Tick.server.getLevel(Level.OVERWORLD) : ClientUtils.clientLevel);
         }
         if (netherList.isEmpty()) {
-            setNetherList(Tick.server.getLevel(Level.NETHER));
+            setNetherList(isServer ? Tick.server.getLevel(Level.NETHER) : ClientUtils.clientLevel);
         }
         if (endList.isEmpty()) {
-            setEndList(Tick.server.getLevel(Level.END));
+            setEndList(isServer ? Tick.server.getLevel(Level.END) : ClientUtils.clientLevel);
         }
         List<MobSpawnController> controllers = new ArrayList<>();
         controllers.addAll(overWolrdList);
@@ -205,7 +206,7 @@ public class MobSpawn {
     public static Map<String, Component> mobNameMap = new HashMap<>();
     public static Map<String, Component> getMobNameMap() {
         if (mobNameMap.isEmpty()) {
-            getAllControllers().forEach(mobSpawnController -> {
+            getAllControllers(false).forEach(mobSpawnController -> {
                 mobNameMap.put(mobSpawnController.mobName.getString(), mobSpawnController.mobName);
             });
         }

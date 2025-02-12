@@ -351,7 +351,7 @@ public class MobKillEntrustment {
                             Tick.get()), CustomStyle.styleOfWorld, "才能接取委托任务"));
             return;
         }
-        List<MobSpawnController> controllers = MobSpawn.getAllControllers()
+        List<MobSpawnController> controllers = MobSpawn.getAllControllers(true)
                 .stream().filter(controller -> {
                     return controller.averageLevel <= player.experienceLevel - 8
                             || !(controller instanceof SkyVexSpawnController);

@@ -118,7 +118,7 @@ public class MissionV2Helper {
     public static final String DAILY_KILL_MOB_COUNT_DATA_KEY = "DailyKillMobCount";
 
     public static void setNewDailyKillMobMission(Player player) {
-        List<MobSpawnController> controllers = MobSpawn.getAllControllers()
+        List<MobSpawnController> controllers = MobSpawn.getAllControllers(true)
                 .stream().filter(controller -> {
                     return controller.averageLevel <= player.experienceLevel - 8;
                 }).toList();
