@@ -25,6 +25,7 @@ public class PurpleIronSceptre extends WraqPassiveEquip implements PurpleIronCom
         super(properties);
         this.tier = tier;
         Utils.manaDamage.put(this, new double[]{200, 300, 400, 500}[tier]);
+        Utils.xpLevelManaDamage.put(this, new double[]{2, 4, 6, 8}[tier]);
         Utils.maxMana.put(this, new double[]{25, 50, 75, 100}[tier]);
         Utils.manaPenetration0.put(this, new double[]{2, 3, 3, 4}[tier]);
         Utils.levelRequire.put(this, 120);

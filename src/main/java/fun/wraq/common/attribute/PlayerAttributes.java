@@ -117,6 +117,14 @@ public class PlayerAttributes {
         return Math.max(attackDamage * 2, manaDamage);
     }
 
+    public static double getBaseAttackDamage(Player player) {
+        double baseAttackDamage = player.experienceLevel;
+        baseAttackDamage += computeAllEquipSlotBaseAttributeValue(player, Utils.attackDamage, true);
+        baseAttackDamage += handleAllEquipRandomAttribute(player, StringUtils.RandomAttribute.attackDamage);
+        baseAttackDamage += computeAllEquipSlotXpLevelAttributeValue(player, Utils.xpLevelAttackDamage, true);
+        return baseAttackDamage;
+    }
+
     public static double attackDamage(Player player) {
         if (canGetFromCache(player, Utils.attackDamage)) {
             return getFromCache(player, Utils.attackDamage);
@@ -972,6 +980,14 @@ public class PlayerAttributes {
 
         writeToCache(player, Utils.maxHealth, maxHealth);
         return maxHealth;
+    }
+
+    public static double getBaseManaDamage(Player player) {
+        double baseDamage = 0;
+        baseDamage += computeAllEquipSlotBaseAttributeValue(player, Utils.manaDamage, true);
+        baseDamage += handleAllEquipRandomAttribute(player, StringUtils.RandomAttribute.manaDamage);
+        baseDamage += computeAllEquipSlotXpLevelAttributeValue(player, Utils.xpLevelManaDamage, true);
+        return baseDamage;
     }
 
     public static double manaDamage(Player player) {

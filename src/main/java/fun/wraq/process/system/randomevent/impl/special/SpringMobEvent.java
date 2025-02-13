@@ -192,7 +192,7 @@ public class SpringMobEvent extends KillMobEvent {
                 int count = playerNumberCount.count;
                 Item goldCoin = SpecialEventItems.SPRING_GOLD_COIN.get();
                 InventoryOperation.giveItemStackWithMSG(player, goldCoin, count + 2);
-                givePlayerSpringCurios(player);
+                givePlayerSpringCurios(player, count);
             } else {
                 Compute.sendFormatMSG(player, Te.s("年兽", style),
                         Te.s("需要达到", Utils.getLevelDescription(50), "才能获取", "年兽奖励", style));
@@ -218,8 +218,8 @@ public class SpringMobEvent extends KillMobEvent {
         }};
     }
 
-    public static void givePlayerSpringCurios(Player player) {
-        if (RandomUtils.nextInt(0, 100) < 5) {
+    public static void givePlayerSpringCurios(Player player, int count) {
+        if (RandomUtils.nextInt(0, 100) < 5 + count) {
             CompoundTag data = Compute.getPlayerSpecificKeyCompoundTagData(player, SPRING_CURIO_TAG);
             List<String> curiosDataKeys = new ArrayList<>(springCuriosDataKeys);
             Item msgItem;
@@ -238,7 +238,7 @@ public class SpringMobEvent extends KillMobEvent {
         }
     }
 
-    private Component getLuckyNumberDamageFormatString(double damage) {
+    public static Component getLuckyNumberDamageFormatString(double damage) {
         String damageNumber = String.valueOf((long) damage);
         MutableComponent formatString = Te.s("");
         for (int i = 0; i < damageNumber.length(); i++) {
@@ -290,5 +290,9 @@ public class SpringMobEvent extends KillMobEvent {
                     new SpringMobDamageS2CPacket(playerCausedDamageMap.get(player.getName().getString()),
                             Tick.get() + Tick.s(5)), player);
         }
+    }
+
+    public static void onPlayerLogin(Player player) {
+        ModNetworking.sendToClient(new SpringMobDamageS2CPacket(0, 0), player);
     }
 }

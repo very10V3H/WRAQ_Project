@@ -72,7 +72,7 @@ public class IcePower extends WraqPower {
                 Compute.getNearEntity(effect.level(), effect.center(), Mob.class, 6)
                         .stream().map(mob -> (Mob) mob)
                         .forEach(mob -> {
-                            Damage.causeManaDamageToMonster_RateApDamage_ElementAddition(player, mob,
+                            Damage.causeRateApDamageWithElement(player, mob,
                                     1, true, Element.ice,
                                     1 + ElementValue.getPlayerIceElementValue(player));
                             ParticleProvider.createBreakBlockParticle(mob, Blocks.ICE);

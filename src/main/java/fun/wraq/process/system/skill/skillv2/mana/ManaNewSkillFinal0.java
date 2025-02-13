@@ -6,6 +6,7 @@ import fun.wraq.common.registry.MySound;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.func.power.WraqPower;
+import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.skill.skillv2.SkillV2;
 import fun.wraq.process.system.skill.skillv2.SkillV2FinalSkill;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -54,12 +55,13 @@ public class ManaNewSkillFinal0 extends SkillV2FinalSkill {
             ParticleProvider.createSingleParticleToNearPlayer(player, player.level(), pos,
                     ParticleTypes.EXPLOSION_EMITTER);
             ParticleProvider.createRandomMoveParticle(player, pos, 1, 1, 6, ParticleTypes.ASH);
-            ParticleProvider.createRandomMoveParticle(player, pos, 1, 1, 6, ParticleTypes.LAVA);
-            ParticleProvider.dustParticle(player, pos, 6, 40, CustomStyle.styleOfMana.getColor().getValue());
+            ParticleProvider.dustParticle(player, pos, 6, 40,
+                    Element.getManaSkillParticleStyle(player).getColor().getValue());
             player.level().getEntitiesOfClass(Mob.class, AABB.ofSize(pos, 10, 10, 10))
                     .forEach(eachMob -> {
-                        Damage.causeRateApDamageToMonster(player, eachMob, 5 + skillLevel * 0.5, true);
+                        Damage.causeRateApDamageWithElement(player, eachMob, 5 + skillLevel * 0.5, true);
                     });
+            Element.giveResonanceElement(player);
         }
     }
 

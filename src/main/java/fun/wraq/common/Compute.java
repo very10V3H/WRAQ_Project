@@ -1072,7 +1072,7 @@ public class Compute {
     }
 
     public static void AdditionEffects(Player player, Mob mob, double damage, int type) {
-        if (!Element.ElementPieceOnWeapon(player)) Element.ResonanceEffectGive(player);
+        if (!Element.ElementPieceOnWeapon(player)) Element.giveResonanceElement(player);
     }
 
     public static boolean thisTeamIsChallenging(PlayerTeam playerTeam) {

@@ -17,6 +17,7 @@ public class BlazeSword extends WraqPassiveEquip {
         super(properties);
         Utils.attackDamage.put(this, new double[]{200, 300, 400, 500}[tier]);
         Utils.defence.put(this, new double[]{4, 6, 8, 10}[tier]);
+        Utils.defencePenetration0.put(this, new double[]{2, 3, 4, 5}[tier]);
         Utils.maxHealth.put(this, new double[]{1600, 2400, 3200, 4000}[tier]);
         Utils.levelRequire.put(this, 180);
     }

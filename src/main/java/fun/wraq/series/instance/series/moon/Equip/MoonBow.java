@@ -5,6 +5,7 @@ import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.equip.WraqBow;
 import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.display.EnhancedForgedItem;
 import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.impl.onhit.OnHitEffectEquip;
@@ -15,9 +16,9 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.struct.Shield;
 import fun.wraq.core.bow.MyArrow;
 import fun.wraq.events.mob.MobSpawn;
-import fun.wraq.process.func.ChangedAttributesModifier;
 import fun.wraq.process.func.EnhanceNormalAttack;
 import fun.wraq.process.func.EnhanceNormalAttackModifier;
+import fun.wraq.process.func.StableAttributesModifier;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.ore.PickaxeItems;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -71,9 +72,10 @@ public class MoonBow extends WraqBow implements ActiveItem, OnHitEffectEquip, Fo
                 append(Component.literal("吸收").withStyle(style)).
                 append(Component.literal("目标周围半径6内所有敌方单位的").withStyle(ChatFormatting.WHITE)).
                 append(ComponentUtils.AttributeDescription.attackDamage("")));
-        components.add(Component.literal("，提供在10s内持续衰减的等额").withStyle(ChatFormatting.WHITE).
+        components.add(Component.literal("，提供在持续10s的等额").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.AttributeDescription.exAttackDamage(String.format("%.0f%%", activeRate * 100))));
-        components.add(Component.literal(" 并为你提供持续8s的").withStyle(ChatFormatting.WHITE).
+        components.add(Te.s(" 获得的攻击力不会超过基础攻击的50%.", ChatFormatting.ITALIC, ChatFormatting.GRAY));
+        components.add(Component.literal(" 并为你提供持续10s的").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.AttributeDescription.attackDamage("200%")).
                 append(Component.literal("的").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("护盾").withStyle(ChatFormatting.GRAY)));
@@ -116,7 +118,7 @@ public class MoonBow extends WraqBow implements ActiveItem, OnHitEffectEquip, Fo
         EnhanceNormalAttackModifier.addModifier(player, new EnhanceNormalAttackModifier("moonBowActive", 1, new EnhanceNormalAttack() {
             @Override
             public void hit(Player player, Mob mob) {
-                Shield.providePlayerShield(player, 160, PlayerAttributes.attackDamage(player) * 2);
+                Shield.providePlayerShield(player, Tick.s(10), PlayerAttributes.attackDamage(player) * 2);
                 Compute.sendEffectLastTime(player, ModItems.MOON_BOW.get().getDefaultInstance(), 200);
                 List<Mob> mobList = mob.level().getEntitiesOfClass(Mob.class, AABB.ofSize(mob.position(), 15, 15, 15));
                 mobList.removeIf(mob1 -> mob1.distanceTo(mob) > 6);
@@ -124,8 +126,10 @@ public class MoonBow extends WraqBow implements ActiveItem, OnHitEffectEquip, Fo
                 for (Mob mob1 : mobList) {
                     attackDamage += MobSpawn.MobBaseAttributes.getMobBaseAttribute(mob1, MobSpawn.MobBaseAttributes.attackDamage);
                 }
-                ChangedAttributesModifier.addAttributeModifier(player, ChangedAttributesModifier.exAttackDamage,
-                        "moonBowActive", attackDamage * activeRate, 200, true);
+                StableAttributesModifier.addM(player, StableAttributesModifier.playerAttackDamageModifier,
+                        "moonWeaponActive",
+                        Math.min(PlayerAttributes.getBaseAttackDamage(player) * 0.5, attackDamage * activeRate),
+                        Tick.get() + Tick.s(10), ModItems.MOON_BOW.get());
             }
         }));
         Compute.sendEffectLastTime(player, ModItems.MOON_BOW.get().getDefaultInstance(), 8888, 0, true);

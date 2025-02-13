@@ -279,7 +279,7 @@ public class MobSpawn {
                 MobBaseAttributes.critDamage.put(mobOriginName, critDamage);
                 MobBaseAttributes.defencePenetration.put(mobOriginName, defencePenetration);
                 MobBaseAttributes.defencePenetration0.put(mobOriginName, defencePenetration0);
-                MobBaseAttributes.healthSteal.put(mobOriginName, healthSteal);
+                MobBaseAttributes.healthSteal.put(mobOriginName, healthSteal * 0.2);
                 mob.getAttribute(Attributes.MAX_HEALTH).setBaseValue(maxHealth);
                 mob.setHealth(mob.getMaxHealth());
                 MobBaseAttributes.movementSpeed.put(mobOriginName, movementSpeed);

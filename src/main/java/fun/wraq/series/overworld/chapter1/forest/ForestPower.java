@@ -99,7 +99,7 @@ public class ForestPower extends WraqPower {
             if (mob.position().subtract(finalDesPos).length() <= 8) {
                 if (!MonsterCantBeMove(mob))
                     Utils.ForestPowerEffectMobList.add(new ForestPowerEffectMob(finalDesPos, 10, mob));
-                Damage.causeManaDamageToMonster_RateApDamage_ElementAddition(player, mob, effect, true,
+                Damage.causeRateApDamageWithElement(player, mob, effect, true,
                         Element.life, ElementValue.ElementValueJudgeByType(player, Element.life) + 1);
                 PowerLogic.PlayerPowerEffectToMob(player, mob);
                 Compute.leafParticleCreate(mob, mob.level());

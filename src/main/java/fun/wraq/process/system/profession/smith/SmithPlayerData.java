@@ -86,12 +86,24 @@ public class SmithPlayerData {
             case 4 -> {
                 return Te.s("中级工匠-II", ChatFormatting.YELLOW);
             }
+            case 5 -> {
+                return Te.s("高等工匠-I", ChatFormatting.LIGHT_PURPLE);
+            }
+            case 6 -> {
+                return Te.s("高等工匠-II", ChatFormatting.LIGHT_PURPLE);
+            }
+            case 7 -> {
+                return Te.s("高等工匠-III", ChatFormatting.LIGHT_PURPLE);
+            }
+            case 8 -> {
+                return Te.s("锻造大师", ChatFormatting.RED);
+            }
         }
         return Te.s("新生", ChatFormatting.GREEN);
     }
 
     public static int getMaxTier() {
-        return 4;
+        return 8;
     }
 
     public static void onPlayerInteractWithVillager(Player player) {
@@ -115,20 +127,26 @@ public class SmithPlayerData {
         }
         sendMSG(player, Te.s("当前工匠等阶为: ", getTierDescription(currentTier)));
         Compute.sendBlankLine(player, 1);
-        player.sendSystemMessage(Te.s("  升级到下一等阶需要:"));
-        List<ItemStack> incrementTierNeedMaterials = getIncrementTierNeedMaterial(currentTier);
-        for (int i = 0; i < incrementTierNeedMaterials.size(); i++) {
-            ItemStack stack = incrementTierNeedMaterials.get(i);
-            player.sendSystemMessage(Te.s("  " + (i + 1) + ". ", CustomStyle.styleOfWorld,
-                    stack, " * ", stack.getCount(), ChatFormatting.AQUA));
+        if (currentTier >= getMaxTier()) {
+            player.sendSystemMessage(Te.s("  你已经达到了最高等阶!"));
+            MySound.soundToNearPlayer(player, SoundEvents.VILLAGER_CELEBRATE);
+            Compute.sendBlankLine(player, 2);
+        } else {
+            player.sendSystemMessage(Te.s("  升级到下一等阶需要:"));
+            List<ItemStack> incrementTierNeedMaterials = getIncrementTierNeedMaterial(currentTier);
+            for (int i = 0; i < incrementTierNeedMaterials.size(); i++) {
+                ItemStack stack = incrementTierNeedMaterials.get(i);
+                player.sendSystemMessage(Te.s("  " + (i + 1) + ". ", CustomStyle.styleOfWorld,
+                        stack, " * ", stack.getCount(), ChatFormatting.AQUA));
+            }
+            Compute.sendBlankLine(player, 2);
+            player.sendSystemMessage(Te.s(" ".repeat(4), Te.c(
+                    Te.s("「提升等阶」", CustomStyle.styleOfGold),
+                    "/vmd profession incrementSmithTier",
+                    Te.s("点击以提升工匠等阶")
+            )));
+            Compute.sendBlankLine(player, 1);
         }
-        Compute.sendBlankLine(player, 2);
-        player.sendSystemMessage(Te.s(" ".repeat(4), Te.c(
-                Te.s("「提升等阶」", CustomStyle.styleOfGold),
-                "/vmd profession incrementSmithTier",
-                Te.s("点击以提升工匠等阶")
-        )));
-        Compute.sendBlankLine(player, 1);
     }
 
     public static void incrementTier(Player player) {

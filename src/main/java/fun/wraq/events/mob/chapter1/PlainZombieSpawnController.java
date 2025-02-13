@@ -52,7 +52,8 @@ public class PlainZombieSpawnController extends MobSpawnController {
 
     public PlainZombieSpawnController(List<Vec3> canSpawnPos, int boundaryUpX, int boundaryUpZ,
                                       int boundaryDownX, int boundaryDownZ, Level level, int averageLevel) {
-        super(Te.s("平原僵尸", CustomStyle.styleOfPlain), canSpawnPos, boundaryUpX, boundaryUpZ, boundaryDownX, boundaryDownZ, level, averageLevel);
+        super(Te.s("平原僵尸", CustomStyle.styleOfPlain), canSpawnPos, boundaryUpX, boundaryUpZ,
+                boundaryDownX, boundaryDownZ, level, averageLevel);
     }
 
     @Override

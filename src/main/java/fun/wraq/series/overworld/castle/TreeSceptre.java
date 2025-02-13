@@ -12,23 +12,12 @@ import java.util.List;
 
 public class TreeSceptre extends WraqPassiveEquip {
 
-    private static final double[] ManaDamage = {
-            400, 600, 800, 1000
-    };
-
-    private static final double[] MaxMana = {
-            25, 50, 75, 100
-    };
-
-    private static final double[] ManaPenetration0 = {
-            2, 3, 3, 4
-    };
-
     public TreeSceptre(Properties properties, int tier) {
         super(properties);
-        Utils.manaDamage.put(this, ManaDamage[tier]);
-        Utils.maxMana.put(this, MaxMana[tier]);
-        Utils.manaPenetration0.put(this, ManaPenetration0[tier]);
+        Utils.manaDamage.put(this, new double[]{400, 600, 800, 1000}[tier]);
+        Utils.maxMana.put(this, new double[]{25, 50, 75, 100}[tier]);
+        Utils.manaDefence.put(this, new double[]{4, 6, 8, 10}[tier]);
+        Utils.manaPenetration0.put(this, new double[]{2, 3, 4, 5}[tier]);
         Utils.levelRequire.put(this, 180);
     }
 

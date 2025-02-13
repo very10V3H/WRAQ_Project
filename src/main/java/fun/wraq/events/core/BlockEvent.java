@@ -1,6 +1,7 @@
 package fun.wraq.events.core;
 
 import com.mojang.logging.LogUtils;
+import com.obscuria.aquamirae.registry.AquamiraeBlocks;
 import fun.wraq.blocks.blocks.WorldSoulBlock;
 import fun.wraq.blocks.entity.Droppable;
 import fun.wraq.common.Compute;
@@ -259,6 +260,7 @@ public class BlockEvent {
                 add(Blocks.DISPENSER);
                 add(Blocks.DROPPER);
                 add(Blocks.BARREL);
+                add(AquamiraeBlocks.LUMINESCENT_BUBBLE.get());
             }};
             if (set.contains(block) || block instanceof ShulkerBoxBlock
                     || block instanceof AnvilBlock || block instanceof StonecutterBlock) {

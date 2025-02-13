@@ -25,6 +25,7 @@ public class PurpleIronSword extends WraqPassiveEquip implements PurpleIronCommo
         super(properties);
         this.tier = tier;
         Utils.attackDamage.put(this, new double[]{100, 150, 200, 250}[tier]);
+        Utils.xpLevelAttackDamage.put(this, new double[]{1, 2, 3, 4}[tier]);
         Utils.defence.put(this, new double[]{2, 3, 5, 6}[tier]);
         Utils.maxHealth.put(this, new double[]{1600, 2400, 3200, 4000}[tier]);
         Utils.levelRequire.put(this, 120);

@@ -168,10 +168,6 @@ public class ServerPlayerTickEvent {
             MissionV2.handlePlayerTick(player);
             SpringMobEvent.handleServerPlayerTick(player);
 
-            if (player.tickCount % 20 == 15) {
-                Spring2025ZoneFirework.handleServerPlayerTick(player);
-            }
-
             if (player.tickCount % 10 == 0
                     && (player.isOnFire()
                     || (player.getBlockStateOn().is(Blocks.MAGMA_BLOCK) && !player.isShiftKeyDown()))) {

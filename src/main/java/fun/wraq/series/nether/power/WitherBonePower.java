@@ -78,7 +78,7 @@ public class WitherBonePower extends WraqPower {
         List<Mob> monsterList = level.getEntitiesOfClass(Mob.class, AABB.ofSize(TargetPos, 20, 20, 20));
         for (Mob mob : monsterList) {
             if (mob.getPosition(0).distanceTo(TargetPos) < 6) {
-                Damage.causeManaDamageToMonster_RateApDamage_ElementAddition(player, mob, 3, true,
+                Damage.causeRateApDamageWithElement(player, mob, 3, true,
                         Element.fire, ElementValue.ElementValueJudgeByType(player, Element.fire) + 1);
                 PowerLogic.PlayerPowerEffectToMob(player, mob);
                 mob.getPersistentData().putInt("witherBonePower", 100);

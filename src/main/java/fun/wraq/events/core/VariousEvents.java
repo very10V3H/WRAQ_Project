@@ -43,6 +43,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.event.entity.living.LivingConversionEvent;
@@ -78,20 +79,33 @@ public class VariousEvents {
                 itemEntity.remove(Entity.RemovalReason.KILLED);
             }
         }
-        if (!InventoryCheck.itemOwnerCorrect(player, itemStack)) event.setCanceled(true);
+        if (!InventoryCheck.itemOwnerCorrect(player, itemStack) && !player.isCreative()) {
+            event.setCanceled(true);
+        }
         else {
             if (itemStack.getTagElement(Utils.MOD_ID) != null) {
                 CompoundTag data = itemStack.getOrCreateTagElement(Utils.MOD_ID);
                 if (!Utils.mainHandTag.containsKey(item) && !Utils.offHandTag.containsKey(item)
                         && !Utils.armorTag.containsKey(item) && !InventoryCheck.getBoundingList().contains(item)) {
-                    if (data.isEmpty()) itemStack.removeTagKey(Utils.MOD_ID);
+                    if (data.isEmpty()) {
+                        itemStack.removeTagKey(Utils.MOD_ID);
+                    }
                 }
-
                 if (data.contains("TossFrom")) {
                     Security.recordItemStream(data.getString("TossFrom"), player.getName().getString(),
                             itemStack, Security.RecordType.TOSS_PICK);
                     data.remove("TossFrom");
                     if (data.isEmpty()) itemStack.removeTagKey(Utils.MOD_ID);
+                }
+                if (InventoryCheck.containOwnerTag(itemStack)) {
+                    Security.recordItemStream(player.getName().getString(),
+                            itemStack, Security.RecordType.PICK_BOUNDING_ITEM);
+                    Vec3 pos = player.position();
+                    Compute.sendFormatMSG(player, Te.s("安全", CustomStyle.styleOfFlexible),
+                            Te.s("你在", "("
+                                    + String.format("%.0f", pos.x) + ","
+                                    + String.format("%.0f", pos.y) + ","
+                                    + String.format("%.0f", pos.z) + ")", " 拾取了 ", itemStack));
                 }
             }
         }
@@ -130,7 +144,7 @@ public class VariousEvents {
     }
 
     @SubscribeEvent
-    public static void TossCheck(ItemTossEvent event) {
+    public static void checkToss(ItemTossEvent event) {
         ItemStack stack = event.getEntity().getItem();
         Player player = event.getPlayer();
         CompoundTag data = stack.getTagElement(Utils.MOD_ID);
@@ -139,12 +153,25 @@ public class VariousEvents {
         if (!player.isCreative() && !event.getPlayer().level().isClientSide) {
             if ((data != null && data.contains(InventoryCheck.owner))
                     || InventoryCheck.getBoundingList().contains(item)) {
-                event.getPlayer().addItem(stack);
-                event.setCanceled(true);
-                dropped = false;
+                if (InventoryCheck.getBoundingList().contains(item)) {
+                    InventoryCheck.addOwnerTagToItemStack(player, stack);
+                }
+                if (!Compute.playerIsInBattle(player)) {
+                    Security.recordItemStream(player.getName().getString(), "GROUND", stack,
+                            Security.RecordType.DROP_BOUNDING_ITEM);
+                    Vec3 pos = player.position();
+                    Compute.sendFormatMSG(player, Te.s("安全", CustomStyle.styleOfFlexible),
+                            Te.s("你在", "("
+                                    + String.format("%.0f", pos.x) + ","
+                                    + String.format("%.0f", pos.y) + ","
+                                    + String.format("%.0f", pos.z) + ")", " 丢弃了 ", stack));
+                } else {
+                    event.getPlayer().addItem(stack);
+                    event.setCanceled(true);
+                    dropped = false;
+                }
             }
-            if (Utils.mainHandTag.containsKey(item) || Utils.offHandTag.containsKey(item)
-                    || Utils.armorTag.containsKey(item) || Utils.customizedList.contains(item)) {
+            if (Utils.customizedList.contains(item)) {
                 event.getPlayer().addItem(stack);
                 event.setCanceled(true);
                 dropped = false;

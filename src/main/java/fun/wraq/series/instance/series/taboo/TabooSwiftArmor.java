@@ -41,12 +41,12 @@ public class TabooSwiftArmor extends WraqArmor implements ForgeItem {
         Style style = getMainStyle();
         Compute.DescriptionPassive(components, Component.literal("禁忌秘法-狩猎").withStyle(style));
         components.add(Component.literal(" 当箭矢命中目标时，若拥有高于").withStyle(ChatFormatting.WHITE).
-                append(ComponentUtils.AttributeDescription.manaValue("5%")));
+                append(ComponentUtils.AttributeDescription.manaValue("25%")));
         components.add(Component.literal(" ").
                 append(Component.literal("则消耗").withStyle(ChatFormatting.WHITE)).
-                append(ComponentUtils.AttributeDescription.manaValue("5%")).
+                append(ComponentUtils.AttributeDescription.manaValue("3%")).
                 append(Component.literal("，来使你的箭矢附带").withStyle(ChatFormatting.WHITE)).
-                append(ComponentUtils.exAttackDamage("400%")));
+                append(ComponentUtils.exAttackDamage("200%")));
         return components;
     }
 
@@ -66,8 +66,8 @@ public class TabooSwiftArmor extends WraqArmor implements ForgeItem {
 
     public static double ExDamage(Player player) {
         if (!IsOn(player)) return 0;
-        if (Mana.getPlayerCurrentManaNum(player) / Mana.getPlayerMaxManaNum(player) > 0.05) {
-            Mana.addOrCostPlayerMana(player, (-Mana.getPlayerMaxManaNum(player) * 0.05));
+        if (Mana.getPlayerCurrentManaNum(player) / Mana.getPlayerMaxManaNum(player) > 0.25) {
+            Mana.addOrCostPlayerMana(player, (-Mana.getPlayerMaxManaNum(player) * 0.03));
             return PlayerAttributes.attackDamage(player) * 4;
         }
         return 0;

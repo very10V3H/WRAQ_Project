@@ -283,8 +283,8 @@ public class Damage {
         }
     }
 
-    public static void causeManaDamageToMonster_RateApDamage_ElementAddition(Player player, Mob monster, double num,
-                                                                             boolean isPower, String elementType, double elementValue) {
+    public static void causeRateApDamageWithElement(Player player, Mob monster, double num,
+                                                    boolean isPower, String elementType, double elementValue) {
         double defence = MobAttributes.manaDefence(monster);
         double baseDamage = PlayerAttributes.manaDamage(player) * num;
         double defencePenetration = PlayerAttributes.manaPenetration(player);
@@ -318,7 +318,8 @@ public class Damage {
         totalDamage *= DamageInfluence.getMonsterControlDamageEffect(player, monster);
         totalDamage *= (1 + ElementDamageEnhance) * ElementDamageEffect;
 
-        Compute.summonValueItemEntity(monster.level(), player, monster, Component.literal(String.format("%.0f", totalDamage)).withStyle(ChatFormatting.LIGHT_PURPLE), 1);
+        Compute.summonValueItemEntity(monster.level(), player, monster,
+                Component.literal(String.format("%.0f", totalDamage)).withStyle(ChatFormatting.LIGHT_PURPLE), 1);
 
         if (isPower) {
             if (elementDamage != 0 && !elementType.isEmpty() && elementValue != 0) {
@@ -349,7 +350,11 @@ public class Damage {
             player.sendSystemMessage(Component.literal("totalDamage : " + totalDamage));
             player.sendSystemMessage(Component.literal("——————————————————————————————————————————"));
         }
+    }
 
+    public static void causeRateApDamageWithElement(Player player, Mob monster, double num, boolean isPower) {
+        Element.Unit unit = Element.entityElementUnit.getOrDefault(player, new Element.Unit(Element.life, 0));
+        causeRateApDamageWithElement(player, monster, num, isPower, unit.type(), unit.value());
     }
 
     public static void causeManaDamageToMonster_ApDamage(Player player, Mob monster, double damage) {

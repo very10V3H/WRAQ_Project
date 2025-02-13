@@ -2,11 +2,13 @@ package fun.wraq.process.system.missions.mission2;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
+import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.MobSpawnController;
+import fun.wraq.events.mob.chapter1.PlainZombieSpawnController;
 import fun.wraq.events.mob.instance.NoTeamInstance;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
 import fun.wraq.events.mob.instance.instances.element.PlainInstance;
@@ -123,7 +125,12 @@ public class MissionV2Helper {
                     return controller.averageLevel <= player.experienceLevel - 8;
                 }).toList();
         Random random = new Random();
-        MobSpawnController controller = controllers.get(random.nextInt(controllers.size()));
+        MobSpawnController controller;
+        if (!controllers.isEmpty()) {
+            controller = controllers.get(random.nextInt(controllers.size()));
+        } else {
+            controller = PlainZombieSpawnController.getInstance(Tick.server.overworld());
+        }
         getDailyMissionData(player).putString(DAILY_KILL_MOB_NAME_DATA_KEY, controller.mobName.getString());
         getDailyMissionData(player).putInt(DAILY_KILL_MOB_COUNT_DATA_KEY, 0);
     }

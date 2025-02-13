@@ -243,7 +243,7 @@ public class BuffHud {
 
         if (SpringMobEvent.clientDamage > 0 && SpringMobEvent.clientDamageDisplayExpiredTick > ClientUtils.serverTick) {
             guiGraphics.drawCenteredString(fontRenderer,
-                    Te.s(String.format("%.0f", SpringMobEvent.clientDamage), CustomStyle.styleOfSpring),
+                    Te.s(SpringMobEvent.getLuckyNumberDamageFormatString(SpringMobEvent.clientDamage)),
                     width / 2 + 16, height / 2 - 16, 0);
         }
     });

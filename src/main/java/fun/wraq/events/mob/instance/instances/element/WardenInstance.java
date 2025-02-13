@@ -152,7 +152,7 @@ public class WardenInstance extends NoTeamInstance {
         );
     }
 
-    // 灾变神力：减少91%受到的伤害
+    // 灾变神力：减少90%受到的伤害
     public static double mobWithstandDamageRate(Mob mob, Player player) {
         if (MobSpawn.getMobOriginName(mob).equals(mobName)) {
             WardenInstance instance = getInstance();
@@ -164,7 +164,7 @@ public class WardenInstance extends NoTeamInstance {
             }
             List<Item> moontainWeaponList =
                     List.of(MoontainItems.SWORD.get(), MoontainItems.BOW.get(), MoontainItems.SCEPTRE.get());
-            return 0.09 * (moontainWeaponList.contains(player.getMainHandItem().getItem()) ? 1.5 : 1);
+            return 0.1 * (moontainWeaponList.contains(player.getMainHandItem().getItem()) ? 1.5 : 1);
         }
         return 1;
     }

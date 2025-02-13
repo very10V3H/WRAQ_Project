@@ -42,6 +42,7 @@ import fun.wraq.process.system.missions.mission2.MissionV2Helper;
 import fun.wraq.process.system.parkour.Parkour;
 import fun.wraq.process.system.profession.smith.SmithPlayerData;
 import fun.wraq.process.system.randomevent.RandomEventData;
+import fun.wraq.process.system.randomevent.impl.special.SpringMobEvent;
 import fun.wraq.process.system.reason.Reason;
 import fun.wraq.process.system.skill.skillv2.SkillV2;
 import fun.wraq.process.system.teamInstance.NewTeamInstanceHandler;
@@ -321,8 +322,8 @@ public class LoginInEvent {
             ModNetworking.sendToClient(new VersionCheckS2CPacket(), serverPlayer);
             SkillV2.syncSkillV2Data(player);
             SkillV2.sendInfoToClient(player);
-
             SkillV2.afterVerUpdateLogin(player);
+            SpringMobEvent.onPlayerLogin(player);
 
             String enhanceForge = "enhanceForgeEquipAdjust";
             if (!data.contains(enhanceForge)) {

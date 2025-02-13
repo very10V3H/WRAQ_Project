@@ -96,5 +96,7 @@ public class Security {
         public static final String BONUS_CHEST_REWARD = "奖励箱获取";
         public static final String SMELT_CANCEL = "取消炼造进程";
         public static final String REST = "休息";
+        public static final String DROP_BOUNDING_ITEM = "丢弃绑定物品";
+        public static final String PICK_BOUNDING_ITEM = "拾取绑定物品";
     }
 }

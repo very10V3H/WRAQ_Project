@@ -6,6 +6,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.network.NetworkEvent;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -45,6 +46,7 @@ public class MarketDataS2CPacket {
         context.enqueueWork(() -> {
             ClientUtils.marketInfo.clear();
             ClientUtils.marketInfo.addAll(this.itemInfos);
+            Collections.reverse(ClientUtils.marketInfo);
             ClientUtils.receiveMarketInfo = true;
         });
         return true;

@@ -80,7 +80,7 @@ public class LifeManaPower extends WraqPower {
                     StableAttributesModifier.mobHealAmplifierModifier,
                     "LifeManaPowerAmplifierModifier", -0.4, Tick.get() + 60, "item/life_mana_power");
             produceDefaultMobDeBuffParticle(eachMob);
-            Damage.causeManaDamageToMonster_RateApDamage_ElementAddition(player, eachMob, damageRate[tier], true,
+            Damage.causeRateApDamageWithElement(player, eachMob, damageRate[tier], true,
                     Element.life, 1 + ElementValue.getPlayerLifeElementValue(player));
             ParticleProvider.createBreakBlockParticle(eachMob, Blocks.MOSS_BLOCK);
         });

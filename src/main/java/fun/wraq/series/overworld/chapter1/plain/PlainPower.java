@@ -99,7 +99,7 @@ public class PlainPower extends WraqPower {
             if (PosVec.length() <= 6) {
                 if (!MonsterCantBeMove(mob))
                     mob.setDeltaMovement(PosVec.normalize().scale(Math.min(2, 6 / PosVec.length())));
-                Damage.causeManaDamageToMonster_RateApDamage_ElementAddition(player, mob, effect, true,
+                Damage.causeRateApDamageWithElement(player, mob, effect, true,
                         Element.life, ElementValue.ElementValueJudgeByType(player, Element.life) + 1);
                 PowerLogic.PlayerPowerEffectToMob(player, mob);
                 ParticleProvider.dustParticle(player, mob.getEyePosition(), 0.8, 20,

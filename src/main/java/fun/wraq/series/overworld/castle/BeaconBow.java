@@ -12,24 +12,11 @@ import java.util.List;
 
 public class BeaconBow extends WraqPassiveEquip {
 
-    private static final double[] ExAttackDamage = {
-            200, 300, 400, 500
-    };
-
-    private static final double[] CritDamage = {
-            0.02, 0.03, 0.04, 0.05
-    };
-
-    private static final double[] Swiftness = {
-            0.25, 0.4, 0.55, 0.7
-    };
-
-
     public BeaconBow(Properties p_40524_, int tier) {
         super(p_40524_);
-        Utils.attackDamage.put(this, ExAttackDamage[tier]);
-        Utils.critDamage.put(this, CritDamage[tier]);
-        Utils.swiftnessUp.put(this, Swiftness[tier]);
+        Utils.attackDamage.put(this, new double[]{200, 300, 400, 500}[tier]);
+        Utils.critDamage.put(this, new double[]{0.02, 0.03, 0.04, 0.05}[tier]);
+        Utils.swiftnessUp.put(this, new double[]{0.25, 0.4, 0.55, 0.7}[tier]);
         Utils.levelRequire.put(this, 180);
     }
 

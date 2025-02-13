@@ -3,7 +3,6 @@ package fun.wraq.networking.misc.attack;
 import fun.wraq.common.equip.WraqBow;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.util.Utils;
-import fun.wraq.customized.uniform.bow.BowCurios1;
 import fun.wraq.process.func.DelayOperationWithAnimation;
 import fun.wraq.series.instance.series.castle.CastleSwiftArmor;
 import net.minecraft.network.FriendlyByteBuf;
@@ -36,7 +35,6 @@ public class BowAttackRequestC2SPacket {
                 @Override
                 public void trig() {
                     CastleSwiftArmor.NormalAttack(serverPlayer);
-                    BowCurios1.playerShoot(serverPlayer);
                     Item bow = serverPlayer.getMainHandItem().getItem();
                     if (!Utils.bowTag.containsKey(bow)) {
                         return;

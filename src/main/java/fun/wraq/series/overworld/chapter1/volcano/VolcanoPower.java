@@ -99,7 +99,7 @@ public class VolcanoPower extends WraqPower {
                         AABB.ofSize(mob.position(), 10, 10, 10));
                 mobList1.forEach(mob1 -> {
                     if (mob1.position().subtract(mob.position()).length() <= 2) {
-                        Damage.causeManaDamageToMonster_RateApDamage_ElementAddition(player, mob1, effect, true,
+                        Damage.causeRateApDamageWithElement(player, mob1, effect, true,
                                 Element.fire, ElementValue.ElementValueJudgeByType(player, Element.fire) + 1);
                         PowerLogic.PlayerPowerEffectToMob(player, mob);
                         ClientboundLevelParticlesPacket clientboundLevelParticlesPacket =

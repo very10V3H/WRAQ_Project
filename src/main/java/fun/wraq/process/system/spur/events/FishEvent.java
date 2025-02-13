@@ -14,7 +14,6 @@ import net.minecraftforge.event.entity.player.ItemFishedEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import java.io.IOException;
 import java.util.Random;
 
 @Mod.EventBusSubscriber
@@ -23,9 +22,12 @@ public class FishEvent {
     public static String seaPieceGetTimes = "seaPieceGetTimes";
 
     @SubscribeEvent
-    public static void fish(ItemFishedEvent event) throws IOException {
-        ItemStack Fished = event.getDrops().get(0);
-        event.getDrops().set(0, Fished);
+    public static void fish(ItemFishedEvent event) {
+        ItemStack dropItem = event.getDrops().get(0);
+        event.getDrops().forEach(stack -> {
+            stack.hideTooltipPart(ItemStack.TooltipPart.MODIFIERS);
+        });
+        event.getDrops().set(0, dropItem);
         Player player = event.getEntity();
         if (player.level().isClientSide) return;
         Random r = new Random();

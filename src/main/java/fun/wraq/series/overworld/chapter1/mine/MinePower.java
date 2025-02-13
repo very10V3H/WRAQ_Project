@@ -95,7 +95,7 @@ public class MinePower extends WraqPower {
             Vec3 PosVec = mob.position().subtract(finalTargetPos);
             if (PosVec.length() <= 6) {
                 ParticleProvider.createBreakBlockParticle(mob, Blocks.STONE);
-                Damage.causeManaDamageToMonster_RateApDamage_ElementAddition(player, mob, effect, true,
+                Damage.causeRateApDamageWithElement(player, mob, effect, true,
                         Element.stone, ElementValue.ElementValueJudgeByType(player, Element.stone) + 1);
                 PowerLogic.PlayerPowerEffectToMob(player, mob);
             }

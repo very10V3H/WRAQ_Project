@@ -9,6 +9,7 @@ import fun.wraq.process.func.PersistentRangeEffectOperation;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.func.power.WraqPower;
+import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.skill.skillv2.SkillV2BaseSkill;
 import fun.wraq.process.system.skill.skillv2.SkillV2ElementEffect;
 import fun.wraq.render.particles.ModParticles;
@@ -43,12 +44,13 @@ public class ManaNewSkillBase2_0 extends SkillV2BaseSkill implements SkillV2Elem
                         Compute.getNearEntity(effect.level(), effect.center(), Mob.class, 6)
                                 .stream().map(mob -> (Mob) mob)
                                 .forEach(mob -> {
-                                    Damage.causeRateApDamageToMonster(player, mob,
+                                    Damage.causeRateApDamageWithElement(player, mob,
                                             0.5 + 0.05 * skillLevel, true);
                                     Compute.addSlowDownEffect(mob, Tick.s(1), 100);
                                 });
                         ParticleProvider.dustParticle(player, effect.center(),
-                                6, 120, CustomStyle.styleOfMana.getColor().getValue());
+                                6, 120, Element.getManaSkillParticleStyle(player).getColor().getValue());
+                        Element.giveResonanceElement(player);
                     }
                 }, 10, Tick.s(3));
                 ParticleProvider.createLastVerticalCircleParticles(player,

@@ -30,12 +30,17 @@ public class BondDividends {
             return;
         }
         Item bondItem = ModItems.BOND.get();
-        int count = InventoryOperation.itemStackCount(player, bondItem);
+        Item specialBondItem = ModItems.SPECIAL_BOND.get();
+        int countNormal = InventoryOperation.itemStackCount(player, bondItem);
+        int countSpecial = InventoryOperation.itemStackCount(player, specialBondItem);
+        int count = countNormal + countSpecial;
         if (count == 0) {
-            sendMSG(player, Te.s("背包中没有", bondItem, "，无法获取分红。。"));
+            sendMSG(player, Te.s("背包中没有", bondItem, "或", specialBondItem, "，无法获取分红。。"));
             MySound.soundToNearPlayer(player, SoundEvents.VILLAGER_NO);
         } else {
-            sendMSG(player, Te.s("当前背包中共有", count + "张", ChatFormatting.AQUA, bondItem));
+            sendMSG(player, Te.s("当前背包中共有 ", countNormal + "张", ChatFormatting.GOLD, bondItem,
+                    "，", countSpecial + "张", ChatFormatting.GOLD, specialBondItem,
+                    "，合 ", count + "张.", ChatFormatting.GOLD));
             Compute.sendBlankLine(player, 3);
             player.sendSystemMessage(Te.s(" ".repeat(4), Te.c(
                     Te.s("「领取", String.format("%.1f", count * 0.1) + "GB", CustomStyle.styleOfGold, "」")
@@ -48,7 +53,9 @@ public class BondDividends {
 
     public static void getDividends(Player player) {
         Item bondItem = ModItems.BOND.get();
-        int count = InventoryOperation.itemStackCount(player, bondItem);
+        Item specialBondItem = ModItems.SPECIAL_BOND.get();
+        int count = InventoryOperation.itemStackCount(player, bondItem)
+                + InventoryOperation.itemStackCount(player, specialBondItem);
         setAllowGetDividends(player, false);
         Bank.incomeGB(player, count * 0.1);
         sendMSG(player, Te.s("成功领取了每日", "债券分红", CustomStyle.styleOfWorld));

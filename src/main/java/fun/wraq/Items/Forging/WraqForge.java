@@ -170,9 +170,14 @@ public class WraqForge extends Item {
 
             // 前置条件判定
             Item item = productItemStack.getItem();
-            Set<Item> iceKnightEquips = Set.of(ModItems.ICE_SWORD.get(), ModItems.ICE_BOW.get(), ModItems.ICE_SCEPTRE.get());
-            Set<Item> moonEquips = Set.of(ModItems.MOON_SWORD.get(), ModItems.MOON_BOW.get(), ModItems.MOON_SCEPTRE.get());
-            Set<Item> castleEquips = Set.of(ModItems.CASTLE_SWORD.get(), ModItems.CASTLE_BOW.get(), ModItems.CASTLE_SCEPTRE.get());
+            Set<Item> iceKnightEquips = Set.of(ModItems.ICE_SWORD.get(),
+                    ModItems.ICE_BOW.get(), ModItems.ICE_SCEPTRE.get());
+            Set<Item> moonEquips = Set.of(ModItems.MOON_SWORD.get(), ModItems.MOON_BOW.get(),
+                    ModItems.MOON_SCEPTRE.get(), ModItems.MoonShield.get(),
+                    ModItems.MoonKnife.get(), ModItems.MoonBook.get(),
+                    ModItems.MoonBelt.get());
+            Set<Item> castleEquips = Set.of(ModItems.CASTLE_SWORD.get(),
+                    ModItems.CASTLE_BOW.get(), ModItems.CASTLE_SCEPTRE.get());
             if (iceKnightEquips.contains(item)) {
                 NoTeamInstanceModule.putPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.sakuraBoss, true);
                 NoTeamInstanceModule.putPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.devil, true);

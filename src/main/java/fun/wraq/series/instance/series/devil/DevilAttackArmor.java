@@ -28,6 +28,7 @@ public class DevilAttackArmor extends WraqArmor implements ForgeItem {
     public DevilAttackArmor(ModArmorMaterials Material, Type Slots, Properties itemProperties) {
         super(Material, Slots, itemProperties);
         Utils.defence.put(this, 100d);
+        Utils.manaRecover.put(this, 8d);
         Utils.levelRequire.put(this, 150);
     }
 

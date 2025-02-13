@@ -7,6 +7,7 @@ import fun.wraq.common.registry.MySound;
 import fun.wraq.process.func.DelayOperationWithAnimation;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
+import fun.wraq.process.system.element.Element;
 import fun.wraq.process.system.skill.skillv2.SkillV2BaseSkill;
 import fun.wraq.process.system.skill.skillv2.SkillV2ElementEffect;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -38,11 +39,12 @@ public class ManaNewSkillBase1_0 extends SkillV2BaseSkill implements SkillV2Elem
                 Vec3 eyePosition = player.getEyePosition();
                 ParticleProvider.createLineSpaceDustParticle(player.level(),
                         (int) pickLocation.distanceTo(eyePosition) * 20, eyePosition, pickLocation,
-                        3, CustomStyle.styleOfMana);
+                        3, Element.getManaSkillParticleStyle(player));
                 Compute.getPlayerRayMobList(player, 1, 3, 20).forEach(mob -> {
-                    Damage.causeRateApDamageToMonster(player, mob, 2 + skillLevel * 0.15, true);
+                    Damage.causeRateApDamageWithElement(player, mob, 2 + skillLevel * 0.15, true);
                     ManaNewSkillPassive0.addCount(player, mob, 2);
                 });
+                Element.giveResonanceElement(player);
             }
         });
     }

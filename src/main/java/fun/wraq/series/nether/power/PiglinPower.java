@@ -90,7 +90,7 @@ public class PiglinPower extends WraqPower {
         List<Mob> monsterList = level.getEntitiesOfClass(Mob.class, AABB.ofSize(TargetPos, 20, 20, 20));
         for (Mob mob : monsterList) {
             if (mob.getPosition(0).distanceTo(TargetPos) < 6) {
-                Damage.causeManaDamageToMonster_RateApDamage_ElementAddition(player, mob, monsterList.size() * 2, true,
+                Damage.causeRateApDamageWithElement(player, mob, monsterList.size() * 2, true,
                         Element.fire, ElementValue.ElementValueJudgeByType(player, Element.fire) + 1);
                 PowerLogic.PlayerPowerEffectToMob(player, mob);
                 ParticleProvider.EntityEffectVerticleCircleParticle(mob, 1, 0.4, 8, ParticleTypes.WITCH, 0);

@@ -2,7 +2,6 @@ package fun.wraq.networking.misc.SmartPhonePackets;
 
 import fun.wraq.common.util.Utils;
 import fun.wraq.networking.ModNetworking;
-import fun.wraq.networking.misc.SmartPhonePackets.MarketDataS2CPacket;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent;
 

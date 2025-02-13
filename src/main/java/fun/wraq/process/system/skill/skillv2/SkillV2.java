@@ -6,6 +6,7 @@ import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.onshoot.OnPowerReleaseCurios;
 import fun.wraq.common.impl.onshoot.OnPowerReleaseEquip;
+import fun.wraq.common.impl.onshoot.OnReleaseSkillCurios;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.networking.ModNetworking;
@@ -504,6 +505,7 @@ public abstract class SkillV2 {
                 OnPowerReleaseEquip.release(player);
                 OnPowerReleaseCurios.release(player);
             }
+            OnReleaseSkillCurios.release(player);
         }
     }
 

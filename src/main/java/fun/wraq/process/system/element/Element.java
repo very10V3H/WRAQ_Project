@@ -23,7 +23,6 @@ import fun.wraq.process.system.season.MySeason;
 import fun.wraq.render.particles.ModParticles;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -45,6 +44,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
@@ -809,7 +809,7 @@ public class Element {
     public static void PlayerTick(Player player) {
         ElementParticleCreate(player);
         if (player.tickCount % 5 == 0) {
-            if (!ElementPieceOnWeapon(player)) ResonanceEffectGive(player);
+            if (!ElementPieceOnWeapon(player)) giveResonanceElement(player);
         }
     }
 
@@ -892,13 +892,14 @@ public class Element {
         return itemStack.getCount() == 0;
     }
 
-    public static void ResonanceEffectGive(Player player) {
+    public static void giveResonanceElement(Player player) {
         if (PowerResonanceElementCoverTickMap.containsKey(player) && PowerResonanceElementCoverTickMap.get(player) > Tick.get()) {
             ElementProvider(player, PowerResonanceElementCoverTypeMap.get(player),
                     ElementValue.ElementValueJudgeByType(player, PowerResonanceElementCoverTypeMap.get(player)),
                     Tick.get() - PowerResonanceElementCoverTickMap.get(player));
         } else if (PlayerResonanceType.containsKey(player)) {
-            ElementProvider(player, PlayerResonanceType.get(player), ElementValue.ElementValueJudgeByType(player, PlayerResonanceType.get(player)));
+            ElementProvider(player, PlayerResonanceType.get(player),
+                    ElementValue.ElementValueJudgeByType(player, PlayerResonanceType.get(player)));
         }
     }
 
@@ -931,6 +932,15 @@ public class Element {
         put(lightning, CustomStyle.styleOfLightning);
         put(wind, CustomStyle.styleOfWind);
     }};
+
+    @Nullable
+    public static String getResonanceType(Player player) {
+        return PlayerResonanceType.getOrDefault(player, null);
+    }
+
+    public static Style getManaSkillParticleStyle(Player player) {
+        return styleMap.getOrDefault(getResonanceType(player), CustomStyle.styleOfMana);
+    }
 
     public static void resonance(Player player, String type) {
         if (Compute.playerIsInBattle(player)) {
@@ -972,30 +982,10 @@ public class Element {
         ((ServerPlayer) player).connection.send(clientboundSetSubtitleTextPacket);
     }
 
-    public static Map<BlockPos, String> ResonancePosMap = new HashMap<>() {{
-        put(new BlockPos(406, 72, 1006), life);
-        put(new BlockPos(35, -52, 997), water);
-        put(new BlockPos(36, 11, 1106), fire);
-        put(new BlockPos(3, -53, 913), stone);
-        put(new BlockPos(-217, 195, 1340), ice);
-        put(new BlockPos(-146, 144, 986), lightning);
-        put(new BlockPos(-24, 93, 1516), wind);
-    }};
-
-    public static Map<String, Integer> ResonanceLevelRequireMap = new HashMap<>() {{
-        put(life, 10);
-        put(water, 25);
-        put(fire, 32);
-        put(stone, 40);
-        put(ice, 40);
-        put(wind, 70);
-        put(lightning, 70);
-    }};
-
     public static WeakHashMap<Player, String> PowerResonanceElementCoverTypeMap = new WeakHashMap<>();
     public static WeakHashMap<Player, Integer> PowerResonanceElementCoverTickMap = new WeakHashMap<>();
 
-    public static void PowerResonanceElement(Player player, String type, int lastTick) {
+    public static void PowerResonanc(Player player, String type, int lastTick) {
         PowerResonanceElementCoverTypeMap.put(player, type);
         PowerResonanceElementCoverTickMap.put(player, Tick.get() + lastTick);
     }

@@ -4,7 +4,7 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqCurios;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.impl.inslot.InCuriosOrEquipSlotAttributesModify;
-import fun.wraq.common.impl.onshoot.OnPowerReleaseCurios;
+import fun.wraq.common.impl.onshoot.OnReleaseSkillCurios;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.render.hud.Mana;
@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 
-public class TearCurio extends WraqCurios implements OnPowerReleaseCurios, InCuriosOrEquipSlotAttributesModify {
+public class TearCurio extends WraqCurios implements OnReleaseSkillCurios, InCuriosOrEquipSlotAttributesModify {
 
     private final int tier;
 
@@ -28,6 +28,7 @@ public class TearCurio extends WraqCurios implements OnPowerReleaseCurios, InCur
         super(properties);
         this.tier = tier;
         Utils.maxMana.put(this, 250d);
+        Utils.manaRecover.put(this, 10d);
     }
 
     private final int[] upperLimit = new int[]{360, 540, 720, 900};
@@ -41,7 +42,7 @@ public class TearCurio extends WraqCurios implements OnPowerReleaseCurios, InCur
     public List<Component> additionHoverText(ItemStack stack) {
         List<Component> components = new ArrayList<>();
         ComponentUtils.descriptionPassive(components, Te.s("法力积攒", hoverMainStyle()));
-        components.add(Te.s(" 战斗状态下", ChatFormatting.RED, "，释放一次法术可以为你积攒",
+        components.add(Te.s(" 战斗状态下", ChatFormatting.RED, "，使用一次技能可以为你积攒",
                 ComponentUtils.AttributeDescription.maxMana("20")));
         components.add(Te.s(" 至多叠加至",
                 ComponentUtils.AttributeDescription.manaValue(String.valueOf(upperLimit[tier]))));

@@ -7,7 +7,6 @@ import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.struct.Gather;
-import fun.wraq.customized.uniform.bow.BowCurios1;
 import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
 import fun.wraq.process.func.EffectOnMob;
@@ -85,7 +84,6 @@ public class LevelEvents {
         broad(event);
         stop(event);
         /*LabourDayMobSummon.levelTick(event);*/
-        BowCurios1.tick(event);
         Tower.tick(event);
         MySeason.tick(event);
         MobSpawn.tick(event); // 新怪物生成控制
@@ -104,8 +102,9 @@ public class LevelEvents {
             serverLevel.getAllEntities().forEach(entity -> {
                 if (entity instanceof Projectile) projectileList.add(entity);
             });
-            if (projectileList.size() > 1000)
+            if (projectileList.size() > 1000) {
                 projectileList.forEach(entity -> entity.remove(Entity.RemovalReason.KILLED));
+            }
         } // 尝试清理
 
         if (event.side.isServer() && event.phase.equals(TickEvent.Phase.START)

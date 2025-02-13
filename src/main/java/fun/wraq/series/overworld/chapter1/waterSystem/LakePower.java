@@ -123,7 +123,7 @@ public class LakePower extends WraqPower {
                 EffectOnMob.addSlowDownEffect(mob, 40, 0.25);
                 addManaDefenceDecreaseEffectParticle(mob, 40);
                 PowerLogic.PlayerPowerEffectToMob(player, mob);
-                Damage.causeManaDamageToMonster_RateApDamage_ElementAddition(player, mob, effect, true,
+                Damage.causeRateApDamageWithElement(player, mob, effect, true,
                         Element.water, ElementValue.ElementValueJudgeByType(player, Element.water) + 1);
                 ParticleProvider.dustParticle(player, mob.getEyePosition(), 0.8, 20,
                         ChatFormatting.BLUE.getColor().intValue());

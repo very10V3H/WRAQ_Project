@@ -83,7 +83,7 @@ public class WitherBoneMealPower extends WraqPower {
         List<Mob> monsterList = level.getEntitiesOfClass(Mob.class, AABB.ofSize(TargetPos, 20, 20, 20));
         for (Mob mob : monsterList) {
             if (mob.getPosition(0).distanceTo(TargetPos) < 6) {
-                Damage.causeManaDamageToMonster_RateApDamage_ElementAddition(player, mob, 8, true,
+                Damage.causeRateApDamageWithElement(player, mob, 8, true,
                         Element.fire, ElementValue.ElementValueJudgeByType(player, Element.fire) + 1);
                 StableAttributesModifier.addM(player, StableAttributesModifier.mobPercentManaDefenceModifier,
                         "WitherBoneMealPowerMobManaDefenceDecrease", 0.2, Tick.get() + 100);
