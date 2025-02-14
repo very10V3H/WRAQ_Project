@@ -245,5 +245,10 @@ public class NewCastleInstance extends NewTeamInstance {
         lightningBolt.setVisualOnly(true);
         mob.level().addFreshEntity(lightningBolt);
     }
+
+    @Override
+    public String getKillCountDataKey() {
+        return "CastleInstance";
+    }
 }
 

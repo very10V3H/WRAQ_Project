@@ -115,4 +115,9 @@ public class EvokerSpawnController extends MobSpawnController {
             add(new ItemAndRate(NewRuneItems.evokerNewRune.get(), 0.001));
         }};
     }
+
+    @Override
+    public String getKillCountDataKey() {
+        return "Evoker";
+    }
 }

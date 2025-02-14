@@ -108,4 +108,9 @@ public class Ore3SpawnController extends MobSpawnController {
                 new ItemAndRate(OreItems.WRAQ_ORE_3_ITEM.get(), 0.01)
         );
     }
+
+    @Override
+    public String getKillCountDataKey() {
+        return "Ore3";
+    }
 }

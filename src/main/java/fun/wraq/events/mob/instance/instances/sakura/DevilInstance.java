@@ -182,4 +182,9 @@ public class DevilInstance extends NoTeamInstance {
             ParticleProvider.createBallDisperseParticle(ParticleTypes.WITCH, (ServerLevel) mob.level(), mob.position(), 0.75, 30);
         }
     }
+
+    @Override
+    public String getKillCountDataKey() {
+        return "DevilBoss";
+    }
 }

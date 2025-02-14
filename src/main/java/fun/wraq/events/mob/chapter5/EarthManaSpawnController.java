@@ -107,4 +107,9 @@ public class EarthManaSpawnController extends MobSpawnController {
             add(new ItemAndRate(C5LootItems.earthManaSceptre.get(), 0.005));
         }};
     }
+
+    @Override
+    public String getKillCountDataKey() {
+        return "EarthMana";
+    }
 }

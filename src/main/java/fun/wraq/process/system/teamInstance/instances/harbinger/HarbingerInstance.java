@@ -336,4 +336,9 @@ public class HarbingerInstance extends NewTeamInstance {
         blazes.clear();
         super.clear();
     }
+
+    @Override
+    public String getKillCountDataKey() {
+        return "HarbingerInstance";
+    }
 }

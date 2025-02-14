@@ -176,4 +176,6 @@ public abstract class MobSpawnController {
     public abstract void tick();
 
     public abstract List<ItemAndRate> getDropList();
+
+    public abstract String getKillCountDataKey();
 }

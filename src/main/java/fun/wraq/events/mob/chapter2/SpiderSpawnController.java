@@ -116,4 +116,9 @@ public class SpiderSpawnController extends MobSpawnController {
             add(new ItemAndRate(C1LootItems.spiderBoots.get(), 0.005));
         }};
     }
+
+    @Override
+    public String getKillCountDataKey() {
+        return "Spider";
+    }
 }

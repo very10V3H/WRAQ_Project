@@ -92,4 +92,8 @@ public class TorturedSoulSpawnController extends MobSpawnController {
         }};
     }
 
+    @Override
+    public String getKillCountDataKey() {
+        return "TorturedSoul";
+    }
 }

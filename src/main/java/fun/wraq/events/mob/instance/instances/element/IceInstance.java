@@ -287,4 +287,9 @@ public class IceInstance extends NoTeamInstance {
         }
         return 0;
     }
+
+    @Override
+    public String getKillCountDataKey() {
+        return "IceKnight";
+    }
 }

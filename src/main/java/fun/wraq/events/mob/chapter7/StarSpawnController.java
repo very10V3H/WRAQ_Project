@@ -100,4 +100,9 @@ public class StarSpawnController extends MobSpawnController {
             add(new ItemAndRate(C7LootItems.starSword.get(), 0.005));
         }};
     }
+
+    @Override
+    public String getKillCountDataKey() {
+        return "Star";
+    }
 }

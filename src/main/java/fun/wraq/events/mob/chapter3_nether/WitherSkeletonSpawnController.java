@@ -100,4 +100,9 @@ public class WitherSkeletonSpawnController extends MobSpawnController {
             add(new ItemAndRate(NewRuneItems.netherNewRune.get(), 0.001));
         }};
     }
+
+    @Override
+    public String getKillCountDataKey() {
+        return "WitherSkeleton";
+    }
 }

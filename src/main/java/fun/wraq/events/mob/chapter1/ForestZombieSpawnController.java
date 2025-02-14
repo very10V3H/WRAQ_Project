@@ -98,4 +98,9 @@ public class ForestZombieSpawnController extends MobSpawnController {
             add(new ItemAndRate(C1LootItems.forestZombieAxe.get(), 0.005));
         }};
     }
+
+    @Override
+    public String getKillCountDataKey() {
+        return "ForestZombie";
+    }
 }

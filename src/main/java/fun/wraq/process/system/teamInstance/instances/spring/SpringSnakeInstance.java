@@ -154,4 +154,9 @@ public class SpringSnakeInstance extends NewTeamInstance {
             }
         }
     }
+
+    @Override
+    public String getKillCountDataKey() {
+        return "SpringSnake";
+    }
 }

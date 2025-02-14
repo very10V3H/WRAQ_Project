@@ -112,4 +112,9 @@ public class SnowStraySpawnController extends MobSpawnController {
             add(new ItemAndRate(C2LootItems.snowStrayPickaxe.get(), 0.005));
         }};
     }
+
+    @Override
+    public String getKillCountDataKey() {
+        return "SnowStray";
+    }
 }

@@ -302,4 +302,9 @@ public class MoonInstance extends NoTeamInstance {
         }
         return false;
     }
+
+    @Override
+    public String getKillCountDataKey() {
+        return "MoonBoss";
+    }
 }

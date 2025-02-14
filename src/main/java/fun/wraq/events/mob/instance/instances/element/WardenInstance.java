@@ -426,4 +426,9 @@ public class WardenInstance extends NoTeamInstance {
     public static void sendFormatMSG(Player player, Component content) {
         Compute.sendFormatMSG(player, Te.s("循声", style), content);
     }
+
+    @Override
+    public String getKillCountDataKey() {
+        return "Warden";
+    }
 }

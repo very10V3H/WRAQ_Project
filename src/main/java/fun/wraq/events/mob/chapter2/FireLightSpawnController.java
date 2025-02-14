@@ -110,4 +110,9 @@ public class FireLightSpawnController extends MobSpawnController {
             add(new ItemAndRate(C2LootItems.fireLightKnife.get(), 0.005));
         }};
     }
+
+    @Override
+    public String getKillCountDataKey() {
+        return "FireLight";
+    }
 }

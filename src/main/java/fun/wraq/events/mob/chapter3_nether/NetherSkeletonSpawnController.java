@@ -108,4 +108,9 @@ public class NetherSkeletonSpawnController extends MobSpawnController {
             add(new ItemAndRate(NewRuneItems.netherNewRune.get(), 0.001));
         }};
     }
+
+    @Override
+    public String getKillCountDataKey() {
+        return "NetherSkeleton";
+    }
 }

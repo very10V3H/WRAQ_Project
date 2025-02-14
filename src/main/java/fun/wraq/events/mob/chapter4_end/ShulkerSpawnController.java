@@ -89,4 +89,9 @@ public class ShulkerSpawnController extends MobSpawnController {
             add(new ItemAndRate(C4LootItems.shulkerChest.get(), 0.005));
         }};
     }
+
+    @Override
+    public String getKillCountDataKey() {
+        return "Shulker";
+    }
 }

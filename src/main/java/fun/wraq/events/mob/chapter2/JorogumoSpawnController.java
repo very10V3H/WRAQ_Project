@@ -95,4 +95,9 @@ public class JorogumoSpawnController extends MobSpawnController {
             add(new ItemAndRate(C2LootItems.jorogumoLeggings.get(), 0.005));
         }};
     }
+
+    @Override
+    public String getKillCountDataKey() {
+        return "Jorogumo";
+    }
 }

@@ -112,4 +112,9 @@ public class LakeDrownSpawnController extends MobSpawnController {
             add(new ItemAndRate(C1LootItems.lakeDrownHelmet.get(), 0.005));
         }};
     }
+
+    @Override
+    public String getKillCountDataKey() {
+        return "LakeDrown";
+    }
 }

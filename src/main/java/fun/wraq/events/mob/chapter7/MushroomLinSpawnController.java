@@ -116,4 +116,9 @@ public class MushroomLinSpawnController extends MobSpawnController {
             add(new ItemAndRate(ModItems.LifeElementPiece0.get(), 0.5));
         }};
     }
+
+    @Override
+    public String getKillCountDataKey() {
+        return "MushroomLin";
+    }
 }

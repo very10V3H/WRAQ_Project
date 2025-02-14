@@ -162,4 +162,9 @@ public class PlainInstance extends NoTeamInstance {
                 new ItemAndRate(ModItems.WORLD_SOUL_2.get(), 0.25),
                 new ItemAndRate(ModItems.GoldCoinBag.get(), 0.1));
     }
+
+    @Override
+    public String getKillCountDataKey() {
+        return "PlainBoss";
+    }
 }

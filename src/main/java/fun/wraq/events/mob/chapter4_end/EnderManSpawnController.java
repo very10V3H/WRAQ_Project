@@ -110,4 +110,9 @@ public class EnderManSpawnController extends MobSpawnController {
             add(new ItemAndRate(C4LootItems.enderManSword.get(), 0.005));
         }};
     }
+
+    @Override
+    public String getKillCountDataKey() {
+        return "EnderMan";
+    }
 }

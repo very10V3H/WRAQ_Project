@@ -107,4 +107,9 @@ public class BeaconSpawnController extends MobSpawnController {
             add(new ItemAndRate(C6LootItems.beaconBow.get(), 0.005));
         }};
     }
+
+    @Override
+    public String getKillCountDataKey() {
+        return "Beacon";
+    }
 }

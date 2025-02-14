@@ -298,6 +298,8 @@ public abstract class NewTeamInstance {
 
     public abstract double judgeDamage(Player player, Mob mob, double originDamage);
 
+    public abstract String getKillCountDataKey();
+
     public boolean allMobIsClear() {
         for (ConditionSummonMob conditionSummonMob : mobList) {
             if (!conditionSummonMob.mob().isDeadOrDying()) return false;

@@ -108,4 +108,9 @@ public class PillagerSpawnController extends MobSpawnController {
             add(new ItemAndRate(C5LootItems.pillagerBow.get(), 0.005));
         }};
     }
+
+    @Override
+    public String getKillCountDataKey() {
+        return "Pillager";
+    }
 }

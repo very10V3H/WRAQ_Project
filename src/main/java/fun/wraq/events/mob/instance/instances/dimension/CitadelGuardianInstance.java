@@ -235,4 +235,9 @@ public class CitadelGuardianInstance extends NoTeamInstance {
         withstandEnderMite(player, mob);
         withstandShulker(player, mob);
     }
+
+    @Override
+    public String getKillCountDataKey() {
+        return "CitadelGuardian";
+    }
 }

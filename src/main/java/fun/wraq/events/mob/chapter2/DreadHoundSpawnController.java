@@ -113,4 +113,9 @@ public class DreadHoundSpawnController extends MobSpawnController {
             add(new ItemAndRate(C2LootItems.forestWolfChest.get(), 0.005));
         }};
     }
+
+    @Override
+    public String getKillCountDataKey() {
+        return "DreadHound";
+    }
 }

@@ -110,4 +110,9 @@ public class HuskSpawnController extends MobSpawnController {
             add(new ItemAndRate(NewRuneItems.huskNewRune.get(), 0.001));
         }};
     }
+
+    @Override
+    public String getKillCountDataKey() {
+        return "Husk";
+    }
 }

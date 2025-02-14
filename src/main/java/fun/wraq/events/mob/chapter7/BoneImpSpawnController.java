@@ -108,4 +108,9 @@ public class BoneImpSpawnController extends MobSpawnController {
             add(new ItemAndRate(C7LootItems.boneImpHelmet.get(), 0.005));
         }};
     }
+
+    @Override
+    public String getKillCountDataKey() {
+        return "BoneImp";
+    }
 }

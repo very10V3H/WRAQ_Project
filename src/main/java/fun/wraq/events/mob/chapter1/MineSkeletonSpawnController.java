@@ -113,4 +113,9 @@ public class MineSkeletonSpawnController extends MobSpawnController {
                 new ItemAndRate(Items.DIAMOND, 0.05)
         );
     }
+
+    @Override
+    public String getKillCountDataKey() {
+        return "MineSkeleton";
+    }
 }

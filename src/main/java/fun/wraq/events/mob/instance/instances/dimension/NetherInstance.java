@@ -93,4 +93,8 @@ public class NetherInstance extends NoTeamInstance {
                 new ItemAndRate(ModItems.GoldCoinBag.get(), 0.1));
     }
 
+    @Override
+    public String getKillCountDataKey() {
+        return "Revenant";
+    }
 }

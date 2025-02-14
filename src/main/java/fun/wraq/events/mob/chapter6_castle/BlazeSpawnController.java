@@ -106,4 +106,9 @@ public class BlazeSpawnController extends MobSpawnController {
             add(new ItemAndRate(C6LootItems.blazeSword.get(), 0.005));
         }};
     }
+
+    @Override
+    public String getKillCountDataKey() {
+        return "Blaze";
+    }
 }

@@ -109,6 +109,10 @@ public class BloodManaSpawnController extends MobSpawnController {
             add(new ItemAndRate(ModItems.FireElementPiece0.get(), 0.3));
             add(new ItemAndRate(C5LootItems.bloodManaBoots.get(), 0.005));
         }};
+    }
 
+    @Override
+    public String getKillCountDataKey() {
+        return "BloodMana";
     }
 }

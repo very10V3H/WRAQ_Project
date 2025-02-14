@@ -294,4 +294,9 @@ public class MoontainBoss3Instance extends NoTeamInstance {
     public Item getSummonAndRewardNeedItem() {
         return MoontainItems.HEART.get();
     }
+
+    @Override
+    public String getKillCountDataKey() {
+        return "MoontainBoss3";
+    }
 }

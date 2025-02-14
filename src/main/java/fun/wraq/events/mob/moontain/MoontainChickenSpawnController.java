@@ -100,4 +100,9 @@ public class MoontainChickenSpawnController extends MobSpawnController {
             add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.06));
         }};
     }
+
+    @Override
+    public String getKillCountDataKey() {
+        return "MoontainChicken";
+    }
 }

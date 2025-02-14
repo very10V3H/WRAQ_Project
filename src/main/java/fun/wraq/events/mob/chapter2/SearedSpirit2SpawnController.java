@@ -112,4 +112,9 @@ public class SearedSpirit2SpawnController extends MobSpawnController {
             add(new ItemAndRate(C2LootItems.searedSpiritStick.get(), 0.005));
         }};
     }
+
+    @Override
+    public String getKillCountDataKey() {
+        return "SearedSpirit";
+    }
 }

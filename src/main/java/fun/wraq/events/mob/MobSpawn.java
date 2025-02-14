@@ -206,6 +206,23 @@ public class MobSpawn {
         return controllers;
     }
 
+    public static Map<String, String> mobNameChineseToDataKeyMap = new HashMap<>();
+    public static Map<String, String> getMobNameChineseToDataKeyMap() {
+        if (mobNameChineseToDataKeyMap.isEmpty()) {
+            getAllControllers(true).forEach(mobSpawnController -> {
+                mobNameChineseToDataKeyMap.put(mobSpawnController.mobName.getString(),
+                        mobSpawnController.getKillCountDataKey());
+            });
+            NoTeamInstanceModule.getAllInstance().forEach(instance -> {
+                mobNameChineseToDataKeyMap.put(instance.name.getString(), instance.getKillCountDataKey());
+            });
+            NewTeamInstanceHandler.getInstances().forEach(instance -> {
+                mobNameChineseToDataKeyMap.put(instance.description.getString(), instance.getKillCountDataKey());
+            });
+        }
+        return mobNameChineseToDataKeyMap;
+    }
+
     public static Map<String, Component> mobNameMap = new HashMap<>();
     public static Map<String, Component> getMobNameMap() {
         if (mobNameMap.isEmpty()) {
@@ -413,7 +430,7 @@ public class MobSpawn {
     public static Map<String, Map<String, Integer>> totalKillCount = new HashMap<>();
     public static Map<String, Integer> totalKillCountCache = new HashMap<>();
 
-    public static String KILL_COUNT_DATA_KEY = "KillCountData";
+    public static String KILL_COUNT_DATA_KEY = "KillCountDataV2";
     public static CompoundTag getKillCountData(Player player) {
         return Compute.getPlayerSpecificKeyCompoundTagData(player, KILL_COUNT_DATA_KEY);
     }
@@ -423,9 +440,15 @@ public class MobSpawn {
         CompoundTag data = getKillCountData(player);
         if (!data.contains(SYNC_FLAG_KEY)) {
             data.putBoolean(SYNC_FLAG_KEY, true);
+            player.getPersistentData().remove("KillCountData");
             if (totalKillCount.containsKey(Name.get(player))) {
                 Map<String, Integer> map = totalKillCount.get(Name.get(player));
-                map.forEach(data::putInt);
+                Map<String, String> cnToKeyMap = getMobNameChineseToDataKeyMap();
+                map.forEach((k, v) -> {
+                    if (cnToKeyMap.containsKey(k)) {
+                        data.putInt(cnToKeyMap.get(k), v);
+                    }
+                });
                 Compute.sendFormatMSG(player, Te.s("安全", CustomStyle.styleOfFlexible),
                         Te.s("击杀数已同步至新版数据存储"));
             }
@@ -433,12 +456,20 @@ public class MobSpawn {
     }
 
     public static int getPlayerKillCount(Player player, String mobName) {
-        return getKillCountData(player).getInt(mobName);
+        Map<String, String> cnToKeyMap = getMobNameChineseToDataKeyMap();
+        if (cnToKeyMap.containsKey(mobName)) {
+            return getKillCountData(player).getInt(cnToKeyMap.get(mobName));
+        }
+        return 0;
     }
 
     public static void incrementPlayerKillCount(Player player, String mobName) {
-        CompoundTag data = getKillCountData(player);
-        data.putInt(mobName, data.getInt(mobName) + 1);
+        Map<String, String> cnToKeyMap = getMobNameChineseToDataKeyMap();
+        if (cnToKeyMap.containsKey(mobName)) {
+            CompoundTag data = getKillCountData(player);
+            String dataKey = cnToKeyMap.get(mobName);
+            data.putInt(dataKey, data.getInt(dataKey) + 1);
+        }
     }
 
     public static int getTotalKillCount(Player player) {

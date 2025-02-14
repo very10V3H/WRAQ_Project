@@ -114,4 +114,9 @@ public class WindSkeletonSpawnController extends MobSpawnController {
             add(new ItemAndRate(NewRuneItems.kazeNewRune.get(), 0.001));
         }};
     }
+
+    @Override
+    public String getKillCountDataKey() {
+        return "WindSkeleton";
+    }
 }

@@ -114,4 +114,9 @@ public class SkySkeletonSpawnController extends MobSpawnController {
             add(new ItemAndRate(NewRuneItems.skyNewRune.get(), 0.001));
         }};
     }
+
+    @Override
+    public String getKillCountDataKey() {
+        return "SkySkeleton";
+    }
 }

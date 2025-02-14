@@ -210,4 +210,9 @@ public class MushroomInstance extends NoTeamInstance {
         }
         return 0;
     }
+
+    @Override
+    public String getKillCountDataKey() {
+        return "MushroomBoss";
+    }
 }

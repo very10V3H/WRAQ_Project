@@ -306,4 +306,6 @@ public abstract class NoTeamInstance {
         }
         return 1;
     }
+
+    public abstract String getKillCountDataKey();
 }

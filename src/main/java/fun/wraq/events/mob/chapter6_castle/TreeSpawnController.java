@@ -106,4 +106,9 @@ public class TreeSpawnController extends MobSpawnController {
             add(new ItemAndRate(C6LootItems.treeSceptre.get(), 0.005));
         }};
     }
+
+    @Override
+    public String getKillCountDataKey() {
+        return "Tree";
+    }
 }

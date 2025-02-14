@@ -106,4 +106,9 @@ public class GuardianSpawnController extends MobSpawnController {
             add(new ItemAndRate(C2LootItems.guardianSceptre.get(), 0.005));
         }};
     }
+
+    @Override
+    public String getKillCountDataKey() {
+        return "Guardian";
+    }
 }

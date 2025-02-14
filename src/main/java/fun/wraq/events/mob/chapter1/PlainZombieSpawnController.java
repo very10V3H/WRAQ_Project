@@ -113,4 +113,9 @@ public class PlainZombieSpawnController extends MobSpawnController {
             add(new ItemAndRate(C1LootItems.plainZombieHoe.get(), 0.005));
         }};
     }
+
+    @Override
+    public String getKillCountDataKey() {
+        return "PlainZombie";
+    }
 }

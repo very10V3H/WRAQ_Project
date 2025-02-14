@@ -88,4 +88,9 @@ public class EndermiteSpawnController extends MobSpawnController {
             add(new ItemAndRate(C4LootItems.endermiteSceptre.get(), 0.005));
         }};
     }
+
+    @Override
+    public String getKillCountDataKey() {
+        return "Endermite";
+    }
 }

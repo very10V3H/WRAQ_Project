@@ -96,4 +96,9 @@ public class MoontainCommon1ExSpawnController extends MobSpawnController {
             add(new ItemAndRate(ModItems.GEM_PIECE.get(), 0.065));
         }};
     }
+
+    @Override
+    public String getKillCountDataKey() {
+        return "MoontainCommon1";
+    }
 }

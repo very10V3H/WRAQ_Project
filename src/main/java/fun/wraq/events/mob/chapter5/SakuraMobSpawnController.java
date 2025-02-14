@@ -107,4 +107,9 @@ public class SakuraMobSpawnController extends MobSpawnController {
             add(new ItemAndRate(C5LootItems.sakuraChest.get(), 0.005));
         }};
     }
+
+    @Override
+    public String getKillCountDataKey() {
+        return "SakuraMob";
+    }
 }

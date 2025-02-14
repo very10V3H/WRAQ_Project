@@ -107,4 +107,9 @@ public class LightningZombieController extends MobSpawnController {
             add(new ItemAndRate(NewRuneItems.lightningNewRune.get(), 0.001));
         }};
     }
+
+    @Override
+    public String getKillCountDataKey() {
+        return "LightningZombie";
+    }
 }
