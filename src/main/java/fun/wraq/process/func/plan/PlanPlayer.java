@@ -1,21 +1,25 @@
 package fun.wraq.process.func.plan;
 
 import fun.wraq.common.Compute;
-import fun.wraq.common.registry.ModItems;
+import fun.wraq.common.fast.Name;
+import fun.wraq.common.fast.Te;
 import fun.wraq.files.dataBases.DataBase;
 import fun.wraq.process.system.lottery.NewLotteries;
-import net.minecraft.network.chat.Component;
+import fun.wraq.process.system.tower.Tower;
+import fun.wraq.render.toolTip.CustomStyle;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.ParseException;
-import java.util.*;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 public class PlanPlayer {
     public static int clientPlanLeftDate = 0;
@@ -42,135 +46,57 @@ public class PlanPlayer {
         this.getDailyRewardTimes = getDailyRewardTimes;
     }
 
-    public static List<ItemStack> tier1DailyRewardList = new ArrayList<>();
+    public static final String PLAN_DATA_KEY = "PlanData";
+    public static final String SYNC_FLAG_KEY = "SyncFlag";
+    public static final String TIER_KEY = "Tier";
+    public static final String OVER_DATE_KEY = "OverDate";
+    public static final String LAST_REWARD_TIME_KEY = "LastRewardTime";
+    public static final String GET_DAILY_REWARD_TIMES_KEY = "GetDailyRewardTimes";
+    public static final String GET_STAR_COUNTS_KEY = "GetStarCounts";
+    public static final String TOWER_STATUS_KEY = "TowerStatus";
 
-    public static void setTier1DailyRewardList() {
-        tier1DailyRewardList.add(new ItemStack(ModItems.COMPLETE_GEM.get()));
+    public static CompoundTag getPlanData(Player player) {
+        return Compute.getPlayerSpecificKeyCompoundTagData(player, PLAN_DATA_KEY);
     }
 
-    public boolean canReward() throws ParseException {
-        if (lastRewardTime == null || lastRewardTime.equals("null")) {
-            lastRewardTime = Compute.CalendarToString(Calendar.getInstance());
-            return true;
+    public static final String LOTTERY_KEY = "Lottery";
+    public static CompoundTag getLotteryData(Player player) {
+        CompoundTag data = getPlanData(player);
+        if (!data.contains(LOTTERY_KEY)) {
+            data.put(LOTTERY_KEY, new CompoundTag());
         }
-        Calendar calendar = Calendar.getInstance();
-        Calendar lastRewardTime = Compute.StringToCalendar(this.lastRewardTime);
-        return calendar.before(Compute.StringToCalendar(overDate)) && calendar.get(Calendar.DATE) != lastRewardTime.get(Calendar.DATE);
+        return data.getCompound(LOTTERY_KEY);
     }
 
-    public static void rewardPlayer(Player player) throws ParseException {
-        if (!map.containsKey(player.getName().getString())) return;
-        PlanPlayer planPlayer = map.get(player.getName().getString());
-        if (planPlayer.canReward()) {
-            planPlayer.lastRewardTime = Compute.CalendarToString(Calendar.getInstance());
-            player.sendSystemMessage(Component.literal("reward"));
-
-            // reward content
-        } else {
-            // time
-            player.sendSystemMessage(Component.literal("cant reward"));
-        }
-    }
-
-/*    public static void writeToSql() {
-        LogUtils.getLogger().info("writing data to MySQL...");
-        new Thread(() -> PlanPlayer.list.forEach(planPlayer -> {
-            try {
-                DataBase.put(planPlayer.name, PlanPlayer.lastRewardTimeString, planPlayer.lastRewardTime);
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        })).start();
-    }*/
-
-    public static void synchronizedWrite() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    write();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
+    public static void onPlayerLoginSync(Player player) {
+        CompoundTag data = getPlanData(player);
+        if (!data.contains(SYNC_FLAG_KEY)) {
+            data.putBoolean(SYNC_FLAG_KEY, true);
+            if (map.containsKey(Name.get(player))) {
+                PlanPlayer planPlayer = map.get(Name.get(player));
+                data.putInt(TIER_KEY, planPlayer.tier);
+                data.putString(OVER_DATE_KEY, planPlayer.overDate);
+                data.putString(LAST_REWARD_TIME_KEY, planPlayer.lastRewardTime == null ? "" : planPlayer.lastRewardTime);
+                data.putInt(GET_DAILY_REWARD_TIMES_KEY, planPlayer.getDailyRewardTimes);
+                data.putInt(GET_STAR_COUNTS_KEY, Tower.playerStarGetCounts.getOrDefault(Name.get(player), 0));
+                for (Item item : NewLotteries.getGetRewardSerial().keySet()) {
+                    String itemString = item.toString();
+                    String openTimesString = itemString + "_openTimes";
+                    String winTimesString = itemString + "_winTimes";
+                    int rewardTimes = NewLotteries.getPlayerLotteryData(Name.get(player))
+                            .getOrDefault(itemString, 0);
+                    int openTimes = NewLotteries.getPlayerLotteryData(Name.get(player))
+                            .getOrDefault(openTimesString, 0);
+                    int winTimes = NewLotteries.getPlayerLotteryData(Name.get(player))
+                            .getOrDefault(winTimesString, 0);
+                    getLotteryData(player).putInt(itemString, rewardTimes);
+                    getLotteryData(player).putInt(openTimesString, openTimes);
+                    getLotteryData(player).putInt(winTimesString, winTimes);
                 }
-            }
-        }).start();
-    }
-
-    public static void write() throws SQLException {
-        Connection connection = DataBase.getDatabaseConnection();
-        Statement statement = connection.createStatement();
-        PlanPlayer.map.forEach((key, value) -> {
-            try {
-                if (value.lastRewardTime != null)
-                    DataBase.put(statement, value.name, PlanPlayer.lastRewardTimeString, value.lastRewardTime);
-                if (value.overDate != null)
-                    DataBase.put(statement, value.name, PlanPlayer.overDateString, value.overDate);
-                DataBase.put(statement, value.name, PlanPlayer.tierString, String.valueOf(value.tier));
-                DataBase.put(statement, value.name, PlanPlayer.getDailyRewardTimesString, String.valueOf(value.getDailyRewardTimes));
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        });
-        statement.close();
-    }
-
-    public static void synchronizedRead() throws SQLException {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    read();
-                } catch (SQLException | ParseException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        }).start();
-    }
-
-    public static void synchronizedReadTier() throws SQLException {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    readTier();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        }).start();
-    }
-
-    public static void readTier() throws SQLException {
-        Connection connection = DataBase.getDatabaseConnection();
-        Statement statement = connection.createStatement();
-        String sql = "select * from playerdata1";
-        ResultSet resultSet = statement.executeQuery(sql);
-        while (resultSet.next()) {
-            String name = resultSet.getString("name");
-            String overDate = resultSet.getString(overDateString);
-            String lastRewardTime = resultSet.getString(lastRewardTimeString);
-            String tier = resultSet.getString("tier");
-            int tierInt = 0;
-            if (tier != null) tierInt = Integer.parseInt(tier);
-            if (map.containsKey(name)) {
-                PlanPlayer planPlayer = map.get(name);
-                planPlayer.tier = tierInt;
-            } else {
-                if (overDate == null) {
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.add(Calendar.DATE, 31);
-                    overDate = Compute.CalendarToString(calendar);
-                }
-                if (lastRewardTime == null) {
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.add(Calendar.DATE, -1);
-                    lastRewardTime = Compute.CalendarToString(calendar);
-                }
-                map.put(name, new PlanPlayer(name, tierInt, overDate, lastRewardTime, 0));
+                Compute.sendFormatMSG(player, Te.s("安全", CustomStyle.styleOfFlexible),
+                        Te.s("计划/开箱统计/聚星获得数已同步至新版数据存储"));
             }
         }
-        statement.close();
-
     }
 
     public static void read() throws SQLException, ParseException {
@@ -217,9 +143,7 @@ public class PlanPlayer {
                 handle(resultSet, name, winTimes);
             }
         }
-
         statement.close();
-
     }
 
     public static void handle(ResultSet resultSet, String name, String itemString) throws SQLException {
@@ -233,20 +157,66 @@ public class PlanPlayer {
         }
     }
 
-    public static int getPlayerTier(Player player) throws ParseException {
-        String name = player.getName().getString();
-        if (!map.containsKey(name)) return 0;
-        else {
-            PlanPlayer planPlayer = map.get(name);
-            String overDate = planPlayer.overDate;
-            if (overDate == null) return 0;
-            Calendar calendar = Calendar.getInstance();
-            if (calendar.after(Compute.StringToCalendar(overDate))) return 0;
-            else return map.get(name).tier;
-        }
+    public static int getPlayerTier(Player player) {
+        return getPlanData(player).getInt(TIER_KEY);
     }
 
-    public static void setFoodData(ServerPlayer serverPlayer) throws ParseException {
+    public static void setPlayerTier(Player player, int tier) {
+        getPlanData(player).putInt(TIER_KEY, tier);
+    }
+
+    public static String getOverDate(Player player) {
+        return getPlanData(player).getString(OVER_DATE_KEY);
+    }
+
+    public static void setOverDate(Player player, String overDate) {
+        getPlanData(player).putString(OVER_DATE_KEY, overDate);
+    }
+
+    public static String getLastRewardTime(Player player) {
+        return getPlanData(player).getString(LAST_REWARD_TIME_KEY);
+    }
+
+    public static void setLastRewardTime(Player player, String lastRewardTime) {
+        getPlanData(player).putString(LAST_REWARD_TIME_KEY, lastRewardTime);
+    }
+
+    public static int getDailyRewardTimes(Player player) {
+        return getPlanData(player).getInt(GET_DAILY_REWARD_TIMES_KEY);
+    }
+
+    public static void setDailyRewardTimes(Player player, int dailyRewardTimes) {
+        getPlanData(player).putInt(GET_DAILY_REWARD_TIMES_KEY, dailyRewardTimes);
+    }
+
+    public static void addDailyRewardTimes(Player player) {
+        setDailyRewardTimes(player, getDailyRewardTimes(player) + 1);
+    }
+
+    public static int getStarCounts(Player player) {
+        return getPlanData(player).getInt(GET_STAR_COUNTS_KEY);
+    }
+
+    public static void setStartCounts(Player player, int counts) {
+        getPlanData(player).putInt(GET_STAR_COUNTS_KEY, counts);
+    }
+
+    public static void addStarCounts(Player player, int counts) {
+        setStartCounts(player, getStarCounts(player) + counts);
+    }
+
+    public static String getTowerStatus(Player player) {
+        if (!getPlanData(player).contains(TOWER_STATUS_KEY)) {
+            getPlanData(player).putString(TOWER_STATUS_KEY, Tower.rewardGetRecordValue);
+        }
+        return getPlanData(player).getString(TOWER_STATUS_KEY);
+    }
+
+    public static void setTowerStatus(Player player, String status) {
+        getPlanData(player).putString(TOWER_STATUS_KEY, status);
+    }
+
+    public static void setFoodData(ServerPlayer serverPlayer) {
         if (getPlayerTier(serverPlayer) != 0) {
             serverPlayer.getFoodData().setFoodLevel(20);
         }

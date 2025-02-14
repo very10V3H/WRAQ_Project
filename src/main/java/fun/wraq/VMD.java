@@ -32,21 +32,19 @@ import fun.wraq.process.system.element.ElementItems;
 import fun.wraq.process.system.endlessinstance.DailyEndlessInstanceEvent;
 import fun.wraq.process.system.endlessinstance.item.EndlessInstanceItems;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
-import fun.wraq.process.system.lottery.NewLotteries;
 import fun.wraq.process.system.market.MarketInfo;
 import fun.wraq.process.system.ore.OreItems;
 import fun.wraq.process.system.ore.PickaxeItems;
-import fun.wraq.process.system.profession.pet.dev.PetScreen;
+import fun.wraq.process.system.point.PointItems;
 import fun.wraq.process.system.profession.pet.allay.AllayPet;
 import fun.wraq.process.system.profession.pet.allay.item.AllayItems;
-import fun.wraq.process.system.point.PointItems;
+import fun.wraq.process.system.profession.pet.dev.PetScreen;
 import fun.wraq.process.system.profession.smith.SmithItems;
 import fun.wraq.process.system.randomevent.RandomEvent;
 import fun.wraq.process.system.randomevent.RandomEventsHandler;
 import fun.wraq.process.system.spur.Items.SpurItems;
 import fun.wraq.process.system.teamInstance.NewTeamInstance;
 import fun.wraq.process.system.teamInstance.NewTeamInstanceHandler;
-import fun.wraq.process.system.tower.Tower;
 import fun.wraq.process.system.tower.TowerTimeRecord;
 import fun.wraq.process.system.vp.VpDataHandler;
 import fun.wraq.render.gui.blocks.BrewingScreen;
@@ -60,6 +58,7 @@ import fun.wraq.render.mobEffects.ModEffects;
 import fun.wraq.render.mobEffects.ModPotions;
 import fun.wraq.render.particles.ModParticles;
 import fun.wraq.series.end.citadel.CitadelItems;
+import fun.wraq.series.events.SpecialEventItems;
 import fun.wraq.series.gems.GemItems;
 import fun.wraq.series.instance.blade.BladeItems;
 import fun.wraq.series.instance.mixture.MixtureItems;
@@ -72,7 +71,6 @@ import fun.wraq.series.moontain.MoontainItems;
 import fun.wraq.series.newrunes.NewRuneItems;
 import fun.wraq.series.overworld.chapter7.C7Items;
 import fun.wraq.series.overworld.sun.SunIslandItems;
-import fun.wraq.series.events.SpecialEventItems;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.resources.ResourceLocation;
@@ -178,21 +176,15 @@ public class VMD {
         RandomEventsHandler.getRandomEvents().forEach(RandomEvent::reset);
         DailyEndlessInstanceEvent.onServerStop();
         AllayPet.onServerStop();
-
         MarketInfo.marketItemInfoWrite(event.getServer().overworld());
         MarketInfo.marketProfitInfoWrite(event.getServer().overworld());
-
-        PlanPlayer.write();
-
         PurpleIronCommon.destroyOnServerStop();
 
         Connection connection = DataBase.getDatabaseConnection();
         Statement statement = connection.createStatement();
-        Tower.writeToDataBase(statement);
-        Tower.writeStarCountToDataBase(statement);
-        NewLotteries.writeToDataBase(statement);
-        MobSpawn.writeToSQL(statement);
+
         TowerTimeRecord.writeToWorldRecordInfo();
+
         DataBase.writeWorldInfo(statement);
         statement.close();
 

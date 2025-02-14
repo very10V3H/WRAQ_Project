@@ -174,7 +174,7 @@ public abstract class NoTeamInstance {
                                 }
                             }
                         });
-                        MobSpawn.killCountIncrement(player, name.getString());
+                        MobSpawn.incrementPlayerKillCount(player, name.getString());
                         Compute.givePercentExpToPlayer(player, 0.1, PlayerAttributes.expUp(player), this.level);
                         exReward(player);
                     } else {

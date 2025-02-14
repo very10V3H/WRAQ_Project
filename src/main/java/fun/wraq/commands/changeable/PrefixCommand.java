@@ -92,13 +92,8 @@ public class PrefixCommand implements Command<CommandSourceStack> {
 
         @Override
         public int matchCondition(Player player) {
-            Map<String, Map<String, Integer>> countMap = MobSpawn.totalKillCount;
-            String playerName = player.getName().getString();
-            if (countMap.containsKey(playerName)) {
-                Map<String, Integer> map = countMap.get(playerName);
-                if (map.containsKey(mobName) && map.get(mobName) >= needCount) {
-                    return 1;
-                }
+            if (MobSpawn.getPlayerKillCount(player, mobName) >= needCount) {
+                return 1;
             }
             return 0;
         }
@@ -298,7 +293,7 @@ public class PrefixCommand implements Command<CommandSourceStack> {
             }
         }
 
-        count ++;
+        count++;
         player.sendSystemMessage(Component.literal(count + ".").withStyle(ChatFormatting.WHITE).
                 append(Te.s(RankData.rankNameMap.get(RankData.getCurrentRank(player)),
                         RankData.rankStyleMap.get(RankData.getCurrentRank(player)))));

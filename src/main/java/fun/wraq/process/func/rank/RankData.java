@@ -18,7 +18,6 @@ import net.minecraft.server.players.PlayerList;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-import java.sql.SQLException;
 import java.util.*;
 
 public class RankData {
@@ -190,7 +189,7 @@ public class RankData {
     // 以下是职权内容
 
     // 完成新每日任务
-    public static void onPlayerFishedNewDailyMission(Player player) throws SQLException {
+    public static void onPlayerFishedNewDailyMission(Player player) {
         if (getRankSerial(player) >= rankSerialList.indexOf("13B")) {
             Tower.givePlayerStar(player, 2, "职权");
             sendFormatMSG(player, Te.s("你的", "职权", ChatFormatting.AQUA, "为你额外提供了",

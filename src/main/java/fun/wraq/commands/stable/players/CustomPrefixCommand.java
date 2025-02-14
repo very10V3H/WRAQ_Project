@@ -15,7 +15,6 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.server.level.ServerPlayer;
 
-import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,12 +35,7 @@ public class CustomPrefixCommand implements Command<CommandSourceStack> {
         String prefixString = StringArgumentType.getString(context, "prefix");
         String colorString = StringArgumentType.getString(context, "color");
 
-        int tier = 0;
-        try {
-            tier = PlanPlayer.getPlayerTier(serverPlayer);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
+        int tier = PlanPlayer.getPlayerTier(serverPlayer);
         if (tier == 0) {
             Compute.sendFormatMSG(serverPlayer, Component.literal("自定义称号").withStyle(ChatFormatting.AQUA),
                     Component.literal("当前无法使用自定义称号").withStyle(ChatFormatting.WHITE));

@@ -1759,12 +1759,7 @@ public class Compute {
         double rate = 0;
         rate += LabourDayIronHoe.playerExHarvest(player);
         rate += LabourDayIronPickaxe.playerExHarvest(player);
-        int tier;
-        try {
-            tier = PlanPlayer.getPlayerTier(player);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
+        int tier = PlanPlayer.getPlayerTier(player);
         rate += new double[]{0, 0.15, 0.3, 0.5}[tier];
         rate += Compute.getPlayerPotionEffectRate(player, ModEffects.EX_HARVEST.get(), 0.15, 0.25);
         rate += HoursExHarvestPotion.getHoursExHarvestPotionEnhanceRate(player);

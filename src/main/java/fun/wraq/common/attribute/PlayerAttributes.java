@@ -65,7 +65,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -554,12 +553,7 @@ public class PlayerAttributes {
 
         expUp += Compute.PassiveEquip.getAttribute(player, Utils.expUp); // 器灵属性加成
 
-        int tier = 0;
-        try {
-            tier = PlanPlayer.getPlayerTier(player);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
+        int tier = PlanPlayer.getPlayerTier(player);
         expUp += new double[]{0, 1, 2, 3}[tier];
         expUp += 2; // 新春活动
 

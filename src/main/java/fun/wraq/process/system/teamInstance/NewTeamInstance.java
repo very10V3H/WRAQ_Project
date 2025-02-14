@@ -276,10 +276,7 @@ public abstract class NewTeamInstance {
                     }
                     Reason.addOrCostPlayerReasonValue(player, -reasonCost);
                     reward(player);
-                    if (!MobSpawn.tempKillCount.containsKey(player.getName().getString()))
-                        MobSpawn.tempKillCount.put(player.getName().getString(), new HashMap<>());
-                    Map<String, Integer> map = MobSpawn.tempKillCount.get(player.getName().getString());
-                    map.put(description.getString(), map.getOrDefault(description.getString(), 0) + 1);
+                    MobSpawn.incrementPlayerKillCount(player, description.getString());
                 });
                 clear();
             }

@@ -16,7 +16,6 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,21 +46,13 @@ public class SupplyBox extends Item {
             supplyItems.forEach(supply -> {
                 ItemStack itemStack = new ItemStack(supply.getItem(), supply.getCount());
                 if (itemStack.is(ModItems.WORLD_SOUL_5.get())) {
-                    try {
-                        Tower.givePlayerStar(player, itemStack.getCount(), "月卡/计划补给箱");
-                    } catch (SQLException e) {
-                        throw new RuntimeException(e);
-                    }
+                    Tower.givePlayerStar(player, itemStack.getCount(), "月卡/计划补给箱");
                 } else {
                     InventoryOperation.giveItemStack(player, itemStack);
                 }
             });
             Compute.playerItemUseWithRecord(player);
-            try {
-                NewLotteries.addPlayerOpenLotteryTimes(player, this);
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
+            NewLotteries.addPlayerOpenLotteryTimes(player, this);
         }
         return super.use(level, player, interactionHand);
     }

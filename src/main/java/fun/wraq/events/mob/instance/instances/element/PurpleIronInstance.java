@@ -27,7 +27,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
-import java.util.HashMap;
 import java.util.List;
 
 public class PurpleIronInstance extends NoTeamInstance {
@@ -96,8 +95,7 @@ public class PurpleIronInstance extends NoTeamInstance {
 
     @Override
     public boolean allowReward(Player player) {
-        if (MobSpawn.totalKillCount.getOrDefault(player.getName().getString(), new HashMap<>())
-                .getOrDefault(NetherInstance.mobName, 0) >= 50) {
+        if (MobSpawn.getPlayerKillCount(player, NetherInstance.mobName) >= 50) {
             NoTeamInstanceModule.putPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.purpleIron, true);
         }
         return NoTeamInstanceModule.getPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.purpleIron);

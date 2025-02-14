@@ -81,18 +81,12 @@ public class VpStoreBuyC2SPacket {
                                     VpDataHandler.playerVpData.getOrDefault(name.toLowerCase(), 0d) - price);
 
                             if (PlanPlayer.getPlayerTier(serverPlayer) == tier) {
-                                if (PlanPlayer.map.containsKey(name)) {
-                                    PlanPlayer planPlayer = PlanPlayer.map.get(name);
-                                    String oldOverDate = planPlayer.overDate;
-                                    Calendar oldOverDateCalendar = Compute.StringToCalendar(oldOverDate);
-                                    oldOverDateCalendar.add(Calendar.DATE, SimpleTierPaper.lastDay);
-                                    planPlayer.overDate = Compute.CalendarToString(oldOverDateCalendar);
-                                    Compute.sendFormatMSG(serverPlayer, Te.s("vp", ChatFormatting.AQUA),
-                                            Te.s("续约成功!"));
-                                } else {
-                                    Compute.sendFormatMSG(serverPlayer, Te.s("vp", ChatFormatting.AQUA),
-                                            Te.s("出现异常，速速联系铁头!"));
-                                }
+                                String oldOverDate = PlanPlayer.getOverDate(serverPlayer);
+                                Calendar oldOverDateCalendar = Compute.StringToCalendar(oldOverDate);
+                                oldOverDateCalendar.add(Calendar.DATE, SimpleTierPaper.lastDay);
+                                PlanPlayer.setOverDate(serverPlayer, Compute.CalendarToString(oldOverDateCalendar));
+                                Compute.sendFormatMSG(serverPlayer, Te.s("vp", ChatFormatting.AQUA),
+                                        Te.s("续约成功!"));
                             } else {
                                 Calendar calendar = Calendar.getInstance();
                                 calendar.add(Calendar.DATE, SimpleTierPaper.lastDay);
@@ -100,12 +94,9 @@ public class VpStoreBuyC2SPacket {
                                 calendar = Calendar.getInstance();
                                 calendar.add(Calendar.DATE, -1);
                                 String lastRewardDate = Compute.CalendarToString(calendar);
-                                if (!PlanPlayer.map.containsKey(name))
-                                    PlanPlayer.map.put(name, new PlanPlayer(name, tier, overDate, lastRewardDate, 0));
-                                else {
-                                    PlanPlayer.map.get(name).tier = tier;
-                                    PlanPlayer.map.get(name).overDate = overDate;
-                                }
+                                PlanPlayer.setPlayerTier(serverPlayer, tier);
+                                PlanPlayer.setOverDate(serverPlayer, overDate);
+                                PlanPlayer.setLastRewardTime(serverPlayer, lastRewardDate);
                             }
 
                             CompoundTag data = serverPlayer.getPersistentData();
@@ -124,7 +115,7 @@ public class VpStoreBuyC2SPacket {
                             Compute.clearPlayerScreen(serverPlayer);
                             Compute.setPlayerTitleAndSubTitle(serverPlayer, Te.m(goods.getDisplayName()),
                                     Te.s("已成功激活!", CustomStyle.styleOfWorld));
-                            PlanPlayer.map.get(name).lastRewardTime = null;
+                            PlanPlayer.setLastRewardTime(serverPlayer, "");
                         }
                     } catch (ParseException e) {
                         throw new RuntimeException(e);

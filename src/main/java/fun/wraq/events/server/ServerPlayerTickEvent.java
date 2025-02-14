@@ -66,7 +66,6 @@ import fun.wraq.series.end.curios.EndCrystal;
 import fun.wraq.series.events.labourDay.LabourDayIronHoe;
 import fun.wraq.series.events.labourDay.LabourDayIronPickaxe;
 import fun.wraq.series.events.spring2025.Spring2025BossBar;
-import fun.wraq.series.events.spring2025.Spring2025ZoneFirework;
 import fun.wraq.series.gems.passive.impl.GemTickHandler;
 import fun.wraq.series.instance.mixture.WraqMixture;
 import fun.wraq.series.instance.quiver.WraqQuiver;
@@ -78,7 +77,6 @@ import fun.wraq.series.moontain.equip.weapon.MoontainUtils;
 import fun.wraq.series.overworld.sakura.Boss2.GoldenAttackOffhand;
 import fun.wraq.series.overworld.sakura.Boss2.GoldenBook;
 import fun.wraq.series.overworld.sakura.Slime.SlimeBoots;
-import fun.wraq.series.overworld.sun.network.TotalKillCountS2CPacket;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -107,7 +105,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.List;
@@ -115,7 +112,7 @@ import java.util.List;
 @Mod.EventBusSubscriber
 public class ServerPlayerTickEvent {
     @SubscribeEvent
-    public static void ServerPlayerTick(TickEvent.PlayerTickEvent event) throws IOException, ParseException, SQLException {
+    public static void ServerPlayerTick(TickEvent.PlayerTickEvent event) throws IOException, ParseException {
         if (event.side.isServer() && event.phase == TickEvent.Phase.START) {
             Player player = event.player;
             ServerPlayer serverPlayer = (ServerPlayer) player;
@@ -167,6 +164,7 @@ public class ServerPlayerTickEvent {
             Spring2025BossBar.handleServerPlayerTick(serverPlayer);
             MissionV2.handlePlayerTick(player);
             SpringMobEvent.handleServerPlayerTick(player);
+            MobSpawn.handlePlayerTick(player);
 
             if (player.tickCount % 10 == 0
                     && (player.isOnFire()
@@ -175,14 +173,6 @@ public class ServerPlayerTickEvent {
                     Compute.decreasePlayerHealth(player, player.getHealth() * 0.03,
                             Te.s("被火焰吞没了", CustomStyle.styleOfPower));
                 }
-            }
-
-            if (player.tickCount % 100 == 0 && MobSpawn.totalKillCount.containsKey(player.getName().getString())) {
-                int totalCount = MobSpawn.totalKillCount.get(player.getName().getString())
-                        .values()
-                        .stream().mapToInt(Integer::intValue).sum();
-                MobSpawn.totalKillCountCache.put(player.getName().getString(), (long) totalCount);
-                ModNetworking.sendToClient(new TotalKillCountS2CPacket(totalCount), serverPlayer);
             }
 
             if (player.tickCount % 20 == 0) {

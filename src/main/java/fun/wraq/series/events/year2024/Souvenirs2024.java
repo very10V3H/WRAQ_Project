@@ -51,11 +51,7 @@ public class Souvenirs2024 extends WraqItem {
                     Reason.addOrCostPlayerReasonValueIgnoreLimit(player, 24);
                     Compute.VBIncomeAndMSGSend(player, 2024);
                     if (RandomUtils.nextDouble(0, 1) < 0.05) {
-                        try {
-                            Tower.givePlayerStar(player, 40, "维瑞阿契2024纪念发行票");
-                        } catch (SQLException e) {
-                            throw new RuntimeException(e);
-                        }
+                        Tower.givePlayerStar(player, 40, "维瑞阿契2024纪念发行票");
                         Compute.sendFormatMSG(player, Te.s("纪念品", CustomStyle.styleOfGold),
                                 Te.s(player.getDisplayName(), "通过", this, "获得了",
                                         ModItems.WORLD_SOUL_5, " * 40", ChatFormatting.AQUA));

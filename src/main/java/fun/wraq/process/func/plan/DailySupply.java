@@ -28,18 +28,13 @@ public class DailySupply {
     public static Map<String, Integer> tryCooldown = new HashMap<>();
 
     public static boolean canReward(Player player) throws ParseException {
-        String name = player.getName().getString();
-        if (fun.wraq.process.func.plan.PlanPlayer.map.containsKey(name)) {
-            fun.wraq.process.func.plan.PlanPlayer planPlayer = fun.wraq.process.func.plan.PlanPlayer.map.get(name);
-            Calendar cal = Calendar.getInstance();
-            if (planPlayer.lastRewardTime == null) return true;
-            Calendar lastRewardTime = Compute.StringToCalendar(planPlayer.lastRewardTime);
-            return lastRewardTime.get(Calendar.DATE) != cal.get(Calendar.DATE);
-        } else {
-            fun.wraq.process.func.plan.PlanPlayer planPlayer = new fun.wraq.process.func.plan.PlanPlayer(name, 0, null, null, 0);
-            fun.wraq.process.func.plan.PlanPlayer.map.put(name, planPlayer);
+        String lastRewardTime = PlanPlayer.getLastRewardTime(player);
+        if (PlanPlayer.getLastRewardTime(player).isEmpty()) {
             return true;
         }
+        Calendar lastRewardCalendar = Compute.StringToCalendar(lastRewardTime);
+        Calendar cal = Calendar.getInstance();
+        return lastRewardCalendar.get(Calendar.DATE) != cal.get(Calendar.DATE);
     }
 
     public static void tryToReward(Player player) throws SQLException, ParseException, IOException {
@@ -54,13 +49,12 @@ public class DailySupply {
         }
         tryCooldown.put(name, tick + 40);
         if (canReward(player)) {
-            fun.wraq.process.func.plan.PlanPlayer planPlayer = fun.wraq.process.func.plan.PlanPlayer.map.get(name);
-            planPlayer.getDailyRewardTimes++;
-            planPlayer.lastRewardTime = Compute.CalendarToString(Calendar.getInstance());
+            PlanPlayer.addDailyRewardTimes(player);
+            PlanPlayer.setLastRewardTime(player, Compute.CalendarToString(Calendar.getInstance()));
             Int2ObjectMap<ItemStack> map = getRewardItemMap();
             Compute.sendFormatMSG(player, Component.literal("每日补给").withStyle(ChatFormatting.AQUA),
                     Component.literal("成功领取了每日补给").withStyle(ChatFormatting.WHITE));
-            ItemStack mapItemStack = map.getOrDefault(fun.wraq.process.func.plan.PlanPlayer.getPlayerTier(player), new ItemStack(Items.AIR));
+            ItemStack mapItemStack = map.getOrDefault(PlanPlayer.getPlayerTier(player), new ItemStack(Items.AIR));
             ItemStack giveItemStack = new ItemStack(mapItemStack.getItem(), mapItemStack.getCount());
             InventoryOperation.giveItemStack(player, giveItemStack);
             sendStatusToClient(player);
@@ -86,13 +80,13 @@ public class DailySupply {
 
     public static void sendStatusToClient(Player player) throws ParseException {
         if (canReward(player)) {
-            ModNetworking.sendToClient(new DailySupplyS2CPacket(fun.wraq.process.func.plan.PlanPlayer.getPlayerTier(player)), (ServerPlayer) player);
+            ModNetworking.sendToClient(
+                    new DailySupplyS2CPacket(PlanPlayer.getPlayerTier(player)), (ServerPlayer) player);
         } else ModNetworking.sendToClient(new DailySupplyS2CPacket(-1), (ServerPlayer) player);
-        int tier = fun.wraq.process.func.plan.PlanPlayer.getPlayerTier(player);
-        String name = player.getName().getString();
-        if (tier != 0 && fun.wraq.process.func.plan.PlanPlayer.map.containsKey(name)) {
+        int tier = PlanPlayer.getPlayerTier(player);
+        if (tier != 0) {
             Calendar calendar = Calendar.getInstance();
-            Calendar overDate = Compute.StringToCalendar(PlanPlayer.map.get(name).overDate);
+            Calendar overDate = Compute.StringToCalendar(PlanPlayer.getOverDate(player));
             int date = (int) Compute.calenderDateDifference(overDate, calendar);
             ModNetworking.sendToClient(new PlanDateAndTierS2CPacket(date, tier), (ServerPlayer) player);
         }

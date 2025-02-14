@@ -1,20 +1,9 @@
 package fun.wraq.Items.MainStory_1.Mission;
 
-import fun.wraq.common.Compute;
-import fun.wraq.common.attribute.PlayerAttributes;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.ComponentUtils;
-import fun.wraq.common.util.Utils;
-import fun.wraq.common.util.items.AdjustStackBeforeGive;
-import fun.wraq.common.util.items.ItemAndRate;
 import fun.wraq.events.mob.MobSpawn;
-import fun.wraq.events.mob.instance.NoTeamInstance;
-import fun.wraq.events.mob.instance.NoTeamInstanceModule;
-import fun.wraq.events.mob.instance.instances.element.PlainInstance;
-import fun.wraq.process.system.forge.ForgeEquipUtils;
-import fun.wraq.process.system.randomevent.impl.special.SpringMobEvent;
-import fun.wraq.render.toolTip.CustomStyle;
-import fun.wraq.series.instance.series.purple.PurpleIronCommon;
+import fun.wraq.process.func.plan.PlanPlayer;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -24,10 +13,8 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import org.apache.commons.lang3.RandomUtils;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -67,37 +54,8 @@ public class Main0 extends Item {
         CompoundTag data = player.getPersistentData();
 
         if (!level.isClientSide && !player.isShiftKeyDown()) {
-            for (int i = 0 ; i < 30 ; i ++) {
-                NoTeamInstance instance = PlainInstance.getInstance();
-                List<ItemAndRate> rewardList = instance.getRewardList();
-                rewardList.forEach(itemAndRate -> {
-                    ItemStack copyStack = itemAndRate.getItemStack().copy();
-                    Item copyItem = copyStack.getItem();
-                    AdjustStackBeforeGive adjustStackBeforeGive = stack -> {
-                        ForgeEquipUtils.setForgeQualityOnEquip(stack, RandomUtils.nextInt(2, 6));
-                    };
-                    boolean isEquip
-                            = Utils.mainHandTag.containsKey(copyItem) || Utils.armorTag.containsKey(copyItem);
-                    ItemStack rewardStack = itemAndRate.sendWithMSG(player, 1,
-                            isEquip ? adjustStackBeforeGive : null);
-                    boolean reward = !rewardStack.is(Items.AIR);
-                    if (itemAndRate.getRate() <= 0.01 && reward) {
-                        if (isEquip) {
-                            Compute.forgingHoverName(rewardStack);
-                        }
-                        Compute.sendFormatMSG(player, Te.s("领主级怪物", CustomStyle.styleOfRed),
-                                Te.s(player.getDisplayName(), "击败", name,
-                                        "获得了", rewardStack));
-                        if (copyItem instanceof PurpleIronCommon) {
-                            NoTeamInstanceModule.putPlayerAllowReward(player,
-                                    NoTeamInstanceModule.AllowRewardKey.iceKnight, true);
-                        }
-                    }
-                });
-                MobSpawn.killCountIncrement(player, instance.name.getString());
-                Compute.givePercentExpToPlayer(player, 0.1, PlayerAttributes.expUp(player), instance.level);
-                instance.exReward(player);
-            }
+            player.sendSystemMessage(Te.s(PlanPlayer.getPlanData(player).toString()));
+            player.sendSystemMessage(Te.s(MobSpawn.getKillCountData(player).toString()));
 /*            for (int i = 0 ; i < player.getInventory().getMaxStackSize() ; i ++) {
                 ItemStack stack = player.getInventory().getItem(i);
                 if (stack.getItem() instanceof BackpackItem) {
@@ -131,7 +89,8 @@ public class Main0 extends Item {
         }
         
         if (!level.isClientSide && player.isShiftKeyDown()) {
-            data.remove(SpringMobEvent.SPRING_CURIO_TAG);
+            data.remove(PlanPlayer.PLAN_DATA_KEY);
+            data.remove(MobSpawn.KILL_COUNT_DATA_KEY);
         }
 
         if (level.isClientSide && !player.isShiftKeyDown()) {

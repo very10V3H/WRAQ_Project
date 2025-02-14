@@ -12,6 +12,7 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.struct.PlayerTeam;
 import fun.wraq.entities.entities.Civil.Civil;
 import fun.wraq.events.core.BlockEvent;
+import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.events.mob.instance.NoTeamInstanceModule;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.VersionCheckS2CPacket;
@@ -29,6 +30,7 @@ import fun.wraq.networking.unSorted.SwiftSyncS2CPacket;
 import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.plan.DailySupply;
+import fun.wraq.process.func.plan.PlanPlayer;
 import fun.wraq.process.func.rank.RankData;
 import fun.wraq.process.func.security.Security;
 import fun.wraq.process.func.security.mac.MacServer;
@@ -289,9 +291,7 @@ public class LoginInEvent {
                 Element.PlayerResonanceType.put(player, data.getString(StringUtils.ResonanceType));
 
             String towerStatus = Tower.getPlayerStatus(player);
-            if (towerStatus != null)
-                ModNetworking.sendToClient(new TowerStatusS2CPacket(towerStatus), serverPlayer);
-            else Tower.putPlayerStatus(player, towerStatus);
+            ModNetworking.sendToClient(new TowerStatusS2CPacket(towerStatus), serverPlayer);
 
             DailySupply.sendStatusToClient(player);
             VpDataHandler.sendPlayerVpValue(player);
@@ -312,8 +312,6 @@ public class LoginInEvent {
                 ModNetworking.sendToClient(new MacRequestS2CPacket(),serverPlayer);
             }
 
-            NewLotteries.sendLotteryRewardTimes(player);
-
             SingleItemChangePurchaseLimit.sendAllRecipeTimes(player);
             RankData.onPlayerLogin(player);
             Reason.sendReasonValuePacketToClient(player);
@@ -324,6 +322,9 @@ public class LoginInEvent {
             SkillV2.sendInfoToClient(player);
             SkillV2.afterVerUpdateLogin(player);
             SpringMobEvent.onPlayerLogin(player);
+            PlanPlayer.onPlayerLoginSync(player);
+            MobSpawn.onPlayerLoginSync(player);
+            NewLotteries.sendLotteryRewardTimes(player);
 
             String enhanceForge = "enhanceForgeEquipAdjust";
             if (!data.contains(enhanceForge)) {

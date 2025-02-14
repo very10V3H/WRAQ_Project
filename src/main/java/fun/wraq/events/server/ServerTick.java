@@ -2,18 +2,14 @@ package fun.wraq.events.server;
 
 import fun.wraq.common.fast.Tick;
 import fun.wraq.events.core.BowEvent;
-import fun.wraq.events.mob.MobSpawn;
 import fun.wraq.files.dataBases.DataBase;
 import fun.wraq.process.func.DelayOperationWithAnimation;
 import fun.wraq.process.func.damage.Dot;
 import fun.wraq.process.func.damage.SputteringDamage;
-import fun.wraq.process.func.plan.PlanPlayer;
-import fun.wraq.process.system.lottery.NewLotteries;
 import fun.wraq.process.system.market.MarketInfo;
 import fun.wraq.process.system.profession.pet.allay.AllayPet;
 import fun.wraq.process.system.randomevent.RandomEventsHandler;
 import fun.wraq.process.system.reason.Reason;
-import fun.wraq.process.system.tower.Tower;
 import fun.wraq.process.system.vp.VpDataHandler;
 import fun.wraq.series.events.spring2025.Spring2025BossBar;
 import fun.wraq.series.instance.series.purple.PurpleIronCommon;
@@ -86,11 +82,6 @@ public class ServerTick {
         Connection connection = DataBase.getDatabaseConnection();
         Statement statement = connection.createStatement();
 
-        Tower.writeToDataBase(statement);
-        Tower.writeStarCountToDataBase(statement);
-        NewLotteries.writeToDataBase(statement);
-        MobSpawn.writeToSQL(statement);
-        PlanPlayer.write();
         VpDataHandler.normalRead();
         DataBase.writeWorldInfo(statement);
 

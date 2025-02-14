@@ -2,6 +2,7 @@ package fun.wraq.events.mob;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
@@ -29,11 +30,14 @@ import fun.wraq.events.mob.chapter7.BoneImpSpawnController;
 import fun.wraq.events.mob.chapter7.MushroomLinSpawnController;
 import fun.wraq.events.mob.chapter7.StarSpawnController;
 import fun.wraq.events.mob.chapter7.TorturedSoulSpawnController;
+import fun.wraq.events.mob.instance.NoTeamInstance;
+import fun.wraq.events.mob.instance.NoTeamInstanceModule;
 import fun.wraq.events.mob.moontain.*;
 import fun.wraq.events.mob.ore.Ore2SpawnController;
 import fun.wraq.events.mob.ore.Ore3SpawnController;
 import fun.wraq.events.server.LoginInEvent;
 import fun.wraq.files.dataBases.DataBase;
+import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.func.guide.Guide;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.system.element.Element;
@@ -41,11 +45,14 @@ import fun.wraq.process.system.missions.mission2.MissionV2Helper;
 import fun.wraq.process.system.profession.pet.allay.AllayPet;
 import fun.wraq.process.system.profession.pet.allay.AllayPetPlayerData;
 import fun.wraq.process.system.profession.pet.allay.skill.AllaySkills;
+import fun.wraq.process.system.teamInstance.NewTeamInstance;
+import fun.wraq.process.system.teamInstance.NewTeamInstanceHandler;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.end.Recall;
 import fun.wraq.series.events.SpecialEventItems;
 import fun.wraq.series.events.spring2024.FireworkGun;
 import fun.wraq.series.newrunes.NewRuneItems;
+import fun.wraq.series.overworld.sun.network.TotalKillCountS2CPacket;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -103,10 +110,6 @@ public class MobSpawn {
             }
         }
     }
-
-    public static Map<String, Map<String, Integer>> tempKillCount = new HashMap<>();
-    public static Map<String, Map<String, Integer>> totalKillCount = new HashMap<>();
-    public static Map<String, Long> totalKillCountCache = new HashMap<>();
 
     public static List<MobSpawnController> overWolrdList = new ArrayList<>();
 
@@ -393,10 +396,7 @@ public class MobSpawn {
 
         computeKillCount(player);
 
-        if (!tempKillCount.containsKey(player.getName().getString()))
-            tempKillCount.put(player.getName().getString(), new HashMap<>());
-        Map<String, Integer> map = tempKillCount.get(player.getName().getString());
-        map.put(getMobOriginName(mob), map.getOrDefault(getMobOriginName(mob), 0) + 1);
+        incrementPlayerKillCount(player, MobSpawn.getMobOriginName(mob));
         MissionV2Helper.onKillMob(player, mob);
 
         oldVersionMaterial(mob, player);
@@ -410,15 +410,57 @@ public class MobSpawn {
         }
     }
 
-    public static void killCountIncrement(Player player, String mobName) {
-        if (!tempKillCount.containsKey(player.getName().getString()))
-            tempKillCount.put(player.getName().getString(), new HashMap<>());
-        Map<String, Integer> map = tempKillCount.get(player.getName().getString());
-        map.put(mobName, map.getOrDefault(mobName, 0) + 1);
+    public static Map<String, Map<String, Integer>> totalKillCount = new HashMap<>();
+    public static Map<String, Integer> totalKillCountCache = new HashMap<>();
+
+    public static String KILL_COUNT_DATA_KEY = "KillCountData";
+    public static CompoundTag getKillCountData(Player player) {
+        return Compute.getPlayerSpecificKeyCompoundTagData(player, KILL_COUNT_DATA_KEY);
     }
 
-    public static void killCountIncrement(Player player, Mob mob) {
-        killCountIncrement(player, getMobOriginName(mob));
+    public static String SYNC_FLAG_KEY = "SyncFlag";
+    public static void onPlayerLoginSync(Player player) {
+        CompoundTag data = getKillCountData(player);
+        if (!data.contains(SYNC_FLAG_KEY)) {
+            data.putBoolean(SYNC_FLAG_KEY, true);
+            if (totalKillCount.containsKey(Name.get(player))) {
+                Map<String, Integer> map = totalKillCount.get(Name.get(player));
+                map.forEach(data::putInt);
+                Compute.sendFormatMSG(player, Te.s("安全", CustomStyle.styleOfFlexible),
+                        Te.s("击杀数已同步至新版数据存储"));
+            }
+        }
+    }
+
+    public static int getPlayerKillCount(Player player, String mobName) {
+        return getKillCountData(player).getInt(mobName);
+    }
+
+    public static void incrementPlayerKillCount(Player player, String mobName) {
+        CompoundTag data = getKillCountData(player);
+        data.putInt(mobName, data.getInt(mobName) + 1);
+    }
+
+    public static int getTotalKillCount(Player player) {
+        int totalCount = 0;
+        for (MobSpawnController controller : getAllControllers(true)) {
+            totalCount += getPlayerKillCount(player, controller.mobName.getString());
+        }
+        for (NoTeamInstance noTeamInstance : NoTeamInstanceModule.getAllInstance()) {
+            totalCount += getPlayerKillCount(player, noTeamInstance.name.getString());
+        }
+        for (NewTeamInstance instance : NewTeamInstanceHandler.getInstances()) {
+            totalCount += getPlayerKillCount(player, instance.description.getString());
+        }
+        return totalCount;
+    }
+
+    public static void handlePlayerTick(Player player) {
+        if (player.tickCount % 100 == 9) {
+            int totalCount = getTotalKillCount(player);
+            totalKillCountCache.put(Name.get(player), totalCount);
+            ModNetworking.sendToClient(new TotalKillCountS2CPacket(totalCount), player);
+        }
     }
 
     public static String fromMobSpawnTag = "fromMobSpawn";
@@ -427,68 +469,6 @@ public class MobSpawn {
     public static String getMobOriginName(Mob mob) {
         String s = mob.getName().getString();
         return s.substring(s.indexOf(" ") + 1);
-    }
-
-    public static void writeToSQL() throws SQLException {
-        Connection connection = DataBase.getDatabaseConnection();
-        Statement statement = connection.createStatement();
-        writeModule(statement);
-        statement.close();
-    }
-
-    public static void writeToSQL(Statement statement) {
-        writeModule(statement);
-    }
-
-    private static void writeModule(Statement statement) {
-        tempKillCount.forEach((playerName, map) -> {
-            if (!totalKillCount.containsKey(playerName)) totalKillCount.put(playerName, new HashMap<>());
-            Map<String, Integer> totalKillCountMap = totalKillCount.get(playerName);
-
-            map.forEach((mobName, count) -> {
-                String originCountString = null;
-
-                try {
-                    originCountString = DataBase.get(statement, playerName, mobName, "killcount");
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-
-                int originCount = 0;
-                if (originCountString != null) originCount = Integer.parseInt(originCountString);
-
-                try {
-                    DataBase.put(statement, playerName, mobName, String.valueOf(originCount + count), "killcount");
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-
-                totalKillCountMap.put(mobName, originCount + count);
-            });
-        });
-        tempKillCount.clear();
-    }
-
-
-    public static int getKillCount(Player player, Mob mob) throws SQLException {
-        Connection connection = DataBase.getDatabaseConnection();
-        Statement statement = connection.createStatement();
-        int count = getKillCount(statement, player, mob);
-        statement.close();
-        return count;
-    }
-
-    public static int getKillCount(Statement statement, Player player, Mob mob) throws SQLException {
-        String countS = DataBase.get(statement, player.getName().getString(), getMobOriginName(mob));
-        int count = 0;
-        if (countS != null) {
-            count += Integer.parseInt(countS);
-            if (tempKillCount.containsKey(player.getName().getString())) {
-                Map<String, Integer> map = tempKillCount.get(player.getName().getString());
-                if (map.containsKey(getMobOriginName(mob))) count += map.get(getMobOriginName(mob));
-            }
-        }
-        return count;
     }
 
     public static void recall(Mob mob, Player player) {

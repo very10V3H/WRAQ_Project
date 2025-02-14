@@ -17,7 +17,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
-import java.sql.SQLException;
 import java.util.*;
 
 public abstract class RandomEvent {
@@ -95,13 +94,7 @@ public abstract class RandomEvent {
                     RandomEventData.incrementTimes(player, getDataKey());
                 });
                 if (hasWorldSoul5Reward) {
-                    players.forEach(player -> {
-                        try {
-                            rewardWorldSoul5(player);
-                        } catch (SQLException e) {
-                            throw new RuntimeException(e);
-                        }
-                    });
+                    players.forEach(this::rewardWorldSoul5);
                 }
                 Random random = new Random();
                 players.forEach(player -> {
@@ -147,7 +140,7 @@ public abstract class RandomEvent {
         hasWorldSoul5Reward = has;
     }
 
-    private void rewardWorldSoul5(Player player) throws SQLException {
+    private void rewardWorldSoul5(Player player) {
         int times = RandomEventData.getWorldSoul5DailyGetTimes(player);
         Component component = ModItems.WORLD_SOUL_5.get().getDefaultInstance().getDisplayName();
         if (RandomEventData.getWorldSoul5DailyGetTimes(player) < 4) {

@@ -17,7 +17,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-import java.sql.SQLException;
 import java.util.*;
 
 public class SummerEvent {
@@ -38,7 +37,7 @@ public class SummerEvent {
         return 0;
     }
 
-    public static void tick(Player player) throws SQLException {
+    public static void tick(Player player) {
         String name = player.getName().getString();
         int tick = Tick.get();
         if (player.isSwimming() && player.tickCount % 20 == 17) {
@@ -126,7 +125,7 @@ public class SummerEvent {
         }
     }
 
-    private static void reward(Player player) throws SQLException {
+    private static void reward(Player player) {
         int dailySwimmingSeconds = getIntData(player, dailySwimmingSecondsKey);
         MySound.soundToPlayer(player, SoundEvents.EXPERIENCE_ORB_PICKUP);
         Component timeFormat;

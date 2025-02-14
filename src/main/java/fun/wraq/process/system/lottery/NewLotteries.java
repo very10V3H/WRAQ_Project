@@ -4,9 +4,9 @@ import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.events.core.InventoryCheck;
-import fun.wraq.files.dataBases.DataBase;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.func.item.InventoryOperation;
+import fun.wraq.process.func.plan.PlanPlayer;
 import fun.wraq.process.system.lottery.networking.LotteryRewardTimeS2CPacket;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
@@ -22,9 +22,6 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 import java.security.SecureRandom;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -148,23 +145,17 @@ public class NewLotteries extends Item {
 
         // 记录总开箱数
 
-        try {
-            if (recordFlag) addPlayerOpenLotteryTimes(player, lottery);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        if (recordFlag) {
+            addPlayerOpenLotteryTimes(player, lottery);
         }
 
         int times = 0;
-        try {
-            if (recordFlag) {
-                times = addPlayerRewardTimes(player, mainHandStack.getItem());
-                Compute.sendFormatMSG(player, Component.literal("礼盒").withStyle(ChatFormatting.LIGHT_PURPLE),
-                        Component.literal("这是第").withStyle(ChatFormatting.WHITE).
-                                append(Component.literal("" + times).withStyle(ChatFormatting.LIGHT_PURPLE)).
-                                append(Component.literal("次抽取该礼盒").withStyle(ChatFormatting.WHITE)));
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        if (recordFlag) {
+            times = addPlayerRewardTimes(player, mainHandStack.getItem());
+            Compute.sendFormatMSG(player, Component.literal("礼盒").withStyle(ChatFormatting.LIGHT_PURPLE),
+                    Component.literal("这是第").withStyle(ChatFormatting.WHITE).
+                            append(Component.literal("" + times).withStyle(ChatFormatting.LIGHT_PURPLE)).
+                            append(Component.literal("次抽取该礼盒").withStyle(ChatFormatting.WHITE)));
         }
 
         Compute.playerItemUseWithRecord(player);
@@ -183,11 +174,7 @@ public class NewLotteries extends Item {
         if (recordFlag && getRewardSerial.containsKey(lottery)) {
             if (serialNum < getRewardSerial.get(lottery)) {
                 setPlayerRewardTimes(player, lottery, 0);
-                try {
-                    addPlayerLotteryWinTimes(player, lottery);
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
+                addPlayerLotteryWinTimes(player, lottery);
             }
         }
 
@@ -219,163 +206,70 @@ public class NewLotteries extends Item {
         return playerLotteryData.get(name);
     }
 
-    public static int addPlayerRewardTimes(Player player, Item item) throws SQLException {
-        String playerName = player.getName().getString();
-        if (!playerLotteryData.containsKey(playerName)) playerLotteryData.put(playerName, new HashMap<>());
-        Map<String, Integer> rewards = playerLotteryData.get(playerName);
+    public static String getItemRewardTimesString(Item item) {
+        return item.toString();
+    }
+
+    public static String getItemOpenTimesString(Item item) {
+        return item.toString() + "_openTimes";
+    }
+
+    public static String getItemWinTimesString(Item item) {
+        return item.toString() + "_winTimes";
+    }
+
+    public static int addPlayerRewardTimes(Player player, Item item) {
         int times = getPlayerRewardTimes(player, item);
-        rewards.put(item.toString(), times + 1);
+        setPlayerRewardTimes(player, item, times + 1);
         sendLotteryRewardTimes(player);
         return times + 1;
     }
 
     public static void setPlayerRewardTimes(Player player, Item item, int times) {
-        String playerName = player.getName().getString();
-        if (!playerLotteryData.containsKey(playerName)) playerLotteryData.put(playerName, new HashMap<>());
-        Map<String, Integer> rewards = playerLotteryData.get(playerName);
-        rewards.put(item.toString(), times);
+        PlanPlayer.getLotteryData(player).putInt(getItemRewardTimesString(item), times);
         sendLotteryRewardTimes(player);
     }
 
-    public static int getPlayerRewardTimes(Player player, Item item) throws SQLException {
-        String playerName = player.getName().getString();
-        if (playerLotteryData.containsKey(playerName)) {
-            Map<String, Integer> map = playerLotteryData.get(playerName);
-            if (map.containsKey(item.toString())) return map.get(item.toString());
-        }
-        Connection connection = DataBase.getDatabaseConnection();
-        Statement statement = connection.createStatement();
-        String times = DataBase.get(statement, player, item.toString());
-        int result = 0;
-        if (times != null) {
-            if (!playerLotteryData.containsKey(playerName)) playerLotteryData.put(playerName, new HashMap<>());
-            Map<String, Integer> map = playerLotteryData.get(playerName);
-            map.put(item.toString(), Integer.valueOf(times));
-            result = Integer.parseInt(times);
-        }
-        statement.close();
-
-        return result;
+    public static int getPlayerRewardTimes(Player player, Item item) {
+        return PlanPlayer.getLotteryData(player).getInt(getItemRewardTimesString(item));
     }
 
-    public static int addPlayerOpenLotteryTimes(Player player, Item item) throws SQLException {
-        String playerName = player.getName().getString();
-        String openTimes = "_openTimes";
-        String key = item.toString() + openTimes;
-        if (!playerLotteryData.containsKey(playerName)) playerLotteryData.put(playerName, new HashMap<>());
-        Map<String, Integer> rewards = playerLotteryData.get(playerName);
+    public static int addPlayerOpenLotteryTimes(Player player, Item item) {
         int times = getPlayerOpenLotteryTimes(player, item);
-        rewards.put(key, times + 1);
+        setPlayerOpenLotteryTimes(player, item, times + 1);
+        sendLotteryRewardTimes(player);
         return times + 1;
     }
 
-    public static int getPlayerOpenLotteryTimes(Player player, Item item) throws SQLException {
-        String playerName = player.getName().getString();
-        String openTimes = "_openTimes";
-        String key = item.toString() + openTimes;
-        if (playerLotteryData.containsKey(playerName)) {
-            Map<String, Integer> map = playerLotteryData.get(playerName);
-            if (map.containsKey(key)) return map.get(key);
-        }
-        Connection connection = DataBase.getDatabaseConnection();
-        Statement statement = connection.createStatement();
-        String times = DataBase.get(statement, player, key);
-        int result = 0;
-        if (times != null) {
-            if (!playerLotteryData.containsKey(playerName)) playerLotteryData.put(playerName, new HashMap<>());
-            Map<String, Integer> map = playerLotteryData.get(playerName);
-            map.put(key, Integer.valueOf(times));
-            result = Integer.parseInt(times);
-        }
-        statement.close();
-
-        return result;
+    public static void setPlayerOpenLotteryTimes(Player player, Item item, int times) {
+        PlanPlayer.getLotteryData(player).putInt(getItemOpenTimesString(item), times);
+        sendLotteryRewardTimes(player);
     }
 
-    public static int addPlayerLotteryWinTimes(Player player, Item item) throws SQLException {
-        String playerName = player.getName().getString();
-        String winTimes = "_winTimes";
-        String key = item.toString() + winTimes;
-        if (!playerLotteryData.containsKey(playerName)) playerLotteryData.put(playerName, new HashMap<>());
-        Map<String, Integer> rewards = playerLotteryData.get(playerName);
+    public static int getPlayerOpenLotteryTimes(Player player, Item item) {
+        return PlanPlayer.getLotteryData(player).getInt(getItemOpenTimesString(item));
+    }
+
+    public static int addPlayerLotteryWinTimes(Player player, Item item) {
         int times = getPlayerLotteryWinTimes(player, item);
-        rewards.put(key, times + 1);
+        setPlayerLotteryWinTimes(player, item, times + 1);
+        sendLotteryRewardTimes(player);
         return times + 1;
     }
 
-    public static int getPlayerLotteryWinTimes(Player player, Item item) throws SQLException {
-        String playerName = player.getName().getString();
-        String winTimes = "_winTimes";
-        String key = item.toString() + winTimes;
-        if (playerLotteryData.containsKey(playerName)) {
-            Map<String, Integer> map = playerLotteryData.get(playerName);
-            if (map.containsKey(key)) return map.get(key);
-        }
-        Connection connection = DataBase.getDatabaseConnection();
-        Statement statement = connection.createStatement();
-        String times = DataBase.get(statement, player, key);
-        int result = 0;
-        if (times != null) {
-            if (!playerLotteryData.containsKey(playerName)) playerLotteryData.put(playerName, new HashMap<>());
-            Map<String, Integer> map = playerLotteryData.get(playerName);
-            map.put(key, Integer.valueOf(times));
-            result = Integer.parseInt(times);
-        }
-        statement.close();
-
-        return result;
+    public static void setPlayerLotteryWinTimes(Player player, Item item, int times) {
+        PlanPlayer.getLotteryData(player).putInt(getItemWinTimesString(item), times);
+        sendLotteryRewardTimes(player);
     }
 
-    public static void writeToDataBase() throws SQLException {
-        Connection connection = DataBase.getDatabaseConnection();
-        Statement statement = connection.createStatement();
-        playerLotteryData.forEach((playerName, map) -> {
-            map.forEach((s, integer) -> {
-                try {
-                    DataBase.put(statement, playerName, s, String.valueOf(integer));
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            });
-        });
-        statement.close();
-
-    }
-
-    public static void writeToDataBase(Statement statement) throws SQLException {
-        playerLotteryData.forEach((playerName, map) -> {
-            map.forEach((s, integer) -> {
-                try {
-                    DataBase.put(statement, playerName, s, String.valueOf(integer));
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            });
-        });
-    }
-
-    public static void synchronizedWrite(Statement statement) throws SQLException {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    writeToDataBase(statement);
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        }).start();
+    public static int getPlayerLotteryWinTimes(Player player, Item item) {
+        return PlanPlayer.getLotteryData(player).getInt(getItemWinTimesString(item));
     }
 
     public static void sendLotteryRewardTimes(Player player) {
         Map<String, Integer> rewardTimes = new HashMap<>();
         lotteryItems.forEach(item -> {
-            try {
-                rewardTimes.put(item.toString(), getPlayerRewardTimes(player, item));
-                getPlayerRewardTimes(player, item);
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
+            rewardTimes.put(item.toString(), getPlayerRewardTimes(player, item));
         });
         ModNetworking.sendToClient(new LotteryRewardTimeS2CPacket(rewardTimes), (ServerPlayer) player);
     }

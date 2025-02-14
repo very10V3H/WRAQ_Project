@@ -33,7 +33,6 @@ import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -293,8 +292,7 @@ public class HarbingerInstance extends NewTeamInstance {
 
     @Override
     public boolean allowReward(Player player) {
-        if (MobSpawn.totalKillCount.getOrDefault(player.getName().getString(), new HashMap<>())
-                .getOrDefault(WardenInstance.mobName, 0) >= 20) {
+        if (MobSpawn.getPlayerKillCount(player, WardenInstance.mobName) >= 20) {
             NoTeamInstanceModule.putPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.harbinger, true);
         }
         return NoTeamInstanceModule.getPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.harbinger);

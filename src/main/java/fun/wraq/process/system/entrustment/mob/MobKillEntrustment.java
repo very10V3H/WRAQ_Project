@@ -112,7 +112,7 @@ public class MobKillEntrustment {
         getPlayerData(player).putInt(DAILY_FINISHED_TIMES_KEY, dailyFinishedTime);
     }
 
-    public static void incrementDailyFinishedTimes(Player player, int increment) throws SQLException {
+    public static void incrementDailyFinishedTimes(Player player, int increment) {
         setDailyFinishedTimes(player, getDailyFinishedTimes(player) + increment);
         sendMSG(player, Te.s("今日已完成", getDailyFinishedTimes(player), "次",
                 "委托任务", CustomStyle.styleOfWorld));
@@ -202,7 +202,7 @@ public class MobKillEntrustment {
         return Compute.getSpecificKeyDataIntValue(player, PLAYER_DATA_KEY, WEEKLY_FINISHED_TIMES_KEY);
     }
 
-    public static void incrementWeeklyFinishedTimes(Player player, int increment) throws SQLException {
+    public static void incrementWeeklyFinishedTimes(Player player, int increment) {
         Compute.incrementSpecificKeyDataIntValue(player, PLAYER_DATA_KEY, WEEKLY_FINISHED_TIMES_KEY, increment);
         int currentFinishedTime = Compute.getSpecificKeyDataIntValue(player, PLAYER_DATA_KEY, WEEKLY_FINISHED_TIMES_KEY);
         if (currentFinishedTime == 20) {
@@ -436,7 +436,7 @@ public class MobKillEntrustment {
             new TimeAndTier(6, Te.s("A", ChatFormatting.GOLD), 1.8)
     );
 
-    public static void playerTryToSubmit(Player player) throws SQLException, ParseException {
+    public static void playerTryToSubmit(Player player) throws SQLException {
         String name = player.getName().getString();
         if (playerCurrentEntrustmentMap.containsKey(name)) {
             MobKillEntrustment entrustment = playerCurrentEntrustmentMap.get(name);

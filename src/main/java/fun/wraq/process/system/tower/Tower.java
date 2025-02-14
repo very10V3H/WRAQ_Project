@@ -8,7 +8,6 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.Utils;
 import fun.wraq.events.core.InventoryCheck;
 import fun.wraq.events.server.LevelEvents;
-import fun.wraq.files.dataBases.DataBase;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.func.plan.PlanPlayer;
@@ -28,9 +27,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.TickEvent;
 
 import java.io.IOException;
-import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -189,35 +186,23 @@ public class Tower {
         mobSummonTimes = -1;
         currentPlayer = null;
         for (Mob mob : this.mobList) mob.remove(Entity.RemovalReason.KILLED);
-
         this.mobList = new ArrayList<>();
         this.summonDelay = -1;
     }
 
-    public static int getPlayerStatus(Player player, int index) throws SQLException {
+    public static int getPlayerStatus(Player player, int index) {
         return Integer.parseInt(getPlayerStatus(player).substring(index, index + 1));
     }
 
-    public static String getPlayerStatus(Player player) throws SQLException {
-        if (playerStatus.containsKey(player.getName().getString()))
-            return playerStatus.get(player.getName().getString());
-        else {
-            String status = DataBase.get(player, rewardGetRecordKey);
-            if (status == null) {
-                DataBase.put(player, rewardGetRecordKey, rewardGetRecordValue);
-                playerStatus.put(player.getName().getString(), rewardGetRecordValue);
-                return rewardGetRecordValue;
-            }
-            playerStatus.put(player.getName().getString(), status);
-            return status;
-        }
+    public static String getPlayerStatus(Player player) {
+        return PlanPlayer.getTowerStatus(player);
     }
 
     public static void putPlayerStatus(Player player, String status) {
-        playerStatus.put(player.getName().getString(), status);
+        PlanPlayer.setTowerStatus(player, status);
     }
 
-    private void reward() throws IOException, SQLException, ParseException {
+    private void reward() {
         // 30s为一阶段
         int stage = 4 - Math.min(3, (Tick.get() - this.startTime) / 1200);
         int index = instanceList.indexOf(this);
@@ -293,44 +278,9 @@ public class Tower {
 
     public static String clientTowerStatus;
 
-    public static final Map<String, String> playerStatus = new HashMap<>();
-
-    public static void writeToDataBase() throws SQLException {
-        Connection connection = DataBase.getDatabaseConnection();
-        Statement statement = connection.createStatement();
-        playerStatus.forEach((name, s) -> {
-            try {
-                DataBase.put(statement, name, rewardGetRecordKey, s);
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        });
-        statement.close();
-
-    }
-
-    public static void writeToDataBase(Statement statement) {
-        playerStatus.forEach((name, s) -> {
-            try {
-                DataBase.put(statement, name, rewardGetRecordKey, s);
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        });
-    }
-
-    public static void synchronizedWrite(Statement statement) throws SQLException {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                writeToDataBase(statement);
-            }
-        }).start();
-    }
-
     public static void resetData(Player player) {
         towerTypeFormatMSG(player, Component.literal("本源回廊的挑战进度已被重置").withStyle(CustomStyle.styleOfWorld));
-        playerStatus.put(player.getName().getString(), rewardGetRecordValue);
+        putPlayerStatus(player, rewardGetRecordValue);
     }
 
     public static void towerTypeFormatMSG(Player player, Component component) {
@@ -369,22 +319,8 @@ public class Tower {
 
     public static Map<String, Integer> playerStarGetCounts = new HashMap<>();
 
-    public static String starGetCounts = "starGetCounts";
-
-    public static void givePlayerStar(Player player, int count, String type) throws SQLException {
+    public static void givePlayerStar(Player player, int count, String type) {
         String playerName = player.getName().getString();
-
-        // 往数据库查找
-        if (!playerStarGetCounts.containsKey(playerName)) {
-            Connection connection = DataBase.getDatabaseConnection();
-            Statement statement = connection.createStatement();
-            String countsString = DataBase.get(statement, player, starGetCounts);
-            if (countsString != null) {
-                playerStarGetCounts.put(playerName, Integer.parseInt(countsString));
-            } else playerStarGetCounts.put(playerName, 0);
-            statement.close();
-    
-        }
 
         // 给予
         ItemStack starStack = new ItemStack(ModItems.WORLD_SOUL_5.get(), count);
@@ -393,43 +329,6 @@ public class Tower {
         LogUtils.getLogger().info("{} {} by {}", playerName, Utils.LogTypes.worldSoul5, type);
 
         // 增加
-        playerStarGetCounts.put(playerName, playerStarGetCounts.get(playerName) + count);
-    }
-
-    public static void writeStarCountToDataBase() throws SQLException {
-        Connection connection = DataBase.getDatabaseConnection();
-        Statement statement = connection.createStatement();
-        playerStarGetCounts.forEach((name, integer) -> {
-            try {
-                DataBase.put(statement, name, starGetCounts, String.valueOf(integer));
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        });
-        statement.close();
-
-    }
-
-    public static void writeStarCountToDataBase(Statement statement) throws SQLException {
-        playerStarGetCounts.forEach((name, integer) -> {
-            try {
-                DataBase.put(statement, name, starGetCounts, String.valueOf(integer));
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        });
-    }
-
-    public static void synchronizedWriteStarCounts(Statement statement) throws SQLException {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    writeStarCountToDataBase(statement);
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        }).start();
+        PlanPlayer.addStarCounts(player, count);
     }
 }

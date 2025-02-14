@@ -123,8 +123,7 @@ public class WardenInstance extends NoTeamInstance {
 
     @Override
     public boolean allowReward(Player player) {
-        if (MobSpawn.totalKillCount.getOrDefault(player.getName().getString(), new HashMap<>())
-                .getOrDefault(CitadelGuardianInstance.mobName, 0) >= 50) {
+        if (MobSpawn.getPlayerKillCount(player, CitadelGuardianInstance.mobName) >= 50) {
             NoTeamInstanceModule.putPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.warden, true);
         }
         return NoTeamInstanceModule.getPlayerAllowReward(player, NoTeamInstanceModule.AllowRewardKey.warden);
