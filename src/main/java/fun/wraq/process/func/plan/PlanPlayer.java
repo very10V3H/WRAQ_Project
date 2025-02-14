@@ -158,6 +158,17 @@ public class PlanPlayer {
     }
 
     public static int getPlayerTier(Player player) {
+        if (!getOverDate(player).isEmpty()) {
+            Calendar overData;
+            try {
+                overData = Compute.StringToCalendar(getOverDate(player));
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+            if (overData != null && overData.before(Calendar.getInstance())) {
+                return 0;
+            }
+        }
         return getPlanData(player).getInt(TIER_KEY);
     }
 
