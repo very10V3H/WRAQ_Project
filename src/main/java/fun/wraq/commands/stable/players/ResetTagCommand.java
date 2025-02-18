@@ -18,6 +18,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.p3pp3rf1y.sophisticatedbackpacks.backpack.BackpackItem;
 
 public class ResetTagCommand implements Command<CommandSourceStack> {
     public static ResetTagCommand instance = new ResetTagCommand();
@@ -35,7 +36,7 @@ public class ResetTagCommand implements Command<CommandSourceStack> {
             return 0;
         }
         if (item instanceof WraqMainHandEquip || item instanceof WraqArmor || item instanceof WraqPassiveEquip
-                || InventoryCheck.getBoundingList().contains(item)) {
+                || InventoryCheck.getBoundingList().contains(item) || item instanceof BackpackItem) {
             Compute.sendFormatMSG(player, Component.literal("重置").withStyle(CustomStyle.styleOfFlexible),
                     Component.literal("这件物品不能被重置标签").withStyle(ChatFormatting.WHITE));
         } else {

@@ -27,10 +27,22 @@ public class BloodManaArmor extends WraqArmor implements ForgeItem {
 
     public BloodManaArmor(ModArmorMaterials Material, Type Slots, Properties itemProperties) {
         super(Material, Slots, itemProperties);
-        if (type.equals(Type.HELMET)) Utils.healthRecover.put(this, 25d);
-        if (type.equals(Type.CHESTPLATE)) Utils.defence.put(this, 40d);
-        if (type.equals(Type.LEGGINGS)) Utils.maxHealth.put(this, 8000d);
-        if (type.equals(Type.BOOTS)) Utils.movementSpeedCommon.put(this, 0.1);
+        if (type.equals(Type.HELMET)) {
+            Utils.healthRecover.put(this, 25d);
+            Utils.defence.put(this, 10d);
+        }
+        if (type.equals(Type.CHESTPLATE)) {
+            Utils.defence.put(this, 20d);
+            Utils.maxHealth.put(this, 2000d);
+        }
+        if (type.equals(Type.LEGGINGS)) {
+            Utils.maxHealth.put(this, 4000d);
+            Utils.defence.put(this, 10d);
+        }
+        if (type.equals(Type.BOOTS)) {
+            Utils.movementSpeedCommon.put(this, 0.1);
+            Utils.maxHealth.put(this, 2000d);
+        }
         Utils.levelRequire.put(this, 116);
     }
 

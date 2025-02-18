@@ -3,6 +3,7 @@ package fun.wraq.series.end.citadel;
 import fun.wraq.blocks.entity.Decomposable;
 import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqCurios;
+import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.impl.damage.BeforeCauseFinalDamageCurios;
 import fun.wraq.common.impl.onhit.OnHitEffectCurios;
@@ -18,10 +19,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.WeakHashMap;
+import java.util.*;
 
 public class CitadelCurio extends WraqCurios implements OnHitEffectCurios, BeforeCauseFinalDamageCurios, Decomposable {
 
@@ -62,22 +60,22 @@ public class CitadelCurio extends WraqCurios implements OnHitEffectCurios, Befor
         return ComponentUtils.getSuffixOfEnd();
     }
 
-    public static Map<Player, Mob> playerTargetMap = new WeakHashMap<>();
+    public static Map<String, Mob> playerTargetMap = new HashMap<>();
     public static Map<Mob, Boolean> mobEffectMap = new WeakHashMap<>();
 
     @Override
     public void onHit(Player player, Mob mob) {
-        if (!playerTargetMap.containsKey(player)) {
-            playerTargetMap.put(player, mob);
+        if (!playerTargetMap.containsKey(Name.get(player))) {
+            playerTargetMap.put(Name.get(player), mob);
             mobEffectMap.put(mob, true);
             Compute.sendMobEffectHudToNearPlayer(mob, "item/citadel_curio", "citadel curio passive", 0, 0, true);
         } else {
-            Mob oldMob = playerTargetMap.get(player);
+            Mob oldMob = playerTargetMap.get(Name.get(player));
             if (!oldMob.equals(mob)) {
                 mobEffectMap.remove(oldMob);
                 Compute.removeMobEffectHudToNearPlayer(oldMob, "item/citadel_curio", "citadel curio passive");
                 Compute.sendMobEffectHudToNearPlayer(mob, "item/citadel_curio", "citadel curio passive", 0, 0, true);
-                playerTargetMap.put(player, mob);
+                playerTargetMap.put(Name.get(player), mob);
                 mobEffectMap.put(mob, true);
             }
         }

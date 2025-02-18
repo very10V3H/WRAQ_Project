@@ -116,9 +116,9 @@ public class TradeList {
         Blood();
         ManaBook();
         Slime();
-        Taboo();
+        taboo();
         Parkour();
-        CastleCommon();
+        castle();
         SkyGemStore();
         QingMing();
         Food();
@@ -475,6 +475,7 @@ public class TradeList {
                 ModItems.ForgeProtect.get().getDefaultInstance(),
                 ModItems.ForgeEnhance0.get().getDefaultInstance(),
                 ModItems.ForgeEnhance1.get().getDefaultInstance(),
+                GemItems.DISMANTLE.get().getDefaultInstance()
         };
         List<ItemStack> contentList = new ArrayList<>();
         Collections.addAll(contentList, itemStacks);
@@ -537,6 +538,9 @@ public class TradeList {
                 }});
                 case 14 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
                     add(new ItemStack(ModItems.GOLD_COIN.get(), 4));
+                }});
+                case 15 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
+                    add(new ItemStack(ModItems.WORLD_SOUL_2.get(), 16));
                 }});
             }
         }
@@ -1365,10 +1369,10 @@ public class TradeList {
                     add(new ItemStack(ModItems.silverCoin.get(), 1));
                 }});
                 case 3 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.FantasyBracelet.get(), 1));
+                    add(new ItemStack(ModItems.FANTASY_BRACELET.get(), 1));
                 }});
                 case 4 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.FantasyMedal.get(), 1));
+                    add(new ItemStack(ModItems.FANTASY_MEDAL.get(), 1));
                 }});
             }
         }
@@ -1658,42 +1662,55 @@ public class TradeList {
         }
     }
 
-    public static void Taboo() {
+    public static void taboo() {
+        ItemStack intensifiedDevilBlood1 = new ItemStack(ModItems.IntensifiedDevilBlood.get());
+        ItemStack intensifiedDevilBlood2 = new ItemStack(ModItems.IntensifiedDevilBlood.get());
+        ItemStack intensifiedDevilBlood3 = new ItemStack(ModItems.IntensifiedDevilBlood.get());
+        ItemStack purpleIronConstraintStone = new ItemStack(ModItems.PurpleIronConstraintStone.get());
+        ItemStack constrainTaboo = new ItemStack(ModItems.ConstrainTaboo.get(), 1);
+        ItemStack devilAttackSoul = new ItemStack(ModItems.DevilAttackSoul.get());
+        ItemStack devilSwiftSoul = new ItemStack(ModItems.DevilSwiftSoul.get());
+        ItemStack devilManaSoul = new ItemStack(ModItems.DevilManaSoul.get());
         ItemStack[] itemStacks = {
-                new ItemStack(ModItems.IntensifiedDevilBlood.get(), 1),
-                new ItemStack(ModItems.IntensifiedDevilBlood.get(), 1),
-                new ItemStack(ModItems.IntensifiedDevilBlood.get(), 1),
-                new ItemStack(ModItems.PurpleIronConstraintStone.get(), 1),
-                new ItemStack(ModItems.ConstrainTaboo.get(), 1),
+                intensifiedDevilBlood1, intensifiedDevilBlood2, intensifiedDevilBlood3,
+                purpleIronConstraintStone, constrainTaboo,
+                devilAttackSoul, devilSwiftSoul, devilManaSoul
         };
         List<ItemStack> contentList = new ArrayList<>();
         Collections.addAll(contentList, itemStacks);
         tradeContent.put(StringUtils.VillagerName.Taboo, contentList);
-
-        for (int i = 0; i < itemStacks.length; i++) {
-            switch (i) {
-                case 0 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.EarthManaSoul.get(), 32));
-                    add(new ItemStack(ModItems.DevilBlood.get(), 1));
-                }});
-                case 1 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.BloodManaSoul.get(), 32));
-                    add(new ItemStack(ModItems.DevilBlood.get(), 1));
-                }});
-                case 2 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.VOLCANO_CORE.get(), 8));
-                    add(new ItemStack(ModItems.DevilBlood.get(), 1));
-                }});
-                case 3 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.PurpleIron.get(), 8));
-                    add(new ItemStack(ModItems.COMPLETE_GEM.get(), 8));
-                }});
-                case 4 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.TabooPiece.get(), 64));
-                    add(new ItemStack(ModItems.PurpleIronConstraintStone.get(), 1));
-                }});
-            }
-        }
+        tradeRecipeMap.put(intensifiedDevilBlood1, new ArrayList<>() {{
+            add(new ItemStack(ModItems.EarthManaSoul.get(), 32));
+            add(new ItemStack(ModItems.DevilBlood.get(), 1));
+        }});
+        tradeRecipeMap.put(intensifiedDevilBlood2, new ArrayList<>() {{
+            add(new ItemStack(ModItems.BloodManaSoul.get(), 32));
+            add(new ItemStack(ModItems.DevilBlood.get(), 1));
+        }});
+        tradeRecipeMap.put(intensifiedDevilBlood3, new ArrayList<>() {{
+            add(new ItemStack(ModItems.VOLCANO_CORE.get(), 8));
+            add(new ItemStack(ModItems.DevilBlood.get(), 1));
+        }});
+        tradeRecipeMap.put(purpleIronConstraintStone, new ArrayList<>() {{
+            add(new ItemStack(ModItems.PurpleIron.get(), 8));
+            add(new ItemStack(ModItems.COMPLETE_GEM.get(), 8));
+        }});
+        tradeRecipeMap.put(constrainTaboo, new ArrayList<>() {{
+            add(new ItemStack(ModItems.TabooPiece.get(), 64));
+            add(new ItemStack(ModItems.PurpleIronConstraintStone.get(), 1));
+        }});
+        tradeRecipeMap.put(devilAttackSoul, List.of(
+                new ItemStack(ModItems.DevilSwiftSoul.get(), 2),
+                new ItemStack(ModItems.DevilManaSoul.get(), 2)
+        ));
+        tradeRecipeMap.put(devilSwiftSoul, List.of(
+                new ItemStack(ModItems.DevilAttackSoul.get(), 2),
+                new ItemStack(ModItems.DevilManaSoul.get(), 2)
+        ));
+        tradeRecipeMap.put(devilManaSoul, List.of(
+                new ItemStack(ModItems.DevilAttackSoul.get(), 2),
+                new ItemStack(ModItems.DevilSwiftSoul.get(), 2)
+        ));
     }
 
     public static void Parkour() {
@@ -1725,74 +1742,63 @@ public class TradeList {
         }
     }
 
-    public static void CastleCommon() {
-
+    public static void castle() {
+        ItemStack beaconRune = new ItemStack(ModItems.BeaconRune.get(), 1);
+        ItemStack blazeRune = new ItemStack(ModItems.BlazeRune.get(), 1);
+        ItemStack treeRune = new ItemStack(ModItems.TreeRune.get(), 1);
+        ItemStack beaconBow = new ItemStack(ModItems.BeaconBow.get(), 1);
+        ItemStack blazeSword = new ItemStack(ModItems.BlazeSword.get(), 1);
+        ItemStack treeSceptre = new ItemStack(ModItems.TreeSceptre.get(), 1);
+        ItemStack castleSwordPiece = new ItemStack(ModItems.CastleSwordPiece.get());
+        ItemStack castleBowPiece = new ItemStack(ModItems.CastleBowPiece.get());
+        ItemStack castleSceptrePiece = new ItemStack(ModItems.CastleSceptrePiece.get());
         ItemStack[] itemStacks = {
-                new ItemStack(ModItems.BeaconRune.get(), 1),
-                new ItemStack(ModItems.BlazeRune.get(), 1),
-                new ItemStack(ModItems.TreeRune.get(), 1),
-                new ItemStack(ModItems.BeaconBow.get(), 1),
-                new ItemStack(ModItems.BlazeSword.get(), 1),
-                new ItemStack(ModItems.TreeSceptre.get(), 1),
-                new ItemStack(ModItems.CastleCrystal.get(), 1),
-                new ItemStack(ModItems.CastleCrystalNorth.get(), 1),
-                new ItemStack(ModItems.CastleCrystalSouth.get(), 1),
-                new ItemStack(ModItems.CastleCuriosPowder.get(), 1),
-                new ItemStack(GemItems.castleWeaponGem.get(), 1),
-                new ItemStack(GemItems.castleArmorGem.get(), 1),
+                blazeRune, beaconRune, treeRune,
+                blazeSword, beaconBow, treeSceptre,
+                castleSwordPiece, castleBowPiece, castleSceptrePiece
         };
-
         List<ItemStack> contentList = new ArrayList<>();
         Collections.addAll(contentList, itemStacks);
         tradeContent.put(StringUtils.VillagerName.CastleCommon, contentList);
-
-        for (int i = 0; i < itemStacks.length; i++) {
-            switch (i) {
-                case 0 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.COMPLETE_GEM.get(), 1));
-                    add(new ItemStack(ModItems.ReputationMedal.get(), 1));
-                    add(new ItemStack(ModItems.BeaconSoul.get(), 64));
-                }});
-                case 1 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.COMPLETE_GEM.get(), 1));
-                    add(new ItemStack(ModItems.ReputationMedal.get(), 1));
-                    add(new ItemStack(ModItems.BlazeSoul.get(), 64));
-                }});
-                case 2 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.COMPLETE_GEM.get(), 1));
-                    add(new ItemStack(ModItems.ReputationMedal.get(), 1));
-                    add(new ItemStack(ModItems.TreeSoul.get(), 64));
-                }});
-                case 3 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.BeaconRune.get(), 8));
-                    add(new ItemStack(ModItems.NetherBow.get(), 1));
-                }});
-                case 4 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.BlazeRune.get(), 8));
-                    add(new ItemStack(ModItems.VolcanoSword3.get(), 1));
-                }});
-                case 5 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.TreeRune.get(), 8));
-                    add(new ItemStack(ModItems.LIFE_SCEPTRE_X.get(), 1));
-                }});
-                case 6 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.COMPLETE_GEM.get(), 2));
-                    add(new ItemStack(ModItems.ReputationMedal.get(), 2));
-                    add(new ItemStack(ModItems.CastleKnightStone.get(), 64));
-                }});
-                case 7, 8 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.ManaBalance_Empty.get(), 16));
-                    add(new ItemStack(ModItems.CastleCrystal.get(), 1));
-                }});
-                case 9 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.CastleNecklace.get(), 1));
-                }});
-                case 10, 11 -> tradeRecipeMap.put(itemStacks[i], new ArrayList<>() {{
-                    add(new ItemStack(ModItems.COMPLETE_GEM.get(), 10));
-                    add(new ItemStack(ModItems.CastleCuriosPowder.get(), 16));
-                }});
-            }
-        }
+        tradeRecipeMap.put(blazeRune, List.of(
+                new ItemStack(ModItems.COMPLETE_GEM.get(), 1),
+                new ItemStack(ModItems.ReputationMedal.get(), 1),
+                new ItemStack(ModItems.BlazeSoul.get(), 64)
+        ));
+        tradeRecipeMap.put(beaconRune, List.of(
+                new ItemStack(ModItems.COMPLETE_GEM.get(), 1),
+                new ItemStack(ModItems.ReputationMedal.get(), 1),
+                new ItemStack(ModItems.BeaconSoul.get(), 64)
+        ));
+        tradeRecipeMap.put(treeRune, List.of(
+                new ItemStack(ModItems.COMPLETE_GEM.get(), 1),
+                new ItemStack(ModItems.ReputationMedal.get(), 1),
+                new ItemStack(ModItems.TreeSoul.get(), 64)
+        ));
+        tradeRecipeMap.put(blazeSword, List.of(
+                new ItemStack(ModItems.BlazeRune.get(), 8),
+                new ItemStack(ModItems.VolcanoSword3.get(), 1)
+        ));
+        tradeRecipeMap.put(beaconBow, List.of(
+                new ItemStack(ModItems.BeaconRune.get(), 8),
+                new ItemStack(ModItems.NetherBow.get(), 1)
+        ));
+        tradeRecipeMap.put(treeSceptre, List.of(
+                new ItemStack(ModItems.TreeRune.get(), 8),
+                new ItemStack(ModItems.LIFE_SCEPTRE_X.get(), 1)
+        ));
+        tradeRecipeMap.put(castleSwordPiece, List.of(
+                new ItemStack(ModItems.CastleBowPiece.get(), 2),
+                new ItemStack(ModItems.CastleSceptrePiece.get(), 2)
+        ));
+        tradeRecipeMap.put(castleBowPiece, List.of(
+                new ItemStack(ModItems.CastleSwordPiece.get(), 2),
+                new ItemStack(ModItems.CastleSceptrePiece.get(), 2)
+        ));
+        tradeRecipeMap.put(castleSceptrePiece, List.of(
+                new ItemStack(ModItems.CastleSwordPiece.get(), 2),
+                new ItemStack(ModItems.CastleBowPiece.get(), 2)
+        ));
     }
 
     public static void EndPower() {
@@ -2993,8 +2999,11 @@ public class TradeList {
         ItemStack frameArrow = new ItemStack(SunIslandItems.FRAME_ARROW_0.get());
         ItemStack devilPowerCurio = new ItemStack(SunIslandItems.DEVIL_POWER_CURIO.get());
         ItemStack sakuraIndustrySceptre = new ItemStack(HarbingerItems.SAKURA_INDUSTRY_SCEPTRE.get());
+        ItemStack tabooPaperCurio = new ItemStack(SunIslandItems.TABOO_PAPER_CURIO.get());
         ItemStack[] itemStacks = {
-                roseGoldCoin, tearCurio, brokenBlade, frameArrow, devilPowerCurio, sakuraIndustrySceptre
+                roseGoldCoin, tearCurio, devilPowerCurio,
+                brokenBlade, frameArrow, tabooPaperCurio,
+                sakuraIndustrySceptre
         };
         List<ItemStack> contentList = new ArrayList<>();
         Collections.addAll(contentList, itemStacks);
@@ -3016,6 +3025,10 @@ public class TradeList {
         tradeRecipeMap.put(devilPowerCurio,
                 List.of(new ItemStack(ModItems.ROSE_GOLD_COIN.get(), 16),
                         new ItemStack(ModItems.HUSK_RUNE.get(), 24)));
+        tradeRecipeMap.put(tabooPaperCurio,
+                List.of(new ItemStack(ModItems.ROSE_GOLD_COIN.get(), 16),
+                        new ItemStack(ModItems.BloodManaRune.get(), 12),
+                        new ItemStack(ModItems.EarthManaRune.get(), 12)));
         tradeRecipeMap.put(sakuraIndustrySceptre,
                 List.of(new ItemStack(ModItems.ROSE_GOLD_COIN.get(), 32),
                         new ItemStack(ModItems.COMPLETE_GEM.get(), 16)));
@@ -3087,9 +3100,14 @@ public class TradeList {
                 new ItemStack(net.p3pp3rf1y.sophisticatedbackpacks.init.ModItems.ADVANCED_PICKUP_UPGRADE.get(), 1);
         ItemStack inceptionUpgrade =
                 new ItemStack(net.p3pp3rf1y.sophisticatedbackpacks.init.ModItems.INCEPTION_UPGRADE.get(), 1);
+        ItemStack fantasyMedal1 = new ItemStack(ModItems.FANTASY_MEDAL_1.get());
+        ItemStack fantasyBracelet1 = new ItemStack(ModItems.FANTASY_BRACELET_1.get());
+        ItemStack fantasyMedal2 = new ItemStack(ModItems.FANTASY_MEDAL_2.get());
+        ItemStack fantasyBracelet2 = new ItemStack(ModItems.FANTASY_BRACELET_2.get());
         ItemStack[] itemStacks = {
                 roseGoldCoin, backSpawn, uDisk, backpackTicket, goldCoinLottery,
-                skinTemplate, stackUpgradeTier4, pickupUpgrade, inceptionUpgrade
+                skinTemplate, stackUpgradeTier4, pickupUpgrade, inceptionUpgrade,
+                fantasyMedal1, fantasyBracelet1, fantasyMedal2, fantasyBracelet2,
         };
         List<ItemStack> contentList = new ArrayList<>();
         Collections.addAll(contentList, itemStacks);
@@ -3120,6 +3138,22 @@ public class TradeList {
         ));
         tradeRecipeMap.put(inceptionUpgrade, List.of(
                 new ItemStack(ModItems.INCEPTION_UPGRADE_PAPER.get())
+        ));
+        tradeRecipeMap.put(fantasyMedal1, List.of(
+                new ItemStack(ModItems.FANTASY_MEDAL.get(), 16),
+                new ItemStack(ModItems.ROSE_GOLD_COIN.get(), 16),
+                new ItemStack(ModItems.GOLDEN_BEANS.get(), 16)
+        ));
+        tradeRecipeMap.put(fantasyBracelet1, List.of(
+                new ItemStack(ModItems.FANTASY_MEDAL.get(), 16),
+                new ItemStack(ModItems.ROSE_GOLD_COIN.get(), 16),
+                new ItemStack(ModItems.GOLDEN_BEANS.get(), 16)
+        ));
+        tradeRecipeMap.put(fantasyMedal2, List.of(
+                new ItemStack(ModItems.FANTASY_MEDAL_1.get(), 16)
+        ));
+        tradeRecipeMap.put(fantasyBracelet2, List.of(
+                new ItemStack(ModItems.FANTASY_BRACELET_2.get(), 16)
         ));
     }
 

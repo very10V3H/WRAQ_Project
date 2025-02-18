@@ -37,6 +37,7 @@ import org.apache.commons.lang3.RandomUtils;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 public abstract class NoTeamInstance {
     public List<ServerBossEvent> bossInfoList = new ArrayList<>();
@@ -51,7 +52,7 @@ public abstract class NoTeamInstance {
     public final MutableComponent name;
     public boolean ready;
     public final int level;
-    public Set<Player> players = new HashSet<>();
+    public Set<Player> players = new CopyOnWriteArraySet<>();
     public int spawnTick = 0;
     public int clearTick = 0;
 
@@ -67,6 +68,10 @@ public abstract class NoTeamInstance {
         this.level = level;
     }
 
+    public boolean anyMobAlive() {
+        return mobList.stream().anyMatch(mob -> mob != null && mob.isAlive());
+    }
+
     public void detectAndSummonThenHandleTick(Level level) {
         int tick = Tick.get();
         boolean allMobIsNull = true;
@@ -76,14 +81,7 @@ public abstract class NoTeamInstance {
                 break;
             }
         }
-        boolean allMobIsNotAlive = true;
-        for (Mob mob : mobList) {
-            if (mob != null && mob.isAlive()) {
-                allMobIsNotAlive = false;
-                break;
-            }
-        }
-        if (!inChallenge && tick > summonTick && (allMobIsNull || allMobIsNotAlive)
+        if (!inChallenge && tick > summonTick && (allMobIsNull || !anyMobAlive())
                 && !getNearPlayers(level).isEmpty() && ready) {
             mobList.clear();
             bossInfoList.clear();
@@ -104,12 +102,12 @@ public abstract class NoTeamInstance {
                 reset(tick, false);
                 return;
             }
-            if (allMobIsNotAlive && clearTick < Tick.get()) {
+            if (!anyMobAlive() && clearTick < Tick.get()) {
                 clearTick = Tick.get() + 60;
             } else {
                 for (Mob mob : mobList) {
                     if (mob != null && mob.isAlive()) {
-                        if (mob.position().distanceTo(pos) > range) {
+                        if (Compute.getHorizonDistance(mob.position(), pos) > range) {
                             mob.moveTo(pos);
                         }
                         lastMob = mob;
@@ -134,8 +132,7 @@ public abstract class NoTeamInstance {
     public void rewardPlayers() {
         players.forEach(player -> {
             if (player != null && !this.mobList.isEmpty() && this.mobList.get(0) != null) {
-                Mob mob = this.mobList.get(0);
-                int needLevel = (int) (MobSpawn.MobBaseAttributes.xpLevel.get(MobSpawn.getMobOriginName(mob)) * 0.8);
+                int needLevel = (int) (level * 0.8);
                 if (!allowReward(player) && allowRewardCondition() != null) {
                     Compute.sendFormatMSG(player, Component.literal("副本").withStyle(ChatFormatting.RED),
                             allowRewardCondition());
@@ -239,8 +236,8 @@ public abstract class NoTeamInstance {
 
     public List<Player> getNearPlayers(Level level) {
         List<Player> playerList = level.getEntitiesOfClass(Player.class,
-                AABB.ofSize(pos, range * 2, range * 2, range * 2));
-        playerList.removeIf(player -> player.position().distanceTo(pos) > range);
+                AABB.ofSize(pos, range * 2, 320, range * 2));
+        playerList.removeIf(player -> Compute.getHorizonDistance(player.position(), pos) > range);
         Set<Player> players = new HashSet<>(playerList);
         if (!mobList.isEmpty()) {
             for (Mob mob : mobList) {
@@ -308,4 +305,8 @@ public abstract class NoTeamInstance {
     }
 
     public abstract String getKillCountDataKey();
+
+    public int getMaxPlayerNum() {
+        return 4;
+    }
 }

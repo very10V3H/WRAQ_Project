@@ -2,6 +2,7 @@ package fun.wraq.series.instance.series.moon.Equip;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqOffHandItem;
+import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.onhit.OnHitEffectEquip;
@@ -19,13 +20,11 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.WeakHashMap;
+import java.util.*;
 
 public class MoonShield extends WraqOffHandItem implements OnHitEffectEquip {
 
-    public static WeakHashMap<Player, Mob> PlayerMoonShieldMap = new WeakHashMap<>();
+    public static Map<String, Mob> PlayerMoonShieldMap = new HashMap<>();
     public static WeakHashMap<Player, Integer> PlayerMoonShieldCountMap = new WeakHashMap<>();
 
     public MoonShield() {
@@ -84,14 +83,14 @@ public class MoonShield extends WraqOffHandItem implements OnHitEffectEquip {
     @Override
     public void onHit(Player player, Mob mob) {
         int TickCount = Tick.get();
-        if (PlayerMoonShieldMap.containsKey(player) && !PlayerMoonShieldMap.get(player).equals(mob)) {
-            Mob oldMob = PlayerMoonShieldMap.get(player);
+        if (PlayerMoonShieldMap.containsKey(Name.get(player)) && !PlayerMoonShieldMap.get(Name.get(player)).equals(mob)) {
+            Mob oldMob = PlayerMoonShieldMap.get(Name.get(player));
             oldMob.removeEffect(MobEffects.GLOWING);
             Compute.removeMobEffectHudToNearPlayer(oldMob, ModItems.MoonSoul.get(), "MoonShieldCount");
             PlayerMoonShieldCountMap.put(player, 0);
         }
         mob.addEffect(new MobEffectInstance(MobEffects.GLOWING, 88888, 1, false, false));
-        PlayerMoonShieldMap.put(player, mob);
+        PlayerMoonShieldMap.put(Name.get(player), mob);
         int count = PlayerMoonShieldCountMap.getOrDefault(player, 0);
         PlayerMoonShieldCountMap.put(player, ++count);
         if (count == 7) {

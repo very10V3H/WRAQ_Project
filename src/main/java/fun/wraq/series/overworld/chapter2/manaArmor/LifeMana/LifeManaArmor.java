@@ -19,10 +19,22 @@ public class LifeManaArmor extends WraqArmor {
 
     public LifeManaArmor(ModArmorMaterials material, Type type, Properties properties) {
         super(material, type, properties);
-        if (type.equals(Type.HELMET)) Utils.healthRecover.put(this, 8d);
-        if (type.equals(Type.CHESTPLATE)) Utils.defence.put(this, 10d);
-        if (type.equals(Type.LEGGINGS)) Utils.maxHealth.put(this, 1600d);
-        if (type.equals(Type.BOOTS)) Utils.movementSpeedCommon.put(this, 0.1);
+        if (type.equals(Type.HELMET)) {
+            Utils.healthRecover.put(this, 8d);
+            Utils.defence.put(this, 5d);
+        }
+        if (type.equals(Type.CHESTPLATE)) {
+            Utils.defence.put(this, 10d);
+            Utils.maxHealth.put(this, 400d);
+        }
+        if (type.equals(Type.LEGGINGS)) {
+            Utils.maxHealth.put(this, 800d);
+            Utils.defence.put(this, 5d);
+        }
+        if (type.equals(Type.BOOTS)) {
+            Utils.movementSpeedCommon.put(this, 0.1);
+            Utils.maxHealth.put(this, 400d);
+        }
         Utils.manaDamage.put(this, 50d);
         Utils.maxMana.put(this, 10d);
         Utils.manaPenetration0.put(this, 1.5d);

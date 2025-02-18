@@ -28,16 +28,20 @@ public class StableTierAttributeModifier {
         this.tier = tier;
     }
 
-    public static Map<LivingEntity, List<StableTierAttributeModifier>> defence = new WeakHashMap<>();
-    public static Map<LivingEntity, List<StableTierAttributeModifier>> manaDefence = new WeakHashMap<>();
-    public static Map<LivingEntity, List<StableTierAttributeModifier>> percentDefence = new WeakHashMap<>();
-    public static Map<LivingEntity, List<StableTierAttributeModifier>> percentManaDefence = new WeakHashMap<>();
-    public static Map<LivingEntity, List<StableTierAttributeModifier>> onlyDisplay = new WeakHashMap<>();
-    public static Map<LivingEntity, List<StableTierAttributeModifier>> baseArrowDamageEnhanceRate = new WeakHashMap<>();
-    public static Map<LivingEntity, List<StableTierAttributeModifier>> playerCommonDamageEnhance = new WeakHashMap<>();
-    public static Map<LivingEntity, List<StableTierAttributeModifier>> playerWithstandDamageReduce = new WeakHashMap<>();
-    public static Map<LivingEntity, List<StableTierAttributeModifier>> playerMaxHealthExValue = new WeakHashMap<>();
-    public static Map<LivingEntity, List<StableTierAttributeModifier>> monsterWithstandDamageEnhance = new WeakHashMap<>();
+    public static Map<LivingEntity, List<StableTierAttributeModifier>> defence = new HashMap<>();
+    public static Map<LivingEntity, List<StableTierAttributeModifier>> manaDefence = new HashMap<>();
+    public static Map<LivingEntity, List<StableTierAttributeModifier>> percentDefence = new HashMap<>();
+    public static Map<LivingEntity, List<StableTierAttributeModifier>> percentManaDefence = new HashMap<>();
+    public static Map<LivingEntity, List<StableTierAttributeModifier>> onlyDisplay = new HashMap<>();
+    public static Map<LivingEntity, List<StableTierAttributeModifier>> baseArrowDamageEnhanceRate = new HashMap<>();
+    public static Map<LivingEntity, List<StableTierAttributeModifier>> playerCommonDamageEnhance = new HashMap<>();
+    public static Map<LivingEntity, List<StableTierAttributeModifier>> playerWithstandDamageReduce = new HashMap<>();
+    public static Map<LivingEntity, List<StableTierAttributeModifier>> playerMaxHealthExValue = new HashMap<>();
+    public static Map<LivingEntity, List<StableTierAttributeModifier>> monsterWithstandDamageEnhance = new HashMap<>();
+    public static Map<LivingEntity, List<StableTierAttributeModifier>> playerExAttackDamage = new HashMap<>();
+    public static Map<LivingEntity, List<StableTierAttributeModifier>> playerAttackDamageEnhance = new HashMap<>();
+    public static Map<LivingEntity, List<StableTierAttributeModifier>> playerDefencePenetration = new HashMap<>();
+    public static Map<LivingEntity, List<StableTierAttributeModifier>> playerDefencePenetration0 = new HashMap<>();
 
     public static List<StableTierAttributeModifier> getAttributeModifierList(LivingEntity entity, Map<LivingEntity, List<StableTierAttributeModifier>> modifierMap) {
         if (!modifierMap.containsKey(entity)) {
@@ -74,6 +78,7 @@ public class StableTierAttributeModifier {
 
     public static void addAttributeModifier(LivingEntity entity, Map<LivingEntity, List<StableTierAttributeModifier>> modifierMap,
                                             StableTierAttributeModifier modifier, String url) {
+        modifierMap.entrySet().removeIf(entry -> entry.getKey() == null || entry.getKey().isDeadOrDying());
         List<StableTierAttributeModifier> modifierList = getAttributeModifierList(entity, modifierMap);
         List<StableTierAttributeModifier> removeList = new ArrayList<>();
         int highestTier = 0;
@@ -130,6 +135,11 @@ public class StableTierAttributeModifier {
     public static void addM(LivingEntity entity, Map<LivingEntity, List<StableTierAttributeModifier>> modifierMap,
                             String tag, double eachTierValue, int stopTick, int maxTier, String url) {
         addAttributeModifier(entity, modifierMap, new StableTierAttributeModifier(tag, eachTierValue, stopTick, 1, maxTier), url);
+    }
+
+    public static void addM(LivingEntity entity, Map<LivingEntity, List<StableTierAttributeModifier>> modifierMap,
+                            String tag, double eachTierValue, int stopTick, int maxTier) {
+        addAttributeModifier(entity, modifierMap, new StableTierAttributeModifier(tag, eachTierValue, stopTick, 1, maxTier), "");
     }
 
     public static double getModifierValue(LivingEntity entity, Map<LivingEntity, List<StableTierAttributeModifier>> modifierMap) {

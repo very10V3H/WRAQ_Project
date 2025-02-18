@@ -3,6 +3,7 @@ package fun.wraq.process.system.endlessinstance;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.process.system.endlessinstance.instance.EasternTower;
 import fun.wraq.process.system.endlessinstance.instance.ManaPlainTemple;
+import fun.wraq.process.system.endlessinstance.instance.MansionInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -22,6 +23,7 @@ public class DailyEndlessInstanceEvent {
     public static void initEndlessInstanceList() {
         endlessInstanceList.add(EasternTower.getInstance());
         endlessInstanceList.add(ManaPlainTemple.getInstance());
+        endlessInstanceList.add(MansionInstance.getInstance());
     }
 
     public static List<DailyEndlessInstance> getEndlessInstanceList() {

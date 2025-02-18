@@ -2,6 +2,7 @@ package fun.wraq.series.instance.series.ice;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.equip.WraqOffHandItem;
+import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.onhit.OnHitDamageInfluenceEquip;
@@ -17,10 +18,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.WeakHashMap;
+import java.util.*;
 
 public class IceBook extends WraqOffHandItem implements OnHitEffectEquip, OnHitDamageInfluenceEquip {
 
@@ -59,12 +57,12 @@ public class IceBook extends WraqOffHandItem implements OnHitEffectEquip, OnHitD
 
     private static Map<Player, Integer> coolDownMap = new WeakHashMap<>();
     private static Map<Player, Integer> effectLastTickMap = new WeakHashMap<>();
-    private static Map<Player, Mob> effectTargetMap = new WeakHashMap<>();
+    private static Map<String, Mob> effectTargetMap = new HashMap<>();
     @Override
     public void onHit(Player player, Mob mob) {
         if (coolDownMap.getOrDefault(player, 0) < Tick.get()) {
             coolDownMap.put(player, Tick.get() + 100);
-            effectTargetMap.put(player, mob);
+            effectTargetMap.put(Name.get(player), mob);
             effectLastTickMap.put(player, Tick.get() + 60);
             Compute.sendCoolDownTime(player, ModItems.IceBook.get().getDefaultInstance(), 100);
             Compute.addSlowDownEffect(mob, 60, 3);
@@ -75,8 +73,9 @@ public class IceBook extends WraqOffHandItem implements OnHitEffectEquip, OnHitD
 
     @Override
     public double onHitDamageInfluence(Player player, Mob mob) {
-        if (effectLastTickMap.getOrDefault(player, 0) > Tick.get() && effectTargetMap.containsKey(player)
-                && effectTargetMap.get(player).equals(mob)) return 0.2;
+        if (effectLastTickMap.getOrDefault(player, 0) > Tick.get()
+                && effectTargetMap.containsKey(Name.get(player))
+                && effectTargetMap.get(Name.get(player)).equals(mob)) return 0.2;
         return 0;
     }
 }

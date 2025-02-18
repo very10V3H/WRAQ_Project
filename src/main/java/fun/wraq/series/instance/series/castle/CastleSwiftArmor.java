@@ -44,10 +44,20 @@ public class CastleSwiftArmor extends WraqArmor implements ForgeItem {
         if (type.equals(Type.HELMET)) {
             Utils.percentHealthRecover.put(this, 0.008);
             Utils.healthRecover.put(this, 100d);
+            Utils.defence.put(this, 30d);
         }
-        if (type.equals(Type.CHESTPLATE)) Utils.defence.put(this, 125d);
-        if (type.equals(Type.LEGGINGS)) Utils.maxHealth.put(this, 60000d);
-        if (type.equals(Type.BOOTS)) Utils.movementSpeedCommon.put(this, 0.12);
+        if (type.equals(Type.CHESTPLATE)) {
+            Utils.defence.put(this, 65d);
+            Utils.maxHealth.put(this, 15000d);
+        }
+        if (type.equals(Type.LEGGINGS)) {
+            Utils.maxHealth.put(this, 30000d);
+            Utils.defence.put(this, 30d);
+        }
+        if (type.equals(Type.BOOTS)) {
+            Utils.movementSpeedCommon.put(this, 0.12);
+            Utils.maxHealth.put(this, 15000d);
+        }
         Utils.levelRequire.put(this, 180);
     }
 

@@ -250,6 +250,7 @@ public class PlayerAttributes {
         exDamage += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerAttackDamageModifier);
         exDamage += ChangedAttributesModifier.getModifierValue(player, ChangedAttributesModifier.exAttackDamage);
         exDamage += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.attackDamage);
+        exDamage += StableTierAttributeModifier.getModifierValue(player, StableTierAttributeModifier.playerExAttackDamage);
         // 请在上方添加
 
         double totalAttackDamage = baseAttackDamage + exDamage;
@@ -265,6 +266,7 @@ public class PlayerAttributes {
         exRate += computeAllEquipSlotBaseAttributeValue(player, Utils.percentAttackDamageEnhance, false);
         exRate += AlchemyPlayerData.getEnhanceRate(player, Utils.attackDamage);
         exRate += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerPercentAttackDamageModifier);
+        exRate += StableTierAttributeModifier.getModifierValue(player, StableTierAttributeModifier.playerAttackDamageEnhance);
 
         totalAttackDamage *= (1 + exRate);
 
@@ -325,7 +327,6 @@ public class PlayerAttributes {
         critRate += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerCritRateModifier);
         // 请在上方添加
         double exRate = 0;
-        exRate += Compute.playerFantasyAttributeEnhance(player);
         exRate += AlchemyPlayerData.getEnhanceRate(player, Utils.critRate);
         critRate *= (1 + exRate);
         writeToCache(player, Utils.critRate, critRate);
@@ -818,13 +819,12 @@ public class PlayerAttributes {
 
         double decreaseRate = 0;
         decreaseRate += GemAttributes.getPlayerCurrentAllEquipGemsValue(player, Utils.defencePenetration);
-
         if (decreaseRate > 0) defenceRate *= (1 - decreaseRate);
+
         defenceRate *= (1 - Compute.CuriosAttribute.attributeValue(player, Utils.defencePenetration, StringUtils.CuriosAttribute.defencePenetration)); // 新版饰品属性加成
+        defenceRate *= (1 - StableTierAttributeModifier.getModifierValue(player, StableTierAttributeModifier.playerDefencePenetration));
 
         // 请在上方添加
-        defenceRate *= (1 - Compute.playerFantasyAttributeEnhance(player));
-
         writeToCache(player, Utils.defencePenetration, 1 - defenceRate);
         return 1 - defenceRate;
     }
@@ -873,6 +873,7 @@ public class PlayerAttributes {
 
         defencePenetration0 += StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerDefencePenetration0Modifier);
         defencePenetration0 += InCuriosOrEquipSlotAttributesModify.getAttributes(player, Utils.defencePenetration0);
+        defencePenetration0 += StableTierAttributeModifier.getModifierValue(player, StableTierAttributeModifier.playerDefencePenetration0);
         // 请在上方添加
         double exRate = 0;
         exRate += Compute.playerFantasyAttributeEnhance(player);
@@ -1316,8 +1317,6 @@ public class PlayerAttributes {
         defenceRate *= (1 - StableAttributesModifier.getModifierValue(player, StableAttributesModifier.playerManaPenetrationModifier));
 
         // 请在上方添加
-        defenceRate *= (1 - Compute.playerFantasyAttributeEnhance(player));
-
         writeToCache(player, Utils.manaPenetration, 1 - defenceRate);
         return 1 - defenceRate;
     }

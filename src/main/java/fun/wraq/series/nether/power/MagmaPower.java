@@ -84,7 +84,7 @@ public class MagmaPower extends WraqPower {
         mob.level().getEntitiesOfClass(Mob.class, AABB.ofSize(mob.position(), 10, 10, 10))
                 .forEach(eachMob -> {
                     Damage.causeRateApDamageWithElement(player, mob, rate, true,
-                            Element.fire, ElementValue.ElementValueJudgeByType(player, Element.fire) + 1);
+                            Element.fire, ElementValue.getElementValueJudgeByType(player, Element.fire) + 1);
                     ParticleProvider.EntityEffectVerticleCircleParticle(mob, 1, 0.4, 8, ParticleTypes.WITCH, 0);
                     ParticleProvider.EntityEffectVerticleCircleParticle(mob, 0.75, 0.4, 8, ParticleTypes.WITCH, 0);
                     ParticleProvider.EntityEffectVerticleCircleParticle(mob, 0.5, 0.4, 8, ParticleTypes.WITCH, 0);

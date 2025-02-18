@@ -3,7 +3,9 @@ package fun.wraq.Items.MainStory_1.Mission;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.events.mob.MobSpawn;
+import fun.wraq.process.func.StableTierAttributeModifier;
 import fun.wraq.process.func.plan.PlanPlayer;
+import fun.wraq.process.system.randomevent.RandomEventsHandler;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -54,8 +56,9 @@ public class Main0 extends Item {
         CompoundTag data = player.getPersistentData();
 
         if (!level.isClientSide && !player.isShiftKeyDown()) {
-            player.sendSystemMessage(Te.s(PlanPlayer.getPlanData(player).toString()));
-            player.sendSystemMessage(Te.s(MobSpawn.getKillCountData(player).toString()));
+            player.sendSystemMessage(Te.s(StableTierAttributeModifier.monsterWithstandDamageEnhance.size()));
+            RandomEventsHandler.nextTimeEvent = RandomEventsHandler.getKillMobEvents().get(4);
+            RandomEventsHandler.begin();
 /*            for (int i = 0 ; i < player.getInventory().getMaxStackSize() ; i ++) {
                 ItemStack stack = player.getInventory().getItem(i);
                 if (stack.getItem() instanceof BackpackItem) {

@@ -1442,6 +1442,10 @@
   "item.vmd.lightning_curios_0": "因子 - 元素 - 怒雷",
   "item.vmd.wind_curios_0": "因子 - 元素 - 澄风",
 
+  "item.vmd.attack_curio_lx": "因子 - 冷血隐龙",
+  "item.vmd.bow_curio_lei_yan": "因子 - 精灵守护",
+  "item.vmd.mana_curio_taboo": "因子 - 禁忌",
+
   "item.vmd.sword_lottery": "『剑术』补给包",
   "item.vmd.bow_lottery": "『弓术』补给包",
   "item.vmd.sceptre_lottery": "『法术』补给包",
@@ -1896,6 +1900,8 @@
   "item.vmd.frame_arrow_3": "鲁恩的红莲箭矢³",
 
   "item.vmd.devil_power_curio": "未知术法核心",
+
+  "item.vmd.taboo_paper_curio": "梅森的禁忌秘法书页",
 
   "item.vmd.warden_matrix": "远古矩阵",
   "item.vmd.warden_soul_ingot": "坚守者魂锭",

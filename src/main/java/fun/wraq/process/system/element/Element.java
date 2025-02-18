@@ -85,11 +85,11 @@ public class Element {
     public record Unit(String type, double value) {
     }
 
-    public static WeakHashMap<Entity, Unit> entityElementUnit = new WeakHashMap<>();
+    public static Map<LivingEntity, Unit> entityElementUnit = new HashMap<>();
 
     public static WeakHashMap<Player, String> PlayerResonanceType = new WeakHashMap<>();
 
-    public static void ElementProvider(LivingEntity livingEntity, String type, double value) {
+    public static void provideElement(LivingEntity livingEntity, String type, double value) {
         Map<String, Item> map = new HashMap<>() {{
             put(life, ModItems.LifeElement.get());
             put(water, ModItems.WaterElement.get());
@@ -104,12 +104,13 @@ public class Element {
         if (livingEntity instanceof Mob) {
             value *= (1 + MySeason.getCurrentSeasonElementEffect(type));
         }
+        entityElementUnit.entrySet().removeIf(entry -> entry.getKey() == null || entry.getKey().isDeadOrDying());
         entityElementUnit.put(livingEntity, new Unit(type, value));
         if (livingEntity instanceof Player player) ElementEffectTimeSend(player,
                 map.get(type).getDefaultInstance(), 8888, (int) (value * 100), true);
     }
 
-    public static void ElementProvider(Player player, String type, double value, int lastTick) {
+    public static void provideElement(Player player, String type, double value, int lastTick) {
         Map<String, Item> map = new HashMap<>() {{
             put(life, ModItems.LifeElement.get());
             put(water, ModItems.WaterElement.get());
@@ -119,12 +120,16 @@ public class Element {
             put(lightning, ModItems.LightningElement.get());
             put(wind, ModItems.WindElement.get());
         }};
+        entityElementUnit.entrySet().removeIf(entry -> entry.getKey() == null || entry.getKey().isDeadOrDying());
         entityElementUnit.put(player, new Unit(type, value));
         ElementEffectTimeSend(player, map.get(type).getDefaultInstance(), lastTick, (int) (value * 100), false);
     }
 
     public static double ElementEffectAddToEntity(LivingEntity active, LivingEntity passive, String type, double value, boolean isAd, double damage) {
-        if (!entityElementUnit.containsKey(passive)) entityElementUnit.put(passive, new Unit(life, 0));
+        entityElementUnit.entrySet().removeIf(entry -> entry.getKey() == null || entry.getKey().isDeadOrDying());
+        if (!entityElementUnit.containsKey(passive)) {
+            entityElementUnit.put(passive, new Unit(life, 0));
+        }
         Unit passiveUnit = entityElementUnit.get(passive);
 
         if (passiveUnit.value == 0 && value == 0) return 1;
@@ -135,30 +140,6 @@ public class Element {
         }
 
         double reactionElementValue = Math.min(passiveUnit.value, value);
-/*        double elementValue = 0;
-        if (active instanceof Player player) {
-            if (type.equals(Life)) {
-                elementValue = ElementValue.PlayerLifeElementValue(player);
-            }
-            if (type.equals(Water)) {
-                elementValue = ElementValue.PlayerWaterElementValue(player);
-            }
-            if (type.equals(Fire)) {
-                elementValue = ElementValue.PlayerFireElementValue(player);
-            }
-            if (type.equals(Stone)) {
-                elementValue = ElementValue.PlayerStoneElementValue(player);
-            }
-            if (type.equals(Ice)) {
-                elementValue = ElementValue.PlayerIceElementValue(player);
-            }
-            if (type.equals(Lightning)) {
-                elementValue = ElementValue.PlayerLightningElementValue(player);
-            }
-            if (type.equals(Wind)) {
-                elementValue = ElementValue.PlayerWindElementValue(player);
-            }
-        }*/
 
         double strongRate = 0.5;
         double weakRate = -0.5;
@@ -739,6 +720,7 @@ public class Element {
     }
 
     public static void ElementParticleProvider(LivingEntity passive) {
+        entityElementUnit.entrySet().removeIf(entry -> entry.getKey() == null || entry.getKey().isDeadOrDying());
         Unit unit = entityElementUnit.getOrDefault(passive, new Unit(life, 0));
         List<Player> players = passive.level().getEntitiesOfClass(Player.class, AABB.ofSize(passive.position(), 50, 50, 50));
         players.removeIf(player -> player.distanceTo(passive) > 20);
@@ -888,18 +870,19 @@ public class Element {
         ItemStack itemStack = player.getInventory().getItem(slotIndex);
         if (!map.containsKey(itemStack.getItem())) return false;
         String type = map.get(itemStack.getItem());
-        ElementProvider(player, type, ElementValue.ElementValueJudgeByType(player, type) * 0.01 * itemStack.getCount());
+        provideElement(player, type, ElementValue.getElementValueJudgeByType(player, type) * 0.01 * itemStack.getCount());
         return itemStack.getCount() == 0;
     }
 
     public static void giveResonanceElement(Player player) {
-        if (PowerResonanceElementCoverTickMap.containsKey(player) && PowerResonanceElementCoverTickMap.get(player) > Tick.get()) {
-            ElementProvider(player, PowerResonanceElementCoverTypeMap.get(player),
-                    ElementValue.ElementValueJudgeByType(player, PowerResonanceElementCoverTypeMap.get(player)),
+        if (PowerResonanceElementCoverTickMap.containsKey(player)
+                && PowerResonanceElementCoverTickMap.get(player) > Tick.get()) {
+            provideElement(player, PowerResonanceElementCoverTypeMap.get(player),
+                    ElementValue.getElementValueJudgeByType(player, PowerResonanceElementCoverTypeMap.get(player)),
                     Tick.get() - PowerResonanceElementCoverTickMap.get(player));
         } else if (PlayerResonanceType.containsKey(player)) {
-            ElementProvider(player, PlayerResonanceType.get(player),
-                    ElementValue.ElementValueJudgeByType(player, PlayerResonanceType.get(player)));
+            provideElement(player, PlayerResonanceType.get(player),
+                    ElementValue.getElementValueJudgeByType(player, PlayerResonanceType.get(player)));
         }
     }
 

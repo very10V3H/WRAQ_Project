@@ -1,5 +1,6 @@
 package fun.wraq.events.mob.instance;
 
+import fun.wraq.common.Compute;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.ModItems;
@@ -11,11 +12,13 @@ import fun.wraq.events.mob.instance.instances.moontain.MoontainBoss2Instance;
 import fun.wraq.events.mob.instance.instances.moontain.MoontainBoss3Instance;
 import fun.wraq.events.mob.instance.instances.sakura.DevilInstance;
 import fun.wraq.events.mob.instance.instances.sakura.SakuraBossInstance;
+import fun.wraq.events.mob.instance.instances.tower.ManaTowerInstance;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.moontain.MoontainItems;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Mob;
@@ -47,8 +50,10 @@ public class NoTeamInstanceModule {
     }
 
     public static class AllowRewardCondition {
-        public static final MutableComponent devil = Te.s("需要至少", "锻造", CustomStyle.styleOfMine, "过",
+        public static final MutableComponent ICE_KNIGHT_WEAPON = Te.s("需要至少", "锻造", CustomStyle.styleOfMine, "过",
                 "1件", "冰霜骑士武器", CustomStyle.styleOfIce, "，方能获取奖励。");
+        public static final MutableComponent BLACK_CASTLE_WEAPON = Te.s("需要至少", "锻造", CustomStyle.styleOfMine, "过",
+                "1件", "暗黑城堡武器", CustomStyle.styleOfCastle, "，方能获取奖励。");
     }
 
     public static boolean getPlayerAllowReward(Player player, String tag) {
@@ -77,6 +82,7 @@ public class NoTeamInstanceModule {
         add(MoontainBoss3Instance.getInstance());
         add(WardenInstance.getInstance());
         add(MushroomInstance.getInstance());
+        add(ManaTowerInstance.getInstance());
     }};
 
     public static List<fun.wraq.events.mob.instance.NoTeamInstance> noTeamInstancesNether = new ArrayList<>() {{
@@ -151,41 +157,45 @@ public class NoTeamInstanceModule {
         boolean hasPlayerNearby = false;
         for (ServerPlayer serverPlayer : playerList) {
             if (serverPlayer.isAlive()
-                    && serverPlayer.position().distanceTo(noTeamInstance.pos) < noTeamInstance.range) {
+                    && Compute.getHorizonDistance(serverPlayer.position(), noTeamInstance.pos) < noTeamInstance.range) {
                 hasPlayerNearby = true;
             }
         }
         return hasPlayerNearby;
     }
 
+    public static Map<ResourceKey<Level>, List<NoTeamInstance>> map = new HashMap<>();
+    public static Map<ResourceKey<Level>, List<NoTeamInstance>> getMap() {
+        if (map.isEmpty()) {
+            map.put(Level.OVERWORLD, noTeamInstancesOverworld);
+            map.put(Level.NETHER, noTeamInstancesNether);
+            map.put(Level.END, noTeamInstancesEnd);
+        }
+        return map;
+    }
+
     public static void handlePlayerRightClick(Player player) {
         if ((player.getMainHandItem().is(ModItems.notePaper.get()))
                 || player.getMainHandItem().is(MoontainItems.HEART.get())) {
             Item item = player.getMainHandItem().getItem();
-            if (player.level().dimension().equals(Level.OVERWORLD)) {
-                noTeamInstancesOverworld.forEach(instance -> {
-                    if (instance.getSummonAndRewardNeedItem().equals(item)
-                            && player.position().distanceTo(instance.pos) < 12 && Tick.get() > instance.summonTick) {
-                        instance.ready = true;
-                    }
-                });
-            }
-            if (player.level().dimension().equals(Level.NETHER)) {
-                noTeamInstancesNether.forEach(instance -> {
-                    if (instance.getSummonAndRewardNeedItem().equals(item)
-                            && player.position().distanceTo(instance.pos) < 12 && Tick.get() > instance.summonTick) {
-                        instance.ready = true;
-                    }
-                });
-            }
-            if (player.level().dimension().equals(Level.END)) {
-                noTeamInstancesEnd.forEach(instance -> {
-                    if (instance.getSummonAndRewardNeedItem().equals(item)
-                            && player.position().distanceTo(instance.pos) < 12 && Tick.get() > instance.summonTick) {
-                        instance.ready = true;
-                    }
-                });
-            }
+            getMap().forEach((k, v) -> {
+                if (player.level().dimension().equals(k)) {
+                    v.forEach(instance -> {
+                        int playerNum = instance.getNearPlayers(player.level()).size();
+                        if (playerNum > instance.getMaxPlayerNum()) {
+                            Compute.sendFormatMSG(player, Te.s("副本", CustomStyle.styleOfRed),
+                                    Te.s("周围玩家数(" + playerNum + ")超过了" +
+                                            "副本最大容纳玩家数(" + instance.getMaxPlayerNum() + ")"));
+                            return;
+                        }
+                        if (instance.getSummonAndRewardNeedItem().equals(item)
+                                && player.position().distanceTo(instance.pos) < 12
+                                && Tick.get() > instance.summonTick) {
+                            instance.ready = true;
+                        }
+                    });
+                }
+            });
         }
     }
 

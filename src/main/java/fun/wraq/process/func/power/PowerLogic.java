@@ -6,6 +6,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.WeakHashMap;
 
@@ -16,7 +17,7 @@ public class PowerLogic {
 
     public static WeakHashMap<Player, WraqPower> playerLastTimeReleasePower = new WeakHashMap<>();
 
-    public static WeakHashMap<Player, Map<Item, Integer>> playerPowerCoolDownRecord = new WeakHashMap<>();
+    public static Map<String, Map<Item, Integer>> playerPowerCoolDownRecord = new HashMap<>();
     public static WeakHashMap<Player, Integer> playerLastTimeReleasePowerCoolDownTime = new WeakHashMap<>();
     public static WeakHashMap<Player, Double> playerLastTimeReleasePowerManaCost = new WeakHashMap<>();
 

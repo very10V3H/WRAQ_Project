@@ -27,8 +27,10 @@ import fun.wraq.events.mob.instance.instances.element.IceInstance;
 import fun.wraq.events.mob.instance.instances.element.MoonInstance;
 import fun.wraq.events.mob.instance.instances.element.WardenInstance;
 import fun.wraq.events.mob.instance.instances.moontain.MoontainBoss3Instance;
+import fun.wraq.events.mob.instance.instances.tower.ManaTowerEachFloorMob;
 import fun.wraq.events.modules.HurtEventModule;
 import fun.wraq.process.system.element.Element;
+import fun.wraq.process.system.element.ElementValue;
 import fun.wraq.process.system.element.equipAndCurios.fireElement.FireEquip;
 import fun.wraq.process.system.endlessinstance.DailyEndlessInstance;
 import fun.wraq.process.system.entrustment.mob.MobKillEntrustment;
@@ -61,6 +63,7 @@ import net.minecraft.world.item.ItemStack;
 import org.apache.commons.lang3.RandomUtils;
 
 import java.util.Random;
+import java.util.Set;
 
 public class Damage {
 
@@ -249,7 +252,6 @@ public class Damage {
             Element.Unit playerUnit = Element.entityElementUnit.getOrDefault(player, new Element.Unit(Element.life, 0));
             if (playerUnit.value() > 0) {
                 elementDamageEffect = Element.ElementEffectAddToEntity(player, monster, playerUnit.type(), playerUnit.value(), false, totalDamage);
-                Element.entityElementUnit.put(player, new Element.Unit(Element.life, 0));
             }
         }
 
@@ -310,7 +312,6 @@ public class Damage {
         ElementDamageEnhance += Element.ElementWithstandDamageEnhance(monster);
         if (isPower) {
             ElementDamageEffect = Element.ElementEffectAddToEntity(player, monster, elementType, elementValue, false, totalDamage);
-            Element.entityElementUnit.put(player, new Element.Unit(Element.life, 0));
         }
 
         double elementDamage = totalDamage * ((1 + ElementDamageEnhance) * ElementDamageEffect - 1);
@@ -412,7 +413,6 @@ public class Damage {
             Element.Unit playerUnit = Element.entityElementUnit.getOrDefault(player, new Element.Unit(Element.life, 0));
             if (playerUnit.value() > 0) {
                 ElementDamageEffect = Element.ElementEffectAddToEntity(player, monster, playerUnit.type(), playerUnit.value(), false, totalDamage);
-                Element.entityElementUnit.put(player, new Element.Unit(Element.life, 0));
             }
         }
 
@@ -538,6 +538,7 @@ public class Damage {
             damage *= NoTeamInstanceModule.onMobWithstandDamageRate(player, mob);
 
             double finalDamage = damage;
+            finalDamage *= getAfterScornAdjustRate(player, mob);
             finalDamage *= SpringMobEvent.onMobWithStandDamage(mob);
             if (mob.getHealth() <= finalDamage && !MoontainBoss3Instance.beforeKill(mob)) return;
             if (!(mob instanceof Civil)) {
@@ -579,6 +580,21 @@ public class Damage {
             GemOnCauseDamage.causeDamage(player, mob, damage);
             AllayPet.playerIsAttackingMobMap.put(player.getName().getString(), mob);
         }
+    }
+
+    public static Set<String> scornMobNames = Set.of(
+            ManaTowerEachFloorMob.FLOOR_3_MOB_NAME
+    );
+
+    public static double getAfterScornAdjustRate(Player player, Mob mob) {
+        if (scornMobNames.contains(MobSpawn.getMobOriginName(mob)) &&
+                (Element.getResonanceType(player) == null
+                        || ElementValue.getElementValueJudgeByType(player, Element.getResonanceType(player)) < 0.7)) {
+            Compute.sendFormatMSG(player, Te.s("蔑视", CustomStyle.styleOfRed),
+                    Te.s(mob, "十分高傲，你当前的元素强度无法对其造成任何伤害."));
+            return 0;
+        }
+        return 1;
     }
 
     public static void causeDirectDamageToPlayer(Player player, Player hurter, double Damage) {

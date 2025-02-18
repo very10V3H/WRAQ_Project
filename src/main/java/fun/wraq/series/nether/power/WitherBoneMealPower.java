@@ -84,7 +84,7 @@ public class WitherBoneMealPower extends WraqPower {
         for (Mob mob : monsterList) {
             if (mob.getPosition(0).distanceTo(TargetPos) < 6) {
                 Damage.causeRateApDamageWithElement(player, mob, 8, true,
-                        Element.fire, ElementValue.ElementValueJudgeByType(player, Element.fire) + 1);
+                        Element.fire, ElementValue.getElementValueJudgeByType(player, Element.fire) + 1);
                 StableAttributesModifier.addM(player, StableAttributesModifier.mobPercentManaDefenceModifier,
                         "WitherBoneMealPowerMobManaDefenceDecrease", 0.2, Tick.get() + 100);
                 PowerLogic.PlayerPowerEffectToMob(player, mob);

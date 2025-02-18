@@ -100,7 +100,7 @@ public class VolcanoPower extends WraqPower {
                 mobList1.forEach(mob1 -> {
                     if (mob1.position().subtract(mob.position()).length() <= 2) {
                         Damage.causeRateApDamageWithElement(player, mob1, effect, true,
-                                Element.fire, ElementValue.ElementValueJudgeByType(player, Element.fire) + 1);
+                                Element.fire, ElementValue.getElementValueJudgeByType(player, Element.fire) + 1);
                         PowerLogic.PlayerPowerEffectToMob(player, mob);
                         ClientboundLevelParticlesPacket clientboundLevelParticlesPacket =
                                 new ClientboundLevelParticlesPacket(ParticleTypes.EXPLOSION_EMITTER, true,

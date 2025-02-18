@@ -44,7 +44,7 @@ public class ReputationBuyRequestC2SPacket {
             }
             Item item = Utils.ReputationStoreItemList.get(index);
             int Price = Utils.ReputationStorePrice.get(item);
-            if (Compute.playerReputationAddOrCost(serverPlayer, -Price)) {
+            if (Compute.costReputation(serverPlayer, -Price)) {
                 ItemStack itemStack = item.getDefaultInstance();
                 if (item.equals(ModItems.notePaper.get()))
                     InventoryCheck.addOwnerTagToItemStack(serverPlayer, itemStack);

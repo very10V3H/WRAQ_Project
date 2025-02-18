@@ -29,6 +29,7 @@ public class ManaNewSkillBase1_0 extends SkillV2BaseSkill implements SkillV2Elem
     protected void releaseOperation(Player player) {
         DelayOperationWithAnimation.beforeReleaseSkill(player);
         int skillLevel = getPlayerSkillLevelBySkillV2(player, this);
+        double damage = ManaNewSkill.modifyDamage(player, 2 + skillLevel * 0.15);
         DelayOperationWithAnimation.addToQueue(new DelayOperationWithAnimation(
                 DelayOperationWithAnimation.Animation.manaNewSkillBase1_0, Tick.get() + 8, player
         ) {
@@ -41,7 +42,7 @@ public class ManaNewSkillBase1_0 extends SkillV2BaseSkill implements SkillV2Elem
                         (int) pickLocation.distanceTo(eyePosition) * 20, eyePosition, pickLocation,
                         3, Element.getManaSkillParticleStyle(player));
                 Compute.getPlayerRayMobList(player, 1, 3, 20).forEach(mob -> {
-                    Damage.causeRateApDamageWithElement(player, mob, 2 + skillLevel * 0.15, true);
+                    Damage.causeRateApDamageWithElement(player, mob, damage, true);
                     ManaNewSkillPassive0.addCount(player, mob, 2);
                 });
                 Element.giveResonanceElement(player);
@@ -60,6 +61,6 @@ public class ManaNewSkillBase1_0 extends SkillV2BaseSkill implements SkillV2Elem
 
     @Override
     protected int getEachLevelExManaCost() {
-        return 5;
+        return 10;
     }
 }

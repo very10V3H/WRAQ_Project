@@ -1,19 +1,10 @@
 package fun.wraq.customized;
 
 import fun.wraq.common.util.Utils;
-import fun.wraq.customized.uniform.attack.AttackCurios0;
-import fun.wraq.customized.uniform.attack.AttackCurios1;
-import fun.wraq.customized.uniform.attack.AttackCurios2;
-import fun.wraq.customized.uniform.attack.AttackCuriosYxwgCurios;
-import fun.wraq.customized.uniform.bow.BowCurios0;
-import fun.wraq.customized.uniform.bow.BowCurios1;
-import fun.wraq.customized.uniform.bow.BowCurios2;
-import fun.wraq.customized.uniform.bow.BowCuriosYxwg;
+import fun.wraq.customized.uniform.attack.*;
+import fun.wraq.customized.uniform.bow.*;
 import fun.wraq.customized.uniform.element.*;
-import fun.wraq.customized.uniform.mana.ManaCurios0;
-import fun.wraq.customized.uniform.mana.ManaCurios1;
-import fun.wraq.customized.uniform.mana.ManaCurios2;
-import fun.wraq.customized.uniform.mana.ManaCuriosYxwg;
+import fun.wraq.customized.uniform.mana.*;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SimpleFoiledItem;
@@ -82,6 +73,15 @@ public class UniformItems {
 
     public static final RegistryObject<Item> MANA_CURIOS_YXWG = ITEMS.register("mana_curios_yxwg",
             () -> new ManaCuriosYxwg(new Item.Properties().stacksTo(1).rarity(CustomStyle.EvokerBold)));
+
+    public static final RegistryObject<Item> ATTACK_CURIO_LX = ITEMS.register("attack_curio_lx",
+            () -> new AttackCurioLX(new Item.Properties().stacksTo(1).rarity(CustomStyle.MagmaBold)));
+
+    public static final RegistryObject<Item> BOW_CURIO_LEI_YAN = ITEMS.register("bow_curio_lei_yan",
+            () -> new BowCurioLeiYan(new Item.Properties().stacksTo(1).rarity(CustomStyle.LifeBold)));
+
+    public static final RegistryObject<Item> MANA_CURIO_TABOO = ITEMS.register("mana_curio_taboo",
+            () -> new ManaCurioTaboo(new Item.Properties().stacksTo(1).rarity(CustomStyle.EvokerBold)));
 
     public static final RegistryObject<Item> uniformPiece = ITEMS.register("uniform_piece",
             () -> new SimpleFoiledItem(new Item.Properties().rarity(CustomStyle.WorldBold)));

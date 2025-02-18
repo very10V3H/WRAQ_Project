@@ -78,7 +78,7 @@ public class MagmaSpawnController extends MobSpawnController {
     @Override
     public void tick() {
         mobList.forEach(mob -> {
-            Element.ElementProvider(mob, Element.fire, 4);
+            Element.provideElement(mob, Element.fire, 4);
         });
     }
 

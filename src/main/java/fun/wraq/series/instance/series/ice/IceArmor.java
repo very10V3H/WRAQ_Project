@@ -21,10 +21,22 @@ public class IceArmor extends WraqArmor implements ForgeItem {
 
     public IceArmor(ModArmorMaterials Material, Type Slots, Properties itemProperties) {
         super(Material, Slots, itemProperties);
-        if (type.equals(Type.HELMET)) Utils.healthRecover.put(this, 40d);
-        if (type.equals(Type.CHESTPLATE)) Utils.defence.put(this, 75d);
-        if (type.equals(Type.LEGGINGS)) Utils.maxHealth.put(this, 20000d);
-        if (type.equals(Type.BOOTS)) Utils.movementSpeedCommon.put(this, 0.1);
+        if (type.equals(Type.HELMET)) {
+            Utils.healthRecover.put(this, 40d);
+            Utils.defence.put(this, 20d);
+        }
+        if (type.equals(Type.CHESTPLATE)) {
+            Utils.defence.put(this, 35d);
+            Utils.maxHealth.put(this, 5000d);
+        }
+        if (type.equals(Type.LEGGINGS)) {
+            Utils.maxHealth.put(this, 10000d);
+            Utils.defence.put(this, 20d);
+        }
+        if (type.equals(Type.BOOTS)) {
+            Utils.movementSpeedCommon.put(this, 0.1);
+            Utils.maxHealth.put(this, 5000d);
+        }
         Utils.levelRequire.put(this, 135);
     }
 

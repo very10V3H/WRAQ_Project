@@ -100,7 +100,7 @@ public class Ore2SpawnController extends MobSpawnController {
     @Override
     public void tick() {
         mobList.forEach(mob -> {
-            Element.ElementProvider(mob, Tick.get() % 100 < 50 ? Element.water : Element.stone, 3);
+            Element.provideElement(mob, Tick.get() % 100 < 50 ? Element.water : Element.stone, 3);
             mob.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING));
         });
     }

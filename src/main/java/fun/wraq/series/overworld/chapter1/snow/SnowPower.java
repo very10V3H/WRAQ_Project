@@ -113,7 +113,7 @@ public class SnowPower extends WraqPower {
                 }
                 mob.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 20, 100, false, false, false));
                 Damage.causeRateApDamageWithElement(player, mob, effect, true,
-                        Element.ice, ElementValue.ElementValueJudgeByType(player, Element.ice) + 1);
+                        Element.ice, ElementValue.getElementValueJudgeByType(player, Element.ice) + 1);
                 PowerLogic.PlayerPowerEffectToMob(player, mob);
                 Compute.sendMobEffectHudToNearPlayer(mob, ModItems.SnowPower.get(), "SnowPowerImprison", 20, 0, false);
             }

@@ -10,6 +10,7 @@ import fun.wraq.common.registry.MySound;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.entities.entities.Civil.Civil;
+import fun.wraq.events.mob.loot.RandomLootEquip;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.skill.skillv2.mana.ManaNewSkillBase3_0;
 import fun.wraq.projectiles.mana.ManaArrow;
@@ -38,7 +39,7 @@ public abstract class WraqSceptre extends WraqMainHandEquip {
     public WraqSceptre(Properties properties) {
         super(properties);
         Utils.sceptreTag.put(this, 1d);
-        if (!(this instanceof ManageEquip)) {
+        if (!(this instanceof ManageEquip) && !(this instanceof RandomLootEquip)) {
             Display.sceptreList.add(this);
         }
     }

@@ -33,12 +33,14 @@ public class ManaNewSkillFinal0 extends SkillV2FinalSkill {
 
     public static Map<Player, Integer> countMap = new WeakHashMap<>();
     public static Map<Player, Integer> nextReleaseTickMap = new WeakHashMap<>();
+    public static Map<Player, Double> rateMap = new WeakHashMap<>();
     public static Map<Player, Vec3> targetPosMap = new WeakHashMap<>();
 
     @Override
     protected void releaseOperation(Player player) {
         countMap.put(player, 3);
         nextReleaseTickMap.put(player, Tick.get() + 3);
+        rateMap.put(player, ManaNewSkill.modifyDamage(player, 5 + getPlayerSkillLevel(player) * 0.5));
         targetPosMap.put(player, WraqPower.getDefaultTargetPos(player));
     }
 
@@ -47,7 +49,6 @@ public class ManaNewSkillFinal0 extends SkillV2FinalSkill {
         if (skillV2 instanceof ManaNewSkillFinal0 && countMap.getOrDefault(player, 0) > 0
                 && nextReleaseTickMap.getOrDefault(player, 0) == Tick.get()
                 && targetPosMap.containsKey(player)) {
-            int skillLevel = getPlayerSkillLevelBySkillV2(player, skillV2);
             countMap.compute(player, (k, v) -> v == null ? 0 : v - 1);
             nextReleaseTickMap.put(player, Tick.get() + 3);
             Vec3 pos = targetPosMap.get(player);
@@ -59,7 +60,8 @@ public class ManaNewSkillFinal0 extends SkillV2FinalSkill {
                     Element.getManaSkillParticleStyle(player).getColor().getValue());
             player.level().getEntitiesOfClass(Mob.class, AABB.ofSize(pos, 10, 10, 10))
                     .forEach(eachMob -> {
-                        Damage.causeRateApDamageWithElement(player, eachMob, 5 + skillLevel * 0.5, true);
+                        Damage.causeRateApDamageWithElement(player, eachMob,
+                                rateMap.getOrDefault(player, 0d), true);
                     });
             Element.giveResonanceElement(player);
         }
@@ -72,12 +74,12 @@ public class ManaNewSkillFinal0 extends SkillV2FinalSkill {
         components.add(Te.s("爆炸会对其范围内的所有目标造成",
                 getRateDescription(5, 0.5, level), CustomStyle.styleOfMana, "伤害"));
         components.add(Te.s("每触发一次", " 渗", CustomStyle.styleOfMana,
-                "，将减少该技能", "0.75冷却时间", ChatFormatting.AQUA));
+                "，将减少该技能", "0.75s冷却时间", ChatFormatting.AQUA));
         return components;
     }
 
     @Override
     protected int getEachLevelExManaCost() {
-        return 20;
+        return 40;
     }
 }

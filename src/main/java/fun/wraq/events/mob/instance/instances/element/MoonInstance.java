@@ -93,9 +93,11 @@ public class MoonInstance extends NoTeamInstance {
         attackMob.setItemSlot(EquipmentSlot.OFFHAND, ModItems.MoonShield.get().getDefaultInstance());
         attackMob.setItemSlot(EquipmentSlot.MAINHAND, ModItems.MoonKnife.get().getDefaultInstance());
         attackMob.moveTo(1747.5, 127.5, -491.5);
+        attackMob.setTarget(players.stream().findFirst().orElse(null));
         level.addFreshEntity(attackMob);
         mobList.add(attackMob);
-        ServerBossEvent serverBossEvent = (ServerBossEvent) (new ServerBossEvent(attackMob.getDisplayName(), BossEvent.BossBarColor.YELLOW, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
+        ServerBossEvent serverBossEvent = (ServerBossEvent) (new ServerBossEvent(attackMob.getDisplayName(),
+                BossEvent.BossBarColor.YELLOW, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
         getNearPlayers(level).forEach(player -> {
             serverBossEvent.addPlayer((ServerPlayer) player);
         });
@@ -114,6 +116,7 @@ public class MoonInstance extends NoTeamInstance {
         manaMob.setItemSlot(EquipmentSlot.FEET, ModItems.MobArmorMoonBoots.get().getDefaultInstance());
         manaMob.setItemSlot(EquipmentSlot.MAINHAND, Items.BOW.getDefaultInstance());
         manaMob.moveTo(new Vec3(1773.5, 122.5, -498.5));
+        manaMob.setTarget(players.stream().findFirst().orElse(null));
         level.addFreshEntity(manaMob);
         mobList.add(manaMob);
         ServerBossEvent serverBossEvent1 = (ServerBossEvent) (new ServerBossEvent(manaMob.getDisplayName(), BossEvent.BossBarColor.YELLOW, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);

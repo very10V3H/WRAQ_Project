@@ -94,7 +94,7 @@ public class LakeDrownSpawnController extends MobSpawnController {
     @Override
     public void tick() {
         mobList.forEach(mob -> {
-            Element.ElementProvider(mob, Element.water, 1);
+            Element.provideElement(mob, Element.water, 1);
         });
     }
 

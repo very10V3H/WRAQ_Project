@@ -9,6 +9,7 @@ import fun.wraq.common.equip.impl.ActiveItem;
 import fun.wraq.common.equip.impl.RandomCurios;
 import fun.wraq.common.equip.impl.RepeatableCurios;
 import fun.wraq.common.equip.impl.WraqMainHandOrPassiveEquip;
+import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.oncostmana.OnCostManaEquip;
@@ -102,6 +103,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -308,9 +310,9 @@ public class Compute {
         int cooldownTick = (int) (Seconds * 20 * (1 - coolDownDecrease));
         player.getCooldowns().addCooldown(item, cooldownTick);
         if (Utils.powerTag.containsKey(item)) {
-            if (!PowerLogic.playerPowerCoolDownRecord.containsKey(player))
-                PowerLogic.playerPowerCoolDownRecord.put(player, new HashMap<>());
-            Map<Item, Integer> map = PowerLogic.playerPowerCoolDownRecord.get(player);
+            if (!PowerLogic.playerPowerCoolDownRecord.containsKey(Name.get(player)))
+                PowerLogic.playerPowerCoolDownRecord.put(Name.get(player), new HashMap<>());
+            Map<Item, Integer> map = PowerLogic.playerPowerCoolDownRecord.get(Name.get(player));
             map.put(item, cooldownTick);
             PowerLogic.playerLastTimeReleasePowerCoolDownTime.put(player, cooldownTick);
         }
@@ -971,23 +973,22 @@ public class Compute {
         return tmpDate.format(deltaTime.getTime());
     }
 
-    public static boolean playerReputationAddOrCost(Player player, int Num) {
+    public static boolean costReputation(Player player, int num) {
         CompoundTag data = player.getPersistentData();
         ChatFormatting chatFormatting = ChatFormatting.GREEN;
-        if (Num < 0) {
-            if (playerReputation(player) + Num < 0) {
+        if (num < 0) {
+            if (playerReputation(player) + num < 0) {
                 Compute.sendFormatMSG(player, Component.literal("声望").withStyle(ChatFormatting.YELLOW),
                         Component.literal("当前声望不足。").withStyle(ChatFormatting.WHITE));
                 return false;
             }
             chatFormatting = ChatFormatting.RED;
         }
-        data.putInt(StringUtils.Reputation, data.getInt(StringUtils.Reputation) + Num);
-        data.putInt(StringUtils.ReputationCalculate, data.getInt(StringUtils.ReputationCalculate) + Num);
+        data.putInt(StringUtils.Reputation, data.getInt(StringUtils.Reputation) + num);
         Compute.sendFormatMSG(player, Component.literal("声望").withStyle(ChatFormatting.YELLOW),
                 Component.literal("你的声望值:").withStyle(ChatFormatting.WHITE).
                         append(Component.literal("" + playerReputation(player)).withStyle(ChatFormatting.YELLOW)).
-                        append(Component.literal(" (" + Num + ")").withStyle(chatFormatting)));
+                        append(Component.literal(" (" + num + ")").withStyle(chatFormatting)));
         ModNetworking.sendToClient(new ReputationValueS2CPacket(data.getInt(StringUtils.Reputation)), (ServerPlayer) player);
         return true;
     }
@@ -1008,10 +1009,22 @@ public class Compute {
 
     public static double playerFantasyAttributeEnhance(Player player) {
         double enhance = 0;
-        CompoundTag data = player.getPersistentData();
-        if (data.getBoolean(StringUtils.FantasyMedal)) enhance += 0.03;
-        if (data.getBoolean(StringUtils.FantasyBracelet)) enhance += 0.03;
-        if (Compute.CuriosAttribute.getDistinctCuriosSet(player).contains(SpecialEventItems.SCALE_2025_0.get())) {
+        Set<Item> curioSet = Compute.CuriosAttribute.getDistinctCuriosSet(player);
+        if (curioSet.contains(ModItems.FANTASY_MEDAL_2.get())) {
+            enhance += 0.05;
+        } else if (curioSet.contains(ModItems.FANTASY_MEDAL_1.get())) {
+            enhance += 0.04;
+        } else if (curioSet.contains(ModItems.FANTASY_MEDAL.get())) {
+            enhance += 0.03;
+        }
+        if (curioSet.contains(ModItems.FANTASY_BRACELET_2.get())) {
+            enhance += 0.05;
+        } else if (curioSet.contains(ModItems.FANTASY_BRACELET_1.get())) {
+            enhance += 0.04;
+        } else if (curioSet.contains(ModItems.FANTASY_BRACELET.get())) {
+            enhance += 0.03;
+        }
+        if (curioSet.contains(SpecialEventItems.SCALE_2025_0.get())) {
             enhance += 0.01;
         } else if (Compute.CuriosAttribute.getDistinctCuriosSet(player)
                 .contains(SpecialEventItems.SCALE_2025_1.get())) {
@@ -1282,8 +1295,8 @@ public class Compute {
             }
         }
 
-        if (!Utils.playerLaserCoolDown.containsKey(player)) Utils.playerLaserCoolDown.put(player, new HashMap<>());
-        Map<Mob, Integer> laserCoolDownMap = Utils.playerLaserCoolDown.get(player);
+        if (!Utils.playerLaserCoolDown.containsKey(Name.get(player))) Utils.playerLaserCoolDown.put(Name.get(player), new HashMap<>());
+        Map<Mob, Integer> laserCoolDownMap = Utils.playerLaserCoolDown.get(Name.get(player));
 
         mobList.forEach(mob -> {
             if (!laserCoolDownMap.containsKey(mob) || laserCoolDownMap.get(mob) <= TickCount) {
@@ -1318,8 +1331,10 @@ public class Compute {
             }
         }
 
-        if (!Utils.playerLaserCoolDown.containsKey(player)) Utils.playerLaserCoolDown.put(player, new HashMap<>());
-        Map<Mob, Integer> laserCoolDownMap = Utils.playerLaserCoolDown.get(player);
+        if (!Utils.playerLaserCoolDown.containsKey(Name.get(player))) {
+            Utils.playerLaserCoolDown.put(Name.get(player), new HashMap<>());
+        }
+        Map<Mob, Integer> laserCoolDownMap = Utils.playerLaserCoolDown.get(Name.get(player));
 
         mobList.forEach(mob -> {
             if (!laserCoolDownMap.containsKey(mob) || laserCoolDownMap.get(mob) <= TickCount) {
@@ -1842,6 +1857,19 @@ public class Compute {
         setPlayerTitleAndSubTitle(serverPlayer, title, subTitle, 20, 60, 20);
     }
 
+    public static void setPlayerTitleAndSubTitle(Player player, Component title, Component subTitle) {
+        setPlayerTitleAndSubTitle((ServerPlayer) player, title, subTitle, 20, 60, 20);
+    }
+
+    public static void setPlayerTitleAndSubTitle(Player player, Component title, Component subTitle,
+                                                 int fadeIn, int stay, int fadeOut) {
+        setPlayerTitleAndSubTitle((ServerPlayer) player, title, subTitle, fadeIn, stay, fadeOut);
+    }
+
+    public static void setPlayerShortTitleAndSubTitle(Player player, Component title, Component subTitle) {
+        setPlayerTitleAndSubTitle((ServerPlayer) player, title, subTitle, 0, 20, 10);
+    }
+
     public static List<? extends Entity> getNearEntity(Entity center, Class<? extends Entity> type, double distance) {
         List<? extends Entity> list = center.level().getEntitiesOfClass(type, AABB.ofSize(center.position(), distance * 2, distance * 2, distance * 2));
         return list.stream().filter(e -> e.distanceTo(center) <= distance).toList();
@@ -2048,5 +2076,20 @@ public class Compute {
 
     public static void sendErrorTips(Player player, Component content) {
         sendFormatMSG(player, Te.s("错误", ChatFormatting.RED), content);
+    }
+
+    public static double getHorizonDistance(Vec3 pos1, Vec3 pos2) {
+        Vec2 pos11 = new Vec2((float) pos1.x, (float) pos1.z);
+        Vec2 pos22 = new Vec2((float) pos2.x, (float) pos2.z);
+        return Math.sqrt(pos11.distanceToSqr(pos22));
+    }
+
+    public static void teleportPlayerToPos(Player player, Vec3 pos) {
+        player.teleportTo(pos.x, pos.y, pos.z);
+    }
+
+    public static final String CHALLENGE_RECORD_KEY = "ChallengeRecord";
+    public static CompoundTag getChallengeRecordData(Player player) {
+        return getPlayerSpecificKeyCompoundTagData(player, CHALLENGE_RECORD_KEY);
     }
 }

@@ -92,7 +92,7 @@ public class Ore3SpawnController extends MobSpawnController {
     @Override
     public void tick() {
         mobList.forEach(mob -> {
-            Element.ElementProvider(mob, Element.stone, 3);
+            Element.provideElement(mob, Element.stone, 3);
         });
     }
 

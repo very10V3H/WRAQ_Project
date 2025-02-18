@@ -117,7 +117,7 @@ public class SpringSnakeInstance extends NewTeamInstance {
 
     @Override
     public Component allowRewardCondition() {
-        return NoTeamInstanceModule.AllowRewardCondition.devil;
+        return NoTeamInstanceModule.AllowRewardCondition.ICE_KNIGHT_WEAPON;
     }
 
     @Override

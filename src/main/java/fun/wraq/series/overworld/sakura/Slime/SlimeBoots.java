@@ -24,7 +24,9 @@ public class SlimeBoots extends WraqArmor implements ForgeItem {
         super(modArmorMaterials, Slots, new Properties().rarity(CustomStyle.LifeItalic));
         Utils.attackDamage.put(this, 45d);
         Utils.manaDamage.put(this, 125d);
-        if (type.equals(Type.BOOTS)) Utils.movementSpeedCommon.put(this, 0.1);
+        if (type.equals(Type.BOOTS)) {
+            Utils.movementSpeedCommon.put(this, 0.1);
+        }
         Utils.levelRequire.put(this, 76);
     }
 

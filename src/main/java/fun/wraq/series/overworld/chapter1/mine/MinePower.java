@@ -96,7 +96,7 @@ public class MinePower extends WraqPower {
             if (PosVec.length() <= 6) {
                 ParticleProvider.createBreakBlockParticle(mob, Blocks.STONE);
                 Damage.causeRateApDamageWithElement(player, mob, effect, true,
-                        Element.stone, ElementValue.ElementValueJudgeByType(player, Element.stone) + 1);
+                        Element.stone, ElementValue.getElementValueJudgeByType(player, Element.stone) + 1);
                 PowerLogic.PlayerPowerEffectToMob(player, mob);
             }
         });

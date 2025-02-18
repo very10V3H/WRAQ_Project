@@ -95,7 +95,7 @@ public class SkySkeletonSpawnController extends MobSpawnController {
     @Override
     public void tick() {
         mobList.forEach(mob -> {
-            Element.ElementProvider(mob, Element.wind, 2);
+            Element.provideElement(mob, Element.wind, 2);
         });
     }
 

@@ -1,5 +1,6 @@
 package fun.wraq.process.func;
 
+import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
@@ -12,9 +13,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.WeakHashMap;
+import java.util.*;
 
 public class MobEffectAndDamageMethods {
 
@@ -107,17 +106,19 @@ public class MobEffectAndDamageMethods {
     public record PlayerDamageDecrease(Mob mob, double rate, int lastTick) {
     }
 
-    public static WeakHashMap<Player, List<PlayerDamageDecrease>> playerDamageDecreaseMap = new WeakHashMap<>();
+    public static Map<String, List<PlayerDamageDecrease>> playerDamageDecreaseMap = new HashMap<>();
 
     public static void PlayerDamageDecreaseProvide(Mob mob, Player player, double rate, int lastTick, ItemStack displayItem) {
-        if (!playerDamageDecreaseMap.containsKey(player)) playerDamageDecreaseMap.put(player, new ArrayList<>());
-        List<PlayerDamageDecrease> list = playerDamageDecreaseMap.get(player);
+        if (!playerDamageDecreaseMap.containsKey(Name.get(player))) {
+            playerDamageDecreaseMap.put(Name.get(player), new ArrayList<>());
+        }
+        List<PlayerDamageDecrease> list = playerDamageDecreaseMap.get(Name.get(player));
         list.add(new PlayerDamageDecrease(mob, rate, Tick.get() + lastTick));
     }
 
     public static double PlayerDamageDecreaseRate(Player player, Mob mob) {
-        if (!playerDamageDecreaseMap.containsKey(player)) return 0;
-        List<PlayerDamageDecrease> list = playerDamageDecreaseMap.get(player);
+        if (!playerDamageDecreaseMap.containsKey(Name.get(player))) return 0;
+        List<PlayerDamageDecrease> list = playerDamageDecreaseMap.get(Name.get(player));
         list.removeIf(p -> p.lastTick <= Tick.get());
         double rate = 1;
         for (PlayerDamageDecrease playerDamageDecrease : list) {

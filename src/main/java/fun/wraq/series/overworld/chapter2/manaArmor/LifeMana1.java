@@ -15,10 +15,22 @@ public class LifeMana1 extends WraqArmor {
 
     public LifeMana1(ModArmorMaterials Material, Type Slots, Properties itemProperties) {
         super(Material, Slots, itemProperties);
-        if (type.equals(Type.HELMET)) Utils.healthRecover.put(this, 15d);
-        if (type.equals(Type.CHESTPLATE)) Utils.defence.put(this, 20d);
-        if (type.equals(Type.LEGGINGS)) Utils.maxHealth.put(this, 3200d);
-        if (type.equals(Type.BOOTS)) Utils.movementSpeedCommon.put(this, 0.1);
+        if (type.equals(Type.HELMET)) {
+            Utils.healthRecover.put(this, 15d);
+            Utils.defence.put(this, 5d);
+        }
+        if (type.equals(Type.CHESTPLATE)) {
+            Utils.defence.put(this, 15d);
+            Utils.maxHealth.put(this, 800d);
+        }
+        if (type.equals(Type.LEGGINGS)) {
+            Utils.maxHealth.put(this, 1600d);
+            Utils.defence.put(this, 5d);
+        }
+        if (type.equals(Type.BOOTS)) {
+            Utils.movementSpeedCommon.put(this, 0.1);
+            Utils.maxHealth.put(this, 800d);
+        }
         Utils.manaDamage.put(this, 100d);
         Utils.maxMana.put(this, 20d);
         Utils.manaPenetration0.put(this, 2d);

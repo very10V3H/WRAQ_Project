@@ -6,9 +6,6 @@ import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.registry.MySound;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.process.system.forge.ForgeEquipUtils;
-import fun.wraq.series.instance.blade.BladeItems;
-import fun.wraq.series.instance.mixture.MixtureItems;
-import fun.wraq.series.instance.quiver.QuiverItems;
 import fun.wraq.series.newrunes.NewRuneItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -36,11 +33,8 @@ public class ForNew extends Item {
 
     private List<ItemStack> getItemList() {
         ItemStack sword = new ItemStack(ModItems.PlainSword0.get());
-        ItemStack blade = new ItemStack(BladeItems.BLADE.get());
         ItemStack bow = new ItemStack(ModItems.PlainBow0.get());
-        ItemStack quiver = new ItemStack(QuiverItems.QUIVER.get());
         ItemStack sceptre = new ItemStack(ModItems.LIFE_SCEPTRE_0.get());
-        ItemStack mixture = new ItemStack(MixtureItems.MIXTURE.get());
         ForgeEquipUtils.setForgeQualityOnEquip(sword, 6);
         ForgeEquipUtils.setForgeQualityOnEquip(bow, 6);
         ForgeEquipUtils.setForgeQualityOnEquip(sceptre, 6);

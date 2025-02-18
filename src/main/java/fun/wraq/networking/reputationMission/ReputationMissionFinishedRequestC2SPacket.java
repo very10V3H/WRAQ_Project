@@ -78,7 +78,8 @@ public class ReputationMissionFinishedRequestC2SPacket {
                 InventoryOperation.giveItemStackWithMSG(serverPlayer, SpecialEventItems.MONEY.get(), 1);
 
                 if (serverPlayer.experienceLevel == Compute.levelUpperLimit) {
-                    Compute.playerReputationAddOrCost(serverPlayer, tier);
+                    Compute.giveReputation(serverPlayer, tier,
+                            Te.s("悬赏任务满级额外声望", ChatFormatting.LIGHT_PURPLE));
                 }
                 Utils.playerReputationMissionContent.remove(serverPlayer.getName().getString());
                 ModNetworking.sendToClient(new ReputationMissionContentS2CPacket(Items.AIR.getDefaultInstance(), 0), serverPlayer);

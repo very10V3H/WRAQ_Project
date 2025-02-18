@@ -104,7 +104,7 @@ public class IceInstance extends NoTeamInstance {
             });
             ParticleProvider.createBallDisperseParticle(ParticleTypes.SNOWFLAKE, (ServerLevel) level, mob.position(), 0.75, 30);
         }
-        Element.ElementProvider(mob, Element.ice, 4);
+        Element.provideElement(mob, Element.ice, 4);
     }
 
     @Override

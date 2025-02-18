@@ -94,7 +94,7 @@ public class SnowStraySpawnController extends MobSpawnController {
     @Override
     public void tick() {
         mobList.forEach(mob -> {
-            Element.ElementProvider(mob, Element.ice, 2);
+            Element.provideElement(mob, Element.ice, 2);
         });
     }
 

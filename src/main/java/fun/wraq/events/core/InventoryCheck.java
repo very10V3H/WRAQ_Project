@@ -8,6 +8,8 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.customized.UniformItems;
 import fun.wraq.events.mob.loot.RandomLootEquip;
 import fun.wraq.process.system.endlessinstance.item.EndlessInstanceItems;
+import fun.wraq.process.system.profession.pet.allay.item.AllayItems;
+import fun.wraq.process.system.profession.smith.SmithItems;
 import fun.wraq.series.events.SpecialEventItems;
 import fun.wraq.series.overworld.chapter2.lavender.LavenderBracelet;
 import net.minecraft.ChatFormatting;
@@ -187,6 +189,14 @@ public class InventoryCheck {
                 SpecialEventItems.BIG_RED_ENVELOPE.get()
         ));
         UniformItems.ITEMS.getEntries()
+                .stream()
+                .map(entry -> entry.get().asItem())
+                .forEach(item -> boundingList.add(item));
+        SmithItems.ITEMS.getEntries()
+                .stream()
+                .map(entry -> entry.get().asItem())
+                .forEach(item -> boundingList.add(item));
+        AllayItems.ITEMS.getEntries()
                 .stream()
                 .map(entry -> entry.get().asItem())
                 .forEach(item -> boundingList.add(item));

@@ -80,6 +80,7 @@ public class SlimeKingEvent extends KillMobEvent {
     public void onKillMob(Player player, Mob mob) {
         if (slimeKing != null && slimeKing.isAlive() && MobSpawn.getMobOriginName(mob).equals("小史莱姆")) {
             slimeKing.setHealth(slimeKing.getHealth() - 1);
+            players.add(player);
         }
         super.onKillMob(player, mob);
     }

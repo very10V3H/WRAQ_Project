@@ -21,6 +21,7 @@ import java.util.List;
 public class RevenantGoldenHelmet extends WraqArmor implements Decomposable {
     public RevenantGoldenHelmet(ArmorMaterial armorMaterial, Type type, Properties properties) {
         super(armorMaterial, type, properties);
+        Utils.defence.put(this, 10d);
         Utils.healthRecover.put(this, 15d);
         Element.FireElementValue.put(this, 1d);
         Utils.levelRequire.put(this, 90);

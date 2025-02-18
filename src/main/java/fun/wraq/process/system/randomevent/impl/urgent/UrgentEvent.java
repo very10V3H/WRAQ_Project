@@ -90,7 +90,7 @@ public class UrgentEvent extends RandomEvent {
             reward.forEach(stack -> {
                 InventoryOperation.giveItemStack(player, new ItemStack(stack.getItem(), stack.getCount()));
             });
-            Compute.playerReputationAddOrCost(player, 20);
+            Compute.giveReputation(player, 20, Te.s("随机事件奖励", CustomStyle.styleOfFlexible));
         });
         if (!rankQueue.isEmpty()) {
             broad(Te.s("比拼谁跑得更快活动结束了，下面宣布前几名的成绩单!"));

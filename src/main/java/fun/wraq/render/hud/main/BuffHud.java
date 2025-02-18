@@ -8,6 +8,7 @@ import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.Utils;
 import fun.wraq.common.util.struct.HudIcon;
 import fun.wraq.common.util.struct.SkillImage;
+import fun.wraq.events.mob.instance.instances.tower.ManaTowerData;
 import fun.wraq.process.system.endlessinstance.DailyEndlessInstance;
 import fun.wraq.process.system.randomevent.impl.special.SpringMobEvent;
 import fun.wraq.render.toolTip.CustomStyle;
@@ -243,8 +244,15 @@ public class BuffHud {
 
         if (SpringMobEvent.clientDamage > 0 && SpringMobEvent.clientDamageDisplayExpiredTick > ClientUtils.serverTick) {
             guiGraphics.drawCenteredString(fontRenderer,
-                    Te.s(SpringMobEvent.getLuckyNumberDamageFormatString(SpringMobEvent.clientDamage)),
+                    Te.s(SpringMobEvent.getLuckyNumberDamageFormatString(SpringMobEvent.clientDamage,
+                            SpringMobEvent.clientLuckyNumber)),
                     width / 2 + 16, height / 2 - 16, 0);
+        }
+
+        if (ManaTowerData.clientStartTick > 0 && ManaTowerData.clientExpiredTick > ClientUtils.serverTick) {
+            guiGraphics.drawString(fontRenderer,
+                    ManaTowerData.getRecordTickDescription(ClientUtils.serverTick - ManaTowerData.clientStartTick),
+                    width / 2 - 310, height - 24, 0);
         }
     });
 }

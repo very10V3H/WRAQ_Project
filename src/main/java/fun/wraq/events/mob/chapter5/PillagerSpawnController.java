@@ -94,7 +94,7 @@ public class PillagerSpawnController extends MobSpawnController {
     @Override
     public void tick() {
         mobList.forEach(mob -> {
-            Element.ElementProvider(mob, Element.water, 3);
+            Element.provideElement(mob, Element.water, 3);
         });
     }
 

@@ -91,7 +91,7 @@ public class FireLightSpawnController extends MobSpawnController {
     @Override
     public void tick() {
         mobList.forEach(mob -> {
-            Element.ElementProvider(mob, Element.fire, 2);
+            Element.provideElement(mob, Element.fire, 2);
         });
     }
 

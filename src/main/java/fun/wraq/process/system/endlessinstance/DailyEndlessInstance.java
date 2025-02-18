@@ -39,13 +39,15 @@ public abstract class DailyEndlessInstance {
     private int killCount;
     private int maxMobNum;
     private List<Mob> mobList;
+    private final int refreshDelayTick;
 
-    public DailyEndlessInstance(final Component name, final Vec3 pos, final int lastTick, int maxMobNum) {
+    public DailyEndlessInstance(final Component name, final Vec3 pos, final int lastTick, int maxMobNum, int refreshDelayTick) {
         this.name = name;
         this.pos = pos;
         this.lastTick = lastTick;
         this.maxMobNum = maxMobNum;
         this.mobList = new ArrayList<>();
+        this.refreshDelayTick = refreshDelayTick;
     }
 
     public void commonTick(Level level) {
@@ -76,13 +78,16 @@ public abstract class DailyEndlessInstance {
             stop();
         }
 
-        if (isChallenging() && leftTick % 5 == 0) {
+        if (isChallenging() && leftTick != 0 && leftTick % refreshDelayTick == 0) {
+            onFreshNotice();
             mobList.removeIf(LivingEntity::isDeadOrDying);
             while (mobList.size() < maxMobNum) {
-                Mob mob = summonMob(level);
-                mobList.add(mob);
+                mobList.addAll(summonMob(level));
             } // 击杀后立即刷新
         }
+    }
+
+    public void onFreshNotice() {
     }
 
     public void start(Player player) {
@@ -92,6 +97,9 @@ public abstract class DailyEndlessInstance {
         mobList.forEach(mob -> mob.remove(Entity.RemovalReason.KILLED));
         mobList.clear();
         killCount = 0;
+        while (mobList.size() < maxMobNum) {
+            mobList.addAll(summonMob(player.level()));
+        } // 击杀后立即刷新
     }
 
     public void stop() {
@@ -115,7 +123,7 @@ public abstract class DailyEndlessInstance {
                 append(Component.literal("正在挑战: ").withStyle(ChatFormatting.WHITE)).
                 append(Component.literal("无尽熵增 - ").withStyle(CustomStyle.styleOfWorld)).
                 append(name));
-        sendFormatMSG(player, Component.literal("尽可能多低清理怪物！").withStyle(ChatFormatting.WHITE));
+        sendFormatMSG(player, Component.literal("尽可能多地清理怪物！").withStyle(ChatFormatting.WHITE));
         start(player);
         return true;
     }
@@ -187,7 +195,7 @@ public abstract class DailyEndlessInstance {
         Compute.formatBroad(level, Component.literal("无尽熵增").withStyle(CustomStyle.styleOfWorld), component);
     }
 
-    protected abstract Mob summonMob(Level level);
+    protected abstract List<Mob> summonMob(Level level);
     protected abstract void reward(Player player);
     protected abstract boolean onRightClickTrig(Player player);
     protected abstract List<Component> getTrigConditionDescription();

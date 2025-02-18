@@ -38,7 +38,7 @@ public class VillageAttack extends MultiMobEvent {
                          List<Vec3> summonPosList, List<ItemAndRate> rewardList) {
         super(dimension, pos, readyAnnouncement, beginAnnouncement, endAnnouncement, overTimeAnnouncement,
                 server, summonPosList, rewardList, (player -> {
-                    Compute.playerReputationAddOrCost(player, 20);
+                    Compute.giveReputation(player, 20, Te.s("随机事件奖励", CustomStyle.styleOfFlexible));
                 }));
         this.mobName1 = mobName1;
         this.mobName2 = mobName2;

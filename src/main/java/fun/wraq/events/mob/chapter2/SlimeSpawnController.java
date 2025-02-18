@@ -77,7 +77,7 @@ public class SlimeSpawnController extends MobSpawnController {
     @Override
     public void tick() {
         mobList.forEach(mob -> {
-            Element.ElementProvider(mob, Element.life, 3);
+            Element.provideElement(mob, Element.life, 3);
         });
     }
 

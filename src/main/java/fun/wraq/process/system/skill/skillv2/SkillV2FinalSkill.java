@@ -1,5 +1,6 @@
 package fun.wraq.process.system.skill.skillv2;
 
+import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.process.func.DelayOperationWithAnimation;
@@ -21,7 +22,7 @@ public abstract class SkillV2FinalSkill extends SkillV2 {
 
     @Override
     protected boolean canRelease(Player player) {
-        return !DelayOperationWithAnimation.playerCurrentOperationMap.containsKey(player)
+        return !DelayOperationWithAnimation.playerCurrentOperationMap.containsKey(Name.get(player))
                 || DelayOperationWithAnimation.isNormalAttacking(player);
     }
 
@@ -97,7 +98,7 @@ public abstract class SkillV2FinalSkill extends SkillV2 {
     @Override
     protected void upgradeOperation(Player player) {
         InventoryOperation.removeItemWithoutCheck(player,
-                getUpgradeNeedMaterial(getPlayerSkillLevelBySkillV2(player, this)));
+                getUpgradeNeedMaterial(getPlayerSkillLevelBySkillV2(player, this) - 1));
     }
 
     private int getMaxLevel(Player player, List<SkillV2> list) {

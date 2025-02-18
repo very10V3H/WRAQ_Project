@@ -5,7 +5,7 @@ plugins {
     id 'net.minecraftforge.gradle' version '[6.0,6.2)'
 }
 
-version = '2.1.0f'
+version = '2.1.1'
 group = 'com.very.vmd' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'vmd'
 

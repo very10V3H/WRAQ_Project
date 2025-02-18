@@ -97,10 +97,10 @@ public class WraqQuiver extends WraqPassiveEquip implements ActiveItem {
         return QuiverItems.ITEMS.getEntries().stream().map(RegistryObject::get).toList();
     }
 
-    public static Map<Player, Queue<Double>> exShootRateQueueMap = new WeakHashMap<>();
+    public static Map<Player, Queue<Double>> exShootRateQueueMap = new HashMap<>();
 
     public static void addExShoot(Player player, double rate) {
-        exShootRateQueueMap.entrySet().removeIf(entry -> !entry.getKey().isAlive());
+        exShootRateQueueMap.entrySet().removeIf(entry -> entry.getKey() == null || !entry.getKey().isAlive());
         if (!exShootRateQueueMap.containsKey(player)) exShootRateQueueMap.put(player, new ArrayDeque<>());
         Queue<Double> queue = exShootRateQueueMap.get(player);
         queue.add(rate);

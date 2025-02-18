@@ -32,13 +32,13 @@ public class EasternTower extends DailyEndlessInstance {
     public static Component name = Component.literal("东洋塔").withStyle(CustomStyle.styleOfHusk);
 
     private EasternTower(Vec3 pos, int lastTick, int maxMobNum) {
-        super(name, pos, lastTick, maxMobNum);
+        super(name, pos, lastTick, maxMobNum, 5);
     }
 
     public static String mobName = "无尽熵增怪物";
 
     @Override
-    protected Mob summonMob(Level level) {
+    protected List<Mob> summonMob(Level level) {
         BarrelZombieEntity mob = new BarrelZombieEntity(BornInChaosV1ModEntities.BARREL_ZOMBIE.get(), level);
         int levelDifference = getPlayerXpLevel() - 150;
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(mob, getPlayerXpLevel(),
@@ -51,7 +51,7 @@ public class EasternTower extends DailyEndlessInstance {
         mob.moveTo(getPos().add(0.5 - random.nextDouble(),
                 0.5 - random.nextDouble(), 0.5 - random.nextDouble()));
         level.addFreshEntity(mob);
-        return mob;
+        return List.of(mob);
     }
 
     @Override

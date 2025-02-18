@@ -1,6 +1,7 @@
 package fun.wraq.process.system.skill.skillv2.bow;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.registry.MySound;
@@ -19,10 +20,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.AABB;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.WeakHashMap;
+import java.util.*;
 
 public class BowNewSkillBase2_0 extends SkillV2BaseSkill {
 
@@ -30,13 +28,13 @@ public class BowNewSkillBase2_0 extends SkillV2BaseSkill {
         super(name, cooldownTick, manaCost, professionType, skillType, serial);
     }
 
-    public static Map<Player, MyArrowHitBlock> nextHitEffectMap = new WeakHashMap<>();
+    public static Map<String, MyArrowHitBlock> nextHitEffectMap = new HashMap<>();
 
     @Override
     protected void releaseOperation(Player player) {
         int skillLevel = getPlayerSkillLevelBySkillV2(player, this);
         Compute.sendEffectLastTime(player, getTexture1Url(), 0, true);
-        nextHitEffectMap.put(player, new MyArrowHitBlock() {
+        nextHitEffectMap.put(Name.get(player), new MyArrowHitBlock() {
             @Override
             public void onHit(MyArrow myArrow) {
                 MySound.soundToNearPlayer(myArrow.level(), myArrow.position(), SoundEvents.GENERIC_EXPLODE);

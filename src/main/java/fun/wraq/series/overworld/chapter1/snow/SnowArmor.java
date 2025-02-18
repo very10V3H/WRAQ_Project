@@ -16,10 +16,22 @@ public class SnowArmor extends WraqArmor {
 
     public SnowArmor(ModArmorMaterials material, Type Slots) {
         super(material, Slots, new Properties().rarity(CustomStyle.SnowItalic));
-        if (type.equals(Type.HELMET)) Utils.healthRecover.put(this, 30d);
-        if (type.equals(Type.CHESTPLATE)) Utils.defence.put(this, 50d);
-        if (type.equals(Type.LEGGINGS)) Utils.maxHealth.put(this, 8000d);
-        if (type.equals(Type.BOOTS)) Utils.movementSpeedCommon.put(this, 0.1);
+        if (type.equals(Type.HELMET)) {
+            Utils.healthRecover.put(this, 30d);
+            Utils.defence.put(this, 15d);
+        }
+        if (type.equals(Type.CHESTPLATE)) {
+            Utils.defence.put(this, 25d);
+            Utils.maxHealth.put(this, 2000d);
+        }
+        if (type.equals(Type.LEGGINGS)) {
+            Utils.maxHealth.put(this, 4000d);
+            Utils.defence.put(this, 15d);
+        }
+        if (type.equals(Type.BOOTS)) {
+            Utils.movementSpeedCommon.put(this, 0.1);
+            Utils.maxHealth.put(this, 2000d);
+        }
         Utils.levelRequire.put(this, 100);
     }
 

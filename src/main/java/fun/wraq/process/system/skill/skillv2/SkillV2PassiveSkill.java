@@ -99,6 +99,6 @@ public abstract class SkillV2PassiveSkill extends SkillV2 {
     @Override
     protected void upgradeOperation(Player player) {
         InventoryOperation.removeItemWithoutCheck(player,
-                getUpgradeNeedMaterial(getPlayerSkillLevelBySkillV2(player, this)));
+                getUpgradeNeedMaterial(getPlayerSkillLevelBySkillV2(player, this) - 1));
     }
 }

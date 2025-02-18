@@ -37,7 +37,7 @@ public class SwordNewSkillBase1_0 extends SkillV2BaseSkill {
                     SwordNewSkillFinal0.onPlayerNormalAttack(player);
                     MySound.soundToNearPlayer(player, SoundEvents.PLAYER_ATTACK_KNOCKBACK);
                     AttackEvent.getPlayerNormalAttackRangeMobList(player).forEach(mob -> {
-                        AttackEvent.attackToMonster(mob, player, 1.5 + skillLevel * 0.1, true, true);
+                        AttackEvent.attackToMonster(mob, player, 2 + skillLevel * 0.1, true, true);
                     });
                 }
             }
@@ -48,7 +48,7 @@ public class SwordNewSkillBase1_0 extends SkillV2BaseSkill {
     protected List<Component> getSkillDescription(int level) {
         List<Component> components = new ArrayList<>();
         components.add(Te.s("对前方所有敌人造成",
-                getRateDescription(1.5, 0.1, level), CustomStyle.styleOfPower, "伤害。"));
+                getRateDescription(2, 0.1, level), CustomStyle.styleOfPower, "伤害。"));
         components.add(Te.s("必定暴击", CustomStyle.styleOfPower,
                 "且", ComponentUtils.getAttackEffectDescription()));
         return components;

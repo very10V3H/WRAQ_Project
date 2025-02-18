@@ -9,7 +9,6 @@ import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.moontain.MoontainItems;
 import net.mcreator.borninchaosv.entity.SirPumpkinheadEntity;
 import net.mcreator.borninchaosv.init.BornInChaosV1ModEntities;
-import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
@@ -75,12 +74,7 @@ public class MoontainBoss2Instance extends NoTeamInstance {
 
     @Override
     public Component allowRewardCondition() {
-        return Component.literal("需要至少").withStyle(ChatFormatting.WHITE).
-                append(Component.literal("锻造").withStyle(ChatFormatting.GRAY)).
-                append(Component.literal("过").withStyle(ChatFormatting.WHITE)).
-                append(Component.literal("1件").withStyle(ChatFormatting.AQUA)).
-                append(Component.literal("暗黑城堡武器").withStyle(CustomStyle.styleOfCastleCrystal)).
-                append(Component.literal("，方能获取奖励。").withStyle(ChatFormatting.WHITE));
+        return NoTeamInstanceModule.AllowRewardCondition.BLACK_CASTLE_WEAPON;
     }
 
     public List<ItemAndRate> getRewardList() {

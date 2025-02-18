@@ -52,7 +52,7 @@ public class PurpleIronInstance extends NoTeamInstance {
         if (mobList.isEmpty()) return;
         Mob mob = this.mobList.get(0);
         if (mob == null || !mob.isAlive()) return;
-        Element.ElementProvider(mob, Element.stone, 3);
+        Element.provideElement(mob, Element.stone, 3);
     }
 
     @Override

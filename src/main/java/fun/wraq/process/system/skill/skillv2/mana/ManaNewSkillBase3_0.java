@@ -41,7 +41,7 @@ public class ManaNewSkillBase3_0 extends SkillV2BaseSkill {
         }
         SkillV2 skillV2 = getPlayerCurrentSkillByType(player, 3);
         if (skillV2 instanceof ManaNewSkillBase3_0) {
-            WraqMixture.batchAddExShoot(player, 1, 1);
+            WraqMixture.batchAddExShoot(player, 0.5, 1);
         }
     }
 
@@ -49,6 +49,7 @@ public class ManaNewSkillBase3_0 extends SkillV2BaseSkill {
     protected void releaseOperation(Player player) {
         DelayOperationWithAnimation.beforeReleaseSkill(player);
         int skillLevel = getPlayerSkillLevelBySkillV2(player, this);
+        double damage = ManaNewSkill.modifyDamage(player, 1 + skillLevel * 0.05);
         DelayOperationWithAnimation.addToQueue(new DelayOperationWithAnimation(
                 DelayOperationWithAnimation.Animation.manaNewSkillBase1_0, Tick.get() + 8, player
         ) {
@@ -63,7 +64,7 @@ public class ManaNewSkillBase3_0 extends SkillV2BaseSkill {
                 if (item instanceof WraqSceptre wraqSceptre) {
                     MySound.soundToNearPlayer(player.level(), player.getEyePosition(), SoundEvents.EVOKER_CAST_SPELL);
                     for (int i = 0; i < 3; i++) {
-                        wraqSceptre.shootManaArrow(player, 1.5 + skillLevel * 0.15, true, false,
+                        wraqSceptre.shootManaArrow(player, damage, true, false,
                                 new ManaArrowHitEntity() {
                                     @Override
                                     public void onHit(ManaArrow manaArrow, Entity entity) {
@@ -83,19 +84,20 @@ public class ManaNewSkillBase3_0 extends SkillV2BaseSkill {
     @Override
     protected List<Component> getSkillDescription(int level) {
         List<Component> components = new ArrayList<>();
-        components.add(Te.s("向前释放", "3枚聚合强化法球", CustomStyle.styleOfMana));
-        components.add(Te.s("法球拥有",
-                getRateDescription(1.5, 0.15, level), CustomStyle.styleOfMana, "伤害"));
+        components.add(Te.s("向前快速释放", "3枚法球", CustomStyle.styleOfMana));
+        components.add(Te.s("每枚法球拥有",
+                getRateDescription(1, 0.05, level), CustomStyle.styleOfMana, "伤害"));
         components.add(Te.s("法球将", "禁锢", CustomStyle.styleOfStone, "命中的敌人"));
         components.add(Te.s("释放后，会使自身向后位移一小段距离"));
         components.add(Te.s("按住shift将使后向位移失效", ChatFormatting.GRAY, ChatFormatting.ITALIC));
         components.add(Te.s("并获得持续3s的", "激化", CustomStyle.styleOfMana));
-        components.add(Te.s("在持续时间内，普通攻击将会额外释放", "1枚", CustomStyle.styleOfMana, "法球"));
+        components.add(Te.s("在持续时间内，普通攻击将会额外释放"));
+        components.add(Te.s("1枚50%基础伤害", CustomStyle.styleOfMana, "法球"));
         return components;
     }
 
     @Override
     protected int getEachLevelExManaCost() {
-        return 10;
+        return 20;
     }
 }

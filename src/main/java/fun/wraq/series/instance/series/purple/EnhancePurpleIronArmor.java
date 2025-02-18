@@ -24,7 +24,8 @@ public class EnhancePurpleIronArmor extends WraqArmor implements Decomposable {
 
     public EnhancePurpleIronArmor(ArmorMaterial armorMaterial, Type type, Properties properties) {
         super(armorMaterial, type, properties);
-        Utils.defence.put(this, 50d);
+        Utils.defence.put(this, 25d);
+        Utils.maxHealth.put(this, 5000d);
         Utils.levelRequire.put(this, 120);
     }
 

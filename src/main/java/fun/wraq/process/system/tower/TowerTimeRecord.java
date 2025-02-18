@@ -2,7 +2,6 @@ package fun.wraq.process.system.tower;
 
 import fun.wraq.common.Compute;
 import fun.wraq.process.system.WorldRecordInfo;
-import fun.wraq.process.system.tower.Tower;
 import fun.wraq.render.toolTip.CustomStyle;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -11,7 +10,6 @@ import net.minecraft.world.entity.player.Player;
 import java.util.*;
 
 public record TowerTimeRecord(int floor, String name, int tick) {
-
 
     public static void refreshRecord(int floor, Player player, int tick) {
         List<TowerTimeRecord> list = eachFloorRecord.get(floor);

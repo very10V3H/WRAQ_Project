@@ -88,7 +88,7 @@ public class PlainInstance extends NoTeamInstance {
             ParticleProvider.DisperseParticle(mob.position(), (ServerLevel) level,
                     1.5, 1, 120, ModParticles.LONG_ENTROPY.get(), 1);
         }
-        Element.ElementProvider(mob, Element.life, 2);
+        Element.provideElement(mob, Element.life, 2);
     }
 
     @Override

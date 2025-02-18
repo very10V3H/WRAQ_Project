@@ -6,6 +6,7 @@ import fun.wraq.blocks.blocks.inject.InjectC2SPacket;
 import fun.wraq.common.Compute;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.events.mob.instance.instances.tower.network.ManaTowerS2CPacket;
 import fun.wraq.networking.bowAndSceptreActive.CommonActiveC2SPacket;
 import fun.wraq.networking.dailyMission.DailyMissionContentS2CPacket;
 import fun.wraq.networking.dailyMission.DailyMissionFinishedRequestC2SPacket;
@@ -1326,6 +1327,11 @@ public class ModNetworking {
                 .decoder(MissionV2DataS2CPacket::new)
                 .encoder(MissionV2DataS2CPacket::toBytes)
                 .consumerMainThread(MissionV2DataS2CPacket::handle)
+                .add();
+        net.messageBuilder(ManaTowerS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(ManaTowerS2CPacket::new)
+                .encoder(ManaTowerS2CPacket::toBytes)
+                .consumerMainThread(ManaTowerS2CPacket::handle)
                 .add();
     }
 

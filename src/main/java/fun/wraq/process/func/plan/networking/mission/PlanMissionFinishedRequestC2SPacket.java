@@ -81,7 +81,10 @@ public class PlanMissionFinishedRequestC2SPacket {
                         Te.s("新春活动", CustomStyle.styleOfSpring));
                 InventoryOperation.giveItemStackWithMSG(serverPlayer, SpecialEventItems.MONEY.get(), 1);
 
-                if (serverPlayer.experienceLevel == Compute.expGetUpperLimit) Compute.playerReputationAddOrCost(serverPlayer, tier);
+                if (serverPlayer.experienceLevel == Compute.expGetUpperLimit) {
+                    Compute.giveReputation(serverPlayer, tier,
+                            Te.s("悬赏任务满级额外声望", ChatFormatting.LIGHT_PURPLE));
+                }
                 fun.wraq.process.func.plan.networking.mission.PlanMission.planMissionContentMap.remove(name);
                 ModNetworking.sendToClient(new PlanMissionInfoS2CPacket(Items.AIR.getDefaultInstance(), 0,
                         fun.wraq.process.func.plan.networking.mission.PlanMission.planMissionStartTimeMap.getOrDefault(name, ""),

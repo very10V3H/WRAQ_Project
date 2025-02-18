@@ -12,6 +12,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 
@@ -25,7 +26,8 @@ public class ElementValue {
     public static String LightningElementValue = "LightningElementValue";
     public static String WindElementValue = "WindElementValue";
 
-    public static double ElementValueJudgeByType(Player player, String type) {
+    public static double getElementValueJudgeByType(Player player, @Nullable String type) {
+        if (type == null) return 0;
         if (type.equals(Element.life)) return getPlayerLifeElementValue(player);
         if (type.equals(Element.water)) return getPlayerWaterElementValue(player);
         if (type.equals(Element.fire)) return getPlayerFireElementValue(player);

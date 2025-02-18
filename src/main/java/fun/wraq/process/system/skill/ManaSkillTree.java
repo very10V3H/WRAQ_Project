@@ -2,6 +2,7 @@ package fun.wraq.process.system.skill;
 
 import fun.wraq.common.Compute;
 import fun.wraq.common.attribute.PlayerAttributes;
+import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
@@ -9,10 +10,7 @@ import fun.wraq.render.hud.Mana;
 import fun.wraq.series.instance.mixture.WraqMixture;
 import net.minecraft.world.entity.player.Player;
 
-import java.util.ArrayDeque;
-import java.util.Map;
-import java.util.Queue;
-import java.util.WeakHashMap;
+import java.util.*;
 
 public class ManaSkillTree {
 
@@ -21,7 +19,7 @@ public class ManaSkillTree {
     }
 
     public record ManaSkill13RecoverData(double value, int expiredTick) {}
-    public static Map<Player, Queue<ManaSkill13RecoverData>> near5secondsRecoverValue = new WeakHashMap<>();
+    public static Map<String, Queue<ManaSkill13RecoverData>> near5secondsRecoverValue = new HashMap<>();
     /**
      * 法术专精 - 传世禁咒 <br>
      * 生命值高于75%，若法力值未达100% <br>
@@ -37,10 +35,10 @@ public class ManaSkillTree {
             double recoverValue = Math.min(
                     Mana.getPlayerMaxManaNum(player) - Mana.getPlayerCurrentManaNum(player), value * 0.01 * tier);
             Mana.addOrCostPlayerMana(player, recoverValue);
-            if (!near5secondsRecoverValue.containsKey(player)) {
-                near5secondsRecoverValue.put(player, new ArrayDeque<>());
+            if (!near5secondsRecoverValue.containsKey(Name.get(player))) {
+                near5secondsRecoverValue.put(Name.get(player), new ArrayDeque<>());
             }
-            Queue<ManaSkill13RecoverData> queue = near5secondsRecoverValue.get(player);
+            Queue<ManaSkill13RecoverData> queue = near5secondsRecoverValue.get(Name.get(player));
             while (queue.peek() != null && queue.peek().expiredTick < Tick.get()) {
                 queue.poll();
             }
@@ -52,8 +50,8 @@ public class ManaSkillTree {
 
     private static final String MANA_SKILL_13_IMAGE_URL = "skills/mana/mana_6_2";
     public static void manaSkill13Tick(Player player) {
-        if (near5secondsRecoverValue.containsKey(player)) {
-            Queue<ManaSkill13RecoverData> queue = near5secondsRecoverValue.get(player);
+        if (near5secondsRecoverValue.containsKey(Name.get(player))) {
+            Queue<ManaSkill13RecoverData> queue = near5secondsRecoverValue.get(Name.get(player));
             while (queue.peek() != null && queue.peek().expiredTick < Tick.get()) {
                 queue.poll();
             }

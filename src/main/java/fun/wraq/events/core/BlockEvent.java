@@ -239,7 +239,9 @@ public class BlockEvent {
         BlockState blockState = player.level().getBlockState(blockPos);
         Block block = blockState.getBlock();
         if (!player.isCreative()) {
-            if (event.getItemStack().getItem() instanceof BoatItem) event.setCanceled(true);
+            if (event.getItemStack().getItem() instanceof BoatItem) {
+                event.setCanceled(true);
+            }
             Set<Block> set = new HashSet<>() {{
                 add(Blocks.ACACIA_TRAPDOOR);
                 add(Blocks.BIRCH_TRAPDOOR);
@@ -269,6 +271,9 @@ public class BlockEvent {
             if (blockState.getBlock().toString().length() > 12
                     && blockState.getBlock().toString().startsWith("create", 6)
                     && !blockState.getBlock().toString().contains("seat")) {
+                event.setCanceled(true);
+            }
+            if (block.toString().contains("blue_seat")) {
                 event.setCanceled(true);
             }
             if (block.getName().toString().contains("workshop")) return;

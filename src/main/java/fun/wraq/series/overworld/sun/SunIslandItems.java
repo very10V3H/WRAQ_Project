@@ -40,4 +40,7 @@ public class SunIslandItems {
 
     public static final RegistryObject<Item> DEVIL_POWER_CURIO = ITEMS.register("devil_power_curio",
             () -> new DevilPowerCurio(new Item.Properties().rarity(CustomStyle.RedBold)));
+
+    public static final RegistryObject<Item> TABOO_PAPER_CURIO = ITEMS.register("taboo_paper_curio",
+            () -> new TabooPaper(new Item.Properties().rarity(CustomStyle.demonBold)));
 }

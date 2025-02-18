@@ -243,7 +243,6 @@ public class AttackEvent {
         if (playerUnit.value() > 0) {
             ElementDamageEffect = Element.ElementEffectAddToEntity(player, monster, playerUnit.type(),
                     playerUnit.value(), true, damage + trueDamage);
-            Element.entityElementUnit.put(player, new Element.Unit(Element.life, 0));
         }
 
         double elementDamage = (damage + trueDamage) * ((1 + ElementDamageEnhance) * ElementDamageEffect - 1);

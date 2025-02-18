@@ -22,10 +22,22 @@ public class PurpleIronArmor extends WraqArmor implements ForgeItem {
 
     public PurpleIronArmor(ModArmorMaterials Material, Type Slots, Properties itemProperties) {
         super(Material, Slots, itemProperties);
-        if (type.equals(Type.HELMET)) Utils.healthRecover.put(this, 30d);
-        if (type.equals(Type.CHESTPLATE)) Utils.defence.put(this, 50d);
-        if (type.equals(Type.LEGGINGS)) Utils.maxHealth.put(this, 12000d);
-        if (type.equals(Type.BOOTS)) Utils.movementSpeedCommon.put(this, 0.1);
+        if (type.equals(Type.HELMET)) {
+            Utils.healthRecover.put(this, 30d);
+            Utils.defence.put(this, 15d);
+        }
+        if (type.equals(Type.CHESTPLATE)) {
+            Utils.defence.put(this, 30d);
+            Utils.maxHealth.put(this, 3000d);
+        }
+        if (type.equals(Type.LEGGINGS)) {
+            Utils.maxHealth.put(this, 6000d);
+            Utils.defence.put(this, 15d);
+        }
+        if (type.equals(Type.BOOTS)) {
+            Utils.movementSpeedCommon.put(this, 0.1);
+            Utils.maxHealth.put(this, 3000d);
+        }
         Utils.levelRequire.put(this, 92);
     }
 

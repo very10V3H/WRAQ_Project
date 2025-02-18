@@ -92,7 +92,7 @@ public class GuardianSpawnController extends MobSpawnController {
     @Override
     public void tick() {
         mobList.forEach(mob -> {
-            Element.ElementProvider(mob, Element.water, 2);
+            Element.provideElement(mob, Element.water, 2);
         });
     }
 

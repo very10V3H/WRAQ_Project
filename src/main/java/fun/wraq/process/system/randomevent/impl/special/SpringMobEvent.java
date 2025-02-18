@@ -51,6 +51,7 @@ public class SpringMobEvent extends KillMobEvent {
     public static final Style style = CustomStyle.styleOfSpring;
     public static double clientDamage = 0;
     public static int clientDamageDisplayExpiredTick = 0;
+    public static int clientLuckyNumber = 0;
 
     private Mob boss;
 
@@ -180,7 +181,7 @@ public class SpringMobEvent extends KillMobEvent {
             PlayerNumberCount playerNumberCount = list.get(i);
             double damage = playerCausedDamageMap.get(playerNumberCount.player.getName().getString());
             Compute.broad(level(), Te.s((i + 1) + ".", style, playerNumberCount.player, " ",
-                    getLuckyNumberDamageFormatString(damage), " 共",
+                    getLuckyNumberDamageFormatString(damage, luckyNumber), " 共",
                     playerNumberCount.count, style, "个", "幸运数字", ChatFormatting.LIGHT_PURPLE));
         }
         DecimalFormat decimalFormat = new DecimalFormat("#.00");
@@ -238,7 +239,7 @@ public class SpringMobEvent extends KillMobEvent {
         }
     }
 
-    public static Component getLuckyNumberDamageFormatString(double damage) {
+    public static Component getLuckyNumberDamageFormatString(double damage, int luckyNumber) {
         String damageNumber = String.valueOf((long) damage);
         MutableComponent formatString = Te.s("");
         for (int i = 0; i < damageNumber.length(); i++) {
@@ -288,11 +289,11 @@ public class SpringMobEvent extends KillMobEvent {
         if (playerCausedDamageMap.containsKey(player.getName().getString())) {
             ModNetworking.sendToClient(
                     new SpringMobDamageS2CPacket(playerCausedDamageMap.get(player.getName().getString()),
-                            Tick.get() + Tick.s(5)), player);
+                            Tick.get() + Tick.s(5), luckyNumber), player);
         }
     }
 
     public static void onPlayerLogin(Player player) {
-        ModNetworking.sendToClient(new SpringMobDamageS2CPacket(0, 0), player);
+        ModNetworking.sendToClient(new SpringMobDamageS2CPacket(0, 0, 0), player);
     }
 }

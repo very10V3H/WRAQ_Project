@@ -1,5 +1,6 @@
 package fun.wraq.process.func;
 
+import fun.wraq.common.fast.Name;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.networking.ModNetworking;
 import fun.wraq.networking.misc.AnimationPackets.AnimationS2CPacket;
@@ -55,33 +56,34 @@ public abstract class DelayOperationWithAnimation {
         });
     }
 
-    public static Map<Player, DelayOperationWithAnimation> playerCurrentOperationMap = new WeakHashMap<>();
+    public static Map<String, DelayOperationWithAnimation> playerCurrentOperationMap = new HashMap<>();
 
     public static Set<String> normalAttackAnimationIds = Set.of(Animation.swordAttack1, Animation.swordAttack2,
             Animation.bowAttack, Animation.manaAttack);
 
     // 技能释放前打断普攻
     public static void beforeReleaseSkill(Player player) {
-        DelayOperationWithAnimation delayOperationWithAnimation = playerCurrentOperationMap.getOrDefault(player, null);
+        DelayOperationWithAnimation delayOperationWithAnimation
+                = playerCurrentOperationMap.getOrDefault(Name.get(player), null);
         if (delayOperationWithAnimation != null
                 && normalAttackAnimationIds.contains(delayOperationWithAnimation.animationId)) {
-            playerCurrentOperationMap.remove(player);
+            playerCurrentOperationMap.remove(Name.get(player));
         }
     }
 
     public static boolean isNormalAttacking(Player player) {
-        return playerCurrentOperationMap.containsKey(player)
-                && normalAttackAnimationIds.contains(playerCurrentOperationMap.get(player).animationId);
+        return playerCurrentOperationMap.containsKey(Name.get(player))
+                && normalAttackAnimationIds.contains(playerCurrentOperationMap.get(Name.get(player)).animationId);
     }
 
     // 有动画的技能会打断当前普攻
     public static void remove(Player player) {
-        playerCurrentOperationMap.remove(player);
+        playerCurrentOperationMap.remove(Name.get(player));
     }
 
     public static boolean addToQueue(DelayOperationWithAnimation delayOperationWithAnimation) {
-        if (playerCurrentOperationMap.containsKey(delayOperationWithAnimation.trigPlayer)) return false;
-        playerCurrentOperationMap.put(delayOperationWithAnimation.trigPlayer, delayOperationWithAnimation);
+        if (playerCurrentOperationMap.containsKey(Name.get(delayOperationWithAnimation.trigPlayer))) return false;
+        playerCurrentOperationMap.put(Name.get(delayOperationWithAnimation.trigPlayer), delayOperationWithAnimation);
         animationList.add(delayOperationWithAnimation);
         return true;
     }
@@ -96,14 +98,14 @@ public abstract class DelayOperationWithAnimation {
     }
 
     public static void playerTick(Player player) {
-        if (playerCurrentOperationMap.containsKey(player)) {
-            DelayOperationWithAnimation delayOperationWithAnimation = playerCurrentOperationMap.get(player);
+        if (playerCurrentOperationMap.containsKey(Name.get(player))) {
+            DelayOperationWithAnimation delayOperationWithAnimation = playerCurrentOperationMap.get(Name.get(player));
             if (delayOperationWithAnimation.trigTick <= Tick.get() && delayOperationWithAnimation.trigFlag) {
                 delayOperationWithAnimation.trig();
                 delayOperationWithAnimation.trigFlag = false;
             }
             if (delayOperationWithAnimation.endTick <= Tick.get() && !delayOperationWithAnimation.trigFlag) {
-                playerCurrentOperationMap.remove(player);
+                playerCurrentOperationMap.remove(Name.get(player));
             }
         }
     }

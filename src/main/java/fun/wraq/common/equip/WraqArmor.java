@@ -6,6 +6,7 @@ import fun.wraq.common.attribute.BasicAttributeDescription;
 import fun.wraq.common.impl.display.ForgeItem;
 import fun.wraq.common.util.ComponentUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.events.mob.loot.RandomArmor;
 import fun.wraq.events.mob.loot.RandomLootEquip;
 import fun.wraq.process.func.item.InventoryOperation;
 import fun.wraq.render.gui.illustrate.Display;
@@ -39,10 +40,18 @@ public abstract class WraqArmor extends ArmorItem {
         if (this instanceof ForgeItem forgeItem && !forgeItem.forgeRecipe().isEmpty()) {
             ForgeRecipe.forgeDrawRecipe.put(this, forgeItem.forgeRecipe());
         }
-        if (type.equals(Type.HELMET)) Display.helmetList.add(this);
-        if (type.equals(Type.CHESTPLATE)) Display.chestList.add(this);
-        if (type.equals(Type.LEGGINGS)) Display.leggingsList.add(this);
-        if (type.equals(Type.BOOTS)) Display.bootsList.add(this);
+        if (type.equals(Type.HELMET) && !(this instanceof RandomArmor)) {
+            Display.helmetList.add(this);
+        }
+        if (type.equals(Type.CHESTPLATE) && !(this instanceof RandomArmor)) {
+            Display.chestList.add(this);
+        }
+        if (type.equals(Type.LEGGINGS) && !(this instanceof RandomArmor)) {
+            Display.leggingsList.add(this);
+        }
+        if (type.equals(Type.BOOTS) && !(this instanceof RandomArmor)) {
+            Display.bootsList.add(this);
+        }
     }
 
     public abstract Style getMainStyle();

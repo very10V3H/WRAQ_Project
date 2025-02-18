@@ -949,6 +949,10 @@ public class ModItems {
     public static final RegistryObject<Item> PiglinHelmet3 = ITEMS.register("piglin_helmet_3",
             () -> new PiglinHelmet(ModArmorMaterials.Golden, ArmorItem.Type.HELMET, 3));
 
+    public static final RegistryObject<Item> REVENANT_GOLDEN_HELMET = ITEMS.register("revenant_golden_helmet",
+            () -> new RevenantGoldenHelmet(ModArmorMaterials.FANVER_GOLDEN, ArmorItem.Type.HELMET,
+                    new Item.Properties().rarity(CustomStyle.NetherBold)));
+
     public static final RegistryObject<Item> WitherBow0 = ITEMS.register("wither_bow_0",
             () -> new WitherBow(new Item.Properties().rarity(CustomStyle.WitherItalic).stacksTo(1), 0));
     public static final RegistryObject<Item> WitherBow1 = ITEMS.register("wither_bow_1",
@@ -1244,6 +1248,12 @@ public class ModItems {
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.WaterItalic)));
     public static final RegistryObject<Item> KazeBoots = ITEMS.register("kazeboots",
             () -> new KazeArmorBoots(ModArmorMaterials.ArmorKaze, ArmorItem.Type.BOOTS));
+    public static final RegistryObject<Item> SlimeBall = ITEMS.register("slime_ball",
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.Life)));
+    public static final RegistryObject<Item> BigSlimeBall = ITEMS.register("big_slime_ball",
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.LifeBold)));
+    public static final RegistryObject<Item> SlimeBoots = ITEMS.register("slime_boots",
+            () -> new SlimeBoots(ModArmorMaterials.ArmorKaze, ArmorItem.Type.BOOTS));
     public static final RegistryObject<Item> SpiderSoul = ITEMS.register("spidersoul",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.SpiderRarity)));
     public static final RegistryObject<Item> SpiderRune = ITEMS.register("spiderrune",
@@ -1414,7 +1424,7 @@ public class ModItems {
             () -> new IntensifiedLightningArmor(ModArmorMaterials.ArmorIL, ArmorItem.Type.LEGGINGS,
                     new Item.Properties().rarity(CustomStyle.LightningItalic)));
     public static final RegistryObject<Item> ILArmorBoots = ITEMS.register("ilarmorboots",
-            () -> new IntensifiedLightningArmor(ModArmorMaterials.ArmorIL, ArmorItem.Type.HELMET,
+            () -> new IntensifiedLightningArmor(ModArmorMaterials.ArmorIL, ArmorItem.Type.BOOTS,
                     new Item.Properties().rarity(CustomStyle.LightningItalic)));
 
     public static final RegistryObject<Item> LightningRecallSoul = ITEMS.register("lightningrecallsoul",
@@ -1575,6 +1585,15 @@ public class ModItems {
     public static final RegistryObject<Item> NETHER_ARMOR_BOOTS = ITEMS.register("netherarmorboots",
             () -> new NetherArmor(ModArmorMaterials.NetherAll, ArmorItem.Type.BOOTS,
                     new Item.Properties().rarity(CustomStyle.NetherItalic)));
+
+    public static final RegistryObject<Item> NetherManaArmorHelmet = ITEMS.register("nether_mana_helmet",
+            () -> new NetherManaArmor(ModArmorMaterials.NetherMana, ArmorItem.Type.HELMET, new Item.Properties().rarity(CustomStyle.NetherItalic)));
+    public static final RegistryObject<Item> NetherManaArmorChest = ITEMS.register("nether_mana_chest",
+            () -> new NetherManaArmor(ModArmorMaterials.NetherMana, ArmorItem.Type.CHESTPLATE, new Item.Properties().rarity(CustomStyle.NetherItalic)));
+    public static final RegistryObject<Item> NetherManaArmorLeggings = ITEMS.register("nether_mana_leggings",
+            () -> new NetherManaArmor(ModArmorMaterials.NetherMana, ArmorItem.Type.LEGGINGS, new Item.Properties().rarity(CustomStyle.NetherItalic)));
+    public static final RegistryObject<Item> NetherManaArmorBoots = ITEMS.register("nether_mana_boots",
+            () -> new NetherManaArmor(ModArmorMaterials.NetherMana, ArmorItem.Type.BOOTS, new Item.Properties().rarity(CustomStyle.NetherItalic)));
 
     public static final RegistryObject<Item> PlainCrest0 = ITEMS.register("plain_crest_0",
             () -> new PlainCrest(new Item.Properties().rarity(Rarity.COMMON), 0));
@@ -1847,6 +1866,11 @@ public class ModItems {
     public static final RegistryObject<Item> PurpleIronArmorBoots = ITEMS.register("purpleiron_armor_boots",
             () -> new PurpleIronArmor(ModArmorMaterials.PurpleIron, ArmorItem.Type.BOOTS, new Item.Properties().rarity(CustomStyle.PurpleIronItalic)));
 
+    public static final RegistryObject<Item> ENHANCE_PURPLE_IRON_CHEST =
+            ITEMS.register("enhance_purple_iron_chest",
+                    () -> new EnhancePurpleIronArmor(ModArmorMaterials.ENHANCE_PURPLE_IRON, ArmorItem.Type.CHESTPLATE,
+                            new Item.Properties().rarity(CustomStyle.PurpleIronItalic)));
+
     public static final RegistryObject<Item> MobArmorIceHelmet = ITEMS.register("mob_armor_ice_helmet",
             () -> new MobArmor(ModArmorMaterials.ArmorIce, ArmorItem.Type.HELMET, StringUtils.MobName.IceKnight));
 
@@ -1871,23 +1895,20 @@ public class ModItems {
     public static final RegistryObject<Item> IceCompleteGem = ITEMS.register("ice_complete_gem",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.IceBold)));
 
-    public static final RegistryObject<Item> IceArmorHelmet = ITEMS.register("ice_armor_helmet",
-            () -> new IceArmor(ModArmorMaterials.ArmorIce, ArmorItem.Type.HELMET, new Item.Properties().rarity(CustomStyle.IceItalic)));
+    public static final RegistryObject<Item> FANTASY_MEDAL = ITEMS.register("fantasy_medal",
+            () -> new FantasyCurio(new Item.Properties().rarity(CustomStyle.FantasyBold), 0));
+    public static final RegistryObject<Item> FANTASY_BRACELET = ITEMS.register("fantasy_bracelet",
+            () -> new FantasyCurio(new Item.Properties().rarity(CustomStyle.FantasyBold), 0));
 
-    public static final RegistryObject<Item> IceArmorChest = ITEMS.register("ice_armor_chest",
-            () -> new IceArmor(ModArmorMaterials.ArmorIce, ArmorItem.Type.CHESTPLATE, new Item.Properties().rarity(CustomStyle.IceItalic)));
+    public static final RegistryObject<Item> FANTASY_MEDAL_1 = ITEMS.register("fantasy_medal_1",
+            () -> new FantasyCurio(new Item.Properties().rarity(CustomStyle.FantasyBold), 1));
+    public static final RegistryObject<Item> FANTASY_BRACELET_1 = ITEMS.register("fantasy_bracelet_1",
+            () -> new FantasyCurio(new Item.Properties().rarity(CustomStyle.FantasyBold), 1));
 
-    public static final RegistryObject<Item> IceArmorLeggings = ITEMS.register("ice_armor_leggings",
-            () -> new IceArmor(ModArmorMaterials.ArmorIce, ArmorItem.Type.LEGGINGS, new Item.Properties().rarity(CustomStyle.IceItalic)));
-
-    public static final RegistryObject<Item> IceArmorBoots = ITEMS.register("ice_armor_boots",
-            () -> new IceArmor(ModArmorMaterials.ArmorIce, ArmorItem.Type.BOOTS, new Item.Properties().rarity(CustomStyle.IceItalic)));
-
-    public static final RegistryObject<Item> FantasyMedal = ITEMS.register("fantasy_medal",
-            () -> new FantasyMedal(new Item.Properties().rarity(CustomStyle.FantasyBold)));
-
-    public static final RegistryObject<Item> FantasyBracelet = ITEMS.register("fantasy_bracelet",
-            () -> new FantasyBracelet(new Item.Properties().rarity(CustomStyle.FantasyBold)));
+    public static final RegistryObject<Item> FANTASY_MEDAL_2 = ITEMS.register("fantasy_medal_2",
+            () -> new FantasyCurio(new Item.Properties().rarity(CustomStyle.FantasyBold), 2));
+    public static final RegistryObject<Item> FANTASY_BRACELET_2 = ITEMS.register("fantasy_bracelet_2",
+            () -> new FantasyCurio(new Item.Properties().rarity(CustomStyle.FantasyBold), 2));
 
     public static final RegistryObject<Item> commonLotteries = ITEMS.register("common_lotteries",
             () -> new CommonLotteries(new Item.Properties().rarity(Rarity.UNCOMMON)));
@@ -1993,18 +2014,6 @@ public class ModItems {
 
     public static final RegistryObject<Item> ForgeProtect = ITEMS.register("forge_protect",
             () -> new ForgeProtect(new Item.Properties().rarity(CustomStyle.EndBold)));
-
-    public static final RegistryObject<Item> NetherManaArmorHelmet = ITEMS.register("nether_mana_helmet",
-            () -> new NetherManaArmor(ModArmorMaterials.NetherMana, ArmorItem.Type.HELMET, new Item.Properties().rarity(CustomStyle.NetherItalic)));
-
-    public static final RegistryObject<Item> NetherManaArmorChest = ITEMS.register("nether_mana_chest",
-            () -> new NetherManaArmor(ModArmorMaterials.NetherMana, ArmorItem.Type.CHESTPLATE, new Item.Properties().rarity(CustomStyle.NetherItalic)));
-
-    public static final RegistryObject<Item> NetherManaArmorLeggings = ITEMS.register("nether_mana_leggings",
-            () -> new NetherManaArmor(ModArmorMaterials.NetherMana, ArmorItem.Type.LEGGINGS, new Item.Properties().rarity(CustomStyle.NetherItalic)));
-
-    public static final RegistryObject<Item> NetherManaArmorBoots = ITEMS.register("nether_mana_boots",
-            () -> new NetherManaArmor(ModArmorMaterials.NetherMana, ArmorItem.Type.BOOTS, new Item.Properties().rarity(CustomStyle.NetherItalic)));
 
     public static final RegistryObject<Item> IceHeart = ITEMS.register("ice_heart",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.IceBold)));
@@ -2122,13 +2131,10 @@ public class ModItems {
 
     public static final RegistryObject<Item> EarthManaArmorHelmet = ITEMS.register("earth_mana_helmet",
             () -> new EarthManaArmor(ModArmorMaterials.BloodMana, ArmorItem.Type.HELMET, new Item.Properties().rarity(CustomStyle.BloodManaItalic)));
-
     public static final RegistryObject<Item> EarthManaArmorChest = ITEMS.register("earth_mana_chest",
             () -> new EarthManaArmor(ModArmorMaterials.BloodMana, ArmorItem.Type.CHESTPLATE, new Item.Properties().rarity(CustomStyle.BloodManaItalic)));
-
     public static final RegistryObject<Item> EarthManaArmorLeggings = ITEMS.register("earth_mana_leggings",
             () -> new EarthManaArmor(ModArmorMaterials.BloodMana, ArmorItem.Type.LEGGINGS, new Item.Properties().rarity(CustomStyle.BloodManaItalic)));
-
     public static final RegistryObject<Item> EarthManaArmorBoots = ITEMS.register("earth_mana_boots",
             () -> new EarthManaArmor(ModArmorMaterials.BloodMana, ArmorItem.Type.BOOTS, new Item.Properties().rarity(CustomStyle.BloodManaItalic)));
 
@@ -2146,6 +2152,15 @@ public class ModItems {
 
     public static final RegistryObject<Item> EarthBook = ITEMS.register("earth_book",
             () -> new EarthBook(new Item.Properties().rarity(CustomStyle.JacarandaItalic)));
+
+    public static final RegistryObject<Item> IceArmorHelmet = ITEMS.register("ice_armor_helmet",
+            () -> new IceArmor(ModArmorMaterials.ArmorIce, ArmorItem.Type.HELMET, new Item.Properties().rarity(CustomStyle.IceItalic)));
+    public static final RegistryObject<Item> IceArmorChest = ITEMS.register("ice_armor_chest",
+            () -> new IceArmor(ModArmorMaterials.ArmorIce, ArmorItem.Type.CHESTPLATE, new Item.Properties().rarity(CustomStyle.IceItalic)));
+    public static final RegistryObject<Item> IceArmorLeggings = ITEMS.register("ice_armor_leggings",
+            () -> new IceArmor(ModArmorMaterials.ArmorIce, ArmorItem.Type.LEGGINGS, new Item.Properties().rarity(CustomStyle.IceItalic)));
+    public static final RegistryObject<Item> IceArmorBoots = ITEMS.register("ice_armor_boots",
+            () -> new IceArmor(ModArmorMaterials.ArmorIce, ArmorItem.Type.BOOTS, new Item.Properties().rarity(CustomStyle.IceItalic)));
 
     public static final RegistryObject<Item> goldenShield = ITEMS.register("golden_shield",
             () -> new GoldenAttackOffhand(new Item.Properties().rarity(CustomStyle.GoldItalic).stacksTo(1),
@@ -2216,7 +2231,7 @@ public class ModItems {
             () -> new MoonSoul(new Item.Properties().rarity(CustomStyle.MoonBold)));
 
     public static final RegistryObject<Item> MoonCompleteGem = ITEMS.register("moon_complete_gem",
-            () -> new Item(new Item.Properties().rarity(CustomStyle.MoonBold)));
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.MoonBold)));
 
     public static final RegistryObject<Item> MoonShield = ITEMS.register("moon_shield",
             () -> new MoonShield());
@@ -2239,18 +2254,29 @@ public class ModItems {
     public static final RegistryObject<Item> DevilSceptre = ITEMS.register("devil_sceptre",
             () -> new DevilSceptre(new Item.Properties().rarity(CustomStyle.BloodManaItalic)));
 
-    public static final RegistryObject<Item> SlimeBall = ITEMS.register("slime_ball",
-            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.Life)));
+    public static final RegistryObject<Item> IntensifiedDevilBlood = ITEMS.register("intensified_devil_blood",
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.BloodManaBold)));
 
-    public static final RegistryObject<Item> BigSlimeBall = ITEMS.register("big_slime_ball",
-            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.LifeBold)));
+    public static final RegistryObject<Item> TabooPiece = ITEMS.register("taboo_piece",
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.BloodManaBold)));
 
-    public static final RegistryObject<Item> SlimeBoots = ITEMS.register("slime_boots",
-            () -> new SlimeBoots(ModArmorMaterials.ArmorKaze, ArmorItem.Type.BOOTS));
+    public static final RegistryObject<Item> PurpleIronConstraintStone = ITEMS.register("purple_iron_constraint_stone",
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.BloodManaBold)));
+
+    public static final RegistryObject<Item> ConstrainTaboo = ITEMS.register("constraint_taboo",
+            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.BloodManaBold)));
+
+    public static final RegistryObject<Item> TabooAttackLeggings = ITEMS.register("taboo_attack_leggings",
+            () -> new TabooAttackArmor(ModArmorMaterials.BloodMana, ArmorItem.Type.LEGGINGS, new Item.Properties().rarity(CustomStyle.BloodManaItalic)));
+
+    public static final RegistryObject<Item> TabooSwiftHelmet = ITEMS.register("taboo_swift_helmet",
+            () -> new TabooSwiftArmor(ModArmorMaterials.BloodMana, ArmorItem.Type.HELMET, new Item.Properties().rarity(CustomStyle.BloodManaItalic)));
+
+    public static final RegistryObject<Item> TabooManaBoots = ITEMS.register("taboo_mana_boots",
+            () -> new TabooManaArmor(ModArmorMaterials.BloodMana, ArmorItem.Type.BOOTS, new Item.Properties().rarity(CustomStyle.BloodManaItalic)));
 
     public static final RegistryObject<Item> MoonLeggings = ITEMS.register("moon_leggings",
             () -> new MoonArmor(ModArmorMaterials.Moon, ArmorItem.Type.LEGGINGS, new Item.Properties().rarity(CustomStyle.Moon1Italic)));
-
     public static final RegistryObject<Item> MoonHelmet = ITEMS.register("moon_helmet",
             () -> new MoonArmor(ModArmorMaterials.Moon, ArmorItem.Type.HELMET, new Item.Properties().rarity(CustomStyle.Moon1Italic)));
 
@@ -2272,38 +2298,14 @@ public class ModItems {
     public static final RegistryObject<Item> MOON_SCEPTRE_E = ITEMS.register("moon_sceptre_e",
             () -> new MoonSceptre(new Item.Properties().rarity(CustomStyle.Moon1Italic), 0.4, 1));
 
-    public static final RegistryObject<Item> ParkourMedal = ITEMS.register("parkour_medal",
-            () -> new Item(new Item.Properties().rarity(CustomStyle.LifeBold)));
-
     public static final RegistryObject<Item> MoonCurios = ITEMS.register("moon_curios",
             () -> new MoonCurios(new Item.Properties().rarity(CustomStyle.Moon1Bold)));
 
     public static final RegistryObject<Item> MoonBelt = ITEMS.register("moon_belt",
             () -> new MoonBelt(new Item.Properties().rarity(CustomStyle.Moon1Bold)));
 
-    public static final RegistryObject<Item> IntensifiedDevilBlood = ITEMS.register("intensified_devil_blood",
-            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.BloodManaBold)));
-
-    public static final RegistryObject<Item> TabooPiece = ITEMS.register("taboo_piece",
-            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.BloodManaBold)));
-
-    public static final RegistryObject<Item> PurpleIronConstraintStone = ITEMS.register("purple_iron_constraint_stone",
-            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.BloodManaBold)));
-
-    public static final RegistryObject<Item> ConstrainTaboo = ITEMS.register("constraint_taboo",
-            () -> new WraqItem(new Item.Properties().rarity(CustomStyle.BloodManaBold)));
-
-    public static final RegistryObject<Item> MobArmorTabooDevil = ITEMS.register("mob_armor_taboo_devil",
-            () -> new MobArmor(ModArmorMaterials.BloodMana, ArmorItem.Type.HELMET, StringUtils.MobName.TabooDevil));
-
-    public static final RegistryObject<Item> TabooAttackLeggings = ITEMS.register("taboo_attack_leggings",
-            () -> new TabooAttackArmor(ModArmorMaterials.BloodMana, ArmorItem.Type.LEGGINGS, new Item.Properties().rarity(CustomStyle.BloodManaItalic)));
-
-    public static final RegistryObject<Item> TabooSwiftHelmet = ITEMS.register("taboo_swift_helmet",
-            () -> new TabooSwiftArmor(ModArmorMaterials.BloodMana, ArmorItem.Type.HELMET, new Item.Properties().rarity(CustomStyle.BloodManaItalic)));
-
-    public static final RegistryObject<Item> TabooManaBoots = ITEMS.register("taboo_mana_boots",
-            () -> new TabooManaArmor(ModArmorMaterials.BloodMana, ArmorItem.Type.BOOTS, new Item.Properties().rarity(CustomStyle.BloodManaItalic)));
+    public static final RegistryObject<Item> ParkourMedal = ITEMS.register("parkour_medal",
+            () -> new Item(new Item.Properties().rarity(CustomStyle.LifeBold)));
 
     public static final RegistryObject<Item> KillPaperLoot = ITEMS.register("kill_paper_loot",
             () -> new KillPaperLoot(new Item.Properties().rarity(CustomStyle.LifeBold), false));
@@ -2442,11 +2444,6 @@ public class ModItems {
 
     public static final RegistryObject<Item> PurpleIronBud3 = ITEMS.register("purple_iron_bud3",
             () -> new WraqItem(new Item.Properties().rarity(CustomStyle.PurpleIronBold), true, true));
-
-    public static final RegistryObject<Item> ENHANCE_PURPLE_IRON_CHEST =
-            ITEMS.register("enhance_purple_iron_chest",
-            () -> new EnhancePurpleIronArmor(ModArmorMaterials.ENHANCE_PURPLE_IRON, ArmorItem.Type.CHESTPLATE,
-                    new Item.Properties().rarity(CustomStyle.PurpleIronItalic)));
 
     public static final RegistryObject<Item> LotteryStar = ITEMS.register("lottery_star",
             () -> new WraqItem(new Item.Properties().rarity(Rarity.EPIC), true, true));
@@ -3000,8 +2997,8 @@ public class ModItems {
     public static final RegistryObject<Item> SwordLottery = ITEMS.register("sword_lottery",
             () -> new NewLotteries(new Item.Properties().rarity(CustomStyle.MagmaBold), new ArrayList<>() {{
                 List<NewLotteries.Loot> loots = List.of(
-                        new NewLotteries.Loot(new ItemStack(UniformItems.ATTACK_CURIOS_YXWG.get()), 0.005),
-                        new NewLotteries.Loot(new ItemStack(UniformItems.LifeCurios0.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(UniformItems.ATTACK_CURIO_LX.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(UniformItems.WaterCurios0.get()), 0.005),
                         /*new NewLotteries.Loot(new ItemStack(ModItems.LifeCrystal0.get()), 0.005),*/
 /*                        new NewLotteries.Loot(new ItemStack(ModItems.WaterCurios0.get()), 0.005),
                         new NewLotteries.Loot(new ItemStack(ModItems.FireCurios0.get()), 0.005),
@@ -3021,8 +3018,8 @@ public class ModItems {
     public static final RegistryObject<Item> BowLottery = ITEMS.register("bow_lottery",
             () -> new NewLotteries(new Item.Properties().rarity(CustomStyle.KazeBold), new ArrayList<>() {{
                 List<NewLotteries.Loot> loots = List.of(
-                        new NewLotteries.Loot(new ItemStack(UniformItems.BOW_CURIOS_YXWG.get()), 0.005),
-                        new NewLotteries.Loot(new ItemStack(UniformItems.LifeCurios0.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(UniformItems.BOW_CURIO_LEI_YAN.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(UniformItems.WaterCurios0.get()), 0.005),
                         /*new NewLotteries.Loot(new ItemStack(ModItems.LifeCrystal0.get()), 0.005),*/
 /*                        new NewLotteries.Loot(new ItemStack(ModItems.WaterCurios0.get()), 0.005),
                         new NewLotteries.Loot(new ItemStack(ModItems.FireCurios0.get()), 0.005),
@@ -3042,8 +3039,8 @@ public class ModItems {
     public static final RegistryObject<Item> SceptreLottery = ITEMS.register("sceptre_lottery",
             () -> new NewLotteries(new Item.Properties().rarity(CustomStyle.EvokerBold), new ArrayList<>() {{
                 List<NewLotteries.Loot> loots = List.of(
-                        new NewLotteries.Loot(new ItemStack(UniformItems.MANA_CURIOS_YXWG.get()), 0.005),
-                        new NewLotteries.Loot(new ItemStack(UniformItems.LifeCurios0.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(UniformItems.MANA_CURIO_TABOO.get()), 0.005),
+                        new NewLotteries.Loot(new ItemStack(UniformItems.WaterCurios0.get()), 0.005),
                         /*new NewLotteries.Loot(new ItemStack(ModItems.LifeCrystal0.get()), 0.005),*/
 /*                        new NewLotteries.Loot(new ItemStack(ModItems.WaterCurios0.get()), 0.005),
                         new NewLotteries.Loot(new ItemStack(ModItems.FireCurios0.get()), 0.005),
@@ -3505,10 +3502,6 @@ public class ModItems {
 
     public static final RegistryObject<Item> netherHand = ITEMS.register("nether_hand",
             () -> new NetherHand(new Item.Properties().rarity(CustomStyle.NetherBold)));
-
-    public static final RegistryObject<Item> REVENANT_GOLDEN_HELMET = ITEMS.register("revenant_golden_helmet",
-            () -> new RevenantGoldenHelmet(ModArmorMaterials.FANVER_GOLDEN, ArmorItem.Type.HELMET,
-                    new Item.Properties().rarity(CustomStyle.NetherBold)));
 
     public static final RegistryObject<Item> iceBelt = ITEMS.register("ice_belt",
             () -> new IceBelt(new Item.Properties().rarity(CustomStyle.IceBold)));

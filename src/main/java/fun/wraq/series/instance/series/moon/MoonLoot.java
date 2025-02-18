@@ -55,7 +55,8 @@ public class MoonLoot extends Item {
         itemAndWeightList.forEach(itemAndWeight -> {
             components.add(Component.literal("  ").withStyle(ChatFormatting.WHITE).
                     append(itemAndWeight.getItem().getDefaultInstance().getDisplayName()).
-                    append(Component.literal(String.format(" %.2f%%", itemAndWeight.getWeight() * 100.0 / totalWeight)).withStyle(CustomStyle.styleOfFantasy)));
+                    append(Component.literal(String.format(" %.2f%%",
+                            itemAndWeight.getWeight() * 100.0 / totalWeight)).withStyle(CustomStyle.styleOfFantasy)));
         });
         super.appendHoverText(itemStack, p_41422_, components, flag);
     }

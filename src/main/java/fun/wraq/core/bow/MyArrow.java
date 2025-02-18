@@ -23,7 +23,6 @@ import fun.wraq.process.system.skill.skillv2.bow.BowNewSkillPassive0;
 import fun.wraq.render.toolTip.CustomStyle;
 import fun.wraq.series.instance.series.castle.CastleBow;
 import fun.wraq.series.instance.series.castle.CastleSwiftArmor;
-import fun.wraq.series.instance.series.moon.Equip.MoonKnife;
 import fun.wraq.series.instance.series.moon.MoonCurios;
 import fun.wraq.series.instance.series.taboo.TabooSwiftArmor;
 import fun.wraq.series.overworld.chapter7.BoneImpKnife;
@@ -152,7 +151,7 @@ public class MyArrow extends AbstractArrow {
             rate += StableTierAttributeModifier
                     .getModifierValue(player, StableTierAttributeModifier.baseArrowDamageEnhanceRate);
 
-            double baseDamage = PlayerAttributes.attackDamage(player) * rate;
+            double baseDamage = myArrow.BaseDamage * rate;
             double damage;
             double exDamage = 0;
             double trueDamage = 0;
@@ -226,7 +225,6 @@ public class MyArrow extends AbstractArrow {
                 elementType = playerUnit.type();
                 if (playerUnit.value() > 0) {
                     ElementDamageEffect = Element.ElementEffectAddToEntity(player, monster, playerUnit.type(), playerUnit.value(), false, damage + trueDamage);
-                    Element.entityElementUnit.put(player, new Element.Unit(Element.life, 0));
                 }
                 EnhanceNormalAttackModifier.onHitEffect(player, monster, 1);
             }
@@ -255,7 +253,6 @@ public class MyArrow extends AbstractArrow {
             AttackEventModule.ManaKnifeHealthRecover(player); // 猎魔者小刀
             Compute.ChargingModule(data, player);
             if (shootByPlayer) {
-                MoonKnife.MoonKnife(player, monster);
                 CastleBow.onNormalAttack(player, monster, damage);
                 Compute.AdditionEffects(player, monster, damage + trueDamage, 0);
                 OnHitEffectEquip.hit(player, monster);

@@ -1,6 +1,7 @@
 package fun.wraq.networking.dailyMission;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.StringUtils;
 import fun.wraq.common.util.Utils;
@@ -58,7 +59,7 @@ public class DailyMissionFinishedRequestC2SPacket {
                 gemPiece.setCount(serverPlayer.experienceLevel);
                 InventoryOperation.giveItemStack(serverPlayer, gemPiece);
                 RankData.onPlayerFinishDailyReputationMission(serverPlayer);
-                Compute.playerReputationAddOrCost(serverPlayer, serverPlayer.experienceLevel);
+                Compute.giveReputation(serverPlayer, serverPlayer.experienceLevel, Te.s("每日任务"));
                 ModNetworking.sendToClient(new DailyMissionFinishedTimeS2CPacket(data.getString(StringUtils.LastDailyMissionFinishedTime)), serverPlayer);
                 Utils.playerDailyMissionContent.remove(serverPlayer.getName().getString());
                 ModNetworking.sendToClient(new DailyMissionContentS2CPacket(Items.AIR.getDefaultInstance(), 0), serverPlayer);

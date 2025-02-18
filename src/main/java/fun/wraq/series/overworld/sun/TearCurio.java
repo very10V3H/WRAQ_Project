@@ -63,7 +63,7 @@ public class TearCurio extends WraqCurios implements OnReleaseSkillCurios, InCur
     public static Map<Player, Integer> countMap = new WeakHashMap<>();
 
     @Override
-    public void onRelease(Player player) {
+    public void onReleaseSkill(Player player) {
         if (Compute.playerIsInBattle(player)) {
             if (countMap.getOrDefault(player, 0) < upperLimit[tier]) {
                 Mana.addOrCostPlayerMana(player, 20);

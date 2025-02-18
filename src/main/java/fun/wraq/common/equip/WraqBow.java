@@ -1,6 +1,7 @@
 package fun.wraq.common.equip;
 
 import fun.wraq.Items.DevelopmentTools.equip.ManageEquip;
+import fun.wraq.common.fast.Name;
 import fun.wraq.common.impl.onshoot.OnShootArrowCurios;
 import fun.wraq.common.impl.onshoot.OnShootArrowEquip;
 import fun.wraq.common.registry.MySound;
@@ -8,6 +9,7 @@ import fun.wraq.common.util.Utils;
 import fun.wraq.core.bow.MyArrow;
 import fun.wraq.core.bow.MyArrowHitBlock;
 import fun.wraq.entities.entities.Civil.Civil;
+import fun.wraq.events.mob.loot.RandomLootEquip;
 import fun.wraq.process.func.damage.Damage;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.process.system.skill.BowSkillTree;
@@ -37,7 +39,7 @@ public abstract class WraqBow extends WraqMainHandEquip {
     public WraqBow(Properties properties) {
         super(properties);
         Utils.bowTag.put(this, 1d);
-        if (!(this instanceof ManageEquip)) {
+        if (!(this instanceof ManageEquip) && !(this instanceof RandomLootEquip)) {
             Display.bowList.add(this);
         }
     }
@@ -72,11 +74,11 @@ public abstract class WraqBow extends WraqMainHandEquip {
             Damage.onPlayerReleaseNormalAttack(player);
             WraqQuiver.shootQuiverExArrow(player);
 
-            MyArrowHitBlock myArrowHit = BowNewSkillBase2_0.nextHitEffectMap.getOrDefault(player, null);
+            MyArrowHitBlock myArrowHit = BowNewSkillBase2_0.nextHitEffectMap.getOrDefault(Name.get(player), null);
             if (myArrowHit != null) {
                 myArrow.myArrowHitBlock = myArrowHit;
                 myArrow.myArrowHitBlockEntity = myArrowHit;
-                BowNewSkillBase2_0.nextHitEffectMap.remove(player);
+                BowNewSkillBase2_0.nextHitEffectMap.remove(Name.get(player));
             }
         }
     }

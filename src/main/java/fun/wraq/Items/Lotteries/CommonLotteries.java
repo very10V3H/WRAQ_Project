@@ -30,8 +30,8 @@ public class CommonLotteries extends Item {
     private List<ItemAndWeight> itemAndWeightList = new ArrayList<>();
 
     private void setItemAndWeightList() {
-        itemAndWeightList.add(new ItemAndWeight(ModItems.FantasyMedal.get(), 1));
-        itemAndWeightList.add(new ItemAndWeight(ModItems.FantasyBracelet.get(), 1));
+        itemAndWeightList.add(new ItemAndWeight(ModItems.FANTASY_MEDAL.get(), 1));
+        itemAndWeightList.add(new ItemAndWeight(ModItems.FANTASY_BRACELET.get(), 1));
         itemAndWeightList.add(new ItemAndWeight(ModItems.WORLD_SOUL_3.get(), 1));
         itemAndWeightList.add(new ItemAndWeight(ModItems.KillPaperLoot.get(), 5));
         itemAndWeightList.add(new ItemAndWeight(ModItems.MopUpPaperLoot.get(), 10));

@@ -482,7 +482,6 @@ public abstract class SkillV2 {
         if (SpecialEffectOnPlayer.inSilent(player)) {
             return;
         }
-
         String name = player.getName().getString();
         if (!playerSkillV2AllowReleaseTickMap.containsKey(name)) {
             playerSkillV2AllowReleaseTickMap.put(name, new HashMap<>());
@@ -492,13 +491,22 @@ public abstract class SkillV2 {
         if (canRelease(player)
                 && skillV2AllowReleaseTickMap.getOrDefault(this, 0) <= Tick.get()
                 && Mana.getPlayerCurrentManaNum(player) >= (manaCost + skillLevel * getEachLevelExManaCost())) {
+            int cooldownAfterModify = cooldownTick;
+            if (professionType == 2) {
+                cooldownAfterModify = ManaNewSkill.modifyCooldown(player, cooldownTick);
+            }
             int afterDecreaseCooldownTick
-                    = (int) ((cooldownTick - getCooldownDecrease(player)) * (1 - PlayerAttributes.coolDownDecrease(player)));
+                    = (int) ((cooldownAfterModify - getCooldownDecrease(player))
+                    * (1 - PlayerAttributes.coolDownDecrease(player)));
             afterDecreaseCooldownTick = Math.max(0, afterDecreaseCooldownTick);
             skillV2AllowReleaseTickMap.put(this, Tick.get() + afterDecreaseCooldownTick);
             ModNetworking.sendToClient(new SkillV2CooldownS2CPacket(skillType, afterDecreaseCooldownTick,
                     afterDecreaseCooldownTick), player);
-            Mana.addOrCostPlayerMana(player, -(manaCost + skillLevel * getEachLevelExManaCost()));
+            int manaCostAfterModify = manaCost + skillLevel * getEachLevelExManaCost();
+            if (professionType == 2) {
+                manaCostAfterModify = ManaNewSkill.modifyManaCost(player, manaCostAfterModify);
+            }
+            Mana.addOrCostPlayerMana(player, -manaCostAfterModify);
             releaseOperation(player);
             if (professionType == 2) {
                 PowerLogic.playerReleasePower(player);

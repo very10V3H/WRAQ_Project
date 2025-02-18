@@ -7,48 +7,43 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.WeakHashMap;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 
 public record StableAttributesModifier(String tag, double value, int stopTick) {
 
-    public static Map<LivingEntity, List<StableAttributesModifier>> playerCooldownModifier = new WeakHashMap<>();
-    public static Map<LivingEntity, List<StableAttributesModifier>> playerMovementSpeedModifier = new WeakHashMap<>();
-    public static Map<LivingEntity, List<StableAttributesModifier>> playerMovementSpeedWithoutBattleModifier = new WeakHashMap<>();
-    public static Map<LivingEntity, List<StableAttributesModifier>> playerHealthRecoverModifier = new WeakHashMap<>();
-    public static Map<LivingEntity, List<StableAttributesModifier>> playerCritRateModifier = new WeakHashMap<>();
-    public static Map<LivingEntity, List<StableAttributesModifier>> playerManaRecoverModifier = new WeakHashMap<>();
-    public static Map<LivingEntity, List<StableAttributesModifier>> playerCritDamageModifier = new WeakHashMap<>();
-    public static Map<LivingEntity, List<StableAttributesModifier>> playerDefencePenetrationModifier = new WeakHashMap<>();
-    public static Map<LivingEntity, List<StableAttributesModifier>> playerDefencePenetration0Modifier = new WeakHashMap<>();
-    public static Map<LivingEntity, List<StableAttributesModifier>> playerManaDamageModifier = new WeakHashMap<>();
-    public static Map<LivingEntity, List<StableAttributesModifier>> playerPercentManaDamageModifier = new WeakHashMap<>();
-    public static Map<LivingEntity, List<StableAttributesModifier>> playerAttackDamageModifier = new WeakHashMap<>();
-    public static Map<LivingEntity, List<StableAttributesModifier>> playerPercentAttackDamageModifier = new WeakHashMap<>();
-    public static Map<LivingEntity, List<StableAttributesModifier>> playerCommonDamageEnhance = new WeakHashMap<>();
-    public static Map<LivingEntity, List<StableAttributesModifier>> playerDefenceModifier = new WeakHashMap<>();
-    public static Map<LivingEntity, List<StableAttributesModifier>> playerDefenceDecreaseModifier = new WeakHashMap<>();
-    public static Map<LivingEntity, List<StableAttributesModifier>> playerPercentDefenceModifier = new WeakHashMap<>();
-    public static Map<LivingEntity, List<StableAttributesModifier>> playerManaDefenceModifier = new WeakHashMap<>();
-    public static Map<LivingEntity, List<StableAttributesModifier>> playerManaDefenceDecreaseModifier = new WeakHashMap<>();
-    public static Map<LivingEntity, List<StableAttributesModifier>> playerPercentManaDefenceModifier = new WeakHashMap<>();
-    public static Map<LivingEntity, List<StableAttributesModifier>> playerHealAmplifierModifier = new WeakHashMap<>();
-    public static Map<LivingEntity, List<StableAttributesModifier>> playerHealAmplifierReductionModifier = new WeakHashMap<>();
-    public static Map<LivingEntity, List<StableAttributesModifier>> playerMonsterControlDamageEffect = new WeakHashMap<>();
-    public static Map<LivingEntity, List<StableAttributesModifier>> playerManaPenetration0Modifier = new WeakHashMap<>();
-    public static Map<LivingEntity, List<StableAttributesModifier>> playerSlowdownEffectModifier = new WeakHashMap<>();
-    public static Map<LivingEntity, List<StableAttributesModifier>> playerToughnessModifier = new WeakHashMap<>();
-    public static Map<LivingEntity, List<StableAttributesModifier>> playerManaPenetrationModifier = new WeakHashMap<>();
+    public static Map<LivingEntity, List<StableAttributesModifier>> playerCooldownModifier = new HashMap<>();
+    public static Map<LivingEntity, List<StableAttributesModifier>> playerMovementSpeedModifier = new HashMap<>();
+    public static Map<LivingEntity, List<StableAttributesModifier>> playerMovementSpeedWithoutBattleModifier = new HashMap<>();
+    public static Map<LivingEntity, List<StableAttributesModifier>> playerHealthRecoverModifier = new HashMap<>();
+    public static Map<LivingEntity, List<StableAttributesModifier>> playerCritRateModifier = new HashMap<>();
+    public static Map<LivingEntity, List<StableAttributesModifier>> playerManaRecoverModifier = new HashMap<>();
+    public static Map<LivingEntity, List<StableAttributesModifier>> playerCritDamageModifier = new HashMap<>();
+    public static Map<LivingEntity, List<StableAttributesModifier>> playerDefencePenetrationModifier = new HashMap<>();
+    public static Map<LivingEntity, List<StableAttributesModifier>> playerDefencePenetration0Modifier = new HashMap<>();
+    public static Map<LivingEntity, List<StableAttributesModifier>> playerManaDamageModifier = new HashMap<>();
+    public static Map<LivingEntity, List<StableAttributesModifier>> playerPercentManaDamageModifier = new HashMap<>();
+    public static Map<LivingEntity, List<StableAttributesModifier>> playerAttackDamageModifier = new HashMap<>();
+    public static Map<LivingEntity, List<StableAttributesModifier>> playerPercentAttackDamageModifier = new HashMap<>();
+    public static Map<LivingEntity, List<StableAttributesModifier>> playerCommonDamageEnhance = new HashMap<>();
+    public static Map<LivingEntity, List<StableAttributesModifier>> playerDefenceModifier = new HashMap<>();
+    public static Map<LivingEntity, List<StableAttributesModifier>> playerDefenceDecreaseModifier = new HashMap<>();
+    public static Map<LivingEntity, List<StableAttributesModifier>> playerPercentDefenceModifier = new HashMap<>();
+    public static Map<LivingEntity, List<StableAttributesModifier>> playerManaDefenceModifier = new HashMap<>();
+    public static Map<LivingEntity, List<StableAttributesModifier>> playerManaDefenceDecreaseModifier = new HashMap<>();
+    public static Map<LivingEntity, List<StableAttributesModifier>> playerPercentManaDefenceModifier = new HashMap<>();
+    public static Map<LivingEntity, List<StableAttributesModifier>> playerHealAmplifierModifier = new HashMap<>();
+    public static Map<LivingEntity, List<StableAttributesModifier>> playerHealAmplifierReductionModifier = new HashMap<>();
+    public static Map<LivingEntity, List<StableAttributesModifier>> playerMonsterControlDamageEffect = new HashMap<>();
+    public static Map<LivingEntity, List<StableAttributesModifier>> playerManaPenetration0Modifier = new HashMap<>();
+    public static Map<LivingEntity, List<StableAttributesModifier>> playerSlowdownEffectModifier = new HashMap<>();
+    public static Map<LivingEntity, List<StableAttributesModifier>> playerToughnessModifier = new HashMap<>();
+    public static Map<LivingEntity, List<StableAttributesModifier>> playerManaPenetrationModifier = new HashMap<>();
 
-
-    public static Map<LivingEntity, List<StableAttributesModifier>> mobDefenceModifier = new WeakHashMap<>();
-    public static Map<LivingEntity, List<StableAttributesModifier>> mobPercentDefenceModifier = new WeakHashMap<>();
-    public static Map<LivingEntity, List<StableAttributesModifier>> mobPercentManaDefenceModifier = new WeakHashMap<>();
-    public static Map<LivingEntity, List<StableAttributesModifier>> mobHealAmplifierModifier = new WeakHashMap<>();
-
+    public static Map<LivingEntity, List<StableAttributesModifier>> mobDefenceModifier = new HashMap<>();
+    public static Map<LivingEntity, List<StableAttributesModifier>> mobPercentDefenceModifier = new HashMap<>();
+    public static Map<LivingEntity, List<StableAttributesModifier>> mobPercentManaDefenceModifier = new HashMap<>();
+    public static Map<LivingEntity, List<StableAttributesModifier>> mobHealAmplifierModifier = new HashMap<>();
 
     public static List<StableAttributesModifier> getAttributeModifierList(LivingEntity entity, Map<LivingEntity, List<StableAttributesModifier>> modifierMap) {
         if (!modifierMap.containsKey(entity)) {
@@ -59,6 +54,7 @@ public record StableAttributesModifier(String tag, double value, int stopTick) {
 
     public static void addAttributeModifier(LivingEntity entity, Map<LivingEntity, List<StableAttributesModifier>> modifierMap,
                                             StableAttributesModifier attributeModifier) {
+        modifierMap.entrySet().removeIf(entry -> entry.getKey() == null || entry.getKey().isDeadOrDying());
         List<StableAttributesModifier> modifierList = getAttributeModifierList(entity, modifierMap);
         List<StableAttributesModifier> removeList = new ArrayList<>();
         modifierList.forEach(modifier -> {
@@ -122,5 +118,4 @@ public record StableAttributesModifier(String tag, double value, int stopTick) {
         modifiers.removeAll(removeList);
         return value.get();
     }
-
 }

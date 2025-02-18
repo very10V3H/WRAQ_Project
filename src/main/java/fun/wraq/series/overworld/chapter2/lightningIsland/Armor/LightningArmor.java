@@ -34,10 +34,22 @@ public class LightningArmor extends WraqArmor implements OnHitEffectEquip, Forge
     public LightningArmor(ModArmorMaterials material, Type type, Properties properties, int tier) {
         super(material, type, properties);
         this.tier = tier;
-        if (type.equals(Type.HELMET)) Utils.healthRecover.put(this, 30d * (tier + 1));
-        if (type.equals(Type.CHESTPLATE)) Utils.defence.put(this, 50d * (tier + 1));
-        if (type.equals(Type.LEGGINGS)) Utils.maxHealth.put(this, 12000d * (tier + 1));
-        if (type.equals(Type.BOOTS)) Utils.movementSpeedCommon.put(this, 0.1);
+        if (type.equals(Type.HELMET)) {
+            Utils.healthRecover.put(this, 30d * (tier + 1));
+            Utils.defence.put(this, 15d * (tier + 1));
+        }
+        if (type.equals(Type.CHESTPLATE)) {
+            Utils.defence.put(this, 25d * (tier + 1));
+            Utils.maxHealth.put(this, 3000d * (tier + 1));
+        }
+        if (type.equals(Type.LEGGINGS)) {
+            Utils.maxHealth.put(this, 6000d * (tier + 1));
+            Utils.defence.put(this, 15d * (tier + 1));
+        }
+        if (type.equals(Type.BOOTS)) {
+            Utils.movementSpeedCommon.put(this, 0.1);
+            Utils.maxHealth.put(this, 3000d * (tier + 1));
+        }
         Utils.levelRequire.put(this, 92);
     }
 

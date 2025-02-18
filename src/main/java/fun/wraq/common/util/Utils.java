@@ -733,7 +733,7 @@ public class Utils {
     public static WeakHashMap<Player, Integer> BlackForestSwordActiveMap = new WeakHashMap<>();
     public static WeakHashMap<Player, Integer> SeaSwordActiveMap = new WeakHashMap<>();
 
-    public static WeakHashMap<Player, Map<Mob, Integer>> playerLaserCoolDown = new WeakHashMap<>();
+    public static Map<String, Map<Mob, Integer>> playerLaserCoolDown = new HashMap<>();
 
     public static WeakHashMap<Player, Integer> LastTimeInstance = new WeakHashMap<>();
     public static WeakHashMap<Player, Integer> LastTimeDifficulty = new WeakHashMap<>();

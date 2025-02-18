@@ -80,7 +80,7 @@ public class ForestZombieSpawnController extends MobSpawnController {
     @Override
     public void tick() {
         mobList.forEach(mob -> {
-            Element.ElementProvider(mob, Element.life, 1);
+            Element.provideElement(mob, Element.life, 1);
         });
     }
 

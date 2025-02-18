@@ -343,9 +343,9 @@ public class MobSpawn {
                                                 double critDamage, double defencePenetration,
                                                 double defencePenetration0, double healthSteal, double maxHealth,
                                                 double movementSpeed) {
+            MobSpawn.setMobCustomName(mob, mobName, xpLevel);
             setMobBaseAttributes(mob, xpLevel, attackDamage, defence, manaDefence, critRate, critDamage,
                     defencePenetration, defencePenetration0, healthSteal, maxHealth, movementSpeed);
-            MobSpawn.setMobCustomName(mob, mobName, xpLevel);
         }
     }
 

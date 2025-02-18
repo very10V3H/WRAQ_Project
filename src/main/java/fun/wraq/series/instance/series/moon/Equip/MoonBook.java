@@ -1,6 +1,9 @@
 package fun.wraq.series.instance.series.moon.Equip;
 
 import fun.wraq.common.Compute;
+import fun.wraq.common.equip.WraqOffHandItem;
+import fun.wraq.common.fast.Name;
+import fun.wraq.common.fast.Te;
 import fun.wraq.common.fast.Tick;
 import fun.wraq.common.impl.onhit.OnHitEffectEquip;
 import fun.wraq.common.registry.ModItems;
@@ -15,22 +18,18 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
 
-import javax.annotation.Nullable;
-import java.util.List;
-import java.util.WeakHashMap;
+import java.util.*;
 
-public class MoonBook extends Item implements OnHitEffectEquip {
+public class MoonBook extends WraqOffHandItem implements OnHitEffectEquip {
 
-    public static WeakHashMap<Player, Mob> PlayerMoonBookMap = new WeakHashMap<>();
+    public static Map<String, Mob> PlayerMoonBookMap = new HashMap<>();
     public static WeakHashMap<Player, Integer> PlayerMoonBookCountMap = new WeakHashMap<>();
 
     public MoonBook() {
-        super(new Properties().rarity(CustomStyle.MoonItalic).stacksTo(1));
+        super(new Properties().rarity(CustomStyle.MoonItalic).stacksTo(1),
+                Te.s("魔导书", CustomStyle.styleOfMana));
         Utils.manaDamage.put(this, 277d);
         Utils.manaPenetration0.put(this, 7.7d);
         Utils.maxMana.put(this, 77d);
@@ -44,13 +43,13 @@ public class MoonBook extends Item implements OnHitEffectEquip {
     private final Style style = CustomStyle.styleOfGold;
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
-        stack.setHoverName(Component.literal("天玉明镜").withStyle(style).withStyle(ChatFormatting.BOLD));
-        components.add(Component.literal("副手                   ").withStyle(ChatFormatting.GOLD).append(Component.literal("魔导书").withStyle(CustomStyle.styleOfMana)));
-        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        ComponentUtils.descriptionOfBasic(components);
-        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        ComponentUtils.descriptionOfAddition(components);
+    public Style getMainStyle() {
+        return CustomStyle.styleOfMoon;
+    }
+
+    @Override
+    public List<Component> getAdditionalComponents(ItemStack stack) {
+        List<Component> components = new ArrayList<>();
         Compute.DescriptionPassive(components, Component.literal("折镜").withStyle(style));
         components.add(Component.literal("法球攻击").withStyle(CustomStyle.styleOfMana).
                 append(Component.literal("将会标记一个敌人").withStyle(ChatFormatting.WHITE)).
@@ -61,9 +60,12 @@ public class MoonBook extends Item implements OnHitEffectEquip {
                 append(ComponentUtils.getAutoAdaptTrueDamageDescription("1400%")));
         components.add(Component.literal(" - 引爆标记后，你将获得持续3s的").withStyle(ChatFormatting.WHITE).
                 append(ComponentUtils.AttributeDescription.manaDamage("12%总")));
-        ComponentUtils.descriptionDash(components, ChatFormatting.WHITE, style, ChatFormatting.WHITE);
-        ComponentUtils.suffixOfMoon(components);
-        super.appendHoverText(stack, level, components, flag);
+        return components;
+    }
+
+    @Override
+    public Component getSuffix() {
+        return ComponentUtils.getSuffixOfMoon();
     }
 
     public static WeakHashMap<Player, Integer> playerDamageEnhanceTickMap = new WeakHashMap<>();
@@ -79,14 +81,14 @@ public class MoonBook extends Item implements OnHitEffectEquip {
     @Override
     public void onHit(Player player, Mob mob) {
         int TickCount = Tick.get();
-        if (PlayerMoonBookMap.containsKey(player) && !PlayerMoonBookMap.get(player).equals(mob)) {
-            Mob oldMob = PlayerMoonBookMap.get(player);
+        if (PlayerMoonBookMap.containsKey(Name.get(player)) && !PlayerMoonBookMap.get(Name.get(player)).equals(mob)) {
+            Mob oldMob = PlayerMoonBookMap.get(Name.get(player));
             oldMob.removeEffect(MobEffects.GLOWING);
             PlayerMoonBookCountMap.put(player, 0);
             Compute.removeMobEffectHudToNearPlayer(oldMob, ModItems.MoonSoul.get(), "MoonBookCount");
         }
         mob.addEffect(new MobEffectInstance(MobEffects.GLOWING, 88888, 1, false, false));
-        PlayerMoonBookMap.put(player, mob);
+        PlayerMoonBookMap.put(Name.get(player), mob);
         int count = PlayerMoonBookCountMap.getOrDefault(player, 0);
         PlayerMoonBookCountMap.put(player, ++count);
         if (count == 7) {

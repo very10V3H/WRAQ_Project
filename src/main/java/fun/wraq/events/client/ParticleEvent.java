@@ -3,6 +3,7 @@ package fun.wraq.events.client;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.ClientUtils;
 import fun.wraq.common.util.Utils;
+import fun.wraq.events.mob.instance.instances.tower.ManaTowerInstance;
 import fun.wraq.process.func.particle.ParticleProvider;
 import fun.wraq.render.particles.ModParticles;
 import net.minecraft.client.Minecraft;
@@ -98,6 +99,8 @@ public class ParticleEvent {
                 ParticleProvider.RandomToDesParticle(random.nextInt(20), worldEntropy.getVec3().add(0.5, 0, 0.5), level, 5);
             });
 
+            ManaTowerInstance.provideClientParticle(player);
+
 /*            SpinParticleCreate(player, new Vec3(52.5, -53.5, 1039.5), 1.5, ModParticles.VOLCANO_TP.get(), 20);
             SpinParticleCreate(player, new Vec3(1138.5, 67.5, 384.5), 3, ModParticles.VOLCANO_TP.get(), 20);
 
@@ -156,7 +159,7 @@ public class ParticleEvent {
         }
     }
 
-    public static void SpinParticleCreate(Player player, Vec3 pos, double r, ParticleOptions particleOptions, int cycle) {
+    public static void createSpinParticle(Player player, Vec3 pos, double r, ParticleOptions particleOptions, int cycle) {
         int tick = player.tickCount % cycle;
         Vec3 delta = new Vec3(0, 4.0 / cycle, 0);
         double angle = (2 * Math.PI / cycle) * (tick);

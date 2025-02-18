@@ -1,6 +1,7 @@
 package fun.wraq.networking.misc.SmartPhonePackets;
 
 import com.mojang.logging.LogUtils;
+import fun.wraq.commands.stable.players.SellCommand;
 import fun.wraq.common.Compute;
 import fun.wraq.common.registry.ModItems;
 import fun.wraq.common.util.Utils;
@@ -103,6 +104,7 @@ public class BuyCheckC2SPacket {
                         Component.literal("购买成功！").withStyle(ChatFormatting.WHITE));
                 InventoryOperation.giveItemStackWithMSG(serverPlayer, itemStack);
                 Utils.marketItemInfos.remove(removeInfo);
+                SellCommand.computeCommission(serverPlayer, price, type);
             } else {
                 if (hasEnoughCurrency) {
                     Compute.sendFormatMSG(serverPlayer, Component.literal("市场").withStyle(ChatFormatting.GOLD),

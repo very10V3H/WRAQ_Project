@@ -94,7 +94,7 @@ public class BoneImpSpawnController extends MobSpawnController {
     @Override
     public void tick() {
         mobList.forEach(mob -> {
-            Element.ElementProvider(mob, Element.fire, 5);
+            Element.provideElement(mob, Element.fire, 5);
         });
     }
 

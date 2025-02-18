@@ -14,6 +14,7 @@ import fun.wraq.process.system.skill.skillv2.SkillV2BaseSkill;
 import fun.wraq.process.system.skill.skillv2.SkillV2ElementEffect;
 import fun.wraq.render.particles.ModParticles;
 import fun.wraq.render.toolTip.CustomStyle;
+import fun.wraq.series.overworld.sun.TabooPaper;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
@@ -32,6 +33,8 @@ public class ManaNewSkillBase2_0 extends SkillV2BaseSkill implements SkillV2Elem
     protected void releaseOperation(Player player) {
         DelayOperationWithAnimation.beforeReleaseSkill(player);
         int skillLevel = getPlayerSkillLevelBySkillV2(player, this);
+        boolean enhanced = TabooPaper.enhanceManaSkillV2_2(player);
+        double damage = ManaNewSkill.modifyDamage(player, 0.5 + 0.05 * skillLevel + (enhanced ? 0.2 : 0));
         DelayOperationWithAnimation.addToQueue(new DelayOperationWithAnimation(
                 DelayOperationWithAnimation.Animation.manaNewSkillBase2_0, Tick.get() + 8, player
         ) {
@@ -44,18 +47,17 @@ public class ManaNewSkillBase2_0 extends SkillV2BaseSkill implements SkillV2Elem
                         Compute.getNearEntity(effect.level(), effect.center(), Mob.class, 6)
                                 .stream().map(mob -> (Mob) mob)
                                 .forEach(mob -> {
-                                    Damage.causeRateApDamageWithElement(player, mob,
-                                            0.5 + 0.05 * skillLevel, true);
+                                    Damage.causeRateApDamageWithElement(player, mob, damage, true);
                                     Compute.addSlowDownEffect(mob, Tick.s(1), 100);
                                 });
                         ParticleProvider.dustParticle(player, effect.center(),
                                 6, 120, Element.getManaSkillParticleStyle(player).getColor().getValue());
                         Element.giveResonanceElement(player);
                     }
-                }, 10, Tick.s(3));
+                }, 10, Tick.s(3 + (enhanced ? 1 : 0)));
                 ParticleProvider.createLastVerticalCircleParticles(player,
                         targetPos.add(0, 0.5, 0), 6, 100,
-                        ModParticles.EVOKER.get(), Tick.s(3));
+                        ModParticles.EVOKER.get(), Tick.s(3 + (enhanced ? 1 : 0)));
             }
         });
     }
@@ -72,6 +74,6 @@ public class ManaNewSkillBase2_0 extends SkillV2BaseSkill implements SkillV2Elem
 
     @Override
     protected int getEachLevelExManaCost() {
-        return 10;
+        return 20;
     }
 }

@@ -113,7 +113,7 @@ public class DevilInstance extends NoTeamInstance {
 
     @Override
     public Component allowRewardCondition() {
-        return NoTeamInstanceModule.AllowRewardCondition.devil;
+        return NoTeamInstanceModule.AllowRewardCondition.ICE_KNIGHT_WEAPON;
     }
 
     public List<ItemAndRate> getRewardList() {

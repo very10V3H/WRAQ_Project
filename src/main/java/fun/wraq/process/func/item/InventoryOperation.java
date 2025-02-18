@@ -42,16 +42,18 @@ public class InventoryOperation {
     }
 
     public static boolean checkPlayerHasItem(Player player, Item item, int requirementNum) {
-        return itemStackCount(player.getInventory(), item) >= requirementNum;
+        return requirementNum == 0 || itemStackCount(player.getInventory(), item) >= requirementNum;
     }
 
     public static boolean checkPlayerHasItem(Inventory inventory, Item item, int requirementNum) {
-        return itemStackCount(inventory, item) >= requirementNum;
+        return requirementNum == 0 || itemStackCount(inventory, item) >= requirementNum;
     }
 
     public static boolean checkPlayerHasItem(Player player, List<ItemStack> list) {
         for (ItemStack itemStack : list) {
-            if (!checkPlayerHasItem(player.getInventory(), itemStack.getItem(), itemStack.getCount())) return false;
+            if (!checkPlayerHasItem(player.getInventory(), itemStack.getItem(), itemStack.getCount())) {
+                return false;
+            }
         }
         return true;
     }

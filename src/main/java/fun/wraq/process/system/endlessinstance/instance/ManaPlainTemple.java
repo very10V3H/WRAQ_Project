@@ -38,7 +38,7 @@ public class ManaPlainTemple extends DailyEndlessInstance {
     }
 
     public ManaPlainTemple(Component name, Vec3 pos, int lastTick, int maxMobNum) {
-        super(name, pos, lastTick, maxMobNum);
+        super(name, pos, lastTick, maxMobNum, 5);
     }
 
     List<Vec3> spawnPos = List.of(
@@ -54,7 +54,7 @@ public class ManaPlainTemple extends DailyEndlessInstance {
     int lastSpawnIndex = -1;
 
     @Override
-    protected Mob summonMob(Level level) {
+    protected List<Mob> summonMob(Level level) {
         Skeleton skeleton = new Skeleton(EntityType.SKELETON, level);
         MobSpawn.MobBaseAttributes.setMobBaseAttributes(skeleton, getPlayerXpLevel(),
                 getPlayerXpLevel() * 10, getPlayerXpLevel(), getPlayerXpLevel(), 0, 0,
@@ -78,7 +78,7 @@ public class ManaPlainTemple extends DailyEndlessInstance {
         skeleton.moveTo(spawnPos.get(lastSpawnIndex));
         level.addFreshEntity(skeleton);
         MobSpawn.setMobDropList(skeleton, getDropList());
-        return skeleton;
+        return List.of(skeleton);
     }
 
     private static List<ItemAndRate> dropList = new ArrayList<>();
