@@ -34,99 +34,102 @@ public class MySeason {
     public static String autumn = "AUTUMN";
     public static String winter = "WINTER";
 
-    public static Map<String, Map<String, Double>> seasonElementEffectMap = new HashMap<>() {{
-        Arrays.stream(Season.SubSeason.values()).forEach(subSeason -> {
-            Map<String, Double> map = new HashMap<>();
-            double tier0 = 0.35, tier1 = 0.2, tier2 = 0.1, tier3 = 0.05;
-            if (subSeason.equals(Season.SubSeason.EARLY_SPRING)) {
-                map.put(Element.water, tier0);
-                map.put(Element.life, tier1);
-                map.put(Element.ice, tier2);
-                map.put(Element.fire, -tier0);
-                map.put(Element.lightning, -tier1);
-            }
-            if (subSeason.equals(Season.SubSeason.MID_SPRING)) {
-                map.put(Element.life, tier0);
-                map.put(Element.water, tier1);
-                map.put(Element.wind, tier2);
-                map.put(Element.ice, -tier0);
-                map.put(Element.fire, -tier1);
-            }
-            if (subSeason.equals(Season.SubSeason.LATE_SPRING)) {
-                map.put(Element.life, tier0);
-                map.put(Element.fire, tier1);
-                map.put(Element.water, tier2);
-                map.put(Element.ice, -tier0);
-                map.put(Element.lightning, -tier1);
-            }
-            if (subSeason.equals(Season.SubSeason.EARLY_SUMMER)) {
-                map.put(Element.fire, tier0);
-                map.put(Element.life, tier1);
-                map.put(Element.lightning, tier2);
-                map.put(Element.ice, -tier0);
-            }
-            if (subSeason.equals(Season.SubSeason.MID_SUMMER)) {
-                map.put(Element.fire, tier0);
-                map.put(Element.lightning, tier1);
-                map.put(Element.stone, tier2);
-                map.put(Element.ice, -tier0);
-            }
-            if (subSeason.equals(Season.SubSeason.LATE_SUMMER)) {
-                map.put(Element.lightning, tier0);
-                map.put(Element.fire, tier1);
-                map.put(Element.wind, tier2);
-                map.put(Element.ice, -tier0);
-            }
-            if (subSeason.equals(Season.SubSeason.EARLY_AUTUMN)) {
-                map.put(Element.wind, tier0);
-                map.put(Element.fire, tier1);
-                map.put(Element.lightning, tier2);
-                map.put(Element.ice, -tier0);
-            }
-            if (subSeason.equals(Season.SubSeason.MID_AUTUMN)) {
-                map.put(Element.wind, tier0);
-                map.put(Element.stone, tier1);
-                map.put(Element.water, tier2);
-                map.put(Element.life, -tier0);
-            }
-            if (subSeason.equals(Season.SubSeason.LATE_AUTUMN)) {
-                map.put(Element.wind, tier0);
-                map.put(Element.stone, tier1);
-                map.put(Element.ice, tier2);
-                map.put(Element.fire, -tier0);
-                map.put(Element.life, -tier1);
-            }
-            if (subSeason.equals(Season.SubSeason.EARLY_WINTER)) {
-                map.put(Element.stone, tier0);
-                map.put(Element.ice, tier1);
-                map.put(Element.wind, tier2);
-                map.put(Element.fire, -tier0);
-                map.put(Element.life, -tier1);
-                map.put(Element.water, -tier2);
-                map.put(Element.lightning, -tier3);
-            }
-            if (subSeason.equals(Season.SubSeason.MID_WINTER)) {
-                map.put(Element.ice, tier0);
-                map.put(Element.stone, tier1);
-                map.put(Element.wind, tier2);
-                map.put(Element.fire, -tier0);
-                map.put(Element.life, -tier1);
-                map.put(Element.water, -tier2);
-                map.put(Element.lightning, -tier3);
-            }
-            if (subSeason.equals(Season.SubSeason.LATE_WINTER)) {
-                map.put(Element.ice, tier0);
-                map.put(Element.stone, tier1);
-                map.put(Element.wind, tier2);
-                map.put(Element.fire, -tier0);
-                map.put(Element.life, -tier1);
-                map.put(Element.water, -tier2);
-                map.put(Element.lightning, -tier3);
-            }
-            put(subSeason.name(), map);
-        });
-
-    }};
+    public static Map<String, Map<String, Double>> seasonElementEffectMap = new HashMap<>();
+    public static Map<String, Map<String, Double>> getSeasonElementEffectMap() {
+        if (seasonElementEffectMap.isEmpty()) {
+            Arrays.stream(Season.SubSeason.values()).forEach(subSeason -> {
+                Map<String, Double> map = new HashMap<>();
+                double tier0 = 0.35, tier1 = 0.2, tier2 = 0.1, tier3 = 0.05;
+                if (subSeason.equals(Season.SubSeason.EARLY_SPRING)) {
+                    map.put(Element.water, tier0);
+                    map.put(Element.life, tier1);
+                    map.put(Element.ice, tier2);
+                    map.put(Element.fire, -tier0);
+                    map.put(Element.lightning, -tier1);
+                }
+                if (subSeason.equals(Season.SubSeason.MID_SPRING)) {
+                    map.put(Element.life, tier0);
+                    map.put(Element.water, tier1);
+                    map.put(Element.wind, tier2);
+                    map.put(Element.ice, -tier0);
+                    map.put(Element.fire, -tier1);
+                }
+                if (subSeason.equals(Season.SubSeason.LATE_SPRING)) {
+                    map.put(Element.life, tier0);
+                    map.put(Element.fire, tier1);
+                    map.put(Element.water, tier2);
+                    map.put(Element.ice, -tier0);
+                    map.put(Element.lightning, -tier1);
+                }
+                if (subSeason.equals(Season.SubSeason.EARLY_SUMMER)) {
+                    map.put(Element.fire, tier0);
+                    map.put(Element.life, tier1);
+                    map.put(Element.lightning, tier2);
+                    map.put(Element.ice, -tier0);
+                }
+                if (subSeason.equals(Season.SubSeason.MID_SUMMER)) {
+                    map.put(Element.fire, tier0);
+                    map.put(Element.lightning, tier1);
+                    map.put(Element.stone, tier2);
+                    map.put(Element.ice, -tier0);
+                }
+                if (subSeason.equals(Season.SubSeason.LATE_SUMMER)) {
+                    map.put(Element.lightning, tier0);
+                    map.put(Element.fire, tier1);
+                    map.put(Element.wind, tier2);
+                    map.put(Element.ice, -tier0);
+                }
+                if (subSeason.equals(Season.SubSeason.EARLY_AUTUMN)) {
+                    map.put(Element.wind, tier0);
+                    map.put(Element.fire, tier1);
+                    map.put(Element.lightning, tier2);
+                    map.put(Element.ice, -tier0);
+                }
+                if (subSeason.equals(Season.SubSeason.MID_AUTUMN)) {
+                    map.put(Element.wind, tier0);
+                    map.put(Element.stone, tier1);
+                    map.put(Element.water, tier2);
+                    map.put(Element.life, -tier0);
+                }
+                if (subSeason.equals(Season.SubSeason.LATE_AUTUMN)) {
+                    map.put(Element.wind, tier0);
+                    map.put(Element.stone, tier1);
+                    map.put(Element.ice, tier2);
+                    map.put(Element.fire, -tier0);
+                    map.put(Element.life, -tier1);
+                }
+                if (subSeason.equals(Season.SubSeason.EARLY_WINTER)) {
+                    map.put(Element.stone, tier0);
+                    map.put(Element.ice, tier1);
+                    map.put(Element.wind, tier2);
+                    map.put(Element.fire, -tier0);
+                    map.put(Element.life, -tier1);
+                    map.put(Element.water, -tier2);
+                    map.put(Element.lightning, -tier3);
+                }
+                if (subSeason.equals(Season.SubSeason.MID_WINTER)) {
+                    map.put(Element.ice, tier0);
+                    map.put(Element.stone, tier1);
+                    map.put(Element.wind, tier2);
+                    map.put(Element.fire, -tier0);
+                    map.put(Element.life, -tier1);
+                    map.put(Element.water, -tier2);
+                    map.put(Element.lightning, -tier3);
+                }
+                if (subSeason.equals(Season.SubSeason.LATE_WINTER)) {
+                    map.put(Element.ice, tier0);
+                    map.put(Element.stone, tier1);
+                    map.put(Element.wind, tier2);
+                    map.put(Element.fire, -tier0);
+                    map.put(Element.life, -tier1);
+                    map.put(Element.water, -tier2);
+                    map.put(Element.lightning, -tier3);
+                }
+                seasonElementEffectMap.put(subSeason.name(), map);
+            });
+        }
+        return seasonElementEffectMap;
+    }
 
     public static Map<String, String> nameMap = new HashMap<>() {{
         Arrays.stream(Season.SubSeason.values()).forEach(subSeason -> {
@@ -157,7 +160,7 @@ public class MySeason {
     public static List<Component> getElementEffectContent(String season) {
         if (season == null) return null;
         List<Component> components = new ArrayList<>();
-        Map<String, Double> singleElementEffectMap = seasonElementEffectMap.get(season);
+        Map<String, Double> singleElementEffectMap = getSeasonElementEffectMap().get(season);
         String[] name = {Element.life, Element.water, Element.fire, Element.stone, Element.ice, Element.lightning, Element.wind};
         Component[] description = {Element.Description.LifeElement("自然"),
                 Element.Description.WaterElement("自然"),
@@ -185,7 +188,7 @@ public class MySeason {
 
     public static double getCurrentSeasonElementEffect(String elementType) {
         if (currentSeason == null) return 0;
-        Map<String, Double> map = seasonElementEffectMap.get(currentSeason);
+        Map<String, Double> map = getSeasonElementEffectMap().get(currentSeason);
         return map.getOrDefault(elementType, 0d);
     }
 

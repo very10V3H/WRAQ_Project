@@ -153,7 +153,8 @@ public class VariousEvents {
         if (!player.isCreative() && !event.getPlayer().level().isClientSide) {
             if ((data != null && data.contains(InventoryCheck.owner))
                     || InventoryCheck.getBoundingList().contains(item)) {
-                if (InventoryCheck.getBoundingList().contains(item)) {
+                if (InventoryCheck.getBoundingList().contains(item)
+                        && (data == null || !data.contains(InventoryCheck.owner))) {
                     InventoryCheck.addOwnerTagToItemStack(player, stack);
                 }
                 if (!Compute.playerIsInBattle(player)) {
